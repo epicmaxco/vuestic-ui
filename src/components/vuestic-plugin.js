@@ -30,6 +30,7 @@ import VaListSeparator from './vuestic-components/va-list/VaListSeparator'
 import VaMediumEditor
   from './vuestic-components/va-medium-editor/VaMediumEditor.vue'
 import VaModal from './vuestic-components/va-modal/VaModal.vue'
+import VaNavbar from './vuestic-components/va-navbar/VaNavbar'
 import VaNotification
   from './vuestic-components/va-notification/VaNotification.vue'
 import VaPagination from './vuestic-components/va-pagination/VaPagination.vue'
@@ -45,6 +46,7 @@ import VaRating from './vuestic-components/va-rating/VaRating'
 import VaScrollbar from './vuestic-components/va-scrollbar/VaScrollbar.vue'
 import VaSelect from './vuestic-components/va-select/VaSelect.vue'
 import VaSeparator from './vuestic-components/va-card/VaSeparator'
+import VaSidebar from './vuestic-components/va-sidebar/VaSidebar'
 import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
 import VaSocialNews from './vuestic-components/va-social-news/VaSocialNews.vue'
 import VaTab from './vuestic-components/va-tabs/VaTab.vue'
@@ -99,6 +101,7 @@ const VuesticPlugin = {
       VaListSeparator,
       VaMediumEditor,
       VaModal,
+      VaNavbar,
       VaNotification,
       VaPagination,
       VaPopover,
@@ -111,6 +114,7 @@ const VuesticPlugin = {
       VaScrollbar,
       VaSelect,
       VaSeparator,
+      VaSidebar,
       VaSlider,
       VaSocialNews,
       VaTab,
