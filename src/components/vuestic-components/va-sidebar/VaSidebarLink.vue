@@ -27,7 +27,7 @@ import { getHoverColor } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  name: 'sidebar-link',
+  name: 'va-sidebar-link',
   components: { VaIcon },
   mixins: [ColorThemeMixin],
   props: {
@@ -77,7 +77,7 @@ export default {
           backgroundColor: getHoverColor(this.$themes['primary']),
           borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
         }
-      } // else <- controlled by CSS (color in rgba)
+      } else return {}// else <- controlled by CSS (color in rgba)
     },
     computedIconStyles () {
       return (this.isHovered || this.isActive)

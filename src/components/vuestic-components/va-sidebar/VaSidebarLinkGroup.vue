@@ -84,7 +84,7 @@ import VaIcon from '../va-icon/VaIcon'
 import { getHoverColor } from '../../../services/color-functions'
 
 export default {
-  name: 'sidebar-link-group',
+  name: 'va-sidebar-link-group',
   props: {
     icon: [String, Array],
     title: String,
@@ -160,7 +160,7 @@ export default {
           backgroundColor: getHoverColor(this.$themes['primary']),
           borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
         }
-      }
+      } else return {}
     },
     iconStyles () {
       return (this.isHovered || this.isActive)

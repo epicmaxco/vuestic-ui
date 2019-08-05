@@ -39,8 +39,8 @@
 
 <script>
 import VaSidebar from '../../vuestic-components/va-sidebar/VaSidebar'
-import SidebarLinkGroup from './SidebarLinkGroup'
-import SidebarLink from './SidebarLink'
+import SidebarLinkGroup from './VaSidebarLinkGroup'
+import SidebarLink from './VaSidebarLink'
 import { navigationRoutes } from './navigation-router-example'
 
 export default {
