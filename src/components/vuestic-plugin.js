@@ -57,6 +57,7 @@ import VaToggle from './vuestic-components/va-toggle/VaToggle.vue'
 import VaTreeCategory from './vuestic-components/va-tree-view/VaTreeCategory'
 import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot'
+import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper'
 
 import Toasted from './vuestic-mixins/VuesticToasted'
 
@@ -67,6 +68,17 @@ import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-
 
 import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from './resize-events'
+import VaSimplePalettePicker
+  from './vuestic-components/va-color-picker/VaSimplePalettePicker'
+import VaColorSquare from './vuestic-components/va-color-picker/VaColorSquare'
+import VaSliderColorPicker
+  from './vuestic-components/va-color-picker/VaSliderColorPicker'
+import VaAdvancedColorPicker
+  from './vuestic-components/va-color-picker/VaAdvancedColorPicker'
+import VaColorPickerInput
+  from './vuestic-components/va-color-picker/VaColorPickerInput'
+import VaPaletteCustom
+  from './vuestic-components/va-color-picker/VaPaletteCustom'
 
 installPlatform()
 
@@ -93,6 +105,7 @@ const VuesticPlugin = {
       VaIcon,
       VaInnerLoading,
       VaInput,
+      VaInputWrapper,
       VaItem,
       VaItemLabel,
       VaItemSection,
@@ -126,6 +139,12 @@ const VuesticPlugin = {
       VaTreeNode,
       VaTreeRoot,
       VaInnerLoading,
+      VaSimplePalettePicker,
+      VaColorSquare,
+      VaSliderColorPicker,
+      VaAdvancedColorPicker,
+      VaColorPickerInput,
+      VaPaletteCustom,
     ].forEach(component => {
       Vue.component(component.name, component)
     })
