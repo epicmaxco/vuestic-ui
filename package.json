@@ -1,6 +1,6 @@
 {
   "name": "vuestic-ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "serve:book": "vue-cli-service serve --mode book",
     "lint": "vue-cli-service lint",
