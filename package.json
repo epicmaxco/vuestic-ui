@@ -25,7 +25,8 @@
     "asva-executors": "^0.1.22",
     "vue-color": "^2.7.0",
     "chart.js": "^2.6.0",
-    "vue-flatpickr-component": "^8.0.0"
+    "vue-flatpickr-component": "^8.0.0",
+    "flatpickr": "4.5.1"
   },
   "devDependencies": {
     "vue-book": "0.1.0-alpha.17",
