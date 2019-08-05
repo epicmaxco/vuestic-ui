@@ -9,6 +9,7 @@
     :fixed="fixed"
     :style="{width}"
     :closeOnAnchorClick="false"
+    boundaryBody
   >
     <va-input
       v-if="searchable"
@@ -98,7 +99,6 @@
 
 <script>
 import VaDropdown from '../va-dropdown/VaDropdown'
-import VaChip from '../va-chip/VaChip'
 import { SpringSpinner } from 'epic-spinners'
 import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
@@ -110,7 +110,7 @@ const positions = {
 }
 export default {
   name: 'va-select',
-  components: { VaIcon, SpringSpinner, VaDropdown, VaChip, VaInput },
+  components: { VaIcon, SpringSpinner, VaDropdown, VaInput },
   data () {
     return {
       search: '',
