@@ -99,7 +99,7 @@ export default {
       }
 
       & + .content-wrap {
-        margin-left: $sidebar-width--hidden;
+        margin-left: $sidebar-width--hidden !important;
       }
     }
   }
