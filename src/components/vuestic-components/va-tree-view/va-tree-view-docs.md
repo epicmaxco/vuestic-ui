@@ -1,4 +1,10 @@
-### Template
+## Components
+
+* **va-tree-root**
+* **va-tree-category**
+* **va-tree-node**
+
+Here's the general example:
 ```html
   <va-tree-root>
       <va-tree-category label="Electronics">
@@ -7,33 +13,37 @@
       <va-tree-category isOpen label="Products">
         <va-tree-category label="Cables">
           <va-tree-node>Audio</va-tree-node>
-          <va-tree-node>Video</va-tree-node>
-          <va-tree-node>Optical</va-tree-node>
+          <!-- va-tree-node items -->
         </va-tree-category>
         <va-tree-node>Monitors</va-tree-node>
-        <va-tree-node>Keyboards</va-tree-node>
       </va-tree-category>
+      <!-- va-tree-category items -->
     </va-tree-root>
 ```
+# va-tree-root
+
+No props
+
+# va-tree-category
 
 ### Props
-#### Component: `va-tree-root`
-* `color` - String - set a color for the hove tree
-#### Component: `va-tree-category`
 * `label` - String, Number - label of the category
 * `isOpen` - Boolean - default state of category
 * `icon` - String - set a icon before the label
-* `color` - String - set a color of category switcher
 
-#### Component: `va-tree-node`
+# va-tree-node
+
+### Props
 * `hightlighted` - Boolean - highlight the label of node
 * `icon` - String - name of icon at the _left_ of node
 * `iconRight` - String - name of icon at the _right_ of node
 
-###Slots 
-***Components `va-tree-category`, `va-tree-node`***
+### Slots 
+* ***Components `va-tree-category`, `va-tree-node`***
 * `checkbox`
+--------------
 
-[See demo](https://vuestic.epicmax.co/#/ui/tree-view)
+
+[Find DEMOs here!](http://vuestic.epicmax.co/#/admin/ui/tree-view)
 
 
