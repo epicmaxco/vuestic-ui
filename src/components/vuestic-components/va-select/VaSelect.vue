@@ -71,7 +71,7 @@
           <span
             class="va-select__tags__tag"
           >
-            {{ valueProxy.join(", ") }}
+            {{ [...this.valueProxy.map(val => getText(val))].join(", ") }}
           </span>
         </span>
         <span v-else-if="displayedText" class="va-select__displayed-text">{{displayedText}}</span>
