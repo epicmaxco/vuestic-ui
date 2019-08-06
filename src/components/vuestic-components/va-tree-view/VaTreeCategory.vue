@@ -39,14 +39,12 @@
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import SquareWithIcon from './SquareWithIcon/SquareWithIcon.vue'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaTreeNode from './VaTreeNode'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
   name: 'va-tree-category',
   mixins: [ ColorThemeMixin ],
-  components: { VaIcon, VaTreeNode, SquareWithIcon, VaCheckbox },
+  components: { VaIcon, SquareWithIcon },
   inject: {
     va: {
       default: () => ({}),
@@ -145,6 +143,7 @@ export default {
     color: $theme-blue-dark;
     margin-right: .5rem;
     font-size: 24px;
+    line-height: 24px;
   }
 
   &__header-label {
