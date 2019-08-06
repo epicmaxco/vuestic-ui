@@ -46,6 +46,7 @@
           :class="{'va-slider__container__handler--on-keyboard-focus': isKeyboardFocused === 1}"
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
+          @touchstart="moveStart($event, 0)"
           @focus="onFocus($event, 1)"
           @blur="isKeyboardFocused = false"
           :tabindex="!this.disabled && 0"
@@ -64,6 +65,7 @@
           :class="{'va-slider__container__handler--on-keyboard-focus': isKeyboardFocused === 2}"
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
+          @touchstart="moveStart($event, 1)"
           @focus="onFocus($event, 2)"
           @blur="isKeyboardFocused = false"
           :tabindex="!this.disabled && 0"
@@ -88,6 +90,7 @@
           :class="{'va-slider__container__handler--on-keyboard-focus': isKeyboardFocused}"
           :style="dottedStyles"
           @mousedown="(moveStart(), setMouseDown())"
+          @touchstart="moveStart()"
           @focus="onFocus"
           @blur="isKeyboardFocused = false"
           :tabindex="!this.disabled && 0"
@@ -312,14 +315,20 @@ export default {
   methods: {
     bindEvents () {
       document.addEventListener('mousemove', this.moving)
+      document.addEventListener('touchmove', this.moving)
       document.addEventListener('mouseup', this.moveEnd)
       document.addEventListener('mouseleave', this.moveEnd)
+      document.addEventListener('touchcancel', this.moveEnd)
+      document.addEventListener('touchend', this.moveEnd)
       document.addEventListener('keydown', this.moveWithKeys)
     },
     unbindEvents () {
       document.removeEventListener('mousemove', this.moving)
+      document.removeEventListener('touchmove', this.moving)
       document.removeEventListener('mouseup', this.moveEnd)
       document.removeEventListener('mouseleave', this.moveEnd)
+      document.removeEventListener('touchcancel', this.moveEnd)
+      document.removeEventListener('touchend', this.moveEnd)
       document.removeEventListener('keydown', this.moveWithKeys)
     },
     setMouseDown (e, index) {
@@ -338,9 +347,13 @@ export default {
         if (!this.flag) {
           return false
         }
-        e.preventDefault()
 
-        this.setValueOnPos(this.getPos(e))
+        if (e.type === 'touchmove') {
+          this.setValueOnPos(this.getPos(e.touches[0]))
+        } else {
+          e.preventDefault()
+          this.setValueOnPos(this.getPos(e))
+        }
       }
     },
     moveEnd (e) {
