@@ -10,6 +10,17 @@
     :style="{width}"
     :closeOnAnchorClick="false"
     boundaryBody
+    tabindex="0"
+    @mousedown.native="hasMouseDown = true"
+    @focus.native="onFocus"
+    @blur.native="(isKeyboardFocused = false, hasMouseDown = false)"
+    @keydown.native.enter.prevent.stop="openDropdown"
+    @keydown.native.space.prevent.stop="openDropdown"
+    @keydown.native.esc.prevent.stop="closeDropdown"
+    @keydown.native.down.prevent.stop="focusFirstOption"
+    @keydown.native.up.prevent.stop="focusLastOption"
+    @keydown.native.tab="closeDropdown"
+    @keydown.native.backspace.prevent.stop="clear"
   >
     <va-input
       v-if="searchable"
@@ -18,6 +29,10 @@
       class="va-select__input"
       ref="search"
       removable
+      @keydown.native.tab.exact.prevent.stop="focusFirstOption"
+      @keydown.native.shift.tab.exact.prevent.stop="closeDropdown"
+      @keydown.native.down.exact.prevent.stop="focusFirstOption"
+      @keydown.native.up.exact.prevent.stop="focusLastOption"
     />
     <ul
       class="va-select__option-list"
@@ -31,6 +46,16 @@
         @click.stop="selectOption(option)"
         @mouseleave="updateHoveredOption(null)"
         @mouseover="updateHoveredOption(option)"
+        tabindex="0"
+        ref="options"
+        @focus.prevent.stop="updateHoveredOption(option)"
+        @keydown.down.exact.prevent.stop="focusNextOption(option)"
+        @keydown.up.exact.prevent.stop="focusPrevOption(option)"
+        @keydown.enter.exact.prevent.stop="selectOption(option)"
+        @keydown.space.exact.prevent.stop="selectOption(option)"
+        @keydown.esc.exact.prevent.stop="closeDropdown"
+        @keydown.tab.exact.stop="closeDropdown"
+        @keydown.shift.tab.exact.stop="searchable ? focusInput() : closeDropdown()"
       >
         <va-icon v-show="option.icon" :name="option.icon" class="va-select__option__icon"/>
         <span>{{getText(option)}}</span>
@@ -91,6 +116,7 @@
       />
       <va-icon
         class="va-select__open-icon"
+        :class="{'va-select__open-icon--keyboard-focused': isKeyboardFocused}"
         :name="visible ? 'fa fa-angle-up' : 'fa fa-angle-down'"
       />
     </div>
@@ -103,6 +129,7 @@ import { SpringSpinner } from 'epic-spinners'
 import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
+import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 
 const positions = {
   'top': 'T',
@@ -118,6 +145,7 @@ export default {
       hoveredOption: null,
     }
   },
+  mixins: [KeyboardOnlyFocusMixin],
   props: {
     value: {},
     label: String,
@@ -347,6 +375,46 @@ export default {
         this.hoveredOption = null
       }
     },
+    openDropdown (e) {
+      this.$refs.dropdown.isClicked = true
+    },
+    closeDropdown (e) {
+      this.$refs.dropdown.hide()
+      this.updateHoveredOption(null)
+      this.$refs.dropdown.$el.focus()
+    },
+    focusFirstOption (e) {
+      let firstOption = this.$refs.options[0]
+      if (!this.$refs.dropdown.isClicked || !firstOption) return
+      firstOption.focus()
+    },
+    focusLastOption (e) {
+      let lastOption = this.$refs.options[this.$refs.options.length - 1]
+      if (!this.$refs.dropdown.isClicked || !lastOption) return
+      lastOption.focus()
+    },
+    focusNextOption (currentOption) {
+      let indexOfCurrent = this.options.indexOf(currentOption)
+      let nextOption = this.$refs.options[indexOfCurrent + 1]
+      nextOption
+        ? nextOption.focus()
+        : this.focusFirstOption()
+    },
+    focusPrevOption (currentOption) {
+      let indexOfCurrent = this.options.indexOf(currentOption)
+      let prevOption = this.$refs.options[indexOfCurrent - 1]
+      prevOption
+        ? prevOption.focus()
+        : this.focusLastOption()
+    },
+    focusInput () {
+      this.updateHoveredOption(null)
+      this.$refs.search.$el.focus()
+    },
+    focusClear (e) {
+      e.preventDefault()
+      this.$refs.clear.$el.focus()
+    },
   },
   mounted () {
     this.mounted = true
@@ -438,6 +506,9 @@ export default {
 
   &__clear-icon {
     color: $va-link-color-secondary;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;
     padding: .25rem;
@@ -446,11 +517,19 @@ export default {
     bottom: 0;
     right: 2rem;
     margin: auto;
+
+    &--keyboard-focused {
+      background-color: #eee;
+    }
   }
 
   &__open-icon {
     @extend .va-select__clear-icon;
     right: .5rem;
+
+    &--keyboard-focused {
+      background-color: #eee;
+    }
   }
 
   &__tags {
