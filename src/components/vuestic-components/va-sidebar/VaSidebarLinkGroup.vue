@@ -27,7 +27,7 @@
           :name="`fa fa-angle-${expanded ? 'up' : 'down'}`"/>
       </div>
     </a>
-    <transition-expand>
+    <transition-expand v-if="!minimized">
       <div
         class="va-sidebar-link-group__submenu in"
         v-show="expanded"
@@ -43,7 +43,7 @@
       :preventOverflow="false"
     >
       <a
-        href="#"
+        @click.prevent
         slot="anchor"
         target="_self"
         @mouseenter="updateHoverState"
