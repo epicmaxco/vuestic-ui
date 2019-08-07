@@ -45,7 +45,6 @@
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10",
-    "vue-bulma-expanding": "0.0.1",
     "popper.js": "^1.15.0"
   },
   "gitHooks": {
