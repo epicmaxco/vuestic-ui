@@ -517,10 +517,6 @@ export default {
     bottom: 0;
     right: 2rem;
     margin: auto;
-
-    &--keyboard-focused {
-      background-color: #eee;
-    }
   }
 
   &__open-icon {
