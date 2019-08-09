@@ -95,6 +95,8 @@ $nav-border-side-width: 3.1875rem;
   &__content {
     z-index: 1;
     align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
   }
 
   &__text {

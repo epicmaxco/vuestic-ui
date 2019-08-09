@@ -3,9 +3,9 @@
     :class="computedClass"
     :style="{ backgroundColor: colorComputed }"
   >
-    <div class="va-sidebar__menu">
+    <ul class="va-sidebar__menu">
       <slot name="menu"></slot>
-    </div>
+    </ul>
   </aside>
 </template>
 
@@ -73,10 +73,6 @@ export default {
       .va-sidebar-link__content {
         padding-right: 0;
       }
-    }
-
-    & + .content-wrap {
-      margin-left: $sidebar-width--hidden !important;
     }
   }
 }

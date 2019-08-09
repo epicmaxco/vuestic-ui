@@ -68,12 +68,12 @@
           more_horiz
         </va-icon>
       </a>
-      <div
+      <ul
         class="va-sidebar-link-group__submenu in"
         :style="{backgroundColor: $themes[color]}"
       >
         <slot/>
-      </div>
+      </ul>
     </va-dropdown>
   </li>
 </template>
