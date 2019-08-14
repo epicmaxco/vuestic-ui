@@ -73,6 +73,10 @@ export default {
       type: Number,
       default: 4,
     },
+    queryPage: {
+      type: String,
+      default: 1,
+    },
     apiMode: Boolean,
     clickable: Boolean,
     hoverable: Boolean,
@@ -95,6 +99,9 @@ export default {
     return {
       currentPage: 1,
     }
+  },
+  beforeMount(){
+    this.currentPage = parseInt(this.queryPage)
   },
   computed: {
     styles () {
