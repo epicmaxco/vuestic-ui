@@ -75,7 +75,7 @@ export default {
     },
     queryPage: {
       type: String,
-      default: 1,
+      default: '1',
     },
     apiMode: Boolean,
     clickable: Boolean,
