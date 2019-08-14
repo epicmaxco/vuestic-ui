@@ -80,6 +80,8 @@ $sidebar-viewport-height: calc(100% - #{$top-nav-height});
 $sidebar-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
 $sidebar-minimized-width: 3.5rem;
 $sidebar-mobile-top: $top-mobile-nav-height;
+$sidebar-mobile-min-height: calc(100vh - #{$top-mobile-nav-height});
+$sidebar-mobile-height: calc(100% - #{$top-mobile-nav-height});
 
 
 //Mobile Layout
