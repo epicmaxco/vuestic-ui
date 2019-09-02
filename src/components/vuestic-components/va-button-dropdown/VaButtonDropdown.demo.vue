@@ -14,8 +14,8 @@
     </va-button-dropdown>
     <va-button-dropdown
       split
-      split-href="#"
-      label="Split href"
+      split-to="#"
+      label="Split to"
     >
       Content
     </va-button-dropdown>
@@ -110,15 +110,15 @@
     </va-button-dropdown>
     <va-button-dropdown
       split
-      button-disabled
-      label="button-disabled"
+      disable-button
+      label="disable-button"
     >
       Content
     </va-button-dropdown>
     <va-button-dropdown
       split
-      dropdown-disabled
-      label="dropdown-disabled"
+      disable-dropdown
+      label="disable-dropdown"
     >
       Content
     </va-button-dropdown>
@@ -128,6 +128,13 @@
       Content
     </va-button-dropdown>
     <va-button-dropdown label="custom icon" icon="iconicstroke iconicstroke-info">
+      Content
+    </va-button-dropdown>
+    <va-button-dropdown
+      label="custom icon && icon-open"
+      icon="iconicstroke iconicstroke-info"
+      opened-icon="iconicstroke iconicstroke-check"
+    >
       Content
     </va-button-dropdown>
   </VbCard>

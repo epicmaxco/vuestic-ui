@@ -4,6 +4,7 @@
       :disabled="disabled"
       :position="position"
       v-if="!split"
+      @input="changeVisibility"
     >
       <va-button
         slot="anchor"
@@ -13,7 +14,7 @@
         :outline="buttonProps.outline"
         :disabled="disabled"
         :color="color"
-        :iconRight="icon"
+        :iconRight="computedIcon"
         @click="click"
       >
         <slot name="label">{{label}}</slot>
@@ -28,25 +29,26 @@
         :large="buttonProps.large"
         :flat="buttonProps.flat"
         :outline="buttonProps.outline"
-        :disabled="disabled || buttonDisabled"
+        :disabled="disabled || disableButton"
         :color="color"
-        :href="splitHref"
+        :to="splitTo"
         @click="mainButtonClick"
       >
         <slot name="label">{{label}}</slot>
       </va-button>
       <va-dropdown
-        :disabled="disabled || dropdownDisabled"
+        :disabled="disabled || disableDropdown"
         :position="position"
+        @input="changeVisibility"
       >
         <va-button
           :small="buttonProps.small"
           :large="buttonProps.large"
           :flat="buttonProps.flat"
           :outline="buttonProps.outline"
-          :disabled="disabled || dropdownDisabled"
+          :disabled="disabled || disableDropdown"
           :color="color"
-          :icon="icon"
+          :icon="computedIcon"
           slot="anchor"
           @click="click"
         />
@@ -56,14 +58,13 @@
       </va-dropdown>
     </va-button-group>
   </div>
-
 </template>
 
 <script>
 import VaDropdown from '../va-dropdown/VaDropdown'
 import VaButton from '../va-button/VaButton'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import VaButtonGroup from '../va-button-group/VaButtonGroup'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'va-button-dropdown',
@@ -88,10 +89,10 @@ export default {
     disabled: {
       type: Boolean,
     },
-    buttonDisabled: {
+    disableButton: {
       type: Boolean,
     },
-    dropdownDisabled: {
+    disableDropdown: {
       type: Boolean,
     },
     position: {
@@ -102,12 +103,21 @@ export default {
       type: String,
       default: 'fa fa-angle-down',
     },
+    openedIcon: {
+      type: String,
+      default: 'fa fa-angle-up',
+    },
     split: {
       type: Boolean,
     },
-    splitHref: {
+    splitTo: {
       type: String,
     },
+  },
+  data () {
+    return {
+      visible: false,
+    }
   },
   computed: {
     computedClass () {
@@ -118,6 +128,10 @@ export default {
         'va-button-dropdown--large': this.buttonProps.large,
       }
     },
+    computedIcon () {
+      const propsData = this.$options.propsData
+      return this.visible ? (propsData.openedIcon || (propsData.icon ? this.icon : this.openedIcon)) : this.icon
+    },
   },
   methods: {
     click (e) {
@@ -125,6 +139,9 @@ export default {
     },
     mainButtonClick (e) {
       this.$emit('mainButtonClick', e)
+    },
+    changeVisibility (val) {
+      this.visible = val
     },
   },
 }
@@ -167,6 +184,7 @@ export default {
     background: $dropdown-background;
     box-shadow: $dropdown-box-shadow;
     padding: $dropdown-padding;
+    border-radius: $dropdown-border-radius;
   }
 }
 </style>
