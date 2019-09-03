@@ -57,7 +57,7 @@
     >
       <label
         class="va-select__label"
-        :style="{ color: $themes.success }"
+        :style="labelStyle"
         aria-hidden="true"
       >{{label}}</label>
       <div
@@ -210,6 +210,12 @@ export default {
     },
     optionsListStyle () {
       return { maxHeight: this.maxHeight }
+    },
+    labelStyle () {
+      return { color: this.error ? this.$themes.danger
+        : this.success ? this.$themes.success
+          : this.$themes.primary,
+      }
     },
     displayedText () {
       if (!this.valueProxy) {
