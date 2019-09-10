@@ -19,7 +19,7 @@
 
 ### Props
 * `value` - Array - array of uploaded files. Required prop.
-    Array can includes also already uploaded files. Object should have structure as below:
+    Array can include also already uploaded files. Object should have structure as below:
     * `url` - required
     * `name` - optional
     * `size` - optional

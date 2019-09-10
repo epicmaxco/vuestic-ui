@@ -95,10 +95,8 @@ export default {
         const imageFileTypes = ['/png', '/jpg', '/jpeg', '/gif']
         reader.readAsDataURL(this.file.image)
         reader.onload = (e) => {
-          for (let i = 0; i < imageFileTypes.length; i++) {
-            if (e.target.result.indexOf(imageFileTypes[i]) >= 0) {
-              this.previewImage = e.target.result
-            }
+          if (imageFileTypes.some(fileType => e.target.result.includes(fileType))) {
+            this.previewImage = e.target.result
           }
         }
       }
