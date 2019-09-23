@@ -2,7 +2,7 @@
 ### Props
 * `color` prop should be used for `background-color`
 * `text-color` prop should be used for css `color`
-* `size` should always be string (`200px`, not `200`)
+* `size` both string and numeric value should be supported (string: `"200px"`, `"2rem""`; numeric: `200`). In case of numeric value we consider it `px`.
 
 ## Github tags
 We want to keep these consistent across different repos.
