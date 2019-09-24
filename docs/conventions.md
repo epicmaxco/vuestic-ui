@@ -4,11 +4,30 @@
 * `text-color` prop should be used for css `color`
 * `size` both string and numeric value should be supported (string: `"200px"`, `"2rem""`; numeric: `200`). In case of numeric value we consider it `px`.
 
+### Components should be
+
+* Stateless. For example, checkbox shouldn't be togglable without value prop.
+* Tabbable. Should be operatable with keyboard alone.
+* Demoable. All components and all component features should be covered with demos.
+* Pretty. Should fit design (all of it).
+* Independent. Relying on external library should be well though.
+    
+### Small things to note
+
+* Translations are done with `$t('key')` syntax, not `'key' | translate`.
+* `prop="string-value"` is used instead of `:prop="'string-value'"`.
+* Short syntax is used for boolean props where possible (`hide` instead of `:hide="true"`).
+* Self closing tags are used where possible (`<slot/>` instead of `<slot></slot>`).
+* BEM is used for styles.
+* Rems are used for sizes (except for cases where it doesn't make sense).
+* No shortcuts: always `button` and not `btn`.
+* Use shortened function declaration:`buttonClass () {` instead of `buttonClass: function () {`.
+
 ## Github tags
 We want to keep these consistent across different repos.
 
 * bug -  - #d73a4a
-* CI - Continious integration & deploy - #343434
+* CI - Continuous integration & deploy - #343434
 * discussion - Feedback wanted - #cc317c
 * documentation - Improvements or additions to documentation - #fef2c0
 * feature - Something useful to end user - #006b75
