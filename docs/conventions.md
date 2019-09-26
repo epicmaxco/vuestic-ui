@@ -6,7 +6,7 @@
 
 ### Components should be
 
-* Stateless. For example, checkbox shouldn't be togglable without value prop.
+* Stateless. For example, checkbox shouldn't be toggleable without value prop.
 * Tabbable. Should be operatable with keyboard alone.
 * Demoable. All components and all component features should be covered with demos.
 * Pretty. Should fit design (all of it).
@@ -22,6 +22,15 @@
 * Rems are used for sizes (except for cases where it doesn't make sense).
 * No shortcuts: always `button` and not `btn`.
 * Use shortened function declaration:`buttonClass () {` instead of `buttonClass: function () {`.
+
+## CSS
+* We have both mixins (where that's possible) and global helpers. Mixins are prefixed with `va-`. Global classes are not prefixed.
+* Html tags are unstyled. For example, `table`, `li`, `h1` etc won't give you any styling. Styles are applied either via classes or `.content` wrapper.
+
+### Fonts
+
+* General text: `https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700`
+* Icons: `https://fonts.googleapis.com/icon?family=Material+Icons`
 
 ## Github tags
 We want to keep these consistent across different repos.
