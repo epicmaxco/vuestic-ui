@@ -26,7 +26,6 @@
 
 <script>
 import VaFileUploadUndo from './VaFileUploadUndo'
-import VaButton from '../va-button/VaButton'
 import VaCard from '../va-card/VaCard'
 import VaIcon from '../va-icon/VaIcon'
 
@@ -35,7 +34,6 @@ export default {
   components: {
     VaIcon,
     VaCard,
-    VaButton,
     VaFileUploadUndo,
   },
   props: {

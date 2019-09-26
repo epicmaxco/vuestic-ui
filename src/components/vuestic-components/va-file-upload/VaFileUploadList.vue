@@ -61,8 +61,8 @@ export default {
   methods: {
     convertFile (file) {
       return {
-        name: file.name,
-        size: this.formatSize(file.size),
+        name: file.name || file.url,
+        size: file.size ? this.formatSize(file.size) : '',
         date: this.formatDate(new Date()),
         image: file,
       }

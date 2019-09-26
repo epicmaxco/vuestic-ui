@@ -87,6 +87,9 @@ export default {
       modal: false,
     }
   },
+  mounted () {
+    this.files = this.validateFiles(this.files)
+  },
   methods: {
     changeFieldValue (e) {
       this.uploadFile(e)
@@ -97,7 +100,7 @@ export default {
 
       // type validation
       if (this.fileTypes) {
-        files = this.validateFileTypes(files)
+        files = this.validateFiles(files)
       }
       this.files = [...this.files, ...files]
     },
@@ -107,15 +110,24 @@ export default {
     removeSingleFile () {
       this.files = []
     },
-    validateFileTypes (files) {
-      return [...files].filter(file => {
-        const fileName = file.name
-        const extn = fileName.substring(fileName.lastIndexOf('.') + 1)
-          .toLowerCase()
-        if (!this.fileTypes.includes(extn)) {
-          this.modal = true
+    validateFiles (files) {
+      return files.filter(file => {
+        const fileName = file.name || file.url
+        if (!fileName) {
+          return false
+        } else {
+          if (file.url) {
+            return true
+          } else {
+            const extn = fileName.substring(fileName.lastIndexOf('.') + 1)
+              .toLowerCase()
+            const correctExt = this.fileTypes.includes(extn)
+            if (!correctExt) {
+              this.modal = true
+            }
+            return correctExt
+          }
         }
-        return this.fileTypes.includes(extn)
       })
     },
   },
