@@ -18,7 +18,11 @@
 ```
 
 ### Props
-* `value` - Array - array of uploaded files. Required prop
+* `value` - Array - array of uploaded files. Required prop.
+    Array can include also already uploaded files. Object should have structure as below:
+    * `url` - required
+    * `name` - optional
+    * `size` - optional
 * `type` - String (default: 'list') - Switch the displaying of file upload (possible values: `list` - list of files under the button; `gallery` - list of previews; `single` - possible to upload only one file)
 * `dropzone` - Boolean (default: false) - Turn on/off drag'n'drop area around the main button
 * `fileTypes` - String - list of file types, that can be uploaded (for example '.png, .jpg, .jpeg, .gif')
