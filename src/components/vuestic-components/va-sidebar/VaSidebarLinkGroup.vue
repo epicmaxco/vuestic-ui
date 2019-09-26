@@ -27,7 +27,7 @@
           :name="`fa fa-angle-${expanded ? 'up' : 'down'}`"/>
       </div>
     </a>
-    <expanding v-if="!minimized">
+    <transition-expand v-if="!minimized">
       <div
         class="va-sidebar-link-group__submenu in"
         v-show="expanded"
@@ -35,7 +35,7 @@
       >
         <slot/>
       </div>
-    </expanding>
+    </transition-expand>
     <va-dropdown
       v-if="minimized"
       position="right"
@@ -43,7 +43,7 @@
       :preventOverflow="false"
     >
       <a
-        href="#"
+        @click.prevent
         slot="anchor"
         target="_self"
         @mouseenter="updateHoverState"
@@ -79,9 +79,9 @@
 </template>
 
 <script>
-import Expanding from 'vue-bulma-expanding/src/Expanding'
 import VaIcon from '../va-icon/VaIcon'
 import { hex2hsl } from '../../../services/color-functions'
+import TransitionExpand from './TransitionExpand'
 
 export default {
   name: 'va-sidebar-link-group',
@@ -97,8 +97,8 @@ export default {
     },
   },
   components: {
+    TransitionExpand,
     VaIcon,
-    Expanding,
   },
   data () {
     return {
@@ -186,6 +186,7 @@ export default {
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+
 .va-sidebar-link-group {
   flex-direction: column;
 

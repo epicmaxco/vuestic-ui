@@ -10090,11 +10090,6 @@ vue-book@0.1.0-alpha.17:
   resolved "https://registry.yarnpkg.com/vue-book/-/vue-book-0.1.0-alpha.17.tgz#4661bfc5a6813ccdfc5ce9ecb35cdcddbd163366"
   integrity sha512-8BpuuImZfM3dZ1zsTdBA0fxpcbZ3VJ9JsPrNVVDqx0Gn9H5qgZXDGKmLnN4kSfXO5CZjDPns0Sj+ZeofdWt+Dg==
 
-vue-bulma-expanding@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/vue-bulma-expanding/-/vue-bulma-expanding-0.0.1.tgz#fcf71c2e8ef09157175bd5187eb71b3ce75a2229"
-  integrity sha1-/PccLo7wkVcXW9UYfrcbPOdaIik=
-
 vue-chartjs@^3.4.0:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.4.2.tgz#0323e6a99a10a68f38d426899c3994f48596fd23"
@@ -10151,7 +10146,7 @@ vue-flatpickr-component@^8.0.0:
   resolved "https://registry.yarnpkg.com/vue-flatpickr-component/-/vue-flatpickr-component-8.1.2.tgz#c8bcfa95a4da4e528f4850141cb0ad7b628a1d6d"
   integrity sha512-z3FPLrkQgrTXWU3YZ8pcVQ9Gu4CLKUoBQWqK2i3HIhNFcXnwbfY/btf+Uk8zr9Csotrbzw1NWl/WglbW8Zn/Hg==
   dependencies:
-    flatpickr "4.5.1"
+    flatpickr "^4.5.1"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.3"
