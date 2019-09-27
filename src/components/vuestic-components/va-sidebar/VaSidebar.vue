@@ -60,6 +60,8 @@ export default {
 
   @include media-breakpoint-down(sm) {
     top: $sidebar-mobile-top;
+    min-height: $sidebar-mobile-min-height;
+    height: $sidebar-mobile-height;
   }
 
   @include media-breakpoint-down(xs) {
