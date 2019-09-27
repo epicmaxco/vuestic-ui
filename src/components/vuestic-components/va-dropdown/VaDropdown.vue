@@ -227,7 +227,7 @@ export default {
       }
 
       if (this.boundaryBody) {
-        options.modifiers.preventOverflow.boundariesElement = document.body
+        options.modifiers.preventOverflow.boundariesElement = window
       }
 
       if (this.offset) {
@@ -282,6 +282,7 @@ export default {
       if (this.trigger === 'none') {
         return this.value
       }
+      throw new Error('Never')
     },
     scrollWidth () {
       const div = document.createElement('div')
