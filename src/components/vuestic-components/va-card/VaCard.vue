@@ -116,6 +116,7 @@ export default {
           background: getGradientBackground(this.$themes[this.color]),
         }
       }
+      return ''
     },
   },
 }
@@ -231,7 +232,6 @@ export default {
     left: 0;
     width: 100%;
     height: 0.5rem;
-    z-index: 1;
   }
 }
 </style>
