@@ -6,7 +6,7 @@
         :api-mode="false"
         :fields="fields"
         :data="apiMode ? data : undefined"
-        :data-manager="apiMode ? undefined : dataManager"
+        :data-manager="apiMode ? undefined : dataManagerComputed"
         :pagination-path="apiMode ? '' : 'pagination'"
         :no-data-template="noDataLabel"
         :css="styles"
@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import { SpringSpinner } from 'epic-spinners'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
@@ -52,7 +51,6 @@ export default {
   name: 'va-data-table',
   components: {
     VaInnerLoading,
-    SpringSpinner,
     Vuetable,
     VaPagination,
   },
@@ -90,6 +88,10 @@ export default {
       default: 0,
     },
     loading: Boolean,
+    dataManager: {
+      type: Function,
+      default: null,
+    },
   },
   data () {
     return {
@@ -136,7 +138,9 @@ export default {
 
       return name
     },
-    dataManager (sortOrder, pagination) {
+    dataManagerComputed (sortOrder, pagination) {
+      if (this.dataManager) return this.dataManager(sortOrder, pagination)
+
       let sorted = []
 
       if (!sortOrder.length) {
