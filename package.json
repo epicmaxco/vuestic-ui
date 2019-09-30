@@ -1,8 +1,10 @@
 {
   "name": "vuestic-ui",
   "version": "0.1.8",
+  "license": "MIT",
   "scripts": {
     "serve:book": "vue-cli-service serve --mode book",
+    "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },

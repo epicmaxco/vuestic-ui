@@ -6,7 +6,7 @@
         :api-mode="false"
         :fields="fields"
         :data="apiMode ? data : undefined"
-        :data-manager="apiMode ? undefined : defaultDataManager"
+        :data-manager="apiMode ? undefined : dataManagerComputed"
         :pagination-path="apiMode ? '' : 'pagination'"
         :no-data-template="noDataLabel"
         :css="styles"
@@ -138,7 +138,7 @@ export default {
 
       return name
     },
-    defaultDataManager (sortOrder, pagination) {
+    dataManagerComputed (sortOrder, pagination) {
       if (this.dataManager) return this.dataManager(sortOrder, pagination)
 
       let sorted = []
