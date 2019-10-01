@@ -91,8 +91,8 @@ export const getGradientColor = (color) => {
   let second = hex2hsl(color)
 
   // hue circle degrees approximation
-  const isRed = (first.h >= 0 && first.h < 45) || (first.h >= 285)
-  const isYellow = first.h >= 45 && first.h < 85
+  const isRed = (first.h >= 0 && first.h < 44) || (first.h >= 285)
+  const isYellow = first.h >= 44 && first.h < 85
   const isGreen = first.h >= 85 && first.h < 165
   const isBlue = first.h >= 165 && first.h < 285
   const isUndersaturated = first.s < 30 // i.e. too pale, gray-ish, monotone
@@ -104,8 +104,6 @@ export const getGradientColor = (color) => {
   } else if (isYellow) {
     first.h += 3
     first.l += 9
-
-    second.h -= 2
   } else if (isGreen) {
     first.h += 16
     first.s -= 4
