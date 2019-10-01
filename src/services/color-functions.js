@@ -107,13 +107,9 @@ export const getGradientColor = (color) => {
 
     second.h -= 2
   } else if (isGreen) {
-    first.h += 13
-    first.s -= 5
-    first.l += 7
-
-    second.h -= 3
-    second.s -= 1
-    second.l -= 6
+    first.h += 16
+    first.s -= 4
+    first.l += 13
   } else if (isBlue) {
     first.h -= 15
     first.s += 3
