@@ -1,14 +1,12 @@
 export const hex2rgb = (hex, opacity) => {
   hex = (hex + '').trim()
 
-  let rgb = null
   let match = hex.match(/^#?(([0-9a-zA-Z]{3}){1,3})$/)
 
   if (!match) {
     return null
   }
-
-  rgb = {}
+  let rgb = {}
 
   hex = match[1]
 
