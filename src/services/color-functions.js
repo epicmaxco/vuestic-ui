@@ -22,9 +22,9 @@ export const hex2rgb = (hex, opacity) => {
     rgb.b = parseInt(hex.substring(2, 3) + hex.substring(2, 3), 16)
   }
 
-  rgb.css = 'rgb' + (opacity ? 'a' : '') + '('
-  rgb.css += rgb.r + ',' + rgb.g + ',' + rgb.b
-  rgb.css += (opacity ? ',' + opacity : '') + ')'
+  const rgbString = `${rgb.r}, ${rgb.g},${rgb.b}`
+
+  rgb.css = opacity ? `rgba(${rgbString}, ${opacity})` : `rgb(${rgbString})`
 
   return rgb
 }
@@ -67,7 +67,7 @@ export const hex2hsl = (H) => {
     l: Math.round(l),
 
     get css () {
-      return 'hsl(' + HSL.h + ',' + HSL.s + '%,' + HSL.l + '%)'
+      return `hsl(${HSL.h}, ${HSL.s}%, ${HSL.l}%)`
     },
   }
 
