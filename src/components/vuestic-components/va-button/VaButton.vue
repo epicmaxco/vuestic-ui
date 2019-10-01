@@ -266,7 +266,7 @@ export default {
     color: $white;
 
     &:hover {
-      filter: brightness(115%);
+      filter: brightness(110%);
     }
 
     &:focus, &:active {
