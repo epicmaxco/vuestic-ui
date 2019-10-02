@@ -53,7 +53,7 @@
       <va-badge>
         slotted value
       </va-badge>
-      <va-badge label="Title value">
+      <va-badge label="Title custom value">
         slotted value
       </va-badge>
     </VbCard>
