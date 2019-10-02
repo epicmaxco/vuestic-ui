@@ -5,9 +5,9 @@
     :style="badgeStyle"
   >
     <div class="va-badge__content d-flex">
-      <div class="va-badge__content__label flex-center">{{ label }}</div>
-      <div class="va-badge__content__title flex-center" v-if="!label">
-        <slot/>
+      <div class="va-badge__content__title flex-center">
+        <span v-if="label" class="va-badge__content__in">{{ label }}</span>
+        <slot v-if="!label"/>
       </div>
     </div>
   </div>
