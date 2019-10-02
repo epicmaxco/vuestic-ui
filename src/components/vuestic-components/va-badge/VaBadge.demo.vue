@@ -48,6 +48,15 @@
         New Label
       </va-badge>
     </VbCard>
+    <br />
+    <VbCard title="Titled badges">
+      <va-badge>
+        slotted value
+      </va-badge>
+      <va-badge label="Title value">
+        slotted value
+      </va-badge>
+    </VbCard>
   </VbDemo>
 </template>
 

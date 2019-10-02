@@ -5,7 +5,8 @@
     :style="badgeStyle"
   >
     <div class="va-badge__content d-flex">
-      <div class="va-badge__content__title flex-center">
+      <div class="va-badge__content__label flex-center">{{ label }}</div>
+      <div class="va-badge__content__title flex-center" v-if="!label">
         <slot/>
       </div>
     </div>
@@ -26,6 +27,13 @@ export default {
       type: String,
       default: 'success',
     },
+    label: {
+      type: String || Number,
+      required: false,
+    },
+  },
+  created () {
+    console.log('label', this.label)
   },
   computed: {
     badgeClass () {
