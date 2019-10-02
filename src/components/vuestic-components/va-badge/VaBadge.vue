@@ -79,16 +79,13 @@ export default {
   line-height: $chip-line-height-sm;
   letter-spacing: $chip-letter-spacing-sm;
   white-space: nowrap;
+}
 
-  &__content {
+.va-badge__title {
+  margin: auto;
+}
 
-    &__title {
-      margin: auto;
-    }
-  }
-
-  &--outline {
-    background-color: transparent;
-  }
+.va-badge--outline {
+  background-color: transparent;
 }
 </style>
