@@ -43,16 +43,13 @@ export default {
     },
     badgeStyle () {
       const computedStyles = {
-        color: this.outline ? this.$themes[this.color] : '#ffffff',
-        borderColor: this.$themes[this.color],
-        backgroundColor: !this.outline ? this.$themes[this.color] : '',
+        borderColor: this.colorComputed,
+        backgroundColor: this.colorComputed,
       }
 
       if (this.outline) {
         computedStyles.color = this.colorComputed
-        computedStyles.borderColor = this.colorComputed
-      } else {
-        computedStyles.backgroundColor = this.colorComputed
+        computedStyles.backgroundColor = ''
       }
 
       return computedStyles
