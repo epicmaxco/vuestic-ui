@@ -48,7 +48,7 @@
 <script>
 import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaNotification from './VaNotification'
-import VaBadge from '../va-chip/VaBadge'
+import VaBadge from '../va-badge/VaBadge'
 
 export default {
   components: {
