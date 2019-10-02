@@ -42,23 +42,27 @@ export default {
   },
   computed: {
     badgeClass () {
+      const self = this
+
       return {
-        'va-badge--multiline': this.multiline,
+        'va-badge--multiline': self.multiline,
       }
     },
     badgeStyle () {
+      const self = this
+
       const computedStyles = {
-        borderColor: this.colorComputed,
-        backgroundColor: this.colorComputed,
+        borderColor: self.colorComputed,
+        backgroundColor: self.colorComputed,
       }
 
-      if (this.outline) {
-        computedStyles.color = this.colorComputed
+      if (self.outline) {
+        computedStyles.color = self.colorComputed
         computedStyles.backgroundColor = 'transparent'
       }
 
-      if (this.textColor) {
-        computedStyles.color = this.textColor
+      if (self.textColor) {
+        computedStyles.color = self.textColor
       }
 
       return computedStyles
@@ -86,6 +90,7 @@ export default {
 }
 
 .va-badge__content__title {
+  min-height: ($chip-font-size-sm * $chip-line-height-sm) + ($chip-padding-y-sm * 2);
   max-height: ($chip-font-size-sm * $chip-line-height-sm) + ($chip-padding-y-sm * 2);
   overflow: hidden;
 
