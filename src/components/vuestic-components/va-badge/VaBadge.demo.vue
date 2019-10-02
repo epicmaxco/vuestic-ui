@@ -71,6 +71,21 @@
         RGBA text color (0.6 opacity)
       </va-badge>
     </VbCard>
+    <VbCard title="Multiline">
+      <va-badge>
+        On line
+      </va-badge>
+      <va-badge>
+        1 line of 3<br />
+        2 line of 3<br />
+        3 line of 3
+      </va-badge>
+      <va-badge multiline>
+        1 line of 3<br />
+        2 line of 3<br />
+        3 line of 3
+      </va-badge>
+    </VbCard>
   </VbDemo>
 </template>
 

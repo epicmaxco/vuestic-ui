@@ -35,11 +35,16 @@ export default {
       type: String,
       required: false,
     },
+    multiline: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     badgeClass () {
       return {
         'va-badge--outline': this.outline,
+        'va-badge--multiline': this.multiline,
       }
     },
     badgeStyle () {
@@ -81,6 +86,16 @@ export default {
   white-space: nowrap;
 }
 
+.va-badge__content__title {
+  max-height: ($chip-font-size-sm * $chip-line-height-sm) + ($chip-padding-y-sm * 2);
+  overflow: hidden;
+
+  .va-badge--multiline & {
+    max-height: 100%;
+    overflow: auto;
+  }
+}
+
 .va-badge__title {
   margin: auto;
 }
@@ -88,4 +103,5 @@ export default {
 .va-badge--outline {
   background-color: transparent;
 }
+
 </style>
