@@ -43,8 +43,10 @@ export default {
   computed: {
     badgeClass () {
       const self = this
+      const isEmptyComponent = Boolean(!self.$slots.default && !self.label)
 
       return {
+        'va-badge--empty': isEmptyComponent,
         'va-badge--multiline': self.multiline,
       }
     },
@@ -101,6 +103,11 @@ export default {
 
 .va-badge__title {
   margin: auto;
+}
+.va-badge--empty {
+  height: ($chip-font-size-sm * $chip-line-height-sm);
+  width: ($chip-font-size-sm * $chip-line-height-sm);
+  padding: $chip-padding-y-sm;
 }
 
 </style>

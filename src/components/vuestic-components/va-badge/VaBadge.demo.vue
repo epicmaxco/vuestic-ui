@@ -89,6 +89,11 @@
         3 line of 3
       </va-badge>
     </VbCard>
+    <VbCard title="Empty">
+      <va-badge />
+      <va-badge outline color="danger" />
+      <va-badge outline color="warning" />
+    </VbCard>
   </VbDemo>
 </template>
 
