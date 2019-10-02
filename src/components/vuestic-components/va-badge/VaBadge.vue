@@ -48,6 +48,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    transparent: {
+      type: [String, null],
+      default: null,
+    },
   },
   computed: {
     isEmpty () {
@@ -84,6 +88,15 @@ export default {
 
       if (self.textColor) {
         computedStyles.color = self.textColor
+      }
+
+      if (self.transparent !== null && self.transparent !== undefined) { // TODO: need to add lodash
+        if (!self.transparent) { // if transparent is equal empty string
+          computedStyles.opacity = 0.5
+        } else {
+          const opacityNumber = parseInt(self.transparent)
+          computedStyles.opacity = isNaN(opacityNumber) ? 1 : opacityNumber
+        }
       }
 
       return computedStyles

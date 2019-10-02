@@ -125,6 +125,18 @@
         Dot with content: <va-badge dot>dot with content</va-badge>
       </div>
     </VbCard>
+    <VbCard title="transparent">
+      <div>
+        Empty: <va-badge transparent/>
+        Dot: <va-badge transparent dot>transparent dot</va-badge>
+      </div>
+      <va-badge transparent color="warning">transparent colored</va-badge>
+      <va-badge transparent>transparent outline</va-badge>
+      <va-badge transparent outline>transparent default</va-badge>
+      <va-badge transparent="0.6">transparent 0.6</va-badge>
+      <va-badge transparent="35%">transparent 35%</va-badge>
+      <div style="background-color: #000; color: #fff">black background <va-badge transparent>transparent default</va-badge></div>
+    </VbCard>
   </VbDemo>
 </template>
 
