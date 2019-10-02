@@ -31,6 +31,10 @@ export default {
       type: String || Number,
       required: false,
     },
+    textColor: {
+      type: String,
+      required: false,
+    },
   },
   computed: {
     badgeClass () {
@@ -47,6 +51,10 @@ export default {
       if (this.outline) {
         computedStyles.color = this.colorComputed
         computedStyles.backgroundColor = ''
+      }
+
+      if (this.textColor) {
+        computedStyles.color = this.textColor
       }
 
       return computedStyles

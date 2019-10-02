@@ -57,6 +57,20 @@
         slotted value
       </va-badge>
     </VbCard>
+    <VbCard title="Color text">
+      <va-badge>
+        Default text color
+      </va-badge>
+      <va-badge text-color="#000">
+        Black hex text color
+      </va-badge>
+      <va-badge text-color="rgb(14, 74, 196)">
+        RGB text color
+      </va-badge>
+      <va-badge text-color="rgba(14, 74, 196, 0.6)">
+        RGBA text color (0.6 opacity)
+      </va-badge>
+    </VbCard>
   </VbDemo>
 </template>
 
