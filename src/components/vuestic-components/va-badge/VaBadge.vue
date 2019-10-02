@@ -43,7 +43,6 @@ export default {
   computed: {
     badgeClass () {
       return {
-        'va-badge--outline': this.outline,
         'va-badge--multiline': this.multiline,
       }
     },
@@ -55,7 +54,7 @@ export default {
 
       if (this.outline) {
         computedStyles.color = this.colorComputed
-        computedStyles.backgroundColor = ''
+        computedStyles.backgroundColor = 'transparent'
       }
 
       if (this.textColor) {
@@ -98,10 +97,6 @@ export default {
 
 .va-badge__title {
   margin: auto;
-}
-
-.va-badge--outline {
-  background-color: transparent;
 }
 
 </style>
