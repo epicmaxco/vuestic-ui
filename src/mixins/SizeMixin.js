@@ -4,7 +4,7 @@ const sizes = {
   large: 64,
 }
 
-export const sizeMixin = {
+export const SizeMixin = {
   props: {
     size: {
       type: [String, Number],

@@ -7,13 +7,13 @@
 </template>
 
 <script>
-import { sizeMixin } from '@/mixins/SizeMixin'
+import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
   name: 'va-avatar',
-  mixins: [sizeMixin, ColorThemeMixin],
+  mixins: [SizeMixin, ColorThemeMixin],
   components: {
     VaIcon,
   },
