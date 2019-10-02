@@ -6,7 +6,7 @@
   >
     <div class="va-badge__content d-flex">
       <div class="va-badge__content__title flex-center">
-        <span v-if="label" class="va-badge__content__in">{{ label }}</span>
+        <span v-if="label">{{ label }}</span>
         <slot v-if="!label"/>
       </div>
     </div>
