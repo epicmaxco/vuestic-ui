@@ -89,10 +89,16 @@
         3 line of 3
       </va-badge>
     </VbCard>
-    <VbCard title="Empty">
-      <va-badge />
-      <va-badge outline color="danger" />
-      <va-badge outline color="warning" />
+    <VbCard title="Visible-empty">
+      <div>
+        Empty: <va-badge />
+      </div>
+      <div>
+        Empty with visible-empty prop: <va-badge visible-empty />
+      </div>
+      <div>
+        Not empty: <va-badge outline>note empty</va-badge>
+      </div>
     </VbCard>
   </VbDemo>
 </template>

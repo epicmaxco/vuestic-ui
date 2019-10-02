@@ -3,6 +3,7 @@
     class="va-badge mr-2"
     :class="badgeClass"
     :style="badgeStyle"
+    v-if="isShow"
   >
     <div class="va-badge__content d-flex">
       <div class="va-badge__content__title flex-center">
@@ -39,14 +40,27 @@ export default {
       type: Boolean,
       default: false,
     },
+    visibleEmpty: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
+    isEmpty () {
+      const self = this
+
+      return Boolean(!self.$slots.default && !self.label)
+    },
+    isShow () {
+      const self = this
+
+      return Boolean(!self.isEmpty || self.visibleEmpty)
+    },
     badgeClass () {
       const self = this
-      const isEmptyComponent = Boolean(!self.$slots.default && !self.label)
 
       return {
-        'va-badge--empty': isEmptyComponent,
+        'va-badge--empty': self.isEmpty,
         'va-badge--multiline': self.multiline,
       }
     },
@@ -77,7 +91,7 @@ export default {
 @import "../../vuestic-sass/resources/resources";
 
 .va-badge {
-  display: inline-block;
+  display: inline-flex;
   padding: $chip-padding-y-sm $chip-padding-x-sm;
   color: $white;
   border: solid $chip-border-outline;
