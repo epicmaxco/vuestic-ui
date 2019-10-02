@@ -90,8 +90,7 @@ export default {
 }
 
 .va-badge__content__title {
-  min-height: ($chip-font-size-sm * $chip-line-height-sm) + ($chip-padding-y-sm * 2);
-  max-height: ($chip-font-size-sm * $chip-line-height-sm) + ($chip-padding-y-sm * 2);
+  max-height: ($chip-font-size-sm * $chip-line-height-sm);
   overflow: hidden;
 
   .va-badge--multiline & {
