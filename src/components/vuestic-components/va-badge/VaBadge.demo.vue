@@ -97,7 +97,32 @@
         Empty with visible-empty prop: <va-badge visible-empty />
       </div>
       <div>
-        Not empty: <va-badge outline>note empty</va-badge>
+        Not empty: <va-badge outline>not empty</va-badge>
+      </div>
+    </VbCard>
+    <VbCard title="dot">
+      <div>
+        Dot default: <va-badge dot />
+        <va-badge color="info" dot />
+        <va-badge color="danger" dot />
+        <va-badge color="warning" dot />
+        <va-badge color="gray" dot />
+        <va-badge color="dark" dot />
+      </div>
+      <div>
+        Dot Outline:
+        <va-badge outline dot />
+        <va-badge outline dot color="info" />
+        <va-badge outline dot color="danger" />
+        <va-badge outline dot color="warning" />
+        <va-badge outline dot color="gray" />
+        <va-badge outline dot color="dark" />
+      </div>
+      <div>
+        Dot with content: <va-badge dot>dot with content</va-badge>
+      </div>
+      <div>
+        Dot with content: <va-badge dot>dot with content</va-badge>
       </div>
     </VbCard>
   </VbDemo>

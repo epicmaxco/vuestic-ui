@@ -44,6 +44,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    dot: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     isEmpty () {
@@ -54,13 +58,14 @@ export default {
     isShow () {
       const self = this
 
-      return Boolean(!self.isEmpty || self.visibleEmpty)
+      return Boolean(!self.isEmpty || self.visibleEmpty || self.dot)
     },
     badgeClass () {
       const self = this
 
       return {
         'va-badge--empty': self.isEmpty,
+        'va-badge--dot': self.dot,
         'va-badge--multiline': self.multiline,
       }
     },
@@ -121,7 +126,14 @@ export default {
 .va-badge--empty {
   height: ($chip-font-size-sm * $chip-line-height-sm);
   width: ($chip-font-size-sm * $chip-line-height-sm);
-  padding: $chip-padding-y-sm;
+  padding: 2px;
+}
+
+.va-badge--dot {
+  height: $chip-padding-x-sm;
+  width: $chip-padding-x-sm;
+  line-height: 0;
+  padding: 0;
 }
 
 </style>
