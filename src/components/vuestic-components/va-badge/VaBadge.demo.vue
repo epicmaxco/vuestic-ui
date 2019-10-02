@@ -70,6 +70,9 @@
       <va-badge text-color="rgba(14, 74, 196, 0.6)">
         RGBA text color (0.6 opacity)
       </va-badge>
+      <va-badge outline text-color="rgba(14, 74, 196, 0.2)">
+        RGBA text color (0.2 opacity) outline
+      </va-badge>
     </VbCard>
     <VbCard title="Multiline">
       <va-badge>
