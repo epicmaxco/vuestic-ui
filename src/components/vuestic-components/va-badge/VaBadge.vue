@@ -28,7 +28,7 @@ export default {
       default: 'success',
     },
     label: {
-      type: String || Number,
+      type: [ String, Number ],
       required: false,
     },
     textColor: {
