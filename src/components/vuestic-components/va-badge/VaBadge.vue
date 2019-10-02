@@ -32,9 +32,6 @@ export default {
       required: false,
     },
   },
-  created () {
-    console.log('label', this.label)
-  },
   computed: {
     badgeClass () {
       return {
