@@ -123,16 +123,6 @@ export const getGradientColor = (color) => {
   if (second.h < 0) { second.h += 360 }
   if (second.h > 0) { Math.round(second.h = second.h % 360) }
 
-  first.s = first.s > 0 ? first.s : 0
-  first.s = first.s < 100 ? first.s : 100
-  second.s = second.s > 0 ? second.s : 0
-  second.s = second.s < 100 ? second.s : 100
-
-  first.l = first.l > 0 ? first.l : 0
-  first.l = first.l < 100 ? first.l : 100
-  second.l = second.l > 0 ? second.l : 0
-  second.l = second.l < 100 ? second.l : 100
-
   return [first.css, second.css]
 }
 
