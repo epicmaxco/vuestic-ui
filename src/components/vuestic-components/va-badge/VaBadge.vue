@@ -71,6 +71,7 @@ export default {
         'va-badge--empty': self.isEmpty,
         'va-badge--dot': self.dot,
         'va-badge--multiline': self.multiline,
+        'va-badge--floating': self.$slots.float,
       }
     },
     badgeStyle () {
@@ -108,6 +109,15 @@ export default {
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
 
+.va-badge-wr {
+  position: relative;
+  /*display: inline-block;*/
+  display: inline-flex;
+}
+
+.va-badge-wr__floating {
+}
+
 .va-badge {
   display: inline-flex;
   padding: $chip-padding-y-sm $chip-padding-x-sm;
@@ -117,14 +127,35 @@ export default {
   font-size: $chip-font-size-sm;
   font-weight: bold;
   font-family: $font-family-sans-serif;
-  text-transform: uppercase;
   line-height: $chip-line-height-sm;
   letter-spacing: $chip-letter-spacing-sm;
   white-space: nowrap;
+
+  .va-badge-wrap & {
+    position: absolute;
+    z-index: 2;
+    top: -($chip-font-size-sm - $chip-border-outline);
+    margin-left: -($chip-padding-x-sm + $chip-border-outline);
+    left: 100%;
+  }
+
+  .va-badge-wrap--left & {
+    left: 0;
+    margin-left: -($chip-padding-x-sm + $chip-border-outline);
+  }
+
+  .va-badge-wrap--bottom & {
+    bottom: -($chip-font-size-sm + $chip-border-outline);
+    top: auto;
+  }
 }
 
 .va-badge__content__title {
+  margin: auto;
+  text-transform: uppercase;
   max-height: ($chip-font-size-sm * $chip-line-height-sm);
+  min-height: ($chip-font-size-sm * $chip-line-height-sm);
+  line-height: $chip-line-height-sm;
   overflow: hidden;
 
   .va-badge--multiline & {
@@ -133,9 +164,6 @@ export default {
   }
 }
 
-.va-badge__title {
-  margin: auto;
-}
 .va-badge--empty {
   height: ($chip-font-size-sm * $chip-line-height-sm);
   width: ($chip-font-size-sm * $chip-line-height-sm);

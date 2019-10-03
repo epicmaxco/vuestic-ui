@@ -122,7 +122,7 @@
         Dot with content: <va-badge dot>dot with content</va-badge>
       </div>
       <div>
-        Dot with content: <va-badge dot>dot with content</va-badge>
+        Dot with content: <va-badge dot>dot with content<va-icon name="icon brandico brandico-instagram mx-2"/></va-badge>
       </div>
     </VbCard>
     <VbCard title="transparent">
@@ -137,13 +137,49 @@
       <va-badge transparent="35%">transparent 35%</va-badge>
       <div style="background-color: #000; color: #fff">black background <va-badge transparent>transparent default</va-badge></div>
     </VbCard>
+    <VbCard title="floating">
+      <va-input v-model="badgeFloatingText"/>
+
+      <div>
+      <va-badge-wrap>
+        Float at component
+        <va-badge>
+          {{badgeFloatingText}}
+        </va-badge>
+      </va-badge-wrap>
+      </div>
+      <div>
+      <va-badge-wrap bottom>
+        Float at component bottom
+        <va-badge>
+          {{badgeFloatingText}}
+        </va-badge>
+      </va-badge-wrap>
+      </div>
+      <div>
+
+      <va-badge-wrap left>
+        Float at component left
+        <va-badge>
+          {{badgeFloatingText}}
+        </va-badge>
+      </va-badge-wrap>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaBadge from './VaBadge'
+import VaBadgeWrap from './VaBadgeWrap'
+import VaInput from '../va-input/VaInput'
 
 export default {
-  components: { VaBadge },
+  components: { VaBadge, VaBadgeWrap, VaInput },
+  data () {
+    return {
+      badgeFloatingText: 'badge text',
+    }
+  },
 }
 </script>
