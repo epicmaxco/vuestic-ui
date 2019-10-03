@@ -128,8 +128,15 @@ export const getGradientColor = (color) => {
     return Math.round(h % 360)
   }
 
+  const normalizePercent = (p) => p > 0 ? Math.min(p, 100) : 0
+
   first.h = normalizeHue(first.h)
+  first.s = normalizePercent(first.s)
+  first.l = normalizePercent(first.l)
+
   second.h = normalizeHue(second.h)
+  second.s = normalizePercent(second.s)
+  second.l = normalizePercent(second.l)
 
   return [first.css, second.css]
 }
