@@ -12,6 +12,6 @@
 
 ```html
 <va-avatar>
- <!-- text -->
+  AB
 </va-avatar>
 ```  
