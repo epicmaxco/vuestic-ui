@@ -95,7 +95,16 @@ export const getGradientColor = (color) => {
   const isBlue = first.h >= 165 && first.h < 285
   const isUndersaturated = first.s < 30 // i.e. too pale, gray-ish, monotone
 
-  if (isRed) {
+  const isGray = first.s < 10
+
+  if (isGray) {
+    first.h += 2
+    first.s += 5
+    first.l += 10
+  } else if (isUndersaturated) {
+    first.s -= 14
+    first.l += 11
+  } else if (isRed) {
     first.h += 11
     first.s += 27
     first.l += 8
@@ -109,11 +118,6 @@ export const getGradientColor = (color) => {
     first.h -= 15
     first.s += 3
     first.l += 2
-  }
-
-  if (isUndersaturated) {
-    first.l += 6
-    second.l -= 2
   }
 
   const normalizeHue = (h) => {

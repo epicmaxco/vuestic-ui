@@ -6,7 +6,7 @@ const getDefaultOptions = () => ({
     info: '#2c82e0',
     danger: '#e34b4a',
     warning: '#ffc200',
-    gray: '#babfc2',
+    gray: '#b4b6b9',
     dark: '#34495e',
   },
 })
