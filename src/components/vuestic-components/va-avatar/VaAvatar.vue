@@ -1,8 +1,8 @@
 <template>
   <div class="va-avatar" ref="avatar" :style="computedStyle">
     <va-icon v-if="icon" :name="icon" />
-    <img v-if="src" :src="src" />
-    <span v-if="!icon && !src"><slot/></span>
+    <img v-else-if="src" :src="src" />
+    <span v-else><slot/></span>
   </div>
 </template>
 
@@ -18,9 +18,6 @@ export default {
     VaIcon,
   },
   props: {
-    color: {
-      type: String,
-    },
     textColor: {
       type: String,
     },
