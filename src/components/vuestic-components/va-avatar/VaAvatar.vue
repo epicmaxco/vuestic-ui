@@ -1,5 +1,5 @@
 <template>
-  <div class="va-avatar" :style="computedStyle">
+  <div class="va-avatar" ref="avatar" :style="computedStyle">
     <va-icon v-if="icon" :name="icon" />
     <img v-if="src" :src="src" />
     <span v-if="!icon && !src"><slot/></span>
@@ -34,14 +34,27 @@ export default {
     src: {
       type: String,
     },
+    fontSize: {
+      type: String,
+    },
   },
-
+  methods: {
+    udpdateFontSize () {
+      this.$refs.avatar.style.fontSize = `${this.$refs.avatar.offsetHeight * 0.6}px`
+    },
+  },
+  mounted () {
+    if (!this.fontSize) {
+      this.udpdateFontSize()
+    }
+  },
   computed: {
     computedStyle () {
       return {
-        color: this.color ? (this.textColor ? this.$themes[this.textColor] : '#ffffff') : '#ffffff',
+        color: this.textColor ? (this.$themes[this.textColor] || this.computeColor(this.textColor)) : '#ffffff',
         backgroundColor: this.$themes[this.color] || this.colorComputed,
         borderRadius: this.square ? 0 : '50%',
+        fontSize: this.fontSize || '',
         ...this.getPropSize('width'),
         ...this.getPropSize('height'),
       }
@@ -62,13 +75,13 @@ export default {
 
   img {
     display: block;
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
   }
 
-  span, i {
+  span, i, img{
     line-height: 100%;
     margin: auto;
   }
-
 }
 </style>
