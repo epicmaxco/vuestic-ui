@@ -57,12 +57,6 @@
         <va-avatar size="large" icon="iconicstroke iconicstroke-info"></va-avatar>
     </VbCard>
     <VbCard title="Colored avatars">
-      color="danger"
-      <va-avatar color="danger"></va-avatar>
-      color="warning"
-      <va-avatar color="warning"></va-avatar>
-      color="info"
-      <va-avatar color="info"></va-avatar>
       color="coral"
       <va-avatar color="coral"></va-avatar>
       color="#00FF00"
