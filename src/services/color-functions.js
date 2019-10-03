@@ -117,11 +117,20 @@ export const getGradientColor = (color) => {
     second.l -= 2
   }
 
-  // restrictions and validations
-  if (first.h < 0) { first.h += 360 }
-  if (first.h > 0) { Math.round(first.h = first.h % 360) }
-  if (second.h < 0) { second.h += 360 }
-  if (second.h > 0) { Math.round(second.h = second.h % 360) }
+  const normalizeHue = (h) => {
+    if (h === 0) {
+      return 0
+    }
+
+    if (h < 0) {
+      h += 360
+    }
+
+    return Math.round(h % 360)
+  }
+
+  first.h = normalizeHue(first.h)
+  second.h = normalizeHue(second.h)
 
   return [first.css, second.css]
 }
