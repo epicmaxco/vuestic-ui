@@ -1,93 +1,86 @@
 <template>
   <VbDemo>
     <VbCard title="Badge Types">
-      <va-badge>
-        Paid
-      </va-badge>
-      <va-badge outline>
-        Paid
-      </va-badge>
+      <va-badge label="Paid" />
+      <va-badge outline label="Paid" />
     </VbCard>
     <VbCard title="Badges Colors">
-      <va-badge>
-        Paid
-      </va-badge>
-      <va-badge color="info">
-        Info
-      </va-badge>
-      <va-badge color="danger">
-        Danger
-      </va-badge>
-      <va-badge color="warning">
-        On Hold
-      </va-badge>
-      <va-badge color="gray">
-        Processing
-      </va-badge>
-      <va-badge color="dark">
-        New Label
-      </va-badge>
+      <va-badge label="Paid" />
+      <va-badge label="Info" color="info" />
+      <va-badge label="Danger" color="danger" />
+      <va-badge label="Warning" color="warning" />
+      <va-badge label="gray" color="gray" />
+      <va-badge label="dark" color="dark" />
     </VbCard>
     <VbCard title="Outline Badges Colors">
-      <va-badge outline>
-        Paid
-      </va-badge>
-      <va-badge outline color="info">
-        Info
-      </va-badge>
-      <va-badge outline color="danger">
-        Danger
-      </va-badge>
-      <va-badge outline color="warning">
-        On Hold
-      </va-badge>
-      <va-badge outline color="gray">
-        Processing
-      </va-badge>
-      <va-badge outline color="dark">
-        New Label
-      </va-badge>
+      <va-badge label="Paid" outline />
+      <va-badge label="Info" outline color="info" />
+      <va-badge label="Danger" outline color="danger" />
+      <va-badge label="Warning" outline color="warning" />
+      <va-badge label="gray" outline color="gray" />
+      <va-badge label="dark" outline color="dark" />
     </VbCard>
     <br />
-    <VbCard title="Titled badges">
+    <VbCard title="Slotted badges">
+      <div>
+      <va-badge label="prop value" />
+      </div>
+      <div>
       <va-badge>
-        slotted value
+        <template v-slot:badge>
+          slotted value
+        </template>
+        Main text
       </va-badge>
-      <va-badge label="Title custom value">
-        slotted value
+      </div>
+      <div>
+      <va-badge label="prop value">
+        <template v-slot:badge>
+          prop and slotted values
+        </template>
+        Main text
       </va-badge>
+      </div>
+      <div>
+      <va-badge label="A">
+        <template v-slot:badge>
+          A
+        </template>
+        Main text
+      </va-badge>
+      </div>
     </VbCard>
     <VbCard title="Color text">
-      <va-badge>
-        Default text color
-      </va-badge>
-      <va-badge text-color="#000">
-        Black hex text color
-      </va-badge>
-      <va-badge text-color="rgb(14, 74, 196)">
-        RGB text color
-      </va-badge>
-      <va-badge text-color="rgba(14, 74, 196, 0.6)">
-        RGBA text color (0.6 opacity)
-      </va-badge>
-      <va-badge outline text-color="rgba(14, 74, 196, 0.2)">
-        RGBA text color (0.2 opacity) outline
-      </va-badge>
+      <div><va-badge label="Default text color" /></div>
+      <div><va-badge text-color="#000" label="Black hex text color" /></div>
+      <div><va-badge text-color="rgb(14, 74, 196)" label="RGB text color" /></div>
+      <div><va-badge text-color="rgba(14, 74, 196, 0.6)" label="RGBA text color (0.6 opacity)" /></div>
+      <div><va-badge outline text-color="rgba(14, 74, 196, 0.2)" label="RGBA text color (0.2 opacity) outline" /></div>
     </VbCard>
     <VbCard title="Multiline">
-      <va-badge>
-        On line
-      </va-badge>
-      <va-badge>
-        1 line of 3<br />
-        2 line of 3<br />
-        3 line of 3
-      </va-badge>
-      <va-badge multiline>
-        1 line of 3<br />
-        2 line of 3<br />
-        3 line of 3
-      </va-badge>
+      <div>
+        <va-badge label="One line" />
+      </div>
+      <div>
+        Without multiline prop
+        <va-badge>
+          <template v-slot:badge>
+            1 line of 3<br />
+            2 line of 3<br />
+            3 line of 3
+          </template>
+        </va-badge>
+      </div>
+      <div>
+        With multiline prop
+        <va-badge multiline>
+          <template v-slot:badge>
+            1 line of 3<br />
+            2 line of 3<br />
+            3 line of 3
+          </template>
+        </va-badge>
+      </div>
     </VbCard>
     <VbCard title="Visible-empty">
       <div>
@@ -97,7 +90,7 @@
         Empty with visible-empty prop: <va-badge visible-empty />
       </div>
       <div>
-        Not empty: <va-badge outline>not empty</va-badge>
+        Not empty: <va-badge outline label="not empty" />
       </div>
     </VbCard>
     <VbCard title="dot">
@@ -119,56 +112,60 @@
         <va-badge outline dot color="dark" />
       </div>
       <div>
-        Dot with content: <va-badge dot>dot with content</va-badge>
+        Dot with content: "<va-badge dot>content</va-badge>"
+      </div>
+      <div>
+        Dot with prop content: <va-badge dot label="some">[]</va-badge>
+      </div>
+      <div>
+        <va-badge dot label="some">
+          Dot with slot content
+          <template v-slot:badge>
+            1 line of 3<br />
+            2 line of 3<br />
+            3 line of 3
+          </template>
+        </va-badge>
+      </div>
+      <div>
+        Dot without prop and default slot: <va-badge dot />
       </div>
     </VbCard>
     <VbCard title="transparent">
       <div>
-        Empty: <va-badge transparent/>
-        Dot: <va-badge transparent dot>transparent dot</va-badge>
+        Empty: <va-badge transparent label="transparent" />
+        Dot: <va-badge transparent dot label="transparent dot" />
       </div>
-      <va-badge transparent color="warning">transparent colored</va-badge>
-      <va-badge transparent>transparent outline</va-badge>
-      <va-badge transparent outline>transparent default</va-badge>
-      <va-badge transparent="0.6">transparent 0.6</va-badge>
-      <va-badge transparent="35%">transparent 35%</va-badge>
-      <div style="background-color: #000; color: #fff">black background <va-badge transparent>transparent default</va-badge></div>
+      <va-badge transparent color="warning" label="transparent colored" />
+      <va-badge transparent label="transparent default" />
+      <va-badge transparent outline label="transparent outline" />
+      <va-badge transparent="0.6" label="transparent 0.6"></va-badge>
+      <div style="background-color: #000; color: #fff">black background <va-badge transparent label="transparent default" /></div>
     </VbCard>
     <VbCard title="floating">
       <va-input v-model="badgeFloatingText"/>
-
       <div>
-      <va-badge-wrap>
-        Float at component
-        <va-badge>
-          {{badgeFloatingText}}
+        <va-badge :label="badgeFloatingText">
+          Default
         </va-badge>
-      </va-badge-wrap>
       </div>
+      <br />
       <div>
-      <va-badge-wrap bottom>
-        Float at component bottom
-        <va-badge>
-          {{badgeFloatingText}}
+        <va-badge bottom :label="badgeFloatingText">
+          Bottom
         </va-badge>
-      </va-badge-wrap>
       </div>
+      <br />
       <div>
-
-      <va-badge-wrap left>
-        Float at component left
-        <va-badge>
-          {{badgeFloatingText}}
+        <va-badge left :label="badgeFloatingText">
+          Left
         </va-badge>
-      </va-badge-wrap>
       </div>
+      <br />
       <div>
-        <va-badge-wrap>
-          Float with visibleEmpty prop
-          <va-badge visibleEmpty>
-            {{badgeFloatingText}}
-          </va-badge>
-        </va-badge-wrap>
+        <va-badge visibleEmpty :label="badgeFloatingText">
+          VisibleEmpty
+        </va-badge>
       </div>
     </VbCard>
   </VbDemo>
@@ -176,14 +173,13 @@
 
 <script>
 import VaBadge from './VaBadge'
-import VaBadgeWrap from './VaBadgeWrap'
 import VaInput from '../va-input/VaInput'
 
 export default {
-  components: { VaBadge, VaBadgeWrap, VaInput },
+  components: { VaBadge, VaInput },
   data () {
     return {
-      badgeFloatingText: 'badge text',
+      badgeFloatingText: 'text',
     }
   },
 }
