@@ -4,6 +4,7 @@
       position="bottom"
       :preventOverflow="true"
       boundaryBody
+      ref="dropdown"
       @input="toggleDropdownState"
     >
       <a
@@ -35,7 +36,7 @@
           />
         </div>
       </a>
-      <ul class="va-topbar-link-group__submenu in">
+      <ul class="va-topbar-link-group__submenu in" @click="checkClick">
         <slot/>
       </ul>
     </va-dropdown>
@@ -82,12 +83,16 @@ export default {
       }
     },
     sidebarLinkStyles () {
-      return (this.isHovered || this.isActive)
-        ? {
-          color: this.$themes['primary'],
-          borderColor: this.$themes['primary'],
-        }
-        : {}
+      let styles = {}
+
+      if (this.isActive) {
+        styles.color = `${this.$themes['primary']} !important`
+        styles.borderColor = this.$themes['primary']
+      } if (this.isHovered) {
+        styles.color = `${this.$themes['primary']} !important`
+      }
+
+      return styles
     },
     iconStyles () {
       return (this.isHovered || this.isActive)
@@ -114,6 +119,17 @@ export default {
     },
     setActiveState () {
       this.isActive = this.activeByDefault
+    },
+    checkClick (event) {
+      let linkClicked = false
+
+      this.$slots.default.forEach(component => {
+        if (event.path.includes(component.elm)) {
+          linkClicked = true
+        }
+      })
+
+      linkClicked && this.$refs.dropdown.hide()
     },
   },
 }

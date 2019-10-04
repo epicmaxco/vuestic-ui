@@ -1,25 +1,27 @@
 <template>
-  <router-link
-    tag="li"
-    :class="computedLinkClass"
-    @mouseenter.native="updateHoverState(true)"
-    @mouseleave.native="updateHoverState(false)"
-    :style="computedLinkStyles"
-    active-class="va-topbar-link--active"
-    :to="to"
-    :target="target"
-  >
-    <va-icon
-      v-if="icon"
-      class="va-topbar-link__content__icon"
-      :style="computedIconStyles"
-      :name="icon"
-    />
-    <div class="va-topbar-link__content__title">
-      <slot name="title"/>
-      {{title}}
-    </div>
-  </router-link>
+  <li>
+    <router-link
+      tag="a"
+      :class="computedLinkClass"
+      @mouseenter.native="updateHoverState(true)"
+      @mouseleave.native="updateHoverState(false)"
+      :style="computedLinkStyles"
+      active-class="va-topbar-link--active"
+      :to="to"
+      :target="target"
+    >
+      <va-icon
+        v-if="icon"
+        class="va-topbar-link__content__icon"
+        :style="computedIconStyles"
+        :name="icon"
+      />
+      <div class="va-topbar-link__content__title">
+        <slot name="title"/>
+        {{title}}
+      </div>
+    </router-link>
+  </li>
 </template>
 
 <script>
@@ -67,12 +69,16 @@ export default {
       }
     },
     computedLinkStyles () {
-      return (this.isHovered || this.isActive)
-        ? {
-          color: `${this.$themes['primary']} !important`,
-          borderColor: this.$themes['primary'],
-        }
-        : {}
+      let styles = {}
+
+      if (this.isActive) {
+        styles.color = `${this.$themes['primary']} !important`
+        styles.borderColor = this.$themes['primary']
+      } if (this.isHovered) {
+        styles.color = `${this.$themes['primary']} !important`
+      }
+
+      return styles
     },
     computedIconStyles () {
       return (this.isHovered || this.isActive)
@@ -95,7 +101,7 @@ export default {
     },
     setActiveState () {
       this.$nextTick(() => {
-        this.isActive = this.$el.classList.contains('va-topbar-link--active')
+        this.isActive = this.$el.querySelector('a').classList.contains('va-topbar-link--active')
         if (!this.isActive) {
           return
         }
