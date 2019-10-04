@@ -43,6 +43,7 @@ import VaProgressCircle
   from './vuestic-components/va-progress-bar/progress-types/VaProgressCircle.vue'
 import VaRadioButton from './vuestic-components/va-radio-button/VaRadioButton'
 import VaRating from './vuestic-components/va-rating/VaRating'
+import VaSanya from './vuestic-components/va-sanya/VaSanya'
 import VaScrollbar from './vuestic-components/va-scrollbar/VaScrollbar.vue'
 import VaSelect from './vuestic-components/va-select/VaSelect.vue'
 import VaSeparator from './vuestic-components/va-card/VaSeparator'
@@ -149,6 +150,7 @@ const VuesticPlugin = {
       VaAdvancedColorPicker,
       VaColorPickerInput,
       VaPaletteCustom,
+      VaSanya,
     ].forEach(component => {
       Vue.component(component.name, component)
     })
