@@ -121,9 +121,6 @@
       <div>
         Dot with content: <va-badge dot>dot with content</va-badge>
       </div>
-      <div>
-        Dot with content: <va-badge dot>dot with content<va-icon name="icon brandico brandico-instagram mx-2"/></va-badge>
-      </div>
     </VbCard>
     <VbCard title="transparent">
       <div>
@@ -164,6 +161,14 @@
           {{badgeFloatingText}}
         </va-badge>
       </va-badge-wrap>
+      </div>
+      <div>
+        <va-badge-wrap>
+          Float with visibleEmpty prop
+          <va-badge visibleEmpty>
+            {{badgeFloatingText}}
+          </va-badge>
+        </va-badge-wrap>
       </div>
     </VbCard>
   </VbDemo>

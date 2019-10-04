@@ -3,12 +3,12 @@
     class="va-badge mr-2"
     :class="badgeClass"
     :style="badgeStyle"
-    v-if="isShow"
+    v-if="!isEmpty"
   >
     <div class="va-badge__content d-flex">
       <div class="va-badge__content__title flex-center">
         <span v-if="label">{{ label }}</span>
-        <slot v-if="!label"/>
+        <slot v-if="!label" />
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
       default: 'success',
     },
     label: {
-      type: [ String, Number ],
+      type: [String, Number],
       required: false,
     },
     textColor: {
@@ -57,12 +57,11 @@ export default {
     isEmpty () {
       const self = this
 
-      return Boolean(!self.$slots.default && !self.label)
-    },
-    isShow () {
-      const self = this
+      if (self.hasSlotContent || self.label || self.visibleEmpty || self.dot) {
+        return false
+      }
 
-      return Boolean(!self.isEmpty || self.visibleEmpty || self.dot)
+      return true
     },
     badgeClass () {
       const self = this
@@ -91,8 +90,10 @@ export default {
         computedStyles.color = self.textColor
       }
 
-      if (self.transparent !== null && self.transparent !== undefined) { // TODO: need to add lodash
-        if (!self.transparent) { // if transparent is equal empty string
+      if (self.transparent !== null && self.transparent !== undefined) {
+        // TODO: need to add lodash
+        if (!self.transparent) {
+          // if transparent is equal empty string
           computedStyles.opacity = 0.5
         } else {
           const opacityNumber = parseInt(self.transparent)
@@ -103,22 +104,40 @@ export default {
       return computedStyles
     },
   },
+  data () {
+    return {
+      hasSlotContent: false,
+    }
+  },
+  methods: {
+    checkForSlotContent () {
+      const self = this
+
+      let checkForContent = (hasContent, node) => {
+        return (hasContent || node.tag || (node.text && node.text.trim()))
+      }
+      return Boolean(
+        self.$slots.default &&
+        self.$slots.default.reduce(checkForContent, false)
+      )
+    },
+  },
+  beforeUpdate () {
+    const self = this
+    self.hasSlotContent = self.checkForSlotContent()
+  },
+  created () {
+    const self = this
+    self.hasSlotContent = self.checkForSlotContent()
+  },
 }
 </script>
 
-<style lang='scss'>
-@import "../../vuestic-sass/resources/resources";
-
-.va-badge-wr {
-  position: relative;
-  /*display: inline-block;*/
-  display: inline-flex;
-}
-
-.va-badge-wr__floating {
-}
+<style lang="scss">
+@import '../../vuestic-sass/resources/resources';
 
 .va-badge {
+  transition: 0.3s ease-in-out;
   display: inline-flex;
   padding: $chip-padding-y-sm $chip-padding-x-sm;
   color: $white;
@@ -162,6 +181,10 @@ export default {
     max-height: 100%;
     overflow: auto;
   }
+
+  .va-badge--dot & {
+    display: none;
+  }
 }
 
 .va-badge--empty {
@@ -176,5 +199,4 @@ export default {
   line-height: 0;
   padding: 0;
 }
-
 </style>
