@@ -161,6 +161,13 @@ export default {
   width: auto;
   height: auto;
 
+  .va-badge--dot & {
+    height: $chip-padding-x-sm;
+    width: $chip-padding-x-sm;
+    line-height: 0;
+    padding: 0;
+  }
+
   .va-badge--empty & {
     height: ($chip-font-size-sm * $chip-line-height-sm);
     width: ($chip-font-size-sm * $chip-line-height-sm);
@@ -170,42 +177,35 @@ export default {
   .va-badge--floating & {
     position: absolute;
     z-index: 2;
-    top: -(($chip-line-height-sm * $chip-font-size-sm) + ($chip-border-outline * 2)); // full width of badge
+    top: 0;
     left: 100%;
-    margin-top: 0;
-  }
-
-  .va-badge--dot & {
-    height: $chip-padding-x-sm;
-    width: $chip-padding-x-sm;
-    line-height: 0;
-    padding: 0;
+    transform: translateY(-100%);
   }
 
   .va-badge--overlap & {
-    margin-left: -($chip-padding-x-sm + $chip-border-outline);
-    top: -(($chip-line-height-sm * $chip-font-size-sm) + ($chip-border-outline * 2)) / 2; // 1/2 of width of badge
-    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    transform: translateX(-50%) translateY(-50%);
   }
 
   .va-badge--left & {
-    left: -($chip-padding-x-sm + $chip-border-outline) * 2;
-    margin-left: 0;
+    left: 0;
+    margin-left: -($chip-padding-x-sm + $chip-border-outline) * 2;
   }
 
-  .va-badge--overlap.va-badge--left & {
-    left: 0;
-    margin-left: -($chip-padding-x-sm + $chip-border-outline) / 2;
+  .va-badge--left.va-badge--overlap & {
+    transform: translateX(-50%) translateY(-50%);
+    margin-left: 0;
   }
 
   .va-badge--bottom & {
     top: 100%;
     margin-top: 0;
+    transform: translateX(0) translateY(0);
   }
 
-  .va-badge--overlap.va-badge--bottom & {
-    top: 100%;
-    margin-top: -(($chip-line-height-sm * $chip-font-size-sm) + ($chip-border-outline * 2)) / 2; // 1/2 of width of badge
+  .va-badge--bottom.va-badge--overlap & {
+    transform: translateX(-50%) translateY(-50%);
   }
 }
 
