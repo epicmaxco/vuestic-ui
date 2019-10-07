@@ -10,7 +10,7 @@
     >
       <div class="va-badge__badge__content">
         <slot name="badge">
-          {{ label }}
+          {{ formattedLabel  }}
         </slot>
       </div>
     </div>
@@ -20,6 +20,7 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import approximateNumber from 'approximate-number'
 
 export default {
   name: 'va-badge',
@@ -72,6 +73,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    approximateNumber: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     isSlotted () {
@@ -86,6 +91,20 @@ export default {
     },
     isFloating () {
       return this.isSlotted || (this.dot && this.label)
+    },
+    isNumber () {
+      return !isNaN(Number(this.label))
+    },
+    formattedLabel () {
+      if (this.isEmpty) {
+        return null
+      }
+
+      if (this.approximateNumber && this.isNumber) {
+        return approximateNumber(Number(this.label))
+      }
+
+      return this.label
     },
     badgeClass () {
       return {
@@ -115,7 +134,7 @@ export default {
       }
 
       if (this.transparent !== null && this.transparent !== undefined) {
-        // TODO: need to add lodash
+        // TODO: need to add lodash isNil
         if (!this.transparent) {
           // if transparent is equal empty string
           computedStyles.opacity = 0.5
@@ -159,8 +178,7 @@ export default {
 
   .va-badge--circle & {
     padding: 0;
-    text-align: center;
-    justify-content: center;
+    @include flex-center();
   }
 
   .va-badge--dot & {
@@ -240,7 +258,7 @@ export default {
 
   .va-badge--circle & {
     overflow: visible;
-    text-align: center;
+    @include flex-center();
   }
 }
 
