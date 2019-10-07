@@ -9,7 +9,7 @@
       v-if="!isEmpty"
     >
       <div class="va-badge__badge__content">
-        <slot name="badge" v-if="!dot">
+        <slot name="badge">
           {{ label }}
         </slot>
       </div>
@@ -78,7 +78,7 @@ export default {
     isEmpty () {
       const self = this
 
-      if (self.label || self.visibleEmpty || self.dot || self.isSlotted) {
+      if (self.label || self.visibleEmpty || self.dot || self.$slots.badge) {
         return false
       }
 
@@ -99,6 +99,7 @@ export default {
         'va-badge--floating': self.isFloating,
         'va-badge--left': self.left,
         'va-badge--bottom': self.bottom,
+        'va-badge--overlap': self.overlap,
       }
     },
     badgeStyle () {
@@ -157,16 +158,21 @@ export default {
   line-height: $chip-line-height-sm;
   letter-spacing: $chip-letter-spacing-sm;
   white-space: nowrap;
+  width: auto;
+  height: auto;
+
+  .va-badge--empty & {
+    height: ($chip-font-size-sm * $chip-line-height-sm);
+    width: ($chip-font-size-sm * $chip-line-height-sm);
+    padding: 2px;
+  }
 
   .va-badge--floating & {
     position: absolute;
     z-index: 2;
-    top: -50%;
+    top: -(($chip-line-height-sm * $chip-font-size-sm) + ($chip-border-outline * 2)); // full width of badge
     left: 100%;
-  }
-
-  .va-badge--overlap & {
-    margin-left: -($chip-padding-x-sm + $chip-border-outline);
+    margin-top: 0;
   }
 
   .va-badge--dot & {
@@ -176,14 +182,30 @@ export default {
     padding: 0;
   }
 
-  .va-badge--left & {
-    left: 0;
+  .va-badge--overlap & {
     margin-left: -($chip-padding-x-sm + $chip-border-outline);
+    top: -(($chip-line-height-sm * $chip-font-size-sm) + ($chip-border-outline * 2)) / 2; // 1/2 of width of badge
+    margin-top: 0;
+  }
+
+  .va-badge--left & {
+    left: -($chip-padding-x-sm + $chip-border-outline) * 2;
+    margin-left: 0;
+  }
+
+  .va-badge--overlap.va-badge--left & {
+    left: 0;
+    margin-left: -($chip-padding-x-sm + $chip-border-outline) / 2;
   }
 
   .va-badge--bottom & {
-    bottom: -($chip-font-size-sm + $chip-border-outline);
-    top: auto;
+    top: 100%;
+    margin-top: 0;
+  }
+
+  .va-badge--overlap.va-badge--bottom & {
+    top: 100%;
+    margin-top: -(($chip-line-height-sm * $chip-font-size-sm) + ($chip-border-outline * 2)) / 2; // 1/2 of width of badge
   }
 }
 
@@ -202,14 +224,14 @@ export default {
   }
 
   .va-badge--dot & {
-    display: none;
+    //display: none; // not used with transition
+    width: 0;
+    height: 0;
+    min-height: 0;
+    max-height: 0;
+    line-height: 0;
+    font-size: 0;
   }
-}
-
-.va-badge--empty {
-  height: ($chip-font-size-sm * $chip-line-height-sm);
-  width: ($chip-font-size-sm * $chip-line-height-sm);
-  padding: 2px;
 }
 
 </style>

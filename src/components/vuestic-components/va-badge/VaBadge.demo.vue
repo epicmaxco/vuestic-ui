@@ -20,7 +20,14 @@
       <va-badge label="gray" outline color="gray" />
       <va-badge label="dark" outline color="dark" />
     </VbCard>
-    <br />
+    <VbCard title="transparent">
+      <va-badge transparent dot label="Is Dot" />
+      <va-badge transparent color="warning" label="transparent colored" />
+      <va-badge transparent label="transparent default" />
+      <va-badge transparent outline label="transparent outline" />
+      <va-badge transparent="0.6" label="transparent 0.6"></va-badge>
+      <span style="background-color: #000; color: #fff; padding: 0 10px;">black background <va-badge transparent label="transparent default" /></span>
+    </VbCard>
     <VbCard title="Slotted badges">
       <div>
       <va-badge label="prop value" />
@@ -62,8 +69,8 @@
         <va-badge label="One line" />
       </div>
       <div>
-        Without multiline prop
         <va-badge>
+          Without multiline prop
           <template v-slot:badge>
             1 line of 3<br />
             2 line of 3<br />
@@ -72,8 +79,8 @@
         </va-badge>
       </div>
       <div>
-        With multiline prop
         <va-badge multiline>
+          With multiline prop
           <template v-slot:badge>
             1 line of 3<br />
             2 line of 3<br />
@@ -131,55 +138,52 @@
         Dot without prop and default slot: <va-badge dot />
       </div>
     </VbCard>
-    <VbCard title="transparent">
-      <div>
-        Empty: <va-badge transparent label="transparent" />
-        Dot: <va-badge transparent dot label="transparent dot" />
-      </div>
-      <va-badge transparent color="warning" label="transparent colored" />
-      <va-badge transparent label="transparent default" />
-      <va-badge transparent outline label="transparent outline" />
-      <va-badge transparent="0.6" label="transparent 0.6"></va-badge>
-      <div style="background-color: #000; color: #fff">black background <va-badge transparent label="transparent default" /></div>
-    </VbCard>
-    <VbCard title="floating">
+    <VbCard title="controls">
       <va-input v-model="badgeFloatingText"/>
-      <div>
-        <va-badge :label="badgeFloatingText">
-          Default
-        </va-badge>
-      </div>
-      <br />
-      <div>
-        <va-badge bottom :label="badgeFloatingText">
-          Bottom
-        </va-badge>
-      </div>
-      <br />
-      <div>
-        <va-badge left :label="badgeFloatingText">
-          Left
-        </va-badge>
-      </div>
-      <br />
-      <div>
-        <va-badge visibleEmpty :label="badgeFloatingText">
-          VisibleEmpty
-        </va-badge>
-      </div>
+      Left: <va-toggle v-model="left"/>
+      Bottom: <va-toggle v-model="bottom"/>
+      Overlap: <va-toggle v-model="overlap"/>
+      Dot: <va-toggle v-model="dot"/>
     </VbCard>
+    <VbCard title="floating, overlap and transitions">
+      <va-badge :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot">
+        Default
+      </va-badge>
+      &nbsp;&nbsp;&nbsp;
+      <va-badge :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot" color="info">
+        Info
+      </va-badge>
+      &nbsp;&nbsp;&nbsp;
+      <va-badge :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot" color="danger">
+        Danger
+      </va-badge>
+      &nbsp;&nbsp;&nbsp;
+      <va-badge :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot" visibleEmpty>
+        <div style="width: 100px; height: 100px; border: 1px solid red">
+          VisibleEmpty
+          <br />
+          Custom size
+        </div>
+      </va-badge>
+    </VbCard>
+
   </VbDemo>
 </template>
 
 <script>
 import VaBadge from './VaBadge'
 import VaInput from '../va-input/VaInput'
+import VaToggle from '../va-toggle/VaToggle'
 
 export default {
-  components: { VaBadge, VaInput },
+  components: { VaBadge, VaInput, VaToggle },
   data () {
     return {
       badgeFloatingText: 'text',
+      left: false,
+      bottom: false,
+      overlap: false,
+      dot: false,
     }
   },
 }
