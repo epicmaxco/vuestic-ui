@@ -181,7 +181,7 @@ export default {
     z-index: 2;
     top: 0;
     left: 100%;
-    transform: translateY(-100%);
+    transform: translateX(0) translateY(-100%);
   }
 
   .va-badge--overlap & {
@@ -192,18 +192,21 @@ export default {
 
   .va-badge--left & {
     left: 0;
-    margin-left: -($chip-padding-x-sm + $chip-border-outline) * 2;
+    transform: translateX(-100%) translateY(-100%);
   }
 
   .va-badge--left.va-badge--overlap & {
     transform: translateX(-50%) translateY(-50%);
-    margin-left: 0;
   }
 
   .va-badge--bottom & {
     top: 100%;
     margin-top: 0;
     transform: translateX(0) translateY(0);
+  }
+
+  .va-badge--left.va-badge--bottom & {
+    transform: translateX(-100%);
   }
 
   .va-badge--bottom.va-badge--overlap & {
