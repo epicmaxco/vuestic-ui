@@ -1,10 +1,7 @@
 ## Components
 
 
-* **va-badge**
-
-
-# va-chip
+# va-badge
 
 ```html
 <va-badge

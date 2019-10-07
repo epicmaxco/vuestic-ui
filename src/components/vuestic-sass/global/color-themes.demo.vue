@@ -5,7 +5,7 @@
         Default Button
       </va-button>
       <va-notification class="mb-5" color="info">
-        <va-badge color="info"> Info</va-badge>
+        <va-badge color="info" label="Info" :circle="false" />
         You successfully read this important alert message.
       </va-notification>
       <va-progress-bar class="mb-5" indeterminate color="info"/>
