@@ -18,6 +18,10 @@ export default {
     VaIcon,
   },
   props: {
+    color: {
+      type: String,
+      default: 'info',
+    },
     textColor: {
       type: String,
     },
