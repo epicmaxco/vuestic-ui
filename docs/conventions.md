@@ -44,6 +44,7 @@ We want to keep these consistent across different repos.
 * high priority - Very wanted, much value - #e27a12
 * research - This issue is about research, not coding - #f7ef77
 * question -  - #cc317c
+* ready for implementation - This is codeable - #9bce0e
 * ready to merge -  - #0e8a16
 * refactoring - Prettify code without introducing new features - #ffc4ee
 * reviewed -  - #0e8a16
