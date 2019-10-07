@@ -144,15 +144,9 @@
         <va-badge>
           <template v-slot:badge>
               <span>
-                <span>
-                <va-icon
-                  class="va-input__container__icon"
-                  name="fa fa-check"
-                  color="success"
-                />
-                </span>
-
+                <va-icon name="icon brandico brandico-twitter mx-2"/>
                 text
+                <va-icon name="icon brandico brandico-instagram mx-2"/>
               </span>
           </template>
         </va-badge>
@@ -166,10 +160,11 @@
 import VaBadge from './VaBadge'
 import VaInput from '../va-input/VaInput'
 import VaToggle from '../va-toggle/VaToggle'
+import VaIcon from '../va-icon/VaIcon'
 import VaAdvancedColorPicker from '../va-color-picker/VaAdvancedColorPicker'
 
 export default {
-  components: { VaBadge, VaInput, VaToggle, VaAdvancedColorPicker },
+  components: { VaBadge, VaInput, VaToggle, VaIcon, VaAdvancedColorPicker },
   data () {
     return {
       label: '1234',
