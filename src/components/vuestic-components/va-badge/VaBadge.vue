@@ -238,7 +238,6 @@ export default {
   }
 
   .va-badge--floating & {
-    overflow: visible;
     align-items: center;
   }
 }
