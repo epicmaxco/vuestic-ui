@@ -233,7 +233,6 @@ export default {
 }
 
 .va-badge__badge__content {
-  transition: 0.3s ease-in-out;
   margin: auto;
   text-transform: uppercase;
   max-height: ($chip-font-size-sm * $chip-line-height-sm);
