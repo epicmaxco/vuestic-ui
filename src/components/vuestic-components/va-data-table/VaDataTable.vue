@@ -11,6 +11,7 @@
         :no-data-template="noDataLabel"
         :css="styles"
         :row-class="rowClass"
+        :sort-order="sortOrder"
         @vuetable:row-clicked="rowClicked"
       >
         <!-- https://stackoverflow.com/questions/50891858/vue-how-to-pass-down-slots-inside-wrapper-component   -->
@@ -81,6 +82,10 @@ export default {
     },
     rowClass: {
       type: Function,
+      default: undefined,
+    },
+     sortOrder: {
+      type: Array,
       default: undefined,
     },
     totalPages: {
