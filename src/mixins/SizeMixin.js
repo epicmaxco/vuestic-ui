@@ -18,9 +18,9 @@ export const SizeMixin = {
   methods: {
     getPropSize (property) {
       if (typeof this.size === 'string') {
-        return { [property]: this.size in sizes ? `${sizes[this.size]}px` : this.size }
+        return this.size in sizes ? `${sizes[this.size]}px` : this.size
       }
-      return { [property]: `${this.size}px` }
+      return `${this.size}px`
     },
   },
 }

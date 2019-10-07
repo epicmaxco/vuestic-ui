@@ -59,8 +59,8 @@ export default {
         backgroundColor: this.$themes[this.color] || this.colorComputed,
         borderRadius: this.square ? 0 : '50%',
         fontSize: this.fontSize || '',
-        ...this.getPropSize('width'),
-        ...this.getPropSize('height'),
+        width: this.getPropSize('width'),
+        height: this.getPropSize('height'),
       }
     },
     computedClass () {
@@ -77,8 +77,8 @@ export default {
   display: flex;
   position: relative;
   overflow: hidden;
-  align-items: 'center';
-  justify-content: 'center';
+  align-items: center;
+  justify-content: center;
   text-align: center;
 
   img {
