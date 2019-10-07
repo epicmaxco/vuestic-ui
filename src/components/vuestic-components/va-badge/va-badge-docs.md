@@ -3,6 +3,18 @@
 
 # va-badge
 
+2 ways to use va-badge
+
+Use as text in line:
+```html
+<va-badge
+ color="warning"
+ label="Text in label"
+/>
+```
+
+Use as floated component:
+
 ```html
 <va-badge
  color="warning"

@@ -41,10 +41,6 @@ export default {
       type: [String, Number],
       required: false,
     },
-    circle: {
-      type: Boolean,
-      default: true,
-    },
     overlap: {
       type: Boolean,
       required: false,
@@ -79,9 +75,6 @@ export default {
     },
   },
   computed: {
-    isSlotted () {
-      return Boolean(this.$slots.default) || Boolean(this.$slots.badge)
-    },
     isEmpty () {
       if (this.label || this.visibleEmpty || this.dot || this.$slots.badge) {
         return false
@@ -90,7 +83,7 @@ export default {
       return true
     },
     isFloating () {
-      return this.isSlotted || (this.dot && this.label)
+      return this.$slots.default || this.dot
     },
     isNumber () {
       return !isNaN(Number(this.label))
@@ -115,7 +108,6 @@ export default {
         'va-badge--left': this.left,
         'va-badge--bottom': this.bottom,
         'va-badge--overlap': this.overlap,
-        'va-badge--circle': this.circle,
       }
     },
     badgeStyle () {
@@ -160,7 +152,7 @@ export default {
 }
 
 .va-badge__badge {
-  transition: 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   display: inline-flex;
   padding: $chip-padding-y-sm $chip-padding-x-sm;
   color: $white;
@@ -176,16 +168,11 @@ export default {
   height: auto;
   min-width: $chip-font-size-sm * $chip-line-height-sm + $chip-border-outline * 2;
 
-  .va-badge--circle & {
-    padding: 0;
-    @include flex-center();
-  }
-
   .va-badge--dot & {
     height: $chip-padding-x-sm;
     width: $chip-padding-x-sm;
     line-height: 0;
-    padding: 0;
+    /*padding: 0;*/
     min-width: auto;
   }
 
@@ -199,6 +186,7 @@ export default {
     z-index: 2;
     top: 0;
     left: 100%;
+    padding: 0;
     transform: translateX(0) translateY(-100%);
   }
 
@@ -246,18 +234,12 @@ export default {
   }
 
   .va-badge--dot & {
-    //display: none; // not used with transition
-    width: 0;
-    height: 0;
-    min-height: 0;
-    max-height: 0;
-    line-height: 0;
-    font-size: 0;
+    display: none;
   }
 
-  .va-badge--circle & {
+  .va-badge--floating & {
     overflow: visible;
-    @include flex-center();
+    align-items: center;
   }
 }
 
