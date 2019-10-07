@@ -71,61 +71,51 @@ export default {
   },
   computed: {
     isSlotted () {
-      const self = this
-
-      return Boolean(self.$slots.default) || Boolean(self.$slots.badge)
+      return Boolean(this.$slots.default) || Boolean(this.$slots.badge)
     },
     isEmpty () {
-      const self = this
-
-      if (self.label || self.visibleEmpty || self.dot || self.$slots.badge) {
+      if (this.label || this.visibleEmpty || this.dot || this.$slots.badge) {
         return false
       }
 
       return true
     },
     isFloating () {
-      const self = this
-
-      return self.isSlotted || (self.dot && self.label)
+      return this.isSlotted || (this.dot && this.label)
     },
     badgeClass () {
-      const self = this
-
       return {
-        'va-badge--empty': self.isEmpty,
-        'va-badge--dot': self.dot,
-        'va-badge--multiline': self.multiline,
-        'va-badge--floating': self.isFloating,
-        'va-badge--left': self.left,
-        'va-badge--bottom': self.bottom,
-        'va-badge--overlap': self.overlap,
+        'va-badge--empty': this.isEmpty,
+        'va-badge--dot': this.dot,
+        'va-badge--multiline': this.multiline,
+        'va-badge--floating': this.isFloating,
+        'va-badge--left': this.left,
+        'va-badge--bottom': this.bottom,
+        'va-badge--overlap': this.overlap,
       }
     },
     badgeStyle () {
-      const self = this
-
       const computedStyles = {
-        borderColor: self.colorComputed,
-        backgroundColor: self.colorComputed,
+        borderColor: this.colorComputed,
+        backgroundColor: this.colorComputed,
       }
 
-      if (self.outline) {
-        computedStyles.color = self.colorComputed
+      if (this.outline) {
+        computedStyles.color = this.colorComputed
         computedStyles.backgroundColor = 'transparent'
       }
 
-      if (self.textColor) {
-        computedStyles.color = self.textColor
+      if (this.textColor) {
+        computedStyles.color = this.textColor
       }
 
-      if (self.transparent !== null && self.transparent !== undefined) {
+      if (this.transparent !== null && this.transparent !== undefined) {
         // TODO: need to add lodash
-        if (!self.transparent) {
+        if (!this.transparent) {
           // if transparent is equal empty string
           computedStyles.opacity = 0.5
         } else {
-          const opacityNumber = Number(self.transparent)
+          const opacityNumber = Number(this.transparent)
 
           computedStyles.opacity = isNaN(opacityNumber) ? 1 : opacityNumber
         }
