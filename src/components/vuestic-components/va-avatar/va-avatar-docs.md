@@ -8,6 +8,7 @@
 * `square` - Boolean (default: false) - border radius disabled
 * `icon` - String - icon name should be passed
 * `src` - String - path to image
+* `portrait` - Boolean - use for better image centering
 * `size` - String|Number - small|medium|large as string value or value in px e.g. '20px' or 20
 
 # Usage
@@ -44,12 +45,16 @@
 <va-avatar :size="66">66</va-avatar> 
 ```
 ## image avatars
-* image will fit widest size
+* image will fit vertically
 
 ```html
   <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"></va-avatar>
-
-  <va-avatar >
+  <!-- for squre or vertical images-->
+  <va-avatar>
+    <img src="https://randomuser.me/api/portraits/women/5.jpg" alt="woman">
+  </va-avatar>
+  <!-- use portrait prop for horizontal images-->
+  <va-avatar portrait>
     <img src="https://randomuser.me/api/portraits/women/5.jpg" alt="woman">
   </va-avatar>
 ```

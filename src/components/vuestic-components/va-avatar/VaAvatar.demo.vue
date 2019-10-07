@@ -1,86 +1,146 @@
 <template>
   <VbDemo>
-    <VbCard title="Default avatars">
-        Empty
-        <va-avatar></va-avatar>
-        Text inserted
-        <va-avatar>AA</va-avatar>
-        Div inserted
-        <va-avatar>
-          <div>AA</div>
-        </va-avatar>
+    <VbCard>
+      <va-list fit style="maxWidth: 400px" class="ma-2">
+        <va-list-label>
+          Avatars
+        </va-list-label>
+
+        <va-item>
+          <va-item-section avatar>
+            <va-avatar>
+              <img src="https://randomuser.me/api/portraits/women/5.jpg">
+            </va-avatar>
+          </va-item-section>
+
+          <va-item-section>
+            <va-item-label>
+              Image avatars
+            </va-item-label>
+
+            <va-item-label caption>
+              Great to have pretty faces around
+            </va-item-label>
+          </va-item-section>
+        </va-item>
+
+        <va-list-separator></va-list-separator>
+
+        <va-item>
+          <va-item-section avatar>
+            <va-avatar textColor="primary" fontSize="20px">
+              BA
+            </va-avatar>
+          </va-item-section>
+
+          <va-item-section>
+            <va-item-label>
+              Text initials
+            </va-item-label>
+
+            <va-item-label caption>
+              Works cool for formal things
+            </va-item-label>
+          </va-item-section>
+        </va-item>
+        <va-list-separator></va-list-separator>
+        <va-item>
+          <va-item-section avatar>
+            <va-avatar square color="orange" textColor="white">
+              CR
+            </va-avatar>
+          </va-item-section>
+
+          <va-item-section>
+            <va-item-label>
+              Tucker Kaufman
+            </va-item-label>
+            <va-item-label caption>
+              887 Winthrop Street, Tryon, Florida, 3912
+            </va-item-label>
+          </va-item-section>
+        </va-item>
+        <va-item>
+          <va-item-section avatar>
+            <va-avatar color="grey">
+              <va-icon name="material-icons">person_pin</va-icon>
+            </va-avatar>
+          </va-item-section>
+
+          <va-item-section>
+            <va-item-label>
+              Even with icon
+            </va-item-label>
+            <va-item-label caption>
+              887 Winthrop Street, Tryon, Florida, 3912
+            </va-item-label>
+          </va-item-section>
+        </va-item>
+      </va-list>
     </VbCard>
-    <VbCard title="Different sizes setted for avatars">
-        size="small" preset for 32px avatar
-        <va-avatar size="small">S</va-avatar>
-        size="medium" preset for 48px avatar
-        <va-avatar size="medium">M</va-avatar>
-        size="large" preset for 64px avatar
-        <va-avatar size="large">L</va-avatar>
-        size="55px"
-        <va-avatar size="55px">55</va-avatar>
-        :size="66"
-        <va-avatar :size="66">66</va-avatar>
-    </VbCard>
-    <VbCard title="Image avatars">
-        src parameter passed
-        <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"></va-avatar>
-        horizontal image resized inside avatar
-        <va-avatar src="https://i.imgur.com/UjiMAZj.png"></va-avatar>
-        vertical image resized inside avatar
-        <va-avatar src="https://cdn.pixabay.com/photo/2016/08/03/06/22/space-1565986_1280.jpg"></va-avatar>
-    </VbCard>
-    <VbCard title="Image/Icon inserted via slot">
-        image inserted via slot
-        <va-avatar >
-          <img src="https://randomuser.me/api/portraits/women/5.jpg" alt="woman">
-        </va-avatar>
-        icon inserted via slot
-        <va-avatar>
-          <va-icon name="iconicstroke iconicstroke-info"></va-icon>
-        </va-avatar>
-    </VbCard>
-    <VbCard title="Square avatars">
-        src parameter passed
-        <va-avatar square src="https://randomuser.me/api/portraits/women/5.jpg"></va-avatar>
-        horizontal image resized inside avatar
-        <va-avatar square src="https://i.imgur.com/UjiMAZj.png"></va-avatar>
-        vertical image resized inside avatar
-        <va-avatar square src="https://cdn.pixabay.com/photo/2016/08/03/06/22/space-1565986_1280.jpg"></va-avatar>
-    </VbCard>
-    <VbCard title="Avatar with icon">
-        small
-        <va-avatar size="small" icon="iconicstroke iconicstroke-info"></va-avatar>
-        medium
-        <va-avatar icon="iconicstroke iconicstroke-info"></va-avatar>
-        large
-        <va-avatar size="large" icon="iconicstroke iconicstroke-info"></va-avatar>
-    </VbCard>
-    <VbCard title="Colored avatars">
-      color="coral"
-      <va-avatar color="coral"></va-avatar>
-      color="#00FF00"
-      <va-avatar color="#00FF00"></va-avatar>
-      color="rgb(135,206,250)"
-      <va-avatar color="rgb(135,206,250)"></va-avatar>
-    </VbCard>
-    <VbCard title="Text coloring inside avatar">
-      textColor="danger"
-      <va-avatar textColor="danger" color="#fafafa">A</va-avatar>
-      textColor="coral"
-      <va-avatar textColor="coral" color="#fafafa">B</va-avatar>
-      textColor="#00FF00"
-      <va-avatar textColor="#00FF00" color="#fafafa">C</va-avatar>
-      textColor="rgb(135,206,250)"
-      <va-avatar textColor="rgb(135,206,250)" color="#fafafa">D</va-avatar>
-    </VbCard>
-    <VbCard title="Custom font size for avatars">
-      15 px
-      <va-avatar fontSize="15px">A</va-avatar>
-      20 px
-      <va-avatar fontSize="20px">A</va-avatar>
-      30 px
-      <va-avatar fontSize="30px">A</va-avatar>
+
+    <VbCard>
+      <va-list fit style="maxWidth: 400px" class="ma-2">
+        <va-list-label>
+          More customization
+        </va-list-label>
+
+        <va-item>
+          <va-item-section avatar>
+            <va-avatar color="black">
+              <img src="./assets/vertical-logo.png">
+            </va-avatar>
+          </va-item-section>
+
+          <va-item-section>
+            <va-item-label>
+              Verticaly centered image
+            </va-item-label>
+          </va-item-section>
+        </va-item>
+
+        <va-list-separator></va-list-separator>
+
+        <va-item>
+          <va-item-section avatar>
+            <va-avatar portrait textColor="primary" color="none" fontSize="20px">
+              <img src="./assets/horizontal-logo.png">
+            </va-avatar>
+          </va-item-section>
+          <va-item-section>
+            <va-item-label>
+              Horizontally centered image
+            </va-item-label>
+          </va-item-section>
+        </va-item>
+        <va-list-separator></va-list-separator>
+        <va-item>
+          <va-item-section avatar>
+            <va-avatar color="red" size="large" textColor="white">
+              <va-icon name="material-icons">palette</va-icon>
+            </va-avatar>
+          </va-item-section>
+
+          <va-item-section>
+            <va-item-label>
+              Something large
+            </va-item-label>
+          </va-item-section>
+        </va-item>
+        <va-list-separator></va-list-separator>
+        <va-item>
+          <va-item-section avatar>
+            <va-avatar size="small" color="black" textColor="primary">
+              A
+            </va-avatar>
+          </va-item-section>
+          <va-item-section>
+            <va-item-label>
+              Something small
+            </va-item-label>
+          </va-item-section>
+        </va-item>
+      </va-list>
     </VbCard>
   </VbDemo>
 </template>
@@ -89,11 +149,23 @@
 
 import VaAvatar from './VaAvatar'
 import VaIcon from '../va-icon/VaIcon'
+import VaList from '../va-list/VaList'
+import VaItem from '../va-list/VaItem'
+import VaListSeparator from '../va-list/VaListSeparator'
+import VaItemSection from '../va-list/VaItemSection'
+import VaListLabel from '../va-list/VaListLabel'
+import VaItemLabel from '../va-list/VaItemLabel'
 
 export default {
   components: {
     VaAvatar,
     VaIcon,
+    VaList,
+    VaItem,
+    VaItemSection,
+    VaListSeparator,
+    VaListLabel,
+    VaItemLabel,
   },
 }
 </script>
