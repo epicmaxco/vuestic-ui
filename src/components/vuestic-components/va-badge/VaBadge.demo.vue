@@ -21,12 +21,12 @@
       <va-badge label="dark" outline color="dark" />
     </VbCard>
     <VbCard title="transparent">
-      <va-badge transparent dot label="Is Dot" />
-      <va-badge transparent color="warning" label="transparent colored" />
-      <va-badge transparent label="transparent default" />
-      <va-badge transparent outline label="transparent outline" />
-      <va-badge transparent="0.6" label="transparent 0.6"></va-badge>
-      <span style="background-color: #000; color: #fff; padding: 0 10px;">black background <va-badge transparent label="transparent default" /></span>
+      <div><va-badge transparent dot label="Is Dot" /></div>
+      <div><va-badge transparent color="warning" label="transparent colored" /></div>
+      <div><va-badge transparent label="transparent default" /></div>
+      <div><va-badge transparent outline label="transparent outline" /></div>
+      <div><va-badge transparent="0.6" label="transparent 0.6"></va-badge></div>
+      <div><span style="background-color: #000; color: #fff; padding: 0 10px;">black background <va-badge transparent label="transparent default" /></span></div>
     </VbCard>
     <VbCard title="Slotted badges">
       <div>
