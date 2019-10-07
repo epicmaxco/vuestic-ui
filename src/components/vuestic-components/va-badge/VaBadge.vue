@@ -40,6 +40,10 @@ export default {
       type: [String, Number],
       required: false,
     },
+    circle: {
+      type: Boolean,
+      default: true,
+    },
     overlap: {
       type: Boolean,
       required: false,
@@ -92,6 +96,7 @@ export default {
         'va-badge--left': this.left,
         'va-badge--bottom': this.bottom,
         'va-badge--overlap': this.overlap,
+        'va-badge--circle': this.circle,
       }
     },
     badgeStyle () {
@@ -150,18 +155,25 @@ export default {
   white-space: nowrap;
   width: auto;
   height: auto;
+  min-width: $chip-font-size-sm * $chip-line-height-sm + $chip-border-outline * 2;
+
+  .va-badge--circle & {
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+  }
 
   .va-badge--dot & {
     height: $chip-padding-x-sm;
     width: $chip-padding-x-sm;
     line-height: 0;
     padding: 0;
+    min-width: auto;
   }
 
   .va-badge--empty & {
     height: ($chip-font-size-sm * $chip-line-height-sm);
     width: ($chip-font-size-sm * $chip-line-height-sm);
-    padding: 2px;
   }
 
   .va-badge--floating & {
@@ -221,6 +233,11 @@ export default {
     max-height: 0;
     line-height: 0;
     font-size: 0;
+  }
+
+  .va-badge--circle & {
+    overflow: visible;
+    text-align: center;
   }
 }
 

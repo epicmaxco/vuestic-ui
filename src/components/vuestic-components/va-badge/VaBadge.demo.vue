@@ -144,21 +144,22 @@
       Bottom: <va-toggle v-model="bottom"/>
       Overlap: <va-toggle v-model="overlap"/>
       Dot: <va-toggle v-model="dot"/>
+      Circle: <va-toggle v-model="circle"/>
     </VbCard>
     <VbCard title="floating, overlap and transitions">
-      <va-badge :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot">
+      <va-badge :circle="circle" :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot">
         Default
       </va-badge>
       &nbsp;&nbsp;&nbsp;
-      <va-badge :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot" color="info">
+      <va-badge :circle="circle" :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot" color="info">
         Info
       </va-badge>
       &nbsp;&nbsp;&nbsp;
-      <va-badge :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot" color="danger">
+      <va-badge :circle="circle" :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot" color="danger">
         Danger
       </va-badge>
       &nbsp;&nbsp;&nbsp;
-      <va-badge :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot" visibleEmpty>
+      <va-badge :circle="circle" :bottom="bottom" :left="left" :overlap="overlap" :label="badgeFloatingText" :dot="dot" visibleEmpty>
         <div style="width: 100px; height: 100px; border: 1px solid red">
           VisibleEmpty
           <br />
@@ -184,6 +185,7 @@ export default {
       bottom: false,
       overlap: false,
       dot: false,
+      circle: true,
     }
   },
 }
