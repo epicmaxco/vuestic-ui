@@ -152,33 +152,33 @@ export default {
 }
 
 .va-badge__badge {
-  transition: all 0.3s ease-in-out;
+  transition: $transition-secondary;
   display: inline-flex;
-  padding: $chip-padding-y-sm $chip-padding-x-sm;
+  padding: $badge-padding-y $badge-padding-x;
   color: $white;
-  border: solid $chip-border-outline;
-  border-radius: $chip-border-radius-sm;
-  font-size: $chip-font-size-sm;
+  border: solid $badge-border;
+  border-radius: $badge-border-radius;
+  font-size: $badge-font-size;
   font-weight: bold;
   font-family: $font-family-sans-serif;
-  line-height: $chip-line-height-sm;
-  letter-spacing: $chip-letter-spacing-sm;
+  line-height: $badge-line-height;
+  letter-spacing: $badge-letter-spacing;
   white-space: nowrap;
   width: auto;
   height: auto;
-  min-width: $chip-font-size-sm * $chip-line-height-sm + $chip-border-outline * 2;
+  min-width: $badge-font-size * $badge-line-height + $badge-border * 2;
 
   .va-badge--dot & {
-    height: $chip-padding-x-sm;
-    width: $chip-padding-x-sm;
+    height: $badge-padding-x;
+    width: $badge-padding-x;
     line-height: 0;
     /*padding: 0;*/
     min-width: auto;
   }
 
   .va-badge--empty & {
-    height: ($chip-font-size-sm * $chip-line-height-sm);
-    width: ($chip-font-size-sm * $chip-line-height-sm);
+    height: ($badge-font-size * $badge-line-height);
+    width: ($badge-font-size * $badge-line-height);
   }
 
   .va-badge--floating & {
@@ -223,9 +223,9 @@ export default {
 .va-badge__badge__content {
   margin: auto;
   text-transform: uppercase;
-  max-height: ($chip-font-size-sm * $chip-line-height-sm);
-  min-height: ($chip-font-size-sm * $chip-line-height-sm);
-  line-height: $chip-line-height-sm;
+  max-height: ($badge-font-size * $badge-line-height);
+  min-height: ($badge-font-size * $badge-line-height);
+  line-height: $badge-line-height;
   overflow: hidden;
 
   .va-badge--multiline & {
