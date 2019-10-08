@@ -45,7 +45,6 @@
         :option="option"
         :label="option.name"
       />
-      {{selectedOptionObject}}
     </VbCard>
   </VbDemo>
 </template>
