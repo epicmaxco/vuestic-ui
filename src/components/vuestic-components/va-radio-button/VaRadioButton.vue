@@ -1,5 +1,5 @@
 <template>
-  <div
+  <label
     class="va-radio-button"
     :class="computedClass"
     @click="onClick"
@@ -7,24 +7,17 @@
     @mouseout="focused = false"
     @blur="focused = false"
   >
-    <label class="va-radio-button__label">
-      <input
-        :checked="isActive" type="radio" class="va-radio-button__input"
-        :disabled="disabled"
-      />
-      <span class="va-radio-button__icon" :style="computedStyle">
-<!--          <span-->
-<!--            class="va-radio-button__icon-circle"-->
-<!--            :style="computedStyle"-->
-<!--          />-->
-      </span>
-      <span>
-        <slot name="label">
-          {{ computedLabel }}
-        </slot>
-      </span>
-    </label>
-  </div>
+    <input
+      :checked="isActive" type="radio" class="va-radio-button__input"
+      :disabled="disabled"
+    />
+    <span class="va-radio-button__icon"></span>
+    <span class="va-radio-button__text">
+      <slot name="label">
+        {{ computedLabel }}
+      </slot>
+    </span>
+  </label>
 </template>
 
 <script>
@@ -52,13 +45,6 @@ export default {
         'va-radio-button--disabled': this.disabled,
         'va-radio-button--on-focus': this.focused,
       }
-    },
-    computedStyle () {
-      if (this.isActive) {
-        const borderColor = `${this.$themes.primary} '!important'`
-        return { borderColor: borderColor }
-      }
-      return {}
     },
     focused: {
       set (isFocused) {
@@ -97,14 +83,6 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  /*justify-content: center;*/
-
-  &.active {
-    background-color: $lighter-green;
-  }
-}
-
-.va-radio-button__label {
   cursor: pointer;
   position: relative;
 }
@@ -116,11 +94,13 @@ export default {
 }
 
 .va-radio-button__input {
-  width: 1.375rem;
-  height: 1.375rem;
+  width: 0;
+  height: 0;
   position: absolute;
-  left: 0;
-  right: 0;
+  left: -100px;
+  top: -100px;
+  opacity: 0;
+  z-index: -1;
 }
 
 .va-radio-button__icon {
@@ -128,22 +108,42 @@ export default {
   align-items: center;
   width: 1.4rem;
   height: 1.4rem;
-  border-radius: 1.8rem;
-  border: $gray solid 0.15rem;
+  border-radius: 100%;
+  border: $gray solid 0.125rem;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    right: 0.25rem;
+    bottom: 0.25rem;
+    background-color: $brand-success;
+    border-radius: 100%;
+    opacity: 0;
+
+    .va-radio-button__input:checked + & {
+      opacity: 1
+    }
+  }
+
+  .va-radio-button__input:focus + & {
+    border-color: red;
+  }
+
+  .va-radio-button__input:checked + & {
+    border-color: $brand-success;
+  }
 
   .va-radio-button--disabled & {
     opacity: 0.4;
   }
 }
 
-.va-radio-button__icon-circle {
-  .va-radio-button--active & {
-    width: 0.625rem;
-    height: 0.625rem;
-    border-radius: 1rem;
-    border: solid 0.35rem;
-    margin-left: 0.1875rem;
-  }
+.va-radio-button__text {
+  display: inline-flex;
+  margin-left: 0.5rem;
 }
 
 </style>
