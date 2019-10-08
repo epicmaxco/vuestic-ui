@@ -98,15 +98,10 @@ export default {
     isFloating () {
       return this.$slots.default || this.dot
     },
-    isNumber () {
-      return !isNaN(Number(this.label))
-    },
     formattedLabel () {
-      if (this.isEmpty) {
-        return null
-      }
+      const isApproximateNumber = () => this.approximateNumber && this.label && !isNaN(Number(this.label))
 
-      if (this.approximateNumber && this.isNumber) {
+      if (isApproximateNumber()) {
         return approximateNumber(Number(this.label))
       }
 
@@ -185,7 +180,6 @@ export default {
     height: $badge-padding-x;
     width: $badge-padding-x;
     line-height: 0;
-    /*padding: 0;*/
     min-width: auto;
   }
 

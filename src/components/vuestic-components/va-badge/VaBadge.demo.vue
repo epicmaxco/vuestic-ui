@@ -20,7 +20,7 @@
       Transparent Slider
       <va-slider
         range
-        step="1"
+        step.number="1"
         v-model="transparentSlide"
       />
       Transparent: {{ transparentSlide }}%
@@ -60,7 +60,7 @@
           size
         </div>
       </va-badge>
-      <va-badge :textColor="textColor" :transparent="transparent"  :outline="outline"  :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" approximateNumber>
+      <va-badge :textColor="textColor" :transparent="transparent"  :outline="outline"  :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" approximateNumber>
         approximate number
       </va-badge>
     </VbCard>
