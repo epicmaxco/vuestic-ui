@@ -37,7 +37,7 @@
       />
       {{selectedOptionObject}}
     </VbCard>
-    <VbCard title="no @input" color="tomato">
+    <VbCard title="no @input">
       <va-radio-button
         v-for="(option, index) in options"
         :key="index"
