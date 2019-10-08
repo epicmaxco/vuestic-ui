@@ -62,7 +62,11 @@ export default {
       }
     },
     computedStyle () {
-      if (this.isActive) return { borderColor: this.$themes.primary + '!important' }
+      if (this.isActive) {
+        const borderColor = `${this.$themes.primary} '!important'`
+        return { borderColor: borderColor }
+      }
+      return {}
     },
     focused: {
       set (isFocused) {
