@@ -1,14 +1,15 @@
 <template>
-  <div class="demo-container">
-    <div class="demo-container__item">
+  <VbDemo>
+    <VbCard title="default">
       <va-radio-button
         v-for="(option, index) in options"
         :key="index"
         v-model="selectedOptionString"
         :option="option"
       />
-    </div>
-    <div class="demo-container__item">
+      {{ selectedOptionString }}
+    </VbCard>
+    <VbCard title="label">
       <va-radio-button
         v-for="(option, index) in options"
         :key="index"
@@ -16,8 +17,8 @@
         :option="option"
         :label="`((${option}))`"
       />
-    </div>
-    <div class="demo-container__item">
+    </VbCard>
+    <VbCard title="disabled">
       <va-radio-button
         v-for="(option, index) in options"
         :key="index"
@@ -25,12 +26,8 @@
         :option="option"
         disabled
       />
-    </div>
-    <div class="demo-container__item">
-      {{ selectedOptionString }}
-    </div>
-
-    <div class="demo-container__item">
+    </VbCard>
+    <VbCard title="object options">
       <va-radio-button
         v-for="option in objectOptions"
         :key="option.key"
@@ -39,8 +36,18 @@
         :label="option.name"
       />
       {{selectedOptionObject}}
-    </div>
-  </div>
+    </VbCard>
+    <VbCard title="no @input" color="tomato">
+      <va-radio-button
+        v-for="(option, index) in options"
+        :key="index"
+        :value="selectedOptionString"
+        :option="option"
+        :label="option.name"
+      />
+      {{selectedOptionObject}}
+    </VbCard>
+  </VbDemo>
 </template>
 
 <script>
