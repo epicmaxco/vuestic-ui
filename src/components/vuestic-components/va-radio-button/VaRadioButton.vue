@@ -105,62 +105,58 @@ export default {
   cursor: pointer;
   display: flex;
   flex-direction: row;
+}
 
-  &__icon {
-    display: flex;
-    align-items: center;
-    width: 1.4rem;
-    height: 1.4rem;
-    border-radius: 1.8rem;
-    border: $gray solid 0.15rem;
-    @at-root {
-      .va-radio-button.va-radio-button--disabled & {
-        opacity: 0.4;
-      }
+.va-radio-button__content {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .va-radio-button--on-focus & {
+    background-color: $light-gray;
+    transition: all, 0.6s, ease-in;
+    border-radius: 3rem;
+
+    &.active {
+      background-color: $lighter-green;
     }
   }
+}
 
-  &__icon-circle {
-    @at-root {
-      .va-radio-button.va-radio-button--active & {
-        width: 0.625rem;
-        height: 0.625rem;
-        border-radius: 1rem;
-        border: solid 0.35rem;
-        margin-left: 0.1875rem;
-      }
-    }
+.va-radio-button__input {
+  width: 1.375rem;
+  height: 1.375rem;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.va-radio-button__icon {
+  display: flex;
+  align-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 1.8rem;
+  border: $gray solid 0.15rem;
+
+  .va-radio-button--disabled & {
+    opacity: 0.4;
   }
+}
 
-  &__input {
-    width: 1.375rem;
-    height: 1.375rem;
-    position: absolute;
-    cursor: pointer;
-    opacity: 0;
-  }
+.va-radio-button__icon-circle {
+  .va-radio-button--active & {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 1rem;
+    border: solid 0.35rem;
+    margin-left: 0.1875rem;
+}
+}
 
-  #{&}__content {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    @at-root {
-      .va-radio-button--on-focus#{&} {
-        background-color: $light-gray;
-        transition: all, 0.6s, ease-in;
-        border-radius: 3rem;
-
-        &.active {
-          background-color: $lighter-green;
-        }
-      }
-    }
-  }
-
-  &__slot-container {
-    padding-top: $checkbox-label-margin-top;
-  }
+.va-radio-button__slot-container {
+  padding-top: $checkbox-label-margin-top;
 }
 </style>
