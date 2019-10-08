@@ -3,35 +3,27 @@
     class="va-radio-button"
     :class="computedClass"
     @click="onClick"
+    @focus="focused = true"
+    @mouseout="focused = false"
+    @blur="focused = false"
   >
-    <div
-      class="va-radio-button__content"
-      @mousedown="focused = false"
-      @mouseup="focused = false"
-      :class="{'active': isActive}"
-    >
+    <label class="va-radio-button__label">
       <input
-        @focus="focused = true"
-        @mouseout="focused = false"
-        @blur="focused = false"
         :checked="isActive" type="radio" class="va-radio-button__input"
         :disabled="disabled"
       />
-      <div
-        class="va-radio-button__icon"
-        :style="computedStyle"
-      >
-        <div
-          class="va-radio-button__icon-circle"
-          :style="computedStyle"
-        />
-      </div>
-    </div>
-    <div class="va-radio-button__slot-container">
-      <slot name="label">
-        {{ computedLabel }}
-      </slot>
-    </div>
+      <span class="va-radio-button__icon" :style="computedStyle">
+<!--          <span-->
+<!--            class="va-radio-button__icon-circle"-->
+<!--            :style="computedStyle"-->
+<!--          />-->
+      </span>
+      <span>
+        <slot name="label">
+          {{ computedLabel }}
+        </slot>
+      </span>
+    </label>
   </div>
 </template>
 
@@ -102,39 +94,37 @@ export default {
 @import "../../vuestic-sass/resources/resources";
 
 .va-radio-button {
-  cursor: pointer;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  /*justify-content: center;*/
+
+  &.active {
+    background-color: $lighter-green;
+  }
 }
 
-.va-radio-button__content {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.va-radio-button__label {
+  cursor: pointer;
+  position: relative;
+}
 
-  .va-radio-button--on-focus & {
-    background-color: $light-gray;
-    transition: all, 0.6s, ease-in;
-    border-radius: 3rem;
-
-    &.active {
-      background-color: $lighter-green;
-    }
-  }
+.va-radio-button--on-focus {
+  background-color: $light-gray;
+  transition: all, 0.6s, ease-in;
+  border-radius: 3rem;
 }
 
 .va-radio-button__input {
   width: 1.375rem;
   height: 1.375rem;
   position: absolute;
-  cursor: pointer;
-  opacity: 0;
+  left: 0;
+  right: 0;
 }
 
 .va-radio-button__icon {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   width: 1.4rem;
   height: 1.4rem;
@@ -153,10 +143,7 @@ export default {
     border-radius: 1rem;
     border: solid 0.35rem;
     margin-left: 0.1875rem;
-}
+  }
 }
 
-.va-radio-button__slot-container {
-  padding-top: $checkbox-label-margin-top;
-}
 </style>
