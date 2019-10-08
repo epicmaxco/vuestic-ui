@@ -67,7 +67,7 @@ export default {
       required: false,
     },
     transparent: {
-      type: [String, null],
+      type: [String, Number, null],
       default: null,
       required: false,
     },
@@ -140,7 +140,7 @@ export default {
 
       if (this.transparent !== null && this.transparent !== undefined) {
         // TODO: need to add lodash isNil
-        if (!this.transparent) {
+        if (this.transparent === '') {
           // if transparent is equal empty string
           computedStyles.opacity = 0.5
         } else {
