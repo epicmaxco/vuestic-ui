@@ -90,25 +90,27 @@
         </td>
         <td>
           <VbCard title="Transparent">
-            Empty dot: <va-badge dot transparent /><br />
-            Not empty: <va-badge label="not empty" transparent /><br />
+            Dot: <va-badge dot transparent /><br />
+            Default: <va-badge label="label" transparent /><br />
+            <br />
+            Slotted: <va-badge label="label" transparent>slotted</va-badge><br />
           </VbCard>
         </td>
       </tr>
       <tr>
         <td colspan="4">
-          <VbCard title="Approximate number:">
-            <va-badge :label="0" approximateNumber visibleEmpty>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="1" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="12" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="999" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="1234" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="12345" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="123456" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="1234567" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="12345678" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="123456789" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
-            <va-badge :label="12345678912345" approximateNumber>Statuses</va-badge>&nbsp;&nbsp;&nbsp;
+          <VbCard title="Approximate numbers">
+            <va-badge label="0" approximateNumber visibleEmpty>0</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="1" approximateNumber>1 sign</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="12" approximateNumber>2 sign</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="999" approximateNumber>3 sign</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="1234" approximateNumber>4 sign</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="12345" approximateNumber>5 sign</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="123456" approximateNumber>6 sign</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="1234567" approximateNumber>7 sign</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="12345678" approximateNumber>8 sign</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="123456789" approximateNumber>9 sign</va-badge>&nbsp;&nbsp;&nbsp;
+            <va-badge label="12345678912345" approximateNumber>14 sign</va-badge>&nbsp;&nbsp;&nbsp;
           </VbCard>
         </td>
       </tr>
