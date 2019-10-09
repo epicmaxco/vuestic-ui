@@ -1,8 +1,8 @@
 <template>
-  <VbCard>
+  <div>
     <template v-if="lastMessage">Last message: "{{ lastMessage }}"</template>
     <template v-else>No message were recieved</template>
-  </VbCard>
+  </div>
 </template>
 
 <script>

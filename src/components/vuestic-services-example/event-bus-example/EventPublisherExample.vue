@@ -1,8 +1,8 @@
 <template>
-    <VbCard>
-        <va-button v-on:click="$cast('MessageSent', 'Message from template')">Send message from template</va-button>
-        <va-button v-on:click="fireEvent">Send message from method</va-button>
-    </VbCard>
+  <div>
+    <va-button v-on:click="$cast('MessageSent', 'Message from template')">Send message from template</va-button>
+    <va-button v-on:click="fireEvent">Send message from method</va-button>
+  </div>
 </template>
 
 <script>

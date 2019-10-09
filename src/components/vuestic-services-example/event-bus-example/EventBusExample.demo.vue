@@ -1,7 +1,11 @@
 <template>
   <VbDemo>
-    <event-subscriber/>
-    <event-publisher/>
+    <VbCard>
+      <EventSubscriber/>
+    </VbCard>
+    <VbCard>
+      <EventPublisher/>
+    </VbCard>
   </VbDemo>
 </template>
 
