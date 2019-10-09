@@ -92,23 +92,31 @@
         </va-tab>
       </va-tabs>
     </VbCard>
+    <VbCard title="Tabs problem" style="outline: 2px solid red">
+      <va-tabs v-model="tabValue">
+        <va-tab
+          v-for="title in tabTitles"
+          :key="title"
+        >
+          <va-badge label="!">
+            {{title}}
+          </va-badge>
+        </va-tab>
+      </va-tabs>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaRadioButton from '../va-radio-button/VaRadioButton'
-import VaAdvancedColorPicker from '../va-color-picker/VaAdvancedColorPicker'
 import VaTabs from './VaTabs'
 import VaTab from './VaTab'
+import VaBadge from '../va-badge/VaBadge'
 import TabsExample from './__demo__/TabsExample'
 
 export default {
   components: {
     TabsExample,
-    VaAdvancedColorPicker,
-    VaRadioButton,
-    VaCheckbox,
+    VaBadge,
     VaTabs,
     VaTab,
   },
