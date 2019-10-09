@@ -5,23 +5,13 @@
         <td colspan="2">
           <VbCard title="Regular badges">
             <va-badge label="Paid" />
-            <va-badge label="Success" color="success" />
-            <va-badge label="Info" color="info" />
-            <va-badge label="Danger" color="danger" />
-            <va-badge label="Warning" color="warning" />
-            <va-badge label="gray" color="gray" />
-            <va-badge label="dark" color="dark" />
+            <va-badge label="Success theme color" color="success" />
           </VbCard>
         </td>
         <td colspan="2">
           <VbCard title="Text color">
             <va-badge label="Default" />
-            <va-badge label="Info" textColor="info" />
-            <va-badge label="Success" textColor="success" />
-            <va-badge label="Warning" textColor="warning" />
-            <va-badge label="Gray" textColor="gray" />
-            <va-badge label="Dark" textColor="dark" />
-            <va-badge label="Danger" textColor="danger" color="dark" />
+            <va-badge label="Dark theme color" textColor="dark" />
           </VbCard>
         </td>
       </tr>
@@ -71,11 +61,11 @@
       <tr>
         <td>
           <VbCard title="Overlap badges">
-          <va-badge overlap label="overlap">Regular</va-badge><br /><br />
-          <va-badge overlap label="overlap" bottom>Bottom</va-badge><br /><br />
-          <va-badge overlap label="overlap" left>Left</va-badge><br /><br />
-          <va-badge overlap label="overlap" bottom left>Bottom+Left</va-badge><br /><br />
-          <va-badge overlap label="1+"><span class="icon brandico brandico-facebook-rect"></span></va-badge><br /><br />
+            <va-badge overlap label="overlap">Regular</va-badge><br /><br />
+            <va-badge overlap label="overlap" bottom>Bottom</va-badge><br /><br />
+            <va-badge overlap label="overlap" left>Left</va-badge><br /><br />
+            <va-badge overlap label="overlap" bottom left>Bottom+Left</va-badge><br /><br />
+            <va-badge overlap label="1+"><span class="icon brandico brandico-facebook-rect"></span></va-badge><br /><br />
           </VbCard>
         </td>
         <td>
@@ -138,20 +128,38 @@
           </td>
           <td>
             <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty">Default</va-badge><br />
-
             <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty"><div style="width: 100px; height: 100px; border: 2px solid green">Custom<br />size</div></va-badge>
           </td>
         </tr>
       </table>
+    </VbCard>
+
+    <VbCard title="Interaction with components">
+      <va-button>
+        <va-badge label="10+">
+          Button
+        </va-badge>
+      </va-button>
+      <br />
+      <br />
+      <va-badge label="10+" overlap>
+        <va-card>
+          Overlap badge outside card
+        </va-card>
+      </va-badge>
+      <br />
+      <br />
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaBadge from './VaBadge'
+import VaButton from '../va-button/VaButton'
+import VaCard from '../va-card/VaCard'
 
 export default {
-  components: { VaBadge },
+  components: { VaBadge, VaButton, VaCard },
   data () {
     return {
       label: '1234',
@@ -161,6 +169,9 @@ export default {
       dot: false,
       transparent: false,
       visibleEmpty: false,
+
+      tabTitles: ['One', 'Two', 'Three'],
+      tabValue: 1,
     }
   },
 }
