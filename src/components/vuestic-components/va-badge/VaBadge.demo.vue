@@ -14,12 +14,13 @@
         </td>
         <td colspan="2">
           <VbCard title="Text color">
-            <va-badge label="Paid" />
-            <va-badge label="Info" colorText="info" />
-            <va-badge label="Danger" colorText="danger" />
-            <va-badge label="Warning" colorText="warning" />
-            <va-badge label="gray" colorText="gray" />
-            <va-badge label="dark" colorText="dark" />
+            <va-badge label="Default" />
+            <va-badge label="Info" textColor="info" />
+            <va-badge label="Danger" textColor="danger" />
+            <va-badge label="Warning" textColor="warning" />
+            <va-badge label="gray" textColor="gray" />
+            <va-badge label="dark" textColor="dark" />
+            <va-badge label="Success" textColor="success" color="dark" />
           </VbCard>
         </td>
       </tr>
@@ -118,7 +119,6 @@
         <tr>
           <td>
             Label: <input v-model="label"/><br />
-            TextColor: <input v-model="textColor"/><br />
             Dot: <input type="checkbox" v-model="dot"/><br />
             Transparent: <input type="checkbox" v-model="transparent"/><br />
             VisibleEmpty: <input type="checkbox" v-model="visibleEmpty"/><br />
@@ -127,9 +127,9 @@
             Overlap: <input type="checkbox" v-model="overlap"/><br />
           </td>
           <td>
-            <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor">Default</va-badge><br />
+            <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty">Default</va-badge><br />
 
-            <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor"><div style="width: 100px; height: 100px; border: 2px solid red">Custom<br />size</div></va-badge>
+            <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty"><div style="width: 100px; height: 100px; border: 2px solid red">Custom<br />size</div></va-badge>
           </td>
         </tr>
       </table>
@@ -151,7 +151,6 @@ export default {
       dot: false,
       transparent: false,
       visibleEmpty: false,
-      textColor: '#fff',
     }
   },
 }

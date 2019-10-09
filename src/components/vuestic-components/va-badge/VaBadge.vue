@@ -106,8 +106,10 @@ export default {
         backgroundColor: this.colorComputed,
       }
 
-      if (this.textColor) {
-        computedStyles.color = this.textColor
+      if (this.textColor && this.$themes) {
+        computedStyles.color = this.$themes[this.textColor]
+      } else {
+        computedStyles.color = 'white'
       }
 
       if (this.transparent) {
@@ -131,7 +133,6 @@ export default {
     transition: $transition-secondary;
     display: inline-flex;
     padding: $badge-padding-y $badge-padding-x;
-    color: $white;
     border: solid $badge-border;
     border-radius: $badge-border-radius;
     font-size: $badge-font-size;
