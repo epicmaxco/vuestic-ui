@@ -159,10 +159,11 @@ export default {
   min-width: $badge-font-size * $badge-line-height + $badge-border * 2;
 
   .va-badge--dot & {
-    height: $badge-padding-x;
-    width: $badge-padding-x;
+    height: $badge-dot-size;
+    width: $badge-dot-size;
     line-height: 0;
     min-width: auto;
+    border-radius: 100%;
   }
 
   .va-badge--empty & {
