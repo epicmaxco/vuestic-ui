@@ -24,7 +24,7 @@
             <va-badge label="rgb(227, 75, 74)" textColor="rgb(227, 75, 74)">RGB color</va-badge><br /><br />
             <va-badge label="rgba(227, 75, 74, 0.4)" textColor="rgba(227, 75, 74, 0.4)">RGBA color</va-badge><br /><br />
             <va-badge label="purple" textColor="purple">Text color</va-badge><br /><br />
-            <va-badge label="rgba(0,0,0,0.5)" textColor="rgba(0,0,0,0.5)"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+            <va-badge label="rgba(0,0,0,0.5)" textColor="rgba(0,0,0,0.5)"><span class="icon brandico brandico-facebook-rect"></span></va-badge><br /><br />
           </td>
         </tr>
         <tr>
@@ -34,7 +34,7 @@
             <va-badge label="Bottom" bottom>Float at</va-badge><br /><br />
             <va-badge label="Left" left>Float at</va-badge><br /><br />
             <va-badge label="Bottom+Left" bottom left>Float at</va-badge><br /><br />
-            <va-badge label="icon"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+            <va-badge label="icon"><span class="icon brandico brandico-facebook-rect"></span></va-badge><br /><br />
           </td>
         </tr>
         <tr>
@@ -46,8 +46,8 @@
             <va-badge label="I am Label">only label</va-badge><br /><br />
             <va-badge label="I am Badge" multiLine><template v-slot:badge>I am Badge</template>slotted badge</va-badge><br /><br />
             <va-badge label="I am Label" multiLine><template v-slot:badge>I am Badge</template>label + slotted badge</va-badge><br /><br />
-            <va-badge label="I am Label" multiLine><template v-slot:badge><va-icon name="icon brandico brandico-facebook mx-2"/></template>slotted icon</va-badge><br /><br />
-            <va-badge label="I am Label" multiLine><template v-slot:badge><va-icon name="icon brandico brandico-facebook mx-2"/></template><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+            <va-badge label="I am Label" multiLine><template v-slot:badge><span class="icon brandico brandico-facebook-rect"></span></template>slotted icon</va-badge><br /><br />
+            <va-badge label="I am Label" multiLine><template v-slot:badge><span class="icon brandico brandico-facebook-rect"></span></template><span class="icon brandico brandico-facebook-rect"></span></va-badge><br /><br />
           </td>
         </tr>
         <tr>
@@ -71,7 +71,7 @@
             <va-badge dot label="Bottom" bottom>Bottom</va-badge><br /><br />
             <va-badge dot label="Left" left>Left</va-badge><br /><br />
             <va-badge dot label="Bottom+Left" bottom left>Bottom+Left</va-badge><br /><br />
-            <va-badge dot label="Regular"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+            <va-badge dot label="Regular"><span class="icon brandico brandico-facebook-rect"/></va-badge><br /><br />
           </td>
         </tr>
         <tr>
@@ -84,12 +84,12 @@
             <va-badge overlap label="overlap" bottom>Bottom</va-badge><br /><br />
             <va-badge overlap label="overlap" left>Left</va-badge><br /><br />
             <va-badge overlap label="overlap" bottom left>Bottom+Left</va-badge><br /><br />
-            <va-badge overlap label="1+"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+            <va-badge overlap label="1+"><span class="icon brandico brandico-facebook-rect"></span></va-badge><br /><br />
             <va-badge dot overlap label="dot overlap">Regular</va-badge><br /><br />
             <va-badge dot overlap label="dot overlap" bottom>Bottom</va-badge><br /><br />
             <va-badge dot overlap label="dot overlap" left>Left</va-badge><br /><br />
             <va-badge dot overlap label="dot overlap" bottom left>Bottom+Left</va-badge><br /><br />
-            <va-badge dot overlap label="icon"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+            <va-badge dot overlap label="icon"><span class="icon brandico brandico-facebook-rect"></span></va-badge><br /><br />
           </td>
         </tr>
         <tr>
@@ -107,9 +107,9 @@
             <va-badge>
               <template v-slot:badge>
               <span>
-                <va-icon name="icon brandico brandico-facebook mx-2"/>
+                <span class="icon brandico brandico-facebook-rect"></span>
                 text
-                <va-icon name="icon brandico brandico-instagram mx-2"/>
+                <span class="icon brandico brandico-instagram"></span>
               </span>
               </template>
             </va-badge><br />
@@ -130,9 +130,9 @@
             <va-badge transparent>
               <template v-slot:badge>
               <span>
-                <va-icon name="icon brandico brandico-facebook mx-2"/>
+                <span class="icon brandico brandico-facebook-rect"></span>
                 text
-                <va-icon name="icon brandico brandico-instagram mx-2"/>
+                <span name="icon brandico brandico-instagram mx-2"></span>
               </span>
               </template>
             </va-badge><br />
@@ -153,20 +153,16 @@
       </table>
     </VbCard>
     <VbCard title="controls">
-      Label: <va-input v-model="label"/>
-      Dot: <va-toggle v-model="dot"/>
-      VisibleEmpty: <va-toggle v-model="visibleEmpty"/>
-      Transparent: <va-toggle v-model="transparent"/>
+      Label: <input v-model="label"/><br />
+      TextColor: <input v-model="textColor"/><br />
+      Dot: <input type="checkbox" v-model="dot"/><br />
+      Transparent: <input type="checkbox" v-model="transparent"/><br />
     </VbCard>
     <VbCard title="controls">
-      Left: <va-toggle v-model="left"/>
-      Bottom: <va-toggle v-model="bottom"/>
-      Overlap: <va-toggle v-model="overlap"/>
-    </VbCard>
-    <VbCard title="TextColor">
-      TextColor prop control
-      <va-advanced-color-picker v-model="textColor"/>
-      {{ textColor }}
+      VisibleEmpty: <input type="checkbox" v-model="visibleEmpty"/><br />
+      Left: <input type="checkbox" v-model="left"/><br />
+      Bottom: <input type="checkbox" v-model="bottom"/><br />
+      Overlap: <input type="checkbox" v-model="overlap"/><br />
     </VbCard>
     <VbCard title="Dynamic data badges">
       <va-badge label="Regular">Default</va-badge>
@@ -184,13 +180,9 @@
 
 <script>
 import VaBadge from './VaBadge'
-import VaInput from '../va-input/VaInput'
-import VaToggle from '../va-toggle/VaToggle'
-import VaIcon from '../va-icon/VaIcon'
-import VaAdvancedColorPicker from '../va-color-picker/VaAdvancedColorPicker'
 
 export default {
-  components: { VaBadge, VaInput, VaToggle, VaIcon, VaAdvancedColorPicker },
+  components: { VaBadge },
   data () {
     return {
       label: '1234',
