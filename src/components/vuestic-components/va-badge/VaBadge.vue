@@ -29,57 +29,46 @@ export default {
     color: {
       type: String,
       default: 'success',
-      required: false,
     },
     textColor: {
       type: String,
       default: '',
-      required: false,
     },
     label: {
       type: [String, Number],
       default: '',
-      required: false,
     },
     overlap: {
       type: Boolean,
       default: false,
-      required: false,
     },
     multiLine: {
       type: Boolean,
       default: false,
-      required: false,
     },
     visibleEmpty: {
       type: Boolean,
       default: false,
-      required: false,
     },
     dot: {
       type: Boolean,
       default: false,
-      required: false,
     },
     transparent: {
       type: Boolean,
       default: false,
-      required: false,
     },
     left: {
       type: Boolean,
       default: false,
-      required: false,
     },
     bottom: {
       type: Boolean,
       default: false,
-      required: false,
     },
     approximateNumber: {
       type: Boolean,
       default: false,
-      required: false,
     },
   },
   computed: {
