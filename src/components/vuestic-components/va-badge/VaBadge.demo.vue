@@ -129,11 +129,9 @@
             With Icon:
             <va-badge transparent>
               <template v-slot:badge>
-              <span>
                 <span class="icon brandico brandico-facebook-rect"></span>
                 text
                 <span name="icon brandico brandico-instagram mx-2"></span>
-              </span>
               </template>
             </va-badge><br />
           </td>
