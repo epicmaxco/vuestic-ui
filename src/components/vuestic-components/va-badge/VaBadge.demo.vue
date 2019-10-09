@@ -198,7 +198,7 @@ export default {
       bottom: false,
       overlap: false,
       dot: false,
-      transparent: true,
+      transparent: false,
       visibleEmpty: false,
       textColor: '#fff',
     }

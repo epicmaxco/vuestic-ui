@@ -62,8 +62,8 @@ export default {
       required: false,
     },
     transparent: {
-      type: [String, Number, Boolean, null],
-      default: null,
+      type: Boolean,
+      default: false,
       required: false,
     },
     left: {
@@ -123,16 +123,8 @@ export default {
         computedStyles.color = this.textColor
       }
 
-      if (this.transparent !== null && this.transparent !== undefined) {
-        // TODO: need to add lodash isNil
-        if (this.transparent === '') {
-          // if transparent is equal empty string
-          computedStyles.opacity = 0.5
-        } else {
-          const opacityNumber = Number(this.transparent)
-
-          computedStyles.opacity = isNaN(opacityNumber) ? 1 : opacityNumber
-        }
+      if (this.transparent) {
+        computedStyles.opacity = 0.5
       }
 
       return computedStyles
