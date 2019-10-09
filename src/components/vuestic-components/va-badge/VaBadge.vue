@@ -6,7 +6,6 @@
     <div
       class="va-badge__badge mr-2"
       :style="badgeStyle"
-      v-if="!isEmpty"
     >
       <div class="va-badge__badge__content">
         <slot name="badge">
@@ -143,19 +142,22 @@ export default {
     white-space: nowrap;
     width: auto;
     height: auto;
-    min-width: $badge-font-size * $badge-line-height + $badge-border * 2;
+    min-width: $badge-size;
+    min-height: $badge-size;
 
     .va-badge--dot & {
-      height: $badge-dot-size;
-      width: $badge-dot-size;
-      line-height: 0;
-      min-width: auto;
+      min-width: $badge-dot-size;
+      min-height: $badge-dot-size;
+      border-width: 0;
       border-radius: 100%;
     }
 
     .va-badge--empty & {
-      height: ($badge-font-size * $badge-line-height);
-      width: ($badge-font-size * $badge-line-height);
+      width: 0;
+      height: 0;
+      min-width: 0;
+      min-height: 0;
+      border-width: 0;
     }
 
     .va-badge--floating & {
@@ -199,10 +201,8 @@ export default {
     &__content {
       margin: auto;
       text-transform: uppercase;
-      max-height: ($badge-font-size * $badge-line-height);
-      min-height: ($badge-font-size * $badge-line-height);
-      line-height: $badge-line-height;
       overflow: hidden;
+      max-height: $badge-font-size * $badge-line-height;
 
       .va-badge--multiLine & {
         max-height: 100%;

@@ -212,6 +212,7 @@ $badge-border-radius: 0.75rem;
 $badge-padding-y: 0;
 $badge-padding-x: ($badge-font-size * $badge-line-height) / 2;
 $badge-dot-size: 0.5rem;
+$badge-size: ($badge-font-size * $badge-line-height)  + ($badge-border * 2);
 $badge-letter-spacing: $letter-spacing;
 
 
