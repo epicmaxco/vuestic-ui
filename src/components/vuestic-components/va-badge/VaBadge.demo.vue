@@ -1,5 +1,157 @@
 <template>
   <VbDemo>
+    <VbCard style="width: 100%">
+      <table style="width: 100%">
+        <tr>
+          <td>Regular badges:&nbsp;</td>
+          <td>
+            <va-badge label="Paid" />
+            <va-badge label="Info" color="info" />
+            <va-badge label="Danger" color="danger" />
+            <va-badge label="Warning" color="warning" />
+            <va-badge label="gray" color="gray" />
+            <va-badge label="dark" color="dark" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><br /></td>
+        </tr>
+        <tr>
+          <td>Colored text:</td>
+          <td>
+            <va-badge label="Regular">Float at</va-badge><br /><br />
+            <va-badge label="#05f" textColor="#05f">Hex color</va-badge><br /><br />
+            <va-badge label="rgb(227, 75, 74)" textColor="rgb(227, 75, 74)">RGB color</va-badge><br /><br />
+            <va-badge label="rgba(227, 75, 74, 0.4)" textColor="rgba(227, 75, 74, 0.4)">RGBA color</va-badge><br /><br />
+            <va-badge label="purple" textColor="purple">Text color</va-badge><br /><br />
+            <va-badge label="rgba(0,0,0,0.5)" textColor="rgba(0,0,0,0.5)"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>Floated badges:</td>
+          <td>
+            <va-badge label="Regular">Float at</va-badge><br /><br />
+            <va-badge label="Bottom" bottom>Float at</va-badge><br /><br />
+            <va-badge label="Left" left>Float at</va-badge><br /><br />
+            <va-badge label="Bottom+Left" bottom left>Float at</va-badge><br /><br />
+            <va-badge label="icon"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><br /></td>
+        </tr>
+        <tr>
+          <td>Sloated label:</td>
+          <td>
+            <va-badge label="I am Label">only label</va-badge><br /><br />
+            <va-badge label="I am Badge" multiline><template v-slot:badge>I am Badge</template>slotted badge</va-badge><br /><br />
+            <va-badge label="I am Label" multiline><template v-slot:badge>I am Badge</template>label + slotted badge</va-badge><br /><br />
+            <va-badge label="I am Label" multiline><template v-slot:badge><va-icon name="icon brandico brandico-facebook mx-2"/></template>slotted icon</va-badge><br /><br />
+            <va-badge label="I am Label" multiline><template v-slot:badge><va-icon name="icon brandico brandico-facebook mx-2"/></template><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><br /></td>
+        </tr>
+        <tr>
+          <td>MultiLine badges:&nbsp;&nbsp;</td>
+          <td>
+            <va-badge><template v-slot:badge>Multi<br />Line</template>without multiline prop</va-badge><br /><br />
+            <va-badge multiline><template v-slot:badge>Multi<br />Line</template>Multi line</va-badge><br /><br />
+            <va-badge multiline><template v-slot:badge>Multi<br />Line<br />more</template>Multi line</va-badge><br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><br /></td>
+        </tr>
+        <tr>
+          <td>Dotted badges:</td>
+          <td>
+            <va-badge dot label="Regular">Regular</va-badge><br /><br />
+            <va-badge dot label="Bottom" bottom>Bottom</va-badge><br /><br />
+            <va-badge dot label="Left" left>Left</va-badge><br /><br />
+            <va-badge dot label="Bottom+Left" bottom left>Bottom+Left</va-badge><br /><br />
+            <va-badge dot label="Regular"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><br /></td>
+        </tr>
+        <tr>
+          <td>Overlap badges:</td>
+          <td>
+            <va-badge overlap label="overlap">Regular</va-badge><br /><br />
+            <va-badge overlap label="overlap" bottom>Bottom</va-badge><br /><br />
+            <va-badge overlap label="overlap" left>Left</va-badge><br /><br />
+            <va-badge overlap label="overlap" bottom left>Bottom+Left</va-badge><br /><br />
+            <va-badge overlap label="1+"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+            <va-badge dot overlap label="dot overlap">Regular</va-badge><br /><br />
+            <va-badge dot overlap label="dot overlap" bottom>Bottom</va-badge><br /><br />
+            <va-badge dot overlap label="dot overlap" left>Left</va-badge><br /><br />
+            <va-badge dot overlap label="dot overlap" bottom left>Bottom+Left</va-badge><br /><br />
+            <va-badge dot overlap label="icon"><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><br /></td>
+        </tr>
+        <tr>
+          <td>VisibleEmpty:</td>
+          <td>
+            Empty: <va-badge /><br />
+            Empty dot: <va-badge dot /><br />
+            Empty with visibleEmpty prop: <va-badge visible-empty /><br />
+            Dot with visibleEmpty prop: <va-badge visible-empty dot /><br />
+            Not empty: <va-badge label="not empty" /><br />
+            With Icon:
+            <va-badge>
+              <template v-slot:badge>
+              <span>
+                <va-icon name="icon brandico brandico-facebook mx-2"/>
+                text
+                <va-icon name="icon brandico brandico-instagram mx-2"/>
+              </span>
+              </template>
+            </va-badge><br />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><br /></td>
+        </tr>
+        <tr>
+          <td>Transparent:</td>
+          <td>
+            Empty: <va-badge transparent /><br />
+            Empty dot: <va-badge dot transparent /><br />
+            Empty with visibleEmpty prop: <va-badge visible-empty transparent /><br />
+            Dot with visibleEmpty prop: <va-badge visible-empty dot transparent /><br />
+            Not empty: <va-badge label="not empty" transparent /><br />
+            With Icon:
+            <va-badge transparent>
+              <template v-slot:badge>
+              <span>
+                <va-icon name="icon brandico brandico-facebook mx-2"/>
+                text
+                <va-icon name="icon brandico brandico-instagram mx-2"/>
+              </span>
+              </template>
+            </va-badge><br />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><br /></td>
+        </tr>
+        <tr>
+          <td>Approximate number:</td>
+          <td>
+            <va-badge approximateNumber label="1025">approximate 1025</va-badge><br />
+            <va-badge approximateNumber label="1">approximate 1</va-badge><br />
+            <va-badge approximateNumber label="10">approximate 10</va-badge><br />
+            <va-badge approximateNumber label="10123123">approximate 10123123</va-badge><br />
+          </td>
+        </tr>
+      </table>
+    </VbCard>
     <VbCard title="controls">
       Label: <va-input v-model="label"/>
       Outline: <va-toggle v-model="outline"/>
@@ -10,20 +162,12 @@
       Left: <va-toggle v-model="left"/>
       Bottom: <va-toggle v-model="bottom"/>
       Overlap: <va-toggle v-model="overlap"/>
+      Transparent: <va-toggle v-model="transparent"/>
     </VbCard>
-    <VbCard title="controls">
+    <VbCard title="TextColor">
       TextColor prop control
       <va-advanced-color-picker v-model="textColor"/>
       {{ textColor }}
-    </VbCard>
-    <VbCard title="controls">
-      Transparent Slider
-      <va-slider
-        range
-        step.number="1"
-        v-model="transparentSlide"
-      />
-      Transparent: {{ transparentSlide }}%
     </VbCard>
     <VbCard title="Dynamic data badges">
       <va-badge label="Regular">Default</va-badge>
@@ -36,104 +180,6 @@
       <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor"><div style="width: 100px; height: 100px; border: 2px solid red">Custom<br />size</div></va-badge>
       <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" approximateNumber>approximate number</va-badge>
     </VbCard>
-    <VbCard title="Badge Types">
-      <va-badge label="Paid" />
-      <va-badge outline label="Paid" />
-    </VbCard>
-    <VbCard title="Badges Colors">
-      <va-badge label="Paid" />
-      <va-badge label="Info" color="info" />
-      <va-badge label="Danger" color="danger" />
-      <va-badge label="Warning" color="warning" />
-      <va-badge label="gray" color="gray" />
-      <va-badge label="dark" color="dark" />
-    </VbCard>
-    <VbCard title="Slotted badges">
-      <div>
-      <va-badge label="prop value" />
-      </div>
-      <div>
-      <va-badge>
-        <template v-slot:badge>
-          slotted value
-        </template>
-        Main text
-      </va-badge>
-      </div>
-      <div>
-      <va-badge label="prop value">
-        <template v-slot:badge>
-          prop and slotted values
-        </template>
-        Main text
-      </va-badge>
-      </div>
-      <div>
-      <va-badge label="A">
-        <template v-slot:badge>
-          A
-        </template>
-        Main text
-      </va-badge>
-      </div>
-    </VbCard>
-
-    <VbCard title="Multiline">
-      <div>
-        <va-badge label="One line" />
-      </div>
-      <div>
-        <va-badge>
-          Without multiline prop
-          <template v-slot:badge>
-            1 line of 3<br />
-            2 line of 3<br />
-            3 line of 3
-          </template>
-        </va-badge>
-      </div>
-      <div>
-        <va-badge multiline>
-          With multiline prop
-          <template v-slot:badge>
-            1 line of 3<br />
-            2 line of 3<br />
-            3 line of 3
-          </template>
-        </va-badge>
-      </div>
-    </VbCard>
-    <VbCard title="Color text">
-      <div><va-badge label="Default text color" /></div>
-      <div><va-badge text-color="#000" label="Black hex text color" /></div>
-      <div><va-badge text-color="rgb(14, 74, 196)" label="RGB text color" /></div>
-      <div><va-badge text-color="rgba(14, 74, 196, 0.6)" label="RGBA text color (0.6 opacity)" /></div>
-      <div><va-badge outline text-color="rgba(14, 74, 196, 0.2)" label="RGBA text color (0.2 opacity) outline" /></div>
-    </VbCard>
-    <VbCard title="Visible-empty">
-      <div>
-        Empty: <va-badge />
-      </div>
-      <div>
-        Empty with visible-empty prop: <va-badge visible-empty />
-      </div>
-      <div>
-        Not empty: <va-badge outline label="not empty" />
-      </div>
-      <div>
-        With Icon:
-        <va-badge>
-          <template v-slot:badge>
-              <span>
-                <va-icon name="icon brandico brandico-twitter mx-2"/>
-                text
-                <va-icon name="icon brandico brandico-instagram mx-2"/>
-              </span>
-          </template>
-        </va-badge>
-      </div>
-    </VbCard>
-
   </VbDemo>
 </template>
 
@@ -143,15 +189,9 @@ import VaInput from '../va-input/VaInput'
 import VaToggle from '../va-toggle/VaToggle'
 import VaIcon from '../va-icon/VaIcon'
 import VaAdvancedColorPicker from '../va-color-picker/VaAdvancedColorPicker'
-import VaSlider from '../va-slider/VaSlider'
 
 export default {
-  components: { VaBadge, VaInput, VaToggle, VaIcon, VaAdvancedColorPicker, VaSlider },
-  computed: {
-    transparent () {
-      return Number(this.transparentSlide) / 100 || 0
-    },
-  },
+  components: { VaBadge, VaInput, VaToggle, VaIcon, VaAdvancedColorPicker },
   data () {
     return {
       label: '1234',
@@ -160,7 +200,7 @@ export default {
       overlap: false,
       dot: false,
       outline: false,
-      transparentSlide: 100,
+      transparent: false,
       visibleEmpty: false,
       textColor: '#fff',
     }
