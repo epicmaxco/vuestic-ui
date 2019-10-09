@@ -9,7 +9,7 @@
     >
       <div class="va-badge__badge__content">
         <slot name="badge">
-          {{ formattedLabel  }}
+          {{ label  }}
         </slot>
       </div>
     </div>
@@ -19,7 +19,6 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import approximateNumber from 'approximate-number'
 
 export default {
   name: 'va-badge',
@@ -65,10 +64,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    approximateNumber: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
     isEmpty () {
@@ -80,13 +75,6 @@ export default {
     },
     isFloating () {
       return this.$slots.default || this.dot
-    },
-    formattedLabel () {
-      if (this.approximateNumber && this.label && !isNaN(Number(this.label))) {
-        return approximateNumber(Number(this.label))
-      }
-
-      return this.label
     },
     badgeClass () {
       return {

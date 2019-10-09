@@ -45,7 +45,6 @@ or
 * `dot` - Boolean - the prop will cause the badge as a simple point, without text
 * `bottom` - The bottom prop will place the badge as a subscript to the wrapped content. Can be used with left prop to achieve a bottom left position.
 * `left` - The left prop will place the badge to the left of the wrapped content. Can be used with bottom prop to achieve a bottom left position.
-* `approximateNumber` - the prop will cause value in the badge as an approximate number if a value is a number
            
 
           
