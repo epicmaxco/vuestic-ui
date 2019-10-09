@@ -105,8 +105,6 @@ export default {
         backgroundColor: this.colorComputed,
       }
 
-      console.log('asd', this.$themes, this.color)
-
       if (this.textColor && this.$themes) {
         computedStyles.color = this.$themes[this.textColor]
       } else {
