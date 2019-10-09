@@ -150,6 +150,23 @@
         </tr>
       </table>
     </VbCard>
+    <VbCard title="Approximate number:">
+      <VbDemo>
+        <VbCard title="0"><va-badge :label="0" approximateNumber visibleEmpty>Statuses</va-badge></VbCard>
+        <VbCard title="1 sign"><va-badge :label="1" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="2 signs"><va-badge :label="12" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="3 sign"><va-badge :label="999" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="4 sign"><va-badge :label="1234" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="5 sign"><va-badge :label="12345" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="6 sign"><va-badge :label="123456" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="7 sign"><va-badge :label="1234567" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="8 sign"><va-badge :label="12345678" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="9 sign"><va-badge :label="123456789" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="14 sign"><va-badge :label="12345678912345" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="Colored with theme"><va-badge :label="5" color="info" approximateNumber>Statuses</va-badge></VbCard>
+        <VbCard title="Colored with color"><va-badge :label="5" color="#25A626" approximateNumber>Statuses</va-badge></VbCard>
+      </VbDemo>
+    </VbCard>
     <VbCard title="controls">
       Label: <input v-model="label"/><br />
       TextColor: <input v-model="textColor"/><br />
