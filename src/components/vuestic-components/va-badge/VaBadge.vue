@@ -126,96 +126,96 @@ export default {
 .va-badge {
   display: inline-flex;
   position: relative;
-}
 
-.va-badge__badge {
-  transition: $transition-secondary;
-  display: inline-flex;
-  padding: $badge-padding-y $badge-padding-x;
-  color: $white;
-  border: solid $badge-border;
-  border-radius: $badge-border-radius;
-  font-size: $badge-font-size;
-  font-weight: bold;
-  font-family: $font-family-sans-serif;
-  line-height: $badge-line-height;
-  letter-spacing: $badge-letter-spacing;
-  white-space: nowrap;
-  width: auto;
-  height: auto;
-  min-width: $badge-font-size * $badge-line-height + $badge-border * 2;
+  &__badge {
+    transition: $transition-secondary;
+    display: inline-flex;
+    padding: $badge-padding-y $badge-padding-x;
+    color: $white;
+    border: solid $badge-border;
+    border-radius: $badge-border-radius;
+    font-size: $badge-font-size;
+    font-weight: bold;
+    font-family: $font-family-sans-serif;
+    line-height: $badge-line-height;
+    letter-spacing: $badge-letter-spacing;
+    white-space: nowrap;
+    width: auto;
+    height: auto;
+    min-width: $badge-font-size * $badge-line-height + $badge-border * 2;
 
-  .va-badge--dot & {
-    height: $badge-dot-size;
-    width: $badge-dot-size;
-    line-height: 0;
-    min-width: auto;
-    border-radius: 100%;
-  }
+    .va-badge--dot & {
+      height: $badge-dot-size;
+      width: $badge-dot-size;
+      line-height: 0;
+      min-width: auto;
+      border-radius: 100%;
+    }
 
-  .va-badge--empty & {
-    height: ($badge-font-size * $badge-line-height);
-    width: ($badge-font-size * $badge-line-height);
-  }
+    .va-badge--empty & {
+      height: ($badge-font-size * $badge-line-height);
+      width: ($badge-font-size * $badge-line-height);
+    }
 
-  .va-badge--floating & {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 100%;
-    padding: 0;
-    transform: translateX(0) translateY(-100%);
-  }
+    .va-badge--floating & {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 100%;
+      padding: 0;
+      transform: translateX(0) translateY(-100%);
+    }
 
-  .va-badge--overlap & {
-    margin-left: 0;
-    margin-right: 0;
-    transform: translateX(-50%) translateY(-50%);
-  }
+    .va-badge--overlap & {
+      margin-left: 0;
+      margin-right: 0;
+      transform: translateX(-50%) translateY(-50%);
+    }
 
-  .va-badge--left & {
-    left: 0;
-    transform: translateX(-100%) translateY(-100%);
-  }
+    .va-badge--left & {
+      left: 0;
+      transform: translateX(-100%) translateY(-100%);
+    }
 
-  .va-badge--left.va-badge--overlap & {
-    transform: translateX(-50%) translateY(-50%);
-  }
+    .va-badge--left.va-badge--overlap & {
+      transform: translateX(-50%) translateY(-50%);
+    }
 
-  .va-badge--bottom & {
-    top: 100%;
-    margin-top: 0;
-    transform: translateX(0) translateY(0);
-  }
+    .va-badge--bottom & {
+      top: 100%;
+      margin-top: 0;
+      transform: translateX(0) translateY(0);
+    }
 
-  .va-badge--left.va-badge--bottom & {
-    transform: translateX(-100%);
-  }
+    .va-badge--left.va-badge--bottom & {
+      transform: translateX(-100%);
+    }
 
-  .va-badge--bottom.va-badge--overlap & {
-    transform: translateX(-50%) translateY(-50%);
-  }
-}
+    .va-badge--bottom.va-badge--overlap & {
+      transform: translateX(-50%) translateY(-50%);
+    }
 
-.va-badge__badge__content {
-  margin: auto;
-  text-transform: uppercase;
-  max-height: ($badge-font-size * $badge-line-height);
-  min-height: ($badge-font-size * $badge-line-height);
-  line-height: $badge-line-height;
-  overflow: hidden;
+    &__content {
+      margin: auto;
+      text-transform: uppercase;
+      max-height: ($badge-font-size * $badge-line-height);
+      min-height: ($badge-font-size * $badge-line-height);
+      line-height: $badge-line-height;
+      overflow: hidden;
 
-  .va-badge--multiLine & {
-    max-height: 100%;
-    overflow: auto;
-  }
+      .va-badge--multiLine & {
+        max-height: 100%;
+        overflow: auto;
+      }
 
-  .va-badge--dot & {
-    display: none;
-  }
+      .va-badge--dot & {
+        display: none;
+      }
 
-  .va-badge--floating & {
-    align-items: center;
+      .va-badge--floating & {
+        align-items: center;
+      }
+    }
   }
 }
 
