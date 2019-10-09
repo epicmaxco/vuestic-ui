@@ -139,6 +139,7 @@ export default {
     font-family: $font-family-sans-serif;
     line-height: $badge-line-height;
     letter-spacing: $badge-letter-spacing;
+    justify-content: center;
     white-space: nowrap;
     width: auto;
     height: auto;
@@ -150,6 +151,7 @@ export default {
       min-height: $badge-dot-size;
       border-width: 0;
       border-radius: 100%;
+      padding: 0;
     }
 
     .va-badge--empty & {
@@ -160,12 +162,15 @@ export default {
       border-width: 0;
     }
 
+    .va-badge--multiLine & {
+      white-space: normal;
+    }
+
     .va-badge--floating & {
       position: absolute;
       z-index: 2;
       top: 0;
       left: 100%;
-      padding: 0;
       transform: translateX(0) translateY(-100%);
     }
 
@@ -199,7 +204,7 @@ export default {
     }
 
     &__content {
-      margin: auto;
+      margin: 0;
       text-transform: uppercase;
       overflow: hidden;
       max-height: $badge-font-size * $badge-line-height;

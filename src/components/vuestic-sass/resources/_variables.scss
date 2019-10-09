@@ -208,11 +208,11 @@ $btn-with-icon-content-padding-nrm: 0.5rem;
 $badge-border: 0.125rem;
 $badge-font-size: 0.625rem;
 $badge-line-height: 1.4;
-$badge-border-radius: 0.75rem;
+$badge-border-radius: 0.6rem;
 $badge-padding-y: 0;
-$badge-padding-x: ($badge-font-size * $badge-line-height) / 2;
+$badge-padding-x: 0.15rem;
 $badge-dot-size: 0.5rem;
-$badge-size: ($badge-font-size * $badge-line-height)  + ($badge-border * 2);
+$badge-size: ($badge-font-size * $badge-line-height) + ($badge-border * 2);
 $badge-letter-spacing: $letter-spacing;
 
 

@@ -37,10 +37,10 @@
         <td>
           <VbCard title="Slotted label">
             <va-badge label="I am Label">only label</va-badge><br /><br />
-            <va-badge label="I am Badge" multiLine><template v-slot:badge>I am Badge</template>slotted badge</va-badge><br /><br />
-            <va-badge label="I am Label" multiLine><template v-slot:badge>I am Badge</template>label + slotted badge</va-badge><br /><br />
-            <va-badge label="I am Label" multiLine><template v-slot:badge><span class="icon brandico brandico-facebook-rect"></span></template>slotted icon</va-badge><br /><br />
-            <va-badge label="I am Label" multiLine><template v-slot:badge><span class="icon brandico brandico-facebook-rect"></span></template><span class="icon brandico brandico-facebook-rect"></span></va-badge><br /><br />
+            <va-badge label="I am Badge"><template v-slot:badge>I am Badge</template>slotted badge</va-badge><br /><br />
+            <va-badge label="I am Label"><template v-slot:badge>I am Badge</template>label + slotted badge</va-badge><br /><br />
+            <va-badge label="I am Label"><template v-slot:badge><span class="icon brandico brandico-facebook-rect"></span></template>slotted icon</va-badge><br /><br />
+            <va-badge label="I am Label"><template v-slot:badge><span class="icon brandico brandico-facebook-rect"></span></template><span class="icon brandico brandico-facebook-rect"></span></va-badge><br /><br />
           </VbCard>
         </td>
         <td>
@@ -48,6 +48,13 @@
             <va-badge><template v-slot:badge>Multi<br />Line</template>without multiLine prop</va-badge><br /><br />
             <va-badge multiLine><template v-slot:badge>Multi<br />Line</template>Multi line</va-badge><br /><br />
             <va-badge multiLine><template v-slot:badge>Multi<br />Line<br />more</template>Multi line</va-badge><br /><br />
+            <div style="max-width: 500px; border: 2px solid red">
+              Regular non float badge
+              <va-badge
+                multiLine
+                label="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+              /><br /><br />
+            </div>
           </VbCard>
         </td>
         <td>
