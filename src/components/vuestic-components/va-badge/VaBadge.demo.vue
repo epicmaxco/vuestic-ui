@@ -163,8 +163,6 @@
         <VbCard title="8 sign"><va-badge :label="12345678" approximateNumber>Statuses</va-badge></VbCard>
         <VbCard title="9 sign"><va-badge :label="123456789" approximateNumber>Statuses</va-badge></VbCard>
         <VbCard title="14 sign"><va-badge :label="12345678912345" approximateNumber>Statuses</va-badge></VbCard>
-        <VbCard title="Colored with theme"><va-badge :label="5" color="info" approximateNumber>Statuses</va-badge></VbCard>
-        <VbCard title="Colored with color"><va-badge :label="5" color="#25A626" approximateNumber>Statuses</va-badge></VbCard>
       </VbDemo>
     </VbCard>
     <VbCard title="controls">
