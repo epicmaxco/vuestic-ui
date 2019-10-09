@@ -74,8 +74,7 @@
       </div>
     </VbCard>
     <VbCard title="These 2 badges share `info` theme">
-      <VaBadge color="info">Info badge</VaBadge>
-      <VaBadge outline color="info">Outlined info badge</VaBadge>
+      <va-badge color="info" label="Info badge"></va-badge>
     </VbCard>
     <VbCard title="Darken theme a bit">
       <button @click="darkenTheme()">Darken</button>

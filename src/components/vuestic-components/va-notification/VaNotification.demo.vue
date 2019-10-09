@@ -2,7 +2,7 @@
   <VbDemo>
     <VbCard title="Colorful Notification">
       <va-notification>
-        <va-badge label="Paid"  />
+        <va-badge color="success" label="Paid"  />
         You successfully read this important alert message.
       </va-notification>
       <va-notification color="info">
@@ -18,11 +18,11 @@
         Change a few things up and try submitting again.
       </va-notification>
       <va-notification color="gray">
-        <va-badge color="gray" label="Processing"  />
+        <va-badge color="gray" label="Processing" />
         Better check yourself, you're not looking too good.
       </va-notification>
       <va-notification color="dark">
-        <va-badge color="dark" label="New Label"  />
+        <va-badge color="dark" label="New Label" />
         Change a few things up and try submitting again.
       </va-notification>
     </VbCard>
@@ -32,13 +32,13 @@
         v-model="isCloseableNotificationVisible"
       />
       <va-notification v-model="isCloseableNotificationVisible" closeable>
-        <va-badge> Paid</va-badge>
+        <va-badge color="success">Paid</va-badge>
         You successfully read this important alert message.
       </va-notification>
     </VbCard>
     <VbCard title="Long" style="width: 300px">
       <va-notification v-model="isCloseableNotificationVisible" closeable>
-        <va-badge label="Paid"  />
+        <va-badge color="success" label="Paid" />
         You successfully read this important alert message. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long.
       </va-notification>
     </VbCard>

@@ -5,6 +5,7 @@
         <td colspan="2">
           <VbCard title="Regular badges">
             <va-badge label="Paid" />
+            <va-badge label="Success" color="success" />
             <va-badge label="Info" color="info" />
             <va-badge label="Danger" color="danger" />
             <va-badge label="Warning" color="warning" />
@@ -16,11 +17,11 @@
           <VbCard title="Text color">
             <va-badge label="Default" />
             <va-badge label="Info" textColor="info" />
-            <va-badge label="Danger" textColor="danger" />
+            <va-badge label="Success" textColor="success" />
             <va-badge label="Warning" textColor="warning" />
-            <va-badge label="gray" textColor="gray" />
-            <va-badge label="dark" textColor="dark" />
-            <va-badge label="Success" textColor="success" color="dark" />
+            <va-badge label="Gray" textColor="gray" />
+            <va-badge label="Dark" textColor="dark" />
+            <va-badge label="Danger" textColor="danger" color="dark" />
           </VbCard>
         </td>
       </tr>
@@ -48,7 +49,7 @@
             <va-badge><template v-slot:badge>Multi<br />Line</template>without multiLine prop</va-badge><br /><br />
             <va-badge multiLine><template v-slot:badge>Multi<br />Line</template>Multi line</va-badge><br /><br />
             <va-badge multiLine><template v-slot:badge>Multi<br />Line<br />more</template>Multi line</va-badge><br /><br />
-            <div style="max-width: 500px; border: 2px solid red">
+            <div style="max-width: 500px; border: 2px solid green">
               Regular non float badge
               <va-badge
                 multiLine
@@ -100,7 +101,7 @@
             Dot: <va-badge dot transparent /><br />
             Default: <va-badge label="label" transparent /><br />
             <br />
-            Slotted: <va-badge label="label" transparent>slotted</va-badge><br />
+            Slotted: <va-badge label="label" transparent>content</va-badge><br />
           </VbCard>
         </td>
       </tr>
@@ -138,7 +139,7 @@
           <td>
             <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty">Default</va-badge><br />
 
-            <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty"><div style="width: 100px; height: 100px; border: 2px solid red">Custom<br />size</div></va-badge>
+            <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty"><div style="width: 100px; height: 100px; border: 2px solid green">Custom<br />size</div></va-badge>
           </td>
         </tr>
       </table>

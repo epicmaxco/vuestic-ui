@@ -27,7 +27,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'success',
+      default: 'danger',
     },
     textColor: {
       type: String,
@@ -105,6 +105,8 @@ export default {
         backgroundColor: this.colorComputed,
       }
 
+      console.log('asd', this.$themes, this.color)
+
       if (this.textColor && this.$themes) {
         computedStyles.color = this.$themes[this.textColor]
       } else {
@@ -172,6 +174,7 @@ export default {
       top: 0;
       left: 100%;
       transform: translateX(0) translateY(-100%);
+      padding: $badge-padding-y 0.15rem;
     }
 
     .va-badge--overlap & {
