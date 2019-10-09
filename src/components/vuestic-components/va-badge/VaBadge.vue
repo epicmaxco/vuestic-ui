@@ -83,9 +83,7 @@ export default {
       return this.$slots.default || this.dot
     },
     formattedLabel () {
-      const isApproximateNumber = () => this.approximateNumber && this.label && !isNaN(Number(this.label))
-
-      if (isApproximateNumber()) {
+      if (this.approximateNumber && this.label && !isNaN(Number(this.label))) {
         return approximateNumber(Number(this.label))
       }
 
