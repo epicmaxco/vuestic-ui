@@ -44,10 +44,10 @@
           <td>Sloated label:</td>
           <td>
             <va-badge label="I am Label">only label</va-badge><br /><br />
-            <va-badge label="I am Badge" multiline><template v-slot:badge>I am Badge</template>slotted badge</va-badge><br /><br />
-            <va-badge label="I am Label" multiline><template v-slot:badge>I am Badge</template>label + slotted badge</va-badge><br /><br />
-            <va-badge label="I am Label" multiline><template v-slot:badge><va-icon name="icon brandico brandico-facebook mx-2"/></template>slotted icon</va-badge><br /><br />
-            <va-badge label="I am Label" multiline><template v-slot:badge><va-icon name="icon brandico brandico-facebook mx-2"/></template><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
+            <va-badge label="I am Badge" multiLine><template v-slot:badge>I am Badge</template>slotted badge</va-badge><br /><br />
+            <va-badge label="I am Label" multiLine><template v-slot:badge>I am Badge</template>label + slotted badge</va-badge><br /><br />
+            <va-badge label="I am Label" multiLine><template v-slot:badge><va-icon name="icon brandico brandico-facebook mx-2"/></template>slotted icon</va-badge><br /><br />
+            <va-badge label="I am Label" multiLine><template v-slot:badge><va-icon name="icon brandico brandico-facebook mx-2"/></template><va-icon name="icon brandico brandico-facebook mx-2"/></va-badge><br /><br />
           </td>
         </tr>
         <tr>
@@ -56,9 +56,9 @@
         <tr>
           <td>MultiLine badges:&nbsp;&nbsp;</td>
           <td>
-            <va-badge><template v-slot:badge>Multi<br />Line</template>without multiline prop</va-badge><br /><br />
-            <va-badge multiline><template v-slot:badge>Multi<br />Line</template>Multi line</va-badge><br /><br />
-            <va-badge multiline><template v-slot:badge>Multi<br />Line<br />more</template>Multi line</va-badge><br /><br />
+            <va-badge><template v-slot:badge>Multi<br />Line</template>without multiLine prop</va-badge><br /><br />
+            <va-badge multiLine><template v-slot:badge>Multi<br />Line</template>Multi line</va-badge><br /><br />
+            <va-badge multiLine><template v-slot:badge>Multi<br />Line<br />more</template>Multi line</va-badge><br /><br />
           </td>
         </tr>
         <tr>

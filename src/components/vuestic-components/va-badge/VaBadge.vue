@@ -46,7 +46,7 @@ export default {
       default: false,
       required: false,
     },
-    multiline: {
+    multiLine: {
       type: Boolean,
       default: false,
       required: false,
@@ -106,7 +106,7 @@ export default {
       return {
         'va-badge--empty': this.isEmpty,
         'va-badge--dot': this.dot,
-        'va-badge--multiline': this.multiline,
+        'va-badge--multiLine': this.multiLine,
         'va-badge--floating': this.isFloating,
         'va-badge--left': this.left,
         'va-badge--bottom': this.bottom,
@@ -217,7 +217,7 @@ export default {
   line-height: $badge-line-height;
   overflow: hidden;
 
-  .va-badge--multiline & {
+  .va-badge--multiLine & {
     max-height: 100%;
     overflow: auto;
   }
