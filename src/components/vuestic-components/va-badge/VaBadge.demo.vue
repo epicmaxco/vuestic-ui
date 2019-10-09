@@ -100,8 +100,8 @@
           <td>
             Empty: <va-badge /><br />
             Empty dot: <va-badge dot /><br />
-            Empty with visibleEmpty prop: <va-badge visible-empty /><br />
-            Dot with visibleEmpty prop: <va-badge visible-empty dot /><br />
+            Empty with visibleEmpty prop: <va-badge visibleEmpty /><br />
+            Dot with visibleEmpty prop: <va-badge visibleEmpty dot /><br />
             Not empty: <va-badge label="not empty" /><br />
             With Icon:
             <va-badge>
@@ -123,8 +123,8 @@
           <td>
             Empty: <va-badge transparent /><br />
             Empty dot: <va-badge dot transparent /><br />
-            Empty with visibleEmpty prop: <va-badge visible-empty transparent /><br />
-            Dot with visibleEmpty prop: <va-badge visible-empty dot transparent /><br />
+            Empty with visibleEmpty prop: <va-badge visibleEmpty transparent /><br />
+            Dot with visibleEmpty prop: <va-badge visibleEmpty dot transparent /><br />
             Not empty: <va-badge label="not empty" transparent /><br />
             With Icon:
             <va-badge transparent>
