@@ -26,11 +26,6 @@ export default {
   name: 'va-badge',
   mixins: [ColorThemeMixin],
   props: {
-    outline: {
-      type: Boolean,
-      default: false,
-      required: false,
-    },
     color: {
       type: String,
       default: 'success',
@@ -67,7 +62,7 @@ export default {
       required: false,
     },
     transparent: {
-      type: [String, Number, null],
+      type: [String, Number, Boolean, null],
       default: null,
       required: false,
     },
@@ -122,11 +117,6 @@ export default {
       const computedStyles = {
         borderColor: this.colorComputed,
         backgroundColor: this.colorComputed,
-      }
-
-      if (this.outline) {
-        computedStyles.color = this.colorComputed
-        computedStyles.backgroundColor = 'transparent'
       }
 
       if (this.textColor) {

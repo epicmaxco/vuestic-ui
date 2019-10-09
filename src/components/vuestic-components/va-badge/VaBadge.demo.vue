@@ -154,15 +154,14 @@
     </VbCard>
     <VbCard title="controls">
       Label: <va-input v-model="label"/>
-      Outline: <va-toggle v-model="outline"/>
       Dot: <va-toggle v-model="dot"/>
       VisibleEmpty: <va-toggle v-model="visibleEmpty"/>
+      Transparent: <va-toggle v-model="transparent"/>
     </VbCard>
     <VbCard title="controls">
       Left: <va-toggle v-model="left"/>
       Bottom: <va-toggle v-model="bottom"/>
       Overlap: <va-toggle v-model="overlap"/>
-      Transparent: <va-toggle v-model="transparent"/>
     </VbCard>
     <VbCard title="TextColor">
       TextColor prop control
@@ -171,14 +170,14 @@
     </VbCard>
     <VbCard title="Dynamic data badges">
       <va-badge label="Regular">Default</va-badge>
-      <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" >Default</va-badge>&nbsp;&nbsp;&nbsp;
-      <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="info">Info</va-badge>&nbsp;&nbsp;&nbsp;
-      <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="danger">Danger</va-badge>&nbsp;&nbsp;&nbsp;
-      <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="warning">Warning</va-badge>&nbsp;&nbsp;&nbsp;
-      <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="gray">Gray</va-badge>&nbsp;&nbsp;&nbsp;
-      <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="dark">Dark</va-badge>&nbsp;&nbsp;&nbsp;
-      <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor"><div style="width: 100px; height: 100px; border: 2px solid red">Custom<br />size</div></va-badge>
-      <va-badge :transparent="transparent" :outline="outline" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" approximateNumber>approximate number</va-badge>
+      <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" >Default</va-badge>&nbsp;&nbsp;&nbsp;
+      <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="info">Info</va-badge>&nbsp;&nbsp;&nbsp;
+      <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="danger">Danger</va-badge>&nbsp;&nbsp;&nbsp;
+      <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="warning">Warning</va-badge>&nbsp;&nbsp;&nbsp;
+      <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="gray">Gray</va-badge>&nbsp;&nbsp;&nbsp;
+      <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" color="dark">Dark</va-badge>&nbsp;&nbsp;&nbsp;
+      <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor"><div style="width: 100px; height: 100px; border: 2px solid red">Custom<br />size</div></va-badge>
+      <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty" :textColor="textColor" approximateNumber>approximate number</va-badge>
     </VbCard>
   </VbDemo>
 </template>
@@ -199,8 +198,7 @@ export default {
       bottom: false,
       overlap: false,
       dot: false,
-      outline: false,
-      transparent: false,
+      transparent: true,
       visibleEmpty: false,
       textColor: '#fff',
     }
