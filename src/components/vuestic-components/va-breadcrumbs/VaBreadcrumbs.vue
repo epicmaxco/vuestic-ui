@@ -1,20 +1,34 @@
 <template>
-  <div class="va-breadcrumbs" :class="computedClass">
-    <span v-for="(item) in items" :key="item" class="va-breadcrumbs__item">
-      <span class="va-breadcrumbs__item__text">{{item}}</span>
-      <span class="va-breadcrumbs__item__separator">/</span>
+  <div class="va-breadcrumbs" :class="computedClass" >
+    <span v-for="(item, index) in items" :key="item" class="va-breadcrumbs__item">
+      <span class="va-breadcrumbs__item__text" :style="(index === (items.length - 1)) ? activeStyles : breadcrumbStyles">{{item}}</span>
+      <span class="va-breadcrumbs__item__separator" :style="separatorStyles">/</span>
     </span>
   </div>
 </template>
 
 <script>
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+
 export default {
   name: 'va-breadcrumbs',
+  mixins: [ColorThemeMixin],
   props: {
     align: {
       type: String,
       default: 'left',
-      required: false,
+    },
+    color: {
+      type: String,
+      default: 'primary',
+    },
+    separatorColor: {
+      type: String,
+      default: 'gray',
+    },
+    activeColor: {
+      type: String,
+      default: 'gray',
     },
   },
   data () {
@@ -30,6 +44,21 @@ export default {
         'va-breadcrumbs--center': this.align === 'center',
         'va-breadcrumbs--between': this.align === 'between',
         'va-breadcrumbs--around': this.align === 'around',
+      }
+    },
+    separatorStyles () {
+      return {
+        color: this.$themes[this.separatorColor],
+      }
+    },
+    breadcrumbStyles () {
+      return {
+        color: this.$themes[this.color],
+      }
+    },
+    activeStyles () {
+      return {
+        color: this.$themes[this.activeColor],
       }
     },
   },
