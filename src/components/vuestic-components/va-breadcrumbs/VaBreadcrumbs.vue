@@ -1,20 +1,91 @@
 <template>
-  <div class="va-breadcrumbs" :class="computedClass" >
-    <span v-for="(item, index) in items" :key="item" class="va-breadcrumbs__item">
-      <span class="va-breadcrumbs__item__text" :style="(index === (items.length - 1)) ? activeStyles : breadcrumbStyles">{{item}}</span>
-      <span class="va-breadcrumbs__item__separator" :style="separatorStyles">
-        <slot name="separator">{{separator}}</slot>
-      </span>
-    </span>
-  </div>
+  <va-breadcrumbs-provider
+    class="va-breadcrumbs"
+    :class="computedClass"
+    :separator="separator"
+    :color="color"
+    :activeColor="activeColor"
+    :separatorColor="separatorColor"
+  >
+    <slot />
+    <template v-slot:separator>
+      <slot name="separator">{{separator}}</slot>
+    </template>
+  </va-breadcrumbs-provider>
 </template>
 
 <script>
+import Vue from 'vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+
+const vaBreadcrumbsProvider = Vue.component('va-breadcrumbs-provider', {
+  mixins: [ColorThemeMixin],
+  props: {
+    color: {
+      type: String,
+      default: 'primary',
+    },
+    separatorColor: {
+      type: String,
+      default: 'gray',
+    },
+    activeColor: {
+      type: String,
+      default: 'gray',
+    },
+    separator: {
+      type: String,
+      default: '/',
+    },
+  },
+  render: function (createElement) {
+    const childNodes = this.$slots.default || []
+    const childNodesLength = childNodes.length
+    const separatorNode = this.$slots.separator
+    const children = []
+
+    const mkSeparatorComponent = () => createElement(
+      'span',
+      {
+        attrs: {
+          class: 'va-breadcrumbs__separator',
+        },
+        style: {
+          color: this.$themes[this.separatorColor],
+        },
+      },
+      separatorNode
+    )
+
+    const isLastIndexChildNodes = (index) => index === childNodesLength - 1
+
+    const mkChildComponent = (child, index) => createElement('div', {
+      style: {
+        color: (this.activeColor && isLastIndexChildNodes(index)) ? this.$themes[this.activeColor] : this.$themes[this.color],
+      },
+      props: { disabled: true },
+    }, [ child ])
+
+    if (childNodesLength) {
+      childNodes.forEach((child, index) => {
+        children.push(mkChildComponent(child, index))
+
+        if (!isLastIndexChildNodes(index)) {
+          children.push(mkSeparatorComponent())
+        }
+      })
+    }
+
+    return createElement('div', children)
+  },
+})
 
 export default {
   name: 'va-breadcrumbs',
   mixins: [ColorThemeMixin],
+  components: {
+    vaBreadcrumbsProvider,
+  },
   props: {
     align: {
       type: String,
@@ -37,11 +108,6 @@ export default {
       default: '/',
     },
   },
-  data () {
-    return {
-      items: [ 'One', 'Two', 'Three' ],
-    }
-  },
   computed: {
     computedClass () {
       return {
@@ -50,21 +116,6 @@ export default {
         'va-breadcrumbs--center': this.align === 'center',
         'va-breadcrumbs--between': this.align === 'between',
         'va-breadcrumbs--around': this.align === 'around',
-      }
-    },
-    separatorStyles () {
-      return {
-        color: this.$themes[this.separatorColor],
-      }
-    },
-    breadcrumbStyles () {
-      return {
-        color: this.$themes[this.color],
-      }
-    },
-    activeStyles () {
-      return {
-        color: this.$themes[this.activeColor],
       }
     },
   },
@@ -88,23 +139,19 @@ export default {
   &.va-breadcrumbs--center {
     justify-content: center;
   }
-}
 
-.va-breadcrumbs__item {
-  display: inline-flex;
-}
-
-.va-breadcrumbs__item__separator {
-  padding: 0 0.5rem;
-  display: inline-flex;
-
-  .va-breadcrumbs__item:last-child & {
-    display: none;
+  &.va-breadcrumbs--between {
+    justify-content: space-between;
   }
-}
 
-.va-breadcrumbs__item__text {
-  display: inline-flex;
+  &.va-breadcrumbs--around {
+    justify-content: space-around;
+  }
+
+  &__separator {
+    padding: 0 0.5rem;
+    display: inline-flex;
+  }
 }
 
 </style>
