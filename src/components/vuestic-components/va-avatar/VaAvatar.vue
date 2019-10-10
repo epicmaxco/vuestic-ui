@@ -1,8 +1,8 @@
 <template>
-  <div class="va-avatar" ref="avatar" :style="computedStyle" :class="computedClass">
+  <div class="va-avatar" ref="avatar" :style="computedStyle">
     <va-icon v-if="icon" :name="icon"  />
     <img v-else-if="src" :src="src" />
-    <span v-else><slot/></span>
+    <slot />
   </div>
 </template>
 
@@ -63,43 +63,26 @@ export default {
         height: this.getPropSize('height'),
       }
     },
-    computedClass () {
-      return {
-        'va-avatar-portrait': this.portrait,
-      }
-    },
   },
 }
 </script>
 
 <style lang="scss">
 .va-avatar {
-  display: flex;
-  position: relative;
-  overflow: hidden;
   align-items: center;
+  display: inline-flex;
   justify-content: center;
+  line-height: normal;
+  position: relative;
   text-align: center;
+  vertical-align: middle;
 
-  img {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    height: 100%;
-    width: auto;
-    -webkit-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
-  }
-
-  span, i, img {
-    line-height: 100%;
+  img, svg {
+    border-radius: inherit;
+    display: inline-flex;
+    height: inherit;
+    width: inherit;
     margin: auto;
-  }
-
-  &-portrait img {
-    width: 100%;
-    height: auto;
   }
 }
 </style>

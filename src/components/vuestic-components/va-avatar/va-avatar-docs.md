@@ -4,11 +4,10 @@
 # props
 * `color` - String - hex color string
 * `textColor` - String - hex color string
-* `fontSize` - String - font size in pixels
+* `fontSize` - String (default - 60% from size) - font size in pixels
 * `square` - Boolean (default: false) - border radius disabled
 * `icon` - String - icon name should be passed
 * `src` - String - path to image
-* `portrait` - Boolean - use for better image centering
 * `size` - String|Number - small|medium|large as string value or value in px e.g. '20px' or 20
 
 # Usage
@@ -49,12 +48,7 @@
 
 ```html
   <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"></va-avatar>
-  <!-- for squre or vertical images-->
   <va-avatar>
-    <img src="https://randomuser.me/api/portraits/women/5.jpg" alt="woman">
-  </va-avatar>
-  <!-- use portrait prop for horizontal images-->
-  <va-avatar portrait>
     <img src="https://randomuser.me/api/portraits/women/5.jpg" alt="woman">
   </va-avatar>
 ```
