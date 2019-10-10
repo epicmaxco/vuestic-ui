@@ -40,66 +40,19 @@ export default {
 
 <style lang="scss">
   @import "../../vuestic-sass/resources/resources";
-  .va-topbar {
-    height: $sidebar-viewport-height;
-    left: 0;
-    transition: all .3s ease;
-    overflow-y: auto;
 
-    width: 100%;
-    position: relative;
-    top: auto;
-    min-height: 4rem;
+  .va-topbar {
+    display: flex;
+    justify-content: center;
 
     &__menu {
-      max-height: 100%;
-      list-style: none;
-      padding-left: 0;
-
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      max-width: 90%;
-      width: 100%;
-      height: 100%;
-      min-height: 4rem;
-      margin: 0 auto;
-    }
+      flex-flow: row wrap;
+      justify-content: space-around;
+      flex: 1 1 auto;
 
-    .va-topbar-link__content__title {
-      opacity: 1;
-    }
-
-    & + .content-wrap {
-      margin-left: 0;
-      padding-left: 2.5rem;
-      padding-right: 2.5rem;
-    }
-
-    @include media-breakpoint-down(sm) {
-      top: $sidebar-mobile-top;
-      .va-topbar__menu {
-        max-width: 100%;
-        padding: 0 1rem;
-      }
-    }
-
-    &--minimized {
-      left: 0;
-      .va-topbar-link-group {
-        .va-topbar-link__content {
-          padding-right: 0;
-        }
-      }
-
-      .va-topbar-link__content__title {
-        display: none;
-        opacity: 0;
-      }
-
-      & + .content-wrap {
-        margin-left: $sidebar-width--hidden !important;
+      @include media-breakpoint-down(sm) {
+        max-width: 90%;
       }
     }
   }
