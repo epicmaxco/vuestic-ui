@@ -49,6 +49,7 @@ export default {
       display: flex;
       flex-flow: row wrap;
       justify-content: space-around;
+      flex: 1 1 auto;
 
       @include media-breakpoint-down(sm) {
         max-width: 90%;
