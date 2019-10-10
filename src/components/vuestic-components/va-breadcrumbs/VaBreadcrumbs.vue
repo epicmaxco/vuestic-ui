@@ -2,7 +2,9 @@
   <div class="va-breadcrumbs" :class="computedClass" >
     <span v-for="(item, index) in items" :key="item" class="va-breadcrumbs__item">
       <span class="va-breadcrumbs__item__text" :style="(index === (items.length - 1)) ? activeStyles : breadcrumbStyles">{{item}}</span>
-      <span class="va-breadcrumbs__item__separator" :style="separatorStyles">/</span>
+      <span class="va-breadcrumbs__item__separator" :style="separatorStyles">
+        <slot name="separator">{{separator}}</slot>
+      </span>
     </span>
   </div>
 </template>
@@ -29,6 +31,10 @@ export default {
     activeColor: {
       type: String,
       default: 'gray',
+    },
+    separator: {
+      type: String,
+      default: '/',
     },
   },
   data () {

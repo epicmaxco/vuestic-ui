@@ -25,6 +25,20 @@
       <va-breadcrumbs active-color="danger"></va-breadcrumbs>
       <br />
     </VbCard>
+
+    <VbCard title="Separator">
+      Default separator:
+      <va-breadcrumbs></va-breadcrumbs>
+      <br />
+      Custom separator:
+      <va-breadcrumbs separator=">"></va-breadcrumbs>
+      <br />
+      Slotted separator:
+      <va-breadcrumbs>
+        <template v-slot:separator>😀</template>
+      </va-breadcrumbs>
+      <br />
+    </VbCard>
   </VbDemo>
 </template>
 
