@@ -1,26 +1,22 @@
 <template>
   <VbDemo>
-    <VbCard>
+    <VbCard title="slot access" refresh>
       <va-hover v-slot:default="{ hover }">
-        <va-card title="Default slot content" :color="hover ? 'warning' : 'primary'" >
-          Hover over me!
-        </va-card>
+        <div style="background-color: #babfc2">{{ hover }}</div>
       </va-hover>
-      <br>
-      <va-hover v-model="vModelHover">
-        <va-card title="Binding through v-model" :color="vModelHover ? 'warning' : 'primary'">
-          Hover over me
-        </va-card>
+    </VbCard>
+    <VbCard title="v-model access">
+      <va-hover v-model="value">
+        <div style="background-color: #babfc2">{{ value }}</div>
       </va-hover>
-      <br>
-      <va-hover disabled v-model="vModelHoverDisabled">
-        <va-card title="Binding through v-model, disabled component" :color="vModelHoverDisabled ? 'warning' : 'primary'">
-          Hover disabled
-        </va-card>
+      <input type="checkbox" v-model="value">
+    </VbCard>
+    <VbCard title="disabled">
+      <va-hover disabled v-slot:default="{ hover }">
+        <div style="background-color: #babfc2">slot - {{ hover }}</div>
       </va-hover>
-      <br>
-      <va-hover v-slot:default="{ hover }">
-        <div style="background: linear-gradient(to right, rgb(102, 229, 181), rgb(41, 224, 105)); height: 100px; border-radius: 6px; margin: auto; text-align:center;"> Div example: hover = {{ hover }}</div>
+      <va-hover disabled v-model="value">
+        <div style="background-color: #babfc2">value - {{ valueDisabled }}</div>
       </va-hover>
     </VbCard>
   </VbDemo>
@@ -29,17 +25,15 @@
 <script>
 
 import VaHover from './VaHover'
-import VaCard from '../va-card/VaCard'
 
 export default {
   components: {
-    VaCard,
     VaHover,
   },
   data () {
     return {
-      vModelHover: false,
-      vModelHoverDisabled: false,
+      value: false,
+      valueDisabled: false,
     }
   },
 }

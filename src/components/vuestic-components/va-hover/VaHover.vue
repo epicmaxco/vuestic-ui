@@ -13,7 +13,6 @@ export default {
     },
     value: {
       type: Boolean,
-      default: undefined,
     },
   },
   methods: {
@@ -43,10 +42,6 @@ export default {
       this._g(element.data, {
         mouseenter: this.onMouseEnter,
         mouseleave: this.onMouseLeave,
-        input: (event) => {
-          this.value = event.target.value
-          this.$emit('input', event.target.value)
-        },
       })
     }
 
