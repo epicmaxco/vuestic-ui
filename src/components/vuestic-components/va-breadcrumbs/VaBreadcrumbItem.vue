@@ -69,6 +69,7 @@ export default {
 
       &:hover {
         text-decoration: underline;
+        filter: sepia(20%) grayscale(10%);
       }
 
       &:focus {

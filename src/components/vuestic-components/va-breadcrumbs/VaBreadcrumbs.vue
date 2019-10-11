@@ -9,15 +9,15 @@ export default Vue.component('va-breadcrumbs-provider', {
   props: {
     color: {
       type: String,
-      default: 'primary',
+      default: 'gray',
     },
     separatorColor: {
       type: String,
-      default: 'gray',
+      default: null,
     },
     activeColor: {
       type: String,
-      default: 'gray',
+      default: null,
     },
     separator: {
       type: String,
@@ -27,6 +27,12 @@ export default Vue.component('va-breadcrumbs-provider', {
   computed: {
     computedStyles () {
       return this.alignComputed
+    },
+    computedThemesSeparatorColor () {
+      return this.$themes[this.separatorColor || this.color]
+    },
+    computedThemesActiveColor () {
+      return this.$themes[this.activeColor || this.color]
     },
   },
   render: function (createElement) {
@@ -42,17 +48,21 @@ export default Vue.component('va-breadcrumbs-provider', {
         staticClass: 'va-breadcrumbs__separator',
         class: this.computedClass,
         style: {
-          color: this.$themes[this.separatorColor],
+          color: this.computedThemesSeparatorColor,
         },
       },
       separatorNode
     )
 
-    const mkChildComponent = (child, index) => createElement('span', {
-      style: {
-        color: (this.activeColor && isLastIndexChildNodes(index)) ? this.$themes[this.activeColor] : this.$themes[this.color],
+    const mkChildComponent = (child, index) => createElement(
+      'span', {
+        staticClass: 'va-breadcrumbs__item',
+        style: {
+          color: !isLastIndexChildNodes(index) ? this.computedThemesActiveColor : null,
+        },
       },
-    }, [ child ])
+      [ child ]
+    )
 
     const children = []
 
@@ -81,6 +91,10 @@ export default Vue.component('va-breadcrumbs-provider', {
   display: flex;
   width: 100%;
   justify-content: center;
+
+  &__item {
+    display: inline-flex;
+  }
 
   &__separator {
     padding: 0 0.5rem;
