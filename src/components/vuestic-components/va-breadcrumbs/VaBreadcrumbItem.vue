@@ -21,8 +21,11 @@
 </template>
 
 <script>
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+
 export default {
   name: 'va-breadcrumb-item',
+  mixins: [ RouterLinkMixin ],
   props: {
     disabled: {
       type: Boolean,
@@ -32,25 +35,10 @@ export default {
       type: [ String, Number ],
       default: '',
     },
-    to: {
-      type: String,
-    },
-    exact: {
-      type: Boolean,
-      default: true,
-    },
-    replace: {
-      type: Boolean,
-      default: false,
-    },
-    append: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
     isDisabled () {
-      return this.disabled || !this.to
+      return this.disabled || !this.isRouterLinkComputed
     },
   },
 }
@@ -78,5 +66,4 @@ export default {
     }
   }
 }
-
 </style>
