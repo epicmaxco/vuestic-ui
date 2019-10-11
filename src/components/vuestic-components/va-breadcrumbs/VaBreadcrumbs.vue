@@ -1,15 +1,12 @@
 <script>
 import Vue from 'vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 
 export default Vue.component('va-breadcrumbs-provider', {
   name: 'va-breadcrumbs',
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, AlignMixin],
   props: {
-    align: {
-      type: String,
-      default: 'left',
-    },
     color: {
       type: String,
       default: 'primary',
@@ -28,14 +25,8 @@ export default Vue.component('va-breadcrumbs-provider', {
     },
   },
   computed: {
-    computedClasses () {
-      return {
-        'va-breadcrumbs--left': !this.align || this.align === 'left',
-        'va-breadcrumbs--right': this.align === 'right',
-        'va-breadcrumbs--center': this.align === 'center',
-        'va-breadcrumbs--between': this.align === 'between',
-        'va-breadcrumbs--around': this.align === 'around',
-      }
+    computedStyles () {
+      return this.alignComputed
     },
   },
   render: function (createElement) {
@@ -75,7 +66,12 @@ export default Vue.component('va-breadcrumbs-provider', {
       })
     }
 
-    return createElement('div', { staticClass: 'va-breadcrumbs', class: this.computedClasses }, children)
+    return createElement('div', {
+      staticClass: 'va-breadcrumbs',
+      style: {
+        ...this.computedStyles,
+      },
+    }, children)
   },
 })
 </script>
@@ -85,26 +81,6 @@ export default Vue.component('va-breadcrumbs-provider', {
   display: flex;
   width: 100%;
   justify-content: center;
-
-  &.va-breadcrumbs--left {
-    justify-content: flex-start;
-  }
-
-  &.va-breadcrumbs--right {
-    justify-content: flex-end;
-  }
-
-  &.va-breadcrumbs--center {
-    justify-content: center;
-  }
-
-  &.va-breadcrumbs--between {
-    justify-content: space-between;
-  }
-
-  &.va-breadcrumbs--around {
-    justify-content: space-around;
-  }
 
   &__separator {
     padding: 0 0.5rem;
