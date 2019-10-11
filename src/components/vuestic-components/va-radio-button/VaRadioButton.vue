@@ -63,6 +63,7 @@ export default {
     },
     computedStyle () {
       if (this.isActive) return { borderColor: this.$themes.primary + '!important' }
+      return null
     },
     focused: {
       set (isFocused) {
@@ -157,6 +158,11 @@ export default {
 
   &__slot-container {
     padding-top: $checkbox-label-margin-top;
+    @at-root {
+      .va-radio-button.va-radio-button--disabled & {
+        opacity: 0.4;
+      }
+    }
   }
 }
 </style>
