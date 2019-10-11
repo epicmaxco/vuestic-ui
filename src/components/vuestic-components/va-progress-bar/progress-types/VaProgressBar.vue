@@ -86,7 +86,6 @@ export default {
   overflow: hidden;
 
   &__info {
-    font-size: $progress-value-font-size;
     font-weight: $font-weight-bold;
     text-align: center;
     text-transform: uppercase;
