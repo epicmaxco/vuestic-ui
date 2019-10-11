@@ -1,8 +1,9 @@
 <template>
   <div class="va-avatar" ref="avatar" :style="computedStyle">
-    <va-icon v-if="icon" :name="icon"  />
-    <img v-else-if="src" :src="src" />
-    <slot />
+    <slot>
+      <va-icon v-if="icon" :name="icon"/>
+      <img v-else-if="src" :src="src"/>
+    </slot>
   </div>
 </template>
 
@@ -35,9 +36,6 @@ export default {
     src: {
       type: String,
     },
-    portrait: {
-      type: Boolean,
-    },
     fontSize: {
       type: String,
     },
@@ -59,8 +57,8 @@ export default {
         backgroundColor: this.$themes[this.color] || this.colorComputed,
         borderRadius: this.square ? 0 : '50%',
         fontSize: this.fontSize || '',
-        width: this.getPropSize('width'),
-        height: this.getPropSize('height'),
+        width: this.sizeComputed,
+        height: this.sizeComputed,
       }
     },
   },

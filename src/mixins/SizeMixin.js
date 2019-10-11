@@ -14,9 +14,8 @@ export const SizeMixin = {
       },
     },
   },
-
-  methods: {
-    getPropSize (property) {
+  computed: {
+    sizeComputed () {
       if (typeof this.size === 'string') {
         return this.size in sizes ? `${sizes[this.size]}px` : this.size
       }
