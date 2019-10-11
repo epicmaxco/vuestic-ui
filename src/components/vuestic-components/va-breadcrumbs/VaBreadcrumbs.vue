@@ -1,91 +1,10 @@
-<template>
-  <va-breadcrumbs-provider
-    class="va-breadcrumbs"
-    :class="computedClass"
-    :separator="separator"
-    :color="color"
-    :activeColor="activeColor"
-    :separatorColor="separatorColor"
-  >
-    <slot />
-    <template v-slot:separator>
-      <slot name="separator">{{separator}}</slot>
-    </template>
-  </va-breadcrumbs-provider>
-</template>
-
 <script>
 import Vue from 'vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
-const vaBreadcrumbsProvider = Vue.component('va-breadcrumbs-provider', {
-  mixins: [ColorThemeMixin],
-  props: {
-    color: {
-      type: String,
-      default: 'primary',
-    },
-    separatorColor: {
-      type: String,
-      default: 'gray',
-    },
-    activeColor: {
-      type: String,
-      default: 'gray',
-    },
-    separator: {
-      type: String,
-      default: '/',
-    },
-  },
-  render: function (createElement) {
-    const childNodes = this.$slots.default || []
-    const childNodesLength = childNodes.length
-    const separatorNode = this.$slots.separator
-    const children = []
-
-    const mkSeparatorComponent = () => createElement(
-      'span',
-      {
-        attrs: {
-          class: 'va-breadcrumbs__separator',
-        },
-        style: {
-          color: this.$themes[this.separatorColor],
-        },
-      },
-      separatorNode
-    )
-
-    const isLastIndexChildNodes = (index) => index === childNodesLength - 1
-
-    const mkChildComponent = (child, index) => createElement('div', {
-      style: {
-        color: (this.activeColor && isLastIndexChildNodes(index)) ? this.$themes[this.activeColor] : this.$themes[this.color],
-      },
-      props: { disabled: true },
-    }, [ child ])
-
-    if (childNodesLength) {
-      childNodes.forEach((child, index) => {
-        children.push(mkChildComponent(child, index))
-
-        if (!isLastIndexChildNodes(index)) {
-          children.push(mkSeparatorComponent())
-        }
-      })
-    }
-
-    return createElement('div', children)
-  },
-})
-
-export default {
+export default Vue.component('va-breadcrumbs-provider', {
   name: 'va-breadcrumbs',
   mixins: [ColorThemeMixin],
-  components: {
-    vaBreadcrumbsProvider,
-  },
   props: {
     align: {
       type: String,
@@ -109,7 +28,7 @@ export default {
     },
   },
   computed: {
-    computedClass () {
+    computedClasses () {
       return {
         'va-breadcrumbs--left': !this.align || this.align === 'left',
         'va-breadcrumbs--right': this.align === 'right',
@@ -119,7 +38,46 @@ export default {
       }
     },
   },
-}
+  render: function (createElement) {
+    const childNodes = this.$slots.default || []
+    const childNodesLength = childNodes.length
+    const isLastIndexChildNodes = (index) => index === childNodesLength - 1
+
+    const separatorNode = this.$slots.separator || [ this.separator ]
+
+    const mkSeparatorComponent = () => createElement(
+      'span',
+      {
+        staticClass: 'va-breadcrumbs__separator',
+        class: this.computedClass,
+        style: {
+          color: this.$themes[this.separatorColor],
+        },
+      },
+      separatorNode
+    )
+
+    const mkChildComponent = (child, index) => createElement('span', {
+      style: {
+        color: (this.activeColor && isLastIndexChildNodes(index)) ? this.$themes[this.activeColor] : this.$themes[this.color],
+      },
+    }, [ child ])
+
+    const children = []
+
+    if (childNodesLength) {
+      childNodes.forEach((child, index) => {
+        children.push(mkChildComponent(child, index))
+
+        if (!isLastIndexChildNodes(index)) {
+          children.push(mkSeparatorComponent())
+        }
+      })
+    }
+
+    return createElement('div', { staticClass: 'va-breadcrumbs', class: this.computedClasses }, children)
+  },
+})
 </script>
 
 <style lang="scss">
