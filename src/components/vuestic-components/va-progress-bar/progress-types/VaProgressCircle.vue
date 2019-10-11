@@ -1,22 +1,14 @@
 <template>
-  <div
-    class="va-progress-circle"
-    :class="{
-      'va-progress-circle--indeterminate': indeterminate,
-    }"
-  >
-    <svg
-      class="va-progress-circle__progress-bar"
-      viewBox="21.25 21.25 42.5 42.5"
-    >
+  <div class="va-progress-circle" ref="progress" :style="computedStyle" :class="computedClass">
+    <svg class="va-progress-circle__progress-bar" viewBox="0 0 40 40">
       <circle
         class="va-progress-circle__overlay"
-        cx="42.5"
-        cy="42.5"
+        cx="50%"
+        cy="50%"
         :r="radius"
         fill="none"
         :stroke="colorComputed"
-        stroke-width="2.5"
+        :stroke-width="computedThickness"
         :stroke-dasharray="dasharray"
         :stroke-dashoffset="dashoffset"
       />
@@ -34,15 +26,65 @@ import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 export default {
   name: 'va-progress-circle',
   mixins: [progressMixin, ColorThemeMixin],
+  props: {
+    size: {
+      type: [Number, String],
+      default: 20,
+    },
+    thickness: {
+      type: Number,
+      default: 3,
+    },
+  },
   computed: {
     radius () {
-      return 20
+      return 20 - (20 * this.thickness / 100)
     },
     dasharray () {
       return 2 * Math.PI * this.radius
     },
     dashoffset () {
       return this.dasharray * (1 - this.normalizedValue / 100)
+    },
+    computedThickness () {
+      return `${this.thickness}%`
+    },
+    computedStyle () {
+      return {
+        width: this.getDimensionLength(),
+        height: this.getDimensionLength(),
+      }
+    },
+    computedClass () {
+      return {
+        'va-progress-circle--indeterminate': this.indeterminate,
+      }
+    },
+  },
+  methods: {
+    sizeAsNumber () {
+      const size = parseFloat(this.size)
+
+      if (Number.isNaN(size)) {
+        this.throwSizeError()
+      }
+
+      return size
+    },
+    sizeUnits () {
+      const units = typeof this.size === 'number' ? ['px'] : this.size.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
+
+      if (!units) {
+        this.throwSizeError()
+      }
+
+      return units[0]
+    },
+    getDimensionLength () {
+      return Math.round(this.sizeAsNumber()) * 2 + this.sizeUnits()
+    },
+    throwSizeError () {
+      throw new Error(`${this.size} is wrong size format. Use number or number + rem|em|ex|pt|pc|mm|cm instead.`)
     },
   },
 }
@@ -53,11 +95,13 @@ export default {
 
 .va-progress-circle {
   position: relative;
-  width: $progress-circle-diameter;
-  height: $progress-circle-diameter;
 
   &__progress-bar {
     transform: rotate(-90deg);
+    stroke-linecap: center center;
+    width: inherit;
+    height: inherit;
+
     @at-root {
       .va-progress-circle--indeterminate & {
         animation: va-progress-circle__progress-bar--indeterminate 2s linear infinite;

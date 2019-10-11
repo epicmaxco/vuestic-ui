@@ -31,5 +31,7 @@
 * `value` - Number.
 * `indeterminate` - Boolean.
 * `color` - String  (default: `success`).
+* `size` - String|Number (default: 20) - bar size (diameter) in pixels or size in css units (rem|em|ex|pt|pc|mm|cm|px)
+* `thickness` - Number - circle border size in percent of component size
 
 [Find DEMOs here!](http://vuestic.epicmax.co/#/admin/statistics/progress-bars)
