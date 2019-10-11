@@ -19,6 +19,7 @@
 * `buffer` - Number (default: 100).
 * `reverse` - Boolean - reverse progress bar direction
 * `rounded` - Boolean - (default: true) make the bar rounded
+* `size` - Number|String - height of the bar in pixels or in css units (rem|em|ex|pt|pc|mm|cm|px)
 
 # va-progress-circle
 
