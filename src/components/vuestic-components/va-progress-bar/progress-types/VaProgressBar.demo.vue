@@ -5,8 +5,14 @@
       <va-progress-bar/>
       <span>Default</span>
       <va-progress-bar :value="value"/>
+      <span>Square</span>
+      <va-progress-bar :rounded="false" :value="value"/>
       <span>Danger</span>
       <va-progress-bar :value="value" color="danger"/>
+      <span>Resized with px</span>
+      <va-progress-bar size="20px" :value="value" color="danger"/>
+      <span>Resized with rem</span>
+      <va-progress-bar size="2rem" :value="value" color="danger"/>
       <span>Static slot</span>
       <va-progress-bar :value="value">Slot</va-progress-bar>
       <span>Dynamic slot</span>
@@ -19,6 +25,8 @@
       <va-progress-bar indeterminate/>
       <span>Indeterminate Info</span>
       <va-progress-bar indeterminate color="info"/>
+      <span>Indeterminate Reversed</span>
+      <va-progress-bar reverse indeterminate color="info"/>
       <span>Indeterminate Slot</span>
       <va-progress-bar indeterminate>Slot</va-progress-bar>
       <span>Indeterminate with :value and :buffer should behave the same</span>

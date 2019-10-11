@@ -40,6 +40,18 @@
       <VaProgressCircle indeterminate>Slot</VaProgressCircle>
     </VbCard>
 
+    <VbCard title="Indeterminate size setted with px">
+      <VaProgressCircle :size="30" indeterminate></VaProgressCircle>
+    </VbCard>
+
+    <VbCard title="Indeterminate size setted with rem">
+      <VaProgressCircle size="3rem" indeterminate></VaProgressCircle>
+    </VbCard>
+
+    <VbCard title="Resized indeterminate with thickness setted">
+      <VaProgressCircle size="0.625rem" :thickness="30" indeterminate></VaProgressCircle>
+    </VbCard>
+
     <VbCard>
       <button @click="value -= 100">-100</button>
       <button @click="value -= 10">-10</button>

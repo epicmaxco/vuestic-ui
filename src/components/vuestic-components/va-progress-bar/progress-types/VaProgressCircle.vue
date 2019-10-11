@@ -30,6 +30,9 @@ export default {
     size: {
       type: [Number, String],
       default: 20,
+      validator: (value) => {
+        return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
+      },
     },
     thickness: {
       type: Number,
@@ -63,28 +66,13 @@ export default {
   },
   methods: {
     sizeAsNumber () {
-      const size = parseFloat(this.size)
-
-      if (Number.isNaN(size)) {
-        this.throwSizeError()
-      }
-
-      return size
+      return parseFloat(this.size)
     },
     sizeUnits () {
-      const units = typeof this.size === 'number' ? ['px'] : this.size.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
-
-      if (!units) {
-        this.throwSizeError()
-      }
-
-      return units[0]
+      return typeof this.size === 'number' ? 'px' : this.size.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)[0]
     },
     getDimensionLength () {
-      return Math.round(this.sizeAsNumber()) * 2 + this.sizeUnits()
-    },
-    throwSizeError () {
-      throw new Error(`${this.size} is wrong size format. Use number or number + rem|em|ex|pt|pc|mm|cm instead.`)
+      return this.sizeAsNumber() * 2 + this.sizeUnits()
     },
   },
 }
@@ -123,7 +111,6 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    font-size: $progress-value-font-size;
   }
 }
 

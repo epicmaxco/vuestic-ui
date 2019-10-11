@@ -3,7 +3,7 @@
     <div :style="{colorComputed}" class="va-progress-bar__info">
       <slot/>
     </div>
-    <div class="va-progress-bar__progress-bar">
+    <div class="va-progress-bar__progress-bar" :class="computedClass" :style="computedStyle">
       <div
         :style="{width: normalizedBuffer + '%', backgroundColor: colorComputed}"
         class="va-progress-bar__buffer"
@@ -15,11 +15,11 @@
       />
       <template v-else>
         <div
-          :style="{backgroundColor: colorComputed}"
+          :style="{backgroundColor: colorComputed, animationDirection: this.reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-start"
         />
         <div
-          :style="{backgroundColor: colorComputed}"
+          :style="{backgroundColor: colorComputed, animationDirection: this.reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-end"
         />
       </template>
@@ -40,6 +40,20 @@ export default {
       type: Number,
       default: 100,
     },
+    rounded: {
+      type: Boolean,
+      default: true,
+    },
+    size: {
+      type: [Number, String],
+      default: '0.5rem',
+      validator: (value) => {
+        return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
+      },
+    },
+    reverse: {
+      type: Boolean,
+    },
   },
   computed: {
     normalizedBuffer () {
@@ -48,6 +62,16 @@ export default {
       }
 
       return normalizeValue(this.buffer)
+    },
+    computedClass () {
+      return {
+        'va-progress-bar__progress-bar__square': !this.rounded,
+      }
+    },
+    computedStyle () {
+      return {
+        height: typeof this.size === 'number' ? `${this.size}px` : this.size,
+      }
     },
   },
 }
@@ -73,10 +97,13 @@ export default {
   }
 
   &__progress-bar {
-    height: $progress-bar-width-basic;
-    border-radius: $progress-bar-width-basic;
     position: relative;
     overflow: hidden;
+    border-radius: $progress-bar-width-basic;
+
+    &__square {
+      border-radius: 0;
+    }
   }
 
   &__buffer {

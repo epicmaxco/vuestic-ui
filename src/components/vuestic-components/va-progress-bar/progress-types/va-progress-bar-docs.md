@@ -17,6 +17,8 @@
 * `indeterminate` - Boolean - if 'indeterminate' is 'true', 'value' prop will be ignored.
 * `color` - String  (default: `success`).
 * `buffer` - Number (default: 100).
+* `reverse` - Boolean - reverse progress bar direction
+* `rounded` - Boolean - (default: true) make the bar rounded
 
 # va-progress-circle
 
