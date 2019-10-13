@@ -28,6 +28,9 @@ jobs:
   deploy-demos:
     <<: *defaults
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "1f:e5:c3:93:85:44:fc:a7:be:da:ad:04:dd:96:bf:ee"
       - checkout
       - restore_cache: *restore_cache
       - run: *install_dependencies
