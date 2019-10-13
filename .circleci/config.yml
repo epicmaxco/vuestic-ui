@@ -39,7 +39,6 @@ jobs:
           # This doesn't really work. Has to be done manually for now. ssh-keyscan -t rsa  -H -F "[$SERVER_IP]:$SERVER_PORT"
           command: |
             tar -czf dist.tar.gz ~/repo/dist -C ~/repo/dist .
-            sudo apt install sshpass
             scp ~/repo/dist.tar.gz $SERVER_IP:~/tmp
             ssh /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
