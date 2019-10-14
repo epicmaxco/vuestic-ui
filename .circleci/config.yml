@@ -41,8 +41,6 @@ jobs:
           command: ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
       - run:
           name: Deploy to hosting
-          # DEPLOY_PATH here is for staging only
-          # This doesn't really work. Has to be done manually for now. ssh-keyscan -t rsa  -H -F "[$SERVER_IP]:$SERVER_PORT"
           command: |
             tar -czf dist.tar.gz ~/repo/dist -C ~/repo/dist .
             scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
