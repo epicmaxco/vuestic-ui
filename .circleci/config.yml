@@ -44,7 +44,7 @@ jobs:
           command: |
             tar -czf dist.tar.gz ~/repo/dist -C ~/repo/dist .
             scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
-            ssh /bin/bash << EOF
+            ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
               tar -xzf ~/tmp/dist.tar.gz -C $DEPLOY_PATH
               rm -f ~/tmp/dist.tar.gz
