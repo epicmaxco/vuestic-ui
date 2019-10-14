@@ -7,7 +7,7 @@
       <slot name="beforeInput"/>
     </div>
     <span
-      v-if="label && !inverseLabel"
+      v-if="label && !invertLabel"
       :style="labelStyles"
       class="va-slider__label">
       {{ label }}
@@ -111,7 +111,7 @@
       <va-icon :name="iconRight" :color="colorComputed" :size="16"/>
     </span>
     <span
-      v-if="inverseLabel"
+      v-if="invertLabel"
       :style="labelStyles"
       class="va-slider__label va-slider__inverse-label">
       {{ label }}
@@ -168,7 +168,7 @@ export default {
     label: {
       type: String,
     },
-    inverseLabel: {
+    invertLabel: {
       type: Boolean,
       default: false,
     },

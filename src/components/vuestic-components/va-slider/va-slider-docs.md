@@ -35,7 +35,7 @@ export default {
 * `max` - Number (default: 100).
 * `step` - Number (default: 1) - specify amount of steps between the beginning and the end of slider.
 * `label` - String - displays label on the left of slider. Should correspond the slider color.
-* `inverse-label` - Boolean - if set to 'true', label goes right.
+* `invert-label` - Boolean - if set to 'true', label goes right.
 * `disabled` - Boolean.
 * `pins` - Boolean - if set to 'true', display markers on slider track appear.
 * `icon` - String. Insert icon from the left side of the slider. Should follow color theme.

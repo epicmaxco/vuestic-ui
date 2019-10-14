@@ -32,7 +32,7 @@
     <VbCard width="500px" title="Slider With Inverse Label">
       <va-slider
         label="Label"
-        inverse-label
+        invert-label
         v-model="value"
       />
     </VbCard>
@@ -99,7 +99,7 @@
       <va-slider
         range
         label="Label"
-        inverse-label
+        invert-label
         v-model="value2"
       />
     </VbCard>
