@@ -29,8 +29,8 @@ export default {
 ### Props
 * `range` - Boolean - if set to 'true', slider becomes range.
 * `value` - Number | Array.
-* `label-value` - String - overwrite value views. Examples: '40px', '33%', etc.
-* `value-visible` - Boolean - if set to 'true', value label will always be shown. 
+* `track-label` - String - overwrite value views. Examples: '40px', '33%', etc.
+* `track-label-visible` - Boolean - if set to 'true', value label will always be shown. 
 * `min` - Number (default: 0).
 * `max` - Number (default: 100).
 * `step` - Number (default: 1) - specify amount of steps between the beginning and the end of slider.

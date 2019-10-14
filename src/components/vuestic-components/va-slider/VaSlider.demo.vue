@@ -7,15 +7,15 @@
     </VbCard>
     <VbCard width="500px" title="value visible">
       <va-slider
-        value-visible
+        track-label-visible
         v-model="value"
       />
     </VbCard>
     <VbCard width="500px" title="custom label">
       <va-slider
-        value-visible
+        track-label-visible
         v-model="value3"
-        :label-value="`${value3}px`"
+        :track-label="`${value3}px`"
         :step="5"
         :min="min"
         :max="max"
@@ -83,7 +83,7 @@
     <VbCard width="500px" title="Range With Visible Value">
       <va-slider
         range
-        value-visible
+        track-label-visible
         v-model="value2"
       />
       {{ '[' + value2[0] + ',' + value2[1] + ']'}}

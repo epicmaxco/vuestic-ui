@@ -52,7 +52,7 @@
           :tabindex="!this.disabled && 0"
         >
           <div
-            v-if="valueVisible"
+            v-if="trackLabelVisible"
             :style="labelStyles"
             class="va-slider__container__handler-value"
           >
@@ -71,7 +71,7 @@
           :tabindex="!this.disabled && 0"
         >
           <div
-            v-if="valueVisible"
+            v-if="trackLabelVisible"
             :style="labelStyles"
             class="va-slider__container__handler-value">
             {{ val[1] }}
@@ -96,11 +96,11 @@
           :tabindex="!this.disabled && 0"
         >
           <div
-            v-if="valueVisible"
+            v-if="trackLabelVisible"
             :style="labelStyles"
             class="va-slider__container__handler-value"
           >
-            {{ labelValue || val }}
+            {{ trackLabel || val }}
           </div>
         </div>
       </template>
@@ -146,10 +146,10 @@ export default {
     value: {
       type: [Number, Array],
     },
-    labelValue: {
+    trackLabel: {
       type: String,
     },
-    valueVisible: {
+    trackLabelVisible: {
       type: Boolean,
       default: false,
     },
