@@ -13,9 +13,9 @@
       {{ label }}
     </span>
     <span
-      v-if="icon"
+      v-if="iconPrepend"
       class="va-slider__label">
-      <va-icon :name="icon" :color="colorComputed" :size="16"/>
+      <va-icon :name="iconPrepend" :color="colorComputed" :size="16"/>
     </span>
     <div
       class="va-slider__container"
@@ -106,9 +106,9 @@
       </template>
     </div>
     <span
-      v-if="iconRight"
+      v-if="iconAppend"
       class="va-slider__inverse-label">
-      <va-icon :name="iconRight" :color="colorComputed" :size="16"/>
+      <va-icon :name="iconAppend" :color="colorComputed" :size="16"/>
     </span>
     <span
       v-if="invertLabel"
@@ -183,10 +183,10 @@ export default {
     pins: {
       type: Boolean,
     },
-    icon: {
+    iconPrepend: {
       type: String,
     },
-    iconRight: {
+    iconAppend: {
       type: String,
     },
   },
