@@ -54,11 +54,24 @@ export default Vue.component('va-breadcrumbs-provider', {
       separatorNode
     )
 
+    const isDisabledChild = (child) => {
+      const childPropData = child && child.componentOptions && child.componentOptions.propsData
+      if (!childPropData || !childPropData.hasOwnProperty('disabled')) {
+        return false
+      }
+
+      if (childPropData.disabled === '') { // NOTE: vue make empty default attribute as ''
+        return true
+      }
+
+      return Boolean(childPropData.disabled)
+    }
+
     const mkChildComponent = (child, index) => createElement(
       'span', {
         staticClass: 'va-breadcrumbs__item',
         style: {
-          color: !isLastIndexChildNodes(index) ? this.computedThemesActiveColor : null,
+          color: !isLastIndexChildNodes(index) && !isDisabledChild(child) ? this.computedThemesActiveColor : null,
         },
       },
       [ child ]

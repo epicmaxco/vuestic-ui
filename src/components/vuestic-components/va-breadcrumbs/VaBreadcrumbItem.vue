@@ -56,8 +56,7 @@ export default {
       cursor: pointer;
 
       &:hover {
-        text-decoration: underline;
-        filter: sepia(20%) grayscale(10%);
+        opacity: 0.7;
       }
 
       &:focus {

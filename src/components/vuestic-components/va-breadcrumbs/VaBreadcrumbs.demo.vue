@@ -41,8 +41,8 @@
         <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
       </va-breadcrumbs>
       <br />
-      Active color danger:
-      <va-breadcrumbs active-color="danger">
+      Active color primary:
+      <va-breadcrumbs active-color="primary">
         <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
       </va-breadcrumbs>
       <br />
@@ -68,23 +68,10 @@
         <va-breadcrumb-item v-for="item in items" :key="item" :to="to" disabled :label="item" />
       </va-breadcrumbs>
       <br />
-    </VbCard>
-    <VbCard title="Custom items">
-      <va-breadcrumbs>
-        <va-breadcrumb-item :to="to"><div style="border: 1px solid green">One</div></va-breadcrumb-item>
-        <va-breadcrumb-item :to="to"><img src="https://randomuser.me/api/portraits/men/5.jpg" alt="image"></va-breadcrumb-item>
-        <va-breadcrumb-item>Tree</va-breadcrumb-item>
-      </va-breadcrumbs>
-    </VbCard>
-
-    <VbCard title="Multiple labels">
-      <va-breadcrumbs>
-        <va-breadcrumb-item :to="to" label="One" />
-        <va-breadcrumb-item :to="to" label="Two" />
-        <va-breadcrumb-item :to="to" label="Tree" />
-        <va-breadcrumb-item :to="to" label="Need" />
-        <va-breadcrumb-item :to="to" label="More" />
-        <va-breadcrumb-item label="Components" />
+      Active color primary disabled:
+      <va-breadcrumbs active-color="primary">
+        <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === 1" :label="item" />
+        <va-breadcrumb-item label="Last" />
       </va-breadcrumbs>
       <br />
     </VbCard>
