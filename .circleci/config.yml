@@ -45,7 +45,7 @@ jobs:
           # This doesn't really work. Has to be done manually for now. ssh-keyscan -t rsa  -H -F "[$SERVER_IP]:$SERVER_PORT"
           command: |
             tar -czf dist.tar.gz ~/repo/dist -C ~/repo/dist .
-            scp ~/repo/dist.tar.gz $SERVER_IP:~/tmp
+            scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
               tar -xzf ~/tmp/dist.tar.gz -C $DEPLOY_PATH
