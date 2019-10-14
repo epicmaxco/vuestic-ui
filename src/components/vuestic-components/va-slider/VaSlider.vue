@@ -3,8 +3,8 @@
     class="va-slider"
     :class="sliderClass"
   >
-    <div class="va-slider__input-wrapper" v-if="$slots.beforeInput">
-      <slot name="beforeInput"/>
+    <div class="va-slider__input-wrapper" v-if="$slots.prepend">
+      <slot name="prepend"/>
     </div>
     <span
       v-if="label && !invertLabel"
@@ -116,8 +116,8 @@
       class="va-slider__label va-slider__inverse-label">
       {{ label }}
     </span>
-    <div class="va-slider__input-wrapper" v-if="$slots.afterInput">
-      <slot name="afterInput"/>
+    <div class="va-slider__input-wrapper" v-if="$slots.append">
+      <slot name="append"/>
     </div>
   </div>
 </template>

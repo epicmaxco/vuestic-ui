@@ -157,7 +157,7 @@
       <va-slider
         v-model="value"
       >
-        <va-input v-model="value" slot="beforeInput"/>
+        <va-input v-model="value" slot="prepend"/>
       </va-slider>
     </VbCard>
     <VbCard width="500px" title="Range With Inputs (demo for presentation)">
@@ -167,8 +167,8 @@
       >
         <va-input
           v-model.number="value2[0]"
-          slot="beforeInput"/>
-        <va-input v-model="value2[1]" slot="afterInput"/>
+          slot="prepend"/>
+        <va-input v-model="value2[1]" slot="append"/>
       </va-slider>
     </VbCard>
   </VbDemo>
