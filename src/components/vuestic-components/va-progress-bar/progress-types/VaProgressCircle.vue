@@ -29,7 +29,7 @@ export default {
   props: {
     size: {
       type: [Number, String],
-      default: 20,
+      default: 40,
       validator: (value) => {
         return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
       },
@@ -53,10 +53,8 @@ export default {
       return `${this.thickness}%`
     },
     computedStyle () {
-      return {
-        width: this.getDimensionLength(),
-        height: this.getDimensionLength(),
-      }
+      const size = parseFloat(this.size) + this.sizeUnits()
+      return { width: size, height: size }
     },
     computedClass () {
       return {
@@ -65,14 +63,8 @@ export default {
     },
   },
   methods: {
-    sizeAsNumber () {
-      return parseFloat(this.size)
-    },
     sizeUnits () {
       return typeof this.size === 'number' ? 'px' : this.size.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)[0]
-    },
-    getDimensionLength () {
-      return this.sizeAsNumber() * 2 + this.sizeUnits()
     },
   },
 }
