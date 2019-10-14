@@ -31,6 +31,7 @@ export default {
 * `value` - Number | Array.
 * `track-label` - String - overwrite value views. Examples: '40px', '33%', etc.
 * `track-label-visible` - Boolean - if set to 'true', value label will always be shown. 
+* `readonly` - Boolean (default: false) - Sets slider in readonly state
 * `min` - Number (default: 0).
 * `max` - Number (default: 100).
 * `step` - Number (default: 1) - specify amount of steps between the beginning and the end of slider.

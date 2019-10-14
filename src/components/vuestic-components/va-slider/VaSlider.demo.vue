@@ -61,6 +61,12 @@
         v-model="value"
       />
     </VbCard>
+    <VbCard width="500px" title="Readonly Slider">
+      <va-slider
+        readonly
+        v-model="value"
+      />
+    </VbCard>
     <VbCard width="500px" title="Slider With Pins">
       <va-slider
         pins

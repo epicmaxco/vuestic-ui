@@ -49,7 +49,7 @@
           @touchstart="moveStart($event, 0)"
           @focus="onFocus($event, 1)"
           @blur="isKeyboardFocused = false"
-          :tabindex="!this.disabled && 0"
+          :tabindex="(!this.disabled && !this.readonly) && 0"
         >
           <div
             v-if="trackLabelVisible"
@@ -68,7 +68,7 @@
           @touchstart="moveStart($event, 1)"
           @focus="onFocus($event, 2)"
           @blur="isKeyboardFocused = false"
-          :tabindex="!this.disabled && 0"
+          :tabindex="(!this.disabled && !this.readonly) && 0"
         >
           <div
             v-if="trackLabelVisible"
@@ -93,7 +93,7 @@
           @touchstart="moveStart()"
           @focus="onFocus"
           @blur="isKeyboardFocused = false"
-          :tabindex="!this.disabled && 0"
+          :tabindex="(!this.disabled && !this.readonly) && 0"
         >
           <div
             v-if="trackLabelVisible"
@@ -176,6 +176,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
     pins: {
       type: Boolean,
     },
@@ -199,6 +203,7 @@ export default {
     sliderClass () {
       return {
         'va-slider--disabled': this.disabled,
+        'va-slider--readonly': this.readonly,
       }
     },
     labelStyles () {
@@ -347,7 +352,7 @@ export default {
       this.$emit('drag-start', this)
     },
     moving (e) {
-      if (!this.disabled) {
+      if (!this.disabled && !this.readonly) {
         if (!this.flag) {
           return false
         }
@@ -361,7 +366,7 @@ export default {
       }
     },
     moveEnd (e) {
-      if (!this.disabled) {
+      if (!this.disabled && !this.readonly) {
         if (this.flag) {
           this.$emit('drag-end', this)
         } else {
@@ -372,9 +377,9 @@ export default {
       }
     },
     moveWithKeys (event) {
-      // don't do anything if a dot isn't focused or if the slider's disabled
+      // don't do anything if a dot isn't focused or if the slider's disabled or readonly
       if (![this.$refs.dot0, this.$refs.dot1, this.$refs.dot].includes(document.activeElement)) return
-      if (this.disabled) return
+      if (this.disabled || this.readonly) return
 
       /*
         where: where to move
@@ -452,7 +457,7 @@ export default {
       }
     },
     wrapClick (e) {
-      if (!this.disabled && !this.flag) {
+      if (!this.disabled && !this.readonly && !this.flag) {
         let pos = this.getPos(e)
         if (this.isRange) {
           this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
@@ -639,6 +644,14 @@ export default {
 
     .va-slider__container__handler {
 
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+
+  &--readonly {
+    .va-slider__container__handler {
       &:hover {
         cursor: default;
       }
