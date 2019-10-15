@@ -21,13 +21,15 @@ export const RouterLinkMixin = {
   },
 
   computed: {
-    isRouterLinkComputed () {
-      return this.to ||
+    hasRouterLinkParams () {
+      return Boolean(
+        this.to ||
         this.append ||
         this.replace ||
         this.exact ||
         this.activeClass ||
         this.exactActiveClass
+      )
     },
   },
 }

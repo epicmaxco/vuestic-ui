@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     isDisabled () {
-      return this.disabled || !this.isRouterLinkComputed
+      return this.disabled || !this.hasRouterLinkParams
     },
   },
 }

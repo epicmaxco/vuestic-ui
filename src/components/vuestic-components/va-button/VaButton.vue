@@ -188,7 +188,7 @@ export default {
       if (this.tag === 'a' || this.href || this.target) {
         return 'a'
       }
-      if (this.tag === 'router-link' || this.isRouterLinkComputed) {
+      if (this.tag === 'router-link' || this.hasRouterLinkParams) {
         return 'router-link'
       }
       return 'button'
