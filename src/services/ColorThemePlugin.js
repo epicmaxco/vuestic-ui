@@ -55,8 +55,16 @@ export const ColorThemeMixin = {
         return this.$themes[this.colorThemeDefault]
       }
 
-      if (this.color) {
-        return this.color
+      return this.computeColor(this.color)
+    },
+  },
+  methods: {
+    computeColor (prop) {
+      if (this.$themes && this.$themes[prop]) {
+        return this.$themes[prop]
+      }
+      if (prop) {
+        return prop
       }
 
       return this.colorDefault

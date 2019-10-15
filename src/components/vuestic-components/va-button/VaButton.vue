@@ -127,7 +127,7 @@ export default {
   computed: {
     computedClass () {
       return {
-        'va-button--default': !this.flat && !this.outline,
+        'va-button--default': !this.flat && !this.outline && !this.disabled,
         'va-button--flat': this.flat,
         'va-button--outline': this.outline,
         'va-button--disabled': this.disabled,
