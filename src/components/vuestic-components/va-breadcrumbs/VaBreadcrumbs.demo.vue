@@ -1,79 +1,130 @@
 <template>
   <VbDemo>
-    <VbCard title="Align">
-      <div style="width: 500px;">
-        Left:
-        <va-breadcrumbs align="left">
-          <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
-        </va-breadcrumbs>
-        <br />
-        Center:
-        <va-breadcrumbs align="center">
-          <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
-        </va-breadcrumbs>
-        <br />
-        Right:
-        <va-breadcrumbs align="right">
-          <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
-        </va-breadcrumbs>
-        <br />
-        Between:
-        <va-breadcrumbs align="between">
-          <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
-        </va-breadcrumbs>
-        <br />
-        Around:
-        <va-breadcrumbs align="around">
-          <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
-        </va-breadcrumbs>
-        <br />
-      </div>
+    <VbCard title="default">
+      <va-breadcrumbs>
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
+      </va-breadcrumbs>
+    </VbCard>
+
+    <VbCard title="routes">
+      <va-breadcrumbs>
+        <va-breadcrumb-item label="One" to="#one"/>
+        <va-breadcrumb-item label="Two" to="#two"/>
+        <va-breadcrumb-item label="Three" to="#three"/>
+      </va-breadcrumbs>
+    </VbCard>
+
+    <VbCard title="Align" width="300px">
+      Left:
+      <va-breadcrumbs align="left">
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
+      </va-breadcrumbs>
+      <br/>
+      Center:
+      <va-breadcrumbs align="center">
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
+      </va-breadcrumbs>
+      <br/>
+      Right:
+      <va-breadcrumbs align="right">
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
+      </va-breadcrumbs>
+      <br/>
+      Between:
+      <va-breadcrumbs align="between">
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
+      </va-breadcrumbs>
+      <br/>
+      Around:
+      <va-breadcrumbs align="around">
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
+      </va-breadcrumbs>
     </VbCard>
 
     <VbCard title="Color">
-      Color warning:
-      <va-breadcrumbs color="warning">
-        <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
+      Color:
+      <va-breadcrumbs color="danger">
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
       </va-breadcrumbs>
-      <br />
-      Separator color danger:
+      <br/>
+      Separator color:
       <va-breadcrumbs separator-color="danger">
-        <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
       </va-breadcrumbs>
-      <br />
-      Active color primary:
-      <va-breadcrumbs active-color="primary">
-        <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
+      <br/>
+      Active color:
+      <va-breadcrumbs active-color="danger">
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
       </va-breadcrumbs>
-      <br />
+      <br/>
     </VbCard>
 
     <VbCard title="Separator">
       Custom separator:
       <va-breadcrumbs separator=">">
-        <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
       </va-breadcrumbs>
-      <br />
+      <br/>
       Slotted separator:
       <va-breadcrumbs>
         <template v-slot:separator>👌</template>
-        <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === items.length - 1" :label="item" />
+
+        <va-breadcrumb-item label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
       </va-breadcrumbs>
-      <br />
+      <br/>
     </VbCard>
 
     <VbCard title="Disabled">
-      All items disabled:
       <va-breadcrumbs>
-        <va-breadcrumb-item v-for="item in items" :key="item" :to="to" disabled :label="item" />
+        <va-breadcrumb-item disabled label="One"/>
+        <va-breadcrumb-item disabled label="Two"/>
+        <va-breadcrumb-item disabled label="Three"/>
       </va-breadcrumbs>
-      <br />
-      Active color primary disabled:
-      <va-breadcrumbs active-color="primary">
-        <va-breadcrumb-item v-for="(item, index) in items" :key="item" :to="to" :disabled="index === 1" :label="item" />
-        <va-breadcrumb-item label="Last" />
+      <br/>
+      With routes
+      <va-breadcrumbs>
+        <va-breadcrumb-item disabled label="One" to="#one"/>
+        <va-breadcrumb-item label="Two" to="#two"/>
+        <va-breadcrumb-item label="Three" to="#three"/>
       </va-breadcrumbs>
-      <br />
+      <br/>
+      Active color + disabled:
+
+      <div style="background-color: tomato; padding: 3px">
+        Quasar example
+        <br/>
+        <img src="https://i.imgur.com/OLZLFsE.png">
+        <br/>
+        <va-breadcrumbs active-color="primary">
+          <va-breadcrumb-item disabled label="One"/>
+          <va-breadcrumb-item label="Two"/>
+          <va-breadcrumb-item label="Three"/>
+        </va-breadcrumbs>
+      </div>
+
+      <br/>
     </VbCard>
   </VbDemo>
 </template>
@@ -86,12 +137,6 @@ export default {
   components: {
     VaBreadcrumbs,
     VaBreadcrumbItem,
-  },
-  data () {
-    return {
-      items: ['One', 'Two', 'Tree'],
-      to: './',
-    }
   },
 }
 </script>

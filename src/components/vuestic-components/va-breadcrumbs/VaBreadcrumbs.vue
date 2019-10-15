@@ -35,14 +35,14 @@ export default Vue.component('va-breadcrumbs-provider', {
       return this.$themes[this.activeColor || this.color]
     },
   },
-  render: function (createElement) {
+  render (createElement) {
     const childNodes = this.$slots.default || []
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index) => index === childNodesLength - 1
 
     const separatorNode = this.$slots.separator || [ this.separator ]
 
-    const mkSeparatorComponent = () => createElement(
+    const createSeparatorComponent = () => createElement(
       'span',
       {
         staticClass: 'va-breadcrumbs__separator',
@@ -60,14 +60,14 @@ export default Vue.component('va-breadcrumbs-provider', {
         return false
       }
 
-      if (childPropData.disabled === '') { // NOTE: vue make empty default attribute as ''
+      if (childPropData.disabled === '') { // NOTE: by default empty attribute is ''
         return true
       }
 
       return Boolean(childPropData.disabled)
     }
 
-    const mkChildComponent = (child, index) => createElement(
+    const createChildComponent = (child, index) => createElement(
       'span', {
         staticClass: 'va-breadcrumbs__item',
         style: {
@@ -81,10 +81,10 @@ export default Vue.component('va-breadcrumbs-provider', {
 
     if (childNodesLength) {
       childNodes.forEach((child, index) => {
-        children.push(mkChildComponent(child, index))
+        children.push(createChildComponent(child, index))
 
         if (!isLastIndexChildNodes(index)) {
-          children.push(mkSeparatorComponent())
+          children.push(createSeparatorComponent())
         }
       })
     }
