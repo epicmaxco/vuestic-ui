@@ -23,7 +23,7 @@ export const ColorThemePlugin = {
 
     /* eslint-disable no-new */
     // This line is just to make themes reactive
-    new Vue({ data: { themes: Vue.prototype.$themes } })
+    new Vue({ data: { themes: null } })
   },
 }
 
@@ -32,6 +32,7 @@ export const ColorThemeMixin = {
     return {
       colorThemeDefault: 'primary',
       colorDefault: '#000000',
+      isEnableColorThemeMixin: true,
     }
   },
   props: {
@@ -40,18 +41,24 @@ export const ColorThemeMixin = {
     },
   },
   computed: {
+    _isEnableColorTheme () {
+      return this.$themes
+    },
     // This allows a multitude of defaults.
     // theme color => color => theme default => hard default
     colorComputed () {
-      if (this.$themes && this.$themes[this.color]) {
-        return this.$themes[this.color]
+      if (this._isEnableColorTheme) {
+        if (this.$themes[this.color]) {
+          return this.$themes[this.color]
+        }
+
+        return this.$themes[this.colorThemeDefault]
       }
+
       if (this.color) {
         return this.color
       }
-      if (this.$themes && this.$themes[this.colorThemeDefault]) {
-        return this.$themes[this.colorThemeDefault]
-      }
+
       return this.colorDefault
     },
   },

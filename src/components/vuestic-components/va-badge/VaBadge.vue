@@ -30,7 +30,7 @@ export default {
     },
     textColor: {
       type: String,
-      default: '',
+      default: 'white',
     },
     label: {
       type: [String, Number],
@@ -88,22 +88,35 @@ export default {
       }
     },
     badgeStyle () {
-      const computedStyles = {
-        borderColor: this.colorComputed,
-        backgroundColor: this.colorComputed,
+      const styles = {
+        color: 'white',
+        backgroundColor: 'black',
+        borderColor: 'black',
+        opacity: 1,
       }
 
-      if (this.textColor && this.$themes) {
-        computedStyles.color = this.$themes[this.textColor]
-      } else {
-        computedStyles.color = 'white'
+      if (this._isEnableColorTheme) {
+        styles.borderColor = this.colorComputed
+        styles.backgroundColor = this.colorComputed
+
+        if (this.textColor && this.$themes && this.$themes[this.textColor]) {
+          styles.color = this.$themes[this.textColor]
+        } else {
+          styles.color = 'white'
+        }
+
+        if (this.transparent) {
+          styles.opacity = 0.5
+        }
+
+        return styles
       }
 
-      if (this.transparent) {
-        computedStyles.opacity = 0.5
+      return {
+        color: 'white',
+        backgroundColor: 'black',
+        borderColor: 'black',
       }
-
-      return computedStyles
     },
   },
 }
