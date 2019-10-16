@@ -4,6 +4,7 @@ import VueClipboard from 'vue-clipboard2'
 import Router from 'vue-router'
 import { VueBookComponents, createRoute } from 'vue-book'
 import { ColorThemePlugin } from '../services/ColorThemePlugin'
+import { ContextProvidePlugin } from '../services/ContextProvidePlugin'
 import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from '../components/resize-events'
 import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
@@ -15,6 +16,7 @@ Vue.use(Router)
 Vue.use(VueBookComponents)
 Vue.use(ColorThemePlugin)
 Vue.use(DropdownPopperPlugin)
+Vue.use(ContextProvidePlugin)
 
 const router = new Router({
   routes: [
