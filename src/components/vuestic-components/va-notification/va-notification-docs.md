@@ -4,7 +4,7 @@
   color="info" 
   closeable
 >
- <va-badge color="success"> Paid </va-badge>
+ <va-badge color="success" label="Paid" />
  You successfully read this important alert message.
 </va-notification>
 ```  

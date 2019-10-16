@@ -84,7 +84,7 @@ export default {
       type: Function,
       default: undefined,
     },
-     sortOrder: {
+    sortOrder: {
       type: Array,
       default: undefined,
     },

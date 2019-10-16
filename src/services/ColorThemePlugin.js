@@ -40,6 +40,9 @@ export const ColorThemeMixin = {
     },
   },
   computed: {
+    _isEnableColorTheme () {
+      return this.$themes
+    },
     // This allows a multitude of defaults.
     // theme color => color => theme default => hard default
     colorComputed () {
@@ -48,15 +51,19 @@ export const ColorThemeMixin = {
   },
   methods: {
     computeColor (prop) {
-      if (this.$themes && this.$themes[prop]) {
-        return this.$themes[prop]
+      if (this._isEnableColorTheme) {
+        if (this.$themes && this.$themes[prop]) {
+          return this.$themes[prop]
+        }
+        if (this.$themes && this.$themes[this.colorThemeDefault]) {
+          return this.$themes[this.colorThemeDefault]
+        }
       }
+
       if (prop) {
         return prop
       }
-      if (this.$themes && this.$themes[this.colorThemeDefault]) {
-        return this.$themes[this.colorThemeDefault]
-      }
+
       return this.colorDefault
     },
   },
