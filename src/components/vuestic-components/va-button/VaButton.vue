@@ -183,6 +183,7 @@ export default {
           computedStyle.background = getHoverColor(this.colorComputed)
         } else {
           computedStyle.backgroundImage = this.gradientStyle
+          computedStyle.boxShadow = this.shadowStyle
         }
       } else {
         computedStyle.color = this.flat || this.outline ? this.colorComputed : '#ffffff'
@@ -266,7 +267,7 @@ export default {
     color: $white;
 
     &:hover {
-      filter: brightness(115%);
+      opacity: 0.85;
     }
 
     &:focus, &:active {
