@@ -87,7 +87,7 @@
     <span v-if="iconAppend" class="inverse-label">
       <va-icon :name="iconAppend" :color="colorComputed" :size="16"/>
     </span>
-    <span v-if="invertLabel" style="labelStyles" class="label inverse-label">
+    <span v-if="invertLabel" :style="labelStyles" class="label inverse-label">
       {{ label }}
     </span>
     <div class="input-wrapper" v-if="$slots.append">
@@ -121,6 +121,12 @@ export default {
       type: [Number, Array],
     },
     trackLabel: {
+      type: String,
+    },
+    trackColor: {
+      type: String,
+    },
+    labelColor: {
       type: String,
     },
     trackLabelVisible: {
@@ -188,13 +194,16 @@ export default {
       }
     },
     labelStyles () {
+      console.log(this.colorComputed)
       return {
-        color: this.colorComputed,
+        color: this.labelColor ? (this.$themes[this.labelColor] || this.computeColor(this.labelColor)) : this.colorComputed,
       }
     },
     trackStyles () {
       return {
-        backgroundColor: getHoverColor(this.colorComputed),
+        backgroundColor: this.trackColor
+          ? (this.$themes[this.trackColor] || this.computeColor(this.trackColor))
+          : getHoverColor(this.colorComputed),
       }
     },
     processedStyles () {

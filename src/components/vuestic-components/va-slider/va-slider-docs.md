@@ -30,6 +30,7 @@ export default {
 * `range` - Boolean - if set to 'true', slider becomes range.
 * `value` - Number | Array.
 * `track-label` - String - overwrite value views. Examples: '40px', '33%', etc.
+* `track-color` - String - (default: 'success') - use this property to set the color of the track. We can choose one color from a set of theme colors (primary, secondary, info, error, warning) or set hex, rgb
 * `track-label-visible` - Boolean - if set to 'true', value label will always be shown. 
 * `readonly` - Boolean (default: false) - Sets slider in readonly state
 * `min` - Number (default: 0).
@@ -37,6 +38,7 @@ export default {
 * `step` - Number (default: 1) - specify amount of steps between the beginning and the end of slider.
 * `label` - String - displays label on the left of slider. Should correspond the slider color.
 * `invert-label` - Boolean - if set to 'true', label goes right.
+* `label-color` - String - (default: 'success') se this property to set the color of label
 * `disabled` - Boolean.
 * `pins` - Boolean - if set to 'true', display markers on slider track appear.
 * `icon-prepend` - String. Insert icon from the left side of the slider. Should follow color theme.

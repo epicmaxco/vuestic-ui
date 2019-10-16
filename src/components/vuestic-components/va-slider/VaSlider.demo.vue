@@ -94,11 +94,10 @@
         v-model="value"
       />
     </VbCard>
-    <VbCard width="500px" title="Colored slider">
-      <va-slider
-        color="#f333f2"
-        v-model="value"
-      />
+    <VbCard width="500px" title="Colored sliders">
+      <va-slider color="#f333f2" v-model="value"/>
+      <va-slider color="info" track-color="warning" v-model="value"/>
+      <va-slider color="warning" track-color="grey" label-color="danger" label="Label" invert-label v-model="value"/>
     </VbCard>
     <VbCard width="500px" title="Range">
       <va-slider
