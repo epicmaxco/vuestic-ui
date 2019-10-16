@@ -198,7 +198,6 @@ export default {
       }
     },
     labelStyles () {
-      console.log(this.colorComputed)
       return {
         color: this.labelColor ? (this.$themes[this.labelColor] || this.computeColor(this.labelColor)) : this.colorComputed,
       }
