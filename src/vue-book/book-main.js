@@ -18,7 +18,7 @@ Vue.use(ColorThemePlugin)
 Vue.use(DropdownPopperPlugin)
 Vue.use(ContextProvidePlugin, {
   VaTest: {
-    color: 'red',
+    color: 'info',
   },
 })
 

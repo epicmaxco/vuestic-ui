@@ -4,21 +4,13 @@ const toCamelCase = (string) => {
 
 const configName = 'va-context-config'
 
-const makeProvideObject = (options) => {
-  if (options) {
-    return options
-  }
-
-  return {}
-}
-
 export const ContextProvidePlugin = {
-  install (Vue, options) {
+  install (Vue, options = {}) {
+    const provideObject = Vue.observable({ [configName]: options })
+
     Vue.mixin({
       provide () {
-        return {
-          [configName]: Vue.observable(makeProvideObject(options)),
-        }
+        return provideObject
       },
     })
   },

@@ -1,21 +1,22 @@
 <template>
   <div class="va-test" :style="computedStyles">
-    <Slot>
-      Test
-    </Slot>
+    <slot>Test</slot>
   </div>
 </template>
 
 <script>
 import { ContextProvideMixin } from '../../../services/ContextProvidePlugin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'va-test',
-  mixins: [ContextProvideMixin],
+  mixins: [ContextProvideMixin, ColorThemeMixin],
+
   props: {
     color: {
       type: String,
       default () {
+        console.log('default', this._$contextPluginColor)
         return this._$contextPluginColor
       },
     },
@@ -23,7 +24,7 @@ export default {
   computed: {
     computedStyles () {
       return {
-        color: this.color,
+        color: this.colorComputed,
       }
     },
   },
