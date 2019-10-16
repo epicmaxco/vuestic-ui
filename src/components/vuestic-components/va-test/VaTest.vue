@@ -15,11 +15,10 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'green',
+      default () {
+        return this._$contextPluginColor
+      },
     },
-  },
-  created () {
-    this._$contextPluginUpdateProps()
   },
   computed: {
     computedStyles () {
@@ -27,8 +26,6 @@ export default {
         color: this.color,
       }
     },
-  },
-  methods: {
   },
 }
 </script>

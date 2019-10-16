@@ -16,7 +16,11 @@ Vue.use(Router)
 Vue.use(VueBookComponents)
 Vue.use(ColorThemePlugin)
 Vue.use(DropdownPopperPlugin)
-Vue.use(ContextProvidePlugin)
+Vue.use(ContextProvidePlugin, {
+  VaTest: {
+    color: 'red',
+  },
+})
 
 const router = new Router({
   routes: [

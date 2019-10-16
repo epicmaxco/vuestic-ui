@@ -2,54 +2,45 @@ const toCamelCase = (string) => {
   return string.replace(/[_-]/g, ' ').replace(/(?:^\w|[A-Z]|\b\w)/g, (word) => word.toUpperCase()).replace(/\s+/g, '')
 }
 
-const mkProvideObject = (options) => {
-  const testContext = {
-    VaTest: {
-      color: 'red',
-    },
-    VaButton: {
-      color: 'purple',
-    },
-  }
+const configName = 'va-context-config'
 
-  let _$context = {}
-
+const makeProvideObject = (options) => {
   if (options) {
-    _$context = options
-  } else {
-    _$context = testContext
+    return options
   }
 
-  return { _$context }
+  return {}
 }
 
 export const ContextProvidePlugin = {
   install (Vue, options) {
     Vue.mixin({
-      provide: function () {
-        return mkProvideObject(options)
+      provide () {
+        return {
+          [configName]: Vue.observable(makeProvideObject(options)),
+        }
       },
     })
   },
 }
 
 export const ContextProvideMixin = {
-  inject: {
-    _$context: {
-      from: '_$context',
-      default () {
-        return this
-      },
+  inject: { configName },
+  computed: {
+    _$contextPluginConfig () {
+      return this._provided[configName]
     },
-  },
-  methods: {
-    _$contextPluginUpdateProps () {
+    _$contextPluginProps () {
       const tag = this.$options ? this.$options._componentTag : null
-      if (tag) {
-        const componentContext = this._$context[toCamelCase(tag)]
 
-        Object.assign(this, componentContext)
+      if (tag) {
+        return this._$contextPluginConfig[toCamelCase(tag)]
       }
+
+      return null
+    },
+    _$contextPluginColor () {
+      return this._$contextPluginProps.color
     },
   },
 }
