@@ -34,11 +34,11 @@ export const ColorThemeMixin = {
       colorDefault: '#000000',
     }
   },
-  // props: {
-  //   color: {
-  //     type: String,
-  //   },
-  // },
+  props: {
+    color: {
+      type: String,
+    },
+  },
   computed: {
     // This allows a multitude of defaults.
     // theme color => color => theme default => hard default

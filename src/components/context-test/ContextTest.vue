@@ -5,19 +5,17 @@
 </template>
 
 <script>
-import { ContextProvideMixin } from '../../services/ContextProvidePlugin'
 import { ColorThemeMixin } from '../../services/ColorThemePlugin'
 
 export default {
   name: 'va-test',
-  mixins: [ContextProvideMixin, ColorThemeMixin],
+  mixins: [ColorThemeMixin],
 
   props: {
     color: {
       type: String,
       default () {
-        // console.log('default', this._$contextPluginColor)
-        return this._$contextPluginColor
+        return this.$vaContextPlugin.getComponentContextProps(this.$options.name, 'color')
       },
     },
   },
