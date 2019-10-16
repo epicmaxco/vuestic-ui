@@ -5,6 +5,26 @@
         v-model="value"
       />
     </VbCard>
+    <VbCard width="500px" height="350px" title="Vertical sliders">
+      <div style="display: flex;flex-direction: row;height: 300px">
+        <div style="display: flex; width: 50%; justify-content: center;">
+          <va-slider vertical v-model="value"/>
+        </div>
+        <div style="display: flex; width: 50%; justify-content: center;">
+          <va-slider
+            range
+            vertical
+            track-label-visible
+            pins
+            :step="10"
+            icon-prepend="fa fa-volume-off"
+            icon-append="fa fa-volume-up"
+            v-model="value2"
+          />
+        </div>
+      </div>
+
+    </VbCard>
     <VbCard width="500px" title="value visible">
       <va-slider
         track-label-visible
@@ -154,20 +174,13 @@
       />
     </VbCard>
     <VbCard width="500px" title="Slider With Input">
-      <va-slider
-        v-model="value"
-      >
+      <va-slider v-model="value">
         <va-input v-model="value" slot="prepend"/>
       </va-slider>
     </VbCard>
     <VbCard width="500px" title="Range With Inputs (demo for presentation)">
-      <va-slider
-        range
-        v-model="value2"
-      >
-        <va-input
-          v-model.number="value2[0]"
-          slot="prepend"/>
+      <va-slider range v-model="value2">
+        <va-input v-model.number="value2[0]" slot="prepend"/>
         <va-input v-model="value2[1]" slot="append"/>
       </va-slider>
     </VbCard>

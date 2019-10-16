@@ -41,4 +41,5 @@ export default {
 * `pins` - Boolean - if set to 'true', display markers on slider track appear.
 * `icon-prepend` - String. Insert icon from the left side of the slider. Should follow color theme.
 * `icon-append` - String. Insert icon from the right side of the slider. Should follow color theme.
+* `vertical` - Boolean (default: false) Changes slider direction to vertical
 

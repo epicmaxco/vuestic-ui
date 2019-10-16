@@ -1,49 +1,35 @@
 <template>
-  <div
-    class="va-slider"
-    :class="sliderClass"
-  >
-    <div class="va-slider__input-wrapper" v-if="$slots.prepend">
-      <slot name="prepend"/>
+  <div class="va-slider" :class="sliderClass">
+    <div class="input-wrapper" v-if="$slots.prepend">
+      <slot :name="this.vertical ? 'append' : 'prepend'"/>
     </div>
-    <span
-      v-if="label && !invertLabel"
-      :style="labelStyles"
-      class="va-slider__label">
+    <span v-if="label && !invertLabel" :style="labelStyles" class="label">
       {{ label }}
     </span>
-    <span
-      v-if="iconPrepend"
-      class="va-slider__label">
+    <span v-if="iconPrepend" class="label">
       <va-icon :name="iconPrepend" :color="colorComputed" :size="16"/>
     </span>
-    <div
-      class="va-slider__container"
-      @click="wrapClick"
-      ref="sliderContainer"
-    >
-      <div
-        class="va-slider__container__track"
-        :style="trackStyles"/>
+    <div class="container" @click="wrapClick" ref="sliderContainer">
+      <div class="container__track" :style="trackStyles"/>
       <template v-if="pins">
         <div
           v-for="(pin, key) in pinsCol"
           :key="key"
-          class="va-slider__container__mark"
-          :class="{ 'va-slider__container__mark--active': checkActivePin(pin) }"
+          class="container__mark"
+          :class="{ 'container__mark--active': checkActivePin(pin) }"
           :style="getPinStyles(pin)"
         />
       </template>
       <template v-if="isRange">
         <div
           ref="process"
-          class="va-slider__container__track va-slider__container__track--active"
+          class="container__track container__track--active"
           :style="processedStyles"
           @mousedown="moveStart($event, 0)"/>
         <div
           ref="dot0"
-          class="va-slider__container__handler"
-          :class="{'va-slider__container__handler--on-keyboard-focus': isKeyboardFocused === 1}"
+          class="container__handler"
+          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused === 1}"
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
           @touchstart="moveStart($event, 0)"
@@ -54,15 +40,15 @@
           <div
             v-if="trackLabelVisible"
             :style="labelStyles"
-            class="va-slider__container__handler-value"
+            class="container__handler-value"
           >
             {{ val[0] }}
           </div>
         </div>
         <div
           ref="dot1"
-          class="va-slider__container__handler"
-          :class="{'va-slider__container__handler--on-keyboard-focus': isKeyboardFocused === 2}"
+          class="container__handler"
+          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused === 2, 'vertical': vertical}"
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
           @touchstart="moveStart($event, 1)"
@@ -70,10 +56,7 @@
           @blur="isKeyboardFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div
-            v-if="trackLabelVisible"
-            :style="labelStyles"
-            class="va-slider__container__handler-value">
+          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">
             {{ val[1] }}
           </div>
         </div>
@@ -81,13 +64,13 @@
       <template v-else>
         <div
           ref="process"
-          class="va-slider__container__track va-slider__container__track--active"
+          class="container__track container__track--active"
           :style="processedStyles"
           @mousedown="moveStart($event, 0)"/>
         <div
           ref="dot"
-          class="va-slider__container__handler"
-          :class="{'va-slider__container__handler--on-keyboard-focus': isKeyboardFocused}"
+          class="container__handler"
+          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused}"
           :style="dottedStyles"
           @mousedown="(moveStart(), setMouseDown())"
           @touchstart="moveStart()"
@@ -95,29 +78,20 @@
           @blur="isKeyboardFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div
-            v-if="trackLabelVisible"
-            :style="labelStyles"
-            class="va-slider__container__handler-value"
-          >
+          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">
             {{ trackLabel || val }}
           </div>
         </div>
       </template>
     </div>
-    <span
-      v-if="iconAppend"
-      class="va-slider__inverse-label">
+    <span v-if="iconAppend" class="inverse-label">
       <va-icon :name="iconAppend" :color="colorComputed" :size="16"/>
     </span>
-    <span
-      v-if="invertLabel"
-      :style="labelStyles"
-      class="va-slider__label va-slider__inverse-label">
+    <span v-if="invertLabel" style="labelStyles" class="label inverse-label">
       {{ label }}
     </span>
-    <div class="va-slider__input-wrapper" v-if="$slots.append">
-      <slot name="append"/>
+    <div class="input-wrapper" v-if="$slots.append">
+      <slot :name=" this.vertical ? 'prepend' : 'append'"/>
     </div>
   </div>
 </template>
@@ -189,6 +163,10 @@ export default {
     iconAppend: {
       type: String,
     },
+    vertical: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {
@@ -197,6 +175,7 @@ export default {
       currentValue: this.value,
       currentSlider: 0,
       isComponentExists: false,
+      dimensions: this.vertical ? ['height', 'bottom'] : ['width', 'left'],
     }
   },
   computed: {
@@ -204,6 +183,8 @@ export default {
       return {
         'va-slider--disabled': this.disabled,
         'va-slider--readonly': this.readonly,
+        'va-slider__horizontal': !this.vertical,
+        'va-slider__vertical': this.vertical,
       }
     },
     labelStyles () {
@@ -224,15 +205,15 @@ export default {
         const val1 = ((validatedValue[1] - this.min) / (this.max - this.min)) * 100
 
         return {
-          left: `${val0}%`,
-          width: `${val1 - val0}%`,
+          [this.dimensions[1]]: `${val0}%`,
+          [this.dimensions[0]]: `${val1 - val0}%`,
           backgroundColor: this.colorComputed,
         }
       } else {
         const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
 
         return {
-          width: `${val}%`,
+          [this.dimensions[0]]: `${val}%`,
           backgroundColor: this.colorComputed,
         }
       }
@@ -246,12 +227,12 @@ export default {
 
         return [
           {
-            left: `calc(${val0}% - 8px)`,
+            [this.dimensions[1]]: `calc(${val0}% - 8px)`,
             backgroundColor: '#ffffff',
             borderColor: this.colorComputed,
           },
           {
-            left: `calc(${val1}% - 8px)`,
+            [this.dimensions[1]]: `calc(${val1}% - 8px)`,
             backgroundColor: '#ffffff',
             borderColor: this.colorComputed,
           },
@@ -260,7 +241,7 @@ export default {
         const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
 
         return {
-          left: `calc(${val}% - 8px)`,
+          [this.dimensions[1]]: `calc(${val}% - 8px)`,
           backgroundColor: '#ffffff',
           borderColor: this.colorComputed,
         }
@@ -490,17 +471,17 @@ export default {
     getPinStyles (pin) {
       return {
         backgroundColor: this.checkActivePin(pin) ? this.colorComputed : getHoverColor(this.colorComputed),
-        left: `${pin * this.step}%`,
+        [this.dimensions[1]]: `${pin * this.step}%`,
       }
     },
     getPos (e) {
       this.getStaticData()
-      return e.clientX - this.offset
+      return this.vertical ? this.offset - e.clientY : e.clientX - this.offset
     },
     getStaticData () {
       if (this.$refs.sliderContainer) {
-        this.size = this.$refs.sliderContainer.offsetWidth
-        this.offset = this.$refs.sliderContainer.getBoundingClientRect().left
+        this.size = this.$refs.sliderContainer[this.vertical ? 'offsetHeight' : 'offsetWidth']
+        this.offset = this.$refs.sliderContainer.getBoundingClientRect()[this.dimensions[1]]
       }
     },
     getValueByIndex (index) {
@@ -564,18 +545,19 @@ export default {
         const processSize = `${val1 - val0}%`
         const processPosition = `${val0}%`
 
-        this.$refs.process.style.width = processSize
-        this.$refs.process.style['left'] = processPosition
+        this.$refs.process.style[this.dimensions[0]] = processSize
+        this.$refs.process.style[this.dimensions[1]] = processPosition
+
         if (slider === 0) {
-          this.$refs.dot0.style['left'] = `calc('${processPosition} - 8px)`
+          this.$refs.dot0.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
         } else {
-          this.$refs.dot1.style['left'] = `calc('${processPosition} - 8px)`
+          this.$refs.dot1.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
         }
       } else {
         const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
-        this.$refs.process.style.width = `${val}%`
-        this.$refs.dot.style['left'] = `calc('${val} - 8px)`
+        this.$refs.process.style[this.dimensions[0]] = `${val}%`
+        this.$refs.dot.style[this.dimensions[1]] = `calc('${val} - 8px)`
       }
     },
     normalizeValue (value) {
@@ -610,12 +592,7 @@ export default {
       }
     },
     isDiff (a, b) {
-      if (Object.prototype.toString.call(a) !== Object.prototype.toString.call(b)) {
-        return true
-      } else if (Array.isArray(a) && a.length === b.length) {
-        return a.some((v, i) => v !== b[i])
-      }
-      return a !== b
+      return JSON.stringify(a) !== JSON.stringify(b)
     },
   },
   mounted () {
@@ -635,30 +612,8 @@ export default {
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
 
-.va-slider {
-  display: flex;
-  align-items: center;
-
-  &--disabled {
-    @include va-disabled;
-
-    .va-slider__container__handler {
-
-      &:hover {
-        cursor: default;
-      }
-    }
-  }
-
-  &--readonly {
-    .va-slider__container__handler {
-      &:hover {
-        cursor: default;
-      }
-    }
-  }
-
-  &__input-wrapper {
+.va-slider__horizontal {
+  .input-wrapper {
     flex-basis: 8.33333%;
     flex-grow: 0;
     max-width: 8.33333%;
@@ -673,27 +628,7 @@ export default {
     }
   }
 
-  &__label {
-    margin-right: 1rem;
-    user-select: none;
-    font-size: .625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  &__inverse-label {
-    user-select: none;
-    font-size: .625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-left: 1rem;
-  }
-
-  &__container {
+  .container {
     position: relative;
     width: 100%;
     height: 1.5rem;
@@ -755,6 +690,161 @@ export default {
         line-height: 1.2;
         font-weight: bold;
         text-transform: uppercase;
+      }
+    }
+  }
+
+  .label {
+    margin-right: 1rem;
+    user-select: none;
+    font-size: .625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .inverse-label {
+    user-select: none;
+    font-size: .625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 1rem;
+  }
+}
+
+.va-slider__vertical {
+  height: 100%;
+  padding: 12px 0 12px 0;
+  flex-direction: column;
+  align-items: center;
+
+  .input-wrapper {
+    flex-basis: fit-content;
+    flex-grow: 0;
+    max-width: 1rem;
+    min-width: 2.5rem;
+
+    position: relative;
+    display: flex;
+
+    &:last-of-type {
+      margin-top: 1rem;
+    }
+  }
+
+  .container {
+    position: relative;
+    height: 100%;
+    width: .5rem;
+    display: flex;
+    align-items: center;
+
+    &__track, &__track--active {
+      position: absolute;
+      height: 100%;
+      width: .5rem;
+      bottom: 0;
+      border-radius: 0.25rem;
+    }
+
+    &__track {
+      height: 100%;
+    }
+
+    &__mark {
+      position: absolute;
+      width: .75rem;
+      height: .125rem;
+      left: -2px;
+    }
+
+    &__handler {
+      position: absolute;
+      width: 1.25rem;
+      height: 1.25rem;
+      background: $white;
+      border: .375rem solid;
+      border-radius: 50%;
+      outline: none !important;
+      left: -.375rem;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &--on-keyboard-focus {
+        @at-root .va-slider__container__handler#{&}:before {
+          content: '';
+          transform: translate(-0.625rem, -0.625rem);
+          background-color: black !important;
+          display: block;
+          width: 1.75rem;
+          height: 1.75rem;
+          position: absolute;
+          border-radius: 50%;
+          opacity: 0.1;
+          pointer-events: none;
+        }
+      }
+
+      &-value {
+        position: relative;
+        top: .625rem;
+        left: 1.25rem;
+        transform: translate(-50%, -100%);
+        user-select: none;
+        font-size: .625rem;
+        letter-spacing: 0.6px;
+        line-height: 1.2;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .label {
+    margin-bottom: .625rem;
+    user-select: none;
+    font-size: .625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .inverse-label {
+    user-select: none;
+    font-size: .625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: .625rem;
+    left: -.375rem;
+  }
+}
+
+.va-slider {
+  display: flex;
+  align-items: center;
+
+  &--disabled {
+    @include va-disabled;
+
+    .container__handler {
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+
+  &--readonly {
+    .container__handler {
+      &:hover {
+        cursor: default;
       }
     }
   }
