@@ -1,9 +1,11 @@
 <template>
   <VbDemo>
     <VbCard width="500px" title="default">
-      <va-slider
-        v-model="value"
-      />
+      <va-slider v-model="value"/>
+    </VbCard>
+    <VbCard width="500px" title="Sliders without track">
+      <va-slider range track-label-visible :show-track="false" v-model="value2"/>
+      <va-slider :show-track="false" v-model="value"/>
     </VbCard>
     <VbCard width="500px" height="350px" title="Vertical sliders">
       <div style="display: flex;flex-direction: row;height: 300px">

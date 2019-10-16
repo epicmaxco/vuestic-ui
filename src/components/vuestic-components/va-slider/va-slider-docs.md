@@ -44,4 +44,5 @@ export default {
 * `icon-prepend` - String. Insert icon from the left side of the slider. Should follow color theme.
 * `icon-append` - String. Insert icon from the right side of the slider. Should follow color theme.
 * `vertical` - Boolean (default: false) Changes slider direction to vertical
+* `show-track` - Boolean (default: true) set to show/hide track 
 

@@ -173,6 +173,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    showTrack: {
+      type: Boolean,
+      default: true,
+    },
   },
   data () {
     return {
@@ -217,6 +221,7 @@ export default {
           [this.dimensions[1]]: `${val0}%`,
           [this.dimensions[0]]: `${val1 - val0}%`,
           backgroundColor: this.colorComputed,
+          visibility: this.showTrack ? 'visible' : 'hidden',
         }
       } else {
         const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
@@ -224,6 +229,7 @@ export default {
         return {
           [this.dimensions[0]]: `${val}%`,
           backgroundColor: this.colorComputed,
+          visibility: this.showTrack ? 'visible' : 'hidden',
         }
       }
     },
