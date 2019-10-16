@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import VaTest from './VaTest'
+import VaTest from './ContextTest'
 
 export default {
   components: {

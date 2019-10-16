@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { ContextProvideMixin } from '../../../services/ContextProvidePlugin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextProvideMixin } from '../../services/ContextProvidePlugin'
+import { ColorThemeMixin } from '../../services/ColorThemePlugin'
 
 export default {
   name: 'va-test',
@@ -16,7 +16,7 @@ export default {
     color: {
       type: String,
       default () {
-        console.log('default', this._$contextPluginColor)
+        // console.log('default', this._$contextPluginColor)
         return this._$contextPluginColor
       },
     },
