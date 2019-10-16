@@ -1,7 +1,3 @@
-// const kebabCase = (string) => {
-//   return string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').replace(/^-*/, '').toLowerCase()
-// }
-
 const toCamelCase = (string) => {
   return string.replace(/[_-]/g, ' ').replace(/(?:^\w|[A-Z]|\b\w)/g, (word) => word.toUpperCase()).replace(/\s+/g, '')
 }
