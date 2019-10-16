@@ -89,7 +89,8 @@ $nav-border-side-width: 3.1875rem;
   height: $top-nav-height;
   padding-left: $nav-padding-left;
   padding-right: $nav-padding-right;
-  background-color: $top-nav-bg;
+  background-color: $background-gray !important;
+  box-shadow: 0 4px 20px -18px #707070;
   display: flex;
 
   &__content {
@@ -103,9 +104,13 @@ $nav-border-side-width: 3.1875rem;
 
   &__actions {
     margin-left: auto;
+    >div {
+      justify-content: flex-end;
+    }
   }
 
   &__logo {
+    display: none;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -130,6 +135,7 @@ $nav-border-side-width: 3.1875rem;
   }
 
   &__shape {
+    display: none;
     transition: border-top-color .3s ease; /* sidebar's bg color transitions as well -> consistency */
     width: 33%;
     max-width: 467px;
@@ -146,8 +152,11 @@ $nav-border-side-width: 3.1875rem;
 
   &__item {
     padding: 0;
+    padding-top: 5px !important;
     height: 100%;
     margin: auto 1.25rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
     &:last-of-type {
       margin-right: 0;
     }
@@ -166,8 +175,14 @@ $nav-border-side-width: 3.1875rem;
     }
   }
 
+  @include  media-breakpoint-down(md) {
+    &__text {
+      display: none;
+    }
+  }
+
   @include  media-breakpoint-down(sm) {
-    height: $top-mobile-nav-height;
+    // height: $top-mobile-nav-height;
     padding: $nav-mobile-py $nav-mobile-px 1rem;
     &__icon-container {
       align-items: flex-start;
@@ -189,11 +204,13 @@ $nav-border-side-width: 3.1875rem;
     }
     &__actions {
       margin-left: 0;
+      padding: 0 .5rem;
     }
     &__shape {
       display: none;
     }
     &__item {
+      padding-top: 0px !important;
       margin-right: 0;
       &:first-of-type {
         margin-left: 0;

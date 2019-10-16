@@ -36,45 +36,30 @@
         <slot/>
       </div>
     </expanding>
-    <va-dropdown
+        <a href="#"
       v-if="minimized"
-      position="right"
-      fixed
-      :preventOverflow="false"
-    >
-      <a
-        href="#"
-        slot="anchor"
-        target="_self"
-        @mouseenter="updateHoverState"
-        @mouseleave="updateHoverState"
-        :style="sidebarLinkStyles"
-        class="va-sidebar-link"
-        :class="computedLinkClass"
-      >
-        <div class="va-sidebar-link__content">
-          <va-icon
-            v-if="icon"
-            class="va-sidebar-link__content__icon"
-            :style="iconStyles"
-            :name="icon"
-          />
-        </div>
+      slot="anchor"
+      target="_self"
+      @mouseenter="updateHoverState(true)"
+      @mouseleave="updateHoverState(false)"
+      @click="$emit('update:minimized', false)"
+      :style="sidebarLinkStyles"
+      class="va-sidebar-link"
+      :class="computedLinkClass">
+      <div class="va-sidebar-link__content">
         <va-icon
-          name="material-icons"
-          class="va-sidebar-link__after"
+          v-if="icon"
+          class="va-sidebar-link__content__icon"
           :style="iconStyles"
-        >
-          more_horiz
-        </va-icon>
-      </a>
-      <div
-        class="va-sidebar-link-group__submenu in"
-        :style="{backgroundColor: $themes[color]}"
-      >
-        <slot/>
+          :name="icon"
+        />
       </div>
-    </va-dropdown>
+      <va-icon
+        name="fa fa-ellipsis-h"
+        class="va-sidebar-link__after"
+        :style="iconStyles"
+      />
+    </a>
   </li>
 </template>
 
@@ -88,6 +73,7 @@ export default {
   props: {
     icon: [String, Array],
     title: String,
+    slug: String,
     minimized: Boolean,
     activeByDefault: Boolean,
     children: Array,
@@ -133,10 +119,12 @@ export default {
       this.isHovered = !this.isHovered
     },
     updateActiveState () {
-      const active = this.children.some(item => item.name === this.$route.name)
+      const active = this.children.some(item => '/' + this.slug + '/' + item.component === this.$route.path)
 
       this.isActive = this.minimized ? active : false
-      this.expanded = active
+      if (this.isActive) this.expanded = true
+
+      // this.expanded = active
     },
   },
   computed: {
@@ -170,7 +158,7 @@ export default {
         return {
           color: 'white',
           backgroundColor: getBackgroundColor(),
-          borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
+          // borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
         }
       } else return {}
     },

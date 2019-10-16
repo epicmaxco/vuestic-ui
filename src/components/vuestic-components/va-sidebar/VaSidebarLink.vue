@@ -87,7 +87,7 @@ export default {
         return {
           color: 'white',
           backgroundColor: getBackgroundColor(),
-          borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
+          // borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
         }
       } else return {}// else <- controlled by CSS (color in rgba)
     },
