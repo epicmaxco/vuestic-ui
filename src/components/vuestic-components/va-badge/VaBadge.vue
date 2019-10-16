@@ -4,10 +4,10 @@
    :class="badgeClass"
   >
     <div
-      class="va-badge__badge mr-2"
+      class="va-badge__content-wrapper"
       :style="badgeStyle"
     >
-      <div class="va-badge__badge__content">
+      <div class="va-badge__content">
         <slot name="badge">
           {{ label  }}
         </slot>
@@ -129,7 +129,7 @@ export default {
   display: inline-flex;
   position: relative;
 
-  &__badge {
+  &__content-wrapper {
     transition: $transition-secondary;
     display: inline-flex;
     padding: $badge-padding-y $badge-padding-x;
@@ -204,25 +204,25 @@ export default {
     .va-badge--bottom.va-badge--overlap & {
       transform: translateX(-50%) translateY(-50%);
     }
+  }
 
-    &__content {
-      margin: 0;
-      text-transform: uppercase;
-      overflow: hidden;
-      max-height: $badge-font-size * $badge-line-height;
+  &__content {
+    margin: 0;
+    text-transform: uppercase;
+    overflow: hidden;
+    max-height: $badge-font-size * $badge-line-height;
 
-      .va-badge--multiLine & {
-        max-height: 100%;
-        overflow: auto;
-      }
+    .va-badge--multiLine & {
+      max-height: 100%;
+      overflow: auto;
+    }
 
-      .va-badge--dot & {
-        display: none;
-      }
+    .va-badge--dot & {
+      display: none;
+    }
 
-      .va-badge--floating & {
-        align-items: center;
-      }
+    .va-badge--floating & {
+      align-items: center;
     }
   }
 }
