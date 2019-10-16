@@ -72,7 +72,7 @@ export default {
     },
     computedLinkStyles () {
       let getBackgroundColor = () => {
-        let color = hex2hsl(this.$themes.secondary)
+        let color = hex2hsl(this.$themes.primary)
 
         color.s -= 13
         color.l += 15
@@ -85,7 +85,7 @@ export default {
 
       if (this.isHovered || this.isActive) {
         return {
-          color: this.$themes['primary'],
+          color: 'white',
           backgroundColor: getBackgroundColor(),
           borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
         }
@@ -127,7 +127,9 @@ export default {
   align-items: center;
   text-decoration: none;
   border-left: .25rem solid transparent;
-  color: rgba(255, 255, 255, 0.65);
+  color: $evollu-gray-dark;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 
   &__content {
 
@@ -150,6 +152,9 @@ export default {
         display: none;
       }
     }
+  }
+  &__after {
+    display: none !important;
   }
 }
 

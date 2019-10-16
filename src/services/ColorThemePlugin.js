@@ -1,13 +1,13 @@
 const getDefaultOptions = () => ({
   themes: {
-    primary: '#40e583',
-    secondary: '#002c85',
-    success: '#40e583',
-    info: '#2c82e0',
+    primary: '#29c4a9',
+    secondary: '#34f5d4',
+    success: '#29c4a9',
+    info: '#29c4a9',
     danger: '#e34b4a',
     warning: '#ffc200',
-    gray: '#babfc2',
-    dark: '#34495e',
+    gray: '#A49D97',
+    dark: '#414244',
   },
 })
 

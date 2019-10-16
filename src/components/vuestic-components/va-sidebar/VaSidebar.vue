@@ -1,8 +1,7 @@
 <template>
   <aside
-    :class="computedClass"
-    :style="{ backgroundColor: colorComputed }"
-  >
+    :class="computedClass">
+    <!-- :style="{ backgroundColor: colorComputed }"> -->
     <div class="va-sidebar__menu">
       <slot name="menu"></slot>
     </div>
@@ -40,11 +39,13 @@ export default {
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 .va-sidebar {
+  background-color: $background-gray;
   min-height: $sidebar-viewport-min-height;
   height: $sidebar-viewport-height;
   position: absolute;
   width: $sidebar-width;
-  top: $top-nav-height;
+  // top: $top-nav-height;
+  top: 5rem;
   left: 0;
   transition: all .3s ease;
   overflow-y: auto;
@@ -52,7 +53,7 @@ export default {
   &__menu {
     max-height: 100%;
     margin-bottom: 0;
-    padding-top: 2.5625rem;
+    padding-top: 1.5rem;
     padding-bottom: 2.5rem;
     list-style: none;
     padding-left: 0;

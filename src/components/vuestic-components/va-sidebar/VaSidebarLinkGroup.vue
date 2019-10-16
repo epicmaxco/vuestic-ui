@@ -155,7 +155,7 @@ export default {
     },
     sidebarLinkStyles () {
       let getBackgroundColor = () => {
-        let color = hex2hsl(this.$themes.secondary)
+        let color = hex2hsl(this.$themes.primary)
 
         color.s -= 13
         color.l += 15
@@ -168,7 +168,7 @@ export default {
 
       if (this.isHovered || this.isActive) {
         return {
-          color: this.$themes['primary'],
+          color: 'white',
           backgroundColor: getBackgroundColor(),
           borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
         }
@@ -176,8 +176,8 @@ export default {
     },
     iconStyles () {
       return (this.isHovered || this.isActive)
-        ? { color: this.$themes['primary'] }
-        : { color: 'white' }
+        ? { color: 'white' }
+        : { color: this.$themes['dark'] }
     },
   },
 }
