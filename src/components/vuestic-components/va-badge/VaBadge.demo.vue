@@ -152,9 +152,6 @@ export default {
       dot: false,
       transparent: false,
       visibleEmpty: false,
-
-      tabTitles: ['One', 'Two', 'Three'],
-      tabValue: 1,
     }
   },
 }
