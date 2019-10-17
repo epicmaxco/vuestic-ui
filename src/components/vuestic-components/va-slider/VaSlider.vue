@@ -275,6 +275,9 @@ export default {
         if (!this.range) {
           val = this.limitValue(val)
         }
+        if (!this.flag) {
+          this.$emit('change', val)
+        }
         this.$emit('input', val)
       },
     },
@@ -370,6 +373,7 @@ export default {
       if (!this.disabled && !this.readonly) {
         if (this.flag) {
           this.$emit('drag-end', this)
+          this.$emit('change', this.range ? Array.from(this.value) : this.value)
         } else {
           return false
         }
