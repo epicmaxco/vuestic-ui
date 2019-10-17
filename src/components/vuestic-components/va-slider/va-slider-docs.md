@@ -46,3 +46,8 @@ export default {
 * `vertical` - Boolean (default: false) Changes slider direction to vertical
 * `show-track` - Boolean (default: true) set to show/hide track 
 
+### Slots
+* `append`  - slot for input after slider
+* `prepend` - slot for input before slider
+* `label`   - replaces the default label
+

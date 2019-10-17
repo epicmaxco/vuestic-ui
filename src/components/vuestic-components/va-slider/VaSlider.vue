@@ -3,9 +3,11 @@
     <div class="input-wrapper" v-if="$slots.prepend">
       <slot :name="this.vertical ? 'append' : 'prepend'"/>
     </div>
-    <span v-if="label && !invertLabel" :style="labelStyles" class="label">
-      {{ label }}
-    </span>
+    <slot v-if="($slots.label || label) && !invertLabel" name="label">
+      <span :style="labelStyles" class="label">
+        {{ label }}
+      </span>
+    </slot>
     <span v-if="iconPrepend" class="label">
       <va-icon :name="iconPrepend" :color="colorComputed" :size="16"/>
     </span>
@@ -89,9 +91,11 @@
     <span v-if="iconAppend" class="inverse-label">
       <va-icon :name="iconAppend" :color="colorComputed" :size="16"/>
     </span>
-    <span v-if="invertLabel" :style="labelStyles" class="label inverse-label">
-      {{ label }}
-    </span>
+    <slot v-if="invertLabel" name="label">
+      <span v-if="invertLabel" :style="labelStyles" class="label inverse-label">
+        {{ label }}
+      </span>
+    </slot>
     <div class="input-wrapper" v-if="$slots.append">
       <slot :name=" this.vertical ? 'prepend' : 'append'"/>
     </div>
