@@ -111,20 +111,11 @@
       </va-breadcrumbs>
       <br/>
       Active color + disabled:
-
-      <div style="background-color: tomato; padding: 3px">
-        Quasar example
-        <br/>
-        <img src="https://i.imgur.com/OLZLFsE.png">
-        <br/>
-        <va-breadcrumbs active-color="primary">
-          <va-breadcrumb-item disabled label="One"/>
-          <va-breadcrumb-item label="Two"/>
-          <va-breadcrumb-item label="Three"/>
-        </va-breadcrumbs>
-      </div>
-
-      <br/>
+      <va-breadcrumbs active-color="primary">
+        <va-breadcrumb-item disabled label="One"/>
+        <va-breadcrumb-item label="Two"/>
+        <va-breadcrumb-item label="Three"/>
+      </va-breadcrumbs>
     </VbCard>
   </VbDemo>
 </template>
