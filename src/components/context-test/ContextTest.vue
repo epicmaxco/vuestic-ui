@@ -6,7 +6,7 @@
 
 <script>
 import { ColorThemeMixin } from '../../services/ColorThemePlugin'
-import { ContextProviderPluginKey } from '../../services/ContextProvidePlugin'
+import { ContextProviderPluginKey } from '../../services/context-provide/ContextProvidePlugin'
 
 export default {
   name: 'va-test',

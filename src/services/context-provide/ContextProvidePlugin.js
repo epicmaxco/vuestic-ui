@@ -4,7 +4,7 @@ const toCamelCase = (string) =>
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (word) => word.toUpperCase())
     .replace(/\s+/g, '')
 
-const deepClone = (obj) => {
+export const deepClone = (obj) => {
   if (!obj) {
     return obj
   }
@@ -45,28 +45,3 @@ export const ContextProvidePlugin = {
     })
   },
 }
-
-const contextComponent = {
-  name: 'va-context-config-component',
-  inject: [ [ContextProviderPluginKey] ],
-  props: {
-    config: {
-      type: Object,
-      require: true,
-    },
-  },
-  provide () {
-    const globConfig = deepClone(this[ContextProviderPluginKey])
-
-    Object.keys(this.config).forEach((key) => {
-      globConfig.config[key] = this.config[key]
-    })
-
-    return { [ContextProviderPluginKey]: globConfig }
-  },
-  render () {
-    return this.$slots.default || null
-  },
-}
-
-export default contextComponent

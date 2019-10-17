@@ -27,7 +27,7 @@
 
 <script>
 import VaTest from './ContextTest'
-import VaContext from '../../services/ContextProvidePlugin'
+import VaContext from '../../services/context-provide/ContextProvidePluginComopnent'
 
 export default {
   components: {
