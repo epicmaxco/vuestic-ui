@@ -23,13 +23,14 @@
       <template v-if="isRange">
         <div
           ref="process"
-          class="container__track container__track--active"
+          class="container__track"
+          :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
           @mousedown="moveStart($event, 0)"/>
         <div
           ref="dot0"
           class="container__handler"
-          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused === 1}"
+          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused === 1, 'container__handler--inactive': !hasMouseDown}"
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
           @touchstart="moveStart($event, 0)"
@@ -48,7 +49,7 @@
         <div
           ref="dot1"
           class="container__handler"
-          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused === 2, 'vertical': vertical}"
+          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused === 2, 'container__handler--inactive': !hasMouseDown}"
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
           @touchstart="moveStart($event, 1)"
@@ -64,13 +65,14 @@
       <template v-else>
         <div
           ref="process"
-          class="container__track container__track--active"
+          class="container__track"
+          :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
           @mousedown="moveStart($event, 0)"/>
         <div
           ref="dot"
           class="container__handler"
-          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused}"
+          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused, 'container__handler--inactive': !hasMouseDown}"
           :style="dottedStyles"
           @mousedown="(moveStart(), setMouseDown())"
           @touchstart="moveStart()"
@@ -653,10 +655,12 @@ export default {
       position: absolute;
       height: 0.5rem;
       border-radius: 0.25rem;
+      transition: none;
+      width: 100%;
     }
 
-    &__track {
-      width: 100%;
+    &__track--inactive {
+      transition: width .3s ease 100ms, left .3s ease 100ms;
     }
 
     &__mark {
@@ -673,13 +677,14 @@ export default {
       border: 0.375rem solid;
       border-radius: 50%;
       outline: none !important;
+      transition: none;
 
       &:hover {
         cursor: pointer;
       }
 
       &--on-keyboard-focus {
-        @at-root .va-slider__container__handler#{&}:before {
+        &:before {
           content: '';
           transform: translate(-0.625rem, -0.625rem);
           background-color: black !important;
@@ -691,6 +696,10 @@ export default {
           opacity: 0.1;
           pointer-events: none;
         }
+      }
+
+      &--inactive {
+        transition: left .3s ease 100ms;
       }
 
       &-value {
@@ -762,10 +771,11 @@ export default {
       width: .5rem;
       bottom: 0;
       border-radius: 0.25rem;
+      transition: none;
     }
 
-    &__track {
-      height: 100%;
+    &__track--inactive {
+      transition: height .3s ease 100ms, bottom .3s ease 100ms;
     }
 
     &__mark {
@@ -784,13 +794,14 @@ export default {
       border-radius: 50%;
       outline: none !important;
       left: -.375rem;
+      transition: none;
 
       &:hover {
         cursor: pointer;
       }
 
       &--on-keyboard-focus {
-        @at-root .va-slider__container__handler#{&}:before {
+        &:before {
           content: '';
           transform: translate(-0.625rem, -0.625rem);
           background-color: black !important;
@@ -802,6 +813,10 @@ export default {
           opacity: 0.1;
           pointer-events: none;
         }
+      }
+
+      &--inactive {
+        transition: bottom .3s ease 100ms;
       }
 
       &-value {
