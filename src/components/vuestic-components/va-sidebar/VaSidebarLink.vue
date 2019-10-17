@@ -128,8 +128,8 @@ export default {
   text-decoration: none;
   border-left: .25rem solid transparent;
   color: $evollu-gray-dark;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 
   &__content {
 
