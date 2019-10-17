@@ -67,7 +67,7 @@ jobs:
       - run:
           name: Deploy to hosting
           command: |
-            tar -czf dist.tar.gz ~/repo/docs/.vupress/dist -C ~/repo/dist .
+            tar -czf dist.tar.gz ~/repo/docs/.vuepress/dist -C ~/repo/dist .
             scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
