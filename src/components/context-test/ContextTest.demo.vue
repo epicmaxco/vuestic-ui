@@ -1,22 +1,25 @@
 <template>
   <VbDemo>
-    <VbCard title="Default">
-      <va-test>Global theme test</va-test>
-      <va-test color="warning">Local warning color</va-test>
-      <va-test color="success">Local success color</va-test>
-      <va-test color="dark">Local dark color</va-test>
-      <va-test />
+    <VbCard title="Global">
+      <va-test>No props</va-test>
+      <va-test color="green">Prop set</va-test>
     </VbCard>
 
-    <VbCard title="With context component">
-      <va-context :config="{ VaTest: { color: 'warning' } }">
-        <span>
-          <va-test>Global theme test</va-test>
+    <VbCard title="Local context component">
+      <va-test>no context</va-test>
 
+      <span style="font-size: 12px">context 1</span>
+      <va-context :config="{ VaTest: { color: 'warning' } }">
+        <div style="border: 1px solid gray; padding: 4px">
+          <va-test>No props</va-test>
+          <span style="font-size: 12px">context 2</span>
           <va-context :config="{ VaTest: { color: 'danger' } }">
-            <va-test>Global theme test</va-test>
+            <div style="border: 1px solid gray; padding: 4px">
+              <va-test>No props</va-test>
+              <va-test color="green">Prop set</va-test>
+            </div>
           </va-context>
-        </span>
+        </div>
       </va-context>
     </VbCard>
   </VbDemo>
