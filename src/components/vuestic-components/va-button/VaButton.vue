@@ -52,11 +52,12 @@ import {
   getBoxShadowColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 export default {
   name: 'va-button',
   components: { VaIcon },
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, RouterLinkMixin],
   inject: {
     va: {
       default: () => ({}),
@@ -99,24 +100,6 @@ export default {
       type: String,
     },
     /* Router link props */
-    to: {
-      type: [String, Object],
-    },
-    replace: {
-      type: Boolean,
-    },
-    append: {
-      type: Boolean,
-    },
-    activeClass: {
-      type: String,
-    },
-    exact: {
-      type: Boolean,
-    },
-    exactActiveClass: {
-      type: String,
-    },
   },
   data () {
     return {
@@ -206,8 +189,7 @@ export default {
       if (this.tag === 'a' || this.href || this.target) {
         return 'a'
       }
-      if (this.tag === 'router-link' || this.to || this.append || this.replace ||
-        this.activeClass || this.exact || this.exactActiveClass) {
+      if (this.tag === 'router-link' || this.hasRouterLinkParams) {
         return 'router-link'
       }
       return 'button'
