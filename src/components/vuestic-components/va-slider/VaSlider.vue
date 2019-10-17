@@ -199,8 +199,8 @@ export default {
       return {
         'va-slider--disabled': this.disabled,
         'va-slider--readonly': this.readonly,
-        'va-slider__horizontal': !this.vertical,
-        'va-slider__vertical': this.vertical,
+        'va-slider--horizontal': !this.vertical,
+        'va-slider--vertical': this.vertical,
       }
     },
     labelStyles () {
@@ -643,161 +643,24 @@ export default {
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
 
-.va-slider__horizontal {
-  .input-wrapper {
-    flex-basis: 8.33333%;
-    flex-grow: 0;
-    max-width: 8.33333%;
-    margin-right: 1rem;
-    min-width: 2.5rem;
-
-    position: relative;
-    display: flex;
-
-    &:last-of-type {
-      margin-left: 1rem;
-    }
-  }
-
-  .container {
-    position: relative;
-    width: 100%;
-    height: 1.5rem;
-    display: flex;
-    align-items: center;
-
-    &__track, &__track--active {
-      position: absolute;
-      height: 0.5rem;
-      border-radius: 0.25rem;
-      transition: none;
-      width: 100%;
-    }
-
-    &__track--inactive {
-      transition: width .3s ease 100ms, left .3s ease 100ms;
-    }
-
-    &__mark {
-      position: absolute;
-      width: 0.125rem;
-      height: 0.75rem;
-    }
-
-    &__handler {
-      position: absolute;
-      width: 1.25rem;
-      height: 1.25rem;
-      background: $white;
-      border: 0.375rem solid;
-      border-radius: 50%;
-      outline: none !important;
-      transition: none;
-
-      &:hover {
-        cursor: pointer;
-      }
-
-      &--on-keyboard-focus {
-        &:before {
-          content: '';
-          transform: translate(-0.625rem, -0.625rem);
-          background-color: black !important;
-          display: block;
-          width: 1.75rem;
-          height: 1.75rem;
-          position: absolute;
-          border-radius: 50%;
-          opacity: 0.1;
-          pointer-events: none;
-        }
-      }
-
-      &--inactive {
-        transition: left .3s ease 100ms;
-      }
-
-      &-value {
-        position: absolute;
-        top: -8px;
-        left: 50%;
-        transform: translate(-50%, -100%);
-        user-select: none;
-        font-size: .625rem;
-        letter-spacing: 0.6px;
-        line-height: 1.2;
-        font-weight: bold;
-        text-transform: uppercase;
-      }
-    }
-  }
-
-  .label {
-    margin-right: 1rem;
-    user-select: none;
-    font-size: .625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  .inverse-label {
-    user-select: none;
-    font-size: .625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-left: 1rem;
-  }
-}
-
-.va-slider__vertical {
-  height: 100%;
-  padding: 12px 0 12px 0;
-  flex-direction: column;
+.va-slider {
+  display: flex;
   align-items: center;
 
   .input-wrapper {
-    flex-basis: fit-content;
-    flex-grow: 0;
-    max-width: 1rem;
-    min-width: 2.5rem;
-
     position: relative;
     display: flex;
-
-    &:last-of-type {
-      margin-top: 1rem;
-    }
   }
 
   .container {
     position: relative;
-    height: 100%;
-    width: .5rem;
     display: flex;
     align-items: center;
 
     &__track, &__track--active {
       position: absolute;
-      height: 100%;
-      width: .5rem;
-      bottom: 0;
       border-radius: 0.25rem;
       transition: none;
-    }
-
-    &__track--inactive {
-      transition: height .3s ease 100ms, bottom .3s ease 100ms;
-    }
-
-    &__mark {
-      position: absolute;
-      width: .75rem;
-      height: .125rem;
-      left: -2px;
     }
 
     &__handler {
@@ -830,14 +693,7 @@ export default {
         }
       }
 
-      &--inactive {
-        transition: bottom .3s ease 100ms;
-      }
-
       &-value {
-        position: relative;
-        top: .625rem;
-        left: 1.25rem;
         transform: translate(-50%, -100%);
         user-select: none;
         font-size: .625rem;
@@ -850,7 +706,6 @@ export default {
   }
 
   .label {
-    margin-bottom: .625rem;
     user-select: none;
     font-size: .625rem;
     letter-spacing: 0.6px;
@@ -867,13 +722,7 @@ export default {
     font-weight: bold;
     text-transform: uppercase;
     margin-top: .625rem;
-    left: -.375rem;
   }
-}
-
-.va-slider {
-  display: flex;
-  align-items: center;
 
   &--disabled {
     @include va-disabled;
@@ -891,6 +740,130 @@ export default {
         cursor: default;
       }
     }
+  }
+}
+
+.va-slider--horizontal {
+  .input-wrapper {
+    flex-basis: 8.33333%;
+    flex-grow: 0;
+    max-width: 8.33333%;
+    margin-right: 1rem;
+    min-width: 2.5rem;
+  }
+
+  .input-wrapper {
+    flex-basis: fit-content;
+    flex-grow: 0;
+    max-width: 1rem;
+    min-width: 2.5rem;
+
+    &:last-of-type {
+      margin-top: 1rem;
+    }
+  }
+
+  .container {
+    width: 100%;
+    height: 1.5rem;
+
+    &__track, &__track--active {
+      height: 0.5rem;
+      width: 100%;
+    }
+
+    &__track--inactive {
+      transition: width .3s ease 100ms, left .3s ease 100ms;
+    }
+
+    &__mark {
+      position: absolute;
+      width: 0.125rem;
+      height: 0.75rem;
+    }
+
+    &__handler {
+      &--inactive {
+        transition: left .3s ease 100ms;
+      }
+
+      &-value {
+        position: absolute;
+        top: -8px;
+        left: 50%;
+      }
+    }
+  }
+
+  .label {
+    margin-right: 1rem;
+  }
+
+  .inverse-label {
+    margin-left: 1rem;
+  }
+}
+
+.va-slider--vertical {
+  height: 100%;
+  padding: 12px 0 12px 0;
+  flex-direction: column;
+  align-items: center;
+
+  .input-wrapper {
+    flex-basis: fit-content;
+    flex-grow: 0;
+    max-width: 1rem;
+    min-width: 2.5rem;
+
+    position: relative;
+    display: flex;
+
+    &:last-of-type {
+      margin-top: 1rem;
+    }
+  }
+
+  .container {
+    height: 100%;
+    width: .5rem;
+
+    &__track, &__track--active {
+      height: 100%;
+      width: .5rem;
+      bottom: 0;
+    }
+
+    &__track--inactive {
+      transition: height .3s ease 100ms, bottom .3s ease 100ms;
+    }
+
+    &__mark {
+      position: absolute;
+      width: .75rem;
+      height: .125rem;
+      left: -2px;
+    }
+
+    &__handler {
+      &--inactive {
+        transition: bottom .3s ease 100ms;
+      }
+
+      &-value {
+        position: relative;
+        top: .625rem;
+        left: 1.25rem;
+      }
+    }
+  }
+
+  .label {
+    margin-bottom: .625rem;
+  }
+
+  .inverse-label {
+    left: -.375rem;
   }
 }
 </style>
