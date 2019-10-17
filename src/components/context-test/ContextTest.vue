@@ -16,7 +16,7 @@ export default {
     color: {
       type: String,
       default () {
-        return this._$context.getComponentContextProps(this._$context.config, this.$options.name, 'color')
+        return this._$context.getComponentConfig(this.$options.name, 'color')
       },
     },
   },

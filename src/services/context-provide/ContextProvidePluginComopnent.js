@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep'
 import { ContextProviderPluginKey } from './ContextProvidePlugin'
 
 export default {
@@ -11,13 +10,7 @@ export default {
     },
   },
   provide () {
-    const globConfig = cloneDeep(this[ContextProviderPluginKey])
-
-    Object.keys(this.config).forEach((key) => {
-      globConfig.config[key] = this.config[key]
-    })
-
-    return { [ContextProviderPluginKey]: globConfig }
+    return { [ContextProviderPluginKey]: this[ContextProviderPluginKey].getNewConfig(this.config) }
   },
   render () {
     return this.$slots.default || null
