@@ -42,11 +42,11 @@ jobs:
       - run:
           name: Deploy to hosting
           command: |
-            tar -cjf dist.tar.gz ~/repo/dist -C ~/repo/dist
+            tar -czf dist.tar.gz ~/repo/dist -C ~/repo/dist
             scp  ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
-              tar -xjf ~/tmp/dist.tar.gz -C $DEPLOY_PATH
+              tar -xzf ~/tmp/dist.tar.gz -C $DEPLOY_PATH
               rm -f ~/tmp/dist.tar.gz
             EOF
 
@@ -67,11 +67,11 @@ jobs:
       - run:
           name: Deploy to hosting
           command: |
-            tar -cjf dist.tar.gz ~/repo/docs/.vuepress/dist -C ~/repo/docs/.vuepress/dist
+            tar -czf dist.tar.gz ~/repo/docs/.vuepress/dist -C ~/repo/docs/.vuepress/dist
             scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
-              tar -xjf ~/tmp/dist.tar.gz -C $DEPLOY_PATH
+              tar -xzf ~/tmp/dist.tar.gz -C $DEPLOY_PATH
               rm -f ~/tmp/dist.tar.gz
             EOF
 
