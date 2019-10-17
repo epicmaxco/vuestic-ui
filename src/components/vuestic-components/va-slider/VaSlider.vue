@@ -446,7 +446,7 @@ export default {
             if (event.keyCode === 40 && !((this.val[0] - this.step) < this.min)) moveDot(true, 0, 0)
             if (event.keyCode === 38 && !((this.val[0] + this.step) > this.val[1])) moveDot(true, 1, 0)
           } else {
-            if (event.keyCode === 37 && ((this.val[0] - this.step) < this.min)) moveDot(true, 0, 0)
+            if (event.keyCode === 37 && !((this.val[0] - this.step) < this.min)) moveDot(true, 0, 0)
             if (event.keyCode === 39 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 1, 0)
           }
         } else if (this.$refs.dot1 === document.activeElement) { // right dot
