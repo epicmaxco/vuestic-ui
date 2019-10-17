@@ -6,16 +6,17 @@
 
 <script>
 import { ColorThemeMixin } from '../../services/ColorThemePlugin'
+import { ContextProviderPluginKey } from '../../services/ContextProvidePlugin'
 
 export default {
   name: 'va-test',
   mixins: [ColorThemeMixin],
-
+  inject: { _$context: [ContextProviderPluginKey] },
   props: {
     color: {
       type: String,
       default () {
-        return this.$vaContextPlugin.getComponentContextProps(this.$options.name, 'color')
+        return this._$context.getComponentContextProps(this._$context.config, this.$options.name, 'color')
       },
     },
   },
