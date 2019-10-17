@@ -50,12 +50,42 @@ jobs:
               rm -f ~/tmp/dist.tar.gz
             EOF
 
+  deploy-docs:
+    <<: *defaults
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "f8:c0:94:79:68:a2:5e:33:9f:78:bc:ad:ed:86:c6:3c"
+      - checkout
+      - restore_cache: *restore_cache
+      - run: *install_dependencies
+      - save_cache: *save_cache
+      - run: yarn build:docs
+      - run:
+          name: Add $SERVER_IP to known_hosts
+          command: ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+      - run:
+          name: Deploy to hosting
+          command: |
+            tar -czf dist.tar.gz ~/repo/docs/.vupress/dist -C ~/repo/dist .
+            scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
+            ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
+              rm -rf $DEPLOY_PATH/*
+              tar -xzf ~/tmp/dist.tar.gz -C $DEPLOY_PATH
+              rm -f ~/tmp/dist.tar.gz
+            EOF
+
 workflows:
   version: 2
   build-and-deploy:
     jobs:
       - deploy-demos:
           context: vuestic-ui-staging-demo
+          filters:
+            branches:
+              only: develop
+      - deploy-docs:
+          context: vuestic-ui-staging-docs
           filters:
             branches:
               only: develop
