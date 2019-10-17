@@ -1,4 +1,5 @@
-import { ContextProviderPluginKey, deepClone } from './ContextProvidePlugin'
+import cloneDeep from 'lodash/cloneDeep'
+import { ContextProviderPluginKey } from './ContextProvidePlugin'
 
 export default {
   name: 'va-context-config-component',
@@ -10,7 +11,7 @@ export default {
     },
   },
   provide () {
-    const globConfig = deepClone(this[ContextProviderPluginKey])
+    const globConfig = cloneDeep(this[ContextProviderPluginKey])
 
     Object.keys(this.config).forEach((key) => {
       globConfig.config[key] = this.config[key]
