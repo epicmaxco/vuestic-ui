@@ -430,31 +430,38 @@ export default {
         }
       }
 
+      const arrowKeyCodes = [37, 38, 39, 40] // LEFT, UP, RIGHT, DOWN
+      // prevent page scroll
+      if (arrowKeyCodes.indexOf(event.keyCode) !== -1) {
+        event.preventDefault()
+      }
+
       if (this.range) {
         if (this.$refs.dot0 === document.activeElement) { // left dot
-          if (
-            event.keyCode === 37 && // left arrow pressed
-            !((this.val[0] - this.step) < this.min) // and won't become less than `min`
-          ) moveDot(true, 0, 0)
-
-          if (
-            event.keyCode === 39 && // right arrow pressed
-            !((this.val[0] + this.step) > this.val[1]) // and won't become more than the second dot is
-          ) moveDot(true, 1, 0)
+          if (this.vertical) {
+            if (event.keyCode === 40 && !((this.val[0] - this.step) < this.min)) moveDot(true, 0, 0)
+            if (event.keyCode === 38 && !((this.val[0] + this.step) > this.val[1])) moveDot(true, 1, 0)
+          } else {
+            if (event.keyCode === 37 && ((this.val[0] - this.step) < this.min)) moveDot(true, 0, 0)
+            if (event.keyCode === 39 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 1, 0)
+          }
         } else if (this.$refs.dot1 === document.activeElement) { // right dot
-          if (
-            event.keyCode === 37 && // left arrow pressed
-            !((this.val[1] - this.step) < this.val[0]) // and won't become less then the first dot is
-          ) moveDot(true, 0, 1)
-
-          if (
-            event.keyCode === 39 && // right arrow pressed
-            !((this.val[1] + this.step) > this.max) // and won't become more than `max`
-          ) moveDot(true, 1, 1)
+          if (this.vertical) {
+            if (event.keyCode === 40 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 0, 1)
+            if (event.keyCode === 38 && !((this.val[1] + this.step) > this.max)) moveDot(true, 1, 1)
+          } else {
+            if (event.keyCode === 37 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 0, 1)
+            if (event.keyCode === 39 && !((this.val[1] + this.step) > this.max)) moveDot(true, 1, 1)
+          }
         }
       } else {
-        if (event.keyCode === 37) moveDot(false, 0)
-        if (event.keyCode === 39) moveDot(false, 1)
+        if (this.vertical) {
+          if (event.keyCode === 40) moveDot(false, 0)
+          if (event.keyCode === 38) moveDot(false, 1)
+        } else {
+          if (event.keyCode === 37) moveDot(false, 0)
+          if (event.keyCode === 39) moveDot(false, 1)
+        }
       }
     },
     wrapClick (e) {
