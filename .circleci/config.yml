@@ -42,8 +42,8 @@ jobs:
       - run:
           name: Deploy to hosting
           command: |
-            tar -czf dist.tar.gz ~/repo/dist -C ~/repo/dist .
-            scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
+            tar cvfj dist.tar.gz ~/repo/dist
+            scp dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
               tar -xzf ~/tmp/dist.tar.gz -C $DEPLOY_PATH
@@ -67,7 +67,7 @@ jobs:
       - run:
           name: Deploy to hosting
           command: |
-            tar -czf dist.tar.gz ~/repo/docs/.vuepress/dist -C ~/repo/dist .
+            tar -czf dist.tar.gz ~/repo/docs/.vuepress/dist -C ~/repo/dist/docs/.vuepress/dist .
             scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
