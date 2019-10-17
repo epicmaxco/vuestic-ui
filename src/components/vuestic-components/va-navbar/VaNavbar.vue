@@ -93,6 +93,13 @@ $nav-border-side-width: 3.1875rem;
   box-shadow: 0 4px 20px -18px #707070;
   display: flex;
 
+  .layout-fixed & {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
   &__content {
     z-index: 1;
     align-items: center;

@@ -50,6 +50,11 @@ export default {
   transition: all .3s ease;
   overflow-y: auto;
 
+  .layout-fixed & {
+    position: fixed;
+    // z-index: 10;
+  }
+
   &__menu {
     max-height: 100%;
     margin-bottom: 0;
