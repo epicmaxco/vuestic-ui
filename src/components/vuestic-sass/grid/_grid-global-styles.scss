@@ -35,15 +35,15 @@
         margin: auto (-($gutter / 2));
       }
 
-      *:not(:only-child) {
-        .row:first-child {
-          margin-top: -($gutter / 2);
-        }
+      // *:not(:only-child) {
+      //   .row:first-child {
+      //     margin-top: -($gutter / 2);
+      //   }
 
-        .row:last-child {
-          margin-bottom: -($gutter / 2);
-        }
-      }
+      //   .row:last-child {
+      //     margin-bottom: -($gutter / 2);
+      //   }
+      // }
 
       .row .flex {
         padding: $gutter / 2;

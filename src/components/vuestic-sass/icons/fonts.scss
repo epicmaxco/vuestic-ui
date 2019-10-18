@@ -2,7 +2,9 @@
 // We probably should modify these defaults to fit our needs better.
 body {
   margin: 0;
-  font-family: Source Sans Pro, sans-serif;
+  // font-family: Source Sans Pro, sans-serif;
+  font-family: 'PT Sans', sans-serif;
+  // font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.5;
@@ -18,7 +20,9 @@ $icon-font-svg-id: 'glyphicons_halflingsregular';
 $icon-font-path: './../fonts/';
 
 // Fonts //
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+// @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url(https://fonts.googleapis.com/css?family=PT+Sans&display=swap);
+// @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 @font-face {
   font-family: 'Glyphicons Halflings';
