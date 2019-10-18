@@ -28,40 +28,36 @@
           class="container__track"
           :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
-          @mousedown="moveStart($event, 0)"/>
+          @mousedown="moveStart($event, this.range ? null : 0)"/>
         <div
           ref="dot0"
           class="container__handler"
-          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused === 1, 'container__handler--inactive': !hasMouseDown}"
+          :class="dotClass[0]"
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
           @touchstart="moveStart($event, 0)"
-          @focus="onFocus($event, 1)"
+          @focus="onFocus($event, 1), currentSlider = 0"
           @blur="isKeyboardFocused = false"
-          :tabindex="(!this.disabled && !this.readonly) && 0"
+          :tabindex="(!disabled && !readonly) && 0"
         >
-          <div
-            v-if="trackLabelVisible"
-            :style="labelStyles"
-            class="container__handler-value"
-          >
+          <div v-if="isActiveDot(0)" :style="{ backgroundColor: colorComputed }" class="container__handler--focus"/>
+          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">
             {{ val[0] }}
           </div>
         </div>
         <div
           ref="dot1"
           class="container__handler"
-          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused === 2, 'container__handler--inactive': !hasMouseDown}"
+          :class="dotClass[1]"
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
           @touchstart="moveStart($event, 1)"
-          @focus="onFocus($event, 2)"
+          @focus="onFocus($event, 2), currentSlider = 1"
           @blur="isKeyboardFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">
-            {{ val[1] }}
-          </div>
+          <div v-if="isActiveDot(1)" :style="{ backgroundColor: colorComputed }" class="container__handler--focus"/>
+          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">{{ val[1] }}</div>
         </div>
       </template>
       <template v-else>
@@ -74,7 +70,7 @@
         <div
           ref="dot"
           class="container__handler"
-          :class="{'container__handler--on-keyboard-focus': isKeyboardFocused, 'container__handler--inactive': !hasMouseDown}"
+          :class="dotClass"
           :style="dottedStyles"
           @mousedown="(moveStart(), setMouseDown())"
           @touchstart="moveStart()"
@@ -82,9 +78,8 @@
           @blur="isKeyboardFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">
-            {{ trackLabel || val }}
-          </div>
+          <div v-if="isActiveDot(0)" class="container__handler--focus" :style="{ backgroundColor: colorComputed }"/>
+          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">{{ trackLabel || val }}</div>
         </div>
       </template>
     </div>
@@ -203,6 +198,19 @@ export default {
         'va-slider--vertical': this.vertical,
       }
     },
+    dotClass () {
+      if (this.range) {
+        return [
+          { 'container__handler--inactive': !this.hasMouseDown },
+          { 'container__handler--inactive': !this.hasMouseDown },
+        ]
+      }
+
+      return {
+        'container__handler--on-focus': !this.range && (this.flag || this.isKeyboardFocused),
+        'container__handler--inactive': !this.hasMouseDown,
+      }
+    },
     labelStyles () {
       return {
         color: this.labelColor ? (this.$themes[this.labelColor] || this.computeColor(this.labelColor)) : this.colorComputed,
@@ -248,12 +256,12 @@ export default {
         return [
           {
             [this.dimensions[1]]: `calc(${val0}% - 8px)`,
-            backgroundColor: '#ffffff',
+            backgroundColor: this.currentSlider === 0 && (this.flag || this.isKeyboardFocused === 1) ? this.colorComputed : '#ffffff',
             borderColor: this.colorComputed,
           },
           {
             [this.dimensions[1]]: `calc(${val1}% - 8px)`,
-            backgroundColor: '#ffffff',
+            backgroundColor: this.currentSlider === 1 && (this.flag || this.isKeyboardFocused === 2) ? this.colorComputed : '#ffffff',
             borderColor: this.colorComputed,
           },
         ]
@@ -262,7 +270,7 @@ export default {
 
         return {
           [this.dimensions[1]]: `calc(${val}% - 8px)`,
-          backgroundColor: '#ffffff',
+          backgroundColor: this.currentSlider === 0 && (this.flag || this.isKeyboardFocused) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
         }
       }
@@ -344,10 +352,26 @@ export default {
       document.removeEventListener('touchend', this.moveEnd)
       document.removeEventListener('keydown', this.moveWithKeys)
     },
+    isActiveDot (index) {
+      if (!this.isKeyboardFocused && !this.flag) {
+        return false
+      }
+
+      if (this.range) {
+        return this.currentSlider === index
+      } else {
+        return this.currentSlider === 0
+      }
+    },
     setMouseDown (e, index) {
       this.hasMouseDown = index || true
     },
     moveStart (e, index) {
+      if (!index) {
+        let pos = this.getPos(e)
+        index = this.isRange ? (pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0) : 0
+      }
+
       if (this.isRange) {
         this.currentSlider = index
       }
@@ -679,19 +703,15 @@ export default {
         cursor: pointer;
       }
 
-      &--on-keyboard-focus {
-        &:before {
-          content: '';
-          transform: translate(-0.625rem, -0.625rem);
-          background-color: black !important;
-          display: block;
-          width: 1.75rem;
-          height: 1.75rem;
-          position: absolute;
-          border-radius: 50%;
-          opacity: 0.1;
-          pointer-events: none;
-        }
+      &--focus {
+        transform: translate(-0.625rem, -0.625rem);
+        display: block;
+        width: 1.75rem;
+        height: 1.75rem;
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.2;
+        pointer-events: none;
       }
 
       &-value {

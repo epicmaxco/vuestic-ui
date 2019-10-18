@@ -1,9 +1,19 @@
 export const KeyboardOnlyFocusMixin = {
   data () {
     return {
-      isKeyboardFocused: false,
+      keyboardFocused: false,
       hasMouseDown: false,
     }
+  },
+  computed: {
+    isKeyboardFocused: {
+      get () {
+        return this.keyboardFocused
+      },
+      set (newVal) {
+        this.keyboardFocused = newVal
+      },
+    },
   },
   methods: {
     onFocus (e, index) {
