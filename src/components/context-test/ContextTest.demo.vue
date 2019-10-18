@@ -25,7 +25,7 @@
 
     <VbCard title="Local reactive context component">
       <span style="font-size: 12px">dynamic context</span>
-      <va-context :config="dynamicContext" :key="dynamicContextKey">
+      <va-context :config="dynamicContextConfig" :key="dynamicContextConfigKey">
         <div style="border: 1px solid gray; padding: 4px">
           <va-test>No props</va-test>
           <va-test color="green">Prop set</va-test>
@@ -50,19 +50,19 @@ export default {
   },
   data () {
     return {
-      dynamicContext: { VaTest: { color: 'success' } },
+      dynamicContextConfig: { VaTest: { color: 'success' } },
       changeContext: false,
-      dynamicContextKey: 'success',
+      dynamicContextConfigKey: 'success',
     }
   },
   watch: {
     changeContext (value) {
       if (value) {
-        this.dynamicContext.VaTest.color = 'danger'
-        this.dynamicContextKey = 'danger'
+        this.dynamicContextConfig.VaTest.color = 'danger'
+        this.dynamicContextConfigKey = 'danger'
       } else {
-        this.dynamicContext.VaTest.color = 'info'
-        this.dynamicContextKey = 'info'
+        this.dynamicContextConfig.VaTest.color = 'info'
+        this.dynamicContextConfigKey = 'info'
       }
     },
   },
