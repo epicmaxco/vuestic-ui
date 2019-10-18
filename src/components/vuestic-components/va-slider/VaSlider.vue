@@ -541,7 +541,7 @@ export default {
         }
       }
     },
-    setValueOnPos (pixelPosition, isDrag) {
+    setValueOnPos (pixelPosition) {
       const range = this.limit
       const valueRange = this.valueLimit
 
@@ -553,13 +553,13 @@ export default {
             this.currentSlider = 0
           }
           let v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
-          this.setCurrentValue(v, isDrag)
+          this.setCurrentValue(v)
         } else {
           if (pixelPosition >= this.position[1]) {
             this.currentSlider = 1
           }
           let v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
-          this.setCurrentValue(v, isDrag)
+          this.setCurrentValue(v)
         }
       } else if (pixelPosition < range[0]) {
         this.setCurrentValue(valueRange[0])
@@ -721,7 +721,6 @@ export default {
     line-height: 1.2;
     font-weight: bold;
     text-transform: uppercase;
-    margin-top: .625rem;
   }
 
   &--disabled {
@@ -750,16 +749,9 @@ export default {
     max-width: 8.33333%;
     margin-right: 1rem;
     min-width: 2.5rem;
-  }
-
-  .input-wrapper {
-    flex-basis: fit-content;
-    flex-grow: 0;
-    max-width: 1rem;
-    min-width: 2.5rem;
 
     &:last-of-type {
-      margin-top: 1rem;
+      margin-left: 1rem;
     }
   }
 
@@ -773,7 +765,7 @@ export default {
     }
 
     &__track--inactive {
-      transition: width .3s ease 100ms, left .3s ease 100ms;
+      transition: width .3s ease, left .3s ease;
     }
 
     &__mark {
@@ -784,7 +776,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: left .3s ease 100ms;
+        transition: left .3s ease;
       }
 
       &-value {
@@ -835,7 +827,7 @@ export default {
     }
 
     &__track--inactive {
-      transition: height .3s ease 100ms, bottom .3s ease 100ms;
+      transition: height .3s ease, bottom .3s ease;
     }
 
     &__mark {
@@ -847,7 +839,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: bottom .3s ease 100ms;
+        transition: bottom .3s ease;
       }
 
       &-value {
@@ -864,6 +856,7 @@ export default {
 
   .inverse-label {
     left: -.375rem;
+    margin-top: .625rem;
   }
 }
 </style>
