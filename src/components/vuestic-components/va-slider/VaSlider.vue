@@ -503,6 +503,7 @@ export default {
       return {
         backgroundColor: this.checkActivePin(pin) ? this.colorComputed : getHoverColor(this.colorComputed),
         [this.dimensions[1]]: `${pin * this.step}%`,
+        transition: this.hasMouseDown ? 'none' : 'background-color .3s ease .1s',
       }
     },
     getPos (e) {
