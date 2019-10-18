@@ -12,7 +12,7 @@ class ContextProviderConfig {
     this._config = options
   }
   getNewConfig (config) {
-    const _combinedConfig = assignWith(config, cloneDeep(this._config), (objVal) => objVal)// NOTE: need save the reference to config prop. Support reactivity
+    const _combinedConfig = assignWith(config, cloneDeep(this._config), (objVal) => objVal) // NOTE: Merge external new config with current config. Need save the reference to config prop. Support reactivity
 
     return new ContextProviderConfig(_combinedConfig)
   }
@@ -35,6 +35,6 @@ export const ContextProvidePlugin = {
       },
     })
 
-    Vue.prototype.$vaContextPlugin = pluginConfig
+    Vue.prototype.$vaContextConfig = pluginConfig
   },
 }
