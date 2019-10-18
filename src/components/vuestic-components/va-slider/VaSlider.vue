@@ -28,7 +28,7 @@
           class="container__track"
           :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
-          @mousedown="moveStart($event, this.range ? null : 0)"/>
+          @mousedown="moveStart($event, null)"/>
         <div
           ref="dot0"
           class="container__handler"
@@ -368,8 +368,12 @@ export default {
     },
     moveStart (e, index) {
       if (!index) {
-        let pos = this.getPos(e)
-        index = this.isRange ? (pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0) : 0
+        if (!this.range) {
+          index = 0
+        } else {
+          let pos = this.getPos(e)
+          index = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+        }
       }
 
       if (this.isRange) {
