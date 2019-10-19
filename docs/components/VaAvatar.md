@@ -1,7 +1,34 @@
-# Component
-* va-avatar
+# Avatar
+
+[[toc]]
+
+The `va-avatar` is normally used for profile picture or user lists. You can use letter or icon instead of image if it's not available.
+
+## Examples
+
+### Mix
+
+<AvatarMixSnippet/>
+
+<<< @/docs/.vuepress/components/AvatarMixSnippet.vue
+
+[use the following cases to snippet]
+* color + text-color
+* color + icon
+* color + size + font-size
+* src
+* color + icon + square
+
+### Sizes
+
+!Gotcha: `size` defines avatar container size, when `font-size` is used for internal text. So, in most cases, if you want to change component size - you need to change both `size` and `font-size`.
+
+<<< @/docs/.vuepress/components/AvatarSizeSnippet.vue
+
+<AvatarSizeSnippet/>
 
 # props
+
 * `color` - String - hex color string
 * `textColor` - String - hex color string
 * `fontSize` - String (default - 60% from size) - font size in pixels
@@ -12,37 +39,6 @@
 
 # Usage
 
-## default avatars
-*  default text avatar
-```html
-<va-avatar>
-  AB
-</va-avatar>
-``` 
-* empty avatar
-
-```html
-<va-avatar></va-avatar>
-```
-* dom node inserted
-```html
-<va-avatar>
-  <div>AA</div>
-</va-avatar>
-```
-## different sizes for avatars
-
-```html
-<va-avatar size="small">S</va-avatar>
-
-<va-avatar size="medium">M</va-avatar>
-
-<va-avatar size="large">L</va-avatar>
-
-<va-avatar size="55px">55</va-avatar> 
-
-<va-avatar :size="66">66</va-avatar> 
-```
 ## image avatars
 * image will fit vertically
 

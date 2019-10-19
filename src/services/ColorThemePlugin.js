@@ -41,7 +41,7 @@ export const ColorThemeMixin = {
   },
   computed: {
     _isEnableColorTheme () {
-      return this.$themes
+      return Boolean(this.$themes)
     },
     // This allows a multitude of defaults.
     // theme color => color => theme default => hard default

@@ -53,11 +53,12 @@ export default {
   computed: {
     computedStyle () {
       return {
-        color: this.textColor ? (this.$themes[this.textColor] || this.computeColor(this.textColor)) : '#ffffff',
-        backgroundColor: this.$themes[this.color] || this.colorComputed,
+        color: this.textColor ? this.computeColor(this.textColor) : '#ffffff',
+        backgroundColor: this.colorComputed,
         borderRadius: this.square ? 0 : '50%',
         fontSize: this.fontSize || '',
         width: this.sizeComputed,
+        minWidth: this.sizeComputed, // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
         height: this.sizeComputed,
       }
     },

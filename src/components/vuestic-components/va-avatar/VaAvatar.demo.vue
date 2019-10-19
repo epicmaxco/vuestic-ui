@@ -21,6 +21,14 @@
       <va-avatar :size="66">66</va-avatar> 66
       <br />
     </VbCard>
+    <VbCard title="Size + flex">
+      <span style="font-size: 12px;">doesn't scale down</span>
+      <div style="display: flex; width: 120px">
+        <va-avatar size="small">S</va-avatar>
+        <va-avatar size="medium">M</va-avatar>
+        <va-avatar size="large">L</va-avatar>
+      </div>
+    </VbCard>
     <VbCard title="image">
       <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"></va-avatar> square image
       <br />
