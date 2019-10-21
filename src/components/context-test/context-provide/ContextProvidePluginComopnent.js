@@ -1,11 +1,12 @@
+import Vue from 'vue'
 import { ContextProviderPluginKey } from './ContextProvidePlugin'
 
 export default {
   name: 'va-context-config-component',
   inject: {
-    _$context: {
+    _$configs: {
       from: [ContextProviderPluginKey],
-      default: () => null,
+      default: () => [],
     },
   },
   props: {
@@ -15,7 +16,8 @@ export default {
     },
   },
   provide () {
-    const newConfig = this._$context ? this._$context.getNewConfig(this.config) : this.$vaContextConfig[ContextProviderPluginKey].getNewConfig(this.config)
+    const observableConfig = Vue.observable(this.config)
+    const newConfig = this._$configs ? [ ...this._$configs, observableConfig ] : []
 
     return { [ContextProviderPluginKey]: newConfig }
   },
