@@ -1,14 +1,28 @@
 <template>
-  <div class="demo-container">
-    <div class="demo-container__item">
+  <VbDemo>
+    <VbCard title="default">
       <va-radio
         v-for="(option, index) in options"
         :key="index"
         v-model="selectedOptionString"
         :option="option"
       />
-    </div>
-    <div class="demo-container__item">
+      <div>
+        Selected: {{ selectedOptionString }}
+      </div>
+      <br/>
+      <va-radio
+        v-for="option in objectOptions"
+        :key="option.name"
+        v-model="selectedOptionObject"
+        :option="option"
+        :label="option.name"
+      />
+      <div>
+        {{selectedOptionObject}}
+      </div>
+    </VbCard>
+    <VbCard title="custom label">
       <va-radio
         v-for="(option, index) in options"
         :key="index"
@@ -16,8 +30,17 @@
         :option="option"
         :label="`((${option}))`"
       />
-    </div>
-    <div class="demo-container__item">
+      <br/>
+      <va-radio
+        v-for="(option) in options"
+        :key="option"
+        v-model="selectedOptionString"
+        :option="option"
+      >
+        Slotted label: {{option}}
+      </va-radio>
+    </VbCard>
+    <VbCard title="disabled">
       <va-radio
         v-for="(option, index) in options"
         :key="index"
@@ -25,22 +48,11 @@
         :option="option"
         disabled
       />
-    </div>
-    <div class="demo-container__item">
-      {{ selectedOptionString }}
-    </div>
+    </VbCard>
+    <VbCard title="object value">
 
-    <div class="demo-container__item">
-      <va-radio
-        v-for="option in objectOptions"
-        :key="option.key"
-        v-model="selectedOptionObject"
-        :option="option"
-        :label="option.name"
-      />
-      {{selectedOptionObject}}
-    </div>
-  </div>
+    </VbCard>
+  </VbDemo>
 </template>
 
 <script>
