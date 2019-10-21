@@ -25,16 +25,24 @@ class ContextProviderConfig {
 
 export const ContextProvidePlugin = {
   install (Vue, options = {}) {
-    const pluginConfig = ({
+    Vue.prototype.$vaContextConfig = Vue.observable({
       [ContextProviderPluginKey]: new ContextProviderConfig(options),
     })
+  },
+}
 
-    Vue.mixin({
-      provide () {
-        return pluginConfig
-      },
-    })
+export const ContextProvideMixin = {
+  inject: {
+    _$context: {
+      from: [ContextProviderPluginKey],
+      default: () => null,
+    },
+  },
+  methods: {
+    getProviderConfig (prop) {
+      const currentConfigConstructor = this._$context || this.$vaContextConfig[ContextProviderPluginKey]
 
-    Vue.prototype.$vaContextConfig = pluginConfig
+      return this[prop] || currentConfigConstructor.getComponentConfig(pascalCase(this.$options.name), prop)
+    },
   },
 }

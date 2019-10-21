@@ -5,25 +5,20 @@
 </template>
 
 <script>
-import { ColorThemeMixin } from '../../services/ColorThemePlugin'
-import { ContextProviderPluginKey } from './context-provide/ContextProvidePlugin'
+import { ContextProvideMixin } from './context-provide/ContextProvidePlugin'
 
 export default {
   name: 'va-test',
-  mixins: [ColorThemeMixin],
-  inject: { _$context: [ContextProviderPluginKey] },
+  mixins: [ContextProvideMixin],
   props: {
     color: {
       type: String,
-      default () {
-        return this._$context.getComponentConfig(this.$options.name, 'color')
-      },
     },
   },
   computed: {
     computedStyles () {
       return {
-        color: this.colorComputed,
+        color: this.$themes[this.getProviderConfig('color')],
       }
     },
   },
