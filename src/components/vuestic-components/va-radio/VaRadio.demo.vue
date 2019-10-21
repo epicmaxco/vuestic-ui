@@ -60,21 +60,18 @@
     </VbCard>
     <VbCard title="Colored">
       <va-radio
-        :key="index"
         v-model="selectedOptionString"
         :option="options[0]"
         color="warning"
         label="warning"
       />
       <va-radio
-        :key="index"
         v-model="selectedOptionString"
         :option="options[1]"
         color="danger"
         label="danger"
       />
       <va-radio
-        :key="index"
         v-model="selectedOptionString"
         :option="options[2]"
         color="info"

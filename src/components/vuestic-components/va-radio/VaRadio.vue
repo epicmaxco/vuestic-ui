@@ -13,11 +13,9 @@
       @focus="onFocus"
     />
 
-    <span class="va-radio__icon">
+    <span class="va-radio__icon" :style="iconComputedStyles">
       <span class="va-radio__icon__background" :style="iconBackgroundComputedStyles"></span>
-      <span class="va-radio__icon__dot" :style="iconDotComputedStyles">
-        <span class="va-radio__icon__dot__point" :style="iconDotPointComputedStyles"></span>
-      </span>
+      <span class="va-radio__icon__dot" :style="iconDotComputedStyles"></span>
     </span>
 
     <span class="va-radio__text">
@@ -73,7 +71,7 @@ export default {
         backgroundColor: this.colorComputed,
       }
     },
-    iconDotPointComputedStyles () {
+    iconDotComputedStyles () {
       if (this.isActive) {
         return {
           borderColor: this.colorComputed,
@@ -82,7 +80,7 @@ export default {
       }
       return {}
     },
-    iconDotComputedStyles () {
+    iconComputedStyles () {
       if (this.isActive) {
         return {
           borderColor: this.colorComputed,
@@ -119,6 +117,7 @@ export default {
   cursor: pointer;
   position: relative;
   margin-right: 0.5rem;
+  transition: $transition-primary;
 
   &--disabled {
     cursor: default;
@@ -140,12 +139,15 @@ export default {
   }
 
   &__icon {
+    transition: $transition-primary;
     display: inline-flex;
     align-items: center;
     width: 1.4rem;
     height: 1.4rem;
     border-radius: 100%;
     position: relative;
+    border: $gray solid 0.125rem;
+    box-sizing: border-box;
 
     .va-radio__input:disabled + & {
       opacity: 0.4;
@@ -154,38 +156,30 @@ export default {
     &__dot {
       transition: $transition-primary;
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 50%;
+      left: 50%;
+      right: 50%;
+      bottom: 50%;
       border-radius: 100%;
-      border: $gray solid 0.125rem;
-      z-index: 2;
+      background-color: inherit;
+      opacity: 0;
 
-      &__point {
-        content: '';
-        position: absolute;
+      .va-radio__input:checked + .va-radio__icon & {
+        opacity: 1;
         top: 0.25rem;
         left: 0.25rem;
         right: 0.25rem;
         bottom: 0.25rem;
-        border-radius: 100%;
-        background-color: inherit;
-        opacity: 0;
-
-        .va-radio__input:checked + .va-radio__icon & {
-          opacity: 1;
-        }
       }
     }
 
     &__background {
       transition: $transition-primary;
       position: absolute;
-      top: -0.25rem;
-      left: -0.25rem;
-      right: -0.25rem;
-      bottom: -0.25rem;
+      top: -0.35rem;
+      left: -0.35rem;
+      right: -0.35rem;
+      bottom: -0.35rem;
       background-color: $gray;
       border-radius: 100%;
       z-index: 0;
