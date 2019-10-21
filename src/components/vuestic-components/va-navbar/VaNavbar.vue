@@ -10,7 +10,7 @@
       <slot name="logo"/>
     </router-link>
     <div class="va-navbar__content row">
-      <div class="va-navbar__center flex offset--lg3 offset--md3 lg5 md4 flex-center">
+      <div class="va-navbar__center flex offset--lg3 offset--md3 lg5 md4">
         <slot name="center"></slot>
       </div>
       <div class="md5 lg4 va-navbar__actions align--center row">
@@ -197,7 +197,7 @@ $nav-border-side-width: 3.1875rem;
       z-index: 10;
     }
     &__center {
-      display: none !important;
+      display: none;
     }
     &__content {
       align-items: flex-end;
