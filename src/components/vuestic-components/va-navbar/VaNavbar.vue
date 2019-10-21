@@ -197,7 +197,7 @@ $nav-border-side-width: 3.1875rem;
       z-index: 10;
     }
     &__center {
-      display: none;
+      display: none !important;
     }
     &__content {
       align-items: flex-end;
