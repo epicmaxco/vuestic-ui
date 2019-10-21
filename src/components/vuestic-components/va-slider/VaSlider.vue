@@ -256,12 +256,12 @@ export default {
         return [
           {
             [this.dimensions[1]]: `calc(${val0}% - 8px)`,
-            backgroundColor: this.currentSlider === 0 && (this.flag || this.isKeyboardFocused === 1) ? this.colorComputed : '#ffffff',
+            backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
             borderColor: this.colorComputed,
           },
           {
             [this.dimensions[1]]: `calc(${val1}% - 8px)`,
-            backgroundColor: this.currentSlider === 1 && (this.flag || this.isKeyboardFocused === 2) ? this.colorComputed : '#ffffff',
+            backgroundColor: this.isActiveDot(1) ? this.colorComputed : '#ffffff',
             borderColor: this.colorComputed,
           },
         ]
@@ -270,7 +270,7 @@ export default {
 
         return {
           [this.dimensions[1]]: `calc(${val}% - 8px)`,
-          backgroundColor: this.currentSlider === 0 && (this.flag || this.isKeyboardFocused) ? this.colorComputed : '#ffffff',
+          backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
         }
       }
@@ -353,15 +353,11 @@ export default {
       document.removeEventListener('keydown', this.moveWithKeys)
     },
     isActiveDot (index) {
-      if (!this.isKeyboardFocused && !this.flag) {
+      if ((!this.isKeyboardFocused && !this.flag) || this.disabled || this.readonly) {
         return false
       }
 
-      if (this.range) {
-        return this.currentSlider === index
-      } else {
-        return this.currentSlider === 0
-      }
+      return this.range ? this.currentSlider === index : this.currentSlider === 0
     },
     setMouseDown (e, index) {
       this.hasMouseDown = index || true
@@ -686,7 +682,7 @@ export default {
     display: flex;
     align-items: center;
 
-    &__track, &__track--active {
+    &__track {
       position: absolute;
       border-radius: 0.25rem;
       transition: none;
