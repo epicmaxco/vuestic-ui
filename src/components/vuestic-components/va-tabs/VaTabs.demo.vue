@@ -96,9 +96,6 @@
 </template>
 
 <script>
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaRadioButton from '../va-radio-button/VaRadioButton'
-import VaAdvancedColorPicker from '../va-color-picker/VaAdvancedColorPicker'
 import VaTabs from './VaTabs'
 import VaTab from './VaTab'
 import TabsExample from './__demo__/TabsExample'
@@ -106,9 +103,6 @@ import TabsExample from './__demo__/TabsExample'
 export default {
   components: {
     TabsExample,
-    VaAdvancedColorPicker,
-    VaRadioButton,
-    VaCheckbox,
     VaTabs,
     VaTab,
   },

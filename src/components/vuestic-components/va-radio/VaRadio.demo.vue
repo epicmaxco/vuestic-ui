@@ -1,7 +1,7 @@
 <template>
   <div class="demo-container">
     <div class="demo-container__item">
-      <va-radio-button
+      <va-radio
         v-for="(option, index) in options"
         :key="index"
         v-model="selectedOptionString"
@@ -9,7 +9,7 @@
       />
     </div>
     <div class="demo-container__item">
-      <va-radio-button
+      <va-radio
         v-for="(option, index) in options"
         :key="index"
         v-model="selectedOptionString"
@@ -18,7 +18,7 @@
       />
     </div>
     <div class="demo-container__item">
-      <va-radio-button
+      <va-radio
         v-for="(option, index) in options"
         :key="index"
         v-model="selectedOptionString"
@@ -31,7 +31,7 @@
     </div>
 
     <div class="demo-container__item">
-      <va-radio-button
+      <va-radio
         v-for="option in objectOptions"
         :key="option.key"
         v-model="selectedOptionObject"
@@ -44,10 +44,10 @@
 </template>
 
 <script>
-import VaRadioButton from './VaRadioButton'
+import VaRadio from './VaRadio'
 
 export default {
-  components: { VaRadioButton },
+  components: { VaRadio },
   data () {
     const objectOptions = [
       { key: 1, name: 'one' },

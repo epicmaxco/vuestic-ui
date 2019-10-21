@@ -45,7 +45,7 @@
       </va-input-wrapper>
 
       <va-input-wrapper :messages="messages">
-        <va-radio-button
+        <va-radio
           option="option1"
           v-model="radioSelectedOption"
           label="Radio"
@@ -57,18 +57,16 @@
 
 <script>
 import VaInputWrapper from './VaInputWrapper'
-import VaButton from './../va-button/VaButton'
 import VaIcon from './../va-icon/VaIcon'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaRadioButton from '../va-radio-button/VaRadioButton'
+import VaRadio from '../va-radio/VaRadio'
 
 export default {
   components: {
     VaCheckbox,
     VaInputWrapper,
-    VaButton,
     VaIcon,
-    VaRadioButton,
+    VaRadio,
   },
   data () {
     return {

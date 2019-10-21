@@ -1,7 +1,7 @@
 # Radio Buttons
 
 ```html
-<va-radio-button
+<va-radio
   v-model="selectedOptionString"
   option="one"
   label="one"

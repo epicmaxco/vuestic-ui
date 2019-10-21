@@ -1,16 +1,16 @@
 <template>
   <label
-    class="va-radio-button"
+    class="va-radio"
     :class="computedClass"
     @click="onClick"
   >
-    <input :checked="isActive" type="radio" class="va-radio-button__input" :disabled="disabled" />
-    <span class="va-radio-button__icon">
-      <span class="va-radio-button__icon__background"></span>
-      <span class="va-radio-button__icon__dot"></span>
+    <input :checked="isActive" type="radio" class="va-radio__input" :disabled="disabled" />
+    <span class="va-radio__icon">
+      <span class="va-radio__icon__background"></span>
+      <span class="va-radio__icon__dot"></span>
     </span>
 
-    <span class="va-radio-button__text">
+    <span class="va-radio__text">
       <slot name="label">
         {{ computedLabel }}
       </slot>
@@ -21,7 +21,7 @@
 <script>
 
 export default {
-  name: 'va-radio-button',
+  name: 'va-radio',
   props: {
     value: {},
     option: {},
@@ -34,7 +34,7 @@ export default {
   computed: {
     computedClass () {
       return {
-        'va-radio-button__text--disabled': this.disabled,
+        'va-radio__text--disabled': this.disabled,
       }
     },
     computedLabel () {
@@ -57,7 +57,7 @@ export default {
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.va-radio-button {
+.va-radio {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -65,7 +65,7 @@ export default {
   position: relative;
 }
 
-.va-radio-button__input {
+.va-radio__input {
   width: 0;
   height: 0;
   position: absolute;
@@ -75,7 +75,7 @@ export default {
   z-index: -1;
 }
 
-.va-radio-button__icon {
+.va-radio__icon {
   display: inline-flex;
   align-items: center;
   width: 1.4rem;
@@ -83,16 +83,16 @@ export default {
   border-radius: 100%;
   position: relative;
 
-  .va-radio-button__input:checked + & {
+  .va-radio__input:checked + & {
     border-color: $brand-success;
   }
 
-  .va-radio-button__input:disabled + & {
+  .va-radio__input:disabled + & {
     opacity: 0.4;
   }
 }
 
-.va-radio-button__icon__dot {
+.va-radio__icon__dot {
   transition: $transition-primary;
   position: absolute;
   top: 0;
@@ -103,7 +103,7 @@ export default {
   border: $gray solid 0.125rem;
   z-index: 2;
 
-  .va-radio-button__input:checked + .va-radio-button__icon & {
+  .va-radio__input:checked + .va-radio__icon & {
     border-color: $brand-success;
   }
 
@@ -118,13 +118,13 @@ export default {
     background-color: $brand-success;
     opacity: 0;
 
-    .va-radio-button__input:checked + .va-radio-button__icon & {
+    .va-radio__input:checked + .va-radio__icon & {
       opacity: 1;
     }
   }
 }
 
-.va-radio-button__icon__background {
+.va-radio__icon__background {
   transition: $transition-primary;
   position: absolute;
   top: -0.25rem;
@@ -136,20 +136,20 @@ export default {
   z-index: 0;
   opacity: 0;
 
-  .va-radio-button__input:focus + .va-radio-button__icon & {
+  .va-radio__input:focus + .va-radio__icon & {
     opacity: 1;
   }
 
-  .va-radio-button:hover & {
+  .va-radio:hover & {
     opacity: 1;
   }
 }
 
-.va-radio-button__text {
+.va-radio__text {
   display: inline-flex;
   margin-left: 0.5rem;
 
-  .va-radio-button__text--disabled & {
+  .va-radio__text--disabled & {
     opacity: 0.4;
   }
 }
