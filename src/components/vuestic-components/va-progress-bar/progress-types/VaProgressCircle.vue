@@ -77,6 +77,9 @@ export default {
   position: relative;
 
   &__progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
     transform: rotate(-90deg);
     stroke-linecap: center center;
     width: inherit;

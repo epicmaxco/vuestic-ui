@@ -1,18 +1,16 @@
 <template>
   <div class="va-progress-bar">
     <div :style="{colorComputed}" class="va-progress-bar__info">
-      <slot/>
+      <slot v-if="!large"/>
     </div>
     <div class="va-progress-bar__progress-bar" :class="computedClass" :style="computedStyle">
       <div
         :style="{width: normalizedBuffer + '%', backgroundColor: colorComputed}"
         class="va-progress-bar__buffer"
       />
-      <div
-        v-if="!indeterminate"
-        :style="{width: normalizedValue + '%', backgroundColor: colorComputed}"
-        class="va-progress-bar__overlay"
-      />
+      <div v-if="!indeterminate" :style="{width: normalizedValue + '%', backgroundColor: colorComputed}" class="va-progress-bar__overlay">
+        <slot v-if="large" />
+      </div>
       <template v-else>
         <div
           :style="{backgroundColor: colorComputed, animationDirection: this.reverse ? 'reverse' : 'normal'}"
@@ -54,6 +52,14 @@ export default {
     reverse: {
       type: Boolean,
     },
+    small: {
+      type: Boolean,
+      default: false,
+    },
+    large: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     normalizedBuffer () {
@@ -65,13 +71,16 @@ export default {
     },
     computedClass () {
       return {
-        'va-progress-bar__progress-bar__square': !this.rounded,
+        'va-progress-bar__progress-bar__square': (!this.rounded && !this.large) || this.small,
+        'va-progress-bar__small': this.small,
+        'va-progress-bar__large': this.large,
       }
     },
     computedStyle () {
-      return {
-        height: typeof this.size === 'number' ? `${this.size}px` : this.size,
+      if (!this.small && !this.large) {
+        return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
       }
+      return {}
     },
   },
 }
@@ -84,6 +93,14 @@ export default {
   width: 100%;
   position: relative;
   overflow: hidden;
+
+  &__small {
+    height: $progress-bar-small-height;
+  }
+
+  &__large {
+    height: $progress-bar-large-height;
+  }
 
   &__info {
     font-weight: $font-weight-bold;
@@ -119,6 +136,10 @@ export default {
     height: inherit;
     border-radius: inherit;
     transition: width ease 2s;
+    text-align: center;
+    color: $white;
+    letter-spacing: 0.6px;
+    font-size: $progress-bar-large-font-size;
 
     &__indeterminate-start {
       animation: va-progress-bar__overlay__indeterminate-start 2s ease-in infinite;
