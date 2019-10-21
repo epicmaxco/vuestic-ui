@@ -16,7 +16,8 @@ export default {
     },
   },
   provide () {
-    const newConfig = (this._$configs && this._$configs.length) ? [ ...this._$configs, Vue.observable(this.config) ] : []
+    const observableConfig = Vue.observable(this.config)
+    const newConfig = this._$configs ? [ ...this._$configs, observableConfig ] : []
 
     return { [ContextProviderPluginKey]: newConfig }
   },
