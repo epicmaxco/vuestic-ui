@@ -50,19 +50,19 @@ export default {
   },
   data () {
     return {
-      dynamicContextConfig: { VaTest: { color: 'success' } },
+      dynamicContextConfig: { VaTest: { color: 'orange' } },
       changeContext: false,
-      dynamicContextConfigKey: 'success',
+      dynamicContextConfigKey: 'orange',
     }
   },
   watch: {
     changeContext (value) {
       if (value) {
-        this.dynamicContextConfig.VaTest.color = 'danger'
-        this.dynamicContextConfigKey = 'danger'
+        this.dynamicContextConfig.VaTest.color = 'red'
+        this.dynamicContextConfigKey = 'red'
       } else {
-        this.dynamicContextConfig.VaTest.color = 'info'
-        this.dynamicContextConfigKey = 'info'
+        this.dynamicContextConfig.VaTest.color = 'blue'
+        this.dynamicContextConfigKey = 'blue'
       }
     },
   },
