@@ -18,22 +18,22 @@ export const ContextProvideMixin = {
       default: () => [],
     },
   },
-  methods: {
-    getProviderConfig (prop, defaultValue) {
-      if (this[prop]) {
-        return this[prop]
-      }
+}
 
-      const contextLength = this._$configs.length
-      const currentConfig = contextLength ? this._$configs[contextLength - 1] : this.$vaContextConfig
+export function getProviderConfig (context, prop, defaultValue) {
+  // We have to pass context here as this method will be mainly used in prop default, and methods are not accessible there.
+  if (context[prop]) {
+    return context[prop]
+  }
 
-      const componentConfig = currentConfig[pascalCase(this.$options.name)]
+  const contextLength = context._$configs.length
+  const currentConfig = contextLength ? context._$configs[contextLength - 1] : context.$vaContextConfig
 
-      if (componentConfig.hasOwnProperty(prop)) {
-        return componentConfig[prop]
-      }
+  const componentConfig = currentConfig[pascalCase(context.$options.name)]
 
-      return defaultValue
-    },
-  },
+  if (componentConfig.hasOwnProperty(prop)) {
+    return componentConfig[prop]
+  }
+
+  return defaultValue
 }
