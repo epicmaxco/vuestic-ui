@@ -34,7 +34,7 @@ export default {
   computed: {
     computedClass () {
       return {
-        'va-radio__text--disabled': this.disabled,
+        'va-radio--disabled': this.disabled,
       }
     },
     computedLabel () {
@@ -63,95 +63,104 @@ export default {
   align-items: center;
   cursor: pointer;
   position: relative;
-}
 
-.va-radio__input {
-  width: 0;
-  height: 0;
-  position: absolute;
-  left: -100px;
-  top: -100px;
-  opacity: 0;
-  z-index: -1;
-}
-
-.va-radio__icon {
-  display: inline-flex;
-  align-items: center;
-  width: 1.4rem;
-  height: 1.4rem;
-  border-radius: 100%;
-  position: relative;
-
-  .va-radio__input:checked + & {
-    border-color: $brand-success;
+  &--disabled {
+    cursor: default;
   }
 
-  .va-radio__input:disabled + & {
-    opacity: 0.4;
-  }
-}
-
-.va-radio__icon__dot {
-  transition: $transition-primary;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 100%;
-  border: $gray solid 0.125rem;
-  z-index: 2;
-
-  .va-radio__input:checked + .va-radio__icon & {
-    border-color: $brand-success;
-  }
-
-  &:after {
-    content: '';
+  &__input {
+    width: 0;
+    height: 0;
     position: absolute;
-    top: 0.25rem;
-    left: 0.25rem;
-    right: 0.25rem;
-    bottom: 0.25rem;
-    border-radius: 100%;
-    background-color: $brand-success;
+    left: -100px;
+    top: -100px;
     opacity: 0;
+    z-index: -1;
+  }
 
-    .va-radio__input:checked + .va-radio__icon & {
-      opacity: 1;
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 100%;
+    position: relative;
+
+    .va-radio__input:checked + & {
+      border-color: $brand-success;
+    }
+
+    .va-radio__input:disabled + & {
+      opacity: 0.4;
+    }
+
+    &__dot {
+      transition: $transition-primary;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 100%;
+      border: $gray solid 0.125rem;
+      z-index: 2;
+
+      .va-radio__input:checked + .va-radio__icon & {
+        border-color: $brand-success;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0.25rem;
+        left: 0.25rem;
+        right: 0.25rem;
+        bottom: 0.25rem;
+        border-radius: 100%;
+        background-color: $brand-success;
+        opacity: 0;
+
+        .va-radio__input:checked + .va-radio__icon & {
+          opacity: 1;
+        }
+      }
+    }
+
+    &__background {
+      transition: $transition-primary;
+      position: absolute;
+      top: -0.25rem;
+      left: -0.25rem;
+      right: -0.25rem;
+      bottom: -0.25rem;
+      background-color: $vue-light-green;
+      border-radius: 100%;
+      z-index: 0;
+      opacity: 0;
+
+      .va-radio__input:focus + .va-radio__icon & {
+        opacity: 1;
+      }
+
+      .va-radio:hover & {
+        opacity: 1;
+      }
+
+      .va-radio--disabled:hover & {
+        opacity: 0;
+      }
     }
   }
-}
 
-.va-radio__icon__background {
-  transition: $transition-primary;
-  position: absolute;
-  top: -0.25rem;
-  left: -0.25rem;
-  right: -0.25rem;
-  bottom: -0.25rem;
-  background-color: $vue-light-green;
-  border-radius: 100%;
-  z-index: 0;
-  opacity: 0;
+  &__text {
+    display: inline-flex;
+    margin-left: 0.5rem;
 
-  .va-radio__input:focus + .va-radio__icon & {
-    opacity: 1;
+    .va-radio--disabled & {
+      opacity: 0.4;
+    }
   }
 
-  .va-radio:hover & {
-    opacity: 1;
-  }
-}
-
-.va-radio__text {
-  display: inline-flex;
-  margin-left: 0.5rem;
-
-  .va-radio__text--disabled & {
-    opacity: 0.4;
-  }
 }
 
 </style>
