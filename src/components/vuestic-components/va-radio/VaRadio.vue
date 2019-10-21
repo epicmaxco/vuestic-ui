@@ -14,8 +14,10 @@
     />
 
     <span class="va-radio__icon">
-      <span class="va-radio__icon__background"></span>
-      <span class="va-radio__icon__dot"></span>
+      <span class="va-radio__icon__background" :style="iconBackgroundComputedStyles"></span>
+      <span class="va-radio__icon__dot" :style="iconDotComputedStyles">
+        <span class="va-radio__icon__dot__point" :style="iconDotPointComputedStyles"></span>
+      </span>
     </span>
 
     <span class="va-radio__text">
@@ -52,19 +54,44 @@ export default {
       type: Boolean,
       default: false,
     },
+    color: {
+      type: String,
+    },
   },
   computed: {
+    isActive () {
+      return this.value === this.option
+    },
     computedClass () {
       return {
         'va-radio--disabled': this.disabled,
         'va-radio--leftLabel': this.leftLabel,
       }
     },
+    iconBackgroundComputedStyles () {
+      return {
+        backgroundColor: this.colorComputed,
+      }
+    },
+    iconDotPointComputedStyles () {
+      if (this.isActive) {
+        return {
+          borderColor: this.colorComputed,
+          backgroundColor: this.colorComputed,
+        }
+      }
+      return {}
+    },
+    iconDotComputedStyles () {
+      if (this.isActive) {
+        return {
+          borderColor: this.colorComputed,
+        }
+      }
+      return {}
+    },
     computedLabel () {
       return this.label || this.option
-    },
-    isActive () {
-      return this.value === this.option
     },
   },
   methods: {
@@ -120,10 +147,6 @@ export default {
     border-radius: 100%;
     position: relative;
 
-    .va-radio__input:checked + & {
-      border-color: $brand-success;
-    }
-
     .va-radio__input:disabled + & {
       opacity: 0.4;
     }
@@ -139,11 +162,7 @@ export default {
       border: $gray solid 0.125rem;
       z-index: 2;
 
-      .va-radio__input:checked + .va-radio__icon & {
-        border-color: $brand-success;
-      }
-
-      &:after {
+      &__point {
         content: '';
         position: absolute;
         top: 0.25rem;
@@ -151,7 +170,7 @@ export default {
         right: 0.25rem;
         bottom: 0.25rem;
         border-radius: 100%;
-        background-color: $brand-success;
+        background-color: inherit;
         opacity: 0;
 
         .va-radio__input:checked + .va-radio__icon & {
@@ -167,17 +186,17 @@ export default {
       left: -0.25rem;
       right: -0.25rem;
       bottom: -0.25rem;
-      background-color: $vue-light-green;
+      background-color: $gray;
       border-radius: 100%;
       z-index: 0;
       opacity: 0;
 
       .va-radio__input:focus + .va-radio__icon & {
-        opacity: 1;
+        opacity: 0.2;
       }
 
       .va-radio:hover & {
-        opacity: 1;
+        opacity: 0.2;
       }
 
       .va-radio--disabled:hover & {
