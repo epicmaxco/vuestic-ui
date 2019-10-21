@@ -2,16 +2,24 @@
   <label
     class="va-radio"
     :class="computedClass"
-    @click="onClick"
   >
-    <input :checked="isActive" type="radio" class="va-radio__input" :disabled="disabled" />
+    <input
+      class="va-radio__input"
+      type="radio"
+      :checked="isActive"
+      :disabled="disabled"
+      :name="name"
+      @change="onClick"
+      @focus="onFocus"
+    />
+
     <span class="va-radio__icon">
       <span class="va-radio__icon__background"></span>
       <span class="va-radio__icon__dot"></span>
     </span>
 
     <span class="va-radio__text">
-      <slot name="label">
+      <slot>
         {{ computedLabel }}
       </slot>
     </span>
@@ -19,22 +27,37 @@
 </template>
 
 <script>
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'va-radio',
+  mixins: [ ColorThemeMixin ],
   props: {
-    value: {},
-    option: {},
+    value: {
+    },
+    option: {
+      type: [Object, String, Number, Boolean],
+    },
+    name: {
+      type: [ String, Number ],
+    },
     disabled: {
       type: Boolean,
       default: false,
     },
-    label: String,
+    label: {
+      type: String,
+    },
+    leftLabel: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     computedClass () {
       return {
         'va-radio--disabled': this.disabled,
+        'va-radio--leftLabel': this.leftLabel,
       }
     },
     computedLabel () {
@@ -50,6 +73,11 @@ export default {
         this.$emit('input', this.option)
       }
     },
+    onFocus (e) {
+      if (!this.disabled) {
+        this.$emit('focus', e)
+      }
+    },
   },
 }
 </script>
@@ -63,9 +91,15 @@ export default {
   align-items: center;
   cursor: pointer;
   position: relative;
+  margin-right: 0.5rem;
 
   &--disabled {
     cursor: default;
+  }
+
+  &--leftLabel {
+    flex-direction: row-reverse;
+    display: inline-flex;
   }
 
   &__input {
@@ -155,12 +189,17 @@ export default {
   &__text {
     display: inline-flex;
     margin-left: 0.5rem;
+    margin-right: 0;
 
     .va-radio--disabled & {
       opacity: 0.4;
     }
-  }
 
+    .va-radio--leftLabel & {
+      margin-left: 0;
+      margin-right: 0.5rem;
+    }
+  }
 }
 
 </style>

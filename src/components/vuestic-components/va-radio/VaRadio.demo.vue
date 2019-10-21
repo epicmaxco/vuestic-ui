@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard title="default">
+    <VbCard title="Default">
       <va-radio
         v-for="(option, index) in options"
         :key="index"
@@ -22,7 +22,7 @@
         {{selectedOptionObject}}
       </div>
     </VbCard>
-    <VbCard title="custom label">
+    <VbCard title="Custom label">
       <va-radio
         v-for="(option, index) in options"
         :key="index"
@@ -40,7 +40,7 @@
         Slotted label: {{option}}
       </va-radio>
     </VbCard>
-    <VbCard title="disabled">
+    <VbCard title="Disabled">
       <va-radio
         v-for="(option, index) in options"
         :key="index"
@@ -49,8 +49,14 @@
         disabled
       />
     </VbCard>
-    <VbCard title="object value">
-
+    <VbCard title="Left label">
+      <va-radio
+        v-for="(option, index) in options"
+        :key="index"
+        v-model="selectedOptionString"
+        :option="option"
+        left-label
+      />
     </VbCard>
   </VbDemo>
 </template>
