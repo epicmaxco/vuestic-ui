@@ -360,7 +360,9 @@ export default {
       return this.range ? this.currentSlider === index : this.currentSlider === 0
     },
     setMouseDown (e, index) {
-      this.hasMouseDown = index || true
+      if (!this.readonly && !this.disabled) {
+        this.hasMouseDown = index || true
+      }
     },
     moveStart (e, index) {
       if (!index) {
