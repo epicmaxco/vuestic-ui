@@ -42,7 +42,7 @@ export const ContextPluginMixin = {
  * @returns {any} Returns property value.
  *
  */
-export function getContextPropValue (context, prop, defaultValue = undefined) {
+export function getContextPropValue (context, prop, defaultValue) {
   // We have to pass context here as this method will be mainly used in prop default,
   // and methods are not accessible there.
 
