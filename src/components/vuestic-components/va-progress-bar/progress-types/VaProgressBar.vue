@@ -139,7 +139,9 @@ export default {
     text-align: center;
     color: $white;
     letter-spacing: 0.6px;
+    line-height: $progress-bar-large-height;
     font-size: $progress-bar-large-font-size;
+    font-weight: 700;
 
     &__indeterminate-start {
       animation: va-progress-bar__overlay__indeterminate-start 2s ease-in infinite;
