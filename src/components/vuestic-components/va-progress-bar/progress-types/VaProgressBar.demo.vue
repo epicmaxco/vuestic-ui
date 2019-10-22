@@ -9,9 +9,9 @@
       <va-progress-bar :rounded="false" :value="value"/>
       <span>Danger</span>
       <va-progress-bar :value="value" color="danger"/>
-      <span>Resized with px</span>
-      <va-progress-bar size="20px" :value="value" color="danger"/>
-      <span>Resized with rem</span>
+      <span>Size</span>
+      <va-progress-bar :size="32" :value="value" color="danger"/>
+      <span>Size rem</span>
       <va-progress-bar size="2rem" :value="value" color="danger"/>
       <span>Static slot</span>
       <va-progress-bar :value="value">Slot</va-progress-bar>
@@ -39,14 +39,14 @@
     <VbCard title="Value">
       <button @click="value -= 100">-100</button>
       <button @click="value -= 10">-10</button>
-      {{ value }}
+      <input style="width: 50px" type="number" v-model.number="value">
       <button @click="value += 10">+10</button>
       <button @click="value += 100">+100</button>
     </VbCard>
     <VbCard title="Buffer value">
       <button @click="bufferValue -= 100">-100</button>
       <button @click="bufferValue -= 10">-10</button>
-      {{ bufferValue }}
+      <input style="width: 50px" type="number" v-model.number="bufferValue">
       <button @click="bufferValue += 10">+10</button>
       <button @click="bufferValue += 100">+100</button>
     </VbCard>
