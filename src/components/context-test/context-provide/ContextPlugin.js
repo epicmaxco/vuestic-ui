@@ -42,59 +42,36 @@ export const ContextPluginMixin = {
  * @returns {any} Returns property value.
  *
  */
-export function getContextPropValue (context, prop, defaultValue) {
-  if (!context) {
-    return defaultValue
-  }
-  // We have to pass context here as this method will be mainly used in prop default, and methods are not accessible there.
+export function getContextPropValue (context, prop, defaultValue = undefined) {
+  // We have to pass context here as this method will be mainly used in prop default,
+  // and methods are not accessible there.
 
-  // if component has local prop return local prop
+  // Local prop takes priority even when empty.
   if (context.hasOwnProperty(prop)) {
     return context[prop]
   }
 
-  // const contextLength = context._$configs.length
   const componentName = pascalCase(context.$options.name)
+  const configs = [context.$vaContextConfig, ...context._$configs]
+  const config = getLocalConfigWithComponentProp(configs, componentName, prop)
 
-  // take local config with prop or global component config
-  let componentConfig = getLocalConfigWithComponentProp(context._$configs, componentName, prop) || context.$vaContextConfig[componentName]
-
-  if (componentConfig.hasOwnProperty(prop)) {
-    return componentConfig[prop]
-  }
-
-  return defaultValue
+  return config ? config[componentName][prop] : defaultValue
 }
 
 /**
- * Tries to calc value of property from local config
+ * Attempt to find a prop value from config chain.
  *
  * @category String
- * @param configs [object] this of the vue component.
- * @param componentName [string] The string of component name.
- * The name format is the same as in global and local configs
- * @param propName [string] The default property name.
- * This value takes when each local or global config and component do not contain property.
- * @returns {object | null} Returns local config, if he had property value for component.
+ * @param configs [object] config chain.
+ * @param componentName [string]
+ * @param propName [string] property name (pascal-case)
  *
+ * @returns {any} config object if found undefined means not found.
  */
 function getLocalConfigWithComponentProp (configs, componentName, propName) {
-  const contextLength = configs.length
-  let componentConfig = null
-
-  if (contextLength) {
-    // iterate from the last element to the first element
-    for (let i = contextLength - 1; i >= 0; i--) {
-      // try to take component config
-      const _currentComponentConfig = configs[i][componentName]
-
-      // if config has property take config
-      if (_currentComponentConfig && _currentComponentConfig.hasOwnProperty(propName)) {
-        componentConfig = _currentComponentConfig
-        break
-      }
-    }
-  }
-  // return config with property of null
-  return componentConfig
+  // Find prop value in config chain.
+  return configs.reverse().find(config => {
+    const componentConfig = config[componentName]
+    return componentConfig && componentConfig.hasOwnProperty(propName)
+  }) || undefined
 }

@@ -18,13 +18,13 @@ Vue.use(ColorThemePlugin)
 Vue.use(DropdownPopperPlugin)
 Vue.use(ContextPlugin, {
   VaTest: {
-    color: 'info',
+    color: 'blue',
   },
   VaButton: {
     small: true,
     icon: 'fa fa-phone',
-    iconRight: 'fa fa-phone',
     color: 'info',
+    outline: true,
   },
 })
 

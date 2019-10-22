@@ -102,13 +102,13 @@ export default {
     icon: {
       type: String,
       default () {
-        return getContextPropValue(this, 'icon', false)
+        return getContextPropValue(this, 'icon', '')
       },
     },
     iconRight: {
       type: String,
       default () {
-        return getContextPropValue(this, 'iconRight', false)
+        return getContextPropValue(this, 'iconRight', '')
       },
     },
     type: {

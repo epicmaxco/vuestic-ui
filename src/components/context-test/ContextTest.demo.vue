@@ -23,27 +23,32 @@
       </va-context>
     </VbCard>
 
-    <VbCard title="Component with empty label prop">
+    <VbCard title="Empty prop has priority">
       <va-context :config="{ VaTest: { label: 'my label', color: 'orange' } }">
         <div>
-          Have label prop: <va-test />
-          Have empty label prop: <va-test label="" />
+          Default:
+          <va-test/>
+          Empty label (should be empty):
+          <va-test label=""/>
         </div>
       </va-context>
     </VbCard>
 
-    <VbCard title="Local reactive context component">
+    <VbCard title="No reactivity (only on refresh)" refresh>
+      <div>
+        Should change color on change and refresh.
+      </div>
       <span style="font-size: 12px">dynamic context</span>
-      <va-context :config="dynamicContextConfig" :key="dynamicContextConfigKey">
+      <va-context :config="dynamicContextConfig">
         <div style="border: 1px solid gray; padding: 4px">
           <va-test>No props</va-test>
           <va-test color="green">Prop set</va-test>
         </div>
       </va-context>
       <label>
-        <input type="checkbox" v-model="changeContext">
-          Changed dynamic context
-        </label>
+        <input type="checkbox" v-model="redOrange">
+        red / orange
+      </label>
     </VbCard>
 
     <VbCard title="Override button props">
@@ -58,8 +63,6 @@
           <va-context :config="{ VaButton: buttonConfig }">
             <div style="border: 1px solid gray; padding: 4px">
               <va-button :small="false">Local config 2 (override)</va-button>
-              <br/>
-              <va-button small color="danger" iconRight="fa fa-phone">Props button</va-button>
             </div>
           </va-context>
         </div>
@@ -70,7 +73,7 @@
 
 <script>
 import VaTest from './ContextTest'
-import VaContext from './context-provide/ContextComopnentProvider'
+import VaContext from './context-provide/VaContext'
 import VaButton from '../vuestic-components/va-button/VaButton'
 
 export default {
@@ -82,26 +85,23 @@ export default {
   data () {
     return {
       dynamicContextConfig: { VaTest: { color: 'orange' } },
-      changeContext: false,
-      dynamicContextConfigKey: 'orange',
       buttonConfig: {
         large: true,
         icon: 'brandico brandico-facebook',
         iconRight: '',
-        flat: false,
+        flat: true,
         color: 'success',
       },
     }
   },
-  watch: {
-    changeContext (value) {
-      if (value) {
-        this.dynamicContextConfig.VaTest.color = 'red'
-        this.dynamicContextConfigKey = 'red'
-      } else {
-        this.dynamicContextConfig.VaTest.color = 'blue'
-        this.dynamicContextConfigKey = 'blue'
-      }
+  computed: {
+    redOrange: {
+      get () {
+        return this.dynamicContextConfig.VaTest.color === 'red'
+      },
+      set (value) {
+        this.dynamicContextConfig.VaTest.color = value ? 'red' : 'orange'
+      },
     },
   },
 }
