@@ -7,7 +7,7 @@
 <script>
 import {
   ContextPluginMixin,
-  getProviderConfig,
+  getContextPropValue,
 } from './context-provide/ContextPlugin'
 
 export default {
@@ -17,7 +17,7 @@ export default {
     color: {
       type: String,
       default () {
-        return getProviderConfig(this, 'color', '')
+        return getContextPropValue(this, 'color', '')
       },
     },
   },
