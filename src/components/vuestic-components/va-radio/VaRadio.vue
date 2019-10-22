@@ -116,8 +116,13 @@ export default {
   align-items: center;
   cursor: pointer;
   position: relative;
+  margin-top: 0;
   margin-right: 0.5rem;
   transition: $transition-primary;
+
+  & + & {
+    margin-top: 0.5rem;
+  }
 
   &--disabled {
     cursor: default;
@@ -126,6 +131,10 @@ export default {
   &--leftLabel {
     flex-direction: row-reverse;
     display: inline-flex;
+
+    & + & {
+      margin-top:0;
+    }
   }
 
   &__input {
