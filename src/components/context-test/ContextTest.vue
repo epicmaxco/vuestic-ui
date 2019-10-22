@@ -6,13 +6,13 @@
 
 <script>
 import {
-  ContextProvideMixin,
+  ContextPluginMixin,
   getProviderConfig,
-} from './context-provide/ContextProvidePlugin'
+} from './context-provide/ContextPlugin'
 
 export default {
   name: 'va-test',
-  mixins: [ContextProvideMixin],
+  mixins: [ContextPluginMixin],
   props: {
     color: {
       type: String,
@@ -26,6 +26,5 @@ export default {
 
 <style lang="scss">
 .va-test {
-
 }
 </style>

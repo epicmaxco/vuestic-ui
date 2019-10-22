@@ -41,7 +41,7 @@
 
 <script>
 import VaTest from './ContextTest'
-import VaContext from './context-provide/ContextProvidePluginComopnent'
+import VaContext from './context-provide/ContextComopnentProvider'
 
 export default {
   components: {
