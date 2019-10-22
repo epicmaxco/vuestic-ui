@@ -23,6 +23,15 @@
       </va-context>
     </VbCard>
 
+    <VbCard title="Component with empty label prop">
+      <va-context :config="{ VaTest: { label: 'my label', color: 'orange' } }">
+        <div>
+          Have label prop: <va-test />
+          Have empty label prop: <va-test label="" />
+        </div>
+      </va-context>
+    </VbCard>
+
     <VbCard title="Local reactive context component">
       <span style="font-size: 12px">dynamic context</span>
       <va-context :config="dynamicContextConfig" :key="dynamicContextConfigKey">

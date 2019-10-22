@@ -1,6 +1,6 @@
 <template>
   <div class="va-test" :style="{color}">
-    <slot>Test</slot>
+    <slot>{{label}}</slot>
   </div>
 </template>
 
@@ -18,6 +18,12 @@ export default {
       type: String,
       default () {
         return getContextPropValue(this, 'color', '')
+      },
+    },
+    label: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'label', '')
       },
     },
   },
