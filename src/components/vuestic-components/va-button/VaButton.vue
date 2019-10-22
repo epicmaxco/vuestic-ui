@@ -52,44 +52,76 @@ import {
   getBoxShadowColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-button',
   components: { VaIcon },
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   inject: {
     va: {
       default: () => ({}),
     },
   },
   props: {
+    color: {
+      default () {
+        return getContextPropValue(this, 'color', 'success')
+      },
+    },
     tag: {
       type: String,
-      default: 'button',
+      default () {
+        return getContextPropValue(this, 'tag', 'button')
+      },
     },
     outline: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'outline', false)
+      },
     },
     flat: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'flat', false)
+      },
     },
     small: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'small', false)
+      },
     },
     large: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'large', false)
+      },
     },
     icon: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'icon', false)
+      },
     },
     iconRight: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'iconRight', false)
+      },
     },
     type: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'type', 'button')
+      },
     },
     disabled: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     /* Link props */
     href: {

@@ -20,6 +20,12 @@ Vue.use(ContextPlugin, {
   VaTest: {
     color: 'info',
   },
+  VaButton: {
+    small: true,
+    icon: 'fa fa-phone',
+    iconRight: 'fa fa-phone',
+    color: 'info',
+  },
 })
 
 const router = new Router({

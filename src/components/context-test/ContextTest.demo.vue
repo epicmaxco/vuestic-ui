@@ -36,23 +36,52 @@
           Changed dynamic context
         </label>
     </VbCard>
+
+    <VbCard title="Override button props">
+      <va-button>Global config</va-button>
+      <br/>
+      <span style="font-size: 12px">context 1</span>
+      <va-context :config="{ VaButton: { color: 'warning' } }">
+        <div style="border: 1px solid gray; padding: 4px">
+          <va-button>Local config 1 (only color)</va-button>
+          <br/>
+          <span style="font-size: 12px">context 2</span>
+          <va-context :config="{ VaButton: buttonConfig }">
+            <div style="border: 1px solid gray; padding: 4px">
+              <va-button :small="false">Local config 2 (override)</va-button>
+              <br/>
+              <va-button small color="danger" iconRight="fa fa-phone">Props button</va-button>
+            </div>
+          </va-context>
+        </div>
+      </va-context>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaTest from './ContextTest'
 import VaContext from './context-provide/ContextComopnentProvider'
+import VaButton from '../vuestic-components/va-button/VaButton'
 
 export default {
   components: {
     VaTest,
     VaContext,
+    VaButton,
   },
   data () {
     return {
       dynamicContextConfig: { VaTest: { color: 'orange' } },
       changeContext: false,
       dynamicContextConfigKey: 'orange',
+      buttonConfig: {
+        large: true,
+        icon: 'brandico brandico-facebook',
+        iconRight: '',
+        flat: false,
+        color: 'success',
+      },
     }
   },
   watch: {
