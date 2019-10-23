@@ -1,7 +1,7 @@
 <template>
   <vb-demo>
     <vb-card width="400px">
-      <va-button small color="info" @click="loading = !loading">
+      <va-button size="small" color="info" @click="loading = !loading">
         {{ loading ? 'Stop loading' : 'Start loading '}}
       </va-button>
 

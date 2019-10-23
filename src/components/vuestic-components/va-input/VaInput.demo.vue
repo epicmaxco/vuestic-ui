@@ -54,7 +54,7 @@
         v-model="text"
         label="Name"
       >
-        <va-button slot="append" style="margin-right: 0;" small>
+        <va-button slot="append" style="margin-right: 0;" size="small">
           Upload
         </va-button>
       </va-input>

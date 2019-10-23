@@ -29,8 +29,8 @@
           <td>Pagination Sizes</td>
           <td>
             <VbCard>
-              <va-pagination small :pages="10" :visible-pages="3" v-model="activePage"/>
-              <va-pagination large :pages="10" :visible-pages="3" v-model="activePage"/>
+              <va-pagination size="small" :pages="10" :visible-pages="3" v-model="activePage"/>
+              <va-pagination size="large" :pages="10" :visible-pages="3" v-model="activePage"/>
             </VbCard>
           </td>
         </tr>

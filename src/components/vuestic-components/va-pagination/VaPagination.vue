@@ -5,8 +5,7 @@
       :style="directionButtonStyle"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled || value === 1"
       :icon="iconClass.boundary"
       @click="changePage(1)"
@@ -16,8 +15,7 @@
       :style="directionButtonStyle"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled || value === 1"
       :icon="iconClass.direction"
       @click="changePage(value - 1)"
@@ -26,8 +24,7 @@
       :style="activeButtonStyle(n)"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled"
       v-for="(n, key) in paginationRange"
       :key="key"
@@ -41,8 +38,7 @@
       :style="directionButtonStyle"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled || value === this.pages"
       :icon="iconRightClass.direction"
       @click="changePage(value + 1)"
@@ -52,8 +48,7 @@
       :style="directionButtonStyle"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled || value === this.pages"
       :icon="iconRightClass.boundary"
       @click="changePage(lastPage)"
@@ -91,11 +86,12 @@ export default {
     disabled: {
       type: Boolean,
     },
-    small: {
-      type: Boolean,
-    },
-    large: {
-      type: Boolean,
+    size: {
+      type: String,
+      default: 'medium',
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
+      },
     },
     boundaryLinks: {
       type: Boolean,

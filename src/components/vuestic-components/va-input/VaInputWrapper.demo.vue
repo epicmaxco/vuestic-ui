@@ -57,7 +57,6 @@
 
 <script>
 import VaInputWrapper from './VaInputWrapper'
-import VaButton from './../va-button/VaButton'
 import VaIcon from './../va-icon/VaIcon'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaRadioButton from '../va-radio-button/VaRadioButton'
@@ -66,7 +65,6 @@ export default {
   components: {
     VaCheckbox,
     VaInputWrapper,
-    VaButton,
     VaIcon,
     VaRadioButton,
   },
