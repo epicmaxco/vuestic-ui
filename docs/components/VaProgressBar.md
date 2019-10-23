@@ -19,9 +19,7 @@
 * `buffer` - Number (default: 100).
 * `reverse` - Boolean - reverse progress bar direction
 * `rounded` - Boolean - (default: true) make the bar rounded
-* `size` - Number|String - height of the bar in pixels or in css units (rem|em|ex|pt|pc|mm|cm|px)
-* `small` - Boolean (default: false) - small preset of progress bar (size and rounded props ignored)
-* `large` - Boolean (default: false) - large preset of progress bar (size and rounded props ignored)
+* `size` - Number|String - height of the bar in pixels or in css units (rem|em|ex|pt|pc|mm|cm|px). Also use one these values `['small', 'medium', 'large']`
 
 # va-progress-circle
 
