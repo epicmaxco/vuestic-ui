@@ -19,9 +19,9 @@
       </va-toggle>
     </VbCard>
     <VbCard title="Sizes">
-      <va-toggle v-model="value" small label="small"/>
+      <va-toggle v-model="value" size="small" label="small"/>
       <va-toggle v-model="value" label="default"/>
-      <va-toggle v-model="value" large label="large"/>
+      <va-toggle v-model="value" size="large" label="large"/>
     </VbCard>
     <VbCard title="Custom trueValue, falseValue">
       <va-toggle
