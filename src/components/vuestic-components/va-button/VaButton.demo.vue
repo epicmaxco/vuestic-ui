@@ -26,28 +26,28 @@
             <va-button>
               Default Button
             </va-button>
-            <va-button large>
+            <va-button size="large">
               Large Button
             </va-button>
-            <va-button small>
+            <va-button size="small">
               Small Button
             </va-button>
             <va-button outline>
               Default Button
             </va-button>
-            <va-button large outline>
+            <va-button size="large" outline>
               Large Button
             </va-button>
-            <va-button small outline>
+            <va-button size="small" outline>
               Small Button
             </va-button>
             <va-button flat>
               Default Button
             </va-button>
-            <va-button flat large>
+            <va-button size="large" flat>
               Large Button
             </va-button>
-            <va-button flat small>
+            <va-button size="small" flat>
               Small Button
             </va-button>
           </td>
@@ -232,19 +232,21 @@
           <td>Large Buttons With icons</td>
           <td>
             <va-button
-              large
+              size="large"
               icon="brandico brandico-facebook"
             >
               Plus Button
             </va-button>
             <va-button
-              outline large
+              outline
+              size="large"
               icon-right="iconicstroke iconicstroke-info"
             >
               Dropdown button
             </va-button>
             <va-button
-              flat large
+              flat
+              size="large"
               icon="brandico brandico-facebook"
               icon-right="iconicstroke iconicstroke-info"
             >
@@ -256,19 +258,21 @@
           <td>Small Buttons With icons</td>
           <td>
             <va-button
-              small
+              size="small"
               icon="brandico brandico-facebook"
             >
               Plus Button
             </va-button>
             <va-button
-              outline small
+              outline
+              size="small"
               icon-right="iconicstroke iconicstroke-info"
             >
               Dropdown button
             </va-button>
             <va-button
-              flat small
+              flat
+              size="small"
               icon="brandico brandico-facebook"
               icon-right="iconicstroke iconicstroke-info"
             >
@@ -280,14 +284,14 @@
           <td>All Buttons Without Title</td>
           <td>
             <va-button icon="ion-md-close ion"/>
-            <va-button large icon="ion-md-close ion"/>
-            <va-button small icon="ion-md-close ion"/>
+            <va-button size="large" icon="ion-md-close ion"/>
+            <va-button size="small" icon="ion-md-close ion"/>
             <va-button outline icon="ion-md-close ion"/>
-            <va-button outline large icon="ion-md-close ion"/>
-            <va-button outline small icon="ion-md-close ion"/>
+            <va-button outline size="large" icon="ion-md-close ion"/>
+            <va-button outline size="small" icon="ion-md-close ion"/>
             <va-button flat icon="ion-md-close ion"/>
-            <va-button flat large icon="ion-md-close ion"/>
-            <va-button flat small icon="ion-md-close ion"/>
+            <va-button flat size="large" icon="ion-md-close ion"/>
+            <va-button flat size="small" icon="ion-md-close ion"/>
           </td>
         </tr>
       </table>

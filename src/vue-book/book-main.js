@@ -23,7 +23,7 @@ Vue.use(ContextPlugin, {
     color: 'blue',
   },
   VaButton: {
-    small: true,
+    size: 'small',
     icon: 'fa fa-phone',
     color: 'info',
     outline: true,

@@ -62,7 +62,7 @@
           <span style="font-size: 12px">context 2</span>
           <va-context :config="{ VaButton: buttonConfig }">
             <div style="border: 1px solid gray; padding: 4px">
-              <va-button :small="false">Local config 2 (override)</va-button>
+              <va-button>Local config 2 (override)</va-button>
             </div>
           </va-context>
         </div>
@@ -86,7 +86,7 @@ export default {
     return {
       dynamicContextConfig: { VaTest: { color: 'orange' } },
       buttonConfig: {
-        large: true,
+        size: 'large',
         icon: 'brandico brandico-facebook',
         iconRight: '',
         flat: true,
