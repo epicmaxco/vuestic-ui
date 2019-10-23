@@ -1,8 +1,13 @@
 <template>
+  <!-- HACK Supports only material icons for now! -->
   <i class="va-icon"
-     :class="[name, iconClass]"
+     :class="[name, iconClass, 'material-icons']"
      :style="iconStyle"
-  ><slot/></i>
+  >
+    <slot>
+      {{ name }}
+    </slot>
+  </i>
 </template>
 
 <script>
