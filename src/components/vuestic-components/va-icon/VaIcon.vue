@@ -12,14 +12,12 @@ export default {
     name: {
       type: [String, Array],
     },
-    small: {
-      type: Boolean,
-    },
-    large: {
-      type: Boolean,
-    },
     size: {
       type: [String, Number],
+      default: 'medium',
+      validator: value => {
+        return value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value) || typeof value === 'number'
+      },
     },
     fixedWidth: {
       type: Boolean,
@@ -34,8 +32,8 @@ export default {
   computed: {
     iconClass () {
       return {
-        'va-icon--large': this.large,
-        'va-icon--small': this.small,
+        'va-icon--large': this.size === 'large',
+        'va-icon--small': this.size === 'small',
         'va-icon--fixed': this.fixedWidth,
       }
     },
