@@ -1,17 +1,17 @@
 <template>
   <VbDemo>
-    <VbCard width="500px" title="Simple Slider">
+    <VbCard width="500px" title="default">
       <va-slider
         v-model="value"
       />
     </VbCard>
-    <VbCard width="500px" title="Slider With Visible Value">
+    <VbCard width="500px" title="value visible">
       <va-slider
         value-visible
         v-model="value"
       />
     </VbCard>
-    <VbCard width="500px" title="Slider With Overwritten Value">
+    <VbCard width="500px" title="custom label">
       <va-slider
         value-visible
         v-model="value3"

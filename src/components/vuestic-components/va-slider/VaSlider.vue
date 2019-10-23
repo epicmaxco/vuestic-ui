@@ -141,6 +141,7 @@ export default {
   props: {
     range: {
       type: Boolean,
+      default: false,
     },
     value: {
       type: [Number, Array],
@@ -150,6 +151,7 @@ export default {
     },
     valueVisible: {
       type: Boolean,
+      default: false,
     },
     min: {
       type: Number,
@@ -168,9 +170,11 @@ export default {
     },
     inverseLabel: {
       type: Boolean,
+      default: false,
     },
     disabled: {
-      type: [Boolean, Array],
+      type: Boolean,
+      default: false,
     },
     pins: {
       type: Boolean,

@@ -53,11 +53,12 @@ import {
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 export default {
   name: 'va-button',
   components: { VaIcon },
-  mixins: [ColorThemeMixin, ContextPluginMixin],
+  mixins: [ColorThemeMixin, RouterLinkMixin, ContextPluginMixin],
   inject: {
     va: {
       default: () => ({}),
@@ -131,24 +132,6 @@ export default {
       type: String,
     },
     /* Router link props */
-    to: {
-      type: [String, Object],
-    },
-    replace: {
-      type: Boolean,
-    },
-    append: {
-      type: Boolean,
-    },
-    activeClass: {
-      type: String,
-    },
-    exact: {
-      type: Boolean,
-    },
-    exactActiveClass: {
-      type: String,
-    },
   },
   data () {
     return {
@@ -215,6 +198,7 @@ export default {
           computedStyle.background = getHoverColor(this.colorComputed)
         } else {
           computedStyle.backgroundImage = this.gradientStyle
+          computedStyle.boxShadow = this.shadowStyle
         }
       } else {
         computedStyle.color = this.flat || this.outline ? this.colorComputed : '#ffffff'
@@ -237,8 +221,7 @@ export default {
       if (this.tag === 'a' || this.href || this.target) {
         return 'a'
       }
-      if (this.tag === 'router-link' || this.to || this.append || this.replace ||
-        this.activeClass || this.exact || this.exactActiveClass) {
+      if (this.tag === 'router-link' || this.hasRouterLinkParams) {
         return 'router-link'
       }
       return 'button'
@@ -298,7 +281,7 @@ export default {
     color: $white;
 
     &:hover {
-      filter: brightness(115%);
+      opacity: 0.85;
     }
 
     &:focus, &:active {

@@ -14,7 +14,9 @@ installPlatform()
 
 Vue.use(Router)
 Vue.use(VueBookComponents)
-Vue.use(ColorThemePlugin)
+if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
+  Vue.use(ColorThemePlugin)
+}
 Vue.use(DropdownPopperPlugin)
 Vue.use(ContextPlugin, {
   VaTest: {
