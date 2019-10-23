@@ -68,6 +68,23 @@
         </div>
       </va-context>
     </VbCard>
+
+    <VbCard title="Partial rewriting global config (only on refresh)" refresh>
+      <div>
+        Should change global config button color on change and refresh.
+      </div>
+      <va-button @click="overrideButtonsColor('danger')">Make button color red</va-button>
+      <va-button @click="overrideButtonsColor('info')">Make button color blue</va-button>
+    </VbCard>
+
+    <VbCard title="Rewriting global config (only on refresh)" refresh>
+      <div>
+        Should change global config on change and refresh.
+      </div>
+      <va-badge />
+      <va-test>va test component</va-test>
+      <va-button @click="overrideConfig">Override config</va-button>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -75,12 +92,15 @@
 import VaTest from './ContextTest'
 import VaContext from './context-provide/VaContext'
 import VaButton from '../vuestic-components/va-button/VaButton'
+import VaBadge from '../vuestic-components/va-badge/VaBadge'
+import { overrideContextConfig } from '../context-test/context-provide/ContextPlugin'
 
 export default {
   components: {
     VaTest,
     VaContext,
     VaButton,
+    VaBadge,
   },
   data () {
     return {
@@ -104,6 +124,31 @@ export default {
       set (value) {
         this.dynamicContextConfig.VaTest.color = value ? 'red' : 'orange'
       },
+    },
+  },
+  methods: {
+    overrideButtonsColor (color) {
+      this.$vaContextConfig.VaButton.color = color
+    },
+    overrideConfig () {
+      const newConfig = {
+        VaTest: {
+          color: 'red',
+        },
+        VaBadge: {
+          color: 'danger',
+          label: 'new label',
+        },
+        VaButton: {
+          large: true,
+          small: false,
+          outline: false,
+          icon: 'fa fa-star',
+          color: 'danger',
+        },
+      }
+
+      overrideContextConfig(this, newConfig)
     },
   },
 }
