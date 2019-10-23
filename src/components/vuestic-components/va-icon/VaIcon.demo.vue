@@ -45,6 +45,7 @@
       <va-icon name="material-icons">face</va-icon>
       <va-icon name="material-icons">&#xE87C;</va-icon>
       <va-icon name="material-icons" color="danger">face</va-icon>
+      <va-icon name="material-icons" color="danger">delete</va-icon>
     </VbCard>
   </VbDemo>
 </template>

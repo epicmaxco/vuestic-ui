@@ -37,9 +37,7 @@
         <va-icon
           v-show="isSelected(option)"
           class="va-select__option__selected-icon"
-          name="material-icons">
-          done
-        </va-icon>
+          >done</va-icon>
       </li>
     </ul>
     <div
