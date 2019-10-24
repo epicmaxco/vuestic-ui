@@ -8,35 +8,35 @@ The `va-avatar` is normally used for profile picture or user lists. You can use 
 
 ### Mix
 
-<AvatarMixSnippet/>
+<VaAvatarMixSnippet/>
 
-<<< @/docs/.vuepress/components/AvatarMixSnippet.vue
+<<< @/docs/.vuepress/components/VaAvatarMixSnippet.vue
 
 ### Sizes
 
 !Gotcha: `size` defines avatar container size, when `font-size` is used for internal text. So, in most cases, if you want to change component size - you need to change both `size` and `font-size`.
 
-<AvatarSizeSnippet/>
+<VaAvatarSizeSnippet/>
 
-<<< @/docs/.vuepress/components/AvatarSizeSnippet.vue
+<<< @/docs/.vuepress/components/VaAvatarSizeSnippet.vue
 
 
 ### Color
 
 Устанавливает значение цвета компонента. Можно использовать цвета темы (`primary`, `warning`), или css цвета (`aqua`, `#ad0`).
 
-<AvatarColorSnippet/>
+<VaAvatarColorSnippet/>
 
-<<< @/docs/.vuepress/components/AvatarColorSnippet.vue
+<<< @/docs/.vuepress/components/VaAvatarColorSnippet.vue
 
 
 ### Square
 
 Change the presentation type of component.
 
-<AvatarSquareSnippet/>
+<VaAvatarSquareSnippet/>
 
-<<< @/docs/.vuepress/components/AvatarSquareSnippet.vue
+<<< @/docs/.vuepress/components/VaAvatarSquareSnippet.vue
 
 ## API
 
