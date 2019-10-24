@@ -21,6 +21,23 @@ The `va-avatar` is normally used for profile picture or user lists. You can use 
 <<< @/docs/.vuepress/components/AvatarSizeSnippet.vue
 
 
+### Color
+
+Устанавливает значение цвета компонента. Можно использовать цвета темы (`primary`, `warning`), или css цвета (`aqua`, `#ad0`).
+
+<AvatarColorSnippet/>
+
+<<< @/docs/.vuepress/components/AvatarColorSnippet.vue
+
+
+### Square
+
+Change the presentation type of component.
+
+<AvatarSquareSnippet/>
+
+<<< @/docs/.vuepress/components/AvatarSquareSnippet.vue
+
 ## API
 
 [API is work in progress, for now just textual info]
