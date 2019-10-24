@@ -1,40 +1,22 @@
-## Components
+# Badge
+
+[[toc]]
+
+The `va-badge` is ...
+
+## Examples
+
+### Mix
+
+<VaBadgeMixSnippet/>
+
+<<< @/docs/.vuepress/components/VaBadgeMixSnippet.vue
 
 
-# va-badge
+## API
 
-2 ways to use va-badge
+[API is work in progress, for now just textual info]
 
-Use as text in line:
-```html
-<va-badge
- color="warning"
- label="Text in label"
-/>
-```
-
-Use as floated component:
-
-```html
-<va-badge label="Text in label">
- Relative text
-</va-badge>
-```
-
-or
-
-```html
-<va-badge>
-    <tamplate v-slot:badge>
-        <va-icon name="face"/>
-    </tamplate>   
- Relative text
-</va-badge>
-```
-
-
-
-### Props
 * `color` - String (default: 'success') - use this property to set the color of the badge. We can choose one color from a set of theme colors (primary, secondary, info, error, warning).
 * `textColor` - String (default: 'danger') - use this property to set the color of the badge. We can choose one color from a set of theme colors (primary, secondary, info, error, warning).
 * `label` - String | Number - any simple content in badge 
