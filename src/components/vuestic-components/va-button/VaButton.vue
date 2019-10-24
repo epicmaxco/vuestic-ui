@@ -89,7 +89,7 @@ export default {
       },
     },
     size: {
-      type: String, // small / large / medium
+      type: String,
       default () {
         return getContextPropValue(this, 'size', 'medium')
       },

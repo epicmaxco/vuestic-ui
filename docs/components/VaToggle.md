@@ -25,7 +25,7 @@ Toggle component is conceptually similar to checkbox, but stars a different look
 * `label` - String - text of slot label for the toggle
 * `color` - String (default: 'success') - use this property to set the color of the track. We can choose one color from a set of theme colors (primary, secondary, info, error, warning)
 * `disable` - Boolean - use this property to make toggle disabled
-* `size` - String (default: 'medium') - use `:size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
+* `size` - String (default: 'medium') - use `size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
 * `true-value` - toggle gets into `true` state, when model has this value
 * `false-value` - toggle gets into `false` state, when model has this value
 * `tabindex` - Number - use this property to set custom tabindex

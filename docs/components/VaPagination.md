@@ -34,7 +34,7 @@ export default {
 * `visiblePages` - Number (default: 5) - amount of buttons (instead of navigation buttons) that are shown in the component at one moment.
 * `pages` - Number - amount of all pages. If it is not specified, it is equal to length value.
 * `disabled` - Boolean.
-* `size` - String (default: 'medium') - use `:size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
+* `size` - String (default: 'medium') - use `size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
 * `color` - String (default: 'info').
 * `boundaryLinks` - Boolean - shows boundary ('>>', '<<') icons.
 * `directionLinks` - Boolean - shows direction ('>', '<') icons.

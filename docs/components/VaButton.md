@@ -36,7 +36,7 @@
 * `outline` - Boolean - use `:outline="true"` to set outline type of button
 * `flat` - Boolean - use `:flat="true"` to set flat type of button 
 * `color` - String (default: 'success') - use this property to set the color of the button. We can choose one color from a set of theme colors (primary, secondary, info, error, warning)
-* `size` - String (default: 'medium') - use `:size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
+* `size` - String (default: 'medium') - use `size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
 * `icon` - String
 * `iconRight` - String
 * `type` - String - native attribute for button

@@ -21,7 +21,7 @@ export default {
 ### Props
 * `value` - Boolean - controls visibility of modal
 * `position` - String - use `size='top'` to set the position of modal. Use one of these values `['top', 'right', 'bottom', 'left']`
-* `size` - String (default: 'medium') - use `:size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
+* `size` - String (default: 'medium') - use `size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
 * `fullscreen` - Boolean (default false) - use `fullscreen` to show modal in fullscreen mode
 * `mobileFullscreen` - Boolean (default: true) - use `mobile-fullscreen: false` to prevent fullscreeen mode on mobile devices
 * `maxWidth` - String - use `max-width` string. You can use any line as in ordinary css. `300px, 30%` etc.
