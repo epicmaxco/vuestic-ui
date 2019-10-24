@@ -1,10 +1,14 @@
 <template>
   <div>
-    <va-badge label="badge"></va-badge>
-    ,
-    <va-badge color="primary" overlap>
-      <template v-slot:badge><va-icon size="14px">favorite</va-icon></template>
-      Vuestic-ui
+    <va-badge label="badge" />
+    &nbsp;
+    <va-badge color="warning">
+      <template v-slot:badge><va-icon>warning</va-icon></template>
+    </va-badge>
+    &nbsp;
+    <va-badge color="primary" label="badge" overlap transparent>
+      <template v-slot:badge>NEW</template>
+      <b>VUESCIT UI</b>
     </va-badge>
   </div>
 </template>
