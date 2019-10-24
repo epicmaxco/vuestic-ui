@@ -40,23 +40,13 @@ export default {
       type: String,
     },
   },
-  methods: {
-    udpdateFontSize () {
-      this.$refs.avatar.style.fontSize = `${this.$refs.avatar.offsetHeight * 0.6}px`
-    },
-  },
-  mounted () {
-    if (!this.fontSize) {
-      this.udpdateFontSize()
-    }
-  },
   computed: {
     computedStyle () {
       return {
         color: this.textColor ? this.computeColor(this.textColor) : '#ffffff',
         backgroundColor: this.colorComputed,
         borderRadius: this.square ? 0 : '50%',
-        fontSize: this.fontSize || '',
+        fontSize: this.fontSize,
         width: this.sizeComputed,
         minWidth: this.sizeComputed, // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
         height: this.sizeComputed,

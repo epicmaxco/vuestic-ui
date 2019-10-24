@@ -10,7 +10,7 @@ const pascalCase = flow(camelCase, upperFirst)
 export const ContextProviderKey = 'va-context-provider'
 
 /**
- * Plugin provide global configs to Vue component through prototype
+ * Plugin provide global config to Vue component through prototype
  */
 export const ContextPlugin = {
   install (Vue, options = {}) {
@@ -56,6 +56,13 @@ export function getContextPropValue (context, prop, defaultValue) {
   const config = getLocalConfigWithComponentProp(configs, componentName, prop)
 
   return config ? config[componentName][prop] : defaultValue
+}
+
+/**
+ * Full or partial context redefinition function
+ */
+export function overrideContextConfig (context, options) {
+  Object.assign(context.$vaContextConfig, options)
 }
 
 /**

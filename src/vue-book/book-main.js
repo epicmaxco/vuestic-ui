@@ -22,6 +22,10 @@ Vue.use(ContextPlugin, {
   VaTest: {
     color: 'blue',
   },
+  VaBadge: {
+    color: 'info',
+    label: 'default label',
+  },
   VaButton: {
     size: 'small',
     icon: 'fa fa-phone',
