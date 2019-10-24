@@ -4,6 +4,7 @@ import VueClipboard from 'vue-clipboard2'
 import Router from 'vue-router'
 import { VueBookComponents, createRoute } from 'vue-book'
 import { ColorThemePlugin } from '../services/ColorThemePlugin'
+import { ContextPlugin } from '../components/context-test/context-provide/ContextPlugin'
 import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from '../components/resize-events'
 import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
@@ -17,6 +18,21 @@ if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
   Vue.use(ColorThemePlugin)
 }
 Vue.use(DropdownPopperPlugin)
+Vue.use(ContextPlugin, {
+  VaTest: {
+    color: 'blue',
+  },
+  VaBadge: {
+    color: 'info',
+    label: 'default label',
+  },
+  VaButton: {
+    small: true,
+    icon: 'fa fa-phone',
+    color: 'info',
+    outline: true,
+  },
+})
 
 const router = new Router({
   routes: [
