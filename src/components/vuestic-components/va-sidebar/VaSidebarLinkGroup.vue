@@ -142,23 +142,10 @@ export default {
       }
     },
     sidebarLinkStyles () {
-      let getBackgroundColor = () => {
-        let color = hex2hsl(this.$themes.primary)
-
-        color.s -= 13
-        color.l += 15
-
-        if (color.s < 0) color.s = 0
-        if (color.l > 100) color.l = 100
-
-        return color.css
-      }
-
       if (this.isHovered || this.isActive) {
         return {
           color: 'white',
-          backgroundColor: getBackgroundColor(),
-          // borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
+          backgroundColor: this.$themes.primary,
         }
       } else return {}
     },
@@ -184,9 +171,9 @@ export default {
     overflow: hidden;
 
     a {
-      font-size: 0.875rem;
       display: block;
       padding-left: 2.75rem;
+      color: $evollu-gray-light;
     }
   }
 
@@ -196,6 +183,10 @@ export default {
     padding-right: 2rem;
     display: flex;
     align-items: center;
+    >.va-sidebar-link__content__title {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
   }
 
   &__expanded-icon {

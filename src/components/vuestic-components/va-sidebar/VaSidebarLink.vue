@@ -71,23 +71,11 @@ export default {
       }
     },
     computedLinkStyles () {
-      let getBackgroundColor = () => {
-        let color = hex2hsl(this.$themes.primary)
-
-        color.s -= 13
-        color.l += 15
-
-        if (color.s < 0) color.s = 0
-        if (color.l > 100) color.l = 100
-
-        return color.css
-      }
-
       if (this.isHovered || this.isActive) {
         return {
+          fontWeight: 'bold',
           color: 'white',
-          backgroundColor: getBackgroundColor(),
-          // borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
+          backgroundColor: this.$themes.primary,
         }
       } else return {}// else <- controlled by CSS (color in rgba)
     },

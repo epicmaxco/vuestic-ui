@@ -1,9 +1,9 @@
 // Colors //
 $evollu-light: #34f5d4;
-$evollu-dark: #29c4a9;
-$evollu-gray-light: #A49D97;
-$evollu-gray-dark: #414244;
-$background-gray: #f3f3f3;
+$evollu-dark: #29C4AA;
+$evollu-gray-light: #6E6E6E;
+$evollu-gray-dark: #414141;
+$background-gray: #f5f5f5;
 
 $gray-light: #acb5be !default;
 $light-gray: #eeeeee;
@@ -262,7 +262,8 @@ $progress-bar-width-basic: .5rem;
 $table-border-color: #eceeef;
 $striped-row-odd: $white;
 $striped-row: $light-gray2;
-$table-hover-bg: rgba($evollu-dark, .5);
+$table-hover-bg: $evollu-dark;
+$table-hover-color: $white;
 
 //Badges
 $badge-min-width: 5rem;
