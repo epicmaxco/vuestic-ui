@@ -99,6 +99,7 @@ export default {
     },
     badgeClass () {
       return {
+        'va-badge--visible-empty': this.visibleEmpty,
         'va-badge--empty': this.isEmpty,
         'va-badge--dot': this.dot,
         'va-badge--multiLine': this.multiLine,
@@ -153,7 +154,6 @@ export default {
   &__content-wrapper {
     transition: $transition-secondary;
     display: inline-flex;
-    padding: $badge-padding-y $badge-padding-x;
     border: solid $badge-border;
     border-radius: $badge-border-radius;
     font-size: $badge-font-size;
@@ -165,8 +165,13 @@ export default {
     white-space: nowrap;
     width: auto;
     height: auto;
-    min-width: $badge-size;
-    min-height: $badge-size;
+    min-width: initial;
+    min-height: initial;
+
+    .va-badge--visible-empty & {
+      min-width: $badge-size;
+      min-height: $badge-size;
+    }
 
     .va-badge--dot & {
       min-width: $badge-dot-size;
@@ -194,7 +199,7 @@ export default {
       top: 0;
       left: 100%;
       transform: translateX(0) translateY(-100%);
-      padding: $badge-padding-y 0.15rem;
+
     }
 
     .va-badge--overlap & {
@@ -231,11 +236,15 @@ export default {
     margin: 0;
     text-transform: uppercase;
     overflow: hidden;
-    max-height: $badge-font-size * $badge-line-height;
+    min-width: $badge-font-size * $badge-line-height;
+    padding: $badge-padding-y $badge-padding-x;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
 
     .va-badge--multiLine & {
-      max-height: 100%;
       overflow: auto;
+      text-align: initial;
     }
 
     .va-badge--dot & {
@@ -244,6 +253,7 @@ export default {
 
     .va-badge--floating & {
       align-items: center;
+      padding: $badge-padding-y 0.15rem;
     }
   }
 }
