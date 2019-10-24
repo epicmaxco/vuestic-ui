@@ -73,8 +73,11 @@
       <div>
         Should change global config button color on change and refresh.
       </div>
-      <va-button @click="overrideButtonsColor('danger')">Make button color red</va-button>
-      <va-button @click="overrideButtonsColor('info')">Make button color blue</va-button>
+      <button @click="overrideButtonsColor('info')">Make button color blue</button>
+      <br/>
+      <button @click="overrideButtonsColor('danger')">Make button color red</button>
+      <br/>
+      <va-button>Vuestic-ui button</va-button>
     </VbCard>
 
     <VbCard title="Rewriting global config (only on refresh)" refresh>
@@ -83,7 +86,8 @@
       </div>
       <va-badge />
       <va-test>va test component</va-test>
-      <va-button @click="overrideConfig">Override config</va-button>
+      <va-button>Vuestic-ui button</va-button>
+      <button @click="overrideConfig">Override config</button>
     </VbCard>
   </VbDemo>
 </template>
