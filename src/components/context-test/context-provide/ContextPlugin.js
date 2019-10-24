@@ -53,7 +53,7 @@ export function getContextPropValue (context, prop, defaultValue) {
   }
 
   const componentName = pascalCase(context.$options.name)
-  const configs = [context.$vaContextConfig, ...context._$configs]
+  const configs = context.$vaContextConfig ? [context.$vaContextConfig, ...context._$configs] : context._$configs
   const config = getLocalConfigWithComponentProp(configs, componentName, prop)
 
   return config ? config[componentName][prop] : defaultValue
