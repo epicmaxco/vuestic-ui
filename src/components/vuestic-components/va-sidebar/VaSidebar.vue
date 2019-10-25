@@ -38,14 +38,31 @@ export default {
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+
+aside.va-sidebar ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(117, 117, 117, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+aside.va-sidebar ::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+aside.va-sidebar ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: $evollu-gray-light;
+}
+
 .va-sidebar {
   background-color: $background-gray;
   min-height: $sidebar-viewport-min-height;
   height: $sidebar-viewport-height;
   position: absolute;
   width: $sidebar-width;
-  // top: $top-nav-height;
-  top: 5rem;
+  top: $top-nav-height-with-shaddow;
   left: 0;
   transition: all .3s ease;
   overflow-y: auto;
@@ -56,10 +73,10 @@ export default {
   }
 
   &__menu {
-    max-height: 100%;
+    // max-height: 100%;
     margin-bottom: 0;
     padding-top: 1.5rem;
-    padding-bottom: 2.5rem;
+    padding-bottom: 3rem;
     list-style: none;
     padding-left: 0;
   }

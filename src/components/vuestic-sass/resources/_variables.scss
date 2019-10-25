@@ -78,11 +78,12 @@ $layout-padding: 24px;
 $top-mobile-nav-height: 6.5rem;
 
 $top-nav-height: 4.0625rem;
+$top-nav-height-with-shaddow: 4.5rem;
 $sidebar-width: 16rem;
 $sidebar-width--hidden: 3.5rem;
 $sidebar-menu-item-icon-size: 19px;
-$sidebar-viewport-min-height: calc(100vh - #{$top-nav-height});
-$sidebar-viewport-height: calc(100% - #{$top-nav-height});
+$sidebar-viewport-min-height: calc(100vh - #{$top-nav-height-with-shaddow});
+$sidebar-viewport-height: calc(100% - #{$top-nav-height-with-shaddow});
 $sidebar-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
 $sidebar-minimized-width: 3.5rem;
 $sidebar-mobile-top: $top-mobile-nav-height;
