@@ -13,6 +13,21 @@ The `va-badge` is ...
 <<< @/docs/.vuepress/components/VaBadgeMixSnippet.vue
 
 
+### Color
+
+<VaBadgeColorSnippet/>
+
+<<< @/docs/.vuepress/components/VaBadgeColorSnippet.vue
+
+
+### Align
+
+
+<VaBadgeAlignSnippet/>
+
+<<< @/docs/.vuepress/components/VaBadgeAlignSnippet.vue
+
+
 ## API
 
 [API is work in progress, for now just textual info]

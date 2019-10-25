@@ -3,7 +3,7 @@
     <va-badge label="badge" />
     &nbsp;
     <va-badge color="warning">
-      <template v-slot:badge><va-icon>warning</va-icon></template>
+      <template v-slot:badge><va-icon name="warning" /></template>
     </va-badge>
     &nbsp;
     <va-badge color="primary" label="badge" overlap transparent>
