@@ -52,7 +52,7 @@ export default {
     iconStyle () {
       return {
         transform: 'rotate(' + this.rotation + 'deg)',
-        fontSize: typeof this.size === 'number' ? this.size + 'px' : null,
+        fontSize: typeof this.size === 'number' ? this.size + 'px' : this.size,
         color: this.$themes ? this.$themes[this.color] : this.color,
       }
     },
@@ -66,6 +66,7 @@ export default {
 .va-icon {
   display: inline-block;
   letter-spacing: normal;
+  font-size: initial;
 
   &--large {
     font-size: $icon-lg-size;

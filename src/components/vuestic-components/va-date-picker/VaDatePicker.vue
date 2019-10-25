@@ -13,7 +13,7 @@
         :error-messages="errorMessages"
       >
         <template slot="append">
-          <va-icon color="gray" name="fa fa-calendar"/>
+          <va-icon color="gray" name="calendar_today"/>
         </template>
       </va-input>
     </div>
@@ -99,8 +99,8 @@ export default {
     defaultConfig () {
       return {
         wrap: true,
-        nextArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-forward"/>',
-        prevArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-back"/>',
+        nextArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-forward"/>', // TODO: Need to change on material-icons
+        prevArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-back"/>', // TODO: Need to change on material-icons
         disableMobile: true, // doesn't work without this one at all
       }
     },

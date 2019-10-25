@@ -60,13 +60,13 @@
         <va-icon
           v-if="success"
           class="va-input__container__icon"
-          name="fa fa-check"
+          name="check"
           color="success"
         />
         <va-icon
           v-if="error"
           class="va-input__container__icon"
-          name="fa fa-exclamation-triangle"
+          name="warning"
           color="danger"
         />
         <slot name="append"/>

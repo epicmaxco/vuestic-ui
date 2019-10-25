@@ -117,12 +117,12 @@ export default {
   data () {
     return {
       defaultIconClass: {
-        direction: 'fa fa-angle-left',
-        boundary: 'fa fa-angle-double-left',
+        direction: 'arrow_back_ios',
+        boundary: 'arrow_back',
       },
       defaultIconRightClass: {
-        direction: 'fa fa-angle-right',
-        boundary: 'fa fa-angle-double-right',
+        direction: 'arrow_forward_ios',
+        boundary: 'arrow_forward',
       },
     }
   },

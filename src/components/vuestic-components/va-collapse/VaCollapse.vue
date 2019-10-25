@@ -17,11 +17,13 @@
         <slot name="header"/>
         <va-icon
           v-if="show"
-          class="fa fa-angle-up va-collapse__header__icon"
+          class="va-collapse__header__icon"
+          name="expand_more"
         />
         <va-icon
           v-else
-          class="fa fa-angle-down va-collapse__header__icon"
+          class="va-collapse__header__icon"
+          name="expand_less"
         />
       </div>
     </div>

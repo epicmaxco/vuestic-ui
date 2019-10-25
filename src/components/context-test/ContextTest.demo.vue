@@ -111,7 +111,7 @@ export default {
       dynamicContextConfig: { VaTest: { color: 'orange' } },
       buttonConfig: {
         size: 'large',
-        icon: 'brandico brandico-facebook',
+        icon: 'schedule',
         iconRight: '',
         flat: true,
         color: 'success',
@@ -146,7 +146,7 @@ export default {
           large: true,
           small: false,
           outline: false,
-          icon: 'fa fa-star',
+          icon: 'star',
           color: 'danger',
         },
       }

@@ -28,7 +28,7 @@ Vue.use(ContextPlugin, {
   },
   VaButton: {
     size: 'small',
-    icon: 'fa fa-phone',
+    icon: 'room',
     color: 'info',
     outline: true,
   },
