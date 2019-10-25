@@ -16,6 +16,13 @@ export default {
   props: {
     name: {
       type: [String, Array],
+      validator: name => {
+        if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
+          console.error(`${name} icon is not available. Please replace to material-icon`)
+        }
+
+        return name
+      },
     },
     size: {
       type: [String, Number],
@@ -45,7 +52,7 @@ export default {
     iconStyle () {
       return {
         transform: 'rotate(' + this.rotation + 'deg)',
-        fontSize: typeof this.size === 'number' ? this.size + 'px' : this.size,
+        fontSize: typeof this.size === 'number' ? this.size + 'px' : null,
         color: this.$themes ? this.$themes[this.color] : this.color,
       }
     },
