@@ -23,7 +23,7 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="fa fa-eye" color="gray" />
+          <va-icon name="remove_red_eye" color="gray" />
         </va-item-section>
       </va-item>
 
@@ -47,7 +47,7 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="fa fa-eye" color="gray" />
+          <va-icon name="remove_red_eye" color="gray" />
         </va-item-section>
       </va-item>
 
@@ -75,7 +75,7 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="fa fa-eye" color="gray" />
+          <va-icon name="remove_red_eye" color="gray" />
         </va-item-section>
       </va-item>
     </va-list>
@@ -87,7 +87,7 @@
 
       <va-item clickable>
         <va-item-section side>
-          <va-icon name="fa fa-star" color="warning" />
+          <va-icon name="star" color="warning" />
         </va-item-section>
 
         <va-item-section avatar>
@@ -107,7 +107,7 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="fa fa-eye" color="gray" />
+          <va-icon name="remove_red_eye" color="gray" />
         </va-item-section>
       </va-item>
 
@@ -134,7 +134,7 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="fa fa-eye" color="gray" />
+          <va-icon name="remove_red_eye" color="gray" />
         </va-item-section>
       </va-item>
     </va-list>
@@ -162,7 +162,7 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="fa fa-eye" color="gray" />
+          <va-icon name="remove_red_eye" color="gray" />
         </va-item-section>
       </va-item>
 
@@ -186,7 +186,7 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="fa fa-eye" color="gray" />
+          <va-icon name="remove_red_eye" color="gray" />
         </va-item-section>
       </va-item>
     </va-list>

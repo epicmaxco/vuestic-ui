@@ -1,6 +1,6 @@
 <template>
   <div class="square-with-icon" :style="{ backgroundColor: colorComputed }">
-    <va-icon :name="iconClass"/>
+    <va-icon :name="icon"/>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
   mixins: [ ColorThemeMixin ],
   components: { VaIcon },
   props: {
-    iconClass: {
+    icon: {
       type: String,
       required: true,
     },
@@ -28,18 +28,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  height: 1.5rem;
-  width: 1.5rem;
   color: $white;
   background-color: $vue-green;
   border-radius: .25rem;
-
-  .va-icon {
-    width: .875rem;
-    height: .875rem;
-    text-align: center;
-  }
-
+  width: 1.375rem;
+  height: 1.375rem;
 }
 </style>

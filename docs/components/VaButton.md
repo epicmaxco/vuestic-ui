@@ -4,7 +4,7 @@
 <va-button
  outline
  color="success"
- icon="brandico brandico-facebook"
+ icon="android"
 >
  Button 1
 </va-button>
@@ -13,8 +13,7 @@
  flat 
  size="large"
  color="info"
- icon="brandico brandico-facebook"
- icon-right="iconicstroke iconicstroke-info"
+ icon-right="android"
 >
  Button 2
 </va-button>
@@ -28,7 +27,7 @@
  Button 3
 </va-button>
 
-<va-button outline size="small" icon="ion-md-close ion"/>
+<va-button outline size="small" icon="close"/>
 ```  
 
 ### Props

@@ -13,7 +13,6 @@ This component is used to separate data, what helps user to receive information 
 <va-pagination
  :pages="10" 
  :visible-pages="3"
- :icon="{ direction: 'fa fa-volume-off' }"
  :boundary-links="false"
  v-model="activePage"
 />

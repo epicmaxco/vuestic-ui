@@ -75,7 +75,7 @@
           @click.native="clearContent()"
           class="va-input__container__close-icon"
           :color="error ? 'danger': 'gray'"
-          name="fa fa-times-circle"
+          name="highlight_off"
         />
       </div>
     </div>

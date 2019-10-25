@@ -8,8 +8,8 @@
       <va-inner-loading :loading="loading">
         <va-card title="Epicmax">
           <template slot="actions">
-            <va-button icon="fa fa-envelope" />
-            <va-button icon="fa fa-phone" />
+            <va-button icon="email" />
+            <va-button icon="local_phone" />
           </template>
 
           <p>

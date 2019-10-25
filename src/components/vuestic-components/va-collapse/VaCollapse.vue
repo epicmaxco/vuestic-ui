@@ -18,12 +18,12 @@
         <va-icon
           v-if="show"
           class="va-collapse__header__icon"
-          name="expand_more"
+          name="arrow_back_ios"
         />
         <va-icon
           v-else
           class="va-collapse__header__icon"
-          name="expand_less"
+          name="arrow_forward_ios"
         />
       </div>
     </div>
@@ -148,6 +148,7 @@ export default {
       margin-left: 0.5rem;
       margin-right: 0.5rem;
       color: $gray;
+      transform: rotate(90deg); // hack for show large material arrow icons
     }
   }
 }

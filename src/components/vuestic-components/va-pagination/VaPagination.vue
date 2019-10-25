@@ -101,13 +101,13 @@ export default {
       type: Boolean,
       default: true,
     },
-    icon: {
+    iconSet: {
       type: Object,
       default: () => {
         return {}
       },
     },
-    iconRight: {
+    iconSetRight: {
       type: Object,
       default: () => {
         return {}
@@ -117,12 +117,12 @@ export default {
   data () {
     return {
       defaultIconClass: {
-        direction: 'arrow_back_ios',
-        boundary: 'arrow_back',
+        direction: 'chevron_left',
+        boundary: 'first_page',
       },
       defaultIconRightClass: {
-        direction: 'arrow_forward_ios',
-        boundary: 'arrow_forward',
+        direction: 'chevron_right',
+        boundary: 'last_page',
       },
     }
   },
@@ -135,10 +135,10 @@ export default {
       }
     },
     iconClass () {
-      return Object.assign({}, this.defaultIconClass, this.icon)
+      return Object.assign({}, this.defaultIconClass, this.iconSet)
     },
     iconRightClass () {
-      return Object.assign({}, this.defaultIconRightClass, this.iconRight)
+      return Object.assign({}, this.defaultIconRightClass, this.iconSetRight)
     },
     lastPage () {
       return this.pages
