@@ -17,6 +17,7 @@ export const ContextPlugin = {
     Vue.prototype.$vaContextConfig = Vue.observable(options)
   },
 }
+
 /**
  * Mixin provide local configs to Vue component through injecting
  * All list of local configs contain in this._$configs

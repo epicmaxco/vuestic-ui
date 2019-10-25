@@ -32,8 +32,7 @@ export default {
 * `flat` - Boolean.
 * `disabled` - Boolean.
 * `color` - String.
-* `small` - Boolean.
-* `large` - Boolean. 
+* `size` - String (default: 'medium') - use `size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
 
 [Find DEMOs here!](http://vuestic.epicmax.co/#/admin/ui/buttons)
 

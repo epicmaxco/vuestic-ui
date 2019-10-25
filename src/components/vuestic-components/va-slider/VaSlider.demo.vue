@@ -38,20 +38,20 @@
     </VbCard>
     <VbCard width="500px" title="Slider With Left Icon">
       <va-slider
-        icon="fa fa-volume-off"
+        icon="volume_off"
         v-model="value"
       />
     </VbCard>
     <VbCard width="500px" title="Slider With Right Icon">
       <va-slider
-        icon-right="fa fa-volume-up"
+        icon-right="volume_up"
         v-model="value"
       />
     </VbCard>
     <VbCard width="500px" title="Slider With Both Icons">
       <va-slider
-        icon="fa fa-volume-off"
-        icon-right="fa fa-volume-up"
+        icon="volume_off"
+        icon-right="volume_up"
         v-model="value"
       />
     </VbCard>
@@ -106,22 +106,22 @@
     <VbCard width="500px" title="Range With Left Icon">
       <va-slider
         range
-        icon="fa fa-volume-off"
+        icon="volume_off"
         v-model="value2"
       />
     </VbCard>
     <VbCard width="500px" title="Range With Right Icon">
       <va-slider
         range
-        icon-right="fa fa-volume-up"
+        icon-right="volume_up"
         v-model="value2"
       />
     </VbCard>
     <VbCard width="500px" title="Range With Both Icons">
       <va-slider
         range
-        icon="fa fa-volume-off"
-        icon-right="fa fa-volume-up"
+        icon="volume_off"
+        icon-right="volume_up"
         v-model="value2"
       />
     </VbCard>

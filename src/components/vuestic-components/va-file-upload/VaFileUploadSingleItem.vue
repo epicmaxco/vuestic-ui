@@ -7,7 +7,7 @@
       flat
       @click="$emit('remove')"
       color="danger"
-      small
+      size="small"
       class="va-file-upload-single-item__button"
     >
       Delete

@@ -44,7 +44,7 @@
       image
       <br />
       <va-avatar>
-        <va-icon name="iconicstroke iconicstroke-info"></va-icon>
+        <va-icon name="info_outline"></va-icon>
       </va-avatar>
       icon
       <br />
@@ -54,11 +54,11 @@
       <va-avatar square src="https://randomuser.me/api/portraits/women/5.jpg"></va-avatar>
     </VbCard>
     <VbCard title="Avatar with icon">
-      <va-avatar size="small" icon="iconicstroke iconicstroke-info"></va-avatar> small
+      <va-avatar size="small" icon="info_outline"></va-avatar> small
       <br />
-      <va-avatar icon="iconicstroke iconicstroke-info"></va-avatar> medium
+      <va-avatar icon="info_outline"></va-avatar> medium
       <br />
-      <va-avatar size="large" icon="iconicstroke iconicstroke-info"></va-avatar> large
+      <va-avatar size="large" icon="info_outline"></va-avatar> large
       <br />
     </VbCard>
     <VbCard title="сolor">

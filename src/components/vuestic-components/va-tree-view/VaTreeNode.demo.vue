@@ -6,12 +6,12 @@
       </va-tree-node>
     </VbCard>
     <VbCard title="with icon">
-      <va-tree-node icon="ion ion-md-nutrition">
+      <va-tree-node icon="send">
         Some text
       </va-tree-node>
     </VbCard>
     <VbCard title="with right icon">
-      <va-tree-node icon-right="ion ion-md-nutrition">
+      <va-tree-node icon-right="send">
         Some text
       </va-tree-node>
     </VbCard>
@@ -35,11 +35,9 @@
 <script>
 import VaTreeNode from './VaTreeNode.vue'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaIcon from '../va-icon/VaIcon'
 
 export default {
   components: {
-    VaIcon,
     VaTreeNode,
     VaCheckbox,
   },

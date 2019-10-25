@@ -88,16 +88,13 @@ export default {
         return getContextPropValue(this, 'flat', false)
       },
     },
-    small: {
-      type: Boolean,
+    size: {
+      type: String,
       default () {
-        return getContextPropValue(this, 'small', false)
+        return getContextPropValue(this, 'size', 'medium')
       },
-    },
-    large: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'large', false)
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
       },
     },
     icon: {
@@ -151,9 +148,9 @@ export default {
         'va-button--without-title': !this.hasTitleData,
         'va-button--with-left-icon': this.icon,
         'va-button--with-right-icon': this.iconRight,
-        'va-button--large': this.large,
-        'va-button--small': this.small,
-        'va-button--normal': !this.large && !this.small,
+        'va-button--large': this.size === 'large',
+        'va-button--small': this.size === 'small',
+        'va-button--normal': !this.size || this.size === 'medium',
       }
     },
     gradientStyle () {

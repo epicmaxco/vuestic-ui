@@ -44,24 +44,22 @@ export default {
     },
     size: {
       type: [Number, String],
-      default: '0.5rem',
+      default: 'medium',
       validator: (value) => {
-        return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
+        return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value)
       },
     },
     reverse: {
       type: Boolean,
     },
-    small: {
-      type: Boolean,
-      default: false,
-    },
-    large: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
+    large () {
+      return this.size === 'large'
+    },
+    small () {
+      return this.size === 'small'
+    },
     normalizedBuffer () {
       if (this.indeterminate) {
         return 100
@@ -80,6 +78,11 @@ export default {
       if (!this.small && !this.large) {
         return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
       }
+
+      if (this.size === 'medium') {
+        return { height: '0.5rem' }
+      }
+
       return {}
     },
   },

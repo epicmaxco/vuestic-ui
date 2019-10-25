@@ -18,8 +18,8 @@
           <td>Button Toggle Sizes</td>
           <td>
             <va-button-toggle v-model="model" :options="options"/>
-            <va-button-toggle large v-model="model" :options="options"/>
-            <va-button-toggle small v-model="model" :options="options"/>
+            <va-button-toggle size="large" v-model="model" :options="options"/>
+            <va-button-toggle size="small" v-model="model" :options="options"/>
           </td>
         </tr>
         <tr>

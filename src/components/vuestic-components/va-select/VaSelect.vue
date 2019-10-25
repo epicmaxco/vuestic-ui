@@ -80,7 +80,7 @@
       <va-icon
         v-if="showClearIcon"
         class="va-select__clear-icon"
-        name="fa fa-times-circle"
+        name="cancel"
         @click.native.stop="clear()"
       />
       <spring-spinner
@@ -91,7 +91,7 @@
       />
       <va-icon
         class="va-select__open-icon"
-        :name="visible ? 'fa fa-angle-up' : 'fa fa-angle-down'"
+        :name="visible ? 'arrow_back_ios' : 'arrow_forward_ios'"
       />
     </div>
   </va-dropdown>
@@ -452,6 +452,7 @@ export default {
     bottom: 0;
     right: 2rem;
     margin: auto;
+    transform: rotate(90deg); // hack for show large material arrow icons
   }
 
   &__open-icon {

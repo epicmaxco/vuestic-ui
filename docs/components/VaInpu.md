@@ -52,11 +52,11 @@ export default {
 ```html
 <va-input-wrapper :messages="messages">
  <div slot="prepend" class="flex-center">
-   <va-icon name="fa fa-volume-off"/>
+   <va-icon name="volume_off"/>
  </div>
  <div>Default Slot</div>
  <div slot="append" class="flex-center">
-   <va-icon name="fa fa-volume-up"/>
+   <va-icon name="volume_up"/>
  </div>
 </va-input-wrapper>
 

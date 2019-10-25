@@ -16,9 +16,9 @@
       <span>Static slot</span>
       <va-progress-bar :value="value">Slot</va-progress-bar>
       <span>Small preset</span>
-      <va-progress-bar :value="value" small>Slot</va-progress-bar>
+      <va-progress-bar :value="value" size="small">Slot</va-progress-bar>
       <span>Large preset</span>
-      <va-progress-bar :value="value" :rounded="false" large>{{ value + '%'}}</va-progress-bar>
+      <va-progress-bar :value="value" :rounded="false" size="large">{{ value + '%'}}</va-progress-bar>
       <span>Dynamic slot</span>
       <va-progress-bar :value="value">{{ value + '%' }}</va-progress-bar>
       <span>Slot Success</span>

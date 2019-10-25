@@ -6,7 +6,7 @@
     >
       <div class="va-tree-category__header-switcher">
         <square-with-icon
-          :iconClass="`ion ion-md-${isOpenCached ? 'remove' : 'add'}`"
+          :icon="isOpenCached ? 'remove' : 'add'"
           :color="va.color || colorComputed"
         />
       </div>

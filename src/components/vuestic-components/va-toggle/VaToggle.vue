@@ -39,8 +39,13 @@ export default {
   props: {
     value: {},
     label: String,
-    small: Boolean,
-    large: Boolean,
+    size: {
+      type: String,
+      default: 'medium',
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
+      },
+    },
     disable: Boolean,
     arrayValue: {
       default: null,
@@ -55,8 +60,8 @@ export default {
   computed: {
     computedClass () {
       return {
-        'va-toggle--small': this.small,
-        'va-toggle--large': this.large,
+        'va-toggle--small': this.size === 'small',
+        'va-toggle--large': this.size === 'large',
         'va-toggle--disabled': this.disable,
       }
     },
@@ -66,7 +71,7 @@ export default {
       return { backgroundColor }
     },
     indicatorStyle () {
-      const moveStartPoint = this.small ? 1.5 : this.large ? 2.5 : 2
+      const moveStartPoint = this.size === 'small' ? 1.5 : this.size === 'large' ? 2.5 : 2
       return { transform: this.isTrue ? `translateX(${moveStartPoint}rem)` : 'translateX(0rem)' }
     },
     computedTabindex () {

@@ -24,7 +24,7 @@
           :indeterminate="indeterminate"
           :style="inputStyle"
         />
-        <va-icon :name="computedIcon"/>
+        <va-icon class="va-checkbox__icon-selected" :name="computedIconName"/>
       </div>
       <div
         class="va-checkbox__label-text"
@@ -69,11 +69,11 @@ export default {
 
     checkedIcon: {
       type: [String, Array],
-      default: 'ion ion-md-checkmark',
+      default: 'check',
     },
     indeterminateIcon: {
       type: [String, Array],
-      default: 'ion ion-md-remove',
+      default: 'close',
     },
 
     error: Boolean,
@@ -98,7 +98,11 @@ export default {
       }
     },
     labelStyle () {
-      if (this.showError) return { color: this.$themes.danger }
+      if (this.showError) {
+        return { color: this.$themes.danger }
+      }
+
+      return {}
     },
     inputStyle () {
       if (this.showError) {
@@ -107,12 +111,11 @@ export default {
       } else {
         if (this.isChecked) return { background: this.$themes.success }
       }
+
+      return {}
     },
-    computedIcon () {
-      return [
-        'va-checkbox__icon-selected',
-        this.indeterminate ? this.indeterminateIcon : this.checkedIcon,
-      ]
+    computedIconName () {
+      return this.indeterminate ? this.indeterminateIcon : this.checkedIcon
     },
     isChecked () {
       return this.modelIsArray ? this.value.includes(this.arrayValue) : this.value
