@@ -39,18 +39,18 @@ export default {
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-aside.va-sidebar ::-webkit-scrollbar-track {
+aside.va-sidebar::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(117, 117, 117, 0.3);
   border-radius: 10px;
   background-color: #F5F5F5;
 }
 
-aside.va-sidebar ::-webkit-scrollbar {
+aside.va-sidebar::-webkit-scrollbar {
   width: 12px;
   background-color: #F5F5F5;
 }
 
-aside.va-sidebar ::-webkit-scrollbar-thumb {
+aside.va-sidebar::-webkit-scrollbar-thumb {
   border-radius: 10px;
   // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: $evollu-gray-light;
