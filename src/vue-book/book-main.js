@@ -33,6 +33,7 @@ Vue.use(ContextPlugin, {
     outline: true,
   },
 })
+Vue.use(ContextPlugin, {})
 
 const router = new Router({
   routes: [

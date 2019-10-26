@@ -1,10 +1,5 @@
 <template>
   <VbDemo>
-    <VbCard title="Design">
-      <div style="height: 200px; overflow-y: scroll">
-        <img src="http://i68.tinypic.com/ne84fs.png" alt="">
-      </div>
-    </VbCard>
     <VbCard title="Placeholder">
       <va-input
         v-model="empty"

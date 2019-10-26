@@ -1,6 +1,7 @@
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
+import Vue from 'vue'
 
 const pascalCase = flow(camelCase, upperFirst)
 
@@ -58,11 +59,16 @@ export function getContextPropValue (context, prop, defaultValue) {
   return config ? config[componentName][prop] : defaultValue
 }
 
-/**
- * Full or partial context redefinition function
- */
+// Allows to completely overwrite global context config.
 export function overrideContextConfig (context, options) {
-  Object.assign(context.$vaContextConfig, options)
+  // Clear object
+  for (const key in context.$vaContextConfig) {
+    Vue.delete(context.$vaContextConfig, key)
+  }
+  // Set values
+  for (const key in options) {
+    Vue.set(context.$vaContextConfig, key, options[key])
+  }
 }
 
 /**
