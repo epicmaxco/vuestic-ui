@@ -150,6 +150,7 @@ export default {
 .va-badge {
   display: inline-flex;
   position: relative;
+  vertical-align: bottom;
 
   &__content-wrapper {
     transition: $transition-secondary;
