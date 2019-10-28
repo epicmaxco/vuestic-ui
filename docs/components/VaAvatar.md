@@ -42,8 +42,8 @@ Change the presentation type of component.
 
 [API is work in progress, for now just textual info]
 
-* `color` - String - hex color string
-* `textColor` - String - hex color string
+* `color` - String - theme color or hex color for background
+* `textColor` - String - theme color or hex color for text
 * `fontSize` - String (default - 60% from size) - font size in pixels
 * `square` - Boolean (default: false) - border radius disabled
 * `icon` - String - icon name should be passed
