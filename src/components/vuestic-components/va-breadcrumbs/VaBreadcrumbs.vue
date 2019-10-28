@@ -29,14 +29,17 @@ export default Vue.component('va-breadcrumbs-provider', {
       return this.alignComputed
     },
     computedThemesSeparatorColor () {
-      return this.$themes[this.separatorColor || this.color]
+      return this.separatorColor ? this.$themes[this.separatorColor] : this.colorComputed
     },
     computedThemesActiveColor () {
-      return this.$themes[this.activeColor || this.color]
+      return this.activeColor ? this.$themes[this.activeColor] : this.colorComputed
     },
   },
   render (createElement) {
-    const childNodes = this.$slots.default || []
+    const childNodeFilter = ({ tag } = null) => tag ? tag.match(/va-breadcrumb-item$/) : false
+
+    const childNodes = this.$slots.default.filter(childNodeFilter) || []
+
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index) => index === childNodesLength - 1
 
