@@ -1,41 +1,84 @@
-# va-breadcrumbs
+# Breadcrumbs
 
-```html
-<va-breadcrumbs separator="/">
-    <va-breadcrumb-item label="application" to="application" />
-    <va-breadcrumb-item label="page" to="application/page" />
-    <va-breadcrumb-item label="path" to="application/page/path" />
-</va-breadcrumbs>
-```  
+[[toc]]
 
-### Props `va-breadcrumbs`
-* `align` - String (default: 'left') - use this property to set the color of the button. We can choose one color from a set of theme colors (primary, secondary, info, error, warning)
-* `color` - String (default: 'success') - use this property to set the color of the button. We can choose one color from a set of theme colors (primary, secondary, info, error, warning)
-* `separator-color` - String (default: use color prop) - separator color (use color theme mixin)
-* `active-color` - String (default: use color prop) - colors active items (that means not last one) (use color theme mixin)
-* `separator` - default: / - specifies the dividing character between items.
+`va-breadcrumbs` используется на странице для навигации по приложению. Показывает место текущей страницы в иерархии навигации. Используется вместе с компонентами `va-breadcrumbs-item`
 
-####Slots `va-breadcrumbs`
-* `default` - expected: breadcrumbs item
-* `separator` - HTML or component you can slot in to separate the breadcrumbs - slot takes priority if prop and slot are both defined
+## Examples
+
+### Mix
+
+<VaBreadcrumbsMixSnippet/>
+
+<<< @/docs/.vuepress/components/VaBreadcrumbsMixSnippet.vue
 
 
+### Color
 
-# va-breadcrumb-item
-```html
-<va-breadcrumb-item label="Text" to="application/page/path"/>
-```  
+Устанавливает цвет всех элементов, кроме неактивного (последнего).
 
-### Props `va-breadcrumbs-item`
-* `color` - String (default: 'success') - use this property to set the color of the button. We can choose one color from a set of theme colors (primary, secondary, info, error, warning)
-* `disabled` - Boolean
-* `label` - String | Number - text content of va-breadcrumb-item 
-* `href` - String - native attribute for router-link 
-* `to` - String - native attribute for router-link
-* `replace` - Boolean - native attribute for router-link 
-* `append` - Boolean - native attribute for router-link 
-* `exact` - Boolean - native attribute for router-link 
+<VaBreadcrumbsColorSnippet/>
+
+<<< @/docs/.vuepress/components/VaBreadcrumbsColorSnippet.vue
 
 
-####Slots `va-breadcrumb-item`
-* `default` - expected: breadcrumbs-item content
+### Separator
+
+Устанавливает пользовательский разделитель.
+
+<VaBreadcrumbsSeparatorSnippet/>
+
+<<< @/docs/.vuepress/components/VaBreadcrumbsSeparatorSnippet.vue
+
+
+### Align
+
+Позиционирует компонент `va-breadcrumbs` по горизонтали.
+
+<VaBreadcrumbsAlignSnippet/>
+
+<<< @/docs/.vuepress/components/VaBreadcrumbsAlignSnippet.vue
+
+
+### Vue-router parameters
+
+Компонент `va-breadcrumbs-item` совместим с библиотекой `vue-router` и поддерживает параметры: `href`, `to`, `replace`, `append`, `exact`.  Применяется на компоненты `va-breadcrumbs-item`.
+
+<VaBreadcrumbsRouterSnippet/>
+
+<<< @/docs/.vuepress/components/VaBreadcrumbsRouterSnippet.vue
+
+
+## API `va-breadcrumbs` 
+
+[API is work in progress, for now just textual info]
+
+Component `va-breadcrumbs`:
+
+* `color` - String - цвет темы или hex цвет,
+* `separator-color` - String - цвет темы или hex цвет разделителя,
+* `active-color` - String - цвет темы или hex цвет доступных ссылок,
+* `align` - String - значение выравнивания. В качестве значений принимаются строки: ('left', 'center', 'between', etc),
+* `separator` - String - элемент разделителя,
+
+Slots:
+
+* `default` - Один или несколько элементов `va-breadcrumbs-item`,
+* `separator` - Элемент разделителя. Может быть строкой или vue компонентом.  Слот имеет больший приоретет, чем параметр `separator`.
+
+
+## API `va-breadcrumbs-item`
+
+[API is work in progress, for now just textual info]
+
+* `disabled` - Boolean - делает компонент неактивным,
+* `label` - String | Number - содержимое компонента,
+* `href` - String - native attribute for router-link, 
+* `to` - String - native attribute for router-link,
+* `replace` - Boolean - native attribute for router-link, 
+* `append` - Boolean - native attribute for router-link,
+* `exact` - Boolean - native attribute for router-link,
+
+Slots: 
+
+* `default` - содержимое компонента. Слот имеет больший приоретет, чем `label`.
