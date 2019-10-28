@@ -24,7 +24,7 @@ The `va-badge` component superscripts or subscripts an avatar-like icon or text 
 
 ### Left
 
-Устанавливает положение компонента `va-badge` по горизонтали. Допустимо использовать вместе с атрибутом `bottom`.
+ Атрибут располагает `va-badge` слева от компонента. Допустимо использовать вместе с атрибутом `bottom`.
 
 
 <VaBadgeLeftSnippet/>
@@ -34,7 +34,7 @@ The `va-badge` component superscripts or subscripts an avatar-like icon or text 
 
 ### Bottom
 
-Устанавливает положение компонента `va-badge` по горизонтали. Допустимо использовать вместе с атрибутом `left`.
+Атрибут располагает `va-badge` снизу компонента. Допустимо использовать вместе с атрибутом `left`.
 
 <VaBadgeBottomSnippet/>
 
@@ -43,7 +43,7 @@ The `va-badge` component superscripts or subscripts an avatar-like icon or text 
 
 ### Overlap
 
-Позволяет смещать label компонента `va-badge` ближе к его содержимому.
+Позволяет смещать `label` компонента `va-badge` ближе к его содержимому.
 
 <VaBadgeOverlapSnippet/>
 
@@ -62,7 +62,7 @@ The `va-badge` component superscripts or subscripts an avatar-like icon or text 
 
 ### Transparent
 
-Устанавлнивает полупрозрачность компоненту `va-badge`.
+Устанавливает полупрозрачность компоненту `va-badge`.
 
 <VaBadgeTransparentSnippet/>
 
@@ -71,7 +71,7 @@ The `va-badge` component superscripts or subscripts an avatar-like icon or text 
 
 ### Multi-line
 
-Позволяте контенту переноситься на несколько строк.
+Позволяет контенту переноситься на несколько строк.
 
 
 <VaBadgeMultiLineSnippet/>

@@ -1,18 +1,12 @@
 <template>
   <div class="example">
-    <va-badge transparent>
-      <template v-slot:badge>
-        NEW
-      </template>
-      Transparent
+    <va-badge transparent label="NEW">
+      Text
     </va-badge>
     &nbsp;
     &nbsp;
     &nbsp;
-    <va-badge overlap transparent>
-      <template v-slot:badge>
-        +1
-      </template>
+    <va-badge overlap transparent label="+1">
       <va-icon name="face" size="30px" />
     </va-badge>
   </div>

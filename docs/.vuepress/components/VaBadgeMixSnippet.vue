@@ -3,11 +3,12 @@
     <va-badge label="badge" />
     &nbsp;
     <va-badge color="warning">
-      <template v-slot:badge><va-icon name="warning" /></template>
+      <template v-slot:badge>
+        <va-icon name="warning" />
+      </template>
     </va-badge>
     &nbsp;
-    <va-badge color="primary" label="badge" overlap transparent>
-      <template v-slot:badge>NEW</template>
+    <va-badge color="primary" label="NEW" overlap transparent>
       <b>VUESCIT UI</b>
     </va-badge>
   </div>

@@ -1,18 +1,12 @@
 <template>
   <div class="example">
-    <va-badge left>
-      <template v-slot:badge>
-        NEW
-      </template>
+    <va-badge left label="NEW">
       LEFT
     </va-badge>
     &nbsp;
     &nbsp;
     &nbsp;
-    <va-badge>
-      <template v-slot:badge>
-        NEW
-      </template>
+    <va-badge label="NEW">
       DEFAULT
     </va-badge>
   </div>
