@@ -12,7 +12,7 @@
       <slot>{{label}}</slot>
     </router-link>
     <span
-      v-if="isDisabled"
+      v-else
       class="va-breadcrumb-item__label"
     >
       <slot>{{label}}</slot>
@@ -25,14 +25,14 @@ import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 export default {
   name: 'va-breadcrumb-item',
-  mixins: [ RouterLinkMixin ],
+  mixins: [RouterLinkMixin],
   props: {
     disabled: {
       type: Boolean,
       default: false,
     },
     label: {
-      type: [ String, Number ],
+      type: [String, Number],
       default: '',
     },
   },
