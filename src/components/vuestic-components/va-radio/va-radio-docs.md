@@ -11,10 +11,10 @@
 ```
 
 ### Props
-* `label`: String | Number - the label of Radio
-* `value`: amy - Model of the component; Either use this property (along with a listener for 'input' event) or use v-model directive
-* `option`: any - according to value for comparison, to determine whether the selected
-* `name`: String | Number - native name attribute
-* `left-label`: Boolean - default: false -Label (if any specified) should be displayed on the left side of the checkbox,
+* `label`: String | Number - Label to display next to the radio control
+* `value`: any - Model of the component; Either use this property (along with a listener for 'input' event) or use v-model directive
+* `option`: any - Option value that model is updated to when option is selected
+* `name`: String | Number - Native name attribute
+* `left-label`: Boolean - default: false - Label (if any specified) should be displayed on the left side of the radio,
 * `color`: String - colors active radios (use color theme mixin)
 * `disabled`: Boolean - disable radio
