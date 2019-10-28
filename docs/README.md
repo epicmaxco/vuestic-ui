@@ -4,6 +4,7 @@
 
 * [va-avatar](components/VaAvatar.md)
 * [va-badge](components/VaBadge.md)
+* [va-breadcrumbs](components/VaBreadcrumbs.md)
 * [va-button](components/VaButton.md)
 * [va-button-group](components/VaButtonGroup.md)
 * [va-button-toggle](components/VaButtonToggle.md)
