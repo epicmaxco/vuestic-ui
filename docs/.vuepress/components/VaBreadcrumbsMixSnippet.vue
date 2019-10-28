@@ -1,7 +1,7 @@
 <template>
   <div class="example">
     <va-breadcrumbs>
-      <va-breadcrumbs-item label="Components" to="../"/>
+      <va-breadcrumbs-item label="Components" to="../" />
       <va-breadcrumbs-item label="VaBreadcrumbs" to="./VaBreadcrumbs.html" />
       <va-breadcrumbs-item label="#mix" />
     </va-breadcrumbs>

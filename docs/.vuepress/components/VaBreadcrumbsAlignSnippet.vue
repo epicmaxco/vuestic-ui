@@ -1,25 +1,25 @@
 <template>
   <div class="example">
     <va-breadcrumbs align="center">
-      <va-breadcrumbs-item label="Application"/>
-      <va-breadcrumbs-item label="Dashboard"/>
-      <va-breadcrumbs-item label="Page"/>
+      <va-breadcrumbs-item label="Application" />
+      <va-breadcrumbs-item label="Dashboard" />
+      <va-breadcrumbs-item label="Page" />
     </va-breadcrumbs>
     &nbsp;
     &nbsp;
     &nbsp;
     <va-breadcrumbs align="right">
-      <va-breadcrumbs-item label="Application"/>
-      <va-breadcrumbs-item label="Dashboard"/>
-      <va-breadcrumbs-item label="Page"/>
+      <va-breadcrumbs-item label="Application" />
+      <va-breadcrumbs-item label="Dashboard" />
+      <va-breadcrumbs-item label="Page" />
     </va-breadcrumbs>
     &nbsp;
     &nbsp;
     &nbsp;
     <va-breadcrumbs align="around">
-      <va-breadcrumbs-item label="Application"/>
-      <va-breadcrumbs-item label="Dashboard"/>
-      <va-breadcrumbs-item label="Page"/>
+      <va-breadcrumbs-item label="Application" />
+      <va-breadcrumbs-item label="Dashboard" />
+      <va-breadcrumbs-item label="Page" />
     </va-breadcrumbs>
   </div>
 </template>
