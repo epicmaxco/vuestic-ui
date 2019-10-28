@@ -192,6 +192,7 @@ export default {
 
     &__button {
       margin: 0;
+      z-index: 10;
     }
 
     &__text {

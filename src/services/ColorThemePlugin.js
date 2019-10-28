@@ -1,12 +1,12 @@
 const getDefaultOptions = () => ({
   themes: {
-    primary: '#40e583',
+    primary: '#23e066',
     secondary: '#002c85',
     success: '#40e583',
     info: '#2c82e0',
     danger: '#e34b4a',
     warning: '#ffc200',
-    gray: '#babfc2',
+    gray: '#b4b6b9',
     dark: '#34495e',
   },
 })
@@ -40,18 +40,37 @@ export const ColorThemeMixin = {
     },
   },
   computed: {
+    _isEnableColorTheme () {
+      return Boolean(this.$themes)
+    },
     // This allows a multitude of defaults.
     // theme color => color => theme default => hard default
     colorComputed () {
-      if (this.$themes && this.$themes[this.color]) {
-        return this.$themes[this.color]
+      return this.computeColor(this.color)
+    },
+  },
+  methods: {
+    computeColor (prop) {
+      if (this._isEnableColorTheme) {
+        // Use color from global theme config.
+        if (this.$themes && this.$themes[prop]) {
+          return this.$themes[prop]
+        }
       }
-      if (this.color) {
-        return this.color
+
+      if (prop) {
+        // Assume prop is already proper color.
+        return prop
       }
-      if (this.$themes && this.$themes[this.colorThemeDefault]) {
-        return this.$themes[this.colorThemeDefault]
+
+      if (this._isEnableColorTheme) {
+        // Use theme default
+        if (this.$themes && this.$themes[this.colorThemeDefault]) {
+          return this.$themes[this.colorThemeDefault]
+        }
       }
+
+      // For case when theme is not present and prop is empty.
       return this.colorDefault
     },
   },

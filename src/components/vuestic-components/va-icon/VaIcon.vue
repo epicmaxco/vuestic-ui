@@ -1,8 +1,13 @@
 <template>
+  <!-- HACK Supports only material icons for now! -->
   <i class="va-icon"
-     :class="[name, iconClass]"
+     :class="[name, iconClass, 'material-icons']"
      :style="iconStyle"
-  ><slot/></i>
+  >
+    <slot>
+      {{ name }}
+    </slot>
+  </i>
 </template>
 
 <script>
@@ -43,7 +48,7 @@ export default {
       return {
         transform: 'rotate(' + this.rotation + 'deg)',
         fontSize: typeof this.size === 'number' ? this.size + 'px' : this.size,
-        color: this.$themes[this.color] || this.color,
+        color: this.$themes ? this.$themes[this.color] : this.color,
       }
     },
   },

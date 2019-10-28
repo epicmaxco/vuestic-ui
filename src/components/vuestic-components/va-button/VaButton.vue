@@ -52,44 +52,77 @@ import {
   getBoxShadowColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 export default {
   name: 'va-button',
   components: { VaIcon },
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, RouterLinkMixin, ContextPluginMixin],
   inject: {
     va: {
       default: () => ({}),
     },
   },
   props: {
+    color: {
+      default () {
+        return getContextPropValue(this, 'color', 'success')
+      },
+    },
     tag: {
       type: String,
-      default: 'button',
+      default () {
+        return getContextPropValue(this, 'tag', 'button')
+      },
     },
     outline: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'outline', false)
+      },
     },
     flat: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'flat', false)
+      },
     },
     small: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'small', false)
+      },
     },
     large: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'large', false)
+      },
     },
     icon: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'icon', '')
+      },
     },
     iconRight: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'iconRight', '')
+      },
     },
     type: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'type', 'button')
+      },
     },
     disabled: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     /* Link props */
     href: {
@@ -99,24 +132,6 @@ export default {
       type: String,
     },
     /* Router link props */
-    to: {
-      type: [String, Object],
-    },
-    replace: {
-      type: Boolean,
-    },
-    append: {
-      type: Boolean,
-    },
-    activeClass: {
-      type: String,
-    },
-    exact: {
-      type: Boolean,
-    },
-    exactActiveClass: {
-      type: String,
-    },
   },
   data () {
     return {
@@ -183,6 +198,7 @@ export default {
           computedStyle.background = getHoverColor(this.colorComputed)
         } else {
           computedStyle.backgroundImage = this.gradientStyle
+          computedStyle.boxShadow = this.shadowStyle
         }
       } else {
         computedStyle.color = this.flat || this.outline ? this.colorComputed : '#ffffff'
@@ -205,8 +221,7 @@ export default {
       if (this.tag === 'a' || this.href || this.target) {
         return 'a'
       }
-      if (this.tag === 'router-link' || this.to || this.append || this.replace ||
-        this.activeClass || this.exact || this.exactActiveClass) {
+      if (this.tag === 'router-link' || this.hasRouterLinkParams) {
         return 'router-link'
       }
       return 'button'
@@ -266,7 +281,7 @@ export default {
     color: $white;
 
     &:hover {
-      filter: brightness(115%);
+      opacity: 0.85;
     }
 
     &:focus, &:active {

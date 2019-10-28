@@ -5,10 +5,20 @@
       <va-progress-bar/>
       <span>Default</span>
       <va-progress-bar :value="value"/>
+      <span>Square</span>
+      <va-progress-bar :rounded="false" :value="value"/>
       <span>Danger</span>
       <va-progress-bar :value="value" color="danger"/>
+      <span>Size</span>
+      <va-progress-bar :size="32" :value="value" color="danger"/>
+      <span>Size rem</span>
+      <va-progress-bar size="2rem" :value="value" color="danger"/>
       <span>Static slot</span>
       <va-progress-bar :value="value">Slot</va-progress-bar>
+      <span>Small preset</span>
+      <va-progress-bar :value="value" small>Slot</va-progress-bar>
+      <span>Large preset</span>
+      <va-progress-bar :value="value" :rounded="false" large>{{ value + '%'}}</va-progress-bar>
       <span>Dynamic slot</span>
       <va-progress-bar :value="value">{{ value + '%' }}</va-progress-bar>
       <span>Slot Success</span>
@@ -19,6 +29,8 @@
       <va-progress-bar indeterminate/>
       <span>Indeterminate Info</span>
       <va-progress-bar indeterminate color="info"/>
+      <span>Indeterminate Reversed</span>
+      <va-progress-bar reverse indeterminate color="info"/>
       <span>Indeterminate Slot</span>
       <va-progress-bar indeterminate>Slot</va-progress-bar>
       <span>Indeterminate with :value and :buffer should behave the same</span>
@@ -27,14 +39,14 @@
     <VbCard title="Value">
       <button @click="value -= 100">-100</button>
       <button @click="value -= 10">-10</button>
-      {{ value }}
+      <input style="width: 50px" type="number" v-model.number="value">
       <button @click="value += 10">+10</button>
       <button @click="value += 100">+100</button>
     </VbCard>
     <VbCard title="Buffer value">
       <button @click="bufferValue -= 100">-100</button>
       <button @click="bufferValue -= 10">-10</button>
-      {{ bufferValue }}
+      <input style="width: 50px" type="number" v-model.number="bufferValue">
       <button @click="bufferValue += 10">+10</button>
       <button @click="bufferValue += 100">+100</button>
     </VbCard>
