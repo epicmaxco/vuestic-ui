@@ -1,9 +1,11 @@
 <template>
   <div class="example">
-    <va-badge label="default" />
-    <va-badge label="secondary" color="secondary" />
-    <va-badge label="aqua" color="aqua"/>
-    <va-badge label="#ad0" color="#ad0" />
+    <va-badge overlap dot>
+      <template v-slot:badge>
+        <va-icon name="warning" size="12px" />
+      </template>
+      <va-icon name="account_box" size="30px" />
+    </va-badge>
   </div>
 </template>
 

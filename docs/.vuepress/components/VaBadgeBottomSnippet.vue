@@ -1,9 +1,20 @@
 <template>
   <div class="example">
-    <va-badge label="default" />
-    <va-badge label="secondary" color="secondary" />
-    <va-badge label="aqua" color="aqua"/>
-    <va-badge label="#ad0" color="#ad0" />
+    <va-badge >
+      <template v-slot:badge>
+        NEW
+      </template>
+      DEFAULT
+    </va-badge>
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    <va-badge bottom>
+      <template v-slot:badge>
+        NEW
+      </template>
+      BOTTOM
+    </va-badge>
   </div>
 </template>
 

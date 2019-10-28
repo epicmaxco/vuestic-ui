@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="example">
     <va-badge label="badge" />
     &nbsp;
     <va-badge color="warning">

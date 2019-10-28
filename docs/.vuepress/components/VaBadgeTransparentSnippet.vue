@@ -1,18 +1,19 @@
 <template>
-  <div>
-    <va-badge left overlap>
+  <div class="example">
+    <va-badge transparent>
       <template v-slot:badge>
-        <va-icon name="warning" size="12px"/>
+        NEW
       </template>
-      <va-icon name="account_box" size="50px" />
+      Transparent
     </va-badge>
     &nbsp;
     &nbsp;
-    <va-badge bottom overlap>
+    &nbsp;
+    <va-badge overlap transparent>
       <template v-slot:badge>
-        <va-icon name="warning" size="12px" />
+        +1
       </template>
-      <va-icon name="account_box" size="50px" />
+      <va-icon name="face" size="30px" />
     </va-badge>
   </div>
 </template>
