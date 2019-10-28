@@ -31,7 +31,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'va-radio',
-  mixins: [ ColorThemeMixin ],
+  mixins: [ColorThemeMixin],
   props: {
     value: {
     },
@@ -39,7 +39,7 @@ export default {
       type: [Object, String, Number, Boolean],
     },
     name: {
-      type: [ String, Number ],
+      type: [String, Number],
     },
     disabled: {
       type: Boolean,
