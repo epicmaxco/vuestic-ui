@@ -7,16 +7,13 @@
         <slot/>
       </div>
 
-      <div
+      <va-icon
         v-if="closeable"
         class="va-notification__close-icon"
-      >
-        <va-icon
-          :color="color"
-          name="ion-md-close ion"
-          @click="hideNotification()"
-        />
-      </div>
+        :color="color"
+        name="close"
+        @click="hideNotification()"
+      />
     </div>
   </transition>
 </template>

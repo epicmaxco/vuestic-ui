@@ -19,50 +19,71 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-badge',
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     color: {
       type: String,
-      default: 'danger',
+      default () {
+        return getContextPropValue(this, 'color', 'danger')
+      },
     },
     textColor: {
       type: String,
-      default: 'white',
+      default () {
+        return getContextPropValue(this, 'textColor', 'white')
+      },
     },
     label: {
       type: [String, Number],
-      default: '',
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
     },
     overlap: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'overlap', false)
+      },
     },
     multiLine: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'multiLine', false)
+      },
     },
     visibleEmpty: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'visibleEmpty', false)
+      },
     },
     dot: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'dot', false)
+      },
     },
     transparent: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'transparent', false)
+      },
     },
     left: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'left', false)
+      },
     },
     bottom: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'bottom', false)
+      },
     },
   },
   computed: {

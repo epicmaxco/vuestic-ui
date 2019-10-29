@@ -52,18 +52,25 @@ export const ColorThemeMixin = {
   methods: {
     computeColor (prop) {
       if (this._isEnableColorTheme) {
+        // Use color from global theme config.
         if (this.$themes && this.$themes[prop]) {
           return this.$themes[prop]
         }
+      }
+
+      if (prop) {
+        // Assume prop is already proper color.
+        return prop
+      }
+
+      if (this._isEnableColorTheme) {
+        // Use theme default
         if (this.$themes && this.$themes[this.colorThemeDefault]) {
           return this.$themes[this.colorThemeDefault]
         }
       }
 
-      if (prop) {
-        return prop
-      }
-
+      // For case when theme is not present and prop is empty.
       return this.colorDefault
     },
   },

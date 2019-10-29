@@ -4,7 +4,7 @@ This component is used to separate data, what helps user to receive information 
 
 ```html
 <va-pagination
- small
+ size="small"
  :pages="10" 
  color="success"
  v-model="activePage"
@@ -13,7 +13,6 @@ This component is used to separate data, what helps user to receive information 
 <va-pagination
  :pages="10" 
  :visible-pages="3"
- :icon="{ direction: 'fa fa-volume-off' }"
  :boundary-links="false"
  v-model="activePage"
 />
@@ -34,8 +33,7 @@ export default {
 * `visiblePages` - Number (default: 5) - amount of buttons (instead of navigation buttons) that are shown in the component at one moment.
 * `pages` - Number - amount of all pages. If it is not specified, it is equal to length value.
 * `disabled` - Boolean.
-* `small` - Boolean.
-* `large` - Boolean.
+* `size` - String (default: 'medium') - use `size="small"` to set the size of modal. Use one of these values `['small', 'medium', 'large']`
 * `color` - String (default: 'info').
 * `boundaryLinks` - Boolean - shows boundary ('>>', '<<') icons.
 * `directionLinks` - Boolean - shows direction ('>', '<') icons.

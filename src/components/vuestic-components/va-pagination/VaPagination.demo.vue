@@ -29,8 +29,8 @@
           <td>Pagination Sizes</td>
           <td>
             <VbCard>
-              <va-pagination small :pages="10" :visible-pages="3" v-model="activePage"/>
-              <va-pagination large :pages="10" :visible-pages="3" v-model="activePage"/>
+              <va-pagination size="small" :pages="10" :visible-pages="3" v-model="activePage"/>
+              <va-pagination size="large" :pages="10" :visible-pages="3" v-model="activePage"/>
             </VbCard>
           </td>
         </tr>
@@ -77,20 +77,20 @@
               <va-pagination
                 :pages="10"
                 :visible-pages="3"
-                :icon="{ direction: 'fa fa-volume-off' }"
-                :icon-right="{ direction: 'fa fa-volume-up' }"
+                :icon-set="{ direction: 'volume_mute' }"
+                :icon-set-right="{ direction: 'volume_down' }"
                 v-model="activePage"/>
               <va-pagination
                 :pages="10"
                 :visible-pages="3"
-                :icon="{ boundary: 'fa fa-bell-slash' }"
-                :icon-right="{ boundary: 'fa fa-bell' }"
+                :icon-set="{ boundary: 'volume_off' }"
+                :icon-set-right="{ boundary: 'volume_up' }"
                 v-model="activePage"/>
               <va-pagination
                 :pages="10"
                 :visible-pages="3"
-                :icon="{ boundary: 'fa fa-bell-slash', direction: 'fa fa-volume-off' }"
-                :icon-right="{ boundary: 'fa fa-bell', direction: 'fa fa-volume-up' }"
+                :icon-set="{ boundary: 'volume_off', direction: 'volume_mute' }"
+                :icon-set-right="{ boundary: 'volume_up', direction: 'volume_down' }"
                 v-model="activePage"/>
             </VbCard>
           </td>

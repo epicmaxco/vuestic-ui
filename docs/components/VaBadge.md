@@ -26,7 +26,7 @@ or
 ```html
 <va-badge>
     <tamplate v-slot:badge>
-        <va-icon name="icon brandico brandico-facebook-rect"/>
+        <va-icon name="face"/>
     </tamplate>   
  Relative text
 </va-badge>

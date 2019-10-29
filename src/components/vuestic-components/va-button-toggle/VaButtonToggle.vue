@@ -8,8 +8,7 @@
         :outline="outline"
         :flat="flat"
         :disabled="disabled"
-        :small="small"
-        :large="large"
+        :size="size"
         :color="buttonColor(option.value)"
         :class="buttonClass(option.value)"
         @click="changeValue(option.value)">
@@ -46,11 +45,12 @@ export default {
     disabled: {
       type: Boolean,
     },
-    small: {
-      type: Boolean,
-    },
-    large: {
-      type: Boolean,
+    size: {
+      type: String,
+      default: 'medium',
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
+      },
     },
     color: {
       type: String,

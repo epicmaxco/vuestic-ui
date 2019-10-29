@@ -60,22 +60,20 @@
         <va-icon
           v-if="success"
           class="va-input__container__icon"
-          name="fa fa-check"
           color="success"
-        />
+        >check</va-icon>
         <va-icon
           v-if="error"
           class="va-input__container__icon"
-          name="fa fa-exclamation-triangle"
           color="danger"
-        />
+        >warning</va-icon>
         <slot name="append"/>
         <va-icon
           v-if="removable && hasContent"
           @click.native="clearContent()"
           class="va-input__container__close-icon"
           :color="error ? 'danger': 'gray'"
-          name="fa fa-times-circle"
+          name="highlight_off"
         />
       </div>
     </div>

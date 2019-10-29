@@ -1,8 +1,13 @@
 <template>
+  <!-- HACK Supports only material icons for now! -->
   <i class="va-icon"
-     :class="[name, iconClass]"
+     :class="[name, iconClass, 'material-icons']"
      :style="iconStyle"
-  ><slot/></i>
+  >
+    <slot>
+      {{ name }}
+    </slot>
+  </i>
 </template>
 
 <script>
@@ -11,15 +16,20 @@ export default {
   props: {
     name: {
       type: [String, Array],
-    },
-    small: {
-      type: Boolean,
-    },
-    large: {
-      type: Boolean,
+      validator: name => {
+        if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
+          throw new Error(`${name} icon is not available. Please replace to material-icon`)
+        }
+
+        return name
+      },
     },
     size: {
       type: [String, Number],
+      default: 'medium',
+      validator: value => {
+        return value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value) || typeof value === 'number'
+      },
     },
     fixedWidth: {
       type: Boolean,
@@ -34,8 +44,8 @@ export default {
   computed: {
     iconClass () {
       return {
-        'va-icon--large': this.large,
-        'va-icon--small': this.small,
+        'va-icon--large': this.size === 'large',
+        'va-icon--small': this.size === 'small',
         'va-icon--fixed': this.fixedWidth,
       }
     },
@@ -43,7 +53,7 @@ export default {
       return {
         transform: 'rotate(' + this.rotation + 'deg)',
         fontSize: typeof this.size === 'number' ? this.size + 'px' : this.size,
-        color: this.$themes[this.color] || this.color,
+        color: this.$themes ? this.$themes[this.color] : this.color,
       }
     },
   },
@@ -56,6 +66,7 @@ export default {
 .va-icon {
   display: inline-block;
   letter-spacing: normal;
+  font-size: initial;
 
   &--large {
     font-size: $icon-lg-size;

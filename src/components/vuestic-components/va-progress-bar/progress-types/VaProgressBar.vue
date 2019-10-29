@@ -1,25 +1,23 @@
 <template>
   <div class="va-progress-bar">
     <div :style="{colorComputed}" class="va-progress-bar__info">
-      <slot/>
+      <slot v-if="!large"/>
     </div>
-    <div class="va-progress-bar__progress-bar">
+    <div class="va-progress-bar__progress-bar" :class="computedClass" :style="computedStyle">
       <div
         :style="{width: normalizedBuffer + '%', backgroundColor: colorComputed}"
         class="va-progress-bar__buffer"
       />
-      <div
-        v-if="!indeterminate"
-        :style="{width: normalizedValue + '%', backgroundColor: colorComputed}"
-        class="va-progress-bar__overlay"
-      />
+      <div v-if="!indeterminate" :style="{width: normalizedValue + '%', backgroundColor: colorComputed}" class="va-progress-bar__overlay">
+        <slot v-if="large" />
+      </div>
       <template v-else>
         <div
-          :style="{backgroundColor: colorComputed}"
+          :style="{backgroundColor: colorComputed, animationDirection: this.reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-start"
         />
         <div
-          :style="{backgroundColor: colorComputed}"
+          :style="{backgroundColor: colorComputed, animationDirection: this.reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-end"
         />
       </template>
@@ -40,14 +38,52 @@ export default {
       type: Number,
       default: 100,
     },
+    rounded: {
+      type: Boolean,
+      default: true,
+    },
+    size: {
+      type: [Number, String],
+      default: 'medium',
+      validator: (value) => {
+        return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value)
+      },
+    },
+    reverse: {
+      type: Boolean,
+    },
   },
   computed: {
+    large () {
+      return this.size === 'large'
+    },
+    small () {
+      return this.size === 'small'
+    },
     normalizedBuffer () {
       if (this.indeterminate) {
         return 100
       }
 
       return normalizeValue(this.buffer)
+    },
+    computedClass () {
+      return {
+        'va-progress-bar__progress-bar__square': (!this.rounded && !this.large) || this.small,
+        'va-progress-bar__small': this.small,
+        'va-progress-bar__large': this.large,
+      }
+    },
+    computedStyle () {
+      if (!this.small && !this.large) {
+        return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
+      }
+
+      if (this.size === 'medium') {
+        return { height: '0.5rem' }
+      }
+
+      return {}
     },
   },
 }
@@ -61,8 +97,15 @@ export default {
   position: relative;
   overflow: hidden;
 
+  &__small {
+    height: $progress-bar-small-height;
+  }
+
+  &__large {
+    height: $progress-bar-large-height;
+  }
+
   &__info {
-    font-size: $progress-value-font-size;
     font-weight: $font-weight-bold;
     text-align: center;
     text-transform: uppercase;
@@ -73,10 +116,13 @@ export default {
   }
 
   &__progress-bar {
-    height: $progress-bar-width-basic;
-    border-radius: $progress-bar-width-basic;
     position: relative;
     overflow: hidden;
+    border-radius: $progress-bar-width-basic;
+
+    &__square {
+      border-radius: 0;
+    }
   }
 
   &__buffer {
@@ -93,6 +139,12 @@ export default {
     height: inherit;
     border-radius: inherit;
     transition: width ease 2s;
+    text-align: center;
+    color: $white;
+    letter-spacing: 0.6px;
+    line-height: $progress-bar-large-height;
+    font-size: $progress-bar-large-font-size;
+    font-weight: 700;
 
     &__indeterminate-start {
       animation: va-progress-bar__overlay__indeterminate-start 2s ease-in infinite;

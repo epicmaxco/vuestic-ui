@@ -9,11 +9,11 @@
     <VbCard title="Slots scheme">
       <va-input-wrapper :messages="messages">
         <div slot="prepend" style="width: 30px; height: 30px; border: 1px dotted black;" class="flex-center">
-          <va-icon name="fa fa-volume-off"/>
+          <va-icon name="volume_down"/>
         </div>
         <div style="width: 200px; height: 30px; border: 1px dotted black;">Default Slot</div>
         <div slot="append" style="width: 30px; height: 30px; border: 1px dotted black;" class="flex-center">
-          <va-icon name="fa fa-volume-up"/>
+          <va-icon name="volume_up"/>
         </div>
       </va-input-wrapper>
     </VbCard>
@@ -26,9 +26,10 @@
       </va-input-wrapper>
     </VbCard>
 
-    <VbCard title="Error">
+    <VbCard title="Success">
       <va-input-wrapper
-        :errorMessages="errorMessages"
+        :messages="messages"
+        success
       >
         <div>Default Slot</div>
       </va-input-wrapper>
@@ -57,7 +58,6 @@
 
 <script>
 import VaInputWrapper from './VaInputWrapper'
-import VaButton from './../va-button/VaButton'
 import VaIcon from './../va-icon/VaIcon'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaRadioButton from '../va-radio-button/VaRadioButton'
@@ -66,7 +66,6 @@ export default {
   components: {
     VaCheckbox,
     VaInputWrapper,
-    VaButton,
     VaIcon,
     VaRadioButton,
   },

@@ -17,6 +17,9 @@
 * `indeterminate` - Boolean - if 'indeterminate' is 'true', 'value' prop will be ignored.
 * `color` - String  (default: `success`).
 * `buffer` - Number (default: 100).
+* `reverse` - Boolean - reverse progress bar direction
+* `rounded` - Boolean - (default: true) make the bar rounded
+* `size` - Number|String - height of the bar in pixels or in css units (rem|em|ex|pt|pc|mm|cm|px). Also use one these values `['small', 'medium', 'large']`
 
 # va-progress-circle
 
@@ -31,5 +34,7 @@
 * `value` - Number.
 * `indeterminate` - Boolean.
 * `color` - String  (default: `success`).
+* `size` - String|Number (default: 40) - bar size (diameter) in pixels or size in css units (rem|em|ex|pt|pc|mm|cm|px)
+* `thickness` - Number - circle border size in percent of component size
 
 [Find DEMOs here!](http://vuestic.epicmax.co/#/admin/statistics/progress-bars)

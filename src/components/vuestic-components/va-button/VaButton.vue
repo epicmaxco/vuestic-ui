@@ -52,45 +52,74 @@ import {
   getBoxShadowColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 export default {
   name: 'va-button',
   components: { VaIcon },
-  mixins: [ColorThemeMixin, RouterLinkMixin],
+  mixins: [ColorThemeMixin, RouterLinkMixin, ContextPluginMixin],
   inject: {
     va: {
       default: () => ({}),
     },
   },
   props: {
+    color: {
+      default () {
+        return getContextPropValue(this, 'color', 'success')
+      },
+    },
     tag: {
       type: String,
-      default: 'button',
+      default () {
+        return getContextPropValue(this, 'tag', 'button')
+      },
     },
     outline: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'outline', false)
+      },
     },
     flat: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'flat', false)
+      },
     },
-    small: {
-      type: Boolean,
-    },
-    large: {
-      type: Boolean,
+    size: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
+      },
     },
     icon: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'icon', '')
+      },
     },
     iconRight: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'iconRight', '')
+      },
     },
     type: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'type', 'button')
+      },
     },
     disabled: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     /* Link props */
     href: {
@@ -119,9 +148,9 @@ export default {
         'va-button--without-title': !this.hasTitleData,
         'va-button--with-left-icon': this.icon,
         'va-button--with-right-icon': this.iconRight,
-        'va-button--large': this.large,
-        'va-button--small': this.small,
-        'va-button--normal': !this.large && !this.small,
+        'va-button--large': this.size === 'large',
+        'va-button--small': this.size === 'small',
+        'va-button--normal': !this.size || this.size === 'medium',
       }
     },
     gradientStyle () {
