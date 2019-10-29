@@ -1,6 +1,3 @@
-## Components
-
-
 # va-badge
 
 2 ways to use va-badge
