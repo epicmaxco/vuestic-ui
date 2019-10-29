@@ -9,7 +9,7 @@
     >
       <div class="va-badge__content">
         <slot name="badge">
-          {{ label  }}
+          {{ label }}
         </slot>
       </div>
     </div>
@@ -121,10 +121,10 @@ export default {
         styles.borderColor = this.colorComputed
         styles.backgroundColor = this.colorComputed
 
-        if (this.textColor && this.$themes && this.$themes[this.textColor]) {
+        if (this.$themes && this.$themes[this.textColor]) {
           styles.color = this.$themes[this.textColor]
         } else {
-          styles.color = 'white'
+          styles.color = this.textColor
         }
 
         if (this.transparent) {
