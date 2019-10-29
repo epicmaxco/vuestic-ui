@@ -529,7 +529,7 @@ export default {
       return {
         backgroundColor: this.checkActivePin(pin) ? this.colorComputed : getHoverColor(this.colorComputed),
         [this.dimensions[1]]: `${pin * this.step}%`,
-        transition: this.hasMouseDown ? 'none' : 'background-color .3s ease .1s',
+        transition: this.hasMouseDown ? 'none' : 'background-color .3s ease-out .1s',
       }
     },
     getPos (e) {
@@ -788,7 +788,7 @@ export default {
     }
 
     &__track--inactive {
-      transition: width .3s ease, left .3s ease;
+      transition: width .3s ease-out, left .3s ease-out;
     }
 
     &__mark {
@@ -799,7 +799,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: left .3s ease;
+        transition: left .3s ease-out;
       }
 
       &-value {
@@ -850,7 +850,7 @@ export default {
     }
 
     &__track--inactive {
-      transition: height .3s ease, bottom .3s ease;
+      transition: height .3s ease-out, bottom .3s ease-out;
     }
 
     &__mark {
@@ -862,7 +862,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: bottom .3s ease;
+        transition: bottom .3s ease-out;
       }
 
       &-value {
