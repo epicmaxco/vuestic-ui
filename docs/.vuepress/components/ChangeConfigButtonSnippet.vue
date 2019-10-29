@@ -1,8 +1,8 @@
 <template>
   <div class="example">
     <va-button @click="useDefaultTheme" color="gray">Use default theme</va-button>
-    <va-button @click="useTheme1" color="secondary">Use secondary theme</va-button>
-    <va-button @click="useTheme2" color="dark">Use dark component theme</va-button>
+    <va-button @click="useTheme1" color="primary">Use primary theme</va-button>
+    <va-button @click="useTheme2" color="dark">Use dark theme</va-button>
   </div>
 </template>
 
@@ -26,14 +26,40 @@
         this.resetPage()
       },
       useTheme1 () {
-        const config = { VaBadge: { color: 'secondary', textColor: 'white' } };
+        const config = {
+          VaBadge: {
+            color: 'primary',
+            textColor: 'white',
+          },
+          VaBreadcrumbs: {
+            color: 'primary',
+            separator: '⎇',
+          },
+          VaAvatar: {
+            color: 'primary',
+            square: true,
+          }
+        };
 
         setInStorageContextPluginOptions(config)
 
         this.resetPage()
       },
       useTheme2 () {
-        const config = { VaBadge: { color: 'dark', textColor: 'gray' } };
+        const config = {
+          VaBadge: {
+            color: 'dark',
+            textColor: 'gray'
+          },
+          VaBreadcrumbs: {
+            color: 'dark',
+            separator: '➤',
+          },
+          VaAvatar: {
+            color: 'dark',
+            size: 'large',
+          }
+        };
 
         setInStorageContextPluginOptions(config)
 

@@ -2,26 +2,35 @@
 import Vue from 'vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default Vue.component('va-breadcrumbs-provider', {
   name: 'va-breadcrumbs',
-  mixins: [ColorThemeMixin, AlignMixin],
+  mixins: [ColorThemeMixin, AlignMixin, ContextPluginMixin],
   props: {
     color: {
       type: String,
-      default: 'gray',
+      default () {
+        return getContextPropValue(this, 'color', 'gray')
+      },
     },
     separatorColor: {
       type: String,
-      default: null,
+      default () {
+        return getContextPropValue(this, 'separatorColor', null)
+      },
     },
     activeColor: {
       type: String,
-      default: null,
+      default () {
+        return getContextPropValue(this, 'activeColor', null)
+      },
     },
     separator: {
       type: String,
-      default: '/',
+      default () {
+        return getContextPropValue(this, 'separator', '/')
+      },
     },
   },
   computed: {
