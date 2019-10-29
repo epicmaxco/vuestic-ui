@@ -13,8 +13,11 @@
 </template>
 
 <script>
+import { SizeMixin } from '../../../mixins/SizeMixin'
+
 export default {
   name: 'va-icon',
+  mixins: [SizeMixin],
   props: {
     name: {
       type: [String, Array],
@@ -24,13 +27,6 @@ export default {
         }
 
         return name
-      },
-    },
-    size: {
-      type: [String, Number],
-      default: 'medium',
-      validator: value => {
-        return value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value) || typeof value === 'number'
       },
     },
     fixedWidth: {
