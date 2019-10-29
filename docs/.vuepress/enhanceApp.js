@@ -8,8 +8,9 @@ export default ({
                   router, // the router instance for the app
                   siteData, // site metadata
                 }) => {
+
   if (typeof process === 'undefined') { // process is undefined in a browser
     Vue.use(ColorThemePlugin)
-    Vue.use(ContextPlugin, {})
+    Vue.use(ContextPlugin, { VaBadge: { color: 'danger', label: 'badge' } })
   }
 }
