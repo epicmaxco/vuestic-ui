@@ -42,7 +42,7 @@
 
 ### Vue-router parameters
 
-Компонент `va-breadcrumbs-item` совместим с библиотекой `vue-router` и поддерживает параметры: `href`, `to`, `replace`, `append`, `exact`.  Применяется на компоненты `va-breadcrumbs-item`.
+Компонент `va-breadcrumbs` совместим с библиотекой `vue-router` и поддерживает параметры: `href`, `to`, `replace`, `append`, `exact`.  Применяется на компоненты `va-breadcrumbs-item`.
 
 <VaBreadcrumbsRouterSnippet/>
 
@@ -59,7 +59,7 @@ Component `va-breadcrumbs`:
 * `separator-color` - String - цвет темы или hex цвет разделителя,
 * `active-color` - String - цвет темы или hex цвет доступных ссылок,
 * `align` - String - значение выравнивания. В качестве значений принимаются строки: ('left', 'center', 'between', etc),
-* `separator` - String - элемент разделителя,
+* `separator` - String - элемент разделителя.
 
 Slots:
 
@@ -73,11 +73,11 @@ Slots:
 
 * `disabled` - Boolean - делает компонент неактивным,
 * `label` - String | Number - содержимое компонента,
-* `href` - String - native attribute for router-link, 
-* `to` - String - native attribute for router-link,
-* `replace` - Boolean - native attribute for router-link, 
-* `append` - Boolean - native attribute for router-link,
-* `exact` - Boolean - native attribute for router-link,
+* `href` - String - router-link attribute, 
+* `to` - String - router-link attribute,
+* `replace` - Boolean - router-link attribute, 
+* `append` - Boolean - router-link attribute,
+* `exact` - Boolean - router-link attribute.
 
 Slots: 
 

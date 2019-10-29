@@ -1,8 +1,8 @@
 <template>
   <div class="example">
-    <va-button @click="useDefaultTheme" color="gray">Use default theme</va-button>
-    <va-button @click="useTheme1" color="primary">Use primary theme</va-button>
-    <va-button @click="useTheme2" color="dark">Use dark theme</va-button>
+    <va-button size="small" @click="useDefaultTheme" color="info">Use default theme</va-button>
+    <va-button size="small" @click="useTheme1" color="primary">Use primary theme</va-button>
+    <va-button size="small" @click="useTheme2" color="dark">Use dark theme</va-button>
   </div>
 </template>
 
