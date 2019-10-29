@@ -26,9 +26,10 @@
       </va-input-wrapper>
     </VbCard>
 
-    <VbCard title="Error">
+    <VbCard title="Success">
       <va-input-wrapper
-        :errorMessages="errorMessages"
+        :messages="messages"
+        success
       >
         <div>Default Slot</div>
       </va-input-wrapper>
