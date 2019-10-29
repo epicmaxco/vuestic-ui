@@ -13,11 +13,13 @@
 </template>
 
 <script>
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
+import { ContextPluginMixin, getContextPropValue } from './../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-icon',
-  mixins: [SizeMixin],
+  mixins: [ColorThemeMixin, SizeMixin, ContextPluginMixin],
   props: {
     name: {
       type: [String, Array],
@@ -29,18 +31,35 @@ export default {
         return name
       },
     },
+    size: {
+      type: [String, Number],
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
+    },
     fixedWidth: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'fixedWidth', '')
+      },
     },
     rotation: {
       type: [String, Number],
+      default () {
+        return getContextPropValue(this, 'rotation', '')
+      },
     },
     color: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
     },
     tag: {
       type: String,
-      default: 'i',
+      default () {
+        return getContextPropValue(this, 'tag', 'i')
+      },
     },
   },
   computed: {
@@ -52,11 +71,16 @@ export default {
       }
     },
     iconStyle () {
-      return {
+      let computedStyles = {
         transform: 'rotate(' + this.rotation + 'deg)',
         fontSize: typeof this.size === 'number' ? this.size + 'px' : this.size,
-        color: this.$themes ? this.$themes[this.color] : this.color,
       }
+
+      if (this.color && this._isEnableColorTheme) {
+        computedStyles.color = this.colorComputed
+      }
+
+      return computedStyles
     },
   },
 }
