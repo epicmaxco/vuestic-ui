@@ -1,6 +1,6 @@
 ---
-name: Comonent issue template
-about: Comonent issue template
+name: Component template
+about: Component template
 title: " component"
 labels: ''
 assignees: ''
