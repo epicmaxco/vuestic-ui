@@ -1,123 +1,98 @@
 <template>
-  <div
-    class="va-slider"
-    :class="sliderClass"
-  >
-    <div class="va-slider__input-wrapper" v-if="$slots.beforeInput">
-      <slot name="beforeInput"/>
+  <div class="va-slider" :class="sliderClass">
+    <div class="input-wrapper" v-if="$slots.prepend">
+      <slot :name="this.vertical ? 'append' : 'prepend'"/>
     </div>
-    <span
-      v-if="label && !inverseLabel"
-      :style="labelStyles"
-      class="va-slider__label">
-      {{ label }}
+    <slot v-if="($slots.label || label) && !invertLabel" name="label">
+      <span :style="labelStyles" class="label">
+        {{ label }}
+      </span>
+    </slot>
+    <span v-if="iconPrepend" class="label">
+      <va-icon :name="iconPrepend" :color="colorComputed" :size="16"/>
     </span>
-    <span
-      v-if="icon"
-      class="va-slider__label">
-      <va-icon :name="icon" :color="colorComputed" :size="16"/>
-    </span>
-    <div
-      class="va-slider__container"
-      @click="wrapClick"
-      ref="sliderContainer"
-    >
-      <div
-        class="va-slider__container__track"
-        :style="trackStyles"/>
+    <div class="container" @click="wrapClick" ref="sliderContainer">
+      <div class="container__track" :style="trackStyles"/>
       <template v-if="pins">
         <div
           v-for="(pin, key) in pinsCol"
           :key="key"
-          class="va-slider__container__mark"
-          :class="{ 'va-slider__container__mark--active': checkActivePin(pin) }"
+          class="container__mark"
+          :class="{ 'container__mark--active': checkActivePin(pin) }"
           :style="getPinStyles(pin)"
         />
       </template>
       <template v-if="isRange">
         <div
           ref="process"
-          class="va-slider__container__track va-slider__container__track--active"
+          class="container__track"
+          :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
-          @mousedown="moveStart($event, 0)"/>
+          @mousedown="moveStart($event, null)"/>
         <div
           ref="dot0"
-          class="va-slider__container__handler"
-          :class="{'va-slider__container__handler--on-keyboard-focus': isKeyboardFocused === 1}"
+          class="container__handler"
+          :class="dotClass[0]"
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
           @touchstart="moveStart($event, 0)"
-          @focus="onFocus($event, 1)"
+          @focus="onFocus($event, 1), currentSlider = 0"
           @blur="isKeyboardFocused = false"
-          :tabindex="!this.disabled && 0"
+          :tabindex="(!disabled && !readonly) && 0"
         >
-          <div
-            v-if="valueVisible"
-            :style="labelStyles"
-            class="va-slider__container__handler-value"
-          >
+          <div v-if="isActiveDot(0)" :style="{ backgroundColor: colorComputed }" class="container__handler--focus"/>
+          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">
             {{ val[0] }}
           </div>
         </div>
         <div
           ref="dot1"
-          class="va-slider__container__handler"
-          :class="{'va-slider__container__handler--on-keyboard-focus': isKeyboardFocused === 2}"
+          class="container__handler"
+          :class="dotClass[1]"
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
           @touchstart="moveStart($event, 1)"
-          @focus="onFocus($event, 2)"
+          @focus="onFocus($event, 2), currentSlider = 1"
           @blur="isKeyboardFocused = false"
-          :tabindex="!this.disabled && 0"
+          :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div
-            v-if="valueVisible"
-            :style="labelStyles"
-            class="va-slider__container__handler-value">
-            {{ val[1] }}
-          </div>
+          <div v-if="isActiveDot(1)" :style="{ backgroundColor: colorComputed }" class="container__handler--focus"/>
+          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">{{ val[1] }}</div>
         </div>
       </template>
       <template v-else>
         <div
           ref="process"
-          class="va-slider__container__track va-slider__container__track--active"
+          class="container__track"
+          :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
           @mousedown="moveStart($event, 0)"/>
         <div
           ref="dot"
-          class="va-slider__container__handler"
-          :class="{'va-slider__container__handler--on-keyboard-focus': isKeyboardFocused}"
+          class="container__handler"
+          :class="dotClass"
           :style="dottedStyles"
           @mousedown="(moveStart(), setMouseDown())"
           @touchstart="moveStart()"
           @focus="onFocus"
           @blur="isKeyboardFocused = false"
-          :tabindex="!this.disabled && 0"
+          :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div
-            v-if="valueVisible"
-            :style="labelStyles"
-            class="va-slider__container__handler-value"
-          >
-            {{ labelValue || val }}
-          </div>
+          <div v-if="isActiveDot(0)" class="container__handler--focus" :style="{ backgroundColor: colorComputed }"/>
+          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">{{ trackLabel || val }}</div>
         </div>
       </template>
     </div>
-    <span
-      v-if="iconRight"
-      class="va-slider__inverse-label">
-      <va-icon :name="iconRight" :color="colorComputed" :size="16"/>
+    <span v-if="iconAppend" class="inverse-label">
+      <va-icon :name="iconAppend" :color="colorComputed" :size="16"/>
     </span>
-    <span
-      v-if="inverseLabel"
-      :style="labelStyles"
-      class="va-slider__label va-slider__inverse-label">
-      {{ label }}
-    </span>
-    <div class="va-slider__input-wrapper" v-if="$slots.afterInput">
-      <slot name="afterInput"/>
+    <slot v-if="invertLabel" name="label">
+      <span v-if="invertLabel" :style="labelStyles" class="label inverse-label">
+        {{ label }}
+      </span>
+    </slot>
+    <div class="input-wrapper" v-if="$slots.append">
+      <slot :name=" this.vertical ? 'prepend' : 'append'"/>
     </div>
   </div>
 </template>
@@ -146,10 +121,16 @@ export default {
     value: {
       type: [Number, Array],
     },
-    labelValue: {
+    trackLabel: {
       type: String,
     },
-    valueVisible: {
+    trackColor: {
+      type: String,
+    },
+    labelColor: {
+      type: String,
+    },
+    trackLabelVisible: {
       type: Boolean,
       default: false,
     },
@@ -168,7 +149,7 @@ export default {
     label: {
       type: String,
     },
-    inverseLabel: {
+    invertLabel: {
       type: Boolean,
       default: false,
     },
@@ -176,14 +157,26 @@ export default {
       type: Boolean,
       default: false,
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
     pins: {
       type: Boolean,
     },
-    icon: {
+    iconPrepend: {
       type: String,
     },
-    iconRight: {
+    iconAppend: {
       type: String,
+    },
+    vertical: {
+      type: Boolean,
+      default: false,
+    },
+    showTrack: {
+      type: Boolean,
+      default: true,
     },
   },
   data () {
@@ -193,22 +186,41 @@ export default {
       currentValue: this.value,
       currentSlider: 0,
       isComponentExists: false,
+      dimensions: this.vertical ? ['height', 'bottom'] : ['width', 'left'],
     }
   },
   computed: {
     sliderClass () {
       return {
         'va-slider--disabled': this.disabled,
+        'va-slider--readonly': this.readonly,
+        'va-slider--horizontal': !this.vertical,
+        'va-slider--vertical': this.vertical,
+      }
+    },
+    dotClass () {
+      if (this.range) {
+        return [
+          { 'container__handler--inactive': !this.hasMouseDown },
+          { 'container__handler--inactive': !this.hasMouseDown },
+        ]
+      }
+
+      return {
+        'container__handler--on-focus': !this.range && (this.flag || this.isKeyboardFocused),
+        'container__handler--inactive': !this.hasMouseDown,
       }
     },
     labelStyles () {
       return {
-        color: this.colorComputed,
+        color: this.labelColor ? (this.$themes[this.labelColor] || this.computeColor(this.labelColor)) : this.colorComputed,
       }
     },
     trackStyles () {
       return {
-        backgroundColor: getHoverColor(this.colorComputed),
+        backgroundColor: this.trackColor
+          ? (this.$themes[this.trackColor] || this.computeColor(this.trackColor))
+          : getHoverColor(this.colorComputed),
       }
     },
     processedStyles () {
@@ -219,16 +231,18 @@ export default {
         const val1 = ((validatedValue[1] - this.min) / (this.max - this.min)) * 100
 
         return {
-          left: `${val0}%`,
-          width: `${val1 - val0}%`,
+          [this.dimensions[1]]: `${val0}%`,
+          [this.dimensions[0]]: `${val1 - val0}%`,
           backgroundColor: this.colorComputed,
+          visibility: this.showTrack ? 'visible' : 'hidden',
         }
       } else {
         const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
 
         return {
-          width: `${val}%`,
+          [this.dimensions[0]]: `${val}%`,
           backgroundColor: this.colorComputed,
+          visibility: this.showTrack ? 'visible' : 'hidden',
         }
       }
     },
@@ -241,13 +255,13 @@ export default {
 
         return [
           {
-            left: `calc(${val0}% - 8px)`,
-            backgroundColor: '#ffffff',
+            [this.dimensions[1]]: `calc(${val0}% - 8px)`,
+            backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
             borderColor: this.colorComputed,
           },
           {
-            left: `calc(${val1}% - 8px)`,
-            backgroundColor: '#ffffff',
+            [this.dimensions[1]]: `calc(${val1}% - 8px)`,
+            backgroundColor: this.isActiveDot(1) ? this.colorComputed : '#ffffff',
             borderColor: this.colorComputed,
           },
         ]
@@ -255,8 +269,8 @@ export default {
         const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
 
         return {
-          left: `calc(${val}% - 8px)`,
-          backgroundColor: '#ffffff',
+          [this.dimensions[1]]: `calc(${val}% - 8px)`,
+          backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
         }
       }
@@ -268,6 +282,9 @@ export default {
       set (val) {
         if (!this.range) {
           val = this.limitValue(val)
+        }
+        if (!this.flag) {
+          this.$emit('change', val)
         }
         this.$emit('input', val)
       },
@@ -335,10 +352,28 @@ export default {
       document.removeEventListener('touchend', this.moveEnd)
       document.removeEventListener('keydown', this.moveWithKeys)
     },
+    isActiveDot (index) {
+      if ((!this.isKeyboardFocused && !this.flag) || this.disabled || this.readonly) {
+        return false
+      }
+
+      return this.range ? this.currentSlider === index : this.currentSlider === 0
+    },
     setMouseDown (e, index) {
-      this.hasMouseDown = index || true
+      if (!this.readonly && !this.disabled) {
+        this.hasMouseDown = index || true
+      }
     },
     moveStart (e, index) {
+      if (!index) {
+        if (!this.range) {
+          index = 0
+        } else {
+          let pos = this.getPos(e)
+          index = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+        }
+      }
+
       if (this.isRange) {
         this.currentSlider = index
       }
@@ -347,7 +382,7 @@ export default {
       this.$emit('drag-start', this)
     },
     moving (e) {
-      if (!this.disabled) {
+      if (!this.disabled && !this.readonly) {
         if (!this.flag) {
           return false
         }
@@ -361,9 +396,10 @@ export default {
       }
     },
     moveEnd (e) {
-      if (!this.disabled) {
+      if (!this.disabled && !this.readonly) {
         if (this.flag) {
           this.$emit('drag-end', this)
+          this.$emit('change', this.range ? Array.from(this.value) : this.value)
         } else {
           return false
         }
@@ -372,9 +408,9 @@ export default {
       }
     },
     moveWithKeys (event) {
-      // don't do anything if a dot isn't focused or if the slider's disabled
+      // don't do anything if a dot isn't focused or if the slider's disabled or readonly
       if (![this.$refs.dot0, this.$refs.dot1, this.$refs.dot].includes(document.activeElement)) return
-      if (this.disabled) return
+      if (this.disabled || this.readonly) return
 
       /*
         where: where to move
@@ -424,35 +460,42 @@ export default {
         }
       }
 
+      const arrowKeyCodes = [37, 38, 39, 40] // LEFT, UP, RIGHT, DOWN
+      // prevent page scroll
+      if (arrowKeyCodes.indexOf(event.keyCode) !== -1) {
+        event.preventDefault()
+      }
+
       if (this.range) {
         if (this.$refs.dot0 === document.activeElement) { // left dot
-          if (
-            event.keyCode === 37 && // left arrow pressed
-            !((this.val[0] - this.step) < this.min) // and won't become less than `min`
-          ) moveDot(true, 0, 0)
-
-          if (
-            event.keyCode === 39 && // right arrow pressed
-            !((this.val[0] + this.step) > this.val[1]) // and won't become more than the second dot is
-          ) moveDot(true, 1, 0)
+          if (this.vertical) {
+            if (event.keyCode === 40 && !((this.val[0] - this.step) < this.min)) moveDot(true, 0, 0)
+            if (event.keyCode === 38 && !((this.val[0] + this.step) > this.val[1])) moveDot(true, 1, 0)
+          } else {
+            if (event.keyCode === 37 && !((this.val[0] - this.step) < this.min)) moveDot(true, 0, 0)
+            if (event.keyCode === 39 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 1, 0)
+          }
         } else if (this.$refs.dot1 === document.activeElement) { // right dot
-          if (
-            event.keyCode === 37 && // left arrow pressed
-            !((this.val[1] - this.step) < this.val[0]) // and won't become less then the first dot is
-          ) moveDot(true, 0, 1)
-
-          if (
-            event.keyCode === 39 && // right arrow pressed
-            !((this.val[1] + this.step) > this.max) // and won't become more than `max`
-          ) moveDot(true, 1, 1)
+          if (this.vertical) {
+            if (event.keyCode === 40 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 0, 1)
+            if (event.keyCode === 38 && !((this.val[1] + this.step) > this.max)) moveDot(true, 1, 1)
+          } else {
+            if (event.keyCode === 37 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 0, 1)
+            if (event.keyCode === 39 && !((this.val[1] + this.step) > this.max)) moveDot(true, 1, 1)
+          }
         }
       } else {
-        if (event.keyCode === 37) moveDot(false, 0)
-        if (event.keyCode === 39) moveDot(false, 1)
+        if (this.vertical) {
+          if (event.keyCode === 40) moveDot(false, 0)
+          if (event.keyCode === 38) moveDot(false, 1)
+        } else {
+          if (event.keyCode === 37) moveDot(false, 0)
+          if (event.keyCode === 39) moveDot(false, 1)
+        }
       }
     },
     wrapClick (e) {
-      if (!this.disabled && !this.flag) {
+      if (!this.disabled && !this.readonly && !this.flag) {
         let pos = this.getPos(e)
         if (this.isRange) {
           this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
@@ -485,17 +528,18 @@ export default {
     getPinStyles (pin) {
       return {
         backgroundColor: this.checkActivePin(pin) ? this.colorComputed : getHoverColor(this.colorComputed),
-        left: `${pin * this.step}%`,
+        [this.dimensions[1]]: `${pin * this.step}%`,
+        transition: this.hasMouseDown ? 'none' : 'background-color .3s ease-out .1s',
       }
     },
     getPos (e) {
       this.getStaticData()
-      return e.clientX - this.offset
+      return this.vertical ? this.offset - e.clientY : e.clientX - this.offset
     },
     getStaticData () {
       if (this.$refs.sliderContainer) {
-        this.size = this.$refs.sliderContainer.offsetWidth
-        this.offset = this.$refs.sliderContainer.getBoundingClientRect().left
+        this.size = this.$refs.sliderContainer[this.vertical ? 'offsetHeight' : 'offsetWidth']
+        this.offset = this.$refs.sliderContainer.getBoundingClientRect()[this.dimensions[1]]
       }
     },
     getValueByIndex (index) {
@@ -524,7 +568,7 @@ export default {
         }
       }
     },
-    setValueOnPos (pixelPosition, isDrag) {
+    setValueOnPos (pixelPosition) {
       const range = this.limit
       const valueRange = this.valueLimit
 
@@ -536,13 +580,13 @@ export default {
             this.currentSlider = 0
           }
           let v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
-          this.setCurrentValue(v, isDrag)
+          this.setCurrentValue(v)
         } else {
           if (pixelPosition >= this.position[1]) {
             this.currentSlider = 1
           }
           let v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
-          this.setCurrentValue(v, isDrag)
+          this.setCurrentValue(v)
         }
       } else if (pixelPosition < range[0]) {
         this.setCurrentValue(valueRange[0])
@@ -559,18 +603,19 @@ export default {
         const processSize = `${val1 - val0}%`
         const processPosition = `${val0}%`
 
-        this.$refs.process.style.width = processSize
-        this.$refs.process.style['left'] = processPosition
+        this.$refs.process.style[this.dimensions[0]] = processSize
+        this.$refs.process.style[this.dimensions[1]] = processPosition
+
         if (slider === 0) {
-          this.$refs.dot0.style['left'] = `calc('${processPosition} - 8px)`
+          this.$refs.dot0.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
         } else {
-          this.$refs.dot1.style['left'] = `calc('${processPosition} - 8px)`
+          this.$refs.dot1.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
         }
       } else {
         const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
-        this.$refs.process.style.width = `${val}%`
-        this.$refs.dot.style['left'] = `calc('${val} - 8px)`
+        this.$refs.process.style[this.dimensions[0]] = `${val}%`
+        this.$refs.dot.style[this.dimensions[1]] = `calc('${val} - 8px)`
       }
     },
     normalizeValue (value) {
@@ -605,12 +650,7 @@ export default {
       }
     },
     isDiff (a, b) {
-      if (Object.prototype.toString.call(a) !== Object.prototype.toString.call(b)) {
-        return true
-      } else if (Array.isArray(a) && a.length === b.length) {
-        return a.some((v, i) => v !== b[i])
-      }
-      return a !== b
+      return JSON.stringify(a) !== JSON.stringify(b)
     },
   },
   mounted () {
@@ -634,73 +674,20 @@ export default {
   display: flex;
   align-items: center;
 
-  &--disabled {
-    @include va-disabled;
-
-    .va-slider__container__handler {
-
-      &:hover {
-        cursor: default;
-      }
-    }
-  }
-
-  &__input-wrapper {
-    flex-basis: 8.33333%;
-    flex-grow: 0;
-    max-width: 8.33333%;
-    margin-right: 1rem;
-    min-width: 2.5rem;
-
+  .input-wrapper {
     position: relative;
     display: flex;
-
-    &:last-of-type {
-      margin-left: 1rem;
-    }
   }
 
-  &__label {
-    margin-right: 1rem;
-    user-select: none;
-    font-size: .625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  &__inverse-label {
-    user-select: none;
-    font-size: .625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-left: 1rem;
-  }
-
-  &__container {
+  .container {
     position: relative;
-    width: 100%;
-    height: 1.5rem;
     display: flex;
     align-items: center;
 
-    &__track, &__track--active {
-      position: absolute;
-      height: 0.5rem;
-      border-radius: 0.25rem;
-    }
-
     &__track {
-      width: 100%;
-    }
-
-    &__mark {
       position: absolute;
-      width: 0.125rem;
-      height: 0.75rem;
+      border-radius: 0.25rem;
+      transition: none;
     }
 
     &__handler {
@@ -708,33 +695,28 @@ export default {
       width: 1.25rem;
       height: 1.25rem;
       background: $white;
-      border: 0.375rem solid;
+      border: .375rem solid;
       border-radius: 50%;
       outline: none !important;
+      left: -.375rem;
+      transition: none;
 
       &:hover {
         cursor: pointer;
       }
 
-      &--on-keyboard-focus {
-        @at-root .va-slider__container__handler#{&}:before {
-          content: '';
-          transform: translate(-0.625rem, -0.625rem);
-          background-color: black !important;
-          display: block;
-          width: 1.75rem;
-          height: 1.75rem;
-          position: absolute;
-          border-radius: 50%;
-          opacity: 0.1;
-          pointer-events: none;
-        }
+      &--focus {
+        transform: translate(-0.625rem, -0.625rem);
+        display: block;
+        width: 1.75rem;
+        height: 1.75rem;
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.2;
+        pointer-events: none;
       }
 
       &-value {
-        position: absolute;
-        top: -8px;
-        left: 50%;
         transform: translate(-50%, -100%);
         user-select: none;
         font-size: .625rem;
@@ -744,6 +726,160 @@ export default {
         text-transform: uppercase;
       }
     }
+  }
+
+  .label {
+    user-select: none;
+    font-size: .625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .inverse-label {
+    user-select: none;
+    font-size: .625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  &--disabled {
+    @include va-disabled;
+
+    .container__handler {
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+
+  &--readonly {
+    .container__handler {
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+}
+
+.va-slider--horizontal {
+  .input-wrapper {
+    flex-basis: 8.33333%;
+    flex-grow: 0;
+    max-width: 8.33333%;
+    margin-right: 1rem;
+    min-width: 2.5rem;
+
+    &:last-of-type {
+      margin-left: 1rem;
+    }
+  }
+
+  .container {
+    width: 100%;
+    height: 1.5rem;
+
+    &__track, &__track--active {
+      height: 0.5rem;
+      width: 100%;
+    }
+
+    &__track--inactive {
+      transition: width .3s ease-out, left .3s ease-out;
+    }
+
+    &__mark {
+      position: absolute;
+      width: 0.125rem;
+      height: 0.75rem;
+    }
+
+    &__handler {
+      &--inactive {
+        transition: left .3s ease-out;
+      }
+
+      &-value {
+        position: absolute;
+        top: -8px;
+        left: 50%;
+      }
+    }
+  }
+
+  .label {
+    margin-right: 1rem;
+  }
+
+  .inverse-label {
+    margin-left: 1rem;
+  }
+}
+
+.va-slider--vertical {
+  height: 100%;
+  padding: 12px 0 12px 0;
+  flex-direction: column;
+  align-items: center;
+
+  .input-wrapper {
+    flex-basis: fit-content;
+    flex-grow: 0;
+    max-width: 1rem;
+    min-width: 2.5rem;
+
+    position: relative;
+    display: flex;
+
+    &:last-of-type {
+      margin-top: 1rem;
+    }
+  }
+
+  .container {
+    height: 100%;
+    width: .5rem;
+
+    &__track, &__track--active {
+      height: 100%;
+      width: .5rem;
+      bottom: 0;
+    }
+
+    &__track--inactive {
+      transition: height .3s ease-out, bottom .3s ease-out;
+    }
+
+    &__mark {
+      position: absolute;
+      width: .75rem;
+      height: .125rem;
+      left: -2px;
+    }
+
+    &__handler {
+      &--inactive {
+        transition: bottom .3s ease-out;
+      }
+
+      &-value {
+        position: relative;
+        top: .625rem;
+        left: 1.25rem;
+      }
+    }
+  }
+
+  .label {
+    margin-bottom: .625rem;
+  }
+
+  .inverse-label {
+    left: -.375rem;
+    margin-top: .625rem;
   }
 }
 </style>

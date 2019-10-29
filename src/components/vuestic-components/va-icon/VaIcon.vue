@@ -18,7 +18,7 @@ export default {
       type: [String, Array],
       validator: name => {
         if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-          console.error(`${name} icon is not available. Please replace to material-icon`)
+          throw new Error(`${name} icon is not available. Please replace to material-icon`)
         }
 
         return name

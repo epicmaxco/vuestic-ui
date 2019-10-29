@@ -1,21 +1,43 @@
 <template>
   <VbDemo>
     <VbCard width="500px" title="default">
-      <va-slider
-        v-model="value"
-      />
+      <va-slider v-model="value"/>
+    </VbCard>
+    <VbCard width="500px" title="Sliders without track">
+      <va-slider range track-label-visible :show-track="false" v-model="value2"/>
+      <va-slider :show-track="false" v-model="value"/>
+    </VbCard>
+    <VbCard width="500px" height="350px" title="Vertical sliders">
+      <div style="display: flex;flex-direction: row;height: 300px">
+        <div style="display: flex; width: 50%; justify-content: center;">
+          <va-slider vertical v-model="value"/>
+        </div>
+        <div style="display: flex; width: 50%; justify-content: center;">
+          <va-slider
+            range
+            vertical
+            track-label-visible
+            pins
+            :step="10"
+            icon-prepend="fa fa-volume-off"
+            icon-append="fa fa-volume-up"
+            v-model="value2"
+          />
+        </div>
+      </div>
+
     </VbCard>
     <VbCard width="500px" title="value visible">
       <va-slider
-        value-visible
+        track-label-visible
         v-model="value"
       />
     </VbCard>
     <VbCard width="500px" title="custom label">
       <va-slider
-        value-visible
+        track-label-visible
         v-model="value3"
-        :label-value="`${value3}px`"
+        :track-label="`${value3}px`"
         :step="5"
         :min="min"
         :max="max"
@@ -29,10 +51,20 @@
         v-model="value"
       />
     </VbCard>
+    <VbCard width="500px" title="Slider With Slot Label">
+      <va-slider label="Label" v-model="value">
+        <div style="margin-right: 1rem" slot="label">SLOT</div>
+      </va-slider>
+    </VbCard>
+    <VbCard width="500px" title="Slider With Inverted Slot Label">
+      <va-slider label="Label" invert-label v-model="value">
+        <div style="margin-left: 1rem" slot="label">INVERTED SLOT</div>
+      </va-slider>
+    </VbCard>
     <VbCard width="500px" title="Slider With Inverse Label">
       <va-slider
         label="Label"
-        inverse-label
+        invert-label
         v-model="value"
       />
     </VbCard>
@@ -61,6 +93,12 @@
         v-model="value"
       />
     </VbCard>
+    <VbCard width="500px" title="Readonly Slider">
+      <va-slider
+        readonly
+        v-model="value"
+      />
+    </VbCard>
     <VbCard width="500px" title="Slider With Pins">
       <va-slider
         pins
@@ -68,11 +106,10 @@
         v-model="value"
       />
     </VbCard>
-    <VbCard width="500px" title="Colored slider">
-      <va-slider
-        color="#f333f2"
-        v-model="value"
-      />
+    <VbCard width="500px" title="Colored sliders">
+      <va-slider color="#f333f2" v-model="value"/>
+      <va-slider color="info" track-color="warning" v-model="value"/>
+      <va-slider color="warning" track-color="grey" label-color="danger" label="Label" invert-label v-model="value"/>
     </VbCard>
     <VbCard width="500px" title="Range">
       <va-slider
@@ -83,7 +120,7 @@
     <VbCard width="500px" title="Range With Visible Value">
       <va-slider
         range
-        value-visible
+        track-label-visible
         v-model="value2"
       />
       {{ '[' + value2[0] + ',' + value2[1] + ']'}}
@@ -99,7 +136,7 @@
       <va-slider
         range
         label="Label"
-        inverse-label
+        invert-label
         v-model="value2"
       />
     </VbCard>
@@ -148,21 +185,14 @@
       />
     </VbCard>
     <VbCard width="500px" title="Slider With Input">
-      <va-slider
-        v-model="value"
-      >
-        <va-input v-model="value" slot="beforeInput"/>
+      <va-slider v-model="value">
+        <va-input v-model="value" slot="prepend"/>
       </va-slider>
     </VbCard>
     <VbCard width="500px" title="Range With Inputs (demo for presentation)">
-      <va-slider
-        range
-        v-model="value2"
-      >
-        <va-input
-          v-model.number="value2[0]"
-          slot="beforeInput"/>
-        <va-input v-model="value2[1]" slot="afterInput"/>
+      <va-slider range v-model="value2">
+        <va-input v-model.number="value2[0]" slot="prepend"/>
+        <va-input v-model="value2[1]" slot="append"/>
       </va-slider>
     </VbCard>
   </VbDemo>
