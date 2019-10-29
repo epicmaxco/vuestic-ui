@@ -18,6 +18,7 @@
 * fixedWidth - `Boolean` - If `fixedWidth` prop is `true`, width of the icon will be 1.25rem
 * rotation - `String, Number` - Sets the degree of icons rotation.
 * color - `String` - Sets the color of icon
+* tag - `String` - (default: `i`) - icon tag
 
 
 ###Slots 

@@ -1,13 +1,15 @@
 <template>
   <!-- HACK Supports only material icons for now! -->
-  <i class="va-icon"
-     :class="[name, iconClass, 'material-icons']"
-     :style="iconStyle"
+  <component
+    :is="tag"
+    class="va-icon"
+    :class="[name, iconClass, 'material-icons']"
+    :style="iconStyle"
   >
     <slot>
       {{ name }}
     </slot>
-  </i>
+  </component>
 </template>
 
 <script>
@@ -39,6 +41,10 @@ export default {
     },
     color: {
       type: String,
+    },
+    tag: {
+      type: String,
+      default: 'i',
     },
   },
   computed: {

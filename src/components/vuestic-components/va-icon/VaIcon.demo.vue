@@ -42,10 +42,18 @@
     </VbCard>
 
     <VbCard title="Material design icons">
-      <va-icon name="material-icons">face</va-icon>
-      <va-icon name="material-icons">&#xE87C;</va-icon>
-      <va-icon name="material-icons" color="danger">face</va-icon>
-      <va-icon name="material-icons" color="danger">delete</va-icon>
+      <va-icon>face</va-icon>
+      <va-icon>&#xE87C;</va-icon>
+      <va-icon color="danger">face</va-icon>
+      <va-icon color="danger">delete</va-icon>
+    </VbCard>
+
+    <VbCard title="Custom tags">
+      <va-icon tag="span">face</va-icon>
+      <va-icon tag="div">face</va-icon>
+      <va-icon tag="pre">face</va-icon>
+      <va-icon tag="a">face</va-icon>
+      <va-icon tag="code">face</va-icon>
     </VbCard>
   </VbDemo>
 </template>
