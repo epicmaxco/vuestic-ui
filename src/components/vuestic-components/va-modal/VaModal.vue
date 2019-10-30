@@ -53,10 +53,12 @@
 
 <script>
 import VaButton from '../va-button/VaButton'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-modal',
   components: { VaButton },
+  mixins: [ContextPluginMixin],
   data () {
     return {
       // for leave animation
@@ -66,45 +68,118 @@ export default {
   props: {
     value: {
       required: true,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'props', false)
+      },
     },
     position: {
       type: String,
       validator: value => {
         return ['center', 'top', 'right', 'bottom', 'left'].includes(value)
       },
+      default () {
+        return getContextPropValue(this, 'position', 'center')
+      },
     },
-    title: String,
-    message: String,
+    title: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'title', '')
+      },
+    },
+    message: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'message', '')
+      },
+    },
     okText: {
       type: String,
-      default: 'OK',
+      default () {
+        return getContextPropValue(this, 'okText', 'OK')
+      },
     },
     cancelText: {
       type: String,
-      default: 'Cancel',
+      default () {
+        return getContextPropValue(this, 'cancelText', 'Cancel')
+      },
     },
-    hideDefaultActions: Boolean,
-    fullscreen: Boolean,
+    hideDefaultActions: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'hideDefaultActions', false)
+      },
+    },
+    fullscreen: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'fullscreen', false)
+      },
+    },
     mobileFullscreen: {
       type: Boolean,
-      default: true,
+      default () {
+        return getContextPropValue(this, 'mobileFullscreen', true)
+      },
     },
-    noOutsideDismiss: Boolean,
-    noEscDismiss: Boolean,
-    maxWidth: String,
-    maxHeight: String,
+    noOutsideDismiss: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'noOutsideDismiss', false)
+      },
+    },
+    noEscDismiss: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'noEscDismiss', false)
+      },
+    },
+    maxWidth: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'maxWidth', '')
+      },
+    },
+    maxHeight: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'maxHeight', '')
+      },
+    },
     size: {
       type: String,
-      default: 'medium',
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
       validator: value => {
         return ['medium', 'small', 'large'].includes(value)
       },
     },
-    fixedLayout: Boolean,
-    onOk: Function,
-    onCancel: Function,
-    withoutTransitions: Boolean,
+    fixedLayout: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'fixedLayout', false)
+      },
+    },
+    onOk: {
+      type: Function,
+      default () {
+        return getContextPropValue(this, 'onOk', () => {})
+      },
+    },
+    onCancel: {
+      type: Function,
+      default () {
+        return getContextPropValue(this, 'onCancel', () => {})
+      },
+    },
+    withoutTransitions: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'withoutTransitions', false)
+      },
+    },
   },
   computed: {
     valueProxy: {
