@@ -53,6 +53,11 @@ export function getContextPropValue (context, prop, defaultValue) {
   }
 
   const componentName = pascalCase(context.$options.name)
+
+  if (!context._$configs) {
+    throw new Error(`'getContextPropValue' working only together with 'ContextPluginMixin'. Please, use 'ContextPluginMixin' for ${componentName} component`)
+  }
+
   const configs = context.$vaContextConfig ? [context.$vaContextConfig, ...context._$configs] : context._$configs
   const config = getLocalConfigWithComponentProp(configs, componentName, prop)
 

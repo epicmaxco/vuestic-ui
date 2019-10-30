@@ -14,6 +14,8 @@
         class="va-file-upload__field__button"
         :disabled="disabled"
         :color="colorComputed"
+        icon=""
+        icon-right=""
       >
         Upload file
       </va-button>
@@ -50,6 +52,7 @@ import VaButton from '../va-button/VaButton'
 import VaModal from '../va-modal/VaModal'
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-file-upload',
@@ -58,28 +61,47 @@ export default {
     VaButton,
     VaFileUploadList,
   },
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     type: {
       type: String,
-      default: 'list',
+      default () {
+        return getContextPropValue(this, 'type', 'list')
+      },
       validator (value) {
         return ['list', 'gallery', 'single'].includes(value)
       },
     },
     fileTypes: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'fileTypes', '')
+      },
     },
     dropzone: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'dropzine', false)
+      },
     },
     value: {
-      default: () => [],
+      type: Array,
+      default () {
+        return getContextPropValue(this, 'value', [])
+      },
       required: true,
+    },
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', 'success')
+      },
     },
     disabled: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
   },
   data () {
