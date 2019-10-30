@@ -1,6 +1,6 @@
 <template>
   <div class="example">
-    <va-breadcrumbs color="red">
+    <va-breadcrumbs color="purple">
       <va-breadcrumbs-item label="Application" />
       <va-breadcrumbs-item label="Dashboard" />
       <va-breadcrumbs-item label="Page" />

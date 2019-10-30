@@ -5,10 +5,10 @@
       <va-breadcrumbs-item label="Dashboard" />
       <va-breadcrumbs-item label="Page" />
     </va-breadcrumbs>
-
+    <br/>
     <va-breadcrumbs>
       <template v-slot:separator>
-        <va-icon>eco</va-icon>
+        <va-icon name="arrow_forward_ios" />
       </template>
       <va-breadcrumbs-item label="Application" />
       <va-breadcrumbs-item label="Dashboard" />
