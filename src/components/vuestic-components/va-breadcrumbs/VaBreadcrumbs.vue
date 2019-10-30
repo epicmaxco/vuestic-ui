@@ -38,10 +38,10 @@ export default Vue.component('va-breadcrumbs-provider', {
       return this.alignComputed
     },
     computedThemesSeparatorColor () {
-      return this.separatorColor ? this.$themes[this.separatorColor] : this.colorComputed
+      return this.separatorColor ? this.computeColor(this.separatorColor) : this.colorComputed
     },
     computedThemesActiveColor () {
-      return this.activeColor ? this.$themes[this.activeColor] : this.colorComputed
+      return this.activeColor ? this.computeColor(this.activeColor) : this.colorComputed
     },
   },
   render (createElement) {
@@ -83,7 +83,7 @@ export default Vue.component('va-breadcrumbs-provider', {
       'span', {
         staticClass: 'va-breadcrumbs__item',
         style: {
-          color: !isLastIndexChildNodes(index) && !isDisabledChild(child) ? this.computedThemesActiveColor : null,
+          color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? this.computedThemesActiveColor : null,
         },
       },
       [ child ]

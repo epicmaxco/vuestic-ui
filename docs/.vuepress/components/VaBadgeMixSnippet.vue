@@ -2,7 +2,7 @@
   <div class="example">
     <va-badge label="badge" />
 
-    <va-badge color="secondary" transparent>
+    <va-badge color="secondary" >
       <template v-slot:badge>
         <va-icon name="warning" />
       </template>
@@ -16,11 +16,11 @@
     </va-badge>
 
     <va-badge color="warning" label="NEW" dot overlap>
-      <va-icon name="face" size="20px" />
+      <va-icon name="account_box" size="30px" />
     </va-badge>
 
-    <va-badge color="info" label="NEW">
-      <va-icon name="account_box" size="20px" />
+    <va-badge color="info" label="NEW" transparent bottom overlap>
+      <va-icon name="face" size="30px" />
     </va-badge>
   </div>
 </template>

@@ -6,11 +6,11 @@
 
 ## Examples
 
-### Mix
+### Default
 
-<VaBreadcrumbsMixSnippet/>
+<VaBreadcrumbsDefaultSnippet/>
 
-<<< @/docs/.vuepress/components/VaBreadcrumbsMixSnippet.vue
+<<< @/docs/.vuepress/components/VaBreadcrumbsDefaultSnippet.vue
 
 
 ### Color
