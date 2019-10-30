@@ -14,6 +14,7 @@
         class="va-file-upload__field__button"
         :disabled="disabled"
         :color="colorComputed"
+        @click="callFileDialogue"
       >
         Upload file
       </va-button>
@@ -129,6 +130,9 @@ export default {
           }
         }
       })
+    },
+    callFileDialogue () {
+      this.$el.getElementsByClassName('va-file-upload__field__input')[0].click()
     },
   },
   computed: {
