@@ -45,49 +45,71 @@
 
 <script>
 import { getGradientBackground } from '../../../services/color-functions'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-card',
+  mixins: [ContextPluginMixin],
   props: {
     stripe: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'stripe', '')
+      },
     },
     title: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'title', '')
+      },
     },
     noPaddingV: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'noPaddingV', false)
+      },
     },
     noPaddingH: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'noPaddingH', false)
+      },
     },
     noPadding: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'noPadding', false)
+      },
     },
     image: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'image', '')
+      },
     },
     overlay: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'overlay', false)
+      },
     },
     imageAlt: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'imageAlt', '')
+      },
     },
     titleOnImage: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'titleOnImage', false)
+      },
     },
     color: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
     },
   },
   computed: {
