@@ -1,17 +1,13 @@
 <template>
   <div class="example">
-    <va-badge label="+1">
+    <va-badge overlap dot>
       <va-icon name="face" size="30px" />
     </va-badge>
-    &nbsp;
-    &nbsp;
-    &nbsp;
+
     <va-badge overlap label="+1">
       <va-icon name="face" size="30px" />
     </va-badge>
-    &nbsp;
-    &nbsp;
-    &nbsp;
+
     <va-badge left bottom overlap>
       <template v-slot:badge>
         <va-icon name="warning" size="12px" />

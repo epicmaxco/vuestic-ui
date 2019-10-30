@@ -3,9 +3,7 @@
     <va-badge transparent overlap label="+1">
       <va-icon name="face" size="30px" />
     </va-badge>
-    &nbsp;
-    &nbsp;
-    &nbsp;
+
     <va-badge transparent left bottom overlap>
       <template v-slot:badge>
         <va-icon name="warning" size="12px" />

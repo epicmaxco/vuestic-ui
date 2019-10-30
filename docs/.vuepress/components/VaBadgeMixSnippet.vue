@@ -2,14 +2,25 @@
   <div class="example">
     <va-badge label="badge" />
 
-    <va-badge color="warning" transparent>
+    <va-badge color="secondary" transparent>
       <template v-slot:badge>
         <va-icon name="warning" />
       </template>
     </va-badge>
 
-    <va-badge color="success" label="NEW" dot overlap>
-      <b>VUESCIT UI</b>
+    <va-badge color="success">
+      <template v-slot:badge>
+        <va-icon name="info" />
+      </template>
+      Floated
+    </va-badge>
+
+    <va-badge color="warning" label="NEW" dot overlap>
+      <va-icon name="face" size="20px" />
+    </va-badge>
+
+    <va-badge color="info" label="NEW">
+      <va-icon name="account_box" size="20px" />
     </va-badge>
   </div>
 </template>
