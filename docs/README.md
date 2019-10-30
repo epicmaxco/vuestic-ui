@@ -1,6 +1,10 @@
 [[toc]]
 
-# Components
+## Pages
+
+* [Context swap example](pages/ContextSwapExampleSnippet.md)
+
+## Components
 
 * [va-avatar](components/VaAvatar.md)
 * [va-badge](components/VaBadge.md)

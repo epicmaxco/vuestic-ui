@@ -75,12 +75,12 @@ export default {
       }
     },
     computedStyle () {
-      if (!this.small && !this.large) {
-        return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
-      }
-
       if (this.size === 'medium') {
         return { height: '0.5rem' }
+      }
+
+      if (!this.small && !this.large) {
+        return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
       }
 
       return {}
