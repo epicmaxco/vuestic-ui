@@ -1,10 +1,10 @@
 <template>
   <VbDemo>
-    <VbCard title="Default">
+    <VbCard width="500px" title="Default">
       {{value}}
       <va-toggle v-model="value"/>
     </VbCard>
-    <VbCard title="Colors">
+    <VbCard width="500px" title="Colors">
       <va-toggle v-model="value"/>
       <va-toggle v-model="value" color="info"/>
       <va-toggle v-model="value" color="danger"/>
@@ -12,18 +12,18 @@
       <va-toggle v-model="value" color="gray"/>
       <va-toggle v-model="value" color="dark"/>
     </VbCard>
-    <VbCard title="With label">
+    <VbCard width="500px" title="With label">
       <va-toggle v-model="value" label="turn"/>
       <va-toggle v-model="value">
         <div style="background: mediumpurple">Slot label</div>
       </va-toggle>
     </VbCard>
-    <VbCard title="Sizes">
+    <VbCard width="500px" title="Sizes">
       <va-toggle v-model="value" size="small" label="small"/>
       <va-toggle v-model="value" label="default"/>
       <va-toggle v-model="value" size="large" label="large"/>
     </VbCard>
-    <VbCard title="Custom trueValue, falseValue">
+    <VbCard width="500px" title="Custom trueValue, falseValue">
       <va-toggle
         v-model="customTrueFalse"
         true-value="agree"
@@ -31,15 +31,19 @@
         :label="`${customTrueFalse}`"
       />
     </VbCard>
-    <VbCard title="Array as model">
-      {{selection}}
+    <VbCard width="500px" title="Array as model">
+      <div>
+        {{selection}}
+      </div>
       <va-toggle v-model="selection" array-value="one" label="one"/>
       <va-toggle v-model="selection" array-value="two" label="two"/>
       <va-toggle v-model="selection" array-value="three" label="three"/>
       <va-toggle v-model="selection" array-value="four" label="four"/>
     </VbCard>
-    <VbCard title="Object values">
-      {{selection}}
+    <VbCard width="500px" title="Object values">
+      <div>
+        {{selection}}
+      </div>
       <va-toggle
         v-for="objectOption in objectOptions"
         :key="objectOption.id"
@@ -48,7 +52,7 @@
         :label="objectOption.name"
       />
     </VbCard>
-    <VbCard title="Disabled">
+    <VbCard width="500px" title="Disabled">
       <va-toggle v-model="value" disable/>
     </VbCard>
   </VbDemo>
