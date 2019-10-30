@@ -8,7 +8,7 @@
       :size="size"
       :disabled="disabled || value === 1"
       :icon="iconClass.boundary"
-      iconRight=""
+      icon-right=""
       @click="changePage(1)"
     />
     <va-button
@@ -19,7 +19,7 @@
       :size="size"
       :disabled="disabled || value === 1"
       :icon="iconClass.direction"
-      iconRight=""
+      icon-right=""
       @click="changePage(value - 1)"
     />
     <va-button
@@ -32,7 +32,7 @@
       :key="key"
       :class="{ 'va-button--active': n === value }"
       icon=""
-      iconRight=""
+      icon-right=""
       @click="changePage(n)"
     >
       {{ n }}
@@ -45,7 +45,7 @@
       :size="size"
       :disabled="disabled || value === this.pages"
       :icon="iconRightClass.direction"
-      iconRight=""
+      icon-right=""
       @click="changePage(value + 1)"
     />
     <va-button
@@ -56,7 +56,7 @@
       :size="size"
       :disabled="disabled || value === this.pages"
       :icon="iconRightClass.boundary"
-      iconRight=""
+      icon-right=""
       @click="changePage(lastPage)"
     />
   </va-button-group>
