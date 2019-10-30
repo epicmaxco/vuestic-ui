@@ -69,17 +69,6 @@ The `va-badge` component superscripts or subscripts an avatar-like icon or text 
 <<< @/docs/.vuepress/components/VaBadgeTransparentSnippet.vue
 
 
-### Multi-line
-
-Позволяет контенту переноситься на несколько строк.
-
-
-<VaBadgeMultiLineSnippet/>
-
-<<< @/docs/.vuepress/components/VaBadgeMultiLineSnippet.vue
-
-
-
 
 
 ## API

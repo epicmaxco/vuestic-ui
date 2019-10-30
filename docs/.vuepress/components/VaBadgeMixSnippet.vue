@@ -1,14 +1,14 @@
 <template>
   <div class="example">
     <va-badge label="badge" />
-    &nbsp;
-    <va-badge color="warning">
+
+    <va-badge color="warning" transparent>
       <template v-slot:badge>
         <va-icon name="warning" />
       </template>
     </va-badge>
-    &nbsp;
-    <va-badge color="primary" label="NEW" overlap transparent>
+
+    <va-badge color="success" label="NEW" dot overlap>
       <b>VUESCIT UI</b>
     </va-badge>
   </div>

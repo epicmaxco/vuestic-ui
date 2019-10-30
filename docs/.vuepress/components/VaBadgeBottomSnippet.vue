@@ -3,9 +3,8 @@
     <va-badge label="NEW">
       DEFAULT
     </va-badge>
-    &nbsp;
-    &nbsp;
-    &nbsp;
+    <br/>
+    <br/>
     <va-badge bottom label="NEW">
       BOTTOM
     </va-badge>
