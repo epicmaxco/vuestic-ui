@@ -199,37 +199,36 @@ export default {
       z-index: 2;
       top: 0;
       left: 100%;
-      transform: translateX(0) translateY(-100%);
-
+      transform: translateX(0) translateY(-50%);
     }
 
     .va-badge--overlap & {
       margin-left: 0;
       margin-right: 0;
-      transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%) translateY(-25%);
     }
 
     .va-badge--left & {
       left: 0;
-      transform: translateX(-100%) translateY(-100%);
+      transform: translateX(-100%) translateY(-50%);
     }
 
     .va-badge--left.va-badge--overlap & {
-      transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%) translateY(-25%);
     }
 
     .va-badge--bottom & {
       top: 100%;
       margin-top: 0;
-      transform: translateX(0) translateY(0);
+      transform: translateX(0) translateY(-50%);
     }
 
     .va-badge--left.va-badge--bottom & {
-      transform: translateX(-100%);
+      transform: translateX(-100%) translateY(-50%);
     }
 
     .va-badge--bottom.va-badge--overlap & {
-      transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%) translateY(-75%);
     }
   }
 
@@ -242,10 +241,15 @@ export default {
     text-align: center;
     display: inline-flex;
     justify-content: center;
+    text-overflow: clip;
+    white-space: nowrap;
 
     .va-badge--multiLine & {
       overflow: auto;
+      max-height: initial;
       text-align: initial;
+      text-overflow: initial;
+      white-space: normal;
     }
 
     .va-badge--dot & {
