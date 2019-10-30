@@ -29,10 +29,11 @@
 import { progressMixin } from './progressMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-progress-bar',
-  mixins: [progressMixin, ColorThemeMixin],
+  mixins: [progressMixin, ColorThemeMixin, ContextPluginMixin],
   props: {
     buffer: {
       type: Number,
@@ -40,17 +41,24 @@ export default {
     },
     rounded: {
       type: Boolean,
-      default: true,
+      default () {
+        return getContextPropValue(this, 'rounded', true)
+      },
     },
     size: {
       type: [Number, String],
-      default: 'medium',
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
       validator: (value) => {
         return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value)
       },
     },
     reverse: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'reverse', false)
+      },
     },
   },
   computed: {
