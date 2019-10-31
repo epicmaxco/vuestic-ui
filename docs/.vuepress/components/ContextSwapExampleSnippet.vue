@@ -5,7 +5,7 @@
         <va-list>
           <va-item>
             <va-item-section avatar>
-              <va-badge overlap>
+              <va-badge label="12" overlap>
                 <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"/>
               </va-badge>
             </va-item-section>
@@ -26,7 +26,7 @@
           </va-item>
           <va-item>
             <va-item-section avatar>
-              <va-avatar></va-avatar>
+              <va-avatar/>
             </va-item-section>
 
             <va-item-section>

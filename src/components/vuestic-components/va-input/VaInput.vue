@@ -102,7 +102,7 @@ export default {
     label: {
       type: String,
       default () {
-        return getContextPropValue(this, 'labe', '')
+        return getContextPropValue(this, 'label', '')
       },
     },
     placeholder: {
@@ -126,7 +126,7 @@ export default {
     readonly: {
       type: Boolean,
       default () {
-        return getContextPropValue(this, 'readOnly', false)
+        return getContextPropValue(this, 'readonly', false)
       },
     },
     removable: {

@@ -35,6 +35,12 @@ export default {
   name: 'va-progress-bar',
   mixins: [progressMixin, ColorThemeMixin, ContextPluginMixin],
   props: {
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
     buffer: {
       type: Number,
       default: 100,

@@ -1,8 +1,8 @@
 <template>
   <div class="va-avatar" ref="avatar" :style="computedStyle">
     <slot>
-      <va-icon v-if="icon" :name="icon"/>
-      <img v-else-if="src" :src="src"/>
+      <img v-if="src" :src="src"/>
+      <va-icon v-else-if="icon" :name="icon"/>
     </slot>
   </div>
 </template>
