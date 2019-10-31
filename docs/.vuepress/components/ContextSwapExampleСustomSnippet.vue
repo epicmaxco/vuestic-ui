@@ -21,45 +21,46 @@ export default {
     return {
       contextConfig: {
         VaAvatar: {
-          color: 'info',
+          color: 'warning',
           label: 'A',
           icon: 'person',
-          size: 'large',
+          size: 'small',
           fontSize: '60px',
         },
         VaCard: {
-          stripe: 'info',
-          color: 'secondary',
+          stripe: 'warning',
+          color: 'dark',
+          headerColor: 'warning',
         },
         VaButton: {
           size: 'small',
-          color: 'info',
+          color: 'warning',
           outline: true,
         },
         VaSlider: {
-          color: 'info',
+          color: 'warning',
         },
         VaProgressBar: {
-          color: 'info',
+          color: 'warning',
           size: 'large',
         },
         VaInput: {
           readonly: true,
-          color: 'info'
+          color: 'warning'
         },
         VaFileUpload: {
           type: 'gallery',
-          color: 'info',
+          color: 'warning',
         },
         VaPagination: {
           size: 'small',
           visiblePages: 3,
-          color: 'info',
+          color: 'warning',
           directionLinks: false,
         },
         VaCheckbox: {
-          size: 'large',
-          color: 'info'
+          size: 'small',
+          color: 'warning'
         }
       },
     }
