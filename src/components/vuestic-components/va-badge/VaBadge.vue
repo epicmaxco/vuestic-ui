@@ -9,7 +9,7 @@
     >
       <div class="va-badge__content">
         <slot name="badge">
-          {{ label  }}
+          {{ label }}
         </slot>
       </div>
     </div>
@@ -99,6 +99,7 @@ export default {
     },
     badgeClass () {
       return {
+        'va-badge--visible-empty': this.visibleEmpty,
         'va-badge--empty': this.isEmpty,
         'va-badge--dot': this.dot,
         'va-badge--multiLine': this.multiLine,
@@ -120,10 +121,10 @@ export default {
         styles.borderColor = this.colorComputed
         styles.backgroundColor = this.colorComputed
 
-        if (this.textColor && this.$themes && this.$themes[this.textColor]) {
+        if (this.$themes && this.$themes[this.textColor]) {
           styles.color = this.$themes[this.textColor]
         } else {
-          styles.color = 'white'
+          styles.color = this.textColor
         }
 
         if (this.transparent) {
@@ -149,11 +150,11 @@ export default {
 .va-badge {
   display: inline-flex;
   position: relative;
+  vertical-align: bottom;
 
   &__content-wrapper {
     transition: $transition-secondary;
     display: inline-flex;
-    padding: $badge-padding-y $badge-padding-x;
     border: solid $badge-border;
     border-radius: $badge-border-radius;
     font-size: $badge-font-size;
@@ -165,8 +166,14 @@ export default {
     white-space: nowrap;
     width: auto;
     height: auto;
-    min-width: $badge-size;
-    min-height: $badge-size;
+    min-width: initial;
+    min-height: initial;
+    margin: 0;
+
+    .va-badge--visible-empty & {
+      min-width: $badge-size;
+      min-height: $badge-size;
+    }
 
     .va-badge--dot & {
       min-width: $badge-dot-size;
@@ -193,37 +200,42 @@ export default {
       z-index: 2;
       top: 0;
       left: 100%;
-      transform: translateX(0) translateY(-100%);
-      padding: $badge-padding-y 0.15rem;
+      transform: translateX(0) translateY(-50%);
     }
 
     .va-badge--overlap & {
-      margin-left: 0;
+      margin-left: -$badge-size/2;
       margin-right: 0;
-      transform: translateX(-50%) translateY(-50%);
+      transform: translateY(-25%);
     }
 
     .va-badge--left & {
       left: 0;
-      transform: translateX(-100%) translateY(-100%);
+      transform: translateX(-100%) translateY(-50%);
     }
 
     .va-badge--left.va-badge--overlap & {
-      transform: translateX(-50%) translateY(-50%);
+      margin-left: $badge-size/2;
+      transform: translateX(-100%) translateY(-25%);
     }
 
     .va-badge--bottom & {
       top: 100%;
-      margin-top: 0;
-      transform: translateX(0) translateY(0);
+      transform: translateX(0) translateY(-50%);
     }
 
     .va-badge--left.va-badge--bottom & {
-      transform: translateX(-100%);
+      transform: translateX(-100%) translateY(-50%);
     }
 
     .va-badge--bottom.va-badge--overlap & {
-      transform: translateX(-50%) translateY(-50%);
+      margin-left: -$badge-size/2;
+      transform: translateX(0) translateY(-75%);
+    }
+
+    .va-badge--bottom.va-badge--left.va-badge--overlap & {
+      margin-left: $badge-size/2;
+      transform: translateX(-100%) translateY(-75%);
     }
   }
 
@@ -231,11 +243,20 @@ export default {
     margin: 0;
     text-transform: uppercase;
     overflow: hidden;
-    max-height: $badge-font-size * $badge-line-height;
+    min-width: $badge-font-size * $badge-line-height;
+    padding: $badge-padding-y $badge-padding-x;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    text-overflow: clip;
+    white-space: nowrap;
 
     .va-badge--multiLine & {
-      max-height: 100%;
       overflow: auto;
+      max-height: initial;
+      text-align: initial;
+      text-overflow: initial;
+      white-space: normal;
     }
 
     .va-badge--dot & {
@@ -244,6 +265,7 @@ export default {
 
     .va-badge--floating & {
       align-items: center;
+      padding: $badge-padding-y 0.15rem;
     }
   }
 }

@@ -13,7 +13,7 @@
         :stroke-dashoffset="dashoffset"
       />
     </svg>
-    <div :style="{ color: colorComputed }" class="va-progress-circle__info">
+    <div :style="computedStyles" class="va-progress-circle__info">
       <slot/>
     </div>
   </div>
@@ -22,21 +22,32 @@
 <script>
 import { progressMixin } from './progressMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-progress-circle',
-  mixins: [progressMixin, ColorThemeMixin],
+  mixins: [progressMixin, ColorThemeMixin, ContextPluginMixin],
   props: {
     size: {
       type: [Number, String],
-      default: 40,
       validator: (value) => {
         return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
+      },
+      default () {
+        return getContextPropValue(this, 'size', 40)
       },
     },
     thickness: {
       type: Number,
-      default: 3,
+      default () {
+        return getContextPropValue(this, 'thickness', 3)
+      },
+    },
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', 'success')
+      },
     },
   },
   computed: {
@@ -59,6 +70,11 @@ export default {
     computedClass () {
       return {
         'va-progress-circle--indeterminate': this.indeterminate,
+      }
+    },
+    computedStyles () {
+      return {
+        color: this.colorComputed,
       }
     },
   },
