@@ -72,7 +72,8 @@ export default {
   text-align: left;
   margin-bottom: 1rem;
 
-  &__control, &__content {
+  &__control,
+  &__content {
     width: 100%;
   }
 
@@ -81,7 +82,8 @@ export default {
     flex-direction: column;
   }
 
-  &__prepend-inner, &__append-inner {
+  &__prepend-inner,
+  &__append-inner {
     display: inline-flex;
     align-items: center;
   }
@@ -107,6 +109,7 @@ export default {
   &__messages__wrapper {
     font-size: 0.875rem;
   }
+
   .va-select {
     margin-bottom: 0;
   }

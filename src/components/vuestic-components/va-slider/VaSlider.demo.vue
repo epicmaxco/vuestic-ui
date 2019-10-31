@@ -8,7 +8,7 @@
       <va-slider :show-track="false" v-model="value"/>
     </VbCard>
     <VbCard width="500px" height="350px" title="Vertical sliders">
-      <div style="display: flex;flex-direction: row;height: 300px">
+      <div style="display: flex; flex-direction: row; height: 300px;">
         <div style="display: flex; width: 50%; justify-content: center;">
           <va-slider vertical v-model="value"/>
         </div>
@@ -53,12 +53,12 @@
     </VbCard>
     <VbCard width="500px" title="Slider With Slot Label">
       <va-slider label="Label" v-model="value">
-        <div style="margin-right: 1rem" slot="label">SLOT</div>
+        <div style="margin-right: 1rem;" slot="label">SLOT</div>
       </va-slider>
     </VbCard>
     <VbCard width="500px" title="Slider With Inverted Slot Label">
       <va-slider label="Label" invert-label v-model="value">
-        <div style="margin-left: 1rem" slot="label">INVERTED SLOT</div>
+        <div style="margin-left: 1rem;" slot="label">INVERTED SLOT</div>
       </va-slider>
     </VbCard>
     <VbCard width="500px" title="Slider With Inverse Label">

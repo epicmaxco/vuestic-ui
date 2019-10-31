@@ -254,7 +254,8 @@ export default {
       display: flex;
       align-items: flex-end;
       width: 100%;
-      /*min-width: 100%;*/
+
+      /* min-width: 100%; */
     }
 
     &__icon-wrapper {
@@ -280,7 +281,9 @@ export default {
       line-height: 1.2;
       font-weight: bold;
       text-transform: uppercase;
+
       @include va-ellipsis();
+
       transform-origin: top left;
     }
 

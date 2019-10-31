@@ -114,6 +114,7 @@ export default {
     &__margin {
       width: 100%;
     }
+
     &__padding {
       background-color: #c9f7db;
     }

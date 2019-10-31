@@ -40,8 +40,8 @@ $text-gray: #b4b4b4;
 
 $separator-color: #e6e9ec;
 
-$transition-primary: 0.3s cubic-bezier(0.25,0.8,0.5,1); // swing
-$transition-secondary: 0.2s cubic-bezier(0.4, 0.0, 0.6, 1); // ease-in-out
+$transition-primary: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1); // swing
+$transition-secondary: 0.2s cubic-bezier(0.4, 0, 0.6, 1); // ease-in-out
 $letter-spacing: 0.0375rem;
 
 $colors-map: (
@@ -82,15 +82,12 @@ $sidebar-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
 $sidebar-minimized-width: 3.5rem;
 $sidebar-mobile-top: $top-mobile-nav-height;
 
-
 //Mobile Layout
-
 
 $content-mobile-wrap-px: 1rem;
 $content-mobile-wrap: 2rem $content-mobile-wrap-px $layout-padding $content-mobile-wrap-px;
 
-
-$greeny-box-shadow: 0 4px 9.6px 0.4px rgba($vue-green, .5);
+$greeny-box-shadow: 0 4px 9.6px 0.4px rgba($vue-green, 0.5);
 $gray-box-shadow: 0 2px 3px 0 rgba(98, 106, 119, 0.25);
 
 //Auth
@@ -152,12 +149,12 @@ $link-hover-decoration: none;
 //Widgets
 $widget-bg: $white;
 $widget-larger-padding: 45px;
-$widget-danger-shadow: 0px 4px 70px -16px $brand-danger;
-$widget-info-shadow: 0px 4px 70px -16px $brand-info;
+$widget-danger-shadow: 0 4px 70px -16px $brand-danger;
+$widget-info-shadow: 0 4px 70px -16px $brand-info;
 $info-widget-border: 0.5rem solid $brand-primary;
 
 $widget-padding: 1.5625rem;
-$widget-box-shadow: 0px 4px 70px -18px #707070;
+$widget-box-shadow: 0 4px 70px -18px #707070;
 $widget-header-border: 2px solid $light-gray;
 $widget-header-height: 55px;
 $widget-mb: 1.875rem;
@@ -215,7 +212,6 @@ $badge-dot-size: 0.5rem;
 $badge-size: ($badge-font-size * $badge-line-height) + ($badge-border * 2);
 $badge-letter-spacing: $letter-spacing;
 
-
 //Dropdowns
 $dropdown-box-shadow: $gray-box-shadow;
 $dropdown-background: $light-gray3;
@@ -225,7 +221,7 @@ $dropdown-menu-padding-x: 0;
 $dropdown-show-b: 1.125rem;
 
 //Progress Bars
-$progress-bar-width-basic: .5rem;
+$progress-bar-width-basic: 0.5rem;
 $progress-bar-large-font-size: 12px;
 $progress-bar-large-height: 16px;
 $progress-bar-small-height: 2px;
@@ -234,7 +230,7 @@ $progress-bar-small-height: 2px;
 $table-border-color: #eceeef;
 $striped-row-odd: $white;
 $striped-row: $light-gray2;
-$table-hover-bg: rgba($vue-green, .5);
+$table-hover-bg: rgba($vue-green, 0.5);
 
 //Badges
 $badge-min-width: 5rem;
@@ -243,27 +239,27 @@ $badge-success-bg: $brand-success;
 //Alerts
 $with-close-pr: 3.125rem;
 $alert-padding-x: 1.25rem !default;
-$alert-padding-y: .75rem !default;
+$alert-padding-y: 0.75rem !default;
 
 $alert-success-bg: $light-green;
 $alert-success-text: $body-color;
 $alert-success-border: transparent;
-$alert-success-shadow: 0px 4px 9.6px 0.4px rgba(79, 206, 145, 0.5);
+$alert-success-shadow: 0 4px 9.6px 0.4px rgba(79, 206, 145, 0.5);
 
 $alert-info-bg: $light-blue;
 $alert-info-text: $body-color;
 $alert-info-border: transparent;
-$alert-info-shadow: 0px 4px 9.6px 0.4px rgba(79, 142, 206, 0.5);
+$alert-info-shadow: 0 4px 9.6px 0.4px rgba(79, 142, 206, 0.5);
 
 $alert-warning-bg: $light-yellow;
 $alert-warning-text: $body-color;
 $alert-warning-border: transparent;
-$alert-warning-shadow: 0px 4px 9.6px 0.4px rgba(206, 178, 79, 0.5);
+$alert-warning-shadow: 0 4px 9.6px 0.4px rgba(206, 178, 79, 0.5);
 
 $alert-danger-bg: $light-pink;
 $alert-danger-text: $body-color;
 $alert-danger-border: transparent;
-$alert-danger-shadow: 0px 4px 9.6px 0.4px rgba(206, 79, 79, 0.5);
+$alert-danger-shadow: 0 4px 9.6px 0.4px rgba(206, 79, 79, 0.5);
 
 //Tabs
 

@@ -110,6 +110,7 @@ export default {
     height: 1.4rem;
     border-radius: 1.8rem;
     border: $gray solid 0.15rem;
+
     @at-root {
       .va-radio-button.va-radio-button--disabled & {
         opacity: 0.4;
@@ -143,6 +144,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+
     @at-root {
       .va-radio-button--on-focus#{&} {
         background-color: $light-gray;
@@ -158,6 +160,7 @@ export default {
 
   &__slot-container {
     padding-top: $checkbox-label-margin-top;
+
     @at-root {
       .va-radio-button.va-radio-button--disabled & {
         opacity: 0.4;

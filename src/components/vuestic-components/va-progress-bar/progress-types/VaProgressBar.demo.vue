@@ -39,14 +39,14 @@
     <VbCard title="Value">
       <button @click="value -= 100">-100</button>
       <button @click="value -= 10">-10</button>
-      <input style="width: 50px" type="number" v-model.number="value">
+      <input style="width: 50px;" type="number" v-model.number="value">
       <button @click="value += 10">+10</button>
       <button @click="value += 100">+100</button>
     </VbCard>
     <VbCard title="Buffer value">
       <button @click="bufferValue -= 100">-100</button>
       <button @click="bufferValue -= 10">-10</button>
-      <input style="width: 50px" type="number" v-model.number="bufferValue">
+      <input style="width: 50px;" type="number" v-model.number="bufferValue">
       <button @click="bufferValue += 10">+10</button>
       <button @click="bufferValue += 100">+100</button>
     </VbCard>

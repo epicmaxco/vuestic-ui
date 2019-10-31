@@ -119,6 +119,7 @@ export default {
     margin-top: 0.1rem;
     padding-left: 1rem;
     padding-right: 1rem;
+
     @at-root {
       .va-collapse--with-background > & {
         margin-top: 0.1rem;
@@ -144,6 +145,7 @@ export default {
 
     &__icon {
       @include flex-center();
+
       min-width: 1.5rem;
       margin-left: 0.5rem;
       margin-right: 0.5rem;

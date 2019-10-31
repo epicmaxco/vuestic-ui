@@ -10,7 +10,7 @@
       />
     </VbCard>
     <VbCard width="1200px">
-      <table class="table table-bordered" style="width: 100%">
+      <table class="table table-bordered" style="width: 100%;">
         <tr>
           <th>Description</th>
           <th>Vuestic Rating</th>

@@ -10,7 +10,7 @@
     </VbCard>
     <VbCard title="Custom header">
       <va-collapse style="width: 400px;" customHeader>
-        <va-button slot="header" style="width: 100%">
+        <va-button slot="header" style="width: 100%;">
           {{collapseHeader}}
         </va-button>
         <div slot="body">

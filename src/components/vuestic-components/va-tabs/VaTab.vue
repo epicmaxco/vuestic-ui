@@ -53,13 +53,11 @@ export default {
   max-width: 264px;
   text-align: center;
   vertical-align: middle;
-
   padding: 0.4375rem 0.75rem;
-  font-weight: $font-weight-bold;
   cursor: pointer;
 
   &:not(.va-tab--active) {
-    opacity: .5;
+    opacity: 0.5;
   }
 
   &__content {

@@ -57,14 +57,14 @@
           <td>
             <va-rating-item
               :value="0.5"
-              style="width: 14px; height: 14px"
+              style="width: 14px; height: 14px;"
               halfIcon="fa fa-star-half-full"
               @click="showEvent($event, 'click')"
             />
             click event = {{clickEvent}}
             <va-rating-item
               :value="0.5"
-              style="width: 14px; height: 14px"
+              style="width: 14px; height: 14px;"
               halfIcon="fa fa-star-half-full"
               @hover="showEvent($event, 'hover')"
             />

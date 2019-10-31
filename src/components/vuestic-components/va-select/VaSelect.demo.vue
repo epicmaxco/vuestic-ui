@@ -194,7 +194,7 @@
         @update-search="updateSearch"
       />
     </VbCard>
-    <VbCard title="long textes" style="width: 400px">
+    <VbCard title="long textes" style="width: 400px;">
       <va-select
         searchable
         placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"

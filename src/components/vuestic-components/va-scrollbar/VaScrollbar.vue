@@ -162,7 +162,7 @@ export default {
 
 .va-scrollbar {
   background: transparent;
-  transition: all .3s linear;
+  transition: all 0.3s linear;
   position: relative;
 
   .scrollbar-wrapper {
@@ -180,14 +180,14 @@ export default {
       height: 100%;
 
       .thumb {
-        transition: height .3s linear, opacity .6s linear;
+        transition: height 0.3s linear, opacity 0.6s linear;
         position: absolute;
         width: 100%;
         background-color: $vue-green;
         opacity: 0;
 
         &.active {
-          opacity: .3;
+          opacity: 0.3;
         }
       }
     }

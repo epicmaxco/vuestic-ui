@@ -135,23 +135,23 @@
     </VbCard>
 
     <VbCard title="Ignores to hidden overflow">
-      <div style="width: 50px; height: 50px; overflow: hidden; border: 1px gray solid">
+      <div style="width: 50px; height: 50px; overflow: hidden; border: 1px gray solid;">
         <va-dropdown>
           <button slot="anchor">
             Click
           </button>
-          <div style="width: 150px; height: 150px; background: #4ae387">text</div>
+          <div style="width: 150px; height: 150px; background: #4ae387;">text</div>
         </va-dropdown>
       </div>
     </VbCard>
 
     <VbCard title="Fixed flag makes possible to ignore even `position: relative`">
-      <div style="width: 50px; height: 50px; overflow: hidden; position: relative; border: 1px gray solid">
+      <div style="width: 50px; height: 50px; overflow: hidden; position: relative; border: 1px gray solid;">
         <va-dropdown fixed>
           <button slot="anchor">
             Click
           </button>
-          <div style="width: 150px; height: 150px; background: #4ae387">text</div>
+          <div style="width: 150px; height: 150px; background: #4ae387;">text</div>
         </va-dropdown>
       </div>
     </VbCard>
@@ -187,13 +187,13 @@
     </VbCard>
 
     <VbCard title="Placement">
-      <div style="display: flex; align-content: center; flex-direction: column; padding: 0 100px">
+      <div style="display: flex; align-content: center; flex-direction: column; padding: 0 100px;">
         <va-dropdown
           v-for="position in possiblePositions"
           :key="position"
           :position="position"
         >
-          <button style="width: 70px; height: 70px" slot="anchor">
+          <button style="width: 70px; height: 70px;" slot="anchor">
             {{position}}
           </button>
           <span style="background-color: #222222; color: #babfc2;">{{position}}</span>
@@ -204,13 +204,13 @@
     <VbCard title="Offset">
       <div>
         <va-dropdown :offset="40">
-          <button style="width: 70px; height: 70px" slot="anchor">
+          <button style="width: 70px; height: 70px;" slot="anchor">
             40
           </button>
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
         <va-dropdown :offset="'40px, 40px'">
-          <button style="width: 70px; height: 70px" slot="anchor">
+          <button style="width: 70px; height: 70px;" slot="anchor">
             40px, 40px
           </button>
           <span style="background-color: #222222; color: #babfc2;">Content</span>

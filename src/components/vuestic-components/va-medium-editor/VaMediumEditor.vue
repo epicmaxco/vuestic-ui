@@ -64,7 +64,7 @@ export default {
 @import "../../vuestic-sass/resources/resources";
 @import "~medium-editor/src/sass/medium-editor";
 
-.va-medium-editor{
+.va-medium-editor {
   margin-bottom: 2.25rem;
   min-width: 6rem;
   max-width: 600px;
@@ -143,12 +143,12 @@ export default {
   }
 }
 
-.medium-toolbar-arrow-under:after {
+.medium-toolbar-arrow-under::after {
   border-color: $brand-primary transparent transparent transparent;
   top: $medium-editor-button-size;
 }
 
-.medium-toolbar-arrow-over:before {
+.medium-toolbar-arrow-over::before {
   border-color: transparent transparent $brand-primary transparent;
 }
 

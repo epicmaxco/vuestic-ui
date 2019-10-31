@@ -3,46 +3,48 @@
     class="va-rating"
     :class="computedClasses"
     :style="{
-      'color':colorComputed,
-      'fontSize': getIconSize(),
-    }"
-  >
-    <div
-      class="va-rating__number-item"
-      v-if="numbers"
-      v-for="number in max"
-      :key="number"
-      :class="{
-        'va-rating__number-item--empty' : !compareWithValue(number)
+        'color':colorComputed,
+        'fontSize': getIconSize(),
       }"
-      :style="getItemStyles(number)"
-      @click="onRatingItemSelected(number, 1)"
-      :tabindex="getTabindex(number)"
-      @mouseleave="tabindex = null"
-      @mouseover="tabindex = number"
-      @keypress="onRatingItemSelected(number, 1)"
-    >
-      {{number}}
+  >
+    <div v-if="numbers" class="va-rating__number-item-wrapper">
+      <div
+        class="va-rating__number-item"
+        v-for="number in max"
+        :key="number"
+        :class="{
+            'va-rating__number-item--empty' : !compareWithValue(number)
+          }"
+        :style="getItemStyles(number)"
+        @click="onRatingItemSelected(number, 1)"
+        :tabindex="getTabindex(number)"
+        @mouseleave="tabindex = null"
+        @mouseover="tabindex = number"
+        @keypress="onRatingItemSelected(number, 1)"
+      >
+        {{number}}
+      </div>
     </div>
-    <va-rating-item
-      class="va-rating__icon-item"
-      v-if="!numbers"
-      v-for="itemNumber in max"
-      :key="itemNumber"
-      :icon="icon"
-      :emptyIcon="emptyIconComputed"
-      :halfIcon="halfIconComputed"
-      :iconClasses="getIconClasses(itemNumber)"
-      :style="getItemStyles(itemNumber)"
-      @click="onRatingItemSelected(itemNumber, $event)"
-      @hover="onHover(itemNumber, $event)"
-      :value="getItemValue(itemNumber)"
-      :tabindex="getTabindex(itemNumber)"
-      :isRatingHover="isHoveredComputed"
-      @mouseout.native="onMouseOut(value)"
-      @mouseleave.native="tabindex = null"
-      @mouseover.native="onMouseOver(itemNumber)"
-    />
+    <span v-else class="va-rating__number-item-wrapper">
+      <va-rating-item
+        class="va-rating__icon-item"
+        v-for="itemNumber in max"
+        :key="itemNumber"
+        :icon="icon"
+        :emptyIcon="emptyIconComputed"
+        :halfIcon="halfIconComputed"
+        :iconClasses="getIconClasses(itemNumber)"
+        :style="getItemStyles(itemNumber)"
+        @click="onRatingItemSelected(itemNumber, $event)"
+        @hover="onHover(itemNumber, $event)"
+        :value="getItemValue(itemNumber)"
+        :tabindex="getTabindex(itemNumber)"
+        :isRatingHover="isHoveredComputed"
+        @mouseout.native="onMouseOut(value)"
+        @mouseleave.native="tabindex = null"
+        @mouseover.native="onMouseOver(itemNumber)"
+      />
+    </span>
   </div>
 </template>
 
@@ -243,12 +245,18 @@ export default {
 .va-rating {
   display: flex;
 
+  &__number-item-wrapper {
+    display: flex;
+  }
+
   &__number-item {
     font-size: inherit;
     margin: 0.1em;
     border-radius: 0.125rem;
     font-weight: $font-weight-bold;
+
     @include flex-center();
+
     cursor: pointer;
 
     @at-root {
@@ -265,6 +273,7 @@ export default {
   &__icon-item {
     display: flex;
     cursor: pointer;
+
     @include flex-center();
 
     .va-rating--disabled & {

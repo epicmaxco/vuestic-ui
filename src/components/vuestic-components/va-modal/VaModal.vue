@@ -235,11 +235,11 @@ export default {
       }
 
       &-enter-active {
-        transition: all .2s ease;
+        transition: all 0.2s ease;
       }
 
       &-leave-active {
-        transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
       }
     }
   }
@@ -253,7 +253,7 @@ export default {
   max-width: map_get($grid-breakpoints, md);
   max-height: calc(100vh - 2rem);
   position: relative;
-  transition: all .5s ease-out;
+  transition: all 0.5s ease-out;
 
   &__transition {
     &-enter,
@@ -268,7 +268,7 @@ export default {
     }
 
     &-enter-active {
-      transition: all .3s ease;
+      transition: all 0.3s ease;
 
       &.transition-off {
         transition: none;
@@ -276,7 +276,7 @@ export default {
     }
 
     &-leave-active {
-      transition: all .15s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+      transition: all 0.15s cubic-bezier(1, 0.5, 0.8, 1);
 
       &.transition-off {
         transition: none;
@@ -322,12 +322,14 @@ export default {
   &--size {
     &-small {
       max-width: map_get($grid-breakpoints, sm);
+
       @media all and (max-width: map-get($grid-breakpoints, sm)) {
         max-width: 100vw !important;
       }
 
       .va-modal__inner {
         max-width: map_get($grid-breakpoints, sm);
+
         @media all and (max-width: map-get($grid-breakpoints, sm)) {
           max-width: 100vw !important;
         }
@@ -348,7 +350,8 @@ export default {
       overflow: hidden;
       padding: 1.25rem 0 1.5rem 0;
 
-      .va-modal__header, .va-modal__actions {
+      .va-modal__header,
+      .va-modal__actions {
         padding: 0 1.875rem 0 1.5rem;
       }
 

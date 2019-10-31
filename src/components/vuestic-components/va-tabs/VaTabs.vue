@@ -15,14 +15,8 @@
 </template>
 
 <script>
-
-import VaTab from './VaTab'
-
 export default {
   name: 'va-tabs',
-  components: {
-    VaTab,
-  },
   provide () {
     return {
       tabGroup: {
@@ -166,9 +160,10 @@ export default {
       }
     }
 
-    &--center, &--right {
+    &--center,
+    &--right {
       > .va-tab:first-child {
-        margin-left: auto
+        margin-left: auto;
       }
 
       .va-tabs__slider-wrapper + .va-tab {

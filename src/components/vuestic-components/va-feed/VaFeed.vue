@@ -46,8 +46,8 @@ export default {
 
 <style lang="scss">
 .va-feed {
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   padding-left: 1.5rem;
   height: 100%;
   display: flex;
