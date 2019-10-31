@@ -5,6 +5,8 @@ $evollu-gray-light: #6E6E6E;
 $evollu-gray-dark: #414141;
 $background-gray: #f5f5f5;
 
+$table-striped-row-gray: #e8e8e8;
+
 $gray-light: #acb5be !default;
 $light-gray: #eeeeee;
 $light-gray2: #eff4f5;
@@ -260,9 +262,10 @@ $progress-circle-diameter: 2.5rem;
 $progress-bar-width-basic: .5rem;
 
 //Tables
+$table-striped-order: odd !default;
 $table-border-color: #eceeef;
 $striped-row-odd: $white;
-$striped-row: $light-gray2;
+$striped-row: $table-striped-row-gray;
 $table-hover-bg: $evollu-dark;
 $table-hover-color: $white;
 
