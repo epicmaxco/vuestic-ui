@@ -1,5 +1,3 @@
-<ChangeConfigButtonSnippet/>
-
 # Badge
 
 The `va-badge` component superscripts or subscripts an avatar-like icon or text onto content to highlight information to a user or to just draw attention to a specific element. Content within the `va-badge` usually contains text, numbers or icons. Может использоваться как самомтоятельный элемент, или в связке сдругим элементами

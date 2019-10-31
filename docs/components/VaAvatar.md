@@ -1,5 +1,3 @@
-<ChangeConfigButtonSnippet/>
-
 # Avatar
 
 The `va-avatar` is normally used for profile picture or user lists. You can use letter or icon instead of image if it's not available.

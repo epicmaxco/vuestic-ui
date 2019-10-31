@@ -1,5 +1,3 @@
-<ChangeConfigButtonSnippet/>
-
 # Breadcrumbs
 
 `va-breadcrumbs` используется на странице для навигации по приложению. Показывает место текущей страницы в иерархии навигации. Используется вместе с компонентами `va-breadcrumbs-item`
