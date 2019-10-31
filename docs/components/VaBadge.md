@@ -73,7 +73,7 @@ The `va-badge` component superscripts or subscripts an avatar-like icon or text 
 
 [API is work in progress, for now just textual info]
 
-* `Color` - String - theme color or hex color for background
+* `color` - String - theme color or hex color for background
 * `textColor` - String - theme color or hex color for label text
 * `label` - String | Number - simple content in badge 
 * `overlap` - Boolean - will cause the badge to overlap its content
