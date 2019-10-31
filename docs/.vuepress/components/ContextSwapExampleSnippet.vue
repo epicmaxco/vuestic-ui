@@ -70,7 +70,7 @@
 
       <div class="flex xs11">
         <va-card title="Create connection">
-          <div class="title text-dark mb-3">
+          <div class="title mb-3">
             Personal info
           </div>
           <va-input
@@ -86,7 +86,7 @@
             v-model="form.address"
           />
 
-          <div class="title text-dark mb-3">
+          <div class="title mb-3">
             Company info
           </div>
           <va-input

@@ -85,14 +85,21 @@ import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon/VaIcon'
 import { getHoverColor } from './../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-input',
   extends: VaInputWrapper,
-  mixins: [ContextPluginMixin],
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   components: { VaInputWrapper, VaIcon },
   props: {
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
     value: {
       type: [String, Number],
       default () {
@@ -183,9 +190,15 @@ export default {
   },
   computed: {
     labelStyles () {
-      if (this.error) return { color: this.$themes.danger }
-      if (this.success) return { color: this.$themes.success }
-      return { color: this.$themes.primary }
+      if (this.error) {
+        return { color: this.$themes.danger }
+      }
+
+      if (this.success) {
+        return { color: this.$themes.success }
+      }
+
+      return { color: this.colorComputed }
     },
     containerStyles () {
       return {
