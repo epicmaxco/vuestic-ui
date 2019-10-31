@@ -329,7 +329,7 @@ export default {
       if (this.multiple) {
         this.valueProxy = isSelected
           ? value.filter(optionSelected => !this.compareOptions(option, optionSelected))
-          : [...value, option]
+          : [...value, this.getText(option)]
         this.$refs.dropdown.updatePopper()
       } else {
         this.valueProxy = typeof option === 'string' ? option : { ...option }
