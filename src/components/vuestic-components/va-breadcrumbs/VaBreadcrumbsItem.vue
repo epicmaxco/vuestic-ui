@@ -25,7 +25,7 @@ import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'VaBreadcrumbItem',
+  name: 'VaBreadcrumbsItem',
   mixins: [RouterLinkMixin, ContextPluginMixin],
   props: {
     disabled: {
