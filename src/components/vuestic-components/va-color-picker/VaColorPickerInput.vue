@@ -48,7 +48,6 @@
 import VaAdvancedColorPicker from './VaAdvancedColorPicker'
 import VaSimplePalettePicker from './VaSimplePalettePicker'
 import VaSliderColorPicker from './VaSliderColorPicker'
-import VaColorSquare from './VaColorSquare'
 import VaColorInput from './VaColorInput'
 import VaDropdownPopper from '../va-dropdown/VaDropdown'
 
@@ -56,7 +55,6 @@ export default {
   name: 'VaColorPickerInput',
   components: {
     VaDropdownPopper,
-    VaColorSquare,
     VaSimplePalettePicker,
     VaAdvancedColorPicker,
     VaSliderColorPicker,

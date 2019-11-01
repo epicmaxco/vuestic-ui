@@ -282,6 +282,8 @@ export default {
       if (this.trigger === 'none') {
         return this.value
       }
+
+      return null
     },
     scrollWidth () {
       const div = document.createElement('div')
