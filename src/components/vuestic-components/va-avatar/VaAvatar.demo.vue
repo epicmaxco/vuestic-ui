@@ -33,7 +33,7 @@
     </VbCard>
     <VbCard title="Size + flex">
       <span style="font-size: 12px;">doesn't scale down</span>
-      <div style="display: flex; width: 120px">
+      <div style="display: flex; width: 120px;">
         <va-avatar size="small">
           S
         </va-avatar>

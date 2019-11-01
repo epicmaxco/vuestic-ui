@@ -77,17 +77,17 @@ export default {
   }
 
   &__line {
-    transition: background-color ease .5s;
-    width: .125rem;
-    height: .125rem;
+    transition: background-color ease 0.5s;
+    width: 0.125rem;
+    height: 0.125rem;
     flex: 1;
   }
 
   &__center {
-    transition: background-color ease .5s;
+    transition: background-color ease 0.5s;
     width: 0.5rem;
     height: 0.5rem;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
   }
 }
 </style>

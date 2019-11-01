@@ -110,6 +110,7 @@ export default {
 .v-popover {
   display: inline;
 }
+
 .va-popover {
   opacity: 1;
   border: none;
@@ -117,17 +118,17 @@ export default {
   background-color: white;
 
   &__content {
-     display: flex;
-     align-items: center;
-     padding: 0.65rem 1rem;
-     border-radius: 0.5rem;
-     font-size: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0.65rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
   }
 
-  &__icon + div{
-     padding-left: 0.75rem;
-     width: 100%;
-     overflow: hidden;
+  &__icon + div {
+    padding-left: 0.75rem;
+    width: 100%;
+    overflow: hidden;
   }
 
   &__title {

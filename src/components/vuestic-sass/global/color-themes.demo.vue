@@ -31,7 +31,7 @@
         icon-right="fa fa-volume-up"
       />
     </VbCard>
-    <VbCard style="position: relative">
+    <VbCard style="position: relative;">
       <va-rating
         class="mb-5"
         color="info"

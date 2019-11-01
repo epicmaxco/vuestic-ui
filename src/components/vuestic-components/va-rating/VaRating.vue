@@ -3,7 +3,7 @@
     class="va-rating"
     :class="computedClasses"
     :style="{
-      'color':colorComputed,
+      'color': colorComputed,
       'fontSize': getIconSize(),
     }"
   >
@@ -288,7 +288,9 @@ export default {
     margin: 0.1em;
     border-radius: 0.125rem;
     font-weight: $font-weight-bold;
+
     @include flex-center();
+
     cursor: pointer;
 
     @at-root {
@@ -309,6 +311,7 @@ export default {
   &__icon-item {
     display: flex;
     cursor: pointer;
+
     @include flex-center();
 
     .va-rating--disabled & {

@@ -21,12 +21,13 @@
         v-model="value"
       />
     </VbCard>
+
     <VbCard
       width="500px"
       height="350px"
       title="Vertical sliders"
     >
-      <div style="display: flex;flex-direction: row;height: 300px">
+      <div style="display: flex; flex-direction: row; height: 300px;">
         <div style="display: flex; width: 50%; justify-content: center;">
           <va-slider
             vertical
@@ -89,7 +90,7 @@
         v-model="value"
       >
         <div
-          style="margin-right: 1rem"
+          style="margin-right: 1rem;"
           slot="label"
         >
           SLOT
@@ -106,7 +107,7 @@
         v-model="value"
       >
         <div
-          style="margin-left: 1rem"
+          style="margin-left: 1rem;"
           slot="label"
         >
           INVERTED SLOT

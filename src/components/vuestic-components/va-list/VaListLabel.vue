@@ -26,6 +26,7 @@ export default {
 
 .va-list-label {
   @include va-title();
+
   padding: $list-item-padding;
   padding-top: 0;
   padding-bottom: 0.75rem;

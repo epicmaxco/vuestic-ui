@@ -257,7 +257,7 @@
     </VbCard>
     <VbCard
       title="long textes"
-      style="width: 400px"
+      style="width: 400px;"
     >
       <va-select
         searchable

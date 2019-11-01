@@ -2,7 +2,7 @@
   <VbDemo>
     <va-list
       fit
-      style="maxWidth: 400px"
+      style="max-width: 400px;"
       class="ma-2"
     >
       <va-list-label>
@@ -95,7 +95,6 @@
 
     <va-list
       fit
-      style="maxWidth: 400px"
       class="ma-2"
     >
       <va-list-label>
@@ -163,10 +162,8 @@
         </va-item-section>
       </va-item>
     </va-list>
-
     <va-list
       fit
-      style="maxWidth: 400px"
       class="ma-2"
     >
       <va-list-label>
@@ -228,7 +225,6 @@
 
     <va-list
       fit
-      style="maxWidth: 400px"
       class="ma-2"
     >
       <va-list-label>

@@ -180,9 +180,9 @@ export default {
 
   &--dropzone {
     background-color: $lighter-green;
-    padding: 1.5rem 2rem .5rem;
+    padding: 1.5rem 2rem 0.5rem;
     overflow: hidden;
-    border-radius: .375rem;
+    border-radius: 0.375rem;
     cursor: pointer;
 
     .va-file-upload__field {
@@ -190,17 +190,20 @@ export default {
       display: flex;
       align-items: center;
       padding: 0 2rem 1rem;
-      transition: height .2s;
+      transition: height 0.2s;
       overflow: visible;
       flex-wrap: wrap;
-      @include media-breakpoint-down(xs){
+
+      @include media-breakpoint-down(xs) {
         flex-direction: column;
         padding: 0 0 1rem;
+
         &__text {
           text-align: center;
         }
       }
     }
+
     .va-file-upload-list {
       padding-bottom: 1rem;
     }
@@ -231,12 +234,14 @@ export default {
       color: transparent;
       opacity: 0;
       cursor: pointer;
+
       &::-webkit-file-upload-button {
         cursor: pointer;
       }
     }
   }
 }
+
 @include media-breakpoint-down(xs) {
   .va-file-upload {
     &--dropzone {

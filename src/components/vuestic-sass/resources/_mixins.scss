@@ -2,7 +2,7 @@
 
 @mixin va-title() {
   color: $vue-green;
-  font-size: .625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.6px;
   line-height: 1.2;
   font-weight: bold;
@@ -65,7 +65,8 @@
     }
   }
 
-  &[disabled], &[disabled]:hover {
+  &[disabled],
+  &[disabled]:hover {
     background-color: $disabled-bg;
     color: $disabled-color;
     opacity: 0.5;
@@ -88,12 +89,14 @@
 }
 
 @mixin va-table {
-  th, td {
+  th,
+  td {
     padding: 0.625rem;
   }
 
   th {
     @include va-title();
+
     color: $vue-darkest-blue;
     border-bottom: 2px solid $vue-darkest-blue;
   }

@@ -270,7 +270,8 @@ export default {
   &__content {
     display: flex;
 
-    &__title, &__icon {
+    &__title,
+    &__icon {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -285,7 +286,8 @@ export default {
       opacity: 0.85;
     }
 
-    &:focus, &:active {
+    &:focus,
+    &:active {
       filter: brightness(85%);
     }
 
@@ -301,11 +303,12 @@ export default {
 
     &.va-button--disabled {
       background: transparent;
+
       @include va-disabled;
 
       &.va-button--active {
-
-        .va-button__content, i {
+        .va-button__content,
+        i {
           color: $white !important;
         }
       }
@@ -324,6 +327,7 @@ export default {
 
   &--large {
     @include va-button($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+
     letter-spacing: $btn-letter-spacing-lg;
 
     .va-button__content__icon {
@@ -357,6 +361,7 @@ export default {
 
   &--small {
     @include va-button($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+
     letter-spacing: $btn-letter-spacing-sm;
 
     .va-button__content__icon {
@@ -390,6 +395,7 @@ export default {
 
   &--normal {
     @include va-button($btn-padding-y-nrm, $btn-padding-x-nrm, $btn-font-size-nrm, $btn-line-height-nrm, $btn-border-radius-nrm);
+
     letter-spacing: $btn-letter-spacing-nrm;
 
     .va-button__content__icon {

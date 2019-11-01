@@ -93,7 +93,6 @@
         indeterminate
       />
     </VbCard>
-
     <VbCard
       title="Buffer"
       width="400px"
@@ -115,7 +114,7 @@
           -10
         </button>
         <input
-          style="width: 50px"
+          style="width: 50px;"
           type="number"
           v-model.number="value"
         >
@@ -136,7 +135,7 @@
           -10
         </button>
         <input
-          style="width: 50px"
+          style="width: 50px;"
           type="number"
           v-model.number="bufferValue"
         >

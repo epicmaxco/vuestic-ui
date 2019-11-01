@@ -316,7 +316,7 @@ export default {
 
 .va-dropdown {
   &__content {
-    /*overflow: hidden;*/
+    /* overflow: hidden; */
     z-index: 100;
   }
 }

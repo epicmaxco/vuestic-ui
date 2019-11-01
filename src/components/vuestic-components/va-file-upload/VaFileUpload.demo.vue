@@ -2,7 +2,7 @@
   <VbDemo class="file-upload">
     <VbCard
       title="types"
-      style="width: 100%"
+      style="width: 100%;"
     >
       <p>list (default)</p>
       <va-file-upload v-model="basic" />
@@ -19,7 +19,7 @@
     </VbCard>
     <VbCard
       title="dropzone"
-      style="width: 100%"
+      style="width: 100%;"
     >
       <p>list</p>
       <va-file-upload
@@ -51,7 +51,7 @@
     </VbCard>
     <VbCard
       title="colors"
-      style="width: 100%"
+      style="width: 100%;"
     >
       <va-file-upload
         v-model="basic"

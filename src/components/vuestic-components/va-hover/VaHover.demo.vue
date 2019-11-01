@@ -5,14 +5,14 @@
       refresh
     >
       <va-hover v-slot:default="{ hover }">
-        <div style="background-color: #babfc2">
+        <div style="background-color: #babfc2;">
           {{ hover }}
         </div>
       </va-hover>
     </VbCard>
     <VbCard title="v-model access">
       <va-hover v-model="value">
-        <div style="background-color: #babfc2">
+        <div style="background-color: #babfc2;">
           {{ value }}
         </div>
       </va-hover>
@@ -26,7 +26,7 @@
         disabled
         v-slot:default="{ hover }"
       >
-        <div style="background-color: #babfc2">
+        <div style="background-color: #babfc2;">
           slot - {{ hover }}
         </div>
       </va-hover>
@@ -34,7 +34,7 @@
         disabled
         v-model="value"
       >
-        <div style="background-color: #babfc2">
+        <div style="background-color: #babfc2;">
           value - {{ valueDisabled }}
         </div>
       </va-hover>

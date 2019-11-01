@@ -33,7 +33,7 @@
         label="turn"
       />
       <va-toggle v-model="value">
-        <div style="background: mediumpurple">
+        <div style="background: mediumpurple;">
           Slot label
         </div>
       </va-toggle>

@@ -8,7 +8,7 @@
     </VbCard>
     <VbCard title="Long label">
       <va-checkbox
-        style="width: 200px"
+        style="width: 200px;"
         v-model="value"
         label="Long long long long long long long long long long long long long long long label"
       />
@@ -78,7 +78,7 @@
     </VbCard>
     <VbCard title="Array error messages with maxed limit">
       <va-checkbox
-        style="width: 200px"
+        style="width: 200px;"
         v-model="value"
         :error-messages="errorMessages"
         :error-count="3"

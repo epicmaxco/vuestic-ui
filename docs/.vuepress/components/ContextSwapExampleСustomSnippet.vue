@@ -3,7 +3,7 @@
     <va-context :config="contextConfig">
       <ContextSwapExampleSnippet/>
     </va-context>
-    <pre style="color: white">{{contextConfig}}</pre>
+    <pre style="color: white;">{{contextConfig}}</pre>
   </div>
 </template>
 

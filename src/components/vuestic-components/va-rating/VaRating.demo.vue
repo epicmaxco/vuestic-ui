@@ -12,7 +12,7 @@
     <VbCard width="1200px">
       <table
         class="table table-bordered"
-        style="width: 100%"
+        style="width: 100%;"
       >
         <tr>
           <th>Description</th>

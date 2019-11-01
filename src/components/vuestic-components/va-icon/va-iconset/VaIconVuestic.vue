@@ -48,7 +48,7 @@ export default {
 <style lang="scss">
 .va-icon-vuestic {
   .st0 {
-    fill: #4AE387;
+    fill: #4ae387;
   }
 }
 </style>

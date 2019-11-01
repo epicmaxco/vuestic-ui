@@ -102,11 +102,16 @@ export default {
   display: flex;
   flex-direction: column;
 
-  &__before, &__after {
+  &__before,
+  &__after {
     flex: 1;
   }
 
   &--vertical {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+
     .va-timeline-item__before,
     .va-timeline-item__after {
       padding-top: 1rem;
@@ -148,12 +153,6 @@ export default {
     .va-timeline-item__after {
       padding-top: 1rem;
     }
-  }
-
-  &--vertical {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: stretch;
   }
 
   &__title {

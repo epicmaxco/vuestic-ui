@@ -148,7 +148,7 @@ export default {
     display: inline-flex;
 
     & + & {
-      margin-top:0;
+      margin-top: 0;
     }
   }
 
