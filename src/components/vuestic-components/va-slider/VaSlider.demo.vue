@@ -19,8 +19,8 @@
             track-label-visible
             pins
             :step="10"
-            icon-prepend="fa fa-volume-off"
-            icon-append="fa fa-volume-up"
+            icon-prepend="volume_off"
+            icon-append="volume_up"
             v-model="value2"
           />
         </div>

@@ -1,18 +1,25 @@
 <template>
   <!-- HACK Supports only material icons for now! -->
-  <i class="va-icon"
-     :class="[name, iconClass, 'material-icons']"
-     :style="iconStyle"
+  <component
+    :is="tag"
+    class="va-icon"
+    :class="[name, iconClass, 'material-icons']"
+    :style="iconStyle"
   >
     <slot>
       {{ name }}
     </slot>
-  </i>
+  </component>
 </template>
 
 <script>
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { SizeMixin } from '../../../mixins/SizeMixin'
+import { ContextPluginMixin, getContextPropValue } from './../../context-test/context-provide/ContextPlugin'
+
 export default {
   name: 'va-icon',
+  mixins: [ColorThemeMixin, SizeMixin, ContextPluginMixin],
   props: {
     name: {
       type: [String, Array],
@@ -26,19 +33,33 @@ export default {
     },
     size: {
       type: [String, Number],
-      default: 'medium',
-      validator: value => {
-        return value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value) || typeof value === 'number'
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
       },
     },
     fixedWidth: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'fixedWidth', false)
+      },
     },
     rotation: {
       type: [String, Number],
+      default () {
+        return getContextPropValue(this, 'rotation', '')
+      },
     },
     color: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
+    tag: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'tag', 'i')
+      },
     },
   },
   computed: {
@@ -50,11 +71,16 @@ export default {
       }
     },
     iconStyle () {
-      return {
+      let computedStyles = {
         transform: 'rotate(' + this.rotation + 'deg)',
         fontSize: typeof this.size === 'number' ? this.size + 'px' : this.size,
-        color: this.$themes ? this.$themes[this.color] : this.color,
       }
+
+      if (this.color && this._isEnableColorTheme) {
+        computedStyles.color = this.colorComputed
+      }
+
+      return computedStyles
     },
   },
 }

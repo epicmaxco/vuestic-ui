@@ -10,7 +10,7 @@ import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
 export default {
   name: 'square-with-icon',
-  mixins: [ ColorThemeMixin ],
+  mixins: [ColorThemeMixin],
   components: { VaIcon },
   props: {
     icon: {

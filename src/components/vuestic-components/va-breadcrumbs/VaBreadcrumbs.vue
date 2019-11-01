@@ -2,26 +2,35 @@
 import Vue from 'vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default Vue.component('va-breadcrumbs-provider', {
   name: 'va-breadcrumbs',
-  mixins: [ColorThemeMixin, AlignMixin],
+  mixins: [ColorThemeMixin, AlignMixin, ContextPluginMixin],
   props: {
     color: {
       type: String,
-      default: 'gray',
+      default () {
+        return getContextPropValue(this, 'color', 'gray')
+      },
     },
     separatorColor: {
       type: String,
-      default: null,
+      default () {
+        return getContextPropValue(this, 'separatorColor', null)
+      },
     },
     activeColor: {
       type: String,
-      default: null,
+      default () {
+        return getContextPropValue(this, 'activeColor', null)
+      },
     },
     separator: {
       type: String,
-      default: '/',
+      default () {
+        return getContextPropValue(this, 'separator', '/')
+      },
     },
   },
   computed: {
@@ -29,18 +38,21 @@ export default Vue.component('va-breadcrumbs-provider', {
       return this.alignComputed
     },
     computedThemesSeparatorColor () {
-      return this.$themes[this.separatorColor || this.color]
+      return this.separatorColor ? this.computeColor(this.separatorColor) : this.colorComputed
     },
     computedThemesActiveColor () {
-      return this.$themes[this.activeColor || this.color]
+      return this.activeColor ? this.computeColor(this.activeColor) : this.colorComputed
     },
   },
   render (createElement) {
-    const childNodes = this.$slots.default || []
+    const childNodeFilter = ({ tag } = null) => tag ? tag.match(/va-breadcrumb-item$/) : false
+
+    const childNodes = this.$slots.default.filter(childNodeFilter) || []
+
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index) => index === childNodesLength - 1
 
-    const separatorNode = this.$slots.separator || [ this.separator ]
+    const separatorNode = this.$slots.separator || [this.separator]
 
     const createSeparatorComponent = () => createElement(
       'span',
@@ -71,10 +83,10 @@ export default Vue.component('va-breadcrumbs-provider', {
       'span', {
         staticClass: 'va-breadcrumbs__item',
         style: {
-          color: !isLastIndexChildNodes(index) && !isDisabledChild(child) ? this.computedThemesActiveColor : null,
+          color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? this.computedThemesActiveColor : null,
         },
       },
-      [ child ]
+      [child]
     )
 
     const children = []

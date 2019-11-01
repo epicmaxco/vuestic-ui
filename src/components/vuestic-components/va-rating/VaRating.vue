@@ -3,9 +3,9 @@
     class="va-rating"
     :class="computedClasses"
     :style="{
-        'color':colorComputed,
-        'fontSize': getIconSize(),
-      }"
+      'color': colorComputed,
+      'fontSize': getIconSize(),
+    }"
   >
     <div v-if="numbers" class="va-rating__number-item-wrapper">
       <div
@@ -13,8 +13,8 @@
         v-for="number in max"
         :key="number"
         :class="{
-            'va-rating__number-item--empty' : !compareWithValue(number)
-          }"
+          'va-rating__number-item--empty' : !compareWithValue(number)
+        }"
         :style="getItemStyles(number)"
         @click="onRatingItemSelected(number, 1)"
         :tabindex="getTabindex(number)"
@@ -52,40 +52,72 @@
 import VaRatingItem from './VaRatingItem'
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-rating',
   components: { VaRatingItem },
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     value: {
       type: Number,
-      default: 0,
+      default () {
+        return getContextPropValue(this, 'value', 0)
+      },
     },
-
     icon: {
       type: String,
-      default: 'fa fa-star',
+      default () {
+        return getContextPropValue(this, 'icon', 'fa fa-star')
+      },
     },
     halfIcon: {
       type: String,
-      default: 'fa fa-star-half-full',
+      default () {
+        return getContextPropValue(this, 'icon', 'fa fa-star-half-full')
+      },
     },
-    emptyIcon: String,
-
-    readonly: Boolean,
-    disabled: Boolean,
-
-    numbers: Boolean,
-    halves: Boolean,
-
+    emptyIcon: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'emptyIcon', '')
+      },
+    },
+    readonly: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'readOnly', false)
+      },
+    },
+    disabled: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
+    },
+    numbers: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'numbers', false)
+      },
+    },
+    halves: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'halves', false)
+      },
+    },
     max: {
       type: Number,
-      default: 5,
+      default () {
+        return getContextPropValue(this, 'max', 5)
+      },
     },
     size: {
       type: String,
-      default: 'medium',
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
     },
   },
   data () {
@@ -245,10 +277,6 @@ export default {
 .va-rating {
   display: flex;
 
-  &__number-item-wrapper {
-    display: flex;
-  }
-
   &__number-item {
     font-size: inherit;
     margin: 0.1em;
@@ -268,6 +296,10 @@ export default {
         cursor: initial;
       }
     }
+  }
+
+  &__number-item-wrapper {
+    display: flex;
   }
 
   &__icon-item {

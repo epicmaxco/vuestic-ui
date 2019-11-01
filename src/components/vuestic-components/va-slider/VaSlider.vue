@@ -103,80 +103,128 @@ import { getHoverColor } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-slider',
   components: {
     VaIcon,
   },
-  mixins: [
-    ColorThemeMixin,
-    KeyboardOnlyFocusMixin,
-  ],
+  mixins: [ColorThemeMixin, KeyboardOnlyFocusMixin, ContextPluginMixin],
   props: {
     range: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'range', false)
+      },
     },
     value: {
       type: [Number, Array],
+      default () {
+        return getContextPropValue(this, 'value', [])
+      },
     },
     trackLabel: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'trackLabel', '')
+      },
+    },
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
     },
     trackColor: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'trackColor', '')
+      },
     },
     labelColor: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'labelColor', '')
+      },
     },
     trackLabelVisible: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'trackLabelVisible', false)
+      },
     },
     min: {
       type: Number,
-      default: 0,
+      default () {
+        return getContextPropValue(this, 'min', 0)
+      },
     },
     max: {
       type: Number,
-      default: 100,
+      default () {
+        return getContextPropValue(this, 'max', 100)
+      },
     },
     step: {
       type: Number,
-      default: 1,
+      default () {
+        return getContextPropValue(this, 'step', 1)
+      },
     },
     label: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
     },
     invertLabel: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'invertLabel', false)
+      },
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     readonly: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'readOnly', false)
+      },
     },
     pins: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'pins', false)
+      },
     },
     iconPrepend: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'iconPrepend', '')
+      },
     },
     iconAppend: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'iconAppend', '')
+      },
     },
     vertical: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'vertical', false)
+      },
     },
     showTrack: {
       type: Boolean,
-      default: true,
+      default () {
+        return getContextPropValue(this, 'showTrack', true)
+      },
     },
   },
   data () {

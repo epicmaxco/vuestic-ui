@@ -29,25 +29,48 @@
 
 <script>
 import VaMessageList from './VaMessageList'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-input-wrapper',
   components: { VaMessageList },
+  mixins: [ContextPluginMixin],
   props: {
-    disabled: Boolean,
-    error: Boolean,
-    success: Boolean,
+    disabled: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
+    },
+    error: {
+      Boolean,
+      default () {
+        return getContextPropValue(this, 'error', false)
+      },
+    },
+    success: {
+      Boolean,
+      default () {
+        return getContextPropValue(this, 'success', false)
+      },
+    },
     messages: {
       type: Array,
-      default: () => [],
+      default () {
+        return getContextPropValue(this, 'messages', [])
+      },
     },
     errorMessages: {
       type: Array,
-      default: () => [],
+      default () {
+        return getContextPropValue(this, 'errorMessages', [])
+      },
     },
     errorCount: {
       type: Number,
-      default: 1,
+      default () {
+        return getContextPropValue(this, 'errorCount', 1)
+      },
     },
   },
   computed: {

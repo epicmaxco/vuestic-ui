@@ -1,50 +1,85 @@
-## Components
+# Badge
+
+The `va-badge` component superscripts or subscripts an avatar-like icon or text onto content to highlight information to a user or to just draw attention to a specific element. Content within the `va-badge` usually contains text, numbers or icons. Может использоваться как самомтоятельный элемент, или в связке сдругим элементами
+
+## Examples
+
+### Mix
+
+<VaBadgeMixSnippet/>
+
+<<< @/docs/.vuepress/components/VaBadgeMixSnippet.vue
 
 
-# va-badge
+### Color
 
-2 ways to use va-badge
+Устанавливает цвет компонента.
 
-Use as text in line:
-```html
-<va-badge
- color="warning"
- label="Text in label"
-/>
-```
+<VaBadgeColorSnippet/>
 
-Use as floated component:
-
-```html
-<va-badge label="Text in label">
- Relative text
-</va-badge>
-```
-
-or
-
-```html
-<va-badge>
-    <tamplate v-slot:badge>
-        <va-icon name="face"/>
-    </tamplate>   
- Relative text
-</va-badge>
-```
+<<< @/docs/.vuepress/components/VaBadgeColorSnippet.vue
 
 
+### Left
 
-### Props
-* `color` - String (default: 'success') - use this property to set the color of the badge. We can choose one color from a set of theme colors (primary, secondary, info, error, warning).
-* `textColor` - String (default: 'danger') - use this property to set the color of the badge. We can choose one color from a set of theme colors (primary, secondary, info, error, warning).
-* `label` - String | Number - any simple content in badge 
-* `overlap` - Boolean - the overlap prop will cause the badge to overlap its content.
-* `transparent` - Boolean - add 50% transparent to badge adn badge contents
-* `multiLine` - Boolean - the multiline prop will cause the multiline content in va-badge
-* `visibleEmpty` - Boolean - visibility can be controlled by binding v-model and setting it to true or false programmatically.
-* `dot` - Boolean - the prop will cause the badge as a simple point, without text
-* `bottom` - The bottom prop will place the badge as a subscript to the wrapped content. Can be used with left prop to achieve a bottom left position.
-* `left` - The left prop will place the badge to the left of the wrapped content. Can be used with bottom prop to achieve a bottom left position.
-           
+ Атрибут располагает `va-badge` слева от компонента. Допустимо использовать вместе с атрибутом `bottom`.
 
-          
+
+<VaBadgeLeftSnippet/>
+
+<<< @/docs/.vuepress/components/VaBadgeLeftSnippet.vue
+
+
+### Bottom
+
+Атрибут располагает `va-badge` снизу компонента. Допустимо использовать вместе с атрибутом `left`.
+
+<VaBadgeBottomSnippet/>
+
+<<< @/docs/.vuepress/components/VaBadgeBottomSnippet.vue
+
+
+### Overlap
+
+Позволяет смещать `label` компонента `va-badge` ближе к его содержимому.
+
+<VaBadgeOverlapSnippet/>
+
+<<< @/docs/.vuepress/components/VaBadgeOverlapSnippet.vue
+
+
+### Dot
+
+Позволяет отображать компонент `va-badge` в виде точки.
+
+
+<VaBadgeDotSnippet/>
+
+<<< @/docs/.vuepress/components/VaBadgeDotSnippet.vue
+
+
+### Transparent
+
+Устанавливает полупрозрачность компоненту `va-badge`.
+
+<VaBadgeTransparentSnippet/>
+
+<<< @/docs/.vuepress/components/VaBadgeTransparentSnippet.vue
+
+
+
+
+## API
+
+[API is work in progress, for now just textual info]
+
+* `color` - String - theme color or hex color for background
+* `textColor` - String - theme color or hex color for label text
+* `label` - String | Number - simple content in badge 
+* `overlap` - Boolean - will cause the badge to overlap its content
+* `transparent` - Boolean - add 50% transparent
+* `multi-line` - Boolean - will cause the multiline content
+* `visible-empty` - Boolean - visibility empty badge
+* `dot` - Boolean - cause the badge as a simple point, without text
+* `bottom` - Boolean - vertical alignment of badge
+* `left` -  Boolean - horizontal alignment of badge

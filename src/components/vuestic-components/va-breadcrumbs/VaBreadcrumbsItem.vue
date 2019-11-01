@@ -12,7 +12,7 @@
       <slot>{{label}}</slot>
     </router-link>
     <span
-      v-if="isDisabled"
+      v-else
       class="va-breadcrumb-item__label"
     >
       <slot>{{label}}</slot>
@@ -22,18 +22,23 @@
 
 <script>
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-breadcrumb-item',
-  mixins: [ RouterLinkMixin ],
+  mixins: [RouterLinkMixin, ContextPluginMixin],
   props: {
     disabled: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     label: {
-      type: [ String, Number ],
-      default: '',
+      type: [String, Number],
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
     },
   },
   computed: {

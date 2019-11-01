@@ -61,12 +61,10 @@
           />
         </div>
         <va-icon
-          name="material-icons"
+          name="more_horiz"
           class="va-sidebar-link__after"
           :style="iconStyles"
-        >
-          more_horiz
-        </va-icon>
+        />
       </a>
       <div
         class="va-sidebar-link-group__submenu in"

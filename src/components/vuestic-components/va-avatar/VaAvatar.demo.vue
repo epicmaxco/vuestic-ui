@@ -44,7 +44,7 @@
       image
       <br />
       <va-avatar>
-        <va-icon name="info_outline"></va-icon>
+        <va-icon name="info_outline" />
       </va-avatar>
       icon
       <br />

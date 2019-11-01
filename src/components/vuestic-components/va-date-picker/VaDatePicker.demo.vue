@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard style="max-width: 600px; width: 100%;">
+    <VbCard title="default" style="max-width: 600px; width: 100%;">
       <table class="table table-bordered">
         <tr>
           <th>Description</th>
