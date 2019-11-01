@@ -40,7 +40,7 @@ export default {
     fixedWidth: {
       type: Boolean,
       default () {
-        return getContextPropValue(this, 'fixedWidth', '')
+        return getContextPropValue(this, 'fixedWidth', false)
       },
     },
     rotation: {
