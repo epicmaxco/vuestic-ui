@@ -38,7 +38,7 @@ import { getGradientBackground } from '../../../services/color-functions'
 export default {
   name: 'VaColorPresentation',
   components: { VaPopover },
-  mixins: [ ColorThemeMixin ],
+  mixins: [ColorThemeMixin],
   props: {
     color: {
       type: String,

@@ -10,7 +10,7 @@ import Vue from 'vue'
 
 export default {
   name: 'VaTreeRoot',
-  mixins: [ ColorThemeMixin ],
+  mixins: [ColorThemeMixin],
   provide () {
     const parent = this
     return {

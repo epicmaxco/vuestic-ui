@@ -11,11 +11,20 @@
       :name="name"
       @change="onClick"
       @focus="onFocus"
-    />
+    >
 
-    <span class="va-radio__icon" :style="iconComputedStyles">
-      <span class="va-radio__icon__background" :style="iconBackgroundComputedStyles"></span>
-      <span class="va-radio__icon__dot" :style="iconDotComputedStyles"></span>
+    <span
+      class="va-radio__icon"
+      :style="iconComputedStyles"
+    >
+      <span
+        class="va-radio__icon__background"
+        :style="iconBackgroundComputedStyles"
+      />
+      <span
+        class="va-radio__icon__dot"
+        :style="iconDotComputedStyles"
+      />
     </span>
 
     <span class="va-radio__text">
@@ -30,16 +39,20 @@
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
-  name: 'va-radio',
+  name: 'VaRadio',
   mixins: [ColorThemeMixin],
   props: {
     value: {
+      type: [Object, String, Number, Boolean],
+      default: false,
     },
     option: {
       type: [Object, String, Number, Boolean],
+      default: null,
     },
     name: {
       type: [String, Number],
+      default: null,
     },
     disabled: {
       type: Boolean,
@@ -47,6 +60,7 @@ export default {
     },
     label: {
       type: String,
+      default: '',
     },
     leftLabel: {
       type: Boolean,
@@ -54,6 +68,7 @@ export default {
     },
     color: {
       type: String,
+      default: '',
     },
   },
   computed: {

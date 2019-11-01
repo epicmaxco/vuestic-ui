@@ -10,7 +10,7 @@
       <div>
         Selected: {{ selectedOptionString }}
       </div>
-      <br/>
+      <br>
       <va-radio
         v-for="option in objectOptions"
         :key="option.name"
@@ -30,14 +30,14 @@
         :option="option"
         :label="`((${option}))`"
       />
-      <br/>
+      <br>
       <va-radio
         v-for="(option) in options"
         :key="option"
         v-model="selectedOptionString"
         :option="option"
       >
-        Slotted label: {{option}}
+        Slotted label: {{ option }}
       </va-radio>
     </VbCard>
     <VbCard title="Disabled">
