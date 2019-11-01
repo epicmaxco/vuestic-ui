@@ -43,7 +43,7 @@ import VaIcon from '../va-icon/VaIcon'
 
 export default {
   name: 'va-tree-category',
-  mixins: [ ColorThemeMixin ],
+  mixins: [ColorThemeMixin],
   components: { VaIcon, SquareWithIcon },
   inject: {
     va: {

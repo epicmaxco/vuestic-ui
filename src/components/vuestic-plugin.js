@@ -39,7 +39,7 @@ import VaProgressBar
   from './vuestic-components/va-progress-bar/progress-types/VaProgressBar.vue'
 import VaProgressCircle
   from './vuestic-components/va-progress-bar/progress-types/VaProgressCircle.vue'
-import VaRadioButton from './vuestic-components/va-radio-button/VaRadioButton'
+import VaRadio from './vuestic-components/va-radio/VaRadio'
 import VaRating from './vuestic-components/va-rating/VaRating'
 import VaScrollbar from './vuestic-components/va-scrollbar/VaScrollbar.vue'
 import VaSelect from './vuestic-components/va-select/VaSelect.vue'
@@ -120,7 +120,7 @@ const VuesticPlugin = {
       VaProgressBar,
       VaProgressBar,
       VaProgressCircle,
-      VaRadioButton,
+      VaRadio,
       VaRating,
       VaScrollbar,
       VaSelect,

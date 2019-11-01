@@ -52,7 +52,7 @@ export default Vue.component('va-breadcrumbs-provider', {
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index) => index === childNodesLength - 1
 
-    const separatorNode = this.$slots.separator || [ this.separator ]
+    const separatorNode = this.$slots.separator || [this.separator]
 
     const createSeparatorComponent = () => createElement(
       'span',
@@ -86,7 +86,7 @@ export default Vue.component('va-breadcrumbs-provider', {
           color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? this.computedThemesActiveColor : null,
         },
       },
-      [ child ]
+      [child]
     )
 
     const children = []
