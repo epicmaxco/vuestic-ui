@@ -13,7 +13,7 @@
         :error-messages="errorMessages"
       >
         <template slot="append">
-          <va-icon color="gray" name="fa fa-calendar"/>
+          <va-icon color="gray" name="calendar_today"/>
         </template>
       </va-input>
     </div>
@@ -32,9 +32,11 @@
 import VueFlatpickrComponent from 'vue-flatpickr-component'
 import VaInput from '../va-input/VaInput'
 import VaIcon from '../va-icon/VaIcon'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-date-picker',
+  mixins: [ContextPluginMixin],
   components: {
     VaInput,
     VueFlatpickrComponent,
@@ -42,40 +44,64 @@ export default {
   },
   props: {
     value: {
+      type: [String, Object, Number],
       required: true,
+      default () {
+        return getContextPropValue(this, 'value', '')
+      },
     },
     weekDays: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'weekDays', false)
+      },
     },
     placeholder: {
       type: String,
-      defualt: '',
+      default () {
+        return getContextPropValue(this, 'placeholder', '')
+      },
     },
     label: {
       type: String,
-      defualt: '',
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
     },
     disabled: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     error: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'error', false)
+      },
     },
     success: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'success', false)
+      },
     },
     messages: {
       type: Array,
-      default: () => [],
+      default () {
+        return getContextPropValue(this, 'messages', [])
+      },
     },
     errorMessages: {
       type: Array,
-      default: () => [],
+      default () {
+        return getContextPropValue(this, 'errorMessages', [])
+      },
     },
     config: {
       type: Object,
-      default: () => {
+      default () {
+        return getContextPropValue(this, 'config', {})
       },
     },
   },
@@ -99,8 +125,8 @@ export default {
     defaultConfig () {
       return {
         wrap: true,
-        nextArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-forward"/>',
-        prevArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-back"/>',
+        nextArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-forward"/>', // TODO: Need to change on material-icons
+        prevArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-back"/>', // TODO: Need to change on material-icons
         disableMobile: true, // doesn't work without this one at all
       }
     },

@@ -84,7 +84,7 @@
       <div>
         Should change global config on change and refresh.
       </div>
-      <va-badge />
+      <va-badge/>
       <va-test>va test component</va-test>
       <va-button>Vuestic-ui button</va-button>
       <button @click="overrideConfig">Override config</button>
@@ -106,15 +106,34 @@ export default {
     VaButton,
     VaBadge,
   },
+  beforeCreate () {
+    overrideContextConfig(this, {
+      VaTest: {
+        color: 'blue',
+      },
+      VaBadge: {
+        color: 'info',
+        label: 'default label',
+      },
+      VaButton: {
+        size: 'small',
+        icon: 'room',
+        color: 'info',
+        outline: true,
+      },
+    })
+  },
+  beforeDestroy () {
+    overrideContextConfig(this, {})
+  },
   data () {
     return {
       dynamicContextConfig: { VaTest: { color: 'orange' } },
       buttonConfig: {
-        large: true,
-        small: false,
-        icon: 'brandico brandico-facebook',
+        size: 'large',
+        icon: 'schedule',
         iconRight: '',
-        flat: false,
+        flat: true,
         color: 'success',
         outline: false,
       },
@@ -147,7 +166,7 @@ export default {
           large: true,
           small: false,
           outline: false,
-          icon: 'fa fa-star',
+          icon: 'star',
           color: 'danger',
         },
       }

@@ -24,7 +24,7 @@
           :indeterminate="indeterminate"
           :style="inputStyle"
         />
-        <va-icon :name="computedIcon"/>
+        <va-icon class="va-checkbox__icon-selected" :name="computedIconName"/>
       </div>
       <div
         class="va-checkbox__label-text"
@@ -48,42 +48,100 @@
 import VaIcon from '../va-icon/VaIcon'
 import VaMessageList from '../va-input/VaMessageList'
 import { KeyboardOnlyFocusMixin } from './KeyboardOnlyFocusMixin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-checkbox',
   components: { VaMessageList, VaIcon },
-  mixins: [KeyboardOnlyFocusMixin],
+  mixins: [KeyboardOnlyFocusMixin, ColorThemeMixin, ContextPluginMixin],
   props: {
-    id: String,
-    label: String,
-    name: String,
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
+    id: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'id', '')
+      },
+    },
+    label: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
+    },
+    name: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'name', '')
+      },
+    },
     value: {
       type: [Boolean, Array],
       required: true,
+      default () {
+        return getContextPropValue(this, 'value', true)
+      },
     },
-    arrayValue: String,
-    indeterminate: Boolean,
+    arrayValue: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'arrayValue', '')
+      },
+    },
+    indeterminate: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'indeterminate', false)
+      },
+    },
 
-    disabled: Boolean,
-    readonly: Boolean,
-
+    disabled: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
+    },
+    readonly: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'readonly', false)
+      },
+    },
     checkedIcon: {
       type: [String, Array],
-      default: 'ion ion-md-checkmark',
+      default () {
+        return getContextPropValue(this, 'checkedIcon', 'check')
+      },
     },
     indeterminateIcon: {
       type: [String, Array],
-      default: 'ion ion-md-remove',
+      default () {
+        return getContextPropValue(this, 'indeterminateIcon', 'close')
+      },
     },
 
-    error: Boolean,
+    error: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'error', false)
+      },
+    },
     errorMessages: {
       type: [String, Array],
-      default: () => [],
+      default () {
+        return getContextPropValue(this, 'errorMessages', '')
+      },
     },
     errorCount: {
       type: Number,
-      default: 1,
+      default () {
+        return getContextPropValue(this, 'errorCount', 1)
+      },
     },
   },
   computed: {
@@ -98,21 +156,24 @@ export default {
       }
     },
     labelStyle () {
-      if (this.showError) return { color: this.$themes.danger }
+      if (this.showError) {
+        return { color: this.$themes.danger }
+      }
+
+      return {}
     },
     inputStyle () {
       if (this.showError) {
         if (this.isChecked) return { background: this.$themes.danger }
         else return { borderColor: this.$themes.danger }
       } else {
-        if (this.isChecked) return { background: this.$themes.success }
+        if (this.isChecked) return { background: this.colorComputed }
       }
+
+      return {}
     },
-    computedIcon () {
-      return [
-        'va-checkbox__icon-selected',
-        this.indeterminate ? this.indeterminateIcon : this.checkedIcon,
-      ]
+    computedIconName () {
+      return this.indeterminate ? this.indeterminateIcon : this.checkedIcon
     },
     isChecked () {
       return this.modelIsArray ? this.value.includes(this.arrayValue) : this.value
@@ -122,7 +183,7 @@ export default {
     },
     showError () {
       // We make error active, if the error-message is not empty and checkbox is not disabled
-      if (!this.disabled) {
+      if (!this.disabled && this.errorMessages) {
         if (!(this.errorMessages.length === 0) || this.error) {
           return true
         }

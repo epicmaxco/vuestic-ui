@@ -3,7 +3,7 @@
     <VbCard title="Default">
       <va-tree-category
         label="Category with icon"
-        icon="ion ion-md-nutrition"
+        icon="send"
       >
         <va-tree-node>
           One
@@ -19,7 +19,7 @@
     <VbCard>
       <va-tree-category
         label="Category with icon"
-        icon="ion ion-md-nutrition"
+        icon="send"
       >
         <va-tree-node>
           One
@@ -57,7 +57,7 @@
     </VbCard>
     <VbCard title="Colors">
       <va-tree-category label="Category with icon" color="info">
-        <va-icon slot="icon" name="ion ion-md-nutrition"/>
+        <va-icon slot="icon" name="send"/>
         <va-tree-node>
           One
         </va-tree-node>

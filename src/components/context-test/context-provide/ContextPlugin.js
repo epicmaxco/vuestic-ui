@@ -1,6 +1,7 @@
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
+import Vue from 'vue'
 
 const pascalCase = flow(camelCase, upperFirst)
 
@@ -17,6 +18,7 @@ export const ContextPlugin = {
     Vue.prototype.$vaContextConfig = Vue.observable(options)
   },
 }
+
 /**
  * Mixin provide local configs to Vue component through injecting
  * All list of local configs contain in this._$configs
@@ -51,17 +53,27 @@ export function getContextPropValue (context, prop, defaultValue) {
   }
 
   const componentName = pascalCase(context.$options.name)
-  const configs = [context.$vaContextConfig, ...context._$configs]
+
+  if (!context._$configs) {
+    throw new Error(`'getContextPropValue' working only together with 'ContextPluginMixin'. Please, use 'ContextPluginMixin' for ${componentName} component`)
+  }
+
+  const configs = context.$vaContextConfig ? [context.$vaContextConfig, ...context._$configs] : context._$configs
   const config = getLocalConfigWithComponentProp(configs, componentName, prop)
 
   return config ? config[componentName][prop] : defaultValue
 }
 
-/**
- * Full or partial context redefinition function
- */
+// Allows to completely overwrite global context config.
 export function overrideContextConfig (context, options) {
-  Object.assign(context.$vaContextConfig, options)
+  // Clear object
+  for (const key in context.$vaContextConfig) {
+    Vue.delete(context.$vaContextConfig, key)
+  }
+  // Set values
+  for (const key in options) {
+    Vue.set(context.$vaContextConfig, key, options[key])
+  }
 }
 
 /**

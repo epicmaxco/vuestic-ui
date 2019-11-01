@@ -6,7 +6,7 @@
     >
       <div class="va-tree-category__header-switcher">
         <square-with-icon
-          :iconClass="`ion ion-md-${isOpenCached ? 'remove' : 'add'}`"
+          :icon="isOpenCached ? 'remove' : 'add'"
           :color="va.color || colorComputed"
         />
       </div>
@@ -43,7 +43,7 @@ import VaIcon from '../va-icon/VaIcon'
 
 export default {
   name: 'va-tree-category',
-  mixins: [ ColorThemeMixin ],
+  mixins: [ColorThemeMixin],
   components: { VaIcon, SquareWithIcon },
   inject: {
     va: {

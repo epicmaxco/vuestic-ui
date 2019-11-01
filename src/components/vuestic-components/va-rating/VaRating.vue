@@ -7,42 +7,44 @@
       'fontSize': getIconSize(),
     }"
   >
-    <div
-      class="va-rating__number-item"
-      v-if="numbers"
-      v-for="number in max"
-      :key="number"
-      :class="{
-        'va-rating__number-item--empty' : !compareWithValue(number)
-      }"
-      :style="getItemStyles(number)"
-      @click="onRatingItemSelected(number, 1)"
-      :tabindex="getTabindex(number)"
-      @mouseleave="tabindex = null"
-      @mouseover="tabindex = number"
-      @keypress="onRatingItemSelected(number, 1)"
-    >
-      {{number}}
+    <div v-if="numbers" class="va-rating__number-item-wrapper">
+      <div
+        class="va-rating__number-item"
+        v-for="number in max"
+        :key="number"
+        :class="{
+          'va-rating__number-item--empty' : !compareWithValue(number)
+        }"
+        :style="getItemStyles(number)"
+        @click="onRatingItemSelected(number, 1)"
+        :tabindex="getTabindex(number)"
+        @mouseleave="tabindex = null"
+        @mouseover="tabindex = number"
+        @keypress="onRatingItemSelected(number, 1)"
+      >
+        {{number}}
+      </div>
     </div>
-    <va-rating-item
-      class="va-rating__icon-item"
-      v-if="!numbers"
-      v-for="itemNumber in max"
-      :key="itemNumber"
-      :icon="icon"
-      :emptyIcon="emptyIconComputed"
-      :halfIcon="halfIconComputed"
-      :iconClasses="getIconClasses(itemNumber)"
-      :style="getItemStyles(itemNumber)"
-      @click="onRatingItemSelected(itemNumber, $event)"
-      @hover="onHover(itemNumber, $event)"
-      :value="getItemValue(itemNumber)"
-      :tabindex="getTabindex(itemNumber)"
-      :isRatingHover="isHoveredComputed"
-      @mouseout.native="onMouseOut(value)"
-      @mouseleave.native="tabindex = null"
-      @mouseover.native="onMouseOver(itemNumber)"
-    />
+    <span v-else class="va-rating__number-item-wrapper">
+      <va-rating-item
+        class="va-rating__icon-item"
+        v-for="itemNumber in max"
+        :key="itemNumber"
+        :icon="icon"
+        :emptyIcon="emptyIconComputed"
+        :halfIcon="halfIconComputed"
+        :iconClasses="getIconClasses(itemNumber)"
+        :style="getItemStyles(itemNumber)"
+        @click="onRatingItemSelected(itemNumber, $event)"
+        @hover="onHover(itemNumber, $event)"
+        :value="getItemValue(itemNumber)"
+        :tabindex="getTabindex(itemNumber)"
+        :isRatingHover="isHoveredComputed"
+        @mouseout.native="onMouseOut(value)"
+        @mouseleave.native="tabindex = null"
+        @mouseover.native="onMouseOver(itemNumber)"
+      />
+    </span>
   </div>
 </template>
 
@@ -50,40 +52,72 @@
 import VaRatingItem from './VaRatingItem'
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-rating',
   components: { VaRatingItem },
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     value: {
       type: Number,
-      default: 0,
+      default () {
+        return getContextPropValue(this, 'value', 0)
+      },
     },
-
     icon: {
       type: String,
-      default: 'fa fa-star',
+      default () {
+        return getContextPropValue(this, 'icon', 'fa fa-star')
+      },
     },
     halfIcon: {
       type: String,
-      default: 'fa fa-star-half-full',
+      default () {
+        return getContextPropValue(this, 'icon', 'fa fa-star-half-full')
+      },
     },
-    emptyIcon: String,
-
-    readonly: Boolean,
-    disabled: Boolean,
-
-    numbers: Boolean,
-    halves: Boolean,
-
+    emptyIcon: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'emptyIcon', '')
+      },
+    },
+    readonly: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'readOnly', false)
+      },
+    },
+    disabled: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
+    },
+    numbers: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'numbers', false)
+      },
+    },
+    halves: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'halves', false)
+      },
+    },
     max: {
       type: Number,
-      default: 5,
+      default () {
+        return getContextPropValue(this, 'max', 5)
+      },
     },
     size: {
       type: String,
-      default: 'medium',
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
     },
   },
   data () {
@@ -260,6 +294,10 @@ export default {
         cursor: initial;
       }
     }
+  }
+
+  &__number-item-wrapper {
+    display: flex;
   }
 
   &__icon-item {

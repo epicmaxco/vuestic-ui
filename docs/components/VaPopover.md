@@ -13,7 +13,7 @@
   title="Popover title"
   message="Popover text"
   placement="bottom"
-  icon="fa fa-gear"
+  icon="face"
   color="danger"
 >
  <span>Hover Me</span>
@@ -31,7 +31,7 @@
 
 **Props**
 * `open` - Boolean - shows or hide the popover
-* `icon` - String - use `icon="fa fa-gear"` to set the icon of the popover.
+* `icon` - String - use font-awesome to set the icon of the popover.
 * `message` - String - text to be displayed in the popover
 * `title` - String - text to be displayed in the popover title
 * `disabled` - Boolean - on mobile, you can disable the tooltips with the VTooltip.enabled property

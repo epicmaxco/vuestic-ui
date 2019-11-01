@@ -1,10 +1,5 @@
 <template>
   <VbDemo>
-    <VbCard title="Design">
-      <div style="height: 200px; overflow-y: scroll">
-        <img src="http://i68.tinypic.com/ne84fs.png" alt="">
-      </div>
-    </VbCard>
     <VbCard title="Placeholder">
       <va-input
         v-model="empty"
@@ -46,7 +41,7 @@
         v-model="text"
         label="Name"
       >
-        <va-icon slot="append" name="fa fa-anchor"/>
+        <va-icon slot="append" name="share"/>
       </va-input>
     </VbCard>
     <VbCard title="Button">
@@ -54,7 +49,7 @@
         v-model="text"
         label="Name"
       >
-        <va-button slot="append" style="margin-right: 0;" small>
+        <va-button slot="append" style="margin-right: 0;" size="small">
           Upload
         </va-button>
       </va-input>
@@ -66,7 +61,7 @@
       >
         <va-icon
           slot="prepend"
-          name="fa fa-anchor"
+          name="share"
         />
       </va-input>
     </VbCard>
@@ -77,7 +72,7 @@
       >
         <va-icon
           slot="append"
-          name="fa fa-anchor"
+          name="share"
         />
       </va-input>
     </VbCard>

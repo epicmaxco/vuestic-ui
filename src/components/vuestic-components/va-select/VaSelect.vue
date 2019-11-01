@@ -37,9 +37,8 @@
         <va-icon
           v-show="isSelected(option)"
           class="va-select__option__selected-icon"
-          name="material-icons">
-          done
-        </va-icon>
+          name="done"
+        />
       </li>
     </ul>
     <div
@@ -80,7 +79,7 @@
       <va-icon
         v-if="showClearIcon"
         class="va-select__clear-icon"
-        name="fa fa-times-circle"
+        name="cancel"
         @click.native.stop="clear()"
       />
       <spring-spinner
@@ -91,7 +90,7 @@
       />
       <va-icon
         class="va-select__open-icon"
-        :name="visible ? 'fa fa-angle-up' : 'fa fa-angle-down'"
+        :name="visible ? 'arrow_back_ios' : 'arrow_forward_ios'"
       />
     </div>
   </va-dropdown>
@@ -103,14 +102,17 @@ import { SpringSpinner } from 'epic-spinners'
 import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 const positions = {
   'top': 'T',
   'bottom': 'B',
 }
+
 export default {
   name: 'va-select',
   components: { VaIcon, SpringSpinner, VaDropdown, VaInput },
+  mixins: [ContextPluginMixin],
   data () {
     return {
       search: '',
@@ -119,57 +121,133 @@ export default {
     }
   },
   props: {
-    value: {},
-    label: String,
-    placeholder: String,
+    value: {
+      type: [String, Number, Object, Array],
+      default () {
+        return getContextPropValue(this, 'value', '')
+      },
+    },
+    label: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
+    },
+    placeholder: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'placeholder', '')
+      },
+    },
     options: {
       type: Array,
-      default: () => [],
+      default () {
+        return getContextPropValue(this, 'options', [])
+      },
     },
     position: {
       type: String,
-      default: 'bottom',
+      default () {
+        return getContextPropValue(this, 'position', 'bottom')
+      },
       validator: position => Object.keys(positions).includes(position),
     },
     tagMax: {
       type: Number,
-      default: 5,
+      default () {
+        return getContextPropValue(this, 'tagMax', 5)
+      },
     },
-    searchable: Boolean,
-    multiple: Boolean,
-    disabled: Boolean,
-    readonly: Boolean,
-    loading: Boolean,
+    searchable: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'searchable', false)
+      },
+    },
+    multiple: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'multiple', false)
+      },
+    },
+    disabled: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
+    },
+    readonly: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'readonly', false)
+      },
+    },
+    loading: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'loading', false)
+      },
+    },
     width: {
       type: String,
-      default: '100%',
+      default () {
+        return getContextPropValue(this, 'width', '100%')
+      },
     },
     maxHeight: {
       type: String,
-      default: '128px',
+      default () {
+        return getContextPropValue(this, 'maxHeight', '128px')
+      },
     },
     keyBy: {
       type: String,
-      default: 'id',
+      default () {
+        return getContextPropValue(this, 'keyBy', 'id')
+      },
     },
     textBy: {
       type: String,
-      default: 'text',
+      default () {
+        return getContextPropValue(this, 'textBy', 'text')
+      },
     },
     clearValue: {
-      default: '',
+      type: String,
+      default () {
+        return getContextPropValue(this, 'clearValue', '')
+      },
     },
     noOptionsText: {
       type: String,
-      default: 'Items not found',
+      default () {
+        return getContextPropValue(this, 'noOptionsText', 'Items not found')
+      },
     },
     fixed: {
       type: Boolean,
-      default: true,
+      default () {
+        return getContextPropValue(this, 'fixed', true)
+      },
     },
-    noClear: Boolean,
-    error: Boolean,
-    success: Boolean,
+    noClear: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'noClear', false)
+      },
+    },
+    error: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'error', false)
+      },
+    },
+    success: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'success', false)
+      },
+    },
   },
   watch: {
     search (val) {
@@ -452,6 +530,7 @@ export default {
     bottom: 0;
     right: 2rem;
     margin: auto;
+    transform: rotate(90deg); // hack for show large material arrow icons
   }
 
   &__open-icon {

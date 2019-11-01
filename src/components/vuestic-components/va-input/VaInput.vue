@@ -60,14 +60,14 @@
         <va-icon
           v-if="success"
           class="va-input__container__icon"
-          name="fa fa-check"
           color="success"
+          name="check"
         />
         <va-icon
           v-if="error"
           class="va-input__container__icon"
-          name="fa fa-exclamation-triangle"
           color="danger"
+          name="warning"
         />
         <slot name="append"/>
         <va-icon
@@ -75,7 +75,7 @@
           @click.native="clearContent()"
           class="va-input__container__close-icon"
           :color="error ? 'danger': 'gray'"
-          name="fa fa-times-circle"
+          name="highlight_off"
         />
       </div>
     </div>
@@ -85,50 +85,83 @@
 <script>
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon/VaIcon'
-import {
-  getHoverColor,
-} from './../../../services/color-functions'
+import { getHoverColor } from './../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-input',
   extends: VaInputWrapper,
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   components: { VaInputWrapper, VaIcon },
   props: {
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
     value: {
       type: [String, Number],
+      default () {
+        return getContextPropValue(this, 'value', '')
+      },
     },
     label: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
     },
     placeholder: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'placeholder', '')
+      },
     },
     type: {
       type: String,
-      default: 'text',
+      default () {
+        return getContextPropValue(this, 'type', 'text')
+      },
     },
     disabled: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     readonly: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'readonly', false)
+      },
     },
     removable: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'removable', false)
+      },
     },
 
     // textarea-specific
     autosize: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'autosize', false)
+      },
     },
     minRows: {
       type: Number,
+      default () {
+        return getContextPropValue(this, 'minRows', null)
+      },
       validator: (val) => {
         if (!(val > 0 && (val | 0) === val)) {
           throw new Error(`\`minRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        } return true
+        }
+        return true
       },
     },
     maxRows: {
@@ -136,7 +169,11 @@ export default {
       validator: (val) => {
         if (!(val > 0 && (val | 0) === val)) {
           throw new Error(`\`maxRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        } return true
+        }
+        return true
+      },
+      default () {
+        return getContextPropValue(this, 'maxRows', null)
       },
     },
   },
@@ -155,9 +192,15 @@ export default {
   },
   computed: {
     labelStyles () {
-      if (this.error) return { color: this.$themes.danger }
-      if (this.success) return { color: this.$themes.success }
-      return { color: this.$themes.primary }
+      if (this.error) {
+        return { color: this.$themes.danger }
+      }
+
+      if (this.success) {
+        return { color: this.$themes.success }
+      }
+
+      return { color: this.colorComputed }
     },
     containerStyles () {
       return {

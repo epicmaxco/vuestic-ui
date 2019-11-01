@@ -1,20 +1,26 @@
+# va-icon
+
+## Import
 ```html
-  <va-icon :name="iconicstroke iconicstroke-info"/>
+  <va-icon name="close"/>
 
   <va-icon
-    :name="fa fa-anchor"
+    name="face"
     color="info"
     rotation="45"
     size="60"
   />
 ```
 
-***Props***
-* name - `String, Array` - The name of icon set and icon (will be used as class). We support Vuestic, Iconic, Glyphicon, Maki, Entypo, Brandico, Font Awesome, Material design icons. 
-* small - `Boolean` - If `small` prop is `true`, icon size will be 1rem (16px by default)
-* large - `Boolean` - If `large` prop is `true`, icon size will be 2.25rem
+###Props
+* name - `String, Array` - The name of icon set and icon (will be used as class). We support Material design icons. 
 * size - `String, Number` - Sets the custom size of icon in pixels
-* fixedWidth - `Boolean` - If `fixedWidth` prop is `true`, width of the icon will be 1.25rem
+* fixed-width - `Boolean` - If `fixed-width` prop is `true`, width of the icon will be 1.25rem
 * rotation - `String, Number` - Sets the degree of icons rotation.
 * color - `String` - Sets the color of icon
+* tag - `String` - (default: `i`) - icon tag
+
+
+###Slots 
+* `default` - expected: material-icons value only
 

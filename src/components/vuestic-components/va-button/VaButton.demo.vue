@@ -26,28 +26,28 @@
             <va-button>
               Default Button
             </va-button>
-            <va-button large>
+            <va-button size="large">
               Large Button
             </va-button>
-            <va-button small>
+            <va-button size="small">
               Small Button
             </va-button>
             <va-button outline>
               Default Button
             </va-button>
-            <va-button large outline>
+            <va-button size="large" outline>
               Large Button
             </va-button>
-            <va-button small outline>
+            <va-button size="small" outline>
               Small Button
             </va-button>
             <va-button flat>
               Default Button
             </va-button>
-            <va-button flat large>
+            <va-button size="large" flat>
               Large Button
             </va-button>
-            <va-button flat small>
+            <va-button size="small" flat>
               Small Button
             </va-button>
           </td>
@@ -163,18 +163,18 @@
           <td>Primary Buttons With icons</td>
           <td>
             <va-button
-              icon="brandico brandico-facebook"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
-              icon-right="iconicstroke iconicstroke-info"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -185,20 +185,20 @@
           <td>
             <va-button
               outline
-              icon="brandico brandico-facebook"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
               outline
-              icon-right="iconicstroke iconicstroke-info"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
               outline
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -209,20 +209,20 @@
           <td>
             <va-button
               flat
-              icon="brandico brandico-facebook"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
               flat
-              icon-right="iconicstroke iconicstroke-info"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
               flat
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -232,21 +232,23 @@
           <td>Large Buttons With icons</td>
           <td>
             <va-button
-              large
-              icon="brandico brandico-facebook"
+              size="large"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
-              outline large
-              icon-right="iconicstroke iconicstroke-info"
+              outline
+              size="large"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
-              flat large
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              flat
+              size="large"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -256,21 +258,23 @@
           <td>Small Buttons With icons</td>
           <td>
             <va-button
-              small
-              icon="brandico brandico-facebook"
+              size="small"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
-              outline small
-              icon-right="iconicstroke iconicstroke-info"
+              outline
+              size="small"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
-              flat small
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              flat
+              size="small"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -279,15 +283,15 @@
         <tr>
           <td>All Buttons Without Title</td>
           <td>
-            <va-button icon="ion-md-close ion"/>
-            <va-button large icon="ion-md-close ion"/>
-            <va-button small icon="ion-md-close ion"/>
-            <va-button outline icon="ion-md-close ion"/>
-            <va-button outline large icon="ion-md-close ion"/>
-            <va-button outline small icon="ion-md-close ion"/>
-            <va-button flat icon="ion-md-close ion"/>
-            <va-button flat large icon="ion-md-close ion"/>
-            <va-button flat small icon="ion-md-close ion"/>
+            <va-button icon="block"/>
+            <va-button size="large" icon="block"/>
+            <va-button size="small" icon="block"/>
+            <va-button outline icon="block"/>
+            <va-button outline size="large" icon="block"/>
+            <va-button outline size="small" icon="block"/>
+            <va-button flat icon="block"/>
+            <va-button flat size="large" icon="block"/>
+            <va-button flat size="small" icon="block"/>
           </td>
         </tr>
       </table>

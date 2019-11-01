@@ -1,15 +1,15 @@
 <template>
   <vb-demo>
     <vb-card width="400px">
-      <va-button small color="info" @click="loading = !loading">
+      <va-button size="small" color="info" @click="loading = !loading">
         {{ loading ? 'Stop loading' : 'Start loading '}}
       </va-button>
 
       <va-inner-loading :loading="loading">
         <va-card title="Epicmax">
           <template slot="actions">
-            <va-button icon="fa fa-envelope" />
-            <va-button icon="fa fa-phone" />
+            <va-button icon="email" />
+            <va-button icon="local_phone" />
           </template>
 
           <p>

@@ -16,10 +16,10 @@
       </div>
       <va-icon
         color="danger"
-        name="material-icons"
+        name="clear"
         @click.native="removeFile"
         class="va-file-upload-list-item__delete"
-      >delete_outline</va-icon>
+      />
     </div>
   </va-card>
 </template>
@@ -74,6 +74,7 @@ export default {
   & + & {
     margin-top: 0.5rem;
   }
+  line-height: 1.5rem;
 
   width: 100%;
   max-width: 100%;

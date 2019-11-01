@@ -18,21 +18,7 @@ if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
   Vue.use(ColorThemePlugin)
 }
 Vue.use(DropdownPopperPlugin)
-Vue.use(ContextPlugin, {
-  VaTest: {
-    color: 'blue',
-  },
-  VaBadge: {
-    color: 'info',
-    label: 'default label',
-  },
-  VaButton: {
-    small: true,
-    icon: 'fa fa-phone',
-    color: 'info',
-    outline: true,
-  },
-})
+Vue.use(ContextPlugin, {})
 
 const router = new Router({
   routes: [

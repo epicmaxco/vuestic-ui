@@ -21,7 +21,7 @@
       </template>
 
       <template slot="actions" slot-scope="props">
-        <va-button small @click="show(props.rowData)">
+        <va-button size="small" @click="show(props.rowData)">
           View User JSON
         </va-button>
       </template>

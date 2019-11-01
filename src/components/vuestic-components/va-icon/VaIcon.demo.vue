@@ -14,9 +14,9 @@
 
     <VbCard title="Size presets">
       <div style="font-size: 24px">
-        <va-icon :name="icon" small/>
+        <va-icon :name="icon" size="small"/>
         <va-icon :name="icon"/>
-        <va-icon :name="icon" large/>
+        <va-icon :name="icon" size="large"/>
       </div>
     </VbCard>
 
@@ -36,39 +36,24 @@
     </VbCard>
 
     <VbCard title="Fixed width">
-      <va-button :name="icon" :icon-right="icon">
+      <va-button :icon="icon" icon-right="power_settings_new">
         Some
       </va-button>
     </VbCard>
 
-    <VbCard title="Iconic">
-      <va-icon name="iconicstroke iconicstroke-hash"/>
-      <va-icon name="iconicstroke iconicstroke-at"/>
-    </VbCard>
-    <VbCard title="Glyphicon">
-      <va-icon name="glyphicon glyphicon-star"/>
-      <va-icon name="glyphicon glyphicon-glass"/>
-    </VbCard>
-    <VbCard title="Maki">
-      <va-icon name="maki maki-belowground-rail"/>
-      <va-icon name="maki maki-bicycle"/>
-    </VbCard>
-    <VbCard title="Entypo">
-      <va-icon name="entypo entypo-note"/>
-      <va-icon name="entypo entypo-star"/>
-    </VbCard>
-    <VbCard title="Brandico">
-      <va-icon name="brandico brandico-facebook"/>
-      <va-icon name="brandico brandico-twitter"/>
-    </VbCard>
-    <VbCard title="Font Awesome">
-      <va-icon name="fa fa-anchor"/>
-      <va-icon name="fa fa-area-chart"/>
-    </VbCard>
     <VbCard title="Material design icons">
-      <va-icon name="material-icons">face</va-icon>
-      <va-icon name="material-icons">&#xE87C;</va-icon>
-      <va-icon name="material-icons" color="danger">face</va-icon>
+      <va-icon name="face" />
+      <va-icon name="&#xE87C;" />
+      <va-icon color="danger" name="face" />
+      <va-icon color="danger" name="delete" />
+    </VbCard>
+
+    <VbCard title="Custom tags">
+      <va-icon tag="span" name="face" />
+      <va-icon tag="div" name="face" />
+      <va-icon tag="pre" name="face" />
+      <va-icon tag="a" name="face" />
+      <va-icon tag="code" name="face" />
     </VbCard>
   </VbDemo>
 </template>
@@ -85,7 +70,7 @@ export default {
   },
   data () {
     return {
-      icon: 'iconicstroke iconicstroke-info',
+      icon: 'home',
     }
   },
 }

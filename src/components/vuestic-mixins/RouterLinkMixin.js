@@ -18,6 +18,9 @@ export const RouterLinkMixin = {
     exactActiveClass: {
       type: String,
     },
+    href: {
+      type: String,
+    },
   },
 
   computed: {
@@ -28,6 +31,7 @@ export const RouterLinkMixin = {
         this.replace ||
         this.exact ||
         this.activeClass ||
+        this.href ||
         this.exactActiveClass
       )
     },
