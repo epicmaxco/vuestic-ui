@@ -30,6 +30,7 @@ export default {
 
         return name
       },
+      default: '',
     },
     size: {
       type: [String, Number],

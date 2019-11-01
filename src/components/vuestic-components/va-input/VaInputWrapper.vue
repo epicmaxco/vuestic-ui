@@ -45,13 +45,13 @@ export default {
       },
     },
     error: {
-      Boolean,
+      type: Boolean,
       default () {
         return getContextPropValue(this, 'error', false)
       },
     },
     success: {
-      Boolean,
+      type: Boolean,
       default () {
         return getContextPropValue(this, 'success', false)
       },

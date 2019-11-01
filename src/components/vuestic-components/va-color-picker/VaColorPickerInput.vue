@@ -63,11 +63,16 @@ export default {
   props: {
     mode: {
       type: String,
+      default: '',
     },
     palette: {
       type: Array,
+      default () {
+        return []
+      },
     },
     value: {
+      type: String,
       default: '',
     },
     selected: {

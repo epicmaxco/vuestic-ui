@@ -14,8 +14,8 @@
             >
               <span slot="title">{{ item.displayName }}</span>
               <sidebar-link
-                v-for="(subMenuItem, index) in item.children"
-                :key="index"
+                v-for="(subMenuItem) in item.children"
+                :key="subMenuItem.name"
                 :to="{ name: subMenuItem.name }"
               >
                 <div slot="title">

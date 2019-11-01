@@ -14,7 +14,10 @@
 export default {
   name: 'VaItem',
   props: {
-    to: [String, Object],
+    to: {
+      type: [String, Object],
+      default: '',
+    },
     clickable: Boolean,
   },
 

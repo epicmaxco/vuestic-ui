@@ -58,12 +58,15 @@ export default {
     },
     icon: {
       type: String,
+      default: '',
     },
     title: {
       type: String,
+      default: '',
     },
     message: {
       type: String,
+      default: '',
     },
     trigger: {
       type: String,

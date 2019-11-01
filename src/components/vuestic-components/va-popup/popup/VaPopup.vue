@@ -22,16 +22,21 @@ export default {
     anchor: {
       type: String,
       validator: positionValidator,
+      default: '',
     },
     self: {
       type: String,
       validator: positionValidator,
+      default: '',
     },
     fit: Boolean,
     cover: Boolean,
     persistent: Boolean,
     keepOnScreen: Boolean,
-    maxHeight: String,
+    maxHeight: {
+      type: String,
+      default: '',
+    },
     touchPosition: Boolean,
     anchorClick: {
       /*
@@ -44,6 +49,9 @@ export default {
     offset: {
       type: Array,
       validator: offsetValidator,
+      default () {
+        return []
+      },
     },
     noFocus: Boolean,
     noRefocus: Boolean,

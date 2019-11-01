@@ -44,7 +44,7 @@ export default {
   },
   props: {
     color: {
-      color: String,
+      type: String,
       default: 'success',
     },
     value: {

@@ -102,9 +102,10 @@ export default {
   },
   props: {
     value: {
+      type: Boolean,
       required: true,
       default () {
-        return getContextPropValue(this, 'props', false)
+        return getContextPropValue(this, 'value', false)
       },
     },
     position: {
