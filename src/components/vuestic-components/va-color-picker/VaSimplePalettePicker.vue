@@ -23,8 +23,12 @@ export default {
   props: {
     palette: {
       type: Array,
+      default () {
+        return []
+      },
     },
     value: {
+      type: String,
       default: '',
     },
   },

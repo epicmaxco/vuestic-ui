@@ -10,6 +10,8 @@ export default {
   name: 'VaColorSquare',
   props: {
     value: {
+      type: String,
+      default: '',
       required: true,
     },
   },

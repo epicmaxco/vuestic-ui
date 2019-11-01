@@ -75,11 +75,20 @@ export default {
     },
   },
   props: {
-    debugId: String,
-    position: String,
+    debugId: {
+      type: String,
+      default: '',
+    },
+    position: {
+      type: String,
+      default: '',
+    },
     boundaryBody: Boolean,
     value: Boolean,
-    offset: [String, Number],
+    offset: {
+      type: [String, Number],
+      default: '',
+    },
     disabled: Boolean,
     fixed: Boolean,
     keepAnchorWidth: Boolean, // Means dropdown width should be the same as anchor's width.

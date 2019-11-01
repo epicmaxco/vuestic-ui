@@ -13,7 +13,6 @@ import VaCollapse from './vuestic-components/va-collapse/VaCollapse'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
-import VaFeed from './vuestic-components/va-feed/VaFeed.vue'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
 import VaIcon from './vuestic-components/va-icon/VaIcon'
 import VaInnerLoading
@@ -97,7 +96,6 @@ const VuesticPlugin = {
       VaDataTable,
       VaDatePicker,
       VaDropdown,
-      VaFeed,
       VaFileUpload,
       VaIcon,
       VaInnerLoading,

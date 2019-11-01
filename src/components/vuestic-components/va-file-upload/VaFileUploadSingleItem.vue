@@ -24,6 +24,7 @@ export default {
   props: {
     file: {
       type: Object,
+      default: null,
     },
   },
 }

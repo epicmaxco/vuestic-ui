@@ -38,6 +38,9 @@ export default {
     },
     palette: {
       type: Array,
+      default () {
+        return []
+      },
     },
   },
   computed: {

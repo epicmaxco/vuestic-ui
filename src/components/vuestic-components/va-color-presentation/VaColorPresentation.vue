@@ -50,6 +50,7 @@ export default {
     },
     width: {
       type: Number,
+      default: null,
     },
     name: {
       type: String,

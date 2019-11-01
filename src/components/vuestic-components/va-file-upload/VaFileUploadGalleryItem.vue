@@ -59,7 +59,8 @@ export default {
   },
   props: {
     file: {
-      default: {},
+      type: Object,
+      default: null,
     },
     color: {
       type: String,

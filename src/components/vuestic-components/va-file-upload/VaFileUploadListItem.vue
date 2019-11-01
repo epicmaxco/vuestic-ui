@@ -45,6 +45,7 @@ export default {
   props: {
     file: {
       type: Object,
+      default: null,
     },
     color: {
       type: String,
