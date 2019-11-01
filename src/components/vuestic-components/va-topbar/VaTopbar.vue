@@ -4,7 +4,7 @@
     :style="{ backgroundColor: colorComputed }"
   >
     <ul class="va-topbar__menu">
-      <slot name="menu"></slot>
+      <slot name="menu" />
     </ul>
   </aside>
 </template>
@@ -14,7 +14,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 // Note: topbar is not finished and not included to the layout.
 export default {
-  name: 'va-topbar',
+  name: 'VaTopbar',
   components: {},
   mixins: [ColorThemeMixin],
   props: {

@@ -25,7 +25,7 @@ import VaSimplePalettePicker from './VaSimplePalettePicker'
 import VaColorInput from './VaColorInput'
 
 export default {
-  name: 'va-palette-custom',
+  name: 'VaPaletteCustom',
   components: {
     VaColorInput,
     VaColorPickerInput,

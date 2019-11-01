@@ -2,10 +2,10 @@
   <VbDemo>
     <VbCard title="Window events (counts)">
       <div>
-        resize: {{resize}}
+        resize: {{ resize }}
       </div>
       <div>
-        resizeEnd: {{resizeEnd}}
+        resizeEnd: {{ resizeEnd }}
       </div>
     </VbCard>
   </VbDemo>

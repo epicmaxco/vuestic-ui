@@ -4,12 +4,12 @@
     :disabled="disabled"
     class="va-select__dropdown"
     :max-height="maxHeight"
-    keepAnchorWidth
+    keep-anchor-width
     ref="dropdown"
     :fixed="fixed"
     :style="{width}"
-    :closeOnAnchorClick="false"
-    boundaryBody
+    :close-on-anchor-click="false"
+    boundary-body
   >
     <va-input
       v-if="searchable"
@@ -32,8 +32,12 @@
         @mouseleave="updateHoveredOption(null)"
         @mouseover="updateHoveredOption(option)"
       >
-        <va-icon v-show="option.icon" :name="option.icon" class="va-select__option__icon"/>
-        <span>{{getText(option)}}</span>
+        <va-icon
+          v-show="option.icon"
+          :name="option.icon"
+          class="va-select__option__icon"
+        />
+        <span>{{ getText(option) }}</span>
         <va-icon
           v-show="isSelected(option)"
           class="va-select__option__selected-icon"
@@ -46,7 +50,7 @@
       :style="optionsListStyle"
       v-if="!filteredOptions.length"
     >
-      {{noOptionsText}}
+      {{ noOptionsText }}
     </div>
 
     <div
@@ -58,7 +62,7 @@
         class="va-select__label"
         :style="labelStyle"
         aria-hidden="true"
-      >{{label}}</label>
+      >{{ label }}</label>
       <div
         class="va-select__input-wrapper"
         :style="inputWrapperStyles"
@@ -73,8 +77,14 @@
             {{ [...this.valueProxy.map(val => getText(val))].join(", ") }}
           </span>
         </span>
-        <span v-else-if="displayedText" class="va-select__displayed-text">{{displayedText}}</span>
-        <span v-else class="va-select__placeholder">{{placeholder}}</span>
+        <span
+          v-else-if="displayedText"
+          class="va-select__displayed-text"
+        >{{ displayedText }}</span>
+        <span
+          v-else
+          class="va-select__placeholder"
+        >{{ placeholder }}</span>
       </div>
       <va-icon
         v-if="showClearIcon"
@@ -110,7 +120,7 @@ const positions = {
 }
 
 export default {
-  name: 'va-select',
+  name: 'VaSelect',
   components: { VaIcon, SpringSpinner, VaDropdown, VaInput },
   mixins: [ContextPluginMixin],
   data () {

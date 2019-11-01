@@ -1,29 +1,41 @@
 <template>
   <div class="va-profile-card flex align--center">
     <div class="va-profile-card__photo overflow--hidden">
-      <img class="fill-height" :src="photoSource"/>
+      <img
+        class="fill-height"
+        :src="photoSource"
+      >
     </div>
     <div class="va-profile-card__info text--center">
       <h5 class="va-profile-card__info-name mt-3 mb-0">
-        {{name}}
+        {{ name }}
       </h5>
       <div class="va-profile-card__info-location mt-2">
-        <span class="icon glyphicon glyphicon-map-marker"></span>
-        {{location}}
+        <span class="icon glyphicon glyphicon-map-marker" />
+        {{ location }}
       </div>
     </div>
     <div class="va-profile-card__social d-flex justify--center mt-4 pt-3">
-      <a v-if="social.facebook" :href="'https://' + social.facebook"
-         target="_blank">
-        <va-icon name="icon brandico brandico-facebook-rect mx-2"/>
+      <a
+        v-if="social.facebook"
+        :href="'https://' + social.facebook"
+        target="_blank"
+      >
+        <va-icon name="icon brandico brandico-facebook-rect mx-2" />
       </a>
-      <a v-if="social.instagram" :href="'https://' + social.instagram"
-         target="_blank">
-        <va-icon name="icon brandico brandico-instagram mx-2"/>
+      <a
+        v-if="social.instagram"
+        :href="'https://' + social.instagram"
+        target="_blank"
+      >
+        <va-icon name="icon brandico brandico-instagram mx-2" />
       </a>
-      <a v-if="social.twitter" :href="'https://' + social.twitter"
-         target="_blank">
-        <va-icon name="icon brandico brandico-twitter mx-2"/>
+      <a
+        v-if="social.twitter"
+        :href="'https://' + social.twitter"
+        target="_blank"
+      >
+        <va-icon name="icon brandico brandico-twitter mx-2" />
       </a>
     </div>
   </div>
@@ -31,7 +43,7 @@
 
 <script>
 export default {
-  name: 'va-profile-card',
+  name: 'VaProfileCard',
   props: ['photoSource', 'name', 'location', 'social'],
 }
 </script>

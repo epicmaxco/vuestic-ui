@@ -13,7 +13,10 @@
         :error-messages="errorMessages"
       >
         <template slot="append">
-          <va-icon color="gray" name="calendar_today"/>
+          <va-icon
+            color="gray"
+            name="calendar_today"
+          />
         </template>
       </va-input>
     </div>
@@ -35,7 +38,7 @@ import VaIcon from '../va-icon/VaIcon'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-date-picker',
+  name: 'VaDatePicker',
   mixins: [ContextPluginMixin],
   components: {
     VaInput,

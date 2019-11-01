@@ -4,17 +4,20 @@
     :style="navbarStyle"
   >
     <div class="va-navbar__icon-container">
-      <slot name="selector"></slot>
+      <slot name="selector" />
     </div>
-    <router-link class="va-navbar__logo row align--center mr-3" to="/">
-      <slot name="logo"/>
+    <router-link
+      class="va-navbar__logo row align--center mr-3"
+      to="/"
+    >
+      <slot name="logo" />
     </router-link>
     <div class="va-navbar__content row">
       <div class="va-navbar__center flex offset--lg3 offset--md3 lg5 md4 flex-center">
-        <slot name="center"></slot>
+        <slot name="center" />
       </div>
       <div class="md5 lg4 va-navbar__actions align--center row">
-        <slot></slot>
+        <slot />
       </div>
     </div>
     <div
@@ -28,7 +31,7 @@
 import { hex2hsl } from '../../../services/color-functions'
 
 export default {
-  name: 'va-navbar',
+  name: 'VaNavbar',
   computed: {
     navbarStyle () {
       let secondaryRealColorHSL = hex2hsl(this.$themes.secondary)

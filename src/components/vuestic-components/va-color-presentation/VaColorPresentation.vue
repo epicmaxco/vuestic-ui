@@ -1,22 +1,29 @@
 <template>
-<div class="va-color-presentation">
-  <va-popover
-    color="info"
-    :placement="popoverOptions.placement"
-    :message="popoverOptions.content"
-  >
-    <div
-      class="va-color-presentation__color"
-      :style="computedStyle"
-      @click="colorCopy(), notify()">
-    </div>
-  </va-popover>
+  <div class="va-color-presentation">
+    <va-popover
+      color="info"
+      :placement="popoverOptions.placement"
+      :message="popoverOptions.content"
+    >
+      <div
+        class="va-color-presentation__color"
+        :style="computedStyle"
+        @click="colorCopy(), notify()"
+      />
+    </va-popover>
 
-  <div class="va-color-presentation__description" v-if="name || description">
-    <div class="va-color-presentation__name">{{name}}</div>
-    <div class="va-color-presentation__text">{{description}}</div>
+    <div
+      class="va-color-presentation__description"
+      v-if="name || description"
+    >
+      <div class="va-color-presentation__name">
+        {{ name }}
+      </div>
+      <div class="va-color-presentation__text">
+        {{ description }}
+      </div>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -29,7 +36,7 @@ import { getGradientBackground } from '../../../services/color-functions'
 // Could be seen as `playground` of sorts.
 
 export default {
-  name: 'va-color-presentation',
+  name: 'VaColorPresentation',
   components: { VaPopover },
   mixins: [ ColorThemeMixin ],
   props: {

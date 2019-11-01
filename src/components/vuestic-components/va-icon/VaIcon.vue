@@ -18,7 +18,7 @@ import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ContextPluginMixin, getContextPropValue } from './../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-icon',
+  name: 'VaIcon',
   mixins: [ColorThemeMixin, SizeMixin, ContextPluginMixin],
   props: {
     name: {

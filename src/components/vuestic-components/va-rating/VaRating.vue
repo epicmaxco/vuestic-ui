@@ -7,7 +7,10 @@
       'fontSize': getIconSize(),
     }"
   >
-    <div v-if="numbers" class="va-rating__number-item-wrapper">
+    <div
+      v-if="numbers"
+      class="va-rating__number-item-wrapper"
+    >
       <div
         class="va-rating__number-item"
         v-for="number in max"
@@ -22,24 +25,27 @@
         @mouseover="tabindex = number"
         @keypress="onRatingItemSelected(number, 1)"
       >
-        {{number}}
+        {{ number }}
       </div>
     </div>
-    <span v-else class="va-rating__number-item-wrapper">
+    <span
+      v-else
+      class="va-rating__number-item-wrapper"
+    >
       <va-rating-item
         class="va-rating__icon-item"
         v-for="itemNumber in max"
         :key="itemNumber"
         :icon="icon"
-        :emptyIcon="emptyIconComputed"
-        :halfIcon="halfIconComputed"
-        :iconClasses="getIconClasses(itemNumber)"
+        :empty-icon="emptyIconComputed"
+        :half-icon="halfIconComputed"
+        :icon-classes="getIconClasses(itemNumber)"
         :style="getItemStyles(itemNumber)"
         @click="onRatingItemSelected(itemNumber, $event)"
         @hover="onHover(itemNumber, $event)"
         :value="getItemValue(itemNumber)"
         :tabindex="getTabindex(itemNumber)"
-        :isRatingHover="isHoveredComputed"
+        :is-rating-hover="isHoveredComputed"
         @mouseout.native="onMouseOut(value)"
         @mouseleave.native="tabindex = null"
         @mouseover.native="onMouseOver(itemNumber)"
@@ -55,7 +61,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-rating',
+  name: 'VaRating',
   components: { VaRatingItem },
   mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {

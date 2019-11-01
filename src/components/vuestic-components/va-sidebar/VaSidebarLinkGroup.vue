@@ -8,7 +8,8 @@
       @click.stop.prevent="toggleMenuItem()"
       :style="sidebarLinkStyles"
       v-if="!minimized"
-      :class="computedLinkClass">
+      :class="computedLinkClass"
+    >
       <div class="va-sidebar-link__content">
         <va-icon
           v-if="icon"
@@ -18,13 +19,14 @@
         />
         <span class="va-sidebar-link__content__title">
           <slot name="title">
-            {{title}}
+            {{ title }}
           </slot>
         </span>
         <va-icon
           class="va-sidebar-link-group__dropdown-icon"
           :style="iconStyles"
-          :name="`fa fa-angle-${expanded ? 'up' : 'down'}`"/>
+          :name="`fa fa-angle-${expanded ? 'up' : 'down'}`"
+        />
       </div>
     </a>
     <expanding v-if="!minimized">
@@ -33,14 +35,14 @@
         v-show="expanded"
         ref="linkGroupWrapper"
       >
-        <slot/>
+        <slot />
       </div>
     </expanding>
     <va-dropdown
       v-if="minimized"
       position="right"
       fixed
-      :preventOverflow="false"
+      :prevent-overflow="false"
     >
       <a
         href="#"
@@ -70,7 +72,7 @@
         class="va-sidebar-link-group__submenu in"
         :style="{backgroundColor: $themes[color]}"
       >
-        <slot/>
+        <slot />
       </div>
     </va-dropdown>
   </li>
@@ -82,13 +84,24 @@ import VaIcon from '../va-icon/VaIcon'
 import { hex2hsl } from '../../../services/color-functions'
 
 export default {
-  name: 'va-sidebar-link-group',
+  name: 'VaSidebarLinkGroup',
   props: {
-    icon: [String, Array],
-    title: String,
+    icon: {
+      type: String,
+      default: '',
+    },
+    title: {
+      type: String,
+      default: '',
+    },
     minimized: Boolean,
     activeByDefault: Boolean,
-    children: Array,
+    children: {
+      type: Array,
+      default () {
+        return []
+      },
+    },
     color: {
       type: String,
       default: 'secondary',

@@ -6,9 +6,12 @@
     :messages="messages"
     :error="error"
     :error-messages="errorMessages"
-    :errorCount="errorCount"
+    :error-count="errorCount"
   >
-    <slot name="prepend" slot="prepend"/>
+    <slot
+      name="prepend"
+      slot="prepend"
+    />
     <div
       class="va-input__container"
       :class="{'va-input__container--textarea': isTextarea}"
@@ -51,7 +54,7 @@
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
-        />
+        >
       </div>
       <div
         v-if="success || error || $slots.append || (removable && hasContent)"
@@ -69,7 +72,7 @@
           color="danger"
           name="warning"
         />
-        <slot name="append"/>
+        <slot name="append" />
         <va-icon
           v-if="removable && hasContent"
           @click.native="clearContent()"
@@ -91,7 +94,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-input',
+  name: 'VaInput',
   extends: VaInputWrapper,
   mixins: [ColorThemeMixin, ContextPluginMixin],
   components: { VaInputWrapper, VaIcon },

@@ -6,13 +6,13 @@
     :class="{'va-item--clickable': clickable || to}"
     @click="$emit('click')"
   >
-    <slot/>
+    <slot />
   </component>
 </template>
 
 <script>
 export default {
-  name: 'va-item',
+  name: 'VaItem',
   props: {
     to: [String, Object],
     clickable: Boolean,

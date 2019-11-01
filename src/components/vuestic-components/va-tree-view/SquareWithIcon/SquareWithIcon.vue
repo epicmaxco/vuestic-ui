@@ -1,6 +1,9 @@
 <template>
-  <div class="square-with-icon" :style="{ backgroundColor: colorComputed }">
-    <va-icon :name="icon"/>
+  <div
+    class="square-with-icon"
+    :style="{ backgroundColor: colorComputed }"
+  >
+    <va-icon :name="icon" />
   </div>
 </template>
 
@@ -9,7 +12,7 @@ import VaIcon from '../../va-icon/VaIcon'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
 export default {
-  name: 'square-with-icon',
+  name: 'SquareWithIcon',
   mixins: [ColorThemeMixin],
   components: { VaIcon },
   props: {

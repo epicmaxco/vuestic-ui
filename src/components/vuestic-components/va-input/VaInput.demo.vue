@@ -41,7 +41,10 @@
         v-model="text"
         label="Name"
       >
-        <va-icon slot="append" name="share"/>
+        <va-icon
+          slot="append"
+          name="share"
+        />
       </va-input>
     </VbCard>
     <VbCard title="Button">
@@ -49,7 +52,11 @@
         v-model="text"
         label="Name"
       >
-        <va-button slot="append" style="margin-right: 0;" size="small">
+        <va-button
+          slot="append"
+          style="margin-right: 0;"
+          size="small"
+        >
           Upload
         </va-button>
       </va-input>
@@ -80,8 +87,7 @@
       <va-input
         v-model="text"
         removable
-      >
-      </va-input>
+      />
     </VbCard>
     <VbCard title="Error">
       <va-input
@@ -119,7 +125,7 @@
         v-model="text"
         label="Name"
         error
-        :errorCount="2"
+        :error-count="2"
         :error-messages="['one', 'two']"
       />
     </VbCard>
@@ -135,8 +141,8 @@
         v-model="text"
         label="Name"
         type="textarea"
-        :minRows="3"
-        :maxRows="8"
+        :min-rows="3"
+        :max-rows="8"
       />
     </VbCard>
     <VbCard title="Textarea autosize">
@@ -153,8 +159,8 @@
         label="Name"
         type="textarea"
         autosize
-        :minRows="3"
-        :maxRows="8"
+        :min-rows="3"
+        :max-rows="8"
       />
     </VbCard>
   </VbDemo>

@@ -5,7 +5,7 @@
         v-model="value"
         mode="slider"
       >
-        <va-color-square :value="value"/>
+        <va-color-square :value="value" />
       </va-color-picker-input>
       {{ value }}
     </VbCard>
@@ -15,7 +15,7 @@
         v-model="value"
         mode="advanced"
       >
-        <va-color-input v-model="value"/>
+        <va-color-input v-model="value" />
       </va-color-picker-input>
     </VbCard>
 
@@ -33,7 +33,7 @@
         mode="palette"
         :palette="palette"
       >
-        <color-dot :color="value"/>
+        <color-dot :color="value" />
       </va-color-picker-input>
       {{ value }}
     </VbCard>

@@ -8,13 +8,16 @@
       @click="onHeaderClick()"
     >
       <template>
-        <slot name="header" v-if="customHeader"/>
+        <slot
+          name="header"
+          v-if="customHeader"
+        />
       </template>
       <div
         v-if="!customHeader"
         class="va-collapse__header__content"
       >
-        <slot name="header"/>
+        <slot name="header" />
         <va-icon
           v-if="show"
           class="va-collapse__header__icon"
@@ -31,7 +34,7 @@
       class="va-collapse__body"
       :style="stylesComputed"
     >
-      <slot name="body"/>
+      <slot name="body" />
     </div>
   </div>
 </template>
@@ -40,7 +43,7 @@
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  name: 'va-collapse',
+  name: 'VaCollapse',
   components: { VaIcon },
   props: {
     isOpenDefault: {

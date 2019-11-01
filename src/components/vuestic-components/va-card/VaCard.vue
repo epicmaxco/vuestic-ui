@@ -7,10 +7,19 @@
       v-if="stripe"
       class="va-card__stripe"
       :style="computedStripeStyle"
-    ></div>
-    <div v-if="image" class="va-card__image">
-      <img :src="image" :alt="imageAlt">
-      <div class="va-card__image-overlay" v-if="overlay"></div>
+    />
+    <div
+      v-if="image"
+      class="va-card__image"
+    >
+      <img
+        :src="image"
+        :alt="imageAlt"
+      >
+      <div
+        class="va-card__image-overlay"
+        v-if="overlay"
+      />
     </div>
 
     <div
@@ -25,7 +34,7 @@
             {{ title }}
           </div>
           <div class="va-card__header-actions">
-            <slot name="actions"/>
+            <slot name="actions" />
           </div>
         </slot>
       </div>
@@ -36,7 +45,7 @@
       class="va-card__body"
       :class="computedCardBodyClass"
     >
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>
@@ -47,7 +56,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-card',
+  name: 'VaCard',
   mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     stripe: {

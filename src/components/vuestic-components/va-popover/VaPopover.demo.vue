@@ -82,7 +82,9 @@
               message="Popover dummy text"
               color="warning"
             >
-              <va-button color="warning">Hover me</va-button>
+              <va-button color="warning">
+                Hover me
+              </va-button>
             </va-popover>
 
             <va-popover
@@ -90,7 +92,9 @@
               message="Popover dummy text"
               color="info"
             >
-              <va-button color="info">Hover me</va-button>
+              <va-button color="info">
+                Hover me
+              </va-button>
             </va-popover>
 
             <va-popover
@@ -98,7 +102,9 @@
               message="Popover dummy text"
               color="danger"
             >
-              <va-button color="danger">Hover me</va-button>
+              <va-button color="danger">
+                Hover me
+              </va-button>
             </va-popover>
 
             <va-popover
@@ -106,7 +112,9 @@
               message="Popover dummy text"
               color="dark"
             >
-              <va-button color="dark">Hover me</va-button>
+              <va-button color="dark">
+                Hover me
+              </va-button>
             </va-popover>
 
             <va-popover
@@ -114,7 +122,9 @@
               message="Popover dummy text"
               color="gray"
             >
-              <va-button color="gray">Hover me</va-button>
+              <va-button color="gray">
+                Hover me
+              </va-button>
             </va-popover>
 
             <va-popover

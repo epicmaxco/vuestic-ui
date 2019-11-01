@@ -23,8 +23,11 @@
           :disabled="disabled"
           :indeterminate="indeterminate"
           :style="inputStyle"
+        >
+        <va-icon
+          class="va-checkbox__icon-selected"
+          :name="computedIconName"
         />
-        <va-icon class="va-checkbox__icon-selected" :name="computedIconName"/>
       </div>
       <div
         class="va-checkbox__label-text"
@@ -52,7 +55,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-checkbox',
+  name: 'VaCheckbox',
   components: { VaMessageList, VaIcon },
   mixins: [KeyboardOnlyFocusMixin, ColorThemeMixin, ContextPluginMixin],
   props: {

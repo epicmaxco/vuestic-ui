@@ -8,19 +8,29 @@
 
     <VbCard title="Slots scheme">
       <va-input-wrapper :messages="messages">
-        <div slot="prepend" style="width: 30px; height: 30px; border: 1px dotted black;" class="flex-center">
-          <va-icon name="volume_down"/>
+        <div
+          slot="prepend"
+          style="width: 30px; height: 30px; border: 1px dotted black;"
+          class="flex-center"
+        >
+          <va-icon name="volume_down" />
         </div>
-        <div style="width: 200px; height: 30px; border: 1px dotted black;">Default Slot</div>
-        <div slot="append" style="width: 30px; height: 30px; border: 1px dotted black;" class="flex-center">
-          <va-icon name="volume_up"/>
+        <div style="width: 200px; height: 30px; border: 1px dotted black;">
+          Default Slot
+        </div>
+        <div
+          slot="append"
+          style="width: 30px; height: 30px; border: 1px dotted black;"
+          class="flex-center"
+        >
+          <va-icon name="volume_up" />
         </div>
       </va-input-wrapper>
     </VbCard>
 
     <VbCard title="Error">
       <va-input-wrapper
-        :errorMessages="errorMessages"
+        :error-messages="errorMessages"
       >
         <div>Default Slot</div>
       </va-input-wrapper>
@@ -37,10 +47,16 @@
 
     <VbCard title="Input Wrapper For Checkbox and Radio Button">
       <va-input-wrapper :messages="messages">
-        <va-checkbox name="agree-to-terms" v-model="agreedToTerms">
+        <va-checkbox
+          name="agree-to-terms"
+          v-model="agreedToTerms"
+        >
           <template slot="label">
             I agree to
-            <a class="link" href="javascript:void(0);">Terms of use.</a>
+            <a
+              class="link"
+              href="javascript:void(0);"
+            >Terms of use.</a>
           </template>
         </va-checkbox>
       </va-input-wrapper>

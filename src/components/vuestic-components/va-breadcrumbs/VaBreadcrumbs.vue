@@ -5,7 +5,7 @@ import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default Vue.component('va-breadcrumbs-provider', {
-  name: 'va-breadcrumbs',
+  name: 'VaBreadcrumbs',
   mixins: [ColorThemeMixin, AlignMixin, ContextPluginMixin],
   props: {
     color: {

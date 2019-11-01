@@ -1,6 +1,6 @@
 <template>
   <div class="va-medium-editor content">
-    <slot/>
+    <slot />
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import MediumEditor from 'medium-editor'
 
 export default {
-  name: 'va-medium-editor',
+  name: 'VaMediumEditor',
 
   props: {
     editorOptions: {

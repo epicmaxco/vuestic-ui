@@ -36,8 +36,8 @@
                 title="Default Card with controls"
               >
                 <template slot="actions">
-                  <va-button icon="loop"/>
-                  <va-button icon="menu"/>
+                  <va-button icon="loop" />
+                  <va-button icon="menu" />
                 </template>
                 The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills. Various anthropogenic factors have had a severe impact on zebra populations, in particular hunting for skins and habitat destruction. Grévy's zebra and the mountain zebra are endangered. While plains zebras are much more plentiful, one subspecies, the quagga, became extinct in the late 19th century – though there is currently a plan, called the Quagga Project
               </va-card>
@@ -52,8 +52,13 @@
                 title="Custom header"
               >
                 <template slot="header">
-                  <va-icon name="face" color="success"/>
-                  <h5 class="mt-0 mb-0">Custom Header</h5>
+                  <va-icon
+                    name="face"
+                    color="success"
+                  />
+                  <h5 class="mt-0 mb-0">
+                    Custom Header
+                  </h5>
                 </template>
                 The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills. Various anthropogenic factors have had a severe impact on zebra populations, in particular hunting for skins and habitat destruction. Grévy's zebra and the mountain zebra are endangered. While plains zebras are much more plentiful, one subspecies, the quagga, became extinct in the late 19th century – though there is currently a plan, called the Quagga Project
               </va-card>
@@ -68,8 +73,8 @@
                 title="Default Card with long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text"
               >
                 <template slot="actions">
-                  <va-button icon="loop"/>
-                  <va-button icon="menu"/>
+                  <va-button icon="loop" />
+                  <va-button icon="menu" />
                 </template>
                 The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills. Various anthropogenic factors have had a severe impact on zebra populations, in particular hunting for skins and habitat destruction. Grévy's zebra and the mountain zebra are endangered. While plains zebras are much more plentiful, one subspecies, the quagga, became extinct in the late 19th century – though there is currently a plan, called the Quagga Project
               </va-card>
@@ -119,7 +124,7 @@
             <VbCard>
               <va-card
                 overlay
-                titleOnImage
+                title-on-image
                 image="https://picsum.photos/300/200/?image=1043"
                 title="Card with title on image"
               >
@@ -134,7 +139,7 @@
             <VbCard>
               <va-card
                 overlay
-                titleOnImage
+                title-on-image
                 image="https://picsum.photos/300/200/?image=1043"
               >
                 <template slot="header">
@@ -178,7 +183,11 @@
           <td>Without margin</td>
           <td>
             <VbCard>
-              <va-card class="mb-0" stripe="info" color="success">
+              <va-card
+                class="mb-0"
+                stripe="info"
+                color="success"
+              >
                 The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills.
               </va-card>
             </VbCard>

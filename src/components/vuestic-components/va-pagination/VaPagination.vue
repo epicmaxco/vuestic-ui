@@ -69,7 +69,7 @@ import { setPaginationRange } from './setPaginationRange'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-pagination',
+  name: 'VaPagination',
   components: {
     VaButtonGroup,
     VaButton,

@@ -1,6 +1,9 @@
 <template>
   <VbDemo>
-    <VbCard title="default" style="max-width: 600px; width: 100%;">
+    <VbCard
+      title="default"
+      style="max-width: 600px; width: 100%;"
+    >
       <table class="table table-bordered">
         <tr>
           <th>Description</th>
@@ -71,7 +74,7 @@
             <va-date-picker
               label="Show week days in dropdown"
               v-model="weekDays"
-              weekDays
+              week-days
             />
           </td>
         </tr>

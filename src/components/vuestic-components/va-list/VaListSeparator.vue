@@ -5,14 +5,14 @@
       :class="{
         'va-list-separator--offset': !fit,
         'va-list-separator--spaced': spaced
-      }">
-    </div>
+      }"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'va-list-separator',
+  name: 'VaListSeparator',
   props: {
     fit: Boolean,
     spaced: Boolean,

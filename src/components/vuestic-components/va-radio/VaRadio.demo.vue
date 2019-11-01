@@ -19,7 +19,7 @@
         :label="option.name"
       />
       <div>
-        {{selectedOptionObject}}
+        {{ selectedOptionObject }}
       </div>
     </VbCard>
     <VbCard title="Custom label">

@@ -1,7 +1,7 @@
 <template>
   <component
     ref="chart"
-    class='va-chart'
+    class="va-chart"
     :is="chartComponent"
     :options="options"
     :chart-data="data"
@@ -18,7 +18,7 @@ import LineChart from './chart-types/LineChart'
 import { chartTypesMap } from './VaChartConfigs'
 
 export default {
-  name: 'va-chart',
+  name: 'VaChart',
   props: {
     data: {},
     options: {},

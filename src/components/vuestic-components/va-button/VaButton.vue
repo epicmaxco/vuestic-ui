@@ -30,8 +30,9 @@
       />
       <div
         v-if="hasTitleData"
-        class="va-button__content__title">
-        <slot/>
+        class="va-button__content__title"
+      >
+        <slot />
       </div>
       <va-icon
         v-if="iconRight"
@@ -56,7 +57,7 @@ import { ContextPluginMixin, getContextPropValue } from '../../context-test/cont
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 export default {
-  name: 'va-button',
+  name: 'VaButton',
   components: { VaIcon },
   mixins: [ColorThemeMixin, RouterLinkMixin, ContextPluginMixin],
   inject: {

@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'va-color-square',
+  name: 'VaColorSquare',
   props: {
     value: {
       required: true,

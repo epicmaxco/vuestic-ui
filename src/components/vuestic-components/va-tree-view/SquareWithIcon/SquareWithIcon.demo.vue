@@ -1,8 +1,11 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <square-with-icon iconClass="check"/>
-      <square-with-icon iconClass="check" color="danger"/>
+      <square-with-icon icon-class="check" />
+      <square-with-icon
+        icon-class="check"
+        color="danger"
+      />
     </VbCard>
   </VbDemo>
 </template>

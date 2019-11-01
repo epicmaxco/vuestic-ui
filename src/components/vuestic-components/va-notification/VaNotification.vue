@@ -1,10 +1,14 @@
 <template>
-  <transition v-if="value" name="fade">
-    <div class="va-notification"
+  <transition
+    v-if="value"
+    name="fade"
+  >
+    <div
+      class="va-notification"
       :style="notificationStyle"
     >
       <div class="va-notification__content">
-        <slot/>
+        <slot />
       </div>
 
       <va-icon
@@ -26,7 +30,7 @@ import {
 } from '../../../services/color-functions'
 
 export default {
-  name: 'va-notification',
+  name: 'VaNotification',
   components: {
     VaIcon,
   },

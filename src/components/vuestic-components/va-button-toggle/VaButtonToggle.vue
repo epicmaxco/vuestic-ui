@@ -11,7 +11,8 @@
         :size="size"
         :color="buttonColor(option.value)"
         :class="buttonClass(option.value)"
-        @click="changeValue(option.value)">
+        @click="changeValue(option.value)"
+      >
         {{ option.label }}
       </va-button>
     </va-button-group>
@@ -24,7 +25,7 @@ import { getGradientBackground } from '../../../services/color-functions'
 import VaButton from '../va-button/VaButton'
 
 export default {
-  name: 'va-button-toggle',
+  name: 'VaButtonToggle',
   components: {
     VaButtonGroup,
     VaButton,

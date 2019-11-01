@@ -1,6 +1,10 @@
 <template>
   <VbDemo>
-    <va-list fit style="maxWidth: 400px" class="ma-2">
+    <va-list
+      fit
+      style="maxWidth: 400px"
+      class="ma-2"
+    >
       <va-list-label>
         Basic
       </va-list-label>
@@ -23,11 +27,14 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="remove_red_eye" color="gray" />
+          <va-icon
+            name="remove_red_eye"
+            color="gray"
+          />
         </va-item-section>
       </va-item>
 
-      <va-list-separator></va-list-separator>
+      <va-list-separator />
 
       <va-item>
         <va-item-section avatar>
@@ -47,11 +54,14 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="remove_red_eye" color="gray" />
+          <va-icon
+            name="remove_red_eye"
+            color="gray"
+          />
         </va-item-section>
       </va-item>
 
-      <va-list-separator spaced></va-list-separator>
+      <va-list-separator spaced />
 
       <va-list-label color="warning">
         Warning
@@ -75,19 +85,29 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="remove_red_eye" color="gray" />
+          <va-icon
+            name="remove_red_eye"
+            color="gray"
+          />
         </va-item-section>
       </va-item>
     </va-list>
 
-    <va-list fit style="maxWidth: 400px" class="ma-2">
+    <va-list
+      fit
+      style="maxWidth: 400px"
+      class="ma-2"
+    >
       <va-list-label>
         Aligned, Clickable
       </va-list-label>
 
       <va-item clickable>
         <va-item-section side>
-          <va-icon name="star" color="warning" />
+          <va-icon
+            name="star"
+            color="warning"
+          />
         </va-item-section>
 
         <va-item-section avatar>
@@ -107,15 +127,17 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="remove_red_eye" color="gray" />
+          <va-icon
+            name="remove_red_eye"
+            color="gray"
+          />
         </va-item-section>
       </va-item>
 
-      <va-list-separator></va-list-separator>
+      <va-list-separator />
 
       <va-item clickable>
-        <va-item-section side>
-        </va-item-section>
+        <va-item-section side />
 
         <va-item-section avatar>
           <va-avatar>
@@ -134,12 +156,19 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="remove_red_eye" color="gray" />
+          <va-icon
+            name="remove_red_eye"
+            color="gray"
+          />
         </va-item-section>
       </va-item>
     </va-list>
 
-    <va-list fit style="maxWidth: 400px" class="ma-2">
+    <va-list
+      fit
+      style="maxWidth: 400px"
+      class="ma-2"
+    >
       <va-list-label>
         Router Support
       </va-list-label>
@@ -162,11 +191,14 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="remove_red_eye" color="gray" />
+          <va-icon
+            name="remove_red_eye"
+            color="gray"
+          />
         </va-item-section>
       </va-item>
 
-      <va-list-separator></va-list-separator>
+      <va-list-separator />
 
       <va-item to="/bar">
         <va-item-section avatar>
@@ -186,12 +218,19 @@
         </va-item-section>
 
         <va-item-section side>
-          <va-icon name="remove_red_eye" color="gray" />
+          <va-icon
+            name="remove_red_eye"
+            color="gray"
+          />
         </va-item-section>
       </va-item>
     </va-list>
 
-    <va-list fit style="maxWidth: 400px" class="ma-2">
+    <va-list
+      fit
+      style="maxWidth: 400px"
+      class="ma-2"
+    >
       <va-list-label>
         Selectable
       </va-list-label>

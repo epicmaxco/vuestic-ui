@@ -1,6 +1,6 @@
 <template>
   <div class="va-tree-root">
-    <slot/>
+    <slot />
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import Vue from 'vue'
 
 export default {
-  name: 'va-tree-root',
+  name: 'VaTreeRoot',
   mixins: [ ColorThemeMixin ],
   provide () {
     const parent = this

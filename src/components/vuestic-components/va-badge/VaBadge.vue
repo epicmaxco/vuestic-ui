@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-badge"
-   :class="badgeClass"
+    :class="badgeClass"
   >
     <div
       class="va-badge__content-wrapper"
@@ -22,7 +22,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-badge',
+  name: 'VaBadge',
   mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     color: {

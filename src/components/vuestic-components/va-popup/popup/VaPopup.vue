@@ -16,7 +16,7 @@ import CanRenderMixinMixin from '../mixins/can-render.js'
 
 // @depecated
 export default {
-  name: 'va-popup',
+  name: 'VaPopup',
   mixins: [ModelToggleMixin, CanRenderMixinMixin],
   props: {
     anchor: {

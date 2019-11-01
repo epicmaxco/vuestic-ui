@@ -35,7 +35,7 @@ import VaFileUploadGalleryItem from './VaFileUploadGalleryItem'
 import VaFileUploadSingleItem from './VaFileUploadSingleItem'
 
 export default {
-  name: 'va-file-upload-list',
+  name: 'VaFileUploadList',
   components: {
     VaFileUploadListItem,
     VaFileUploadGalleryItem,

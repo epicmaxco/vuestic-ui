@@ -36,7 +36,8 @@
       <div class="content">
         <ol>
           <li>item 1</li>
-          <li>item 2
+          <li>
+            item 2
             <ol>
               <li>item 2.1</li>
               <li>item 2.2</li>
@@ -47,7 +48,8 @@
         </ol>
         <ul>
           <li>item 1</li>
-          <li>item 2
+          <li>
+            item 2
             <ul>
               <li>item 2.1</li>
               <li>item 2.2</li>
@@ -61,7 +63,8 @@
     <VbCard title="without content class (lists)">
       <ol>
         <li>item 1</li>
-        <li>item 2
+        <li>
+          item 2
           <ol>
             <li>item 2.1</li>
             <li>item 2.2</li>
@@ -72,7 +75,8 @@
       </ol>
       <ul>
         <li>item 1</li>
-        <li>item 2
+        <li>
+          item 2
           <ul>
             <li>item 2.1</li>
             <li>item 2.2</li>
@@ -99,14 +103,14 @@
     <VbCard title="with content (figure)">
       <div class="content">
         <figure>
-          <img src="https://i.imgur.com/NLrdqsk.png"/>
+          <img src="https://i.imgur.com/NLrdqsk.png">
           <figcaption>Name of picture</figcaption>
         </figure>
       </div>
     </VbCard>
     <VbCard title="without content (figure)">
       <figure>
-        <img src="https://i.imgur.com/NLrdqsk.png"/>
+        <img src="https://i.imgur.com/NLrdqsk.png">
         <figcaption>Name of picture</figcaption>
       </figure>
     </VbCard>
@@ -114,27 +118,53 @@
       <div class="content">
         <table>
           <thead>
-          <tr>
-            <th v-for="(data, index) in tableData[0]" :key="index">{{data}}</th>
-          </tr>
+            <tr>
+              <th
+                v-for="(data, index) in tableDataHead"
+                :key="index"
+              >
+                {{ data }}
+              </th>
+            </tr>
           </thead>
           <tbody>
-          <tr v-for="(data, index) in tableData" :key="index" v-if="index !== 0">
-            <td v-for="(i, index) in data" :key="index">{{i}}</td>
-          </tr>
+            <tr
+              v-for="(data, index) in tableData"
+              :key="index"
+            >
+              <td
+                v-for="(i) in data"
+                :key="i"
+              >
+                {{ i }}
+              </td>
+            </tr>
           </tbody>
         </table>
         <p>striped</p>
         <table class="striped">
           <thead>
-          <tr>
-            <th v-for="(data, index) in tableData[0]" :key="index">{{data}}</th>
-          </tr>
+            <tr>
+              <th
+                v-for="(data, index) in tableDataHead"
+                :key="index"
+              >
+                {{ data }}
+              </th>
+            </tr>
           </thead>
           <tbody>
-          <tr v-for="(data, index) in tableData" :key="index" v-if="index !== 0">
-            <td v-for="(i, index) in data" :key="index">{{i}}</td>
-          </tr>
+            <tr
+              v-for="(data, index) in tableData"
+              :key="index"
+            >
+              <td
+                v-for="(i) in data"
+                :key="i"
+              >
+                {{ i }}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -142,14 +172,27 @@
     <VbCard title="without content (table)">
       <table>
         <thead>
-        <tr>
-          <th v-for="(data, index) in tableData[0]" :key="index">{{data}}</th>
-        </tr>
+          <tr>
+            <th
+              v-for="(data, index) in tableDataHead"
+              :key="index"
+            >
+              {{ data }}
+            </th>
+          </tr>
         </thead>
         <tbody>
-        <tr v-for="(data, index) in tableData" :key="index" v-if="index !== 0">
-          <td v-for="(i, index) in data" :key="index">{{i}}</td>
-        </tr>
+          <tr
+            v-for="(data, index) in tableData"
+            :key="index"
+          >
+            <td
+              v-for="(i) in data"
+              :key="i"
+            >
+              {{ i }}
+            </td>
+          </tr>
         </tbody>
       </table>
     </VbCard>
@@ -160,8 +203,8 @@
 export default {
   data () {
     return {
+      tableDataHead: ['Id', 'FooBar type', 'Actions'],
       tableData: [
-        ['Id', 'FooBar type', 'Actions'],
         ['1', 'Zebra', 'Delete'],
         ['2', 'Not Zebra', 'Remove'],
         ['3', 'Very Zebra', 'Eradicate'],

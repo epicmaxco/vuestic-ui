@@ -1,14 +1,21 @@
 <template>
   <div class="va-file-upload-undo">
     <span>File was successfully deleted</span>
-    <va-button @click="$emit('recover')" outline size="small" class="va-file-upload-undo__button">Undo</va-button>
+    <va-button
+      @click="$emit('recover')"
+      outline
+      size="small"
+      class="va-file-upload-undo__button"
+    >
+      Undo
+    </va-button>
   </div>
 </template>
 
 <script>
 import VaButton from '../va-button/VaButton'
 export default {
-  name: 'va-file-upload-undo',
+  name: 'VaFileUploadUndo',
   components: { VaButton },
 }
 </script>

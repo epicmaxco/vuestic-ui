@@ -1,25 +1,36 @@
 <template>
   <div class="va-progress-bar">
-    <div :style="{colorComputed}" class="va-progress-bar__info">
-      <slot v-if="!large"/>
+    <div
+      :style="{colorComputed}"
+      class="va-progress-bar__info"
+    >
+      <slot v-if="!large" />
     </div>
-    <div class="va-progress-bar__progress-bar" :class="computedClass" :style="computedStyle">
+    <div
+      class="va-progress-bar__progress-bar"
+      :class="computedClass"
+      :style="computedStyle"
+    >
       <div
         :style="{width: normalizedBuffer + '%', backgroundColor: colorComputed}"
         class="va-progress-bar__buffer"
-      ></div>
-      <div v-if="!indeterminate" :style="{width: normalizedValue + '%', backgroundColor: colorComputed}" class="va-progress-bar__overlay">
+      />
+      <div
+        v-if="!indeterminate"
+        :style="{width: normalizedValue + '%', backgroundColor: colorComputed}"
+        class="va-progress-bar__overlay"
+      >
         <slot v-if="large" />
       </div>
       <template v-else>
         <div
           :style="{backgroundColor: colorComputed, animationDirection: this.reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-start"
-        ></div>
+        />
         <div
           :style="{backgroundColor: colorComputed, animationDirection: this.reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-end"
-        ></div>
+        />
       </template>
     </div>
   </div>
@@ -32,7 +43,7 @@ import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-progress-bar',
+  name: 'VaProgressBar',
   mixins: [progressMixin, ColorThemeMixin, ContextPluginMixin],
   props: {
     color: {
