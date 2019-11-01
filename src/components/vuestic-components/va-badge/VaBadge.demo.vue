@@ -36,13 +36,13 @@
         </td>
         <td>
           <VbCard title="MultiLine badges">
-            <va-badge><template v-slot:badge>Multi<br />Line</template>without multiLine prop</va-badge><br /><br />
-            <va-badge multiLine><template v-slot:badge>Multi<br />Line</template>Multi line</va-badge><br /><br />
-            <va-badge multiLine><template v-slot:badge>Multi<br />Line<br />more</template>Multi line</va-badge><br /><br />
-            <div style="max-width: 500px; border: 2px solid green">
+            <va-badge><template v-slot:badge>Multi<br />Line</template>without multi-line prop</va-badge><br /><br />
+            <va-badge multi-line><template v-slot:badge>Multi<br />Line</template>Multi line</va-badge><br /><br />
+            <va-badge multi-line><template v-slot:badge>Multi<br />Line<br />more</template>Multi line</va-badge><br /><br />
+            <div style="width: 500px; border: 2px solid green">
               Regular non float badge
               <va-badge
-                multiLine
+                multi-line
                 label="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
               /><br /><br />
             </div>

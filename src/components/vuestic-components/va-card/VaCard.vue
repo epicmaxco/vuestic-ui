@@ -17,13 +17,11 @@
       v-if="showHeader"
       class="va-card__header"
       :class="{'va-card__header--over': image && titleOnImage}"
+      :style="computedHeaderStyles"
     >
       <div class="va-card__header-inner">
         <slot name="header">
-          <div
-            class="va-card__header-title"
-            :style="{color: this.titleOnImage ? 'white' : this.$themes.info}"
-          >
+          <div class="va-card__header-title">
             {{ title }}
           </div>
           <div class="va-card__header-actions">
@@ -45,49 +43,78 @@
 
 <script>
 import { getGradientBackground } from '../../../services/color-functions'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'va-card',
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     stripe: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'stripe', '')
+      },
     },
     title: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'title', '')
+      },
     },
     noPaddingV: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'noPaddingV', false)
+      },
     },
     noPaddingH: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'noPaddingH', false)
+      },
     },
     noPadding: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'noPadding', false)
+      },
     },
     image: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'image', '')
+      },
     },
     overlay: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'overlay', false)
+      },
     },
     imageAlt: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'imageAlt', '')
+      },
     },
     titleOnImage: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'titleOnImage', false)
+      },
     },
     color: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
+    headerColor: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'headerColor', 'info')
+      },
     },
   },
   computed: {
@@ -117,6 +144,13 @@ export default {
         }
       }
       return ''
+    },
+    computedHeaderStyles () {
+      if (this.headerColor && !this.titleOnImage) {
+        return { color: this.computeColor(this.headerColor) }
+      }
+
+      return null
     },
   },
 }
@@ -148,7 +182,6 @@ export default {
       font-size: $card-title-font-size;
       letter-spacing: $card-title-letter-spacing;
       text-transform: uppercase;
-      color: $card-title-color;
     }
 
     &-actions {
