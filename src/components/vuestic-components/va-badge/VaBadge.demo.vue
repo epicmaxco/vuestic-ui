@@ -22,7 +22,7 @@
             <va-badge label="Bottom" bottom>Float at</va-badge><br /><br />
             <va-badge label="Left" left>Float at</va-badge><br /><br />
             <va-badge label="Bottom+Left" bottom left>Float at</va-badge><br /><br />
-            <va-badge label="icon"><va-icon name="face"></va-icon></va-badge><br /><br />
+            <va-badge label="icon"><va-icon name="face" /></va-badge><br /><br />
           </VbCard>
         </td>
         <td>
@@ -30,8 +30,8 @@
             <va-badge label="I am Label">only label</va-badge><br /><br />
             <va-badge label="I am Badge"><template v-slot:badge>I am Badge</template>slotted badge</va-badge><br /><br />
             <va-badge label="I am Label"><template v-slot:badge>I am Badge</template>label + slotted badge</va-badge><br /><br />
-            <va-badge label="I am Label"><template v-slot:badge><va-icon name="face"></va-icon></template>slotted icon</va-badge><br /><br />
-            <va-badge label="I am Label"><template v-slot:badge><va-icon name="face"></va-icon></template><va-icon name="face"></va-icon></va-badge><br /><br />
+            <va-badge label="I am Label"><template v-slot:badge><va-icon name="face" /></template>slotted icon</va-badge><br /><br />
+            <va-badge label="I am Label"><template v-slot:badge><va-icon name="face" /></template><va-icon name="face" /></va-badge><br /><br />
           </VbCard>
         </td>
         <td>
@@ -54,7 +54,7 @@
             <va-badge dot label="Bottom" bottom>Bottom</va-badge><br /><br />
             <va-badge dot label="Left" left>Left</va-badge><br /><br />
             <va-badge dot label="Bottom+Left" bottom left>Bottom+Left</va-badge><br /><br />
-            <va-badge dot label="Regular"><va-icon name="face"></va-icon></va-badge><br /><br />
+            <va-badge dot label="Regular"><va-icon name="face" /></va-badge><br /><br />
           </VbCard>
         </td>
       </tr>
@@ -65,7 +65,7 @@
             <va-badge overlap label="overlap" bottom>Bottom</va-badge><br /><br />
             <va-badge overlap label="overlap" left>Left</va-badge><br /><br />
             <va-badge overlap label="overlap" bottom left>Bottom+Left</va-badge><br /><br />
-            <va-badge overlap label="1+"><va-icon name="face"></va-icon></va-badge><br /><br />
+            <va-badge overlap label="1+"><va-icon name="face" /></va-badge><br /><br />
           </VbCard>
         </td>
         <td>
@@ -74,7 +74,7 @@
             <va-badge dot overlap label="dot overlap" bottom>Bottom</va-badge><br /><br />
             <va-badge dot overlap label="dot overlap" left>Left</va-badge><br /><br />
             <va-badge dot overlap label="dot overlap" bottom left>Bottom+Left</va-badge><br /><br />
-            <va-badge dot overlap label="icon"><va-icon name="face"></va-icon></va-badge><br /><br />
+            <va-badge dot overlap label="icon"><va-icon name="face" /></va-badge><br /><br />
           </VbCard>
         </td>
         <td>
