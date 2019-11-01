@@ -86,7 +86,8 @@ export default {
   text-align: center;
   vertical-align: middle;
 
-  img, svg {
+  img,
+  svg {
     border-radius: inherit;
     display: inline-flex;
     height: inherit;

@@ -14,7 +14,7 @@
       </va-tab>
     </va-tabs>
 
-    <div style="height: 20px"/>
+    <div style="height: 20px;"/>
 
     <div>
       Content: {{ selectedTab ? selectedTab.title : 'none' }}

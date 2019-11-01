@@ -233,6 +233,7 @@ $dayMargin: 0.6rem;
 
       .flatpickr-day {
         @include va-flex-center();
+
         height: $daySize;
         line-height: 1.7;
         font-size: 1rem;
@@ -263,7 +264,8 @@ $dayMargin: 0.6rem;
           }
         }
 
-        &.nextMonthDay, &.prevMonthDay {
+        &.nextMonthDay,
+        &.prevMonthDay {
           color: $brand-secondary;
 
           &.startRange {
@@ -283,12 +285,15 @@ $dayMargin: 0.6rem;
           }
         }
 
-        &.startRange, &.endRange, &.inRange {
+        &.startRange,
+        &.endRange,
+        &.inRange {
           border-radius: 2rem;
           box-shadow: none;
         }
 
-        &.startRange, &.endRange {
+        &.startRange,
+        &.endRange {
           background-color: $datepickerActiveBackground;
           color: $datepickerActiveColor;
         }
@@ -363,10 +368,13 @@ $dayMargin: 0.6rem;
       }
     }
 
-    .flatpickr-prev-month, .flatpickr-next-month {
+    .flatpickr-prev-month,
+    .flatpickr-next-month {
       height: 2.625rem;
       width: 1.625rem;
+
       @include va-flex-center();
+
       padding: 0;
       color: $brand-secondary;
 
@@ -427,7 +435,7 @@ $dayMargin: 0.6rem;
 
     .numInputWrapper {
       &:hover {
-        background-color: $datepickerBackground
+        background-color: $datepickerBackground;
       }
 
       .flatpickr-hour {
@@ -450,7 +458,8 @@ $dayMargin: 0.6rem;
       }
 
       .numInput {
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           background: $datepickerBackground;
         }
       }

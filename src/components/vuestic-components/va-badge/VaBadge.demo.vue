@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <table style="width: 100%">
+    <table style="width: 100%;">
       <tr>
         <td colspan="2">
           <VbCard title="Regular badges">
@@ -39,7 +39,7 @@
             <va-badge><template v-slot:badge>Multi<br />Line</template>without multi-line prop</va-badge><br /><br />
             <va-badge multi-line><template v-slot:badge>Multi<br />Line</template>Multi line</va-badge><br /><br />
             <va-badge multi-line><template v-slot:badge>Multi<br />Line<br />more</template>Multi line</va-badge><br /><br />
-            <div style="width: 500px; border: 2px solid green">
+            <div style="width: 500px; border: 2px solid green;">
               Regular non float badge
               <va-badge
                 multi-line
@@ -111,7 +111,7 @@
           </td>
           <td>
             <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty">Default</va-badge><br />
-            <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty"><div style="width: 100px; height: 100px; border: 2px solid green">Custom<br />size</div></va-badge>
+            <va-badge :transparent="transparent" :bottom="bottom" :left="left" :overlap="overlap" :label="label" :dot="dot" :visibleEmpty="visibleEmpty"><div style="width: 100px; height: 100px; border: 2px solid green;">Custom<br />size</div></va-badge>
           </td>
         </tr>
       </table>

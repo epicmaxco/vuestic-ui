@@ -35,7 +35,7 @@
 
   hr.separator {
     height: 2px;
-    background-color: #eee;
+    background-color: #eeeeee;
     border: none;
   }
 
@@ -55,29 +55,28 @@
     }
   }
 
-
   // NOTE Ideally we want this to work with mixins too, but no idea how to achieve that :/.
   ol {
-    @extend .va-ordered
+    @extend .va-ordered;
   }
 
   ul {
-    @extend .va-unordered
+    @extend .va-unordered;
   }
 
   blockquote {
-    @extend .va-blockquote
+    @extend .va-blockquote;
   }
 
   figure {
-    @extend .card
+    @extend .card;
   }
 
   table {
-    @extend .va-table
+    @extend .va-table;
   }
 
   a {
-    @extend .link
+    @extend .link;
   }
 }

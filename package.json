@@ -8,6 +8,7 @@
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
+    "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "serve:docs": "vuepress dev docs",
     "build:docs": "vuepress build docs"
   },
@@ -23,6 +24,8 @@
     "lodash": "^4.17.15",
     "medium-editor": "^5.23.3",
     "normalize.css": "^8.0.1",
+    "stylelint": "^11.1.1",
+    "stylelint-config-standard": "^19.0.0",
     "v-tooltip": "^2.0.0-rc.30",
     "vue": "^2.6.10",
     "vue-chartjs": "^3.4.0",
@@ -60,8 +63,17 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,vue}": [
+    "*.js": [
       "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "stylelint --fix",
+      "git add"
+    ],
+    ".{htm,html,css,sss,less,scss}": [
+      "stylelint --fix",
       "git add"
     ]
   }

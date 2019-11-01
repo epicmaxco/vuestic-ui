@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <va-list fit style="maxWidth: 400px" class="ma-2">
+    <va-list fit class="ma-2">
       <va-list-label>
         Basic
       </va-list-label>
@@ -80,7 +80,7 @@
       </va-item>
     </va-list>
 
-    <va-list fit style="maxWidth: 400px" class="ma-2">
+    <va-list fit class="ma-2">
       <va-list-label>
         Aligned, Clickable
       </va-list-label>
@@ -139,7 +139,7 @@
       </va-item>
     </va-list>
 
-    <va-list fit style="maxWidth: 400px" class="ma-2">
+    <va-list fit class="ma-2">
       <va-list-label>
         Router Support
       </va-list-label>
@@ -191,7 +191,7 @@
       </va-item>
     </va-list>
 
-    <va-list fit style="maxWidth: 400px" class="ma-2">
+    <va-list fit class="ma-2">
       <va-list-label>
         Selectable
       </va-list-label>

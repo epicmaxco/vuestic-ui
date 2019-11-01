@@ -30,7 +30,7 @@ export default {
   align-items: center;
   color: $white;
   background-color: $vue-green;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   width: 1.375rem;
   height: 1.375rem;
 }

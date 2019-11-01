@@ -32,6 +32,7 @@ export default {
 
     .text {
       font-size: $font-size-base;
+
       @include va-ellipsis();
     }
 

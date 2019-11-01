@@ -45,7 +45,7 @@
     </VbCard>
     <VbCard title="Overflow">
       <va-tabs
-        style="width: 120px"
+        style="width: 120px;"
         v-model="tabValue"
       >
         <va-tab
@@ -92,7 +92,7 @@
         </va-tab>
       </va-tabs>
     </VbCard>
-    <VbCard title="Tabs problem" style="outline: 2px solid red">
+    <VbCard title="Tabs problem" style="outline: 2px solid red;">
       <va-tabs v-model="tabValue">
         <va-tab
           v-for="title in tabTitles"

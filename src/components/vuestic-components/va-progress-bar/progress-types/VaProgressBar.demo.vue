@@ -54,7 +54,6 @@
       Indeterminate Reversed
       <va-progress-bar reverse indeterminate />
     </VbCard>
-
     <VbCard title="Buffer" width="400px">
       Buffer
       <va-progress-bar :value="value" :buffer="bufferValue"/>
@@ -65,7 +64,7 @@
       <div>
         <button @click="value -= 100">-100</button>
         <button @click="value -= 10">-10</button>
-        <input style="width: 50px" type="number" v-model.number="value">
+        <input style="width: 50px;" type="number" v-model.number="value">
         <button @click="value += 10">+10</button>
         <button @click="value += 100">+100</button>
       </div>
@@ -74,7 +73,7 @@
       <div>
         <button @click="bufferValue -= 100">-100</button>
         <button @click="bufferValue -= 10">-10</button>
-        <input style="width: 50px" type="number" v-model.number="bufferValue">
+        <input style="width: 50px;" type="number" v-model.number="bufferValue">
         <button @click="bufferValue += 10">+10</button>
         <button @click="bufferValue += 100">+100</button>
       </div>

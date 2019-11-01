@@ -120,17 +120,16 @@ export default {
   position: relative;
   min-height: 3rem;
   cursor: pointer;
-  padding-left: .75rem;
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding-left: 0.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
   display: flex;
   align-items: center;
   text-decoration: none;
-  border-left: .25rem solid transparent;
+  border-left: 0.25rem solid transparent;
   color: rgba(255, 255, 255, 0.65);
 
   &__content {
-
     &__icon {
       width: 1.5rem;
       min-width: 1.5rem;

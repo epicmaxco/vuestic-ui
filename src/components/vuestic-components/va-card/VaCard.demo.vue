@@ -210,7 +210,7 @@ tr {
   }
 
   td > div {
-    background-color: #eee;
+    background-color: #eeeeee;
   }
 }
 </style>

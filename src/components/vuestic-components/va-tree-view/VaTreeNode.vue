@@ -49,11 +49,11 @@ export default {
   }
 
   &__icon {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 
   &__icon-right {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
   }
 
   &__label {

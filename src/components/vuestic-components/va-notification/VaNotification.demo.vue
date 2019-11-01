@@ -36,7 +36,7 @@
         You successfully read this important alert message.
       </va-notification>
     </VbCard>
-    <VbCard title="Long" style="width: 300px">
+    <VbCard title="Long" style="width: 300px;">
       <va-notification v-model="isCloseableNotificationVisible" closeable>
         <va-badge color="success" label="Paid" />
         You successfully read this important alert message. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long.

@@ -74,11 +74,11 @@ export default {
   & + & {
     margin-top: 0.5rem;
   }
-  line-height: 1.5rem;
 
+  line-height: 1.5rem;
   width: 100%;
   max-width: 100%;
-  padding: 1.125rem .5rem 1rem 1rem;
+  padding: 1.125rem 0.5rem 1rem 1rem;
 
   &__content {
     display: flex;

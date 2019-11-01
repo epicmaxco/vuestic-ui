@@ -455,7 +455,7 @@ export default {
   margin-bottom: 1rem;
 
   &--disabled {
-    @include va-disabled()
+    @include va-disabled();
   }
 
   &--loading {
@@ -467,12 +467,15 @@ export default {
 
   &__label {
     @include va-title();
+
     position: absolute;
-    top: .125rem;
-    left: .5rem;
-    margin-bottom: .5rem;
-    max-width: calc(100% - .25rem);
+    top: 0.125rem;
+    left: 0.5rem;
+    margin-bottom: 0.5rem;
+    max-width: calc(100% - 0.25rem);
+
     @include va-ellipsis();
+
     transform-origin: top left;
   }
 
@@ -483,7 +486,7 @@ export default {
     height: 100%;
     width: 100%;
     justify-content: stretch;
-    padding-left: .5rem;
+    padding-left: 0.5rem;
   }
 
   &__input {
@@ -500,7 +503,8 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
+
     &:focus {
       outline: none;
     }
@@ -512,8 +516,9 @@ export default {
     text-overflow: ellipsis;
     width: 100%;
   }
+
   &__placeholder {
-    opacity: .5;
+    opacity: 0.5;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -524,7 +529,7 @@ export default {
     color: $va-link-color-secondary;
     width: 1.5rem;
     height: 1.5rem;
-    padding: .25rem;
+    padding: 0.25rem;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -535,7 +540,8 @@ export default {
 
   &__open-icon {
     @extend .va-select__clear-icon;
-    right: .5rem;
+
+    right: 0.5rem;
   }
 
   &__tags {
@@ -546,7 +552,7 @@ export default {
 
   &__loading {
     position: absolute;
-    right: .5rem;
+    right: 0.5rem;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -557,7 +563,7 @@ export default {
     margin: 0;
     padding: 0;
     background: $light-gray3;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
 
     &.va-select__dropdown-position-top {
       box-shadow: 0 -2px 3px 0 rgba(98, 106, 119, 0.25);
@@ -573,15 +579,16 @@ export default {
       padding: 0;
       overflow-y: auto;
       box-shadow: $datepicker-box-shadow;
-      border-radius: .5rem;
+      border-radius: 0.5rem;
     }
   }
 
   &__option-list {
     width: 100%;
     list-style: none;
+
     &.no-options {
-      padding: .5rem;
+      padding: 0.5rem;
     }
   }
 
@@ -589,7 +596,7 @@ export default {
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: .375rem .5rem .375rem .5rem;
+    padding: 0.375rem 0.5rem 0.375rem 0.5rem;
     min-height: 2.25rem;
     word-break: break-word;
 
@@ -599,7 +606,7 @@ export default {
     }
 
     &__icon {
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
   }
 }

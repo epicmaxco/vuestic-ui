@@ -110,6 +110,7 @@ export default {
 
   &__overlay {
     transition: all ease 2s;
+
     @at-root {
       .va-progress-circle--indeterminate & {
         animation: va-progress-circle__overlay--indeterminate 2s ease-in-out infinite;
@@ -134,12 +135,14 @@ export default {
 @keyframes va-progress-circle__overlay--indeterminate {
   0% {
     stroke-dasharray: 1, 125;
-    stroke-dashoffset: 0px;
+    stroke-dashoffset: 0;
   }
+
   50% {
     stroke-dasharray: 125, 125;
     stroke-dashoffset: -65px;
   }
+
   100% {
     stroke-dasharray: 125, 125;
     stroke-dashoffset: -125px;

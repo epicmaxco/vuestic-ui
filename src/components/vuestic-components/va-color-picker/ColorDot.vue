@@ -34,7 +34,6 @@ export default {
   height: 1.5rem;
   min-width: 1.5rem;
   cursor: pointer;
-
   border-radius: 50%;
   border: solid 0.125rem transparent;
 

@@ -57,9 +57,7 @@ $va-profile-card-photo-diameter: 9.375rem;
   }
 
   &__info {
-
     &-location {
-
       .icon {
         color: $lighter-gray;
         font-size: $font-size-larger;
@@ -77,7 +75,7 @@ $va-profile-card-photo-diameter: 9.375rem;
 
   &__social {
     width: 100%;
-    border-top: solid .125rem $light-gray;
+    border-top: solid 0.125rem $light-gray;
 
     .icon {
       color: $gray;

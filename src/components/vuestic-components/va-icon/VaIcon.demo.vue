@@ -13,7 +13,7 @@
     </VbCard>
 
     <VbCard title="Size presets">
-      <div style="font-size: 24px">
+      <div style="font-size: 24px;">
         <va-icon :name="icon" size="small"/>
         <va-icon :name="icon"/>
         <va-icon :name="icon" size="large"/>

@@ -743,10 +743,10 @@ export default {
       width: 1.25rem;
       height: 1.25rem;
       background: $white;
-      border: .375rem solid;
+      border: 0.375rem solid;
       border-radius: 50%;
       outline: none !important;
-      left: -.375rem;
+      left: -0.375rem;
       transition: none;
 
       &:hover {
@@ -767,7 +767,7 @@ export default {
       &-value {
         transform: translate(-50%, -100%);
         user-select: none;
-        font-size: .625rem;
+        font-size: 0.625rem;
         letter-spacing: 0.6px;
         line-height: 1.2;
         font-weight: bold;
@@ -778,7 +778,7 @@ export default {
 
   .label {
     user-select: none;
-    font-size: .625rem;
+    font-size: 0.625rem;
     letter-spacing: 0.6px;
     line-height: 1.2;
     font-weight: bold;
@@ -787,7 +787,7 @@ export default {
 
   .inverse-label {
     user-select: none;
-    font-size: .625rem;
+    font-size: 0.625rem;
     letter-spacing: 0.6px;
     line-height: 1.2;
     font-weight: bold;
@@ -830,13 +830,14 @@ export default {
     width: 100%;
     height: 1.5rem;
 
-    &__track, &__track--active {
+    &__track,
+    &__track--active {
       height: 0.5rem;
       width: 100%;
     }
 
     &__track--inactive {
-      transition: width .3s ease-out, left .3s ease-out;
+      transition: width 0.3s ease-out, left 0.3s ease-out;
     }
 
     &__mark {
@@ -847,7 +848,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: left .3s ease-out;
+        transition: left 0.3s ease-out;
       }
 
       &-value {
@@ -878,7 +879,6 @@ export default {
     flex-grow: 0;
     max-width: 1rem;
     min-width: 2.5rem;
-
     position: relative;
     display: flex;
 
@@ -889,45 +889,46 @@ export default {
 
   .container {
     height: 100%;
-    width: .5rem;
+    width: 0.5rem;
 
-    &__track, &__track--active {
+    &__track,
+    &__track--active {
       height: 100%;
-      width: .5rem;
+      width: 0.5rem;
       bottom: 0;
     }
 
     &__track--inactive {
-      transition: height .3s ease-out, bottom .3s ease-out;
+      transition: height 0.3s ease-out, bottom 0.3s ease-out;
     }
 
     &__mark {
       position: absolute;
-      width: .75rem;
-      height: .125rem;
+      width: 0.75rem;
+      height: 0.125rem;
       left: -2px;
     }
 
     &__handler {
       &--inactive {
-        transition: bottom .3s ease-out;
+        transition: bottom 0.3s ease-out;
       }
 
       &-value {
         position: relative;
-        top: .625rem;
+        top: 0.625rem;
         left: 1.25rem;
       }
     }
   }
 
   .label {
-    margin-bottom: .625rem;
+    margin-bottom: 0.625rem;
   }
 
   .inverse-label {
-    left: -.375rem;
-    margin-top: .625rem;
+    left: -0.375rem;
+    margin-top: 0.625rem;
   }
 }
 </style>

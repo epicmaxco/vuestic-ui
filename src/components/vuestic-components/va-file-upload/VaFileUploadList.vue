@@ -95,7 +95,7 @@ export default {
   padding: 0 0 1.5rem;
 
   &--gallery {
-    padding-bottom: .5rem;
+    padding-bottom: 0.5rem;
   }
 }
 </style>

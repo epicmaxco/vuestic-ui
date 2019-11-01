@@ -1,6 +1,6 @@
 <template>
   <VbDemo class="file-upload">
-    <VbCard title="types" style="width: 100%">
+    <VbCard title="types" style="width: 100%;">
       <p>list (default)</p>
       <va-file-upload v-model="basic"/>
       <p>single</p>
@@ -8,7 +8,7 @@
       <p>gallery</p>
       <va-file-upload v-model="gallery" type="gallery"/>
     </VbCard>
-    <VbCard title="dropzone" style="width: 100%">
+    <VbCard title="dropzone" style="width: 100%;">
       <p>list</p>
       <va-file-upload v-model="basic" dropzone/>
       <p>gallery</p>
@@ -21,7 +21,7 @@
       <va-file-upload v-model="defaultFileList"/>
       <va-file-upload v-model="defaultFileList" type="gallery"/>
     </VbCard>
-    <VbCard title="colors" style="width: 100%">
+    <VbCard title="colors" style="width: 100%;">
       <va-file-upload v-model="basic" color="info"/>
       <va-file-upload v-model="gallery" type="gallery" color="info"/>
       <va-file-upload v-model="basic" dropzone color="info"/>

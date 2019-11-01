@@ -112,30 +112,36 @@ export default {
 @import '../../vuestic-sass/resources/resources';
 
 $max-image-size: 8.5714rem;
+
 .va-file-upload-gallery-item {
   position: relative;
   margin-bottom: 1rem;
-  margin-right: .5rem;
-  flex-basis: calc(14.2857% - .5rem);
-  max-width: calc(14.2857% - .5rem);
-  border-radius: .375rem;
+  margin-right: 0.5rem;
+  flex-basis: calc(14.2857% - 0.5rem);
+  max-width: calc(14.2857% - 0.5rem);
+  border-radius: 0.375rem;
   overflow: hidden;
   width: 100%;
+
   @include media-breakpoint-down(md) {
-    flex-basis: calc(16.667% - .5rem);
-    max-width: calc(16.667% - .5rem);
+    flex-basis: calc(16.667% - 0.5rem);
+    max-width: calc(16.667% - 0.5rem);
   }
+
   @include media-breakpoint-down(sm) {
-    flex-basis: calc(20% - .5rem);
-    max-width: calc(20% - .5rem);
+    flex-basis: calc(20% - 0.5rem);
+    max-width: calc(20% - 0.5rem);
   }
+
   @include media-breakpoint-down(xs) {
-    flex-basis: calc(50% - .5rem);
-    max-width: calc(50% - .5rem);
+    flex-basis: calc(50% - 0.5rem);
+    max-width: calc(50% - 0.5rem);
   }
+
   &:last-of-type {
     margin-right: 0;
   }
+
   &:hover {
     .va-file-upload-gallery-item__overlay {
       display: flex;
@@ -166,7 +172,7 @@ $max-image-size: 8.5714rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: .875rem;
+    font-size: 0.875rem;
   }
 
   &__delete {
@@ -177,17 +183,20 @@ $max-image-size: 8.5714rem;
 
   &--undo {
     box-shadow: none;
+
     .va-file-upload-gallery-item--undo {
-      padding: .5rem;
+      padding: 0.5rem;
       display: flex;
       flex-direction: column;
-      font-size: .875rem;
+      font-size: 0.875rem;
       height: 100%;
       justify-content: space-between;
       align-items: flex-start;
+
       span {
-        margin-right: .5rem;
+        margin-right: 0.5rem;
       }
+
       .va-button {
         margin: 0;
       }

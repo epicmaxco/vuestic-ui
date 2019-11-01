@@ -282,6 +282,8 @@ export default {
       if (this.trigger === 'none') {
         return this.value
       }
+
+      return null
     },
     scrollWidth () {
       const div = document.createElement('div')
@@ -305,7 +307,7 @@ export default {
 
 .va-dropdown {
   &__content {
-    /*overflow: hidden;*/
+    /* overflow: hidden; */
     z-index: 100;
   }
 }

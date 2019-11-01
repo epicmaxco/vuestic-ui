@@ -232,10 +232,10 @@ export default {
   }
 
   &__image {
-     padding-bottom: 56%;
-     position: relative;
-     height: auto;
-     min-height: 100%;
+    padding-bottom: 56%;
+    position: relative;
+    height: auto;
+    min-height: 100%;
 
     img {
       position: absolute;
@@ -253,7 +253,7 @@ export default {
       left: 0;
       height: 100%;
       width: 100%;
-      background-color: rgba(0, 0, 0, .3);
+      background-color: rgba(0, 0, 0, 0.3);
       pointer-events: none;
     }
   }

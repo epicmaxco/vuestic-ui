@@ -15,6 +15,7 @@ export default {
 <style lang="scss" scoped>
 .va-file-upload-undo {
   height: 1.5rem;
+
   &__button {
     line-height: 1.1428;
     margin-top: 0;

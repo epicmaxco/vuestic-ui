@@ -138,7 +138,7 @@ export default {
 
     &:focus {
       outline: 0;
-      box-shadow: 0 0 0 4px rgba(52, 144, 220, .5);
+      box-shadow: 0 0 0 4px rgba(52, 144, 220, 0.5);
     }
   }
 
@@ -151,14 +151,14 @@ export default {
       }
 
       &__input {
-        top: .128rem;
-        left: .1275rem;
+        top: 0.128rem;
+        left: 0.1275rem;
         height: 1.2rem;
         width: 1.2rem;
       }
 
       &__track {
-        border-radius: .75rem;
+        border-radius: 0.75rem;
       }
     }
   }
@@ -172,8 +172,8 @@ export default {
       }
 
       &__input {
-        top: .375rem;
-        left: .375rem;
+        top: 0.375rem;
+        left: 0.375rem;
         height: 1.8rem;
         width: 1.8rem;
       }
@@ -199,19 +199,19 @@ export default {
     width: 100%;
     background: $white;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color .2s ease;
+    transition: background-color 0.2s ease;
   }
 
   &__input {
     position: absolute;
-    top: .25rem;
-    left: .25rem;
+    top: 0.25rem;
+    left: 0.25rem;
     height: 1.5rem;
     width: 1.5rem;
     background-color: $white;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform .2s ease;
+    transition: transform 0.2s ease;
   }
 }
 

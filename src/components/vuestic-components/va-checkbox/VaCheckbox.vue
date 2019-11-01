@@ -230,24 +230,24 @@ export default {
     @at-root {
       .va-checkbox--disabled & {
         @include va-disabled();
+
+        cursor: default;
       }
 
       .va-checkbox--readonly & {
         cursor: initial;
-      }
-
-      .va-checkbox--disabled & {
-        cursor: default;
       }
     }
   }
 
   #{&}__square {
     @include flex-center();
+
     width: 2rem;
     height: 2rem;
     position: relative;
     flex: 0 0 2rem;
+
     @at-root {
       .va-checkbox--on-keyboard-focus#{&} {
         background-color: $light-gray;
@@ -292,6 +292,7 @@ export default {
     display: inline-block;
     position: relative;
     margin-left: 0.25rem;
+
     @at-root {
       .va-checkbox--error#{&} {
         color: $theme-red;

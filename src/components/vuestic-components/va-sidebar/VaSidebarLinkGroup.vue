@@ -184,6 +184,7 @@ export default {
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+
 .va-sidebar-link-group {
   flex-direction: column;
 
@@ -218,7 +219,7 @@ export default {
     top: 0;
     bottom: 0;
     margin: auto;
-    right: .1rem;
+    right: 0.1rem;
     width: 1.5rem;
     height: 1.5rem;
     font-weight: $font-weight-bold;
@@ -226,37 +227,39 @@ export default {
   }
 
   &--minimized {
-    .va-dropdown{
+    .va-dropdown {
       &__anchor {
         width: 100%;
       }
     }
+
     .va-sidebar-link-group__submenu {
       width: 10rem;
-      border-radius: .375rem;
+      border-radius: 0.375rem;
       margin-left: 1px;
       max-height: 80vh;
-      padding: .375rem 0;
+      padding: 0.375rem 0;
       overflow-y: auto;
       overflow-x: hidden;
 
       a {
-        padding: .75rem 1rem;
+        padding: 0.75rem 1rem;
         border-left: none;
         height: auto;
         min-height: 3rem;
       }
     }
+
     .va-sidebar-link__after {
       position: absolute;
-      bottom: .4375rem;
+      bottom: 0.4375rem;
       left: 0;
       right: 0;
-      height: .1835rem;
+      height: 0.1835rem;
       width: 1.8rem;
       display: block;
       margin: 0 auto;
-      line-height: .1835rem;
+      line-height: 0.1835rem;
     }
   }
 }

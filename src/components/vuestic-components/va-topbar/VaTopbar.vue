@@ -40,12 +40,12 @@ export default {
 
 <style lang="scss">
   @import "../../vuestic-sass/resources/resources";
+
   .va-topbar {
     height: $sidebar-viewport-height;
     left: 0;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     overflow-y: auto;
-
     width: 100%;
     position: relative;
     top: auto;
@@ -55,7 +55,6 @@ export default {
       max-height: 100%;
       list-style: none;
       padding-left: 0;
-
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -79,6 +78,7 @@ export default {
 
     @include media-breakpoint-down(sm) {
       top: $sidebar-mobile-top;
+
       .va-topbar__menu {
         max-width: 100%;
         padding: 0 1rem;
@@ -87,6 +87,7 @@ export default {
 
     &--minimized {
       left: 0;
+
       .va-topbar-link-group {
         .va-topbar-link__content {
           padding-right: 0;
