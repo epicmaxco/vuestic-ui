@@ -61,12 +61,14 @@
           v-if="success"
           class="va-input__container__icon"
           color="success"
-        >check</va-icon>
+          name="check"
+        />
         <va-icon
           v-if="error"
           class="va-input__container__icon"
           color="danger"
-        >warning</va-icon>
+          name="warning"
+        />
         <slot name="append"/>
         <va-icon
           v-if="removable && hasContent"
