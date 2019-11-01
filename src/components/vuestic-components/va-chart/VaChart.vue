@@ -20,9 +20,21 @@ import { chartTypesMap } from './VaChartConfigs'
 export default {
   name: 'VaChart',
   props: {
-    data: {},
-    options: {},
+    data: {
+      type: Object,
+      default () {
+        return {}
+      },
+    },
+    options: {
+      type: Object,
+      default () {
+        return {}
+      },
+    },
     type: {
+      type: String,
+      required: true,
       validator (type) {
         return type in chartTypesMap
       },

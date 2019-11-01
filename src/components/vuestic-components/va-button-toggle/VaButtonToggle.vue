@@ -33,9 +33,13 @@ export default {
   props: {
     options: {
       type: Array,
+      default () {
+        return []
+      },
     },
     value: {
       type: [String, Number],
+      default: '',
     },
     outline: {
       type: Boolean,
@@ -59,6 +63,7 @@ export default {
     },
     toggleColor: {
       type: String,
+      default: '',
     },
   },
   methods: {

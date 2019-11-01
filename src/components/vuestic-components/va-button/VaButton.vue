@@ -67,6 +67,7 @@ export default {
   },
   props: {
     color: {
+      type: String,
       default () {
         return getContextPropValue(this, 'color', 'success')
       },
@@ -125,9 +126,11 @@ export default {
     /* Link props */
     href: {
       type: String,
+      default: null,
     },
     target: {
       type: String,
+      default: null,
     },
     /* Router link props */
   },

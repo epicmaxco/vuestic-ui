@@ -62,6 +62,7 @@ export default {
     },
     src: {
       type: String, // NOTE: you may not need to use this value from the context config.
+      default: null,
     },
     fontSize: {
       type: String,
