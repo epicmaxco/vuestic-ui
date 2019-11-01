@@ -4,7 +4,7 @@
     :style="{ backgroundColor: colorComputed }"
   >
     <div class="va-sidebar__menu">
-      <slot name="menu"></slot>
+      <slot name="menu" />
     </div>
   </aside>
 </template>
@@ -13,7 +13,7 @@
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
-  name: 'va-sidebar',
+  name: 'VaSidebar',
   components: {},
   mixins: [ColorThemeMixin],
   props: {

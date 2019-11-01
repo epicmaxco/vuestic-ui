@@ -1,7 +1,10 @@
 <template>
   <div class="inner-loading">
     <slot />
-    <div v-if="loading" class="inner-loading__overlay">
+    <div
+      v-if="loading"
+      class="inner-loading__overlay"
+    >
       <spring-spinner
         :animation-duration="2000"
         :size="48"
@@ -15,7 +18,7 @@
 import { SpringSpinner } from 'epic-spinners'
 
 export default {
-  name: 'va-inner-loading',
+  name: 'VaInnerLoading',
   components: {
     SpringSpinner,
   },

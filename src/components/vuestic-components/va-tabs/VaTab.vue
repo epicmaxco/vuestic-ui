@@ -7,15 +7,18 @@
     }"
     @click="$emit('tabClick', !isActive)"
   >
-    <div class="va-tab__content" ref="content">
-      <slot/>
+    <div
+      class="va-tab__content"
+      ref="content"
+    >
+      <slot />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'va-tab',
+  name: 'VaTab',
   props: {
     disabled: {
       type: Boolean,

@@ -4,11 +4,12 @@
       <div class="va-input-wrapper__slot">
         <div
           v-if="$slots.prepend"
-          class="va-input-wrapper__prepend-inner">
-          <slot name="prepend"/>
+          class="va-input-wrapper__prepend-inner"
+        >
+          <slot name="prepend" />
         </div>
         <div class="va-input-wrapper__content">
-          <slot/>
+          <slot />
           <div class="va-input-wrapper__details py-0 px-2">
             <va-message-list
               :color="messagesColor"
@@ -19,8 +20,9 @@
         </div>
         <div
           v-if="$slots.append"
-          class="va-input-wrapper__append-inner">
-          <slot name="append"/>
+          class="va-input-wrapper__append-inner"
+        >
+          <slot name="append" />
         </div>
       </div>
     </div>
@@ -32,7 +34,7 @@ import VaMessageList from './VaMessageList'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-input-wrapper',
+  name: 'VaInputWrapper',
   components: { VaMessageList },
   mixins: [ContextPluginMixin],
   props: {
@@ -43,13 +45,13 @@ export default {
       },
     },
     error: {
-      Boolean,
+      type: Boolean,
       default () {
         return getContextPropValue(this, 'error', false)
       },
     },
     success: {
-      Boolean,
+      type: Boolean,
       default () {
         return getContextPropValue(this, 'success', false)
       },

@@ -1,14 +1,27 @@
 <template>
   <VbDemo>
     <VbCard title="All of these share `info` theme">
-      <va-button class="mb-5" color="info">
+      <va-button
+        class="mb-5"
+        color="info"
+      >
         Default Button
       </va-button>
-      <va-notification class="mb-5" color="info">
-        <va-badge color="info" label="Info"  />
+      <va-notification
+        class="mb-5"
+        color="info"
+      >
+        <va-badge
+          color="info"
+          label="Info"
+        />
         You successfully read this important alert message.
       </va-notification>
-      <va-progress-bar class="mb-5" indeterminate color="info"/>
+      <va-progress-bar
+        class="mb-5"
+        indeterminate
+        color="info"
+      />
       <va-slider
         class="mb-5"
         :value="60"
@@ -19,7 +32,11 @@
       />
     </VbCard>
     <VbCard style="position: relative;">
-      <va-rating class="mb-5" color="info" :value="3">
+      <va-rating
+        class="mb-5"
+        color="info"
+        :value="3"
+      >
         Default Button
       </va-rating>
       <va-tree-root color="info">
@@ -28,7 +45,10 @@
           <va-tree-node>Camera Body Kits</va-tree-node>
           <va-tree-node>External HDDs</va-tree-node>
         </va-tree-category>
-        <va-tree-category isOpen label="Products">
+        <va-tree-category
+          is-open
+          label="Products"
+        >
           <va-tree-category label="Cables">
             <va-tree-node>Audio</va-tree-node>
             <va-tree-node>Video</va-tree-node>
@@ -43,44 +63,77 @@
           <va-tree-node>Skirts</va-tree-node>
         </va-tree-category>
       </va-tree-root>
-      <va-chart type="line" :data="chartData"/>
-      <va-button color="info" @click="refreshData">RefreshChartColors</va-button>
-      <va-file-upload v-model="files" color="info"/>
+      <va-chart
+        type="line"
+        :data="chartData"
+      />
+      <va-button
+        color="info"
+        @click="refreshData"
+      >
+        RefreshChartColors
+      </va-button>
+      <va-file-upload
+        v-model="files"
+        color="info"
+      />
     </VbCard>
     <VbCard title="Change color">
       <div>
         primary
-        <va-color-picker-input v-model="$themes.primary" mode="advanced"/>
+        <va-color-picker-input
+          v-model="$themes.primary"
+          mode="advanced"
+        />
       </div>
       <div>
         secondary
-        <va-color-picker-input v-model="$themes.secondary" mode="advanced"/>
+        <va-color-picker-input
+          v-model="$themes.secondary"
+          mode="advanced"
+        />
       </div>
       <div>
         success
-        <va-color-picker-input v-model="$themes.success" mode="advanced"/>
+        <va-color-picker-input
+          v-model="$themes.success"
+          mode="advanced"
+        />
       </div>
       <div>
         info
-        <va-color-picker-input v-model="$themes.info" mode="advanced"/>
+        <va-color-picker-input
+          v-model="$themes.info"
+          mode="advanced"
+        />
       </div>
       <div>
         warning
-        <va-color-picker-input v-model="$themes.warning" mode="advanced"/>
+        <va-color-picker-input
+          v-model="$themes.warning"
+          mode="advanced"
+        />
       </div>
       <div>
         danger
-        <va-color-picker-input v-model="$themes.danger" mode="advanced"/>
+        <va-color-picker-input
+          v-model="$themes.danger"
+          mode="advanced"
+        />
       </div>
     </VbCard>
     <VbCard title="These 2 badges share `info` theme">
-      <va-badge color="info" label="Info badge"></va-badge>
+      <va-badge
+        color="info"
+        label="Info badge"
+      />
     </VbCard>
     <VbCard title="Darken theme a bit">
-      <button @click="darkenTheme()">Darken</button>
+      <button @click="darkenTheme()">
+        Darken
+      </button>
     </VbCard>
   </VbDemo>
-
 </template>
 
 <script>

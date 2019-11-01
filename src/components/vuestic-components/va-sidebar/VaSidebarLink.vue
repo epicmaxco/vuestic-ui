@@ -15,8 +15,8 @@
       :name="icon"
     />
     <div class="va-sidebar-link__content__title">
-      <slot name="title"/>
-      {{title}}
+      <slot name="title" />
+      {{ title }}
     </div>
   </router-link>
 </template>
@@ -27,7 +27,7 @@ import { hex2hsl } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  name: 'va-sidebar-link',
+  name: 'VaSidebarLink',
   components: { VaIcon },
   mixins: [ColorThemeMixin],
   props: {
@@ -40,10 +40,12 @@ export default {
       default: '_self',
     },
     icon: {
-      type: [String, Array],
+      type: String,
+      default: '',
     },
     title: {
       type: String,
+      default: '',
     },
     activeByDefault: {
       type: Boolean,

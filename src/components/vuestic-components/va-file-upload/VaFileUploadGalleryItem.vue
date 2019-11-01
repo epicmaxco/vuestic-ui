@@ -15,12 +15,19 @@
     class="va-file-upload-gallery-item"
     :class="{'file-upload-gallery-item_not-image': !this.previewImage}"
   >
-    <img :src="previewImage" alt="" class="va-file-upload-gallery-item__image">
+    <img
+      :src="previewImage"
+      alt=""
+      class="va-file-upload-gallery-item__image"
+    >
     <div
       class="va-file-upload-gallery-item__overlay"
       :style="overlayStyles"
     >
-      <div class="va-file-upload-gallery-item__name" :title="file.name">
+      <div
+        class="va-file-upload-gallery-item__name"
+        :title="file.name"
+      >
         {{ file.name }}
       </div>
       <va-icon
@@ -39,7 +46,7 @@ import VaIcon from '../va-icon/VaIcon'
 import { hex2rgb } from '../../../services/color-functions'
 
 export default {
-  name: 'va-file-upload-gallery-item',
+  name: 'VaFileUploadGalleryItem',
   components: {
     VaIcon,
     VaFileUploadUndo,
@@ -52,7 +59,8 @@ export default {
   },
   props: {
     file: {
-      default: {},
+      type: Object,
+      default: null,
     },
     color: {
       type: String,

@@ -2,7 +2,10 @@
   <div class="va-social-news">
     <div class="d-flex justify--space-between align--center va-social-news__text-with-button">
       <span class="text">That what users have posted about your business.</span>
-      <va-button :href="url" target="_blank">
+      <va-button
+        :href="url"
+        target="_blank"
+      >
         VIEW
       </va-button>
     </div>
@@ -19,7 +22,7 @@
 
 <script>
 export default {
-  name: 'va-social-news',
+  name: 'VaSocialNews',
   props: ['news', 'url'],
 }
 </script>

@@ -2,7 +2,8 @@
   <div class="va-simple-palette-picker">
     <ul class="va-simple-palette-picker__colors">
       <color-dot
-        v-for="(color, index) in palette" :key="index"
+        v-for="(color, index) in palette"
+        :key="index"
         :color="color"
         @click.native="handlerClick(color)"
         :selected="isSelected(color)"
@@ -15,15 +16,19 @@
 import ColorDot from './ColorDot'
 
 export default {
-  name: 'va-simple-palette-picker',
+  name: 'VaSimplePalettePicker',
   components: {
     ColorDot,
   },
   props: {
     palette: {
       type: Array,
+      default () {
+        return []
+      },
     },
     value: {
+      type: String,
       default: '',
     },
   },

@@ -4,10 +4,10 @@
     :open="open"
     :disabled="disabled"
     :placement="placement"
-    :autoHide="autoHide"
-    popoverClass="va-popover"
-    popoverInnerClass="va-popover__inner"
-    popoverWrapperClass="va-popover__wrap"
+    :auto-hide="autoHide"
+    popover-class="va-popover"
+    popover-inner-class="va-popover__inner"
+    popover-wrapper-class="va-popover__wrap"
   >
     <slot />
     <div
@@ -15,14 +15,20 @@
       class="va-popover__content"
       :style="computedPopoverStyle"
     >
-      <div v-if="icon" class="va-popover__icon">
+      <div
+        v-if="icon"
+        class="va-popover__icon"
+      >
         <i
           :class="icon"
           :style="computedIconStyle"
         />
       </div>
       <div v-if="title || message">
-        <div v-if="title" class="va-popover__title">
+        <div
+          v-if="title"
+          class="va-popover__title"
+        >
           {{ title }}
         </div>
         <div class="va-popover__text">
@@ -41,7 +47,7 @@ import {
 } from '../../../services/color-functions'
 
 export default {
-  name: 'va-popover',
+  name: 'VaPopover',
   components: {
     VPopover,
   },
@@ -52,12 +58,15 @@ export default {
     },
     icon: {
       type: String,
+      default: '',
     },
     title: {
       type: String,
+      default: '',
     },
     message: {
       type: String,
+      default: '',
     },
     trigger: {
       type: String,

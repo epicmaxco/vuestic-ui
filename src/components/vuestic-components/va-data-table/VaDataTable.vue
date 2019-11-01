@@ -49,7 +49,7 @@ import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
 
 export default {
-  name: 'va-data-table',
+  name: 'VaDataTable',
   components: {
     VaInnerLoading,
     Vuetable,

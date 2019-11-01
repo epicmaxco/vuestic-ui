@@ -14,9 +14,11 @@
         @focus="focused = true"
         @mouseout="focused = false"
         @blur="focused = false"
-        :checked="isActive" type="radio" class="va-radio-button__input"
+        :checked="isActive"
+        type="radio"
+        class="va-radio-button__input"
         :disabled="disabled"
-      />
+      >
       <div
         class="va-radio-button__icon"
         :style="computedStyle"
@@ -38,7 +40,7 @@
 <script>
 
 export default {
-  name: 'va-radio-button',
+  name: 'VaRadioButton',
   props: {
     value: {},
     option: {},

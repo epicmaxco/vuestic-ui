@@ -64,11 +64,11 @@
   },
   "lint-staged": {
     "*.js": [
-      "vue-cli-service lint",
+      "vue-cli-service lint --fix",
       "git add"
     ],
     "*.vue": [
-      "vue-cli-service lint",
+      "vue-cli-service lint --fix",
       "stylelint --fix",
       "git add"
     ],

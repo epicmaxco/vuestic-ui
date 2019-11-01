@@ -2,7 +2,9 @@
   <VbDemo>
     <VbCard title="Global">
       <va-test>No props</va-test>
-      <va-test color="green">Prop set</va-test>
+      <va-test color="green">
+        Prop set
+      </va-test>
     </VbCard>
 
     <VbCard title="Local context component">
@@ -16,7 +18,9 @@
           <va-context :config="{ VaTest: { color: 'danger' } }">
             <div style="border: 1px solid gray; padding: 4px;">
               <va-test>No props</va-test>
-              <va-test color="green">Prop set</va-test>
+              <va-test color="green">
+                Prop set
+              </va-test>
             </div>
           </va-context>
         </div>
@@ -27,14 +31,17 @@
       <va-context :config="{ VaTest: { label: 'my label', color: 'orange' } }">
         <div>
           Default:
-          <va-test/>
+          <va-test />
           Empty label (should be empty):
-          <va-test label=""/>
+          <va-test label="" />
         </div>
       </va-context>
     </VbCard>
 
-    <VbCard title="No reactivity (only on refresh)" refresh>
+    <VbCard
+      title="No reactivity (only on refresh)"
+      refresh
+    >
       <div>
         Should change color on change and refresh.
       </div>
@@ -42,23 +49,28 @@
       <va-context :config="dynamicContextConfig">
         <div style="border: 1px solid gray; padding: 4px;">
           <va-test>No props</va-test>
-          <va-test color="green">Prop set</va-test>
+          <va-test color="green">
+            Prop set
+          </va-test>
         </div>
       </va-context>
       <label>
-        <input type="checkbox" v-model="redOrange">
+        <input
+          type="checkbox"
+          v-model="redOrange"
+        >
         red / orange
       </label>
     </VbCard>
 
     <VbCard title="Override button props">
       <va-button>Global config</va-button>
-      <br/>
+      <br>
       <span style="font-size: 12px;">context 1</span>
       <va-context :config="{ VaButton: { color: 'warning' } }">
         <div style="border: 1px solid gray; padding: 4px;">
           <va-button>Local config 1 (only color)</va-button>
-          <br/>
+          <br>
           <span style="font-size: 12px;">context 2</span>
           <va-context :config="{ VaButton: buttonConfig }">
             <div style="border: 1px solid gray; padding: 4px;">
@@ -69,25 +81,37 @@
       </va-context>
     </VbCard>
 
-    <VbCard title="Partial rewriting global config (only on refresh)" refresh>
+    <VbCard
+      title="Partial rewriting global config (only on refresh)"
+      refresh
+    >
       <div>
         Should change global config button color on change and refresh.
       </div>
-      <button @click="overrideButtonsColor('info')">Make button color blue</button>
-      <br/>
-      <button @click="overrideButtonsColor('danger')">Make button color red</button>
-      <br/>
+      <button @click="overrideButtonsColor('info')">
+        Make button color blue
+      </button>
+      <br>
+      <button @click="overrideButtonsColor('danger')">
+        Make button color red
+      </button>
+      <br>
       <va-button>Vuestic-ui button</va-button>
     </VbCard>
 
-    <VbCard title="Rewriting global config (only on refresh)" refresh>
+    <VbCard
+      title="Rewriting global config (only on refresh)"
+      refresh
+    >
       <div>
         Should change global config on change and refresh.
       </div>
-      <va-badge/>
+      <va-badge />
       <va-test>va test component</va-test>
       <va-button>Vuestic-ui button</va-button>
-      <button @click="overrideConfig">Override config</button>
+      <button @click="overrideConfig">
+        Override config
+      </button>
     </VbCard>
   </VbDemo>
 </template>

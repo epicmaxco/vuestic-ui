@@ -1,5 +1,9 @@
 <template>
-  <transition name="va-modal__overlay__transition" appear :duration="withoutTransitions ? 0 : 200">
+  <transition
+    name="va-modal__overlay__transition"
+    appear
+    :duration="withoutTransitions ? 0 : 200"
+  >
     <div
       v-if="overlayValue"
       class="va-modal__overlay"
@@ -7,7 +11,11 @@
       @click="checkOutside"
       :style="computedOverlayStyles"
     >
-      <transition name="va-modal__transition" appear :duration="withoutTransitions ? 0 : 500">
+      <transition
+        name="va-modal__transition"
+        appear
+        :duration="withoutTransitions ? 0 : 500"
+      >
         <div
           v-if="value"
           class="va-modal"
@@ -20,29 +28,56 @@
             class="ion ion-md-close va-modal__close"
           />
 
-          <div class="va-modal__inner" :style="{maxHeight, maxWidth}">
+          <div
+            class="va-modal__inner"
+            :style="{maxHeight, maxWidth}"
+          >
             <div
               v-if="title"
               class="mb-4 title"
               :style="{color: this.$themes.primary}"
             >
-              {{title}}
+              {{ title }}
             </div>
-            <div v-if="hasHeaderSlot" class="va-modal__header">
-              <slot name="header"/>
+            <div
+              v-if="hasHeaderSlot"
+              class="va-modal__header"
+            >
+              <slot name="header" />
             </div>
-            <div v-if="message" class="mb-4 va-modal__message">{{message}}</div>
-            <div v-if="hasContentSlot" class="mb-4 va-modal__message">
-              <slot/>
+            <div
+              v-if="message"
+              class="mb-4 va-modal__message"
+            >
+              {{ message }}
             </div>
-            <div v-if="(cancelText || okText) && !hideDefaultActions" class="va-modal__actions mb-3">
-              <va-button v-if="cancelText" color="gray" flat @click="cancel">
-                {{cancelText}}
+            <div
+              v-if="hasContentSlot"
+              class="mb-4 va-modal__message"
+            >
+              <slot />
+            </div>
+            <div
+              v-if="(cancelText || okText) && !hideDefaultActions"
+              class="va-modal__actions mb-3"
+            >
+              <va-button
+                v-if="cancelText"
+                color="gray"
+                flat
+                @click="cancel"
+              >
+                {{ cancelText }}
               </va-button>
-              <va-button @click="ok">{{okText}}</va-button>
+              <va-button @click="ok">
+                {{ okText }}
+              </va-button>
             </div>
-            <div v-if="hasActionsSlot" class="va-modal__actions">
-              <slot name="actions"/>
+            <div
+              v-if="hasActionsSlot"
+              class="va-modal__actions"
+            >
+              <slot name="actions" />
             </div>
           </div>
         </div>
@@ -56,7 +91,7 @@ import VaButton from '../va-button/VaButton'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-modal',
+  name: 'VaModal',
   components: { VaButton },
   mixins: [ContextPluginMixin],
   data () {
@@ -67,9 +102,10 @@ export default {
   },
   props: {
     value: {
+      type: Boolean,
       required: true,
       default () {
-        return getContextPropValue(this, 'props', false)
+        return getContextPropValue(this, 'value', false)
       },
     },
     position: {

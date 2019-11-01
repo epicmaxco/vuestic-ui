@@ -34,11 +34,17 @@ import { getFocusColor } from '../../../services/color-functions'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 
 export default {
-  name: 'va-toggle',
+  name: 'VaToggle',
   mixins: [ColorThemeMixin, KeyboardOnlyFocusMixin],
   props: {
-    value: {},
-    label: String,
+    value: {
+      type: [Object, Array, Number, String, Boolean],
+      default: false,
+    },
+    label: {
+      type: String,
+      default: '',
+    },
     size: {
       type: String,
       default: 'medium',
@@ -46,14 +52,20 @@ export default {
         return ['medium', 'small', 'large'].includes(value)
       },
     },
-    disable: Boolean,
+    disable: {
+      type: Boolean,
+      default: false,
+    },
     arrayValue: {
+      type: String,
       default: null,
     },
     trueValue: {
+      type: Boolean,
       default: true,
     },
     falseValue: {
+      type: Boolean,
       default: false,
     },
   },

@@ -66,7 +66,7 @@
         true
         <va-popup
           v-model="anchorClickTrue"
-          :anchorClick="true"
+          :anchor-click="true"
         >
           anchor click true
         </va-popup>
@@ -75,7 +75,7 @@
         false
         <va-popup
           v-model="anchorClickFalse"
-          :anchorClick="false"
+          :anchor-click="false"
         >
           anchor click false
         </va-popup>
@@ -88,9 +88,12 @@
         <input type="text">
         <va-popup
           v-model="noFocusTrue"
-          :noFocus="true"
+          :no-focus="true"
         >
-          <input type="text" placeholder="no focus">
+          <input
+            type="text"
+            placeholder="no focus"
+          >
         </va-popup>
       </div>
       <div class="anchor">
@@ -98,9 +101,12 @@
         <input type="text">
         <va-popup
           v-model="noFocusFalse"
-          :noFocus="false"
+          :no-focus="false"
         >
-          <input type="text" placeholder="no focus">
+          <input
+            type="text"
+            placeholder="no focus"
+          >
         </va-popup>
       </div>
     </div>
@@ -110,18 +116,24 @@
         true
         <va-popup
           v-model="noRefocusTrue"
-          :noRefocus="true"
+          :no-refocus="true"
         >
-          <input type="text" placeholder="no refocus">
+          <input
+            type="text"
+            placeholder="no refocus"
+          >
         </va-popup>
       </div>
       <div class="anchor">
         false
         <va-popup
           v-model="noRefocusFalse"
-          :noRefocus="false"
+          :no-refocus="false"
         >
-          <input type="text" placeholder="no refocus">
+          <input
+            type="text"
+            placeholder="no refocus"
+          >
         </va-popup>
       </div>
     </div>
@@ -132,16 +144,26 @@
         <va-popup
           v-model="maxHeightUnset"
         >
-          <p v-for="n in 30" :key="n">{{n}} item</p>
+          <p
+            v-for="n in 30"
+            :key="n"
+          >
+            {{ n }} item
+          </p>
         </va-popup>
       </div>
       <div class="anchor">
         true
         <va-popup
           v-model="maxHeightSet"
-          maxHeight="100px"
+          max-height="100px"
         >
-          <p v-for="n in 30" :key="n">{{n}} item</p>
+          <p
+            v-for="n in 30"
+            :key="n"
+          >
+            {{ n }} item
+          </p>
         </va-popup>
       </div>
     </div>
@@ -151,7 +173,7 @@
         true
         <va-popup
           v-model="touchPosition"
-          touchPosition
+          touch-position
         >
           disable
         </va-popup>
@@ -165,7 +187,12 @@
           v-model="fitUnset"
           :fit="false"
         >
-          <p v-for="n in 4" :key="n">{{n}}</p>
+          <p
+            v-for="n in 4"
+            :key="n"
+          >
+            {{ n }}
+          </p>
         </va-popup>
       </div>
       <div class="anchor">
@@ -174,7 +201,12 @@
           v-model="fitSet"
           :fit="true"
         >
-          <p v-for="n in 4" :key="n">{{n}}</p>
+          <p
+            v-for="n in 4"
+            :key="n"
+          >
+            {{ n }}
+          </p>
         </va-popup>
       </div>
     </div>
@@ -195,8 +227,12 @@
       Redraws on content change
       <div class="anchor">
         <va-popup>
-          <button @click="redrawContentSize = redrawContentSize - 20">-</button>
-          <button @click="redrawContentSize = redrawContentSize + 20">+</button>
+          <button @click="redrawContentSize = redrawContentSize - 20">
+            -
+          </button>
+          <button @click="redrawContentSize = redrawContentSize + 20">
+            +
+          </button>
           <div
             :style="{
               width: redrawContentSize + 'px',
@@ -204,7 +240,10 @@
               backgroundColor: '#14bb14',
             }"
           />
-          <span v-for="number in redrawContentSize / 10" :key="number">{{number}}</span>
+          <span
+            v-for="number in redrawContentSize / 10"
+            :key="number"
+          >{{ number }}</span>
         </va-popup>
       </div>
     </div>
@@ -250,14 +289,14 @@
         true
         <va-popup
           v-model="keepOnScreen"
-          keepOnScreen
+          keep-on-screen
         >
           keep on screen
         </va-popup>
       </div>
     </div>
     <div class="demo-container__item">
-      Event test {{eventTest}}
+      Event test {{ eventTest }}
       <va-button @click="$refs.eventTest.show('eventTest text')">
         Show
       </va-button>
@@ -287,7 +326,9 @@
         <va-popup
           v-model="closeOverlay"
         >
-          <test-component v-close-overlay>Close</test-component>
+          <test-component v-close-overlay>
+            Close
+          </test-component>
         </va-popup>
       </div>
     </div>

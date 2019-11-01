@@ -7,7 +7,7 @@
       @click="onAnchorClick()"
       ref="anchor"
     >
-      <slot name="anchor"/>
+      <slot name="anchor" />
     </div>
     <div
       class="va-dropdown__content"
@@ -22,9 +22,9 @@
         class="va-dropdown__anchor-width-container"
         :style="anchorWidthContainerStyles"
       >
-        <slot/>
+        <slot />
       </div>
-      <slot v-else/>
+      <slot v-else />
     </div>
   </div>
 </template>
@@ -34,7 +34,7 @@ import Popper from 'popper.js'
 import { DebounceLoader } from 'asva-executors'
 
 export default {
-  name: 'va-dropdown',
+  name: 'VaDropdown',
   data () {
     return {
       popperInstance: null,
@@ -75,11 +75,20 @@ export default {
     },
   },
   props: {
-    debugId: String,
-    position: String,
+    debugId: {
+      type: String,
+      default: '',
+    },
+    position: {
+      type: String,
+      default: '',
+    },
     boundaryBody: Boolean,
     value: Boolean,
-    offset: [String, Number],
+    offset: {
+      type: [String, Number],
+      default: '',
+    },
     disabled: Boolean,
     fixed: Boolean,
     keepAnchorWidth: Boolean, // Means dropdown width should be the same as anchor's width.

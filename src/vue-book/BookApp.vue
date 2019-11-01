@@ -1,10 +1,10 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
 
 <script>
 export default {
-  name: 'book-app',
+  name: 'BookApp',
 }
 </script>
 

@@ -19,11 +19,12 @@
 import VaButton from '../va-button/VaButton'
 
 export default {
-  name: 'va-file-upload-single-item',
+  name: 'VaFileUploadSingleItem',
   components: { VaButton },
   props: {
     file: {
       type: Object,
+      default: null,
     },
   },
 }

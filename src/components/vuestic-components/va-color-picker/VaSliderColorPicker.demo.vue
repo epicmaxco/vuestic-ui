@@ -1,9 +1,12 @@
 <template>
   <div class="demo-container">
     <div class="demo-container__item">
-      <va-slider-color-picker v-model="value"/>
-      <va-slider-color-picker v-model="value" style="padding-top: 20px;"/>
-      {{value}}
+      <va-slider-color-picker v-model="value" />
+      <va-slider-color-picker
+        v-model="value"
+        style="padding-top: 20px"
+      />
+      {{ value }}
     </div>
   </div>
 </template>

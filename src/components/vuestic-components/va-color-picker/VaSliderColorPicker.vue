@@ -1,17 +1,21 @@
 <template>
-  <SliderPicker v-model="valueProxy" class="vuestic-slider-picker"/>
+  <SliderPicker
+    v-model="valueProxy"
+    class="vuestic-slider-picker"
+  />
 </template>
 
 <script>
 import { Slider } from 'vue-color'
 
 export default {
-  name: 'va-slider-color-picker',
+  name: 'VaSliderColorPicker',
   components: {
     'SliderPicker': Slider,
   },
   props: {
     value: {
+      type: String,
       default: '',
     },
   },

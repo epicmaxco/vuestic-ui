@@ -1,7 +1,10 @@
 <template>
   <VbDemo>
-    <VbCard refresh title="Tabs usage example">
-      <TabsExample/>
+    <VbCard
+      refresh
+      title="Tabs usage example"
+    >
+      <TabsExample />
     </VbCard>
     <VbCard title="Default">
       <va-tabs v-model="tabValue">
@@ -9,37 +12,55 @@
           v-for="title in tabTitles"
           :key="title"
         >
-          {{title}}
+          {{ title }}
         </va-tab>
       </va-tabs>
     </VbCard>
-    <VbCard title="Align right" width="400px">
-      <va-tabs right v-model="tabValue">
+    <VbCard
+      title="Align right"
+      width="400px"
+    >
+      <va-tabs
+        right
+        v-model="tabValue"
+      >
         <va-tab
           v-for="title in tabTitles"
           :key="title"
         >
-          {{title}}
+          {{ title }}
         </va-tab>
       </va-tabs>
     </VbCard>
-    <VbCard title="Centered" width="400px">
-      <va-tabs center v-model="tabValue">
+    <VbCard
+      title="Centered"
+      width="400px"
+    >
+      <va-tabs
+        center
+        v-model="tabValue"
+      >
         <va-tab
           v-for="title in tabTitles"
           :key="title"
         >
-          {{title}}
+          {{ title }}
         </va-tab>
       </va-tabs>
     </VbCard>
-    <VbCard title="Grow" width="400px">
-      <va-tabs grow v-model="tabValue">
+    <VbCard
+      title="Grow"
+      width="400px"
+    >
+      <va-tabs
+        grow
+        v-model="tabValue"
+      >
         <va-tab
           v-for="title in tabTitles"
           :key="title"
         >
-          {{title}}
+          {{ title }}
         </va-tab>
       </va-tabs>
     </VbCard>
@@ -52,7 +73,7 @@
           v-for="title in tabTitles"
           :key="title"
         >
-          {{title}}
+          {{ title }}
         </va-tab>
       </va-tabs>
     </VbCard>
@@ -62,7 +83,7 @@
           v-for="title in tabTitles"
           :key="title"
         >
-          {{title}}
+          {{ title }}
         </va-tab>
         <va-tab>
           Somewhat long long long long long long long long text
@@ -70,12 +91,15 @@
       </va-tabs>
     </VbCard>
     <VbCard title="Overflow text + grow">
-      <va-tabs grow v-model="tabValue">
+      <va-tabs
+        grow
+        v-model="tabValue"
+      >
         <va-tab
           v-for="title in tabTitles"
           :key="title"
         >
-          {{title}}
+          {{ title }}
         </va-tab>
         <va-tab>
           Somewhat long long long long long long long long long text
@@ -83,23 +107,29 @@
       </va-tabs>
     </VbCard>
     <VbCard title="Hide slider">
-      <va-tabs hideSlider v-model="tabValue">
+      <va-tabs
+        hide-slider
+        v-model="tabValue"
+      >
         <va-tab
           v-for="title in tabTitles"
           :key="title"
         >
-          {{title}}
+          {{ title }}
         </va-tab>
       </va-tabs>
     </VbCard>
-    <VbCard title="Tabs problem" style="outline: 2px solid red;">
+    <VbCard
+      title="Tabs problem"
+      style="outline: 2px solid red;"
+    >
       <va-tabs v-model="tabValue">
         <va-tab
           v-for="title in tabTitles"
           :key="title"
         >
           <va-badge label="!">
-            {{title}}
+            {{ title }}
           </va-badge>
         </va-tab>
       </va-tabs>

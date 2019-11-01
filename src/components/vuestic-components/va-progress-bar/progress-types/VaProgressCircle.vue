@@ -1,6 +1,14 @@
 <template>
-  <div class="va-progress-circle" ref="progress" :style="computedStyle" :class="computedClass">
-    <svg class="va-progress-circle__progress-bar" viewBox="0 0 40 40">
+  <div
+    class="va-progress-circle"
+    ref="progress"
+    :style="computedStyle"
+    :class="computedClass"
+  >
+    <svg
+      class="va-progress-circle__progress-bar"
+      viewBox="0 0 40 40"
+    >
       <circle
         class="va-progress-circle__overlay"
         cx="50%"
@@ -13,8 +21,11 @@
         :stroke-dashoffset="dashoffset"
       />
     </svg>
-    <div :style="computedStyles" class="va-progress-circle__info">
-      <slot/>
+    <div
+      :style="computedStyles"
+      class="va-progress-circle__info"
+    >
+      <slot />
     </div>
   </div>
 </template>
@@ -25,7 +36,7 @@ import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-progress-circle',
+  name: 'VaProgressCircle',
   mixins: [progressMixin, ColorThemeMixin, ContextPluginMixin],
   props: {
     size: {

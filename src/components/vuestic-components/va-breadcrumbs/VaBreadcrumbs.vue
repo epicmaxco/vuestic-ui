@@ -1,11 +1,10 @@
 <script>
-import Vue from 'vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
-export default Vue.component('va-breadcrumbs-provider', {
-  name: 'va-breadcrumbs',
+export default {
+  name: 'VaBreadcrumbs',
   mixins: [ColorThemeMixin, AlignMixin, ContextPluginMixin],
   props: {
     color: {
@@ -45,7 +44,7 @@ export default Vue.component('va-breadcrumbs-provider', {
     },
   },
   render (createElement) {
-    const childNodeFilter = ({ tag } = null) => tag ? tag.match(/va-breadcrumb-item$/) : false
+    const childNodeFilter = ({ tag } = null) => tag ? tag.match(/VaBreadcrumbsItem$/) : false
 
     const childNodes = this.$slots.default.filter(childNodeFilter) || []
 
@@ -108,7 +107,7 @@ export default Vue.component('va-breadcrumbs-provider', {
       },
     }, children)
   },
-})
+}
 </script>
 
 <style lang="scss">

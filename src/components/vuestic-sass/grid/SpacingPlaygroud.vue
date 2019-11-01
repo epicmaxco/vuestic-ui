@@ -44,15 +44,21 @@
       class="row"
     >
       <div class="flex xs12 content">
-        <pre class="code">class="{{ (selectedMarginClass + ' ' +  selectedPaddingClass).trim() }}"</pre>
+        <pre class="code">class="{{ (selectedMarginClass + ' ' + selectedPaddingClass).trim() }}"</pre>
       </div>
     </div>
     <div class="row">
       <div class="flex xs12">
         <div class="playground-component">
-          <div class="playground-component__margin" :class="selectedMarginClass">
-            <div class="playground-component__padding" :class="selectedPaddingClass" >
-              <div class="playground-component__inner"></div>
+          <div
+            class="playground-component__margin"
+            :class="selectedMarginClass"
+          >
+            <div
+              class="playground-component__padding"
+              :class="selectedPaddingClass"
+            >
+              <div class="playground-component__inner" />
             </div>
           </div>
         </div>
@@ -61,10 +67,16 @@
 
     <div class="row">
       <div class="flex xs12 sm6">
-        <va-color-presentation color="#ffd093" :name="$t('spacingPlayground.margin')"/>
+        <va-color-presentation
+          color="#ffd093"
+          :name="$t('spacingPlayground.margin')"
+        />
       </div>
       <div class="flex xs12 sm6">
-        <va-color-presentation color="#c9f7db" :name="$t('spacingPlayground.padding')"/>
+        <va-color-presentation
+          color="#c9f7db"
+          :name="$t('spacingPlayground.padding')"
+        />
       </div>
     </div>
   </div>
@@ -76,7 +88,7 @@ import VaColorPresentation
   from '../../vuestic-components/va-color-presentation/VaColorPresentation'
 
 export default {
-  name: 'spacing-playgroud',
+  name: 'SpacingPlaygroud',
   components: { VaColorPresentation, VaSelect },
   data () {
     return {

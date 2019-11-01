@@ -8,7 +8,8 @@
       <div
         class="va-file-upload__field__text"
         v-if="dropzone"
-      >Drag’n’drop files or
+      >
+        Drag’n’drop files or
       </div>
       <va-button
         class="va-file-upload__field__button"
@@ -39,7 +40,7 @@
     />
     <va-modal
       v-model="modal"
-      hideDefaultActions
+      hide-default-actions
       title="File validation"
       message="File type is incorrect!"
     />
@@ -55,7 +56,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-file-upload',
+  name: 'VaFileUpload',
   components: {
     VaModal,
     VaButton,

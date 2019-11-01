@@ -5,10 +5,13 @@
         class="va-tabs__container"
         :class="containerClass"
       >
-        <div class="va-tabs__slider-wrapper" :style="sliderStyles">
-          <div class="va-tabs__slider"/>
+        <div
+          class="va-tabs__slider-wrapper"
+          :style="sliderStyles"
+        >
+          <div class="va-tabs__slider" />
         </div>
-        <slot/>
+        <slot />
       </div>
     </div>
   </div>
@@ -16,7 +19,7 @@
 
 <script>
 export default {
-  name: 'va-tabs',
+  name: 'VaTabs',
   provide () {
     return {
       tabGroup: {
@@ -39,7 +42,10 @@ export default {
     },
   },
   props: {
-    value: { type: Number },
+    value: {
+      type: Number,
+      default: 1,
+    },
     right: Boolean,
     center: Boolean,
     grow: Boolean,

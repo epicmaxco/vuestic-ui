@@ -1,5 +1,5 @@
 <template>
-  <span  class="va-breadcrumb-item">
+  <span class="va-breadcrumb-item">
     <router-link
       v-if="!isDisabled"
       class="va-breadcrumb-item__label va-breadcrumb-item__label--link"
@@ -9,13 +9,13 @@
       :exact="exact"
       tag="a"
     >
-      <slot>{{label}}</slot>
+      <slot>{{ label }}</slot>
     </router-link>
     <span
       v-else
       class="va-breadcrumb-item__label"
     >
-      <slot>{{label}}</slot>
+      <slot>{{ label }}</slot>
     </span>
   </span>
 </template>
@@ -25,7 +25,7 @@ import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-breadcrumb-item',
+  name: 'VaBreadcrumbsItem',
   mixins: [RouterLinkMixin, ContextPluginMixin],
   props: {
     disabled: {

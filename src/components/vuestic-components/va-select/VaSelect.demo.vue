@@ -1,12 +1,18 @@
 <template>
   <VbDemo>
-    <VbCard title="String options (default)" style="width: 400px;">
+    <VbCard
+      title="String options (default)"
+      style="width: 400px;"
+    >
       <va-select
         :options="defaultSelect.options"
         v-model="defaultSelect.value"
       />
     </VbCard>
-    <VbCard title="error" style="width: 400px;">
+    <VbCard
+      title="error"
+      style="width: 400px;"
+    >
       <va-select
         :options="defaultSelect.options"
         v-model="defaultSelect.value"
@@ -19,7 +25,7 @@
       />
       <va-input-wrapper
         error
-        :errorMessages="['error message']"
+        :error-messages="['error message']"
       >
         <va-select
           :options="defaultSelect.options"
@@ -28,7 +34,10 @@
         />
       </va-input-wrapper>
     </VbCard>
-    <VbCard title="Object options" style="width: 400px;">
+    <VbCard
+      title="Object options"
+      style="width: 400px;"
+    >
       <va-select
         label="Object value"
         v-model="objectSelect.value"
@@ -54,13 +63,19 @@
         multiple
       />
     </VbCard>
-    <VbCard title="Options with icons" style="width: 400px;">
+    <VbCard
+      title="Options with icons"
+      style="width: 400px;"
+    >
       <va-select
         v-model="iconsSelect.value"
         :options="iconsSelect.options"
       />
     </VbCard>
-    <VbCard title="No options" style="width: 400px;">
+    <VbCard
+      title="No options"
+      style="width: 400px;"
+    >
       <va-select
         v-model="defaultSelect.value"
         :options="[]"
@@ -72,21 +87,30 @@
         no-options-text="Sorry..."
       />
     </VbCard>
-    <VbCard title="Custom clear value" style="width: 400px;">
+    <VbCard
+      title="Custom clear value"
+      style="width: 400px;"
+    >
       <va-select
         v-model="defaultSelect.value"
         clear-value="1"
         :options="defaultSelect.options"
       />
     </VbCard>
-    <VbCard title="No clear" style="width: 400px;">
+    <VbCard
+      title="No clear"
+      style="width: 400px;"
+    >
       <va-select
         v-model="defaultSelect.value"
         :options="defaultSelect.options"
         no-clear
       />
     </VbCard>
-    <VbCard title="Placeholder" style="width: 400px;">
+    <VbCard
+      title="Placeholder"
+      style="width: 400px;"
+    >
       <va-select
         v-model="defaultSelect.value"
         :options="CountriesList"
@@ -98,14 +122,20 @@
         placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
       />
     </VbCard>
-    <VbCard title="Label" style="width: 400px;">
+    <VbCard
+      title="Label"
+      style="width: 400px;"
+    >
       <va-select
         label="country label"
         v-model="defaultSelect.value"
         :options="CountriesList"
       />
     </VbCard>
-    <VbCard title="Label and placeholder" style="width: 400px;">
+    <VbCard
+      title="Label and placeholder"
+      style="width: 400px;"
+    >
       <va-select
         label="country label"
         placeholder="select country"
@@ -113,9 +143,15 @@
         :options="CountriesList"
       />
     </VbCard>
-    <VbCard title="positions" style="width: 400px;">
-      <div v-for="position in positions" :key="position">
-        <p>{{position}}</p>
+    <VbCard
+      title="positions"
+      style="width: 400px;"
+    >
+      <div
+        v-for="position in positions"
+        :key="position"
+      >
+        <p>{{ position }}</p>
         <va-select
           :position="position"
           v-model="defaultSelect.value"
@@ -123,14 +159,20 @@
         />
       </div>
     </VbCard>
-    <VbCard title="disabled" style="width: 400px;">
+    <VbCard
+      title="disabled"
+      style="width: 400px;"
+    >
       <va-select
         v-model="defaultSelect.value"
         :options="CountriesList"
         disabled
       />
     </VbCard>
-    <VbCard title="multiple" style="width: 400px;">
+    <VbCard
+      title="multiple"
+      style="width: 400px;"
+    >
       <va-select
         v-model="multipleValue"
         multiple
@@ -140,18 +182,24 @@
         label="with custom tag-max"
         v-model="multipleValue"
         multiple
-        :tagMax="8"
+        :tag-max="8"
         :options="CountriesList"
       />
     </VbCard>
-    <VbCard title="searchable" style="width: 400px;">
+    <VbCard
+      title="searchable"
+      style="width: 400px;"
+    >
       <va-select
         v-model="defaultSelect.value"
         :options="CountriesList"
         searchable
       />
     </VbCard>
-    <VbCard title="searchable + multiple" style="width: 400px;">
+    <VbCard
+      title="searchable + multiple"
+      style="width: 400px;"
+    >
       <va-select
         v-model="multipleValue"
         :options="CountriesList"
@@ -159,14 +207,21 @@
         multiple
       />
     </VbCard>
-    <VbCard title="custom max-height (320px)" style="width: 400px;">
+    <VbCard
+      title="custom max-height (320px)"
+      style="width: 400px;"
+    >
       <va-select
         v-model="defaultSelect.value"
         :options="CountriesList"
         max-height="320px"
       />
     </VbCard>
-    <VbCard title="custom width (30%)" :style="{'width': '100%'}" style="width: 400px;">
+    <VbCard
+      title="custom width (30%)"
+      :style="{'width': '100%'}"
+      style="width: 400px;"
+    >
       <va-select
         v-model="defaultSelect.value"
         :options="CountriesList"
@@ -178,14 +233,20 @@
         width="120px"
       />
     </VbCard>
-    <VbCard title="loading" style="width: 400px;">
+    <VbCard
+      title="loading"
+      style="width: 400px;"
+    >
       <va-select
         v-model="defaultSelect.value"
         :options="CountriesList"
         loading
       />
     </VbCard>
-    <VbCard title="with ajax" style="width: 400px;">
+    <VbCard
+      title="with ajax"
+      style="width: 400px;"
+    >
       <va-select
         searchable
         v-model="defaultSelect.value"
@@ -194,7 +255,10 @@
         @update-search="updateSearch"
       />
     </VbCard>
-    <VbCard title="long textes" style="width: 400px;">
+    <VbCard
+      title="long textes"
+      style="width: 400px;"
+    >
       <va-select
         searchable
         placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
@@ -204,11 +268,11 @@
       />
     </VbCard>
     <VbCard :style="{ 'width': '100%' }">
-      <p>{{defaultSelect.value}}</p>
-      <p>{{objectSelect.value}}</p>
-      <p>{{iconsSelect.value}}</p>
-      <p>{{multipleValue}}</p>
-      <p>{{longSelect.value}}</p>
+      <p>{{ defaultSelect.value }}</p>
+      <p>{{ objectSelect.value }}</p>
+      <p>{{ iconsSelect.value }}</p>
+      <p>{{ multipleValue }}</p>
+      <p>{{ longSelect.value }}</p>
     </VbCard>
   </VbDemo>
 </template>

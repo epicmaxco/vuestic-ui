@@ -1,8 +1,18 @@
 <template>
-  <div class="va-avatar" ref="avatar" :style="computedStyle">
+  <div
+    class="va-avatar"
+    ref="avatar"
+    :style="computedStyle"
+  >
     <slot>
-      <img v-if="src" :src="src"/>
-      <va-icon v-else-if="icon" :name="icon"/>
+      <img
+        v-if="src"
+        :src="src"
+      >
+      <va-icon
+        v-else-if="icon"
+        :name="icon"
+      />
     </slot>
   </div>
 </template>
@@ -14,7 +24,7 @@ import { ContextPluginMixin, getContextPropValue } from '../../context-test/cont
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  name: 'va-avatar',
+  name: 'VaAvatar',
   mixins: [SizeMixin, ColorThemeMixin, ContextPluginMixin],
   components: {
     VaIcon,
@@ -52,6 +62,7 @@ export default {
     },
     src: {
       type: String, // NOTE: you may not need to use this value from the context config.
+      default: null,
     },
     fontSize: {
       type: String,

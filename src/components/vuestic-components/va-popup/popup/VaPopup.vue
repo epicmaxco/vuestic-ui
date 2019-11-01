@@ -16,22 +16,27 @@ import CanRenderMixinMixin from '../mixins/can-render.js'
 
 // @depecated
 export default {
-  name: 'va-popup',
+  name: 'VaPopup',
   mixins: [ModelToggleMixin, CanRenderMixinMixin],
   props: {
     anchor: {
       type: String,
       validator: positionValidator,
+      default: '',
     },
     self: {
       type: String,
       validator: positionValidator,
+      default: '',
     },
     fit: Boolean,
     cover: Boolean,
     persistent: Boolean,
     keepOnScreen: Boolean,
-    maxHeight: String,
+    maxHeight: {
+      type: String,
+      default: '',
+    },
     touchPosition: Boolean,
     anchorClick: {
       /*
@@ -44,6 +49,9 @@ export default {
     offset: {
       type: Array,
       validator: offsetValidator,
+      default () {
+        return []
+      },
     },
     noFocus: Boolean,
     noRefocus: Boolean,

@@ -9,7 +9,7 @@
       v-for="(message, index) in messages"
       :key="index"
     >
-      {{message}}
+      {{ message }}
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-message-list',
+  name: 'VaMessageList',
   mixins: [ColorThemeMixin, ContextPluginMixin],
   data () {
     return {

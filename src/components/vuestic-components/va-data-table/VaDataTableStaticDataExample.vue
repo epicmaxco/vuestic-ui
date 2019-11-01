@@ -6,22 +6,41 @@
       :per-page="perPage"
     >
       <template slot="header">
-        <input type="text" v-model="term" placeholder="Search" class="mr-2">
+        <input
+          type="text"
+          v-model="term"
+          placeholder="Search"
+          class="mr-2"
+        >
 
         <select v-model.number="perPage">
-          <option v-for="option in perPageOptions" :key="option">
+          <option
+            v-for="option in perPageOptions"
+            :key="option"
+          >
             {{ option }}
           </option>
         </select>
-
       </template>
 
-      <template slot="select" slot-scope="props">
-        <va-checkbox :value="props.rowData.checked" @input="select(props.rowData)" />
+      <template
+        slot="select"
+        slot-scope="props"
+      >
+        <va-checkbox
+          :value="props.rowData.checked"
+          @input="select(props.rowData)"
+        />
       </template>
 
-      <template slot="actions" slot-scope="props">
-        <va-button size="small" @click="show(props.rowData)">
+      <template
+        slot="actions"
+        slot-scope="props"
+      >
+        <va-button
+          size="small"
+          @click="show(props.rowData)"
+        >
           View User JSON
         </va-button>
       </template>

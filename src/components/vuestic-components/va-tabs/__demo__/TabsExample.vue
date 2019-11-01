@@ -14,13 +14,16 @@
       </va-tab>
     </va-tabs>
 
-    <div style="height: 20px;"/>
+    <div style="height: 20px;" />
 
     <div>
       Content: {{ selectedTab ? selectedTab.title : 'none' }}
     </div>
     <div>
-      <input type="number" v-model.number="selectedTabIndex">
+      <input
+        type="number"
+        v-model.number="selectedTabIndex"
+      >
     </div>
   </div>
 </template>

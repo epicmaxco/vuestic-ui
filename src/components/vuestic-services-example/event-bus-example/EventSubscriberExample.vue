@@ -1,7 +1,11 @@
 <template>
   <div>
-    <template v-if="lastMessage">Last message: "{{ lastMessage }}"</template>
-    <template v-else>No message were recieved</template>
+    <template v-if="lastMessage">
+      Last message: "{{ lastMessage }}"
+    </template>
+    <template v-else>
+      No message were recieved
+    </template>
   </div>
 </template>
 

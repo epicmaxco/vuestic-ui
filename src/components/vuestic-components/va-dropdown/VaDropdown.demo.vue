@@ -11,7 +11,7 @@
 
     <VbCard title="Click outside won't close">
       <va-dropdown
-        :closeOnClickOutside="false"
+        :close-on-click-outside="false"
       >
         <button slot="anchor">
           Click
@@ -22,7 +22,7 @@
 
     <VbCard title="Anchor click won't close">
       <va-dropdown
-        :closeOnAnchorClick="false"
+        :close-on-anchor-click="false"
       >
         <button slot="anchor">
           Click
@@ -43,7 +43,7 @@
     <VbCard title="Content not hoverable">
       <va-dropdown
         trigger="hover"
-        :isContentHoverable="false"
+        :is-content-hoverable="false"
       >
         <button slot="anchor">
           Hover
@@ -57,8 +57,12 @@
         <button slot="anchor">
           Click
         </button>
-        <button @click="redrawContentSize = redrawContentSize - 20">-</button>
-        <button @click="redrawContentSize = redrawContentSize + 20">+</button>
+        <button @click="redrawContentSize = redrawContentSize - 20">
+          -
+        </button>
+        <button @click="redrawContentSize = redrawContentSize + 20">
+          +
+        </button>
         <div
           :style="{
             width: redrawContentSize + 'px',
@@ -71,12 +75,15 @@
 
     <VbCard title="No trigger">
       <label>
-        <input type="checkbox" v-model="noTriggerValue"> Show: {{noTriggerValue}}
+        <input
+          type="checkbox"
+          v-model="noTriggerValue"
+        > Show: {{ noTriggerValue }}
       </label>
 
       <va-dropdown
         trigger="none"
-        :isContentHoverable="false"
+        :is-content-hoverable="false"
         :value="noTriggerValue"
       >
         <button slot="anchor">
@@ -88,16 +95,22 @@
 
     <VbCard title="Events">
       <label>
-        <input type="checkbox" v-model="logEvents"> Log events (spammy): {{logEvents}}
+        <input
+          type="checkbox"
+          v-model="logEvents"
+        > Log events (spammy): {{ logEvents }}
       </label>
       <template v-if="logEvents">
         <label>
-          <input type="checkbox" v-model="eventsValue"> Show: {{eventsValue}}
+          <input
+            type="checkbox"
+            v-model="eventsValue"
+          > Show: {{ eventsValue }}
         </label>
 
         <va-dropdown
           trigger="none"
-          :isContentHoverable="false"
+          :is-content-hoverable="false"
           :value="eventsValue"
           @clickOutside="$vb.log('Events: clickOutside')"
           @anchorClick="$vb.log('Events: anchorClick')"
@@ -111,7 +124,7 @@
     </VbCard>
 
     <VbCard title="Anchor width">
-      <va-dropdown keepAnchorWidth>
+      <va-dropdown keep-anchor-width>
         <button slot="anchor">
           ------- Anchor ------
         </button>
@@ -126,7 +139,10 @@
         </button>
         Dropdown text
       </va-dropdown>
-      <va-dropdown disabled trigger="hover">
+      <va-dropdown
+        disabled
+        trigger="hover"
+      >
         <button slot="anchor">
           Hover
         </button>
@@ -140,7 +156,9 @@
           <button slot="anchor">
             Click
           </button>
-          <div style="width: 150px; height: 150px; background: #4ae387;">text</div>
+          <div style="width: 150px; height: 150px; background: #4ae387;">
+            text
+          </div>
         </va-dropdown>
       </div>
     </VbCard>
@@ -151,7 +169,9 @@
           <button slot="anchor">
             Click
           </button>
-          <div style="width: 150px; height: 150px; background: #4ae387;">text</div>
+          <div style="width: 150px; height: 150px; background: #4ae387;">
+            text
+          </div>
         </va-dropdown>
       </div>
     </VbCard>
@@ -161,22 +181,22 @@
         <button slot="anchor">
           Click
         </button>
-        <DropdownCloseButton/>
+        <DropdownCloseButton />
       </va-dropdown>
     </VbCard>
 
     <VbCard title="Nesting 3x">
-      <va-dropdown debugId="1">
+      <va-dropdown debug-id="1">
         <button slot="anchor">
           Click
         </button>
         1
-        <va-dropdown debugId="2">
+        <va-dropdown debug-id="2">
           <button slot="anchor">
             Click
           </button>
           2
-          <va-dropdown debugId="3">
+          <va-dropdown debug-id="3">
             <button slot="anchor">
               Click
             </button>
@@ -193,10 +213,13 @@
           :key="position"
           :position="position"
         >
-          <button style="width: 70px; height: 70px;" slot="anchor">
-            {{position}}
+          <button
+            style="width: 70px; height: 70px;"
+            slot="anchor"
+          >
+            {{ position }}
           </button>
-          <span style="background-color: #222222; color: #babfc2;">{{position}}</span>
+          <span style="background-color: #222222; color: #babfc2;">{{ position }}</span>
         </va-dropdown>
       </div>
     </VbCard>
@@ -204,13 +227,19 @@
     <VbCard title="Offset">
       <div>
         <va-dropdown :offset="40">
-          <button style="width: 70px; height: 70px;" slot="anchor">
+          <button
+            style="width: 70px; height: 70px;"
+            slot="anchor"
+          >
             40
           </button>
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
         <va-dropdown :offset="'40px, 40px'">
-          <button style="width: 70px; height: 70px;" slot="anchor">
+          <button
+            style="width: 70px; height: 70px;"
+            slot="anchor"
+          >
             40px, 40px
           </button>
           <span style="background-color: #222222; color: #babfc2;">Content</span>

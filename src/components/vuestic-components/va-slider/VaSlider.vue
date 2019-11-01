@@ -1,18 +1,44 @@
 <template>
-  <div class="va-slider" :class="sliderClass">
-    <div class="input-wrapper" v-if="$slots.prepend">
-      <slot :name="this.vertical ? 'append' : 'prepend'"/>
+  <div
+    class="va-slider"
+    :class="sliderClass"
+  >
+    <div
+      class="input-wrapper"
+      v-if="$slots.prepend"
+    >
+      <slot :name="this.vertical ? 'append' : 'prepend'" />
     </div>
-    <slot v-if="($slots.label || label) && !invertLabel" name="label">
-      <span :style="labelStyles" class="label">
+    <slot
+      v-if="($slots.label || label) && !invertLabel"
+      name="label"
+    >
+      <span
+        :style="labelStyles"
+        class="label"
+      >
         {{ label }}
       </span>
     </slot>
-    <span v-if="iconPrepend" class="label">
-      <va-icon :name="iconPrepend" :color="colorComputed" :size="16"/>
+    <span
+      v-if="iconPrepend"
+      class="label"
+    >
+      <va-icon
+        :name="iconPrepend"
+        :color="colorComputed"
+        :size="16"
+      />
     </span>
-    <div class="container" @click="wrapClick" ref="sliderContainer">
-      <div class="container__track" :style="trackStyles"/>
+    <div
+      class="container"
+      @click="wrapClick"
+      ref="sliderContainer"
+    >
+      <div
+        class="container__track"
+        :style="trackStyles"
+      />
       <template v-if="pins">
         <div
           v-for="(pin, key) in pinsCol"
@@ -28,7 +54,8 @@
           class="container__track"
           :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
-          @mousedown="moveStart($event, null)"/>
+          @mousedown="moveStart($event, null)"
+        />
         <div
           ref="dot0"
           class="container__handler"
@@ -40,8 +67,16 @@
           @blur="isKeyboardFocused = false"
           :tabindex="(!disabled && !readonly) && 0"
         >
-          <div v-if="isActiveDot(0)" :style="{ backgroundColor: colorComputed }" class="container__handler--focus"/>
-          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">
+          <div
+            v-if="isActiveDot(0)"
+            :style="{ backgroundColor: colorComputed }"
+            class="container__handler--focus"
+          />
+          <div
+            v-if="trackLabelVisible"
+            :style="labelStyles"
+            class="container__handler-value"
+          >
             {{ val[0] }}
           </div>
         </div>
@@ -56,8 +91,18 @@
           @blur="isKeyboardFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div v-if="isActiveDot(1)" :style="{ backgroundColor: colorComputed }" class="container__handler--focus"/>
-          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">{{ val[1] }}</div>
+          <div
+            v-if="isActiveDot(1)"
+            :style="{ backgroundColor: colorComputed }"
+            class="container__handler--focus"
+          />
+          <div
+            v-if="trackLabelVisible"
+            :style="labelStyles"
+            class="container__handler-value"
+          >
+            {{ val[1] }}
+          </div>
         </div>
       </template>
       <template v-else>
@@ -66,7 +111,8 @@
           class="container__track"
           :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
-          @mousedown="moveStart($event, 0)"/>
+          @mousedown="moveStart($event, 0)"
+        />
         <div
           ref="dot"
           class="container__handler"
@@ -78,21 +124,48 @@
           @blur="isKeyboardFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div v-if="isActiveDot(0)" class="container__handler--focus" :style="{ backgroundColor: colorComputed }"/>
-          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">{{ trackLabel || val }}</div>
+          <div
+            v-if="isActiveDot(0)"
+            class="container__handler--focus"
+            :style="{ backgroundColor: colorComputed }"
+          />
+          <div
+            v-if="trackLabelVisible"
+            :style="labelStyles"
+            class="container__handler-value"
+          >
+            {{ trackLabel || val }}
+          </div>
         </div>
       </template>
     </div>
-    <span v-if="iconAppend" class="inverse-label">
-      <va-icon :name="iconAppend" :color="colorComputed" :size="16"/>
+    <span
+      v-if="iconAppend"
+      class="inverse-label"
+    >
+      <va-icon
+        :name="iconAppend"
+        :color="colorComputed"
+        :size="16"
+      />
     </span>
-    <slot v-if="invertLabel" name="label">
-      <span v-if="invertLabel" :style="labelStyles" class="label inverse-label">
+    <slot
+      v-if="invertLabel"
+      name="label"
+    >
+      <span
+        v-if="invertLabel"
+        :style="labelStyles"
+        class="label inverse-label"
+      >
         {{ label }}
       </span>
     </slot>
-    <div class="input-wrapper" v-if="$slots.append">
-      <slot :name=" this.vertical ? 'prepend' : 'append'"/>
+    <div
+      class="input-wrapper"
+      v-if="$slots.append"
+    >
+      <slot :name=" this.vertical ? 'prepend' : 'append'" />
     </div>
   </div>
 </template>
@@ -106,7 +179,7 @@ import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-slider',
+  name: 'VaSlider',
   components: {
     VaIcon,
   },

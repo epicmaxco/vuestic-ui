@@ -15,10 +15,11 @@
 
 <script>
 export default {
-  name: 'va-rating-item',
+  name: 'VaRatingItem',
   props: {
     value: {
       type: Number,
+      default: 1,
     },
     icon: {
       type: String,
@@ -29,9 +30,11 @@ export default {
     },
     halfIcon: {
       type: String,
+      default: '',
     },
     iconClasses: {
       type: String,
+      default: '',
     },
     emptyIcon: {
       type: String,

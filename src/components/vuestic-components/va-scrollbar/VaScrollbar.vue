@@ -1,17 +1,31 @@
 <template>
-  <div class="va-scrollbar" ref="vuesticScrollbar">
-    <div class="scrollbar-wrapper" ref="scrollbarWrapper">
-      <div class="scrollbar-content" ref="scrollbarContent"
-           @wheel="scroll"
-           @touchstart="startDrag"
-           @touchmove="onDrag"
-           @touchend="stopDrag"
-           @transitionend="onContentResize"
+  <div
+    class="va-scrollbar"
+    ref="vuesticScrollbar"
+  >
+    <div
+      class="scrollbar-wrapper"
+      ref="scrollbarWrapper"
+    >
+      <div
+        class="scrollbar-content"
+        ref="scrollbarContent"
+        @wheel="scroll"
+        @touchstart="startDrag"
+        @touchmove="onDrag"
+        @touchend="stopDrag"
+        @transitionend="onContentResize"
       >
-        <slot/>
+        <slot />
       </div>
-      <div class="track" ref="track">
-        <div class="thumb" ref="thumb"></div>
+      <div
+        class="track"
+        ref="track"
+      >
+        <div
+          class="thumb"
+          ref="thumb"
+        />
       </div>
     </div>
   </div>
@@ -22,9 +36,10 @@ const browser = require('detect-browser')
 const erd = require('element-resize-detector')()
 
 export default {
-  name: 'va-scrollbar',
+  name: 'VaScrollbar',
   props: {
     speed: {
+      type: Number,
       default: 20,
     },
   },

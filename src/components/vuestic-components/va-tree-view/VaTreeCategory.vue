@@ -1,8 +1,8 @@
 <template>
   <div class="va-tree-category">
     <div
-     class="va-tree-category__header"
-     @click="toggle"
+      class="va-tree-category__header"
+      @click="toggle"
     >
       <div class="va-tree-category__header-switcher">
         <square-with-icon
@@ -14,25 +14,30 @@
         class="va-tree-category__header-checkbox"
         v-if="$slots.checkbox"
       >
-        <slot name="checkbox"/>
+        <slot name="checkbox" />
       </div>
       <div
         class="va-tree-category__header-icon"
-         v-if="icon"
+        v-if="icon"
       >
-        <va-icon :name="icon" :color="$themes['info']"/>
+        <va-icon
+          :name="icon"
+          :color="$themes['info']"
+        />
       </div>
       <div class="va-tree-category__header-label">
         {{ label }}
       </div>
     </div>
 
-    <div class="va-tree-category__list-container" v-if="isOpenCached">
+    <div
+      class="va-tree-category__list-container"
+      v-if="isOpenCached"
+    >
       <div class="va-tree-category__list-internal-container">
-        <slot/>
+        <slot />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -42,7 +47,7 @@ import SquareWithIcon from './SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  name: 'va-tree-category',
+  name: 'VaTreeCategory',
   mixins: [ColorThemeMixin],
   components: { VaIcon, SquareWithIcon },
   inject: {
@@ -73,6 +78,7 @@ export default {
     },
     icon: {
       type: String,
+      default: '',
     },
   },
   methods: {

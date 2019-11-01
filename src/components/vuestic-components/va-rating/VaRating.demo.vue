@@ -1,16 +1,19 @@
 <template>
   <VbDemo>
     <VbCard title="No value">
-      <va-rating @input="$vb.log"/>
+      <va-rating @input="$vb.log" />
       <va-rating
         @input="$vb.log"
         halves
-        halfIcon="fa fa-star-half-full"
-        emptyIcon="fa fa-star-o"
+        half-icon="fa fa-star-half-full"
+        empty-icon="fa fa-star-o"
       />
     </VbCard>
     <VbCard width="1200px">
-      <table class="table table-bordered" style="width: 100%;">
+      <table
+        class="table table-bordered"
+        style="width: 100%;"
+      >
         <tr>
           <th>Description</th>
           <th>Vuestic Rating</th>
@@ -169,8 +172,7 @@
               />
             </div>
           </div>
-          <td>
-          </td>
+          <td />
         </tr>
         <tr>
           <td>Disabled state</td>
@@ -206,7 +208,7 @@
             <va-rating
               v-model="value"
               halves
-              emptyIcon="fa fa-star-o"
+              empty-icon="fa fa-star-o"
               size="30px"
             />
             readonly
@@ -214,7 +216,7 @@
               v-model="value"
               readonly
               halves
-              emptyIcon="fa fa-star-o"
+              empty-icon="fa fa-star-o"
               size="30px"
             />
             disabled
@@ -222,7 +224,7 @@
               v-model="value"
               disabled
               halves
-              emptyIcon="fa fa-star-o"
+              empty-icon="fa fa-star-o"
               size="30px"
             />
           </td>
@@ -256,10 +258,16 @@
       </table>
     </VbCard>
     <VbCard title="value">
-      <input type="text" v-model.number="value">
+      <input
+        type="text"
+        v-model.number="value"
+      >
     </VbCard>
     <VbCard title="Custom color">
-      <va-rating color="#2219bb" :value="2"/>
+      <va-rating
+        color="#2219bb"
+        :value="2"
+      />
     </VbCard>
   </VbDemo>
 </template>
