@@ -35,11 +35,11 @@
         @focus="formFocus"
         @validation="formValidation"
       >
-        <!--        <div>Text</div>-->
-        <!--        <va-input-->
-        <!--          v-model="form.input"-->
-        <!--          label="input"-->
-        <!--        />-->
+        <div>Text</div>
+        <va-input
+          v-model="form.input"
+          label="input"
+        />
         <va-radio
           v-model="form.radio"
           label="radio"

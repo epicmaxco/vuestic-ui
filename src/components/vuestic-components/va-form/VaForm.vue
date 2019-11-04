@@ -1,18 +1,23 @@
 <script>
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaForm',
-  mixins: [],
+  mixins: [ContextPluginMixin],
   components: {
   },
   props: {
     lazyValidation: {
       type: Boolean,
-      default: false,
+      default () {
+        getContextPropValue(this, 'lazyValidation', false)
+      },
     },
     autofocus: {
       type: Boolean,
-      default: false,
+      default () {
+        getContextPropValue(this, 'autofocus', false)
+      },
     },
   },
 

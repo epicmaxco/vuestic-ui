@@ -38,42 +38,59 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaRadio',
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     value: {
       type: [Object, String, Number, Boolean],
-      default: false,
+      default () {
+        return getContextPropValue(this, 'value', false)
+      },
     },
     option: {
       type: [Object, String, Number, Boolean],
-      default: null,
+      default () {
+        return getContextPropValue(this, 'option', null)
+      },
     },
     name: {
       type: [String, Number],
-      default: null,
+      default () {
+        return getContextPropValue(this, 'name', '')
+      },
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     label: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
     },
     leftLabel: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'leftLabel', false)
+      },
     },
     color: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
     },
     autofocus: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'autofocus', false)
+      },
     },
   },
   computed: {
