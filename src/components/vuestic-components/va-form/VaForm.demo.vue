@@ -1,13 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="default">
-      <va-form
-        lazy-validation
-        @focus="formFocus"
-        @validation="formValidation"
-        @submit="onSubmit"
-        @reset="onReset"
-      >
+      <va-form>
         <div>Text</div>
         <va-input
           v-model="form.input"
@@ -18,6 +12,7 @@
           label="radio"
           :option="1"
         />
+        <br>
         <va-radio
           v-model="form.radio"
           label="radio"
@@ -31,14 +26,7 @@
     </VbCard>
 
     <VbCard title="autofocus">
-      <va-form
-        :autofocus="autofocus"
-        lazy-validation
-        @focus="formFocus"
-        @validation="formValidation"
-        @submit="onSubmit"
-        @reset="onReset"
-      >
+      <va-form autofocus>
         <div>Text</div>
         <va-input
           v-model="form.input"
@@ -49,6 +37,7 @@
           label="radio"
           :option="1"
         />
+        <br>
         <va-radio
           v-model="form.radio"
           label="radio"
@@ -63,10 +52,6 @@
 
     <VbCard title="reset and submit">
       <va-form
-        :autofocus="autofocus"
-        lazy-validation
-        @focus="formFocus"
-        @validation="formValidation"
         @submit="onSubmit"
         @reset="onReset"
       >
@@ -80,6 +65,7 @@
           label="radio"
           :option="1"
         />
+        <br>
         <va-radio
           v-model="form.radio"
           label="radio"
@@ -97,6 +83,37 @@
         </va-button>
       </va-form>
     </VbCard>
+
+    <VbCard title="focus and validation">
+      <va-form
+        lazy-validation
+        @focus="formFocus"
+        @validation="onValidation"
+      >
+        <div>Text</div>
+        <va-input
+          v-model="form.input"
+          label="input"
+        />
+        <va-radio
+          v-model="form.radio"
+          label="radio"
+          :option="1"
+        />
+
+        <br>
+        <va-radio
+          v-model="form.radio"
+          label="radio"
+          :option="2"
+        />
+        <va-checkbox
+          v-model="form.checkbox"
+          label="checkbox"
+        />
+      </va-form>
+    </VbCard>
+
     <VbCard
       title="form data"
       width="500px"
@@ -130,16 +147,15 @@ export default {
         checkbox: false,
         radio: 2,
       },
-      autofocus: true,
       submitData: {},
     }
   },
   methods: {
     formFocus (val) {
-      console.log('focus', val)
+      console.log('on-focus', val)
     },
-    formValidation (val) {
-      console.log('validations', val)
+    onValidation (val) {
+      console.log('on-validations', val)
     },
     onSubmit () {
       this.submitData = this.form

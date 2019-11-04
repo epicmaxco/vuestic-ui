@@ -1,6 +1,15 @@
 <script>
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
+const availableFormTags = ['va-input', 'va-color-input', 'va-date-picker', 'va-checkbox', 'va-radio', 'va-select', 'va-file-upload']
+// function getAllChildren (vm, children = []) {
+//   vm.$children.forEach(function (child) {
+//     children.push(child)
+//     child.$children.length > 0 && getAllChildren(child, children)
+//   })
+//   return children
+// }
+
 export default {
   name: 'VaForm',
   mixins: [ContextPluginMixin],
@@ -10,15 +19,20 @@ export default {
     lazyValidation: {
       type: Boolean,
       default () {
-        getContextPropValue(this, 'lazyValidation', false)
+        return getContextPropValue(this, 'lazyValidation', false)
       },
     },
     autofocus: {
       type: Boolean,
       default () {
-        getContextPropValue(this, 'autofocus', false)
+        return getContextPropValue(this, 'autofocus', false)
       },
     },
+  },
+  mounted () {
+    if (this.autofocus) {
+      this.focus()
+    }
   },
   methods: {
     preventAndStopPropagation (event) {
@@ -35,37 +49,31 @@ export default {
 
       return this.$emit('reset', event)
     },
+    focus (event) {
+      const target = this.$el.querySelector('[autofocus]')
+
+      if (target) {
+        target.focus()
+      }
+
+      return this.$emit('focus', event)
+    },
   },
 
   render (createElement) {
     const createAutofocusComponent = (component) => {
-      this.$set(component.componentOptions.propsData, 'autofocus', this.autofocus)
+      // NOTE: set property autofocus only to form components
+      if (component.componentOptions && availableFormTags.includes(component.componentOptions.tag)) {
+        this.$set(component.componentOptions.propsData, 'autofocus', this.autofocus)
+      }
 
       return component
     }
 
-    const availableFormTags = ['va-input', 'va-color-input', 'va-date-picker', 'va-checkbox', 'va-radio', 'va-select', 'va-file-upload']
+    let children = (this.$slots.default || [])
 
-    const isFormComponent = (component) =>
-      component.componentOptions // native components do not have componentOptions prop
-        ? availableFormTags.includes(component.componentOptions.tag)
-        : false
-
-    const children = (this.$slots.default || [])
-
-    let hasFormComponents = false
-    let renderChildren = children
-
-    if (children.length > 0) {
-      renderChildren = children.map((child) => {
-        if (isFormComponent(child) && !hasFormComponents) {
-          hasFormComponents = true
-
-          return createAutofocusComponent(child)
-        }
-
-        return child
-      })
+    if (this.autofocus && children.length > 0) {
+      children = children.map(createAutofocusComponent)
     }
 
     return createElement('form', {
@@ -74,8 +82,9 @@ export default {
         ...this.$listeners,
         submit: this.submit,
         reset: this.reset,
+        focus: this.focus,
       },
-    }, renderChildren)
+    }, children)
   },
 }
 </script>

@@ -10,8 +10,8 @@
       :disabled="disabled"
       :name="name"
       :autofocus="autofocus"
-      @change="onClick"
-      @focus="onFocus"
+      @click="click"
+      @focus="focus"
     >
 
     <span
@@ -130,12 +130,12 @@ export default {
     },
   },
   methods: {
-    onClick () {
+    click (e) {
       if (!this.disabled) {
-        this.$emit('input', this.option)
+        this.$emit('input', e, this.option)
       }
     },
-    onFocus (e) {
+    focus (e) {
       if (!this.disabled) {
         this.$emit('focus', e)
       }
