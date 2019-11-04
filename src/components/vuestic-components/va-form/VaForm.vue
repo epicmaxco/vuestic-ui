@@ -8,7 +8,7 @@ export default {
   props: {
     lazyValidation: {
       type: Boolean,
-      default: false
+      default: false,
     },
     autofocus: {
       type: Boolean,
@@ -23,13 +23,12 @@ export default {
       return component
     }
 
-    const availableFormTags = ['va-input', 'va-checkbox', 'va-radio', 'va-select']
+    const availableFormTags = ['va-input', 'va-color-input', 'va-date-picker', 'va-checkbox', 'va-radio', 'va-select', 'va-file-upload']
 
     const isFormComponent = (component) =>
       component.componentOptions // native components do not have componentOptions prop
         ? availableFormTags.includes(component.componentOptions.tag)
         : false
-
 
     const children = (this.$slots.default || [])
 

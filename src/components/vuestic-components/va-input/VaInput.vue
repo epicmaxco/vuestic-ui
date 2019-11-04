@@ -37,6 +37,7 @@
           :disabled="disabled"
           :readonly="readonly"
           :value="value"
+          :autofocus="autofocus"
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
@@ -51,6 +52,7 @@
           :disabled="disabled"
           :readonly="readonly"
           :value="value"
+          :autofocus="autofocus"
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
@@ -145,6 +147,12 @@ export default {
       type: Boolean,
       default () {
         return getContextPropValue(this, 'removable', false)
+      },
+    },
+    autofocus: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'autofocus', false)
       },
     },
 

@@ -29,6 +29,7 @@
         :multiple="type !== 'single'"
         :disabled="disabled"
         @change="changeFieldValue"
+        :autofocus="autofocus"
       >
     </div>
     <va-file-upload-list
@@ -103,6 +104,12 @@ export default {
       type: Boolean,
       default () {
         return getContextPropValue(this, 'disabled', false)
+      },
+    },
+    autofocus: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'autofocus', false)
       },
     },
   },

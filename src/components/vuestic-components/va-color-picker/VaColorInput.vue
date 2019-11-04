@@ -11,6 +11,7 @@
       v-model="valueProxy"
       :disabled="disabled"
       placeholder="input color"
+      :autofocus="autofocus"
     />
   </div>
 </template>
@@ -35,6 +36,10 @@ export default {
       default: false,
     },
     selected: {
+      type: Boolean,
+      default: false,
+    },
+    autofocus: {
       type: Boolean,
       default: false,
     },

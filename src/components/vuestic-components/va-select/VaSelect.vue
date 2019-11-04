@@ -18,6 +18,7 @@
       class="va-select__input"
       ref="search"
       removable
+      :autofocus="autofocus"
     />
     <ul
       class="va-select__option-list"
@@ -190,6 +191,12 @@ export default {
       type: Boolean,
       default () {
         return getContextPropValue(this, 'readonly', false)
+      },
+    },
+    autofocus: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'autofocus', false)
       },
     },
     loading: {

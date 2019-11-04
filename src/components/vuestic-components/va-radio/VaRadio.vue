@@ -9,6 +9,7 @@
       :checked="isActive"
       :disabled="disabled"
       :name="name"
+      :autofocus="autofocus"
       @change="onClick"
       @focus="onFocus"
     >
@@ -69,6 +70,10 @@ export default {
     color: {
       type: String,
       default: '',
+    },
+    autofocus: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

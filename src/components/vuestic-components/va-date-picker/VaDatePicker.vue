@@ -10,6 +10,7 @@
         :error="error"
         :success="success"
         :messages="messages"
+        :autofocus="autofocus"
         :error-messages="errorMessages"
       >
         <template slot="append">
@@ -75,6 +76,12 @@ export default {
       type: Boolean,
       default () {
         return getContextPropValue(this, 'disabled', false)
+      },
+    },
+    autofocus: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'autofocus', false)
       },
     },
     error: {
