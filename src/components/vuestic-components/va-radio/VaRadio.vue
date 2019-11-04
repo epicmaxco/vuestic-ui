@@ -148,7 +148,7 @@ export default {
 @import "../../vuestic-sass/resources/resources";
 
 .va-radio {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
