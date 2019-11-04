@@ -20,6 +20,22 @@ export default {
       },
     },
   },
+  methods: {
+    preventAndStopPropagation (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    },
+    submit (event) {
+      this.preventAndStopPropagation(event)
+
+      return this.$emit('submit', event)
+    },
+    reset (event) {
+      this.preventAndStopPropagation(event)
+
+      return this.$emit('reset', event)
+    },
+  },
 
   render (createElement) {
     const createAutofocusComponent = (component) => {
@@ -54,6 +70,11 @@ export default {
 
     return createElement('form', {
       class: 'va-form',
+      on: {
+        ...this.$listeners,
+        submit: this.submit,
+        reset: this.reset,
+      },
     }, renderChildren)
   },
 }

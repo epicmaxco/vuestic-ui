@@ -5,6 +5,8 @@
         lazy-validation
         @focus="formFocus"
         @validation="formValidation"
+        @submit="onSubmit"
+        @reset="onReset"
       >
         <div>Text</div>
         <va-input
@@ -34,6 +36,8 @@
         lazy-validation
         @focus="formFocus"
         @validation="formValidation"
+        @submit="onSubmit"
+        @reset="onReset"
       >
         <div>Text</div>
         <va-input
@@ -56,8 +60,50 @@
         />
       </va-form>
     </VbCard>
-    <VbCard>
-      {{ form }}
+
+    <VbCard title="reset and submit">
+      <va-form
+        :autofocus="autofocus"
+        lazy-validation
+        @focus="formFocus"
+        @validation="formValidation"
+        @submit="onSubmit"
+        @reset="onReset"
+      >
+        <div>Text</div>
+        <va-input
+          v-model="form.input"
+          label="input"
+        />
+        <va-radio
+          v-model="form.radio"
+          label="radio"
+          :option="1"
+        />
+        <va-radio
+          v-model="form.radio"
+          label="radio"
+          :option="2"
+        />
+        <va-checkbox
+          v-model="form.checkbox"
+          label="checkbox"
+        />
+        <va-button type="submit">
+          Submit
+        </va-button>
+        <va-button type="reset">
+          Reset
+        </va-button>
+      </va-form>
+    </VbCard>
+    <VbCard
+      title="form data"
+      width="500px"
+    >
+      CurrentData: {{ form }}
+      <br>
+      SubmitData: {{ submitData }}
     </VbCard>
   </VbDemo>
 </template>
@@ -67,7 +113,7 @@ import VaForm from './VaForm'
 import VaInput from '../va-input/VaInput'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaRadio from '../va-radio/VaRadio'
-// import VaButton from '../va-button/VaButton'
+import VaButton from '../va-button/VaButton'
 
 export default {
   components: {
@@ -75,6 +121,7 @@ export default {
     VaInput,
     VaRadio,
     VaCheckbox,
+    VaButton,
   },
   data () {
     return {
@@ -84,6 +131,7 @@ export default {
         radio: 2,
       },
       autofocus: true,
+      submitData: {},
     }
   },
   methods: {
@@ -92,6 +140,16 @@ export default {
     },
     formValidation (val) {
       console.log('validations', val)
+    },
+    onSubmit () {
+      this.submitData = this.form
+    },
+    onReset () {
+      this.form = {
+        input: '',
+        checkbox: false,
+        radio: 1,
+      }
     },
   },
 }
