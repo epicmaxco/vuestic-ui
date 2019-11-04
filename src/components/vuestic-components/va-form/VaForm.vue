@@ -34,9 +34,7 @@ export default {
   props: {
     lazyValidation: {
       type: Boolean,
-      default () {
-        return getContextPropValue(this, 'lazyValidation', false)
-      },
+      default: false,
     },
     autofocus: {
       type: Boolean,

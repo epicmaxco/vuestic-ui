@@ -127,7 +127,6 @@ export default {
         return getContextPropValue(this, 'indeterminateIcon', 'close')
       },
     },
-
     error: {
       type: Boolean,
       default () {
