@@ -178,8 +178,8 @@ export default {
     width: 0;
     height: 0;
     position: absolute;
-    left: -100px;
-    top: -100px;
+    top: 0;
+    left: 0;
     opacity: 0;
     z-index: -1;
   }
