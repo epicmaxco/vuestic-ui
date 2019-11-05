@@ -12,6 +12,7 @@
       :autofocus="autofocus"
       @change="click"
       @focus="focus"
+      :tabindex="tabindex"
     >
 
     <span
@@ -90,6 +91,13 @@ export default {
       type: Boolean,
       default () {
         return getContextPropValue(this, 'autofocus', false)
+      },
+    },
+
+    tabindex: {
+      type: Number,
+      default () {
+        return getContextPropValue(this, 'tabindex', 0)
       },
     },
   },

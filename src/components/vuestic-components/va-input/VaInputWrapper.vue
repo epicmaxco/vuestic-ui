@@ -1,5 +1,6 @@
 <template>
-  <div class="va-input-wrapper">
+  <!--TODO: hack for use $el.focus() -->
+  <label class="va-input-wrapper">
     <div class="va-input-wrapper__control">
       <div class="va-input-wrapper__slot">
         <div
@@ -26,7 +27,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </label>
 </template>
 
 <script>

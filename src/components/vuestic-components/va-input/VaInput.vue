@@ -41,6 +41,7 @@
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
+          :tabindex="tabindex"
         />
         <input
           v-else
@@ -56,6 +57,7 @@
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
+          :tabindex="tabindex"
         >
       </div>
       <div
@@ -153,6 +155,12 @@ export default {
       type: Boolean,
       default () {
         return getContextPropValue(this, 'autofocus', false)
+      },
+    },
+    tabindex: {
+      type: Number,
+      default () {
+        return getContextPropValue(this, 'tabindex', 0)
       },
     },
 
