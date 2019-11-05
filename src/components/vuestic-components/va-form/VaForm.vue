@@ -31,35 +31,21 @@ export default {
   },
   mounted () {
     if (this.autofocus) {
-      this.focusChild()
+      this.focus()
     }
 
-    this.$el.addEventListener('focusin', this.focus)
+    this.focusEvent()
   },
   methods: {
-    preventAndStopPropagation (event) {
-      event.preventDefault()
-      event.stopPropagation()
+    focusEvent () {
+      this.$listeners.focus && this.$listeners.focus()
     },
-    submit (event) {
-      this.preventAndStopPropagation(event)
-
-      return this.$emit('submit', event)
-    },
-    reset (event) {
-      this.preventAndStopPropagation(event)
-
-      return this.$emit('reset', event)
-    },
-    focus (event) {
-      this.$emit('focus', event)
-    },
-    focusChild () {
+    focus () {
       const firstFormChild = getAllChildren(this).find((child) => availableFormTags.includes(child.$options.name))
 
       firstFormChild.$el.focus()
 
-      this.focus()
+      this.focusEvent()
     },
   },
 
@@ -68,9 +54,6 @@ export default {
       class: 'va-form',
       on: {
         ...this.$listeners,
-        submit: this.submit,
-        reset: this.reset,
-        focus: this.focus,
       },
     }, this.$slots.default || [])
   },
