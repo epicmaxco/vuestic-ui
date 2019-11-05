@@ -140,13 +140,16 @@ export default {
   methods: {
     click (e) {
       if (!this.disabled) {
-        this.$emit('input', this.option, e)
+        return this.$emit('input', this.option, e)
       }
     },
     focus (e) {
       if (!this.disabled) {
-        this.$emit('focus', e)
+        return this.$emit('focus', e)
       }
+    },
+    validate () {
+      return false
     },
   },
 }

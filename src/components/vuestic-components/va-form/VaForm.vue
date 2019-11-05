@@ -35,10 +35,14 @@ export default {
     }
 
     this.focusEvent()
+    this.valid = true
   },
   methods: {
     focusEvent () {
       this.$listeners.focus && this.$listeners.focus()
+    },
+    validationEvent (value) {
+      this.$listeners.validation && this.$listeners.validation(value)
     },
     focus () {
       const firstFormChild = getAllChildren(this).find((child) => availableFormTags.includes(child.$options.name))
@@ -47,9 +51,27 @@ export default {
 
       this.focusEvent()
     },
+    validate () { // NOTE: temporarily synchronous validation
+      const childrenValidations = getAllChildren(this).reduce((result, child) => child.validate ? [...result, { child, valid: child.validate() }] : result, [])
+
+      if (childrenValidations) {
+        for (let item of childrenValidations) {
+          if (!item.valid) {
+            this.valid = false
+            this.validationEvent(item)
+
+            if (this.lazyValidation) {
+              break
+            }
+          }
+        }
+      }
+    },
   },
 
   render (createElement) {
+    this.$nextTick(this.validate)
+
     return createElement('form', {
       class: 'va-form',
       on: {
