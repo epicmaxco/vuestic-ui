@@ -79,7 +79,7 @@
         <slot name="append" />
         <va-icon
           v-if="removable && hasContent"
-          @click.native="clearContent()"
+          @click.native="clear()"
           class="va-input__container__close-icon"
           :color="error ? 'danger': 'gray'"
           name="highlight_off"
@@ -293,8 +293,8 @@ export default {
       Object.assign(this.$refs.input.style, textareaStyles)
     },
 
-    clearContent () {
-      this.$emit('input', '')
+    clear () {
+      return this.$emit('input', '')
     },
   },
 }

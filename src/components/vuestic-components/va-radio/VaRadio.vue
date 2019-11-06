@@ -48,7 +48,7 @@ export default {
     value: {
       type: [Object, String, Number, Boolean],
       default () {
-        return getContextPropValue(this, 'value', false)
+        return getContextPropValue(this, 'value', null)
       },
     },
     option: {
@@ -150,6 +150,9 @@ export default {
     },
     validate () {
       return false
+    },
+    clear (e) {
+      return this.$emit('input', null, e)
     },
   },
 }

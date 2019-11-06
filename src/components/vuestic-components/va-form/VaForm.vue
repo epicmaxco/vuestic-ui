@@ -38,6 +38,10 @@ export default {
     this.valid = true
   },
   methods: {
+    preventAndStopPropagation (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    },
     focusEvent () {
       this.$listeners.focus && this.$listeners.focus()
     },
@@ -54,9 +58,11 @@ export default {
 
       this.focusEvent()
     },
-    reset () {
-      getAllChildren(this).filter(({ reset }) => Boolean(reset)).forEach((item) => {
-        item.reset()
+    reset (e) {
+      this.preventAndStopPropagation(e)
+
+      getAllChildren(this).filter(({ clear }) => Boolean(clear)).forEach((item) => {
+        item.clear(e)
       })
 
       this.resetEvent(true)
@@ -86,6 +92,7 @@ export default {
       class: 'va-form',
       on: {
         ...this.$listeners,
+        reset: this.reset,
       },
     }, this.$slots.default || [])
   },

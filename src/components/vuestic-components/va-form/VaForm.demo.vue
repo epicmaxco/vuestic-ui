@@ -151,17 +151,17 @@ export default {
     }
   },
   methods: {
-    onFormFocus (val) {
-      console.log('on-focus', val)
+    onFormFocus (value) {
+      console.log('on-focus', value)
     },
-    onValidation (val) {
-      console.log('on-validations', val)
+    onValidation (value) {
+      console.log('on-validations', value)
     },
     onSubmit () {
       this.submitData = this.form
     },
-    onReset (val) {
-      console.log('on-reset', val)
+    onReset (value) {
+      console.log('on-reset', value)
     },
   },
 }
