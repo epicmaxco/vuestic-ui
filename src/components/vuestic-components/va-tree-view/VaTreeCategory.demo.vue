@@ -32,7 +32,10 @@
         </va-tree-node>
       </va-tree-category>
       <va-tree-category label="Category with checkbox">
-        <va-checkbox v-model="value" slot="checkbox"/>
+        <va-checkbox
+          v-model="value"
+          slot="checkbox"
+        />
         <va-tree-node>
           One
         </va-tree-node>
@@ -56,8 +59,14 @@
       </va-tree-category>
     </VbCard>
     <VbCard title="Colors">
-      <va-tree-category label="Category with icon" color="info">
-        <va-icon slot="icon" name="send"/>
+      <va-tree-category
+        label="Category with icon"
+        color="info"
+      >
+        <va-icon
+          slot="icon"
+          name="send"
+        />
         <va-tree-node>
           One
         </va-tree-node>

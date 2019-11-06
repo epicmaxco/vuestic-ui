@@ -4,7 +4,7 @@
     :style="{ backgroundColor: colorComputed }"
   >
     <div class="va-sidebar__menu">
-      <slot name="menu"></slot>
+      <slot name="menu" />
     </div>
   </aside>
 </template>
@@ -13,7 +13,7 @@
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
-  name: 'va-sidebar',
+  name: 'VaSidebar',
   components: {},
   mixins: [ColorThemeMixin],
   props: {
@@ -39,6 +39,7 @@ export default {
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+
 .va-sidebar {
   min-height: $sidebar-viewport-min-height;
   height: $sidebar-viewport-height;
@@ -46,7 +47,7 @@ export default {
   width: $sidebar-width;
   top: $top-nav-height;
   left: 0;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   overflow-y: auto;
 
   &__menu {
@@ -69,6 +70,7 @@ export default {
   &--minimized {
     left: 0;
     width: $sidebar-minimized-width;
+
     .va-sidebar-link-group {
       .va-sidebar-link__content {
         padding-right: 0;

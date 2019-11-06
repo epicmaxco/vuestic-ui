@@ -3,13 +3,13 @@
     class="va-item-label ellipsis"
     :class="{'va-item-label--caption': caption}"
   >
-    <slot/>
+    <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'va-item-label',
+  name: 'VaItemLabel',
   props: {
     caption: Boolean,
   },

@@ -1,8 +1,18 @@
 <template>
-  <div class="va-avatar" ref="avatar" :style="computedStyle">
+  <div
+    class="va-avatar"
+    ref="avatar"
+    :style="computedStyle"
+  >
     <slot>
-      <va-icon v-if="icon" :name="icon"/>
-      <img v-else-if="src" :src="src"/>
+      <img
+        v-if="src"
+        :src="src"
+      >
+      <va-icon
+        v-else-if="icon"
+        :name="icon"
+      />
     </slot>
   </div>
 </template>
@@ -10,34 +20,55 @@
 <script>
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  name: 'va-avatar',
-  mixins: [SizeMixin, ColorThemeMixin],
+  name: 'VaAvatar',
+  mixins: [SizeMixin, ColorThemeMixin, ContextPluginMixin],
   components: {
     VaIcon,
   },
   props: {
+    size: {
+      type: [String, Number],
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
+    },
     color: {
       type: String,
-      default: 'info',
+      default () {
+        return getContextPropValue(this, 'color', 'info')
+      },
     },
     textColor: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'textColor', 'white')
+      },
     },
     square: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'square', false)
+      },
     },
     icon: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'icon', '')
+      },
     },
     src: {
-      type: String,
+      type: String, // NOTE: you may not need to use this value from the context config.
+      default: null,
     },
     fontSize: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'fontSize', '')
+      },
     },
   },
   computed: {
@@ -66,7 +97,8 @@ export default {
   text-align: center;
   vertical-align: middle;
 
-  img, svg {
+  img,
+  svg {
     border-radius: inherit;
     display: inline-flex;
     height: inherit;

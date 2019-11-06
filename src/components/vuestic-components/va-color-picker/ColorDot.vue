@@ -1,7 +1,8 @@
 <template>
-  <div class="color-dot flex-center"
-       @click="$emit('click')"
-       :class="{'color-dot--selected': selected}"
+  <div
+    class="color-dot flex-center"
+    @click="$emit('click')"
+    :class="{'color-dot--selected': selected}"
   >
     <div
       class="color-dot__core"
@@ -12,7 +13,7 @@
 
 <script>
 export default {
-  name: 'color-dot',
+  name: 'ColorDot',
   props: {
     color: {
       type: String,
@@ -34,7 +35,6 @@ export default {
   height: 1.5rem;
   min-width: 1.5rem;
   cursor: pointer;
-
   border-radius: 50%;
   border: solid 0.125rem transparent;
 

@@ -1,6 +1,9 @@
 <template>
-  <div class="va-list-label" :style="{'color': colorComputed}">
-    <slot/>
+  <div
+    class="va-list-label"
+    :style="{'color': colorComputed}"
+  >
+    <slot />
   </div>
 </template>
 
@@ -8,7 +11,7 @@
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
-  name: 'va-list-label',
+  name: 'VaListLabel',
   mixins: [ColorThemeMixin],
   data () {
     return {
@@ -23,6 +26,7 @@ export default {
 
 .va-list-label {
   @include va-title();
+
   padding: $list-item-padding;
   padding-top: 0;
   padding-bottom: 0.75rem;

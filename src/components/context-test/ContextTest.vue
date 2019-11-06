@@ -1,6 +1,9 @@
 <template>
-  <div class="va-test" :style="{color}">
-    <slot>{{label}}</slot>
+  <div
+    class="va-test"
+    :style="{color}"
+  >
+    <slot>{{ label }}</slot>
   </div>
 </template>
 
@@ -11,7 +14,7 @@ import {
 } from './context-provide/ContextPlugin'
 
 export default {
-  name: 'va-test',
+  name: 'VaTest',
   mixins: [ContextPluginMixin],
   props: {
     color: {

@@ -2,14 +2,18 @@
   <VbDemo>
     <VbCard title="Position">
       <p>
-        <button @click="showModalPositionCenter = !showModalPositionCenter">show modal position center (default)</button>
+        <button @click="showModalPositionCenter = !showModalPositionCenter">
+          show modal position center (default)
+        </button>
         <va-modal
           v-model="showModalPositionCenter"
           :message="message"
         />
       </p>
       <p>
-        <button @click="showModalPositionTop = !showModalPositionTop">show modal position top</button>
+        <button @click="showModalPositionTop = !showModalPositionTop">
+          show modal position top
+        </button>
         <va-modal
           v-model="showModalPositionTop"
           title="Simple Popup, Full Width"
@@ -18,7 +22,9 @@
         />
       </p>
       <p>
-        <button @click="showModalPositionRight = !showModalPositionRight">show modal position right</button>
+        <button @click="showModalPositionRight = !showModalPositionRight">
+          show modal position right
+        </button>
         <va-modal
           v-model="showModalPositionRight"
           title="Simple Popup, Full Width"
@@ -27,18 +33,22 @@
         />
       </p>
       <p>
-        <button @click="showModalPositionBottom = !showModalPositionBottom">show modal position bottom</button>
+        <button @click="showModalPositionBottom = !showModalPositionBottom">
+          show modal position bottom
+        </button>
         <va-modal
           v-model="showModalPositionBottom"
           title="Simple Popup, Full Width"
           :message="message"
-          okText="Accept"
-          cancelText="Decline"
+          ok-text="Accept"
+          cancel-text="Decline"
           position="bottom"
         />
       </p>
       <p>
-        <button @click="showModalPositionLeft = !showModalPositionLeft">show modal position left</button>
+        <button @click="showModalPositionLeft = !showModalPositionLeft">
+          show modal position left
+        </button>
         <va-modal
           v-model="showModalPositionLeft"
           title="Simple Popup, Full Width"
@@ -49,7 +59,9 @@
     </VbCard>
     <VbCard title="modal size">
       <p>
-        <button @click="showModalSizeSmall = !showModalSizeSmall">show modal size small</button>
+        <button @click="showModalSizeSmall = !showModalSizeSmall">
+          show modal size small
+        </button>
         <va-modal
           v-model="showModalSizeSmall"
           title="Simple Popup, Full Width"
@@ -58,7 +70,9 @@
         />
       </p>
       <p>
-        <button @click="showModalSizeMedium = !showModalSizeMedium">show modal size medium (default)</button>
+        <button @click="showModalSizeMedium = !showModalSizeMedium">
+          show modal size medium (default)
+        </button>
         <va-modal
           v-model="showModalSizeMedium"
           title="Simple Popup, Full Width"
@@ -66,7 +80,9 @@
         />
       </p>
       <p>
-        <button @click="showModalSizeLarge = !showModalSizeLarge">show modal size large</button>
+        <button @click="showModalSizeLarge = !showModalSizeLarge">
+          show modal size large
+        </button>
         <va-modal
           v-model="showModalSizeLarge"
           title="Simple Popup, Full Width"
@@ -76,7 +92,9 @@
       </p>
     </VbCard>
     <VbCard title="fullscreen, slots use, custom action">
-      <button @click="showFullScreenModal = !showFullScreenModal">Show modal</button>
+      <button @click="showFullScreenModal = !showFullScreenModal">
+        Show modal
+      </button>
       <va-modal
         v-model="showFullScreenModal"
         :fullscreen="true"
@@ -85,15 +103,19 @@
           <h2>Step 2. Centered Layout</h2>
         </template>
         <slot>
-          <div>{{message}}</div>
+          <div>{{ message }}</div>
         </slot>
         <template slot="actions">
-          <button @click="customActionClick">Custom action</button>
+          <button @click="customActionClick">
+            Custom action
+          </button>
         </template>
       </va-modal>
     </VbCard>
     <VbCard title="mobile-fullscreen: false">
-      <button @click="showModalNotMobileFullScreen = !showModalNotMobileFullScreen">Show modal</button>
+      <button @click="showModalNotMobileFullScreen = !showModalNotMobileFullScreen">
+        Show modal
+      </button>
       <va-modal
         v-model="showModalNotMobileFullScreen"
         :mobile-fullscreen="false"
@@ -102,7 +124,9 @@
       />
     </VbCard>
     <VbCard title="no-outside-dismiss">
-      <button @click="showModalNoOutsideDismiss = !showModalNoOutsideDismiss">Show modal</button>
+      <button @click="showModalNoOutsideDismiss = !showModalNoOutsideDismiss">
+        Show modal
+      </button>
       <va-modal
         v-model="showModalNoOutsideDismiss"
         :no-outside-dismiss="true"
@@ -111,7 +135,9 @@
       />
     </VbCard>
     <VbCard title="no-esc-dismiss">
-      <button @click="showModalNoEscDismiss = !showModalNoEscDismiss">Show modal</button>
+      <button @click="showModalNoEscDismiss = !showModalNoEscDismiss">
+        Show modal
+      </button>
       <va-modal
         v-model="showModalNoEscDismiss"
         :no-esc-dismiss="true"
@@ -120,14 +146,18 @@
       />
     </VbCard>
     <VbCard title="several lays">
-      <button @click="showModalFirstLay = !showModalFirstLay">Show modal</button>
+      <button @click="showModalFirstLay = !showModalFirstLay">
+        Show modal
+      </button>
       <va-modal
         v-model="showModalFirstLay"
         title="Several lays"
         :message="message"
       >
         <slot>
-          <button @click="showModalSecondLay = !showModalSecondLay">Show modal</button>
+          <button @click="showModalSecondLay = !showModalSecondLay">
+            Show modal
+          </button>
           <va-modal
             v-model="showModalSecondLay"
             title="Several layers"
@@ -137,38 +167,52 @@
       </va-modal>
     </VbCard>
     <VbCard title="fixed layout">
-      <button @click="showFixedLayoutModal = !showFixedLayoutModal">Show modal</button>
+      <button @click="showFixedLayoutModal = !showFixedLayoutModal">
+        Show modal
+      </button>
       <va-modal
         v-model="showFixedLayoutModal"
-        :fixedLayout="true"
+        :fixed-layout="true"
         :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
       >
-        <template slot="header"><p>Step 2. Centered Layout</p></template>
+        <template slot="header">
+          <p>Step 2. Centered Layout</p>
+        </template>
       </va-modal>
     </VbCard>
     <VbCard title="hide default actions">
-      <button @click="showWithoutDefaultActions = !showWithoutDefaultActions">Show modal</button>
+      <button @click="showWithoutDefaultActions = !showWithoutDefaultActions">
+        Show modal
+      </button>
       <va-modal
         v-model="showWithoutDefaultActions"
         hide-default-actions
         :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
       >
-        <template slot="header"><p>Step 2. Centered Layout</p></template>
+        <template slot="header">
+          <p>Step 2. Centered Layout</p>
+        </template>
       </va-modal>
     </VbCard>
     <VbCard title="onOk, onCancel functions">
-      <button @click="showSpecialActionsModal = !showSpecialActionsModal">Show modal</button>
+      <button @click="showSpecialActionsModal = !showSpecialActionsModal">
+        Show modal
+      </button>
       <va-modal
         v-model="showSpecialActionsModal"
         @ok="onOk"
         @cancel="onCancel"
         :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
       >
-        <template slot="header"><p>Step 2. Centered Layout</p></template>
+        <template slot="header">
+          <p>Step 2. Centered Layout</p>
+        </template>
       </va-modal>
     </VbCard>
     <VbCard title="long message">
-      <button @click="showModalLongMessage = !showModalLongMessage">Show modal</button>
+      <button @click="showModalLongMessage = !showModalLongMessage">
+        Show modal
+      </button>
       <va-modal
         v-model="showModalLongMessage"
         title="Several lays"
@@ -176,14 +220,18 @@
       />
     </VbCard>
     <VbCard title="without title">
-      <button @click="showModalWithoutTitle = !showModalWithoutTitle">Show modal</button>
+      <button @click="showModalWithoutTitle = !showModalWithoutTitle">
+        Show modal
+      </button>
       <va-modal
         v-model="showModalWithoutTitle"
         :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
       />
     </VbCard>
     <VbCard title="without transitions">
-      <button @click="showModalWithoutTrasitions = !showModalWithoutTrasitions">Show modal</button>
+      <button @click="showModalWithoutTrasitions = !showModalWithoutTrasitions">
+        Show modal
+      </button>
       <va-modal
         without-transitions
         v-model="showModalWithoutTrasitions"

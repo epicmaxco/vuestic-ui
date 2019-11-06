@@ -6,7 +6,7 @@
       'va-list--fit': fit
     }"
   >
-    <slot/>
+    <slot />
   </va-card>
 </template>
 
@@ -14,7 +14,7 @@
 import VaCard from '../va-card/VaCard'
 
 export default {
-  name: 'va-list',
+  name: 'VaList',
   components: { VaCard },
   props: {
     fit: Boolean,

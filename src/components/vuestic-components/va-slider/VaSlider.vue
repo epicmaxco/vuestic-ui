@@ -1,18 +1,44 @@
 <template>
-  <div class="va-slider" :class="sliderClass">
-    <div class="input-wrapper" v-if="$slots.prepend">
-      <slot :name="this.vertical ? 'append' : 'prepend'"/>
+  <div
+    class="va-slider"
+    :class="sliderClass"
+  >
+    <div
+      class="input-wrapper"
+      v-if="$slots.prepend"
+    >
+      <slot :name="this.vertical ? 'append' : 'prepend'" />
     </div>
-    <slot v-if="($slots.label || label) && !invertLabel" name="label">
-      <span :style="labelStyles" class="label">
+    <slot
+      v-if="($slots.label || label) && !invertLabel"
+      name="label"
+    >
+      <span
+        :style="labelStyles"
+        class="label"
+      >
         {{ label }}
       </span>
     </slot>
-    <span v-if="iconPrepend" class="label">
-      <va-icon :name="iconPrepend" :color="colorComputed" :size="16"/>
+    <span
+      v-if="iconPrepend"
+      class="label"
+    >
+      <va-icon
+        :name="iconPrepend"
+        :color="colorComputed"
+        :size="16"
+      />
     </span>
-    <div class="container" @click="wrapClick" ref="sliderContainer">
-      <div class="container__track" :style="trackStyles"/>
+    <div
+      class="container"
+      @click="wrapClick"
+      ref="sliderContainer"
+    >
+      <div
+        class="container__track"
+        :style="trackStyles"
+      />
       <template v-if="pins">
         <div
           v-for="(pin, key) in pinsCol"
@@ -28,7 +54,8 @@
           class="container__track"
           :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
-          @mousedown="moveStart($event, null)"/>
+          @mousedown="moveStart($event, null)"
+        />
         <div
           ref="dot0"
           class="container__handler"
@@ -40,8 +67,16 @@
           @blur="isKeyboardFocused = false"
           :tabindex="(!disabled && !readonly) && 0"
         >
-          <div v-if="isActiveDot(0)" :style="{ backgroundColor: colorComputed }" class="container__handler--focus"/>
-          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">
+          <div
+            v-if="isActiveDot(0)"
+            :style="{ backgroundColor: colorComputed }"
+            class="container__handler--focus"
+          />
+          <div
+            v-if="trackLabelVisible"
+            :style="labelStyles"
+            class="container__handler-value"
+          >
             {{ val[0] }}
           </div>
         </div>
@@ -56,8 +91,18 @@
           @blur="isKeyboardFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div v-if="isActiveDot(1)" :style="{ backgroundColor: colorComputed }" class="container__handler--focus"/>
-          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">{{ val[1] }}</div>
+          <div
+            v-if="isActiveDot(1)"
+            :style="{ backgroundColor: colorComputed }"
+            class="container__handler--focus"
+          />
+          <div
+            v-if="trackLabelVisible"
+            :style="labelStyles"
+            class="container__handler-value"
+          >
+            {{ val[1] }}
+          </div>
         </div>
       </template>
       <template v-else>
@@ -66,7 +111,8 @@
           class="container__track"
           :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
           :style="processedStyles"
-          @mousedown="moveStart($event, 0)"/>
+          @mousedown="moveStart($event, 0)"
+        />
         <div
           ref="dot"
           class="container__handler"
@@ -78,21 +124,48 @@
           @blur="isKeyboardFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
-          <div v-if="isActiveDot(0)" class="container__handler--focus" :style="{ backgroundColor: colorComputed }"/>
-          <div v-if="trackLabelVisible" :style="labelStyles" class="container__handler-value">{{ trackLabel || val }}</div>
+          <div
+            v-if="isActiveDot(0)"
+            class="container__handler--focus"
+            :style="{ backgroundColor: colorComputed }"
+          />
+          <div
+            v-if="trackLabelVisible"
+            :style="labelStyles"
+            class="container__handler-value"
+          >
+            {{ trackLabel || val }}
+          </div>
         </div>
       </template>
     </div>
-    <span v-if="iconAppend" class="inverse-label">
-      <va-icon :name="iconAppend" :color="colorComputed" :size="16"/>
+    <span
+      v-if="iconAppend"
+      class="inverse-label"
+    >
+      <va-icon
+        :name="iconAppend"
+        :color="colorComputed"
+        :size="16"
+      />
     </span>
-    <slot v-if="invertLabel" name="label">
-      <span v-if="invertLabel" :style="labelStyles" class="label inverse-label">
+    <slot
+      v-if="invertLabel"
+      name="label"
+    >
+      <span
+        v-if="invertLabel"
+        :style="labelStyles"
+        class="label inverse-label"
+      >
         {{ label }}
       </span>
     </slot>
-    <div class="input-wrapper" v-if="$slots.append">
-      <slot :name=" this.vertical ? 'prepend' : 'append'"/>
+    <div
+      class="input-wrapper"
+      v-if="$slots.append"
+    >
+      <slot :name=" this.vertical ? 'prepend' : 'append'" />
     </div>
   </div>
 </template>
@@ -103,80 +176,128 @@ import { getHoverColor } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-slider',
+  name: 'VaSlider',
   components: {
     VaIcon,
   },
-  mixins: [
-    ColorThemeMixin,
-    KeyboardOnlyFocusMixin,
-  ],
+  mixins: [ColorThemeMixin, KeyboardOnlyFocusMixin, ContextPluginMixin],
   props: {
     range: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'range', false)
+      },
     },
     value: {
       type: [Number, Array],
+      default () {
+        return getContextPropValue(this, 'value', [])
+      },
     },
     trackLabel: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'trackLabel', '')
+      },
+    },
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
     },
     trackColor: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'trackColor', '')
+      },
     },
     labelColor: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'labelColor', '')
+      },
     },
     trackLabelVisible: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'trackLabelVisible', false)
+      },
     },
     min: {
       type: Number,
-      default: 0,
+      default () {
+        return getContextPropValue(this, 'min', 0)
+      },
     },
     max: {
       type: Number,
-      default: 100,
+      default () {
+        return getContextPropValue(this, 'max', 100)
+      },
     },
     step: {
       type: Number,
-      default: 1,
+      default () {
+        return getContextPropValue(this, 'step', 1)
+      },
     },
     label: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
     },
     invertLabel: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'invertLabel', false)
+      },
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     readonly: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'readOnly', false)
+      },
     },
     pins: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'pins', false)
+      },
     },
     iconPrepend: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'iconPrepend', '')
+      },
     },
     iconAppend: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'iconAppend', '')
+      },
     },
     vertical: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'vertical', false)
+      },
     },
     showTrack: {
       type: Boolean,
-      default: true,
+      default () {
+        return getContextPropValue(this, 'showTrack', true)
+      },
     },
   },
   data () {
@@ -695,10 +816,10 @@ export default {
       width: 1.25rem;
       height: 1.25rem;
       background: $white;
-      border: .375rem solid;
+      border: 0.375rem solid;
       border-radius: 50%;
       outline: none !important;
-      left: -.375rem;
+      left: -0.375rem;
       transition: none;
 
       &:hover {
@@ -719,7 +840,7 @@ export default {
       &-value {
         transform: translate(-50%, -100%);
         user-select: none;
-        font-size: .625rem;
+        font-size: 0.625rem;
         letter-spacing: 0.6px;
         line-height: 1.2;
         font-weight: bold;
@@ -730,7 +851,7 @@ export default {
 
   .label {
     user-select: none;
-    font-size: .625rem;
+    font-size: 0.625rem;
     letter-spacing: 0.6px;
     line-height: 1.2;
     font-weight: bold;
@@ -739,7 +860,7 @@ export default {
 
   .inverse-label {
     user-select: none;
-    font-size: .625rem;
+    font-size: 0.625rem;
     letter-spacing: 0.6px;
     line-height: 1.2;
     font-weight: bold;
@@ -782,13 +903,14 @@ export default {
     width: 100%;
     height: 1.5rem;
 
-    &__track, &__track--active {
+    &__track,
+    &__track--active {
       height: 0.5rem;
       width: 100%;
     }
 
     &__track--inactive {
-      transition: width .3s ease-out, left .3s ease-out;
+      transition: width 0.3s ease-out, left 0.3s ease-out;
     }
 
     &__mark {
@@ -799,7 +921,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: left .3s ease-out;
+        transition: left 0.3s ease-out;
       }
 
       &-value {
@@ -830,7 +952,6 @@ export default {
     flex-grow: 0;
     max-width: 1rem;
     min-width: 2.5rem;
-
     position: relative;
     display: flex;
 
@@ -841,45 +962,46 @@ export default {
 
   .container {
     height: 100%;
-    width: .5rem;
+    width: 0.5rem;
 
-    &__track, &__track--active {
+    &__track,
+    &__track--active {
       height: 100%;
-      width: .5rem;
+      width: 0.5rem;
       bottom: 0;
     }
 
     &__track--inactive {
-      transition: height .3s ease-out, bottom .3s ease-out;
+      transition: height 0.3s ease-out, bottom 0.3s ease-out;
     }
 
     &__mark {
       position: absolute;
-      width: .75rem;
-      height: .125rem;
+      width: 0.75rem;
+      height: 0.125rem;
       left: -2px;
     }
 
     &__handler {
       &--inactive {
-        transition: bottom .3s ease-out;
+        transition: bottom 0.3s ease-out;
       }
 
       &-value {
         position: relative;
-        top: .625rem;
+        top: 0.625rem;
         left: 1.25rem;
       }
     }
   }
 
   .label {
-    margin-bottom: .625rem;
+    margin-bottom: 0.625rem;
   }
 
   .inverse-label {
-    left: -.375rem;
-    margin-top: .625rem;
+    left: -0.375rem;
+    margin-top: 0.625rem;
   }
 }
 </style>

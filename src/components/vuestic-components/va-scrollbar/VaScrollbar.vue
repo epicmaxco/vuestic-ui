@@ -1,17 +1,31 @@
 <template>
-  <div class="va-scrollbar" ref="vuesticScrollbar">
-    <div class="scrollbar-wrapper" ref="scrollbarWrapper">
-      <div class="scrollbar-content" ref="scrollbarContent"
-           @wheel="scroll"
-           @touchstart="startDrag"
-           @touchmove="onDrag"
-           @touchend="stopDrag"
-           @transitionend="onContentResize"
+  <div
+    class="va-scrollbar"
+    ref="vuesticScrollbar"
+  >
+    <div
+      class="scrollbar-wrapper"
+      ref="scrollbarWrapper"
+    >
+      <div
+        class="scrollbar-content"
+        ref="scrollbarContent"
+        @wheel="scroll"
+        @touchstart="startDrag"
+        @touchmove="onDrag"
+        @touchend="stopDrag"
+        @transitionend="onContentResize"
       >
-        <slot/>
+        <slot />
       </div>
-      <div class="track" ref="track">
-        <div class="thumb" ref="thumb"></div>
+      <div
+        class="track"
+        ref="track"
+      >
+        <div
+          class="thumb"
+          ref="thumb"
+        />
       </div>
     </div>
   </div>
@@ -22,9 +36,10 @@ const browser = require('detect-browser')
 const erd = require('element-resize-detector')()
 
 export default {
-  name: 'va-scrollbar',
+  name: 'VaScrollbar',
   props: {
     speed: {
+      type: Number,
       default: 20,
     },
   },
@@ -162,7 +177,7 @@ export default {
 
 .va-scrollbar {
   background: transparent;
-  transition: all .3s linear;
+  transition: all 0.3s linear;
   position: relative;
 
   .scrollbar-wrapper {
@@ -180,14 +195,14 @@ export default {
       height: 100%;
 
       .thumb {
-        transition: height .3s linear, opacity .6s linear;
+        transition: height 0.3s linear, opacity 0.6s linear;
         position: absolute;
         width: 100%;
         background-color: $vue-green;
         opacity: 0;
 
         &.active {
-          opacity: .3;
+          opacity: 0.3;
         }
       }
     }

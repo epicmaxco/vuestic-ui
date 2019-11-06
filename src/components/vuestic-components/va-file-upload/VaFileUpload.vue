@@ -8,20 +8,23 @@
       <div
         class="va-file-upload__field__text"
         v-if="dropzone"
-      >Drag’n’drop files or
+      >
+        Drag’n’drop files or
       </div>
       <va-button
         class="va-file-upload__field__button"
         :disabled="disabled"
         :color="colorComputed"
-        @click="callFileDialogue"
+        @click="callFileDialogue()"
+        icon=""
+        icon-right=""
       >
         Upload file
       </va-button>
       <input
+        ref="fileInput"
         type="file"
         class="va-file-upload__field__input"
-        ref="fieldInput"
         :accept="fileTypes"
         :multiple="type !== 'single'"
         :disabled="disabled"
@@ -38,7 +41,7 @@
     />
     <va-modal
       v-model="modal"
-      hideDefaultActions
+      hide-default-actions
       title="File validation"
       message="File type is incorrect!"
     />
@@ -51,36 +54,56 @@ import VaButton from '../va-button/VaButton'
 import VaModal from '../va-modal/VaModal'
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-file-upload',
+  name: 'VaFileUpload',
   components: {
     VaModal,
     VaButton,
     VaFileUploadList,
   },
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     type: {
       type: String,
-      default: 'list',
+      default () {
+        return getContextPropValue(this, 'type', 'list')
+      },
       validator (value) {
         return ['list', 'gallery', 'single'].includes(value)
       },
     },
     fileTypes: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'fileTypes', '')
+      },
     },
     dropzone: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'dropzine', false)
+      },
     },
     value: {
-      default: () => [],
+      type: Array,
+      default () {
+        return getContextPropValue(this, 'value', [])
+      },
       required: true,
+    },
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', 'success')
+      },
     },
     disabled: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
   },
   data () {
@@ -94,7 +117,7 @@ export default {
   methods: {
     changeFieldValue (e) {
       this.uploadFile(e)
-      this.$refs.fieldInput.value = ''
+      this.$refs.fileInput.value = ''
     },
     uploadFile (e) {
       let files = e.target.files || e.dataTransfer.files
@@ -132,7 +155,8 @@ export default {
       })
     },
     callFileDialogue () {
-      this.$el.getElementsByClassName('va-file-upload__field__input')[0].click()
+      // TODO Not sure what this does.
+      this.$refs.fileInput.click()
     },
   },
   computed: {
@@ -161,9 +185,9 @@ export default {
 
   &--dropzone {
     background-color: $lighter-green;
-    padding: 1.5rem 2rem .5rem;
+    padding: 1.5rem 2rem 0.5rem;
     overflow: hidden;
-    border-radius: .375rem;
+    border-radius: 0.375rem;
     cursor: pointer;
 
     .va-file-upload__field {
@@ -171,17 +195,20 @@ export default {
       display: flex;
       align-items: center;
       padding: 0 2rem 1rem;
-      transition: height .2s;
+      transition: height 0.2s;
       overflow: visible;
       flex-wrap: wrap;
-      @include media-breakpoint-down(xs){
+
+      @include media-breakpoint-down(xs) {
         flex-direction: column;
         padding: 0 0 1rem;
+
         &__text {
           text-align: center;
         }
       }
     }
+
     .va-file-upload-list {
       padding-bottom: 1rem;
     }
@@ -212,12 +239,14 @@ export default {
       color: transparent;
       opacity: 0;
       cursor: pointer;
+
       &::-webkit-file-upload-button {
         cursor: pointer;
       }
     }
   }
 }
+
 @include media-breakpoint-down(xs) {
   .va-file-upload {
     &--dropzone {

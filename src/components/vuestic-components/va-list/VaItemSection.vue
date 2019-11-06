@@ -7,13 +7,13 @@
       'va-item-section--avatar': avatar
     }"
   >
-    <slot/>
+    <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'va-item-section',
+  name: 'VaItemSection',
   props: {
     side: Boolean,
     avatar: Boolean,

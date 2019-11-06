@@ -13,7 +13,6 @@ import VaCollapse from './vuestic-components/va-collapse/VaCollapse'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
-import VaFeed from './vuestic-components/va-feed/VaFeed.vue'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
 import VaIcon from './vuestic-components/va-icon/VaIcon'
 import VaInnerLoading
@@ -39,7 +38,7 @@ import VaProgressBar
   from './vuestic-components/va-progress-bar/progress-types/VaProgressBar.vue'
 import VaProgressCircle
   from './vuestic-components/va-progress-bar/progress-types/VaProgressCircle.vue'
-import VaRadioButton from './vuestic-components/va-radio-button/VaRadioButton'
+import VaRadio from './vuestic-components/va-radio/VaRadio'
 import VaRating from './vuestic-components/va-rating/VaRating'
 import VaScrollbar from './vuestic-components/va-scrollbar/VaScrollbar.vue'
 import VaSelect from './vuestic-components/va-select/VaSelect.vue'
@@ -48,7 +47,6 @@ import VaSidebar from './vuestic-components/va-sidebar/VaSidebar'
 import VaSidebarLink from './vuestic-components/va-sidebar/VaSidebarLink'
 import VaSidebarLinkGroup from './vuestic-components/va-sidebar/VaSidebarLinkGroup'
 import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
-import VaSocialNews from './vuestic-components/va-social-news/VaSocialNews.vue'
 import VaTab from './vuestic-components/va-tabs/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline'
@@ -98,7 +96,6 @@ const VuesticPlugin = {
       VaDataTable,
       VaDatePicker,
       VaDropdown,
-      VaFeed,
       VaFileUpload,
       VaIcon,
       VaInnerLoading,
@@ -120,7 +117,7 @@ const VuesticPlugin = {
       VaProgressBar,
       VaProgressBar,
       VaProgressCircle,
-      VaRadioButton,
+      VaRadio,
       VaRating,
       VaScrollbar,
       VaSelect,
@@ -129,7 +126,6 @@ const VuesticPlugin = {
       VaSidebarLink,
       VaSidebarLinkGroup,
       VaSlider,
-      VaSocialNews,
       VaTab,
       VaTabs,
       VaTimeline,

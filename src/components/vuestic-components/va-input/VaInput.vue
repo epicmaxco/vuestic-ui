@@ -6,9 +6,12 @@
     :messages="messages"
     :error="error"
     :error-messages="errorMessages"
-    :errorCount="errorCount"
+    :error-count="errorCount"
   >
-    <slot name="prepend" slot="prepend"/>
+    <slot
+      name="prepend"
+      slot="prepend"
+    />
     <div
       class="va-input__container"
       :class="{'va-input__container--textarea': isTextarea}"
@@ -51,7 +54,7 @@
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
-        />
+        >
       </div>
       <div
         v-if="success || error || $slots.append || (removable && hasContent)"
@@ -61,13 +64,15 @@
           v-if="success"
           class="va-input__container__icon"
           color="success"
-        >check</va-icon>
+          name="check"
+        />
         <va-icon
           v-if="error"
           class="va-input__container__icon"
           color="danger"
-        >warning</va-icon>
-        <slot name="append"/>
+          name="warning"
+        />
+        <slot name="append" />
         <va-icon
           v-if="removable && hasContent"
           @click.native="clearContent()"
@@ -83,50 +88,83 @@
 <script>
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon/VaIcon'
-import {
-  getHoverColor,
-} from './../../../services/color-functions'
+import { getHoverColor } from './../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-input',
+  name: 'VaInput',
   extends: VaInputWrapper,
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   components: { VaInputWrapper, VaIcon },
   props: {
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
     value: {
       type: [String, Number],
+      default () {
+        return getContextPropValue(this, 'value', '')
+      },
     },
     label: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
     },
     placeholder: {
       type: String,
+      default () {
+        return getContextPropValue(this, 'placeholder', '')
+      },
     },
     type: {
       type: String,
-      default: 'text',
+      default () {
+        return getContextPropValue(this, 'type', 'text')
+      },
     },
     disabled: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
     readonly: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'readonly', false)
+      },
     },
     removable: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'removable', false)
+      },
     },
 
     // textarea-specific
     autosize: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'autosize', false)
+      },
     },
     minRows: {
       type: Number,
+      default () {
+        return getContextPropValue(this, 'minRows', null)
+      },
       validator: (val) => {
         if (!(val > 0 && (val | 0) === val)) {
           throw new Error(`\`minRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        } return true
+        }
+        return true
       },
     },
     maxRows: {
@@ -134,7 +172,11 @@ export default {
       validator: (val) => {
         if (!(val > 0 && (val | 0) === val)) {
           throw new Error(`\`maxRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        } return true
+        }
+        return true
+      },
+      default () {
+        return getContextPropValue(this, 'maxRows', null)
       },
     },
   },
@@ -153,9 +195,15 @@ export default {
   },
   computed: {
     labelStyles () {
-      if (this.error) return { color: this.$themes.danger }
-      if (this.success) return { color: this.$themes.success }
-      return { color: this.$themes.primary }
+      if (this.error) {
+        return { color: this.$themes.danger }
+      }
+
+      if (this.success) {
+        return { color: this.$themes.success }
+      }
+
+      return { color: this.colorComputed }
     },
     containerStyles () {
       return {
@@ -254,7 +302,8 @@ export default {
       display: flex;
       align-items: flex-end;
       width: 100%;
-      /*min-width: 100%;*/
+
+      /* min-width: 100%; */
     }
 
     &__icon-wrapper {
@@ -280,7 +329,9 @@ export default {
       line-height: 1.2;
       font-weight: bold;
       text-transform: uppercase;
+
       @include va-ellipsis();
+
       transform-origin: top left;
     }
 

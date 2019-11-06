@@ -8,11 +8,9 @@
 </template>
 
 <script>
-import VaAvatar
-  from '../../../src/components/vuestic-components/va-avatar/VaAvatar'
+import VaAvatar from '../../../src/components/vuestic-components/va-avatar/VaAvatar'
 
 export default {
-  name: 'AvatarSizeSnippet',
   components: { VaAvatar },
 }
 </script>

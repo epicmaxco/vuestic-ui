@@ -1,14 +1,25 @@
 <template>
   <div class="va-progress-bar">
-    <div :style="{colorComputed}" class="va-progress-bar__info">
-      <slot v-if="!large"/>
+    <div
+      :style="{colorComputed}"
+      class="va-progress-bar__info"
+    >
+      <slot v-if="!large" />
     </div>
-    <div class="va-progress-bar__progress-bar" :class="computedClass" :style="computedStyle">
+    <div
+      class="va-progress-bar__progress-bar"
+      :class="computedClass"
+      :style="computedStyle"
+    >
       <div
         :style="{width: normalizedBuffer + '%', backgroundColor: colorComputed}"
         class="va-progress-bar__buffer"
       />
-      <div v-if="!indeterminate" :style="{width: normalizedValue + '%', backgroundColor: colorComputed}" class="va-progress-bar__overlay">
+      <div
+        v-if="!indeterminate"
+        :style="{width: normalizedValue + '%', backgroundColor: colorComputed}"
+        class="va-progress-bar__overlay"
+      >
         <slot v-if="large" />
       </div>
       <template v-else>
@@ -29,28 +40,42 @@
 import { progressMixin } from './progressMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-progress-bar',
-  mixins: [progressMixin, ColorThemeMixin],
+  name: 'VaProgressBar',
+  mixins: [progressMixin, ColorThemeMixin, ContextPluginMixin],
   props: {
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
     buffer: {
       type: Number,
       default: 100,
     },
     rounded: {
       type: Boolean,
-      default: true,
+      default () {
+        return getContextPropValue(this, 'rounded', true)
+      },
     },
     size: {
       type: [Number, String],
-      default: 'medium',
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
       validator: (value) => {
         return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value)
       },
     },
     reverse: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'reverse', false)
+      },
     },
   },
   computed: {
@@ -75,12 +100,12 @@ export default {
       }
     },
     computedStyle () {
-      if (!this.small && !this.large) {
-        return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
-      }
-
       if (this.size === 'medium') {
         return { height: '0.5rem' }
+      }
+
+      if (!this.small && !this.large) {
+        return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
       }
 
       return {}

@@ -1,12 +1,20 @@
 <template>
   <VbDemo>
     <VbCard title="Timeline Item with Label">
-      <va-timeline-item is-first is-last>
-        <div slot="before">22 February, 2018</div>
+      <va-timeline-item
+        is-first
+        is-last
+      >
+        <div slot="before">
+          22 February, 2018
+        </div>
       </va-timeline-item>
     </VbCard>
     <VbCard title="Timeline Item with Card">
-      <va-timeline-item is-first is-last>
+      <va-timeline-item
+        is-first
+        is-last
+      >
         <va-card
           slot="after"
           stripe="success"

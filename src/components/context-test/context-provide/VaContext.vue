@@ -4,7 +4,7 @@ import { ContextProviderKey } from './ContextPlugin'
 // This component just attaches local config to injected config chain,
 // then passes it down via provide.
 export default {
-  name: 'va-context',
+  name: 'VaContext',
   inject: {
     _$configs: {
       from: [ContextProviderKey],

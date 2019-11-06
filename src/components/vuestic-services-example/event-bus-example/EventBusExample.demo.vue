@@ -1,10 +1,10 @@
 <template>
   <VbDemo>
     <VbCard>
-      <EventSubscriber/>
+      <EventSubscriber />
     </VbCard>
     <VbCard>
-      <EventPublisher/>
+      <EventPublisher />
     </VbCard>
   </VbDemo>
 </template>

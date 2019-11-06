@@ -1,12 +1,15 @@
 <template>
-  <button class="dropdown-close-button" @click="$closeDropdown()">
+  <button
+    class="dropdown-close-button"
+    @click="$closeDropdown()"
+  >
     Close dropdown
   </button>
 </template>
 
 <script>
 export default {
-  name: 'dropdown-close-button',
+  name: 'DropdownCloseButton',
 }
 </script>
 

@@ -5,12 +5,12 @@
         <va-tab>One</va-tab>
         <va-tab>Two</va-tab>
       </va-tabs>
-      <va-separator/>
+      <va-separator />
     </VbCard>
     <VbCard title="With card">
       <va-card>
         Some
-        <va-separator/>
+        <va-separator />
         Some
       </va-card>
     </VbCard>

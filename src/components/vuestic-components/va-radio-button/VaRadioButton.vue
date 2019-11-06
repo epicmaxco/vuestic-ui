@@ -14,9 +14,11 @@
         @focus="focused = true"
         @mouseout="focused = false"
         @blur="focused = false"
-        :checked="isActive" type="radio" class="va-radio-button__input"
+        :checked="isActive"
+        type="radio"
+        class="va-radio-button__input"
         :disabled="disabled"
-      />
+      >
       <div
         class="va-radio-button__icon"
         :style="computedStyle"
@@ -38,15 +40,18 @@
 <script>
 
 export default {
-  name: 'va-radio-button',
+  name: 'VaRadioButton',
   props: {
-    value: {},
-    option: {},
+    value: { type: undefined, default: undefined },
+    option: { type: undefined, default: undefined },
     disabled: {
       type: Boolean,
       default: false,
     },
-    label: String,
+    label: {
+      type: String,
+      default: '',
+    },
   },
   data () {
     return {
@@ -62,7 +67,9 @@ export default {
       }
     },
     computedStyle () {
-      if (this.isActive) return { borderColor: this.$themes.primary + '!important' }
+      if (this.isActive) {
+        return { borderColor: this.$themes.primary + '!important' }
+      }
       return null
     },
     focused: {
@@ -110,6 +117,7 @@ export default {
     height: 1.4rem;
     border-radius: 1.8rem;
     border: $gray solid 0.15rem;
+
     @at-root {
       .va-radio-button.va-radio-button--disabled & {
         opacity: 0.4;
@@ -143,6 +151,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+
     @at-root {
       .va-radio-button--on-focus#{&} {
         background-color: $light-gray;
@@ -158,6 +167,7 @@ export default {
 
   &__slot-container {
     padding-top: $checkbox-label-margin-top;
+
     @at-root {
       .va-radio-button.va-radio-button--disabled & {
         opacity: 0.4;

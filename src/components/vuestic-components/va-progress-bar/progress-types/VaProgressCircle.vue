@@ -1,6 +1,14 @@
 <template>
-  <div class="va-progress-circle" ref="progress" :style="computedStyle" :class="computedClass">
-    <svg class="va-progress-circle__progress-bar" viewBox="0 0 40 40">
+  <div
+    class="va-progress-circle"
+    ref="progress"
+    :style="computedStyle"
+    :class="computedClass"
+  >
+    <svg
+      class="va-progress-circle__progress-bar"
+      viewBox="0 0 40 40"
+    >
       <circle
         class="va-progress-circle__overlay"
         cx="50%"
@@ -13,8 +21,11 @@
         :stroke-dashoffset="dashoffset"
       />
     </svg>
-    <div :style="{ color: colorComputed }" class="va-progress-circle__info">
-      <slot/>
+    <div
+      :style="computedStyles"
+      class="va-progress-circle__info"
+    >
+      <slot />
     </div>
   </div>
 </template>
@@ -22,21 +33,32 @@
 <script>
 import { progressMixin } from './progressMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-progress-circle',
-  mixins: [progressMixin, ColorThemeMixin],
+  name: 'VaProgressCircle',
+  mixins: [progressMixin, ColorThemeMixin, ContextPluginMixin],
   props: {
     size: {
       type: [Number, String],
-      default: 40,
       validator: (value) => {
         return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
+      },
+      default () {
+        return getContextPropValue(this, 'size', 40)
       },
     },
     thickness: {
       type: Number,
-      default: 3,
+      default () {
+        return getContextPropValue(this, 'thickness', 3)
+      },
+    },
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', 'success')
+      },
     },
   },
   computed: {
@@ -59,6 +81,11 @@ export default {
     computedClass () {
       return {
         'va-progress-circle--indeterminate': this.indeterminate,
+      }
+    },
+    computedStyles () {
+      return {
+        color: this.colorComputed,
       }
     },
   },
@@ -94,6 +121,7 @@ export default {
 
   &__overlay {
     transition: all ease 2s;
+
     @at-root {
       .va-progress-circle--indeterminate & {
         animation: va-progress-circle__overlay--indeterminate 2s ease-in-out infinite;
@@ -118,12 +146,14 @@ export default {
 @keyframes va-progress-circle__overlay--indeterminate {
   0% {
     stroke-dasharray: 1, 125;
-    stroke-dashoffset: 0px;
+    stroke-dashoffset: 0;
   }
+
   50% {
     stroke-dasharray: 125, 125;
     stroke-dashoffset: -65px;
   }
+
   100% {
     stroke-dasharray: 125, 125;
     stroke-dashoffset: -125px;

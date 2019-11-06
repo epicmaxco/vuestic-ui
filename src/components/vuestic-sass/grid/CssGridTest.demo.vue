@@ -12,27 +12,47 @@
             12
           </div>
         </div>
-        <div class="flex xs6" v-for="i in 2" :key="`6${i}`">
+        <div
+          class="flex xs6"
+          v-for="i in 2"
+          :key="`6${i}`"
+        >
           <div class="_blue-rectangle">
             6
           </div>
         </div>
-        <div class="flex xs4" v-for="i in 3" :key="`4${i}`">
+        <div
+          class="flex xs4"
+          v-for="i in 3"
+          :key="`4${i}`"
+        >
           <div class="_blue-rectangle">
             4
           </div>
         </div>
-        <div class="flex xs3" v-for="i in 4" :key="`3${i}`">
+        <div
+          class="flex xs3"
+          v-for="i in 4"
+          :key="`3${i}`"
+        >
           <div class="_blue-rectangle">
             3
           </div>
         </div>
-        <div class="flex xs2" v-for="i in 6" :key="`2${i}`">
+        <div
+          class="flex xs2"
+          v-for="i in 6"
+          :key="`2${i}`"
+        >
           <div class="_blue-rectangle">
             2
           </div>
         </div>
-        <div class="flex xs1" v-for="i in 12" :key="`1${i}`">
+        <div
+          class="flex xs1"
+          v-for="i in 12"
+          :key="`1${i}`"
+        >
           <div class="_blue-rectangle">
             1
           </div>
@@ -97,7 +117,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="flex xs2" v-for="i in 6" :key="`2${i}`">
+        <div
+          class="flex xs2"
+          v-for="i in 6"
+          :key="`2${i}`"
+        >
           <div class="_blue-rectangle">
             2
           </div>
@@ -112,7 +136,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="flex xs2" v-for="i in 6" :key="`2${i}`">
+        <div
+          class="flex xs2"
+          v-for="i in 6"
+          :key="`2${i}`"
+        >
           <div class="_blue-rectangle">
             2
           </div>
@@ -127,7 +155,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="flex xs2" v-for="i in 6" :key="`2${i}`">
+        <div
+          class="flex xs2"
+          v-for="i in 6"
+          :key="`2${i}`"
+        >
           <div class="_blue-rectangle">
             2
           </div>
@@ -142,7 +174,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="flex xs2" v-for="i in 6" :key="`2${i}`">
+        <div
+          class="flex xs2"
+          v-for="i in 6"
+          :key="`2${i}`"
+        >
           <div class="_blue-rectangle">
             2
           </div>
@@ -157,7 +193,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="flex xs2" v-for="i in 6" :key="`2${i}`">
+        <div
+          class="flex xs2"
+          v-for="i in 6"
+          :key="`2${i}`"
+        >
           <div class="_blue-rectangle">
             2
           </div>
@@ -172,7 +212,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="flex xs2" v-for="i in 6" :key="`2${i}`">
+        <div
+          class="flex xs2"
+          v-for="i in 6"
+          :key="`2${i}`"
+        >
           <div class="_blue-rectangle">
             2
           </div>
@@ -187,7 +231,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="flex xs2" v-for="i in 6" :key="`2${i}`">
+        <div
+          class="flex xs2"
+          v-for="i in 6"
+          :key="`2${i}`"
+        >
           <div class="_blue-rectangle">
             2
           </div>

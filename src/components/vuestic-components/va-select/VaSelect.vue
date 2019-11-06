@@ -4,12 +4,12 @@
     :disabled="disabled"
     class="va-select__dropdown"
     :max-height="maxHeight"
-    keepAnchorWidth
+    keep-anchor-width
     ref="dropdown"
     :fixed="fixed"
     :style="{width}"
-    :closeOnAnchorClick="false"
-    boundaryBody
+    :close-on-anchor-click="false"
+    boundary-body
   >
     <va-input
       v-if="searchable"
@@ -32,14 +32,17 @@
         @mouseleave="updateHoveredOption(null)"
         @mouseover="updateHoveredOption(option)"
       >
-        <va-icon v-show="option.icon" :name="option.icon" class="va-select__option__icon"/>
-        <span>{{getText(option)}}</span>
+        <va-icon
+          v-show="option.icon"
+          :name="option.icon"
+          class="va-select__option__icon"
+        />
+        <span>{{ getText(option) }}</span>
         <va-icon
           v-show="isSelected(option)"
           class="va-select__option__selected-icon"
-          name="material-icons">
-          done
-        </va-icon>
+          name="done"
+        />
       </li>
     </ul>
     <div
@@ -47,7 +50,7 @@
       :style="optionsListStyle"
       v-if="!filteredOptions.length"
     >
-      {{noOptionsText}}
+      {{ noOptionsText }}
     </div>
 
     <div
@@ -59,7 +62,7 @@
         class="va-select__label"
         :style="labelStyle"
         aria-hidden="true"
-      >{{label}}</label>
+      >{{ label }}</label>
       <div
         class="va-select__input-wrapper"
         :style="inputWrapperStyles"
@@ -74,8 +77,14 @@
             {{ [...this.valueProxy.map(val => getText(val))].join(", ") }}
           </span>
         </span>
-        <span v-else-if="displayedText" class="va-select__displayed-text">{{displayedText}}</span>
-        <span v-else class="va-select__placeholder">{{placeholder}}</span>
+        <span
+          v-else-if="displayedText"
+          class="va-select__displayed-text"
+        >{{ displayedText }}</span>
+        <span
+          v-else
+          class="va-select__placeholder"
+        >{{ placeholder }}</span>
       </div>
       <va-icon
         v-if="showClearIcon"
@@ -103,14 +112,17 @@ import { SpringSpinner } from 'epic-spinners'
 import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 const positions = {
   'top': 'T',
   'bottom': 'B',
 }
+
 export default {
-  name: 'va-select',
+  name: 'VaSelect',
   components: { VaIcon, SpringSpinner, VaDropdown, VaInput },
+  mixins: [ContextPluginMixin],
   data () {
     return {
       search: '',
@@ -119,57 +131,133 @@ export default {
     }
   },
   props: {
-    value: {},
-    label: String,
-    placeholder: String,
+    value: {
+      type: [String, Number, Object, Array],
+      default () {
+        return getContextPropValue(this, 'value', '')
+      },
+    },
+    label: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
+    },
+    placeholder: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'placeholder', '')
+      },
+    },
     options: {
       type: Array,
-      default: () => [],
+      default () {
+        return getContextPropValue(this, 'options', [])
+      },
     },
     position: {
       type: String,
-      default: 'bottom',
+      default () {
+        return getContextPropValue(this, 'position', 'bottom')
+      },
       validator: position => Object.keys(positions).includes(position),
     },
     tagMax: {
       type: Number,
-      default: 5,
+      default () {
+        return getContextPropValue(this, 'tagMax', 5)
+      },
     },
-    searchable: Boolean,
-    multiple: Boolean,
-    disabled: Boolean,
-    readonly: Boolean,
-    loading: Boolean,
+    searchable: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'searchable', false)
+      },
+    },
+    multiple: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'multiple', false)
+      },
+    },
+    disabled: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
+    },
+    readonly: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'readonly', false)
+      },
+    },
+    loading: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'loading', false)
+      },
+    },
     width: {
       type: String,
-      default: '100%',
+      default () {
+        return getContextPropValue(this, 'width', '100%')
+      },
     },
     maxHeight: {
       type: String,
-      default: '128px',
+      default () {
+        return getContextPropValue(this, 'maxHeight', '128px')
+      },
     },
     keyBy: {
       type: String,
-      default: 'id',
+      default () {
+        return getContextPropValue(this, 'keyBy', 'id')
+      },
     },
     textBy: {
       type: String,
-      default: 'text',
+      default () {
+        return getContextPropValue(this, 'textBy', 'text')
+      },
     },
     clearValue: {
-      default: '',
+      type: String,
+      default () {
+        return getContextPropValue(this, 'clearValue', '')
+      },
     },
     noOptionsText: {
       type: String,
-      default: 'Items not found',
+      default () {
+        return getContextPropValue(this, 'noOptionsText', 'Items not found')
+      },
     },
     fixed: {
       type: Boolean,
-      default: true,
+      default () {
+        return getContextPropValue(this, 'fixed', true)
+      },
     },
-    noClear: Boolean,
-    error: Boolean,
-    success: Boolean,
+    noClear: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'noClear', false)
+      },
+    },
+    error: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'error', false)
+      },
+    },
+    success: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'success', false)
+      },
+    },
   },
   watch: {
     search (val) {
@@ -377,7 +465,7 @@ export default {
   margin-bottom: 1rem;
 
   &--disabled {
-    @include va-disabled()
+    @include va-disabled();
   }
 
   &--loading {
@@ -389,12 +477,15 @@ export default {
 
   &__label {
     @include va-title();
+
     position: absolute;
-    top: .125rem;
-    left: .5rem;
-    margin-bottom: .5rem;
-    max-width: calc(100% - .25rem);
+    top: 0.125rem;
+    left: 0.5rem;
+    margin-bottom: 0.5rem;
+    max-width: calc(100% - 0.25rem);
+
     @include va-ellipsis();
+
     transform-origin: top left;
   }
 
@@ -405,7 +496,7 @@ export default {
     height: 100%;
     width: 100%;
     justify-content: stretch;
-    padding-left: .5rem;
+    padding-left: 0.5rem;
   }
 
   &__input {
@@ -422,7 +513,8 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
+
     &:focus {
       outline: none;
     }
@@ -434,8 +526,9 @@ export default {
     text-overflow: ellipsis;
     width: 100%;
   }
+
   &__placeholder {
-    opacity: .5;
+    opacity: 0.5;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -446,7 +539,7 @@ export default {
     color: $va-link-color-secondary;
     width: 1.5rem;
     height: 1.5rem;
-    padding: .25rem;
+    padding: 0.25rem;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -457,7 +550,8 @@ export default {
 
   &__open-icon {
     @extend .va-select__clear-icon;
-    right: .5rem;
+
+    right: 0.5rem;
   }
 
   &__tags {
@@ -468,7 +562,7 @@ export default {
 
   &__loading {
     position: absolute;
-    right: .5rem;
+    right: 0.5rem;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -479,7 +573,7 @@ export default {
     margin: 0;
     padding: 0;
     background: $light-gray3;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
 
     &.va-select__dropdown-position-top {
       box-shadow: 0 -2px 3px 0 rgba(98, 106, 119, 0.25);
@@ -495,15 +589,16 @@ export default {
       padding: 0;
       overflow-y: auto;
       box-shadow: $datepicker-box-shadow;
-      border-radius: .5rem;
+      border-radius: 0.5rem;
     }
   }
 
   &__option-list {
     width: 100%;
     list-style: none;
+
     &.no-options {
-      padding: .5rem;
+      padding: 0.5rem;
     }
   }
 
@@ -511,7 +606,7 @@ export default {
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: .375rem .5rem .375rem .5rem;
+    padding: 0.375rem 0.5rem 0.375rem 0.5rem;
     min-height: 2.25rem;
     word-break: break-word;
 
@@ -521,7 +616,7 @@ export default {
     }
 
     &__icon {
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
   }
 }
