@@ -28,6 +28,12 @@ export default {
         return getContextPropValue(this, 'autofocus', false)
       },
     },
+    tag: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'tag', 'div')
+      },
+    },
   },
   mounted () {
     if (this.autofocus) {
@@ -91,7 +97,7 @@ export default {
   render (createElement) {
     this.$nextTick(this.validate)
 
-    return createElement('form', {
+    return createElement(this.tag, {
       class: 'va-form',
       on: {
         ...this.$listeners,
