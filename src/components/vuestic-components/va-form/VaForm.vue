@@ -31,18 +31,19 @@ export default {
   },
   mounted () {
     if (this.autofocus) {
-      this.focus()
+      const firstFormChild = getAllChildren(this).find((child) => availableFormTags.includes(child.$options.name))
+      firstFormChild.$el.focus()
     }
 
-    this.focusEvent()
     this.valid = true
+    this.$el.addEventListener('focusin', this.focus)
   },
   methods: {
     preventAndStopPropagation (event) {
       event.preventDefault()
       event.stopPropagation()
     },
-    focusEvent () {
+    focus () {
       this.$listeners.focus && this.$listeners.focus()
     },
     validationEvent (value) {
@@ -51,12 +52,10 @@ export default {
     resetEvent (value) {
       this.$listeners.reset && this.$listeners.reset(value)
     },
-    focus () {
-      const firstFormChild = getAllChildren(this).find((child) => availableFormTags.includes(child.$options.name))
-
-      firstFormChild.$el.focus()
-
-      this.focusEvent()
+    focusInvalid (item) {
+      if (!this.valid) {
+        this.focus(item)
+      }
     },
     reset (e) {
       this.preventAndStopPropagation(e)
@@ -67,6 +66,9 @@ export default {
 
       this.resetEvent(true)
     },
+    resetValidation () {
+      this.valid = true
+    },
     validate () { // NOTE: temporarily synchronous validation
       const childrenValidations = getAllChildren(this).reduce((result, child) => child.validate ? [...result, { child, valid: child.validate() }] : result, [])
 
@@ -75,6 +77,7 @@ export default {
           if (!item.valid) {
             this.valid = false
             this.validationEvent(item)
+            this.focusInvalid(item)
 
             if (this.lazyValidation) {
               break
@@ -93,6 +96,7 @@ export default {
       on: {
         ...this.$listeners,
         reset: this.reset,
+        resetValidation: this.resetValidation,
       },
     }, this.$slots.default || [])
   },

@@ -87,7 +87,8 @@
     <VbCard title="focus and validation">
       <va-form
         lazy-validation
-        @focus="onFormFocus"
+        @focus="focus"
+        @focusInvalid="focusInvalid"
         @validation="onValidation"
       >
         <div>Text</div>
@@ -151,8 +152,11 @@ export default {
     }
   },
   methods: {
-    onFormFocus (value) {
+    focus (value) {
       console.log('on-focus', value)
+    },
+    focusInvalid (value) {
+      console.log('on-focus-invalid', value)
     },
     onValidation (value) {
       console.log('on-validations', value)
@@ -162,6 +166,8 @@ export default {
     },
     onReset (value) {
       console.log('on-reset', value)
+
+      this.form = {}
     },
   },
 }
