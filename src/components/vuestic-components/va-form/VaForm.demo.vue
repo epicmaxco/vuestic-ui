@@ -160,12 +160,8 @@ export default {
     onSubmit () {
       this.submitData = this.form
     },
-    onReset () {
-      this.form = {
-        input: '',
-        checkbox: false,
-        radio: 1,
-      }
+    onReset (val) {
+      console.log('on-reset', val)
     },
   },
 }
