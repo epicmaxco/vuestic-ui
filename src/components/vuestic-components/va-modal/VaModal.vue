@@ -349,12 +349,13 @@ export default {
       padding: 1.25rem 0 1.5rem 0;
 
       .va-modal__header, .va-modal__actions {
-        padding: 0 1.875rem 0.5rem 1.5rem;
+        padding: 0 1.875rem 1.5rem 1.5rem;
+        box-shadow: 0px 9px 9px 0px #e8e8e8;
       }
 
       .va-modal__message {
         overflow: auto;
-        padding: 0 1.875rem 0 1.5rem;
+        padding: 1.5rem 1.875rem 0 1.5rem;
       }
     }
   }
