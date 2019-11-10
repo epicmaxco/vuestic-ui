@@ -4,10 +4,10 @@
     class="va-button"
     :class="computedClass"
     :style="computedStyle"
-    :disabled="disabled"
-    :type="type"
-    :href="href"
-    :target="target"
+    :disabled="c_disabled"
+    :type="c_type"
+    :href="c_href"
+    :target="c_target"
     :to="to"
     :replace="replace"
     :append="append"
@@ -23,10 +23,10 @@
   >
     <div class="va-button__content">
       <va-icon
-        v-if="icon"
+        v-if="c_icon"
         fixed-width
         class="va-button__content__icon va-button__content__icon-left"
-        :name="icon"
+        :name="c_icon"
       />
       <div
         v-if="hasTitleData"
@@ -35,10 +35,10 @@
         <slot />
       </div>
       <va-icon
-        v-if="iconRight"
+        v-if="c_iconRight"
         fixed-width
         class="va-button__content__icon va-button__content__icon-right"
-        :name="iconRight"
+        :name="c_iconRight"
       />
     </div>
   </component>
@@ -53,86 +53,40 @@ import {
   getBoxShadowColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { getContextablePropMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 export default {
   name: 'VaButton',
   components: { VaIcon },
-  mixins: [ColorThemeMixin, RouterLinkMixin, ContextPluginMixin],
+  mixins: [
+    ColorThemeMixin,
+    RouterLinkMixin,
+
+    getContextablePropMixin('color', { type: String, default: 'success' }),
+    getContextablePropMixin('tag', { type: String, default: 'button' }),
+    getContextablePropMixin('outline', { type: Boolean, default: false }),
+    getContextablePropMixin('flat', { type: Boolean, default: false }),
+    getContextablePropMixin('size', {
+      type: String,
+      default: 'medium',
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
+      },
+    }),
+    getContextablePropMixin('icon', { type: String, default: '' }),
+    getContextablePropMixin('iconRight', { type: String, default: '' }),
+    getContextablePropMixin('type', { type: String, default: 'button' }),
+    getContextablePropMixin('disabled', { type: Boolean, default: false }),
+    /* Link props */
+    getContextablePropMixin('href', { type: String, default: '' }),
+    getContextablePropMixin('target', { type: String, default: '' }),
+    /* Router link props */
+  ],
   inject: {
     va: {
       default: () => ({}),
     },
-  },
-  props: {
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', 'success')
-      },
-    },
-    tag: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'tag', 'button')
-      },
-    },
-    outline: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'outline', false)
-      },
-    },
-    flat: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'flat', false)
-      },
-    },
-    size: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'size', 'medium')
-      },
-      validator: value => {
-        return ['medium', 'small', 'large'].includes(value)
-      },
-    },
-    icon: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'icon', '')
-      },
-    },
-    iconRight: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'iconRight', '')
-      },
-    },
-    type: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'type', 'button')
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    /* Link props */
-    href: {
-      type: String,
-      default: null,
-    },
-    target: {
-      type: String,
-      default: null,
-    },
-    /* Router link props */
   },
   data () {
     return {
@@ -143,22 +97,22 @@ export default {
   computed: {
     computedClass () {
       return {
-        'va-button--default': !this.flat && !this.outline && !this.disabled,
-        'va-button--flat': this.flat,
-        'va-button--outline': this.outline,
-        'va-button--disabled': this.disabled,
+        'va-button--default': !this.c_flat && !this.c_outline && !this.c_disabled,
+        'va-button--flat': this.c_flat,
+        'va-button--outline': this.c_outline,
+        'va-button--disabled': this.c_disabled,
         'va-button--hover': this.hoverState,
         'va-button--focus': this.focusState,
         'va-button--without-title': !this.hasTitleData,
-        'va-button--with-left-icon': this.icon,
-        'va-button--with-right-icon': this.iconRight,
-        'va-button--large': this.size === 'large',
-        'va-button--small': this.size === 'small',
-        'va-button--normal': !this.size || this.size === 'medium',
+        'va-button--with-left-icon': this.c_icon,
+        'va-button--with-right-icon': this.c_iconRight,
+        'va-button--large': this.c_size === 'large',
+        'va-button--small': this.c_size === 'small',
+        'va-button--normal': !this.c_size || this.c_size === 'medium',
       }
     },
     gradientStyle () {
-      if (this.flat || this.outline) {
+      if (this.c_flat || this.c_outline) {
         return
       }
       if (this.va.color) {
@@ -167,11 +121,11 @@ export default {
       return getGradientBackground(this.colorComputed)
     },
     shadowStyle () {
-      if (this.flat || this.outline) {
+      if (this.c_flat || this.c_outline) {
         return
       }
       if (this.va.color && this.$themes && this.$themes[this.va.color]) {
-        return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.color ? this.colorComputed : this.$themes[this.va.color])
+        return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.c_color ? this.colorComputed : this.$themes[this.va.color])
       }
       return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
     },
@@ -185,31 +139,31 @@ export default {
       }
 
       if (this.focusState) {
-        if (this.outline || this.flat) {
+        if (this.c_outline || this.c_flat) {
           computedStyle.color = this.colorComputed
-          computedStyle.borderColor = this.outline ? this.colorComputed : ''
+          computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
           computedStyle.background = getFocusColor(this.colorComputed)
         } else {
           computedStyle.backgroundImage = this.gradientStyle
         }
       } else if (this.hoverState) {
-        if (this.outline || this.flat) {
+        if (this.c_outline || this.c_flat) {
           computedStyle.color = this.colorComputed
-          computedStyle.borderColor = this.outline ? this.colorComputed : ''
+          computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
           computedStyle.background = getHoverColor(this.colorComputed)
         } else {
           computedStyle.backgroundImage = this.gradientStyle
           computedStyle.boxShadow = this.shadowStyle
         }
       } else {
-        computedStyle.color = this.flat || this.outline ? this.colorComputed : '#ffffff'
-        computedStyle.borderColor = this.outline ? this.colorComputed : ''
+        computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : '#ffffff'
+        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
         computedStyle.backgroundImage = this.gradientStyle
         computedStyle.boxShadow = this.shadowStyle
       }
 
-      if (this.va.color && !this.outline && !this.flat) {
-        computedStyle.background = this.color ? this.colorComputed : this.$themes[this.va.color]
+      if (this.va.color && !this.c_outline && !this.c_flat) {
+        computedStyle.background = this.c_color ? this.colorComputed : this.$themes[this.va.color]
         computedStyle.backgroundImage = ''
       }
 
@@ -219,10 +173,10 @@ export default {
       return this.$slots.default
     },
     computedTag () {
-      if (this.tag === 'a' || this.href || this.target) {
+      if (this.c_tag === 'a' || this.c_href || this.c_target) {
         return 'a'
       }
-      if (this.tag === 'router-link' || this.hasRouterLinkParams) {
+      if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
         return 'router-link'
       }
       return 'button'

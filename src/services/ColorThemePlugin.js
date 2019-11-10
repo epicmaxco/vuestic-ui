@@ -1,3 +1,5 @@
+import { getContextablePropMixin } from '../components/context-test/context-provide/ContextPlugin'
+
 const getDefaultOptions = () => ({
   themes: {
     primary: '#23e066',
@@ -28,16 +30,12 @@ export const ColorThemePlugin = {
 }
 
 export const ColorThemeMixin = {
+  ...getContextablePropMixin('color', { type: String }),
   data () {
     return {
       colorThemeDefault: 'primary',
       colorDefault: '#000000',
     }
-  },
-  props: {
-    color: {
-      type: String,
-    },
   },
   computed: {
     _isEnableColorTheme () {
@@ -46,7 +44,7 @@ export const ColorThemeMixin = {
     // This allows a multitude of defaults.
     // theme color => color => theme default => hard default
     colorComputed () {
-      return this.computeColor(this.color)
+      return this.computeColor(this.c_color)
     },
   },
   methods: {

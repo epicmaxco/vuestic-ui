@@ -11146,13 +11146,6 @@ stylehacks@^4.0.0:
     postcss "^7.0.0"
     postcss-selector-parser "^3.0.0"
 
-stylelint-config-recommended-scss@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/stylelint-config-recommended-scss/-/stylelint-config-recommended-scss-4.0.0.tgz#04bca39ba693941fc27500271093846bcd68574e"
-  integrity sha512-aEy0ENUrH4ASgFCu2mMcqBUAX0l4CPXg0XucJXdW+I7mdqJ7ICddkxP1eamBNBZ1QToc/wsuLmTQcalk3qYpsw==
-  dependencies:
-    stylelint-config-recommended "^3.0.0"
-
 stylelint-config-recommended@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/stylelint-config-recommended/-/stylelint-config-recommended-3.0.0.tgz#e0e547434016c5539fe2650afd58049a2fd1d657"
@@ -11164,11 +11157,6 @@ stylelint-config-standard@^19.0.0:
   integrity sha512-VvcODsL1PryzpYteWZo2YaA5vU/pWfjqBpOvmeA8iB2MteZ/ZhI1O4hnrWMidsS4vmEJpKtjdhLdfGJmmZm6Cg==
   dependencies:
     stylelint-config-recommended "^3.0.0"
-
-stylelint-processor-vue@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/stylelint-processor-vue/-/stylelint-processor-vue-0.0.3.tgz#1e8861e2ed54b92c1d55149b8a3aac2e24942602"
-  integrity sha512-8Vne6w7Mkufs/PmkkPznH/hbseONlMcREzKxh0vCY9k5DSU4e+GyKNUFgrIbIPOPMcLHHpJYAKqp+o0cDE4Rzw==
 
 stylelint@^11.1.1:
   version "11.1.1"
