@@ -33,6 +33,39 @@ export const ContextPluginMixin = {
 }
 
 /**
+ * Instead of getting one prop from one config, we're getting a prop and computed.
+ * So, for name "color" it will be:
+ * * prop `color` - just standard prop
+ * * computed `c_color` - computed (context-bound prop)
+ *
+ * @param name String - prop name
+ * @param config - normal vue prop config
+ * @param prefix - that prefix goes to contexted prop (that's intended for userland usage)
+ * @returns any
+ */
+export const getContextablePropMixin = (name, config, prefix = 'c_') => {
+  return {
+    // We attach mixin config mixin here for convenience
+    ...ContextPluginMixin,
+    props: {
+      [name]: config,
+    },
+    computed: {
+      [`${prefix}${name}`] () {
+        // We want to fallback to context in 2 cases:
+        // * prop value is undefined (allows user to dynamically enter/exit context).
+        // * prop value is not defined
+        if (!(name in this.$options.propsData) || this.$options.propsData[name] === undefined) {
+          return getContextPropValue(this, name, config.default)
+        }
+        // In other cases we return the prop itself.
+        return this[name]
+      },
+    },
+  }
+}
+
+/**
  * Calc value of property from component, local and global config
  *
  * @category String
@@ -43,7 +76,7 @@ export const ContextPluginMixin = {
  * @returns {any} Returns property value.
  *
  */
-export function getContextPropValue (context, prop, defaultValue) {
+export const getContextPropValue = (context, prop, defaultValue) => {
   // We have to pass context here as this method will be mainly used in prop default,
   // and methods are not accessible there.
 
@@ -66,12 +99,11 @@ export function getContextPropValue (context, prop, defaultValue) {
 
 // Allows to completely overwrite global context config.
 export function overrideContextConfig (context, options) {
-  // Clear object
-  for (const key in context.$vaContextConfig) {
-    Vue.delete(context.$vaContextConfig, key)
-  }
-  // Set values
-  for (const key in options) {
+  for (const key in { ...options, ...context.$vaContextConfig }) {
+    if (!(key in options)) {
+      Vue.delete(context.$vaContextConfig, key)
+      continue
+    }
     Vue.set(context.$vaContextConfig, key, options[key])
   }
 }
