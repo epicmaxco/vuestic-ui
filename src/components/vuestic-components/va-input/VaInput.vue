@@ -3,7 +3,7 @@
     class="va-input"
     :disabled="disabled"
     :success="success"
-    :messages="messages"
+    :messages="[]"
     :error="error"
     :error-messages="errorMessages"
     :error-count="errorCount"
@@ -89,6 +89,7 @@
 
 <script>
 import isFunction from 'lodash/isFunction'
+import isBoolean from 'lodash/isBoolean'
 import flatten from 'lodash/flatten'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon/VaIcon'
@@ -99,7 +100,7 @@ import { ContextPluginMixin, getContextPropValue } from '../../context-test/cont
 
 export default {
   name: 'VaInput',
-  extends: VaInputWrapper,
+  // extends: VaInputWrapper,
   mixins: [ColorThemeMixin, ContextPluginMixin],
   components: { VaInputWrapper, VaIcon },
   props: {
@@ -157,9 +158,23 @@ export default {
         return getContextPropValue(this, 'tabindex', 0)
       },
     },
-    error: {
+    errorCount: {
+      type: Number,
+      default () {
+        return getContextPropValue(this, 'errorCount', 1)
+      },
+    },
+    success: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'success', false)
+      },
+    },
+    messages: {
+      type: Array,
+      default () {
+        return getContextPropValue(this, 'messages', [])
+      },
     },
 
     // textarea-specific
@@ -196,7 +211,7 @@ export default {
     rules: {
       type: Array,
       default () {
-        return [(value) => value || 'required']
+        return [(value) => (value || 'required')]
       },
     },
   },
@@ -211,6 +226,8 @@ export default {
   data () {
     return {
       isFocused: false,
+      errorMessages: [],
+      error: false,
     }
   },
   computed: {
@@ -303,21 +320,31 @@ export default {
     clear () {
       this.$emit('input', '')
     },
-    validate (validateValue) {
+    validate () {
       if (this.rules.length > 0) {
         const validators = flatten(this.rules).filter(isFunction)
 
         validators.forEach((validate) => {
-          if (validate(this.value) !== this.value) {
-            return validate(this.value)
+          const validateResult = validate(this.value)
+
+          if (!isBoolean(validateResult)) {
+            this.errorMessages = [validateResult]
+            this.error = true
+
+            return this.errorMessages
+          } else {
+            this.errorMessages = []
+            this.error = false
           }
         })
       }
 
-      return validateValue || false
+
+      return this.errorMessages
     },
     resetValidate () {
-      this.validate(true)
+      this.errorMessages = []
+      this.error = false
     },
   },
 }
