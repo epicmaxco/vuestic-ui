@@ -53,10 +53,10 @@ import {
   getBoxShadowColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { getContextablePropMixinFactory } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
-const buttonContextMixin = getContextablePropMixinFactory({
+const buttonContextMixin = makeContextablePropsMixin({
   color: { type: String, default: 'success' },
   tag: { type: String, default: 'button' },
   outline: { type: Boolean, default: false },

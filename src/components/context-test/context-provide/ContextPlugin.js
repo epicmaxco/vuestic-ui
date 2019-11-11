@@ -49,7 +49,7 @@ export const ContextPluginMixin = {
  * @param prefix - that prefix goes to contexted prop (that's intended for userland usage)
  * @returns object - vue mixin with props and computed
  */
-export const getContextablePropMixinFactory = (componentProps, prefix = 'c_') => {
+export const makeContextablePropsMixin = (componentProps, prefix = 'c_') => {
   const computed = {}
 
   Object.entries(componentProps).forEach(([name, definition]) => {

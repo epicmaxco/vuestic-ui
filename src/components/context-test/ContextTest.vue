@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import { getContextablePropMixinFactory } from './context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from './context-provide/ContextPlugin'
 
-const contextConfigMixin = getContextablePropMixinFactory({
+const contextConfigMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
   label: { type: String, default: '' },
 })
