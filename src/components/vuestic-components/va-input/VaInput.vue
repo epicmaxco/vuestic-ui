@@ -88,6 +88,8 @@
 </template>
 
 <script>
+import isFunction from 'lodash/isFunction'
+import flatten from 'lodash/flatten'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon/VaIcon'
 import { getHoverColor } from './../../../services/color-functions'
@@ -189,6 +191,12 @@ export default {
       },
       default () {
         return getContextPropValue(this, 'maxRows', null)
+      },
+    },
+    rules: {
+      type: Array,
+      default () {
+        return [(value) => value || 'required']
       },
     },
   },
@@ -295,14 +303,20 @@ export default {
     clear () {
       this.$emit('input', '')
     },
-    validate (value) {
-      // TODO: just for testing
+    validate (validateValue) {
+      if (this.rules.length > 0) {
+        const validators = flatten(this.rules).filter(isFunction)
 
-      return value || false
+        validators.forEach((validate) => {
+          if (validate(this.value) !== this.value) {
+            return validate(this.value)
+          }
+        })
+      }
+
+      return validateValue || false
     },
     resetValidate () {
-      // TODO: just for testing. Need to remove
-      this.error = false
       this.validate(true)
     },
   },
