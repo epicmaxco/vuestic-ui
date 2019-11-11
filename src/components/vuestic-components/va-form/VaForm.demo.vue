@@ -196,24 +196,24 @@ export default {
   },
   methods: {
     focus () {
-      this.actionMessage = 'on-focus'
+      this.actionMessage = 'set focus'
     },
     onValidation (value) {
       this.fieldIsValid = value
-      this.actionMessage = 'on-validate'
+      this.actionMessage = 'set validation'
     },
     resetValidation (value) {
-      this.actionMessage = 'on-reset-validate'
+      this.actionMessage = 'reset validation'
 
       this.$refs.resetValidationForm.resetValidation()
       this.fieldIsValid = value
     },
     onSubmit () {
-      this.actionMessage = 'on-submit'
+      this.actionMessage = 'submit'
       this.submitData = Object.assign({}, this.form)
     },
     onReset () {
-      this.actionMessage = 'on-reset'
+      this.actionMessage = 'reset'
 
       this.form = {}
     },
