@@ -62,6 +62,7 @@ export default {
       }
 
       const submitButton = this.$el.querySelector('button[type=submit]')
+
       if (submitButton) {
         submitButton.addEventListener('click', this.submit)
 
@@ -90,8 +91,8 @@ export default {
 
       this.$listeners.submit && this.$listeners.submit(e)
     },
-    focus (e) {
-      this.$listeners.focus && this.$listeners.focus(e)
+    focus () {
+      this.$listeners.focus && this.$listeners.focus(true)
     },
     focusInvalid (formElement) {
       if (!this.valid) {
@@ -103,7 +104,7 @@ export default {
       this.preventAndStopPropagation(e) // stop cleaning fields by browser
 
       getAllChildren(this).filter(({ clear }) => Boolean(clear)).forEach((item) => {
-        item.clear(e)
+        item.clear()
       })
 
       this.$listeners.reset && this.$listeners.reset(true)
@@ -111,7 +112,9 @@ export default {
     resetValidation () {
       this.valid = true
 
-      this.$listeners.resetValidation && this.$listeners.resetValidation()
+      getAllChildren(this).filter((child) => child.resetValidate).forEach((item) => {
+        item.resetValidate()
+      })
     },
     validation () {
       this.$listeners.validation && this.$listeners.validation(this.valid)
@@ -119,21 +122,19 @@ export default {
       return this.valid
     },
     validate () { // NOTE: temporarily synchronous validation
-      const childrenWithValidation = getAllChildren(this).reduce((result, child) => child.validate ? [...result, child] : result, [])
-      if (childrenWithValidation) {
-        for (let item of childrenWithValidation) {
-          const isValidChild = item.validate()
+      const childrenWithValidation = getAllChildren(this).filter((child) => child.validate)
 
-          if (!isValidChild) {
-            this.valid = false
-            const childElement = item.$el
+      for (let item of childrenWithValidation) { // for of cycle available use break
+        const isValidChild = item.validate()
 
-            this.validation()
-            this.focusInvalid(childElement)
+        if (!isValidChild) {
+          this.valid = false
 
-            if (this.lazyValidation) {
-              break
-            }
+          this.validation()
+          this.focusInvalid(item.$el)
+
+          if (this.lazyValidation) {
+            break
           }
         }
       }
@@ -147,6 +148,7 @@ export default {
         ...this.$listeners,
         submit: this.submit, // overwrite form native actions
         reset: this.reset, // overwrite form native actions
+        validation: this.validation, // overwrite form native actions
         resetValidation: this.resetValidation,
       },
     }, this.$slots.default || [])

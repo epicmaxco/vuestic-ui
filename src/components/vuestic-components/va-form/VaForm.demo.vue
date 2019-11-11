@@ -113,11 +113,11 @@
       </va-form>
     </VbCard>
 
-    <VbCard title="validation + focus invalid">
+    <VbCard title="validation, reset validation, focus invalid">
       <va-form
         lazy-validation
-        @focusInvalid="focusInvalid"
         @validation="onValidation"
+        ref="resetValidationForm"
       >
         <div>Text</div>
         <va-radio
@@ -148,6 +148,10 @@
 
         <button type="submit">
           Validate
+        </button>
+
+        <button @click="resetValidation">
+          Reset validation
         </button>
       </va-form>
     </VbCard>
@@ -191,22 +195,24 @@ export default {
     }
   },
   methods: {
-    focus (value) {
-      console.log('focus', value)
-    },
-    focusInvalid (value) {
-      console.log('on-focus-invalid', value)
+    focus () {
+      this.actionMessage = 'on-focus'
     },
     onValidation (value) {
-      // this.actionMessage = 'on-validations'
       this.fieldIsValid = value
       this.actionMessage = 'on-validate'
+    },
+    resetValidation (value) {
+      this.actionMessage = 'on-reset-validate'
+
+      this.$refs.resetValidationForm.resetValidation()
+      this.fieldIsValid = value
     },
     onSubmit () {
       this.actionMessage = 'on-submit'
       this.submitData = Object.assign({}, this.form)
     },
-    onReset (value) {
+    onReset () {
       this.actionMessage = 'on-reset'
 
       this.form = {}

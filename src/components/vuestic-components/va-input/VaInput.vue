@@ -300,9 +300,14 @@ export default {
     clear () {
       return this.$emit('input', '')
     },
-    validate () {
+    validate (value) {
+      console.log('___value_validate', value)
       // TODO: just for testing
-      return false
+      return value || false
+    },
+    resetValidate () {
+      // TODO: just for testing
+      this.validate(true)
     },
   },
 }
