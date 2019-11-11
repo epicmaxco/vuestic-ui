@@ -29,18 +29,56 @@ export default {
     tag: {
       type: String,
       default () {
-        return getContextPropValue(this, 'tag', 'form')
+        return getContextPropValue(this, 'tag', 'div')
       },
     },
   },
+  data () {
+    return {
+      valid: true,
+      hasResetButton: false,
+      hasSubmitButton: false,
+    }
+  },
   mounted () {
+    this.$el.addEventListener('focusin', this.focus)
+    const formChild = getAllChildren(this)
+
     if (this.autofocus) {
-      const firstFormChild = getAllChildren(this).find((child) => availableFormTags.includes(child.$options.name))
-      firstFormChild.$el.focus()
+      const firstFormChild = formChild.find((child) => availableFormTags.includes(child.$options.name))
+
+      if (firstFormChild) {
+        firstFormChild.$el.focus()
+      }
     }
 
-    this.valid = true
-    this.$el.addEventListener('focusin', this.focus)
+    if (this.tag !== 'form') { // component dont have tag form, we need set listeners manually
+      const resetButton = this.$el.querySelector('button[type=reset]')
+
+      if (resetButton) {
+        resetButton.addEventListener('click', this.reset)
+
+        this.hasResetButton = true
+      }
+
+      const submitButton = this.$el.querySelector('button[type=submit]')
+      if (submitButton) {
+        submitButton.addEventListener('click', this.submit)
+
+        this.hasSubmitButton = true
+      }
+    }
+  },
+  beforeDestroy () {
+    this.$el.removeEventListener('focusin', this.focus)
+
+    if (this.hasSubmitButton) {
+      this.$el.querySelector('button[type=submit]').removeEventListener('click', this.submit)
+    }
+
+    if (this.hasResetButton) {
+      this.$el.querySelector('button[type=reset]').removeEventListener('click', this.reset)
+    }
   },
   methods: {
     preventAndStopPropagation (event) {
@@ -57,12 +95,12 @@ export default {
     },
     focusInvalid (formElement) {
       if (!this.valid) {
-        console.log('formElement__focus', formElement)
         formElement.focus()
       }
+      this.$listeners.focusInvalid && this.$listeners.focusInvalid()
     },
     reset (e) {
-      this.preventAndStopPropagation(e)
+      this.preventAndStopPropagation(e) // stop cleaning fields by browser
 
       getAllChildren(this).filter(({ clear }) => Boolean(clear)).forEach((item) => {
         item.clear(e)
@@ -72,6 +110,8 @@ export default {
     },
     resetValidation () {
       this.valid = true
+
+      this.$listeners.resetValidation && this.$listeners.resetValidation()
     },
     validation () {
       this.$listeners.validation && this.$listeners.validation(this.valid)
@@ -83,8 +123,6 @@ export default {
       if (childrenWithValidation) {
         for (let item of childrenWithValidation) {
           const isValidChild = item.validate()
-
-          console.log('isValidChild', isValidChild)
 
           if (!isValidChild) {
             this.valid = false

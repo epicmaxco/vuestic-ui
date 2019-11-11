@@ -75,12 +75,12 @@
           v-model="form.checkbox"
           label="checkbox"
         />
-        <va-button type="submit">
+        <button type="submit">
           Submit
-        </va-button>
-        <va-button type="reset">
+        </button>
+        <button type="reset">
           Reset
-        </va-button>
+        </button>
       </va-form>
     </VbCard>
 
@@ -146,9 +146,9 @@
           label="checkbox"
         />
 
-        <va-button type="submit">
+        <button type="submit">
           Validate
-        </va-button>
+        </button>
       </va-form>
     </VbCard>
 
@@ -170,7 +170,6 @@ import VaForm from './VaForm'
 import VaInput from '../va-input/VaInput'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaRadio from '../va-radio/VaRadio'
-import VaButton from '../va-button/VaButton'
 
 export default {
   components: {
@@ -178,7 +177,6 @@ export default {
     VaInput,
     VaRadio,
     VaCheckbox,
-    VaButton,
   },
   data () {
     return {
@@ -194,25 +192,22 @@ export default {
   },
   methods: {
     focus (value) {
-      // this.actionMessage = 'on-focus'
       console.log('focus', value)
     },
     focusInvalid (value) {
-      // this.actionMessage = 'on-focus-invalid'
       console.log('on-focus-invalid', value)
     },
     onValidation (value) {
       // this.actionMessage = 'on-validations'
-      console.log('on-validations', value)
       this.fieldIsValid = value
+      this.actionMessage = 'on-validate'
     },
     onSubmit () {
       this.actionMessage = 'on-submit'
-      this.submitData = this.form
+      this.submitData = Object.assign({}, this.form)
     },
     onReset (value) {
       this.actionMessage = 'on-reset'
-      console.log('on-reset', value)
 
       this.form = {}
     },
