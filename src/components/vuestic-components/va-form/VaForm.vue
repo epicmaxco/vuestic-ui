@@ -13,8 +13,6 @@ const getAllChildren = (vm, children = []) => {
 export default {
   name: 'VaForm',
   mixins: [ContextPluginMixin],
-  components: {
-  },
   props: {
     lazyValidation: {
       type: Boolean,
@@ -31,7 +29,7 @@ export default {
     tag: {
       type: String,
       default () {
-        return getContextPropValue(this, 'tag', 'div')
+        return getContextPropValue(this, 'tag', 'form')
       },
     },
   },
@@ -49,18 +47,18 @@ export default {
       event.preventDefault()
       event.stopPropagation()
     },
-    focus () {
-      this.$listeners.focus && this.$listeners.focus()
+    submit (e) {
+      this.validate()
+
+      this.$listeners.submit && this.$listeners.submit(e)
     },
-    validationEvent (value) {
-      this.$listeners.validation && this.$listeners.validation(value)
+    focus (e) {
+      this.$listeners.focus && this.$listeners.focus(e)
     },
-    resetEvent (value) {
-      this.$listeners.reset && this.$listeners.reset(value)
-    },
-    focusInvalid (item) {
+    focusInvalid (formElement) {
       if (!this.valid) {
-        this.focus(item)
+        console.log('formElement__focus', formElement)
+        formElement.focus()
       }
     },
     reset (e) {
@@ -70,20 +68,30 @@ export default {
         item.clear(e)
       })
 
-      this.resetEvent(true)
+      this.$listeners.reset && this.$listeners.reset(true)
     },
     resetValidation () {
       this.valid = true
     },
-    validate () { // NOTE: temporarily synchronous validation
-      const childrenValidations = getAllChildren(this).reduce((result, child) => child.validate ? [...result, { child, valid: child.validate() }] : result, [])
+    validation () {
+      this.$listeners.validation && this.$listeners.validation(this.valid)
 
-      if (childrenValidations) {
-        for (let item of childrenValidations) {
-          if (!item.valid) {
+      return this.valid
+    },
+    validate () { // NOTE: temporarily synchronous validation
+      const childrenWithValidation = getAllChildren(this).reduce((result, child) => child.validate ? [...result, child] : result, [])
+      if (childrenWithValidation) {
+        for (let item of childrenWithValidation) {
+          const isValidChild = item.validate()
+
+          console.log('isValidChild', isValidChild)
+
+          if (!isValidChild) {
             this.valid = false
-            this.validationEvent(item)
-            this.focusInvalid(item)
+            const childElement = item.$el
+
+            this.validation()
+            this.focusInvalid(childElement)
 
             if (this.lazyValidation) {
               break
@@ -95,13 +103,12 @@ export default {
   },
 
   render (createElement) {
-    this.$nextTick(this.validate)
-
     return createElement(this.tag, {
       class: 'va-form',
       on: {
         ...this.$listeners,
-        reset: this.reset,
+        submit: this.submit, // overwrite form native actions
+        reset: this.reset, // overwrite form native actions
         resetValidation: this.resetValidation,
       },
     }, this.$slots.default || [])

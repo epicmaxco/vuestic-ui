@@ -163,6 +163,10 @@ export default {
         return getContextPropValue(this, 'tabindex', 0)
       },
     },
+    error: {
+      type: Boolean,
+      default: false,
+    },
 
     // textarea-specific
     autosize: {
@@ -295,6 +299,10 @@ export default {
 
     clear () {
       return this.$emit('input', '')
+    },
+    validate () {
+      // TODO: just for testing
+      return false
     },
   },
 }
