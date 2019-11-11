@@ -301,7 +301,6 @@ export default {
       return this.$emit('input', '')
     },
     validate (value) {
-      console.log('___value_validate', value)
       // TODO: just for testing
       return value || false
     },
