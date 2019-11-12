@@ -133,19 +133,19 @@ export default {
   methods: {
     click (e) {
       if (!this.disabled) {
-        return this.$emit('input', this.option, e)
+        this.$emit('input', this.option, e)
       }
     },
     focus (e) {
       if (!this.disabled) {
-        return this.$emit('focus', e)
+        this.$emit('focus', e)
       }
     },
     validate () {
       return true
     },
     clear (e) {
-      return this.$emit('input', null, e)
+      this.$emit('input', null, e)
     },
   },
 }

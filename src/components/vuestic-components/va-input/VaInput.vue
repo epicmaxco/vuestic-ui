@@ -290,7 +290,7 @@ export default {
     },
 
     clear () {
-      return this.$emit('input', '')
+      this.$emit('input', '')
     },
     validate (value) {
       // TODO: just for testing
