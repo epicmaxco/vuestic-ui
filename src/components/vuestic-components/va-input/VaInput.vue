@@ -100,7 +100,6 @@ import { ContextPluginMixin, getContextPropValue } from '../../context-test/cont
 
 export default {
   name: 'VaInput',
-  // extends: VaInputWrapper,
   mixins: [ColorThemeMixin, ContextPluginMixin],
   components: { VaInputWrapper, VaIcon },
   props: {
@@ -286,6 +285,8 @@ export default {
           },
           keyup: event => {
             this.$emit('keyup', event)
+
+            this.validate()
           },
           keydown: event => {
             this.$emit('keydown', event)
@@ -321,6 +322,9 @@ export default {
       this.$emit('input', '')
     },
     validate () {
+      this.errorMessages = []
+      this.error = false
+
       if (this.rules.length > 0) {
         const validators = flatten(this.rules).filter(isFunction)
 
@@ -328,17 +332,11 @@ export default {
           const validateResult = validate(this.value)
 
           if (!isBoolean(validateResult)) {
-            this.errorMessages = [validateResult]
+            this.errorMessages.push(validateResult)
             this.error = true
-
-            return this.errorMessages
-          } else {
-            this.errorMessages = []
-            this.error = false
           }
         })
       }
-
 
       return this.errorMessages
     },
