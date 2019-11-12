@@ -5,7 +5,7 @@
       'va-tab--active': isActive,
       'va-tab--disabled': disabled
     }"
-    @click="$emit('tabClick', !isActive)"
+    @click="() => $emit('tabClick', !isActive)"
   >
     <div
       class="va-tab__content"

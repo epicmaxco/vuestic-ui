@@ -253,7 +253,7 @@ export default {
           keydown: event => {
             this.$emit('keydown', event)
           },
-        }
+        },
       )
     },
     hasContent () {

@@ -53,8 +53,29 @@ import {
   getBoxShadowColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { getContextablePropMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+
+const buttonContextMixin = makeContextablePropsMixin({
+  color: { type: String, default: 'success' },
+  tag: { type: String, default: 'button' },
+  outline: { type: Boolean, default: false },
+  flat: { type: Boolean, default: false },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: value => {
+      return ['medium', 'small', 'large'].includes(value)
+    },
+  },
+  icon: { type: String, default: '' },
+  iconRight: { type: String, default: '' },
+  type: { type: String, default: 'button' },
+  disabled: { type: Boolean, default: false },
+  /* Link props */
+  href: { type: String, default: '' },
+  target: { type: String, default: '' },
+})
 
 export default {
   name: 'VaButton',
@@ -62,26 +83,7 @@ export default {
   mixins: [
     ColorThemeMixin,
     RouterLinkMixin,
-
-    getContextablePropMixin('color', { type: String, default: 'success' }),
-    getContextablePropMixin('tag', { type: String, default: 'button' }),
-    getContextablePropMixin('outline', { type: Boolean, default: false }),
-    getContextablePropMixin('flat', { type: Boolean, default: false }),
-    getContextablePropMixin('size', {
-      type: String,
-      default: 'medium',
-      validator: value => {
-        return ['medium', 'small', 'large'].includes(value)
-      },
-    }),
-    getContextablePropMixin('icon', { type: String, default: '' }),
-    getContextablePropMixin('iconRight', { type: String, default: '' }),
-    getContextablePropMixin('type', { type: String, default: 'button' }),
-    getContextablePropMixin('disabled', { type: Boolean, default: false }),
-    /* Link props */
-    getContextablePropMixin('href', { type: String, default: '' }),
-    getContextablePropMixin('target', { type: String, default: '' }),
-    /* Router link props */
+    buttonContextMixin,
   ],
   inject: {
     va: {

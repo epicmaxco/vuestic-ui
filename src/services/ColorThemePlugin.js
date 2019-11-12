@@ -1,4 +1,4 @@
-import { getContextablePropMixin } from '../components/context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
 
 const getDefaultOptions = () => ({
   themes: {
@@ -30,7 +30,7 @@ export const ColorThemePlugin = {
 }
 
 export const ColorThemeMixin = {
-  ...getContextablePropMixin('color', { type: String }),
+  ...makeContextablePropsMixin({ color: { type: String } }),
   data () {
     return {
       colorThemeDefault: 'primary',

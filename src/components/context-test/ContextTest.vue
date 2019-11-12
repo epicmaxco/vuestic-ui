@@ -8,14 +8,16 @@
 </template>
 
 <script>
-import { getContextablePropMixin } from './context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from './context-provide/ContextPlugin'
+
+const contextConfigMixin = makeContextablePropsMixin({
+  color: { type: String, default: '' },
+  label: { type: String, default: '' },
+})
 
 export default {
   name: 'VaTest',
-  mixins: [
-    getContextablePropMixin('color', { type: String, default: '' }),
-    getContextablePropMixin('label', { type: String, default: '' }),
-  ],
+  mixins: [contextConfigMixin],
 }
 </script>
 
