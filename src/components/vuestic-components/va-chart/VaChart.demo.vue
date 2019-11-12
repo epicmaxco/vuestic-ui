@@ -41,6 +41,14 @@
         type="vertical-bar"
       />
     </VbCard>
+
+    <VbCard title="Custom options">
+      <va-chart
+        type="line"
+        :data="chartData"
+        :options="{ legend: { labels: { padding: 0, fontColor: 'red' } } }"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
