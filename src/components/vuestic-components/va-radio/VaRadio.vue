@@ -9,7 +9,6 @@
       :checked="isActive"
       :disabled="disabled"
       :name="name"
-      :autofocus="autofocus"
       @change="click"
       @focus="focus"
       :tabindex="tabindex"
@@ -85,12 +84,6 @@ export default {
       type: String,
       default () {
         return getContextPropValue(this, 'color', '')
-      },
-    },
-    autofocus: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'autofocus', false)
       },
     },
 

@@ -23,7 +23,6 @@
           :disabled="disabled"
           :indeterminate="indeterminate"
           :style="inputStyle"
-          :autofocus="autofocus"
         >
         <va-icon
           class="va-checkbox__icon-selected"
@@ -129,12 +128,6 @@ export default {
       },
     },
 
-    autofocus: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'autofocus', false)
-      },
-    },
     error: {
       type: Boolean,
       default () {

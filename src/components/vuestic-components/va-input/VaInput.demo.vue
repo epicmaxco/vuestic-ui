@@ -6,13 +6,6 @@
         placeholder="Name"
       />
     </VbCard>
-    <VbCard title="autofocus">
-      <va-input
-        v-model="text"
-        label="Name"
-        autofocus
-      />
-    </VbCard>
     <VbCard title="Label">
       <va-input
         v-model="text"
