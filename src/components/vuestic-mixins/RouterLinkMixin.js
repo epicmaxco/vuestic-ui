@@ -32,7 +32,7 @@ export const RouterLinkMixin = {
         this.exact ||
         this.activeClass ||
         this.href ||
-        this.exactActiveClass
+        this.exactActiveClass,
       )
     },
   },

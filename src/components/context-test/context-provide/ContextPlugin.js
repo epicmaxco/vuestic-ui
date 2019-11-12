@@ -66,7 +66,7 @@ export const makeContextablePropsMixin = (componentProps, prefix = 'c_') => {
   })
 
   return {
-    // We attach mixin config mixin here for convenience
+    // We attach mixin here for convenience
     mixins: [ContextPluginMixin],
     props: componentProps,
     computed,

@@ -62,7 +62,7 @@ export default {
           color: this.computedThemesSeparatorColor,
         },
       },
-      separatorNode
+      separatorNode,
     )
 
     const isDisabledChild = (child) => {
@@ -85,7 +85,7 @@ export default {
           color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? this.computedThemesActiveColor : null,
         },
       },
-      [child]
+      [child],
     )
 
     const children = []

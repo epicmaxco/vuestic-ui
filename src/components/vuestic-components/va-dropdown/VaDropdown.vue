@@ -92,7 +92,7 @@ export default {
     disabled: Boolean,
     fixed: Boolean,
     keepAnchorWidth: Boolean, // Means dropdown width should be the same as anchor's width.
-    preventOverflow: {// If set to false - dropdown won't dodge outside container.
+    preventOverflow: { // If set to false - dropdown won't dodge outside container.
       type: Boolean,
       default: true,
     },
