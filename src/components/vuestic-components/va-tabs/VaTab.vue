@@ -29,11 +29,11 @@ export default {
       isActive: false,
     }
   },
-  // inject: {
-  //   tabGroup: {
-  //     default: null,
-  //   },
-  // },
+  inject: {
+    tabGroup: {
+      default: null,
+    },
+  },
   created () {
     this.tabGroup && this.tabGroup.register(this)
   },

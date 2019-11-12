@@ -155,7 +155,7 @@ export default {
       })
     },
     callFileDialogue () {
-      // TODO Not sure what this does.
+      // HACK Seems like safari fix. If you happen to stumble upon this and have mac - please test.
       this.$refs.fileInput.click()
     },
   },
