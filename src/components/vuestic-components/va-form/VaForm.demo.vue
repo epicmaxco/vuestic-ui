@@ -87,7 +87,7 @@
     <VbCard title="focus">
       <va-form
         lazy-validation
-        @focus="focus"
+        @focus="onFocus"
       >
         <div>Text</div>
         <va-input
@@ -195,27 +195,33 @@ export default {
     }
   },
   methods: {
-    focus () {
+    onFocus (e) {
       this.actionMessage = 'set focus'
+      console.log('focus', e)
     },
     onValidation (value) {
       this.fieldIsValid = value
       this.actionMessage = 'set validation'
+      console.log('onValidation', value)
     },
     resetValidation (value) {
       this.actionMessage = 'reset validation'
 
       this.$refs.resetValidationForm.resetValidation()
       this.fieldIsValid = value
+      console.log('resetValidation', value)
     },
-    onSubmit () {
+    onSubmit (e) {
       this.actionMessage = 'submit'
       this.submitData = Object.assign({}, this.form)
+      console.log('onSubmit', e)
     },
-    onReset () {
+    onReset (e) {
       this.actionMessage = 'reset'
 
       this.form = {}
+
+      console.log('onReset', e)
     },
   },
 }
