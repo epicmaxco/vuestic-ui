@@ -1,35 +1,21 @@
 <template>
   <div
     class="va-test"
-    :style="{color}"
+    :style="{ color: c_color }"
   >
-    <slot>{{ label }}</slot>
+    <slot>{{ c_label }}</slot>
   </div>
 </template>
 
 <script>
-import {
-  ContextPluginMixin,
-  getContextPropValue,
-} from './context-provide/ContextPlugin'
+import { getContextablePropMixin } from './context-provide/ContextPlugin'
 
 export default {
   name: 'VaTest',
-  mixins: [ContextPluginMixin],
-  props: {
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', '')
-      },
-    },
-    label: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-  },
+  mixins: [
+    getContextablePropMixin('color', { type: String, default: '' }),
+    getContextablePropMixin('label', { type: String, default: '' }),
+  ],
 }
 </script>
 

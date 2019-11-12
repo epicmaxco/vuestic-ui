@@ -27,21 +27,22 @@
       </va-context>
     </VbCard>
 
-    <VbCard title="Empty prop has priority">
-      <va-context :config="{ VaTest: { label: 'my label', color: 'orange' } }">
+    <VbCard title="Empty values">
+      <va-context :config="{ VaTest: { label: 'my label' } }">
         <div>
           Default:
           <va-test />
           Empty label (should be empty):
+          <br>
+          <br>
           <va-test label="" />
+          undefined (should be same as default):
+          <va-test :label="undefined" />
         </div>
       </va-context>
     </VbCard>
 
-    <VbCard
-      title="No reactivity (only on refresh)"
-      refresh
-    >
+    <VbCard title="Reactive update from local context">
       <div>
         Should change color on change and refresh.
       </div>
@@ -81,10 +82,7 @@
       </va-context>
     </VbCard>
 
-    <VbCard
-      title="Partial rewriting global config (only on refresh)"
-      refresh
-    >
+    <VbCard title="Partial rewriting global config">
       <div>
         Should change global config button color on change and refresh.
       </div>
@@ -99,17 +97,11 @@
       <va-button>Vuestic-ui button</va-button>
     </VbCard>
 
-    <VbCard
-      title="Rewriting global config (only on refresh)"
-      refresh
-    >
-      <div>
-        Should change global config on change and refresh.
-      </div>
+    <VbCard title="Rewriting global config">
       <va-badge />
       <va-test>va test component</va-test>
       <va-button>Vuestic-ui button</va-button>
-      <button @click="overrideConfig">
+      <button @click="overrideConfig()">
         Override config
       </button>
     </VbCard>
