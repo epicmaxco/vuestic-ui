@@ -51,8 +51,6 @@ export default {
   data () {
     return {
       valid: true,
-      hasResetButton: false, // Need for form as div tag
-      hasSubmitButton: false, // Need for form as div tag
     }
   },
   mounted () {
@@ -71,29 +69,17 @@ export default {
 
       if (resetButton) {
         resetButton.addEventListener('click', this.reset)
-
-        this.hasResetButton = true
       }
 
       const submitButton = this.$el.querySelector('button[type=submit]')
 
       if (submitButton) {
         submitButton.addEventListener('click', this.submit)
-
-        this.hasSubmitButton = true
       }
     }
   },
   beforeDestroy () {
     this.$el.removeEventListener('focusin', this.focus)
-
-    if (this.hasSubmitButton) {
-      this.$el.querySelector('button[type=submit]').removeEventListener('click', this.submit)
-    }
-
-    if (this.hasResetButton) {
-      this.$el.querySelector('button[type=reset]').removeEventListener('click', this.reset)
-    }
   },
   methods: {
     preventAndStopPropagation (event) {
