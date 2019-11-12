@@ -96,124 +96,97 @@ import VaIcon from '../va-icon/VaIcon'
 import { getHoverColor } from './../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
+
+const InputContextMixin = makeContextablePropsMixin({
+  color: {
+    type: String,
+    default: '',
+  },
+  value: {
+    type: [String, Number],
+    default: '',
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  type: {
+    type: String,
+    default: 'text',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
+  removable: {
+    type: Boolean,
+    default: false,
+  },
+  tabindex: {
+    type: Number,
+    default: 0,
+  },
+  errorCount: {
+    type: Number,
+    default: 1,
+  },
+  success: {
+    type: Boolean,
+    default: false,
+  },
+  messages: {
+    type: Array,
+    default () {
+      return []
+    },
+  },
+
+  // textarea-specific
+  autosize: {
+    type: Boolean,
+    default: false,
+  },
+  minRows: {
+    type: Number,
+    default: null,
+    validator: (val) => {
+      if (!(val > 0 && (val | 0) === val)) {
+        throw new Error(`\`minRows\` must be a positive integer grater than 0, but ${val} is provided`)
+      }
+      return true
+    },
+  },
+  maxRows: {
+    type: Number,
+    validator: (val) => {
+      if (!(val > 0 && (val | 0) === val)) {
+        throw new Error(`\`maxRows\` must be a positive integer grater than 0, but ${val} is provided`)
+      }
+      return true
+    },
+    default: null,
+  },
+  rules: {
+    type: Array,
+    default () {
+      return [(value) => (value || 'required')]
+    },
+  },
+})
 
 export default {
   name: 'VaInput',
-  mixins: [ColorThemeMixin, ContextPluginMixin],
+  mixins: [ColorThemeMixin, InputContextMixin],
   components: { VaInputWrapper, VaIcon },
-  props: {
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', '')
-      },
-    },
-    value: {
-      type: [String, Number],
-      default () {
-        return getContextPropValue(this, 'value', '')
-      },
-    },
-    label: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-    placeholder: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'placeholder', '')
-      },
-    },
-    type: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'type', 'text')
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    readonly: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'readonly', false)
-      },
-    },
-    removable: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'removable', false)
-      },
-    },
-    tabindex: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'tabindex', 0)
-      },
-    },
-    errorCount: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'errorCount', 1)
-      },
-    },
-    success: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'success', false)
-      },
-    },
-    messages: {
-      type: Array,
-      default () {
-        return getContextPropValue(this, 'messages', [])
-      },
-    },
-
-    // textarea-specific
-    autosize: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'autosize', false)
-      },
-    },
-    minRows: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'minRows', null)
-      },
-      validator: (val) => {
-        if (!(val > 0 && (val | 0) === val)) {
-          throw new Error(`\`minRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        }
-        return true
-      },
-    },
-    maxRows: {
-      type: Number,
-      validator: (val) => {
-        if (!(val > 0 && (val | 0) === val)) {
-          throw new Error(`\`maxRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        }
-        return true
-      },
-      default () {
-        return getContextPropValue(this, 'maxRows', null)
-      },
-    },
-    rules: {
-      type: Array,
-      default () {
-        return [(value) => (value || 'required')]
-      },
-    },
-  },
   mounted () {
     this.adjustHeight()
   },
@@ -235,7 +208,7 @@ export default {
         return { color: this.$themes.danger }
       }
 
-      if (this.success) {
+      if (this.c_success) {
         return { color: this.$themes.success }
       }
 
@@ -245,11 +218,11 @@ export default {
       return {
         backgroundColor:
           this.error ? getHoverColor(this.$themes['danger'])
-            : this.success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
+            : this.c_success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
         borderColor:
           this.error ? this.$themes.danger
-            : this.success ? this.$themes.success
-              : this.isFocused ? this.$themes.dark : this.$themes.gray,
+            : this.c_success ? this.$themes.success
+              : this.c_isFocused ? this.$themes.dark : this.$themes.gray,
       }
     },
     textareaStyles () {
@@ -275,12 +248,12 @@ export default {
           },
           focus: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.isFocused = true
+            this.c_isFocused = true
             this.$emit('focus', event)
           },
           blur: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.isFocused = false
+            this.c_isFocused = false
             this.$emit('blur', event)
           },
           keyup: event => {
@@ -295,10 +268,10 @@ export default {
       )
     },
     hasContent () {
-      return ![null, undefined, ''].includes(this.value)
+      return ![null, undefined, ''].includes(this.c_value)
     },
     isTextarea () {
-      return this.type === 'textarea'
+      return this.c_value === 'textarea'
     },
   },
   methods: {
@@ -325,11 +298,11 @@ export default {
       this.errorMessages = []
       this.error = false
 
-      if (this.rules.length > 0) {
-        const validators = flatten(this.rules).filter(isFunction)
+      if (this.c_rules.length > 0) {
+        const validators = flatten(this.c_rules).filter(isFunction)
 
         validators.forEach((validate) => {
-          const validateResult = validate(this.value)
+          const validateResult = validate(this.c_value)
 
           if (!isBoolean(validateResult)) {
             this.errorMessages.push(validateResult)

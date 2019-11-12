@@ -32,7 +32,7 @@
 
 <script>
 import VaMessageList from './VaMessageList'
-import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const InputWrapperContextMixin = makeContextablePropsMixin({
   disabled: {
@@ -64,10 +64,9 @@ const InputWrapperContextMixin = makeContextablePropsMixin({
 export default {
   name: 'VaInputWrapper',
   components: { VaMessageList },
-  mixins: [ContextPluginMixin, InputWrapperContextMixin],
+  mixins: [InputWrapperContextMixin],
   computed: {
     messagesComputed () {
-      console.log('messagesColor', this.messagesColor)
       return this.c_error ? this.c_errorMessages : this.messages
     },
     messagesColor () {
