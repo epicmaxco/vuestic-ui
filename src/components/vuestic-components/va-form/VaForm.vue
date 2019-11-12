@@ -1,9 +1,24 @@
+<template>
+  <conponent
+    class="va-form"
+    :is="tag"
+    v-on="$listeners"
+    @submit="submit($event)"
+    @reset="reset()"
+    @validation="validation()"
+    @resetValidation="resetValidation()"
+  >
+    <slot />
+  </conponent>
+</template>
+
 <script>
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
-const availableFormTags = ['VaInput', 'VaColorInput', 'VaDatePicker', 'VaCheckbox', 'VaRadio', 'VaSelect', 'VaFileUpload']
+// TODO: need to remove this line after component-form methods implementation (focus, clear, etc.)
+const availableFormComponents = ['VaInput', 'VaColorInput', 'VaDatePicker', 'VaCheckbox', 'VaRadio', 'VaSelect', 'VaFileUpload']
 const getAllChildren = (vm, children = []) => {
-  vm.$children.forEach(function (child) {
+  vm.$children.forEach((child) => {
     children.push(child)
     child.$children.length > 0 && getAllChildren(child, children)
   })
@@ -36,16 +51,15 @@ export default {
   data () {
     return {
       valid: true,
-      hasResetButton: false,
-      hasSubmitButton: false,
+      hasResetButton: false, // Need for form as div tag
+      hasSubmitButton: false, // Need for form as div tag
     }
   },
   mounted () {
     this.$el.addEventListener('focusin', this.focus)
-    const formChild = getAllChildren(this)
 
     if (this.autofocus) {
-      const firstFormChild = formChild.find((child) => availableFormTags.includes(child.$options.name))
+      const firstFormChild = getAllChildren(this).find((child) => availableFormComponents.includes(child.$options.name))
 
       if (firstFormChild) {
         firstFormChild.$el.focus()
@@ -94,9 +108,9 @@ export default {
     focus () {
       this.$listeners.focus && this.$listeners.focus(true)
     },
-    focusInvalid (formElement) {
+    focusInvalid (invalidFormElement) {
       if (!this.valid) {
-        formElement.focus()
+        invalidFormElement.focus()
       }
       this.$listeners.focusInvalid && this.$listeners.focusInvalid()
     },
@@ -139,19 +153,6 @@ export default {
         }
       }
     },
-  },
-
-  render (createElement) {
-    return createElement(this.tag, {
-      class: 'va-form',
-      on: {
-        ...this.$listeners,
-        submit: this.submit, // overwrite form native actions
-        reset: this.reset, // overwrite form native actions
-        validation: this.validation, // overwrite form native actions
-        resetValidation: this.resetValidation,
-      },
-    }, this.$slots.default || [])
   },
 }
 </script>
