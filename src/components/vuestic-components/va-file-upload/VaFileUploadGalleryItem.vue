@@ -100,10 +100,9 @@ export default {
         this.previewImage = this.file.image.url
       } else {
         const reader = new FileReader()
-        const imageFileTypes = ['/png', '/jpg', '/jpeg', '/gif']
         reader.readAsDataURL(this.file.image)
         reader.onload = (e) => {
-          if (imageFileTypes.some(fileType => e.target.result.includes(fileType))) {
+          if (e.target.result.includes('image')) {
             this.previewImage = e.target.result
           }
         }

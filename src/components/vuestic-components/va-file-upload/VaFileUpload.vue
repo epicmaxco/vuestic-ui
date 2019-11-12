@@ -15,15 +15,16 @@
         class="va-file-upload__field__button"
         :disabled="disabled"
         :color="colorComputed"
+        @click="callFileDialogue()"
         icon=""
         icon-right=""
       >
         Upload file
       </va-button>
       <input
+        ref="fileInput"
         type="file"
         class="va-file-upload__field__input"
-        ref="fieldInput"
         :accept="fileTypes"
         :multiple="type !== 'single'"
         :disabled="disabled"
@@ -116,7 +117,7 @@ export default {
   methods: {
     changeFieldValue (e) {
       this.uploadFile(e)
-      this.$refs.fieldInput.value = ''
+      this.$refs.fileInput.value = ''
     },
     uploadFile (e) {
       let files = e.target.files || e.dataTransfer.files
@@ -152,6 +153,10 @@ export default {
           }
         }
       })
+    },
+    callFileDialogue () {
+      // HACK Seems like safari fix. If you happen to stumble upon this and have mac - please test.
+      this.$refs.fileInput.click()
     },
   },
   computed: {

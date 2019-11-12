@@ -1,11 +1,11 @@
 <template>
   <div
-    class="va-tab"
     :class="{
+      'va-tab': true,
       'va-tab--active': isActive,
       'va-tab--disabled': disabled
     }"
-    @click="() => $emit('tabClick', !isActive)"
+    @click="onTabClick"
   >
     <div
       class="va-tab__content"
@@ -39,6 +39,11 @@ export default {
   },
   beforeDestroy () {
     this.tabGroup && this.tabGroup.unregister(this)
+  },
+  methods: {
+    onTabClick () {
+      this.$emit('tabClick', !this.isActive)
+    },
   },
 }
 </script>

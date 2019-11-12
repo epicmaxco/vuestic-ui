@@ -42,13 +42,16 @@
 export default {
   name: 'VaRadioButton',
   props: {
-    value: {},
-    option: {},
+    value: { type: undefined, default: undefined },
+    option: { type: undefined, default: undefined },
     disabled: {
       type: Boolean,
       default: false,
     },
-    label: String,
+    label: {
+      type: String,
+      default: '',
+    },
   },
   data () {
     return {
@@ -64,7 +67,9 @@ export default {
       }
     },
     computedStyle () {
-      if (this.isActive) return { borderColor: this.$themes.primary + '!important' }
+      if (this.isActive) {
+        return { borderColor: this.$themes.primary + '!important' }
+      }
       return null
     },
     focused: {

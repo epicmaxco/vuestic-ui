@@ -63,7 +63,7 @@
     </VbCard>
     <VbCard
       title="Long"
-      style="width: 300px"
+      style="width: 300px;"
     >
       <va-notification
         v-model="isCloseableNotificationVisible"

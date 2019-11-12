@@ -1,9 +1,9 @@
 <template>
   <div>
     <va-context :config="contextConfig">
-      <ContextSwapExampleSnippet/>
+      <ContextSwapExampleSnippet />
     </va-context>
-    <pre style="color: white;">{{contextConfig}}</pre>
+    <pre style="color: white;">{{ contextConfig }}</pre>
   </div>
 </template>
 
@@ -46,7 +46,7 @@ export default {
         },
         VaInput: {
           readonly: true,
-          color: 'warning'
+          color: 'warning',
         },
         VaFileUpload: {
           type: 'gallery',
@@ -60,8 +60,8 @@ export default {
         },
         VaCheckbox: {
           size: 'small',
-          color: 'warning'
-        }
+          color: 'warning',
+        },
       },
     }
   },

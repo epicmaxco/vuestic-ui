@@ -4,7 +4,7 @@
       <va-slider-color-picker v-model="value" />
       <va-slider-color-picker
         v-model="value"
-        style="padding-top: 20px"
+        style="padding-top: 20px;"
       />
       {{ value }}
     </div>

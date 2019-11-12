@@ -3,7 +3,7 @@
     ref="chart"
     class="va-chart"
     :is="chartComponent"
-    :chartOptions="options"
+    :chart-options="options"
     :chart-data="data"
   />
 </template>
