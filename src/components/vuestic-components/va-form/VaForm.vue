@@ -20,7 +20,11 @@ const availableFormComponents = ['VaInput', 'VaColorInput', 'VaDatePicker', 'VaC
 const getAllChildren = (vm, children = []) => {
   vm.$children.forEach((child) => {
     children.push(child)
-    child.$children.length > 0 && getAllChildren(child, children)
+
+    // TODO: need to change detecting of form controls
+    if (!child.validate) {
+      child.$children.length > 0 && getAllChildren(child, children)
+    }
   })
   return children
 }
@@ -47,11 +51,6 @@ export default {
         return getContextPropValue(this, 'tag', 'div')
       },
     },
-  },
-  data () {
-    return {
-      valid: true,
-    }
   },
   mounted () {
     this.$el.addEventListener('focusin', this.focus)
@@ -94,10 +93,8 @@ export default {
     focus () {
       this.$listeners.focus && this.$listeners.focus(true)
     },
-    focusInvalid (invalidFormElement) {
-      if (!this.valid) {
-        invalidFormElement.focus()
-      }
+    onFocusInvalid (invalidFormElement) {
+      invalidFormElement.focus()
       this.$listeners.focusInvalid && this.$listeners.focusInvalid()
     },
     reset (e) {
@@ -110,16 +107,12 @@ export default {
       this.$listeners.reset && this.$listeners.reset(true)
     },
     resetValidation () {
-      this.valid = true
-
       getAllChildren(this).filter((child) => child.resetValidate).forEach((item) => {
         item.resetValidate()
       })
     },
     validation () {
-      this.$listeners.validation && this.$listeners.validation(this.valid)
-
-      return this.valid
+      this.$listeners.validation && this.$listeners.validation()
     },
     validate () { // NOTE: temporarily synchronous validation
       const childrenWithValidation = getAllChildren(this).filter((child) => child.validate)
@@ -128,10 +121,8 @@ export default {
         const isValidChild = item.validate()
 
         if (!isValidChild) {
-          this.valid = false
-
           this.validation()
-          this.focusInvalid(item.$el)
+          this.onFocusInvalid(item.$el)
 
           if (this.lazyValidation) {
             break

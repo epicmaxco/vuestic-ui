@@ -116,7 +116,8 @@
     <VbCard title="validation, reset validation, focus invalid">
       <va-form
         lazy-validation
-        @validation="onValidation"
+        @validation="onValidation()"
+        @focusInvalid="onFocusInvalid()"
         ref="resetValidationForm"
       >
         <div>Text</div>
@@ -199,10 +200,13 @@ export default {
       this.actionMessage = 'set focus'
       console.log('focus', e)
     },
-    onValidation (value) {
-      this.fieldIsValid = value
+    onValidation () {
       this.actionMessage = 'set validation'
-      console.log('onValidation', value)
+      console.log('onValidation')
+    },
+    onFocusInvalid () {
+      this.actionMessage = 'set focus invalid'
+      console.log('onFocusInvalid')
     },
     resetValidation (value) {
       this.actionMessage = 'reset validation'
