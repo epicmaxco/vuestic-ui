@@ -200,6 +200,7 @@ export default {
       isFocused: false,
       errorMessages: [],
       error: false,
+      isTouched: false,
     }
   },
   computed: {
@@ -259,7 +260,9 @@ export default {
           keyup: event => {
             this.$emit('keyup', event)
 
-            this.validate()
+            if (this.isTouched) {
+              this.validate()
+            }
           },
           keydown: event => {
             this.$emit('keydown', event)
@@ -297,6 +300,7 @@ export default {
     validate () {
       this.errorMessages = []
       this.error = false
+      this.isTouched = true
 
       if (this.c_rules.length > 0) {
         const validators = flatten(this.c_rules).filter(isFunction)
