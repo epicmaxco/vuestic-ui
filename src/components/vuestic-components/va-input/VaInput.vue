@@ -297,10 +297,12 @@ export default {
     },
     validate (value) {
       // TODO: just for testing
+
       return value || false
     },
     resetValidate () {
-      // TODO: just for testing
+      // TODO: just for testing. Need to remove
+      this.error = false
       this.validate(true)
     },
   },

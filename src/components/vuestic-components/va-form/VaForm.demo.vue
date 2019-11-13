@@ -19,10 +19,7 @@
         style="color: tomato;"
         title="Fix according to requirements. + we can keeps inputs only to avoid confusion"
       >❗❗</span>
-      <va-form
-        @submit="onSubmit"
-        @reset="onReset"
-      >
+      <va-form ref="resetAndSubmitForm">
         <div>Text</div>
         <va-input
           v-model="form.input"
@@ -43,10 +40,10 @@
           v-model="form.checkbox"
           label="checkbox"
         />
-        <button type="submit">
+        <button @click="onSubmit">
           Submit
         </button>
-        <button type="reset">
+        <button @click="onReset">
           Reset
         </button>
       </va-form>
@@ -56,7 +53,6 @@
       <va-form
         lazy-validation
         @validation="onValidation()"
-        @focusInvalid="onFocusInvalid()"
         ref="resetValidationForm"
       >
         <va-input
@@ -131,13 +127,19 @@ export default {
     },
     onSubmit (e) {
       this.actionMessage = 'submit'
-      this.submitData = Object.assign({}, this.form)
+      let _valid = this.$refs.resetAndSubmitForm.validate()
+      if (_valid) {
+        this.submitData = Object.assign({}, this.form)
+        // eslint-disable-next-line no-console
+        console.log('onSubmit success', e)
+      }
       // eslint-disable-next-line no-console
-      console.log('onSubmit', e)
+      console.log('onSubmit filed', e)
     },
     onReset (e) {
       this.actionMessage = 'reset'
-      this.form = {}
+
+      this.$refs.resetAndSubmitForm.reset()
       // eslint-disable-next-line no-console
       console.log('onReset', e)
     },
