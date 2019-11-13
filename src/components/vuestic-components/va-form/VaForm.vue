@@ -6,6 +6,7 @@
     @submit="submit($event)"
     @reset="reset()"
     @validation="validation()"
+    @focusInvalid="focusInvalid()"
     @resetValidation="resetValidation()"
   >
     <slot />
@@ -15,8 +16,6 @@
 <script>
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
-// TODO: need to remove this line after component-form methods implementation (focus, clear, etc.)
-const availableFormComponents = ['VaInput', 'VaColorInput', 'VaDatePicker', 'VaCheckbox', 'VaRadio', 'VaSelect', 'VaFileUpload']
 const getNestedFormElements = (vm, children = []) => {
   vm.$children.forEach((child) => {
     children.push(child)
@@ -53,14 +52,8 @@ export default {
     },
   },
   mounted () {
-    this.$el.addEventListener('focusin', this.focus)
-
     if (this.autofocus) {
-      const firstFormChild = getNestedFormElements(this).find((child) => availableFormComponents.includes(child.$options.name))
-
-      if (firstFormChild) {
-        firstFormChild.$el.focus()
-      }
+      this.focus()
     }
 
     if (this.tag !== 'form') { // component dont have tag form, we need set listeners manually
@@ -77,58 +70,51 @@ export default {
       }
     }
   },
-  beforeDestroy () {
-    this.$el.removeEventListener('focusin', this.focus)
-  },
   methods: {
-    preventAndStopPropagation (event) {
-      event.preventDefault()
-      event.stopPropagation()
+    validation (e) {
+      this.$emit('validation', e)
     },
-    submit (e) {
-      this.validate()
-
-      this.$listeners.submit && this.$listeners.submit(e)
-    },
-    focus () {
-      this.$listeners.focus && this.$listeners.focus(true)
-    },
-    onFocusInvalid (invalidFormElement) {
-      invalidFormElement.focus()
-      this.$listeners.focusInvalid && this.$listeners.focusInvalid()
-    },
+    // public methods
     reset (e) {
-      this.preventAndStopPropagation(e) // stop cleaning fields by browser
-
-      getNestedFormElements(this).filter(({ clear }) => Boolean(clear)).forEach((item) => {
+      getNestedFormElements(this).filter(({ clear }) => clear).forEach((item) => {
         item.clear()
       })
-
-      this.$listeners.reset && this.$listeners.reset(true)
     },
     resetValidation () {
-      getNestedFormElements(this).filter((child) => child.resetValidate).forEach((item) => {
-        item.resetValidate()
-      })
+      getNestedFormElements(this)
+        .filter(({ resetValidate }) => resetValidate)
+        .forEach((item) => {
+          item.resetValidate()
+        })
     },
-    validation () {
-      this.$listeners.validation && this.$listeners.validation()
+    focus () {
+      getNestedFormElements(this).find(({ focus }) => focus).focus()
+    },
+    focusInvalid () {
+      getNestedFormElements(this)
+        .filter(({ validate }) => validate)
+        .find((item) => item.validate())
+        .focus()
     },
     validate () { // NOTE: temporarily synchronous validation
-      const childrenWithValidation = getNestedFormElements(this).filter((child) => child.validate)
+      const validatedElements = getNestedFormElements(this).filter(({ validate }) => validate)
+      let valid = true
 
-      for (let item of childrenWithValidation) { // for of cycle available use break
+      for (let item of validatedElements) { // for of cycle available use break
         const isValidChild = item.validate()
 
         if (!isValidChild) {
           this.validation()
-          this.onFocusInvalid(item.$el)
+          item.focus()
+          valid = false
 
           if (this.lazyValidation) {
             break
           }
         }
       }
+
+      return valid
     },
   },
 }

@@ -39,7 +39,6 @@ export default {
 
 Events: 
 
-* `focus`: () => void - triggered when some form element is triggered. Might be useful for multi-tab forms.
 * `validation`: (valid: Boolean) => void - triggered on validation update
  
 Methods: 

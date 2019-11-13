@@ -289,6 +289,9 @@ export default {
       Object.assign(this.$refs.input.style, textareaStyles)
     },
 
+    focus () {
+      this.$el.focus()
+    },
     clear () {
       this.$emit('input', '')
     },
