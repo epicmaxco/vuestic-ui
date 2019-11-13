@@ -47,9 +47,9 @@
 import VaIcon from '../va-icon/VaIcon'
 import {
   getGradientBackground,
-  getFocusColor,
-  getHoverColor,
-  getBoxShadowColor,
+  // getFocusColor,
+  // getHoverColor,
+  // getBoxShadowColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
@@ -151,13 +151,15 @@ export default {
       return getGradientBackground(this.colorComputed)
     },
     shadowStyle () {
-      if (this.flat || this.outline) {
-        return
-      }
-      if (this.va.color && this.$themes && this.$themes[this.va.color]) {
-        return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.color ? this.colorComputed : this.$themes[this.va.color])
-      }
-      return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
+      if (this.focusState || this.hoverState) return '0px 0.125rem 0.5rem 0px #6E6E6E'
+      return '0px 0.125rem 0.5rem 0px #6E6E6EBD'
+      // if (this.flat || this.outline) {
+      //   return
+      // }
+      // if (this.va.color && this.$themes && this.$themes[this.va.color]) {
+      //   return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.color ? this.colorComputed : this.$themes[this.va.color])
+      // }
+      // return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
     },
     computedStyle () {
       const computedStyle = {
@@ -167,28 +169,29 @@ export default {
         backgroundImage: '',
         boxShadow: '',
       }
-
+      computedStyle.boxShadow = this.shadowStyle
       if (this.focusState) {
         if (this.outline || this.flat) {
           computedStyle.color = this.colorComputed
           computedStyle.borderColor = this.outline ? this.colorComputed : ''
-          computedStyle.background = getFocusColor(this.colorComputed)
+          // computedStyle.background = getFocusColor(this.colorComputed)
         } else {
-          computedStyle.backgroundImage = this.gradientStyle
+          computedStyle.backgroundColor = this.colorComputed
         }
       } else if (this.hoverState) {
         if (this.outline || this.flat) {
           computedStyle.color = this.colorComputed
           computedStyle.borderColor = this.outline ? this.colorComputed : ''
-          computedStyle.background = getHoverColor(this.colorComputed)
+          // computedStyle.background = getHoverColor(this.colorComputed)
         } else {
-          computedStyle.backgroundImage = this.gradientStyle
+          computedStyle.backgroundColor = this.colorComputed
         }
       } else {
         computedStyle.color = this.flat || this.outline ? this.colorComputed : '#ffffff'
+        computedStyle.backgroundColor = this.flat || this.outline ? '#ffffff' : this.colorComputed
         computedStyle.borderColor = this.outline ? this.colorComputed : ''
-        computedStyle.backgroundImage = this.gradientStyle
-        computedStyle.boxShadow = this.shadowStyle
+        // computedStyle.backgroundImage = this.gradientStyle
+        // computedStyle.boxShadow = this.shadowStyle
       }
 
       if (this.va.color && !this.outline && !this.flat) {
