@@ -178,7 +178,7 @@ const InputContextMixin = makeContextablePropsMixin({
   rules: {
     type: Array,
     default () {
-      return [(value) => (value || 'required')]
+      return []
     },
   },
 })
@@ -307,7 +307,7 @@ export default {
         const validators = flatten(this.c_rules).filter(isFunction)
 
         validators.forEach((validate) => {
-          const validateResult = validate(this.c_value)
+          const validateResult = isFunction(validate) ? validate(this.c_value) : validate
 
           if (!isBoolean(validateResult)) {
             this.errorMessages.push(validateResult)
