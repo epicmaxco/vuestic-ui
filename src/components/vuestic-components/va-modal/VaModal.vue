@@ -36,13 +36,16 @@
               <slot/>
             </div>
             <div v-if="(cancelText || okText) && !hideDefaultActions" class="va-modal__actions mb-3">
-              <va-button v-if="cancelText" color="gray" flat @click="cancel">
-                {{cancelText}}
-              </va-button>
-              <va-button @click="ok">{{okText}}</va-button>
+              <div class="row d-flex justify-content-between">
+                <va-button v-if="showDelete" color="danger" @click="remove">{{dangerText}}</va-button>
+                <va-button flat outline v-if="cancelText" @click="cancel">
+                  {{cancelText}}
+                </va-button>
+                <va-button @click="ok">{{okText}}</va-button>
+              </div>
             </div>
             <div v-if="hasActionsSlot" class="va-modal__actions">
-              <slot name="actions"/>
+              <slot name="actions" class="row d-flex justify-content-between"/>
             </div>
           </div>
         </div>
@@ -84,11 +87,15 @@ export default {
       type: String,
       default: 'Cancel',
     },
+    dangerText: {
+      type: String,
+      default: 'Delete',
+    },
     hideDefaultActions: Boolean,
     fullscreen: Boolean,
     mobileFullscreen: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     noOutsideDismiss: Boolean,
     noEscDismiss: Boolean,
@@ -101,9 +108,14 @@ export default {
         return ['medium', 'small', 'large'].includes(value)
       },
     },
+    showDelete: {
+      type: Boolean,
+      default: false,
+    },
     fixedLayout: Boolean,
     onOk: Function,
     onCancel: Function,
+    onRemove: Function,
     withoutTransitions: Boolean,
   },
   computed: {
@@ -176,6 +188,10 @@ export default {
     ok () {
       this.close()
       this.$emit('ok')
+    },
+    remove () {
+      this.close()
+      this.$emit('remove')
     },
     checkOutside (e) {
       if (!this.noOutsideDismiss) {
@@ -355,6 +371,7 @@ export default {
 
       .va-modal__actions {
         padding: 0 1.875rem 0 1.5rem;
+
       }
 
       .va-modal__message {
