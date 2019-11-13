@@ -142,7 +142,7 @@ export default {
       }
     },
     validate () {
-      return true
+      return null
     },
     clear () {
       this.$emit('input', null)

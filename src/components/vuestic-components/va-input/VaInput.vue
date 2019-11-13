@@ -298,6 +298,7 @@ export default {
       this.$emit('input', '')
     },
     validate () {
+      let _result = false
       this.errorMessages = []
       this.error = false
       this.hasValidate = true
@@ -311,11 +312,12 @@ export default {
           if (!isBoolean(validateResult)) {
             this.errorMessages.push(validateResult)
             this.error = true
+            _result = true
           }
         })
       }
 
-      return this.errorMessages
+      return _result
     },
     resetValidate () {
       this.errorMessages = []

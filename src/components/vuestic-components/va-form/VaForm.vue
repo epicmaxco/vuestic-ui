@@ -95,16 +95,21 @@ export default {
         .focus()
     },
     validate () { // NOTE: temporarily synchronous validation
-      const validatedElements = getNestedFormElements(this).filter(({ validate }) => validate)
-      let valid = true
+      const childrenWithValidation = getNestedFormElements(this).filter(({ validate }) => Boolean(validate))
+      let hasFocusInvalid = false
+      let formValid = true
 
-      for (let item of validatedElements) { // for of cycle available use break
-        const isValidChild = item.validate()
+      for (let i = 0; i < childrenWithValidation.length; i++) {
+        const child = childrenWithValidation[i]
 
-        if (!isValidChild) {
+        if (child.validate()) {
+          formValid = false
           this.validation()
-          item.focus()
-          valid = false
+          if (!hasFocusInvalid) {
+            this.onFocusInvalid(child.$el)
+
+            hasFocusInvalid = true
+          }
 
           if (this.lazyValidation) {
             break
@@ -112,7 +117,7 @@ export default {
         }
       }
 
-      return valid
+      return formValid
     },
   },
 }

@@ -107,6 +107,7 @@ export default {
       submitData: {},
       fieldIsValid: true,
       actionMessage: '',
+      formValid: true,
     }
   },
   methods: {
@@ -115,7 +116,7 @@ export default {
       // eslint-disable-next-line no-console
       console.log('focus', e)
     },
-    onValidation () {
+    onValidation (val) {
       this.actionMessage = 'set validation'
       // eslint-disable-next-line no-console
       console.log('onValidation')
