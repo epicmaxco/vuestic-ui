@@ -82,7 +82,7 @@ export default {
       getNestedFormElements(this)
         .filter(({ resetValidate }) => resetValidate)
         .forEach((item) => {
-          item.resetValidate()
+          item.resetValidation()
         })
     },
     focus () {

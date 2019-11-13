@@ -47,6 +47,13 @@ export default {
 * `min-rows` (textarea-specific) - Number
 * `max-rows` (textarea-specific) - Number
 
+### Methods
+* `clear` - Function - clean value 
+* `validate` - Function - run component validation 
+* `resetValidation` - Function - reset component validation state 
+
+
+
 ## va-input-wrapper
 
 ```html

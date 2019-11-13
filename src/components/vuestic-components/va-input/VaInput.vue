@@ -319,7 +319,7 @@ export default {
 
       return _result
     },
-    resetValidate () {
+    resetValidation () {
       this.errorMessages = []
       this.error = false
     },
