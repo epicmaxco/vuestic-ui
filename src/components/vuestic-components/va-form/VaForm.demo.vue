@@ -51,7 +51,6 @@
 
     <VbCard title="reset validation">
       <va-form
-        lazy-validation
         @validation="onValidation()"
         ref="resetValidationForm"
       >
@@ -66,6 +65,35 @@
         />
 
         <button @click="$refs.resetValidationForm.resetValidation()">
+          Reset validation
+        </button>
+      </va-form>
+    </VbCard>
+
+    <VbCard title="lazy validation">
+      <va-form
+        lazy-validation
+        @submit="onSubmit"
+        ref="resetValidationFormRef"
+      >
+        <va-input
+          v-model="form.input"
+          label="input"
+          :error="!inputIsValid"
+          :rules="[value => value === 'hello' || 'should be hello']"
+        />
+        <va-input
+          v-model="form.secondInput"
+          label="input"
+          :error="!inputIsValid"
+          :rules="[value => value === 'world' || 'should be world']"
+        />
+
+        <button type="submit">
+          Submit
+        </button>
+
+        <button @click="resetValidation">
           Reset validation
         </button>
       </va-form>
@@ -101,11 +129,13 @@ export default {
     return {
       form: {
         input: 'input',
+        secondInput: 'input',
         checkbox: false,
         radio: 2,
       },
       submitData: {},
-      fieldIsValid: true,
+      inputIsValid: true,
+      secondInputIsValid: true,
       actionMessage: '',
       formValid: true,
     }
