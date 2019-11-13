@@ -193,6 +193,10 @@ export default {
   watch: {
     value () {
       this.adjustHeight()
+
+      if (this.hasValidate) {
+        this.validate()
+      }
     },
   },
   data () {
@@ -200,7 +204,7 @@ export default {
       isFocused: false,
       errorMessages: [],
       error: false,
-      isTouched: false,
+      hasValidate: false,
     }
   },
   computed: {
@@ -223,7 +227,7 @@ export default {
         borderColor:
           this.error ? this.$themes.danger
             : this.c_success ? this.$themes.success
-              : this.c_isFocused ? this.$themes.dark : this.$themes.gray,
+              : this.isFocused ? this.$themes.dark : this.$themes.gray,
       }
     },
     textareaStyles () {
@@ -249,20 +253,16 @@ export default {
           },
           focus: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.c_isFocused = true
+            this.isFocused = true
             this.$emit('focus', event)
           },
           blur: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.c_isFocused = false
+            this.isFocused = false
             this.$emit('blur', event)
           },
           keyup: event => {
             this.$emit('keyup', event)
-
-            if (this.isTouched) {
-              this.validate()
-            }
           },
           keydown: event => {
             this.$emit('keydown', event)
@@ -300,7 +300,7 @@ export default {
     validate () {
       this.errorMessages = []
       this.error = false
-      this.isTouched = true
+      this.hasValidate = true
 
       if (this.c_rules.length > 0) {
         const validators = flatten(this.c_rules).filter(isFunction)
