@@ -2,7 +2,7 @@
 name: Other
 about: Other
 title: ''
-labels: ''
+labels: triage
 assignees: ''
 
 ---
