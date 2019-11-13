@@ -1,56 +1,24 @@
 <template>
   <VbDemo>
-    <VbCard title="default">
-      <va-form>
-        <div>Text</div>
-        <va-input
-          v-model="form.input"
-          label="input"
-        />
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="1"
-        />
-        <br>
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="2"
-        />
-        <va-checkbox
-          v-model="form.checkbox"
-          label="checkbox"
-        />
-      </va-form>
-    </VbCard>
-
-    <VbCard title="autofocus">
+    <VbCard
+      title="autofocus"
+      refresh
+    >
       <va-form autofocus>
-        <div>Text</div>
         <va-input
-          v-model="form.input"
-          label="input"
+          label="input 1"
         />
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="1"
-        />
-        <br>
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="2"
-        />
-        <va-checkbox
-          v-model="form.checkbox"
-          label="checkbox"
+        <va-input
+          label="input 2"
         />
       </va-form>
     </VbCard>
 
     <VbCard title="reset and submit">
+      <span
+        style="color: tomato;"
+        title="Fix according to requirements. + we can keeps inputs only to avoid confusion"
+      >❗❗</span>
       <va-form
         @submit="onSubmit"
         @reset="onReset"
@@ -84,74 +52,24 @@
       </va-form>
     </VbCard>
 
-    <VbCard title="focus">
-      <va-form
-        lazy-validation
-        @focus="onFocus"
-      >
-        <div>Text</div>
-        <va-input
-          v-model="form.input"
-          label="input"
-        />
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="1"
-        />
-
-        <br>
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="2"
-        />
-        <va-checkbox
-          v-model="form.checkbox"
-          label="checkbox"
-        />
-      </va-form>
-    </VbCard>
-
-    <VbCard title="validation, reset validation, focus invalid">
+    <VbCard title="reset validation">
       <va-form
         lazy-validation
         @validation="onValidation()"
         @focusInvalid="onFocusInvalid()"
         ref="resetValidationForm"
       >
-        <div>Text</div>
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="1"
-        />
-
-        <br>
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="2"
-        />
-
-        <br>
         <va-input
-          v-model="form.input"
-          label="input"
-          :error="!fieldIsValid"
-          :error-count="2"
-          :error-messages="['one', 'two']"
+          value="ok"
+          label="valid input"
         />
-        <va-checkbox
-          v-model="form.checkbox"
-          label="checkbox"
+        <va-input
+          value="error"
+          label="invalid input"
+          error
         />
 
-        <button type="submit">
-          Validate
-        </button>
-
-        <button @click="resetValidation">
+        <button @click="$refs.resetValidationForm.resetValidation()">
           Reset validation
         </button>
       </va-form>
@@ -198,33 +116,29 @@ export default {
   methods: {
     onFocus (e) {
       this.actionMessage = 'set focus'
+      // eslint-disable-next-line no-console
       console.log('focus', e)
     },
     onValidation () {
       this.actionMessage = 'set validation'
+      // eslint-disable-next-line no-console
       console.log('onValidation')
     },
     onFocusInvalid () {
       this.actionMessage = 'set focus invalid'
+      // eslint-disable-next-line no-console
       console.log('onFocusInvalid')
-    },
-    resetValidation (value) {
-      this.actionMessage = 'reset validation'
-
-      this.$refs.resetValidationForm.resetValidation()
-      this.fieldIsValid = value
-      console.log('resetValidation', value)
     },
     onSubmit (e) {
       this.actionMessage = 'submit'
       this.submitData = Object.assign({}, this.form)
+      // eslint-disable-next-line no-console
       console.log('onSubmit', e)
     },
     onReset (e) {
       this.actionMessage = 'reset'
-
       this.form = {}
-
+      // eslint-disable-next-line no-console
       console.log('onReset', e)
     },
   },
