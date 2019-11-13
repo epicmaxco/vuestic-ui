@@ -49,5 +49,6 @@ We want to keep these consistent across different repos.
 * refactoring - Prettify code without introducing new features - #ffc4ee
 * reviewed -  - #0e8a16
 * suggestion -  - #cc317c
+* triage - Team member has to check this - #cce7ff
 * WIP issue - Issue is not finished - #88c3f7
 * wontfix - We won't work on that issue - #bfdadc
