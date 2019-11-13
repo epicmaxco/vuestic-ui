@@ -17,13 +17,13 @@ import { ContextPluginMixin, getContextPropValue } from '../../context-test/cont
 
 // TODO: need to remove this line after component-form methods implementation (focus, clear, etc.)
 const availableFormComponents = ['VaInput', 'VaColorInput', 'VaDatePicker', 'VaCheckbox', 'VaRadio', 'VaSelect', 'VaFileUpload']
-const getAllChildren = (vm, children = []) => {
+const getNestedFormElements = (vm, children = []) => {
   vm.$children.forEach((child) => {
     children.push(child)
 
     // TODO: need to change detecting of form controls
     if (!child.validate) {
-      child.$children.length > 0 && getAllChildren(child, children)
+      child.$children.length > 0 && getNestedFormElements(child, children)
     }
   })
   return children
@@ -56,7 +56,7 @@ export default {
     this.$el.addEventListener('focusin', this.focus)
 
     if (this.autofocus) {
-      const firstFormChild = getAllChildren(this).find((child) => availableFormComponents.includes(child.$options.name))
+      const firstFormChild = getNestedFormElements(this).find((child) => availableFormComponents.includes(child.$options.name))
 
       if (firstFormChild) {
         firstFormChild.$el.focus()
@@ -100,14 +100,14 @@ export default {
     reset (e) {
       this.preventAndStopPropagation(e) // stop cleaning fields by browser
 
-      getAllChildren(this).filter(({ clear }) => Boolean(clear)).forEach((item) => {
+      getNestedFormElements(this).filter(({ clear }) => Boolean(clear)).forEach((item) => {
         item.clear()
       })
 
       this.$listeners.reset && this.$listeners.reset(true)
     },
     resetValidation () {
-      getAllChildren(this).filter((child) => child.resetValidate).forEach((item) => {
+      getNestedFormElements(this).filter((child) => child.resetValidate).forEach((item) => {
         item.resetValidate()
       })
     },
@@ -115,7 +115,7 @@ export default {
       this.$listeners.validation && this.$listeners.validation()
     },
     validate () { // NOTE: temporarily synchronous validation
-      const childrenWithValidation = getAllChildren(this).filter((child) => child.validate)
+      const childrenWithValidation = getNestedFormElements(this).filter((child) => child.validate)
 
       for (let item of childrenWithValidation) { // for of cycle available use break
         const isValidChild = item.validate()
