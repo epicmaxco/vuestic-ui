@@ -120,11 +120,6 @@ export default {
       // eslint-disable-next-line no-console
       console.log('onValidation')
     },
-    onFocusInvalid () {
-      this.actionMessage = 'set focus invalid'
-      // eslint-disable-next-line no-console
-      console.log('onFocusInvalid')
-    },
     onSubmit (e) {
       this.actionMessage = 'submit'
       let _valid = this.$refs.resetAndSubmitForm.validate()
