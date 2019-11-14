@@ -61,7 +61,7 @@ export default {
       this.$emit('validation', e)
     },
     // public methods
-    reset (e) {
+    reset () {
       getNestedFormElements(this).filter(({ clear }) => clear).forEach((item) => {
         item.clear()
       })
