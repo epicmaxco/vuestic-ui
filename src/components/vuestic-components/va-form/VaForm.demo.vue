@@ -40,8 +40,8 @@
           v-model="form.checkbox"
           label="checkbox"
         />
-        <button @click="onSubmit">
-          Submit
+        <button @click="onValidate">
+          Validate
         </button>
         <button @click="onReset">
           Reset
@@ -120,16 +120,16 @@ export default {
       // eslint-disable-next-line no-console
       console.log('onValidation')
     },
-    onSubmit (e) {
-      this.actionMessage = 'submit'
+    onValidate (e) {
+      this.actionMessage = 'validate'
       let _valid = this.$refs.resetAndSubmitForm.validate()
       if (_valid) {
         this.submitData = Object.assign({}, this.form)
         // eslint-disable-next-line no-console
-        console.log('onSubmit success', e)
+        console.log('onValidate success', e)
       }
       // eslint-disable-next-line no-console
-      console.log('onSubmit filed', e)
+      console.log('onValidate filed', e)
     },
     onReset (e) {
       this.actionMessage = 'reset'
