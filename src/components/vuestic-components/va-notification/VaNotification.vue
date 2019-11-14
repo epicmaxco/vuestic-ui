@@ -16,7 +16,7 @@
         class="va-notification__close-icon"
         :color="color"
         name="close"
-        @click="hideNotification()"
+        @click.native="hideNotification()"
       />
     </div>
   </transition>
