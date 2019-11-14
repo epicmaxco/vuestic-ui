@@ -53,20 +53,6 @@ export default {
     if (this.autofocus) {
       this.focus()
     }
-
-    if (this.tag !== 'form') { // component dont have tag form, we need set listeners manually
-      const resetButton = this.$el.querySelector('button[type=reset]')
-
-      if (resetButton) {
-        resetButton.addEventListener('click', this.reset)
-      }
-
-      const submitButton = this.$el.querySelector('button[type=submit]')
-
-      if (submitButton) {
-        submitButton.addEventListener('click', this.submit)
-      }
-    }
   },
   methods: {
     validation (e) {
@@ -74,19 +60,23 @@ export default {
     },
     // public methods
     reset (e) {
-      getNestedFormElements(this).filter(({ clear }) => clear).forEach((item) => {
-        item.clear()
-      })
+      getNestedFormElements(this)
+        .filter(({ clear }) => clear)
+        .forEach((item) => {
+          item.clear()
+        })
     },
     resetValidation () {
       getNestedFormElements(this)
-        .filter(({ resetValidate }) => resetValidate)
+        .filter(({ resetValidation }) => resetValidation)
         .forEach((item) => {
           item.resetValidation()
         })
     },
     focus () {
-      getNestedFormElements(this).find(({ focus }) => focus).focus()
+      getNestedFormElements(this)
+        .find(({ focus }) => focus)
+        .focus()
     },
     focusInvalid () {
       getNestedFormElements(this)
@@ -95,8 +85,7 @@ export default {
         .focus()
     },
     validate () { // NOTE: temporarily synchronous validation
-      const childrenWithValidation = getNestedFormElements(this).filter(({ validate }) => Boolean(validate))
-      let hasFocusInvalid = false
+      const childrenWithValidation = getNestedFormElements(this).filter(({ validate }) => validate)
       let formValid = true
 
       for (let i = 0; i < childrenWithValidation.length; i++) {
@@ -105,11 +94,6 @@ export default {
         if (child.validate()) {
           formValid = false
           this.validation()
-          if (!hasFocusInvalid) {
-            this.onFocusInvalid(child.$el)
-
-            hasFocusInvalid = true
-          }
 
           if (this.lazyValidation) {
             break

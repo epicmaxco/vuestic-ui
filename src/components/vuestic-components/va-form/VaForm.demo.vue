@@ -74,26 +74,24 @@
       <va-form
         lazy-validation
         @submit="onSubmit"
-        ref="resetValidationFormRef"
+        ref="lazyValidationFormRef"
       >
         <va-input
           v-model="form.input"
           label="input"
-          :error="!inputIsValid"
           :rules="[value => value === 'hello' || 'should be hello']"
         />
         <va-input
           v-model="form.secondInput"
           label="input"
-          :error="!inputIsValid"
           :rules="[value => value === 'world' || 'should be world']"
         />
 
-        <button type="submit">
-          Submit
+        <button @click="$refs.lazyValidationFormRef.validate()">
+          Validate
         </button>
 
-        <button @click="resetValidation">
+        <button @click="$refs.lazyValidationFormRef.resetValidation()">
           Reset validation
         </button>
       </va-form>
