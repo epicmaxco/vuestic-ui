@@ -33,6 +33,7 @@
           :placeholder="placeholder"
           :disabled="disabled"
           :readonly="readonly"
+          :maxlength="maxlength"
           :value="value"
           v-on="inputListeners"
           v-bind="$attrs"
@@ -48,6 +49,7 @@
           :disabled="disabled"
           :readonly="readonly"
           :value="value"
+          :maxlength="maxlength"
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
@@ -100,6 +102,9 @@ export default {
     },
     label: {
       type: String,
+    },
+    maxlength: {
+      type: Number,
     },
     placeholder: {
       type: String,

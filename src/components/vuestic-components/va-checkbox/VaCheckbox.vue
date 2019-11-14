@@ -61,6 +61,10 @@ export default {
       type: [Boolean, Array],
       required: true,
     },
+    isCircle: {
+      type: Boolean,
+      default: false,
+    },
     arrayValue: String,
     indeterminate: Boolean,
 
@@ -89,6 +93,7 @@ export default {
   computed: {
     computedClass () {
       return {
+        'va-checkbox--circle': this.isCircle,
         'va-checkbox--selected': this.isChecked,
         'va-checkbox--readonly': this.readonly,
         'va-checkbox--disabled': this.disabled,
@@ -99,6 +104,7 @@ export default {
     },
     labelStyle () {
       if (this.showError) return { color: this.$themes.danger }
+      return {}
     },
     inputStyle () {
       if (this.showError) {
@@ -107,6 +113,7 @@ export default {
       } else {
         if (this.isChecked) return { background: this.$themes.success }
       }
+      return {}
     },
     computedIcon () {
       return [
@@ -223,6 +230,10 @@ export default {
 
       .va-checkbox--error#{&} {
         border-color: $theme-red;
+      }
+
+      .va-checkbox--circle#{&} {
+        border-radius: 50%;
       }
     }
   }

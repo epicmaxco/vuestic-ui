@@ -38,10 +38,8 @@
             <div v-if="(cancelText || okText) && !hideDefaultActions" class="va-modal__actions mb-3">
               <div class="row d-flex justify-content-between">
                 <va-button v-if="showDelete" color="danger" @click="remove">{{dangerText}}</va-button>
-                <va-button flat outline v-if="cancelText" @click="cancel">
-                  {{cancelText}}
-                </va-button>
-                <va-button @click="ok">{{okText}}</va-button>
+                <va-button flat outline v-if="showCancel" :disabled="cancelDisabled" @click="cancel">{{cancelText}}</va-button>
+                <va-button v-if="showOkay" :disabled="okDisabled" @click="ok">{{okText}}</va-button>
               </div>
             </div>
             <div v-if="hasActionsSlot" class="va-modal__actions">
@@ -74,7 +72,7 @@ export default {
     position: {
       type: String,
       validator: value => {
-        return ['center', 'top', 'right', 'bottom', 'left'].includes(value)
+        return ['center', 'top', 'right', 'bottom', 'left', 'top-right'].includes(value)
       },
     },
     title: String,
@@ -90,6 +88,14 @@ export default {
     dangerText: {
       type: String,
       default: 'Delete',
+    },
+    okDisabled: {
+      type: Boolean,
+      default: false,
+    },
+    cancelDisabled: {
+      type: Boolean,
+      default: false,
     },
     hideDefaultActions: Boolean,
     fullscreen: Boolean,
@@ -111,6 +117,14 @@ export default {
     showDelete: {
       type: Boolean,
       default: false,
+    },
+    showCancel: {
+      type: Boolean,
+      default: true,
+    },
+    showOkay: {
+      type: Boolean,
+      default: true,
     },
     fixedLayout: Boolean,
     onOk: Function,
@@ -267,6 +281,12 @@ export default {
   margin: 1rem;
   box-shadow: $widget-box-shadow;
   max-width: map_get($grid-breakpoints, md);
+  @media (min-width: map-get($grid-breakpoints, md)) {
+    width: map-get($grid-breakpoints, md);
+  }
+  @media (max-width: map-get($grid-breakpoints, md)) {
+    width: calc(100vw - 2rem);
+  }
   max-height: calc(100vh - 2rem);
   position: relative;
   transition: all .5s ease-out;
@@ -333,6 +353,12 @@ export default {
     &-left {
       justify-content: flex-start;
     }
+
+    &-top-right {
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+
   }
 
   &--size {
@@ -352,6 +378,13 @@ export default {
 
     &-large {
       max-width: map-get($grid-breakpoints, lg);
+
+      @media (min-width: map-get($grid-breakpoints, lg)) {
+        width: map-get($grid-breakpoints, lg);
+      }
+      @media (max-width: map-get($grid-breakpoints, lg)) {
+        width: calc(100vw - 2rem);
+      }
 
       .va-modal__inner {
         max-width: map-get($grid-breakpoints, lg);
