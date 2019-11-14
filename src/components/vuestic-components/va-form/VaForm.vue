@@ -55,20 +55,6 @@ export default {
     if (this.autofocus) {
       this.focus()
     }
-
-    if (this.tag !== 'form') { // component dont have tag form, we need set listeners manually
-      const resetButton = this.$el.querySelector('button[type=reset]')
-
-      if (resetButton) {
-        resetButton.addEventListener('click', this.reset)
-      }
-
-      const submitButton = this.$el.querySelector('button[type=submit]')
-
-      if (submitButton) {
-        submitButton.addEventListener('click', this.submit)
-      }
-    }
   },
   methods: {
     validation (e) {
