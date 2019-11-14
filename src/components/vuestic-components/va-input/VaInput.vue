@@ -1,11 +1,11 @@
 <template>
   <va-input-wrapper
     class="va-input"
-    :disabled="disabled"
-    :success="success"
+    :disabled="c_disabled"
+    :success="c_success"
     :messages="[]"
     :error="error"
-    :error-messages="errorMessages"
+    :error-messages="internalErrorMessages"
     :error-count="errorCount"
   >
     <slot
@@ -19,7 +19,7 @@
     >
       <div
         class="va-input__container__content-wrapper"
-        :style="{ paddingTop: label ? '' : '0'}"
+        :style="{ paddingTop: c_label ? '' : '0'}"
       >
         <label
           :style="labelStyles"
@@ -32,54 +32,54 @@
           v-if="isTextarea"
           class="va-input__container__input"
           :style="textareaStyles"
-          :aria-label="label"
-          :placeholder="placeholder"
-          :disabled="disabled"
-          :readonly="readonly"
-          :value="value"
+          :aria-label="c_label"
+          :placeholder="c_placeholder"
+          :disabled="c_disabled"
+          :readonly="c_readonly"
+          :value="c_value"
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
-          :tabindex="tabindex"
+          :tabindex="c_tabindex"
         />
         <input
           v-else
           class="va-input__container__input"
-          :style="{ paddingBottom: label ? '0.125rem' : '0.875rem' }"
-          :aria-label="label"
+          :style="{ paddingBottom: c_label ? '0.125rem' : '0.875rem' }"
+          :aria-label="c_label"
           :type="type"
-          :placeholder="placeholder"
-          :disabled="disabled"
-          :readonly="readonly"
-          :value="value"
+          :placeholder="c_placeholder"
+          :disabled="c_disabled"
+          :readonly="c_readonly"
+          :value="c_value"
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
-          :tabindex="tabindex"
+          :tabindex="c_tabindex"
         >
       </div>
       <div
-        v-if="success || error || $slots.append || (removable && hasContent)"
+        v-if="c_success || internalError || $slots.append || (c_removable && hasContent)"
         class="va-input__container__icon-wrapper"
       >
         <va-icon
-          v-if="success"
+          v-if="c_success"
           class="va-input__container__icon"
-          color="success"
+          color="c_success"
           name="check"
         />
         <va-icon
-          v-if="error"
+          v-if="internalError"
           class="va-input__container__icon"
           color="danger"
           name="warning"
         />
         <slot name="append" />
         <va-icon
-          v-if="removable && hasContent"
+          v-if="c_removable && hasContent"
           @click.native="clear()"
           class="va-input__container__close-icon"
-          :color="error ? 'danger': 'gray'"
+          :color="internalError ? 'danger': 'gray'"
           name="highlight_off"
         />
       </div>
@@ -149,6 +149,16 @@ const InputContextMixin = makeContextablePropsMixin({
       return []
     },
   },
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  errorMessages: {
+    type: Array,
+    default () {
+      return []
+    },
+  },
 
   // textarea-specific
   autosize: {
@@ -200,16 +210,17 @@ export default {
     },
   },
   data () {
+    console.log('this.errorMessages', this.errorMessages)
     return {
       isFocused: false,
-      errorMessages: [],
-      error: false,
       hasValidate: false,
+      internalError: this.error,
+      internalErrorMessages: this.errorMessages,
     }
   },
   computed: {
     labelStyles () {
-      if (this.error) {
+      if (this.internalError) {
         return { color: this.$themes.danger }
       }
 
@@ -222,10 +233,10 @@ export default {
     containerStyles () {
       return {
         backgroundColor:
-          this.error ? getHoverColor(this.$themes['danger'])
+          this.internalError ? getHoverColor(this.$themes['danger'])
             : this.c_success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
         borderColor:
-          this.error ? this.$themes.danger
+          this.internalError ? this.$themes.danger
             : this.c_success ? this.$themes.success
               : this.isFocused ? this.$themes.dark : this.$themes.gray,
       }
@@ -298,10 +309,9 @@ export default {
       this.$emit('input', '')
     },
     validate () {
-      let _result = false
-      this.errorMessages = []
-      this.error = false
+      this.internalError = false
       this.hasValidate = true
+      this.internalErrorMessages = []
 
       if (this.c_rules.length > 0) {
         const validators = flatten(this.c_rules).filter(isFunction)
@@ -310,18 +320,18 @@ export default {
           const validateResult = isFunction(validate) ? validate(this.c_value) : validate
 
           if (!isBoolean(validateResult)) {
-            this.errorMessages.push(validateResult)
-            this.error = true
-            _result = true
+            this.internalErrorMessages.push(validateResult)
+            this.internalError = true
           }
         })
       }
 
-      return _result
+      // this.errorMessages = internalValidationMessage // errorMessages is getter/setter. we cannot use push with it
+      return Boolean(this.internalErrorMessages.length)
     },
     resetValidation () {
-      this.errorMessages = []
-      this.error = false
+      this.internalErrorMessages = []
+      this.internalError = false
     },
   },
 }

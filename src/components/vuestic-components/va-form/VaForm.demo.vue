@@ -15,10 +15,6 @@
     </VbCard>
 
     <VbCard title="reset and submit">
-      <span
-        style="color: tomato;"
-        title="Fix according to requirements. + we can keeps inputs only to avoid confusion"
-      >❗❗</span>
       <va-form ref="resetAndSubmitForm">
         <div>Text</div>
         <va-input
@@ -40,8 +36,8 @@
           v-model="form.checkbox"
           label="checkbox"
         />
-        <button @click="onSubmit">
-          Submit
+        <button @click="onValidate">
+          Validate
         </button>
         <button @click="onReset">
           Reset
@@ -62,6 +58,7 @@
           value="error"
           label="invalid input"
           error
+          :error-messages="['invalid']"
         />
 
         <button @click="$refs.resetValidationForm.resetValidation()">
@@ -73,7 +70,7 @@
     <VbCard title="lazy validation">
       <va-form
         lazy-validation
-        @submit="onSubmit"
+        @submit="onValidate"
         ref="lazyValidationFormRef"
       >
         <va-input
@@ -103,7 +100,7 @@
     >
       CurrentData: {{ form }}
       <br>
-      SubmitData: {{ submitData }}
+      validatedData: {{ validatedData }}
       <br>
       Last Action: {{ actionMessage }}
     </VbCard>
@@ -131,11 +128,8 @@ export default {
         checkbox: false,
         radio: 2,
       },
-      submitData: {},
-      inputIsValid: true,
-      secondInputIsValid: true,
+      validatedData: {},
       actionMessage: '',
-      formValid: true,
     }
   },
   methods: {
@@ -154,16 +148,16 @@ export default {
       // eslint-disable-next-line no-console
       console.log('onFocusInvalid')
     },
-    onSubmit (e) {
-      this.actionMessage = 'submit'
+    onValidate (e) {
+      this.actionMessage = 'validate'
       let _valid = this.$refs.resetAndSubmitForm.validate()
       if (_valid) {
-        this.submitData = Object.assign({}, this.form)
+        this.validatedData = Object.assign({}, this.form)
         // eslint-disable-next-line no-console
-        console.log('onSubmit success', e)
+        console.log('onValidate success', e)
       }
       // eslint-disable-next-line no-console
-      console.log('onSubmit filed', e)
+      console.log('onValidate filed', e)
     },
     onReset (e) {
       this.actionMessage = 'reset'
