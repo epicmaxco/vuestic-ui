@@ -144,8 +144,8 @@ export default {
     validate () {
       return true
     },
-    clear (e) {
-      this.$emit('input', null, e)
+    clear () {
+      this.$emit('input', null)
     },
   },
 }
@@ -203,7 +203,8 @@ export default {
     box-sizing: border-box;
 
     .va-radio__input:disabled + & {
-      @include va-disabled; }
+      @include va-disabled;
+    }
 
     &__dot {
       transition: $transition-primary;
@@ -257,7 +258,8 @@ export default {
     margin-right: 0;
 
     .va-radio--disabled & {
-      @include va-disabled; }
+      @include va-disabled;
+    }
 
     .va-radio--left-label & {
       margin-left: 0;
