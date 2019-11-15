@@ -14,9 +14,8 @@
       </va-form>
     </VbCard>
 
-    <VbCard title="reset and submit">
+    <VbCard title="reset">
       <va-form ref="resetAndSubmitForm">
-        <div>Text</div>
         <va-input
           v-model="form.input"
           label="input"
@@ -36,9 +35,6 @@
           v-model="form.checkbox"
           label="checkbox"
         />
-        <button @click="onValidate">
-          Validate
-        </button>
         <button @click="onReset">
           Reset
         </button>
@@ -67,10 +63,25 @@
       </va-form>
     </VbCard>
 
-    <VbCard title="lazy validation with rules">
+    <VbCard title="validate + rules">
+      <va-form
+        ref="rulesFormRef"
+      >
+        <va-input
+          v-model="inputRules"
+          label="input"
+          :rules="[value => value === 'hello' || 'should be hello']"
+        />
+
+        <button @click="$refs.rulesFormRef.validate()">
+          Validate
+        </button>
+      </va-form>
+    </VbCard>
+
+    <VbCard title="lazy validation">
       <va-form
         lazy-validation
-        @submit="onValidate"
         ref="lazyValidationFormRef"
       >
         <va-input
@@ -127,7 +138,9 @@ export default {
         secondInput: 'input',
         checkbox: false,
         radio: 2,
+        inputError: false,
       },
+      inputRules: 'hell',
       validatedData: {},
       actionMessage: '',
     }
@@ -143,19 +156,17 @@ export default {
       // eslint-disable-next-line no-console
       console.log('onValidation')
     },
-    onFocusInvalid () {
-      this.actionMessage = 'set focus invalid'
-      // eslint-disable-next-line no-console
-      console.log('onFocusInvalid')
-    },
     onValidate (e) {
       this.actionMessage = 'validate'
       let _valid = this.$refs.resetAndSubmitForm.validate()
+
       if (_valid) {
         this.validatedData = Object.assign({}, this.form)
         // eslint-disable-next-line no-console
         console.log('onValidate success', e)
       }
+
+      this.form.inputError = _valid
       // eslint-disable-next-line no-console
       console.log('onValidate filed', e)
     },

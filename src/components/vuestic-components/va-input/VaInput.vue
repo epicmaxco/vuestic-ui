@@ -4,7 +4,7 @@
     :disabled="c_disabled"
     :success="c_success"
     :messages="[]"
-    :error="error"
+    :error="internalError"
     :error-messages="internalErrorMessages"
     :error-count="errorCount"
   >
@@ -210,7 +210,6 @@ export default {
     },
   },
   data () {
-    console.log('this.errorMessages', this.errorMessages)
     return {
       isFocused: false,
       hasValidate: false,
@@ -302,6 +301,7 @@ export default {
       Object.assign(this.$refs.input.style, textareaStyles)
     },
 
+    // public methods
     focus () {
       this.$el.focus()
     },
@@ -326,7 +326,6 @@ export default {
         })
       }
 
-      // this.errorMessages = internalValidationMessage // errorMessages is getter/setter. we cannot use push with it
       return Boolean(this.internalErrorMessages.length)
     },
     resetValidation () {
