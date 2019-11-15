@@ -314,16 +314,16 @@ export default {
       this.internalErrorMessages = []
 
       if (this.c_rules.length > 0) {
-        const validators = flatten(this.c_rules).filter(isFunction)
+        flatten(this.c_rules)
+          .filter(isFunction)
+          .forEach((validate) => {
+            const validateResult = isFunction(validate) ? validate(this.c_value) : validate
 
-        validators.forEach((validate) => {
-          const validateResult = isFunction(validate) ? validate(this.c_value) : validate
-
-          if (!isBoolean(validateResult)) {
-            this.internalErrorMessages.push(validateResult)
-            this.internalError = true
-          }
-        })
+            if (!isBoolean(validateResult)) {
+              this.internalErrorMessages.push(validateResult)
+              this.internalError = true
+            }
+          })
       }
 
       return Boolean(this.internalErrorMessages.length)
