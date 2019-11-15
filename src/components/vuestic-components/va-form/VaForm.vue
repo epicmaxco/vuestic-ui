@@ -85,6 +85,8 @@ export default {
         .focus()
     },
     validate () { // NOTE: temporarily synchronous validation
+      this.validation()
+
       const childrenWithValidation = getNestedFormElements(this).filter(({ validate }) => validate)
       let formValid = true
 
@@ -93,7 +95,6 @@ export default {
 
         if (child.validate()) {
           formValid = false
-          this.validation()
 
           if (this.lazyValidation) {
             break

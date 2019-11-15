@@ -15,7 +15,7 @@
     </VbCard>
 
     <VbCard title="reset">
-      <va-form ref="resetAndSubmitForm">
+      <va-form ref="resetFormRef">
         <va-input
           v-model="form.input"
           label="input"
@@ -35,17 +35,14 @@
           v-model="form.checkbox"
           label="checkbox"
         />
-        <button @click="onReset">
+        <button @click="$refs.resetFormRef.reset()">
           Reset
         </button>
       </va-form>
     </VbCard>
 
     <VbCard title="reset validation">
-      <va-form
-        @validation="onValidation()"
-        ref="resetValidationForm"
-      >
+      <va-form ref="resetValidationForm">
         <va-input
           value="ok"
           label="valid input"
@@ -65,6 +62,7 @@
 
     <VbCard title="validate + rules">
       <va-form
+        @validation="onValidation()"
         ref="rulesFormRef"
       >
         <va-input
@@ -82,6 +80,7 @@
     <VbCard title="lazy validation">
       <va-form
         lazy-validation
+        @validation="onValidation()"
         ref="lazyValidationFormRef"
       >
         <va-input
@@ -103,17 +102,6 @@
           Reset validation
         </button>
       </va-form>
-    </VbCard>
-
-    <VbCard
-      title="form data"
-      width="500px"
-    >
-      CurrentData: {{ form }}
-      <br>
-      validatedData: {{ validatedData }}
-      <br>
-      Last Action: {{ actionMessage }}
     </VbCard>
   </VbDemo>
 </template>
@@ -141,41 +129,12 @@ export default {
         inputError: false,
       },
       inputRules: 'hell',
-      validatedData: {},
-      actionMessage: '',
     }
   },
   methods: {
-    onFocus (e) {
-      this.actionMessage = 'set focus'
-      // eslint-disable-next-line no-console
-      console.log('focus', e)
-    },
     onValidation (val) {
-      this.actionMessage = 'set validation'
       // eslint-disable-next-line no-console
-      console.log('onValidation')
-    },
-    onValidate (e) {
-      this.actionMessage = 'validate'
-      let _valid = this.$refs.resetAndSubmitForm.validate()
-
-      if (_valid) {
-        this.validatedData = Object.assign({}, this.form)
-        // eslint-disable-next-line no-console
-        console.log('onValidate success', e)
-      }
-
-      this.form.inputError = _valid
-      // eslint-disable-next-line no-console
-      console.log('onValidate filed', e)
-    },
-    onReset (e) {
-      this.actionMessage = 'reset'
-
-      this.$refs.resetAndSubmitForm.reset()
-      // eslint-disable-next-line no-console
-      console.log('onReset', e)
+      console.log('onValidation', val)
     },
   },
 }
