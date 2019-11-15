@@ -47,7 +47,7 @@
           class="va-input__container__input"
           :style="{ paddingBottom: c_label ? '0.125rem' : '0.875rem' }"
           :aria-label="c_label"
-          :type="type"
+          :type="c_type"
           :placeholder="c_placeholder"
           :disabled="c_disabled"
           :readonly="c_readonly"
@@ -284,7 +284,7 @@ export default {
       return ![null, undefined, ''].includes(this.c_value)
     },
     isTextarea () {
-      return this.c_value === 'textarea'
+      return this.c_type === 'textarea'
     },
   },
   methods: {
