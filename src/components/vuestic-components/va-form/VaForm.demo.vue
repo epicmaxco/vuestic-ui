@@ -67,7 +67,7 @@
       </va-form>
     </VbCard>
 
-    <VbCard title="lazy validation">
+    <VbCard title="lazy validation with rules">
       <va-form
         lazy-validation
         @submit="onValidate"
