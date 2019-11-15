@@ -303,7 +303,7 @@ export default {
 
     // public methods
     focus () {
-      this.$el.focus()
+      this.$refs.input.focus()
     },
     clear () {
       this.$emit('input', '')
