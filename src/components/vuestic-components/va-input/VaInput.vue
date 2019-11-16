@@ -193,7 +193,10 @@ const InputContextMixin = makeContextablePropsMixin({
   },
 })
 
-const prepareValidations = (messages, callArguments = null) => messages.map((message) => isFunction(message) ? message(callArguments) : message).filter(Boolean)
+const prepareValidations = (messages, callArguments = null) =>
+  messages
+    .map((message) => isFunction(message) ? message(callArguments) : message)
+    .filter(Boolean)
 
 export default {
   name: 'VaInput',
@@ -210,8 +213,11 @@ export default {
         this.validate()
       }
     },
-    error (val) {
-      this.internalError = val
+    error: {
+      handler (error) {
+        this.internalError = error
+      },
+      immediate: true,
     },
     errorMessages: {
       handler (errorMessages) {
@@ -224,7 +230,8 @@ export default {
     return {
       isFocused: false,
       hasValidate: false,
-      internalError: this.error,
+      internalErrorMessages: [],
+      internalError: false,
     }
   },
   computed: {

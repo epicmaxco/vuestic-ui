@@ -6,7 +6,7 @@
           label="required name"
           v-model="$v.name.$model"
           :error="$v.name.$error"
-          :errorMessages="[
+          :error-messages="[
             !$v.name.required && 'reqired',
             !$v.name.minLength && `Name must have at least ${$v.name.$params.minLength.min} letters.`
           ]"
@@ -15,7 +15,7 @@
           label="required age"
           v-model="$v.age.$model"
           :error="$v.age.$error"
-          :errorMessages="[
+          :error-messages="[
             !$v.age.required && 'reqired',
             !$v.age.numeric && 'Age must be a number',
             !$v.age.between && 'Age must be between 10 and 100'
@@ -25,7 +25,7 @@
           label="required email"
           v-model="$v.email.$model"
           :error="$v.email.$error"
-          :errorMessages="[
+          :error-messages="[
             !$v.email.required && 'reqired',
             !$v.email.email && 'Email must be correct'
           ]"
