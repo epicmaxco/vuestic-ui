@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="vuelidate">
-      <va-form>
+      <va-form ref="vuelidateForm">
         <va-input
           label="required name"
           v-model="$v.name.$model"
@@ -30,6 +30,9 @@
             !$v.email.email && 'Email must be correct'
           ]"
         />
+        <button @click="$refs.vuelidateForm.reset()">
+          Reset
+        </button>
       </va-form>
     </VbCard>
   </VbDemo>
