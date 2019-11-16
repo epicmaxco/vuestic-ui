@@ -193,6 +193,8 @@ const InputContextMixin = makeContextablePropsMixin({
   },
 })
 
+const prepareValidations = (messages, callArguments = null) => messages.map((message) => isFunction(message) ? message(callArguments) : message).filter(Boolean)
+
 export default {
   name: 'VaInput',
   mixins: [ColorThemeMixin, InputContextMixin],
@@ -208,13 +210,21 @@ export default {
         this.validate()
       }
     },
+    error (val) {
+      this.internalError = val
+    },
+    errorMessages: {
+      handler (errorMessages) {
+        this.internalErrorMessages = prepareValidations(errorMessages)
+      },
+      immediate: true,
+    },
   },
   data () {
     return {
       isFocused: false,
       hasValidate: false,
       internalError: this.error,
-      internalErrorMessages: this.errorMessages,
     }
   },
   computed: {
@@ -315,10 +325,8 @@ export default {
 
       if (this.c_rules.length > 0) {
         flatten(this.c_rules)
-          .filter(isFunction)
-          .forEach((validate) => {
-            const validateResult = isFunction(validate) ? validate(this.c_value) : validate
-
+          .map((validate) => prepareValidations(validate, this.c_value))
+          .forEach((validateResult) => {
             if (!isBoolean(validateResult)) {
               this.internalErrorMessages.push(validateResult)
               this.internalError = true
