@@ -12,17 +12,17 @@
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const getNestedFormElements = (vm) => {
-  const children = []
+  const elements = []
 
   vm.$children.forEach((child) => {
-    children.push(child)
+    elements.push(child)
 
     // TODO: need to change detecting of form controls
     if (!child.validate) {
-      child.$children.length > 0 && getNestedFormElements(child, children)
+      child.$children.length > 0 && getNestedFormElements(child, elements)
     }
   })
-  return children
+  return elements
 }
 
 const FormContextMixin = makeContextablePropsMixin({
@@ -84,10 +84,10 @@ export default {
     validate () { // NOTE: temporarily synchronous validation
       let formValid = true
 
-      const childrenWithValidation = getNestedFormElements(this).filter(({ validate }) => validate)
+      const validatableElements = getNestedFormElements(this).filter(({ validate }) => validate)
 
-      for (let i = 0; i < childrenWithValidation.length; i++) {
-        const child = childrenWithValidation[i]
+      for (let i = 0; i < validatableElements.length; i++) {
+        const child = validatableElements[i]
 
         if (!child.validate()) {
           formValid = false
