@@ -76,10 +76,11 @@ export default {
         .focus()
     },
     focusInvalid () {
-      getNestedFormElements(this)
+      const invalidComponent = getNestedFormElements(this)
         .filter(({ validate }) => validate)
         .find((item) => item.validate())
-        .focus()
+
+      invalidComponent && invalidComponent.focus()
     },
     validate () { // NOTE: temporarily synchronous validation
       let formValid = true
