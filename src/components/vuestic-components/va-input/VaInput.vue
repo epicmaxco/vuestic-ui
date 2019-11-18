@@ -207,7 +207,7 @@ export default {
       handler () {
         this.adjustHeight()
 
-        if (this.hasValidate) {
+        if (this.isTouchedValidation) {
           this.validate()
         }
       },
@@ -229,7 +229,7 @@ export default {
   data () {
     return {
       isFocused: false,
-      hasValidate: false,
+      isTouchedValidation: false,
       internalErrorMessages: [],
       internalError: false,
     }
@@ -326,8 +326,15 @@ export default {
       this.$emit('input', '')
     },
     validate () {
+      if (this.c_error) {
+        return this.c_error
+      }
+
+      if (!this.isTouchedValidation) {
+        this.isTouchedValidation = true
+      }
+
       this.internalError = false
-      this.hasValidate = true
       this.internalErrorMessages = []
 
       if (this.c_rules.length > 0) {
