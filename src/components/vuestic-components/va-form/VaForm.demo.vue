@@ -57,6 +57,9 @@
         <button @click="$refs.resetValidationForm.resetValidation()">
           Reset validation
         </button>
+        <button @click="$refs.resetValidationForm.focusInvalid()">
+          Focus invalid
+        </button>
       </va-form>
     </VbCard>
 

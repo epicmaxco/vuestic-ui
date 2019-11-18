@@ -3,10 +3,6 @@
     class="va-form"
     :is="tag"
     v-on="$listeners"
-    @reset="reset()"
-    @validation="validation()"
-    @focusInvalid="focusInvalid()"
-    @resetValidation="resetValidation()"
   >
     <slot />
   </conponent>
