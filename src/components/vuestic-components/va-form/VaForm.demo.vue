@@ -132,8 +132,12 @@
           />
         </va-form>
       </va-form>
-      <button @click="$refs.nestedFormRef.validate()">validate</button>
-      <button @click="$refs.nestedFormRef.resetValidation()">reset validation</button>
+      <button @click="$refs.nestedFormRef.validate()">
+        validate
+      </button>
+      <button @click="$refs.nestedFormRef.resetValidation()">
+        reset validation
+      </button>
     </VbCard>
   </VbDemo>
 </template>

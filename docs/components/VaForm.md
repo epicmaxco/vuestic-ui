@@ -23,8 +23,8 @@ export default {
 
 ```vue
 <va-form autofocus>
-  <va-input label="name" v-model="Input"/>
-  <va-select label="city" v-model="Select" :options="options"/>
+  <va-input label="name" v-model="input"/>
+  <va-select label="city" v-model="select" :options="options"/>
   <va-button @click="submitForm">Submit</va-button>
 </va-form>
 ```
@@ -35,7 +35,7 @@ Vuelidate is a simple, lightweight model-based validation for Vue.js [Documentat
 
 
 ```vue
-<va-form autofocus>
+<va-form ref="form">
   <va-input
     label="name"
     v-model="$v.name.$model"
@@ -55,12 +55,12 @@ Vuelidate is a simple, lightweight model-based validation for Vue.js [Documentat
       !$v.email.email && 'Email must be correct'
     ]"
   />
-  <va-button @click="submitForm">Submit</va-button>
+  <va-button @click="$refs.form.validate()">Validate</va-button>
 </va-form>
 ```
 
 ```js
-import { VaForm } from `vuestic-ui`
+import { VaForm, VaInput } from `vuestic-ui`
 import { validationMixin } from 'vuelidate'
 import { required, minLength, email } from 'vuelidate/lib/validators'
 

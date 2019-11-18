@@ -3,7 +3,6 @@
     class="va-form"
     :is="tag"
     v-on="$listeners"
-    @submit="submit($event)"
     @reset="reset()"
     @validation="validation()"
     @focusInvalid="focusInvalid()"
