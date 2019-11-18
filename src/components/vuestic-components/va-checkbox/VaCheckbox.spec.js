@@ -6,6 +6,8 @@ import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
 Vue.use(ColorThemePlugin)
 
 describe('VaCheckbox', () => {
+  // TODO: need fix icon with context-config
+
   it('default', () => {
     const wrapper = shallowMount(VaCheckbox, {
       propsData: { value: false },

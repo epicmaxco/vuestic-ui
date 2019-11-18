@@ -3,7 +3,10 @@ import { shallowMount, RouterLinkStub } from '@vue/test-utils'
 import VaButton from './VaButton'
 
 import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
+import { ContextPlugin } from '../../context-test/context-provide/ContextPlugin'
+
 Vue.use(ColorThemePlugin)
+Vue.use(ContextPlugin, {})
 
 describe('VaButton', () => {
   /* 1. Default button */
@@ -24,7 +27,7 @@ describe('VaButton', () => {
 
   it('large button', () => {
     const wrapper = shallowMount(VaButton, {
-      propsData: { large: true },
+      propsData: { size: 'large' },
     })
     expect(wrapper.find(VaButton).classes()).toContain('va-button--large')
     expect(wrapper.html()).toMatchSnapshot()
@@ -32,7 +35,7 @@ describe('VaButton', () => {
 
   it('small button', () => {
     const wrapper = shallowMount(VaButton, {
-      propsData: { small: true },
+      propsData: { size: 'small' },
     })
     expect(wrapper.find(VaButton).classes()).toContain('va-button--small')
     expect(wrapper.html()).toMatchSnapshot()
@@ -115,7 +118,7 @@ describe('VaButton', () => {
   it('button with left icon', () => {
     const wrapper = shallowMount(VaButton, {
       propsData: {
-        icon: 'brandico brandico-facebook',
+        icon: 'clear',
       },
     })
     expect(wrapper.find(VaButton).classes())
@@ -125,7 +128,7 @@ describe('VaButton', () => {
   it('button with right icon', () => {
     const wrapper = shallowMount(VaButton, {
       propsData: {
-        iconRight: 'iconicstroke iconicstroke-info',
+        iconRight: 'create',
       },
     })
     expect(wrapper.find(VaButton).classes())
@@ -135,8 +138,8 @@ describe('VaButton', () => {
   it('button with both icons', () => {
     const wrapper = shallowMount(VaButton, {
       propsData: {
-        icon: 'brandico brandico-facebook',
-        iconRight: 'iconicstroke iconicstroke-info',
+        icon: 'clear',
+        iconRight: 'create',
       },
     })
     expect(wrapper.html()).toMatchSnapshot()

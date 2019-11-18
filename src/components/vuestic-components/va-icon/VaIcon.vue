@@ -15,7 +15,7 @@
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { ContextPluginMixin, getContextPropValue } from './../../context-test/context-provide/ContextPlugin'
+import { ContextPluginMixin } from './../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaIcon',
@@ -34,33 +34,23 @@ export default {
     },
     size: {
       type: [String, Number],
-      default () {
-        return getContextPropValue(this, 'size', 'medium')
-      },
+      default: 'medium',
     },
     fixedWidth: {
       type: Boolean,
-      default () {
-        return getContextPropValue(this, 'fixedWidth', false)
-      },
+      default: false,
     },
     rotation: {
       type: [String, Number],
-      default () {
-        return getContextPropValue(this, 'rotation', '')
-      },
+      default: '',
     },
     color: {
       type: String,
-      default () {
-        return getContextPropValue(this, 'color', '')
-      },
+      default: '',
     },
     tag: {
       type: String,
-      default () {
-        return getContextPropValue(this, 'tag', 'i')
-      },
+      default: 'i',
     },
   },
   computed: {
