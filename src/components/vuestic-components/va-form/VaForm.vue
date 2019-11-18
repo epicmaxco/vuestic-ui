@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const getNestedFormElements = (vm) => {
   const children = []
@@ -25,26 +25,25 @@ const getNestedFormElements = (vm) => {
   return children
 }
 
+const FormContextMixin = makeContextablePropsMixin({
+  lazyValidation: {
+    type: Boolean,
+    default: false,
+  },
+  autofocus: {
+    type: Boolean,
+    default: false,
+  },
+  tag: {
+    type: String,
+    default: 'div',
+  },
+})
+
 export default {
   name: 'VaForm',
-  mixins: [ContextPluginMixin],
+  mixins: [FormContextMixin],
   props: {
-    lazyValidation: {
-      type: Boolean,
-      default: false,
-    },
-    autofocus: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'autofocus', false)
-      },
-    },
-    tag: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'tag', 'div')
-      },
-    },
   },
   mounted () {
     if (this.autofocus) {
