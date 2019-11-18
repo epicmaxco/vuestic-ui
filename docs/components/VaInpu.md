@@ -46,6 +46,7 @@ export default {
 * `autosize` (textarea-specific) - Boolean
 * `min-rows` (textarea-specific) - Number
 * `max-rows` (textarea-specific) - Number
+* `rules` - Array - list ov validation rules
 
 ### Methods
 * `clear` - Function - clean value 
