@@ -202,16 +202,16 @@ export default {
   name: 'VaInput',
   mixins: [ColorThemeMixin, InputContextMixin],
   components: { VaInputWrapper, VaIcon },
-  mounted () {
-    this.adjustHeight()
-  },
   watch: {
-    value () {
-      this.adjustHeight()
+    value: {
+      handler () {
+        this.adjustHeight()
 
-      if (this.hasValidate) {
-        this.validate()
-      }
+        if (this.hasValidate) {
+          this.validate()
+        }
+      },
+      immediate: true,
     },
     error: {
       handler (error) {
