@@ -193,7 +193,7 @@ const InputContextMixin = makeContextablePropsMixin({
   },
 })
 
-const prepareValidations = (messages, callArguments = null) =>
+const prepareValidations = (messages = [], callArguments = null) =>
   messages
     .map((message) => isFunction(message) ? message(callArguments) : message)
     .filter(Boolean)
@@ -331,8 +331,7 @@ export default {
       this.internalErrorMessages = []
 
       if (this.c_rules.length > 0) {
-        flatten(this.c_rules)
-          .map((validate) => prepareValidations(validate, this.c_value))
+        prepareValidations(flatten(this.c_rules), this.c_value)
           .forEach((validateResult) => {
             if (!isBoolean(validateResult)) {
               this.internalErrorMessages.push(validateResult)

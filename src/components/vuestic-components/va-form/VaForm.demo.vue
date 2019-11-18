@@ -62,7 +62,7 @@
 
     <VbCard title="validate + rules">
       <va-form
-        @validation="onValidation()"
+        @validation="onValidation"
         ref="rulesFormRef"
       >
         <va-input
@@ -80,7 +80,7 @@
     <VbCard title="lazy validation">
       <va-form
         lazy-validation
-        @validation="onValidation()"
+        @validation="onValidation"
         ref="lazyValidationFormRef"
       >
         <va-input
@@ -89,7 +89,7 @@
           :rules="[value => value === 'hello' || 'should be hello']"
         />
         <va-input
-          v-model="form.secondInput"
+          v-model="form.input2"
           label="input"
           :rules="[value => value === 'world' || 'should be world']"
         />
@@ -102,6 +102,38 @@
           Reset validation
         </button>
       </va-form>
+    </VbCard>
+
+    <VbCard title="form in form">
+      <va-form ref="nestedFormRef">
+        <va-form autofocus>
+          Form 1
+          <va-input
+            label="input 1"
+            v-model="form.input"
+          />
+          <va-input
+            label="input 2"
+            v-model="form.input2"
+          />
+        </va-form>
+        <br>
+        Form 2
+        <va-form>
+          <va-input
+            label="input 3"
+            v-model="form.input3"
+            :rules="[value => value === 'hello' || 'should be hello']"
+          />
+          <va-input
+            label="input 4"
+            v-model="form.input4"
+            :rules="[value => value === 'world' || 'should be world']"
+          />
+        </va-form>
+      </va-form>
+      <button @click="$refs.nestedFormRef.validate()">validate</button>
+      <button @click="$refs.nestedFormRef.resetValidation()">reset validation</button>
     </VbCard>
   </VbDemo>
 </template>
@@ -123,7 +155,9 @@ export default {
     return {
       form: {
         input: 'input',
-        secondInput: 'input',
+        input2: 'input',
+        input3: 'text 1',
+        input4: 'text 2',
         checkbox: false,
         radio: 2,
         inputError: false,
@@ -132,9 +166,9 @@ export default {
     }
   },
   methods: {
-    onValidation (val) {
+    onValidation (isValid) {
       // eslint-disable-next-line no-console
-      console.log('onValidation', val)
+      console.log('onValidation', isValid)
     },
   },
 }

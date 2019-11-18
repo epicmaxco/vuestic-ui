@@ -16,7 +16,9 @@
 <script>
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
-const getNestedFormElements = (vm, children = []) => {
+const getNestedFormElements = (vm) => {
+  const children = []
+
   vm.$children.forEach((child) => {
     children.push(child)
 
@@ -55,8 +57,8 @@ export default {
     }
   },
   methods: {
-    validation (e) {
-      this.$emit('validation', e)
+    validation (formValid) {
+      this.$emit('validation', formValid)
     },
     // public methods
     reset (e) {
@@ -85,10 +87,9 @@ export default {
         .focus()
     },
     validate () { // NOTE: temporarily synchronous validation
-      this.validation()
+      let formValid = true
 
       const childrenWithValidation = getNestedFormElements(this).filter(({ validate }) => validate)
-      let formValid = true
 
       for (let i = 0; i < childrenWithValidation.length; i++) {
         const child = childrenWithValidation[i]
@@ -101,6 +102,8 @@ export default {
           }
         }
       }
+
+      this.validation(formValid)
 
       return formValid
     },
