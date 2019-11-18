@@ -102,7 +102,6 @@ export default {
         return getContextPropValue(this, 'indeterminate', false)
       },
     },
-
     disabled: {
       type: Boolean,
       default () {
@@ -145,7 +144,6 @@ export default {
         return getContextPropValue(this, 'errorCount', 1)
       },
     },
-
   },
   computed: {
     computedClass () {
