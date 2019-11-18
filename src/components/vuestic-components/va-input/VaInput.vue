@@ -3,7 +3,7 @@
     class="va-input"
     :disabled="c_disabled"
     :success="c_success"
-    :messages="[]"
+    :messages="c_messages"
     :error="internalError"
     :error-messages="internalErrorMessages"
     :error-count="errorCount"

@@ -10,7 +10,7 @@
       :disabled="disabled"
       :name="name"
       @change="onClick"
-      @focus="focus"
+      @focus="onFocus"
       :tabindex="tabindex"
     >
 
@@ -38,61 +38,48 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
+const RadioContextMixin = makeContextablePropsMixin({
+  value: {
+    type: [Object, String, Number, Boolean],
+    default: null,
+  },
+  option: {
+    type: [Object, String, Number, Boolean],
+    default: null,
+  },
+  name: {
+    type: [String, Number],
+    default: '',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  leftLabel: {
+    type: Boolean,
+    default: false,
+  },
+  color: {
+    type: String,
+    default: '',
+  },
+
+  tabindex: {
+    type: Number,
+    default: 0,
+  },
+})
 
 export default {
   name: 'VaRadio',
-  mixins: [ColorThemeMixin, ContextPluginMixin],
+  mixins: [ColorThemeMixin, RadioContextMixin],
   props: {
-    value: {
-      type: [Object, String, Number, Boolean],
-      default () {
-        return getContextPropValue(this, 'value', null)
-      },
-    },
-    option: {
-      type: [Object, String, Number, Boolean],
-      default () {
-        return getContextPropValue(this, 'option', null)
-      },
-    },
-    name: {
-      type: [String, Number],
-      default () {
-        return getContextPropValue(this, 'name', '')
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    label: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-    leftLabel: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'leftLabel', false)
-      },
-    },
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', '')
-      },
-    },
-
-    tabindex: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'tabindex', 0)
-      },
-    },
   },
   computed: {
     isActive () {
@@ -136,7 +123,7 @@ export default {
         this.$emit('input', this.option, e)
       }
     },
-    focus (e) {
+    onFocus (e) {
       if (!this.disabled) {
         this.$emit('focus', e)
       }
