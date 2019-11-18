@@ -50,8 +50,8 @@ export default {
 
 ### Methods
 * `clear` - Function - clean value 
-* `validate` - Function - run component validation 
-* `resetValidation` - Function - reset component validation state 
+* `validate` - Function () => Boolean - run component validation 
+* `resetValidation` - Function () => void - reset component validation state 
 
 
 
