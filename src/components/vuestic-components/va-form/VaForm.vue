@@ -77,7 +77,7 @@ export default {
     focusInvalid () {
       const invalidComponent = getNestedFormElements(this)
         .filter(({ validate }) => validate)
-        .find((item) => item.validate())
+        .find((item) => !(item.validate()))
 
       invalidComponent && invalidComponent.focus()
     },
@@ -89,7 +89,7 @@ export default {
       for (let i = 0; i < childrenWithValidation.length; i++) {
         const child = childrenWithValidation[i]
 
-        if (child.validate()) {
+        if (!child.validate()) {
           formValid = false
 
           if (this.lazyValidation) {

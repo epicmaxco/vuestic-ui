@@ -326,8 +326,8 @@ export default {
       this.$emit('input', '')
     },
     validate () {
-      if (this.c_error) {
-        return this.c_error
+      if (this.internalError && !this.isTouchedValidation) {
+        return false
       }
 
       if (!this.isTouchedValidation) {
@@ -347,11 +347,12 @@ export default {
           })
       }
 
-      return Boolean(this.internalErrorMessages.length)
+      return !this.internalError
     },
     resetValidation () {
       this.internalErrorMessages = []
       this.internalError = false
+      this.isTouchedValidation = false
     },
   },
 }
