@@ -51,9 +51,6 @@ export default {
     }
   },
   methods: {
-    validation (formValid) {
-      this.$emit('validation', formValid)
-    },
     // public methods
     reset (e) {
       getNestedFormElements(this)
@@ -98,7 +95,7 @@ export default {
         }
       }
 
-      this.validation(formValid)
+      this.$emit('validation', formValid)
 
       return formValid
     },
