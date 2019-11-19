@@ -219,7 +219,7 @@ export default {
     },
     errorMessages: {
       handler (errorMessages) {
-        this.internalErrorMessages = prepareValidations(errorMessages)
+        this.internalErrorMessages = [...prepareValidations(errorMessages), ...this.internalErrorMessages]
       },
       immediate: true,
     },
