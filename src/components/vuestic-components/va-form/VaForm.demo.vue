@@ -17,23 +17,8 @@
     <VbCard title="reset">
       <va-form ref="resetFormRef">
         <va-input
-          v-model="form.input"
+          v-model="form.reset"
           label="input"
-        />
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="1"
-        />
-        <br>
-        <va-radio
-          v-model="form.radio"
-          label="radio"
-          :option="2"
-        />
-        <va-checkbox
-          v-model="form.checkbox"
-          label="checkbox"
         />
         <button @click="$refs.resetFormRef.reset()">
           Reset
@@ -41,8 +26,11 @@
       </va-form>
     </VbCard>
 
-    <VbCard title="reset validation">
-      <va-form ref="resetValidationForm">
+    <VbCard
+      title="reset validation"
+      refresh
+    >
+      <va-form ref="resetValidationFormRef">
         <va-input
           value="ok"
           label="valid input"
@@ -54,15 +42,29 @@
           :error-messages="['invalid']"
         />
 
-        <button @click="$refs.resetValidationForm.resetValidation()">
+        <button @click="$refs.resetValidationFormRef.resetValidation()">
           Reset validation
-        </button>
-        <button @click="$refs.resetValidationForm.focusInvalid()">
-          Focus invalid
         </button>
       </va-form>
     </VbCard>
 
+    <VbCard title="focus invalid">
+      <va-form ref="focusInvalidFormRef">
+        <va-input
+          value="ok"
+          label="valid input"
+        />
+        <va-input
+          value="error"
+          label="invalid input"
+          error
+          :error-messages="['invalid']"
+        />
+        <button @click="$refs.focusInvalidFormRef.focusInvalid()">
+          Focus invalid
+        </button>
+      </va-form>
+    </VbCard>
     <VbCard title="validate + rules">
       <va-form
         @validation="onValidation"
@@ -87,12 +89,12 @@
         ref="lazyValidationFormRef"
       >
         <va-input
-          v-model="form.input"
+          v-model="form.hello"
           label="input"
           :rules="[value => value === 'hello' || 'should be hello']"
         />
         <va-input
-          v-model="form.input2"
+          v-model="form.world"
           label="input"
           :rules="[value => value === 'world' || 'should be world']"
         />
@@ -107,30 +109,29 @@
       </va-form>
     </VbCard>
 
-    <VbCard title="form in form">
+    <VbCard title="nested forms">
       <va-form ref="nestedFormRef">
-        <va-form autofocus>
+        <va-form>
           Form 1
           <va-input
             label="input 1"
-            v-model="form.input"
+            value="text"
           />
           <va-input
             label="input 2"
-            v-model="form.input2"
+            value="text"
           />
         </va-form>
-        <br>
         Form 2
         <va-form>
           <va-input
             label="input 3"
-            v-model="form.input3"
+            v-model="form.nestedHello"
             :rules="[value => value === 'hello' || 'should be hello']"
           />
           <va-input
             label="input 4"
-            v-model="form.input4"
+            v-model="form.nestedWorld"
             :rules="[value => value === 'world' || 'should be world']"
           />
         </va-form>
@@ -148,23 +149,20 @@
 <script>
 import VaForm from './VaForm'
 import VaInput from '../va-input/VaInput'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaRadio from '../va-radio/VaRadio'
 
 export default {
   components: {
     VaForm,
     VaInput,
-    VaRadio,
-    VaCheckbox,
   },
   data () {
     return {
       form: {
-        input: 'input',
-        input2: 'input',
-        input3: 'text 1',
-        input4: 'text 2',
+        reset: 'should be reset',
+        hello: 'text',
+        world: 'text',
+        nestedHello: 'text',
+        nestedWorld: 'text',
         checkbox: false,
         radio: 2,
         inputError: false,

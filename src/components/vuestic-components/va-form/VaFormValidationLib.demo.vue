@@ -7,7 +7,7 @@
           v-model="$v.name.$model"
           :error="$v.name.$error"
           :error-messages="[
-            !$v.name.required && 'reqired',
+            !$v.name.required && 'required',
             !$v.name.minLength && `Name must have at least ${$v.name.$params.minLength.min} letters.`
           ]"
         />
