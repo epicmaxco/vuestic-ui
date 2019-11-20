@@ -66,7 +66,7 @@
 <script>
 import Expanding from 'vue-bulma-expanding/src/Expanding'
 import VaIcon from '../va-icon/VaIcon'
-import { hex2hsl } from '../../../services/color-functions'
+// import { hex2hsl } from '../../../services/color-functions'
 
 export default {
   name: 'va-sidebar-link-group',
@@ -142,15 +142,20 @@ export default {
       }
     },
     sidebarLinkStyles () {
-      if (this.isHovered || this.isActive) {
+      if (this.isActive) {
         return {
           color: 'white',
           backgroundColor: this.$themes.primary,
         }
+      } else if (this.isHovered) {
+        return {
+          color: this.$themes['dark'],
+          backgroundColor: '#e8e8e8',
+        }
       } else return {}
     },
     iconStyles () {
-      return (this.isHovered || this.isActive)
+      return (this.isActive)
         ? { color: 'white' }
         : { color: this.$themes['dark'] }
     },

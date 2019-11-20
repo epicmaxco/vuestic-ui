@@ -23,7 +23,7 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { hex2hsl } from '../../../services/color-functions'
+// import { hex2hsl } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
@@ -71,11 +71,16 @@ export default {
       }
     },
     computedLinkStyles () {
-      if (this.isHovered || this.isActive) {
+      if (this.isActive) {
         return {
           fontWeight: 'bold',
           color: 'white',
           backgroundColor: this.$themes.primary,
+        }
+      } else if (this.isHovered) {
+        return {
+          fontWeight: 'bold',
+          backgroundColor: '#e8e8e8',
         }
       } else return {}// else <- controlled by CSS (color in rgba)
     },
