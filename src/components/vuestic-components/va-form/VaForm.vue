@@ -67,9 +67,11 @@ export default {
         })
     },
     focus () {
-      getNestedFormElements(this)
-        .find(({ focus }) => focus)
-        .focus()
+      const focusableElement = getNestedFormElements(this).find(({ focus }) => focus)
+
+      if (focusableElement) {
+        focusableElement.focus()
+      }
     },
     focusInvalid () {
       const invalidComponent = getNestedFormElements(this)
