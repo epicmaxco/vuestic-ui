@@ -3,7 +3,7 @@
     ref="chart"
     class='va-chart'
     :is="chartComponent"
-    :options="options"
+    :chart-options="options"
     :chart-data="data"
   />
 </template>
@@ -20,9 +20,21 @@ import { chartTypesMap } from './VaChartConfigs'
 export default {
   name: 'va-chart',
   props: {
-    data: {},
-    options: {},
+    data: {
+      type: Object,
+      default () {
+        return {}
+      },
+    },
+    options: {
+      type: Object,
+      default () {
+        return {}
+      },
+    },
     type: {
+      type: String,
+      required: true,
       validator (type) {
         return type in chartTypesMap
       },
