@@ -150,7 +150,7 @@ export default {
         border-radius: 3rem;
 
         &.active {
-          background-color: $lighter-green;
+          background-color: lighten($brand-primary, 20%);
         }
       }
     }
