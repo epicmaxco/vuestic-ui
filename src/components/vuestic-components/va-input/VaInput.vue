@@ -69,7 +69,7 @@
           name="check"
         />
         <va-icon
-          v-if="internalError"
+          v-if="computedError"
           class="va-input__container__icon"
           color="danger"
           name="warning"
@@ -79,7 +79,7 @@
           v-if="c_removable && hasContent"
           @click.native="clear()"
           class="va-input__container__close-icon"
-          :color="internalError ? 'danger': 'gray'"
+          :color="computedError ? 'danger': 'gray'"
           name="highlight_off"
         />
       </div>
