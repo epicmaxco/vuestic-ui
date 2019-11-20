@@ -4,8 +4,8 @@
     :disabled="c_disabled"
     :success="c_success"
     :messages="messages"
-    :error="internalError"
-    :error-messages="internalErrorMessages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
     :error-count="errorCount"
   >
     <slot
@@ -211,18 +211,6 @@ export default {
         this.validate()
       }
     },
-    error: {
-      handler (error) {
-        this.internalError = error
-      },
-      immediate: true,
-    },
-    errorMessages: {
-      handler (errorMessages) {
-        this.internalErrorMessages = [...prepareValidations(errorMessages), ...this.internalErrorMessages]
-      },
-      immediate: true,
-    },
   },
   data () {
     return {
@@ -233,8 +221,14 @@ export default {
     }
   },
   computed: {
+    computedError () {
+      return this.c_error || this.internalError
+    },
+    computedErrorMessages () {
+      return [...prepareValidations(this.errorMessages), ...this.internalErrorMessages]
+    },
     labelStyles () {
-      if (this.internalError) {
+      if (this.computedError) {
         return { color: this.$themes.danger }
       }
 
@@ -247,10 +241,10 @@ export default {
     containerStyles () {
       return {
         backgroundColor:
-          this.internalError ? getHoverColor(this.$themes['danger'])
-            : this.c_success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
+          this.computedError ? getHoverColor(this.$themes.danger)
+            : this.c_success ? getHoverColor(this.$themes.success) : '#f5f8f9',
         borderColor:
-          this.internalError ? this.$themes.danger
+          this.computedError ? this.$themes.danger
             : this.c_success ? this.$themes.success
               : this.isFocused ? this.$themes.dark : this.$themes.gray,
       }
@@ -324,7 +318,7 @@ export default {
       this.$emit('input', '')
     },
     validate () {
-      if (this.internalError && !this.isTouchedValidation) {
+      if (this.computedError && !this.isTouchedValidation) {
         return false
       }
 
