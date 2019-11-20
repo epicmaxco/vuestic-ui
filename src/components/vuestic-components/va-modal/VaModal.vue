@@ -398,7 +398,7 @@ export default {
       padding: 1.25rem 0 1.5rem 0;
 
       .va-modal__header {
-        padding: 0 1.875rem 1.5rem 1.5rem;
+        padding: 0 1.5rem 1.5rem 1.5rem;
         box-shadow: 0px 9px 9px 0px #e8e8e8;
       }
 
@@ -419,7 +419,7 @@ export default {
     display: flex;
     position: relative;
     flex-flow: column;
-    padding: 1.25rem 1.875rem 1.5rem 1.5rem;
+    padding: 1.25rem 1.5rem 1.5rem 1.5rem;
     max-height: calc(100vh - 2rem);
     max-width: map_get($grid-breakpoints, md);
     margin: auto;
