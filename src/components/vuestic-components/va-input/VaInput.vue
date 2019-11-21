@@ -4,8 +4,8 @@
     :disabled="c_disabled"
     :success="c_success"
     :messages="messages"
-    :error="computedError"
-    :error-messages="computedErrorMessages"
+    :error="internalError"
+    :error-messages="internalErrorMessages"
     :error-count="errorCount"
   >
     <slot
@@ -69,7 +69,7 @@
           name="check"
         />
         <va-icon
-          v-if="computedError"
+          v-if="internalError"
           class="va-input__container__icon"
           color="danger"
           name="warning"
@@ -79,7 +79,7 @@
           v-if="c_removable && hasContent"
           @click.native="clear()"
           class="va-input__container__close-icon"
-          :color="computedError ? 'danger': 'gray'"
+          :color="internalError ? 'danger': 'gray'"
           name="highlight_off"
         />
       </div>
@@ -216,19 +216,13 @@ export default {
     return {
       isFocused: false,
       isTouchedValidation: false,
-      internalErrorMessages: [],
-      internalError: false,
+      internalErrorMessages: prepareValidations(this.errorMessages),
+      internalError: this.error,
     }
   },
   computed: {
-    computedError () {
-      return this.c_error || this.internalError
-    },
-    computedErrorMessages () {
-      return [...prepareValidations(this.errorMessages), ...this.internalErrorMessages]
-    },
     labelStyles () {
-      if (this.computedError) {
+      if (this.internalError) {
         return { color: this.$themes.danger }
       }
 
@@ -241,10 +235,10 @@ export default {
     containerStyles () {
       return {
         backgroundColor:
-          this.computedError ? getHoverColor(this.$themes.danger)
+          this.internalError ? getHoverColor(this.$themes.danger)
             : this.c_success ? getHoverColor(this.$themes.success) : '#f5f8f9',
         borderColor:
-          this.computedError ? this.$themes.danger
+          this.internalError ? this.$themes.danger
             : this.c_success ? this.$themes.success
               : this.isFocused ? this.$themes.dark : this.$themes.gray,
       }
@@ -318,7 +312,7 @@ export default {
       this.$emit('input', '')
     },
     validate () {
-      if (this.computedError && !this.isTouchedValidation) {
+      if (this.internalError && !this.isTouchedValidation) {
         return false
       }
 
