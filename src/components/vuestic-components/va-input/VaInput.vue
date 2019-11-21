@@ -205,6 +205,9 @@ export default {
   mounted () {
     this.adjustHeight()
   },
+  created () {
+    this.isFormElement = true // TODO: for detected form-element. Need remove to form-elemnt mixin
+  },
   watch: {
     value () {
       this.adjustHeight()
