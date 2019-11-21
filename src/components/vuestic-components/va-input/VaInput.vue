@@ -77,7 +77,7 @@
         <slot name="append" />
         <va-icon
           v-if="c_removable && hasContent"
-          @click.native="clear()"
+          @click.native="reset()"
           class="va-input__container__close-icon"
           :color="internalError ? 'danger': 'gray'"
           name="highlight_off"
@@ -209,8 +209,12 @@ export default {
     value () {
       this.adjustHeight()
 
-      if (this.isTouchedValidation && !this.isLazyValidation) {
-        this.validate()
+      if (this.isTouchedValidation) {
+        if (this.isLazyValidation) {
+          this.resetValidation()
+        } else {
+          this.validate()
+        }
       }
     },
   },
@@ -270,10 +274,6 @@ export default {
           focus: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.isFocused = true
-            // this.isTouchedValidation = false
-            if (this.isLazyValidation) {
-              this.resetValidation()
-            }
 
             this.$emit('focus', event)
           },
