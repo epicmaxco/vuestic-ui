@@ -208,13 +208,15 @@ export default {
   watch: {
     value () {
       this.adjustHeight()
-      if (this.isTouchedValidation) {
+
+      if (this.isTouchedValidation && !this.isLazyValidation) {
         this.validate()
       }
     },
   },
   data () {
     return {
+      isLazyValidation: false,
       isFocused: false,
       isTouchedValidation: false,
       internalErrorMessages: prepareValidations(this.errorMessages),
@@ -268,11 +270,22 @@ export default {
           focus: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.isFocused = true
+            // this.isTouchedValidation = false
+            if (this.isLazyValidation) {
+              this.resetValidation()
+            }
+
             this.$emit('focus', event)
           },
           blur: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+            if (this.isLazyValidation) {
+              this.validate()
+            }
+
+            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.isFocused = false
+
             this.$emit('blur', event)
           },
           keyup: event => {
@@ -311,6 +324,9 @@ export default {
     },
     reset () {
       this.$emit('input', '')
+    },
+    runLazyValidation () {
+      this.isLazyValidation = true
     },
     validate () {
       if (this.internalError && !this.isTouchedValidation) {

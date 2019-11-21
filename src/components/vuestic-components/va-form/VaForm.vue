@@ -88,6 +88,10 @@ export default {
         .forEach((child) => {
           const isValidChild = child.validate()
 
+          if (this.lazyValidation) {
+            child.runLazyValidation()
+          }
+
           if (!isValidChild) {
             formValid = false
           }
