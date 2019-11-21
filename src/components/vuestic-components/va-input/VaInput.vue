@@ -207,6 +207,7 @@ export default {
   },
   watch: {
     value () {
+      this.adjustHeight()
       if (this.isTouchedValidation) {
         this.validate()
       }
