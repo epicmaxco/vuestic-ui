@@ -39,7 +39,6 @@ Vue.use(BusPlugin)
 Vue.use(VueClipboard)
 Vue.use(DropdownPopperPlugin)
 
-/* eslint-disable no-new */
 new Vue({
   router,
   render: h => h(BookApp),

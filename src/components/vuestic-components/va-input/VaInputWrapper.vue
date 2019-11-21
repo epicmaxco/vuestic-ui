@@ -14,7 +14,7 @@
             <va-message-list
               :color="messagesColor"
               :value="messagesComputed"
-              :limit="error ? errorCount : 99"
+              :limit="errorLimit"
             />
           </div>
         </div>
@@ -31,56 +31,48 @@
 
 <script>
 import VaMessageList from './VaMessageList'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
+const InputWrapperContextMixin = makeContextablePropsMixin({
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  success: {
+    type: Boolean,
+    default: false,
+  },
+  messages: {
+    type: Array,
+    default: [],
+  },
+  errorMessages: {
+    type: Array,
+    default: [],
+  },
+  errorCount: {
+    type: Number,
+    default: 1,
+  },
+})
 
 export default {
   name: 'VaInputWrapper',
   components: { VaMessageList },
-  mixins: [ContextPluginMixin],
-  props: {
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    error: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'error', false)
-      },
-    },
-    success: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'success', false)
-      },
-    },
-    messages: {
-      type: Array,
-      default () {
-        return getContextPropValue(this, 'messages', [])
-      },
-    },
-    errorMessages: {
-      type: Array,
-      default () {
-        return getContextPropValue(this, 'errorMessages', [])
-      },
-    },
-    errorCount: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'errorCount', 1)
-      },
-    },
-  },
+  mixins: [InputWrapperContextMixin],
   computed: {
     messagesComputed () {
-      return this.error ? this.errorMessages : this.messages
+      return this.c_error ? this.c_errorMessages : this.messages
     },
     messagesColor () {
-      return (this.error && 'danger') || (this.success && 'success') || ''
+      return (this.c_error && 'danger') || (this.c_success && 'success') || ''
+    },
+    errorLimit () {
+      return this.c_error ? this.c_errorCount : 99
     },
   },
 }

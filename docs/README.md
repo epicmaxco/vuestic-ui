@@ -21,7 +21,7 @@
 * [va-file-upload](components/VaFileUpload.md)
 * [va-hover](components/VaHover.md)
 * [va-icon](components/VaIcon.md)
-* [va-input](components/VaInpu.md)
+* [va-input](components/VaInput.md)
 * [va-list](components/VaList.md)
 * [va-medium-editor](components/VaMediumEditor.md)
 * [va-modal](components/VaModal.md)
