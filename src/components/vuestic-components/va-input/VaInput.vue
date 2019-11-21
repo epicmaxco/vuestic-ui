@@ -309,7 +309,7 @@ export default {
     focus () {
       this.$refs.input.focus()
     },
-    clear () {
+    reset () {
       this.$emit('input', '')
     },
     validate () {
