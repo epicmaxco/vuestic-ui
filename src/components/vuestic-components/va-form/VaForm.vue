@@ -52,11 +52,11 @@ export default {
   },
   methods: {
     // public methods
-    reset (e) {
+    reset () {
       getNestedFormElements(this)
         .filter(({ clear }) => clear)
         .forEach((item) => {
-          item.clear()
+          item.reset()
         })
     },
     resetValidation () {

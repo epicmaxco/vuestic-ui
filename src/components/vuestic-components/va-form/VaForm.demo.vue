@@ -142,6 +142,9 @@
       <button @click="$refs.nestedFormRef.resetValidation()">
         reset validation
       </button>
+      <button @click="$refs.nestedFormRef.focusInvalid()">
+        focus invalid
+      </button>
     </VbCard>
   </VbDemo>
 </template>

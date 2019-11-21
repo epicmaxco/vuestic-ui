@@ -207,6 +207,7 @@ export default {
   },
   watch: {
     value () {
+      this.adjustHeight()
       if (this.isTouchedValidation) {
         this.validate()
       }
@@ -308,7 +309,7 @@ export default {
     focus () {
       this.$refs.input.focus()
     },
-    clear () {
+    reset () {
       this.$emit('input', '')
     },
     validate () {
