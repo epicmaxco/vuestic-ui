@@ -54,7 +54,7 @@ export default {
     // public methods
     reset () {
       getNestedFormElements(this)
-        .filter(({ clear }) => clear)
+        .filter(({ reset }) => reset)
         .forEach((item) => {
           item.reset()
         })
