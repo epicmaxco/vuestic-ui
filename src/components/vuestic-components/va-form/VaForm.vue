@@ -83,19 +83,15 @@ export default {
     validate () { // NOTE: temporarily synchronous validation
       let formValid = true
 
-      const validatableElements = getNestedFormElements(this).filter(({ validate }) => validate)
+      getNestedFormElements(this)
+        .filter(({ validate }) => validate)
+        .forEach((child) => {
+          const isValidChild = child.validate()
 
-      for (let i = 0; i < validatableElements.length; i++) {
-        const child = validatableElements[i]
-
-        if (!child.validate()) {
-          formValid = false
-
-          if (this.lazyValidation) {
-            break
+          if (!isValidChild) {
+            formValid = false
           }
-        }
-      }
+        })
 
       this.$emit('validation', formValid)
 
