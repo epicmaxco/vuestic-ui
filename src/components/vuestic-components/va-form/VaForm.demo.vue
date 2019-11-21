@@ -23,27 +23,8 @@
         <button @click="$refs.resetFormRef.reset()">
           Reset
         </button>
-      </va-form>
-    </VbCard>
-
-    <VbCard
-      title="reset validation"
-      refresh
-    >
-      <va-form ref="resetValidationFormRef">
-        <va-input
-          value="ok"
-          label="valid input"
-        />
-        <va-input
-          value="error"
-          label="invalid input"
-          error
-          :error-messages="['invalid']"
-        />
-
-        <button @click="$refs.resetValidationFormRef.resetValidation()">
-          Reset validation
+        <button @click="form.reset = 'should be reset'">
+          Reset
         </button>
       </va-form>
     </VbCard>
@@ -65,6 +46,29 @@
         </button>
       </va-form>
     </VbCard>
+
+    <VbCard title="reset validation">
+      <va-form ref="resetValidationFormRef">
+        <va-input
+          value="ok"
+          label="valid input"
+        />
+        <va-input
+          value="error"
+          label="invalid input"
+          :rules="[value => value === 'success' || 'should be success']"
+        />
+
+        <button @click="$refs.resetValidationFormRef.resetValidation()">
+          Reset validation
+        </button>
+
+        <button @click="$refs.resetValidationFormRef.validate()">
+          Validate
+        </button>
+      </va-form>
+    </VbCard>
+
     <VbCard title="validate + rules">
       <va-form
         @validation="onValidation"
@@ -157,6 +161,9 @@ export default {
   components: {
     VaForm,
     VaInput,
+  },
+  mounted () {
+    this.$refs.resetValidationFormRef.validate()
   },
   data () {
     return {

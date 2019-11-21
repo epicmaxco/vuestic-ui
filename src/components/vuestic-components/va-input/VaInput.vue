@@ -4,8 +4,8 @@
     :disabled="c_disabled"
     :success="c_success"
     :messages="messages"
-    :error="internalError"
-    :error-messages="internalErrorMessages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
     :error-count="errorCount"
   >
     <slot
@@ -59,7 +59,7 @@
         >
       </div>
       <div
-        v-if="c_success || internalError || $slots.append || (c_removable && hasContent)"
+        v-if="c_success || computedError || $slots.append || (c_removable && hasContent)"
         class="va-input__container__icon-wrapper"
       >
         <va-icon
@@ -69,7 +69,7 @@
           name="check"
         />
         <va-icon
-          v-if="internalError"
+          v-if="computedError"
           class="va-input__container__icon"
           color="danger"
           name="warning"
@@ -79,7 +79,7 @@
           v-if="c_removable && hasContent"
           @click.native="reset()"
           class="va-input__container__close-icon"
-          :color="internalError ? 'danger': 'gray'"
+          :color="computedError ? 'danger': 'gray'"
           name="highlight_off"
         />
       </div>
@@ -226,13 +226,29 @@ export default {
       isLazyValidation: false,
       isFocused: false,
       isTouchedValidation: false,
-      internalErrorMessages: prepareValidations(this.errorMessages),
-      internalError: this.error,
+      internalErrorMessages: null,
+      internalError: false,
     }
   },
   computed: {
+    computedError: {
+      get () {
+        return this.internalError || this.error
+      },
+      set (_error) {
+        this.internalError = _error
+      },
+    },
+    computedErrorMessages: {
+      get () {
+        return this.internalErrorMessages || prepareValidations(this.errorMessages)
+      },
+      set (_errorMessages) {
+        this.internalErrorMessages = _errorMessages
+      },
+    },
     labelStyles () {
-      if (this.internalError) {
+      if (this.computedError) {
         return { color: this.$themes.danger }
       }
 
@@ -245,10 +261,10 @@ export default {
     containerStyles () {
       return {
         backgroundColor:
-          this.internalError ? getHoverColor(this.$themes.danger)
+          this.computedError ? getHoverColor(this.$themes.danger)
             : this.c_success ? getHoverColor(this.$themes.success) : '#f5f8f9',
         borderColor:
-          this.internalError ? this.$themes.danger
+          this.computedError ? this.$themes.danger
             : this.c_success ? this.$themes.success
               : this.isFocused ? this.$themes.dark : this.$themes.gray,
       }
@@ -332,7 +348,7 @@ export default {
       this.isLazyValidation = true
     },
     validate () {
-      if (this.internalError && !this.isTouchedValidation) {
+      if (this.computedError && !this.isTouchedValidation) {
         return false
       }
 
@@ -340,24 +356,24 @@ export default {
         this.isTouchedValidation = true
       }
 
-      this.internalError = false
-      this.internalErrorMessages = []
+      this.computedError = false
+      this.computedErrorMessages = []
 
       if (this.c_rules.length > 0) {
         prepareValidations(flatten(this.c_rules), this.c_value)
           .forEach((validateResult) => {
             if (!isBoolean(validateResult)) {
-              this.internalErrorMessages.push(validateResult)
-              this.internalError = true
+              this.computedErrorMessages.push(validateResult)
+              this.computedError = true
             }
           })
       }
 
-      return !this.internalError
+      return !this.computedError
     },
     resetValidation () {
-      this.internalErrorMessages = []
-      this.internalError = false
+      this.computedErrorMessages = []
+      this.computedError = false
       this.isTouchedValidation = false
     },
   },
