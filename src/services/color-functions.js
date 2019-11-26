@@ -1,3 +1,5 @@
+import { ColorTranslator } from 'colortranslator'
+
 export const hex2rgb = (hex, opacity) => {
   hex = (hex + '').trim()
 
@@ -73,15 +75,21 @@ export const hex2hsl = (H) => {
 }
 
 export const getBoxShadowColor = (color) => {
-  return hex2rgb(color, 0.4).css
+  const result = new ColorTranslator(color).setA(0.4)
+
+  return result.RGBA
 }
 
 export const getHoverColor = (color) => {
-  return hex2rgb(color, 0.2).css
+  const result = new ColorTranslator(color).setA(0.2)
+
+  return result.RGBA
 }
 
 export const getFocusColor = (color) => {
-  return hex2rgb(color, 0.3).css
+  const result = new ColorTranslator(color).setA(0.3)
+
+  return result.RGBA
 }
 
 export const getGradientColor = (color) => {
@@ -146,6 +154,8 @@ export const getGradientColor = (color) => {
 }
 
 export const getGradientBackground = (color) => {
-  const [left, right] = getGradientColor(color)
-  return `linear-gradient(to right, ${left}, ${right})`
+  const colorLeft = getGradientColor(color)[0]
+  const colorRight = ColorTranslator.toHSL(color)
+
+  return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
 }
