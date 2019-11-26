@@ -92,9 +92,30 @@ export const getFocusColor = (color) => {
   return result.RGBA
 }
 
-export const getGradientColor = (color) => {
-  let first = hex2hsl(color)
-  let second = hex2hsl(color)
+const shiftHslColor = (color, offset = { h: 0, s: 0, l: 0, a: 0 }) => {
+  const result = new ColorTranslator(color)
+
+  if (!isNaN(Number(offset.h))) {
+    result.setH(result.H + offset.h)
+  }
+
+  if (!isNaN(Number(offset.s))) {
+    result.setS(result.S + offset.s)
+  }
+
+  if (!isNaN(Number(offset.l))) {
+    result.setL(result.L + offset.l)
+  }
+
+  if (!isNaN(Number(offset.a))) {
+    result.setA(result.A + offset.a)
+  }
+
+  return result.HSL
+}
+
+export const shiftGradientColor = (color) => {
+  let first = ColorTranslator.toHSL(color, false)
 
   // hue circle degrees approximation
   const isRed = (first.h >= 0 && first.h < 44) || (first.h >= 285)
@@ -106,55 +127,24 @@ export const getGradientColor = (color) => {
   const isGray = first.s < 10
 
   if (isGray) {
-    first.h += 2
-    first.s += 5
-    first.l += 10
+    first = shiftHslColor(first, { h: 2, s: 5, l: 10 })
   } else if (isUndersaturated) {
-    first.s -= 14
-    first.l += 11
+    first = shiftHslColor(first, { s: -14, l: 11 })
   } else if (isRed) {
-    first.h += 11
-    first.s += 27
-    first.l += 8
+    first = shiftHslColor(first, { h: 11, s: 27, l: 8 })
   } else if (isYellow) {
-    first.h += 3
-    first.l += 9
+    first = shiftHslColor(first, { h: 3, l: 9 })
   } else if (isGreen) {
-    first.h += 16
-    first.l += 14
+    first = shiftHslColor(first, { h: 16, l: 14 })
   } else if (isBlue) {
-    first.h -= 15
-    first.s += 3
-    first.l += 2
+    first = shiftHslColor(first, { h: -15, s: 3, l: 2 })
   }
 
-  const normalizeHue = (h) => {
-    if (h === 0) {
-      return 0
-    }
-
-    if (h < 0) {
-      h += 360
-    }
-
-    return Math.round(h % 360)
-  }
-
-  const normalizePercent = (p) => p > 0 ? Math.min(p, 100) : 0
-
-  first.h = normalizeHue(first.h)
-  first.s = normalizePercent(first.s)
-  first.l = normalizePercent(first.l)
-
-  second.h = normalizeHue(second.h)
-  second.s = normalizePercent(second.s)
-  second.l = normalizePercent(second.l)
-
-  return [first.css, second.css]
+  return first
 }
 
 export const getGradientBackground = (color) => {
-  const colorLeft = getGradientColor(color)[0]
+  const colorLeft = shiftGradientColor(color)
   const colorRight = ColorTranslator.toHSL(color)
 
   return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
