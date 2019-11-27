@@ -39,32 +39,32 @@ export const shiftHslColor = (color, offset = { h: 0, s: 0, l: 0, a: 0 }) => {
 }
 
 export const shiftGradientColor = (color) => {
-  let first = ColorTranslator.toHSL(color, false)
+  let newColor = ColorTranslator.toHSL(color, false)
 
   // hue circle degrees approximation
-  const isRed = (first.h >= 0 && first.h < 44) || (first.h >= 285)
-  const isYellow = first.h >= 44 && first.h < 85
-  const isGreen = first.h >= 85 && first.h < 165
-  const isBlue = first.h >= 165 && first.h < 285
-  const isUndersaturated = first.s < 30 // i.e. too pale, gray-ish, monotone
+  const isRed = (newColor.h >= 0 && newColor.h < 44) || (newColor.h >= 285)
+  const isYellow = newColor.h >= 44 && newColor.h < 85
+  const isGreen = newColor.h >= 85 && newColor.h < 165
+  const isBlue = newColor.h >= 165 && newColor.h < 285
+  const isUndersaturated = newColor.s < 30 // i.e. too pale, gray-ish, monotone
 
-  const isGray = first.s < 10
+  const isGray = newColor.s < 10
 
   if (isGray) {
-    first = shiftHslColor(first, { h: 2, s: 5, l: 10 })
+    newColor = shiftHslColor(newColor, { h: 2, s: 5, l: 10 })
   } else if (isUndersaturated) {
-    first = shiftHslColor(first, { s: -14, l: 11 })
+    newColor = shiftHslColor(newColor, { s: -14, l: 11 })
   } else if (isRed) {
-    first = shiftHslColor(first, { h: 11, s: 27, l: 8 })
+    newColor = shiftHslColor(newColor, { h: 11, s: 27, l: 8 })
   } else if (isYellow) {
-    first = shiftHslColor(first, { h: 3, l: 9 })
+    newColor = shiftHslColor(newColor, { h: 3, l: 9 })
   } else if (isGreen) {
-    first = shiftHslColor(first, { h: 16, l: 14 })
+    newColor = shiftHslColor(newColor, { h: 16, l: 14 })
   } else if (isBlue) {
-    first = shiftHslColor(first, { h: -15, s: 3, l: 2 })
+    newColor = shiftHslColor(newColor, { h: -15, s: 3, l: 2 })
   }
 
-  return first
+  return newColor
 }
 
 export const getGradientBackground = (color) => {
