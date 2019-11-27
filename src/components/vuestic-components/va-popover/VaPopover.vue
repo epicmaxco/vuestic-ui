@@ -4,10 +4,11 @@
     :open="open"
     :disabled="disabled"
     :placement="placement"
-    :autoHide="autoHide"
-    popoverClass="va-popover"
-    popoverInnerClass="va-popover__inner"
-    popoverWrapperClass="va-popover__wrap"
+    :auto-hide="autoHide"
+    :delay="delay"
+    popover-class="va-popover"
+    popover-inner-class="va-popover__inner"
+    popover-wrapper-class="va-popover__wrap"
   >
     <slot />
     <div
@@ -78,6 +79,10 @@ export default {
     autoHide: {
       type: Boolean,
       default: true,
+    },
+    delay: {
+      type: Object,
+      default: () => { return { show: 500, hide: 100 } },
     },
   },
   computed: {
