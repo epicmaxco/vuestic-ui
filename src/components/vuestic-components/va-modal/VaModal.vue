@@ -178,6 +178,7 @@ export default {
     value (value) {
       if (value) {
         this.overlayValue = true
+        this.addBlur()
         window.addEventListener('keyup', this.listenKeyUp)
       } else {
         if (this.withoutTransitions) {
@@ -188,12 +189,14 @@ export default {
           }, 300)
         }
         window.removeEventListener('keyup', this.listenKeyUp)
+        this.removeBlur()
       }
     },
   },
   methods: {
     close () {
       this.valueProxy = false
+      this.removeBlur()
     },
     cancel () {
       this.close()
@@ -224,6 +227,18 @@ export default {
       if (e.code === 'Escape' && !this.noEscDismiss) {
         this.cancel()
       }
+    },
+    addBlur () {
+      document.getElementsByClassName('va-sidebar')[0].style.filter = 'blur(2px)'
+      document.getElementsByClassName('va-navbar__actions')[0].style.filter = 'blur(2px)'
+      document.getElementsByClassName('va-navbar__icon-container')[0].style.filter = 'blur(2px)'
+      document.getElementById('content').style.filter = 'blur(2px)'
+    },
+    removeBlur () {
+      document.getElementsByClassName('va-sidebar')[0].style.filter = 'none'
+      document.getElementsByClassName('va-navbar__actions')[0].style.filter = 'none'
+      document.getElementsByClassName('va-navbar__icon-container')[0].style.filter = 'none'
+      document.getElementById('content').style.filter = 'none'
     },
   },
   mounted () {
