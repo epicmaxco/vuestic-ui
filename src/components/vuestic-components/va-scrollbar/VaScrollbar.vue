@@ -10,8 +10,15 @@
       >
         <slot/>
       </div>
-      <div class="track" ref="track">
-        <div class="thumb" ref="thumb"></div>
+      <div
+        class="track"
+        ref="track"
+        @wheel="scroll">
+        <div
+          class="thumb"
+          ref="thumb"
+          @mousedown="mouseDown">
+        </div>
       </div>
     </div>
   </div>
@@ -122,6 +129,29 @@ export default {
       this.content.style.marginTop = nextMT + 'px'
       this.calcThumb()
     },
+    mouseDown (e) {
+      this.isDragging = true
+      this.mouseStart = e.pageY
+      window.addEventListener('mouseup', this.mouseUp)
+      window.addEventListener('mousemove', this.mouseMove)
+    },
+    mouseUp () {
+      this.isDragging = false
+      this.removeListeners()
+    },
+    mouseMove (e) {
+      if (this.isDragging) {
+        e.preventDefault()
+        let currentY = e.pageY
+        let delta = this.mouseStart - currentY
+        this.setVertical(-delta)
+        this.mouseStart = currentY
+      }
+    },
+    removeListeners () {
+      window.removeEventListener('mouseup', this.mouseUp)
+      window.removeEventListener('mousemove', this.mouseMove)
+    },
   },
   mounted () {
     this.track = this.$refs.track
@@ -150,6 +180,7 @@ export default {
       isDown: false,
       isUp: true,
       prevTouch: {},
+      mouseStart: null,
       isDragging: false,
     }
   },
@@ -166,28 +197,29 @@ export default {
   position: relative;
 
   .scrollbar-wrapper {
-    border-radius: 0.375rem;
-    box-shadow: $sidebar-box-shadow;
+    // border-radius: 0.375rem;
+    // box-shadow: $sidebar-box-shadow;
     position: relative;
     overflow: hidden;
     max-height: 100%;
 
     .track {
-      width: 5px;
+      width: $scrollbar-track-width;
       position: absolute;
       right: 0;
       top: 0;
       height: 100%;
 
       .thumb {
+        border-radius: 0.375rem;
         transition: height .3s linear, opacity .6s linear;
         position: absolute;
         width: 100%;
-        background-color: $vue-green;
+        background-color: $scrollbar-thumb-color;
         opacity: 0;
 
         &.active {
-          opacity: .3;
+          opacity: .2;
         }
       }
     }
