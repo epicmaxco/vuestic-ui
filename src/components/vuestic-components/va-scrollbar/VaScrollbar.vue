@@ -218,17 +218,28 @@ export default {
         background-color: $scrollbar-thumb-color;
         opacity: 0;
 
-        &.active {
-          opacity: .2;
-        }
+        // &.active {
+        //   opacity: .2;
+        // }
       }
     }
   }
 
+  // &:hover {
+  //   .thumb.active {
+  //     opacity: 1 !important;
+  //   }
+  // }
+
   &:hover {
     .thumb.active {
-      opacity: 1 !important;
+      opacity: .4 !important;
     }
   }
+
+  .thumb.active:hover {
+    opacity: 1 !important;
+  }
+
 }
 </style>
