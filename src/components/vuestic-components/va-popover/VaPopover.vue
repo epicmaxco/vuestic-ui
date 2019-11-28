@@ -13,8 +13,7 @@
     <div
       slot="popover"
       class="va-popover__content"
-      :style="computedPopoverStyle"
-    >
+      :style="computedPopoverStyle">
       <div v-if="icon" class="va-popover__icon">
         <i
           :class="icon"
@@ -29,16 +28,18 @@
           {{ message }}
         </div>
       </div>
+      <div class="va-popover__triangle"></div>
     </div>
+    <!-- <div class="va-popover__triangle"></div> -->
   </v-popover>
 </template>
 
 <script>
 import { VPopover } from 'v-tooltip'
-import {
-  getHoverColor,
-  getBoxShadowColor,
-} from '../../../services/color-functions'
+// import {
+//   getHoverColor,
+//   getBoxShadowColor,
+// } from '../../../services/color-functions'
 
 export default {
   name: 'va-popover',
@@ -89,8 +90,9 @@ export default {
     },
     computedPopoverStyle () {
       return {
-        boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(this.$themes[this.color]),
-        backgroundColor: getHoverColor(this.$themes[this.color]),
+        boxShadow: '0px 2px 3px 0 #414141',
+        backgroundColor: '#414141',
+        color: 'white',
       }
     },
   },
@@ -102,6 +104,7 @@ export default {
   display: inline;
 }
 .va-popover {
+  margin-right: 5px;
   opacity: 1;
   border: none;
   border-radius: 0.5rem;
@@ -110,7 +113,7 @@ export default {
   &__content {
      display: flex;
      align-items: center;
-     padding: 0.65rem 1rem;
+     padding: 0.4rem 0.8rem;
      border-radius: 0.5rem;
      font-size: 1rem;
   }
@@ -128,6 +131,14 @@ export default {
 
   &__text {
     line-height: 1.5;
+  }
+  &__triangle {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid $evollu-gray-dark;
+    margin-right: -22px;
   }
 }
 </style>
