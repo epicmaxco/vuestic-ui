@@ -131,7 +131,7 @@ export default {
       min-width: 1.5rem;
       text-align: center;
       font-size: $sidebar-menu-item-icon-size;
-      margin-right: 0.5rem;
+      margin-right: 1.5rem;
     }
 
     &__title {
