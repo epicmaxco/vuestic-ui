@@ -94,7 +94,8 @@ export default {
 
   &--minimized {
     left: 0;
-    width: $sidebar-minimized-width;
+    // width: $sidebar-minimized-width;
+    width: calc(#{$sidebar-minimized-width} + #{$scrollbar-track-width});
     .va-sidebar-link-group {
       .va-sidebar-link__content {
         padding-right: 0;
