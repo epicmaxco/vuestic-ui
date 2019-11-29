@@ -80,6 +80,7 @@
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
+import VaDropdown from '../va-dropdown/VaDropdown'
 import { hex2hsl } from '../../../services/color-functions'
 import TransitionExpand from './TransitionExpand'
 
@@ -99,6 +100,7 @@ export default {
   components: {
     TransitionExpand,
     VaIcon,
+    VaDropdown,
   },
   data () {
     return {
