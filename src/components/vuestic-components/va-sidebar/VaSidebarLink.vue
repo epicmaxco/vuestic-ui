@@ -1,24 +1,26 @@
 <template>
-  <router-link
-    :class="computedLinkClass"
-    @mouseenter.native="updateHoverState(true)"
-    @mouseleave.native="updateHoverState(false)"
-    :style="computedLinkStyles"
-    active-class="va-sidebar-link--active"
-    :to="to"
-    :target="target"
-  >
-    <va-icon
-      v-if="icon"
-      class="va-sidebar-link__content__icon"
-      :style="computedIconStyles"
-      :name="icon"
-    />
-    <div class="va-sidebar-link__content__title">
-      <slot name="title"/>
-      {{title}}
-    </div>
-  </router-link>
+  <li>
+    <router-link
+      :class="computedLinkClass"
+      @mouseenter.native="updateHoverState(true)"
+      @mouseleave.native="updateHoverState(false)"
+      :style="computedLinkStyles"
+      active-class="va-sidebar-link--active"
+      :to="to"
+      :target="target"
+    >
+      <va-icon
+        v-if="icon"
+        class="va-sidebar-link__content__icon"
+        :style="computedIconStyles"
+        :name="icon"
+      />
+      <div class="va-sidebar-link__content__title">
+        <slot name="title"/>
+        {{title}}
+      </div>
+    </router-link>
+  </li>
 </template>
 
 <script>

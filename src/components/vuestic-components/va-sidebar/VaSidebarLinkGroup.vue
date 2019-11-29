@@ -1,8 +1,6 @@
 <template>
   <li :class="computedClass">
-    <a
-      href="#"
-      target="_self"
+    <div
       @mouseenter="updateHoverState(true)"
       @mouseleave="updateHoverState(false)"
       @click.stop.prevent="toggleMenuItem()"
@@ -26,15 +24,15 @@
           :style="iconStyles"
           :name="`fa fa-angle-${expanded ? 'up' : 'down'}`"/>
       </div>
-    </a>
+    </div>
     <transition-expand v-if="!minimized">
-      <div
+      <ul
         class="va-sidebar-link-group__submenu in"
         v-show="expanded"
         ref="linkGroupWrapper"
       >
         <slot/>
-      </div>
+      </ul>
     </transition-expand>
     <va-dropdown
       v-if="minimized"
@@ -42,10 +40,8 @@
       fixed
       :preventOverflow="false"
     >
-      <a
-        @click.prevent
+      <div
         slot="anchor"
-        target="_self"
         @mouseenter="updateHoverState"
         @mouseleave="updateHoverState"
         :style="sidebarLinkStyles"
@@ -67,7 +63,7 @@
         >
           more_horiz
         </va-icon>
-      </a>
+      </div>
       <ul
         class="va-sidebar-link-group__submenu in"
         :style="{backgroundColor: $themes[color]}"
