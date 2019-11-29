@@ -1,5 +1,6 @@
 <template>
   <aside
+    class="va-sidebar"
     :class="computedClass"
     :style="{ backgroundColor: colorComputed }"
   >
@@ -29,7 +30,6 @@ export default {
   computed: {
     computedClass () {
       return {
-        'va-sidebar': true,
         'va-sidebar--minimized': this.minimized,
       }
     },
