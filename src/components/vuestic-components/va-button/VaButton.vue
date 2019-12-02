@@ -87,6 +87,10 @@ export default {
     },
     type: {
       type: String,
+      default: 'button',
+      validator: value => {
+        return ['button', 'collapse'].includes(value)
+      },
     },
     disabled: {
       type: Boolean,
@@ -131,8 +135,8 @@ export default {
         'va-button--flat': this.flat,
         'va-button--outline': this.outline,
         'va-button--disabled': this.disabled,
-        'va-button--hover': this.hoverState,
-        'va-button--focus': this.focusState,
+        'va-button--hover': this.hoverState && this.type !== 'collapse',
+        'va-button--focus': this.focusState && this.type !== 'collapse',
         'va-button--without-title': !this.hasTitleData,
         'va-button--with-left-icon': this.icon,
         'va-button--with-right-icon': this.iconRight,
@@ -168,7 +172,7 @@ export default {
         boxShadow: '',
       }
 
-      if (this.focusState) {
+      if (this.focusState && this.type !== 'collapse') {
         if (this.outline || this.flat) {
           computedStyle.color = this.colorComputed
           computedStyle.borderColor = this.outline ? this.colorComputed : ''
@@ -176,7 +180,7 @@ export default {
         } else {
           computedStyle.backgroundImage = this.gradientStyle
         }
-      } else if (this.hoverState) {
+      } else if (this.hoverState && this.type !== 'collapse') {
         if (this.outline || this.flat) {
           computedStyle.color = this.colorComputed
           computedStyle.borderColor = this.outline ? this.colorComputed : ''
@@ -265,11 +269,12 @@ export default {
   &--default {
     color: $white;
 
-    &:hover {
+    &.va-button--hover {
       filter: brightness(115%);
     }
 
-    &:focus, &:active {
+    &.va-button--focus,
+    &:active {
       filter: brightness(85%);
     }
 

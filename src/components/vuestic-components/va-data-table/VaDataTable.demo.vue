@@ -8,18 +8,7 @@
       <va-data-table-api-mode-example />
     </VbCard>
 
-    <VbCard
-      title="Custom data manager"
-      width="100%"
-    >
-      <p>Clicking in the columns sorts it by the last letter</p>
-      <va-data-table-custom-data-manager-example />
-    </VbCard>
-
-    <VbCard
-      title="Custom Vuetable"
-      width="100%"
-    >
+    <VbCard title="Custom Vuetable" width="100%">
       <va-data-table-custom-styling />
     </VbCard>
   </VbDemo>
