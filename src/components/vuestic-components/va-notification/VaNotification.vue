@@ -14,7 +14,7 @@
         <va-icon
           :color="color"
           name="ion-md-close ion"
-          @click="hideNotification()"
+          @click.native="hideNotification()"
         />
       </div>
     </div>
