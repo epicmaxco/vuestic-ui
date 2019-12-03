@@ -38,3 +38,6 @@ ln -s /etc/nginx/sites-available/sub.asva.by /etc/nginx/sites-enabled/sub.asva.b
 
 * Add `any-folder` to `/var/www/html/`
 * Load `any-folder.sub.asva.by` and enjoy your page.
+
+## SSL sertificate
+* We use https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx for https to function.
