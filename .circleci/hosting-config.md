@@ -15,7 +15,8 @@ apt-get update & sudo apt-get install nginx
 ```sh
 nano /etc/nginx/sites-available/sub.asva.by
 ```
-
+    
+    
 ```nginx
 server {
     listen 80;
@@ -39,5 +40,5 @@ ln -s /etc/nginx/sites-available/sub.asva.by /etc/nginx/sites-enabled/sub.asva.b
 * Add `any-folder` to `/var/www/html/`
 * Load `any-folder.sub.asva.by` and enjoy your page.
 
-## SSL sertificate
+## SSL certificate
 * We use https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx for https to function.
