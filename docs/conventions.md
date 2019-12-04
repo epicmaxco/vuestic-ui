@@ -42,12 +42,14 @@ We want to keep these consistent across different repos.
 * feature - Something useful to end user - #006b75
 * good first issue -  - #5319e7
 * high priority - Very wanted, much value - #e27a12
-* research - This issue is about research, not coding - #f7ef77
 * question -  - #cc317c
+* 📚 needs work - Issue is checked and needs some additional work - #bca8ea
 * ready for implementation - This is codeable - #9bce0e
 * ready to merge -  - #0e8a16
 * refactoring - Prettify code without introducing new features - #ffc4ee
 * reviewed -  - #0e8a16
+* research - This issue is about research, not coding - #f7ef77
+* low priority - Not too wanted, little value - #5df7ce
 * suggestion -  - #cc317c
 * triage - Team member has to check this - #cce7ff
 * WIP issue - Issue is not finished - #88c3f7
