@@ -170,7 +170,7 @@ const InputContextMixin = makeContextablePropsMixin({
     default: null,
     validator: (val) => {
       if (!(val > 0 && (val | 0) === val)) {
-        throw new Error(`\`minRows\` must be a positive integer grater than 0, but ${val} is provided`)
+        throw new Error(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
       }
       return true
     },
@@ -179,7 +179,7 @@ const InputContextMixin = makeContextablePropsMixin({
     type: Number,
     validator: (val) => {
       if (!(val > 0 && (val | 0) === val)) {
-        throw new Error(`\`maxRows\` must be a positive integer grater than 0, but ${val} is provided`)
+        throw new Error(`\`maxRows\` must be a positive integer greater than 0, but ${val} is provided`)
       }
       return true
     },
