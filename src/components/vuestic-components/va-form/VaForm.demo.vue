@@ -1,9 +1,12 @@
 <template>
   <VbDemo>
-    <VbCard title="autofocus" refresh>
+    <VbCard
+      title="autofocus"
+      refresh
+    >
       <va-form autofocus>
-        <va-input/>
-        <va-input/>
+        <va-input />
+        <va-input />
       </va-form>
     </VbCard>
 
@@ -13,19 +16,38 @@
           v-model="form.reset"
           label="input"
         />
-        <button @click="$refs.resetFormRef.reset()">
-          Reset
-        </button>
-        <button @click="form.reset = 'should be reset'">
-          Bring back
-        </button>
       </va-form>
+      <button @click="$refs.resetFormRef.reset()">
+        Reset
+      </button>
+      <button @click="form.reset = 'brought back'">
+        Bring back
+      </button>
+    </VbCard>
+
+    <VbCard title="reset validation">
+      <va-form ref="resetValidationForm">
+        <va-input
+          label="prop is not reset"
+          error
+        />
+        <va-input
+          label="validated rule is reset"
+          :rules="[() => 'error']"
+        />
+      </va-form>
+      <button @click="$refs.resetValidationForm.validate()">
+        Validate
+      </button>
+      <button @click="$refs.resetValidationForm.resetValidation()">
+        Reset validation
+      </button>
     </VbCard>
 
     <VbCard title="focus invalid">
       <va-form ref="focusInvalidFormRef">
-        <va-input/>
-        <va-input error/>
+        <va-input />
+        <va-input error />
         <button @click="$refs.focusInvalidFormRef.focusInvalid()">
           Focus invalid
         </button>
@@ -42,22 +64,28 @@
           label="input"
           :rules="[value => value === 'hello' || 'should be hello']"
         />
-        <button @click="$refs.rulesFormRef.validate()">
-          Validate
-        </button>
       </va-form>
+      <button @click="$refs.rulesFormRef.validate()">
+        Validate
+      </button>
     </VbCard>
 
-    <VbCard title="lazy validation (stops on first)" refresh>
-      <span style="color: tomato;" title="() => false should bring invalid state">❗❗</span>
+    <VbCard
+      title="lazy validation (stops on first)"
+      refresh
+    >
+      <span
+        style="color: tomato;"
+        title="() => false should bring invalid state"
+      >❗❗</span>
 
       <div>Non lazy</div>
       <va-form
         @validation="onValidation"
         ref="nonLazyValidationForm"
       >
-        <va-input :rules="[() => false]"/>
-        <va-input :rules="[() => false]"/>
+        <va-input :rules="[() => false]" />
+        <va-input :rules="[() => false]" />
       </va-form>
 
       <div>Lazy</div>
@@ -66,8 +94,8 @@
         @validation="onValidation"
         ref="lazyValidationForm"
       >
-        <va-input :rules="[() => false]"/>
-        <va-input :rules="[() => false]"/>
+        <va-input :rules="[() => false]" />
+        <va-input :rules="[() => false]" />
       </va-form>
 
       <button @click="$refs.nonLazyValidationForm.validate(), $refs.lazyValidationForm.validate()">
@@ -89,16 +117,16 @@
           />
         </va-form>
         Form 2
-          <va-input
-            label="input 3"
-            v-model="form.nestedHello"
-            :rules="[value => value === 'hello' || 'should be hello']"
-          />
-          <va-input
-            label="input 4"
-            v-model="form.nestedWorld"
-            :rules="[value => value === 'world' || 'should be world']"
-          />
+        <va-input
+          label="input 3"
+          v-model="form.nestedHello"
+          :rules="[value => value === 'hello' || 'should be hello']"
+        />
+        <va-input
+          label="input 4"
+          v-model="form.nestedWorld"
+          :rules="[value => value === 'world' || 'should be world']"
+        />
       </va-form>
       <button @click="$refs.nestedFormRef.validate()">
         validate
@@ -121,9 +149,6 @@ export default {
   components: {
     VaForm,
     VaInput,
-  },
-  mounted () {
-    this.$refs.resetValidationFormRef.validate()
   },
   data () {
     return {
