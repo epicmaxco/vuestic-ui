@@ -11,17 +11,15 @@
 <script>
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const getNestedFormElements = (vm) => {
-  const elements = []
-
+const getNestedFormElements = (vm, elements = []) => {
   vm.$children.forEach((child) => {
-    elements.push(child)
-
-    // TODO: need to change detecting of form controls
-    if (!child.validate) {
-      child.$children.length > 0 && getNestedFormElements(child, elements)
+    if (child.isFormElement) {
+      elements.push(child)
     }
+
+    child.$children.length > 0 && getNestedFormElements(child, elements)
   })
+
   return elements
 }
 
@@ -54,7 +52,7 @@ export default {
     // public methods
     reset () {
       getNestedFormElements(this)
-        .filter(({ clear }) => clear)
+        .filter(({ reset }) => reset)
         .forEach((item) => {
           item.reset()
         })
@@ -78,24 +76,26 @@ export default {
         .filter(({ validate }) => validate)
         .find((item) => !(item.validate()))
 
-      invalidComponent && invalidComponent.focus()
+      if (invalidComponent) {
+        invalidComponent.focus()
+      }
     },
     validate () { // NOTE: temporarily synchronous validation
       let formValid = true
 
-      const validatableElements = getNestedFormElements(this).filter(({ validate }) => validate)
-
-      for (let i = 0; i < validatableElements.length; i++) {
-        const child = validatableElements[i]
-
-        if (!child.validate()) {
-          formValid = false
+      getNestedFormElements(this)
+        .filter(({ validate }) => validate)
+        .forEach((child) => {
+          const isValidChild = child.validate()
 
           if (this.lazyValidation) {
-            break
+            child.runLazyValidation()
           }
-        }
-      }
+
+          if (!isValidChild) {
+            formValid = false
+          }
+        })
 
       this.$emit('validation', formValid)
 

@@ -1,9 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard
-      title="autofocus"
-      refresh
-    >
+    <VbCard title="autofocus" refresh>
       <va-form autofocus>
         <va-input/>
         <va-input/>
@@ -19,27 +16,8 @@
         <button @click="$refs.resetFormRef.reset()">
           Reset
         </button>
-      </va-form>
-    </VbCard>
-
-    <VbCard
-      title="reset validation"
-      refresh
-    >
-      <va-form ref="resetValidationFormRef">
-        <va-input
-          value="ok"
-          label="valid input"
-        />
-        <va-input
-          value="error"
-          label="invalid input"
-          error
-          :error-messages="['invalid']"
-        />
-
-        <button @click="$refs.resetValidationFormRef.resetValidation()">
-          Reset validation
+        <button @click="form.reset = 'should be reset'">
+          Bring back
         </button>
       </va-form>
     </VbCard>
@@ -64,7 +42,6 @@
           label="input"
           :rules="[value => value === 'hello' || 'should be hello']"
         />
-
         <button @click="$refs.rulesFormRef.validate()">
           Validate
         </button>
@@ -144,6 +121,9 @@ export default {
   components: {
     VaForm,
     VaInput,
+  },
+  mounted () {
+    this.$refs.resetValidationFormRef.validate()
   },
   data () {
     return {
