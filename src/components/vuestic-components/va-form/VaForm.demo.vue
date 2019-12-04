@@ -1,16 +1,9 @@
 <template>
   <VbDemo>
-    <VbCard
-      title="autofocus"
-      refresh
-    >
+    <VbCard title="autofocus" refresh>
       <va-form autofocus>
-        <va-input
-          label="input 1"
-        />
-        <va-input
-          label="input 2"
-        />
+        <va-input/>
+        <va-input/>
       </va-form>
     </VbCard>
 
@@ -24,47 +17,17 @@
           Reset
         </button>
         <button @click="form.reset = 'should be reset'">
-          Reset
+          Bring back
         </button>
       </va-form>
     </VbCard>
 
     <VbCard title="focus invalid">
       <va-form ref="focusInvalidFormRef">
-        <va-input
-          value="ok"
-          label="valid input"
-        />
-        <va-input
-          value="error"
-          label="invalid input"
-          error
-          :error-messages="['invalid']"
-        />
+        <va-input/>
+        <va-input error/>
         <button @click="$refs.focusInvalidFormRef.focusInvalid()">
           Focus invalid
-        </button>
-      </va-form>
-    </VbCard>
-
-    <VbCard title="reset validation">
-      <va-form ref="resetValidationFormRef">
-        <va-input
-          value="ok"
-          label="valid input"
-        />
-        <va-input
-          value="error"
-          label="invalid input"
-          :rules="[value => value === 'success' || 'should be success']"
-        />
-
-        <button @click="$refs.resetValidationFormRef.resetValidation()">
-          Reset validation
-        </button>
-
-        <button @click="$refs.resetValidationFormRef.validate()">
-          Validate
         </button>
       </va-form>
     </VbCard>
@@ -79,38 +42,37 @@
           label="input"
           :rules="[value => value === 'hello' || 'should be hello']"
         />
-
         <button @click="$refs.rulesFormRef.validate()">
           Validate
         </button>
       </va-form>
     </VbCard>
 
-    <VbCard title="lazy validation">
+    <VbCard title="lazy validation (stops on first)" refresh>
+      <span style="color: tomato;" title="() => false should bring invalid state">❗❗</span>
+
+      <div>Non lazy</div>
+      <va-form
+        @validation="onValidation"
+        ref="nonLazyValidationForm"
+      >
+        <va-input :rules="[() => false]"/>
+        <va-input :rules="[() => false]"/>
+      </va-form>
+
+      <div>Lazy</div>
       <va-form
         lazy-validation
         @validation="onValidation"
-        ref="lazyValidationFormRef"
+        ref="lazyValidationForm"
       >
-        <va-input
-          v-model="form.hello"
-          label="input"
-          :rules="[value => value === 'hello' || 'should be hello']"
-        />
-        <va-input
-          v-model="form.world"
-          label="input"
-          :rules="[value => value === 'world' || 'should be world']"
-        />
-
-        <button @click="$refs.lazyValidationFormRef.validate()">
-          Validate
-        </button>
-
-        <button @click="$refs.lazyValidationFormRef.resetValidation()">
-          Reset validation
-        </button>
+        <va-input :rules="[() => false]"/>
+        <va-input :rules="[() => false]"/>
       </va-form>
+
+      <button @click="$refs.nonLazyValidationForm.validate(), $refs.lazyValidationForm.validate()">
+        Validate
+      </button>
     </VbCard>
 
     <VbCard title="nested forms">
@@ -127,7 +89,6 @@
           />
         </va-form>
         Form 2
-        <va-form>
           <va-input
             label="input 3"
             v-model="form.nestedHello"
@@ -138,7 +99,6 @@
             v-model="form.nestedWorld"
             :rules="[value => value === 'world' || 'should be world']"
           />
-        </va-form>
       </va-form>
       <button @click="$refs.nestedFormRef.validate()">
         validate
@@ -171,8 +131,8 @@ export default {
         reset: 'should be reset',
         hello: 'text',
         world: 'text',
-        nestedHello: 'text',
-        nestedWorld: 'text',
+        nestedHello: 'hell',
+        nestedWorld: 'worl',
         checkbox: false,
         radio: 2,
         inputError: false,
