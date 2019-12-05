@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard title="with content class (h1-h6)">
+    <VbCard title="va-content headers h1-h6">
       <va-content>
         <h1>h1 title</h1>
         <h2>h2 title</h2>
@@ -10,7 +10,7 @@
         <h6>h6 title</h6>
       </va-content>
     </VbCard>
-    <VbCard title="without content class (h1-6)">
+    <VbCard title="default headers h1-h6">
       <div>
         <h1>h1 title</h1>
         <h2>h2 title</h2>
@@ -20,19 +20,19 @@
         <h6>h6 title</h6>
       </div>
     </VbCard>
-    <VbCard title="with content class (pre)">
+    <VbCard title="va-content pre">
       <va-content>
         <pre>pre text must be here</pre>
         <p>class: code</p>
         <pre class="code">code must be here</pre>
       </va-content>
     </VbCard>
-    <VbCard title="without content class (pre)">
+    <VbCard title="default pre">
       <div>
         <pre>pre text must be here</pre>
       </div>
     </VbCard>
-    <VbCard title="with content class (lists)">
+    <VbCard title="va-content lists">
       <va-content>
         <ol>
           <li>item 1</li>
@@ -60,7 +60,7 @@
         </ul>
       </va-content>
     </VbCard>
-    <VbCard title="without content class (lists)">
+    <VbCard title="default lists">
       <ol>
         <li>item 1</li>
         <li>
@@ -86,7 +86,7 @@
         <li>item 4</li>
       </ul>
     </VbCard>
-    <VbCard title="with content (blockquote)">
+    <VbCard title="va-content blockquote">
       <va-content>
         <blockquote>
           <p>this is great blockquote</p>
@@ -94,13 +94,13 @@
         </blockquote>
       </va-content>
     </VbCard>
-    <VbCard title="without content (blockquote)">
+    <VbCard title="default blockquote">
       <blockquote>
         <p>this is great blockquote</p>
         <p>author</p>
       </blockquote>
     </VbCard>
-    <VbCard title="with content (figure)">
+    <VbCard title="va-content figure">
       <va-content>
         <figure>
           <img src="https://i.imgur.com/NLrdqsk.png">
@@ -108,13 +108,13 @@
         </figure>
       </va-content>
     </VbCard>
-    <VbCard title="without content (figure)">
+    <VbCard title="default figure">
       <figure>
         <img src="https://i.imgur.com/NLrdqsk.png">
         <figcaption>Name of picture</figcaption>
       </figure>
     </VbCard>
-    <VbCard title="with content (table)">
+    <VbCard title="va-content table">
       <va-content>
         <table>
           <thead>
@@ -169,7 +169,7 @@
         </table>
       </va-content>
     </VbCard>
-    <VbCard title="without content (table)">
+    <VbCard title="default table">
       <table>
         <thead>
           <tr>

@@ -1,5 +1,5 @@
 # va-content
-Component update children styles
+Component applies vuestic specific typography and table styles
 
 
 ## Import
