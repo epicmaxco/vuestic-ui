@@ -166,16 +166,20 @@ export default {
 
       if (this.isHovered || this.isActive) {
         return {
-          color: this.$themes['primary'],
-          backgroundColor: getBackgroundColor(),
+          color: this.$mode === 'original' ? this.$themes['primary'] : 'white',
+          backgroundColor: this.$mode === 'original' ? getBackgroundColor() : this.$themes.primary,
           borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
         }
-      } else return {}
+      } else {
+        return {
+          color: this.$mode === 'original' ? 'rgba(255, 255, 255, 0.65)' : this.$themes.secondary,
+        }
+      }
     },
     iconStyles () {
       return (this.isHovered || this.isActive)
-        ? { color: this.$themes['primary'] }
-        : { color: 'white' }
+        ? { color: this.$mode === 'original' ? this.$themes['primary'] : 'white' }
+        : { color: this.$mode === 'original' ? 'white' : this.$themes.secondary }
     },
   },
 }
