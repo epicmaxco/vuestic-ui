@@ -2,10 +2,10 @@
   <aside
     class="va-sidebar"
     :class="computedClass"
-    :style="{ backgroundColor: colorComputed }"
+    :style="computedStyle"
   >
     <ul class="va-sidebar__menu">
-      <slot name="menu"></slot>
+      <slot name="menu"/>
     </ul>
   </aside>
 </template>
@@ -31,6 +31,12 @@ export default {
     computedClass () {
       return {
         'va-sidebar--minimized': this.minimized,
+      }
+    },
+    computedStyle () {
+      console.log(console.log(this.$mode))
+      return {
+        backgroundColor: this.$mode === 'original' ? this.$themes['secondary'] : 'white',
       }
     },
   },
