@@ -21,6 +21,8 @@
     @keydown.native.up.prevent.stop="focusLastOption"
     @keydown.native.tab="closeDropdown"
     @keydown.native.backspace.prevent.stop="clear"
+    @mouseleave.native="updateHoverState(false)"
+    @mouseover.native="updateHoverState(true)"
   >
     <va-input
       v-if="searchable"
@@ -84,19 +86,16 @@
         class="va-select__label"
         :style="{ color: $themes.success }"
         aria-hidden="true"
-      >{{label}}</label>
+      >
+        {{label}}
+      </label>
       <div
         class="va-select__input-wrapper"
         :style="inputWrapperStyles"
       >
-        <span
-          class="va-select__tags"
-          v-if="multiple && valueProxy.length <= tagMax"
-        >
-          <span
-            class="va-select__tags__tag"
-          >
-            {{ [...this.valueProxy.map(val => getText(val))].join(", ") }}
+        <span v-if="multiple && valueProxy.length <= tagMax">
+          <span class="va-select__tag">
+            {{ computedSelectTag }}
           </span>
         </span>
         <span v-else-if="displayedText" class="va-select__displayed-text">{{displayedText}}</span>
@@ -141,6 +140,7 @@ export default {
   data () {
     return {
       search: '',
+      hoverState: false,
       mounted: false,
       hoveredOption: null,
     }
@@ -226,14 +226,23 @@ export default {
       }
     },
     selectStyle () {
+      if (this.error) {
+        return {
+          backgroundColor: getHoverColor(this.$themes.danger),
+          borderColor: this.$themes.danger,
+        }
+      }
+
+      if (this.success) {
+        return {
+          backgroundColor: getHoverColor(this.$themes.success),
+          borderColor: this.$themes.success,
+        }
+      }
+
       return {
-        backgroundColor:
-          this.error ? getHoverColor(this.$themes['danger'])
-            : this.success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
-        borderColor:
-          this.error ? this.$themes.danger
-            : this.success ? this.$themes.success
-              : this.$themes.gray,
+        backgroundColor: '#f5f8f9',
+        borderColor: (this.isKeyboardFocused || this.hoverState) ? null : this.$themes.gray,
       }
     },
     optionsListStyle () {
@@ -293,6 +302,9 @@ export default {
       set (value) {
         this.$emit('input', value)
       },
+    },
+    computedSelectTag () {
+      return this.valueProxy.map(val => this.getText(val)).join(', ')
     },
   },
   methods: {
@@ -368,6 +380,9 @@ export default {
         : this.clearValue
       this.search = ''
     },
+    updateHoverState (hoverState) {
+      this.hoverState = hoverState
+    },
     updateHoveredOption (option) {
       if (option) {
         this.hoveredOption = typeof option === 'string' ? option : { ...option }
@@ -437,6 +452,7 @@ export default {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   margin-bottom: 1rem;
+  transition: $transition-primary;
 
   &--disabled {
     @include va-disabled()
@@ -524,14 +540,12 @@ export default {
     right: .5rem;
 
     &--keyboard-focused {
-      background-color: #eee;
+      background-color: rgba(0, 0, 0, 0.065);
     }
   }
 
-  &__tags {
-    &__tag {
-      word-break: break-word;
-    }
+  &__tag {
+    word-break: break-word;
   }
 
   &__loading {
