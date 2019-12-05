@@ -115,7 +115,7 @@
       />
       <va-icon
         class="va-select__open-icon"
-        :class="{'va-select__open-icon--keyboard-focused': isKeyboardFocused}"
+        :class="{'va-select__open-icon--keyboard-focused': !disabled && isKeyboardFocused}"
         :name="visible ? 'fa fa-angle-up' : 'fa fa-angle-down'"
       />
     </div>
@@ -381,7 +381,9 @@ export default {
       this.search = ''
     },
     updateHoverState (hoverState) {
-      this.hoverState = hoverState
+      if (!this.disabled) {
+        this.hoverState = hoverState
+      }
     },
     updateHoveredOption (option) {
       if (option) {
@@ -391,7 +393,9 @@ export default {
       }
     },
     openDropdown (e) {
-      this.$refs.dropdown.isClicked = true
+      if (!this.disabled) {
+        this.$refs.dropdown.isClicked = true
+      }
     },
     closeDropdown (e) {
       this.$refs.dropdown.hide()
@@ -501,6 +505,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0 .5rem;
+
     &:focus {
       outline: none;
     }
@@ -540,7 +545,7 @@ export default {
     right: .5rem;
 
     &--keyboard-focused {
-      background-color: rgba(0, 0, 0, 0.065);
+      background-color: rgba(100, 100, 100, 0.1);
     }
   }
 

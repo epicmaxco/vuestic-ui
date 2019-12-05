@@ -166,7 +166,7 @@
         max-height="320px"
       />
     </VbCard>
-    <VbCard title="custom width (30%)" :style="{'width': '100%'}" style="width: 400px;">
+    <VbCard title="custom width (30%)" style="width: 400px;">
       <va-select
         v-model="defaultSelect.value"
         :options="CountriesList"
