@@ -29,6 +29,7 @@ export default {
 </script>
 
 <style lang="scss">
+  /* imports included in order to support presentation styles for data tables */
   @import '../../vuestic-sass/resources/resources';
   @import './../../vuestic-sass/global/typography';
 </style>

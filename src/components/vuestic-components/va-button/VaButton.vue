@@ -73,6 +73,9 @@ export default {
     flat: {
       type: Boolean,
     },
+    isCollapse: {
+      type: Boolean,
+    },
     small: {
       type: Boolean,
     },
@@ -87,10 +90,6 @@ export default {
     },
     type: {
       type: String,
-      default: 'button',
-      validator: value => {
-        return ['button', 'collapse'].includes(value)
-      },
     },
     disabled: {
       type: Boolean,
@@ -135,8 +134,8 @@ export default {
         'va-button--flat': this.flat,
         'va-button--outline': this.outline,
         'va-button--disabled': this.disabled,
-        'va-button--hover': this.hoverState && this.type !== 'collapse',
-        'va-button--focus': this.focusState && this.type !== 'collapse',
+        'va-button--hover': this.hoverState && this.isCollapse,
+        'va-button--focus': this.focusState && this.isCollapse,
         'va-button--without-title': !this.hasTitleData,
         'va-button--with-left-icon': this.icon,
         'va-button--with-right-icon': this.iconRight,
@@ -172,7 +171,7 @@ export default {
         boxShadow: '',
       }
 
-      if (this.focusState && this.type !== 'collapse') {
+      if (this.focusState && this.isCollapse) {
         if (this.outline || this.flat) {
           computedStyle.color = this.colorComputed
           computedStyle.borderColor = this.outline ? this.colorComputed : ''
@@ -180,7 +179,7 @@ export default {
         } else {
           computedStyle.backgroundImage = this.gradientStyle
         }
-      } else if (this.hoverState && this.type !== 'collapse') {
+      } else if (this.hoverState && this.isCollapse) {
         if (this.outline || this.flat) {
           computedStyle.color = this.colorComputed
           computedStyle.borderColor = this.outline ? this.colorComputed : ''
@@ -269,11 +268,11 @@ export default {
   &--default {
     color: $white;
 
-    &.va-button--hover {
+    &--hover {
       filter: brightness(115%);
     }
 
-    &.va-button--focus,
+    &--focus,
     &:active {
       filter: brightness(85%);
     }

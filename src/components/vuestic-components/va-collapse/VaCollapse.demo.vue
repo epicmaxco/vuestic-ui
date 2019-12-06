@@ -13,7 +13,7 @@
         <va-button
           slot="header"
           style="width: 100%"
-          type="collapse"
+          is-collapse
         >
           {{collapseHeader}}
         </va-button>
