@@ -31,6 +31,7 @@
         class="va-data-table__pagination"
       >
         <va-pagination
+          :color="paginationStyles"
           v-model="currentPage"
           :pages="paginationTotal"
           :visible-pages="visiblePages"
@@ -43,7 +44,6 @@
 </template>
 
 <script>
-import { SpringSpinner } from 'epic-spinners'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
@@ -52,7 +52,6 @@ export default {
   name: 'va-data-table',
   components: {
     VaInnerLoading,
-    SpringSpinner,
     Vuetable,
     VaPagination,
   },
@@ -106,6 +105,9 @@ export default {
           return '<span class="' + classes.join(' ') + '"></span>'
         },
       }
+    },
+    paginationStyles () {
+      return this.$mode === 'corporate' ? 'primary' : 'info'
     },
     paginationTotal () {
       return this.apiMode ? this.totalPages : Math.ceil(this.data.length / this.perPage)
