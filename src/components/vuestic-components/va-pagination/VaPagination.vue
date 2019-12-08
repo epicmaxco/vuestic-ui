@@ -86,7 +86,7 @@ export default {
     },
     color: {
       type: String,
-      default: 'info',
+      default: 'primary',
     },
     disabled: {
       type: Boolean,

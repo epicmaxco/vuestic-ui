@@ -54,7 +54,7 @@ export default {
     },
     color: {
       type: String,
-      default: 'success',
+      default: 'primary',
     },
     toggleColor: {
       type: String,

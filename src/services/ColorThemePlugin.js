@@ -52,7 +52,7 @@ export const ColorThemePlugin = {
 export const ColorThemeMixin = {
   data () {
     return {
-      colorThemeDefault: this.$mode === 'original' ? 'primary' : 'success',
+      colorThemeDefault: 'primary',
       colorDefault: '#000000',
     }
   },
