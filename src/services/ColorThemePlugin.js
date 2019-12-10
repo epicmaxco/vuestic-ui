@@ -1,5 +1,4 @@
 const getDefaultOptions = () => ({
-  mode: 'original',
   themes: {
     primary: '#40e583',
     secondary: '#002c85',
@@ -12,39 +11,41 @@ const getDefaultOptions = () => ({
   },
 })
 
-const getCorporateOptions = () => ({
-  mode: 'corporate',
-  themes: {
-    primary: '#6E85E8',
-    secondary: '#8396A5',
-    success: '#8FDB8B',
-    info: '#74BBFF',
-    danger: '#F67170',
-    warning: '#FFD55E',
-    gray: '#babfc2',
-    dark: '#34495E',
-  },
-})
-
 export const ColorThemePlugin = {
-  install (Vue, options) {
-    Vue.prototype.$setMode = function (mode) {
-      Vue.prototype.$mode = mode
+  install (Vue, options) { // options = [ { name: 'myName', themes: { primary: '', ... }} ]
+    if (!Array.isArray(options)) {
+      throw new Error('Options of ColorThemePlugin should be an array')
     }
+
+    if (!options[0].name || !options[0].themes) {
+      throw new Error('Options should has name and themes props')
+    }
+
     const defaultOptions = getDefaultOptions()
 
-    if (options && options.themes) {
-      Object.assign(defaultOptions.themes, options.themes)
+    const useVueSetToObject = (object) => {
+      Object.keys(object).forEach((key) => {
+        Vue.set(object, key, object[key])
+      })
+
+      return object
     }
 
-    Vue.prototype.$themes = defaultOptions.themes
-    Vue.prototype.$mode = defaultOptions.mode
+    const optionsThemesByName = options.reduce((result, { name, themes }) => ({
+      ...result,
+      [name]: useVueSetToObject(Object.assign({}, defaultOptions.themes, themes)),
+    }), {})
+
+    const defaultTheme = optionsThemesByName[options[0].name]
+
+    Vue.prototype.$themes = Object.assign({}, defaultTheme)
+    Vue.prototype.$themesList = optionsThemesByName
 
     /* eslint-disable no-new */
     // This line is just to make themes reactive
     new Vue({ data: {
       themes: Vue.prototype.$themes,
-      mode: Vue.prototype.$mode,
+      themesList: Vue.prototype.$themesList,
     } })
   },
 }
@@ -77,13 +78,16 @@ export const ColorThemeMixin = {
       return this.colorDefault
     },
   },
+}
+
+export const ColorThemeActionsMixin = {
   methods: {
-    setTheme (mode) {
-      const options = mode === 'corporate' ? getCorporateOptions() : getDefaultOptions()
-      for (const i in options.themes) {
-        this.$themes[i] = options.themes[i]
+    setTheme (themeName) {
+      const newTheme = this.$themesList[themeName]
+
+      for (const key in newTheme) {
+        this.$themes[key] = newTheme[key]
       }
-      this.$setMode(mode)
     },
   },
 }

@@ -94,10 +94,10 @@ import VaButtonToggle from '../../vuestic-components/va-button-toggle/VaButtonTo
 import SidebarLinkGroup from './VaSidebarLinkGroup'
 import SidebarLink from './VaSidebarLink'
 import { navigationRoutes } from './navigation-router-example'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeActionsMixin } from '../../../services/ColorThemePlugin'
 
 export default {
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeActionsMixin],
   components: {
     VaSidebar,
     VaButtonToggle,
