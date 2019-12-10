@@ -13,7 +13,11 @@ const getDefaultOptions = () => ({
 
 export const ColorThemePlugin = {
   install (Vue, options) { // options = [ { name: 'myName', themes: { primary: '', ... }} ]
-    if (!Array.isArray(options)) {
+    if (!options) {
+      options = [{ name: 'default', ...getDefaultOptions() }]
+    }
+
+    if (options && !Array.isArray(options)) {
       throw new Error('Options of ColorThemePlugin should be an array')
     }
 

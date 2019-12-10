@@ -74,33 +74,18 @@
         </template>
       </va-sidebar>
     </VbCard>
-
-    <VbCard title="Theme Switcher">
-      <va-button-toggle
-        outline
-        small
-        color="gray"
-        v-model="mode"
-        :options="modeOptions"
-        style="max-width: 100%;"
-      />
-    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaSidebar from '../../vuestic-components/va-sidebar/VaSidebar'
-import VaButtonToggle from '../../vuestic-components/va-button-toggle/VaButtonToggle'
 import SidebarLinkGroup from './VaSidebarLinkGroup'
 import SidebarLink from './VaSidebarLink'
 import { navigationRoutes } from './navigation-router-example'
-import { ColorThemeActionsMixin } from '../../../services/ColorThemePlugin'
 
 export default {
-  mixins: [ColorThemeActionsMixin],
   components: {
     VaSidebar,
-    VaButtonToggle,
     SidebarLinkGroup,
     SidebarLink,
   },
@@ -108,28 +93,11 @@ export default {
     return {
       value: 60,
       icon: 'iconicstroke iconicstroke-info',
-      mode: 'original',
       theme: 'info',
       items: navigationRoutes.routes,
       hoverState: false,
       minimized: false,
     }
-  },
-  computed: {
-    modeOptions () {
-      return [{
-        value: 'original',
-        label: 'Original',
-      }, {
-        value: 'corporate',
-        label: 'Corporate',
-      }]
-    },
-  },
-  watch: {
-    mode (value) {
-      this.setTheme(value)
-    },
   },
 }
 </script>
