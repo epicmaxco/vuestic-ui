@@ -39,6 +39,8 @@ export const ColorThemePlugin = {
     const defaultTheme = optionsThemesByName[options[0].name]
 
     Vue.prototype.$themes = Object.assign({}, defaultTheme)
+    Vue.prototype.$activeThemeName = options[0].name
+    Vue.prototype.$defaultThemeName = options[0].name
     Vue.prototype.$themesList = optionsThemesByName
 
     /* eslint-disable no-new */
@@ -46,6 +48,7 @@ export const ColorThemePlugin = {
     new Vue({ data: {
       themes: Vue.prototype.$themes,
       themesList: Vue.prototype.$themesList,
+      activeThemeName: Vue.prototype.$activeThemeName,
     } })
   },
 }
@@ -63,6 +66,9 @@ export const ColorThemeMixin = {
     },
   },
   computed: {
+    isDefaultColorTheme () {
+      return this.$activeThemeName === this.$defaultThemeName
+    },
     // This allows a multitude of defaults.
     // theme color => color => theme default => hard default
     colorComputed () {
@@ -84,6 +90,8 @@ export const ColorThemeActionsMixin = {
   methods: {
     setTheme (themeName) {
       const newTheme = this.$themesList[themeName]
+
+      this.$activeThemeName = themeName
 
       for (const key in newTheme) {
         this.$themes[key] = newTheme[key]

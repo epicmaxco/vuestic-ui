@@ -166,20 +166,26 @@ export default {
 
       if (this.isHovered || this.isActive) {
         return {
-          color: this.$mode === 'original' ? this.$themes['primary'] : 'white',
-          backgroundColor: this.$mode === 'original' ? getBackgroundColor() : this.$themes.primary,
-          borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
+          color: this.isDefaultColorTheme ? this.$themes.primary : 'white',
+          backgroundColor: this.isDefaultColorTheme ? getBackgroundColor() : this.$themes.primary,
+          borderColor: this.isActive ? this.$themes.primary : 'transparent',
         }
-      } else {
-        return {
-          color: this.$mode === 'original' ? 'rgba(255, 255, 255, 0.65)' : this.$themes.secondary,
-        }
+      }
+
+      return {
+        color: this.isDefaultColorTheme ? 'rgba(255, 255, 255, 0.65)' : this.$themes.secondary,
       }
     },
     iconStyles () {
-      return (this.isHovered || this.isActive)
-        ? { color: this.$mode === 'original' ? this.$themes['primary'] : 'white' }
-        : { color: this.$mode === 'original' ? 'white' : this.$themes.secondary }
+      if (this.isHovered || this.isActive) {
+        return {
+          color: this.isDefaultColorTheme ? this.$themes.primary : 'white',
+        }
+      }
+
+      return {
+        color: this.isDefaultColorTheme ? 'white' : this.$themes.secondary,
+      }
     },
   },
 }

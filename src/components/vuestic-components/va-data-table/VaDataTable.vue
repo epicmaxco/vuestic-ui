@@ -107,7 +107,7 @@ export default {
       }
     },
     paginationStyles () {
-      return this.$mode === 'corporate' ? 'primary' : 'info'
+      return this.isDefaultColorTheme ? 'info' : 'primary'
     },
     paginationTotal () {
       return this.apiMode ? this.totalPages : Math.ceil(this.data.length / this.perPage)

@@ -22,8 +22,7 @@
         <slot name="header">
           <div
             class="va-card__header-title"
-            :style="{ color: this.titleOnImage ? 'white'
-            : this.$mode === 'corporate' ? this.$themes.primary :  this.$themes.info}"
+            :style="{ color: this.titleOnImage ? 'white' : this.$themes.info}"
           >
             {{ title }}
           </div>
