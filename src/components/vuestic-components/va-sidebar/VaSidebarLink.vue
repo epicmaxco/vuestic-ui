@@ -86,7 +86,6 @@ export default {
       }
 
       if (this.isHovered || this.isActive) {
-        console.log(this.$mode === 'original' ? this.$themes['primary'] : 'white')
         return {
           color: this.$mode === 'original' ? this.$themes['primary'] : 'white',
           backgroundColor: this.$mode === 'original' ? getBackgroundColor() : this.$themes.primary,
@@ -99,7 +98,6 @@ export default {
       }// else <- controlled by CSS (color in rgba)
     },
     computedIconStyles () {
-      console.log(this.$mode)
       return (this.isHovered || this.isActive)
         ? { color: this.$mode === 'original' ? this.$themes['primary'] : 'white' }
         : { color: this.$mode === 'original' ? 'white' : this.$themes.secondary }

@@ -34,7 +34,6 @@ export default {
       }
     },
     computedStyle () {
-      console.log(console.log(this.$mode))
       return {
         backgroundColor: this.$mode === 'original' ? this.$themes['secondary'] : 'white',
       }
