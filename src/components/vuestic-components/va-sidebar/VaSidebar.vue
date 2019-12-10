@@ -35,7 +35,7 @@ export default {
     },
     computedStyle () {
       return {
-        backgroundColor: this.isD ? this.$themes['secondary'] : 'white',
+        backgroundColor: this.isDefaultColorTheme ? this.$themes['secondary'] : 'white',
       }
     },
   },

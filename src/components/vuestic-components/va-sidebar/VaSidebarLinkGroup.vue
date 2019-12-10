@@ -11,7 +11,7 @@
         <va-icon
           v-if="icon"
           class="va-sidebar-link__content__icon"
-          :style="iconStyles"
+          :style="computedIconStyles"
           :name="icon"
         />
         <span class="va-sidebar-link__content__title">
@@ -21,7 +21,7 @@
         </span>
         <va-icon
           class="va-sidebar-link-group__dropdown-icon"
-          :style="iconStyles"
+          :style="computedIconStyles"
           :name="`fa fa-angle-${expanded ? 'up' : 'down'}`"/>
       </div>
     </div>
@@ -52,14 +52,14 @@
           <va-icon
             v-if="icon"
             class="va-sidebar-link__content__icon"
-            :style="iconStyles"
+            :style="computedIconStyles"
             :name="icon"
           />
         </div>
         <va-icon
           name="material-icons"
           class="va-sidebar-link__after"
-          :style="iconStyles"
+          :style="computedIconStyles"
         >
           more_horiz
         </va-icon>
@@ -131,7 +131,7 @@ export default {
       this.isHovered = !this.isHovered
     },
     updateActiveState () {
-      const active = this.children.some(item => item.name === this.$route.name)
+      const active = this.children && this.children.some(item => item.name === this.$route.name)
 
       this.isActive = this.minimized ? active : false
       this.expanded = active
@@ -176,15 +176,15 @@ export default {
         color: this.isDefaultColorTheme ? 'rgba(255, 255, 255, 0.65)' : this.$themes.secondary,
       }
     },
-    iconStyles () {
+    computedIconStyles () {
       if (this.isHovered || this.isActive) {
         return {
-          color: this.isDefaultColorTheme ? this.$themes.primary : 'white',
+          color: this.isDefaultColorTheme ? 'white' : this.$themes.primary,
         }
       }
 
       return {
-        color: this.isDefaultColorTheme ? 'white' : this.$themes.secondary,
+        color: this.isDefaultColorTheme ? this.$themes.primary : 'white',
       }
     },
   },
