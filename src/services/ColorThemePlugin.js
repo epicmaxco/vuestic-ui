@@ -13,8 +13,10 @@ const getDefaultOptions = () => ({
 
 export const ColorThemePlugin = {
   install (Vue, options) { // options = [ { name: 'myName', themes: { primary: '', ... }} ]
+    const defaultOptions = getDefaultOptions()
+
     if (!options) {
-      options = [{ name: 'default', ...getDefaultOptions() }]
+      options = [{ name: 'default', ...defaultOptions }]
     }
 
     if (options && !Array.isArray(options)) {
@@ -25,34 +27,27 @@ export const ColorThemePlugin = {
       throw new Error('Options should has name and themes props')
     }
 
-    const defaultOptions = getDefaultOptions()
-
-    const useVueSetToObject = (object) => {
-      Object.keys(object).forEach((key) => {
-        Vue.set(object, key, object[key])
-      })
-
-      return object
-    }
-
     const optionsThemesByName = options.reduce((result, { name, themes }) => ({
       ...result,
-      [name]: useVueSetToObject(Object.assign({}, defaultOptions.themes, themes)),
+      [name]: Object.assign({}, defaultOptions.themes, themes),
     }), {})
 
-    const defaultTheme = optionsThemesByName[options[0].name]
+    const defaultThemeName = options[0].name
+    const defaultTheme = optionsThemesByName[defaultThemeName]
 
-    Vue.prototype.$themes = Object.assign({}, defaultTheme)
-    Vue.prototype.$activeThemeName = options[0].name
-    Vue.prototype.$defaultThemeName = options[0].name
-    Vue.prototype.$themesList = optionsThemesByName
+    Vue.prototype.$themes = Object.assign({}, defaultTheme) // clone default theme to themes
+
+    Vue.prototype.$themesOptions = {
+      activeThemeName: defaultThemeName,
+      defaultThemeName: defaultThemeName,
+      themesList: optionsThemesByName,
+    }
 
     /* eslint-disable no-new */
-    // This line is just to make themes reactive
+    // This line is just to make fields reactive
     new Vue({ data: {
       themes: Vue.prototype.$themes,
-      themesList: Vue.prototype.$themesList,
-      activeThemeName: Vue.prototype.$activeThemeName,
+      themesOptions: Vue.prototype.$themesOptions,
     } })
   },
 }
@@ -70,9 +65,6 @@ export const ColorThemeMixin = {
     },
   },
   computed: {
-    isDefaultColorTheme () {
-      return this.$activeThemeName === this.$defaultThemeName
-    },
     // This allows a multitude of defaults.
     // theme color => color => theme default => hard default
     colorComputed () {
@@ -87,19 +79,22 @@ export const ColorThemeMixin = {
       }
       return this.colorDefault
     },
+    isDefaultColorTheme () {
+      return this.$themesOptions.activeThemeName === this.$themesOptions.defaultThemeName
+    },
   },
 }
 
 export const ColorThemeActionsMixin = {
   methods: {
     setTheme (themeName) {
-      const newTheme = this.$themesList[themeName]
+      const newTheme = this.$themesOptions.themesList[themeName]
 
-      this.$activeThemeName = themeName
+      this.$themesOptions.activeThemeName = themeName
 
-      for (const key in newTheme) {
-        this.$themes[key] = newTheme[key]
-      }
+      Object.keys(newTheme).forEach((color) => {
+        this.$themes[color] = newTheme[color]
+      })
     },
   },
 }
