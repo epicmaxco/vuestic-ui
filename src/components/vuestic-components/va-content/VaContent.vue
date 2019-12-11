@@ -1,4 +1,21 @@
-.content {
+<template>
+  <div class="va-content">
+    <slot />
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'VaContent',
+}
+</script>
+
+<style lang="scss">
+@import '../../vuestic-sass/resources/resources';
+@import '../../vuestic-sass/global/typography';
+@import '../../vuestic-sass/global/utility-global';
+
+.va-content {
   h1 {
     @include va-display(1);
     @include va-header-margin(1);
@@ -69,7 +86,20 @@
   }
 
   figure {
-    @extend .card;
+    border-radius: 0;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: $widget-box-shadow;
+    word-wrap: break-word;
+
+    figcaption {
+      flex: 1 1 auto;
+      padding: 1.25rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   table {
@@ -80,3 +110,4 @@
     @extend .link;
   }
 }
+</style>
