@@ -45,9 +45,11 @@
 
 <script>
 import { getGradientBackground } from '../../../services/color-functions'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'va-card',
+  mixins: [ColorThemeMixin],
   props: {
     stripe: {
       type: String,
@@ -110,13 +112,20 @@ export default {
       }
     },
     computedCardStyle () {
+      const styles = {}
+
       if (this.color) {
-        return {
-          color: '#fff',
-          background: getGradientBackground(this.$themes[this.color]),
-        }
+        styles.color = '#fff'
+        styles.background = getGradientBackground(this.$themes[this.color])
       }
-      return ''
+
+      if (this.isDefaultColorTheme) {
+        styles.boxShadow = '0 2px 3px 0 rgba(52, 56, 85, 0.25)'
+      } else {
+        styles.boxShadow = '0 1px 1px 0 rgba(190, 190, 190, 0.25)'
+      }
+
+      return styles
     },
   },
 }
@@ -129,7 +138,6 @@ export default {
   border-radius: $card-border-radius;
   border: none;
   box-sizing: border-box;
-  box-shadow: $card-box-shadow;
   word-wrap: break-word;
   background-color: $white;
   position: relative;
