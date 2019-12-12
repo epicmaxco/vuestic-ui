@@ -67,6 +67,10 @@ export default {
       type: String,
       default: 'button',
     },
+    color: {
+      type: String,
+      default: 'primary',
+    },
     outline: {
       type: Boolean,
     },
@@ -154,9 +158,15 @@ export default {
       if (this.flat || this.outline) {
         return
       }
+
+      if (!this.isDefaultColorTheme) {
+        return '0 1px 1px 0 rgba(10, 13, 117, 0.25)'
+      }
+
       if (this.va.color && this.$themes && this.$themes[this.va.color]) {
         return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.color ? this.colorComputed : this.$themes[this.va.color])
       }
+
       return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
     },
     computedStyle () {
@@ -191,7 +201,11 @@ export default {
         computedStyle.boxShadow = this.shadowStyle
       }
 
-      if (this.va.color && !this.outline && !this.flat) {
+      if (
+        !this.outline &&
+        !this.flat &&
+        (this.va.color || !this.isDefaultColorTheme)
+      ) {
         computedStyle.background = this.color ? this.colorComputed : this.$themes[this.va.color]
         computedStyle.backgroundImage = ''
       }
