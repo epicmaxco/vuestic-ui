@@ -63,21 +63,13 @@ export default {
   },
   computed: {
     computedStyle () {
-      const calcBackground = () => {
-        if (this.variant.includes('gradient')) {
-          return getGradientBackground(this.colorComputed)
-        }
-
-        return this.colorComputed
-      }
-
       const calcFilter = () => {
         if (this.variant.includes('hovered')) return 'brightness(115%)'
         if (this.variant.includes('pressed')) return 'brightness(85%)'
       }
 
       return {
-        background: calcBackground(),
+        background: this.calcBackground(),
         filter: calcFilter(),
         width: this.width ? `${this.width}px` : '',
       }
@@ -85,18 +77,19 @@ export default {
   },
   methods: {
     colorCopy () {
-      if (this.variant.includes('gradient')) {
-        this.$copyText(getGradientBackground(this.colorComputed))
-        return
-      }
-
-      this.$copyText(this.colorComputed)
+      this.$copyText(this.calcBackground)
     },
-
     notify () {
       this.showToast("The color's copied to your clipboard", {
         position: 'bottom-right',
       })
+    },
+    calcBackground () {
+      if (this.variant.includes('gradient') && this.isDefaultColorTheme) {
+        return getGradientBackground(this.colorComputed)
+      }
+
+      return this.colorComputed
     },
   },
 }
