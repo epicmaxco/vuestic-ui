@@ -116,7 +116,7 @@ export default {
 
       if (this.color) {
         styles.color = '#fff'
-        styles.background = getGradientBackground(this.$themes[this.color])
+        styles.background = this.isDefaultColorTheme ? getGradientBackground(this.colorComputed) : this.colorComputed
       }
 
       if (this.isDefaultColorTheme) {
