@@ -31,7 +31,6 @@
         class="va-data-table__pagination"
       >
         <va-pagination
-          :color="paginationColorComputed"
           v-model="currentPage"
           :pages="paginationTotal"
           :visible-pages="visiblePages"
@@ -105,9 +104,6 @@ export default {
           return '<span class="' + classes.join(' ') + '"></span>'
         },
       }
-    },
-    paginationColorComputed () {
-      return this.isDefaultColorTheme ? 'info' : 'primary'
     },
     paginationTotal () {
       return this.apiMode ? this.totalPages : Math.ceil(this.data.length / this.perPage)
