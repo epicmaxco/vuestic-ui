@@ -12,7 +12,7 @@
       <va-icon
         v-if="icon"
         class="va-sidebar-link__content__icon"
-        :style="computedIconStyles"
+        :style="computedIconStyle"
         :name="icon"
       />
       <div class="va-sidebar-link__content__title">
@@ -97,7 +97,7 @@ export default {
         color: this.isDefaultColorTheme ? 'rgba(255, 255, 255, 0.65)' : this.$themes.secondary,
       }
     },
-    computedIconStyles () {
+    computedIconStyle () {
       if (this.isHovered || this.isActive) {
         return {
           color: this.isDefaultColorTheme ? this.$themes.primary : 'white',
