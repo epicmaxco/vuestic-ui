@@ -19,7 +19,7 @@
         :style="{ paddingTop: label ? '' : '0'}"
       >
         <label
-          :style="labelStyles"
+          :style="labelStyle"
           aria-hidden="true"
           class="va-input__container__label"
         >
@@ -154,7 +154,7 @@ export default {
     }
   },
   computed: {
-    labelStyles () {
+    labelStyle () {
       if (this.error) return { color: this.$themes.danger }
       if (this.success) return { color: this.$themes.success }
       return { color: this.$themes.primary }
