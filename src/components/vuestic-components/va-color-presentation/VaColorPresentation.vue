@@ -23,6 +23,7 @@
 import VaPopover from '../va-popover/VaPopover'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { getGradientBackground } from '../../../services/color-functions'
+import Toasted from '../../vuestic-mixins/VuesticToasted'
 
 // NOTE This component is a tad weird.
 // It's not part of presentation nor is it UI component.
@@ -31,7 +32,7 @@ import { getGradientBackground } from '../../../services/color-functions'
 export default {
   name: 'va-color-presentation',
   components: { VaPopover },
-  mixins: [ ColorThemeMixin ],
+  mixins: [ColorThemeMixin, Toasted],
   props: {
     color: {
       type: String,
@@ -77,7 +78,7 @@ export default {
   },
   methods: {
     colorCopy () {
-      this.$copyText(this.calcBackground)
+      this.$copyText(this.calcBackground())
     },
     notify () {
       this.showToast("The color's copied to your clipboard", {
