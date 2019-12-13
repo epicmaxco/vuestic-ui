@@ -24,7 +24,7 @@ export const ColorThemePlugin = {
     }
 
     if (!options[0].name || !options[0].themes) {
-      throw new Error('Options should has name and themes props')
+      throw new Error('Options should have name and themes props')
     }
 
     const optionsThemesByName = options.reduce((result, { name, themes }) => ({
@@ -85,7 +85,7 @@ export const ColorThemeMixin = {
   },
 }
 
-export const ColorThemeActionsMixin = {
+export const ColorThemeActionsMixin = { // need for vuestic-admin for themes swither
   methods: {
     setTheme (themeName) {
       const newTheme = this.$themesOptions.themesList[themeName]
