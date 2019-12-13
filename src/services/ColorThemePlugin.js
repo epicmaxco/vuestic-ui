@@ -43,12 +43,8 @@ export const ColorThemePlugin = {
       themesList: optionsThemesByName,
     }
 
-    /* eslint-disable no-new */
-    // This line is just to make fields reactive
-    new Vue({ data: {
-      themes: Vue.prototype.$themes,
-      themesOptions: Vue.prototype.$themesOptions,
-    } })
+    Vue.observable(Vue.prototype.$themes)
+    Vue.observable(Vue.prototype.$themesOptions)
   },
 }
 
