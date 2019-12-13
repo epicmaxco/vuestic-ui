@@ -63,11 +63,7 @@ import VaTreeCategory from './vuestic-components/va-tree-view/VaTreeCategory'
 import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot'
 import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper'
-
-import Toasted from './vuestic-mixins/VuesticToasted'
-
 import StickyScroll from './vuestic-directives/StickyScroll'
-
 import { installPlatform } from './vuestic-components/va-popup/install'
 import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 
@@ -84,6 +80,8 @@ import VaColorPickerInput
   from './vuestic-components/va-color-picker/VaColorPickerInput'
 import VaPaletteCustom
   from './vuestic-components/va-color-picker/VaPaletteCustom'
+import VueToasted from 'vue-toasted'
+import ToastedMixin from './vuestic-mixins/VuesticToasted'
 
 installPlatform()
 
@@ -161,11 +159,20 @@ const VuesticPlugin = {
 
     registerVuesticObject(Vue)
 
+    const toastOptions = {
+      theme: 'none',
+      position: 'bottom-center',
+      className: 'vuestic-toast',
+      iconPack: 'fontawesome',
+      duration: 2500,
+    }
+
+    Vue.use(VueToasted, toastOptions)
+    Vue.mixin(ToastedMixin)
+
     Vue.use(BusPlugin)
 
     Vue.use(DropdownPopperPlugin)
-
-    Vue.mixin(Toasted)
 
     Vue.directive('sticky-scroll', StickyScroll)
   },
