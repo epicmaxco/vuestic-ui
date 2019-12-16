@@ -33,37 +33,26 @@
 <script>
 import { progressMixin } from './progressMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import { SizeMixin } from '../../../../mixins/SizeMixin'
+
+const ProgressCircleContextMixin = makeContextablePropsMixin({
+  thickness: {
+    type: Number,
+    default: 3,
+  },
+  size: {
+    type: [Number, String],
+    default: 40,
+  },
+})
 
 export default {
   name: 'VaProgressCircle',
-  mixins: [progressMixin, ColorThemeMixin, ContextPluginMixin],
-  props: {
-    size: {
-      type: [Number, String],
-      validator: (value) => {
-        return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
-      },
-      default () {
-        return getContextPropValue(this, 'size', 40)
-      },
-    },
-    thickness: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'thickness', 3)
-      },
-    },
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', 'success')
-      },
-    },
-  },
+  mixins: [progressMixin, ColorThemeMixin, ProgressCircleContextMixin, SizeMixin],
   computed: {
     radius () {
-      return 20 - (20 * this.thickness / 100)
+      return 20 - (20 * this.c_thickness / 100)
     },
     dasharray () {
       return 2 * Math.PI * this.radius
@@ -72,15 +61,15 @@ export default {
       return this.dasharray * (1 - this.normalizedValue / 100)
     },
     computedThickness () {
-      return `${this.thickness}%`
+      return `${this.c_thickness}%`
     },
     computedStyle () {
-      const size = parseFloat(this.size) + this.sizeUnits()
+      const size = parseFloat(this.c_size) + this.sizeUnits()
       return { width: size, height: size }
     },
     computedClass () {
       return {
-        'va-progress-circle--indeterminate': this.indeterminate,
+        'va-progress-circle--indeterminate': this.c_indeterminate,
       }
     },
     computedStyles () {
@@ -91,7 +80,7 @@ export default {
   },
   methods: {
     sizeUnits () {
-      return typeof this.size === 'number' ? 'px' : this.size.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)[0]
+      return typeof this.c_size === 'number' ? 'px' : this.c_size.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)[0]
     },
   },
 }

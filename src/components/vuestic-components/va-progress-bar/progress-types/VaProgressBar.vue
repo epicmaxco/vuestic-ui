@@ -16,7 +16,7 @@
         class="va-progress-bar__buffer"
       />
       <div
-        v-if="!indeterminate"
+        v-if="!c_indeterminate"
         :style="{width: normalizedValue + '%', backgroundColor: colorComputed}"
         class="va-progress-bar__overlay"
       >
@@ -24,11 +24,11 @@
       </div>
       <template v-else>
         <div
-          :style="{backgroundColor: colorComputed, animationDirection: this.reverse ? 'reverse' : 'normal'}"
+          :style="{backgroundColor: colorComputed, animationDirection: this.c_reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-start"
         />
         <div
-          :style="{backgroundColor: colorComputed, animationDirection: this.reverse ? 'reverse' : 'normal'}"
+          :style="{backgroundColor: colorComputed, animationDirection: this.c_reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-end"
         />
       </template>
@@ -43,11 +43,7 @@ import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 
-const FormContextMixin = makeContextablePropsMixin({
-  color: {
-    type: String,
-    default: 'primary',
-  },
+const ProgressBarContextMixin = makeContextablePropsMixin({
   buffer: {
     type: Number,
     default: 100,
@@ -68,35 +64,35 @@ const FormContextMixin = makeContextablePropsMixin({
 
 export default {
   name: 'VaProgressBar',
-  mixins: [progressMixin, ColorThemeMixin, FormContextMixin, SizeMixin],
+  mixins: [progressMixin, ColorThemeMixin, ProgressBarContextMixin, SizeMixin],
   computed: {
     large () {
-      return this.size === 'large'
+      return this.c_size === 'large'
     },
     small () {
-      return this.size === 'small'
+      return this.c_size === 'small'
     },
     normalizedBuffer () {
-      if (this.indeterminate) {
+      if (this.c_indeterminate) {
         return 100
       }
 
-      return normalizeValue(this.buffer)
+      return normalizeValue(this.c_buffer)
     },
     computedClass () {
       return {
-        'va-progress-bar__progress-bar__square': (!this.rounded && !this.large) || this.small,
+        'va-progress-bar__progress-bar__square': (!this.c_rounded && !this.large) || this.small,
         'va-progress-bar__small': this.small,
         'va-progress-bar__large': this.large,
       }
     },
     computedStyle () {
-      if (this.size === 'medium') {
+      if (this.c_size === 'medium') {
         return { height: '0.5rem' }
       }
 
       if (!this.small && !this.large) {
-        return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
+        return { height: typeof this.c_size === 'number' ? `${this.c_size}px` : this.c_size }
       }
 
       return {}
