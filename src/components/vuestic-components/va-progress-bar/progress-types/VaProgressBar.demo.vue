@@ -110,6 +110,7 @@
       <br>
       Indeterminate
       <va-progress-bar
+        indeterminate
         reverse
       />
     </VbCard>
