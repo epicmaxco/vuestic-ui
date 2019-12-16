@@ -40,44 +40,35 @@
 import { progressMixin } from './progressMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import { SizeMixin } from '../../../../mixins/SizeMixin'
+
+const FormContextMixin = makeContextablePropsMixin({
+  color: {
+    type: String,
+    default: 'primary',
+  },
+  buffer: {
+    type: Number,
+    default: 100,
+  },
+  rounded: {
+    type: Boolean,
+    default: true,
+  },
+  size: {
+    type: [Number, String],
+    default: 'medium',
+  },
+  reverse: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 export default {
   name: 'VaProgressBar',
-  mixins: [progressMixin, ColorThemeMixin, ContextPluginMixin],
-  props: {
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', '')
-      },
-    },
-    buffer: {
-      type: Number,
-      default: 100,
-    },
-    rounded: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'rounded', true)
-      },
-    },
-    size: {
-      type: [Number, String],
-      default () {
-        return getContextPropValue(this, 'size', 'medium')
-      },
-      validator: (value) => {
-        return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value)
-      },
-    },
-    reverse: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'reverse', false)
-      },
-    },
-  },
+  mixins: [progressMixin, ColorThemeMixin, FormContextMixin, SizeMixin],
   computed: {
     large () {
       return this.size === 'large'
