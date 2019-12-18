@@ -119,6 +119,7 @@ export default {
   }
 
   &__info {
+    font-size: 0.75rem;
     position: absolute;
     left: 50%;
     top: 50%;
