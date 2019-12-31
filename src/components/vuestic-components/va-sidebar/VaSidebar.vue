@@ -15,6 +15,9 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'va-sidebar',
+  inject: {
+    contextConfig: {},
+  },
   components: {},
   mixins: [ColorThemeMixin],
   props: {
@@ -35,7 +38,7 @@ export default {
     },
     computedStyle () {
       return {
-        backgroundColor: this.isDefaultColorTheme ? this.$themes['secondary'] : 'white',
+        backgroundColor: this.contextConfig.invertedColor ? 'white' : this.$themes['secondary'],
       }
     },
   },

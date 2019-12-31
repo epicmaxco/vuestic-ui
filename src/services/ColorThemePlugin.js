@@ -1,50 +1,9 @@
-const getDefaultOptions = () => ({
-  themes: {
-    primary: '#40e583',
-    secondary: '#002c85',
-    success: '#40e583',
-    info: '#2c82e0',
-    danger: '#e34b4a',
-    warning: '#ffc200',
-    gray: '#babfc2',
-    dark: '#34495e',
-  },
-})
+import { originalTheme } from './themes'
 
 export const ColorThemePlugin = {
-  install (Vue, options) { // options = [ { name: 'myName', themes: { primary: '', ... }} ]
-    const defaultOptions = getDefaultOptions()
-
-    if (!options) {
-      options = [{ name: 'default', ...defaultOptions }]
-    }
-
-    if (options && !Array.isArray(options)) {
-      throw new Error('Options of ColorThemePlugin should be an array')
-    }
-
-    if (!options[0].name || !options[0].themes) {
-      throw new Error('Options should have name and themes props')
-    }
-
-    const optionsThemesByName = options.reduce((result, { name, themes }) => ({
-      ...result,
-      [name]: Object.assign({}, defaultOptions.themes, themes),
-    }), {})
-
-    const defaultThemeName = options[0].name
-    const defaultTheme = optionsThemesByName[defaultThemeName]
-
-    Vue.prototype.$themes = Object.assign({}, defaultTheme) // clone default theme to themes
-
-    Vue.prototype.$themesOptions = {
-      activeThemeName: defaultThemeName,
-      defaultThemeName: defaultThemeName,
-      themesList: optionsThemesByName,
-    }
-
+  install (Vue, options) {
+    Vue.prototype.$themes = Object.assign({}, originalTheme.colors, options)
     Vue.observable(Vue.prototype.$themes)
-    Vue.observable(Vue.prototype.$themesOptions)
   },
 }
 
@@ -75,21 +34,15 @@ export const ColorThemeMixin = {
       }
       return this.colorDefault
     },
-    isDefaultColorTheme () {
-      return this.$themesOptions.activeThemeName === this.$themesOptions.defaultThemeName
-    },
   },
 }
 
-export const ColorThemeActionsMixin = { // need for vuestic-admin for themes swither
+export const ColorThemeActionsMixin = {
   methods: {
-    setTheme (themeName) {
-      const newTheme = this.$themesOptions.themesList[themeName]
-
-      this.$themesOptions.activeThemeName = themeName
-
-      Object.keys(newTheme).forEach((color) => {
-        this.$themes[color] = newTheme[color]
+    // Pass colors to change global theme.
+    setColors (colors) {
+      Object.keys(colors).forEach((key) => {
+        this.$themes[key] = colors[key]
       })
     },
   },

@@ -31,6 +31,7 @@ import VaIcon from '../va-icon/VaIcon'
 export default {
   name: 'va-sidebar-link',
   components: { VaIcon },
+  inject: ['contextConfig'],
   mixins: [ColorThemeMixin],
   props: {
     to: {
@@ -87,24 +88,25 @@ export default {
 
       if (this.isHovered || this.isActive) {
         return {
-          color: this.isDefaultColorTheme ? this.$themes.primary : 'white',
-          backgroundColor: this.isDefaultColorTheme ? getBackgroundColor() : this.$themes.primary,
+          color: this.contextConfig.invertedColor ? 'white' : this.$themes.primary,
+          backgroundColor: this.contextConfig.invertedColor ? this.$themes.primary : getBackgroundColor(),
           borderColor: this.isActive ? this.$themes.primary : 'transparent',
         }
       }
 
       return {
-        color: this.isDefaultColorTheme ? 'rgba(255, 255, 255, 0.65)' : this.$themes.secondary,
+        // Not sure if using invertedColor is correct here.
+        color: this.contextConfig.invertedColor ? this.$themes.secondary : 'rgba(255, 255, 255, 0.65)',
       }
     },
     computedIconStyle () {
       if (this.isHovered || this.isActive) {
         return {
-          color: this.isDefaultColorTheme ? this.$themes.primary : 'white',
+          color: this.contextConfig.invertedColor ? 'white' : this.$themes.primary,
         }
       }
       return {
-        color: this.isDefaultColorTheme ? 'white' : this.$themes.secondary,
+        color: this.contextConfig.invertedColor ? this.$themes.secondary : 'white',
       }
     },
   },

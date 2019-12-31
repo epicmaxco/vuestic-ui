@@ -3,7 +3,7 @@
     <va-button-group>
       <va-button
         v-for="option in options"
-        :key="option.value"
+        :key="option.label"
         :style="buttonStyle(option.value)"
         :outline="outline"
         :flat="flat"

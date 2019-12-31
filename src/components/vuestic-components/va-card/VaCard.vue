@@ -50,6 +50,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 export default {
   name: 'va-card',
   mixins: [ColorThemeMixin],
+  inject: ['contextConfig'],
   props: {
     stripe: {
       type: String,
@@ -116,16 +117,18 @@ export default {
 
       if (this.color) {
         styles.color = '#fff'
-        styles.background = this.isDefaultColorTheme ? getGradientBackground(this.colorComputed) : this.colorComputed
+        styles.background = this.contextConfig.gradient ? getGradientBackground(this.colorComputed) : this.colorComputed
       }
 
-      if (this.isDefaultColorTheme) {
-        styles.boxShadow = '0 2px 3px 0 rgba(52, 56, 85, 0.25)'
-      } else {
-        styles.boxShadow = '0 1px 1px 0 rgba(190, 190, 190, 0.25)'
-      }
+      styles.boxShadow = this.boxShadow
 
       return styles
+    },
+    boxShadow () {
+      return {
+        lg: '0 2px 3px 0 rgba(52, 56, 85, 0.25)',
+        sm: '0 1px 1px 0 rgba(190, 190, 190, 0.25)',
+      }[this.contextConfig.shadow]
     },
   },
 }
@@ -207,10 +210,10 @@ export default {
   }
 
   &__image {
-     padding-bottom: 56%;
-     position: relative;
-     height: auto;
-     min-height: 100%;
+    padding-bottom: 56%;
+    position: relative;
+    height: auto;
+    min-height: 100%;
 
     img {
       position: absolute;
