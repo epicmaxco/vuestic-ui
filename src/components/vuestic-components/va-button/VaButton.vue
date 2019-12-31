@@ -265,6 +265,7 @@ export default {
   font-family: $font-family-sans-serif;
   text-decoration: none !important;
   text-transform: initial;
+  font-weight: $font-weight-bold;
   cursor: pointer;
   transition: $btn-transition;
   background-color: $white;

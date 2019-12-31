@@ -75,7 +75,7 @@ export const hex2hsl = (H) => {
 }
 
 export const getBoxShadowColor = (color) => {
-  return hex2rgb(color, 0.4).css
+  return hex2rgb(color, 0.6).css
 }
 
 export const getHoverColor = (color) => {
