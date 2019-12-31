@@ -12,7 +12,7 @@
       <va-icon
         v-if="icon"
         class="va-sidebar-link__content__icon"
-        :style="computedIconStyles"
+        :style="computedIconStyle"
         :name="icon"
       />
       <div class="va-sidebar-link__content__title">
@@ -31,6 +31,7 @@ import VaIcon from '../va-icon/VaIcon'
 export default {
   name: 'va-sidebar-link',
   components: { VaIcon },
+  inject: ['contextConfig'],
   mixins: [ColorThemeMixin],
   props: {
     to: {
@@ -87,16 +88,26 @@ export default {
 
       if (this.isHovered || this.isActive) {
         return {
-          color: this.$themes['primary'],
-          backgroundColor: getBackgroundColor(),
-          borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
+          color: this.contextConfig.invertedColor ? 'white' : this.$themes.primary,
+          backgroundColor: this.contextConfig.invertedColor ? this.$themes.primary : getBackgroundColor(),
+          borderColor: this.isActive ? this.$themes.primary : 'transparent',
         }
-      } else return {}// else <- controlled by CSS (color in rgba)
+      }
+
+      return {
+        // Not sure if using invertedColor is correct here.
+        color: this.contextConfig.invertedColor ? this.$themes.secondary : 'rgba(255, 255, 255, 0.65)',
+      }
     },
-    computedIconStyles () {
-      return (this.isHovered || this.isActive)
-        ? { color: this.$themes['primary'] }
-        : { color: 'white' }
+    computedIconStyle () {
+      if (this.isHovered || this.isActive) {
+        return {
+          color: this.contextConfig.invertedColor ? 'white' : this.$themes.primary,
+        }
+      }
+      return {
+        color: this.contextConfig.invertedColor ? this.$themes.secondary : 'white',
+      }
     },
   },
   methods: {

@@ -38,7 +38,7 @@
         :style="{ paddingTop: label ? '' : '0'}"
       >
         <label
-          :style="labelStyles"
+          :style="labelStyle"
           aria-hidden="true"
           class="va-input__container__label"
         >

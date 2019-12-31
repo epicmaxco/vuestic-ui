@@ -57,7 +57,7 @@
     >
       <label
         class="va-select__label"
-        :style="{ color: $themes.success }"
+        :style="labelStyle"
         aria-hidden="true"
       >{{label}}</label>
       <div
@@ -257,6 +257,11 @@ export default {
         paddingTop: this.label ? this.multiple ? '.59rem' : '.84rem' : 'inherit',
         paddingBottom: this.label ? 0 : this.multiple ? '.3125rem' : '.4375rem',
       }
+    },
+    labelStyle () {
+      if (this.error) return { color: this.$themes.danger }
+      if (this.success) return { color: this.$themes.success }
+      return { color: this.$themes.primary }
     },
     valueProxy: {
       get () {

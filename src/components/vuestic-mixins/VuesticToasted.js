@@ -11,10 +11,10 @@ const toastOptions = {
 
 Vue.use(Toasted, toastOptions)
 
-export default {
+export const ToastedMixin = {
   methods: {
     showToast (msg, options) {
-      this.$toasted.show(msg, options)
+      Vue.toasted.show(msg, options)
     },
   },
 }
