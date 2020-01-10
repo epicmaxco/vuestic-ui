@@ -47,7 +47,7 @@
         :style="getOptionStyle(option)"
         @click.stop="selectOption(option)"
         @mouseleave="updateHoveredOption(null)"
-        @mouseover="updateHoveredOption(option)"
+        @mouseenter="updateHoveredOption(option)"
         tabindex="0"
         ref="options"
         @focus.prevent.stop="updateHoveredOption(option)"
@@ -392,6 +392,9 @@ export default {
     updateHoveredOption (option) {
       if (option) {
         this.hoveredOption = typeof option === 'string' ? option : { ...option }
+        let indexOfCurrent = this.options.indexOf(option)
+        let currentOption = this.$refs.options[indexOfCurrent]
+        currentOption && currentOption.focus()
       } else {
         this.hoveredOption = null
       }
