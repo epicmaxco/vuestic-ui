@@ -419,16 +419,12 @@ export default {
     focusNextOption (currentOption) {
       let indexOfCurrent = this.options.indexOf(currentOption)
       let nextOption = this.$refs.options[indexOfCurrent + 1]
-      nextOption
-        ? nextOption.focus()
-        : this.focusFirstOption()
+      nextOption && nextOption.focus()
     },
     focusPrevOption (currentOption) {
       let indexOfCurrent = this.options.indexOf(currentOption)
       let prevOption = this.$refs.options[indexOfCurrent - 1]
-      prevOption
-        ? prevOption.focus()
-        : this.focusLastOption()
+      prevOption && prevOption.focus()
     },
     focusInput () {
       this.updateHoveredOption(null)
