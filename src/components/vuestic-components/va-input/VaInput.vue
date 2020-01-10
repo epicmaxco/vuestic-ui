@@ -8,18 +8,37 @@
     :error-messages="errorMessages"
     :errorCount="errorCount"
   >
-    <slot name="prepend" slot="prepend"/>
     <div
       class="va-input__container"
       :class="{'va-input__container--textarea': isTextarea}"
       :style="containerStyles"
     >
       <div
+        v-if="success || error || $slots.prepend || (removable && hasContent)"
+        class="va-input__container__icon-wrapper va-input__container__icon-wrapper--start"
+      >
+        <va-icon
+          v-if="success"
+          class="va-input__container__icon"
+          :style="iconStyles"
+          name="check"
+        />
+        <va-icon
+          v-if="error"
+          class="va-input__container__icon"
+          :style="iconStyles"
+          name="warning"
+        />
+        <div :style="iconStyles">
+          <slot name="prepend" />
+        </div>
+      </div>
+      <div
         class="va-input__container__content-wrapper"
         :style="{ paddingTop: label ? '' : '0'}"
       >
         <label
-          :style="labelStyles"
+          :style="labelStyle"
           aria-hidden="true"
           class="va-input__container__label"
         >
@@ -55,27 +74,29 @@
       </div>
       <div
         v-if="success || error || $slots.append || (removable && hasContent)"
-        class="va-input__container__icon-wrapper"
+        class="va-input__container__icon-wrapper va-input__container__icon-wrapper--end"
       >
         <va-icon
           v-if="success"
           class="va-input__container__icon"
-          name="fa fa-check"
-          color="success"
+          :style="iconStyles"
+          name="check"
         />
         <va-icon
           v-if="error"
           class="va-input__container__icon"
-          name="fa fa-exclamation-triangle"
-          color="danger"
+          :style="iconStyles"
+          name="warning"
         />
-        <slot name="append"/>
+        <div :style="iconStyles">
+          <slot name="append" />
+        </div>
         <va-icon
           v-if="removable && hasContent"
           @click.native="clearContent()"
           class="va-input__container__close-icon"
-          :color="error ? 'danger': 'gray'"
-          name="fa fa-times-circle"
+          :style="iconStyles"
+          name="highlight_off"
         />
       </div>
     </div>
@@ -154,6 +175,17 @@ export default {
     }
   },
   computed: {
+    iconStyles () {
+      if (this.error) {
+        return { color: this.$themes.danger }
+      }
+
+      if (this.success) {
+        return { color: this.$themes.success }
+      }
+
+      return { color: this.$themes.gray }
+    },
     labelStyles () {
       if (this.error) return { color: this.$themes.danger }
       if (this.success) return { color: this.$themes.success }
@@ -254,6 +286,7 @@ export default {
 
     &__content-wrapper {
       display: flex;
+      position: relative;
       align-items: flex-end;
       width: 100%;
       /*min-width: 100%;*/
@@ -262,7 +295,14 @@ export default {
     &__icon-wrapper {
       display: flex;
       align-items: center;
-      margin-right: 0.5rem;
+
+      &--start {
+        margin-left: 0.5rem;
+      }
+
+      &--end {
+        margin-right: 0.5rem;
+      }
     }
 
     &__close-icon {

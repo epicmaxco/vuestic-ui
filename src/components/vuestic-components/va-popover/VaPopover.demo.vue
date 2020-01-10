@@ -38,6 +38,30 @@
           </td>
         </tr>
         <tr>
+          <td>Delay (ms)</td>
+          <td>
+            <va-popover
+              message="Delay: 500"
+            >
+              <va-button>Default</va-button>
+            </va-popover>
+
+            <va-popover
+              :delay="{ show: 1000 }"
+              message="Delay: 1000"
+            >
+              <va-button>1000</va-button>
+            </va-popover>
+
+            <va-popover
+              :delay="{ show: 250 }"
+              message="Delay: 250"
+            >
+              <va-button>250</va-button>
+            </va-popover>
+          </td>
+        </tr>
+        <tr>
           <td>With icon</td>
           <td>
             <va-popover

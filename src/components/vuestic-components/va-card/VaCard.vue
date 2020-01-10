@@ -22,7 +22,7 @@
         <slot name="header">
           <div
             class="va-card__header-title"
-            :style="{color: this.titleOnImage ? 'white' : this.$themes.info}"
+            :style="{ color: this.titleOnImage ? 'white' : this.$themes.info}"
           >
             {{ title }}
           </div>
@@ -45,9 +45,12 @@
 
 <script>
 import { getGradientBackground } from '../../../services/color-functions'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'va-card',
+  mixins: [ColorThemeMixin],
+  inject: ['contextConfig'],
   props: {
     stripe: {
       type: String,
@@ -110,12 +113,22 @@ export default {
       }
     },
     computedCardStyle () {
+      const styles = {}
+
       if (this.color) {
-        return {
-          color: '#fff',
-          background: getGradientBackground(this.$themes[this.color]),
-        }
+        styles.color = '#fff'
+        styles.background = this.contextConfig.gradient ? getGradientBackground(this.colorComputed) : this.colorComputed
       }
+
+      styles.boxShadow = this.boxShadow
+
+      return styles
+    },
+    boxShadow () {
+      return {
+        lg: '0 2px 3px 0 rgba(52, 56, 85, 0.25)',
+        sm: '0 1px 1px 0 rgba(190, 190, 190, 0.25)',
+      }[this.contextConfig.shadow]
     },
   },
 }
@@ -128,7 +141,6 @@ export default {
   border-radius: $card-border-radius;
   border: none;
   box-sizing: border-box;
-  box-shadow: $card-box-shadow;
   word-wrap: break-word;
   background-color: $white;
   position: relative;
@@ -198,10 +210,10 @@ export default {
   }
 
   &__image {
-     padding-bottom: 56%;
-     position: relative;
-     height: auto;
-     min-height: 100%;
+    padding-bottom: 56%;
+    position: relative;
+    height: auto;
+    min-height: 100%;
 
     img {
       position: absolute;

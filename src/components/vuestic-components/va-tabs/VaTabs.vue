@@ -1,5 +1,5 @@
 <template>
-  <div class="va-tabs">
+  <div class="va-tabs"  :class="isScrollable ? 'va-tabs--mobile-scroll' : ''">
     <div class="va-tabs__wrapper">
       <div
         class="va-tabs__container"
@@ -15,14 +15,8 @@
 </template>
 
 <script>
-
-import VaTab from './VaTab'
-
 export default {
   name: 'va-tabs',
-  components: {
-    VaTab,
-  },
   provide () {
     return {
       tabGroup: {
@@ -37,6 +31,7 @@ export default {
       tabsWidth: [],
       sliderLeft: 0,
       sliderWidth: 0,
+      isScrollable: false,
     }
   },
   subs: {
@@ -115,6 +110,10 @@ export default {
       const index = this.tabs.indexOf(tab)
       this.valueProxy = index
     },
+    getScrollState () {
+      const wrapper = this.$el.querySelector('.va-tabs__wrapper')
+      this.isScrollable = !!wrapper && wrapper.scrollWidth > wrapper.clientWidth
+    },
     async updateSlider () {
       await this.$nextTick()
 
@@ -128,6 +127,7 @@ export default {
       const content = selectedTab.$refs.content
       this.sliderWidth = content.scrollWidth + 4
       this.sliderLeft = content.offsetLeft - 2
+      this.getScrollState()
     },
   },
 }
@@ -145,9 +145,14 @@ export default {
   }
 
   .va-tabs__wrapper {
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     contain: content;
     display: flex;
+
+    .va-tabs--mobile-scroll & {
+      padding-bottom: 0.5rem;
+    }
   }
 
   .va-tabs__container {

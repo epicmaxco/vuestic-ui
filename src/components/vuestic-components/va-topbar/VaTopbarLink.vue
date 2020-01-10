@@ -13,7 +13,7 @@
       <va-icon
         v-if="icon"
         class="va-topbar-link__content__icon"
-        :style="computedIconStyles"
+        :style="computedIconStyle"
         :name="icon"
       />
       <div class="va-topbar-link__content__title">
@@ -80,7 +80,7 @@ export default {
 
       return styles
     },
-    computedIconStyles () {
+    computedIconStyle () {
       return (this.isHovered || this.isActive)
         ? {
           color: this.$themes['primary'],

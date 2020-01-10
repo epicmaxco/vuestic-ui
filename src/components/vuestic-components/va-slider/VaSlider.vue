@@ -8,7 +8,7 @@
     </div>
     <span
       v-if="label && !inverseLabel"
-      :style="labelStyles"
+      :style="labelStyle"
       class="va-slider__label">
       {{ label }}
     </span>
@@ -53,7 +53,7 @@
         >
           <div
             v-if="valueVisible"
-            :style="labelStyles"
+            :style="labelStyle"
             class="va-slider__container__handler-value"
           >
             {{ val[0] }}
@@ -72,7 +72,7 @@
         >
           <div
             v-if="valueVisible"
-            :style="labelStyles"
+            :style="labelStyle"
             class="va-slider__container__handler-value">
             {{ val[1] }}
           </div>
@@ -97,7 +97,7 @@
         >
           <div
             v-if="valueVisible"
-            :style="labelStyles"
+            :style="labelStyle"
             class="va-slider__container__handler-value"
           >
             {{ labelValue || val }}
@@ -112,7 +112,7 @@
     </span>
     <span
       v-if="inverseLabel"
-      :style="labelStyles"
+      :style="labelStyle"
       class="va-slider__label va-slider__inverse-label">
       {{ label }}
     </span>
@@ -197,7 +197,7 @@ export default {
         'va-slider--disabled': this.disabled,
       }
     },
-    labelStyles () {
+    labelStyle () {
       return {
         color: this.colorComputed,
       }

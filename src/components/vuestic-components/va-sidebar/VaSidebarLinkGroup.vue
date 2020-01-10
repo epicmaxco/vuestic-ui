@@ -11,7 +11,7 @@
         <va-icon
           v-if="icon"
           class="va-sidebar-link__content__icon"
-          :style="iconStyles"
+          :style="computedIconStyle"
           :name="icon"
         />
         <span class="va-sidebar-link__content__title">
@@ -21,7 +21,7 @@
         </span>
         <va-icon
           class="va-sidebar-link-group__dropdown-icon"
-          :style="iconStyles"
+          :style="computedIconStyle"
           :name="`fa fa-angle-${expanded ? 'up' : 'down'}`"/>
       </div>
     </div>
@@ -52,14 +52,14 @@
           <va-icon
             v-if="icon"
             class="va-sidebar-link__content__icon"
-            :style="iconStyles"
+            :style="computedIconStyle"
             :name="icon"
           />
         </div>
         <va-icon
           name="material-icons"
           class="va-sidebar-link__after"
-          :style="iconStyles"
+          :style="computedIconStyle"
         >
           more_horiz
         </va-icon>
@@ -82,6 +82,7 @@ import TransitionExpand from './TransitionExpand'
 
 export default {
   name: 'va-sidebar-link-group',
+  inject: ['contextConfig'],
   props: {
     icon: [String, Array],
     title: String,
@@ -131,7 +132,7 @@ export default {
       this.isHovered = !this.isHovered
     },
     updateActiveState () {
-      const active = this.children.some(item => item.name === this.$route.name)
+      const active = this.children && this.children.some(item => item.name === this.$route.name)
 
       this.isActive = this.minimized ? active : false
       this.expanded = active
@@ -166,16 +167,26 @@ export default {
 
       if (this.isHovered || this.isActive) {
         return {
-          color: this.$themes['primary'],
-          backgroundColor: getBackgroundColor(),
-          borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
+          color: this.contextConfig.invertedColor ? 'white' : this.$themes.primary,
+          backgroundColor: this.contextConfig.invertedColor ? this.$themes.primary : getBackgroundColor(),
+          borderColor: this.isActive ? this.$themes.primary : 'transparent',
         }
-      } else return {}
+      }
+
+      return {
+        color: this.contextConfig.invertedColor ? this.$themes.secondary : 'rgba(255, 255, 255, 0.65)',
+      }
     },
-    iconStyles () {
-      return (this.isHovered || this.isActive)
-        ? { color: this.$themes['primary'] }
-        : { color: 'white' }
+    computedIconStyle () {
+      if (this.isHovered || this.isActive) {
+        return {
+          color: this.contextConfig.invertedColor ? 'white' : this.$themes.primary,
+        }
+      }
+
+      return {
+        color: this.contextConfig.invertedColor ? this.$themes.primary : 'white',
+      }
     },
   },
 }

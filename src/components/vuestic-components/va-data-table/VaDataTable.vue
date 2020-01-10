@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import { SpringSpinner } from 'epic-spinners'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
@@ -52,7 +51,6 @@ export default {
   name: 'va-data-table',
   components: {
     VaInnerLoading,
-    SpringSpinner,
     Vuetable,
     VaPagination,
   },

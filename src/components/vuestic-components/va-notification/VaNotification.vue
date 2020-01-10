@@ -10,11 +10,11 @@
       <div
         v-if="closeable"
         class="va-notification__close-icon"
+        @click="hideNotification()"
       >
         <va-icon
           :color="color"
           name="ion-md-close ion"
-          @click="hideNotification()"
         />
       </div>
     </div>

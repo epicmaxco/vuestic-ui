@@ -61,11 +61,16 @@ export default {
     va: {
       default: () => ({}),
     },
+    contextConfig: {},
   },
   props: {
     tag: {
       type: String,
       default: 'button',
+    },
+    color: {
+      type: String,
+      default: 'primary',
     },
     outline: {
       type: Boolean,
@@ -151,13 +156,22 @@ export default {
       return getGradientBackground(this.colorComputed)
     },
     shadowStyle () {
-      if (this.flat || this.outline) {
+      if (this.flat || this.outline || !this.contextConfig.shadow) {
         return
       }
-      if (this.va.color && this.$themes && this.$themes[this.va.color]) {
-        return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.color ? this.colorComputed : this.$themes[this.va.color])
+
+      if (this.contextConfig.shadow === 'sm') {
+        return '0 1px 1px 0 rgba(10, 13, 117, 0.25)'
       }
-      return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
+
+      if (this.contextConfig.shadow === 'lg') {
+        if (this.va.color && this.$themes && this.$themes[this.va.color]) {
+          return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.color ? this.colorComputed : this.$themes[this.va.color])
+        }
+
+        return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
+      }
+      return {}
     },
     computedStyle () {
       const computedStyle = {
@@ -191,7 +205,11 @@ export default {
         computedStyle.boxShadow = this.shadowStyle
       }
 
-      if (this.va.color && !this.outline && !this.flat) {
+      if (
+        !this.outline &&
+        !this.flat &&
+        (this.va.color || !this.contextConfig.gradient)
+      ) {
         computedStyle.background = this.color ? this.colorComputed : this.$themes[this.va.color]
         computedStyle.backgroundImage = ''
       }
@@ -247,6 +265,7 @@ export default {
   font-family: $font-family-sans-serif;
   text-decoration: none !important;
   text-transform: initial;
+  font-weight: $font-weight-bold;
   cursor: pointer;
   transition: $btn-transition;
   background-color: $white;

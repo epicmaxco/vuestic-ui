@@ -2,10 +2,10 @@
   <aside
     class="va-sidebar"
     :class="computedClass"
-    :style="{ backgroundColor: colorComputed }"
+    :style="computedStyle"
   >
     <ul class="va-sidebar__menu">
-      <slot name="menu"></slot>
+      <slot name="menu"/>
     </ul>
   </aside>
 </template>
@@ -15,6 +15,9 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'va-sidebar',
+  inject: {
+    contextConfig: {},
+  },
   components: {},
   mixins: [ColorThemeMixin],
   props: {
@@ -31,6 +34,11 @@ export default {
     computedClass () {
       return {
         'va-sidebar--minimized': this.minimized,
+      }
+    },
+    computedStyle () {
+      return {
+        backgroundColor: this.contextConfig.invertedColor ? 'white' : this.$themes['secondary'],
       }
     },
   },
