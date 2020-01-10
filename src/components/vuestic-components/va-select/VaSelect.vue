@@ -84,7 +84,6 @@
     >
       <label
         class="va-select__label"
-        :style="labelStyle"
         aria-hidden="true"
       >
         {{label}}
