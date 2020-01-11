@@ -37,7 +37,8 @@
     "vue-toasted": "^1.1.25",
     "vue-yandex-maps": "^0.8.14",
     "vuelidate": "^0.7.4",
-    "vuetable-2": "1.7.5"
+    "vuetable-2": "1.7.5",
+    "webpack": "^4.41.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.5",
