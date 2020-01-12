@@ -2,6 +2,12 @@
 node_modules
 /dist
 
+# Yarn 2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.pnp.*
+
 # local env files
 .env.local
 .env.*.local
