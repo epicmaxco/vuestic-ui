@@ -1,7 +1,11 @@
 <template>
 <VbDemo>
   <VbCard title="default">
-    <va-button-dropdown label="default">
+    <va-button-dropdown label="label">Content</va-button-dropdown>
+  </VbCard>
+  <VbCard title="label slot">
+    <va-button-dropdown>
+      <template #label>label</template>
       Content
     </va-button-dropdown>
   </VbCard>
@@ -14,7 +18,7 @@
     </va-button-dropdown>
     <va-button-dropdown
       split
-      split-to="#"
+      split-to="/"
       label="Split to"
     >
       Content
@@ -103,13 +107,6 @@
     </va-button-dropdown>
     <va-button-dropdown
       split
-      disabled
-      label="Disabled"
-    >
-      Content
-    </va-button-dropdown>
-    <va-button-dropdown
-      split
       disable-button
       label="disable-button"
     >
@@ -164,11 +161,11 @@ export default {
   components: { VaButtonDropdown },
   methods: {
     mainButtonClick (e) {
-      // @ts-ignore
+      // eslint-disable-next-line no-console
       console.log('main-button-click', e)
     },
     click (e) {
-      // @ts-ignore
+      // eslint-disable-next-line no-console
       console.log('click', e)
     },
   },
