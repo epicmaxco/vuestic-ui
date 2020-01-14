@@ -64,6 +64,10 @@
           label="input"
           :rules="[value => value === 'hello' || 'should be hello']"
         />
+        Validation rule always returns false
+        <va-input :rules="[() => false]" />
+        Validation rule returns empty string
+        <va-input :rules="[() => '']" />
       </va-form>
       <button @click="$refs.rulesFormRef.validate()">
         Validate
@@ -71,36 +75,17 @@
     </VbCard>
 
     <VbCard
-      title="lazy validation (stops on first)"
+      title="Validation starts after first blur"
       refresh
     >
-      <span
-        style="color: tomato;"
-        title="() => false should bring invalid state"
-      >❗❗</span>
-
-      <div>Non lazy</div>
       <va-form
-        @validation="onValidation"
-        ref="nonLazyValidationForm"
-      >
-        <va-input :rules="[() => false]" />
-        <va-input :rules="[() => false]" />
-      </va-form>
-
-      <div>Lazy</div>
-      <va-form
-        lazy-validation
+        start-validating-on-blur
         @validation="onValidation"
         ref="lazyValidationForm"
       >
-        <va-input :rules="[() => false]" />
-        <va-input :rules="[() => false]" />
+        <va-input v-model="onBlur.valid" :rules="[value => value === 'valid' || `should be 'valid'`]" />
+        <va-input v-model="onBlur.required" :rules="[value => !!value || 'required']" />
       </va-form>
-
-      <button @click="$refs.nonLazyValidationForm.validate(), $refs.lazyValidationForm.validate()">
-        Validate
-      </button>
     </VbCard>
 
     <VbCard title="nested forms">
@@ -163,6 +148,10 @@ export default {
         inputError: false,
       },
       inputRules: 'hell',
+      onBlur: {
+        valid: '',
+        required: '',
+      },
     }
   },
   methods: {
