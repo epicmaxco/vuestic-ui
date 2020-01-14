@@ -89,6 +89,7 @@ export default {
     },
     label: {
       type: String,
+      default: '',
     },
     disabled: {
       type: Boolean,
@@ -116,6 +117,7 @@ export default {
     },
     splitTo: {
       type: String,
+      default: '',
     },
   },
   data () {

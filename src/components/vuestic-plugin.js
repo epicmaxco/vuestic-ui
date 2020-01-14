@@ -61,7 +61,7 @@ import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper'
 import Toasted from './vuestic-mixins/VuesticToasted'
 
 import StickyScroll from './vuestic-directives/StickyScroll'
-
+import VaButtonDropdown from './vuestic-components/va-button-dropdown/VaButtonDropdown'
 import { installPlatform } from './vuestic-components/va-popup/install'
 import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 
@@ -143,6 +143,7 @@ const VuesticPlugin = {
       VaAdvancedColorPicker,
       VaColorPickerInput,
       VaPaletteCustom,
+      VaButtonDropdown,
     ].forEach(component => {
       Vue.component(component.name, component)
     })

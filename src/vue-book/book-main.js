@@ -10,6 +10,7 @@ import { registerVuesticObject } from '../components/resize-events'
 import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
 import { installPlatform } from '../components/vuestic-components/va-popup/install'
 
+// eslint-disable-next-line
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
 installPlatform()
