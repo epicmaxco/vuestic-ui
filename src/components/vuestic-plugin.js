@@ -64,6 +64,7 @@ import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot'
 import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper'
 import StickyScroll from './vuestic-directives/StickyScroll'
+import VaButtonDropdown from './vuestic-components/va-button-dropdown/VaButtonDropdown'
 import { installPlatform } from './vuestic-components/va-popup/install'
 import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 
@@ -152,6 +153,7 @@ const VuesticPlugin = {
       VaAdvancedColorPicker,
       VaColorPickerInput,
       VaPaletteCustom,
+      VaButtonDropdown,
     ].forEach(component => {
       Vue.component(component.name, component)
     })
