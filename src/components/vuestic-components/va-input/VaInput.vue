@@ -14,7 +14,7 @@
       :style="containerStyles"
     >
       <div
-        v-if="success || error || $slots.prepend || (removable && hasContent)"
+        v-show="success || error || $slots.prepend || (removable && hasContent)"
         class="va-input__container__icon-wrapper va-input__container__icon-wrapper--start"
       >
         <va-icon
@@ -239,7 +239,7 @@ export default {
           keydown: event => {
             this.$emit('keydown', event)
           },
-        }
+        },
       )
     },
     hasContent () {
