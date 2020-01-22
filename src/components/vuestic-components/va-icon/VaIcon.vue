@@ -90,3 +90,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+  .va-icon {
+    vertical-align: middle;
+  }
+</style>
