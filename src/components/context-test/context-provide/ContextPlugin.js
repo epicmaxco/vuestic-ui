@@ -101,6 +101,7 @@ export const getContextPropValue = (context, prop, defaultValue) => {
 
   const configs = context.$vaContextConfig ? [context.$vaContextConfig, ...context._$configs] : context._$configs
   const config = getLocalConfigWithComponentProp(configs, componentName, prop)
+  defaultValue = typeof defaultValue === 'function' ? defaultValue() : defaultValue
 
   return config ? config[componentName][prop] : defaultValue
 }
