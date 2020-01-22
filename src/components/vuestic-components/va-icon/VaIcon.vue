@@ -1,102 +1,92 @@
 <template>
-  <!-- HACK Supports only material icons for now! -->
   <component
     :is="tag"
     class="va-icon"
-    :class="[name, iconClass, 'material-icons']"
-    :style="iconStyle"
+    :class="computedClass"
+    :style="computedStyle"
+    aria-hidden="true"
+    notranslate
   >
-    <slot>
-      {{ name }}
-    </slot>
+    <slot>{{ computedContent }}</slot>
   </component>
 </template>
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
+import { getIcon } from './va-icon-service'
 import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
 
-const IconContextMixin = makeContextablePropsMixin({
+const iconContextMixin = makeContextablePropsMixin({
+  tag: {
+    type: String,
+    default: 'i',
+  },
   name: {
-    type: [String, Array],
-    validator: name => {
-      if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-        throw new Error(`${name} icon is not available. Please replace to material-icon`)
-      }
-
-      return name
-    },
+    type: String,
     default: '',
   },
   size: {
     type: [String, Number],
     default: 'medium',
   },
-  fixedWidth: {
-    type: Boolean,
-    default: false,
+  color: {
+    type: String,
+    default: '',
   },
   rotation: {
     type: [String, Number],
     default: '',
   },
-  color: {
-    type: String,
-    default: '',
-  },
-  tag: {
-    type: String,
-    default: 'i',
-  },
 })
 
 export default {
   name: 'VaIcon',
-  mixins: [ColorThemeMixin, SizeMixin, IconContextMixin],
+  mixins: [ColorThemeMixin, SizeMixin, iconContextMixin],
+  data () {
+    return {
+      icon: getIcon(this.name),
+    }
+  },
   computed: {
-    iconClass () {
+    sizeClass () {
       return {
         'va-icon--large': this.c_size === 'large',
+        'va-icon--medium': this.c_size === 'medium',
         'va-icon--small': this.c_size === 'small',
-        'va-icon--fixed': this.c_fixedWidth,
       }
     },
-    iconStyle () {
-      let computedStyles = {
-        transform: 'rotate(' + this.c_rotation + 'deg)',
-        fontSize: typeof this.c_size === 'number' ? this.c_size + 'px' : this.c_size,
+    computedClass () {
+      let iconSetClasses = {}
+      if (this.name) {
+        iconSetClasses = this.icon && this.icon.classes
       }
 
-      if (this.c_color && this._isEnableColorTheme) {
-        computedStyles.color = this.colorComputed
+      return { ...this.sizeClass, ...iconSetClasses }
+    },
+    rotateStyle () {
+      return { transform: 'rotate(' + this.c_rotation + 'deg)' }
+    },
+    fontSizeStyle () {
+      return { fontSize: this.iconSizeComputed }
+    },
+    colorStyle () {
+      return { color: this.c_color ? this.colorComputed : null }
+    },
+    computedStyle () {
+      return {
+        ...this.rotateStyle,
+        ...this.fontSizeStyle,
+        ...this.colorStyle,
+      }
+    },
+    computedContent () {
+      if (this.name) {
+        return this.icon && this.icon.content
       }
 
-      return computedStyles
+      return null
     },
   },
 }
 </script>
-
-<style lang="scss">
-@import "../../vuestic-sass/resources/resources";
-
-.va-icon {
-  display: inline-block;
-  letter-spacing: normal;
-  font-size: initial;
-
-  &--large {
-    font-size: $icon-lg-size;
-  }
-
-  &--small {
-    font-size: $icon-sm-size;
-  }
-
-  &--fixed {
-    width: $icon-fixed-width;
-    text-align: center;
-  }
-}
-</style>

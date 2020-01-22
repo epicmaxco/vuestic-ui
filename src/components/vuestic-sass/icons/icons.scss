@@ -6,7 +6,13 @@ $ionicons-font-path: "~ionicons/dist/fonts";
 
 @import "~ionicons/dist/scss/ionicons.scss";
 
+// font-awesome 4
 $fa-font-path: "~font-awesome/fonts";
-
 @import "~font-awesome/scss/font-awesome.scss";
+
+// font-awesome 5
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);

@@ -27,6 +27,7 @@
         fixed-width
         class="va-button__content__icon va-button__content__icon-left"
         :name="c_icon"
+        icon-set="md"
       />
       <div
         v-if="hasTitleData"
@@ -39,6 +40,7 @@
         fixed-width
         class="va-button__content__icon va-button__content__icon-right"
         :name="c_iconRight"
+        icon-set="md"
       />
     </div>
   </component>

@@ -4,6 +4,12 @@ const sizes = {
   large: 64,
 }
 
+const iconSizes = {
+  small: 16,
+  medium: 24,
+  large: 32,
+}
+
 export const SizeMixin = {
   props: {
     size: {
@@ -18,6 +24,12 @@ export const SizeMixin = {
     sizeComputed () {
       if (typeof this.size === 'string') {
         return this.size in sizes ? `${sizes[this.size]}px` : this.size
+      }
+      return `${this.size}px`
+    },
+    iconSizeComputed () {
+      if (typeof this.size === 'string') {
+        return this.size in sizes ? `${iconSizes[this.size]}px` : this.size
       }
       return `${this.size}px`
     },
