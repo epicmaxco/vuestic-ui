@@ -1,8 +1,8 @@
-const iconConfig = {
+const iconsConfig = {
   defaultFont: 'md',
   icons: {
     'home': {
-      code: 'home'
+      code: 'home',
     },
     'fa4-home': {
       code: 'home',
@@ -19,11 +19,9 @@ const iconConfig = {
     'entypo-home': {
       code: 'home',
       font: 'entypo',
-    }
+    },
   },
 }
-
-const iconSet = {}
 
 const isMaterialFont = font => font === 'md'
 const isFontAwesome4Font = font => font === 'fa4'
@@ -38,7 +36,7 @@ const getClasses = (icon, font) => {
     [`fa fa-${icon.code}`]: isFontAwesome4Font(font),
     [`${font} fa-${icon.code}`]: isFontAwesome5Font(font),
     [`icon ion-md-${icon.code}`]: isIonicFont(font),
-    [`${font}-${icon.code}`]: isWeLoveIconsFont(font)
+    [`${font}-${icon.code}`]: isWeLoveIconsFont(font),
   }
 }
 
@@ -50,36 +48,39 @@ const getContent = (icon, font) => {
   return null
 }
 
-const init = () => {
-  const { defaultFont, icons } = iconConfig
-
-  Object.keys(icons).forEach(key => {
-    const icon = icons[key]
-    const font = icon.font || defaultFont
-
-    iconSet[key] = {
-      classes: getClasses(icon, font),
-      content: getContent(icon, font),
-    }
-  })
-}
-
-init()
-
-const getIcon = key => {
+const getIcon = (key, font = '') => {
   if (!key) {
     return null
   }
 
-  if (!(key in iconSet)) {
-    throw new Error(`Configuration for ${key} icon was not founf`)
+  const { defaultFont, icons } = iconsConfig
+
+  if (!(key in icons)) {
+    throw new Error(`Configuration for icon ${key} not found`)
   }
 
-  return iconSet[key]
+  const iconConfig = icons[key]
+  const iconFont = font || iconConfig.font || defaultFont
+
+  return {
+    classes: getClasses(iconConfig, iconFont),
+    content: getContent(iconConfig, iconFont),
+  }
 }
 
-const addOrUpdateIcon = () => {
+const addOrUpdateIcon = (key, code, font) => {
+  if (!key) {
+    throw new Error('Key parameter is required')
+  }
 
+  if (!code) {
+    throw new Error('Code parameter is required')
+  }
+
+  iconsConfig.icons[key] = {
+    code,
+    font,
+  }
 }
 
 export { addOrUpdateIcon, getIcon }

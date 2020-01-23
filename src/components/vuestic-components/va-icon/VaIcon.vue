@@ -26,6 +26,10 @@ const iconContextMixin = makeContextablePropsMixin({
     type: String,
     default: '',
   },
+  font: {
+    type: String,
+    default: '',
+  },
   size: {
     type: [String, Number],
     default: 'medium',
@@ -45,24 +49,17 @@ export default {
   mixins: [ColorThemeMixin, SizeMixin, iconContextMixin],
   data () {
     return {
-      icon: getIcon(this.name),
+      icon: getIcon(this.name, this.font),
     }
   },
   computed: {
-    sizeClass () {
-      return {
-        'va-icon--large': this.c_size === 'large',
-        'va-icon--medium': this.c_size === 'medium',
-        'va-icon--small': this.c_size === 'small',
-      }
-    },
     computedClass () {
       let iconSetClasses = {}
       if (this.name) {
         iconSetClasses = this.icon && this.icon.classes
       }
 
-      return { ...this.sizeClass, ...iconSetClasses }
+      return { ...iconSetClasses }
     },
     rotateStyle () {
       return { transform: 'rotate(' + this.c_rotation + 'deg)' }

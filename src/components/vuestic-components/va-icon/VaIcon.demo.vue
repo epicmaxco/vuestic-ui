@@ -113,16 +113,31 @@
         name="home"
       />
     </VbCard>
+    <VbCard title="Added icon">
+      <va-icon
+        name="new-icon"
+      />
+    </VbCard>
+    <VbCard title="Override font">
+      <va-icon
+        name="new-icon"
+        font="md"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaIcon from './VaIcon'
+import { addOrUpdateIcon } from './va-icon-service'
 
 export default {
   components: {
     VaIcon,
   },
+  beforeCreate () {
+    addOrUpdateIcon('new-icon', 'info', 'fas')
+  }
 }
 </script>
 
