@@ -6,6 +6,7 @@
     :style="computedStyle"
     aria-hidden="true"
     notranslate
+    v-on="$listeners"
   >
     <slot>{{ computedContent }}</slot>
   </component>
@@ -52,8 +53,13 @@ export default {
       return getIcon(this.name, this.font)
     },
     computedClass () {
-      let iconClass = (this.icon && this.icon.iconClass) || ''
-      return iconClass
+      return (this.icon && this.icon.iconClass) || ''
+    },
+    hasClickListener () {
+      return this.$listeners && this.$listeners.click
+    },
+    cursorStyle () {
+      return { cursor: this.hasClickListener ? 'pointer' : null }
     },
     rotateStyle () {
       return { transform: 'rotate(' + this.c_rotation + 'deg)' }
@@ -66,6 +72,7 @@ export default {
     },
     computedStyle () {
       return {
+        ...this.cursorStyle,
         ...this.rotateStyle,
         ...this.fontSizeStyle,
         ...this.colorStyle,
@@ -81,5 +88,6 @@ export default {
 <style lang="scss">
 .va-icon {
   vertical-align: middle;
+  user-select: none;
 }
 </style>

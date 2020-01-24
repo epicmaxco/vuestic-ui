@@ -124,6 +124,14 @@
         font="md"
       />
     </VbCard>
+    <VbCard title="Click">
+      <va-icon
+        name="new-icon"
+        font="md"
+        @click="clicked += 1"
+      />
+      {{ clicked }}
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -138,6 +146,11 @@ export default {
   beforeCreate () {
     addOrUpdateIcon('new-icon', 'info', 'fas')
   },
+  data () {
+    return {
+      clicked: 0
+    }
+  }
 }
 </script>
 
