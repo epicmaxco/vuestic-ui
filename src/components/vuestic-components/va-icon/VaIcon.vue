@@ -47,19 +47,17 @@ const iconContextMixin = makeContextablePropsMixin({
 export default {
   name: 'VaIcon',
   mixins: [ColorThemeMixin, SizeMixin, iconContextMixin],
-  data () {
-    return {
-      icon: getIcon(this.name, this.font),
-    }
-  },
   computed: {
+    icon () {
+      return getIcon(this.name, this.font)
+    },
     computedClass () {
-      let iconSetClasses = {}
+      let iconClass = ''
       if (this.name) {
-        iconSetClasses = this.icon && this.icon.classes
+        iconClass = this.icon && this.icon.iconClass
       }
 
-      return { ...iconSetClasses }
+      return [iconClass]
     },
     rotateStyle () {
       return { transform: 'rotate(' + this.c_rotation + 'deg)' }
@@ -89,7 +87,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-icon {
-    vertical-align: middle;
-  }
+.va-icon {
+  vertical-align: middle;
+}
 </style>

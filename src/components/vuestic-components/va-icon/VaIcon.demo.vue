@@ -137,7 +137,7 @@ export default {
   },
   beforeCreate () {
     addOrUpdateIcon('new-icon', 'info', 'fas')
-  }
+  },
 }
 </script>
 

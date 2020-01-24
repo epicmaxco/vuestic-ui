@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { getIcon } from '../va-icon/va-icon-service'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
@@ -107,10 +108,12 @@ export default {
     styles () {
       return {
         tableClass: this.buildTableClass(),
-        ascendingIcon: 'fa fa-caret-up',
-        descendingIcon: 'fa fa-caret-down',
-        renderIcon: classes => {
-          return '<span class="' + classes.join(' ') + '"></span>'
+        ascendingIcon: getIcon('arrow_drop_up'),
+        descendingIcon: getIcon('arrow_drop_down'),
+        renderIcon: options => {
+          const iconClass = (options[1] && options[1].iconClass) || ''
+          const content = (options[1] && options[1].content) || ''
+          return `<i class="${options[0]} ${iconClass}">${content}</i>`
         },
       }
     },

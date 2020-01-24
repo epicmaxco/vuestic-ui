@@ -128,16 +128,16 @@ export default {
         return getContextPropValue(this, 'directionLinks', true)
       },
     },
-    iconSet: {
+    iconFont: {
       type: Object,
       default () {
-        return getContextPropValue(this, 'iconSet', null)
+        return getContextPropValue(this, 'iconFont', null)
       },
     },
-    iconSetRight: {
+    iconFontRight: {
       type: Object,
       default () {
-        return getContextPropValue(this, 'iconSetRight', null)
+        return getContextPropValue(this, 'iconFontRight', null)
       },
     },
   },
@@ -162,10 +162,10 @@ export default {
       }
     },
     iconClass () {
-      return Object.assign({}, this.defaultIconClass, this.iconSet)
+      return Object.assign({}, this.defaultIconClass)
     },
     iconRightClass () {
-      return Object.assign({}, this.defaultIconRightClass, this.iconSetRight)
+      return Object.assign({}, this.defaultIconRightClass)
     },
     lastPage () {
       return this.pages
