@@ -95,4 +95,7 @@ export default {
     code: 'info',
     font: 'fas',
   },
+  'remove': {
+    code: 'remove',
+  },
 }

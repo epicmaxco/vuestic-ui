@@ -28,7 +28,7 @@ const iconContextMixin = makeContextablePropsMixin({
     default: () => {},
   },
   tag: {
-    type: String,
+    type: String | Object,
     default: 'i',
   },
   name: {
