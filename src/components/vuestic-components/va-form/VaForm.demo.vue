@@ -45,10 +45,10 @@
     </VbCard>
 
     <VbCard title="focus invalid">
-      <va-form ref="focusInvalidFormRef">
+      <va-form ref="focusInvalidForm">
         <va-input />
         <va-input error />
-        <button @click="$refs.focusInvalidFormRef.focusInvalid()">
+        <button @click="$refs.focusInvalidForm.focusInvalid()">
           Focus invalid
         </button>
       </va-form>
@@ -83,8 +83,14 @@
         @validation="onValidation"
         ref="lazyValidationForm"
       >
-        <va-input v-model="onBlur.valid" :rules="[value => value === 'valid' || `should be 'valid'`]" />
-        <va-input v-model="onBlur.required" :rules="[value => !!value || 'required']" />
+        <va-input
+          v-model="onBlur.valid"
+          :rules="[value => value === 'valid' || `should be 'valid'`]"
+        />
+        <va-input
+          v-model="onBlur.required"
+          :rules="[value => !!value || 'required']"
+        />
       </va-form>
     </VbCard>
 
