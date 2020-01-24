@@ -52,12 +52,8 @@ export default {
       return getIcon(this.name, this.font)
     },
     computedClass () {
-      let iconClass = ''
-      if (this.name) {
-        iconClass = this.icon && this.icon.iconClass
-      }
-
-      return [iconClass]
+      let iconClass = (this.icon && this.icon.iconClass) || ''
+      return iconClass
     },
     rotateStyle () {
       return { transform: 'rotate(' + this.c_rotation + 'deg)' }
@@ -76,11 +72,7 @@ export default {
       }
     },
     computedContent () {
-      if (this.name) {
-        return this.icon && this.icon.content
-      }
-
-      return null
+      return this.icon && this.icon.content
     },
   },
 }

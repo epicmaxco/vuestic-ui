@@ -63,24 +63,15 @@ const iconsConfig = {
     'remove_red_eye': {
       code: 'remove_red_eye',
     },
-    // 'warning': {
-    //   code: 'warning',
-    // },
     'account_box': {
       code: 'account_box',
     },
     'info': {
       code: 'info',
     },
-    // 'account_box': {
-    //   code: 'account_box',
-    // },
     'face': {
       code: 'face',
     },
-    // 'account_box': {
-    //   code: 'account_box',
-    // },
     // 'warning': {
     //   code: 'warning',
     // },
@@ -94,9 +85,6 @@ const iconsConfig = {
     'check_circle': {
       code: 'check_circle',
     },
-    // 'face': {
-    //   code: 'face',
-    // },
     'share': {
       code: 'share',
     },
@@ -106,9 +94,6 @@ const iconsConfig = {
     'volume_up': {
       code: 'volume_up',
     },
-    // 'remove_red_eye': {
-    //   code: 'remove_red_eye',
-    // },
     'star': {
       code: 'star',
     },
@@ -160,6 +145,12 @@ const iconsConfig = {
     'error': {
       code: 'error',
     },
+    // 'face': {
+    //   code: 'face',
+    // },
+    // 'remove_red_eye': {
+    //   code: 'remove_red_eye',
+    // },
     // Icons demo
     'home': {
       code: 'home',

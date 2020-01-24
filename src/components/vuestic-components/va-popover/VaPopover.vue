@@ -21,6 +21,7 @@
       >
         <va-icon
           :name="icon"
+          :color="color"
         />
       </div>
       <div v-if="title || message">
