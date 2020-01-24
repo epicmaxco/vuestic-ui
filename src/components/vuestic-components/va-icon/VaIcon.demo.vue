@@ -115,42 +115,43 @@
     </VbCard>
     <VbCard title="Added icon">
       <va-icon
-        name="new-icon"
+        name="info"
       />
     </VbCard>
     <VbCard title="Override font">
       <va-icon
-        name="new-icon"
+        name="info"
         font="md"
       />
     </VbCard>
     <VbCard title="Click">
       <va-icon
-        name="new-icon"
+        name="info"
         font="md"
-        @click="clicked += 1"
+        @click="clickedCount += 1"
       />
-      {{ clicked }}
+      {{ clickedCount }}
+    </VbCard>
+    <VbCard title="Svg component">
+      <va-icon :tag="SvgComponent" />
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaIcon from './VaIcon'
-import { addOrUpdateIcon } from './va-icon-service'
+import SvgComponent from './va-iconset/VaIconVue'
 
 export default {
   components: {
     VaIcon,
   },
-  beforeCreate () {
-    addOrUpdateIcon('new-icon', 'info', 'fas')
-  },
   data () {
     return {
-      clicked: 0
+      clickedCount: 0,
+      SvgComponent,
     }
-  }
+  },
 }
 </script>
 

@@ -118,6 +118,21 @@ export function overrideContextConfig (context, options) {
 }
 
 /**
+ * Get prop value provided in the parent component
+ *
+ * @param key - [string] the prop name.
+ * @param context - [object] this of the vue component.
+ * @returns {any} Returns property value.
+ */
+export function getParentPropValue (key, context) {
+  if (!(key in context.$options.propsData)) {
+    return undefined
+  }
+
+  return context.$options.propsData[key]
+}
+
+/**
  * Attempt to find a prop value from config chain.
  *
  * @category String

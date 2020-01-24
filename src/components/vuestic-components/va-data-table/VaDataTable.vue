@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import { getIcon } from '../va-icon/va-icon-service'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading'

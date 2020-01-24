@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="tag"
+    :is="computedTag"
     class="va-icon"
     :class="computedClass"
     :style="computedStyle"
@@ -15,19 +15,23 @@
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { getIcon } from './va-icon-service'
 import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
+import vaIconMixin from './vaIconMixin'
 
 const iconContextMixin = makeContextablePropsMixin({
+  font: {
+    type: String,
+    default: 'md',
+  },
+  config: {
+    type: Object,
+    default: () => {},
+  },
   tag: {
     type: String,
     default: 'i',
   },
   name: {
-    type: String,
-    default: '',
-  },
-  font: {
     type: String,
     default: '',
   },
@@ -47,10 +51,13 @@ const iconContextMixin = makeContextablePropsMixin({
 
 export default {
   name: 'VaIcon',
-  mixins: [ColorThemeMixin, SizeMixin, iconContextMixin],
+  mixins: [ColorThemeMixin, SizeMixin, iconContextMixin, vaIconMixin],
   computed: {
     icon () {
-      return getIcon(this.name, this.font)
+      return this.getIcon()
+    },
+    computedTag () {
+      return (this.icon && this.icon.component) || this.c_tag
     },
     computedClass () {
       return (this.icon && this.icon.iconClass) || ''
