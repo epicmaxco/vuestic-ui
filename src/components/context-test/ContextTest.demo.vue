@@ -145,10 +145,10 @@ export default {
             code: 'room',
           },
           'schedule': {
-            code: 'schedule'
-          }
-        }
-      }
+            code: 'schedule',
+          },
+        },
+      },
     })
   },
   beforeDestroy () {
