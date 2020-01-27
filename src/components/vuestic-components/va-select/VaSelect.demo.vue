@@ -23,16 +23,12 @@
         v-model="defaultSelect.value"
         success
       />
-      <va-input-wrapper
+      <va-select
+        :options="defaultSelect.options"
+        v-model="defaultSelect.value"
         error
         :error-messages="['error message']"
-      >
-        <va-select
-          :options="defaultSelect.options"
-          v-model="defaultSelect.value"
-          error
-        />
-      </va-input-wrapper>
+      />
     </VbCard>
     <VbCard
       title="Object options"
@@ -267,12 +263,31 @@
         :options="longSelect.options"
       />
     </VbCard>
+    <VbCard
+      title="With validation rules"
+      style="width: 400px;"
+    >
+      <va-select
+        label="At least 1 option should be selected"
+        :options="validationSelect.options"
+        :rules="validationSelect.rules.required"
+        v-model="validationSelect.value"
+      />
+      <va-select
+        label="Exactly 2 options should be selected"
+        :options="validationSelect.options"
+        :rules="validationSelect.rules.twoOptions"
+        v-model="validationSelect.multipleValue"
+        multiple
+      />
+    </VbCard>
     <VbCard :style="{ 'width': '100%' }">
       <p>{{ defaultSelect.value }}</p>
       <p>{{ objectSelect.value }}</p>
       <p>{{ iconsSelect.value }}</p>
       <p>{{ multipleValue }}</p>
       <p>{{ longSelect.value }}</p>
+      <p>{{ validationSelect.value }}</p>
     </VbCard>
   </VbDemo>
 </template>
@@ -281,13 +296,12 @@
 
 import CountriesList from '../../../data/CountriesList'
 import VaSelect from './VaSelect'
-import VaInputWrapper from '../va-input/VaInputWrapper'
 import { objectOptionsList, iconOptionsList } from './getDemoData'
 
 const positions = ['top', 'bottom']
 
 export default {
-  components: { VaInputWrapper, VaSelect },
+  components: { VaSelect },
   data () {
     return {
       defaultSelect: {
@@ -308,6 +322,15 @@ export default {
           '1st long long long long option sit amet, consectetur adipiscing elit,',
           '2nd long  sit amet, consectetur adipiscing elit, long long long long long option',
         ],
+      },
+      validationSelect: {
+        options: ['one', 'two', 'three', 'four'],
+        value: '',
+        multipleValue: [],
+        rules: {
+          required: [v => Array.isArray(v) ? v.length : !!v || 'at least 1 option should be selected'],
+          twoOptions: [v => (Array.isArray(v) && v.length === 2) || '2 options should be selected'],
+        },
       },
       multipleValue: [],
       CountriesList,

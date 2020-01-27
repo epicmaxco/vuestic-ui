@@ -65,6 +65,7 @@
     <VbCard title="String error message">
       <va-checkbox
         v-model="value"
+        error
         label="Error messages"
         :error-messages="stringErrorMessage"
       />
@@ -72,6 +73,7 @@
     <VbCard title="Array error messages">
       <va-checkbox
         v-model="value"
+        error
         :error-messages="errorMessages"
         label="Multiple error messages"
       />
@@ -80,6 +82,7 @@
       <va-checkbox
         style="width: 200px;"
         v-model="value"
+        error
         :error-messages="errorMessages"
         :error-count="3"
         label="Label"
@@ -106,6 +109,12 @@
       <va-checkbox
         :value="true"
         name="checkbox-name"
+      />
+    </VbCard>
+    <VbCard title="With validation (required rule)">
+      <va-checkbox
+        v-model="value"
+        :rules="[(v) => !!v || 'required']"
       />
     </VbCard>
     <VbCard title="Array as model">

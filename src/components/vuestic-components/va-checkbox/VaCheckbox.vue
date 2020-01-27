@@ -40,7 +40,7 @@
     </div>
     <va-message-list
       class="va-checkbox__error-message-container"
-      :value="errorMessages"
+      :value="computedErrorMessages"
       color="danger"
       :limit="errorCount"
     />
@@ -53,11 +53,12 @@ import VaMessageList from '../va-input/VaMessageList'
 import { KeyboardOnlyFocusMixin } from './KeyboardOnlyFocusMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import validateMixin from '../../vuestic-mixins/validate'
 
 export default {
   name: 'VaCheckbox',
   components: { VaMessageList, VaIcon },
-  mixins: [KeyboardOnlyFocusMixin, ColorThemeMixin, ContextPluginMixin],
+  mixins: [KeyboardOnlyFocusMixin, ColorThemeMixin, ContextPluginMixin, validateMixin],
   props: {
     color: {
       type: String,
@@ -126,24 +127,6 @@ export default {
         return getContextPropValue(this, 'indeterminateIcon', 'close')
       },
     },
-    error: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'error', false)
-      },
-    },
-    errorMessages: {
-      type: [String, Array],
-      default () {
-        return getContextPropValue(this, 'errorMessages', '')
-      },
-    },
-    errorCount: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'errorCount', 1)
-      },
-    },
   },
   computed: {
     computedClass () {
@@ -184,8 +167,8 @@ export default {
     },
     showError () {
       // We make error active, if the error-message is not empty and checkbox is not disabled
-      if (!this.disabled && this.errorMessages) {
-        if (!(this.errorMessages.length === 0) || this.error) {
+      if (!this.disabled && this.computedErrorMessages) {
+        if (!(this.computedErrorMessages.length === 0) || this.computedError) {
           return true
         }
       }

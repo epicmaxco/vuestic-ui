@@ -88,15 +88,13 @@
 </template>
 
 <script>
-import isFunction from 'lodash/isFunction'
-import isString from 'lodash/isString'
-import flatten from 'lodash/flatten'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon/VaIcon'
 import { getHoverColor } from './../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
+import validateMixin from '../../vuestic-mixins/validate'
 
 const InputContextMixin = makeContextablePropsMixin({
   color: {
@@ -135,25 +133,11 @@ const InputContextMixin = makeContextablePropsMixin({
     type: Number,
     default: 0,
   },
-  errorCount: {
-    type: Number,
-    default: 1,
-  },
   success: {
     type: Boolean,
     default: false,
   },
   messages: {
-    type: Array,
-    default () {
-      return []
-    },
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  errorMessages: {
     type: Array,
     default () {
       return []
@@ -185,21 +169,11 @@ const InputContextMixin = makeContextablePropsMixin({
     },
     default: null,
   },
-  rules: {
-    type: Array,
-    default () {
-      return []
-    },
-  },
 })
-
-const prepareValidations = (messages = [], callArguments = null) =>
-  messages
-    .map((message) => isFunction(message) ? message(callArguments) : message)
 
 export default {
   name: 'VaInput',
-  mixins: [ColorThemeMixin, InputContextMixin],
+  mixins: [ColorThemeMixin, InputContextMixin, validateMixin],
   components: { VaInputWrapper, VaIcon },
   mounted () {
     this.adjustHeight()
@@ -210,37 +184,14 @@ export default {
   watch: {
     value () {
       this.adjustHeight()
-
-      if (!this.isValidatedOnBlur) {
-        this.validate()
-      }
     },
   },
   data () {
     return {
-      isValidatedOnBlur: false,
       isFocused: false,
-      internalErrorMessages: null,
-      internalError: false,
     }
   },
   computed: {
-    computedError: {
-      get () {
-        return this.internalError || this.error
-      },
-      set (_error) {
-        this.internalError = _error
-      },
-    },
-    computedErrorMessages: {
-      get () {
-        return this.internalErrorMessages || prepareValidations(this.errorMessages)
-      },
-      set (_errorMessages) {
-        this.internalErrorMessages = _errorMessages
-      },
-    },
     labelStyles () {
       if (this.computedError) {
         return { color: this.$themes.danger }
@@ -337,35 +288,6 @@ export default {
     },
     reset () {
       this.$emit('input', '')
-    },
-    setValidateOnBlur () {
-      this.isValidatedOnBlur = true
-      return true
-    },
-    validate () {
-      this.computedError = false
-      this.computedErrorMessages = []
-
-      if (this.c_rules.length > 0) {
-        prepareValidations(flatten(this.c_rules), this.c_value)
-          .forEach((validateResult) => {
-            if (isString(validateResult)) {
-              this.computedErrorMessages.push(validateResult)
-              this.computedError = true
-            } else if (validateResult === false) {
-              this.computedError = true
-            }
-          })
-      }
-
-      return !this.computedError
-    },
-    hasError () {
-      return this.computedError
-    },
-    resetValidation () {
-      this.computedErrorMessages = []
-      this.computedError = false
     },
   },
 }
