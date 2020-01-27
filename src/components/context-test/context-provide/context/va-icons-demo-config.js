@@ -95,6 +95,14 @@ export default {
     code: 'info',
     font: 'fas',
   },
+  'sync': {
+    code: 'sync',
+    font: 'fas',
+  },
+  'sync-spin': {
+    code: 'sync fa-spin',
+    font: 'fas',
+  },
   'remove': {
     code: 'remove',
   },

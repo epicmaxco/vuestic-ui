@@ -135,6 +135,13 @@
     <VbCard title="Svg component">
       <va-icon :tag="SvgComponent" />
     </VbCard>
+    <VbCard title="Spin">
+      <va-icon name="sync-spin" />
+      <va-icon
+        name="sync"
+        class="fa-spin"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
