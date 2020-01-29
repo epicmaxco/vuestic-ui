@@ -29,8 +29,14 @@ export const ColorThemePlugin = {
   },
 }
 
+const contextConfigMixin = makeContextablePropsMixin({
+  color: {
+    type: String,
+  },
+})
+
 export const ColorThemeMixin = {
-  ...makeContextablePropsMixin({ color: { type: String } }),
+  mixins: [contextConfigMixin],
   data () {
     return {
       colorThemeDefault: 'primary',
