@@ -10,6 +10,19 @@
     :style="{width}"
     :closeOnAnchorClick="false"
     boundaryBody
+    tabindex="0"
+    @mousedown.native="hasMouseDown = true"
+    @focus.native="onFocus"
+    @blur.native="(isKeyboardFocused = false, hasMouseDown = false)"
+    @keydown.native.enter.prevent.stop="openDropdown"
+    @keydown.native.space.prevent.stop="openDropdown"
+    @keydown.native.esc.prevent.stop="closeDropdown"
+    @keydown.native.down.prevent.stop="focusFirstOption"
+    @keydown.native.up.prevent.stop="focusLastOption"
+    @keydown.native.tab="closeDropdown"
+    @keydown.native.backspace.prevent.stop="clear"
+    @mouseleave.native="updateHoverState(false)"
+    @mouseover.native="updateHoverState(true)"
   >
     <va-input
       v-if="searchable"
@@ -18,6 +31,10 @@
       class="va-select__input"
       ref="search"
       removable
+      @keydown.native.tab.exact.prevent.stop="focusFirstOption"
+      @keydown.native.shift.tab.exact.prevent.stop="closeDropdown"
+      @keydown.native.down.exact.prevent.stop="focusFirstOption"
+      @keydown.native.up.exact.prevent.stop="focusLastOption"
     />
     <ul
       class="va-select__option-list"
@@ -30,7 +47,17 @@
         :style="getOptionStyle(option)"
         @click.stop="selectOption(option)"
         @mouseleave="updateHoveredOption(null)"
-        @mouseover="updateHoveredOption(option)"
+        @mouseenter="updateHoveredOption(option)"
+        tabindex="0"
+        ref="options"
+        @focus.prevent.stop="updateHoveredOption(option)"
+        @keydown.down.exact.prevent.stop="focusNextOption(option)"
+        @keydown.up.exact.prevent.stop="focusPrevOption(option)"
+        @keydown.enter.exact.prevent.stop="selectOption(option)"
+        @keydown.space.exact.prevent.stop="selectOption(option)"
+        @keydown.esc.exact.prevent.stop="closeDropdown"
+        @keydown.tab.exact.stop="closeDropdown"
+        @keydown.shift.tab.exact.stop="searchable ? focusInput() : closeDropdown()"
       >
         <va-icon v-show="option.icon" :name="option.icon" class="va-select__option__icon"/>
         <span>{{getText(option)}}</span>
@@ -57,21 +84,17 @@
     >
       <label
         class="va-select__label"
-        :style="labelStyle"
         aria-hidden="true"
-      >{{label}}</label>
+      >
+        {{label}}
+      </label>
       <div
         class="va-select__input-wrapper"
         :style="inputWrapperStyles"
       >
-        <span
-          class="va-select__tags"
-          v-if="multiple && valueProxy.length <= tagMax"
-        >
-          <span
-            class="va-select__tags__tag"
-          >
-            {{ [...this.valueProxy.map(val => getText(val))].join(", ") }}
+        <span v-if="multiple && valueProxy.length <= tagMax">
+          <span class="va-select__tag">
+            {{ computedSelectTag }}
           </span>
         </span>
         <span v-else-if="displayedText" class="va-select__displayed-text">{{displayedText}}</span>
@@ -91,6 +114,7 @@
       />
       <va-icon
         class="va-select__open-icon"
+        :class="{'va-select__open-icon--keyboard-focused': !disabled && isKeyboardFocused}"
         :name="visible ? 'fa fa-angle-up' : 'fa fa-angle-down'"
       />
     </div>
@@ -103,6 +127,7 @@ import { SpringSpinner } from 'epic-spinners'
 import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
+import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 
 const positions = {
   'top': 'T',
@@ -114,10 +139,12 @@ export default {
   data () {
     return {
       search: '',
+      hoverState: false,
       mounted: false,
       hoveredOption: null,
     }
   },
+  mixins: [KeyboardOnlyFocusMixin],
   props: {
     value: {},
     label: String,
@@ -198,14 +225,23 @@ export default {
       }
     },
     selectStyle () {
+      if (this.error) {
+        return {
+          backgroundColor: getHoverColor(this.$themes.danger),
+          borderColor: this.$themes.danger,
+        }
+      }
+
+      if (this.success) {
+        return {
+          backgroundColor: getHoverColor(this.$themes.success),
+          borderColor: this.$themes.success,
+        }
+      }
+
       return {
-        backgroundColor:
-          this.error ? getHoverColor(this.$themes['danger'])
-            : this.success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
-        borderColor:
-          this.error ? this.$themes.danger
-            : this.success ? this.$themes.success
-              : this.$themes.gray,
+        backgroundColor: '#f5f8f9',
+        borderColor: (this.isKeyboardFocused || this.hoverState) ? null : this.$themes.gray,
       }
     },
     optionsListStyle () {
@@ -270,6 +306,9 @@ export default {
       set (value) {
         this.$emit('input', value)
       },
+    },
+    computedSelectTag () {
+      return this.valueProxy.map(val => this.getText(val)).join(', ')
     },
   },
   methods: {
@@ -345,12 +384,58 @@ export default {
         : this.clearValue
       this.search = ''
     },
+    updateHoverState (hoverState) {
+      if (!this.disabled) {
+        this.hoverState = hoverState
+      }
+    },
     updateHoveredOption (option) {
       if (option) {
         this.hoveredOption = typeof option === 'string' ? option : { ...option }
+        let indexOfCurrent = this.options.indexOf(option)
+        let currentOption = this.$refs.options[indexOfCurrent]
+        currentOption && currentOption.focus()
       } else {
         this.hoveredOption = null
       }
+    },
+    openDropdown (e) {
+      if (!this.disabled) {
+        this.$refs.dropdown.isClicked = true
+      }
+    },
+    closeDropdown (e) {
+      this.$refs.dropdown.hide()
+      this.updateHoveredOption(null)
+      this.$refs.dropdown.$el.focus()
+    },
+    focusFirstOption (e) {
+      let firstOption = this.$refs.options[0]
+      if (!this.$refs.dropdown.isClicked || !firstOption) return
+      firstOption.focus()
+    },
+    focusLastOption (e) {
+      let lastOption = this.$refs.options[this.$refs.options.length - 1]
+      if (!this.$refs.dropdown.isClicked || !lastOption) return
+      lastOption.focus()
+    },
+    focusNextOption (currentOption) {
+      let indexOfCurrent = this.options.indexOf(currentOption)
+      let nextOption = this.$refs.options[indexOfCurrent + 1]
+      nextOption && nextOption.focus()
+    },
+    focusPrevOption (currentOption) {
+      let indexOfCurrent = this.options.indexOf(currentOption)
+      let prevOption = this.$refs.options[indexOfCurrent - 1]
+      prevOption && prevOption.focus()
+    },
+    focusInput () {
+      this.updateHoveredOption(null)
+      this.$refs.search.$el.focus()
+    },
+    focusClear (e) {
+      e.preventDefault()
+      this.$refs.clear.$el.focus()
     },
   },
   mounted () {
@@ -374,6 +459,7 @@ export default {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   margin-bottom: 1rem;
+  transition: $transition-primary;
 
   &--disabled {
     @include va-disabled()
@@ -422,6 +508,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0 .5rem;
+
     &:focus {
       outline: none;
     }
@@ -443,6 +530,9 @@ export default {
 
   &__clear-icon {
     color: $va-link-color-secondary;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;
     padding: .25rem;
@@ -456,12 +546,14 @@ export default {
   &__open-icon {
     @extend .va-select__clear-icon;
     right: .5rem;
+
+    &--keyboard-focused {
+      background-color: rgba(100, 100, 100, 0.1);
+    }
   }
 
-  &__tags {
-    &__tag {
-      word-break: break-word;
-    }
+  &__tag {
+    word-break: break-word;
   }
 
   &__loading {

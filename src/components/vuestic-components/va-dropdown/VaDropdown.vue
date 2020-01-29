@@ -227,7 +227,7 @@ export default {
       }
 
       if (this.boundaryBody) {
-        options.modifiers.preventOverflow.boundariesElement = document.body
+        options.modifiers.preventOverflow.boundariesElement = window
       }
 
       if (this.offset) {
@@ -273,14 +273,15 @@ export default {
       }
     },
     showContent () {
-      if (this.trigger === 'hover') {
-        return this.isMouseHovered
-      }
-      if (this.trigger === 'click') {
-        return this.isClicked
-      }
-      if (this.trigger === 'none') {
-        return this.value
+      switch (this.trigger) {
+        case 'hover':
+          return this.isMouseHovered
+        case 'click':
+          return this.isClicked
+        case 'none':
+          return this.value
+        default:
+          throw new Error('Unknown trigger for showContent()')
       }
     },
     scrollWidth () {

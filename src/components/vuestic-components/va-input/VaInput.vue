@@ -14,7 +14,7 @@
       :style="containerStyles"
     >
       <div
-        v-if="success || error || $slots.prepend || (removable && hasContent)"
+        v-show="success || error || $slots.prepend || (removable && hasContent)"
         class="va-input__container__icon-wrapper va-input__container__icon-wrapper--start"
       >
         <va-icon
@@ -186,7 +186,7 @@ export default {
 
       return { color: this.$themes.gray }
     },
-    labelStyles () {
+    labelStyle () {
       if (this.error) return { color: this.$themes.danger }
       if (this.success) return { color: this.$themes.success }
       return { color: this.$themes.primary }
@@ -239,7 +239,7 @@ export default {
           keydown: event => {
             this.$emit('keydown', event)
           },
-        }
+        },
       )
     },
     hasContent () {
