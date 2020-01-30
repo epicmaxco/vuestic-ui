@@ -26,6 +26,7 @@ export const ColorThemePlugin = {
 }
 
 // https://stackoverflow.com/a/56266358/5783475
+// probably won't work with SSR
 const isCssColor = strColor => {
   const s = new Option().style
   s.color = strColor
