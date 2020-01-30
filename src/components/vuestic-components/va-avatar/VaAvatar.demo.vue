@@ -95,7 +95,9 @@
       <br>
     </VbCard>
     <VbCard title="сolor">
-      <va-avatar color="danger" /> background
+      <va-avatar color="danger">
+        A
+      </va-avatar> background
       <va-avatar text-color="danger">
         A
       </va-avatar> text

@@ -91,29 +91,12 @@ export default {
       }
     },
     badgeStyle () {
-      const styles = {
-        color: 'white',
-        backgroundColor: 'black',
-        borderColor: 'black',
-        opacity: 1,
+      return {
+        color: this.computeInvertedColor(this.c_textColor),
+        borderColor: this.colorComputed,
+        backgroundColor: this.colorComputed,
+        opacity: this.c_transparent ? 0.5 : 1,
       }
-
-      if (this._isEnableColorTheme) {
-        styles.borderColor = this.colorComputed
-        styles.backgroundColor = this.colorComputed
-
-        if (this.$themes && this.$themes[this.c_textColor]) {
-          styles.color = this.$themes[this.c_textColor]
-        } else {
-          styles.color = this.c_textColor
-        }
-
-        if (this.c_transparent) {
-          styles.opacity = 0.5
-        }
-      }
-
-      return styles
     },
   },
 }
