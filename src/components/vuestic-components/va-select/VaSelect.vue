@@ -321,8 +321,8 @@ export default {
     },
     getOptionStyle (option) {
       return {
-        color: this.isSelected(option) ? this.$themes['success'] : 'inherit',
-        backgroundColor: this.isHovered(option) ? getHoverColor(this.$themes['success']) : 'transparent',
+        color: this.isSelected(option) ? this.$themes['primary'] : 'inherit',
+        backgroundColor: this.isHovered(option) ? getHoverColor(this.$themes['primary']) : 'transparent',
       }
     },
     getText (option) {
