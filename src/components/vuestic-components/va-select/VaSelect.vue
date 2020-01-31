@@ -83,8 +83,9 @@
       :style="selectStyle"
     >
       <label
-        class="va-select__label"
+        :style="labelStyle"
         aria-hidden="true"
+        class="va-select__label"
       >
         {{label}}
       </label>
