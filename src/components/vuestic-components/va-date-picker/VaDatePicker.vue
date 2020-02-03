@@ -48,10 +48,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    invertedColor: {
-      type: Boolean,
-      default: false,
-    },
     placeholder: {
       type: String,
       defualt: '',
@@ -114,9 +110,6 @@ export default {
       const calendar = pcrObject.calendarContainer
       if (this.weekDays) {
         calendar.classList.add('flatpickr-calendar--show-days')
-      }
-      if (this.invertedColor) {
-        calendar.classList.add('inverted-color')
       }
     },
   },
