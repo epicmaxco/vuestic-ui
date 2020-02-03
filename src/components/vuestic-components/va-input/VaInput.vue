@@ -95,8 +95,8 @@
           v-if="removable && hasContent"
           @click.native="clearContent()"
           class="va-input__container__close-icon"
+          name="fa fa-times-circle"
           :style="iconStyles"
-          name="highlight_off"
         />
       </div>
     </div>
