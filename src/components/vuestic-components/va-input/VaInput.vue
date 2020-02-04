@@ -89,7 +89,7 @@
 
 <script>
 import isFunction from 'lodash/isFunction'
-import isBoolean from 'lodash/isBoolean'
+import isString from 'lodash/isString'
 import flatten from 'lodash/flatten'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon/VaIcon'
@@ -196,7 +196,6 @@ const InputContextMixin = makeContextablePropsMixin({
 const prepareValidations = (messages = [], callArguments = null) =>
   messages
     .map((message) => isFunction(message) ? message(callArguments) : message)
-    .filter(Boolean)
 
 export default {
   name: 'VaInput',
@@ -212,20 +211,15 @@ export default {
     value () {
       this.adjustHeight()
 
-      if (this.isTouchedValidation) {
-        if (this.isLazyValidation) {
-          this.resetValidation()
-        } else {
-          this.validate()
-        }
+      if (!this.isValidatedOnBlur) {
+        this.validate()
       }
     },
   },
   data () {
     return {
-      isLazyValidation: false,
+      isValidatedOnBlur: false,
       isFocused: false,
-      isTouchedValidation: false,
       internalErrorMessages: null,
       internalError: false,
     }
@@ -298,9 +292,9 @@ export default {
           },
           blur: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            if (this.isLazyValidation) {
-              this.validate()
-            }
+            this.isValidatedOnBlur = false
+            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+            this.validate()
 
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.isFocused = false
@@ -344,26 +338,21 @@ export default {
     reset () {
       this.$emit('input', '')
     },
-    runLazyValidation () {
-      this.isLazyValidation = true
+    setValidateOnBlur () {
+      this.isValidatedOnBlur = true
+      return true
     },
     validate () {
-      if (this.computedError && !this.isTouchedValidation) {
-        return false
-      }
-
-      if (!this.isTouchedValidation) {
-        this.isTouchedValidation = true
-      }
-
       this.computedError = false
       this.computedErrorMessages = []
 
       if (this.c_rules.length > 0) {
         prepareValidations(flatten(this.c_rules), this.c_value)
           .forEach((validateResult) => {
-            if (!isBoolean(validateResult)) {
+            if (isString(validateResult)) {
               this.computedErrorMessages.push(validateResult)
+              this.computedError = true
+            } else if (validateResult === false) {
               this.computedError = true
             }
           })
@@ -371,10 +360,12 @@ export default {
 
       return !this.computedError
     },
+    hasError () {
+      return this.computedError
+    },
     resetValidation () {
       this.computedErrorMessages = []
       this.computedError = false
-      this.isTouchedValidation = false
     },
   },
 }

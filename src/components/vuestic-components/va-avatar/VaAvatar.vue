@@ -20,56 +20,41 @@
 <script>
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaIcon from '../va-icon/VaIcon'
+
+const contextConfigMixin = makeContextablePropsMixin({
+  color: {
+    type: String,
+    default: 'info',
+  },
+  textColor: {
+    type: String,
+    default: 'white',
+  },
+  square: {
+    type: Boolean,
+    default: false,
+  },
+  icon: {
+    type: String,
+    default: '',
+  },
+  src: {
+    type: String,
+    default: null,
+  },
+  fontSize: {
+    type: String,
+    default: '',
+  },
+})
 
 export default {
   name: 'VaAvatar',
-  mixins: [SizeMixin, ColorThemeMixin, ContextPluginMixin],
+  mixins: [SizeMixin, ColorThemeMixin, contextConfigMixin],
   components: {
     VaIcon,
-  },
-  props: {
-    size: {
-      type: [String, Number],
-      default () {
-        return getContextPropValue(this, 'size', 'medium')
-      },
-    },
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', 'info')
-      },
-    },
-    textColor: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'textColor', 'white')
-      },
-    },
-    square: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'square', false)
-      },
-    },
-    icon: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'icon', '')
-      },
-    },
-    src: {
-      type: String, // NOTE: you may not need to use this value from the context config.
-      default: null,
-    },
-    fontSize: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'fontSize', '')
-      },
-    },
   },
   computed: {
     computedStyle () {
