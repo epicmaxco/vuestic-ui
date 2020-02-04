@@ -24,7 +24,7 @@ const getNestedFormElements = (vm, elements = []) => {
 }
 
 const FormContextMixin = makeContextablePropsMixin({
-  lazyValidation: {
+  startValidatingOnBlur: {
     type: Boolean,
     default: false,
   },
@@ -46,6 +46,10 @@ export default {
   mounted () {
     if (this.autofocus) {
       this.focus()
+    }
+    if (this.startValidatingOnBlur) {
+      getNestedFormElements(this)
+        .filter(({ setValidateOnBlur }) => setValidateOnBlur && setValidateOnBlur())
     }
   },
   methods: {
@@ -73,8 +77,8 @@ export default {
     },
     focusInvalid () {
       const invalidComponent = getNestedFormElements(this)
-        .filter(({ validate }) => validate)
-        .find((item) => !(item.validate()))
+        .filter(({ hasError }) => hasError)
+        .find((item) => item.hasError())
 
       if (invalidComponent) {
         invalidComponent.focus()
@@ -87,11 +91,6 @@ export default {
         .filter(({ validate }) => validate)
         .forEach((child) => {
           const isValidChild = child.validate()
-
-          if (this.lazyValidation) {
-            child.runLazyValidation()
-          }
-
           if (!isValidChild) {
             formValid = false
           }
