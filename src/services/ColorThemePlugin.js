@@ -1,6 +1,6 @@
 import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
 
-const getDefaultOptions = () => ({
+export const getDefaultOptions = () => ({
   themes: {
     primary: '#23e066',
     secondary: '#002c85',
