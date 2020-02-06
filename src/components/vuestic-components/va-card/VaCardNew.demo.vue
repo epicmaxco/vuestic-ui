@@ -260,7 +260,7 @@ import VaCardNew from './VaCardNew'
 import VaCardTitle from './VaCardTitle'
 import VaCardContent from './VaCardContent'
 import VaIcon from '../va-icon/VaIcon'
-import VaImage from './VaImage'
+import VaImage from '../va-image/VaImage'
 
 export default {
   components: {
