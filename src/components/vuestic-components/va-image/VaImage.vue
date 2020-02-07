@@ -94,11 +94,13 @@ export default {
     handleLoad () {
       this.destroyLoader()
       this.loading = false
+      this.$emit('load')
     },
     handleError () {
       this.destroyLoader()
       this.loadingError = true
       this.loading = false
+      this.$emit('error')
     },
   },
 }
