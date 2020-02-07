@@ -29,15 +29,7 @@ export default {
   props: {
     src: {
       type: String,
-      default: '',
-    },
-    overlay: {
-      type: Boolean,
-      default: false,
-    },
-    alt: {
-      type: String,
-      default: '',
+      required: true,
     },
     ratio: {
       type: [Number, String],
@@ -50,16 +42,21 @@ export default {
   },
   data () {
     return {
+      img: null,
       loading: false,
       loadingError: false,
     }
   },
-  created () {
-    this.loading = true
-    const img = new Image()
-    img.onload = this.handleLoad
-    img.onerror = this.handleError
-    img.src = this.src
+  beforeDestroy () {
+    this.destroyLoader()
+  },
+  watch: {
+    src: {
+      handler: function () {
+        this.createLoader()
+      },
+      immediate: true,
+    },
   },
   computed: {
     imageStyles () {
@@ -75,10 +72,28 @@ export default {
     },
   },
   methods: {
+    createLoader () {
+      this.destroyLoader()
+      this.loading = true
+      this.loadingError = false
+      this.img = new Image()
+      this.img.onload = this.handleLoad
+      this.img.onerror = this.handleError
+      this.img.src = this.src
+    },
+    destroyLoader () {
+      if (this.img) {
+        this.img.onload = null
+        this.img.onerror = null
+        this.img = null
+      }
+    },
     handleLoad () {
+      this.destroyLoader()
       this.loading = false
     },
     handleError () {
+      this.destroyLoader()
       this.loadingError = true
       this.loading = false
     },

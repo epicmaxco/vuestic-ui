@@ -1,18 +1,14 @@
 <template>
   <VbDemo>
     <div class="row">
-      <VbCard title="Loading slot">
-        <div class="image--medium">
-          <va-image src="http://picsum.photos/1500/1500">
+      <VbCard title="Slots (Loading, Error)">
+        <button @click="newImage">New image</button>
+        <button @click="wrongPath">Wrong path</button>
+        <div class="image--large">
+          <va-image :src="slotImagePath">
             <template v-slot:loader>
               <div>Loading...</div>
             </template>
-          </va-image>
-        </div>
-      </VbCard>
-      <VbCard title="Error slot">
-        <div class="image--medium">
-          <va-image src="badurl">
             <template v-slot:error>
               <div>Error</div>
             </template>
@@ -22,64 +18,35 @@
     </div>
     <div class="row">
       <VbCard title="Small">
-        <va-image
-          class="image--small"
-          src="https://picsum.photos/200/200"
-        />
+        <va-image class="image--small" :src="getImagePath(600)" />
       </VbCard>
       <VbCard title="Medium">
-        <va-image
-          class="image--medium"
-          src="https://picsum.photos/400/400"
-        />
+        <va-image class="image--medium" :src="getImagePath(600)" />
       </VbCard>
       <VbCard title="Large">
-        <va-image
-          class="image--large"
-          src="https://picsum.photos/600/600"
-        />
+        <va-image class="image--large" :src="getImagePath(600)" />
       </VbCard>
     </div>
     <div class="row">
       <VbCard title="Portrait">
-        <va-image
-          class="image--portrait"
-          src="https://picsum.photos/250/400"
-        />
+        <va-image class="image--portrait" :src="getImagePath(250, 400)" />
       </VbCard>
       <VbCard title="Portrait cover">
-        <va-image
-          class="image--medium"
-          src="https://picsum.photos/250/400"
-        />
+        <va-image class="image--medium" :src="getImagePath(250, 400)" />
       </VbCard>
       <VbCard title="Portrait contain">
-        <va-image
-          class="image--medium"
-          contain
-          src="https://picsum.photos/250/400"
-        />
+        <va-image class="image--medium" contain :src="getImagePath(250, 400)" />
       </VbCard>
     </div>
     <div class="row">
       <VbCard title="Landscape">
-        <va-image
-          class="image--landscape"
-          src="https://picsum.photos/400/250"
-        />
+        <va-image class="image--landscape" :src="getImagePath(400, 250)" />
       </VbCard>
       <VbCard title="Landscape cover">
-        <va-image
-          class="image--medium"
-          src="https://picsum.photos/400/250"
-        />
+        <va-image class="image--medium" :src="getImagePath(400, 250)" />
       </VbCard>
       <VbCard title="Landscape contain">
-        <va-image
-          class="image--medium"
-          contain
-          src="https://picsum.photos/400/250"
-        />
+        <va-image class="image--medium" contain :src="getImagePath(400, 250)" />
       </VbCard>
     </div>
   </VbDemo>
@@ -92,6 +59,27 @@ export default {
   components: {
     VaImage,
   },
+  data () {
+    return {
+      slotImageSize: 1500
+    }
+  },
+  computed: {
+    slotImagePath () {
+      return this.getImagePath(this.slotImageSize)
+    }
+  },
+  methods: {
+    getImagePath (w, h = w) {
+      return `https://picsum.photos/${w}/${h}`
+    },
+    newImage () {
+      this.slotImageSize = this.slotImageSize != 1500 ? 1500 : 1501
+    },
+    wrongPath () {
+      this.slotImageSize = -1
+    },
+  }
 }
 </script>
 
@@ -103,6 +91,10 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.row + .row {
+  margin-top: 20px;
 }
 
 .image--small {
