@@ -4,27 +4,42 @@
       <VbCard title="Slots (Loading, Error)">
         <button @click="newImage">New image</button>
         <button @click="wrongPath">Wrong path</button>
-        <div class="image--large">
-          <va-image :src="slotImagePath">
-            <template v-slot:loader>
-              <div>Loading...</div>
-            </template>
-            <template v-slot:error>
-              <div>Error</div>
-            </template>
-          </va-image>
-        </div>
+        <va-image :src="slotImagePath" class="image--large">
+          <template v-slot:loader>
+            <div>Loading...</div>
+          </template>
+          <template v-slot:error>
+            <div>Error</div>
+          </template>
+        </va-image>
       </VbCard>
     </div>
     <div class="row">
       <VbCard title="Small">
-        <va-image class="image--small" :src="getImagePath(600)" />
+        <va-image :src="getImagePath(600)" class="image--small" />
       </VbCard>
       <VbCard title="Medium">
-        <va-image class="image--medium" :src="getImagePath(600)" />
+        <va-image :src="getImagePath(600)" class="image--medium" />
       </VbCard>
       <VbCard title="Large">
-        <va-image class="image--large" :src="getImagePath(600)" />
+        <va-image :src="getImagePath(600)" class="image--large" />
+      </VbCard>
+    </div>
+    <div class="row">
+      <VbCard title="4/3">
+        <div class="image--medium">
+          <va-image :ratio="4/3" :src="getImagePath(400)" />
+        </div>
+      </VbCard>
+      <VbCard title="1/1">
+        <div class="image--medium">
+          <va-image :ratio="1" :src="getImagePath(400)" />
+        </div>
+      </VbCard>
+      <VbCard title="16/9">
+        <div class="image--medium">
+          <va-image :ratio="16/9" :src="getImagePath(400)" />
+        </div>
       </VbCard>
     </div>
     <div class="row">
@@ -113,7 +128,7 @@ export default {
 }
 
 .image--landscape {
-  width: 350px;
+  width: 400px;
   height: 250px;
 }
 

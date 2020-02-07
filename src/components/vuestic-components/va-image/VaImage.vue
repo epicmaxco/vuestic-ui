@@ -67,7 +67,7 @@ export default {
     },
     paddingStyles () {
       return {
-        'padding-bottom': `${this.ratio * 100}%`,
+        'padding-bottom': `${1 / this.ratio * 100}%`,
       }
     },
   },
@@ -103,10 +103,8 @@ export default {
 
 <style lang="scss" scoped>
 .va-image {
-  width: 100%;
-  height: 100%;
-  position: relative;
   overflow: hidden;
+  position: relative;
 
   &__img {
     background-position: 50% 50%;
