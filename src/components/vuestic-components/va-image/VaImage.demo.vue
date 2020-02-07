@@ -6,11 +6,19 @@
         <button @click="wrongPath">Wrong path</button>
         <va-image :src="slotImagePath" class="image--large">
           <template v-slot:loader>
-            <div>Loading...</div>
+            <div class="loading">Loading...</div>
           </template>
           <template v-slot:error>
-            <div>Error</div>
+            <div class="error">Error</div>
           </template>
+        </va-image>
+      </VbCard>
+      <VbCard title="Slots (Loading, Error)">
+        <input v-model="slotOverlayValue" />
+        <button @click="changeOverlayPosition('top')">Top</button>
+        <button @click="changeOverlayPosition('bottom')">Bottom</button>
+        <va-image :src="getImagePath(600)" class="image--large">
+          <div class="overlay" :class="slotOverlayClasses">{{ slotOverlayValue }}</div>
         </va-image>
       </VbCard>
     </div>
@@ -76,23 +84,34 @@ export default {
   },
   data () {
     return {
-      slotImageSize: 1500
+      slotImageSize: 1500,
+      slotOverlayValue: 'Overlay',
+      slotOverlayPosition: 'top',
     }
   },
   computed: {
     slotImagePath () {
       return this.getImagePath(this.slotImageSize)
+    },
+    slotOverlayClasses () {
+      return {
+        'overlay--top': this.slotOverlayPosition === 'top',
+        'overlay--bottom': this.slotOverlayPosition === 'bottom',
+      }
     }
   },
   methods: {
-    getImagePath (w, h = w) {
-      return `https://picsum.photos/${w}/${h}`
+    getImagePath (width, height = width) {
+      return `https://picsum.photos/${width}/${height}`
     },
     newImage () {
       this.slotImageSize = this.slotImageSize != 1500 ? 1500 : 1501
     },
     wrongPath () {
       this.slotImageSize = -1
+    },
+    changeOverlayPosition (position) {
+      this.slotOverlayPosition = position
     },
   }
 }
@@ -135,5 +154,30 @@ export default {
 .image--portrait {
   width: 250px;
   height: 400px;
+}
+
+.loading,
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+
+  &--top {
+    top: 0;
+  }
+
+  &--bottom {
+    bottom: 0;
+  }
 }
 </style>

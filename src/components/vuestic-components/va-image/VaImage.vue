@@ -19,6 +19,9 @@
         :style="imageStyles"
         ref="img"
       />
+      <div class="va-image__overlay">
+        <slot />
+      </div>
     </template>
   </div>
 </template>
@@ -113,7 +116,8 @@ export default {
 
   &__img,
   &__loader,
-  &__error {
+  &__error,
+  &__overlay {
     position: absolute;
     top: 0;
     right: 0;
@@ -122,7 +126,8 @@ export default {
   }
 
   &__loader,
-  &__error {
+  &__error,
+  &__overlay {
     display: flex;
     align-items: center;
     justify-content: center;
