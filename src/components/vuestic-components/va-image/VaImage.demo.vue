@@ -1,75 +1,136 @@
 <template>
   <VbDemo>
     <div class="row">
-      <VbCard title="Slots (Loading, Error)">
-        <button @click="newImage">New image</button>
-        <button @click="wrongPath">Wrong path</button>
-        <va-image :src="slotImagePath" class="image--large">
+      <VbCard title="Slots (loading, error)">
+        <button @click="newImage">
+          New image
+        </button>
+        <button @click="wrongPath">
+          Wrong path
+        </button>
+        <va-image
+          :src="slotImagePath"
+          class="image--large"
+        >
           <template v-slot:loader>
-            <div class="loading">Loading...</div>
+            <div class="loading">
+              Loading...
+            </div>
           </template>
           <template v-slot:error>
-            <div class="error">Error</div>
+            <div class="error">
+              Error
+            </div>
           </template>
         </va-image>
       </VbCard>
-      <VbCard title="Slots (Loading, Error)">
-        <input v-model="slotOverlayValue" />
-        <button @click="changeOverlayPosition('top')">Top</button>
-        <button @click="changeOverlayPosition('bottom')">Bottom</button>
-        <va-image :src="getImagePath(600)" class="image--large">
-          <div class="overlay" :class="slotOverlayClasses">{{ slotOverlayValue }}</div>
+      <VbCard title="Slots (default)">
+        <input v-model="slotOverlayValue">
+        <button @click="changeOverlayPosition('top')">
+          Top
+        </button>
+        <button @click="changeOverlayPosition('bottom')">
+          Bottom
+        </button>
+        <va-image
+          :src="getImagePath(600)"
+          class="image--large"
+        >
+          <div
+            class="overlay"
+            :class="slotOverlayClasses"
+          >
+            {{ slotOverlayValue }}
+          </div>
         </va-image>
       </VbCard>
     </div>
     <div class="row">
       <VbCard title="Small">
-        <va-image :src="getImagePath(600)" class="image--small" />
+        <va-image
+          :src="getImagePath(600)"
+          class="image--small"
+        />
       </VbCard>
       <VbCard title="Medium">
-        <va-image :src="getImagePath(600)" class="image--medium" />
+        <va-image
+          :src="getImagePath(600)"
+          class="image--medium"
+        />
       </VbCard>
       <VbCard title="Large">
-        <va-image :src="getImagePath(600)" class="image--large" />
+        <va-image
+          :src="getImagePath(600)"
+          class="image--large"
+        />
       </VbCard>
     </div>
     <div class="row">
       <VbCard title="4/3">
         <div class="image--medium">
-          <va-image :ratio="4/3" :src="getImagePath(400)" />
+          <va-image
+            :ratio="4/3"
+            :src="getImagePath(400)"
+          />
         </div>
       </VbCard>
       <VbCard title="1/1">
         <div class="image--medium">
-          <va-image :ratio="1" :src="getImagePath(400)" />
+          <va-image
+            :ratio="1"
+            :src="getImagePath(400)"
+          />
         </div>
       </VbCard>
       <VbCard title="16/9">
         <div class="image--medium">
-          <va-image :ratio="16/9" :src="getImagePath(400)" />
+          <va-image
+            :ratio="16/9"
+            :src="getImagePath(400)"
+          />
         </div>
       </VbCard>
     </div>
     <div class="row">
       <VbCard title="Portrait">
-        <va-image class="image--portrait" :src="getImagePath(250, 400)" />
+        <va-image
+          class="image--portrait"
+          :src="getImagePath(250, 400)"
+        />
       </VbCard>
       <VbCard title="Portrait cover">
-        <va-image class="image--medium" :src="getImagePath(250, 400)" />
+        <va-image
+          class="image--medium"
+          :src="getImagePath(250, 400)"
+        />
       </VbCard>
       <VbCard title="Portrait contain">
-        <va-image class="image--medium" contain :src="getImagePath(250, 400)" />
+        <va-image
+          class="image--medium"
+          contain
+          :src="getImagePath(250, 400)"
+        />
       </VbCard>
     </div>
     <div class="row">
       <VbCard title="Landscape">
-        <va-image class="image--landscape" :src="getImagePath(400, 250)" />
+        <va-image
+          class="image--landscape"
+          :src="getImagePath(400, 250)"
+        />
       </VbCard>
       <VbCard title="Landscape cover">
-        <va-image class="image--medium" :src="getImagePath(400, 250)" />
+        <va-image
+          class="image--medium"
+          :src="getImagePath(400, 250)"
+        />
       </VbCard>
       <VbCard title="Landscape contain">
-        <va-image class="image--medium" contain :src="getImagePath(400, 250)" />
+        <va-image
+          class="image--medium"
+          contain
+          :src="getImagePath(400, 250)"
+        />
       </VbCard>
     </div>
   </VbDemo>
@@ -98,14 +159,14 @@ export default {
         'overlay--top': this.slotOverlayPosition === 'top',
         'overlay--bottom': this.slotOverlayPosition === 'bottom',
       }
-    }
+    },
   },
   methods: {
     getImagePath (width, height = width) {
       return `https://picsum.photos/${width}/${height}`
     },
     newImage () {
-      this.slotImageSize = this.slotImageSize != 1500 ? 1500 : 1501
+      this.slotImageSize = this.slotImageSize !== 1500 ? 1500 : 1501
     },
     wrongPath () {
       this.slotImageSize = -1
@@ -113,7 +174,7 @@ export default {
     changeOverlayPosition (position) {
       this.slotOverlayPosition = position
     },
-  }
+  },
 }
 </script>
 
