@@ -35,7 +35,7 @@
 ## Github tags
 We want to keep these consistent across different repos.
 
-* bug -  - #d73a4a
+* 🐛 bug - Something isn't working - #d73a4a
 * CI - Continuous integration & deploy - #343434
 * discussion - Feedback wanted - #cc317c
 * documentation - Improvements or additions to documentation - #fef2c0
@@ -44,6 +44,7 @@ We want to keep these consistent across different repos.
 * high priority - Very wanted, much value - #e27a12
 * question -  - #cc317c
 * 📚 needs work - Issue is checked and needs some additional work - #bca8ea
+* ⌛ on hold - We want this, just later - #b0c1f4
 * ready for implementation - This is codeable - #9bce0e
 * ready to merge -  - #0e8a16
 * refactoring - Prettify code without introducing new features - #ffc4ee

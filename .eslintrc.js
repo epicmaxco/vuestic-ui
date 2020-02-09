@@ -2,6 +2,8 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    // TODO Not sure if we want this for all app.
+    jest: true,
   },
   'extends': [
     '@vue/standard',

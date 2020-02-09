@@ -4,6 +4,10 @@ import upperFirst from 'lodash/upperFirst'
 import Vue from 'vue'
 
 const pascalCase = flow(camelCase, upperFirst)
+/**
+ * name that signifies config should be applied to all components
+ */
+const ALL_COMPONENTS = 'all'
 
 /**
  * Key for communication inject/provide
@@ -100,9 +104,18 @@ export const getContextPropValue = (context, prop, defaultValue) => {
   }
 
   const configs = context.$vaContextConfig ? [context.$vaContextConfig, ...context._$configs] : context._$configs
-  const config = getLocalConfigWithComponentProp(configs, componentName, prop)
 
-  return config ? config[componentName][prop] : defaultValue
+  const componentConfig = getLocalConfigWithComponentProp(configs, componentName, prop)
+  if (componentConfig) {
+    return componentConfig[componentName][prop]
+  }
+
+  const allConfig = getLocalConfigWithComponentProp(configs, ALL_COMPONENTS, prop)
+  if (allConfig) {
+    return allConfig[ALL_COMPONENTS][prop]
+  }
+
+  return defaultValue
 }
 
 // Allows to completely overwrite global context config.
@@ -132,4 +145,20 @@ function getLocalConfigWithComponentProp (configs, componentName, propName) {
     const componentConfig = config[componentName]
     return componentConfig && componentConfig.hasOwnProperty(propName)
   }) || undefined
+}
+
+// Just 2 levels deep merge. B has priority.
+export function mergeConfigs (configA, configB) {
+  const result = {}
+  // A or A + B
+  for (const key in configA) {
+    result[key] = { ...configA[key], ...configB[key] }
+  }
+  // B
+  for (const key in configB) {
+    if (!result[key]) {
+      result[key] = { ...configB[key] }
+    }
+  }
+  return result
 }
