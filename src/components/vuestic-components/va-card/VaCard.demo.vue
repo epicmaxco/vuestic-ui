@@ -179,12 +179,10 @@
     <VbCard title="From zeplin">
       <div class="flex">
         <div>
-          <va-context :config="{VaCardTitle: {textColor: 'info'}}">
-            <va-card
-              class="card"
-              stripe
-              stripe-color="primary"
-            >
+          <va-context
+            :config="{VaCard: {stripe: true, stripeColor: 'primary'}, VaCardTitle: {textColor: 'info'}}"
+          >
+            <va-card class="card">
               <va-card-title>Striped card</va-card-title>
               <va-card-content>Some of the classify their behavior as “cyber affair” More then 60% of employees use company PC for the personal needs during their work hours as long as 80 minutes per day.</va-card-content>
               <va-card-content>
@@ -194,10 +192,7 @@
           </va-context>
         </div>
         <va-context :config="{VaCardTitle: {textColor: 'info'}}">
-          <va-card
-            class="card ml-1"
-            stripe
-          >
+          <va-card class="card ml-1">
             <va-image
               src="https://picsum.photos/400/200"
               style="height: 200px;"

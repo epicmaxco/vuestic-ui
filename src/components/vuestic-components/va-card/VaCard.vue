@@ -4,7 +4,7 @@
     class="va-card"
     :class="cardClasses"
     :style="cardStyles"
-    :href="href"
+    :href="c_href"
     :target="target"
     :to="to"
     :replace="replace"
@@ -14,7 +14,7 @@
     @click="$emit('click', $event)"
   >
     <div
-      v-if="stripe"
+      v-if="c_stripe"
       class="va-card__stripe"
       :style="stripeStyles"
     />
@@ -25,78 +25,79 @@
 <script>
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+
+const contextConfigMixin = makeContextablePropsMixin({
+  tag: {
+    type: String,
+    default: 'div',
+  },
+  square: {
+    type: Boolean,
+    default: false,
+  },
+  outlined: {
+    type: Boolean,
+    default: false,
+  },
+  bordered: {
+    type: Boolean,
+    default: true,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  href: {
+    type: String,
+    default: null,
+  },
+  target: {
+    type: String,
+    default: null,
+  },
+  stripe: {
+    type: Boolean,
+    default: false,
+  },
+  stripeColor: {
+    type: String,
+    default: '',
+  },
+  colorGradient: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 export default {
   name: 'VaCard',
-  mixins: [ColorThemeMixin, ContextPluginMixin, RouterLinkMixin],
-  props: {
-    tag: {
-      type: String,
-      default: 'div',
-    },
-    square: {
-      type: Boolean,
-      default: false,
-    },
-    outlined: {
-      type: Boolean,
-      default: false,
-    },
-    bordered: {
-      type: Boolean,
-      default: true,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    href: {
-      type: String,
-      default: null,
-    },
-    target: {
-      type: String,
-      default: null,
-    },
-    stripe: {
-      type: Boolean,
-      default: false,
-    },
-    stripeColor: {
-      type: String,
-      default: '',
-    },
-    colorGradient: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  mixins: [ColorThemeMixin, RouterLinkMixin, contextConfigMixin],
   computed: {
     cardTag () {
-      if (this.tag === 'a' || this.href) {
+      if (this.c_tag === 'a' || this.c_href) {
         return 'a'
       }
 
-      if (this.tag === 'router-link' || this.hasRouterLinkParams) {
+      if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
         return 'router-link'
       }
 
-      return this.tag
+      return this.c_tag
     },
     cardClasses () {
       return {
         ...this.themeClassComputed,
-        'va-card--square': this.square,
-        'va-card--outlined': this.outlined,
-        'va-card--no-border': !this.bordered,
-        'va-card--disabled': this.disabled,
-        'va-card--link': this.href || this.hasRouterLinkParams,
+        'va-card--square': this.c_square,
+        'va-card--outlined': this.c_outlined,
+        'va-card--no-border': !this.c_bordered,
+        'va-card--disabled': this.c_disabled,
+        'va-card--link': this.c_href || this.hasRouterLinkParams,
       }
     },
     cardStyles () {
-      if (this.colorGradient && this.c_color) {
+      if (this.c_colorGradient && this.c_color) {
         return {
           'background': getGradientBackground(this.colorComputed),
         }
@@ -108,7 +109,7 @@ export default {
     },
     stripeStyles () {
       return {
-        'background-color': this.computeColor(this.stripeColor),
+        'background-color': this.computeColor(this.c_stripeColor),
       }
     },
   },
