@@ -8,14 +8,16 @@
 </template>
 
 <script>
-import { FontColorTextMixin } from '../../../services/ColorThemePlugin'
+import { TextColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'VaCardContent',
-  mixins: [FontColorTextMixin],
+  mixins: [TextColorThemeMixin],
   computed: {
     contentStyles () {
-      return this.computedColor
+      return {
+        color: this.textColorComputed,
+      }
     },
   },
 }

@@ -66,7 +66,7 @@ export default {
     },
     stripeColor: {
       type: String,
-      default: 'white',
+      default: '',
     },
     colorGradient: {
       type: Boolean,
@@ -162,7 +162,7 @@ export default {
     content: '';
     position: absolute;
     width: 100%;
-    height: 0.5rem;
+    height: 0.375rem;
     top: 0;
     left: 0;
   }

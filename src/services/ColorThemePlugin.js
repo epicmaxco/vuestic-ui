@@ -73,17 +73,17 @@ export const ColorThemeMixin = {
   },
 }
 
-const fontColorConfigMixin = makeContextablePropsMixin({
-  fontColor: {
+const textColorConfigMixin = makeContextablePropsMixin({
+  textColor: {
     type: String,
   },
 })
 
-export const FontColorTextMixin = {
-  mixins: [fontColorConfigMixin],
+export const TextColorThemeMixin = {
+  mixins: [textColorConfigMixin],
   computed: {
-    colorComputed () {
-      return getColor(this, this.c_fontColor)
+    textColorComputed () {
+      return getColor(this, this.c_textColor)
     },
   },
 }

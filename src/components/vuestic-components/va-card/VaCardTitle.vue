@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <div
     class="va-card-new__title"
     :style="titleStyles"
@@ -8,14 +8,16 @@
 </template>
 
 <script>
-import { FontColorTextMixin } from '../../../services/ColorThemePlugin'
+import { TextColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'VaCardTitle',
-  mixins: [FontColorTextMixin],
+  mixins: [TextColorThemeMixin],
   computed: {
     titleStyles () {
-      return this.computedColor
+      return {
+        color: this.textColorComputed,
+      }
     },
   },
 }
