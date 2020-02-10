@@ -44,7 +44,7 @@ const getColor = ($vm, prop) => {
   return null
 }
 
-const contextConfigMixin = makeContextablePropsMixin({
+const colorConfigMixin = makeContextablePropsMixin({
   color: {
     type: String,
   },
@@ -54,21 +54,36 @@ const contextConfigMixin = makeContextablePropsMixin({
 })
 
 export const ColorThemeMixin = {
-  mixins: [contextConfigMixin],
+  mixins: [colorConfigMixin],
   computed: {
     colorComputed () {
       return this.computeColor(this.c_color)
     },
     themeClassComputed () {
       return {
-        'theme--light': !this.c_dark,
-        'theme--dark': this.c_dark,
+        'light': !this.c_dark,
+        'dark': this.c_dark,
       }
     },
   },
   methods: {
     computeColor (prop) {
       return getColor(this, prop)
+    },
+  },
+}
+
+const fontColorConfigMixin = makeContextablePropsMixin({
+  fontColor: {
+    type: String,
+  },
+})
+
+export const FontColorTextMixin = {
+  mixins: [fontColorConfigMixin],
+  computed: {
+    colorComputed () {
+      return getColor(this, this.c_fontColor)
     },
   },
 }
