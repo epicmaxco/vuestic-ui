@@ -29,7 +29,7 @@ import { ContextPluginMixin } from '../../context-test/context-provide/ContextPl
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 export default {
-  name: 'VaCardNew',
+  name: 'VaCard',
   mixins: [ColorThemeMixin, ContextPluginMixin, RouterLinkMixin],
   props: {
     tag: {

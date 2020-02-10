@@ -92,7 +92,7 @@ export default {
     },
     badgeStyle () {
       return {
-        color: this.computeInvertedColor(this.c_textColor),
+        color: this.computeColor(this.c_textColor),
         borderColor: this.colorComputed,
         backgroundColor: this.colorComputed,
         opacity: this.c_transparent ? 0.5 : 1,
