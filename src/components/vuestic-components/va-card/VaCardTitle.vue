@@ -1,6 +1,6 @@
 <template>
   <div
-    class="va-card-new__title"
+    class="va-card__title"
     :style="titleStyles"
   >
     <slot />

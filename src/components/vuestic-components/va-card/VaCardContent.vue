@@ -1,6 +1,6 @@
 <template functional>
   <div
-    class="va-card-new__content"
+    class="va-card__content"
     :style="contentStyles"
   >
     <slot />

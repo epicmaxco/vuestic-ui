@@ -1,279 +1,187 @@
 <template>
-  <div
+  <component
+    :is="cardTag"
     class="va-card"
-    :style="computedCardStyle"
+    :class="cardClasses"
+    :style="cardStyles"
+    :href="href"
+    :target="target"
+    :to="to"
+    :replace="replace"
+    :exact="exact"
+    :active-class="activeClass"
+    :exact-active-class="exactActiveClass"
+    @click="$emit('click', $event)"
   >
     <div
       v-if="stripe"
       class="va-card__stripe"
-      :style="computedStripeStyle"
+      :style="stripeStyles"
     />
-    <div
-      v-if="image"
-      class="va-card__image"
-    >
-      <img
-        :src="image"
-        :alt="imageAlt"
-      >
-      <div
-        class="va-card__image-overlay"
-        v-if="overlay"
-      />
-    </div>
-
-    <div
-      v-if="showHeader"
-      class="va-card__header"
-      :class="{'va-card__header--over': image && titleOnImage}"
-      :style="computedHeaderStyles"
-    >
-      <div class="va-card__header-inner">
-        <slot name="header">
-          <div class="va-card__header-title">
-            {{ title }}
-          </div>
-          <div class="va-card__header-actions">
-            <slot name="actions" />
-          </div>
-        </slot>
-      </div>
-    </div>
-
-    <div
-      v-if="$slots.default"
-      class="va-card__body"
-      :class="computedCardBodyClass"
-    >
-      <slot />
-    </div>
-  </div>
+    <slot />
+  </component>
 </template>
 
 <script>
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { ContextPluginMixin } from '../../context-test/context-provide/ContextPlugin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 export default {
-  name: 'VaCard',
-  mixins: [ColorThemeMixin, ContextPluginMixin],
+  name: 'VaCardNew',
+  mixins: [ColorThemeMixin, ContextPluginMixin, RouterLinkMixin],
   props: {
+    tag: {
+      type: String,
+      default: 'div',
+    },
+    square: {
+      type: Boolean,
+      default: false,
+    },
+    outlined: {
+      type: Boolean,
+      default: false,
+    },
+    bordered: {
+      type: Boolean,
+      default: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    href: {
+      type: String,
+      default: null,
+    },
+    target: {
+      type: String,
+      default: null,
+    },
     stripe: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'stripe', '')
-      },
-    },
-    title: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'title', '')
-      },
-    },
-    noPaddingV: {
       type: Boolean,
-      default () {
-        return getContextPropValue(this, 'noPaddingV', false)
-      },
+      default: false,
     },
-    noPaddingH: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'noPaddingH', false)
-      },
-    },
-    noPadding: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'noPadding', false)
-      },
-    },
-    image: {
+    stripeColor: {
       type: String,
-      default () {
-        return getContextPropValue(this, 'image', '')
-      },
+      default: '',
     },
-    overlay: {
+    colorGradient: {
       type: Boolean,
-      default () {
-        return getContextPropValue(this, 'overlay', false)
-      },
-    },
-    imageAlt: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'imageAlt', '')
-      },
-    },
-    titleOnImage: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'titleOnImage', false)
-      },
-    },
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', '')
-      },
-    },
-    headerColor: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'headerColor', 'info')
-      },
+      default: false,
     },
   },
   computed: {
-    showHeader () {
-      return this.title || this.$slots.header || this.$slots.actions
-    },
-    computedCardBodyClass () {
-      return {
-        'va-card__body--no-padding-v': this.noPaddingV,
-        'va-card__body--no-padding-h': this.noPaddingH,
-        'va-card__body--no-padding': this.noPadding,
-        'va-card__body--padding-top':
-          (!this.showHeader && !this.noPaddingV && !this.noPadding) ||
-          this.titleOnImage,
-      }
-    },
-    computedStripeStyle () {
-      return {
-        background: this.$themes && this.$themes[this.stripe] ? this.$themes[this.stripe] : this.stripe,
-      }
-    },
-    computedCardStyle () {
-      if (this.color) {
-        return {
-          color: '#fff',
-          background: getGradientBackground(this.$themes[this.color]),
-        }
-      }
-      return ''
-    },
-    computedHeaderStyles () {
-      if (this.headerColor && !this.titleOnImage) {
-        return { color: this.computeColor(this.headerColor) }
+    cardTag () {
+      if (this.tag === 'a' || this.href) {
+        return 'a'
       }
 
-      return null
+      if (this.tag === 'router-link' || this.hasRouterLinkParams) {
+        return 'router-link'
+      }
+
+      return this.tag
+    },
+    cardClasses () {
+      return {
+        ...this.themeClassComputed,
+        'va-card--square': this.square,
+        'va-card--outlined': this.outlined,
+        'va-card--no-border': !this.bordered,
+        'va-card--disabled': this.disabled,
+        'va-card--link': this.href || this.hasRouterLinkParams,
+      }
+    },
+    cardStyles () {
+      if (this.colorGradient && this.c_color) {
+        return {
+          'background': getGradientBackground(this.colorComputed),
+        }
+      }
+
+      return {
+        'background-color': this.colorComputed,
+      }
+    },
+    stripeStyles () {
+      return {
+        'background-color': this.computeColor(this.stripeColor),
+      }
     },
   },
 }
 </script>
 
-<style lang="scss">
-@import "../../vuestic-sass/resources/resources";
+<style lang="scss" scoped>
+@import '../../vuestic-sass/resources/resources';
 
 .va-card {
-  border-radius: $card-border-radius;
-  border: none;
-  box-sizing: border-box;
-  box-shadow: $card-box-shadow;
-  word-wrap: break-word;
-  background-color: $white;
+  &.light {
+    color: $dark-default-color;
+    background-color: $light-default-color;
+  }
+
+  &.dark {
+    color: $light-default-color;
+    background-color: $dark-default-color;
+  }
+
+  display: block;
   position: relative;
   overflow: hidden;
+  box-shadow: $card-box-shadow;
+  border-radius: $card-border-radius;
 
-  &__header {
-    &-inner {
-      display: flex;
-      padding: 0.5rem $card-padding;
-      min-height: 3.5rem;
-      align-items: center;
-    }
-
-    &-title {
-      font-weight: $font-weight-bold;
-      font-size: $card-title-font-size;
-      letter-spacing: $card-title-letter-spacing;
-      text-transform: uppercase;
-    }
-
-    &-actions {
-      margin-left: auto;
-      flex: 0 0 auto;
-    }
-
-    &--over {
-      position: absolute;
-      padding-top: 56%;
-      width: 100%;
-      top: 0;
-      left: 0;
-
-      &:last-child {
-        height: 100%;
-      }
-
-      & > div {
-        position: absolute;
-        width: 100%;
-        bottom: 0;
-        left: 0;
-      }
-    }
+  &--square {
+    border-radius: 0;
   }
 
-  &__body {
-    padding: 0 $card-padding $card-padding;
-    flex: 1 1 auto;
-    overflow-x: auto;
-
-    &--no-padding-v {
-      padding: 0 $card-padding;
-    }
-
-    &--no-padding-h {
-      padding: $card-padding 0;
-    }
-
-    &--no-padding {
-      padding: 0;
-    }
-
-    &--padding-top {
-      padding-top: $card-padding;
-    }
+  &--outlined {
+    box-shadow: none;
+    border: $card-border;
   }
 
-  &__image {
-    padding-bottom: 56%;
-    position: relative;
-    height: auto;
-    min-height: 100%;
+  &--no-border {
+    border: none;
+  }
 
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      display: block;
-      object-fit: cover;
-    }
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    user-select: none;
+  }
 
-    &-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.3);
-      pointer-events: none;
-    }
+  &--link {
+    cursor: pointer;
   }
 
   &__stripe {
     content: '';
     position: absolute;
+    width: 100%;
+    height: 0.375rem;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 0.5rem;
+  }
+
+  /deep/#{&}__title,
+  /deep/#{&}__content {
+    padding: $card-padding;
+
+    + .va-card__title,
+    + .va-card__content {
+      padding-top: 0;
+    }
+  }
+
+  /deep/#{&}__title {
+    display: flex;
+    align-items: center;
+
+    @include va-title();
   }
 }
 </style>
