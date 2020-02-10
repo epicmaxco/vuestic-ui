@@ -118,9 +118,6 @@ export default {
 <style lang="scss" scoped>
 @import '../../vuestic-sass/resources/resources';
 
-$light-default-color: #ffffff;
-$dark-default-color: #2f2f2f;
-
 .va-card-new {
   &.light {
     color: $dark-default-color;
