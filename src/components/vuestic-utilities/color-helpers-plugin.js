@@ -25,7 +25,7 @@ const ColorHelpersPlugin = {
       immediate: true,
       handler: () => {
         addOrUpdateStyleElement('va-theme-styles', () => createThemeColorStyles(defaultOptions.themes))
-      }
+      },
     })
   },
 }
