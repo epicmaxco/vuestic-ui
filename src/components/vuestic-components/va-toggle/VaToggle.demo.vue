@@ -1,10 +1,12 @@
 <template>
   <VbDemo>
-    <VbCard width="500px" title="Default">
-      {{value}}
+    <VbCard title="Default">
+      <div>
+        {{ value }}
+      </div>
       <va-toggle v-model="value"/>
     </VbCard>
-    <VbCard width="500px" title="Colors">
+    <VbCard title="Colors">
       <va-toggle v-model="value"/>
       <va-toggle v-model="value" color="info"/>
       <va-toggle v-model="value" color="danger"/>
@@ -12,18 +14,18 @@
       <va-toggle v-model="value" color="gray"/>
       <va-toggle v-model="value" color="dark"/>
     </VbCard>
-    <VbCard width="500px" title="With label">
+    <VbCard title="With label">
       <va-toggle v-model="value" label="turn"/>
       <va-toggle v-model="value">
         <div style="background: mediumpurple">Slot label</div>
       </va-toggle>
     </VbCard>
-    <VbCard width="500px" title="Sizes">
+    <VbCard title="Sizes">
       <va-toggle v-model="value" size="small" label="small"/>
       <va-toggle v-model="value" label="default"/>
       <va-toggle v-model="value" size="large" label="large"/>
     </VbCard>
-    <VbCard width="500px" title="Custom trueValue, falseValue">
+    <VbCard title="Custom trueValue, falseValue">
       <va-toggle
         v-model="customTrueFalse"
         true-value="agree"
@@ -31,7 +33,7 @@
         :label="`${customTrueFalse}`"
       />
     </VbCard>
-    <VbCard width="500px" title="Array as model">
+    <VbCard title="Array as model">
       <div>
         {{selection}}
       </div>
@@ -40,7 +42,7 @@
       <va-toggle v-model="selection" array-value="three" label="three"/>
       <va-toggle v-model="selection" array-value="four" label="four"/>
     </VbCard>
-    <VbCard width="500px" title="Object values">
+    <VbCard title="Object values">
       <div>
         {{selection}}
       </div>
@@ -52,7 +54,7 @@
         :label="objectOption.name"
       />
     </VbCard>
-    <VbCard width="500px" title="Disabled">
+    <VbCard title="Disabled">
       <va-toggle v-model="value" disable/>
     </VbCard>
   </VbDemo>
