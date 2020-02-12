@@ -3159,6 +3159,11 @@ color@^3.0.0:
     color-convert "^1.9.1"
     color-string "^1.5.2"
 
+colortranslator@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/colortranslator/-/colortranslator-1.1.1.tgz#9a4919802eb9e80ac9c0cb441f62d741e68049fc"
+  integrity sha512-7X4Hc5c4ewwsZZL5A3qSCYVmpWh7Ds94WIx1CB++/6Q4nkG3u/SFGXKKQ8YqpCxAohwnAjfJZ/axOls5HCpNiA==
+
 combined-stream@^1.0.6, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"

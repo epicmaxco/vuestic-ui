@@ -81,7 +81,7 @@
 <script>
 import Expanding from 'vue-bulma-expanding/src/Expanding'
 import VaIcon from '../va-icon/VaIcon'
-import { hex2hsl } from '../../../services/color-functions'
+import { shiftHslColor } from '../../../services/color-functions'
 
 export default {
   name: 'VaSidebarLinkGroup',
@@ -165,23 +165,11 @@ export default {
       }
     },
     sidebarLinkStyles () {
-      let getBackgroundColor = () => {
-        let color = hex2hsl(this.$themes.secondary)
-
-        color.s -= 13
-        color.l += 15
-
-        if (color.s < 0) color.s = 0
-        if (color.l > 100) color.l = 100
-
-        return color.css
-      }
-
       if (this.isHovered || this.isActive) {
         return {
-          color: this.$themes['primary'],
-          backgroundColor: getBackgroundColor(),
-          borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
+          color: this.$themes.primary,
+          backgroundColor: shiftHslColor(this.$themes.secondary, { s: -13, l: 15 }),
+          borderColor: this.isActive ? this.$themes.primary : 'transparent',
         }
       } else return {}
     },
