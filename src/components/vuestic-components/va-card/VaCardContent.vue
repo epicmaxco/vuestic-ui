@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <div
     class="va-card__content"
     :style="contentStyles"
