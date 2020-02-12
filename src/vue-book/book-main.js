@@ -9,6 +9,10 @@ import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from '../components/resize-events'
 import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
 import { installPlatform } from '../components/vuestic-components/va-popup/install'
+import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
+
+// eslint-disable-next-line
+console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
 installPlatform()
 
@@ -18,21 +22,6 @@ if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
   Vue.use(ColorThemePlugin)
 }
 Vue.use(DropdownPopperPlugin)
-Vue.use(ContextPlugin, {
-  VaTest: {
-    color: 'blue',
-  },
-  VaBadge: {
-    color: 'info',
-    label: 'default label',
-  },
-  VaButton: {
-    size: 'small',
-    icon: 'room',
-    color: 'info',
-    outline: true,
-  },
-})
 Vue.use(ContextPlugin, {})
 
 const router = new Router({
@@ -53,8 +42,8 @@ registerVuesticObject(Vue)
 Vue.use(BusPlugin)
 Vue.use(VueClipboard)
 Vue.use(DropdownPopperPlugin)
+Vue.use(ColorHelpersPlugin)
 
-/* eslint-disable no-new */
 new Vue({
   router,
   render: h => h(BookApp),

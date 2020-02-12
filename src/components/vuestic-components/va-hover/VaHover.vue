@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'va-hover',
+  name: 'VaHover',
   data () {
     return {
       active: false,

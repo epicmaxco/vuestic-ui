@@ -22,7 +22,8 @@
   color: $toast-color;
   border-radius: $toast-border-radius;
 
-  i, i.fa {
+  i,
+  i.fa {
     font-size: $toast-icon-size;
     color: $toast-icon-color;
     margin-left: $toast-icon-ml;

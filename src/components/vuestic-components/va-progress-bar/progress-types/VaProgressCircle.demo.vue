@@ -1,72 +1,150 @@
 <template>
   <VbDemo>
-    <VbCard title="No Value">
-      <VaProgressCircle/>
+    <VbCard title="Default">
+      <div>
+        No value:
+        <VaProgressCircle />
+      </div>
+      <div>
+        Value
+        <VaProgressCircle :value="value" />
+      </div>
     </VbCard>
 
-    <VbCard dashed no-padding>
-      <VaProgressCircle :value="value"/>
+    <VbCard title="Slotted">
+      <div>
+        Static slot:
+        <VaProgressCircle :value="value">
+          Slot
+        </VaProgressCircle>
+      </div>
+      <div>
+        Dynamic Slot:
+        <VaProgressCircle :value="value">
+          {{ value + '%' }}
+        </VaProgressCircle>
+      </div>
+      <div>
+        Indeterminate Slot:
+        <VaProgressCircle indeterminate>
+          {{ value + '%' }}
+        </VaProgressCircle>
+      </div>
     </VbCard>
 
-    <VbCard refresh title="Default">
-      <VaProgressCircle :value="value"/>
+    <VbCard title="Colors">
+      <VaProgressCircle
+        :value="value"
+        color="danger"
+      />
     </VbCard>
 
-    <VbCard title="Danger">
-      <VaProgressCircle :value="value" color="danger"/>
+    <VbCard
+      refresh
+      title="Indeterminate"
+    >
+      <VaProgressCircle indeterminate />
     </VbCard>
 
-    <VbCard title="Static Slot">
-      <VaProgressCircle :value="value">Static</VaProgressCircle>
+    <VbCard title="Sizes">
+      <div>
+        30px:
+        <VaProgressCircle
+          :size="30"
+          :value="value"
+        />
+      </div>
+      <div>
+        3rem:
+        <VaProgressCircle
+          size="3rem"
+          :value="value"
+        />
+      </div>
     </VbCard>
 
-    <VbCard title="Dynamic Slot">
-      <VaProgressCircle :value="value">{{ value + '%' }}</VaProgressCircle>
+    <VbCard title="Thickness">
+      <div>
+        Thickness 1:
+        <VaProgressCircle
+          :thickness="1"
+          :value="value"
+        />
+      </div>
+      <div>
+        Thickness 30:
+        <VaProgressCircle
+          :thickness="30"
+          :value="value"
+        />
+      </div>
+      <div>
+        Thickness 30 + intermediate
+        <VaProgressCircle
+          :thickness="30"
+          indeterminate
+        />
+      </div>
     </VbCard>
 
-    <VbCard title="Slot Success">
-      <VaProgressCircle :value="value" color="success">{{ value + '%' }}</VaProgressCircle>
+    <VbCard title="context checks">
+      <div>
+        value:
+        <VaContext :config="{VaProgressCircle: {value: 50}}">
+          <VaProgressCircle />
+        </VaContext>
+      </div>
+      <div>
+        indeterminate:
+        <VaContext :config="{VaProgressCircle: {indeterminate: true}}">
+          <VaProgressCircle />
+        </VaContext>
+      </div>
+      <div>
+        color:
+        <VaContext :config="{VaProgressCircle: {color: 'danger'}}">
+          <VaProgressCircle :value="value" />
+        </VaContext>
+      </div>
+      <div>
+        thickness:
+        <VaContext :config="{VaProgressCircle: {thickness: 10}}">
+          <VaProgressCircle :value="value" />
+        </VaContext>
+      </div>
+      <div>
+        size:
+        <VaContext :config="{VaProgressCircle: {size: 30}}">
+          <VaProgressCircle :value="value" />
+        </VaContext>
+      </div>
     </VbCard>
 
-    <VbCard refresh title="Indeterminate">
-      <VaProgressCircle indeterminate/>
-    </VbCard>
-
-    <VbCard title="Indeterminate Info">
-      <VaProgressCircle indeterminate color="info"/>
-    </VbCard>
-
-    <VbCard title="Indeterminate Slot">
-      <VaProgressCircle indeterminate>Slot</VaProgressCircle>
-    </VbCard>
-
-    <VbCard title="Indeterminate size setted with px">
-      <VaProgressCircle :size="30" indeterminate></VaProgressCircle>
-    </VbCard>
-
-    <VbCard title="Indeterminate size setted with rem">
-      <VaProgressCircle size="3rem" indeterminate></VaProgressCircle>
-    </VbCard>
-
-    <VbCard title="Resized indeterminate with thickness setted">
-      <VaProgressCircle size="0.625rem" :thickness="30" indeterminate></VaProgressCircle>
-    </VbCard>
-
-    <VbCard>
-      <button @click="value -= 100">-100</button>
-      <button @click="value -= 10">-10</button>
+    <VbCard title="controls">
+      <button @click="value -= 100">
+        -100
+      </button>
+      <button @click="value -= 10">
+        -10
+      </button>
       {{ value }}
-      <button @click="value += 10">+10</button>
-      <button @click="value += 100">+100</button>
+      <button @click="value += 10">
+        +10
+      </button>
+      <button @click="value += 100">
+        +100
+      </button>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaProgressCircle from './VaProgressCircle'
+import VaContext from '../../../context-test/context-provide/VaContext'
 
 export default {
   components: {
+    VaContext,
     VaProgressCircle,
   },
   data () {

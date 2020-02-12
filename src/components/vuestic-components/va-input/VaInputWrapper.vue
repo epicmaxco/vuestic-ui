@@ -4,23 +4,25 @@
       <div class="va-input-wrapper__slot">
         <div
           v-if="$slots.prepend"
-          class="va-input-wrapper__prepend-inner">
-          <slot name="prepend"/>
+          class="va-input-wrapper__prepend-inner"
+        >
+          <slot name="prepend" />
         </div>
         <div class="va-input-wrapper__content">
-          <slot/>
+          <slot />
           <div class="va-input-wrapper__details py-0 px-2">
             <va-message-list
               :color="messagesColor"
               :value="messagesComputed"
-              :limit="error ? errorCount : 99"
+              :limit="errorLimit"
             />
           </div>
         </div>
         <div
           v-if="$slots.append"
-          class="va-input-wrapper__append-inner">
-          <slot name="append"/>
+          class="va-input-wrapper__append-inner"
+        >
+          <slot name="append" />
         </div>
       </div>
     </div>
@@ -29,33 +31,48 @@
 
 <script>
 import VaMessageList from './VaMessageList'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
+const InputWrapperContextMixin = makeContextablePropsMixin({
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  success: {
+    type: Boolean,
+    default: false,
+  },
+  messages: {
+    type: Array,
+    default: [],
+  },
+  errorMessages: {
+    type: Array,
+    default: [],
+  },
+  errorCount: {
+    type: Number,
+    default: 1,
+  },
+})
 
 export default {
-  name: 'va-input-wrapper',
+  name: 'VaInputWrapper',
   components: { VaMessageList },
-  props: {
-    disabled: Boolean,
-    error: Boolean,
-    success: Boolean,
-    messages: {
-      type: Array,
-      default: () => [],
-    },
-    errorMessages: {
-      type: Array,
-      default: () => [],
-    },
-    errorCount: {
-      type: Number,
-      default: 1,
-    },
-  },
+  mixins: [InputWrapperContextMixin],
   computed: {
     messagesComputed () {
-      return this.error ? this.errorMessages : this.messages
+      return this.c_error ? this.c_errorMessages : this.messages
     },
     messagesColor () {
-      return (this.error && 'danger') || (this.success && 'success') || ''
+      return (this.c_error && 'danger') || (this.c_success && 'success') || ''
+    },
+    errorLimit () {
+      return this.c_error ? this.c_errorCount : 99
     },
   },
 }
@@ -72,7 +89,8 @@ export default {
   text-align: left;
   margin-bottom: 1rem;
 
-  &__control, &__content {
+  &__control,
+  &__content {
     width: 100%;
   }
 
@@ -81,7 +99,8 @@ export default {
     flex-direction: column;
   }
 
-  &__prepend-inner, &__append-inner {
+  &__prepend-inner,
+  &__append-inner {
     display: inline-flex;
     align-items: center;
   }
@@ -107,6 +126,7 @@ export default {
   &__messages__wrapper {
     font-size: 0.875rem;
   }
+
   .va-select {
     margin-bottom: 0;
   }

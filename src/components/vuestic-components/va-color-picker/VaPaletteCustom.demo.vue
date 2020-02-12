@@ -1,10 +1,16 @@
 <template>
   <div class="demo-container">
     <div class="demo-container__item">
-      <va-palette-custom :palette="palette" v-model="color"/>
+      <va-palette-custom
+        :palette="palette"
+        v-model="color"
+      />
     </div>
     <div class="demo-container__item">
-      <va-palette-custom :palette="palette" v-model="color"/>
+      <va-palette-custom
+        :palette="palette"
+        v-model="color"
+      />
     </div>
   </div>
 </template>

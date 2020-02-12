@@ -1,4 +1,21 @@
-.content {
+<template>
+  <div class="va-content">
+    <slot />
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'VaContent',
+}
+</script>
+
+<style lang="scss">
+@import '../../vuestic-sass/resources/resources';
+@import '../../vuestic-sass/global/typography';
+@import '../../vuestic-sass/global/utility-global';
+
+.va-content {
   h1 {
     @include va-display(1);
     @include va-header-margin(1);
@@ -35,7 +52,7 @@
 
   hr.separator {
     height: 2px;
-    background-color: #eee;
+    background-color: #eeeeee;
     border: none;
   }
 
@@ -55,29 +72,42 @@
     }
   }
 
-
   // NOTE Ideally we want this to work with mixins too, but no idea how to achieve that :/.
   ol {
-    @extend .va-ordered
+    @extend .va-ordered;
   }
 
   ul {
-    @extend .va-unordered
+    @extend .va-unordered;
   }
 
   blockquote {
-    @extend .va-blockquote
+    @extend .va-blockquote;
   }
 
   figure {
-    @extend .card
+    border-radius: 0;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: $widget-box-shadow;
+    word-wrap: break-word;
+
+    figcaption {
+      flex: 1 1 auto;
+      padding: 1.25rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   table {
-    @extend .va-table
+    @extend .va-table;
   }
 
   a {
-    @extend .link
+    @extend .link;
   }
 }
+</style>

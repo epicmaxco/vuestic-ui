@@ -4,26 +4,57 @@
       <div>
         {{ value }}
       </div>
-      <va-toggle v-model="value"/>
+      <va-toggle v-model="value" />
     </VbCard>
     <VbCard title="Colors">
-      <va-toggle v-model="value"/>
-      <va-toggle v-model="value" color="info"/>
-      <va-toggle v-model="value" color="danger"/>
-      <va-toggle v-model="value" color="warning"/>
-      <va-toggle v-model="value" color="gray"/>
-      <va-toggle v-model="value" color="dark"/>
+      <va-toggle v-model="value" />
+      <va-toggle
+        v-model="value"
+        color="info"
+      />
+      <va-toggle
+        v-model="value"
+        color="danger"
+      />
+      <va-toggle
+        v-model="value"
+        color="warning"
+      />
+      <va-toggle
+        v-model="value"
+        color="gray"
+      />
+      <va-toggle
+        v-model="value"
+        color="dark"
+      />
     </VbCard>
     <VbCard title="With label">
-      <va-toggle v-model="value" label="turn"/>
+      <va-toggle
+        v-model="value"
+        label="turn"
+      />
       <va-toggle v-model="value">
-        <div style="background: mediumpurple">Slot label</div>
+        <div style="background: mediumpurple;">
+          Slot label
+        </div>
       </va-toggle>
     </VbCard>
     <VbCard title="Sizes">
-      <va-toggle v-model="value" size="small" label="small"/>
-      <va-toggle v-model="value" label="default"/>
-      <va-toggle v-model="value" size="large" label="large"/>
+      <va-toggle
+        v-model="value"
+        size="small"
+        label="small"
+      />
+      <va-toggle
+        v-model="value"
+        label="default"
+      />
+      <va-toggle
+        v-model="value"
+        size="large"
+        label="large"
+      />
     </VbCard>
     <VbCard title="Custom trueValue, falseValue">
       <va-toggle
@@ -35,16 +66,32 @@
     </VbCard>
     <VbCard title="Array as model">
       <div>
-        {{selection}}
+        {{ selection }}
       </div>
-      <va-toggle v-model="selection" array-value="one" label="one"/>
-      <va-toggle v-model="selection" array-value="two" label="two"/>
-      <va-toggle v-model="selection" array-value="three" label="three"/>
-      <va-toggle v-model="selection" array-value="four" label="four"/>
+      <va-toggle
+        v-model="selection"
+        array-value="one"
+        label="one"
+      />
+      <va-toggle
+        v-model="selection"
+        array-value="two"
+        label="two"
+      />
+      <va-toggle
+        v-model="selection"
+        array-value="three"
+        label="three"
+      />
+      <va-toggle
+        v-model="selection"
+        array-value="four"
+        label="four"
+      />
     </VbCard>
     <VbCard title="Object values">
       <div>
-        {{selection}}
+        {{ selection }}
       </div>
       <va-toggle
         v-for="objectOption in objectOptions"
@@ -55,7 +102,10 @@
       />
     </VbCard>
     <VbCard title="Disabled">
-      <va-toggle v-model="value" disable/>
+      <va-toggle
+        v-model="value"
+        disable
+      />
     </VbCard>
   </VbDemo>
 </template>

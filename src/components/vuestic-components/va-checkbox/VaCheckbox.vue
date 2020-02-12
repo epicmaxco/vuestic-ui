@@ -23,8 +23,11 @@
           :disabled="disabled"
           :indeterminate="indeterminate"
           :style="inputStyle"
+        >
+        <va-icon
+          class="va-checkbox__icon-selected"
+          :name="computedIconName"
         />
-        <va-icon class="va-checkbox__icon-selected" :name="computedIconName"/>
       </div>
       <div
         class="va-checkbox__label-text"
@@ -48,42 +51,98 @@
 import VaIcon from '../va-icon/VaIcon'
 import VaMessageList from '../va-input/VaMessageList'
 import { KeyboardOnlyFocusMixin } from './KeyboardOnlyFocusMixin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-checkbox',
+  name: 'VaCheckbox',
   components: { VaMessageList, VaIcon },
-  mixins: [KeyboardOnlyFocusMixin],
+  mixins: [KeyboardOnlyFocusMixin, ColorThemeMixin, ContextPluginMixin],
   props: {
-    id: String,
-    label: String,
-    name: String,
+    color: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
+    id: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'id', '')
+      },
+    },
+    label: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'label', '')
+      },
+    },
+    name: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'name', '')
+      },
+    },
     value: {
       type: [Boolean, Array],
       required: true,
+      default () {
+        return getContextPropValue(this, 'value', true)
+      },
     },
-    arrayValue: String,
-    indeterminate: Boolean,
-
-    disabled: Boolean,
-    readonly: Boolean,
-
+    arrayValue: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'arrayValue', '')
+      },
+    },
+    indeterminate: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'indeterminate', false)
+      },
+    },
+    disabled: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
+    },
+    readonly: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'readonly', false)
+      },
+    },
     checkedIcon: {
       type: [String, Array],
-      default: 'check',
+      default () {
+        return getContextPropValue(this, 'checkedIcon', 'check')
+      },
     },
     indeterminateIcon: {
       type: [String, Array],
-      default: 'close',
+      default () {
+        return getContextPropValue(this, 'indeterminateIcon', 'close')
+      },
     },
-
-    error: Boolean,
+    error: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'error', false)
+      },
+    },
     errorMessages: {
       type: [String, Array],
-      default: () => [],
+      default () {
+        return getContextPropValue(this, 'errorMessages', '')
+      },
     },
     errorCount: {
       type: Number,
-      default: 1,
+      default () {
+        return getContextPropValue(this, 'errorCount', 1)
+      },
     },
   },
   computed: {
@@ -109,7 +168,7 @@ export default {
         if (this.isChecked) return { background: this.$themes.danger }
         else return { borderColor: this.$themes.danger }
       } else {
-        if (this.isChecked) return { background: this.$themes.success }
+        if (this.isChecked) return { background: this.colorComputed }
       }
 
       return {}
@@ -125,7 +184,7 @@ export default {
     },
     showError () {
       // We make error active, if the error-message is not empty and checkbox is not disabled
-      if (!this.disabled) {
+      if (!this.disabled && this.errorMessages) {
         if (!(this.errorMessages.length === 0) || this.error) {
           return true
         }
@@ -172,24 +231,24 @@ export default {
     @at-root {
       .va-checkbox--disabled & {
         @include va-disabled();
+
+        cursor: default;
       }
 
       .va-checkbox--readonly & {
         cursor: initial;
-      }
-
-      .va-checkbox--disabled & {
-        cursor: default;
       }
     }
   }
 
   #{&}__square {
     @include flex-center();
+
     width: 2rem;
     height: 2rem;
     position: relative;
     flex: 0 0 2rem;
+
     @at-root {
       .va-checkbox--on-keyboard-focus#{&} {
         background-color: $light-gray;
@@ -234,6 +293,7 @@ export default {
     display: inline-block;
     position: relative;
     margin-left: 0.25rem;
+
     @at-root {
       .va-checkbox--error#{&} {
         color: $theme-red;

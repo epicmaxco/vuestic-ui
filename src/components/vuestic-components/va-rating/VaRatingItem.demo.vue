@@ -19,7 +19,7 @@
             0
             <va-rating-item
               :value="0.5"
-              halfIcon="fa fa-star-half-full"
+              half-icon="fa fa-star-half-full"
             />
             0.5
           </td>
@@ -46,7 +46,7 @@
             />
             default
             <va-rating-item
-              emptyIcon="fa fa-battery-0"
+              empty-icon="fa fa-battery-0"
               :value="0"
             />
             custom
@@ -57,18 +57,18 @@
           <td>
             <va-rating-item
               :value="0.5"
-              style="width: 14px; height: 14px"
-              halfIcon="fa fa-star-half-full"
+              style="width: 14px; height: 14px;"
+              half-icon="fa fa-star-half-full"
               @click="showEvent($event, 'click')"
             />
-            click event = {{clickEvent}}
+            click event = {{ clickEvent }}
             <va-rating-item
               :value="0.5"
-              style="width: 14px; height: 14px"
-              halfIcon="fa fa-star-half-full"
+              style="width: 14px; height: 14px;"
+              half-icon="fa fa-star-half-full"
               @hover="showEvent($event, 'hover')"
             />
-            hover event = {{hoverEvent}}
+            hover event = {{ hoverEvent }}
           </td>
         </tr>
       </table>

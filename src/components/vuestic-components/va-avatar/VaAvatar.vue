@@ -1,8 +1,18 @@
 <template>
-  <div class="va-avatar" ref="avatar" :style="computedStyle">
+  <div
+    class="va-avatar"
+    ref="avatar"
+    :style="computedStyle"
+  >
     <slot>
-      <va-icon v-if="icon" :name="icon"/>
-      <img v-else-if="src" :src="src"/>
+      <img
+        v-if="src"
+        :src="src"
+      >
+      <va-icon
+        v-else-if="icon"
+        :name="icon"
+      />
     </slot>
   </div>
 </template>
@@ -10,35 +20,41 @@
 <script>
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaIcon from '../va-icon/VaIcon'
 
+const contextConfigMixin = makeContextablePropsMixin({
+  color: {
+    type: String,
+    default: 'info',
+  },
+  textColor: {
+    type: String,
+    default: 'white',
+  },
+  square: {
+    type: Boolean,
+    default: false,
+  },
+  icon: {
+    type: String,
+    default: '',
+  },
+  src: {
+    type: String,
+    default: null,
+  },
+  fontSize: {
+    type: String,
+    default: '',
+  },
+})
+
 export default {
-  name: 'va-avatar',
-  mixins: [SizeMixin, ColorThemeMixin],
+  name: 'VaAvatar',
+  mixins: [SizeMixin, ColorThemeMixin, contextConfigMixin],
   components: {
     VaIcon,
-  },
-  props: {
-    color: {
-      type: String,
-      default: 'info',
-    },
-    textColor: {
-      type: String,
-    },
-    square: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: String,
-    },
-    src: {
-      type: String,
-    },
-    fontSize: {
-      type: String,
-    },
   },
   computed: {
     computedStyle () {
@@ -66,7 +82,8 @@ export default {
   text-align: center;
   vertical-align: middle;
 
-  img, svg {
+  img,
+  svg {
     border-radius: inherit;
     display: inline-flex;
     height: inherit;

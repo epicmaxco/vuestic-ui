@@ -1,6 +1,14 @@
 <template>
-  <div class="va-progress-circle" ref="progress" :style="computedStyle" :class="computedClass">
-    <svg class="va-progress-circle__progress-bar" viewBox="0 0 40 40">
+  <div
+    class="va-progress-circle"
+    ref="progress"
+    :style="computedStyle"
+    :class="computedClass"
+  >
+    <svg
+      class="va-progress-circle__progress-bar"
+      viewBox="0 0 40 40"
+    >
       <circle
         class="va-progress-circle__overlay"
         cx="50%"
@@ -13,8 +21,11 @@
         :stroke-dashoffset="dashoffset"
       />
     </svg>
-    <div :style="{ color: colorComputed }" class="va-progress-circle__info">
-      <slot/>
+    <div
+      :style="computedStyles"
+      class="va-progress-circle__info"
+    >
+      <slot />
     </div>
   </div>
 </template>
@@ -22,26 +33,26 @@
 <script>
 import { progressMixin } from './progressMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import { SizeMixin } from '../../../../mixins/SizeMixin'
+
+const ProgressCircleContextMixin = makeContextablePropsMixin({
+  thickness: {
+    type: Number,
+    default: 3,
+  },
+  size: {
+    type: [Number, String],
+    default: 40,
+  },
+})
 
 export default {
-  name: 'va-progress-circle',
-  mixins: [progressMixin, ColorThemeMixin],
-  props: {
-    size: {
-      type: [Number, String],
-      default: 40,
-      validator: (value) => {
-        return typeof value === 'number' || value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)
-      },
-    },
-    thickness: {
-      type: Number,
-      default: 3,
-    },
-  },
+  name: 'VaProgressCircle',
+  mixins: [progressMixin, ColorThemeMixin, ProgressCircleContextMixin, SizeMixin],
   computed: {
     radius () {
-      return 20 - (20 * this.thickness / 100)
+      return 20 - (20 * this.c_thickness / 100)
     },
     dasharray () {
       return 2 * Math.PI * this.radius
@@ -50,21 +61,26 @@ export default {
       return this.dasharray * (1 - this.normalizedValue / 100)
     },
     computedThickness () {
-      return `${this.thickness}%`
+      return `${this.c_thickness}%`
     },
     computedStyle () {
-      const size = parseFloat(this.size) + this.sizeUnits()
+      const size = parseFloat(this.c_size) + this.sizeUnits()
       return { width: size, height: size }
     },
     computedClass () {
       return {
-        'va-progress-circle--indeterminate': this.indeterminate,
+        'va-progress-circle--indeterminate': this.c_indeterminate,
+      }
+    },
+    computedStyles () {
+      return {
+        color: this.colorComputed,
       }
     },
   },
   methods: {
     sizeUnits () {
-      return typeof this.size === 'number' ? 'px' : this.size.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)[0]
+      return typeof this.c_size === 'number' ? 'px' : this.c_size.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)[0]
     },
   },
 }
@@ -94,6 +110,7 @@ export default {
 
   &__overlay {
     transition: all ease 2s;
+
     @at-root {
       .va-progress-circle--indeterminate & {
         animation: va-progress-circle__overlay--indeterminate 2s ease-in-out infinite;
@@ -102,6 +119,7 @@ export default {
   }
 
   &__info {
+    font-size: 0.75rem;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -118,12 +136,14 @@ export default {
 @keyframes va-progress-circle__overlay--indeterminate {
   0% {
     stroke-dasharray: 1, 125;
-    stroke-dashoffset: 0px;
+    stroke-dashoffset: 0;
   }
+
   50% {
     stroke-dasharray: 125, 125;
     stroke-dashoffset: -65px;
   }
+
   100% {
     stroke-dasharray: 125, 125;
     stroke-dashoffset: -125px;

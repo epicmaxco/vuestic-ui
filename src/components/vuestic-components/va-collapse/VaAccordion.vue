@@ -1,12 +1,12 @@
 <template>
   <div class="va-accordion">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'va-accordion',
+  name: 'VaAccordion',
   provide () {
     return {
       accordion: {

@@ -1,4 +1,7 @@
-const getDefaultOptions = () => ({
+import Vue from 'vue'
+import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
+
+const defaultOptions = Vue.observable({
   themes: {
     primary: '#23e066',
     secondary: '#002c85',
@@ -11,33 +14,31 @@ const getDefaultOptions = () => ({
   },
 })
 
+export const getDefaultOptions = () => defaultOptions
+
 export const ColorThemePlugin = {
   install (Vue, options) {
-    const defaultOptions = getDefaultOptions()
-
     if (options && options.themes) {
-      Object.assign(defaultOptions.themes, options.themes)
+      defaultOptions.themes = { ...defaultOptions.themes, ...options.themes }
     }
 
     Vue.prototype.$themes = defaultOptions.themes
-
-    /* eslint-disable no-new */
-    // This line is just to make themes reactive
-    new Vue({ data: { themes: Vue.prototype.$themes } })
   },
 }
 
+const contextConfigMixin = makeContextablePropsMixin({
+  color: {
+    type: String,
+  },
+})
+
 export const ColorThemeMixin = {
+  mixins: [contextConfigMixin],
   data () {
     return {
       colorThemeDefault: 'primary',
       colorDefault: '#000000',
     }
-  },
-  props: {
-    color: {
-      type: String,
-    },
   },
   computed: {
     _isEnableColorTheme () {
@@ -46,7 +47,7 @@ export const ColorThemeMixin = {
     // This allows a multitude of defaults.
     // theme color => color => theme default => hard default
     colorComputed () {
-      return this.computeColor(this.color)
+      return this.computeColor(this.c_color)
     },
   },
   methods: {

@@ -10,11 +10,12 @@
             <sidebar-link-group
               :key="index"
               :icon="[ 'sidebar-menu-item-icon vuestic-iconset', item.meta.iconClass ]"
-              v-if="item.children">
+              v-if="item.children"
+            >
               <span slot="title">{{ item.displayName }}</span>
               <sidebar-link
-                v-for="(subMenuItem, index) in item.children"
-                :key="index"
+                v-for="(subMenuItem) in item.children"
+                :key="subMenuItem.name"
                 :to="{ name: subMenuItem.name }"
               >
                 <div slot="title">
@@ -27,7 +28,8 @@
               v-else
               :key="index"
               :icon="[ 'sidebar-menu-item-icon vuestic-iconset', item.meta.iconClass ]"
-              :to="{ name: item.name }">
+              :to="{ name: item.name }"
+            >
               <span slot="title">{{ item.displayName }}</span>
             </sidebar-link>
           </template>

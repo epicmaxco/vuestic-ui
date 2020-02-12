@@ -2,7 +2,10 @@
   <div class="va-color-picker-input">
     <div v-if="validator(this.mode)">
       <va-dropdown-popper fixed>
-        <div slot="anchor" class="va-color-picker-input__slot">
+        <div
+          slot="anchor"
+          class="va-color-picker-input__slot"
+        >
           <slot>
             <va-color-input
               v-model="valueProxy"
@@ -45,15 +48,13 @@
 import VaAdvancedColorPicker from './VaAdvancedColorPicker'
 import VaSimplePalettePicker from './VaSimplePalettePicker'
 import VaSliderColorPicker from './VaSliderColorPicker'
-import VaColorSquare from './VaColorSquare'
 import VaColorInput from './VaColorInput'
 import VaDropdownPopper from '../va-dropdown/VaDropdown'
 
 export default {
-  name: 'va-color-picker-input',
+  name: 'VaColorPickerInput',
   components: {
     VaDropdownPopper,
-    VaColorSquare,
     VaSimplePalettePicker,
     VaAdvancedColorPicker,
     VaSliderColorPicker,
@@ -62,11 +63,16 @@ export default {
   props: {
     mode: {
       type: String,
+      default: '',
     },
     palette: {
       type: Array,
+      default () {
+        return []
+      },
     },
     value: {
+      type: String,
       default: '',
     },
     selected: {

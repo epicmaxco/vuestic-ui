@@ -20,13 +20,14 @@ import ColorDot from './ColorDot'
 import VaInput from '../va-input/VaInput'
 
 export default {
-  name: 'va-color-input',
+  name: 'VaColorInput',
   components: {
     VaInput,
     ColorDot,
   },
   props: {
     value: {
+      type: String,
       default: '',
     },
     disabled: {

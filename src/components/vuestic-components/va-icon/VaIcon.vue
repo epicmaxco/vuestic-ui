@@ -1,60 +1,78 @@
 <template>
   <!-- HACK Supports only material icons for now! -->
-  <i class="va-icon"
-     :class="[name, iconClass, 'material-icons']"
-     :style="iconStyle"
+  <component
+    :is="tag"
+    class="va-icon"
+    :class="[name, iconClass, 'material-icons']"
+    :style="iconStyle"
   >
     <slot>
       {{ name }}
     </slot>
-  </i>
+  </component>
 </template>
 
 <script>
-export default {
-  name: 'va-icon',
-  props: {
-    name: {
-      type: [String, Array],
-      validator: name => {
-        if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-          throw new Error(`${name} icon is not available. Please replace to material-icon`)
-        }
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { SizeMixin } from '../../../mixins/SizeMixin'
+import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
 
-        return name
-      },
+const IconContextMixin = makeContextablePropsMixin({
+  name: {
+    type: [String, Array],
+    validator: name => {
+      if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
+        throw new Error(`${name} icon is not available. Please replace to material-icon`)
+      }
+
+      return name
     },
-    size: {
-      type: [String, Number],
-      default: 'medium',
-      validator: value => {
-        return value.toString().match(/rem|em|ex|pt|pc|mm|cm|px/) || ['medium', 'small', 'large'].includes(value) || typeof value === 'number'
-      },
-    },
-    fixedWidth: {
-      type: Boolean,
-    },
-    rotation: {
-      type: [String, Number],
-    },
-    color: {
-      type: String,
-    },
+    default: '',
   },
+  size: {
+    type: [String, Number],
+    default: 'medium',
+  },
+  fixedWidth: {
+    type: Boolean,
+    default: false,
+  },
+  rotation: {
+    type: [String, Number],
+    default: '',
+  },
+  color: {
+    type: String,
+    default: '',
+  },
+  tag: {
+    type: String,
+    default: 'i',
+  },
+})
+
+export default {
+  name: 'VaIcon',
+  mixins: [ColorThemeMixin, SizeMixin, IconContextMixin],
   computed: {
     iconClass () {
       return {
-        'va-icon--large': this.size === 'large',
-        'va-icon--small': this.size === 'small',
-        'va-icon--fixed': this.fixedWidth,
+        'va-icon--large': this.c_size === 'large',
+        'va-icon--small': this.c_size === 'small',
+        'va-icon--fixed': this.c_fixedWidth,
       }
     },
     iconStyle () {
-      return {
-        transform: 'rotate(' + this.rotation + 'deg)',
-        fontSize: typeof this.size === 'number' ? this.size + 'px' : this.size,
-        color: this.$themes ? this.$themes[this.color] : this.color,
+      let computedStyles = {
+        transform: 'rotate(' + this.c_rotation + 'deg)',
+        fontSize: typeof this.c_size === 'number' ? this.c_size + 'px' : this.c_size,
       }
+
+      if (this.c_color && this._isEnableColorTheme) {
+        computedStyles.color = this.colorComputed
+      }
+
+      return computedStyles
     },
   },
 }

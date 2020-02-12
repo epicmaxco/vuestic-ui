@@ -7,27 +7,34 @@
       v-if="stripe"
       class="va-card__stripe"
       :style="computedStripeStyle"
-    ></div>
-    <div v-if="image" class="va-card__image">
-      <img :src="image" :alt="imageAlt">
-      <div class="va-card__image-overlay" v-if="overlay"></div>
+    />
+    <div
+      v-if="image"
+      class="va-card__image"
+    >
+      <img
+        :src="image"
+        :alt="imageAlt"
+      >
+      <div
+        class="va-card__image-overlay"
+        v-if="overlay"
+      />
     </div>
 
     <div
       v-if="showHeader"
       class="va-card__header"
       :class="{'va-card__header--over': image && titleOnImage}"
+      :style="computedHeaderStyles"
     >
       <div class="va-card__header-inner">
         <slot name="header">
-          <div
-            class="va-card__header-title"
-            :style="{color: this.titleOnImage ? 'white' : this.$themes.info}"
-          >
+          <div class="va-card__header-title">
             {{ title }}
           </div>
           <div class="va-card__header-actions">
-            <slot name="actions"/>
+            <slot name="actions" />
           </div>
         </slot>
       </div>
@@ -38,56 +45,85 @@
       class="va-card__body"
       :class="computedCardBodyClass"
     >
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>
 
 <script>
 import { getGradientBackground } from '../../../services/color-functions'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-card',
+  name: 'VaCard',
+  mixins: [ColorThemeMixin, ContextPluginMixin],
   props: {
     stripe: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'stripe', '')
+      },
     },
     title: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'title', '')
+      },
     },
     noPaddingV: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'noPaddingV', false)
+      },
     },
     noPaddingH: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'noPaddingH', false)
+      },
     },
     noPadding: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'noPadding', false)
+      },
     },
     image: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'image', '')
+      },
     },
     overlay: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'overlay', false)
+      },
     },
     imageAlt: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'imageAlt', '')
+      },
     },
     titleOnImage: {
       type: Boolean,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'titleOnImage', false)
+      },
     },
     color: {
       type: String,
-      default: '',
+      default () {
+        return getContextPropValue(this, 'color', '')
+      },
+    },
+    headerColor: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'headerColor', 'info')
+      },
     },
   },
   computed: {
@@ -117,6 +153,13 @@ export default {
         }
       }
       return ''
+    },
+    computedHeaderStyles () {
+      if (this.headerColor && !this.titleOnImage) {
+        return { color: this.computeColor(this.headerColor) }
+      }
+
+      return null
     },
   },
 }
@@ -148,7 +191,6 @@ export default {
       font-size: $card-title-font-size;
       letter-spacing: $card-title-letter-spacing;
       text-transform: uppercase;
-      color: $card-title-color;
     }
 
     &-actions {
@@ -199,10 +241,10 @@ export default {
   }
 
   &__image {
-     padding-bottom: 56%;
-     position: relative;
-     height: auto;
-     min-height: 100%;
+    padding-bottom: 56%;
+    position: relative;
+    height: auto;
+    min-height: 100%;
 
     img {
       position: absolute;
@@ -220,7 +262,7 @@ export default {
       left: 0;
       height: 100%;
       width: 100%;
-      background-color: rgba(0, 0, 0, .3);
+      background-color: rgba(0, 0, 0, 0.3);
       pointer-events: none;
     }
   }

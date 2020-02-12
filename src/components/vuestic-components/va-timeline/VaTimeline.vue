@@ -108,11 +108,10 @@ $timeline-outer-spacing: 2rem;
     padding-left: 0.25rem;
     padding-right: 0.25rem;
 
-    /*min-width: 300px;*/
+    /* min-width: 300px; */
   }
 
   &--align-top {
-
     .va-timeline-item__before,
     .va-timeline-item__after {
       flex: 0;
@@ -137,17 +136,18 @@ $timeline-outer-spacing: 2rem;
         }
       }
 
-      .va-timeline-item__after, .va-timeline-item__before {
+      .va-timeline-item__after,
+      .va-timeline-item__before {
         padding-top: $timeline-outer-spacing;
       }
     }
 
     &.va-timeline-item--vertical.va-timeline-item--is-last {
-      .va-timeline-item__after, .va-timeline-item__before {
+      .va-timeline-item__after,
+      .va-timeline-item__before {
         padding-bottom: $timeline-outer-spacing;
       }
     }
   }
-
 }
 </style>

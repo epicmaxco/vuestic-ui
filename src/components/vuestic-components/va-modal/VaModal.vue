@@ -1,5 +1,9 @@
 <template>
-  <transition name="va-modal__overlay__transition" appear :duration="withoutTransitions ? 0 : 200">
+  <transition
+    name="va-modal__overlay__transition"
+    appear
+    :duration="withoutTransitions ? 0 : 200"
+  >
     <div
       v-if="overlayValue"
       class="va-modal__overlay"
@@ -7,7 +11,11 @@
       @click="checkOutside"
       :style="computedOverlayStyles"
     >
-      <transition name="va-modal__transition" appear :duration="withoutTransitions ? 0 : 500">
+      <transition
+        name="va-modal__transition"
+        appear
+        :duration="withoutTransitions ? 0 : 500"
+      >
         <div
           v-if="value"
           class="va-modal"
@@ -20,29 +28,56 @@
             class="ion ion-md-close va-modal__close"
           />
 
-          <div class="va-modal__inner" :style="{maxHeight, maxWidth}">
+          <div
+            class="va-modal__inner"
+            :style="{maxHeight, maxWidth}"
+          >
             <div
               v-if="title"
               class="mb-4 title"
               :style="{color: this.$themes.primary}"
             >
-              {{title}}
+              {{ title }}
             </div>
-            <div v-if="hasHeaderSlot" class="va-modal__header">
-              <slot name="header"/>
+            <div
+              v-if="hasHeaderSlot"
+              class="va-modal__header"
+            >
+              <slot name="header" />
             </div>
-            <div v-if="message" class="mb-4 va-modal__message">{{message}}</div>
-            <div v-if="hasContentSlot" class="mb-4 va-modal__message">
-              <slot/>
+            <div
+              v-if="message"
+              class="mb-4 va-modal__message"
+            >
+              {{ message }}
             </div>
-            <div v-if="(cancelText || okText) && !hideDefaultActions" class="va-modal__actions mb-3">
-              <va-button v-if="cancelText" color="gray" flat @click="cancel">
-                {{cancelText}}
+            <div
+              v-if="hasContentSlot"
+              class="mb-4 va-modal__message"
+            >
+              <slot />
+            </div>
+            <div
+              v-if="(cancelText || okText) && !hideDefaultActions"
+              class="va-modal__actions mb-3"
+            >
+              <va-button
+                v-if="cancelText"
+                color="gray"
+                flat
+                @click="cancel"
+              >
+                {{ cancelText }}
               </va-button>
-              <va-button @click="ok">{{okText}}</va-button>
+              <va-button @click="ok">
+                {{ okText }}
+              </va-button>
             </div>
-            <div v-if="hasActionsSlot" class="va-modal__actions">
-              <slot name="actions"/>
+            <div
+              v-if="hasActionsSlot"
+              class="va-modal__actions"
+            >
+              <slot name="actions" />
             </div>
           </div>
         </div>
@@ -53,10 +88,12 @@
 
 <script>
 import VaButton from '../va-button/VaButton'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-modal',
+  name: 'VaModal',
   components: { VaButton },
+  mixins: [ContextPluginMixin],
   data () {
     return {
       // for leave animation
@@ -65,46 +102,120 @@ export default {
   },
   props: {
     value: {
+      type: Boolean,
       required: true,
-      default: false,
+      default () {
+        return getContextPropValue(this, 'value', false)
+      },
     },
     position: {
       type: String,
       validator: value => {
         return ['center', 'top', 'right', 'bottom', 'left'].includes(value)
       },
+      default () {
+        return getContextPropValue(this, 'position', 'center')
+      },
     },
-    title: String,
-    message: String,
+    title: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'title', '')
+      },
+    },
+    message: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'message', '')
+      },
+    },
     okText: {
       type: String,
-      default: 'OK',
+      default () {
+        return getContextPropValue(this, 'okText', 'OK')
+      },
     },
     cancelText: {
       type: String,
-      default: 'Cancel',
+      default () {
+        return getContextPropValue(this, 'cancelText', 'Cancel')
+      },
     },
-    hideDefaultActions: Boolean,
-    fullscreen: Boolean,
+    hideDefaultActions: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'hideDefaultActions', false)
+      },
+    },
+    fullscreen: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'fullscreen', false)
+      },
+    },
     mobileFullscreen: {
       type: Boolean,
-      default: true,
+      default () {
+        return getContextPropValue(this, 'mobileFullscreen', true)
+      },
     },
-    noOutsideDismiss: Boolean,
-    noEscDismiss: Boolean,
-    maxWidth: String,
-    maxHeight: String,
+    noOutsideDismiss: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'noOutsideDismiss', false)
+      },
+    },
+    noEscDismiss: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'noEscDismiss', false)
+      },
+    },
+    maxWidth: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'maxWidth', '')
+      },
+    },
+    maxHeight: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'maxHeight', '')
+      },
+    },
     size: {
       type: String,
-      default: 'medium',
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
       validator: value => {
         return ['medium', 'small', 'large'].includes(value)
       },
     },
-    fixedLayout: Boolean,
-    onOk: Function,
-    onCancel: Function,
-    withoutTransitions: Boolean,
+    fixedLayout: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'fixedLayout', false)
+      },
+    },
+    onOk: {
+      type: Function,
+      default () {
+        return getContextPropValue(this, 'onOk', () => {})
+      },
+    },
+    onCancel: {
+      type: Function,
+      default () {
+        return getContextPropValue(this, 'onCancel', () => {})
+      },
+    },
+    withoutTransitions: {
+      type: Boolean,
+      default () {
+        return getContextPropValue(this, 'withoutTransitions', false)
+      },
+    },
   },
   computed: {
     valueProxy: {
@@ -235,11 +346,11 @@ export default {
       }
 
       &-enter-active {
-        transition: all .2s ease;
+        transition: all 0.2s ease;
       }
 
       &-leave-active {
-        transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
       }
     }
   }
@@ -253,7 +364,7 @@ export default {
   max-width: map_get($grid-breakpoints, md);
   max-height: calc(100vh - 2rem);
   position: relative;
-  transition: all .5s ease-out;
+  transition: all 0.5s ease-out;
 
   &__transition {
     &-enter,
@@ -268,7 +379,7 @@ export default {
     }
 
     &-enter-active {
-      transition: all .3s ease;
+      transition: all 0.3s ease;
 
       &.transition-off {
         transition: none;
@@ -276,7 +387,7 @@ export default {
     }
 
     &-leave-active {
-      transition: all .15s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+      transition: all 0.15s cubic-bezier(1, 0.5, 0.8, 1);
 
       &.transition-off {
         transition: none;
@@ -322,12 +433,14 @@ export default {
   &--size {
     &-small {
       max-width: map_get($grid-breakpoints, sm);
+
       @media all and (max-width: map-get($grid-breakpoints, sm)) {
         max-width: 100vw !important;
       }
 
       .va-modal__inner {
         max-width: map_get($grid-breakpoints, sm);
+
         @media all and (max-width: map-get($grid-breakpoints, sm)) {
           max-width: 100vw !important;
         }
@@ -348,7 +461,8 @@ export default {
       overflow: hidden;
       padding: 1.25rem 0 1.5rem 0;
 
-      .va-modal__header, .va-modal__actions {
+      .va-modal__header,
+      .va-modal__actions {
         padding: 0 1.875rem 0 1.5rem;
       }
 

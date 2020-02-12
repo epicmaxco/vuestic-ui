@@ -11,14 +11,14 @@
       <va-tree-root ref="treeView">
         <va-tree-category
           label="Category text"
-          isOpen
+          is-open
         >
           <va-tree-node>
             Node text
           </va-tree-node>
           <va-tree-category
             label="Category text"
-            isOpen
+            is-open
           >
             <va-tree-node>
               Node text
@@ -33,7 +33,7 @@
       >
         <va-tree-category
           label="Category text"
-          isOpen
+          is-open
         >
           <va-tree-node>
             Node text

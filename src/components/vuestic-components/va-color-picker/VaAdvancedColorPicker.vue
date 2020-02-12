@@ -1,17 +1,21 @@
 <template>
-  <ChromePicker v-model="valueProxy" class="va-advanced-color-picker"/>
+  <ChromePicker
+    v-model="valueProxy"
+    class="va-advanced-color-picker"
+  />
 </template>
 
 <script>
 import { Chrome } from 'vue-color'
 
 export default {
-  name: 'va-advanced-color-picker',
+  name: 'VaAdvancedColorPicker',
   components: {
     ChromePicker: Chrome,
   },
   props: {
     value: {
+      type: String,
       default: '',
     },
   },
