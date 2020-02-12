@@ -124,7 +124,7 @@ export function overrideContextConfig (context, options) {
  * @param context - [object] this of the vue component.
  * @returns {any} Returns property value.
  */
-export function getParentPropValue (key, context) {
+export function getOriginalPropValue (key, context) {
   if (!(key in context.$options.propsData)) {
     return undefined
   }

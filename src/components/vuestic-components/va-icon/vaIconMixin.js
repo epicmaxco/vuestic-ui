@@ -1,4 +1,4 @@
-import { getParentPropValue } from './../../context-test/context-provide/ContextPlugin'
+import { getOriginalPropValue } from './../../context-test/context-provide/ContextPlugin'
 
 const isMaterialFont = font => {
   return font === 'md'
@@ -63,12 +63,14 @@ export default {
       }
 
       if (!(this.name in this.c_config)) {
-        throw new Error(`Configuration for icon '${this.name}' not found`)
+        throw new Error(`Icon config for icon '${this.name}' not found`)
       }
 
       const iconConfig = this.c_config[this.name]
-      const parentFont = getParentPropValue('font', this)
-      const iconFont = parentFont || iconConfig.font || this.c_font
+      const originalFont = getOriginalPropValue('font', this)
+      const iconFont = originalFont ||// from prop
+        iconConfig.font || // from icon alias config
+        this.c_font // from icon component context config
 
       return {
         iconClass: getClass(iconConfig, iconFont),

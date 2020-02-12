@@ -28,8 +28,11 @@ const iconContextMixin = makeContextablePropsMixin({
     default: () => {},
   },
   tag: {
-    type: String | Object,
+    type: String,
     default: 'i',
+  },
+  component: {
+    type: Object,
   },
   name: {
     type: String,
@@ -57,7 +60,7 @@ export default {
       return this.getIcon()
     },
     computedTag () {
-      return (this.icon && this.icon.component) || this.c_tag
+      return (this.icon && this.icon.component) || this.c_component || this.c_tag
     },
     computedClass () {
       return (this.icon && this.icon.iconClass) || ''

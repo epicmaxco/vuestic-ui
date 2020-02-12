@@ -6,7 +6,7 @@ export const getContext = () => {
   return {
     VaIcon: {
       font: 'md',
-      config: { ...iconsDemoConfig, iconsDocsConfig, ...iconsFrameworkConfig },
+      config: { ...iconsDemoConfig, ...iconsDocsConfig, ...iconsFrameworkConfig },
     },
   }
 }

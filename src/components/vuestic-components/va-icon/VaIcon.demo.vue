@@ -133,7 +133,7 @@
       {{ clickedCount }}
     </VbCard>
     <VbCard title="Svg component">
-      <va-icon :tag="SvgComponent" />
+      <va-icon :component="SvgComponent" />
     </VbCard>
     <VbCard title="Spin">
       <va-icon name="sync-spin" />
