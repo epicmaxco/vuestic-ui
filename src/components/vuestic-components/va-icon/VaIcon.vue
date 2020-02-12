@@ -24,7 +24,6 @@ const IconContextMixin = makeContextablePropsMixin({
       if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
         throw new Error(`${name} icon is not available. Please replace to material-icon`)
       }
-
       return name
     },
     default: '',
