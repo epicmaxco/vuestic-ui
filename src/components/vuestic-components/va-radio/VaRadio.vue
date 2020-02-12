@@ -11,6 +11,7 @@
       :name="name"
       @change="onClick"
       @focus="onFocus"
+      :tabindex="tabindex"
     >
 
     <span
@@ -37,39 +38,48 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
+const RadioContextMixin = makeContextablePropsMixin({
+  value: {
+    type: [Object, String, Number, Boolean],
+    default: null,
+  },
+  option: {
+    type: [Object, String, Number, Boolean],
+    default: null,
+  },
+  name: {
+    type: [String, Number],
+    default: '',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  leftLabel: {
+    type: Boolean,
+    default: false,
+  },
+  color: {
+    type: String,
+    default: '',
+  },
+
+  tabindex: {
+    type: Number,
+    default: 0,
+  },
+})
 
 export default {
   name: 'VaRadio',
-  mixins: [ColorThemeMixin],
+  mixins: [ColorThemeMixin, RadioContextMixin],
   props: {
-    value: {
-      type: [Object, String, Number, Boolean],
-      default: false,
-    },
-    option: {
-      type: [Object, String, Number, Boolean],
-      default: null,
-    },
-    name: {
-      type: [String, Number],
-      default: null,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    leftLabel: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      default: '',
-    },
   },
   computed: {
     isActive () {
@@ -78,7 +88,7 @@ export default {
     computedClass () {
       return {
         'va-radio--disabled': this.disabled,
-        'va-radio--leftLabel': this.leftLabel,
+        'va-radio--left-label': this.leftLabel,
       }
     },
     iconBackgroundComputedStyles () {
@@ -108,9 +118,9 @@ export default {
     },
   },
   methods: {
-    onClick () {
+    onClick (e) {
       if (!this.disabled) {
-        this.$emit('input', this.option)
+        this.$emit('input', this.option, e)
       }
     },
     onFocus (e) {
@@ -118,15 +128,21 @@ export default {
         this.$emit('focus', e)
       }
     },
+    validate () {
+      return null
+    },
+    clear () {
+      this.$emit('input', null)
+    },
   },
 }
 </script>
 
 <style lang="scss">
-@import "../../vuestic-sass/resources/resources";
+@import '../../vuestic-sass/resources/resources';
 
 .va-radio {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
@@ -143,7 +159,7 @@ export default {
     cursor: default;
   }
 
-  &--leftLabel {
+  &--left-label {
     flex-direction: row-reverse;
     display: inline-flex;
 
@@ -156,8 +172,8 @@ export default {
     width: 0;
     height: 0;
     position: absolute;
-    left: -100px;
-    top: -100px;
+    top: 0;
+    left: 0;
     opacity: 0;
     z-index: -1;
   }
@@ -174,7 +190,7 @@ export default {
     box-sizing: border-box;
 
     .va-radio__input:disabled + & {
-      opacity: 0.4;
+      @include va-disabled;
     }
 
     &__dot {
@@ -229,10 +245,10 @@ export default {
     margin-right: 0;
 
     .va-radio--disabled & {
-      opacity: 0.4;
+      @include va-disabled;
     }
 
-    .va-radio--leftLabel & {
+    .va-radio--left-label & {
       margin-left: 0;
       margin-right: 0.5rem;
     }

@@ -9,9 +9,7 @@
         <tr>
           <td>Types</td>
           <td>
-            <va-button>
-              Default Button
-            </va-button>
+            <va-button />
             <va-button outline>
               Outline Button
             </va-button>

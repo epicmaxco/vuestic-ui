@@ -16,39 +16,40 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
+const MessageListContextMixin = makeContextablePropsMixin({
+  value: {
+    type: [String, Number, Object, Array],
+    default: '',
+  },
+  limit: {
+    type: Number,
+    default: 1,
+  },
+  color: {
+    type: String,
+    default: 'gray',
+  },
+})
 
 export default {
   name: 'VaMessageList',
-  mixins: [ColorThemeMixin, ContextPluginMixin],
+  mixins: [ColorThemeMixin, MessageListContextMixin],
   data () {
     return {
       colorThemeDefault: 'gray', // mixin override
     }
   },
-  props: {
-    value: {
-      type: [String, Number, Object, Array],
-      default () {
-        return getContextPropValue(this, 'value', '')
-      },
-    },
-    limit: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'limit', 1)
-      },
-    },
-  },
   computed: {
     messages () {
-      if (!this.value) {
+      if (!this.c_value) {
         return []
       }
-      if (!Array.isArray(this.value)) {
-        return [this.value]
+      if (!Array.isArray(this.c_value)) {
+        return [this.c_value]
       }
-      return this.value.slice(0, this.limit)
+      return this.c_value.slice(0, this.limit)
     },
     computedStyle () {
       return {

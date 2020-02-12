@@ -215,10 +215,8 @@ $badge-letter-spacing: $letter-spacing;
 //Dropdowns
 $dropdown-box-shadow: $gray-box-shadow;
 $dropdown-background: $light-gray3;
-$dropdown-item-height: 40px;
-$dropdown-menu-padding-y: 10px;
-$dropdown-menu-padding-x: 0;
-$dropdown-show-b: 1.125rem;
+$dropdown-padding: .375rem .5rem .375rem .5rem;
+$dropdown-border-radius: .5rem;
 
 //Progress Bars
 $progress-bar-width-basic: 0.5rem;

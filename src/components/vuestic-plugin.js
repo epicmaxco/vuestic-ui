@@ -10,6 +10,7 @@ import VaCard from './vuestic-components/va-card/VaCard'
 import VaChart from './vuestic-components/va-chart/VaChart.vue'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
 import VaCollapse from './vuestic-components/va-collapse/VaCollapse'
+import VaContent from './vuestic-components/va-content/VaContent'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
@@ -60,7 +61,7 @@ import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper'
 import Toasted from './vuestic-mixins/VuesticToasted'
 
 import StickyScroll from './vuestic-directives/StickyScroll'
-
+import VaButtonDropdown from './vuestic-components/va-button-dropdown/VaButtonDropdown'
 import { installPlatform } from './vuestic-components/va-popup/install'
 import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 
@@ -93,6 +94,7 @@ const VuesticPlugin = {
       VaChart,
       VaCheckbox,
       VaCollapse,
+      VaContent,
       VaDataTable,
       VaDatePicker,
       VaDropdown,
@@ -141,6 +143,7 @@ const VuesticPlugin = {
       VaAdvancedColorPicker,
       VaColorPickerInput,
       VaPaletteCustom,
+      VaButtonDropdown,
     ].forEach(component => {
       Vue.component(component.name, component)
     })

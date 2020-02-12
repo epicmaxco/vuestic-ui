@@ -1,11 +1,11 @@
 <template>
   <va-input-wrapper
     class="va-input"
-    :disabled="disabled"
-    :success="success"
+    :disabled="c_disabled"
+    :success="c_success"
     :messages="messages"
-    :error="error"
-    :error-messages="errorMessages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
     :error-count="errorCount"
   >
     <slot
@@ -19,7 +19,7 @@
     >
       <div
         class="va-input__container__content-wrapper"
-        :style="{ paddingTop: label ? '' : '0'}"
+        :style="{ paddingTop: c_label ? '' : '0'}"
       >
         <label
           :style="labelStyles"
@@ -32,52 +32,54 @@
           v-if="isTextarea"
           class="va-input__container__input"
           :style="textareaStyles"
-          :aria-label="label"
-          :placeholder="placeholder"
-          :disabled="disabled"
-          :readonly="readonly"
-          :value="value"
+          :aria-label="c_label"
+          :placeholder="c_placeholder"
+          :disabled="c_disabled"
+          :readonly="c_readonly"
+          :value="c_value"
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
+          :tabindex="c_tabindex"
         />
         <input
           v-else
           class="va-input__container__input"
-          :style="{ paddingBottom: label ? '0.125rem' : '0.875rem' }"
-          :aria-label="label"
-          :type="type"
-          :placeholder="placeholder"
-          :disabled="disabled"
-          :readonly="readonly"
-          :value="value"
+          :style="{ paddingBottom: c_label ? '0.125rem' : '0.875rem' }"
+          :aria-label="c_label"
+          :type="c_type"
+          :placeholder="c_placeholder"
+          :disabled="c_disabled"
+          :readonly="c_readonly"
+          :value="c_value"
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
+          :tabindex="c_tabindex"
         >
       </div>
       <div
-        v-if="success || error || $slots.append || (removable && hasContent)"
+        v-if="c_success || computedError || $slots.append || (c_removable && hasContent)"
         class="va-input__container__icon-wrapper"
       >
         <va-icon
-          v-if="success"
+          v-if="c_success"
           class="va-input__container__icon"
-          color="success"
+          color="c_success"
           name="check"
         />
         <va-icon
-          v-if="error"
+          v-if="computedError"
           class="va-input__container__icon"
           color="danger"
           name="warning"
         />
         <slot name="append" />
         <va-icon
-          v-if="removable && hasContent"
-          @click.native="clearContent()"
+          v-if="c_removable && hasContent"
+          @click.native="reset()"
           class="va-input__container__close-icon"
-          :color="error ? 'danger': 'gray'"
+          :color="computedError ? 'danger': 'gray'"
           name="highlight_off"
         />
       </div>
@@ -86,120 +88,165 @@
 </template>
 
 <script>
+import isFunction from 'lodash/isFunction'
+import isString from 'lodash/isString'
+import flatten from 'lodash/flatten'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon/VaIcon'
 import { getHoverColor } from './../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
+
+const InputContextMixin = makeContextablePropsMixin({
+  color: {
+    type: String,
+    default: '',
+  },
+  value: {
+    type: [String, Number],
+    default: '',
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  type: {
+    type: String,
+    default: 'text',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
+  removable: {
+    type: Boolean,
+    default: false,
+  },
+  tabindex: {
+    type: Number,
+    default: 0,
+  },
+  errorCount: {
+    type: Number,
+    default: 1,
+  },
+  success: {
+    type: Boolean,
+    default: false,
+  },
+  messages: {
+    type: Array,
+    default () {
+      return []
+    },
+  },
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  errorMessages: {
+    type: Array,
+    default () {
+      return []
+    },
+  },
+
+  // textarea-specific
+  autosize: {
+    type: Boolean,
+    default: false,
+  },
+  minRows: {
+    type: Number,
+    default: null,
+    validator: (val) => {
+      if (!(val > 0 && (val | 0) === val)) {
+        throw new Error(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
+      }
+      return true
+    },
+  },
+  maxRows: {
+    type: Number,
+    validator: (val) => {
+      if (!(val > 0 && (val | 0) === val)) {
+        throw new Error(`\`maxRows\` must be a positive integer greater than 0, but ${val} is provided`)
+      }
+      return true
+    },
+    default: null,
+  },
+  rules: {
+    type: Array,
+    default () {
+      return []
+    },
+  },
+})
+
+const prepareValidations = (messages = [], callArguments = null) =>
+  messages
+    .map((message) => isFunction(message) ? message(callArguments) : message)
 
 export default {
   name: 'VaInput',
-  extends: VaInputWrapper,
-  mixins: [ColorThemeMixin, ContextPluginMixin],
+  mixins: [ColorThemeMixin, InputContextMixin],
   components: { VaInputWrapper, VaIcon },
-  props: {
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', '')
-      },
-    },
-    value: {
-      type: [String, Number],
-      default () {
-        return getContextPropValue(this, 'value', '')
-      },
-    },
-    label: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-    placeholder: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'placeholder', '')
-      },
-    },
-    type: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'type', 'text')
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    readonly: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'readonly', false)
-      },
-    },
-    removable: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'removable', false)
-      },
-    },
-
-    // textarea-specific
-    autosize: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'autosize', false)
-      },
-    },
-    minRows: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'minRows', null)
-      },
-      validator: (val) => {
-        if (!(val > 0 && (val | 0) === val)) {
-          throw new Error(`\`minRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        }
-        return true
-      },
-    },
-    maxRows: {
-      type: Number,
-      validator: (val) => {
-        if (!(val > 0 && (val | 0) === val)) {
-          throw new Error(`\`maxRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        }
-        return true
-      },
-      default () {
-        return getContextPropValue(this, 'maxRows', null)
-      },
-    },
-  },
   mounted () {
     this.adjustHeight()
+  },
+  created () {
+    this.isFormElement = true // TODO: for detected form-element. Need remove to form-elemnt mixin
   },
   watch: {
     value () {
       this.adjustHeight()
+
+      if (!this.isValidatedOnBlur) {
+        this.validate()
+      }
     },
   },
   data () {
     return {
+      isValidatedOnBlur: false,
       isFocused: false,
+      internalErrorMessages: null,
+      internalError: false,
     }
   },
   computed: {
+    computedError: {
+      get () {
+        return this.internalError || this.error
+      },
+      set (_error) {
+        this.internalError = _error
+      },
+    },
+    computedErrorMessages: {
+      get () {
+        return this.internalErrorMessages || prepareValidations(this.errorMessages)
+      },
+      set (_errorMessages) {
+        this.internalErrorMessages = _errorMessages
+      },
+    },
     labelStyles () {
-      if (this.error) {
+      if (this.computedError) {
         return { color: this.$themes.danger }
       }
 
-      if (this.success) {
+      if (this.c_success) {
         return { color: this.$themes.success }
       }
 
@@ -208,11 +255,11 @@ export default {
     containerStyles () {
       return {
         backgroundColor:
-          this.error ? getHoverColor(this.$themes['danger'])
-            : this.success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
+          this.computedError ? getHoverColor(this.$themes.danger)
+            : this.c_success ? getHoverColor(this.$themes.success) : '#f5f8f9',
         borderColor:
-          this.error ? this.$themes.danger
-            : this.success ? this.$themes.success
+          this.computedError ? this.$themes.danger
+            : this.c_success ? this.$themes.success
               : this.isFocused ? this.$themes.dark : this.$themes.gray,
       }
     },
@@ -240,11 +287,18 @@ export default {
           focus: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.isFocused = true
+
             this.$emit('focus', event)
           },
           blur: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+            this.isValidatedOnBlur = false
+            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+            this.validate()
+
+            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.isFocused = false
+
             this.$emit('blur', event)
           },
           keyup: event => {
@@ -257,10 +311,10 @@ export default {
       )
     },
     hasContent () {
-      return ![null, undefined, ''].includes(this.value)
+      return ![null, undefined, ''].includes(this.c_value)
     },
     isTextarea () {
-      return this.type === 'textarea'
+      return this.c_type === 'textarea'
     },
   },
   methods: {
@@ -277,8 +331,41 @@ export default {
       Object.assign(this.$refs.input.style, textareaStyles)
     },
 
-    clearContent () {
+    // public methods
+    focus () {
+      this.$refs.input.focus()
+    },
+    reset () {
       this.$emit('input', '')
+    },
+    setValidateOnBlur () {
+      this.isValidatedOnBlur = true
+      return true
+    },
+    validate () {
+      this.computedError = false
+      this.computedErrorMessages = []
+
+      if (this.c_rules.length > 0) {
+        prepareValidations(flatten(this.c_rules), this.c_value)
+          .forEach((validateResult) => {
+            if (isString(validateResult)) {
+              this.computedErrorMessages.push(validateResult)
+              this.computedError = true
+            } else if (validateResult === false) {
+              this.computedError = true
+            }
+          })
+      }
+
+      return !this.computedError
+    },
+    hasError () {
+      return this.computedError
+    },
+    resetValidation () {
+      this.computedErrorMessages = []
+      this.computedError = false
     },
   },
 }
