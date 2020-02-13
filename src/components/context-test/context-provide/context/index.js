@@ -5,8 +5,22 @@ import iconsFrameworkConfig from './va-icons-framework-config'
 export const getContext = () => {
   return {
     VaIcon: {
-      font: 'md',
-      config: { ...iconsDemoConfig, ...iconsDocsConfig, ...iconsFrameworkConfig },
+      iconsConfig: {
+        defaultFont: 'md',
+        icons: {
+          ...iconsDemoConfig,
+          ...iconsDocsConfig,
+          ...iconsFrameworkConfig,
+        },
+      },
+      sizesConfig: {
+        defaultSize: 24,
+        sizes: {
+          small: 16,
+          medium: 24,
+          large: 32,
+        }
+      },
     },
   }
 }

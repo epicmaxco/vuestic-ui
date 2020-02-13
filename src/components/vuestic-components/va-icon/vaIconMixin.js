@@ -1,4 +1,4 @@
-import { getOriginalPropValue } from './../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
 
 const isMaterialFont = font => {
   return font === 'md'
@@ -50,10 +50,22 @@ const getComponent = iconConfig => {
   return iconConfig.component
 }
 
+const iconContextMixin = makeContextablePropsMixin({
+  name: {
+    type: String,
+    default: '',
+  },
+  iconsConfig: {
+    type: Object,
+    default: () => ({}),
+  },
+})
+
 export default {
+  mixins: [iconContextMixin],
   computed: {
     icon () {
-      return this.getIcon(this.name, this.font)
+      return this.getIcon(this.name)
     },
   },
   methods: {
@@ -62,15 +74,13 @@ export default {
         return null
       }
 
-      if (!(this.name in this.c_config)) {
+      if (!(this.name in this.c_iconsConfig.icons)) {
         throw new Error(`Icon config for icon '${this.name}' not found`)
       }
 
-      const iconConfig = this.c_config[this.name]
-      const originalFont = getOriginalPropValue('font', this)
-      const iconFont = originalFont ||// from prop
-        iconConfig.font || // from icon alias config
-        this.c_font // from icon component context config
+      const iconConfig = this.c_iconsConfig.icons[this.name]
+      const iconFont = iconConfig.font || // from icon alias config
+        this.c_iconsConfig.defaultFont // from icon component context config
 
       return {
         iconClass: getClass(iconConfig, iconFont),

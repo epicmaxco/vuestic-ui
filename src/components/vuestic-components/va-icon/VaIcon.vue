@@ -19,28 +19,12 @@ import { makeContextablePropsMixin } from './../../context-test/context-provide/
 import vaIconMixin from './vaIconMixin'
 
 const iconContextMixin = makeContextablePropsMixin({
-  font: {
-    type: String,
-    default: 'md',
-  },
-  config: {
-    type: Object,
-    default: () => {},
-  },
   tag: {
     type: String,
     default: 'i',
   },
   component: {
     type: Object,
-  },
-  name: {
-    type: String,
-    default: '',
-  },
-  size: {
-    type: [String, Number],
-    default: 'medium',
   },
   color: {
     type: String,
@@ -75,7 +59,7 @@ export default {
       return { transform: 'rotate(' + this.c_rotation + 'deg)' }
     },
     fontSizeStyle () {
-      return { fontSize: this.iconSizeComputed }
+      return { fontSize: this.sizeComputed }
     },
     colorStyle () {
       return { color: this.c_color ? this.colorComputed : null }

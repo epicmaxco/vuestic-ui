@@ -113,21 +113,9 @@
         name="home"
       />
     </VbCard>
-    <VbCard title="Added icon">
-      <va-icon
-        name="info"
-      />
-    </VbCard>
-    <VbCard title="Override font">
-      <va-icon
-        name="info"
-        font="md"
-      />
-    </VbCard>
     <VbCard title="Click">
       <va-icon
         name="info"
-        font="md"
         @click="clickedCount += 1"
       />
       {{ clickedCount }}
