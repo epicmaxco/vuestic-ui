@@ -1,4 +1,4 @@
-import { hex2rgb } from '../../services/color-functions'
+import { colorToRgba } from '../../services/color-functions'
 
 const generateValue = () => {
   return Math.floor(Math.random() * 100)
@@ -26,21 +26,21 @@ export const getLineChartData = (themes) => {
   const yLabels = generateYLabels()
 
   if (generatedData) {
-    generatedData.datasets[0].backgroundColor = hex2rgb(themes['primary'], 0.6).css
-    generatedData.datasets[1].backgroundColor = hex2rgb(themes['info'], 0.6).css
+    generatedData.datasets[0].backgroundColor = colorToRgba(themes.primary, 0.6)
+    generatedData.datasets[1].backgroundColor = colorToRgba(themes.info, 0.6)
   } else {
     generatedData = {
       labels: months.splice(0, size),
       datasets: [
         {
           label: yLabels[0],
-          backgroundColor: hex2rgb(themes['primary'], 0.6).css,
+          backgroundColor: colorToRgba(themes.primary, 0.6),
           borderColor: 'transparent',
           data: generateArray(size),
         },
         {
           label: yLabels[1],
-          backgroundColor: hex2rgb(themes['info'], 0.6).css,
+          backgroundColor: colorToRgba(themes.info, 0.6),
           borderColor: 'transparent',
           data: generateArray(size),
         },
