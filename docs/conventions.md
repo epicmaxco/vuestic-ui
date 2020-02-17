@@ -6,11 +6,17 @@
 
 ### Components should be
 
-* Stateless. For example, checkbox shouldn't be toggleable without value prop.
-* Tabbable. Should be operatable with keyboard alone.
-* Demoable. All components and all component features should be covered with demos.
-* Pretty. Should fit design (all of it).
-* Independent. Relying on external library should be well though.
+* **Stateless**. For example, checkbox shouldn't be toggleable without value prop.
+* **Tabbable**. Should be operable with keyboard alone.
+* **Demoable**. All components and all component features should be covered with demos.
+* **Pretty**. Should fit design (all of it).
+* **Independent**. Relying on external library should be well though.
+* **Cross-browser**. IE10+ for all major browsers.
+* **Mobile-friendly**. Operate on mobile properly.
+
+In future we also plan to be :
+* **Accessible**. Should use semantic tags and aria-attributes.
+* **Tested**. We want significant test coverage for core-functionality.
     
 ### Small things to note
 
