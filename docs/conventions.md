@@ -43,6 +43,7 @@ We want to keep these consistent across different repos.
 
 * 🐛 bug - Something isn't working - #d73a4a
 * CI - Continuous integration & deploy - #343434
+* component - Has direct relation to component - #bfdadc
 * discussion - Feedback wanted - #cc317c
 * documentation - Improvements or additions to documentation - #fef2c0
 * feature - Something useful to end user - #006b75
