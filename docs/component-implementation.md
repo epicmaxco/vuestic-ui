@@ -85,7 +85,9 @@ We want visual style for components to be very close to design. But not to the p
 ## Independent
 Ideally we want components to be able to be used without any configs, `v-app` wrappers, external styles, etc. But, when config is provided - component should use it.
 Here's an example of fallback strategy for checkbox color:
+```
 local color > global color > local theme > global theme > black
+```
 It could be more refined, depending on component, but general idea of implementation is to provide graceful fallback and test all possible states.
 
 # What is left on the side
