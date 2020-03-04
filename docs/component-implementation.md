@@ -2,7 +2,7 @@
 
 This document is intended to collect key concepts we want to ingrain in components as well as detail their purpose.
 
-## Stateless
+## Statelessness
 Let's start with a short example. Here's a checkbox:
 ```vue
 <va-checkbox :value="true"/>
@@ -43,7 +43,7 @@ To a significant degree, yes. We might want to introduce stateful interaction fo
 ### Downsides of statelessness
 * Stateless components won't work for static form without value passed. That's hardly a case we ever encountered though, and it's still easy to circumvent.
 
-## Tested
+## Tests
 While a need for some testing is an obvious requirement for high quality UI components, exact implementation is worth discussing.
 
 ### Demos
@@ -60,7 +60,7 @@ Every demo is split into multiple cards. Here's some good ideas on how to keep y
 * Don't mash everything into single cards and provide controls for dev to test manually. While this kind of playground is sometimes useful to end user, developer might need to test all cases to be confident. For significant number of props that's not feasible. Keeping cases separate provides visibility and indication of feature collisions (spots of interest for tester).
 * Don't use global styles (`.ma-2`, `text-danger` etc.) for component styling. Components should be usable without global styles.
 
-### Tests
+### Unit tests
 
 Demos are useful for components, but not as useful for services. If you find a need to test some complicated service or helper - use unit tests. We have `jest` connected and ready for use.
 
@@ -68,6 +68,7 @@ Demos are useful for components, but not as useful for services. If you find a n
 
 * For ready (not prototypes) components we want to introduce more unit tests. Mostly as a regression prevention measure.
 * We want some cross-browser visual recognition testing.
+* We want a playground with a variety of component to simplify manual testing. Currently this role is taken by vuestic-admin, but that might not be the case in future.
 
 ### QA process
 
