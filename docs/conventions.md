@@ -46,7 +46,7 @@ We want to keep these consistent across different repos.
 * component - Has direct relation to component - #bfdadc
 * discussion - Feedback wanted - #cc317c
 * documentation - Improvements or additions to documentation - #fef2c0
-* feature - Something useful to end user - #006b75
+* 📦 featurefeature - Something useful to end user - #006b75
 * good first issue -  - #5319e7
 * high priority - Very wanted, much value - #e27a12
 * question -  - #cc317c
