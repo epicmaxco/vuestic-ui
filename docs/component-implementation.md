@@ -93,4 +93,5 @@ It could be more refined, depending on component, but general idea of implementa
 # What is left on the side
 We can't create perfect components, given time and resource constraints. So we'll have some drawbacks compared to adult frameworks, such as Vuetify or Quasar:
 * `vuestic-ui` won't be as feature rich. We want basic set of features for 1.0, which we can improve at later versions.
-* automated testing is out, but we want this eventually.
+* Automated testing is out, but we want this eventually.
+* Accessibility (a11y) takes low priority, but we still want it in places where it doesn't take too much effort.
