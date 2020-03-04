@@ -76,7 +76,19 @@ Demos are useful for components, but not as useful for services. If you find a n
 * Each PR is reviewed and iterated to completion.
 * Before release we run a round of internal testing (teammates will click through docs and document found bugs in issues).
 
-[TODO]
-Tabbable
-Pretty
-Independent
+## Keyboard navigation
+While keyboard navigation has some accessibility benefits - main purpose is to speed up typing for management people, who have to type a lot of repetitive forms. We want all component interactions to support keyboard navigation.
+
+## Visual style
+We want visual style for components to be very close to design. But not to the point where it infringes on architecture and code quality.
+
+## Independent
+Ideally we want components to be able to be used without any configs, `v-app` wrappers, external styles, etc. But, when config is provided - component should use it.
+Here's an example of fallback strategy for checkbox color:
+local color > global color > local theme > global theme > black
+It could be more refined, depending on component, but general idea of implementation is to provide graceful fallback and test all possible states.
+
+# What is left on the side
+We can't create perfect components, given time and resource constraints. So we'll have some drawbacks compared to adult frameworks, such as Vuetify or Quasar:
+* `vuestic-ui` won't be as feature rich. We want basic set of features for 1.0, which we can improve at later versions.
+* automated testing is out, but we want this eventually.

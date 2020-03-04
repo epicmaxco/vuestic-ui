@@ -4,22 +4,25 @@
       <va-context
         :config="{ ContextTestInterfaces: {value: 'full object config'} }"
       >
-        <ContextTestInterfaces/>
+        <ContextTestInterfaces />
       </va-context>
     </VbCard>
-    <VbCard focus title="per-value config">
+    <VbCard
+      focus
+      title="per-value config"
+    >
       <va-context
         :config="{ ContextTestInterfaces: {value: 'full object config'} }"
-        ContextTestInterfaces::value="per-value config"
+        context-test-interfaces::value="per-value config"
       >
-        <ContextTestInterfaces/>
+        <ContextTestInterfaces />
       </va-context>
     </VbCard>
     <VbCard title="string access all">
       <va-context
         all::value="all-config"
       >
-        <ContextTestInterfaces/>
+        <ContextTestInterfaces />
       </va-context>
     </VbCard>
   </VbDemo>
