@@ -1,25 +1,20 @@
 <template>
-  <div class="ApiDocs">
-    <pre>{{ componentProps }}</pre>
-  </div>
+  <div class="ApiDocs" />
 </template>
 
 <script>
 import Vue from 'vue'
+import { convertComponentToApiDocs } from './api-docs-helpers'
 
 export default {
   name: 'ApiDocs',
+  created () {
+    const apiDocs = convertComponentToApiDocs(this.componentOptions)
+    console.log('apiDocs', apiDocs)
+  },
   props: {
     componentOptions: {
       required: true,
-    },
-  },
-  computed: {
-    componentProps () {
-      console.log('this.componentOptions', this.componentOptions)
-      const testComponentInstance = new (Vue.extend(this.componentOptions))()
-      console.log('testComponentInstance', testComponentInstance)
-      return testComponentInstance.$options.props
     },
   },
 }

@@ -1591,6 +1591,15 @@
     vuepress-plugin-container "^2.0.2"
     vuepress-plugin-smooth-scroll "^0.0.3"
 
+"@vuetify/api-generator@^2.1.7":
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/@vuetify/api-generator/-/api-generator-2.1.7.tgz#fb89905a3720332c053e1bff55d5e1f9ab84be0a"
+  integrity sha512-PVv7WGkJQJTq9GdIsEXWywX1z6pv0qCH/a5C5RT0yGC+5brwp2tPaHeNGgyQqZ1OlQY7rTQxokBelZ+6bkZVbQ==
+  dependencies:
+    deepmerge "^4.0.0"
+    vue "^2.6.10"
+    vuetify "^2.1.7"
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
@@ -12066,6 +12075,11 @@ vuetable-2@1.7.5:
   integrity sha512-cKLD7ufbwNZZA1exOU1U7oXC+nrXq88YwDNAPL8dR9Kk1Pj/HMvLhOr4xw/15748c4OfYxBZQvVTJh4Hnu35AA==
   dependencies:
     axios "^0.15.3"
+
+vuetify@^2.1.7:
+  version "2.2.15"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.2.15.tgz#03466acb6b9afcba056abef3a6278d396cae18ff"
+  integrity sha512-okz+Q7YfCkLLJsxdldlYWUHcbRX/G+fo/0zSS3rXU+Ir76sxZzIOkSsqox1exFWQJn1PqA0itiHR0QTWygv8VA==
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"

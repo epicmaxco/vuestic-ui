@@ -8,15 +8,16 @@
 
 <script>
 import ApiDocs from './ApiDocs.vue'
-import VaCheckbox
-  from '../vuestic-components/va-checkbox/VaCheckbox'
+import VaCheckbox from '../vuestic-components/va-checkbox/VaCheckbox'
 
 export default {
   components: {
     ApiDocs,
   },
   computed: {
-    VaCheckbox: () => VaCheckbox,
+    VaCheckbox () {
+      return VaCheckbox
+    },
   },
 }
 </script>

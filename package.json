@@ -14,6 +14,7 @@
     "build:docs": "vuepress build docs"
   },
   "dependencies": {
+    "@vuetify/api-generator": "^2.1.7",
     "approximate-number": "^2.0.0",
     "asva-executors": "^0.1.22",
     "chart.js": "^2.6.0",
