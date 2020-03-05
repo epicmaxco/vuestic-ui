@@ -12,7 +12,10 @@ export default {
     },
   },
   props: {
-    config: { type: Object },
+    config: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   provide () {
     const newConfig = this._$configs ? [...this._$configs, this.configComputed] : []

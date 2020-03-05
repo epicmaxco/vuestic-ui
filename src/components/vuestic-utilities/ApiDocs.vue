@@ -1,20 +1,39 @@
 <template>
-  <div class="ApiDocs" />
+  <div class="ApiDocs">
+    <table class="va-table">
+      <tr>
+        <th>Name</th>
+        <th>Required</th>
+        <th>Types</th>
+        <th>Default</th>
+      </tr>
+      <tr
+        v-for="(prop, key) in componentOptionsReadable.props"
+        :key="key"
+      >
+        <td>{{ key }}</td>
+        <td>{{ prop.required ? 'required' : '' }}</td>
+        <td>{{ prop.types.join(' | ') }}</td>
+        <td>{{ prop.default }}</td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script>
-import Vue from 'vue'
 import { convertComponentToApiDocs } from './api-docs-helpers'
 
 export default {
   name: 'ApiDocs',
-  created () {
-    const apiDocs = convertComponentToApiDocs(this.componentOptions)
-    console.log('apiDocs', apiDocs)
-  },
   props: {
     componentOptions: {
+      type: Object,
       required: true,
+    },
+  },
+  computed: {
+    componentOptionsReadable () {
+      return convertComponentToApiDocs(this.componentOptions)
     },
   },
 }

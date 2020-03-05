@@ -1,7 +1,4 @@
-/* @flow */
-
-// This file is taken from vue package.
-// TODO We kinda want this file intact, but the problem is that vue 2 uses flow.
+/*       */
 
 import { warn } from './debug'
 import { observe, toggleObserving, shouldObserve } from '../observer/index'
@@ -12,10 +9,11 @@ import {
   hyphenate,
   capitalize,
   isPlainObject,
-} from 'shared/util'
+} from '../../shared/util'
 
 export function validateProp (
   key,
+  propOptions,
   propsData,
   vm,
 ) {
@@ -47,9 +45,7 @@ export function validateProp (
     toggleObserving(prevShouldObserve)
   }
   if (
-    process.env.NODE_ENV !== 'production' &&
-    // skip validation for weex recycle-list child component props
-    !(__WEEX__ && isObject(value) && ('@binding' in value))
+    process.env.NODE_ENV !== 'production'
   ) {
     assertProp(prop, key, value, vm, absent)
   }
@@ -59,7 +55,7 @@ export function validateProp (
 /**
  * Get the default value of a prop.
  */
-function getPropDefaultValue (vm: ?Component, prop: PropOptions, key: string): any {
+export function getPropDefaultValue (vm, prop, key) {
   // no default, return undefined
   if (!hasOwn(prop, 'default')) {
     return undefined
@@ -93,11 +89,11 @@ function getPropDefaultValue (vm: ?Component, prop: PropOptions, key: string): a
  * Assert whether a prop is valid.
  */
 function assertProp (
-  prop: PropOptions,
-  name: string,
-  value: any,
-  vm: ?Component,
-  absent: boolean,
+  prop,
+  name,
+  value,
+  vm,
+  absent,
 ) {
   if (prop.required && absent) {
     warn(
@@ -143,10 +139,7 @@ function assertProp (
 
 const simpleCheckRE = /^(String|Number|Boolean|Function|Symbol)$/
 
-function assertType (value: any, type: Function): {
-  valid: boolean;
-  expectedType: string;
-} {
+function assertType (value, type) {
   let valid
   const expectedType = getType(type)
   if (simpleCheckRE.test(expectedType)) {
@@ -174,7 +167,7 @@ function assertType (value: any, type: Function): {
  * because a simple equality check will fail when running
  * across different vms / iframes.
  */
-function getType (fn) {
+export function getType (fn) {
   const match = fn && fn.toString().match(/^\s*function (\w+)/)
   return match ? match[1] : ''
 }
@@ -183,7 +176,7 @@ function isSameType (a, b) {
   return getType(a) === getType(b)
 }
 
-function getTypeIndex (type, expectedTypes): number {
+function getTypeIndex (type, expectedTypes) {
   if (!Array.isArray(expectedTypes)) {
     return isSameType(expectedTypes, type) ? 0 : -1
   }
@@ -204,8 +197,8 @@ function getInvalidTypeMessage (name, value, expectedTypes) {
   const receivedValue = styleValue(value, receivedType)
   // check if we need to specify expected value
   if (expectedTypes.length === 1 &&
-      isExplicable(expectedType) &&
-      !isBoolean(expectedType, receivedType)) {
+    isExplicable(expectedType) &&
+    !isBoolean(expectedType, receivedType)) {
     message += ` with value ${expectedValue}`
   }
   message += `, got ${receivedType} `
