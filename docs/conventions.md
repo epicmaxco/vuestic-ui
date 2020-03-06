@@ -41,18 +41,18 @@ In future we also plan to be :
 ## Github tags
 We want to keep these consistent across different repos.
 
-* 🐛 bug - Something isn't working - #d73a4a
+* bug - Something isn't working - #d73a4a
 * CI - Continuous integration & deploy - #343434
 * component - Has direct relation to component - #bfdadc
 * discussion - Feedback wanted - #cc317c
 * documentation - Improvements or additions to documentation - #fef2c0
-* 📦 featurefeature - Something useful to end user - #006b75
+* featurefeature - Something useful to end user - #006b75
 * good first issue -  - #5319e7
 * high priority - Very wanted, much value - #e27a12
 * question -  - #cc317c
-* 📚 needs work - Issue is checked and needs some additional work - #bca8ea
+* needs work - Issue is checked and needs some additional work - #bca8ea
 * no repro - We can't reproduce the issue - #e5698c
-* ⌛ on hold - We want this, just later - #b0c1f4
+* on hold - We want this, just later - #b0c1f4
 * ready for implementation - This is codeable - #9bce0e
 * ready to merge -  - #0e8a16
 * refactoring - Prettify code without introducing new features - #ffc4ee
