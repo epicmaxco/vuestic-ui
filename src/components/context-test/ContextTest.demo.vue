@@ -139,8 +139,9 @@ export default {
       },
     })
   },
-  beforeDestroy () {
+  beforeRouteUpdate (to, from, next) {
     overrideContextConfig(this, {})
+    next()
   },
   data () {
     return {
