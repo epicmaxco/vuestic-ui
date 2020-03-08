@@ -86,7 +86,7 @@ export const makeContextablePropsMixin = (componentProps, prefix = 'c_') => {
  * @param defaultValue [any] The default property value.
  * This value takes when each local or global config and component do not contain property.
  * @returns {any} Returns property value.
- *
+ * @deprecated
  */
 export const getContextPropValue = (context, prop, defaultValue) => {
   // We have to pass context here as this method will be mainly used in prop default,
