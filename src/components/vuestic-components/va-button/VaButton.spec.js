@@ -80,7 +80,7 @@ describe('VaButton', () => {
   it('router-link button with defined to property', () => {
     const wrapper = shallowMount(VaButton, {
       propsData: {
-        to: { name: 'charts' },
+        to: '/demo',
       },
       stubs: {
         RouterLink: RouterLinkStub,
@@ -92,7 +92,7 @@ describe('VaButton', () => {
   it('router-link button with defined to and active class properties', () => {
     const wrapper = shallowMount(VaButton, {
       propsData: {
-        to: { name: 'charts' },
+        to: '/demo',
         activeClass: 'va-button--active',
       },
       stubs: {
