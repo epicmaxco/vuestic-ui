@@ -25,7 +25,7 @@
         <va-icon
           class="va-sidebar-link-group__dropdown-icon"
           :style="iconStyles"
-          :name="`fa fa-angle-${expanded ? 'up' : 'down'}`"
+          :name="`expand_${expanded ? 'less' : 'more'}`"
         />
       </div>
     </a>

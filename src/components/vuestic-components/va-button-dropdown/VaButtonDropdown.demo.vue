@@ -133,14 +133,14 @@
       </va-button-dropdown>
       <va-button-dropdown
         label="custom icon"
-        icon="iconicstroke iconicstroke-info"
+        icon="info"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
         label="custom icon && icon-open"
-        icon="iconicstroke iconicstroke-info"
-        opened-icon="iconicstroke iconicstroke-check"
+        icon="info"
+        opened-icon="check_circle"
       >
         Content
       </va-button-dropdown>

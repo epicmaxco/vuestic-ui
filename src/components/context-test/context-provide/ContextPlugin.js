@@ -115,7 +115,7 @@ export const getContextPropValue = (context, prop, defaultValue) => {
     return allConfig[ALL_COMPONENTS][prop]
   }
 
-  return defaultValue
+  return typeof defaultValue === 'function' ? defaultValue() : defaultValue
 }
 
 // Allows to completely overwrite global context config.
@@ -127,6 +127,21 @@ export function overrideContextConfig (context, options) {
     }
     Vue.set(context.$vaContextConfig, key, options[key])
   }
+}
+
+/**
+ * Get prop value provided in the parent component
+ *
+ * @param key - [string] the prop name.
+ * @param context - [object] this of the vue component.
+ * @returns {any} Returns property value.
+ */
+export function getOriginalPropValue (key, context) {
+  if (!(key in context.$options.propsData)) {
+    return undefined
+  }
+
+  return context.$options.propsData[key]
 }
 
 /**

@@ -114,6 +114,7 @@ import VaContext from './context-provide/VaContext'
 import VaButton from '../vuestic-components/va-button/VaButton'
 import VaBadge from '../vuestic-components/va-badge/VaBadge'
 import { overrideContextConfig } from '../context-test/context-provide/ContextPlugin'
+import { getContext } from '../context-test/context-provide/context'
 
 export default {
   components: {
@@ -137,10 +138,21 @@ export default {
         color: 'info',
         outline: true,
       },
+      VaIcon: {
+        font: 'md',
+        config: {
+          'room': {
+            code: 'room',
+          },
+          'schedule': {
+            code: 'schedule',
+          },
+        },
+      },
     })
   },
   beforeRouteUpdate (to, from, next) {
-    overrideContextConfig(this, {})
+    overrideContextConfig(this, getContext())
     next()
   },
   data () {

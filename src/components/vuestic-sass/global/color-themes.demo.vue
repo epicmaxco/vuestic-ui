@@ -28,7 +28,7 @@
         value-visible
         label="Label"
         color="info"
-        icon-right="fa fa-volume-up"
+        icon-right="volume_up"
       />
     </VbCard>
     <VbCard style="position: relative;">
@@ -171,7 +171,7 @@ export default {
   data () {
     return {
       value: 60,
-      icon: 'iconicstroke iconicstroke-info',
+      icon: 'info_outline',
       chartData: getLineChartData(this.$themes),
       files: [],
     }
