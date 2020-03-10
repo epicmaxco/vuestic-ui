@@ -19,9 +19,9 @@
         v-if="icon"
         class="va-popover__icon"
       >
-        <i
-          :class="icon"
-          :style="computedIconStyle"
+        <va-icon
+          :name="icon"
+          :color="color"
         />
       </div>
       <div v-if="title || message">
@@ -41,6 +41,7 @@
 
 <script>
 import { VPopover } from 'v-tooltip'
+import VaIcon from '../va-icon/VaIcon'
 import {
   getHoverColor,
   getBoxShadowColor,
@@ -50,6 +51,7 @@ export default {
   name: 'VaPopover',
   components: {
     VPopover,
+    VaIcon,
   },
   props: {
     color: {
@@ -90,12 +92,6 @@ export default {
     },
   },
   computed: {
-    computedIconStyle () {
-      return {
-        fontSize: '1.5rem',
-        color: this.$themes[this.color],
-      }
-    },
     computedPopoverStyle () {
       return {
         boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(this.$themes[this.color]),

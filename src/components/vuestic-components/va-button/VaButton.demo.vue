@@ -199,7 +199,7 @@
               A-link Button
             </va-button>
             <va-button
-              :to="{ name: 'charts' }"
+              to="/demo"
             >
               Router-link Button
             </va-button>

@@ -23,6 +23,10 @@
   import VaIcon from '../../../src/components/vuestic-components/va-icon/VaIcon'
 
   export default {
-    components: { VaBreadcrumbs, VaBreadcrumbsItem, VaIcon },
+    components: {
+      VaBreadcrumbs,
+      VaBreadcrumbsItem,
+      VaIcon,
+    },
   }
 </script>

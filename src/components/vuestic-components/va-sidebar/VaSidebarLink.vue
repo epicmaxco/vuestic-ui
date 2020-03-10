@@ -23,7 +23,7 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { hex2hsl } from '../../../services/color-functions'
+import { shiftHslColor } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
@@ -73,22 +73,10 @@ export default {
       }
     },
     computedLinkStyles () {
-      let getBackgroundColor = () => {
-        let color = hex2hsl(this.$themes.secondary)
-
-        color.s -= 13
-        color.l += 15
-
-        if (color.s < 0) color.s = 0
-        if (color.l > 100) color.l = 100
-
-        return color.css
-      }
-
       if (this.isHovered || this.isActive) {
         return {
           color: this.$themes['primary'],
-          backgroundColor: getBackgroundColor(),
+          backgroundColor: shiftHslColor(this.$themes.secondary, { s: -13, l: 15 }),
           borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
         }
       } else return {}// else <- controlled by CSS (color in rgba)

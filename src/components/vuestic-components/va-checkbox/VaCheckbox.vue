@@ -15,13 +15,14 @@
       >
         <input
           :id="id"
+          :name="name"
           readonly
           @focus="onFocus"
           @blur="isKeyboardFocused = false"
           class="va-checkbox__input"
           @keypress.prevent="toggleSelection()"
-          :disabled="disabled"
-          :indeterminate="indeterminate"
+          :disabled="c_disabled"
+          :indeterminate="c_indeterminate"
           :style="inputStyle"
         >
         <va-icon
@@ -34,7 +35,7 @@
         :style="labelStyle"
       >
         <slot name="label">
-          {{ label }}
+          {{ c_label }}
         </slot>
       </div>
     </div>
@@ -42,7 +43,7 @@
       class="va-checkbox__error-message-container"
       :value="computedErrorMessages"
       color="danger"
-      :limit="errorCount"
+      :limit="c_errorCount"
     />
   </div>
 </template>
@@ -52,89 +53,44 @@ import VaIcon from '../va-icon/VaIcon'
 import VaMessageList from '../va-input/VaMessageList'
 import { KeyboardOnlyFocusMixin } from './KeyboardOnlyFocusMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import validateMixin from '../../vuestic-mixins/validate'
+
+const ProgressBarContextMixin = makeContextablePropsMixin({
+  label: { type: String, default: '' },
+  value: { type: [Boolean, Array], default: false },
+  arrayValue: { type: String, default: '' },
+  indeterminate: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  readonly: { type: Boolean, default: false },
+  checkedIcon: { type: String, default: 'check' },
+  indeterminateIcon: { type: String, default: 'close' },
+  error: { type: Boolean, default: false },
+  errorMessages: { type: [String, Array], default: '' },
+  errorCount: { type: Number, default: 1 },
+})
 
 export default {
   name: 'VaCheckbox',
   components: { VaMessageList, VaIcon },
-  mixins: [KeyboardOnlyFocusMixin, ColorThemeMixin, ContextPluginMixin, validateMixin],
+  mixins: [
+    ProgressBarContextMixin,
+    KeyboardOnlyFocusMixin,
+    ColorThemeMixin,
+    ContextPluginMixin,
+    validateMixin,
+  ],
   props: {
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', '')
-      },
-    },
-    id: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'id', '')
-      },
-    },
-    label: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-    name: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'name', '')
-      },
-    },
-    value: {
-      type: [Boolean, Array],
-      required: true,
-      default () {
-        return getContextPropValue(this, 'value', true)
-      },
-    },
-    arrayValue: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'arrayValue', '')
-      },
-    },
-    indeterminate: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'indeterminate', false)
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    readonly: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'readonly', false)
-      },
-    },
-    checkedIcon: {
-      type: [String, Array],
-      default () {
-        return getContextPropValue(this, 'checkedIcon', 'check')
-      },
-    },
-    indeterminateIcon: {
-      type: [String, Array],
-      default () {
-        return getContextPropValue(this, 'indeterminateIcon', 'close')
-      },
-    },
+    id: { type: [String, Number] },
+    name: { type: [String, Number] },
   },
   computed: {
     computedClass () {
       return {
         'va-checkbox--selected': this.isChecked,
-        'va-checkbox--readonly': this.readonly,
-        'va-checkbox--disabled': this.disabled,
-        'va-checkbox--indeterminate': this.indeterminate,
+        'va-checkbox--readonly': this.c_readonly,
+        'va-checkbox--disabled': this.c_disabled,
+        'va-checkbox--indeterminate': this.c_indeterminate,
         'va-checkbox--error': this.showError,
         'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
       }
@@ -148,8 +104,11 @@ export default {
     },
     inputStyle () {
       if (this.showError) {
-        if (this.isChecked) return { background: this.$themes.danger }
-        else return { borderColor: this.$themes.danger }
+        if (this.isChecked) {
+          return { background: this.$themes.danger }
+        } else {
+          return { borderColor: this.$themes.danger }
+        }
       } else {
         if (this.isChecked) return { background: this.colorComputed }
       }
@@ -157,17 +116,17 @@ export default {
       return {}
     },
     computedIconName () {
-      return this.indeterminate ? this.indeterminateIcon : this.checkedIcon
+      return this.c_indeterminate ? this.c_indeterminateIcon : this.c_checkedIcon
     },
     isChecked () {
-      return this.modelIsArray ? this.value.includes(this.arrayValue) : this.value
+      return this.modelIsArray ? this.c_value.includes(this.c_arrayValue) : this.c_value
     },
     modelIsArray () {
-      return Array.isArray(this.value)
+      return Array.isArray(this.c_value)
     },
     showError () {
       // We make error active, if the error-message is not empty and checkbox is not disabled
-      if (!this.disabled && this.computedErrorMessages) {
+      if (!this.c_disabled && this.computedErrorMessages) {
         if (!(this.computedErrorMessages.length === 0) || this.computedError) {
           return true
         }
@@ -177,22 +136,22 @@ export default {
   },
   methods: {
     toggleSelection () {
-      if (this.readonly) {
+      if (this.c_readonly) {
         return
       }
-      if (this.disabled) {
+      if (this.c_disabled) {
         return
       }
       if (this.modelIsArray) {
-        if (this.value.includes(this.arrayValue)) {
-          this.$emit('input', this.value.filter(option => option !== this.arrayValue))
+        if (this.c_value.includes(this.c_arrayValue)) {
+          this.$emit('input', this.c_value.filter(option => option !== this.c_arrayValue))
         } else {
-          this.$emit('input', this.value.concat(this.arrayValue))
+          this.$emit('input', this.value.concat(this.c_arrayValue))
         }
         return
       }
 
-      this.$emit('input', !this.value)
+      this.$emit('input', !this.c_value)
     },
   },
 }

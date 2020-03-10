@@ -401,6 +401,9 @@ export default {
       }
     },
     isSelected (option) {
+      if (!this.valueProxy) {
+        return false
+      }
       if (typeof option === 'string') {
         return this.multiple
           ? this.valueProxy.includes(option)

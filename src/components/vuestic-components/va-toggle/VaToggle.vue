@@ -131,7 +131,7 @@ export default {
 
 .va-toggle {
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   margin-bottom: $checkbox-between-items-margin;
 

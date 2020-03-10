@@ -1,7 +1,9 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      {{ value }}
+      <div>
+        {{ value }}
+      </div>
       <va-toggle v-model="value" />
     </VbCard>
     <VbCard title="Colors">
@@ -63,7 +65,9 @@
       />
     </VbCard>
     <VbCard title="Array as model">
-      {{ selection }}
+      <div>
+        {{ selection }}
+      </div>
       <va-toggle
         v-model="selection"
         array-value="one"
@@ -86,7 +90,9 @@
       />
     </VbCard>
     <VbCard title="Object values">
-      {{ selection }}
+      <div>
+        {{ selection }}
+      </div>
       <va-toggle
         v-for="objectOption in objectOptions"
         :key="objectOption.id"
