@@ -23,19 +23,17 @@
       <va-icon name="entypo-home" />
     </VbCard>
     <VbCard title="Size presets">
-      <div>
-        <va-icon
-          name="home"
-          size="small"
-        />
-        <va-icon
-          name="home"
-        />
-        <va-icon
-          name="home"
-          size="large"
-        />
-      </div>
+      <va-icon
+        name="home"
+        size="small"
+      />
+      <va-icon
+        name="home"
+      />
+      <va-icon
+        name="home"
+        size="large"
+      />
     </VbCard>
     <VbCard title="Size as number">
       <va-icon
@@ -47,22 +45,10 @@
         size="3rem"
       />
     </VbCard>
-    <VbCard title="Themes and color">
+    <VbCard title="Color">
       <va-icon
         name="home"
         color="primary"
-      />
-      <va-icon
-        name="home"
-        color="secondary"
-      />
-      <va-icon
-        name="home"
-        color="danger"
-      />
-      <va-icon
-        name="home"
-        color="warning"
       />
       <va-icon
         name="home"
@@ -72,56 +58,26 @@
     <VbCard title="Rotation">
       <va-icon
         name="home"
-        rotation="0"
-      />
-      <va-icon
-        name="home"
-        rotation="15"
-      />
-      <va-icon
-        name="home"
-        rotation="30"
-      />
-      <va-icon
-        name="home"
-        rotation="60"
-      />
-      <va-icon
-        name="home"
-        rotation="120"
-      />
-      <va-icon
-        name="home"
-        rotation="240"
+        :rotation="180"
       />
     </VbCard>
-    <VbCard title="Custom tag">
+    <VbCard title="Tag is span">
       <va-icon
         tag="span"
-        name="home"
-      />
-      <va-icon
-        tag="div"
-        name="home"
-      />
-      <va-icon
-        tag="pre"
-        name="home"
-      />
-      <va-icon
-        tag="a"
         name="home"
       />
     </VbCard>
     <VbCard title="Click">
       <va-icon
         name="info"
-        @click="clickedCount += 1"
+        @click="$vb.log('click')"
       />
-      {{ clickedCount }}
     </VbCard>
     <VbCard title="Svg component">
       <va-icon :component="SvgComponent" />
+    </VbCard>
+    <VbCard title="text icon">
+      <va-icon>close</va-icon>
     </VbCard>
     <VbCard title="Spin">
       <va-icon name="sync-spin" />

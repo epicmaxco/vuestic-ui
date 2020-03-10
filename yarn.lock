@@ -3164,6 +3164,11 @@ color@^3.0.0:
     color-convert "^1.9.1"
     color-string "^1.5.2"
 
+colortranslator@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/colortranslator/-/colortranslator-1.1.1.tgz#9a4919802eb9e80ac9c0cb441f62d741e68049fc"
+  integrity sha512-7X4Hc5c4ewwsZZL5A3qSCYVmpWh7Ds94WIx1CB++/6Q4nkG3u/SFGXKKQ8YqpCxAohwnAjfJZ/axOls5HCpNiA==
+
 combined-stream@^1.0.6, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
@@ -11466,6 +11471,11 @@ tsconfig@^7.0.0:
     strip-bom "^3.0.0"
     strip-json-comments "^2.0.0"
 
+tslib@^1.11.1:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
+  integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
+
 tslib@^1.9.0, tslib@^1.9.3:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
@@ -11865,10 +11875,12 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-book@0.1.0-alpha.17:
-  version "0.1.0-alpha.17"
-  resolved "https://registry.yarnpkg.com/vue-book/-/vue-book-0.1.0-alpha.17.tgz#4661bfc5a6813ccdfc5ce9ecb35cdcddbd163366"
-  integrity sha512-8BpuuImZfM3dZ1zsTdBA0fxpcbZ3VJ9JsPrNVVDqx0Gn9H5qgZXDGKmLnN4kSfXO5CZjDPns0Sj+ZeofdWt+Dg==
+vue-book@0.1.0-alpha.28:
+  version "0.1.0-alpha.28"
+  resolved "https://registry.yarnpkg.com/vue-book/-/vue-book-0.1.0-alpha.28.tgz#be602b474f5aa07898be42a5a0de916ff89fa6cb"
+  integrity sha512-5bfR6vTyFdbC4eAxJBhl40FTEujlgOd83yBNcRfD5m7bJN2MGaK4lZghx8fnWjYS0l7lyZ+JZD9DXhvEEbvp2A==
+  dependencies:
+    tslib "^1.11.1"
 
 vue-bulma-expanding@0.0.1:
   version "0.0.1"

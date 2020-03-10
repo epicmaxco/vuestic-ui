@@ -48,11 +48,11 @@ const InputWrapperContextMixin = makeContextablePropsMixin({
   },
   messages: {
     type: Array,
-    default: [],
+    default: () => [],
   },
   errorMessages: {
     type: Array,
-    default: [],
+    default: () => [],
   },
   errorCount: {
     type: Number,

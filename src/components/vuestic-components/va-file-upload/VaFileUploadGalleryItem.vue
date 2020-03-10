@@ -43,7 +43,7 @@
 <script>
 import VaFileUploadUndo from './VaFileUploadUndo'
 import VaIcon from '../va-icon/VaIcon'
-import { hex2rgb } from '../../../services/color-functions'
+import { colorToRgba } from '../../../services/color-functions'
 
 export default {
   name: 'VaFileUploadGalleryItem',
@@ -75,7 +75,7 @@ export default {
   computed: {
     overlayStyles () {
       return {
-        backgroundColor: hex2rgb(this.color, 0.7).css,
+        backgroundColor: colorToRgba(this.color, 0.7),
       }
     },
   },

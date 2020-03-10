@@ -18,7 +18,18 @@ import { SizeMixin } from '../../../mixins/SizeMixin'
 import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
 import vaIconMixin from './vaIconMixin'
 
-const iconContextMixin = makeContextablePropsMixin({
+const IconContextMixin = makeContextablePropsMixin({
+  name: {
+    type: [String, Array],
+    validator: name => {
+      if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
+        console.warn(`${name} icon is not available.`)
+        return false
+      }
+      return true
+    },
+    default: '',
+  },
   tag: {
     type: String,
     default: 'i',
@@ -38,7 +49,7 @@ const iconContextMixin = makeContextablePropsMixin({
 
 export default {
   name: 'VaIcon',
-  mixins: [ColorThemeMixin, SizeMixin, iconContextMixin, vaIconMixin],
+  mixins: [ColorThemeMixin, SizeMixin, IconContextMixin, vaIconMixin],
   computed: {
     icon () {
       return this.getIcon()

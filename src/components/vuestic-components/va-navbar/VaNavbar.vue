@@ -28,46 +28,21 @@
 </template>
 
 <script>
-import { hex2hsl } from '../../../services/color-functions'
+import { shiftHslColor } from '../../../services/color-functions'
 
 export default {
   name: 'VaNavbar',
   computed: {
     navbarStyle () {
-      let secondaryRealColorHSL = hex2hsl(this.$themes.secondary)
-
       // saturation and lightness color components differ from the secondary color for the navbar
-      let newSaturation = secondaryRealColorHSL.s - 13
-      newSaturation = newSaturation < 0 ? 0 : newSaturation
-      secondaryRealColorHSL.s = newSaturation
-
-      let newLightness = secondaryRealColorHSL.l + 15
-      newLightness = newLightness > 100 ? 100 : newLightness
-      secondaryRealColorHSL.l = newLightness
-
       return {
-        backgroundColor: secondaryRealColorHSL.css,
+        backgroundColor: shiftHslColor(this.$themes.secondary, { s: -13, l: 15 }),
       }
     },
-
     shapeStyle () {
-      let secondaryRealColorHSL = hex2hsl(this.$themes.secondary)
-
       // all the 3 color components differ for the shape from the secondary color
-      let newHue = secondaryRealColorHSL.h - 1
-      newHue = newHue < 0 ? 0 : newHue
-      secondaryRealColorHSL.h = newHue
-
-      let newSaturation = secondaryRealColorHSL.s - 11
-      newSaturation = newSaturation < 0 ? 0 : newSaturation
-      secondaryRealColorHSL.s = newSaturation
-
-      let newLightness = secondaryRealColorHSL.l + 10
-      newLightness = newLightness > 100 ? 100 : newLightness
-      secondaryRealColorHSL.l = newLightness
-
       return {
-        borderTopColor: secondaryRealColorHSL.css,
+        borderTopColor: shiftHslColor(this.$themes.secondary, { h: -1, s: -11, l: 10 }),
       }
     },
   },
