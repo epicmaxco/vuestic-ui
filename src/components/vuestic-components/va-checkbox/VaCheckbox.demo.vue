@@ -13,6 +13,13 @@
         label="Long long long long long long long long long long long long long long long label"
       />
     </VbCard>
+    <VbCard title="color">
+      <va-checkbox
+        color="purple"
+        v-model="value"
+        label="Purple"
+      />
+    </VbCard>
     <VbCard title="Readonly">
       <va-checkbox
         v-model="value"
@@ -98,15 +105,11 @@
     </VbCard>
     <VbCard title="Accepts id">
       <va-checkbox
-        :value="true"
         id="checkbox-id"
       />
     </VbCard>
     <VbCard title="Accepts name">
-      <va-checkbox
-        :value="true"
-        name="checkbox-name"
-      />
+      <va-checkbox name="checkbox-name" />
     </VbCard>
     <VbCard title="Array as model">
       {{ selection }}

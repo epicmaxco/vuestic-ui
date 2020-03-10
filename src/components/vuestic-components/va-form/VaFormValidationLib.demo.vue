@@ -1,6 +1,9 @@
 <template>
   <VbDemo>
-    <VbCard title="vuelidate">
+    <VbCard
+      title="vuelidate"
+      refresh
+    >
       <va-form ref="vuelidateForm">
         <va-input
           label="required name"

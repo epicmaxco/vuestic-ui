@@ -159,11 +159,6 @@ $widget-header-border: 2px solid $light-gray;
 $widget-header-height: 55px;
 $widget-mb: 1.875rem;
 
-//Icons
-$icon-lg-size: 2.25rem;
-$icon-sm-size: 1rem;
-$icon-fixed-width: 1.25rem;
-
 //Buttons
 $btn-border: 0;
 $btn-border-outline: 0.125rem;
@@ -215,10 +210,8 @@ $badge-letter-spacing: $letter-spacing;
 //Dropdowns
 $dropdown-box-shadow: $gray-box-shadow;
 $dropdown-background: $light-gray3;
-$dropdown-item-height: 40px;
-$dropdown-menu-padding-y: 10px;
-$dropdown-menu-padding-x: 0;
-$dropdown-show-b: 1.125rem;
+$dropdown-padding: .375rem .5rem .375rem .5rem;
+$dropdown-border-radius: .5rem;
 
 //Progress Bars
 $progress-bar-width-basic: 0.5rem;

@@ -9,9 +9,7 @@
         <tr>
           <td>Types</td>
           <td>
-            <va-button>
-              Default Button
-            </va-button>
+            <va-button />
             <va-button outline>
               Outline Button
             </va-button>
@@ -201,7 +199,7 @@
               A-link Button
             </va-button>
             <va-button
-              :to="{ name: 'charts' }"
+              to="/demo"
             >
               Router-link Button
             </va-button>

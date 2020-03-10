@@ -5,12 +5,8 @@
       refresh
     >
       <va-form autofocus>
-        <va-input
-          label="input 1"
-        />
-        <va-input
-          label="input 2"
-        />
+        <va-input />
+        <va-input />
       </va-form>
     </VbCard>
 
@@ -20,51 +16,44 @@
           v-model="form.reset"
           label="input"
         />
-        <button @click="$refs.resetFormRef.reset()">
-          Reset
-        </button>
       </va-form>
+      <button @click="$refs.resetFormRef.reset()">
+        Reset
+      </button>
+      <button @click="form.reset = 'brought back'">
+        Bring back
+      </button>
     </VbCard>
 
-    <VbCard
-      title="reset validation"
-      refresh
-    >
-      <va-form ref="resetValidationFormRef">
+    <VbCard title="reset validation">
+      <va-form ref="resetValidationForm">
         <va-input
-          value="ok"
-          label="valid input"
-        />
-        <va-input
-          value="error"
-          label="invalid input"
+          label="prop is not reset"
           error
-          :error-messages="['invalid']"
         />
-
-        <button @click="$refs.resetValidationFormRef.resetValidation()">
-          Reset validation
-        </button>
+        <va-input
+          label="validated rule is reset"
+          :rules="[() => 'error']"
+        />
       </va-form>
+      <button @click="$refs.resetValidationForm.validate()">
+        Validate
+      </button>
+      <button @click="$refs.resetValidationForm.resetValidation()">
+        Reset validation
+      </button>
     </VbCard>
 
     <VbCard title="focus invalid">
-      <va-form ref="focusInvalidFormRef">
-        <va-input
-          value="ok"
-          label="valid input"
-        />
-        <va-input
-          value="error"
-          label="invalid input"
-          error
-          :error-messages="['invalid']"
-        />
-        <button @click="$refs.focusInvalidFormRef.focusInvalid()">
+      <va-form ref="focusInvalidForm">
+        <va-input />
+        <va-input error />
+        <button @click="$refs.focusInvalidForm.focusInvalid()">
           Focus invalid
         </button>
       </va-form>
     </VbCard>
+
     <VbCard title="validate + rules">
       <va-form
         @validation="onValidation"
@@ -75,37 +64,33 @@
           label="input"
           :rules="[value => value === 'hello' || 'should be hello']"
         />
-
-        <button @click="$refs.rulesFormRef.validate()">
-          Validate
-        </button>
+        Validation rule always returns false
+        <va-input :rules="[() => false]" />
+        Validation rule returns empty string
+        <va-input :rules="[() => '']" />
       </va-form>
+      <button @click="$refs.rulesFormRef.validate()">
+        Validate
+      </button>
     </VbCard>
 
-    <VbCard title="lazy validation">
+    <VbCard
+      title="Validation starts after first blur"
+      refresh
+    >
       <va-form
-        lazy-validation
+        start-validating-on-blur
         @validation="onValidation"
-        ref="lazyValidationFormRef"
+        ref="lazyValidationForm"
       >
         <va-input
-          v-model="form.hello"
-          label="input"
-          :rules="[value => value === 'hello' || 'should be hello']"
+          v-model="onBlur.valid"
+          :rules="[value => value === 'valid' || `should be 'valid'`]"
         />
         <va-input
-          v-model="form.world"
-          label="input"
-          :rules="[value => value === 'world' || 'should be world']"
+          v-model="onBlur.required"
+          :rules="[value => !!value || 'required']"
         />
-
-        <button @click="$refs.lazyValidationFormRef.validate()">
-          Validate
-        </button>
-
-        <button @click="$refs.lazyValidationFormRef.resetValidation()">
-          Reset validation
-        </button>
       </va-form>
     </VbCard>
 
@@ -123,18 +108,16 @@
           />
         </va-form>
         Form 2
-        <va-form>
-          <va-input
-            label="input 3"
-            v-model="form.nestedHello"
-            :rules="[value => value === 'hello' || 'should be hello']"
-          />
-          <va-input
-            label="input 4"
-            v-model="form.nestedWorld"
-            :rules="[value => value === 'world' || 'should be world']"
-          />
-        </va-form>
+        <va-input
+          label="input 3"
+          v-model="form.nestedHello"
+          :rules="[value => value === 'hello' || 'should be hello']"
+        />
+        <va-input
+          label="input 4"
+          v-model="form.nestedWorld"
+          :rules="[value => value === 'world' || 'should be world']"
+        />
       </va-form>
       <button @click="$refs.nestedFormRef.validate()">
         validate
@@ -164,13 +147,17 @@ export default {
         reset: 'should be reset',
         hello: 'text',
         world: 'text',
-        nestedHello: 'text',
-        nestedWorld: 'text',
+        nestedHello: 'hell',
+        nestedWorld: 'worl',
         checkbox: false,
         radio: 2,
         inputError: false,
       },
       inputRules: 'hell',
+      onBlur: {
+        valid: '',
+        required: '',
+      },
     }
   },
   methods: {

@@ -11,22 +11,20 @@
 <script>
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const getNestedFormElements = (vm) => {
-  const elements = []
-
+const getNestedFormElements = (vm, elements = []) => {
   vm.$children.forEach((child) => {
-    elements.push(child)
-
-    // TODO: need to change detecting of form controls
-    if (!child.validate) {
-      child.$children.length > 0 && getNestedFormElements(child, elements)
+    if (child.isFormElement) {
+      elements.push(child)
     }
+
+    child.$children.length > 0 && getNestedFormElements(child, elements)
   })
+
   return elements
 }
 
 const FormContextMixin = makeContextablePropsMixin({
-  lazyValidation: {
+  startValidatingOnBlur: {
     type: Boolean,
     default: false,
   },
@@ -49,12 +47,16 @@ export default {
     if (this.autofocus) {
       this.focus()
     }
+    if (this.startValidatingOnBlur) {
+      getNestedFormElements(this)
+        .filter(({ setValidateOnBlur }) => setValidateOnBlur && setValidateOnBlur())
+    }
   },
   methods: {
     // public methods
     reset () {
       getNestedFormElements(this)
-        .filter(({ clear }) => clear)
+        .filter(({ reset }) => reset)
         .forEach((item) => {
           item.reset()
         })
@@ -75,27 +77,24 @@ export default {
     },
     focusInvalid () {
       const invalidComponent = getNestedFormElements(this)
-        .filter(({ validate }) => validate)
-        .find((item) => !(item.validate()))
+        .filter(({ hasError }) => hasError)
+        .find((item) => item.hasError())
 
-      invalidComponent && invalidComponent.focus()
+      if (invalidComponent) {
+        invalidComponent.focus()
+      }
     },
     validate () { // NOTE: temporarily synchronous validation
       let formValid = true
 
-      const validatableElements = getNestedFormElements(this).filter(({ validate }) => validate)
-
-      for (let i = 0; i < validatableElements.length; i++) {
-        const child = validatableElements[i]
-
-        if (!child.validate()) {
-          formValid = false
-
-          if (this.lazyValidation) {
-            break
+      getNestedFormElements(this)
+        .filter(({ validate }) => validate)
+        .forEach((child) => {
+          const isValidChild = child.validate()
+          if (!isValidChild) {
+            formValid = false
           }
-        }
-      }
+        })
 
       this.$emit('validation', formValid)
 

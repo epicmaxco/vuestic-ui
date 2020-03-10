@@ -86,13 +86,35 @@
     <VbCard title="Indeterminate">
       Indeterminate
       <va-progress-bar indeterminate />
-      <br>
-      Indeterminate Reversed
+    </VbCard>
+
+    <VbCard title="Reverse">
+      <span
+        style="color: tomato;"
+        title="Should come from another side"
+      >❗❗</span>
       <va-progress-bar
+        :value="30"
         reverse
+      />
+      <br>
+      <span
+        style="color: tomato;"
+        title="Should come from another side"
+      >❗❗</span>
+      <va-progress-bar
+        :value="30"
+        :buffer="60"
+        reverse
+      />
+      <br>
+      Indeterminate
+      <va-progress-bar
         indeterminate
+        reverse
       />
     </VbCard>
+
     <VbCard
       title="Buffer"
       width="400px"
@@ -102,6 +124,49 @@
         :value="value"
         :buffer="bufferValue"
       />
+    </VbCard>
+
+    <VbCard title="context checks">
+      <div>
+        value:
+        <VaContext :config="{VaProgressBar: {value: 50}}">
+          <VaProgressBar />
+        </VaContext>
+      </div>
+      <div>
+        indeterminate:
+        <VaContext :config="{VaProgressBar: {indeterminate: true}}">
+          <VaProgressBar />
+        </VaContext>
+      </div>
+      <div>
+        color:
+        <VaContext :config="{VaProgressBar: {color: 'danger'}}">
+          <VaProgressBar :value="80" />
+        </VaContext>
+      </div>
+      <div>
+        size:
+        <VaContext :config="{VaProgressBar: {size: 30}}">
+          <VaProgressBar :value="80" />
+        </VaContext>
+      </div>
+      <span
+        style="color: tomato;"
+        title="See reverse card"
+      >❗❗</span>
+      <div>
+        reverse:
+        <VaContext :config="{VaProgressBar: {reverse: true}}">
+          <VaProgressBar :value="30" />
+        </VaContext>
+      </div>
+      <div>
+        rounded (false):
+        <VaContext :config="{VaProgressBar: {rounded: false}}">
+          <VaProgressBar />
+        </VaContext>
+      </div>
     </VbCard>
 
     <VbCard title="Controls">
@@ -152,9 +217,11 @@
 
 <script>
 import VaProgressBar from './VaProgressBar'
+import VaContext from '../../../context-test/context-provide/VaContext'
 
 export default {
   components: {
+    VaContext,
     VaProgressBar,
   },
   data () {
