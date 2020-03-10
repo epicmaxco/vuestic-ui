@@ -32,11 +32,10 @@
         class="va-data-table__pagination"
       >
         <va-pagination
-          v-model="currentPage"
+          v-model="currentPageProxy"
           :pages="paginationTotal"
           :visible-pages="visiblePages"
           :boundary-links="paginationTotal > visiblePages"
-          @input="inputPage"
         />
       </div>
     </va-inner-loading>
@@ -72,6 +71,10 @@ export default {
       type: Number,
       default: 4,
     },
+    currentPage: {
+      type: Number,
+      default: 1,
+    },
     apiMode: Boolean,
     clickable: Boolean,
     hoverable: Boolean,
@@ -100,10 +103,22 @@ export default {
   },
   data () {
     return {
-      currentPage: 1,
     }
   },
   computed: {
+    currentPageProxy: {
+      get () {
+        return this.currentPage
+      },
+      set (page) {
+        if (this.apiMode) {
+          this.$emit('page-selected', page)
+          return
+        }
+
+        this.$refs.vuetable.changePage(page)
+      },
+    },
     styles () {
       return {
         tableClass: this.buildTableClass(),
@@ -182,14 +197,6 @@ export default {
     },
     buildPagination (l, perPage) {
       return this.$refs.vuetable.makePagination(l, perPage)
-    },
-    inputPage (page) {
-      if (this.apiMode) {
-        this.$emit('page-selected', page)
-        return
-      }
-
-      this.$refs.vuetable.changePage(page)
     },
     refresh () {
       this.$refs.vuetable.refresh()

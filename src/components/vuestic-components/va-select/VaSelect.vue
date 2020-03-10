@@ -394,6 +394,9 @@ export default {
       return one[this.keyBy] === two[this.keyBy]
     },
     isSelected (option) {
+      if (!this.valueProxy) {
+        return false
+      }
       if (typeof option === 'string') {
         return this.multiple
           ? this.valueProxy.includes(option)
