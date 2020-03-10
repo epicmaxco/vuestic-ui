@@ -187,12 +187,12 @@ export default {
     },
     sortAsc (items, field) {
       return items.slice().sort((a, b) => {
-        return a[field].localeCompare(b[field])
+        return a[field].toLocaleString().localeCompare(b[field].toLocaleString(), { numeric: true })
       })
     },
     sortDesc (items, field) {
       return items.slice().sort((a, b) => {
-        return b[field].localeCompare(a[field])
+        return b[field].toLocaleString().localeCompare(a[field].toLocaleString(), { numeric: true })
       })
     },
     buildPagination (l, perPage) {
