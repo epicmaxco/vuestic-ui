@@ -27,25 +27,32 @@
 </template>
 
 <script>
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
 export default {
   name: 'VaImage',
+  mixins: [
+    makeContextablePropsMixin({
+      ratio: {
+        type: [Number, String],
+        default: 1,
+      },
+      contain: {
+        type: Boolean,
+        default: false,
+      },
+    }),
+  ],
   props: {
     src: {
       type: String,
       required: true,
     },
-    ratio: {
-      type: [Number, String],
-      default: 1,
-    },
-    contain: {
-      type: Boolean,
-      default: false,
-    },
   },
   data () {
     return {
-      img: null,
+      image: null,
+
       loading: false,
       loadingError: false,
     }
@@ -54,8 +61,8 @@ export default {
     this.destroyLoader()
   },
   watch: {
-    src: {
-      handler: function () {
+    c_src: {
+      handler () {
         this.createLoader()
       },
       immediate: true,
@@ -64,13 +71,13 @@ export default {
   computed: {
     imageStyles () {
       return {
-        'background-image': `url(${this.src})`,
+        'background-image': `url(${this.c_src})`,
         'background-size': this.contain ? 'contain' : 'cover',
       }
     },
     paddingStyles () {
       return {
-        'padding-bottom': `${1 / this.ratio * 100}%`,
+        'padding-bottom': `${1 / this.c_ratio * 100}%`,
       }
     },
   },
@@ -79,22 +86,22 @@ export default {
       this.destroyLoader()
       this.loading = true
       this.loadingError = false
-      this.img = new Image()
-      this.img.onload = this.handleLoad
-      this.img.onerror = this.handleError
-      this.img.src = this.src
+      this.image = new Image()
+      this.image.onload = this.handleLoad
+      this.image.onerror = this.handleError
+      this.image.src = this.c_src
     },
     destroyLoader () {
-      if (this.img) {
-        this.img.onload = null
-        this.img.onerror = null
-        this.img = null
+      if (this.image) {
+        this.image.onload = null
+        this.image.onerror = null
+        this.image = null
       }
     },
     handleLoad () {
       this.destroyLoader()
       this.loading = false
-      this.$emit('load', this.src)
+      this.$emit('loaded', this.c_src)
     },
     handleError (err) {
       this.destroyLoader()

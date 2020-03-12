@@ -44,17 +44,15 @@ const getColor = ($vm, prop, defaultColor) => {
   return defaultColor
 }
 
-const contextConfigMixin = makeContextablePropsMixin({
-  color: {
-    type: String,
-  },
-  dark: {
-    type: Boolean,
-  },
-})
-
 export const ColorThemeMixin = {
-  mixins: [contextConfigMixin],
+  mixins: [makeContextablePropsMixin({
+    color: {
+      type: String,
+    },
+    dark: {
+      type: Boolean,
+    },
+  })],
   data () {
     return {
       defaultColor: '#000',
@@ -78,6 +76,19 @@ export const ColorThemeMixin = {
     },
     computeInvertedColor (prop) {
       return getColor(this, prop, this.defaultInvertedColor)
+    },
+  },
+}
+
+export const TextColorThemeMixin = {
+  mixins: [makeContextablePropsMixin({
+    textColor: {
+      type: String,
+    },
+  })],
+  computed: {
+    textColorComputed () {
+      return getColor(this, this.c_textColor)
     },
   },
 }
