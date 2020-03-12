@@ -59,10 +59,10 @@ export default {
   computed: {
     computedStyle () {
       return {
-        color: this.textColor ? this.computeColor(this.textColor) : '#ffffff',
+        color: this.computeInvertedColor(this.c_textColor),
         backgroundColor: this.colorComputed,
-        borderRadius: this.square ? 0 : '50%',
-        fontSize: this.fontSize,
+        borderRadius: this.c_square ? 0 : '50%',
+        fontSize: this.c_fontSize,
         width: this.sizeComputed,
         minWidth: this.sizeComputed, // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
         height: this.sizeComputed,

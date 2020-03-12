@@ -24,9 +24,9 @@
     <div class="va-button__content">
       <va-icon
         v-if="c_icon"
-        fixed-width
         class="va-button__content__icon va-button__content__icon-left"
         :name="c_icon"
+        :size="size"
       />
       <div
         v-if="hasTitleData"
@@ -36,9 +36,9 @@
       </div>
       <va-icon
         v-if="c_iconRight"
-        fixed-width
         class="va-button__content__icon va-button__content__icon-right"
         :name="c_iconRight"
+        :size="size"
       />
     </div>
   </component>
