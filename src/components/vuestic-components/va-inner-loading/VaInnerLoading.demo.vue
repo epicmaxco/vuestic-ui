@@ -10,21 +10,23 @@
       </va-button>
 
       <va-inner-loading :loading="loading">
-        <va-card title="Epicmax">
-          <template slot="actions">
+        <va-card>
+          <va-card-title text-color="primary">
+            Epicmax
+            <va-spacer />
             <va-button icon="email" />
             <va-button icon="local_phone" />
-          </template>
+          </va-card-title>
 
-          <p>
-            NO BUREAUCRACY. NO MIDDLEMEN. NO WASTE OF TIME.
-          </p>
+          <va-card-content>
+            <p>NO BUREAUCRACY. NO MIDDLEMEN. NO WASTE OF TIME.</p>
 
-          <p>
-            Epicmax is a team of talented people ready to care about your product.
-            We love coding. We love beautiful design. We love doing our job better than possible.
-            Every product we craft is a challenge we are excited about.
-          </p>
+            <p>
+              Epicmax is a team of talented people ready to care about your product.
+              We love coding. We love beautiful design. We love doing our job better than possible.
+              Every product we craft is a challenge we are excited about.
+            </p>
+          </va-card-content>
         </va-card>
       </va-inner-loading>
     </vb-card>
@@ -34,12 +36,18 @@
 <script>
 import VaButton from '../va-button/VaButton'
 import VaCard from '../va-card/VaCard'
+import VaCardTitle from '../va-card/VaCardTitle'
+import VaCardContent from '../va-card/VaCardContent'
+import VaSpacer from '../va-spacer/VaSpacer'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
 
 export default {
   components: {
     VaButton,
     VaCard,
+    VaCardTitle,
+    VaCardContent,
+    VaSpacer,
     VaInnerLoading,
   },
   data () {

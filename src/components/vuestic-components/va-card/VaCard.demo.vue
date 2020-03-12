@@ -1,225 +1,238 @@
 <template>
   <VbDemo>
-    <VbCard style="max-width: 800px;">
-      <table class="table table-bordered">
-        <tr>
-          <th>Description</th>
-          <th>VaCard</th>
-        </tr>
-        <tr>
-          <td>Default</td>
-          <td>
-            <VbCard>
-              <va-card
-                title="Default Card"
-              >
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills. Various anthropogenic factors have had a severe impact on zebra populations, in particular hunting for skins and habitat destruction. Grévy's zebra and the mountain zebra are endangered. While plains zebras are much more plentiful, one subspecies, the quagga, became extinct in the late 19th century – though there is currently a plan, called the Quagga Project
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>Title only</td>
-          <td>
-            <VbCard>
-              <va-card
-                title="Title Only Card"
-              />
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>Default with controls</td>
-          <td>
-            <VbCard>
-              <va-card
-                title="Default Card with controls"
-              >
-                <template slot="actions">
-                  <va-button icon="loop" />
-                  <va-button icon="menu" />
-                </template>
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills. Various anthropogenic factors have had a severe impact on zebra populations, in particular hunting for skins and habitat destruction. Grévy's zebra and the mountain zebra are endangered. While plains zebras are much more plentiful, one subspecies, the quagga, became extinct in the late 19th century – though there is currently a plan, called the Quagga Project
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>Custom header</td>
-          <td>
-            <VbCard>
-              <va-card
-                title="Custom header"
-              >
-                <template slot="header">
-                  <va-icon
-                    name="face"
-                    color="success"
-                  />
-                  <h5 class="mt-0 mb-0">
-                    Custom Header
-                  </h5>
-                </template>
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills. Various anthropogenic factors have had a severe impact on zebra populations, in particular hunting for skins and habitat destruction. Grévy's zebra and the mountain zebra are endangered. While plains zebras are much more plentiful, one subspecies, the quagga, became extinct in the late 19th century – though there is currently a plan, called the Quagga Project
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>Long text in header</td>
-          <td>
-            <VbCard>
-              <va-card
-                title="Default Card with long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text"
-              >
-                <template slot="actions">
-                  <va-button icon="loop" />
-                  <va-button icon="menu" />
-                </template>
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills. Various anthropogenic factors have had a severe impact on zebra populations, in particular hunting for skins and habitat destruction. Grévy's zebra and the mountain zebra are endangered. While plains zebras are much more plentiful, one subspecies, the quagga, became extinct in the late 19th century – though there is currently a plan, called the Quagga Project
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>Without header</td>
-          <td>
-            <VbCard>
-              <va-card>
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills. Various anthropogenic factors have had a severe impact on zebra populations, in particular hunting for skins and habitat destruction. Grévy's zebra and the mountain zebra are endangered. While plains zebras are much more plentiful, one subspecies, the quagga, became extinct in the late 19th century – though there is currently a plan, called the Quagga Project
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>With image<br> (default image ratio 16:9)</td>
-          <td>
-            <VbCard>
-              <va-card
-                image="https://picsum.photos/300/200/?image=1043"
-                title="Card with image"
-              >
-                The unique stripes of zebras make them one of the animals most familiar to people.
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>With image and overlay</td>
-          <td>
-            <VbCard>
-              <va-card
-                overlay
-                image="https://picsum.photos/300/200/?image=1043"
-                title="Card with image and overlay"
-              >
-                The unique stripes of zebras make them one of the animals most familiar to people.
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>With title on image</td>
-          <td>
-            <VbCard>
-              <va-card
-                overlay
-                title-on-image
-                image="https://picsum.photos/300/200/?image=1043"
-                title="Card with title on image"
-              >
-                The unique stripes of zebras make them one of the animals most familiar to people.
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>Image only and custom title</td>
-          <td>
-            <VbCard>
-              <va-card
-                overlay
-                title-on-image
-                image="https://picsum.photos/300/200/?image=1043"
-              >
-                <template slot="header">
-                  <va-button>
-                    Read More
-                  </va-button>
-                </template>
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>Background</td>
-          <td>
-            <VbCard>
-              <va-card color="danger">
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills.
-              </va-card>
-
-              <va-card color="success">
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills.
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>Stripes</td>
-          <td>
-            <VbCard>
-              <va-card stripe="danger">
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills.
-              </va-card>
-
-              <va-card stripe="success">
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills.
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-        <tr>
-          <td>Without margin</td>
-          <td>
-            <VbCard>
-              <va-card
-                class="mb-0"
-                stripe="info"
-                color="success"
-              >
-                The unique stripes of zebras make them one of the animals most familiar to people. They occur in a variety of habitats, such as grasslands, savannas, woodlands, thorny scrublands, mountains, and coastal hills.
-              </va-card>
-            </VbCard>
-          </td>
-        </tr>
-      </table>
+    <VbCard title="Default">
+      <va-card style="width: 400px;">
+        <va-card-title>Title</va-card-title>
+        <va-card-content></va-card-content>
+      </va-card>
+    </VbCard>
+    <VbCard title="Dark">
+      <va-card
+        style="width: 400px;"
+        dark
+      >
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
+      </va-card>
+    </VbCard>
+    <VbCard title="Square">
+      <va-card
+        style="width: 400px;"
+        square
+      >
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
+      </va-card>
+    </VbCard>
+    <VbCard title="Outlined">
+      <va-card
+        style="width: 400px;"
+        outlined
+      >
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
+      </va-card>
+    </VbCard>
+    <VbCard title="No border and shadow">
+      <span title="This solution looks kinda weird. Probably bordered: false should be enough.">❗❗</span>
+      <va-card
+        style="width: 400px;"
+        outlined
+        :bordered="false"
+      >
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
+      </va-card>
+    </VbCard>
+    <VbCard title="Disabled">
+      <va-card
+        style="width: 400px;"
+        disabled
+      >
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
+      </va-card>
+    </VbCard>
+    <VbCard title="Custom tag">
+      <va-card
+        style="width: 400px;"
+        tag="span"
+      >
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
+      </va-card>
+    </VbCard>
+    <VbCard title="href, target, router-link">
+      <va-card
+        style="width: 400px;"
+        href="https://duckduckgo.com/"
+        target="_blank"
+      >
+        <va-card-content>https://duckduckgo.com/</va-card-content>
+      </va-card>
+      <va-card
+        style="width: 400px; margin-top: 1rem;"
+        :to="{path: '/'}"
+      >
+        <va-card-content>/</va-card-content>
+      </va-card>
+    </VbCard>
+    <VbCard title="@click">
+      <va-card
+        style="width: 400px;"
+        @click="clicked += 1"
+      >
+        <va-card-content>Clicked: {{ clicked }}</va-card-content>
+      </va-card>
+    </VbCard>
+    <VbCard title="colors">
+      <div>
+        <va-card
+          style="width: 400px;"
+          color="#ff0000"
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>color="#ff0000"</va-card-content>
+        </va-card>
+        <va-card
+          style="width: 400px; margin-top: 1rem;"
+          color="#ff0000"
+          dark
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>color="#ff0000" dark</va-card-content>
+        </va-card>
+        <va-card
+          style="width: 400px; margin-top: 1rem;"
+          color="primary"
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>:color="primary"</va-card-content>
+        </va-card>
+        <va-card
+          style="width: 400px; margin-top: 1rem;"
+          color="primary"
+          dark
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>color="primary" dark</va-card-content>
+        </va-card>
+      </div>
+    </VbCard>
+    <VbCard title="gradient colors">
+      <div>
+        <va-card
+          style="width: 400px;"
+          color="#ff0000"
+          gradient
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>color="#ff0000"</va-card-content>
+        </va-card>
+        <va-card
+          style="width: 400px; margin-top: 1rem;"
+          color="#ff0000"
+          dark
+          gradient
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>color="#ff0000" dark</va-card-content>
+        </va-card>
+        <va-card
+          style="width: 400px; margin-top: 1rem;"
+          color="primary"
+          gradient
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>:color="primary"</va-card-content>
+        </va-card>
+        <va-card
+          style="width: 400px; margin-top: 1rem;"
+          color="primary"
+          dark
+          gradient
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>:color="primary" dark</va-card-content>
+        </va-card>
+      </div>
+    </VbCard>
+    <VbCard title="stripe">
+      <div>
+        <va-card
+          style="width: 400px;"
+          stripe
+          stripe-color="#ff0000"
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>stripe stripeColor="#ff0000"</va-card-content>
+        </va-card>
+        <va-card
+          style="width: 400px; margin-top: 1rem;"
+          stripe
+          stripe-color="primary"
+        >
+          <va-card-title>Title</va-card-title>
+          <va-card-content>stripe color="primary"</va-card-content>
+        </va-card>
+      </div>
+    </VbCard>
+    <VbCard title="From zeplin">
+      <span title="Shouldn't be in demo. But should be fine to keep it in docs.">❗❗</span>
+      <div style="display: flex;">
+        <div>
+          <va-context
+            :config="{VaCard: {stripe: true, stripeColor: 'primary'}, VaCardTitle: {textColor: 'info'}}"
+          >
+            <va-card style="width: 400px;">
+              <va-card-title>Striped card</va-card-title>
+              <va-card-content>{{lorem}}</va-card-content>
+              <va-card-content>
+                <a href>Read full article</a>
+              </va-card-content>
+            </va-card>
+          </va-context>
+        </div>
+        <va-context :config="{VaCardTitle: {textColor: 'info'}}">
+          <va-card style="width: 400px; margin-left: 1rem;">
+            <va-image
+              src="https://picsum.photos/400/200"
+              style="height: 200px;"
+            />
+            <va-card-title>Card w image</va-card-title>
+            <va-card-content>{{lorem}}</va-card-content>
+            <va-card-content>
+              <va-button>Upload file</va-button>
+            </va-card-content>
+          </va-card>
+        </va-context>
+      </div>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaCard from './VaCard'
+import VaCardTitle from './VaCardTitle'
+import VaCardContent from './VaCardContent'
 import VaButton from '../va-button/VaButton'
-import VaIcon from '../va-icon/VaIcon'
+import VaImage from '../va-image/VaImage'
+import VaContext from '../../context-test/context-provide/VaContext'
 
 export default {
   components: {
     VaCard,
+    VaCardTitle,
+    VaCardContent,
     VaButton,
-    VaIcon,
+    VaImage,
+    VaContext,
+  },
+  data () {
+    return {
+      lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi massa, ultrices gravida blandit at, posuere ut nisi. Praesent auctor eros sit amet lobortis bibendum.',
+      clicked: 0,
+    }
   },
 }
 </script>
-
-<style lang="scss" scoped>
-tr {
-  td:first-child {
-    min-width: 200px;
-  }
-
-  td > div {
-    background-color: #eeeeee;
-  }
-}
-</style>

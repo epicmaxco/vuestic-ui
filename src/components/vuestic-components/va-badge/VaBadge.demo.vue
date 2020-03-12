@@ -332,7 +332,9 @@
         overlap
       >
         <va-card>
-          Overlap badge outside card
+          <va-card-content>
+            Overlap badge outside card
+          </va-card-content>
         </va-card>
       </va-badge>
       <br>
@@ -345,10 +347,11 @@
 import VaBadge from './VaBadge'
 import VaButton from '../va-button/VaButton'
 import VaCard from '../va-card/VaCard'
+import VaCardContent from '../va-card/VaCardContent'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  components: { VaBadge, VaButton, VaCard, VaIcon },
+  components: { VaBadge, VaButton, VaCard, VaCardContent, VaIcon },
   data () {
     return {
       label: '1234',

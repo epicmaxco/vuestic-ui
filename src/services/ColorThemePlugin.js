@@ -27,13 +27,11 @@ export const ColorThemePlugin = {
 }
 
 // https://stackoverflow.com/a/56266358/5783475
-// probably won't work with SSR
 const isCssColor = strColor => {
   const s = new Option().style
   s.color = strColor
   return s.color !== ''
 }
-
 const getColor = ($vm, prop, defaultColor) => {
   if (isCssColor(prop)) {
     return prop
@@ -46,14 +44,15 @@ const getColor = ($vm, prop, defaultColor) => {
   return defaultColor
 }
 
-const contextConfigMixin = makeContextablePropsMixin({
-  color: {
-    type: String,
-  },
-})
-
 export const ColorThemeMixin = {
-  mixins: [contextConfigMixin],
+  mixins: [makeContextablePropsMixin({
+    color: {
+      type: String,
+    },
+    dark: {
+      type: Boolean,
+    },
+  })],
   data () {
     return {
       defaultColor: '#000',
@@ -67,10 +66,23 @@ export const ColorThemeMixin = {
   },
   methods: {
     computeColor (prop) {
-      return getColor(this, prop, this.defaultColor)
+      return getColor(this, prop, null)
     },
     computeInvertedColor (prop) {
       return getColor(this, prop, this.defaultInvertedColor)
+    },
+  },
+}
+
+export const TextColorThemeMixin = {
+  mixins: [makeContextablePropsMixin({
+    textColor: {
+      type: String,
+    },
+  })],
+  computed: {
+    textColorComputed () {
+      return getColor(this, this.c_textColor)
     },
   },
 }
