@@ -54,7 +54,7 @@ export default {
   data () {
     return {
       value: 60,
-      icon: 'iconicstroke iconicstroke-info',
+      icon: 'info_outline',
       theme: 'info',
       items: navigationRoutes.routes,
       hoverState: false,

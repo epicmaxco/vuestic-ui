@@ -1,29 +1,32 @@
+import Vue from 'vue'
 import { getDefaultOptions } from '../../services/ColorThemePlugin'
+import { addOrUpdateStyleElement } from '../../services/dom-functions'
+
+const vmInstance = new Vue()
+
+const createThemeColorStyles = themes => {
+  let result = ''
+  Object.keys(themes).map((name) => {
+    result += `.background--${name.toLowerCase()} { background-color: ${themes[name]} !important; }`
+  })
+
+  Object.keys(themes).map((name) => {
+    result += `.text--${name.toLowerCase()} { color: ${themes[name]} !important; }`
+  })
+
+  return result
+}
 
 const ColorHelpersPlugin = {
   install () {
-    const { themes } = getDefaultOptions()
-
-    const createBackgroundHelpers = () => {
-      let result = ''
-      Object.keys(themes).map((name) => {
-        result += `.background--${name.toLowerCase()} { background-color: ${themes[name]} !important; }`
-      })
-      return result
-    }
-
-    const createTextColorHelpers = () => {
-      let result = ''
-      Object.keys(themes).map((name) => {
-        result += `.text--${name.toLowerCase()} { color: ${themes[name]} !important; }`
-      })
-      return result
-    }
-
-    const $style = document.createElement('style')
-    $style.setAttribute('id', 'va-utilities')
-    $style.innerHTML = createBackgroundHelpers() + createTextColorHelpers()
-    document.body.insertBefore($style, document.body.firstChild)
+    const defaultOptions = getDefaultOptions()
+    vmInstance.$watch(() => defaultOptions.themes, {
+      deep: true,
+      immediate: true,
+      handler: () => {
+        addOrUpdateStyleElement('va-theme-styles', () => createThemeColorStyles(defaultOptions.themes))
+      },
+    })
   },
 }
 

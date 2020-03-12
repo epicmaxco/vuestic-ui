@@ -1,6 +1,7 @@
+import Vue from 'vue'
 import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
 
-export const getDefaultOptions = () => ({
+const defaultOptions = Vue.observable({
   themes: {
     primary: '#23e066',
     secondary: '#002c85',
@@ -13,15 +14,15 @@ export const getDefaultOptions = () => ({
   },
 })
 
-export const ColorThemePlugin = {
-  install (Vue, options = {}) {
-    const defaultOptions = getDefaultOptions()
+export const getDefaultOptions = () => defaultOptions
 
-    if (options.themes) {
-      Object.assign(defaultOptions.themes, options.themes)
+export const ColorThemePlugin = {
+  install (Vue, options) {
+    if (options && options.themes) {
+      defaultOptions.themes = { ...defaultOptions.themes, ...options.themes }
     }
 
-    Vue.prototype.$themes = Vue.observable(defaultOptions.themes)
+    Vue.prototype.$themes = defaultOptions.themes
   },
 }
 
@@ -31,8 +32,7 @@ const isCssColor = strColor => {
   s.color = strColor
   return s.color !== ''
 }
-
-const getColor = ($vm, prop) => {
+const getColor = ($vm, prop, defaultColor) => {
   if (isCssColor(prop)) {
     return prop
   }
@@ -41,10 +41,10 @@ const getColor = ($vm, prop) => {
     return $vm.$themes[prop]
   }
 
-  return null
+  return defaultColor
 }
 
-const colorConfigMixin = makeContextablePropsMixin({
+const contextConfigMixin = makeContextablePropsMixin({
   color: {
     type: String,
   },
@@ -54,7 +54,13 @@ const colorConfigMixin = makeContextablePropsMixin({
 })
 
 export const ColorThemeMixin = {
-  mixins: [colorConfigMixin],
+  mixins: [contextConfigMixin],
+  data () {
+    return {
+      defaultColor: '#000',
+      defaultInvertedColor: '#fff',
+    }
+  },
   computed: {
     colorComputed () {
       return this.computeColor(this.c_color)
@@ -68,22 +74,10 @@ export const ColorThemeMixin = {
   },
   methods: {
     computeColor (prop) {
-      return getColor(this, prop)
+      return getColor(this, prop, this.defaultColor)
     },
-  },
-}
-
-const textColorConfigMixin = makeContextablePropsMixin({
-  textColor: {
-    type: String,
-  },
-})
-
-export const TextColorThemeMixin = {
-  mixins: [textColorConfigMixin],
-  computed: {
-    textColorComputed () {
-      return getColor(this, this.c_textColor)
+    computeInvertedColor (prop) {
+      return getColor(this, prop, this.defaultInvertedColor)
     },
   },
 }

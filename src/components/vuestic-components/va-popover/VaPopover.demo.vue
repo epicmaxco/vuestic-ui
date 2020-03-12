@@ -42,7 +42,7 @@
           <td>
             <va-popover
               placement="right"
-              icon="fa fa-gear"
+              icon="error"
               message="Popover with icon"
             >
               <va-button>Hover me</va-button>
@@ -67,7 +67,7 @@
             <va-popover
               placement="right"
               title="Popover title"
-              icon="fa fa-gear"
+              icon="error"
               message="Popover dummy text"
             >
               <va-button>Hover me</va-button>

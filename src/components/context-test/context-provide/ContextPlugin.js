@@ -4,6 +4,10 @@ import upperFirst from 'lodash/upperFirst'
 import Vue from 'vue'
 
 const pascalCase = flow(camelCase, upperFirst)
+/**
+ * name that signifies config should be applied to all components
+ */
+const ALL_COMPONENTS = 'all'
 
 /**
  * Key for communication inject/provide
@@ -82,7 +86,7 @@ export const makeContextablePropsMixin = (componentProps, prefix = 'c_') => {
  * @param defaultValue [any] The default property value.
  * This value takes when each local or global config and component do not contain property.
  * @returns {any} Returns property value.
- *
+ * @deprecated
  */
 export const getContextPropValue = (context, prop, defaultValue) => {
   // We have to pass context here as this method will be mainly used in prop default,
@@ -100,9 +104,18 @@ export const getContextPropValue = (context, prop, defaultValue) => {
   }
 
   const configs = context.$vaContextConfig ? [context.$vaContextConfig, ...context._$configs] : context._$configs
-  const config = getLocalConfigWithComponentProp(configs, componentName, prop)
 
-  return config ? config[componentName][prop] : defaultValue
+  const componentConfig = getLocalConfigWithComponentProp(configs, componentName, prop)
+  if (componentConfig) {
+    return componentConfig[componentName][prop]
+  }
+
+  const allConfig = getLocalConfigWithComponentProp(configs, ALL_COMPONENTS, prop)
+  if (allConfig) {
+    return allConfig[ALL_COMPONENTS][prop]
+  }
+
+  return typeof defaultValue === 'function' ? defaultValue() : defaultValue
 }
 
 // Allows to completely overwrite global context config.
@@ -114,6 +127,21 @@ export function overrideContextConfig (context, options) {
     }
     Vue.set(context.$vaContextConfig, key, options[key])
   }
+}
+
+/**
+ * Get prop value provided in the parent component
+ *
+ * @param key - [string] the prop name.
+ * @param context - [object] this of the vue component.
+ * @returns {any} Returns property value.
+ */
+export function getOriginalPropValue (key, context) {
+  if (!(key in context.$options.propsData)) {
+    return undefined
+  }
+
+  return context.$options.propsData[key]
 }
 
 /**
@@ -132,4 +160,20 @@ function getLocalConfigWithComponentProp (configs, componentName, propName) {
     const componentConfig = config[componentName]
     return componentConfig && componentConfig.hasOwnProperty(propName)
   }) || undefined
+}
+
+// Just 2 levels deep merge. B has priority.
+export function mergeConfigs (configA, configB) {
+  const result = {}
+  // A or A + B
+  for (const key in configA) {
+    result[key] = { ...configA[key], ...configB[key] }
+  }
+  // B
+  for (const key in configB) {
+    if (!result[key]) {
+      result[key] = { ...configB[key] }
+    }
+  }
+  return result
 }

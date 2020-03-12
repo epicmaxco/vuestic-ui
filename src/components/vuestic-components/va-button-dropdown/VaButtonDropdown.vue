@@ -106,11 +106,11 @@ export default {
     },
     icon: {
       type: String,
-      default: 'fa fa-angle-down',
+      default: 'expand_more',
     },
     openedIcon: {
       type: String,
-      default: 'fa fa-angle-up',
+      default: 'expand_less',
     },
     split: {
       type: Boolean,

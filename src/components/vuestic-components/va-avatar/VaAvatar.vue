@@ -59,7 +59,7 @@ export default {
   computed: {
     computedStyle () {
       return {
-        color: this.computeColor(this.c_textColor),
+        color: this.computeInvertedColor(this.c_textColor),
         backgroundColor: this.colorComputed,
         borderRadius: this.c_square ? 0 : '50%',
         fontSize: this.c_fontSize,
