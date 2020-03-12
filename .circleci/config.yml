@@ -25,6 +25,15 @@ defaults: &defaults
 
 version: 2
 jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore_cache
+      - run: *install_dependencies
+      - save_cache: *save_cache
+      - run: yarn test:unit
+
   deploy-demos:
     <<: *defaults
     steps:
@@ -79,11 +88,14 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
+      - test
       - deploy-demos:
           context: vuestic-ui-staging-demo
           filters:
             branches:
               only: develop
+          requires:
+            - test
       - deploy-docs:
           context: vuestic-ui-staging-docs
           filters:
@@ -91,3 +103,4 @@ workflows:
               only: develop
           requires:
             - deploy-demos
+            - test
