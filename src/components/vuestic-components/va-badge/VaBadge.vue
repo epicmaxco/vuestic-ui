@@ -9,7 +9,7 @@
     >
       <div class="va-badge__content">
         <slot name="badge">
-          {{ label }}
+          {{ c_label }}
         </slot>
       </div>
     </div>
@@ -19,125 +19,83 @@
 
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
+const contextConfigMixin = makeContextablePropsMixin({
+  color: {
+    type: String,
+    default: 'danger',
+  },
+  textColor: {
+    type: String,
+    default: 'white',
+  },
+  label: {
+    type: [String, Number],
+    default: '',
+  },
+  overlap: {
+    type: Boolean,
+    default: false,
+  },
+  multiLine: {
+    type: Boolean,
+    default: false,
+  },
+  visibleEmpty: {
+    type: Boolean,
+    default: false,
+  },
+  dot: {
+    type: Boolean,
+    default: false,
+  },
+  transparent: {
+    type: Boolean,
+    default: false,
+  },
+  left: {
+    type: Boolean,
+    default: false,
+  },
+  bottom: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 export default {
   name: 'VaBadge',
-  mixins: [ColorThemeMixin, ContextPluginMixin],
-  props: {
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', 'danger')
-      },
-    },
-    textColor: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'textColor', 'white')
-      },
-    },
-    label: {
-      type: [String, Number],
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-    overlap: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'overlap', false)
-      },
-    },
-    multiLine: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'multiLine', false)
-      },
-    },
-    visibleEmpty: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'visibleEmpty', false)
-      },
-    },
-    dot: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'dot', false)
-      },
-    },
-    transparent: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'transparent', false)
-      },
-    },
-    left: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'left', false)
-      },
-    },
-    bottom: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'bottom', false)
-      },
-    },
-  },
+  mixins: [ColorThemeMixin, contextConfigMixin],
   computed: {
     isEmpty () {
-      if (this.label || this.visibleEmpty || this.dot || this.$slots.badge) {
+      if (this.c_label || this.c_visibleEmpty || this.c_dot || this.$slots.badge) {
         return false
       }
 
       return true
     },
     isFloating () {
-      return this.$slots.default || this.dot
+      return this.$slots.default || this.c_dot
     },
     badgeClass () {
       return {
-        'va-badge--visible-empty': this.visibleEmpty,
+        'va-badge--visible-empty': this.c_visibleEmpty,
         'va-badge--empty': this.isEmpty,
-        'va-badge--dot': this.dot,
-        'va-badge--multiLine': this.multiLine,
+        'va-badge--dot': this.c_dot,
+        'va-badge--multiLine': this.c_multiLine,
         'va-badge--floating': this.isFloating,
-        'va-badge--left': this.left,
-        'va-badge--bottom': this.bottom,
-        'va-badge--overlap': this.overlap,
+        'va-badge--left': this.c_left,
+        'va-badge--bottom': this.c_bottom,
+        'va-badge--overlap': this.c_overlap,
       }
     },
     badgeStyle () {
-      const styles = {
-        color: 'white',
-        backgroundColor: 'black',
-        borderColor: 'black',
-        opacity: 1,
-      }
-
-      if (this._isEnableColorTheme) {
-        styles.borderColor = this.colorComputed
-        styles.backgroundColor = this.colorComputed
-
-        if (this.$themes && this.$themes[this.textColor]) {
-          styles.color = this.$themes[this.textColor]
-        } else {
-          styles.color = this.textColor
-        }
-
-        if (this.transparent) {
-          styles.opacity = 0.5
-        }
-
-        return styles
-      }
-
       return {
-        color: 'white',
-        backgroundColor: 'black',
-        borderColor: 'black',
+        color: this.computeInvertedColor(this.c_textColor),
+        borderColor: this.colorComputed,
+        backgroundColor: this.colorComputed,
+        opacity: this.c_transparent ? 0.5 : 1,
       }
     },
   },

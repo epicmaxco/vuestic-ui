@@ -12,7 +12,6 @@ export const KeyboardOnlyFocusMixin = {
   },
   methods: {
     KeyboardOnlyFocusMixin_onFocus (e, index) {
-      console.log('this.hasMouseDown', this.hasMouseDown)
       // TODO Index is 100% hack. Please Kill Destroy.
       if (!this.hasMouseDown) {
         this.isKeyboardFocused = index || true

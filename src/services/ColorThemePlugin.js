@@ -26,6 +26,26 @@ export const ColorThemePlugin = {
   },
 }
 
+// https://stackoverflow.com/a/56266358/5783475
+// probably won't work with SSR
+const isCssColor = strColor => {
+  const s = new Option().style
+  s.color = strColor
+  return s.color !== ''
+}
+
+const getColor = ($vm, prop, defaultColor) => {
+  if (isCssColor(prop)) {
+    return prop
+  }
+
+  if ($vm.$themes && $vm.$themes[prop]) {
+    return $vm.$themes[prop]
+  }
+
+  return defaultColor
+}
+
 const contextConfigMixin = makeContextablePropsMixin({
   color: {
     type: String,
@@ -36,43 +56,21 @@ export const ColorThemeMixin = {
   mixins: [contextConfigMixin],
   data () {
     return {
-      colorThemeDefault: 'primary',
-      colorDefault: '#000000',
+      defaultColor: '#000',
+      defaultInvertedColor: '#fff',
     }
   },
   computed: {
-    _isEnableColorTheme () {
-      return Boolean(this.$themes)
-    },
-    // This allows a multitude of defaults.
-    // theme color => color => theme default => hard default
     colorComputed () {
       return this.computeColor(this.c_color)
     },
   },
   methods: {
     computeColor (prop) {
-      if (this._isEnableColorTheme) {
-        // Use color from global theme config.
-        if (this.$themes && this.$themes[prop]) {
-          return this.$themes[prop]
-        }
-      }
-
-      if (prop) {
-        // Assume prop is already proper color.
-        return prop
-      }
-
-      if (this._isEnableColorTheme) {
-        // Use theme default
-        if (this.$themes && this.$themes[this.colorThemeDefault]) {
-          return this.$themes[this.colorThemeDefault]
-        }
-      }
-
-      // For case when theme is not present and prop is empty.
-      return this.colorDefault
+      return getColor(this, prop, this.defaultColor)
+    },
+    computeInvertedColor (prop) {
+      return getColor(this, prop, this.defaultInvertedColor)
     },
   },
 }
