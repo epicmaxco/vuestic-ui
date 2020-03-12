@@ -5,7 +5,7 @@
     :class="cardClasses"
     :style="cardStyles"
     :href="c_href"
-    :target="target"
+    :target="c_target"
     :to="to"
     :replace="replace"
     :exact="exact"
@@ -29,46 +29,16 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
 const contextConfigMixin = makeContextablePropsMixin({
-  tag: {
-    type: String,
-    default: 'div',
-  },
-  square: {
-    type: Boolean,
-    default: false,
-  },
-  outlined: {
-    type: Boolean,
-    default: false,
-  },
-  bordered: {
-    type: Boolean,
-    default: true,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  href: {
-    type: String,
-    default: null,
-  },
-  target: {
-    type: String,
-    default: null,
-  },
-  stripe: {
-    type: Boolean,
-    default: false,
-  },
-  stripeColor: {
-    type: String,
-    default: '',
-  },
-  colorGradient: {
-    type: Boolean,
-    default: false,
-  },
+  tag: { type: String, default: 'div' },
+  square: { type: Boolean, default: false },
+  outlined: { type: Boolean, default: false },
+  bordered: { type: Boolean, default: true },
+  disabled: { type: Boolean, default: false },
+  href: { type: String, default: null },
+  target: { type: String, default: null },
+  stripe: { type: Boolean, default: false },
+  stripeColor: { type: String, default: '' },
+  gradient: { type: Boolean, default: false },
 })
 
 export default {
@@ -88,7 +58,7 @@ export default {
     },
     cardClasses () {
       return {
-        ...this.themeClassComputed,
+        'va-card--dark': this.dark,
         'va-card--square': this.c_square,
         'va-card--outlined': this.c_outlined,
         'va-card--no-border': !this.c_bordered,
@@ -97,14 +67,16 @@ export default {
       }
     },
     cardStyles () {
-      if (this.c_colorGradient && this.c_color) {
+      const color = this.dark ? this.computeColor(this.c_color) : this.computeInvertedColor(this.c_color)
+
+      if (this.c_gradient && this.c_color) {
         return {
-          'background': getGradientBackground(this.colorComputed),
+          'background': getGradientBackground(color),
         }
       }
 
       return {
-        'background-color': this.colorComputed,
+        'background-color': color,
       }
     },
     stripeStyles () {
@@ -120,21 +92,18 @@ export default {
 @import '../../vuestic-sass/resources/resources';
 
 .va-card {
-  &.light {
-    color: $dark-default-color;
-    background-color: $light-default-color;
-  }
-
-  &.dark {
-    color: $light-default-color;
-    background-color: $dark-default-color;
-  }
-
   display: block;
   position: relative;
   overflow: hidden;
   box-shadow: $card-box-shadow;
   border-radius: $card-border-radius;
+  color: $dark-default-color;
+  background-color: $light-default-color;
+
+  &--dark {
+    color: $light-default-color;
+    background-color: $dark-default-color;
+  }
 
   &--square {
     border-radius: 0;
@@ -168,8 +137,8 @@ export default {
     left: 0;
   }
 
-  /deep/#{&}__title,
-  /deep/#{&}__content {
+  /deep/ #{&}__title,
+  /deep/ #{&}__content {
     padding: $card-padding;
 
     + .va-card__title,
@@ -178,7 +147,7 @@ export default {
     }
   }
 
-  /deep/#{&}__title {
+  /deep/ #{&}__title {
     display: flex;
     align-items: center;
 

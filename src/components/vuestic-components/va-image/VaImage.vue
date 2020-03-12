@@ -61,7 +61,7 @@ export default {
     this.destroyLoader()
   },
   watch: {
-    c_src: {
+    src: {
       handler () {
         this.createLoader()
       },
@@ -71,7 +71,7 @@ export default {
   computed: {
     imageStyles () {
       return {
-        'background-image': `url(${this.c_src})`,
+        'background-image': `url(${this.src})`,
         'background-size': this.contain ? 'contain' : 'cover',
       }
     },
@@ -89,7 +89,7 @@ export default {
       this.image = new Image()
       this.image.onload = this.handleLoad
       this.image.onerror = this.handleError
-      this.image.src = this.c_src
+      this.image.src = this.src
     },
     destroyLoader () {
       if (this.image) {
@@ -101,7 +101,7 @@ export default {
     handleLoad () {
       this.destroyLoader()
       this.loading = false
-      this.$emit('loaded', this.c_src)
+      this.$emit('loaded', this.src)
     },
     handleError (err) {
       this.destroyLoader()
@@ -137,9 +137,7 @@ export default {
   &__loader,
   &__error,
   &__overlay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center();
   }
 }
 </style>

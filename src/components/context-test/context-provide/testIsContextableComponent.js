@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import VaContext from './VaContext'
 
 // Check passed props are contextable.
-// componentProps is used to pass down required values.
+// componentProps could be used to pass down required props.
 export function testIsContextableComponent (componentOptions, contextProps, componentProps) {
   const wrapperComponentOptions = {
     render (createElement) {

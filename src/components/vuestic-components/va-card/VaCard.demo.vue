@@ -1,76 +1,77 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <va-card class="card">
-        <va-card-title>Default card title</va-card-title>
-        <va-card-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi massa, ultrices gravida blandit at, posuere ut nisi. Praesent auctor eros sit amet lobortis bibendum.</va-card-content>
+      <va-card style="width: 400px;">
+        <va-card-title>Title</va-card-title>
+        <va-card-content></va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="Dark">
       <va-card
-        class="card"
+        style="width: 400px;"
         dark
       >
-        <va-card-title>Default card title</va-card-title>
-        <va-card-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi massa, ultrices gravida blandit at, posuere ut nisi. Praesent auctor eros sit amet lobortis bibendum.</va-card-content>
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="Square">
       <va-card
-        class="card"
+        style="width: 400px;"
         square
       >
-        <va-card-title>Default card title</va-card-title>
-        <va-card-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi massa, ultrices gravida blandit at, posuere ut nisi. Praesent auctor eros sit amet lobortis bibendum.</va-card-content>
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="Outlined">
       <va-card
-        class="card"
+        style="width: 400px;"
         outlined
       >
-        <va-card-title>Default card title</va-card-title>
-        <va-card-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi massa, ultrices gravida blandit at, posuere ut nisi. Praesent auctor eros sit amet lobortis bibendum.</va-card-content>
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
       </va-card>
     </VbCard>
-    <VbCard title="W/o border and shadow">
+    <VbCard title="No border and shadow">
+      <span title="This solution looks kinda weird. Probably bordered: false should be enough.">❗❗</span>
       <va-card
-        class="card"
+        style="width: 400px;"
         outlined
         :bordered="false"
       >
-        <va-card-title>Default card title</va-card-title>
-        <va-card-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi massa, ultrices gravida blandit at, posuere ut nisi. Praesent auctor eros sit amet lobortis bibendum.</va-card-content>
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="Disabled">
       <va-card
-        class="card"
+        style="width: 400px;"
         disabled
       >
-        <va-card-title>Default card title</va-card-title>
-        <va-card-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi massa, ultrices gravida blandit at, posuere ut nisi. Praesent auctor eros sit amet lobortis bibendum.</va-card-content>
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="Custom tag">
       <va-card
-        class="card"
+        style="width: 400px;"
         tag="span"
       >
-        <va-card-title>Default card title</va-card-title>
-        <va-card-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi massa, ultrices gravida blandit at, posuere ut nisi. Praesent auctor eros sit amet lobortis bibendum.</va-card-content>
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{lorem}}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="href, target, router-link">
       <va-card
-        class="card"
+        style="width: 400px;"
         href="https://duckduckgo.com/"
         target="_blank"
       >
         <va-card-content>https://duckduckgo.com/</va-card-content>
       </va-card>
       <va-card
-        class="card mt-1"
+        style="width: 400px; margin-top: 1rem;"
         :to="{path: '/'}"
       >
         <va-card-content>/</va-card-content>
@@ -78,7 +79,7 @@
     </VbCard>
     <VbCard title="@click">
       <va-card
-        class="card"
+        style="width: 400px;"
         @click="clicked += 1"
       >
         <va-card-content>Clicked: {{ clicked }}</va-card-content>
@@ -87,14 +88,14 @@
     <VbCard title="colors">
       <div>
         <va-card
-          class="card"
+          style="width: 400px;"
           color="#ff0000"
         >
           <va-card-title>Title</va-card-title>
           <va-card-content>color="#ff0000"</va-card-content>
         </va-card>
         <va-card
-          class="card mt-1"
+          style="width: 400px; margin-top: 1rem;"
           color="#ff0000"
           dark
         >
@@ -102,14 +103,14 @@
           <va-card-content>color="#ff0000" dark</va-card-content>
         </va-card>
         <va-card
-          class="card mt-1"
+          style="width: 400px; margin-top: 1rem;"
           color="primary"
         >
           <va-card-title>Title</va-card-title>
           <va-card-content>:color="primary"</va-card-content>
         </va-card>
         <va-card
-          class="card mt-1"
+          style="width: 400px; margin-top: 1rem;"
           color="primary"
           dark
         >
@@ -121,35 +122,35 @@
     <VbCard title="gradient colors">
       <div>
         <va-card
-          class="card"
+          style="width: 400px;"
           color="#ff0000"
-          color-gradient
+          gradient
         >
           <va-card-title>Title</va-card-title>
           <va-card-content>color="#ff0000"</va-card-content>
         </va-card>
         <va-card
-          class="card mt-1"
+          style="width: 400px; margin-top: 1rem;"
           color="#ff0000"
           dark
-          color-gradient
+          gradient
         >
           <va-card-title>Title</va-card-title>
           <va-card-content>color="#ff0000" dark</va-card-content>
         </va-card>
         <va-card
-          class="card mt-1"
+          style="width: 400px; margin-top: 1rem;"
           color="primary"
-          color-gradient
+          gradient
         >
           <va-card-title>Title</va-card-title>
           <va-card-content>:color="primary"</va-card-content>
         </va-card>
         <va-card
-          class="card mt-1"
+          style="width: 400px; margin-top: 1rem;"
           color="primary"
           dark
-          color-gradient
+          gradient
         >
           <va-card-title>Title</va-card-title>
           <va-card-content>:color="primary" dark</va-card-content>
@@ -159,7 +160,7 @@
     <VbCard title="stripe">
       <div>
         <va-card
-          class="card"
+          style="width: 400px;"
           stripe
           stripe-color="#ff0000"
         >
@@ -167,7 +168,7 @@
           <va-card-content>stripe stripeColor="#ff0000"</va-card-content>
         </va-card>
         <va-card
-          class="card mt-1"
+          style="width: 400px; margin-top: 1rem;"
           stripe
           stripe-color="primary"
         >
@@ -177,14 +178,15 @@
       </div>
     </VbCard>
     <VbCard title="From zeplin">
-      <div class="flex">
+      <span title="Shouldn't be in demo. But should be fine to keep it in docs.">❗❗</span>
+      <div style="display: flex;">
         <div>
           <va-context
             :config="{VaCard: {stripe: true, stripeColor: 'primary'}, VaCardTitle: {textColor: 'info'}}"
           >
-            <va-card class="card">
+            <va-card style="width: 400px;">
               <va-card-title>Striped card</va-card-title>
-              <va-card-content>Some of the classify their behavior as “cyber affair” More then 60% of employees use company PC for the personal needs during their work hours as long as 80 minutes per day.</va-card-content>
+              <va-card-content>{{lorem}}</va-card-content>
               <va-card-content>
                 <a href>Read full article</a>
               </va-card-content>
@@ -192,13 +194,13 @@
           </va-context>
         </div>
         <va-context :config="{VaCardTitle: {textColor: 'info'}}">
-          <va-card class="card ml-1">
+          <va-card style="width: 400px; margin-left: 1rem;">
             <va-image
               src="https://picsum.photos/400/200"
               style="height: 200px;"
             />
             <va-card-title>Card w image</va-card-title>
-            <va-card-content>Company PC for the personal needs during their work hours.</va-card-content>
+            <va-card-content>{{lorem}}</va-card-content>
             <va-card-content>
               <va-button>Upload file</va-button>
             </va-card-content>
@@ -228,26 +230,9 @@ export default {
   },
   data () {
     return {
+      lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi massa, ultrices gravida blandit at, posuere ut nisi. Praesent auctor eros sit amet lobortis bibendum.',
       clicked: 0,
     }
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.flex {
-  display: flex;
-}
-
-.card {
-  width: 400px;
-}
-
-.mt-1 {
-  margin-top: 1rem;
-}
-
-.ml-1 {
-  margin-left: 1rem;
-}
-</style>

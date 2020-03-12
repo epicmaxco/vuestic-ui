@@ -63,16 +63,10 @@ export const ColorThemeMixin = {
     colorComputed () {
       return this.computeColor(this.c_color)
     },
-    themeClassComputed () {
-      return {
-        'light': !this.c_dark,
-        'dark': this.c_dark,
-      }
-    },
   },
   methods: {
     computeColor (prop) {
-      return getColor(this, prop, this.defaultColor)
+      return getColor(this, prop, null)
     },
     computeInvertedColor (prop) {
       return getColor(this, prop, this.defaultInvertedColor)
