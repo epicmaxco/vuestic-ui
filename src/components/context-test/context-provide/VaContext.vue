@@ -2,7 +2,7 @@
 import { ContextProviderKey, mergeConfigs } from './ContextPlugin'
 
 // This component just attaches local config to injected config chain,
-// then passes it down via provide.
+// then passes it down via provide in as a fresh object reference.
 export default {
   name: 'VaContext',
   inject: {
@@ -12,7 +12,7 @@ export default {
     },
   },
   props: {
-    config: { type: Object },
+    config: { type: Object, default: () => ({}) },
   },
   provide () {
     const newConfig = this._$configs ? [...this._$configs, this.configComputed] : []
@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     configComputed () {
-      return mergeConfigs(this.config || {}, this.perValueConfig)
+      return mergeConfigs(this.config, this.perValueConfig)
     },
     perValueConfig () {
       const perValueConfig = {}

@@ -120,6 +120,7 @@
         :rules="[(v) => !!v || 'required']"
       />
     </VbCard>
+    <VaCheckboxValidation />
     <VbCard title="Array as model">
       {{ selection }}
       <va-checkbox
@@ -148,9 +149,11 @@
 
 <script>
 import VaCheckbox from './VaCheckbox'
+import VaCheckboxValidation from './VaCheckbox-validation'
 
 export default {
   components: {
+    VaCheckboxValidation,
     VaCheckbox,
   },
   data () {

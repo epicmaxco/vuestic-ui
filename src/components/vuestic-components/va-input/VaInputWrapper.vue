@@ -87,7 +87,6 @@ export default {
   align-items: flex-end;
   font-size: 1rem;
   text-align: left;
-  margin-bottom: 1rem;
 
   &__control,
   &__content {

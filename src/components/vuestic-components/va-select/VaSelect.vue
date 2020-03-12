@@ -118,7 +118,7 @@ import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
-import validateMixin from '../../vuestic-mixins/validate'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
 const positions = {
@@ -129,7 +129,7 @@ const positions = {
 export default {
   name: 'VaSelect',
   components: { VaIcon, SpringSpinner, VaDropdown, VaInput, VaInputWrapper },
-  mixins: [ContextPluginMixin, validateMixin],
+  mixins: [ContextPluginMixin, FormComponentMixin],
   data () {
     return {
       search: '',

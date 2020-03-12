@@ -94,7 +94,8 @@ import { getHoverColor } from './../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
-import validateMixin from '../../vuestic-mixins/validate'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import { warn } from '../../../services/utils'
 
 const InputContextMixin = makeContextablePropsMixin({
   color: {
@@ -117,14 +118,6 @@ const InputContextMixin = makeContextablePropsMixin({
     type: String,
     default: 'text',
   },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  readonly: {
-    type: Boolean,
-    default: false,
-  },
   removable: {
     type: Boolean,
     default: false,
@@ -132,16 +125,6 @@ const InputContextMixin = makeContextablePropsMixin({
   tabindex: {
     type: Number,
     default: 0,
-  },
-  success: {
-    type: Boolean,
-    default: false,
-  },
-  messages: {
-    type: Array,
-    default () {
-      return []
-    },
   },
 
   // textarea-specific
@@ -154,7 +137,7 @@ const InputContextMixin = makeContextablePropsMixin({
     default: null,
     validator: (val) => {
       if (!(val > 0 && (val | 0) === val)) {
-        throw new Error(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
+        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
       }
       return true
     },
@@ -163,7 +146,7 @@ const InputContextMixin = makeContextablePropsMixin({
     type: Number,
     validator: (val) => {
       if (!(val > 0 && (val | 0) === val)) {
-        throw new Error(`\`maxRows\` must be a positive integer greater than 0, but ${val} is provided`)
+        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
       }
       return true
     },
@@ -173,13 +156,10 @@ const InputContextMixin = makeContextablePropsMixin({
 
 export default {
   name: 'VaInput',
-  mixins: [ColorThemeMixin, InputContextMixin, validateMixin],
+  mixins: [ColorThemeMixin, InputContextMixin, FormComponentMixin],
   components: { VaInputWrapper, VaIcon },
   mounted () {
     this.adjustHeight()
-  },
-  created () {
-    this.isFormElement = true // TODO: for detected form-element. Need remove to form-elemnt mixin
   },
   watch: {
     value () {
@@ -243,12 +223,7 @@ export default {
           },
           blur: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.isValidatedOnBlur = false
-            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.validate()
-
-            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.isFocused = false
+            this.ValidateMixin_onBlur()
 
             this.$emit('blur', event)
           },
@@ -282,10 +257,11 @@ export default {
       Object.assign(this.$refs.input.style, textareaStyles)
     },
 
-    // public methods
+    /** @public */
     focus () {
       this.$refs.input.focus()
     },
+    /** @public */
     reset () {
       this.$emit('input', '')
     },
