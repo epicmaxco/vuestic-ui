@@ -10,20 +10,7 @@
       </va-form>
     </VbCard>
 
-    <VbCard title="reset">
-      <va-form ref="resetFormRef">
-        <va-input
-          v-model="form.reset"
-          label="input"
-        />
-      </va-form>
-      <button @click="$refs.resetFormRef.reset()">
-        Reset
-      </button>
-      <button @click="form.reset = 'brought back'">
-        Bring back
-      </button>
-    </VbCard>
+    <VaFormReset />
 
     <VbCard title="reset validation">
       <va-form ref="resetValidationForm">
@@ -96,28 +83,29 @@
 
     <VbCard title="nested forms">
       <va-form ref="nestedFormRef">
-        <va-form>
-          Form 1
-          <va-input
-            label="input 1"
-            value="text"
-          />
-          <va-input
-            label="input 2"
-            value="text"
-          />
-        </va-form>
-        Form 2
+        Parent form
         <va-input
-          label="input 3"
+          label="input 2"
+          value="text"
+        />
+        <va-input
+          label="input 1"
           v-model="form.nestedHello"
           :rules="[value => value === 'hello' || 'should be hello']"
         />
-        <va-input
-          label="input 4"
-          v-model="form.nestedWorld"
-          :rules="[value => value === 'world' || 'should be world']"
-        />
+
+        <va-form style="margin: 6px;">
+          Child Form
+          <va-input
+            label="input 3"
+            value="text"
+          />
+          <va-input
+            label="input 4"
+            v-model="form.nestedWorld"
+            :rules="[value => value === 'world' || 'should be world']"
+          />
+        </va-form>
       </va-form>
       <button @click="$refs.nestedFormRef.validate()">
         validate
@@ -135,21 +123,21 @@
 <script>
 import VaForm from './VaForm'
 import VaInput from '../va-input/VaInput'
+import VaFormReset from './VaForm-reset'
 
 export default {
   components: {
+    VaFormReset,
     VaForm,
     VaInput,
   },
   data () {
     return {
       form: {
-        reset: 'should be reset',
         hello: 'text',
         world: 'text',
         nestedHello: 'hell',
         nestedWorld: 'worl',
-        checkbox: false,
         radio: 2,
         inputError: false,
       },

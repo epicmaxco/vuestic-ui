@@ -13,7 +13,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 
 const getNestedFormElements = (vm, elements = []) => {
   vm.$children.forEach((child) => {
-    if (child.isFormElement) {
+    if (child.isFormComponent) {
       elements.push(child)
     }
 
@@ -24,10 +24,6 @@ const getNestedFormElements = (vm, elements = []) => {
 }
 
 const FormContextMixin = makeContextablePropsMixin({
-  startValidatingOnBlur: {
-    type: Boolean,
-    default: false,
-  },
   autofocus: {
     type: Boolean,
     default: false,
@@ -41,15 +37,9 @@ const FormContextMixin = makeContextablePropsMixin({
 export default {
   name: 'VaForm',
   mixins: [FormContextMixin],
-  props: {
-  },
   mounted () {
     if (this.autofocus) {
       this.focus()
-    }
-    if (this.startValidatingOnBlur) {
-      getNestedFormElements(this)
-        .filter(({ setValidateOnBlur }) => setValidateOnBlur && setValidateOnBlur())
     }
   },
   methods: {

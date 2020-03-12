@@ -1,7 +1,13 @@
 <template>
-  <div
+  <va-input-wrapper
     class="va-checkbox"
     :class="computedClass"
+    :disabled="c_disabled"
+    :success="c_success"
+    :messages="c_messages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
+    :error-count="errorCount"
   >
     <div
       class="va-checkbox__input-container"
@@ -9,19 +15,18 @@
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
     >
-      <div
-        class="va-checkbox__square"
-        :class="{'active': isChecked}"
-      >
+      <div class="va-checkbox__square">
         <input
+          ref="input"
           :id="id"
+          :name="name"
           readonly
           @focus="onFocus"
-          @blur="isKeyboardFocused = false"
+          @blur="onBlur"
           class="va-checkbox__input"
           @keypress.prevent="toggleSelection()"
-          :disabled="disabled"
-          :indeterminate="indeterminate"
+          :disabled="c_disabled"
+          :indeterminate="c_indeterminate"
           :style="inputStyle"
         >
         <va-icon
@@ -34,139 +39,72 @@
         :style="labelStyle"
       >
         <slot name="label">
-          {{ label }}
+          {{ c_label }}
         </slot>
       </div>
     </div>
-    <va-message-list
-      class="va-checkbox__error-message-container"
-      :value="errorMessages"
-      color="danger"
-      :limit="errorCount"
-    />
-  </div>
+  </va-input-wrapper>
 </template>
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
-import VaMessageList from '../va-input/VaMessageList'
 import { KeyboardOnlyFocusMixin } from './KeyboardOnlyFocusMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import {
+  ContextPluginMixin,
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import VaInputWrapper from '../va-input/VaInputWrapper'
+
+const ProgressBarContextMixin = makeContextablePropsMixin({
+  label: { type: String, default: '' },
+  value: { type: [Boolean, Array], default: false },
+  arrayValue: { type: String, default: '' },
+  indeterminate: { type: Boolean, default: false },
+  checkedIcon: { type: String, default: 'check' },
+  indeterminateIcon: { type: String, default: 'remove' },
+})
 
 export default {
   name: 'VaCheckbox',
-  components: { VaMessageList, VaIcon },
-  mixins: [KeyboardOnlyFocusMixin, ColorThemeMixin, ContextPluginMixin],
+  components: { VaInputWrapper, VaIcon },
+  mixins: [
+    FormComponentMixin,
+    ProgressBarContextMixin,
+    KeyboardOnlyFocusMixin,
+    ColorThemeMixin,
+    ContextPluginMixin,
+  ],
   props: {
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', '')
-      },
-    },
-    id: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'id', '')
-      },
-    },
-    label: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-    name: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'name', '')
-      },
-    },
-    value: {
-      type: [Boolean, Array],
-      required: true,
-      default () {
-        return getContextPropValue(this, 'value', true)
-      },
-    },
-    arrayValue: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'arrayValue', '')
-      },
-    },
-    indeterminate: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'indeterminate', false)
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    readonly: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'readonly', false)
-      },
-    },
-    checkedIcon: {
-      type: [String, Array],
-      default () {
-        return getContextPropValue(this, 'checkedIcon', 'check')
-      },
-    },
-    indeterminateIcon: {
-      type: [String, Array],
-      default () {
-        return getContextPropValue(this, 'indeterminateIcon', 'close')
-      },
-    },
-    error: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'error', false)
-      },
-    },
-    errorMessages: {
-      type: [String, Array],
-      default () {
-        return getContextPropValue(this, 'errorMessages', '')
-      },
-    },
-    errorCount: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'errorCount', 1)
-      },
-    },
+    id: { type: [String, Number], default: undefined },
+    name: { type: [String, Number], default: undefined },
   },
   computed: {
     computedClass () {
       return {
         'va-checkbox--selected': this.isChecked,
-        'va-checkbox--readonly': this.readonly,
-        'va-checkbox--disabled': this.disabled,
-        'va-checkbox--indeterminate': this.indeterminate,
-        'va-checkbox--error': this.showError,
+        'va-checkbox--readonly': this.c_readonly,
+        'va-checkbox--disabled': this.c_disabled,
+        'va-checkbox--indeterminate': this.c_indeterminate,
+        'va-checkbox--error': this.computedError,
         'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
       }
     },
     labelStyle () {
-      if (this.showError) {
+      if (this.computedError) {
         return { color: this.$themes.danger }
       }
 
       return {}
     },
     inputStyle () {
-      if (this.showError) {
-        if (this.isChecked) return { background: this.$themes.danger }
-        else return { borderColor: this.$themes.danger }
+      if (this.computedError) {
+        if (this.isChecked) {
+          return { background: this.$themes.danger }
+        } else {
+          return { borderColor: this.$themes.danger }
+        }
       } else {
         if (this.isChecked) return { background: this.colorComputed }
       }
@@ -174,42 +112,51 @@ export default {
       return {}
     },
     computedIconName () {
-      return this.indeterminate ? this.indeterminateIcon : this.checkedIcon
+      return this.c_indeterminate ? this.c_indeterminateIcon : this.c_checkedIcon
     },
     isChecked () {
-      return this.modelIsArray ? this.value.includes(this.arrayValue) : this.value
+      return this.modelIsArray ? this.c_value.includes(this.c_arrayValue) : this.c_value
     },
     modelIsArray () {
-      return Array.isArray(this.value)
-    },
-    showError () {
-      // We make error active, if the error-message is not empty and checkbox is not disabled
-      if (!this.disabled && this.errorMessages) {
-        if (!(this.errorMessages.length === 0) || this.error) {
-          return true
-        }
-      }
-      return false
+      return Array.isArray(this.c_value)
     },
   },
   methods: {
+    /** @public */
+    focus () {
+      this.$refs.input.focus()
+    },
+    /** @public */
+    reset () {
+      this.$emit('input', false)
+    },
+    onFocus () {
+      this.KeyboardOnlyFocusMixin_onFocus()
+
+      this.$emit('focus')
+    },
+    onBlur (event) {
+      this.ValidateMixin_onBlur()
+      this.isKeyboardFocused = false
+      this.$emit('blur', event)
+    },
     toggleSelection () {
-      if (this.readonly) {
+      if (this.c_readonly) {
         return
       }
-      if (this.disabled) {
+      if (this.c_disabled) {
         return
       }
       if (this.modelIsArray) {
-        if (this.value.includes(this.arrayValue)) {
-          this.$emit('input', this.value.filter(option => option !== this.arrayValue))
+        if (this.c_value.includes(this.c_arrayValue)) {
+          this.$emit('input', this.c_value.filter(option => option !== this.c_arrayValue))
         } else {
-          this.$emit('input', this.value.concat(this.arrayValue))
+          this.$emit('input', this.value.concat(this.c_arrayValue))
         }
         return
       }
 
-      this.$emit('input', !this.value)
+      this.$emit('input', !this.c_value)
     },
   },
 }

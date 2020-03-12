@@ -1,6 +1,7 @@
+import Vue from 'vue'
 import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
 
-const getDefaultOptions = () => ({
+const defaultOptions = Vue.observable({
   themes: {
     primary: '#23e066',
     secondary: '#002c85',
@@ -13,15 +14,15 @@ const getDefaultOptions = () => ({
   },
 })
 
-export const ColorThemePlugin = {
-  install (Vue, options = {}) {
-    const defaultOptions = getDefaultOptions()
+export const getDefaultOptions = () => defaultOptions
 
-    if (options.themes) {
-      Object.assign(defaultOptions.themes, options.themes)
+export const ColorThemePlugin = {
+  install (Vue, options) {
+    if (options && options.themes) {
+      defaultOptions.themes = { ...defaultOptions.themes, ...options.themes }
     }
 
-    Vue.prototype.$themes = Vue.observable(defaultOptions.themes)
+    Vue.prototype.$themes = defaultOptions.themes
   },
 }
 
