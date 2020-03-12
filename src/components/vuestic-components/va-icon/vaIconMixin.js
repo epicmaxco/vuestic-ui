@@ -74,7 +74,7 @@ export default {
         return null
       }
 
-      if (!(this.name in this.c_iconsConfig.icons)) {
+      if (this.c_iconsConfig.icons && !(this.name in this.c_iconsConfig.icons)) {
         throw new Error(`Icon config for icon '${this.name}' not found`)
       }
 

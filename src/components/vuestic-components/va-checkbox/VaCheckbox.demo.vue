@@ -72,6 +72,7 @@
     <VbCard title="String error message">
       <va-checkbox
         v-model="value"
+        error
         label="Error messages"
         :error-messages="stringErrorMessage"
       />
@@ -79,6 +80,7 @@
     <VbCard title="Array error messages">
       <va-checkbox
         v-model="value"
+        error
         :error-messages="errorMessages"
         label="Multiple error messages"
       />
@@ -87,6 +89,7 @@
       <va-checkbox
         style="width: 200px;"
         v-model="value"
+        error
         :error-messages="errorMessages"
         :error-count="3"
         label="Label"
@@ -111,6 +114,13 @@
     <VbCard title="Accepts name">
       <va-checkbox name="checkbox-name" />
     </VbCard>
+    <VbCard title="With validation (required rule)">
+      <va-checkbox
+        v-model="value"
+        :rules="[(v) => !!v || 'required']"
+      />
+    </VbCard>
+    <VaCheckboxValidation />
     <VbCard title="Array as model">
       {{ selection }}
       <va-checkbox
@@ -139,9 +149,11 @@
 
 <script>
 import VaCheckbox from './VaCheckbox'
+import VaCheckboxValidation from './VaCheckbox-validation'
 
 export default {
   components: {
+    VaCheckboxValidation,
     VaCheckbox,
   },
   data () {

@@ -129,6 +129,7 @@
         :error-messages="['one', 'two']"
       />
     </VbCard>
+    <VaInputValidation />
     <VbCard title="Textarea">
       <va-input
         v-model="text"
@@ -147,20 +148,20 @@
     </VbCard>
     <VbCard title="Textarea autosize">
       <va-input
-        v-model="text"
+        v-model="autosizeValue"
         label="Name"
         type="textarea"
         autosize
       />
     </VbCard>
-    <VbCard title="Textarea autosize limits">
+    <VbCard title="Textarea autosize limits (2-4)">
       <va-input
-        v-model="text"
+        v-model="autosizeValueWithLimits"
         label="Name"
         type="textarea"
         autosize
-        :min-rows="3"
-        :max-rows="8"
+        :min-rows="2"
+        :max-rows="4"
       />
     </VbCard>
   </VbDemo>
@@ -170,9 +171,11 @@
 import VaInput from './VaInput'
 import VaButton from './../va-button/VaButton'
 import VaIcon from './../va-icon/VaIcon'
+import VaInputValidation from './VaInput-validation'
 
 export default {
   components: {
+    VaInputValidation,
     VaInput,
     VaButton,
     VaIcon,
@@ -185,6 +188,9 @@ export default {
       messages: ['Required field'],
       errorMessages: ['Detailed error message'],
       successMessages: ['Success message'],
+
+      autosizeValue: 'one\ntwo\nthree',
+      autosizeValueWithLimits: 'one\ntwo\nthree',
     }
   },
 }

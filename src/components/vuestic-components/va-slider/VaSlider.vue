@@ -63,7 +63,7 @@
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
           @touchstart="moveStart($event, 0)"
-          @focus="onFocus($event, 1), currentSlider = 0"
+          @focus="KeyboardOnlyFocusMixin_onFocus($event, 1), currentSlider = 0"
           @blur="isKeyboardFocused = false"
           :tabindex="(!disabled && !readonly) && 0"
         >
@@ -87,7 +87,7 @@
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
           @touchstart="moveStart($event, 1)"
-          @focus="onFocus($event, 2), currentSlider = 1"
+          @focus="KeyboardOnlyFocusMixin_onFocus($event, 2), currentSlider = 1"
           @blur="isKeyboardFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
@@ -455,6 +455,9 @@ export default {
     },
   },
   methods: {
+    onFocus () {
+      this.KeyboardOnlyFocusMixin_onFocus()
+    },
     bindEvents () {
       document.addEventListener('mousemove', this.moving)
       document.addEventListener('touchmove', this.moving)

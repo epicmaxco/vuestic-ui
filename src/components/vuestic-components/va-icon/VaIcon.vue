@@ -17,14 +17,15 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
 import vaIconMixin from './vaIconMixin'
+import { warn } from '../../../services/utils'
 
 const IconContextMixin = makeContextablePropsMixin({
   name: {
     type: [String, Array],
     validator: name => {
       if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-        console.warn(`${name} icon is not available.`)
-        return false
+        // eslint-disable-next-line  no-console
+        return warn(`${name} icon is not available.`)
       }
       return true
     },

@@ -1,7 +1,13 @@
 <template>
-  <div
+  <va-input-wrapper
     class="va-checkbox"
     :class="computedClass"
+    :disabled="c_disabled"
+    :success="c_success"
+    :messages="c_messages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
+    :error-count="errorCount"
   >
     <div
       class="va-checkbox__input-container"
@@ -9,16 +15,14 @@
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
     >
-      <div
-        class="va-checkbox__square"
-        :class="{'active': isChecked}"
-      >
+      <div class="va-checkbox__square">
         <input
+          ref="input"
           :id="id"
           :name="name"
           readonly
           @focus="onFocus"
-          @blur="isKeyboardFocused = false"
+          @blur="onBlur"
           class="va-checkbox__input"
           @keypress.prevent="toggleSelection()"
           :disabled="c_disabled"
@@ -39,48 +43,42 @@
         </slot>
       </div>
     </div>
-    <va-message-list
-      class="va-checkbox__error-message-container"
-      :value="c_errorMessages"
-      color="danger"
-      :limit="c_errorCount"
-    />
-  </div>
+  </va-input-wrapper>
 </template>
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
-import VaMessageList from '../va-input/VaMessageList'
 import { KeyboardOnlyFocusMixin } from './KeyboardOnlyFocusMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import {
+  ContextPluginMixin,
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import VaInputWrapper from '../va-input/VaInputWrapper'
 
 const ProgressBarContextMixin = makeContextablePropsMixin({
   label: { type: String, default: '' },
   value: { type: [Boolean, Array], default: false },
   arrayValue: { type: String, default: '' },
   indeterminate: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
   checkedIcon: { type: String, default: 'check' },
-  indeterminateIcon: { type: String, default: 'close' },
-  error: { type: Boolean, default: false },
-  errorMessages: { type: [String, Array], default: '' },
-  errorCount: { type: Number, default: 1 },
+  indeterminateIcon: { type: String, default: 'remove' },
 })
 
 export default {
   name: 'VaCheckbox',
-  components: { VaMessageList, VaIcon },
+  components: { VaInputWrapper, VaIcon },
   mixins: [
+    FormComponentMixin,
     ProgressBarContextMixin,
     KeyboardOnlyFocusMixin,
     ColorThemeMixin,
     ContextPluginMixin,
   ],
   props: {
-    id: { type: [String, Number] },
-    name: { type: [String, Number] },
+    id: { type: [String, Number], default: undefined },
+    name: { type: [String, Number], default: undefined },
   },
   computed: {
     computedClass () {
@@ -89,19 +87,19 @@ export default {
         'va-checkbox--readonly': this.c_readonly,
         'va-checkbox--disabled': this.c_disabled,
         'va-checkbox--indeterminate': this.c_indeterminate,
-        'va-checkbox--error': this.showError,
+        'va-checkbox--error': this.computedError,
         'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
       }
     },
     labelStyle () {
-      if (this.showError) {
+      if (this.computedError) {
         return { color: this.$themes.danger }
       }
 
       return {}
     },
     inputStyle () {
-      if (this.showError) {
+      if (this.computedError) {
         if (this.isChecked) {
           return { background: this.$themes.danger }
         } else {
@@ -122,17 +120,26 @@ export default {
     modelIsArray () {
       return Array.isArray(this.c_value)
     },
-    showError () {
-      // We make error active, if the error-message is not empty and checkbox is not disabled
-      if (!this.c_disabled && this.c_errorMessages) {
-        if (!(this.c_errorMessages.length === 0) || this.c_error) {
-          return true
-        }
-      }
-      return false
-    },
   },
   methods: {
+    /** @public */
+    focus () {
+      this.$refs.input.focus()
+    },
+    /** @public */
+    reset () {
+      this.$emit('input', false)
+    },
+    onFocus () {
+      this.KeyboardOnlyFocusMixin_onFocus()
+
+      this.$emit('focus')
+    },
+    onBlur (event) {
+      this.ValidateMixin_onBlur()
+      this.isKeyboardFocused = false
+      this.$emit('blur', event)
+    },
     toggleSelection () {
       if (this.c_readonly) {
         return

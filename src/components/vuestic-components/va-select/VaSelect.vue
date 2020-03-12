@@ -1,109 +1,114 @@
 <template>
-  <va-dropdown
-    :position="position"
-    :disabled="disabled"
-    class="va-select__dropdown"
-    :max-height="maxHeight"
-    keep-anchor-width
-    ref="dropdown"
-    :fixed="fixed"
-    :style="{width}"
-    :close-on-anchor-click="false"
-    boundary-body
+  <va-input-wrapper
+    :error="computedError"
+    :error-messages="computedErrorMessages"
   >
-    <va-input
-      v-if="searchable"
-      :placeholder="placeholder"
-      v-model="search"
-      class="va-select__input"
-      ref="search"
-      removable
-    />
-    <ul
-      class="va-select__option-list"
-      :style="optionsListStyle"
+    <va-dropdown
+      :position="position"
+      :disabled="disabled"
+      class="va-select__dropdown"
+      :max-height="maxHeight"
+      keep-anchor-width
+      ref="dropdown"
+      :fixed="fixed"
+      :style="{width}"
+      :close-on-anchor-click="false"
+      boundary-body
     >
-      <li
-        v-for="option in filteredOptions"
-        :key="getKey(option)"
-        :class="getOptionClass(option)"
-        :style="getOptionStyle(option)"
-        @click.stop="selectOption(option)"
-        @mouseleave="updateHoveredOption(null)"
-        @mouseover="updateHoveredOption(option)"
+      <va-input
+        v-if="searchable"
+        :placeholder="placeholder"
+        v-model="search"
+        class="va-select__input"
+        ref="search"
+        removable
+      />
+      <ul
+        class="va-select__option-list"
+        :style="optionsListStyle"
       >
-        <va-icon
-          v-show="option.icon"
-          :name="option.icon"
-          class="va-select__option__icon"
-        />
-        <span>{{ getText(option) }}</span>
-        <va-icon
-          v-show="isSelected(option)"
-          class="va-select__option__selected-icon"
-          name="done"
-        />
-      </li>
-    </ul>
-    <div
-      class="va-select__option-list no-options"
-      :style="optionsListStyle"
-      v-if="!filteredOptions.length"
-    >
-      {{ noOptionsText }}
-    </div>
-
-    <div
-      slot="anchor"
-      :class="selectClass"
-      :style="selectStyle"
-    >
-      <label
-        class="va-select__label"
-        :style="labelStyle"
-        aria-hidden="true"
-      >{{ label }}</label>
+        <li
+          v-for="option in filteredOptions"
+          :key="getKey(option)"
+          :class="getOptionClass(option)"
+          :style="getOptionStyle(option)"
+          @click.stop="selectOption(option)"
+          @mouseleave="updateHoveredOption(null)"
+          @mouseover="updateHoveredOption(option)"
+        >
+          <va-icon
+            v-if="option.icon"
+            :name="option.icon"
+            class="va-select__option__icon"
+          />
+          <span>{{ getText(option) }}</span>
+          <va-icon
+            v-show="isSelected(option)"
+            class="va-select__option__selected-icon"
+            name="done"
+          />
+        </li>
+      </ul>
       <div
-        class="va-select__input-wrapper"
-        :style="inputWrapperStyles"
+        class="va-select__option-list no-options"
+        :style="optionsListStyle"
+        v-if="!filteredOptions.length"
       >
-        <span
-          class="va-select__tags"
-          v-if="multiple && valueProxy.length <= tagMax"
+        {{ noOptionsText }}
+      </div>
+
+      <div
+        slot="anchor"
+        :class="selectClass"
+        :style="selectStyle"
+      >
+        <label
+          class="va-select__label"
+          :style="labelStyle"
+          aria-hidden="true"
+        >{{ label }}</label>
+        <div
+          class="va-select__input-wrapper"
+          :style="inputWrapperStyles"
         >
           <span
-            class="va-select__tags__tag"
+            class="va-select__tags"
+            v-if="multiple && valueProxy.length <= tagMax"
           >
-            {{ [...this.valueProxy.map(val => getText(val))].join(", ") }}
+            <span
+              class="va-select__tags__tag"
+            >
+              {{ [...this.valueProxy.map(val => getText(val))].join(", ") }}
+            </span>
           </span>
-        </span>
-        <span
-          v-else-if="displayedText"
-          class="va-select__displayed-text"
-        >{{ displayedText }}</span>
-        <span
-          v-else
-          class="va-select__placeholder"
-        >{{ placeholder }}</span>
+          <span
+            v-else-if="displayedText"
+            class="va-select__displayed-text"
+          >{{ displayedText }}</span>
+          <span
+            v-else
+            class="va-select__placeholder"
+          >{{ placeholder }}</span>
+        </div>
+        <va-icon
+          v-if="showClearIcon"
+          class="va-select__clear-icon"
+          name="cancel"
+          @click.native.stop="clear()"
+        />
+        <spring-spinner
+          :color="$themes.success"
+          v-if="loading"
+          :size="24"
+          class="va-select__loading"
+        />
+        <va-icon
+          class="va-select__open-icon"
+          :name="visible ? 'arrow_back_ios' : 'arrow_forward_ios'"
+        />
       </div>
-      <va-icon
-        v-if="showClearIcon"
-        class="va-select__clear-icon"
-        name="cancel"
-        @click.native.stop="clear()"
-      />
-      <spring-spinner
-        :color="$themes.success"
-        v-if="loading"
-        :size="24"
-        class="va-select__loading"
-      />
-      <va-icon
-        class="va-select__open-icon"
-        :name="visible ? 'arrow_back_ios' : 'arrow_forward_ios'"
-      />
-    </div>
-  </va-dropdown>
+    </va-dropdown>
+  </va-input-wrapper>
 </template>
 
 <script>
@@ -113,6 +118,8 @@ import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import VaInputWrapper from '../va-input/VaInputWrapper'
 
 const positions = {
   'top': 'T',
@@ -121,8 +128,8 @@ const positions = {
 
 export default {
   name: 'VaSelect',
-  components: { VaIcon, SpringSpinner, VaDropdown, VaInput },
-  mixins: [ContextPluginMixin],
+  components: { VaIcon, SpringSpinner, VaDropdown, VaInput, VaInputWrapper },
+  mixins: [ContextPluginMixin, FormComponentMixin],
   data () {
     return {
       search: '',
@@ -246,12 +253,6 @@ export default {
         return getContextPropValue(this, 'noClear', false)
       },
     },
-    error: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'error', false)
-      },
-    },
     success: {
       type: Boolean,
       default () {
@@ -288,10 +289,10 @@ export default {
     selectStyle () {
       return {
         backgroundColor:
-          this.error ? getHoverColor(this.$themes['danger'])
+          this.computedError ? getHoverColor(this.$themes['danger'])
             : this.success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
         borderColor:
-          this.error ? this.$themes.danger
+          this.computedError ? this.$themes.danger
             : this.success ? this.$themes.success
               : this.$themes.gray,
       }
@@ -300,7 +301,7 @@ export default {
       return { maxHeight: this.maxHeight }
     },
     labelStyle () {
-      return { color: this.error ? this.$themes.danger
+      return { color: this.computedError ? this.$themes.danger
         : this.success ? this.$themes.success
           : this.$themes.primary,
       }
@@ -388,10 +389,16 @@ export default {
       if (one === two) {
         return true
       }
+      // i'm not sure why we need this
       if (typeof this.value === 'string') {
         return false
       }
-      return one[this.keyBy] === two[this.keyBy]
+      if (typeof one === 'string' && typeof two === 'string') {
+        return one === two
+      }
+      if (typeof one === 'object' && typeof two === 'object') {
+        return one[this.keyBy] === two[this.keyBy]
+      }
     },
     isSelected (option) {
       if (!this.valueProxy) {
