@@ -3,7 +3,7 @@
     <VbCard title="Default">
       <va-card style="width: 400px;">
         <va-card-title>Title</va-card-title>
-        <va-card-content></va-card-content>
+        <va-card-content />
       </va-card>
     </VbCard>
     <VbCard title="Dark">
@@ -12,7 +12,7 @@
         dark
       >
         <va-card-title>Title</va-card-title>
-        <va-card-content>{{lorem}}</va-card-content>
+        <va-card-content>{{ lorem }}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="Square">
@@ -21,7 +21,7 @@
         square
       >
         <va-card-title>Title</va-card-title>
-        <va-card-content>{{lorem}}</va-card-content>
+        <va-card-content>{{ lorem }}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="Outlined">
@@ -30,7 +30,7 @@
         outlined
       >
         <va-card-title>Title</va-card-title>
-        <va-card-content>{{lorem}}</va-card-content>
+        <va-card-content>{{ lorem }}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="No border and shadow">
@@ -41,7 +41,7 @@
         :bordered="false"
       >
         <va-card-title>Title</va-card-title>
-        <va-card-content>{{lorem}}</va-card-content>
+        <va-card-content>{{ lorem }}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="Disabled">
@@ -50,7 +50,7 @@
         disabled
       >
         <va-card-title>Title</va-card-title>
-        <va-card-content>{{lorem}}</va-card-content>
+        <va-card-content>{{ lorem }}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="Custom tag">
@@ -59,7 +59,7 @@
         tag="span"
       >
         <va-card-title>Title</va-card-title>
-        <va-card-content>{{lorem}}</va-card-content>
+        <va-card-content>{{ lorem }}</va-card-content>
       </va-card>
     </VbCard>
     <VbCard title="href, target, router-link">
@@ -186,7 +186,7 @@
           >
             <va-card style="width: 400px;">
               <va-card-title>Striped card</va-card-title>
-              <va-card-content>{{lorem}}</va-card-content>
+              <va-card-content>{{ lorem }}</va-card-content>
               <va-card-content>
                 <a href>Read full article</a>
               </va-card-content>
@@ -200,7 +200,7 @@
               style="height: 200px;"
             />
             <va-card-title>Card w image</va-card-title>
-            <va-card-content>{{lorem}}</va-card-content>
+            <va-card-content>{{ lorem }}</va-card-content>
             <va-card-content>
               <va-button>Upload file</va-button>
             </va-card-content>

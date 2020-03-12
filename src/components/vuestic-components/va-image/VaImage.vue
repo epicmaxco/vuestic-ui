@@ -114,6 +114,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../vuestic-sass/resources/resources";
+
 .va-image {
   overflow: hidden;
   position: relative;

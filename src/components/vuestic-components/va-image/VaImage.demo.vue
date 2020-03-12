@@ -2,7 +2,10 @@
   <VbDemo>
     <div class="row">
       <VbCard title="default">
-        <va-image style="width: 200px; height: 200px;" :src="getImagePath(200)"/>
+        <va-image
+          style="width: 200px; height: 200px;"
+          :src="getImagePath(200)"
+        />
       </VbCard>
       <VbCard title="Slots (loading, error)">
         <button @click="newImage">
@@ -17,16 +20,30 @@
           @loaded="$vb.log('loaded', $event)"
           @error="$vb.log('error', $event)"
         >
-          <template #loader>Loading...</template>
-          <template #error>Error</template>
+          <template #loader>
+            Loading...
+          </template>
+          <template #error>
+            Error
+          </template>
         </va-image>
       </VbCard>
       <VbCard title="Default slot usage examples">
-        <va-image :src="getImagePath(200)" class="image">
-          <div class="overlay overlay--top">Overlay Top</div>
+        <va-image
+          :src="getImagePath(200)"
+          class="image"
+        >
+          <div class="overlay overlay--top">
+            Overlay Top
+          </div>
         </va-image>
-        <va-image :src="getImagePath(200)" class="image">
-          <div class="overlay overlay--bottom">Overlay Bottom</div>
+        <va-image
+          :src="getImagePath(200)"
+          class="image"
+        >
+          <div class="overlay overlay--bottom">
+            Overlay Bottom
+          </div>
         </va-image>
       </VbCard>
     </div>
