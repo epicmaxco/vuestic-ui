@@ -17,6 +17,8 @@
     >
       <va-input
         v-if="searchable"
+        :id="id"
+        :name="name"
         :placeholder="placeholder"
         v-model="search"
         class="va-select__input"
@@ -78,7 +80,7 @@
             <span
               class="va-select__tags__tag"
             >
-              {{ [...this.valueProxy.map(val => getText(val))].join(", ") }}
+              {{ [...this.valueProxy.map(val => getText(val))].join(', ') }}
             </span>
           </span>
           <span
@@ -117,7 +119,10 @@ import { SpringSpinner } from 'epic-spinners'
 import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import {
+  ContextPluginMixin,
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
@@ -129,7 +134,35 @@ const positions = {
 export default {
   name: 'VaSelect',
   components: { VaIcon, SpringSpinner, VaDropdown, VaInput, VaInputWrapper },
-  mixins: [ContextPluginMixin, FormComponentMixin],
+  mixins: [
+    makeContextablePropsMixin({
+      value: { type: [String, Number, Object, Array], default: '' },
+      label: { type: String, default: '' },
+      placeholder: { type: String, default: '' },
+      options: { type: Array, default: () => [] },
+      position: {
+        type: String,
+        default: 'bottom',
+        validator: position => Object.keys(positions).includes(position),
+      },
+      tagMax: { type: Number, default: 5 },
+      searchable: { type: Boolean, default: false },
+      multiple: { type: Boolean, default: false },
+      disabled: { type: Boolean, default: false },
+      readonly: { type: Boolean, default: false },
+      loading: { type: Boolean, default: false },
+      width: { type: String, default: '100%' },
+      maxHeight: { type: String, default: '128px' },
+      keyBy: { type: String, default: 'id' },
+      textBy: { type: String, default: 'text' },
+      clearValue: { type: String, default: '' },
+      noOptionsText: { type: String, default: 'Items not found' },
+      fixed: { type: Boolean, default: true },
+      noClear: { type: Boolean, default: false },
+    }),
+    ContextPluginMixin,
+    FormComponentMixin,
+  ],
   data () {
     return {
       search: '',
@@ -137,135 +170,12 @@ export default {
       hoveredOption: null,
     }
   },
-  props: {
-    value: {
-      type: [String, Number, Object, Array],
-      default () {
-        return getContextPropValue(this, 'value', '')
-      },
-    },
-    label: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-    placeholder: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'placeholder', '')
-      },
-    },
-    options: {
-      type: Array,
-      default () {
-        return getContextPropValue(this, 'options', [])
-      },
-    },
-    position: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'position', 'bottom')
-      },
-      validator: position => Object.keys(positions).includes(position),
-    },
-    tagMax: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'tagMax', 5)
-      },
-    },
-    searchable: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'searchable', false)
-      },
-    },
-    multiple: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'multiple', false)
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    readonly: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'readonly', false)
-      },
-    },
-    loading: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'loading', false)
-      },
-    },
-    width: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'width', '100%')
-      },
-    },
-    maxHeight: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'maxHeight', '128px')
-      },
-    },
-    keyBy: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'keyBy', 'id')
-      },
-    },
-    textBy: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'textBy', 'text')
-      },
-    },
-    clearValue: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'clearValue', '')
-      },
-    },
-    noOptionsText: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'noOptionsText', 'Items not found')
-      },
-    },
-    fixed: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'fixed', true)
-      },
-    },
-    noClear: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'noClear', false)
-      },
-    },
-    success: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'success', false)
-      },
-    },
-  },
   watch: {
     search (val) {
       this.$emit('update-search', val)
     },
     visible (val) {
-      if (val && this.searchable) {
+      if (val && this.c_searchable) {
         this.$nextTick(() => {
           this.$refs.search.$refs.input.focus()
         })
@@ -281,7 +191,7 @@ export default {
         'va-select': true,
         'va-select--multiple': this.multiple,
         'va-select--visible': this.visible,
-        'va-select--searchable': this.searchable,
+        'va-select--searchable': this.c_searchable,
         'va-select--disabled': this.disabled,
         'va-select--loading': this.loading,
       }
@@ -435,7 +345,7 @@ export default {
         this.search = ''
         this.$refs.dropdown.hide()
       }
-      if (this.searchable) {
+      if (this.c_searchable) {
         this.$refs.search.$refs.input.focus()
       }
     },
