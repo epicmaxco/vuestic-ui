@@ -211,6 +211,8 @@ export default {
 
 .va-button {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin: $btn-margin;
   background-image: none;
   box-shadow: none;
@@ -285,8 +287,13 @@ export default {
     @include va-button(0, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
 
     letter-spacing: $btn-letter-spacing-lg;
-    height: 44px;
+    height: 3.25rem;
     min-width: 78px;
+
+    &.va-button--without-title {
+      min-width: 0;
+      width: 3.25rem;
+    }
 
     .va-button__content__icon {
       width: $btn-icon-width-lg;
@@ -321,8 +328,13 @@ export default {
     @include va-button(0, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
 
     letter-spacing: $btn-letter-spacing-sm;
-    height: 28px;
+    height: 1.5rem;
     min-width: 50px;
+
+    &.va-button--without-title {
+      min-width: 0;
+      width: 1.5rem;
+    }
 
     .va-button__content__icon {
       width: $btn-icon-width-sm;
@@ -357,8 +369,13 @@ export default {
     @include va-button(0, $btn-padding-x-nrm, $btn-font-size-nrm, $btn-line-height-nrm, $btn-border-radius-nrm);
 
     letter-spacing: $btn-letter-spacing-nrm;
-    height: 36px;
+    height: 2.25rem;
     min-width: 64px;
+
+    &.va-button--without-title {
+      min-width: 0;
+      width: 2.25rem;
+    }
 
     .va-button__content__icon {
       width: $btn-icon-width-nrm;
