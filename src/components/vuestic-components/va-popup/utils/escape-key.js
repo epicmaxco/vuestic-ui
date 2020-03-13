@@ -1,6 +1,6 @@
 import Platform from '../plugins/platform'
 
-let handlers = []
+const handlers = []
 
 export default {
   __installed: false,

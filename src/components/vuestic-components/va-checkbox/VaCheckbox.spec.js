@@ -22,7 +22,7 @@ describe('VaCheckbox', () => {
     })
     expect(wrapper.html()).toMatchSnapshot()
   })
-  it('is FormElement', () => {
+  it('is Form Component', () => {
     expect(() => testIsFormComponent(VaCheckbox)).not.toThrow()
   })
 })

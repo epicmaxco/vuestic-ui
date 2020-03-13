@@ -75,15 +75,15 @@ export default {
     computedLinkStyles () {
       if (this.isHovered || this.isActive) {
         return {
-          color: this.$themes['primary'],
+          color: this.$themes.primary,
           backgroundColor: shiftHslColor(this.$themes.secondary, { s: -13, l: 15 }),
-          borderColor: this.isActive ? this.$themes['primary'] : 'transparent',
+          borderColor: this.isActive ? this.$themes.primary : 'transparent',
         }
       } else return {}// else <- controlled by CSS (color in rgba)
     },
     computedIconStyles () {
       return (this.isHovered || this.isActive)
-        ? { color: this.$themes['primary'] }
+        ? { color: this.$themes.primary }
         : { color: 'white' }
     },
   },

@@ -40,3 +40,9 @@ export const warn = (...attrs) => {
   console.warn(...attrs)
   return false
 }
+
+export const hasOwnProperty = (object, key) => {
+  // See https://eslint.org/docs/rules/no-prototype-builtins for explanation
+  // on why we don't use object.hasOwnProperty directly.
+  return Object.prototype.hasOwnProperty.call(object, key)
+}

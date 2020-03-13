@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { isSSR } from './plugins/platform'
 
 export default {

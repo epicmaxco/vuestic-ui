@@ -141,10 +141,10 @@ export default {
       VaIcon: {
         font: 'md',
         config: {
-          'room': {
+          room: {
             code: 'room',
           },
-          'schedule': {
+          schedule: {
             code: 'schedule',
           },
         },

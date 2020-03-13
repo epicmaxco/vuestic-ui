@@ -28,6 +28,8 @@ export const FormComponentMixin = {
     this.isFormComponent = true
   },
   props: {
+    id: { type: [String, Number], default: undefined },
+    name: { type: [String, Number], default: undefined },
     value: {
       // Component should replace this prop by its own.
       validate: () => {

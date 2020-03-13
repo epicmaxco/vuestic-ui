@@ -122,8 +122,8 @@ import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormCompo
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
 const positions = {
-  'top': 'T',
-  'bottom': 'B',
+  top: 'T',
+  bottom: 'B',
 }
 
 export default {
@@ -289,8 +289,8 @@ export default {
     selectStyle () {
       return {
         backgroundColor:
-          this.computedError ? getHoverColor(this.$themes['danger'])
-            : this.success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
+          this.computedError ? getHoverColor(this.$themes.danger)
+            : this.success ? getHoverColor(this.$themes.success) : '#f5f8f9',
         borderColor:
           this.computedError ? this.$themes.danger
             : this.success ? this.$themes.success
@@ -301,9 +301,10 @@ export default {
       return { maxHeight: this.maxHeight }
     },
     labelStyle () {
-      return { color: this.computedError ? this.$themes.danger
-        : this.success ? this.$themes.success
-          : this.$themes.primary,
+      return {
+        color: this.computedError ? this.$themes.danger
+          : this.success ? this.$themes.success
+            : this.$themes.primary,
       }
     },
     displayedText () {
@@ -371,8 +372,8 @@ export default {
     },
     getOptionStyle (option) {
       return {
-        color: this.isSelected(option) ? this.$themes['success'] : 'inherit',
-        backgroundColor: this.isHovered(option) ? getHoverColor(this.$themes['success']) : 'transparent',
+        color: this.isSelected(option) ? this.$themes.success : 'inherit',
+        backgroundColor: this.isHovered(option) ? getHoverColor(this.$themes.success) : 'transparent',
       }
     },
     getText (option) {

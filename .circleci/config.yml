@@ -33,6 +33,7 @@ jobs:
       - run: *install_dependencies
       - save_cache: *save_cache
       - run: yarn test:unit
+      - run: yarn lint
 
   deploy-demos:
     <<: *defaults

@@ -72,8 +72,8 @@ export default {
   },
   data () {
     return {
-      collapseHeader: `Expand This Block`,
-      collapseContent: `Collapse content`,
+      collapseHeader: 'Expand This Block',
+      collapseContent: 'Collapse content',
     }
   },
 }

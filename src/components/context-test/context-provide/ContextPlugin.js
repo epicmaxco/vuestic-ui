@@ -2,6 +2,7 @@ import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
 import Vue from 'vue'
+import { hasOwnProperty } from '../../../services/utils'
 
 const pascalCase = flow(camelCase, upperFirst)
 /**
@@ -93,7 +94,7 @@ export const getContextPropValue = (context, prop, defaultValue) => {
   // and methods are not accessible there.
 
   // Local prop takes priority even when empty.
-  if (context.hasOwnProperty(prop)) {
+  if (hasOwnProperty(context, prop)) {
     return context[prop]
   }
 
@@ -158,7 +159,7 @@ function getLocalConfigWithComponentProp (configs, componentName, propName) {
   // Find prop value in config chain.
   return configs.reverse().find(config => {
     const componentConfig = config[componentName]
-    return componentConfig && componentConfig.hasOwnProperty(propName)
+    return componentConfig && hasOwnProperty(componentConfig, propName)
   }) || undefined
 }
 

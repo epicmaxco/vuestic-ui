@@ -1,20 +1,20 @@
 export default {
-  'remove_red_eye': {
+  remove_red_eye: {
     code: 'remove_red_eye',
   },
-  'account_box': {
+  account_box: {
     code: 'account_box',
   },
-  'info': {
+  info: {
     code: 'info',
   },
-  'face': {
+  face: {
     code: 'face',
   },
-  'warning': {
+  warning: {
     code: 'warning',
   },
-  'arrow_forward_ios': {
+  arrow_forward_ios: {
     code: 'arrow_forward_ios',
   },
 }

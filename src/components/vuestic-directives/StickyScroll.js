@@ -1,17 +1,17 @@
 export default {
   bind: (el, binding) => {
-    let duration = binding.value.duration || 500
-    let isAnimated = binding.value.animate
+    const duration = binding.value.duration || 500
+    const isAnimated = binding.value.animate
 
-    let observer = new MutationObserver(scrollToBottom)
-    let config = { childList: true }
+    const observer = new MutationObserver(scrollToBottom)
+    const config = { childList: true }
     observer.observe(el, config)
 
     function animateScroll (duration) {
-      let start = el.scrollTop
-      let end = el.scrollHeight
-      let change = end - start
-      let increment = 20
+      const start = el.scrollTop
+      const end = el.scrollHeight
+      const change = end - start
+      const increment = 20
 
       function easeInOut (currentTime, start, change, duration) {
         currentTime /= duration / 2

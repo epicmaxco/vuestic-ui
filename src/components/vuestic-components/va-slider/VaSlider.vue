@@ -417,7 +417,7 @@ export default {
       return this.size / this.total
     },
     multiple () {
-      let decimals = `${this.step}`.split('.')[1]
+      const decimals = `${this.step}`.split('.')[1]
       return decimals ? Math.pow(10, decimals.length) : 1
     },
     interval () {
@@ -493,7 +493,7 @@ export default {
         if (!this.range) {
           index = 0
         } else {
-          let pos = this.getPos(e)
+          const pos = this.getPos(e)
           index = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
         }
       }
@@ -550,9 +550,9 @@ export default {
           if (!this.pins) return this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step))
 
           // how many value units one pin occupies
-          let onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
+          const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
           // how many full pins are to the left of the dot now
-          let fullPinsNow = this.val[which] / onePinInterval | 0
+          const fullPinsNow = this.val[which] / onePinInterval | 0
           // the value of the nearest pin
           let nearestPinVal = fullPinsNow * onePinInterval
 
@@ -569,9 +569,9 @@ export default {
           }
 
           // how many value units one pin occupies
-          let onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
+          const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
           // how many full pins are to the left of the dot now
-          let fullPinsNow = this.val / onePinInterval | 0
+          const fullPinsNow = this.val / onePinInterval | 0
           // the value of the nearest pin
           let nearestPinVal = fullPinsNow * onePinInterval
 
@@ -620,7 +620,7 @@ export default {
     },
     wrapClick (e) {
       if (!this.disabled && !this.readonly && !this.flag) {
-        let pos = this.getPos(e)
+        const pos = this.getPos(e)
         if (this.isRange) {
           this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
         }
@@ -670,7 +670,7 @@ export default {
       return ((this.step * this.multiple) * index + (this.min * this.multiple)) / this.multiple
     },
     setCurrentValue (val) {
-      let slider = this.currentSlider
+      const slider = this.currentSlider
       if (this.isRange) {
         if (this.isDiff(this.currentValue[slider], val)) {
           this.currentValue.splice(slider, 1, val)
@@ -703,13 +703,13 @@ export default {
           if (pixelPosition <= this.position[0]) {
             this.currentSlider = 0
           }
-          let v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
+          const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
           this.setCurrentValue(v)
         } else {
           if (pixelPosition >= this.position[1]) {
             this.currentSlider = 1
           }
-          let v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
+          const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
           this.setCurrentValue(v)
         }
       } else if (pixelPosition < range[0]) {

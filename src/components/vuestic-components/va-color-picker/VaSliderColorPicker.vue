@@ -11,7 +11,7 @@ import { Slider } from 'vue-color'
 export default {
   name: 'VaSliderColorPicker',
   components: {
-    'SliderPicker': Slider,
+    SliderPicker: Slider,
   },
   props: {
     value: {

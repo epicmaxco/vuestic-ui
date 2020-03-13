@@ -64,19 +64,19 @@ export default {
       }
     },
     calcThumb () {
-      let currentMT = this.content.style.marginTop === ''
+      const currentMT = this.content.style.marginTop === ''
         ? 0
         : parseInt(this.content.style.marginTop, 10)
       this.thumb.style.top = (-currentMT / this.contentHeight * this.trackHeight) + 'px'
     },
     onContentResize () {
-      let prevHeight = this.contentHeight
+      const prevHeight = this.contentHeight
       this.calcSize()
       this.calcThumb()
 
       this.content.style.transition = 'margin-top .3s linear'
       this.thumb.style.transition = 'top .3s linear'
-      let handler = (e) => {
+      const handler = (e) => {
         if (e.propertyName === 'margin-top') {
           this.content.style.transition = ''
           this.calcSize()
@@ -96,8 +96,8 @@ export default {
     onDrag (e) {
       if (this.isDragging) {
         e.preventDefault()
-        let touch = e.touches[0]
-        let delta = this.prevTouch.clientY - touch.clientY
+        const touch = e.touches[0]
+        const delta = this.prevTouch.clientY - touch.clientY
         this.setVertical(delta)
         this.prevTouch = touch
       }
@@ -117,7 +117,7 @@ export default {
       if ((this.isDown && delta > 0) || (this.isUp && delta < 0) || (this.contentHeight <= this.maxHeight)) {
         return
       }
-      let currentMT = this.content.style.marginTop === ''
+      const currentMT = this.content.style.marginTop === ''
         ? 0
         : parseFloat(this.content.style.marginTop, 10)
       let nextMT = 0

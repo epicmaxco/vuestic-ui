@@ -71,7 +71,7 @@ export default {
 
       if (this.c_gradient && this.c_color) {
         return {
-          'background': getGradientBackground(color),
+          background: getGradientBackground(color),
         }
       }
 

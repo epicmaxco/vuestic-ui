@@ -175,7 +175,7 @@ export default {
     },
     iconStyles () {
       return (this.isHovered || this.isActive)
-        ? { color: this.$themes['primary'] }
+        ? { color: this.$themes.primary }
         : { color: 'white' }
     },
   },

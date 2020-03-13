@@ -1,78 +1,78 @@
 export default {
-  'info_outline': {
+  info_outline: {
     code: 'info_outline',
   },
-  'check_circle': {
+  check_circle: {
     code: 'check_circle',
   },
-  'share': {
+  share: {
     code: 'share',
   },
-  'volume_down': {
+  volume_down: {
     code: 'volume_down',
   },
-  'volume_up': {
+  volume_up: {
     code: 'volume_up',
   },
-  'star': {
+  star: {
     code: 'star',
   },
-  'star_half': {
+  star_half: {
     code: 'star_half',
   },
-  'star_border': {
+  star_border: {
     code: 'star_border',
   },
-  'send': {
+  send: {
     code: 'send',
   },
-  'room': {
+  room: {
     code: 'room',
   },
-  'schedule': {
+  schedule: {
     code: 'schedule',
   },
-  'create': {
+  create: {
     code: 'create',
   },
-  'add': {
+  add: {
     code: 'add',
   },
-  'add_circle_outline': {
+  add_circle_outline: {
     code: 'add_circle_outline',
   },
-  'block': {
+  block: {
     code: 'block',
   },
-  'menu': {
+  menu: {
     code: 'menu',
   },
-  'loop': {
+  loop: {
     code: 'loop',
   },
-  'email': {
+  email: {
     code: 'email',
   },
-  'local_phone': {
+  local_phone: {
     code: 'local_phone',
   },
-  'volume_mute': {
+  volume_mute: {
     code: 'volume_mute',
   },
-  'volume_off': {
+  volume_off: {
     code: 'volume_off',
   },
-  'error': {
+  error: {
     code: 'error',
   },
-  'face': {
+  face: {
     code: 'face',
   },
-  'remove_red_eye': {
+  remove_red_eye: {
     code: 'remove_red_eye',
   },
   // VaIcons.demo.vue
-  'home': {
+  home: {
     code: 'home',
   },
   'fa4-home': {
@@ -91,11 +91,11 @@ export default {
     code: 'home',
     font: 'entypo',
   },
-  'info': {
+  info: {
     code: 'info',
     font: 'fas',
   },
-  'sync': {
+  sync: {
     code: 'sync',
     font: 'fas',
   },
@@ -103,7 +103,7 @@ export default {
     code: 'sync fa-spin',
     font: 'fas',
   },
-  'remove': {
+  remove: {
     code: 'remove',
   },
 }

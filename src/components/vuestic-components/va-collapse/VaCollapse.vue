@@ -100,8 +100,8 @@ export default {
       }
     },
     getHeight () {
-      return this.$slots.body[0].elm ? `calc(` + this.$slots.body[0].elm.clientHeight +
-        `px + 2rem)` : `100%`
+      return this.$slots.body[0].elm ? 'calc(' + this.$slots.body[0].elm.clientHeight +
+        'px + 2rem)' : '100%'
     },
   },
 }

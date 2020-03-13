@@ -1,7 +1,11 @@
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import {
+  ContextPluginMixin,
+  getContextPropValue,
+} from '../../context-test/context-provide/ContextPlugin'
+import { hasOwnProperty } from '../../../services/utils'
 
 export default {
   name: 'VaBreadcrumbs',
@@ -67,7 +71,7 @@ export default {
 
     const isDisabledChild = (child) => {
       const childPropData = child && child.componentOptions && child.componentOptions.propsData
-      if (!childPropData || !childPropData.hasOwnProperty('disabled')) {
+      if (!childPropData || !hasOwnProperty(childPropData, 'disabled')) {
         return false
       }
 

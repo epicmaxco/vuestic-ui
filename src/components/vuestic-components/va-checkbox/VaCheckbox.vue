@@ -57,29 +57,23 @@ import {
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
-const ProgressBarContextMixin = makeContextablePropsMixin({
-  label: { type: String, default: '' },
-  value: { type: [Boolean, Array], default: false },
-  arrayValue: { type: String, default: '' },
-  indeterminate: { type: Boolean, default: false },
-  checkedIcon: { type: String, default: 'check' },
-  indeterminateIcon: { type: String, default: 'remove' },
-})
-
 export default {
   name: 'VaCheckbox',
   components: { VaInputWrapper, VaIcon },
   mixins: [
+    makeContextablePropsMixin({
+      label: { type: String, default: '' },
+      value: { type: [Boolean, Array], default: false },
+      arrayValue: { type: String, default: '' },
+      indeterminate: { type: Boolean, default: false },
+      checkedIcon: { type: String, default: 'check' },
+      indeterminateIcon: { type: String, default: 'remove' },
+    }),
     FormComponentMixin,
-    ProgressBarContextMixin,
     KeyboardOnlyFocusMixin,
     ColorThemeMixin,
     ContextPluginMixin,
   ],
-  props: {
-    id: { type: [String, Number], default: undefined },
-    name: { type: [String, Number], default: undefined },
-  },
   computed: {
     computedClass () {
       return {

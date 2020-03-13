@@ -2,7 +2,7 @@ export function offset (el) {
   if (!el || el === window) {
     return { top: 0, left: 0 }
   }
-  let { top, left } = el.getBoundingClientRect()
+  const { top, left } = el.getBoundingClientRect()
 
   return { top, left }
 }
@@ -26,7 +26,7 @@ export function width (el) {
 }
 
 export function css (element, css) {
-  let style = element.style
+  const style = element.style
 
   Object.keys(css).forEach(prop => {
     style[prop] = css[prop]
@@ -48,7 +48,7 @@ export function ready (fn) {
 const prefix = ['-webkit-', '-moz-', '-ms-', '-o-']
 
 export function cssTransform (val) {
-  let o = { transform: val }
+  const o = { transform: val }
   prefix.forEach(p => {
     o[p + 'transform'] = val
   })
