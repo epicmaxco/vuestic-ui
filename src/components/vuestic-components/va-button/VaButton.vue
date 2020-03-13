@@ -210,7 +210,7 @@ export default {
 @import "../../vuestic-sass/resources/resources";
 
 .va-button {
-  display: inline-block;
+  display: inline-flex;
   margin: $btn-margin;
   background-image: none;
   box-shadow: none;
@@ -282,9 +282,11 @@ export default {
   }
 
   &--large {
-    @include va-button($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+    @include va-button(0, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
 
     letter-spacing: $btn-letter-spacing-lg;
+    height: 44px;
+    min-width: 78px;
 
     .va-button__content__icon {
       width: $btn-icon-width-lg;
@@ -316,9 +318,11 @@ export default {
   }
 
   &--small {
-    @include va-button($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+    @include va-button(0, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
 
     letter-spacing: $btn-letter-spacing-sm;
+    height: 28px;
+    min-width: 50px;
 
     .va-button__content__icon {
       width: $btn-icon-width-sm;
@@ -350,9 +354,11 @@ export default {
   }
 
   &--normal {
-    @include va-button($btn-padding-y-nrm, $btn-padding-x-nrm, $btn-font-size-nrm, $btn-line-height-nrm, $btn-border-radius-nrm);
+    @include va-button(0, $btn-padding-x-nrm, $btn-font-size-nrm, $btn-line-height-nrm, $btn-border-radius-nrm);
 
     letter-spacing: $btn-letter-spacing-nrm;
+    height: 36px;
+    min-width: 64px;
 
     .va-button__content__icon {
       width: $btn-icon-width-nrm;
