@@ -43,28 +43,35 @@ import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 
-const ProgressBarContextMixin = makeContextablePropsMixin({
-  buffer: {
-    type: Number,
-    default: 100,
-  },
-  rounded: {
-    type: Boolean,
-    default: true,
-  },
-  size: {
-    type: [Number, String],
-    default: 'medium',
-  },
-  reverse: {
-    type: Boolean,
-    default: false,
-  },
-})
-
 export default {
   name: 'VaProgressBar',
-  mixins: [progressMixin, ColorThemeMixin, ProgressBarContextMixin, SizeMixin],
+  mixins: [
+    progressMixin,
+    ColorThemeMixin,
+    SizeMixin,
+    makeContextablePropsMixin({
+      buffer: {
+        type: Number,
+        default: 100,
+      },
+      rounded: {
+        type: Boolean,
+        default: true,
+      },
+      size: {
+        type: [Number, String],
+        default: 'medium',
+      },
+      reverse: {
+        type: Boolean,
+        default: false,
+      },
+      color: {
+        type: String,
+        default: 'primary',
+      },
+    }),
+  ],
   computed: {
     large () {
       return this.c_size === 'large'
