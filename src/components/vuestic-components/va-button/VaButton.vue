@@ -287,12 +287,12 @@ export default {
     @include va-button(0, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
 
     letter-spacing: $btn-letter-spacing-lg;
-    height: 3.25rem;
-    min-width: 78px;
+    height: 3rem;
+    min-width: 5rem;
 
     &.va-button--without-title {
       min-width: 0;
-      width: 3.25rem;
+      width: 3rem;
     }
 
     .va-button__content__icon {
@@ -329,7 +329,7 @@ export default {
 
     letter-spacing: $btn-letter-spacing-sm;
     height: 1.5rem;
-    min-width: 50px;
+    min-width: 3rem;
 
     &.va-button--without-title {
       min-width: 0;
@@ -370,7 +370,7 @@ export default {
 
     letter-spacing: $btn-letter-spacing-nrm;
     height: 2.25rem;
-    min-width: 64px;
+    min-width: 4rem;
 
     &.va-button--without-title {
       min-width: 0;
