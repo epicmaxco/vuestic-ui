@@ -41,15 +41,20 @@ const ProgressCircleContextMixin = makeContextablePropsMixin({
     type: Number,
     default: 3,
   },
-  size: {
-    type: [Number, String],
-    default: 40,
+  color: {
+    type: String,
+    default: 'primary',
   },
 })
 
 export default {
   name: 'VaProgressCircle',
-  mixins: [progressMixin, ColorThemeMixin, ProgressCircleContextMixin, SizeMixin],
+  mixins: [
+    progressMixin,
+    ColorThemeMixin,
+    SizeMixin,
+    ProgressCircleContextMixin,
+  ],
   computed: {
     radius () {
       return 20 - (20 * this.c_thickness / 100)
@@ -64,8 +69,7 @@ export default {
       return `${this.c_thickness}%`
     },
     computedStyle () {
-      const size = parseFloat(this.c_size) + this.sizeUnits()
-      return { width: size, height: size }
+      return { width: this.sizeComputed, height: this.sizeComputed }
     },
     computedClass () {
       return {
@@ -74,13 +78,8 @@ export default {
     },
     computedStyles () {
       return {
-        color: this.colorComputed,
+        color: this.computeInvertedColor(this.c_color),
       }
-    },
-  },
-  methods: {
-    sizeUnits () {
-      return typeof this.c_size === 'number' ? 'px' : this.c_size.toString().match(/rem|em|ex|pt|pc|mm|cm|px/)[0]
     },
   },
 }

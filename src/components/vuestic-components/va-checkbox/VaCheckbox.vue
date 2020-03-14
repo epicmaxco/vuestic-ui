@@ -156,7 +156,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../vuestic-sass/resources/resources";
 
 .va-checkbox {
@@ -200,6 +200,7 @@ export default {
   }
 
   #{&}__input {
+    box-sizing: border-box;
     height: 1.375rem;
     width: 1.375rem;
     cursor: inherit;

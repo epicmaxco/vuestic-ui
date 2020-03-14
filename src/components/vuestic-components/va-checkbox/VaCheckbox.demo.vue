@@ -1,6 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
+      <VbCheckbox v-model="value" label="Selected"/>
       <va-checkbox
         v-model="value"
         label="Selected"
