@@ -176,130 +176,42 @@ import { getHoverColor } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import {
+  ContextPluginMixin,
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaSlider',
   components: {
     VaIcon,
   },
-  mixins: [ColorThemeMixin, KeyboardOnlyFocusMixin, ContextPluginMixin],
-  props: {
-    range: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'range', false)
-      },
-    },
-    value: {
-      type: [Number, Array],
-      default () {
-        return getContextPropValue(this, 'value', [])
-      },
-    },
-    trackLabel: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'trackLabel', '')
-      },
-    },
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', 'primary')
-      },
-    },
-    trackColor: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'trackColor', 'primary')
-      },
-    },
-    labelColor: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'labelColor', 'primary')
-      },
-    },
-    trackLabelVisible: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'trackLabelVisible', false)
-      },
-    },
-    min: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'min', 0)
-      },
-    },
-    max: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'max', 100)
-      },
-    },
-    step: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'step', 1)
-      },
-    },
-    label: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-    invertLabel: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'invertLabel', false)
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    readonly: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'readOnly', false)
-      },
-    },
-    pins: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'pins', false)
-      },
-    },
-    iconPrepend: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'iconPrepend', '')
-      },
-    },
-    iconAppend: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'iconAppend', '')
-      },
-    },
-    vertical: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'vertical', false)
-      },
-    },
-    showTrack: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'showTrack', true)
-      },
-    },
-  },
+  mixins: [
+    ColorThemeMixin,
+    KeyboardOnlyFocusMixin,
+    ContextPluginMixin,
+    makeContextablePropsMixin({
+      range: { type: Boolean, default: false },
+      value: { type: [Number, Array], default: () => [] },
+      trackLabel: { type: String, default: '' },
+      color: { type: String, default: 'primary' },
+      trackColor: { type: String, default: 'primary' },
+      labelColor: { type: String, default: 'primary' },
+      trackLabelVisible: { type: Boolean, default: false },
+      min: { type: Number, default: 0 },
+      max: { type: Number, default: 100 },
+      step: { type: Number, default: 1 },
+      label: { type: String, default: '' },
+      invertLabel: { type: Boolean, default: false },
+      disabled: { type: Boolean, default: false },
+      readonly: { type: Boolean, default: false },
+      pins: { type: Boolean, default: false },
+      iconPrepend: { type: String, default: '' },
+      iconAppend: { type: String, default: '' },
+      vertical: { type: Boolean, default: false },
+      showTrack: { type: Boolean, default: false },
+    }),
+  ],
   data () {
     return {
       flag: false,
