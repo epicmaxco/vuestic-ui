@@ -84,8 +84,8 @@ export default {
     cappedThickness () {
       if (this.c_thickness < 0) {
         return 0
-      } else if (this.c_thickness > 30) {
-        return 30
+      } else if (this.c_thickness > 50) {
+        return 50
       } else {
         return this.c_thickness
       }
