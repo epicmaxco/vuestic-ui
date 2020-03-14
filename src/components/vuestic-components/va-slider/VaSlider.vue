@@ -206,19 +206,19 @@ export default {
     color: {
       type: String,
       default () {
-        return getContextPropValue(this, 'color', '')
+        return getContextPropValue(this, 'color', 'primary')
       },
     },
     trackColor: {
       type: String,
       default () {
-        return getContextPropValue(this, 'trackColor', '')
+        return getContextPropValue(this, 'trackColor', 'primary')
       },
     },
     labelColor: {
       type: String,
       default () {
-        return getContextPropValue(this, 'labelColor', '')
+        return getContextPropValue(this, 'labelColor', 'primary')
       },
     },
     trackLabelVisible: {
