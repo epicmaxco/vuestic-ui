@@ -94,7 +94,7 @@
         title="Should come from another side"
       >❗❗</span>
       <va-progress-bar
-        :value="30"
+        :value="value"
         reverse
       />
       <br>
@@ -103,7 +103,7 @@
         title="Should come from another side"
       >❗❗</span>
       <va-progress-bar
-        :value="30"
+        :value="value"
         :buffer="60"
         reverse
       />
