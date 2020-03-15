@@ -2,6 +2,8 @@
   <div
     class="va-slider"
     :class="sliderClass"
+    @mousedown="clickOnContainer"
+    @mouseup="hasMouseDown = false"
   >
     <div
       class="input-wrapper"
@@ -32,7 +34,6 @@
     </span>
     <div
       class="container"
-      @click="wrapClick"
       ref="sliderContainer"
     >
       <div
@@ -58,7 +59,7 @@
         />
         <div
           ref="dot0"
-          class="container__handler"
+          class="container__handler dot0"
           :class="dotClass[0]"
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
@@ -82,7 +83,7 @@
         </div>
         <div
           ref="dot1"
-          class="container__handler"
+          class="container__handler dot1"
           :class="dotClass[1]"
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
@@ -225,6 +226,7 @@ export default {
   computed: {
     sliderClass () {
       return {
+        'va-slider--active': this.hasMouseDown,
         'va-slider--disabled': this.disabled,
         'va-slider--readonly': this.readonly,
         'va-slider--horizontal': !this.vertical,
@@ -365,6 +367,13 @@ export default {
         validateSlider(this.value, this.step, this.min, val)
       }
     },
+    hasMouseDown (nval) {
+      if (nval) {
+        document.documentElement.style.cursor = 'grabbing'
+      } else {
+        document.documentElement.style.cursor = null
+      }
+    },
   },
   methods: {
     onFocus () {
@@ -418,6 +427,7 @@ export default {
       this.$emit('drag-start', this)
     },
     moving (e) {
+      if (!this.hasMouseDown) return
       if (!this.disabled && !this.readonly) {
         if (!this.flag) {
           return false
@@ -530,30 +540,30 @@ export default {
         }
       }
     },
-    wrapClick (e) {
-      if (!this.disabled && !this.readonly && !this.flag) {
-        const pos = this.getPos(e)
-        if (this.isRange) {
-          this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
-        }
-        this.setValueOnPos(pos)
-        if (this.pins) {
-          if (this.isRange) {
-            if (this.currentValue[0] % this.step !== 0) {
-              this.currentValue[0] = this.normalizeValue(this.currentValue[0])
-              this.val = [this.currentValue[0], this.val[1]]
-            }
-            if (this.currentValue[1] % this.step !== 0) {
-              this.currentValue[1] = this.normalizeValue(this.currentValue[1])
-              this.val = [this.val[0], this.currentValue[1]]
-            }
-          } else {
-            this.currentValue = this.normalizeValue(this.currentValue)
-            this.val = this.currentValue
-          }
-        }
-      }
-    },
+    // wrapClick (e) {
+    //   if (!this.disabled && !this.readonly && !this.flag) {
+    //     const pos = this.getPos(e)
+    //     if (this.isRange) {
+    //       this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+    //     }
+    //     this.setValueOnPos(pos)
+    //     if (this.pins) {
+    //       if (this.isRange) {
+    //         if (this.currentValue[0] % this.step !== 0) {
+    //           this.currentValue[0] = this.normalizeValue(this.currentValue[0])
+    //           this.val = [this.currentValue[0], this.val[1]]
+    //         }
+    //         if (this.currentValue[1] % this.step !== 0) {
+    //           this.currentValue[1] = this.normalizeValue(this.currentValue[1])
+    //           this.val = [this.val[0], this.currentValue[1]]
+    //         }
+    //       } else {
+    //         this.currentValue = this.normalizeValue(this.currentValue)
+    //         this.val = this.currentValue
+    //       }
+    //     }
+    //   }
+    // },
     checkActivePin (pin) {
       if (this.isRange) {
         return pin * this.step > this.val[0] && pin * this.step < this.val[1]
@@ -688,6 +698,15 @@ export default {
     isDiff (a, b) {
       return JSON.stringify(a) !== JSON.stringify(b)
     },
+    clickOnContainer (e) {
+      const pos = this.getPos(e)
+      if (this.isRange) {
+        this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+      }
+      this.setMouseDown()
+      this.setValueOnPos(pos)
+      this.moveStart(e)
+    },
   },
   mounted () {
     this.$nextTick(() => {
@@ -709,6 +728,7 @@ export default {
 .va-slider {
   display: flex;
   align-items: center;
+  cursor: grab;
 
   .input-wrapper {
     position: relative;
@@ -736,10 +756,6 @@ export default {
       outline: none !important;
       left: -0.375rem;
       transition: none;
-
-      &:hover {
-        cursor: pointer;
-      }
 
       &--focus {
         transform: translate(-0.625rem, -0.625rem);
@@ -780,6 +796,10 @@ export default {
     line-height: 1.2;
     font-weight: bold;
     text-transform: uppercase;
+  }
+
+  &--active {
+    cursor: grabbing;
   }
 
   &--disabled {
@@ -918,5 +938,9 @@ export default {
     left: -0.375rem;
     margin-top: 0.625rem;
   }
+}
+
+.dot1 {
+  background-color: red !important;
 }
 </style>
