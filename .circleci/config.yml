@@ -97,11 +97,11 @@ workflows:
               only: develop
           requires:
             - test
-      - deploy-docs:
-          context: vuestic-ui-staging-docs
-          filters:
-            branches:
-              only: develop
-          requires:
-            - deploy-demos
-            - test
+#      - deploy-docs:
+#          context: vuestic-ui-staging-docs
+#          filters:
+#            branches:
+#              only: develop
+#          requires:
+#            - deploy-demos
+#            - test
