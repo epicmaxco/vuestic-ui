@@ -24,7 +24,7 @@
     <div class="va-button__content">
       <va-icon
         v-if="c_icon"
-        class="va-button__content__icon va-button__content__icon-left"
+        class="va-button__content__icon"
         :name="c_icon"
         :size="size"
       />
@@ -36,7 +36,7 @@
       </div>
       <va-icon
         v-if="c_iconRight"
-        class="va-button__content__icon va-button__content__icon-right"
+        class="va-button__content__icon"
         :name="c_iconRight"
         :size="size"
       />
@@ -73,8 +73,8 @@ const buttonContextMixin = makeContextablePropsMixin({
   type: { type: String, default: 'button' },
   disabled: { type: Boolean, default: false },
   /* Link props */
-  href: { type: String, default: '' },
-  target: { type: String, default: '' },
+  href: { type: String, default: undefined },
+  target: { type: String, default: undefined },
 })
 
 export default {
@@ -210,8 +210,9 @@ export default {
 @import "../../vuestic-sass/resources/resources";
 
 .va-button {
-  display: inline-block;
-  margin: $btn-margin;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-image: none;
   box-shadow: none;
   outline: none !important;
@@ -282,12 +283,15 @@ export default {
   }
 
   &--large {
-    @include va-button($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+    @include va-button(0, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
 
     letter-spacing: $btn-letter-spacing-lg;
+    height: 3rem;
+    min-width: 5rem;
 
-    .va-button__content__icon {
-      width: $btn-icon-width-lg;
+    &.va-button--without-title {
+      min-width: 0;
+      width: 3rem;
     }
 
     &.va-button--with-left-icon {
@@ -316,12 +320,15 @@ export default {
   }
 
   &--small {
-    @include va-button($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+    @include va-button(0, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
 
     letter-spacing: $btn-letter-spacing-sm;
+    height: 1.5rem;
+    min-width: 3rem;
 
-    .va-button__content__icon {
-      width: $btn-icon-width-sm;
+    &.va-button--without-title {
+      min-width: 0;
+      width: 1.5rem;
     }
 
     &.va-button--with-left-icon {
@@ -350,12 +357,15 @@ export default {
   }
 
   &--normal {
-    @include va-button($btn-padding-y-nrm, $btn-padding-x-nrm, $btn-font-size-nrm, $btn-line-height-nrm, $btn-border-radius-nrm);
+    @include va-button(0, $btn-padding-x-nrm, $btn-font-size-nrm, $btn-line-height-nrm, $btn-border-radius-nrm);
 
     letter-spacing: $btn-letter-spacing-nrm;
+    height: 2.25rem;
+    min-width: 4rem;
 
-    .va-button__content__icon {
-      width: $btn-icon-width-nrm;
+    &.va-button--without-title {
+      min-width: 0;
+      width: 2.25rem;
     }
 
     &.va-button--with-left-icon {

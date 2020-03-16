@@ -146,7 +146,6 @@ export default {
     width: 4rem;
     min-width: 4rem;
     border-radius: 1rem;
-    margin: $btn-margin;
 
     &:focus {
       outline: 0;
