@@ -159,7 +159,6 @@ export default {
 .va-button-dropdown {
   .va-dropdown__anchor {
     display: inline-block;
-    margin: $btn-margin;
   }
 
   .va-button {

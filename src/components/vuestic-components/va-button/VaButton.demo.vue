@@ -1,5 +1,27 @@
 <template>
   <VbDemo>
+    <VbCard title="empty">
+      <va-button />
+    </VbCard>
+    <VbCard title="relative positions are incorrect">
+      <span
+        style="color: tomato;"
+        title="relative positions are incorrect"
+      >❗❗</span>
+      <va-button
+        style="margin-right: 1rem;"
+        icon="clear"
+        icon-right="clear"
+      >
+        Plus Button
+      </va-button>
+      <va-button
+        icon-right="clear"
+      >
+        Dropdown button
+      </va-button>
+    </VbCard>
+
     <VbCard>
       <table class="table table-bordered">
         <tr>
@@ -9,7 +31,6 @@
         <tr>
           <td>Types</td>
           <td>
-            <va-button />
             <va-button outline>
               Outline Button
             </va-button>

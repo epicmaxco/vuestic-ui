@@ -24,7 +24,7 @@
     <div class="va-button__content">
       <va-icon
         v-if="c_icon"
-        class="va-button__content__icon va-button__content__icon-left"
+        class="va-button__content__icon"
         :name="c_icon"
         :size="size"
       />
@@ -36,7 +36,7 @@
       </div>
       <va-icon
         v-if="c_iconRight"
-        class="va-button__content__icon va-button__content__icon-right"
+        class="va-button__content__icon"
         :name="c_iconRight"
         :size="size"
       />
@@ -73,8 +73,8 @@ const buttonContextMixin = makeContextablePropsMixin({
   type: { type: String, default: 'button' },
   disabled: { type: Boolean, default: false },
   /* Link props */
-  href: { type: String, default: '' },
-  target: { type: String, default: '' },
+  href: { type: String, default: undefined },
+  target: { type: String, default: undefined },
 })
 
 export default {
@@ -213,7 +213,6 @@ export default {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: $btn-margin;
   background-image: none;
   box-shadow: none;
   outline: none !important;
@@ -295,10 +294,6 @@ export default {
       width: 3rem;
     }
 
-    .va-button__content__icon {
-      width: $btn-icon-width-lg;
-    }
-
     &.va-button--with-left-icon {
       padding-left: $btn-with-icon-wrapper-padding-lg;
 
@@ -336,10 +331,6 @@ export default {
       width: 1.5rem;
     }
 
-    .va-button__content__icon {
-      width: $btn-icon-width-sm;
-    }
-
     &.va-button--with-left-icon {
       padding-left: $btn-with-icon-wrapper-padding-sm;
 
@@ -375,10 +366,6 @@ export default {
     &.va-button--without-title {
       min-width: 0;
       width: 2.25rem;
-    }
-
-    .va-button__content__icon {
-      width: $btn-icon-width-nrm;
     }
 
     &.va-button--with-left-icon {
