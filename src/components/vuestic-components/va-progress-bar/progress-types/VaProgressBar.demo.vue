@@ -89,21 +89,14 @@
     </VbCard>
 
     <VbCard title="Reverse">
-      <span
-        style="color: tomato;"
-        title="Should come from another side"
-      >❗❗</span>
       <va-progress-bar
-        :value="30"
+        :value="value"
         reverse
       />
       <br>
-      <span
-        style="color: tomato;"
-        title="Should come from another side"
-      >❗❗</span>
+      Buffer
       <va-progress-bar
-        :value="30"
+        :value="value"
         :buffer="60"
         reverse
       />
@@ -151,10 +144,6 @@
           <VaProgressBar :value="80" />
         </VaContext>
       </div>
-      <span
-        style="color: tomato;"
-        title="See reverse card"
-      >❗❗</span>
       <div>
         reverse:
         <VaContext :config="{VaProgressBar: {reverse: true}}">

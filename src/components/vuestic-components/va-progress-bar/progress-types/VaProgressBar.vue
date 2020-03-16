@@ -12,12 +12,20 @@
       :style="computedStyle"
     >
       <div
-        :style="{width: normalizedBuffer + '%', backgroundColor: colorComputed}"
+        :style="{
+          width: normalizedBuffer + '%',
+          backgroundColor: colorComputed,
+          ...(c_reverse ? { right: 0 } : { left: 0 })
+        }"
         class="va-progress-bar__buffer"
       />
       <div
         v-if="!c_indeterminate"
-        :style="{width: normalizedValue + '%', backgroundColor: colorComputed}"
+        :style="{
+          width: normalizedValue + '%',
+          backgroundColor: colorComputed,
+          ...(c_reverse && { 'margin-left': 'auto' })
+        }"
         class="va-progress-bar__overlay"
       >
         <slot v-if="large" />
@@ -147,7 +155,7 @@ export default {
   &__buffer {
     position: absolute;
     top: 0;
-    left: 0;
+    // left: 0;
     height: inherit;
     border-radius: inherit;
     opacity: 0.3;
