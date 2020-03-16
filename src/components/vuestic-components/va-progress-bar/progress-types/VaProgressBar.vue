@@ -15,7 +15,7 @@
         :style="{
           width: normalizedBuffer + '%',
           backgroundColor: colorComputed,
-          ...(reverse ? { right: 0 } : { left: 0 })
+          ...(c_reverse ? { right: 0 } : { left: 0 })
         }"
         class="va-progress-bar__buffer"
       />
@@ -24,7 +24,7 @@
         :style="{
           width: normalizedValue + '%',
           backgroundColor: colorComputed,
-          ...(reverse && { 'margin-left': 'auto' })
+          ...(c_reverse && { 'margin-left': 'auto' })
         }"
         class="va-progress-bar__overlay"
       >
