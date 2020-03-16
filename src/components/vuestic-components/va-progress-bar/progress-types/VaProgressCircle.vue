@@ -39,7 +39,7 @@ import { SizeMixin } from '../../../../mixins/SizeMixin'
 const ProgressCircleContextMixin = makeContextablePropsMixin({
   thickness: {
     type: Number,
-    default: 3,
+    default: 0.06,
   },
   color: {
     type: String,
@@ -82,12 +82,12 @@ export default {
       }
     },
     cappedThickness () {
-      if (this.c_thickness < 0) {
+      if (this.c_thickness <= 0) {
         return 0
-      } else if (this.c_thickness > 50) {
+      } else if (this.c_thickness >= 1) {
         return 50
       } else {
-        return this.c_thickness
+        return this.c_thickness / 2 * 100
       }
     },
   },

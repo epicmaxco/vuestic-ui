@@ -65,23 +65,23 @@
 
     <VbCard title="Thickness">
       <div>
-        Thickness 1:
+        Thickness 0.01:
         <VaProgressCircle
-          :thickness="1"
+          :thickness="0.01"
           :value="value"
         />
       </div>
       <div>
-        Thickness 30:
+        Thickness 0.6:
         <VaProgressCircle
-          :thickness="30"
+          :thickness="0.6"
           :value="value"
         />
       </div>
       <div>
-        Thickness 30 + intermediate
+        Thickness 0.6 + intermediate
         <VaProgressCircle
-          :thickness="30"
+          :thickness="0.6"
           indeterminate
         />
       </div>
@@ -108,7 +108,7 @@
       </div>
       <div>
         thickness:
-        <VaContext :config="{VaProgressCircle: {thickness: 10}}">
+        <VaContext :config="{VaProgressCircle: {thickness: 0.20}}">
           <VaProgressCircle :value="value" />
         </VaContext>
       </div>
