@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import Popper from 'popper.js'
+import { createPopper } from '@popperjs/core'
 import { DebounceLoader } from 'asva-executors'
 
 export default {
@@ -68,7 +68,6 @@ export default {
   },
   watch: {
     showContent: {
-      immediate: true,
       handler (showContent) {
         this.handlePopperInstance()
       },
@@ -86,8 +85,8 @@ export default {
     boundaryBody: Boolean,
     value: Boolean,
     offset: {
-      type: [String, Number],
-      default: '',
+      type: [Array, Number],
+      default: () => [],
     },
     disabled: Boolean,
     fixed: Boolean,
@@ -205,7 +204,7 @@ export default {
         this.anchorWidth = anchorWidth
       }
       if (this.popperInstance) {
-        this.popperInstance.scheduleUpdate()
+        this.popperInstance.forceUpdate()
       }
     },
     // @public
@@ -217,38 +216,36 @@ export default {
     initPopper () {
       const options = {
         placement: this.position || 'bottom',
-        modifiers: {
-          preventOverflow: {
-            enabled: this.preventOverflow,
-          },
-        },
-        positionFixed: this.fixed,
-        arrow: {
-          enabled: false,
-        },
-        onCreate: () => {
+        modifiers: [],
+        strategy: this.fixed ? 'fixed' : undefined,
+        onFirstUpdate: () => {
           this.$emit('input', true)
         },
       }
 
-      if (!this.preventOverflow) {
-        options.modifiers.hide = { enabled: false }
+      const preventOverflow = {
+        name: 'preventOverflow',
+        options: {},
       }
-
+      if (this.preventOverflow) {
+        options.modifiers.push(preventOverflow)
+      }
       if (this.boundaryBody) {
-        options.modifiers.preventOverflow.boundariesElement = document.body
+        preventOverflow.options.boundary = document.body
       }
 
       if (this.offset) {
-        options.modifiers.offset = {
-          enabled: true,
-          offset: this.offset,
-        }
-        options.modifiers.keepTogether = { enabled: false }
-        options.modifiers.arrow = { enabled: false }
+        options.modifiers.push({
+          name: 'offset',
+          options: {
+            offset: Array.isArray(this.offset) ? this.offset : [this.offset],
+          },
+        })
+        // options.modifiers.keepTogether = { enabled: false }
+        // options.modifiers.arrow = { enabled: false }
       }
 
-      this.popperInstance = new Popper(
+      this.popperInstance = createPopper(
         this.$refs.anchor,
         this.$refs.content,
         options,

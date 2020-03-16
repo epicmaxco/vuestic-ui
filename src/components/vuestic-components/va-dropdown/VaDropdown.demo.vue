@@ -150,7 +150,7 @@
       </va-dropdown>
     </VbCard>
 
-    <VbCard title="Ignores to hidden overflow">
+    <VbCard title="Ignores hidden overflow in container">
       <div style="width: 50px; height: 50px; overflow: hidden; border: 1px gray solid;">
         <va-dropdown>
           <button slot="anchor">
@@ -165,12 +165,22 @@
 
     <VbCard title="Fixed flag makes possible to ignore even `position: relative`">
       <div style="width: 50px; height: 50px; overflow: hidden; position: relative; border: 1px gray solid;">
+        <va-dropdown>
+          <button slot="anchor">
+            Click
+          </button>
+          <div style="width: 150px; height: 150px; background: #4ae387;">
+            not fixed
+          </div>
+        </va-dropdown>
+      </div>
+      <div style="width: 50px; height: 50px; overflow: hidden; position: relative; border: 1px gray solid;">
         <va-dropdown fixed>
           <button slot="anchor">
             Click
           </button>
           <div style="width: 150px; height: 150px; background: #4ae387;">
-            text
+            fixed
           </div>
         </va-dropdown>
       </div>
@@ -235,12 +245,12 @@
           </button>
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
-        <va-dropdown :offset="'40px, 40px'">
+        <va-dropdown :offset="[40, 40]">
           <button
             style="width: 70px; height: 70px;"
             slot="anchor"
           >
-            40px, 40px
+            [40, 40]
           </button>
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
