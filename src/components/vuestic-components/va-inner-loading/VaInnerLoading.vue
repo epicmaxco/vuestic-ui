@@ -5,11 +5,6 @@
       v-if="loading"
       class="inner-loading__overlay"
     >
-      <!-- <spring-spinner
-        :animation-duration="2000"
-        :size="48"
-        :color="$themes.primary"
-      /> -->
       <va-icon
         spin
         :color="$themes.primary"
