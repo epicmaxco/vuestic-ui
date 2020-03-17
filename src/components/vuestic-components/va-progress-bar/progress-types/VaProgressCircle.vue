@@ -39,7 +39,7 @@ import { SizeMixin } from '../../../../mixins/SizeMixin'
 const ProgressCircleContextMixin = makeContextablePropsMixin({
   thickness: {
     type: Number,
-    default: 3,
+    default: 0.06,
   },
   color: {
     type: String,
@@ -57,7 +57,7 @@ export default {
   ],
   computed: {
     radius () {
-      return 20 - (20 * this.c_thickness / 100)
+      return 20 - (20 * this.cappedThickness / 100)
     },
     dasharray () {
       return 2 * Math.PI * this.radius
@@ -66,7 +66,7 @@ export default {
       return this.dasharray * (1 - this.normalizedValue / 100)
     },
     computedThickness () {
-      return `${this.c_thickness}%`
+      return `${this.cappedThickness}%`
     },
     computedStyle () {
       return { width: this.sizeComputed, height: this.sizeComputed }
@@ -79,6 +79,16 @@ export default {
     computedStyles () {
       return {
         color: this.computeInvertedColor(this.c_color),
+      }
+    },
+    cappedThickness () {
+      // value translated to percentage, divided in half, since final maximum value should be 50%
+      if (this.c_thickness <= 0) {
+        return 0
+      } else if (this.c_thickness >= 1) {
+        return 50
+      } else {
+        return this.c_thickness / 2 * 100
       }
     },
   },
