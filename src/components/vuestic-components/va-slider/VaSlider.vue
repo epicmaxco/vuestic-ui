@@ -2,8 +2,6 @@
   <div
     class="va-slider"
     :class="sliderClass"
-    @mousedown="clickOnContainer"
-    @mouseup="hasMouseDown = false"
   >
     <div
       class="input-wrapper"
@@ -35,6 +33,8 @@
     <div
       class="container"
       ref="sliderContainer"
+      @mousedown="clickOnContainer"
+      @mouseup="hasMouseDown = false"
     >
       <div
         class="container__track"
@@ -728,7 +728,6 @@ export default {
 .va-slider {
   display: flex;
   align-items: center;
-  cursor: grab;
 
   .input-wrapper {
     position: relative;
@@ -739,6 +738,7 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
+    cursor: grab;
 
     &__track {
       position: absolute;
@@ -799,7 +799,9 @@ export default {
   }
 
   &--active {
-    cursor: grabbing;
+    .container {
+      cursor: grabbing;
+    }
   }
 
   &--disabled {
@@ -938,9 +940,5 @@ export default {
     left: -0.375rem;
     margin-top: 0.625rem;
   }
-}
-
-.dot1 {
-  background-color: red !important;
 }
 </style>
