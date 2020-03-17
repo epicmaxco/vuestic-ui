@@ -59,7 +59,7 @@
         />
         <div
           ref="dot0"
-          class="container__handler dot0"
+          class="container__handler"
           :class="dotClass[0]"
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
@@ -83,7 +83,7 @@
         </div>
         <div
           ref="dot1"
-          class="container__handler dot1"
+          class="container__handler"
           :class="dotClass[1]"
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
@@ -367,8 +367,8 @@ export default {
         validateSlider(this.value, this.step, this.min, val)
       }
     },
-    hasMouseDown (nval) {
-      if (nval) {
+    hasMouseDown (val) {
+      if (val) {
         document.documentElement.style.cursor = 'grabbing'
       } else {
         document.documentElement.style.cursor = null
