@@ -63,7 +63,7 @@ export default {
       return (this.icon && this.icon.component) || this.c_component || this.c_tag
     },
     computedClass () {
-      return this.icon ? this.icon.iconClass : this.spin ? 'fa fa-circle-o-notch fa-spin' : ''
+      return this.icon ? this.icon.iconClass : this.spin ? 'material-icons spin' : ''
     },
     hasClickListener () {
       return this.$listeners && this.$listeners.click
@@ -89,7 +89,7 @@ export default {
       }
     },
     computedContent () {
-      return this.icon && this.icon.content
+      return this.icon ? this.icon.content : this.spin ? 'refresh' : ''
     },
   },
 }
@@ -99,5 +99,19 @@ export default {
 .va-icon {
   vertical-align: middle;
   user-select: none;
+
+  &.spin {
+    animation: rotate 1000ms infinite;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
