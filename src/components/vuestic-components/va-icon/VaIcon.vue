@@ -46,6 +46,10 @@ const IconContextMixin = makeContextablePropsMixin({
     type: [String, Number],
     default: '',
   },
+  spin: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 export default {
@@ -59,7 +63,7 @@ export default {
       return (this.icon && this.icon.component) || this.c_component || this.c_tag
     },
     computedClass () {
-      return (this.icon && this.icon.iconClass) || ''
+      return this.icon ? this.icon.iconClass : this.spin ? 'fa fa-circle-o-notch fa-spin' : ''
     },
     hasClickListener () {
       return this.$listeners && this.$listeners.click

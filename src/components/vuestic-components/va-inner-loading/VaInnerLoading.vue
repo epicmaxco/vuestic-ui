@@ -5,22 +5,28 @@
       v-if="loading"
       class="inner-loading__overlay"
     >
-      <spring-spinner
+      <!-- <spring-spinner
         :animation-duration="2000"
         :size="48"
         :color="$themes.primary"
+      /> -->
+      <va-icon
+        spin
+        :color="$themes.primary"
+        :size="48"
+        class="inner-loading__spinner"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { SpringSpinner } from 'epic-spinners'
+import VaIcon from '../va-icon/VaIcon'
 
 export default {
   name: 'VaInnerLoading',
   components: {
-    SpringSpinner,
+    VaIcon,
   },
   props: {
     loading: Boolean,
