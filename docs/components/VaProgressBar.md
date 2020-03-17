@@ -35,6 +35,6 @@
 * `indeterminate` - Boolean.
 * `color` - String  (default: `success`).
 * `size` - String|Number (default: 40) - bar size (diameter) in pixels or size in css units (rem|em|ex|pt|pc|mm|cm|px)
-* `thickness` - Number (default: 0.06) - circle border size between 0 and 1 (value translated to percentage, divided in half, since final maximum value should be 50%)
+* `thickness` - Number (default: 0.06) - circle border size between 0 and 1
 
 [Find DEMOs here!](http://vuestic.epicmax.co/#/admin/statistics/progress-bars)

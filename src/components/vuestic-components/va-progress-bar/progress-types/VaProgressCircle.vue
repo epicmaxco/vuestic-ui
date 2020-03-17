@@ -82,6 +82,7 @@ export default {
       }
     },
     cappedThickness () {
+      // value translated to percentage, divided in half, since final maximum value should be 50%
       if (this.c_thickness <= 0) {
         return 0
       } else if (this.c_thickness >= 1) {
