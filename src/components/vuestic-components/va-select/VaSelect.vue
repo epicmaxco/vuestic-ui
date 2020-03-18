@@ -103,6 +103,7 @@
           :color="$themes.success"
           v-if="loading"
           :size="24"
+          name="loop"
           class="va-select__loading"
         />
         <va-icon

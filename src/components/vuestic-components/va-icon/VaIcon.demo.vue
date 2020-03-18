@@ -86,6 +86,12 @@
         class="fa-spin"
       />
     </VbCard>
+    <VbCard title="Spin Prop">
+      <va-icon
+        spin
+        name="loop"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 

@@ -9,6 +9,7 @@
         spin
         :color="$themes.primary"
         :size="48"
+        name="loop"
         class="inner-loading__spinner"
       />
     </div>
