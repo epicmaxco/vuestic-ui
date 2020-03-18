@@ -16,6 +16,7 @@
     :exact-active-class="exactActiveClass"
     :loading="c_loading"
     :block="c_block"
+    :round="c_round"
     v-on="inputListeners"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
@@ -88,6 +89,7 @@ const buttonContextMixin = makeContextablePropsMixin({
   disabled: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
   block: { type: Boolean, default: false },
+  round: { type: Boolean, default: true },
   /* Link props */
   href: { type: String, default: undefined },
   target: { type: String, default: undefined },
@@ -140,6 +142,7 @@ export default {
         'va-button--normal': !this.c_size || this.c_size === 'medium',
         'va-button--loading': this.c_loading,
         'va-button--block': this.c_block,
+        'va-button--square': !this.c_round,
       }
     },
     gradientStyle () {
@@ -355,6 +358,10 @@ export default {
     &.va-button--outline {
       line-height: $btn-line-height-lg - 2 * $btn-border-outline;
     }
+
+    &.va-button--square {
+      border-radius: $btn-border-radius-lg-square;
+    }
   }
 
   &--small {
@@ -391,6 +398,10 @@ export default {
 
     &.va-button--outline {
       line-height: $btn-line-height-sm - 2 * $btn-border-outline;
+    }
+
+    &.va-button--square {
+      border-radius: $btn-border-radius-sm-square;
     }
   }
 
@@ -429,6 +440,10 @@ export default {
     &.va-button--outline {
       line-height: $btn-line-height-nrm - 2 * $btn-border-outline;
     }
+
+    &.va-button--square {
+      border-radius: $btn-border-radius-nrm-square;
+    }
   }
 
   &--loading {
@@ -438,6 +453,10 @@ export default {
   &--block {
     display: flex;
     min-width: 100%;
+  }
+
+  &--square {
+    border-radius: 0.5rem;
   }
 }
 </style>

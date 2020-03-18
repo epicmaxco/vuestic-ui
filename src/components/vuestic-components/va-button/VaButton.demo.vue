@@ -432,6 +432,42 @@
             </va-button>
           </td>
         </tr>
+        <tr>
+          <td>
+            Square button
+          </td>
+          <td style="padding-top: 10px;">
+            <va-button
+              :round="false"
+              size="small"
+              style="margin-right: 10px;"
+            >
+              Square Button
+            </va-button>
+            <va-button
+              :round="false"
+              size="medium"
+              style="margin-left: 10px;"
+            >
+              Square Button
+            </va-button>
+            <va-button
+              :round="false"
+              size="large"
+              style="margin-left: 10px;"
+            >
+              Square Button
+            </va-button>
+            <va-button
+              :round="false"
+              size="medium"
+              outline
+              style="margin-left: 10px;"
+            >
+              Square Button
+            </va-button>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>
