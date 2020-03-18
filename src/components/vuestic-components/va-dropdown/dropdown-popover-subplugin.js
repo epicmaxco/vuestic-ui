@@ -5,7 +5,7 @@ export const DropdownPopperPlugin = {
       // Hide first parent dropdown.
       while ((vm = vm.$parent)) {
         const name = vm.$options.name
-        if (name === 'va-dropdown-popper') {
+        if (name === 'VaDropdown') {
           vm.hide()
           break
         }

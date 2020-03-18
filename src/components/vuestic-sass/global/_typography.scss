@@ -1,3 +1,5 @@
+@import "../resources/variables";
+@import "../resources/mixins";
 
 ::selection {
   background-color: $text-selected;
@@ -12,7 +14,8 @@
   color: $va-link-color-secondary;
 }
 
-.link, .link-secondary {
+.link,
+.link-secondary {
   cursor: pointer;
 
   &:hover {
@@ -133,7 +136,8 @@ ul.va-unordered {
   padding: 0;
   list-style-type: none;
 
-  ul.va-unordered, ol.va-ordered {
+  ul.va-unordered,
+  ol.va-ordered {
     margin-bottom: 0;
   }
 
@@ -141,7 +145,7 @@ ul.va-unordered {
     padding-left: 1rem;
     position: relative;
 
-    &:before {
+    &::before {
       content: "";
       width: 0.5rem;
       height: 0.5rem;
@@ -160,7 +164,8 @@ ol.va-ordered {
   padding: 0;
   counter-reset: olCounter;
 
-  ul.va-unordered, ol.va-ordered {
+  ul.va-unordered,
+  ol.va-ordered {
     margin-bottom: 0;
   }
 
@@ -168,7 +173,7 @@ ol.va-ordered {
     list-style: none;
     padding: 0 1rem;
 
-    &:before {
+    &::before {
       counter-increment: olCounter;
       content: counter(olCounter) ". ";
       display: inline-block;

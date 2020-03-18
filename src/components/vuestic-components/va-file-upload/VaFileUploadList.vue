@@ -35,7 +35,7 @@ import VaFileUploadGalleryItem from './VaFileUploadGalleryItem'
 import VaFileUploadSingleItem from './VaFileUploadSingleItem'
 
 export default {
-  name: 'va-file-upload-list',
+  name: 'VaFileUploadList',
   components: {
     VaFileUploadListItem,
     VaFileUploadGalleryItem,
@@ -44,8 +44,10 @@ export default {
   props: {
     type: {
       type: String,
+      default: '',
     },
     files: {
+      type: Object,
       default: null,
     },
     color: {
@@ -95,7 +97,7 @@ export default {
   padding: 0 0 1.5rem;
 
   &--gallery {
-    padding-bottom: .5rem;
+    padding-bottom: 0.5rem;
   }
 }
 </style>

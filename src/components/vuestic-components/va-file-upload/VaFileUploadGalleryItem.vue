@@ -15,20 +15,27 @@
     class="va-file-upload-gallery-item"
     :class="{'file-upload-gallery-item_not-image': !this.previewImage}"
   >
-    <img :src="previewImage" alt="" class="va-file-upload-gallery-item__image">
+    <img
+      :src="previewImage"
+      alt=""
+      class="va-file-upload-gallery-item__image"
+    >
     <div
       class="va-file-upload-gallery-item__overlay"
       :style="overlayStyles"
     >
-      <div class="va-file-upload-gallery-item__name" :title="file.name">
+      <div
+        class="va-file-upload-gallery-item__name"
+        :title="file.name"
+      >
         {{ file.name }}
       </div>
       <va-icon
-        name="material-icons"
+        name="delete_outline"
         color="danger"
         class="va-file-upload-gallery-item__delete"
         @click.native="removeImage"
-      >delete_outline</va-icon>
+      />
     </div>
   </div>
 </template>
@@ -36,10 +43,10 @@
 <script>
 import VaFileUploadUndo from './VaFileUploadUndo'
 import VaIcon from '../va-icon/VaIcon'
-import { hex2rgb } from '../../../services/color-functions'
+import { colorToRgba } from '../../../services/color-functions'
 
 export default {
-  name: 'va-file-upload-gallery-item',
+  name: 'VaFileUploadGalleryItem',
   components: {
     VaIcon,
     VaFileUploadUndo,
@@ -52,7 +59,8 @@ export default {
   },
   props: {
     file: {
-      default: {},
+      type: Object,
+      default: null,
     },
     color: {
       type: String,
@@ -67,7 +75,7 @@ export default {
   computed: {
     overlayStyles () {
       return {
-        backgroundColor: hex2rgb(this.color, 0.7).css,
+        backgroundColor: colorToRgba(this.color, 0.7),
       }
     },
   },
@@ -92,10 +100,9 @@ export default {
         this.previewImage = this.file.image.url
       } else {
         const reader = new FileReader()
-        const imageFileTypes = ['/png', '/jpg', '/jpeg', '/gif']
         reader.readAsDataURL(this.file.image)
         reader.onload = (e) => {
-          if (imageFileTypes.some(fileType => e.target.result.includes(fileType))) {
+          if (e.target.result.includes('image')) {
             this.previewImage = e.target.result
           }
         }
@@ -112,30 +119,36 @@ export default {
 @import '../../vuestic-sass/resources/resources';
 
 $max-image-size: 8.5714rem;
+
 .va-file-upload-gallery-item {
   position: relative;
   margin-bottom: 1rem;
-  margin-right: .5rem;
-  flex-basis: calc(14.2857% - .5rem);
-  max-width: calc(14.2857% - .5rem);
-  border-radius: .375rem;
+  margin-right: 0.5rem;
+  flex-basis: calc(14.2857% - 0.5rem);
+  max-width: calc(14.2857% - 0.5rem);
+  border-radius: 0.375rem;
   overflow: hidden;
   width: 100%;
+
   @include media-breakpoint-down(md) {
-    flex-basis: calc(16.667% - .5rem);
-    max-width: calc(16.667% - .5rem);
+    flex-basis: calc(16.667% - 0.5rem);
+    max-width: calc(16.667% - 0.5rem);
   }
+
   @include media-breakpoint-down(sm) {
-    flex-basis: calc(20% - .5rem);
-    max-width: calc(20% - .5rem);
+    flex-basis: calc(20% - 0.5rem);
+    max-width: calc(20% - 0.5rem);
   }
+
   @include media-breakpoint-down(xs) {
-    flex-basis: calc(50% - .5rem);
-    max-width: calc(50% - .5rem);
+    flex-basis: calc(50% - 0.5rem);
+    max-width: calc(50% - 0.5rem);
   }
+
   &:last-of-type {
     margin-right: 0;
   }
+
   &:hover {
     .va-file-upload-gallery-item__overlay {
       display: flex;
@@ -166,7 +179,7 @@ $max-image-size: 8.5714rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: .875rem;
+    font-size: 0.875rem;
   }
 
   &__delete {
@@ -177,17 +190,20 @@ $max-image-size: 8.5714rem;
 
   &--undo {
     box-shadow: none;
+
     .va-file-upload-gallery-item--undo {
-      padding: .5rem;
+      padding: 0.5rem;
       display: flex;
       flex-direction: column;
-      font-size: .875rem;
+      font-size: 0.875rem;
       height: 100%;
       justify-content: space-between;
       align-items: flex-start;
+
       span {
-        margin-right: .5rem;
+        margin-right: 0.5rem;
       }
+
       .va-button {
         margin: 0;
       }

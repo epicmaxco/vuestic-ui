@@ -1,14 +1,17 @@
 <template>
   <va-input-wrapper
     class="va-input"
-    :disabled="disabled"
-    :success="success"
+    :disabled="c_disabled"
+    :success="c_success"
     :messages="messages"
-    :error="error"
-    :error-messages="errorMessages"
-    :errorCount="errorCount"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
+    :error-count="errorCount"
   >
-    <slot name="prepend" slot="prepend"/>
+    <slot
+      name="prepend"
+      slot="prepend"
+    />
     <div
       class="va-input__container"
       :class="{'va-input__container--textarea': isTextarea}"
@@ -16,7 +19,7 @@
     >
       <div
         class="va-input__container__content-wrapper"
-        :style="{ paddingTop: label ? '' : '0'}"
+        :style="{ paddingTop: c_label ? '' : '0'}"
       >
         <label
           :style="labelStyles"
@@ -29,53 +32,55 @@
           v-if="isTextarea"
           class="va-input__container__input"
           :style="textareaStyles"
-          :aria-label="label"
-          :placeholder="placeholder"
-          :disabled="disabled"
-          :readonly="readonly"
-          :value="value"
+          :aria-label="c_label"
+          :placeholder="c_placeholder"
+          :disabled="c_disabled"
+          :readonly="c_readonly"
+          :value="c_value"
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
+          :tabindex="c_tabindex"
         />
         <input
           v-else
           class="va-input__container__input"
-          :style="{ paddingBottom: label ? '0.125rem' : '0.875rem' }"
-          :aria-label="label"
-          :type="type"
-          :placeholder="placeholder"
-          :disabled="disabled"
-          :readonly="readonly"
-          :value="value"
+          :style="{ paddingBottom: c_label ? '0.125rem' : '0.875rem' }"
+          :aria-label="c_label"
+          :type="c_type"
+          :placeholder="c_placeholder"
+          :disabled="c_disabled"
+          :readonly="c_readonly"
+          :value="c_value"
           v-on="inputListeners"
           v-bind="$attrs"
           ref="input"
-        />
+          :tabindex="c_tabindex"
+        >
       </div>
       <div
-        v-if="success || error || $slots.append || (removable && hasContent)"
+        v-if="c_success || computedError || $slots.append || (c_removable && hasContent)"
         class="va-input__container__icon-wrapper"
       >
         <va-icon
-          v-if="success"
+          v-if="c_success"
           class="va-input__container__icon"
-          name="fa fa-check"
-          color="success"
+          color="c_success"
+          name="check"
         />
         <va-icon
-          v-if="error"
+          v-if="computedError"
           class="va-input__container__icon"
-          name="fa fa-exclamation-triangle"
           color="danger"
+          name="warning"
         />
-        <slot name="append"/>
+        <slot name="append" />
         <va-icon
-          v-if="removable && hasContent"
-          @click.native="clearContent()"
+          v-if="c_removable && hasContent"
+          @click.native="reset()"
           class="va-input__container__close-icon"
-          :color="error ? 'danger': 'gray'"
-          name="fa fa-times-circle"
+          :color="computedError ? 'danger': 'gray'"
+          name="highlight_off"
         />
       </div>
     </div>
@@ -85,61 +90,74 @@
 <script>
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon/VaIcon'
-import {
-  getHoverColor,
-} from './../../../services/color-functions'
+import { getHoverColor } from './../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import { warn } from '../../../services/utils'
 
-export default {
-  name: 'va-input',
-  extends: VaInputWrapper,
-  components: { VaInputWrapper, VaIcon },
-  props: {
-    value: {
-      type: [String, Number],
-    },
-    label: {
-      type: String,
-    },
-    placeholder: {
-      type: String,
-    },
-    type: {
-      type: String,
-      default: 'text',
-    },
-    disabled: {
-      type: Boolean,
-    },
-    readonly: {
-      type: Boolean,
-    },
-    removable: {
-      type: Boolean,
-    },
+const InputContextMixin = makeContextablePropsMixin({
+  color: {
+    type: String,
+    default: '',
+  },
+  value: {
+    type: [String, Number],
+    default: '',
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  type: {
+    type: String,
+    default: 'text',
+  },
+  removable: {
+    type: Boolean,
+    default: false,
+  },
+  tabindex: {
+    type: Number,
+    default: 0,
+  },
 
-    // textarea-specific
-    autosize: {
-      type: Boolean,
-      default: false,
-    },
-    minRows: {
-      type: Number,
-      validator: (val) => {
-        if (!(val > 0 && (val | 0) === val)) {
-          throw new Error(`\`minRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        } return true
-      },
-    },
-    maxRows: {
-      type: Number,
-      validator: (val) => {
-        if (!(val > 0 && (val | 0) === val)) {
-          throw new Error(`\`maxRows\` must be a positive integer grater than 0, but ${val} is provided`)
-        } return true
-      },
+  // textarea-specific
+  autosize: {
+    type: Boolean,
+    default: false,
+  },
+  minRows: {
+    type: Number,
+    default: null,
+    validator: (val) => {
+      if (!(val > 0 && (val | 0) === val)) {
+        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
+      }
+      return true
     },
   },
+  maxRows: {
+    type: Number,
+    validator: (val) => {
+      if (!(val > 0 && (val | 0) === val)) {
+        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
+      }
+      return true
+    },
+    default: null,
+  },
+})
+
+export default {
+  name: 'VaInput',
+  mixins: [ColorThemeMixin, InputContextMixin, FormComponentMixin],
+  components: { VaInputWrapper, VaIcon },
   mounted () {
     this.adjustHeight()
   },
@@ -155,18 +173,24 @@ export default {
   },
   computed: {
     labelStyles () {
-      if (this.error) return { color: this.$themes.danger }
-      if (this.success) return { color: this.$themes.success }
-      return { color: this.$themes.primary }
+      if (this.computedError) {
+        return { color: this.$themes.danger }
+      }
+
+      if (this.c_success) {
+        return { color: this.$themes.success }
+      }
+
+      return { color: this.colorComputed }
     },
     containerStyles () {
       return {
         backgroundColor:
-          this.error ? getHoverColor(this.$themes['danger'])
-            : this.success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
+          this.computedError ? getHoverColor(this.$themes.danger)
+            : this.c_success ? getHoverColor(this.$themes.success) : '#f5f8f9',
         borderColor:
-          this.error ? this.$themes.danger
-            : this.success ? this.$themes.success
+          this.computedError ? this.$themes.danger
+            : this.c_success ? this.$themes.success
               : this.isFocused ? this.$themes.dark : this.$themes.gray,
       }
     },
@@ -194,11 +218,13 @@ export default {
           focus: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
             this.isFocused = true
+
             this.$emit('focus', event)
           },
           blur: event => {
             // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.isFocused = false
+            this.ValidateMixin_onBlur()
+
             this.$emit('blur', event)
           },
           keyup: event => {
@@ -207,14 +233,14 @@ export default {
           keydown: event => {
             this.$emit('keydown', event)
           },
-        }
+        },
       )
     },
     hasContent () {
-      return ![null, undefined, ''].includes(this.value)
+      return ![null, undefined, ''].includes(this.c_value)
     },
     isTextarea () {
-      return this.type === 'textarea'
+      return this.c_type === 'textarea'
     },
   },
   methods: {
@@ -231,7 +257,12 @@ export default {
       Object.assign(this.$refs.input.style, textareaStyles)
     },
 
-    clearContent () {
+    /** @public */
+    focus () {
+      this.$refs.input.focus()
+    },
+    /** @public */
+    reset () {
       this.$emit('input', '')
     },
   },
@@ -256,7 +287,8 @@ export default {
       display: flex;
       align-items: flex-end;
       width: 100%;
-      /*min-width: 100%;*/
+
+      /* min-width: 100%; */
     }
 
     &__icon-wrapper {
@@ -282,7 +314,9 @@ export default {
       line-height: 1.2;
       font-weight: bold;
       text-transform: uppercase;
+
       @include va-ellipsis();
+
       transform-origin: top left;
     }
 

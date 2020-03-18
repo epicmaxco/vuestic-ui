@@ -1,21 +1,24 @@
 <template>
   <div
-    class="va-tab"
     :class="{
+      'va-tab': true,
       'va-tab--active': isActive,
       'va-tab--disabled': disabled
     }"
-    @click="$emit('tabClick', !isActive)"
+    @click="onTabClick"
   >
-    <div class="va-tab__content" ref="content">
-      <slot/>
+    <div
+      class="va-tab__content"
+      ref="content"
+    >
+      <slot />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'va-tab',
+  name: 'VaTab',
   props: {
     disabled: {
       type: Boolean,
@@ -37,6 +40,11 @@ export default {
   beforeDestroy () {
     this.tabGroup && this.tabGroup.unregister(this)
   },
+  methods: {
+    onTabClick () {
+      this.$emit('tabClick', !this.isActive)
+    },
+  },
 }
 </script>
 
@@ -53,13 +61,11 @@ export default {
   max-width: 264px;
   text-align: center;
   vertical-align: middle;
-
   padding: 0.4375rem 0.75rem;
-  font-weight: $font-weight-bold;
   cursor: pointer;
 
   &:not(.va-tab--active) {
-    opacity: .5;
+    opacity: 0.5;
   }
 
   &__content {

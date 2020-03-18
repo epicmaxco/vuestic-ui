@@ -1,10 +1,5 @@
 <template>
   <VbDemo>
-    <VbCard title="Design">
-      <div style="height: 200px; overflow-y: scroll">
-        <img src="http://i68.tinypic.com/ne84fs.png" alt="">
-      </div>
-    </VbCard>
     <VbCard title="Placeholder">
       <va-input
         v-model="empty"
@@ -46,7 +41,10 @@
         v-model="text"
         label="Name"
       >
-        <va-icon slot="append" name="fa fa-anchor"/>
+        <va-icon
+          slot="append"
+          name="share"
+        />
       </va-input>
     </VbCard>
     <VbCard title="Button">
@@ -54,7 +52,11 @@
         v-model="text"
         label="Name"
       >
-        <va-button slot="append" style="margin-right: 0;" small>
+        <va-button
+          slot="append"
+          style="margin-right: 0;"
+          size="small"
+        >
           Upload
         </va-button>
       </va-input>
@@ -66,7 +68,7 @@
       >
         <va-icon
           slot="prepend"
-          name="fa fa-anchor"
+          name="share"
         />
       </va-input>
     </VbCard>
@@ -77,7 +79,7 @@
       >
         <va-icon
           slot="append"
-          name="fa fa-anchor"
+          name="share"
         />
       </va-input>
     </VbCard>
@@ -85,8 +87,7 @@
       <va-input
         v-model="text"
         removable
-      >
-      </va-input>
+      />
     </VbCard>
     <VbCard title="Error">
       <va-input
@@ -124,10 +125,11 @@
         v-model="text"
         label="Name"
         error
-        :errorCount="2"
+        :error-count="2"
         :error-messages="['one', 'two']"
       />
     </VbCard>
+    <VaInputValidation />
     <VbCard title="Textarea">
       <va-input
         v-model="text"
@@ -140,26 +142,26 @@
         v-model="text"
         label="Name"
         type="textarea"
-        :minRows="3"
-        :maxRows="8"
+        :min-rows="3"
+        :max-rows="8"
       />
     </VbCard>
     <VbCard title="Textarea autosize">
       <va-input
-        v-model="text"
+        v-model="autosizeValue"
         label="Name"
         type="textarea"
         autosize
       />
     </VbCard>
-    <VbCard title="Textarea autosize limits">
+    <VbCard title="Textarea autosize limits (2-4)">
       <va-input
-        v-model="text"
+        v-model="autosizeValueWithLimits"
         label="Name"
         type="textarea"
         autosize
-        :minRows="3"
-        :maxRows="8"
+        :min-rows="2"
+        :max-rows="4"
       />
     </VbCard>
   </VbDemo>
@@ -169,9 +171,11 @@
 import VaInput from './VaInput'
 import VaButton from './../va-button/VaButton'
 import VaIcon from './../va-icon/VaIcon'
+import VaInputValidation from './VaInput-validation'
 
 export default {
   components: {
+    VaInputValidation,
     VaInput,
     VaButton,
     VaIcon,
@@ -184,6 +188,9 @@ export default {
       messages: ['Required field'],
       errorMessages: ['Detailed error message'],
       successMessages: ['Success message'],
+
+      autosizeValue: 'one\ntwo\nthree',
+      autosizeValueWithLimits: 'one\ntwo\nthree',
     }
   },
 }

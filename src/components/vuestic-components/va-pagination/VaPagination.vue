@@ -5,10 +5,10 @@
       :style="directionButtonStyle"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled || value === 1"
       :icon="iconClass.boundary"
+      icon-right=""
       @click="changePage(1)"
     />
     <va-button
@@ -16,22 +16,23 @@
       :style="directionButtonStyle"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled || value === 1"
       :icon="iconClass.direction"
+      icon-right=""
       @click="changePage(value - 1)"
     />
     <va-button
       :style="activeButtonStyle(n)"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled"
       v-for="(n, key) in paginationRange"
       :key="key"
       :class="{ 'va-button--active': n === value }"
+      icon=""
+      icon-right=""
       @click="changePage(n)"
     >
       {{ n }}
@@ -41,10 +42,10 @@
       :style="directionButtonStyle"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled || value === this.pages"
       :icon="iconRightClass.direction"
+      icon-right=""
       @click="changePage(value + 1)"
     />
     <va-button
@@ -52,10 +53,10 @@
       :style="directionButtonStyle"
       outline
       :color="color"
-      :small="small"
-      :large="large"
+      :size="size"
       :disabled="disabled || value === this.pages"
       :icon="iconRightClass.boundary"
+      icon-right=""
       @click="changePage(lastPage)"
     />
   </va-button-group>
@@ -65,68 +66,90 @@
 import VaButtonGroup from '../va-button-group/VaButtonGroup'
 import VaButton from '../va-button/VaButton'
 import { setPaginationRange } from './setPaginationRange'
+import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
-  name: 'va-pagination',
+  name: 'VaPagination',
   components: {
     VaButtonGroup,
     VaButton,
   },
+  mixins: [ContextPluginMixin],
   props: {
     value: {
       type: Number,
+      default () {
+        return getContextPropValue(this, 'value', 1)
+      },
     },
     visiblePages: {
       type: Number,
-      default: 5,
+      default () {
+        return getContextPropValue(this, 'visiblePages', 5)
+      },
     },
     pages: {
       type: Number,
+      default () {
+        return getContextPropValue(this, 'pages', null)
+      },
       required: true,
     },
     color: {
       type: String,
-      default: 'info',
+      default () {
+        return getContextPropValue(this, 'color', 'info')
+      },
     },
     disabled: {
       type: Boolean,
+      default () {
+        return getContextPropValue(this, 'disabled', false)
+      },
     },
-    small: {
-      type: Boolean,
-    },
-    large: {
-      type: Boolean,
+    size: {
+      type: String,
+      default () {
+        return getContextPropValue(this, 'size', 'medium')
+      },
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
+      },
     },
     boundaryLinks: {
       type: Boolean,
-      default: true,
+      default () {
+        return getContextPropValue(this, 'boundaryLinks', true)
+      },
     },
     directionLinks: {
       type: Boolean,
-      default: true,
-    },
-    icon: {
-      type: Object,
-      default: () => {
-        return {}
+      default () {
+        return getContextPropValue(this, 'directionLinks', true)
       },
     },
-    iconRight: {
+    iconFont: {
       type: Object,
-      default: () => {
-        return {}
+      default () {
+        return getContextPropValue(this, 'iconFont', null)
+      },
+    },
+    iconFontRight: {
+      type: Object,
+      default () {
+        return getContextPropValue(this, 'iconFontRight', null)
       },
     },
   },
   data () {
     return {
       defaultIconClass: {
-        direction: 'fa fa-angle-left',
-        boundary: 'fa fa-angle-double-left',
+        direction: 'chevron_left',
+        boundary: 'first_page',
       },
       defaultIconRightClass: {
-        direction: 'fa fa-angle-right',
-        boundary: 'fa fa-angle-double-right',
+        direction: 'chevron_right',
+        boundary: 'last_page',
       },
     }
   },
@@ -139,10 +162,10 @@ export default {
       }
     },
     iconClass () {
-      return Object.assign({}, this.defaultIconClass, this.icon)
+      return Object.assign({}, this.defaultIconClass)
     },
     iconRightClass () {
-      return Object.assign({}, this.defaultIconRightClass, this.iconRight)
+      return Object.assign({}, this.defaultIconRightClass)
     },
     lastPage () {
       return this.pages

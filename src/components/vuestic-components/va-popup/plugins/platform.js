@@ -1,6 +1,4 @@
-/* eslint-disable no-useless-escape */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-mixed-operators */
+/* eslint-disable */
 
 export const isSSR = typeof window === 'undefined'
 export let fromSSR = false

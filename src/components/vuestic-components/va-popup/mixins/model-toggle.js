@@ -1,4 +1,5 @@
-/* eslint prefer-promise-reject-errors: 0 */
+/* eslint-disable */
+
 import History from '../history'
 
 export default {

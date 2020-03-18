@@ -1,5 +1,27 @@
 <template>
   <VbDemo>
+    <VbCard title="empty">
+      <va-button />
+    </VbCard>
+    <VbCard title="relative positions are incorrect">
+      <span
+        style="color: tomato;"
+        title="relative positions are incorrect"
+      >❗❗</span>
+      <va-button
+        style="margin-right: 1rem;"
+        icon="clear"
+        icon-right="clear"
+      >
+        Plus Button
+      </va-button>
+      <va-button
+        icon-right="clear"
+      >
+        Dropdown button
+      </va-button>
+    </VbCard>
+
     <VbCard>
       <table class="table table-bordered">
         <tr>
@@ -9,9 +31,6 @@
         <tr>
           <td>Types</td>
           <td>
-            <va-button>
-              Default Button
-            </va-button>
             <va-button outline>
               Outline Button
             </va-button>
@@ -26,28 +45,40 @@
             <va-button>
               Default Button
             </va-button>
-            <va-button large>
+            <va-button size="large">
               Large Button
             </va-button>
-            <va-button small>
+            <va-button size="small">
               Small Button
             </va-button>
             <va-button outline>
               Default Button
             </va-button>
-            <va-button large outline>
+            <va-button
+              size="large"
+              outline
+            >
               Large Button
             </va-button>
-            <va-button small outline>
+            <va-button
+              size="small"
+              outline
+            >
               Small Button
             </va-button>
             <va-button flat>
               Default Button
             </va-button>
-            <va-button flat large>
+            <va-button
+              size="large"
+              flat
+            >
               Large Button
             </va-button>
-            <va-button flat small>
+            <va-button
+              size="small"
+              flat
+            >
               Small Button
             </va-button>
           </td>
@@ -84,19 +115,34 @@
               <va-button outline>
                 Success Button
               </va-button>
-              <va-button outline color="info">
+              <va-button
+                outline
+                color="info"
+              >
                 Info Button
               </va-button>
-              <va-button outline color="danger">
+              <va-button
+                outline
+                color="danger"
+              >
                 Danger Button
               </va-button>
-              <va-button outline color="warning">
+              <va-button
+                outline
+                color="warning"
+              >
                 Warning Button
               </va-button>
-              <va-button outline color="gray">
+              <va-button
+                outline
+                color="gray"
+              >
                 Gray Button
               </va-button>
-              <va-button outline color="dark">
+              <va-button
+                outline
+                color="dark"
+              >
                 Dark Button
               </va-button>
             </div>
@@ -109,19 +155,34 @@
               <va-button flat>
                 Success Button
               </va-button>
-              <va-button flat color="info">
+              <va-button
+                flat
+                color="info"
+              >
                 Info Button
               </va-button>
-              <va-button flat color="danger">
+              <va-button
+                flat
+                color="danger"
+              >
                 Danger Button
               </va-button>
-              <va-button flat color="warning">
+              <va-button
+                flat
+                color="warning"
+              >
                 Warning Button
               </va-button>
-              <va-button flat color="gray">
+              <va-button
+                flat
+                color="gray"
+              >
                 Gray Button
               </va-button>
-              <va-button flat color="dark">
+              <va-button
+                flat
+                color="dark"
+              >
                 Dark Button
               </va-button>
             </div>
@@ -133,10 +194,16 @@
             <va-button disabled>
               Default Button
             </va-button>
-            <va-button disabled outline>
+            <va-button
+              disabled
+              outline
+            >
               Outline Button
             </va-button>
-            <va-button disabled flat>
+            <va-button
+              disabled
+              flat
+            >
               Flat Button
             </va-button>
           </td>
@@ -153,7 +220,7 @@
               A-link Button
             </va-button>
             <va-button
-              :to="{ name: 'charts' }"
+              to="/demo"
             >
               Router-link Button
             </va-button>
@@ -163,18 +230,18 @@
           <td>Primary Buttons With icons</td>
           <td>
             <va-button
-              icon="brandico brandico-facebook"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
-              icon-right="iconicstroke iconicstroke-info"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -185,20 +252,20 @@
           <td>
             <va-button
               outline
-              icon="brandico brandico-facebook"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
               outline
-              icon-right="iconicstroke iconicstroke-info"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
               outline
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -209,20 +276,20 @@
           <td>
             <va-button
               flat
-              icon="brandico brandico-facebook"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
               flat
-              icon-right="iconicstroke iconicstroke-info"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
               flat
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -232,21 +299,23 @@
           <td>Large Buttons With icons</td>
           <td>
             <va-button
-              large
-              icon="brandico brandico-facebook"
+              size="large"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
-              outline large
-              icon-right="iconicstroke iconicstroke-info"
+              outline
+              size="large"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
-              flat large
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              flat
+              size="large"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -256,21 +325,23 @@
           <td>Small Buttons With icons</td>
           <td>
             <va-button
-              small
-              icon="brandico brandico-facebook"
+              size="small"
+              icon="create"
             >
               Plus Button
             </va-button>
             <va-button
-              outline small
-              icon-right="iconicstroke iconicstroke-info"
+              outline
+              size="small"
+              icon-right="clear"
             >
               Dropdown button
             </va-button>
             <va-button
-              flat small
-              icon="brandico brandico-facebook"
-              icon-right="iconicstroke iconicstroke-info"
+              flat
+              size="small"
+              icon="create"
+              icon-right="clear"
             >
               Mixed button
             </va-button>
@@ -279,15 +350,43 @@
         <tr>
           <td>All Buttons Without Title</td>
           <td>
-            <va-button icon="ion-md-close ion"/>
-            <va-button large icon="ion-md-close ion"/>
-            <va-button small icon="ion-md-close ion"/>
-            <va-button outline icon="ion-md-close ion"/>
-            <va-button outline large icon="ion-md-close ion"/>
-            <va-button outline small icon="ion-md-close ion"/>
-            <va-button flat icon="ion-md-close ion"/>
-            <va-button flat large icon="ion-md-close ion"/>
-            <va-button flat small icon="ion-md-close ion"/>
+            <va-button icon="block" />
+            <va-button
+              size="large"
+              icon="block"
+            />
+            <va-button
+              size="small"
+              icon="block"
+            />
+            <va-button
+              outline
+              icon="block"
+            />
+            <va-button
+              outline
+              size="large"
+              icon="block"
+            />
+            <va-button
+              outline
+              size="small"
+              icon="block"
+            />
+            <va-button
+              flat
+              icon="block"
+            />
+            <va-button
+              flat
+              size="large"
+              icon="block"
+            />
+            <va-button
+              flat
+              size="small"
+              icon="block"
+            />
           </td>
         </tr>
       </table>

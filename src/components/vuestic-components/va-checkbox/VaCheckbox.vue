@@ -1,7 +1,13 @@
 <template>
-  <div
+  <va-input-wrapper
     class="va-checkbox"
     :class="computedClass"
+    :disabled="c_disabled"
+    :success="c_success"
+    :messages="c_messages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
+    :error-count="errorCount"
   >
     <div
       class="va-checkbox__input-container"
@@ -9,151 +15,148 @@
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
     >
-      <div
-        class="va-checkbox__square"
-        :class="{'active': isChecked}"
-      >
+      <div class="va-checkbox__square">
         <input
+          ref="input"
           :id="id"
+          :name="name"
           readonly
           @focus="onFocus"
-          @blur="isKeyboardFocused = false"
+          @blur="onBlur"
           class="va-checkbox__input"
           @keypress.prevent="toggleSelection()"
-          :disabled="disabled"
-          :indeterminate="indeterminate"
+          :disabled="c_disabled"
+          :indeterminate="c_indeterminate"
           :style="inputStyle"
+        >
+        <va-icon
+          class="va-checkbox__icon-selected"
+          :name="computedIconName"
         />
-        <va-icon :name="computedIcon"/>
       </div>
       <div
         class="va-checkbox__label-text"
         :style="labelStyle"
       >
         <slot name="label">
-          {{ label }}
+          {{ c_label }}
         </slot>
       </div>
     </div>
-    <va-message-list
-      class="va-checkbox__error-message-container"
-      :value="errorMessages"
-      color="danger"
-      :limit="errorCount"
-    />
-  </div>
+  </va-input-wrapper>
 </template>
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
-import VaMessageList from '../va-input/VaMessageList'
 import { KeyboardOnlyFocusMixin } from './KeyboardOnlyFocusMixin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import {
+  ContextPluginMixin,
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import VaInputWrapper from '../va-input/VaInputWrapper'
 
 export default {
-  name: 'va-checkbox',
-  components: { VaMessageList, VaIcon },
-  mixins: [KeyboardOnlyFocusMixin],
-  props: {
-    id: String,
-    label: String,
-    name: String,
-    value: {
-      type: [Boolean, Array],
-      required: true,
-    },
-    arrayValue: String,
-    indeterminate: Boolean,
-
-    disabled: Boolean,
-    readonly: Boolean,
-
-    checkedIcon: {
-      type: [String, Array],
-      default: 'ion ion-md-checkmark',
-    },
-    indeterminateIcon: {
-      type: [String, Array],
-      default: 'ion ion-md-remove',
-    },
-
-    error: Boolean,
-    errorMessages: {
-      type: [String, Array],
-      default: () => [],
-    },
-    errorCount: {
-      type: Number,
-      default: 1,
-    },
-  },
+  name: 'VaCheckbox',
+  components: { VaInputWrapper, VaIcon },
+  mixins: [
+    makeContextablePropsMixin({
+      label: { type: String, default: '' },
+      value: { type: [Boolean, Array], default: false },
+      arrayValue: { type: String, default: '' },
+      indeterminate: { type: Boolean, default: false },
+      checkedIcon: { type: String, default: 'check' },
+      indeterminateIcon: { type: String, default: 'remove' },
+    }),
+    FormComponentMixin,
+    KeyboardOnlyFocusMixin,
+    ColorThemeMixin,
+    ContextPluginMixin,
+  ],
   computed: {
     computedClass () {
       return {
         'va-checkbox--selected': this.isChecked,
-        'va-checkbox--readonly': this.readonly,
-        'va-checkbox--disabled': this.disabled,
-        'va-checkbox--indeterminate': this.indeterminate,
-        'va-checkbox--error': this.showError,
+        'va-checkbox--readonly': this.c_readonly,
+        'va-checkbox--disabled': this.c_disabled,
+        'va-checkbox--indeterminate': this.c_indeterminate,
+        'va-checkbox--error': this.computedError,
         'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
       }
     },
     labelStyle () {
-      if (this.showError) return { color: this.$themes.danger }
+      if (this.computedError) {
+        return { color: this.$themes.danger }
+      }
+
+      return {}
     },
     inputStyle () {
-      if (this.showError) {
-        if (this.isChecked) return { background: this.$themes.danger }
-        else return { borderColor: this.$themes.danger }
+      if (this.computedError) {
+        if (this.isChecked) {
+          return { background: this.$themes.danger }
+        } else {
+          return { borderColor: this.$themes.danger }
+        }
       } else {
-        if (this.isChecked) return { background: this.$themes.success }
+        if (this.isChecked) return { background: this.colorComputed }
       }
+
+      return {}
     },
-    computedIcon () {
-      return [
-        'va-checkbox__icon-selected',
-        this.indeterminate ? this.indeterminateIcon : this.checkedIcon,
-      ]
+    computedIconName () {
+      return this.c_indeterminate ? this.c_indeterminateIcon : this.c_checkedIcon
     },
     isChecked () {
-      return this.modelIsArray ? this.value.includes(this.arrayValue) : this.value
+      return this.modelIsArray ? this.c_value.includes(this.c_arrayValue) : this.c_value
     },
     modelIsArray () {
-      return Array.isArray(this.value)
-    },
-    showError () {
-      // We make error active, if the error-message is not empty and checkbox is not disabled
-      if (!this.disabled) {
-        if (!(this.errorMessages.length === 0) || this.error) {
-          return true
-        }
-      }
-      return false
+      return Array.isArray(this.c_value)
     },
   },
   methods: {
+    /** @public */
+    focus () {
+      this.$refs.input.focus()
+    },
+    /** @public */
+    reset () {
+      this.$emit('input', false)
+    },
+    onFocus () {
+      this.KeyboardOnlyFocusMixin_onFocus()
+
+      this.$emit('focus')
+    },
+    onBlur (event) {
+      this.ValidateMixin_onBlur()
+      this.isKeyboardFocused = false
+      this.$emit('blur', event)
+    },
     toggleSelection () {
-      if (this.readonly) {
+      if (this.c_readonly) {
         return
       }
-      if (this.disabled) {
+      if (this.c_disabled) {
         return
       }
       if (this.modelIsArray) {
-        if (this.value.includes(this.arrayValue)) {
-          this.$emit('input', this.value.filter(option => option !== this.arrayValue))
+        if (this.c_value.includes(this.c_arrayValue)) {
+          this.$emit('input', this.c_value.filter(option => option !== this.c_arrayValue))
         } else {
-          this.$emit('input', this.value.concat(this.arrayValue))
+          this.$emit('input', this.value.concat(this.c_arrayValue))
         }
         return
       }
 
-      this.$emit('input', !this.value)
+      this.$emit('input', !this.c_value)
     },
   },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../vuestic-sass/resources/resources";
 
 .va-checkbox {
@@ -169,24 +172,24 @@ export default {
     @at-root {
       .va-checkbox--disabled & {
         @include va-disabled();
+
+        cursor: default;
       }
 
       .va-checkbox--readonly & {
         cursor: initial;
-      }
-
-      .va-checkbox--disabled & {
-        cursor: default;
       }
     }
   }
 
   #{&}__square {
     @include flex-center();
+
     width: 2rem;
     height: 2rem;
     position: relative;
     flex: 0 0 2rem;
+
     @at-root {
       .va-checkbox--on-keyboard-focus#{&} {
         background-color: $light-gray;
@@ -197,6 +200,7 @@ export default {
   }
 
   #{&}__input {
+    box-sizing: border-box;
     height: 1.375rem;
     width: 1.375rem;
     cursor: inherit;
@@ -231,6 +235,7 @@ export default {
     display: inline-block;
     position: relative;
     margin-left: 0.25rem;
+
     @at-root {
       .va-checkbox--error#{&} {
         color: $theme-red;

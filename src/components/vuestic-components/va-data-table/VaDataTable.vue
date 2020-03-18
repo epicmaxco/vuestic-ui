@@ -11,6 +11,7 @@
         :no-data-template="noDataLabel"
         :css="styles"
         :row-class="rowClass"
+        :sort-order="sortOrder"
         @vuetable:row-clicked="rowClicked"
       >
         <!-- https://stackoverflow.com/questions/50891858/vue-how-to-pass-down-slots-inside-wrapper-component   -->
@@ -31,11 +32,10 @@
         class="va-data-table__pagination"
       >
         <va-pagination
-          v-model="currentPage"
+          v-model="currentPageProxy"
           :pages="paginationTotal"
           :visible-pages="visiblePages"
           :boundary-links="paginationTotal > visiblePages"
-          @input="inputPage"
         />
       </div>
     </va-inner-loading>
@@ -48,7 +48,7 @@ import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
 
 export default {
-  name: 'va-data-table',
+  name: 'VaDataTable',
   components: {
     VaInnerLoading,
     Vuetable,
@@ -71,6 +71,10 @@ export default {
       type: Number,
       default: 4,
     },
+    currentPage: {
+      type: Number,
+      default: 1,
+    },
     apiMode: Boolean,
     clickable: Boolean,
     hoverable: Boolean,
@@ -81,6 +85,10 @@ export default {
     },
     rowClass: {
       type: Function,
+      default: undefined,
+    },
+    sortOrder: {
+      type: Array,
       default: undefined,
     },
     totalPages: {
@@ -95,10 +103,22 @@ export default {
   },
   data () {
     return {
-      currentPage: 1,
     }
   },
   computed: {
+    currentPageProxy: {
+      get () {
+        return this.currentPage
+      },
+      set (page) {
+        if (this.apiMode) {
+          this.$emit('page-selected', page)
+          return
+        }
+
+        this.$refs.vuetable.changePage(page)
+      },
+    },
     styles () {
       return {
         tableClass: this.buildTableClass(),
@@ -167,24 +187,16 @@ export default {
     },
     sortAsc (items, field) {
       return items.slice().sort((a, b) => {
-        return a[field].localeCompare(b[field])
+        return a[field].toLocaleString().localeCompare(b[field].toLocaleString(), { numeric: true })
       })
     },
     sortDesc (items, field) {
       return items.slice().sort((a, b) => {
-        return b[field].localeCompare(a[field])
+        return b[field].toLocaleString().localeCompare(a[field].toLocaleString(), { numeric: true })
       })
     },
     buildPagination (l, perPage) {
       return this.$refs.vuetable.makePagination(l, perPage)
-    },
-    inputPage (page) {
-      if (this.apiMode) {
-        this.$emit('page-selected', page)
-        return
-      }
-
-      this.$refs.vuetable.changePage(page)
     },
     refresh () {
       this.$refs.vuetable.refresh()

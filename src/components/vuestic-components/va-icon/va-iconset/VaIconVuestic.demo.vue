@@ -1,7 +1,7 @@
 <template>
   <div class="demo-container">
     <div class="demo-container__item">
-      <va-icon-vuestic/>
+      <va-icon-vuestic />
     </div>
   </div>
 </template>

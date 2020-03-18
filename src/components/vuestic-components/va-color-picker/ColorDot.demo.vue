@@ -8,7 +8,10 @@
       />
     </div>
     <div class="demo-container__item">
-      <img src="https://i.imgur.com/Rm23NjT.png" alt="">
+      <img
+        src="https://i.imgur.com/Rm23NjT.png"
+        alt=""
+      >
     </div>
   </div>
 </template>

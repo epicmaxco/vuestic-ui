@@ -1,11 +1,11 @@
 <template>
   <div class="demo-container">
     <div class="demo-container__item">
-      <va-advanced-color-picker v-model="value"/>
+      <va-advanced-color-picker v-model="value" />
       {{ value }}
     </div>
     <div class="demo-container__item">
-      <va-advanced-color-picker v-model="value"/>
+      <va-advanced-color-picker v-model="value" />
     </div>
   </div>
 </template>

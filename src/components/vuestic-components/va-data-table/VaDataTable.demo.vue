@@ -1,14 +1,23 @@
 <template>
   <VbDemo>
-    <VbCard title="Static Data" width="100%">
+    <VbCard
+      title="Static Data"
+      width="100%"
+    >
       <va-data-table-static-data-example />
     </VbCard>
 
-    <VbCard title="Server-side Pagination" width="100%">
+    <VbCard
+      title="Server-side Pagination"
+      width="100%"
+    >
       <va-data-table-api-mode-example />
     </VbCard>
 
-     <VbCard title="Custom data manager" width="100%">
+    <VbCard
+      title="Custom data manager"
+      width="100%"
+    >
       <p>Clicking in the columns sorts it by the last letter</p>
       <va-data-table-custom-data-manager-example />
     </VbCard>

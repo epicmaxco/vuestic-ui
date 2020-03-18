@@ -34,29 +34,46 @@ import { getFocusColor } from '../../../services/color-functions'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 
 export default {
-  name: 'va-toggle',
+  name: 'VaToggle',
   mixins: [ColorThemeMixin, KeyboardOnlyFocusMixin],
   props: {
-    value: {},
-    label: String,
-    small: Boolean,
-    large: Boolean,
-    disable: Boolean,
+    value: {
+      type: [Object, Array, Number, String, Boolean],
+      default: false,
+    },
+    label: {
+      type: String,
+      default: '',
+    },
+    size: {
+      type: String,
+      default: 'medium',
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
+      },
+    },
+    disable: {
+      type: Boolean,
+      default: false,
+    },
     arrayValue: {
+      type: String,
       default: null,
     },
     trueValue: {
+      type: Boolean,
       default: true,
     },
     falseValue: {
+      type: Boolean,
       default: false,
     },
   },
   computed: {
     computedClass () {
       return {
-        'va-toggle--small': this.small,
-        'va-toggle--large': this.large,
+        'va-toggle--small': this.size === 'small',
+        'va-toggle--large': this.size === 'large',
         'va-toggle--disabled': this.disable,
       }
     },
@@ -66,7 +83,7 @@ export default {
       return { backgroundColor }
     },
     indicatorStyle () {
-      const moveStartPoint = this.small ? 1.5 : this.large ? 2.5 : 2
+      const moveStartPoint = this.size === 'small' ? 1.5 : this.size === 'large' ? 2.5 : 2
       return { transform: this.isTrue ? `translateX(${moveStartPoint}rem)` : 'translateX(0rem)' }
     },
     computedTabindex () {
@@ -114,7 +131,7 @@ export default {
 
 .va-toggle {
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   margin-bottom: $checkbox-between-items-margin;
 
@@ -129,11 +146,10 @@ export default {
     width: 4rem;
     min-width: 4rem;
     border-radius: 1rem;
-    margin: $btn-margin;
 
     &:focus {
       outline: 0;
-      box-shadow: 0 0 0 4px rgba(52, 144, 220, .5);
+      box-shadow: 0 0 0 4px rgba(52, 144, 220, 0.5);
     }
   }
 
@@ -146,14 +162,14 @@ export default {
       }
 
       &__input {
-        top: .128rem;
-        left: .1275rem;
+        top: 0.128rem;
+        left: 0.1275rem;
         height: 1.2rem;
         width: 1.2rem;
       }
 
       &__track {
-        border-radius: .75rem;
+        border-radius: 0.75rem;
       }
     }
   }
@@ -167,8 +183,8 @@ export default {
       }
 
       &__input {
-        top: .375rem;
-        left: .375rem;
+        top: 0.375rem;
+        left: 0.375rem;
         height: 1.8rem;
         width: 1.8rem;
       }
@@ -194,19 +210,19 @@ export default {
     width: 100%;
     background: $white;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color .2s ease;
+    transition: background-color 0.2s ease;
   }
 
   &__input {
     position: absolute;
-    top: .25rem;
-    left: .25rem;
+    top: 0.25rem;
+    left: 0.25rem;
     height: 1.5rem;
     width: 1.5rem;
     background-color: $white;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform .2s ease;
+    transition: transform 0.2s ease;
   }
 }
 

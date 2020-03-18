@@ -3,7 +3,7 @@
     :fields="fields"
     :data="users"
     :loading="loading"
-    :totalPages="totalPages"
+    :total-pages="totalPages"
     api-mode
     @page-selected="readPage"
   />

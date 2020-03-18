@@ -1,6 +1,9 @@
 <template>
-  <div class="square-with-icon" :style="{ backgroundColor: colorComputed }">
-    <va-icon :name="iconClass"/>
+  <div
+    class="square-with-icon"
+    :style="{ backgroundColor: colorComputed }"
+  >
+    <va-icon :name="icon" />
   </div>
 </template>
 
@@ -9,11 +12,11 @@ import VaIcon from '../../va-icon/VaIcon'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
 export default {
-  name: 'square-with-icon',
-  mixins: [ ColorThemeMixin ],
+  name: 'SquareWithIcon',
+  mixins: [ColorThemeMixin],
   components: { VaIcon },
   props: {
-    iconClass: {
+    icon: {
       type: String,
       required: true,
     },
@@ -28,18 +31,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  height: 1.5rem;
-  width: 1.5rem;
   color: $white;
   background-color: $vue-green;
-  border-radius: .25rem;
-
-  .va-icon {
-    width: .875rem;
-    height: .875rem;
-    text-align: center;
-  }
-
+  border-radius: 0.25rem;
+  width: 1.375rem;
+  height: 1.375rem;
 }
 </style>

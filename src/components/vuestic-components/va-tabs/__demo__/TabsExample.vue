@@ -7,20 +7,23 @@
       >
         {{ tabObject.title }}
         <va-icon
-          name="fa fa-times"
+          name="close"
           class="ml-2"
           @click.stop.native="removeTab(tabObject)"
         />
       </va-tab>
     </va-tabs>
 
-    <div style="height: 20px"/>
+    <div style="height: 20px;" />
 
     <div>
       Content: {{ selectedTab ? selectedTab.title : 'none' }}
     </div>
     <div>
-      <input type="number" v-model.number="selectedTabIndex">
+      <input
+        type="number"
+        v-model.number="selectedTabIndex"
+      >
     </div>
   </div>
 </template>

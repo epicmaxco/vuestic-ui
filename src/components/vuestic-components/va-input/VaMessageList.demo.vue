@@ -1,16 +1,25 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <VaMessageList :value="stringMessage"/>
+      <VaMessageList :value="stringMessage" />
     </VbCard>
     <VbCard title="Message array">
-      <VaMessageList :limit="3" :value="stringMessages"/>
+      <VaMessageList
+        :limit="3"
+        :value="stringMessages"
+      />
     </VbCard>
     <VbCard title="Error">
-      <VaMessageList color="danger" :value="stringMessages"/>
+      <VaMessageList
+        color="danger"
+        :value="stringMessages"
+      />
     </VbCard>
     <VbCard title="Success">
-      <VaMessageList color="success" :value="stringMessages"/>
+      <VaMessageList
+        color="success"
+        :value="stringMessages"
+      />
     </VbCard>
   </VbDemo>
 </template>

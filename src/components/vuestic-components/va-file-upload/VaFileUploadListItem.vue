@@ -6,8 +6,14 @@
     no-padding
     :class="{'file-upload-list-item--undo': removed}"
   >
-    <va-file-upload-undo @recover="recoverFile" v-if="removed"/>
-    <div class="va-file-upload-list-item__content" v-else>
+    <va-file-upload-undo
+      @recover="recoverFile"
+      v-if="removed"
+    />
+    <div
+      class="va-file-upload-list-item__content"
+      v-else
+    >
       <div class="va-file-upload-list-item__name">
         {{ file.name }}
       </div>
@@ -16,10 +22,10 @@
       </div>
       <va-icon
         color="danger"
-        name="material-icons"
+        name="clear"
         @click.native="removeFile"
         class="va-file-upload-list-item__delete"
-      >delete_outline</va-icon>
+      />
     </div>
   </va-card>
 </template>
@@ -30,7 +36,7 @@ import VaCard from '../va-card/VaCard'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  name: 'va-file-upload-list-item',
+  name: 'VaFileUploadListItem',
   components: {
     VaIcon,
     VaCard,
@@ -39,6 +45,7 @@ export default {
   props: {
     file: {
       type: Object,
+      default: null,
     },
     color: {
       type: String,
@@ -75,9 +82,10 @@ export default {
     margin-top: 0.5rem;
   }
 
+  line-height: 1.5rem;
   width: 100%;
   max-width: 100%;
-  padding: 1.125rem .5rem 1rem 1rem;
+  padding: 1.125rem 0.5rem 1rem 1rem;
 
   &__content {
     display: flex;

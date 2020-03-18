@@ -8,27 +8,38 @@
 
     <VbCard title="Slots scheme">
       <va-input-wrapper :messages="messages">
-        <div slot="prepend" style="width: 30px; height: 30px; border: 1px dotted black;" class="flex-center">
-          <va-icon name="fa fa-volume-off"/>
+        <div
+          slot="prepend"
+          style="width: 30px; height: 30px; border: 1px dotted black;"
+          class="flex-center"
+        >
+          <va-icon name="volume_down" />
         </div>
-        <div style="width: 200px; height: 30px; border: 1px dotted black;">Default Slot</div>
-        <div slot="append" style="width: 30px; height: 30px; border: 1px dotted black;" class="flex-center">
-          <va-icon name="fa fa-volume-up"/>
+        <div style="width: 200px; height: 30px; border: 1px dotted black;">
+          Default Slot
+        </div>
+        <div
+          slot="append"
+          style="width: 30px; height: 30px; border: 1px dotted black;"
+          class="flex-center"
+        >
+          <va-icon name="volume_up" />
         </div>
       </va-input-wrapper>
     </VbCard>
 
     <VbCard title="Error">
       <va-input-wrapper
-        :errorMessages="errorMessages"
+        :error-messages="errorMessages"
       >
         <div>Default Slot</div>
       </va-input-wrapper>
     </VbCard>
 
-    <VbCard title="Error">
+    <VbCard title="Success">
       <va-input-wrapper
-        :errorMessages="errorMessages"
+        :messages="messages"
+        success
       >
         <div>Default Slot</div>
       </va-input-wrapper>
@@ -36,16 +47,22 @@
 
     <VbCard title="Input Wrapper For Checkbox and Radio Button">
       <va-input-wrapper :messages="messages">
-        <va-checkbox name="agree-to-terms" v-model="agreedToTerms">
+        <va-checkbox
+          name="agree-to-terms"
+          v-model="agreedToTerms"
+        >
           <template slot="label">
             I agree to
-            <a class="link" href="javascript:void(0);">Terms of use.</a>
+            <a
+              class="link"
+              href="javascript:void(0);"
+            >Terms of use.</a>
           </template>
         </va-checkbox>
       </va-input-wrapper>
 
       <va-input-wrapper :messages="messages">
-        <va-radio-button
+        <va-radio
           option="option1"
           v-model="radioSelectedOption"
           label="Radio"
@@ -57,18 +74,16 @@
 
 <script>
 import VaInputWrapper from './VaInputWrapper'
-import VaButton from './../va-button/VaButton'
 import VaIcon from './../va-icon/VaIcon'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaRadioButton from '../va-radio-button/VaRadioButton'
+import VaRadio from '../va-radio/VaRadio'
 
 export default {
   components: {
     VaCheckbox,
     VaInputWrapper,
-    VaButton,
     VaIcon,
-    VaRadioButton,
+    VaRadio,
   },
   data () {
     return {

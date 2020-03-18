@@ -1,12 +1,12 @@
 <template>
   <div class="va-tree-category">
     <div
-     class="va-tree-category__header"
-     @click="toggle"
+      class="va-tree-category__header"
+      @click="toggle"
     >
       <div class="va-tree-category__header-switcher">
         <square-with-icon
-          :iconClass="`ion ion-md-${isOpenCached ? 'remove' : 'add'}`"
+          :icon="isOpenCached ? 'remove' : 'add'"
           :color="va.color || colorComputed"
         />
       </div>
@@ -14,25 +14,30 @@
         class="va-tree-category__header-checkbox"
         v-if="$slots.checkbox"
       >
-        <slot name="checkbox"/>
+        <slot name="checkbox" />
       </div>
       <div
         class="va-tree-category__header-icon"
-         v-if="icon"
+        v-if="icon"
       >
-        <va-icon :name="icon" :color="$themes['info']"/>
+        <va-icon
+          :name="icon"
+          :color="$themes['info']"
+        />
       </div>
       <div class="va-tree-category__header-label">
         {{ label }}
       </div>
     </div>
 
-    <div class="va-tree-category__list-container" v-if="isOpenCached">
+    <div
+      class="va-tree-category__list-container"
+      v-if="isOpenCached"
+    >
       <div class="va-tree-category__list-internal-container">
-        <slot/>
+        <slot />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -42,8 +47,8 @@ import SquareWithIcon from './SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  name: 'va-tree-category',
-  mixins: [ ColorThemeMixin ],
+  name: 'VaTreeCategory',
+  mixins: [ColorThemeMixin],
   components: { VaIcon, SquareWithIcon },
   inject: {
     va: {
@@ -73,6 +78,7 @@ export default {
     },
     icon: {
       type: String,
+      default: '',
     },
   },
   methods: {
@@ -122,16 +128,17 @@ export default {
   }
 
   &__header-switcher {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 
   &__header-checkbox {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
     height: 1.5rem;
     width: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+
     .va-checkbox__square {
       width: 1.5rem;
       height: 1.5rem;
@@ -141,7 +148,7 @@ export default {
 
   &__header-icon {
     color: $theme-blue-dark;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
     font-size: 24px;
     line-height: 24px;
   }
@@ -152,12 +159,12 @@ export default {
   }
 
   &__list-container {
-    margin-top: .625rem;
-    padding-left: .6875rem;
+    margin-top: 0.625rem;
+    padding-left: 0.6875rem;
   }
 
   &__list-internal-container {
-    background-image: linear-gradient($gray 33%, rgba(255,255,255,0) 0%);
+    background-image: linear-gradient($gray 33%, rgba(255, 255, 255, 0) 0%);
     background-position: left;
     background-size: 1px 3px;
     background-repeat: repeat-y;
@@ -168,7 +175,7 @@ export default {
   .va-tree-node + .va-tree-node,
   .va-tree-category + .va-tree-node,
   .va-tree-node + .va-tree-category {
-    margin-top: .75rem;
+    margin-top: 0.75rem;
   }
 }
 </style>

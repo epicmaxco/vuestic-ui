@@ -8,20 +8,25 @@
       @click="onHeaderClick()"
     >
       <template>
-        <slot name="header" v-if="customHeader"/>
+        <slot
+          name="header"
+          v-if="customHeader"
+        />
       </template>
       <div
         v-if="!customHeader"
         class="va-collapse__header__content"
       >
-        <slot name="header"/>
+        <slot name="header" />
         <va-icon
           v-if="show"
-          class="fa fa-angle-up va-collapse__header__icon"
+          class="va-collapse__header__icon"
+          name="arrow_back_ios"
         />
         <va-icon
           v-else
-          class="fa fa-angle-down va-collapse__header__icon"
+          class="va-collapse__header__icon"
+          name="arrow_forward_ios"
         />
       </div>
     </div>
@@ -29,7 +34,7 @@
       class="va-collapse__body"
       :style="stylesComputed"
     >
-      <slot name="body"/>
+      <slot name="body" />
     </div>
   </div>
 </template>
@@ -38,7 +43,7 @@
 import VaIcon from '../va-icon/VaIcon'
 
 export default {
-  name: 'va-collapse',
+  name: 'VaCollapse',
   components: { VaIcon },
   props: {
     isOpenDefault: {
@@ -95,8 +100,8 @@ export default {
       }
     },
     getHeight () {
-      return this.$slots.body[0].elm ? `calc(` + this.$slots.body[0].elm.clientHeight +
-        `px + 2rem)` : `100%`
+      return this.$slots.body[0].elm ? 'calc(' + this.$slots.body[0].elm.clientHeight +
+        'px + 2rem)' : '100%'
     },
   },
 }
@@ -117,6 +122,7 @@ export default {
     margin-top: 0.1rem;
     padding-left: 1rem;
     padding-right: 1rem;
+
     @at-root {
       .va-collapse--with-background > & {
         margin-top: 0.1rem;
@@ -142,10 +148,12 @@ export default {
 
     &__icon {
       @include flex-center();
+
       min-width: 1.5rem;
       margin-left: 0.5rem;
       margin-right: 0.5rem;
       color: $gray;
+      transform: rotate(90deg); // hack for show large material arrow icons
     }
   }
 }

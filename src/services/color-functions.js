@@ -1,150 +1,75 @@
-export const hex2rgb = (hex, opacity) => {
-  hex = (hex + '').trim()
+import { ColorTranslator } from 'colortranslator'
 
-  let rgb = null
-  let match = hex.match(/^#?(([0-9a-zA-Z]{3}){1,3})$/)
-
-  if (!match) {
-    return null
-  }
-
-  rgb = {}
-
-  hex = match[1]
-
-  if (hex.length === 6) {
-    rgb.r = parseInt(hex.substring(0, 2), 16)
-    rgb.g = parseInt(hex.substring(2, 4), 16)
-    rgb.b = parseInt(hex.substring(4, 6), 16)
-  } else if (hex.length === 3) {
-    rgb.r = parseInt(hex.substring(0, 1) + hex.substring(0, 1), 16)
-    rgb.g = parseInt(hex.substring(1, 2) + hex.substring(1, 2), 16)
-    rgb.b = parseInt(hex.substring(2, 3) + hex.substring(2, 3), 16)
-  }
-
-  rgb.css = 'rgb' + (opacity ? 'a' : '') + '('
-  rgb.css += rgb.r + ',' + rgb.g + ',' + rgb.b
-  rgb.css += (opacity ? ',' + opacity : '') + ')'
-
-  return rgb
-}
-
-export const hex2hsl = (H) => {
-  /*
-   * the source text is taken from here (with minor modifications):
-   * https://css-tricks.com/converting-color-spaces-in-javascript/
-   */
-
-  // Convert hex to RGB first. Ignore opacity
-  let { r, g, b } = hex2rgb(H, 1)
-
-  // Then to HSL
-  r /= 255
-  g /= 255
-  b /= 255
-
-  let cmin = Math.min(r, g, b)
-  let cmax = Math.max(r, g, b)
-  let delta = cmax - cmin
-  let h = 0
-  let s = 0
-  let l = 0
-
-  if (delta === 0) { h = 0 } else if (cmax === r) { h = ((g - b) / delta) % 6 } else if (cmax === g) { h = (b - r) / delta + 2 } else { h = (r - g) / delta + 4 }
-
-  h = Math.round(h * 60)
-
-  if (h < 0) { h += 360 }
-
-  l = (cmax + cmin) / 2
-  s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1))
-  s = +(s * 100).toFixed(1)
-  l = +(l * 100).toFixed(1)
-
-  const HSL = {
-    h: Math.round(h),
-    s: Math.round(s),
-    l: Math.round(l),
-
-    get css () {
-      return 'hsl(' + HSL.h + ',' + HSL.s + '%,' + HSL.l + '%)'
-    },
-  }
-
-  return HSL
+export const colorToRgba = (color, opacity) => {
+  return new ColorTranslator(color).setA(opacity).RGBA
 }
 
 export const getBoxShadowColor = (color) => {
-  return hex2rgb(color, 0.4).css
+  return new ColorTranslator(color).setA(0.4).RGBA
 }
 
 export const getHoverColor = (color) => {
-  return hex2rgb(color, 0.2).css
+  return new ColorTranslator(color).setA(0.2).RGBA
 }
 
 export const getFocusColor = (color) => {
-  return hex2rgb(color, 0.3).css
+  return new ColorTranslator(color).setA(0.3).RGBA
 }
 
-export const getGradientColor = (color) => {
-  let first = hex2hsl(color)
-  let second = hex2hsl(color)
+export const shiftHslColor = (color, offset = { h: 0, s: 0, l: 0, a: 0 }) => {
+  const result = new ColorTranslator(color)
+
+  if (!isNaN(Number(offset.h))) {
+    result.setH(result.H + offset.h)
+  }
+
+  if (!isNaN(Number(offset.s))) {
+    result.setS(result.S + offset.s)
+  }
+
+  if (!isNaN(Number(offset.l))) {
+    result.setL(result.L + offset.l)
+  }
+
+  if (!isNaN(Number(offset.a))) {
+    result.setA(result.A + offset.a)
+  }
+
+  return result.HSL
+}
+
+export const shiftGradientColor = (color) => {
+  let newColor = ColorTranslator.toHSL(color, false)
 
   // hue circle degrees approximation
-  const isRed = (first.h >= 0 && first.h < 45) || (first.h >= 285)
-  const isYellow = first.h >= 45 && first.h < 85
-  const isGreen = first.h >= 85 && first.h < 165
-  const isBlue = first.h >= 165 && first.h < 285
-  const isUndersaturated = first.s < 30 // i.e. too pale, gray-ish, monotone
+  const isRed = (newColor.h >= 0 && newColor.h < 44) || (newColor.h >= 285)
+  const isYellow = newColor.h >= 44 && newColor.h < 85
+  const isGreen = newColor.h >= 85 && newColor.h < 165
+  const isBlue = newColor.h >= 165 && newColor.h < 285
+  const isUndersaturated = newColor.s < 30 // i.e. too pale, gray-ish, monotone
 
-  if (isRed) {
-    first.h += 11
-    first.s += 27
-    first.l += 8
+  const isGray = newColor.s < 10
+
+  if (isGray) {
+    newColor = shiftHslColor(newColor, { h: 2, s: 5, l: 10 })
+  } else if (isUndersaturated) {
+    newColor = shiftHslColor(newColor, { s: -14, l: 11 })
+  } else if (isRed) {
+    newColor = shiftHslColor(newColor, { h: 11, s: 27, l: 8 })
   } else if (isYellow) {
-    first.h += 3
-    first.l += 9
-
-    second.h -= 2
+    newColor = shiftHslColor(newColor, { h: 3, l: 9 })
   } else if (isGreen) {
-    first.h += 13
-    first.s -= 5
-    first.l += 7
-
-    second.h -= 3
-    second.s -= 1
-    second.l -= 6
+    newColor = shiftHslColor(newColor, { h: 16, l: 14 })
   } else if (isBlue) {
-    first.h -= 15
-    first.s += 3
-    first.l += 2
+    newColor = shiftHslColor(newColor, { h: -15, s: 3, l: 2 })
   }
 
-  if (isUndersaturated) {
-    first.l += 6
-    second.l -= 2
-  }
-
-  // restrictions and validations
-  if (first.h < 0) { first.h += 360 }
-  if (first.h > 0) { Math.round(first.h = first.h % 360) }
-  if (second.h < 0) { second.h += 360 }
-  if (second.h > 0) { Math.round(second.h = second.h % 360) }
-
-  first.s = first.s > 0 ? first.s : 0
-  first.s = first.s < 100 ? first.s : 100
-  second.s = second.s > 0 ? second.s : 0
-  second.s = second.s < 100 ? second.s : 100
-
-  first.l = first.l > 0 ? first.l : 0
-  first.l = first.l < 100 ? first.l : 100
-  second.l = second.l > 0 ? second.l : 0
-  second.l = second.l < 100 ? second.l : 100
-
-  return [first.css, second.css]
+  return newColor
 }
 
 export const getGradientBackground = (color) => {
-  const [left, right] = getGradientColor(color)
-  return `linear-gradient(to right, ${left}, ${right})`
+  const colorLeft = shiftGradientColor(color)
+  const colorRight = ColorTranslator.toHSL(color)
+
+  return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
 }

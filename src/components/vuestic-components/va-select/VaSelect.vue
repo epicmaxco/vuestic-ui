@@ -1,100 +1,116 @@
 <template>
-  <va-dropdown
-    :position="position"
-    :disabled="disabled"
-    class="va-select__dropdown"
-    :max-height="maxHeight"
-    keepAnchorWidth
-    ref="dropdown"
-    :fixed="fixed"
-    :style="{width}"
-    :closeOnAnchorClick="false"
-    boundaryBody
+  <va-input-wrapper
+    :error="computedError"
+    :error-messages="computedErrorMessages"
   >
-    <va-input
-      v-if="searchable"
-      :placeholder="placeholder"
-      v-model="search"
-      class="va-select__input"
-      ref="search"
-      removable
-    />
-    <ul
-      class="va-select__option-list"
-      :style="optionsListStyle"
+    <va-dropdown
+      :position="position"
+      :disabled="disabled"
+      class="va-select__dropdown"
+      :max-height="maxHeight"
+      keep-anchor-width
+      ref="dropdown"
+      :fixed="fixed"
+      :style="{width}"
+      :close-on-anchor-click="false"
+      boundary-body
     >
-      <li
-        v-for="option in filteredOptions"
-        :key="getKey(option)"
-        :class="getOptionClass(option)"
-        :style="getOptionStyle(option)"
-        @click.stop="selectOption(option)"
-        @mouseleave="updateHoveredOption(null)"
-        @mouseover="updateHoveredOption(option)"
+      <va-input
+        v-if="searchable"
+        :id="id"
+        :name="name"
+        :placeholder="placeholder"
+        v-model="search"
+        class="va-select__input"
+        ref="search"
+        removable
+      />
+      <ul
+        class="va-select__option-list"
+        :style="optionsListStyle"
       >
-        <va-icon v-show="option.icon" :name="option.icon" class="va-select__option__icon"/>
-        <span>{{getText(option)}}</span>
-        <va-icon
-          v-show="isSelected(option)"
-          class="va-select__option__selected-icon"
-          name="material-icons">
-          done
-        </va-icon>
-      </li>
-    </ul>
-    <div
-      class="va-select__option-list no-options"
-      :style="optionsListStyle"
-      v-if="!filteredOptions.length"
-    >
-      {{noOptionsText}}
-    </div>
-
-    <div
-      slot="anchor"
-      :class="selectClass"
-      :style="selectStyle"
-    >
-      <label
-        class="va-select__label"
-        :style="labelStyle"
-        aria-hidden="true"
-      >{{label}}</label>
+        <li
+          v-for="option in filteredOptions"
+          :key="getKey(option)"
+          :class="getOptionClass(option)"
+          :style="getOptionStyle(option)"
+          @click.stop="selectOption(option)"
+          @mouseleave="updateHoveredOption(null)"
+          @mouseover="updateHoveredOption(option)"
+        >
+          <va-icon
+            v-if="option.icon"
+            :name="option.icon"
+            class="va-select__option__icon"
+          />
+          <span>{{ getText(option) }}</span>
+          <va-icon
+            v-show="isSelected(option)"
+            class="va-select__option__selected-icon"
+            name="done"
+          />
+        </li>
+      </ul>
       <div
-        class="va-select__input-wrapper"
-        :style="inputWrapperStyles"
+        class="va-select__option-list no-options"
+        :style="optionsListStyle"
+        v-if="!filteredOptions.length"
       >
-        <span
-          class="va-select__tags"
-          v-if="multiple && valueProxy.length <= tagMax"
+        {{ noOptionsText }}
+      </div>
+
+      <div
+        slot="anchor"
+        :class="selectClass"
+        :style="selectStyle"
+      >
+        <label
+          class="va-select__label"
+          :style="labelStyle"
+          aria-hidden="true"
+        >{{ label }}</label>
+        <div
+          class="va-select__input-wrapper"
+          :style="inputWrapperStyles"
         >
           <span
-            class="va-select__tags__tag"
+            class="va-select__tags"
+            v-if="multiple && valueProxy.length <= tagMax"
           >
-            {{ [...this.valueProxy.map(val => getText(val))].join(", ") }}
+            <span
+              class="va-select__tags__tag"
+            >
+              {{ [...this.valueProxy.map(val => getText(val))].join(', ') }}
+            </span>
           </span>
-        </span>
-        <span v-else-if="displayedText" class="va-select__displayed-text">{{displayedText}}</span>
-        <span v-else class="va-select__placeholder">{{placeholder}}</span>
+          <span
+            v-else-if="displayedText"
+            class="va-select__displayed-text"
+          >{{ displayedText }}</span>
+          <span
+            v-else
+            class="va-select__placeholder"
+          >{{ placeholder }}</span>
+        </div>
+        <va-icon
+          v-if="showClearIcon"
+          class="va-select__clear-icon"
+          name="cancel"
+          @click.native.stop="clear()"
+        />
+        <spring-spinner
+          :color="$themes.success"
+          v-if="loading"
+          :size="24"
+          class="va-select__loading"
+        />
+        <va-icon
+          class="va-select__open-icon"
+          :name="visible ? 'arrow_back_ios' : 'arrow_forward_ios'"
+        />
       </div>
-      <va-icon
-        v-if="showClearIcon"
-        class="va-select__clear-icon"
-        name="fa fa-times-circle"
-        @click.native.stop="clear()"
-      />
-      <spring-spinner
-        :color="$themes.success"
-        v-if="loading"
-        :size="24"
-        class="va-select__loading"
-      />
-      <va-icon
-        class="va-select__open-icon"
-        :name="visible ? 'fa fa-angle-up' : 'fa fa-angle-down'"
-      />
-    </div>
-  </va-dropdown>
+    </va-dropdown>
+  </va-input-wrapper>
 </template>
 
 <script>
@@ -103,14 +119,50 @@ import { SpringSpinner } from 'epic-spinners'
 import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
+import {
+  ContextPluginMixin,
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import VaInputWrapper from '../va-input/VaInputWrapper'
 
 const positions = {
-  'top': 'T',
-  'bottom': 'B',
+  top: 'T',
+  bottom: 'B',
 }
+
 export default {
-  name: 'va-select',
-  components: { VaIcon, SpringSpinner, VaDropdown, VaInput },
+  name: 'VaSelect',
+  components: { VaIcon, SpringSpinner, VaDropdown, VaInput, VaInputWrapper },
+  mixins: [
+    makeContextablePropsMixin({
+      value: { type: [String, Number, Object, Array], default: '' },
+      label: { type: String, default: '' },
+      placeholder: { type: String, default: '' },
+      options: { type: Array, default: () => [] },
+      position: {
+        type: String,
+        default: 'bottom',
+        validator: position => Object.keys(positions).includes(position),
+      },
+      tagMax: { type: Number, default: 5 },
+      searchable: { type: Boolean, default: false },
+      multiple: { type: Boolean, default: false },
+      disabled: { type: Boolean, default: false },
+      readonly: { type: Boolean, default: false },
+      loading: { type: Boolean, default: false },
+      width: { type: String, default: '100%' },
+      maxHeight: { type: String, default: '128px' },
+      keyBy: { type: String, default: 'id' },
+      textBy: { type: String, default: 'text' },
+      clearValue: { type: String, default: '' },
+      noOptionsText: { type: String, default: 'Items not found' },
+      fixed: { type: Boolean, default: true },
+      noClear: { type: Boolean, default: false },
+    }),
+    ContextPluginMixin,
+    FormComponentMixin,
+  ],
   data () {
     return {
       search: '',
@@ -118,65 +170,12 @@ export default {
       hoveredOption: null,
     }
   },
-  props: {
-    value: {},
-    label: String,
-    placeholder: String,
-    options: {
-      type: Array,
-      default: () => [],
-    },
-    position: {
-      type: String,
-      default: 'bottom',
-      validator: position => Object.keys(positions).includes(position),
-    },
-    tagMax: {
-      type: Number,
-      default: 5,
-    },
-    searchable: Boolean,
-    multiple: Boolean,
-    disabled: Boolean,
-    readonly: Boolean,
-    loading: Boolean,
-    width: {
-      type: String,
-      default: '100%',
-    },
-    maxHeight: {
-      type: String,
-      default: '128px',
-    },
-    keyBy: {
-      type: String,
-      default: 'id',
-    },
-    textBy: {
-      type: String,
-      default: 'text',
-    },
-    clearValue: {
-      default: '',
-    },
-    noOptionsText: {
-      type: String,
-      default: 'Items not found',
-    },
-    fixed: {
-      type: Boolean,
-      default: true,
-    },
-    noClear: Boolean,
-    error: Boolean,
-    success: Boolean,
-  },
   watch: {
     search (val) {
       this.$emit('update-search', val)
     },
     visible (val) {
-      if (val && this.searchable) {
+      if (val && this.c_searchable) {
         this.$nextTick(() => {
           this.$refs.search.$refs.input.focus()
         })
@@ -192,7 +191,7 @@ export default {
         'va-select': true,
         'va-select--multiple': this.multiple,
         'va-select--visible': this.visible,
-        'va-select--searchable': this.searchable,
+        'va-select--searchable': this.c_searchable,
         'va-select--disabled': this.disabled,
         'va-select--loading': this.loading,
       }
@@ -200,10 +199,10 @@ export default {
     selectStyle () {
       return {
         backgroundColor:
-          this.error ? getHoverColor(this.$themes['danger'])
-            : this.success ? getHoverColor(this.$themes['success']) : '#f5f8f9',
+          this.computedError ? getHoverColor(this.$themes.danger)
+            : this.success ? getHoverColor(this.$themes.success) : '#f5f8f9',
         borderColor:
-          this.error ? this.$themes.danger
+          this.computedError ? this.$themes.danger
             : this.success ? this.$themes.success
               : this.$themes.gray,
       }
@@ -212,9 +211,10 @@ export default {
       return { maxHeight: this.maxHeight }
     },
     labelStyle () {
-      return { color: this.error ? this.$themes.danger
-        : this.success ? this.$themes.success
-          : this.$themes.primary,
+      return {
+        color: this.computedError ? this.$themes.danger
+          : this.success ? this.$themes.success
+            : this.$themes.primary,
       }
     },
     displayedText () {
@@ -282,8 +282,8 @@ export default {
     },
     getOptionStyle (option) {
       return {
-        color: this.isSelected(option) ? this.$themes['success'] : 'inherit',
-        backgroundColor: this.isHovered(option) ? getHoverColor(this.$themes['success']) : 'transparent',
+        color: this.isSelected(option) ? this.$themes.success : 'inherit',
+        backgroundColor: this.isHovered(option) ? getHoverColor(this.$themes.success) : 'transparent',
       }
     },
     getText (option) {
@@ -300,12 +300,21 @@ export default {
       if (one === two) {
         return true
       }
+      // i'm not sure why we need this
       if (typeof this.value === 'string') {
         return false
       }
-      return one[this.keyBy] === two[this.keyBy]
+      if (typeof one === 'string' && typeof two === 'string') {
+        return one === two
+      }
+      if (typeof one === 'object' && typeof two === 'object') {
+        return one[this.keyBy] === two[this.keyBy]
+      }
     },
     isSelected (option) {
+      if (!this.valueProxy) {
+        return false
+      }
       if (typeof option === 'string') {
         return this.multiple
           ? this.valueProxy.includes(option)
@@ -336,7 +345,7 @@ export default {
         this.search = ''
         this.$refs.dropdown.hide()
       }
-      if (this.searchable) {
+      if (this.c_searchable) {
         this.$refs.search.$refs.input.focus()
       }
     },
@@ -377,7 +386,7 @@ export default {
   margin-bottom: 1rem;
 
   &--disabled {
-    @include va-disabled()
+    @include va-disabled();
   }
 
   &--loading {
@@ -389,12 +398,15 @@ export default {
 
   &__label {
     @include va-title();
+
     position: absolute;
-    top: .125rem;
-    left: .5rem;
-    margin-bottom: .5rem;
-    max-width: calc(100% - .25rem);
+    top: 0.125rem;
+    left: 0.5rem;
+    margin-bottom: 0.5rem;
+    max-width: calc(100% - 0.25rem);
+
     @include va-ellipsis();
+
     transform-origin: top left;
   }
 
@@ -405,7 +417,7 @@ export default {
     height: 100%;
     width: 100%;
     justify-content: stretch;
-    padding-left: .5rem;
+    padding-left: 0.5rem;
   }
 
   &__input {
@@ -422,7 +434,8 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
+
     &:focus {
       outline: none;
     }
@@ -434,8 +447,9 @@ export default {
     text-overflow: ellipsis;
     width: 100%;
   }
+
   &__placeholder {
-    opacity: .5;
+    opacity: 0.5;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -446,17 +460,19 @@ export default {
     color: $va-link-color-secondary;
     width: 1.5rem;
     height: 1.5rem;
-    padding: .25rem;
+    padding: 0.25rem;
     position: absolute;
     top: 0;
     bottom: 0;
     right: 2rem;
     margin: auto;
+    transform: rotate(90deg); // hack for show large material arrow icons
   }
 
   &__open-icon {
     @extend .va-select__clear-icon;
-    right: .5rem;
+
+    right: 0.5rem;
   }
 
   &__tags {
@@ -467,7 +483,7 @@ export default {
 
   &__loading {
     position: absolute;
-    right: .5rem;
+    right: 0.5rem;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -478,7 +494,7 @@ export default {
     margin: 0;
     padding: 0;
     background: $light-gray3;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
 
     &.va-select__dropdown-position-top {
       box-shadow: 0 -2px 3px 0 rgba(98, 106, 119, 0.25);
@@ -494,15 +510,16 @@ export default {
       padding: 0;
       overflow-y: auto;
       box-shadow: $datepicker-box-shadow;
-      border-radius: .5rem;
+      border-radius: 0.5rem;
     }
   }
 
   &__option-list {
     width: 100%;
     list-style: none;
+
     &.no-options {
-      padding: .5rem;
+      padding: 0.5rem;
     }
   }
 
@@ -510,7 +527,7 @@ export default {
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: .375rem .5rem .375rem .5rem;
+    padding: 0.375rem 0.5rem 0.375rem 0.5rem;
     min-height: 2.25rem;
     word-break: break-word;
 
@@ -520,7 +537,7 @@ export default {
     }
 
     &__icon {
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
   }
 }

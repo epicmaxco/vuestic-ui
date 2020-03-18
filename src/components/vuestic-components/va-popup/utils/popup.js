@@ -2,9 +2,8 @@ import { position as eventPosition } from './event.js'
 import { getScrollbarWidth } from './scroll.js'
 
 export function getAnchorPosition (el, offset) {
-  let top, left, right, bottom, a
-  ({ top, left, right, bottom } = el.getBoundingClientRect())
-  a = {
+  let { top, left, right, bottom } = el.getBoundingClientRect()
+  const a = {
     top,
     left,
     width: el.offsetWidth,
@@ -124,7 +123,7 @@ export function setPosition ({ el, animate, anchorEl, anchorOrigin, selfOrigin, 
     }
   }
 
-  let target = getTargetPosition(el)
+  const target = getTargetPosition(el)
   let targetPosition = {
     top: anchor[anchorOrigin.vertical] - target[selfOrigin.vertical],
     left: anchor[anchorOrigin.horizontal] - target[selfOrigin.horizontal],
@@ -149,7 +148,7 @@ export function setPosition ({ el, animate, anchorEl, anchorOrigin, selfOrigin, 
 }
 
 export function positionValidator (pos) {
-  let parts = pos.split(' ')
+  const parts = pos.split(' ')
   if (parts.length !== 2) {
     return false
   }
@@ -180,6 +179,6 @@ export function offsetValidator (val) {
 }
 
 export function parsePosition (pos) {
-  let parts = pos.split(' ')
+  const parts = pos.split(' ')
   return { vertical: parts[0], horizontal: parts[1] }
 }

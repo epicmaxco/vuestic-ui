@@ -8,11 +8,11 @@
         :outline="outline"
         :flat="flat"
         :disabled="disabled"
-        :small="small"
-        :large="large"
+        :size="size"
         :color="buttonColor(option.value)"
         :class="buttonClass(option.value)"
-        @click="changeValue(option.value)">
+        @click="changeValue(option.value)"
+      >
         {{ option.label }}
       </va-button>
     </va-button-group>
@@ -25,7 +25,7 @@ import { getGradientBackground } from '../../../services/color-functions'
 import VaButton from '../va-button/VaButton'
 
 export default {
-  name: 'va-button-toggle',
+  name: 'VaButtonToggle',
   components: {
     VaButtonGroup,
     VaButton,
@@ -33,9 +33,13 @@ export default {
   props: {
     options: {
       type: Array,
+      default () {
+        return []
+      },
     },
     value: {
       type: [String, Number],
+      default: '',
     },
     outline: {
       type: Boolean,
@@ -46,11 +50,12 @@ export default {
     disabled: {
       type: Boolean,
     },
-    small: {
-      type: Boolean,
-    },
-    large: {
-      type: Boolean,
+    size: {
+      type: String,
+      default: 'medium',
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
+      },
     },
     color: {
       type: String,
@@ -58,6 +63,7 @@ export default {
     },
     toggleColor: {
       type: String,
+      default: '',
     },
   },
   methods: {

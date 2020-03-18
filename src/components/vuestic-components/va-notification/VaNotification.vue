@@ -1,22 +1,23 @@
 <template>
-  <transition v-if="value" name="fade">
-    <div class="va-notification"
+  <transition
+    v-if="value"
+    name="fade"
+  >
+    <div
+      class="va-notification"
       :style="notificationStyle"
     >
       <div class="va-notification__content">
-        <slot/>
+        <slot />
       </div>
 
-      <div
+      <va-icon
         v-if="closeable"
         class="va-notification__close-icon"
-      >
-        <va-icon
-          :color="color"
-          name="ion-md-close ion"
-          @click="hideNotification()"
-        />
-      </div>
+        :color="color"
+        name="close"
+        @click.native="hideNotification()"
+      />
     </div>
   </transition>
 </template>
@@ -29,7 +30,7 @@ import {
 } from '../../../services/color-functions'
 
 export default {
-  name: 'va-notification',
+  name: 'VaNotification',
   components: {
     VaIcon,
   },
@@ -43,7 +44,7 @@ export default {
   },
   props: {
     color: {
-      color: String,
+      type: String,
       default: 'success',
     },
     value: {

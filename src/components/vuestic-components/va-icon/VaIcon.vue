@@ -1,73 +1,99 @@
 <template>
-  <i class="va-icon"
-     :class="[name, iconClass]"
-     :style="iconStyle"
-  ><slot/></i>
+  <component
+    :is="computedTag"
+    class="va-icon"
+    :class="computedClass"
+    :style="computedStyle"
+    aria-hidden="true"
+    notranslate
+    v-on="$listeners"
+  >
+    <slot>{{ computedContent }}</slot>
+  </component>
 </template>
 
 <script>
-export default {
-  name: 'va-icon',
-  props: {
-    name: {
-      type: [String, Array],
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { SizeMixin } from '../../../mixins/SizeMixin'
+import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
+import vaIconMixin from './vaIconMixin'
+import { warn } from '../../../services/utils'
+
+const IconContextMixin = makeContextablePropsMixin({
+  name: {
+    type: [String, Array],
+    validator: name => {
+      if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
+        // eslint-disable-next-line  no-console
+        return warn(`${name} icon is not available.`)
+      }
+      return true
     },
-    small: {
-      type: Boolean,
-    },
-    large: {
-      type: Boolean,
-    },
-    size: {
-      type: [String, Number],
-    },
-    fixedWidth: {
-      type: Boolean,
-    },
-    rotation: {
-      type: [String, Number],
-    },
-    color: {
-      type: String,
-    },
+    default: '',
   },
+  tag: {
+    type: String,
+    default: 'i',
+  },
+  component: {
+    type: Object,
+  },
+  color: {
+    type: String,
+    default: '',
+  },
+  rotation: {
+    type: [String, Number],
+    default: '',
+  },
+})
+
+export default {
+  name: 'VaIcon',
+  mixins: [ColorThemeMixin, SizeMixin, IconContextMixin, vaIconMixin],
   computed: {
-    iconClass () {
+    icon () {
+      return this.getIcon()
+    },
+    computedTag () {
+      return (this.icon && this.icon.component) || this.c_component || this.c_tag
+    },
+    computedClass () {
+      return (this.icon && this.icon.iconClass) || ''
+    },
+    hasClickListener () {
+      return this.$listeners && this.$listeners.click
+    },
+    cursorStyle () {
+      return { cursor: this.hasClickListener ? 'pointer' : null }
+    },
+    rotateStyle () {
+      return { transform: 'rotate(' + this.c_rotation + 'deg)' }
+    },
+    fontSizeStyle () {
+      return { fontSize: this.sizeComputed }
+    },
+    colorStyle () {
+      return { color: this.c_color ? this.colorComputed : null }
+    },
+    computedStyle () {
       return {
-        'va-icon--large': this.large,
-        'va-icon--small': this.small,
-        'va-icon--fixed': this.fixedWidth,
+        ...this.cursorStyle,
+        ...this.rotateStyle,
+        ...this.fontSizeStyle,
+        ...this.colorStyle,
       }
     },
-    iconStyle () {
-      return {
-        transform: 'rotate(' + this.rotation + 'deg)',
-        fontSize: typeof this.size === 'number' ? this.size + 'px' : this.size,
-        color: this.$themes[this.color] || this.color,
-      }
+    computedContent () {
+      return this.icon && this.icon.content
     },
   },
 }
 </script>
 
 <style lang="scss">
-@import "../../vuestic-sass/resources/resources";
-
 .va-icon {
-  display: inline-block;
-  letter-spacing: normal;
-
-  &--large {
-    font-size: $icon-lg-size;
-  }
-
-  &--small {
-    font-size: $icon-sm-size;
-  }
-
-  &--fixed {
-    width: $icon-fixed-width;
-    text-align: center;
-  }
+  vertical-align: middle;
+  user-select: none;
 }
 </style>

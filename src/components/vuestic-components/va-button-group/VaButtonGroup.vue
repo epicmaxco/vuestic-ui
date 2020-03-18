@@ -3,7 +3,7 @@
     class="va-button-group"
     :class="computedClass"
   >
-    <slot/>
+    <slot />
   </div>
 </template>
 
@@ -11,7 +11,7 @@
 import Vue from 'vue'
 
 export default {
-  name: 'va-button-group',
+  name: 'VaButtonGroup',
   props: {
     color: {
       type: String,

@@ -1,30 +1,46 @@
 <template>
-  <div class="va-scrollbar" ref="vuesticScrollbar">
-    <div class="scrollbar-wrapper" ref="scrollbarWrapper">
-      <div class="scrollbar-content" ref="scrollbarContent"
-           @wheel="scroll"
-           @touchstart="startDrag"
-           @touchmove="onDrag"
-           @touchend="stopDrag"
-           @transitionend="onContentResize"
+  <div
+    class="va-scrollbar"
+    ref="vuesticScrollbar"
+  >
+    <div
+      class="scrollbar-wrapper"
+      ref="scrollbarWrapper"
+    >
+      <div
+        class="scrollbar-content"
+        ref="scrollbarContent"
+        @wheel="scroll"
+        @touchstart="startDrag"
+        @touchmove="onDrag"
+        @touchend="stopDrag"
+        @transitionend="onContentResize"
       >
-        <slot/>
+        <slot />
       </div>
-      <div class="track" ref="track">
-        <div class="thumb" ref="thumb"></div>
+      <div
+        class="track"
+        ref="track"
+      >
+        <div
+          class="thumb"
+          ref="thumb"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-const browser = require('detect-browser')
+const { detect } = require('detect-browser')
+const browser = detect()
 const erd = require('element-resize-detector')()
 
 export default {
-  name: 'va-scrollbar',
+  name: 'VaScrollbar',
   props: {
     speed: {
+      type: Number,
       default: 20,
     },
   },
@@ -48,19 +64,19 @@ export default {
       }
     },
     calcThumb () {
-      let currentMT = this.content.style.marginTop === ''
+      const currentMT = this.content.style.marginTop === ''
         ? 0
         : parseInt(this.content.style.marginTop, 10)
       this.thumb.style.top = (-currentMT / this.contentHeight * this.trackHeight) + 'px'
     },
     onContentResize () {
-      let prevHeight = this.contentHeight
+      const prevHeight = this.contentHeight
       this.calcSize()
       this.calcThumb()
 
       this.content.style.transition = 'margin-top .3s linear'
       this.thumb.style.transition = 'top .3s linear'
-      let handler = (e) => {
+      const handler = (e) => {
         if (e.propertyName === 'margin-top') {
           this.content.style.transition = ''
           this.calcSize()
@@ -80,8 +96,8 @@ export default {
     onDrag (e) {
       if (this.isDragging) {
         e.preventDefault()
-        let touch = e.touches[0]
-        let delta = this.prevTouch.clientY - touch.clientY
+        const touch = e.touches[0]
+        const delta = this.prevTouch.clientY - touch.clientY
         this.setVertical(delta)
         this.prevTouch = touch
       }
@@ -101,7 +117,7 @@ export default {
       if ((this.isDown && delta > 0) || (this.isUp && delta < 0) || (this.contentHeight <= this.maxHeight)) {
         return
       }
-      let currentMT = this.content.style.marginTop === ''
+      const currentMT = this.content.style.marginTop === ''
         ? 0
         : parseFloat(this.content.style.marginTop, 10)
       let nextMT = 0
@@ -162,7 +178,7 @@ export default {
 
 .va-scrollbar {
   background: transparent;
-  transition: all .3s linear;
+  transition: all 0.3s linear;
   position: relative;
 
   .scrollbar-wrapper {
@@ -180,14 +196,14 @@ export default {
       height: 100%;
 
       .thumb {
-        transition: height .3s linear, opacity .6s linear;
+        transition: height 0.3s linear, opacity 0.6s linear;
         position: absolute;
         width: 100%;
         background-color: $vue-green;
         opacity: 0;
 
         &.active {
-          opacity: .3;
+          opacity: 0.3;
         }
       }
     }

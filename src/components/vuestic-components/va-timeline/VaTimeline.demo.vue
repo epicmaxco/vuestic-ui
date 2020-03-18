@@ -22,7 +22,10 @@
         </va-timeline-item>
       </va-timeline>
     </VbCard>
-    <VbCard title="Vertical Timeline" width="300px">
+    <VbCard
+      title="Vertical Timeline"
+      width="300px"
+    >
       <va-timeline vertical>
         <va-timeline-item
           v-for="(item, index) in items"
