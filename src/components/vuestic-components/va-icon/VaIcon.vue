@@ -46,6 +46,10 @@ const IconContextMixin = makeContextablePropsMixin({
     type: [String, Number],
     default: '',
   },
+  spin: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 export default {
@@ -59,7 +63,7 @@ export default {
       return (this.icon && this.icon.component) || this.c_component || this.c_tag
     },
     computedClass () {
-      return (this.icon && this.icon.iconClass) || ''
+      return `${this.icon && this.icon.iconClass} ${this.spin && 'va-icon--spin'}`
     },
     hasClickListener () {
       return this.$listeners && this.$listeners.click
@@ -95,5 +99,19 @@ export default {
 .va-icon {
   vertical-align: middle;
   user-select: none;
+
+  &--spin {
+    animation: va-icon--spin-animation 1500ms linear infinite;
+  }
+
+  @keyframes va-icon--spin-animation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
 </style>
