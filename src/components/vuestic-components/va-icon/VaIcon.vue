@@ -55,17 +55,6 @@ const IconContextMixin = makeContextablePropsMixin({
 export default {
   name: 'VaIcon',
   mixins: [ColorThemeMixin, SizeMixin, IconContextMixin, vaIconMixin],
-  data () {
-    return {
-      spinKeyframes: `
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }`,
-    }
-  },
   computed: {
     icon () {
       return this.getIcon()
@@ -74,7 +63,7 @@ export default {
       return (this.icon && this.icon.component) || this.c_component || this.c_tag
     },
     computedClass () {
-      return `${this.icon && this.icon.iconClass} ${this.spin && 'va-icon--spinning'}`
+      return `${this.icon && this.icon.iconClass} ${this.spin && 'va-icon--spin'}`
     },
     hasClickListener () {
       return this.$listeners && this.$listeners.click
@@ -103,22 +92,6 @@ export default {
       return this.icon && this.icon.content
     },
   },
-  mounted () {
-    if (this.spin) {
-      this.appendKeyframes('spin', this.spinKeyframes)
-    }
-  },
-  methods: {
-    appendKeyframes (name, frames) {
-      const sheet = document.createElement('style')
-      if (!sheet) {
-        return
-      }
-      sheet.setAttribute('id', name)
-      sheet.innerHTML = `@keyframes ${name} {${frames}}`
-      document.body.appendChild(sheet)
-    },
-  },
 }
 </script>
 
@@ -127,8 +100,18 @@ export default {
   vertical-align: middle;
   user-select: none;
 
-  &--spinning {
-    animation: spin 1000ms infinite;
+  &--spin {
+    animation: va-icon--spin-animation 1500ms linear infinite;
+  }
+
+  @keyframes va-icon--spin-animation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
 </style>

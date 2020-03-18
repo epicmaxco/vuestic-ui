@@ -27,9 +27,7 @@
         name="home"
         size="small"
       />
-      <va-icon
-        name="home"
-      />
+      <va-icon name="home" />
       <va-icon
         name="home"
         size="large"
@@ -78,13 +76,6 @@
     </VbCard>
     <VbCard title="text icon">
       <va-icon>close</va-icon>
-    </VbCard>
-    <VbCard title="Spin">
-      <va-icon name="sync-spin" />
-      <va-icon
-        name="sync"
-        class="fa-spin"
-      />
     </VbCard>
     <VbCard title="Spin Prop">
       <va-icon
