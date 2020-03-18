@@ -11,7 +11,7 @@
   >
     <div
       class="va-checkbox__input-container"
-      @click="toggleSelection()"
+      @click="clickWrapper()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
     >
@@ -133,6 +133,10 @@ export default {
       this.ValidateMixin_onBlur()
       this.isKeyboardFocused = false
       this.$emit('blur', event)
+    },
+    clickWrapper () {
+      this.focus()
+      this.toggleSelection()
     },
     toggleSelection () {
       if (this.c_readonly) {
