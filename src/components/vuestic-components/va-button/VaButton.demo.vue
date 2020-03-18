@@ -389,6 +389,39 @@
             />
           </td>
         </tr>
+        <tr>
+          <td>
+            Buttons with loading status
+          </td>
+          <td>
+            <va-button
+              :loading="buttonLoading"
+              @click="buttonLoading = true"
+              size="small"
+            >
+              Start loading
+            </va-button>
+            <va-button
+              :loading="buttonLoading"
+              @click="buttonLoading = true"
+              size="medium"
+            >
+              Start loading
+            </va-button>
+            <va-button
+              :loading="buttonLoading"
+              @click="buttonLoading = true"
+              size="large"
+            >
+              Start loading
+            </va-button>
+            <va-button
+              @click="buttonLoading = false"
+            >
+              Stop loading
+            </va-button>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>
@@ -401,6 +434,11 @@ import VaButton from './VaButton'
 export default {
   components: {
     VaButton,
+  },
+  data () {
+    return {
+      buttonLoading: true,
+    }
   },
 }
 </script>
