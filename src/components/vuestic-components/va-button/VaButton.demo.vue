@@ -422,6 +422,16 @@
             </va-button>
           </td>
         </tr>
+        <tr>
+          <td>
+            Block button (full width)
+          </td>
+          <td>
+            <va-button block>
+              Block Button
+            </va-button>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>

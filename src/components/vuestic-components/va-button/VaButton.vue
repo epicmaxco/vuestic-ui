@@ -15,6 +15,7 @@
     :exact="exact"
     :exact-active-class="exactActiveClass"
     :loading="c_loading"
+    :block="c_block"
     v-on="inputListeners"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
@@ -86,6 +87,7 @@ const buttonContextMixin = makeContextablePropsMixin({
   type: { type: String, default: 'button' },
   disabled: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
+  block: { type: Boolean, default: false },
   /* Link props */
   href: { type: String, default: undefined },
   target: { type: String, default: undefined },
@@ -137,6 +139,7 @@ export default {
         'va-button--small': this.c_size === 'small',
         'va-button--normal': !this.c_size || this.c_size === 'medium',
         'va-button--loading': this.c_loading,
+        'va-button--block': this.c_block,
       }
     },
     gradientStyle () {
@@ -430,6 +433,11 @@ export default {
 
   &--loading {
     pointer-events: none;
+  }
+
+  &--block {
+    display: flex;
+    min-width: 100%;
   }
 }
 </style>
