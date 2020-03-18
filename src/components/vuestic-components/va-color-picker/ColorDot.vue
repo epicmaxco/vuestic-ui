@@ -36,6 +36,7 @@ export default {
   min-width: 1.5rem;
   cursor: pointer;
   border-radius: 50%;
+  text-align: center;
   border: solid 0.125rem transparent;
 
   &--selected {
@@ -43,6 +44,8 @@ export default {
   }
 
   &__core {
+    display: inline-block;
+    vertical-align: baseline;
     border-radius: 50%;
     width: 1rem;
     height: 1rem;
