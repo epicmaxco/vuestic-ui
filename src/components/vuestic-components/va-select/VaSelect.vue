@@ -98,10 +98,12 @@
           name="cancel"
           @click.native.stop="clear()"
         />
-        <spring-spinner
+        <va-icon
+          spin
           :color="$themes.success"
           v-if="loading"
           :size="24"
+          name="loop"
           class="va-select__loading"
         />
         <va-icon
@@ -115,7 +117,6 @@
 
 <script>
 import VaDropdown from '../va-dropdown/VaDropdown'
-import { SpringSpinner } from 'epic-spinners'
 import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
@@ -133,7 +134,7 @@ const positions = {
 
 export default {
   name: 'VaSelect',
-  components: { VaIcon, SpringSpinner, VaDropdown, VaInput, VaInputWrapper },
+  components: { VaIcon, VaDropdown, VaInput, VaInputWrapper },
   mixins: [
     makeContextablePropsMixin({
       value: { type: [String, Number, Object, Array], default: '' },
@@ -486,6 +487,8 @@ export default {
     right: 0.5rem;
     top: 0;
     bottom: 0;
+    width: 1.5rem;
+    height: 1.5rem;
     margin: auto;
   }
 

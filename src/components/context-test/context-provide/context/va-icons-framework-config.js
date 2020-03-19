@@ -56,4 +56,7 @@ export default {
   cancel: {
     code: 'cancel',
   },
+  loop: {
+    code: 'loop',
+  },
 }
