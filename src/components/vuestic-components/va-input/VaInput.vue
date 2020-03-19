@@ -29,6 +29,8 @@
           {{ label }}
         </label>
         <textarea
+          :id="id"
+          :name="name"
           v-if="isTextarea"
           class="va-input__container__input"
           :style="textareaStyles"
@@ -44,6 +46,8 @@
         />
         <input
           v-else
+          :id="id"
+          :name="name"
           class="va-input__container__input"
           :style="{ paddingBottom: c_label ? '0.125rem' : '0.875rem' }"
           :aria-label="c_label"

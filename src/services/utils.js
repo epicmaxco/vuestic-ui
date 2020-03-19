@@ -1,3 +1,7 @@
+export const sleep = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export const normalizeValue = (value, minValue = 0, maxValue = 100) => {
   if (value <= minValue) {
     return minValue

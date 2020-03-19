@@ -39,7 +39,7 @@ export const FormComponentMixin = {
   },
   data () {
     return {
-      hadFocused: false,
+      hadFocus: false,
 
       isFocused: false,
       internalErrorMessages: null,
@@ -60,7 +60,7 @@ export const FormComponentMixin = {
     },
     isFocused (isFocused) {
       if (isFocused) {
-        this.hadFocused = true
+        this.hadFocus = true
       }
     },
   },
@@ -108,7 +108,7 @@ export const FormComponentMixin = {
   computed: {
     shouldValidateOnBlur () {
       // We want for inputs to validate on blur only after they've been interacted with.
-      return this.hadFocused
+      return this.hadFocus
     },
     computedError: {
       get () {
