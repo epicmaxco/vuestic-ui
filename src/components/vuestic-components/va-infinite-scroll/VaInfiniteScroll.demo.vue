@@ -2,26 +2,38 @@
   <div>
     <VbDemo>
       <VbCard>
-        <div class="scroll__container ref" ref="scrollContainer">
-          <VaInfiniteScroll
+        <div
+          class="scroll__container ref"
+          ref="scrollContainer"
+        >
+          <va-infinite-scroll
             :debounce="300"
             :offset="1"
             :scroll-target="$refs.scrollContainer"
             @load="appendRecords"
           >
             <ul>
-              <li v-for="(record, index) in records" :key="record.id">{{record.text}} #{{index}}</li>
+              <li
+                v-for="(record, index) in records"
+                :key="record.id"
+              >
+                {{ record.text }} #{{ index }}
+              </li>
             </ul>
             <template v-slot:loading>
-              <spring-spinner :animation-duration="2000" :size="48" :color="$themes.primary" />
+              <spring-spinner
+                :animation-duration="2000"
+                :size="48"
+                :color="$themes.primary"
+              />
             </template>
-          </VaInfiniteScroll>
+          </va-infinite-scroll>
         </div>
       </VbCard>
 
       <VbCard>
         <div class="scroll__container query">
-          <VaInfiniteScroll
+          <va-infinite-scroll
             :debounce="300"
             :offset="1"
             :scroll-target="'.query'"
@@ -32,15 +44,17 @@
               <li
                 v-for="(record, index) in reverseRecords"
                 :key="record.id"
-              >{{record.text}} #{{index}}</li>
+              >
+                {{ record.text }} #{{ index }}
+              </li>
             </ul>
-          </VaInfiniteScroll>
+          </va-infinite-scroll>
         </div>
       </VbCard>
 
       <VbCard>
         <div class="scroll__container disabled">
-          <VaInfiniteScroll
+          <va-infinite-scroll
             :debounce="300"
             :offset="1"
             :scroll-target="'.disabled'"
@@ -52,9 +66,11 @@
               <li
                 v-for="(record, index) in disabledRecords"
                 :key="record.id"
-              >{{record.text}} #{{index}}</li>
+              >
+                {{ record.text }} #{{ index }}
+              </li>
             </ul>
-          </VaInfiniteScroll>
+          </va-infinite-scroll>
         </div>
       </VbCard>
     </VbDemo>
@@ -62,48 +78,48 @@
 </template>
 
 <script>
-import VaInfiniteScroll from "./VaInfiniteScroll";
-import { SpringSpinner } from "epic-spinners";
+import VaInfiniteScroll from './VaInfiniteScroll'
+import { SpringSpinner } from 'epic-spinners'
 
 export default {
   components: {
     VaInfiniteScroll,
-    SpringSpinner
+    SpringSpinner,
   },
-  data() {
+  data () {
     return {
       records: new Array(15)
-        .fill({ text: "record" })
+        .fill({ text: 'record' })
         .map(record => ({ ...record, id: Math.random() })),
       reverseRecords: new Array(15)
-        .fill({ text: "record" })
+        .fill({ text: 'record' })
         .map(record => ({ ...record, id: Math.random() })),
       disabledRecords: new Array(15)
-        .fill({ text: "record" })
+        .fill({ text: 'record' })
         .map(record => ({ ...record, id: Math.random() })),
-      disabled: true
-    };
+      disabled: true,
+    }
   },
   methods: {
-    getNewRecords() {
+    getNewRecords () {
       return new Array(10)
-        .fill({ text: "new record" })
-        .map(record => ({ ...record, id: Math.random() }));
+        .fill({ text: 'new record' })
+        .map(record => ({ ...record, id: Math.random() }))
     },
-    appendRecords(done) {
+    appendRecords (done) {
       setTimeout(() => {
-        this.records.push(...this.getNewRecords());
-        done();
-      }, 2000);
+        this.records.push(...this.getNewRecords())
+        done()
+      }, 2000)
     },
-    prependRecords(done) {
+    prependRecords (done) {
       setTimeout(() => {
-        this.reverseRecords.unshift(...this.getNewRecords());
-        done();
-      }, 2000);
-    }
-  }
-};
+        this.reverseRecords.unshift(...this.getNewRecords())
+        done()
+      }, 2000)
+    },
+  },
+}
 </script>
 <style lang="scss">
 .scroll__container {
