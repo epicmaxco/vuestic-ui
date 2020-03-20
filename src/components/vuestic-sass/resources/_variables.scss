@@ -53,7 +53,7 @@ $colors-map: (
   black: black,
   white: white,
   lighter-gray: $lighter-gray
-);
+) !default;
 
 $theme-colors: (
   "primary": $brand-primary,
@@ -65,7 +65,7 @@ $theme-colors: (
   "light": $light-gray2,
   "dark": $almost-black,
   "pale": $theme-pale
-);
+) !default;
 
 // Layout //
 $body-color: $vue-darkest-blue !default;
@@ -327,7 +327,7 @@ $display-font-sizes: (
   4: 1.5rem,
   5: 1.25rem,
   6: 1.1rem
-);
+) !default;
 $display-margins: (
   1: 4.5rem,
   2: 4rem,
@@ -335,4 +335,4 @@ $display-margins: (
   4: 2.5rem,
   5: 2.25rem,
   6: 2rem
-);
+) !default;
