@@ -3,34 +3,41 @@
     class="va-infinite-scroll"
     :class="{reverse: reverse}"
   >
-    <slot name="default" />
-    <slot name="loading" />
+    <slot
+      name="default"
+      ref="content"
+    />
+    <slot
+      name="loading"
+      v-if="fetching"
+    >
+      <div>Loading...</div>
+    </slot>
   </div>
 </template>
 
 <script>
 import * as _ from 'lodash'
+
 export default {
   name: 'VaInfiniteScroll',
   props: {
     offset: {
       type: Number,
-      required: false,
       default: 1,
     },
     reverse: {
       type: Boolean,
-      required: false,
       default: false,
     },
     disabled: {
       type: Boolean,
-      required: false,
       default: false,
     },
     scrollTarget: {
       type: [Element, String],
-      required: true,
+      required: false,
+      default: null,
     },
     debounce: {
       type: Number,
@@ -38,49 +45,127 @@ export default {
       default: 100,
     },
   },
-  mounted () {
-    this.scrollTargetElement.style.overflow = 'scroll'
-    this.scrollTargetElement.onscroll = this.loadData()
+  data () {
+    return {
+      index: 0,
+      fetching: false,
+      working: true,
+    }
   },
-  methods: {
-    loadData () {
-      const content = this.$slots.default[0].elm
-      const scrollTop = this.scrollTargetElement.scrollTop
-      const diffHeight =
-        content.offsetHeight - this.scrollTargetElement.offsetHeight
-      const isLoadRequired =
-        !this.isLoading &&
-        !this.disabled &&
-        (this.reverse
-          ? scrollTop <= this.offset
-          : diffHeight >= scrollTop - this.offset)
-      if (isLoadRequired) {
-        return this.getDebouncedLoad()
+  watch: {
+    disabled (value) {
+      if (value) {
+        this.stop()
+      } else {
+        this.resume()
       }
     },
-    getDebouncedLoad () {
-      return _.debounce(event => {
-        console.log('load')
-        !this.disabled && this.$emit('load')
-      }, this.debounce)
+    debounce (value) {
+      this.setDebounce(value)
     },
   },
-  computed: {
-    isLoading () {
-      return !!this.$slots.loading
+  methods: {
+    checkForLoad () {
+      if (this.disabled || this.fetching || !this.working) {
+        return
+      }
+
+      const { scrollTop, scrollHeight } = this.scrollTargetElement
+      const containerHeight = this.scrollTargetElement.offsetHeight
+      const isLoadingRequired = this.reverse
+        ? scrollTop < this.offset
+        : scrollTop + containerHeight + this.offset >= scrollHeight
+      if (isLoadingRequired) {
+        this.load()
+      }
     },
+    load () {
+      if (this.disabled || this.fetching || !this.working) {
+        return
+      }
+
+      this.fetching = true
+      const initialHeight = this.$slots.default[0].elm.offsetHeight
+
+      this.$emit('load', stop => {
+        if (!this.working) {
+          return
+        }
+        this.$nextTick(() => {
+          this.fetching = false
+          if (this.reverse) {
+            const heightDifference =
+              this.$slots.default[0].elm.offsetHeight - initialHeight
+            this.scrollTargetElement.scrollTop = heightDifference
+          }
+        })
+      })
+    },
+    resume () {
+      if (!this.working) {
+        this.working = true
+        this.scrollTargetElement.addEventListener(
+          'scroll',
+          this.debouncedLoad,
+          {
+            passive: true,
+          },
+        )
+      }
+      this.checkForLoad()
+    },
+    stop () {
+      if (!this.working) {
+        return
+      }
+
+      this.working = false
+      this.fetching = false
+      this.scrollTargetElement.removeEventListener(
+        'scroll',
+        this.debouncedLoadd,
+        { passive: true },
+      )
+    },
+    setDebounce (value) {
+      this.debouncedLoad = _.debounce(this.checkForLoad, value)
+    },
+  },
+  mounted () {
+    if (!this.scrollTargetElement) {
+      return
+    }
+    this.scrollTargetElement.style.overflowY = 'scroll'
+
+    if (this.reverse) {
+      this.scrollTargetElement.scrollTop = this.scrollTargetElement.scrollHeight
+    }
+
+    this.setDebounce(this.debounce)
+    this.scrollTargetElement.addEventListener('scroll', this.debouncedLoad, {
+      passive: true,
+    })
+  },
+  beforeDestroy () {
+    if (this.working) {
+      this.scrollTargetElement.removeEventListener(
+        'scroll',
+        this.debouncedLoad,
+        { passive: true },
+      )
+    }
+  },
+  computed: {
     scrollTargetElement () {
       return typeof this.scrollTarget === 'string'
         ? document.querySelector(this.scrollTarget)
-        : this.scrollTarget
+        : this.scrollTarget || this.$el.parentElement
     },
   },
 }
 </script>
 
 <style lang="scss">
-@import "../../vuestic-sass/resources/resources";
-@import "../../vuestic-sass/global/typography";
 @import "../../vuestic-sass/global/utility-global";
 
 .va-infinite-scroll {
@@ -89,11 +174,6 @@ export default {
 
   &.reverse {
     flex-direction: column-reverse;
-  }
-
-  // NOTE Ideally we want this to work with mixins too, but no idea how to achieve that :/.
-  ol {
-    @extend .va-ordered;
   }
 
   ul {

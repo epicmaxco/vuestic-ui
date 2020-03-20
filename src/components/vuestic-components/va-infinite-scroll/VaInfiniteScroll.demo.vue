@@ -1,47 +1,106 @@
 <template>
-  <VbDemo>
-    <div class="scroll__container" ref="container">
-      <VaInfiniteScroll
-        :debounce="300"
-        :offset="1"
-        :scroll-target="container"
-        :disabled="disabled"
-        @load="increaseCount"
-      >
-        <ul>
-          <li v-for="record in recordsCount" :key="record">Record #{{record}}</li>
-        </ul>
-        <slot v-if="loading" name="loading">Loading...</slot>
-      </VaInfiniteScroll>
-    </div>
-  </VbDemo>
+  <div>
+    <VbDemo>
+      <VbCard>
+        <div class="scroll__container ref" ref="scrollContainer">
+          <VaInfiniteScroll
+            :debounce="300"
+            :offset="1"
+            :scroll-target="$refs.scrollContainer"
+            @load="appendRecords"
+          >
+            <ul>
+              <li v-for="(record, index) in records" :key="record.id">{{record.text}} #{{index}}</li>
+            </ul>
+            <template v-slot:loading>
+              <spring-spinner :animation-duration="2000" :size="48" :color="$themes.primary" />
+            </template>
+          </VaInfiniteScroll>
+        </div>
+      </VbCard>
+
+      <VbCard>
+        <div class="scroll__container query">
+          <VaInfiniteScroll
+            :debounce="300"
+            :offset="1"
+            :scroll-target="'.query'"
+            reverse
+            @load="prependRecords"
+          >
+            <ul>
+              <li
+                v-for="(record, index) in reverseRecords"
+                :key="record.id"
+              >{{record.text}} #{{index}}</li>
+            </ul>
+          </VaInfiniteScroll>
+        </div>
+      </VbCard>
+
+      <VbCard>
+        <div class="scroll__container disabled">
+          <VaInfiniteScroll
+            :debounce="300"
+            :offset="1"
+            :scroll-target="'.disabled'"
+            :disabled="disabled"
+            reverse
+            @load="prependRecords"
+          >
+            <ul>
+              <li
+                v-for="(record, index) in disabledRecords"
+                :key="record.id"
+              >{{record.text}} #{{index}}</li>
+            </ul>
+          </VaInfiniteScroll>
+        </div>
+      </VbCard>
+    </VbDemo>
+  </div>
 </template>
 
 <script>
 import VaInfiniteScroll from "./VaInfiniteScroll";
+import { SpringSpinner } from "epic-spinners";
 
 export default {
   components: {
-    VaInfiniteScroll
+    VaInfiniteScroll,
+    SpringSpinner
   },
   data() {
     return {
-      recordsCount: 15,
-      loading: false
+      records: new Array(15)
+        .fill({ text: "record" })
+        .map(record => ({ ...record, id: Math.random() })),
+      reverseRecords: new Array(15)
+        .fill({ text: "record" })
+        .map(record => ({ ...record, id: Math.random() })),
+      disabledRecords: new Array(15)
+        .fill({ text: "record" })
+        .map(record => ({ ...record, id: Math.random() })),
+      disabled: true
     };
   },
   methods: {
-    increaseCount() {
-      this.loading = true;
+    getNewRecords() {
+      return new Array(10)
+        .fill({ text: "new record" })
+        .map(record => ({ ...record, id: Math.random() }));
+    },
+    appendRecords(done) {
       setTimeout(() => {
-        this.recordsCount += 10;
-        this.loading = false;
+        this.records.push(...this.getNewRecords());
+        done();
       }, 2000);
-    }
-  },
-  computed: {
-    disabled() {
-      return this.loading;
+    },
+    prependRecords(done) {
+      setTimeout(() => {
+        this.reverseRecords.unshift(...this.getNewRecords());
+        done();
+      }, 2000);
     }
   }
 };
@@ -49,6 +108,6 @@ export default {
 <style lang="scss">
 .scroll__container {
   height: 300px;
-  background: lightgray;
+  width: 200px;
 }
 </style>
