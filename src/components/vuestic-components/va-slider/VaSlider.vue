@@ -210,7 +210,7 @@ export default {
       iconPrepend: { type: String, default: '' },
       iconAppend: { type: String, default: '' },
       vertical: { type: Boolean, default: false },
-      showTrack: { type: Boolean, default: false },
+      showTrack: { type: Boolean, default: true },
     }),
   ],
   data () {
@@ -744,6 +744,12 @@ export default {
       position: absolute;
       border-radius: 0.25rem;
       transition: none;
+      opacity: 0.2;
+
+      &--active,
+      &--inactive {
+        opacity: 1;
+      }
     }
 
     &__handler {
