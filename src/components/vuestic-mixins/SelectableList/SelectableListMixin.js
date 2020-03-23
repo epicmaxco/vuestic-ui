@@ -1,8 +1,8 @@
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 
-//Maybe we need to add some kind of fallback value to these helper methods
-//And to extract some in some kind of utility file 'cause I suppose they 
-//might become useful somewhere else at some point
+// Maybe we need to add some kind of fallback value to these helper methods
+// And to extract some in some kind of utility file 'cause I suppose they
+// might become useful somewhere else at some point
 
 const getNestedValue = (option, propsArray) => {
   const lastPropIndex = propsArray.length - 1
@@ -23,9 +23,9 @@ const getNestedValue = (option, propsArray) => {
 }
 
 const getValueByPath = (option, prop) => {
-  if (option === null || typeof prop !=='string' || !prop) return option
+  if (option === null || typeof prop !== 'string' || !prop) return option
   if (option[prop] !== undefined) return option[prop]
-  prop = prop.replace(/^\./, '') //remove first point symbol
+  prop = prop.replace(/^\./, '') // remove first point symbol
   return getNestedValue(option, prop.split('.'))
 }
 
@@ -44,7 +44,7 @@ export const SelectableListMixin = {
     valueBy: { type: [String, Function], default: 'value' },
     trackBy: { type: [String, Function], default: 'value' },
     disabledBy: { type: [String, Function], default: 'disabled' },
-    outputObject: { type: Boolean, default: false }
+    outputObject: { type: Boolean, default: false },
   },
   methods: {
     getValue (option) {
@@ -58,9 +58,9 @@ export const SelectableListMixin = {
     },
     getTrackBy (option) {
       return getProp(option, this.trackBy)
-    }
+    },
   },
   created () {
     this.isSelectableListComponent = true
-  }
+  },
 }

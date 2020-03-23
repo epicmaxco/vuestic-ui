@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
 
-// Ensure that component is proper form component
 export function testIsSelectableList (componentOptions) {
   const wrapper = shallowMount(componentOptions)
 

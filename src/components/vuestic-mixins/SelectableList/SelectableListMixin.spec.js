@@ -2,23 +2,18 @@ import { shallowMount } from '@vue/test-utils'
 import { SelectableListMixin } from './SelectableListMixin'
 
 describe('SelectableListMixin', () => {
-  let baseComponentOptions
-
-  const prepareWrapper = (prop, value) => {
-    baseComponentOptions.propsData[prop] = value
-    return shallowMount({}, baseComponentOptions)
+  const baseComponentOptions = {
+    render: () => '',
+    mixins: [SelectableListMixin],
+    props: {},
   }
 
-  beforeEach(() => {
-    baseComponentOptions = {
-      render: () => '',
-      mixins: [SelectableListMixin],
-      propsData: {},
-    }
-  })
+  const prepareWrapper = (data) => {
+    return shallowMount(baseComponentOptions, { propsData: data })
+  }
 
   it('should mount without erros', () => {
-    const wrapper = shallowMount({}, baseComponentOptions)
+    const wrapper = shallowMount(baseComponentOptions)
     expect(wrapper).toBeDefined()
     expect(wrapper.props().options).toEqual([])
     expect(wrapper.props().textBy).toEqual('text')
@@ -28,19 +23,24 @@ describe('SelectableListMixin', () => {
     expect(wrapper.props().outputObject).toBeFalsy()
   })
 
+  it('should extend FormComponentMixin', () => {
+    const wrapper = shallowMount(baseComponentOptions)
+    expect(wrapper.vm.isFormComponent).toBeTruthy()
+  })
+
   describe('getValue', () => {
     it('should work with a string', () => {
-      const wrapper = prepareWrapper('valueBy', 'testValue')
+      const wrapper = prepareWrapper({ valueBy: 'testValue' })
       const expectedValue = 'VALUE'
-      const actuallValue = wrapper.vm.getValue({ testValue: expectedValue })
+      const actualValue = wrapper.vm.getValue({ testValue: expectedValue })
 
-      expect(actuallValue).toEqual(expectedValue)
+      expect(actualValue).toEqual(expectedValue)
     })
 
     it('should work with a nested props', () => {
-      const wrapper = prepareWrapper('valueBy', 'test.value.test')
+      const wrapper = prepareWrapper({ valueBy: 'test.value.test' })
       const expectedValue = 'VALUE'
-      const actuallValue = wrapper.vm.getValue({
+      const actualValue = wrapper.vm.getValue({
         test: {
           value: {
             test: expectedValue,
@@ -48,31 +48,31 @@ describe('SelectableListMixin', () => {
         },
       })
 
-      expect(actuallValue).toEqual(expectedValue)
+      expect(actualValue).toEqual(expectedValue)
     })
 
     it('should work with a function', () => {
-      const wrapper = prepareWrapper('valueBy', opt => opt.test)
+      const wrapper = prepareWrapper({ valueBy: opt => opt.test })
       const expectedValue = 'VALUE'
-      const actuallValue = wrapper.vm.getValue({ test: expectedValue })
+      const actualValue = wrapper.vm.getValue({ test: expectedValue })
 
-      expect(actuallValue).toEqual(expectedValue)
+      expect(actualValue).toEqual(expectedValue)
     })
   })
 
   describe('getText', () => {
     it('should work with a string', () => {
-      const wrapper = prepareWrapper('textBy', 'testValue')
+      const wrapper = prepareWrapper({ textBy: 'testValue' })
       const expectedValue = 'VALUE'
-      const actuallValue = wrapper.vm.getText({ testValue: expectedValue })
+      const actualValue = wrapper.vm.getText({ testValue: expectedValue })
 
-      expect(actuallValue).toEqual(expectedValue)
+      expect(actualValue).toEqual(expectedValue)
     })
 
     it('should work with a nested props', () => {
-      const wrapper = prepareWrapper('textBy', 'test.value.test')
+      const wrapper = prepareWrapper({ textBy: 'test.value.test' })
       const expectedValue = 'VALUE'
-      const actuallValue = wrapper.vm.getText({
+      const actualValue = wrapper.vm.getText({
         test: {
           value: {
             test: expectedValue,
@@ -80,15 +80,15 @@ describe('SelectableListMixin', () => {
         },
       })
 
-      expect(actuallValue).toEqual(expectedValue)
+      expect(actualValue).toEqual(expectedValue)
     })
 
     it('should work with a function', () => {
-      const wrapper = prepareWrapper('textBy', opt => opt.test)
+      const wrapper = prepareWrapper({ textBy: opt => opt.test })
       const expectedValue = 'VALUE'
-      const actuallValue = wrapper.vm.getText({ test: expectedValue })
+      const actualValue = wrapper.vm.getText({ test: expectedValue })
 
-      expect(actuallValue).toEqual(expectedValue)
+      expect(actualValue).toEqual(expectedValue)
     })
   })
 })
