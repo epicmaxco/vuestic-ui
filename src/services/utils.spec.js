@@ -1,4 +1,4 @@
-import { deepEqual } from './utils'
+import { deepEqual, getProp } from './utils'
 
 describe('utils', () => {
   it('deepEqual', () => {
@@ -96,5 +96,12 @@ describe('utils', () => {
     expect(deepEqual({ r: circular, x: 1 }, { r: circular, x: 2 }))
       .toEqual(false)
     expect(deepEqual({ r: [circular] }, { r: [circular] })).toEqual(true)
+  })
+  it('getProp', () => {
+    const test = 'test'
+    expect(getProp('string', test)).toBeUndefined()
+    expect(getProp({ test })).toEqual({ test })
+    expect(getProp({ test }, obj => obj.test)).toEqual(test)
+    expect(getProp({ test: { test: { test } } }, `${test}.${test}.${test}`)).toEqual(test)
   })
 })

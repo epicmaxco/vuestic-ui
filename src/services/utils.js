@@ -66,7 +66,9 @@ export const getNestedValue = (option, propsArray) => {
 
   if (nestedObj === null) return option
 
-  return nestedObj[propsArray[lastPropIndex]]
+  return nestedObj
+    ? nestedObj[propsArray[lastPropIndex]] || option
+    : option
 }
 
 export const getValueByPath = (option, prop) => {
@@ -77,6 +79,7 @@ export const getValueByPath = (option, prop) => {
 }
 
 export const getProp = (option, prop) => {
+  if (typeof option === 'string') return
   if (!prop) return option
   if (typeof prop === 'string') return getValueByPath(option, prop)
   if (typeof prop === 'function') return prop(option)
