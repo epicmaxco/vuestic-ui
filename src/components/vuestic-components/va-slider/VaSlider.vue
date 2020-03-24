@@ -699,6 +699,9 @@ export default {
       return JSON.stringify(a) !== JSON.stringify(b)
     },
     clickOnContainer (e) {
+      if (this.disabled) {
+        return
+      }
       const pos = this.getPos(e)
       if (this.isRange) {
         this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
@@ -813,7 +816,9 @@ export default {
   &--disabled {
     @include va-disabled;
 
-    .container__handler {
+    .container,
+    .container__handler,
+    .container__track {
       &:hover {
         cursor: default;
       }
