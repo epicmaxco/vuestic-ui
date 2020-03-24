@@ -699,7 +699,7 @@ export default {
       return JSON.stringify(a) !== JSON.stringify(b)
     },
     clickOnContainer (e) {
-      if (this.disabled) {
+      if (this.disabled || this.readonly) {
         return
       }
       const pos = this.getPos(e)
@@ -816,20 +816,14 @@ export default {
   &--disabled {
     @include va-disabled;
 
-    .container,
-    .container__handler,
-    .container__track {
-      &:hover {
-        cursor: default;
-      }
+    .container {
+      cursor: default;
     }
   }
 
   &--readonly {
-    .container__handler {
-      &:hover {
-        cursor: default;
-      }
+    .container {
+      cursor: default;
     }
   }
 }
