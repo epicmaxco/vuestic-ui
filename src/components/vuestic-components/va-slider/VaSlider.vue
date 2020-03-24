@@ -224,6 +224,12 @@ export default {
     }
   },
   computed: {
+    moreToLess () {
+      return this.val[1] - this.step < this.val[0]
+    },
+    lessToMore () {
+      return this.val[0] + this.step > this.val[1]
+    },
     sliderClass () {
       return {
         'va-slider--active': this.hasMouseDown,
@@ -507,36 +513,58 @@ export default {
       }
 
       const arrowKeyCodes = [37, 38, 39, 40] // LEFT, UP, RIGHT, DOWN
+      const [CODE_LEFT, CODE_UP, CODE_RIGHT, CODE_DOWN] = arrowKeyCodes
       // prevent page scroll
       if (arrowKeyCodes.indexOf(event.keyCode) !== -1) {
         event.preventDefault()
       }
 
       if (this.range) {
-        if (this.$refs.dot0 === document.activeElement) { // left dot
-          if (this.vertical) {
-            if (event.keyCode === 40 && this.val[0] !== this.min) moveDot(true, 0, 0)
-            if (event.keyCode === 38 && this.val[0] + this.step <= this.val[1]) moveDot(true, 1, 0)
-          } else {
-            if (event.keyCode === 37 && this.val[0] !== this.min) moveDot(true, 0, 0)
-            if (event.keyCode === 39 && this.val[1] - this.step >= this.val[0]) moveDot(true, 1, 0)
-          }
-        } else if (this.$refs.dot1 === document.activeElement) { // right dot
-          if (this.vertical) {
-            if (event.keyCode === 40 && this.val[1] - this.step >= this.val[0]) moveDot(true, 0, 1)
-            if (event.keyCode === 38 && this.val[1] !== this.max) moveDot(true, 1, 1)
-          } else {
-            if (event.keyCode === 37 && this.val[1] - this.step >= this.val[0]) moveDot(true, 0, 1)
-            if (event.keyCode === 39 && this.val[1] !== this.max) moveDot(true, 1, 1)
-          }
+        const isVerticalDot0More = (event) =>
+          this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_UP
+        const isVerticalDot0Less = (event) => this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_DOWN
+        const isVerticalDot1More = (event) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_UP
+        const isVerticalDot1Less = (event) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_DOWN
+        const isHorizontalDot0Less = (event) =>
+          !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_LEFT
+        const isHorizontalDot0More = (event) =>
+          !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_RIGHT
+        const isHorizontalDot1Less = (event) =>
+          !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_LEFT
+        const isHorizontalDot1More = (event) =>
+          !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
+
+        switch (true) {
+          case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
+            this.$refs.dot0.focus()
+            moveDot(true, 0, 0)
+            break
+          case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
+            this.$refs.dot1.focus()
+            moveDot(true, 1, 1)
+            break
+          case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
+            moveDot(true, 0, 0)
+            break
+          case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
+            moveDot(true, 1, 1)
+            break
+          case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
+            moveDot(true, 0, 1)
+            break
+          case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
+            moveDot(true, 1, 0)
+            break
+          default:
+            break
         }
       } else {
         if (this.vertical) {
-          if (event.keyCode === 40) moveDot(false, 0)
-          if (event.keyCode === 38) moveDot(false, 1)
+          if (event.keyCode === CODE_DOWN) moveDot(false, 0)
+          if (event.keyCode === CODE_UP) moveDot(false, 1)
         } else {
-          if (event.keyCode === 37) moveDot(false, 0)
-          if (event.keyCode === 39) moveDot(false, 1)
+          if (event.keyCode === CODE_LEFT) moveDot(false, 0)
+          if (event.keyCode === CODE_RIGHT) moveDot(false, 1)
         }
       }
     },
@@ -654,8 +682,10 @@ export default {
 
         if (slider === 0) {
           this.$refs.dot0.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
+          this.$refs.dot0.focus()
         } else {
           this.$refs.dot1.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
+          this.$refs.dot1.focus()
         }
       } else {
         const val = ((this.value - this.min) / (this.max - this.min)) * 100
