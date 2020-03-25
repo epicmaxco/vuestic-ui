@@ -1,7 +1,7 @@
 <template>
   <div>
     <VbDemo>
-      <VbCard>
+      <VbCard title="Scroll with custom loading">
         <div
           class="scroll__container ref"
           ref="scrollContainer"
@@ -27,7 +27,7 @@
         </div>
       </VbCard>
 
-      <VbCard>
+      <VbCard title="Reversed slider with default pinner">
         <div class="scroll__container query">
           <va-infinite-scroll
             :debounce="300"
@@ -48,7 +48,7 @@
         </div>
       </VbCard>
 
-      <VbCard>
+      <VbCard title="Disabled data loading">
         <div class="scroll__container disabled">
           <va-infinite-scroll
             :debounce="300"
