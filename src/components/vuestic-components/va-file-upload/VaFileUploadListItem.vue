@@ -1,7 +1,8 @@
 <template>
   <va-card
     class="va-file-upload-list-item"
-    :stripe="removed ? '' : color"
+    :stripe="!removed"
+    :stripe-color="removed ? '' : color"
     no-margin
     no-padding
     :class="{'file-upload-list-item--undo': removed}"
