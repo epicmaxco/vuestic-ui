@@ -651,12 +651,14 @@ export default {
       if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
         if (this.currentSlider) {
           if (pixelPosition <= this.position[0]) {
+            this.val[1] = this.val[0]
             this.currentSlider = 0
           }
           const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
           this.setCurrentValue(v)
         } else {
           if (pixelPosition >= this.position[1]) {
+            this.val[0] = this.val[1]
             this.currentSlider = 1
           }
           const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
@@ -687,6 +689,7 @@ export default {
           this.$refs.dot1.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
           this.$refs.dot1.focus()
         }
+        console.log()
       } else {
         const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
