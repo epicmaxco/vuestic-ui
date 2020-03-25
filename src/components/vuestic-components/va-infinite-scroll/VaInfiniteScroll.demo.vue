@@ -21,11 +21,7 @@
               </li>
             </ul>
             <template v-slot:loading>
-              <spring-spinner
-                :animation-duration="2000"
-                :size="48"
-                :color="$themes.primary"
-              />
+              <div>Custom loading...</div>
             </template>
           </va-infinite-scroll>
         </div>
@@ -79,12 +75,10 @@
 
 <script>
 import VaInfiniteScroll from './VaInfiniteScroll'
-import { SpringSpinner } from 'epic-spinners'
 
 export default {
   components: {
     VaInfiniteScroll,
-    SpringSpinner,
   },
   data () {
     return {

@@ -11,16 +11,24 @@
       name="loading"
       v-if="fetching"
     >
-      <div>Loading...</div>
+      <div class="spinner__container">
+        <spring-spinner
+          :animation-duration="2000"
+          :size="48"
+          :color="$themes.primary"
+        />
+      </div>
     </slot>
   </div>
 </template>
 
 <script>
 import * as _ from 'lodash'
+import { SpringSpinner } from 'epic-spinners'
 
 export default {
   name: 'VaInfiniteScroll',
+  components: { SpringSpinner },
   props: {
     offset: {
       type: Number,
@@ -178,6 +186,11 @@ export default {
 
   ul {
     @extend .va-unordered;
+  }
+
+  .spinner__container {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>
