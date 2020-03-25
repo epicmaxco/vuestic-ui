@@ -11,12 +11,8 @@
       name="loading"
       v-if="fetching"
     >
-      <div class="spinner__container">
-        <spring-spinner
-          :animation-duration="2000"
-          :size="48"
-          :color="$themes.primary"
-        />
+      <div class="spinner">
+        <va-progress-circle indeterminate />
       </div>
     </slot>
   </div>
@@ -24,12 +20,12 @@
 
 <script>
 import * as _ from 'lodash'
-import { SpringSpinner } from 'epic-spinners'
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { makeContextablePropsMixin, ContextPluginMixin } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaInfiniteScroll',
-  components: { SpringSpinner },
+  components: { VaProgressCircle },
   mixins: [
     makeContextablePropsMixin({
       offset: {
@@ -178,11 +174,13 @@ export default {
   display: flex;
   flex-direction: column;
 
-  &--reverse {
+  &--reversed {
     flex-direction: column-reverse;
   }
 
-  .spinner__container {
+  .spinner {
+    width: 100%;
+    min-height: 60px;
     display: flex;
     justify-content: center;
   }
