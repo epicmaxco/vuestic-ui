@@ -33,12 +33,12 @@ const isCssColor = strColor => {
   return s.color !== ''
 }
 const getColor = ($vm, prop, defaultColor) => {
-  if (isCssColor(prop)) {
-    return prop
-  }
-
   if ($vm.$themes && $vm.$themes[prop]) {
     return $vm.$themes[prop]
+  }
+
+  if (isCssColor(prop)) {
+    return prop
   }
 
   return defaultColor
