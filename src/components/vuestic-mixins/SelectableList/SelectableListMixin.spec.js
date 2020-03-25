@@ -1,5 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 import { SelectableListMixin } from './SelectableListMixin'
+import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
 
 describe('SelectableListMixin', () => {
   const baseComponentOptions = {
@@ -12,7 +13,11 @@ describe('SelectableListMixin', () => {
     return shallowMount(baseComponentOptions, { propsData: data })
   }
 
-  it('should mount without erros', () => {
+  it('should mount without errors', () => {
+    expect(() => testIsContextableComponent(baseComponentOptions, {}, {})).not.toThrow()
+  })
+
+  it('should set deafult values correctly', () => {
     const wrapper = shallowMount(baseComponentOptions)
     expect(wrapper).toBeDefined()
     expect(wrapper.props().options).toEqual([])

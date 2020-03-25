@@ -8,6 +8,7 @@
         :default-value="baseData.options[0]"
         color="primary"
         type="radio"
+        name="test-1"
         v-model="baseData.selected"
       />
       Selected {{ baseData.selected }}
@@ -17,9 +18,12 @@
     >
       <va-option-list
         :options="baseData.options"
+        v-model="baseData.selectedDisabledList"
+        name="test-2"
         type="radio"
         disabled
       />
+      Selected {{ baseData.selectedDisabledList }}
     </VbCard>
     <VbCard
       title="Left label"
@@ -27,6 +31,7 @@
       <va-option-list
         :options="baseData.options"
         type="radio"
+        name="test-3"
         color="primary"
         left-label
       />
@@ -36,10 +41,10 @@
     >
       <va-option-list
         :options="baseData.options"
-        :default-value="baseData.options[0]"
-        color="danger"
-        type="radio"
         readonly
+        color="primary"
+        name="test-4"
+        type="radio"
       />
     </VbCard>
     <VbCard
@@ -48,6 +53,7 @@
       <va-option-list
         :options="complexData.options"
         v-model="complexData.selectedValue"
+        name="test-5"
         type="radio"
         color="warning"
       />
@@ -61,13 +67,13 @@
         :options="complexData.options"
         v-model="complexData.selectedObject"
         :default-value="complexData.options[1]"
+        name="test-6"
         type="radio"
         output-object
         color="warning"
       />
       Selected {{ complexData.selectedObject }}
     </VbCard>
-
     <VbCard
       title="Using slot"
     >
@@ -76,8 +82,10 @@
         v-model="complexData.selectedValueFromSlot"
         :default-value="complexData.options[0]"
         color="danger"
+        name="test-7"
       >
         <template v-slot="{ props }">
+          <pre>{{ props }}</pre>
           <va-radio
             :option="props.option"
             :disabled="props.isDisabled(props.option)"
@@ -90,7 +98,6 @@
           />
         </template>
       </va-option-list>
-      Selected {{ complexData.selectedValueFromSlot }}
     </VbCard>
     <VbCard
       title="Checkbox"
@@ -116,6 +123,7 @@ export default {
       baseData: {
         options: ['test', 'test1', 'test2'],
         selected: undefined,
+        selectedDisabledList: undefined,
       },
       complexData: {
         options: [
