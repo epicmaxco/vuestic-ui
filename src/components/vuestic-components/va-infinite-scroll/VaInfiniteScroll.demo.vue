@@ -3,7 +3,7 @@
     <VbDemo>
       <VbCard title="Scroll with custom loading">
         <div
-          class="scroll__container ref"
+          class="scroll__container"
           ref="scrollContainer"
         >
           <va-infinite-scroll
@@ -27,12 +27,12 @@
         </div>
       </VbCard>
 
-      <VbCard title="Reversed slider with default pinner">
+      <VbCard title="Reversed slider with default spinner">
         <div class="scroll__container query">
           <va-infinite-scroll
             :debounce="300"
             :offset="1"
-            :scroll-target="'.query'"
+            scroll-target=".query"
             reverse
             @load="prependRecords"
           >
@@ -53,8 +53,8 @@
           <va-infinite-scroll
             :debounce="300"
             :offset="1"
-            :scroll-target="'.disabled'"
-            :disabled="disabled"
+            scroll-target=".disabled"
+            disabled
             reverse
             @load="prependRecords"
           >
@@ -75,6 +75,7 @@
 
 <script>
 import VaInfiniteScroll from './VaInfiniteScroll'
+import {times} from 'lodash'
 
 export default {
   components: {
@@ -82,22 +83,17 @@ export default {
   },
   data () {
     return {
-      records: new Array(15)
-        .fill({ text: 'record' })
+      records: times(15, { text: 'record' })
         .map(record => ({ ...record, id: Math.random() })),
-      reverseRecords: new Array(15)
-        .fill({ text: 'record' })
+      reverseRecords: _.times(15, { text: 'record' })
         .map(record => ({ ...record, id: Math.random() })),
-      disabledRecords: new Array(15)
-        .fill({ text: 'record' })
+      disabledRecords: _.times(15, { text: 'record' })
         .map(record => ({ ...record, id: Math.random() })),
-      disabled: true,
     }
   },
   methods: {
     getNewRecords () {
-      return new Array(10)
-        .fill({ text: 'new record' })
+      return times(10,{ text: 'new record' })
         .map(record => ({ ...record, id: Math.random() }))
     },
     appendRecords (done) {
@@ -115,9 +111,11 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style scoped lang="scss">
+
 .scroll__container {
   height: 300px;
   width: 200px;
 }
+
 </style>

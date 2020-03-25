@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-infinite-scroll"
-    :class="{reverse: reverse}"
+    :class="{'va-infinite-scroll--reversed': reverse}"
   >
     <slot
       name="default"
@@ -25,39 +25,40 @@
 <script>
 import * as _ from 'lodash'
 import { SpringSpinner } from 'epic-spinners'
+import { makeContextablePropsMixin, ContextPluginMixin } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaInfiniteScroll',
   components: { SpringSpinner },
-  props: {
-    offset: {
-      type: Number,
-      default: 1,
-    },
-    reverse: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    scrollTarget: {
-      type: [Element, String],
-      required: false,
-      default: null,
-    },
-    debounce: {
-      type: Number,
-      required: false,
-      default: 100,
-    },
-  },
+  mixins: [
+    makeContextablePropsMixin({
+      offset: {
+        type: Number,
+        default: 1,
+      },
+      reverse: {
+        type: Boolean,
+        default: false,
+      },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
+      scrollTarget: {
+        type: [Element, String],
+        default: null,
+      },
+      debounce: {
+        type: Number,
+        default: 100,
+      },
+    }),
+    ContextPluginMixin,
+  ],
   data () {
     return {
       index: 0,
       fetching: false,
-      working: true,
     }
   },
   watch: {
@@ -74,7 +75,7 @@ export default {
   },
   methods: {
     checkForLoad () {
-      if (this.disabled || this.fetching || !this.working) {
+      if (this.disabled || this.fetching) {
         return
       }
 
@@ -88,7 +89,7 @@ export default {
       }
     },
     load () {
-      if (this.disabled || this.fetching || !this.working) {
+      if (this.disabled || this.fetching) {
         return
       }
 
@@ -96,7 +97,7 @@ export default {
       const initialHeight = this.$slots.default[0].elm.offsetHeight
 
       this.$emit('load', stop => {
-        if (!this.working) {
+        if (this.disabled) {
           return
         }
         this.$nextTick(() => {
@@ -110,8 +111,7 @@ export default {
       })
     },
     resume () {
-      if (!this.working) {
-        this.working = true
+      if (!this.disabled) {
         this.scrollTargetElement.addEventListener(
           'scroll',
           this.debouncedLoad,
@@ -123,15 +123,14 @@ export default {
       this.checkForLoad()
     },
     stop () {
-      if (!this.working) {
+      if (this.disabled) {
         return
       }
 
-      this.working = false
       this.fetching = false
       this.scrollTargetElement.removeEventListener(
         'scroll',
-        this.debouncedLoadd,
+        this.debouncedLoad,
         { passive: true },
       )
     },
@@ -155,7 +154,7 @@ export default {
     })
   },
   beforeDestroy () {
-    if (this.working) {
+    if (!this.disabled) {
       this.scrollTargetElement.removeEventListener(
         'scroll',
         this.debouncedLoad,
@@ -173,19 +172,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import "../../vuestic-sass/global/utility-global";
+<style scoped lang="scss">
 
 .va-infinite-scroll {
   display: flex;
   flex-direction: column;
 
-  &.reverse {
+  &--reverse {
     flex-direction: column-reverse;
-  }
-
-  ul {
-    @extend .va-unordered;
   }
 
   .spinner__container {
