@@ -1,7 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 import VaDataTable from './VaDataTable'
 
-jest.mock('epic-spinners', () => jest.fn())
 jest.mock('vuetable-2/src/components/Vuetable', () => jest.fn())
 
 describe('VaDataTable', () => {

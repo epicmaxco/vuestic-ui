@@ -98,10 +98,12 @@
           name="cancel"
           @click.native.stop="clear()"
         />
-        <spring-spinner
+        <va-icon
+          spin
           :color="$themes.success"
           v-if="loading"
           :size="24"
+          name="loop"
           class="va-select__loading"
         />
         <va-icon
@@ -115,7 +117,6 @@
 
 <script>
 import VaDropdown from '../va-dropdown/VaDropdown'
-import { SpringSpinner } from 'epic-spinners'
 import VaIcon from '../va-icon/VaIcon'
 import VaInput from '../va-input/VaInput'
 import { getHoverColor } from '../../../services/color-functions'
@@ -133,8 +134,10 @@ const positions = {
 
 export default {
   name: 'VaSelect',
-  components: { VaIcon, SpringSpinner, VaDropdown, VaInput, VaInputWrapper },
+  components: { VaIcon, VaDropdown, VaInput, VaInputWrapper },
   mixins: [
+    ContextPluginMixin,
+    FormComponentMixin,
     makeContextablePropsMixin({
       value: { type: [String, Number, Object, Array], default: '' },
       label: { type: String, default: '' },
@@ -160,8 +163,6 @@ export default {
       fixed: { type: Boolean, default: true },
       noClear: { type: Boolean, default: false },
     }),
-    ContextPluginMixin,
-    FormComponentMixin,
   ],
   data () {
     return {
@@ -201,6 +202,7 @@ export default {
         backgroundColor:
           this.computedError ? getHoverColor(this.$themes.danger)
             : this.success ? getHoverColor(this.$themes.success) : '#f5f8f9',
+        // TODO Color should not depend on theme explicitly and use color mixin handling instead.
         borderColor:
           this.computedError ? this.$themes.danger
             : this.success ? this.$themes.success
@@ -486,6 +488,8 @@ export default {
     right: 0.5rem;
     top: 0;
     bottom: 0;
+    width: 1.5rem;
+    height: 1.5rem;
     margin: auto;
   }
 

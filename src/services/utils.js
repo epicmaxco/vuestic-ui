@@ -1,3 +1,7 @@
+export const sleep = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 export const normalizeValue = (value, minValue = 0, maxValue = 100) => {
   if (value <= minValue) {
     return minValue
@@ -45,4 +49,36 @@ export const hasOwnProperty = (object, key) => {
   // See https://eslint.org/docs/rules/no-prototype-builtins for explanation
   // on why we don't use object.hasOwnProperty directly.
   return Object.prototype.hasOwnProperty.call(object, key)
+}
+
+export const getNestedValue = (option, propsArray) => {
+  const lastPropIndex = propsArray.length - 1
+  if (lastPropIndex < 0) return option
+
+  let nestedObj = option[propsArray[0]]
+
+  for (let i = 1; i < lastPropIndex; i++) {
+    if (nestedObj === null) {
+      return option
+    }
+    nestedObj = nestedObj[propsArray[i]]
+  }
+
+  if (nestedObj === null) return option
+
+  return nestedObj[propsArray[lastPropIndex]]
+}
+
+export const getValueByPath = (option, prop) => {
+  if (option === null || typeof prop !== 'string' || !prop) return option
+  if (option[prop] !== undefined) return option[prop]
+  prop = prop.replace(/^\./, '') // remove first point symbol
+  return getNestedValue(option, prop.split('.'))
+}
+
+export const getProp = (option, prop) => {
+  if (!prop) return option
+  if (typeof prop === 'string') return getValueByPath(option, prop)
+  if (typeof prop === 'function') return prop(option)
+  return option
 }
