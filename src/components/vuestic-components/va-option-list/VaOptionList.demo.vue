@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard
-      title = "Options as array of string"
+      title="Options as array of string"
     >
       <va-option-list
         :options="baseData.options"
@@ -13,7 +13,7 @@
       Selected {{ baseData.selected }}
     </VbCard>
     <VbCard
-      title = "Disable all"
+      title="Disable all"
     >
       <va-option-list
         :options="baseData.options"
@@ -22,7 +22,7 @@
       />
     </VbCard>
     <VbCard
-      title = "Left label"
+      title="Left label"
     >
       <va-option-list
         :options="baseData.options"
@@ -32,7 +32,7 @@
       />
     </VbCard>
     <VbCard
-      title = "Readonly"
+      title="Readonly"
     >
       <va-option-list
         :options="baseData.options"
@@ -43,7 +43,7 @@
       />
     </VbCard>
     <VbCard
-      title = "Use more complex data"
+      title="Use more complex data"
     >
       <va-option-list
         :options="complexData.options"
@@ -55,7 +55,7 @@
     </VbCard>
 
     <VbCard
-      title = "Return whole object"
+      title="Return whole object"
     >
       <va-option-list
         :options="complexData.options"
@@ -68,8 +68,8 @@
       Selected {{ complexData.selectedObject }}
     </VbCard>
 
-   <VbCard 
-      title = "Using slot"
+    <VbCard
+      title="Using slot"
     >
       <va-option-list
         :options="complexData.options"
@@ -93,7 +93,7 @@
       Selected {{ complexData.selectedValueFromSlot }}
     </VbCard>
     <VbCard
-      title = "Checkbox"
+      title="Checkbox"
     >
       <va-option-list
         :options="checkboxData.options"
@@ -115,7 +115,7 @@ export default {
     return {
       baseData: {
         options: ['test', 'test1', 'test2'],
-        selected: undefined
+        selected: undefined,
       },
       complexData: {
         options: [
@@ -133,35 +133,35 @@ export default {
             text: 'test',
             value: 'test-value2',
             disabled: true,
-          }
+          },
         ],
         selectedValue: undefined,
         selectedObject: undefined,
-        selectedValueFromSlot: undefined
+        selectedValueFromSlot: undefined,
       },
       checkboxData: {
         options: [
           {
             text: 'test',
             value: 'test-1',
-            disabled: false
+            disabled: false,
           },
           {
             text: 'test',
             value: 'test-2',
-            disabled: false
+            disabled: false,
           },
           {
             text: 'test',
             value: 'test-3',
-            disabled: true
-          }
+            disabled: true,
+          },
         ],
         selectedValue: undefined,
         selectedObject: undefined,
-        selectedValueFromSlot: undefined
+        selectedValueFromSlot: undefined,
       },
     }
-  }
+  },
 }
 </script>
