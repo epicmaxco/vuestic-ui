@@ -5,25 +5,18 @@
     >
       <va-option-list
         :options="baseData.options"
+        v-model="baseData.selected"
       />
+      Selected {{ baseData.selected }}
     </VbCard>
     <VbCard
       title="Color options"
     >
       <va-option-list
         :options="baseData.options"
+        v-model="baseData.selected"
         color="danger"
       />
-    </VbCard>
-
-    <VbCard
-      title="With v-model"
-    >
-      <va-option-list
-        :options="baseData.options"
-        v-model="baseData.selected"
-      />
-      Selected {{ baseData.selected }}
     </VbCard>
     <VbCard
       title="With default value and v-model"
@@ -34,6 +27,16 @@
         :default-value="[baseData.options[0], baseData.options[2]]"
       />
       Selected {{ baseData.selectedWithVmodel }}
+    </VbCard>
+    <VbCard
+      title="With default value (when 1 default option array is not needed) and v-model"
+    >
+      <va-option-list
+        :options="baseData.options"
+        v-model="baseData.selectedWithVmodel1"
+        :default-value="baseData.options[0]"
+      />
+      Selected {{ baseData.selectedWithVmodel1 }}
     </VbCard>
     <VbCard
       title="Disable all"
@@ -50,6 +53,7 @@
     >
       <va-option-list
         :options="baseData.options"
+        v-model="baseData.selected"
         left-label
       />
     </VbCard>
@@ -82,14 +86,21 @@
       Selected <pre> {{ complexData.selectedObject }} </pre>
     </VbCard>
     <VbCard
+      title="Complex data with default value and v-model"
+    >
+      <va-option-list
+        :options="complexData.options"
+        :default-value="[complexData.options[0], complexData.options[2]]"
+        v-model="complexData.withDefault"
+      />
+      Selected <pre> {{ complexData.withDefault }} </pre>
+    </VbCard>
+
+    <VbCard
       title="Using slot"
     >
       <va-option-list
         :options="complexData.options"
-        v-model="complexData.selectedValueFromSlot"
-        :default-value="complexData.options[0]"
-        color="danger"
-        name="test-7"
       >
         <template v-slot="{ props }">
           <pre>{{ props }}</pre>
@@ -97,14 +108,47 @@
       </va-option-list>
     </VbCard>
     <VbCard
-      title="Radio button"
+      title="Array of strings"
     >
       <va-option-list
         type="radio"
-        :options="checkboxData.options"
-        v-model="checkboxData.selectedObject"
+        :options="baseRadioData.options"
+        v-model="baseRadioData.selected"
       />
-      Selected {{ checkboxData.selectedObject }}
+      Selected {{ baseRadioData.selected }}
+    </VbCard>
+    <VbCard
+      title="Array of strings with default value"
+    >
+      <va-option-list
+        type="radio"
+        :options="baseRadioData.options"
+        v-model="baseRadioData.selectedWithVmodel"
+        :default-value="baseRadioData.options[1]"
+      />
+      Selected {{ baseRadioData.selectedWithVmodel }}
+    </VbCard>
+    <VbCard
+      title="Disabled"
+    >
+      <va-option-list
+        type="radio"
+        disabled
+        :options="baseRadioData.options"
+        v-model="baseRadioData.selectedDisabled"
+      />
+      Selected {{ baseRadioData.selectedDisabled }}
+    </VbCard>
+    <VbCard
+      title="Use complex data and returns object"
+    >
+      <va-option-list
+        type="radio"
+        :options="radioData.options"
+        v-model="radioData.selectedObject"
+        output-object
+      />
+      Selected {{ radioData.selectedObject }}
     </VbCard>
   </VbDemo>
 </template>
@@ -118,8 +162,10 @@ export default {
     return {
       baseData: {
         options: ['test', 'test1', 'test2'],
-        selected: undefined,
-        selectedDisabledList: undefined,
+        selected: [],
+        selectedDisabledList: [],
+        selectedWithVmodel: [],
+        selectedWithVmodel1: [],
       },
       complexData: {
         options: [
@@ -139,12 +185,17 @@ export default {
             disabled: true,
           },
         ],
-        selectedValue: undefined,
-        selectedWithVmodel: undefined,
-        selectedObject: undefined,
-        selectedValueFromSlot: undefined,
+        selectedValue: [],
+        selectedObject: [],
+        withDefault: [],
       },
-      checkboxData: {
+      baseRadioData: {
+        options: ['test radio', 'test radio 1', 'test radio 2'],
+        selected: '',
+        selectedDisabled: '',
+        selectedWithVmodel: '',
+      },
+      radioData: {
         options: [
           {
             text: 'test',
@@ -162,9 +213,9 @@ export default {
             disabled: true,
           },
         ],
-        selectedValue: undefined,
-        selectedObject: undefined,
-        selectedValueFromSlot: undefined,
+        selectedValue: {},
+        selectedObject: {},
+        withDefault: '',
       },
     }
   },

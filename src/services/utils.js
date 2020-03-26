@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export const sleep = ms => {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -88,3 +90,5 @@ export const getProp = (option, prop) => {
   if (typeof prop === 'function') return prop(option)
   return option
 }
+
+export const generateUuid = () => uuidv4()

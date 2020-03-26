@@ -64,7 +64,7 @@ export default {
     makeContextablePropsMixin({
       label: { type: String, default: '' },
       value: { type: [Boolean, Array], default: false },
-      arrayValue: { type: String, default: '' },
+      arrayValue: { type: [String, Object], default: '' },
       indeterminate: { type: Boolean, default: false },
       checkedIcon: { type: String, default: 'check' },
       indeterminateIcon: { type: String, default: 'remove' },

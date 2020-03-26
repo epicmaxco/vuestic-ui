@@ -28,7 +28,6 @@
             :label="getText(option)"
             v-model="selectedValue"
             :tabindex="index"
-            :value="getValue(option)"
           />
           <va-checkbox
             v-else
@@ -36,8 +35,7 @@
             :label="getText(option)"
             :disabled="isDisabled(option)"
             :left-label="c_leftLabel"
-            :value="selectedValue"
-            :array-value="getValue(option)"
+            :array-value="outputObject ? option : getValue(option)"
             :color="c_color"
           />
         </slot>
@@ -52,16 +50,11 @@ import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { generateUuid } from '../../../services/utils'
 
 export default {
   name: 'VaOptionList',
   components: { VaRadio, VaCheckbox, VaInputWrapper },
-  data () {
-    return {
-      selectedOptions: [],
-      selectedButton: '',
-    }
-  },
   mixins: [
     SelectableListMixin,
     makeContextablePropsMixin({
@@ -73,10 +66,10 @@ export default {
       disabled: { type: Boolean, default: false },
       readonly: { type: Boolean, default: false },
       defaultValue: { type: [String, Number, Object, Array] },
-      name: { type: String, default: 'name' },
+      name: { type: String, default: generateUuid },
       color: { type: String, default: 'primary' },
       leftLabel: { type: Boolean, default: false },
-      value: { type: [String, Number, Object, Array], default: '' },
+      value: { type: [String, Number, Object, Array] },
     }),
   ],
   methods: {
@@ -87,35 +80,29 @@ export default {
       return this.c_disabled || this.getDisabled(option)
     },
   },
-  created () {
-    this.isSelectableListComponent = true
-  },
   mounted () {
-    this.initialValue && this.$emit('input', this.getValue(this.initialValue))
+    this.isSelectableListComponent = true
+    const initialValue = this.c_defaultValue || this.c_value
+    initialValue && (this.selectedValue = initialValue)
   },
   computed: {
     isRadio () {
       return this.type === 'radio'
     },
-    initialValue () {
-      return this.c_value || this.c_defaultValue
-    },
     selectedValue: {
       get () {
-        const value = this.isRadio
-          ? this.selectedButton
-          : this.selectedOptions
-
-        return value.length
-          ? value
-          : this.initialValue || value
+        return this.c_value
       },
       set (value) {
         if (this.c_readonly) return
-        this.isRadio
-          ? this.selectedButton = value
-          : this.selectedOptions = value
-        this.$emit('input', this.getValue(value))
+        if (this.isRadio) {
+          this.$emit('input', this.outputObject ? value : this.getValue(value))
+        } else {
+          const emittedValue = this.outputObject
+            ? value
+            : Array.isArray(value) ? value.map(el => this.getValue(el)) : [value]
+          this.$emit('input', emittedValue)
+        }
       },
     },
   },

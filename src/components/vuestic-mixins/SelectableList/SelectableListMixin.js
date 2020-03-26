@@ -16,9 +16,10 @@ export const SelectableListMixin = {
   ],
   methods: {
     getValue (option) {
-      return this.outputObject || typeof option === 'string'
+      const value = typeof option === 'string'
         ? option
         : getProp(option, this.valueBy)
+      return value
     },
     getText (option) {
       return typeof option === 'string'
