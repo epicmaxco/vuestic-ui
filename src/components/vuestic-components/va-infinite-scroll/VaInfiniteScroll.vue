@@ -172,6 +172,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "./../../../components/vuestic-sass/resources/resources";
 
 .va-infinite-scroll {
   display: flex;
@@ -184,8 +185,8 @@ export default {
   .spinner {
     width: 100%;
     min-height: 60px;
-    display: flex;
-    justify-content: center;
+
+    @include flex-center();
   }
 }
 </style>
