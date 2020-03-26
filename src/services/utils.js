@@ -51,6 +51,7 @@ export const hasOwnProperty = (object, key) => {
   return Object.prototype.hasOwnProperty.call(object, key)
 }
 
+// Find value in the object with array of keys
 export const getNestedValue = (option, propsArray) => {
   const lastPropIndex = propsArray.length - 1
   if (lastPropIndex < 0) return option
@@ -71,6 +72,7 @@ export const getNestedValue = (option, propsArray) => {
     : option
 }
 
+// Finds value in the object using string with dots 'key.key.key'
 export const getValueByPath = (option, prop) => {
   if (option === null || typeof prop !== 'string' || !prop) return option
   if (option[prop] !== undefined) return option[prop]
@@ -78,6 +80,7 @@ export const getValueByPath = (option, prop) => {
   return getNestedValue(option, prop.split('.'))
 }
 
+// Finds value of object with either sting or function
 export const getProp = (option, prop) => {
   if (typeof option === 'string') return
   if (!prop) return option

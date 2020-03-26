@@ -5,13 +5,35 @@
     >
       <va-option-list
         :options="baseData.options"
-        :default-value="baseData.options[0]"
-        color="primary"
-        type="radio"
-        name="test-1"
+      />
+    </VbCard>
+    <VbCard
+      title="Color options"
+    >
+      <va-option-list
+        :options="baseData.options"
+        color="danger"
+      />
+    </VbCard>
+
+    <VbCard
+      title="With v-model"
+    >
+      <va-option-list
+        :options="baseData.options"
         v-model="baseData.selected"
       />
       Selected {{ baseData.selected }}
+    </VbCard>
+    <VbCard
+      title="With default value and v-model"
+    >
+      <va-option-list
+        :options="baseData.options"
+        v-model="baseData.selectedWithVmodel"
+        :default-value="[baseData.options[0], baseData.options[2]]"
+      />
+      Selected {{ baseData.selectedWithVmodel }}
     </VbCard>
     <VbCard
       title="Disable all"
@@ -19,8 +41,6 @@
       <va-option-list
         :options="baseData.options"
         v-model="baseData.selectedDisabledList"
-        name="test-2"
-        type="radio"
         disabled
       />
       Selected {{ baseData.selectedDisabledList }}
@@ -30,9 +50,6 @@
     >
       <va-option-list
         :options="baseData.options"
-        type="radio"
-        name="test-3"
-        color="primary"
         left-label
       />
     </VbCard>
@@ -42,9 +59,6 @@
       <va-option-list
         :options="baseData.options"
         readonly
-        color="primary"
-        name="test-4"
-        type="radio"
       />
     </VbCard>
     <VbCard
@@ -53,9 +67,6 @@
       <va-option-list
         :options="complexData.options"
         v-model="complexData.selectedValue"
-        name="test-5"
-        type="radio"
-        color="warning"
       />
       Selected {{ complexData.selectedValue }}
     </VbCard>
@@ -66,13 +77,9 @@
       <va-option-list
         :options="complexData.options"
         v-model="complexData.selectedObject"
-        :default-value="complexData.options[1]"
-        name="test-6"
-        type="radio"
         output-object
-        color="warning"
       />
-      Selected {{ complexData.selectedObject }}
+      Selected <pre> {{ complexData.selectedObject }} </pre>
     </VbCard>
     <VbCard
       title="Using slot"
@@ -86,26 +93,16 @@
       >
         <template v-slot="{ props }">
           <pre>{{ props }}</pre>
-          <va-radio
-            :option="props.option"
-            :disabled="props.isDisabled(props.option)"
-            :name="props.name"
-            :color="props.color"
-            :left-label="props.leftLabel"
-            :label="props.getText(props.option)"
-            v-model="complexData.selectedValueFromSlot"
-            :tabindex="props.index"
-          />
         </template>
       </va-option-list>
     </VbCard>
     <VbCard
-      title="Checkbox"
+      title="Radio button"
     >
       <va-option-list
+        type="radio"
         :options="checkboxData.options"
         v-model="checkboxData.selectedObject"
-        color="warning"
       />
       Selected {{ checkboxData.selectedObject }}
     </VbCard>
@@ -114,10 +111,9 @@
 
 <script>
 import VaOptionList from './VaOptionList'
-import VaRadio from '../va-radio/VaRadio'
 
 export default {
-  components: { VaOptionList, VaRadio },
+  components: { VaOptionList },
   data () {
     return {
       baseData: {
@@ -144,6 +140,7 @@ export default {
           },
         ],
         selectedValue: undefined,
+        selectedWithVmodel: undefined,
         selectedObject: undefined,
         selectedValueFromSlot: undefined,
       },

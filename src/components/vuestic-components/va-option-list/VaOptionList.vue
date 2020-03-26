@@ -36,7 +36,9 @@
             :label="getText(option)"
             :disabled="isDisabled(option)"
             :left-label="c_leftLabel"
+            :value="selectedValue"
             :array-value="getValue(option)"
+            :color="c_color"
           />
         </slot>
       </li>
@@ -70,9 +72,9 @@ export default {
       },
       disabled: { type: Boolean, default: false },
       readonly: { type: Boolean, default: false },
-      defaultValue: { type: [String, Number, Object] },
+      defaultValue: { type: [String, Number, Object, Array] },
       name: { type: String, default: 'name' },
-      color: { type: String },
+      color: { type: String, default: 'primary' },
       leftLabel: { type: Boolean, default: false },
       value: { type: [String, Number, Object, Array], default: '' },
     }),
@@ -103,7 +105,10 @@ export default {
         const value = this.isRadio
           ? this.selectedButton
           : this.selectedOptions
-        return value || this.initialValue
+
+        return value.length
+          ? value
+          : this.initialValue || value
       },
       set (value) {
         if (this.c_readonly) return
