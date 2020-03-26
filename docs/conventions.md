@@ -41,6 +41,7 @@ In future we also plan to be :
 ## Github tags
 We want to keep these consistent across different repos.
 
+* blocked - Blocked by another issue - #778899
 * bug - Something isn't working - #d73a4a
 * CI - Continuous integration & deploy - #343434
 * component - Has direct relation to component - #bfdadc
