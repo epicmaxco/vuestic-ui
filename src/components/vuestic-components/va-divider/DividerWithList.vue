@@ -5,14 +5,17 @@
       class="ma-2"
     >
       <VaItem>Item 1</VaItem>
-      <VaDivider />
+      <VaDivider>Default</VaDivider>
       <VaItem>Item 2</VaItem>
-      <VaDivider>Some text</VaDivider>
-      <VaItem>Item 3</VaItem>
+      <VaDivider />
+
+      <VaItem>Item 1</VaItem>
       <VaDivider inset>
-        Inset divider
+        Inset
       </VaDivider>
-      <VaItem>Item 4</VaItem>
+      <VaItem>Item 2</VaItem>
+      <VaDivider inset />
+      <VaItem>Item 3</VaItem>
     </VaList>
   </VbCard>
 </template>
