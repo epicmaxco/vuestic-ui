@@ -1,7 +1,7 @@
 <template>
   <div>
     <VbDemo>
-      <VbCard title="Default infinite scroll">
+      <VbCard title="Default">
         <div
           class="scroll__container"
         >
@@ -19,8 +19,8 @@
           </va-infinite-scroll>
         </div>
       </VbCard>
-      
-      <VbCard title="Custom loading scroll">
+
+      <VbCard title="Custom loading slot">
         <div
           class="scroll__container"
         >
@@ -36,13 +36,17 @@
               </li>
             </ul>
             <template v-slot:loading>
-              <va-progress-circle indeterminate :thickness=".5" color="red"></va-progress-circle>
+              <va-progress-circle
+                indeterminate
+                :thickness=".5"
+                color="red"
+              />
             </template>
           </va-infinite-scroll>
         </div>
       </VbCard>
 
-      <VbCard title="Scroll with offset 200px">
+      <VbCard title="Offset 200px">
         <div
           class="scroll__container"
         >
@@ -61,14 +65,14 @@
           </va-infinite-scroll>
         </div>
       </VbCard>
-      
-      <VbCard title="Scroll with ref target">
+
+      <VbCard title="ref target">
         <div
           class="scroll__container"
           ref="scrollTarget"
         >
           <va-infinite-scroll
-            :scrollTarget="$refs.scrollTarget"
+            :scroll-target="$refs.scrollTarget"
             @load="appendRecords"
           >
             <ul>
@@ -83,12 +87,13 @@
         </div>
       </VbCard>
 
-      <VbCard title="Scroll with query selector target">
+      <VbCard title="selector target">
         <div
-          class="scroll__container scroll__container--target"
+          id="target"
+          class="scroll__container"
         >
           <va-infinite-scroll
-            scrollTarget=".scroll__container--target"
+            scroll-target="#target"
             @load="appendRecords"
           >
             <ul>
@@ -103,7 +108,7 @@
         </div>
       </VbCard>
 
-      <VbCard title="Scroll with debounce 5000">
+      <VbCard title="debounce">
         <div
           class="scroll__container"
         >
@@ -123,7 +128,7 @@
         </div>
       </VbCard>
 
-      <VbCard title="Reversed scroll">
+      <VbCard title="reverse">
         <div class="scroll__container">
           <va-infinite-scroll
             reverse
@@ -141,7 +146,7 @@
         </div>
       </VbCard>
 
-      <VbCard title="Disabled scroll">
+      <VbCard title="disabled">
         <div class="scroll__container">
           <va-infinite-scroll
             disabled
@@ -164,16 +169,15 @@
 
 <script>
 import VaInfiniteScroll from './VaInfiniteScroll'
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
-import {times} from 'lodash'
+import VaProgressCircle
+  from '../va-progress-bar/progress-types/VaProgressCircle'
+import { times } from 'lodash'
 import { sleep } from '../../../services/utils'
-import VaContext from '../../context-test/context-provide/VaContext'
 
 export default {
   components: {
     VaInfiniteScroll,
     VaProgressCircle,
-    VaContext
   },
   data () {
     return {
@@ -184,18 +188,20 @@ export default {
   },
   methods: {
     getNewRecords () {
-      return times(10,()=> ({ text: 'new record' }))
+      return times(10, () => ({ text: 'new record' }))
         .map(record => ({ ...record, id: Math.random() }))
     },
     appendRecords (done) {
-      sleep(2000).then(()=>{
+      sleep(2000).then(() => {
         this.records.push(...this.getNewRecords())
-        done()})
+        done()
+      })
     },
     prependRecords (done) {
-      sleep(20000).then(() => {
-        this.reverseRecords.unshift(...this.getNewRecords())
-        done()})
+      sleep(2000).then(() => {
+        this.records.push(...this.getNewRecords())
+        done()
+      })
     },
   },
 }

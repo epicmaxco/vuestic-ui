@@ -12,7 +12,11 @@
       v-if="fetching"
     >
       <div class="spinner">
-        <va-progress-circle indeterminate />
+        <va-progress-circle
+          size="small"
+          :thickness="0.15"
+          indeterminate
+        />
       </div>
     </slot>
   </div>
@@ -21,7 +25,7 @@
 <script>
 import * as _ from 'lodash'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
-import { makeContextablePropsMixin, ContextPluginMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaInfiniteScroll',
@@ -49,7 +53,6 @@ export default {
         default: 100,
       },
     }),
-    ContextPluginMixin,
   ],
   data () {
     return {
