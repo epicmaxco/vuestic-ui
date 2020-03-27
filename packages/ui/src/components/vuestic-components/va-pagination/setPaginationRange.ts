@@ -1,4 +1,4 @@
-export const setPaginationRange = (value, visiblePages, pages) => {
+export const setPaginationRange = (value: number, visiblePages: number, pages: number, includeBoundary = false) => {
   let start = 0
 
   if (visiblePages > pages) {
@@ -14,9 +14,15 @@ export const setPaginationRange = (value, visiblePages, pages) => {
       : Math.ceil(value - paginationMiddlePage)
   }
 
-  const range = []
+  const range: Array<string | number> = []
+
   for (let i = 0; i < visiblePages; i++) {
     range.push(start + i)
+  }
+
+  if (includeBoundary) {
+    start !== 1 && range.splice(0, 2, 1, '...')
+    range[range.length - 1] !== pages && range.splice(-2, 2, '...', pages)
   }
 
   return range

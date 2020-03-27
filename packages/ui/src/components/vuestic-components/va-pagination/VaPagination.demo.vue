@@ -63,7 +63,7 @@
                 v-model="activePage"
                 :visible-pages="4"
                 :pages="15"
-                color="success"
+                color="info"
               />
               <va-pagination
                 v-model="activePage"
@@ -142,21 +142,89 @@
         </tr>
       </table>
     </VbCard>
+    <VbCard
+      title="With input"
+    >
+      <va-pagination
+        :pages="20"
+        v-model="activePage"
+        input
+      />
+    </VbCard>
+    <VbCard
+      title="With boundary numbers"
+    >
+      <va-pagination
+        :pages="20"
+        :visible-pages="7"
+        v-model="activePage"
+        boundary-numbers
+      />
+    </VbCard>
+    <VbCard
+      title="Flat"
+    >
+      <va-pagination
+        :pages="20"
+        v-model="activePage"
+        flat
+      />
+    </VbCard>
+    <VbCard
+      title="Flat with input"
+    >
+      <va-pagination
+        :pages="20"
+        v-model="activePage"
+        flat
+        input
+      />
+    </VbCard>
+    <VbCard
+      title="Should hide if 1 page only"
+    >
+      <va-pagination
+        :pages="1"
+        v-model="activePage"
+        hide-on-single-page
+      />
+    </VbCard>
+    <VbCard
+      title="Use total and page-size"
+      style="width: 600px;"
+    >
+      <va-select
+        width='200px'
+        :options="pageSizes"
+        v-model="pageSize"
+        no-clear
+      />
+      <va-pagination
+        :total="100"
+        v-model="activeTotalPage"
+        :page-size="+pageSize"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaPagination from './VaPagination'
 import VaInput from '../va-input/VaInput'
+import VaSelect from '../va-select/VaSelect'
 
 export default {
   components: {
     VaPagination,
     VaInput,
+    VaSelect,
   },
   data () {
     return {
       activePage: 4,
+      pageSizes: ['10', '20', '30', '40'],
+      activeTotalPage: 3,
+      pageSize: '10',
     }
   },
 }
