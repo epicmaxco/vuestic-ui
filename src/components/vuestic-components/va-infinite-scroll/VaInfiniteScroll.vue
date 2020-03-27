@@ -52,6 +52,14 @@ export default {
         type: Number,
         default: 100,
       },
+      load: {
+        type: Function,
+        default: () => {},
+      },
+      tag: {
+        type: String,
+        default: 'div',
+      },
     }),
   ],
   data () {
@@ -84,10 +92,10 @@ export default {
         ? scrollTop < this.offset
         : scrollTop + containerHeight + this.offset >= scrollHeight
       if (isLoadingRequired) {
-        this.load()
+        this.onLoad()
       }
     },
-    load () {
+    onLoad () {
       if (this.disabled || this.fetching) {
         return
       }
@@ -95,18 +103,18 @@ export default {
       this.fetching = true
       const initialHeight = this.$slots.default[0].elm.offsetHeight
 
-      this.$emit('load', stop => {
-        if (this.disabled) {
-          return
+      this.$emit('load')
+      if (this.disabled) {
+        return
+      }
+      this.load().then(() => {
+        if (this.reverse) {
+          const heightDifference =
+            this.$slots.default[0].elm.offsetHeight - initialHeight
+          this.scrollTargetElement.scrollTop = heightDifference
         }
-        this.$nextTick(() => {
-          this.fetching = false
-          if (this.reverse) {
-            const heightDifference =
-              this.$slots.default[0].elm.offsetHeight - initialHeight
-            this.scrollTargetElement.scrollTop = heightDifference
-          }
-        })
+      }).catch((e) => console.log(e)).finally(() => {
+        this.fetching = false
       })
     },
     resume () {
