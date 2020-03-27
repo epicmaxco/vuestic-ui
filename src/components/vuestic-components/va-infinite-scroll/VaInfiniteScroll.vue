@@ -1,5 +1,6 @@
 <template>
-  <div
+  <component
+    :is="tag"
     class="va-infinite-scroll"
     :class="{'va-infinite-scroll--reversed': reverse}"
   >
@@ -11,21 +12,23 @@
       name="loading"
       v-if="fetching"
     >
-      <div class="spinner">
+      <div class="va-infinite-scroll__spinner">
         <va-progress-circle
           size="small"
           :thickness="0.15"
+          :color="error ? $themes.danger : $themes.primary"
           indeterminate
         />
       </div>
     </slot>
-  </div>
+  </component>
 </template>
 
 <script>
 import * as _ from 'lodash'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { sleep } from '../../../services/utils'
 
 export default {
   name: 'VaInfiniteScroll',
@@ -66,6 +69,8 @@ export default {
     return {
       index: 0,
       fetching: false,
+      error: false,
+      initialHeight: null,
     }
   },
   watch: {
@@ -82,7 +87,7 @@ export default {
   },
   methods: {
     checkForLoad () {
-      if (this.disabled || this.fetching) {
+      if (this.disabled || this.fetching || this.error) {
         return
       }
 
@@ -101,21 +106,36 @@ export default {
       }
 
       this.fetching = true
-      const initialHeight = this.$slots.default[0].elm.offsetHeight
+      this.initialHeight = this.$el.offsetHeight
 
-      this.$emit('load')
       if (this.disabled) {
         return
       }
-      this.load().then(() => {
-        if (this.reverse) {
-          const heightDifference =
-            this.$slots.default[0].elm.offsetHeight - initialHeight
-          this.scrollTargetElement.scrollTop = heightDifference
-        }
-      }).catch((e) => console.log(e)).finally(() => {
-        this.fetching = false
+      this.load()
+        .then(this.finishLoading)
+        .catch(this.onError)
+    },
+    onError (e) {
+      this.error = true
+      this.fetching = true
+      sleep(2000).then(this.stopErrorDisplay)
+    },
+    stopErrorDisplay () {
+      this.error = false
+      this.fetching = false
+      this.$nextTick(() => {
+        this.scrollTargetElement.scrollTop -= this.reversed
+          ? this.scrollTargetElement.scrollTop - (this.offset + 1)
+          : (this.offset + 1)
       })
+    },
+    finishLoading () {
+      this.fetching = false
+      if (this.reverse) {
+        const heightDifference =
+        this.$el.offsetHeight - this.initialHeight
+        this.scrollTargetElement.scrollTop = heightDifference
+      }
     },
     resume () {
       if (!this.disabled) {
@@ -190,7 +210,7 @@ export default {
     flex-direction: column-reverse;
   }
 
-  .spinner {
+  &__spinner {
     width: 100%;
     min-height: 60px;
 

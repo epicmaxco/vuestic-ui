@@ -6,11 +6,14 @@
           class="scroll__container"
         >
           <va-infinite-scroll
-            @load="appendRecords"
+            :load="appendRecordsAsync"
           >
-            <ul>
-              <li v-for="(record, index) in records" :key="record.id">{{ record.text }} #{{ index }}</li>
-            </ul>
+            <li
+              v-for="(record, index) in records"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </li>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -20,11 +23,14 @@
           class="scroll__container"
         >
           <va-infinite-scroll
-            @load="appendRecords"
+            :load="appendRecordsAsync"
           >
-            <ul>
-              <li v-for="(record, index) in records" :key="record.id">{{ record.text }} #{{ index }}</li>
-            </ul>
+            <li
+              v-for="(record, index) in records"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </li>
             <template v-slot:loading>
               <va-progress-circle
                 indeterminate
@@ -42,11 +48,14 @@
         >
           <va-infinite-scroll
             :offset="200"
-            @load="appendRecords"
+            :load="appendRecordsAsync"
           >
-            <ul>
-              <li v-for="(record, index) in records" :key="record.id">{{ record.text }} #{{ index }}</li>
-            </ul>
+            <li
+              v-for="(record, index) in records"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </li>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -58,11 +67,14 @@
         >
           <va-infinite-scroll
             :scroll-target="$refs.scrollTarget"
-            @load="appendRecords"
+            :load="appendRecordsAsync"
           >
-            <ul>
-              <li v-for="(record, index) in records" :key="record.id">{{ record.text }} #{{ index }}</li>
-            </ul>
+            <li
+              v-for="(record, index) in records"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </li>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -74,11 +86,14 @@
         >
           <va-infinite-scroll
             scroll-target="#target"
-            @load="appendRecords"
+            :load="appendRecordsAsync"
           >
-            <ul>
-              <li v-for="(record, index) in records" :key="record.id">{{ record.text }} #{{ index }}</li>
-            </ul>
+            <li
+              v-for="(record, index) in records"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </li>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -89,37 +104,63 @@
         >
           <va-infinite-scroll
             :debounce="5000"
-            @load="appendRecords"
+            :load="appendRecordsAsync"
           >
-            <ul>
-              <li v-for="(record, index) in records" :key="record.id">{{ record.text }} #{{ index }}</li>
-            </ul>
+            <li
+              v-for="(record, index) in records"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </li>
+          </va-infinite-scroll>
+        </div>
+      </VbCard>
+
+      <VbCard title="load failed">
+        <div
+          class="scroll__container"
+        >
+          <va-infinite-scroll
+            :load="failedLoadAsync"
+          >
+            <li
+              v-for="(record, index) in records"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </li>
           </va-infinite-scroll>
         </div>
       </VbCard>
 
       <VbCard title="reverse">
         <div class="scroll__container">
-          <va-infinite-scroll reverse :load="appendRecordsAsyncAsync">
-            <ul>
-              <li
-                v-for="(record, index) in reverseRecords"
-                :key="record.id"
-              >{{ record.text }} #{{ index }}</li>
-            </ul>
+          <va-infinite-scroll
+            reverse
+            :load="appendRecordsAsync"
+          >
+            <li
+              v-for="(record, index) in records"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </li>
           </va-infinite-scroll>
         </div>
       </VbCard>
 
       <VbCard title="disabled">
         <div class="scroll__container">
-          <va-infinite-scroll disabled :load="appendRecordsAsyncAsync">
-            <ul>
-              <li
-                v-for="(record, index) in disabledRecords"
-                :key="record.id"
-              >{{ record.text }} #{{ index }}</li>
-            </ul>
+          <va-infinite-scroll
+            disabled
+            :load="appendRecordsAsync"
+          >
+            <li
+              v-for="(record, index) in disabledRecords"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </li>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -128,46 +169,48 @@
 </template>
 
 <script>
-import VaInfiniteScroll from "./VaInfiniteScroll";
-import VaProgressCircle from "../va-progress-bar/progress-types/VaProgressCircle";
-import { times } from "lodash";
-import { sleep } from "../../../services/utils";
+import VaInfiniteScroll from './VaInfiniteScroll'
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
+import { times } from 'lodash'
+import { sleep } from '../../../services/utils'
 
 export default {
   components: {
     VaInfiniteScroll,
-    VaProgressCircle
+    VaProgressCircle,
   },
-  data() {
+  data () {
     return {
       records: this.getInitialRecords(),
-      reverseRecords: this.getInitialRecords(),
-      disabledRecords: this.getInitialRecords()
-    };
+      disabledRecords: this.getInitialRecords(),
+    }
   },
   methods: {
-    getNewRecords () {
-      return times(10, () => ({ text: 'new record' }))
-        .map(record => ({ ...record, id: Math.random() }))
+    getInitialRecords () {
+      return times(20, () => ({ text: 'record', id: Math.random() }))
     },
-    appendRecords (done) {
-      sleep(2000).then(() => {
+    getNewRecords () {
+      return times(10, () => ({ text: 'new record' })).map(record => ({
+        ...record,
+        id: Math.random(),
+      }))
+    },
+    appendRecordsAsync () {
+      return sleep(2000).then(() => {
         this.records.push(...this.getNewRecords())
-        done()
       })
     },
-    prependRecords (done) {
-      sleep(2000).then(() => {
-        this.records.push(...this.getNewRecords())
-        done()
+    failedLoadAsync () {
+      return sleep(2000).then(() => {
+        throw Error('qweqwe')
       })
     },
   },
 }
 </script>
 <style scoped lang="scss">
-.scroll__container {
-  height: 400px;
-  width: 200px;
-}
+  .scroll__container {
+    height: 400px;
+    width: 200px;
+  }
 </style>
