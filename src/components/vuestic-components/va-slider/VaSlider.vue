@@ -37,7 +37,7 @@
       @mouseup="hasMouseDown = false"
     >
       <div
-        class="container__track--background"
+        class="container__track"
         :style="trackStyles"
       />
       <template v-if="pins">
@@ -52,8 +52,8 @@
       <template v-if="isRange">
         <div
           ref="process"
-          class="container__track--background"
-          :class="{'container__track--active': hasMouseDown, 'container__track': !hasMouseDown}"
+          class="container__track container__track--selected"
+          :class="{'container__track--active': hasMouseDown}"
           :style="processedStyles"
           @mousedown="moveStart($event, null)"
         />
@@ -109,8 +109,8 @@
       <template v-else>
         <div
           ref="process"
-          class="container__track--background"
-          :class="{'container__track--active': hasMouseDown, 'container__track': !hasMouseDown}"
+          class="container__track container__track--selected"
+          :class="{'container__track--active': hasMouseDown}"
           :style="processedStyles"
           @mousedown="moveStart($event, 0)"
         />
@@ -776,15 +776,13 @@ export default {
     align-items: center;
     cursor: grab;
 
-    &__track--background {
+    &__track {
       position: absolute;
       border-radius: 0.25rem;
       transition: none;
       opacity: 0.2;
     }
-
-    &__track--active,
-    &__track {
+    &__track--selected {
       opacity: 1;
     }
 
@@ -878,14 +876,10 @@ export default {
     width: 100%;
     height: 1.5rem;
 
-    &__track--background,
-    &__track--active {
-      height: 0.5rem;
-      width: 100%;
-    }
-
-    &__track {
-      transition: width 0.3s ease-out, left 0.3s ease-out;
+      &__track {
+        transition: width 0.3s ease-out, left 0.3s ease-out;
+        height: 0.5rem;
+        width: 100%;
     }
 
     &__mark {
@@ -939,16 +933,15 @@ export default {
     height: 100%;
     width: 0.5rem;
 
-    &__track--background,
-    &__track--active {
+    &__track {
       height: 100%;
       width: 0.5rem;
       bottom: 0;
+      &--selected {
+        transition: height 0.3s ease-out, bottom 0.3s ease-out;
+      }
     }
 
-    &__track {
-      transition: height 0.3s ease-out, bottom 0.3s ease-out;
-    }
 
     &__mark {
       position: absolute;
