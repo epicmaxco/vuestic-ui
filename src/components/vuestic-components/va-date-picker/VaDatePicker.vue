@@ -1,16 +1,16 @@
 <template>
   <div class="va-date-picker">
-    <div :data-toggle="!disabled">
+    <div :data-toggle="!c_disabled">
       <va-input
         v-model="valueProxy"
         readonly
-        :placeholder="placeholder"
-        :label="label"
-        :disabled="disabled"
-        :error="error"
+        :placeholder="c_placeholder"
+        :label="c_label"
+        :disabled="c_disabled"
+        :error="c_error"
         :success="success"
-        :messages="messages"
-        :error-messages="errorMessages"
+        :messages="c_messages"
+        :error-messages="c_errorMessages"
       >
         <template slot="append">
           <va-icon
@@ -24,7 +24,7 @@
       class="va-date-picker__flatpickr"
       v-model="valueProxy"
       :config="fullConfig"
-      :disabled="disabled"
+      :disabled="c_disabled"
       @on-open="onOpen"
       data-input
     />
@@ -35,78 +35,62 @@
 import VueFlatpickrComponent from 'vue-flatpickr-component'
 import VaInput from '../va-input/VaInput'
 import VaIcon from '../va-icon/VaIcon'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import {
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaDatePicker',
-  mixins: [ContextPluginMixin],
+  mixins: [
+    makeContextablePropsMixin(
+      {
+        value: {
+          type: [String, Object, Number],
+          default: '',
+        },
+        weekDays: {
+          type: Boolean,
+          default: false,
+        },
+        placeholder: {
+          type: String,
+          default: '',
+        },
+        label: {
+          type: String,
+          default: '',
+        },
+        disabled: {
+          type: Boolean,
+          default: false,
+        },
+        error: {
+          type: Boolean,
+          default: false,
+        },
+        success: {
+          type: Boolean,
+          default: false,
+        },
+        messages: {
+          type: Array,
+          default: () => [],
+        },
+        errorMessages: {
+          type: Array,
+          default: () => [],
+        },
+        config: {
+          type: Object,
+          default: () => {},
+        },
+      },
+    ),
+  ],
   components: {
     VaInput,
     VueFlatpickrComponent,
     VaIcon,
-  },
-  props: {
-    value: {
-      type: [String, Object, Number],
-      required: true,
-      default () {
-        return getContextPropValue(this, 'value', '')
-      },
-    },
-    weekDays: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'weekDays', false)
-      },
-    },
-    placeholder: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'placeholder', '')
-      },
-    },
-    label: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    error: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'error', false)
-      },
-    },
-    success: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'success', false)
-      },
-    },
-    messages: {
-      type: Array,
-      default () {
-        return getContextPropValue(this, 'messages', [])
-      },
-    },
-    errorMessages: {
-      type: Array,
-      default () {
-        return getContextPropValue(this, 'errorMessages', [])
-      },
-    },
-    config: {
-      type: Object,
-      default () {
-        return getContextPropValue(this, 'config', {})
-      },
-    },
   },
   data () {
     return {
@@ -116,14 +100,14 @@ export default {
   computed: {
     valueProxy: {
       get () {
-        return this.value
+        return this.c_value
       },
       set (value) {
         this.$emit('input', value)
       },
     },
     fullConfig () {
-      return Object.assign({}, this.defaultConfig, this.config)
+      return Object.assign({}, this.defaultConfig, this.c_config)
     },
     defaultConfig () {
       return {
