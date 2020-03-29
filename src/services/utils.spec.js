@@ -1,4 +1,4 @@
-import { deepEqual, getProp } from './utils'
+import { deepEqual, getProp, getValueByPath, getNestedValue } from './utils'
 
 describe('utils', () => {
   it('deepEqual', () => {
@@ -97,11 +97,31 @@ describe('utils', () => {
       .toEqual(false)
     expect(deepEqual({ r: [circular] }, { r: [circular] })).toEqual(true)
   })
+
   it('getProp', () => {
     const test = 'test'
     expect(getProp('string', test)).toBeUndefined()
     expect(getProp({ test })).toEqual({ test })
     expect(getProp({ test }, obj => obj.test)).toEqual(test)
-    expect(getProp({ test: { test: { test } } }, `${test}.${test}.${test}`)).toEqual(test)
+    expect(getProp({ test: { test: { test } } }, `${test}.${test}.${test}`))
+      .toEqual(test)
+  })
+
+  it('getValueByPath', () => {
+    expect(getValueByPath({ name: 'one' }, 'disabled')).toBeUndefined()
+  })
+
+  it('getNestedValue', () => {
+    const object = {
+      product: {
+        name: 'one',
+      },
+    }
+    expect(getNestedValue(object, [])).toBe(object)
+    expect(getNestedValue(object, ['product'])).toBe(object.product)
+    expect(getNestedValue(object, ['product', 'name'])).toBe(object.product.name)
+    expect(getNestedValue(object, ['missing'])).toBe(undefined)
+    expect(getNestedValue(object, ['product', 'missing'])).toBe(undefined)
+    expect(getNestedValue(object, ['product', 'name', 'missing'])).toBe(undefined)
   })
 })

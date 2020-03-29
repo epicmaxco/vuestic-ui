@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
+import { isObject } from 'lodash'
 
 export const sleep = ms => {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -55,23 +56,16 @@ export const hasOwnProperty = (object, key) => {
 
 // Find value in the object with array of keys
 export const getNestedValue = (option, propsArray) => {
-  const lastPropIndex = propsArray.length - 1
-  if (lastPropIndex < 0) return option
+  if (propsArray.length === 0) return option
 
-  let nestedObj = option[propsArray[0]]
-
-  for (let i = 1; i < lastPropIndex; i++) {
-    if (nestedObj === null) {
-      return option
+  const nestedItem = option[propsArray[0]]
+  if (!isObject(nestedItem)) {
+    if (propsArray.length === 1) {
+      return nestedItem
     }
-    nestedObj = nestedObj[propsArray[i]]
+    return undefined
   }
-
-  if (nestedObj === null) return option
-
-  return nestedObj
-    ? nestedObj[propsArray[lastPropIndex]] || option
-    : option
+  return getNestedValue(nestedItem, propsArray.slice(1))
 }
 
 // Finds value in the object using string with dots 'key.key.key'
