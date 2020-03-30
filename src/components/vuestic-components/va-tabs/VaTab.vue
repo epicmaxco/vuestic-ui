@@ -123,7 +123,6 @@ export default {
   padding: 0.4375rem 0.75rem;
   cursor: pointer;
   color: inherit;
-  border: 1px dashed silver;
 
   &:not(.va-tab--active) {
     opacity: 0.7;
