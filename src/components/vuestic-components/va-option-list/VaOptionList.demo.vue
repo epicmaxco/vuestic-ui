@@ -82,10 +82,8 @@
     >
       <va-option-list
         :options="complexData.options"
-        v-model="complexData.selectedObject"
         text-by="altName"
       />
-      Selected <pre> {{ complexData.selectedObject }} </pre>
     </VbCard>
     <VbCard
       title="valueBy"
@@ -100,15 +98,13 @@
     <VbCard
       title="disabledBy"
     >
-     <va-option-list
+      <va-option-list
         :options="complexData.options"
-        v-model="complexData.selectedObject"
         disabled-by="altDisabled"
       />
-      Selected <pre> {{ complexData.selectedObject }} </pre>
     </VbCard>
     <VbCard
-    title="Return whole object"
+      title="Return whole object"
     >
       <va-option-list
         :options="complexData.options"
