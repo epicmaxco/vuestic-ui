@@ -7,7 +7,7 @@
     :offset="1"
     :scroll-target="$refs.scrollContainer"
     :disabled="false"
-    @load="appendRecords"
+    :load="appendRecords"
   >
     <ul>
       <li v-for="(record, index) in records" :key="record.id">
@@ -32,21 +32,21 @@
 - [ ] `disabled: Boolean` - disables load event emiting onscroll
 - [ ] `scroll-target: Element | String` - CSS selector or DOM element to be used as scroll container
 - [ ] `debounce: Number` - default: 100 - debounce amount (in milliseconds)
+- [ ] `load: Function` - accepts async function, that loads data
+- [ ] `tag: String` - default: div - tag type of infinite scroll component root element (to fit semantics)
 
 # Slots
 
 - [ ] `default` - slot for scrolled content
 - [ ] `loading` - expected: `spinner` - slot displaying something while loading content
 
-# Events
+# Example of loading method
 
-- [ ] `load` - emitted when infinite scroll needs to load more data, comes with callback to stop loading after new data received.
 
 ```typescript
-    appendRecords(done) {
-      setTimeout(() => {
-        this.records.push(...this.getNewRecords());
-        done();
-      }, 2000);
+    appendRecordsAsync () {
+      return sleep(2000).then(() => {
+        this.records.push(...this.getNewRecords())
+      })
     },
 ```
