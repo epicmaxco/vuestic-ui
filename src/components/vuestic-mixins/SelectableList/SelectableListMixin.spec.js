@@ -1,6 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 import { SelectableListMixin } from './SelectableListMixin'
 import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
+import { testIsFormComponent } from '../testIsFormComponent'
 
 describe('SelectableListMixin', () => {
   const baseComponentOptions = {
@@ -29,8 +30,7 @@ describe('SelectableListMixin', () => {
   })
 
   it('should extend FormComponentMixin', () => {
-    const wrapper = shallowMount(baseComponentOptions)
-    expect(wrapper.vm.isFormComponent).toBeTruthy()
+    expect(() => testIsFormComponent(baseComponentOptions)).not.toThrow()
   })
 
   describe('getValue', () => {

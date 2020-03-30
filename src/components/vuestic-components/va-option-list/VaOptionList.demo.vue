@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard
-      title="Options as array of string"
+      title="String options"
     >
       <va-option-list
         :options="baseData.options"
@@ -10,7 +10,7 @@
       Selected {{ baseData.selected }}
     </VbCard>
     <VbCard
-      title="Color options"
+      title="Color"
     >
       <va-option-list
         :options="baseData.options"
@@ -19,31 +19,31 @@
       />
     </VbCard>
     <VbCard
-      title="With default value and v-model"
+      title="value undefined + defaultValue array"
     >
       <va-option-list
         :options="baseData.options"
-        v-model="baseData.selectedWithVmodel"
+        v-model="baseData.selectedWithVModel"
         :default-value="[baseData.options[0], baseData.options[2]]"
       />
-      Selected {{ baseData.selectedWithVmodel }}
+      Selected {{ baseData.selectedWithVModel }}
     </VbCard>
     <VbCard
-      title="With default value (when 1 default option array is not needed) and v-model"
+      title="value undefined + defaultValue not array"
     >
       <va-option-list
         :options="baseData.options"
-        v-model="baseData.selectedWithVmodel1"
+        v-model="baseData.selectedWithVModel1"
         :default-value="baseData.options[0]"
       />
-      Selected {{ baseData.selectedWithVmodel1 }}
+      Selected {{ baseData.selectedWithVModel1 }}
     </VbCard>
     <VbCard
       title="Disable all"
     >
       <va-option-list
         :options="baseData.options"
-        v-model="baseData.selectedDisabledList"
+        v-model="baseData.selected"
         disabled
       />
       Selected {{ baseData.selectedDisabledList }}
@@ -62,6 +62,7 @@
     >
       <va-option-list
         :options="baseData.options"
+        v-model="baseData.selected"
         readonly
       />
     </VbCard>
@@ -118,15 +119,15 @@
       Selected {{ baseRadioData.selected }}
     </VbCard>
     <VbCard
-      title="Array of strings with default value"
+      title="Value undefined + defaultValue"
     >
       <va-option-list
         type="radio"
         :options="baseRadioData.options"
-        v-model="baseRadioData.selectedWithVmodel"
+        v-model="baseRadioData.selectedWithVModel"
         :default-value="baseRadioData.options[1]"
       />
-      Selected {{ baseRadioData.selectedWithVmodel }}
+      Selected {{ baseRadioData.selectedWithVModel }}
     </VbCard>
     <VbCard
       title="Disabled"
@@ -135,7 +136,7 @@
         type="radio"
         disabled
         :options="baseRadioData.options"
-        v-model="baseRadioData.selectedDisabled"
+        v-model="baseRadioData.selected"
       />
       Selected {{ baseRadioData.selectedDisabled }}
     </VbCard>
@@ -164,8 +165,8 @@ export default {
         options: ['test', 'test1', 'test2'],
         selected: undefined,
         selectedDisabledList: undefined,
-        selectedWithVmodel: undefined,
-        selectedWithVmodel1: undefined,
+        selectedWithVModel: undefined,
+        selectedWithVModel1: undefined,
       },
       complexData: {
         options: [
@@ -193,7 +194,7 @@ export default {
         options: ['test radio', 'test radio 1', 'test radio 2'],
         selected: undefined,
         selectedDisabled: undefined,
-        selectedWithVmodel: undefined,
+        selectedWithVModel: undefined,
       },
       radioData: {
         options: [
