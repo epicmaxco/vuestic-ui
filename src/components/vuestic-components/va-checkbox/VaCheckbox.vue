@@ -33,6 +33,8 @@
           class="va-checkbox__icon-selected"
           :name="computedIconName"
         />
+
+        {{ isChecked }}
       </div>
       <div
         class="va-checkbox__label-text"
@@ -56,12 +58,36 @@ import {
 } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
+import { ref, computed, watchEffect } from '@vue/composition-api'
 
 export default {
   name: 'VaCheckbox',
   components: { VaInputWrapper, VaIcon },
+  setup (props, { emit }) {
+    const valueState = ref(props.value)
+
+    const state = {
+      valueProxy: computed(() => props.stateful ? valueState.value : props.value),
+      modelIsArray: computed(() => Array.isArray(state.valueProxy)),
+    }
+
+    watchEffect(() => {
+      valueState.value = props.value
+    })
+
+    return {
+      state,
+      setValue (value) {
+        if (props.stateful) {
+          valueState.value = value
+        }
+        emit('input', value)
+      },
+    }
+  },
   mixins: [
     makeContextablePropsMixin({
+      stateful: { type: Boolean, default: false },
       label: { type: String, default: '' },
       value: { type: [Boolean, Array], default: false },
       arrayValue: { type: String, default: '' },
@@ -109,7 +135,8 @@ export default {
       return this.c_indeterminate ? this.c_indeterminateIcon : this.c_checkedIcon
     },
     isChecked () {
-      return this.modelIsArray ? this.c_value.includes(this.c_arrayValue) : this.c_value
+      const valueProxy = this.state.valueProxy
+      return this.modelIsArray ? valueProxy.includes(this.c_arrayValue) : valueProxy
     },
     modelIsArray () {
       return Array.isArray(this.c_value)
@@ -122,7 +149,7 @@ export default {
     },
     /** @public */
     reset () {
-      this.$emit('input', false)
+      this.setValue(false)
     },
     onFocus () {
       this.KeyboardOnlyFocusMixin_onFocus()
@@ -143,14 +170,13 @@ export default {
       }
       if (this.modelIsArray) {
         if (this.c_value.includes(this.c_arrayValue)) {
-          this.$emit('input', this.c_value.filter(option => option !== this.c_arrayValue))
+          this.setValue(this.c_value.filter(option => option !== this.c_arrayValue))
         } else {
-          this.$emit('input', this.value.concat(this.c_arrayValue))
+          this.setValue(this.value.concat(this.c_arrayValue))
         }
         return
       }
-
-      this.$emit('input', !this.c_value)
+      this.setValue(!this.c_value)
     },
   },
 }

@@ -11,12 +11,14 @@ import { registerVuesticObject } from '../components/resize-events'
 import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
 import { installPlatform } from '../components/vuestic-components/va-popup/install'
 import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
+import VueCompositionApi from '@vue/composition-api'
 
 // eslint-disable-next-line
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
 installPlatform()
 
+Vue.use(VueCompositionApi)
 Vue.use(Router)
 Vue.use(VueBookComponents)
 if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {

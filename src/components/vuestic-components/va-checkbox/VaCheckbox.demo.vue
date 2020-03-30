@@ -1,12 +1,23 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
+      <va-checkbox
+        v-model="value"
+        label="Selected"
+      />
+    </VbCard>
+    <VbCard title="vue-book checkbox (conflict check)">
       <VbCheckbox
         v-model="value"
         label="Selected"
       />
+    </VbCard>
+    <VbCard
+      focus
+      title="vue-book checkbox (conflict check)"
+    >
       <va-checkbox
-        v-model="value"
+        stateful
         label="Selected"
       />
     </VbCard>
