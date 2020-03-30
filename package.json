@@ -33,7 +33,6 @@
     "stylelint-config-standard": "^20.0.0",
     "v-tooltip": "^2.0.0-rc.30",
     "vue": "^2.6.11",
-    "vue-chartjs": "^3.4.0",
     "vue-clipboard2": "^0.3.0",
     "vue-color": "^2.7.1",
     "vue-epic-bus": "^0.1.5",
