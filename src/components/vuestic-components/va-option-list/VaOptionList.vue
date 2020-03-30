@@ -21,7 +21,7 @@
         >
           <va-radio
             v-if="type === 'radio'"
-            :ref="type"
+            ref="input"
             :option="getValue(option)"
             :disabled="isDisabled(option)"
             :name="c_name"
@@ -33,7 +33,7 @@
           />
           <va-checkbox
             v-else
-            :ref="type"
+            ref="input"
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
@@ -87,7 +87,7 @@ export default {
       this.$emit('input', undefined)
     },
     focus () {
-      const elements = this.$refs[this.type]
+      const elements = this.$refs.input
       const firstActiveEl = Array.isArray(elements) && elements.find(el => !el.disabled)
       if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
         firstActiveEl.focus()
