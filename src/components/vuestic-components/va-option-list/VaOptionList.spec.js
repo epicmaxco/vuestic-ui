@@ -7,7 +7,7 @@ describe('VaOptionList', () => {
     expect(() => testIsSelectableList(VaOptionList)).not.toThrow()
   })
 
-  describe('selectedValue', () => {
+  describe('selectedValue should use default value', () => {
     let wrapper
 
     beforeEach(() => {
@@ -27,8 +27,11 @@ describe('VaOptionList', () => {
     it('should set selectedValue with default value', () => {
       expect(wrapper.vm.selectedValue).toBe('one')
     })
+  })
 
+  describe('selectedValue should use value if provided', () => {
     it('should update selectedValue', () => {
+      const wrapper = shallowMount(VaOptionList)
       wrapper.setProps({ value: 'three' })
       expect(wrapper.vm.selectedValue).toBe('three')
     })
