@@ -15,14 +15,14 @@
     >
       <span
         :style="labelStyles"
-        class="label"
+        class="va-input__label"
       >
         {{ label }}
       </span>
     </slot>
     <span
       v-if="iconPrepend"
-      class="label"
+      class="va-input__label"
     >
       <va-icon
         :name="iconPrepend"
@@ -820,7 +820,7 @@ export default {
     }
   }
 
-  .label {
+  .va-input__label {
     user-select: none;
     font-size: 0.625rem;
     letter-spacing: 0.6px;
@@ -903,7 +903,7 @@ export default {
     }
   }
 
-  .label {
+  .va-input__label {
     margin-right: 1rem;
   }
 
@@ -917,63 +917,63 @@ export default {
   padding: 12px 0 12px 0;
   flex-direction: column;
   align-items: center;
-.va-slider {
 
-  &__input-wrapper {
-    flex-basis: fit-content;
-    flex-grow: 0;
-    max-width: 1rem;
-    min-width: 2.5rem;
-    position: relative;
-    display: flex;
-
-    &:last-of-type {
-      margin-top: 1rem;
+    .va-input__label {
+      margin-bottom: 0.625rem;
     }
-  }
 
-  &__container {
-    height: 100%;
-    width: 0.5rem;
-
+    .va-input__label--inverse {
+      left: -0.375rem;
+      margin-top: 0.625rem;
     }
-    &__track {
+  .va-slider {
+
+    &__input-wrapper {
+      flex-basis: fit-content;
+      flex-grow: 0;
+      max-width: 1rem;
+      min-width: 2.5rem;
+      position: relative;
+      display: flex;
+
+      &:last-of-type {
+        margin-top: 1rem;
+      }
+    }
+
+    &__container {
       height: 100%;
       width: 0.5rem;
-      bottom: 0;
-      &--selected {
-        transition: height 0.3s ease-out, bottom 0.3s ease-out;
+
       }
-    }
-
-    &__mark {
-      position: absolute;
-      width: 0.75rem;
-      height: 0.125rem;
-      left: -2px;
-    }
-
-    &__handler {
-      &--inactive {
-        transition: bottom 0.3s ease-out;
+      &__track {
+        height: 100%;
+        width: 0.5rem;
+        bottom: 0;
+        &--selected {
+          transition: height 0.3s ease-out, bottom 0.3s ease-out;
+        }
       }
 
-      &--value {
-        position: relative;
-        top: 0.625rem;
-        left: 1.25rem;
+      &__mark {
+        position: absolute;
+        width: 0.75rem;
+        height: 0.125rem;
+        left: -2px;
       }
 
-  }
+      &__handler {
+        &--inactive {
+          transition: bottom 0.3s ease-out;
+        }
 
-  .label {
-    margin-bottom: 0.625rem;
-  }
+        &__dot--value {
+          position: relative;
+          top: 0.625rem;
+          left: 1.25rem;
+        }
 
-  .va-input__label--inverse {
-    left: -0.375rem;
-    margin-top: 0.625rem;
+      }
   }
-}
 }
 </style>
