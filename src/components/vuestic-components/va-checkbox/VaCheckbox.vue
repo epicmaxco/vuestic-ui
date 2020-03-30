@@ -64,10 +64,11 @@ export default {
     makeContextablePropsMixin({
       label: { type: String, default: '' },
       value: { type: [Boolean, Array], default: false },
-      arrayValue: { type: String, default: '' },
+      arrayValue: { type: [String, Object], default: '' },
       indeterminate: { type: Boolean, default: false },
       checkedIcon: { type: String, default: 'check' },
       indeterminateIcon: { type: String, default: 'remove' },
+      leftLabel: { type: Boolean, default: false },
     }),
     FormComponentMixin,
     KeyboardOnlyFocusMixin,
@@ -83,6 +84,7 @@ export default {
         'va-checkbox--indeterminate': this.c_indeterminate,
         'va-checkbox--error': this.computedError,
         'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
+        'va-checkbox--left-label': this.leftLabel,
       }
     },
     labelStyle () {
@@ -109,10 +111,10 @@ export default {
       return this.c_indeterminate ? this.c_indeterminateIcon : this.c_checkedIcon
     },
     isChecked () {
-      return this.modelIsArray ? this.c_value.includes(this.c_arrayValue) : this.c_value
+      return this.modelIsArray ? this.value && this.value.includes(this.c_arrayValue) : this.value
     },
     modelIsArray () {
-      return Array.isArray(this.c_value)
+      return !!this.c_arrayValue
     },
   },
   methods: {
@@ -142,8 +144,10 @@ export default {
         return
       }
       if (this.modelIsArray) {
-        if (this.c_value.includes(this.c_arrayValue)) {
-          this.$emit('input', this.c_value.filter(option => option !== this.c_arrayValue))
+        if (!this.value) {
+          this.$emit('input', [this.c_arrayValue])
+        } else if (this.value.includes(this.c_arrayValue)) {
+          this.$emit('input', this.value.filter(option => option !== this.c_arrayValue))
         } else {
           this.$emit('input', this.value.concat(this.c_arrayValue))
         }
@@ -178,6 +182,10 @@ export default {
 
       .va-checkbox--readonly & {
         cursor: initial;
+      }
+
+      .va-checkbox--left-label & {
+        flex-direction: row-reverse;
       }
     }
   }

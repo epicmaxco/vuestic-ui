@@ -7,4 +7,8 @@ export function testIsSelectableList (componentOptions) {
   if (!wrapper.vm.isSelectableListComponent) {
     throw new Error('SelectableListMixin is not added')
   }
+
+  if (!wrapper.vm.isFormComponent) {
+    throw new Error('FormElementMixin is not added')
+  }
 }

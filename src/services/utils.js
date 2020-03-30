@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from 'uuid'
+import { isObject } from 'lodash'
+
 export const sleep = ms => {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -51,24 +54,21 @@ export const hasOwnProperty = (object, key) => {
   return Object.prototype.hasOwnProperty.call(object, key)
 }
 
+// Find value in the object with an array of keys
 export const getNestedValue = (option, propsArray) => {
-  const lastPropIndex = propsArray.length - 1
-  if (lastPropIndex < 0) return option
+  if (propsArray.length === 0) return option
 
-  let nestedObj = option[propsArray[0]]
-
-  for (let i = 1; i < lastPropIndex; i++) {
-    if (nestedObj === null) {
-      return option
+  const nestedItem = option[propsArray[0]]
+  if (!isObject(nestedItem)) {
+    if (propsArray.length === 1) {
+      return nestedItem
     }
-    nestedObj = nestedObj[propsArray[i]]
+    return undefined
   }
-
-  if (nestedObj === null) return option
-
-  return nestedObj[propsArray[lastPropIndex]]
+  return getNestedValue(nestedItem, propsArray.slice(1))
 }
 
+// Finds value in the object using string with dots 'key.key.key'
 export const getValueByPath = (option, prop) => {
   if (option === null || typeof prop !== 'string' || !prop) return option
   if (option[prop] !== undefined) return option[prop]
@@ -76,9 +76,18 @@ export const getValueByPath = (option, prop) => {
   return getNestedValue(option, prop.split('.'))
 }
 
+/**
+ * Finds value of nested property inside of an object.
+ *
+ * @param option - Object to look properties inside
+ * @param prop - Either String or Function used to find nested property
+ */
 export const getProp = (option, prop) => {
+  if (typeof option === 'string') return
   if (!prop) return option
   if (typeof prop === 'string') return getValueByPath(option, prop)
   if (typeof prop === 'function') return prop(option)
   return option
 }
+
+export const generateUuid = () => uuidv4()
