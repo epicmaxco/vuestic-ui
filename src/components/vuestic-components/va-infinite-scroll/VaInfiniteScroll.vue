@@ -10,9 +10,11 @@
     />
     <slot
       name="loading"
-      v-if="fetching"
+      v-if="!disabled"
     >
-      <div class="va-infinite-scroll__spinner">
+      <div ref="defaultSpinner"
+           class="va-infinite-scroll__spinner"
+           :class="{'va-infinite-scroll__spinner--invisible': !fetching}">
         <va-progress-circle
           size="small"
           :thickness="0.15"
@@ -87,10 +89,19 @@ export default {
   },
   methods: {
     onLoad () {
-      if (this.disabled || this.fetching || this.error || !this.isLoadingRequired) {
+      if (this.disabled || this.error || this.fetching) {
         return
       }
+        
+      const { scrollTop, scrollHeight } = this.scrollTargetElement
+      const containerHeight = this.scrollTargetElement.offsetHeight
+      const isLoadingRequired = this.reverse
+        ? scrollTop < this.scrollAmount
+        : scrollTop + containerHeight + this.scrollAmount >= scrollHeight;
+      if (!isLoadingRequired) return
+
       this.fetching = true
+      this.scrollTop = this.reverse ? 0 : this.$el.offsetHeight
       this.initialHeight = this.$el.offsetHeight
 
       this.load()
@@ -98,18 +109,17 @@ export default {
         .catch(this.onError)
     },
     onError (e) {
+      this.stop()
       this.error = true
       this.fetching = true
-      sleep(2000).then(this.stopErrorDisplay)
+      sleep(2000).then(this.stopErrorDisplay).then(this.resume)
     },
     stopErrorDisplay () {
-      this.error = false
-      this.fetching = false
-      this.$nextTick(() => {
-        this.scrollTargetElement.scrollTop -= this.reversed
-          ? this.scrollTargetElement.scrollTop - (this.offset + 1)
-          : (this.offset + 1)
-      })
+        this.scrollTargetElement.scrollTop -= this.reverse
+          ? this.scrollTargetElement.scrollTop - this.scrollAmount
+          : this.scrollAmount
+        this.error = false
+        this.fetching = false
     },
     finishLoading () {
       this.fetching = false
@@ -121,14 +131,16 @@ export default {
     },
     resume () {
       if (!this.disabled) {
-        this.scrollTargetElement.addEventListener(
-          'scroll',
+
+          this.scrollTargetElement.addEventListener(
+            'scroll',
           this.debouncedLoad,
           {
             passive: true,
           },
         )
-      }
+        }
+      
       this.onLoad()
     },
     stop () {
@@ -172,17 +184,18 @@ export default {
     }
   },
   computed: {
+    scrollAmount() {
+      return this.offset + 1 + this.$el.offsetHeight - this.defaultSlotHeight
+    },
     scrollTargetElement () {
       return typeof this.scrollTarget === 'string'
         ? document.querySelector(this.scrollTarget)
         : this.scrollTarget || this.$el.parentElement
     },
-    isLoadingRequired() {
-      const { scrollTop, scrollHeight } = this.scrollTargetElement
-      const containerHeight = this.scrollTargetElement.offsetHeight
-      return this.reverse
-        ? scrollTop < this.offset
-        : scrollTop + containerHeight + this.offset >= scrollHeight
+    defaultSlotHeight() {
+      return this.$slots.default.reduce((acc, {elm}) => {
+        return acc += elm.offsetHeight
+      },0)
     }
   },
 }
@@ -201,7 +214,11 @@ export default {
 
   &__spinner {
     width: 100%;
-    min-height: 60px;
+    min-height: 70px;
+
+    &--invisible {
+      visibility: hidden !important;
+    }
 
     @include flex-center();
   }
