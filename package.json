@@ -8,8 +8,8 @@
     "serve:book": "vue-cli-service serve --mode book",
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
+    "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
     "test:unit": "vue-cli-service test:unit",
-    "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "serve:docs": "vuepress dev docs",
     "build:docs": "vuepress build docs",
     "push": "npm publish --tag=next",
@@ -75,16 +75,16 @@
   },
   "lint-staged": {
     "*.js": [
-      "vue-cli-service lint --fix",
+      "yarn lint --fix",
       "git add"
     ],
     "*.vue": [
-      "vue-cli-service lint --fix",
-      "stylelint --fix",
+      "yarn lint --fix",
+      "yarn lint:style --fix",
       "git add"
     ],
     ".{htm,html,css,sss,less,scss}": [
-      "stylelint --fix",
+      "yarn lint:style --fix",
       "git add"
     ]
   }
