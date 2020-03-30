@@ -8,10 +8,9 @@ export const SelectableListMixin = {
     makeContextablePropsMixin({
       options: { type: Array, default: () => [] },
       textBy: { type: [String, Function], default: 'text' },
-      valueBy: { type: [String, Function], default: 'value' },
+      valueBy: { type: [String, Function] },
       trackBy: { type: [String, Function], default: 'value' },
       disabledBy: { type: [String, Function], default: 'disabled' },
-      outputObject: { type: Boolean, default: false },
     }),
   ],
   methods: {

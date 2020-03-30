@@ -67,22 +67,52 @@
       />
     </VbCard>
     <VbCard
-      title="Use more complex data"
+      title="Use more complex data with value-by"
     >
       <va-option-list
         :options="complexData.options"
         v-model="complexData.selectedValue"
+        value-by="value"
       />
       Selected {{ complexData.selectedValue }}
     </VbCard>
 
     <VbCard
-      title="Return whole object"
+      title="textBy"
     >
       <va-option-list
         :options="complexData.options"
         v-model="complexData.selectedObject"
-        output-object
+        text-by="altName"
+      />
+      Selected <pre> {{ complexData.selectedObject }} </pre>
+    </VbCard>
+    <VbCard
+      title="valueBy"
+    >
+      <va-option-list
+        :options="complexData.options"
+        v-model="complexData.selectedObject"
+        value-by="altValue"
+      />
+      Selected <pre> {{ complexData.selectedObject }} </pre>
+    </VbCard>
+    <VbCard
+      title="disabledBy"
+    >
+     <va-option-list
+        :options="complexData.options"
+        v-model="complexData.selectedObject"
+        disabled-by="altDisabled"
+      />
+      Selected <pre> {{ complexData.selectedObject }} </pre>
+    </VbCard>
+    <VbCard
+    title="Return whole object"
+    >
+      <va-option-list
+        :options="complexData.options"
+        v-model="complexData.selectedObject"
       />
       Selected <pre> {{ complexData.selectedObject }} </pre>
     </VbCard>
@@ -147,7 +177,6 @@
         type="radio"
         :options="radioData.options"
         v-model="radioData.selectedObject"
-        output-object
       />
       Selected {{ radioData.selectedObject }}
     </VbCard>
@@ -174,16 +203,25 @@ export default {
             text: 'test',
             value: 'test-value',
             disabled: false,
+            altName: 'alternative test',
+            altValue: 'test-value-alt',
+            altDisabled: true,
           },
           {
             text: 'test',
             value: 'test-value1',
             disabled: false,
+            altName: 'alternative test',
+            altValue: 'test-value-alt 1',
+            altDisabled: true,
           },
           {
             text: 'test',
             value: 'test-value2',
             disabled: true,
+            altName: 'alternative test',
+            altValue: 'test-value-alt 2',
+            altDisabled: false,
           },
         ],
         selectedValue: undefined,

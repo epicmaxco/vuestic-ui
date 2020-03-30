@@ -20,7 +20,7 @@
         >
           <va-radio
             v-if="type === 'radio'"
-            :option="option"
+            :option="getValue(option)"
             :disabled="isDisabled(option)"
             :name="c_name"
             :color="c_color"
@@ -35,7 +35,7 @@
             :label="getText(option)"
             :disabled="isDisabled(option)"
             :left-label="c_leftLabel"
-            :array-value="outputObject ? option : getValue(option)"
+            :array-value="getValue(option)"
             :color="c_color"
           />
         </slot>
@@ -97,11 +97,11 @@ export default {
       set (value) {
         if (this.c_readonly) return
         if (this.isRadio) {
-          this.$emit('input', this.c_outputObject ? value : this.getValue(value))
+          this.$emit('input', this.getValue(value))
         } else {
-          const emittedValue = this.c_outputObject
-            ? value
-            : Array.isArray(value) ? value.map(el => this.getValue(el)) : [value]
+          const emittedValue = Array.isArray(value)
+            ? value.map(el => this.getValue(el))
+            : [this.getValue(value)]
           this.$emit('input', emittedValue)
         }
       },

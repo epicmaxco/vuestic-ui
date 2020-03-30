@@ -18,17 +18,6 @@ describe('SelectableListMixin', () => {
     expect(() => testIsContextableComponent(baseComponentOptions, {}, {})).not.toThrow()
   })
 
-  it('should set deafult values correctly', () => {
-    const wrapper = shallowMount(baseComponentOptions)
-    expect(wrapper).toBeDefined()
-    expect(wrapper.props().options).toEqual([])
-    expect(wrapper.props().textBy).toEqual('text')
-    expect(wrapper.props().valueBy).toEqual('value')
-    expect(wrapper.props().trackBy).toEqual('value')
-    expect(wrapper.props().disabledBy).toEqual('disabled')
-    expect(wrapper.props().outputObject).toBeFalsy()
-  })
-
   it('should extend FormComponentMixin', () => {
     expect(() => testIsFormComponent(baseComponentOptions)).not.toThrow()
   })
