@@ -82,8 +82,9 @@ export default {
   },
   mounted () {
     this.isSelectableListComponent = true
-    const initialValue = this.c_defaultValue || this.c_value
-    initialValue && (this.selectedValue = initialValue)
+    if (!this.value && this.c_defaultValue) {
+      this.selectedValue = this.c_defaultValue
+    }
   },
   computed: {
     isRadio () {
@@ -91,14 +92,14 @@ export default {
     },
     selectedValue: {
       get () {
-        return this.c_value
+        return this.value || this.c_defaultValue
       },
       set (value) {
         if (this.c_readonly) return
         if (this.isRadio) {
-          this.$emit('input', this.outputObject ? value : this.getValue(value))
+          this.$emit('input', this.c_outputObject ? value : this.getValue(value))
         } else {
-          const emittedValue = this.outputObject
+          const emittedValue = this.c_outputObject
             ? value
             : Array.isArray(value) ? value.map(el => this.getValue(el)) : [value]
           this.$emit('input', emittedValue)

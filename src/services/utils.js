@@ -54,7 +54,7 @@ export const hasOwnProperty = (object, key) => {
   return Object.prototype.hasOwnProperty.call(object, key)
 }
 
-// Find value in the object with array of keys
+// Find value in the object with an array of keys
 export const getNestedValue = (option, propsArray) => {
   if (propsArray.length === 0) return option
 
@@ -76,7 +76,12 @@ export const getValueByPath = (option, prop) => {
   return getNestedValue(option, prop.split('.'))
 }
 
-// Finds value of object with either sting or function
+/**
+ * Finds value of nested property inside of an object.
+ *
+ * @param option - Object to look properties inside
+ * @param prop - Either String or Function used to find nested property
+ */
 export const getProp = (option, prop) => {
   if (typeof option === 'string') return
   if (!prop) return option

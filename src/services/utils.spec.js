@@ -102,13 +102,16 @@ describe('utils', () => {
     const test = 'test'
     expect(getProp('string', test)).toBeUndefined()
     expect(getProp({ test })).toEqual({ test })
-    expect(getProp({ test }, obj => obj.test)).toEqual(test)
+    expect(getProp({ test }, obj => obj.test)).toBe(test)
     expect(getProp({ test: { test: { test } } }, `${test}.${test}.${test}`))
-      .toEqual(test)
+      .toBe(test)
   })
 
   it('getValueByPath', () => {
     expect(getValueByPath({ name: 'one' }, 'disabled')).toBeUndefined()
+    expect(getValueByPath({ name: 'one' }, 'name')).toBe('one')
+    expect(getValueByPath({ name: { test: 'one' } }, '.name.test')).toBe('one')
+    expect(getValueByPath({ name: 'one' }, '')).toEqual({ name: 'one' })
   })
 
   it('getNestedValue', () => {
@@ -120,8 +123,8 @@ describe('utils', () => {
     expect(getNestedValue(object, [])).toBe(object)
     expect(getNestedValue(object, ['product'])).toBe(object.product)
     expect(getNestedValue(object, ['product', 'name'])).toBe(object.product.name)
-    expect(getNestedValue(object, ['missing'])).toBe(undefined)
-    expect(getNestedValue(object, ['product', 'missing'])).toBe(undefined)
-    expect(getNestedValue(object, ['product', 'name', 'missing'])).toBe(undefined)
+    expect(getNestedValue(object, ['missing'])).toBeUndefined()
+    expect(getNestedValue(object, ['product', 'missing'])).toBeUndefined()
+    expect(getNestedValue(object, ['product', 'name', 'missing'])).toBeUndefined()
   })
 })

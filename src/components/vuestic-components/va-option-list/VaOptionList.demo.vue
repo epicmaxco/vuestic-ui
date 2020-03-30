@@ -162,10 +162,10 @@ export default {
     return {
       baseData: {
         options: ['test', 'test1', 'test2'],
-        selected: [],
-        selectedDisabledList: [],
-        selectedWithVmodel: [],
-        selectedWithVmodel1: [],
+        selected: undefined,
+        selectedDisabledList: undefined,
+        selectedWithVmodel: undefined,
+        selectedWithVmodel1: undefined,
       },
       complexData: {
         options: [
@@ -185,15 +185,15 @@ export default {
             disabled: true,
           },
         ],
-        selectedValue: [],
-        selectedObject: [],
-        withDefault: [],
+        selectedValue: undefined,
+        selectedObject: undefined,
+        withDefault: undefined,
       },
       baseRadioData: {
         options: ['test radio', 'test radio 1', 'test radio 2'],
-        selected: '',
-        selectedDisabled: '',
-        selectedWithVmodel: '',
+        selected: undefined,
+        selectedDisabled: undefined,
+        selectedWithVmodel: undefined,
       },
       radioData: {
         options: [
@@ -213,9 +213,9 @@ export default {
             disabled: true,
           },
         ],
-        selectedValue: {},
-        selectedObject: {},
-        withDefault: '',
+        selectedValue: undefined,
+        selectedObject: undefined,
+        withDefault: undefined,
       },
     }
   },
