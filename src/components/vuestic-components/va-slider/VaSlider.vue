@@ -4,7 +4,7 @@
     :class="sliderClass"
   >
     <div
-      class="input-wrapper"
+      class="va-slider__input-wrapper"
       v-if="$slots.prepend"
     >
       <slot :name="this.vertical ? 'append' : 'prepend'" />
@@ -15,14 +15,14 @@
     >
       <span
         :style="labelStyles"
-        class="label"
+        class="va-input__label"
       >
         {{ label }}
       </span>
     </slot>
     <span
       v-if="iconPrepend"
-      class="label"
+      class="va-input__label"
     >
       <va-icon
         :name="iconPrepend"
@@ -31,35 +31,35 @@
       />
     </span>
     <div
-      class="container"
+      class="va-slider__container"
       ref="sliderContainer"
       @mousedown="clickOnContainer"
       @mouseup="hasMouseDown = false"
     >
       <div
-        class="container__track"
+        class="va-slider__track"
         :style="trackStyles"
       />
       <template v-if="pins">
         <div
           v-for="(pin, key) in pinsCol"
           :key="key"
-          class="container__mark"
-          :class="{ 'container__mark--active': checkActivePin(pin) }"
+          class="va-slider__mark"
+          :class="{ 'va-slider__mark--active': checkActivePin(pin) }"
           :style="getPinStyles(pin)"
         />
       </template>
       <template v-if="isRange">
         <div
           ref="process"
-          class="container__track"
-          :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
+          class="va-slider__track va-slider__track--selected"
+          :class="{'va-slider__track--active': hasMouseDown}"
           :style="processedStyles"
           @mousedown="moveStart($event, null)"
         />
         <div
           ref="dot0"
-          class="container__handler"
+          class="va-slider__handler"
           :class="dotClass[0]"
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
@@ -71,19 +71,19 @@
           <div
             v-if="isActiveDot(0)"
             :style="{ backgroundColor: colorComputed }"
-            class="container__handler--focus"
+            class="va-slider__handler__dot--focus"
           />
           <div
             v-if="trackLabelVisible"
             :style="labelStyles"
-            class="container__handler-value"
+            class="va-slider__handler__dot--value"
           >
             {{ val[0] }}
           </div>
         </div>
         <div
           ref="dot1"
-          class="container__handler"
+          class="va-slider__handler"
           :class="dotClass[1]"
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
@@ -95,12 +95,12 @@
           <div
             v-if="isActiveDot(1)"
             :style="{ backgroundColor: colorComputed }"
-            class="container__handler--focus"
+            class="va-slider__handler__dot--focus"
           />
           <div
             v-if="trackLabelVisible"
             :style="labelStyles"
-            class="container__handler-value"
+            class="va-slider__handler__dot--value"
           >
             {{ val[1] }}
           </div>
@@ -109,14 +109,14 @@
       <template v-else>
         <div
           ref="process"
-          class="container__track"
-          :class="{'container__track--active': hasMouseDown, 'container__track--inactive': !hasMouseDown}"
+          class="va-slider__track va-slider__track--selected"
+          :class="{'va-slider__track--active': hasMouseDown}"
           :style="processedStyles"
           @mousedown="moveStart($event, 0)"
         />
         <div
           ref="dot"
-          class="container__handler"
+          class="va-slider__handler"
           :class="dotClass"
           :style="dottedStyles"
           @mousedown="(moveStart(), setMouseDown())"
@@ -127,13 +127,13 @@
         >
           <div
             v-if="isActiveDot(0)"
-            class="container__handler--focus"
+            class="va-slider__handler__dot--focus"
             :style="{ backgroundColor: colorComputed }"
           />
           <div
             v-if="trackLabelVisible"
             :style="labelStyles"
-            class="container__handler-value"
+            class="va-slider__handler__dot--value"
           >
             {{ trackLabel || val }}
           </div>
@@ -142,7 +142,7 @@
     </div>
     <span
       v-if="iconAppend"
-      class="inverse-label"
+      class="va-input__label--inverse"
     >
       <va-icon
         :name="iconAppend"
@@ -157,13 +157,13 @@
       <span
         v-if="invertLabel"
         :style="labelStyles"
-        class="label inverse-label"
+        class="va-input__label va-input__label--inverse"
       >
         {{ label }}
       </span>
     </slot>
     <div
-      class="input-wrapper"
+      class="va-slider__input-wrapper"
       v-if="$slots.append"
     >
       <slot :name=" this.vertical ? 'prepend' : 'append'" />
@@ -224,6 +224,12 @@ export default {
     }
   },
   computed: {
+    moreToLess () {
+      return this.val[1] - this.step < this.val[0]
+    },
+    lessToMore () {
+      return this.val[0] + this.step > this.val[1]
+    },
     sliderClass () {
       return {
         'va-slider--active': this.hasMouseDown,
@@ -236,14 +242,14 @@ export default {
     dotClass () {
       if (this.range) {
         return [
-          { 'container__handler--inactive': !this.hasMouseDown },
-          { 'container__handler--inactive': !this.hasMouseDown },
+          { 'va-slider__handler--inactive': !this.hasMouseDown },
+          { 'va-slider__handler--inactive': !this.hasMouseDown },
         ]
       }
 
       return {
-        'container__handler--on-focus': !this.range && (this.flag || this.isKeyboardFocused),
-        'container__handler--inactive': !this.hasMouseDown,
+        'va-slider__handler--on-focus': !this.range && (this.flag || this.isKeyboardFocused),
+        'va-slider__handler--inactive': !this.hasMouseDown,
       }
     },
     labelStyles () {
@@ -507,36 +513,58 @@ export default {
       }
 
       const arrowKeyCodes = [37, 38, 39, 40] // LEFT, UP, RIGHT, DOWN
+      const [CODE_LEFT, CODE_UP, CODE_RIGHT, CODE_DOWN] = arrowKeyCodes
       // prevent page scroll
       if (arrowKeyCodes.indexOf(event.keyCode) !== -1) {
         event.preventDefault()
       }
 
       if (this.range) {
-        if (this.$refs.dot0 === document.activeElement) { // left dot
-          if (this.vertical) {
-            if (event.keyCode === 40 && !((this.val[0] - this.step) < this.min)) moveDot(true, 0, 0)
-            if (event.keyCode === 38 && !((this.val[0] + this.step) > this.val[1])) moveDot(true, 1, 0)
-          } else {
-            if (event.keyCode === 37 && !((this.val[0] - this.step) < this.min)) moveDot(true, 0, 0)
-            if (event.keyCode === 39 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 1, 0)
-          }
-        } else if (this.$refs.dot1 === document.activeElement) { // right dot
-          if (this.vertical) {
-            if (event.keyCode === 40 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 0, 1)
-            if (event.keyCode === 38 && !((this.val[1] + this.step) > this.max)) moveDot(true, 1, 1)
-          } else {
-            if (event.keyCode === 37 && !((this.val[1] - this.step) < this.val[0])) moveDot(true, 0, 1)
-            if (event.keyCode === 39 && !((this.val[1] + this.step) > this.max)) moveDot(true, 1, 1)
-          }
+        const isVerticalDot0More = (event) =>
+          this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_UP
+        const isVerticalDot0Less = (event) => this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_DOWN
+        const isVerticalDot1More = (event) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_UP
+        const isVerticalDot1Less = (event) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_DOWN
+        const isHorizontalDot0Less = (event) =>
+          !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_LEFT
+        const isHorizontalDot0More = (event) =>
+          !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_RIGHT
+        const isHorizontalDot1Less = (event) =>
+          !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_LEFT
+        const isHorizontalDot1More = (event) =>
+          !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
+
+        switch (true) {
+          case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
+            this.$refs.dot0.focus()
+            moveDot(true, 0, 0)
+            break
+          case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
+            this.$refs.dot1.focus()
+            moveDot(true, 1, 1)
+            break
+          case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
+            moveDot(true, 0, 0)
+            break
+          case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
+            moveDot(true, 1, 1)
+            break
+          case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
+            moveDot(true, 0, 1)
+            break
+          case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
+            moveDot(true, 1, 0)
+            break
+          default:
+            break
         }
       } else {
         if (this.vertical) {
-          if (event.keyCode === 40) moveDot(false, 0)
-          if (event.keyCode === 38) moveDot(false, 1)
+          if (event.keyCode === CODE_DOWN) moveDot(false, 0)
+          if (event.keyCode === CODE_UP) moveDot(false, 1)
         } else {
-          if (event.keyCode === 37) moveDot(false, 0)
-          if (event.keyCode === 39) moveDot(false, 1)
+          if (event.keyCode === CODE_LEFT) moveDot(false, 0)
+          if (event.keyCode === CODE_RIGHT) moveDot(false, 1)
         }
       }
     },
@@ -623,12 +651,14 @@ export default {
       if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
         if (this.currentSlider) {
           if (pixelPosition <= this.position[0]) {
+            this.val[1] = this.val[0]
             this.currentSlider = 0
           }
           const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
           this.setCurrentValue(v)
         } else {
           if (pixelPosition >= this.position[1]) {
+            this.val[0] = this.val[1]
             this.currentSlider = 1
           }
           const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
@@ -654,9 +684,12 @@ export default {
 
         if (slider === 0) {
           this.$refs.dot0.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
+          this.$refs.dot0.focus()
         } else {
           this.$refs.dot1.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
+          this.$refs.dot1.focus()
         }
+        console.log()
       } else {
         const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
@@ -699,6 +732,9 @@ export default {
       return JSON.stringify(a) !== JSON.stringify(b)
     },
     clickOnContainer (e) {
+      if (this.disabled || this.readonly) {
+        return
+      }
       const pos = this.getPos(e)
       if (this.isRange) {
         this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
@@ -729,64 +765,62 @@ export default {
   display: flex;
   align-items: center;
 
-  .input-wrapper {
+  &__input-wrapper {
     position: relative;
     display: flex;
   }
 
-  .container {
+  &__container {
     position: relative;
     display: flex;
     align-items: center;
     cursor: grab;
+  }
 
-    &__track {
+  &__track {
+    position: absolute;
+    border-radius: 0.25rem;
+    transition: none;
+    opacity: 0.2;
+  }
+  &__track--selected {
+    opacity: 1;
+  }
+
+  &__handler {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: $white;
+    border: 0.375rem solid;
+    border-radius: 50%;
+    outline: none !important;
+    left: -0.375rem;
+    transition: none;
+
+    &__dot--focus {
+      transform: translate(-0.625rem, -0.625rem);
+      display: block;
+      width: 1.75rem;
+      height: 1.75rem;
       position: absolute;
-      border-radius: 0.25rem;
-      transition: none;
+      border-radius: 50%;
       opacity: 0.2;
-
-      &--active,
-      &--inactive {
-        opacity: 1;
-      }
+      pointer-events: none;
     }
 
-    &__handler {
-      position: absolute;
-      width: 1.25rem;
-      height: 1.25rem;
-      background: $white;
-      border: 0.375rem solid;
-      border-radius: 50%;
-      outline: none !important;
-      left: -0.375rem;
-      transition: none;
-
-      &--focus {
-        transform: translate(-0.625rem, -0.625rem);
-        display: block;
-        width: 1.75rem;
-        height: 1.75rem;
-        position: absolute;
-        border-radius: 50%;
-        opacity: 0.2;
-        pointer-events: none;
-      }
-
-      &-value {
-        transform: translate(-50%, -100%);
-        user-select: none;
-        font-size: 0.625rem;
-        letter-spacing: 0.6px;
-        line-height: 1.2;
-        font-weight: bold;
-        text-transform: uppercase;
-      }
+    &__dot--value {
+      transform: translate(-50%, -100%);
+      user-select: none;
+      font-size: 0.625rem;
+      letter-spacing: 0.6px;
+      line-height: 1.2;
+      font-weight: bold;
+      text-transform: uppercase;
     }
   }
 
-  .label {
+  .va-input__label {
     user-select: none;
     font-size: 0.625rem;
     letter-spacing: 0.6px;
@@ -795,7 +829,7 @@ export default {
     text-transform: uppercase;
   }
 
-  .inverse-label {
+  .va-input__label--inverse {
     user-select: none;
     font-size: 0.625rem;
     letter-spacing: 0.6px;
@@ -805,7 +839,7 @@ export default {
   }
 
   &--active {
-    .container {
+    .va-slider__container {
       cursor: grabbing;
     }
   }
@@ -813,24 +847,20 @@ export default {
   &--disabled {
     @include va-disabled;
 
-    .container__handler {
-      &:hover {
-        cursor: default;
-      }
+    .va-slider__container {
+      cursor: default;
     }
   }
 
   &--readonly {
-    .container__handler {
-      &:hover {
-        cursor: default;
-      }
+    .va-slider__container {
+      cursor: default;
     }
   }
 }
 
 .va-slider--horizontal {
-  .input-wrapper {
+  .va-slider__input-wrapper {
     flex-basis: 8.33333%;
     flex-grow: 0;
     max-width: 8.33333%;
@@ -842,19 +872,17 @@ export default {
     }
   }
 
-  .container {
+  .va-slider {
+    &__container {
     width: 100%;
     height: 1.5rem;
 
-    &__track,
-    &__track--active {
-      height: 0.5rem;
-      width: 100%;
     }
-
-    &__track--inactive {
-      transition: width 0.3s ease-out, left 0.3s ease-out;
-    }
+      &__track {
+        transition: width 0.3s ease-out, left 0.3s ease-out;
+        height: 0.5rem;
+        width: 100%;
+      }
 
     &__mark {
       position: absolute;
@@ -867,7 +895,7 @@ export default {
         transition: left 0.3s ease-out;
       }
 
-      &-value {
+      &__dot--value {
         position: absolute;
         top: -8px;
         left: 50%;
@@ -875,11 +903,11 @@ export default {
     }
   }
 
-  .label {
+  .va-input__label {
     margin-right: 1rem;
   }
 
-  .inverse-label {
+  .va-input__label--inverse {
     margin-left: 1rem;
   }
 }
@@ -890,61 +918,62 @@ export default {
   flex-direction: column;
   align-items: center;
 
-  .input-wrapper {
-    flex-basis: fit-content;
-    flex-grow: 0;
-    max-width: 1rem;
-    min-width: 2.5rem;
-    position: relative;
-    display: flex;
-
-    &:last-of-type {
-      margin-top: 1rem;
+    .va-input__label {
+      margin-bottom: 0.625rem;
     }
-  }
 
-  .container {
-    height: 100%;
-    width: 0.5rem;
+    .va-input__label--inverse {
+      left: -0.375rem;
+      margin-top: 0.625rem;
+    }
+  .va-slider {
 
-    &__track,
-    &__track--active {
+    &__input-wrapper {
+      flex-basis: fit-content;
+      flex-grow: 0;
+      max-width: 1rem;
+      min-width: 2.5rem;
+      position: relative;
+      display: flex;
+
+      &:last-of-type {
+        margin-top: 1rem;
+      }
+    }
+
+    &__container {
       height: 100%;
       width: 0.5rem;
-      bottom: 0;
-    }
 
-    &__track--inactive {
-      transition: height 0.3s ease-out, bottom 0.3s ease-out;
-    }
-
-    &__mark {
-      position: absolute;
-      width: 0.75rem;
-      height: 0.125rem;
-      left: -2px;
-    }
-
-    &__handler {
-      &--inactive {
-        transition: bottom 0.3s ease-out;
+      }
+      &__track {
+        height: 100%;
+        width: 0.5rem;
+        bottom: 0;
+        &--selected {
+          transition: height 0.3s ease-out, bottom 0.3s ease-out;
+        }
       }
 
-      &-value {
-        position: relative;
-        top: 0.625rem;
-        left: 1.25rem;
+      &__mark {
+        position: absolute;
+        width: 0.75rem;
+        height: 0.125rem;
+        left: -2px;
       }
-    }
-  }
 
-  .label {
-    margin-bottom: 0.625rem;
-  }
+      &__handler {
+        &--inactive {
+          transition: bottom 0.3s ease-out;
+        }
 
-  .inverse-label {
-    left: -0.375rem;
-    margin-top: 0.625rem;
+        &__dot--value {
+          position: relative;
+          top: 0.625rem;
+          left: 1.25rem;
+        }
+
+      }
   }
 }
 </style>

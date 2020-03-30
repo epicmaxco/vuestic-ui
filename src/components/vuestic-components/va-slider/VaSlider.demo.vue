@@ -358,3 +358,8 @@ export default {
   },
 }
 </script>
+<style scoped lang="scss">
+  .VbCard {
+    min-width: 200px;
+  }
+</style>
