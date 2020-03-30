@@ -86,31 +86,13 @@ export default {
     },
   },
   methods: {
-    checkForLoad () {
-      if (this.disabled || this.fetching || this.error) {
-        return
-      }
-
-      const { scrollTop, scrollHeight } = this.scrollTargetElement
-      const containerHeight = this.scrollTargetElement.offsetHeight
-      const isLoadingRequired = this.reverse
-        ? scrollTop < this.offset
-        : scrollTop + containerHeight + this.offset >= scrollHeight
-      if (isLoadingRequired) {
-        this.onLoad()
-      }
-    },
     onLoad () {
-      if (this.disabled || this.fetching) {
+      if (this.disabled || this.fetching || this.error || !this.isLoadingRequired) {
         return
       }
-
       this.fetching = true
       this.initialHeight = this.$el.offsetHeight
 
-      if (this.disabled) {
-        return
-      }
       this.load()
         .then(this.finishLoading)
         .catch(this.onError)
@@ -147,7 +129,7 @@ export default {
           },
         )
       }
-      this.checkForLoad()
+      this.onLoad()
     },
     stop () {
       if (this.disabled) {
@@ -162,7 +144,7 @@ export default {
       )
     },
     setDebounce (value) {
-      this.debouncedLoad = _.debounce(this.checkForLoad, value)
+      this.debouncedLoad = _.debounce(this.onLoad, value)
     },
   },
   mounted () {
@@ -195,6 +177,13 @@ export default {
         ? document.querySelector(this.scrollTarget)
         : this.scrollTarget || this.$el.parentElement
     },
+    isLoadingRequired() {
+      const { scrollTop, scrollHeight } = this.scrollTargetElement
+      const containerHeight = this.scrollTargetElement.offsetHeight
+      return this.reverse
+        ? scrollTop < this.offset
+        : scrollTop + containerHeight + this.offset >= scrollHeight
+    }
   },
 }
 </script>
