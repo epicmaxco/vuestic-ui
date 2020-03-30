@@ -1,10 +1,10 @@
 import VaOptionList from './VaOptionList'
-import { testIsSelectableList } from '../../vuestic-mixins/testIsSelectableList'
+import { testIsFormComponent } from '../../vuestic-mixins/testIsFormComponent'
 import { shallowMount } from '@vue/test-utils'
 
 describe('VaOptionList', () => {
   it('is SelectableList component', () => {
-    expect(() => testIsSelectableList(VaOptionList)).not.toThrow()
+    expect(() => testIsFormComponent(VaOptionList, { options: ['test'], value: 'test' })).not.toThrow()
   })
 
   describe('selectedValue should use default value', () => {

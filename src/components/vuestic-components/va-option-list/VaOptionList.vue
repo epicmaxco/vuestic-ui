@@ -6,6 +6,7 @@
   >
     <ul
       class="va-option-list__list"
+      :id="id"
     >
       <li
         v-for="(option, index) in options"
@@ -20,6 +21,7 @@
         >
           <va-radio
             v-if="type === 'radio'"
+            :ref="type"
             :option="getValue(option)"
             :disabled="isDisabled(option)"
             :name="c_name"
@@ -31,12 +33,14 @@
           />
           <va-checkbox
             v-else
+            :ref="type"
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
             :left-label="c_leftLabel"
             :array-value="getValue(option)"
             :color="c_color"
+            :name="c_name"
           />
         </slot>
       </li>
@@ -78,6 +82,16 @@ export default {
     },
     isDisabled (option) {
       return this.c_disabled || this.getDisabled(option)
+    },
+    reset () {
+      this.$emit('input', undefined)
+    },
+    focus () {
+      const elements = this.$refs[this.type]
+      const firstActiveEl = Array.isArray(elements) && elements.find(el => !el.disabled)
+      if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
+        firstActiveEl.focus()
+      }
     },
   },
   mounted () {
