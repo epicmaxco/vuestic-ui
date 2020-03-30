@@ -35,5 +35,20 @@ export const RouterLinkMixin = {
         this.exactActiveClass,
       )
     },
+    isActiveRouterLink () {
+      if (this.$router && this.to) {
+        const resolve = this.$router.resolve(
+          this.to,
+          this.$route,
+        )
+
+        const to = resolve.href
+        const currentHref = this.$router.currentRoute.path
+
+        return to.replace('#', '') === currentHref.replace('#', '')
+      } else {
+        return false
+      }
+    },
   },
 }
