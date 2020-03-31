@@ -5,6 +5,7 @@
   "devDependencies": {
     "lerna": "^3.20.2"
   },
+  "private": true,
   "scripts": {
     "serve": "lerna run serve",
     "test": "lerna run test",
