@@ -10,5 +10,8 @@
   },
   "scripts": {
     "serve:docs:nuxt": "nuxt --port 8080"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.6.1"
   }
 }
