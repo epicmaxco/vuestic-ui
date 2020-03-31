@@ -66,7 +66,7 @@ export const FormComponentMixin = {
   },
   methods: {
     /** @public */
-    validate (e) {
+    validate () {
       this.computedError = false
       this.computedErrorMessages = []
 

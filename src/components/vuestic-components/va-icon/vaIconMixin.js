@@ -1,4 +1,4 @@
-import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const isMaterialFont = font => {
   return font === 'md'

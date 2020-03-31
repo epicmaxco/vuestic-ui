@@ -24,14 +24,22 @@ In future we also plan to be :
 * `prop="string-value"` is used instead of `:prop="'string-value'"`.
 * Short syntax is used for boolean props where possible (`hide` instead of `:hide="true"`).
 * Self closing tags are used where possible (`<slot/>` instead of `<slot></slot>`).
+* No shortcuts: always `button` and not `btn`. Your naming should be well understood by all developers.
+
+## TypeScript usage
+* You can use `@ts-nocheck` | `@ts-ignore` | `any` where it's appropriate. We want strict typing not to get in way of development. Also some mixins or plugins, such as context are fairly challenging to implement in a way to keep typing intact, and there is no much point given we will transition to Composition API sometime in the future.
+
+## Style
 * BEM is used for styles.
 * Rems are used for sizes (except for cases where it doesn't make sense).
-* No shortcuts: always `button` and not `btn`.
-* Use shortened function declaration:`buttonClass () {` instead of `buttonClass: function () {`.
 
-## CSS
-* We have both mixins (where that's possible) and global helpers. Mixins are prefixed with `va-`. Global classes are not prefixed.
-* Html tags are unstyled. For example, `table`, `li`, `h1` etc won't give you any styling. Styles are applied either via classes or `.content` wrapper.
+### Global classes
+* Global helpers should be considered a separate library/plugin. Components should not rely on global classes!
+* All vuestic global classes should be prefixed with `va-`.
+* Html tags are unstyled. For example, `table`, `li`, `h1` etc won't give you any styling. Apply styles either via classes or `.content` wrapper.
+
+### Components
+* Mixins should be used for style logic reuse inside components.
 
 ### Fonts
 
