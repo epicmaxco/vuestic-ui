@@ -39,3 +39,4 @@
 * [va-timeline](components/VaTimeline.md)
 * [va-toggle](components/VaToggle.md)
 * [va-tree-view](components/VaTreeView.md)
+* [va-tabs](components/VaTabs.md)
