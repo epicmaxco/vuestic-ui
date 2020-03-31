@@ -151,8 +151,9 @@
 
       <VbCard title="disabled">
         <div class="scroll__container">
+          <VbCheckbox v-model="disabled" label="Disabled"/>
           <va-infinite-scroll
-            disabled
+            :disabled="disabled"
             :load="appendRecordsAsync"
           >
             <li
@@ -181,6 +182,7 @@ export default {
   },
   data () {
     return {
+      disabled: true,
       records: this.getInitialRecords(),
       disabledRecords: this.getInitialRecords(),
     }
@@ -190,10 +192,7 @@ export default {
       return times(20, () => ({ text: 'record', id: Math.random() }))
     },
     getNewRecords () {
-      return times(10, () => ({ text: 'new record' })).map(record => ({
-        ...record,
-        id: Math.random(),
-      }))
+      return times(10, () => ({ text: 'new record', id: Math.random() }))
     },
     appendRecordsAsync () {
       return sleep(2000).then(() => {
@@ -202,7 +201,7 @@ export default {
     },
     failedLoadAsync () {
       return sleep(2000).then(() => {
-        throw Error('qweqwe')
+        throw new Error('Error')
       })
     },
   },

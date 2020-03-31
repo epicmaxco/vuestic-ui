@@ -12,9 +12,11 @@
       name="loading"
       v-if="!disabled"
     >
-      <div ref="defaultSpinner"
-           class="va-infinite-scroll__spinner"
-           :class="{'va-infinite-scroll__spinner--invisible': !fetching}">
+      <div
+        ref="defaultSpinner"
+        class="va-infinite-scroll__spinner"
+        :class="{'va-infinite-scroll__spinner--invisible': !fetching}"
+      >
         <va-progress-circle
           size="small"
           :thickness="0.15"
@@ -27,7 +29,7 @@
 </template>
 
 <script>
-import * as _ from 'lodash'
+import { debounce } from 'lodash'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { sleep } from '../../../services/utils'
@@ -92,12 +94,12 @@ export default {
       if (this.disabled || this.error || this.fetching) {
         return
       }
-        
+
       const { scrollTop, scrollHeight } = this.scrollTargetElement
       const containerHeight = this.scrollTargetElement.offsetHeight
       const isLoadingRequired = this.reverse
         ? scrollTop < this.scrollAmount
-        : scrollTop + containerHeight + this.scrollAmount >= scrollHeight;
+        : scrollTop + containerHeight + this.scrollAmount >= scrollHeight
       if (!isLoadingRequired) return
 
       this.fetching = true
@@ -115,32 +117,30 @@ export default {
       sleep(2000).then(this.stopErrorDisplay).then(this.resume)
     },
     stopErrorDisplay () {
-        this.scrollTargetElement.scrollTop -= this.reverse
-          ? this.scrollTargetElement.scrollTop - this.scrollAmount
-          : this.scrollAmount
-        this.error = false
-        this.fetching = false
+      this.scrollTargetElement.scrollTop -= this.reverse
+        ? this.scrollTargetElement.scrollTop - this.scrollAmount
+        : this.scrollAmount
+      this.error = false
+      this.fetching = false
     },
     finishLoading () {
       this.fetching = false
       if (this.reverse) {
-        const heightDifference =
-        this.$el.offsetHeight - this.initialHeight
+        const heightDifference = this.$el.offsetHeight - this.initialHeight
         this.scrollTargetElement.scrollTop = heightDifference
       }
     },
     resume () {
       if (!this.disabled) {
-
-          this.scrollTargetElement.addEventListener(
-            'scroll',
+        this.scrollTargetElement.addEventListener(
+          'scroll',
           this.debouncedLoad,
           {
             passive: true,
           },
         )
-        }
-      
+      }
+
       this.onLoad()
     },
     stop () {
@@ -156,7 +156,7 @@ export default {
       )
     },
     setDebounce (value) {
-      this.debouncedLoad = _.debounce(this.onLoad, value)
+      this.debouncedLoad = debounce(this.onLoad, value)
     },
   },
   mounted () {
@@ -184,7 +184,7 @@ export default {
     }
   },
   computed: {
-    scrollAmount() {
+    scrollAmount () {
       return this.offset + 1 + this.$el.offsetHeight - this.defaultSlotHeight
     },
     scrollTargetElement () {
@@ -192,11 +192,11 @@ export default {
         ? document.querySelector(this.scrollTarget)
         : this.scrollTarget || this.$el.parentElement
     },
-    defaultSlotHeight() {
-      return this.$slots.default.reduce((acc, {elm}) => {
-        return acc += elm.offsetHeight
-      },0)
-    }
+    defaultSlotHeight () {
+      return this.$slots.default.reduce((acc, { elm }) => {
+        return acc + elm.offsetHeight
+      }, 0)
+    },
   },
 }
 </script>
