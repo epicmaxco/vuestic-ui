@@ -174,10 +174,14 @@ export default {
 
             this.tabs.push(instance)
 
-            const self = this
-            instance.$on('click', function (e) { self.selectTab(this) })
-            instance.$on('keydown.enter', function (e) { self.selectTab(this) })
-            instance.$on('focus', function (e) { self.ensureVisible(this) })
+            if (!instance._tabEventsInited) {
+              const self = this
+
+              instance.$on('click', function (e) { self.selectTab(this) })
+              instance.$on('keydown.enter', function (e) { self.selectTab(this) })
+              instance.$on('focus', function (e) { self.ensureVisible(this) })
+              instance._tabEventsInited = true
+            }
           }
         }
       }
