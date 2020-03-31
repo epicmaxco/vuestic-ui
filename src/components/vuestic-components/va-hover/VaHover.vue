@@ -16,11 +16,11 @@ export default {
     },
   },
   methods: {
-    onMouseEnter (e) {
+    onMouseEnter () {
       this.active = true
       this.$emit('input', true)
     },
-    onMouseLeave (e) {
+    onMouseLeave () {
       this.active = false
       this.$emit('input', false)
     },

@@ -447,7 +447,7 @@ export default {
         }
       }
     },
-    moveEnd (e) {
+    moveEnd () {
       if (!this.disabled && !this.readonly) {
         if (this.flag) {
           this.$emit('drag-end', this)
@@ -689,7 +689,6 @@ export default {
           this.$refs.dot1.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
           this.$refs.dot1.focus()
         }
-        console.log()
       } else {
         const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
@@ -783,6 +782,7 @@ export default {
     transition: none;
     opacity: 0.2;
   }
+
   &__track--selected {
     opacity: 1;
   }
@@ -874,15 +874,15 @@ export default {
 
   .va-slider {
     &__container {
-    width: 100%;
-    height: 1.5rem;
-
+      width: 100%;
+      height: 1.5rem;
     }
-      &__track {
-        transition: width 0.3s ease-out, left 0.3s ease-out;
-        height: 0.5rem;
-        width: 100%;
-      }
+
+    &__track {
+      transition: width 0.3s ease-out, left 0.3s ease-out;
+      height: 0.5rem;
+      width: 100%;
+    }
 
     &__mark {
       position: absolute;
@@ -918,16 +918,16 @@ export default {
   flex-direction: column;
   align-items: center;
 
-    .va-input__label {
-      margin-bottom: 0.625rem;
-    }
+  .va-input__label {
+    margin-bottom: 0.625rem;
+  }
 
-    .va-input__label--inverse {
-      left: -0.375rem;
-      margin-top: 0.625rem;
-    }
+  .va-input__label--inverse {
+    left: -0.375rem;
+    margin-top: 0.625rem;
+  }
+
   .va-slider {
-
     &__input-wrapper {
       flex-basis: fit-content;
       flex-grow: 0;
@@ -944,36 +944,36 @@ export default {
     &__container {
       height: 100%;
       width: 0.5rem;
+    }
 
+    &__track {
+      height: 100%;
+      width: 0.5rem;
+      bottom: 0;
+
+      &--selected {
+        transition: height 0.3s ease-out, bottom 0.3s ease-out;
       }
-      &__track {
-        height: 100%;
-        width: 0.5rem;
-        bottom: 0;
-        &--selected {
-          transition: height 0.3s ease-out, bottom 0.3s ease-out;
-        }
+    }
+
+    &__mark {
+      position: absolute;
+      width: 0.75rem;
+      height: 0.125rem;
+      left: -2px;
+    }
+
+    &__handler {
+      &--inactive {
+        transition: bottom 0.3s ease-out;
       }
 
-      &__mark {
-        position: absolute;
-        width: 0.75rem;
-        height: 0.125rem;
-        left: -2px;
+      &__dot--value {
+        position: relative;
+        top: 0.625rem;
+        left: 1.25rem;
       }
-
-      &__handler {
-        &--inactive {
-          transition: bottom 0.3s ease-out;
-        }
-
-        &__dot--value {
-          position: relative;
-          top: 0.625rem;
-          left: 1.25rem;
-        }
-
-      }
+    }
   }
 }
 </style>

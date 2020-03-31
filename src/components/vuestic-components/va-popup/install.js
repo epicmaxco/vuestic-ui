@@ -1,3 +1,6 @@
+// @ts-nocheck
+/* eslint-disable */
+
 import Platform from './plugins/platform'
 import Vue from 'vue'
 

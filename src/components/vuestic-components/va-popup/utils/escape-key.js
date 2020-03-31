@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import Platform from '../plugins/platform'
 
 const handlers = []

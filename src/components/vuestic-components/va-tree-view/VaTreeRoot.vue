@@ -12,6 +12,7 @@ export default {
   name: 'VaTreeRoot',
   mixins: [ColorThemeMixin],
   provide () {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const parent = this
     return {
       va: new Vue({
