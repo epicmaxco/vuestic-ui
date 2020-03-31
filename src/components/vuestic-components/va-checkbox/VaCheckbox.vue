@@ -135,7 +135,6 @@ export default {
       this.$emit('blur', event)
     },
     clickWrapper () {
-      this.focus()
       this.toggleSelection()
     },
     toggleSelection () {
