@@ -1,14 +1,8 @@
 {
-  "name": "@vuestic-ui/docs",
+  "name": "@vuestic-ui/old-docs",
   "version": "0.1.8",
   "description": "Documentation for vuestic-ui framework",
   "main": "index.js",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
-  "license": "MIT",
-  "dependencies": {
-    "nuxt": "^2.12.1"
-  },
-  "scripts": {
-    "serve:docs:nuxt": "nuxt --port 8080"
-  }
+  "license": "MIT"
 }
