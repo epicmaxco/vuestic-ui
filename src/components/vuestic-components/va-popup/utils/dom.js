@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export function offset (el) {
   if (!el || el === window) {
     return { top: 0, left: 0 }

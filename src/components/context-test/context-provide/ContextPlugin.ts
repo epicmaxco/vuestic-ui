@@ -1,3 +1,5 @@
+//  @ts-nocheck
+
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
@@ -38,44 +40,21 @@ export const ContextPluginMixin = {
 }
 
 /**
- * Instead of getting component props from one config, we're getting a props and computed.
- * So, for name "color" it will be:
- * * prop `color` - just standard prop
- * * computed `c_color` - computed (context-bound prop)
+ * Attempt to find a prop value from config chain.
  *
- * @param componentProps Object - vue component object props
- *```
- * {
- *    prop1: { type: Boolean, default: false },
- *    prop2: { type: String, default: '' }
+ * @category String
+ * @param configs [object] config chain.
+ * @param componentName [string]
+ * @param propName [string] property name (pascal-case)
  *
- * }
- * ```
- * @param prefix - that prefix goes to contexted prop (that's intended for userland usage)
- * @returns object - vue mixin with props and computed
+ * @returns {any} config object if found undefined means not found.
  */
-export const makeContextablePropsMixin = (componentProps, prefix = 'c_') => {
-  const computed = {}
-
-  Object.entries(componentProps).forEach(([name, definition]) => {
-    computed[`${prefix}${name}`] = function () {
-      // We want to fallback to context in 2 cases:
-      // * prop value is undefined (allows user to dynamically enter/exit context).
-      // * prop value is not defined
-      if (!(name in this.$options.propsData) || this.$options.propsData[name] === undefined) {
-        return getContextPropValue(this, name, definition.default)
-      }
-      // In other cases we return the prop itself.
-      return this[name]
-    }
-  })
-
-  return {
-    // We attach mixin here for convenience
-    mixins: [ContextPluginMixin],
-    props: componentProps,
-    computed,
-  }
+function getLocalConfigWithComponentProp (configs, componentName, propName) {
+  // Find prop value in config chain.
+  return configs.reverse().find(config => {
+    const componentConfig = config[componentName]
+    return componentConfig && hasOwnProperty(componentConfig, propName)
+  }) || undefined
 }
 
 /**
@@ -145,24 +124,6 @@ export function getOriginalPropValue (key, context) {
   return context.$options.propsData[key]
 }
 
-/**
- * Attempt to find a prop value from config chain.
- *
- * @category String
- * @param configs [object] config chain.
- * @param componentName [string]
- * @param propName [string] property name (pascal-case)
- *
- * @returns {any} config object if found undefined means not found.
- */
-function getLocalConfigWithComponentProp (configs, componentName, propName) {
-  // Find prop value in config chain.
-  return configs.reverse().find(config => {
-    const componentConfig = config[componentName]
-    return componentConfig && hasOwnProperty(componentConfig, propName)
-  }) || undefined
-}
-
 // Just 2 levels deep merge. B has priority.
 export function mergeConfigs (configA, configB) {
   const result = {}
@@ -177,4 +138,45 @@ export function mergeConfigs (configA, configB) {
     }
   }
   return result
+}
+
+/**
+ * Instead of getting component props from one config, we're getting a props and computed.
+ * So, for name "color" it will be:
+ * * prop `color` - just standard prop
+ * * computed `c_color` - computed (context-bound prop)
+ *
+ * @param componentProps Object - vue component object props
+ *```
+ * {
+ *    prop1: { type: Boolean, default: false },
+ *    prop2: { type: String, default: '' }
+ *
+ * }
+ * ```
+ * @param prefix - that prefix goes to contexted prop (that's intended for userland usage)
+ * @returns object - vue mixin with props and computed
+ */
+export const makeContextablePropsMixin = (componentProps, prefix = 'c_') => {
+  const computed = {}
+
+  Object.entries(componentProps).forEach(([name, definition]) => {
+    computed[`${prefix}${name}`] = function () {
+      // We want to fallback to context in 2 cases:
+      // * prop value is undefined (allows user to dynamically enter/exit context).
+      // * prop value is not defined
+      if (!(name in this.$options.propsData) || this.$options.propsData[name] === undefined) {
+        return getContextPropValue(this, name, definition.default)
+      }
+      // In other cases we return the prop itself.
+      return this[name]
+    }
+  })
+
+  return {
+    // We attach mixin here for convenience
+    mixins: [ContextPluginMixin],
+    props: componentProps,
+    computed,
+  }
 }

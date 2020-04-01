@@ -1,6 +1,3 @@
-const webpack = require('webpack')
-const version = require('./package.json').version
-const timeStamp = new Date().toUTCString()
 
 const getLastCommitHash = () => {
   const hash = require('child_process').execSync('git rev-parse HEAD').toString()
@@ -12,15 +9,15 @@ module.exports = {
   lintOnSave: false,
   pages: {
     index: {
-      entry: 'src/vue-book/book-main.js',
+      entry: 'src/vue-book/book-main.ts',
       template: 'public/index.html',
     },
   },
   configureWebpack: {
     plugins: [
-      new webpack.DefinePlugin({
-        VERSION: JSON.stringify(version),
-        TIMESTAMP: JSON.stringify(timeStamp),
+      new (require('webpack')).DefinePlugin({
+        VERSION: JSON.stringify(require('./package.json').version),
+        TIMESTAMP: JSON.stringify(new Date().toUTCString()),
         COMMIT: JSON.stringify(getLastCommitHash()),
       }),
     ],
