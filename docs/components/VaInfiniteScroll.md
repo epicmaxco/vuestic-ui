@@ -8,12 +8,11 @@
     :scroll-target="$refs.scrollContainer"
     :disabled="false"
     :load="appendRecords"
+    tag="ul"
   >
-    <ul>
-      <li v-for="(record, index) in records" :key="record.id">
-        {{record.text}} #{{index}}
-      </li>
-    </ul>
+    <li v-for="(record, index) in records" :key="record.id">
+      {{record.text}} #{{index}}
+    </li>
     <template v-slot:loading>
       <spring-spinner
         :animation-duration="2000"

@@ -37,14 +37,13 @@
 import * as _ from 'lodash'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
 import { sleep } from '../../../services/utils'
 
 export default {
   name: 'VaInfiniteScroll',
   components: { VaProgressCircle },
   mixins: [
-    ColorThemeMixin,
     makeContextablePropsMixin({
       offset: {
         type: Number,
@@ -119,7 +118,7 @@ export default {
       this.stop()
       this.error = true
       this.fetching = true
-      sleep(2000)
+      sleep(1200)
         .then(this.stopErrorDisplay)
         .then(this.resume)
     },
@@ -205,7 +204,7 @@ export default {
       }, 0)
     },
     colors () {
-      return { primary: this.computeColor('primary'), danger: this.computeColor('danger') }
+      return { primary: getColor(this, 'primary', '#23e066'), danger: getColor(this, 'danger', '#e34b4a') }
     },
   },
 }

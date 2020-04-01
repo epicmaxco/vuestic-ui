@@ -32,7 +32,7 @@ const isCssColor = strColor => {
   s.color = strColor
   return s.color !== ''
 }
-const getColor = ($vm, prop, defaultColor) => {
+export const getColor = ($vm, prop, defaultColor) => {
   if (isCssColor(prop)) {
     return prop
   }
