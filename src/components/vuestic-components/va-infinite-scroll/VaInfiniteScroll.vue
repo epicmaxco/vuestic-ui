@@ -8,21 +8,28 @@
       name="default"
       ref="content"
     />
-    <slot
-      name="loading"
-      v-if="!disabled"
+    <div
+      class="va-infinite-scroll__spinner"
+      :class="{'va-infinite-scroll__spinner--invisible': !fetching}"
+      ref="loadingSlotContainer"
     >
-      <div ref="defaultSpinner"
-           class="va-infinite-scroll__spinner"
-           :class="{'va-infinite-scroll__spinner--invisible': !fetching}">
-        <va-progress-circle
-          size="small"
-          :thickness="0.15"
-          :color="error ? $themes.danger : $themes.primary"
-          indeterminate
-        />
-      </div>
-    </slot>
+      <slot
+        name="loading"
+        v-if="!disabled"
+      >
+        <div
+          ref="defaultSpinner"
+          class="va-infinite-scroll__spinner__default"
+        >
+          <va-progress-circle
+            size="small"
+            :thickness="0.15"
+            :color="error ? colors.danger : colors.primary"
+            indeterminate
+          />
+        </div>
+      </slot>
+    </div>
   </component>
 </template>
 
@@ -30,16 +37,18 @@
 import * as _ from 'lodash'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { sleep } from '../../../services/utils'
 
 export default {
   name: 'VaInfiniteScroll',
   components: { VaProgressCircle },
   mixins: [
+    ColorThemeMixin,
     makeContextablePropsMixin({
       offset: {
         type: Number,
-        default: 1,
+        default: 500,
       },
       reverse: {
         type: Boolean,
@@ -92,34 +101,34 @@ export default {
       if (this.disabled || this.error || this.fetching) {
         return
       }
-        
+
       const { scrollTop, scrollHeight } = this.scrollTargetElement
       const containerHeight = this.scrollTargetElement.offsetHeight
       const isLoadingRequired = this.reverse
         ? scrollTop < this.scrollAmount
-        : scrollTop + containerHeight + this.scrollAmount >= scrollHeight;
+        : scrollTop + containerHeight + this.scrollAmount >= scrollHeight
       if (!isLoadingRequired) return
 
       this.fetching = true
       this.scrollTop = this.reverse ? 0 : this.$el.offsetHeight
       this.initialHeight = this.$el.offsetHeight
-
       this.load()
-        .then(this.finishLoading)
-        .catch(this.onError)
+        .then(this.finishLoading).catch(this.onError)
     },
     onError (e) {
       this.stop()
       this.error = true
       this.fetching = true
-      sleep(2000).then(this.stopErrorDisplay).then(this.resume)
+      sleep(2000)
+        .then(this.stopErrorDisplay)
+        .then(this.resume)
     },
     stopErrorDisplay () {
-        this.scrollTargetElement.scrollTop -= this.reverse
-          ? this.scrollTargetElement.scrollTop - this.scrollAmount
-          : this.scrollAmount
-        this.error = false
-        this.fetching = false
+      this.scrollTargetElement.scrollTop = this.reverse
+        ? this.scrollAmount
+        : this.scrollTargetElement.scrollTop - this.scrollTargetElement.offsetHeight - this.scrollAmount
+      this.error = false
+      this.fetching = false
     },
     finishLoading () {
       this.fetching = false
@@ -131,17 +140,14 @@ export default {
     },
     resume () {
       if (!this.disabled) {
-
-          this.scrollTargetElement.addEventListener(
-            'scroll',
+        this.scrollTargetElement.addEventListener(
+          'scroll',
           this.debouncedLoad,
           {
             passive: true,
           },
         )
-        }
-      
-      this.onLoad()
+      }
     },
     stop () {
       if (this.disabled) {
@@ -184,7 +190,7 @@ export default {
     }
   },
   computed: {
-    scrollAmount() {
+    scrollAmount () {
       return this.offset + 1 + this.$el.offsetHeight - this.defaultSlotHeight
     },
     scrollTargetElement () {
@@ -192,11 +198,15 @@ export default {
         ? document.querySelector(this.scrollTarget)
         : this.scrollTarget || this.$el.parentElement
     },
-    defaultSlotHeight() {
-      return this.$slots.default.reduce((acc, {elm}) => {
-        return acc += elm.offsetHeight
-      },0)
-    }
+    defaultSlotHeight () {
+      return this.$slots.default.reduce((acc, { elm }) => {
+        acc += elm.offsetHeight
+        return acc
+      }, 0)
+    },
+    colors () {
+      return { primary: this.computeColor('primary'), danger: this.computeColor('danger') }
+    },
   },
 }
 </script>
@@ -213,8 +223,12 @@ export default {
   }
 
   &__spinner {
-    width: 100%;
-    min-height: 70px;
+    &__default {
+      @include flex-center();
+
+      width: 100%;
+      min-height: 70px;
+    }
 
     &--invisible {
       visibility: hidden !important;

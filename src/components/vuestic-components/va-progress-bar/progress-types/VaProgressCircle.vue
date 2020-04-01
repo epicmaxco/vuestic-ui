@@ -107,8 +107,10 @@ export default {
     left: 0;
     transform: rotate(-90deg);
     stroke-linecap: center center;
-    width: inherit;
-    height: inherit;
+    width: 80%;
+    height: 80%;
+
+    @include flex-center();
 
     @at-root {
       .va-progress-circle--indeterminate & {

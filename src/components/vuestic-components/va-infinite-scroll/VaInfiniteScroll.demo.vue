@@ -8,12 +8,12 @@
           <va-infinite-scroll
             :load="appendRecordsAsync"
           >
-            <li
+            <div
               v-for="(record, index) in records"
               :key="record.id"
             >
               {{ record.text }} #{{ index }}
-            </li>
+            </div>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -25,12 +25,12 @@
           <va-infinite-scroll
             :load="appendRecordsAsync"
           >
-            <li
+            <div
               v-for="(record, index) in records"
               :key="record.id"
             >
               {{ record.text }} #{{ index }}
-            </li>
+            </div>
             <template v-slot:loading>
               <va-progress-circle
                 indeterminate
@@ -50,12 +50,12 @@
             :offset="200"
             :load="appendRecordsAsync"
           >
-            <li
+            <div
               v-for="(record, index) in records"
               :key="record.id"
             >
               {{ record.text }} #{{ index }}
-            </li>
+            </div>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -69,12 +69,12 @@
             :scroll-target="$refs.scrollTarget"
             :load="appendRecordsAsync"
           >
-            <li
+            <div
               v-for="(record, index) in records"
               :key="record.id"
             >
               {{ record.text }} #{{ index }}
-            </li>
+            </div>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -86,6 +86,24 @@
         >
           <va-infinite-scroll
             scroll-target="#target"
+            :load="appendRecordsAsync"
+          >
+            <div
+              v-for="(record, index) in records"
+              :key="record.id"
+            >
+              {{ record.text }} #{{ index }}
+            </div>
+          </va-infinite-scroll>
+        </div>
+      </VbCard>
+
+      <VbCard title="ul tag">
+        <div
+          tag="ul"
+          class="scroll__container"
+        >
+          <va-infinite-scroll
             :load="appendRecordsAsync"
           >
             <li
@@ -106,12 +124,12 @@
             :debounce="5000"
             :load="appendRecordsAsync"
           >
-            <li
+            <div
               v-for="(record, index) in records"
               :key="record.id"
             >
               {{ record.text }} #{{ index }}
-            </li>
+            </div>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -123,12 +141,12 @@
           <va-infinite-scroll
             :load="failedLoadAsync"
           >
-            <li
+            <div
               v-for="(record, index) in records"
               :key="record.id"
             >
               {{ record.text }} #{{ index }}
-            </li>
+            </div>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -139,28 +157,32 @@
             reverse
             :load="appendRecordsAsync"
           >
-            <li
+            <div
               v-for="(record, index) in records"
               :key="record.id"
             >
               {{ record.text }} #{{ index }}
-            </li>
+            </div>
           </va-infinite-scroll>
         </div>
       </VbCard>
 
       <VbCard title="disabled">
+        <va-checkbox
+          label="disabled"
+          v-model="disabled"
+        />
         <div class="scroll__container">
           <va-infinite-scroll
-            disabled
+            :disabled="disabled"
             :load="appendRecordsAsync"
           >
-            <li
-              v-for="(record, index) in disabledRecords"
+            <div
+              v-for="(record, index) in records"
               :key="record.id"
             >
               {{ record.text }} #{{ index }}
-            </li>
+            </div>
           </va-infinite-scroll>
         </div>
       </VbCard>
@@ -171,39 +193,31 @@
 <script>
 import VaInfiniteScroll from './VaInfiniteScroll'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
-import { times } from 'lodash'
+import VaCheckbox from '../va-checkbox/VaCheckbox'
+import { getNewRecords, getInitialRecords } from '../../../data/Records'
 import { sleep } from '../../../services/utils'
 
 export default {
   components: {
     VaInfiniteScroll,
     VaProgressCircle,
+    VaCheckbox,
   },
   data () {
     return {
-      records: this.getInitialRecords(),
-      disabledRecords: this.getInitialRecords(),
+      disabled: false,
+      records: getInitialRecords(),
+      disabledRecords: getInitialRecords(),
     }
   },
   methods: {
-    getInitialRecords () {
-      return times(20, () => ({ text: 'record', id: Math.random() }))
+    async appendRecordsAsync () {
+      await sleep(2000)
+      this.records.push(...getNewRecords())
     },
-    getNewRecords () {
-      return times(10, () => ({ text: 'new record' })).map(record => ({
-        ...record,
-        id: Math.random(),
-      }))
-    },
-    appendRecordsAsync () {
-      return sleep(2000).then(() => {
-        this.records.push(...this.getNewRecords())
-      })
-    },
-    failedLoadAsync () {
-      return sleep(2000).then(() => {
-        throw Error('qweqwe')
-      })
+    async failedLoadAsync () {
+      await sleep(2000)
+      throw Error('qweqwe')
     },
   },
 }
