@@ -168,12 +168,8 @@
       </VbCard>
 
       <VbCard title="disabled">
-        <va-checkbox
-          label="disabled"
-          v-model="disabled"
-        />
+        <VbCheckbox v-model="disabled" label="Disabled"/>
         <div class="scroll__container">
-          <VbCheckbox v-model="disabled" label="Disabled"/>
           <va-infinite-scroll
             :disabled="disabled"
             :load="appendRecordsAsync"
@@ -194,7 +190,6 @@
 <script>
 import VaInfiniteScroll from './VaInfiniteScroll'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
 import { getNewRecords, getInitialRecords } from '../../../data/Records'
 import { sleep } from '../../../services/utils'
 
@@ -202,7 +197,6 @@ export default {
   components: {
     VaInfiniteScroll,
     VaProgressCircle,
-    VaCheckbox,
   },
   data () {
     return {

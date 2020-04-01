@@ -18,7 +18,6 @@ describe('VaInfiniteScroll', () => {
       disabled: true,
       scrollTarget: '.scroll__container',
       debounce: 200,
-      load: () => {},
     }
     expect(() => testIsContextableComponent(VaInfiniteScroll, props)).not.toThrow()
   })

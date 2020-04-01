@@ -67,7 +67,6 @@ export default {
       },
       load: {
         type: Function,
-        default: () => {},
       },
       tag: {
         type: String,
@@ -114,7 +113,7 @@ export default {
       this.load()
         .then(this.finishLoading).catch(this.onError)
     },
-    onError (e) {
+    onError () {
       this.stop()
       this.error = true
       this.fetching = true
