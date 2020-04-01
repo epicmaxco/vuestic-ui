@@ -33,5 +33,6 @@
 * `errorMessages` - Number - list of error messages for current input field
 * `errorCount` - Number (default: 1) - shows a number of errors to display, given an array of error messages is passed
 * `error` - Boolean - define whether the field is error or not
+* `leftLabel` - Boolean - define whether label should be to the left of checkbox (default: false)
 
 [See demo](http://vuestic.epicmax.co/#/admin/forms/form-elements)

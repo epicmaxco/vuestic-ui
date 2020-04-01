@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { css } from './dom.js'
 
 export function getScrollTarget (el) {

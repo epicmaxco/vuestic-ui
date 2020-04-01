@@ -1,6 +1,7 @@
 export const DropdownPopperPlugin = {
   install (Vue) {
     Vue.prototype.$closeDropdown = function () {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
       let vm = this
       // Hide first parent dropdown.
       while ((vm = vm.$parent)) {

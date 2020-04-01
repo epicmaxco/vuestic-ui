@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { position as eventPosition } from './event.js'
 import { getScrollbarWidth } from './scroll.js'
 

@@ -54,7 +54,7 @@ import VaButton from '../va-button/VaButton'
 import VaModal from '../va-modal/VaModal'
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaFileUpload',
@@ -63,49 +63,38 @@ export default {
     VaButton,
     VaFileUploadList,
   },
-  mixins: [ColorThemeMixin, ContextPluginMixin],
-  props: {
-    type: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'type', 'list')
+  mixins: [
+    ColorThemeMixin,
+    makeContextablePropsMixin({
+      type: {
+        type: String,
+        default: 'list',
+        validator (value) {
+          return ['list', 'gallery', 'single'].includes(value)
+        },
       },
-      validator (value) {
-        return ['list', 'gallery', 'single'].includes(value)
+      fileTypes: {
+        type: String,
+        default: '',
       },
-    },
-    fileTypes: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'fileTypes', '')
+      dropzone: {
+        type: Boolean,
+        default: false,
       },
-    },
-    dropzone: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'dropzine', false)
+      value: {
+        type: Array,
+        default: () => [],
       },
-    },
-    value: {
-      type: Array,
-      default () {
-        return getContextPropValue(this, 'value', [])
+      color: {
+        type: String,
+        default: 'success',
       },
-      required: true,
-    },
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', 'success')
+      disabled: {
+        type: Boolean,
+        default: false,
       },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-  },
+    }),
+  ],
   data () {
     return {
       modal: false,

@@ -31,6 +31,13 @@
         readonly
       />
     </VbCard>
+    <VbCard title="Left label">
+      <va-checkbox
+        v-model="value"
+        label="Left label"
+        left-label
+      />
+    </VbCard>
     <VbCard title="Disabled">
       <va-checkbox
         v-model="value"

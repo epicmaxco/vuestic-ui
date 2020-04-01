@@ -136,6 +136,8 @@ export default {
   name: 'VaSelect',
   components: { VaIcon, VaDropdown, VaInput, VaInputWrapper },
   mixins: [
+    ContextPluginMixin,
+    FormComponentMixin,
     makeContextablePropsMixin({
       value: { type: [String, Number, Object, Array], default: '' },
       label: { type: String, default: '' },
@@ -161,8 +163,6 @@ export default {
       fixed: { type: Boolean, default: true },
       noClear: { type: Boolean, default: false },
     }),
-    ContextPluginMixin,
-    FormComponentMixin,
   ],
   data () {
     return {
@@ -202,6 +202,7 @@ export default {
         backgroundColor:
           this.computedError ? getHoverColor(this.$themes.danger)
             : this.success ? getHoverColor(this.$themes.success) : '#f5f8f9',
+        // TODO Color should not depend on theme explicitly and use color mixin handling instead.
         borderColor:
           this.computedError ? this.$themes.danger
             : this.success ? this.$themes.success

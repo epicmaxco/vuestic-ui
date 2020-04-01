@@ -15,7 +15,7 @@
 <script>
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import vaIconMixin from './vaIconMixin'
 import { warn } from '../../../services/utils'
 

@@ -255,6 +255,8 @@
         </va-item-section>
       </va-item>
     </va-list>
+
+    <DividerWithList />
   </VbDemo>
 </template>
 
@@ -268,9 +270,10 @@ import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaItemLabel from './VaItemLabel'
 import VaAvatar from '../va-avatar/VaAvatar'
 import VaIcon from '../va-icon/VaIcon'
+import DividerWithList from '../va-divider/DividerWithList'
 
 export default {
-  components: { VaIcon, VaAvatar, VaItemLabel, VaCheckbox, VaListSeparator, VaItemSection, VaItem, VaListLabel, VaList },
+  components: { DividerWithList, VaIcon, VaAvatar, VaItemLabel, VaCheckbox, VaListSeparator, VaItemSection, VaItem, VaListLabel, VaList },
   data () {
     return {
       appBanners: false,

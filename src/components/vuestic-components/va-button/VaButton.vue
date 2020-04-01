@@ -19,33 +19,44 @@
     @mouseleave="updateHoverState(false)"
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
-    tabindex="0"
+    :tabindex="c_loading ? -1 : 0"
   >
     <div class="va-button__content">
-      <va-icon
-        v-if="c_icon"
-        class="va-button__content__icon"
-        :name="c_icon"
-        :size="size"
-      />
-      <div
-        v-if="hasTitleData"
-        class="va-button__content__title"
-      >
-        <slot />
-      </div>
-      <va-icon
-        v-if="c_iconRight"
-        class="va-button__content__icon"
-        :name="c_iconRight"
-        :size="size"
-      />
+      <template v-if="c_loading">
+        <va-progress-circle
+          indeterminate
+          :size="loaderSize"
+          :color="computedStyle.color"
+          :thickness="0.15"
+        />
+      </template>
+      <template v-else>
+        <va-icon
+          v-if="c_icon"
+          class="va-button__content__icon"
+          :name="c_icon"
+          :size="size"
+        />
+        <div
+          v-if="hasTitleData"
+          class="va-button__content__title"
+        >
+          <slot />
+        </div>
+        <va-icon
+          v-if="c_iconRight"
+          class="va-button__content__icon"
+          :name="c_iconRight"
+          :size="size"
+        />
+      </template>
     </div>
   </component>
 </template>
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import {
   getGradientBackground,
   getFocusColor,
@@ -55,6 +66,7 @@ import {
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { SizeMixin } from '../../../mixins/SizeMixin'
 
 const buttonContextMixin = makeContextablePropsMixin({
   color: { type: String, default: 'success' },
@@ -72,6 +84,9 @@ const buttonContextMixin = makeContextablePropsMixin({
   iconRight: { type: String, default: '' },
   type: { type: String, default: 'button' },
   disabled: { type: Boolean, default: false },
+  loading: { type: Boolean, default: false },
+  block: { type: Boolean, default: false },
+  round: { type: Boolean, default: true },
   /* Link props */
   href: { type: String, default: undefined },
   target: { type: String, default: undefined },
@@ -79,11 +94,12 @@ const buttonContextMixin = makeContextablePropsMixin({
 
 export default {
   name: 'VaButton',
-  components: { VaIcon },
+  components: { VaIcon, VaProgressCircle },
   mixins: [
     ColorThemeMixin,
     RouterLinkMixin,
     buttonContextMixin,
+    SizeMixin,
   ],
   inject: {
     va: {
@@ -95,6 +111,16 @@ export default {
       hoverState: false,
       focusState: false,
     }
+  },
+  watch: {
+    c_loading: function (newValue) {
+      this.$el.blur()
+
+      if (newValue === true) {
+        this.updateFocusState(false)
+        this.updateHoverState(false)
+      }
+    },
   },
   computed: {
     computedClass () {
@@ -111,6 +137,9 @@ export default {
         'va-button--large': this.c_size === 'large',
         'va-button--small': this.c_size === 'small',
         'va-button--normal': !this.c_size || this.c_size === 'medium',
+        'va-button--loading': this.c_loading,
+        'va-button--block': this.c_block,
+        'va-button--square': !this.c_round,
       }
     },
     gradientStyle () {
@@ -130,6 +159,15 @@ export default {
         return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.c_color ? this.colorComputed : this.$themes[this.va.color])
       }
       return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
+    },
+    loaderSize () {
+      const size = /([0-9]*)(px)/.exec(this.sizeComputed)
+
+      if (size) {
+        return `${size[1] / 2}${size[2]}`
+      }
+
+      return this.sizeComputed
     },
     computedStyle () {
       const computedStyle = {
@@ -184,6 +222,7 @@ export default {
       return 'button'
     },
     inputListeners () {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
       const vm = this
       return Object.assign({},
         this.$listeners,
@@ -317,6 +356,10 @@ export default {
     &.va-button--outline {
       line-height: $btn-line-height-lg - 2 * $btn-border-outline;
     }
+
+    &.va-button--square {
+      border-radius: $btn-border-radius-lg-square;
+    }
   }
 
   &--small {
@@ -353,6 +396,10 @@ export default {
 
     &.va-button--outline {
       line-height: $btn-line-height-sm - 2 * $btn-border-outline;
+    }
+
+    &.va-button--square {
+      border-radius: $btn-border-radius-sm-square;
     }
   }
 
@@ -391,6 +438,23 @@ export default {
     &.va-button--outline {
       line-height: $btn-line-height-nrm - 2 * $btn-border-outline;
     }
+
+    &.va-button--square {
+      border-radius: $btn-border-radius-nrm-square;
+    }
+  }
+
+  &--loading {
+    pointer-events: none;
+  }
+
+  &--block {
+    display: flex;
+    min-width: 100%;
+  }
+
+  &--square {
+    border-radius: 0.5rem;
   }
 }
 </style>

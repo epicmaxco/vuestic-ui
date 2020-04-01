@@ -389,6 +389,85 @@
             />
           </td>
         </tr>
+        <tr>
+          <td>
+            Buttons with loading status
+          </td>
+          <td>
+            <va-button
+              :loading="buttonLoading"
+              @click="buttonLoading = true"
+              size="small"
+            >
+              Start loading
+            </va-button>
+            <va-button
+              :loading="buttonLoading"
+              @click="buttonLoading = true"
+              size="medium"
+            >
+              Start loading
+            </va-button>
+            <va-button
+              :loading="buttonLoading"
+              @click="buttonLoading = true"
+              size="large"
+            >
+              Start loading
+            </va-button>
+            <va-button
+              @click="buttonLoading = false"
+            >
+              Stop loading
+            </va-button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Block button (full width)
+          </td>
+          <td>
+            <va-button block>
+              Block Button
+            </va-button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Square button
+          </td>
+          <td style="padding-top: 10px;">
+            <va-button
+              :round="false"
+              size="small"
+              style="margin-right: 10px;"
+            >
+              Square Button
+            </va-button>
+            <va-button
+              :round="false"
+              size="medium"
+              style="margin-left: 10px;"
+            >
+              Square Button
+            </va-button>
+            <va-button
+              :round="false"
+              size="large"
+              style="margin-left: 10px;"
+            >
+              Square Button
+            </va-button>
+            <va-button
+              :round="false"
+              size="medium"
+              outline
+              style="margin-left: 10px;"
+            >
+              Square Button
+            </va-button>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>
@@ -401,6 +480,11 @@ import VaButton from './VaButton'
 export default {
   components: {
     VaButton,
+  },
+  data () {
+    return {
+      buttonLoading: true,
+    }
   },
 }
 </script>

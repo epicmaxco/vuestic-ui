@@ -121,6 +121,7 @@ export default {
 $max-image-size: 8.5714rem;
 
 .va-file-upload-gallery-item {
+  display: flex;
   position: relative;
   margin-bottom: 1rem;
   margin-right: 0.5rem;
@@ -129,6 +130,7 @@ $max-image-size: 8.5714rem;
   border-radius: 0.375rem;
   overflow: hidden;
   width: 100%;
+  align-items: stretch;
 
   @include media-breakpoint-down(md) {
     flex-basis: calc(16.667% - 0.5rem);
@@ -171,7 +173,7 @@ $max-image-size: 8.5714rem;
   &__image {
     width: 100%;
     box-shadow: $card-box-shadow;
-    object-fit: scale-down;
+    object-fit: cover;
   }
 
   &__name {

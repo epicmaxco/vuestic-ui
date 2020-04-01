@@ -48,5 +48,3 @@ Here's the general example:
 ### Events 
 * `click` - Emitted when tab is clicked
 * `keydown` - Emitted when tab enter key is pressed on focused tab
-
-
