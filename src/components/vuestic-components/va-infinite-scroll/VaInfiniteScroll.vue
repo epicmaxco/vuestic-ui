@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import * as _ from 'lodash'
+import { debounce } from 'lodash'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
@@ -132,8 +132,7 @@ export default {
     finishLoading () {
       this.fetching = false
       if (this.reverse) {
-        const heightDifference =
-        this.$el.offsetHeight - this.initialHeight
+        const heightDifference = this.$el.offsetHeight - this.initialHeight
         this.scrollTargetElement.scrollTop = heightDifference
       }
     },
@@ -147,6 +146,8 @@ export default {
           },
         )
       }
+
+      this.onLoad()
     },
     stop () {
       if (this.disabled) {
@@ -161,7 +162,7 @@ export default {
       )
     },
     setDebounce (value) {
-      this.debouncedLoad = _.debounce(this.onLoad, value)
+      this.debouncedLoad = debounce(this.onLoad, value)
     },
   },
   mounted () {

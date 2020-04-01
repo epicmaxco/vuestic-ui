@@ -173,6 +173,7 @@
           v-model="disabled"
         />
         <div class="scroll__container">
+          <VbCheckbox v-model="disabled" label="Disabled"/>
           <va-infinite-scroll
             :disabled="disabled"
             :load="appendRecordsAsync"
