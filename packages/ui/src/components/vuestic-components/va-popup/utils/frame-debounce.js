@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export default function (fn) {
   let wait = false
   let frame

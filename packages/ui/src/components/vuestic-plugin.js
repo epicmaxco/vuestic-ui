@@ -81,7 +81,7 @@ import VaPaletteCustom
 installPlatform()
 
 const VuesticPlugin = {
-  install (Vue, options) {
+  install (Vue) {
     [
       VaAccordion,
       VaAvatar,

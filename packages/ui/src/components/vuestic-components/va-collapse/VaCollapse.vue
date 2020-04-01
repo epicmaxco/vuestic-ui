@@ -55,8 +55,7 @@ export default {
   inject: {
     accordion: {
       default: () => ({
-        onChildChange: () => {
-        },
+        onChildChange: () => undefined,
       }),
     },
   },

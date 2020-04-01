@@ -32,9 +32,10 @@
 </template>
 
 <script>
-const { detect } = require('detect-browser')
+import { detect } from 'detect-browser'
+import erd from 'element-resize-detector'
+
 const browser = detect()
-const erd = require('element-resize-detector')()
 
 export default {
   name: 'VaScrollbar',

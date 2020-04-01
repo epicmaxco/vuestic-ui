@@ -82,7 +82,7 @@ export default {
         },
         config: {
           type: Object,
-          default: () => {},
+          default: () => undefined,
         },
       },
     ),

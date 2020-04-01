@@ -37,7 +37,10 @@ jobs:
       - run: *install_dependencies
       - save_cache: *save_cache
       - run: yarn test:unit
+#      TODO Reenable cypress tests
+#      - run: yarn test:e2e
       - run: yarn lint
+      - run: yarn lint:style
 
   deploy-demos:
     <<: *defaults

@@ -3,11 +3,7 @@ export default {
     const duration = binding.value.duration || 500
     const isAnimated = binding.value.animate
 
-    const observer = new MutationObserver(scrollToBottom)
-    const config = { childList: true }
-    observer.observe(el, config)
-
-    function animateScroll (duration) {
+    const animateScroll = (duration) => {
       const start = el.scrollTop
       const end = el.scrollHeight
       const change = end - start
@@ -24,7 +20,7 @@ export default {
 
       function animate (elapsedTime) {
         elapsedTime += increment
-        var position = easeInOut(elapsedTime, start, change, duration)
+        const position = easeInOut(elapsedTime, start, change, duration)
         el.scrollTop = position
 
         if (elapsedTime < duration) {
@@ -37,12 +33,16 @@ export default {
       animate(0)
     }
 
-    function scrollToBottom () {
+    const scrollToBottom = () => {
       if (isAnimated) {
         animateScroll(duration)
       } else {
         el.scrollTop = el.scrollHeight
       }
     }
+
+    const observer = new MutationObserver(scrollToBottom)
+    const config = { childList: true }
+    observer.observe(el, config)
   },
 }

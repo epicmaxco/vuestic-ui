@@ -19,6 +19,7 @@ export default {
     },
   },
   provide () {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const parent = this
     return {
       va: new Vue({
