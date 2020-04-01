@@ -72,7 +72,7 @@ export default {
     onTabClick () {
       this.$emit('click')
     },
-    onTabKeydown (e) {
+    onTabKeydown () {
       this.$emit('keydown.enter')
     },
     onFocus () {

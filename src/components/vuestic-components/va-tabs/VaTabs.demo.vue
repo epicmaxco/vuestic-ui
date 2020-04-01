@@ -68,20 +68,6 @@
         <div style="width: 100%; height: 100%; background-color: wheat;"></div>
       </va-tabs>
     </VbCard>
-    <!--<VbCard title="Tabs With Pagination" style="width: 30%;">
-      <va-tabs v-model="tabValue1" prev-icon="arrow_back_ios" next-icon="arrow_forward_ios">
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
-          :name="title"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
-        <va-tab label="Tab without name" />
-        <va-tab icon="fas-home" label="Tab with icon" name="icon" />
-        <va-tab icon="face" label="Disabled tab" disabled name="disabled" />
-      </va-tabs>
-    </VbCard> -->
     <VbCard
       title="Tabs with names"
       style="width: 100%;"
@@ -98,7 +84,10 @@
       Value: {{ tabValue2 }}
       <div>
         <va-button @click="tabDynamic.push(`Tab #${tabDynamic.length + 1}`)">
-          Add one more tab
+          add tab
+        </va-button>
+        <va-button @click="tabDynamic.pop()">
+          remove tab
         </va-button>
       </div>
     </VbCard>
@@ -226,6 +215,16 @@
       </va-tabs>
     </VbCard>
     <VbCard
+      title=":value only"
+      style="width: 100%;"
+    >
+      <va-tabs :value="1">
+        <va-tab v-for="title in ['One', 'Two', 'Three']" :key="title">
+          {{ title }}
+        </va-tab>
+      </va-tabs>
+    </VbCard>
+    <VbCard
       title="Disabled tabs"
       style="width: 100%;"
     >
@@ -247,7 +246,7 @@
     >
       <va-tabs
         stateful
-        :value="1"
+        v-model="tabValue"
         color="danger"
       >
         <va-tab
@@ -259,13 +258,12 @@
       </va-tabs>
     </VbCard>
     <VbCard
-      title="Colored router tabs"
+      title="router tabs"
       style="width: 100%;"
     >
       <va-tabs
         stateful
         :value="1"
-        color="danger"
       >
         <va-tab
           name="Link 1"

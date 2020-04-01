@@ -64,57 +64,6 @@ import VaButton from '../va-button/VaButton'
 import VaTabsItems from './VaTabsItems'
 import VaTabsContent from './VaTabsContent'
 
-const tabsContextMixin = makeContextablePropsMixin({
-  value: {
-    type: [String, Number],
-    default: null,
-  },
-  left: {
-    type: Boolean,
-    default: true,
-  },
-  right: {
-    type: Boolean,
-    default: false,
-  },
-  center: {
-    type: Boolean,
-    default: false,
-  },
-  grow: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  hideSlider: {
-    type: Boolean,
-    default: false,
-  },
-  vertical: {
-    type: Boolean,
-    default: false,
-  },
-  color: {
-    type: String,
-    default: 'primary',
-  },
-  stateful: {
-    type: Boolean,
-    default: false,
-  },
-  prevIcon: {
-    type: String,
-    default: 'chevron_left',
-  },
-  nextIcon: {
-    type: String,
-    default: 'chevron_right',
-  },
-})
-
 export default {
   name: 'VaTabs',
   components: {
@@ -125,7 +74,56 @@ export default {
   mixins: [
     ColorThemeMixin,
     VaTabsItems,
-    tabsContextMixin,
+    makeContextablePropsMixin({
+      value: {
+        type: [String, Number],
+        default: null,
+      },
+      left: {
+        type: Boolean,
+        default: true,
+      },
+      right: {
+        type: Boolean,
+        default: false,
+      },
+      center: {
+        type: Boolean,
+        default: false,
+      },
+      grow: {
+        type: Boolean,
+        default: false,
+      },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
+      hideSlider: {
+        type: Boolean,
+        default: false,
+      },
+      vertical: {
+        type: Boolean,
+        default: false,
+      },
+      color: {
+        type: String,
+        default: 'primary',
+      },
+      stateful: {
+        type: Boolean,
+        default: false,
+      },
+      prevIcon: {
+        type: String,
+        default: 'chevron_left',
+      },
+      nextIcon: {
+        type: String,
+        default: 'chevron_right',
+      },
+    }),
   ],
   data () {
     return {
@@ -199,11 +197,12 @@ export default {
             this.tabs.push(instance)
 
             if (!instance._tabEventsInited) {
+              // eslint-disable-next-line @typescript-eslint/no-this-alias
               const self = this
 
-              instance.$on('click', function (e) { self.selectTab(this) })
-              instance.$on('keydown.enter', function (e) { self.selectTab(this) })
-              instance.$on('focus', function (e) { self.ensureVisible(this) })
+              instance.$on('click', function () { self.selectTab(this) })
+              instance.$on('keydown.enter', function () { self.selectTab(this) })
+              instance.$on('focus', function () { self.ensureVisible(this) })
               instance._tabEventsInited = true
             }
           }
