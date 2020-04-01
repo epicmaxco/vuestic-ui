@@ -7,19 +7,19 @@
   },
   "private": true,
   "scripts": {
-    "serve": "lerna run serve",
-    "test": "lerna run test",
-    "lint": "lerna run lint --",
-    "build": "lerna run build",
-    "serve:book": "lerna run serve:book",
-    "build:book": "lerna run build:book",
-    "test:unit": "lerna run test:unit",
-    "lint:style": "lerna run lint:style",
-    "serve:docs": "lerna run serve:docs",
-    "serve:docs:nuxt": "lerna run serve:docs:nuxt",
-    "build:docs": "lerna run build:docs",
-    "push": "lerna run push",
-    "push-production": "lerna run push-production"
+    "serve": "lerna run serve --stream",
+    "test": "lerna run test --stream",
+    "lint": "lerna run lint --stream --",
+    "build": "lerna run build --stream",
+    "serve:book": "lerna run serve:book --stream",
+    "build:book": "lerna run build:book --stream",
+    "test:unit": "lerna run test:unit --stream",
+    "lint:style": "lerna run lint:style --stream",
+    "serve:docs": "lerna run serve:docs --stream",
+    "serve:docs:nuxt": "lerna run serve:docs:nuxt --stream",
+    "build:docs": "lerna run build:docs --stream",
+    "push": "lerna run push --stream",
+    "push-production": "lerna run push-production --stream"
   },
   "workspaces": [
      "packages/*"
