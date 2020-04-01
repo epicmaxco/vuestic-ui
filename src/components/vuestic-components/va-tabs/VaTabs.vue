@@ -1,46 +1,58 @@
 <template>
-  <div class="va-tabs">
-    <div
-      class="va-tabs__wrapper"
-      ref="wrapper"
-    >
-      <va-button
-        v-if="showPagination"
-        :disabled="disablePaginationLeft"
-        class="va-tabs__pagination"
-        flat
-        size="medium"
-        :icon="c_prevIcon"
-        @click="movePaginationLeft"
-      />
+  <div
+    class="va-tabs"
+    :class="computedTabsClass"
+  >
+    <div class="va-tabs__wrapper">
       <div
-        class="va-tabs__container"
-        :class="computedClass"
-        ref="container"
+        class="va-tabs__tabs-wrapper"
+        ref="wrapper"
       >
+        <va-button
+          v-if="showPagination"
+          :disabled="disablePaginationLeft"
+          class="va-tabs__pagination"
+          flat
+          size="medium"
+          :icon="c_prevIcon"
+          @click="movePaginationLeft"
+        />
         <div
-          class="va-tabs__content"
-          :style="paginationControlledStyles"
-          ref="content"
+          class="va-tabs__container"
+          :class="computedClass"
+          ref="container"
         >
           <div
-            class="va-tabs__slider-wrapper"
-            :style="sliderStyles"
+            class="va-tabs__tabs"
+            :style="paginationControlledStyles"
+            ref="tabs"
           >
-            <div class="va-tabs__slider" />
+            <div
+              class="va-tabs__slider-wrapper"
+              :style="sliderStyles"
+            >
+              <div class="va-tabs__slider" />
+            </div>
+            <va-tabs-items>
+              <slot />
+            </va-tabs-items>
           </div>
-          <slot />
         </div>
+        <va-button
+          v-if="showPagination"
+          :disabled="disablePaginationRight"
+          class="va-tabs__pagination"
+          flat
+          size="medium"
+          :icon="c_nextIcon"
+          @click="movePaginationRight"
+        />
       </div>
-      <va-button
-        v-if="showPagination"
-        :disabled="disablePaginationRight"
-        class="va-tabs__pagination"
-        flat
-        size="medium"
-        :icon="c_nextIcon"
-        @click="movePaginationRight"
-      />
+      <div class="va-tabs__content">
+        <va-tabs-content>
+          <slot />
+        </va-tabs-content>
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +61,8 @@
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import VaButton from '../va-button/VaButton'
+import VaTabsItems from './VaTabsItems'
+import VaTabsContent from './VaTabsContent'
 
 const tabsContextMixin = makeContextablePropsMixin({
   value: {
@@ -105,17 +119,22 @@ export default {
   name: 'VaTabs',
   components: {
     VaButton,
+    VaTabsContent,
+    VaTabsItems,
   },
   mixins: [
     ColorThemeMixin,
+    VaTabsItems,
     tabsContextMixin,
   ],
   data () {
     return {
       tabs: [],
       innerValue: null,
-      sliderWidth: 0,
-      sliderOffset: 0,
+      sliderHeight: null,
+      sliderWidth: null,
+      sliderOffsetX: 0,
+      sliderOffsetY: 0,
       showPagination: false,
       tabsContentOffset: 0,
       mutationObserver: null,
@@ -129,7 +148,11 @@ export default {
         'va-tabs__container--center': this.c_center,
         'va-tabs__container--grow': this.c_grow,
         'va-tabs__container--disabled': this.c_disabled,
-        'va-tabs__container--vertical': this.c_vertical,
+      }
+    },
+    computedTabsClass () {
+      return {
+        'va-tabs--vertical': this.c_vertical,
       }
     },
     tabSelected () {
@@ -138,8 +161,9 @@ export default {
     sliderStyles () {
       return {
         'background-color': this.colorComputed,
-        width: `${this.c_hideSlider ? 0 : this.sliderWidth}px`,
-        transform: `translateX(${this.sliderOffset}px`,
+        width: `${this.sliderWidth}px`,
+        height: `${this.sliderHeight}px`,
+        transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
       }
     },
     paginationControlledStyles () {
@@ -210,8 +234,8 @@ export default {
     },
     updatePagination () {
       this.showPagination = false
-      if (this.$refs.content && this.$refs.wrapper) {
-        if (this.$refs.content.clientWidth > this.$refs.wrapper.clientWidth) this.showPagination = true
+      if (this.$refs.tabs && this.$refs.wrapper) {
+        if (this.$refs.tabs.clientWidth > this.$refs.wrapper.clientWidth) this.showPagination = true
       }
     },
     movePaginationLeft () {
@@ -248,8 +272,17 @@ export default {
       }
     },
     updateSlider (tab) {
-      this.sliderOffset = tab.$el.offsetLeft
-      this.sliderWidth = tab.$el.clientWidth
+      if (this.c_vertical) {
+        this.sliderOffsetY = (this.$refs.container.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
+        this.sliderHeight = tab.$el.clientHeight
+        this.sliderOffsetX = 0
+        this.sliderWidth = null
+      } else {
+        this.sliderOffsetX = tab.$el.offsetLeft
+        this.sliderWidth = tab.$el.clientWidth
+        this.sliderOffsetY = 0
+        this.sliderHeight = null
+      }
     },
   },
   mounted () {
@@ -261,7 +294,7 @@ export default {
     this.mutationObserver = new MutationObserver(() => {
       this.parseItems()
     })
-    this.mutationObserver.observe(this.$refs.content, { childList: true })
+    this.mutationObserver.observe(this.$refs.tabs, { childList: true, subtree: true })
   },
   beforeDestroy () {
     if (this.mutationObserver) this.mutationObserver.disconnect()
@@ -275,10 +308,15 @@ export default {
 .va-tabs {
   position: relative;
 
-  .va-tabs__wrapper {
+  &__wrapper {
+    display: flex;
+  }
+
+  &__tabs-wrapper {
     overflow: hidden;
     contain: content;
     display: flex;
+    flex: 1 1 auto;
   }
 
   .va-tabs__pagination {
@@ -293,7 +331,7 @@ export default {
     white-space: nowrap;
     position: relative;
 
-    .va-tabs__content {
+    .va-tabs__tabs {
       position: absolute;
       transition: all ease 0.3s;
     }
@@ -334,6 +372,32 @@ export default {
     }
   }
 
+  &--vertical {
+    .va-tabs__tabs-wrapper {
+      flex: 0 0 auto;
+    }
+
+    .va-tabs__container {
+      height: auto;
+
+      .va-tabs__tabs {
+        position: relative;
+      }
+    }
+
+    .va-tab {
+      display: flex;
+
+      &__content {
+        flex: 0 0 auto;
+      }
+    }
+
+    .va-tabs__content {
+      flex: 1 0 auto;
+    }
+  }
+
   .va-tabs__slider-wrapper {
     bottom: 0;
     margin: 0 !important;
@@ -342,7 +406,7 @@ export default {
     transition: $transition-primary;
 
     .va-tabs__slider {
-      width: 100%;
+      width: 0.125rem;
       height: 0.125rem;
     }
   }

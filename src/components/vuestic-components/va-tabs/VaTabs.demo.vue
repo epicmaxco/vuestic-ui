@@ -53,6 +53,21 @@
         />
       </va-tabs>
     </VbCard>
+    <VbCard
+      title="Vertical Tabs"
+      style="width: 100%;"
+    >
+      <va-tabs v-model="tabValue1" vertical>
+        <va-tab
+          v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
+          :name="title"
+          :key="title"
+        >
+          {{ title }}
+        </va-tab>
+        <div style="width: 100%; height: 100%; background-color: wheat;"></div>
+      </va-tabs>
+    </VbCard>
     <!--<VbCard title="Tabs With Pagination" style="width: 30%;">
       <va-tabs v-model="tabValue1" prev-icon="arrow_back_ios" next-icon="arrow_forward_ios">
         <va-tab
