@@ -11,9 +11,11 @@
   >
     <div
       class="va-checkbox__input-container"
-      @click="toggleSelection()"
+      @click="clickWrapper()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
+      tabindex="-1"
+      @blur="onBlur"
     >
       <div class="va-checkbox__square">
         <input
@@ -37,6 +39,8 @@
       <div
         class="va-checkbox__label-text"
         :style="labelStyle"
+        tabindex="-1"
+        @blur="onBlur"
       >
         <slot name="label">
           {{ c_label }}
@@ -75,6 +79,13 @@ export default {
     ColorThemeMixin,
     ContextPluginMixin,
   ],
+  watch: {
+    value (newValue) {
+      if (newValue) {
+        this.ValidateMixin_onBlur()
+      }
+    },
+  },
   computed: {
     computedClass () {
       return {
@@ -136,11 +147,11 @@ export default {
       this.isKeyboardFocused = false
       this.$emit('blur', event)
     },
+    clickWrapper () {
+      this.toggleSelection()
+    },
     toggleSelection () {
-      if (this.c_readonly) {
-        return
-      }
-      if (this.c_disabled) {
+      if (this.c_readonly || this.c_disabled) {
         return
       }
       if (this.modelIsArray) {
