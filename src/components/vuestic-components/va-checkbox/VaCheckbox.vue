@@ -14,6 +14,8 @@
       @click="clickWrapper()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
+      tabindex="-1"
+      @blur="onBlur"
     >
       <div class="va-checkbox__square">
         <input
