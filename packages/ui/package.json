@@ -5,7 +5,6 @@
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
-    "serve:book": "vue-cli-service serve --mode book",
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",

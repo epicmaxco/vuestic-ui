@@ -1,5 +1,5 @@
 {
-  "name": "vuestic-ui",
+  "name": "vuestic-ui-wrapper",
   "version": "1.0.0-alpha.2",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
@@ -8,22 +8,19 @@
   },
   "private": true,
   "scripts": {
-    "serve": "lerna run serve --stream",
-    "test": "lerna run test --stream",
-    "lint": "lerna run lint --stream --",
-    "build": "lerna run build --stream",
-    "serve:book": "lerna run serve:book --stream",
-    "build:book": "lerna run build:book --stream",
-    "test:unit": "lerna run test:unit --stream",
-    "lint:style": "lerna run lint:style --stream",
-    "serve:docs": "lerna run serve:docs --stream",
-    "serve:docs:nuxt": "lerna run serve:docs:nuxt --stream",
-    "build:docs": "lerna run build:docs --stream",
-    "push": "lerna run push --stream",
-    "push-production": "lerna run push-production --stream"
+    "serve": "yarn workspace vuestic-ui serve",
+    "test": "yarn workspace vuestic-ui test",
+    "lint": "yarn workspace vuestic-ui lint",
+    "build": "yarn workspace vuestic-ui build",
+    "build:book": "yarn workspace vuestic-ui build:book",
+    "test:unit": "yarn workspace vuestic-ui test:unit",
+    "lint:style": "yarn workspace vuestic-ui lint:style",
+    "serve:docs:nuxt": "yarn workspace @vuestic-ui/docs serve:docs:nuxt",
+    "push": "yarn workspace vuestic-ui push",
+    "push-production": "yarn workspace vuestic-ui ush-production"
   },
   "workspaces": [
-     "packages/*"
+    "packages/*"
   ],
   "gitHooks": {
     "pre-commit": "lint-staged"
