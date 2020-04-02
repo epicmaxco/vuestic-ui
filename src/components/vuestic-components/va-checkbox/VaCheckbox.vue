@@ -37,6 +37,8 @@
       <div
         class="va-checkbox__label-text"
         :style="labelStyle"
+        tabindex="-1"
+        @blur="onBlur"
       >
         <slot name="label">
           {{ c_label }}
@@ -140,10 +142,7 @@ export default {
       this.toggleSelection()
     },
     toggleSelection () {
-      if (this.c_readonly) {
-        return
-      }
-      if (this.c_disabled) {
+      if (this.c_readonly || this.c_disabled) {
         return
       }
       if (this.modelIsArray) {
