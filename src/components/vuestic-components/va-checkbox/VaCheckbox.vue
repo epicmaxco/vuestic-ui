@@ -16,6 +16,7 @@
       @mouseup="hasMouseDown = false"
       tabindex="-1"
       @blur="onBlur"
+      ref="container"
     >
       <div class="va-checkbox__square">
         <input
@@ -24,7 +25,7 @@
           :name="name"
           readonly
           @focus="onFocus"
-          @blur="onBlur"
+          @blur="onBlur($event)"
           class="va-checkbox__input"
           @keypress.prevent="toggleSelection()"
           :disabled="c_disabled"
@@ -39,6 +40,7 @@
       <div
         class="va-checkbox__label-text"
         :style="labelStyle"
+        ref="label"
         tabindex="-1"
         @blur="onBlur"
       >
@@ -143,11 +145,20 @@ export default {
       this.$emit('focus')
     },
     onBlur (event) {
-      this.ValidateMixin_onBlur()
-      this.isKeyboardFocused = false
-      this.$emit('blur', event)
+      if (this.$refs.input === event.target && !this.isCheckboxRelated(event.relatedTarget)) {
+        this.ValidateMixin_onBlur()
+        this.isKeyboardFocused = false
+        this.$emit('blur', event)
+      }
+    },
+    isCheckboxRelated (element) {
+      return [this.$refs.label, this.$refs.container].includes(element)
     },
     clickWrapper () {
+      if (this.isCheckboxRelated(document.activeElement)) {
+        this.$refs.input.focus()
+        this.isKeyboardFocused = false
+      }
       this.toggleSelection()
     },
     toggleSelection () {
