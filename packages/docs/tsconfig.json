@@ -1,9 +1,43 @@
 {
-    "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "types": [
-            "@types/node",
-            "@nuxt/types"
+      "target": "esnext",
+      "module": "esnext",
+      "strict": true,
+      "jsx": "preserve",
+      "importHelpers": true,
+      "moduleResolution": "node",
+      "experimentalDecorators": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "sourceMap": true,
+      "baseUrl": ".",
+      "types": [
+        "webpack-env",
+        "jest",
+        "@types/node",
+        "@nuxt/types"
+      ],
+      "lib": [
+        "esnext",
+        "dom",
+        "dom.iterable",
+        "scripthost"
+      ],
+      "paths": {
+        "v-tooltip": [
+          "src/types/v-tooltip.d.ts"
         ]
-    }
-}
+      }
+    },
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "src/**/*.vue",
+      "tests/**/*.ts",
+      "tests/**/*.tsx"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
+  
