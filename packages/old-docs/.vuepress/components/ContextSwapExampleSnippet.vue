@@ -121,32 +121,32 @@
 </template>
 
 <script>
-import VaList from '../../../src/components/vuestic-components/va-list/VaList'
-import VaItem from '../../../src/components/vuestic-components/va-list/VaItem'
+import VaList from '../../../ui/src/components/vuestic-components/va-list/VaList'
+import VaItem from '../../../ui/src/components/vuestic-components/va-list/VaItem'
 import VaAvatar
-  from '../../../src/components/vuestic-components/va-avatar/VaAvatar'
+  from '../../../ui/src/components/vuestic-components/va-avatar/VaAvatar'
 import VaItemSection
-  from '../../../src/components/vuestic-components/va-list/VaItemSection'
+  from '../../../ui/src/components/vuestic-components/va-list/VaItemSection'
 import VaItemLabel
-  from '../../../src/components/vuestic-components/va-list/VaItemLabel'
-import VaIcon from '../../../src/components/vuestic-components/va-icon/VaIcon'
+  from '../../../ui/src/components/vuestic-components/va-list/VaItemLabel'
+import VaIcon from '../../../ui/src/components/vuestic-components/va-icon/VaIcon'
 import VaBadge
-  from '../../../src/components/vuestic-components/va-badge/VaBadge'
-import VaCard from '../../../src/components/vuestic-components/va-card/VaCard'
+  from '../../../ui/src/components/vuestic-components/va-badge/VaBadge'
+import VaCard from '../../../ui/src/components/vuestic-components/va-card/VaCard'
 import VaButton
-  from '../../../src/components/vuestic-components/va-button/VaButton'
+  from '../../../ui/src/components/vuestic-components/va-button/VaButton'
 import VaProgressBar
-  from '../../../src/components/vuestic-components/va-progress-bar/progress-types/VaProgressBar'
+  from '../../../ui/src/components/vuestic-components/va-progress-bar/progress-types/VaProgressBar'
 import VaInput
-  from '../../../src/components/vuestic-components/va-input/VaInput'
+  from '../../../ui/src/components/vuestic-components/va-input/VaInput'
 import VaSlider
-  from '../../../src/components/vuestic-components/va-slider/VaSlider'
+  from '../../../ui/src/components/vuestic-components/va-slider/VaSlider'
 import VaPagination
-  from '../../../src/components/vuestic-components/va-pagination/VaPagination'
+  from '../../../ui/src/components/vuestic-components/va-pagination/VaPagination'
 import VaCheckbox
-  from '../../../src/components/vuestic-components/va-checkbox/VaCheckbox'
+  from '../../../ui/src/components/vuestic-components/va-checkbox/VaCheckbox'
 import VaFileUpload
-  from '../../../src/components/vuestic-components/va-file-upload/VaFileUpload'
+  from '../../../ui/src/components/vuestic-components/va-file-upload/VaFileUpload'
 
 export default {
   components: {

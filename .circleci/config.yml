@@ -8,6 +8,10 @@ aliases:
     name: Install Dependencies
     command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
 
+  - &nuxt_generate
+    name: Generate static
+    command: nuxt generate --fail-on-error
+
   - &save_cache
     name: Save Yarn Package Cache
     key: yarn-packages-{{ checksum "yarn.lock" }}
@@ -55,7 +59,7 @@ jobs:
       - run:
           name: Deploy to hosting
           command: |
-            tar -czf dist.tar.gz ~/repo/dist -C ~/repo/dist .
+            tar -czf dist.tar.gz ~/repo/packages/ui/dist -C ~/repo/packages/ui/dist .
             scp  ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
@@ -73,14 +77,14 @@ jobs:
       - restore_cache: *restore_cache
       - run: *install_dependencies
       - save_cache: *save_cache
-      - run: yarn build:docs
+      - run: *nuxt_generate
       - run:
           name: Add $SERVER_IP to known_hosts
           command: ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
       - run:
           name: Deploy to hosting
           command: |
-            tar -czf dist.tar.gz ~/repo/docs/.vuepress/dist -C ~/repo/docs/.vuepress/dist .
+            tar -czf dist.tar.gz ~/repo/docs/dist -C ~/repo/docs/dist .
             scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*

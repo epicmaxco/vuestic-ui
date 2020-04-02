@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import VaBadge from '../../../src/components/vuestic-components/va-badge/VaBadge'
-import VaIcon from '../../../src/components/vuestic-components/va-icon/VaIcon'
+import VaBadge from '../../../ui/src/components/vuestic-components/va-badge/VaBadge'
+import VaIcon from '../../../ui/src/components/vuestic-components/va-icon/VaIcon'
 
 export default {
   components: {

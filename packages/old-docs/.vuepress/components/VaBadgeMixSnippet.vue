@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import { ContextPluginMixin } from '../../../src/components/context-test/context-provide/ContextPlugin'
-import VaBadge from '../../../src/components/vuestic-components/va-badge/VaBadge'
-import VaIcon from '../../../src/components/vuestic-components/va-icon/VaIcon'
+import { ContextPluginMixin } from '../../../ui/src/components/context-test/context-provide/ContextPlugin'
+import VaBadge from '../../../ui/src/components/vuestic-components/va-badge/VaBadge'
+import VaIcon from '../../../ui/src/components/vuestic-components/va-icon/VaIcon'
 
 export default {
   mixins: [ContextPluginMixin],

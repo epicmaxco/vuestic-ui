@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import VaBadge from '../../../src/components/vuestic-components/va-badge/VaBadge'
+import VaBadge from '../../../ui/src/components/vuestic-components/va-badge/VaBadge'
 
 export default {
   components: {

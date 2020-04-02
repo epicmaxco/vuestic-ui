@@ -9,7 +9,7 @@
 
 <script>
 import VaContext
-  from '../../../src/components/context-test/context-provide/VaContext'
+  from '../../../ui/src/components/context-test/context-provide/VaContext'
 import ContextSwapExampleSnippet from './ContextSwapExampleSnippet'
 
 export default {

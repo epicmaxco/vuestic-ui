@@ -18,9 +18,9 @@
 </template>
 
 <script>
-  import VaBreadcrumbs from '../../../src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs'
-  import VaBreadcrumbsItem from '../../../src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem'
-  import VaIcon from '../../../src/components/vuestic-components/va-icon/VaIcon'
+  import VaBreadcrumbs from '../../../ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs'
+  import VaBreadcrumbsItem from '../../../ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem'
+  import VaIcon from '../../../ui/src/components/vuestic-components/va-icon/VaIcon'
 
   export default {
     components: {
