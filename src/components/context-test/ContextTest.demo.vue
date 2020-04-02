@@ -113,7 +113,7 @@ import VaTest from './ContextTest'
 import VaContext from './context-provide/VaContext'
 import VaButton from '../vuestic-components/va-button/VaButton'
 import VaBadge from '../vuestic-components/va-badge/VaBadge'
-import { overrideContextConfig } from '../context-test/context-provide/ContextPlugin'
+import { overrideContextConfig } from './context-provide/ContextPlugin'
 import { getContext } from '../context-test/context-provide/context'
 
 export default {

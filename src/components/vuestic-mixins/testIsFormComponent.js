@@ -1,13 +1,13 @@
 import { shallowMount } from '@vue/test-utils'
 
 // Ensure that component is proper form component
-export function testIsFormComponent (componentOptions) {
+export function testIsFormComponent (componentOptions, props = {}) {
   const wrapper = shallowMount(componentOptions, {
-    propsData: {
+    propsData: Object.assign({
       value: true,
       id: 'test-id',
       name: 'test-name',
-    },
+    }, props),
   })
 
   // Test mixin applied

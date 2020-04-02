@@ -68,7 +68,7 @@ export default {
   },
   watch: {
     showContent: {
-      handler (showContent) {
+      handler () {
         this.handlePopperInstance()
       },
     },

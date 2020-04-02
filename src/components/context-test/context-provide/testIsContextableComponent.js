@@ -3,12 +3,20 @@ import VaContext from './VaContext'
 
 // Check passed props are contextable.
 // componentProps could be used to pass down required props.
-export function testIsContextableComponent (componentOptions, contextProps, componentProps) {
+// contextConfigProps are for declaring global configs, such as icons and sizes.
+export function testIsContextableComponent (componentOptions, contextProps, componentProps, contextConfigProps) {
   const wrapperComponentOptions = {
     render (createElement) {
       return createElement(
         VaContext,
-        { props: { config: { [componentOptions.name]: contextProps } } },
+        {
+          props: {
+            config: {
+              [componentOptions.name]: contextProps,
+              ...contextConfigProps,
+            },
+          },
+        },
         [
           createElement(componentOptions, { props: componentProps }),
         ],

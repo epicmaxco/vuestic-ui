@@ -33,27 +33,30 @@
 import VaFileUploadListItem from './VaFileUploadListItem'
 import VaFileUploadGalleryItem from './VaFileUploadGalleryItem'
 import VaFileUploadSingleItem from './VaFileUploadSingleItem'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaFileUploadList',
+  mixins: [
+    makeContextablePropsMixin({
+      type: {
+        type: String,
+        default: '',
+      },
+      files: {
+        type: [Object, Array],
+        default: null,
+      },
+      color: {
+        type: String,
+        default: 'success',
+      },
+    }),
+  ],
   components: {
     VaFileUploadListItem,
     VaFileUploadGalleryItem,
     VaFileUploadSingleItem,
-  },
-  props: {
-    type: {
-      type: String,
-      default: '',
-    },
-    files: {
-      type: Object,
-      default: null,
-    },
-    color: {
-      type: String,
-      default: 'success',
-    },
   },
   computed: {
     filesList () {

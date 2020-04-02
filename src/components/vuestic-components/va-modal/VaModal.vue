@@ -201,13 +201,13 @@ export default {
     onOk: {
       type: Function,
       default () {
-        return getContextPropValue(this, 'onOk', () => {})
+        return getContextPropValue(this, 'onOk', () => undefined)
       },
     },
     onCancel: {
       type: Function,
       default () {
-        return getContextPropValue(this, 'onCancel', () => {})
+        return getContextPropValue(this, 'onCancel', () => undefined)
       },
     },
     withoutTransitions: {

@@ -1,5 +1,7 @@
+// @ts-nocheck
+
 import Vue from 'vue'
-import BookApp from './BookApp'
+import BookApp from './BookApp.vue'
 import VueClipboard from 'vue-clipboard2'
 import Router from 'vue-router'
 import { VueBookComponents, createRoute } from 'vue-book'
@@ -8,8 +10,8 @@ import { getContext } from '../components/context-test/context-provide/context'
 import { ContextPlugin } from '../components/context-test/context-provide/ContextPlugin'
 import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from '../components/resize-events'
-import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
-import { installPlatform } from '../components/vuestic-components/va-popup/install'
+import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin.js'
+import { installPlatform } from '../components/vuestic-components/va-popup/install.js'
 import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
 
 // eslint-disable-next-line

@@ -66,10 +66,6 @@ export default {
     margin-bottom: 0;
   }
 
-  &__dot {
-    margin-right: 0.5rem;
-  }
-
   &__input {
     margin-bottom: 0;
     width: 9ch;

@@ -137,8 +137,8 @@ export default {
     left: 0;
   }
 
-  /deep/ #{&}__title,
-  /deep/ #{&}__content {
+  ::v-deep #{&}__title,
+  ::v-deep #{&}__content {
     padding: $card-padding;
 
     + .va-card__title,
@@ -147,7 +147,7 @@ export default {
     }
   }
 
-  /deep/ #{&}__title {
+  ::v-deep #{&}__title {
     display: flex;
     align-items: center;
 

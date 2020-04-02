@@ -1,6 +1,17 @@
+# Investigation process
+
+You can't just start implementing without some planning, right? To do planning we use issues. Process of detailing issue is called investigation. After investigation is performed, issue could be marked as `ready for implementation`. 
+
+Here's what we do in span of investigation:
+* Check existing solution. That's needed so that next developer can be sure no work is duplicated.
+* Check references. Often. You may think that your solution is good, but in refs solutions are not only well thought, but also battle tested. That doesn't mean we want to copy all of things exactly (but many things we do). For new component issue we want a component that's implemented in several frameworks, and for features we want ones with good overlap between different frameworks. We can take some less useful features if these are easy enough to implement.
+* If some feature is not good enough for right now, but you do not want your efforts to go waste, create separate issue detailing the feature and mark it as `low priority`.
+* We have a variety of mixins (you can search in IDE for files with "mixin" in name), some of which might be relevant for current components. So be sure to give these a quick glance over while investigating. Worth noting that for almost all components we want makeContextablePropsMixin as this allows context system to operate.
+* If there was some design overhaul or component is new - add a point to ask @xx13 to review design.
+
 # How components should be implemented
 
-This document is intended to collect key concepts we want to ingrain in components as well as detail their purpose.
+This section is intended to collect key concepts we want to ingrain in components as well as detail their purpose.
 
 ## Statelessness
 Let's start with a short example. Here's a checkbox:

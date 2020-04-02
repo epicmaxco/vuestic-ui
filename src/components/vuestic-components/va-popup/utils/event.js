@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export const listenOpts = {}
 Object.defineProperty(listenOpts, 'passive', {
   configurable: true,
@@ -5,7 +7,7 @@ Object.defineProperty(listenOpts, 'passive', {
     let passive
 
     try {
-      var opts = Object.defineProperty({}, 'passive', {
+      const opts = Object.defineProperty({}, 'passive', {
         get () {
           passive = { passive: true }
         },

@@ -29,6 +29,8 @@
           {{ label }}
         </label>
         <textarea
+          :id="id"
+          :name="name"
           v-if="isTextarea"
           class="va-input__container__input"
           :style="textareaStyles"
@@ -44,6 +46,8 @@
         />
         <input
           v-else
+          :id="id"
+          :name="name"
           class="va-input__container__input"
           :style="{ paddingBottom: c_label ? '0.125rem' : '0.875rem' }"
           :aria-label="c_label"
@@ -93,7 +97,7 @@ import VaIcon from '../va-icon/VaIcon'
 import { getHoverColor } from './../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from './../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import { warn } from '../../../services/utils'
 
@@ -174,11 +178,11 @@ export default {
   computed: {
     labelStyles () {
       if (this.computedError) {
-        return { color: this.$themes.danger }
+        return { color: this.computeColor('danger') }
       }
 
       if (this.c_success) {
-        return { color: this.$themes.success }
+        return { color: this.computeColor('success') }
       }
 
       return { color: this.colorComputed }
@@ -186,12 +190,12 @@ export default {
     containerStyles () {
       return {
         backgroundColor:
-          this.computedError ? getHoverColor(this.$themes.danger)
-            : this.c_success ? getHoverColor(this.$themes.success) : '#f5f8f9',
+          this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
+            : this.c_success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
         borderColor:
-          this.computedError ? this.$themes.danger
-            : this.c_success ? this.$themes.success
-              : this.isFocused ? this.$themes.dark : this.$themes.gray,
+          this.computedError ? this.computeColor('danger')
+            : this.c_success ? this.computeColor('success')
+              : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
       }
     },
     textareaStyles () {
