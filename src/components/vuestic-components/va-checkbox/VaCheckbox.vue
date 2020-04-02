@@ -77,6 +77,13 @@ export default {
     ColorThemeMixin,
     ContextPluginMixin,
   ],
+  watch: {
+    value (newValue) {
+      if (newValue) {
+        this.ValidateMixin_onBlur()
+      }
+    },
+  },
   computed: {
     computedClass () {
       return {
