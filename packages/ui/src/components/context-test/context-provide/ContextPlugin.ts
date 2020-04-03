@@ -54,7 +54,7 @@ function getLocalConfigWithComponentProp (configs, componentName, propName) {
   return configs.reverse().find(config => {
     const componentConfig = config[componentName]
     return componentConfig && hasOwnProperty(componentConfig, propName)
-  }) || undefined
+  })
 }
 
 /**

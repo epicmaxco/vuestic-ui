@@ -45,7 +45,7 @@ const isCssColor = (strColor: string): boolean => {
   return s.color !== ''
 }
 
-const getColor = ($vm: any, prop: string, defaultColor: string | undefined = undefined): string | undefined => {
+export const getColor = ($vm: any, prop: string, defaultColor?: string): string | undefined => {
   if ($vm.$themes && $vm.$themes[prop]) {
     return $vm.$themes[prop]
   }
