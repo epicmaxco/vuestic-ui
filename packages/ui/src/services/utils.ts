@@ -76,8 +76,8 @@ export const getNestedValue = (option, propsArray) => {
  * @param option
  * @param prop
  */
-export const getValueByPath = <T extends any>(option: T, prop: string) => {
-  if (option.hasOwnProperty(prop) && (option as any)[prop] !== undefined) {
+export const getValueByPath = <T extends object>(option: T, prop: string | keyof T) => {
+  if (prop in option) {
     return option[prop]
   }
   prop = prop.replace(/^\./, '') // remove first point symbol

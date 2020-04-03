@@ -17,7 +17,7 @@
         :duration="withoutTransitions ? 0 : 500"
       >
         <div
-          v-if="value"
+          v-if="valueComputed"
           class="va-modal"
           :class="computedClass"
           :style="{maxWidth, maxHeight}"
@@ -43,7 +43,7 @@
               v-if="hasHeaderSlot"
               class="va-modal__header"
             >
-              <slot name="header" />
+              <slot name="header"/>
             </div>
             <div
               v-if="message"
@@ -55,7 +55,7 @@
               v-if="hasContentSlot"
               class="mb-4 va-modal__message"
             >
-              <slot />
+              <slot/>
             </div>
             <div
               v-if="(cancelText || okText) && !hideDefaultActions"
@@ -77,7 +77,7 @@
               v-if="hasActionsSlot"
               class="va-modal__actions"
             >
-              <slot name="actions" />
+              <slot name="actions"/>
             </div>
           </div>
         </div>
@@ -86,146 +86,106 @@
   </transition>
 </template>
 
-<script>
+<script lang="ts">
+//  @ts-nocheck
+
 import VaButton from '../va-button/VaButton'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
 export default {
   name: 'VaModal',
   components: { VaButton },
-  mixins: [ContextPluginMixin],
+  mixins: [
+    StatefulMixin,
+    makeContextablePropsMixin({
+      value: {
+        type: Boolean,
+        default: false,
+      },
+      position: {
+        type: String,
+        validator: position => {
+          return ['center', 'top', 'right', 'bottom', 'left'].includes(position)
+        },
+        default: 'center',
+      },
+      title: {
+        type: String,
+        default: '',
+      },
+      message: {
+        type: String,
+        default: '',
+      },
+      okText: {
+        type: String,
+        default: 'OK',
+      },
+      cancelText: {
+        type: String,
+        default: 'Cancel',
+      },
+      hideDefaultActions: {
+        type: Boolean,
+        default: false,
+      },
+      fullscreen: {
+        type: Boolean,
+        default: false,
+      },
+      mobileFullscreen: {
+        type: Boolean,
+        default: true,
+      },
+      noOutsideDismiss: {
+        type: Boolean,
+        default: false,
+      },
+      noEscDismiss: {
+        type: Boolean,
+        default: false,
+      },
+      maxWidth: {
+        type: String,
+        default: '',
+      },
+      maxHeight: {
+        type: String,
+        default: '',
+      },
+      size: {
+        type: String,
+        default: 'medium',
+        validator: size => {
+          return ['medium', 'small', 'large'].includes(size)
+        },
+      },
+      fixedLayout: {
+        type: Boolean,
+        default: false,
+      },
+      onOk: {
+        type: Function,
+        default: () => undefined,
+      },
+      onCancel: {
+        type: Function,
+        default: () => undefined,
+      },
+      withoutTransitions: {
+        type: Boolean,
+        default: false,
+      },
+    }),
+  ],
   data () {
     return {
       // for leave animation
       overlayValue: false,
     }
   },
-  props: {
-    value: {
-      type: Boolean,
-      required: true,
-      default () {
-        return getContextPropValue(this, 'value', false)
-      },
-    },
-    position: {
-      type: String,
-      validator: value => {
-        return ['center', 'top', 'right', 'bottom', 'left'].includes(value)
-      },
-      default () {
-        return getContextPropValue(this, 'position', 'center')
-      },
-    },
-    title: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'title', '')
-      },
-    },
-    message: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'message', '')
-      },
-    },
-    okText: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'okText', 'OK')
-      },
-    },
-    cancelText: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'cancelText', 'Cancel')
-      },
-    },
-    hideDefaultActions: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'hideDefaultActions', false)
-      },
-    },
-    fullscreen: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'fullscreen', false)
-      },
-    },
-    mobileFullscreen: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'mobileFullscreen', true)
-      },
-    },
-    noOutsideDismiss: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'noOutsideDismiss', false)
-      },
-    },
-    noEscDismiss: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'noEscDismiss', false)
-      },
-    },
-    maxWidth: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'maxWidth', '')
-      },
-    },
-    maxHeight: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'maxHeight', '')
-      },
-    },
-    size: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'size', 'medium')
-      },
-      validator: value => {
-        return ['medium', 'small', 'large'].includes(value)
-      },
-    },
-    fixedLayout: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'fixedLayout', false)
-      },
-    },
-    onOk: {
-      type: Function,
-      default () {
-        return getContextPropValue(this, 'onOk', () => undefined)
-      },
-    },
-    onCancel: {
-      type: Function,
-      default () {
-        return getContextPropValue(this, 'onCancel', () => undefined)
-      },
-    },
-    withoutTransitions: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'withoutTransitions', false)
-      },
-    },
-  },
   computed: {
-    valueProxy: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('input', value)
-      },
-    },
     computedClass () {
       return {
         'va-modal--fullscreen': this.fullscreen,
@@ -260,8 +220,8 @@ export default {
     },
   },
   watch: {
-    value (value) {
-      if (value) {
+    valueComputed (valueComputed) {
+      if (valueComputed) {
         this.overlayValue = true
         window.addEventListener('keyup', this.listenKeyUp)
       } else {
@@ -277,8 +237,11 @@ export default {
     },
   },
   methods: {
+    show () {
+      this.valueComputed = true
+    },
     close () {
-      this.valueProxy = false
+      this.valueComputed = false
     },
     cancel () {
       this.close()

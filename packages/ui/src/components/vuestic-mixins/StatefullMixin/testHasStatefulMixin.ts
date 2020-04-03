@@ -5,7 +5,7 @@ import { StatefulMixin } from './StatefulMixin'
 export function testHasStatefulMixin (componentOptions: StatefulMixin) {
   const wrapper: Wrapper<StatefulMixin> = shallowMount(componentOptions)
 
-// Test mixin applied
+  // Test mixin applied
   if (!(wrapper.vm as any).hasStatefulMixin) {
     throw new Error('StatefulMixin is not added')
   }
@@ -14,10 +14,10 @@ export function testHasStatefulMixin (componentOptions: StatefulMixin) {
   wrapper.vm.valueComputed = 'one'
   expect(wrapper.vm.valueComputed).not.toBe('one')
   // But parent can
-  wrapper.setProps({value: 'two'})
+  wrapper.setProps({ value: 'two' })
   expect(wrapper.vm.valueComputed).toBe('two')
   // Stateful component can modify value
-  wrapper.setProps({stateful: true})
+  wrapper.setProps({ stateful: true })
   wrapper.vm.valueComputed = 'three'
   expect(wrapper.vm.valueComputed).toBe('three')
 }
