@@ -157,7 +157,7 @@ export function mergeConfigs (configA, configB) {
  * @param prefix - that prefix goes to contexted prop (that's intended for userland usage)
  * @returns object - vue mixin with props and computed
  */
-export const makeContextablePropsMixin = (componentProps, prefix = 'c_') => {
+export const makeContextablePropsMixin = (componentProps, prefix = 'c_'): ComponentOptions => {
   const computed = {}
 
   Object.entries(componentProps).forEach(([name, definition]) => {

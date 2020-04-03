@@ -1,7 +1,9 @@
+//  @ts-nocheck
+
 import { v4 as uuidv4 } from 'uuid'
 import { isObject } from 'lodash'
 
-export const sleep = ms => {
+export const sleep = (ms = 0) => {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
@@ -68,10 +70,16 @@ export const getNestedValue = (option, propsArray) => {
   return getNestedValue(nestedItem, propsArray.slice(1))
 }
 
-// Finds value in the object using string with dots 'key.key.key'
-export const getValueByPath = (option, prop) => {
-  if (option === null || typeof prop !== 'string' || !prop) return option
-  if (option[prop] !== undefined) return option[prop]
+/**
+ * Finds value in the object using string with dots 'key.key.key'
+ *
+ * @param option
+ * @param prop
+ */
+export const getValueByPath = <T extends any>(option: T, prop: string) => {
+  if (option.hasOwnProperty(prop) && (option as any)[prop] !== undefined) {
+    return option[prop]
+  }
   prop = prop.replace(/^\./, '') // remove first point symbol
   return getNestedValue(option, prop.split('.'))
 }
@@ -80,11 +88,11 @@ export const getValueByPath = (option, prop) => {
  * Finds value of nested property inside of an object.
  *
  * @param option - Object to look properties inside
- * @param prop - Either String or Function used to find nested property
+ * @param prop - string or function used to find nested property
  */
-export const getProp = (option, prop) => {
+export const getProp = <T extends (object | string)> (option: T, prop: string | ((t: T) => any)): any => {
   if (typeof option === 'string') return
-  if (!prop) return option
+  if (!prop || !option) return option
   if (typeof prop === 'string') return getValueByPath(option, prop)
   if (typeof prop === 'function') return prop(option)
   return option
