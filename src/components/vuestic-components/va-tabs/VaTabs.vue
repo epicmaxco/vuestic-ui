@@ -157,10 +157,20 @@ export default {
       return this.c_stateful ? this.innerValue : this.value
     },
     sliderStyles () {
+      if (this.c_hideSlider) {
+        return {
+        }
+      }
+      if (this.c_vertical) {
+        return {
+          'background-color': this.colorComputed,
+          height: `${this.sliderHeight}px`,
+          transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
+        }
+      }
       return {
         'background-color': this.colorComputed,
         width: `${this.sliderWidth}px`,
-        height: `${this.sliderHeight}px`,
         transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
       }
     },
@@ -217,18 +227,24 @@ export default {
       this.$emit('input', tab.id)
     },
     updateTabsState () {
+      let hasActive = false
       for (let i = 0; i < this.tabs.length; i++) {
         if (this.tabs[i].isActiveRouterLink) {
           this.ensureVisible(this.tabs[i])
           this.updateSlider(this.tabs[i])
+          hasActive = true
           this.tabs[i].isActive = true
         } else if (this.tabs[i].id === this.tabSelected) {
+          hasActive = true
           this.ensureVisible(this.tabs[i])
           this.updateSlider(this.tabs[i])
           this.tabs[i].isActive = true
         } else {
           this.tabs[i].isActive = false
         }
+      }
+      if (!hasActive) {
+        this.resetSlider()
       }
     },
     updatePagination () {
@@ -283,6 +299,12 @@ export default {
         this.sliderHeight = null
       }
     },
+    resetSlider () {
+      this.sliderOffsetX = 0
+      this.sliderWidth = 0
+      this.sliderOffsetY = 0
+      this.sliderHeight = 0
+    },
   },
   mounted () {
     if (this.c_stateful) this.innerValue = this.value
@@ -292,6 +314,7 @@ export default {
 
     this.mutationObserver = new MutationObserver(() => {
       this.parseItems()
+      this.updateTabsState()
     })
     this.mutationObserver.observe(this.$refs.tabs, { childList: true, subtree: true })
   },
@@ -335,33 +358,27 @@ export default {
       transition: all ease 0.3s;
     }
 
-    &--right {
+    .va-tabs__tabs-items {
       display: flex;
+    }
+
+    &--right {
       justify-content: flex-end;
     }
 
     &--grow {
+      .va-tabs__tabs {
+        width: 100%;
+      }
+
       .va-tab {
         flex: 1 0 auto;
         max-width: none;
       }
     }
 
-    &--center,
-    &--right {
-      > .va-tab:first-child {
-        margin-left: auto;
-      }
-
-      .va-tabs__slider-wrapper + .va-tab {
-        margin-left: auto;
-      }
-    }
-
     &--center {
-      > .va-tab:last-child {
-        margin-right: auto;
-      }
+      justify-content: center;
     }
 
     &--disabled {
@@ -378,6 +395,10 @@ export default {
 
     .va-tabs__container {
       height: auto;
+
+      .va-tabs__tabs-items {
+        flex-direction: column;
+      }
 
       .va-tabs__tabs {
         position: relative;

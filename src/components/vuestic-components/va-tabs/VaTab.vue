@@ -95,7 +95,7 @@ export default {
       return 'div'
     },
     tabIndexComputed () {
-      return this.disabled ? -1 : 0
+      return (this.disabled || this.isActive) ? -1 : 0
     },
     rightSidePosition () {
       return this.$el.offsetLeft + this.$el.offsetWidth

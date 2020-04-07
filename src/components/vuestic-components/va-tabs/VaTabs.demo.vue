@@ -54,10 +54,14 @@
       </va-tabs>
     </VbCard>
     <VbCard
-      title="Vertical Tabs"
-      style="width: 100%;"
+      title="Tabs With Pagination and Custom Icons"
+      style="width: 30%;"
     >
-      <va-tabs v-model="tabValue1" vertical>
+      <va-tabs
+        v-model="tabValue1"
+        prev-icon="arrow_back_ios"
+        next-icon="arrow_forward_ios"
+      >
         <va-tab
           v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
           :name="title"
@@ -65,7 +69,36 @@
         >
           {{ title }}
         </va-tab>
-        <div style="width: 100%; height: 100%; background-color: wheat;"></div>
+        <va-tab label="Tab without name" />
+        <va-tab
+          icon="fas-home"
+          label="Tab with icon"
+          name="icon"
+        />
+        <va-tab
+          icon="face"
+          label="Disabled tab"
+          disabled
+          name="disabled"
+        />
+      </va-tabs>
+    </VbCard>
+    <VbCard
+      title="Vertical Tabs"
+      style="width: 100%;"
+    >
+      <va-tabs
+        v-model="tabValue1"
+        vertical
+      >
+        <va-tab
+          v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
+          :name="title"
+          :key="title"
+        >
+          {{ title }}
+        </va-tab>
+        <div style="width: 100%; height: 100%; background-color: wheat;" />
       </va-tabs>
     </VbCard>
     <VbCard
@@ -86,8 +119,9 @@
         <va-button @click="tabDynamic.push(`Tab #${tabDynamic.length + 1}`)">
           add tab
         </va-button>
-        <va-button @click="tabDynamic.pop()">
-          remove tab
+
+        <va-button @click="removeArrEl(tabDynamic)">
+          Remove tab
         </va-button>
       </div>
     </VbCard>
@@ -133,6 +167,23 @@
           {{ title }}
         </va-tab>
       </va-tabs>
+      <va-tabs
+        v-model="tabValue"
+        v-if="show"
+      >
+        <va-tab
+          v-for="title in ['One', 'Two', 'Three', 'Four']"
+          :key="title"
+        >
+          {{ title }}
+        </va-tab>
+      </va-tabs>
+
+      <div>
+        <va-button @click="show = !show">
+          Toggle
+        </va-button>
+      </div>
       Value: {{ tabValue }}
     </VbCard>
     <VbCard
@@ -279,6 +330,23 @@
         </va-tab>
       </va-tabs>
     </VbCard>
+    <VbCard
+      title="Tabs with hidden slider"
+      style="width: 100%;"
+    >
+      <va-tabs
+        stateful
+        :value="1"
+        hide-slider
+      >
+        <va-tab
+          v-for="title in ['One', 'Two', 'Three', 'Four']"
+          :key="title"
+        >
+          {{ title }}
+        </va-tab>
+      </va-tabs>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -303,7 +371,15 @@ export default {
       tabValue3: 0,
       tabStateless: [1, 2, 3, 4],
       tabAdded: [],
+      show: false,
     }
+  },
+  methods: {
+    removeArrEl: (arr) => {
+      arr = {
+        ...arr.pop(),
+      }
+    },
   },
 }
 </script>
