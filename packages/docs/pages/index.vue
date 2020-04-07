@@ -2,7 +2,7 @@
 <div>
 
   <Header :isSidebarVisible.sync="isSidebarVisible"/>
-  <div style="padding-top:64px; display: flex; flex-direction: row;">
+  <div style="padding-top: 64px; display: flex; flex-direction: row;">
     <Sidebar v-if="isSidebarVisible"/>
     <div>
       <va-breadcrumbs align="left" active-color="primary">
@@ -57,7 +57,7 @@ export default Vue.extend({
       }, [] as {[key: string]: string}[])
     }
   }
-  
+
 })
 </script>
 <style lang="scss">
