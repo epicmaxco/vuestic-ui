@@ -92,7 +92,7 @@
         vertical
       >
         <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
+          v-for="title in tabDynamic"
           :name="title"
           :key="title"
         >
@@ -116,13 +116,13 @@
       </va-tabs>
       Value: {{ tabValue2 }}
       <div>
-        <va-button @click="tabDynamic.push(`Tab #${tabDynamic.length + 1}`)">
-          add tab
-        </va-button>
+        <button @click="tabDynamic.push(`Tab #${tabDynamic.length + 1}`)">
+          Add tab
+        </button>
 
-        <va-button @click="removeArrEl(tabDynamic)">
+        <button @click="tabDynamic.pop()">
           Remove tab
-        </va-button>
+        </button>
       </div>
     </VbCard>
     <VbCard
@@ -142,9 +142,9 @@
       </va-tabs>
       Value: {{ tabValue3 }}
       <div>
-        <va-button @click="tabAdded.push(`Tab #${tabAdded.length + 1}`)">
+        <button @click="tabAdded.push(`Tab #${tabAdded.length + 1}`)">
           Add one more tab
-        </va-button>
+        </button>
       </div>
     </VbCard>
     <VbCard
@@ -180,9 +180,9 @@
       </va-tabs>
 
       <div>
-        <va-button @click="show = !show">
+        <button @click="show = !show">
           Toggle
-        </va-button>
+        </button>
       </div>
       Value: {{ tabValue }}
     </VbCard>
@@ -205,16 +205,16 @@
     >
       <va-tabs stateful>
         <va-tab
-          v-for="title in tabStateless"
+          v-for="title in tabStateful"
           :key="title"
         >
           Tab #{{ title }}
         </va-tab>
       </va-tabs>
       <div>
-        <va-button @click="tabStateless.push(tabStateless.length + 1)">
+        <button @click="tabStateful.push(tabStateful.length + 1)">
           Add one more tab
-        </va-button>
+        </button>
       </div>
     </VbCard>
     <VbCard
@@ -353,13 +353,11 @@
 <script>
 import VaTabs from './VaTabs'
 import VaTab from './VaTab'
-import VaButton from '../va-button/VaButton'
 
 export default {
   components: {
     VaTabs,
     VaTab,
-    VaButton,
   },
   data () {
     return {
@@ -369,17 +367,10 @@ export default {
       tabValue1: 'One',
       tabValue2: 'One',
       tabValue3: 0,
-      tabStateless: [1, 2, 3, 4],
+      tabStateful: [1, 2, 3, 4],
       tabAdded: [],
       show: false,
     }
-  },
-  methods: {
-    removeArrEl: (arr) => {
-      arr = {
-        ...arr.pop(),
-      }
-    },
   },
 }
 </script>
