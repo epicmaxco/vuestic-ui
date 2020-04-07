@@ -1,3 +1,6 @@
 export default {
-    buildModules: ['@nuxt/typescript-build']
+    buildModules: ['@nuxt/typescript-build'],
+    plugins: [
+        {mode: 'client', src: '~/plugins/ui-plugin.ts',}
+    ]
 }

@@ -6,14 +6,24 @@
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "license": "MIT",
   "dependencies": {
+    "@nuxt/typescript-runtime": "^0.4.1",
+    "@types/algoliasearch": "^3.34.10",
+    "algoliasearch": "^4.1.0",
     "core-js": "2",
-    "nuxt": "^2.12.1"
+    "instantsearch.css": "^7.4.2",
+    "nuxt": "^2.12.1",
+    "vue": "^2.6.11",
+    "vue-instantsearch": "^2.7.0",
+    "vue-loader": "^15.9.1",
+    "vue-router": "^3.1.6",
+    "vue-server-renderer": "^2.6.11",
+    "vue-style-loader": "^4.1.2"
   },
   "scripts": {
-    "serve:docs:nuxt": "nuxt --port 8080",
-    "build:docs:nuxt": "nuxt build",
-    "start:docs:nuxt": "nuxt start",
-    "generate:docs:nuxt": "nuxt generate --fail-on-error"
+    "serve:docs:nuxt": "nuxt-ts",
+    "build:docs:nuxt": "nuxt-ts build",
+    "start:docs:nuxt": "nuxt-ts start",
+    "generate:docs:nuxt": "nuxt-ts generate --fail-on-error"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.1"
