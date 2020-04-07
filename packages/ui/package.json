@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
     "test:unit": "vue-cli-service test:unit",
+    "test:coverage": "vue-cli-service test:unit --coverage",
     "serve:docs": "vuepress dev docs",
     "build:docs": "vuepress build docs",
     "test:e2e": "vue-cli-service test:e2e",
