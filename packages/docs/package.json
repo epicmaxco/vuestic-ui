@@ -1,0 +1,21 @@
+{
+  "name": "@vuestic-ui/docs",
+  "version": "1.0.0-alpha.2",
+  "description": "Documentation for vuestic-ui framework",
+  "main": "index.js",
+  "repository": "https://github.com/epicmaxco/vuestic-ui",
+  "license": "MIT",
+  "dependencies": {
+    "core-js": "2",
+    "nuxt": "^2.12.1"
+  },
+  "scripts": {
+    "serve:docs:nuxt": "nuxt --port 8080",
+    "build:docs:nuxt": "nuxt build",
+    "start:docs:nuxt": "nuxt start",
+    "generate:docs:nuxt": "nuxt generate --fail-on-error"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.6.1"
+  }
+}
