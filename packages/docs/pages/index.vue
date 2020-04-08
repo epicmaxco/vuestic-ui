@@ -8,7 +8,10 @@
       <va-breadcrumbs align="left" active-color="primary">
         <va-breadcrumbs-item v-for="(crumb, index) in crumbs" :label="crumb.label" :to="crumb.path" :key="index"></va-breadcrumbs-item>
       </va-breadcrumbs>
-      <nuxt-child></nuxt-child>
+      <div>
+        <dynamic-template :block="block">
+        </dynamic-template>
+      </div>
     </div>
   </div>
 </div>
@@ -20,17 +23,31 @@ import Header from "../components/header/Header.vue"
 import Sidebar from "../components/sidebar/Sidebar.vue"
 import VaBreadcrumbs from '../../ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
 import VaBreadcrumbsItem from '../../ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
+import DynamicTemplate from '../components/dynamic-template/DynamicTemplate.vue'
 
 export default Vue.extend({
   components: {
     VaBreadcrumbsItem,
     VaBreadcrumbs,
     Header,
-    Sidebar
+    Sidebar,
+    DynamicTemplate
   },
   data() {
     return {
       isSidebarVisible: true,
+      block: {
+        component: "div",
+        text: 'Parent block text',
+        style: 'font-weight: bold;',
+        children: [
+          {
+            component: "p",
+            text: 'child block text',
+            style: 'font-style: italic; color: red;'
+          }
+        ]
+      }
     }
   },
   computed: {

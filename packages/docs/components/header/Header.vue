@@ -11,9 +11,9 @@
       </div>
     </div>
     <div class="header__prefences flex xs3">
-      <div class="header__vuestic-version flex">qweqwe</div>
-      <div class="header__color-theme flex">qweqwe</div>
-      <div class="header__language flex">qweqwe</div>
+      <!-- <va-button-dropdown class="header__vuestic-version flex">qweqwe</va-button-dropdown>
+      <va-button-dropdown class="header__color-theme flex">qweqwe</va-button-dropdown>
+      <va-button-dropdown class="header__language flex">qweqwe</va-button-dropdown> -->
     </div>
   </div>
 </template>
@@ -21,7 +21,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop } from 'vue/types/options'
+// import VaButtonDropdown from '../../../ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
 export default Vue.extend({
+  components: {
+    // VaButtonDropdown
+  },
   props: {
     isSidebarVisible: {
       type: Boolean as Prop<boolean>,
@@ -85,8 +89,4 @@ export default Vue.extend({
 
     }
   }
-
-  // * {
-  //   border: 1px solid purple;
-  // }
 </style>
