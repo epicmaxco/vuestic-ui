@@ -141,7 +141,7 @@ export function mergeConfigs (configA, configB) {
 }
 
 /**
- * Instead of getting component props from one config, we're getting a props and computed.
+ * Instead of getting component props from one config, we're getting props and computed.
  * So, for name "color" it will be:
  * * prop `color` - just standard prop
  * * computed `c_color` - computed (context-bound prop)
