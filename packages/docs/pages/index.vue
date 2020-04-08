@@ -38,19 +38,20 @@ export default Vue.extend({
       if (this.$isServer) {
         return []
       }
-      const pathSteps = location.pathname.split('/')
-      return pathSteps.reduce((acc, step, index) => {
+      // @ts-ignore
+      const pathSteps: string[] = this.$route.path === '/' ? [''] : this.$route.path.split('/')
+      return pathSteps.reduce((acc, step, index, array) => {
         switch (true) {
           case !index:
-            break;
-          case !step:
             acc.push({
               label: 'Home',
               path: '/'
             })
             break;
+          case !step && index:
+            break;
           default:
-            acc.push({path: pathSteps.slice(0, index).join('/'), label: step})
+            acc.push({path: array.slice(0, index).join('/'), label: step})
             break;
         }
         return acc
