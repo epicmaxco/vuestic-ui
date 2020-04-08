@@ -141,7 +141,7 @@ export function mergeConfigs (configA, configB) {
 }
 
 /**
- * Instead of getting component props from one config, we're getting a props and computed.
+ * Instead of getting component props from one config, we're getting props and computed.
  * So, for name "color" it will be:
  * * prop `color` - just standard prop
  * * computed `c_color` - computed (context-bound prop)
@@ -157,7 +157,7 @@ export function mergeConfigs (configA, configB) {
  * @param prefix - that prefix goes to contexted prop (that's intended for userland usage)
  * @returns object - vue mixin with props and computed
  */
-export const makeContextablePropsMixin = (componentProps, prefix = 'c_') => {
+export const makeContextablePropsMixin = (componentProps, prefix = 'c_'): ComponentOptions => {
   const computed = {}
 
   Object.entries(componentProps).forEach(([name, definition]) => {

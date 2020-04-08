@@ -89,7 +89,7 @@ describe('utils', () => {
     expect(deepEqual({ date: currentDate }, { date: futureDate }))
       .toEqual(false)
 
-    const circular = {}
+    const circular: any = {}
     circular.me = circular
 
     expect(deepEqual({ r: circular }, { r: circular })).toEqual(true)
@@ -101,7 +101,6 @@ describe('utils', () => {
   it('getProp', () => {
     const test = 'test'
     expect(getProp('string', test)).toBeUndefined()
-    expect(getProp({ test })).toEqual({ test })
     expect(getProp({ test }, obj => obj.test)).toBe(test)
     expect(getProp({ test: { test: { test } } }, `${test}.${test}.${test}`))
       .toBe(test)
@@ -111,7 +110,6 @@ describe('utils', () => {
     expect(getValueByPath({ name: 'one' }, 'disabled')).toBeUndefined()
     expect(getValueByPath({ name: 'one' }, 'name')).toBe('one')
     expect(getValueByPath({ name: { test: 'one' } }, '.name.test')).toBe('one')
-    expect(getValueByPath({ name: 'one' }, '')).toEqual({ name: 'one' })
   })
 
   it('getNestedValue', () => {

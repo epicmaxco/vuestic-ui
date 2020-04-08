@@ -112,6 +112,19 @@
         </template>
       </va-modal>
     </VbCard>
+    <VbCard title="stateful">
+      <button @click="$refs.statefulModal.show()">
+        Show modal
+      </button>
+      <va-modal ref="statefulModal" stateful>
+        <template slot="header">
+          <h2>Step 2. Centered Layout</h2>
+        </template>
+        <slot>
+          <div>{{ message }}</div>
+        </slot>
+      </va-modal>
+    </VbCard>
     <VbCard title="mobile-fullscreen: false">
       <button @click="showModalNotMobileFullScreen = !showModalNotMobileFullScreen">
         Show modal

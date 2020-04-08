@@ -14,6 +14,7 @@
     "build": "yarn workspace vuestic-ui build",
     "build:book": "yarn workspace vuestic-ui build:book",
     "test:unit": "yarn workspace vuestic-ui test:unit",
+    "test:coverage": "yarn workspace vuestic-ui test:coverage",
     "lint:style": "yarn workspace vuestic-ui lint:style",
     "serve:docs:nuxt": "yarn workspace @vuestic-ui/docs serve:docs:nuxt",
     "push": "yarn workspace vuestic-ui push",
