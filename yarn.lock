@@ -3913,10 +3913,10 @@ astral-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-1.0.0.tgz#6c8c3fb827dd43ee3918f27b82782ab7658a6fd9"
   integrity sha512-+Ryf6g3BKoRc7jfp7ad8tM4TtMiaWvbF/1/sQcZPkkS7ag3D5nMBCe2UfOTONtAkaG0tO0ij3C5Lwmf1EiyjHg==
 
-asva-executors@^0.1.22:
-  version "0.1.22"
-  resolved "https://registry.yarnpkg.com/asva-executors/-/asva-executors-0.1.22.tgz#731370b7f5e34e7dbd412ed1a14e0d69772e6431"
-  integrity sha512-ZoYVO9EfS6OyTV4MNi+QsLIEApimxqeTboVfGyt2TXDwSszv8BBOq/eDQhLIt7RQQFZShFfzEy6Y5X3mP8qTdA==
+asva-executors@^0.1.23:
+  version "0.1.23"
+  resolved "https://registry.yarnpkg.com/asva-executors/-/asva-executors-0.1.23.tgz#5cac032d3964015fd4eec45134894daa1cf250c0"
+  integrity sha512-UEci6QfO5d07fw5VAFiHUaVbfssb+Pniq68000IxH/EDFESwx0is1qMMl/rx9vjfe7y5kZu18IHxRiiB1HPz9A==
   dependencies:
     tslib "^1.9.3"
 
