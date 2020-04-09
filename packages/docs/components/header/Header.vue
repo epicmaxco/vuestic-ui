@@ -11,9 +11,24 @@
       </div>
     </div>
     <div class="header__prefences flex xs3">
-      <!-- <va-button-dropdown class="header__vuestic-version flex">qweqwe</va-button-dropdown>
-      <va-button-dropdown class="header__color-theme flex">qweqwe</va-button-dropdown>
-      <va-button-dropdown class="header__language flex">qweqwe</va-button-dropdown> -->
+      <va-select
+        :options="defaultSelect.options"
+        v-model="defaultSelect.value"
+        noClear
+        width="95%"
+      />
+      <va-select
+        :options="defaultSelect.options"
+        v-model="defaultSelect.value"
+        noClear
+        width="95%"
+      />
+      <va-select
+        :options="defaultSelect.options"
+        v-model="defaultSelect.value"
+        noClear
+        width="95%"
+      />
     </div>
   </div>
 </template>
@@ -21,10 +36,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop } from 'vue/types/options'
-// import VaButtonDropdown from '../../../ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
+import VaSelect from '../../../ui/src/components/vuestic-components/va-select/VaSelect.vue'
 export default Vue.extend({
   components: {
-    // VaButtonDropdown
+    VaSelect
   },
   props: {
     isSidebarVisible: {
@@ -34,6 +49,10 @@ export default Vue.extend({
   },
   data() {
     return {
+      defaultSelect: {
+        options: ['one', 'two', 'three'],
+        value: 'one',
+      },
       links: [
         {
           text: 'Overview'

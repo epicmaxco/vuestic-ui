@@ -80,4 +80,5 @@ export default Vue.extend({
 </script>
 <style lang="scss">
   @import '../../ui/src/components/vuestic-sass/global/reset.scss';
+  // @import '../../ui/src/components/vuestic-sass/icons/icons.scss';
 </style>
