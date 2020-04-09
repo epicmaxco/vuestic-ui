@@ -57,6 +57,7 @@ export default {
     }
   },
   created () {
+    if (this.$isServer) return
     this.registerClickOutsideListener()
   },
   beforeDestroy () {
