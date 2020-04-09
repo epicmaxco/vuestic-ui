@@ -23,24 +23,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.js": [
-      "yarn lint --fix",
-      "git add"
-    ],
-    "*.vue": [
-      "yarn lint --fix",
-      "yarn lint:style --fix",
-      "git add"
-    ],
-    ".{htm,html,css,sss,less,scss}": [
-      "yarn lint:style --fix",
-      "git add"
-    ]
-  },
   "dependencies": {
     "@types/lodash": "^4.14.149"
   }
