@@ -185,7 +185,6 @@
     >
       <va-pagination
         :pages="1"
-        v-model="activePage"
         hide-on-single-page
       />
     </VbCard>
@@ -193,17 +192,23 @@
       title="Use total and page-size"
       style="width: 600px;"
     >
-      <va-select
-        width='200px'
-        :options="pageSizes"
-        v-model="pageSize"
-        no-clear
-      />
+      <div>
+        Page size
+        <input v-model.number="pageSize">
+      </div>
+      <div>
+        Total
+        <input v-model.number="total">
+      </div>
       <va-pagination
-        :total="100"
         v-model="activeTotalPage"
-        :page-size="+pageSize"
+        :total="total"
+        boundary-numbers
+        :page-size="pageSize"
       />
+      <div>
+        value: {{activeTotalPage}}
+      </div>
     </VbCard>
   </VbDemo>
 </template>
@@ -211,13 +216,11 @@
 <script>
 import VaPagination from './VaPagination'
 import VaInput from '../va-input/VaInput'
-import VaSelect from '../va-select/VaSelect'
 
 export default {
   components: {
     VaPagination,
     VaInput,
-    VaSelect,
   },
   data () {
     return {
@@ -225,6 +228,7 @@ export default {
       pageSizes: ['10', '20', '30', '40'],
       activeTotalPage: 3,
       pageSize: '10',
+      total: 100,
     }
   },
 }
