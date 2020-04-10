@@ -18,8 +18,12 @@ import home from './home.config.js'
 // debugger;
 // console.log(configsModule)
 
-export default {
+const configs = {
     '/child1': child1,
     '/child2': child2,
     '/': home
+}
+
+export default (self) => {
+    return configs[self.$route.path]
 }

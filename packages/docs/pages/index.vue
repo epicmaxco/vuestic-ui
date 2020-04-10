@@ -22,8 +22,6 @@ import Header from "../components/header/Header.vue"
 import Sidebar from "../components/sidebar/Sidebar.vue"
 import VaBreadcrumbs from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
 import VaBreadcrumbsItem from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
-import DynamicTemplate from '../components/dynamic-template/DynamicTemplate.vue'
-import dynamicConfigs from '../dynamic-configs'
 
 export default Vue.extend({
   components: {
@@ -31,7 +29,6 @@ export default Vue.extend({
     VaBreadcrumbs,
     Header,
     Sidebar,
-    DynamicTemplate
   },
   data() {
     return {
