@@ -10,37 +10,37 @@
 .i-nav-notification {
   @extend .i-nav;
 
-  background: url('./../assets/icons/nav-notifications.svg') no-repeat center;
+  background: url('/src/assets/icons/nav-notifications.svg') no-repeat center;
 }
 
 .i-nav-color {
   @extend .i-nav;
 
-  background: url('./../assets/icons/nav-color.svg') no-repeat center;
+  background: url('/src/assets/icons/nav-color.svg') no-repeat center;
 }
 
 .i-nav-messages {
   @extend .i-nav;
 
-  background: url('./../assets/icons/nav-messages.svg') no-repeat center;
+  background: url('/src/assets/icons/nav-messages.svg') no-repeat center;
 }
 
 .i-nav-search {
   @extend .i-nav;
 
-  background: url('./../assets/icons/nav-search.svg') no-repeat center;
+  background: url('/src/assets/icons/nav-search.svg') no-repeat center;
 }
 
 .i-menu-expanded {
   @extend .i-nav;
 
-  background: url('./../assets/icons/menu-expanded.svg') no-repeat center;
+  background: url('/src/assets/icons/menu-expanded.svg') no-repeat center;
 }
 
 .i-menu-collapsed {
   @extend .i-nav;
 
-  background: url('./../assets/icons/menu-collapsed.svg') no-repeat center center;
+  background: url('/src/assets/icons/menu-collapsed.svg') no-repeat center center;
 }
 
 // Catchall baseclass

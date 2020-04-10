@@ -9,7 +9,7 @@
         <va-breadcrumbs-item v-for="(crumb, index) in crumbs" :label="crumb.label" :to="crumb.path" :key="index"></va-breadcrumbs-item>
       </va-breadcrumbs>
       <div>
-        <dynamic-template :block="block">
+        <dynamic-template :block="config">
         </dynamic-template>
       </div>
     </div>
@@ -18,12 +18,14 @@
 </template>
 
 <script lang="ts">
+// @ts-nocheck
 import Vue from 'vue'
 import Header from "../components/header/Header.vue"
 import Sidebar from "../components/sidebar/Sidebar.vue"
-import VaBreadcrumbs from '../../ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
-import VaBreadcrumbsItem from '../../ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
+import VaBreadcrumbs from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
+import VaBreadcrumbsItem from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
 import DynamicTemplate from '../components/dynamic-template/DynamicTemplate.vue'
+import dynamicConfigs from '../dynamic-configs'
 
 export default Vue.extend({
   components: {
@@ -36,21 +38,12 @@ export default Vue.extend({
   data() {
     return {
       isSidebarVisible: true,
-      block: {
-        component: "div",
-        text: 'Parent block text',
-        style: 'font-weight: bold;',
-        children: [
-          {
-            component: "p",
-            text: 'child block text',
-            style: 'font-style: italic; color: red;'
-          }
-        ]
-      }
     }
   },
   computed: {
+    config() {
+      return dynamicConfigs[this.$route.path] || {}
+    },
     crumbs() {
       if (this.$isServer) {
         return []
@@ -79,6 +72,6 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss">
-  @import '../../ui/src/components/vuestic-sass/global/reset.scss';
-  @import '../../ui/src/components/vuestic-sass/icons/icons.scss';
+  @import 'vuestic-ui/src/components/vuestic-sass/global/reset.scss';
+  @import 'vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/icon-fonts.scss';
 </style>
