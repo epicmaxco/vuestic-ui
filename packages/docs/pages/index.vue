@@ -1,20 +1,18 @@
 <template>
-<div>
-
-  <Header :isSidebarVisible.sync="isSidebarVisible"/>
-  <div style="padding-top: 64px; display: flex; flex-direction: row;">
-    <Sidebar v-if="isSidebarVisible"/>
-    <div>
-      <va-breadcrumbs align="left" active-color="primary">
-        <va-breadcrumbs-item v-for="(crumb, index) in crumbs" :label="crumb.label" :to="crumb.path" :key="index"></va-breadcrumbs-item>
-      </va-breadcrumbs>
+  <div>
+    <Header :isSidebarVisible.sync="isSidebarVisible"/>
+    <div style="padding-top: 64px; display: flex; flex-direction: row;">
+      <Sidebar v-if="isSidebarVisible"/>
       <div>
-        <dynamic-template :block="config">
-        </dynamic-template>
+        <va-breadcrumbs align="left" active-color="primary">
+          <va-breadcrumbs-item v-for="(crumb, index) in crumbs" :label="crumb.label" :to="crumb.path" :key="index"></va-breadcrumbs-item>
+        </va-breadcrumbs>
+        <div>
+          <nuxt-child></nuxt-child>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script lang="ts">
@@ -41,9 +39,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    config() {
-      return dynamicConfigs[this.$route.path] || {}
-    },
     crumbs() {
       if (this.$isServer) {
         return []
