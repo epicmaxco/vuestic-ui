@@ -14,7 +14,7 @@ export const setPaginationRange = (value: number, visiblePages: number, pages: n
       : Math.ceil(value - paginationMiddlePage)
   }
 
-  const range: Array<string | number> = []
+  const range: Array<'...' | number> = []
 
   for (let i = 0; i < visiblePages; i++) {
     range.push(start + i)

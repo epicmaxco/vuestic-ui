@@ -49,11 +49,7 @@
           :id="id"
           :name="name"
           class="va-input__container__input"
-          :style="{
-            paddingBottom: c_label ? '0.125rem' : '0.875rem',
-            textAlign: insidePagination ? 'center': 'inherit',
-            marginBottom: !insidePagination && '0.125rem'
-          }"
+          :style="{ paddingBottom: c_label ? '0.125rem' : '0.875rem' }"
           :aria-label="c_label"
           :type="c_type"
           :placeholder="c_placeholder"
@@ -134,10 +130,6 @@ const InputContextMixin = makeContextablePropsMixin({
     type: Number,
     default: 0,
   },
-  insidePagination: {
-    type: Boolean,
-    default: false,
-  },
 
   // textarea-specific
   autosize: {
@@ -196,25 +188,14 @@ export default {
       return { color: this.colorComputed }
     },
     containerStyles () {
-      if (!this.insidePagination) {
-        return {
-          minHeight: '2.375rem',
-          backgroundColor:
-            this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
-              : this.c_success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
-          borderColor:
-            this.computedError ? this.computeColor('danger')
-              : this.c_success ? this.computeColor('success')
-                : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
-        }
-      } else {
-        const isPaginationFlat = this.$parent.$parent.flat // not really good :(
-        return {
-          borderColor: this.computeColor(this.color),
-          borderWidth: isPaginationFlat ? '0 0 2px' : '2px 0',
-          minHeight: '2.275rem',
-          borderRadius: 0,
-        }
+      return {
+        backgroundColor:
+          this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
+            : this.c_success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
+        borderColor:
+          this.computedError ? this.computeColor('danger')
+            : this.c_success ? this.computeColor('success')
+              : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
       }
     },
     textareaStyles () {
@@ -288,12 +269,6 @@ export default {
     reset () {
       this.$emit('input', '')
     },
-    selectAll (value) {
-      this.$emit('input', value)
-      this.$nextTick(() => {
-        this.$refs.input.setSelectionRange(0, this.$refs.input.value.length)
-      })
-    },
   },
 }
 </script>
@@ -306,6 +281,7 @@ export default {
     display: flex;
     position: relative;
     width: 100%;
+    min-height: 2.375rem;
     border-style: solid;
     border-width: 0 0 thin 0;
     border-top-left-radius: 0.5rem;
@@ -356,6 +332,7 @@ export default {
     &__input {
       width: 100%;
       height: 1.5rem;
+      margin-bottom: 0.125rem;
       padding: 0.25rem 0.5rem;
       color: #34495e;
       background-color: transparent;

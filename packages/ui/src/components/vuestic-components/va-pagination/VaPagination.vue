@@ -6,22 +6,22 @@
     <va-button
       v-if="showBoundaryLinks"
       outline
-      :color="color"
-      :size="size"
-      :disabled="disabled || value === 1"
+      :color="c_color"
+      :size="c_size"
+      :disabled="c_disabled || valueComputed === 1"
       :icon="iconClass.boundary"
-      @click="changePage(1)"
-      :flat="flat"
+      @click="onUserInput(1)"
+      :flat="c_flat"
     />
     <va-button
       v-if="showDirectionLinks"
       outline
-      :color="color"
-      :size="size"
-      :disabled="disabled || value === 1"
+      :color="c_color"
+      :size="c_size"
+      :disabled="c_disabled || valueComputed === 1"
       :icon="iconClass.direction"
-      @click="changePage(value - 1)"
-      :flat="flat"
+      @click="onUserInput(valueComputed - 1)"
+      :flat="c_flat"
     />
     <slot v-if="!input">
       <va-button
@@ -29,53 +29,54 @@
         outline
         v-for="(n, key) in paginationRange"
         :key="key"
-        :color="color"
-        :size="size"
-        :disabled="disabled || n === '...'"
+        :color="c_color"
+        :size="c_size"
+        :disabled="c_disabled || n === '...'"
         :class="{
-          'va-button--active': n === value,
-          'va-button--idle': n !== value,
-          'va-button--disabled': n === '...' || disabled,
           'va-button--ellipsis': n === '...',
         }"
 
-        @click="changePage(n)"
-        :flat="flat"
+        @click="onUserInput(n)"
+        :flat="c_flat"
       >
         {{ n }}
       </va-button>
     </slot>
-    <va-input
+    <input
       v-else
-      :color="color"
-      inside-pagination
       ref="input"
-      class="va-button"
-      v-model="inputValue"
+      class="va-pagination__input va-button"
+      :style="{
+        cursor: 'default',
+        color: computeColor(color)
+      }"
+      :class="{ 'va-pagination__input--flat': flat }"
       @keydown.enter="changeValue"
       @focus="focusInput"
       @blur="changeValue"
-      :placeholder="`${value}/${lastPage}`"
+      :disabled="c_disabled"
+      :placeholder="`${valueComputed}/${lastPage}`"
+      v-model="inputValue"
     />
     <va-button
       v-if="showDirectionLinks"
       outline
-      :color="color"
-      :size="size"
-      :disabled="disabled || value === lastPage"
+      :color="c_color"
+      :size="c_size"
+      :disabled="c_disabled || valueComputed === lastPage"
       :icon="iconRightClass.direction"
-      @click="changePage(value + 1)"
-      :flat="flat"
+      @click="onUserInput(valueComputed + 1)"
+      :flat="c_flat"
     />
     <va-button
       v-if="showBoundaryLinks"
       outline
-      :color="color"
-      :size="size"
-      :disabled="disabled || value === lastPage"
+      :color="c_color"
+      :size="c_size"
+      :disabled="c_disabled || valueComputed === lastPage"
       :icon="iconRightClass.boundary"
-      :flat="flat"
-      @click="changePage(lastPage)"
+      :flat="c_flat"
+      @click="onUserInput(lastPage)"
     />
   </va-button-group>
 </template>
@@ -96,7 +97,7 @@ interface IconSet {
   boundary: string;
 }
 
-const paginationPropsMixin = makeContextablePropsMixin({
+const PaginationPropsMixin = makeContextablePropsMixin({
   value: { type: Number, default: 1 },
   visiblePages: { type: Number, default: 5 },
   pages: { type: Number, default: null },
@@ -121,7 +122,7 @@ const mixinsArr = [
   ContextPluginMixin,
   StatefulMixin,
   ColorThemeMixin,
-  paginationPropsMixin,
+  PaginationPropsMixin,
 ]
 @Component({
   name: 'VaPagination',
@@ -143,8 +144,6 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private inputValue = ''
-
-  private useTotal = false
 
   private get iconClass () {
     return Object.assign({}, this.defaultIconClass, (this as any).iconSet)
@@ -182,7 +181,11 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private get fontColor () {
-    return (this as any).computeColor((this as any).color)
+    return (this as any).computeColor((this as any).c_color)
+  }
+
+  private get useTotal () {
+    return !!((this as any).total && (this as any).pageSize)
   }
 
   @Watch('pageSize')
@@ -193,14 +196,18 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private mounted () {
-    this.useTotal = !!((this as any).total && (this as any).pageSize)
+    if ((this as any).stateful) {
+      (this as any).valueComputed = 1
+    }
   }
 
   private focusInput () {
-    (this as any).$refs.input.selectAll((this as any).valueComputed)
+    const { value, $nextTick, $refs } = (this as any)
+    this.inputValue = value
+    $nextTick(() => $refs.input.setSelectionRange(0, $refs.input.value.length))
   }
 
-  private changePage (pageNum: number) {
+  private onUserInput (pageNum: number) {
     if (pageNum < 1 || pageNum > this.lastPage) {
       return
     }
@@ -208,10 +215,13 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private resetInput () {
-    (this as any).$refs.input.reset()
+    this.inputValue = '';
+    (this as any).$refs.input.blur()
   }
 
   private changeValue () {
+    if (this.inputValue === (this as any).value) this.resetInput()
+    if (!this.inputValue.length) return
     let pageNum = Number.parseInt(this.inputValue)
     switch (true) {
       case pageNum < 1:
@@ -226,15 +236,15 @@ export default class VaPagination extends mixins(...mixinsArr) {
       default:
         break
     }
-    this.changePage(pageNum)
+    this.onUserInput(pageNum)
     this.resetInput()
   }
 
   private activeButtonStyle (buttonValue: number) {
-    const { valueComputed, color, computeInvertedColor, computeColor, fontColor } = (this as any)
+    const { valueComputed, c_color, computeInvertedColor, computeColor, fontColor } = (this as any)
     if (buttonValue === valueComputed) {
       return {
-        backgroundColor: computeColor(color),
+        backgroundColor: computeColor(c_color),
         color: computeInvertedColor(),
       }
     } else {
@@ -250,9 +260,28 @@ export default class VaPagination extends mixins(...mixinsArr) {
 @import "../../vuestic-sass/resources/resources";
 
 .va-pagination {
-  .va-input.va-button,
-  .va-button--ellipsis {
-    cursor: default;
+  &__input {
+    border-style: solid;
+    border-width: 2px 0;
+    text-align: center;
+    font-size: 1rem;
+
+    &--flat {
+      border-top-width: 0;
+    }
   }
+  .va-button {
+    &.va-input {
+      cursor: default;
+    }
+    &--ellipsis {
+      cursor: default;
+      opacity: 1;
+    }
+    &--ellipsis > .va-button__content {
+      opacity: 0.4;
+    }
+  }
+
 }
 </style>

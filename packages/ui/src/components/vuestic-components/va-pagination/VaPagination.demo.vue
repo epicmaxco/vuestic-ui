@@ -189,6 +189,14 @@
       />
     </VbCard>
     <VbCard
+      title="Stateful"
+    >
+      <va-pagination
+        :pages="10"
+        stateful
+      />
+    </VbCard>
+    <VbCard
       title="Use total and page-size"
       style="width: 600px;"
     >
@@ -227,7 +235,7 @@ export default {
       activePage: 4,
       pageSizes: ['10', '20', '30', '40'],
       activeTotalPage: 3,
-      pageSize: '10',
+      pageSize: 10,
       total: 100,
     }
   },
