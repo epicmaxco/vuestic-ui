@@ -185,7 +185,7 @@
       />
     </VbCard>
     <VbCard
-      title="Should hide if 1 page only"
+      title="Hide on single page"
     >
       <va-pagination
         :pages="1"
@@ -216,13 +216,14 @@
     >
       <div>
         Page size
-        <input v-model.number="pageSize">
+        <input type="number" v-model.number="pageSize">
       </div>
       <div>
         Total
-        <input v-model.number="total">
+        <input type="number" v-model.number="total">
       </div>
       <va-pagination
+        hide-on-single-page
         :visible-pages="5"
         v-model="activeTotalPage"
         :total="total"
