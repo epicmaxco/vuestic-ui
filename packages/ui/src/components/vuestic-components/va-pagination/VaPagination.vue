@@ -8,8 +8,8 @@
       outline
       :color="c_color"
       :size="c_size"
-      :disabled="c_disabled || valueComputed === 1"
-      :icon="iconClass.boundary"
+      :disabled="c_disabled || currentValue === 1"
+      :icon="boundaryIconLeft"
       @click="onUserInput(1)"
       :flat="c_flat"
     />
@@ -18,9 +18,9 @@
       outline
       :color="c_color"
       :size="c_size"
-      :disabled="c_disabled || valueComputed === 1"
-      :icon="iconClass.direction"
-      @click="onUserInput(valueComputed - 1)"
+      :disabled="c_disabled || currentValue === 1"
+      :icon="directionIconLeft"
+      @click="onUserInput(currentValue - 1)"
       :flat="c_flat"
     />
     <slot v-if="!input">
@@ -55,7 +55,7 @@
       @focus="focusInput"
       @blur="changeValue"
       :disabled="c_disabled"
-      :placeholder="`${valueComputed}/${lastPage}`"
+      :placeholder="`${currentValue}/${lastPage}`"
       v-model="inputValue"
     />
     <va-button
@@ -63,9 +63,9 @@
       outline
       :color="c_color"
       :size="c_size"
-      :disabled="c_disabled || valueComputed === lastPage"
-      :icon="iconRightClass.direction"
-      @click="onUserInput(valueComputed + 1)"
+      :disabled="c_disabled || currentValue === lastPage"
+      :icon="directionIconRight"
+      @click="onUserInput(currentValue + 1)"
       :flat="c_flat"
     />
     <va-button
@@ -73,8 +73,8 @@
       outline
       :color="c_color"
       :size="c_size"
-      :disabled="c_disabled || valueComputed === lastPage"
-      :icon="iconRightClass.boundary"
+      :disabled="c_disabled || currentValue === lastPage"
+      :icon="boundaryIconRight"
       :flat="c_flat"
       @click="onUserInput(lastPage)"
     />
@@ -89,32 +89,26 @@ import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin
 import { setPaginationRange } from './setPaginationRange'
 import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import Component, { mixins } from 'vue-class-component'
-import { Watch } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-
-interface IconSet {
-  direction: string;
-  boundary: string;
-}
 
 const PaginationPropsMixin = makeContextablePropsMixin({
   value: { type: Number, default: 1 },
-  visiblePages: { type: Number, default: 5 },
+  visiblePages: { type: Number, default: 0 },
   pages: { type: Number, default: null },
   disabled: { type: Boolean, default: false },
   size: { type: String, default: 'medium', validator: (v: string) => ['medium', 'small', 'large'].includes(v) },
   boundaryLinks: { type: Boolean, default: true },
   boundaryNumbers: { type: Boolean, default: false },
   directionLinks: { type: Boolean, default: true },
-  iconFont: { type: Object, default: null },
-  iconFontRight: { type: Object, default: null },
   input: { type: Boolean, default: false },
   hideOnSinglePage: { type: Boolean, default: false },
   flat: { type: Boolean, default: false },
   total: { type: Number, default: null },
   pageSize: { type: Number, default: null },
-  iconSet: { type: Object, default: null },
-  iconSetRight: { type: Object, default: null },
+  boundaryIconLeft: { type: String, default: 'first_page' },
+  boundaryIconRight: { type: String, default: 'last_page' },
+  directionIconLeft: { type: String, default: 'chevron_left' },
+  directionIconRight: { type: String, default: 'chevron_right' },
   color: { type: String, default: 'primary' },
 })
 
@@ -133,25 +127,7 @@ const mixinsArr = [
   },
 })
 export default class VaPagination extends mixins(...mixinsArr) {
-  private defaultIconClass: IconSet = {
-    direction: 'chevron_left',
-    boundary: 'first_page',
-  }
-
-  private defaultIconRightClass: IconSet = {
-    direction: 'chevron_right',
-    boundary: 'last_page',
-  }
-
   private inputValue = ''
-
-  private get iconClass () {
-    return Object.assign({}, this.defaultIconClass, (this as any).iconSet)
-  }
-
-  private get iconRightClass () {
-    return Object.assign({}, this.defaultIconRightClass, (this as any).iconSetRight)
-  }
 
   private get lastPage () {
     const { total, pageSize, pages } = (this as any)
@@ -161,19 +137,21 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private get paginationRange () {
-    const { valueComputed, visiblePages, total, pageSize, boundaryNumbers, pages } = (this as any)
-    return this.useTotal
-      ? setPaginationRange(valueComputed, visiblePages, Math.ceil(total / pageSize), boundaryNumbers)
-      : setPaginationRange(valueComputed, visiblePages, pages, boundaryNumbers)
+    const { visiblePages, total, pageSize, boundaryNumbers, pages } = (this as any)
+    const value = this.currentValue || 1
+    const totalPages = this.useTotal ? Math.ceil(total / pageSize) : pages
+    return setPaginationRange(value, visiblePages, totalPages, boundaryNumbers)
   }
 
   private get showBoundaryLinks () {
-    const { visiblePages, boundaryLinks, boundaryNumbers } = (this as any)
-    return this.lastPage > visiblePages && boundaryLinks && !boundaryNumbers
+    const { visiblePages, boundaryLinks, boundaryNumbers, input } = (this as any)
+    return input ||
+      ((visiblePages && this.lastPage > visiblePages) && boundaryLinks && !boundaryNumbers)
   }
 
   private get showDirectionLinks () {
-    return this.lastPage > (this as any).visiblePages && (this as any).directionLinks
+    const { visiblePages, directionLinks, input } = (this as any)
+    return input || ((visiblePages && this.lastPage > visiblePages) && directionLinks)
   }
 
   private get showPagination () {
@@ -188,17 +166,23 @@ export default class VaPagination extends mixins(...mixinsArr) {
     return !!((this as any).total && (this as any).pageSize)
   }
 
-  @Watch('pageSize')
-  onPageSizeChange (newPageSize: number, oldPageSize: number) {
-    let { valueComputed } = (this as any)
-    const newPage = Math.ceil(((valueComputed - 1) * oldPageSize + 1) / newPageSize)
-    valueComputed = newPage
+  private mounted () {
+    if (this.useTotal && (this as any).pages) {
+      throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
+    }
   }
 
-  private mounted () {
-    if ((this as any).stateful) {
-      (this as any).valueComputed = 1
+  private get currentValue () {
+    const { valueComputed, pageSize } = (this as any)
+    if (this.useTotal) {
+      return Math.ceil(valueComputed / pageSize)
+    } else {
+      return valueComputed
     }
+  }
+
+  private set currentValue (value) {
+    (this as any).valueComputed = value
   }
 
   private focusInput () {
@@ -211,7 +195,9 @@ export default class VaPagination extends mixins(...mixinsArr) {
     if (pageNum < 1 || pageNum > this.lastPage) {
       return
     }
-    (this as any).valueComputed = pageNum
+    this.currentValue = (this as any).useTotal
+      ? (pageNum - 1) * (this as any).pageSize + 1
+      : pageNum
   }
 
   private resetInput () {
@@ -231,7 +217,7 @@ export default class VaPagination extends mixins(...mixinsArr) {
         pageNum = this.lastPage
         break
       case isNaN(pageNum):
-        pageNum = (this as any).valueComputed
+        pageNum = this.currentValue
         break
       default:
         break
@@ -241,8 +227,8 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private activeButtonStyle (buttonValue: number) {
-    const { valueComputed, c_color, computeInvertedColor, computeColor, fontColor } = (this as any)
-    if (buttonValue === valueComputed) {
+    const { c_color, computeInvertedColor, computeColor, fontColor } = (this as any)
+    if (buttonValue === this.currentValue) {
       return {
         backgroundColor: computeColor(c_color),
         color: computeInvertedColor(),

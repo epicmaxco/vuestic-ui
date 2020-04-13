@@ -18,7 +18,7 @@
           <td>
             <VbCard>
               <va-pagination
-                :pages="20"
+                :pages="5"
                 v-model="activePage"
               />
             </VbCard>
@@ -119,22 +119,24 @@
               <va-pagination
                 :pages="10"
                 :visible-pages="3"
-                :icon-set="{ direction: 'volume_mute' }"
-                :icon-set-right="{ direction: 'volume_down' }"
+                direction-icon-left='volume_mute'
+                direction-icon-right='volume_down'
                 v-model="activePage"
               />
               <va-pagination
                 :pages="10"
                 :visible-pages="3"
-                :icon-set="{ boundary: 'volume_off' }"
-                :icon-set-right="{ boundary: 'volume_up' }"
+                boundary-icon-left='volume_off'
+                boundary-icon-right='volume_up'
                 v-model="activePage"
               />
               <va-pagination
                 :pages="10"
                 :visible-pages="3"
-                :icon-set="{ boundary: 'volume_off', direction: 'volume_mute' }"
-                :icon-set-right="{ boundary: 'volume_up', direction: 'volume_down' }"
+                boundary-icon-left='volume_off'
+                boundary-icon-right='volume_up'
+                direction-icon-right='volume_down'
+                direction-icon-left='volume_mute'
                 v-model="activePage"
               />
             </VbCard>
@@ -156,7 +158,7 @@
     >
       <va-pagination
         :pages="20"
-        :visible-pages="7"
+        :visible-pages="5"
         v-model="activePage"
         boundary-numbers
       />
@@ -166,6 +168,7 @@
     >
       <va-pagination
         :pages="20"
+        :visible-pages="5"
         v-model="activePage"
         flat
       />
@@ -177,6 +180,7 @@
         :pages="20"
         v-model="activePage"
         flat
+        :visible-pages="5"
         input
       />
     </VbCard>
@@ -194,11 +198,21 @@
       <va-pagination
         :pages="10"
         stateful
+        :visible-pages="5"
       />
     </VbCard>
     <VbCard
+      title="Use context"
+    >
+      <va-context :config="{ VaPagination: { color: 'danger', disabled: true } }">
+        <va-pagination
+          :pages="10"
+          :visible-pages="5"
+        />
+      </va-context>
+    </VbCard>
+    <VbCard
       title="Use total and page-size"
-      style="width: 600px;"
     >
       <div>
         Page size
@@ -209,6 +223,7 @@
         <input v-model.number="total">
       </div>
       <va-pagination
+        :visible-pages="5"
         v-model="activeTotalPage"
         :total="total"
         boundary-numbers
@@ -224,11 +239,13 @@
 <script>
 import VaPagination from './VaPagination'
 import VaInput from '../va-input/VaInput'
+import VaContext from '../../context-test/context-provide/VaContext'
 
 export default {
   components: {
     VaPagination,
     VaInput,
+    VaContext,
   },
   data () {
     return {

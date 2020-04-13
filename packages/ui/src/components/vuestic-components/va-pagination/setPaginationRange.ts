@@ -1,17 +1,21 @@
-export const setPaginationRange = (value: number, visiblePages: number, pages: number, includeBoundary = false) => {
+export const setPaginationRange = (value = 1, visiblePages: number, pages: number, includeBoundary = false) => {
   let start = 0
 
   if (visiblePages > pages) {
     visiblePages = pages
   }
-
-  const paginationMiddlePage = visiblePages / 2
-  if (value - paginationMiddlePage <= 0 || value > pages) {
+  if (visiblePages === 0) {
     start = 1
+    visiblePages = pages
   } else {
-    start = value + paginationMiddlePage > pages
-      ? pages - visiblePages + 1
-      : Math.ceil(value - paginationMiddlePage)
+    const paginationMiddlePage = visiblePages / 2
+    if (value - paginationMiddlePage <= 0 || value > pages) {
+      start = 1
+    } else {
+      start = value + paginationMiddlePage > pages
+        ? pages - visiblePages + 1
+        : Math.ceil(value - paginationMiddlePage)
+    }
   }
 
   const range: Array<'...' | number> = []
