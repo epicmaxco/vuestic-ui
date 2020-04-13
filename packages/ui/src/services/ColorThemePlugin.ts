@@ -45,7 +45,7 @@ const isCssColor = (strColor: string): boolean => {
   return s.color !== ''
 }
 
-export const getColor = ($vm: any, prop: string, defaultColor?: string): string | undefined => {
+export const getColor = ($vm: Vue, prop: string, defaultColor?: string): string | undefined => {
   if ($vm.$themes && $vm.$themes[prop]) {
     return $vm.$themes[prop]
   }
@@ -64,6 +64,11 @@ export const getColor = ($vm: any, prop: string, defaultColor?: string): string 
     },
     dark: {
       type: Boolean,
+      default: false
+    },
+    gradient: {
+      type: Boolean,
+      default: false,
     },
   })] as any,
 })
