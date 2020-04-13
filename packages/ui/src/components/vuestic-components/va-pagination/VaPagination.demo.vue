@@ -162,6 +162,12 @@
         v-model="activePage"
         boundary-numbers
       />
+      <va-pagination
+        :pages="20"
+        :visible-pages="7"
+        v-model="activePage"
+        boundary-numbers
+      />
     </VbCard>
     <VbCard
       title="Flat"
