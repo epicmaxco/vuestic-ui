@@ -210,11 +210,28 @@
     <VbCard
       title="Use context"
     >
-      <va-context :config="{ VaPagination: { color: 'danger', disabled: true } }">
-        <va-pagination
-          :pages="10"
-          :visible-pages="5"
-        />
+      <va-context :config="{
+        VaPagination: {
+          color: 'danger',
+          pages: 10,
+          disabled: true,
+          visiblePages: 3,
+          input: true,
+        }
+      }">
+        <va-pagination />
+      </va-context>
+      <va-context :config="{
+        VaPagination: {
+          color: 'info',
+          size: 'small',
+          boundaryNumbers: true,
+          flat: true,
+          pages: 10,
+          visiblePages: 5,
+        }
+      }">
+        <va-pagination v-model="activePage"/>
       </va-context>
     </VbCard>
     <VbCard
@@ -229,7 +246,6 @@
         <input type="number" v-model.number="total">
       </div>
       <va-pagination
-        hide-on-single-page
         :visible-pages="5"
         v-model="activeTotalPage"
         :total="total"
@@ -245,13 +261,11 @@
 
 <script>
 import VaPagination from './VaPagination'
-import VaInput from '../va-input/VaInput'
 import VaContext from '../../context-test/context-provide/VaContext'
 
 export default {
   components: {
     VaPagination,
-    VaInput,
     VaContext,
   },
   data () {

@@ -9,7 +9,7 @@
       :color="c_color"
       :size="c_size"
       :disabled="c_disabled || currentValue === 1"
-      :icon="boundaryIconLeft"
+      :icon="c_boundaryIconLeft"
       @click="onUserInput(1)"
       :flat="c_flat"
     />
@@ -19,11 +19,11 @@
       :color="c_color"
       :size="c_size"
       :disabled="c_disabled || currentValue === 1"
-      :icon="directionIconLeft"
+      :icon="c_directionIconLeft"
       @click="onUserInput(currentValue - 1)"
       :flat="c_flat"
     />
-    <slot v-if="!input">
+    <slot v-if="!c_input">
       <va-button
         :style="activeButtonStyle(n)"
         outline
@@ -48,9 +48,10 @@
       class="va-pagination__input va-button"
       :style="{
         cursor: 'default',
-        color: computeColor(color)
+        color: computeColor(c_color),
+        opacity: c_disabled ? 0.4 : 1
       }"
-      :class="{ 'va-pagination__input--flat': flat }"
+      :class="{ 'va-pagination__input--flat': c_flat }"
       @keydown.enter="changeValue"
       @focus="focusInput"
       @blur="changeValue"
@@ -64,7 +65,7 @@
       :color="c_color"
       :size="c_size"
       :disabled="c_disabled || currentValue === lastPage"
-      :icon="directionIconRight"
+      :icon="c_directionIconRight"
       @click="onUserInput(currentValue + 1)"
       :flat="c_flat"
     />
@@ -74,7 +75,7 @@
       :color="c_color"
       :size="c_size"
       :disabled="c_disabled || currentValue === lastPage"
-      :icon="boundaryIconRight"
+      :icon="c_boundaryIconRight"
       :flat="c_flat"
       @click="onUserInput(lastPage)"
     />
@@ -92,7 +93,8 @@ import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
 import Component, { mixins } from 'vue-class-component'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { Watch } from 'vue-property-decorator'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 const PaginationPropsMixin = makeContextablePropsMixin({
   value: { type: Number, default: 1 },
@@ -136,32 +138,32 @@ export default class VaPagination extends mixins(...mixinsArr) {
   private inputValue = ''
 
   private get lastPage () {
-    const { total, pageSize, pages } = (this as any)
+    const { c_total, c_pageSize, c_pages } = (this as any)
     return this.useTotal
-      ? Math.ceil(total / pageSize)
-      : pages
+      ? Math.ceil(c_total / c_pageSize) || 1
+      : c_pages
   }
 
   private get paginationRange () {
-    const { visiblePages, total, pageSize, boundaryNumbers, pages } = (this as any)
+    const { c_visiblePages, c_total, c_pageSize, c_boundaryNumbers, c_pages } = (this as any)
     const value = this.currentValue || 1
-    const totalPages = this.useTotal ? Math.ceil(total / pageSize) : pages
-    return setPaginationRange(value, visiblePages, totalPages, boundaryNumbers)
+    const totalPages = this.useTotal ? Math.ceil(c_total / c_pageSize) : c_pages
+    return setPaginationRange(value, c_visiblePages, totalPages, c_boundaryNumbers)
   }
 
   private get showBoundaryLinks () {
-    const { visiblePages, boundaryLinks, boundaryNumbers, input } = (this as any)
-    return input ||
-      ((visiblePages && this.lastPage > visiblePages) && boundaryLinks && !boundaryNumbers)
+    const { c_visiblePages, c_boundaryLinks, c_boundaryNumbers, c_input } = (this as any)
+    return c_input ||
+      ((c_visiblePages && this.lastPage > c_visiblePages) && c_boundaryLinks && !c_boundaryNumbers)
   }
 
   private get showDirectionLinks () {
-    const { visiblePages, directionLinks, input } = (this as any)
-    return input || ((visiblePages && this.lastPage > visiblePages) && directionLinks)
+    const { c_visiblePages, c_directionLinks, c_input } = (this as any)
+    return c_input || ((c_visiblePages && this.lastPage > c_visiblePages) && c_directionLinks)
   }
 
   private get showPagination () {
-    return this.lastPage > 1 || (!(this as any).hideOnSinglePage && this.lastPage <= 1)
+    return this.lastPage > 1 || (!(this as any).c_hideOnSinglePage && this.lastPage <= 1)
   }
 
   private get fontColor () {
@@ -169,19 +171,14 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private get useTotal () {
-    return !!((this as any).total && (this as any).pageSize)
-  }
-
-  private mounted () {
-    if (this.useTotal && (this as any).pages) {
-      throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
-    }
+    const { c_total, c_pageSize } = (this as any)
+    return !!((c_total || c_total === 0) && c_pageSize)
   }
 
   private get currentValue () {
     console.log('this.valueComputed', (this as any).valueComputed)
     if (this.useTotal) {
-      return Math.ceil((this as any).valueComputed / (this as any).pageSize)
+      return Math.ceil((this as any).valueComputed / (this as any).c_pageSize) || 1
     } else {
       return (this as any).valueComputed
     }
@@ -191,9 +188,17 @@ export default class VaPagination extends mixins(...mixinsArr) {
     (this as any).valueComputed = value
   }
 
+  @Watch('useTotal', { immediate: true })
+  @Watch('pages', { immediate: true })
+  private onModeChange () {
+    if (this.useTotal && (this as any).c_pages) {
+      throw new Error('Please, use either `total` and `page-size` props, or `c_pages`.')
+    }
+  }
+
   private focusInput () {
-    const { value, $nextTick, $refs } = (this as any)
-    this.inputValue = value
+    const { currentValue, $nextTick, $refs } = (this as any)
+    this.inputValue = currentValue
     $nextTick(() => $refs.input.setSelectionRange(0, $refs.input.value.length))
   }
 
@@ -202,7 +207,7 @@ export default class VaPagination extends mixins(...mixinsArr) {
       return
     }
     this.currentValue = (this as any).useTotal
-      ? (pageNum - 1) * (this as any).pageSize + 1
+      ? (pageNum - 1) * (this as any).c_pageSize + 1
       : pageNum
   }
 
@@ -212,7 +217,7 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private changeValue () {
-    if (this.inputValue === (this as any).value) this.resetInput()
+    if (this.inputValue === this.currentValue) this.resetInput()
     if (!this.inputValue.length) return
     let pageNum = Number.parseInt(this.inputValue)
     switch (true) {

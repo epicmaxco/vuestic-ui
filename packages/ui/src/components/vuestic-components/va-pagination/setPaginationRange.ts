@@ -1,6 +1,10 @@
 export const setPaginationRange = (value = 1, visiblePages: number, pages: number, includeBoundary = false) => {
   let start = 0
 
+  if (pages === 0) {
+    pages = 1
+  }
+
   if (visiblePages > pages) {
     visiblePages = pages
   }
