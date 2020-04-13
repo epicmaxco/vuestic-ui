@@ -8,15 +8,20 @@
 </template>
 
 <script>
-import { TextColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaCardTitle',
-  mixins: [TextColorThemeMixin],
+  mixins: [makeContextablePropsMixin({
+    textColor: {
+      type: String,
+    },
+  })],
   computed: {
     titleStyles () {
       return {
-        color: this.textColorComputed,
+        color: getColor(this, this.c_textColor),
       }
     },
   },

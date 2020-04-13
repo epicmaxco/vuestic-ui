@@ -24,7 +24,7 @@
 
 <script>
 import { getGradientBackground } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 
@@ -67,7 +67,7 @@ export default {
       }
     },
     cardStyles () {
-      const color = this.dark ? this.computeColor(this.c_color) : this.computeInvertedColor(this.c_color)
+      const color = this.dark ? this.computeColor(this.c_color) : getColor(this, this.c_color, '#ffffff')
 
       if (this.c_gradient && this.c_color) {
         return {
