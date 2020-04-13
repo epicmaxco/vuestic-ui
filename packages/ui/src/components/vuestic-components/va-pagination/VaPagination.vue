@@ -87,16 +87,23 @@ import VaButton from '../va-button/VaButton.vue'
 import VaInput from '../va-input/VaInput.vue'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import { setPaginationRange } from './setPaginationRange'
-import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import {
+  ContextPluginMixin,
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
 import Component, { mixins } from 'vue-class-component'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 
 const PaginationPropsMixin = makeContextablePropsMixin({
   value: { type: Number, default: 1 },
   visiblePages: { type: Number, default: 0 },
   pages: { type: Number, default: null },
   disabled: { type: Boolean, default: false },
-  size: { type: String, default: 'medium', validator: (v: string) => ['medium', 'small', 'large'].includes(v) },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+  },
   boundaryLinks: { type: Boolean, default: true },
   boundaryNumbers: { type: Boolean, default: false },
   directionLinks: { type: Boolean, default: true },
@@ -109,7 +116,6 @@ const PaginationPropsMixin = makeContextablePropsMixin({
   boundaryIconRight: { type: String, default: 'last_page' },
   directionIconLeft: { type: String, default: 'chevron_left' },
   directionIconRight: { type: String, default: 'chevron_right' },
-  color: { type: String, default: 'primary' },
 })
 
 const mixinsArr = [
@@ -173,11 +179,11 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private get currentValue () {
-    const { valueComputed, pageSize } = (this as any)
+    console.log('this.valueComputed', (this as any).valueComputed)
     if (this.useTotal) {
-      return Math.ceil(valueComputed / pageSize)
+      return Math.ceil((this as any).valueComputed / (this as any).pageSize)
     } else {
-      return valueComputed
+      return (this as any).valueComputed
     }
   }
 
@@ -227,16 +233,14 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private activeButtonStyle (buttonValue: number) {
-    const { c_color, computeInvertedColor, computeColor, fontColor } = (this as any)
     if (buttonValue === this.currentValue) {
       return {
-        backgroundColor: computeColor(c_color),
-        color: computeInvertedColor(),
+        backgroundColor: (this as any).colorComputed,
+        color: '#ffffff',
       }
-    } else {
-      return {
-        color: fontColor,
-      }
+    }
+    return {
+      color: this.fontColor,
     }
   }
 }
@@ -256,14 +260,17 @@ export default class VaPagination extends mixins(...mixinsArr) {
       border-top-width: 0;
     }
   }
+
   .va-button {
     &.va-input {
       cursor: default;
     }
+
     &--ellipsis {
       cursor: default;
       opacity: 1;
     }
+
     &--ellipsis > .va-button__content {
       opacity: 0.4;
     }
