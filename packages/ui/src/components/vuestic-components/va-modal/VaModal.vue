@@ -87,195 +87,197 @@
 </template>
 
 <script lang="ts">
-//  @ts-nocheck
-
-import VaButton from '../va-button/VaButton'
+import { Component, Watch, Mixins } from 'vue-property-decorator'
+import VaButton from '../va-button'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
-export default {
+const props = {
+  value: {
+    type: Boolean as () => boolean,
+    default: false,
+  },
+  position: {
+    type: String as () => string,
+    validator: (position: string) => {
+      return ['center', 'top', 'right', 'bottom', 'left'].includes(position)
+    },
+    default: 'center',
+  },
+  title: {
+    type: String as () => string,
+    default: '',
+  },
+  message: {
+    type: String as () => string,
+    default: '',
+  },
+  okText: {
+    type: String as () => string,
+    default: 'OK',
+  },
+  cancelText: {
+    type: String as () => string,
+    default: 'Cancel',
+  },
+  hideDefaultActions: {
+    type: Boolean as () => boolean,
+    default: false,
+  },
+  fullscreen: {
+    type: Boolean as () => boolean,
+    default: false,
+  },
+  mobileFullscreen: {
+    type: Boolean as () => boolean,
+    default: true,
+  },
+  noOutsideDismiss: {
+    type: Boolean as () => boolean,
+    default: false,
+  },
+  noEscDismiss: {
+    type: Boolean as () => boolean,
+    default: false,
+  },
+  maxWidth: {
+    type: String as () => string,
+    default: '',
+  },
+  maxHeight: {
+    type: String as () => string,
+    default: '',
+  },
+  size: {
+    type: String as () => 'medium' | 'small' | 'large',
+    default: 'medium',
+    validator: (size: string) => {
+      return ['medium', 'small', 'large'].includes(size)
+    },
+  },
+  fixedLayout: {
+    type: Boolean as () => boolean,
+    default: false,
+  },
+  withoutTransitions: {
+    type: Boolean as () => boolean,
+    default: false,
+  },
+}
+
+const ContextableMixin = makeContextablePropsMixin(props)
+
+@Component({
   name: 'VaModal',
   components: { VaButton },
-  mixins: [
-    StatefulMixin,
-    makeContextablePropsMixin({
-      value: {
-        type: Boolean,
-        default: false,
-      },
-      position: {
-        type: String,
-        validator: position => {
-          return ['center', 'top', 'right', 'bottom', 'left'].includes(position)
-        },
-        default: 'center',
-      },
-      title: {
-        type: String,
-        default: '',
-      },
-      message: {
-        type: String,
-        default: '',
-      },
-      okText: {
-        type: String,
-        default: 'OK',
-      },
-      cancelText: {
-        type: String,
-        default: 'Cancel',
-      },
-      hideDefaultActions: {
-        type: Boolean,
-        default: false,
-      },
-      fullscreen: {
-        type: Boolean,
-        default: false,
-      },
-      mobileFullscreen: {
-        type: Boolean,
-        default: true,
-      },
-      noOutsideDismiss: {
-        type: Boolean,
-        default: false,
-      },
-      noEscDismiss: {
-        type: Boolean,
-        default: false,
-      },
-      maxWidth: {
-        type: String,
-        default: '',
-      },
-      maxHeight: {
-        type: String,
-        default: '',
-      },
-      size: {
-        type: String,
-        default: 'medium',
-        validator: size => {
-          return ['medium', 'small', 'large'].includes(size)
-        },
-      },
-      fixedLayout: {
-        type: Boolean,
-        default: false,
-      },
-      onOk: {
-        type: Function,
-        default: () => undefined,
-      },
-      onCancel: {
-        type: Function,
-        default: () => undefined,
-      },
-      withoutTransitions: {
-        type: Boolean,
-        default: false,
-      },
-    }),
-  ],
-  data () {
-    return {
-      // for leave animation
-      overlayValue: false,
-    }
-  },
-  computed: {
-    computedClass () {
-      return {
-        'va-modal--fullscreen': this.fullscreen,
-        'va-modal--mobile-fullscreen': this.mobileFullscreen,
-        'va-modal--fixed-layout': this.fixedLayout,
-        [`va-modal--size-${this.size}`]: this.size !== 'medium',
-        'transition-off': this.withoutTransitions,
-      }
-    },
-    computedOverlayClass () {
-      return {
-        [`va-modal--position-${this.position}`]: this.position,
-        'transition-off': this.withoutTransitions,
-      }
-    },
-    computedOverlayStyles () {
-      // NOTE Not sure exactly what that does.
-      // Supposedly solves some case when background wasn't shown.
-      // As a side effect removes background from nested modals.
+})
+export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
+  // for leave animation
+  private overlayValue = false
 
-      const moreThanOneModalIsOpen = !!document.querySelectorAll('.va-modal__overlay').length
-      return moreThanOneModalIsOpen ? {} : { 'background-color': 'rgba(0, 0, 0, 0.6)' }
-    },
-    hasContentSlot () {
-      return this.$slots.default
-    },
-    hasHeaderSlot () {
-      return this.$slots.header
-    },
-    hasActionsSlot () {
-      return this.$slots.actions
-    },
-  },
-  watch: {
-    valueComputed (valueComputed) {
-      if (valueComputed) {
-        this.overlayValue = true
-        window.addEventListener('keyup', this.listenKeyUp)
+  get computedClass () {
+    return {
+      'va-modal--fullscreen': this.fullscreen,
+      'va-modal--mobile-fullscreen': this.mobileFullscreen,
+      'va-modal--fixed-layout': this.fixedLayout,
+      [`va-modal--size-${this.size}`]: this.size !== 'medium',
+      'transition-off': this.withoutTransitions,
+    }
+  }
+
+  get computedOverlayClass () {
+    return {
+      [`va-modal--position-${this.position}`]: this.position,
+      'transition-off': this.withoutTransitions,
+    }
+  }
+
+  get computedOverlayStyles () {
+    // NOTE Not sure exactly what that does.
+    // Supposedly solves some case when background wasn't shown.
+    // As a side effect removes background from nested modals.
+
+    const moreThanOneModalIsOpen = !!document.querySelectorAll('.va-modal__overlay').length
+    return moreThanOneModalIsOpen ? {} : { 'background-color': 'rgba(0, 0, 0, 0.6)' }
+  }
+
+  get hasContentSlot () {
+    return this.$slots.default
+  }
+
+  get hasHeaderSlot () {
+    return this.$slots.header
+  }
+
+  get hasActionsSlot () {
+    return this.$slots.actions
+  }
+
+  @Watch('valueComputed')
+  onValueComputedChanged (valueComputed: boolean) {
+    if (valueComputed) {
+      this.overlayValue = true
+      window.addEventListener('keyup', this.listenKeyUp)
+    } else {
+      if (this.withoutTransitions) {
+        this.overlayValue = false
       } else {
-        if (this.withoutTransitions) {
+        setTimeout(() => {
           this.overlayValue = false
-        } else {
-          setTimeout(() => {
-            this.overlayValue = false
-          }, 300)
-        }
-        window.removeEventListener('keyup', this.listenKeyUp)
+        }, 300)
       }
-    },
-  },
-  methods: {
-    show () {
-      this.valueComputed = true
-    },
-    close () {
-      this.valueComputed = false
-    },
-    cancel () {
-      this.close()
-      this.$emit('cancel')
-    },
-    ok () {
-      this.close()
-      this.$emit('ok')
-    },
-    checkOutside (e) {
-      if (!this.noOutsideDismiss) {
-        let modal
-        e.target.childNodes.forEach(node => {
-          if (node.classList && node.classList.contains('va-modal')) {
+      window.removeEventListener('keyup', this.listenKeyUp)
+    }
+  }
+
+  show () {
+    this.valueComputed = true
+  }
+
+  close () {
+    this.valueComputed = false
+  }
+
+  cancel () {
+    this.close()
+    this.$emit('cancel')
+  }
+
+  ok () {
+    this.close()
+    this.$emit('ok')
+  }
+
+  checkOutside (e: MouseEvent) {
+    if (!this.noOutsideDismiss) {
+      let modal
+      if (e.target) {
+        (e.target as HTMLDivElement).childNodes.forEach((node: ChildNode) => {
+          if ((node as HTMLElement).classList && (node as HTMLElement).classList.contains('va-modal')) {
             modal = node
           }
         })
-        if (modal) {
-          this.cancel()
-        }
       }
-    },
-    listenKeyUp (e) {
-      if (e.code === 'Escape' && !this.noEscDismiss) {
+
+      if (modal) {
         this.cancel()
       }
-    },
-  },
+    }
+  }
+
+  listenKeyUp (e: KeyboardEvent) {
+    if (e.code === 'Escape' && !this.noEscDismiss) {
+      this.cancel()
+    }
+  }
+
   mounted () {
     document.body.appendChild(this.$el)
-  },
+  }
+
   beforeDestroy () {
     document.body.removeChild(this.$el)
-  },
+  }
 }
 </script>
 

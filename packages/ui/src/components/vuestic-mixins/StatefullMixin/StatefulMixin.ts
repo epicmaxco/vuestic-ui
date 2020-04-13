@@ -1,27 +1,23 @@
-import { Watch } from 'vue-property-decorator'
-import Component, { mixins } from 'vue-class-component'
+import { Watch, Component, Vue, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const PropsMixin = makeContextablePropsMixin(
-  {
-    value: {
-      type: undefined,
-      default: undefined,
-    },
-    stateful: {
-      type: Boolean,
-      default: false,
-    },
+const componentProps = {
+  value: {
+    type: undefined,
+    default: undefined,
   },
-)
+  stateful: {
+    type: Boolean,
+    default: false,
+  },
+}
+
+const PropsMixin = makeContextablePropsMixin(componentProps)
 
 // TODO Definitions could be done better, but it's too complicated to bother.
 
 @Component
-export class StatefulMixin extends mixins(PropsMixin as any) {
-  // @Prop() value: any
-  // @Prop({ default: false }) stateful!: Boolean
-
+export class StatefulMixin extends Mixins(PropsMixin) {
   valueState = {
     value: undefined,
   }
