@@ -32,7 +32,10 @@
 
 <script>
 import { progressMixin } from './progressMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import {
+  ColorThemeMixin,
+  getColor,
+} from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 
@@ -78,7 +81,7 @@ export default {
     },
     computedStyles () {
       return {
-        color: this.computeInvertedColor(this.c_color),
+        color: getColor(this, this.c_color),
       }
     },
     cappedThickness () {

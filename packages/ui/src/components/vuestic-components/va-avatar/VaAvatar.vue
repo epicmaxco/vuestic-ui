@@ -19,7 +19,7 @@
 
 <script>
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaIcon from '../va-icon/VaIcon'
 
@@ -59,7 +59,7 @@ export default {
   computed: {
     computedStyle () {
       return {
-        color: this.computeInvertedColor(this.c_textColor),
+        color: getColor(this, this.c_textColor, '#ffffff'),
         backgroundColor: this.colorComputed,
         borderRadius: this.c_square ? 0 : '50%',
         fontSize: this.c_fontSize,

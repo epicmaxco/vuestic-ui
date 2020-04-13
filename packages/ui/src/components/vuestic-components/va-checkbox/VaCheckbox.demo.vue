@@ -23,6 +23,11 @@
         v-model="value"
         label="Purple"
       />
+      <va-checkbox
+        color="primary"
+        v-model="value"
+        label="Primary"
+      />
     </VbCard>
     <VbCard title="Readonly">
       <va-checkbox

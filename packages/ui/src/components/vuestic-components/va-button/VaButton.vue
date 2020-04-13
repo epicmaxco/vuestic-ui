@@ -68,38 +68,35 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 
-const buttonContextMixin = makeContextablePropsMixin({
-  color: { type: String, default: 'success' },
-  tag: { type: String, default: 'button' },
-  outline: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: value => {
-      return ['medium', 'small', 'large'].includes(value)
-    },
-  },
-  icon: { type: String, default: '' },
-  iconRight: { type: String, default: '' },
-  type: { type: String, default: 'button' },
-  disabled: { type: Boolean, default: false },
-  loading: { type: Boolean, default: false },
-  block: { type: Boolean, default: false },
-  round: { type: Boolean, default: true },
-  /* Link props */
-  href: { type: String, default: undefined },
-  target: { type: String, default: undefined },
-})
-
 export default {
   name: 'VaButton',
   components: { VaIcon, VaProgressCircle },
   mixins: [
     ColorThemeMixin,
     RouterLinkMixin,
-    buttonContextMixin,
     SizeMixin,
+    makeContextablePropsMixin({
+      tag: { type: String, default: 'button' },
+      outline: { type: Boolean, default: false },
+      flat: { type: Boolean, default: false },
+      size: {
+        type: String,
+        default: 'medium',
+        validator: value => {
+          return ['medium', 'small', 'large'].includes(value)
+        },
+      },
+      icon: { type: String, default: '' },
+      iconRight: { type: String, default: '' },
+      type: { type: String, default: 'button' },
+      disabled: { type: Boolean, default: false },
+      loading: { type: Boolean, default: false },
+      block: { type: Boolean, default: false },
+      round: { type: Boolean, default: true },
+      /* Link props */
+      href: { type: String, default: undefined },
+      target: { type: String, default: undefined },
+    }),
   ],
   inject: {
     va: {

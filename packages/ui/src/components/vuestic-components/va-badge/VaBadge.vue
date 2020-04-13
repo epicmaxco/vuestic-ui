@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const contextConfigMixin = makeContextablePropsMixin({
@@ -92,7 +92,7 @@ export default {
     },
     badgeStyle () {
       return {
-        color: this.computeInvertedColor(this.c_textColor),
+        color: getColor(this, this.c_textColor, '#ffffff'),
         borderColor: this.colorComputed,
         backgroundColor: this.colorComputed,
         opacity: this.c_transparent ? 0.5 : 1,

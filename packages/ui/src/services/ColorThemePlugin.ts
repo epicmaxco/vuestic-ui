@@ -8,6 +8,9 @@ declare module 'vue/types/vue' {
   }
 }
 
+// Most default color - fallback when nothing else is found.
+const DEFAULT_COLOR = '#000000'
+
 const defaultOptions = Vue.observable({
   themes: {
     primary: '#23e066',
@@ -45,7 +48,7 @@ const isCssColor = (strColor: string): boolean => {
   return s.color !== ''
 }
 
-export const getColor = ($vm: any, prop: string, defaultColor?: string): string | undefined => {
+export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_COLOR): string | undefined => {
   if ($vm.$themes && $vm.$themes[prop]) {
     return $vm.$themes[prop]
   }
@@ -62,37 +65,14 @@ export const getColor = ($vm: any, prop: string, defaultColor?: string): string 
     color: {
       type: String,
     },
-    dark: {
-      type: Boolean,
-    },
   })] as any,
 })
 export class ColorThemeMixin extends Vue {
-  defaultColor = '#000'
-  defaultInvertedColor = '#fff'
-
   get colorComputed () {
-    return this.computeColor((this as any).c_color)
+    return getColor(this, (this as any).c_color)
   }
 
-  computeColor (prop: string) {
-    return getColor(this, prop)
-  }
-
-  computeInvertedColor (prop: string) {
-    return getColor(this, prop, this.defaultInvertedColor)
-  }
-}
-
-@Component({
-  mixins: [makeContextablePropsMixin({
-    textColor: {
-      type: String,
-    },
-  })] as any,
-})
-export class TextColorThemeMixin extends Vue {
-  get textColorComputed () {
-    return getColor(this, (this as any).c_textColor)
+  computeColor (prop: string, defaultColor?: string) {
+    return getColor(this, prop, defaultColor)
   }
 }
