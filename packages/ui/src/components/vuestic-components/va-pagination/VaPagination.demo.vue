@@ -1,10 +1,10 @@
 <template>
   <VbDemo>
     <VbCard>
-      <va-input
+      Current Page
+      <input
         type="number"
         v-model.number="activePage"
-        label="Current Page"
       />
     </VbCard>
     <VbCard>
