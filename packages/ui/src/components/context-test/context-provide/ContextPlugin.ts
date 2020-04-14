@@ -1,8 +1,14 @@
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
-import { Component, Mixins, Vue, Inject } from 'vue-property-decorator';
+import { Component, Mixins, Vue, Inject } from 'vue-property-decorator'
 import { hasOwnProperty } from '../../../services/utils'
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $vaContextConfig?: ContextConfig;
+  }
+}
 
 const pascalCase = flow(camelCase, upperFirst)
 /**
@@ -30,7 +36,10 @@ export const ContextPlugin = {
  */
 @Component
 export class ContextPluginMixin extends Vue {
-  @Inject({ from: ContextProviderKey, default: () => []}) readonly _$configs!: ContextConfig[]
+  @Inject({
+    from: ContextProviderKey,
+    default: () => [],
+  }) readonly _$configs!: ContextConfig[]
 }
 
 /**
@@ -63,13 +72,9 @@ export const getLocalConfigWithComponentProp = (configs: any[], componentName: s
  * @deprecated
  */
 export const getContextPropValue = (
-  context: Record<string, any> & {
-    $options?: any;
-    _$configs?: any;
-    $vaContextConfig?: any;
-  },
+  context: Record<string, any> & ContextPluginMixin,
   prop: string,
-  defaultValue: () => any
+  defaultValue: () => any,
 ) => {
   // We have to pass context here as this method will be mainly used in prop default,
   // and methods are not accessible there.
@@ -103,7 +108,7 @@ export const getContextPropValue = (
 // Allows to completely overwrite global context config.
 export const overrideContextConfig = (
   context: { $vaContextConfig: object; },
-  options: { [x: string]: any; }
+  options: { [x: string]: any; },
 ) => {
   for (const key in { ...options, ...context.$vaContextConfig }) {
     if (!(key in options)) {
@@ -127,7 +132,7 @@ export function getOriginalPropValue (
     $options: {
       propsData: Record<string, any>;
     };
-  }
+  },
 ) {
   if (!(key in context.$options.propsData)) {
     return undefined
@@ -141,7 +146,7 @@ export type ContextConfig = Record<string, Record<string, any>>
 // Just 2 levels deep merge. B has priority.
 export const mergeConfigs = (
   configA: ContextConfig,
-  configB: ContextConfig
+  configB: ContextConfig,
 ) => {
   const result: Record<string, any> = {}
   // A or A + B
