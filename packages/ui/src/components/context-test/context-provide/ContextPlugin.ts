@@ -19,7 +19,7 @@ export const ContextProviderKey = 'va-context-provider'
  * Plugin provide global config to Vue component through prototype
  */
 export const ContextPlugin = {
-  install (vue: Vue, options = {}) {
+  install (vue: Vue, options: ContextConfig = {}) {
     Vue.prototype.$vaContextConfig = Vue.observable(options)
   },
 }
@@ -30,7 +30,7 @@ export const ContextPlugin = {
  */
 @Component
 export class ContextPluginMixin extends Vue {
-  @Inject({ from: ContextProviderKey, default: () => []}) readonly _$configs!: string[]
+  @Inject({ from: ContextProviderKey, default: () => []}) readonly _$configs!: ContextConfig[]
 }
 
 /**
@@ -43,7 +43,7 @@ export class ContextPluginMixin extends Vue {
  *
  * @returns {any} config object if found undefined means not found.
  */
-function getLocalConfigWithComponentProp (configs: any[], componentName: string, propName: any) {
+export const getLocalConfigWithComponentProp = (configs: any[], componentName: string, propName: any) => {
   // Find prop value in config chain.
   return configs.reverse().find(config => {
     const componentConfig = config[componentName]
@@ -101,10 +101,10 @@ export const getContextPropValue = (
 }
 
 // Allows to completely overwrite global context config.
-export function overrideContextConfig (
+export const overrideContextConfig = (
   context: { $vaContextConfig: object; },
   options: { [x: string]: any; }
-) {
+) => {
   for (const key in { ...options, ...context.$vaContextConfig }) {
     if (!(key in options)) {
       Vue.delete(context.$vaContextConfig, key)
@@ -139,10 +139,10 @@ export function getOriginalPropValue (
 export type ContextConfig = Record<string, Record<string, any>>
 
 // Just 2 levels deep merge. B has priority.
-export function mergeConfigs (
+export const mergeConfigs = (
   configA: ContextConfig,
   configB: ContextConfig
-) {
+) => {
   const result: Record<string, any> = {}
   // A or A + B
   for (const key in configA) {
