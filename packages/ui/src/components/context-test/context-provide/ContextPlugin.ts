@@ -63,8 +63,7 @@ function getLocalConfigWithComponentProp (configs: any[], componentName: string,
  * @deprecated
  */
 export const getContextPropValue = (
-  context: {
-    [x: string]: any;
+  context: Record<string, any> & {
     $options?: any;
     _$configs?: any;
     $vaContextConfig?: any;
@@ -124,7 +123,11 @@ export function overrideContextConfig (
  */
 export function getOriginalPropValue (
   key: string,
-  context: { $options: { propsData: { [x: string]: any; }; }; }
+  context: {
+    $options: {
+      propsData: Record<string, any>;
+    };
+  }
 ) {
   if (!(key in context.$options.propsData)) {
     return undefined
@@ -133,30 +136,21 @@ export function getOriginalPropValue (
   return context.$options.propsData[key]
 }
 
+export type ContextConfig = Record<string, Record<string, any>>
+
 // Just 2 levels deep merge. B has priority.
 export function mergeConfigs (
-  configA: {
-    [x: string]: any;
-    A?: { A: string; };
-    AB?: { A: string; AB: string; };
-  },
-  configB: {
-    [x: string]: any;
-    AB?: { AB: string; B: string; };
-    B?: { B: string; };
-  }
+  configA: ContextConfig,
+  configB: ContextConfig
 ) {
-  const result = {}
+  const result: Record<string, any> = {}
   // A or A + B
   for (const key in configA) {
-    // @ts-ignore
     result[key] = { ...configA[key], ...configB[key] }
   }
   // B
   for (const key in configB) {
-    // @ts-ignore
     if (!result[key]) {
-      // @ts-ignore
       result[key] = { ...configB[key] }
     }
   }
