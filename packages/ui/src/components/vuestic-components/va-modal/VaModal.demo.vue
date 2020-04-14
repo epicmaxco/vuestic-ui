@@ -158,6 +158,17 @@
         :message="message"
       />
     </VbCard>
+    <VbCard title="no-dismiss">
+      <button @click="showModalNoDismiss = !showModalNoDismiss">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalNoDismiss"
+        :no-dismiss="true"
+        title="Step 2. Centered Layout"
+        :message="message"
+      />
+    </VbCard>
     <VbCard title="several lays">
       <button @click="showModalFirstLay = !showModalFirstLay">
         Show modal
@@ -284,6 +295,7 @@ export default {
       showModalLongMessage: false,
       showModalWithoutTitle: false,
       showModalWithoutTrasitions: false,
+      showModalNoDismiss: false,
       message: 'About 64% of all on-line teens say that do things online that they wouldn’t want their parents to know about.   11% of all adult internet users visit dating websites and spend their time Some of the classify their behavior as “cyber affair”   More then 60% of employees use company PC for the personal needs during their work hours as long as 80 minutes per day.',
     }
   },

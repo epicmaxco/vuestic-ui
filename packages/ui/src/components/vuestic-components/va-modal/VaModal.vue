@@ -132,6 +132,10 @@ const props = {
     type: Boolean as () => boolean,
     default: true,
   },
+  noDismiss: {
+    type: Boolean as () => boolean,
+    default: false,
+  },
   noOutsideDismiss: {
     type: Boolean as () => boolean,
     default: false,
@@ -249,7 +253,7 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
   }
 
   checkOutside (e: MouseEvent) {
-    if (!this.noOutsideDismiss) {
+    if (!this.noOutsideDismiss && !this.noDismiss) {
       let modal
       if (e.target) {
         (e.target as HTMLDivElement).childNodes.forEach((node: ChildNode) => {
@@ -266,7 +270,7 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
   }
 
   listenKeyUp (e: KeyboardEvent) {
-    if (e.code === 'Escape' && !this.noEscDismiss) {
+    if (e.code === 'Escape' && (!this.noEscDismiss && !this.noDismiss)) {
       this.cancel()
     }
   }
