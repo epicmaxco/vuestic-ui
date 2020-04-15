@@ -20,10 +20,10 @@
     "vue-style-loader": "^4.1.2"
   },
   "scripts": {
-    "serve:docs:nuxt": "nuxt-ts",
-    "build:docs:nuxt": "nuxt-ts build",
-    "start:docs:nuxt": "nuxt-ts start",
-    "generate:docs:nuxt": "nuxt-ts generate --fail-on-error"
+    "serve": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate --fail-on-error"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.1"
