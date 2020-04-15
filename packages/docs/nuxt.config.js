@@ -1,4 +1,12 @@
 export default {
+  head: {
+    link: [
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Source+Code+Pro:400' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
+    ],
+  },
   buildModules: ['@nuxt/typescript-build'],
   plugins: [
     { mode: 'server', src: '~/plugins/jsdom.ts'},
@@ -7,6 +15,7 @@ export default {
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },
   ],
+
   build: {
       transpile: ['vue-instantsearch', 'instantsearch.js/es'],
       extend (config, { isDev, isClient }) {
