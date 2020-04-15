@@ -127,6 +127,8 @@ export default class VaAffix extends Mixins(ContextableMixin) {
       if ((this.target as HTMLElement) === event.target || this.target === window) {
         handleThrottledEvent(eventName, context)
       } else {
+        // if we have a custom target but keep scrolling on another element,
+        // so just disable the affixed state
         this.setState({
           isBottomAffixed: false,
           isTopAffixed: false,
