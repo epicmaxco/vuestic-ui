@@ -16,20 +16,34 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Mixins } from 'vue-property-decorator'
 import { noop } from 'lodash'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { handleThrottledEvent, useEventsHandlerWithThrottle, getWindowHeight, State } from './VaAffix-utils'
 
 const prefixClass = 'va-affix'
 
+const props = {
+  offsetTop: {
+    type: Number,
+    default: undefined,
+  },
+  offsetBottom: {
+    type: Number,
+    default: undefined,
+  },
+  target: {
+    type: [HTMLElement, Window],
+    default: () => window,
+  },
+}
+
+const ContextableMixin = makeContextablePropsMixin(props)
+
 @Component({
   name: 'VaAffix',
 })
-export default class VaAffix extends Vue {
-  @Prop() private readonly offsetTop?: number
-  @Prop() private readonly offsetBottom?: number
-  @Prop({ default: () => window }) private readonly target?: HTMLElement | Window
-
+export default class VaAffix extends Mixins(ContextableMixin) {
   private state: State = {
     isTopAffixed: false,
     isBottomAffixed: false,
