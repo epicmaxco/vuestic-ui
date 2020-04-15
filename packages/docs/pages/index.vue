@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="base-layout">
     <Header :isSidebarVisible.sync="isSidebarVisible"/>
-    <div style="padding-top: 64px; display: flex; flex-direction: row;">
+    <div class="base-layout__main">
       <Sidebar v-if="isSidebarVisible"/>
-      <div>
+      <div class="base-layout__content">
         <va-breadcrumbs align="left" active-color="primary">
           <va-breadcrumbs-item v-for="(crumb, index) in crumbs" :label="crumb.label" :to="crumb.path" :key="index"></va-breadcrumbs-item>
         </va-breadcrumbs>
@@ -66,4 +66,18 @@ export default Vue.extend({
 <style lang="scss">
   @import 'vuestic-ui/src/components/vuestic-sass/global/reset.scss';
   @import 'vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/icon-fonts.scss';
+
+  .base-layout {
+    min-height: 100vh;
+    &__main {
+      padding-top: 64px;
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh
+    }
+    &__content {
+      padding: 15px;
+      width: 100%;
+    }
+  }
 </style>

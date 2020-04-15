@@ -1,5 +1,5 @@
 <template>
-    <dynamic-template :block="config">
+    <dynamic-template v-bind="config">
     </dynamic-template>
 </template>
 

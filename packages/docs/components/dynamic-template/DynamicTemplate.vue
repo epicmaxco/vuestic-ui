@@ -1,7 +1,7 @@
 <template>
-        <component :is="block.component" :style="block.style">
-            {{block.text}}
-            <dynamic-template :block="childBlock" v-for="(childBlock, index) in block.children" :key="index" ></dynamic-template>
+        <component :is="component" :style="configStyle" v-bind="componentProps">
+            {{text}}
+            <dynamic-template v-bind="childBlock" v-for="(childBlock, index) in children" :key="index" ></dynamic-template>
         </component>
 </template>
 
@@ -12,8 +12,12 @@ import DynamicTemplate from "./DynamicTemplate.vue"
 export default Vue.extend({
     name: 'dynamic-template',
     components: {
-        DynamicTemplate
+        DynamicTemplate,
+        VaCard: () => import('../../../ui/src/components/vuestic-components/va-card/VaCard.vue'),
+        VaCardTitle: () => import('../../../ui/src/components/vuestic-components/va-card/VaCardTitle.vue'),
+        VaCardContent: () => import('../../../ui/src/components/vuestic-components/va-card/VaCardContent.vue'),
+        VaContent: () => import('../../../ui/src/components/vuestic-components/va-content/VaContent.vue'),
     },
-    props: ['block'],
+    props: ['component', 'configStyle', 'text', 'componentProps', 'children'],
 })
 </script>
