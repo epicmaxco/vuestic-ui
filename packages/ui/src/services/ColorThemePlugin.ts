@@ -42,7 +42,7 @@ export const ColorThemePlugin = {
  * Taken from https://stackoverflow.com/a/56266358/5783475
  * @param strColor
  */
-const isCssColor = (strColor: string): boolean => {
+export const isCssColor = (strColor: string): boolean => {
   const s = new Option().style
   s.color = strColor
   return s.color !== ''
