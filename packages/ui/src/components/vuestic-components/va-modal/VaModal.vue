@@ -1,24 +1,32 @@
 <template>
-  <transition
-    name="va-modal__overlay__transition"
-    appear
-    :duration="withoutTransitions ? 0 : 200"
-  >
+  <div class="va-modal">
+    <transition
+      name="va-modal__overlay--with-transition"
+      appear
+      :duration="withoutTransitions ? 0 : 200"
+    >
+      <div
+        v-if="overlayValue"
+        class="va-modal__overlay"
+        :class="computedOverlayClass"
+        :style="computedOverlayStyles"
+      >
+
+      </div>
+    </transition>
     <div
-      v-if="overlayValue"
-      class="va-modal__overlay"
-      :class="computedOverlayClass"
+      class="va-modal__container"
+      :class="{ 'show': valueComputed }"
       @click="checkOutside"
-      :style="computedOverlayStyles"
     >
       <transition
-        name="va-modal__transition"
+        name="va-modal__container--with-transition"
         appear
         :duration="withoutTransitions ? 0 : 500"
       >
         <div
           v-if="valueComputed"
-          class="va-modal"
+          class="va-modal__dialog"
           :class="computedClass"
           :style="{maxWidth, maxHeight}"
         >
@@ -83,7 +91,7 @@
         </div>
       </transition>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -167,6 +175,10 @@ const props = {
     type: Boolean as () => boolean,
     default: false,
   },
+  overlay: {
+    type: Boolean as () => boolean,
+    default: true,
+  },
 }
 
 const ContextableMixin = makeContextablePropsMixin(props)
@@ -220,7 +232,7 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
   @Watch('valueComputed')
   onValueComputedChanged (valueComputed: boolean) {
     if (valueComputed) {
-      this.overlayValue = true
+      this.overlayValue = this.overlay
       window.addEventListener('keyup', this.listenKeyUp)
     } else {
       if (this.withoutTransitions) {
@@ -257,7 +269,9 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
       let modal
       if (e.target) {
         (e.target as HTMLDivElement).childNodes.forEach((node: ChildNode) => {
-          if ((node as HTMLElement).classList && (node as HTMLElement).classList.contains('va-modal')) {
+          if (
+            (node as HTMLElement).classList &&
+            (node as HTMLElement).classList.contains('va-modal__dialog')) {
             modal = node
           }
         })
@@ -289,22 +303,80 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
 @import "../../vuestic-sass/resources/resources";
 
 .va-modal {
-  &__overlay {
-    z-index: 1000;
-    position: fixed !important;
+  &__container {
+    position: fixed;
     top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
-    display: flex;
+    z-index: 1050;
+    width: 100%;
+    height: 100%;
+    display: none;
     align-items: center;
     justify-content: center;
+
+    overflow: hidden;
+    outline: 0;
+
+    &--with-transition {
+      &-enter,
+      &-leave-to {
+        opacity: 0;
+        transform: translateY(-30%);
+
+        &.transition-off {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      &-enter-active {
+        transition: all 0.3s ease;
+
+        &.transition-off {
+          transition: none;
+        }
+      }
+
+      &-leave-active {
+        transition: all 0.15s cubic-bezier(1, 0.5, 0.8, 1);
+
+        &.transition-off {
+          transition: none;
+        }
+      }
+    }
+
+    &.show {
+      display: flex;
+    }
+  }
+
+  &__dialog {
+    background: $white;
+    min-height: 3.125rem;
+    height: fit-content;
+    border-radius: 0.375rem;
+    margin: 1rem;
+    box-shadow: $widget-box-shadow;
+    max-width: map_get($grid-breakpoints, md);
+    max-height: calc(100vh - 2rem);
+    position: relative;
+    transition: all 0.5s ease-out;
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
 
     &.transition-off {
       opacity: 1;
     }
 
-    &__transition {
+    &--with-transition {
       &-enter,
       &-leave-to {
         opacity: 0;
@@ -320,46 +392,6 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
 
       &-leave-active {
         transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
-      }
-    }
-  }
-
-  background: $white;
-  min-height: 3.125rem;
-  height: fit-content;
-  border-radius: 0.375rem;
-  margin: 1rem;
-  box-shadow: $widget-box-shadow;
-  max-width: map_get($grid-breakpoints, md);
-  max-height: calc(100vh - 2rem);
-  position: relative;
-  transition: all 0.5s ease-out;
-
-  &__transition {
-    &-enter,
-    &-leave-to {
-      opacity: 0;
-      transform: translateY(-30%);
-
-      &.transition-off {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    &-enter-active {
-      transition: all 0.3s ease;
-
-      &.transition-off {
-        transition: none;
-      }
-    }
-
-    &-leave-active {
-      transition: all 0.15s cubic-bezier(1, 0.5, 0.8, 1);
-
-      &.transition-off {
-        transition: none;
       }
     }
   }
