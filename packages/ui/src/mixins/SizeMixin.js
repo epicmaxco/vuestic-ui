@@ -9,22 +9,22 @@ const sizesConfig = {
   },
 }
 
-const contextConfigMixin = makeContextablePropsMixin({
-  size: {
-    type: [String, Number],
-    default: '',
-    validator: size => {
-      return typeof size === 'string' || typeof size === 'number'
-    },
-  },
-  sizesConfig: {
-    type: Object,
-    default: () => sizesConfig,
-  },
-})
-
 export const SizeMixin = {
-  mixins: [contextConfigMixin],
+  mixins: [
+    makeContextablePropsMixin({
+      size: {
+        type: [String, Number],
+        default: '',
+        validator: size => {
+          return typeof size === 'string' || typeof size === 'number'
+        },
+      },
+      sizesConfig: {
+        type: Object,
+        default: () => sizesConfig,
+      },
+    }),
+  ],
   computed: {
     sizeComputed () {
       const { defaultSize, sizes } = this.c_sizesConfig

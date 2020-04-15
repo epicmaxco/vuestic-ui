@@ -67,19 +67,19 @@ export default {
   name: 'VaCheckbox',
   components: { VaInputWrapper, VaIcon },
   mixins: [
+    FormComponentMixin,
+    KeyboardOnlyFocusMixin,
+    ColorThemeMixin,
+    ContextPluginMixin,
     makeContextablePropsMixin({
       label: { type: String, default: '' },
-      value: { type: [Boolean, Array], default: false },
+      value: { type: [Boolean, Array, String, Object], default: false },
       arrayValue: { type: [String, Object], default: '' },
       indeterminate: { type: Boolean, default: false },
       checkedIcon: { type: String, default: 'check' },
       indeterminateIcon: { type: String, default: 'remove' },
       leftLabel: { type: Boolean, default: false },
     }),
-    FormComponentMixin,
-    KeyboardOnlyFocusMixin,
-    ColorThemeMixin,
-    ContextPluginMixin,
   ],
   watch: {
     value (newValue) {

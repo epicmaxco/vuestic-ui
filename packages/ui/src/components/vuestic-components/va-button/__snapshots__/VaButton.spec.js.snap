@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VaButton a button with defined href and target 1`] = `
-<a type="button" href="http://epic-spinners.epicmax.co/" target="_blank" tabindex="0" class="va-button va-button--default va-button--without-title va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(64,229,131,0.4);">
+<a type="button" href="http://epic-spinners.epicmax.co/" target="_blank" tabindex="0" class="va-button va-button--default va-button--without-title va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(0,0,0,0.4);">
   <div class="va-button__content">
     <!---->
     <!---->
@@ -11,17 +11,17 @@ exports[`VaButton a button with defined href and target 1`] = `
 `;
 
 exports[`VaButton button with both icons 1`] = `
-<button type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--with-left-icon va-button--with-right-icon va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(64,229,131,0.4);">
+<button type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--with-left-icon va-button--with-right-icon va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(0,0,0,0.4);">
   <div class="va-button__content">
-    <va-icon-stub color="" size="" sizesconfig="[object Object]" name="clear" tag="i" rotation="" iconsconfig="[object Object]" class="va-button__content__icon"></va-icon-stub>
+    <va-icon-stub color="" size="medium" sizesconfig="[object Object]" name="clear" tag="i" rotation="" iconsconfig="[object Object]" class="va-button__content__icon"></va-icon-stub>
     <!---->
-    <va-icon-stub color="" size="" sizesconfig="[object Object]" name="create" tag="i" rotation="" iconsconfig="[object Object]" class="va-button__content__icon"></va-icon-stub>
+    <va-icon-stub color="" size="medium" sizesconfig="[object Object]" name="create" tag="i" rotation="" iconsconfig="[object Object]" class="va-button__content__icon"></va-icon-stub>
   </div>
 </button>
 `;
 
 exports[`VaButton disabled button 1`] = `
-<button disabled="disabled" type="button" tabindex="0" class="va-button va-button--disabled va-button--without-title va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(64,229,131,0.4);">
+<button disabled="disabled" type="button" tabindex="0" class="va-button va-button--disabled va-button--without-title va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(0,0,0,0.4);">
   <div class="va-button__content">
     <!---->
     <!---->
@@ -31,7 +31,7 @@ exports[`VaButton disabled button 1`] = `
 `;
 
 exports[`VaButton large button 1`] = `
-<button type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--large" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(64,229,131,0.4);">
+<button type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--large" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(0,0,0,0.4);">
   <div class="va-button__content">
     <!---->
     <!---->
@@ -41,7 +41,7 @@ exports[`VaButton large button 1`] = `
 `;
 
 exports[`VaButton router-link button with defined to and active class properties 1`] = `
-<a type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(64,229,131,0.4);">
+<a type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(0,0,0,0.4);">
   <div class="va-button__content">
     <!---->
     <!---->
@@ -51,7 +51,7 @@ exports[`VaButton router-link button with defined to and active class properties
 `;
 
 exports[`VaButton router-link button with defined to property 1`] = `
-<a type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(64,229,131,0.4);">
+<a type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--normal" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(0,0,0,0.4);">
   <div class="va-button__content">
     <!---->
     <!---->
@@ -61,7 +61,7 @@ exports[`VaButton router-link button with defined to property 1`] = `
 `;
 
 exports[`VaButton small button 1`] = `
-<button type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--small" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(64,229,131,0.4);">
+<button type="button" tabindex="0" class="va-button va-button--default va-button--without-title va-button--small" style="color: rgb(255, 255, 255); box-shadow: 0 0.125rem 0.19rem 0 rgba(0,0,0,0.4);">
   <div class="va-button__content">
     <!---->
     <!---->

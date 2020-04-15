@@ -1,204 +1,253 @@
 <template>
-  <va-button-group class="va-pagination">
+  <va-button-group
+    class="va-pagination"
+    v-if="showPagination"
+  >
     <va-button
-      v-if="this.pages !== visiblePages && boundaryLinks"
-      :style="directionButtonStyle"
+      v-if="showBoundaryLinks"
       outline
-      :color="color"
-      :size="size"
-      :disabled="disabled || value === 1"
-      :icon="iconClass.boundary"
-      icon-right=""
-      @click="changePage(1)"
+      :color="c_color"
+      :size="c_size"
+      :disabled="c_disabled || currentValue === 1"
+      :icon="c_boundaryIconLeft"
+      @click="onUserInput(1)"
+      :flat="c_flat"
     />
     <va-button
-      v-if="this.pages !== visiblePages && directionLinks"
-      :style="directionButtonStyle"
+      v-if="showDirectionLinks"
       outline
-      :color="color"
-      :size="size"
-      :disabled="disabled || value === 1"
-      :icon="iconClass.direction"
-      icon-right=""
-      @click="changePage(value - 1)"
+      :color="c_color"
+      :size="c_size"
+      :disabled="c_disabled || currentValue === 1"
+      :icon="c_directionIconLeft"
+      @click="onUserInput(currentValue - 1)"
+      :flat="c_flat"
+    />
+    <slot v-if="!c_input">
+      <va-button
+        :style="activeButtonStyle(n)"
+        outline
+        v-for="(n, key) in paginationRange"
+        :key="key"
+        :color="c_color"
+        :size="c_size"
+        :disabled="c_disabled || n === '...'"
+        :class="{
+          'va-button--ellipsis': n === '...',
+        }"
+
+        @click="onUserInput(n)"
+        :flat="c_flat"
+      >
+        {{ n }}
+      </va-button>
+    </slot>
+    <input
+      v-else
+      ref="input"
+      class="va-pagination__input va-button"
+      :style="{
+        cursor: 'default',
+        color: computeColor(c_color),
+        opacity: c_disabled ? 0.4 : 1
+      }"
+      :class="{ 'va-pagination__input--flat': c_flat }"
+      @keydown.enter="changeValue"
+      @focus="focusInput"
+      @blur="changeValue"
+      :disabled="c_disabled"
+      :placeholder="`${currentValue}/${lastPage}`"
+      v-model="inputValue"
     />
     <va-button
-      :style="activeButtonStyle(n)"
+      v-if="showDirectionLinks"
       outline
-      :color="color"
-      :size="size"
-      :disabled="disabled"
-      v-for="(n, key) in paginationRange"
-      :key="key"
-      :class="{ 'va-button--active': n === value }"
-      icon=""
-      icon-right=""
-      @click="changePage(n)"
-    >
-      {{ n }}
-    </va-button>
-    <va-button
-      v-if="this.pages !== visiblePages && directionLinks"
-      :style="directionButtonStyle"
-      outline
-      :color="color"
-      :size="size"
-      :disabled="disabled || value === this.pages"
-      :icon="iconRightClass.direction"
-      icon-right=""
-      @click="changePage(value + 1)"
+      :color="c_color"
+      :size="c_size"
+      :disabled="c_disabled || currentValue === lastPage"
+      :icon="c_directionIconRight"
+      @click="onUserInput(currentValue + 1)"
+      :flat="c_flat"
     />
     <va-button
-      v-if="this.pages !== visiblePages && boundaryLinks"
-      :style="directionButtonStyle"
+      v-if="showBoundaryLinks"
       outline
-      :color="color"
-      :size="size"
-      :disabled="disabled || value === this.pages"
-      :icon="iconRightClass.boundary"
-      icon-right=""
-      @click="changePage(lastPage)"
+      :color="c_color"
+      :size="c_size"
+      :disabled="c_disabled || currentValue === lastPage"
+      :icon="c_boundaryIconRight"
+      :flat="c_flat"
+      @click="onUserInput(lastPage)"
     />
   </va-button-group>
 </template>
 
-<script>
-import VaButtonGroup from '../va-button-group/VaButtonGroup'
-import VaButton from '../va-button/VaButton'
+<script lang="ts">
+import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
+import VaButton from '../va-button/VaButton.vue'
+import VaInput from '../va-input/VaInput.vue'
+import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import { setPaginationRange } from './setPaginationRange'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import {
+  ContextPluginMixin,
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
+import Component, { mixins } from 'vue-class-component'
+import { Watch } from 'vue-property-decorator'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
-export default {
+const PaginationPropsMixin = makeContextablePropsMixin({
+  value: { type: Number, default: 1 },
+  visiblePages: { type: Number, default: 0 },
+  pages: { type: Number, default: null },
+  disabled: { type: Boolean, default: false },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+  },
+  boundaryLinks: { type: Boolean, default: true },
+  boundaryNumbers: { type: Boolean, default: false },
+  directionLinks: { type: Boolean, default: true },
+  input: { type: Boolean, default: false },
+  hideOnSinglePage: { type: Boolean, default: false },
+  flat: { type: Boolean, default: false },
+  total: { type: Number, default: null },
+  pageSize: { type: Number, default: null },
+  boundaryIconLeft: { type: String, default: 'first_page' },
+  boundaryIconRight: { type: String, default: 'last_page' },
+  directionIconLeft: { type: String, default: 'chevron_left' },
+  directionIconRight: { type: String, default: 'chevron_right' },
+})
+
+const mixinsArr = [
+  ContextPluginMixin,
+  StatefulMixin,
+  ColorThemeMixin,
+  PaginationPropsMixin,
+]
+@Component({
   name: 'VaPagination',
   components: {
     VaButtonGroup,
     VaButton,
+    VaInput,
   },
-  mixins: [ContextPluginMixin],
-  props: {
-    value: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'value', 1)
-      },
-    },
-    visiblePages: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'visiblePages', 5)
-      },
-    },
-    pages: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'pages', null)
-      },
-      required: true,
-    },
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', 'info')
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    size: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'size', 'medium')
-      },
-      validator: value => {
-        return ['medium', 'small', 'large'].includes(value)
-      },
-    },
-    boundaryLinks: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'boundaryLinks', true)
-      },
-    },
-    directionLinks: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'directionLinks', true)
-      },
-    },
-    iconFont: {
-      type: Object,
-      default () {
-        return getContextPropValue(this, 'iconFont', null)
-      },
-    },
-    iconFontRight: {
-      type: Object,
-      default () {
-        return getContextPropValue(this, 'iconFontRight', null)
-      },
-    },
-  },
-  data () {
-    return {
-      defaultIconClass: {
-        direction: 'chevron_left',
-        boundary: 'first_page',
-      },
-      defaultIconRightClass: {
-        direction: 'chevron_right',
-        boundary: 'last_page',
-      },
+})
+export default class VaPagination extends mixins(...mixinsArr) {
+  private inputValue = ''
+
+  private get lastPage () {
+    const { c_total, c_pageSize, c_pages } = (this as any)
+    return this.useTotal
+      ? Math.ceil(c_total / c_pageSize) || 1
+      : c_pages
+  }
+
+  private get paginationRange () {
+    const { c_visiblePages, c_total, c_pageSize, c_boundaryNumbers, c_pages } = (this as any)
+    const value = this.currentValue || 1
+    const totalPages = this.useTotal ? Math.ceil(c_total / c_pageSize) : c_pages
+    return setPaginationRange(value, c_visiblePages, totalPages, c_boundaryNumbers)
+  }
+
+  private get showBoundaryLinks () {
+    const { c_visiblePages, c_boundaryLinks, c_boundaryNumbers, c_input } = (this as any)
+    return c_input ||
+      ((c_visiblePages && this.lastPage > c_visiblePages) && c_boundaryLinks && !c_boundaryNumbers)
+  }
+
+  private get showDirectionLinks () {
+    const { c_visiblePages, c_directionLinks, c_input } = (this as any)
+    return c_input || ((c_visiblePages && this.lastPage > c_visiblePages) && c_directionLinks)
+  }
+
+  private get showPagination () {
+    return this.lastPage > 1 || (!(this as any).c_hideOnSinglePage && this.lastPage <= 1)
+  }
+
+  private get fontColor () {
+    return (this as any).computeColor((this as any).c_color)
+  }
+
+  private get useTotal () {
+    const { c_total, c_pageSize } = (this as any)
+    return !!((c_total || c_total === 0) && c_pageSize)
+  }
+
+  private get currentValue () {
+    console.log('this.valueComputed', (this as any).valueComputed)
+    if (this.useTotal) {
+      return Math.ceil((this as any).valueComputed / (this as any).c_pageSize) || 1
+    } else {
+      return (this as any).valueComputed
     }
-  },
-  computed: {
-    directionButtonStyle () {
+  }
+
+  private set currentValue (value) {
+    (this as any).valueComputed = value
+  }
+
+  @Watch('useTotal', { immediate: true })
+  @Watch('pages', { immediate: true })
+  private onModeChange () {
+    if (this.useTotal && (this as any).c_pages) {
+      throw new Error('Please, use either `total` and `page-size` props, or `c_pages`.')
+    }
+  }
+
+  private focusInput () {
+    const { currentValue, $nextTick, $refs } = (this as any)
+    this.inputValue = currentValue
+    $nextTick(() => $refs.input.setSelectionRange(0, $refs.input.value.length))
+  }
+
+  private onUserInput (pageNum: number) {
+    if (pageNum < 1 || pageNum > this.lastPage) {
+      return
+    }
+    this.currentValue = (this as any).useTotal
+      ? (pageNum - 1) * (this as any).c_pageSize + 1
+      : pageNum
+  }
+
+  private resetInput () {
+    this.inputValue = '';
+    (this as any).$refs.input.blur()
+  }
+
+  private changeValue () {
+    if (this.inputValue === this.currentValue) this.resetInput()
+    if (!this.inputValue.length) return
+    let pageNum = Number.parseInt(this.inputValue)
+    switch (true) {
+      case pageNum < 1:
+        pageNum = 1
+        break
+      case pageNum > this.lastPage:
+        pageNum = this.lastPage
+        break
+      case isNaN(pageNum):
+        pageNum = this.currentValue
+        break
+      default:
+        break
+    }
+    this.onUserInput(pageNum)
+    this.resetInput()
+  }
+
+  private activeButtonStyle (buttonValue: number) {
+    if (buttonValue === this.currentValue) {
       return {
-        backgroundColor: 'transparent',
-        borderColor: this.disabled ? '#babfc2' : '',
-        opacity: 1,
+        backgroundColor: (this as any).colorComputed,
+        color: '#ffffff',
       }
-    },
-    iconClass () {
-      return Object.assign({}, this.defaultIconClass)
-    },
-    iconRightClass () {
-      return Object.assign({}, this.defaultIconRightClass)
-    },
-    lastPage () {
-      return this.pages
-    },
-    paginationRange () {
-      return setPaginationRange(this.value, this.visiblePages, this.pages)
-    },
-  },
-  methods: {
-    changePage (pageNum) {
-      if (pageNum < 1 || pageNum > this.pages) {
-        return
-      }
-      this.$emit('input', pageNum)
-    },
-    activeButtonStyle (buttonValue) {
-      if (buttonValue === this.value) {
-        return {
-          backgroundColor: this.disabled ? '#babfc2' : this.$themes[this.toggleColor ? this.toggleColor : this.color],
-          borderColor: this.disabled ? '#babfc2' : this.$themes[this.color],
-          opacity: 1,
-          color: this.disabled ? '#babfc2' : '#ffffff',
-        }
-      } else {
-        return {
-          backgroundColor: 'transparent',
-          borderColor: this.disabled ? '#babfc2' : this.$themes[this.color],
-          opacity: 1,
-          color: this.disabled ? '#babfc2' : this.$themes[this.color],
-        }
-      }
-    },
-  },
+    }
+    return {
+      color: this.fontColor,
+    }
+  }
 }
 </script>
 
@@ -206,10 +255,31 @@ export default {
 @import "../../vuestic-sass/resources/resources";
 
 .va-pagination {
-  .va-button--disabled {
-    i {
-      color: $brand-secondary;
+  &__input {
+    border-style: solid;
+    border-width: 2px 0;
+    text-align: center;
+    font-size: 1rem;
+
+    &--flat {
+      border-top-width: 0;
     }
   }
+
+  .va-button {
+    &.va-input {
+      cursor: default;
+    }
+
+    &--ellipsis {
+      cursor: default;
+      opacity: 1;
+    }
+
+    &--ellipsis > .va-button__content {
+      opacity: 0.4;
+    }
+  }
+
 }
 </style>

@@ -8,15 +8,20 @@
 </template>
 
 <script>
-import { TextColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'VaCardContent',
-  mixins: [TextColorThemeMixin],
+  mixins: [makeContextablePropsMixin({
+    textColor: {
+      type: String,
+    },
+  })],
   computed: {
     contentStyles () {
       return {
-        color: this.textColorComputed,
+        color: getColor(this, this.c_textColor),
       }
     },
   },

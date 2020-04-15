@@ -1,10 +1,14 @@
-//  @ts-nocheck
-
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
-import Vue from 'vue'
+import { Component, Mixins, Vue, Inject } from 'vue-property-decorator'
 import { hasOwnProperty } from '../../../services/utils'
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $vaContextConfig?: ContextConfig;
+  }
+}
 
 const pascalCase = flow(camelCase, upperFirst)
 /**
@@ -21,7 +25,7 @@ export const ContextProviderKey = 'va-context-provider'
  * Plugin provide global config to Vue component through prototype
  */
 export const ContextPlugin = {
-  install (Vue, options = {}) {
+  install (vue: Vue, options: ContextConfig = {}) {
     Vue.prototype.$vaContextConfig = Vue.observable(options)
   },
 }
@@ -30,13 +34,12 @@ export const ContextPlugin = {
  * Mixin provide local configs to Vue component through injecting
  * All list of local configs contain in this._$configs
  */
-export const ContextPluginMixin = {
-  inject: {
-    _$configs: {
-      from: [ContextProviderKey],
-      default: () => [],
-    },
-  },
+@Component
+export class ContextPluginMixin extends Vue {
+  @Inject({
+    from: ContextProviderKey,
+    default: () => [],
+  }) readonly _$configs!: ContextConfig[]
 }
 
 /**
@@ -49,7 +52,7 @@ export const ContextPluginMixin = {
  *
  * @returns {any} config object if found undefined means not found.
  */
-function getLocalConfigWithComponentProp (configs, componentName, propName) {
+export const getLocalConfigWithComponentProp = (configs: any[], componentName: string, propName: any) => {
   // Find prop value in config chain.
   return configs.reverse().find(config => {
     const componentConfig = config[componentName]
@@ -68,7 +71,11 @@ function getLocalConfigWithComponentProp (configs, componentName, propName) {
  * @returns {any} Returns property value.
  * @deprecated
  */
-export const getContextPropValue = (context, prop, defaultValue) => {
+export const getContextPropValue = (
+  context: Record<string, any> & ContextPluginMixin,
+  prop: string,
+  defaultValue: () => any,
+) => {
   // We have to pass context here as this method will be mainly used in prop default,
   // and methods are not accessible there.
 
@@ -99,7 +106,10 @@ export const getContextPropValue = (context, prop, defaultValue) => {
 }
 
 // Allows to completely overwrite global context config.
-export function overrideContextConfig (context, options) {
+export const overrideContextConfig = (
+  context: { $vaContextConfig: object; },
+  options: { [x: string]: any; },
+) => {
   for (const key in { ...options, ...context.$vaContextConfig }) {
     if (!(key in options)) {
       Vue.delete(context.$vaContextConfig, key)
@@ -116,7 +126,14 @@ export function overrideContextConfig (context, options) {
  * @param context - [object] this of the vue component.
  * @returns {any} Returns property value.
  */
-export function getOriginalPropValue (key, context) {
+export function getOriginalPropValue (
+  key: string,
+  context: {
+    $options: {
+      propsData: Record<string, any>;
+    };
+  },
+) {
   if (!(key in context.$options.propsData)) {
     return undefined
   }
@@ -124,9 +141,14 @@ export function getOriginalPropValue (key, context) {
   return context.$options.propsData[key]
 }
 
+export type ContextConfig = Record<string, Record<string, any>>
+
 // Just 2 levels deep merge. B has priority.
-export function mergeConfigs (configA, configB) {
-  const result = {}
+export const mergeConfigs = (
+  configA: ContextConfig,
+  configB: ContextConfig,
+) => {
+  const result: Record<string, any> = {}
   // A or A + B
   for (const key in configA) {
     result[key] = { ...configA[key], ...configB[key] }
@@ -157,26 +179,33 @@ export function mergeConfigs (configA, configB) {
  * @param prefix - that prefix goes to contexted prop (that's intended for userland usage)
  * @returns object - vue mixin with props and computed
  */
-export const makeContextablePropsMixin = (componentProps, prefix = 'c_'): ComponentOptions => {
+export const makeContextablePropsMixin = (componentProps: any, prefix = 'c_') => {
   const computed = {}
 
   Object.entries(componentProps).forEach(([name, definition]) => {
+    // @ts-ignore
     computed[`${prefix}${name}`] = function () {
       // We want to fallback to context in 2 cases:
       // * prop value is undefined (allows user to dynamically enter/exit context).
       // * prop value is not defined
+      // @ts-ignore
       if (!(name in this.$options.propsData) || this.$options.propsData[name] === undefined) {
+        // @ts-ignore
         return getContextPropValue(this, name, definition.default)
       }
       // In other cases we return the prop itself.
+      // @ts-ignore
       return this[name]
     }
   })
 
-  return {
-    // We attach mixin here for convenience
-    mixins: [ContextPluginMixin],
+  @Component({
     props: componentProps,
     computed,
+  })
+  class ContextableMixin extends Mixins(ContextPluginMixin) {
+    [x: string]: any
   }
+
+  return ContextableMixin
 }
