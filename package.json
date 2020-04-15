@@ -24,6 +24,8 @@
     "packages/*"
   ],
   "dependencies": {
-    "@types/lodash": "^4.14.149"
+    "@types/lodash": "^4.14.149",
+    "jsdom": "^16.2.2",
+    "vuetable-2": "^1.7.5"
   }
 }
