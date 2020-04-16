@@ -35,6 +35,11 @@ export default Vue.extend({
       isSidebarVisible: true,
     }
   },
+  mounted() {
+    if (this.$route.hash) {
+      document.querySelector(this.$route.hash).scrollIntoView()
+    }
+  },
   computed: {
     crumbs() {
       if (this.$isServer) {
@@ -79,5 +84,9 @@ export default Vue.extend({
       padding: 15px;
       width: 100%;
     }
+  }
+  .va-content {
+    font-family: Source Sans Pro, sans-serif;
+    font-size: 16px;
   }
 </style>

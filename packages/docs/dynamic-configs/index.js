@@ -1,6 +1,3 @@
-import child1 from './child1.config'
-import child2 from './child2.config'
-import child3 from './child3.config'
 import card from './card.config'
 import home from './home.config'
 
@@ -21,9 +18,6 @@ import home from './home.config'
 // console.log(configsModule)
 
 const configs = {
-    '/child1': child1,
-    '/child2': child2,
-    '/child3': child3,
     '/card': card,
     '/': home
 }

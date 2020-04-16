@@ -1,5 +1,3 @@
-const API_TABLE_CONFIG = {}
-
 function getHeader(text) {
   return (
     text && {
