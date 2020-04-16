@@ -14,7 +14,8 @@
     "build:docs": "vuepress build docs",
     "test:e2e": "vue-cli-service test:e2e",
     "push": "npm publish --tag=next",
-    "push-production": "npm publish --tag=latest"
+    "push-production": "npm publish --tag=latest",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
@@ -79,11 +80,8 @@
     "vue-template-compiler": "^2.6.11",
     "vuepress": "^1.4.0"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
   "lint-staged": {
-    "*.js": [
+    "*.{js,ts}": [
       "yarn lint --fix"
     ],
     "*.vue": [
