@@ -7,12 +7,12 @@
       <VaAffix :offset-top="100">
         <div class="demo-affix">Fixed at the top: 100</div>
       </VaAffix>
-      <p class="demo-content">{{$vb.lorem(1500)}}</p>
+      <p class="demo-content">{{$vb.lorem(2500)}}</p>
     </VbCard>
     <VbCard
       title="Fixed at the bottom"
     >
-      <p class="demo-content">{{$vb.lorem(1500)}}</p>
+      <p class="demo-content">{{$vb.lorem(2500)}}</p>
       <VaAffix :offset-bottom="50">
         <div class="demo-affix">Fixed at the bottom: 50</div>
       </VaAffix>
@@ -24,9 +24,9 @@
       <p class="demo-content">{{$vb.lorem(100)}}</p>
       <VaAffix :offset-top="0" @change="handleAffixedStateChange">
         <div class="demo-affix">Fixed at the top: 0</div>
-        <div class="demo-affix" style="font-weight: bold">Affixed state: {{ affixedState }}</div>
+        <div class="demo-affix" style="font-weight: bold;">Affixed state: {{ affixedState }}</div>
       </VaAffix>
-      <p class="demo-content">{{$vb.lorem(1500)}}</p>
+      <p class="demo-content">{{$vb.lorem(2500)}}</p>
     </VbCard>
     <VbCard
       title="Custom target"

@@ -60,34 +60,45 @@ export default class VaAffix extends Mixins(ContextableMixin) {
     ]
   }
 
+  getTarget () {
+    // a custom target may get rendered later than
+    // a component gets a property from the context
+    const { c_target, target } = this
+
+    return target || c_target
+  }
+
   get styles () {
     const calculateTop = () => {
-      if (this.offsetTop === undefined) {
+      const target = this.getTarget()
+
+      if (this.c_offsetTop === undefined) {
         return
       }
 
-      if (this.target !== window) {
-        const { top } = (this.target as HTMLElement).getBoundingClientRect()
-        return top + this.offsetTop
+      if (target !== window) {
+        const { top } = (target as HTMLElement).getBoundingClientRect()
+        return top + this.c_offsetTop
       }
 
-      return this.offsetTop
+      return this.c_offsetTop
     }
 
     const calculateBottom = () => {
-      if (this.offsetBottom === undefined) {
+      const target = this.getTarget()
+      if (this.c_offsetBottom === undefined) {
         return
       }
 
-      if (this.target !== window) {
-        const { bottom } = (this.target as HTMLElement).getBoundingClientRect()
-        const { offsetHeight, clientHeight } = (this.target as HTMLElement)
+      if (target !== window) {
+        const { bottom } = (target as HTMLElement).getBoundingClientRect()
+        const { offsetHeight, clientHeight } = (target as HTMLElement)
         const scrollBarHeight = offsetHeight - clientHeight
         const windowHeight = getWindowHeight()
-        return windowHeight - (bottom - this.offsetBottom) + scrollBarHeight
+        return windowHeight - (bottom - this.c_offsetBottom) + scrollBarHeight
       }
 
-      return this.offsetBottom
+      return this.c_offsetBottom
     }
 
     const convertToPixels = (calculate: Function) => {
@@ -116,7 +127,7 @@ export default class VaAffix extends Mixins(ContextableMixin) {
       ...this.$data,
       ...this.$props,
       element: this.$refs.element,
-      target: this.target,
+      target: this.getTarget(),
       setState: this.setState.bind(this),
       getState: this.getState.bind(this),
     }
@@ -124,7 +135,9 @@ export default class VaAffix extends Mixins(ContextableMixin) {
     if (!eventName || eventName === 'resize') {
       handleThrottledEvent(eventName, context)
     } else if (event && event.target) {
-      if ((this.target as HTMLElement) === event.target || this.target === window) {
+      const target = this.getTarget()
+
+      if ((target as HTMLElement) === event.target || target === window) {
         handleThrottledEvent(eventName, context)
       } else {
         // if we have a custom target but keep scrolling on another element,
@@ -172,6 +185,7 @@ export default class VaAffix extends Mixins(ContextableMixin) {
 
   .va-affix--affixed {
     position: fixed;
+
     /* TODO: make it a global variable */
     z-index: 10;
   }
