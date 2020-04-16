@@ -3,7 +3,7 @@
     <transition
       name="va-modal__overlay--with-transition"
       appear
-      :duration="withoutTransitions ? 0 : 200"
+      :duration="c_withoutTransitions ? 0 : 200"
     >
       <div
         v-if="overlayValue"
@@ -22,30 +22,30 @@
       <transition
         name="va-modal__container--with-transition"
         appear
-        :duration="withoutTransitions ? 0 : 500"
+        :duration="c_withoutTransitions ? 0 : 500"
       >
         <div
           v-if="valueComputed"
           class="va-modal__dialog"
           :class="computedClass"
-          :style="{maxWidth, maxHeight}"
+          :style="{c_maxWidth, c_maxHeight}"
         >
           <i
-            v-if="fullscreen"
+            v-if="c_fullscreen"
             @click="cancel"
             class="ion ion-md-close va-modal__close"
           />
 
           <div
             class="va-modal__inner"
-            :style="{maxHeight, maxWidth}"
+            :style="{c_maxHeight, c_maxWidth}"
           >
             <div
-              v-if="title"
+              v-if="c_title"
               class="mb-4 title"
               :style="{color: this.$themes.primary}"
             >
-              {{ title }}
+              {{ c_title }}
             </div>
             <div
               v-if="hasHeaderSlot"
@@ -54,10 +54,10 @@
               <slot name="header"/>
             </div>
             <div
-              v-if="message"
+              v-if="c_message"
               class="mb-4 va-modal__message"
             >
-              {{ message }}
+              {{ c_message }}
             </div>
             <div
               v-if="hasContentSlot"
@@ -66,19 +66,19 @@
               <slot/>
             </div>
             <div
-              v-if="(cancelText || okText) && !hideDefaultActions"
+              v-if="(c_cancelText || c_okText) && !c_hideDefaultActions"
               class="va-modal__actions mb-3"
             >
               <va-button
-                v-if="cancelText"
+                v-if="c_cancelText"
                 color="gray"
                 flat
                 @click="cancel"
               >
-                {{ cancelText }}
+                {{ c_cancelText }}
               </va-button>
               <va-button @click="ok">
-                {{ okText }}
+                {{ c_okText }}
               </va-button>
             </div>
             <div
@@ -193,18 +193,18 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
 
   get computedClass () {
     return {
-      'va-modal--fullscreen': this.fullscreen,
-      'va-modal--mobile-fullscreen': this.mobileFullscreen,
-      'va-modal--fixed-layout': this.fixedLayout,
-      [`va-modal--size-${this.size}`]: this.size !== 'medium',
-      'transition-off': this.withoutTransitions,
+      'va-modal--fullscreen': this.c_fullscreen,
+      'va-modal--mobile-fullscreen': this.c_mobileFullscreen,
+      'va-modal--fixed-layout': this.c_fixedLayout,
+      [`va-modal--size-${this.c_size}`]: this.c_size !== 'medium',
+      'transition-off': this.c_withoutTransitions,
     }
   }
 
   get computedOverlayClass () {
     return {
-      [`va-modal--position-${this.position}`]: this.position,
-      'transition-off': this.withoutTransitions,
+      [`va-modal--position-${this.c_position}`]: this.c_position,
+      'transition-off': this.c_withoutTransitions,
     }
   }
 
@@ -232,10 +232,10 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
   @Watch('valueComputed')
   onValueComputedChanged (valueComputed: boolean) {
     if (valueComputed) {
-      this.overlayValue = this.overlay
+      this.overlayValue = this.c_overlay
       window.addEventListener('keyup', this.listenKeyUp)
     } else {
-      if (this.withoutTransitions) {
+      if (this.c_withoutTransitions) {
         this.overlayValue = false
       } else {
         setTimeout(() => {
@@ -265,7 +265,7 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
   }
 
   checkOutside (e: MouseEvent) {
-    if (!this.noOutsideDismiss && !this.noDismiss) {
+    if (!this.c_noOutsideDismiss && !this.c_noDismiss) {
       let modal
       if (e.target) {
         (e.target as HTMLDivElement).childNodes.forEach((node: ChildNode) => {
@@ -284,7 +284,7 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
   }
 
   listenKeyUp (e: KeyboardEvent) {
-    if (e.code === 'Escape' && (!this.noEscDismiss && !this.noDismiss)) {
+    if (e.code === 'Escape' && (!this.c_noEscDismiss && !this.c_noDismiss)) {
       this.cancel()
     }
   }
@@ -313,7 +313,6 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
     display: none;
     align-items: center;
     justify-content: center;
-
     overflow: hidden;
     outline: 0;
 
