@@ -81,6 +81,6 @@ export default {
   .demo-target {
     height: 500px;
     margin: 10rem 0;
-    overflow-y: scroll
+    overflow-y: scroll;
   }
 </style>
