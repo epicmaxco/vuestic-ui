@@ -107,8 +107,8 @@ export const getContextPropValue = (
 
 // Allows to completely overwrite global context config.
 export const overrideContextConfig = (
-  context: { $vaContextConfig: object; },
-  options: { [x: string]: any; },
+  context: { $vaContextConfig: object },
+  options: { [x: string]: any },
 ) => {
   for (const key in { ...options, ...context.$vaContextConfig }) {
     if (!(key in options)) {

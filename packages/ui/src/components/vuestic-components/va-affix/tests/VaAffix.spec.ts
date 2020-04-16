@@ -9,11 +9,11 @@ describe('VaAffix', () => {
     // TODO:
     // disable the Vue prop types checking in the test
     // to get rid of the error:
-    // `type check failed for prop "target". Expected , Window, got Window`
+    // type check failed for prop "target". Expected , Window, got Window`
 
     // just ignore `console.error` yet
     logError = console.error
-    console.error = () => {}
+    console.error = () => undefined
   })
 
   afterEach(() => {
@@ -31,7 +31,6 @@ describe('VaAffix', () => {
     expect(() => testIsContextableComponent(VaAffix, props)).toThrow()
   })
   it('is contextable', () => {
-
     const props = {
       offsetTop: undefined,
       offsetBottom: undefined,

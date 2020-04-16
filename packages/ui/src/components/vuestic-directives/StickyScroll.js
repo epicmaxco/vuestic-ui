@@ -24,7 +24,7 @@ export default {
         el.scrollTop = position
 
         if (elapsedTime < duration) {
-          setTimeout(function () {
+          setTimeout(() => {
             animate(elapsedTime)
           }, increment)
         }

@@ -4,14 +4,13 @@ describe('VaAffix utils', () => {
   let target: Window | HTMLElement = window
 
   test('computeAffixedState with the window target', () => {
-
     let coordinates = {
       top: 0,
       bottom: 0,
     }
 
     // TODO: think of a way of not to test the implementation details
-    Object.defineProperty(document.documentElement, 'clientHeight', { value: 10 });
+    Object.defineProperty(document.documentElement, 'clientHeight', { value: 10 })
 
     expect(computeAffixedState({ coordinates, target })).toStrictEqual({
       isTopAffixed: false,
@@ -83,15 +82,15 @@ describe('VaAffix utils', () => {
     target = document.createElement('div')
 
     type TargetRect = {
-      top: number,
-      bottom: number,
+      top: number;
+      bottom: number;
     }
 
-    function setDimensions({ top, bottom }: TargetRect) {
+    function setDimensions ({ top, bottom }: TargetRect) {
       // TODO: think of a way of not to test the implementation details
       (target as any).getBoundingClientRect = jest.fn(() => ({
         top,
-        bottom
+        bottom,
       }))
     }
 
@@ -128,7 +127,6 @@ describe('VaAffix utils', () => {
       isTopAffixed: true,
       isBottomAffixed: false,
     })
-
 
     targetRect = {
       top: 10,

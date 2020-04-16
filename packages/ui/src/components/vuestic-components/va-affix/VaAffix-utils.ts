@@ -1,21 +1,27 @@
 import throttle from 'lodash/throttle'
 
 export type State = {
-  isTopAffixed: boolean,
-  isBottomAffixed: boolean,
-  width?: number,
+  isTopAffixed: boolean;
+  isBottomAffixed: boolean;
+  width?: number;
 }
 
 type Coordinates = {
-  top: number,
-  bottom: number,
+  top: number;
+  bottom: number;
 }
 
 type ValuesToComputeAffixedState = {
-  coordinates: Coordinates,
-  offsetTop?: number,
-  offsetBottom?: number,
-  target: HTMLElement | Window | undefined,
+  coordinates: Coordinates;
+  offsetTop?: number;
+  offsetBottom?: number;
+  target: HTMLElement | Window | undefined;
+}
+
+export function getWindowHeight () {
+  return document.documentElement.clientHeight ||
+    window.innerHeight ||
+    document.body.clientHeight
 }
 
 export function computeAffixedState ({
@@ -34,7 +40,7 @@ export function computeAffixedState ({
       isTopAffixed = coordinates.top <= offsetTop
     } else {
       const { top } = (target as HTMLElement).getBoundingClientRect()
-      isTopAffixed =  coordinates.top - top <= offsetTop
+      isTopAffixed = coordinates.top - top <= offsetTop
     }
   }
 
@@ -53,25 +59,19 @@ export function computeAffixedState ({
   }
 }
 
-export function getWindowHeight () {
-  return document.documentElement.clientHeight
-    || window.innerHeight
-    || document.body.clientHeight
-}
-
 function checkAffixedStateChange (currentState: State, nextState: State): boolean {
   return currentState.isTopAffixed !== nextState.isTopAffixed ||
     currentState.isBottomAffixed !== nextState.isBottomAffixed
 }
 
 type Context = {
-  offsetTop?: number,
-  offsetBottom?: number,
-  element: Vue | Element | Vue[] | Element[],
-  target: HTMLElement | Window | undefined,
-  setState: (state: State) => void,
-  getState: () => State,
-  initialPosition?: ClientRect,
+  offsetTop?: number;
+  offsetBottom?: number;
+  element: Vue | Element | Vue[] | Element[];
+  target: HTMLElement | Window | undefined;
+  setState: (state: State) => void;
+  getState: () => State;
+  initialPosition?: ClientRect;
 }
 
 export function handleThrottledEvent (eventName: string | null, context: Context) {
@@ -112,9 +112,9 @@ function useCaptureDefault (eventName: string) {
 }
 
 type Options = {
-  handler: (eventName: string, event: Event) => void,
-  useCapture?: (eventName: string) => boolean,
-  wait?: number
+  handler: (eventName: string, event: Event) => void;
+  useCapture?: (eventName: string) => boolean;
+  wait?: number;
 }
 
 export function useEventsHandlerWithThrottle (events: string[], {
