@@ -74,7 +74,7 @@
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
     "typescript": "~3.8.3",
-    "vue-book": "0.1.0-alpha.31",
+    "vue-book": "0.1.0-alpha.32",
     "vue-bulma-expanding": "0.0.1",
     "vue-template-compiler": "^2.6.11",
     "vuepress": "^1.4.0"
