@@ -12,11 +12,14 @@ describe('VaAffix', () => {
     // type check failed for prop "target". Expected , Window, got Window`
 
     // just ignore `console.error` yet
+    // eslint-disable-next-line no-console
     logError = console.error
+    // eslint-disable-next-line no-console
     console.error = () => undefined
   })
 
   afterEach(() => {
+    // eslint-disable-next-line no-console
     console.error = logError
   })
 
