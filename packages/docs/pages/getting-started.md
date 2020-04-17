@@ -1,6 +1,6 @@
 # Quick start
 
-Vue CLI is fresh and well loved tool that simplifies development and hides complexity of build process. By wrapping Webpack it achieves high flexibility with flatter learning curve.
+Vue CLI is fresh and well-loved tool that simplifies development and hides complexity of build process. By wrapping Webpack it achieves high flexibility with gentle learning curve.
 
 ## Vue CLI install
 
@@ -18,4 +18,3 @@ In Vue CLI project you can add `vuestic-ui`:
 $ cd your-app
 $ vue add vuestic-ui
 ```
-
