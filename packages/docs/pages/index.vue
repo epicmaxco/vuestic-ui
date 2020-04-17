@@ -4,7 +4,7 @@
     <div class="base-layout__main">
       <Sidebar v-if="isSidebarVisible"/>
       <div class="base-layout__content">
-        <va-breadcrumbs align="left" active-color="primary">
+        <va-breadcrumbs align="left" separator=">" color="gray" active-color="gray">
           <va-breadcrumbs-item v-for="(crumb, index) in crumbs" :label="crumb.label" :to="crumb.path" :key="index"></va-breadcrumbs-item>
         </va-breadcrumbs>
         <div>
@@ -85,7 +85,7 @@ export default Vue.extend({
       width: 100%;
     }
   }
-  .va-content {
+  .va-content, .va-breadcrumbs {
     font-family: Source Sans Pro, sans-serif;
     font-size: 16px;
   }
