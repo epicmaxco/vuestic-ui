@@ -1,33 +1,36 @@
-# vue-cli
+# vuestic-ui
+
+![CircleCI](https://img.shields.io/circleci/build/gh/epicmaxco/vuestic-ui/develop?label=tests)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui)
 
 ## Project setup
 ```
-yarn install
+yarn
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn run serve
+yarn serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn run build
+yarn build
 ```
 
 ### Run your tests
 ```
-yarn run test
+yarn test
 ```
 
 ### Lints and fixes files
 ```
-yarn run lint
+yarn lint
 ```
 
 ### Run your unit tests
 ```
-yarn run test:unit
+yarn test:unit
 ```
 
 ### Customize configuration

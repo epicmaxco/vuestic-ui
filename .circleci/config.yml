@@ -8,6 +8,10 @@ aliases:
     name: Install Dependencies
     command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
 
+  - &nuxt_generate
+    name: Generate static
+    command: nuxt generate --fail-on-error
+
   - &save_cache
     name: Save Yarn Package Cache
     key: yarn-packages-{{ checksum "yarn.lock" }}
@@ -25,6 +29,19 @@ defaults: &defaults
 
 version: 2
 jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore_cache
+      - run: *install_dependencies
+      - save_cache: *save_cache
+      - run: yarn test:unit
+#      TODO Reenable cypress tests
+#      - run: yarn test:e2e
+      - run: yarn lint
+      - run: yarn lint:style
+
   deploy-demos:
     <<: *defaults
     steps:
@@ -42,7 +59,7 @@ jobs:
       - run:
           name: Deploy to hosting
           command: |
-            tar -czf dist.tar.gz ~/repo/dist -C ~/repo/dist .
+            tar -czf dist.tar.gz ~/repo/packages/ui/dist -C ~/repo/packages/ui/dist .
             scp  ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
@@ -60,14 +77,14 @@ jobs:
       - restore_cache: *restore_cache
       - run: *install_dependencies
       - save_cache: *save_cache
-      - run: yarn build:docs
+      - run: *nuxt_generate
       - run:
           name: Add $SERVER_IP to known_hosts
           command: ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
       - run:
           name: Deploy to hosting
           command: |
-            tar -czf dist.tar.gz ~/repo/docs/.vuepress/dist -C ~/repo/docs/.vuepress/dist .
+            tar -czf dist.tar.gz ~/repo/docs/dist -C ~/repo/docs/dist .
             scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
@@ -79,15 +96,19 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
+      - test
       - deploy-demos:
           context: vuestic-ui-staging-demo
           filters:
             branches:
               only: develop
-      - deploy-docs:
-          context: vuestic-ui-staging-docs
-          filters:
-            branches:
-              only: develop
-          requires:
-            - deploy-demos
+#          requires:
+#            - test
+#      - deploy-docs:
+#          context: vuestic-ui-staging-docs
+#          filters:
+#            branches:
+#              only: develop
+#          requires:
+#            - deploy-demos
+#            - test
