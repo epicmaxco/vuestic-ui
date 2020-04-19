@@ -1,10 +1,14 @@
 <template>
   <VbDemo>
     <VbCard title="checkbox">
-      <ApiDocs :component-options="VaCheckbox" />
+      <ApiDocs
+        :component-options="VaCheckbox"
+      />
     </VbCard>
     <VbCard title="input">
-      <ApiDocs :component-options="VaInput" />
+      <ApiDocs
+        :component-options="VaInput"
+      />
     </VbCard>
   </VbDemo>
 </template>

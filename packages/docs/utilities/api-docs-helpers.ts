@@ -1,4 +1,5 @@
 import Vue from 'vue'
+// @ts-ignore
 import {
   getPropDefaultValue,
   getType,
@@ -10,7 +11,7 @@ Vue.config.warnHandler = () => {
 
 export function getTypes (componentProp) {
   if (!componentProp.type) {
-    throw new Error('Type should be defined for prop to generate docs.')
+    return ['any']
   }
 
   const types = Array.isArray(componentProp.type) ? componentProp.type : [componentProp.type]
@@ -32,6 +33,7 @@ export function convertComponentToApiDocs (componentOptions) {
 }
 
 function convertComponentPropToApiDocs (propName, propOptions) {
+  console.log('componentProp', propName)
   return {
     types: getTypes(propOptions[propName]),
     required: !!propOptions[propName].required,
