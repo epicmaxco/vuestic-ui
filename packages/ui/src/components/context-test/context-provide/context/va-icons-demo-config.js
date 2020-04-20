@@ -16,9 +16,15 @@ export default {
   },
   star: {
     code: 'star',
+    font: 'fas',
   },
   star_half: {
-    code: 'star_half',
+    code: 'star-half-alt',
+    font: 'fas',
+  },
+  star_empty: {
+    code: 'star',
+    font: 'far',
   },
   star_border: {
     code: 'star_border',
@@ -105,5 +111,14 @@ export default {
   },
   remove: {
     code: 'remove',
+  },
+  // VaRatingItem.vue
+  heart: {
+    code: 'heart',
+    font: 'fas',
+  },
+  heart_empty: {
+    code: 'heart',
+    font: 'far',
   },
 }
