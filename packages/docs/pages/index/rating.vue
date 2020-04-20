@@ -19,14 +19,14 @@
 
       <h3>
         Advanced Element
-        <a id="advanced-element" href="#advanced-element">#</a>
+        <a id="advanced-element" href="#advanced-element" :style="{color: computedColor}">#</a>
       </h3>
     </va-content>
     <rating-color-docs-demo />
     <va-content>
       <h3>
         API
-        <a id="api" href="#api">#</a>
+        <a id="api" href="#api" :style="{color: computedColor}">#</a>
       </h3>
       <p>Here are props that are used in va-rating component more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text</p>
       <table class="api__table margin-bottom">
@@ -43,7 +43,7 @@
       </table>
       <h3>
         FAQ
-        <a href="#faq" id="faq">#</a>
+        <a href="#faq" id="faq" :style="{color: computedColor}">#</a>
       </h3>
       <h5>Frequently asked question one</h5>
       <p>Answer one and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text</p>
@@ -115,6 +115,11 @@ export default Vue.extend({
       ]
     };
   },
+  computed: {
+    computedColor() {
+      return this.$themes?.primary
+    }
+  },
   methods: {
     getClass(index: number) {
       return [
@@ -150,5 +155,9 @@ h3 {
   &__description {
     width: 50%;
   }
+}
+
+.content-link {
+  color: '#2C82E0' !important,
 }
 </style>

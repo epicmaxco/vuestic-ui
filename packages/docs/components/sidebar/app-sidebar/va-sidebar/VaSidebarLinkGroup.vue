@@ -167,7 +167,7 @@ export default Vue.extend({
       if (this.isHovered || this.isActive) {
         return {
           color: this.$themes.primary,
-          backgroundColor: shiftHslColor(this.$themes.secondary, { s: -13, l: 15 }),
+          backgroundColor: shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }),
           borderColor: this.isActive ? this.$themes.primary : 'transparent',
         }
       } else return {

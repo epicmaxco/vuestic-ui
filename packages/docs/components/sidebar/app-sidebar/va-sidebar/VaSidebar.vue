@@ -41,6 +41,7 @@ export default Vue.extend({
 @import "../../../../../ui/src/components/vuestic-sass/resources/resources";
 
 .va-sidebar {
+  font-family: Source Sans Pro, sans-serif;
   min-height: $sidebar-viewport-min-height;
   height: $sidebar-viewport-height;
   width: $sidebar-width;

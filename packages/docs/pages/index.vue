@@ -4,8 +4,8 @@
     <div class="base-layout__main">
       <Sidebar v-if="isSidebarVisible"/>
       <div class="base-layout__content">
-        <va-breadcrumbs align="left" separator=">" color="gray" active-color="gray">
-          <va-breadcrumbs-item v-for="(crumb, index) in crumbs" :label="crumb.label" :to="crumb.path" :key="index"></va-breadcrumbs-item>
+        <va-breadcrumbs align="left" separator=">" color="gray" class="base-layout__breadcrumbs">
+          <va-breadcrumbs-item v-for="(crumb, index) in crumbs" :label="crumb.label" :to="crumb.path" :key="index" :style="{color: 'gray'}"></va-breadcrumbs-item>
         </va-breadcrumbs>
         <div>
           <nuxt-child></nuxt-child>
@@ -72,8 +72,15 @@ export default Vue.extend({
   @import 'vuestic-ui/src/components/vuestic-sass/global/reset.scss';
   @import 'vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/icon-fonts.scss';
 
+  * {
+    font-family: Source Sans Pro, sans-serif;
+  }
+
   .base-layout {
     min-height: 100vh;
+    &__breadcrumbs {
+      text-transform: capitalize;
+    }
     &__main {
       padding-top: 64px;
       display: flex;
