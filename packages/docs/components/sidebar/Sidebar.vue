@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar__container">
+  <!-- <div class="sidebar__container">
     <ais-instant-search-ssr :class-names="{'ais-InstantSearch': 'sidebar__search'}">
       <ais-search-box placeholder="Search here…" class="searchbox" />
       <ais-hits :class-names="{'ais-Hits-list': 'hits__list','ais-Hits': 'hits', 'ais-Hits-item': 'hits__item'}">
@@ -10,12 +10,14 @@
         </template>
       </ais-hits>
     </ais-instant-search-ssr>
-  </div>
+  </div> -->
+  <app-sidebar :minimized="false"></app-sidebar>
 </template>
 
 <script lang="ts">
 // @ts-nocheck
 import Vue from "vue";
+import AppSidebar from "./app-sidebar/AppSidebar"
 import algoliasearch from "algoliasearch/lite";
 import "instantsearch.css/themes/algolia-min.css";
 import { createInstantSearch } from "vue-instantsearch";
@@ -26,6 +28,9 @@ const { instantsearch, rootMixin } = createInstantSearch({
 });
 
 export default Vue.extend({
+  components: {
+    AppSidebar
+  },
   mixins: [rootMixin],
   async asyncData() {
     await instantsearch.findResultsState({

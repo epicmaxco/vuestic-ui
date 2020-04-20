@@ -16,7 +16,6 @@ export default {
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },
   ],
-
   build: {
       transpile: ['vue-instantsearch', 'instantsearch.js/es'],
       extend (config, { isDev, isClient }) {

@@ -16083,7 +16083,7 @@ vue-book@0.1.0-alpha.31:
   dependencies:
     tslib "^1.11.1"
 
-vue-bulma-expanding@0.0.1:
+vue-bulma-expanding@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/vue-bulma-expanding/-/vue-bulma-expanding-0.0.1.tgz#fcf71c2e8ef09157175bd5187eb71b3ce75a2229"
   integrity sha1-/PccLo7wkVcXW9UYfrcbPOdaIik=
