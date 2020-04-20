@@ -1,13 +1,21 @@
 <template lang="html">
   <div class="header row">
     <div class="header__logo flex row xs3">
+      <header-selector :minimized="isSidebarVisible"></header-selector>
       <img class="header__logo__image" src="../../assets/svg/vuestic-docs.svg" height="30" width="150" @click="toggleSidebar"/>
     </div>
     <div class="header__links flex xs3">
       <div v-for="link in links" class="header__link__wrapper flex">
-        <a href="" class="header__link link flex-center">
+        <va-button
+          flat
+          class="header__links__button"
+          color="primary"
+          href="https://github.com/epicmaxco/vuestic-admin"
+          target="_blank"
+        >
+         <i class="button__icon" :class="link.icon"/>
           {{link.text}}
-        </a>
+        </va-button>
       </div>
     </div>
     <div class="header__prefences flex xs3">
@@ -36,9 +44,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop } from 'vue/types/options'
+import VaButtonDropdown from '../../../ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
+import VaButton from '../../../ui/src/components/vuestic-components/va-button/VaButton.vue'
 import VaSelect from '../../../ui/src/components/vuestic-components/va-select/VaSelect.vue'
+import HeaderSelector from './app-navbar/components/HeaderSelector.vue'
+
 export default Vue.extend({
   components: {
+    VaButtonDropdown,
+    VaButton,
+    HeaderSelector,
     VaSelect
   },
   props: {
@@ -55,13 +70,16 @@ export default Vue.extend({
       },
       links: [
         {
-          text: 'Overview'
+          text: 'Overview',
+          icon: 'vuestic-iconset-dashboard'
         },
         {
-          text: 'Documentation'
+          text: 'Documentation',
+          icon: 'fa fa-cube'
         },
         {
-          text: 'GitHub'
+          text: 'GitHub',
+          icon: 'fa fa-github'
         },
       ]
     }
@@ -80,27 +98,25 @@ export default Vue.extend({
   @import '../../../ui/src/components/vuestic-sass/global/typography';
 
   .header {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 64px;
     box-shadow: 0px 2px 8px rgba(122, 139, 173, 0.2);
+    &__links__button {
+      font-weight: bold;
+      .button__icon {
+        margin-right: .5em
+      }
+    }
+
     &, &__links, &__prefences, &__logo {
       
       @include va-flex-center();
       display: flex;
       justify-content: space-between;
-
-      &__link {
-        text-decoration: none;
-        font-family: Source Sans Pro;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 16px;
-        height: 100%;
-      }
     }
     &__logo {
-      align-content: flex-start;
+      justify-content: flex-start;
 
       &__image {
         max-width: 200px;

@@ -45,17 +45,14 @@ export default Vue.extend({
   min-height: $sidebar-viewport-min-height;
   height: $sidebar-viewport-height;
   width: $sidebar-width;
-  top: $top-nav-height;
-  left: 0;
+  position: absolute;
   transition: all 0.3s ease;
   overflow-y: auto;
+  background: #f4f8fa;
 
   &__menu {
-    background: #f4f8fa;
+    position: static;
     max-height: 100%;
-    margin-bottom: 0;
-    padding-top: 2.5625rem;
-    padding-bottom: 2.5rem;
     list-style: none;
     padding-left: 0;
   }
