@@ -120,4 +120,10 @@ export default Vue.extend({
   font-family: Source Sans Pro, sans-serif;
   font-size: 16px;
 }
+// import { Component, Vue } from 'vue-property-decorator'
+
+// @Component({})
+// export default class index extends Vue {
+
+// }
 </style>

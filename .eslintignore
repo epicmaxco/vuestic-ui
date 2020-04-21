@@ -1,0 +1,2 @@
+# That's taken from vue src, which has different linting rules.
+src/components/vuestic-utilities/vue-src-no-flow/*

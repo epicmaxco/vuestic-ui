@@ -1,3 +1,5 @@
+import nuxtI18n from './nuxt-modules/nuxt-i18n'
+
 export default {
   head: {
     link: [
@@ -29,4 +31,7 @@ export default {
         }
       }
   },
+  modules: [
+    nuxtI18n,
+  ],
 }
