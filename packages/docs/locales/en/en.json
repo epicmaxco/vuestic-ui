@@ -1,0 +1,24 @@
+{
+  "api": {
+    "all": {
+      "props": {
+        "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
+      }
+    },
+    "VaForm": {
+      "props": {
+        "autofocus": "Focus on first form-component <!-- TODO Add link --> on render"
+      },
+      "events": {
+        "validation": "Triggered on validation update"
+      },
+      "methods": {
+        "validate": "Performs validation and updates error state for each form component. Works with nested forms.",
+        "focus": "Focus on first focusable form-component in the form.",
+        "focusInvalid": "Focus on first focusable invalid form-component in the form. This is useful for longer forms and allows to bring user attention to invalid field.",
+        "resetValidation": "Reset validation for all validateable <!-- TODO Add link --> form-components.",
+        "reset": "Reset values and validation state for all form-components"
+      }
+    }
+  }
+}

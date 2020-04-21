@@ -30,6 +30,7 @@
       }
     },
     "include": [
+      "./../ui/src/**/*.ts",
       "src/**/*.ts",
       "src/**/*.tsx",
       "src/**/*.vue",
@@ -40,4 +41,4 @@
       "node_modules"
     ]
   }
-  
+

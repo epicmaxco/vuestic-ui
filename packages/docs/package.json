@@ -7,7 +7,8 @@
   "license": "MIT",
   "dependencies": {
     "core-js": "2",
-    "nuxt": "^2.12.1"
+    "nuxt": "^2.12.1",
+    "nuxt-i18n": "^6.9.1"
   },
   "scripts": {
     "serve:docs:nuxt": "nuxt --port 8080",
@@ -16,6 +17,8 @@
     "generate:docs:nuxt": "nuxt generate --fail-on-error"
   },
   "devDependencies": {
-    "@nuxt/typescript-build": "^0.6.1"
+    "@nuxt/typescript-build": "^0.6.1",
+    "markdown-it": "^10.0.0",
+    "nuxt-i18n": "^6.9.1"
   }
 }
