@@ -16,7 +16,7 @@
   </va-dropdown>
 </template>
 
-<script lang="ts">
+<script>
 import { Component, Vue } from "vue-property-decorator";
 import VaIcon from "vuestic-ui/src/components/vuestic-components/va-icon/VaIcon.vue";
 import VaDropdown from "vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue";
