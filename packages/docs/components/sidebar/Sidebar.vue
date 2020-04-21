@@ -21,35 +21,32 @@ import AppSidebar from "./app-sidebar/AppSidebar"
 import algoliasearch from "algoliasearch/lite";
 import "instantsearch.css/themes/algolia-min.css";
 import { createInstantSearch } from "vue-instantsearch";
+import {Component, Vue } from 'vue-property-decorator'
 
-const { instantsearch, rootMixin } = createInstantSearch({
-  indexName: "test_index",
-  searchClient: algoliasearch("J2UU2HMWPS", "aa1ea0f0fe3c083ee65db19ef6881d50")
-});
-
-export default Vue.extend({
-  components: {
-    AppSidebar
-  },
-  mixins: [rootMixin],
-  async asyncData() {
-    await instantsearch.findResultsState({
-      query: "",
-      distinct: true,
-    });
-    return {
-      algoliaState: instantsearch.getState()
-    };
-  },
-  beforeMount() {
-    instantsearch.hydrate(this.algoliaState);
-  },
-  data() {
-    return {
-      algoliaState: null,
-    };
-  }
-});
+// const { instantsearch, rootMixin } = createInstantSearch({
+//   indexName: "test_index",
+//   searchClient: algoliasearch("J2UU2HMWPS", "aa1ea0f0fe3c083ee65db19ef6881d50")
+// });
+@Component({components: {AppSidebar}})
+export default class Sidebar extends Vue {
+  // async asyncData() {
+  //   await instantsearch.findResultsState({
+  //     query: "",
+  //     distinct: true,
+  //   });
+  //   return {
+  //     algoliaState: instantsearch.getState()
+  //   };
+  // }
+  // beforeMount() {
+  //   instantsearch.hydrate(this.algoliaState);
+  // }
+  // data() {
+  //   return {
+  //     algoliaState: null,
+  //   };
+  // }
+};
 </script>
 
 <style lang="scss">

@@ -51,22 +51,7 @@
           {{option}}
         </div>
       </va-button-dropdown>
-      <va-button-dropdown
-        class="header__prefences__dropdown"
-        :buttonProps="{
-          flat: true
-        }"
-        color="primary" 
-        :label="defaultSelect.value"
-      >
-        <div
-          v-for="(option, index) in defaultSelect.options"
-          class="header__prefences__option"
-          @click="selectOption(option)"
-        >
-          {{option}}
-        </div>
-      </va-button-dropdown>
+        <language-dropdown></language-dropdown>
       <!-- <va-select
         :options="defaultSelect.options"
         v-model="defaultSelect.value"
@@ -91,28 +76,32 @@
 
 <script lang="ts">
 // @ts-nocheck
-import Vue from "vue";
+import { Component, Vue } from 'vue-property-decorator'
 import { Prop } from "vue/types/options";
 import VaButtonDropdown from "../../../ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue";
+import LanguageDropdown from "./components//LanguageDropdown.vue";
 import VaButton from "../../../ui/src/components/vuestic-components/va-button/VaButton.vue";
 import VaSelect from "../../../ui/src/components/vuestic-components/va-select/VaSelect.vue";
 import HeaderSelector from "./components/HeaderSelector.vue";
-
-export default Vue.extend({
-  components: {
-    VaButtonDropdown,
-    VaButton,
-    HeaderSelector,
-    VaSelect
-  },
+@Component({
   props: {
     isSidebarVisible: {
       type: Boolean as Prop<boolean>
     }
   },
+  components: {
+    VaButtonDropdown,
+    VaButton,
+    HeaderSelector,
+    VaSelect,
+    LanguageDropdown,
+  }
+  })
+export default class Header extends Vue {
   data() {
     return {
       isHovered: [],
+      version: {options: ['v1.0'], value:'v1.0'},
       defaultSelect: {
         options: ["one", "two", "three"],
         value: "one"
@@ -132,16 +121,15 @@ export default Vue.extend({
         }
       ]
     };
-  },
-  methods: {
+  }
     selectOption(option: string) {
       this.defaultSelect.value = option;
-    },
+    }
     toggleSidebar() {
       this.$emit("update:isSidebarVisible", !this.isSidebarVisible);
     }
-  }
-});
+  
+};
 </script>
 
 <style lang="scss" scoped>

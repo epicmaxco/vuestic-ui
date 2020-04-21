@@ -6,14 +6,14 @@
           :key="key"
           :minimized="minimized"
           v-if="item.children"
-          :title="item.displayName"
+          :title="$t(item.displayName)"
           :children="item.children"
         >
           <va-sidebar-link
             v-for="(subMenuItem, key) in item.children"
             :key="key"
             :to="subMenuItem.name"
-            :title="subMenuItem.displayName"
+            :title="$t(subMenuItem.displayName)"
       />
       </va-sidebar-link-group>
         <va-sidebar-link
@@ -23,7 +23,7 @@
           :activeByDefault="item.name === route.name"
           :to="item.name"
         >
-          <span slot="title">{{ item.displayName }}</span>
+          <span slot="title">{{ $t(item.displayName) }}</span>
       </va-sidebar-link>
       </template>
     </template>
@@ -32,14 +32,12 @@
 
 <script lang="ts">
 //@ts-nocheck
-import Vue from "Vue";
+import {Component, Vue } from 'vue-property-decorator';
 import VaSidebar from "./va-sidebar/VaSidebar.vue";
 import VaSidebarLink from "./va-sidebar/VaSidebarLink.vue";
 import VaSidebarLinkGroup from './va-sidebar/VaSidebarLinkGroup.vue'
 import {navigationRoutes} from "./NavigationRoutes";
-
-export default Vue.extend({
-  name: "app-sidebar",
+@Component({
   components: {
     VaSidebarLinkGroup,
     VaSidebarLink,
@@ -51,15 +49,15 @@ export default Vue.extend({
       required: true
     }
   },
+  name: 'app-sidebar'})
+export default class AppSidebar extends Vue {
   data() {
     return {
       items: navigationRoutes.routes
     };
-  },
-  computed: {
-    route() {
+  }
+  get route() {
       return this.$route || {}
     }
-  }
-});
+};
 </script>

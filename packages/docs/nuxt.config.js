@@ -34,4 +34,7 @@ export default {
   modules: [
     nuxtI18n,
   ],
+  router: {
+    middleware: ['locale-redirect']
+  }
 }

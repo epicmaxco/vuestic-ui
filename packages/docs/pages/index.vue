@@ -26,31 +26,31 @@
 
 <script lang="ts">
 // @ts-nocheck
-import Vue from "vue";
 import Header from "../components/header/Header.vue";
 import Sidebar from "../components/sidebar/Sidebar.vue";
 import VaBreadcrumbs from "vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue";
 import VaBreadcrumbsItem from "vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue";
+import { Component, Vue } from 'vue-property-decorator'
 
-export default Vue.extend({
+@Component({
   components: {
     VaBreadcrumbsItem,
     VaBreadcrumbs,
     Header,
     Sidebar
-  },
+  }})
+export default class index extends Vue {
   data() {
     return {
       isSidebarVisible: true
     };
-  },
+  };
   mounted() {
     if (this.$route.hash) {
       document.querySelector(this.$route.hash).scrollIntoView();
     }
-  },
-  computed: {
-    crumbs() {
+  };
+  get  crumbs() {
       if (this.$isServer) {
         return [];
       }
@@ -74,8 +74,7 @@ export default Vue.extend({
         return acc;
       }, [] as { [key: string]: string }[]);
     }
-  }
-});
+  };
 </script>
 <style lang="scss">
 @import "vuestic-ui/src/components/vuestic-sass/global/reset.scss";
@@ -120,10 +119,4 @@ export default Vue.extend({
   font-family: Source Sans Pro, sans-serif;
   font-size: 16px;
 }
-// import { Component, Vue } from 'vue-property-decorator'
-
-// @Component({})
-// export default class index extends Vue {
-
-// }
 </style>
