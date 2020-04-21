@@ -1,9 +1,7 @@
 <template>
   <div class="ApiTest">
-    <div>VaCheckbox</div>
-    <ApiDocs :component-options="VaCheckbox"/>
-    <div>VaInput</div>
-    <ApiDocs :component-options="VaInput"/>
+    <div>VaForm</div>
+    <FormApi/>
   </div>
 </template>
 
@@ -12,9 +10,10 @@ import { Component, Vue } from 'vue-property-decorator'
 import ApiDocs from '../utilities/ApiDocs.vue'
 import VaCheckbox from '../../ui/src/components/vuestic-components/va-checkbox/VaCheckbox.vue'
 import VaInput from '../../ui/src/components/vuestic-components/va-input/VaInput.vue'
+import FormApi from './FormApi.vue'
 
 @Component({
-  components: { ApiDocs },
+  components: { FormApi, ApiDocs },
 })
 export default class ApiTest extends Vue {
   get VaCheckbox () {

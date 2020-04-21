@@ -1,4 +1,5 @@
-import Vue from 'vue'
+import Vue, { ComponentOptions } from 'vue'
+import { PropOptions } from 'vue/types/options'
 // @ts-ignore
 import {
   getPropDefaultValue,
@@ -6,10 +7,18 @@ import {
 } from './vue-src-no-flow/core/util/props'
 import { emptyObject, hyphenate } from './vue-src-no-flow/shared/util'
 
-Vue.config.warnHandler = () => {
+import noop from 'lodash/noop'
+
+export type ComponentOptionsApiDocs = {
+  types: string[],
+  required: boolean,
+  default: any,
 }
 
-export function getTypes (componentProp) {
+/**
+ * @param componentProp vue prop options.
+ */
+export function getTypes (componentProp: PropOptions): string[] {
   if (!componentProp.type) {
     return ['any']
   }
@@ -18,30 +27,38 @@ export function getTypes (componentProp) {
   return types.map(getType)
 }
 
-export function convertComponentToApiDocs (componentOptions) {
+export function convertComponentToApiDocs (componentOptions: ComponentOptions) {
   const testComponentInstance = new (Vue.extend(componentOptions))()
   const props = testComponentInstance.$options.props
+
+  // Warn handler will complain
+  // const warnHandler = Vue.config.warnHandler
+  // Vue.config.warnHandler = noop
 
   const propsApiDocs = {}
   for (const propName in props) {
     propsApiDocs[hyphenate(propName)] = convertComponentPropToApiDocs(propName, props)
   }
 
+  // Vue.config.warnHandler = warnHandler
+
   return {
     props: propsApiDocs,
   }
 }
 
-function convertComponentPropToApiDocs (propName, propOptions) {
-  console.log('componentProp', propName)
+function convertComponentPropToApiDocs <T extends string>(propName: T, propOptionsRecord: Record<string, PropOptions<T>>): ComponentOptionsApiDocs {
   return {
-    types: getTypes(propOptions[propName]),
-    required: !!propOptions[propName].required,
-    default: getDefaultValue(propName, propOptions, emptyObject),
+    types: getTypes(propOptionsRecord[propName]),
+    required: !!propOptionsRecord[propName].required,
+    default: getDefaultValue(propName, propOptionsRecord, emptyObject),
   }
 }
 
-function getDefaultValue (propName, propOptions) {
+/**
+ * Employ vue native functionality to get defaults for prop
+ */
+function getDefaultValue <T extends string>(propName: T, propOptions: PropOptions<T>) {
   const defaultValue = getPropDefaultValue(propName, propOptions, emptyObject)
   return defaultValue + ''
 }
