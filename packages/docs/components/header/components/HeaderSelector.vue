@@ -2,7 +2,7 @@
   <i
     class="flex-center header-selector"
     :class="`i-menu-${minimized ? 'collapsed' : 'expanded'}`"
-    @click="$emit('update:minimized', !minimized)"
+    @click="$emit('toggleSidebar', !minimized)"
 
   />
 </template>

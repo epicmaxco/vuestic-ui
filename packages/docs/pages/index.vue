@@ -106,7 +106,7 @@ export default Vue.extend({
     background-color: #fff;
   }
   &__content {
-    margin-left: 300px;
+    margin-left: 250px;
     height: 100%;
     &--expanded {
       margin-left: 0;

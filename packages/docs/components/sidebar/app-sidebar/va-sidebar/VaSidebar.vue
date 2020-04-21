@@ -44,7 +44,7 @@ export default Vue.extend({
   font-family: Source Sans Pro, sans-serif;
   min-height: $sidebar-viewport-min-height;
   height: $sidebar-viewport-height;
-  width: $sidebar-width;
+  width: 250px;
   position: absolute;
   transition: all 0.3s ease;
   overflow-y: auto;
