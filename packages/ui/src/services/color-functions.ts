@@ -17,7 +17,7 @@ export const getFocusColor = (color: ColorInput) => {
   return new ColorTranslator(color).setA(0.3).RGBA
 }
 
-export const shiftHslColor = (color: ColorInput, offset: { h?: number, s?: number, l?: number, a?: number }) => {
+export const shiftHslColor = (color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => {
   const result = new ColorTranslator(color)
 
   if (offset.h) {
@@ -47,7 +47,7 @@ export const shiftHslColor = (color: ColorInput, offset: { h?: number, s?: numbe
  * @param color
  */
 export const shiftGradientColor = (color: ColorInput): string => {
-  let newColor = ColorTranslator.toHSL(color, false) as HSLObject
+  const newColor = ColorTranslator.toHSL(color, false) as HSLObject
 
   // Gray
   if (newColor.s < 10) {
