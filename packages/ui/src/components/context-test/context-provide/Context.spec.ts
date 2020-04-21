@@ -10,7 +10,7 @@ const ContextableComponentConfig = {
   render: (h: CreateElement) => h(''),
 }
 
-describe('ContextPlugin', function () {
+describe('ContextPlugin', () => {
   it('mergeConfigs', () => {
     const configA = {
       A: { A: 'A' },

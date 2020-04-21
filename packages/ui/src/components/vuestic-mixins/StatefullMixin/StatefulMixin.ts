@@ -30,7 +30,7 @@ export class StatefulMixin extends mixins(PropsMixin as any) {
     (this as any).hasStatefulMixin = true
   }
 
-  @Watch('value', {immediate: true})
+  @Watch('value', { immediate: true })
   onValueChange () {
     if ((this as any).stateful) {
       this.valueState.value = (this as any).value

@@ -4,7 +4,8 @@
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "lerna": "^3.20.2",
+    "yorkie": "^2.0.0"
   },
   "private": true,
   "scripts": {
@@ -28,5 +29,8 @@
     "@types/lodash": "^4.14.149",
     "jsdom": "^16.2.2",
     "vuetable-2": "^1.7.5"
+  },
+  "gitHooks": {
+    "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"
   }
 }

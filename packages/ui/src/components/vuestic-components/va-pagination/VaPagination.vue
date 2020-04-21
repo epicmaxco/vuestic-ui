@@ -176,7 +176,6 @@ export default class VaPagination extends mixins(...mixinsArr) {
   }
 
   private get currentValue () {
-    console.log('this.valueComputed', (this as any).valueComputed)
     if (this.useTotal) {
       return Math.ceil((this as any).valueComputed / (this as any).c_pageSize) || 1
     } else {
@@ -192,7 +191,9 @@ export default class VaPagination extends mixins(...mixinsArr) {
   @Watch('pages', { immediate: true })
   private onModeChange () {
     if (this.useTotal && (this as any).c_pages) {
-      throw new Error('Please, use either `total` and `page-size` props, or `c_pages`.')
+      if (process.env.NODE_ENV !== 'production') {
+        throw new Error('Please, use either `total` and `page-size` props, or `c_pages`.')
+      }
     }
   }
 
@@ -280,6 +281,5 @@ export default class VaPagination extends mixins(...mixinsArr) {
       opacity: 0.4;
     }
   }
-
 }
 </style>
