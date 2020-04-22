@@ -6,6 +6,21 @@
     <VbCard title="Default">
       <va-rating v-model="value"/>
     </VbCard>
+    <VbCard title="With texts" style="width: 300px;">
+      <va-rating
+        v-model="value"
+        text-color="danger"
+        hover
+        halves
+        :texts="[
+          'Bad',
+          'Quite bad',
+          'Normal',
+          'Not bad',
+          'Good'
+        ]"
+      />
+    </VbCard>
     <VbCard title="Custom length">
       <va-rating :max="3" v-model="value"/>
     </VbCard>
@@ -28,6 +43,13 @@
       <va-rating color="danger" v-model="value"/>
       <va-rating color="dark" v-model="value"/>
       <va-rating color="grey" v-model="value"/>
+    </VbCard>
+    <VbCard title="Custom color for unselected">
+      <va-rating
+        hover
+        unselected-color="danger"
+        v-model="value"
+      />
     </VbCard>
     <VbCard title="Sizes">
       <va-rating size='small' v-model="value"/>
@@ -125,6 +147,14 @@
       <va-rating numbers color="danger" v-model="value"/>
       <va-rating numbers color="dark" v-model="value"/>
       <va-rating numbers color="#ffff00" v-model="value"/>
+    </VbCard>
+    <VbCard title="Custom color for unselected">
+      <va-rating
+        hover
+        numbers
+        unselected-color="danger"
+        v-model="value"
+      />
     </VbCard>
     <VbCard title="Sizes">
       <va-rating numbers size='small' v-model="value"/>

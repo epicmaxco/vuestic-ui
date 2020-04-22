@@ -21,6 +21,7 @@
           :hover="hoverEnabled"
           :size="size"
           :color="c_color"
+          :empty-icon-color="unselectedColor"
           :tabindex="tabIndex"
           :value="getItemValue(number)"
           @hover="onHover(number, $event)"
@@ -54,6 +55,7 @@
           :empty-icon-name="emptyIcon"
           :size="size"
           :color="c_color"
+          :empty-icon-color="unselectedColor"
           :tabindex="tabIndex"
           :value="getItemValue(itemNumber)"
           @hover="onHover(itemNumber, $event)"
@@ -61,6 +63,9 @@
         />
       </template>
     </div>
+    <span v-if="texts.length === max" :style="{ color: computeColor(textColor) }">
+      {{ texts[Math.round(valueProxy) - 1] }}
+    </span>
   </div>
 </template>
 
@@ -87,6 +92,9 @@ const RatingPropsMixin = makeContextablePropsMixin({
   size: { type: [String, Number], default: 'medium' },
   clearable: { type: Boolean, default: false },
   hover: { type: Boolean, default: false },
+  texts: { type: Array, default: () => [] },
+  textColor: { type: String },
+  unselectedColor: { type: String },
 })
 
 @Component({
@@ -120,7 +128,9 @@ export default class VaRating extends mixins(
   }
 
   private get focusColor () {
-    return getFocusColor(this.colorComputed as ColorInput)
+    return this.unselectedColor
+      ? this.computeColor(this.unselectedColor)
+      : getFocusColor(this.colorComputed as ColorInput)
   }
 
   private get classList () {

@@ -12,13 +12,12 @@
     @keyup.enter="onEnter"
   >
     <slot :props="{
-      value: valueProxy,
-      onClick
+      value: valueProxy, onClick
     }">
       <va-icon
         :name="computedIconName"
         :size="c_size"
-        :color="c_color"
+        :color="computedColor"
         class="fa-fw"
         @click="onClick"
       />
@@ -42,6 +41,7 @@ const RatingItemPropsMixin = makeContextablePropsMixin({
   hover: { type: Boolean, default: false },
   tabindex: { type: Number },
   size: { type: [String, Number], default: 'medium' },
+  emptyIconColor: { type: String },
 })
 
 export type RatingItemValue = 0 | 0.5 | 1
@@ -61,6 +61,12 @@ export default class VaRatingItem extends mixins(RatingItemPropsMixin, ColorThem
       return this.halfIconName
     }
     return this.valueProxy === 0 ? this.emptyIconName : this.filledIconName
+  }
+
+  private get computedColor () {
+    return this.valueProxy === 0
+      ? this.emptyIconColor || this.colorComputed
+      : this.colorComputed
   }
 
   @Watch('value')
@@ -111,8 +117,7 @@ export default class VaRatingItem extends mixins(RatingItemPropsMixin, ColorThem
   }
 
   private removeHover () {
-    console.log('hover removed')
-    this.hoveredValue = this.value
+    this.valueProxy = this.value
     this.isHovered = false
   }
 }

@@ -6,6 +6,9 @@
     <VbCard title="Empty">
       <va-rating-item />
     </VbCard>
+    <VbCard title="Custom empty color">
+      <va-rating-item empty-icon-color="danger" />
+    </VbCard>
     <VbCard title="Half icon">
       <va-rating-item :value="0.5" halves />
     </VbCard>
@@ -33,7 +36,7 @@
 
     <VbCard title="With value">
       <input v-model.number="ratingModel" style="width: 40px;">
-      <va-rating-item :value="ratingModel" halves/>
+      <va-rating-item empty-icon-color="danger" hover :value="ratingModel" halves/>
     </VbCard>
 
     <VbCard title="Click event">
