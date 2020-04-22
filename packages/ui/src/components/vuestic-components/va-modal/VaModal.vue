@@ -17,7 +17,6 @@
     <div
       class="va-modal__container"
       :class="{ 'show': valueComputed }"
-      @click="checkOutside"
     >
       <transition
         name="va-modal__container--with-transition"
@@ -29,6 +28,7 @@
           class="va-modal__dialog"
           :class="computedClass"
           :style="{c_maxWidth, c_maxHeight}"
+          ref="modal"
         >
           <i
             v-if="c_fullscreen"
@@ -95,10 +95,12 @@
 </template>
 
 <script lang="ts">
+import { noop } from 'lodash'
 import { Component, Watch, Mixins } from 'vue-property-decorator'
 import VaButton from '../va-button'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import ClickOutsideMixin, { ClickOutsideOptions } from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'
 
 const props = {
   value: {
@@ -187,9 +189,10 @@ const ContextableMixin = makeContextablePropsMixin(props)
   name: 'VaModal',
   components: { VaButton },
 })
-export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
+export default class VaModal extends Mixins(StatefulMixin, ContextableMixin, ClickOutsideMixin) {
   // for leave animation
   private overlayValue = false
+  private clearClickOutsideEvents: () => void = noop
 
   get computedClass () {
     return {
@@ -234,6 +237,19 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
     if (valueComputed) {
       this.overlayValue = this.c_overlay
       window.addEventListener('keyup', this.listenKeyUp)
+
+      const options: ClickOutsideOptions = {
+        onClickOutside: () => {
+          this.cancel()
+        },
+        disabled: this.c_noOutsideDismiss || this.c_noDismiss,
+        trigger: 'mousedown',
+      }
+
+      this.$nextTick(() => {
+        const target = this.$refs.modal
+        this.clearClickOutsideEvents = this.registerClickOutsideEvents(target as Element, options)
+      })
     } else {
       if (this.c_withoutTransitions) {
         this.overlayValue = false
@@ -242,6 +258,7 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
           this.overlayValue = false
         }, 300)
       }
+      this.clearClickOutsideEvents()
       window.removeEventListener('keyup', this.listenKeyUp)
     }
   }
@@ -264,37 +281,10 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin) {
     this.$emit('ok')
   }
 
-  checkOutside (e: MouseEvent) {
-    if (!this.c_noOutsideDismiss && !this.c_noDismiss) {
-      let modal
-      if (e.target) {
-        (e.target as HTMLDivElement).childNodes.forEach((node: ChildNode) => {
-          if (
-            (node as HTMLElement).classList &&
-            (node as HTMLElement).classList.contains('va-modal__dialog')) {
-            modal = node
-          }
-        })
-      }
-
-      if (modal) {
-        this.cancel()
-      }
-    }
-  }
-
   listenKeyUp (e: KeyboardEvent) {
     if (e.code === 'Escape' && (!this.c_noEscDismiss && !this.c_noDismiss)) {
       this.cancel()
     }
-  }
-
-  mounted () {
-    document.body.appendChild(this.$el)
-  }
-
-  beforeDestroy () {
-    document.body.removeChild(this.$el)
   }
 }
 </script>
