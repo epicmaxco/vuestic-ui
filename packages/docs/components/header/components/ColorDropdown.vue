@@ -6,13 +6,13 @@
       flat
       :color="$themes && $themes.primary"
     >
-    {{selectedTheme}}
+      {{ selectedTheme }}
     </va-button>
     <div class="color-dropdown__content pl-4 pr-4 pt-2 pb-2">
       <va-button-toggle
+        v-model="selectedTheme"
         outline
         small
-        v-model="selectedTheme"
         :options="themeOptions"
         style="max-width: 100%;"
       />
@@ -133,39 +133,40 @@
 
 <script lang="ts">
 // @ts-nocheck
-import { Component, Vue, Watch } from "vue-property-decorator";
-import VaDropdown from "vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue";
-import VaButtonToggle from "vuestic-ui/src/components/vuestic-components/va-button-toggle/VaButtonToggle.vue";
-import VaButton from "vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import VaDropdown from 'vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue'
+import VaButtonToggle from 'vuestic-ui/src/components/vuestic-components/va-button-toggle/VaButtonToggle.vue'
+import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
 import {
-  THEME_NAMES,
-  COLOR_THEMES
-} from "vuestic-ui/src/services/ColorThemePlugin.ts";
+  ThemeName,
+} from 'vuestic-ui/src/services/ColorThemePlugin.ts'
 
 @Component({
   components: {
     VaDropdown,
     VaButtonToggle,
     VaButton,
-  }
+  },
 })
 export default class ColorDropdown extends Vue {
-  data() {
+  data () {
     return {
-      selectedTheme: THEME_NAMES.CORPORATE,
-      themeOptions: Object.keys(THEME_NAMES).map(name => ({label: name, value: name}))
-    };
+      selectedTheme: ThemeName.CORPORATE,
+      themeOptions: Object.keys(ThemeName).map(name => ({ label: name, value: name })),
+    }
   }
-  @Watch("selectedTheme")
-  onThemeChanged(themeName) {
+
+  @Watch('selectedTheme')
+  onThemeChanged (themeName) {
     console.log(themeName)
-    this.$root.$emit("change-theme", themeName);
+    this.$root.$emit('change-theme', themeName)
   }
 }
 </script>
 
 <style lang="scss">
 @import "../../../../ui/src/components/vuestic-sass/resources/resources";
+
 .color-dropdown {
   cursor: pointer;
 

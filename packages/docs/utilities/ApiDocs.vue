@@ -1,21 +1,21 @@
 <template>
   <table class="ApiDocs striped">
     <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Types</th>
-      <th>Default</th>
-      <th>Required</th>
-      <th>Version</th>
-    </tr>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Types</th>
+        <th>Default</th>
+        <th>Required</th>
+        <th>Version</th>
+      </tr>
     </thead>
     <tbody>
-    <ApiDocsRow
-      v-for="(prop, key) in componentOptionsReadable.props"
-      :key="key"
-      :propRow="getPropRow(key)"
-    />
+      <ApiDocsRow
+        v-for="(prop, key) in componentOptionsReadable.props"
+        :key="key"
+        :prop-row="getPropRow(key)"
+      />
     </tbody>
   </table>
 </template>
@@ -35,6 +35,7 @@ export default class ApiDocs extends Vue {
     type: Object,
     required: true,
   }) componentOptions: ComponentOptions<Vue>
+
   @Prop({ type: Object, default: () => ({}) }) apiOptions: ApiOptions
 
   get componentOptionsReadable () {

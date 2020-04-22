@@ -1,5 +1,5 @@
 <template>
-  <MdView :value="text"/>
+  <MdView :value="text" />
 </template>
 
 <script lang="ts">

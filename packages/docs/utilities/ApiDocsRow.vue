@@ -1,11 +1,11 @@
 <template>
   <tr class="ApiDocsRow">
     <td>{{ propRow.name }}</td>
-    <td><MdView :value="$t(propRow.description)"/></td>
-    <td><MdView :value="propRow.types"/></td>
-    <td><pre>{{propRow.default}}</pre></td>
+    <td><MdView :value="$t(propRow.description)" /></td>
+    <td><MdView :value="propRow.types" /></td>
+    <td><pre>{{ propRow.default }}</pre></td>
     <td>{{ propRow.required }}</td>
-    <td><pre>{{propRow.version}}</pre></td>
+    <td><pre>{{ propRow.version }}</pre></td>
   </tr>
 </template>
 

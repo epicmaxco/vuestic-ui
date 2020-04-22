@@ -3,14 +3,13 @@
     class="flex-center header-selector"
     :class="`i-menu-${minimized ? 'collapsed' : 'expanded'}`"
     @click="$emit('toggleSidebar', !minimized)"
-
   />
 </template>
 
 <script lang="ts">
 // @ts-nocheck
 export default {
-  name: 'header-selector',
+  name: 'HeaderSelector',
   props: {
     minimized: {
       type: Boolean,
@@ -28,6 +27,7 @@ export default {
   height: 1.5rem;
   width: 1.5rem;
 }
+
 .i-menu-expanded {
   @extend .i-nav;
 

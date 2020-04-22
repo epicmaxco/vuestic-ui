@@ -2,8 +2,8 @@ export type TranslationString = string
 export type VersionString = string // vuestic-ui version at which feature was first introduced
 
 export type PropApiOptions = {
-  local?: boolean
-  version?: VersionString
+  local?: boolean,
+  version?: VersionString,
 }
 
 export type ApiOptions = {

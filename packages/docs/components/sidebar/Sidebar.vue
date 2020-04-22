@@ -1,92 +1,64 @@
 <template>
-  <!-- <div class="sidebar__container">
-    <ais-instant-search-ssr :class-names="{'ais-InstantSearch': 'sidebar__search'}">
-      <ais-search-box placeholder="Search here…" class="searchbox" />
-      <ais-hits :class-names="{'ais-Hits-list': 'hits__list','ais-Hits': 'hits', 'ais-Hits-item': 'hits__item'}">
-        <template slot="item" slot-scope="{ item }">
-          <nuxt-link class="hist__navlink link" :to="item.to">
-            <ais-highlight attribute="label" :hit="item" />
-          </nuxt-link>
-        </template>
-      </ais-hits>
-    </ais-instant-search-ssr>
-  </div> -->
-  <app-sidebar :minimized="false"></app-sidebar>
+  <va-sidebar :minimized="minimized">
+    <template slot="menu">
+      <template v-for="(item, key) in items">
+        <va-sidebar-link-group
+          v-if="item.children"
+          :key="key"
+          :minimized="minimized"
+          :title="$t(item.displayName)"
+          :children="item.children"
+        >
+          <va-sidebar-link
+            v-for="(subMenuItem, index) in item.children"
+            :key="index"
+            :to="subMenuItem.name"
+            :title="$t(subMenuItem.displayName)"
+          />
+        </va-sidebar-link-group>
+        <va-sidebar-link
+          v-else
+          :key="key"
+          :minimized="minimized"
+          :active-by-default="item.name === route.name"
+          :to="item.name"
+        >
+          <span slot="title">{{ $t(item.displayName) }}</span>
+        </va-sidebar-link>
+      </template>
+    </template>
+  </va-sidebar>
 </template>
 
 <script lang="ts">
 // @ts-nocheck
-import Vue from "vue";
-import AppSidebar from "./app-sidebar/AppSidebar"
-import algoliasearch from "algoliasearch/lite";
-import "instantsearch.css/themes/algolia-min.css";
-import { createInstantSearch } from "vue-instantsearch";
-import {Component, Vue } from 'vue-property-decorator'
-
-// const { instantsearch, rootMixin } = createInstantSearch({
-//   indexName: "test_index",
-//   searchClient: algoliasearch("J2UU2HMWPS", "aa1ea0f0fe3c083ee65db19ef6881d50")
-// });
-@Component({components: {AppSidebar}})
+import { Component, Vue } from 'vue-property-decorator'
+import VaSidebar from './va-sidebar/VaSidebar.vue'
+import VaSidebarLink from './va-sidebar/VaSidebarLink.vue'
+import VaSidebarLinkGroup from './va-sidebar/VaSidebarLinkGroup.vue'
+import { navigationRoutes } from './NavigationRoutes.ts'
+@Component({
+  components: {
+    VaSidebarLinkGroup,
+    VaSidebarLink,
+    VaSidebar,
+  },
+  props: {
+    minimized: {
+      type: Boolean,
+      required: true,
+    },
+  },
+})
 export default class Sidebar extends Vue {
-  // async asyncData() {
-  //   await instantsearch.findResultsState({
-  //     query: "",
-  //     distinct: true,
-  //   });
-  //   return {
-  //     algoliaState: instantsearch.getState()
-  //   };
-  // }
-  // beforeMount() {
-  //   instantsearch.hydrate(this.algoliaState);
-  // }
-  // data() {
-  //   return {
-  //     algoliaState: null,
-  //   };
-  // }
-};
-</script>
-
-<style lang="scss">
-// is not scoped because can't restyle algolia components even with classes
-@import "../../../ui/src/components/vuestic-sass/resources/resources";
-@import "../../../ui/src/components/vuestic-sass/global/typography";
-.sidebar {
-  &__search {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    .hits {
-      flex-grow: 1;
-      display: flex;
-      &__list {
-        width:100%;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100%;
-      }
-      &__item {
-        box-shadow: none;
-        margin: 0;
-        border: none;
-        width: 100%;
-      }
-      &__navlink {
-        padding: 5px;
-        text-decoration: none;
-      }
+  data () {
+    return {
+      items: navigationRoutes.routes,
     }
   }
-  &__container {
-    display: flex;
-    align-content: center;
-    flex-flow: column nowrap;
-    background: #f4f8fa;
-    width: 250px;
-    min-width: 250px;
+
+  get route () {
+    return this.$route || {}
   }
 }
-</style>
+</script>

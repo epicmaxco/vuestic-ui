@@ -1,8 +1,9 @@
 <template>
   <div class="base-layout">
-    <Header :isSidebarVisible.sync="isSidebarVisible" class="base-layout__header" />
+    <Header :is-sidebar-visible.sync="isSidebarVisible" class="base-layout__header" />
     <div class="base-layout__main">
-      <Sidebar v-if="isSidebarVisible" />
+      <Sidebar v-if="isSidebarVisible" :minimized="!isSidebarVisible" />
+      <!-- TODO: remove v-if when icon handling for sidebar is implemented -->
       <div
         class="base-layout__content"
         :class="{'base-layout__content--expanded': !isSidebarVisible} "
@@ -10,14 +11,14 @@
         <va-breadcrumbs align="left" separator=">" color="gray" class="base-layout__breadcrumbs">
           <va-breadcrumbs-item
             v-for="(crumb, index) in crumbs"
+            :key="index"
             :label="crumb.label"
             :to="crumb.path"
-            :key="index"
             :style="{color: 'gray'}"
-          ></va-breadcrumbs-item>
+          />
         </va-breadcrumbs>
         <div>
-          <nuxt-child></nuxt-child>
+          <nuxt-child />
         </div>
       </div>
     </div>
@@ -26,73 +27,78 @@
 
 <script lang="ts">
 // @ts-nocheck
-import Header from "../components/header/Header.vue";
-import Sidebar from "../components/sidebar/Sidebar.vue";
-import VaBreadcrumbs from "vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue";
-import VaBreadcrumbsItem from "vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue";
-import { Component, Vue, mixins } from "vue-property-decorator";
-import { COLOR_THEMES } from '../../ui/src/services/ColorThemePlugin';
+import VaBreadcrumbs from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
+import VaBreadcrumbsItem from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
+import { Component, Vue } from 'vue-property-decorator'
+import Sidebar from '../components/sidebar/Sidebar.vue'
+import Header from '../components/header/Header.vue'
+import { COLOR_THEMES } from '../../ui/src/services/ColorThemePlugin.ts'
+import { ThemeName } from '../../ui/src/services/ColorThemePlugin'
 
 @Component({
   components: {
     VaBreadcrumbsItem,
     VaBreadcrumbs,
     Header,
-    Sidebar
-  }
+    Sidebar,
+  },
 })
-export default class index extends Vue {
-  data() {
+export default class Index extends Vue {
+  data () {
     return {
-      isSidebarVisible: true
-    };
+      isSidebarVisible: true,
+    }
   }
-  created() {
-    this.$root.$on("change-theme", this.setTheme.bind(this));
+
+  created () {
+    this.$root.$on('change-theme', this.setTheme.bind(this))
   }
-  mounted() {
+
+  mounted () {
     if (this.$route.hash) {
-      document.querySelector(this.$route.hash).scrollIntoView();
+      document.querySelector(this.$route.hash).scrollIntoView()
     }
   }
-  beforeDestroy() {
-    this.$root.$off("change-theme", this.setTheme.bind(this));
+
+  beforeDestroy () {
+    this.$root.$off('change-theme', this.setTheme.bind(this))
   }
-  setTheme(themeName) {
-    Object.assign(this.$themes, COLOR_THEMES.find(({name})=> name === themeName)?.themes || COLOR_THEMES[0].themes)
+
+  setTheme (themeName) {
+    Object.assign(this.$themes, COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.CORPORATE])
   }
-  get crumbs() {
-    if (this.$isServer) {
-      return [];
-    }
+
+  get crumbs () {
+    if (this.$isServer) { return [] }
     // @ts-ignore
-    if (this.$route.path === "/") {
+    if (this.$route.path === '/') {
       return [
         {
-          label: "Home",
-          path: `/${this.$root.$i18n.locale}/`
-        }
-      ];
+          label: 'Home',
+          path: `/${this.$root.$i18n.locale}/`,
+        },
+      ]
     }
-    const pathSteps: string[] = this.$route.path.split("/").filter(Boolean);
+    const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
     return pathSteps.reduce((acc, step, index, array) => {
       switch (true) {
         case !index:
           acc.push({
-            label: "Home",
-            path: `/${this.$root.$i18n.locale}/`
-          });
+            label: 'Home',
+            path: `/${this.$root.$i18n.locale}/`,
+          })
+          break
         case !step && index:
-          break;
+          break
         default:
           acc.push({
-            path: "/" + array.slice(0, index + 1).join("/"),
-            label: step
-          });
-          break;
+            path: '/' + array.slice(0, index + 1).join('/'),
+            label: step,
+          })
+          break
       }
-      return acc;
-    }, [] as { [key: string]: string }[]);
+      return acc
+    }, [] as { [key: string]: string, }[])
   }
 }
 </script>
@@ -109,9 +115,11 @@ export default class index extends Vue {
 .base-layout {
   height: 100vh;
   position: fixed;
+
   &__breadcrumbs {
     text-transform: capitalize;
   }
+
   &__main {
     display: flex;
     flex-direction: row;
@@ -120,20 +128,25 @@ export default class index extends Vue {
     margin-top: 64px;
     overflow-y: auto;
   }
+
   &__header {
     z-index: 1;
-    background-color: #fff;
+    background-color: #ffffff;
   }
+
   &__content {
     margin-left: 250px;
     height: 100%;
+
     &--expanded {
       margin-left: 0;
     }
+
     padding: 15px;
     width: 100%;
   }
 }
+
 .va-content,
 .va-breadcrumbs {
   font-family: Source Sans Pro, sans-serif;
