@@ -51,7 +51,8 @@
           {{option}}
         </div>
       </va-button-dropdown>
-        <language-dropdown></language-dropdown>
+        <language-dropdown/>
+        <color-dropdown/>
       <!-- <va-select
         :options="defaultSelect.options"
         v-model="defaultSelect.value"
@@ -80,6 +81,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Prop } from "vue/types/options";
 import VaButtonDropdown from "../../../ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue";
 import LanguageDropdown from "./components//LanguageDropdown.vue";
+import ColorDropdown from "./components//ColorDropdown.vue";
 import VaButton from "../../../ui/src/components/vuestic-components/va-button/VaButton.vue";
 import VaSelect from "../../../ui/src/components/vuestic-components/va-select/VaSelect.vue";
 import HeaderSelector from "./components/HeaderSelector.vue";
@@ -95,6 +97,7 @@ import HeaderSelector from "./components/HeaderSelector.vue";
     HeaderSelector,
     VaSelect,
     LanguageDropdown,
+    ColorDropdown,
   }
   })
 export default class Header extends Vue {

@@ -30,7 +30,8 @@ import Header from "../components/header/Header.vue";
 import Sidebar from "../components/sidebar/Sidebar.vue";
 import VaBreadcrumbs from "vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue";
 import VaBreadcrumbsItem from "vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue";
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, mixins } from "vue-property-decorator";
+import { COLOR_THEMES } from '../../ui/src/services/ColorThemePlugin';
 
 @Component({
   components: {
@@ -38,47 +39,62 @@ import { Component, Vue } from 'vue-property-decorator'
     VaBreadcrumbs,
     Header,
     Sidebar
-  }})
+  }
+})
 export default class index extends Vue {
   data() {
     return {
       isSidebarVisible: true
     };
-  };
+  }
+  created() {
+    this.$root.$on("change-theme", this.setTheme.bind(this));
+  }
   mounted() {
     if (this.$route.hash) {
       document.querySelector(this.$route.hash).scrollIntoView();
     }
-  };
+  }
+  beforeDestroy() {
+    this.$root.$off("change-theme", this.setTheme.bind(this));
+  }
+  setTheme(themeName) {
+    Object.assign(this.$themes, COLOR_THEMES.find(({name})=> name === themeName)?.themes || COLOR_THEMES[0].themes)
+  }
   get crumbs() {
-      if (this.$isServer) {
-        return [];
-      }
-      // @ts-ignore
-      if (this.$route.path === "/") {
-        return [{
-              label: "Home",
-              path: `/${this.$root.$i18n.locale}/`
-            }]
-      }
-      const pathSteps: string[] = this.$route.path.split("/").filter(Boolean);
-      return pathSteps.reduce((acc, step, index, array) => {
-        switch (true) {
-          case !index:
-            acc.push({
-              label: "Home",
-              path: `/${this.$root.$i18n.locale}/`
-            })
-          case !step && index:
-            break;
-          default:
-            acc.push({ path: '/'+ array.slice(0, index+1).join("/"), label: step });
-            break;
-        }
-        return acc;
-      }, [] as { [key: string]: string }[]);
+    if (this.$isServer) {
+      return [];
     }
-  };
+    // @ts-ignore
+    if (this.$route.path === "/") {
+      return [
+        {
+          label: "Home",
+          path: `/${this.$root.$i18n.locale}/`
+        }
+      ];
+    }
+    const pathSteps: string[] = this.$route.path.split("/").filter(Boolean);
+    return pathSteps.reduce((acc, step, index, array) => {
+      switch (true) {
+        case !index:
+          acc.push({
+            label: "Home",
+            path: `/${this.$root.$i18n.locale}/`
+          });
+        case !step && index:
+          break;
+        default:
+          acc.push({
+            path: "/" + array.slice(0, index + 1).join("/"),
+            label: step
+          });
+          break;
+      }
+      return acc;
+    }, [] as { [key: string]: string }[]);
+  }
+}
 </script>
 <style lang="scss">
 @import "vuestic-ui/src/components/vuestic-sass/global/reset.scss";
