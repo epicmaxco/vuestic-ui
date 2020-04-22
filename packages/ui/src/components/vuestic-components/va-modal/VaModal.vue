@@ -10,14 +10,9 @@
         class="va-modal__overlay"
         :class="computedOverlayClass"
         :style="computedOverlayStyles"
-      >
-
-      </div>
+      />
     </transition>
-    <div
-      class="va-modal__container"
-      :class="{ 'show': valueComputed }"
-    >
+    <div class="va-modal__container" :class="{ show: valueComputed }">
       <transition
         name="va-modal__container--with-transition"
         appear
@@ -27,7 +22,7 @@
           v-if="valueComputed"
           class="va-modal__dialog"
           :class="computedClass"
-          :style="{c_maxWidth, c_maxHeight}"
+          :style="{ c_maxWidth, c_maxHeight }"
           ref="modal"
         >
           <i
@@ -36,56 +31,36 @@
             class="ion ion-md-close va-modal__close"
           />
 
-          <div
-            class="va-modal__inner"
-            :style="{c_maxHeight, c_maxWidth}"
-          >
+          <div class="va-modal__inner" :style="{ c_maxHeight, c_maxWidth }">
             <div
               v-if="c_title"
               class="mb-4 title"
-              :style="{color: this.$themes.primary}"
+              :style="{ color: this.$themes.primary }"
             >
               {{ c_title }}
             </div>
-            <div
-              v-if="hasHeaderSlot"
-              class="va-modal__header"
-            >
-              <slot name="header"/>
+            <div v-if="hasHeaderSlot" class="va-modal__header">
+              <slot name="header" />
             </div>
-            <div
-              v-if="c_message"
-              class="mb-4 va-modal__message"
-            >
+            <div v-if="c_message" class="mb-4 va-modal__message">
               {{ c_message }}
             </div>
-            <div
-              v-if="hasContentSlot"
-              class="mb-4 va-modal__message"
-            >
-              <slot/>
+            <div v-if="hasContentSlot" class="mb-4 va-modal__message">
+              <slot />
             </div>
             <div
               v-if="(c_cancelText || c_okText) && !c_hideDefaultActions"
               class="va-modal__actions mb-3"
             >
-              <va-button
-                v-if="c_cancelText"
-                color="gray"
-                flat
-                @click="cancel"
-              >
+              <va-button v-if="c_cancelText" color="gray" flat @click="cancel">
                 {{ c_cancelText }}
               </va-button>
               <va-button @click="ok">
                 {{ c_okText }}
               </va-button>
             </div>
-            <div
-              v-if="hasActionsSlot"
-              class="va-modal__actions"
-            >
-              <slot name="actions"/>
+            <div v-if="hasActionsSlot" class="va-modal__actions">
+              <slot name="actions" />
             </div>
           </div>
         </div>
@@ -100,7 +75,9 @@ import { Component, Watch, Mixins } from 'vue-property-decorator'
 import VaButton from '../va-button'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
-import ClickOutsideMixin, { ClickOutsideOptions } from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'
+import ClickOutsideMixin, {
+  ClickOutsideOptions,
+} from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'
 
 const props = {
   value: {
@@ -181,6 +158,10 @@ const props = {
     type: Boolean as () => boolean,
     default: true,
   },
+  overlayOpacity: {
+    type: [Number, String] as unknown as () => number | string,
+    default: undefined,
+  },
 }
 
 const ContextableMixin = makeContextablePropsMixin(props)
@@ -189,7 +170,11 @@ const ContextableMixin = makeContextablePropsMixin(props)
   name: 'VaModal',
   components: { VaButton },
 })
-export default class VaModal extends Mixins(StatefulMixin, ContextableMixin, ClickOutsideMixin) {
+export default class VaModal extends Mixins(
+  StatefulMixin,
+  ContextableMixin,
+  ClickOutsideMixin,
+) {
   // for leave animation
   private overlayValue = false
   private clearClickOutsideEvents: () => void = noop
@@ -216,8 +201,12 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin, Cli
     // Supposedly solves some case when background wasn't shown.
     // As a side effect removes background from nested modals.
 
-    const moreThanOneModalIsOpen = !!document.querySelectorAll('.va-modal__overlay').length
-    return moreThanOneModalIsOpen ? {} : { 'background-color': 'rgba(0, 0, 0, 0.6)' }
+    const moreThanOneModalIsOpen = !!document.querySelectorAll(
+      '.va-modal__overlay',
+    ).length
+    return moreThanOneModalIsOpen
+      ? {}
+      : { 'background-color': `rgba(0, 0, 0, ${this.c_overlayOpacity || 0.6})` }
   }
 
   get hasContentSlot () {
@@ -248,7 +237,10 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin, Cli
 
       this.$nextTick(() => {
         const target = this.$refs.modal
-        this.clearClickOutsideEvents = this.registerClickOutsideEvents(target as Element, options)
+        this.clearClickOutsideEvents = this.registerClickOutsideEvents(
+          target as Element,
+          options,
+        )
       })
     } else {
       if (this.c_withoutTransitions) {
@@ -282,7 +274,7 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin, Cli
   }
 
   listenKeyUp (e: KeyboardEvent) {
-    if (e.code === 'Escape' && (!this.c_noEscDismiss && !this.c_noDismiss)) {
+    if (e.code === 'Escape' && !this.c_noEscDismiss && !this.c_noDismiss) {
       this.cancel()
     }
   }
@@ -290,7 +282,7 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin, Cli
 </script>
 
 <style lang="scss">
-@import "../../vuestic-sass/resources/resources";
+@import '../../vuestic-sass/resources/resources';
 
 .va-modal {
   &__container {
@@ -370,7 +362,7 @@ export default class VaModal extends Mixins(StatefulMixin, ContextableMixin, Cli
       &-leave-to {
         opacity: 0;
 
-        &:nth-of-type(n+3) {
+        &:nth-of-type(n + 3) {
           opacity: 1;
         }
       }
