@@ -50,25 +50,29 @@ export default class index extends Vue {
       document.querySelector(this.$route.hash).scrollIntoView();
     }
   };
-  get  crumbs() {
+  get crumbs() {
       if (this.$isServer) {
         return [];
       }
       // @ts-ignore
-      const pathSteps: string[] =
-        this.$route.path === "/" ? [""] : this.$route.path.split("/");
+      if (this.$route.path === "/") {
+        return [{
+              label: "Home",
+              path: `/${this.$root.$i18n.locale}/`
+            }]
+      }
+      const pathSteps: string[] = this.$route.path.split("/").filter(Boolean);
       return pathSteps.reduce((acc, step, index, array) => {
         switch (true) {
           case !index:
             acc.push({
               label: "Home",
-              path: "/"
-            });
-            break;
+              path: `/${this.$root.$i18n.locale}/`
+            })
           case !step && index:
             break;
           default:
-            acc.push({ path: array.slice(0, index).join("/"), label: step });
+            acc.push({ path: '/'+ array.slice(0, index+1).join("/"), label: step });
             break;
         }
         return acc;
