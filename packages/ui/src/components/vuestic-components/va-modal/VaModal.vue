@@ -12,7 +12,11 @@
         :style="computedOverlayStyles"
       />
     </transition>
-    <div class="va-modal__container" :class="{ show: valueComputed }">
+    <div
+      class="va-modal__container"
+      :class="{ show: valueComputed }"
+      :style="computedModalClass"
+    >
       <transition
         name="va-modal__container--with-transition"
         appear
@@ -159,7 +163,11 @@ const props = {
     default: true,
   },
   overlayOpacity: {
-    type: [Number, String] as unknown as () => number | string,
+    type: ([Number, String] as unknown) as () => number | string,
+    default: undefined,
+  },
+  zIndex: {
+    type: ([Number, String] as unknown) as () => number | string,
     default: undefined,
   },
 }
@@ -204,9 +212,19 @@ export default class VaModal extends Mixins(
     const moreThanOneModalIsOpen = !!document.querySelectorAll(
       '.va-modal__overlay',
     ).length
+
     return moreThanOneModalIsOpen
       ? {}
-      : { 'background-color': `rgba(0, 0, 0, ${this.c_overlayOpacity || 0.6})` }
+      : {
+        'background-color': `rgba(0, 0, 0, ${this.c_overlayOpacity || 0.6})`,
+        'z-index': this.c_zIndex != null ? parseInt(this.c_zIndex) - 10 : undefined,
+      }
+  }
+
+  get computedModalClass () {
+    return {
+      'z-index': this.c_zIndex,
+    }
   }
 
   get hasContentSlot () {
@@ -284,12 +302,14 @@ export default class VaModal extends Mixins(
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
 
+$elevation: 1050;
+
 .va-modal {
   &__container {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1050;
+    z-index: $elevation;
     width: 100%;
     height: 100%;
     display: none;
@@ -349,7 +369,7 @@ export default class VaModal extends Mixins(
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1040;
+    z-index: $elevation - 10;
     width: 100vw;
     height: 100vh;
 

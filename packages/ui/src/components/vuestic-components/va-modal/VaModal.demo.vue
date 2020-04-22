@@ -283,6 +283,16 @@
         :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
       />
     </VbCard>
+    <VbCard title="z-index">
+      <button @click="showModalZIndex = !showModalZIndex">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalZIndex"
+        :z-index="10"
+        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -319,6 +329,7 @@ export default {
       showModalNoDismiss: false,
       showModalOverlay: false,
       showModalOverlayOpacity: false,
+      showModalZIndex: false,
       message: 'About 64% of all on-line teens say that do things online that they wouldn’t want their parents to know about.   11% of all adult internet users visit dating websites and spend their time Some of the classify their behavior as “cyber affair”   More then 60% of employees use company PC for the personal needs during their work hours as long as 80 minutes per day.',
     }
   },

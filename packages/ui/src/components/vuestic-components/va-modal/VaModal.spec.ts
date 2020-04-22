@@ -53,6 +53,7 @@ describe('VaModal', () => {
         withoutTransitions: false,
         overlay: true,
         overlayOpacity: undefined,
+        zIndex: undefined,
       }
       expect(() => testIsContextableComponent(VaModal, props)).not.toThrow()
     })
