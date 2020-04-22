@@ -1,279 +1,196 @@
 <template>
   <div
     class="va-rating"
-    :class="computedClasses"
-    :style="{
-      'color': colorComputed,
-      'fontSize': getIconSize(),
-    }"
+    :class="classList"
   >
     <div
-      v-if="numbers"
-      class="va-rating__number-item-wrapper"
+      @keyup.left="onArrow($event, -1)"
+      @keyup.right="onArrow($event, 1)"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
+      class="va-rating__item-wrapper"
     >
-      <div
-        class="va-rating__number-item"
-        v-for="number in max"
-        :key="number"
-        :class="{
-          'va-rating__number-item--empty' : !compareWithValue(number)
-        }"
-        :style="getItemStyles(number)"
-        @click="onRatingItemSelected(number, 1)"
-        :tabindex="getTabindex(number)"
-        @mouseleave="tabindex = null"
-        @mouseover="tabindex = number"
-        @keypress="onRatingItemSelected(number, 1)"
+      <template
+        v-if="numbers"
       >
-        {{ number }}
-      </div>
+        <va-rating-item
+          v-for="number in max"
+          :key="number"
+          class="va-rating__number-item"
+          :halves="halves"
+          :hover="hoverEnabled"
+          :size="size"
+          :color="c_color"
+          :tabindex="tabIndex"
+          :value="getItemValue(number)"
+          @hover="onHover(number, $event)"
+          @click="onItemSelected(number, $event)"
+        >
+          <template v-slot="{ props }">
+            <span
+              @click="props.onClick"
+              class="va-rating__number-item"
+              :style=" {
+                background: props.value === 0.5
+                  ? `linear-gradient(90deg, ${colorComputed} 50%, ${focusColor} 50%`
+                  : !props.value ? focusColor : colorComputed,
+                color: props.value ? '#fff' : colorComputed,
+                width: sizeComputed,
+                height: sizeComputed,
+                fontSize: fontSizeComputed,
+              }"
+            > {{ number }} </span>
+          </template>
+        </va-rating-item>
+      </template>
+      <template v-else>
+        <va-rating-item
+          v-for="itemNumber in max"
+          :key="itemNumber"
+          :halves="halves"
+          :hover="hoverEnabled"
+          :filled-icon-name="icon"
+          :half-icon-name="halfIcon"
+          :empty-icon-name="emptyIcon"
+          :size="size"
+          :color="c_color"
+          :tabindex="tabIndex"
+          :value="getItemValue(itemNumber)"
+          @hover="onHover(itemNumber, $event)"
+          @click="onItemSelected(itemNumber, $event)"
+        />
+      </template>
     </div>
-    <span
-      v-else
-      class="va-rating__number-item-wrapper"
-    >
-      <va-rating-item
-        class="va-rating__icon-item"
-        v-for="itemNumber in max"
-        :key="itemNumber"
-        :icon="icon"
-        :empty-icon="emptyIconComputed"
-        :half-icon="halfIconComputed"
-        :icon-classes="getIconClasses(itemNumber)"
-        :style="getItemStyles(itemNumber)"
-        @click="onRatingItemSelected(itemNumber, $event)"
-        @hover="onHover(itemNumber, $event)"
-        :value="getItemValue(itemNumber)"
-        :tabindex="getTabindex(itemNumber)"
-        :is-rating-hover="isHoveredComputed"
-        @mouseout.native="onMouseOut(value)"
-        @mouseleave.native="tabindex = null"
-        @mouseover.native="onMouseOver(itemNumber)"
-      />
-    </span>
   </div>
 </template>
 
-<script>
-import VaRatingItem from './VaRatingItem'
+<script lang="ts">
+import VaRatingItem, { RatingItemValue } from './VaRatingItem.vue'
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import Component, { mixins } from 'vue-class-component'
+import { Watch } from 'vue-property-decorator'
+import { ColorInput } from 'colortranslator/dist/@types'
+import { SizeMixin } from '../../../mixins/SizeMixin'
 
-export default {
+const RatingPropsMixin = makeContextablePropsMixin({
+  value: { type: Number, default: 0 },
+  icon: { type: String, default: 'star' },
+  halfIcon: { type: String, default: 'star_half' },
+  emptyIcon: { type: String, default: 'star_empty' },
+  readonly: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  numbers: { type: Boolean, default: false },
+  halves: { type: Boolean, default: false },
+  max: { type: Number, default: 5 },
+  size: { type: [String, Number], default: 'medium' },
+  clearable: { type: Boolean, default: false },
+  hover: { type: Boolean, default: false },
+})
+
+@Component({
   name: 'VaRating',
   components: { VaRatingItem },
-  mixins: [ColorThemeMixin, ContextPluginMixin],
-  props: {
-    value: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'value', 0)
-      },
-    },
-    icon: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'icon', 'fa fa-star')
-      },
-    },
-    halfIcon: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'icon', 'fa fa-star-half-full')
-      },
-    },
-    emptyIcon: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'emptyIcon', '')
-      },
-    },
-    readonly: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'readOnly', false)
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    numbers: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'numbers', false)
-      },
-    },
-    halves: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'halves', false)
-      },
-    },
-    max: {
-      type: Number,
-      default () {
-        return getContextPropValue(this, 'max', 5)
-      },
-    },
-    size: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'size', 'medium')
-      },
-    },
-  },
-  data () {
-    return {
-      lastHoverItemNumber: this.value,
-      isHovered: false,
-      tabindex: 0,
-    }
-  },
-  computed: {
-    valueProxy: {
-      set (valueProxy) {
-        this.$emit('input', valueProxy)
-      },
-      get () {
-        return this.value
-      },
-    },
-    emptyIconComputed () {
-      return this.emptyIcon || this.icon + ' ' + 'va-rating__icon-item--empty'
-    },
-    halfIconComputed () {
-      return this.halves ? this.halfIcon : ''
-    },
-    isHoveredComputed () {
-      return this.disabled || this.readonly ? false : this.isHovered
-    },
-    computedClasses () {
-      return {
-        'va-rating--disabled': this.disabled,
-        'va-rating--readonly': this.readonly,
-      }
-    },
-    isHover () {
-      return this.isHovered && !!this.halves && !this.disabled && !this.readonly
-    },
-  },
-  methods: {
-    getItemStyles (itemNumber) {
-      if (!this.numbers) {
-        if (this.compareWithValue(itemNumber) !== 0) {
-          return {
-            color: this.colorComputed,
-            width: this.getIconSize(),
-          }
-        }
-        return {
-          color: this.emptyIcon ? this.colorComputed : getFocusColor(this.colorComputed),
-          borderColor: this.colorComputed,
-          width: this.getIconSize(),
-        }
-      } else {
-        return {
-          backgroundColor: this.compareWithValue(itemNumber) !== 0
-            ? this.colorComputed : getFocusColor(this.colorComputed),
-          color: this.compareWithValue(itemNumber) !== 0 ? '#fff' : this.colorComputed,
-          width: this.getItemsFontSize(),
-          height: this.getItemsFontSize(),
-          fontSize: this.getIconSize(),
-        }
-      }
-    },
-    getTabindex (value) {
-      if (!this.disabled) {
-        return value !== this.tabindex ? 0 : null
-      }
-    },
-    getItemsFontSize () {
-      if (!isNaN(this.size.substring(0, 1))) {
-        return this.size
-      }
-      if (this.size === 'medium') {
-        return 1 + 'rem'
-      }
-      if (this.size === 'large') {
-        return 1.5 + 'rem'
-      }
-      if (this.size === 'small') {
-        return 0.75 + 'rem'
-      }
-      throw new Error(`Size "${this.size}" is not supported.`)
-    },
-    onHover (itemNumber) {
-      if (this.halves) {
-        this.lastHoverItemNumber = itemNumber
-      }
-    },
-    onMouseOut (itemNumber) {
-      this.isHovered = false
-      if (this.halves) {
-        this.lastHoverItemNumber = itemNumber
-      }
-    },
-    getIconClasses (itemNumber) {
-      const iconClass = this.emptyIcon || this.icon + ' ' + 'va-rating__icon-item--empty'
-      return this.compareWithValue(itemNumber) ? this.icon : iconClass
-    },
-    getIconSize () {
-      let k = 7 / 6 // correlation between width and font-size
-      if (this.numbers) {
-        k = 4.5 / 7
-      }
-      const regEx = /[a-z]/gim
-      const size = this.getItemsFontSize()
-      const unit = size.match(regEx).join('')
-      return size.replace(regEx, '') * k + unit
-    },
-    onRatingItemSelected (itemNumber, value) {
-      if (this.readonly || this.disabled) {
-        return
-      }
-      if (!this.halves) {
-        this.$emit('input', itemNumber)
-        return
-      }
-      if (value === 0.5) {
-        this.$emit('input', itemNumber - 0.5)
-      } else {
-        this.$emit('input', itemNumber)
-      }
-    },
-    getItemValue (itemNumber) {
-      if (!this.isHover) {
-        return this.compareWithValue(itemNumber)
-      }
+})
+export default class VaRating extends mixins(
+  RatingPropsMixin,
+  ColorThemeMixin,
+  ContextPluginMixin,
+  SizeMixin,
+) {
+  private readonly HALF_VALUE = 0.5
+  private readonly FULL_VALUE = 1
+  private readonly EMPTY_VALUE = 0
 
-      if ((itemNumber <= this.lastHoverItemNumber)) {
-        if (itemNumber === this.lastHoverItemNumber && itemNumber - this.value === 0.5 && this.halves) {
-          return 0.5
-        }
-        return 1
-      }
-      if ((itemNumber > this.lastHoverItemNumber)) {
-        return 0
-      }
-    },
-    compareWithValue (itemNumber) {
-      if (itemNumber - this.value === 0.5 && this.halves) {
-        return 0.5
-      }
-      if (itemNumber <= this.value) {
-        return 1
-      }
-      return 0
-    },
-    onMouseOver (itemNumber) {
-      this.tabindex = itemNumber
-      this.isHovered = true
-    },
-  },
+  private isHovered = false
+  private forceEmit = false
+  private hoveredValue: number = this.value
+
+  private get valueProxy (): number {
+    return this.isHovered ? this.hoveredValue : this.value
+  }
+
+  private set valueProxy (value: number) {
+    this.hoveredValue = value
+    if (this.forceEmit) {
+      this.$emit('input', value)
+      this.forceEmit = false
+    }
+  }
+
+  private get focusColor () {
+    return getFocusColor(this.colorComputed as ColorInput)
+  }
+
+  private get classList () {
+    return {
+      'va-rating--disabled': this.disabled,
+      'va-rating--readonly': this.readonly,
+    }
+  }
+
+  private get interactionsEnabled () {
+    return !(this.disabled || this.readonly)
+  }
+
+  private get hoverEnabled () {
+    return this.hover && this.interactionsEnabled
+  }
+
+  private get tabIndex () {
+    return this.interactionsEnabled ? 0 : undefined
+  }
+
+  @Watch('value')
+  private onValueChange (newValue: number) {
+    this.hoveredValue = newValue
+  }
+
+  private getItemValue (itemNumber: number): RatingItemValue {
+    const diff = itemNumber - this.valueProxy
+    switch (true) {
+      case diff <= 0: return this.FULL_VALUE
+      case diff === this.HALF_VALUE && this.halves: return this.HALF_VALUE
+      default: return this.EMPTY_VALUE
+    }
+  }
+
+  private onHover (itemNumber: number, value: RatingItemValue): void {
+    this.valueProxy = value === this.FULL_VALUE
+      ? itemNumber
+      : itemNumber - this.HALF_VALUE
+  }
+
+  private onMouseEnter () {
+    this.isHovered = this.hoverEnabled && true
+  }
+
+  private onMouseLeave () {
+    this.isHovered = false
+  }
+
+  private onArrow (event: KeyboardEvent, directon: 1 | -1) {
+    const step = this.halves ? this.HALF_VALUE : this.FULL_VALUE
+    const nextValue = this.valueProxy + (step * directon)
+    if (nextValue < 0 || nextValue > this.max) return
+
+    this.forceEmit = true
+    this.valueProxy = nextValue
+  }
+
+  private onItemSelected (itemNumber: number, value: RatingItemValue) {
+    if (this.readonly || this.disabled) return
+    const currentClickedValue = this.halves
+      ? value === this.HALF_VALUE ? itemNumber - this.HALF_VALUE : itemNumber
+      : itemNumber
+    const valueToEmit = this.clearable && this.value === currentClickedValue
+      ? 0
+      : currentClickedValue
+
+    this.forceEmit = true
+    this.valueProxy = valueToEmit
+  }
 }
 </script>
 
@@ -304,22 +221,26 @@ export default {
     }
   }
 
-  &__number-item-wrapper {
-    display: flex;
-  }
-
-  &__icon-item {
+  &__item-wrapper {
     display: flex;
     cursor: pointer;
+  }
+
+  &-item {
+    display: flex;
 
     @include flex-center();
 
     .va-rating--disabled & {
       @include va-disabled();
+
+      * {
+        cursor: initial !important;
+      }
     }
 
-    .va-rating--readonly & {
-      cursor: initial;
+    .va-rating--readonly & * {
+      cursor: initial !important;
     }
   }
 }

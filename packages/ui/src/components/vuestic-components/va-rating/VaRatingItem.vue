@@ -1,24 +1,34 @@
 <template>
-  <div>
-    <va-icon
-      :name="computedIconName"
-      :size="c_size"
-      :class="{
-        'va-icon__isKeyboardFocused': isFocused
-      }"
-      @click="onClick"
-      @mousemove="onHover"
-      @mouseleave="removeHover"
-      @focus="onFocus"
-      @blur="onBlur"
-      @keyup.enter="onEnter"
-      :tabindex="tabindex"
-    />
+  <div
+    @mousemove="onHover"
+    @mouseleave="removeHover"
+    @focus="onFocus"
+    @blur="onBlur"
+    :tabindex="tabindex"
+    class="va-rating-item"
+    :class="{
+      'va-rating-item__isFocused': isFocused
+    }"
+    @keyup.enter="onEnter"
+  >
+    <slot :props="{
+      value: valueProxy,
+      onClick
+    }">
+      <va-icon
+        :name="computedIconName"
+        :size="c_size"
+        :color="c_color"
+        class="fa-fw"
+        @click="onClick"
+      />
+    </slot>
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import Component, { mixins } from 'vue-class-component'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { Watch } from 'vue-property-decorator'
@@ -30,25 +40,21 @@ const RatingItemPropsMixin = makeContextablePropsMixin({
   emptyIconName: { type: String, default: 'star_empty' },
   halves: { type: Boolean, default: false },
   hover: { type: Boolean, default: false },
-  tabindex: { type: Number, default: 0 },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: (v: string) => ['medium', 'small', 'large'].includes(v),
-  },
+  tabindex: { type: Number },
+  size: { type: [String, Number], default: 'medium' },
 })
 
-type IconValue = 0 | 0.5 | 1
+export type RatingItemValue = 0 | 0.5 | 1
 
 @Component({
   name: 'VaRatingItem',
   components: { VaIcon },
 })
-export default class VaRatingItem extends mixins(RatingItemPropsMixin) {
+export default class VaRatingItem extends mixins(RatingItemPropsMixin, ColorThemeMixin) {
   private isHovered = false
   private isFocused = false
   private shouldEmitClick = false
-  private hoveredValue: IconValue = this.value
+  private hoveredValue: RatingItemValue = this.value
 
   private get computedIconName (): string {
     if (this.halves && this.valueProxy === 0.5) {
@@ -58,11 +64,11 @@ export default class VaRatingItem extends mixins(RatingItemPropsMixin) {
   }
 
   @Watch('value')
-  private onValueChange (newVal: IconValue) {
+  private onValueChange (newVal: RatingItemValue) {
     this.hoveredValue = newVal
   }
 
-  private set valueProxy (value: IconValue) {
+  private set valueProxy (value: RatingItemValue) {
     this.hoveredValue = value
     if (this.shouldEmitClick) {
       this.shouldEmitClick = false
@@ -72,31 +78,17 @@ export default class VaRatingItem extends mixins(RatingItemPropsMixin) {
     }
   }
 
-  private get valueProxy (): IconValue {
+  private get valueProxy (): RatingItemValue {
     return this.isHovered ? this.hoveredValue : this.value
   }
 
   private onClick (cursorPosition: MouseEvent) {
     this.shouldEmitClick = true
-    this.proccessCursorInput(this.$el.clientHeight, cursorPosition.offsetX)
+    this.proccessCursorInput(this.$el.clientWidth, cursorPosition.offsetX)
   }
 
   private proccessCursorInput (iconSize: number, offsetX: number) {
-    this.valueProxy = this.halves && (iconSize / offsetX >= 2) ? 0.5 : 1
-  }
-
-  private processKeyboardInput () {
-    // const currentValue = this.valueProxy
-    // if (onEnter) {
-    //   this.shouldEmitClick = true
-    //   // setting the same value to trigger $emit
-    //   this.valueProxy = currentValue
-    //   return
-    // }
-
-    // this.valueProxy = this.halves
-    //   ? this.valueProxy === 0 ? 0.5 : 1
-    //   : 1
+    this.valueProxy = this.halves && (offsetX / iconSize <= 0.5) ? 0.5 : 1
   }
 
   private onEnter () {
@@ -104,14 +96,10 @@ export default class VaRatingItem extends mixins(RatingItemPropsMixin) {
     this.valueProxy = 1
   }
 
-  private calcIconValue (iconSize: number, offsetX: number): IconValue {
-    return this.halves && (iconSize / offsetX >= 2) ? 0.5 : 1
-  }
-
   private onHover (cursorPosition: MouseEvent) {
     if (!this.hover) return
     this.isHovered = true
-    this.proccessCursorInput(this.$el.clientHeight, cursorPosition.offsetX)
+    this.proccessCursorInput(this.$el.clientWidth, cursorPosition.offsetX)
   }
 
   private onFocus () {
@@ -123,6 +111,7 @@ export default class VaRatingItem extends mixins(RatingItemPropsMixin) {
   }
 
   private removeHover () {
+    console.log('hover removed')
     this.hoveredValue = this.value
     this.isHovered = false
   }
@@ -130,7 +119,11 @@ export default class VaRatingItem extends mixins(RatingItemPropsMixin) {
 </script>
 
 <style lang="scss">
-  .va-icon__isKeyboardFocused {
-    transform: scale(1.1);
+  .va-rating-item {
+    display: inline-block;
+
+    &__isFocused {
+      transform: scale(1.1);
+    }
   }
 </style>
