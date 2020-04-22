@@ -35,6 +35,11 @@ export default [
   {
     locales,
     defaultLocale: 'en',
+    strategy: 'prefix_and_default',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected'
+    },
     vueI18n: {
       fallbackLocale: 'en',
       messages: getI18nMessagesConfig(locales),
