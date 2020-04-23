@@ -14,8 +14,7 @@
     </transition>
     <div
       class="va-modal__container"
-      :class="{ show: valueComputed }"
-      :style="computedModalClass"
+      :style="computedModalContainerStyle"
     >
       <transition
         name="va-modal__container--with-transition"
@@ -217,13 +216,15 @@ export default class VaModal extends Mixins(
       ? {}
       : {
         'background-color': `rgba(0, 0, 0, ${this.c_overlayOpacity || 0.6})`,
-        'z-index': this.c_zIndex != null ? parseInt(this.c_zIndex) - 10 : undefined,
+        'z-index':
+            this.c_zIndex != null ? parseInt(this.c_zIndex) - 10 : undefined,
       }
   }
 
-  get computedModalClass () {
+  get computedModalContainerStyle () {
     return {
       'z-index': this.c_zIndex,
+      display: this.valueComputed ? 'flex' : 'none',
     }
   }
 
@@ -247,6 +248,7 @@ export default class VaModal extends Mixins(
 
       const options: ClickOutsideOptions = {
         onClickOutside: () => {
+          this.$emit('click-outside')
           this.cancel()
         },
         disabled: this.c_noOutsideDismiss || this.c_noDismiss,
@@ -273,21 +275,33 @@ export default class VaModal extends Mixins(
     }
   }
 
-  show () {
-    this.valueComputed = true
+  setStateOrEmit (value: boolean) {
+    if (this.c_stateful) {
+      this.valueComputed = value
+    } else {
+      this.$emit('input', value)
+    }
   }
 
-  close () {
-    this.valueComputed = false
+  show () {
+    this.setStateOrEmit(true)
+  }
+
+  hide () {
+    this.setStateOrEmit(false)
+  }
+
+  toggle () {
+    this.setStateOrEmit(!this.valueComputed)
   }
 
   cancel () {
-    this.close()
+    this.hide()
     this.$emit('cancel')
   }
 
   ok () {
-    this.close()
+    this.hide()
     this.$emit('ok')
   }
 
@@ -312,7 +326,6 @@ $elevation: 1050;
     z-index: $elevation;
     width: 100%;
     height: 100%;
-    display: none;
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -345,10 +358,6 @@ $elevation: 1050;
           transition: none;
         }
       }
-    }
-
-    &.show {
-      display: flex;
     }
   }
 
