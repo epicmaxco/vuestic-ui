@@ -54,7 +54,6 @@ import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaB
 })
 export default class LanguageDropdown extends Vue {
   beforeMount () {
-    debugger
     const { locales } = this.$root.$i18n
     const isExistingLocale = locales.some(locale => this.$route.fullPath.match(new RegExp(`^/${locale}(/|$)`)))
     const storedLanguage = localStorage.getItem('currentLanguage')
