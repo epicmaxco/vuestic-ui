@@ -180,7 +180,7 @@
           halves: true
         }
       }">
-        <va-rating :stateful="true" />
+        <va-rating stateful />
       </va-context>
     </VbCard>
   </VbDemo>
