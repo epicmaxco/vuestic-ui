@@ -5,25 +5,13 @@ export const SelectableMixin = {
       arrayValue: { type: [String, Object], default: '' },
       label: { type: String, default: '' },
       leftLabel: { type: Boolean, default: false },
-      trueValue: { default: true },
+      trueValue: { default: false },
       falseValue: { default: false },
     }),
   ],
-  computed: {
-    onValue: function () {
-      this.valueValidator()
-      return this.trueValue
-    },
-    offValue: function () {
-      this.valueValidator()
-      return this.falseValue
-    },
-  },
-  methods: {
-    valueValidator () {
-      if (this.falseValue === this.trueValue) {
-        throw new Error('Props trueValue and falseValue are the same')
-      }
-    },
+  created () {
+    if (this.falseValue === this.trueValue) {
+      throw new Error('Props trueValue and falseValue are the same')
+    }
   },
 }
