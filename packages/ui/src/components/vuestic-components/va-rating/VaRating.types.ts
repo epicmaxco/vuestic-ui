@@ -1,5 +1,3 @@
-export type RatingItemValue = 0 | 0.5 | 1
-
 export enum RatingValue {
   EMPTY = 0,
   HALF = 0.5,

@@ -36,7 +36,7 @@
     <VbCard title="Clearable">
       <va-rating clearable v-model="value"/>
     </VbCard>
-    <VbCard title="Colors">
+    <VbCard title="Colors" dark>
       <va-rating color="success" v-model="value"/>
       <va-rating color="info" v-model="value"/>
       <va-rating color="warning" v-model="value"/>
@@ -140,7 +140,7 @@
     <VbCard title="Clearable">
       <va-rating numbers clearable v-model="value"/>
     </VbCard>
-    <VbCard title="Colors">
+    <VbCard title="Colors" dark>
       <va-rating numbers color="success" v-model="value"/>
       <va-rating numbers color="info" v-model="value"/>
       <va-rating numbers color="warning" v-model="value"/>
