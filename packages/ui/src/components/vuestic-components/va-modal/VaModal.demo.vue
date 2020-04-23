@@ -105,7 +105,7 @@
         <slot>
           <div>{{ message }}</div>
         </slot>
-        <template slot="actions">
+        <template slot="footer">
           <button @click="customActionClick">
             Custom action
           </button>
@@ -208,7 +208,7 @@
       <va-modal
         v-model="showFixedLayoutModal"
         :fixed-layout="true"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       >
         <template slot="header">
           <p>Step 2. Centered Layout</p>
@@ -222,7 +222,7 @@
       <va-modal
         v-model="showWithoutDefaultActions"
         hide-default-actions
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       >
         <template slot="header">
           <p>Step 2. Centered Layout</p>
@@ -237,7 +237,7 @@
         v-model="showSpecialActionsModal"
         @ok="onOk"
         @cancel="onCancel"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       >
         <template slot="header">
           <p>Step 2. Centered Layout</p>
@@ -251,7 +251,7 @@
       <va-modal
         v-model="showModalLongMessage"
         title="Several lays"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       />
     </VbCard>
     <VbCard title="without title">
@@ -260,16 +260,16 @@
       </button>
       <va-modal
         v-model="showModalWithoutTitle"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       />
     </VbCard>
     <VbCard title="without transitions">
-      <button @click="showModalWithoutTrasitions = !showModalWithoutTrasitions">
+      <button @click="showModalWithoutTransitions = !showModalWithoutTransitions">
         Show modal
       </button>
       <va-modal
         without-transitions
-        v-model="showModalWithoutTrasitions"
+        v-model="showModalWithoutTransitions"
         :message="message"
       />
     </VbCard>
@@ -280,7 +280,7 @@
       <va-modal
         v-model="showModalOverlayOpacity"
         overlay-opacity="0.2"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       />
     </VbCard>
     <VbCard title="z-index">
@@ -290,8 +290,22 @@
       <va-modal
         v-model="showModalZIndex"
         :z-index="10"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       />
+    </VbCard>
+    <VbCard title="custom footer">
+      <button @click="showModalCustomFooter = !showModalCustomFooter">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalCustomFooter"
+        :message="longMessage"
+      >
+        <template slot="footer">
+          <div style="margin-top: 30px; width: 100%;" />
+          <p style="background-color: lightblue; width: 100%; text-align: center;">Custom footer</p>
+        </template>
+      </va-modal>
     </VbCard>
   </VbDemo>
 </template>
@@ -325,26 +339,25 @@ export default {
       showModalSecondLay: false,
       showModalLongMessage: false,
       showModalWithoutTitle: false,
-      showModalWithoutTrasitions: false,
+      showModalWithoutTransitions: false,
       showModalNoDismiss: false,
       showModalOverlay: false,
       showModalOverlayOpacity: false,
       showModalZIndex: false,
-      message: 'About 64% of all on-line teens say that do things online that they wouldn’t want their parents to know about.   11% of all adult internet users visit dating websites and spend their time Some of the classify their behavior as “cyber affair”   More then 60% of employees use company PC for the personal needs during their work hours as long as 80 minutes per day.',
+      showModalCustomFooter: false,
+      message: this.$vb.lorem(),
+      longMessage: this.$vb.lorem(5000),
     }
   },
   methods: {
     onOk () {
-      // eslint-disable-next-line no-console
-      console.log('OK')
+      this.$vb.log('OK')
     },
     onCancel () {
-      // eslint-disable-next-line no-console
-      console.log('Cancel')
+      this.$vb.log('Cancel')
     },
     customActionClick () {
-      // eslint-disable-next-line no-console
-      console.log('custom action click')
+      this.$vb.log('custom action click')
     },
   },
 }

@@ -53,7 +53,7 @@
             </div>
             <div
               v-if="(c_cancelText || c_okText) && !c_hideDefaultActions"
-              class="va-modal__actions mb-3"
+              class="va-modal__footer mb-3"
             >
               <va-button v-if="c_cancelText" color="gray" flat @click="cancel">
                 {{ c_cancelText }}
@@ -62,8 +62,8 @@
                 {{ c_okText }}
               </va-button>
             </div>
-            <div v-if="hasActionsSlot" class="va-modal__actions">
-              <slot name="actions" />
+            <div v-if="hasFooterSlot" class="va-modal__footer">
+              <slot name="footer" />
             </div>
           </div>
         </div>
@@ -236,8 +236,8 @@ export default class VaModal extends Mixins(
     return this.$slots.header
   }
 
-  get hasActionsSlot () {
-    return this.$slots.actions
+  get hasFooterSlot () {
+    return this.$slots.footer
   }
 
   @Watch('valueComputed')
@@ -473,7 +473,7 @@ $elevation: 1050;
       padding: 1.25rem 0 1.5rem 0;
 
       .va-modal__header,
-      .va-modal__actions {
+      .va-modal__footer {
         padding: 0 1.875rem 0 1.5rem;
       }
 
@@ -509,7 +509,7 @@ $elevation: 1050;
     z-index: 1;
   }
 
-  &__actions {
+  &__footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
