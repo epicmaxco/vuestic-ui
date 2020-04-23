@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
 import Component, { mixins } from 'vue-class-component'
 
-const sizesConfig = {
+export const sizesConfig = {
   defaultSize: 48,
   sizes: {
     small: 32,
@@ -11,7 +11,7 @@ const sizesConfig = {
   },
 }
 
-const fontSizesConfig = {
+export const fontSizesConfig = {
   defaultSize: 1,
   sizes: {
     small: 0.75,
