@@ -72,6 +72,17 @@
   }
 }
 
+@mixin normalize-button {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  overflow: visible;
+  text-transform: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
 @mixin va-button($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
   padding: $padding-y $padding-x;
   font-size: $font-size;

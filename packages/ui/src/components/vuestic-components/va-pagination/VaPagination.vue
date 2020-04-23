@@ -93,7 +93,7 @@ import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
 import Component, { mixins } from 'vue-class-component'
-import { Watch } from 'vue-property-decorator'
+import { Watch, Ref } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 const PaginationPropsMixin = makeContextablePropsMixin({
@@ -135,6 +135,8 @@ export default class VaPagination extends mixins(
   PaginationPropsMixin,
 ) {
   private inputValue = ''
+
+  @Ref() readonly input!: HTMLInputElement
 
   private get lastPage () {
     const { c_total, c_pageSize, c_pages } = this
@@ -191,16 +193,15 @@ export default class VaPagination extends mixins(
   private onModeChange () {
     if (this.useTotal && this.c_pages) {
       if (process.env.NODE_ENV !== 'production') {
-        throw new Error('Please, use either `total` and `page-size` props, or `c_pages`.')
+        throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
       }
     }
   }
 
   private focusInput () {
-    const { currentValue, $nextTick, $refs } = this
-    const input: any = $refs.input
+    const { currentValue, $nextTick } = this
     this.inputValue = currentValue
-    $nextTick(() => input.setSelectionRange(0, input.value.length))
+    $nextTick(() => this.input.setSelectionRange(0, this.input.value.length))
   }
 
   private onUserInput (pageNum: number) {
@@ -213,8 +214,8 @@ export default class VaPagination extends mixins(
   }
 
   private resetInput () {
-    this.inputValue = '';
-    (this.$refs as any).input.blur()
+    this.inputValue = ''
+    this.input.blur()
   }
 
   private changeValue () {
