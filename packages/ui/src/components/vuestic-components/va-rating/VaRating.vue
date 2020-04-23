@@ -179,8 +179,9 @@ export default class VaRating extends mixins(
   }
 
   private onArrow (event: KeyboardEvent, directon: 1 | -1) {
+    const currentValue = this.valueProxy || 0
     const step = this.c_halves ? RatingValue.HALF : RatingValue.FULL
-    const nextValue = this.valueProxy + (step * directon)
+    const nextValue = currentValue + (step * directon)
     if (nextValue < 0 || nextValue > this.c_max) return
 
     this.forceEmit = true
