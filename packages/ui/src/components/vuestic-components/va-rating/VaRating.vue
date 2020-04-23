@@ -40,6 +40,7 @@
                 width: sizeComputed,
                 height: sizeComputed,
                 fontSize: fontSizeComputed,
+                borderRadius: `${fontSize * 0.125}rem`,
               }"
             > {{ number }} </button>
           </template>
@@ -64,7 +65,7 @@
         />
       </template>
     </div>
-    <span v-if="c_texts.length === c_max" :style="{ color: computeColor(c_textColor) }">
+    <span class="va-rating__text-wrapper" v-if="c_texts.length === c_max" :style="{ color: computeColor(c_textColor) }">
       {{ c_texts[Math.round(valueProxy) - 1] }}
     </span>
   </div>
@@ -78,7 +79,7 @@ import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-tes
 import Component, { mixins } from 'vue-class-component'
 import { ColorInput } from 'colortranslator/dist/@types'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { RatingItemValue, RatingValue } from './VaRating.types'
+import { RatingValue } from './VaRating.types'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
 const RatingPropsMixin = makeContextablePropsMixin({
@@ -112,7 +113,7 @@ export default class VaRating extends mixins(
 ) {
   private isHovered = false
   private forceEmit = false
-  private hoveredValue = 0
+  private hoveredValue = RatingValue.EMPTY
 
   private mounted () {
     this.hoveredValue = this.valueComputed
@@ -155,7 +156,7 @@ export default class VaRating extends mixins(
     return this.interactionsEnabled ? 0 : undefined
   }
 
-  private getItemValue (itemNumber: number): RatingItemValue {
+  private getItemValue (itemNumber: number): RatingValue {
     const diff = itemNumber - this.valueProxy
     switch (true) {
       case diff <= 0: return RatingValue.FULL
@@ -164,7 +165,7 @@ export default class VaRating extends mixins(
     }
   }
 
-  private onHover (itemNumber: number, value: RatingItemValue): void {
+  private onHover (itemNumber: number, value: RatingValue): void {
     this.valueProxy = value === RatingValue.FULL
       ? itemNumber
       : itemNumber - RatingValue.HALF
@@ -179,7 +180,7 @@ export default class VaRating extends mixins(
   }
 
   private onArrow (event: KeyboardEvent, directon: 1 | -1) {
-    const currentValue = this.valueProxy || 0
+    const currentValue = this.valueProxy || RatingValue.EMPTY
     const step = this.c_halves ? RatingValue.HALF : RatingValue.FULL
     const nextValue = currentValue + (step * directon)
     if (nextValue < 0 || nextValue > this.c_max) return
@@ -188,13 +189,13 @@ export default class VaRating extends mixins(
     this.valueProxy = nextValue
   }
 
-  private onItemSelected (itemNumber: number, value: RatingItemValue) {
+  private onItemSelected (itemNumber: number, value: RatingValue) {
     if (!this.interactionsEnabled) return
     const currentClickedValue = this.c_halves
       ? value === RatingValue.HALF ? itemNumber - RatingValue.HALF : itemNumber
       : itemNumber
     const valueToEmit = this.c_clearable && this.valueComputed === currentClickedValue
-      ? 0
+      ? RatingValue.EMPTY
       : currentClickedValue
 
     this.forceEmit = true
@@ -214,7 +215,6 @@ export default class VaRating extends mixins(
 
     font-size: inherit;
     margin: 0.1em;
-    border-radius: 0.125rem;
     font-weight: $font-weight-bold;
 
     @include flex-center();
@@ -252,14 +252,18 @@ export default class VaRating extends mixins(
     .va-rating--disabled & {
       @include va-disabled();
 
-      &__wrapper > .va-icon {
+      &__wrapper {
         cursor: initial !important;
       }
     }
 
-    .va-rating--readonly & &__wrapper > .va-icon {
+    .va-rating--readonly & &__wrapper {
       cursor: initial !important;
     }
+  }
+
+  &__text-wrapper {
+    padding-left: 10px;
   }
 }
 </style>

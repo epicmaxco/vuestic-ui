@@ -55,16 +55,22 @@ export class SizeMixin extends mixins(makeContextablePropsMixin(sizeProps)) {
   }
 
   get fontSizeComputed (): string {
+    return this.fontSize === 'string'
+      ? this.fontSize
+      : `${this.fontSize}rem`
+  }
+
+  get fontSize (): number | string {
     const { defaultSize, sizes } = this.c_fontSizesConfig
 
     if (!this.c_size) {
-      return `${defaultSize}rem`
+      return defaultSize
     }
 
     if (typeof this.c_size === 'string') {
-      return this.c_size in sizes ? `${sizes[this.c_size]}rem` : this.c_size
+      return this.c_size in sizes ? sizes[this.c_size] : this.c_size
     }
 
-    return `${this.c_size / 16 - 0.5}rem`
+    return this.c_size / 16 - 0.5
   }
 }

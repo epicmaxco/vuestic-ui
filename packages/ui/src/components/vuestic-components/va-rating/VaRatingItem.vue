@@ -14,14 +14,15 @@
     <slot :props="{
       value: valueProxy, onClick
     }">
-      <button class="va-rating-item__wrapper" tabindex="-1">
-        <va-icon
-          :name="computedIconName"
-          :size="size"
-          :color="computedColor"
-          @click="onClick"
-        />
-      </button>
+      <va-icon
+        class="va-rating-item__wrapper"
+        tabindex="-1"
+        :name="computedIconName"
+        :size="size"
+        tag="button"
+        :color="computedColor"
+        @click="onClick"
+      />
     </slot>
   </div>
 </template>
@@ -32,7 +33,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import Component, { mixins } from 'vue-class-component'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { Watch } from 'vue-property-decorator'
-import { RatingItemValue } from './VaRating.types'
+import { RatingValue } from './VaRating.types'
 
 const RatingItemProps = Vue.extend({
   props: {
@@ -56,27 +57,29 @@ export default class VaRatingItem extends mixins(RatingItemProps, ColorThemeMixi
   private isHovered = false
   private isFocused = false
   private shouldEmitClick = false
-  private hoveredValue: RatingItemValue = this.value as RatingItemValue
+  private hoveredValue: RatingValue = this.value
 
   private get computedIconName (): string {
-    if (this.halves && this.valueProxy === 0.5) {
+    if (this.halves && this.valueProxy === RatingValue.HALF) {
       return this.halfIconName
     }
-    return this.valueProxy === 0 ? this.emptyIconName : this.filledIconName
+    return this.valueProxy === RatingValue.EMPTY
+      ? this.emptyIconName
+      : this.filledIconName
   }
 
   private get computedColor () {
-    return this.valueProxy === 0
+    return this.valueProxy === RatingValue.EMPTY
       ? this.emptyIconColor || this.colorComputed
       : this.colorComputed
   }
 
   @Watch('value')
-  private onValueChange (newVal: RatingItemValue) {
+  private onValueChange (newVal: RatingValue) {
     this.hoveredValue = newVal
   }
 
-  private set valueProxy (value: RatingItemValue) {
+  private set valueProxy (value: RatingValue) {
     this.hoveredValue = value
     if (this.shouldEmitClick) {
       this.shouldEmitClick = false
@@ -86,8 +89,8 @@ export default class VaRatingItem extends mixins(RatingItemProps, ColorThemeMixi
     }
   }
 
-  private get valueProxy (): RatingItemValue {
-    return this.isHovered ? this.hoveredValue : this.value as RatingItemValue
+  private get valueProxy (): RatingValue {
+    return this.isHovered ? this.hoveredValue : this.value
   }
 
   private onClick (cursorPosition: MouseEvent) {
@@ -96,12 +99,13 @@ export default class VaRatingItem extends mixins(RatingItemProps, ColorThemeMixi
   }
 
   private proccessCursorInput (iconSize: number, offsetX: number) {
-    this.valueProxy = this.halves && (offsetX / iconSize <= 0.5) ? 0.5 : 1
+    this.valueProxy = this.halves && (offsetX / iconSize <= RatingValue.HALF)
+      ? RatingValue.HALF : RatingValue.FULL
   }
 
   private onEnter () {
     this.shouldEmitClick = true
-    this.valueProxy = 1
+    this.valueProxy = RatingValue.FULL
   }
 
   private onHover (cursorPosition: MouseEvent) {
@@ -119,7 +123,7 @@ export default class VaRatingItem extends mixins(RatingItemProps, ColorThemeMixi
   }
 
   private removeHover () {
-    this.valueProxy = this.value as RatingItemValue
+    this.valueProxy = this.value
     this.isHovered = false
   }
 }
