@@ -61,6 +61,7 @@ import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
 export default {
@@ -71,14 +72,12 @@ export default {
     KeyboardOnlyFocusMixin,
     ColorThemeMixin,
     ContextPluginMixin,
+    SelectableMixin,
     makeContextablePropsMixin({
-      label: { type: String, default: '' },
       value: { type: [Boolean, Array, String, Object], default: false },
-      arrayValue: { type: [String, Object], default: '' },
       indeterminate: { type: Boolean, default: false },
       checkedIcon: { type: String, default: 'check' },
       indeterminateIcon: { type: String, default: 'remove' },
-      leftLabel: { type: Boolean, default: false },
     }),
   ],
   watch: {
