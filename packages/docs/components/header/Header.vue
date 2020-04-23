@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="header row">
+  <div class="header row" :style="computedStyle">
     <div class="header__logo flex row xs3">
       <header-selector :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
       <img class="header__logo__image" src="../../assets/svg/vuestic-docs.svg" height="30" width="150">
@@ -72,6 +72,10 @@ export default class Header extends Vue {
         },
       ],
     }
+  }
+
+  get computedStyle () {
+    return { backgroundColor: this.$themes?.secondary }
   }
 
   toggleSidebar () {

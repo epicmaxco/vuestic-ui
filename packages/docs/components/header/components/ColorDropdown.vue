@@ -1,11 +1,6 @@
 <template>
   <va-dropdown class="color-dropdown" :offset="[0, 13]">
-    <va-button
-      slot="anchor"
-      class="color-dropdown__icon"
-      flat
-      :color="$themes && $themes.primary"
-    >
+    <va-button slot="anchor" class="color-dropdown__icon" flat color="primary">
       {{ selectedTheme }}
     </va-button>
     <div class="color-dropdown__content pl-4 pr-4 pt-2 pb-2">
@@ -13,120 +8,65 @@
         v-model="selectedTheme"
         outline
         small
+        color="primary"
         :options="themeOptions"
         style="max-width: 100%;"
       />
-      <!-- <va-dropdown class="color-picker-dropdown mt-1 mb-1">
-        <va-badge
-          class="color-picker-dropdown__badge"
-          color="primary"
-          slot="anchor"
-        >
+      <va-dropdown class="color-picker-dropdown mt-1 mb-1">
+        <va-badge slot="anchor" class="color-picker-dropdown__badge" color="primary">
           Primary
         </va-badge>
-        <va-advanced-color-picker
-          class="my-1"
-          v-model="$themes.primary"
-        />
+        <va-advanced-color-picker v-model="themes.primary" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
-        <va-badge
-          class="color-picker-dropdown__badge"
-          color="secondary"
-          slot="anchor"
-        >
+        <va-badge slot="anchor" class="color-picker-dropdown__badge" color="secondary">
           Secondary
         </va-badge>
-        <va-advanced-color-picker
-          class="my-1"
-          v-model="$themes.secondary"
-        />
+        <va-advanced-color-picker v-model="themes.secondary" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
-        <va-badge
-          class="color-picker-dropdown__badge"
-          color="success"
-          slot="anchor"
-        >
+        <va-badge slot="anchor" class="color-picker-dropdown__badge" color="success">
           Success
         </va-badge>
-        <va-advanced-color-picker
-          class="my-1"
-          v-model="$themes.success"
-        />
+        <va-advanced-color-picker v-model="themes.success" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
-        <va-badge
-          class="color-picker-dropdown__badge"
-          color="info"
-          slot="anchor"
-        >
+        <va-badge slot="anchor" class="color-picker-dropdown__badge" color="info">
           Info
         </va-badge>
-        <va-advanced-color-picker
-          class="my-1"
-          v-model="$themes.info"
-        />
+        <va-advanced-color-picker v-model="themes.info" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
-        <va-badge
-          class="color-picker-dropdown__badge"
-          color="danger"
-          slot="anchor"
-        >
+        <va-badge slot="anchor" class="color-picker-dropdown__badge" color="danger">
           Danger
         </va-badge>
-        <va-advanced-color-picker
-          class="my-1"
-          v-model="$themes.danger"
-        />
+        <va-advanced-color-picker v-model="themes.danger" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
-        <va-badge
-          class="color-picker-dropdown__badge"
-          color="warning"
-          slot="anchor"
-        >
+        <va-badge slot="anchor" class="color-picker-dropdown__badge" color="warning">
           Warning
         </va-badge>
-        <va-advanced-color-picker
-          class="my-1"
-          v-model="$themes.warning"
-        />
+        <va-advanced-color-picker v-model="themes.warning" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
-        <va-badge
-          class="color-picker-dropdown__badge"
-          color="gray"
-          slot="anchor"
-        >
+        <va-badge slot="anchor" class="color-picker-dropdown__badge" color="gray">
           Gray
         </va-badge>
-        <va-advanced-color-picker
-          class="my-1"
-          v-model="$themes.gray"
-        />
+        <va-advanced-color-picker v-model="themes.gray" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
-        <va-badge
-          class="color-picker-dropdown__badge"
-          color="dark"
-          slot="anchor"
-        >
+        <va-badge slot="anchor" class="color-picker-dropdown__badge" color="dark">
           Dark
         </va-badge>
-        <va-advanced-color-picker
-          class="my-1"
-          v-model="$themes.dark"
-        />
-      </va-dropdown>-->
+        <va-advanced-color-picker v-model="themes.dark" class="my-1" />
+      </va-dropdown>
     </div>
   </va-dropdown>
 </template>
@@ -137,29 +77,37 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import VaDropdown from 'vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue'
 import VaButtonToggle from 'vuestic-ui/src/components/vuestic-components/va-button-toggle/VaButtonToggle.vue'
 import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
-import {
-  ThemeName,
-} from 'vuestic-ui/src/services/ColorThemePlugin.ts'
+import VaBadge from 'vuestic-ui/src/components/vuestic-components/va-badge/VaBadge.vue'
+import VaAdvancedColorPicker from 'vuestic-ui/src/components/vuestic-components/va-color-picker/VaAdvancedColorPicker.vue'
+import { ThemeName } from '../../../themeConfig.ts'
 
 @Component({
   components: {
     VaDropdown,
     VaButtonToggle,
     VaButton,
+    VaAdvancedColorPicker,
+    VaBadge,
   },
 })
 export default class ColorDropdown extends Vue {
   data () {
     return {
-      selectedTheme: ThemeName.CORPORATE,
-      themeOptions: Object.keys(ThemeName).map(name => ({ label: name, value: name })),
+      selectedTheme: ThemeName.DEFAULT,
+      themeOptions: Object.keys(ThemeName).map(name => ({
+        label: name,
+        value: name,
+      })),
     }
   }
 
   @Watch('selectedTheme')
   onThemeChanged (themeName) {
-    console.log(themeName)
     this.$root.$emit('change-theme', themeName)
+  }
+
+  get themes () {
+    return this.$themes || {}
   }
 }
 </script>

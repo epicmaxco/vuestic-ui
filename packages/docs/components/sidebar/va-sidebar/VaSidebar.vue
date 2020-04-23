@@ -1,6 +1,7 @@
 <template>
   <aside
     :class="computedClass"
+    :style="computedStyle"
   >
     <div class="va-sidebar__menu">
       <slot name="menu" />
@@ -8,14 +9,10 @@
   </aside>
 </template>
 
-<script>
-import Vue from 'vue'
-import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
-
-export default Vue.extend({
-  name: 'VaSidebar',
-  components: {},
-  mixins: [ColorThemeMixin],
+<script lang="ts">
+import { Component, Vue, Inject } from 'vue-property-decorator'
+// import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
+@Component({
   props: {
     minimized: {
       type: Boolean,
@@ -26,15 +23,23 @@ export default Vue.extend({
       default: 'secondary',
     },
   },
-  computed: {
-    computedClass () {
-      return {
-        'va-sidebar': true,
-        'va-sidebar--minimized': this.minimized,
-      }
-    },
-  },
+  name: 'VaSidebar',
 })
+export default class VaSidebar extends Vue {
+  @Inject() readonly contextConfig!: any;
+  get computedClass () {
+    return {
+      'va-sidebar': true,
+      'va-sidebar--minimized': this.minimized,
+    }
+  }
+
+  get computedStyle () {
+    return {
+      backgroundColor: this.contextConfig?.invertedColor ? '#f4f8fa' : this.$themes?.secondary,
+    }
+  }
+}
 </script>
 
 <style lang="scss">

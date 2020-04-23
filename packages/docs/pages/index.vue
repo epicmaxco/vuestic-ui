@@ -29,11 +29,10 @@
 // @ts-nocheck
 import VaBreadcrumbs from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
 import VaBreadcrumbsItem from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
-import { COLOR_THEMES } from '../../ui/src/services/ColorThemePlugin.ts'
-import { ThemeName } from '../../ui/src/services/ColorThemePlugin'
+import { COLOR_THEMES, ThemeName } from '../themeConfig.ts'
 
 @Component({
   components: {
@@ -47,8 +46,16 @@ export default class Index extends Vue {
   data () {
     return {
       isSidebarVisible: true,
+      // only default theme guaranteed to work
+      contextConfig: {
+        gradient: true,
+        shadow: 'lg',
+        invertedColor: false,
+      },
     }
   }
+
+  @Provide() contextConfig = this.contextConfig;
 
   created () {
     this.$root.$on('change-theme', this.setTheme.bind(this))
@@ -65,11 +72,16 @@ export default class Index extends Vue {
   }
 
   setTheme (themeName) {
-    Object.assign(this.$themes, COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.CORPORATE])
+    Object.assign(
+      this.$themes,
+      COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT],
+    )
   }
 
   get crumbs () {
-    if (this.$isServer) { return [] }
+    if (this.$isServer) {
+      return []
+    }
     // @ts-ignore
     if (this.$route.path === '/') {
       return [
@@ -80,25 +92,28 @@ export default class Index extends Vue {
       ]
     }
     const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
-    return pathSteps.reduce((acc, step, index, array) => {
-      switch (true) {
-        case !index:
-          acc.push({
-            label: 'Home',
-            path: `/${this.$root.$i18n.locale}/`,
-          })
-          break
-        case !step && index:
-          break
-        default:
-          acc.push({
-            path: '/' + array.slice(0, index + 1).join('/'),
-            label: step,
-          })
-          break
-      }
-      return acc
-    }, [] as { [key: string]: string, }[])
+    return pathSteps.reduce(
+      (acc, step, index, array) => {
+        switch (true) {
+          case !index:
+            acc.push({
+              label: 'Home',
+              path: `/${this.$root.$i18n.locale}/`,
+            })
+            break
+          case !step && index:
+            break
+          default:
+            acc.push({
+              path: '/' + array.slice(0, index + 1).join('/'),
+              label: step,
+            })
+            break
+        }
+        return acc
+      },
+      [] as { [key: string]: string, }[],
+    )
   }
 }
 </script>

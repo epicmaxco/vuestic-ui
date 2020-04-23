@@ -24,38 +24,44 @@ const defaultOptions = Vue.observable({
   },
 })
 
-export const enum ThemeName {
-  DEFAULT = 'DEFAULT',
-  CORPORATE = 'CORPORATE',
+export const THEME_NAMES = {
+  DEFAULT: 'DEFAULT',
+  CORPORATE: 'CORPORATE',
 }
 
-export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
-  [ThemeName.DEFAULT]: {
-    primary: '#40e583',
-    secondary: '#002c85',
-    success: '#40e583',
-    info: '#2c82e0',
-    danger: '#e34b4a',
-    warning: '#ffc200',
-    gray: '#babfc2',
-    dark: '#34495e',
+export const COLOR_THEMES = [
+  {
+    name: THEME_NAMES.DEFAULT,
+    themes: {
+      primary: '#40e583',
+      secondary: '#002c85',
+      success: '#40e583',
+      info: '#2c82e0',
+      danger: '#e34b4a',
+      warning: '#ffc200',
+      gray: '#babfc2',
+      dark: '#34495e',
+    },
   },
-  [ThemeName.CORPORATE]: {
-    primary: '#6c7fee',
-    secondary: '#6e7ff1',
-    success: '#8ddc88',
-    info: '#71baff',
-    danger: '#f8706d',
-    warning: '#ffd652',
-    gray: '#8396a5',
-    dark: '#34495e',
+  {
+    name: THEME_NAMES.CORPORATE,
+    themes: {
+      primary: '#6c7fee',
+      secondary: '#6e7ff1',
+      success: '#8ddc88',
+      info: '#71baff',
+      danger: '#f8706d',
+      warning: '#ffd652',
+      gray: '#8396a5',
+      dark: '#34495e',
+    },
   },
-}
+]
 
 export const getDefaultOptions = () => defaultOptions
 
 export const ColorThemePlugin = {
-  install (Vue: Vue, options?: {themes?: Record<string, string>}) {
+  install (Vue: Vue, options?: { themes?: Record<string, string> }) {
     if (options && options.themes) {
       defaultOptions.themes = { ...defaultOptions.themes, ...options.themes }
     }
@@ -89,11 +95,13 @@ export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_
 }
 
 @Component({
-  mixins: [makeContextablePropsMixin({
-    color: {
-      type: String,
-    },
-  })] as any,
+  mixins: [
+    makeContextablePropsMixin({
+      color: {
+        type: String,
+      },
+    }),
+  ] as any,
 })
 export class ColorThemeMixin extends Vue {
   get colorComputed () {

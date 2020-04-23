@@ -60,14 +60,13 @@ export default class LanguageDropdown extends Vue {
     const supportedLanguage = locales.find(locale => navigator.languages.includes(locale))
     const targetLanguage = storedLanguage || supportedLanguage || 'gb'
     if (!isExistingLocale) {
-      this.$router.push(`${targetLanguage === 'gb' ? '/' : `/${targetLanguage}` + this.$route.fullPath}`)
+      this.$router.push(`${targetLanguage === 'gb' ? '/en' : `/${targetLanguage}` + this.$route.fullPath}`)
     }
   }
 
   setLanguage (locale) {
     localStorage.setItem('currentLanguage', locale)
     this.$root.$i18n.setLocale(locale)
-    console.log(localStorage.getItem('currentLanguage'))
   }
 
   get currentLanguage () {
