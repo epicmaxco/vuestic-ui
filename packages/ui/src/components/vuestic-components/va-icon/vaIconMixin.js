@@ -1,7 +1,5 @@
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const fixedWidthFA5class = 'fa-fw'
-
 const isMaterialFont = font => {
   return font === 'md'
 }
@@ -40,7 +38,7 @@ const getClass = (iconConfig, font) => {
   } else if (isFontAwesome4Font(font)) {
     iconClass = `fa fa-${iconConfig.code}`
   } else if (isFontAwesome5Font(font)) {
-    iconClass = `${fixedWidthFA5class} ${font} fa-${iconConfig.code} fa-fw`
+    iconClass = `${font} fa-${iconConfig.code} fa-fw`
   } else if (isIonicFont(font)) {
     iconClass = `icon ion-md-${iconConfig.code}`
   } else if (isIonicOutlineFont(font)) {
