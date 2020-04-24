@@ -1,5 +1,5 @@
 <template>
-  <div v-html="text"/>
+  <div v-html="text" />
 </template>
 
 <script lang="ts">

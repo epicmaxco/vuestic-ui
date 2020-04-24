@@ -1,13 +1,11 @@
 import Vue, { ComponentOptions } from 'vue'
 import { PropOptions } from 'vue/types/options'
-// @ts-ignore
+// @ts-nochek
 import {
   getPropDefaultValue,
   getType,
 } from './vue-src-no-flow/core/util/props'
 import { emptyObject, hyphenate } from './vue-src-no-flow/shared/util'
-
-import noop from 'lodash/noop'
 
 export type ComponentOptionsApiDocs = {
   types: string[],
@@ -25,6 +23,22 @@ export function getTypes (componentProp: PropOptions): string[] {
 
   const types = Array.isArray(componentProp.type) ? componentProp.type : [componentProp.type]
   return types.map(getType)
+}
+
+/**
+ * Employ vue native functionality to get defaults for prop
+ */
+function getDefaultValue <T extends string> (propName: T, propOptions: PropOptions<T>, emptyObject) {
+  const defaultValue = getPropDefaultValue(propName, propOptions, emptyObject)
+  return defaultValue + ''
+}
+
+function convertComponentPropToApiDocs <T extends string> (propName: T, propOptionsRecord: Record<string, PropOptions<T>>): ComponentOptionsApiDocs {
+  return {
+    types: getTypes(propOptionsRecord[propName]),
+    required: !!propOptionsRecord[propName].required,
+    default: getDefaultValue(propName, propOptionsRecord, emptyObject),
+  }
 }
 
 export function convertComponentToApiDocs (componentOptions: ComponentOptions) {
@@ -45,20 +59,4 @@ export function convertComponentToApiDocs (componentOptions: ComponentOptions) {
   return {
     props: propsApiDocs,
   }
-}
-
-function convertComponentPropToApiDocs <T extends string>(propName: T, propOptionsRecord: Record<string, PropOptions<T>>): ComponentOptionsApiDocs {
-  return {
-    types: getTypes(propOptionsRecord[propName]),
-    required: !!propOptionsRecord[propName].required,
-    default: getDefaultValue(propName, propOptionsRecord, emptyObject),
-  }
-}
-
-/**
- * Employ vue native functionality to get defaults for prop
- */
-function getDefaultValue <T extends string>(propName: T, propOptions: PropOptions<T>) {
-  const defaultValue = getPropDefaultValue(propName, propOptions, emptyObject)
-  return defaultValue + ''
 }

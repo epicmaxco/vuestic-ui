@@ -1,7 +1,7 @@
 <template>
   <div class="ApiTest">
     <div>VaForm</div>
-    <FormApi/>
+    <FormApi />
   </div>
 </template>
 
@@ -19,6 +19,7 @@ export default class ApiTest extends Vue {
   get VaCheckbox () {
     return VaCheckbox
   }
+
   get VaInput () {
     return VaInput
   }

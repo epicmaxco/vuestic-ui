@@ -6,19 +6,48 @@
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "license": "MIT",
   "dependencies": {
+    "@nuxt/typescript-runtime": "^0.4.1",
+    "@types/algoliasearch": "^3.34.10",
+    "algoliasearch": "^4.1.0",
     "core-js": "2",
+    "flag-icon-css": "^3.4.6",
+    "instantsearch.css": "^7.4.2",
     "nuxt": "^2.12.1",
-    "nuxt-i18n": "^6.9.1"
+    "nuxt-i18n": "^6.9.1",
+    "typescript-eslint": "^0.0.1-alpha.0",
+    "vue": "^2.6.11",
+    "vue-instantsearch": "^2.7.0",
+    "vue-loader": "^15.9.1",
+    "vue-router": "^3.1.6",
+    "vue-server-renderer": "^2.6.11",
+    "vue-style-loader": "^4.1.2"
   },
   "scripts": {
-    "serve:docs:nuxt": "nuxt --port 8080",
-    "build:docs:nuxt": "nuxt build",
-    "start:docs:nuxt": "nuxt start",
-    "generate:docs:nuxt": "nuxt generate --fail-on-error"
+    "serve": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate --fail-on-error",
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.1",
+    "@nuxtjs/eslint-config-typescript": "^1.0.2",
+    "eslint": "^6.8.0",
     "markdown-it": "^10.0.0",
-    "nuxt-i18n": "^6.9.1"
+    "nuxt-i18n": "^6.9.1",
+    "prettier": "^2.0.5",
+    "stylelint": "^13.3.3"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix"
+    ],
+    "*.vue": [
+      "eslint  --fix",
+      "stylelint --fix"
+    ],
+    ".{htm,html,css,sss,less,scss}": [
+      "stylelint --fix"
+    ]
   }
 }

@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import ApiDocs from './ApiDocs.vue'
 import VaCheckbox from '../vuestic-components/va-checkbox/VaCheckbox'
 import VaInput from '../vuestic-components/va-input/VaInput'
+import ApiDocs from './ApiDocs.vue'
 
 export default {
   components: {

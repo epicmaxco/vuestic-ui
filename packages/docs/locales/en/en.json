@@ -20,5 +20,80 @@
         "reset": "Reset values and validation state for all form-components"
       }
     }
+  },
+  "menu": {
+    "auth": "Auth",
+    "rating": "Rating",
+    "buttons": "Buttons",
+    "charts": "Charts",
+    "colorPickers": "Color Pickers",
+    "collapses": "Collapses",
+    "timelines": "Timelines",
+    "dashboard": "Dashboard",
+    "formElements": "Form Elements",
+    "forms": "Forms",
+    "mediumEditor": "Medium Editor",
+    "grid": "Grid",
+    "icons": "Icons",
+    "cards": "Cards",
+    "spinners": "Spinners",
+    "login": "Login",
+    "maps": "Maps",
+    "pages": "Pages",
+    "modals": "Modals",
+    "notifications": "Notifications",
+    "progressBars": "Progress Bars",
+    "signUp": "Sign up",
+    "statistics": "Statistics",
+    "lists": "Lists",
+    "tables": "Tables",
+    "markupTables": "Markup Tables",
+    "dataTables": "Data Tables",
+    "chips": "Chips",
+    "tabs": "Tabs",
+    "typography": "Typography",
+    "uiElements": "UI Elements",
+    "treeView": "Tree view",
+    "dateTimePickers": "Date time pickers",
+    "fileUpload": "File Upload",
+    "colors": "Colors",
+    "spacing": "Spacing",
+    "sliders": "Sliders",
+    "popovers": "Popovers",
+    "chat": "Chat"
+  },
+  "language": {
+    "brazilian_portuguese": "Português",
+    "english": "English",
+    "spanish": "Spanish",
+    "simplified_chinese": "Simplified Chinese"
+  },
+  "rating": {
+    "title": "Rating",
+    "paragraph": "Rating component can show rating bla bla bla bla lorem ipsum many text Rating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many text",
+    "basic": {
+      "subtitle": "Basic element",
+      "paragraph": "This is basic rating component implementation",
+      "code": "<va-rating\n    v-model=\"value\"\n  />`"
+    },
+    "advanced": {
+      "subtitle": "Advanced Element",
+      "headline": "Color prop demo",
+      "paragraph": "Here you can see different colors of component depends on color prop and more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text",
+      "code": "<va-rating color=\"success\" v-model=\"value\" />\n\n  <va-rating color=\"info\" v-model=\"value\" />\n\n  <va-rating color=\"danger\" v-model=\"value\" />\n\n  <va-rating color=\"warning\" v-model=\"value\" />"
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props that are used in va-rating component more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text"
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "question": "Frequently asked question one",
+          "answer": "Answer one and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
+        }
+      ]
+    }
   }
 }
