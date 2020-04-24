@@ -1,26 +1,26 @@
 <template>
   <div
-    class="va-toggle"
+    class="va-switch"
     :class="computedClass"
-    @click="toggle"
-    @keydown.enter="toggle"
+    @click="switchValue"
+    @keydown.enter="switchValue"
     @mousedown="hasMouseDown = true"
     @mouseup="hasMouseDown = false"
     :tabindex="computedTabindex"
     @focus="onFocus"
     @blur="isKeyboardFocused = false"
   >
-    <div class="va-toggle__inner">
+    <div class="va-switch__inner">
       <span
-        class="va-toggle__track"
+        class="va-switch__track"
         :style="trackStyle"
       />
       <span
-        class="va-toggle__input"
+        class="va-switch__input"
         :style="indicatorStyle"
       />
     </div>
-    <div class="va-toggle__label">
+    <div class="va-switch__label">
       <slot>
         {{ label }}
       </slot>
@@ -34,7 +34,7 @@ import { getFocusColor } from '../../../services/color-functions'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 
 export default {
-  name: 'VaToggle',
+  name: 'VaSwitch',
   mixins: [ColorThemeMixin, KeyboardOnlyFocusMixin],
   props: {
     value: {
@@ -72,9 +72,9 @@ export default {
   computed: {
     computedClass () {
       return {
-        'va-toggle--small': this.size === 'small',
-        'va-toggle--large': this.size === 'large',
-        'va-toggle--disabled': this.disable,
+        'va-switch--small': this.size === 'small',
+        'va-switch--large': this.size === 'large',
+        'va-switch--disabled': this.disable,
       }
     },
     trackStyle () {
@@ -100,7 +100,7 @@ export default {
     },
   },
   methods: {
-    toggle () {
+    switchValue () {
       if (this.disable) {
         return
       }
@@ -129,7 +129,7 @@ export default {
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
 
-.va-toggle {
+.va-switch {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -154,7 +154,7 @@ export default {
   }
 
   &--small {
-    .va-toggle {
+    .va-switch {
       &__inner {
         height: 1.5rem;
         width: 3rem;
@@ -175,7 +175,7 @@ export default {
   }
 
   &--large {
-    .va-toggle {
+    .va-switch {
       &__inner {
         height: 2.5rem;
         width: 5rem;
