@@ -3,9 +3,9 @@
 import VNode, { cloneVNode } from './vnode'
 import { createElement } from './create-element'
 import { resolveInject } from '../instance/inject'
-import { normalizeChildren } from '../vdom/helpers/normalize-children'
+import { normalizeChildren } from './helpers/normalize-children'
 import { resolveSlots } from '../instance/render-helpers/resolve-slots'
-import { normalizeScopedSlots } from '../vdom/helpers/normalize-scoped-slots'
+import { normalizeScopedSlots } from './helpers/normalize-scoped-slots'
 import { installRenderHelpers } from '../instance/render-helpers/index'
 
 import {

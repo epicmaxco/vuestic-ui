@@ -6,6 +6,7 @@
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "license": "MIT",
   "dependencies": {
+    "@types/markdown-it": "^10.0.0",
     "core-js": "2",
     "nuxt": "^2.12.1",
     "nuxt-i18n": "^6.9.1"

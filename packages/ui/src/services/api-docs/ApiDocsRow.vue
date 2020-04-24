@@ -11,14 +11,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import MdView from './MarkdownView/MarkdownView.vue'
-import { ApiRowOptions } from './ApiOptions'
+import MdView from '../../../../docs/utilities/markdown-view/MarkdownView.vue'
+import { ApiPropRowOptions } from './ApiTableData'
 
 @Component({
   components: { MdView },
 })
 export default class ApiDocsRow extends Vue {
-  @Prop() propRow: ApiRowOptions
+  @Prop() propRow!: ApiPropRowOptions
 }
 </script>
 

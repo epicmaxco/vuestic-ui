@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable */
 
 export const emptyObject = Object.freeze({})
