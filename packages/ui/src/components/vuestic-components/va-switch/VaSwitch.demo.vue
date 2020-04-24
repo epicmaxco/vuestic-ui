@@ -91,12 +91,12 @@
     </VbCard>
     <VbCard title="Object values">
       <div>
-        {{ selection }}
+        {{ selectionObjectValues }}
       </div>
       <va-switch
         v-for="objectOption in objectOptions"
         :key="objectOption.id"
-        v-model="selection"
+        v-model="selectionObjectValues"
         :array-value="objectOption"
         :label="objectOption.name"
       />
@@ -122,6 +122,7 @@ export default {
       value: true,
       customTrueFalse: 'disagree',
       selection: [],
+      selectionObjectValues: [],
       objectOptions: [
         { id: 1, name: 'one' },
         { id: 2, name: 'two' },
