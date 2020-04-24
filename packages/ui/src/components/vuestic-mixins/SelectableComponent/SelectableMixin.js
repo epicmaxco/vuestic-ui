@@ -5,7 +5,7 @@ export const SelectableMixin = {
       arrayValue: { type: [String, Object], default: '' },
       label: { type: String, default: '' },
       leftLabel: { type: Boolean, default: false },
-      trueValue: { default: false },
+      trueValue: { default: true },
       falseValue: { default: false },
     }),
   ],
@@ -13,5 +13,6 @@ export const SelectableMixin = {
     if (this.falseValue === this.trueValue) {
       throw new Error('Props trueValue and falseValue are the same')
     }
+    this.isSelectableComponent = true
   },
 }
