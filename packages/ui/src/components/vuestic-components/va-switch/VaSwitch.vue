@@ -10,14 +10,8 @@
     @blur="isKeyboardFocused = false"
   >
     <div class="va-switch__inner">
-      <span
-        class="va-switch__track"
-        :style="trackStyle"
-      />
-      <span
-        class="va-switch__input"
-        :style="indicatorStyle"
-      />
+      <span class="va-switch__track" :style="trackStyle" />
+      <span class="va-switch__input" :style="indicatorStyle" />
     </div>
     <div class="va-switch__label">
       <slot>
@@ -32,31 +26,33 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { getFocusColor } from '../../../services/color-functions'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
+import {
+  ContextPluginMixin,
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaSwitch',
-  mixins: [ColorThemeMixin, KeyboardOnlyFocusMixin, SelectableMixin],
-  props: {
-    value: {
-      type: [Object, Array, Number, String, Boolean],
-      default: false,
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    size: {
-      type: String,
-      default: 'medium',
-      validator: value => {
-        return ['medium', 'small', 'large'].includes(value)
+  mixins: [
+    ColorThemeMixin,
+    KeyboardOnlyFocusMixin,
+    SelectableMixin,
+    ContextPluginMixin,
+    makeContextablePropsMixin({
+      value: { type: [Object, Array, Number, String, Boolean], default: false },
+      size: {
+        type: String,
+        default: 'medium',
+        validator: value => {
+          return ['medium', 'small', 'large'].includes(value)
+        },
       },
-    },
-    disable: {
-      type: Boolean,
-      default: false,
-    },
-  },
+      disable: {
+        type: Boolean,
+        default: false,
+      },
+    }),
+  ],
   computed: {
     computedClass () {
       return {
@@ -67,21 +63,32 @@ export default {
     },
     trackStyle () {
       const color = this.isTrue ? this.colorComputed : this.$themes.gray
-      const backgroundColor = this.isKeyboardFocused ? getFocusColor(color) : color
+      const backgroundColor = this.isKeyboardFocused
+        ? getFocusColor(color)
+        : color
       return { backgroundColor }
     },
     indicatorStyle () {
-      const moveStartPoint = this.size === 'small' ? 1.5 : this.size === 'large' ? 2.5 : 2
-      return { transform: this.isTrue ? `translateX(${moveStartPoint}rem)` : 'translateX(0rem)' }
+      const moveStartPoint =
+        this.size === 'small' ? 1.5 : this.size === 'large' ? 2.5 : 2
+      return {
+        transform: this.isTrue
+          ? `translateX(${moveStartPoint}rem)`
+          : 'translateX(0rem)',
+      }
     },
     computedTabindex () {
       return this.disable ? -1 : 0
     },
     isTrue () {
-      return this.modelIsArray ? this.value.includes(this.arrayValue) : this.value === this.trueValue
+      return this.modelIsArray
+        ? this.value.includes(this.arrayValue)
+        : this.value === this.trueValue
     },
     isFalse () {
-      return this.modelIsArray ? !this.value.includes(this.arrayValue) : this.value === this.falseValue
+      return this.modelIsArray
+        ? !this.value.includes(this.arrayValue)
+        : this.value === this.falseValue
     },
     modelIsArray () {
       return Array.isArray(this.value)
@@ -95,7 +102,10 @@ export default {
 
       if (this.modelIsArray) {
         if (this.value.includes(this.arrayValue)) {
-          this.$emit('input', this.value.filter(option => option !== this.arrayValue))
+          this.$emit(
+            'input',
+            this.value.filter(option => option !== this.arrayValue),
+          )
         } else {
           this.$emit('input', this.value.concat(this.arrayValue))
         }
@@ -115,7 +125,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../vuestic-sass/resources/resources';
+@import "../../vuestic-sass/resources/resources";
 
 .va-switch {
   cursor: pointer;
@@ -213,5 +223,4 @@ export default {
     transition: transform 0.2s ease;
   }
 }
-
 </style>
