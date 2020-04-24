@@ -7,7 +7,6 @@
     @mousedown="hasMouseDown = true"
     @mouseup="hasMouseDown = false"
     :tabindex="computedTabindex"
-    @focus="onFocus"
     @blur="isKeyboardFocused = false"
   >
     <div class="va-switch__inner">
@@ -32,10 +31,11 @@
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { getFocusColor } from '../../../services/color-functions'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
+import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
 
 export default {
   name: 'VaSwitch',
-  mixins: [ColorThemeMixin, KeyboardOnlyFocusMixin],
+  mixins: [ColorThemeMixin, KeyboardOnlyFocusMixin, SelectableMixin],
   props: {
     value: {
       type: [Object, Array, Number, String, Boolean],
@@ -53,18 +53,6 @@ export default {
       },
     },
     disable: {
-      type: Boolean,
-      default: false,
-    },
-    arrayValue: {
-      type: String,
-      default: null,
-    },
-    trueValue: {
-      type: Boolean,
-      default: true,
-    },
-    falseValue: {
       type: Boolean,
       default: false,
     },
