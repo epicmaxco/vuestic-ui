@@ -8,6 +8,7 @@ const LOCALE_DIRECTORY = join(__dirname, './../locales')
  * @return {string[]} - source file
  */
 const getDirectoryNames = (source) => {
+  // eslint-disable-next-line
   const { readdirSync } = require('fs')
 
   return readdirSync(source, { withFileTypes: true })
@@ -38,7 +39,7 @@ export default [
     strategy: 'prefix_and_default',
     detectBrowserLanguage: {
       useCookie: true,
-      cookieKey: 'i18n_redirected'
+      cookieKey: 'i18n_redirected',
     },
     vueI18n: {
       fallbackLocale: 'en',

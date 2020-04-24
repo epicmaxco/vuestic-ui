@@ -25,6 +25,22 @@ export function getTypes (componentProp: PropOptions): string[] {
   return types.map(getType)
 }
 
+/**
+ * Employ vue native functionality to get defaults for prop
+ */
+function getDefaultValue <T extends string> (propName: T, propOptions: PropOptions<T>, emptyObject) {
+  const defaultValue = getPropDefaultValue(propName, propOptions, emptyObject)
+  return defaultValue + ''
+}
+
+function convertComponentPropToApiDocs <T extends string> (propName: T, propOptionsRecord: Record<string, PropOptions<T>>): ComponentOptionsApiDocs {
+  return {
+    types: getTypes(propOptionsRecord[propName]),
+    required: !!propOptionsRecord[propName].required,
+    default: getDefaultValue(propName, propOptionsRecord, emptyObject),
+  }
+}
+
 export function convertComponentToApiDocs (componentOptions: ComponentOptions) {
   const testComponentInstance = new (Vue.extend(componentOptions))()
   const props = testComponentInstance.$options.props
@@ -42,21 +58,5 @@ export function convertComponentToApiDocs (componentOptions: ComponentOptions) {
 
   return {
     props: propsApiDocs,
-  }
-}
-
-/**
- * Employ vue native functionality to get defaults for prop
- */
-function getDefaultValue <T extends string> (propName: T, propOptions: PropOptions<T>, emptyObject) {
-  const defaultValue = getPropDefaultValue(propName, propOptions, emptyObject)
-  return defaultValue + ''
-}
-
-function convertComponentPropToApiDocs <T extends string> (propName: T, propOptionsRecord: Record<string, PropOptions<T>>): ComponentOptionsApiDocs {
-  return {
-    types: getTypes(propOptionsRecord[propName]),
-    required: !!propOptionsRecord[propName].required,
-    default: getDefaultValue(propName, propOptionsRecord, emptyObject),
   }
 }
