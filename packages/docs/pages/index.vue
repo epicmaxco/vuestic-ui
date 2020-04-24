@@ -18,7 +18,8 @@
           />
         </va-breadcrumbs>
         <div>
-          <nuxt-child />
+          <!-- <nuxt-child /> -->
+          <docs-content></docs-content>
         </div>
       </div>
     </div>
@@ -33,9 +34,11 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../themeConfig.ts'
+import DocsContent from '../components/docs-content/DocsContent'
 
 @Component({
   components: {
+    DocsContent,
     VaBreadcrumbsItem,
     VaBreadcrumbs,
     Header,
@@ -55,7 +58,7 @@ export default class Index extends Vue {
     }
   }
 
-  @Provide() contextConfig = this.contextConfig;
+  @Provide() contextConfig = this.contextConfig
 
   created () {
     this.$root.$on('change-theme', this.setTheme.bind(this))

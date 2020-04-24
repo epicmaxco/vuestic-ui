@@ -1,23 +1,27 @@
 <template>
-        <component :is="component" :style="configStyle" v-bind="componentProps">
-            {{text}}
-            <dynamic-template v-bind="childBlock" v-for="(childBlock, index) in children" :key="index" ></dynamic-template>
-        </component>
+  <component :is="componentType">
+    {{ block.text }}
+  </component>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import DynamicTemplate from "./DynamicTemplate.vue"
-// @ts-ignore
-export default Vue.extend({
-    name: 'dynamic-template',
-    components: {
-        DynamicTemplate,
-        VaCard: () => import('../../../ui/src/components/vuestic-components/va-card/VaCard.vue'),
-        VaCardTitle: () => import('../../../ui/src/components/vuestic-components/va-card/VaCardTitle.vue'),
-        VaCardContent: () => import('../../../ui/src/components/vuestic-components/va-card/VaCardContent.vue'),
-        VaContent: () => import('../../../ui/src/components/vuestic-components/va-content/VaContent.vue'),
-    },
-    props: ['component', 'configStyle', 'text', 'componentProps', 'children'],
-})
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Block, BlockType } from '../../types/configTypes.ts'
+
+@Component({})
+export default class DynamicTemplate extends Vue {
+  data () {
+    return {
+      textTypes: { [BlockType.TITLE]: 'h1' },
+    }
+  }
+
+  @Prop({ required: true }) readonly block: Block[]
+
+  get componentType () {
+    return this.block.type === BlockType.COMPONENT ? this.block.component : this.textTypes[this.block.type]
+  }
+}
 </script>
+
+<style lang="scss" scoped></style>

@@ -1,13 +1,13 @@
 import { TranslationString } from '../../utilities/ApiOptions'
 
 export type NavigationRoute = {
-    name: string,
-    displayName: TranslationString,
-    meta?: {
-      iconClass: string,
-    },
-    disabled?: boolean,
-    children?: NavigationRoute[],
+  name: string,
+  displayName: TranslationString,
+  meta?: {
+    iconClass: string,
+  },
+  disabled?: boolean,
+  children?: NavigationRoute[],
 }
 
 export type NavigationScheme = {

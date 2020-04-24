@@ -26,7 +26,7 @@ import { Component, Vue, Inject } from 'vue-property-decorator'
   name: 'VaSidebar',
 })
 export default class VaSidebar extends Vue {
-  @Inject() readonly contextConfig!: any;
+  @Inject() readonly contextConfig!: any
   get computedClass () {
     return {
       'va-sidebar': true,

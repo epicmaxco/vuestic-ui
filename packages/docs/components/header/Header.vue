@@ -81,7 +81,7 @@ export default class Header extends Vue {
   toggleSidebar () {
     this.$emit('update:isSidebarVisible', !this.isSidebarVisible)
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

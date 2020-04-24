@@ -17,11 +17,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Component, Vue } from 'vue-property-decorator'
 import VaContent from '../../../ui/src/components/vuestic-components/va-content/VaContent.vue'
 import VaRating from '../../../ui/src/components/vuestic-components/va-rating/VaRating.vue'
-export default Vue.extend({
+
+@Component({
   components: { VaContent, VaRating },
+})
+export default class RatingColorDocsDemo extends Vue {
   data () {
     return {
       advancedCode: `
@@ -35,8 +38,8 @@ export default Vue.extend({
 `,
       value: 3,
     }
-  },
-})
+  }
+}
 </script>
 
 <style lang="scss" scoped>
