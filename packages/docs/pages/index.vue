@@ -18,8 +18,7 @@
           />
         </va-breadcrumbs>
         <div>
-          <!-- <nuxt-child /> -->
-          <docs-content></docs-content>
+          <nuxt-child />
         </div>
       </div>
     </div>
@@ -34,11 +33,9 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../themeConfig.ts'
-import DocsContent from '../components/docs-content/DocsContent'
 
 @Component({
   components: {
-    DocsContent,
     VaBreadcrumbsItem,
     VaBreadcrumbs,
     Header,
@@ -167,6 +164,10 @@ export default class Index extends Vue {
 
 .va-content,
 .va-breadcrumbs {
+  h1 {
+    margin-top: 2.25rem;
+  }
+
   font-family: Source Sans Pro, sans-serif;
   font-size: 16px;
 }

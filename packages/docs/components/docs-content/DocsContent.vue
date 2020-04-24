@@ -1,20 +1,22 @@
 <template>
-<div>
+<va-content>
   <dynamic-template v-for="(block, index) in config" :key="index" :block="block"></dynamic-template>
-</div>
+</va-content>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import DynamicTemplate from '../dynamic-template/DynamicTemplate.vue'
-import ratingConfig from './configs/rating'
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import DynamicTemplate from '../dynamic-template/DynamicTemplate'
+import VaContent from '../../../ui/src/components/vuestic-components/va-content/VaContent'
+import { Block } from '../../types/configTypes'
 
 @Component({
-  components: { DynamicTemplate },
+  components: {
+    DynamicTemplate,
+    VaContent,
+  },
 })
 export default class DocsContent extends Vue {
-  get config () {
-    return ratingConfig
-  }
+  @Prop() readonly config: Block[]
 }
 </script>

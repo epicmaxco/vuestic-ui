@@ -3,13 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/standard',
-    'eslint:recommended',
-    'plugin:vue/essential',
-    '@vue/typescript/recommended',
-  ],
+  extends: ['plugin:vue/essential', '@vue/standard', 'eslint:recommended', '@vue/typescript/recommended'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',

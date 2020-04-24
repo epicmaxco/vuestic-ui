@@ -3,8 +3,11 @@ import Vue from 'vue-property-decorator'
 
 export enum BlockType {
   COMPONENT = 'COMPONENT',
-  SUBTITLE = 'SUBTITLE',
   TITLE = 'TITLE',
+  SUBTITLE = 'SUBTITLE',
+  PARAGRAPH = 'PARAGRAPH',
+  HEADLINE = 'HEADLINE',
+  CODE = 'CODE',
 }
 
 export type Block =
