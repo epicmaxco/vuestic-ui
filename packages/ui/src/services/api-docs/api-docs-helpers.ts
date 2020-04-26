@@ -4,7 +4,15 @@ import { PropOptions } from 'vue/types/options'
 import { getType } from './vue-src-no-flow/core/util/props'
 
 import noop from 'lodash/noop'
-import { ManualApiOptions, ManualPropApiOptions } from './ManualApiOptions'
+import {
+  ManualApiOptions,
+  ManualPropApiOptions,
+  VersionString,
+  TranslationString,
+  ManualEventApiOptions,
+  ManualSlotApiOptions,
+  ManualMethodApiOptions,
+} from './ManualApiOptions'
 import { ApiPropRowOptions, ApiTableData } from './ApiTableData'
 import {
   PropOptionsCompiled,
@@ -36,7 +44,7 @@ export const getApiTableProp = (
   const manualPropOptions: ManualPropApiOptions = manualOptions.props?.[propName] || {}
   return {
     name: propName,
-    version: manualPropOptions.version || manualOptions.version || '',
+    version: manualPropOptions.version || '',
     required: componentOptions.required,
     types: componentOptions.types.map(type => `\`${type}\``).join(' | '),
     default: componentOptions.default,
@@ -50,7 +58,7 @@ export const getApiTableData = (
 ): ApiTableData => {
   const compiledComponentOptions = compileComponentOptions(componentOptions)
   const componentName = componentOptions.name as string
-  const apiTablezData: ApiTableData = {
+  const apiTableData: ApiTableData = {
     name: componentOptions.name as string,
     props: {},
     slots: {},
@@ -58,9 +66,10 @@ export const getApiTableData = (
     methods: {},
   }
 
+  // Props
   for (const propName in compiledComponentOptions.props) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    apiTablezData.props[propName] = getApiTableProp(
+    apiTableData.props[propName] = getApiTableProp(
       componentName,
       propName,
       manualApiOptions,
@@ -68,5 +77,37 @@ export const getApiTableData = (
     )
   }
 
-  return apiTablezData
+  // Events
+  for (const eventName in manualApiOptions.events) {
+    const manualEventOptions: ManualEventApiOptions = manualApiOptions.events[eventName] || {}
+    apiTableData.events[eventName] = {
+      version: manualEventOptions.version || '',
+      description: `api.${manualEventOptions.local ? componentName : 'all'}.events.${eventName}`,
+      name: eventName,
+      types: manualEventOptions.types,
+    }
+  }
+
+  // Slots
+  for (const slotName in manualApiOptions.slots) {
+    const manualSlotOptions: ManualSlotApiOptions = manualApiOptions.slots[slotName] || {}
+    apiTableData.slots[slotName] = {
+      version: manualSlotOptions.version || '',
+      description: `api.${manualSlotOptions.local ? componentName : 'all'}.slots.${slotName}`,
+      name: slotName,
+    }
+  }
+
+  // Methods
+  for (const methodName in manualApiOptions.methods) {
+    const manualMethodOptions: ManualMethodApiOptions = manualApiOptions.methods[methodName] || {}
+    apiTableData.methods[methodName] = {
+      version: manualMethodOptions.version || '',
+      description: `api.${manualMethodOptions.local ? componentName : 'all'}.methods.${methodName}`,
+      name: methodName,
+      types: manualMethodOptions.types,
+    }
+  }
+
+  return apiTableData
 }

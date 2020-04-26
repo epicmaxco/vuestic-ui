@@ -8,12 +8,12 @@ export type ApiRowOptions = {
   version: VersionString,
   description: TranslationString,
   name: string,
-  required: boolean,
-  types: string,
 }
 
 export type ApiPropRowOptions = ApiRowOptions & {
+  required: boolean,
   default: string,
+  types: string,
 }
 
 export type ApiSlotRowOptions = ApiRowOptions & {
@@ -21,10 +21,12 @@ export type ApiSlotRowOptions = ApiRowOptions & {
 }
 
 export type ApiEventRowOptions = ApiRowOptions & {
+  types: string,
   // add more here
 }
 
 export type ApiMethodRowOptions = ApiRowOptions & {
+  types: string,
   // add more here
 }
 

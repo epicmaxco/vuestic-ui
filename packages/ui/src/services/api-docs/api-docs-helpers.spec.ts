@@ -36,19 +36,26 @@ describe('api-docs-helpers', () => {
         name: 'ComponentName',
         events: {
           close: {
+            name: 'close',
             description: 'api.all.events.close',
             types: '() => void',
+            version: '',
           },
         },
         methods: {
           focus: {
-            description: 'api.ComponentName.methods.close',
+            name: 'focus',
+            description: 'api.ComponentName.methods.focus',
             types: '() => Vue',
+            version: '',
           },
         },
         slots: {
-          version: '1.1.1',
-          description: 'api.all.slots.close',
+          label: {
+            name: 'label',
+            version: '1.1.1',
+            description: 'api.all.slots.label',
+          },
         },
         props: {
           value: {
