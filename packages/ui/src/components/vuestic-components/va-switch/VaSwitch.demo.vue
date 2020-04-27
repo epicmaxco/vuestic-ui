@@ -107,6 +107,12 @@
         disable
       />
     </VbCard>
+    <VbCard title="Loading">
+      <va-switch
+        v-model="value"
+        loading
+      />
+    </VbCard>
   </VbDemo>
 </template>
 

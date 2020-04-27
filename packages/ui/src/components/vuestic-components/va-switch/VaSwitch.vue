@@ -11,7 +11,9 @@
   >
     <div class="va-switch__inner">
       <span class="va-switch__track" :style="trackStyle" />
-      <span class="va-switch__input" :style="indicatorStyle" />
+      <span class="va-switch__input" :style="indicatorStyle">
+        <va-progress-circle v-if="loading" indeterminate :size="computedProgressCircleSize" :color="color || 'black'" />
+      </span>
     </div>
     <div class="va-switch__label">
       <slot>
@@ -22,6 +24,7 @@
 </template>
 
 <script>
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { getFocusColor } from '../../../services/color-functions'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
@@ -51,8 +54,13 @@ export default {
         type: Boolean,
         default: false,
       },
+      loading: {
+        type: Boolean,
+        default: false,
+      },
     }),
   ],
+  components: { VaProgressCircle },
   computed: {
     computedClass () {
       return {
@@ -60,6 +68,14 @@ export default {
         'va-switch--large': this.size === 'large',
         'va-switch--disabled': this.disable,
       }
+    },
+    computedProgressCircleSize () {
+      if (this.size === 'small') {
+        return 15
+      } else if (this.size === 'large') {
+        return 25
+      }
+      return 20
     },
     trackStyle () {
       const color = this.isTrue ? this.colorComputed : this.$themes.gray
@@ -221,6 +237,9 @@ export default {
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
