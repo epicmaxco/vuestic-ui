@@ -14,7 +14,7 @@ export enum BlockType {
 
 export type ApiDocsBlock =
   | {
-      type: Exclude<BlockType, BlockType.COMPONENT>,
+      type: BlockType.TITLE | BlockType.SUBTITLE | BlockType.PARAGRAPH | BlockType.HEADLINE,
       translationString: TranslationString,
     }
   | {
