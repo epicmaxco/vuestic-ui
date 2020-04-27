@@ -1,6 +1,9 @@
 {
   "api": {
     "all": {
+      "events": {
+        "validation": "Trigger internal validation."
+      },
       "props": {
         "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
       }

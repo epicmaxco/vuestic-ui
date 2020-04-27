@@ -1,8 +1,8 @@
 <template>
   <tr class="ApiDocsRow">
     <td>{{ propRow.name }}</td>
-    <td><MdView :value="$t(propRow.description)"/></td>
-    <td><MdView :value="propRow.types"/></td>
+    <td><MarkdownView :value="$t(propRow.description)"/></td>
+    <td><MarkdownView :value="propRow.types"/></td>
     <td><pre>{{propRow.default}}</pre></td>
     <td>{{ propRow.required }}</td>
     <td><pre>{{propRow.version}}</pre></td>
@@ -11,11 +11,11 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import MdView from '../../../../docs/utilities/markdown-view/MarkdownView.vue'
+import MarkdownView from '../../../../docs/utilities/markdown-view/MarkdownView.vue'
 import { ApiPropRowOptions } from './ApiTableData'
 
 @Component({
-  components: { MdView },
+  components: { MarkdownView },
 })
 export default class ApiDocsRow extends Vue {
   @Prop() propRow!: ApiPropRowOptions
