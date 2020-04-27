@@ -58,7 +58,7 @@ export default class Index extends Vue {
   @Provide() contextConfig = this.contextConfig
 
   created () {
-    this.$root.$on('change-theme', this.setTheme.bind(this))
+    this.$root.$on('change-theme', this.setTheme)
   }
 
   mounted () {
@@ -68,7 +68,7 @@ export default class Index extends Vue {
   }
 
   beforeDestroy () {
-    this.$root.$off('change-theme', this.setTheme.bind(this))
+    this.$root.$off('change-theme', this.setTheme)
   }
 
   setTheme (themeName) {

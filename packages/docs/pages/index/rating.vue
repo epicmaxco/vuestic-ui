@@ -18,38 +18,3 @@ export default class Rating extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-h1,
-h3 {
-  margin: 0.5em 0 0.5em 0;
-}
-
-.margin-bottom {
-  margin-bottom: 2.5em;
-}
-
-.api__table {
-  th {
-    text-align: left;
-  }
-
-  width: 100%;
-
-  &__property {
-    font-weight: bold;
-  }
-
-  &__type {
-    color: red;
-  }
-
-  &__description {
-    width: 50%;
-  }
-}
-
-.content-link {
-  color: '#2C82E0' !important,;
-}
-</style>

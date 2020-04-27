@@ -36,10 +36,3 @@ export default class VersionDropdown extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-@import "../../../../ui/src/components/vuestic-sass/resources/resources";
-@import "../../../../ui/src/components/vuestic-sass/grid/grid-global-styles";
-@import "../../../../ui/src/components/vuestic-sass/global/typography";
-</style>

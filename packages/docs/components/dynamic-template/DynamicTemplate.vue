@@ -1,18 +1,25 @@
 <template>
-  <component :is="componentType" :class="{'code': componentType === 'pre'}">
-    {{ $t(block.text) }} <a v-if="isSubtitle" :id="textToKebab" :style="{'color': primaryColor}" :href="`#${textToKebab}`">#</a>
+  <component
+    :is="tag"
+    :class="{'code': isCode}">
+  {{ isCode ? block.code : $t(block.text) }}
+    <a v-if="isSubtitle"
+      :id="textToKebab"
+      :style="{'color': primaryColor}"
+      :href="`#${textToKebab}`">#</a>
   </component>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { Block, BlockType } from '../../types/configTypes.ts'
+import { ApiDocsBlock, BlockType } from '../../types/configTypes.ts'
+import { kebabCase } from 'lodash'
 
 @Component({})
 export default class DynamicTemplate extends Vue {
   data () {
     return {
-      textTypes: {
+      blockTags: {
         [BlockType.TITLE]: 'h1',
         [BlockType.SUBTITLE]: 'h3',
         [BlockType.PARAGRAPH]: 'p',
@@ -22,18 +29,22 @@ export default class DynamicTemplate extends Vue {
     }
   }
 
-  @Prop({ required: true }) readonly block: Block[]
+  @Prop({ required: true }) readonly block: ApiDocsBlock[]
+
+  get isCode () {
+    return this.block.type === BlockType.CODE
+  }
 
   get textToKebab () {
-    return this.$t(this.block.text)?.toLowerCase().replace(' ', '-')
+    return kebabCase(this.$t(this.block.text))
   }
 
   get isSubtitle () {
     return this.block.type === BlockType.SUBTITLE
   }
 
-  get componentType () {
-    return this.block.type === BlockType.COMPONENT ? this.block.component : this.textTypes[this.block.type]
+  get tag () {
+    return this.block.type === BlockType.COMPONENT ? this.block.component : this.blockTags[this.block.type]
   }
 
   get primaryColor () {

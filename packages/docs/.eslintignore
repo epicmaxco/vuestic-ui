@@ -1,4 +1,3 @@
-# That's taken from vue src, which has different linting rules.
 dist
 node_modules
 .nuxt

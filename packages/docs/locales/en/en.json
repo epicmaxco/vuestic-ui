@@ -76,14 +76,12 @@
     "paragraph": "Rating component can show rating bla bla bla bla lorem ipsum many text Rating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many text",
     "basic": {
       "subtitle": "Basic element",
-      "paragraph": "This is basic rating component implementation",
-      "code": "<va-rating\n    v-model=\"value\"\n  />`"
+      "paragraph": "This is basic rating component implementation"
     },
     "advanced": {
       "subtitle": "Advanced Element",
       "headline": "Color prop demo",
-      "paragraph": "Here you can see different colors of component depends on color prop and more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text",
-      "code": "<va-rating color=\"success\" v-model=\"value\" />\n\n  <va-rating color=\"info\" v-model=\"value\" />\n\n  <va-rating color=\"danger\" v-model=\"value\" />\n\n  <va-rating color=\"warning\" v-model=\"value\" />"
+      "paragraph": "Here you can see different colors of component depends on color prop and more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text"
     },
     "api": {
       "subtitle": "API",

@@ -1,5 +1,7 @@
-import { TranslationString } from '../utilities/ApiOptions'
+import { TranslationString } from '../../ui/src/services/api-docs/ManualApiOptions'
 import Vue from 'vue-property-decorator'
+
+export type CodeString = string
 
 export enum BlockType {
   COMPONENT = 'COMPONENT',
@@ -10,12 +12,16 @@ export enum BlockType {
   CODE = 'CODE',
 }
 
-export type Block =
+export type ApiDocsBlock =
   | {
-      type: Exclude<BlockType, BlockType.COMPONENT>,
+      type: BlockType.TITLE | BlockType.SUBTITLE | BlockType.PARAGRAPH | BlockType.HEADLINE,
       translationString: TranslationString,
     }
   | {
       type: BlockType.COMPONENT,
       component: Vue,
     }
+  | {
+      type: BlockType.CODE,
+      code: CodeString,
+  }

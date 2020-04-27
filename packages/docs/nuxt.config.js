@@ -33,6 +33,7 @@ export default {
     { mode: 'client', src: '~/plugins/ui-plugin.ts' },
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },
+    { src: '~/plugins/localeRoute.ts' },
   ],
   build: {
     transpile: ['vue-instantsearch', 'instantsearch.js/es'],
