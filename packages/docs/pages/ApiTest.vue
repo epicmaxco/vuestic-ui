@@ -1,7 +1,7 @@
 <template>
   <div class="ApiTest">
     <div>VaForm</div>
-    <FormApi/>
+    <FormApi />
   </div>
 </template>
 

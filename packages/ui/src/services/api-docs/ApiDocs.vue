@@ -15,7 +15,7 @@
       </tr>
       </thead>
       <tbody>
-      <ApiDocsRow
+      <ApiDocsPropsRow
         v-for="(prop, key) in apiTableData.props"
         :key="key"
         :propRow="prop"
@@ -119,19 +119,21 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ComponentOptions } from 'vue'
 import { ManualApiOptions } from './ManualApiOptions'
-import ApiDocsRow from './ApiDocsRow.vue'
+import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
 import { getApiTableData } from './api-docs-helpers'
 import MarkdownView
   from '../../../../docs/utilities/markdown-view/MarkdownView.vue'
 
 @Component({
-  components: { ApiDocsRow, MarkdownView },
+  components: { ApiDocsPropsRow, MarkdownView },
 })
 export default class ApiDocs extends Vue {
   @Prop({
     type: Object,
     required: true,
   }) componentOptions!: ComponentOptions<Vue>
+
+
   @Prop({ type: Object, default: () => ({}) }) apiOptions!: ManualApiOptions
 
   get apiTableData () {

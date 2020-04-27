@@ -1,5 +1,5 @@
 <template>
-  <tr class="ApiDocsRow">
+  <tr class="ApiDocsPropsRow">
     <td>{{ propRow.name }}</td>
     <td><MarkdownView :value="$t(propRow.description)"/></td>
     <td><MarkdownView :value="propRow.types"/></td>
@@ -17,13 +17,13 @@ import { ApiPropRowOptions } from './ApiTableData'
 @Component({
   components: { MarkdownView },
 })
-export default class ApiDocsRow extends Vue {
+export default class ApiDocsPropsRow extends Vue {
   @Prop() propRow!: ApiPropRowOptions
 }
 </script>
 
 <style lang="scss">
-.ApiDocsRow {
+.ApiDocsPropsRow {
 
 }
 </style>

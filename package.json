@@ -17,7 +17,8 @@
     "test:unit": "yarn workspace vuestic-ui test:unit",
     "test:coverage": "yarn workspace vuestic-ui test:coverage",
     "lint:style": "yarn workspace vuestic-ui lint:style",
-    "serve:docs:nuxt": "yarn workspace @vuestic-ui/docs serve:docs:nuxt",
+    "serve:docs": "yarn workspace @vuestic-ui/docs serve",
+    "build:docs": "yarn workspace @vuestic-ui/docs build",
     "push": "yarn workspace vuestic-ui push",
     "push-production": "yarn workspace vuestic-ui ush-production"
   },
@@ -25,7 +26,9 @@
     "packages/*"
   ],
   "dependencies": {
-    "@types/lodash": "^4.14.149"
+    "@types/lodash": "^4.14.149",
+    "jsdom": "^16.2.2",
+    "vuetable-2": "^1.7.5"
   },
   "gitHooks": {
     "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"

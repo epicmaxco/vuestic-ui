@@ -5,15 +5,15 @@
 import { VersionString, TranslationString } from './ManualApiOptions'
 
 export type ApiRowOptions = {
-  version: VersionString,
-  description: TranslationString,
-  name: string,
+  version: VersionString;
+  description: TranslationString;
+  name: string;
 }
 
 export type ApiPropRowOptions = ApiRowOptions & {
-  required: boolean,
-  default: string,
-  types: string,
+  required: boolean;
+  default: string;
+  types: string;
 }
 
 export type ApiSlotRowOptions = ApiRowOptions & {
@@ -21,19 +21,19 @@ export type ApiSlotRowOptions = ApiRowOptions & {
 }
 
 export type ApiEventRowOptions = ApiRowOptions & {
-  types: string,
+  types: string;
   // add more here
 }
 
 export type ApiMethodRowOptions = ApiRowOptions & {
-  types: string,
+  types: string;
   // add more here
 }
 
 export type ApiTableData = {
-  name: string, // component name, required for translation strings forming.
-  props: Record<string, ApiPropRowOptions>,
-  slots: Record<string, ApiSlotRowOptions>,
-  events: Record<string, ApiEventRowOptions>,
-  methods: Record<string, ApiMethodRowOptions>,
+  name: string; // component name, required for translation strings forming.
+  props: Record<string, ApiPropRowOptions>;
+  slots: Record<string, ApiSlotRowOptions>;
+  events: Record<string, ApiEventRowOptions>;
+  methods: Record<string, ApiMethodRowOptions>;
 }
