@@ -27,14 +27,14 @@ export default class RatingColorDocsDemo extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.rating-container {
-  height: 50px;
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
-}
+// .rating-container {
+//   height: 50px;
+//   align-items: center;
+//   display: flex;
+//   justify-content: space-around;
+// }
 
-.margin-bottom {
-  margin-bottom: 2.5em;
-}
+// .margin-bottom {
+//   margin-bottom: 2.5em;
+// }
 </style>

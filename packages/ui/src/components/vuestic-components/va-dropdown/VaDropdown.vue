@@ -57,7 +57,10 @@ export default {
     }
   },
   created () {
-    if (this.$isServer) return
+    // nuxt fix
+    if (this.$isServer) {
+      return
+    }
     this.registerClickOutsideListener()
   },
   beforeDestroy () {

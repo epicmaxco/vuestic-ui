@@ -6,7 +6,7 @@
     @click="onClick()"
     @mouseleave="removeHover"
   >
-    <i :class="iconClassesComputed" class="va-rating-item__icon font-normal" />
+    <i :class="iconClassesComputed" class="va-rating-item__icon va-rating-item__icon--normal" />
   </div>
 </template>
 
@@ -106,10 +106,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .va-rating-item {
   &__icon {
-    &.font-normal {
+    &--normal {
       font-style: normal;
     }
   }

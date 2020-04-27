@@ -8,7 +8,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import DynamicTemplate from '../dynamic-template/DynamicTemplate'
 import VaContent from '../../../ui/src/components/vuestic-components/va-content/VaContent'
-import { Block } from '../../types/configTypes'
+import { ApiDocsBlock } from '../../types/configTypes'
 
 @Component({
   components: {
@@ -17,6 +17,6 @@ import { Block } from '../../types/configTypes'
   },
 })
 export default class DocsContent extends Vue {
-  @Prop() readonly config: Block[]
+  @Prop() readonly config: ApiDocsBlock[]
 }
 </script>

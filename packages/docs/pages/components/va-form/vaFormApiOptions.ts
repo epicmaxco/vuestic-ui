@@ -9,19 +9,19 @@ export const vaFormApiOptions: ManualApiOptions = {
     },
   },
   methods: {
-    'validate': {
+    validate: {
       types: '`() => boolean`',
     },
-    'focus': {
+    focus: {
       types: '`() => void`',
     },
-    'focusInvalid': {
+    focusInvalid: {
       types: '`() => void`',
     },
-    'resetValidation': {
+    resetValidation: {
       types: '`() => boolean`',
     },
-    'reset': {
+    reset: {
       types: '`() => boolean`',
     },
   },

@@ -20,7 +20,9 @@ export default [
   },
   {
     type: BlockType.CODE,
-    text: 'rating.basic.code',
+    code: `<va-rating
+  v-model="value"
+/>`,
   },
   {
     type: BlockType.SUBTITLE,
@@ -40,7 +42,13 @@ export default [
   },
   {
     type: BlockType.CODE,
-    text: 'rating.advanced.code',
+    code: `<va-rating color="success" v-model="value" />
+
+<va-rating color="info" v-model="value" />
+
+<va-rating color="danger" v-model="value" />
+
+<va-rating color="warning" v-model="value" />`,
   },
   {
     type: BlockType.SUBTITLE,
