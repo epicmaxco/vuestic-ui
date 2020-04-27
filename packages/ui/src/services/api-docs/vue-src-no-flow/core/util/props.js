@@ -1,4 +1,4 @@
-/*       */
+// @ts-nocheck
 
 import { warn } from './debug'
 import { observe, toggleObserving, shouldObserve } from '../observer/index'

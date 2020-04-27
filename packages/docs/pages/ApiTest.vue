@@ -7,22 +7,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import ApiDocs from '../utilities/ApiDocs.vue'
-import VaCheckbox from '../../ui/src/components/vuestic-components/va-checkbox/VaCheckbox.vue'
-import VaInput from '../../ui/src/components/vuestic-components/va-input/VaInput.vue'
-import FormApi from './FormApi.vue'
+import FormApi from './components/va-form/FormApi.vue'
 
 @Component({
-  components: { FormApi, ApiDocs },
+  components: { FormApi },
 })
 export default class ApiTest extends Vue {
-  get VaCheckbox () {
-    return VaCheckbox
-  }
 
-  get VaInput () {
-    return VaInput
-  }
 }
 </script>
 

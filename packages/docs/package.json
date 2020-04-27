@@ -9,6 +9,7 @@
     "@nuxt/typescript-runtime": "^0.4.1",
     "@types/algoliasearch": "^3.34.10",
     "algoliasearch": "^4.1.0",
+    "@types/markdown-it": "^10.0.0",
     "core-js": "2",
     "flag-icon-css": "^3.4.6",
     "instantsearch.css": "^7.4.2",

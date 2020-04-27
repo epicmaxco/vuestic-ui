@@ -9,10 +9,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import VaForm from '../../ui/src/components/vuestic-components/va-form/VaForm.vue'
-import VaContent from '../../ui/src/components/vuestic-components/va-content/VaContent.vue'
-import { VaFormApi } from '../../old-docs/components/VaFormApi'
-import ApiDocs from '../utilities/ApiDocs.vue'
+import VaForm from '../../../../ui/src/components/vuestic-components/va-form/VaForm.vue'
+import VaContent from '../../../../ui/src/components/vuestic-components/va-content/VaContent.vue'
+import { vaFormApiOptions } from './vaFormApiOptions'
+import ApiDocs from '../../../../ui/src/services/api-docs/ApiDocs.vue'
 
 @Component({
   components: { ApiDocs, VaContent },
@@ -23,7 +23,7 @@ export default class FormApi extends Vue {
   }
 
   get apiOptions () {
-    return VaFormApi
+    return vaFormApiOptions
   }
 }
 </script>
