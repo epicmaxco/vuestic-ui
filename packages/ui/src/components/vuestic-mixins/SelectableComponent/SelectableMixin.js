@@ -2,15 +2,17 @@ import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
-import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
+import { StatefulMixin } from '../StatefullMixin/StatefulMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { KeyboardOnlyFocusMixin } from '../../vuestic-components/va-checkbox/KeyboardOnlyFocusMixin'
 export const SelectableMixin = {
   mixins: [
     FormComponentMixin,
     ColorThemeMixin,
     StatefulMixin,
     ContextPluginMixin,
+    KeyboardOnlyFocusMixin,
     makeContextablePropsMixin({
       arrayValue: { type: [String, Object], default: '' },
       label: { type: String, default: '' },
