@@ -10,7 +10,7 @@ aliases:
 
   - &nuxt_generate
     name: Generate static
-    command: nuxt generate --fail-on-error
+    command: yarn generate:docs
 
   - &save_cache
     name: Save Yarn Package Cache
@@ -104,11 +104,11 @@ workflows:
               only: develop
 #          requires:
 #            - test
-#      - deploy-docs:
-#          context: vuestic-ui-staging-docs
-#          filters:
-#            branches:
-#              only: develop
+      - deploy-docs:
+          context: vuestic-ui-staging-docs
+          filters:
+            branches:
+              only: develop
 #          requires:
 #            - deploy-demos
 #            - test
