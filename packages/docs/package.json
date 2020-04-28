@@ -28,7 +28,7 @@
     "serve": "nuxt-ts",
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate --fail-on-error",
+    "generate": "nuxt-ts generate",
     "precommit": "lint-staged"
   },
   "devDependencies": {
