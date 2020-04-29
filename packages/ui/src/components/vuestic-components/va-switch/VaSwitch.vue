@@ -67,6 +67,7 @@ export default {
         'va-switch--small': this.size === 'small',
         'va-switch--large': this.size === 'large',
         'va-switch--disabled': this.disabled,
+        'va-switch--left-label': this.leftLabel,
       }
     },
     computedProgressCircleSize () {
@@ -211,6 +212,10 @@ export default {
 
   &--disabled {
     @include va-disabled;
+  }
+
+  &--left-label {
+    flex-direction: row-reverse;
   }
 
   &__label {

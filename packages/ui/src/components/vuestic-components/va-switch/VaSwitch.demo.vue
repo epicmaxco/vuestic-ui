@@ -56,6 +56,13 @@
         label="large"
       />
     </VbCard>
+    <VbCard title="Left label">
+      <va-switch
+        v-model="value"
+        label="left"
+        left-label
+      />
+    </VbCard>
     <VbCard title="Custom trueValue, falseValue">
       <va-switch
         v-model="customTrueFalse"
