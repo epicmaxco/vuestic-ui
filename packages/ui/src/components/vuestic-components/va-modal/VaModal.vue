@@ -12,17 +12,17 @@
         :style="computedOverlayStyles"
       />
     </transition>
-    <div
-      class="va-modal__container"
-      :style="computedModalContainerStyle"
+    <transition
+      name="va-modal__container--with-transition"
+      appear
+      :duration="c_withoutTransitions ? 0 : 500"
     >
-      <transition
-        name="va-modal__container--with-transition"
-        appear
-        :duration="c_withoutTransitions ? 0 : 500"
+      <div
+        v-if="valueComputed"
+        class="va-modal__container"
+        :style="computedModalContainerStyle"
       >
         <div
-          v-if="valueComputed"
           class="va-modal__dialog"
           :class="computedClass"
           :style="{ c_maxWidth, c_maxHeight }"
@@ -67,8 +67,8 @@
             </div>
           </div>
         </div>
-      </transition>
-    </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -224,7 +224,6 @@ export default class VaModal extends Mixins(
   get computedModalContainerStyle () {
     return {
       'z-index': this.c_zIndex,
-      display: this.valueComputed ? 'flex' : 'none',
     }
   }
 
@@ -324,6 +323,7 @@ $elevation: 1050;
     top: 0;
     left: 0;
     z-index: $elevation;
+    display: flex;
     width: 100%;
     height: 100%;
     align-items: center;
