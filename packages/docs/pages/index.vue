@@ -130,6 +130,7 @@ export default class Index extends Vue {
 .base-layout {
   height: 100vh;
   position: fixed;
+  width: 100%;
 
   &__breadcrumbs {
     text-transform: capitalize;

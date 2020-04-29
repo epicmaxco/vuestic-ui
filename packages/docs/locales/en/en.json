@@ -96,5 +96,77 @@
         }
       ]
     }
+  },
+  "slider": {
+    "title": "Slider",
+    "paragraph": "Slider component is a visualization for number input. User can drag slider within a fixed range to get required value.",
+    "basic": {
+      "subtitle": "Basic Element",
+      "paragraph": "This is basic usage of slider component."
+    },
+    "advanced": {
+      "subtitle": "Advanced Element",
+      "color": {
+        "headline": "Color",
+        "paragraph": "You can customize color of slider."
+      },
+      "minmax": {
+        "headline": "Minimum and maximum values",
+        "paragraph": "You can set a range between min and max values"
+      },
+      "state": {
+        "headline": "State",
+        "paragraph": "Slider can be in disabled or readonly state."
+      },
+      "range": {
+        "headline": "Range slider",
+        "paragraph": "You can set a range of values."
+      },
+      "step": {
+        "headline": "Step",
+        "paragraph": "Step can be changed."
+      },
+      "pins": {
+        "headline": "Pins",
+        "paragraph": "Display markers on slider track"
+      },
+      "label": {
+        "headline": "Label",
+        "paragraph": "Label of slider, could have inverted position or custom color."
+      },
+      "slots": {
+        "headline": "Slots",
+        "paragraph": "You can add inputs before and after the slider using 'append' or 'prepend' slot name. Also default label can be replaced using 'label' slot."
+      },
+      "icon": {
+        "headline": "Icon",
+        "paragraph": "You can inser icon at the start or end of slider."
+      },
+      "track": {
+        "headline": "Track",
+        "paragraph": "Track color can be hidden or have custom color."
+      },
+      "trackLabel": {
+        "headline": "Track label",
+        "paragraph": "You can show track label and overwrite it's view."
+      },
+      "vertical": {
+        "headline": "Vertical",
+        "paragraph": "Vertical state of slider."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props that are used in va-rating component more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text"
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "question": "Frequently asked question one",
+          "answer": "Answer one and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
+        }
+      ]
+    }
   }
 }
