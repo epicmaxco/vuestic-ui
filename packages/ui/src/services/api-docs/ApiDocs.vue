@@ -133,7 +133,6 @@ export default class ApiDocs extends Vue {
     required: true,
   }) componentOptions!: ComponentOptions<Vue>
 
-
   @Prop({ type: Object, default: () => ({}) }) apiOptions!: ManualApiOptions
 
   get apiTableData () {
