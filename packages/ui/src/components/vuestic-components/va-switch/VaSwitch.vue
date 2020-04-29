@@ -50,7 +50,7 @@ export default {
           return ['medium', 'small', 'large'].includes(value)
         },
       },
-      disable: {
+      disabled: {
         type: Boolean,
         default: false,
       },
@@ -66,7 +66,7 @@ export default {
       return {
         'va-switch--small': this.size === 'small',
         'va-switch--large': this.size === 'large',
-        'va-switch--disabled': this.disable,
+        'va-switch--disabled': this.disabled,
       }
     },
     computedProgressCircleSize () {
@@ -94,7 +94,7 @@ export default {
       }
     },
     computedTabindex () {
-      return this.disable ? -1 : 0
+      return this.disabled ? -1 : 0
     },
     isTrue () {
       return this.modelIsArray
@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     switchValue () {
-      if (this.disable) {
+      if (this.disabled) {
         return
       }
 
@@ -215,6 +215,7 @@ export default {
 
   &__label {
     text-align: left;
+    margin: 0 4px;
   }
 
   &__track {

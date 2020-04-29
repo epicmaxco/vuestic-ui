@@ -104,7 +104,7 @@
     <VbCard title="Disabled">
       <va-switch
         v-model="value"
-        disable
+        disabled
       />
     </VbCard>
     <VbCard title="Loading">
