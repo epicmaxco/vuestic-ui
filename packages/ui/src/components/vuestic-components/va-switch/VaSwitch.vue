@@ -25,9 +25,7 @@
 
 <script>
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { getFocusColor } from '../../../services/color-functions'
-import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
 import {
   ContextPluginMixin,
@@ -37,8 +35,6 @@ import {
 export default {
   name: 'VaSwitch',
   mixins: [
-    ColorThemeMixin,
-    KeyboardOnlyFocusMixin,
     SelectableMixin,
     ContextPluginMixin,
     makeContextablePropsMixin({
@@ -66,7 +62,7 @@ export default {
       return {
         'va-switch--small': this.size === 'small',
         'va-switch--large': this.size === 'large',
-        'va-switch--disabled': this.disabled,
+        'va-switch--disabled': this.c_disabled,
         'va-switch--left-label': this.leftLabel,
       }
     },
