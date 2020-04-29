@@ -49,6 +49,7 @@
             :label="getText(option)"
             :disabled="isDisabled(option)"
             :left-label="c_leftLabel"
+            :true-value="getValue(option)"
             :array-value="getValue(option)"
             :color="c_color"
             :name="c_name"

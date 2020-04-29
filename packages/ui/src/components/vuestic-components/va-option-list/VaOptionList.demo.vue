@@ -176,7 +176,6 @@
       />
       Selected {{ radioData.selectedObject }}
     </VbCard>
-<!-- ------------------------------------- -->
      <VbCard
       title="String options"
     >
@@ -250,18 +249,6 @@
         readonly
       />
     </VbCard>
-    <VbCard
-      title="Use more complex data with value-by"
-    >
-      <va-option-list
-        type="switch"
-        :options="complexData.options"
-        v-model="complexData.selectedValue"
-        value-by="value"
-      />
-      Selected {{ complexData.selectedValue }}
-    </VbCard>
-
     <VbCard
       title="textBy"
     >
@@ -390,6 +377,7 @@ export default {
       },
       baseSwitchData: {
         options: ['test switch', 'test switch 1', 'test switch 2'],
+        // bug when selected is true
         selected: undefined,
         selectedDisabled: undefined,
         selectedWithVModel: undefined,
