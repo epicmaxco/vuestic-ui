@@ -21,6 +21,6 @@ import { ApiDocsBlock } from '../../types/configTypes'
   },
 })
 export default class DocsContent extends Vue {
-  @Prop() readonly config?: ApiDocsBlock[]
+  @Prop() readonly config!: ApiDocsBlock[]
 }
 </script>

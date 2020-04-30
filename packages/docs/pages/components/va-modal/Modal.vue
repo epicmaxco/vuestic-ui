@@ -8,13 +8,7 @@
       <h3>Basic element</h3>
       <p>This is the basic modal component implementation</p>
     </va-content>
-    <Example value="va-modal/Basic">
-      <template slot="description">
-        <p class="margin-bottom">
-          Some basic description
-        </p>
-      </template>
-    </Example>
+    <Example value="va-modal/Basic" />
   </div>
 </template>
 

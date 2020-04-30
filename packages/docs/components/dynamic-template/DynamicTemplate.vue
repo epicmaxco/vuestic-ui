@@ -1,61 +1,50 @@
 <template>
-  <component
-    v-if="block.type === BlockType.API"
-    :is="block.component"
+  <Example
+    v-if="block.type === BlockType.EXAMPLE"
+    :value="block.component"
   />
+  <component v-else-if="block.type === BlockType.API" :is="block.component" />
   <component
-    v-else
-    :is="tag"
-    :class="{'code': isCode}">
-  {{ isCode ? block.code : $t(block.text) }}
-    <a v-if="isSubtitle"
-      :id="textToKebab"
-      :style="{'color': primaryColor}"
-      :href="`#${textToKebab}`">#</a>
+    v-else-if="block.type === BlockType.SUBTITLE"
+    :is="blockTags[block.type]"
+  >
+    {{ $t(block.translationString) }}
+    <a :id="anchor" :style="{ color: primaryColor }" :href="`#${anchor}`">#</a>
+  </component>
+  <component v-else :is="blockTags[block.type]">
+    {{ $t(block.translationString) }}
   </component>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ApiDocsBlock, BlockType } from '../../types/configTypes'
+import { ApiDocsBlock, BlockType, TextBlock } from '../../types/configTypes'
+import Example from '../../components/Example.vue'
 import { kebabCase } from 'lodash'
 
-@Component
+@Component({
+  components: {
+    Example,
+  },
+})
 export default class DynamicTemplate extends Vue {
-  private blockTags: Record<string, any> = {
+  private blockTags: Pick<
+    Record<BlockType, string>,
+    TextBlock
+  > = {
     [BlockType.TITLE]: 'h1',
     [BlockType.SUBTITLE]: 'h3',
     [BlockType.PARAGRAPH]: 'p',
-    [BlockType.CODE]: 'pre',
     [BlockType.HEADLINE]: 'h5',
   }
 
   @Prop({ required: true }) readonly block!: ApiDocsBlock
 
-  get isCode () {
-    return this.block?.type === BlockType.CODE
-  }
-
-  get textToKebab () {
-    if (!this.block) {
-      return null
+  get anchor () {
+    if (this.block.type !== BlockType.SUBTITLE) {
+      return undefined
     }
-
-    return kebabCase(this.$t(this.block.text) as string)
-  }
-
-  get isSubtitle () {
-    return this.block?.type === BlockType.SUBTITLE
-  }
-
-  get tag () {
-    if (!this.block) {
-      return null
-    }
-
-    return this.block.type === BlockType.COMPONENT
-      ? this.block.component
-      : this.blockTags[this.block.type]
+    return kebabCase(this.$t(this.block.translationString) as string)
   }
 
   get primaryColor () {

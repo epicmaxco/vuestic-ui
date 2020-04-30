@@ -4,59 +4,47 @@ import VaFormApi from '../api/VaFormApi.vue'
 export default [
   {
     type: BlockType.TITLE,
-    text: 'form.title',
+    translationString: 'form.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.paragraph',
+    translationString: 'form.paragraph',
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'form.basic.subtitle',
+    translationString: 'form.basic.subtitle',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.basic.paragraph',
+    translationString: 'form.basic.paragraph',
   },
   {
-    type: BlockType.CODE,
-    code: `<va-form
-  v-model="value"
-/>`,
+    type: BlockType.EXAMPLE,
+    component: 'Basic',
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'form.advanced.subtitle',
+    translationString: 'form.advanced.subtitle',
   },
   {
     type: BlockType.HEADLINE,
-    text: 'form.advanced.headline',
+    translationString: 'form.advanced.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.advanced.paragraph',
+    translationString: 'form.advanced.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
+    type: BlockType.EXAMPLE,
     component: 'WithInputs',
   },
   {
-    type: BlockType.CODE,
-    code: `<va-form color="success" v-model="value" />
-
-<va-form color="info" v-model="value" />
-
-<va-form color="danger" v-model="value" />
-
-<va-form color="warning" v-model="value" />`,
-  },
-  {
     type: BlockType.SUBTITLE,
-    text: 'form.api.subtitle',
+    translationString: 'form.api.subtitle',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.api.paragraph',
+    translationString: 'form.api.paragraph',
   },
   // TODO: here comes api component
   {

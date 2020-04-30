@@ -5,37 +5,30 @@ import 'nuxt-i18n'
 export type CodeString = string
 
 export enum BlockType {
-  COMPONENT = 'COMPONENT',
   TITLE = 'TITLE',
   SUBTITLE = 'SUBTITLE',
   PARAGRAPH = 'PARAGRAPH',
   HEADLINE = 'HEADLINE',
-  CODE = 'CODE',
+  EXAMPLE = 'EXAMPLE',
   API = 'API',
 }
 
+export type TextBlock =
+  | BlockType.TITLE
+  | BlockType.SUBTITLE
+  | BlockType.PARAGRAPH
+  | BlockType.HEADLINE
+
 export type ApiDocsBlock =
   | {
-      type:
-        | BlockType.TITLE
-        | BlockType.SUBTITLE
-        | BlockType.PARAGRAPH
-        | BlockType.HEADLINE,
+      type: TextBlock,
       translationString: TranslationString,
-      text: string,
-    }
-  | {
-      type: BlockType.COMPONENT,
-      component: string, // Just file name without extension. Everything else is derived.
-      text: string,
-    }
-  | {
-      type: BlockType.CODE,
-      code: CodeString,
-      text: string,
     }
   | {
       type: BlockType.API,
       component: Vue,
-      text: string,
     }
+  | {
+    type: BlockType.EXAMPLE,
+    component: string, // Just file name without extension. Everything else is derived.
+  }
