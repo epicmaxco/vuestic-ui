@@ -17,39 +17,45 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ApiDocsBlock, BlockType } from '../../types/configTypes.ts'
+import { ApiDocsBlock, BlockType } from '../../types/configTypes'
 import { kebabCase } from 'lodash'
 
-@Component({})
+@Component
 export default class DynamicTemplate extends Vue {
-  @Prop({ required: true }) readonly block: ApiDocsBlock[]
-
-  data () {
-    return {
-      blockTags: {
-        [BlockType.TITLE]: 'h1',
-        [BlockType.SUBTITLE]: 'h3',
-        [BlockType.PARAGRAPH]: 'p',
-        [BlockType.CODE]: 'pre',
-        [BlockType.HEADLINE]: 'h5',
-      },
-    }
+  private blockTags: Record<string, any> = {
+    [BlockType.TITLE]: 'h1',
+    [BlockType.SUBTITLE]: 'h3',
+    [BlockType.PARAGRAPH]: 'p',
+    [BlockType.CODE]: 'pre',
+    [BlockType.HEADLINE]: 'h5',
   }
 
+  @Prop({ required: true }) readonly block!: ApiDocsBlock
+
   get isCode () {
-    return this.block.type === BlockType.CODE
+    return this.block?.type === BlockType.CODE
   }
 
   get textToKebab () {
-    return kebabCase(this.$t(this.block.text))
+    if (!this.block) {
+      return null
+    }
+
+    return kebabCase(this.$t(this.block.text) as string)
   }
 
   get isSubtitle () {
-    return this.block.type === BlockType.SUBTITLE
+    return this.block?.type === BlockType.SUBTITLE
   }
 
   get tag () {
-    return this.block.type === BlockType.COMPONENT ? this.block.component : this.blockTags[this.block.type]
+    if (!this.block) {
+      return null
+    }
+
+    return this.block.type === BlockType.COMPONENT
+      ? this.block.component
+      : this.blockTags[this.block.type]
   }
 
   get primaryColor () {

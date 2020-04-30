@@ -1,8 +1,5 @@
 <template>
-  <aside
-    :class="computedClass"
-    :style="computedStyle"
-  >
+  <aside :class="computedClass" :style="computedStyle">
     <div class="va-sidebar__menu">
       <slot name="menu" />
     </div>
@@ -10,22 +7,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject } from 'vue-property-decorator'
-// import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
+import { Component, Vue, Inject, Prop } from 'vue-property-decorator'
+
 @Component({
-  props: {
-    minimized: {
-      type: Boolean,
-      required: true,
-    },
-    color: {
-      type: String,
-      default: 'secondary',
-    },
-  },
   name: 'VaSidebar',
 })
 export default class VaSidebar extends Vue {
+  @Prop({
+    type: Boolean,
+    required: true,
+  })
+  readonly minimized!: boolean
+
+  @Prop({
+    type: String,
+    default: 'secondary',
+  })
+  readonly color!: string
+
   @Inject() readonly contextConfig!: any
   get computedClass () {
     return {
@@ -36,14 +35,16 @@ export default class VaSidebar extends Vue {
 
   get computedStyle () {
     return {
-      backgroundColor: this.contextConfig?.invertedColor ? '#f4f8fa' : this.$themes?.secondary,
+      backgroundColor: this.contextConfig?.invertedColor
+        ? '#f4f8fa'
+        : this.$themes?.secondary,
     }
   }
 }
 </script>
 
 <style lang="scss">
-@import "../../../../ui/src/components/vuestic-sass/resources/resources";
+@import '../../../../ui/src/components/vuestic-sass/resources/resources';
 
 .va-sidebar {
   font-family: Source Sans Pro, sans-serif;

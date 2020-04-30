@@ -1,5 +1,6 @@
 import { TranslationString } from '../../ui/src/services/api-docs/ManualApiOptions'
 import Vue from 'vue-property-decorator'
+import 'nuxt-i18n'
 
 export type CodeString = string
 
@@ -15,18 +16,26 @@ export enum BlockType {
 
 export type ApiDocsBlock =
   | {
-  type: BlockType.TITLE | BlockType.SUBTITLE | BlockType.PARAGRAPH | BlockType.HEADLINE,
-  translationString: TranslationString,
-}
+      type:
+        | BlockType.TITLE
+        | BlockType.SUBTITLE
+        | BlockType.PARAGRAPH
+        | BlockType.HEADLINE,
+      translationString: TranslationString,
+      text: string,
+    }
   | {
-  type: BlockType.COMPONENT,
-  component: string, // Just file name without extension. Everything else is derived.
-}
+      type: BlockType.COMPONENT,
+      component: string, // Just file name without extension. Everything else is derived.
+      text: string,
+    }
   | {
-  type: BlockType.API,
-  component: Vue,
-}
+      type: BlockType.CODE,
+      code: CodeString,
+      text: string,
+    }
   | {
-  type: BlockType.CODE,
-  code: CodeString,
-}
+      type: BlockType.API,
+      component: Vue,
+      text: string,
+    }

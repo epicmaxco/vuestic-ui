@@ -1,5 +1,5 @@
 <template>
-  <docs-content :config="config"></docs-content>
+  <docs-content :config="configComputed"></docs-content>
 </template>
 
 <script lang="ts">
@@ -13,7 +13,7 @@ import ratingConfig from '../../components/docs-content/configs/va-rating'
   },
 })
 export default class Rating extends Vue {
-  get config () {
+  get configComputed () {
     return ratingConfig
   }
 }
