@@ -15,17 +15,18 @@
     "instantsearch.css": "^7.4.2",
     "nuxt": "^2.12.1",
     "nuxt-i18n": "^6.9.1",
+    "prismjs": "^1.20.0",
+    "raw-loader": "^4.0.1",
     "typescript-eslint": "^0.0.1-alpha.0",
     "vue": "^2.6.11",
     "vue-epic-bus": "^0.1.5",
     "vue-instantsearch": "^2.7.0",
     "vue-loader": "^15.9.1",
+    "vue-prism-component": "^1.2.0",
     "vue-router": "^3.1.6",
     "vue-server-renderer": "^2.6.11",
     "vue-style-loader": "^4.1.2",
-    "prismjs": "^1.20.0",
-    "raw-loader": "^4.0.1",
-    "vue-prism-component": "^1.2.0"
+    "vuetable-2": "^1.7.5"
   },
   "scripts": {
     "serve": "nuxt-ts",

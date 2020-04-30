@@ -1,25 +1,21 @@
 <template>
   <div class="slider__container">
-    <va-slider v-model="value2" color="success"/>
+    <va-slider v-model="value" color="success"/>
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+<script>
 import VaSlider from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
-@Component({
+
+export default {
   components: {
     VaSlider,
   },
-})
-export default class Color extends Vue {
   data () {
     return {
-      value1: 45,
-      value2: 45,
-      value3: 45,
+      value: 45,
     }
-  }
+  },
 }
 </script>
 

@@ -12,24 +12,22 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+<script>
 import VaSlider from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
 import VaInput from 'vuestic-ui/src/components/vuestic-components/va-input/VaInput.vue'
-@Component({
+
+export default {
   components: {
     VaSlider,
     VaInput,
   },
-})
-export default class Slots extends Vue {
   data () {
     return {
       value1: 45,
       value2: 45,
       value3: 45,
     }
-  }
+  },
 }
 </script>
 
