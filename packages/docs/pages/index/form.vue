@@ -1,11 +1,11 @@
 <template>
-  <docs-content :config="config"></docs-content>
+  <docs-content :config="config"/>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/docs-content/DocsContent'
-import ratingConfig from '../../components/docs-content/configs/va-rating'
+import formConfig from '../../components/docs-content/configs/va-form'
 
 @Component({
   components: {
@@ -14,7 +14,7 @@ import ratingConfig from '../../components/docs-content/configs/va-rating'
 })
 export default class Rating extends Vue {
   get config () {
-    return ratingConfig
+    return formConfig
   }
 }
 </script>

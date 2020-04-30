@@ -3,7 +3,7 @@
 
     <h2>Props</h2>
 
-    <table class="striped">
+    <table class="ApiDocs__table">
       <thead>
       <tr>
         <th>Name</th>
@@ -26,7 +26,7 @@
     <template v-if="!isEmpty(apiTableData.events)">
       <h2>Events</h2>
 
-      <table class="striped">
+      <table class="ApiDocs__table">
         <thead>
         <tr>
           <th>Name</th>
@@ -40,7 +40,7 @@
           v-for="(apiEventOption, eventName) in apiTableData.events"
           :key="eventName"
         >
-          <td>{{ eventName }} {{apiEventOption}}</td>
+          <td>{{ eventName }}</td>
           <td>
             <MarkdownView :value="$t(apiEventOption.description)"/>
           </td>
@@ -57,7 +57,7 @@
 
     <template v-if="!isEmpty(apiTableData.slots)">
       <h2>Slots</h2>
-      <table class="striped">
+      <table class="ApiDocs__table">
         <thead>
         <tr>
           <th>Name</th>
@@ -84,7 +84,7 @@
 
     <template v-if="!isEmpty(apiTableData.methods)">
       <h2>Slots</h2>
-      <table class="striped">
+      <table class="ApiDocs__table">
         <thead>
         <tr>
           <th>Name</th>
@@ -102,9 +102,9 @@
           <td>
             <MarkdownView :value="$t(apiMethodOption.description)"/>
           </td>
-          <td>
+          <tsd>
             <MarkdownView :value="apiMethodOption.types"/>
-          </td>
+          </tsd>
           <td>
             <pre>{{apiMethodOption.version}}</pre>
           </td>
@@ -147,6 +147,8 @@ export default class ApiDocs extends Vue {
 
 <style lang="scss">
 .ApiDocs {
-
+  &__table {
+    width: 100%;
+  }
 }
 </style>

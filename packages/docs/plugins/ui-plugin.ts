@@ -10,6 +10,7 @@ Vue.use(ColorThemePlugin,
   {
     themes: COLOR_THEMES[ThemeName.DEFAULT],
   })
+
 Vue.use(DropdownPopperPlugin)
 Vue.use(Router)
 Vue.component('va-data-table', VaDataTable)
