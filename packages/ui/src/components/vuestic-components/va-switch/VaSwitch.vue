@@ -2,8 +2,8 @@
   <div
     class="va-switch"
     :class="computedClass"
-    @click="switchValue"
-    @keydown.enter="switchValue"
+    @click="toggleSelection"
+    @keydown.enter="toggleSelection"
     @mousedown="hasMouseDown = true"
     @mouseup="hasMouseDown = false"
     :tabindex="computedTabindex"
@@ -27,28 +27,20 @@
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { getFocusColor } from '../../../services/color-functions'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
-import {
-  ContextPluginMixin,
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 export default {
   name: 'VaSwitch',
   mixins: [
     SelectableMixin,
-    ContextPluginMixin,
     makeContextablePropsMixin({
-      value: { type: [Object, Array, Number, String, Boolean], default: false },
+      value: { type: [Boolean, Array, String, Object], default: false },
       size: {
         type: String,
         default: 'medium',
         validator: value => {
           return ['medium', 'small', 'large'].includes(value)
         },
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
       },
       loading: {
         type: Boolean,
@@ -92,46 +84,6 @@ export default {
     },
     computedTabindex () {
       return this.disabled ? -1 : 0
-    },
-    isTrue () {
-      return this.modelIsArray
-        ? this.value.includes(this.arrayValue)
-        : this.value === this.trueValue
-    },
-    isFalse () {
-      return this.modelIsArray
-        ? !this.value.includes(this.arrayValue)
-        : this.value === this.falseValue
-    },
-    modelIsArray () {
-      return Array.isArray(this.value)
-    },
-  },
-  methods: {
-    switchValue () {
-      if (this.disabled) {
-        return
-      }
-
-      if (this.modelIsArray) {
-        if (this.value.includes(this.arrayValue)) {
-          this.$emit(
-            'input',
-            this.value.filter(option => option !== this.arrayValue),
-          )
-        } else {
-          this.$emit('input', this.value.concat(this.arrayValue))
-        }
-        return
-      }
-
-      if (this.isTrue) {
-        this.$emit('input', this.falseValue)
-      } else if (this.isFalse) {
-        this.$emit('input', this.trueValue)
-      } else {
-        this.$emit('input', false)
-      }
     },
   },
 }

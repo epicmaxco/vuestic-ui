@@ -54,18 +54,14 @@
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
-import {
-  ContextPluginMixin,
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
 export default {
   name: 'VaCheckbox',
   components: { VaInputWrapper, VaIcon },
   mixins: [
-    ContextPluginMixin,
     SelectableMixin,
     makeContextablePropsMixin({
       value: { type: [Boolean, Array, String, Object], default: false },

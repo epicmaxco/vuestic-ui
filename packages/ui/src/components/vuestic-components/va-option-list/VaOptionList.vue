@@ -49,7 +49,6 @@
             :label="getText(option)"
             :disabled="isDisabled(option)"
             :left-label="c_leftLabel"
-            :true-value="getValue(option)"
             :array-value="getValue(option)"
             :color="c_color"
             :name="c_name"
@@ -78,7 +77,7 @@ export default {
       type: {
         type: String,
         default: 'checkbox',
-        validator: type => type === 'radio' || type === 'checkbox' || type === 'switch',
+        validator: type => ['radio', 'checkbox', 'switch'].includes(type),
       },
       disabled: { type: Boolean, default: false },
       readonly: { type: Boolean, default: false },

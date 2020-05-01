@@ -5,6 +5,7 @@
         v-model="value"
         label="Selected"
       />
+      {{  value }}
       <va-checkbox
         v-model="value"
         label="Selected"

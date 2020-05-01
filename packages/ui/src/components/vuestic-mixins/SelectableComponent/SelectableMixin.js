@@ -29,16 +29,16 @@ export const SelectableMixin = {
   },
   computed: {
     isTrue () {
-      return this.modelIsArray ? this.value.includes(this.arrayValue) : this.value === this.trueValue
+      return this.modelIsArray ? this.value && this.value.includes(this.arrayValue) : this.value === this.trueValue
     },
     isFalse () {
-      return this.modelIsArray ? !this.value.includes(this.arrayValue) : this.value === this.falseValue
+      return this.modelIsArray ? !this.value && !this.value.includes(this.arrayValue) : this.value === this.falseValue
     },
     isChecked () {
       return this.modelIsArray ? this.value && this.value.includes(this.c_arrayValue) : this.value
     },
     modelIsArray () {
-      return Array.isArray(this.value)
+      return !!this.c_arrayValue
     },
   },
   methods: {
@@ -78,15 +78,13 @@ export const SelectableMixin = {
         }
         return
       }
-      // fix emit of value
       if (this.isTrue) {
         this.$emit('input', this.falseValue)
       } else if (this.isFalse) {
         this.$emit('input', this.trueValue)
       } else {
-        this.$emit('input', false)
+        this.$emit('input', !this.c_value)
       }
-      this.$emit('input', !this.c_value)
     },
   },
 }
