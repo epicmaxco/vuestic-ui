@@ -3,7 +3,6 @@ import { shallowMount } from '@vue/test-utils'
 import VaCheckbox from './VaCheckbox'
 
 import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
-import { testIsFormComponent } from '../../vuestic-mixins/testIsFormComponent'
 import { testIsSelectableComponent } from '../../vuestic-mixins/testIsSelectableComponent'
 
 Vue.use(ColorThemePlugin)
@@ -22,9 +21,6 @@ describe('VaCheckbox', () => {
       propsData: { value: true },
     })
     expect(wrapper.html()).toMatchSnapshot()
-  })
-  it('is Form Component', () => {
-    expect(() => testIsFormComponent(VaCheckbox)).not.toThrow()
   })
   it('is Selected Component', () => {
     expect(() => testIsSelectableComponent(VaCheckbox)).not.toThrow()

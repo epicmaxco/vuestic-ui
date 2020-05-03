@@ -12,12 +12,15 @@
     <div
       class="va-switch"
       :class="computedClass"
+      :id="id"
+      :name="name"
       @click="toggleSelection"
       @keydown.enter="toggleSelection"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
       :tabindex="computedTabindex"
       @blur="onBlur($event)"
+      @focus="onFocus"
       ref="input"
     >
       <div class="va-switch__inner">

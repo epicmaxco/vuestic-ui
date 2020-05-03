@@ -113,16 +113,6 @@ export default {
       return this.c_indeterminate ? this.c_indeterminateIcon : this.c_checkedIcon
     },
   },
-  methods: {
-    /** @public */
-    focus () {
-      this.$refs.input.focus()
-    },
-    /** @public */
-    reset () {
-      this.$emit('input', false)
-    },
-  },
 }
 </script>
 

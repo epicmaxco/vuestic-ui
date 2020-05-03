@@ -38,6 +38,14 @@ export const SelectableMixin = {
     },
   },
   methods: {
+    /** @public */
+    focus () {
+      this.$refs.input.focus()
+    },
+    /** @public */
+    reset () {
+      this.$emit('input', false)
+    },
     onFocus () {
       this.KeyboardOnlyFocusMixin_onFocus()
 
