@@ -120,6 +120,20 @@
         loading
       />
     </VbCard>
+    <VbCard title="Validation (required rule)">
+      <va-switch
+        v-model="value"
+        :rules="[(v) => !!v || 'required']"
+      />
+    </VbCard>
+    <VbCard title="Error">
+      <va-switch
+        v-model="value"
+        label="Error"
+        error
+        error-messages="Error message"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 

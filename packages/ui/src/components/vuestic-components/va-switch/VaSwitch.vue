@@ -1,33 +1,55 @@
 <template>
-  <div
-    class="va-switch"
+  <va-input-wrapper
+    class="va-switch-wrapper"
     :class="computedClass"
-    @click="toggleSelection"
-    @keydown.enter="toggleSelection"
-    @mousedown="hasMouseDown = true"
-    @mouseup="hasMouseDown = false"
-    :tabindex="computedTabindex"
-    @blur="isKeyboardFocused = false"
+    :disabled="c_disabled"
+    :success="c_success"
+    :messages="c_messages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
+    :error-count="errorCount"
   >
-    <div class="va-switch__inner">
-      <span class="va-switch__track" :style="trackStyle" />
-      <span class="va-switch__input" :style="indicatorStyle">
-        <va-progress-circle v-if="loading" indeterminate :size="computedProgressCircleSize" :color="color || 'black'" />
-      </span>
+    <div
+      class="va-switch"
+      :class="computedClass"
+      @click="toggleSelection"
+      @keydown.enter="toggleSelection"
+      @mousedown="hasMouseDown = true"
+      @mouseup="hasMouseDown = false"
+      :tabindex="computedTabindex"
+      @blur="onBlur($event)"
+      ref="input"
+    >
+      <div class="va-switch__inner">
+        <span
+          class="va-switch__track"
+          :style="trackStyle"
+          :class="computedTrackClass"
+        />
+        <span class="va-switch__input" :style="indicatorStyle">
+          <va-progress-circle
+            v-if="loading"
+            indeterminate
+            :size="computedProgressCircleSize"
+            :color="trackStyle.backgroundColor"
+          />
+        </span>
+      </div>
+      <div class="va-switch__label" :class="computedLabelClass">
+        <slot>
+          {{ label }}
+        </slot>
+      </div>
     </div>
-    <div class="va-switch__label">
-      <slot>
-        {{ label }}
-      </slot>
-    </div>
-  </div>
+  </va-input-wrapper>
 </template>
-
 <script>
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { getFocusColor } from '../../../services/color-functions'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
+import VaInputWrapper from '../va-input/VaInputWrapper'
 
 export default {
   name: 'VaSwitch',
@@ -48,7 +70,7 @@ export default {
       },
     }),
   ],
-  components: { VaProgressCircle },
+  components: { VaProgressCircle, VaInputWrapper },
   computed: {
     computedClass () {
       return {
@@ -70,7 +92,7 @@ export default {
       const color = this.isTrue ? this.colorComputed : this.$themes.gray
       const backgroundColor = this.isKeyboardFocused
         ? getFocusColor(color)
-        : color
+        : getColor(this, color, '#000')
       return { backgroundColor }
     },
     indicatorStyle () {
@@ -85,12 +107,26 @@ export default {
     computedTabindex () {
       return this.disabled ? -1 : 0
     },
+    computedTrackClass () {
+      return {
+        'va-switch__track--error': this.computedError && this.isTrue,
+      }
+    },
+    computedLabelClass () {
+      return {
+        'va-switch__label--error': this.computedError,
+      }
+    },
   },
 }
 </script>
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+
+.va-switch-wrapper {
+  display: inline-block;
+}
 
 .va-switch {
   cursor: pointer;
@@ -169,6 +205,10 @@ export default {
   &__label {
     text-align: left;
     margin: 0 4px;
+
+    &--error {
+      color: $theme-red;
+    }
   }
 
   &__track {
@@ -179,6 +219,10 @@ export default {
     background: $white;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease;
+
+    &--error {
+      background: $theme-red !important;
+    }
   }
 
   &__input {

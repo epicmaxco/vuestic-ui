@@ -1,7 +1,4 @@
-import {
-  ContextPluginMixin,
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefullMixin/StatefulMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
@@ -11,7 +8,6 @@ export const SelectableMixin = {
     FormComponentMixin,
     ColorThemeMixin,
     StatefulMixin,
-    ContextPluginMixin,
     KeyboardOnlyFocusMixin,
     makeContextablePropsMixin({
       arrayValue: { type: [String, Object], default: '' },
