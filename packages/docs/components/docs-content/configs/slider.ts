@@ -12,6 +12,7 @@ import TrackLabel from '../demo-components/slider/TrackLabel.vue'
 import Vertical from '../demo-components/slider/Vertical.vue'
 import Color from '../demo-components/slider/Color.vue'
 import MinMax from '../demo-components/slider/MinMax.vue'
+import Api from '../demo-components/slider/Api.vue'
 
 export default [
   {
@@ -196,7 +197,10 @@ export default [
     type: BlockType.PARAGRAPH,
     text: 'slider.api.paragraph',
   },
-  // TODO: here comes api component
+  {
+    type: BlockType.COMPONENT,
+    component: Api,
+  },
   {
     type: BlockType.SUBTITLE,
     text: 'slider.faq.subtitle',
