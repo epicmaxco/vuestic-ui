@@ -18,7 +18,6 @@ export default {
 }
 ```
 
-
 ## Usage
 
 ```vue

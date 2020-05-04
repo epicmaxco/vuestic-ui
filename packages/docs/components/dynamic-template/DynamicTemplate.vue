@@ -1,5 +1,10 @@
 <template>
   <component
+    v-if="block.type === BlockType.API"
+    :is="block.component"
+  />
+  <component
+    v-else
     :is="tag"
     :class="{'code': isCode}">
   {{ isCode ? block.code : $t(block.text) }}
@@ -17,6 +22,8 @@ import { kebabCase } from 'lodash'
 
 @Component({})
 export default class DynamicTemplate extends Vue {
+  @Prop({ required: true }) readonly block: ApiDocsBlock[]
+
   data () {
     return {
       blockTags: {
@@ -28,8 +35,6 @@ export default class DynamicTemplate extends Vue {
       },
     }
   }
-
-  @Prop({ required: true }) readonly block: ApiDocsBlock[]
 
   get isCode () {
     return this.block.type === BlockType.CODE
@@ -49,6 +54,10 @@ export default class DynamicTemplate extends Vue {
 
   get primaryColor () {
     return this.$themes?.primary
+  }
+
+  get BlockType () {
+    return BlockType
   }
 }
 </script>

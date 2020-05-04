@@ -1,19 +1,21 @@
 <template>
   <div>
     <p>
-      <component :is="component" />
+      <component :is="component"/>
     </p>
     <va-content>
-      <Code :code="parsed.template" language="markup" />
-      <slot name="description" />
+      <Code :code="parsed.template" language="markup"/>
+      <slot name="description"/>
     </va-content>
   </div>
 </template>
 
 <script>
 // Manually forked from https://github.com/vuetifyjs/vuetify/blob/master/packages/docs/src/components/doc/Example.vue
-import VaContent from '../../ui/src/components/vuestic-components/va-content/VaContent'
+import VaContent
+  from '../../ui/src/components/vuestic-components/va-content/VaContent'
 import Code from './Code'
+import { readFile } from '../utilities/utils'
 
 export default {
   components: { VaContent, Code },
@@ -35,7 +37,9 @@ export default {
 
   computed: {
     internalValue () {
-      if (this.value === Object(this.value)) return this.value
+      if (this.value === Object(this.value)) {
+        return this.value
+      }
 
       return { file: this.value }
     },
@@ -48,7 +52,7 @@ export default {
     this.getFiles()
   },
   methods: {
-    boot (res) {
+    parse (res) {
       const template = this.parseTemplate('template', res)
       const style = this.parseTemplate('style', res)
       const script = this.parseTemplate('script', res)
@@ -64,27 +68,12 @@ export default {
       await this.importTemplate()
       this.loading = false
     },
-    importComponent () {
-      return import(
-        /* webpackChunkName: "examples" */
-        /* webpackMode: "lazy-once" */
-
-        // TODO: enable eslint here once the issue is resolved
-        // https://github.com/eslint/eslint/issues/11310
-        // eslint-disable-next-line comma-dangle
-        `../examples/${this.file}.vue`
-      ).then(comp => (this.component = comp.default))
+    async importComponent () {
+      this.component = (await readFile(`../examples/${this.file}.vue`)).default
     },
-    importTemplate () {
-      return import(
-        /* webpackChunkName: "examples-source" */
-        /* webpackMode: "lazy-once" */
-
-        // TODO: enable eslint here once the issue is resolved
-        // https://github.com/eslint/eslint/issues/11310
-        // eslint-disable-next-line comma-dangle
-        `!raw-loader!../examples/${this.file}.vue`
-      ).then(comp => this.boot(comp.default))
+    async importTemplate () {
+      const componentTemplate = (await readFile(`!raw-loader!../examples/${this.file}.vue`)).default
+      this.parse(componentTemplate)
     },
     parseTemplate (target, template) {
       const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`

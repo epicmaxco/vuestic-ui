@@ -22,15 +22,13 @@
         "dom",
         "dom.iterable",
         "scripthost"
-      ],
+      ]
     },
     "include": [
-      "./../ui/src/**/*.ts",
-      "src/**/*.ts",
-      "src/**/*.tsx",
-      "src/**/*.vue",
-      "tests/**/*.ts",
-      "tests/**/*.tsx"
+      "../ui/src/**/*.ts",
+      "components/**/*.ts",
+      "components/**/*.tsx",
+      "components/**/*.vue"
     ],
     "exclude": [
       "node_modules",
