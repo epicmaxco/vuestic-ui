@@ -16,16 +16,20 @@ export const readComponent = async (fileName: string): Promise<any> => {
     `../examples/${fileName}.vue`)
 }
 
-export const getFileName = (component: string, namespace: string) => `${namespace}/${component}`
+export const getFileName = (component: string, namespace?: string) =>
+  namespace ? `${namespace}/${component}` : component
 
 type PrepareConfigOptions = {
   namespace: string,
 }
 
-export const prepareConfig = (blocks: ApiDocsBlock[], options: PrepareConfigOptions) => {
+export const prepareConfig = (
+  blocks: ApiDocsBlock[],
+  options: PrepareConfigOptions,
+) => {
   const { namespace } = options
 
-  return blocks.map(block => {
+  return blocks.map((block) => {
     if (block.type === BlockType.EXAMPLE) {
       return { namespace, ...block }
     }
