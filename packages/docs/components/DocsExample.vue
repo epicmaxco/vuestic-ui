@@ -4,7 +4,7 @@
       <component :is="component"/>
     </p>
     <va-content>
-      <Code :code="parsed.template" language="markup"/>
+      <DocsCode :code="parsed.template" language="markup"/>
     </va-content>
   </div>
 </template>
@@ -13,11 +13,11 @@
 // Manually forked from https://github.com/vuetifyjs/vuetify/blob/master/packages/docs/src/components/doc/Example.vue
 import VaContent
   from '../../ui/src/components/vuestic-components/va-content/VaContent'
-import Code from './Code'
+import DocsCode from './DocsCode'
 import { readComponent, getFileName, readTemplate } from '../utilities/utils'
 
 export default {
-  components: { VaContent, Code },
+  components: { VaContent, DocsCode },
   props: {
     value: {
       type: [Object, String],

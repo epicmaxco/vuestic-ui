@@ -1,11 +1,11 @@
 <template>
-<va-content>
-  <dynamic-template
-    v-for="(block, index) in config"
-    :key="index"
-    :block="block"
-  />
-</va-content>
+  <va-content>
+    <dynamic-template
+      v-for="(block, index) in config"
+      :key="index"
+      :block="block"
+    />
+  </va-content>
 </template>
 
 <script lang="ts">

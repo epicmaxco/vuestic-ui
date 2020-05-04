@@ -1,5 +1,5 @@
 <template>
-  <Example
+  <DocsExample
     v-if="block.type === BlockType.EXAMPLE"
     :value="block.component"
     :namespace="block.namespace"
@@ -20,12 +20,12 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ApiDocsBlock, BlockType, TextBlock } from '../../types/configTypes'
-import Example from '../../components/Example.vue'
+import DocsExample from '../DocsExample.vue'
 import { kebabCase } from 'lodash'
 
 @Component({
   components: {
-    Example,
+    DocsExample,
   },
 })
 export default class DynamicTemplate extends Vue {
