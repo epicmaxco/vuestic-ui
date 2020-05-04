@@ -1,6 +1,6 @@
 <template>
   <component
-    v-if="componentTypes.include(block.type)"
+    v-if="componentTypes.includes(block.type)"
     :is="block.component"
   />
   <component
@@ -10,7 +10,7 @@
   />
   <component
     v-else
-    :is="blokTags[block.type]">
+    :is="blockTags[block.type]">
   {{ $t(block.translationString) }}
     <a v-if="this.block.type === BlockType.SUBTITLE"
       :id="textToKebab"
