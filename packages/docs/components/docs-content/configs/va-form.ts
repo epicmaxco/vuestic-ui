@@ -1,7 +1,10 @@
-import { BlockType } from '../../../types/configTypes'
+import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 import VaFormApi from '../api/VaFormApi.vue'
+import { prepareConfig } from '../../../utilities/utils'
 
-export default [
+const namespace = 'va-form'
+
+const blocks: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'form.title',
@@ -49,18 +52,20 @@ export default [
   // TODO: here comes api component
   {
     type: BlockType.SUBTITLE,
-    text: 'form.faq.subtitle',
+    translationString: 'form.faq.subtitle',
   },
   {
     type: BlockType.HEADLINE,
-    text: 'form.faq.questions[0].question',
+    translationString: 'form.faq.questions[0].question',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.faq.questions[0].answer',
+    translationString: 'form.faq.questions[0].answer',
   },
   {
     type: BlockType.API,
     component: VaFormApi,
   },
 ]
+
+export default prepareConfig(blocks, { namespace })

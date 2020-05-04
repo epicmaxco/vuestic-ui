@@ -1,5 +1,7 @@
 // File for documentation helper functions
 
+import { ApiDocsBlock, BlockType } from '../types/configTypes'
+
 export const readTemplate = async (fileName: string): Promise<any> => {
   return await import(
     /* webpackChunkName: "examples" */
@@ -14,11 +16,20 @@ export const readComponent = async (fileName: string): Promise<any> => {
     `../examples/${fileName}.vue`)
 }
 
-export const getFileName = (component: string) => {
-  const prefix = 'va-'
-  const path = window
-    ? window.location.pathname.split('/')[2]
-    : ''
+export const getFileName = (component: string, namespace: string) => `${namespace}/${component}`
 
-  return path ? `${prefix}${path}/${component}` : ''
+type PrepareConfigOptions = {
+  namespace: string,
+}
+
+export const prepareConfig = (blocks: ApiDocsBlock[], options: PrepareConfigOptions) => {
+  const { namespace } = options
+
+  return blocks.map(block => {
+    if (block.type === BlockType.EXAMPLE) {
+      return { namespace, ...block }
+    }
+
+    return block
+  })
 }

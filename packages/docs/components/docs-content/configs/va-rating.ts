@@ -1,6 +1,9 @@
-import { BlockType } from '../../../types/configTypes'
+import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
+import { prepareConfig } from '../../../utilities/utils'
 
-export default [
+const namespace = 'va-rating'
+
+const blocks: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'rating.title',
@@ -59,3 +62,5 @@ export default [
     translationString: 'rating.faq.questions[0].answer',
   },
 ]
+
+export default prepareConfig(blocks, { namespace })

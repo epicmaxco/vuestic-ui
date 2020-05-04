@@ -1,8 +1,8 @@
 import { TranslationString } from '../../ui/src/services/api-docs/ManualApiOptions'
-import Vue from 'vue-property-decorator'
-import 'nuxt-i18n'
+import { VueConstructor } from 'vue'
 
-export type CodeString = string
+// TODO: move i18n types to appropriate place, e.g. tsconfig, ...
+import 'nuxt-i18n'
 
 export enum BlockType {
   TITLE = 'TITLE',
@@ -26,9 +26,10 @@ export type ApiDocsBlock =
     }
   | {
       type: BlockType.API,
-      component: Vue,
+      component: VueConstructor,
     }
   | {
-    type: BlockType.EXAMPLE,
-    component: string, // Just file name without extension. Everything else is derived.
-  }
+      type: BlockType.EXAMPLE,
+      component: string, // Just file name without extension. Everything else is derived.
+      namespace?: string,
+    }

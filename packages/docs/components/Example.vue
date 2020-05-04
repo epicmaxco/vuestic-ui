@@ -23,6 +23,10 @@ export default {
       type: [Object, String],
       default: undefined,
     },
+    namespace: {
+      type: String,
+      default: '',
+    },
   },
   data: () => ({
     component: undefined,
@@ -43,7 +47,7 @@ export default {
       return { file: this.value }
     },
     file () {
-      return getFileName(this.internalValue.file)
+      return getFileName(this.internalValue.file, this.namespace)
     },
   },
   mounted () {
