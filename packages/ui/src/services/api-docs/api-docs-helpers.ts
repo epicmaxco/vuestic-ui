@@ -2,6 +2,7 @@ import Vue, { ComponentOptions } from 'vue'
 import { PropOptions } from 'vue/types/options'
 // @ts-ignore
 import { getType } from './vue-src-no-flow/core/util/props'
+import { camelCase } from 'lodash'
 
 import noop from 'lodash/noop'
 import {
@@ -41,14 +42,14 @@ export const getApiTableProp = (
   manualOptions: ManualApiOptions = {},
   componentOptions: PropOptionsCompiled,
 ): ApiPropRowOptions => {
-  const manualPropOptions: ManualPropApiOptions = manualOptions.props?.[propName] || {}
+  const manualPropOptions: ManualPropApiOptions = manualOptions.props?.[camelCase(propName)] || {}
   return {
     name: propName,
-    version: manualPropOptions.version || '',
+    version: manualPropOptions.version || manualOptions.version || '',
     required: componentOptions.required,
     types: componentOptions.types.map(type => `\`${type}\``).join(' | '),
     default: componentOptions.default,
-    description: `api.${manualPropOptions.local ? componentName : 'all'}.props.${propName}`,
+    description: `api.${manualPropOptions.local ? componentName : 'all'}.props.${camelCase(propName)}`,
   }
 }
 
@@ -79,10 +80,10 @@ export const getApiTableData = (
 
   // Events
   for (const eventName in manualApiOptions.events) {
-    const manualEventOptions: ManualEventApiOptions = manualApiOptions.events[eventName] || {}
+    const manualEventOptions: ManualEventApiOptions = manualApiOptions.events[camelCase(eventName)] || {}
     apiTableData.events[eventName] = {
       version: manualEventOptions.version || '',
-      description: `api.${manualEventOptions.local ? componentName : 'all'}.events.${eventName}`,
+      description: `api.${manualEventOptions.local ? componentName : 'all'}.events.${camelCase(eventName)}`,
       name: eventName,
       types: manualEventOptions.types,
     }
@@ -90,20 +91,20 @@ export const getApiTableData = (
 
   // Slots
   for (const slotName in manualApiOptions.slots) {
-    const manualSlotOptions: ManualSlotApiOptions = manualApiOptions.slots[slotName] || {}
+    const manualSlotOptions: ManualSlotApiOptions = manualApiOptions.slots[camelCase(slotName)] || {}
     apiTableData.slots[slotName] = {
       version: manualSlotOptions.version || '',
-      description: `api.${manualSlotOptions.local ? componentName : 'all'}.slots.${slotName}`,
+      description: `api.${manualSlotOptions.local ? componentName : 'all'}.slots.${camelCase(slotName)}`,
       name: slotName,
     }
   }
 
   // Methods
   for (const methodName in manualApiOptions.methods) {
-    const manualMethodOptions: ManualMethodApiOptions = manualApiOptions.methods[methodName] || {}
+    const manualMethodOptions: ManualMethodApiOptions = manualApiOptions.methods[camelCase(methodName)] || {}
     apiTableData.methods[methodName] = {
       version: manualMethodOptions.version || '',
-      description: `api.${manualMethodOptions.local ? componentName : 'all'}.methods.${methodName}`,
+      description: `api.${manualMethodOptions.local ? componentName : 'all'}.methods.${camelCase(methodName)}`,
       name: methodName,
       types: manualMethodOptions.types,
     }

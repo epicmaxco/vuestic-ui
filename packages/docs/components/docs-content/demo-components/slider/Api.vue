@@ -5,7 +5,7 @@
 <script>
 import ApiDocs from '../../../../../ui/src/services/api-docs/ApiDocs.vue'
 import VaSlider from '../../../../../ui/src/components/vuestic-components/va-slider/VaSlider'
-import config from './apiConfig'
+import { vaSliderOptions } from './apiConfig'
 
 export default {
   components: {
@@ -16,7 +16,7 @@ export default {
       return VaSlider
     },
     apiConfig () {
-      return config
+      return vaSliderOptions
     },
   },
 }

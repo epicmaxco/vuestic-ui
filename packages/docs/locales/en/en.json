@@ -22,6 +22,31 @@
         "resetValidation": "Reset validation for all validateable <!-- TODO Add link --> form-components.",
         "reset": "Reset values and validation state for all form-components"
       }
+    },
+    "VaSlider": {
+      "props": {
+        "range": "Transforms single value slider into range slider.",
+        "value": "Numeric value(s) of slider.",
+        "trackLabel": "Label of slider track.",
+        "color": "Color of slider.",
+        "trackColor": "Color of slider base track.",
+        "labelColor": "Color of slider label.",
+        "trackLabelVisible": "Toggles track label visibility.",
+        "min": "Minimum value.",
+        "max": "Maximum value.",
+        "step": "Slider value step.",
+        "label": "Slider label",
+        "invertLabel": "Moves label to opposite side.",
+        "disabled": "Disables slider.",
+        "readonly": "Makes slider read only.",
+        "pins": "Adds step marks to a slider track.",
+        "iconPrepend": "Icon at the start of slider.",
+        "iconAppend": "Icon at the end of slider.",
+        "vertical": "Makes slider vertical.",
+        "showTrack": "Toggles track display."
+      },
+      "events": {},
+      "methods": {}
     }
   },
   "menu": {
@@ -157,7 +182,7 @@
     },
     "api": {
       "subtitle": "API",
-      "paragraph": "Here are props that are used in va-rating component more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text"
+      "paragraph": "Here are props, events and slots that are used in va-slider component."
     },
     "faq": {
       "subtitle": "FAQ",
