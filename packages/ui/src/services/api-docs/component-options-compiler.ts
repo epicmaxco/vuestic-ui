@@ -17,8 +17,10 @@ type CompiledComponentOptions = { props: Record<string, PropOptionsCompiled> }
  * Employ vue native functionality to get defaults for prop
  */
 function getDefaultValue<T extends string> (propName: T, propOptions: PropOptions<T>) {
-  const defaultValue = getPropDefaultValue(propName, propOptions, emptyObject)
-  return defaultValue + ''
+  // const defaultValue = getPropDefaultValue(propName, propOptions, emptyObject)
+  // TODO: not working?
+// @ts-ignore
+  return propOptions[propName as keyof PropOptions]?.default + '' || '-'
 }
 
 function convertComponentPropToApiDocs <T extends string> (propName: T, propOptionsRecord: Record<string, PropOptions<T>>): PropOptionsCompiled {

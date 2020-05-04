@@ -10,9 +10,9 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import DynamicTemplate from '../dynamic-template/DynamicTemplate'
+import DynamicTemplate from '../dynamic-template/DynamicTemplate.vue'
 import VaContent
-  from '../../../ui/src/components/vuestic-components/va-content/VaContent'
+  from '../../../ui/src/components/vuestic-components/va-content/VaContent.vue'
 import { ApiDocsBlock } from '../../types/configTypes'
 
 @Component({
@@ -22,6 +22,6 @@ import { ApiDocsBlock } from '../../types/configTypes'
   },
 })
 export default class DocsContent extends Vue {
-  @Prop() readonly config: ApiDocsBlock[]
+  @Prop() config!: ApiDocsBlock[]
 }
 </script>

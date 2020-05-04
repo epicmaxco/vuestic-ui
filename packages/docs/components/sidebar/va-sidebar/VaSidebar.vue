@@ -10,23 +10,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject } from 'vue-property-decorator'
+import { Component, Vue, Inject, Prop } from 'vue-property-decorator'
 // import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
 @Component({
-  props: {
-    minimized: {
-      type: Boolean,
-      required: true,
-    },
-    color: {
-      type: String,
-      default: 'secondary',
-    },
-  },
   name: 'VaSidebar',
 })
 export default class VaSidebar extends Vue {
-  @Inject() readonly contextConfig!: any
+  @Inject() contextConfig!: any
+  @Prop({ type: Boolean, required: true }) minimized!: boolean
+  @Prop({ type: String, default: 'secondary' }) color!: string
   get computedClass () {
     return {
       'va-sidebar': true,

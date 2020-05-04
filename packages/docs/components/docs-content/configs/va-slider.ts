@@ -17,19 +17,19 @@ import Api from '../demo-components/slider/Api.vue'
 export default [
   {
     type: BlockType.TITLE,
-    text: 'slider.title',
+    translationString: 'slider.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.paragraph',
+    translationString: 'slider.paragraph',
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'slider.basic.subtitle',
+    translationString: 'slider.basic.subtitle',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.basic.paragraph',
+    translationString: 'slider.basic.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -43,15 +43,15 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'slider.advanced.subtitle',
+    translationString: 'slider.advanced.subtitle',
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.color.headline',
+    translationString: 'slider.advanced.color.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.color.paragraph',
+    translationString: 'slider.advanced.color.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -59,11 +59,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.minmax.headline',
+    translationString: 'slider.advanced.minmax.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.minmax.paragraph',
+    translationString: 'slider.advanced.minmax.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -71,11 +71,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.state.headline',
+    translationString: 'slider.advanced.state.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.state.paragraph',
+    translationString: 'slider.advanced.state.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -83,11 +83,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.range.headline',
+    translationString: 'slider.advanced.range.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.range.paragraph',
+    translationString: 'slider.advanced.range.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -95,11 +95,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.step.headline',
+    translationString: 'slider.advanced.step.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.step.paragraph',
+    translationString: 'slider.advanced.step.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -107,11 +107,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.pins.headline',
+    translationString: 'slider.advanced.pins.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.pins.paragraph',
+    translationString: 'slider.advanced.pins.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -119,11 +119,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.label.headline',
+    translationString: 'slider.advanced.label.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.label.paragraph',
+    translationString: 'slider.advanced.label.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -131,11 +131,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.slots.headline',
+    translationString: 'slider.advanced.slots.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.slots.paragraph',
+    translationString: 'slider.advanced.slots.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -143,11 +143,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.icon.headline',
+    translationString: 'slider.advanced.icon.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.icon.paragraph',
+    translationString: 'slider.advanced.icon.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -155,11 +155,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.track.headline',
+    translationString: 'slider.advanced.track.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.track.paragraph',
+    translationString: 'slider.advanced.track.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -167,11 +167,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.trackLabel.headline',
+    translationString: 'slider.advanced.trackLabel.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.trackLabel.paragraph',
+    translationString: 'slider.advanced.trackLabel.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -179,11 +179,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.advanced.vertical.headline',
+    translationString: 'slider.advanced.vertical.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.advanced.vertical.paragraph',
+    translationString: 'slider.advanced.vertical.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -191,11 +191,11 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'slider.api.subtitle',
+    translationString: 'slider.api.subtitle',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.api.paragraph',
+    translationString: 'slider.api.paragraph',
   },
   {
     type: BlockType.COMPONENT,
@@ -203,14 +203,14 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'slider.faq.subtitle',
+    translationString: 'slider.faq.subtitle',
   },
   {
     type: BlockType.HEADLINE,
-    text: 'slider.faq.questions[0].question',
+    translationString: 'slider.faq.questions[0].question',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'slider.faq.questions[0].answer',
+    translationString: 'slider.faq.questions[0].answer',
   },
 ]
