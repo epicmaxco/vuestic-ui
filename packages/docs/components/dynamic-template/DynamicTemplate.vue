@@ -2,7 +2,6 @@
   <DocsExample
     v-if="block.type === BlockType.EXAMPLE"
     :value="block.component"
-    :namespace="block.namespace"
   />
   <component v-else-if="block.type === BlockType.API" :is="block.component" />
   <component

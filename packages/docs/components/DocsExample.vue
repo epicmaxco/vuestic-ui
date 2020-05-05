@@ -22,10 +22,6 @@ export default {
       type: [Object, String],
       default: undefined,
     },
-    namespace: {
-      type: String,
-      default: '',
-    },
   },
   data: () => ({
     component: undefined,
