@@ -62,26 +62,33 @@ export const vaSliderOptions: ManualApiOptions = {
       version: '1.3.1', // Not really, just for test.
     },
   },
-  methods: {
-    validate: {
-      types: '`() => boolean`',
+  events: {
+    dragStart: {
+      local: true,
+      types: 'Vue',
     },
-    focus: {
-      types: '`() => void`',
+    dragEnd: {
+      local: true,
+      types: 'Vue',
     },
-    focusInvalid: {
-      types: '`() => void`',
+    change: {
+      local: true,
+      types: 'Number | Nember[]',
     },
-    resetValidation: {
-      types: '`() => boolean`',
-    },
-    reset: {
-      types: '`() => boolean`',
+    input: {
+      local: true,
+      types: 'Number | Nember[]',
     },
   },
-  events: {
-    validation: {
-      types: '`(valid: boolean) => void`',
+  slots: {
+    append: {
+      local: true,
+    },
+    prepend: {
+      local: true,
+    },
+    label: {
+      local: true,
     },
   },
 }

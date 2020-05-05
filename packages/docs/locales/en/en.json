@@ -45,8 +45,17 @@
         "vertical": "Makes slider vertical.",
         "showTrack": "Toggles track display."
       },
-      "events": {},
-      "methods": {}
+      "events": {
+        "dragStart": "Emited on drag start.",
+        "dragEnd": "Emited on drag end.",
+        "change": "Emited on value input.",
+        "input": "Emited on value change."
+      },
+      "slots": {
+        "append": "Slot for input after slider.",
+        "prepend": "Slot for input before slider.",
+        "label": "Replaces the default label."
+      }
     }
   },
   "menu": {

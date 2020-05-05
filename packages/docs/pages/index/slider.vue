@@ -12,7 +12,7 @@ import sliderConfig from '../../components/docs-content/configs/va-slider'
     DocsContent,
   },
 })
-export default class Rating extends Vue {
+export default class Slider extends Vue {
   get config () {
     return sliderConfig
   }
