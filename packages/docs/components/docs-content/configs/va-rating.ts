@@ -1,4 +1,5 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
+import VaRatingApi from '../api/VaRatingApi.vue'
 
 const config: ApiDocsBlock[] = [
   {
@@ -44,6 +45,10 @@ const config: ApiDocsBlock[] = [
   {
     type: BlockType.PARAGRAPH,
     translationString: 'rating.api.paragraph',
+  },
+  {
+    type: BlockType.API,
+    component: VaRatingApi,
   },
   // TODO: here comes api component
   {

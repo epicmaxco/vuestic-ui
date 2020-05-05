@@ -92,7 +92,6 @@ const RatingPropsMixin = makeContextablePropsMixin({
   numbers: { type: Boolean, default: false },
   halves: { type: Boolean, default: false },
   max: { type: Number, default: 5 },
-  size: { type: [String, Number], default: 'medium' },
   clearable: { type: Boolean, default: false },
   hover: { type: Boolean, default: false },
   texts: { type: Array, default: () => [] },

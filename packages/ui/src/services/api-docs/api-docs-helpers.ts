@@ -7,8 +7,6 @@ import noop from 'lodash/noop'
 import {
   ManualApiOptions,
   ManualPropApiOptions,
-  VersionString,
-  TranslationString,
   ManualEventApiOptions,
   ManualSlotApiOptions,
   ManualMethodApiOptions,
@@ -47,7 +45,7 @@ export const getApiTableProp = (
     version: manualPropOptions.version || '',
     required: componentOptions.required,
     types: componentOptions.types.map(type => `\`${type}\``).join(' | '),
-    default: componentOptions.default,
+    default: (componentOptions.default && componentOptions.default !== 'undefined') || manualPropOptions.default,
     description: `api.${manualPropOptions.local ? componentName : 'all'}.props.${propName}`,
   }
 }

@@ -12,7 +12,7 @@ export type ManualApiOptionsItem = {
 }
 
 export type ManualPropApiOptions = ManualApiOptionsItem & {
-  // add more here
+  default?: any;
 }
 
 export type ManualMethodApiOptions = ManualApiOptionsItem & {

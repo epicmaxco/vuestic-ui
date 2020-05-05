@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
 import Component, { mixins } from 'vue-class-component'
 
