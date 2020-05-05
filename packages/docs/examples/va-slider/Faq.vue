@@ -13,9 +13,6 @@ import DynamicTemplate from '../../components/dynamic-template/DynamicTemplate'
 import config from './faqConfig'
 
 export default {
-  mounted () {
-    console.log('mounted')
-  },
   components: {
     DynamicTemplate,
   },
