@@ -22,7 +22,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ApiDocsBlock, BlockType } from '../../types/configTypes'
-import Code from '../Code'
+import Code from '../Code.vue'
 import { kebabCase } from 'lodash'
 
 @Component({})
