@@ -1,9 +1,6 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
-import { prepareConfig } from '../../../utilities/utils'
 
-const namespace = 'va-rating'
-
-const blocks: ApiDocsBlock[] = [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'rating.title',
@@ -22,7 +19,7 @@ const blocks: ApiDocsBlock[] = [
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'Basic',
+    component: 'va-rating/Basic',
   },
   {
     type: BlockType.SUBTITLE,
@@ -38,7 +35,7 @@ const blocks: ApiDocsBlock[] = [
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'WithColors',
+    component: 'va-rating/WithColors',
   },
   {
     type: BlockType.SUBTITLE,
@@ -63,4 +60,4 @@ const blocks: ApiDocsBlock[] = [
   },
 ]
 
-export default prepareConfig(blocks, { namespace })
+export default config

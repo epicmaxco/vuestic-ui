@@ -1,20 +1,19 @@
 <template>
   <div>
     <p>
-      <component :is="component"/>
+      <component :is="component" />
     </p>
     <va-content>
-      <DocsCode :code="parsed.template" language="markup"/>
+      <DocsCode :code="parsed.template" language="markup" />
     </va-content>
   </div>
 </template>
 
 <script>
 // Manually forked from https://github.com/vuetifyjs/vuetify/blob/master/packages/docs/src/components/doc/Example.vue
-import VaContent
-  from '../../ui/src/components/vuestic-components/va-content/VaContent'
+import VaContent from '../../ui/src/components/vuestic-components/va-content/VaContent'
 import DocsCode from './DocsCode'
-import { readComponent, getFileName, readTemplate } from '../utilities/utils'
+import { readComponent, readTemplate } from '../utilities/utils'
 
 export default {
   components: { VaContent, DocsCode },
@@ -47,7 +46,7 @@ export default {
       return { file: this.value }
     },
     file () {
-      return getFileName(this.internalValue.file, this.namespace)
+      return this.internalValue.file
     },
   },
   mounted () {

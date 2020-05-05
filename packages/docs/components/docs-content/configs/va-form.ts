@@ -1,10 +1,7 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 import VaFormApi from '../api/VaFormApi.vue'
-import { prepareConfig } from '../../../utilities/utils'
 
-const namespace = 'va-form'
-
-const blocks: ApiDocsBlock[] = [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'form.title',
@@ -23,7 +20,7 @@ const blocks: ApiDocsBlock[] = [
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'Basic',
+    component: 'va-form/Basic',
   },
   {
     type: BlockType.SUBTITLE,
@@ -39,7 +36,7 @@ const blocks: ApiDocsBlock[] = [
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'WithInputs',
+    component: 'va-form/WithInputs',
   },
   {
     type: BlockType.SUBTITLE,
@@ -68,4 +65,4 @@ const blocks: ApiDocsBlock[] = [
   },
 ]
 
-export default prepareConfig(blocks, { namespace })
+export default config

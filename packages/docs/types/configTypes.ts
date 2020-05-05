@@ -31,5 +31,4 @@ export type ApiDocsBlock =
   | {
       type: BlockType.EXAMPLE,
       component: string, // Just file name without extension. Everything else is derived.
-      namespace?: string,
     }
