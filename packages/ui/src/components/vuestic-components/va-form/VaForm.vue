@@ -1,11 +1,11 @@
 <template>
-  <conponent
+  <component
     class="va-form"
     :is="tag"
     v-on="$listeners"
   >
     <slot />
-  </conponent>
+  </component>
 </template>
 
 <script>

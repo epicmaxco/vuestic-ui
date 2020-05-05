@@ -1,5 +1,5 @@
 <template>
-  <docs-content :config="config"/>
+  <docs-content :config="configComputed"/>
 </template>
 
 <script lang="ts">
@@ -12,8 +12,8 @@ import formConfig from '../../components/docs-content/configs/va-form'
     DocsContent,
   },
 })
-export default class Rating extends Vue {
-  get config () {
+export default class Form extends Vue {
+  get configComputed () {
     return formConfig
   }
 }
