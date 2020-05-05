@@ -949,10 +949,6 @@ export default {
       height: 100%;
       width: 0.5rem;
       bottom: 0;
-
-      &--selected {
-        transition: height 0.3s ease-out, bottom 0.3s ease-out;
-      }
     }
 
     &__mark {
