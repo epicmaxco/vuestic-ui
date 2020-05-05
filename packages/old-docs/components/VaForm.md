@@ -1,8 +1,8 @@
 # va-form
-Component va-form wrap form-elements and provide specific form properties to inside components
+`VaForm` wraps form-components <!-- TODO Add link --> and is primarily intended to simplify validation.
 
 ## Import
-In template: 
+In template:
 ```vue
 <va-form>Slot</va-form>
 ```
@@ -45,7 +45,7 @@ Vuelidate is a simple, lightweight model-based validation for Vue.js [Documentat
       !$v.name.minLength && `Name must have at least ${$v.name.$params.minLength.min} letters.`
     ]"
   />
-  
+
   <va-input
     label="name"
     v-model="$v.email.$model"
@@ -88,24 +88,3 @@ export default {
   },
 }
 ```
-## API
-
-[API is work in progress, for now just textual info]
-
-* `autofocus`: Boolean - focus on first form element on render (input, select, checkbox, etc.)
-* `lazy-validation`: Boolean - validate only first field when validation is triggered
-
-Events: 
-
-* `validation`: (valid: Boolean) => void - triggered on validation update
- 
-Methods: 
-* `validate()`: boolean - performs validation and updates error state for each form component.
-* `focus()`: void - focus on first focusable element in the form.
-* `focusInvalid()`: void - focus on first invalid focusable component in the form. If there are none - should default to focus().
-* `resetValidation()`: void - reset validation for all validateable form elements
-* `reset()`: void - reset value + validation stater for all form elements.
- 
-Slots:
-
-* `default` - form components (input, select, checkbox, etc.). For now we support only one level deep.

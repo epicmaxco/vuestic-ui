@@ -10,7 +10,7 @@ aliases:
 
   - &nuxt_generate
     name: Generate static
-    command: nuxt generate --fail-on-error
+    command: yarn generate:docs
 
   - &save_cache
     name: Save Yarn Package Cache
@@ -84,7 +84,7 @@ jobs:
       - run:
           name: Deploy to hosting
           command: |
-            tar -czf dist.tar.gz ~/repo/docs/dist -C ~/repo/docs/dist .
+            tar -czf dist.tar.gz ~/repo/packages/docs/dist -C ~/repo/packages/docs/dist .
             scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*
@@ -104,11 +104,11 @@ workflows:
               only: develop
 #          requires:
 #            - test
-#      - deploy-docs:
-#          context: vuestic-ui-staging-docs
-#          filters:
-#            branches:
-#              only: develop
+      - deploy-docs:
+          context: vuestic-ui-staging-docs
+          filters:
+            branches:
+              only: develop
 #          requires:
 #            - deploy-demos
 #            - test

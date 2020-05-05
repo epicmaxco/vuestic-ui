@@ -175,6 +175,12 @@ export default {
       }
     },
     paginationControlledStyles () {
+      // Prevents the movement of vertical tabs
+      if (this.c_vertical) {
+        return {
+          transform: 'translateX(0px)',
+        }
+      }
       return {
         transform: `translateX(-${this.tabsContentOffset}px)`,
       }

@@ -22,22 +22,18 @@
         "dom",
         "dom.iterable",
         "scripthost"
-      ],
-      "paths": {
-        "v-tooltip": [
-          "src/types/v-tooltip.d.ts"
-        ]
-      }
+      ]
     },
     "include": [
-      "src/**/*.ts",
-      "src/**/*.tsx",
-      "src/**/*.vue",
-      "tests/**/*.ts",
-      "tests/**/*.tsx"
+      "../ui/src/**/*.ts",
+      "components/**/*.ts",
+      "components/**/*.tsx",
+      "components/**/*.vue"
     ],
     "exclude": [
-      "node_modules"
+      "node_modules",
+      ".nuxt",
+      "dist"
     ]
   }
-  
+
