@@ -21,9 +21,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-  .slider__container {
-    padding: 3em;
-  }
-</style>

@@ -183,6 +183,10 @@ export default [
     component: Api,
   },
   {
+    type: BlockType.SUBTITLE,
+    translationString: 'slider.faq.subtitle',
+  },
+  {
     type: BlockType.FAQ,
     component: Faq,
   },

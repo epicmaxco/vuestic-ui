@@ -1,20 +1,16 @@
 <template>
   <div>
-    <dynamic-template
-      v-for="(block, index) in config"
-      :key="index"
-      :block="block"
-    />
+    <DocsFaq :items="config"/>
   </div>
 </template>
 
 <script>
-import DynamicTemplate from '../../components/dynamic-template/DynamicTemplate'
+import DocsFaq from '../../components/DocsFaq'
 import config from './faqConfig'
 
 export default {
   components: {
-    DynamicTemplate,
+    DocsFaq,
   },
   computed: {
     config () {

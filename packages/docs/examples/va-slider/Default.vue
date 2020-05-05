@@ -1,16 +1,11 @@
 <template>
-  <div class="slider__container">
+  <div>
     <va-slider v-model="value"/>
   </div>
 </template>
 
 <script>
-import VaSlider from '../../../ui/src/components/vuestic-components/va-slider/VaSlider.vue'
-
 export default {
-  components: {
-    VaSlider,
-  },
   data () {
     return {
       value: 45,
@@ -18,9 +13,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-  .slider__container {
-    padding: 3em;
-  }
-</style>

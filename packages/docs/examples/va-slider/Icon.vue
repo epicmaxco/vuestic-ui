@@ -1,17 +1,12 @@
 <template>
-  <div class="slider__container">
+  <div>
     <va-slider v-model="value1" icon-append="home"/>
     <va-slider v-model="value2" icon-prepend="home"/>
   </div>
 </template>
 
 <script>
-import VaSlider from '../../../ui/src/components/vuestic-components/va-slider/VaSlider.vue'
-
 export default {
-  components: {
-    VaSlider,
-  },
   data () {
     return {
       value1: 45,
@@ -20,9 +15,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-  .slider__container {
-    padding: 3em;
-  }
-</style>

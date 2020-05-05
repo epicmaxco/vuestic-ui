@@ -254,13 +254,13 @@ export default {
     },
     labelStyles () {
       return {
-        color: this.labelColor ? ((this.$themes && this.$themes[this.labelColor]) || this.computeColor(this.labelColor)) : this.colorComputed,
+        color: this.labelColor ? this.computeColor(this.labelColor) : this.colorComputed,
       }
     },
     trackStyles () {
       return {
         backgroundColor: this.trackColor
-          ? ((this.$themes && this.$themes[this.trackColor]) || this.computeColor(this.trackColor))
+          ? this.computeColor(this.trackColor)
           : getHoverColor(this.colorComputed),
       }
     },
