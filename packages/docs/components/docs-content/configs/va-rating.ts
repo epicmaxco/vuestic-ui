@@ -1,74 +1,63 @@
-import { BlockType } from '../../../types/configTypes'
-import RatingColorDocsDemo from '../../rating-docs-demo/RatingColorDocsDemo.vue'
+import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
-    text: 'rating.title',
+    translationString: 'rating.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'rating.paragraph',
+    translationString: 'rating.paragraph',
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'rating.basic.subtitle',
+    translationString: 'rating.basic.subtitle',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'rating.basic.paragraph',
+    translationString: 'rating.basic.paragraph',
   },
   {
-    type: BlockType.CODE,
-    code: `<va-rating
-  v-model="value"
-/>`,
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/Basic',
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'rating.advanced.subtitle',
+    translationString: 'rating.advanced.subtitle',
   },
   {
     type: BlockType.HEADLINE,
-    text: 'rating.advanced.headline',
+    translationString: 'rating.advanced.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'rating.advanced.paragraph',
+    translationString: 'rating.advanced.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: RatingColorDocsDemo,
-  },
-  {
-    type: BlockType.CODE,
-    code: `<va-rating color="success" v-model="value" />
-
-<va-rating color="info" v-model="value" />
-
-<va-rating color="danger" v-model="value" />
-
-<va-rating color="warning" v-model="value" />`,
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/WithColors',
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'rating.api.subtitle',
+    translationString: 'rating.api.subtitle',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'rating.api.paragraph',
+    translationString: 'rating.api.paragraph',
   },
   // TODO: here comes api component
   {
     type: BlockType.SUBTITLE,
-    text: 'rating.faq.subtitle',
+    translationString: 'rating.faq.subtitle',
   },
   {
     type: BlockType.HEADLINE,
-    text: 'rating.faq.questions[0].question',
+    translationString: 'rating.faq.questions[0].question',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'rating.faq.questions[0].answer',
+    translationString: 'rating.faq.questions[0].answer',
   },
 ]
+
+export default config
