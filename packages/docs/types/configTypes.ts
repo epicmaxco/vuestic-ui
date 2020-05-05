@@ -4,6 +4,8 @@ import { VueConstructor } from 'vue'
 // TODO: move i18n types to appropriate place, e.g. tsconfig, ...
 import 'nuxt-i18n'
 
+export type CodeString = string
+
 export enum BlockType {
   TITLE = 'TITLE',
   SUBTITLE = 'SUBTITLE',
@@ -14,17 +16,19 @@ export enum BlockType {
   CODE = 'CODE',
 }
 
-export type TextBlock =
+export type TextBlockType =
   | BlockType.TITLE
   | BlockType.SUBTITLE
   | BlockType.PARAGRAPH
   | BlockType.HEADLINE
 
+export type TextBlock = {
+  type: TextBlockType,
+  translationString: TranslationString,
+}
+
 export type ApiDocsBlock =
-  | {
-      type: TextBlock,
-      translationString: TranslationString,
-    }
+  | TextBlock
   | {
       type: BlockType.API,
       component: VueConstructor,
@@ -35,5 +39,5 @@ export type ApiDocsBlock =
     }
   | {
       type: BlockType.CODE,
-      code: string,
+      code: CodeString,
     }

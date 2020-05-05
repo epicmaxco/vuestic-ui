@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ApiDocsBlock, BlockType, TextBlock } from '../../types/configTypes'
+import { ApiDocsBlock, BlockType, TextBlockType, TextBlock } from '../../types/configTypes'
 import DocsExample from '../DocsExample.vue'
 import DocsCode from '../DocsCode.vue'
 import { kebabCase } from 'lodash'
@@ -35,7 +35,7 @@ import { kebabCase } from 'lodash'
 export default class DynamicTemplate extends Vue {
   private blockTags: Pick<
     Record<BlockType, string>,
-    TextBlock
+    TextBlockType
   > = {
     [BlockType.TITLE]: 'h1',
     [BlockType.SUBTITLE]: 'h3',
@@ -46,10 +46,7 @@ export default class DynamicTemplate extends Vue {
   @Prop({ required: true }) readonly block!: ApiDocsBlock
 
   get anchor () {
-    if (this.block.type !== BlockType.SUBTITLE) {
-      return undefined
-    }
-    return kebabCase(this.$t(this.block.translationString) as string)
+    return kebabCase(this.$t((this.block as TextBlock).translationString) as string)
   }
 
   get primaryColor () {
