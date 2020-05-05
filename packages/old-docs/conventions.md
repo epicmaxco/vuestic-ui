@@ -54,7 +54,7 @@ We want to keep these consistent across different repos.
 * CI - Continuous integration & deploy - #343434
 * component - Has direct relation to component - #bfdadc
 * discussion - Feedback wanted - #cc317c
-* documentation - Improvements or additions to documentation - #fef2c0
+* docs - packages/docs - #04afe2
 * feature - Something useful to end user - #006b75
 * good first issue -  - #5319e7
 * high priority - Very wanted, much value - #e27a12
