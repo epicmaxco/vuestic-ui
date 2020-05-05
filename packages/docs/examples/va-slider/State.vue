@@ -1,21 +1,23 @@
 <template>
   <div class="slider__container">
-    <va-slider v-model="value" :step="5"/>
+    Disabled <va-slider v-model="value1" disabled/>
+    Readonly <va-slider v-model="value2" readonly/>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import VaSlider from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
+import VaSlider from '../../../ui/src/components/vuestic-components/va-slider/VaSlider.vue'
 @Component({
   components: {
     VaSlider,
   },
 })
-export default class Step extends Vue {
+export default class State extends Vue {
   data () {
     return {
-      value: 45,
+      value1: 33,
+      value2: 66,
     }
   }
 }

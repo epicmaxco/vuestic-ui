@@ -1,24 +1,22 @@
 <template>
   <div>
     <p>
-      <component :is="component"/>
+      <component :is="component" />
     </p>
     <va-content>
-      <Code :code="parsed.template" language="markup"/>
-      <slot name="description"/>
+      <DocsCode :code="parsed.template" language="markup" />
     </va-content>
   </div>
 </template>
 
 <script>
 // Manually forked from https://github.com/vuetifyjs/vuetify/blob/master/packages/docs/src/components/doc/Example.vue
-import VaContent
-  from '../../ui/src/components/vuestic-components/va-content/VaContent'
-import Code from './Code'
-import { readFile } from '../utilities/utils'
+import VaContent from '../../ui/src/components/vuestic-components/va-content/VaContent'
+import DocsCode from './DocsCode'
+import { readComponent, readTemplate } from '../utilities/utils'
 
 export default {
-  components: { VaContent, Code },
+  components: { VaContent, DocsCode },
   props: {
     value: {
       type: [Object, String],
@@ -69,10 +67,10 @@ export default {
       this.loading = false
     },
     async importComponent () {
-      this.component = (await readFile(`../examples/${this.file}.vue`)).default
+      this.component = (await readComponent(this.file)).default
     },
     async importTemplate () {
-      const componentTemplate = (await readFile(`!raw-loader!../examples/${this.file}.vue`)).default
+      const componentTemplate = (await readTemplate(this.file)).default
       this.parse(componentTemplate)
     },
     parseTemplate (target, template) {

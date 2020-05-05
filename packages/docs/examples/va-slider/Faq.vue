@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import DynamicTemplate from '../../../dynamic-template/DynamicTemplate'
+import DynamicTemplate from '../../components/dynamic-template/DynamicTemplate'
 import config from './faqConfig'
 
 export default {

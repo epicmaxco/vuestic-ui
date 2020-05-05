@@ -1,20 +1,6 @@
 import { BlockType } from '../../../types/configTypes'
-import Default from '../demo-components/slider/Default.vue'
-import State from '../demo-components/slider/State.vue'
-import Range from '../demo-components/slider/Range.vue'
-import Pins from '../demo-components/slider/Pins.vue'
-import Icon from '../demo-components/slider/Icon.vue'
-import Label from '../demo-components/slider/Label.vue'
-import Slots from '../demo-components/slider/Slots.vue'
-import Step from '../demo-components/slider/Step.vue'
-import Track from '../demo-components/slider/Track.vue'
-import TrackLabel from '../demo-components/slider/TrackLabel.vue'
-import Vertical from '../demo-components/slider/Vertical.vue'
-import Color from '../demo-components/slider/Color.vue'
-import MinMax from '../demo-components/slider/MinMax.vue'
-import Api from '../demo-components/slider/Api.vue'
-import Faq from '../demo-components/slider/Faq.vue'
-
+import Api from '../../../examples/va-slider/Api.vue'
+import Faq from '../../../examples/va-slider/Faq.vue'
 export default [
   {
     type: BlockType.TITLE,
@@ -33,14 +19,8 @@ export default [
     translationString: 'slider.basic.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Default,
-  },
-  {
-    type: BlockType.CODE,
-    code: `<va-slider
-  v-model="value"
-/>`,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Default',
   },
   {
     type: BlockType.SUBTITLE,
@@ -55,8 +35,8 @@ export default [
     translationString: 'slider.advanced.color.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Color,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Color',
   },
   {
     type: BlockType.HEADLINE,
@@ -67,8 +47,8 @@ export default [
     translationString: 'slider.advanced.minmax.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: MinMax,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/MinMax',
   },
   {
     type: BlockType.HEADLINE,
@@ -79,8 +59,8 @@ export default [
     translationString: 'slider.advanced.state.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: State,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/State',
   },
   {
     type: BlockType.HEADLINE,
@@ -91,8 +71,8 @@ export default [
     translationString: 'slider.advanced.range.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Range,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Range',
   },
   {
     type: BlockType.HEADLINE,
@@ -103,8 +83,8 @@ export default [
     translationString: 'slider.advanced.step.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Step,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Step',
   },
   {
     type: BlockType.HEADLINE,
@@ -115,8 +95,8 @@ export default [
     translationString: 'slider.advanced.pins.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Pins,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Pins',
   },
   {
     type: BlockType.HEADLINE,
@@ -127,8 +107,8 @@ export default [
     translationString: 'slider.advanced.label.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Label,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Label',
   },
   {
     type: BlockType.HEADLINE,
@@ -139,8 +119,8 @@ export default [
     translationString: 'slider.advanced.slots.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Slots,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Slots',
   },
   {
     type: BlockType.HEADLINE,
@@ -151,8 +131,8 @@ export default [
     translationString: 'slider.advanced.icon.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Icon,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Icon',
   },
   {
     type: BlockType.HEADLINE,
@@ -163,8 +143,8 @@ export default [
     translationString: 'slider.advanced.track.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Track,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Track',
   },
   {
     type: BlockType.HEADLINE,
@@ -175,8 +155,8 @@ export default [
     translationString: 'slider.advanced.trackLabel.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: TrackLabel,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/TrackLabel',
   },
   {
     type: BlockType.HEADLINE,
@@ -187,8 +167,8 @@ export default [
     translationString: 'slider.advanced.vertical.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: Vertical,
+    type: BlockType.EXAMPLE,
+    component: 'va-slider/Vertical',
   },
   {
     type: BlockType.SUBTITLE,
@@ -199,11 +179,11 @@ export default [
     translationString: 'slider.api.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
+    type: BlockType.API,
     component: Api,
   },
   {
-    type: BlockType.COMPONENT,
+    type: BlockType.FAQ,
     component: Faq,
   },
 ]

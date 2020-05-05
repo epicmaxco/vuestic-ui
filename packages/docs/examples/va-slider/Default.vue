@@ -1,12 +1,11 @@
 <template>
   <div class="slider__container">
-    <va-slider v-model="value1" icon-append="home"/>
-    <va-slider v-model="value2" icon-prepend="home"/>
+    <va-slider v-model="value"/>
   </div>
 </template>
 
 <script>
-import VaSlider from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
+import VaSlider from '../../../ui/src/components/vuestic-components/va-slider/VaSlider.vue'
 
 export default {
   components: {
@@ -14,8 +13,7 @@ export default {
   },
   data () {
     return {
-      value1: 45,
-      value2: 45,
+      value: 45,
     }
   },
 }

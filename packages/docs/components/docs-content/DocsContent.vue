@@ -11,8 +11,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import DynamicTemplate from '../dynamic-template/DynamicTemplate.vue'
-import VaContent
-  from '../../../ui/src/components/vuestic-components/va-content/VaContent.vue'
+import VaContent from '../../../ui/src/components/vuestic-components/va-content/VaContent.vue'
 import { ApiDocsBlock } from '../../types/configTypes'
 
 @Component({

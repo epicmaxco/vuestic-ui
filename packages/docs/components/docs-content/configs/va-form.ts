@@ -1,78 +1,68 @@
-import { BlockType } from '../../../types/configTypes'
+import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 import VaFormApi from '../api/VaFormApi.vue'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
-    text: 'form.title',
+    translationString: 'form.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.paragraph',
+    translationString: 'form.paragraph',
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'form.basic.subtitle',
+    translationString: 'form.basic.subtitle',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.basic.paragraph',
+    translationString: 'form.basic.paragraph',
   },
   {
     type: BlockType.CODE,
-    code: `<va-form
-  v-model="value"
-/>`,
+    code: '<va-form v-model="value" />',
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'form.advanced.subtitle',
+    translationString: 'form.advanced.subtitle',
   },
   {
     type: BlockType.HEADLINE,
-    text: 'form.advanced.headline',
+    translationString: 'form.advanced.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.advanced.paragraph',
+    translationString: 'form.advanced.paragraph',
   },
   {
-    type: BlockType.COMPONENT,
-    component: 'WithInputs',
-  },
-  {
-    type: BlockType.CODE,
-    code: `<va-form color="success" v-model="value" />
-
-<va-form color="info" v-model="value" />
-
-<va-form color="danger" v-model="value" />
-
-<va-form color="warning" v-model="value" />`,
+    type: BlockType.EXAMPLE,
+    component: 'va-form/WithInputs',
   },
   {
     type: BlockType.SUBTITLE,
-    text: 'form.api.subtitle',
+    translationString: 'form.api.subtitle',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.api.paragraph',
+    translationString: 'form.api.paragraph',
   },
   // TODO: here comes api component
   {
     type: BlockType.SUBTITLE,
-    text: 'form.faq.subtitle',
+    translationString: 'form.faq.subtitle',
   },
   {
     type: BlockType.HEADLINE,
-    text: 'form.faq.questions[0].question',
+    translationString: 'form.faq.questions[0].question',
   },
   {
     type: BlockType.PARAGRAPH,
-    text: 'form.faq.questions[0].answer',
+    translationString: 'form.faq.questions[0].answer',
   },
   {
     type: BlockType.API,
     component: VaFormApi,
   },
 ]
+
+export default config

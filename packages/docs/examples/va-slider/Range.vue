@@ -1,18 +1,19 @@
 <template>
   <div class="slider__container">
-    <va-slider v-model="value" pins/>
+    <va-slider v-model="value" range/>
   </div>
 </template>
 
 <script>
-import VaSlider from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
+import VaSlider from '../../../ui/src/components/vuestic-components/va-slider/VaSlider.vue'
+
 export default {
   components: {
     VaSlider,
   },
   data () {
     return {
-      value: 45,
+      value: [45, 65],
     }
   },
 }

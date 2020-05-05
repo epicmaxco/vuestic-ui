@@ -1,4 +1,4 @@
-import { BlockType } from '../../../../types/configTypes'
+import { BlockType } from '../../types/configTypes'
 
 export default [
   {

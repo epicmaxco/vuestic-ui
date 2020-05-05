@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import ApiDocs from '../../../../../ui/src/services/api-docs/ApiDocs.vue'
-import VaSlider from '../../../../../ui/src/components/vuestic-components/va-slider/VaSlider'
+import ApiDocs from 'vuestic-ui/src/services/api-docs/ApiDocs.vue'
+import VaSlider from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
 import { vaSliderOptions } from './apiConfig'
 
 export default {

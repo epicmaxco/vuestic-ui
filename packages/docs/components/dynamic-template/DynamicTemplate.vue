@@ -1,49 +1,52 @@
 <template>
-  <component
-    v-if="componentTypes.includes(block.type)"
-    :is="block.component"
+  <DocsExample
+    v-if="block.type === BlockType.EXAMPLE"
+    :value="block.component"
   />
-  <Code
+  <DocsCode
     v-else-if="block.type === BlockType.CODE"
     :code="block.code"
   />
+  <component v-else-if="[BlockType.API, BlockType.FAQ].includes(block.type) " :is="block.component" />
   <component
-    v-else
-    :is="blockTags[block.type]">
-  {{ $t(block.translationString) }}
-    <a v-if="this.block.type === BlockType.SUBTITLE"
-      :id="textToKebab"
-      :style="{'color': primaryColor}"
-      :href="`#${textToKebab}`">#</a>
+    v-else-if="block.type === BlockType.SUBTITLE"
+    :is="blockTags[block.type]"
+  >
+    {{ $t(block.translationString) }}
+    <a :id="anchor" :style="{ color: primaryColor }" :href="`#${anchor}`">#</a>
+  </component>
+  <component v-else :is="blockTags[block.type]">
+    {{ $t(block.translationString) }}
   </component>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ApiDocsBlock, BlockType } from '../../types/configTypes'
-import Code from '../Code.vue'
+import { ApiDocsBlock, BlockType, TextBlockType, TextBlock } from '../../types/configTypes'
+import DocsExample from '../DocsExample.vue'
+import DocsCode from '../DocsCode.vue'
 import { kebabCase } from 'lodash'
 
 @Component({
-  components: { Code },
+  components: {
+    DocsExample, DocsCode,
+  },
 })
 export default class DynamicTemplate extends Vue {
-  @Prop({ required: true }) block!: ApiDocsBlock
-
-  data () {
-    return {
-      componentTypes: [BlockType.API, BlockType.COMPONENT],
-      blockTags: {
-        [BlockType.TITLE]: 'h1',
-        [BlockType.SUBTITLE]: 'h3',
-        [BlockType.PARAGRAPH]: 'p',
-        [BlockType.HEADLINE]: 'h5',
-      },
-    }
+  private blockTags: Pick<
+    Record<BlockType, string>,
+    TextBlockType
+  > = {
+    [BlockType.TITLE]: 'h1',
+    [BlockType.SUBTITLE]: 'h3',
+    [BlockType.PARAGRAPH]: 'p',
+    [BlockType.HEADLINE]: 'h5',
   }
 
-  get textToKebab () {
-    return kebabCase(this.$t(this.block.translationString))
+  @Prop({ required: true }) readonly block!: ApiDocsBlock
+
+  get anchor () {
+    return kebabCase(this.$t((this.block as TextBlock).translationString) as string)
   }
 
   get primaryColor () {

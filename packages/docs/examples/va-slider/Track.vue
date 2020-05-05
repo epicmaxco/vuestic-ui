@@ -1,21 +1,23 @@
 <template>
   <div class="slider__container">
-    <va-slider v-model="value" vertical/>
+    <va-slider v-model="value1" track-color="warning"/>
+    <va-slider v-model="value2" :show-track="false"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import VaSlider from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
+import VaSlider from '../../../ui/src/components/vuestic-components/va-slider/VaSlider.vue'
 @Component({
   components: {
     VaSlider,
   },
 })
-export default class Vertical extends Vue {
+export default class Track extends Vue {
   data () {
     return {
-      value: 45,
+      value1: 45,
+      value2: 54,
     }
   }
 }
@@ -23,7 +25,6 @@ export default class Vertical extends Vue {
 
 <style lang="scss" scoped>
   .slider__container {
-    height: 300px;
     padding: 3em;
   }
 </style>

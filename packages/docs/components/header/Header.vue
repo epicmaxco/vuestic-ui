@@ -27,9 +27,7 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import { Component, Vue } from 'vue-property-decorator'
-import { Prop } from 'vue/types/options'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import VaButton from '../../../ui/src/components/vuestic-components/va-button/VaButton.vue'
 import VaSelect from '../../../ui/src/components/vuestic-components/va-select/VaSelect.vue'
 import LanguageDropdown from './components/LanguageDropdown.vue'
@@ -37,11 +35,6 @@ import VersionDropdown from './components/VersionDropdown.vue'
 import ColorDropdown from './components/ColorDropdown.vue'
 import HeaderSelector from './components/HeaderSelector.vue'
 @Component({
-  props: {
-    isSidebarVisible: {
-      type: Boolean as Prop<boolean>,
-    },
-  },
   components: {
     VaButton,
     HeaderSelector,
@@ -52,6 +45,11 @@ import HeaderSelector from './components/HeaderSelector.vue'
   },
 })
 export default class Header extends Vue {
+  @Prop({
+    type: Boolean,
+  })
+  readonly isSidebarVisible!: boolean
+
   data () {
     return {
       links: [

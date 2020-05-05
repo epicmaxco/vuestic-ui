@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import VaSlider from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
+import VaSlider from '../../../ui/src/components/vuestic-components/va-slider/VaSlider.vue'
 import VaInput from 'vuestic-ui/src/components/vuestic-components/va-input/VaInput.vue'
 
 export default {
