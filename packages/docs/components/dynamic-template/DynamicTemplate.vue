@@ -3,9 +3,8 @@
     v-if="componentTypes.includes(block.type)"
     :is="block.component"
   />
-  <component
+  <Code
     v-else-if="block.type === BlockType.CODE"
-    :is="blockTags[BlockType.CODE]"
     :code="block.code"
   />
   <component
@@ -25,7 +24,9 @@ import { ApiDocsBlock, BlockType } from '../../types/configTypes'
 import Code from '../Code.vue'
 import { kebabCase } from 'lodash'
 
-@Component({})
+@Component({
+  components: { Code },
+})
 export default class DynamicTemplate extends Vue {
   @Prop({ required: true }) block!: ApiDocsBlock
 
@@ -36,7 +37,6 @@ export default class DynamicTemplate extends Vue {
         [BlockType.TITLE]: 'h1',
         [BlockType.SUBTITLE]: 'h3',
         [BlockType.PARAGRAPH]: 'p',
-        [BlockType.CODE]: Code,
         [BlockType.HEADLINE]: 'h5',
       },
     }
