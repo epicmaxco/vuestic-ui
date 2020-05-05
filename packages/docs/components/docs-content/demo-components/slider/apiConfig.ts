@@ -73,11 +73,11 @@ export const vaSliderOptions: ManualApiOptions = {
     },
     change: {
       local: true,
-      types: 'Number | Nember[]',
+      types: 'Number | Number[]',
     },
     input: {
       local: true,
-      types: 'Number | Nember[]',
+      types: 'Number | Number[]',
     },
   },
   slots: {

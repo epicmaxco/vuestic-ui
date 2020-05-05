@@ -6,7 +6,7 @@
   <component
     v-else-if="block.type === BlockType.CODE"
     :is="blockTags[BlockType.CODE]"
-    class="code"
+    :code="block.code"
   />
   <component
     v-else
@@ -22,6 +22,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ApiDocsBlock, BlockType } from '../../types/configTypes'
+import Code from '../Code'
 import { kebabCase } from 'lodash'
 
 @Component({})
@@ -35,7 +36,7 @@ export default class DynamicTemplate extends Vue {
         [BlockType.TITLE]: 'h1',
         [BlockType.SUBTITLE]: 'h3',
         [BlockType.PARAGRAPH]: 'p',
-        [BlockType.CODE]: 'pre',
+        [BlockType.CODE]: Code,
         [BlockType.HEADLINE]: 'h5',
       },
     }

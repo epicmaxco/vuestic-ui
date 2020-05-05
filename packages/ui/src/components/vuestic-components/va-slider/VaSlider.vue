@@ -879,7 +879,6 @@ export default {
     }
 
     &__track {
-      transition: width 0.3s ease-out, left 0.3s ease-out;
       height: 0.5rem;
       width: 100%;
     }

@@ -13,6 +13,7 @@ import Vertical from '../demo-components/slider/Vertical.vue'
 import Color from '../demo-components/slider/Color.vue'
 import MinMax from '../demo-components/slider/MinMax.vue'
 import Api from '../demo-components/slider/Api.vue'
+import Faq from '../demo-components/slider/Faq.vue'
 
 export default [
   {
@@ -202,15 +203,7 @@ export default [
     component: Api,
   },
   {
-    type: BlockType.SUBTITLE,
-    translationString: 'slider.faq.subtitle',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.faq.questions[0].question',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.faq.questions[0].answer',
+    type: BlockType.COMPONENT,
+    component: Faq,
   },
 ]
