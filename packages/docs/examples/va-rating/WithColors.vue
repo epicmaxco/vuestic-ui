@@ -1,11 +1,9 @@
 <template>
   <div>
-    <div class="rating-container">
-      <va-rating v-model="value" color="success" />
-      <va-rating v-model="value" color="info" />
-      <va-rating v-model="value" color="danger" />
-      <va-rating v-model="value" color="warning" />
-    </div>
+    <va-rating v-model="value" color="success" />
+    <va-rating v-model="value" color="info" />
+    <va-rating v-model="value" color="danger" />
+    <va-rating v-model="value" color="warning" />
   </div>
 </template>
 
