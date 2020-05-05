@@ -3,6 +3,10 @@
     v-if="block.type === BlockType.EXAMPLE"
     :value="block.component"
   />
+  <DocsCode
+    v-else-if="block.type === BlockType.CODE"
+    :code="block.code"
+  />
   <component v-else-if="block.type === BlockType.API" :is="block.component" />
   <component
     v-else-if="block.type === BlockType.SUBTITLE"
@@ -20,11 +24,12 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ApiDocsBlock, BlockType, TextBlock } from '../../types/configTypes'
 import DocsExample from '../DocsExample.vue'
+import DocsCode from '../DocsCode.vue'
 import { kebabCase } from 'lodash'
 
 @Component({
   components: {
-    DocsExample,
+    DocsExample, DocsCode,
   },
 })
 export default class DynamicTemplate extends Vue {

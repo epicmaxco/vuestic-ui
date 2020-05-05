@@ -19,8 +19,8 @@ const config: ApiDocsBlock[] = [
     translationString: 'form.basic.paragraph',
   },
   {
-    type: BlockType.EXAMPLE,
-    component: 'va-form/Basic',
+    type: BlockType.CODE,
+    code: '<va-form v-model="value" />',
   },
   {
     type: BlockType.SUBTITLE,
