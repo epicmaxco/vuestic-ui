@@ -22,6 +22,46 @@
         "resetValidation": "Reset validation for all validateable <!-- TODO Add link --> form-components.",
         "reset": "Reset values and validation state for all form-components"
       }
+    },
+    "VaModal": {
+      "props": {
+        "value": "The current visibility state of the modal",
+        "position": "!!! Not implemented yet !!!",
+        "title": "Text content to place in the title",
+        "message": "Content of modal body",
+        "size": "Set the size of the modal's width. 'small', 'medium' (default) or 'large'",
+        "ok-text": "Text string to place in the default footer `Ok` button",
+        "cancel-text": "Text string to place in the default footer `Cancel` button",
+        "hide-default-actions": "Use `hideDefaultActions: true` to hide Cancel and Ok buttons",
+        "fullscreen": "Add the `fullscreen` prop to cover the whole page",
+        "mobile-fullscreen": "Use `mobile-fullscreen: false` to disable fullscreen mode for mobile viewports",
+        "no-dismiss": "Disable both close on overlay click and close on `ESC`",
+        "no-outside-dismiss": "Disable close on overlay click",
+        "no-esc-dismiss": "Disable close on `ESC`",
+        "max-width": "Use `max-width` to change the maximum width of the modal.",
+        "max-height": "Use `max-height` to change the maximum height of the modal. If content is larger, scroll will appear",
+        "fixed-layout": "Use `fixed-layout: true` to scroll only content in modal. Title and actions will be fixed",
+        "without-transitions": "Use `withoutTransitions: true` to turn off the open and close animations on the modal",
+        "overlay": "Use `overlay: false` to hide the overlay",
+        "overlay-opacity": "Set the overlay's opacity",
+        "z-index": "Set the modal's `z-index`"
+      },
+      "events": {
+        "click-outside": "Emits when overlay is clicked",
+        "input": "Emits when modal's visibility should change",
+        "ok": "Emits when `Ok` button is clicked",
+        "cancel": "Emits when `Cancel` button is clicked"
+      },
+      "methods": {
+        "hide": "Hide modal. On stateless modal only emits `@input`",
+        "open": "Show modal. On stateless modal only emits `@input`",
+        "toggle": "Toggle a modal's visibility. On stateless modal only emits `@input`"
+      },
+      "slots": {
+        "default": "Content of modal body",
+        "header": "Modal header content",
+        "footer": "Modal footer content"
+      }
     }
   },
   "menu": {
@@ -159,6 +199,9 @@
     "nestedModals": {
       "subtitle": "Nested modals",
       "paragraph": "Modals can be nested: you can open one modal from another."
+    },
+    "api": {
+      "subtitle": "API"
     }
   }
 }

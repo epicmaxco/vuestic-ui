@@ -83,7 +83,7 @@
     </template>
 
     <template v-if="!isEmpty(apiTableData.methods)">
-      <h2>Slots</h2>
+      <h2>Methods</h2>
       <table class="ApiDocs__table">
         <thead>
         <tr>

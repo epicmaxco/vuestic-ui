@@ -1,4 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
+import VaModalApi from '../api/va-modal/VaModalApi.vue'
 
 const config: ApiDocsBlock[] = [
   {
@@ -168,6 +169,14 @@ const config: ApiDocsBlock[] = [
   {
     type: BlockType.EXAMPLE,
     component: 'va-modal/NestedModals',
+  },
+  {
+    type: BlockType.SUBTITLE,
+    translationString: 'modal.api.subtitle',
+  },
+  {
+    type: BlockType.API,
+    component: VaModalApi,
   },
 ]
 
