@@ -122,7 +122,7 @@ export default class Index extends Vue {
 @import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/icon-fonts.scss";
 @import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.scss";
 @import "vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
-@import 'vuestic-ui/src/components/vuestic-sass/grid/_grid-spacing.scss';
+@import 'vuestic-ui/src/components/vuestic-sass/grid/_grid-global-styles.scss';
 
 * {
   font-family: Source Sans Pro, sans-serif;
