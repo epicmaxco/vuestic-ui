@@ -1,5 +1,5 @@
 <template>
-  <div v-html="text" />
+  <div class="markdown" v-html="text" />
 </template>
 
 <script lang="ts">
@@ -24,3 +24,19 @@ export default class MarkdownView extends Vue {
   }
 }
 </script>
+<style scoped>
+.markdown {
+  display: inline-block;
+}
+
+.markdown >>> code {
+  font-size: 87.5%;
+  color: #e83e8c;
+  word-wrap: break-word;
+  white-space: nowrap;
+}
+
+.markdown >>> strong {
+  font-weight: bold;
+}
+</style>
