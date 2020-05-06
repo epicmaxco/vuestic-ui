@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 200px;">
     <va-slider v-model="value" vertical/>
   </div>
 </template>
