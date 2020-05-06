@@ -20,5 +20,40 @@
         "reset": "Reset values and validation state for all form-components"
       }
     }
+  },
+  "menu": {
+    "auth": "Autenticación",
+    "buttons": "Botones",
+    "charts": "Gráficos",
+    "collapse": "Colapso",
+    "colorPickers": "Selector de color",
+    "dashboard": "Dashboard",
+    "formElements": "Elementos de un Formulario",
+    "forms": "Formularios",
+    "mediumEditor": "Medium Editor",
+    "grid": "Grid",
+    "icons": "Iconos",
+    "cards": "Cards",
+    "login": "Iniciar sesión",
+    "maps": "Mapas",
+    "modals": "Modals",
+    "notifications": "Notificaciones",
+    "progressBars": "Barras de Progreso",
+    "signUp": "Registrar",
+    "statistics": "Estadisticas",
+    "lists": "Listas",
+    "tables": "Tablas",
+    "markupTables": "Tablas de Marcado",
+    "dataTables": "Tablas de Datos",
+    "typography": "Tipografía",
+    "uiElements": "Elementos UI",
+    "colors": "Colores",
+    "chat": "Chat"
+  },
+  "language": {
+    "brazilian_portuguese": "Português",
+    "english": "English",
+    "spanish": "Spanish",
+    "simplified_chinese": "Versión abreviada"
   }
 }

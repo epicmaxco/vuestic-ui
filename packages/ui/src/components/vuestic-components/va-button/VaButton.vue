@@ -54,7 +54,8 @@
   </component>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-nocheck
 import VaIcon from '../va-icon/VaIcon'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import {

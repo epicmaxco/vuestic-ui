@@ -1,10 +1,10 @@
 <template>
-  <MdView :value="text"/>
+  <MdView :value="text" />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import MdView from '../utilities/MarkdownView/MarkdownView.vue'
+import MdView from '../utilities/markdown-view/MarkdownView.vue'
 
 @Component({
   components: { MdView },

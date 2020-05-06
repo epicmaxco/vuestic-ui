@@ -2,12 +2,12 @@
   font-family: 'zocial';
   font-style: normal;
   font-weight: normal;
-  src: url('./../components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.eot');
+  src: url('/src/components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.eot');
   src:
-    url('./../components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.eot?#iefix') format('eot'),
-    url('./../components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.woff') format('woff'),
-    url('./../components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.ttf') format('truetype'),
-    url('./../components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.svg#zocialregular') format('svg');
+    url('/src/components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.eot?#iefix') format('eot'),
+    url('/src/components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.woff') format('woff'),
+    url('/src/components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.ttf') format('truetype'),
+    url('/src/components/vuestic-sass/icons/icon-fonts/zocial/zocial-regular-webfont.svg#zocialregular') format('svg');
 }
 
 [class*="zocial-"]::before {

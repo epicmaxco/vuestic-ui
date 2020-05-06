@@ -50,7 +50,7 @@ export default {
   render (createElement) {
     const childNodeFilter = ({ tag } = null) => tag ? tag.match(/VaBreadcrumbsItem$/) : false
 
-    const childNodes = this.$slots.default.filter(childNodeFilter) || []
+    const childNodes = this.$slots.default?.filter(childNodeFilter) || []
 
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index) => index === childNodesLength - 1

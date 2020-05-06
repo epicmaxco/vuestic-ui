@@ -2,12 +2,12 @@
   font-family: 'entypo';
   font-style: normal;
   font-weight: normal;
-  src: url('./../components/vuestic-sass/icons/icon-fonts/entypo/entypo.eot');
+  src: url('/src/components/vuestic-sass/icons/icon-fonts/entypo/entypo.eot');
   src:
-    url('./../components/vuestic-sass/icons/icon-fonts/entypo/entypo.eot?#iefix') format('eot'),
-    url('./../components/vuestic-sass/icons/icon-fonts/entypo/entypo.woff') format('woff'),
-    url('./../components/vuestic-sass/icons/icon-fonts/entypo/entypo.ttf') format('truetype'),
-    url('./../components/vuestic-sass/icons/icon-fonts/entypo/entypo.svg#entypo') format('svg');
+    url('/src/components/vuestic-sass/icons/icon-fonts/entypo/entypo.eot?#iefix') format('eot'),
+    url('/src/components/vuestic-sass/icons/icon-fonts/entypo/entypo.woff') format('woff'),
+    url('/src/components/vuestic-sass/icons/icon-fonts/entypo/entypo.ttf') format('truetype'),
+    url('/src/components/vuestic-sass/icons/icon-fonts/entypo/entypo.svg#entypo') format('svg');
 }
 
 [class*="entypo-"]::before {
