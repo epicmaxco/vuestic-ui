@@ -3,7 +3,7 @@
     <va-button @click="showModal = !showModal">
       Show modal (default)
     </va-button>
-    <va-modal v-model="showModal" :message="message" />
+    <va-modal v-model="showModal" :message="message" title="Overview" />
   </p>
 </template>
 <script>
