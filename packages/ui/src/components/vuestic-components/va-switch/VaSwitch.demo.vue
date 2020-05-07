@@ -134,6 +134,9 @@
         error-messages="Error message"
       />
     </VbCard>
+    <VbCard title="Stateless switch without v-model">
+      <va-switch />
+    </VbCard>
   </VbDemo>
 </template>
 

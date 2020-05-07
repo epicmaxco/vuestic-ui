@@ -1,5 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 import { testIsFormComponent } from './testIsFormComponent'
+import { testHasStatefulMixin } from './StatefullMixin/testHasStatefulMixin'
 
 export function testIsSelectableComponent (componentOptions) {
   const wrapper = shallowMount(componentOptions)
@@ -8,4 +9,5 @@ export function testIsSelectableComponent (componentOptions) {
     throw new Error('SelectableMixin is not added')
   }
   testIsFormComponent(componentOptions)
+  testHasStatefulMixin(componentOptions)
 }
