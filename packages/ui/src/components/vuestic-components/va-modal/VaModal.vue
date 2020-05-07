@@ -25,7 +25,7 @@
         <div
           class="va-modal__dialog"
           :class="computedClass"
-          :style="{ c_maxWidth, c_maxHeight }"
+          :style="{ maxWidth: c_maxWidth, maxHeight: c_maxHeight }"
           ref="modal"
         >
           <i
@@ -34,7 +34,7 @@
             class="ion ion-md-close va-modal__close"
           />
 
-          <div class="va-modal__inner" :style="{ c_maxHeight, c_maxWidth }">
+          <div class="va-modal__inner" :style="{ maxWidth: c_maxWidth, maxHeight: c_maxHeight }">
             <div
               v-if="c_title"
               class="mb-4 title"
