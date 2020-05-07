@@ -168,6 +168,10 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.spinners',
         },
         {
+          name: 'switch',
+          displayName: 'menu.switch',
+        },
+        {
           name: 'tabs',
           displayName: 'menu.tabs',
         },

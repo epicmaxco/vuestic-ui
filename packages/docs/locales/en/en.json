@@ -62,6 +62,7 @@
     "colors": "Colors",
     "spacing": "Spacing",
     "sliders": "Sliders",
+    "switch": "Switch",
     "popovers": "Popovers",
     "chat": "Chat"
   },
@@ -86,6 +87,32 @@
     "api": {
       "subtitle": "API",
       "paragraph": "Here are props that are used in va-rating component more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text"
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "question": "Frequently asked question one",
+          "answer": "Answer one and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
+        }
+      ]
+    }
+  },
+  "switch": {
+    "title": "Switch",
+    "paragraph": "Switching selector Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae ut quos explicabo cupiditate, consequuntur ratione sapiente quo animi, modi velit, enim eligendi aspernatur qui totam sunt architecto quaerat soluta doloremque inventore necessitatibus repellendus. Impedit alias doloribus, sapiente illum consequuntur accusamus labore dignissimos. Eveniet, animi! Inventore placeat ullam numquam quod a tempora soluta dicta saepe, cumque architecto ducimus laboriosam ipsam culpa labore",
+    "basic": {
+      "subtitle": "Basic element",
+      "paragraph": "This is basic switch component implementation"
+    },
+    "advanced": {
+      "subtitle": "Advanced Element",
+      "headline": "Color prop demo",
+      "paragraph": "Here you can see different colors of component depends on color prop and more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text"
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props that are used in va-switch component more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text"
     },
     "faq": {
       "subtitle": "FAQ",
