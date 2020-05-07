@@ -478,16 +478,16 @@ $elevation: 1050;
   &--fixed-layout {
     .va-modal__inner {
       overflow: hidden;
-      padding: 1.25rem 0 1.5rem 0;
+      padding: $modal-padding-top 0 $modal-padding-bottom;
 
       .va-modal__header,
       .va-modal__footer,
       .va-modal__title {
-        padding: 0 1.875rem 0 1.5rem;
+        padding: 0 $modal-padding-right 0 $modal-padding-left;
       }
 
       .va-modal__message {
-        padding: 0 1.875rem 0 1.5rem;
+        padding: 0 $modal-padding-right 0 $modal-padding-left;
         overflow: auto;
       }
     }
@@ -502,7 +502,7 @@ $elevation: 1050;
     display: flex;
     position: relative;
     flex-flow: column;
-    padding: 1.25rem 1.875rem 1.5rem 1.5rem;
+    padding: $modal-padding-top $modal-padding-right $modal-padding-bottom $modal-padding-left;
     max-height: calc(100vh - 2rem);
     max-width: map_get($grid-breakpoints, md);
     margin: auto;
