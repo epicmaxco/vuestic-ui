@@ -28,16 +28,17 @@
           :style="{ maxWidth: c_maxWidth, maxHeight: c_maxHeight }"
           ref="modal"
         >
-          <i
+          <va-icon
             v-if="c_fullscreen"
             @click="cancel"
-            class="ion ion-md-close va-modal__close"
+            name="close"
+            class="va-modal__close"
           />
 
           <div class="va-modal__inner" :style="{ maxWidth: c_maxWidth, maxHeight: c_maxHeight }">
             <div
               v-if="c_title"
-              class="mb-4 title"
+              class="va-modal__title"
               :style="{ color: this.$themes.primary }"
             >
               {{ c_title }}
@@ -45,15 +46,15 @@
             <div v-if="hasHeaderSlot" class="va-modal__header">
               <slot name="header" />
             </div>
-            <div v-if="c_message" class="mb-4 va-modal__message">
+            <div v-if="c_message" class="va-modal__message">
               {{ c_message }}
             </div>
-            <div v-if="hasContentSlot" class="mb-4 va-modal__message">
+            <div v-if="hasContentSlot" class="va-modal__message">
               <slot />
             </div>
             <div
               v-if="(c_cancelText || c_okText) && !c_hideDefaultActions"
-              class="va-modal__footer mb-3"
+              class="va-modal__footer"
             >
               <va-button v-if="c_cancelText" color="gray" flat @click="cancel">
                 {{ c_cancelText }}
@@ -76,6 +77,7 @@
 import { noop } from 'lodash'
 import { Component, Watch, Mixins } from 'vue-property-decorator'
 import VaButton from '../va-button'
+import VaIcon from '../va-icon'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import ClickOutsideMixin, {
@@ -175,7 +177,7 @@ const ContextableMixin = makeContextablePropsMixin(props)
 
 @Component({
   name: 'VaModal',
-  components: { VaButton },
+  components: { VaButton, VaIcon },
 })
 export default class VaModal extends Mixins(
   StatefulMixin,
@@ -318,6 +320,15 @@ export default class VaModal extends Mixins(
 $elevation: 1050;
 
 .va-modal {
+  &__title {
+    margin-bottom: 1.5rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
   &__container {
     position: fixed;
     top: 0;
@@ -473,15 +484,20 @@ $elevation: 1050;
       padding: 1.25rem 0 1.5rem 0;
 
       .va-modal__header,
-      .va-modal__footer {
+      .va-modal__footer,
+      .va-modal__title {
         padding: 0 1.875rem 0 1.5rem;
       }
 
       .va-modal__message {
-        overflow: auto;
         padding: 0 1.875rem 0 1.5rem;
+        overflow: auto;
       }
     }
+  }
+
+  &__message {
+    margin-bottom: 1.5rem;
   }
 
   &__inner {
@@ -510,11 +526,11 @@ $elevation: 1050;
   }
 
   &__footer {
+    margin-top: auto;
+    min-height: fit-content;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: auto;
-    min-height: fit-content;
 
     &:last-of-type {
       margin-bottom: 0 !important;
