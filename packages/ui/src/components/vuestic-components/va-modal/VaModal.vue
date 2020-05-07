@@ -322,11 +322,8 @@ $elevation: 1050;
 .va-modal {
   &__title {
     margin-bottom: 1.5rem;
-    font-size: 0.625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: bold;
-    text-transform: uppercase;
+
+    @include va-title();
   }
 
   &__container {
