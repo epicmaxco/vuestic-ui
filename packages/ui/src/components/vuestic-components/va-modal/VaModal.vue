@@ -520,7 +520,8 @@ $elevation: 1050;
     top: 1rem;
     right: 1rem;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
+    font-style: normal !important;
     color: $brand-secondary;
     z-index: 1;
   }
