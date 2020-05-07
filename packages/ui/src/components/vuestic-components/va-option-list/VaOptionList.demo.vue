@@ -377,7 +377,6 @@ export default {
       },
       baseSwitchData: {
         options: ['test switch', 'test switch 1', 'test switch 2'],
-        // bug when selected is true
         selected: undefined,
         selectedDisabled: undefined,
         selectedWithVModel: undefined,

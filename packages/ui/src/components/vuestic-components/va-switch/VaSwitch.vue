@@ -112,7 +112,7 @@ export default {
     },
     computedTrackClass () {
       return {
-        'va-switch__track--error': this.computedError && this.isTrue,
+        'va-switch__track--error': this.computedError,
       }
     },
     computedLabelClass () {
@@ -224,7 +224,7 @@ export default {
     transition: background-color 0.2s ease;
 
     &--error {
-      background: $theme-red !important;
+      border: 2px solid $theme-red;
     }
   }
 
