@@ -148,6 +148,10 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.notifications',
         },
         {
+          name: 'pagination',
+          displayName: 'menu.pagination',
+        },
+        {
           name: 'popovers',
           displayName: 'menu.popovers',
         },

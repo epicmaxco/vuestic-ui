@@ -2,10 +2,13 @@
   "api": {
     "all": {
       "events": {
-        "validation": "Trigger internal validation."
+        "validation": "Trigger internal validation.",
+        "input": "Emits component value"
       },
       "props": {
-        "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
+        "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
+        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will yeild into `'<number>px'`) or string value (currently `rem` and `px` sizes are supported)",
+        "disabled": "Applies corporate *disabled* style and removes all user interaction effects"
       }
     },
     "VaForm": {
@@ -103,7 +106,6 @@
         "half-icon": "The icon displayed when icon is half-filled (requires **`halves`**)",
         "empty-icon": "The icon displayed when icon is empty (requires **`halves`**)",
         "readonly": "Disables all user interaction effects (pointer, hover)",
-        "disabled": "Applies corporate *disabled* style and removes all user interaction effects",
         "numbers": "When true numbers from 1 to `max` are rendered instead of icons",
         "halves": "Allow to select half of the item",
         "max": "The amount of items to display",
@@ -112,9 +114,25 @@
         "texts": "The array of captions to be used with each value. The array length should be equal to **`max`** prop",
         "text-color": "Color of text captions",
         "unselected-color": "Specifies the color of unselected items (by default **`color`** prop is used)"
-      },
-      "events": {
-        "input": "Emits rating number when its value changes"
+      }
+    },
+    "VaPagination": {
+      "props": {
+        "value": "Current page (or item if `total` is isued) value",
+        "visible-pages": "The amount of displayed pages. (When set to 0 all pages are displayed)",
+        "pages": "The amount of pages",
+        "boundary-links": "Show controls to move to first and last page",
+        "boundary-numbers": "Always show first and last page (will replace `boundary-links` if both used)",
+        "direction-links": "Show buttons to move forward and backward",
+        "input": "Use HTML Input instead of buttons to control `va-pagination` state",
+        "hide-on-single-page": "Component won't be displayed if only 1 page is available",
+        "flat": "Applies `flat` style",
+        "total": "Set the amount of data pagination should iterate through. This prop should not be used with `pages` prop. Please, use either of them.",
+        "page-size": "Set the amount of data to be displayed at 1 page. Used to calculate the length of pagination. This prop should not be used with `pages` prop. Please, use either of them.",
+        "boundary-icon-left": "Set the icon name for left boundary icon",
+        "boundary-icon-right": "Set the icon name for right boundary icon",
+        "direction-icon-left": "Set the icon name for left direction icon",
+        "direction-icon-right": "Set the icon name for right direction icon"
       }
     }
   },
@@ -157,7 +175,8 @@
     "spacing": "Spacing",
     "sliders": "Sliders",
     "popovers": "Popovers",
-    "chat": "Chat"
+    "chat": "Chat",
+    "pagination": "Pagination"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -334,6 +353,47 @@
     },
     "api": {
       "subtitle": "API"
+    }
+  },
+  "pagination": {
+    "title": "Pagination",
+    "paragraph": "The pagination component is used to split big data sets into chunks so that it's simpler for users to use provided information.",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "By default the component is displayed as a list of pages with length equal to `pages` prop value."
+    },
+    "examples": {
+      "subtitle": "Examples",
+      "paragraph": "Here you can find some examples with simple or complex API usage",
+      "limitVisible": {
+        "headline": "Limitting the length",
+        "paragraph": "By using `visible-pages` prop you can set the amount of pages visible on screen"
+      },
+      "withInput": {
+        "headline": "Using HTML input instead of pages",
+        "paragraph": "With `input` prop you can have input with arrow buttons instead of default pagination"
+      },
+      "totalAndPageSize": {
+        "headline": "Using `total` and `page-size`",
+        "paragraph": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination istelf. The value of the component in this case would be equal to the number of the first item at the selected page."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in va-pagination component."
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "question": "What will happen if both `pages` and `total` props are set?",
+          "answer": "The error will be thrown into the console. Such interface isn't and won't be supported as it makes no sense."
+        },
+        {
+          "question": "Can I use `total` and `input` props together?",
+          "answer": "Yes, in this case value will be the number of item not the page."
+        }
+      ]
     }
   }
 }
