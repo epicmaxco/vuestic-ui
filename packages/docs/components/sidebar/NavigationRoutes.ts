@@ -90,6 +90,10 @@ export const navigationRoutes: NavigationScheme = {
       disabled: true,
       children: [
         {
+          name: 'affix',
+          displayName: 'menu.affix',
+        },
+        {
           name: 'buttons',
           displayName: 'menu.buttons',
         },

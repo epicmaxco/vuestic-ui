@@ -56,9 +56,20 @@
         "prepend": "Slot for input before slider.",
         "label": "Replaces the default label."
       }
+    },
+    "VaAffix": {
+      "props": {
+        "offsetTop": "Distance from the top of target element to the top of affixed element.",
+        "offsetBottom": "Distance from the bottom of target element to the bottom of affixed element.",
+        "target": "The element relative to which the component is fixed."
+      },
+      "events": {
+        "change": "Emits affixed state on its' change."
+      }
     }
   },
   "menu": {
+    "affix": "Affix",
     "auth": "Auth",
     "rating": "Rating",
     "buttons": "Buttons",
@@ -104,6 +115,47 @@
     "english": "English",
     "spanish": "Spanish",
     "simplified_chinese": "Simplified Chinese"
+  },
+  "affix": {
+    "title": "Affix",
+    "paragraph": "Affix component is created to fix any content in proper position relative to container.",
+    "demo": {
+      "subtitle": "Demo",
+      "top": {
+        "headline": "Fixed at the top."
+      },
+      "bottom": {
+        "headline": "Fixed at them bottom."
+      },
+      "target": {
+        "headline": "Fixes element relative to custom container."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props and events that are used in va-affix component."
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "headline": "Frequently asked question one",
+          "paragraph": "Answer one and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
+        },
+        {
+          "headline": "Frequently asked question two",
+          "paragraph": "Answer two and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
+        },
+        {
+          "headline": "Frequently asked question three",
+          "paragraph": "Answer three and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
+        },
+        {
+          "headline": "Frequently asked question four",
+          "paragraph": "Answer four and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
+        }
+      ]
+    }
   },
   "slider": {
     "title": "Slider",

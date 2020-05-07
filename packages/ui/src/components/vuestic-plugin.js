@@ -1,4 +1,5 @@
 import VaAccordion from './vuestic-components/va-collapse/VaAccordion'
+import VaAffix from './vuestic-components/va-affix/VaAffix'
 import VaAvatar from './vuestic-components/va-avatar/VaAvatar'
 import VaBadge from './vuestic-components/va-badge/VaBadge.vue'
 import VaButton from './vuestic-components/va-button/VaButton.vue'
@@ -87,6 +88,7 @@ const VuesticPlugin = {
   install (Vue) {
     [
       VaAccordion,
+      VaAffix,
       VaAvatar,
       VaBadge,
       VaButton,
