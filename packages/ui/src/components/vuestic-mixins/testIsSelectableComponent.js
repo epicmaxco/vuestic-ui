@@ -7,5 +7,5 @@ export function testIsSelectableComponent (componentOptions) {
   if (!wrapper.vm.isSelectableComponent) {
     throw new Error('SelectableMixin is not added')
   }
-  expect(() => testIsFormComponent(wrapper)).not.toThrow()
+  testIsFormComponent(componentOptions)
 }

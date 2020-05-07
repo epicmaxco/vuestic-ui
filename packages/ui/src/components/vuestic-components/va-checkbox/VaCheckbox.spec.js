@@ -23,6 +23,6 @@ describe('VaCheckbox', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
   it('is Selectable Component', () => {
-    expect(() => testIsSelectableComponent(VaCheckbox)).toThrow()
+    expect(() => testIsSelectableComponent(VaCheckbox)).not.toThrow()
   })
 })
