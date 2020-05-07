@@ -86,89 +86,89 @@ import ClickOutsideMixin, {
 
 const props = {
   value: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: false,
   },
   position: {
-    type: String as () => string,
+    type: String,
     validator: (position: string) => {
       return ['center', 'top', 'right', 'bottom', 'left'].includes(position)
     },
     default: 'center',
   },
   title: {
-    type: String as () => string,
+    type: String,
     default: '',
   },
   message: {
-    type: String as () => string,
+    type: String,
     default: '',
   },
   okText: {
-    type: String as () => string,
+    type: String,
     default: 'OK',
   },
   cancelText: {
-    type: String as () => string,
+    type: String,
     default: 'Cancel',
   },
   hideDefaultActions: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: false,
   },
   fullscreen: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: false,
   },
   mobileFullscreen: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: true,
   },
   noDismiss: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: false,
   },
   noOutsideDismiss: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: false,
   },
   noEscDismiss: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: false,
   },
   maxWidth: {
-    type: String as () => string,
+    type: String,
     default: '',
   },
   maxHeight: {
-    type: String as () => string,
+    type: String,
     default: '',
   },
   size: {
-    type: String as () => 'medium' | 'small' | 'large',
+    type: String,
     default: 'medium',
     validator: (size: string) => {
       return ['medium', 'small', 'large'].includes(size)
     },
   },
   fixedLayout: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: false,
   },
   withoutTransitions: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: false,
   },
   overlay: {
-    type: Boolean as () => boolean,
+    type: Boolean,
     default: true,
   },
   overlayOpacity: {
-    type: ([Number, String] as unknown) as () => number | string,
+    type: [Number, String],
     default: undefined,
   },
   zIndex: {
-    type: ([Number, String] as unknown) as () => number | string,
+    type: [Number, String],
     default: undefined,
   },
 }
