@@ -110,19 +110,19 @@ export default class VaRating extends mixins(
   SizeMixin,
   StatefulMixin,
 ) {
-  private isHovered = false
-  private forceEmit = false
-  private hoveredValue = RatingValue.EMPTY
+  isHovered = false
+  forceEmit = false
+  hoveredValue = RatingValue.EMPTY
 
-  private mounted () {
+  mounted () {
     this.hoveredValue = this.valueComputed
   }
 
-  private get valueProxy (): number {
+  get valueProxy (): number {
     return this.isHovered ? this.hoveredValue : this.valueComputed
   }
 
-  private set valueProxy (value: number) {
+  set valueProxy (value: number) {
     this.hoveredValue = value
     if (this.forceEmit) {
       this.valueComputed = value
@@ -130,32 +130,32 @@ export default class VaRating extends mixins(
     }
   }
 
-  private get focusColor () {
+  get focusColor () {
     return this.c_unselectedColor
       ? this.computeColor(this.c_unselectedColor)
       : getFocusColor(this.colorComputed as ColorInput)
   }
 
-  private get classList () {
+  get classList () {
     return {
       'va-rating--disabled': this.c_disabled,
       'va-rating--readonly': this.c_readonly,
     }
   }
 
-  private get interactionsEnabled () {
+  get interactionsEnabled () {
     return !(this.c_disabled || this.c_readonly)
   }
 
-  private get hoverEnabled () {
+  get hoverEnabled () {
     return this.c_hover && this.interactionsEnabled
   }
 
-  private get tabIndex () {
+  get tabIndex () {
     return this.interactionsEnabled ? 0 : undefined
   }
 
-  private getItemValue (itemNumber: number): RatingValue {
+  getItemValue (itemNumber: number): RatingValue {
     const diff = itemNumber - this.valueProxy
     switch (true) {
       case diff <= 0: return RatingValue.FULL
@@ -164,21 +164,21 @@ export default class VaRating extends mixins(
     }
   }
 
-  private onHover (itemNumber: number, value: RatingValue): void {
+  onHover (itemNumber: number, value: RatingValue): void {
     this.valueProxy = value === RatingValue.FULL
       ? itemNumber
       : itemNumber - RatingValue.HALF
   }
 
-  private onMouseEnter () {
+  onMouseEnter () {
     this.isHovered = this.hoverEnabled && true
   }
 
-  private onMouseLeave () {
+  onMouseLeave () {
     this.isHovered = false
   }
 
-  private onArrow (event: KeyboardEvent, directon: 1 | -1) {
+  onArrow (event: KeyboardEvent, directon: 1 | -1) {
     const currentValue = this.valueProxy || RatingValue.EMPTY
     const step = this.c_halves ? RatingValue.HALF : RatingValue.FULL
     const nextValue = currentValue + (step * directon)
@@ -188,7 +188,7 @@ export default class VaRating extends mixins(
     this.valueProxy = nextValue
   }
 
-  private onItemSelected (itemNumber: number, value: RatingValue) {
+  onItemSelected (itemNumber: number, value: RatingValue) {
     if (!this.interactionsEnabled) return
     const currentClickedValue = this.c_halves
       ? value === RatingValue.HALF ? itemNumber - RatingValue.HALF : itemNumber

@@ -45,7 +45,7 @@ export const getApiTableProp = (
     version: manualPropOptions.version || '',
     required: componentOptions.required,
     types: componentOptions.types.map(type => `\`${type}\``).join(' | '),
-    default: (componentOptions.default && componentOptions.default !== 'undefined') || manualPropOptions.default,
+    default: componentOptions.default,
     description: `api.${manualPropOptions.local ? componentName : 'all'}.props.${propName}`,
   }
 }
