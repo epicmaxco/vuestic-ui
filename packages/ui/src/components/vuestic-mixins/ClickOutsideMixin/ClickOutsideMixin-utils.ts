@@ -1,37 +1,14 @@
-export const clickedRootScrollbar = (event: MouseEvent) => {
-  return (
-    document.documentElement.clientWidth < event.clientX ||
-    document.documentElement.clientHeight < event.clientY
-  )
-}
+// Most of the mixin's code was taken from:
+// 1/ https://github.com/react-bootstrap/react-overlays/blob/master/src/useRootClose.ts
+// 2/ https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/ClickAwayListener/ClickAwayListener.js
 
-export const ownerDocument = (node?: Element) => {
-  return (node && node.ownerDocument) || document
-}
-
-export const isLeftClickEvent = (event: MouseEvent) => {
-  return event.button === 0
-}
-
-export const isModifiedEvent = (event: MouseEvent) => {
-  return event.metaKey || event.altKey || event.ctrlKey || event.shiftKey
-}
-
-// HTML DOM and SVG DOM may have different support levels,
-// so we need to check on context instead of a document root element.
-export const contains = (context: Element, node: Element) => {
-  if (context.contains) {
-    return context.contains(node)
-  }
-
-  if (context.compareDocumentPosition) {
-    return context === node || !!(context.compareDocumentPosition(node) & 16)
-  }
-
-  return false
-}
-
-const __DEV__ = process.env.NODE_ENV !== 'production'
+import {
+  ownerDocument,
+  contains,
+  isLeftClickEvent,
+  isModifiedEvent,
+} from '../../../utils/dom-utils'
+import { __DEV__ } from '../../../utils/global-utils'
 
 export const handleMouseCapture = (e: MouseEvent, target: Element): boolean => {
   if (__DEV__) {
@@ -62,14 +39,3 @@ export const handleMouseCapture = (e: MouseEvent, target: Element): boolean => {
   return !!(!target || isModifiedEvent(e) || !isLeftClickEvent(e) || insideDom)
 }
 
-export const listen = <K extends keyof HTMLElementEventMap>(
-  node: HTMLElement | Document | Window,
-  eventName: K,
-  handler: EventListenerOrEventListenerObject,
-  options?: boolean | AddEventListenerOptions,
-) => {
-  node.addEventListener(eventName, handler, options)
-  return () => {
-    node.removeEventListener(eventName, handler, options)
-  }
-}

@@ -4,12 +4,13 @@
 
 import noop from 'lodash/noop'
 import { Component, Vue } from 'vue-property-decorator'
+
 import {
   ownerDocument,
   listen,
-  handleMouseCapture,
   clickedRootScrollbar,
-} from './ClickOutsideMixin-utils'
+} from '../../../utils/dom-utils'
+import { handleMouseCapture } from './ClickOutsideMixin-utils'
 
 export type ClickOutsideOptions = {
   disabled: boolean;
@@ -54,16 +55,18 @@ class ClickOutsideMixin extends Vue {
     // Use capture for this listener so it fires before Vue's listener, to
     // avoid false positives in the contains() check below if the target DOM
     // element is removed in the Vue mouse callback.
-    const removeMouseCaptureListener = listen(
-      document,
-      trigger,
-      e => this.handleMouseCapture(e as MouseEvent, target),
-      true,
-    )
+    const removeMouseCaptureListener = listen({
+      node: document,
+      eventName: trigger,
+      handler: (e) => this.handleMouseCapture(e as MouseEvent, target),
+      options: true,
+    })
 
-    const removeMouseListener = listen(document, trigger, e =>
-      this.handleMouse(e as MouseEvent, options),
-    )
+    const removeMouseListener = listen({
+      node: document,
+      eventName: trigger,
+      handler: (e) => this.handleMouse(e as MouseEvent, options),
+    })
 
     // Not sure if this is needed
     // Should make clickable all the elements on body
@@ -72,13 +75,15 @@ class ClickOutsideMixin extends Vue {
     if ('ontouchstart' in document.documentElement) {
       mobileSafariHackListeners = [].slice
         .call(document.body.children)
-        .map(el => listen(el, 'mousemove', noop))
+        .map((el) =>
+          listen({ node: el, eventName: 'mousemove', handler: noop }),
+        )
     }
 
     return () => {
       removeMouseCaptureListener()
       removeMouseListener()
-      mobileSafariHackListeners.forEach(remove => remove())
+      mobileSafariHackListeners.forEach((remove) => remove())
       this.preventMouseRootTrigger = true
     }
   }
