@@ -16,9 +16,15 @@ export default {
   },
   star: {
     code: 'star',
+    font: 'fas',
   },
   star_half: {
-    code: 'star_half',
+    code: 'star-half-alt',
+    font: 'fas',
+  },
+  star_empty: {
+    code: 'star',
+    font: 'far',
   },
   star_border: {
     code: 'star_border',
@@ -87,6 +93,10 @@ export default {
     code: 'home',
     font: 'ion',
   },
+  'ion-home_empty': {
+    code: 'home',
+    font: 'ion-outline',
+  },
   'entypo-home': {
     code: 'home',
     font: 'entypo',
@@ -105,5 +115,34 @@ export default {
   },
   remove: {
     code: 'remove',
+  },
+  // VaRatingItem.vue
+  heart: {
+    code: 'heart',
+    font: 'fas',
+  },
+  heart_empty: {
+    code: 'heart',
+    font: 'far',
+  },
+  // VaRating.vue
+  battery: {
+    code: 'battery-full',
+    font: 'fa4',
+  },
+  battery_half: {
+    code: 'battery-half',
+    font: 'fa4',
+  },
+  battery_empty: {
+    code: 'battery-empty',
+    font: 'fa4',
+  },
+  thumb_up: {
+    code: 'thumb_up',
+  },
+  thumb_up_empty: {
+    code: 'thumb_up',
+    font: 'md-outlined',
   },
 }

@@ -7,8 +7,6 @@ import noop from 'lodash/noop'
 import {
   ManualApiOptions,
   ManualPropApiOptions,
-  VersionString,
-  TranslationString,
   ManualEventApiOptions,
   ManualSlotApiOptions,
   ManualMethodApiOptions,

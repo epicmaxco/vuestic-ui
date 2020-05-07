@@ -17,7 +17,6 @@ export type ManualPropApiOptions = ManualApiOptionsItem & {
 
 export type ManualMethodApiOptions = ManualApiOptionsItem & {
   types: string;
-  // add more here
 }
 
 export type ManualEventApiOptions = ManualApiOptionsItem & {

@@ -22,6 +22,27 @@
         "resetValidation": "Reset validation for all validateable <!-- TODO Add link --> form-components.",
         "reset": "Reset values and validation state for all form-components"
       }
+    },
+    "VaRating": {
+      "props": {
+        "value": "The rating value",
+        "icon": "The icon displayed when icon is filled",
+        "half-icon": "The icon displayed when icon is half-filled (requires **`halves`**)",
+        "empty-icon": "The icon displayed when icon is empty (requires **`halves`**)",
+        "readonly": "Disables all user interaction effects (pointer, hover)",
+        "disabled": "Applies corporate *disabled* style and removes all user interaction effects",
+        "numbers": "When true numbers from 1 to `max` are rendered instead of icons",
+        "halves": "Allow to select half of the item",
+        "max": "The amount of items to display",
+        "clearable": "Allows the components value to be set to 0. Triggered by clicking on currently selected icon",
+        "hover": "Adds visual feedback when hovering on items",
+        "texts": "The array of captions to be used with each value. The array length should be equal to **`max`** prop",
+        "text-color": "Color of text captions",
+        "unselected-color": "Specifies the color of unselected items (by default **`color`** prop is used)"
+      },
+      "events": {
+        "input": "Emits rating number when its value changes"
+      }
     }
   },
   "menu": {
@@ -73,26 +94,41 @@
   },
   "rating": {
     "title": "Rating",
-    "paragraph": "Rating component can show rating bla bla bla bla lorem ipsum many text Rating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many text",
+    "paragraph": "The rating component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application",
     "basic": {
-      "subtitle": "Basic element",
-      "paragraph": "This is basic rating component implementation"
+      "subtitle": "Usage example",
+      "paragraph": "The rating component has a simple interface to collect user feedback."
     },
-    "advanced": {
-      "subtitle": "Advanced Element",
-      "headline": "Color prop demo",
-      "paragraph": "Here you can see different colors of component depends on color prop and more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text"
+    "examples": {
+      "subtitle": "Examples",
+      "paragraph": "Here you can find some examples with simple or complex API usage",
+      "colorsAndSizes": {
+        "headline": "Different sizes and colors",
+        "paragraph": "Use predefined sizes and colors, or use your own with help of *size* and *color* props."
+      },
+      "hoverAndHalves": {
+        "headline": "Add some visual interaction",
+        "paragraph": "Add hover and enable halves for more preciese feedback gathering."
+      },
+      "numbers": {
+        "headline": "Numbers instead of icons",
+        "paragraph": "Want to see numbers instead of icons? We got you covered."
+      }
     },
     "api": {
       "subtitle": "API",
-      "paragraph": "Here are props that are used in va-rating component more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text"
+      "paragraph": "Here are props, events and slots that are used in va-rating component."
     },
     "faq": {
       "subtitle": "FAQ",
       "questions": [
         {
-          "question": "Frequently asked question one",
-          "answer": "Answer one and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
+          "question": "Is rating component keyboard accessible?",
+          "answer": "Yes, you can use Tab(Shift+Tab) to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
+        },
+        {
+          "question": "Can I use every other prop in combination with `**numbers**` prop?",
+          "answer": "Yes, all props are compatible between each other."
         }
       ]
     }

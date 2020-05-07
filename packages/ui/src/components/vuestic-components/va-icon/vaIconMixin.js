@@ -4,6 +4,10 @@ const isMaterialFont = font => {
   return font === 'md'
 }
 
+const isMaterialOutlinedFont = font => {
+  return font === 'md-outlined'
+}
+
 const isFontAwesome4Font = font => {
   return font === 'fa4'
 }
@@ -16,6 +20,10 @@ const isIonicFont = font => {
   return font === 'ion'
 }
 
+const isIonicOutlineFont = (font) => {
+  return font === 'ion-outline'
+}
+
 // https://weloveiconfonts.com/
 const isWeLoveIconsFont = font => {
   return font.match(/brandico|entypo|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial/)
@@ -25,12 +33,16 @@ const getClass = (iconConfig, font) => {
   let iconClass = ''
   if (isMaterialFont(font)) {
     iconClass = 'material-icons'
+  } else if (isMaterialOutlinedFont(font)) {
+    iconClass = 'material-icons-outlined'
   } else if (isFontAwesome4Font(font)) {
     iconClass = `fa fa-${iconConfig.code}`
   } else if (isFontAwesome5Font(font)) {
-    iconClass = `${font} fa-${iconConfig.code}`
+    iconClass = `${font} fa-${iconConfig.code} fa-fw`
   } else if (isIonicFont(font)) {
     iconClass = `icon ion-md-${iconConfig.code}`
+  } else if (isIonicOutlineFont(font)) {
+    iconClass = `icon ion-ios-${iconConfig.code}-outline`
   } else if (isWeLoveIconsFont(font)) {
     iconClass = `${font}-${iconConfig.code}`
   }
@@ -39,7 +51,7 @@ const getClass = (iconConfig, font) => {
 }
 
 const getContent = (iconConfig, font) => {
-  if (isMaterialFont(font)) {
+  if (isMaterialFont(font) || isMaterialOutlinedFont(font)) {
     return iconConfig.code
   }
 
