@@ -130,3 +130,28 @@
     }
   }
 }
+
+@mixin va-modal-transition($is-overlay: false) {
+  $modal-transition: $modal-opacity-transition, $modal-transform-transition;
+
+  @if ($is-overlay) {
+    $modal-transition: $modal-overlay-opacity-transition;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+
+    @if ($is-overlay != true) {
+      transform: translateY(-30%);
+    }
+  }
+
+  &-enter-active {
+    transition: $modal-transition;
+  }
+
+  &-leave-active {
+    transition: $modal-transition;
+  }
+}

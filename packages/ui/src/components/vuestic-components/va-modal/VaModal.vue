@@ -1,26 +1,24 @@
 <template>
   <div class="va-modal">
-    <transition
-      name="va-modal__overlay--with-transition"
-      appear
-      :duration="c_withoutTransitions ? 0 : 200"
+    <ModalElement
+      name="va-modal__overlay--transition"
+      :is-transition="!c_withoutTransitions"
     >
       <div
-        v-if="overlayValue"
+        v-if="valueComputed && c_overlay"
         class="va-modal__overlay"
-        :class="computedOverlayClass"
         :style="computedOverlayStyles"
       />
-    </transition>
-    <transition
-      name="va-modal__container--with-transition"
-      appear
-      :duration="c_withoutTransitions ? 0 : 500"
+    </ModalElement>
+    <ModalElement
+      name="va-modal__container--transition"
+      :is-transition="!c_withoutTransitions"
     >
       <div
         v-if="valueComputed"
         class="va-modal__container"
         :style="computedModalContainerStyle"
+        :class="computedModalContainerClass"
       >
         <div
           class="va-modal__dialog"
@@ -35,7 +33,10 @@
             class="va-modal__close"
           />
 
-          <div class="va-modal__inner" :style="{ maxWidth: c_maxWidth, maxHeight: c_maxHeight }">
+          <div
+            class="va-modal__inner"
+            :style="{ maxWidth: c_maxWidth, maxHeight: c_maxHeight }"
+          >
             <div
               v-if="c_title"
               class="va-modal__title"
@@ -69,13 +70,14 @@
           </div>
         </div>
       </div>
-    </transition>
+    </ModalElement>
   </div>
 </template>
 
 <script lang="ts">
 import { noop } from 'lodash'
-import { Component, Watch, Mixins } from 'vue-property-decorator'
+import { CreateElement } from 'vue'
+import { Component, Watch, Mixins, Vue, Prop } from 'vue-property-decorator'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
@@ -175,17 +177,31 @@ const props = {
 
 const ContextableMixin = makeContextablePropsMixin(props)
 
+@Component
+class ModalElement extends Vue {
+  @Prop() readonly isTransition!: boolean
+  @Prop() readonly name!: string
+
+  render (createElement: CreateElement) {
+    return this.isTransition
+      ? createElement(
+        'transition',
+        { props: { name: this.name, appear: true } },
+        this.$slots.default,
+      )
+      : this.$slots.default
+  }
+}
+
 @Component({
   name: 'VaModal',
-  components: { VaButton, VaIcon },
+  components: { VaButton, VaIcon, ModalElement },
 })
 export default class VaModal extends Mixins(
   StatefulMixin,
   ContextableMixin,
   ClickOutsideMixin,
 ) {
-  // for leave animation
-  private overlayValue = false
   private clearClickOutsideEvents: () => void = noop
 
   get computedClass () {
@@ -194,14 +210,6 @@ export default class VaModal extends Mixins(
       'va-modal--mobile-fullscreen': this.c_mobileFullscreen,
       'va-modal--fixed-layout': this.c_fixedLayout,
       [`va-modal--size-${this.c_size}`]: this.c_size !== 'medium',
-      'transition-off': this.c_withoutTransitions,
-    }
-  }
-
-  get computedOverlayClass () {
-    return {
-      [`va-modal--position-${this.c_position}`]: this.c_position,
-      'transition-off': this.c_withoutTransitions,
     }
   }
 
@@ -229,6 +237,12 @@ export default class VaModal extends Mixins(
     }
   }
 
+  get computedModalContainerClass () {
+    return {
+      [`va-modal__container--position-${this.c_position}`]: this.c_position,
+    }
+  }
+
   get hasContentSlot () {
     return this.$slots.default
   }
@@ -244,7 +258,6 @@ export default class VaModal extends Mixins(
   @Watch('valueComputed')
   onValueComputedChanged (valueComputed: boolean) {
     if (valueComputed) {
-      this.overlayValue = this.c_overlay
       window.addEventListener('keyup', this.listenKeyUp)
 
       const options: ClickOutsideOptions = {
@@ -264,13 +277,6 @@ export default class VaModal extends Mixins(
         )
       })
     } else {
-      if (this.c_withoutTransitions) {
-        this.overlayValue = false
-      } else {
-        setTimeout(() => {
-          this.overlayValue = false
-        }, 300)
-      }
       this.clearClickOutsideEvents()
       window.removeEventListener('keyup', this.listenKeyUp)
     }
@@ -317,8 +323,6 @@ export default class VaModal extends Mixins(
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
 
-$elevation: 1050;
-
 .va-modal {
   &__title {
     margin-bottom: 1.5rem;
@@ -330,7 +334,7 @@ $elevation: 1050;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: $elevation;
+    z-index: $zindex-modal;
     display: flex;
     width: 100%;
     height: 100%;
@@ -339,32 +343,25 @@ $elevation: 1050;
     overflow: hidden;
     outline: 0;
 
-    &--with-transition {
-      &-enter,
-      &-leave-to {
-        opacity: 0;
-        transform: translateY(-30%);
+    &--transition {
+      @include va-modal-transition();
+    }
 
-        &.transition-off {
-          opacity: 1;
-          transform: none;
-        }
+    &--position {
+      &-top {
+        align-items: flex-start;
       }
 
-      &-enter-active {
-        transition: all 0.3s ease;
-
-        &.transition-off {
-          transition: none;
-        }
+      &-right {
+        justify-content: flex-end;
       }
 
-      &-leave-active {
-        transition: all 0.15s cubic-bezier(1, 0.5, 0.8, 1);
+      &-bottom {
+        align-items: flex-end;
+      }
 
-        &.transition-off {
-          transition: none;
-        }
+      &-left {
+        justify-content: flex-start;
       }
     }
   }
@@ -379,38 +376,18 @@ $elevation: 1050;
     max-width: map_get($grid-breakpoints, md);
     max-height: calc(100vh - 2rem);
     position: relative;
-    transition: all 0.5s ease-out;
   }
 
   &__overlay {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: $elevation - 10;
+    z-index: $zindex-modal - 10;
     width: 100vw;
     height: 100vh;
 
-    &.transition-off {
-      opacity: 1;
-    }
-
-    &--with-transition {
-      &-enter,
-      &-leave-to {
-        opacity: 0;
-
-        &:nth-of-type(n + 3) {
-          opacity: 1;
-        }
-      }
-
-      &-enter-active {
-        transition: all 0.2s ease;
-      }
-
-      &-leave-active {
-        transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
-      }
+    &--transition {
+      @include va-modal-transition(true);
     }
   }
 
@@ -428,24 +405,6 @@ $elevation: 1050;
       border-radius: 0;
       position: fixed;
       margin: 0 !important;
-    }
-  }
-
-  &--position {
-    &-top {
-      align-items: flex-start;
-    }
-
-    &-right {
-      justify-content: flex-end;
-    }
-
-    &-bottom {
-      align-items: flex-end;
-    }
-
-    &-left {
-      justify-content: flex-start;
     }
   }
 
