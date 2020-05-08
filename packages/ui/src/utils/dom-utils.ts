@@ -26,6 +26,8 @@ export const contains = (context: Element, node: Element) => {
   }
 
   if (context.compareDocumentPosition) {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
+    // 16 - node is contained by the context
     return context === node || !!(context.compareDocumentPosition(node) & 16)
   }
 

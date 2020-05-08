@@ -38,4 +38,3 @@ export const handleMouseCapture = (e: MouseEvent, target: Element): boolean => {
 
   return !!(!target || isModifiedEvent(e) || !isLeftClickEvent(e) || insideDom)
 }
-
