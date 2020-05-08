@@ -1,6 +1,7 @@
 import { BlockType } from '../../../types/configTypes'
 import Api from '../../../examples/va-affix/Api.vue'
-import Faq from '../../../examples/va-affix/Faq.vue'
+import DocsFaq from '../../DocsFaq.vue'
+import faqConfig from '../../../examples/va-slider/faqConfig'
 export default [
   {
     type: BlockType.TITLE,
@@ -56,6 +57,7 @@ export default [
   },
   {
     type: BlockType.FAQ,
-    component: Faq,
+    component: DocsFaq,
+    items: faqConfig,
   },
 ]
