@@ -1,62 +1,5 @@
 <template>
   <VbDemo>
-    <VbCard title="Position">
-      <p>
-        <button @click="showModalPositionCenter = !showModalPositionCenter">
-          show modal position center (default)
-        </button>
-        <va-modal
-          v-model="showModalPositionCenter"
-          :message="message"
-        />
-      </p>
-      <p>
-        <button @click="showModalPositionTop = !showModalPositionTop">
-          show modal position top
-        </button>
-        <va-modal
-          v-model="showModalPositionTop"
-          title="Simple Popup, Full Width"
-          :message="message"
-          position="top"
-        />
-      </p>
-      <p>
-        <button @click="showModalPositionRight = !showModalPositionRight">
-          show modal position right
-        </button>
-        <va-modal
-          v-model="showModalPositionRight"
-          title="Simple Popup, Full Width"
-          :message="message"
-          position="right"
-        />
-      </p>
-      <p>
-        <button @click="showModalPositionBottom = !showModalPositionBottom">
-          show modal position bottom
-        </button>
-        <va-modal
-          v-model="showModalPositionBottom"
-          title="Simple Popup, Full Width"
-          :message="message"
-          ok-text="Accept"
-          cancel-text="Decline"
-          position="bottom"
-        />
-      </p>
-      <p>
-        <button @click="showModalPositionLeft = !showModalPositionLeft">
-          show modal position left
-        </button>
-        <va-modal
-          v-model="showModalPositionLeft"
-          title="Simple Popup, Full Width"
-          :message="message"
-          position="left"
-        />
-      </p>
-    </VbCard>
     <VbCard title="modal size">
       <p>
         <button @click="showModalSizeSmall = !showModalSizeSmall">
@@ -317,11 +260,6 @@ export default {
   components: { VaModal },
   data () {
     return {
-      showModalPositionCenter: false,
-      showModalPositionTop: false,
-      showModalPositionRight: false,
-      showModalPositionBottom: false,
-      showModalPositionLeft: false,
       showModalSizeSmall: false,
       showModalSizeMedium: false,
       showModalSizeLarge: false,

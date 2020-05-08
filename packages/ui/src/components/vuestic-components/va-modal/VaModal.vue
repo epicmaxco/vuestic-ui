@@ -18,7 +18,6 @@
         v-if="valueComputed"
         class="va-modal__container"
         :style="computedModalContainerStyle"
-        :class="computedModalContainerClass"
       >
         <div
           class="va-modal__dialog"
@@ -90,13 +89,6 @@ const props = {
   value: {
     type: Boolean,
     default: false,
-  },
-  position: {
-    type: String,
-    validator: (position: string) => {
-      return ['center', 'top', 'right', 'bottom', 'left'].includes(position)
-    },
-    default: 'center',
   },
   title: {
     type: String,
@@ -237,12 +229,6 @@ export default class VaModal extends Mixins(
     }
   }
 
-  get computedModalContainerClass () {
-    return {
-      [`va-modal__container--position-${this.c_position}`]: this.c_position,
-    }
-  }
-
   get hasContentSlot () {
     return this.$slots.default
   }
@@ -345,24 +331,6 @@ export default class VaModal extends Mixins(
 
     &--transition {
       @include va-modal-transition();
-    }
-
-    &--position {
-      &-top {
-        align-items: flex-start;
-      }
-
-      &-right {
-        justify-content: flex-end;
-      }
-
-      &-bottom {
-        align-items: flex-end;
-      }
-
-      &-left {
-        justify-content: flex-start;
-      }
     }
   }
 

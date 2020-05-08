@@ -2,9 +2,6 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export const vaModalApiOptions: ManualApiOptions = {
   props: {
-    position: {
-      local: true,
-    },
     value: {
       local: true,
     },

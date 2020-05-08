@@ -60,7 +60,6 @@
     "VaModal": {
       "props": {
         "value": "The current visibility state of the modal",
-        "position": "!!! Not implemented yet !!!",
         "title": "Text content to place in the title",
         "message": "Content of modal body",
         "size": "Set the size of the modal's width. `small`, `medium` (default) or `large`",
