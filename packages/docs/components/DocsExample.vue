@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>
+    <p class="pa-3">
       <component :is="component" />
     </p>
     <va-content>

@@ -40,10 +40,11 @@ export default {
   plugins: [
     { mode: 'server', src: '~/plugins/jsdom.ts' },
     { src: '~/plugins/colorHelper.ts' },
-    { mode: 'client', src: '~/plugins/ui-plugin.ts' },
+    { mode: 'client', src: '~/plugins/client-services.ts' },
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },
     { src: '~/plugins/localeRoute.ts' },
+    { mode: 'client', src: '~/plugins/vuestic.ts' },
   ],
   build: {
     transpile: ['vue-instantsearch', 'instantsearch.js/es'],

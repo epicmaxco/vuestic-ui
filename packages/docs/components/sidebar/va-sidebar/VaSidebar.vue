@@ -8,7 +8,6 @@
 
 <script lang="ts">
 import { Component, Vue, Inject, Prop } from 'vue-property-decorator'
-
 @Component({
   name: 'VaSidebar',
 })

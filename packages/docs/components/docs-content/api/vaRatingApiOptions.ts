@@ -8,10 +8,10 @@ export const vaRatingApiOptions: ManualApiOptions = {
     icon: {
       local: true,
     },
-    'half-icon': {
+    halfIcon: {
       local: true,
     },
-    'empty-icon': {
+    emptyIcon: {
       local: true,
     },
     readonly: {
@@ -38,10 +38,10 @@ export const vaRatingApiOptions: ManualApiOptions = {
     texts: {
       local: true,
     },
-    'text-color': {
+    textColor: {
       local: true,
     },
-    'unselected-color': {
+    unselectedColor: {
       local: true,
     },
   },

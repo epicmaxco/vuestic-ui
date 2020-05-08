@@ -112,7 +112,7 @@ export default {
       },
       set (page) {
         if (this.apiMode) {
-          this.$emit('page-selected', page)
+          this.$emit('pageSelected', page)
           return
         }
 
@@ -207,7 +207,7 @@ export default {
       })
     },
     rowClicked (row) {
-      this.$emit('row-clicked', row)
+      this.$emit('rowClicked', row)
     },
   },
 }

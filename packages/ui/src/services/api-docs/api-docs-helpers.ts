@@ -2,6 +2,7 @@ import Vue, { ComponentOptions } from 'vue'
 import { PropOptions } from 'vue/types/options'
 // @ts-ignore
 import { getType } from './vue-src-no-flow/core/util/props'
+import { camelCase } from 'lodash'
 
 import noop from 'lodash/noop'
 import {
@@ -42,7 +43,7 @@ export const getApiTableProp = (
   const manualPropOptions: ManualPropApiOptions = manualOptions.props?.[propName] || {}
   return {
     name: propName,
-    version: manualPropOptions.version || '',
+    version: manualPropOptions.version || manualOptions.version || '',
     required: componentOptions.required,
     types: componentOptions.types.map(type => `\`${type}\``).join(' | '),
     default: componentOptions.default,
@@ -55,6 +56,10 @@ export const getApiTableData = (
   manualApiOptions: ManualApiOptions = {},
 ): ApiTableData => {
   const compiledComponentOptions = compileComponentOptions(componentOptions)
+  const camelCasedProps = Object.keys(compiledComponentOptions.props).reduce((acc: Record<string, any>, key: string) => {
+    acc[camelCase(key)] = compiledComponentOptions.props[key]
+    return acc
+  }, {} as Record<string, any>)
   const componentName = componentOptions.name as string
   const apiTableData: ApiTableData = {
     name: componentOptions.name as string,
@@ -65,13 +70,13 @@ export const getApiTableData = (
   }
 
   // Props
-  for (const propName in compiledComponentOptions.props) {
+  for (const propName in camelCasedProps) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     apiTableData.props[propName] = getApiTableProp(
       componentName,
       propName,
       manualApiOptions,
-      compiledComponentOptions.props[propName],
+      camelCasedProps[propName],
     )
   }
 

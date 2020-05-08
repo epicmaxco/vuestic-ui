@@ -23,6 +23,40 @@
         "reset": "Reset values and validation state for all form-components"
       }
     },
+    "VaSlider": {
+      "props": {
+        "range": "Transforms single value slider into range slider.",
+        "value": "Numeric value(s) of slider.",
+        "trackLabel": "Label of slider track.",
+        "color": "Color of slider.",
+        "trackColor": "Color of slider base track.",
+        "labelColor": "Color of slider label.",
+        "trackLabelVisible": "Toggles track label visibility.",
+        "min": "Minimum value.",
+        "max": "Maximum value.",
+        "step": "Slider value step.",
+        "label": "Slider label",
+        "invertLabel": "Moves label to opposite side.",
+        "disabled": "Disables slider.",
+        "readonly": "Makes slider read only.",
+        "pins": "Adds step marks to a slider track.",
+        "iconPrepend": "Icon at the start of slider.",
+        "iconAppend": "Icon at the end of slider.",
+        "vertical": "Makes slider vertical.",
+        "showTrack": "Toggles track display."
+      },
+      "events": {
+        "dragStart": "Emited on drag start.",
+        "dragEnd": "Emited on drag end.",
+        "change": "Emited on value input.",
+        "input": "Emited on value change."
+      },
+      "slots": {
+        "append": "Slot for input after slider.",
+        "prepend": "Slot for input before slider.",
+        "label": "Replaces the default label."
+      }
+    },
     "VaRating": {
       "props": {
         "value": "The rating value",
@@ -91,6 +125,69 @@
     "english": "English",
     "spanish": "Spanish",
     "simplified_chinese": "Simplified Chinese"
+  },
+  "slider": {
+    "title": "Slider",
+    "paragraph": "Slider component is a visualization for number input. User can drag slider within a fixed range to get required value.",
+    "basic": {
+      "subtitle": "Basic Element",
+      "paragraph": "This is basic usage of slider component."
+    },
+    "advanced": {
+      "subtitle": "Advanced Element",
+      "color": {
+        "headline": "Color",
+        "paragraph": "You can customize color of slider."
+      },
+      "minmax": {
+        "headline": "Minimum and maximum values",
+        "paragraph": "You can set a range between min and max values."
+      },
+      "state": {
+        "headline": "State",
+        "paragraph": "Slider can be in disabled or readonly state."
+      },
+      "range": {
+        "headline": "Range slider",
+        "paragraph": "You can set a range of values."
+      },
+      "step": {
+        "headline": "Step",
+        "paragraph": "Step can be changed."
+      },
+      "pins": {
+        "headline": "Pins",
+        "paragraph": "Display markers on slider track."
+      },
+      "label": {
+        "headline": "Label",
+        "paragraph": "Label of slider, could have inverted position or custom color."
+      },
+      "slots": {
+        "headline": "Slots",
+        "paragraph": "You can add inputs before and after the slider using 'append' or 'prepend' slot name. Also default label can be replaced using 'label' slot."
+      },
+      "icon": {
+        "headline": "Icon",
+        "paragraph": "You can inser icon at the start or end of slider."
+      },
+      "track": {
+        "headline": "Track",
+        "paragraph": "Track color can be hidden or have custom color."
+      },
+      "trackLabel": {
+        "headline": "Track label",
+        "paragraph": "You can show track label and overwrite it's view."
+      },
+      "vertical": {
+        "headline": "Vertical",
+        "paragraph": "Vertical state of slider."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in va-slider component."
+    }
   },
   "rating": {
     "title": "Rating",

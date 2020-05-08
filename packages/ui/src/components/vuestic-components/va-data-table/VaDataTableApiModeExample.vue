@@ -5,7 +5,7 @@
     :loading="loading"
     :total-pages="totalPages"
     api-mode
-    @page-selected="readPage"
+    @pageSelected="readPage"
   />
 </template>
 

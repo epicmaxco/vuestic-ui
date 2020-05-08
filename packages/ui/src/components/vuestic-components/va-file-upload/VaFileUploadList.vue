@@ -24,7 +24,7 @@
     <va-file-upload-single-item
       v-if="type === 'single' && filesList.length"
       :file="filesList[filesList.length - 1]"
-      @remove="$emit('remove-single')"
+    S@remove="$emit('removeSingle')"
     />
   </div>
 </template>

@@ -103,7 +103,7 @@ export default class ColorDropdown extends Vue {
 
   @Watch('selectedTheme')
   onThemeChanged (themeName) {
-    this.$root.$emit('change-theme', themeName)
+    this.$root.$emit('changeTheme', themeName)
   }
 
   get themes () {
