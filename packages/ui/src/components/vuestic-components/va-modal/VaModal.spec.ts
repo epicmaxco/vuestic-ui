@@ -194,7 +194,7 @@ describe('VaModal', () => {
       })
     })
 
-    it('should emit `click-outside` event', async () => {
+    it('should emit `clickOutside` event', async () => {
       const wrapper: any = createWrapper({ stateful: true })
 
       await wrapper.vm.show()
@@ -204,7 +204,7 @@ describe('VaModal', () => {
       const clickEvent = new MouseEvent('mousedown', { button: 0, bubbles: true })
       document.body.dispatchEvent(clickEvent)
 
-      expect(wrapper.emitted()['click-outside'].length).toBe(1)
+      expect(wrapper.emitted().clickOutside.length).toBe(1)
     })
   })
 })

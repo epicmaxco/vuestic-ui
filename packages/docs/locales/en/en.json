@@ -29,28 +29,28 @@
         "position": "!!! Not implemented yet !!!",
         "title": "Text content to place in the title",
         "message": "Content of modal body",
-        "size": "Set the size of the modal's width. 'small', 'medium' (default) or 'large'",
-        "ok-text": "Text string to place in the default footer `Ok` button",
-        "cancel-text": "Text string to place in the default footer `Cancel` button",
-        "hide-default-actions": "Use `hideDefaultActions: true` to hide Cancel and Ok buttons",
+        "size": "Set the size of the modal's width. `small`, `medium` (default) or `large`",
+        "ok-text": "Text string to place in the default footer **Ok** button",
+        "cancel-text": "Text string to place in the default footer **Cancel** button",
+        "hide-default-actions": "Use `hide-default-actions: true` to hide **Cancel** and **Ok** buttons",
         "fullscreen": "Add the `fullscreen` prop to cover the whole page",
         "mobile-fullscreen": "Use `mobile-fullscreen: false` to disable fullscreen mode for mobile viewports",
-        "no-dismiss": "Disable both close on overlay click and close on `ESC`",
+        "no-dismiss": "Disable both close on overlay click and close on **Esc**",
         "no-outside-dismiss": "Disable close on overlay click",
-        "no-esc-dismiss": "Disable close on `ESC`",
+        "no-esc-dismiss": "Disable close on **Esc**",
         "max-width": "Use `max-width` to change the maximum width of the modal.",
         "max-height": "Use `max-height` to change the maximum height of the modal. If content is larger, scroll will appear",
         "fixed-layout": "Use `fixed-layout: true` to scroll only content in modal. Title and actions will be fixed",
-        "without-transitions": "Use `withoutTransitions: true` to turn off the open and close animations on the modal",
+        "without-transitions": "Use `without-transitions: true` to turn off the open and close animations on the modal",
         "overlay": "Use `overlay: false` to hide the overlay",
         "overlay-opacity": "Set the overlay's opacity",
         "z-index": "Set the modal's `z-index`"
       },
       "events": {
-        "click-outside": "Emits when overlay is clicked",
+        "clickOutside": "Emits when overlay is clicked",
         "input": "Emits when modal's visibility should change",
-        "ok": "Emits when `Ok` button is clicked",
-        "cancel": "Emits when `Cancel` button is clicked"
+        "ok": "Emits when **Ok** button is clicked",
+        "cancel": "Emits when **Cancel** button is clicked"
       },
       "methods": {
         "hide": "Hide modal. On stateless modal only emits `@input`",
@@ -180,7 +180,7 @@
       "subtitle": "Overview",
       "paragraphs": [
         "`<va-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. You can provide custom message and title with the `message` and `title` props respectively.",
-        "`<va-modal>` supports close on ESC (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
+        "`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
       ]
     },
     "stateful": {
@@ -228,7 +228,7 @@
       "subtitle": "Customization",
       "paragraphs": [
         "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.",
-        "You can set custom text for **Cancel** and **Ok** buttons via `okText` and `cancelText` props respectively, or you can hide them via `hideDefaultActions` prop.",
+        "You can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.",
         "`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
       ]
     },

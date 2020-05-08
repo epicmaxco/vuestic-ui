@@ -65,7 +65,7 @@ export const vaModalApiOptions: ManualApiOptions = {
     },
   },
   events: {
-    'click-outside': {
+    clickOutside: {
       types: '() => void',
       local: true,
     },

@@ -262,7 +262,7 @@ export default class VaModal extends Mixins(
 
       const options: ClickOutsideOptions = {
         onClickOutside: () => {
-          this.$emit('click-outside')
+          this.$emit('clickOutside')
           this.cancel()
         },
         disabled: this.c_noOutsideDismiss || this.c_noDismiss,
