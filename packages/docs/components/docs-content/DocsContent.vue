@@ -16,10 +16,9 @@
         :key="index"
         :is="block.component"
       />
-      <component
+      <DocsFaq
         v-else-if="BlockType.FAQ === block.type"
         :key="index"
-        :is="DocsFaq"
         :items="block.items"
       />
       <DocsSubtitle
@@ -28,7 +27,7 @@
         :text="block.translationString"
       />
       <component v-else :key="index" :is="blockTags[block.type]">
-        {{ $t(block.translationString) }}
+        <MarkdownView :value="$t(block.translationString)" />
       </component>
     </template>
   </va-content>
@@ -37,6 +36,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ApiDocsBlock, BlockType, TextBlockType } from '../../types/configTypes'
+import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
 import DocsExample from '../DocsExample.vue'
 import DocsCode from '../DocsCode.vue'
 import DocsSubtitle from '../DocsSubtitle.vue'
@@ -48,6 +48,7 @@ import DocsFaq from '../DocsFaq.vue'
     DocsCode,
     DocsSubtitle,
     DocsFaq,
+    MarkdownView,
   },
 })
 export default class DocsContent extends Vue {
