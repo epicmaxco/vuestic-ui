@@ -1,5 +1,5 @@
 import { CreateElement } from 'vue'
-import { mount as vtuMount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import ClickOutsideMixin, { ClickOutsideOptions } from '../ClickOutsideMixin'
 
 describe('ClickOutsideMixin', () => {
@@ -26,12 +26,12 @@ describe('ClickOutsideMixin', () => {
     },
   }
 
-  const mount = (data: any) => {
-    return vtuMount(baseComponentOptions, { propsData: data })
+  const mountComponentWithOptions = (data: any) => {
+    return shallowMount(baseComponentOptions, { propsData: data })
   }
 
   it('should be called when clicking away', async () => {
-    mount(options)
+    mountComponentWithOptions(options)
 
     const clickEvent = new MouseEvent('click', { button: 0, bubbles: true })
     document.body.dispatchEvent(clickEvent)
@@ -42,7 +42,7 @@ describe('ClickOutsideMixin', () => {
   })
 
   it('should not be called when clicking inside', () => {
-    const wrapper = mount(options)
+    const wrapper = mountComponentWithOptions(options)
 
     wrapper.find('div').trigger('click', { button: 0 })
 
@@ -58,7 +58,7 @@ describe('ClickOutsideMixin', () => {
       trigger: 'mousedown',
     }
 
-    mount(options)
+    mountComponentWithOptions(options)
 
     const mouseDownEvent = new MouseEvent('mousedown', { button: 0, bubbles: true })
     const mouseUpEvent = new MouseEvent('mouseup', { button: 0, bubbles: true })
