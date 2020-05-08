@@ -116,7 +116,7 @@ export default {
     border: solid $badge-border;
     border-radius: $badge-border-radius;
     font-size: $badge-font-size;
-    font-weight: bold;
+    font-weight: $font-weight-bold;
     font-family: $font-family-sans-serif;
     line-height: $badge-line-height;
     letter-spacing: $badge-letter-spacing;

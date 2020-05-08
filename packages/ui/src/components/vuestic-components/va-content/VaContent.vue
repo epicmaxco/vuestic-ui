@@ -80,7 +80,7 @@ export default {
   }
 
   strong {
-    font-weight: bold;
+    font-weight: $font-weight-bold;
   }
 
   // NOTE Ideally we want this to work with mixins too, but no idea how to achieve that :/.

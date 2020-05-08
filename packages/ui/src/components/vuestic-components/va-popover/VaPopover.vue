@@ -103,6 +103,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../vuestic-sass/resources/resources';
+
 .v-popover {
   display: inline;
 }
@@ -128,7 +130,7 @@ export default {
   }
 
   &__title {
-    font-weight: bold;
+    font-weight: $font-weight-bold;
     margin-bottom: 0.125rem;
   }
 
