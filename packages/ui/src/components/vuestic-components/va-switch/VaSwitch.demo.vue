@@ -137,6 +137,9 @@
     <VbCard title="Stateless switch without v-model">
       <va-switch />
     </VbCard>
+    <VbCard title="Stateful">
+      <va-switch v-model="valueStateful" stateful />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -150,6 +153,7 @@ export default {
   data () {
     return {
       value: true,
+      valueStateful: true,
       customTrueFalse: 'disagree',
       selection: [],
       selectionObjectValues: [],
