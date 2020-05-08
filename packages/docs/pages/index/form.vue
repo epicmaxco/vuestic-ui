@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import DocsContent from '../../components/docs-content/DocsContent'
+import DocsContent from '../../components/docs-content/DocsContent.vue'
 import formConfig from '../../components/docs-content/configs/va-form'
 
 @Component({

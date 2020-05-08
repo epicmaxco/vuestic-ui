@@ -181,8 +181,4 @@ export default [
     type: BlockType.API,
     component: Api,
   },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'slider.faq.subtitle',
-  },
 ]

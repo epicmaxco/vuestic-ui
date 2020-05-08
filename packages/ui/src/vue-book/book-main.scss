@@ -1,2 +1,7 @@
 @import '../components/vuestic-sass/global/reset.scss';
+// TODO Really not sure whether we want to include it or not.
+// Problem arises from the fact that we want our components to be independent.
+// I.e. we want user to be able to import one or two components in your app
+// without adding any global css.
+//@import "../components/vuestic-sass/global/normalize.scss";
 @import '../components/vuestic-sass/icons/icons.scss';
