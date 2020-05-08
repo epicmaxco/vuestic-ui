@@ -1,7 +1,6 @@
 import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
 export const vaSliderOptions: ManualApiOptions = {
-  version: '1.3.0', // Not really, just for test.
   props: {
     color: {
       local: true,
@@ -59,7 +58,6 @@ export const vaSliderOptions: ManualApiOptions = {
     },
     disabled: {
       local: true,
-      version: '1.3.1', // Not really, just for test.
     },
   },
   events: {
@@ -73,11 +71,11 @@ export const vaSliderOptions: ManualApiOptions = {
     },
     change: {
       local: true,
-      types: 'Number | Number[]',
+      types: 'Number | [Number, Number]',
     },
     input: {
       local: true,
-      types: 'Number | Number[]',
+      types: 'Number | [Number, Number]',
     },
   },
   slots: {

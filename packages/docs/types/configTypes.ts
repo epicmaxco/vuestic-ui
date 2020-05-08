@@ -42,3 +42,8 @@ export type ApiDocsBlock =
       type: BlockType.CODE,
       code: CodeString,
     }
+
+export type FaqBlock = {
+  question: TranslationString,
+  answer: TranslationString,
+}

@@ -172,7 +172,7 @@
       },
       "minmax": {
         "headline": "Minimum and maximum values",
-        "paragraph": "You can set a range between min and max values"
+        "paragraph": "You can set a range between min and max values."
       },
       "state": {
         "headline": "State",
@@ -188,7 +188,7 @@
       },
       "pins": {
         "headline": "Pins",
-        "paragraph": "Display markers on slider track"
+        "paragraph": "Display markers on slider track."
       },
       "label": {
         "headline": "Label",

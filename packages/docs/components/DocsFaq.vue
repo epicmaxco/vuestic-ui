@@ -10,13 +10,12 @@
     </template>
   </div>
 </template>
-<script>
+<script lang='ts'>
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { FaqBlock } from '../types/configTypes'
 
-export default {
-  props: {
-    items: {
-      type: Array,
-    },
-  },
+@Component({})
+export default class DocsFaq extends Vue {
+  @Prop({ type: Array }) items!: FaqBlock[]
 }
 </script>

@@ -12,9 +12,15 @@
         :code="block.code"
       />
       <component
-        v-else-if="[BlockType.API, BlockType.FAQ].includes(block.type)"
+        v-else-if="BlockType.API === block.type"
         :key="index"
         :is="block.component"
+      />
+      <component
+        v-else-if="BlockType.FAQ === block.type"
+        :key="index"
+        :is="DocsFaq"
+        :items="block.items"
       />
       <DocsSubtitle
         v-else-if="block.type === BlockType.SUBTITLE"
@@ -34,12 +40,14 @@ import { ApiDocsBlock, BlockType, TextBlockType } from '../../types/configTypes'
 import DocsExample from '../DocsExample.vue'
 import DocsCode from '../DocsCode.vue'
 import DocsSubtitle from '../DocsSubtitle.vue'
+import DocsFaq from '../DocsFaq.vue'
 
 @Component({
   components: {
     DocsExample,
     DocsCode,
     DocsSubtitle,
+    DocsFaq,
   },
 })
 export default class DocsContent extends Vue {
@@ -48,12 +56,15 @@ export default class DocsContent extends Vue {
     TextBlockType
   > = {
     [BlockType.TITLE]: 'h1',
-    [BlockType.SUBTITLE]: 'h3',
     [BlockType.PARAGRAPH]: 'p',
     [BlockType.HEADLINE]: 'h5',
   }
 
   @Prop() config!: ApiDocsBlock[]
+
+  get DocsFaq () {
+    return DocsFaq
+  }
 
   get BlockType () {
     return BlockType
