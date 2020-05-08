@@ -1,7 +1,6 @@
 import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
 export const vaModalApiOptions: ManualApiOptions = {
-  version: '1.3.0', // Not really, just for test.
   props: {
     position: {
       local: true,
@@ -18,49 +17,49 @@ export const vaModalApiOptions: ManualApiOptions = {
     size: {
       local: true,
     },
-    'ok-text': {
+    okText: {
       local: true,
     },
-    'cancel-text': {
+    cancelText: {
       local: true,
     },
-    'hide-default-actions': {
+    hideDefaultActions: {
       local: true,
     },
     fullscreen: {
       local: true,
     },
-    'mobile-fullscreen': {
+    mobileFullscreen: {
       local: true,
     },
-    'no-dismiss': {
+    noDismiss: {
       local: true,
     },
-    'no-outside-dismiss': {
+    noOutsideDismiss: {
       local: true,
     },
-    'no-esc-dismiss': {
+    noEscDismiss: {
       local: true,
     },
-    'max-width': {
+    maxWidth: {
       local: true,
     },
-    'max-height': {
+    maxHeight: {
       local: true,
     },
-    'fixed-layout': {
+    fixedLayout: {
       local: true,
     },
-    'without-transitions': {
+    withoutTransitions: {
       local: true,
     },
     overlay: {
       local: true,
     },
-    'overlay-opacity': {
+    overlayOpacity: {
       local: true,
     },
-    'z-index': {
+    zIndex: {
       local: true,
     },
   },

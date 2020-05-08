@@ -3,7 +3,7 @@
     <va-button @click="showModal = !showModal">
       Show modal (fullscreen)
     </va-button>
-    <va-modal v-model="showModal" :fullscreen="true" />
+    <va-modal v-model="showModal" fullscreen />
   </p>
 </template>
 <script>
