@@ -1,4 +1,5 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
+import VaRatingApi from '../api/VaRatingApi.vue'
 
 const config: ApiDocsBlock[] = [
   {
@@ -23,19 +24,47 @@ const config: ApiDocsBlock[] = [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'rating.advanced.subtitle',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.advanced.headline',
+    translationString: 'rating.examples.subtitle',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'rating.advanced.paragraph',
+    translationString: 'rating.examples.paragraph',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'rating.examples.colorsAndSizes.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'rating.examples.colorsAndSizes.paragraph',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-rating/WithColors',
+    component: 'va-rating/ColorsAndSizes',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'rating.examples.hoverAndHalves.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'rating.examples.hoverAndHalves.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/HoverAndHalves',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'rating.examples.numbers.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'rating.examples.numbers.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/Numbers',
   },
   {
     type: BlockType.SUBTITLE,
@@ -45,7 +74,10 @@ const config: ApiDocsBlock[] = [
     type: BlockType.PARAGRAPH,
     translationString: 'rating.api.paragraph',
   },
-  // TODO: here comes api component
+  {
+    type: BlockType.API,
+    component: VaRatingApi,
+  },
   {
     type: BlockType.SUBTITLE,
     translationString: 'rating.faq.subtitle',
@@ -57,6 +89,14 @@ const config: ApiDocsBlock[] = [
   {
     type: BlockType.PARAGRAPH,
     translationString: 'rating.faq.questions[0].answer',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'rating.faq.questions[1].question',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'rating.faq.questions[1].answer',
   },
 ]
 

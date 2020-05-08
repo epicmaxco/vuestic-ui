@@ -1,77 +1,72 @@
 <template>
   <VbDemo>
-    <VbCard title="default">
-      <table class="table table-bordered">
-        <tr>
-          <th>Description</th>
-          <th>Vuestic Rating Item</th>
-        </tr>
-        <tr>
-          <td>Value</td>
-          <td>
-            <va-rating-item
-              :value="1"
-            />
-            1
-            <va-rating-item
-              :value="0"
-            />
-            0
-            <va-rating-item
-              :value="0.5"
-              half-icon="fa fa-star-half-full"
-            />
-            0.5
-          </td>
-        </tr>
-        <tr>
-          <td>Icon</td>
-          <td>
-            <va-rating-item
-              :value="1"
-            />
-            default
-            <va-rating-item
-              :value="1"
-              icon="fa fa-bug"
-            />
-            custom
-          </td>
-        </tr>
-        <tr>
-          <td>Empty Icon</td>
-          <td>
-            <va-rating-item
-              :value="0"
-            />
-            default
-            <va-rating-item
-              empty-icon="fa fa-battery-0"
-              :value="0"
-            />
-            custom
-          </td>
-        </tr>
-        <tr>
-          <td>Events tests</td>
-          <td>
-            <va-rating-item
-              :value="0.5"
-              style="width: 14px; height: 14px;"
-              half-icon="fa fa-star-half-full"
-              @click="showEvent($event, 'click')"
-            />
-            click event = {{ clickEvent }}
-            <va-rating-item
-              :value="0.5"
-              style="width: 14px; height: 14px;"
-              half-icon="fa fa-star-half-full"
-              @hover="showEvent($event, 'hover')"
-            />
-            hover event = {{ hoverEvent }}
-          </td>
-        </tr>
-      </table>
+    <VbCard title="Filled">
+      <va-rating-item :value="1" />
+    </VbCard>
+    <VbCard title="Empty">
+      <va-rating-item />
+    </VbCard>
+    <VbCard title="Custom empty color">
+      <va-rating-item empty-icon-color="danger" />
+    </VbCard>
+    <VbCard title="Half icon">
+      <va-rating-item :value="0.5" halves />
+    </VbCard>
+    <VbCard title="Use custom icon">
+      <va-rating-item :value="1" filled-icon-name="heart" />
+      <va-rating-item empty-icon-name="heart_empty" />
+    </VbCard>
+    <VbCard title="Sizes">
+      <va-rating-item :value="1" :size="40" />
+      <va-rating-item :value="1" size="large" />
+      <va-rating-item :value="1" size="medium" />
+      <va-rating-item :value="1" size="small" />
+    </VbCard>
+    <VbCard title="Colors">
+      <va-rating-item color="success" :value="1" />
+      <va-rating-item color="danger" :value="0.5" />
+      <va-rating-item color="#e3e" :value="0" />
+    </VbCard>
+    <VbCard title="With hover">
+      <p>Without halves</p>
+      <va-rating-item hover />
+      <p>With halves</p>
+      <va-rating-item halves hover />
+    </VbCard>
+
+    <VbCard title="With value">
+      <input v-model.number="ratingModel" style="width: 40px;">
+      <va-rating-item empty-icon-color="danger" hover :value="ratingModel" halves/>
+    </VbCard>
+
+    <VbCard title="Click event">
+      <va-rating-item :value="0" halves @click="clickEventValue = $event"/>
+      {{ clickEventValue }}
+    </VbCard>
+    <VbCard title="Hover event">
+      <va-rating-item :value="0" halves hover @hover="hoverEventValue = $event"/>
+      {{ hoverEventValue }}
+    </VbCard>
+    <VbCard title="Change value onClick">
+      <va-rating-item
+        :value="ratingModel"
+        halves
+        hover
+        @click="ratingModel = $event"/>
+      {{ ratingModel }}
+    </VbCard>
+    <VbCard title="Using slot">
+      <div>
+        <button @click="slotValue = 0">Reset button </button>
+        {{ slotValue }}
+      </div>
+      <va-rating-item halves hover :value="slotValue" @click="slotValue = $event">
+        <template v-slot="{ props }">
+          <button @click="props.onClick" v-if="props.value === 1">Active</button>
+          <button @click="props.onClick" v-if="props.value === 0.5">Halfed</button>
+          <button @click="props.onClick" v-if="props.value === 0">Blank</button>
+        </template>
+      </va-rating-item>
     </VbCard>
   </VbDemo>
 </template>
@@ -86,18 +81,11 @@ export default {
   },
   data () {
     return {
-      clickEvent: '',
-      hoverEvent: '',
+      clickEventValue: 0,
+      hoverEventValue: 0,
+      ratingModel: 0.5,
+      slotValue: 0,
     }
-  },
-  methods: {
-    showEvent (eventValue, event) {
-      if (event === 'click') {
-        this.clickEvent = eventValue
-      } else {
-        this.hoverEvent = eventValue
-      }
-    },
   },
 }
 </script>
