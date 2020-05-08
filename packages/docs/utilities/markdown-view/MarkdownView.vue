@@ -1,5 +1,5 @@
 <template>
-  <div v-html="text" />
+  <div class="MarkdownView" v-html="text" />
 </template>
 
 <script lang="ts">
@@ -24,3 +24,8 @@ export default class MarkdownView extends Vue {
   }
 }
 </script>
+<style>
+.MarkdownView {
+  display: inline-block;
+}
+</style>
