@@ -6,7 +6,7 @@
 </template>
 <script lang='ts'>
 import { kebabCase } from 'lodash'
-import { TranslationString } from '../types/configTypes'
+import { TranslationString } from '../../ui/src/services/api-docs/ManualApiOptions'
 import { Component, Prop, Mixins } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../ui/src/services/ColorThemePlugin'
 
@@ -14,7 +14,7 @@ import { ColorThemeMixin } from '../../ui/src/services/ColorThemePlugin'
 export default class DocsSubtitle extends Mixins(ColorThemeMixin) {
   @Prop({ type: String }) text!: TranslationString
   get anchor () {
-    return kebabCase(this.$t(this.text))
+    return kebabCase(this.$t(this.text) as string)
   }
 
   get primaryColor () {

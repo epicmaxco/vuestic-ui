@@ -430,7 +430,7 @@ export default {
       }
 
       this.flag = true
-      this.$emit('drag-start', this)
+      this.$emit('dragStart')
     },
     moving (e) {
       if (!this.hasMouseDown) return
@@ -450,7 +450,7 @@ export default {
     moveEnd () {
       if (!this.disabled && !this.readonly) {
         if (this.flag) {
-          this.$emit('drag-end', this)
+          this.$emit('dragEnd')
           this.$emit('change', this.range ? Array.from(this.value) : this.value)
         } else {
           return false

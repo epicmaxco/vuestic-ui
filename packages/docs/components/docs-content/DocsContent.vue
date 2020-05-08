@@ -53,7 +53,7 @@ import DocsFaq from '../DocsFaq.vue'
 export default class DocsContent extends Vue {
   private blockTags: Pick<
     Record<BlockType, string>,
-    TextBlockType
+    Exclude<TextBlockType, BlockType.SUBTITLE>
   > = {
     [BlockType.TITLE]: 'h1',
     [BlockType.PARAGRAPH]: 'p',
