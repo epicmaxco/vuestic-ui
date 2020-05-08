@@ -1,7 +1,7 @@
 <template>
   <component
     :is="computedTag"
-    class="va-icon"
+    class="va-icon va-icon--normal"
     :class="computedClass"
     :style="computedStyle"
     aria-hidden="true"
@@ -98,6 +98,11 @@ export default {
 .va-icon {
   vertical-align: middle;
   user-select: none;
+
+  &.va-icon--normal {
+    // need 2 classes to make it work
+    font-style: normal;
+  }
 
   &--spin {
     animation: va-icon--spin-animation 1500ms linear infinite;

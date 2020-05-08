@@ -140,7 +140,7 @@ import VaProgressBar
 import VaInput
   from '../../../ui/src/components/vuestic-components/va-input/VaInput'
 import VaSlider
-  from '../../../ui/src/components/vuestic-components/va-slider/VaSlider'
+  from '../vuestic-ui/src/components/vuestic-components/va-slider/VaSlider'
 import VaPagination
   from '../../../ui/src/components/vuestic-components/va-pagination/VaPagination'
 import VaCheckbox
