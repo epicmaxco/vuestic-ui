@@ -8,8 +8,6 @@ import noop from 'lodash/noop'
 import {
   ManualApiOptions,
   ManualPropApiOptions,
-  VersionString,
-  TranslationString,
   ManualEventApiOptions,
   ManualSlotApiOptions,
   ManualMethodApiOptions,
@@ -42,14 +40,14 @@ export const getApiTableProp = (
   manualOptions: ManualApiOptions = {},
   componentOptions: PropOptionsCompiled,
 ): ApiPropRowOptions => {
-  const manualPropOptions: ManualPropApiOptions = manualOptions.props?.[camelCase(propName)] || {}
+  const manualPropOptions: ManualPropApiOptions = manualOptions.props?.[propName] || {}
   return {
     name: propName,
     version: manualPropOptions.version || manualOptions.version || '',
     required: componentOptions.required,
     types: componentOptions.types.map(type => `\`${type}\``).join(' | '),
     default: componentOptions.default,
-    description: `api.${manualPropOptions.local ? componentName : 'all'}.props.${camelCase(propName)}`,
+    description: `api.${manualPropOptions.local ? componentName : 'all'}.props.${propName}`,
   }
 }
 
@@ -58,6 +56,10 @@ export const getApiTableData = (
   manualApiOptions: ManualApiOptions = {},
 ): ApiTableData => {
   const compiledComponentOptions = compileComponentOptions(componentOptions)
+  const camelCasedProps = Object.keys(compiledComponentOptions.props).reduce((acc: Record<string, any>, key: string) => {
+    acc[camelCase(key)] = compiledComponentOptions.props[key]
+    return acc
+  }, {} as Record<string, any>)
   const componentName = componentOptions.name as string
   const apiTableData: ApiTableData = {
     name: componentOptions.name as string,
@@ -68,22 +70,22 @@ export const getApiTableData = (
   }
 
   // Props
-  for (const propName in compiledComponentOptions.props) {
+  for (const propName in camelCasedProps) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     apiTableData.props[propName] = getApiTableProp(
       componentName,
       propName,
       manualApiOptions,
-      compiledComponentOptions.props[propName],
+      camelCasedProps[propName],
     )
   }
 
   // Events
   for (const eventName in manualApiOptions.events) {
-    const manualEventOptions: ManualEventApiOptions = manualApiOptions.events[camelCase(eventName)] || {}
+    const manualEventOptions: ManualEventApiOptions = manualApiOptions.events[eventName] || {}
     apiTableData.events[eventName] = {
       version: manualEventOptions.version || '',
-      description: `api.${manualEventOptions.local ? componentName : 'all'}.events.${camelCase(eventName)}`,
+      description: `api.${manualEventOptions.local ? componentName : 'all'}.events.${eventName}`,
       name: eventName,
       types: manualEventOptions.types,
     }
@@ -91,20 +93,20 @@ export const getApiTableData = (
 
   // Slots
   for (const slotName in manualApiOptions.slots) {
-    const manualSlotOptions: ManualSlotApiOptions = manualApiOptions.slots[camelCase(slotName)] || {}
+    const manualSlotOptions: ManualSlotApiOptions = manualApiOptions.slots[slotName] || {}
     apiTableData.slots[slotName] = {
       version: manualSlotOptions.version || '',
-      description: `api.${manualSlotOptions.local ? componentName : 'all'}.slots.${camelCase(slotName)}`,
+      description: `api.${manualSlotOptions.local ? componentName : 'all'}.slots.${slotName}`,
       name: slotName,
     }
   }
 
   // Methods
   for (const methodName in manualApiOptions.methods) {
-    const manualMethodOptions: ManualMethodApiOptions = manualApiOptions.methods[camelCase(methodName)] || {}
+    const manualMethodOptions: ManualMethodApiOptions = manualApiOptions.methods[methodName] || {}
     apiTableData.methods[methodName] = {
       version: manualMethodOptions.version || '',
-      description: `api.${manualMethodOptions.local ? componentName : 'all'}.methods.${camelCase(methodName)}`,
+      description: `api.${manualMethodOptions.local ? componentName : 'all'}.methods.${methodName}`,
       name: methodName,
       types: manualMethodOptions.types,
     }

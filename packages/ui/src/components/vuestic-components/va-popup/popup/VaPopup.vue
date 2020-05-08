@@ -131,7 +131,7 @@ export default {
       }
       document.body.appendChild(this.$el)
       EscapeKey.register(() => {
-        this.$emit('escape-key')
+        this.$emit('escapeKey')
         this.hide()
       })
       this.scrollTarget = getScrollTarget(this.anchorEl)

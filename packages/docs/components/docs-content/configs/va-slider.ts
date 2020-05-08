@@ -1,7 +1,5 @@
 import { BlockType } from '../../../types/configTypes'
 import Api from '../../../examples/va-slider/Api.vue'
-import DocsFaq from '../../DocsFaq.vue'
-import faqConfig from '../../../examples/va-slider/faqConfig'
 export default [
   {
     type: BlockType.TITLE,
@@ -186,10 +184,5 @@ export default [
   {
     type: BlockType.SUBTITLE,
     translationString: 'slider.faq.subtitle',
-  },
-  {
-    type: BlockType.FAQ,
-    component: DocsFaq,
-    items: faqConfig,
   },
 ]

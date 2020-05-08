@@ -63,11 +63,11 @@ export const vaSliderOptions: ManualApiOptions = {
   events: {
     dragStart: {
       local: true,
-      types: 'Vue',
+      types: '-',
     },
     dragEnd: {
       local: true,
-      types: 'Vue',
+      types: '-',
     },
     change: {
       local: true,

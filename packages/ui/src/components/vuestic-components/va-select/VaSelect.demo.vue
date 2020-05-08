@@ -248,7 +248,7 @@
         v-model="defaultSelect.value"
         :options="CountriesList"
         :loading="isLoading"
-        @update-search="updateSearch"
+        @updateSearch="updateSearch"
       />
     </VbCard>
     <VbCard
