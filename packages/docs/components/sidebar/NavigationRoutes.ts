@@ -156,7 +156,7 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.rating',
         },
         {
-          name: 'sliders',
+          name: 'slider',
           displayName: 'menu.sliders',
         },
         {

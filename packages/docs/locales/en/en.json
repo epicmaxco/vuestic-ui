@@ -22,6 +22,61 @@
         "resetValidation": "Reset validation for all validateable <!-- TODO Add link --> form-components.",
         "reset": "Reset values and validation state for all form-components"
       }
+    },
+    "VaSlider": {
+      "props": {
+        "range": "Transforms single value slider into range slider.",
+        "value": "Numeric value(s) of slider.",
+        "trackLabel": "Label of slider track.",
+        "color": "Color of slider.",
+        "trackColor": "Color of slider base track.",
+        "labelColor": "Color of slider label.",
+        "trackLabelVisible": "Toggles track label visibility.",
+        "min": "Minimum value.",
+        "max": "Maximum value.",
+        "step": "Slider value step.",
+        "label": "Slider label",
+        "invertLabel": "Moves label to opposite side.",
+        "disabled": "Disables slider.",
+        "readonly": "Makes slider read only.",
+        "pins": "Adds step marks to a slider track.",
+        "iconPrepend": "Icon at the start of slider.",
+        "iconAppend": "Icon at the end of slider.",
+        "vertical": "Makes slider vertical.",
+        "showTrack": "Toggles track display."
+      },
+      "events": {
+        "dragStart": "Emited on drag start.",
+        "dragEnd": "Emited on drag end.",
+        "change": "Emited on value input.",
+        "input": "Emited on value change."
+      },
+      "slots": {
+        "append": "Slot for input after slider.",
+        "prepend": "Slot for input before slider.",
+        "label": "Replaces the default label."
+      }
+    },
+    "VaRating": {
+      "props": {
+        "value": "The rating value",
+        "icon": "The icon displayed when icon is filled",
+        "half-icon": "The icon displayed when icon is half-filled (requires **`halves`**)",
+        "empty-icon": "The icon displayed when icon is empty (requires **`halves`**)",
+        "readonly": "Disables all user interaction effects (pointer, hover)",
+        "disabled": "Applies corporate *disabled* style and removes all user interaction effects",
+        "numbers": "When true numbers from 1 to `max` are rendered instead of icons",
+        "halves": "Allow to select half of the item",
+        "max": "The amount of items to display",
+        "clearable": "Allows the components value to be set to 0. Triggered by clicking on currently selected icon",
+        "hover": "Adds visual feedback when hovering on items",
+        "texts": "The array of captions to be used with each value. The array length should be equal to **`max`** prop",
+        "text-color": "Color of text captions",
+        "unselected-color": "Specifies the color of unselected items (by default **`color`** prop is used)"
+      },
+      "events": {
+        "input": "Emits rating number when its value changes"
+      }
     }
   },
   "menu": {
@@ -72,28 +127,106 @@
     "spanish": "Spanish",
     "simplified_chinese": "Simplified Chinese"
   },
-  "rating": {
-    "title": "Rating",
-    "paragraph": "Rating component can show rating bla bla bla bla lorem ipsum many text Rating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many textRating component can show rating bla bla bla bla lorem ipsum many text",
+  "slider": {
+    "title": "Slider",
+    "paragraph": "Slider component is a visualization for number input. User can drag slider within a fixed range to get required value.",
     "basic": {
-      "subtitle": "Basic element",
-      "paragraph": "This is basic rating component implementation"
+      "subtitle": "Basic Element",
+      "paragraph": "This is basic usage of slider component."
     },
     "advanced": {
       "subtitle": "Advanced Element",
-      "headline": "Color prop demo",
-      "paragraph": "Here you can see different colors of component depends on color prop and more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text"
+      "color": {
+        "headline": "Color",
+        "paragraph": "You can customize color of slider."
+      },
+      "minmax": {
+        "headline": "Minimum and maximum values",
+        "paragraph": "You can set a range between min and max values."
+      },
+      "state": {
+        "headline": "State",
+        "paragraph": "Slider can be in disabled or readonly state."
+      },
+      "range": {
+        "headline": "Range slider",
+        "paragraph": "You can set a range of values."
+      },
+      "step": {
+        "headline": "Step",
+        "paragraph": "Step can be changed."
+      },
+      "pins": {
+        "headline": "Pins",
+        "paragraph": "Display markers on slider track."
+      },
+      "label": {
+        "headline": "Label",
+        "paragraph": "Label of slider, could have inverted position or custom color."
+      },
+      "slots": {
+        "headline": "Slots",
+        "paragraph": "You can add inputs before and after the slider using 'append' or 'prepend' slot name. Also default label can be replaced using 'label' slot."
+      },
+      "icon": {
+        "headline": "Icon",
+        "paragraph": "You can inser icon at the start or end of slider."
+      },
+      "track": {
+        "headline": "Track",
+        "paragraph": "Track color can be hidden or have custom color."
+      },
+      "trackLabel": {
+        "headline": "Track label",
+        "paragraph": "You can show track label and overwrite it's view."
+      },
+      "vertical": {
+        "headline": "Vertical",
+        "paragraph": "Vertical state of slider."
+      }
     },
     "api": {
       "subtitle": "API",
-      "paragraph": "Here are props that are used in va-rating component more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text"
+      "paragraph": "Here are props, events and slots that are used in va-slider component."
+    }
+  },
+  "rating": {
+    "title": "Rating",
+    "paragraph": "The rating component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "The rating component has a simple interface to collect user feedback."
+    },
+    "examples": {
+      "subtitle": "Examples",
+      "paragraph": "Here you can find some examples with simple or complex API usage",
+      "colorsAndSizes": {
+        "headline": "Different sizes and colors",
+        "paragraph": "Use predefined sizes and colors, or use your own with help of *size* and *color* props."
+      },
+      "hoverAndHalves": {
+        "headline": "Add some visual interaction",
+        "paragraph": "Add hover and enable halves for more preciese feedback gathering."
+      },
+      "numbers": {
+        "headline": "Numbers instead of icons",
+        "paragraph": "Want to see numbers instead of icons? We got you covered."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in va-rating component."
     },
     "faq": {
       "subtitle": "FAQ",
       "questions": [
         {
-          "question": "Frequently asked question one",
-          "answer": "Answer one and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
+          "question": "Is rating component keyboard accessible?",
+          "answer": "Yes, you can use Tab(Shift+Tab) to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
+        },
+        {
+          "question": "Can I use every other prop in combination with `**numbers**` prop?",
+          "answer": "Yes, all props are compatible between each other."
         }
       ]
     }

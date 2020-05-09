@@ -93,7 +93,7 @@ import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
 import Component, { mixins } from 'vue-class-component'
-import { Watch } from 'vue-property-decorator'
+import { Watch, Ref } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 const PaginationPropsMixin = makeContextablePropsMixin({
@@ -120,12 +120,6 @@ const PaginationPropsMixin = makeContextablePropsMixin({
   directionIconRight: { type: String, default: 'chevron_right' },
 })
 
-const mixinsArr = [
-  ContextPluginMixin,
-  StatefulMixin,
-  ColorThemeMixin,
-  PaginationPropsMixin,
-]
 @Component({
   name: 'VaPagination',
   components: {
@@ -134,87 +128,94 @@ const mixinsArr = [
     VaInput,
   },
 })
-export default class VaPagination extends mixins(...mixinsArr) {
+export default class VaPagination extends mixins(
+  ContextPluginMixin,
+  StatefulMixin,
+  ColorThemeMixin,
+  PaginationPropsMixin,
+) {
   private inputValue = ''
 
+  @Ref() readonly input!: HTMLInputElement
+
   private get lastPage () {
-    const { c_total, c_pageSize, c_pages } = (this as any)
+    const { c_total, c_pageSize, c_pages } = this
     return this.useTotal
       ? Math.ceil(c_total / c_pageSize) || 1
       : c_pages
   }
 
   private get paginationRange () {
-    const { c_visiblePages, c_total, c_pageSize, c_boundaryNumbers, c_pages } = (this as any)
+    const { c_visiblePages, c_total, c_pageSize, c_boundaryNumbers, c_pages } = this
     const value = this.currentValue || 1
     const totalPages = this.useTotal ? Math.ceil(c_total / c_pageSize) : c_pages
     return setPaginationRange(value, c_visiblePages, totalPages, c_boundaryNumbers)
   }
 
   private get showBoundaryLinks () {
-    const { c_visiblePages, c_boundaryLinks, c_boundaryNumbers, c_input } = (this as any)
+    const { c_visiblePages, c_boundaryLinks, c_boundaryNumbers, c_input } = this
     return c_input ||
       ((c_visiblePages && this.lastPage > c_visiblePages) && c_boundaryLinks && !c_boundaryNumbers)
   }
 
   private get showDirectionLinks () {
-    const { c_visiblePages, c_directionLinks, c_input } = (this as any)
+    const { c_visiblePages, c_directionLinks, c_input } = this
     return c_input || ((c_visiblePages && this.lastPage > c_visiblePages) && c_directionLinks)
   }
 
   private get showPagination () {
-    return this.lastPage > 1 || (!(this as any).c_hideOnSinglePage && this.lastPage <= 1)
+    return this.lastPage > 1 || (!this.c_hideOnSinglePage && this.lastPage <= 1)
   }
 
   private get fontColor () {
-    return (this as any).computeColor((this as any).c_color)
+    return this.computeColor(this.c_color)
   }
 
   private get useTotal () {
-    const { c_total, c_pageSize } = (this as any)
+    const { c_total, c_pageSize } = this
     return !!((c_total || c_total === 0) && c_pageSize)
   }
 
   private get currentValue () {
     if (this.useTotal) {
-      return Math.ceil((this as any).valueComputed / (this as any).c_pageSize) || 1
+      return Math.ceil(this.valueComputed / this.c_pageSize) || 1
     } else {
-      return (this as any).valueComputed
+      return this.valueComputed
     }
   }
 
   private set currentValue (value) {
-    (this as any).valueComputed = value
+    this.valueComputed = value
   }
 
   @Watch('useTotal', { immediate: true })
   @Watch('pages', { immediate: true })
   private onModeChange () {
-    if (this.useTotal && (this as any).c_pages) {
+    if (this.useTotal && this.c_pages) {
       if (process.env.NODE_ENV !== 'production') {
-        throw new Error('Please, use either `total` and `page-size` props, or `c_pages`.')
+        throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
       }
     }
   }
 
   private focusInput () {
-    const { currentValue, $nextTick, $refs } = (this as any)
+    const { currentValue, $nextTick } = this
     this.inputValue = currentValue
-    $nextTick(() => $refs.input.setSelectionRange(0, $refs.input.value.length))
+    $nextTick(() => this.input.setSelectionRange(0, this.input.value.length))
   }
 
   private onUserInput (pageNum: number) {
     if (pageNum < 1 || pageNum > this.lastPage) {
       return
     }
-    this.currentValue = (this as any).useTotal
-      ? (pageNum - 1) * (this as any).c_pageSize + 1
+    this.currentValue = this.useTotal
+      ? (pageNum - 1) * this.c_pageSize + 1
       : pageNum
   }
 
   private resetInput () {
-    this.inputValue = '';
-    (this as any).$refs.input.blur()
+    this.inputValue = ''
+    this.input.blur()
   }
 
   private changeValue () {
@@ -241,7 +242,7 @@ export default class VaPagination extends mixins(...mixinsArr) {
   private activeButtonStyle (buttonValue: number) {
     if (buttonValue === this.currentValue) {
       return {
-        backgroundColor: (this as any).colorComputed,
+        backgroundColor: this.colorComputed,
         color: '#ffffff',
       }
     }

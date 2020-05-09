@@ -72,6 +72,15 @@
   }
 }
 
+@mixin normalize-button {
+  font-size: 100%;
+  overflow: visible;
+  text-transform: none;
+  padding: 0;
+  background-color: transparent;
+  border-style: none;
+}
+
 @mixin va-button($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
   padding: $padding-y $padding-x;
   font-size: $font-size;

@@ -254,13 +254,13 @@ export default {
     },
     labelStyles () {
       return {
-        color: this.labelColor ? (this.$themes[this.labelColor] || this.computeColor(this.labelColor)) : this.colorComputed,
+        color: this.labelColor ? this.computeColor(this.labelColor) : this.colorComputed,
       }
     },
     trackStyles () {
       return {
         backgroundColor: this.trackColor
-          ? (this.$themes[this.trackColor] || this.computeColor(this.trackColor))
+          ? this.computeColor(this.trackColor)
           : getHoverColor(this.colorComputed),
       }
     },
@@ -430,7 +430,7 @@ export default {
       }
 
       this.flag = true
-      this.$emit('drag-start', this)
+      this.$emit('dragStart')
     },
     moving (e) {
       if (!this.hasMouseDown) return
@@ -450,7 +450,7 @@ export default {
     moveEnd () {
       if (!this.disabled && !this.readonly) {
         if (this.flag) {
-          this.$emit('drag-end', this)
+          this.$emit('dragEnd')
           this.$emit('change', this.range ? Array.from(this.value) : this.value)
         } else {
           return false
@@ -879,7 +879,6 @@ export default {
     }
 
     &__track {
-      transition: width 0.3s ease-out, left 0.3s ease-out;
       height: 0.5rem;
       width: 100%;
     }
@@ -950,10 +949,6 @@ export default {
       height: 100%;
       width: 0.5rem;
       bottom: 0;
-
-      &--selected {
-        transition: height 0.3s ease-out, bottom 0.3s ease-out;
-      }
     }
 
     &__mark {

@@ -21,8 +21,18 @@ export default {
       },
       {
         rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/icon?family=Material+Icons+Outlined',
+      },
+      {
+        rel: 'stylesheet',
         href:
           'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
+      },
+    ],
+    script: [
+      {
+        src: 'https://kit.fontawesome.com/5460c87b2a.js',
+        crossorigin: 'anonymous',
       },
     ],
   },
@@ -30,10 +40,11 @@ export default {
   plugins: [
     { mode: 'server', src: '~/plugins/jsdom.ts' },
     { src: '~/plugins/colorHelper.ts' },
-    { mode: 'client', src: '~/plugins/ui-plugin.ts' },
+    { mode: 'client', src: '~/plugins/client-services.ts' },
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },
     { src: '~/plugins/localeRoute.ts' },
+    { mode: 'client', src: '~/plugins/vuestic.ts' },
   ],
   build: {
     transpile: ['vue-instantsearch', 'instantsearch.js/es'],

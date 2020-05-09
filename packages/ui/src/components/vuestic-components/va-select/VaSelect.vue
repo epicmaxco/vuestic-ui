@@ -173,7 +173,7 @@ export default {
   },
   watch: {
     search (val) {
-      this.$emit('update-search', val)
+      this.$emit('updateSearch', val)
     },
     visible (val) {
       if (val && this.c_searchable) {

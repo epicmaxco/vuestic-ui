@@ -1,287 +1,203 @@
 <template>
   <VbDemo>
-    <VbCard title="No value">
-      <va-rating @input="$vb.log" />
+    <VbCard title="Value" style="width: 50px;">
+      {{ value }}
+    </VbCard>
+    <VbCard title="Default">
+      <va-rating v-model="value"/>
+    </VbCard>
+    <VbCard title="With texts" style="width: 300px;">
       <va-rating
-        @input="$vb.log"
+        v-model="value"
+        text-color="danger"
+        hover
         halves
-        half-icon="fa fa-star-half-full"
-        empty-icon="fa fa-star-o"
+        :texts="[
+          'Bad',
+          'Quite bad',
+          'Normal',
+          'Not bad',
+          'Good'
+        ]"
       />
     </VbCard>
-    <VbCard width="1200px">
-      <table
-        class="table table-bordered"
-        style="width: 100%;"
-      >
-        <tr>
-          <th>Description</th>
-          <th>Vuestic Rating</th>
-        </tr>
-        <tr>
-          <td>Types</td>
-          <td>
-            default
-            <va-rating
-              v-model="value"
-            />
-            numbers
-            <va-rating
-              numbers
-              v-model="value"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>Themes</td>
-          <td>
-            <div class="row">
-              <div class="flex">
-                success
-                <va-rating
-                  color="success"
-                  numbers
-                  v-model="value"
-                />
-                info
-                <va-rating
-                  color="info"
-                  numbers
-                  v-model="value"
-                />
-                danger
-                <va-rating
-                  color="danger"
-                  numbers
-                  v-model="value"
-                />
-                warning
-                <va-rating
-                  color="warning"
-                  numbers
-                  v-model="value"
-                />
-                gray
-                <va-rating
-                  color="gray"
-                  numbers
-                  v-model="value"
-                />
-                dark
-                <va-rating
-                  color="dark"
-                  numbers
-                  v-model="value"
-                />
-              </div>
-              <div class="flex">
-                success
-                <va-rating
-                  color="success"
-                  v-model="value"
-                />
-                info
-                <va-rating
-                  color="info"
-                  v-model="value"
-                />
-                danger
-                <va-rating
-                  color="danger"
-                  v-model="value"
-                />
-                warning
-                <va-rating
-                  color="warning"
-                  v-model="value"
-                />
-                gray
-                <va-rating
-                  color="gray"
-                  v-model="value"
-                />
-                dark
-                <va-rating
-                  color="dark"
-                  v-model="value"
-                />
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>Sizes</td>
-          <div class="row">
-            <div class="flex">
-              medium
-              <va-rating
-                v-model="value"
-                size="medium"
-              />
-              small
-              <va-rating
-                size="small"
-                v-model="value"
-              />
-              large
-              <va-rating
-                size="large"
-                v-model="value"
-              />
-              55px
-              <va-rating
-                size="55px"
-                v-model="value"
-              />
-              2rem
-              <va-rating
-                size="2rem"
-                v-model="value"
-              />
-            </div>
-            <div class="flex">
-              medium
-              <va-rating
-                v-model="value"
-                numbers
-                size="medium"
-              />
-              small
-              <va-rating
-                size="small"
-                numbers
-                v-model="value"
-              />
-              large
-              <va-rating
-                size="large"
-                numbers
-                v-model="value"
-              />
-              55px
-              <va-rating
-                size="55px"
-                numbers
-                v-model="value"
-              />
-              2rem
-              <va-rating
-                size="2rem"
-                numbers
-                v-model="value"
-              />
-            </div>
-          </div>
-          <td />
-        </tr>
-        <tr>
-          <td>Disabled state</td>
-          <td>
-            <va-rating
-              v-model="value"
-              disabled
-            />
-            <va-rating
-              disabled
-              numbers
-              v-model="value"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>Readonly state</td>
-          <td>
-            <va-rating
-              v-model="value"
-              readonly
-            />
-            <va-rating
-              v-model="value"
-              readonly
-              numbers
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>Half icon state</td>
-          <td>
-            <va-rating
-              v-model="value"
-              halves
-              empty-icon="fa fa-star-o"
-              size="30px"
-            />
-            readonly
-            <va-rating
-              v-model="value"
-              readonly
-              halves
-              empty-icon="fa fa-star-o"
-              size="30px"
-            />
-            disabled
-            <va-rating
-              v-model="value"
-              disabled
-              halves
-              empty-icon="fa fa-star-o"
-              size="30px"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>Custom icons</td>
-          <td>
-            <va-rating
-              icon="fa fa-bug"
-              color="warning"
-              v-model="value"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>Max items</td>
-          <td>
-            <va-rating
-              :max="10"
-              v-model="value"
-              color="danger"
-            />
-            <va-rating
-              :max="10"
-              numbers
-              v-model="value"
-              color="danger"
-            />
-          </td>
-        </tr>
-      </table>
+    <VbCard title="Custom length">
+      <va-rating :max="3" v-model="value"/>
     </VbCard>
-    <VbCard title="value">
-      <input
-        type="text"
-        v-model.number="value"
-      >
+    <VbCard title="With halves">
+      <va-rating halves v-model="value"/>
     </VbCard>
-    <VbCard title="Custom color">
+    <VbCard title="With hover">
+      <va-rating hover v-model="value"/>
+    </VbCard>
+    <VbCard title="With halves and hover">
+      <va-rating hover halves v-model="value"/>
+    </VbCard>
+    <VbCard title="Clearable">
+      <va-rating clearable v-model="value"/>
+    </VbCard>
+    <VbCard title="Colors" dark>
+      <va-rating color="success" v-model="value"/>
+      <va-rating color="info" v-model="value"/>
+      <va-rating color="warning" v-model="value"/>
+      <va-rating color="danger" v-model="value"/>
+      <va-rating color="dark" v-model="value"/>
+      <va-rating color="grey" v-model="value"/>
+    </VbCard>
+    <VbCard title="Custom color for unselected">
       <va-rating
-        color="#2219bb"
-        :value="2"
+        hover
+        unselected-color="danger"
+        v-model="value"
       />
+    </VbCard>
+    <VbCard title="Sizes">
+      <va-rating size='small' v-model="value"/>
+      <va-rating size='medium' v-model="value"/>
+      <va-rating size='large' v-model="value"/>
+      <va-rating :size="40" v-model="value"/>
+      <va-rating :size="60" v-model="value"/>
+    </VbCard>
+    <VbCard title="Disabled">
+      <va-rating disabled hover v-model="value"/>
+    </VbCard>
+    <VbCard title="Readonly">
+      <va-rating readonly hover v-model="value"/>
+    </VbCard>
+    <VbCard title="With custom icons">
+      <va-rating
+        icon="heart"
+        empty-icon="heart_empty"
+        v-model="value"
+      />
+      <va-rating
+        icon="ion-home"
+        empty-icon="ion-home_empty"
+        v-model="value"
+      />
+      <va-rating
+        icon="thumb_up"
+        empty-icon="thumb_up_empty"
+        v-model="value"
+      />
+      <va-rating
+        icon="battery"
+        half-icon="battery_half"
+        halves
+        hover
+        empty-icon="battery_empty"
+        v-model="value"
+      />
+    </VbCard>
+    <VbCard title="With custom icons + size and color">
+      <va-rating
+        size="2rem"
+        color="danger"
+        hover
+        icon="heart"
+        empty-icon="heart_empty"
+        v-model="value"
+      />
+      <va-rating
+        size="large"
+        color="info"
+        icon="ion-home"
+        empty-icon="ion-home_empty"
+        v-model="value"
+      />
+      <va-rating
+        :size="20"
+        icon="thumb_up"
+        empty-icon="thumb_up_empty"
+        v-model="value"
+      />
+      <va-rating
+        color="success"
+        size='3rem'
+        icon="battery"
+        half-icon="battery_half"
+        halves
+        hover
+        empty-icon="battery_empty"
+        v-model="value"
+      />
+    </VbCard>
+    <VbCard title="Numbers">
+      <va-rating numbers v-model="value"/>
+    </VbCard>
+    <VbCard title="Custom length">
+      <va-rating numbers :max="3" v-model="value"/>
+    </VbCard>
+    <VbCard title="With halves">
+      <va-rating numbers halves v-model="value"/>
+    </VbCard>
+    <VbCard title="With hover">
+      <va-rating numbers hover v-model="value"/>
+    </VbCard>
+    <VbCard title="With halves and hover">
+      <va-rating numbers hover halves v-model="value"/>
+    </VbCard>
+    <VbCard title="Clearable">
+      <va-rating numbers clearable v-model="value"/>
+    </VbCard>
+    <VbCard title="Colors" dark>
+      <va-rating numbers color="success" v-model="value"/>
+      <va-rating numbers color="info" v-model="value"/>
+      <va-rating numbers color="warning" v-model="value"/>
+      <va-rating numbers color="danger" v-model="value"/>
+      <va-rating numbers color="dark" v-model="value"/>
+      <va-rating numbers color="#ffff00" v-model="value"/>
+    </VbCard>
+    <VbCard title="Custom color for unselected">
+      <va-rating
+        hover
+        numbers
+        unselected-color="danger"
+        v-model="value"
+      />
+    </VbCard>
+    <VbCard title="Sizes">
+      <va-rating numbers size='small' v-model="value"/>
+      <va-rating numbers size='medium' v-model="value"/>
+      <va-rating numbers size='large' v-model="value"/>
+      <va-rating numbers :size="40" v-model="value"/>
+      <va-rating numbers :size="60" v-model="value"/>
+    </VbCard>
+    <VbCard title="Disabled">
+      <va-rating numbers disabled hover v-model="value"/>
+    </VbCard>
+    <VbCard title="Readonly">
+      <va-rating numbers readonly hover v-model="value"/>
+    </VbCard>
+    <VbCard
+      title="Uses context and is stateful"
+    >
+      <va-context :config="{
+        VaRating: {
+          color: 'danger',
+          max: 10,
+          hover: true,
+          halves: true
+        }
+      }">
+        <va-rating stateful />
+      </va-context>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaRating from './VaRating'
+import VaContext from '../../context-test/context-provide/VaContext'
 
 export default {
   components: {
     VaRating,
+    VaContext,
   },
   data () {
     return {
-      value: 2.5,
+      value: 1,
     }
   },
 }

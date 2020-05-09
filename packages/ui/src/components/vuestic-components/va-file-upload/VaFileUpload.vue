@@ -37,7 +37,7 @@
       :files="files"
       :color="colorComputed"
       @remove="removeFile"
-      @remove-single="removeSingleFile"
+      @removeSingle="removeSingleFile"
     />
     <va-modal
       v-model="modal"
