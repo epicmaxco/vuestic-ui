@@ -63,7 +63,20 @@
         left-label
       />
     </VbCard>
+    <VbCard title="Custom labels">
+      <div>
+        {{value}}
+      </div>
+      <va-switch
+        v-model="value"
+        true-label="Yes"
+        false-label="No"
+      />
+    </VbCard>
     <VbCard title="Custom trueValue, falseValue">
+      <div>
+        {{customTrueFalse}}
+      </div>
       <va-switch
         v-model="customTrueFalse"
         true-value="agree"
@@ -152,6 +165,7 @@ export default {
   },
   data () {
     return {
+      customValue: [{ id: 1, name: 'one' }],
       value: true,
       valueStateful: true,
       customTrueFalse: 'disagree',

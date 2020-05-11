@@ -40,7 +40,7 @@
       </div>
       <div class="va-switch__label" :class="computedLabelClass">
         <slot>
-          {{ label }}
+          {{ computedLabel }}
         </slot>
       </div>
     </div>
@@ -71,10 +71,27 @@ export default {
         type: Boolean,
         default: false,
       },
+      trueLabel: {
+        type: String,
+        default: null,
+      },
+      falseLabel: {
+        type: String,
+        default: null,
+      },
     }),
   ],
   components: { VaProgressCircle, VaInputWrapper },
   computed: {
+    computedLabel () {
+      if (this.trueLabel && this.isTrue) {
+        return this.trueLabel
+      }
+      if (this.falseLabel && !this.isTrue) {
+        return this.falseLabel
+      }
+      return this.label
+    },
     computedClass () {
       return {
         'va-switch--small': this.size === 'small',
