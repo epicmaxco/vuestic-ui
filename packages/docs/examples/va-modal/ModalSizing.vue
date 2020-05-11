@@ -1,9 +1,9 @@
 <template>
   <div>
-    <va-button @click="showModalSizeSmall = !showModalSizeSmall">
+    <va-button class="mr-2 mb-2" @click="showModalSizeSmall = !showModalSizeSmall">
       Show modal size small
     </va-button>
-    <va-button @click="showModalSizeMedium = !showModalSizeMedium">
+    <va-button class="mr-2 mb-2" @click="showModalSizeMedium = !showModalSizeMedium">
       Show modal size medium (default)
     </va-button>
     <va-button @click="showModalSizeLarge = !showModalSizeLarge">
