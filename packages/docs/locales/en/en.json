@@ -103,8 +103,8 @@
       "props": {
         "value": "The rating value",
         "icon": "The icon displayed when icon is filled",
-        "half-icon": "The icon displayed when icon is half-filled (requires **`halves`**)",
-        "empty-icon": "The icon displayed when icon is empty (requires **`halves`**)",
+        "halfIcon": "The icon displayed when icon is half-filled (requires **`halves`**)",
+        "emptyIcon": "The icon displayed when icon is empty (requires **`halves`**)",
         "readonly": "Disables all user interaction effects (pointer, hover)",
         "numbers": "When true numbers from 1 to `max` are rendered instead of icons",
         "halves": "Allow to select half of the item",
@@ -112,27 +112,27 @@
         "clearable": "Allows the components value to be set to 0. Triggered by clicking on currently selected icon",
         "hover": "Adds visual feedback when hovering on items",
         "texts": "The array of captions to be used with each value. The array length should be equal to **`max`** prop",
-        "text-color": "Color of text captions",
-        "unselected-color": "Specifies the color of unselected items (by default **`color`** prop is used)"
+        "textColor": "Color of text captions",
+        "unselectedColor": "Specifies the color of unselected items (by default **`color`** prop is used)"
       }
     },
     "VaPagination": {
       "props": {
         "value": "Current page (or item if `total` is isued) value",
-        "visible-pages": "The amount of displayed pages. (When set to 0 all pages are displayed)",
+        "visiblePages": "The amount of displayed pages. (When set to 0 all pages are displayed)",
         "pages": "The amount of pages",
-        "boundary-links": "Show controls to move to first and last page",
-        "boundary-numbers": "Always show first and last page (will replace `boundary-links` if both used)",
-        "direction-links": "Show buttons to move forward and backward",
+        "boundaryLinks": "Show controls to move to first and last page",
+        "boundaryNumbers": "Always show first and last page (will replace `boundary-links` if both used)",
+        "directionLinks": "Show buttons to move forward and backward",
         "input": "Use HTML Input instead of buttons to control `va-pagination` state",
-        "hide-on-single-page": "Component won't be displayed if only 1 page is available",
+        "hideOnSinglePage": "Component won't be displayed if only 1 page is available",
         "flat": "Applies `flat` style",
         "total": "Set the amount of data pagination should iterate through. This prop should not be used with `pages` prop. Please, use either of them.",
-        "page-size": "Set the amount of data to be displayed at 1 page. Used to calculate the length of pagination. This prop should not be used with `pages` prop. Please, use either of them.",
-        "boundary-icon-left": "Set the icon name for left boundary icon",
-        "boundary-icon-right": "Set the icon name for right boundary icon",
-        "direction-icon-left": "Set the icon name for left direction icon",
-        "direction-icon-right": "Set the icon name for right direction icon"
+        "pageSize": "Set the amount of data to be displayed at 1 page. Used to calculate the length of pagination. This prop should not be used with `pages` prop. Please, use either of them.",
+        "boundaryIconLeft": "Set the icon name for left boundary icon",
+        "boundaryIconRight": "Set the icon name for right boundary icon",
+        "directionIconLeft": "Set the icon name for left direction icon",
+        "directionIconRight": "Set the icon name for right direction icon"
       }
     }
   },
@@ -282,7 +282,7 @@
           "answer": "Yes, you can use Tab(Shift+Tab) to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
         },
         {
-          "question": "Can I use every other prop in combination with `**numbers**` prop?",
+          "question": "Can I use every other prop in combination with **numbers** prop?",
           "answer": "Yes, all props are compatible between each other."
         }
       ]
