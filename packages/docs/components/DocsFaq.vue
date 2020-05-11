@@ -2,10 +2,10 @@
   <div>
     <template v-for="(item, index) in items">
       <h3 :key="index">
-        {{$t(item.question)}}
+        <MarkdownView :value="$t(item.question)" />
       </h3>
       <p :key="index">
-        {{$t(item.answer)}}
+        <MarkdownView :value="$t(item.answer)" />
       </p>
     </template>
   </div>
@@ -13,8 +13,11 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { FaqBlock } from '../types/configTypes'
+import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 
-@Component({})
+@Component({
+  components: { MarkdownView },
+})
 export default class DocsFaq extends Vue {
   @Prop({ type: Array }) items!: FaqBlock[]
 }

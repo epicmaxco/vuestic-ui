@@ -1,62 +1,5 @@
 <template>
   <VbDemo>
-    <VbCard title="Position">
-      <p>
-        <button @click="showModalPositionCenter = !showModalPositionCenter">
-          show modal position center (default)
-        </button>
-        <va-modal
-          v-model="showModalPositionCenter"
-          :message="message"
-        />
-      </p>
-      <p>
-        <button @click="showModalPositionTop = !showModalPositionTop">
-          show modal position top
-        </button>
-        <va-modal
-          v-model="showModalPositionTop"
-          title="Simple Popup, Full Width"
-          :message="message"
-          position="top"
-        />
-      </p>
-      <p>
-        <button @click="showModalPositionRight = !showModalPositionRight">
-          show modal position right
-        </button>
-        <va-modal
-          v-model="showModalPositionRight"
-          title="Simple Popup, Full Width"
-          :message="message"
-          position="right"
-        />
-      </p>
-      <p>
-        <button @click="showModalPositionBottom = !showModalPositionBottom">
-          show modal position bottom
-        </button>
-        <va-modal
-          v-model="showModalPositionBottom"
-          title="Simple Popup, Full Width"
-          :message="message"
-          ok-text="Accept"
-          cancel-text="Decline"
-          position="bottom"
-        />
-      </p>
-      <p>
-        <button @click="showModalPositionLeft = !showModalPositionLeft">
-          show modal position left
-        </button>
-        <va-modal
-          v-model="showModalPositionLeft"
-          title="Simple Popup, Full Width"
-          :message="message"
-          position="left"
-        />
-      </p>
-    </VbCard>
     <VbCard title="modal size">
       <p>
         <button @click="showModalSizeSmall = !showModalSizeSmall">
@@ -105,7 +48,7 @@
         <slot>
           <div>{{ message }}</div>
         </slot>
-        <template slot="actions">
+        <template slot="footer">
           <button @click="customActionClick">
             Custom action
           </button>
@@ -158,6 +101,28 @@
         :message="message"
       />
     </VbCard>
+    <VbCard title="no-dismiss">
+      <button @click="showModalNoDismiss = !showModalNoDismiss">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalNoDismiss"
+        :no-dismiss="true"
+        title="Step 2. Centered Layout"
+        :message="message"
+      />
+    </VbCard>
+    <VbCard title="overlay: false">
+      <button @click="showModalOverlay = !showModalOverlay">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalOverlay"
+        :overlay="false"
+        title="Step 2. Centered Layout"
+        :message="message"
+      />
+    </VbCard>
     <VbCard title="several lays">
       <button @click="showModalFirstLay = !showModalFirstLay">
         Show modal
@@ -186,7 +151,7 @@
       <va-modal
         v-model="showFixedLayoutModal"
         :fixed-layout="true"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       >
         <template slot="header">
           <p>Step 2. Centered Layout</p>
@@ -200,7 +165,7 @@
       <va-modal
         v-model="showWithoutDefaultActions"
         hide-default-actions
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       >
         <template slot="header">
           <p>Step 2. Centered Layout</p>
@@ -215,7 +180,7 @@
         v-model="showSpecialActionsModal"
         @ok="onOk"
         @cancel="onCancel"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       >
         <template slot="header">
           <p>Step 2. Centered Layout</p>
@@ -229,7 +194,7 @@
       <va-modal
         v-model="showModalLongMessage"
         title="Several lays"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       />
     </VbCard>
     <VbCard title="without title">
@@ -238,18 +203,52 @@
       </button>
       <va-modal
         v-model="showModalWithoutTitle"
-        :message="message + message + message + message + message + message + message + message + message + message + message + message + message + message + message + message"
+        :message="longMessage"
       />
     </VbCard>
     <VbCard title="without transitions">
-      <button @click="showModalWithoutTrasitions = !showModalWithoutTrasitions">
+      <button @click="showModalWithoutTransitions = !showModalWithoutTransitions">
         Show modal
       </button>
       <va-modal
         without-transitions
-        v-model="showModalWithoutTrasitions"
+        v-model="showModalWithoutTransitions"
         :message="message"
       />
+    </VbCard>
+    <VbCard title="overlay-opacity">
+      <button @click="showModalOverlayOpacity = !showModalOverlayOpacity">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalOverlayOpacity"
+        overlay-opacity="0.2"
+        :message="longMessage"
+      />
+    </VbCard>
+    <VbCard title="z-index">
+      <button @click="showModalZIndex = !showModalZIndex">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalZIndex"
+        :z-index="10"
+        :message="longMessage"
+      />
+    </VbCard>
+    <VbCard title="custom footer">
+      <button @click="showModalCustomFooter = !showModalCustomFooter">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalCustomFooter"
+        :message="longMessage"
+      >
+        <template slot="footer">
+          <div style="margin-top: 30px; width: 100%;" />
+          <p style="background-color: lightblue; width: 100%; text-align: center;">Custom footer</p>
+        </template>
+      </va-modal>
     </VbCard>
   </VbDemo>
 </template>
@@ -261,11 +260,6 @@ export default {
   components: { VaModal },
   data () {
     return {
-      showModalPositionCenter: false,
-      showModalPositionTop: false,
-      showModalPositionRight: false,
-      showModalPositionBottom: false,
-      showModalPositionLeft: false,
       showModalSizeSmall: false,
       showModalSizeMedium: false,
       showModalSizeLarge: false,
@@ -283,22 +277,25 @@ export default {
       showModalSecondLay: false,
       showModalLongMessage: false,
       showModalWithoutTitle: false,
-      showModalWithoutTrasitions: false,
-      message: 'About 64% of all on-line teens say that do things online that they wouldn’t want their parents to know about.   11% of all adult internet users visit dating websites and spend their time Some of the classify their behavior as “cyber affair”   More then 60% of employees use company PC for the personal needs during their work hours as long as 80 minutes per day.',
+      showModalWithoutTransitions: false,
+      showModalNoDismiss: false,
+      showModalOverlay: false,
+      showModalOverlayOpacity: false,
+      showModalZIndex: false,
+      showModalCustomFooter: false,
+      message: this.$vb.lorem(),
+      longMessage: this.$vb.lorem(5000),
     }
   },
   methods: {
     onOk () {
-      // eslint-disable-next-line no-console
-      console.log('OK')
+      this.$vb.log('OK')
     },
     onCancel () {
-      // eslint-disable-next-line no-console
-      console.log('Cancel')
+      this.$vb.log('Cancel')
     },
     customActionClick () {
-      // eslint-disable-next-line no-console
-      console.log('custom action click')
+      this.$vb.log('custom action click')
     },
   },
 }

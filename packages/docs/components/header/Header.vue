@@ -94,7 +94,7 @@ export default class Header extends Vue {
   box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
 
   &__links__button {
-    font-weight: bold;
+    font-weight: $font-weight-bold;
 
     .button__icon {
       margin-right: 0.5em;
@@ -120,7 +120,7 @@ export default class Header extends Vue {
 
   &__prefences {
     justify-content: flex-end;
-    font-weight: bold;
+    font-weight: $font-weight-bold;
 
     &__dropdown {
       max-width: 100px;

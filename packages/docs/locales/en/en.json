@@ -57,6 +57,45 @@
         "label": "Replaces the default label."
       }
     },
+    "VaModal": {
+      "props": {
+        "value": "The current visibility state of the modal",
+        "title": "Text content to place in the title",
+        "message": "Content of modal body",
+        "size": "Set the size of the modal's width. `small`, `medium` (default) or `large`",
+        "ok-text": "Text string to place in the default footer **Ok** button",
+        "cancel-text": "Text string to place in the default footer **Cancel** button",
+        "hide-default-actions": "Use `hide-default-actions: true` to hide **Cancel** and **Ok** buttons",
+        "fullscreen": "Add the `fullscreen` prop to cover the whole page",
+        "mobile-fullscreen": "Use `mobile-fullscreen: false` to disable fullscreen mode for mobile viewports",
+        "no-dismiss": "Disable both close on overlay click and close on **Esc**",
+        "no-outside-dismiss": "Disable close on overlay click",
+        "no-esc-dismiss": "Disable close on **Esc**",
+        "max-width": "Use `max-width` to change the maximum width of the modal.",
+        "max-height": "Use `max-height` to change the maximum height of the modal. If content is larger, scroll will appear",
+        "fixed-layout": "Use `fixed-layout: true` to scroll only content in modal. Title and actions will be fixed",
+        "without-transitions": "Use `without-transitions: true` to turn off the open and close animations on the modal",
+        "overlay": "Use `overlay: false` to hide the overlay",
+        "overlay-opacity": "Set the overlay's opacity",
+        "z-index": "Set the modal's `z-index`"
+      },
+      "events": {
+        "clickOutside": "Emits when overlay is clicked",
+        "input": "Emits when modal's visibility should change",
+        "ok": "Emits when **Ok** button is clicked",
+        "cancel": "Emits when **Cancel** button is clicked"
+      },
+      "methods": {
+        "hide": "Hide modal. On stateless modal only emits `@input`",
+        "open": "Show modal. On stateless modal only emits `@input`",
+        "toggle": "Toggle a modal's visibility. On stateless modal only emits `@input`"
+      },
+      "slots": {
+        "default": "Content of modal body",
+        "header": "Modal header content",
+        "footer": "Modal footer content"
+      }
+    },
     "VaRating": {
       "props": {
         "value": "The rating value",
@@ -228,6 +267,73 @@
           "answer": "Yes, all props are compatible between each other."
         }
       ]
+    }
+  },
+  "modal": {
+    "title": "Modal",
+    "description": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, subwindow, etc.",
+    "overview": {
+      "subtitle": "Overview",
+      "paragraphs": [
+        "`<va-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. You can provide custom message and title with the `message` and `title` props respectively.",
+        "`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
+      ]
+    },
+    "stateful": {
+      "subtitle": "Stateful",
+      "paragraph": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
+    },
+    "fullscreen": {
+      "subtitle": "Full screen",
+      "paragraphs": [
+        "Add the `fullscreen` prop to cover the whole page.",
+        "Note that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`"
+      ]
+    },
+    "modalSizing": {
+      "subtitle": "Modal sizing",
+      "paragraph": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
+    },
+    "toggleVisibility": {
+      "subtitle": "Toggle modal visibility",
+      "paragraph": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
+      "sections": [
+        { "headline": "Using `v-model` property", "paragraph": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."},
+        { "headline": "Using `show()`, `hide()`, and `toggle()` component methods.", "paragraph": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."}
+      ]
+    },
+    "disableAnimation": {
+      "subtitle": "Disable open and close animation",
+      "paragraph": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
+    },
+    "hidingOverlay": {
+      "subtitle": "Hiding the overlay",
+      "paragraphs": [
+        "Hide the modal's overlay via setting the `overlay` prop to `false`.",
+        "Note that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
+      ]
+    },
+    "scrollingLongContent": {
+      "subtitle": "Scrolling long content",
+      "paragraphs": [
+        "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.",
+        "You can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
+      ]
+    },
+    "customization": {
+      "subtitle": "Customization",
+      "paragraphs": [
+        "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.",
+        "You can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.",
+        "`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
+      ]
+    },
+    "nestedModals": {
+      "subtitle": "Nested modals",
+      "paragraph": "Modals can be nested: you can open one modal from another."
+    },
+    "api": {
+      "subtitle": "API"
     }
   }
 }

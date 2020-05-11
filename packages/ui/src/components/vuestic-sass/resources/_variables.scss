@@ -339,3 +339,15 @@ $display-margins: (
   5: 2.25rem,
   6: 2rem
 ) !default;
+
+// Modals
+$basic-duration: 0.3s;
+
+$zindex-modal: 1050 !default;
+$modal-transform-transition: transform $basic-duration ease !default;
+$modal-opacity-transition: opacity ($basic-duration / 2) cubic-bezier(1, 0.5, 0.8, 1) !default;
+$modal-overlay-opacity-transition: opacity (2 * $basic-duration / 3) cubic-bezier(1, 0.5, 0.8, 1) !default;
+$modal-padding-top: 1.25rem !default;
+$modal-padding-right: 1.875rem !default;
+$modal-padding-bottom: 1.5rem !default;
+$modal-padding-left: 1.5rem !default;

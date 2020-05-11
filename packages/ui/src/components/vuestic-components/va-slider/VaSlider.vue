@@ -815,7 +815,7 @@ export default {
       font-size: 0.625rem;
       letter-spacing: 0.6px;
       line-height: 1.2;
-      font-weight: bold;
+      font-weight: $font-weight-bold;
       text-transform: uppercase;
     }
   }
@@ -825,7 +825,7 @@ export default {
     font-size: 0.625rem;
     letter-spacing: 0.6px;
     line-height: 1.2;
-    font-weight: bold;
+    font-weight: $font-weight-bold;
     text-transform: uppercase;
   }
 
@@ -834,7 +834,7 @@ export default {
     font-size: 0.625rem;
     letter-spacing: 0.6px;
     line-height: 1.2;
-    font-weight: bold;
+    font-weight: $font-weight-bold;
     text-transform: uppercase;
   }
 
