@@ -190,6 +190,45 @@
       "paragraph": "Here are props, events and slots that are used in va-slider component."
     }
   },
+  "switch": {
+    "title": "Switch",
+    "paragraph": "Switch component turns on or off the state of your custom option",
+    "basic": {
+      "subtitle": "Basic Element",
+      "paragraph": "This is basic usage of switch component."
+    },
+    "advanced": {
+      "subtitle": "Advanced Element",
+      "color": {
+        "headline": "Color",
+        "paragraph": "You can customize color."
+      },
+      "state": {
+        "headline": "State",
+        "paragraph": "Switch can be in disabled or readonly state."
+      },
+      "label": {
+        "headline": "Label",
+        "paragraph": "Switch can be labeled left or right"
+      },
+      "size": {
+        "headline": "Size",
+        "paragraph": "Switch can have 3 different sizes"
+      },
+      "loading": {
+        "headline": "Loading",
+        "paragraph": "You can mark a pending state of switch"
+      },
+      "error": {
+        "headline": "Error",
+        "paragraph": ""
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in va-switch component."
+    }
+  },
   "rating": {
     "title": "Rating",
     "paragraph": "The rating component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application",
@@ -227,32 +266,6 @@
         {
           "question": "Can I use every other prop in combination with `**numbers**` prop?",
           "answer": "Yes, all props are compatible between each other."
-        }
-      ]
-    }
-  },
-  "switch": {
-    "title": "Switch",
-    "paragraph": "Switching selector Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae ut quos explicabo cupiditate, consequuntur ratione sapiente quo animi, modi velit, enim eligendi aspernatur qui totam sunt architecto quaerat soluta doloremque inventore necessitatibus repellendus. Impedit alias doloribus, sapiente illum consequuntur accusamus labore dignissimos. Eveniet, animi! Inventore placeat ullam numquam quod a tempora soluta dicta saepe, cumque architecto ducimus laboriosam ipsam culpa labore",
-    "basic": {
-      "subtitle": "Basic element",
-      "paragraph": "This is basic switch component implementation"
-    },
-    "advanced": {
-      "subtitle": "Advanced Element",
-      "headline": "Color prop demo",
-      "paragraph": "Here you can see different colors of component depends on color prop and more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text for more text"
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props that are used in va-switch component more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text more loren ipsum color text"
-    },
-    "faq": {
-      "subtitle": "FAQ",
-      "questions": [
-        {
-          "question": "Frequently asked question one",
-          "answer": "Answer one and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text and more text"
         }
       ]
     }

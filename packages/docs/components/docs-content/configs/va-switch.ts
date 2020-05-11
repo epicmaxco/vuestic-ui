@@ -1,6 +1,6 @@
-import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
-
-const config: ApiDocsBlock[] = [
+import { BlockType } from '../../../types/configTypes'
+import Api from '../../../examples/va-slider/Api.vue'
+export default [
   {
     type: BlockType.TITLE,
     translationString: 'switch.title',
@@ -19,7 +19,7 @@ const config: ApiDocsBlock[] = [
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-switch/Basic',
+    component: 'va-switch/Default',
   },
   {
     type: BlockType.SUBTITLE,
@@ -27,15 +27,75 @@ const config: ApiDocsBlock[] = [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.advanced.headline',
+    translationString: 'switch.advanced.color.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.advanced.paragraph',
+    translationString: 'switch.advanced.color.paragraph',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-switch/WithColors',
+    component: 'va-switch/Color',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'switch.advanced.label.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'switch.advanced.label.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-switch/Label',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'switch.advanced.size.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'switch.advanced.size.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-switch/Size',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'slider.advanced.state.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'slider.advanced.state.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-switch/State',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'slider.advanced.loading.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'slider.advanced.loading.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-switch/Loading',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'slider.advanced.error.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'slider.advanced.error.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-switch/Error',
   },
   {
     type: BlockType.SUBTITLE,
@@ -45,19 +105,8 @@ const config: ApiDocsBlock[] = [
     type: BlockType.PARAGRAPH,
     translationString: 'switch.api.paragraph',
   },
-  // TODO: here comes api component
   {
-    type: BlockType.SUBTITLE,
-    translationString: 'switch.faq.subtitle',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.faq.questions[0].question',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.faq.questions[0].answer',
+    type: BlockType.API,
+    component: Api,
   },
 ]
-
-export default config
