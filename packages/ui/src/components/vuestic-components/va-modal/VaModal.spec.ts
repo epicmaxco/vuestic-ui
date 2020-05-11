@@ -13,11 +13,13 @@ describe('VaModal', () => {
     // instead of `value: boolean`
     let logError: any
     beforeEach(() => {
+      // eslint-disable-next-line no-console
       logError = console.error
       console.error = noop
     })
 
     afterEach(() => {
+      // eslint-disable-next-line no-console
       console.error = logError
     })
 
@@ -38,7 +40,6 @@ describe('VaModal', () => {
     it('is contextable', () => {
       const props = {
         value: false,
-        position: 'center',
         title: '',
         message: '',
         okText: 'OK',

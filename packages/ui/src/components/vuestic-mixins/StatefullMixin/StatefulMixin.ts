@@ -1,4 +1,4 @@
-import { Watch, Component, Vue, Mixins } from 'vue-property-decorator'
+import { Watch, Component, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const componentProps = {
