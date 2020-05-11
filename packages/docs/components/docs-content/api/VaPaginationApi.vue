@@ -17,7 +17,7 @@ import ApiDocs from '../../../../ui/src/services/api-docs/ApiDocs.vue'
 @Component({
   components: { ApiDocs, VaContent },
 })
-export default class RatingApi extends Vue {
+export default class VaPaginationApi extends Vue {
   get VaPagination () {
     return VaPagination
   }
