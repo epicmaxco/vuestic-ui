@@ -69,7 +69,7 @@ export const SelectableMixin = {
       this.toggleSelection()
     },
     toggleSelection () {
-      if (this.c_readonly || this.c_disabled) {
+      if (this.c_readonly || this.c_disabled || this.c_loading) {
         return
       }
       if (this.modelIsArray) {
