@@ -39,6 +39,8 @@ const sizeProps = {
 
 @Component
 export class SizeMixin extends mixins(makeContextablePropsMixin(sizeProps)) {
+  fontRegex = /(?<fontSize>\d+)(?<extension>px|rem)/i
+
   get sizeComputed (): string {
     const { defaultSize, sizes } = this.c_sizesConfig
 
@@ -54,22 +56,30 @@ export class SizeMixin extends mixins(makeContextablePropsMixin(sizeProps)) {
   }
 
   get fontSizeComputed (): string {
-    return this.fontSize === 'string'
-      ? this.fontSize
-      : `${this.fontSize}rem`
+    return `${this.fontSize}rem`
   }
 
-  get fontSize (): number | string {
+  get fontSize (): number {
     const { defaultSize, sizes } = this.c_fontSizesConfig
+
+    const convertToRem = (px: number) => px / 16 - 0.5
 
     if (!this.c_size) {
       return defaultSize
     }
 
     if (typeof this.c_size === 'string') {
-      return this.c_size in sizes ? sizes[this.c_size] : this.c_size
+      if (this.c_size in sizes) return sizes[this.c_size]
+
+      const fontSizeParsed = this.c_size.match(this.fontRegex)
+      if (!fontSizeParsed || !fontSizeParsed.groups) {
+        throw new Error('Size prop should be either valid string or number')
+      }
+
+      const { extension, fontSize } = fontSizeParsed.groups
+      return extension === 'rem' ? +fontSize : convertToRem(+fontSize)
     }
 
-    return this.c_size / 16 - 0.5
+    return convertToRem(this.c_size)
   }
 }
