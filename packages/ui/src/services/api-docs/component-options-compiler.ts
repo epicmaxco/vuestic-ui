@@ -12,7 +12,7 @@ export type PropOptionsCompiled = {
   required: boolean;
   default: any;
 }
-type CompiledComponentOptions = { props: Record<string, PropOptionsCompiled>; componentName: string }
+type CompiledComponentOptions = { props: Record<string, PropOptionsCompiled> }
 type TestVueInstance = CombinedVueInstance<any, any, any, any, any>
 
 /**
@@ -33,7 +33,7 @@ function convertComponentPropToApiDocs <T extends string> (propName: T, propOpti
 
 export function compileComponentOptions (componentOptions: ComponentOptions<Vue>): CompiledComponentOptions {
   const testComponentInstance = new (Vue.extend(componentOptions))()
-  const { name, props } = testComponentInstance.$options
+  const props = testComponentInstance.$options.props
 
   const propsApiDocs: any = {}
   for (const propName in props) {
@@ -42,6 +42,5 @@ export function compileComponentOptions (componentOptions: ComponentOptions<Vue>
 
   return {
     props: propsApiDocs,
-    componentName: name as string,
   }
 }

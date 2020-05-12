@@ -55,14 +55,14 @@ export const getApiTableData = (
   componentOptions: ComponentOptions<Vue>,
   manualApiOptions: ManualApiOptions = {},
 ): ApiTableData => {
-  const { componentName, props } = compileComponentOptions(componentOptions)
-  const camelCasedProps = Object.keys(props).reduce((acc: Record<string, any>, key: string) => {
-    acc[camelCase(key)] = props[key]
+  const compiledComponentOptions = compileComponentOptions(componentOptions)
+  const camelCasedProps = Object.keys(compiledComponentOptions.props).reduce((acc: Record<string, any>, key: string) => {
+    acc[camelCase(key)] = compiledComponentOptions.props[key]
     return acc
   }, {} as Record<string, any>)
-
+  const componentName = componentOptions.name as string
   const apiTableData: ApiTableData = {
-    name: componentName,
+    name: componentOptions.name as string,
     props: {},
     slots: {},
     events: {},

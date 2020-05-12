@@ -162,14 +162,4 @@ export default class Index extends Vue {
     width: 100%;
   }
 }
-
-.va-content,
-.va-breadcrumbs {
-  h1 {
-    margin-top: 2.25rem !important; // TODO: dirty hack fto fix style implementation order
-  }
-
-  font-family: Source Sans Pro, sans-serif;
-  font-size: 16px;
-}
 </style>

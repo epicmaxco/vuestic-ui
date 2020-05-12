@@ -49,7 +49,7 @@ export default class VaSidebar extends Vue {
   font-family: Source Sans Pro, sans-serif;
   min-height: $sidebar-viewport-min-height;
   height: $sidebar-viewport-height;
-  width: 250px !important; // TODO: temp fix until problem of style implementing is solved.
+  width: 250px;
   position: absolute;
   transition: all 0.3s ease;
   overflow-y: auto;

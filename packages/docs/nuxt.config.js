@@ -1,4 +1,5 @@
 import nuxtI18n from './nuxt-modules/nuxt-i18n'
+import TerserPlugin from 'terser-webpack-plugin'
 
 export default {
   head: {
@@ -44,12 +45,23 @@ export default {
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },
     { src: '~/plugins/localeRoute.ts' },
-    { src: '~/plugins/vuestic-server.ts' }, // temporary fix for css applying from va-content
-    { mode: 'client', src: '~/plugins/vuestic.ts' },
+    { src: '~/plugins/vuestic.ts' },
   ],
   build: {
-    transpile: ['vue-instantsearch', 'instantsearch.js/es'],
+    transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vuetable-2', 'vue-bulma-expanding'],
     extend (config, { _isDev, isClient }) {
+      Object.assign(config.optimization, {
+        minimize: true,
+        minimizer: [
+          new TerserPlugin({
+            // We need this plugin to keep class names not minified to use it while managing vuetify plugin and API props
+            parallel: true,
+            terserOptions: {
+              keep_fnames: true,
+            },
+          }),
+        ],
+      })
       if (isClient) {
         config.node = {
           fs: 'empty',
