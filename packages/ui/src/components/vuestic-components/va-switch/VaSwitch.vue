@@ -24,19 +24,22 @@
       ref="input"
     >
       <div class="va-switch__inner">
-        <span
+        <div
           class="va-switch__track"
           :style="trackStyle"
           :class="computedTrackClass"
-        />
-        <span class="va-switch__input" :style="indicatorStyle">
-          <va-progress-circle
-            v-if="loading"
-            indeterminate
-            :size="computedProgressCircleSize"
-            :color="trackStyle.backgroundColor"
-          />
-        </span>
+        >
+          <div class="va-switch__input-wrapper" :style="wrapperStyle">
+            <span class="va-switch__input" :style="indicatorStyle">
+              <va-progress-circle
+                v-if="loading"
+                indeterminate
+                :size="computedProgressCircleSize"
+                :color="trackStyle.backgroundColor"
+              />
+            </span>
+          </div>
+        </div>
       </div>
       <div class="va-switch__label" :class="computedLabelClass">
         <slot>
@@ -116,11 +119,17 @@ export default {
       return { backgroundColor }
     },
     indicatorStyle () {
-      const moveStartPoint =
-        this.size === 'small' ? 1.5 : this.size === 'large' ? 2.5 : 2
+      return {
+        margin: this.isTrue ? 'auto -5px' : 'auto 5px',
+        transform: this.isTrue
+          ? 'translateX(-100%)'
+          : 'translateX(0rem)',
+      }
+    },
+    wrapperStyle () {
       return {
         transform: this.isTrue
-          ? `translateX(${moveStartPoint}rem)`
+          ? 'translateX(100%)'
           : 'translateX(0rem)',
       }
     },
@@ -162,7 +171,7 @@ export default {
     display: inline-block;
     position: relative;
     height: 2rem;
-    width: 4rem;
+    width: auto; //4rem
     min-width: 4rem;
     border-radius: 1rem;
 
@@ -233,6 +242,7 @@ export default {
 
   &__track {
     display: inline-block;
+    overflow: hidden;
     border-radius: 1rem;
     height: 100%;
     width: 100%;
@@ -247,17 +257,31 @@ export default {
 
   &__input {
     position: absolute;
-    top: 0.25rem;
-    left: 0.25rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
     height: 1.5rem;
     width: 1.5rem;
     background-color: $white;
     border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  &__input-wrapper {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.2s ease;
+    pointer-events: none;
   }
 }
 </style>
