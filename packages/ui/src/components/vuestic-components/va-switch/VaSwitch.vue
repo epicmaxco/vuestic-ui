@@ -190,10 +190,8 @@ export default {
       }
 
       &__input {
-        top: 0.128rem;
-        left: 0.1275rem;
-        height: 1.2rem;
-        width: 1.2rem;
+        height: 1.1rem;
+        width: 1.1rem;
       }
 
       &__track {
@@ -211,8 +209,6 @@ export default {
       }
 
       &__input {
-        top: 0.375rem;
-        left: 0.375rem;
         height: 1.8rem;
         width: 1.8rem;
       }
