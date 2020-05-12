@@ -44,7 +44,7 @@
     </slot>
     <input
       v-else
-      ref="input"
+      ref="htmlInput"
       class="va-pagination__input va-button"
       :style="{
         cursor: 'default',
@@ -99,7 +99,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 const PaginationPropsMixin = makeContextablePropsMixin({
   value: { type: Number, default: 1 },
   visiblePages: { type: Number, default: 0 },
-  pages: { type: Number, default: null },
+  pages: { type: Number, default: 0 },
   disabled: { type: Boolean, default: false },
   size: {
     type: String,
@@ -134,49 +134,49 @@ export default class VaPagination extends mixins(
   ColorThemeMixin,
   PaginationPropsMixin,
 ) {
-  private inputValue = ''
+  inputValue = ''
 
-  @Ref() readonly input!: HTMLInputElement
+  @Ref() readonly htmlInput!: HTMLInputElement
 
-  private get lastPage () {
+  get lastPage () {
     const { c_total, c_pageSize, c_pages } = this
     return this.useTotal
       ? Math.ceil(c_total / c_pageSize) || 1
       : c_pages
   }
 
-  private get paginationRange () {
+  get paginationRange () {
     const { c_visiblePages, c_total, c_pageSize, c_boundaryNumbers, c_pages } = this
     const value = this.currentValue || 1
     const totalPages = this.useTotal ? Math.ceil(c_total / c_pageSize) : c_pages
     return setPaginationRange(value, c_visiblePages, totalPages, c_boundaryNumbers)
   }
 
-  private get showBoundaryLinks () {
+  get showBoundaryLinks () {
     const { c_visiblePages, c_boundaryLinks, c_boundaryNumbers, c_input } = this
     return c_input ||
       ((c_visiblePages && this.lastPage > c_visiblePages) && c_boundaryLinks && !c_boundaryNumbers)
   }
 
-  private get showDirectionLinks () {
+  get showDirectionLinks () {
     const { c_visiblePages, c_directionLinks, c_input } = this
     return c_input || ((c_visiblePages && this.lastPage > c_visiblePages) && c_directionLinks)
   }
 
-  private get showPagination () {
+  get showPagination () {
     return this.lastPage > 1 || (!this.c_hideOnSinglePage && this.lastPage <= 1)
   }
 
-  private get fontColor () {
+  get fontColor () {
     return this.computeColor(this.c_color)
   }
 
-  private get useTotal () {
+  get useTotal () {
     const { c_total, c_pageSize } = this
     return !!((c_total || c_total === 0) && c_pageSize)
   }
 
-  private get currentValue () {
+  get currentValue () {
     if (this.useTotal) {
       return Math.ceil(this.valueComputed / this.c_pageSize) || 1
     } else {
@@ -184,13 +184,13 @@ export default class VaPagination extends mixins(
     }
   }
 
-  private set currentValue (value) {
+  set currentValue (value) {
     this.valueComputed = value
   }
 
   @Watch('useTotal', { immediate: true })
   @Watch('pages', { immediate: true })
-  private onModeChange () {
+  onModeChange () {
     if (this.useTotal && this.c_pages) {
       if (process.env.NODE_ENV !== 'production') {
         throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
@@ -198,13 +198,13 @@ export default class VaPagination extends mixins(
     }
   }
 
-  private focusInput () {
+  focusInput () {
     const { currentValue, $nextTick } = this
     this.inputValue = currentValue
-    $nextTick(() => this.input.setSelectionRange(0, this.input.value.length))
+    $nextTick(() => this.htmlInput.setSelectionRange(0, this.htmlInput.value.length))
   }
 
-  private onUserInput (pageNum: number) {
+  onUserInput (pageNum: number) {
     if (pageNum < 1 || pageNum > this.lastPage) {
       return
     }
@@ -213,12 +213,12 @@ export default class VaPagination extends mixins(
       : pageNum
   }
 
-  private resetInput () {
+  resetInput () {
     this.inputValue = ''
-    this.input.blur()
+    this.htmlInput.blur()
   }
 
-  private changeValue () {
+  changeValue () {
     if (this.inputValue === this.currentValue) this.resetInput()
     if (!this.inputValue.length) return
     let pageNum = Number.parseInt(this.inputValue)
@@ -239,7 +239,7 @@ export default class VaPagination extends mixins(
     this.resetInput()
   }
 
-  private activeButtonStyle (buttonValue: number) {
+  activeButtonStyle (buttonValue: number) {
     if (buttonValue === this.currentValue) {
       return {
         backgroundColor: this.colorComputed,

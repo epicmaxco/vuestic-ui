@@ -1,7 +1,7 @@
 <template>
   <component
     :is="computedTag"
-    class="va-icon va-icon--normal"
+    class="va-icon"
     :class="computedClass"
     :style="computedStyle"
     aria-hidden="true"
@@ -99,7 +99,7 @@ export default {
   vertical-align: middle;
   user-select: none;
 
-  &.va-icon--normal {
+  &#{&} {
     // need 2 classes to make it work
     font-style: normal;
   }

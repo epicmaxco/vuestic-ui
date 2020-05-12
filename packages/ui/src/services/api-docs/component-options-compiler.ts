@@ -32,7 +32,7 @@ function convertComponentPropToApiDocs <T extends string> (propName: T, propOpti
 }
 
 export function compileComponentOptions (componentOptions: ComponentOptions<Vue>): CompiledComponentOptions {
-  const testComponentInstance = new (Vue.extend(componentOptions))()
+  const testComponentInstance = new (Vue.extend(componentOptions))({ propsData: {} })
   const props = testComponentInstance.$options.props
 
   const propsApiDocs: any = {}

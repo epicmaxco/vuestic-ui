@@ -17,9 +17,6 @@ export const vaRatingApiOptions: ManualApiOptions = {
     readonly: {
       local: true,
     },
-    disabled: {
-      local: true,
-    },
     numbers: {
       local: true,
     },
@@ -48,7 +45,6 @@ export const vaRatingApiOptions: ManualApiOptions = {
   events: {
     input: {
       types: '`(value: number) => void`',
-      local: true,
     },
   },
 }
