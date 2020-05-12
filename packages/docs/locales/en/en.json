@@ -367,11 +367,11 @@
       "paragraph": "Here you can find some examples with simple or complex API usage",
       "limitVisible": {
         "headline": "Limitting the length",
-        "paragraph": "By using `visible-pages` prop you can set the amount of pages visible on screen"
+        "paragraph": "By using `visible-pages` prop you can set the amount of pages visible on screen."
       },
       "withInput": {
         "headline": "Using HTML input instead of pages",
-        "paragraph": "With `input` prop you can have input with arrow buttons instead of default pagination"
+        "paragraph": "With `input` prop you can have input with arrow buttons instead of default pagination."
       },
       "totalAndPageSize": {
         "headline": "Using `total` and `page-size`",
@@ -387,11 +387,11 @@
       "questions": [
         {
           "question": "What will happen if both `pages` and `total` props are set?",
-          "answer": "The error will be thrown into the console. Such interface isn't and won't be supported as it makes no sense."
+          "answer": "The error will be thrown into the console. Component is meant to be used only in one of these modes."
         },
         {
           "question": "Can I use `total` and `input` props together?",
-          "answer": "Yes, in this case value will be the number of item not the page."
+          "answer": "Yep. In v-model you'll get item number instead of page number."
         }
       ]
     }

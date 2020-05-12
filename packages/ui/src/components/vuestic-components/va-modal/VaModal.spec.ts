@@ -15,6 +15,7 @@ describe('VaModal', () => {
     beforeEach(() => {
       // eslint-disable-next-line no-console
       logError = console.error
+      // eslint-disable-next-line no-console
       console.error = noop
     })
 
