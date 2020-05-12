@@ -273,10 +273,6 @@ export default class VaPagination extends mixins(
       cursor: default;
     }
 
-    i.va-icon {
-      font-style: normal;
-    }
-
     &--ellipsis {
       cursor: default;
       opacity: 1;
