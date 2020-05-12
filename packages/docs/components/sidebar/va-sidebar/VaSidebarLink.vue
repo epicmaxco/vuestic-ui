@@ -1,9 +1,9 @@
 <template>
-  <a
+  <nuxt-link
     :class="computedLinkClass"
     :style="computedLinkStyles"
     active-class="va-sidebar-link--active"
-    :href="to"
+    :to="route"
     :target="target"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
@@ -18,7 +18,7 @@
       <slot name="title" />
       {{ title }}
     </div>
-  </a>
+  </nuxt-link>
 </template>
 
 <script>
@@ -62,6 +62,9 @@ export default Vue.extend({
     }
   },
   computed: {
+    route () {
+      return `/${this.$root.$i18n.locale}/${this.to}`
+    },
     computedLinkClass () {
       return {
         'va-sidebar-link': true,

@@ -44,6 +44,7 @@ export default {
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },
     { src: '~/plugins/localeRoute.ts' },
+    { src: '~/plugins/content.ts' }, // temporary fix for css applying from va-content
     { mode: 'client', src: '~/plugins/vuestic.ts' },
   ],
   build: {

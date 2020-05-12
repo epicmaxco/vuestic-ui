@@ -3,7 +3,6 @@
     ref="element"
     class="va-affix"
   >
-  <client-only>
     <div :style="{ visibility: isAffixed ? 'hidden' : 'inherit' }">
       <slot />
     </div>
@@ -14,7 +13,6 @@
     >
       <slot />
     </div>
-  </client-only>
   </div>
 </template>
 <script lang="ts">
