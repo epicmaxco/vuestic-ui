@@ -11,19 +11,20 @@
   >
     <div
       class="va-switch"
-      :class="computedClass"
       :id="id"
       :name="name"
-      @click="toggleSelection"
-      @keydown.enter="toggleSelection"
+      :class="computedClass"
+      @blur="onBlur($event)"
+      @focus="onFocus"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
       :tabindex="computedTabindex"
-      @blur="onBlur($event)"
-      @focus="onFocus"
       ref="input"
     >
-      <div class="va-switch__inner">
+      <div class="va-switch__inner"
+        @click="toggleSelection"
+        @keydown.enter="toggleSelection"
+      >
         <div
           class="va-switch__track"
           :style="trackStyle"
@@ -175,7 +176,6 @@ export default {
 }
 
 .va-switch {
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   margin-bottom: $checkbox-between-items-margin;
@@ -185,6 +185,7 @@ export default {
   }
 
   &__inner {
+    cursor: pointer;
     display: inline-block;
     position: relative;
     height: 2rem;
