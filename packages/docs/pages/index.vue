@@ -119,10 +119,9 @@ export default class Index extends Vue {
 </script>
 <style lang="scss">
 @import "vuestic-ui/src/components/vuestic-sass/global/reset.scss";
+@import "vuestic-ui/src/components/vuestic-sass/vuestic-styles.scss";
 @import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/icon-fonts.scss";
 @import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.scss";
-@import "vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
-@import 'vuestic-ui/src/components/vuestic-sass/grid/_grid-global-styles.scss';
 
 * {
   font-family: Source Sans Pro, sans-serif;
@@ -162,15 +161,5 @@ export default class Index extends Vue {
     padding: 15px;
     width: 100%;
   }
-}
-
-.va-content,
-.va-breadcrumbs {
-  h1 {
-    margin-top: 2.25rem;
-  }
-
-  font-family: Source Sans Pro, sans-serif;
-  font-size: 16px;
 }
 </style>

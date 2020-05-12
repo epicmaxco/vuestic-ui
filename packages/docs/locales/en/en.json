@@ -60,6 +60,16 @@
         "label": "Replaces the default label."
       }
     },
+    "VaAffix": {
+      "props": {
+        "offsetTop": "Distance from the top of target element to the top of affixed element.",
+        "offsetBottom": "Distance from the bottom of target element to the bottom of affixed element.",
+        "target": "The element relative to which the component is fixed."
+      },
+      "events": {
+        "change": "Emits affixed state on its' change."
+      }
+    },
     "VaModal": {
       "props": {
         "value": "The current visibility state of the modal",
@@ -137,6 +147,7 @@
     }
   },
   "menu": {
+    "affix": "Affix",
     "auth": "Auth",
     "rating": "Rating",
     "buttons": "Buttons",
@@ -183,6 +194,26 @@
     "english": "English",
     "spanish": "Spanish",
     "simplified_chinese": "Simplified Chinese"
+  },
+  "affix": {
+    "title": "Affix",
+    "paragraph": "Affix component is created to fix any content in proper position relative to container.",
+    "demo": {
+      "subtitle": "Demo",
+      "top": {
+        "headline": "Fixed at the top."
+      },
+      "bottom": {
+        "headline": "Fixed at them bottom."
+      },
+      "target": {
+        "headline": "Fixes element relative to custom container."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props and events that are used in va-affix component."
+    }
   },
   "slider": {
     "title": "Slider",
@@ -231,7 +262,7 @@
       },
       "track": {
         "headline": "Track",
-        "paragraph": "Track color can be hidden or have custom color."
+        "paragraph": "Track can be hidden or have custom color."
       },
       "trackLabel": {
         "headline": "Track label",
@@ -317,8 +348,14 @@
       "subtitle": "Toggle modal visibility",
       "paragraph": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
       "sections": [
-        { "headline": "Using `v-model` property", "paragraph": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."},
-        { "headline": "Using `show()`, `hide()`, and `toggle()` component methods.", "paragraph": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."}
+        {
+          "headline": "Using `v-model` property",
+          "paragraph": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
+        },
+        {
+          "headline": "Using `show()`, `hide()`, and `toggle()` component methods.",
+          "paragraph": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
+        }
       ]
     },
     "disableAnimation": {

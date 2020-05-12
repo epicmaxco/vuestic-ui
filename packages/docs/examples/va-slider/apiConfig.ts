@@ -63,19 +63,19 @@ export const vaSliderOptions: ManualApiOptions = {
   events: {
     dragStart: {
       local: true,
-      types: '-',
+      types: '',
     },
     dragEnd: {
       local: true,
-      types: '-',
+      types: '',
     },
     change: {
       local: true,
-      types: 'Number | [Number, Number]',
+      types: '`Number | [Number, Number]`',
     },
     input: {
       local: true,
-      types: 'Number | [Number, Number]',
+      types: '`Number | [Number, Number]`',
     },
   },
   slots: {

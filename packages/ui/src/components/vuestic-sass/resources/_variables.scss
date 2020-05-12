@@ -52,19 +52,19 @@ $colors-map: (
   brand-warning: $brand-warning,
   black: black,
   white: white,
-  lighter-gray: $lighter-gray
+  lighter-gray: $lighter-gray,
 ) !default;
 
 $theme-colors: (
-  "primary": $brand-primary,
-  "secondary": $white,
-  "success": $light-green,
-  "info": $brand-info,
-  "warning": $brand-warning,
-  "danger": $brand-danger,
-  "light": $light-gray2,
-  "dark": $almost-black,
-  "pale": $theme-pale
+  'primary': $brand-primary,
+  'secondary': $white,
+  'success': $light-green,
+  'info': $brand-info,
+  'warning': $brand-warning,
+  'danger': $brand-danger,
+  'light': $light-gray2,
+  'dark': $almost-black,
+  'pale': $theme-pale,
 ) !default;
 
 // Layout //
@@ -73,7 +73,7 @@ $layout-padding: 24px !default;
 $top-mobile-nav-height: 6.5rem !default;
 
 $top-nav-height: 4.0625rem !default;
-$sidebar-width: 18.75rem !default;
+$sidebar-width: 15.75rem !default;
 $sidebar-width--hidden: 3.5rem !default;
 $sidebar-menu-item-icon-size: 19px !default;
 $sidebar-viewport-min-height: calc(100vh - #{$top-nav-height}) !default;
@@ -329,15 +329,15 @@ $display-font-sizes: (
   3: 1.75rem,
   4: 1.5rem,
   5: 1.25rem,
-  6: 1.1rem
+  6: 1.1rem,
 ) !default;
 $display-margins: (
-  1: 4.5rem,
+  1: 2.25rem,
   2: 4rem,
   3: 3rem,
   4: 2.5rem,
   5: 2.25rem,
-  6: 2rem
+  6: 2rem,
 ) !default;
 
 // Modals
