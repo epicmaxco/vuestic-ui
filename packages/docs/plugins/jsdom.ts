@@ -5,5 +5,5 @@
 import jsdom from 'jsdom'
 const { JSDOM } = jsdom
 const { window } = new JSDOM('')
-const { document, Option, Object } = window
-Object.assign(global, { window, document, Option, Object })
+const { document, Option, HTMLElement, Window, Object, navigator } = window
+Object.assign(global, { window, document, Option, HTMLElement, Window, Object, navigator })

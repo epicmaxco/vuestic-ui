@@ -1,7 +1,7 @@
 <template>
   <component
     :is="computedTag"
-    class="va-icon va-icon--normal"
+    class="va-icon"
     :class="computedClass"
     :style="computedStyle"
     aria-hidden="true"
@@ -24,7 +24,6 @@ const IconContextMixin = makeContextablePropsMixin({
     type: [String, Array],
     validator: name => {
       if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-        // eslint-disable-next-line  no-console
         return warn(`${name} icon is not available.`)
       }
       return true
@@ -100,7 +99,7 @@ export default {
   vertical-align: middle;
   user-select: none;
 
-  &.va-icon--normal {
+  &#{&} {
     // need 2 classes to make it work
     font-style: normal;
   }

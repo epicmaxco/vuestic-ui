@@ -2,10 +2,13 @@
   "api": {
     "all": {
       "events": {
-        "validation": "Trigger internal validation."
+        "validation": "Trigger internal validation.",
+        "input": "Emits component value"
       },
       "props": {
-        "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
+        "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
+        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will yeild into `'<number>px'`) or string value (currently `rem` and `px` sizes are supported)",
+        "disabled": "Applies corporate *disabled* style and removes all user interaction effects"
       }
     },
     "VaForm": {
@@ -57,25 +60,89 @@
         "label": "Replaces the default label."
       }
     },
+    "VaAffix": {
+      "props": {
+        "offsetTop": "Distance from the top of target element to the top of affixed element.",
+        "offsetBottom": "Distance from the bottom of target element to the bottom of affixed element.",
+        "target": "The element relative to which the component is fixed."
+      },
+      "events": {
+        "change": "Emits affixed state on its' change."
+      }
+    },
+    "VaModal": {
+      "props": {
+        "value": "The current visibility state of the modal",
+        "title": "Text content to place in the title",
+        "message": "Content of modal body",
+        "size": "Set the size of the modal's width. `small`, `medium` (default) or `large`",
+        "ok-text": "Text string to place in the default footer **Ok** button",
+        "cancel-text": "Text string to place in the default footer **Cancel** button",
+        "hide-default-actions": "Use `hide-default-actions: true` to hide **Cancel** and **Ok** buttons",
+        "fullscreen": "Add the `fullscreen` prop to cover the whole page",
+        "mobile-fullscreen": "Use `mobile-fullscreen: false` to disable fullscreen mode for mobile viewports",
+        "no-dismiss": "Disable both close on overlay click and close on **Esc**",
+        "no-outside-dismiss": "Disable close on overlay click",
+        "no-esc-dismiss": "Disable close on **Esc**",
+        "max-width": "Use `max-width` to change the maximum width of the modal.",
+        "max-height": "Use `max-height` to change the maximum height of the modal. If content is larger, scroll will appear",
+        "fixed-layout": "Use `fixed-layout: true` to scroll only content in modal. Title and actions will be fixed",
+        "without-transitions": "Use `without-transitions: true` to turn off the open and close animations on the modal",
+        "overlay": "Use `overlay: false` to hide the overlay",
+        "overlay-opacity": "Set the overlay's opacity",
+        "z-index": "Set the modal's `z-index`"
+      },
+      "events": {
+        "clickOutside": "Emits when overlay is clicked",
+        "input": "Emits when modal's visibility should change",
+        "ok": "Emits when **Ok** button is clicked",
+        "cancel": "Emits when **Cancel** button is clicked"
+      },
+      "methods": {
+        "hide": "Hide modal. On stateless modal only emits `@input`",
+        "open": "Show modal. On stateless modal only emits `@input`",
+        "toggle": "Toggle a modal's visibility. On stateless modal only emits `@input`"
+      },
+      "slots": {
+        "default": "Content of modal body",
+        "header": "Modal header content",
+        "footer": "Modal footer content"
+      }
+    },
     "VaRating": {
       "props": {
         "value": "The rating value",
         "icon": "The icon displayed when icon is filled",
-        "half-icon": "The icon displayed when icon is half-filled (requires **`halves`**)",
-        "empty-icon": "The icon displayed when icon is empty (requires **`halves`**)",
+        "halfIcon": "The icon displayed when icon is half-filled (requires **`halves`**)",
+        "emptyIcon": "The icon displayed when icon is empty (requires **`halves`**)",
         "readonly": "Disables all user interaction effects (pointer, hover)",
-        "disabled": "Applies corporate *disabled* style and removes all user interaction effects",
         "numbers": "When true numbers from 1 to `max` are rendered instead of icons",
         "halves": "Allow to select half of the item",
         "max": "The amount of items to display",
         "clearable": "Allows the components value to be set to 0. Triggered by clicking on currently selected icon",
         "hover": "Adds visual feedback when hovering on items",
         "texts": "The array of captions to be used with each value. The array length should be equal to **`max`** prop",
-        "text-color": "Color of text captions",
-        "unselected-color": "Specifies the color of unselected items (by default **`color`** prop is used)"
-      },
-      "events": {
-        "input": "Emits rating number when its value changes"
+        "textColor": "Color of text captions",
+        "unselectedColor": "Specifies the color of unselected items (by default **`color`** prop is used)"
+      }
+    },
+    "VaPagination": {
+      "props": {
+        "value": "Current page (or item if `total` is isued) value",
+        "visiblePages": "The amount of displayed pages. (When set to 0 all pages are displayed)",
+        "pages": "The amount of pages",
+        "boundaryLinks": "Show controls to move to first and last page",
+        "boundaryNumbers": "Always show first and last page (will replace `boundary-links` if both used)",
+        "directionLinks": "Show buttons to move forward and backward",
+        "input": "Use HTML Input instead of buttons to control `va-pagination` state",
+        "hideOnSinglePage": "Component won't be displayed if only 1 page is available",
+        "flat": "Applies `flat` style",
+        "total": "Set the amount of data pagination should iterate through. This prop should not be used with `pages` prop. Please, use either of them.",
+        "pageSize": "Set the amount of data to be displayed at 1 page. Used to calculate the length of pagination. This prop should not be used with `pages` prop. Please, use either of them.",
+        "boundaryIconLeft": "Set the icon name for left boundary icon",
+        "boundaryIconRight": "Set the icon name for right boundary icon",
+        "directionIconLeft": "Set the icon name for left direction icon",
+        "directionIconRight": "Set the icon name for right direction icon"
       }
     },
     "VaSwitch": {
@@ -114,6 +181,7 @@
     }
   },
   "menu": {
+    "affix": "Affix",
     "auth": "Auth",
     "rating": "Rating",
     "buttons": "Buttons",
@@ -153,13 +221,34 @@
     "sliders": "Sliders",
     "switches": "Switches",
     "popovers": "Popovers",
-    "chat": "Chat"
+    "chat": "Chat",
+    "pagination": "Pagination"
   },
   "language": {
     "brazilian_portuguese": "Português",
     "english": "English",
     "spanish": "Spanish",
     "simplified_chinese": "Simplified Chinese"
+  },
+  "affix": {
+    "title": "Affix",
+    "paragraph": "Affix component is created to fix any content in proper position relative to container.",
+    "demo": {
+      "subtitle": "Demo",
+      "top": {
+        "headline": "Fixed at the top."
+      },
+      "bottom": {
+        "headline": "Fixed at them bottom."
+      },
+      "target": {
+        "headline": "Fixes element relative to custom container."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props and events that are used in va-affix component."
+    }
   },
   "slider": {
     "title": "Slider",
@@ -208,7 +297,7 @@
       },
       "track": {
         "headline": "Track",
-        "paragraph": "Track color can be hidden or have custom color."
+        "paragraph": "Track can be hidden or have custom color."
       },
       "trackLabel": {
         "headline": "Track label",
@@ -306,8 +395,122 @@
           "answer": "Yes, you can use Tab(Shift+Tab) to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
         },
         {
-          "question": "Can I use every other prop in combination with `**numbers**` prop?",
+          "question": "Can I use every other prop in combination with **numbers** prop?",
           "answer": "Yes, all props are compatible between each other."
+        }
+      ]
+    }
+  },
+  "modal": {
+    "title": "Modal",
+    "description": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, subwindow, etc.",
+    "overview": {
+      "subtitle": "Overview",
+      "paragraphs": [
+        "`<va-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. You can provide custom message and title with the `message` and `title` props respectively.",
+        "`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
+      ]
+    },
+    "stateful": {
+      "subtitle": "Stateful",
+      "paragraph": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
+    },
+    "fullscreen": {
+      "subtitle": "Full screen",
+      "paragraphs": [
+        "Add the `fullscreen` prop to cover the whole page.",
+        "Note that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`"
+      ]
+    },
+    "modalSizing": {
+      "subtitle": "Modal sizing",
+      "paragraph": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
+    },
+    "toggleVisibility": {
+      "subtitle": "Toggle modal visibility",
+      "paragraph": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
+      "sections": [
+        {
+          "headline": "Using `v-model` property",
+          "paragraph": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
+        },
+        {
+          "headline": "Using `show()`, `hide()`, and `toggle()` component methods.",
+          "paragraph": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
+        }
+      ]
+    },
+    "disableAnimation": {
+      "subtitle": "Disable open and close animation",
+      "paragraph": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
+    },
+    "hidingOverlay": {
+      "subtitle": "Hiding the overlay",
+      "paragraphs": [
+        "Hide the modal's overlay via setting the `overlay` prop to `false`.",
+        "Note that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
+      ]
+    },
+    "scrollingLongContent": {
+      "subtitle": "Scrolling long content",
+      "paragraphs": [
+        "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.",
+        "You can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
+      ]
+    },
+    "customization": {
+      "subtitle": "Customization",
+      "paragraphs": [
+        "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.",
+        "You can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.",
+        "`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
+      ]
+    },
+    "nestedModals": {
+      "subtitle": "Nested modals",
+      "paragraph": "Modals can be nested: you can open one modal from another."
+    },
+    "api": {
+      "subtitle": "API"
+    }
+  },
+  "pagination": {
+    "title": "Pagination",
+    "paragraph": "The pagination component is used to split big data sets into chunks so that it's simpler for users to use provided information.",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "By default the component is displayed as a list of pages with length equal to `pages` prop value."
+    },
+    "examples": {
+      "subtitle": "Examples",
+      "paragraph": "Here you can find some examples with simple or complex API usage",
+      "limitVisible": {
+        "headline": "Limitting the length",
+        "paragraph": "By using `visible-pages` prop you can set the amount of pages visible on screen."
+      },
+      "withInput": {
+        "headline": "Using HTML input instead of pages",
+        "paragraph": "With `input` prop you can have input with arrow buttons instead of default pagination."
+      },
+      "totalAndPageSize": {
+        "headline": "Using `total` and `page-size`",
+        "paragraph": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination istelf. The value of the component in this case would be equal to the number of the first item at the selected page."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in va-pagination component."
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "question": "What will happen if both `pages` and `total` props are set?",
+          "answer": "The error will be thrown into the console. Component is meant to be used only in one of these modes."
+        },
+        {
+          "question": "Can I use `total` and `input` props together?",
+          "answer": "Yep. In v-model you'll get item number instead of page number."
         }
       ]
     }

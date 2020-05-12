@@ -100,7 +100,6 @@ const RatingPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
-  name: 'VaRating',
   components: { VaRatingItem },
 })
 export default class VaRating extends mixins(

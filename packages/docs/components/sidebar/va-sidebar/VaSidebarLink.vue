@@ -3,7 +3,7 @@
     :class="computedLinkClass"
     :style="computedLinkStyles"
     active-class="va-sidebar-link--active"
-    :href="to"
+    :href="route"
     :target="target"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
@@ -62,6 +62,9 @@ export default Vue.extend({
     }
   },
   computed: {
+    route () {
+      return `/${this.$root.$i18n.locale}/${this.to}`
+    },
     computedLinkClass () {
       return {
         'va-sidebar-link': true,

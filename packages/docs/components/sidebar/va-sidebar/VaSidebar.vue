@@ -1,5 +1,5 @@
 <template>
-  <aside :class="computedClass" :style="computedStyle">
+  <aside class="va-sidebar" :class="computedClass" :style="computedStyle">
     <div class="va-sidebar__menu">
       <slot name="menu" />
     </div>

@@ -90,6 +90,10 @@ export const navigationRoutes: NavigationScheme = {
       disabled: true,
       children: [
         {
+          name: 'affix',
+          displayName: 'menu.affix',
+        },
+        {
           name: 'buttons',
           displayName: 'menu.buttons',
         },
@@ -146,6 +150,10 @@ export const navigationRoutes: NavigationScheme = {
         {
           name: 'notifications',
           displayName: 'menu.notifications',
+        },
+        {
+          name: 'pagination',
+          displayName: 'menu.pagination',
         },
         {
           name: 'popovers',

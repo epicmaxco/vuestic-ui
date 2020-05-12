@@ -2,8 +2,8 @@ import { shallowMount, Wrapper } from '@vue/test-utils'
 import { StatefulMixin } from './StatefulMixin'
 
 // Ensure that component is proper form component
-export function testHasStatefulMixin (componentOptions: StatefulMixin) {
-  const wrapper: Wrapper<StatefulMixin> = shallowMount(componentOptions)
+export function testHasStatefulMixin<T extends StatefulMixin> (componentOptions: T) {
+  const wrapper: Wrapper<T> = shallowMount(componentOptions)
 
   // Test mixin applied
   if (!(wrapper.vm as any).hasStatefulMixin) {

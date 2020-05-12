@@ -1,7 +1,7 @@
 <template>
   <div>
-    Disabled <va-slider v-model="value1" disabled/>
-    Readonly <va-slider v-model="value2" readonly/>
+    <va-slider label="Disabled" v-model="value1" disabled/>
+    <va-slider label="Readonly" v-model="value2" readonly/>
   </div>
 </template>
 

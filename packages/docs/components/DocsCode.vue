@@ -24,6 +24,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../ui/src/components/vuestic-sass/resources/resources";
+
 // prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
 // Based on https://github.com/chriskempson/tomorrow-theme
 // @author Rose Pritchard
@@ -116,7 +118,7 @@ pre[class*='language-'] {
 
 .token.important,
 .token.bold {
-  font-weight: bold;
+  font-weight: $font-weight-bold;
 }
 
 .token.italic {

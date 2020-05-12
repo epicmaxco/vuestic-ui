@@ -17,6 +17,14 @@
         type="gallery"
       />
     </VbCard>
+    <VbCard>
+      <p>With file types</p>
+      <va-file-upload
+        dropzone
+        v-model="withFileTypes"
+        file-types=".gif,.jpg,.jpeg"
+      />
+    </VbCard>
     <VbCard
       title="dropzone"
       style="width: 100%;"
@@ -80,6 +88,7 @@ export default {
       basic: [],
       single: [],
       gallery: [],
+      withFileTypes: [],
       defaultFileList: [
         {
           name: 'xxx.png',
