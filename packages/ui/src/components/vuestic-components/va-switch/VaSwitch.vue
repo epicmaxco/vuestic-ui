@@ -31,7 +31,7 @@
           :class="computedTrackClass"
         >
           <div class="va-switch__track-label" :style="computedTrackLabelSize">
-            {{ computedLabel }}
+            {{ computedInnerLabel }}
           </div>
           <div class="va-switch__input-wrapper" :style="wrapperStyle">
             <span class="va-switch__input" :style="indicatorStyle">
@@ -86,10 +86,31 @@ export default {
         type: String,
         default: null,
       },
+      innerLabel: {
+        type: String,
+        default: '',
+      },
+      trueInnerLabel: {
+        type: String,
+        default: null,
+      },
+      falseInnerLabel: {
+        type: String,
+        default: null,
+      },
     }),
   ],
   components: { VaProgressCircle, VaInputWrapper },
   computed: {
+    computedInnerLabel () {
+      if (this.trueInnerLabel && this.isTrue) {
+        return this.trueInnerLabel
+      }
+      if (this.falseInnerLabel && !this.isTrue) {
+        return this.falseInnerLabel
+      }
+      return this.innerLabel
+    },
     computedLabel () {
       if (this.trueLabel && this.isTrue) {
         return this.trueLabel

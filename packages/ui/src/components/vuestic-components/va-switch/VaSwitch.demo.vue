@@ -40,6 +40,12 @@
         </div>
       </va-switch>
     </VbCard>
+    <VbCard title="With inner label">
+      <va-switch
+        v-model="value"
+        inner-label="turn"
+      />
+    </VbCard>
     <VbCard title="Sizes">
       <va-switch
         v-model="value"
@@ -71,6 +77,13 @@
         v-model="value"
         true-label="Yes"
         false-label="No"
+      />
+    </VbCard>
+    <VbCard title="Custom inner labels">
+      <va-switch
+        v-model="value"
+        true-inner-label="Okay"
+        false-inner-label="No"
       />
     </VbCard>
     <VbCard title="Custom trueValue, falseValue">
