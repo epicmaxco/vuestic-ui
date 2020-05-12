@@ -1,9 +1,9 @@
 <template>
-  <nuxt-link
+  <a
     :class="computedLinkClass"
     :style="computedLinkStyles"
     active-class="va-sidebar-link--active"
-    :to="route"
+    :href="route"
     :target="target"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
@@ -18,7 +18,7 @@
       <slot name="title" />
       {{ title }}
     </div>
-  </nuxt-link>
+  </a>
 </template>
 
 <script>

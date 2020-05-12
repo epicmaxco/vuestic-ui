@@ -384,7 +384,7 @@ $dayMargin: 0.6rem;
       .flatpickr-weekday {
         color: $datepickerWeekday;
         text-transform: uppercase;
-        font-weight: bold;
+        font-weight: $font-weight-bold;
         font-size: 0.625rem;
       }
     }
@@ -395,7 +395,7 @@ $dayMargin: 0.6rem;
       text-transform: uppercase;
       letter-spacing: 0.0625rem;
       color: $datepickerWeekday;
-      font-weight: bold;
+      font-weight: $font-weight-bold;
       font-size: 0.6875rem;
     }
 

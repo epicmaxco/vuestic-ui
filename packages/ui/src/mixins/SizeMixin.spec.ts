@@ -28,14 +28,21 @@ describe('SizeMixin', () => {
     expect(wrapper.vm.sizeComputed).toBe(`${sizesConfig.sizes.small}px`)
     expect(wrapper.vm.fontSizeComputed).toBe(`${fontSizesConfig.sizes.small}rem`)
   })
-  it('Should return size value if string', () => {
+  it('Should return correct value if string', () => {
     const wrapper = shallowMount(ExampleComponent, {
       propsData: { size: '10px' },
     })
     expect(wrapper.vm.sizeComputed).toBe('10px')
-    // For font size we probably want to parse this string
-    // and convert to `rem` instead of just returning string?
-    expect(wrapper.vm.fontSizeComputed).toBe('10px')
+    expect(wrapper.vm.fontSizeComputed).toBe('0.125rem')
+    wrapper.setProps({ size: '2rem' })
+    expect(wrapper.vm.sizeComputed).toBe('2rem')
+    expect(wrapper.vm.fontSizeComputed).toBe('2rem')
+  })
+  it('Should throw if incorrect size format was used', () => {
+    const wrapper = shallowMount(ExampleComponent, {
+      propsData: { size: '10asd' },
+    })
+    expect(() => wrapper.vm.fontSizeComputed).toThrow()
   })
   it('Should return correct string if number', () => {
     const wrapper = shallowMount(ExampleComponent, {

@@ -1,5 +1,5 @@
 <template>
-  <aside :class="computedClass" :style="computedStyle">
+  <aside class="va-sidebar" :class="computedClass" :style="computedStyle">
     <div class="va-sidebar__menu">
       <slot name="menu" />
     </div>
@@ -49,7 +49,7 @@ export default class VaSidebar extends Vue {
   font-family: Source Sans Pro, sans-serif;
   min-height: $sidebar-viewport-min-height;
   height: $sidebar-viewport-height;
-  width: 250px;
+  width: 250px !important; // TODO: temp fix until problem of style implementing is solved.
   position: absolute;
   transition: all 0.3s ease;
   overflow-y: auto;

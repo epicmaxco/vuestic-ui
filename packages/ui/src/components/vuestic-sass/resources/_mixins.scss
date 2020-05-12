@@ -4,7 +4,7 @@
   font-size: 0.625rem;
   letter-spacing: 0.6px;
   line-height: 1.2;
-  font-weight: bold;
+  font-weight: $font-weight-bold;
   text-transform: uppercase;
 }
 
@@ -137,5 +137,30 @@
     td {
       cursor: pointer;
     }
+  }
+}
+
+@mixin va-modal-transition($is-overlay: false) {
+  $modal-transition: $modal-opacity-transition, $modal-transform-transition;
+
+  @if ($is-overlay) {
+    $modal-transition: $modal-overlay-opacity-transition;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+
+    @if ($is-overlay != true) {
+      transform: translateY(-30%);
+    }
+  }
+
+  &-enter-active {
+    transition: $modal-transition;
+  }
+
+  &-leave-active {
+    transition: $modal-transition;
   }
 }

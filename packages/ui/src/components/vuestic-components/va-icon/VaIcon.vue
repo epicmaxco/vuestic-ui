@@ -24,7 +24,6 @@ const IconContextMixin = makeContextablePropsMixin({
     type: [String, Array],
     validator: name => {
       if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-        // eslint-disable-next-line  no-console
         return warn(`${name} icon is not available.`)
       }
       return true
