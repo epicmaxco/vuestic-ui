@@ -31,7 +31,9 @@
           :class="computedTrackClass"
         >
           <div class="va-switch__track-label" :style="computedTrackLabelSize">
-            {{ computedInnerLabel }}
+            <slot name="innerLabel">
+              {{ computedInnerLabel }}
+            </slot>
           </div>
           <div class="va-switch__input-wrapper" :style="wrapperStyle">
             <span class="va-switch__input" :style="indicatorStyle">
@@ -86,10 +88,6 @@ export default {
         type: String,
         default: null,
       },
-      innerLabel: {
-        type: String,
-        default: '',
-      },
       trueInnerLabel: {
         type: String,
         default: null,
@@ -109,7 +107,7 @@ export default {
       if (this.falseInnerLabel && !this.isTrue) {
         return this.falseInnerLabel
       }
-      return this.innerLabel
+      return ''
     },
     computedLabel () {
       if (this.trueLabel && this.isTrue) {

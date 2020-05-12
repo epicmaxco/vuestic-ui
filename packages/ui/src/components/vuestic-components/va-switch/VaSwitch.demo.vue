@@ -40,11 +40,14 @@
         </div>
       </va-switch>
     </VbCard>
-    <VbCard title="With inner label">
+    <VbCard title="With inner label slot">
       <va-switch
         v-model="value"
-        inner-label="turn"
-      />
+      >
+        <template v-slot:innerLabel>
+          Inner
+        </template>
+      </va-switch>
     </VbCard>
     <VbCard title="Sizes">
       <va-switch
