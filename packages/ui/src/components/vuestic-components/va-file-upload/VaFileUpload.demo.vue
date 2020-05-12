@@ -32,6 +32,12 @@
         type="gallery"
         dropzone
       />
+     <p>bug file-types</p>
+      <va-file-upload
+          dropzone
+          v-model="bug"
+          file-types  =".gif,.jpg,.jpeg,.png,.webp,.tiff,.bmp,.gif,.doc,.docx,.pdf"
+        />
     </VbCard>
     <VbCard
       title="disabled"
@@ -80,6 +86,7 @@ export default {
       basic: [],
       single: [],
       gallery: [],
+      bug: [],
       defaultFileList: [
         {
           name: 'xxx.png',

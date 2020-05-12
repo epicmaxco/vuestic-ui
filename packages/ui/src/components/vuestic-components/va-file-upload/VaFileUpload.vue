@@ -124,7 +124,7 @@ export default {
       this.files = []
     },
     validateFiles (files) {
-      return files.filter(file => {
+      return [...files].filter(file => {
         const fileName = file.name || file.url
         if (!fileName) {
           return false
