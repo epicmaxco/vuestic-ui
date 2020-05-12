@@ -113,7 +113,7 @@ export default {
 
       // type validation
       if (this.fileTypes) {
-        files = this.validateFiles(files)
+        files = this.validateFiles(Array.from(files))
       }
       this.files = [...this.files, ...files]
     },
