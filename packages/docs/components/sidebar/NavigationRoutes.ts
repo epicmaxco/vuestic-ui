@@ -169,7 +169,7 @@ export const navigationRoutes: NavigationScheme = {
         },
         {
           name: 'switch',
-          displayName: 'menu.switch',
+          displayName: 'menu.switches',
         },
         {
           name: 'tabs',

@@ -1,5 +1,5 @@
 import { BlockType } from '../../../types/configTypes'
-import Api from '../../../examples/va-slider/Api.vue'
+import Api from '../../../examples/va-switch/Api.vue'
 export default [
   {
     type: BlockType.TITLE,
@@ -51,6 +51,30 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'switch.advanced.customLabel.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'switch.advanced.customLabel.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-switch/CustomLabel',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'switch.advanced.innerLabel.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'switch.advanced.innerLabel.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-switch/InnerLabel',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'switch.advanced.size.headline',
   },
   {
@@ -63,11 +87,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.state.headline',
+    translationString: 'switch.advanced.state.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.state.paragraph',
+    translationString: 'switch.advanced.state.paragraph',
   },
   {
     type: BlockType.EXAMPLE,
@@ -75,11 +99,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.loading.headline',
+    translationString: 'switch.advanced.loading.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.loading.paragraph',
+    translationString: 'switch.advanced.loading.paragraph',
   },
   {
     type: BlockType.EXAMPLE,
@@ -87,11 +111,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.error.headline',
+    translationString: 'switch.advanced.error.headline',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.error.paragraph',
+    translationString: 'switch.advanced.error.paragraph',
   },
   {
     type: BlockType.EXAMPLE,
