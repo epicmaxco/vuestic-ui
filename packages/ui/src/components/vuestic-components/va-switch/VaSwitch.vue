@@ -29,6 +29,9 @@
           :style="trackStyle"
           :class="computedTrackClass"
         >
+          <div class="va-switch__track-label" :style="computedTrackLabelSize">
+            {{ computedLabel }}
+          </div>
           <div class="va-switch__input-wrapper" :style="wrapperStyle">
             <span class="va-switch__input" :style="indicatorStyle">
               <va-progress-circle
@@ -111,6 +114,20 @@ export default {
       }
       return 20
     },
+    computedTrackLabelSize () {
+      if (this.size === 'small') {
+        return {
+          margin: this.isTrue ? 'auto 25px auto 7px' : 'auto 7px auto 25px',
+        }
+      } else if (this.size === 'large') {
+        return {
+          margin: this.isTrue ? 'auto 37px auto 7px' : 'auto 7px auto 37px',
+        }
+      }
+      return {
+        margin: this.isTrue ? 'auto 33px auto 7px' : 'auto 7px auto 33px',
+      }
+    },
     trackStyle () {
       const color = this.isTrue ? this.colorComputed : this.$themes.gray
       const backgroundColor = this.isKeyboardFocused
@@ -171,7 +188,7 @@ export default {
     display: inline-block;
     position: relative;
     height: 2rem;
-    width: auto; //4rem
+    width: auto;
     min-width: 4rem;
     border-radius: 1rem;
 
@@ -185,7 +202,7 @@ export default {
     .va-switch {
       &__inner {
         height: 1.5rem;
-        width: 3rem;
+        width: auto;
         min-width: 3rem;
       }
 
@@ -204,7 +221,7 @@ export default {
     .va-switch {
       &__inner {
         height: 2.5rem;
-        width: 5rem;
+        width: auto;
         min-width: 5rem;
       }
 
@@ -237,7 +254,7 @@ export default {
   }
 
   &__track {
-    display: inline-block;
+    display: flex;
     overflow: hidden;
     border-radius: 1rem;
     height: 100%;
@@ -249,6 +266,10 @@ export default {
     &--error {
       border: 2px solid $theme-red;
     }
+  }
+
+  &__track-label {
+    color: $white;
   }
 
   &__input {
