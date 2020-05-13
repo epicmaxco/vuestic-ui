@@ -5,6 +5,9 @@ export const vaSwitchOptions: ManualApiOptions = {
     value: {
       local: true,
     },
+    size: {
+      local: true,
+    },
     color: {
       local: true,
     },

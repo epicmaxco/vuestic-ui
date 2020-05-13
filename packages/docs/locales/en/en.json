@@ -148,6 +148,7 @@
     "VaSwitch": {
       "props": {
         "color": "Color of switch",
+        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available",
         "label": "Switch label",
         "leftLabel": "Moves label to the left",
         "readonly": "Makes switch read only",
