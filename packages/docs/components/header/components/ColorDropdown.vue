@@ -1,9 +1,7 @@
 <template>
   <va-dropdown class="color-dropdown" :offset="[0, 13]">
-    <va-button slot="anchor" class="color-dropdown__icon" flat color="primary">
-      {{ selectedTheme }}
-    </va-button>
-    <div class="color-dropdown__content pl-4 pr-4 pt-2 pb-2">
+    <va-button-dropdown slot="anchor" :button-props="{flat: true}" class="color-dropdown__icon" color="primary" :label="selectedTheme">
+    <div class="color-dropdown__content px-1">
       <va-button-toggle
         v-model="selectedTheme"
         outline
@@ -68,6 +66,7 @@
         <va-advanced-color-picker v-model="themes.dark" class="my-1" />
       </va-dropdown>
     </div>
+    </va-button-dropdown>
   </va-dropdown>
 </template>
 
@@ -126,8 +125,8 @@ export default class ColorDropdown extends Vue {
 
   &__content {
     background-color: $dropdown-background;
-    box-shadow: $gray-box-shadow;
     border-radius: 0.5rem;
+    padding: 0;
 
     .color-picker-dropdown {
       display: flex;

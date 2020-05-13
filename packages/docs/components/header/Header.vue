@@ -20,8 +20,8 @@
     </div>
     <div class="header__prefences flex xs3">
       <version-dropdown />
-      <language-dropdown />
       <color-dropdown />
+      <language-dropdown />
     </div>
   </div>
 </template>
