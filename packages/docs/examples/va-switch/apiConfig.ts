@@ -48,15 +48,15 @@ export const vaSwitchOptions: ManualApiOptions = {
   events: {
     blur: {
       local: true,
-      types: '-',
+      types: 'FocusEvent',
     },
     focus: {
       local: true,
-      types: '-',
+      types: 'FocusEvent',
     },
     input: {
       local: true,
-      types: '-',
+      types: 'InputEvent',
     },
   },
   slots: {

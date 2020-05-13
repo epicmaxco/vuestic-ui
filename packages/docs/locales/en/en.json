@@ -16,9 +16,10 @@
         "error": "Show component in error state.",
         "messages": "Description messages for form component.",
         "errorMessages": "Error messages for form component.",
-        "errorCount": "Number of error messages displayed."
+        "errorCount": "Number of error messages displayed.",
         "stateful": "Add possibility to work with component without setting `v-model`",
-        "color": "Color of the component (either corporate theme or *HEX* string)"
+        "color": "Color of the component (theme string or *HEX* string)",
+        "rules": "Validation rules <!-- TODO Add link -->"
       }
     },
     "VaForm": {
@@ -317,7 +318,7 @@
       },
       "label": {
         "headline": "Label",
-        "paragraph": "Switch can be labeled left or right."
+        "paragraph": "Switch can be labeled on the left or on the right."
       },
       "customLabel": {
         "headline": "Custom Label",
