@@ -1,5 +1,5 @@
 <template>
-  <prism class="code" :language="language">{{ code }}</prism>
+  <prism  :language="language">{{ code }}</prism>
 </template>
 
 <script>
@@ -26,14 +26,20 @@ export default {
 <style lang="scss">
 @import "../ui/src/components/vuestic-sass/resources/resources";
 
-// prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
-// Based on https://github.com/chriskempson/tomorrow-theme
-// @author Rose Pritchard
+/* PrismJS 1.20.0
+https://prismjs.com/download.html#themes=prism&languages=css */
+
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
 
 code[class*='language-'],
 pre[class*='language-'] {
-  color: #cccccc;
+  color: black;
   background: none;
+  text-shadow: 0 1px white;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1rem;
   text-align: left;
@@ -52,6 +58,12 @@ pre[class*='language-'] {
   overflow: auto;
 }
 
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+  background: #f5f2f0;
+}
+
+/* Inline code */
 :not(pre) > code[class*='language-'] {
   padding: 0.1rem;
   border-radius: 0.3rem;
@@ -63,57 +75,60 @@ pre[class*='language-'] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #999999;
+  color: slategray;
 }
 
 .token.punctuation {
-  color: #cccccc;
+  color: #999999;
 }
 
-.token.tag,
-.token.attr-name,
-.token.namespace,
-.token.deleted {
-  color: #e2777a;
-}
-
-.token.function-name {
-  color: #6196cc;
-}
-
-.token.boolean,
-.token.number,
-.token.function {
-  color: #f08d49;
+.token.namespace {
+  opacity: 0.7;
 }
 
 .token.property,
-.token.class-name,
+.token.tag,
+.token.boolean,
+.token.number,
 .token.constant,
-.token.symbol {
-  color: #f8c555;
+.token.symbol,
+.token.deleted {
+  color: #990055;
 }
 
 .token.selector,
-.token.important,
-.token.atrule,
-.token.keyword,
-.token.builtin {
-  color: #cc99cd;
-}
-
+.token.attr-name,
 .token.string,
 .token.char,
-.token.attr-value,
-.token.regex,
-.token.variable {
-  color: #7ec699;
+.token.builtin,
+.token.inserted {
+  color: #669900;
 }
 
 .token.operator,
 .token.entity,
-.token.url {
-  color: #67cdcc;
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #9a6e3a;
+  background: hsla(0, 0%, 100%, 0.5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #0077aa;
+}
+
+.token.function,
+.token.class-name {
+  color: #dd4a68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #ee9900;
 }
 
 .token.important,
@@ -129,7 +144,4 @@ pre[class*='language-'] {
   cursor: help;
 }
 
-.token.inserted {
-  color: green;
-}
 </style>

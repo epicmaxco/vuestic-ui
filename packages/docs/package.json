@@ -5,6 +5,14 @@
   "main": "index.js",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "license": "MIT",
+  "scripts": {
+    "serve": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "lint": "eslint --ext .js,.vue,.ts --ignore-path ./../../.gitignore .",
+    "generate": "nuxt-ts generate",
+    "precommit": "lint-staged"
+  },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.1",
     "@types/algoliasearch": "^3.34.10",
@@ -28,28 +36,29 @@
     "vue-style-loader": "^4.1.2",
     "vuetable-2": "^1.7.5"
   },
-  "scripts": {
-    "serve": "nuxt-ts",
-    "build": "nuxt-ts build",
-    "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate",
-    "precommit": "lint-staged"
-  },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.1",
     "@nuxtjs/eslint-config-typescript": "^1.0.2",
     "eslint": "^6.8.0",
     "markdown-it": "^10.0.0",
     "nuxt-i18n": "^6.9.1",
-    "prettier": "^2.0.5",
-    "stylelint": "^13.3.3"
+    "stylelint": "^13.3.3",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "@vue/eslint-config-standard": "^5.1.0",
+    "@vue/eslint-config-typescript": "^5.0.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.1.2"
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "eslint --fix"
+      "yarn lint --fix"
     ],
     "*.vue": [
-      "eslint  --fix",
+      "yarn lint --fix",
       "stylelint --fix"
     ],
     ".{htm,html,css,sss,less,scss}": [

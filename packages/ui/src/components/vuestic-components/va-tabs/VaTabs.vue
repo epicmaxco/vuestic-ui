@@ -194,7 +194,7 @@ export default {
   },
   watch: {
     value (newVal) {
-      if (this.c_stateful) this.innerValue = newVal
+      if (this.c_stateful) { this.innerValue = newVal }
       this.updateTabsState()
     },
   },
@@ -256,7 +256,7 @@ export default {
     updatePagination () {
       this.showPagination = false
       if (this.$refs.tabs && this.$refs.wrapper) {
-        if (this.$refs.tabs.clientWidth > this.$refs.wrapper.clientWidth) this.showPagination = true
+        if (this.$refs.tabs.clientWidth > this.$refs.wrapper.clientWidth) { this.showPagination = true }
       }
     },
     movePaginationLeft () {
@@ -313,7 +313,7 @@ export default {
     },
   },
   mounted () {
-    if (this.c_stateful) this.innerValue = this.value
+    if (this.c_stateful) { this.innerValue = this.value }
     this.parseItems()
     this.updateTabsState()
     this.updatePagination()
@@ -325,7 +325,7 @@ export default {
     this.mutationObserver.observe(this.$refs.tabs, { childList: true, subtree: true })
   },
   beforeDestroy () {
-    if (this.mutationObserver) this.mutationObserver.disconnect()
+    if (this.mutationObserver) { this.mutationObserver.disconnect() }
   },
 }
 </script>

@@ -15,11 +15,23 @@
       </tr>
       </thead>
       <tbody>
-      <ApiDocsPropsRow
-        v-for="(prop, key) in apiTableData.props"
+      <tr
+        v-for="(propRow, key) in apiTableData.props"
         :key="key"
-        :propRow="prop"
-      />
+      >
+        <td><strong>{{ propRow.name }}</strong></td>
+        <td>
+          <MarkdownView :value="$t(propRow.description)"/>
+        </td>
+        <td>
+          <MarkdownView :value="propRow.types"/>
+        </td>
+        <td>
+          <MarkdownView :value="propRow.default"/>
+        </td>
+        <td>{{ propRow.required ? '+' : '' }}</td>
+        <td>{{ propRow.version }}</td>
+      </tr>
       </tbody>
     </table>
 
@@ -40,7 +52,7 @@
           v-for="(apiEventOption, eventName) in apiTableData.events"
           :key="eventName"
         >
-          <td>{{ eventName }}</td>
+          <td><strong>{{ eventName }}</strong></td>
           <td>
             <MarkdownView :value="$t(apiEventOption.description)"/>
           </td>
@@ -48,7 +60,7 @@
             <MarkdownView :value="apiEventOption.types"/>
           </td>
           <td>
-            <pre>{{apiEventOption.version}}</pre>
+            {{apiEventOption.version}}
           </td>
         </tr>
         </tbody>
@@ -149,6 +161,15 @@ export default class ApiDocs extends Vue {
 .ApiDocs {
   &__table {
     width: 100%;
+    font-family: "Source Code Pro";
+    font-size: 16px;
+
+    th {
+      font-family: Source Sans Pro !important;
+      font-weight: 700 !important;
+      font-weight: bold !important;
+      padding: 0.75rem !important;
+    }
   }
 }
 </style>

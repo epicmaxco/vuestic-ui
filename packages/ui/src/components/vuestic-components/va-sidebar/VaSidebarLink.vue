@@ -79,7 +79,7 @@ export default {
           backgroundColor: shiftHslColor(this.$themes.secondary, { s: -13, l: 15 }),
           borderColor: this.isActive ? this.$themes.primary : 'transparent',
         }
-      } else return {}// else <- controlled by CSS (color in rgba)
+      } else { return {} }// else <- controlled by CSS (color in rgba)
     },
     computedIconStyles () {
       return (this.isHovered || this.isActive)

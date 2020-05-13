@@ -219,8 +219,8 @@ export default class VaPagination extends mixins(
   }
 
   changeValue () {
-    if (this.inputValue === this.currentValue) this.resetInput()
-    if (!this.inputValue.length) return
+    if (this.inputValue === this.currentValue) { this.resetInput() }
+    if (!this.inputValue.length) { return }
     let pageNum = Number.parseInt(this.inputValue)
     switch (true) {
       case pageNum < 1:

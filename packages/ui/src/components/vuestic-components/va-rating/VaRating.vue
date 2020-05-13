@@ -181,14 +181,14 @@ export default class VaRating extends mixins(
     const currentValue = this.valueProxy || RatingValue.EMPTY
     const step = this.c_halves ? RatingValue.HALF : RatingValue.FULL
     const nextValue = currentValue + (step * directon)
-    if (nextValue < 0 || nextValue > this.c_max) return
+    if (nextValue < 0 || nextValue > this.c_max) { return }
 
     this.forceEmit = true
     this.valueProxy = nextValue
   }
 
   onItemSelected (itemNumber: number, value: RatingValue) {
-    if (!this.interactionsEnabled) return
+    if (!this.interactionsEnabled) { return }
     const currentClickedValue = this.c_halves
       ? value === RatingValue.HALF ? itemNumber - RatingValue.HALF : itemNumber
       : itemNumber

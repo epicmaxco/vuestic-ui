@@ -109,7 +109,7 @@ export default {
         return this.value || this.c_defaultValue
       },
       set (value) {
-        if (this.c_readonly) return
+        if (this.c_readonly) { return }
         if (this.isRadio) {
           this.$emit('input', this.getValue(value))
         } else {

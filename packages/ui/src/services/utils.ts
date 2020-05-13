@@ -21,7 +21,7 @@ export const normalizeValue = (value, minValue = 0, maxValue = 100) => {
 
 // Taken from vuetify pretty much.
 export const deepEqual = (a, b) => {
-  if (a === b) return true
+  if (a === b) { return true }
 
   // If the values aren't objects, they were already checked for equality
   if (a !== Object(a) || b !== Object(b)) {
@@ -30,7 +30,7 @@ export const deepEqual = (a, b) => {
 
   // Handle dates as a special case
   if (a instanceof Date && b instanceof Date) {
-    if (a.getTime() !== b.getTime()) return false
+    if (a.getTime() !== b.getTime()) { return false }
   }
 
   const props = Object.keys(a)
@@ -58,7 +58,7 @@ export const hasOwnProperty = (object, key) => {
 
 // Find value in the object with an array of keys
 export const getNestedValue = (option, propsArray) => {
-  if (propsArray.length === 0) return option
+  if (propsArray.length === 0) { return option }
 
   const nestedItem = option[propsArray[0]]
   if (!isObject(nestedItem)) {
@@ -91,10 +91,10 @@ export const getValueByPath = <T extends object>(option: T, prop: string | keyof
  * @param prop - string or function used to find nested property
  */
 export const getProp = <T extends (object | string)> (option: T, prop: string | ((t: T) => any)): any => {
-  if (typeof option === 'string') return
-  if (!prop || !option) return option
-  if (typeof prop === 'string') return getValueByPath(option, prop)
-  if (typeof prop === 'function') return prop(option)
+  if (typeof option === 'string') { return }
+  if (!prop || !option) { return option }
+  if (typeof prop === 'string') { return getValueByPath(option, prop) }
+  if (typeof prop === 'function') { return prop(option) }
   return option
 }
 

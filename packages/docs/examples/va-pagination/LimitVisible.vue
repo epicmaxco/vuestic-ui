@@ -5,6 +5,7 @@
     :visible-pages="4"
   />
 </template>
+
 <script>
 export default {
   data () {
