@@ -56,7 +56,7 @@ export const vaSwitchOptions: ManualApiOptions = {
     },
     input: {
       local: true,
-      types: 'InputEvent',
+      types: 'any',
     },
   },
   slots: {
