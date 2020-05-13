@@ -5,7 +5,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { deepEqual } from '../../../services/utils'
 
 const prepareValidations = (messages = [], callArguments = null) => {
-  if (isString(messages)) messages = [messages]
+  if (isString(messages)) { messages = [messages] }
   return messages
     .map((message) => isFunction(message) ? message(callArguments) : message)
 }
