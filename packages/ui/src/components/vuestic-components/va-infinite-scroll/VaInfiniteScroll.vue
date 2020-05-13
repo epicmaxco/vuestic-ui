@@ -105,7 +105,7 @@ export default {
       const isLoadingRequired = this.reverse
         ? scrollTop < this.scrollAmount
         : scrollTop + containerHeight + this.scrollAmount >= scrollHeight
-      if (!isLoadingRequired) return
+      if (!isLoadingRequired) { return }
 
       this.fetching = true
       this.scrollTop = this.reverse ? 0 : this.$el.offsetHeight

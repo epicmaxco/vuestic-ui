@@ -433,7 +433,7 @@ export default {
       this.$emit('dragStart')
     },
     moving (e) {
-      if (!this.hasMouseDown) return
+      if (!this.hasMouseDown) { return }
       if (!this.disabled && !this.readonly) {
         if (!this.flag) {
           return false
@@ -461,8 +461,8 @@ export default {
     },
     moveWithKeys (event) {
       // don't do anything if a dot isn't focused or if the slider's disabled or readonly
-      if (![this.$refs.dot0, this.$refs.dot1, this.$refs.dot].includes(document.activeElement)) return
-      if (this.disabled || this.readonly) return
+      if (![this.$refs.dot0, this.$refs.dot1, this.$refs.dot].includes(document.activeElement)) { return }
+      if (this.disabled || this.readonly) { return }
 
       /*
         where: where to move
@@ -475,7 +475,7 @@ export default {
        */
       const moveDot = (isRange, where, which) => {
         if (isRange) {
-          if (!this.pins) return this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step))
+          if (!this.pins) { return this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step)) }
 
           // how many value units one pin occupies
           const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
@@ -560,11 +560,11 @@ export default {
         }
       } else {
         if (this.vertical) {
-          if (event.keyCode === CODE_DOWN) moveDot(false, 0)
-          if (event.keyCode === CODE_UP) moveDot(false, 1)
+          if (event.keyCode === CODE_DOWN) { moveDot(false, 0) }
+          if (event.keyCode === CODE_UP) { moveDot(false, 1) }
         } else {
-          if (event.keyCode === CODE_LEFT) moveDot(false, 0)
-          if (event.keyCode === CODE_RIGHT) moveDot(false, 1)
+          if (event.keyCode === CODE_LEFT) { moveDot(false, 0) }
+          if (event.keyCode === CODE_RIGHT) { moveDot(false, 1) }
         }
       }
     },

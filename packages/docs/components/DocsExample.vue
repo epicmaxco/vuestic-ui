@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="pa-3">
+    <p class="py-3">
       <component :is="component" />
     </p>
     <va-content>

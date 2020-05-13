@@ -159,7 +159,7 @@ export default {
       return name
     },
     dataManagerComputed (sortOrder, pagination) {
-      if (this.dataManager) return this.dataManager(sortOrder, pagination)
+      if (this.dataManager) { return this.dataManager(sortOrder, pagination) }
 
       let sorted = []
 

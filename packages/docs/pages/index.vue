@@ -58,7 +58,7 @@ export default class Index extends Vue {
   @Provide() contextConfig = this.contextConfig
 
   created () {
-    this.$root.$on('change-theme', this.setTheme)
+    this.$root.$on('changeTheme', this.setTheme)
   }
 
   mounted () {
@@ -68,7 +68,7 @@ export default class Index extends Vue {
   }
 
   beforeDestroy () {
-    this.$root.$off('change-theme', this.setTheme)
+    this.$root.$off('changeTheme', this.setTheme)
   }
 
   setTheme (themeName) {
@@ -123,7 +123,7 @@ export default class Index extends Vue {
 @import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/icon-fonts.scss";
 @import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.scss";
 
-* {
+html {
   font-family: Source Sans Pro, sans-serif;
 }
 
@@ -158,7 +158,7 @@ export default class Index extends Vue {
       margin-left: 0;
     }
 
-    padding: 15px;
+    padding: 2em;
     width: 100%;
   }
 }

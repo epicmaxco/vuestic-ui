@@ -80,8 +80,8 @@ export default {
       }
 
       const calcFilter = () => {
-        if (this.variant.includes('hovered')) return 'brightness(115%)'
-        if (this.variant.includes('pressed')) return 'brightness(85%)'
+        if (this.variant.includes('hovered')) { return 'brightness(115%)' }
+        if (this.variant.includes('pressed')) { return 'brightness(85%)' }
       }
 
       return {

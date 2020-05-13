@@ -73,14 +73,14 @@ export default {
       }
     },
     formatSize (bytes) {
-      if (bytes === 0) return '0 Bytes'
+      if (bytes === 0) { return '0 Bytes' }
       const k = 1024
       const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
       const i = Math.floor(Math.log(bytes) / Math.log(k))
       return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
     },
     formatDate (date) {
-      if (!date) return ''
+      if (!date) { return '' }
       return date.toLocaleDateString('en-US', {
         hour: '2-digit',
         minute: '2-digit',

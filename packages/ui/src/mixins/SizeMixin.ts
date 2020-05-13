@@ -69,7 +69,7 @@ export class SizeMixin extends mixins(makeContextablePropsMixin(sizeProps)) {
     }
 
     if (typeof this.c_size === 'string') {
-      if (this.c_size in sizes) return sizes[this.c_size]
+      if (this.c_size in sizes) { return sizes[this.c_size] }
 
       const fontSizeParsed = this.c_size.match(this.fontRegex)
       if (!fontSizeParsed || !fontSizeParsed.groups) {
