@@ -158,7 +158,7 @@ html {
       margin-left: 0;
     }
 
-    padding: 15px;
+    padding: 2em;
     width: 100%;
   }
 }
