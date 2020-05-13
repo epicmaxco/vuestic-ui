@@ -50,7 +50,7 @@ export default {
   build: {
     transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vuetable-2', 'vue-bulma-expanding', 'medium-editor', 'vue-toasted'],
     extend (config, { isDev, isClient }) {
-      isDev && Object.assign(config.optimization, {
+      !isDev && Object.assign(config.optimization, {
         minimize: true,
         minimizer: [
           new TerserPlugin({
