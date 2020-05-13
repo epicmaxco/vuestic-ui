@@ -1,10 +1,10 @@
 <template lang="html">
   <div class="header row" :style="computedStyle">
-    <div class="header__logo flex row xs3">
+    <div class="header__logo flex row">
       <header-selector :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
       <img class="header__logo__image" src="../../assets/svg/vuestic-docs.svg" height="30" width="150">
     </div>
-    <div class="header__links flex xs3">
+    <div class="header__links flex">
       <div v-for="(link, index) in links" :key="index" class="header__link__wrapper flex">
         <va-button
           flat
@@ -14,11 +14,11 @@
           target="_blank"
         >
           <i class="button__icon" :class="link.icon" />
-          {{ link.text }}
+          <span class="button__text">{{ link.text }}</span>
         </va-button>
       </div>
     </div>
-    <div class="header__prefences flex xs3">
+    <div class="header__prefences flex">
       <version-dropdown />
       <color-dropdown />
       <language-dropdown />
@@ -98,6 +98,12 @@ export default class Header extends Vue {
 
     .button__icon {
       margin-right: 0.5em;
+    }
+
+    @include media-breakpoint-down(md) {
+      .button__text {
+        display: none;
+      }
     }
   }
 
