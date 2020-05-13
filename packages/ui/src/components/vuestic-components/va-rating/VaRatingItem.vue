@@ -109,7 +109,7 @@ export default class VaRatingItem extends mixins(RatingItemProps, ColorThemeMixi
   }
 
   private onHover (cursorPosition: MouseEvent) {
-    if (!this.hover) return
+    if (!this.hover) { return }
     this.isHovered = true
     this.proccessCursorInput(this.$el.clientWidth, cursorPosition.offsetX)
   }

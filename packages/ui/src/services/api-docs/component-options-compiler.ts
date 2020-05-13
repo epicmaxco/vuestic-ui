@@ -20,6 +20,27 @@ type TestVueInstance = CombinedVueInstance<any, any, any, any, any>
  */
 function getDefaultValue<T extends string> (vm: TestVueInstance, propOptions: PropOptions<T>) {
   const defaultValue = getPropDefaultValue(vm, propOptions, emptyObject)
+  if (typeof defaultValue === 'undefined') {
+    return '\\-'
+  }
+  if (typeof defaultValue === 'string') {
+    return `\`"${defaultValue}"\``
+  }
+  if (typeof defaultValue === 'boolean') {
+    return defaultValue ? '`true`' : '`false`'
+  }
+  if (typeof defaultValue === 'number') {
+    return `\`${defaultValue}\``
+  }
+  if (typeof defaultValue === 'object') {
+    const json = JSON.stringify(defaultValue, null, 2)
+    const oneLine = json.split(/\r\n|\r|\n/).length === 1
+    if (oneLine) {
+      return `\`${defaultValue}\``
+    }
+    return `\`\`\`json\n${json}\`\`\``
+  }
+
   return defaultValue + ''
 }
 

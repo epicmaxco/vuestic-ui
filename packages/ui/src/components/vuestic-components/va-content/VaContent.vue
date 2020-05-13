@@ -73,10 +73,8 @@ export default {
   }
 
   code {
-    font-size: 87.5%;
-    color: #e83e8c;
+    display: inline-block;
     word-wrap: break-word;
-    white-space: nowrap;
   }
 
   strong {

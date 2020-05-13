@@ -1,9 +1,14 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es6: true,
   },
-  extends: ['plugin:vue/essential', '@vue/standard', 'eslint:recommended', '@vue/typescript/recommended'],
+  extends: [
+    'plugin:vue/essential',
+    '@vue/standard',
+    '@vue/typescript/recommended'
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -17,7 +22,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'comma-dangle': ['error', 'always-multiline'],
-    curly: 'error',
+    curly: ['error', 'all'],
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/semi': ['error', 'never'],
     'prefer-arrow-callback': 'error',

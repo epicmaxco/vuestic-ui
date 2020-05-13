@@ -2,7 +2,7 @@ import Vue, { ComponentOptions } from 'vue'
 import { PropOptions } from 'vue/types/options'
 // @ts-ignore
 import { getType } from './vue-src-no-flow/core/util/props'
-import { camelCase } from 'lodash'
+import { camelCase, kebabCase } from 'lodash'
 
 import noop from 'lodash/noop'
 import {
@@ -42,7 +42,7 @@ export const getApiTableProp = (
 ): ApiPropRowOptions => {
   const manualPropOptions: ManualPropApiOptions = manualOptions.props?.[propName] || {}
   return {
-    name: propName,
+    name: kebabCase(propName),
     version: manualPropOptions.version || manualOptions.version || '',
     required: componentOptions.required,
     types: componentOptions.types.map(type => `\`${type}\``).join(' | '),
@@ -86,7 +86,7 @@ export const getApiTableData = (
     apiTableData.events[eventName] = {
       version: manualEventOptions.version || '',
       description: `api.${manualEventOptions.local ? componentName : 'all'}.events.${eventName}`,
-      name: eventName,
+      name: kebabCase(eventName),
       types: manualEventOptions.types,
     }
   }
@@ -97,7 +97,7 @@ export const getApiTableData = (
     apiTableData.slots[slotName] = {
       version: manualSlotOptions.version || '',
       description: `api.${manualSlotOptions.local ? componentName : 'all'}.slots.${slotName}`,
-      name: slotName,
+      name: kebabCase(slotName),
     }
   }
 
@@ -107,7 +107,7 @@ export const getApiTableData = (
     apiTableData.methods[methodName] = {
       version: manualMethodOptions.version || '',
       description: `api.${manualMethodOptions.local ? componentName : 'all'}.methods.${methodName}`,
-      name: methodName,
+      name: kebabCase(methodName),
       types: manualMethodOptions.types,
     }
   }

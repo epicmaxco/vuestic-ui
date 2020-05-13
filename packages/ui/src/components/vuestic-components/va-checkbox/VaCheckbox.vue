@@ -104,7 +104,7 @@ export default {
           return { borderColor: this.$themes.danger }
         }
       } else {
-        if (this.isChecked) return { background: this.colorComputed }
+        if (this.isChecked) { return { background: this.colorComputed } }
       }
 
       return {}

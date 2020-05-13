@@ -99,6 +99,7 @@
 @mixin va-table {
   th,
   td {
+    text-align: left;
     padding: 0.625rem;
   }
 
@@ -110,7 +111,7 @@
   }
 
   td {
-    vertical-align: middle;
+    vertical-align: top;
   }
 
   &--striped {
