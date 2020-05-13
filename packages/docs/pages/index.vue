@@ -144,6 +144,7 @@ html {
     height: $sidebar-viewport-height;
     margin-top: 64px;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   &__header {
@@ -160,7 +161,7 @@ html {
     }
 
     padding: 2em;
-    width: 100%;
+    width: calc(100% - 250px);
   }
 }
 </style>
