@@ -176,6 +176,129 @@
       />
       Selected {{ radioData.selectedObject }}
     </VbCard>
+     <VbCard
+      title="String options"
+    >
+      <va-option-list
+        type="switch"
+        :options="baseSwitchData.options"
+        v-model="baseSwitchData.selected"
+      />
+      Selected {{ baseSwitchData.selected }}
+    </VbCard>
+    <VbCard
+      title="Color"
+    >
+      <va-option-list
+        type="switch"
+        :options="baseSwitchData.options"
+        v-model="baseSwitchData.selected"
+        color="danger"
+      />
+    </VbCard>
+    <VbCard
+      title="value undefined + defaultValue array"
+    >
+      <va-option-list
+        type="switch"
+        :options="baseSwitchData.options"
+        v-model="baseSwitchData.selectedWithVModel"
+        :default-value="[baseSwitchData.options[0], baseSwitchData.options[2]]"
+      />
+      Selected {{ baseSwitchData.selectedWithVModel }}
+    </VbCard>
+    <VbCard
+      title="value undefined + defaultValue not array"
+    >
+      <va-option-list
+        type="switch"
+        :options="baseSwitchData.options"
+        v-model="baseSwitchData.selectedWithVModel1"
+        :default-value="baseSwitchData.options[0]"
+      />
+      Selected {{ baseSwitchData.selectedWithVModel1 }}
+    </VbCard>
+    <VbCard
+      title="Disable all"
+    >
+      <va-option-list
+        type="switch"
+        :options="baseSwitchData.options"
+        v-model="baseSwitchData.selected"
+        disabled
+      />
+      Selected {{ baseSwitchData.selectedDisabledList }}
+    </VbCard>
+    <VbCard
+      title="Left label"
+    >
+      <va-option-list
+        type="switch"
+        :options="baseSwitchData.options"
+        v-model="baseSwitchData.selected"
+        left-label
+      />
+    </VbCard>
+    <VbCard
+      title="Readonly"
+    >
+      <va-option-list
+        type="switch"
+        :options="baseSwitchData.options"
+        v-model="baseSwitchData.selected"
+        readonly
+      />
+    </VbCard>
+    <VbCard
+      title="textBy"
+    >
+      <va-option-list
+        type="switch"
+        :options="complexData.options"
+        text-by="altName"
+      />
+    </VbCard>
+    <VbCard
+      title="valueBy"
+    >
+      <va-option-list
+        type="switch"
+        :options="complexData.options"
+        v-model="complexData.selectedObject"
+        value-by="altValue"
+      />
+      Selected <pre> {{ complexData.selectedObject }} </pre>
+    </VbCard>
+    <VbCard
+      title="disabledBy"
+    >
+      <va-option-list
+        type="switch"
+        :options="complexData.options"
+        disabled-by="altDisabled"
+      />
+    </VbCard>
+    <VbCard
+      title="Return whole object"
+    >
+      <va-option-list
+        type="switch"
+        :options="complexData.options"
+        v-model="complexData.selectedObject"
+      />
+      Selected <pre> {{ complexData.selectedObject }} </pre>
+    </VbCard>
+    <VbCard
+      title="Complex data with default value and v-model"
+    >
+      <va-option-list
+        type="switch"
+        :options="complexData.options"
+        :default-value="[complexData.options[0], complexData.options[2]]"
+        v-model="complexData.withDefault"
+      />
+      Selected <pre> {{ complexData.withDefault }} </pre>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -251,6 +374,12 @@ export default {
         selectedValue: undefined,
         selectedObject: undefined,
         withDefault: undefined,
+      },
+      baseSwitchData: {
+        options: ['test switch', 'test switch 1', 'test switch 2'],
+        selected: undefined,
+        selectedDisabled: undefined,
+        selectedWithVModel: undefined,
       },
     }
   },

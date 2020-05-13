@@ -54,6 +54,10 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.sliders',
         },
         {
+          name: 'switch',
+          displayName: 'menu.switches',
+        },
+        {
           name: 'tabs',
           displayName: 'menu.tabs',
         },

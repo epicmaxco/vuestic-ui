@@ -6,11 +6,20 @@
         "input": "Emits component value"
       },
       "props": {
-        "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
-        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will yeild into `'<number>px'`) or string value (currently `rem` and `px` sizes are supported)",
-        "disabled": "Applies corporate *disabled* style and removes all user interaction effects",
+        "id": "Applies `id` to internal input component. Useful for native forms.",
+        "name": "Applies `name` to internal input component. Useful for native forms.",
+        "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
+        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will be used as `px`) or string value (`rem` and `px` sizes are supported).",
+        "disabled": "Applies *disabled* style and removes all user interaction effects.",
+        "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
+        "success": "Show component in success state.",
+        "error": "Show component in error state.",
+        "messages": "Description messages for form component.",
+        "errorMessages": "Error messages for form component.",
+        "errorCount": "Number of error messages displayed.",
         "stateful": "Add possibility to work with component without setting `v-model`",
-        "color": "Color of the component (either corporate theme or *HEX* string)"
+        "color": "Color of the component (theme string or *HEX* string)",
+        "rules": "Validation rules <!-- TODO Add link -->"
       }
     },
     "VaForm": {
@@ -159,6 +168,33 @@
         "prevIcon": "Icon to be used for scrolling backward in pagination",
         "nextIcon": "Icon to be used for scrolling forward in pagination"
       }
+    },
+    "VaSwitch": {
+      "props": {
+        "color": "Color of switch",
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
+        "label": "Switch label",
+        "leftLabel": "Moves label to the left",
+        "readonly": "Makes switch read only",
+        "trueLabel": "Label when checked",
+        "falseLabel": "Label when unchecked",
+        "trueInnerLabel": "Inner label when checked",
+        "falseInnerLabel": "Inner label when unchecked",
+        "loading": "Pending state mark",
+        "value": "Switch value",
+        "trueValue": "Value when checked",
+        "falseValue": "Value when unchecked",
+        "arrayValue": "Takes the value of a switch in an array of switches"
+      },
+      "events": {
+        "blur": "Emited on focus.",
+        "focus": "Emited on blur.",
+        "input": "Emited on value change."
+      },
+      "slots": {
+        "default": "Slot for label.",
+        "innerLabel": "Slot for inner label."
+      }
     }
   },
   "menu": {
@@ -169,6 +205,9 @@
     "uiElements": "UI Elements",
     "treeView": "Tree view",
     "sliders": "Sliders",
+    "switches": "Switches",
+    "popovers": "Popovers",
+    "chat": "Chat",
     "pagination": "Pagination"
   },
   "language": {
@@ -232,7 +271,7 @@
       },
       "label": {
         "headline": "Label",
-        "paragraph": "Label of slider, could have inverted position or custom color."
+        "paragraph": "Label of switch, could have inverted position or custom color."
       },
       "slots": {
         "headline": "Slots",
@@ -258,6 +297,53 @@
     "api": {
       "subtitle": "API",
       "paragraph": "Here are props, events and slots that are used in va-slider component."
+    }
+  },
+  "switch": {
+    "title": "Switch",
+    "paragraph": "Switch component turns on or off the state of your custom option",
+    "basic": {
+      "subtitle": "Basic Element",
+      "paragraph": "This is basic usage of switch component."
+    },
+    "advanced": {
+      "subtitle": "Advanced Element",
+      "color": {
+        "headline": "Color",
+        "paragraph": "You can customize color."
+      },
+      "state": {
+        "headline": "State",
+        "paragraph": "Switch can be in disabled or readonly state."
+      },
+      "label": {
+        "headline": "Label",
+        "paragraph": "Switch can be labeled on the left or on the right."
+      },
+      "customLabel": {
+        "headline": "Custom Label",
+        "paragraph": "You can label any state of switch."
+      },
+      "innerLabel": {
+        "headline": "Inner Label",
+        "paragraph": "You may put a label inside of a switch."
+      },
+      "size": {
+        "headline": "Size",
+        "paragraph": "Switches have 3 different sizes."
+      },
+      "loading": {
+        "headline": "Loading",
+        "paragraph": "You can mark a pending state of switch."
+      },
+      "error": {
+        "headline": "Error",
+        "paragraph": "Switch has an error style"
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in va-switch component."
     }
   },
   "rating": {

@@ -32,6 +32,17 @@
             :tabindex="index"
           />
           <va-checkbox
+            v-else-if="type === 'checkbox'"
+            ref="input"
+            v-model="selectedValue"
+            :label="getText(option)"
+            :disabled="isDisabled(option)"
+            :left-label="c_leftLabel"
+            :array-value="getValue(option)"
+            :color="c_color"
+            :name="c_name"
+          />
+          <va-switch
             v-else
             ref="input"
             v-model="selectedValue"
@@ -51,6 +62,7 @@
 <script>
 import VaRadio from '../va-radio/VaRadio'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
+import VaSwitch from '../va-switch/VaSwitch'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
@@ -58,14 +70,14 @@ import { generateUuid } from '../../../services/utils'
 
 export default {
   name: 'VaOptionList',
-  components: { VaRadio, VaCheckbox, VaInputWrapper },
+  components: { VaRadio, VaCheckbox, VaSwitch, VaInputWrapper },
   mixins: [
     SelectableListMixin,
     makeContextablePropsMixin({
       type: {
         type: String,
         default: 'checkbox',
-        validator: type => type === 'radio' || type === 'checkbox',
+        validator: type => ['radio', 'checkbox', 'switch'].includes(type),
       },
       disabled: { type: Boolean, default: false },
       readonly: { type: Boolean, default: false },

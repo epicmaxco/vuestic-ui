@@ -54,31 +54,20 @@
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
-import { KeyboardOnlyFocusMixin } from './KeyboardOnlyFocusMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import {
-  ContextPluginMixin,
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
-import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
 export default {
   name: 'VaCheckbox',
   components: { VaInputWrapper, VaIcon },
   mixins: [
-    FormComponentMixin,
-    KeyboardOnlyFocusMixin,
-    ColorThemeMixin,
-    ContextPluginMixin,
+    SelectableMixin,
     makeContextablePropsMixin({
-      label: { type: String, default: '' },
       value: { type: [Boolean, Array, String, Object], default: false },
-      arrayValue: { type: [String, Object], default: '' },
       indeterminate: { type: Boolean, default: false },
       checkedIcon: { type: String, default: 'check' },
       indeterminateIcon: { type: String, default: 'remove' },
-      leftLabel: { type: Boolean, default: false },
     }),
   ],
   watch: {
@@ -122,61 +111,6 @@ export default {
     },
     computedIconName () {
       return this.c_indeterminate ? this.c_indeterminateIcon : this.c_checkedIcon
-    },
-    isChecked () {
-      return this.modelIsArray ? this.value && this.value.includes(this.c_arrayValue) : this.value
-    },
-    modelIsArray () {
-      return !!this.c_arrayValue
-    },
-  },
-  methods: {
-    /** @public */
-    focus () {
-      this.$refs.input.focus()
-    },
-    /** @public */
-    reset () {
-      this.$emit('input', false)
-    },
-    onFocus () {
-      this.KeyboardOnlyFocusMixin_onFocus()
-
-      this.$emit('focus')
-    },
-    onBlur (event) {
-      if (this.$refs.input === event.target && !this.isCheckboxRelated(event.relatedTarget)) {
-        this.ValidateMixin_onBlur()
-        this.isKeyboardFocused = false
-        this.$emit('blur', event)
-      }
-    },
-    isCheckboxRelated (element) {
-      return [this.$refs.label, this.$refs.container].includes(element)
-    },
-    clickWrapper () {
-      if (this.isCheckboxRelated(document.activeElement)) {
-        this.$refs.input.focus()
-        this.isKeyboardFocused = false
-      }
-      this.toggleSelection()
-    },
-    toggleSelection () {
-      if (this.c_readonly || this.c_disabled) {
-        return
-      }
-      if (this.modelIsArray) {
-        if (!this.value) {
-          this.$emit('input', [this.c_arrayValue])
-        } else if (this.value.includes(this.c_arrayValue)) {
-          this.$emit('input', this.value.filter(option => option !== this.c_arrayValue))
-        } else {
-          this.$emit('input', this.value.concat(this.c_arrayValue))
-        }
-        return
-      }
-
-      this.$emit('input', !this.c_value)
     },
   },
 }

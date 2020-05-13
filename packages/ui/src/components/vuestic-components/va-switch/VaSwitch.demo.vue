@@ -4,60 +4,96 @@
       <div>
         {{ value }}
       </div>
-      <va-toggle v-model="value" />
+      <va-switch v-model="value" />
     </VbCard>
     <VbCard title="Colors">
-      <va-toggle v-model="value" />
-      <va-toggle
+      <va-switch v-model="value" />
+      <va-switch
         v-model="value"
         color="info"
       />
-      <va-toggle
+      <va-switch
         v-model="value"
         color="danger"
       />
-      <va-toggle
+      <va-switch
         v-model="value"
         color="warning"
       />
-      <va-toggle
+      <va-switch
         v-model="value"
         color="gray"
       />
-      <va-toggle
+      <va-switch
         v-model="value"
         color="dark"
       />
     </VbCard>
     <VbCard title="With label">
-      <va-toggle
+      <va-switch
         v-model="value"
         label="turn"
       />
-      <va-toggle v-model="value">
+      <va-switch v-model="value">
         <div style="background: mediumpurple;">
           Slot label
         </div>
-      </va-toggle>
+      </va-switch>
+    </VbCard>
+    <VbCard title="With inner label slot">
+      <va-switch
+        v-model="value"
+      >
+        <template v-slot:innerLabel>
+          Inner
+        </template>
+      </va-switch>
     </VbCard>
     <VbCard title="Sizes">
-      <va-toggle
+      <va-switch
         v-model="value"
         size="small"
         label="small"
       />
-      <va-toggle
+      <va-switch
         v-model="value"
         label="default"
       />
-      <va-toggle
+      <va-switch
         v-model="value"
         size="large"
         label="large"
       />
     </VbCard>
+    <VbCard title="Left label">
+      <va-switch
+        v-model="value"
+        label="left"
+        left-label
+      />
+    </VbCard>
+    <VbCard title="Custom labels">
+      <div>
+        {{value}}
+      </div>
+      <va-switch
+        v-model="value"
+        true-label="Yes"
+        false-label="No"
+      />
+    </VbCard>
+    <VbCard title="Custom inner labels">
+      <va-switch
+        v-model="value"
+        true-inner-label="Okay"
+        false-inner-label="No"
+      />
+    </VbCard>
     <VbCard title="Custom trueValue, falseValue">
-      <va-toggle
+      <div>
+        {{customTrueFalse}}
+      </div>
+      <va-switch
         v-model="customTrueFalse"
         true-value="agree"
         false-value="disagree"
@@ -68,22 +104,22 @@
       <div>
         {{ selection }}
       </div>
-      <va-toggle
+      <va-switch
         v-model="selection"
         array-value="one"
         label="one"
       />
-      <va-toggle
+      <va-switch
         v-model="selection"
         array-value="two"
         label="two"
       />
-      <va-toggle
+      <va-switch
         v-model="selection"
         array-value="three"
         label="three"
       />
-      <va-toggle
+      <va-switch
         v-model="selection"
         array-value="four"
         label="four"
@@ -91,37 +127,66 @@
     </VbCard>
     <VbCard title="Object values">
       <div>
-        {{ selection }}
+        {{ selectionObjectValues }}
       </div>
-      <va-toggle
+      <va-switch
         v-for="objectOption in objectOptions"
         :key="objectOption.id"
-        v-model="selection"
+        v-model="selectionObjectValues"
         :array-value="objectOption"
         :label="objectOption.name"
       />
     </VbCard>
     <VbCard title="Disabled">
-      <va-toggle
+      <va-switch
         v-model="value"
-        disable
+        disabled
       />
+    </VbCard>
+    <VbCard title="Loading">
+      <va-switch
+        v-model="value"
+        loading
+      />
+    </VbCard>
+    <VbCard title="Validation (required rule)">
+      <va-switch
+        v-model="value"
+        :rules="[(v) => !!v || 'required']"
+      />
+    </VbCard>
+    <VbCard title="Error">
+      <va-switch
+        v-model="value"
+        label="Error"
+        error
+        error-messages="Error message"
+      />
+    </VbCard>
+    <VbCard title="Stateless switch without v-model">
+      <va-switch />
+    </VbCard>
+    <VbCard title="Stateful">
+      <va-switch v-model="valueStateful" stateful />
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaToggle from './VaToggle'
+import VaSwitch from './VaSwitch'
 
 export default {
   components: {
-    VaToggle,
+    VaSwitch,
   },
   data () {
     return {
+      customValue: [{ id: 1, name: 'one' }],
       value: true,
+      valueStateful: true,
       customTrueFalse: 'disagree',
       selection: [],
+      selectionObjectValues: [],
       objectOptions: [
         { id: 1, name: 'one' },
         { id: 2, name: 'two' },

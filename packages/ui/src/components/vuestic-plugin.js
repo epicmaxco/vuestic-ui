@@ -55,7 +55,7 @@ import VaTab from './vuestic-components/va-tabs/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline'
 import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem'
-import VaToggle from './vuestic-components/va-toggle/VaToggle.vue'
+import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
 import VaTreeCategory from './vuestic-components/va-tree-view/VaTreeCategory'
 import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot'
@@ -132,11 +132,11 @@ const VuesticPlugin = {
       VaSidebarLink,
       VaSidebarLinkGroup,
       VaSlider,
+      VaSwitch,
       VaTab,
       VaTabs,
       VaTimeline,
       VaTimelineItem,
-      VaToggle,
       VaTreeCategory,
       VaTreeNode,
       VaTreeRoot,
