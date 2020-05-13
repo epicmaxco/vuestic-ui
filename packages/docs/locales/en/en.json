@@ -149,12 +149,17 @@
       "props": {
         "color": "Color of switch",
         "label": "Switch label",
+        "leftLabel": "Moves label to the left",
         "readonly": "Makes switch read only",
         "trueLabel": "Label when checked",
         "falseLabel": "Label when unchecked",
         "trueInnerLabel": "Inner label when checked",
         "falseInnerLabel": "Inner label when unchecked",
-        "loading": "Pending state mark"
+        "loading": "Pending state mark",
+        "value": "Switch value",
+        "trueValue": "Value when checked",
+        "falseValue": "Value when unchecked",
+        "arrayValue": "Takes the value of a switch in an array of switches"
       },
       "events": {
         "blur": "Emited on focus.",

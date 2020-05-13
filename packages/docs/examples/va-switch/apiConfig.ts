@@ -2,6 +2,9 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export const vaSwitchOptions: ManualApiOptions = {
   props: {
+    value: {
+      local: true,
+    },
     color: {
       local: true,
     },
@@ -27,6 +30,15 @@ export const vaSwitchOptions: ManualApiOptions = {
       local: true,
     },
     loading: {
+      local: true,
+    },
+    trueValue: {
+      local: true,
+    },
+    falseValue: {
+      local: true,
+    },
+    leftLabel: {
       local: true,
     },
   },
