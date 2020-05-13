@@ -1,5 +1,5 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
-import VaRatingApi from '../api/VaRatingApi.vue'
+import VaRatingApi from '../api/va-rating/VaRatingApi.vue'
 
 const config: ApiDocsBlock[] = [
   {

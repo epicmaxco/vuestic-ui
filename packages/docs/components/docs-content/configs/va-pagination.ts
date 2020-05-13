@@ -1,5 +1,5 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
-import VaPaginationApi from '../api/VaPaginationApi.vue'
+import VaPaginationApi from '../api/va-pagination/VaPaginationApi.vue'
 
 const config: ApiDocsBlock[] = [
   {
