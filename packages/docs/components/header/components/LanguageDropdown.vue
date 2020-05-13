@@ -1,6 +1,8 @@
 <template>
   <va-dropdown class="language-dropdown" :offset="[0, 25]" fixed>
-    <va-icon slot="anchor" :class="['flag-icon flag-icon-large', flagIconClass(currentLanguage)]" />
+    <va-button iconRight="expand_more" flat square slot="anchor" color="primary">
+      <va-icon :class="['flag-icon flag-icon-large', flagIconClass(currentLanguage)]"></va-icon>
+    </va-button>
     <div class="language-dropdown__content pl-4 pr-4 pt-2 pb-2">
       <div
         v-for="(option, id) in options"

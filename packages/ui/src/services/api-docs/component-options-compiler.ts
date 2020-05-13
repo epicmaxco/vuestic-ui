@@ -19,7 +19,6 @@ type TestVueInstance = CombinedVueInstance<any, any, any, any, any>
  * Employ vue native functionality to get defaults for prop
  */
 function getDefaultValue<T extends string> (vm: TestVueInstance, propOptions: PropOptions<T>) {
-  debugger
   const defaultValue = getPropDefaultValue(vm, propOptions, emptyObject)
   if (defaultValue === window) {
     return 'Window'
@@ -49,7 +48,6 @@ function getDefaultValue<T extends string> (vm: TestVueInstance, propOptions: Pr
 }
 
 function convertComponentPropToApiDocs <T extends string> (propName: T, propOptionsRecord: Record<string, PropOptions<T>>, vm: TestVueInstance): PropOptionsCompiled {
-  debugger
   return {
     types: getTypes(propOptionsRecord[propName]),
     required: !!propOptionsRecord[propName].required,
