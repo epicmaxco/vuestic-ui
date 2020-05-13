@@ -114,9 +114,9 @@
           <td>
             <MarkdownView :value="$t(apiMethodOption.description)"/>
           </td>
-          <tsd>
+          <td>
             <MarkdownView :value="apiMethodOption.types"/>
-          </tsd>
+          </td>
           <td>
             <pre>{{apiMethodOption.version}}</pre>
           </td>
