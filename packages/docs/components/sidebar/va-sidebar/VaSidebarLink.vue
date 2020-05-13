@@ -118,9 +118,7 @@ export default Vue.extend({
   position: relative;
   min-height: 3rem;
   cursor: pointer;
-  padding-left: 0.75rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  padding: 0.75rem;
   display: flex;
   align-items: center;
   text-decoration: none;
