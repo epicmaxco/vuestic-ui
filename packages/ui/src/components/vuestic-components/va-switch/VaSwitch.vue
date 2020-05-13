@@ -76,6 +76,10 @@ export default {
           return ['medium', 'small', 'large'].includes(value)
         },
       },
+      color: {
+        type: String,
+        default: 'primary',
+      },
       loading: {
         type: Boolean,
         default: false,
