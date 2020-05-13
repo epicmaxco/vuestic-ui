@@ -20,6 +20,9 @@ type TestVueInstance = CombinedVueInstance<any, any, any, any, any>
  */
 function getDefaultValue<T extends string> (vm: TestVueInstance, propOptions: PropOptions<T>) {
   const defaultValue = getPropDefaultValue(vm, propOptions, emptyObject)
+  if (defaultValue === window) {
+    return 'Window'
+  }
   if (typeof defaultValue === 'undefined') {
     return '\\-'
   }

@@ -8,7 +8,7 @@
         class="base-layout__content"
         :class="{'base-layout__content--expanded': !isSidebarVisible} "
       >
-        <va-breadcrumbs align="left" separator=">" color="gray" class="base-layout__breadcrumbs">
+        <va-breadcrumbs align="left" color="gray" class="base-layout__breadcrumbs">
           <va-breadcrumbs-item
             v-for="(crumb, index) in crumbs"
             :key="index"
@@ -16,6 +16,7 @@
             :to="crumb.path"
             :style="{color: 'gray'}"
           />
+          <va-icon slot='separator' name="arrow_forward_ios" :size="16"/>
         </va-breadcrumbs>
         <div>
           <nuxt-child />

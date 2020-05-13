@@ -41,7 +41,7 @@ export default {
   plugins: [
     { mode: 'server', src: '~/plugins/jsdom.ts' },
     { src: '~/plugins/colorHelper.ts' },
-    { mode: 'client', src: '~/plugins/client-services.ts' },
+    { src: '~/plugins/client-services.ts' },
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },
     { src: '~/plugins/localeRoute.ts' },
@@ -49,8 +49,8 @@ export default {
   ],
   build: {
     transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vuetable-2', 'vue-bulma-expanding', 'medium-editor', 'vue-toasted'],
-    extend (config, { _isDev, isClient }) {
-      Object.assign(config.optimization, {
+    extend (config, { isDev, isClient }) {
+      !isDev && Object.assign(config.optimization, {
         minimize: true,
         minimizer: [
           new TerserPlugin({

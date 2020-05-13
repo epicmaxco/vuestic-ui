@@ -34,10 +34,6 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.affix',
         },
         {
-          name: 'form',
-          displayName: 'menu.forms',
-        },
-        {
           name: 'modals',
           displayName: 'menu.modals',
         },
