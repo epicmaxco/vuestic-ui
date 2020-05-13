@@ -60,7 +60,7 @@ describe('api-docs-helpers', () => {
         props: {
           value: {
             version: '',
-            default: 'undefined',
+            default: '\\-',
             description: 'api.all.props.value',
             name: 'value',
             required: true,
