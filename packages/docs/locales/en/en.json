@@ -8,9 +8,15 @@
       "props": {
         "id": "Applies `id` to internal input component. Useful for native forms.",
         "name": "Applies `name` to internal input component. Useful for native forms.",
-        "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
-        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will yeild into `'<number>px'`) or string value (currently `rem` and `px` sizes are supported)",
-        "disabled": "Applies corporate *disabled* style and removes all user interaction effects"
+        "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
+        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will be used as `px`) or string value (`rem` and `px` sizes are supported).",
+        "disabled": "Applies *disabled* style and removes all user interaction effects.",
+        "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
+        "success": "Show component in success state.",
+        "error": "Show component in error state.",
+        "messages": "Description messages for form component.",
+        "errorMessages": "Error messages for form component.",
+        "errorCount": "Number of error messages displayed."
       }
     },
     "VaForm": {
@@ -304,11 +310,11 @@
       },
       "innerLabel": {
         "headline": "Inner Label",
-        "paragraph": "You put a label inside of a switch."
+        "paragraph": "You may put a label inside of a switch."
       },
       "size": {
         "headline": "Size",
-        "paragraph": "Switch can have 3 different sizes."
+        "paragraph": "Switches have 3 different sizes."
       },
       "loading": {
         "headline": "Loading",

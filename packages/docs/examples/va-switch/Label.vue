@@ -1,8 +1,8 @@
 <template>
   <div>
-    <va-switch v-model="value" label="left" left-label />
-    <va-switch v-model="value" label="right" />
-    <va-switch v-model="value">
+    <va-switch class="ml-2" v-model="value" label="left" left-label />
+    <va-switch class="ml-2" v-model="value" label="right" />
+    <va-switch class="ml-2" v-model="value">
       labeled by slot
     </va-switch>
   </div>
