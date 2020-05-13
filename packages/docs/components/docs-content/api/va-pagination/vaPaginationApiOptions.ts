@@ -1,4 +1,4 @@
-import { ManualApiOptions } from '../../../../ui/src/services/api-docs/ManualApiOptions'
+import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
 export const vaPaginationApiOptions: ManualApiOptions = {
   props: {

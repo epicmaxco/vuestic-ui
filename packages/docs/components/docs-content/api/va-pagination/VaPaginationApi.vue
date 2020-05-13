@@ -9,10 +9,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import VaPagination from '../../../../ui/src/components/vuestic-components/va-pagination/VaPagination.vue'
-import VaContent from '../../../../ui/src/components/vuestic-components/va-content/VaContent.vue'
+import VaPagination from 'vuestic-ui/src/components/vuestic-components/va-pagination/VaPagination.vue'
+import VaContent from 'vuestic-ui/src/components/vuestic-components/va-content/VaContent.vue'
 import { vaPaginationApiOptions } from './vaPaginationApiOptions'
-import ApiDocs from '../../../../ui/src/services/api-docs/ApiDocs.vue'
+import ApiDocs from 'vuestic-ui/src/services/api-docs/ApiDocs.vue'
 
 @Component({
   components: { ApiDocs, VaContent },
