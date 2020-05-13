@@ -2,7 +2,9 @@
   <div>
     <va-switch v-model="value" label="left" left-label />
     <va-switch v-model="value" label="right" />
-    <va-switch v-model="value">labeled by slot</va-switch>
+    <va-switch v-model="value">
+      labeled by slot
+    </va-switch>
   </div>
 </template>
 <script>

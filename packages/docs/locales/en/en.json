@@ -147,36 +147,23 @@
     },
     "VaSwitch": {
       "props": {
-        "range": "Transforms single value slider into range slider.",
-        "value": "Numeric value(s) of slider.",
-        "trackLabel": "Label of slider track.",
-        "color": "Color of slider.",
-        "trackColor": "Color of slider base track.",
-        "labelColor": "Color of slider label.",
-        "trackLabelVisible": "Toggles track label visibility.",
-        "min": "Minimum value.",
-        "max": "Maximum value.",
-        "step": "Slider value step.",
-        "label": "Slider label",
-        "invertLabel": "Moves label to opposite side.",
-        "disabled": "Disables slider.",
-        "readonly": "Makes slider read only.",
-        "pins": "Adds step marks to a slider track.",
-        "iconPrepend": "Icon at the start of slider.",
-        "iconAppend": "Icon at the end of slider.",
-        "vertical": "Makes slider vertical.",
-        "showTrack": "Toggles track display."
+        "color": "Color of switch",
+        "label": "Switch label",
+        "readonly": "Makes switch read only",
+        "trueLabel": "Label when checked",
+        "falseLabel": "Label when unchecked",
+        "trueInnerLabel": "Inner label when checked",
+        "falseInnerLabel": "Inner label when unchecked",
+        "loading": "Pending state mark"
       },
       "events": {
-        "dragStart": "Emited on drag start.",
-        "dragEnd": "Emited on drag end.",
-        "change": "Emited on value input.",
+        "blur": "Emited on focus.",
+        "focus": "Emited on blur.",
         "input": "Emited on value change."
       },
       "slots": {
-        "append": "Slot for input after slider.",
-        "prepend": "Slot for input before slider.",
-        "label": "Replaces the default label."
+        "default": "Slot for label.",
+        "innerLabel": "Slot for inner label."
       }
     }
   },
@@ -285,7 +272,7 @@
       },
       "label": {
         "headline": "Label",
-        "paragraph": "Label of slider, could have inverted position or custom color."
+        "paragraph": "Label of switch, could have inverted position or custom color."
       },
       "slots": {
         "headline": "Slots",

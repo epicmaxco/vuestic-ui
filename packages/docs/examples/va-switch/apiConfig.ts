@@ -2,84 +2,53 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export const vaSwitchOptions: ManualApiOptions = {
   props: {
-    arrayValue: {
+    color: {
       local: true,
     },
-    disabled: {
+    arrayValue: {
       local: true,
     },
     readonly: {
       local: true,
     },
-    success: {
-      local: true,
-    },
-    messages: {
-      local: true,
-    },
-    error: {
-      local: true,
-    },
-    errorMessages: {
-      local: true,
-    },
-    errorCount: {
-      local: true,
-    },
-    max: {
-      local: true,
-    },
-    step: {
-      local: true,
-    },
     label: {
       local: true,
     },
-    invertLabel: {
+    trueLabel: {
       local: true,
     },
-    pins: {
+    falseLabel: {
       local: true,
     },
-    iconPrepend: {
+    trueInnerLabel: {
       local: true,
     },
-    iconAppend: {
+    falseInnerLabel: {
       local: true,
     },
-    vertical: {
-      local: true,
-    },
-    showTrack: {
+    loading: {
       local: true,
     },
   },
   events: {
-    dragStart: {
+    blur: {
       local: true,
       types: '-',
     },
-    dragEnd: {
+    focus: {
       local: true,
       types: '-',
-    },
-    change: {
-      local: true,
-      types: 'Number | [Number, Number]',
     },
     input: {
       local: true,
-      types: 'Number | [Number, Number]',
+      types: '-',
     },
   },
   slots: {
-    append: {
+    default: {
       local: true,
     },
-    prepend: {
-      local: true,
-    },
-    label: {
+    innerLabel: {
       local: true,
     },
   },
