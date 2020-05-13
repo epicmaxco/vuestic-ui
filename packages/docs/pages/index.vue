@@ -123,7 +123,7 @@ export default class Index extends Vue {
 @import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/icon-fonts.scss";
 @import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.scss";
 
-* {
+html {
   font-family: Source Sans Pro, sans-serif;
 }
 
