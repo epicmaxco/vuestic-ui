@@ -60,6 +60,7 @@
 <script>
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import VaButton from '../va-button/VaButton'
 import VaTabsItems from './VaTabsItems'
 import VaTabsContent from './VaTabsContent'
@@ -74,6 +75,7 @@ export default {
   mixins: [
     ColorThemeMixin,
     VaTabsItems,
+    StatefulMixin,
     makeContextablePropsMixin({
       value: {
         type: [String, Number],
@@ -111,10 +113,6 @@ export default {
         type: String,
         default: 'primary',
       },
-      stateful: {
-        type: Boolean,
-        default: false,
-      },
       prevIcon: {
         type: String,
         default: 'chevron_left',
@@ -128,7 +126,6 @@ export default {
   data () {
     return {
       tabs: [],
-      innerValue: null,
       sliderHeight: null,
       sliderWidth: null,
       sliderOffsetX: 0,
@@ -154,7 +151,7 @@ export default {
       }
     },
     tabSelected () {
-      return this.c_stateful ? this.innerValue : this.value
+      return this.valueComputed
     },
     sliderStyles () {
       if (this.c_hideSlider) {
@@ -193,8 +190,7 @@ export default {
     },
   },
   watch: {
-    value (newVal) {
-      if (this.c_stateful) { this.innerValue = newVal }
+    value () {
       this.updateTabsState()
     },
   },
@@ -226,11 +222,10 @@ export default {
       }
     },
     selectTab (tab) {
-      if (this.c_stateful) {
-        this.innerValue = tab.id
+      this.valueComputed = tab.id
+      if (this.stateful) {
         this.updateTabsState()
       }
-      this.$emit('input', tab.id)
     },
     updateTabsState () {
       let hasActive = false
@@ -313,7 +308,6 @@ export default {
     },
   },
   mounted () {
-    if (this.c_stateful) { this.innerValue = this.value }
     this.parseItems()
     this.updateTabsState()
     this.updatePagination()

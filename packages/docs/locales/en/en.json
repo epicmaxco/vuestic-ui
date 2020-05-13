@@ -8,7 +8,9 @@
       "props": {
         "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
         "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will yeild into `'<number>px'`) or string value (currently `rem` and `px` sizes are supported)",
-        "disabled": "Applies corporate *disabled* style and removes all user interaction effects"
+        "disabled": "Applies corporate *disabled* style and removes all user interaction effects",
+        "stateful": "Add possibility to work with component without setting `v-model`",
+        "color": "Color of the component (either corporate theme or *HEX* string)"
       }
     },
     "VaForm": {
@@ -143,6 +145,19 @@
         "boundaryIconRight": "Set the icon name for right boundary icon",
         "directionIconLeft": "Set the icon name for left direction icon",
         "directionIconRight": "Set the icon name for right direction icon"
+      }
+    },
+    "VaTabs": {
+      "props": {
+        "value": "The *name* of selected tab or *index* (if `name` prop is not specified)",
+        "left": "Align all items to the left",
+        "right": "Align all items to the right",
+        "center": "Align all items to the center",
+        "grow": "Take all container width",
+        "hideSlider": "Remove slider which underlines selected item",
+        "vertical": "Align all items vertically",
+        "prevIcon": "Icon to be used for scrolling backward in pagination",
+        "nextIcon": "Icon to be used for scrolling forward in pagination"
       }
     }
   },
@@ -396,6 +411,43 @@
         {
           "question": "Can I use `total` and `input` props together?",
           "answer": "Yep. In v-model you'll get item number instead of page number."
+        }
+      ]
+    }
+  },
+  "tabs": {
+    "title": "Tabs",
+    "paragraph": "The `va-tabs` component could be used as an on-page navigation offering rich variaty of visual customizations and usage flexibility",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "By default it's displayed as a horizontal list of `va-tab` items"
+    },
+    "examples": {
+      "subtitle": "Examples",
+      "paragraph": "Here you can find some examples with simple or complex API usage",
+      "pagination": {
+        "headline": "With pagination arrows",
+        "paragraph": "When wrapper width is less then tabs width, pagination arrows are shown"
+      },
+      "vertical": {
+        "headline": "Vettical alignment",
+        "paragraph": "By using `vertical` prop alignment of `va-tabs` can be customized"
+      },
+      "stateful": {
+        "headline": "Without value",
+        "paragraph": "Sometimes `v-model` is too much and in that case using `stateful` prop you can delegate state handling to the component itself"
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in `va-tabs` component."
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "question": "How can I map content to tabs so that only specific tab content will be displayed?",
+          "answer": "We have this functionality in our nearest plans, but for now you could use `v-model` value to map the content yourself"
         }
       ]
     }
