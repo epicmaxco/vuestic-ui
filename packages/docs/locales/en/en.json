@@ -6,6 +6,8 @@
         "input": "Emits component value"
       },
       "props": {
+        "id": "Applies `id` to internal input component. Useful for native forms.",
+        "name": "Applies `name` to internal input component. Useful for native forms.",
         "tag": "Replaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
         "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will yeild into `'<number>px'`) or string value (currently `rem` and `px` sizes are supported)",
         "disabled": "Applies corporate *disabled* style and removes all user interaction effects"
@@ -148,7 +150,7 @@
     "VaSwitch": {
       "props": {
         "color": "Color of switch",
-        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available",
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
         "label": "Switch label",
         "leftLabel": "Moves label to the left",
         "readonly": "Makes switch read only",
@@ -302,7 +304,7 @@
       },
       "innerLabel": {
         "headline": "Inner Label",
-        "paragraph": "You can create a label inside."
+        "paragraph": "You put a label inside of a switch."
       },
       "size": {
         "headline": "Size",
