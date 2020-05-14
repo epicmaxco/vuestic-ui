@@ -74,12 +74,14 @@ export default Vue.extend({
     computedLinkStyles () {
       if (this.isHovered || this.isActive) {
         return {
+          fontWeight: 'bold',
           color: this.$themes.primary,
           backgroundColor: shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }),
           borderColor: this.isActive ? this.$themes.primary : 'transparent',
         }
       } else {
         return {
+          fontWeight: 'normal',
           color: '#34495e',
         }
       }// else <- controlled by CSS (color in rgba)

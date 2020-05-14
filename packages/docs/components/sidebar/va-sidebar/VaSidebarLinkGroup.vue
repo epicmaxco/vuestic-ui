@@ -148,7 +148,7 @@ export default Vue.extend({
     iconStyles () {
       return (this.isHovered || this.isActive)
         ? { color: this.$themes.primary }
-        : { color: '#34495e' }
+        : { color: '#34495e', fontWeight: 'normal' }
     },
   },
   watch: {
