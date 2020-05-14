@@ -39,9 +39,9 @@ function getDefaultValue<T extends string> (vm: TestVueInstance, propOptions: Pr
     const json = JSON.stringify(defaultValue, null, 2)
     const oneLine = json.split(/\r\n|\r|\n/).length === 1
     if (oneLine) {
-      return `\`${defaultValue}\``
+      return `\`${json}\``
     }
-    return `\`\`\`json\n${json}\`\`\``
+    return `\`\`\`json\n${json}\n\`\`\``
   }
 
   return defaultValue + ''
