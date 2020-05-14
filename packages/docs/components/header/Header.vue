@@ -55,7 +55,7 @@ export default class Header extends Vue {
       links: [
         {
           text: 'Overview',
-          icon: 'vuestic-iconset vuestic-iconset-dashboard',
+          icon: '',
           url: '#',
         },
         {
