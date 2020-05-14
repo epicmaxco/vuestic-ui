@@ -19,6 +19,8 @@ export default {
   h1 {
     @include va-display(1);
     @include va-header-margin(1);
+
+    line-height: 3.5rem;
   }
 
   h2 {
@@ -29,6 +31,9 @@ export default {
   h3 {
     @include va-display(3);
     @include va-header-margin(3);
+
+    line-height: 2.5rem;
+    margin-bottom: 1rem;
   }
 
   h4 {
@@ -39,6 +44,8 @@ export default {
   h5 {
     @include va-display(5);
     @include va-header-margin(5);
+
+    line-height: 1.875rem;
   }
 
   h6 {
@@ -58,7 +65,6 @@ export default {
 
   p {
     margin-top: 0;
-    margin-bottom: 1rem;
   }
 
   pre {

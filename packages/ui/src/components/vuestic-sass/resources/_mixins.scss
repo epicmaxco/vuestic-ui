@@ -1,4 +1,4 @@
-@import "../grid/grid-mixins";
+@import '../grid/grid-mixins';
 
 @mixin va-title() {
   font-size: 0.625rem;
@@ -18,13 +18,13 @@
   margin-top: map_get($display-margins, $element);
   margin-bottom: map_get($display-margins, $element) / 2;
 
-  [class*="medium-editor"] &:first-child {
+  [class*='medium-editor'] &:first-child {
     margin-top: map_get($display-margins, $element) / 2;
   }
 }
 
 @mixin va-display($element) {
-  color: $vue-darkest-blue;
+  color: #1b1a1f;
   font-size: map-get($display-font-sizes, $element);
   font-weight: 700;
   line-height: 1;
@@ -92,7 +92,7 @@
   font-size: 14px;
   color: $white;
   padding: 1rem;
-  font-family: "Source Code Pro";
+  font-family: 'Source Code Pro';
   background-color: $vue-darkest-blue;
 }
 

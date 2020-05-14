@@ -1,22 +1,29 @@
 <template>
   <div class="base-layout">
-    <Header :is-sidebar-visible.sync="isSidebarVisible" class="base-layout__header" />
+    <Header
+      :is-sidebar-visible.sync="isSidebarVisible"
+      class="base-layout__header"
+    />
     <div class="base-layout__main">
       <Sidebar v-if="isSidebarVisible" :minimized="!isSidebarVisible" />
       <!-- TODO: remove v-if when icon handling for sidebar is implemented -->
       <div
         class="base-layout__content"
-        :class="{'base-layout__content--expanded': !isSidebarVisible} "
+        :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
       >
-        <va-breadcrumbs align="left" color="gray" class="base-layout__breadcrumbs">
+        <va-breadcrumbs
+          align="left"
+          color="gray"
+          class="base-layout__breadcrumbs"
+        >
           <va-breadcrumbs-item
             v-for="(crumb, index) in crumbs"
             :key="index"
             :label="crumb.label"
             :to="crumb.path"
-            :style="{color: 'gray'}"
+            :style="{ color: 'gray' }"
           />
-          <va-icon slot='separator' name="arrow_forward_ios" :size="16"/>
+          <va-icon slot="separator" name="arrow_forward_ios" :size="16" />
         </va-breadcrumbs>
         <div>
           <nuxt-child />
@@ -93,28 +100,25 @@ export default class Index extends Vue {
       ]
     }
     const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
-    return pathSteps.reduce(
-      (acc, step, index, array) => {
-        switch (true) {
-          case !index:
-            acc.push({
-              label: 'Home',
-              path: `/${this.$root.$i18n.locale}/`,
-            })
-            break
-          case !step && index:
-            break
-          default:
-            acc.push({
-              path: '/' + array.slice(0, index + 1).join('/'),
-              label: step,
-            })
-            break
-        }
-        return acc
-      },
-      [] as { [key: string]: string, }[],
-    )
+    return pathSteps.reduce((acc, step, index, array) => {
+      switch (true) {
+        case !index:
+          acc.push({
+            label: 'Home',
+            path: `/${this.$root.$i18n.locale}/`,
+          })
+          break
+        case !step && index:
+          break
+        default:
+          acc.push({
+            path: '/' + array.slice(0, index + 1).join('/'),
+            label: step,
+          })
+          break
+      }
+      return acc
+    }, [] as { [key: string]: string, }[])
   }
 }
 </script>
@@ -126,6 +130,7 @@ export default class Index extends Vue {
 
 html {
   font-family: Source Sans Pro, sans-serif;
+  color: #1b1a1f;
 }
 
 .base-layout {
@@ -135,6 +140,8 @@ html {
 
   &__breadcrumbs {
     text-transform: capitalize;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
   }
 
   &__main {
@@ -161,6 +168,7 @@ html {
     }
 
     padding: 2em;
+    padding-top: 0;
     width: calc(100% - 250px);
   }
 }
