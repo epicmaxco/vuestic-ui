@@ -195,6 +195,14 @@
         "default": "Slot for label.",
         "innerLabel": "Slot for inner label."
       }
+    },
+    "VaFileUpload": {
+      "props": {
+        "type": "Specify the format of component. Supported types are `single`, `list` and `gallery`",
+        "fileTypes": "Specify supported file formats",
+        "dropzone": "Enables Drag&Drop",
+        "value": "The array with uploaded files"
+      }
     }
   },
   "menu": {
@@ -208,7 +216,8 @@
     "switches": "Switches",
     "popovers": "Popovers",
     "chat": "Chat",
-    "pagination": "Pagination"
+    "pagination": "Pagination",
+    "fileUpload": "File Upload"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -536,6 +545,34 @@
           "answer": "We have this functionality in our nearest plans, but for now you could use `v-model` value to map the content yourself"
         }
       ]
+    }
+  },
+  "fileUpload": {
+    "title": "File Upload",
+    "paragraph": "The `va-file-upload` component is an input for selecting and uploading files with much richer interface than default one",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "By default it's displayed as simple button to upload files"
+    },
+    "examples": {
+      "subtitle": "Examples",
+      "paragraph": "Here you can find some usage examples",
+      "dragAndDrop": {
+        "headline": "Drag & Drop",
+        "paragraph": "With `dropzone` prop add drag and drop possibility to `va-file-upload` component"
+      },
+      "validation": {
+        "headline": "Specify file types",
+        "paragraph": "Add `file-types` prop with alowed extensions to add file types validation"
+      },
+      "gallery": {
+        "headline": "As gallery",
+        "paragraph": "With `type === gallery` prop you can show user picture preview of uploaded files"
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in `va-file-upload` component."
     }
   }
 }

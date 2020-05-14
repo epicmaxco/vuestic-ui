@@ -24,8 +24,14 @@ export default class MarkdownView extends Vue {
   }
 }
 </script>
-<style>
+<style lang="scss">
+@import "../ui/src/components/vuestic-sass/resources/resources";
+
 .MarkdownView {
   display: inline-block;
+
+  code {
+    color: $markdown-code;
+  }
 }
 </style>

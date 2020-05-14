@@ -129,8 +129,9 @@ export default class Index extends Vue {
 @import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.scss";
 
 html {
-  font-family: Source Sans Pro, sans-serif;
+  font-family: $font-family-sans-serif;
   color: #1b1a1f;
+  font-size: $font-size-root;
 }
 
 .base-layout {
