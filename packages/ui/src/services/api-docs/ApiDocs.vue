@@ -1,7 +1,7 @@
 <template>
   <div class="ApiDocs">
 
-    <h2>Props</h2>
+    <h5>Props</h5>
 
     <table class="ApiDocs__table">
       <thead>
@@ -36,7 +36,7 @@
     </table>
 
     <template v-if="!isEmpty(apiTableData.events)">
-      <h2>Events</h2>
+      <h5>Events</h5>
 
       <table class="ApiDocs__table">
         <thead>
@@ -68,7 +68,7 @@
     </template>
 
     <template v-if="!isEmpty(apiTableData.slots)">
-      <h2>Slots</h2>
+      <h5>Slots</h5>
       <table class="ApiDocs__table">
         <thead>
         <tr>
@@ -95,7 +95,7 @@
     </template>
 
     <template v-if="!isEmpty(apiTableData.methods)">
-      <h2>Methods</h2>
+      <h5>Methods</h5>
       <table class="ApiDocs__table">
         <thead>
         <tr>
