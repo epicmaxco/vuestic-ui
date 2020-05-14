@@ -1,6 +1,7 @@
 <template>
   <div>
     <va-rating
+      class="mb-2"
       v-model="value"
       hover
       halves

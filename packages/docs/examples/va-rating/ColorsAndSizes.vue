@@ -1,11 +1,13 @@
 <template>
   <div>
     <va-rating
+      class="mb-2"
       v-model="value"
       color="success"
       size="small"
     />
     <va-rating
+      class="mb-2"
       v-model="value"
       color="info"
       size="large"
