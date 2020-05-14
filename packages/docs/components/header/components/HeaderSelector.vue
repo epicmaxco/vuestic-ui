@@ -1,15 +1,30 @@
 <template>
-  <i
-    class="flex-center header-selector"
-    :class="`i-menu-${minimized ? 'collapsed' : 'expanded'}`"
-    @click="$emit('toggleSidebar', !minimized)"
-  />
+  <div class="header-selector flex-center">
+    <va-icon-menu
+      v-if="minimized"
+      class="i-nav"
+      @click.native="$emit('toggleSidebar', !minimized)"
+      :color="$themes.primary"
+    />
+    <va-icon-menu-collapsed
+      v-else
+      class="i-nav"
+      @click.native="$emit('toggleSidebar', !minimized)"
+      :color="$themes.primary"
+    />
+  </div>
 </template>
 
 <script lang="ts">
+import VaIconMenu from '../../../iconset/VaIconMenu.vue'
+import VaIconMenuCollapsed from '../../../iconset/VaIconMenuCollapsed.vue'
 // @ts-nocheck
 export default {
   name: 'HeaderSelector',
+  components: {
+    VaIconMenu,
+    VaIconMenuCollapsed,
+  },
   props: {
     minimized: {
       type: Boolean,

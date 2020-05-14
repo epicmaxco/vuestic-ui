@@ -93,20 +93,27 @@ export default class ColorDropdown extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../../../ui/src/components/vuestic-sass/resources/resources";
 
 .color-dropdown {
+  .va-button-dropdown__content {
+    background-color: white;
+  }
+
   cursor: pointer;
 
   &__icon {
+    .va-button__content {
+      font-weight: bold;
+    }
+
     position: relative;
     display: flex;
     align-items: center;
   }
 
   &__content {
-    background-color: $dropdown-background;
     border-radius: 0.5rem;
     padding: 0;
 

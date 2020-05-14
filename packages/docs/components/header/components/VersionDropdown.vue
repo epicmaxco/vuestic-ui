@@ -3,6 +3,7 @@
     :button-props="{ flat: true }"
     color="primary"
     :label="version.value"
+    class="version-dropdown"
   >
     <div
       v-for="(option, index) in version.options"
@@ -36,3 +37,9 @@ export default class VersionDropdown extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+  .version-dropdown .va-button__content {
+    font-weight: bold;
+  }
+</style>
