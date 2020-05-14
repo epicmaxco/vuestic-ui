@@ -8,7 +8,7 @@
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "vue-cli-service test:unit -w 1",
     "test:coverage": "vue-cli-service test:unit --coverage",
     "serve:docs": "vuepress dev docs",
     "build:docs": "vuepress build docs",
