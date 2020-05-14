@@ -191,6 +191,7 @@ export default Vue.extend({
 
 .va-sidebar-link-group {
   flex-direction: column;
+  font-weight: bold;
 
   &__submenu {
     list-style: none;
