@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="header row">
+  <div class="header row justify--space-between">
     <div class="header__logo flex row">
       <header-selector :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
       <img class="header__logo__image" src="../../assets/svg/vuestic-docs.svg" height="30" width="150">
