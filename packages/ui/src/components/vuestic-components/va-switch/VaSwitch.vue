@@ -30,7 +30,7 @@
           :style="trackStyle"
           :class="computedTrackClass"
         >
-          <div class="va-switch__track-label" :style="computedTrackLabelSize">
+          <div class="va-switch__track-label">
             <slot name="innerLabel">
               {{ computedInnerLabel }}
             </slot>
@@ -40,7 +40,7 @@
               <va-progress-circle
                 v-if="loading"
                 indeterminate
-                :size="computedProgressCircleSize"
+                :size="progressCircleSize"
                 :color="trackStyle.backgroundColor"
               />
             </span>
@@ -124,39 +124,19 @@ export default {
     },
     computedClass () {
       return {
+        'va-switch--checked': this.isTrue,
         'va-switch--small': this.size === 'small',
         'va-switch--large': this.size === 'large',
         'va-switch--disabled': this.c_disabled,
         'va-switch--left-label': this.leftLabel,
       }
     },
-    computedProgressCircleSize () {
-      if (this.size === 'small') {
-        return 15
-      } else if (this.size === 'large') {
-        return 25
-      }
-      return 20
-    },
-    computedTrackLabelSize () {
-      if (this.size === 'small') {
-        return {
-          margin: this.isTrue
-            ? 'auto 25px auto 7px'
-            : 'auto 7px auto 25px',
-        }
-      } else if (this.size === 'large') {
-        return {
-          margin: this.isTrue
-            ? 'auto 37px auto 7px'
-            : 'auto 7px auto 37px',
-        }
-      }
+    progressCircleSize () {
       return {
-        margin: this.isTrue
-          ? 'auto 33px auto 7px'
-          : 'auto 7px auto 33px',
-      }
+        small: 15,
+        medium: 20,
+        large: 25,
+      }[this.size]
     },
     trackStyle () {
       const color = this.isTrue
@@ -248,6 +228,18 @@ export default {
       &__track {
         border-radius: 0.75rem;
       }
+
+      &__track-label {
+        margin: auto 7px auto 25px;
+      }
+
+      &--checked {
+        .va-switch {
+          &__track-label {
+            margin: auto 25px auto 7px;
+          }
+        }
+      }
     }
   }
 
@@ -267,6 +259,18 @@ export default {
       &__track {
         border-radius: 1.25rem;
       }
+
+      &__track-label {
+        margin: auto 7px auto 37px;
+      }
+
+      &--checked {
+        .va-switch {
+          &__track-label {
+            margin: auto 37px auto 7px;
+          }
+        }
+      }
     }
   }
 
@@ -276,6 +280,14 @@ export default {
 
   &--left-label {
     flex-direction: row-reverse;
+  }
+
+  &--checked {
+    .va-switch {
+      &__track-label {
+        margin: auto 33px auto 7px;
+      }
+    }
   }
 
   &__label {
@@ -304,6 +316,7 @@ export default {
 
   &__track-label {
     color: $white;
+    margin: auto 7px auto 33px;
   }
 
   &__input {
