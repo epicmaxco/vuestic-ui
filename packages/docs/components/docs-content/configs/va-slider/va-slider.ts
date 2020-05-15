@@ -1,5 +1,7 @@
-import { BlockType } from '../../../types/configTypes'
-import Api from '../../../examples/va-slider/Api.vue'
+import { BlockType } from '../../../../types/configTypes'
+import VaSlider
+  from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
+import { vaSliderOptions } from './vaSliderApiOptions'
 export default [
   {
     type: BlockType.TITLE,
@@ -179,6 +181,7 @@ export default [
   },
   {
     type: BlockType.API,
-    component: Api,
+    componentOptions: VaSlider,
+    apiOptions: vaSliderOptions,
   },
 ]

@@ -80,7 +80,7 @@
 
 <script>
 import Vue from 'vue'
-import VaIcon from '../../../../ui/src/components/vuestic-components/va-icon/VaIcon'
+import VaIcon from '../../../../ui/src/components/vuestic-components/va-icon/VaIcon.vue'
 import { shiftHslColor } from '../../../../ui/src/services/color-functions'
 
 export default Vue.extend({
@@ -187,7 +187,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-@import "../../../../ui/src/components/vuestic-sass/resources/resources";
+@import "vuestic-ui/src/components/vuestic-sass/resources/resources";
 
 .va-sidebar-link-group {
   flex-direction: column;

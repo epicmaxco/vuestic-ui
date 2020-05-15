@@ -72,7 +72,7 @@ export default class LanguageDropdown extends Vue {
 
 <style lang="scss">
 @import "flag-icon-css/css/flag-icon.css";
-@import "../../../../ui/src/components/vuestic-sass/resources/resources";
+@import "vuestic-ui/src/components/vuestic-sass/resources/resources";
 
 .language-dropdown {
   cursor: pointer;

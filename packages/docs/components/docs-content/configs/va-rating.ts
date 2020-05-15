@@ -1,5 +1,7 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
-import VaRatingApi from '../api/va-rating/VaRatingApi.vue'
+import VaRating from 'vuestic-ui/src/components/vuestic-components/va-rating/VaRating.vue'
+import { vaRatingApiOptions } from '../api/va-rating/vaRatingApiOptions'
+import { VueConstructor } from 'vue'
 
 const config: ApiDocsBlock[] = [
   {
@@ -76,7 +78,8 @@ const config: ApiDocsBlock[] = [
   },
   {
     type: BlockType.API,
-    component: VaRatingApi,
+    componentOptions: VaRating,
+    apiOptions: vaRatingApiOptions as unknown as VueConstructor,
   },
   {
     type: BlockType.SUBTITLE,

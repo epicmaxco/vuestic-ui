@@ -1,5 +1,7 @@
 import { BlockType } from '../../../types/configTypes'
-import Api from '../../../examples/va-switch/Api.vue'
+import VaSwitch
+  from 'vuestic-ui/src/components/vuestic-components/va-switch/VaSwitch.vue'
+import { vaSwitchOptions } from '../../../examples/va-switch/apiConfig'
 export default [
   {
     type: BlockType.TITLE,
@@ -131,6 +133,7 @@ export default [
   },
   {
     type: BlockType.API,
-    component: Api,
+    componentOptions: VaSwitch,
+    apiOptions: vaSwitchOptions,
   },
 ]

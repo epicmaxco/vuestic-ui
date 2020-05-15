@@ -43,7 +43,7 @@ export default class VaSidebar extends Vue {
 </script>
 
 <style lang="scss">
-@import '../../../../ui/src/components/vuestic-sass/resources/resources';
+@import 'vuestic-ui/src/components/vuestic-sass/resources/resources';
 
 .va-sidebar {
   font-family: Source Sans Pro, sans-serif;

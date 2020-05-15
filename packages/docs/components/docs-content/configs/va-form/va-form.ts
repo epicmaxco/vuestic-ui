@@ -1,5 +1,7 @@
-import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
-import VaFormApi from '../api/VaFormApi.vue'
+import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
+import VaForm from 'vuestic-ui/src/components/vuestic-components/va-form/VaForm.vue'
+import { vaFormApiOptions } from './vaFormApiOptions'
+import { VueConstructor } from 'vue'
 
 const config: ApiDocsBlock[] = [
   {
@@ -61,7 +63,8 @@ const config: ApiDocsBlock[] = [
   },
   {
     type: BlockType.API,
-    component: VaFormApi,
+    componentOptions: VaForm as unknown as VueConstructor,
+    apiOptions: vaFormApiOptions,
   },
 ]
 

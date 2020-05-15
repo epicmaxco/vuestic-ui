@@ -1,4 +1,7 @@
-import { TranslationString } from '../../ui/src/services/api-docs/ManualApiOptions'
+import {
+  TranslationString,
+  ManualApiOptions,
+} from '../../ui/src/services/api-docs/ManualApiOptions'
 import { VueConstructor } from 'vue'
 
 // TODO: move i18n types to appropriate place, e.g. tsconfig, ...
@@ -31,7 +34,7 @@ export type TextBlock = {
 export type ApiDocsBlock =
   | TextBlock
   | {
-      type: BlockType.API | BlockType.FAQ,
+      type: BlockType.FAQ,
       component: VueConstructor,
     }
   | {
@@ -41,6 +44,11 @@ export type ApiDocsBlock =
   | {
       type: BlockType.CODE,
       code: CodeString,
+    }
+  | {
+      type: BlockType.API,
+      componentOptions: VueConstructor,
+      apiOptions: ManualApiOptions,
     }
 
 export type FaqBlock = {

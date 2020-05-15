@@ -11,10 +11,11 @@
         :key="index"
         :code="block.code"
       />
-      <component
+      <ApiDocs
         v-else-if="BlockType.API === block.type"
         :key="index"
-        :is="block.component"
+        :component-options="block.componentOptions"
+        :api-options="block.apiOptions"
       />
       <DocsFaq
         v-else-if="BlockType.FAQ === block.type"
@@ -41,6 +42,7 @@ import DocsExample from '../DocsExample.vue'
 import DocsCode from '../DocsCode.vue'
 import DocsSubtitle from '../DocsSubtitle.vue'
 import DocsFaq from '../DocsFaq.vue'
+import ApiDocs from 'vuestic-ui/src/services/api-docs/ApiDocs.vue'
 
 @Component({
   components: {
@@ -49,6 +51,7 @@ import DocsFaq from '../DocsFaq.vue'
     DocsSubtitle,
     DocsFaq,
     MarkdownView,
+    ApiDocs,
   },
 })
 export default class DocsContent extends Vue {

@@ -1,5 +1,8 @@
 import { BlockType } from '../../../types/configTypes'
-import Api from '../../../examples/va-affix/Api.vue'
+import { VueConstructor } from 'vue'
+import VaAffix
+  from 'vuestic-ui/src/components/vuestic-components/va-affix/VaAffix.vue'
+import { vaAffixOptions } from './va-affix/apiConfig'
 
 export default [
   {
@@ -48,6 +51,7 @@ export default [
   },
   {
     type: BlockType.API,
-    component: Api,
+    componentOptions: VaAffix as unknown as VueConstructor,
+    apiOptions: vaAffixOptions,
   },
 ]

@@ -18,7 +18,7 @@
 <script lang="ts">
 // @ts-nocheck
 import { Component, Vue } from 'vue-property-decorator'
-import VaButtonDropdown from '../../../../ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
+import VaButtonDropdown from 'vuestic-ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
 
 @Component({
   components: {

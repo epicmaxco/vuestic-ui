@@ -1,5 +1,7 @@
 import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
-import VaModalApi from '../api/va-modal/VaModalApi.vue'
+import VaModal
+  from 'vuestic-ui/src/components/vuestic-components/va-modal/VaModal.vue'
+import { vaModalApiOptions } from '../api/va-modal/vaModalApiOptions'
 
 const config: ApiDocsBlock[] = [
   {
@@ -176,7 +178,8 @@ const config: ApiDocsBlock[] = [
   },
   {
     type: BlockType.API,
-    component: VaModalApi,
+    componentOptions: VaModal,
+    apiOptions: vaModalApiOptions,
   },
 ]
 

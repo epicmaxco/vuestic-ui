@@ -1,5 +1,8 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
-import VaTabsApi from '../api/va-tabs/VaTabsApi.vue'
+import VaTabs
+  from '../../../../ui/src/components/vuestic-components/va-tabs/VaTabs.vue'
+import { vaTabsApiOptions } from '../api/va-tabs/vaTabsApiOptions'
+import { VueConstructor } from 'vue'
 
 const config: ApiDocsBlock[] = [
   {
@@ -76,7 +79,8 @@ const config: ApiDocsBlock[] = [
   },
   {
     type: BlockType.API,
-    component: VaTabsApi,
+    componentOptions: VaTabs as unknown as VueConstructor,
+    apiOptions: vaTabsApiOptions,
   },
   {
     type: BlockType.SUBTITLE,

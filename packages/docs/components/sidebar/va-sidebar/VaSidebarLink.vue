@@ -25,7 +25,7 @@
 import Vue from 'vue'
 import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
 import { shiftHslColor } from '../../../../ui/src/services/color-functions'
-import VaIcon from '../../../../ui/src/components/vuestic-components/va-icon/VaIcon'
+import VaIcon from '../../../../ui/src/components/vuestic-components/va-icon/VaIcon.vue'
 
 export default Vue.extend({
   name: 'VaSidebarLink',
@@ -114,7 +114,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-@import "../../../../ui/src/components/vuestic-sass/resources/resources";
+@import "vuestic-ui/src/components/vuestic-sass/resources/resources";
 
 .va-sidebar-link {
   position: relative;
