@@ -1,7 +1,6 @@
 <template>
   <va-input-wrapper
     class="va-switch-wrapper"
-    :class="computedClass"
     :disabled="c_disabled"
     :success="c_success"
     :messages="c_messages"
