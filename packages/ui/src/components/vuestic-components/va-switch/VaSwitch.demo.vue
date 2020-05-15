@@ -166,7 +166,7 @@
     <VbCard title="Stateless switch without v-model">
       <va-switch />
     </VbCard>
-    <VbCard title="Stateful" style="border: 4px solid red;">
+    <VbCard title="Stateful">
       <va-switch stateful />
     </VbCard>
   </VbDemo>
