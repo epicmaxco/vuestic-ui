@@ -133,9 +133,9 @@ export default {
     },
     progressCircleSize () {
       return {
-        small: 15,
-        medium: 20,
-        large: 25,
+        small: '15px',
+        medium: '20px',
+        large: '25px',
       }[this.size]
     },
     trackStyle () {
