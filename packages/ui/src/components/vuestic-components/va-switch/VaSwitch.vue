@@ -103,30 +103,30 @@ export default {
   components: { VaProgressCircle, VaInputWrapper },
   computed: {
     computedInnerLabel () {
-      if (this.trueInnerLabel && this.isTrue) {
-        return this.trueInnerLabel
+      if (this.с_trueInnerLabel && this.isTrue) {
+        return this.с_trueInnerLabel
       }
-      if (this.falseInnerLabel && !this.isTrue) {
-        return this.falseInnerLabel
+      if (this.с_falseInnerLabel && !this.isTrue) {
+        return this.с_falseInnerLabel
       }
       return ''
     },
     computedLabel () {
-      if (this.trueLabel && this.isTrue) {
-        return this.trueLabel
+      if (this.с_trueLabel && this.isTrue) {
+        return this.с_trueLabel
       }
-      if (this.falseLabel && !this.isTrue) {
-        return this.falseLabel
+      if (this.с_falseLabel && !this.isTrue) {
+        return this.с_falseLabel
       }
-      return this.label
+      return this.с_label
     },
     computedClass () {
       return {
         'va-switch--checked': this.isTrue,
-        'va-switch--small': this.size === 'small',
-        'va-switch--large': this.size === 'large',
+        'va-switch--small': this.c_size === 'small',
+        'va-switch--large': this.c_size === 'large',
         'va-switch--disabled': this.c_disabled,
-        'va-switch--left-label': this.leftLabel,
+        'va-switch--left-label': this.c_leftLabel,
         'va-switch--error': this.computedError,
       }
     },
@@ -135,7 +135,7 @@ export default {
         small: '15px',
         medium: '20px',
         large: '25px',
-      }[this.size]
+      }[this.с_size]
     },
     trackStyle () {
       return {
@@ -145,7 +145,7 @@ export default {
       }
     },
     computedTabindex () {
-      return this.disabled ? -1 : 0
+      return this.с_disabled ? -1 : 0
     },
   },
 }
