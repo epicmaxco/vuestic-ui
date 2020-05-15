@@ -51,6 +51,7 @@ import VaSidebarLink from './vuestic-components/va-sidebar/VaSidebarLink'
 import VaSidebarLinkGroup from './vuestic-components/va-sidebar/VaSidebarLinkGroup'
 import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
 import VaSocialNews from './vuestic-components/va-social-news/VaSocialNews.vue'
+import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
 import VaTab from './vuestic-components/va-tabs/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline'
@@ -134,6 +135,7 @@ const VuesticPlugin = {
       VaSidebarLinkGroup,
       VaSlider,
       VaSocialNews,
+      VaSwitch,
       VaTab,
       VaTabs,
       VaTimeline,
