@@ -118,7 +118,8 @@ export default class Header extends Vue {
     }
 
     &__image {
-      max-width: 200px;
+      max-width: 162px;
+      min-width: 162px;
     }
   }
 
