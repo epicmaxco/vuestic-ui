@@ -141,19 +141,27 @@ export default {
     computedTrackLabelSize () {
       if (this.size === 'small') {
         return {
-          margin: this.isTrue ? 'auto 25px auto 7px' : 'auto 7px auto 25px',
+          margin: this.isTrue
+            ? 'auto 25px auto 7px'
+            : 'auto 7px auto 25px',
         }
       } else if (this.size === 'large') {
         return {
-          margin: this.isTrue ? 'auto 37px auto 7px' : 'auto 7px auto 37px',
+          margin: this.isTrue
+            ? 'auto 37px auto 7px'
+            : 'auto 7px auto 37px',
         }
       }
       return {
-        margin: this.isTrue ? 'auto 33px auto 7px' : 'auto 7px auto 33px',
+        margin: this.isTrue
+          ? 'auto 33px auto 7px'
+          : 'auto 7px auto 33px',
       }
     },
     trackStyle () {
-      const color = this.isTrue ? this.colorComputed : this.$themes.gray
+      const color = this.isTrue
+        ? this.colorComputed
+        : this.$themes.gray
       const backgroundColor = this.isKeyboardFocused
         ? getFocusColor(color)
         : getColor(this, color, '#000')
@@ -161,7 +169,9 @@ export default {
     },
     indicatorStyle () {
       return {
-        margin: this.isTrue ? 'auto -5px' : 'auto 5px',
+        margin: this.isTrue
+          ? 'auto -5px'
+          : 'auto 5px',
         transform: this.isTrue
           ? 'translateX(-100%)'
           : 'translateX(0rem)',
