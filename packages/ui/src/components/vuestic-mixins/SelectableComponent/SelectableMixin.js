@@ -18,7 +18,7 @@ export const SelectableMixin = {
     }),
   ],
   created () {
-    if (this.falseValue === this.trueValue) {
+    if (this.c_falseValue === this.c_trueValue) {
       throw new Error('Props trueValue and falseValue are the same')
     }
     this.isSelectableComponent = true
@@ -29,18 +29,18 @@ export const SelectableMixin = {
         return this.valueComputed
       }
       return this.modelIsArray
-        ? this.value && this.value.includes(this.arrayValue)
-        : this.value === this.trueValue
+        ? this.c_value && this.c_value.includes(this.c_arrayValue)
+        : this.c_value === this.c_trueValue
     },
     isFalse () {
       return this.modelIsArray
-        ? !this.value && !this.value.includes(this.arrayValue)
-        : this.value === this.falseValue
+        ? !this.c_value && !this.c_value.includes(this.c_arrayValue)
+        : this.c_value === this.c_falseValue
     },
     isChecked () {
       return this.modelIsArray
-        ? this.value && this.value.includes(this.c_arrayValue)
-        : this.value
+        ? this.c_value && this.value.includes(this.c_arrayValue)
+        : this.c_value
     },
     modelIsArray () {
       return !!this.c_arrayValue
@@ -82,19 +82,19 @@ export const SelectableMixin = {
         return
       }
       if (this.modelIsArray) {
-        if (!this.value) {
+        if (!this.c_value) {
           this.valueComputed = [this.c_arrayValue]
-        } else if (this.value.includes(this.c_arrayValue)) {
-          this.valueComputed = this.value.filter(option => option !== this.c_arrayValue)
+        } else if (this.c_value.includes(this.c_arrayValue)) {
+          this.valueComputed = this.c_value.filter(option => option !== this.c_arrayValue)
         } else {
-          this.valueComputed = this.value.concat(this.c_arrayValue)
+          this.valueComputed = this.c_value.concat(this.c_arrayValue)
         }
         return
       }
       if (this.isTrue) {
-        this.valueComputed = this.falseValue
+        this.valueComputed = this.c_falseValue
       } else if (this.isFalse) {
-        this.valueComputed = this.trueValue
+        this.valueComputed = this.c_trueValue
       } else {
         this.valueComputed = !this.c_value
       }
