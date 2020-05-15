@@ -56,7 +56,6 @@
 </template>
 <script>
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
-import { getFocusColor } from '../../../services/color-functions'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
@@ -139,13 +138,11 @@ export default {
       }[this.size]
     },
     trackStyle () {
-      const color = this.isTrue
-        ? this.colorComputed
-        : this.$themes.gray
-      const backgroundColor = this.isKeyboardFocused
-        ? getFocusColor(color)
-        : getColor(this, color, '#000')
-      return { backgroundColor }
+      return {
+        backgroundColor: this.isTrue
+          ? this.colorComputed
+          : getColor(this, 'gray'),
+      }
     },
     computedTabindex () {
       return this.disabled ? -1 : 0
