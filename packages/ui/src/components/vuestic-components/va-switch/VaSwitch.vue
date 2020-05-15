@@ -28,15 +28,14 @@
         <div
           class="va-switch__track"
           :style="trackStyle"
-          :class="computedTrackClass"
         >
           <div class="va-switch__track-label">
             <slot name="innerLabel">
               {{ computedInnerLabel }}
             </slot>
           </div>
-          <div class="va-switch__input-wrapper" :style="wrapperStyle">
-            <span class="va-switch__input" :style="indicatorStyle">
+          <div class="va-switch__input-wrapper">
+            <span class="va-switch__input">
               <va-progress-circle
                 v-if="loading"
                 indeterminate
@@ -47,7 +46,7 @@
           </div>
         </div>
       </div>
-      <div class="va-switch__label" :class="computedLabelClass">
+      <div class="va-switch__label">
         <slot>
           {{ computedLabel }}
         </slot>
@@ -129,6 +128,7 @@ export default {
         'va-switch--large': this.size === 'large',
         'va-switch--disabled': this.c_disabled,
         'va-switch--left-label': this.leftLabel,
+        'va-switch--error': this.computedError,
       }
     },
     progressCircleSize () {
@@ -147,35 +147,8 @@ export default {
         : getColor(this, color, '#000')
       return { backgroundColor }
     },
-    indicatorStyle () {
-      return {
-        margin: this.isTrue
-          ? 'auto -5px'
-          : 'auto 5px',
-        transform: this.isTrue
-          ? 'translateX(-100%)'
-          : 'translateX(0rem)',
-      }
-    },
-    wrapperStyle () {
-      return {
-        transform: this.isTrue
-          ? 'translateX(100%)'
-          : 'translateX(0rem)',
-      }
-    },
     computedTabindex () {
       return this.disabled ? -1 : 0
-    },
-    computedTrackClass () {
-      return {
-        'va-switch__track--error': this.computedError,
-      }
-    },
-    computedLabelClass () {
-      return {
-        'va-switch__label--error': this.computedError,
-      }
     },
   },
 }
@@ -287,16 +260,33 @@ export default {
       &__track-label {
         margin: auto 33px auto 7px;
       }
+
+      &__input {
+        margin: auto -5px;
+        transform: translateX(-100%);
+      }
+
+      &__input-wrapper {
+        transform: translateX(100%);
+      }
+    }
+  }
+
+  &--error {
+    .va-switch {
+      &__label {
+        color: $theme-red;
+      }
+
+      &__track {
+        border: 2px solid $theme-red;
+      }
     }
   }
 
   &__label {
     text-align: left;
     margin: 0 4px;
-
-    &--error {
-      color: $theme-red;
-    }
   }
 
   &__track {
@@ -308,10 +298,6 @@ export default {
     background: $white;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease;
-
-    &--error {
-      border: 2px solid $theme-red;
-    }
   }
 
   &__track-label {
@@ -323,7 +309,8 @@ export default {
     position: absolute;
     top: 0;
     bottom: 0;
-    margin: auto;
+    margin: auto 5px;
+    transform: translateX(0);
     height: 1.5rem;
     width: 1.5rem;
     background-color: $white;
@@ -338,6 +325,7 @@ export default {
   &__input-wrapper {
     position: absolute;
     margin: auto;
+    transform: translateX(0);
     top: 0;
     left: 0;
     bottom: 0;
