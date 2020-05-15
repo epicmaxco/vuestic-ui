@@ -22,5 +22,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/ban-ts-ignore': 0,
     '@typescript-eslint/camelcase': 0,
+    "id-match": ["error", "^[A-Za-z0-9\-_\$]+$", {"properties": true}], // To prevent cyrillic letters etc.
   },
 }
