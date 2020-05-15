@@ -102,22 +102,22 @@ export default {
   components: { VaProgressCircle, VaInputWrapper },
   computed: {
     computedInnerLabel () {
-      if (this.с_trueInnerLabel && this.isTrue) {
-        return this.с_trueInnerLabel
+      if (this.c_trueInnerLabel && this.isTrue) {
+        return this.c_trueInnerLabel
       }
-      if (this.с_falseInnerLabel && !this.isTrue) {
-        return this.с_falseInnerLabel
+      if (this.c_falseInnerLabel && !this.isTrue) {
+        return this.c_falseInnerLabel
       }
       return ''
     },
     computedLabel () {
-      if (this.с_trueLabel && this.isTrue) {
-        return this.с_trueLabel
+      if (this.c_trueLabel && this.isTrue) {
+        return this.c_trueLabel
       }
-      if (this.с_falseLabel && !this.isTrue) {
-        return this.с_falseLabel
+      if (this.c_falseLabel && !this.isTrue) {
+        return this.c_falseLabel
       }
-      return this.с_label
+      return this.c_label
     },
     computedClass () {
       return {
@@ -134,7 +134,7 @@ export default {
         small: '15px',
         medium: '20px',
         large: '25px',
-      }[this.с_size]
+      }[this.c_size]
     },
     trackStyle () {
       return {
@@ -144,7 +144,7 @@ export default {
       }
     },
     computedTabindex () {
-      return this.с_disabled ? -1 : 0
+      return this.c_disabled ? -1 : 0
     },
   },
 }
