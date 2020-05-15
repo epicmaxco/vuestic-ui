@@ -123,10 +123,8 @@ export default class Index extends Vue {
 }
 </script>
 <style lang="scss">
-@import "vuestic-ui/src/components/vuestic-sass/global/reset.scss";
-@import "vuestic-ui/src/components/vuestic-sass/vuestic-styles.scss";
-@import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/icon-fonts.scss";
-@import "vuestic-ui/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.scss";
+@import "vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
+@import "./../assets/main";
 
 html {
   font-family: $font-family-sans-serif;

@@ -1,12 +1,13 @@
 <template lang="html">
   <div class="header row justify--space-between">
-    <div class="header__logo flex row">
-      <header-selector :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
+    <div class="header__logo flex">
+      <header-selector class="header__logo__selector" :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
       <img class="header__logo__image" src="../../assets/svg/vuestic-docs.svg" height="30" width="150">
     </div>
-    <div class="header__links flex">
-      <div v-for="(link, index) in links" :key="index" class="header__link__wrapper flex">
+    <div class="header__links flex grow justify--center">
+      <div class="shrink">
         <va-button
+          v-for="(link, index) in links" :key="index"
           flat
           class="header__links__button"
           color="primary"
@@ -18,7 +19,7 @@
         </va-button>
       </div>
     </div>
-    <div class="header__prefences flex">
+    <div class="header__prefences flex shrink">
       <version-dropdown />
       <color-dropdown />
       <language-dropdown />
@@ -55,7 +56,7 @@ export default class Header extends Vue {
       links: [
         {
           text: 'Overview',
-          icon: '',
+          icon: 'vuestic-iconset vuestic-iconset-dashboard',
           url: '#',
         },
         {
@@ -108,12 +109,13 @@ export default class Header extends Vue {
   &__prefences,
   &__logo {
     @include va-flex-center();
-
-    justify-content: space-between;
   }
 
   &__logo {
-    justify-content: flex-start;
+    &__selector {
+      min-width: 3.5rem;
+      width: 3.5rem;
+    }
 
     &__image {
       max-width: 200px;
