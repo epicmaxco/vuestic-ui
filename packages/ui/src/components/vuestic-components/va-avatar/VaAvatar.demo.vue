@@ -103,9 +103,12 @@
       </va-avatar> text
     </VbCard>
     <VbCard title="font size">
-      <va-avatar font-size="15px">
+      <va-avatar font-size="15px" >
         A
       </va-avatar>
+    </VbCard>
+    <VbCard title="loading">
+      <va-avatar loading />
     </VbCard>
   </VbDemo>
 </template>

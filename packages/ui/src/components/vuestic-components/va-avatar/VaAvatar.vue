@@ -5,8 +5,14 @@
     :style="computedStyle"
   >
     <slot>
+      <va-progress-circle
+        v-if="loading"
+        indeterminate
+        :size="sizeComputed"
+        :color="colorComputed"
+      />
       <img
-        v-if="src"
+        v-else-if="src"
         :src="src"
       >
       <va-icon
@@ -21,6 +27,7 @@
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import VaIcon from '../va-icon/VaIcon'
 
 const contextConfigMixin = makeContextablePropsMixin({
@@ -48,6 +55,10 @@ const contextConfigMixin = makeContextablePropsMixin({
     type: String,
     default: '',
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 export default {
@@ -55,12 +66,13 @@ export default {
   mixins: [SizeMixin, ColorThemeMixin, contextConfigMixin],
   components: {
     VaIcon,
+    VaProgressCircle,
   },
   computed: {
     computedStyle () {
       return {
         color: getColor(this, this.c_textColor, '#ffffff'),
-        backgroundColor: this.colorComputed,
+        backgroundColor: this.c_loading ? 'transparent' : this.colorComputed,
         borderRadius: this.c_square ? 0 : '50%',
         fontSize: this.c_fontSize,
         width: this.sizeComputed,
