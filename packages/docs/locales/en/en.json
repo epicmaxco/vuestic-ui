@@ -311,12 +311,12 @@
   "switch": {
     "title": "Switch",
     "paragraph": "Switch component turns on or off the state of your custom option",
-    "basic": {
-      "subtitle": "Basic Element",
-      "paragraph": "This is basic usage of switch component."
-    },
-    "advanced": {
-      "subtitle": "Advanced Element",
+    "examples": {
+      "subtitle": "Examples",
+      "default": {
+        "headline": "Default",
+        "paragraph": "This is basic usage of switch component."
+      },
       "color": {
         "headline": "Color",
         "paragraph": "You can customize color."
