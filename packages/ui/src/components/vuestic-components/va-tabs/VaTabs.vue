@@ -350,6 +350,7 @@ export default {
     flex: 1 1 auto;
     display: flex;
     height: 2.5rem;
+    margin: 0 3px;
     white-space: nowrap;
     position: relative;
 
