@@ -1,7 +1,7 @@
 <template>
   <div class="example">
     <va-badge overlap dot>
-      <template v-slot:badge>
+      <template #text>
         <va-icon name="warning" size="12px" />
       </template>
       <va-icon name="account_box" size="30px" />

@@ -7,46 +7,78 @@ export default [
     type: BlockType.TITLE,
     translationString: 'badge.title',
   },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'badge.paragraph',
-  // },
-  // {
-  //   type: BlockType.SUBTITLE,
-  //   translationString: 'badge.demo.subtitle',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'badge.demo.top.headline',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-badge/Top',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'badge.demo.target.headline',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-badge/Target',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'badge.demo.bottom.headline',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-badge/Bottom',
-  // },
-  // {
-  //   type: BlockType.SUBTITLE,
-  //   translationString: 'badge.api.subtitle',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'badge.api.paragraph',
-  // },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'badge.summaryText',
+  },
+  {
+    type: BlockType.SUBTITLE,
+    translationString: 'anyPage.examples',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'badge.examples.default.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'badge.examples.default.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-badge/Default',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'badge.examples.position.title',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-badge/Position',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'badge.examples.color.title',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-badge/Color',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'badge.examples.dot.title',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-badge/Dot',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'badge.examples.transparent.title',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-badge/Transparent',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'badge.examples.withCard.title',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-badge/WithCard',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'badge.examples.withAvatar.title',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-badge/WithAvatar',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'badge.examples.position.title',
+  },
   {
     type: BlockType.API,
     componentOptions: VaBadge,

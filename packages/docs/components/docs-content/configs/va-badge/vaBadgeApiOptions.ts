@@ -2,49 +2,29 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export const vaBadgeApiOptions: ManualApiOptions = {
   props: {
-    value: {
+    text: {
       local: true,
     },
-    // icon: {
-    //   local: true,
-    // },
-    // halfIcon: {
-    //   local: true,
-    // },
-    // emptyIcon: {
-    //   local: true,
-    // },
-    // readonly: {
-    //   local: true,
-    // },
-    // numbers: {
-    //   local: true,
-    // },
-    // halves: {
-    //   local: true,
-    // },
-    // max: {
-    //   local: true,
-    // },
-    // clearable: {
-    //   local: true,
-    // },
-    // hover: {
-    //   local: true,
-    // },
-    // texts: {
-    //   local: true,
-    // },
-    // textColor: {
-    //   local: true,
-    // },
-    // unselectedColor: {
-    //   local: true,
-    // },
-  },
-  events: {
-    input: {
-      types: '`(value: number) => void`',
+    overlap: {
+      local: true,
+    },
+    transparent: {
+      local: true,
+    },
+    multiLine: {
+      local: true,
+    },
+    visibleEmpty: {
+      local: true,
+    },
+    dot: {
+      local: true,
+    },
+    bottom: {
+      local: true,
+    },
+    left: {
+      local: true,
     },
   },
 }

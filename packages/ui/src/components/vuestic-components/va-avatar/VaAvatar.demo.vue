@@ -107,15 +107,18 @@
         A
       </va-avatar>
     </VbCard>
+    <BadgeAvatarDemo/>
   </VbDemo>
 </template>
 
 <script>
 import VaAvatar from './VaAvatar'
 import VaIcon from '../va-icon/VaIcon'
+import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo'
 
 export default {
   components: {
+    BadgeAvatarDemo,
     VaAvatar,
     VaIcon,
   },
