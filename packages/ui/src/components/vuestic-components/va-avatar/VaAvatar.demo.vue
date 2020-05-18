@@ -110,6 +110,9 @@
     <VbCard title="loading">
       <va-avatar loading />
     </VbCard>
+    <VbCard title="gravatar">
+      <va-avatar email="example@mail.com" />
+    </VbCard>
   </VbDemo>
 </template>
 
