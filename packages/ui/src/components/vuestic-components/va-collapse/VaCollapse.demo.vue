@@ -3,7 +3,7 @@
     <VbCard title="Default">
       <va-collapse style="width: 400px;">
         <span slot="header">{{ collapseHeader }}</span>
-        <div slot="body">
+        <div>
           {{ collapseContent }}
         </div>
       </va-collapse>
@@ -19,7 +19,7 @@
         >
           {{ collapseHeader }}
         </va-button>
-        <div slot="body">
+        <div>
           {{ collapseContent }}
         </div>
       </va-collapse>
@@ -30,7 +30,7 @@
         with-background
       >
         <span slot="header">{{ collapseHeader }}</span>
-        <div slot="body">
+        <div>
           {{ collapseContent }}
         </div>
       </va-collapse>
@@ -41,7 +41,7 @@
         is-open-default
       >
         <span slot="header">{{ collapseHeader }}</span>
-        <div slot="body">
+        <div>
           {{ collapseContent }}
         </div>
       </va-collapse>
@@ -52,7 +52,7 @@
         default-value
       >
         <span slot="header">{{ collapseHeader }} {{ collapseHeader }} {{ collapseHeader }} {{ collapseHeader }} {{ collapseHeader }} {{ collapseHeader }} {{ collapseHeader }} {{ collapseHeader }} {{ collapseHeader }} {{ collapseHeader }}</span>
-        <div slot="body">
+        <div>
           {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }}
           {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }} {{ collapseContent }}
         </div>

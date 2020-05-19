@@ -144,6 +144,7 @@ export default {
       if (this.c_flat || this.c_outline) {
         return
       }
+      // Allows button to grab color from button group.
       if (this.va.color) {
         return
       }
@@ -220,13 +221,11 @@ export default {
       return 'button'
     },
     inputListeners () {
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const vm = this
       return Object.assign({},
         this.$listeners,
         {
-          click (event) {
-            vm.$emit('click', event)
+          click: (event) => {
+            this.$emit('click', event)
           },
         },
       )

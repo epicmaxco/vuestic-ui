@@ -19,6 +19,10 @@
         v-else-if="icon"
         :name="icon"
       />
+      <img
+        v-else-if="email"
+        :src="computedGravarar"
+      >
     </slot>
   </div>
 </template>
@@ -29,6 +33,7 @@ import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import VaIcon from '../va-icon/VaIcon'
+import gravatar from 'gravatar'
 
 const contextConfigMixin = makeContextablePropsMixin({
   color: {
@@ -59,6 +64,10 @@ const contextConfigMixin = makeContextablePropsMixin({
     type: Boolean,
     default: false,
   },
+  email: {
+    type: String,
+    default: '',
+  },
 })
 
 export default {
@@ -69,10 +78,16 @@ export default {
     VaProgressCircle,
   },
   computed: {
+    computedGravarar () {
+      return gravatar.url(this.c_email, {
+        s: this.sizeComputed,
+        d: 'mp',
+      })
+    },
     computedStyle () {
       return {
         color: getColor(this, this.c_textColor, '#ffffff'),
-        backgroundColor: this.c_loading ? 'transparent' : this.colorComputed,
+        backgroundColor: this.c_loading || this.c_email ? 'transparent' : this.colorComputed,
         borderRadius: this.c_square ? 0 : '50%',
         fontSize: this.c_fontSize,
         width: this.sizeComputed,

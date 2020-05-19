@@ -38,12 +38,16 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.breadcrumbs',
         },
         {
+          name: 'badge',
+          displayName: 'menu.badge',
+        },
+        {
           name: 'fileUpload',
           displayName: 'menu.fileUpload',
         },
         {
-          name: 'modals',
-          displayName: 'menu.modals',
+          name: 'modal',
+          displayName: 'menu.modal',
         },
         {
           name: 'pagination',
@@ -55,11 +59,11 @@ export const navigationRoutes: NavigationScheme = {
         },
         {
           name: 'slider',
-          displayName: 'menu.sliders',
+          displayName: 'menu.slider',
         },
         {
           name: 'switch',
-          displayName: 'menu.switches',
+          displayName: 'menu.switch',
         },
         {
           name: 'tabs',

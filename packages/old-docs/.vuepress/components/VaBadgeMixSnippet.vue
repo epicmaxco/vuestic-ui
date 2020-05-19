@@ -3,13 +3,13 @@
     <va-badge label="badge" />
 
     <va-badge color="secondary" >
-      <template v-slot:badge>
+      <template #text>
         <va-icon name="warning" />
       </template>
     </va-badge>
 
     <va-badge color="success">
-      <template v-slot:badge>
+      <template #text>
         <va-icon name="info" />
       </template>
       Floated

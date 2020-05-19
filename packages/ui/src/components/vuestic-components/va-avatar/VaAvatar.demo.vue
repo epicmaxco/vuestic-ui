@@ -110,15 +110,21 @@
     <VbCard title="loading">
       <va-avatar loading />
     </VbCard>
+    <VbCard title="gravatar">
+      <va-avatar email="example@mail.com" />
+    </VbCard>
+    <BadgeAvatarDemo/>
   </VbDemo>
 </template>
 
 <script>
 import VaAvatar from './VaAvatar'
 import VaIcon from '../va-icon/VaIcon'
+import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo'
 
 export default {
   components: {
+    BadgeAvatarDemo,
     VaAvatar,
     VaIcon,
   },
