@@ -83,11 +83,11 @@ export const SelectableMixin = {
       }
       if (this.modelIsArray) {
         if (!this.c_value) {
-          this.valueComputed = [this.c_arrayValue]
+          this.$emit('input', [this.c_arrayValue])
         } else if (this.c_value.includes(this.c_arrayValue)) {
-          this.valueComputed = this.c_value.filter(option => option !== this.c_arrayValue)
+          this.$emit('input', this.c_value.filter(option => option !== this.c_arrayValue))
         } else {
-          this.valueComputed = this.c_value.concat(this.c_arrayValue)
+          this.$emit('input', this.c_value.concat(this.c_arrayValue))
         }
         return
       }
