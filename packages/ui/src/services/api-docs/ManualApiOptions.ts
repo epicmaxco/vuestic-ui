@@ -9,7 +9,6 @@ export type VersionString = string | '' // vuestic-ui version at which feature w
 export type ManualApiOptionsItem = {
   version?: VersionString;
   local?: boolean;
-  hidden?: boolean;
 }
 
 export type ManualPropApiOptions = ManualApiOptionsItem & {
