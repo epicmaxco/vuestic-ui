@@ -17,6 +17,7 @@ export const vaPaginationApiOptions: ManualApiOptions = {
     boundaryIconRight: { local: true },
     directionIconLeft: { local: true },
     directionIconRight: { local: true },
+    size: { local: true },
   },
   events: {
     input: {
