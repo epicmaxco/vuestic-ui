@@ -20,32 +20,31 @@
   </span>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-ignore
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
 
-export default {
-  name: 'VaBreadcrumbsItem',
-  mixins: [RouterLinkMixin, ContextPluginMixin],
-  props: {
-    disabled: {
+@Component({})
+export default class VaBreadcrumbsItem extends Mixins(RouterLinkMixin, ContextPluginMixin) {
+    @Prop({
       type: Boolean,
       default () {
-        return getContextPropValue(this, 'disabled', false)
+        return getContextPropValue(this as any, 'disabled', false as any)
       },
-    },
-    label: {
+    }) readonly disabled!: boolean
+
+    @Prop({
       type: [String, Number],
       default () {
-        return getContextPropValue(this, 'label', '')
+        return getContextPropValue(this as any, 'label', '' as any)
       },
-    },
-  },
-  computed: {
-    isDisabled () {
-      return this.disabled || !this.hasRouterLinkParams
-    },
-  },
+    }) readonly label!: string
+
+    get isDisabled () {
+      return this.disabled || !(this as any).hasRouterLinkParams
+    }
 }
 </script>
 

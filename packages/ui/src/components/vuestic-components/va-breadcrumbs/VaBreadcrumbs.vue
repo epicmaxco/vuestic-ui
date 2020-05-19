@@ -1,116 +1,120 @@
-<script>
+<script lang="ts">
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+// @ts-ignore
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import {
   ContextPluginMixin,
   getContextPropValue,
 } from '../../context-test/context-provide/ContextPlugin'
 import { hasOwnProperty } from '../../../services/utils'
+import { Mixins, Component, Prop } from 'vue-property-decorator'
 
-export default {
-  name: 'VaBreadcrumbs',
-  mixins: [ColorThemeMixin, AlignMixin, ContextPluginMixin],
-  props: {
-    color: {
+@Component({ name: 'VaBreadcrumbs' })
+export default class VaBreadcrumbs extends Mixins(ColorThemeMixin, AlignMixin, ContextPluginMixin) {
+    @Prop({
       type: String,
       default () {
-        return getContextPropValue(this, 'color', 'gray')
+        return getContextPropValue(this as any, 'separator', '/' as any)
       },
-    },
-    separatorColor: {
+    }) readonly separator!: string;
+
+    @Prop({
       type: String,
       default () {
-        return getContextPropValue(this, 'separatorColor', null)
+        return getContextPropValue(this as any, 'color', 'gray' as any)
       },
-    },
-    activeColor: {
+    }) readonly color!: string;
+
+    @Prop({
       type: String,
       default () {
-        return getContextPropValue(this, 'activeColor', null)
+        return getContextPropValue(this as any, 'activeColor', null as any)
       },
-    },
-    separator: {
+    }) readonly activeColor!: string;
+
+    @Prop({
       type: String,
       default () {
-        return getContextPropValue(this, 'separator', '/')
+        return getContextPropValue(this as any, 'separatorColor', null as any)
       },
-    },
-  },
-  computed: {
-    computedStyles () {
-      return this.alignComputed
-    },
-    computedThemesSeparatorColor () {
+    }) readonly separatorColor!: string
+
+    get computedStyles () {
+      return (this as any).alignComputed
+    }
+
+    get computedThemesSeparatorColor () {
       return this.separatorColor ? this.computeColor(this.separatorColor) : this.colorComputed
-    },
-    computedThemesActiveColor () {
+    }
+
+    get computedThemesActiveColor () {
       return this.activeColor ? this.computeColor(this.activeColor) : this.colorComputed
-    },
-  },
-  render (createElement) {
-    const childNodeFilter = ({ tag } = null) => tag ? tag.match(/VaBreadcrumbsItem$/) : false
-
-    const childNodes = this.$slots.default?.filter(childNodeFilter) || []
-
-    const childNodesLength = childNodes.length
-    const isLastIndexChildNodes = (index) => index === childNodesLength - 1
-
-    const separatorNode = this.$slots.separator || [this.separator]
-
-    const createSeparatorComponent = () => createElement(
-      'span',
-      {
-        staticClass: 'va-breadcrumbs__separator',
-        class: this.computedClass,
-        style: {
-          color: this.computedThemesSeparatorColor,
-        },
-      },
-      separatorNode,
-    )
-
-    const isDisabledChild = (child) => {
-      const childPropData = child && child.componentOptions && child.componentOptions.propsData
-      if (!childPropData || !hasOwnProperty(childPropData, 'disabled')) {
-        return false
-      }
-
-      if (childPropData.disabled === '') { // NOTE: by default empty attribute is ''
-        return true
-      }
-
-      return Boolean(childPropData.disabled)
     }
 
-    const createChildComponent = (child, index) => createElement(
-      'span', {
-        staticClass: 'va-breadcrumbs__item',
-        style: {
-          color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? this.computedThemesActiveColor : null,
+    render (createElement: Vue.CreateElement) {
+      const childNodeFilter = ({ tag }: any = null) => tag ? tag.match(/VaBreadcrumbsItem$/) : false
+
+      const childNodes = this.$slots.default?.filter(childNodeFilter) || [] as any[]
+
+      const childNodesLength = childNodes.length
+      const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
+
+      const separatorNode = this.$slots.separator || [this.separator]
+
+      const createSeparatorComponent = () => createElement(
+        'span',
+        {
+          staticClass: 'va-breadcrumbs__separator',
+          class: (this as any).computedClass,
+          style: {
+            color: this.computedThemesSeparatorColor,
+          },
         },
-      },
-      [child],
-    )
+        separatorNode,
+      )
 
-    const children = []
-
-    if (childNodesLength) {
-      childNodes.forEach((child, index) => {
-        children.push(createChildComponent(child, index))
-
-        if (!isLastIndexChildNodes(index)) {
-          children.push(createSeparatorComponent())
+      const isDisabledChild = (child: any) => {
+        const childPropData = child?.componentOptions?.propsData
+        if (!childPropData || !hasOwnProperty(childPropData, 'disabled')) {
+          return false
         }
-      })
-    }
 
-    return createElement('div', {
-      staticClass: 'va-breadcrumbs',
-      style: {
-        ...this.computedStyles,
-      },
-    }, children)
-  },
+        if (childPropData.disabled === '') { // NOTE: by default empty attribute is ''
+          return true
+        }
+
+        return Boolean(childPropData.disabled)
+      }
+
+      const createChildComponent = (child: any, index: number) => createElement(
+        'span', {
+          staticClass: 'va-breadcrumbs__item',
+          style: {
+            color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? this.computedThemesActiveColor : null,
+          },
+        },
+        [child],
+      )
+
+      const children = [] as any[]
+
+      if (childNodesLength) {
+        childNodes.forEach((child: any, index: number) => {
+          children.push(createChildComponent(child, index))
+
+          if (!isLastIndexChildNodes(index)) {
+            children.push(createSeparatorComponent())
+          }
+        })
+      }
+
+      return createElement('div', {
+        staticClass: 'va-breadcrumbs',
+        style: {
+          ...this.computedStyles,
+        },
+      }, children)
+    }
 }
 </script>
 

@@ -2,7 +2,7 @@ import Vue, { ComponentOptions } from 'vue'
 import { PropOptions } from 'vue/types/options'
 // @ts-ignore
 import { getType } from './vue-src-no-flow/core/util/props'
-import { camelCase, kebabCase } from 'lodash'
+import { camelCase, kebabCase, get } from 'lodash'
 
 import noop from 'lodash/noop'
 import {
@@ -56,8 +56,11 @@ export const getApiTableData = (
   manualApiOptions: ManualApiOptions = {},
 ): ApiTableData => {
   const compiledComponentOptions = compileComponentOptions(componentOptions)
-  const camelCasedProps = Object.keys(compiledComponentOptions.props).reduce((acc: Record<string, any>, key: string) => {
-    acc[camelCase(key)] = compiledComponentOptions.props[key]
+  const availableProps = Object.keys(compiledComponentOptions.props).reduce((acc: Record<string, any>, key: string) => {
+    const camelCasedKey = camelCase(key)
+    if (!get(manualApiOptions, ['props', camelCasedKey, 'hidden'])) {
+      acc[camelCasedKey] = compiledComponentOptions.props[key]
+    }
     return acc
   }, {} as Record<string, any>)
   const componentName = componentOptions.name as string
@@ -70,13 +73,13 @@ export const getApiTableData = (
   }
 
   // Props
-  for (const propName in camelCasedProps) {
+  for (const propName in availableProps) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     apiTableData.props[propName] = getApiTableProp(
       componentName,
       propName,
       manualApiOptions,
-      camelCasedProps[propName],
+      availableProps[propName],
     )
   }
 
