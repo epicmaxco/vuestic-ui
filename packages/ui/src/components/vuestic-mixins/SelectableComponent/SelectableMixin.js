@@ -81,6 +81,7 @@ export const SelectableMixin = {
       if (this.c_readonly || this.c_disabled || this.c_loading) {
         return
       }
+      // For array access we pretend computedValue does not exist and use c_value + emit input directly.
       if (this.modelIsArray) {
         if (!this.c_value) {
           this.$emit('input', [this.c_arrayValue])
