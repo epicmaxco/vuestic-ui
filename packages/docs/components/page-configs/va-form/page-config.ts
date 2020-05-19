@@ -21,16 +21,12 @@ export default [
     translationString: 'form.basic.paragraph',
   },
   {
-    type: BlockType.CODE,
-    code: '<va-form v-model="value" />',
+    type: BlockType.EXAMPLE,
+    component: 'va-form/Basic',
   },
   {
     type: BlockType.SUBTITLE,
     translationString: 'form.advanced.subtitle',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'form.advanced.headline',
   },
   {
     type: BlockType.PARAGRAPH,
@@ -47,19 +43,6 @@ export default [
   {
     type: BlockType.PARAGRAPH,
     translationString: 'form.api.paragraph',
-  },
-  // TODO: here comes api component
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'form.faq.subtitle',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'form.faq.questions[0].question',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'form.faq.questions[0].answer',
   },
   {
     type: BlockType.API,

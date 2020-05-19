@@ -42,6 +42,10 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.fileUpload',
         },
         {
+          name: 'form',
+          displayName: 'menu.form',
+        },
+        {
           name: 'modal',
           displayName: 'menu.modal',
         },
