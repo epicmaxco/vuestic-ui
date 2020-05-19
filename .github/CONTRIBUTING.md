@@ -23,6 +23,12 @@ Hi! We are really excited that you are interested in contributing to Vuestic. Be
 * Local branches
   * For local branches prepend your messages with `feat/`, ie for tabs fix it would be `feat/fix-tabs`. This is wanted to keep local branches visually separate from public ones.
 
+### File naming
+
+* camelCase: `testIsContextableComponent.ts` - helpers and instants
+* kebab-case: `api-options.ts` - configs
+* PascalCase: `DocsCode.vue` - components, classes, types
+
 ### For core contributors
 
 * Always link PR to issue (via `fix #123`).

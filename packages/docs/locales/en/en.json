@@ -19,7 +19,20 @@
         "errorCount": "Number of error messages displayed.",
         "stateful": "Add possibility to work with component without setting `v-model`",
         "color": "Color of the component (theme string or *HEX* string)",
+        "textColor": "Text color (theme string or *HEX* string)",
         "rules": "Validation rules <!-- TODO Add link -->"
+      }
+    },
+    "VaBadge": {
+      "props": {
+        "text": "Badge text",
+        "overlap": "Allows badge to overlap with element.",
+        "transparent": "Makes badge semi-transparen.",
+        "multiLine": "Badge text will wrap to next line.",
+        "visibleEmpty": "Badge will be shown even when there is no text.",
+        "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
+        "bottom": "Position badge to the bottom.",
+        "left": "Position badge to the left"
       }
     },
     "VaForm": {
@@ -205,15 +218,19 @@
       }
     }
   },
+  "anyPage": {
+    "examples": "Examples"
+  },
   "menu": {
     "affix": "Affix",
+    "badge": "Badge",
     "rating": "Rating",
-    "modals": "Modals",
+    "modal": "Modal",
     "tabs": "Tabs",
     "uiElements": "UI Elements",
     "treeView": "Tree view",
-    "sliders": "Sliders",
-    "switches": "Switches",
+    "slider": "Slider",
+    "switch": "Switch",
     "popovers": "Popovers",
     "chat": "Chat",
     "pagination": "Pagination",
@@ -224,6 +241,9 @@
     "english": "English",
     "spanish": "Spanish",
     "simplified_chinese": "Simplified Chinese"
+  },
+  "docsExample": {
+    "showCode": "Show Code"
   },
   "affix": {
     "title": "Affix",
@@ -243,6 +263,37 @@
     "api": {
       "subtitle": "API",
       "paragraph": "Here are props and events that are used in va-affix component."
+    }
+  },
+  "badge": {
+    "title": "Badge",
+    "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications on top of avatar.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Useful for information views and tables."
+      },
+      "withAvatar": {
+        "title": "With Avatar"
+      },
+      "withCard": {
+        "title": "With Card"
+      },
+      "position": {
+        "title": "Position left and bottom"
+      },
+      "overlap": {
+        "title": "Overlap"
+      },
+      "dot": {
+        "title": "Dot"
+      },
+      "transparent": {
+        "title": "Transparent"
+      },
+      "color": {
+        "title": "Color"
+      }
     }
   },
   "slider": {
