@@ -20,7 +20,14 @@
         "errorCount": "Number of error messages displayed.",
         "stateful": "Add possibility to work with component without setting `v-model`",
         "color": "Color of the component (theme string or *HEX* string)",
-        "rules": "Validation rules <!-- TODO Add link -->"
+        "rules": "Validation rules <!-- TODO Add link -->",
+        "to": "`router-link` attribute.",
+        "replace": "`router-link` attribute.",
+        "append": "`router-link` attribute.",
+        "exact": "`router-link` attribute.",
+        "activeClass": "`router-link` attribute.",
+        "exactActiveClass": "`router-link` attribute.",
+        "href": "`router-link` attribute."
       }
     },
     "VaForm": {
@@ -95,11 +102,7 @@
     },
     "VaBreadcrumbsItem": {
       "props": {
-        "label": "Component content (string).",
-        "to": "`router-link` attribute.",
-        "replace": "`router-link` attribute.",
-        "append": "`router-link` attribute.",
-        "exact": "`router-link` attribute."
+        "label": "Component content (string)."
       },
       "slots": {
         "default": "Component content."

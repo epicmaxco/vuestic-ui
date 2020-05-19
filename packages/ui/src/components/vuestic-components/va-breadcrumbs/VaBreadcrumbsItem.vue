@@ -7,6 +7,9 @@
       :replace="replace"
       :append="append"
       :exact="exact"
+      :href="href"
+      :active-class="activeClass"
+      :exact-active-class="exactActiveClass"
       tag="a"
     >
       <slot>{{ label }}</slot>
