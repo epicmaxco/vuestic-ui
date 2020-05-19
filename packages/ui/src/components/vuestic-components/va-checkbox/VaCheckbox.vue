@@ -23,6 +23,8 @@
           ref="input"
           :id="id"
           :name="name"
+          type="checkbox"
+          role="checkbox"
           readonly
           @focus="onFocus"
           @blur="onBlur($event)"
