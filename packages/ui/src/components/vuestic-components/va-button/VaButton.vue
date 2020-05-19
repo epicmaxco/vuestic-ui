@@ -221,7 +221,6 @@ export default {
       return 'button'
     },
     inputListeners () {
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
       return Object.assign({},
         this.$listeners,
         {

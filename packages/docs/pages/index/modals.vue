@@ -4,8 +4,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import DocsContent from '../../components/docs-content/DocsContent'
-import modalConfig from '../../components/docs-content/configs/va-modal'
+import DocsContent from '../../components/DocsContent.vue'
+import modalConfig from '../../components/page-configs/va-modal/va-modal'
 
 @Component({
   components: {

@@ -1,4 +1,4 @@
-import { BlockType } from '../../../../types/configTypes'
+import { BlockType } from '../../../types/configTypes'
 import VaSlider
   from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
 import { vaSliderOptions } from './vaSliderApiOptions'

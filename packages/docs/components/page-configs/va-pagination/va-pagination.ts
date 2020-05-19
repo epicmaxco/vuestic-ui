@@ -1,6 +1,6 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 import VaPagination from 'vuestic-ui/src/components/vuestic-components/va-pagination/VaPagination.vue'
-import { vaPaginationApiOptions } from '../api/va-pagination/vaPaginationApiOptions'
+import { vaPaginationApiOptions } from './vaPaginationApiOptions'
 
 const config: ApiDocsBlock[] = [
   {

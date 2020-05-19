@@ -1,7 +1,7 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 import VaTabs
   from '../../../../ui/src/components/vuestic-components/va-tabs/VaTabs.vue'
-import { vaTabsApiOptions } from '../api/va-tabs/vaTabsApiOptions'
+import { vaTabsApiOptions } from './vaTabsApiOptions'
 import { VueConstructor } from 'vue'
 
 const config: ApiDocsBlock[] = [

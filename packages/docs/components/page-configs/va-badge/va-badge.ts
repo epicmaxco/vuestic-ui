@@ -1,4 +1,4 @@
-import { BlockType } from '../../../../types/configTypes'
+import { BlockType } from '../../../types/configTypes'
 import { vaBadgeApiOptions } from './vaBadgeApiOptions'
 import VaBadge from 'vuestic-ui/src/components/vuestic-components/va-badge/VaBadge.vue'
 
@@ -74,10 +74,6 @@ export default [
   {
     type: BlockType.EXAMPLE,
     component: 'va-badge/WithAvatar',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'badge.examples.position.title',
   },
   {
     type: BlockType.API,

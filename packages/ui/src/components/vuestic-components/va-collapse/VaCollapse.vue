@@ -42,7 +42,7 @@
 <script lang="ts">
 
 import { Component } from 'vue-property-decorator'
-import VaIcon from '../va-icon/VaIcon'
+import VaIcon from '../va-icon/VaIcon.vue'
 import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
@@ -113,7 +113,8 @@ export default class VaCollapse extends mixins(
   }
 
   getHeight () {
-    return this.$slots.default?.[0].elm ? 'calc(' + this.$slots.default?.[0].elm.clientHeight + 'px + 2rem)' : '100%'
+    const node = this.$slots.default?.[0].elm as HTMLElement
+    return node ? `calc(${node.clientHeight}px + 2rem))` : '100%'
   }
 }
 </script>

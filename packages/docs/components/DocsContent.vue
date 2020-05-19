@@ -36,12 +36,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ApiDocsBlock, BlockType, TextBlockType } from '../../types/configTypes'
-import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
-import DocsExample from '../DocsExample.vue'
-import DocsCode from '../DocsCode.vue'
-import DocsSubtitle from '../DocsSubtitle.vue'
-import DocsFaq from '../DocsFaq.vue'
+import { ApiDocsBlock, BlockType, TextBlockType } from '../types/configTypes'
+import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
+import DocsExample from './DocsExample.vue'
+import DocsCode from './DocsCode.vue'
+import DocsSubtitle from './DocsSubtitle.vue'
+import DocsFaq from './DocsFaq.vue'
 import ApiDocs from 'vuestic-ui/src/services/api-docs/ApiDocs.vue'
 
 @Component({

@@ -2,7 +2,7 @@ import { BlockType } from '../../../types/configTypes'
 import { VueConstructor } from 'vue'
 import VaAffix
   from 'vuestic-ui/src/components/vuestic-components/va-affix/VaAffix.vue'
-import { vaAffixOptions } from './va-affix/apiConfig'
+import { vaAffixOptions } from './apiConfig'
 
 export default [
   {

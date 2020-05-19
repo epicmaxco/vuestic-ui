@@ -42,7 +42,7 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.fileUpload',
         },
         {
-          name: 'modals',
+          name: 'modal',
           displayName: 'menu.modal',
         },
         {

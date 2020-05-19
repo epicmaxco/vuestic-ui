@@ -1,7 +1,7 @@
 import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
 import VaModal
   from 'vuestic-ui/src/components/vuestic-components/va-modal/VaModal.vue'
-import { vaModalApiOptions } from '../api/va-modal/vaModalApiOptions'
+import { vaModalApiOptions } from './vaModalApiOptions'
 
 const config: ApiDocsBlock[] = [
   {
