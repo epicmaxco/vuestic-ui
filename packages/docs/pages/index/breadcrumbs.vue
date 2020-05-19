@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/docs-content/DocsContent.vue'
-import breadcrumbsConfig from '../../components/docs-content/configs/va-breadcrumbs'
+import breadcrumbsConfig from '../../components/page-configs/va-breadcrumbs/va-breadcrumbs'
 
 @Component({
   components: {

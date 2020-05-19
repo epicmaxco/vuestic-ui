@@ -2,10 +2,10 @@ import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 import VaBreadcrumbs from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
 import VaBreadcrumbsItem from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
 import { VueConstructor } from 'vue'
-import { vaBreadcrumbsApiOptions } from '../api/va-breadcrumbs/vaBreadcrumbsApiOptions'
-import { vaBreadcrumbsItemApiOptions } from '../api/va-breadcrumbs/vaBreadcrumbsItemApiOptions'
+import vaBreadcrumbsApiOptions from './va-breadcrumbs-api-options'
+import vaBreadcrumbsItemApiOptions from './va-breadcrumbs-item-api-options'
 
-const config: ApiDocsBlock[] = [
+export default [
   {
     type: BlockType.TITLE,
     translationString: 'breadcrumbs.title',
@@ -140,6 +140,4 @@ const config: ApiDocsBlock[] = [
     type: BlockType.PARAGRAPH,
     translationString: 'breadcrumbs.faq.questions[0].answer',
   },
-]
-
-export default config
+] as ApiDocsBlock[]

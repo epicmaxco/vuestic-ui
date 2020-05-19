@@ -1,6 +1,6 @@
 import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export const vaBreadcrumbsApiOptions: ManualApiOptions = {
+export default {
   props: {
     activeColor: {
       local: true,
@@ -20,4 +20,4 @@ export const vaBreadcrumbsApiOptions: ManualApiOptions = {
       local: true,
     },
   },
-}
+} as ManualApiOptions
