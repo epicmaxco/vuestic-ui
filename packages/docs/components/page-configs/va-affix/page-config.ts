@@ -1,8 +1,8 @@
-import { BlockType } from '../../../types/configTypes'
+import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
 import { VueConstructor } from 'vue'
 import VaAffix
   from 'vuestic-ui/src/components/vuestic-components/va-affix/VaAffix.vue'
-import { vaAffixOptions } from './apiConfig'
+import apiOptions from './api-options'
 
 export default [
   {
@@ -52,6 +52,6 @@ export default [
   {
     type: BlockType.API,
     componentOptions: VaAffix as unknown as VueConstructor,
-    apiOptions: vaAffixOptions,
+    apiOptions,
   },
-]
+] as ApiDocsBlock[]

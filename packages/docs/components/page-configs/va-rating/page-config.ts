@@ -1,9 +1,9 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 import VaRating from 'vuestic-ui/src/components/vuestic-components/va-rating/VaRating.vue'
-import { vaRatingApiOptions } from './vaRatingApiOptions'
+import apiOptions from './api-options'
 import { VueConstructor } from 'vue'
 
-const config: ApiDocsBlock[] = [
+export default [
   {
     type: BlockType.TITLE,
     translationString: 'rating.title',
@@ -79,7 +79,7 @@ const config: ApiDocsBlock[] = [
   {
     type: BlockType.API,
     componentOptions: VaRating,
-    apiOptions: vaRatingApiOptions as unknown as VueConstructor,
+    apiOptions: apiOptions as unknown as VueConstructor,
   },
   {
     type: BlockType.SUBTITLE,
@@ -101,6 +101,4 @@ const config: ApiDocsBlock[] = [
     type: BlockType.PARAGRAPH,
     translationString: 'rating.faq.questions[1].answer',
   },
-]
-
-export default config
+] as ApiDocsBlock[]

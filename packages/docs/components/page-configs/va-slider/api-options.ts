@@ -1,6 +1,6 @@
 import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export const vaSliderOptions: ManualApiOptions = {
+export default {
   props: {
     color: {
       local: true,
@@ -89,4 +89,4 @@ export const vaSliderOptions: ManualApiOptions = {
       local: true,
     },
   },
-}
+} as ManualApiOptions

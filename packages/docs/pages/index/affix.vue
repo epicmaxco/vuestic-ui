@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import affixConfig from '../../components/page-configs/va-affix/va-affix'
+import affixConfig from '../../components/page-configs/va-affix/page-config'
 
 @Component({
   components: {

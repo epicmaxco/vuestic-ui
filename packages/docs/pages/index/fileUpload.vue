@@ -6,7 +6,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
 import fileUploadConfig
-  from '../../components/page-configs/va-file-upload/va-file-upload'
+  from '../../components/page-configs/va-file-upload/page-config'
 
 @Component({
   components: { DocsContent },

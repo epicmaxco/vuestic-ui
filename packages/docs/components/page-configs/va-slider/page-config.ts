@@ -1,7 +1,8 @@
-import { BlockType } from '../../../types/configTypes'
+import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
 import VaSlider
   from 'vuestic-ui/src/components/vuestic-components/va-slider/VaSlider.vue'
-import { vaSliderOptions } from './vaSliderApiOptions'
+import apiOptions from './api-options'
+
 export default [
   {
     type: BlockType.TITLE,
@@ -182,6 +183,6 @@ export default [
   {
     type: BlockType.API,
     componentOptions: VaSlider,
-    apiOptions: vaSliderOptions,
+    apiOptions,
   },
-]
+] as ApiDocsBlock[]

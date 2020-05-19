@@ -1,6 +1,6 @@
 import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export const vaFormApiOptions: ManualApiOptions = {
+export default {
   props: {
     autofocus: {
       local: true,
@@ -28,4 +28,4 @@ export const vaFormApiOptions: ManualApiOptions = {
       types: '`(valid: boolean) => void`',
     },
   },
-}
+} as ManualApiOptions

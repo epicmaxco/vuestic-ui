@@ -1,6 +1,6 @@
 import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export const vaBadgeApiOptions: ManualApiOptions = {
+export default {
   props: {
     text: {
       local: true,
@@ -27,4 +27,4 @@ export const vaBadgeApiOptions: ManualApiOptions = {
       local: true,
     },
   },
-}
+} as ManualApiOptions

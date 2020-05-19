@@ -1,9 +1,9 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 import VaFileUpload from 'vuestic-ui/src/components/vuestic-components/va-file-upload/VaFileUpload.vue'
-import { vaFileUploadApiOptions } from './vaFileUploadApiOptions'
+import apiOptions from './api-options'
 import { VueConstructor } from 'vue'
 
-const config: ApiDocsBlock[] = [
+export default [
   {
     type: BlockType.TITLE,
     translationString: 'fileUpload.title',
@@ -79,8 +79,6 @@ const config: ApiDocsBlock[] = [
   {
     type: BlockType.API,
     componentOptions: VaFileUpload as unknown as VueConstructor,
-    apiOptions: vaFileUploadApiOptions,
+    apiOptions,
   },
-]
-
-export default config
+] as ApiDocsBlock[]

@@ -1,6 +1,6 @@
 import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export const vaFileUploadApiOptions: ManualApiOptions = {
+export default {
   props: {
     value: { local: true },
     type: { local: true },
@@ -12,4 +12,4 @@ export const vaFileUploadApiOptions: ManualApiOptions = {
       types: '`(value: number) => void`',
     },
   },
-}
+} as ManualApiOptions

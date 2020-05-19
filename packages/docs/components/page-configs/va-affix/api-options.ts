@@ -1,6 +1,6 @@
 import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export const vaAffixOptions: ManualApiOptions = {
+export default {
   props: {
     offsetTop: {
       local: true,
@@ -18,4 +18,4 @@ export const vaAffixOptions: ManualApiOptions = {
       types: 'boolean',
     },
   },
-}
+} as ManualApiOptions

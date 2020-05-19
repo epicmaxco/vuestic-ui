@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import ratingConfig from '../../components/page-configs/va-rating/va-rating'
+import ratingConfig from '../../components/page-configs/va-rating/page-config'
 
 @Component({
   components: {

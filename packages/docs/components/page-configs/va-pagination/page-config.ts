@@ -1,8 +1,8 @@
 import { ApiDocsBlock, BlockType } from '../../../types/configTypes'
 import VaPagination from 'vuestic-ui/src/components/vuestic-components/va-pagination/VaPagination.vue'
-import { vaPaginationApiOptions } from './vaPaginationApiOptions'
+import apiOptions from './api-options'
 
-const config: ApiDocsBlock[] = [
+export default [
   {
     type: BlockType.TITLE,
     translationString: 'pagination.title',
@@ -78,7 +78,7 @@ const config: ApiDocsBlock[] = [
   {
     type: BlockType.API,
     componentOptions: VaPagination,
-    apiOptions: vaPaginationApiOptions,
+    apiOptions,
   },
   {
     type: BlockType.SUBTITLE,
@@ -100,6 +100,4 @@ const config: ApiDocsBlock[] = [
     type: BlockType.PARAGRAPH,
     translationString: 'pagination.faq.questions[1].answer',
   },
-]
-
-export default config
+] as ApiDocsBlock[]

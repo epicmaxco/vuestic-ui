@@ -1,6 +1,6 @@
 import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export const vaTabsApiOptions: ManualApiOptions = {
+export default {
   props: {
     value: { local: true },
     left: { local: true },
@@ -17,4 +17,4 @@ export const vaTabsApiOptions: ManualApiOptions = {
       types: '`(value: number | string) => void`',
     },
   },
-}
+} as ManualApiOptions

@@ -1,9 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
 import VaModal
   from 'vuestic-ui/src/components/vuestic-components/va-modal/VaModal.vue'
-import { vaModalApiOptions } from './vaModalApiOptions'
+import apiOptions from './api-options'
 
-const config: ApiDocsBlock[] = [
+export default [
   {
     type: BlockType.TITLE,
     translationString: 'modal.title',
@@ -179,8 +179,6 @@ const config: ApiDocsBlock[] = [
   {
     type: BlockType.API,
     componentOptions: VaModal,
-    apiOptions: vaModalApiOptions,
+    apiOptions: apiOptions,
   },
-]
-
-export default config
+] as ApiDocsBlock[]
