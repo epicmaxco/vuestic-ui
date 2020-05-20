@@ -82,6 +82,8 @@ import VaColorPickerInput
   from './vuestic-components/va-color-picker/VaColorPickerInput'
 import VaPaletteCustom
   from './vuestic-components/va-color-picker/VaPaletteCustom'
+import VaForm
+  from './vuestic-components/va-form/VaForm'
 
 installPlatform()
 
@@ -150,6 +152,7 @@ const VuesticPlugin = {
       VaColorPickerInput,
       VaPaletteCustom,
       VaButtonDropdown,
+      VaForm,
     ].forEach(component => {
       Vue.component(component.name, component)
     })
