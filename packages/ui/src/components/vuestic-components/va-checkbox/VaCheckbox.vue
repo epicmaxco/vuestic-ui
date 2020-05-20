@@ -61,6 +61,7 @@
 import VaIcon from '../va-icon/VaIcon'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
 export default {
@@ -73,7 +74,7 @@ export default {
       indeterminate: { type: Boolean, default: false },
       checkedIcon: { type: String, default: 'check' },
       indeterminateIcon: { type: String, default: 'remove' },
-      color: { type: String, default: 'Primary' },
+      color: { type: String, default: 'primary' },
     }),
   ],
   computed: {
@@ -89,7 +90,7 @@ export default {
     },
     labelStyle () {
       if (this.computedError) {
-        return { color: this.$themes.danger }
+        return { color: getColor(this, 'danger') }
       }
 
       return {}
@@ -99,7 +100,7 @@ export default {
         if (this.isChecked) {
           return { background: this.colorComputed }
         } else {
-          return { borderColor: this.$themes.danger }
+          return { borderColor: getColor(this, 'danger') }
         }
       } else {
         if (this.isChecked) { return { background: this.colorComputed, borderColor: this.colorComputed } }
