@@ -66,179 +66,182 @@ import {
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
 import { SizeMixin } from '../../../mixins/SizeMixin'
+import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
 
-export default {
-  name: 'VaButton',
-  components: { VaIcon, VaProgressCircle },
-  mixins: [
-    ColorThemeMixin,
-    RouterLinkMixin,
-    SizeMixin,
-    makeContextablePropsMixin({
-      tag: { type: String, default: 'button' },
-      outline: { type: Boolean, default: false },
-      flat: { type: Boolean, default: false },
-      size: {
-        type: String,
-        default: 'medium',
-        validator: value => {
-          return ['medium', 'small', 'large'].includes(value)
-        },
+@Component({ components: { VaIcon, VaProgressCircle } })
+export default class VaButton extends Mixins(
+  ColorThemeMixin,
+  RouterLinkMixin,
+  SizeMixin,
+  makeContextablePropsMixin({
+    tag: { type: String, default: 'button' },
+    outline: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
+    size: {
+      type: String,
+      default: 'medium',
+      validator: value => {
+        return ['medium', 'small', 'large'].includes(value)
       },
-      icon: { type: String, default: '' },
-      iconRight: { type: String, default: '' },
-      type: { type: String, default: 'button' },
-      disabled: { type: Boolean, default: false },
-      loading: { type: Boolean, default: false },
-      block: { type: Boolean, default: false },
-      round: { type: Boolean, default: true },
-      /* Link props */
-      href: { type: String, default: undefined },
-      target: { type: String, default: undefined },
-    }),
-  ],
-  inject: {
-    va: {
-      default: () => ({}),
     },
-  },
+    icon: { type: String, default: '' },
+    iconRight: { type: String, default: '' },
+    type: { type: String, default: 'button' },
+    disabled: { type: Boolean, default: false },
+    loading: { type: Boolean, default: false },
+    block: { type: Boolean, default: false },
+    round: { type: Boolean, default: true },
+    /* Link props */
+    href: { type: String, default: undefined },
+    target: { type: String, default: undefined },
+  })) {
+  @Inject({
+    default: () => ({}),
+  }) readonly va!: any
+
   data () {
     return {
       hoverState: false,
       focusState: false,
     }
-  },
-  watch: {
-    c_loading: function (newValue) {
-      this.$el.blur()
+  }
 
-      if (newValue === true) {
-        this.updateFocusState(false)
-        this.updateHoverState(false)
-      }
-    },
-  },
-  computed: {
-    computedClass () {
-      return {
-        'va-button--default': !this.c_flat && !this.c_outline && !this.c_disabled,
-        'va-button--flat': this.c_flat,
-        'va-button--outline': this.c_outline,
-        'va-button--disabled': this.c_disabled,
-        'va-button--hover': this.hoverState,
-        'va-button--focus': this.focusState,
-        'va-button--without-title': !this.hasTitleData,
-        'va-button--with-left-icon': this.c_icon,
-        'va-button--with-right-icon': this.c_iconRight,
-        'va-button--large': this.c_size === 'large',
-        'va-button--small': this.c_size === 'small',
-        'va-button--normal': !this.c_size || this.c_size === 'medium',
-        'va-button--loading': this.c_loading,
-        'va-button--block': this.c_block,
-        'va-button--square': !this.c_round,
-      }
-    },
-    gradientStyle () {
-      if (this.c_flat || this.c_outline) {
-        return
-      }
-      // Allows button to grab color from button group.
-      if (this.va.color) {
-        return
-      }
-      return getGradientBackground(this.colorComputed)
-    },
-    shadowStyle () {
-      if (this.c_flat || this.c_outline) {
-        return
-      }
-      if (this.va.color && this.$themes && this.$themes[this.va.color]) {
-        return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.c_color ? this.colorComputed : this.$themes[this.va.color])
-      }
-      return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
-    },
-    loaderSize () {
-      const size = /([0-9]*)(px)/.exec(this.sizeComputed)
+  @Watch('c_loading')
+  onLoadingChanged (newValue) {
+    this.$el.blur()
 
-      if (size) {
-        return `${size[1] / 2}${size[2]}`
-      }
+    if (newValue === true) {
+      this.updateFocusState(false)
+      this.updateHoverState(false)
+    }
+  }
 
-      return this.sizeComputed
-    },
-    computedStyle () {
-      const computedStyle = {
-        color: '',
-        borderColor: '',
-        background: '',
-        backgroundImage: '',
-        boxShadow: '',
-      }
+  get computedClass () {
+    return {
+      'va-button--default': !this.c_flat && !this.c_outline && !this.c_disabled,
+      'va-button--flat': this.c_flat,
+      'va-button--outline': this.c_outline,
+      'va-button--disabled': this.c_disabled,
+      'va-button--hover': this.hoverState,
+      'va-button--focus': this.focusState,
+      'va-button--without-title': !this.hasTitleData,
+      'va-button--with-left-icon': this.c_icon,
+      'va-button--with-right-icon': this.c_iconRight,
+      'va-button--large': this.c_size === 'large',
+      'va-button--small': this.c_size === 'small',
+      'va-button--normal': !this.c_size || this.c_size === 'medium',
+      'va-button--loading': this.c_loading,
+      'va-button--block': this.c_block,
+      'va-button--square': !this.c_round,
+    }
+  }
 
-      if (this.focusState) {
-        if (this.c_outline || this.c_flat) {
-          computedStyle.color = this.colorComputed
-          computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
-          computedStyle.background = getFocusColor(this.colorComputed)
-        } else {
-          computedStyle.backgroundImage = this.gradientStyle
-        }
-      } else if (this.hoverState) {
-        if (this.c_outline || this.c_flat) {
-          computedStyle.color = this.colorComputed
-          computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
-          computedStyle.background = getHoverColor(this.colorComputed)
-        } else {
-          computedStyle.backgroundImage = this.gradientStyle
-          computedStyle.boxShadow = this.shadowStyle
-        }
-      } else {
-        computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : '#ffffff'
+  get gradientStyle () {
+    if (this.c_flat || this.c_outline) {
+      return
+    }
+    // Allows button to grab color from button group.
+    if (this.va.color) {
+      return
+    }
+    return getGradientBackground(this.colorComputed)
+  }
+
+  get shadowStyle () {
+    if (this.c_flat || this.c_outline) {
+      return
+    }
+    if (this.va.color && this.$themes && this.$themes[this.va.color]) {
+      return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.c_color ? this.colorComputed : this.$themes[this.va.color])
+    }
+    return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
+  }
+
+  get loaderSize () {
+    const size = /([0-9]*)(px)/.exec(this.sizeComputed)
+
+    if (size) {
+      return `${size[1] / 2}${size[2]}`
+    }
+
+    return this.sizeComputed
+  }
+
+  get computedStyle () {
+    const computedStyle = {
+      color: '',
+      borderColor: '',
+      background: '',
+      backgroundImage: '',
+      boxShadow: '',
+    }
+
+    if (this.focusState) {
+      if (this.c_outline || this.c_flat) {
+        computedStyle.color = this.colorComputed
         computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.background = getFocusColor(this.colorComputed)
+      } else {
+        computedStyle.backgroundImage = this.gradientStyle
+      }
+    } else if (this.hoverState) {
+      if (this.c_outline || this.c_flat) {
+        computedStyle.color = this.colorComputed
+        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.background = getHoverColor(this.colorComputed)
+      } else {
         computedStyle.backgroundImage = this.gradientStyle
         computedStyle.boxShadow = this.shadowStyle
       }
+    } else {
+      computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : '#ffffff'
+      computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+      computedStyle.backgroundImage = this.gradientStyle
+      computedStyle.boxShadow = this.shadowStyle
+    }
 
-      if (this.va.color && !this.c_outline && !this.c_flat) {
-        computedStyle.background = this.c_color ? this.colorComputed : this.$themes[this.va.color]
-        computedStyle.backgroundImage = ''
-      }
+    if (this.va.color && !this.c_outline && !this.c_flat) {
+      computedStyle.background = this.c_color ? this.colorComputed : this.$themes[this.va.color]
+      computedStyle.backgroundImage = ''
+    }
 
-      return computedStyle
-    },
-    hasTitleData () {
-      return this.$slots.default
-    },
-    computedTag () {
-      if (this.c_tag === 'a' || this.c_href || this.c_target) {
-        return 'a'
-      }
-      if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
-        return 'router-link'
-      }
-      return 'button'
-    },
-    inputListeners () {
-      return Object.assign({},
-        this.$listeners,
-        {
-          click: (event) => {
-            this.$emit('click', event)
-          },
+    return computedStyle
+  }
+
+  get hasTitleData () {
+    return this.$slots.default
+  }
+
+  get computedTag () {
+    if (this.c_tag === 'a' || this.c_href || this.c_target) {
+      return 'a'
+    }
+    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
+      return 'router-link'
+    }
+    return 'button'
+  }
+
+  get inputListeners () {
+    return Object.assign({},
+      this.$listeners,
+      {
+        click: (event) => {
+          this.$emit('click', event)
         },
-      )
-    },
-  },
-  methods: {
-    updateHoverState (isHover) {
-      this.hoverState = isHover
-    },
-    updateFocusState (isHover) {
-      this.focusState = isHover
-    },
-  },
+      },
+    )
+  }
+
+  updateHoverState (isHover) {
+    this.hoverState = isHover
+  }
+
+  updateFocusState (isHover) {
+    this.focusState = isHover
+  }
 }
 </script>
 

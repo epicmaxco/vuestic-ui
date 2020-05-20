@@ -6,7 +6,7 @@
         "input": "Emits component value"
       },
       "props": {
-        "align": "Customizes horizontal position of component (flex based). Available values are strings ('left', 'center', 'between', etc).",
+        "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
         "id": "Applies `id` to internal input component. Useful for native forms.",
         "name": "Applies `name` to internal input component. Useful for native forms.",
         "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
@@ -22,13 +22,13 @@
         "color": "Color of the component (theme string or *HEX* string)",
         "textColor": "Text color (theme string or *HEX* string)",
         "rules": "Validation rules <!-- TODO Add link -->",
-        "to": "`router-link` attribute.",
-        "replace": "`router-link` attribute.",
-        "append": "`router-link` attribute.",
-        "exact": "`router-link` attribute.",
-        "activeClass": "`router-link` attribute.",
-        "exactActiveClass": "`router-link` attribute.",
-        "href": "`router-link` attribute."
+        "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\").",
+        "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\").",
+        "append": "When set, always appends the relative path to the current path. [More info here](https://router.vuejs.org/api/#append \"Vue router docs\").",
+        "exact": "Exactly match the link. Without this, '/' will match every route. [More info here](https://router.vuejs.org/api/#exact \"Vue router docs\").",
+        "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\").",
+        "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
+        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\")."
       }
     },
     "VaBadge": {
@@ -300,45 +300,41 @@
   },
   "breadcrumbs": {
     "title": "Breadcrumbs",
-    "paragraph": "Breadcrumbs component is used on a page for application navigation. It shows the location of the current page in the navigation hierarchy. Is used with `va-breadcrumb-item` components.",
+    "text": "Breadcrumbs component is used on a page for application navigation. It shows the location of the current page in the navigation hierarchy. Is used with `va-breadcrumb-item` components.",
     "examples": {
       "default": {
-        "headline": "Default",
-        "paragraph": "This is basic usage of `va-breadcrumbs` component."
+        "title": "Default",
+        "text": "This is basic usage of `va-breadcrumbs` component."
       },
       "color": {
-        "headline": "Color",
-        "paragraph": "Sets color of breadcrumbs content"
+        "title": "Color",
+        "text": "Sets color of breadcrumbs content"
       },
       "align": {
-        "headline": "Align",
-        "paragraph": "Changes component position on the page."
-      },
-      "separatorColor": {
-        "headline": "Separator color",
-        "paragraph": "Customizes separator color."
+        "title": "Align",
+        "text": "Changes component position on the page."
       },
       "separator": {
-        "headline": "Separator",
-        "paragraph": "You can use your own separator."
+        "title": "Separator",
+        "text": "You can use your own separator and customize its color."
       },
       "activeColor": {
-        "headline": "Active color",
-        "paragraph": "Color of active `va-breadcrumb-item` elements."
+        "title": "Active color",
+        "text": "Color of active `va-breadcrumb-item` elements."
       },
       "item": {
-        "headline": "Item",
-        "paragraph": "Some `va-breadcrumbs-item` props examples."
+        "title": "Item",
+        "text": "Some `va-breadcrumbs-item` props examples."
       }
     },
     "api": {
       "component": {
         "title": "API",
-        "paragraph": "Here are props and slots of `va-breadcrumbs` component."
+        "text": "Here are props and slots of `va-breadcrumbs` component."
       },
       "item": {
         "title": "Item API",
-        "paragraph": "API for `va-breadcrumb-item` component."
+        "text": "API for `va-breadcrumb-item` component."
       }
     },
     "faq": {

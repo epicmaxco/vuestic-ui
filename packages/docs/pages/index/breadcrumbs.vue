@@ -4,8 +4,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import DocsContent from '../../components/docs-content/DocsContent.vue'
-import breadcrumbsConfig from '../../components/page-configs/va-breadcrumbs/va-breadcrumbs'
+import DocsContent from '../../components/DocsContent.vue'
+import breadcrumbsConfig from '../../components/page-configs/va-breadcrumbs/page-config'
 
 @Component({
   components: {

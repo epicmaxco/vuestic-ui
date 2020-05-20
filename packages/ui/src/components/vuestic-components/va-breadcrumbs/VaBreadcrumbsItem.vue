@@ -25,29 +25,28 @@
 
 <script lang="ts">
 // @ts-ignore
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
-import { Component, Prop, Mixins } from 'vue-property-decorator'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins } from 'vue-property-decorator'
+
+const props = {
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+}
+
+const ContextableMixin = makeContextablePropsMixin(props)
 
 @Component({})
-export default class VaBreadcrumbsItem extends Mixins(RouterLinkMixin, ContextPluginMixin) {
-    @Prop({
-      type: Boolean,
-      default () {
-        return getContextPropValue(this as any, 'disabled', false as any)
-      },
-    }) readonly disabled!: boolean
-
-    @Prop({
-      type: [String, Number],
-      default () {
-        return getContextPropValue(this as any, 'label', '' as any)
-      },
-    }) readonly label!: string
-
-    get isDisabled () {
-      return this.disabled || !(this as any).hasRouterLinkParams
-    }
+export default class VaBreadcrumbsItem extends Mixins(RouterLinkMixin, ContextableMixin) {
+  get isDisabled () {
+    return this.disabled || !this.hasRouterLinkParams
+  }
 }
 </script>
 

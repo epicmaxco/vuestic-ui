@@ -12,7 +12,7 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.paragraph',
+    translationString: 'breadcrumbs.text',
   },
   {
     type: BlockType.SUBTITLE,
@@ -20,11 +20,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'breadcrumbs.examples.default.headline',
+    translationString: 'breadcrumbs.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.examples.default.paragraph',
+    translationString: 'breadcrumbs.examples.default.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -32,11 +32,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'breadcrumbs.examples.align.headline',
+    translationString: 'breadcrumbs.examples.align.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.examples.align.paragraph',
+    translationString: 'breadcrumbs.examples.align.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -44,11 +44,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'breadcrumbs.examples.separator.headline',
+    translationString: 'breadcrumbs.examples.separator.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.examples.separator.paragraph',
+    translationString: 'breadcrumbs.examples.separator.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -56,11 +56,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'breadcrumbs.examples.color.headline',
+    translationString: 'breadcrumbs.examples.color.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.examples.color.paragraph',
+    translationString: 'breadcrumbs.examples.color.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -68,11 +68,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'breadcrumbs.examples.activeColor.headline',
+    translationString: 'breadcrumbs.examples.activeColor.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.examples.activeColor.paragraph',
+    translationString: 'breadcrumbs.examples.activeColor.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -80,23 +80,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'breadcrumbs.examples.separatorColor.headline',
+    translationString: 'breadcrumbs.examples.item.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.examples.separatorColor.paragraph',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-breadcrumbs/SeparatorColor',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'breadcrumbs.examples.item.headline',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.examples.item.paragraph',
+    translationString: 'breadcrumbs.examples.item.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -108,7 +96,7 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.api.component.paragraph',
+    translationString: 'breadcrumbs.api.component.text',
   },
   {
     type: BlockType.API,
@@ -121,7 +109,7 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.api.item.paragraph',
+    translationString: 'breadcrumbs.api.item.text',
   },
   {
     type: BlockType.API,
