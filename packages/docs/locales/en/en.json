@@ -268,6 +268,17 @@
         "value": "The array with uploaded files"
       }
     },
+    "VaDivider": {
+      "props": {
+        "vertical":  "Displays divider vertically",
+        "dashed": "If set to true, the divider line is dashed",
+        "inset":  "If set to true, the left and right margins will be added; reduces height for vertical divider",
+        "orientation": "Position of the title inside divider (for horizontal only). `left`, `center` (default) or `right`"
+      },
+      "slots": {
+        "default": "Insert content (for horizontal only)"
+      }
+    },
     "VaCard": {
       "props": {
         "stripe": "Displays a stripe above a card title.",
@@ -310,7 +321,8 @@
     }
   },
   "anyPage": {
-    "examples": "Examples"
+    "examples": "Examples",
+    "api": "API"
   },
   "menu": {
     "affix": "Affix",
@@ -331,6 +343,7 @@
     "fileUpload": "File Upload",
     "form": "Form",
     "optionList": "Option List",
+    "divider": "Divider",
     "button": "Button"
   },
   "language": {
@@ -831,7 +844,7 @@
       },
       "validation": {
         "headline": "Specify file types",
-        "paragraph": "Add `file-types` prop with alowed extensions to add file types validation"
+        "paragraph": "Add `file-types` prop with allowed extensions to add file types validation"
       },
       "gallery": {
         "headline": "As gallery",
@@ -841,6 +854,36 @@
     "api": {
       "subtitle": "API",
       "paragraph": "Here are props, events and slots that are used in `va-file-upload` component."
+    }
+  },
+  "divider": {
+    "title": "Divider",
+    "summaryText": "The `va-divider` component is used to separate sections of lists or layouts.",
+    "examples": {
+      "default": {
+        "title": "Simple divider",
+        "text": "Dividers in their simplest form display a horizontal line."
+      },
+      "customContent": {
+        "title": "Custom content",
+        "text": "You can customize the content on the divider line. Also you can set position of the content by setting the `orientation` property to `left`, `center` or `right`."
+      },
+      "inset": {
+        "title": "Inset divider",
+        "text": "Add the `inset` attribute in order to set whether or not the divider is an inset divider."
+      },
+      "vertical": {
+        "title": "Vertical divider",
+        "text": "Add the `vertical` attribute in order to set whether or not the divider is vertically-oriented."
+      },
+      "dashed": {
+        "title": "Dashed divider",
+        "text": "Add the `dashed` attribute in order to set whether or not the divider line is dashed."
+      },
+      "withList": {
+        "title": "Divider with lists",
+        "text": "Dividers perfectly work with `va-list`."
+      }
     }
   },
   "form": {

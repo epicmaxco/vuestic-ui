@@ -71,6 +71,10 @@
         {
           "name": "option-list",
           "displayName": "menu.optionList"
+        },
+        {
+          "name": "divider",
+          "displayName": "menu.divider"
         }
       ]
     }

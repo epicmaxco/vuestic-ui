@@ -16,6 +16,7 @@ import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
 import VaCollapse from './vuestic-components/va-collapse/VaCollapse'
 import VaContent from './vuestic-components/va-content/VaContent'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
+import VaDivider from './vuestic-components/va-divider/VaDivider'
 
 // TODO: https://github.com/epicmaxco/vuestic-ui/issues/246
 // import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
@@ -163,6 +164,7 @@ const VuesticPlugin = {
       VaPaletteCustom,
       VaButtonDropdown,
       VaForm,
+      VaDivider,
       VaOptionList,
     ].forEach(component => {
       Vue.component(component.name, component)
