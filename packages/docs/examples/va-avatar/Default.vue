@@ -1,0 +1,3 @@
+<template>
+  <va-avatar />
+</template>
