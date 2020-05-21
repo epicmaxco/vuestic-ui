@@ -9,6 +9,7 @@ import VaButtonToggle
   from './vuestic-components/va-button-toggle/VaButtonToggle.vue'
 import VaCard from './vuestic-components/va-card/VaCard'
 import VaCardContent from './vuestic-components/va-card/VaCardContent'
+import VaCardTitle from './vuestic-components/va-card/VaCardTitle'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
 import VaCollapse from './vuestic-components/va-collapse/VaCollapse'
 import VaContent from './vuestic-components/va-content/VaContent'
@@ -97,6 +98,7 @@ const VuesticPlugin = {
       VaButtonToggle,
       VaCard,
       VaCardContent,
+      VaCardTitle,
       VaCheckbox,
       VaCollapse,
       VaContent,

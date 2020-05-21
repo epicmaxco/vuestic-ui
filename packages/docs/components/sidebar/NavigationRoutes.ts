@@ -38,6 +38,10 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.badge',
         },
         {
+          name: 'card',
+          displayName: 'menu.card',
+        },
+        {
           name: 'fileUpload',
           displayName: 'menu.fileUpload',
         },
