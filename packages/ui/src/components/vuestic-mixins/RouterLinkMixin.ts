@@ -1,36 +1,17 @@
 
-import { Vue, Component, Prop } from 'vue-property-decorator'
-
+import { Component, Mixins } from 'vue-property-decorator'
+import { makeContextablePropsMixin } from '../context-test/context-provide/ContextPlugin'
+// @ts-nocheck
 @Component
-export class RouterLinkMixin extends Vue {
-  @Prop({
-    type: [String, Object],
-  }) readonly to!: string | Record<string, any>
-
-  @Prop({
-    type: Boolean,
-  }) readonly replace!: boolean
-
-  @Prop({
-    type: Boolean,
-  }) readonly append!: boolean
-
-  @Prop({
-    type: Boolean,
-  }) readonly exact!: boolean
-
-  @Prop({
-    type: String,
-  }) readonly activeClass!: string
-
-  @Prop({
-    type: String,
-  }) readonly exactActiveClass!: string
-
-  @Prop({
-    type: String,
-  }) readonly href!: string
-
+export class RouterLinkMixin extends Mixins(makeContextablePropsMixin({
+  to: { type: [String, Object] },
+  replace: { type: Boolean },
+  append: { type: Boolean },
+  exact: { type: Boolean },
+  activeClass: { type: String },
+  exactActiveClass: { type: String },
+  href: { type: String },
+})) {
   get hasRouterLinkParams () {
     return Boolean(
       this.to ||
