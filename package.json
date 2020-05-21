@@ -5,6 +5,7 @@
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "devDependencies": {
     "lerna": "^3.20.2",
+    "plop": "^2.6.0",
     "yorkie": "^2.0.0"
   },
   "private": true,
@@ -21,7 +22,8 @@
     "build:docs": "yarn workspace @vuestic-ui/docs build",
     "generate:docs": "yarn workspace @vuestic-ui/docs generate",
     "push": "yarn workspace vuestic-ui push",
-    "push-production": "yarn workspace vuestic-ui ush-production"
+    "push-production": "yarn workspace vuestic-ui ush-production",
+    "generate": "plop --plopfile scripts/generators/index.js"
   },
   "workspaces": [
     "packages/*"

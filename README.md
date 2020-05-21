@@ -35,3 +35,11 @@ yarn test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Development
+
+### Generators
+```
+yarn run generate
+```
+Allows you to auto-generate boilerplate code for common parts of your application.
