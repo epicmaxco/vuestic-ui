@@ -34,12 +34,12 @@ export const navigationRoutes: NavigationScheme = {
           displayName: 'menu.affix',
         },
         {
-          name: 'breadcrumbs',
-          displayName: 'menu.breadcrumbs',
-        },
-        {
           name: 'badge',
           displayName: 'menu.badge',
+        },
+        {
+          name: 'breadcrumbs',
+          displayName: 'menu.breadcrumbs',
         },
         {
           name: 'card',

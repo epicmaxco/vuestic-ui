@@ -29,7 +29,8 @@
         "exact": "Exactly match the link. Without this, '/' will match every route. [More info here](https://router.vuejs.org/api/#exact \"Vue router docs\").",
         "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\").",
         "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
-        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\")."
+        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
+        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A)."
       }
     },
     "VaBadge": {
