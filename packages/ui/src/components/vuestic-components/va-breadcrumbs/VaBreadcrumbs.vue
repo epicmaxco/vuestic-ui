@@ -38,11 +38,11 @@ export default class VaBreadcrumbs extends Mixins(ColorThemeMixin, AlignMixin, C
   }
 
   get computedThemesSeparatorColor () {
-    return this.separatorColor ? this.computeColor(this.separatorColor) : this.colorComputed
+    return this.separatorColor ? this.computeColor(this.c_separatorColor) : this.colorComputed
   }
 
   get computedThemesActiveColor () {
-    return this.activeColor ? this.computeColor(this.activeColor) : this.colorComputed
+    return this.activeColor ? this.computeColor(this.c_activeColor) : this.colorComputed
   }
 
   render (createElement: Vue.CreateElement) {
