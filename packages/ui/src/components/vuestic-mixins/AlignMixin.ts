@@ -23,8 +23,7 @@ export class AlignMixin extends Mixins(makeContextablePropsMixin({
   get alignComputed () {
     return {
       display: 'flex',
-      // @ts-ignore
-      justifyContent: alignMap[this.align as keyof typeof alignMap],
+      justifyContent: alignMap[this.c_align as keyof typeof alignMap],
     }
   }
 }
