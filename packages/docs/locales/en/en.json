@@ -314,6 +314,7 @@
   },
   "menu": {
     "affix": "Affix",
+    "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",
     "badge": "Badge",
     "card": "Card",

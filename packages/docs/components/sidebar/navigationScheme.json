@@ -17,6 +17,10 @@
           "displayName": "menu.affix"
         },
         {
+          "name": "avatar",
+          "displayName": "menu.avatar"
+        },
+        {
           "name": "button",
           "displayName": "menu.button"
         },
