@@ -25,9 +25,7 @@
           />
           <va-icon slot="separator" name="arrow_forward_ios" :size="16" />
         </va-breadcrumbs>
-        <div>
-          <nuxt-child />
-        </div>
+        <nuxt-child />
       </div>
     </div>
   </div>
@@ -169,6 +167,10 @@ html {
     padding: 2em;
     padding-top: 0;
     width: calc(100% - 250px);
+
+    & > :last-child {
+      padding-bottom: 2em;
+    }
   }
 }
 </style>

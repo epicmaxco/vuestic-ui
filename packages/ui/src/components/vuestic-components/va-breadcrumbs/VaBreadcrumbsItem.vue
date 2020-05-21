@@ -7,6 +7,9 @@
       :replace="replace"
       :append="append"
       :exact="exact"
+      :href="href"
+      :active-class="activeClass"
+      :exact-active-class="exactActiveClass"
       tag="a"
     >
       <slot>{{ label }}</slot>
@@ -20,32 +23,30 @@
   </span>
 </template>
 
-<script>
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
-import { ContextPluginMixin, getContextPropValue } from '../../context-test/context-provide/ContextPlugin'
+<script lang="ts">
+// @ts-ignore
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins } from 'vue-property-decorator'
 
-export default {
-  name: 'VaBreadcrumbsItem',
-  mixins: [RouterLinkMixin, ContextPluginMixin],
-  props: {
-    disabled: {
-      type: Boolean,
-      default () {
-        return getContextPropValue(this, 'disabled', false)
-      },
-    },
-    label: {
-      type: [String, Number],
-      default () {
-        return getContextPropValue(this, 'label', '')
-      },
-    },
+const props = {
+  disabled: {
+    type: Boolean,
+    default: false,
   },
-  computed: {
-    isDisabled () {
-      return this.disabled || !this.hasRouterLinkParams
-    },
+  label: {
+    type: String,
+    default: '',
   },
+}
+
+const ContextableMixin = makeContextablePropsMixin(props)
+
+@Component({})
+export default class VaBreadcrumbsItem extends Mixins(RouterLinkMixin, ContextableMixin) {
+  get isDisabled () {
+    return this.disabled || !this.hasRouterLinkParams
+  }
 }
 </script>
 
