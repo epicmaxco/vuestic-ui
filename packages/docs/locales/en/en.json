@@ -45,6 +45,26 @@
         "left": "Position badge to the left"
       }
     },
+    "VaButton": {
+      "props": {
+        "outline": "Applies outline styling",
+        "flat": "Applies `flat` styling",
+        "icon": "The icon to be displayed to the left of a title",
+        "iconRight": "The icon to be displayed to the right of a title",
+        "type": "Will be used as value for html `type` attribute",
+        "loading": "Indicates that something is loading (spinner icon inside button)",
+        "block": "Applies block styling (will take 100% of container width)",
+        "round": "Adds rounded corners",
+        "href": "Will be used as value for html `href` attribute. (If used, `<button />` will be replaced with `<a>` tag)",
+        "target": "Will be used as value for html `target` attribute (If used, `<button />` will be replaced with `<a>` tag)"
+      },
+      "slots": {
+        "default": "Slot for button content"
+      },
+      "events": {
+        "click": "Emitted when user clicks on button"
+      }
+    },
     "VaForm": {
       "props": {
         "autofocus": "Focus on first form-component <!-- TODO Add link --> on render"
@@ -296,7 +316,8 @@
     "pagination": "Pagination",
     "fileUpload": "File Upload",
     "form": "Form",
-    "optionList": "Option List"
+    "optionList": "Option List",
+    "button": "Button"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -408,6 +429,32 @@
       },
       "color": {
         "title": "Color"
+      }
+    }
+  },
+  "button": {
+    "title": "Button",
+    "summaryText": "The `va-button` component intended to be used instead of the standart HTMl button. It offers multiple built-in styles plus gives possibility to change color and size manually.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Just a simple button."
+      },
+      "withColor": {
+        "title": "Colors",
+        "text": "With `color` prop you can change the color of the component."
+      },
+      "withSize": {
+        "title": "Sizes",
+        "text": "Using `size` prop you can make your button fit in any place on your web page."
+      },
+      "withStyle": {
+        "title": "Differen styles",
+        "text": "We have 3 styles available: \"outlined\", \"flat\" and \"square\"."
+      },
+      "withIcon": {
+        "title": "Add icons",
+        "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`"
       }
     }
   },
