@@ -22,7 +22,7 @@ describe('AlignMixin', () => {
   })
   it('applies proper align', () => {
     for (const key in alignMap) {
-      const wrapper = shallowMount(ExampleComponent, { propsData: { align: key } })
+      const wrapper = shallowMount(ExampleComponent, { propsData: { align: String(key) } })
       const { display, justifyContent } = wrapper.vm.alignComputed
       expect(display).toBe('flex')
       expect(justifyContent).toBe(alignMap[key as keyof typeof alignMap])

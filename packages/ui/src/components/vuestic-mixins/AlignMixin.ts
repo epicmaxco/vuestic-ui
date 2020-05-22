@@ -10,14 +10,12 @@ export const alignMap = {
   stretch: 'stretch',
 }
 
-const alignValues = Object.keys(alignMap) as Array<keyof typeof alignMap>
-
 @Component
 export class AlignMixin extends Mixins(makeContextablePropsMixin({
   align: {
     type: String,
     default: 'left',
-    validator: (align: string) => align in alignValues,
+    validator: (align: string) => align in alignMap,
   },
 })) {
   get alignComputed () {
