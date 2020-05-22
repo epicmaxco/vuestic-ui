@@ -86,6 +86,7 @@ export default {
         'va-checkbox--indeterminate': this.c_indeterminate,
         'va-checkbox--error': this.computedError,
         'va-checkbox--left-label': this.leftLabel,
+        'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
       }
     },
     labelStyle () {
@@ -145,7 +146,7 @@ export default {
     }
   }
 
-  &__square {
+  #{&}__square {
     @include flex-center();
 
     width: 1.35rem;
@@ -155,6 +156,13 @@ export default {
     background-color: $white;
     border: solid 0.125rem $gray-light;
     border-radius: 0.25rem;
+
+    @at-root {
+      .va-checkbox--on-keyboard-focus#{&} {
+        transition: all, 0.6s, ease-in;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+      }
+    }
   }
 
   &__input {
@@ -172,7 +180,7 @@ export default {
   &__icon {
     pointer-events: none;
     position: absolute;
-    color: $white;
+    color: transparent;
   }
 
   &--selected {
@@ -181,13 +189,17 @@ export default {
         background-color: $vue-green;
         border-color: $vue-green;
       }
+
+      &__icon {
+        color: $white;
+      }
     }
   }
 
   &--error {
     .va-checkbox {
       &__square {
-        border-color: $theme-red;
+        border-color: $theme-danger;
       }
     }
   }
