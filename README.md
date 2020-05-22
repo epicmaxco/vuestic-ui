@@ -40,6 +40,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Generators
 ```
-yarn run generate
+yarn generate:component
 ```
 Allows you to auto-generate boilerplate code for common parts of your application.
