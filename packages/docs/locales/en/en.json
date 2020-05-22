@@ -38,7 +38,7 @@
       "props": {
         "text": "Badge text",
         "overlap": "Allows badge to overlap with element.",
-        "transparent": "Makes badge semi-transparen.",
+        "transparent": "Makes badge semi-transparent.",
         "multiLine": "Badge text will wrap to next line.",
         "visibleEmpty": "Badge will be shown even when there is no text.",
         "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
@@ -104,10 +104,10 @@
         "showTrack": "Toggles track display."
       },
       "events": {
-        "dragStart": "Emited on drag start.",
-        "dragEnd": "Emited on drag end.",
-        "change": "Emited on value input.",
-        "input": "Emited on value change."
+        "dragStart": "Emitted on drag start.",
+        "dragEnd": "Emitted on drag end.",
+        "change": "Emitted on value input.",
+        "input": "Emitted on value change."
       },
       "slots": {
         "append": "Slot for input after slider.",
@@ -202,7 +202,7 @@
     },
     "VaPagination": {
       "props": {
-        "value": "Current page (or item if `total` is isued) value",
+        "value": "Current page (or item if `total` is issued) value",
         "visiblePages": "The amount of displayed pages. (When set to 0 all pages are displayed)",
         "pages": "The amount of pages",
         "boundaryLinks": "Show controls to move to first and last page",
@@ -251,9 +251,9 @@
         "arrayValue": "Takes the value of a switch in an array of switches"
       },
       "events": {
-        "blur": "Emited on focus.",
-        "focus": "Emited on blur.",
-        "input": "Emited on value change."
+        "blur": "Emitted on focus.",
+        "focus": "Emitted on blur.",
+        "input": "Emitted on value change."
       },
       "slots": {
         "default": "Slot for label.",
@@ -452,7 +452,7 @@
       "questions": [
         {
           "question": "Can `separator` prop work with `separator` slot?",
-          "answer": "No, slot has higher priority, prop is ignored when slot is used. Same is legit for `label` of `va-breadcrumbs-item`, it is igored when you use `default` slot."
+          "answer": "No, slot has higher priority, prop is ignored when slot is used. Same is legit for `label` of `va-breadcrumbs-item`, it is ignored when you use `default` slot."
         }
       ]
     }
@@ -557,7 +557,7 @@
       },
       "icon": {
         "headline": "Icon",
-        "paragraph": "You can inser icon at the start or end of slider."
+        "paragraph": "You can insert icon at the start or end of slider."
       },
       "track": {
         "headline": "Track",
@@ -640,7 +640,7 @@
       },
       "hoverAndHalves": {
         "headline": "Add some visual interaction",
-        "paragraph": "Add hover and enable halves for more preciese feedback gathering."
+        "paragraph": "Add hover and enable halves for more precise feedback gathering."
       },
       "numbers": {
         "headline": "Numbers instead of icons",
@@ -667,7 +667,7 @@
   },
   "modal": {
     "title": "Modal",
-    "description": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, subwindow, etc.",
+    "description": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
     "overview": {
       "subtitle": "Overview",
       "paragraphs": [
@@ -770,7 +770,7 @@
       },
       "totalAndPageSize": {
         "headline": "Using `total` and `page-size`",
-        "paragraph": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination istelf. The value of the component in this case would be equal to the number of the first item at the selected page."
+        "paragraph": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
       }
     },
     "api": {
@@ -793,7 +793,7 @@
   },
   "tabs": {
     "title": "Tabs",
-    "paragraph": "The `va-tabs` component could be used as an on-page navigation offering rich variaty of visual customizations and usage flexibility",
+    "paragraph": "The `va-tabs` component could be used as an on-page navigation offering rich variety of visual customizations and usage flexibility",
     "basic": {
       "subtitle": "Usage example",
       "paragraph": "By default it's displayed as a horizontal list of `va-tab` items"
@@ -806,7 +806,7 @@
         "paragraph": "When wrapper width is less then tabs width, pagination arrows are shown"
       },
       "vertical": {
-        "headline": "Vettical alignment",
+        "headline": "Vertical alignment",
         "paragraph": "By using `vertical` prop alignment of `va-tabs` can be customized"
       },
       "stateful": {
