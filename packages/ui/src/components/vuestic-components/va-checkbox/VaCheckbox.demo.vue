@@ -1,15 +1,11 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <VbCheckbox
-        v-model="value"
-        label="Selected"
-      />
-      {{  value }}
       <va-checkbox
         v-model="value"
         label="Selected"
       />
+      {{ value }}
     </VbCard>
     <VbCard title="Long label">
       <va-checkbox
