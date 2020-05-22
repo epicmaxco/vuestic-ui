@@ -217,14 +217,6 @@ export default {
         width: 1.1rem;
       }
 
-      &__track {
-        border-radius: 0.75rem;
-      }
-
-      &__track-label {
-        margin: auto 7px auto 25px;
-      }
-
       &--checked {
         .va-switch {
           &__track-label {
@@ -248,14 +240,6 @@ export default {
         width: 1.8rem;
       }
 
-      &__track {
-        border-radius: 1.25rem;
-      }
-
-      &__track-label {
-        margin: auto 7px auto 37px;
-      }
-
       &--checked {
         .va-switch {
           &__track-label {
@@ -271,7 +255,9 @@ export default {
   }
 
   &--left-label {
-    flex-direction: row-reverse;
+    .va-switch-container {
+      flex-direction: row-reverse;
+    }
   }
 
   &--checked {
@@ -323,12 +309,44 @@ export default {
         transition: all, 0.6s, ease-in;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
       }
+      .va-switch--small#{&} {
+        border-radius: 0.75rem;
+      }
+      .va-switch--large#{&} {
+        border-radius: 1.25rem;
+      }
     }
   }
 
-  &__track-label {
+  #{&}__track-label {
     color: $white;
     margin: auto 7px auto 33px;
+
+    @at-root {
+      .va-switch--checked#{&} {
+        margin: auto 33px auto 7px;
+      }
+
+      .va-switch--small#{&} {
+        margin: auto 7px auto 25px;
+
+        @at-root {
+          .va-switch--checked#{&} {
+            margin: auto 25px auto 7px;
+          }
+        }
+      }
+
+      .va-switch--large#{&} {
+        margin: auto 7px auto 37px;
+
+        @at-root {
+          .va-switch--checked#{&} {
+            margin: auto 37px auto 7px;
+          }
+        }
+      }
+    }
   }
 
   &__input {
