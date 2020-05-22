@@ -1,6 +1,7 @@
 <template>
   <va-input-wrapper
-    class="va-switch-wrapper"
+    class="va-switch"
+    :class="computedClass"
     :disabled="c_disabled"
     :success="c_success"
     :messages="c_messages"
@@ -9,21 +10,25 @@
     :error-count="errorCount"
   >
     <div
-      class="va-switch"
-      :id="id"
-      :name="name"
-      :class="computedClass"
-      @blur="onBlur($event)"
-      @focus="onFocus"
+      class="va-switch-container"
+      @click="clickWrapper()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
-      :tabindex="computedTabindex"
-      ref="input"
+      tabindex="-1"
+      @blur="onBlur"
+      ref="container"
     >
-      <div class="va-switch__inner"
-        @click="toggleSelection"
-        @keydown.enter="toggleSelection"
-      >
+      <div class="va-switch__inner">
+        <input
+          class="switch__input"
+          ref="input"
+          :id="id"
+          :name="name"
+          readonly
+          @focus="onFocus"
+          @blur="onBlur($event)"
+          @keypress.prevent="toggleSelection()"
+        >
         <div
           class="va-switch__track"
           :style="trackStyle"
@@ -34,7 +39,9 @@
             </slot>
           </div>
           <div class="va-switch__input-wrapper">
-            <span class="va-switch__input">
+            <span
+              class="va-switch__input"
+            >
               <va-progress-circle
                 v-if="loading"
                 indeterminate
@@ -45,7 +52,12 @@
           </div>
         </div>
       </div>
-      <div class="va-switch__label">
+      <div
+        class="va-switch__label"
+        ref="label"
+        tabindex="-1"
+        @blur="onBlur"
+      >
         <slot>
           {{ computedLabel }}
         </slot>
@@ -120,6 +132,7 @@ export default {
       return this.c_label
     },
     computedClass () {
+      console.log('this.isKeyboardFocused', this.isKeyboardFocused)
       return {
         'va-switch--checked': this.isTrue,
         'va-switch--small': this.c_size === 'small',
@@ -127,6 +140,7 @@ export default {
         'va-switch--disabled': this.c_disabled,
         'va-switch--left-label': this.c_leftLabel,
         'va-switch--error': this.computedError,
+        'va-switch--on-keyboard-focus': this.isKeyboardFocused,
       }
     },
     progressCircleSize () {
@@ -153,13 +167,22 @@ export default {
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.va-switch-wrapper {
-  display: inline-block;
+.switch__input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
 }
 
 .va-switch {
-  display: inline-flex;
-  align-items: center;
+  @at-root {
+    .va-switch-container {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
+  display: inline-block;
   margin-bottom: $checkbox-between-items-margin;
 
   &:focus {
@@ -285,7 +308,7 @@ export default {
     margin: 0 4px;
   }
 
-  &__track {
+  #{&}__track {
     display: flex;
     overflow: hidden;
     border-radius: 1rem;
@@ -294,6 +317,13 @@ export default {
     background: $white;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease;
+
+    @at-root {
+      .va-switch--on-keyboard-focus#{&} {
+        transition: all, 0.6s, ease-in;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+      }
+    }
   }
 
   &__track-label {
