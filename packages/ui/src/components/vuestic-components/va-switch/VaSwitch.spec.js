@@ -1,11 +1,7 @@
-import Vue from 'vue'
 import { shallowMount } from '@vue/test-utils'
 import VaSwitch from './VaSwitch'
 
-import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
 import { testIsSelectableComponent } from '../../vuestic-mixins/testIsSelectableComponent'
-
-Vue.use(ColorThemePlugin)
 
 describe('VaSwitch', () => {
   it('default', () => {

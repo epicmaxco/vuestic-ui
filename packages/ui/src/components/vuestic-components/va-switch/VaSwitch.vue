@@ -280,11 +280,11 @@ export default {
   &--error {
     .va-switch {
       &__label {
-        color: $theme-red;
+        color: $theme-danger;
       }
 
       &__track {
-        border: 2px solid $theme-red;
+        border: 2px solid $theme-danger;
       }
     }
   }
