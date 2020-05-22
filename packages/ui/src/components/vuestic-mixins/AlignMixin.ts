@@ -1,7 +1,7 @@
 import { Mixins, Component } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../context-test/context-provide/ContextPlugin'
 
-const alignMap = {
+export const alignMap = {
   left: 'flex-start',
   center: 'center',
   right: 'flex-end',
