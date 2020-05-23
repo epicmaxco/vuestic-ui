@@ -26,7 +26,7 @@
           :name="name"
           readonly
           @focus="onFocus"
-          @blur="onBlur($event)"
+          @blur="onBlur"
           @keypress.prevent="toggleSelection()"
         >
         <div
@@ -290,6 +290,7 @@ export default {
   }
 
   &__label {
+    cursor: pointer;
     text-align: left;
     margin: 0 4px;
   }
