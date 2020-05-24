@@ -55,7 +55,6 @@
       <div
         class="va-switch__label"
         ref="label"
-        tabindex="-1"
         @blur="onBlur"
         :style="labelStyle"
       >
@@ -166,7 +165,7 @@ export default {
     labelStyle () {
       return {
         color: this.c_error ? getColor(this, 'danger') : '',
-        padding: !this.c_label
+        padding: !this.c_label && !(this.c_trueLabel || this.c_falseLabel)
           ? ''
           : this.c_leftLabel
             ? '0 0.3rem 0 0'
