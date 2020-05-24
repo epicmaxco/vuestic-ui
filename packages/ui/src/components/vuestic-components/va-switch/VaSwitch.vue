@@ -20,7 +20,7 @@
     >
       <div class="va-switch__inner">
         <input
-          class="switch__input"
+          class="va-switch__input"
           ref="input"
           :id="id"
           :name="name"
@@ -39,9 +39,9 @@
               {{ computedInnerLabel }}
             </slot>
           </div>
-          <div class="va-switch__input-wrapper">
+          <div class="va-switch__checker-wrapper">
             <span
-              class="va-switch__input"
+              class="va-switch__checker"
             >
               <va-progress-circle
                 v-if="loading"
@@ -180,13 +180,6 @@ export default {
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.switch__input {
-  position: absolute;
-  opacity: 0;
-  height: 0;
-  width: 0;
-}
-
 .va-switch {
   @at-root {
     .va-switch-container {
@@ -226,7 +219,7 @@ export default {
         min-width: 3rem;
       }
 
-      &__input {
+      &__checker {
         height: 1.1rem;
         width: 1.1rem;
       }
@@ -241,7 +234,7 @@ export default {
         min-width: 5rem;
       }
 
-      &__input {
+      &__checker {
         height: 1.8rem;
         width: 1.8rem;
       }
@@ -260,12 +253,12 @@ export default {
 
   &--checked {
     .va-switch {
-      &__input {
+      &__checker {
         margin: auto -0.3rem;
         transform: translateX(-100%);
       }
 
-      &__input-wrapper {
+      &__checker-wrapper {
         transform: translateX(100%);
       }
     }
@@ -339,7 +332,7 @@ export default {
     }
   }
 
-  &__input {
+  &__checker {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -356,7 +349,7 @@ export default {
     align-items: center;
   }
 
-  &__input-wrapper {
+  &__checker-wrapper {
     position: absolute;
     margin: auto;
     transform: translateX(0);
@@ -368,6 +361,13 @@ export default {
     height: 100%;
     transition: all 0.2s ease;
     pointer-events: none;
+  }
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
   }
 }
 </style>
