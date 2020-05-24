@@ -45,7 +45,6 @@
               <va-progress-circle
                 v-if="loading"
                 indeterminate
-                value="100"
                 :size="progressCircleSize"
                 :color="trackStyle.backgroundColor"
               />
