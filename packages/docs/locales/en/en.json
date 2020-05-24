@@ -188,12 +188,13 @@
         "input": "Use HTML Input instead of buttons to control `va-pagination` state",
         "hideOnSinglePage": "Component won't be displayed if only 1 page is available",
         "flat": "Applies `flat` style",
-        "total": "Set the amount of data pagination should iterate through. This prop should not be used with `pages` prop. Please, use either of them.",
-        "pageSize": "Set the amount of data to be displayed at 1 page. Used to calculate the length of pagination. This prop should not be used with `pages` prop. Please, use either of them.",
+        "total": "Set the amount of data pagination should iterate through. This prop should not be used with `pages` prop.",
+        "pageSize": "Set the amount of data to be displayed at 1 page. Used to calculate the length of pagination. This prop should not be used with `pages` prop.",
         "boundaryIconLeft": "Set the icon name for left boundary icon",
         "boundaryIconRight": "Set the icon name for right boundary icon",
         "directionIconLeft": "Set the icon name for left direction icon",
-        "directionIconRight": "Set the icon name for right direction icon"
+        "directionIconRight": "Set the icon name for right direction icon",
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available"
       }
     },
     "VaTabs": {
@@ -611,8 +612,20 @@
     "examples": {
       "subtitle": "Examples",
       "paragraph": "Here you can find some examples with simple or complex API usage",
+      "colors": {
+        "headline": "Color",
+        "paragraph": "Set different colors using `color` prop. You can either user theme string *HEX* color value"
+      },
+      "sizes": {
+        "headline": "Size",
+        "paragraph": "Utilize `size` prop in order to make component fit your needs. Refer to *API* section for more in-depth explanation of how to use `size` prop."
+      },
+      "icons": {
+        "headline": "Custom icons",
+        "paragraph": "Feeling the need to change icons for arrows? We have 4 props to enable full customization of `va-pagination` component."
+      },
       "limitVisible": {
-        "headline": "Limitting the length",
+        "headline": "Limiting the length",
         "paragraph": "By using `visible-pages` prop you can set the amount of pages visible on screen."
       },
       "withInput": {
