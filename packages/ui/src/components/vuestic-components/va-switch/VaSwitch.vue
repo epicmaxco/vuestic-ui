@@ -45,6 +45,7 @@
               <va-progress-circle
                 v-if="loading"
                 indeterminate
+                value="100"
                 :size="progressCircleSize"
                 :color="trackStyle.backgroundColor"
               />
@@ -132,7 +133,6 @@ export default {
       return this.c_label
     },
     computedClass () {
-      console.log('this.isKeyboardFocused', this.isKeyboardFocused)
       return {
         'va-switch--checked': this.isTrue,
         'va-switch--small': this.c_size === 'small',
@@ -200,7 +200,7 @@ export default {
 
     &:focus {
       outline: 0;
-      box-shadow: 0 0 0 4px rgba(52, 144, 220, 0.5);
+      box-shadow: 0 0 0 0.3rem rgba(52, 144, 220, 0.5);
     }
   }
 
@@ -215,14 +215,6 @@ export default {
       &__input {
         height: 1.1rem;
         width: 1.1rem;
-      }
-
-      &--checked {
-        .va-switch {
-          &__track-label {
-            margin: auto 25px auto 7px;
-          }
-        }
       }
     }
   }
@@ -239,14 +231,6 @@ export default {
         height: 1.8rem;
         width: 1.8rem;
       }
-
-      &--checked {
-        .va-switch {
-          &__track-label {
-            margin: auto 37px auto 7px;
-          }
-        }
-      }
     }
   }
 
@@ -262,12 +246,8 @@ export default {
 
   &--checked {
     .va-switch {
-      &__track-label {
-        margin: auto 33px auto 7px;
-      }
-
       &__input {
-        margin: auto -5px;
+        margin: auto -0.3rem;
         transform: translateX(-100%);
       }
 
@@ -284,7 +264,7 @@ export default {
       }
 
       &__track {
-        border: 2px solid $theme-danger;
+        border: 0.1rem solid $theme-danger;
       }
     }
   }
@@ -292,7 +272,6 @@ export default {
   &__label {
     cursor: pointer;
     text-align: left;
-    margin: 0 4px;
   }
 
   #{&}__track {
@@ -302,13 +281,13 @@ export default {
     height: 100%;
     width: 100%;
     background: $white;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease;
 
     @at-root {
       .va-switch--on-keyboard-focus#{&} {
         transition: all, 0.6s, ease-in;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
       }
       .va-switch--small#{&} {
         border-radius: 0.75rem;
@@ -321,29 +300,29 @@ export default {
 
   #{&}__track-label {
     color: $white;
-    margin: auto 7px auto 33px;
+    margin: auto 0.5rem auto 2rem;
 
     @at-root {
       .va-switch--checked#{&} {
-        margin: auto 33px auto 7px;
+        margin: auto 2rem auto 0.5rem;
       }
 
       .va-switch--small#{&} {
-        margin: auto 7px auto 25px;
+        margin: auto 0.5rem auto 1.55rem;
 
         @at-root {
           .va-switch--checked#{&} {
-            margin: auto 25px auto 7px;
+            margin: auto 1.55rem auto 0.5rem;
           }
         }
       }
 
       .va-switch--large#{&} {
-        margin: auto 7px auto 37px;
+        margin: auto 0.5rem auto 2.3rem;
 
         @at-root {
           .va-switch--checked#{&} {
-            margin: auto 37px auto 7px;
+            margin: auto 2.3rem auto 0.5rem;
           }
         }
       }
@@ -354,13 +333,13 @@ export default {
     position: absolute;
     top: 0;
     bottom: 0;
-    margin: auto 5px;
+    margin: auto 0.3rem;
     transform: translateX(0);
     height: 1.5rem;
     width: 1.5rem;
     background-color: $white;
     border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
     display: flex;
     justify-content: center;
