@@ -57,6 +57,7 @@
         ref="label"
         tabindex="-1"
         @blur="onBlur"
+        :style="labelStyle"
       >
         <slot>
           {{ computedLabel }}
@@ -151,6 +152,9 @@ export default {
     },
     trackStyle () {
       return {
+        borderColor: this.c_error
+          ? getColor(this, 'danger')
+          : '',
         backgroundColor: this.isTrue
           ? this.colorComputed
           : getColor(this, 'gray'),
@@ -158,6 +162,11 @@ export default {
     },
     computedTabindex () {
       return this.c_disabled ? -1 : 0
+    },
+    labelStyle () {
+      return this.c_error
+        ? { color: getColor(this, 'danger') }
+        : ''
     },
   },
 }
@@ -258,12 +267,8 @@ export default {
 
   &--error {
     .va-switch {
-      &__label {
-        color: $theme-danger;
-      }
-
       &__track {
-        border: 0.1rem solid $theme-danger;
+        border: 0.1rem solid;
       }
     }
   }
