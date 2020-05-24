@@ -164,9 +164,14 @@ export default {
       return this.c_disabled ? -1 : 0
     },
     labelStyle () {
-      return this.c_error
-        ? { color: getColor(this, 'danger') }
-        : ''
+      return {
+        color: this.c_error ? getColor(this, 'danger') : '',
+        padding: !this.c_label
+          ? ''
+          : this.c_leftLabel
+            ? '0 0.3rem 0 0'
+            : '0 0 0 0.3rem',
+      }
     },
   },
 }
@@ -187,6 +192,7 @@ export default {
     .va-switch-container {
       display: inline-flex;
       align-items: center;
+      padding: 0 0.3rem;
     }
   }
 
