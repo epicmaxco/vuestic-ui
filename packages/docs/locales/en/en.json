@@ -263,7 +263,8 @@
     "popovers": "Popovers",
     "chat": "Chat",
     "pagination": "Pagination",
-    "fileUpload": "File Upload"
+    "fileUpload": "File Upload",
+    "form": "Form"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -718,6 +719,22 @@
     "api": {
       "subtitle": "API",
       "paragraph": "Here are props, events and slots that are used in `va-file-upload` component."
+    }
+  },
+  "form": {
+    "title": "Form",
+    "paragraph": "Need more advanced validation than just `type=\"email\"` over your input elements? **`va-form`** has solution to offer.",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "All from elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you'd be able to specify exact cases when the field is *valid* or *invalid*."
+    },
+    "advanced" : {
+      "subtitle": "Trigger validation",
+      "paragraph": "You can trigger validation from parent component by using `validate()` method of `va-form` component."
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in `va-form` component."
     }
   }
 }

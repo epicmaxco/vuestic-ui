@@ -17,6 +17,10 @@
           "displayName": "menu.affix"
         },
         {
+          "name": "form",
+          "displayName": "menu.form"
+        },
+        {
           "name": "breadcrumbs",
           "displayName": "menu.breadcrumbs"
         },
