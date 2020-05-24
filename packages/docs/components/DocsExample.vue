@@ -3,7 +3,10 @@
     <p class="my-3">
       <component :is="component" />
     </p>
-    <va-content>
+    <va-button size="small" color="q#cacaca" @click="showCode = !showCode">
+      {{ $t('docsExample.showCode') }}
+    </va-button>
+    <va-content v-if="showCode">
       <DocsCode :code="parsed.template" language="markup" />
     </va-content>
   </div>
@@ -24,6 +27,7 @@ export default {
     },
   },
   data: () => ({
+    showCode: false,
     component: undefined,
     loading: false,
     parsed: {

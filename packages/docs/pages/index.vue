@@ -25,9 +25,7 @@
           />
           <va-icon slot="separator" name="arrow_forward_ios" :size="16" />
         </va-breadcrumbs>
-        <div>
-          <nuxt-child />
-        </div>
+        <nuxt-child />
       </div>
     </div>
   </div>
@@ -40,7 +38,7 @@ import VaBreadcrumbsItem from 'vuestic-ui/src/components/vuestic-components/va-b
 import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
-import { COLOR_THEMES, ThemeName } from '../themeConfig.ts'
+import { COLOR_THEMES, ThemeName } from '../theme-config'
 
 @Component({
   components: {
@@ -169,6 +167,10 @@ html {
     padding: 2em;
     padding-top: 0;
     width: calc(100% - 250px);
+
+    & > :last-child {
+      padding-bottom: 2em;
+    }
   }
 }
 </style>

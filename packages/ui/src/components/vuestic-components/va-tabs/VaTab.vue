@@ -32,7 +32,7 @@
 <script>
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
 import VaIcon from '../va-icon/VaIcon'
 
 const tabContextMixin = makeContextablePropsMixin({

@@ -4,12 +4,12 @@
     :class="badgeClass"
   >
     <div
-      class="va-badge__content-wrapper"
+      class="va-badge__text-wrapper"
       :style="badgeStyle"
     >
-      <div class="va-badge__content">
-        <slot name="badge">
-          {{ c_label }}
+      <div class="va-badge__text">
+        <slot name="text">
+          {{ c_text }}
         </slot>
       </div>
     </div>
@@ -30,7 +30,7 @@ const contextConfigMixin = makeContextablePropsMixin({
     type: String,
     default: 'white',
   },
-  label: {
+  text: {
     type: [String, Number],
     default: '',
   },
@@ -69,7 +69,7 @@ export default {
   mixins: [ColorThemeMixin, contextConfigMixin],
   computed: {
     isEmpty () {
-      if (this.c_label || this.c_visibleEmpty || this.c_dot || this.$slots.badge) {
+      if (this.c_text || this.c_visibleEmpty || this.c_dot || this.$slots.text) {
         return false
       }
 
@@ -110,7 +110,7 @@ export default {
   position: relative;
   vertical-align: bottom;
 
-  &__content-wrapper {
+  &__text-wrapper {
     transition: $transition-secondary;
     display: inline-flex;
     border: solid $badge-border;
@@ -197,7 +197,7 @@ export default {
     }
   }
 
-  &__content {
+  &__text {
     margin: 0;
     text-transform: uppercase;
     overflow: hidden;

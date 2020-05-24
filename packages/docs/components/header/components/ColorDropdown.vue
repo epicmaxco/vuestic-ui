@@ -63,7 +63,7 @@
 <script lang="ts">
 // @ts-nocheck
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import { ThemeName } from '../../../themeConfig.ts'
+import { ThemeName } from '../../../theme-config'
 import { capitalize } from 'lodash'
 
 @Component({})

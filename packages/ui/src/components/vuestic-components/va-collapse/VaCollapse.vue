@@ -17,7 +17,7 @@
         v-if="!customHeader"
         class="va-collapse__header__content"
       >
-        <slot name="header" />
+        <slot name="header"/>
         <va-icon
           v-if="show"
           class="va-collapse__header__icon"
@@ -34,24 +34,21 @@
       class="va-collapse__body"
       :style="stylesComputed"
     >
-      <slot name="body" />
+      <slot/>
     </div>
   </div>
 </template>
 
-<script>
-import VaIcon from '../va-icon/VaIcon'
+<script lang="ts">
 
-export default {
-  name: 'VaCollapse',
-  components: { VaIcon },
-  props: {
-    isOpenDefault: {
-      type: Boolean,
-    },
-    withBackground: Boolean,
-    customHeader: Boolean,
-  },
+import { Component } from 'vue-property-decorator'
+import VaIcon from '../va-icon/VaIcon.vue'
+import {
+  makeContextablePropsMixin,
+} from '../../context-test/context-provide/ContextPlugin'
+import { mixins } from 'vue-class-component'
+
+@Component({
   inject: {
     accordion: {
       default: () => ({
@@ -59,50 +56,66 @@ export default {
       }),
     },
   },
-  data () {
-    return {
-      show: this.isOpenDefault,
-    }
+  components: {
+    VaIcon,
   },
-  computed: {
-    stylesComputed () {
-      if (this.show && this.$slots.body[0]) {
-        return {
-          height: this.getHeight(),
-          paddingTop: 1 + 'rem',
-          paddingBottom: 1 + 'rem',
-        }
-      }
+  mixins: [
+    makeContextablePropsMixin({
+      isOpenDefault: { type: Boolean },
+      withBackground: { type: Boolean },
+      customHeader: { type: Boolean },
+    }),
+  ],
+})
+export default class VaCollapse extends mixins(
+  makeContextablePropsMixin({
+    isOpenDefault: { type: Boolean },
+    withBackground: { type: Boolean },
+    customHeader: { type: Boolean },
+  }),
+) {
+  show = false
+
+  get stylesComputed () {
+    if (this.show && this.$slots.default?.[0]) {
       return {
-        height: 0,
-        paddingTop: 0,
-        paddingBottom: 0,
+        height: this.getHeight(),
+        paddingTop: 1 + 'rem',
+        paddingBottom: 1 + 'rem',
       }
-    },
-  },
-  methods: {
-    onHeaderClick () {
-      this.toggle()
-      this.accordion.onChildChange(this, this.show)
-    },
-    collapse () {
-      this.show = false
-    },
-    expand () {
-      this.show = true
-    },
-    toggle () {
-      if (this.show) {
-        this.collapse()
-      } else {
-        this.expand()
-      }
-    },
-    getHeight () {
-      return this.$slots.body[0].elm ? 'calc(' + this.$slots.body[0].elm.clientHeight +
-        'px + 2rem)' : '100%'
-    },
-  },
+    }
+    return {
+      height: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+    }
+  }
+
+  onHeaderClick () {
+    this.toggle()
+    this.accordion.onChildChange(this, this.show)
+  }
+
+  collapse () {
+    this.show = false
+  }
+
+  expand () {
+    this.show = true
+  }
+
+  toggle () {
+    if (this.show) {
+      this.collapse()
+    } else {
+      this.expand()
+    }
+  }
+
+  getHeight () {
+    const node = this.$slots.default?.[0].elm as HTMLElement
+    return node ? `calc(${node.clientHeight}px + 2rem))` : '100%'
+  }
 }
 </script>
 

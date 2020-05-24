@@ -4,18 +4,18 @@
       <tr>
         <td colspan="2">
           <VbCard title="Regular badges">
-            <va-badge label="Paid" />
+            <va-badge text="Paid" />
             <va-badge
-              label="Success theme color"
+              text="Success theme color"
               color="success"
             />
           </VbCard>
         </td>
         <td colspan="2">
           <VbCard title="Text color">
-            <va-badge label="Default" />
+            <va-badge text="Default" />
             <va-badge
-              label="Dark theme color"
+              text="Dark theme color"
               text-color="dark"
             />
           </VbCard>
@@ -24,55 +24,47 @@
       <tr>
         <td>
           <VbCard title="Floated badges">
-            <va-badge label="Regular">
+            <va-badge text="Regular">
               Float at
             </va-badge><br><br>
             <va-badge
-              label="Bottom"
+              text="Bottom"
               bottom
             >
               Float at
             </va-badge><br><br>
             <va-badge
-              label="Left"
+              text="Left"
               left
             >
               Float at
             </va-badge><br><br>
             <va-badge
-              label="Bottom+Left"
+              text="Bottom+Left"
               bottom
               left
             >
               Float at
             </va-badge><br><br>
-            <va-badge label="icon">
+            <va-badge text="icon">
               <va-icon name="face" />
             </va-badge><br><br>
           </VbCard>
         </td>
         <td>
           <VbCard title="Slotted label">
-            <va-badge label="I am Label">
-              only label
-            </va-badge><br><br>
-            <va-badge label="I am Badge">
-              <template v-slot:badge>
-                I am Badge
-              </template>slotted badge
-            </va-badge><br><br>
-            <va-badge label="I am Label">
-              <template v-slot:badge>
+            <va-badge text="I am Label">
+              <template #text>
                 I am Badge
               </template>label + slotted badge
             </va-badge><br><br>
-            <va-badge label="I am Label">
-              <template v-slot:badge>
+            <va-badge text="I am Label">
+              <template #text>
                 <va-icon name="face" />
               </template>slotted icon
             </va-badge><br><br>
-            <va-badge label="I am Label">
-              <template v-slot:badge>
+            <va-badge text="I am Label">
+              <template #text>
                 <va-icon name="face" />
               </template><va-icon name="face" />
             </va-badge><br><br>
@@ -81,17 +73,17 @@
         <td>
           <VbCard title="MultiLine badges">
             <va-badge>
-              <template v-slot:badge>
+              <template #text>
                 Multi<br>Line
               </template>without multi-line prop
             </va-badge><br><br>
             <va-badge multi-line>
-              <template v-slot:badge>
+              <template #text>
                 Multi<br>Line
               </template>Multi line
             </va-badge><br><br>
             <va-badge multi-line>
-              <template v-slot:badge>
+              <template #text>
                 Multi<br>Line<br>more
               </template>Multi line
             </va-badge><br><br>
@@ -99,7 +91,7 @@
               Regular non float badge
               <va-badge
                 multi-line
-                label="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+                text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
               /><br><br>
             </div>
           </VbCard>
@@ -108,27 +100,27 @@
           <VbCard title="Dotted badges">
             <va-badge
               dot
-              label="Regular"
+              text="Regular"
             >
               Regular
             </va-badge><br><br>
             <va-badge
               dot
-              label="Bottom"
+              text="Bottom"
               bottom
             >
               Bottom
             </va-badge><br><br>
             <va-badge
               dot
-              label="Left"
+              text="Left"
               left
             >
               Left
             </va-badge><br><br>
             <va-badge
               dot
-              label="Bottom+Left"
+              text="Bottom+Left"
               bottom
               left
             >
@@ -136,7 +128,7 @@
             </va-badge><br><br>
             <va-badge
               dot
-              label="Regular"
+              text="Regular"
             >
               <va-icon name="face" />
             </va-badge><br><br>
@@ -148,27 +140,27 @@
           <VbCard title="Overlap badges">
             <va-badge
               overlap
-              label="overlap"
+              text="overlap"
             >
               Regular
             </va-badge><br><br>
             <va-badge
               overlap
-              label="overlap"
+              text="overlap"
               bottom
             >
               Bottom
             </va-badge><br><br>
             <va-badge
               overlap
-              label="overlap"
+              text="overlap"
               left
             >
               Left
             </va-badge><br><br>
             <va-badge
               overlap
-              label="overlap"
+              text="overlap"
               bottom
               left
             >
@@ -176,7 +168,7 @@
             </va-badge><br><br>
             <va-badge
               overlap
-              label="1+"
+              text="1+"
             >
               <va-icon name="face" />
             </va-badge><br><br>
@@ -187,14 +179,14 @@
             <va-badge
               dot
               overlap
-              label="dot overlap"
+              text="dot overlap"
             >
               Regular
             </va-badge><br><br>
             <va-badge
               dot
               overlap
-              label="dot overlap"
+              text="dot overlap"
               bottom
             >
               Bottom
@@ -202,7 +194,7 @@
             <va-badge
               dot
               overlap
-              label="dot overlap"
+              text="dot overlap"
               left
             >
               Left
@@ -210,7 +202,7 @@
             <va-badge
               dot
               overlap
-              label="dot overlap"
+              text="dot overlap"
               bottom
               left
             >
@@ -219,7 +211,7 @@
             <va-badge
               dot
               overlap
-              label="icon"
+              text="icon"
             >
               <va-icon name="face" />
             </va-badge><br><br>
@@ -234,7 +226,7 @@
               visible-empty
               dot
             /><br>
-            Not empty: <va-badge label="not empty" /><br>
+            Not empty: <va-badge text="not empty" /><br>
           </VbCard>
         </td>
         <td>
@@ -244,12 +236,12 @@
               transparent
             /><br>
             Default: <va-badge
-              label="label"
+              text="label"
               transparent
             /><br>
             <br>
             Slotted: <va-badge
-              label="label"
+              text="label"
               transparent
             >
               content
@@ -295,7 +287,7 @@
               :bottom="bottom"
               :left="left"
               :overlap="overlap"
-              :label="label"
+              :text="label"
               :dot="dot"
               :visible-empty="visibleEmpty"
             >
@@ -306,7 +298,7 @@
               :bottom="bottom"
               :left="left"
               :overlap="overlap"
-              :label="label"
+              :text="label"
               :dot="dot"
               :visible-empty="visibleEmpty"
             >
@@ -321,14 +313,14 @@
 
     <VbCard title="Interaction with components">
       <va-button>
-        <va-badge label="10+">
+        <va-badge text="10+">
           Button
         </va-badge>
       </va-button>
       <br>
       <br>
       <va-badge
-        label="10+"
+        text="10+"
         overlap
       >
         <va-card>
@@ -340,6 +332,8 @@
       <br>
       <br>
     </VbCard>
+
+    <BadgeAvatarDemo/>
   </VbDemo>
 </template>
 
@@ -349,9 +343,10 @@ import VaButton from '../va-button/VaButton'
 import VaCard from '../va-card/VaCard'
 import VaCardContent from '../va-card/VaCardContent'
 import VaIcon from '../va-icon/VaIcon'
+import BadgeAvatarDemo from './BadgeAvatarDemo'
 
 export default {
-  components: { VaBadge, VaButton, VaCard, VaCardContent, VaIcon },
+  components: { BadgeAvatarDemo, VaBadge, VaButton, VaCard, VaCardContent, VaIcon },
   data () {
     return {
       label: '1234',

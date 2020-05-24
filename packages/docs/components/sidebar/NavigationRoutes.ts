@@ -1,4 +1,5 @@
 import { TranslationString } from '../../../ui/src/services/api-docs/ManualApiOptions'
+import scheme from './navigationScheme.json'
 
 export type NavigationRoute = {
   name: string,
@@ -15,53 +16,4 @@ export type NavigationScheme = {
   routes: NavigationRoute[],
 }
 
-export const navigationRoutes: NavigationScheme = {
-  root: {
-    name: '/',
-    displayName: 'navigationRoutes.home',
-  },
-  routes: [
-    {
-      name: 'ui',
-      displayName: 'menu.uiElements',
-      meta: {
-        iconClass: 'vuestic-iconset-ui-elements',
-      },
-      disabled: true,
-      children: [
-        {
-          name: 'affix',
-          displayName: 'menu.affix',
-        },
-        {
-          name: 'fileUpload',
-          displayName: 'menu.fileUpload',
-        },
-        {
-          name: 'modals',
-          displayName: 'menu.modals',
-        },
-        {
-          name: 'pagination',
-          displayName: 'menu.pagination',
-        },
-        {
-          name: 'rating',
-          displayName: 'menu.rating',
-        },
-        {
-          name: 'slider',
-          displayName: 'menu.sliders',
-        },
-        {
-          name: 'switch',
-          displayName: 'menu.switches',
-        },
-        {
-          name: 'tabs',
-          displayName: 'menu.tabs',
-        },
-      ],
-    },
-  ],
-}
+export const navigationRoutes: NavigationScheme = scheme

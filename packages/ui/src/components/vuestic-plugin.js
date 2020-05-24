@@ -7,7 +7,10 @@ import VaButtonGroup
   from './vuestic-components/va-button-group/VaButtonGroup.vue'
 import VaButtonToggle
   from './vuestic-components/va-button-toggle/VaButtonToggle.vue'
+import VaBreadcrumbs from './vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
+import VaBreadcrumbsItem from './vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
 import VaCard from './vuestic-components/va-card/VaCard'
+import VaCardContent from './vuestic-components/va-card/VaCardContent'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
 import VaCollapse from './vuestic-components/va-collapse/VaCollapse'
 import VaContent from './vuestic-components/va-content/VaContent'
@@ -94,7 +97,10 @@ const VuesticPlugin = {
       VaButton,
       VaButtonGroup,
       VaButtonToggle,
+      VaBreadcrumbs,
+      VaBreadcrumbsItem,
       VaCard,
+      VaCardContent,
       VaCheckbox,
       VaCollapse,
       VaContent,
