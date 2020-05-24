@@ -160,9 +160,6 @@ export default {
           : getColor(this, 'gray'),
       }
     },
-    computedTabindex () {
-      return this.c_disabled ? -1 : 0
-    },
     labelStyle () {
       return {
         color: this.c_error ? getColor(this, 'danger') : '',
