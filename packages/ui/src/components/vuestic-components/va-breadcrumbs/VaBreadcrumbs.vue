@@ -1,59 +1,57 @@
-<script>
+<script lang="ts">
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import {
-  ContextPluginMixin,
-  getContextPropValue,
+  makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
 import { hasOwnProperty } from '../../../services/utils'
+import { Mixins, Component } from 'vue-property-decorator'
+import { VNode, VNodeChildren } from 'vue'
+import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
+import { RecordPropsDefinition } from 'vue/types/options'
 
-export default {
-  name: 'VaBreadcrumbs',
-  mixins: [ColorThemeMixin, AlignMixin, ContextPluginMixin],
-  props: {
-    color: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'color', 'gray')
-      },
-    },
-    separatorColor: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'separatorColor', null)
-      },
-    },
-    activeColor: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'activeColor', null)
-      },
-    },
-    separator: {
-      type: String,
-      default () {
-        return getContextPropValue(this, 'separator', '/')
-      },
-    },
+const props = {
+  separator: {
+    type: String,
+    default: '/',
   },
-  computed: {
-    computedStyles () {
-      return this.alignComputed
-    },
-    computedThemesSeparatorColor () {
-      return this.separatorColor ? this.computeColor(this.separatorColor) : this.colorComputed
-    },
-    computedThemesActiveColor () {
-      return this.activeColor ? this.computeColor(this.activeColor) : this.colorComputed
-    },
+  color: {
+    type: String,
+    default: 'gray',
   },
-  render (createElement) {
-    const childNodeFilter = ({ tag } = null) => tag ? tag.match(/VaBreadcrumbsItem$/) : false
+  activeColor: {
+    type: String,
+    default: null,
+  },
+  separatorColor: {
+    type: String,
+    default: null,
+  },
+}
+
+const ContextableMixin = makeContextablePropsMixin(props)
+
+@Component({})
+export default class VaBreadcrumbs extends Mixins(ColorThemeMixin, AlignMixin, ContextableMixin) {
+  get computedStyles () {
+    return this.alignComputed
+  }
+
+  get computedThemesSeparatorColor () {
+    return this.separatorColor ? this.computeColor(this.c_separatorColor) : this.colorComputed
+  }
+
+  get computedThemesActiveColor () {
+    return this.activeColor ? this.computeColor(this.c_activeColor) : this.colorComputed
+  }
+
+  render (createElement: Vue.CreateElement) {
+    const childNodeFilter = (node?: VNode) => !!node?.tag?.match(/VaBreadcrumbsItem$/)
 
     const childNodes = this.$slots.default?.filter(childNodeFilter) || []
 
     const childNodesLength = childNodes.length
-    const isLastIndexChildNodes = (index) => index === childNodesLength - 1
+    const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
 
     const separatorNode = this.$slots.separator || [this.separator]
 
@@ -69,8 +67,8 @@ export default {
       separatorNode,
     )
 
-    const isDisabledChild = (child) => {
-      const childPropData = child && child.componentOptions && child.componentOptions.propsData
+    const isDisabledChild = (child: VNode) => {
+      const childPropData = child?.componentOptions?.propsData as RecordPropsDefinition<VaBreadcrumbsItem>
       if (!childPropData || !hasOwnProperty(childPropData, 'disabled')) {
         return false
       }
@@ -82,7 +80,7 @@ export default {
       return Boolean(childPropData.disabled)
     }
 
-    const createChildComponent = (child, index) => createElement(
+    const createChildComponent = (child: VNode, index: number) => createElement(
       'span', {
         staticClass: 'va-breadcrumbs__item',
         style: {
@@ -92,10 +90,10 @@ export default {
       [child],
     )
 
-    const children = []
+    const children = [] as VNode[]
 
     if (childNodesLength) {
-      childNodes.forEach((child, index) => {
+      childNodes.forEach((child: VNode, index: number) => {
         children.push(createChildComponent(child, index))
 
         if (!isLastIndexChildNodes(index)) {
@@ -109,8 +107,8 @@ export default {
       style: {
         ...this.computedStyles,
       },
-    }, children)
-  },
+    }, children as VNodeChildren)
+  }
 }
 </script>
 

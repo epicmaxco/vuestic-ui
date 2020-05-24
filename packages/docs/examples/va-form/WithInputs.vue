@@ -1,8 +1,12 @@
 <template>
   <div>
-    <va-button @click="$refs.form.validate()">Validate</va-button>
+    <va-button
+      class="mb-2 mr-2"
+      @click="$refs.form.validate()"
+    >Validate</va-button>
     <va-form ref="form">
       <va-input
+        class="mb-2 mr-2"
         label="Name"
         v-model="inputValue"
         stateful

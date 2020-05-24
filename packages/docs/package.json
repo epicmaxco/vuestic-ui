@@ -11,7 +11,8 @@
     "start": "nuxt-ts start",
     "lint": "eslint --ext .js,.vue,.ts --ignore-path ./../../.gitignore .",
     "generate": "nuxt-ts generate",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "generate:component": "plop --plopfile scripts/generators/index.js"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.1",
@@ -39,20 +40,21 @@
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.1",
     "@nuxtjs/eslint-config-typescript": "^1.0.2",
-    "eslint": "^6.8.0",
-    "markdown-it": "^10.0.0",
-    "nuxt-i18n": "^6.9.1",
-    "stylelint": "^13.3.3",
+    "@types/lodash": "^4.14.149",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "@vue/eslint-config-standard": "^5.1.0",
     "@vue/eslint-config-typescript": "^5.0.1",
+    "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.1.2",
-    "@types/lodash": "^4.14.149",
+    "markdown-it": "^10.0.0",
+    "nuxt-i18n": "^6.9.1",
+    "plop": "^2.7.0",
+    "stylelint": "^13.3.3",
     "terser-webpack-plugin": "^3.0.1"
   },
   "lint-staged": {
