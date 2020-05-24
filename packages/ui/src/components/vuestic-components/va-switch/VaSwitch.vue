@@ -25,6 +25,7 @@
           :id="id"
           :name="name"
           readonly
+          :disabled="c_disabled"
           @focus="onFocus"
           @blur="onBlur"
           @keypress.prevent="toggleSelection()"
