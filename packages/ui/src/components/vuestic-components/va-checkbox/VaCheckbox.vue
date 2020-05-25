@@ -85,16 +85,19 @@ export default {
         'va-checkbox--disabled': this.c_disabled,
         'va-checkbox--indeterminate': this.c_indeterminate,
         'va-checkbox--error': this.computedError,
-        'va-checkbox--left-label': this.leftLabel,
+        'va-checkbox--left-label': this.c_leftLabel,
         'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
       }
     },
     labelStyle () {
-      if (this.computedError) {
-        return { color: getColor(this, 'danger') }
+      return {
+        color: this.computedError ? getColor(this, 'danger') : '',
+        padding: !this.c_label
+          ? ''
+          : this.c_leftLabel
+            ? '0 0.25rem 0 0'
+            : '0 0 0 0.25rem',
       }
-
-      return {}
     },
     inputStyle () {
       if (this.computedError) {
@@ -127,6 +130,7 @@ export default {
   &__input-container {
     align-items: center;
     display: flex;
+    padding: 0 0.3rem;
     cursor: pointer;
 
     @at-root {
@@ -174,7 +178,6 @@ export default {
   &__label {
     display: inline-block;
     position: relative;
-    margin: 0 0.25rem;
   }
 
   &__icon {
