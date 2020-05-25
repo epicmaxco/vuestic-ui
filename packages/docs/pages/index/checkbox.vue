@@ -1,0 +1,20 @@
+<template>
+  <docs-content :config="configComputed"/>
+</template>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import DocsContent from '../../components/DocsContent'
+import checkboxConfig from '../../components/page-configs/va-checkbox/page-config'
+
+@Component({
+  components: {
+    DocsContent,
+  },
+})
+export default class Checkbox extends Vue {
+  get configComputed () {
+    return checkboxConfig
+  }
+}
+</script>

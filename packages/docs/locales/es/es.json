@@ -25,17 +25,27 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaCheckbox": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
     "modals": "Modals",
-    "uiElements": "Elementos UI"
+    "uiElements": "Elementos UI",
+    "checkbox": "Checkbox"
   },
   "language": {
     "brazilian_portuguese": "Português",
     "english": "English",
     "spanish": "Spanish",
     "simplified_chinese": "Versión abreviada"
+  },
+  "checkbox": {
+    "title": "-- Here is the title --"
   },
   "divider": {}
 }

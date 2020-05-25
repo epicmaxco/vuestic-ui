@@ -75,6 +75,10 @@
         {
           "name": "divider",
           "displayName": "menu.divider"
+        },
+        {
+          "name": "checkbox",
+          "displayName": "menu.checkbox"
         }
       ]
     }

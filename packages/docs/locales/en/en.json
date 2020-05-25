@@ -31,7 +31,12 @@
         "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
         "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
         "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
-        "square": "Removes **border-radius**"
+        "square": "Removes **border-radius**",
+        "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
+        "label": "Same as native `label`",
+        "leftLabel": "Moves the label on the left of a checkbox",
+        "trueValue": "Overrides the returned value when it's checked",
+        "falseValue": "Overrides the returned value when it's not checked"
       }
     },
     "VaBadge": {
@@ -318,6 +323,17 @@
       "slots": {
         "default": "Use this slot to replace default content to be displayed inside the component"
       }
+    },
+    "VaCheckbox": {
+      "props": {
+        "value": "The value of the checkbox",
+        "indeterminate": "Same as native `indeterminate` - a state in which it's impossible to say whether the item is toggled `on` or `off`",
+        "checkedIcon": "Overrides the `checked` icon",
+        "indeterminateIcon": "Overrides the `indeterminate` icon"
+      },
+      "events": {
+        "input": "Emitted when the component needs to change the value"
+      }
     }
   },
   "anyPage": {
@@ -344,7 +360,8 @@
     "form": "Form",
     "optionList": "Option List",
     "divider": "Divider",
-    "button": "Button"
+    "button": "Button",
+    "checkbox": "Checkbox"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -965,6 +982,34 @@
       "withComplexData": {
         "title": "Array of objects",
         "text": "Instead of array of strings you can provide array of objects and specify which key is for each setting."
+      }
+    }
+  },
+  "checkbox": {
+    "title": "Checkbox",
+    "summaryText": "Checkboxes allow the user to select multiple options from a set.",
+    "examples": {
+      "default": {
+        "title": "Standard",
+        "text": "Perfectly works with `v-model` by default."
+      },
+      "label": {
+        "title": "Label",
+        "text": "You can add a label text by setting the `label` property. You can also set the `left-label` property to move your label on the left side of a checkbox."
+      },
+      "indeterminate": {
+        "title": "Indeterminate"
+      },
+      "coloring": {
+        "title": "Coloring"
+      },
+      "array": {
+        "title": "Grouped (Array)",
+        "text": "Just add the same `v-model` to multiple checkboxes, and set the `array-value` prop."
+      },
+      "error": {
+        "title": "Errors",
+        "text": "You can show your error messages while using `va-checkbox` with form."
       }
     }
   }
