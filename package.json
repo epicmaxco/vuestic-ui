@@ -21,7 +21,8 @@
     "build:docs": "yarn workspace @vuestic-ui/docs build",
     "generate:docs": "yarn workspace @vuestic-ui/docs generate",
     "push": "yarn workspace vuestic-ui push",
-    "push-production": "yarn workspace vuestic-ui ush-production"
+    "push-production": "yarn workspace vuestic-ui ush-production",
+    "generate:component": "yarn workspace @vuestic-ui/docs generate:component"
   },
   "workspaces": [
     "packages/*"

@@ -33,6 +33,30 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'pagination.examples.colors.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'pagination.examples.colors.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-pagination/Colors',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'pagination.examples.sizes.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'pagination.examples.sizes.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-pagination/Sizes',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'pagination.examples.limitVisible.headline',
   },
   {
@@ -42,6 +66,18 @@ export default [
   {
     type: BlockType.EXAMPLE,
     component: 'va-pagination/LimitVisible',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'pagination.examples.icons.headline',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'pagination.examples.icons.paragraph',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-pagination/Icons',
   },
   {
     type: BlockType.HEADLINE,

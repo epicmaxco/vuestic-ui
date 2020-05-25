@@ -8,18 +8,23 @@ export default {
   },
   methods: {
     validate: {
+      local: true,
       types: '`() => boolean`',
     },
     focus: {
+      local: true,
       types: '`() => void`',
     },
     focusInvalid: {
+      local: true,
       types: '`() => void`',
     },
     resetValidation: {
+      local: true,
       types: '`() => boolean`',
     },
     reset: {
+      local: true,
       types: '`() => boolean`',
     },
   },

@@ -82,7 +82,7 @@
           v-for="(apiSlotOption, slotName) in apiTableData.slots"
           :key="slotName"
         >
-          <td>{{ slotName }}</td>
+          <td><strong>{{ slotName }}</strong></td>
           <td>
             <MarkdownView :value="$t(apiSlotOption.description)"/>
           </td>
@@ -110,7 +110,7 @@
           v-for="(apiMethodOption, methodName) in apiTableData.methods"
           :key="methodName"
         >
-          <td>{{ methodName }}</td>
+          <td><strong>{{ methodName }}</strong></td>
           <td>
             <MarkdownView :value="$t(apiMethodOption.description)"/>
           </td>
