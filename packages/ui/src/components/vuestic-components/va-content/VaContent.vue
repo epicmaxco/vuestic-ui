@@ -95,7 +95,8 @@ export default {
     @extend .va-ordered;
   }
 
-  ul {
+  //This is kind of weird though not sure about any workaround :(
+  ul:not(.va-option-list__list) {
     @extend .va-unordered;
   }
 
