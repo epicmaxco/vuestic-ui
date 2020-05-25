@@ -10,7 +10,7 @@
     :error-count="errorCount"
   >
     <div
-      class="va-switch-container"
+      class="va-switch__container"
       @click="clickWrapper()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
@@ -22,6 +22,8 @@
         <input
           class="va-switch__input"
           ref="input"
+          type="checkbox"
+          role="checkbox"
           :id="id"
           :name="name"
           readonly
@@ -179,7 +181,7 @@ export default {
 
 .va-switch {
   @at-root {
-    .va-switch-container {
+    .va-switch__container {
       display: inline-flex;
       align-items: center;
       padding: 0 0.3rem;
@@ -243,7 +245,7 @@ export default {
   }
 
   &--left-label {
-    .va-switch-container {
+    .va-switch__container {
       flex-direction: row-reverse;
     }
   }
