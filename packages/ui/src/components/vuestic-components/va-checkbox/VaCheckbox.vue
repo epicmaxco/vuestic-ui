@@ -99,7 +99,7 @@ export default {
     inputStyle () {
       if (this.computedError) {
         if (this.isTrue) {
-          return { background: this.colorComputed }
+          return { background: this.colorComputed, borderColor: getColor(this, 'danger') }
         } else {
           return { borderColor: getColor(this, 'danger') }
         }
@@ -160,7 +160,7 @@ export default {
     @at-root {
       .va-checkbox--on-keyboard-focus#{&} {
         transition: all, 0.6s, ease-in;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
       }
     }
   }
@@ -185,21 +185,8 @@ export default {
 
   &--selected {
     .va-checkbox {
-      &__square {
-        background-color: $vue-green;
-        border-color: $vue-green;
-      }
-
       &__icon {
         color: $white;
-      }
-    }
-  }
-
-  &--error {
-    .va-checkbox {
-      &__square {
-        border-color: $theme-danger;
       }
     }
   }
