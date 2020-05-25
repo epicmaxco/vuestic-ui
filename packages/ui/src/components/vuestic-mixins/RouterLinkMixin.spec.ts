@@ -13,7 +13,7 @@ export default class ExampleComponent extends mixins(RouterLinkMixin) {
 const stringProps = ['to', 'activeClass', 'exactActiveClass']
 const booleanProps = ['replace', 'append', 'exact']
 
-describe('AlignMixin', () => {
+describe('RouterLinkMixin', () => {
   it('hasRouterLinkParams works correctly', () => {
     stringProps.forEach(prop => {
       const wrapper = shallowMount(ExampleComponent)
