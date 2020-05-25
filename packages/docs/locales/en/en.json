@@ -752,7 +752,6 @@
   "card": {
     "title": "Card",
     "text": "The `va-card` is a multipurpose representative component that can be used for anything from links to articles. It has some helper components to make markup easier.",
-
     "examples": {
       "default": {
         "title": "Default",

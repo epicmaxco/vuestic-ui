@@ -1,6 +1,6 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-// should not be contextable as it's a unique case (we just pass values to vue-router's <router-link/>
+// should not be contextable as it's a unique case (we just pass values to vue-router's <router-link/>)
 @Component
 export class RouterLinkMixin extends Vue {
   @Prop({

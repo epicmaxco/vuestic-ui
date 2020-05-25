@@ -18,73 +18,78 @@
       class="va-card__stripe"
       :style="stripeStyles"
     />
-    <slot />
+    <slot/>
   </component>
 </template>
 
-<script>
+<script lang="ts">
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import Component, { mixins } from 'vue-class-component'
 
-const contextConfigMixin = makeContextablePropsMixin({
-  tag: { type: String, default: 'div' },
-  square: { type: Boolean, default: false },
-  outlined: { type: Boolean, default: false },
-  bordered: { type: Boolean, default: true },
-  disabled: { type: Boolean, default: false },
-  href: { type: String, default: null },
-  target: { type: String, default: null },
-  stripe: { type: Boolean, default: false },
-  stripeColor: { type: String, default: '' },
-  gradient: { type: Boolean, default: false },
-})
-
-export default {
+@Component({
   name: 'VaCard',
-  mixins: [ColorThemeMixin, RouterLinkMixin, contextConfigMixin],
-  computed: {
-    cardTag () {
-      if (this.c_tag === 'a' || this.c_href) {
-        return 'a'
-      }
+})
+export default class VaCard extends mixins(
+  ColorThemeMixin,
+  RouterLinkMixin,
+  makeContextablePropsMixin({
+    tag: { type: String, default: 'div' },
+    square: { type: Boolean, default: false },
+    outlined: { type: Boolean, default: false },
+    bordered: { type: Boolean, default: true },
+    disabled: { type: Boolean, default: false },
+    href: { type: String, default: null },
+    target: { type: String, default: null },
+    stripe: { type: Boolean, default: false },
+    stripeColor: { type: String, default: '' },
+    gradient: { type: Boolean, default: false },
+  }),
+) {
+  get cardTag () {
+    if (this.c_tag === 'a' || this.c_href) {
+      return 'a'
+    }
 
-      if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
-        return 'router-link'
-      }
+    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
+      return 'router-link'
+    }
 
-      return this.c_tag
-    },
-    cardClasses () {
+    return this.c_tag
+  }
+
+  get cardClasses () {
+    return {
+      'va-card--dark': this.dark,
+      'va-card--square': this.c_square,
+      'va-card--outlined': this.c_outlined,
+      'va-card--no-border': !this.c_bordered,
+      'va-card--disabled': this.c_disabled,
+      'va-card--link': this.c_href || this.hasRouterLinkParams,
+    }
+  }
+
+  get cardStyles () {
+    const color = this.dark ? this.computeColor(this.c_color) : getColor(this, this.c_color, '#ffffff')
+
+    if (this.c_gradient && this.c_color) {
       return {
-        'va-card--dark': this.dark,
-        'va-card--square': this.c_square,
-        'va-card--outlined': this.c_outlined,
-        'va-card--no-border': !this.c_bordered,
-        'va-card--disabled': this.c_disabled,
-        'va-card--link': this.c_href || this.hasRouterLinkParams,
+        background: getGradientBackground(color),
       }
-    },
-    cardStyles () {
-      const color = this.dark ? this.computeColor(this.c_color) : getColor(this, this.c_color, '#ffffff')
+    }
 
-      if (this.c_gradient && this.c_color) {
-        return {
-          background: getGradientBackground(color),
-        }
-      }
+    return {
+      'background-color': color,
+    }
+  }
 
-      return {
-        'background-color': color,
-      }
-    },
-    stripeStyles () {
-      return {
-        'background-color': this.computeColor(this.c_stripeColor),
-      }
-    },
-  },
+  get stripeStyles () {
+    return {
+      'background-color': this.computeColor(this.c_stripeColor),
+    }
+  }
 }
 </script>
 

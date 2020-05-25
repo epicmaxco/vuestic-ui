@@ -1,5 +1,4 @@
 import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
-import { VueConstructor } from 'vue'
 import VaCard
   from 'vuestic-ui/src/components/vuestic-components/va-card/VaCard.vue'
 import apiOptions from './api-options'
@@ -83,15 +82,11 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'card.api.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'card.api.paragraph',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,
-    componentOptions: VaCard as unknown as VueConstructor,
+    componentOptions: VaCard,
     apiOptions,
   },
   {
