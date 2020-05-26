@@ -53,18 +53,6 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'button.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
     translationString: 'button.examples.withStyle.title',
   },
   {

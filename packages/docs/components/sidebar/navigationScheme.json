@@ -17,6 +17,10 @@
           "displayName": "menu.affix"
         },
         {
+          "name": "button",
+          "displayName": "menu.button"
+        },
+        {
           "name": "form",
           "displayName": "menu.form"
         },

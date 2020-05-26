@@ -17,6 +17,6 @@ export default {
     default: { local: true },
   },
   events: {
-    click: { local: true, types: '`() => void`' },
+    click: { local: true, types: '`() => Event`' },
   },
 } as ManualApiOptions
