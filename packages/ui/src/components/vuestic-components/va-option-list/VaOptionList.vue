@@ -136,3 +136,9 @@ export default {
   },
 }
 </script>
+
+<style>
+  .va-option-list__list {
+    line-height: 1.5;
+  }
+</style>
