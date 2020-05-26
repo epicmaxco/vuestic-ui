@@ -1,3 +1,5 @@
 <template>
-  <va-avatar />
+  <va-avatar>
+    <va-icon name="warning" />
+  </va-avatar>
 </template>
