@@ -507,7 +507,7 @@
   },
   "button": {
     "title": "Button",
-    "summaryText": "The `va-button` component intended to be used instead of the standart HTMl button. It offers multiple built-in styles plus gives possibility to change color and size manually.",
+    "summaryText": "The `va-button` component intended to be used instead of the standard HTMl button. It offers multiple built-in styles plus gives possibility to change color and size manually.",
     "examples": {
       "default": {
         "title": "Default",
@@ -522,7 +522,7 @@
         "text": "Using `size` prop you can make your button fit in any place on your web page."
       },
       "withStyle": {
-        "title": "Differen styles",
+        "title": "Different styles",
         "text": "We have 3 styles available: \"outlined\", \"flat\" and \"square\"."
       },
       "withIcon": {
