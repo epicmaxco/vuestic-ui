@@ -1,10 +1,12 @@
 <template>
-  <div :class="classComputed">
+  <div
+    :class="classComputed"
+    :aria-orientation="c_vertical ? 'vertical' : 'horizontal'"
+  >
     <div
-      v-if="hasSlot && !vertical"
+      v-if="hasSlot && !c_vertical"
       :class="slotClassComputed"
       role="separator"
-      aria-orientation="orientation"
     >
       <slot />
     </div>
