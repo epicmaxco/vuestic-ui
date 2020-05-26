@@ -81,6 +81,14 @@ export default [
     component: 'va-card/Stripe',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'card.examples.image.title',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-card/Image',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },

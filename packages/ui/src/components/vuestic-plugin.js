@@ -23,6 +23,7 @@ import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
 import VaIcon from './vuestic-components/va-icon/VaIcon'
+import VaImage from './vuestic-components/va-image/VaImage'
 import VaInnerLoading
   from './vuestic-components/va-inner-loading/VaInnerLoading'
 import VaInput from './vuestic-components/va-input/VaInput'
@@ -114,6 +115,7 @@ const VuesticPlugin = {
       VaDropdown,
       VaFileUpload,
       VaIcon,
+      VaImage,
       VaInnerLoading,
       VaInput,
       VaInputWrapper,
