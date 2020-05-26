@@ -63,8 +63,9 @@
 <script lang="ts">
 // @ts-nocheck
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import { ThemeName } from '../../../theme-config'
+import { ThemeName, COLOR_THEMES } from '../../../theme-config'
 import { capitalize } from 'lodash'
+import { themesRef } from '../../../../ui/src/services/ColorThemePlugin'
 
 @Component({})
 export default class ColorDropdown extends Vue {
@@ -78,17 +79,20 @@ export default class ColorDropdown extends Vue {
     }
   }
 
+  get themes () {
+    return themesRef.value
+  }
+
   get themeLabel () {
     return capitalize(this.selectedTheme)
   }
 
   @Watch('selectedTheme')
   onThemeChanged (themeName) {
-    this.$root.$emit('changeTheme', themeName.toUpperCase())
-  }
-
-  get themes () {
-    return this.$themes || {}
+    Object.assign(
+      themesRef.value,
+      COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT],
+    )
   }
 }
 </script>

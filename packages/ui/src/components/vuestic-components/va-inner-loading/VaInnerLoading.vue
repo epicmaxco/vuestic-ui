@@ -7,7 +7,7 @@
     >
       <va-icon
         spin
-        :color="$themes.primary"
+        :color="iconColor"
         :size="48"
         name="loop"
         class="inner-loading__spinner"
@@ -18,6 +18,7 @@
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
+import { getColor } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'VaInnerLoading',
@@ -26,6 +27,11 @@ export default {
   },
   props: {
     loading: Boolean,
+  },
+  computed: {
+    iconColor () {
+      return getColor(this, 'primary')
+    },
   },
 }
 </script>

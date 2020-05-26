@@ -57,6 +57,7 @@ import VaIcon from '../va-icon/VaIcon'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
+import { getColor } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'VaCheckbox',
@@ -91,7 +92,7 @@ export default {
     },
     labelStyle () {
       if (this.computedError) {
-        return { color: this.$themes.danger }
+        return { color: getColor(this, 'danger') }
       }
 
       return {}
@@ -99,9 +100,9 @@ export default {
     inputStyle () {
       if (this.computedError) {
         if (this.isChecked) {
-          return { background: this.$themes.danger }
+          return { background: getColor(this, 'danger') }
         } else {
-          return { borderColor: this.$themes.danger }
+          return { borderColor: getColor(this, 'danger') }
         }
       } else {
         if (this.isChecked) { return { background: this.colorComputed } }

@@ -39,7 +39,7 @@
             <div
               v-if="c_title"
               class="va-modal__title"
-              :style="{ color: this.$themes.primary }"
+              :style="{ color: titleColor }"
             >
               {{ c_title }}
             </div>
@@ -84,6 +84,7 @@ import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin
 import ClickOutsideMixin, {
   ClickOutsideOptions,
 } from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'
+import { getColor } from '../../../services/ColorThemePlugin'
 
 const props = {
   value: {
@@ -195,6 +196,10 @@ export default class VaModal extends Mixins(
   ClickOutsideMixin,
 ) {
   private clearClickOutsideEvents: () => void = noop
+
+  get titleColor () {
+    getColor(this, 'primary')
+  }
 
   get computedClass () {
     return {

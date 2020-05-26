@@ -153,7 +153,7 @@ export default {
       }
     },
     trackStyle () {
-      const color = this.isTrue ? this.colorComputed : this.$themes.gray
+      const color = this.isTrue ? this.colorComputed : getColor(this, 'gray')
       const backgroundColor = this.isKeyboardFocused
         ? getFocusColor(color)
         : getColor(this, color, '#000')

@@ -23,6 +23,7 @@
 import VaButtonGroup from '../va-button-group/VaButtonGroup'
 import { getGradientBackground } from '../../../services/color-functions'
 import VaButton from '../va-button/VaButton'
+import { getColor } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'VaButtonToggle',
@@ -77,12 +78,12 @@ export default {
 
       if (this.outline || this.flat) {
         return {
-          backgroundColor: this.$themes[this.toggleColor ? this.toggleColor : this.color],
+          backgroundColor: getColor(this, this.toggleColor ? this.toggleColor : this.color),
           color: '#ffffff',
         }
       } else {
         return {
-          backgroundColor: getGradientBackground(this.$themes[this.color]),
+          backgroundColor: getGradientBackground(getColor(this.color)]),
           filter: 'brightness(85%)',
         }
       }

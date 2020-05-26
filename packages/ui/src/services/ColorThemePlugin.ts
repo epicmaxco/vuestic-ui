@@ -11,8 +11,9 @@ declare module 'vue/types/vue' {
 // Most default color - fallback when nothing else is found.
 const DEFAULT_COLOR = '#000000'
 
-const defaultOptions = Vue.observable({
-  themes: {
+// This object is intended to be mutable, so that other services can observe it.
+export const themesRef: {value: Record<string, string>} = Vue.observable({
+  value: {
     primary: '#23e066',
     secondary: '#002c85',
     success: '#40e583',
@@ -24,67 +25,35 @@ const defaultOptions = Vue.observable({
   },
 })
 
-export const THEME_NAMES = {
-  DEFAULT: 'DEFAULT',
-  CORPORATE: 'CORPORATE',
-}
-
-export const COLOR_THEMES = [
-  {
-    name: THEME_NAMES.DEFAULT,
-    themes: {
-      primary: '#40e583',
-      secondary: '#002c85',
-      success: '#40e583',
-      info: '#2c82e0',
-      danger: '#e34b4a',
-      warning: '#ffc200',
-      gray: '#babfc2',
-      dark: '#34495e',
-    },
-  },
-  {
-    name: THEME_NAMES.CORPORATE,
-    themes: {
-      primary: '#6c7fee',
-      secondary: '#6e7ff1',
-      success: '#8ddc88',
-      info: '#71baff',
-      danger: '#f8706d',
-      warning: '#ffd652',
-      gray: '#8396a5',
-      dark: '#34495e',
-    },
-  },
-]
-
-export const getDefaultOptions = () => defaultOptions
-
 export const ColorThemePlugin = {
   install (Vue: Vue, options?: { themes?: Record<string, string> }) {
     if (options && options.themes) {
-      defaultOptions.themes = { ...defaultOptions.themes, ...options.themes }
+      themesRef.value = { ...themesRef.value, ...options.themes }
     }
-
     // @ts-ignore
-    Vue.prototype.$themes = defaultOptions.themes
+    // This plugin is not intended.
+    Object.defineProperty(Vue.prototype, '$themes', {
+      get: () => themesRef.value,
+    })
   },
 }
 
 /**
  * Check if color is valid css color
  * Taken from https://stackoverflow.com/a/56266358/5783475
+ * Please note that it requires either jsdom or browser environment to function properly. That's intended.
  * @param strColor
  */
 export const isCssColor = (strColor: string): boolean => {
-  const s = new Option().style
-  s.color = strColor
-  return s.color !== ''
+  const style = new Option().style
+  style.color = strColor
+  return style.color !== ''
 }
 
-export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_COLOR): string | undefined => {
-  if ($vm.$themes && $vm.$themes[prop]) {
-    return $vm.$themes[prop]
+export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_COLOR): string => {
+  // We do not really want to absolutely keep this ref global, but it probably will do for 1.0.
+  if (themesRef.value[prop]) {
+    return themesRef.value[prop]
   }
 
   if (isCssColor(prop)) {
@@ -94,6 +63,14 @@ export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_
   return defaultColor
 }
 
+export const setTheme = (theme: Record<string, string>): void => {
+  Object.assign(themesRef.value, theme)
+}
+
+/**
+ * This mixin does not cover all needed color functionality for majority of components.
+ * Its main purpose is raw code reuse.
+ */
 @Component({
   mixins: [
     makeContextablePropsMixin({
@@ -110,9 +87,5 @@ export class ColorThemeMixin extends Vue {
 
   computeColor (prop: string, defaultColor?: string) {
     return getColor(this, prop, defaultColor)
-  }
-
-  setTheme (theme: Record<string, string>) {
-    Object.assign(this.$themes, theme)
   }
 }

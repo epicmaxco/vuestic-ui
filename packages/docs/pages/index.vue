@@ -39,6 +39,7 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
+import { themesRef } from '../../ui/src/services/ColorThemePlugin'
 
 @Component({
   components: {
@@ -79,7 +80,7 @@ export default class Index extends Vue {
 
   setTheme (themeName) {
     Object.assign(
-      this.$themes,
+      themesRef.value,
       COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT],
     )
   }
