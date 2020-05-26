@@ -37,10 +37,6 @@
           "displayName": "menu.badge"
         },
         {
-          "name": "breadcrumbs",
-          "displayName": "menu.breadcrumbs"
-        },
-        {
           "name": "card",
           "displayName": "menu.card"
         },
@@ -75,6 +71,10 @@
         {
           "name": "option-list",
           "displayName": "menu.optionList"
+        },
+        {
+          "name": "divider",
+          "displayName": "menu.divider"
         }
       ]
     }

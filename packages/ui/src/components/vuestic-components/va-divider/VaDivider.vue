@@ -1,10 +1,12 @@
 <template>
-  <div :class="classComputed">
+  <div
+    :class="classComputed"
+    :aria-orientation="c_vertical ? 'vertical' : 'horizontal'"
+  >
     <div
-      v-if="hasSlot && !vertical"
+      v-if="hasSlot && !c_vertical"
       :class="slotClassComputed"
       role="separator"
-      aria-orientation="orientation"
     >
       <slot />
     </div>
@@ -91,6 +93,8 @@ $va-divider-text-font-size: 0.875rem;
     border-right-width: $va-divider-line-width;
     border-right-style: solid;
     border-right-color: $separator-color;
+    display: inline-flex;
+    width: 0;
 
     &.va-divider--dashed {
       border-right-style: dashed;
