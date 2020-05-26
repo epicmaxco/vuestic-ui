@@ -244,6 +244,17 @@
         "dropzone": "Enables Drag&Drop",
         "value": "The array with uploaded files"
       }
+    },
+    "VaHover": {
+      "props": {
+        "value": "Hover state"
+      },
+      "events": {
+        "input": "Emits hover state when changed."
+      },
+      "slots": {
+        "default": "Can be used instead of value/v-model using v-slot directive."
+      }
     }
   },
   "anyPage": {
@@ -264,7 +275,8 @@
     "chat": "Chat",
     "pagination": "Pagination",
     "fileUpload": "File Upload",
-    "form": "Form"
+    "form": "Form",
+    "hover": "Hover"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -728,13 +740,36 @@
       "subtitle": "Usage example",
       "paragraph": "All from elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you'd be able to specify exact cases when the field is *valid* or *invalid*."
     },
-    "advanced" : {
+    "advanced": {
       "subtitle": "Trigger validation",
       "paragraph": "You can trigger validation from parent component by using `validate()` method of `va-form` component."
     },
     "api": {
       "subtitle": "API",
       "paragraph": "Here are props, events and slots that are used in `va-form` component."
+    }
+  },
+  "hover": {
+    "title": "Hover",
+    "text": "The `va-hover` provides easy acces for hover state for any component.",
+    "examples": {
+      "slot": {
+        "title": "Slot based access"
+      },
+      "vModel": {
+        "title": "Using `v-model`"
+      },
+      "disabled": {
+        "title": "Disabled"
+      }
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "Can I wrap multiple elements with `va-hover`?",
+          "answer": "No, you should use exactly one element. If you use multiple, hover will work only for the first one."
+        }
+      ]
     }
   }
 }

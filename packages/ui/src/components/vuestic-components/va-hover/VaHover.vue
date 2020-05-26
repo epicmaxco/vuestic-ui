@@ -1,44 +1,46 @@
-<script>
-export default {
-  name: 'VaHover',
-  data () {
-    return {
-      active: false,
-    }
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    value: {
-      type: Boolean,
-    },
-  },
-  methods: {
-    onMouseEnter () {
-      this.active = true
-      this.$emit('input', true)
-    },
-    onMouseLeave () {
-      this.active = false
-      this.$emit('input', false)
-    },
-  },
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { ScopedSlotChildren } from 'vue/types/vnode'
+import { VNode } from 'vue/types/umd'
+
+@Component
+export default class VaHover extends Vue {
+  active = false
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) readonly disabled!: boolean
+
+  @Prop({
+    type: Boolean,
+  }) readonly value!: boolean
+
+  onMouseEnter () {
+    this.active = true
+    this.$emit('input', true)
+  }
+
+  onMouseLeave () {
+    this.active = false
+    this.$emit('input', false)
+  }
+
   render () {
-    let element
-
-    if (this.$scopedSlots.default) {
-      element = this.$scopedSlots.default({ hover: this.value || this.active })
+    if (!this.$scopedSlots.default) {
+      return
     }
 
-    if (Array.isArray(element) && element.length === 1) {
-      element = element[0]
+    const slot: ScopedSlotChildren = this.$scopedSlots.default({ hover: this.value || this.active })
+
+    if (!Array.isArray(slot) || slot.length !== 1 || !slot[0]) {
+      return
     }
+    const element = slot[0] as VNode
 
     if (!this.disabled) {
-      element.data = element.data || {}
-
+      // is used to bind listeners using vue native function
+      // @ts-ignore
       this._g(element.data, {
         mouseenter: this.onMouseEnter,
         mouseleave: this.onMouseLeave,
@@ -46,6 +48,6 @@ export default {
     }
 
     return element
-  },
+  }
 }
 </script>

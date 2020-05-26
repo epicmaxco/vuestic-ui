@@ -55,6 +55,10 @@
         {
           "name": "tabs",
           "displayName": "menu.tabs"
+        },
+        {
+          "name": "hover",
+          "displayName": "menu.hover"
         }
       ]
     }
