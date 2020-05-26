@@ -1,15 +1,19 @@
 import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
-import Va{{properCase name}} from 'vuestic-ui/src/components/vuestic-components/va-{{kebabCase name}}/Va{{properCase name}}.vue'
+import VaImage from 'vuestic-ui/src/components/vuestic-components/va-image/VaImage.vue'
 import apiOptions from './api-options'
 
 export default [
   {
     type: BlockType.TITLE,
-    translationString: '{{camelCase name}}.title',
+    translationString: 'image.title',
   },
   {
     type: BlockType.SUBTITLE,
     translationString: 'all.examples',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-image/Example',
   },
   {
     type: BlockType.SUBTITLE,
@@ -17,7 +21,7 @@ export default [
   },
   {
     type: BlockType.API,
-    componentOptions: Va{{properCase name}},
+    componentOptions: VaImage,
     apiOptions,
   },
 ] as ApiDocsBlock[]

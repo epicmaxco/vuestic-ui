@@ -255,6 +255,12 @@
         "bordered": "Toggles borders of a card component.",
         "outlined": "Toggles shadow of `va-card`"
       }
+    },
+    "VaImage": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "anyPage": {
@@ -276,7 +282,8 @@
     "chat": "Chat",
     "pagination": "Pagination",
     "fileUpload": "File Upload",
-    "form": "Form"
+    "form": "Form",
+    "image": "Image"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -792,5 +799,10 @@
         }
       ]
     }
+  },
+  "image": {
+    "title": "Image",
+    "text": "text",
+    "examples": {}
   }
 }
