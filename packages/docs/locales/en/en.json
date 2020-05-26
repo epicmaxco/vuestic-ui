@@ -255,6 +255,25 @@
         "bordered": "Toggles borders of a card component.",
         "outlined": "Toggles shadow of `va-card`"
       }
+    },
+    "VaOptionList": {
+      "props": {
+        "value": "The array of currently selected items in a list",
+        "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
+        "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
+        "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
+        "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
+        "options": "The array of items to be displayed",
+        "type": "Specify the format of component. Supported types are `\"radio\"`, `\"checkbox\"` and `\"switch\"`",
+        "defaultValue": "This value will be pre-selected when component mounts",
+        "leftLabel": "Put the labels to the left"
+      },
+      "events": {
+        "input": "Emited on value change."
+      },
+      "slots": {
+        "default": "Intended to be used in order to render items. Available props are:\n`option: String | Object`\n`isDisabled: Boolean`\n`name: String`\n`color: String`\n`leftLabel: Boolean`\n`getText: (option: String | Object) => String` \n `selectedValue: Array<String | Object>`\n`index: Number`"
+      }
     }
   },
   "anyPage": {
@@ -276,7 +295,8 @@
     "chat": "Chat",
     "pagination": "Pagination",
     "fileUpload": "File Upload",
-    "form": "Form"
+    "form": "Form",
+    "optionList": "Option List"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -791,6 +811,28 @@
           "answer": "No, we will do it for you. If tag is not set, but `href` is, component tag will be `<a>`, if any of router-link prop is set, it will be `<router-link>`."
         }
       ]
+    }
+  },
+  "optionList": {
+    "title": "Option List",
+    "summaryText": "The `va-option-list` component is a component to be used to group form inputs (like checkboxes and radio buttons) into a list for better control over the data.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "By default `va-option-list` will render list of checkboxes provided by `options` prop"
+      },
+      "withRadio": {
+        "title": "Radio",
+        "text": "Set `type=\"radio\"` to display list radio buttons"
+      },
+      "withSwitch": {
+        "title": "Switch",
+        "text": "Set `type=\"switch\"` to display list switches"
+      },
+      "withComplexData": {
+        "title": "Array of objects",
+        "text": "Instead of array of strings you can provide array of objects and specify which key is for each setting."
+      }
     }
   }
 }

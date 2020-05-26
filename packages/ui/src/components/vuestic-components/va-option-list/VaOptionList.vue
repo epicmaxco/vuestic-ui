@@ -67,12 +67,14 @@ import VaInputWrapper from '../va-input/VaInputWrapper'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { generateUuid } from '../../../services/utils'
+import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
 export default {
   name: 'VaOptionList',
   components: { VaRadio, VaCheckbox, VaSwitch, VaInputWrapper },
   mixins: [
     SelectableListMixin,
+    StatefulMixin,
     makeContextablePropsMixin({
       type: {
         type: String,
@@ -96,7 +98,7 @@ export default {
       return this.c_disabled || this.getDisabled(option)
     },
     reset () {
-      this.$emit('input', undefined)
+      this.valueComputed = undefined
     },
     focus () {
       const elements = this.$refs.input
@@ -108,7 +110,7 @@ export default {
   },
   mounted () {
     this.isSelectableListComponent = true
-    if (!this.value && this.c_defaultValue) {
+    if (!this.valueComputed && this.c_defaultValue) {
       this.selectedValue = this.c_defaultValue
     }
   },
@@ -118,20 +120,25 @@ export default {
     },
     selectedValue: {
       get () {
-        return this.value || this.c_defaultValue
+        return this.valueComputed || this.c_defaultValue
       },
       set (value) {
         if (this.c_readonly) { return }
         if (this.isRadio) {
-          this.$emit('input', this.getValue(value))
+          this.valueComputed = this.getValue(value)
         } else {
-          const emittedValue = Array.isArray(value)
+          this.valueComputed = Array.isArray(value)
             ? value.map(el => this.getValue(el))
             : [this.getValue(value)]
-          this.$emit('input', emittedValue)
         }
       },
     },
   },
 }
 </script>
+
+<style>
+  .va-option-list__list {
+    line-height: 1.5;
+  }
+</style>

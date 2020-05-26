@@ -63,6 +63,10 @@
         {
           "name": "tabs",
           "displayName": "menu.tabs"
+        },
+        {
+          "name": "option-list",
+          "displayName": "menu.optionList"
         }
       ]
     }
