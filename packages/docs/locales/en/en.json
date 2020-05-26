@@ -30,7 +30,8 @@
         "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\").",
         "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
         "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
-        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A)."
+        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
+        "square": "Removes **border-radius**"
       }
     },
     "VaBadge": {
@@ -294,6 +295,18 @@
       "slots": {
         "default": "Intended to be used in order to render items. Available props are:\n`option: String | Object`\n`isDisabled: Boolean`\n`name: String`\n`color: String`\n`leftLabel: Boolean`\n`getText: (option: String | Object) => String` \n `selectedValue: Array<String | Object>`\n`index: Number`"
       }
+    },
+    "VaAvatar": {
+      "props": {
+        "icon": "The icon to be displayed inside a container",
+        "src": "URL to the image (will be placed inside `src` attribute of image tag)",
+        "fontSize": "The font-size of text inside avatar",
+        "loading": "Displays spinner",
+        "email": "Will display `gravatar` for provided email address"
+      },
+      "slots": {
+        "default": "Use this slot to replace default content to be displayed inside the component"
+      }
     }
   },
   "anyPage": {
@@ -301,6 +314,7 @@
   },
   "menu": {
     "affix": "Affix",
+    "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",
     "badge": "Badge",
     "card": "Card",
@@ -332,6 +346,35 @@
   },
   "docsExample": {
     "showCode": "Show Code"
+  },
+  "avatar": {
+    "title" :"Avatar",
+    "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently thoroughout your web application. ",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "By default `va-avatar` is displayed as a circle container."
+      },
+      "size": {
+        "title": "Different sizes",
+        "text": "With `size` prop you can specify custom size for an avatar."
+      },
+      "color": {
+        "title": "Different colors"
+      },
+      "withImage": {
+        "title": "With images",
+        "text": "Providing `src` prop to component allows you to add custom icons to a component."
+      },
+      "withIcon": {
+        "title": "With icons",
+        "text": "With `icon` prop you could display icons inside an avatar."
+      },
+      "withEmail": {
+        "title": "With **Gravatar**",
+        "text": "Provide `email` prop and **gravatar** will be used to get user profile pic."
+      }
+    }
   },
   "affix": {
     "title": "Affix",
