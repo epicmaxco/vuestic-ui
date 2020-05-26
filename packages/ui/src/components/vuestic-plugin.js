@@ -11,6 +11,7 @@ import VaBreadcrumbs from './vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue
 import VaBreadcrumbsItem from './vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
 import VaCard from './vuestic-components/va-card/VaCard'
 import VaCardContent from './vuestic-components/va-card/VaCardContent'
+import VaCardTitle from './vuestic-components/va-card/VaCardTitle'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
 import VaCollapse from './vuestic-components/va-collapse/VaCollapse'
 import VaContent from './vuestic-components/va-content/VaContent'
@@ -22,6 +23,7 @@ import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
 import VaIcon from './vuestic-components/va-icon/VaIcon'
+import VaImage from './vuestic-components/va-image/VaImage'
 import VaInnerLoading
   from './vuestic-components/va-inner-loading/VaInnerLoading'
 import VaInput from './vuestic-components/va-input/VaInput'
@@ -103,6 +105,7 @@ const VuesticPlugin = {
       VaBreadcrumbsItem,
       VaCard,
       VaCardContent,
+      VaCardTitle,
       VaCheckbox,
       VaCollapse,
       VaContent,
@@ -112,6 +115,7 @@ const VuesticPlugin = {
       VaDropdown,
       VaFileUpload,
       VaIcon,
+      VaImage,
       VaInnerLoading,
       VaInput,
       VaInputWrapper,

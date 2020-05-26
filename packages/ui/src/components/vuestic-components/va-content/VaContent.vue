@@ -16,6 +16,8 @@ export default {
 @import '../../vuestic-sass/global/utility-global';
 
 .va-content {
+  line-height: $line-height;
+
   h1 {
     @include va-display(1);
     @include va-header-margin(1);
@@ -64,6 +66,7 @@ export default {
   }
 
   p {
+    font-size: 1.125rem;
     margin-top: 0;
   }
 

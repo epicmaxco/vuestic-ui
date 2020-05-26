@@ -3,7 +3,8 @@
     "all": {
       "events": {
         "validation": "Trigger internal validation.",
-        "input": "Emits component value"
+        "input": "Emits component value",
+        "click": "Emitted when clicked."
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -28,7 +29,8 @@
         "exact": "Exactly match the link. Without this, '/' will match every route. [More info here](https://router.vuejs.org/api/#exact \"Vue router docs\").",
         "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\").",
         "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
-        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\")."
+        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
+        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A)."
       }
     },
     "VaBadge": {
@@ -244,6 +246,15 @@
         "dropzone": "Enables Drag&Drop",
         "value": "The array with uploaded files"
       }
+    },
+    "VaCard": {
+      "props": {
+        "stripe": "Displays a stripe above a card title.",
+        "stripeColor": "Customize stripe color (theme string or *HEX* string).",
+        "gradient": "Adds color gradient to `va-card` body.",
+        "bordered": "Toggles borders of a card component.",
+        "outlined": "Toggles shadow of `va-card`"
+      }
     }
   },
   "anyPage": {
@@ -253,6 +264,7 @@
     "affix": "Affix",
     "breadcrumbs": "Breadcrumbs",
     "badge": "Badge",
+    "card": "Card",
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
@@ -728,13 +740,57 @@
       "subtitle": "Usage example",
       "paragraph": "All from elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you'd be able to specify exact cases when the field is *valid* or *invalid*."
     },
-    "advanced" : {
+    "advanced": {
       "subtitle": "Trigger validation",
       "paragraph": "You can trigger validation from parent component by using `validate()` method of `va-form` component."
     },
     "api": {
       "subtitle": "API",
       "paragraph": "Here are props, events and slots that are used in `va-form` component."
+    }
+  },
+  "card": {
+    "title": "Card",
+    "text": "The `va-card` is a multipurpose representative component that can be used for anything from links to articles. It has some helper components to make markup easier.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "This is default `va-card` implementation using `va-card-title` and `va-card-content` helper components."
+      },
+      "tag": {
+        "title": "Tag",
+        "text": "Changed tag to `<b>`"
+      },
+      "borderAndShape": {
+        "title": "Border, shadow and shape"
+      },
+      "disabled": {
+        "title": "Disabled"
+      },
+      "link": {
+        "title": "Card as link"
+      },
+      "stripe": {
+        "title": "Stripe"
+      },
+      "colorAndGradient": {
+        "title": "Color and gradient"
+      },
+      "image": {
+        "title": "Image"
+      }
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "Can I use `va-card` without helper components?",
+          "answer": "Yes, if you don't like our styling preset, you are free to use your own."
+        },
+        {
+          "question": "Should I manually set tag if i use link attributes?",
+          "answer": "No, we will do it for you. If tag is not set, but `href` is, component tag will be `<a>`, if any of router-link prop is set, it will be `<router-link>`."
+        }
+      ]
     }
   }
 }
