@@ -370,7 +370,7 @@
       },
       "size": {
         "title": "Different sizes",
-        "text": "With `size` prop you can specify custom size for an avatar."
+        "text": "With `size` prop you can specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. To change that, you can use the `font-size` prop to change size of the text inside `va-avatar` component."
       },
       "color": {
         "title": "Different colors"
