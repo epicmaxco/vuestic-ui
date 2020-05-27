@@ -79,6 +79,14 @@
         {
           "name": "checkbox",
           "displayName": "menu.checkbox"
+        },
+        {
+          "name": "progress-bar",
+          "displayName": "menu.progressBar"
+        },
+        {
+          "name": "progress-circle",
+          "displayName": "menu.progressCircle"
         }
       ]
     }

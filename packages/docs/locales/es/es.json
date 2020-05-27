@@ -20,6 +20,18 @@
         "reset": "Reset values and validation state for all form-components"
       }
     },
+    "VaProgressBar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaProgressCircle": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaDivider": {
       "props": {},
       "events": {},
@@ -36,6 +48,8 @@
   "menu": {
     "modals": "Modals",
     "uiElements": "Elementos UI",
+    "progressBar": "Progress Bar",
+    "progressCircle": "Progress Circle",
     "checkbox": "Checkbox"
   },
   "language": {
@@ -47,5 +61,13 @@
   "checkbox": {
     "title": "-- Here is the title --"
   },
-  "divider": {}
+  "divider": {
+    "title": "-- Here is the title --"
+  },
+  "progressBar": {
+    "title": "-- Here is the title --"
+  },
+  "progressCircle": {
+    "title": "-- Here is the title --"
+  }
 }
