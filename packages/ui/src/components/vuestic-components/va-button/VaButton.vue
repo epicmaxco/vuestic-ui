@@ -262,6 +262,7 @@ export default class VaButton extends Mixins(
   cursor: pointer;
   transition: $btn-transition;
   background-color: $white;
+  vertical-align: middle;
 
   &__content {
     display: flex;

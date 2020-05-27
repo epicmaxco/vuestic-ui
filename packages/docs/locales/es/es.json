@@ -20,7 +20,14 @@
         "reset": "Reset values and validation state for all form-components"
       }
     },
-    "VaImage": {
+    "VaImage": { "props": {}, "events": {}, "methods": {}, "slots": {} },
+    "VaDivider": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaCheckbox": {
       "props": {},
       "events": {},
       "methods": {},
@@ -30,7 +37,8 @@
   "menu": {
     "modals": "Modals",
     "uiElements": "Elementos UI",
-    "image": "Image"
+    "image": "Image",
+    "checkbox": "Checkbox"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -40,5 +48,9 @@
   },
   "image": {
     "title": "-- Here is the title --"
-  }
+  },
+  "checkbox": {
+    "title": "-- Here is the title --"
+  },
+  "divider": {}
 }

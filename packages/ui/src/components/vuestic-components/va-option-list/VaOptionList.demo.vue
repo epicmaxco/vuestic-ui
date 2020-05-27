@@ -135,6 +135,23 @@
       </va-option-list>
     </VbCard>
     <VbCard
+      title="Stateful"
+    >
+      <va-option-list
+        :options="baseData.options"
+        stateful
+      />
+    </VbCard>
+    <VbCard
+      title="Stateful with default value"
+    >
+      <va-option-list
+        :options="baseData.options"
+        :default-value="[baseData.options[0]]"
+        stateful
+      />
+    </VbCard>
+    <VbCard
       title="Array of strings"
     >
       <va-option-list
