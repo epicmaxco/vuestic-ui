@@ -44,7 +44,6 @@ $separator-color: #e6e9ec !default;
 
 $transition-primary: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1) !default; // swing
 $transition-secondary: 0.2s cubic-bezier(0.4, 0, 0.6, 1) !default; // ease-in-out
-$letter-spacing: 0.0375rem !default;
 
 $colors-map: (
   brand-danger: $brand-danger,
@@ -117,25 +116,18 @@ $on-focus-background-color: rgba(187, 180, 178, 0.71) !default;
 $font-family-sans-serif: 'Source Sans Pro', sans-serif !default;
 $font-size-root: 16px !default;
 
+// TODO
+$letter-spacing: 0.0375rem !default;
+
 $font-size-base: 1rem !default;
-$font-size-larger: 1.2rem !default;
 $font-size-large: 1.5rem !default;
 $font-size-mini: 0.8rem !default;
 
 $font-weight-bold: 700 !default;
-$font-weight-semi-bold: 600 !default;
-$font-weight-normal: 400 !default;
-$font-weight-thin: 300 !default;
-$font-weight-base: $font-weight-thin !default;
 
 $font-size-smaller: 85% !default;
 
-$font-size-h1: 2.625rem !default;
-$font-size-h2: 2.25rem !default;
-$font-size-h3: 1.75rem !default;
-$font-size-h4: 1.375rem !default;
-
-$headings-line-height: 1 !default;
+$line-height: 1.625rem !default;
 
 $blockquote-border-color: $vue-green !default;
 $blockquote-small-color: $gray-light !default;

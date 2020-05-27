@@ -11,10 +11,12 @@ import VaBreadcrumbs from './vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue
 import VaBreadcrumbsItem from './vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
 import VaCard from './vuestic-components/va-card/VaCard'
 import VaCardContent from './vuestic-components/va-card/VaCardContent'
+import VaCardTitle from './vuestic-components/va-card/VaCardTitle'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
 import VaCollapse from './vuestic-components/va-collapse/VaCollapse'
 import VaContent from './vuestic-components/va-content/VaContent'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
+import VaDivider from './vuestic-components/va-divider/VaDivider'
 
 // TODO: https://github.com/epicmaxco/vuestic-ui/issues/246
 // import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
@@ -22,6 +24,7 @@ import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
 import VaIcon from './vuestic-components/va-icon/VaIcon'
+import VaImage from './vuestic-components/va-image/VaImage'
 import VaInnerLoading
   from './vuestic-components/va-inner-loading/VaInnerLoading'
 import VaInput from './vuestic-components/va-input/VaInput'
@@ -86,6 +89,8 @@ import VaPaletteCustom
   from './vuestic-components/va-color-picker/VaPaletteCustom'
 import VaForm
   from './vuestic-components/va-form/VaForm'
+import VaOptionList
+  from './vuestic-components/va-option-list/VaOptionList'
 
 installPlatform()
 
@@ -103,6 +108,7 @@ const VuesticPlugin = {
       VaBreadcrumbsItem,
       VaCard,
       VaCardContent,
+      VaCardTitle,
       VaCheckbox,
       VaCollapse,
       VaContent,
@@ -112,6 +118,7 @@ const VuesticPlugin = {
       VaDropdown,
       VaFileUpload,
       VaIcon,
+      VaImage,
       VaInnerLoading,
       VaInput,
       VaInputWrapper,
@@ -157,6 +164,8 @@ const VuesticPlugin = {
       VaPaletteCustom,
       VaButtonDropdown,
       VaForm,
+      VaDivider,
+      VaOptionList,
     ].forEach(component => {
       Vue.component(component.name, component)
     })

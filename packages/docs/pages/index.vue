@@ -25,7 +25,7 @@
           />
           <va-icon slot="separator" name="arrow_forward_ios" :size="16" />
         </va-breadcrumbs>
-        <nuxt-child />
+        <nuxt-child class="layout gutter--xl" />
       </div>
     </div>
   </div>

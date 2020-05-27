@@ -1,5 +1,5 @@
 <template>
-  <div class="MarkdownView" v-html="text" />
+  <component :is="tag" class="MarkdownView" v-html="text" />
 </template>
 
 <script lang="ts">
@@ -18,8 +18,13 @@ const md = new MarkdownIt({
 @Component({})
 export default class MarkdownView extends Vue {
   @Prop({ type: String, required: true }) value!: string
+  @Prop({ type: Boolean, default: 'div' }) tag!: boolean
+  @Prop({ type: Boolean }) inline!: boolean
 
   get text () {
+    if (this.inline) {
+      return md.renderInline(this.value)
+    }
     return md.render(this.value)
   }
 }
@@ -28,8 +33,6 @@ export default class MarkdownView extends Vue {
 @import "../ui/src/components/vuestic-sass/resources/resources";
 
 .MarkdownView {
-  display: inline-block;
-
   code {
     color: $markdown-code;
   }

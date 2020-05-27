@@ -1,6 +1,6 @@
 <template>
 <h3>
-  <MarkdownView :value="$t(text)" />
+  <MarkdownView tag="span" inline :value="$t(text)" />
   <a :id="anchor" :style="{ color: primaryColor }" :href="`#${anchor}`">#</a>
 </h3>
 </template>
