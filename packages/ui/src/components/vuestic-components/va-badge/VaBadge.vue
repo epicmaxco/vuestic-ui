@@ -162,7 +162,7 @@ export default {
     }
 
     .va-badge--overlap & {
-      margin-left: -$badge-size/2;
+      margin-left: -$badge-size/3;
       margin-right: 0;
       transform: translateY(-25%);
     }
@@ -173,7 +173,7 @@ export default {
     }
 
     .va-badge--left.va-badge--overlap & {
-      margin-left: $badge-size/2;
+      margin-left: $badge-size/3;
       transform: translateX(-100%) translateY(-25%);
     }
 
@@ -187,12 +187,12 @@ export default {
     }
 
     .va-badge--bottom.va-badge--overlap & {
-      margin-left: -$badge-size/2;
+      margin-left: -$badge-size/3;
       transform: translateX(0) translateY(-75%);
     }
 
     .va-badge--bottom.va-badge--left.va-badge--overlap & {
-      margin-left: $badge-size/2;
+      margin-left: $badge-size/3;
       transform: translateX(-100%) translateY(-75%);
     }
   }
