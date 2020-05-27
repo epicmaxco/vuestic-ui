@@ -23,25 +23,25 @@ export class StatefulMixin extends Mixins(PropsMixin) {
   }
 
   created () {
-    (this as any).hasStatefulMixin = true
+    this.hasStatefulMixin = true
   }
 
   @Watch('value', { immediate: true })
   onValueChange () {
-    if ((this as any).stateful) {
-      this.valueState.value = (this as any).value
+    if (this.stateful) {
+      this.valueState.value = this.value
     }
   }
 
   get valueComputed () {
-    if ((this as any).stateful) {
+    if (this.stateful) {
       return this.valueState.value
     }
-    return (this as any).value
+    return this.value
   }
 
   set valueComputed (value) {
-    if ((this as any).stateful) {
+    if (this.stateful) {
       this.valueState.value = value
     }
     this.$emit('input', value)

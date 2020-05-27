@@ -30,7 +30,8 @@
         "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\").",
         "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
         "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
-        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A)."
+        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
+        "src": "Sourse URL."
       }
     },
     "VaBadge": {
@@ -257,10 +258,19 @@
       }
     },
     "VaImage": {
-      "props": {},
-      "events": {},
-      "methods": {},
-      "slots": {}
+      "props": {
+        "ratio": "Width to height ratio.",
+        "contain": "Background size. If false, results to `cover`"
+      },
+      "events": {
+        "loaded": "Emited when image loading is finished.",
+        "error": "Emited on loading error."
+      },
+      "slots": {
+        "loading": "Slot is shown when loading is in progress.",
+        "error": "Is shown if loading resolves in error.",
+        "default": "Is visible in other cases."
+      }
     }
   },
   "anyPage": {
@@ -782,9 +792,6 @@
       },
       "colorAndGradient": {
         "title": "Color and gradient"
-      },
-      "image": {
-        "title": "Image"
       }
     },
     "faq": {
@@ -802,7 +809,24 @@
   },
   "image": {
     "title": "Image",
-    "text": "text",
-    "examples": {}
+    "text": "The `va-image` is ised to display responsive images. It has some features to make your work with images easier.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage on image component."
+      },
+      "contain": {
+        "title": "Contain",
+        "text": "It is ised to show full image despite it's original ratio and size."
+      },
+      "ratio": {
+        "title": "Ratio",
+        "text": "Change image origina ratio, show part of image to fit new ratio."
+      },
+      "slots": {
+        "title": "Slots",
+        "text": "This example shows the usage of `va-image` slots, how it works with image loading (try **New image** button) and error handling (**Wrong path** button)."
+      }
+    }
   }
 }

@@ -8,12 +8,56 @@ export default [
     translationString: 'image.title',
   },
   {
+    type: BlockType.PARAGRAPH,
+    translationString: 'image.text',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.examples',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'image.examples.default.title',
+  },
+  {
     type: BlockType.EXAMPLE,
-    component: 'va-image/Example',
+    component: 'va-image/Default',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'image.examples.ratio.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'image.examples.ratio.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-image/Ratio',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'image.examples.contain.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'image.examples.contain.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-image/Contain',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'image.examples.slots.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'image.examples.slots.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-image/Slots',
   },
   {
     type: BlockType.SUBTITLE,
