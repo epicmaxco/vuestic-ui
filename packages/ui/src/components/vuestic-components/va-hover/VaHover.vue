@@ -38,10 +38,11 @@ export default class VaHover extends Vue {
     }
 
     if (!this.disabled) {
-      slot.filter(({ data }) => !!data).forEach(({ data }) => {
-      // is used to bind listeners using vue native function
-      // @ts-ignore
-        this._g(data, {
+      slot.forEach((element) => {
+        element.data = element.data || {}
+        // is used to bind listeners using vue native function
+        // @ts-ignore
+        this._g(element.data, {
           mouseenter: this.onMouseEnter,
           mouseleave: this.onMouseLeave,
         })
