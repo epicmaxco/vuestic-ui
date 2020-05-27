@@ -16,6 +16,8 @@ export default {
 @import '../../vuestic-sass/global/utility-global';
 
 .va-content {
+  line-height: $line-height;
+
   h1 {
     @include va-display(1);
     @include va-header-margin(1);
@@ -64,6 +66,7 @@ export default {
   }
 
   p {
+    font-size: 1.125rem;
     margin-top: 0;
   }
 
@@ -92,7 +95,8 @@ export default {
     @extend .va-ordered;
   }
 
-  ul {
+  //This is kind of weird though not sure about any workaround :(
+  ul:not(.va-option-list__list) {
     @extend .va-unordered;
   }
 

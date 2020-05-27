@@ -1,6 +1,6 @@
 <template>
   <va-hover v-slot:default="{ hover }">
-    <div style="background-color: #babfc2;">
+    <div class="background--secondary">
       {{ hover }}
     </div>
   </va-hover>

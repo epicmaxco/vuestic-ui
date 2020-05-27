@@ -82,7 +82,7 @@ export const isCssColor = (strColor: string): boolean => {
   return s.color !== ''
 }
 
-export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_COLOR): string | undefined => {
+export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_COLOR): string => {
   if ($vm.$themes && $vm.$themes[prop]) {
     return $vm.$themes[prop]
   }

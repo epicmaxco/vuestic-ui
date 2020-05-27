@@ -1,11 +1,11 @@
 <template>
   <div>
     <va-hover v-model="value">
-      <div style="background-color: #babfc2;">
+      <div class="background--secondary">
         {{ value }}
       </div>
     </va-hover>
-    <input type="checkbox" v-model="value" />
+    <va-checkbox v-model="value" />
   </div>
 </template>
 

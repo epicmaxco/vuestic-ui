@@ -22,21 +22,33 @@
         :key="index"
         :items="block.items"
       />
+      <MarkdownView
+        v-else-if="block.type === BlockType.TITLE"
+        :key="index"
+        :value="`# ${$t(block.translationString)}`"
+      />
       <DocsSubtitle
         v-else-if="block.type === BlockType.SUBTITLE"
         :key="index"
         :text="block.translationString"
       />
-      <component v-else :key="index" :is="blockTags[block.type]">
-        <MarkdownView :value="$t(block.translationString)" />
-      </component>
+      <MarkdownView
+        v-else-if="block.type === BlockType.HEADLINE"
+        :key="index"
+        :value="`##### ${$t(block.translationString)}`"
+      />
+      <MarkdownView
+        v-else-if="block.type === BlockType.PARAGRAPH"
+        :key="index"
+        :value="`${$t(block.translationString)}`"
+      />
     </template>
   </va-content>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { ApiDocsBlock, BlockType, TextBlockType } from '../types/configTypes'
+import { ApiDocsBlock, BlockType } from '../types/configTypes'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 import DocsExample from './DocsExample.vue'
 import DocsCode from './DocsCode.vue'
@@ -55,15 +67,6 @@ import ApiDocs from 'vuestic-ui/src/services/api-docs/ApiDocs.vue'
   },
 })
 export default class DocsContent extends Vue {
-  private blockTags: Pick<
-    Record<BlockType, string>,
-    Exclude<TextBlockType, BlockType.SUBTITLE>
-  > = {
-    [BlockType.TITLE]: 'h1',
-    [BlockType.PARAGRAPH]: 'p',
-    [BlockType.HEADLINE]: 'h5',
-  }
-
   @Prop() config!: ApiDocsBlock[]
 
   get DocsFaq () {

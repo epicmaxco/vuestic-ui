@@ -17,6 +17,14 @@
           "displayName": "menu.affix"
         },
         {
+          "name": "avatar",
+          "displayName": "menu.avatar"
+        },
+        {
+          "name": "button",
+          "displayName": "menu.button"
+        },
+        {
           "name": "form",
           "displayName": "menu.form"
         },
@@ -27,6 +35,10 @@
         {
           "name": "badge",
           "displayName": "menu.badge"
+        },
+        {
+          "name": "card",
+          "displayName": "menu.card"
         },
         {
           "name": "file-upload",
@@ -59,6 +71,18 @@
         {
           "name": "hover",
           "displayName": "menu.hover"
+        },
+        {
+          "name": "option-list",
+          "displayName": "menu.optionList"
+        },
+        {
+          "name": "divider",
+          "displayName": "menu.divider"
+        },
+        {
+          "name": "checkbox",
+          "displayName": "menu.checkbox"
         }
       ]
     }

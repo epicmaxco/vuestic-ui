@@ -25,12 +25,25 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaDivider": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaCheckbox": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
     "modals": "Modals",
     "uiElements": "Elementos UI",
-    "hover": "Hover"
+    "hover": "Hover",
+    "checkbox": "Checkbox"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -40,5 +53,9 @@
   },
   "hover": {
     "title": "-- Here is the title --"
-  }
+  },
+  "checkbox": {
+    "title": "-- Here is the title --"
+  },
+  "divider": {}
 }

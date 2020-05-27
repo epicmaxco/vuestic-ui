@@ -26,11 +26,11 @@
     <VbCard title="vertical">
       <div class="container">
         <div style="display: flex;">
-          <div>Item 1</div>
+          <span>Item 1</span>
           <VaDivider vertical />
-          <div>Item 2</div>
+          <span>Item 2</span>
           <VaDivider vertical />
-          <div>Item 3</div>
+          <span>Item 3</span>
         </div>
       </div>
     </VbCard>
@@ -90,8 +90,8 @@
       title="inset vertical"
     >
       <div class="container">
-        <div style="display: flex;">
-          <div style="height: 50px;">
+        <div style="display: flex; height: 50px;">
+          <div>
             Item 1
           </div>
           <VaDivider
