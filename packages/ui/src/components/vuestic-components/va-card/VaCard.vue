@@ -24,9 +24,10 @@
 
 <script>
 import { getGradientBackground } from '../../../services/color-functions'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const contextConfigMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'div' },

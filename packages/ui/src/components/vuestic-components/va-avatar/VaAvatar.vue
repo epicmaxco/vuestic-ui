@@ -29,11 +29,12 @@
 
 <script>
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import VaIcon from '../va-icon/VaIcon'
 import gravatar from 'gravatar'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const contextConfigMixin = makeContextablePropsMixin({
   color: {

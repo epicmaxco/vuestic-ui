@@ -6,6 +6,7 @@ import { shallowMount } from '@vue/test-utils'
 import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
 import { ContextPlugin } from '../../context-test/context-provide/ContextPlugin'
 
+// TODO Everything should work without this plugin.
 Vue.use(ColorThemePlugin)
 Vue.use(ContextPlugin, {})
 

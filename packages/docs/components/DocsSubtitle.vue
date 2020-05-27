@@ -8,8 +8,8 @@
 import { kebabCase } from 'lodash'
 import { TranslationString } from '../../ui/src/services/api-docs/ManualApiOptions'
 import { Component, Prop, Mixins } from 'vue-property-decorator'
-import { ColorThemeMixin } from '../../ui/src/services/ColorThemePlugin'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
+import { ColorThemeMixin } from '../../ui/src/components/vuestic-mixins/ColorMixin'
 
 @Component({
   components: { MarkdownView },

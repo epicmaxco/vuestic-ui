@@ -5,6 +5,7 @@ import VaCheckbox from './VaCheckbox'
 import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
 import { testIsSelectableComponent } from '../../vuestic-mixins/testIsSelectableComponent'
 
+// TODO Everything should work without this plugin.
 Vue.use(ColorThemePlugin)
 
 describe('VaCheckbox', () => {

@@ -29,11 +29,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import Component, { mixins } from 'vue-class-component'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { Watch } from 'vue-property-decorator'
 import { RatingValue } from './VaRating.types'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const RatingItemProps = Vue.extend({
   props: {

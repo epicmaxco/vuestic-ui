@@ -1,8 +1,8 @@
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefullMixin/StatefulMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-components/va-checkbox/KeyboardOnlyFocusMixin'
+import { ColorThemeMixin } from '../ColorMixin'
 export const SelectableMixin = {
   mixins: [
     FormComponentMixin,

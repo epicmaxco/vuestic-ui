@@ -1,5 +1,4 @@
 <script lang="ts">
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import {
   makeContextablePropsMixin,
@@ -9,6 +8,7 @@ import { Mixins, Component } from 'vue-property-decorator'
 import { VNode, VNodeChildren } from 'vue'
 import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
 import { RecordPropsDefinition } from 'vue/types/options'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const props = {
   separator: {

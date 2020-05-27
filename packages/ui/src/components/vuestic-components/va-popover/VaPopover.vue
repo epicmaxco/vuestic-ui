@@ -46,7 +46,6 @@ import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
-import { getColor } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'VaPopover',

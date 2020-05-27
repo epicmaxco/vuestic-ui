@@ -94,7 +94,7 @@ import {
 } from '../../context-test/context-provide/ContextPlugin'
 import Component, { mixins } from 'vue-class-component'
 import { Watch, Ref } from 'vue-property-decorator'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const PaginationPropsMixin = makeContextablePropsMixin({
   value: { type: Number, default: 1 },

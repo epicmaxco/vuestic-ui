@@ -4,7 +4,7 @@ import VaInput from './VaInput'
 import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
 import { testIsFormComponent } from '../../vuestic-mixins/testIsFormComponent'
 
-// TODO Should work without ColorThemePlugin.
+// TODO Everything should work without this plugin.
 Vue.use(ColorThemePlugin)
 
 describe('VaInput', () => {

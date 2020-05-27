@@ -198,7 +198,7 @@ export default class VaModal extends Mixins(
   private clearClickOutsideEvents: () => void = noop
 
   get titleColor () {
-    getColor(this, 'primary')
+    return getColor(this, 'primary')
   }
 
   get computedClass () {

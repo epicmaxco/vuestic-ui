@@ -59,11 +59,11 @@
 
 <script>
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import VaButton from '../va-button/VaButton'
 import VaTabsItems from './VaTabsItems'
 import VaTabsContent from './VaTabsContent'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 export default {
   name: 'VaTabs',

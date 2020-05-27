@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import SquareWithIcon from './SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../va-icon/VaIcon'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 export default {
   name: 'VaTreeCategory',

@@ -64,11 +64,12 @@ import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 @Component({ components: { VaIcon, VaProgressCircle } })
 export default class VaButton extends Mixins(

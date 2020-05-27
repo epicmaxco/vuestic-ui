@@ -74,13 +74,13 @@
 <script lang="ts">
 import VaRatingItem from './VaRatingItem.vue'
 import { getFocusColor } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import Component, { mixins } from 'vue-class-component'
 import { ColorInput } from 'colortranslator/dist/@types'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { RatingValue } from './VaRating.types'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const RatingPropsMixin = makeContextablePropsMixin({
   value: { type: Number, default: 0 },

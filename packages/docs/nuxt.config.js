@@ -40,11 +40,12 @@ export default {
   buildModules: ['@nuxt/typescript-build'],
   plugins: [
     { mode: 'server', src: '~/plugins/jsdom.ts' },
-    { src: '~/plugins/colorHelper.ts' },
     { src: '~/plugins/client-services.ts' },
+    { src: '~/plugins/color-theme.ts' },
+    { src: '~/plugins/color-helpers.ts' },
     { src: '~/plugins/context.ts' },
-    { src: '~/plugins/externalVuetable.ts' },
-    { src: '~/plugins/localeRoute.ts' },
+    { src: '~/plugins/external-vuetable.ts' },
+    { src: '~/plugins/locale-route.ts' },
     { src: '~/plugins/vuestic.ts' },
   ],
   build: {

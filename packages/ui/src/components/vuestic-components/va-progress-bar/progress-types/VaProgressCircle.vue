@@ -33,11 +33,11 @@
 <script>
 import { progressMixin } from './progressMixin'
 import {
-  ColorThemeMixin,
   getColor,
 } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
+import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
 const ProgressCircleContextMixin = makeContextablePropsMixin({
   thickness: {

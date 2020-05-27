@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 export default {
   name: 'VaSidebar',

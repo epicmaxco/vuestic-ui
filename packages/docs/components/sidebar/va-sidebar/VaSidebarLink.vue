@@ -23,9 +23,9 @@
 
 <script>
 import Vue from 'vue'
-import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
 import { shiftHslColor } from '../../../../ui/src/services/color-functions'
 import VaIcon from '../../../../ui/src/components/vuestic-components/va-icon/VaIcon.vue'
+import { ColorThemeMixin } from '../../../../ui/src/components/vuestic-mixins/ColorMixin'
 
 export default Vue.extend({
   name: 'VaSidebarLink',

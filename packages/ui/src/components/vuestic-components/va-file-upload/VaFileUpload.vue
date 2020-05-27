@@ -53,8 +53,8 @@ import VaFileUploadList from './VaFileUploadList'
 import VaButton from '../va-button/VaButton'
 import VaModal from '../va-modal/VaModal'
 import { getFocusColor } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 export default {
   name: 'VaFileUpload',

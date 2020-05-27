@@ -5,6 +5,7 @@ function extend (app, mixin) {
   app.mixins.push(mixin)
 }
 
+// Stores and retrieves locale from local storage.
 export default async function ({ app }) {
   extend(app, {
     beforeMount () {

@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import Vue from 'vue'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 export default {
   name: 'VaTreeRoot',

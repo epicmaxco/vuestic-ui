@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const MessageListContextMixin = makeContextablePropsMixin({
   value: {

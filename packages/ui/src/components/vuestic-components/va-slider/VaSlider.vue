@@ -175,12 +175,12 @@
 import { validateSlider } from './validateSlider'
 import { getHoverColor } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
 import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 export default {
   name: 'VaSlider',

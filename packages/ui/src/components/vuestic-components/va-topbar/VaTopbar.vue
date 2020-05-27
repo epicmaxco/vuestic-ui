@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 // Note: topbar is not finished and not included to the layout.
 export default {

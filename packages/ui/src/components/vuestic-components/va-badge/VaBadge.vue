@@ -18,8 +18,9 @@
 </template>
 
 <script>
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const contextConfigMixin = makeContextablePropsMixin({
   color: {

@@ -83,7 +83,7 @@ export default {
         }
       } else {
         return {
-          backgroundColor: getGradientBackground(getColor(this.color)]),
+          backgroundColor: getGradientBackground(getColor(this, this.color)),
           filter: 'brightness(85%)',
         }
       }

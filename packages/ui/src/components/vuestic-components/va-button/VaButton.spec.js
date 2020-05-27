@@ -5,6 +5,8 @@ import VaButton from './VaButton'
 import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
 import { ContextPlugin } from '../../context-test/context-provide/ContextPlugin'
 
+// TODO Everything should work without this plugin.
+// Please remove at early convenience.
 Vue.use(ColorThemePlugin)
 Vue.use(ContextPlugin, {})
 

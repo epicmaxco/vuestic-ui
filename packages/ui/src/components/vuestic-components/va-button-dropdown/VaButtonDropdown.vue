@@ -68,7 +68,7 @@
 import VaDropdown from '../va-dropdown/VaDropdown'
 import VaButton from '../va-button/VaButton'
 import VaButtonGroup from '../va-button-group/VaButtonGroup'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 export default {
   name: 'VaButtonDropdown',

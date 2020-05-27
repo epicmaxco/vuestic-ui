@@ -38,7 +38,7 @@ export default {
   computed: {
     notificationStyle () {
       return {
-        background: getHoverColor(this.$themes[this.color]),
+        background: getHoverColor(getColor(this, this.color)),
         boxShadow: '0 0.125rem 0.125rem 0 ' + getBoxShadowColor(this.$themes[this.color]),
       }
     },
