@@ -275,13 +275,13 @@
     },
     "VaHover": {
       "props": {
-        "value": "Hover state"
+        "value": "Hover state."
       },
       "events": {
         "input": "Emits hover state when changed."
       },
       "slots": {
-        "default": "Can be used instead of value/v-model using v-slot directive."
+        "default": "Can be used instead of value/v-model using `v-slot` directive."
       }
     },
     "VaDivider": {
@@ -939,17 +939,19 @@
         "title": "Slot based access"
       },
       "vModel": {
-        "title": "Using `v-model`"
+        "title": "Using `v-model`",
+        "text": "You can see that data binding is two way."
       },
       "disabled": {
-        "title": "Disabled"
+        "title": "Disabled",
+        "text": "Won't change value if disabled."
       }
     },
     "faq": {
       "questions": [
         {
           "question": "Can I wrap multiple elements with `va-hover`?",
-          "answer": "No, you should use exactly one element. If you use multiple, hover will work only for the first one."
+          "answer": "Yes, but they will share the hover state value."
         }
       ]
     }

@@ -28,6 +28,10 @@ export default [
     translationString: 'hover.examples.vModel.title',
   },
   {
+    type: BlockType.PARAGRAPH,
+    translationString: 'hover.examples.vModel.text',
+  },
+  {
     type: BlockType.EXAMPLE,
     component: 'va-hover/VModel',
   },

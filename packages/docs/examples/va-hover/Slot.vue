@@ -1,9 +1,13 @@
 <template>
-  <va-hover v-slot:default="{ hover }">
-    <div class="background--secondary">
-      {{ hover }}
+  <div class="row">
+    <div class="flex md6 lg4">
+      <va-hover v-slot:default="{ hover }">
+        <div class="background--secondary">
+          {{ hover }}
+        </div>
+      </va-hover>
     </div>
-  </va-hover>
+  </div>
 </template>
 
 <script>
