@@ -21,15 +21,15 @@ describe('VaSwitch', () => {
     expect(() => testIsSelectableComponent(VaSwitch)).not.toThrow()
   })
   it('is contextable component', () => {
-    const props = {
+    const contextProps = {
       value: true,
       readonly: false,
       disabled: false,
       size: 'test-size',
       loading: false,
       color: 'test-color',
-
+      stateful: true,
     }
-    expect(() => testIsContextableComponent(VaSwitch, props).not.toThrow())
+    expect(() => testIsContextableComponent(VaSwitch, contextProps).not.toThrow())
   })
 })

@@ -23,7 +23,8 @@
           class="va-switch__input"
           ref="input"
           type="checkbox"
-          role="checkbox"
+          role="switch"
+          :aria-checked="isTrue"
           :id="id"
           :name="name"
           readonly
