@@ -2,9 +2,11 @@
   "api": {
     "all": {
       "events": {
-        "validation": "Trigger internal validation.",
-        "input": "Emits component value",
-        "click": "Emitted when clicked."
+        "validation": "On internal validation",
+        "blur": "On blur",
+        "focus": "On focus",
+        "input": "On value change",
+        "click": "On click"
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -254,11 +256,6 @@
         "trueValue": "Value when checked",
         "falseValue": "Value when unchecked",
         "arrayValue": "Takes the value of a switch in an array of switches"
-      },
-      "events": {
-        "blur": "Emitted on focus.",
-        "focus": "Emitted on blur.",
-        "input": "Emitted on value change."
       },
       "slots": {
         "default": "Slot for label.",
