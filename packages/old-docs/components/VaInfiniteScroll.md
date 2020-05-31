@@ -13,7 +13,7 @@
     <li v-for="(record, index) in records" :key="record.id">
       {{record.text}} #{{index}}
     </li>
-    <template v-slot:loading>
+    <template #loading>
       <spring-spinner
         :animation-duration="2000"
         :size="48"

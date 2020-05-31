@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="flex md6 lg4">
-      <va-hover v-slot:default="{ hover }">
+      <va-hover #default="{ hover }">
         <div class="background--secondary">
           {{ hover }}
         </div>

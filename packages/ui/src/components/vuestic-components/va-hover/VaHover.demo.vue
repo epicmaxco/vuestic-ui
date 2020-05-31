@@ -1,16 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard
-      title="slot access"
-      refresh
-    >
-      <va-hover v-slot:default="{ hover }">
-        <div style="background-color: #babfc2;">
-          {{ hover }}
-        </div>
-      </va-hover>
-    </VbCard>
-    <VbCard title="v-model access">
+    <VbCard title="default">
       <va-hover v-model="value">
         <div style="background-color: #babfc2;">
           {{ value }}
@@ -21,10 +11,17 @@
         v-model="value"
       >
     </VbCard>
+    <VbCard title="slot access">
+      <va-hover #default="{ hover }">
+        <div style="background-color: #babfc2;">
+          {{ hover }}
+        </div>
+      </va-hover>
+    </VbCard>
     <VbCard title="disabled">
       <va-hover
         disabled
-        v-slot:default="{ hover }"
+        #default="{ hover }"
       >
         <div style="background-color: #babfc2;">
           slot - {{ hover }}
