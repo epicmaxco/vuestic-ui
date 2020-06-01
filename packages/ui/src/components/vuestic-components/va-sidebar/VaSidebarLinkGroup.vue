@@ -87,85 +87,94 @@ import { shiftHslColor } from '../../../services/color-functions'
   components: {
     VaIcon,
   },
-  props: {
-    icon: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    minimized: Boolean,
-    activeByDefault: Boolean,
-    children: {
-      type: Array,
-      default () {
-        return []
-      },
-    },
-    color: {
-      type: String,
-      default: 'secondary',
-    },
-    showChildrenCount: {
-      type: Boolean,
-      default: false,
-    },
-    noHighlight: {
-      type: Boolean,
-    },
-    textColor: {
-      type: String,
-      default: '#34495e',
-    },
-  },
 })
 export default class VaSidebarLinkGroup extends Vue {
-  data () {
-    return {
-      isActive: this.activeByDefault,
-      isHovered: false,
-      expanded: this.expanded,
-      dropdownOpened: false,
-    }
-  }
+    @Prop({
+      type: String,
+      default: '',
+    }) readonly icon!: string
 
-  get computedLinkClass () {
-    return {
-      'va-sidebar-link': true,
-      'va-sidebar-link--expanded': this.expanded,
-      'va-sidebar-link--active': this.isActive,
-    }
-  }
+ @Prop({
+   type: String,
+   default: '',
+ }) readonly title!: string
 
-  get computedClass () {
-    return {
-      'va-sidebar-link-group': true,
-      'va-sidebar-link-group--minimized': this.minimized,
-    }
-  }
+ @Prop({
+   type: Boolean,
+   default: '',
+ }) readonly minimized!: boolean
 
-  get sidebarLinkStyles () {
-    return {
-      color: this.isHovered || this.isActive ? this.$themes.primary : this.textColor,
-      backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }) : this.c_color,
-      borderColor: this.isActive && !this.noHighlight ? this.$themes.primary : 'transparent',
-    }
-  }
+ @Prop({
+   type: Boolean,
+ }) readonly activeByDefault!: boolean
 
-  get iconStyles () {
-    return (this.isHovered || this.isActive)
-      ? { color: this.$themes.primary }
-      : { color: this.textColor, fontWeight: 'normal' }
-  }
+ @Prop({
+   type: String,
+   default: '#323742',
+ }) readonly textColor!: string
+
+ @Prop({
+   type: Boolean,
+ }) readonly noHighlight!: boolean
+
+ @Prop({
+   type: Boolean,
+ }) readonly showChildrenCount!: boolean
+
+ @Prop({
+   type: Array,
+   default: [],
+ }) readonly children!: Array
+
+ @Prop({
+   type: String,
+   default: 'secondary',
+ }) readonly color!: string
+
+ data () {
+   return {
+     isActive: this.activeByDefault,
+     isHovered: false,
+     expanded: this.expanded,
+     dropdownOpened: false,
+   }
+ }
+
+ get computedLinkClass () {
+   return {
+     'va-sidebar-link': true,
+     'va-sidebar-link--expanded': this.expanded,
+     'va-sidebar-link--active': this.isActive,
+   }
+ }
+
+ get computedClass () {
+   return {
+     'va-sidebar-link-group': true,
+     'va-sidebar-link-group--minimized': this.minimized,
+   }
+ }
+
+ get sidebarLinkStyles () {
+   return {
+     color: this.isHovered || this.isActive ? this.$themes.primary : this.textColor,
+     backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }) : this.c_color,
+     borderColor: this.isActive && !this.noHighlight ? this.$themes.primary : 'transparent',
+   }
+ }
+
+ get iconStyles () {
+   return (this.isHovered || this.isActive)
+     ? { color: this.$themes.primary }
+     : { color: this.textColor, fontWeight: 'normal' }
+ }
 
   @Watch('$route')
-  onRouteChanged () {
-    this.$nextTick(() => {
-      this.updateActiveState()
-    })
-  }
+ onRouteChanged () {
+   this.$nextTick(() => {
+     this.updateActiveState()
+   })
+ }
 
   @Watch('minimizzed')
   onMinimizedChanged (value) {

@@ -275,9 +275,9 @@
     },
     "VaDivider": {
       "props": {
-        "vertical":  "Displays divider vertically",
+        "vertical": "Displays divider vertically",
         "dashed": "If set to true, the divider line is dashed",
-        "inset":  "If set to true, the left and right margins will be added; reduces height for vertical divider",
+        "inset": "If set to true, the left and right margins will be added; reduces height for vertical divider",
         "orientation": "Position of the title inside divider (for horizontal only). `left`, `center` (default) or `right`"
       },
       "slots": {
@@ -361,7 +361,10 @@
     "optionList": "Option List",
     "divider": "Divider",
     "button": "Button",
-    "checkbox": "Checkbox"
+    "checkbox": "Checkbox",
+    "categories": {
+      "navigation": "Navigation"
+    }
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -378,7 +381,7 @@
     "showCode": "Show Code"
   },
   "avatar": {
-    "title" :"Avatar",
+    "title": "Avatar",
     "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently thoroughout your web application. ",
     "examples": {
       "default": {

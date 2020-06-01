@@ -11,8 +11,19 @@
           show-children-count
           no-highlight
         >
+          <template v-for="category in item.childrenCategories">
+            <span class="pl-4 py-3" :style="categoryTitleStyle" :key="category">{{$t(category)}}</span>
+            <va-sidebar-link
+              v-for="(subMenuItem, index) in item.children.filter(child => child.category === category)"
+              :key="index"
+              :to="subMenuItem.name"
+              :title="$t(subMenuItem.displayName)"
+              no-highlight
+            />
+          </template>
           <va-sidebar-link
-            v-for="(subMenuItem, index) in item.children"
+            class="pl-4"
+            v-for="(subMenuItem, index) in item.children.filter(({category}) => !category)"
             :key="index"
             :to="subMenuItem.name"
             :title="$t(subMenuItem.displayName)"
@@ -35,20 +46,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { navigationRoutes } from './NavigationRoutes'
-@Component({
-  props: {
-    minimized: {
-      type: Boolean,
-      required: true,
-    },
-  },
-})
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { NavigationRoute } from './NavigationRoutes'
+
+@Component({})
 export default class Sidebar extends Vue {
-  data () {
+  @Prop({ type: Boolean, required: true }) readonly minimized!: boolean
+  @Prop({ type: Array, default: [] }) readonly items!: NavigationRoute[]
+
+  get categoryTitleStyle () {
     return {
-      items: navigationRoutes.routes,
+      textTransform: 'uppercase',
+      color: (this as any).$themes.gray,
+      fontSize: '10px',
+      fontWeight: 'bold',
+      letterSpacing: '0.6px',
     }
   }
 

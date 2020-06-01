@@ -5,7 +5,7 @@
       class="base-layout__header"
     />
     <div class="base-layout__main">
-      <Sidebar v-if="isSidebarVisible" :minimized="!isSidebarVisible" />
+      <Sidebar v-if="isSidebarVisible" :minimized="!isSidebarVisible" :items="navigationItems" />
       <!-- TODO: remove v-if when icon handling for sidebar is implemented -->
       <div
         class="base-layout__content"
@@ -39,6 +39,7 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
+import { navigationRoutes } from '../components/sidebar/NavigationRoutes'
 
 @Component({
   components: {
@@ -71,6 +72,10 @@ export default class Index extends Vue {
     if (this.$route.hash) {
       document.querySelector(this.$route.hash).scrollIntoView()
     }
+  }
+
+  get navigationItems () {
+    return navigationRoutes.routes
   }
 
   beforeDestroy () {

@@ -11,8 +11,10 @@
         "iconClass": "vuestic-iconset-ui-elements"
       },
       "disabled": true,
+      "childrenCategories": ["menu.categories.navigation"],
       "children": [
         {
+          "category": "menu.categories.navigation",
           "name": "affix",
           "displayName": "menu.affix"
         },
@@ -29,6 +31,7 @@
           "displayName": "menu.form"
         },
         {
+          "category": "menu.categories.navigation",
           "name": "breadcrumbs",
           "displayName": "menu.breadcrumbs"
         },
@@ -49,6 +52,7 @@
           "displayName": "menu.modal"
         },
         {
+          "category": "menu.categories.navigation",
           "name": "pagination",
           "displayName": "menu.pagination"
         },
@@ -65,6 +69,7 @@
           "displayName": "menu.switch"
         },
         {
+          "category": "menu.categories.navigation",
           "name": "tabs",
           "displayName": "menu.tabs"
         },
