@@ -17237,10 +17237,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-book@0.1.0-alpha.32:
-  version "0.1.0-alpha.32"
-  resolved "https://registry.yarnpkg.com/vue-book/-/vue-book-0.1.0-alpha.32.tgz#f0df09102d0c5e4367350e45c7ad1ed5f9807240"
-  integrity sha512-9mqU4/OimnsazJSCMXkrHIL3uljIoiDBG65ztXkzuua2NPNfJ6CuY3iuRQq3iJlhuKt4Z5C4m7T8IAkId/85aQ==
+vue-book@0.1.0-alpha.33:
+  version "0.1.0-alpha.33"
+  resolved "https://registry.yarnpkg.com/vue-book/-/vue-book-0.1.0-alpha.33.tgz#158b8f6c2717c0cfe1c309b9f1b42f555369545a"
+  integrity sha512-meQii/OJBxzHX7DQtJD/zZrscWTNSAiQvP/QeH6984xveSca0MtdNyoto0GBotpd2Dvhogi5dRu9TcElYVW2Xw==
   dependencies:
     tslib "^1.11.1"
 

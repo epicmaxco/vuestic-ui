@@ -33,12 +33,12 @@
         "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
         "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
         "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
-        "square": "Removes **border-radius**",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
         "label": "Same as native `label`",
         "leftLabel": "Moves the label on the left of a checkbox",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked"
+        "square": "Removes rounded corners."
       }
     },
     "VaBadge": {
@@ -384,7 +384,7 @@
       },
       "size": {
         "title": "Different sizes",
-        "text": "With `size` prop you can specify custom size for an avatar."
+        "text": "With `size` prop you can specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop to force text size you need."
       },
       "color": {
         "title": "Different colors"
@@ -398,8 +398,8 @@
         "text": "With `icon` prop you could display icons inside an avatar."
       },
       "withEmail": {
-        "title": "With **Gravatar**",
-        "text": "Provide `email` prop and **gravatar** will be used to get user profile pic."
+        "title": "With Gravatar",
+        "text": "Provide `email` prop and [gravatar](https://en.gravatar.com/support/what-is-gravatar/) will be used to get user profile pic."
       }
     }
   },
