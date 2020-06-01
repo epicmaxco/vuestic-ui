@@ -9,25 +9,25 @@
       </va-image>
     </div>
     <div class="flex md6 lg4">
-        <va-image
-          style="min-height: 300px;"
-          :src="slotImagePath"
-        >
-          <template #loader>
-            <va-progress-circle indeterminate/>
-          </template>
-          <template #error>
-            Image not found! :(
-          </template>
-        </va-image>
-        <div class="flex">
-          <va-button color="success" @click="newImage">
-            New image
-          </va-button>
-          <va-button color="danger" @click="wrongPath">
-            Wrong path
-          </va-button>
-        </div>
+      <va-image
+        style="min-height: 300px;"
+        :src="slotImagePath"
+      >
+        <template #loader>
+          <va-progress-circle indeterminate/>
+        </template>
+        <template #error>
+          Image not found! :(
+        </template>
+      </va-image>
+      <div class="flex">
+        <va-button color="success" @click="newImage">
+          New image
+        </va-button>
+        <va-button color="danger" @click="wrongPath">
+          Wrong path
+        </va-button>
+      </div>
     </div>
   </div>
 </template>
