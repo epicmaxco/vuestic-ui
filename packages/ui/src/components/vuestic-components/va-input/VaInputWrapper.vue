@@ -113,7 +113,7 @@ export default {
   }
 
   &__slot {
-    display: flex;
+    display: inline-flex;
     position: relative;
   }
 
