@@ -15,7 +15,7 @@
     "test:e2e": "vue-cli-service test:e2e",
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged --concurrent=false"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
