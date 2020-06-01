@@ -71,8 +71,6 @@ export default {
     SelectableMixin,
     makeContextablePropsMixin({
       value: { type: [Boolean, Array, String, Object], default: false },
-      indeterminate: { type: Boolean, default: false },
-      indeterminateValue: { type: [Boolean, Array, String, Object], default: 'ggg' },
       checkedIcon: { type: String, default: 'check' },
       indeterminateIcon: { type: String, default: 'remove' },
       color: { type: String, default: 'primary' },
@@ -101,20 +99,18 @@ export default {
       }
     },
     inputStyle () {
-      if (this.computedError) {
-        if (this.isTrue) {
-          return { background: this.colorComputed, borderColor: getColor(this, 'danger') }
-        } else {
-          return { borderColor: getColor(this, 'danger') }
-        }
-      } else {
-        if (this.isTrue) { return { background: this.colorComputed, borderColor: this.colorComputed } }
-      }
-
-      return {}
+      return this.computedError
+        ? (this.isTrue || this.isIndeterminate)
+          ? { background: this.colorComputed, borderColor: getColor(this, 'danger') }
+          : { borderColor: getColor(this, 'danger') }
+        : (this.isTrue || this.isIndeterminate)
+          ? { background: this.colorComputed, borderColor: this.colorComputed }
+          : {}
     },
     computedIconName () {
-      return this.c_indeterminate ? this.c_indeterminateIcon : this.c_checkedIcon
+      return (this.c_indeterminate && this.isIndeterminate)
+        ? this.c_indeterminateIcon
+        : this.c_checkedIcon
     },
   },
 }
@@ -188,6 +184,14 @@ export default {
   }
 
   &--selected {
+    .va-checkbox {
+      &__icon {
+        color: $white;
+      }
+    }
+  }
+
+  &--indeterminate {
     .va-checkbox {
       &__icon {
         color: $white;

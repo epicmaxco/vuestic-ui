@@ -15,6 +15,8 @@ export const SelectableMixin = {
       leftLabel: { type: Boolean, default: false },
       trueValue: { default: true },
       falseValue: { default: false },
+      indeterminate: { type: Boolean, default: false },
+      indeterminateValue: { type: [Boolean, Array, String, Object], default: null },
     }),
   ],
   created () {
@@ -26,6 +28,13 @@ export const SelectableMixin = {
   computed: {
     isTrue () {
       if (this.c_stateful) {
+        if (this.c_indeterminate) {
+          if (this.valueComputed === this.c_trueValue) {
+            return true
+          } else {
+            return false
+          }
+        }
         return this.valueComputed
       }
       return this.modelIsArray
@@ -33,13 +42,23 @@ export const SelectableMixin = {
         : this.c_value === this.c_trueValue
     },
     isFalse () {
+      if (this.c_stateful) {
+        if (this.c_indeterminate) {
+          if (this.valueComputed === this.c_falseValue) {
+            return true
+          } else {
+            return false
+          }
+        }
+        return !this.valueComputed
+      }
       return this.modelIsArray
         ? !this.c_value && !this.c_value.includes(this.c_arrayValue)
         : this.c_value === this.c_falseValue
     },
     isIndeterminate () {
-      return this.modelIsArray
-        ? this.c_indeterminate && this.c_value.includes(this.c_arrayValue)
+      return (this.c_stateful && this.c_indeterminate && this.valueComputed === this.c_indeterminateValue)
+        ? true
         : this.c_value === this.c_indeterminateValue
     },
     modelIsArray () {
@@ -81,7 +100,6 @@ export const SelectableMixin = {
       if (this.c_readonly || this.c_disabled || this.c_loading) {
         return
       }
-
       // For array access we pretend computedValue does not exist and use c_value + emit input directly.
       if (this.modelIsArray) {
         if (!this.c_value) {

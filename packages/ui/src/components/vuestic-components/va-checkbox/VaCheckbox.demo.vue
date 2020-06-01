@@ -80,14 +80,20 @@
     </VbCard>
     <VbCard title="Indeterminate">
       <va-checkbox
+        v-model="valueIndeterminateDefault"
+        :label="`${valueIndeterminateDefault}`"
+        indeterminate
+      />
+    </VbCard>
+    <VbCard title="Indeterminate with custom values">
+      <va-checkbox
         v-model="valueIndeterminate"
-        label="Indeterminate"
+        :label="`${valueIndeterminate}`"
         true-value="agree"
         false-value="disagree"
         indeterminate-value="idk"
         indeterminate
       />
-      {{valueIndeterminate}}
     </VbCard>
 
     <VbCard title="Error">
@@ -172,6 +178,17 @@
         label="four"
       />
     </VbCard>
+    <VbCard title="Stateful">
+      <va-checkbox
+        stateful
+      />
+    </VbCard>
+    <VbCard title="Stateful indeterminate">
+      <va-checkbox
+        stateful
+        indeterminate
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -187,6 +204,7 @@ export default {
   data () {
     return {
       value: true,
+      valueIndeterminateDefault: null,
       valueIndeterminate: 'agree',
       customTrueFalse: 'disagree',
       selection: [],
