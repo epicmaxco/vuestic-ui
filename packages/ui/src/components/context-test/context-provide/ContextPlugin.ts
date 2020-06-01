@@ -1,3 +1,4 @@
+import { PropOptions } from 'vue'
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
@@ -72,7 +73,7 @@ export const getLocalConfigWithComponentProp = (configs: any[], componentName: s
  * @deprecated
  */
 export const getContextPropValue = (
-  context: Record<string, any> & ContextPluginMixin,
+  context: Record<string, any>,
   prop: string,
   defaultValue: () => any,
 ) => {
@@ -179,22 +180,18 @@ export const mergeConfigs = (
  * @param prefix - that prefix goes to contexted prop (that's intended for userland usage)
  * @returns object - vue mixin with props and computed
  */
-export const makeContextablePropsMixin = (componentProps: any, prefix = 'c_') => {
-  const computed = {}
+export const makeContextablePropsMixin = (componentProps: Record<string, PropOptions>, prefix = 'c_') => {
+  const computed: Record<string, any> = {}
 
   Object.entries(componentProps).forEach(([name, definition]) => {
-    // @ts-ignore
     computed[`${prefix}${name}`] = function () {
       // We want to fallback to context in 2 cases:
       // * prop value is undefined (allows user to dynamically enter/exit context).
       // * prop value is not defined
-      // @ts-ignore
       if (!(name in this.$options.propsData) || this.$options.propsData[name] === undefined) {
-        // @ts-ignore
         return getContextPropValue(this, name, definition.default)
       }
       // In other cases we return the prop itself.
-      // @ts-ignore
       return this[name]
     }
   })
