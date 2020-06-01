@@ -24,7 +24,7 @@
           ref="input"
           type="checkbox"
           role="switch"
-          :aria-checked="isTrue"
+          :aria-checked="isChecked"
           :id="id"
           :name="name"
           readonly
@@ -118,26 +118,26 @@ export default {
   components: { VaProgressCircle, VaInputWrapper },
   computed: {
     computedInnerLabel () {
-      if (this.c_trueInnerLabel && this.isTrue) {
+      if (this.c_trueInnerLabel && this.isChecked) {
         return this.c_trueInnerLabel
       }
-      if (this.c_falseInnerLabel && !this.isTrue) {
+      if (this.c_falseInnerLabel && !this.isChecked) {
         return this.c_falseInnerLabel
       }
       return ''
     },
     computedLabel () {
-      if (this.c_trueLabel && this.isTrue) {
+      if (this.c_trueLabel && this.isChecked) {
         return this.c_trueLabel
       }
-      if (this.c_falseLabel && !this.isTrue) {
+      if (this.c_falseLabel && !this.isChecked) {
         return this.c_falseLabel
       }
       return this.c_label
     },
     computedClass () {
       return {
-        'va-switch--checked': this.isTrue,
+        'va-switch--checked': this.isChecked,
         'va-switch--small': this.c_size === 'small',
         'va-switch--large': this.c_size === 'large',
         'va-switch--disabled': this.c_disabled,
@@ -158,7 +158,7 @@ export default {
         borderColor: this.c_error
           ? getColor(this, 'danger')
           : '',
-        backgroundColor: this.isTrue
+        backgroundColor: this.isChecked
           ? this.colorComputed
           : getColor(this, 'gray'),
       }

@@ -79,7 +79,7 @@ export default {
   computed: {
     computedClass () {
       return {
-        'va-checkbox--selected': this.isTrue,
+        'va-checkbox--selected': this.isChecked,
         'va-checkbox--readonly': this.c_readonly,
         'va-checkbox--disabled': this.c_disabled,
         'va-checkbox--indeterminate': this.c_indeterminate,
@@ -100,10 +100,10 @@ export default {
     },
     inputStyle () {
       return this.computedError
-        ? (this.isTrue || this.isIndeterminate)
+        ? (this.isChecked || this.isIndeterminate)
           ? { background: this.colorComputed, borderColor: getColor(this, 'danger') }
           : { borderColor: getColor(this, 'danger') }
-        : (this.isTrue || this.isIndeterminate)
+        : (this.isChecked || this.isIndeterminate)
           ? { background: this.colorComputed, borderColor: this.colorComputed }
           : {}
     },

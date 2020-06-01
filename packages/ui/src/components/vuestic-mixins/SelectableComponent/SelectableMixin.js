@@ -20,19 +20,19 @@ export const SelectableMixin = {
     }),
   ],
   created () {
-    if (this.c_falseValue === this.c_trueValue) {
-      throw new Error('trueValue and falseValue are the same')
-    }
-    if (this.c_indeterminate) {
-      const values = [this.c_falseValue, this.c_trueValue, this.c_indeterminateValue]
-      const isDuplicate = values.some((item, idx) => values.indexOf(item) !== idx)
-      if (isDuplicate) {
-        throw new Error('Values are the same')
-      }
-    }
     this.isSelectableComponent = true
+    this.checkDuplicates()
   },
   computed: {
+    isChecked () {
+      if (this.modelIsArray) {
+        return this.valueComputed && this.valueComputed.includes(this.c_arrayValue)
+      }
+      return this.valueComputed === this.c_trueValue
+    },
+    isIndeterminate () {
+      return this.valueComputed === this.c_indeterminateValue
+    },
     isTrue () {
       if (this.c_stateful) {
         if (this.c_indeterminate) {
@@ -48,26 +48,6 @@ export const SelectableMixin = {
         ? this.c_value && this.c_value.includes(this.c_arrayValue)
         : this.c_value === this.c_trueValue
     },
-    isFalse () {
-      if (this.c_stateful) {
-        if (this.c_indeterminate) {
-          if (this.valueComputed === this.c_falseValue) {
-            return true
-          } else {
-            return false
-          }
-        }
-        return !this.valueComputed
-      }
-      return this.modelIsArray
-        ? !this.c_value && !this.c_value.includes(this.c_arrayValue)
-        : this.c_value === this.c_falseValue
-    },
-    isIndeterminate () {
-      return (this.c_stateful && this.c_indeterminate && this.valueComputed === this.c_indeterminateValue)
-        ? true
-        : this.c_value === this.c_indeterminateValue
-    },
     modelIsArray () {
       return !!this.c_arrayValue
     },
@@ -80,6 +60,17 @@ export const SelectableMixin = {
     /** @public */
     reset () {
       this.$emit('input', false)
+    },
+    checkDuplicates () {
+      // Just validating state values.
+      const values = [this.c_falseValue, this.c_trueValue]
+      if (this.c_indeterminate) {
+        values.push(this.c_indeterminateValue)
+      }
+      const hasDuplicates = new Set(values).size !== values.length
+      if (hasDuplicates) {
+        throw new Error('falseValue, trueValue, indeterminateValue props should have strictly different values, which is not the case.')
+      }
     },
     onFocus () {
       this.KeyboardOnlyFocusMixin_onFocus()
@@ -122,20 +113,19 @@ export const SelectableMixin = {
       if (this.c_indeterminate) {
         if (this.isIndeterminate) {
           this.valueComputed = this.c_trueValue
-        } else if (this.isTrue) {
+        } else if (this.isChecked) {
           this.valueComputed = this.c_falseValue
-        } else if (this.isFalse) {
+        } else {
+          // unchecked
           this.valueComputed = this.c_indeterminateValue
         }
         return
       }
 
-      if (this.isTrue) {
+      if (this.isChecked) {
         this.valueComputed = this.c_falseValue
-      } else if (this.isFalse) {
-        this.valueComputed = this.c_trueValue
       } else {
-        this.valueComputed = !this.c_value
+        this.valueComputed = this.c_trueValue
       }
     },
   },
