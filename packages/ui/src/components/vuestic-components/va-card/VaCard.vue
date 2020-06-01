@@ -65,7 +65,7 @@ export default class VaCard extends mixins(
       'va-card--dark': this.dark,
       'va-card--square': this.c_square,
       'va-card--outlined': this.c_outlined,
-      'va-card--no-border': !this.c_bordered,
+      'va-card--no-highlight': !this.c_bordered,
       'va-card--disabled': this.c_disabled,
       'va-card--link': this.c_href || this.hasRouterLinkParams,
     }
@@ -119,7 +119,7 @@ export default class VaCard extends mixins(
     border: $card-border;
   }
 
-  &--no-border {
+  &--no-highlight {
     border: none;
   }
 

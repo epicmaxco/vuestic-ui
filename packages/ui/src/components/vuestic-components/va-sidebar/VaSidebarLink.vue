@@ -53,6 +53,13 @@ export default {
     minimized: {
       type: Boolean,
     },
+    textColor: {
+      type: String,
+      default: '#323742',
+    },
+    noHighlight: {
+      type: Boolean,
+    },
   },
   data () {
     return {
@@ -73,13 +80,11 @@ export default {
       }
     },
     computedLinkStyles () {
-      if (this.isHovered || this.isActive) {
-        return {
-          color: this.$themes.primary,
-          backgroundColor: shiftHslColor(this.$themes.secondary, { s: -13, l: 15 }),
-          borderColor: this.isActive ? this.$themes.primary : 'transparent',
-        }
-      } else { return {} }// else <- controlled by CSS (color in rgba)
+      return {
+        color: this.isHovered || this.isActive ? this.$themes.primary : this.textColor,
+        backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }) : this.c_color,
+        borderColor: this.isActive && !this.noHighlight ? this.$themes.primary : 'transparent',
+      }
     },
     computedIconStyles () {
       return (this.isHovered || this.isActive)
@@ -93,7 +98,8 @@ export default {
     },
     updateActiveState () {
       this.$nextTick(() => {
-        this.isActive = this.$route.name === this.to.name
+        const name = typeof this.to === 'string' ? this.to : this.to.name
+        this.isActive = this.$router.resolve(name).route.name === this.$route.name
       })
     },
   },
@@ -117,7 +123,6 @@ export default {
   align-items: center;
   text-decoration: none;
   border-left: 0.25rem solid transparent;
-  color: rgba(255, 255, 255, 0.65);
 
   &__content {
     &__icon {

@@ -1,14 +1,14 @@
 <template>
   <li :class="computedClass">
     <a
+      v-if="!minimized"
       href="#"
       target="_self"
+      :style="sidebarLinkStyles"
+      :class="computedLinkClass"
       @mouseenter="updateHoverState(true)"
       @mouseleave="updateHoverState(false)"
       @click.stop.prevent="toggleMenuItem()"
-      :style="sidebarLinkStyles"
-      v-if="!minimized"
-      :class="computedLinkClass"
     >
       <div class="va-sidebar-link__content">
         <va-icon
@@ -21,6 +21,7 @@
           <slot name="title">
             {{ title }}
           </slot>
+          <sup v-if="showChildrenCount" class="va-sidebar-link__children-counter" >{{children.length}}</sup>
         </span>
         <va-icon
           class="va-sidebar-link-group__dropdown-icon"
@@ -29,15 +30,15 @@
         />
       </div>
     </a>
-    <expanding v-if="!minimized">
+    <div v-if="!minimized">
       <div
-        class="va-sidebar-link-group__submenu in"
         v-show="expanded"
         ref="linkGroupWrapper"
+        class="va-sidebar-link-group__submenu in"
       >
         <slot />
       </div>
-    </expanding>
+    </div>
     <va-dropdown
       v-if="minimized"
       position="right"
@@ -45,14 +46,14 @@
       :prevent-overflow="false"
     >
       <a
-        href="#"
         slot="anchor"
+        href="#"
         target="_self"
-        @mouseenter="updateHoverState"
-        @mouseleave="updateHoverState"
         :style="sidebarLinkStyles"
         class="va-sidebar-link"
         :class="computedLinkClass"
+        @mouseenter="updateHoverState(true)"
+        @mouseleave="updateHoverState(false)"
       >
         <div class="va-sidebar-link__content">
           <va-icon
@@ -70,7 +71,7 @@
       </a>
       <div
         class="va-sidebar-link-group__submenu in"
-        :style="{backgroundColor: $themes[color]}"
+        :style="{backgroundColor: getColor(color)}"
       >
         <slot />
       </div>
@@ -78,13 +79,14 @@
   </li>
 </template>
 
-<script>
-import Expanding from 'vue-bulma-expanding/src/Expanding'
-import VaIcon from '../va-icon/VaIcon'
+<script lang="ts">
+import { Vue, Component, Watch, Prop } from 'vue-property-decorator'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { shiftHslColor } from '../../../services/color-functions'
-
-export default {
-  name: 'VaSidebarLinkGroup',
+@Component({
+  components: {
+    VaIcon,
+  },
   props: {
     icon: {
       type: String,
@@ -106,11 +108,20 @@ export default {
       type: String,
       default: 'secondary',
     },
+    showChildrenCount: {
+      type: Boolean,
+      default: false,
+    },
+    noHighlight: {
+      type: Boolean,
+    },
+    textColor: {
+      type: String,
+      default: '#34495e',
+    },
   },
-  components: {
-    VaIcon,
-    Expanding,
-  },
+})
+export default class VaSidebarLinkGroup extends Vue {
   data () {
     return {
       isActive: this.activeByDefault,
@@ -118,67 +129,72 @@ export default {
       expanded: this.expanded,
       dropdownOpened: false,
     }
-  },
+  }
+
+  get computedLinkClass () {
+    return {
+      'va-sidebar-link': true,
+      'va-sidebar-link--expanded': this.expanded,
+      'va-sidebar-link--active': this.isActive,
+    }
+  }
+
+  get computedClass () {
+    return {
+      'va-sidebar-link-group': true,
+      'va-sidebar-link-group--minimized': this.minimized,
+    }
+  }
+
+  get sidebarLinkStyles () {
+    return {
+      color: this.isHovered || this.isActive ? this.$themes.primary : this.textColor,
+      backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }) : this.c_color,
+      borderColor: this.isActive && !this.noHighlight ? this.$themes.primary : 'transparent',
+    }
+  }
+
+  get iconStyles () {
+    return (this.isHovered || this.isActive)
+      ? { color: this.$themes.primary }
+      : { color: this.textColor, fontWeight: 'normal' }
+  }
+
+  @Watch('$route')
+  onRouteChanged () {
+    this.$nextTick(() => {
+      this.updateActiveState()
+    })
+  }
+
+  @Watch('minimizzed')
+  onMinimizedChanged (value) {
+    debugger
+    if (!value) {
+      this.isActive = false
+    } else {
+      this.updateActiveState()
+    }
+  }
+
   mounted () {
     this.updateActiveState()
-  },
-  watch: {
-    $route () {
-      this.$nextTick(() => {
-        this.updateActiveState()
-      })
-    },
-    minimized (value) {
-      if (!value) {
-        this.isActive = false
-      } else {
-        this.updateActiveState()
-      }
-    },
-  },
-  methods: {
-    toggleMenuItem () {
-      this.expanded = !this.expanded
-    },
-    updateHoverState () {
-      this.isHovered = !this.isHovered
-    },
-    updateActiveState () {
-      const active = this.children.some(item => item.name === this.$route.name)
+  }
 
-      this.isActive = this.minimized ? active : false
-      this.expanded = active
-    },
-  },
-  computed: {
-    computedLinkClass () {
-      return {
-        'va-sidebar-link': true,
-        'va-sidebar-link--expanded': this.expanded,
-        'va-sidebar-link--active': this.isActive,
-      }
-    },
-    computedClass () {
-      return {
-        'va-sidebar-link-group': true,
-        'va-sidebar-link-group--minimized': this.minimized,
-      }
-    },
-    sidebarLinkStyles () {
-      if (this.isHovered || this.isActive) {
-        return {
-          color: this.$themes.primary,
-          backgroundColor: shiftHslColor(this.$themes.secondary, { s: -13, l: 15 }),
-          borderColor: this.isActive ? this.$themes.primary : 'transparent',
-        }
-      } else { return {} }
-    },
-    iconStyles () {
-      return (this.isHovered || this.isActive)
-        ? { color: this.$themes.primary }
-        : { color: 'white' }
-    },
-  },
+  toggleMenuItem () {
+    this.expanded = !this.expanded
+  }
+
+  updateHoverState () {
+    this.isHovered = !this.isHovered
+  }
+
+  updateActiveState () {
+    const active = this.children.some(({ name }) => this.$router.resolve(name).route.name === this.$route.name)
+
+    this.isActive = !this.minimized && active
+    this.expanded = active
+  }
 }
 
 </script>
@@ -188,6 +204,7 @@ export default {
 
 .va-sidebar-link-group {
   flex-direction: column;
+  font-weight: bold;
 
   &__submenu {
     list-style: none;
@@ -202,12 +219,31 @@ export default {
     }
   }
 
-  .va-sidebar-link__content {
-    width: 100%;
-    position: relative;
-    padding-right: 2rem;
-    display: flex;
-    align-items: center;
+  .va-sidebar-link {
+    &__children-counter {
+      font-size: smaller;
+      vertical-align: super;
+    }
+
+    &__content {
+      width: 100%;
+      position: relative;
+      padding-right: 2rem;
+      display: flex;
+      align-items: center;
+    }
+
+    &__after {
+      position: absolute;
+      bottom: 0.4375rem;
+      left: 0;
+      right: 0;
+      height: 0.1835rem;
+      width: 1.8rem;
+      display: block;
+      margin: 0 auto;
+      line-height: 0.1835rem;
+    }
   }
 
   &__expanded-icon {
@@ -249,18 +285,6 @@ export default {
         height: auto;
         min-height: 3rem;
       }
-    }
-
-    .va-sidebar-link__after {
-      position: absolute;
-      bottom: 0.4375rem;
-      left: 0;
-      right: 0;
-      height: 0.1835rem;
-      width: 1.8rem;
-      display: block;
-      margin: 0 auto;
-      line-height: 0.1835rem;
     }
   }
 }

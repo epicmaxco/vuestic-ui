@@ -1,5 +1,5 @@
 <template>
-  <va-sidebar :minimized="minimized">
+  <va-sidebar :minimized="minimized" color="secondary">
     <template slot="menu">
       <template v-for="(item, key) in items">
         <va-sidebar-link-group
@@ -8,12 +8,15 @@
           :minimized="minimized"
           :title="$t(item.displayName)"
           :children="item.children"
+          show-children-count
+          no-highlight
         >
           <va-sidebar-link
             v-for="(subMenuItem, index) in item.children"
             :key="index"
             :to="subMenuItem.name"
             :title="$t(subMenuItem.displayName)"
+            no-highlight
           />
         </va-sidebar-link-group>
         <va-sidebar-link
@@ -22,6 +25,7 @@
           :minimized="minimized"
           :active-by-default="item.name === route.name"
           :to="item.name"
+          no-highlight
         >
           <span slot="title">{{ $t(item.displayName) }}</span>
         </va-sidebar-link>
@@ -31,18 +35,9 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
 import { Component, Vue } from 'vue-property-decorator'
-import VaSidebar from './va-sidebar/VaSidebar.vue'
-import VaSidebarLink from './va-sidebar/VaSidebarLink.vue'
-import VaSidebarLinkGroup from './va-sidebar/VaSidebarLinkGroup.vue'
-import { navigationRoutes } from './NavigationRoutes.ts'
+import { navigationRoutes } from './NavigationRoutes'
 @Component({
-  components: {
-    VaSidebarLinkGroup,
-    VaSidebarLink,
-    VaSidebar,
-  },
   props: {
     minimized: {
       type: Boolean,
