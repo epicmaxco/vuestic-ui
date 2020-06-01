@@ -40,7 +40,7 @@
                 width: sizeComputed,
                 height: sizeComputed,
                 fontSize: fontSizeComputed,
-                borderRadius: `${fontSize * 0.125}rem`,
+                borderRadius: `${SizeMixin_fontSize * 0.125}rem`,
               }"
             > {{ number }} </button>
           </template>
