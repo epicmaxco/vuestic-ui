@@ -26,7 +26,7 @@ export const SelectableMixin = {
   computed: {
     isChecked () {
       if (this.modelIsArray) {
-        return this.valueComputed && this.valueComputed.includes(this.c_arrayValue)
+        return this.c_value && this.c_value.includes(this.c_arrayValue)
       }
       return this.valueComputed === this.c_trueValue
     },
