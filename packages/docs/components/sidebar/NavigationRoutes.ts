@@ -3,7 +3,7 @@ import scheme from './navigationScheme.json'
 
 export type NavigationRoute = {
   name: string,
-  childrenCategories?: string[],
+  childrenCategories?: TranslationString[],
   category?: TranslationString,
   displayName: TranslationString,
   meta?: {
