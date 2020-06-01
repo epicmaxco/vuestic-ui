@@ -21,7 +21,14 @@ export const SelectableMixin = {
   ],
   created () {
     if (this.c_falseValue === this.c_trueValue) {
-      throw new Error('Props trueValue and falseValue are the same')
+      throw new Error('trueValue and falseValue are the same')
+    }
+    if (this.c_indeterminate) {
+      const values = [this.c_falseValue, this.c_trueValue, this.c_indeterminateValue]
+      const isDuplicate = values.some((item, idx) => values.indexOf(item) !== idx)
+      if (isDuplicate) {
+        throw new Error('Values are the same')
+      }
     }
     this.isSelectableComponent = true
   },
