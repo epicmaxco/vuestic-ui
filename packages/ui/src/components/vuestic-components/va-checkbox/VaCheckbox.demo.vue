@@ -67,12 +67,27 @@
         label="true"
       />
     </VbCard>
+    <VbCard title="Custom trueValue, falseValue">
+      <div>
+        {{customTrueFalse}}
+      </div>
+      <va-checkbox
+        v-model="customTrueFalse"
+        true-value="agree"
+        false-value="disagree"
+        :label="`${customTrueFalse}`"
+      />
+    </VbCard>
     <VbCard title="Indeterminate">
       <va-checkbox
-        v-model="value"
+        v-model="valueIndeterminate"
         label="Indeterminate"
+        true-value="agree"
+        false-value="disagree"
+        indeterminate-value="idk"
         indeterminate
       />
+      {{valueIndeterminate}}
     </VbCard>
 
     <VbCard title="Error">
@@ -172,6 +187,8 @@ export default {
   data () {
     return {
       value: true,
+      valueIndeterminate: 'agree',
+      customTrueFalse: 'disagree',
       selection: [],
       stringErrorMessage: 'String error message',
       errorMessages: ['Error message', 'Another error message', 'Long long long long long long long long long long long long long long error message'],

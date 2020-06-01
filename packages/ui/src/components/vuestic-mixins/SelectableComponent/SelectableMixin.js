@@ -37,10 +37,10 @@ export const SelectableMixin = {
         ? !this.c_value && !this.c_value.includes(this.c_arrayValue)
         : this.c_value === this.c_falseValue
     },
-    isChecked () {
+    isIndeterminate () {
       return this.modelIsArray
-        ? this.c_value && this.value.includes(this.c_arrayValue)
-        : this.c_value
+        ? this.c_indeterminate && this.c_value.includes(this.c_arrayValue)
+        : this.c_value === this.c_indeterminateValue
     },
     modelIsArray () {
       return !!this.c_arrayValue
@@ -81,6 +81,7 @@ export const SelectableMixin = {
       if (this.c_readonly || this.c_disabled || this.c_loading) {
         return
       }
+
       // For array access we pretend computedValue does not exist and use c_value + emit input directly.
       if (this.modelIsArray) {
         if (!this.c_value) {
@@ -92,6 +93,18 @@ export const SelectableMixin = {
         }
         return
       }
+
+      if (this.c_indeterminate) {
+        if (this.isIndeterminate) {
+          this.valueComputed = this.c_trueValue
+        } else if (this.isTrue) {
+          this.valueComputed = this.c_falseValue
+        } else if (this.isFalse) {
+          this.valueComputed = this.c_indeterminateValue
+        }
+        return
+      }
+
       if (this.isTrue) {
         this.valueComputed = this.c_falseValue
       } else if (this.isFalse) {

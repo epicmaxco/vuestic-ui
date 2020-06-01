@@ -72,6 +72,7 @@ export default {
     makeContextablePropsMixin({
       value: { type: [Boolean, Array, String, Object], default: false },
       indeterminate: { type: Boolean, default: false },
+      indeterminateValue: { type: [Boolean, Array, String, Object], default: 'ggg' },
       checkedIcon: { type: String, default: 'check' },
       indeterminateIcon: { type: String, default: 'remove' },
       color: { type: String, default: 'primary' },
