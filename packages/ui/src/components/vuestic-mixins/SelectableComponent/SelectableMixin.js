@@ -33,21 +33,6 @@ export const SelectableMixin = {
     isIndeterminate () {
       return this.valueComputed === this.c_indeterminateValue
     },
-    isTrue () {
-      if (this.c_stateful) {
-        if (this.c_indeterminate) {
-          if (this.valueComputed === this.c_trueValue) {
-            return true
-          } else {
-            return false
-          }
-        }
-        return this.valueComputed
-      }
-      return this.modelIsArray
-        ? this.c_value && this.c_value.includes(this.c_arrayValue)
-        : this.c_value === this.c_trueValue
-    },
     modelIsArray () {
       return !!this.c_arrayValue
     },
