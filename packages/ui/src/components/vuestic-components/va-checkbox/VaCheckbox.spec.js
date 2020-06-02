@@ -3,7 +3,7 @@ import { shallowMount } from '@vue/test-utils'
 import VaCheckbox from './VaCheckbox'
 
 import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
-import { testIsSelectableComponent } from '../../vuestic-mixins/SelectableMixin/testIsSelectableComponentectableComponent'
+import { testIsSelectableComponent } from '../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
 
 Vue.use(ColorThemePlugin)
 
