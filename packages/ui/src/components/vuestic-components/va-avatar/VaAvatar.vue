@@ -89,7 +89,7 @@ export default {
         color: getColor(this, this.c_textColor, '#ffffff'),
         backgroundColor: this.c_loading || this.c_email ? 'transparent' : this.colorComputed,
         borderRadius: this.c_square ? 0 : '50%',
-        fontSize: this.c_fontSize,
+        fontSize: this.c_fontSize || this.fontSizeComputed,
         width: this.sizeComputed,
         minWidth: this.sizeComputed, // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
         height: this.sizeComputed,
