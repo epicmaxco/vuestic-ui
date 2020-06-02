@@ -59,7 +59,7 @@
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
-import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
+import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
