@@ -933,11 +933,11 @@
   },
   "hover": {
     "title": "Hover",
-    "text": "The `va-hover` provides easy access for hover state for any component.",
+    "text": "The `va-hover` provides easy access for hover state for any component. To work with hover state you can use either `v-model` or slot-scoped `hover` property.",
     "examples": {
       "slot": {
         "title": "Slot based access",
-        "text": "You are also free to use Vue default slot"
+        "text": "You are also free to use Vue default slot."
       },
       "vModel": {
         "title": "Default usage",

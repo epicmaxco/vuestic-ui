@@ -1,28 +1,23 @@
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Mixins, Component, Prop } from 'vue-property-decorator'
 import { ScopedSlotChildren } from 'vue/types/vnode'
 import { CreateElement } from 'vue/types/umd'
+import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
 @Component
-export default class VaHover extends Vue {
-  active = false
-
+export default class VaHover extends Mixins(StatefulMixin) {
   @Prop({
     type: Boolean,
     default: false,
   }) readonly disabled!: boolean
 
-  @Prop({
-    type: Boolean,
-  }) readonly value!: boolean
-
   onMouseEnter () {
-    this.active = true
+    this.value = true
     this.$emit('input', true)
   }
 
   onMouseLeave () {
-    this.active = false
+    this.value = false
     this.$emit('input', false)
   }
 
@@ -31,7 +26,7 @@ export default class VaHover extends Vue {
       return
     }
 
-    const slot: ScopedSlotChildren = this.$scopedSlots.default({ hover: this.value || this.active })
+    const slot: ScopedSlotChildren = this.$scopedSlots.default({ hover: this.value })
 
     if (!Array.isArray(slot) || !slot.length) {
       return
