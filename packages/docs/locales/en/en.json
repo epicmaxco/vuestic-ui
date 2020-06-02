@@ -278,10 +278,10 @@
         "value": "Hover state."
       },
       "events": {
-        "input": "Emits hover state when changed."
+        "input": "Emits hover state when it changes."
       },
       "slots": {
-        "default": "Can be used instead of value/v-model using `v-slot` directive."
+        "default": "Vue default slot."
       }
     },
     "VaDivider": {
@@ -933,14 +933,15 @@
   },
   "hover": {
     "title": "Hover",
-    "text": "The `va-hover` provides easy acces for hover state for any component.",
+    "text": "The `va-hover` provides easy access for hover state for any component.",
     "examples": {
       "slot": {
-        "title": "Slot based access"
+        "title": "Slot based access",
+        "text": "You are also free to use Vue default slot"
       },
       "vModel": {
-        "title": "Using `v-model`",
-        "text": "You can see that data binding is two way."
+        "title": "Default usage",
+        "text": "You can use `v-model` to get access to hover state."
       },
       "disabled": {
         "title": "Disabled",

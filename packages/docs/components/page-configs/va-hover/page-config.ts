@@ -17,14 +17,6 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'hover.examples.slot.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-hover/Slot',
-  },
-  {
-    type: BlockType.HEADLINE,
     translationString: 'hover.examples.vModel.title',
   },
   {
@@ -37,7 +29,23 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'hover.examples.slot.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'hover.examples.slot.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-hover/Slot',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'hover.examples.disabled.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'hover.examples.disabled.text',
   },
   {
     type: BlockType.EXAMPLE,

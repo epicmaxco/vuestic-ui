@@ -2,11 +2,10 @@
   <div class="row">
     <div class="flex md6 lg4">
       <va-hover disabled v-model="value">
-        <div class="background--secondary">
+        <va-button :outline="value">
           {{ value }}
-        </div>
+        </va-button>
       </va-hover>
-      <va-checkbox v-model="value" />
     </div>
   </div>
 </template>
