@@ -18,20 +18,29 @@ export const SelectableMixin = {
     }),
   ],
   created () {
-    if (this.falseValue === this.trueValue) {
+    if (this.c_falseValue === this.c_trueValue) {
       throw new Error('Props trueValue and falseValue are the same')
     }
     this.isSelectableComponent = true
   },
   computed: {
     isTrue () {
-      return this.modelIsArray ? this.value && this.value.includes(this.arrayValue) : this.value === this.trueValue
+      if (this.c_stateful) {
+        return this.valueComputed
+      }
+      return this.modelIsArray
+        ? this.c_value && this.c_value.includes(this.c_arrayValue)
+        : this.c_value === this.c_trueValue
     },
     isFalse () {
-      return this.modelIsArray ? !this.value && !this.value.includes(this.arrayValue) : this.value === this.falseValue
+      return this.modelIsArray
+        ? !this.c_value && !this.c_value.includes(this.c_arrayValue)
+        : this.c_value === this.c_falseValue
     },
     isChecked () {
-      return this.modelIsArray ? this.value && this.value.includes(this.c_arrayValue) : this.value
+      return this.modelIsArray
+        ? this.c_value && this.value.includes(this.c_arrayValue)
+        : this.c_value
     },
     modelIsArray () {
       return !!this.c_arrayValue
@@ -72,22 +81,23 @@ export const SelectableMixin = {
       if (this.c_readonly || this.c_disabled || this.c_loading) {
         return
       }
+      // For array access we pretend computedValue does not exist and use c_value + emit input directly.
       if (this.modelIsArray) {
-        if (!this.value) {
+        if (!this.c_value) {
           this.$emit('input', [this.c_arrayValue])
-        } else if (this.value.includes(this.c_arrayValue)) {
-          this.$emit('input', this.value.filter(option => option !== this.c_arrayValue))
+        } else if (this.c_value.includes(this.c_arrayValue)) {
+          this.$emit('input', this.c_value.filter(option => option !== this.c_arrayValue))
         } else {
-          this.$emit('input', this.value.concat(this.c_arrayValue))
+          this.$emit('input', this.c_value.concat(this.c_arrayValue))
         }
         return
       }
       if (this.isTrue) {
-        this.$emit('input', this.falseValue)
+        this.valueComputed = this.c_falseValue
       } else if (this.isFalse) {
-        this.$emit('input', this.trueValue)
+        this.valueComputed = this.c_trueValue
       } else {
-        this.$emit('input', !this.c_value)
+        this.valueComputed = !this.c_value
       }
     },
   },

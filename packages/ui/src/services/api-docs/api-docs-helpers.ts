@@ -51,6 +51,37 @@ export const getApiTableProp = (
   }
 }
 
+/**
+ * Very soft default injection into manual api options.
+ * Key use-case right now is to introduce system-wide hidden props.
+ * It's ok if these are not present in component, as we check with real props anyway.
+ * @param defaults
+ * @param base
+ */
+export const mergeInDefaults = (base: ManualApiOptions, defaults: ManualApiOptions): void => {
+  for (const key in base) {
+    // NOTE Many complaints from TS here. Not super sure we want to deal with these.
+    // @ts-ignore
+    if (typeof base[key] !== 'object') {
+      continue
+    }
+    // @ts-ignore
+    if (!base[key]) {
+      // @ts-ignore
+      base[key] = defaults[key]
+      continue
+    }
+    // @ts-ignore
+    for (const optionKey in defaults[key]) {
+      // @ts-ignore
+      if (!base[key][optionKey] && defaults[key][optionKey]) {
+        // @ts-ignore
+        base[key][optionKey] = { ...defaults[key][optionKey] }
+      }
+    }
+  }
+}
+
 export const getApiTableData = (
   componentOptions: ComponentOptions<Vue>,
   manualApiOptions: ManualApiOptions = {},
@@ -71,6 +102,9 @@ export const getApiTableData = (
 
   // Props
   for (const propName in camelCasedProps) {
+    if (manualApiOptions?.props?.[propName]?.hidden) {
+      continue
+    }
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     apiTableData.props[propName] = getApiTableProp(
       componentName,
