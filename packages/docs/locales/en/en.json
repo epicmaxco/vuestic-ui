@@ -38,7 +38,7 @@
         "label": "Same as native `label`",
         "leftLabel": "Moves the label on the left of a checkbox",
         "trueValue": "Overrides the returned value when it's checked",
-        "falseValue": "Overrides the returned value when it's not checked"
+        "falseValue": "Overrides the returned value when it's not checked",
         "square": "Removes rounded corners."
       }
     },
