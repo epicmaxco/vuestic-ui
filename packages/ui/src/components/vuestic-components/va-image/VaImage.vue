@@ -58,7 +58,7 @@ export default class VaImage extends Mixins(makeContextablePropsMixin({
     this.destroyLoader()
   }
 
-  @Watch('src')
+  @Watch('src', { immediate: true })
   onSrcChange () {
     this.createLoader()
   }
@@ -83,7 +83,9 @@ export default class VaImage extends Mixins(makeContextablePropsMixin({
     this.image = new Image()
     this.image.onload = this.handleLoad
     this.image.onerror = this.handleError
-    this.image.src = this.src
+    if (this.src) {
+      this.image.src = this.src
+    }
   }
 
   destroyLoader () {

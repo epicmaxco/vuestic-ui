@@ -297,7 +297,7 @@
     "VaImage": {
       "props": {
         "ratio": "Width to height ratio.",
-        "contain": "Background size. If false, results to `cover`"
+        "contain": "Scales the image while maintaining the proportions so that the whole image fits inside the block."
       },
       "events": {
         "loaded": "Emited when image loading is finished.",
@@ -994,8 +994,19 @@
         "text": "Change image origina ratio, show part of image to fit new ratio."
       },
       "slots": {
-        "title": "Slots",
-        "text": "This example shows the usage of `va-image` slots, how it works with image loading (try **New image** button) and error handling (**Wrong path** button)."
+        "title": "Slots"
+      },
+      "defaultSlot": {
+        "title": "Default slot",
+        "text": "Always shown by default."
+      },
+      "loaderSlot": {
+        "title": "Loader slot",
+        "text": "Is visible when image is loading."
+      },
+      "errorSlot": {
+        "title": "Error slot",
+        "text": "Is visible when `src` path is incorrect."
       }
     }
   },

@@ -49,15 +49,39 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'image.examples.slots.title',
+    translationString: 'image.examples.defaultSlot.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'image.examples.slots.text',
+    translationString: 'image.examples.defaultSlot.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-image/Slots',
+    component: 'va-image/DefaultSlot',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'image.examples.loaderSlot.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'image.examples.loaderSlot.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-image/LoaderSlot',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'image.examples.errorSlot.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'image.examples.errorSlot.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-image/ErrorSlot',
   },
   {
     type: BlockType.SUBTITLE,
