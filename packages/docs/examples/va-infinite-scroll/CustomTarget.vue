@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="row">
     <div
-      style="height: 350px;"
+      style="height: 200px;"
       ref="scrollTarget"
+      class="flex md6 lg4"
     >
       <va-infinite-scroll
         :load="appendRecordsAsyncRef"
@@ -12,16 +13,17 @@
           v-for="(record, index) in recordsRef"
           :key="index"
         >
-          <va-badge :text="index + 1"/> Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
+          List item and some text #{{index}}
         </div>
       </va-infinite-scroll>
     </div>
 
-    <va-separator />
+    <va-separator/>
 
     <div
-      style="height: 350px;"
+      style="height: 200px;"
       id="target"
+      class="flex md6 lg4"
     >
       <va-infinite-scroll
         :load="appendRecordsAsyncId"
@@ -31,7 +33,7 @@
           v-for="(record, index) in recordsId"
           :key="index"
         >
-          <va-badge :text="index + 1"/> Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
+          List item and some text #{{index}}
         </div>
       </va-infinite-scroll>
     </div>
