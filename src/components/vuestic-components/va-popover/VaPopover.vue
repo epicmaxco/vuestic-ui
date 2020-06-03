@@ -5,7 +5,7 @@
     :disabled="disabled"
     :placement="placement"
     :autoHide="autoHide"
-    popoverClass="va-popover"
+    :popoverClass="computedPopoverClasses"
     popoverInnerClass="va-popover__inner"
     popoverWrapperClass="va-popover__wrap"
   >
@@ -16,7 +16,7 @@
       >
       <div
         class="va-popover__content"
-        :style="computedPopoverStyle">
+        :style="computedPopoverContentStyle">
 
         <slot tag="template" name="popover">
           <div v-if="icon" class="va-popover__icon">
@@ -97,6 +97,10 @@ export default {
         }
       },
     },
+    popoverClasses: {
+      type: Array,
+      required: false,
+    },
     backgroundColor: {
       type: String,
       required: false,
@@ -104,13 +108,20 @@ export default {
     },
   },
   computed: {
+    computedPopoverClasses () {
+      let classes = ['va-popover']
+      if (this.popoverClasses) {
+        classes = classes.concat(this.popoverClasses)
+      }
+      return classes
+    },
     computedIconStyle () {
       return {
         fontSize: '1.5rem',
         color: this.$themes[this.color],
       }
     },
-    computedPopoverStyle () {
+    computedPopoverContentStyle () {
       return {
         ...this.popoverStyles,
         backgroundColor: this.backgroundColor,
