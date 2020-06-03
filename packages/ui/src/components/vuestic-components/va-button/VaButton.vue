@@ -69,12 +69,14 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
 @Component({ components: { VaIcon, VaProgressCircle } })
 export default class VaButton extends Mixins(
   ColorThemeMixin,
   RouterLinkMixin,
   SizeMixin,
+  LoadingMixin,
   makeContextablePropsMixin({
     tag: { type: String, default: 'button' },
     outline: { type: Boolean, default: false },
@@ -90,7 +92,6 @@ export default class VaButton extends Mixins(
     iconRight: { type: String, default: '' },
     type: { type: String, default: 'button' },
     disabled: { type: Boolean, default: false },
-    loading: { type: Boolean, default: false },
     block: { type: Boolean, default: false },
     round: { type: Boolean, default: true },
     /* Link props */
