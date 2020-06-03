@@ -35,7 +35,7 @@ import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaB
       type: Array,
       default: () => [
         {
-          code: 'gb',
+          code: 'en',
           name: 'english',
         },
         {
@@ -56,16 +56,16 @@ import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaB
 })
 export default class LanguageDropdown extends Vue {
   setLanguage (locale) {
-    localStorage.setItem('currentLanguage', locale === 'gb' ? 'en' : locale)
-    this.$root.$i18n.setLocale(locale === 'gb' ? 'en' : locale)
+    localStorage.setItem('currentLanguage', locale)
+    this.$root.$i18n.setLocale(locale)
   }
 
   get currentLanguage () {
-    return this.$root.$i18n.locale === 'en' ? 'gb' : this.$root.$i18n.locale
+    return this.$root.$i18n.locale
   }
 
   flagIconClass (code) {
-    return `flag-icon-${code}`
+    return `flag-icon-${code === 'en' ? 'gb' : code}`
   }
 }
 </script>
