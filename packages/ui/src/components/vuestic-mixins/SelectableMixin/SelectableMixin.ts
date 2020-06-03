@@ -28,36 +28,36 @@ export class SelectableMixin extends Mixins(
   KeyboardOnlyFocusMixin,
 ) {
   created () {
-    this.checkDuplicates()
     this.isSelectableComponent = true
+    this.checkDuplicates()
   }
 
-  get isChecked () {
+  get isChecked (): boolean {
     if (this.modelIsArray) {
       return this.c_value && this.c_value.includes(this.c_arrayValue)
     }
     return this.valueComputed === this.c_trueValue
   }
 
-  get isIndeterminate () {
+  get isIndeterminate (): boolean {
     return this.valueComputed === this.c_indeterminateValue
   }
 
-  get modelIsArray () {
+  get modelIsArray (): boolean {
     return !!this.c_arrayValue
   }
 
   /** @public */
-  focus () {
+  focus (): void {
     (this as any).$refs.input.focus()
   }
 
   /** @public */
-  reset () {
+  reset (): void {
     this.$emit('input', false)
   }
 
-  checkDuplicates () {
+  checkDuplicates (): void {
     // Just validating state values.
     const values = [this.c_falseValue, this.c_trueValue]
     if (this.c_indeterminate) {
@@ -69,12 +69,12 @@ export class SelectableMixin extends Mixins(
     }
   }
 
-  onFocus () {
+  onFocus (): void {
     this.KeyboardOnlyFocusMixin_onFocus()
     this.$emit('focus')
   }
 
-  onBlur (event: any) {
+  onBlur (event: any): void {
     if (this.$refs.input === event.target && !this.isElementRelated(event.relatedTarget)) {
       this.ValidateMixin_onBlur()
       this.isKeyboardFocused = false
@@ -82,11 +82,11 @@ export class SelectableMixin extends Mixins(
     }
   }
 
-  isElementRelated (element: any) {
+  isElementRelated (element: any): boolean {
     return [this.$refs.label, this.$refs.container].includes(element)
   }
 
-  clickWrapper () {
+  onWrapperClick (): void {
     if (this.isElementRelated(document.activeElement)) {
       (this as any).$refs.input.focus()
       this.isKeyboardFocused = false
@@ -94,7 +94,7 @@ export class SelectableMixin extends Mixins(
     this.toggleSelection()
   }
 
-  toggleSelection () {
+  toggleSelection (): void {
     if (this.c_readonly || this.c_disabled || this.c_loading) {
       return
     }

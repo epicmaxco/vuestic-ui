@@ -11,7 +11,7 @@
   >
     <div
       class="va-checkbox__input-container"
-      @click="clickWrapper()"
+      @click="onWrapperClick()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
       tabindex="-1"

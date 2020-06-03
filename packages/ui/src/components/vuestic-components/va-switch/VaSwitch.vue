@@ -11,7 +11,7 @@
   >
     <div
       class="va-switch__container"
-      @click="clickWrapper()"
+      @click="onWrapperClick()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
       tabindex="-1"
