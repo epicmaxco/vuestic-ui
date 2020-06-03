@@ -10,27 +10,33 @@
     popoverWrapperClass="va-popover__wrap"
   >
     <slot />
-    <div
+
+    <template
       slot="popover"
-      class="va-popover__content"
-      :style="computedPopoverStyle">
-      <div v-if="icon" class="va-popover__icon">
-        <i
-          :class="icon"
-          :style="computedIconStyle"
-        />
+      >
+      <div
+        class="va-popover__content"
+        :style="computedPopoverStyle">
+
+        <slot tag="template" name="popover">
+          <div v-if="icon" class="va-popover__icon">
+            <i
+              :class="icon"
+              :style="computedIconStyle"
+            />
+          </div>
+          <div v-if="title || message">
+            <div v-if="title" class="va-popover__title">
+              {{ title }}
+            </div>
+            <div class="va-popover__text">
+              {{ message }}
+            </div>
+          </div>
+        </slot>
+        <!-- <div class="va-popover__triangle"></div> TODO: Fix triangle position with dynamic css using placement prop -->
       </div>
-      <div v-if="title || message">
-        <div v-if="title" class="va-popover__title">
-          {{ title }}
-        </div>
-        <div class="va-popover__text">
-          {{ message }}
-        </div>
-      </div>
-      <div class="va-popover__triangle"></div>
-    </div>
-    <!-- <div class="va-popover__triangle"></div> -->
+    </template>
   </v-popover>
 </template>
 
@@ -80,6 +86,22 @@ export default {
       type: Boolean,
       default: true,
     },
+    popoverStyles: {
+      type: Object,
+      required: false,
+      default: () => {
+        return {
+          boxShadow: '0px 2px 3px 0 #414141',
+          backgroundColor: '#414141',
+          color: 'white',
+        }
+      },
+    },
+    backgroundColor: {
+      type: String,
+      required: false,
+      default: '#414141',
+    },
   },
   computed: {
     computedIconStyle () {
@@ -90,9 +112,8 @@ export default {
     },
     computedPopoverStyle () {
       return {
-        boxShadow: '0px 2px 3px 0 #414141',
-        backgroundColor: '#414141',
-        color: 'white',
+        ...this.popoverStyles,
+        backgroundColor: this.backgroundColor,
       }
     },
   },
@@ -100,6 +121,7 @@ export default {
 </script>
 
 <style lang="scss">
+$evollu-gray-dark: '#d3d3d3';
 .v-popover {
   display: inline;
 }
@@ -132,13 +154,13 @@ export default {
   &__text {
     line-height: 1.5;
   }
-  &__triangle {
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 10px solid $evollu-gray-dark;
-    margin-right: -22px;
-  }
+  // &__triangle {
+  //   width: 0;
+  //   height: 0;
+  //   border-top: 10px solid transparent;
+  //   border-bottom: 10px solid transparent;
+  //   border-left: 10px solid red;
+  //   margin-right: -22px;
+  // }
 }
 </style>
