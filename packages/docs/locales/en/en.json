@@ -37,7 +37,7 @@
         "label": "Same as native `label`",
         "leftLabel": "Moves the label on the left of a checkbox",
         "trueValue": "Overrides the returned value when it's checked",
-        "falseValue": "Overrides the returned value when it's not checked"
+        "falseValue": "Overrides the returned value when it's not checked",
         "square": "Removes rounded corners."
       }
     },
@@ -272,9 +272,9 @@
     },
     "VaDivider": {
       "props": {
-        "vertical":  "Displays divider vertically",
+        "vertical": "Displays divider vertically",
         "dashed": "If set to true, the divider line is dashed",
-        "inset":  "If set to true, the left and right margins will be added; reduces height for vertical divider",
+        "inset": "If set to true, the left and right margins will be added; reduces height for vertical divider",
         "orientation": "Position of the title inside divider (for horizontal only). `left`, `center` (default) or `right`"
       },
       "slots": {
@@ -331,6 +331,21 @@
       "events": {
         "input": "Emitted when the component needs to change the value"
       }
+    },
+    "VaInfiniteScroll": {
+      "props": {
+        "offset": "Number of pixels to the end of `va-infinite-scroll` container at which the component should start loading more content in advance.",
+        "reverse": "Instead of bottom, top of the container would trigger loading.",
+        "disabled": "Won't trigger load even when scroll reached end. Useful to prevent further loading when there is no more items in list.",
+        "scrollTarget": "The element to be used as a scroll container instead of default one. Could be CSS selector or Element. When not set - direct wrapper will be used as a scroll container.",
+        "debounce": "Debounce to be applied when listening to scroll event. Useful to prevent user from triggering loading multiple times.",
+        "load": "Function that loads data. Should return Promise",
+        "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
+      },
+      "slots": {
+        "loading": "Shown when content is fetching.",
+        "default": "The content to be scrolled"
+      }
     }
   },
   "anyPage": {
@@ -358,7 +373,8 @@
     "optionList": "Option List",
     "divider": "Divider",
     "button": "Button",
-    "checkbox": "Checkbox"
+    "checkbox": "Checkbox",
+    "infiniteScroll": "Infinite Scroll"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -375,7 +391,7 @@
     "showCode": "Show Code"
   },
   "avatar": {
-    "title" :"Avatar",
+    "title": "Avatar",
     "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently thoroughout your web application. ",
     "examples": {
       "default": {
@@ -1007,6 +1023,28 @@
       "error": {
         "title": "Errors",
         "text": "You can show your error messages while using `va-checkbox` with form."
+      }
+    }
+  },
+  "infiniteScroll": {
+    "title": "Inifinite Scroll",
+    "summaryText": "The `va-infinite-scroll` component is a wrapper component which is intended to be used to create lists with dynamically added content. It provides rich interface to customize scrolling behavior and much more.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Just wrap your content in `va-infinite-scroll` component and provide `load` callback, and you'll see it's called each time list is scrolled till the bottom."
+      },
+      "reverse": {
+        "title": "Reverse",
+        "text": "With `reverse` prop you can prepend content to your list. Might be useful in messenger windows."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "In case you need to prevent a list from loading more content, `disabled` prop is here for you."
+      },
+      "customTarget": {
+        "title": "Custom scroll target container",
+        "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
       }
     }
   }

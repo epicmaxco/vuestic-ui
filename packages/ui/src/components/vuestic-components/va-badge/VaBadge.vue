@@ -3,16 +3,16 @@
     class="va-badge"
     :class="badgeClass"
   >
-    <div
+    <span
       class="va-badge__text-wrapper"
       :style="badgeStyle"
     >
-      <div class="va-badge__text">
+      <span class="va-badge__text">
         <slot name="text">
           {{ c_text }}
         </slot>
-      </div>
-    </div>
+      </span>
+    </span>
     <slot />
   </div>
 </template>
@@ -108,7 +108,6 @@ export default {
 .va-badge {
   display: inline-flex;
   position: relative;
-  vertical-align: bottom;
   $badge-overlap: $badge-size/3;
 
   &__text-wrapper {
