@@ -1,7 +1,7 @@
 import Vue, { CreateElement, ComponentOptions } from 'vue'
 import { createLocalVue, mount } from '@vue/test-utils'
 
-import { ContextPlugin, setRef, ContextConfig } from './ContextPlugin'
+import { ContextPlugin, setRef, ContextConfig, TRY_SETTING_CONTEXT_CONFIG_LOCALLY } from './ContextPlugin'
 
 function mountWithPlugin (
   component: ComponentOptions<Vue>,
@@ -23,6 +23,11 @@ test('ContextPlugin', () => {
           return this.$vaContextConfig
         },
       },
+      methods: {
+        tryToSetRefLocally (value) {
+          this.$vaContextConfig = value
+        },
+      },
       render (h: CreateElement) {
         return h('')
       },
@@ -32,7 +37,9 @@ test('ContextPlugin', () => {
     },
   )
 
-  expect((wrapper.vm as any).internalValue.context.value).toBe('value')
+  const instance = wrapper.vm as any
+
+  expect(instance.internalValue.context.value).toBe('value')
 
   setRef({
     context: {
@@ -40,12 +47,14 @@ test('ContextPlugin', () => {
     },
   })
 
-  expect((wrapper.vm as any).internalValue.context.value).toBe('newValue')
+  expect(instance.internalValue.context.value).toBe('newValue')
 
   setRef(config => ({
     ...config,
     context: { value: config.context.value + 'AndOneMoreNewValue' },
   }))
 
-  expect((wrapper.vm as any).internalValue.context.value).toBe('newValueAndOneMoreNewValue')
+  expect(instance.internalValue.context.value).toBe('newValueAndOneMoreNewValue')
+
+  expect(() => instance.tryToSetRefLocally({})).toThrow(TRY_SETTING_CONTEXT_CONFIG_LOCALLY)
 })

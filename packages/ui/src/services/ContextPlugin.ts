@@ -11,26 +11,41 @@ export type ContextConfig = Record<string, Record<string, any>>
 /**
  * The global configuration reference
  */
-export const GlobalConfig: ContextConfig = OurVue.observable({})
+export const globalConfigRef: ContextConfig = OurVue.observable({
+  value: {},
+})
 
-/**
- * Plugin provides global config to Vue component through prototype
- */
-export const ContextPlugin = {
-  install (Vue: VueConstructor, config: ContextConfig) {
-    Vue.prototype.$vaContextConfig = Object.assign(GlobalConfig, config)
-  },
-}
-
-type Updater = (config: ContextConfig) => ContextConfig
+type Updater = (config: ContextConfig) => ContextConfig;
 
 /**
  * The global configuration's setter
  */
 export const setRef = (updater: ContextConfig | Updater) => {
   if (typeof updater === 'function') {
-    Object.assign(GlobalConfig, updater(GlobalConfig))
+    globalConfigRef.value = { ...globalConfigRef.value, ...updater(globalConfigRef.value) }
   } else {
-    Object.assign(GlobalConfig, updater)
+    globalConfigRef.value = { ...globalConfigRef.value, ...updater }
   }
+}
+
+export const TRY_SETTING_CONTEXT_CONFIG_LOCALLY =
+  'You cannot set `$vaContextConfig` itself. Use `setRef` instead.'
+
+/**
+ * Plugin provides global config to Vue component through prototype
+ */
+export const ContextPlugin = {
+  install (Vue: VueConstructor, config: ContextConfig) {
+    setRef(config)
+
+    Object.defineProperty(Vue.prototype, '$vaContextConfig', {
+      get () {
+        return globalConfigRef.value
+      },
+      set () {
+        throw new Error(TRY_SETTING_CONTEXT_CONFIG_LOCALLY)
+      },
+      configurable: false,
+    })
+  },
 }
