@@ -779,7 +779,7 @@ export default {
   &__track {
     position: absolute;
     border-radius: 0.25rem;
-    transition: none;
+    transition: 0.1s;
     opacity: 0.2;
   }
 
@@ -796,7 +796,7 @@ export default {
     border-radius: 50%;
     outline: none !important;
     left: -0.375rem;
-    transition: none;
+    transition: 0.1s;
 
     &__dot--focus {
       transform: translate(-0.625rem, -0.625rem);
@@ -891,7 +891,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: left 0.3s ease-out;
+        transition: left 0.1s ease-out;
       }
 
       &__dot--value {
@@ -960,7 +960,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: bottom 0.3s ease-out;
+        transition: bottom 0.1s ease-out;
       }
 
       &__dot--value {
