@@ -22,6 +22,20 @@ describe('VaCheckbox', () => {
     })
     expect(wrapper.html()).toMatchSnapshot()
   })
+  it('has indeterminate class', () => {
+    const wrapper = shallowMount(VaCheckbox, {
+      propsData: { indeterminate: true },
+    })
+    expect(wrapper.find(VaCheckbox).classes()).toContain('va-checkbox--indeterminate')
+  })
+  it('computedClass defined', () => {
+    const wrapper = shallowMount(VaCheckbox)
+    expect(wrapper.vm.computedClass).toBeDefined()
+  })
+  it('computedIconName should be "check" ', () => {
+    const wrapper = shallowMount(VaCheckbox)
+    expect(wrapper.vm.computedIconName).toBe('check')
+  })
   it('is Selectable Component', () => {
     expect(() => testIsSelectableComponent(VaCheckbox)).not.toThrow()
   })
