@@ -6,6 +6,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
     "build:book": "vue-cli-service build --mode book",
+    "build": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
     "test:unit": "vue-cli-service test:unit -w 1",
@@ -53,6 +54,9 @@
     "webpack": "^4.42.1"
   },
   "devDependencies": {
+    "@rollup/plugin-buble": "^0.21.3",
+    "@rollup/plugin-json": "^4.0.3",
+    "@rollup/plugin-node-resolve": "^8.0.0",
     "@types/jest": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
