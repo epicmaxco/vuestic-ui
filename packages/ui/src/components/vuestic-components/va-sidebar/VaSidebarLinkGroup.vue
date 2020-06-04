@@ -17,7 +17,7 @@
           :style="iconStyles"
           :name="icon"
         />
-        <span class="va-sidebar-link__content__title">
+        <span class="va-sidebar-link__content__title va-sidebar-link__content__title--nested">
           <slot name="title">
             {{ title }}
           </slot>
@@ -83,16 +83,17 @@
 import { Vue, Component, Watch, Prop } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { shiftHslColor } from '../../../services/color-functions'
+
 @Component({
   components: {
     VaIcon,
   },
 })
 export default class VaSidebarLinkGroup extends Vue {
-    @Prop({
-      type: String,
-      default: '',
-    }) readonly icon!: string
+@Prop({
+  type: String,
+  default: '',
+}) readonly icon!: string
 
  @Prop({
    type: String,
@@ -169,41 +170,41 @@ export default class VaSidebarLinkGroup extends Vue {
      : { color: this.textColor, fontWeight: 'normal' }
  }
 
-  @Watch('$route')
+ @Watch('$route')
  onRouteChanged () {
    this.$nextTick(() => {
      this.updateActiveState()
    })
  }
 
-  @Watch('minimizzed')
-  onMinimizedChanged (value) {
-    debugger
-    if (!value) {
-      this.isActive = false
-    } else {
-      this.updateActiveState()
-    }
-  }
+@Watch('minimized')
+ onMinimizedChanged (value) {
+   debugger
+   if (!value) {
+     this.isActive = false
+   } else {
+     this.updateActiveState()
+   }
+ }
 
-  mounted () {
-    this.updateActiveState()
-  }
+mounted () {
+  this.updateActiveState()
+}
 
-  toggleMenuItem () {
-    this.expanded = !this.expanded
-  }
+toggleMenuItem () {
+  this.expanded = !this.expanded
+}
 
-  updateHoverState () {
-    this.isHovered = !this.isHovered
-  }
+updateHoverState () {
+  this.isHovered = !this.isHovered
+}
 
-  updateActiveState () {
-    const active = this.children.some(({ name }) => this.$router.resolve(name).route.name === this.$route.name)
+updateActiveState () {
+  const active = this.children.some(({ name }) => this.$router.resolve(name).route.name === this.$route.name)
 
-    this.isActive = !this.minimized && active
-    this.expanded = active
-  }
+  this.isActive = !this.minimized && active
+  this.expanded = active
+}
 }
 
 </script>
@@ -213,7 +214,6 @@ export default class VaSidebarLinkGroup extends Vue {
 
 .va-sidebar-link-group {
   flex-direction: column;
-  font-weight: bold;
 
   &__submenu {
     list-style: none;
@@ -222,7 +222,6 @@ export default class VaSidebarLinkGroup extends Vue {
     overflow: hidden;
 
     a {
-      font-size: 0.875rem;
       display: block;
       padding-left: 2.75rem;
     }
@@ -240,6 +239,10 @@ export default class VaSidebarLinkGroup extends Vue {
       padding-right: 2rem;
       display: flex;
       align-items: center;
+
+      &__title--nested {
+        font-weight: bold;
+      }
     }
 
     &__after {

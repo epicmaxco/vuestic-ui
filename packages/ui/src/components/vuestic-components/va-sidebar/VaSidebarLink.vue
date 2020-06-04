@@ -14,7 +14,7 @@
       :style="computedIconStyles"
       :name="icon"
     />
-    <div class="va-sidebar-link__content__title">
+    <div class="va-sidebar-link__content__title va-sidebar-link__content__title--no-nested">
       <slot name="title" />
       {{ title }}
     </div>
@@ -24,7 +24,7 @@
 <script lang="ts">
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { shiftHslColor } from '../../../services/color-functions'
-import VaIcon from '../va-icon/VaIcon'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { Mixins, Prop, Component, Watch } from 'vue-property-decorator'
 
 @Component({ components: { VaIcon } })
@@ -51,7 +51,6 @@ export default class VaSidebarLink extends Mixins(ColorThemeMixin) {
 
  @Prop({
    type: Boolean,
-   default: '',
  }) readonly minimized!: boolean
 
  @Prop({
@@ -141,8 +140,10 @@ export default class VaSidebarLink extends Mixins(ColorThemeMixin) {
       margin-right: 0.5rem;
     }
 
-    &__title {
-      line-height: 1.5em;
+    &__title &__title--no-nested {
+      font-weight: normal;
+      line-height: 1.25rem;
+      font-size: 1rem;
     }
   }
 

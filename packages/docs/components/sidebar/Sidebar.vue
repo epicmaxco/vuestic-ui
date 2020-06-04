@@ -12,7 +12,7 @@
           no-highlight
         >
           <template v-for="category in item.childrenCategories">
-            <span class="pl-4 py-3" :style="categoryTitleStyle" :key="category">{{$t(category)}}</span>
+            <span class="category py-3" :style="categoryTitleStyle" :key="category">{{$t(category)}}</span>
             <va-sidebar-link
               v-for="(subMenuItem, index) in item.children.filter(child => child.category === category)"
               :key="index"
@@ -22,7 +22,7 @@
             />
           </template>
           <va-sidebar-link
-            class="pl-4"
+            class="pl-3"
             v-for="(subMenuItem, index) in item.children.filter(({category}) => !category)"
             :key="index"
             :to="subMenuItem.name"
@@ -69,3 +69,9 @@ export default class Sidebar extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.category {
+  padding-left: 2rem;
+}
+</style>
