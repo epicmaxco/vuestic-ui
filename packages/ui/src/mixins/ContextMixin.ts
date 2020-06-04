@@ -1,5 +1,5 @@
 import { Component, Inject, Vue } from 'vue-property-decorator'
-import { ContextConfig } from '../services/ContextPlugin'
+import { ContextConfig } from '../services/GlobalConfigPlugin'
 
 /**
  * Key for communication inject/provide

@@ -22,12 +22,12 @@ class Provider extends Vue {
 }
 
 describe('ContextMixin', () => {
-  it('should return the default configs set value', () => {
+  it('should return the default configs array outside of provider', () => {
     const wrapper = mount(ExampleComponent)
     expect(wrapper.vm._$configs).toStrictEqual(CONFIGS_DEFAULT)
   })
 
-  it('should return the configs set value', () => {
+  it('should return the configs array from the context', () => {
     const wrapper = mount({
       render (h: CreateElement) {
         return h(Provider, [h(ExampleComponent)])
