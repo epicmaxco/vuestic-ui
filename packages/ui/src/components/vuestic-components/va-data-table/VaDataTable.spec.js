@@ -34,6 +34,9 @@ describe('VaDataTable', () => {
     expect(new Set(wrapper.vm.sortDesc(wrapper.vm.data, 'alnum'))).toEqual(new Set(expectedAsc.reverse()))
   })
   it('has loading mixin', () => {
-    expect(() => testIsLoadingMixin(VaDataTable)).not.toThrow()
+    const props = {
+      data: [],
+    }
+    expect(() => testIsLoadingMixin(VaDataTable, props)).not.toThrow()
   })
 })

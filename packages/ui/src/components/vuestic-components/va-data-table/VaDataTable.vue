@@ -64,7 +64,6 @@ export default {
     data: {
       type: Array,
       required: true,
-      default: () => [],
     },
     perPage: {
       type: Number,
