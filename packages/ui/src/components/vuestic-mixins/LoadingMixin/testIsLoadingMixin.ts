@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 
-export function testIsLoadingMixin (componentOptions: any, componentProps: any) {
+export function testIsLoadingMixin (componentOptions: any, componentProps?: any) {
   const wrapper = shallowMount(componentOptions, {
     propsData: componentProps,
   })
