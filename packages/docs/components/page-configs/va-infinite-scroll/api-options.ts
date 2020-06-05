@@ -7,7 +7,7 @@ export default {
     disabled: { local: true },
     scrollTarget: { local: true },
     debounce: { local: true },
-    load: { local: true },
+    load: { local: true, types: '() => Promise<any>' },
     tag: { local: true },
   },
   slots: {
