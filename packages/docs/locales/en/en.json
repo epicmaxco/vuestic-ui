@@ -656,25 +656,43 @@
   },
   "rating": {
     "title": "Rating",
-    "paragraph": "The rating component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application",
-    "basic": {
-      "subtitle": "Usage example",
-      "paragraph": "The rating component has a simple interface to collect user feedback."
-    },
+    "summaryText": "The `va-rating` component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application.",
     "examples": {
-      "subtitle": "Examples",
-      "paragraph": "Here you can find some examples with simple or complex API usage",
-      "colorsAndSizes": {
-        "headline": "Different sizes and colors",
-        "paragraph": "Use predefined sizes and colors, or use your own with help of *size* and *color* props."
+      "default": {
+        "title": "Default",
+        "text": "The `va-rating` component has a simple interface to collect user feedback."        
       },
-      "hoverAndHalves": {
-        "headline": "Add some visual interaction",
-        "paragraph": "Add hover and enable halves for more precise feedback gathering."
+      "color": {
+        "title": "Colors",
+        "text": "!!!"
+      },
+      "size": {
+        "title": "Sizes",
+        "text": "!!!"
+      },
+      "hover": {
+        "title": "Hover",
+        "text": "!!!"
+      },
+      "halves": {
+        "title": "Halves",
+        "text": "!!!"
+      },
+      "texts": {
+        "title": "Texts",
+        "text": "!!!"
+      },
+      "clearable": {
+        "title": "Clearable",
+        "text": "!!!"
       },
       "numbers": {
-        "headline": "Numbers instead of icons",
-        "paragraph": "Want to see numbers instead of icons? We got you covered."
+        "title": "Numbers",
+        "text": "Want to see numbers instead of icons? We got you covered."
+      },
+      "customIcons": {
+        "title": "Custom Icons",
+        "text": "!!!"
       }
     },
     "api": {

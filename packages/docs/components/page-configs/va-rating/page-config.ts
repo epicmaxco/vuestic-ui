@@ -10,71 +10,119 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'rating.paragraph',
+    translationString: 'rating.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'rating.basic.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.basic.paragraph',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/Basic',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'rating.examples.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.paragraph',
+    translationString: 'anyPage.examples',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'rating.examples.colorsAndSizes.headline',
+    translationString: 'rating.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.colorsAndSizes.paragraph',
+    translationString: 'rating.examples.default.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-rating/ColorsAndSizes',
+    component: 'va-rating/Default',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'rating.examples.hoverAndHalves.headline',
+    translationString: 'rating.examples.color.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.hoverAndHalves.paragraph',
+    translationString: 'rating.examples.color.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-rating/HoverAndHalves',
+    component: 'va-rating/Color',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'rating.examples.numbers.headline',
+    translationString: 'rating.examples.size.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.numbers.paragraph',
+    translationString: 'rating.examples.size.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/Size',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'rating.examples.hover.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'rating.examples.hover.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/Hover',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'rating.examples.halves.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'rating.examples.halves.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/Halves',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'rating.examples.numbers.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'rating.examples.numbers.text',
   },
   {
     type: BlockType.EXAMPLE,
     component: 'va-rating/Numbers',
   },
   {
-    type: BlockType.SUBTITLE,
-    translationString: 'rating.api.subtitle',
+    type: BlockType.HEADLINE,
+    translationString: 'rating.examples.texts.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'rating.api.paragraph',
+    translationString: 'rating.examples.texts.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/Texts',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'rating.examples.clearable.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'rating.examples.clearable.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/Clearable',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'rating.examples.customIcons.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'rating.examples.customIcons.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-rating/CustomIcons',
   },
   {
     type: BlockType.API,
