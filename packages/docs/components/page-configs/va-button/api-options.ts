@@ -7,7 +7,6 @@ export default {
     icon: { local: true },
     iconRight: { local: true },
     type: { local: true },
-    loading: { local: true },
     block: { local: true },
     round: { local: true },
     href: { local: true },

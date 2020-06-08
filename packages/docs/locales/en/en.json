@@ -36,6 +36,7 @@
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
         "label": "Same as native `label`",
         "leftLabel": "Moves the label on the left of a checkbox",
+        "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
         "square": "Removes rounded corners."
@@ -60,7 +61,6 @@
         "icon": "The icon to be displayed to the left of a title",
         "iconRight": "The icon to be displayed to the right of a title",
         "type": "Will be used as value for html `type` attribute",
-        "loading": "Indicates that something is loading (spinner icon inside button)",
         "block": "Applies block styling (will take 100% of container width)",
         "round": "Adds rounded corners",
         "href": "Will be used as value for html `href` attribute. (If used, `<button />` will be replaced with `<a>` tag)",
@@ -251,7 +251,6 @@
         "falseLabel": "Label when unchecked",
         "trueInnerLabel": "Inner label when checked",
         "falseInnerLabel": "Inner label when unchecked",
-        "loading": "Pending state mark",
         "value": "Switch value",
         "trueValue": "Value when checked",
         "falseValue": "Value when unchecked",
@@ -314,7 +313,6 @@
         "icon": "The icon to be displayed inside a container",
         "src": "URL to the image (will be placed inside `src` attribute of image tag)",
         "fontSize": "The font-size of text inside avatar",
-        "loading": "Displays spinner",
         "email": "Will display `gravatar` for provided email address"
       },
       "slots": {

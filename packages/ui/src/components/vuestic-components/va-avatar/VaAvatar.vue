@@ -31,6 +31,7 @@
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import VaIcon from '../va-icon/VaIcon'
 import gravatar from 'gravatar'
@@ -60,10 +61,6 @@ const contextConfigMixin = makeContextablePropsMixin({
     type: String,
     default: '',
   },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
   email: {
     type: String,
     default: '',
@@ -72,7 +69,7 @@ const contextConfigMixin = makeContextablePropsMixin({
 
 export default {
   name: 'VaAvatar',
-  mixins: [SizeMixin, ColorThemeMixin, contextConfigMixin],
+  mixins: [SizeMixin, ColorThemeMixin, contextConfigMixin, LoadingMixin],
   components: {
     VaIcon,
     VaProgressCircle,

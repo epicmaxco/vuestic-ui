@@ -3,6 +3,7 @@ import VaSwitch from './VaSwitch'
 
 import { testIsSelectableComponent } from '../../vuestic-mixins/testIsSelectableComponent'
 import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
+import { testIsLoadingMixin } from '../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 
 describe('VaSwitch', () => {
   it('default', () => {
@@ -31,5 +32,8 @@ describe('VaSwitch', () => {
       stateful: true,
     }
     expect(() => testIsContextableComponent(VaSwitch, contextProps).not.toThrow())
+  })
+  it('has loading mixin', () => {
+    expect(() => testIsLoadingMixin(VaSwitch)).not.toThrow()
   })
 })

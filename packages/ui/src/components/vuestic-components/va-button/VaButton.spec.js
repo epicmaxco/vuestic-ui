@@ -4,6 +4,7 @@ import VaButton from './VaButton'
 
 import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
 import { ContextPlugin } from '../../context-test/context-provide/ContextPlugin'
+import { testIsLoadingMixin } from '../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 
 Vue.use(ColorThemePlugin)
 Vue.use(ContextPlugin, {})
@@ -143,5 +144,8 @@ describe('VaButton', () => {
       },
     })
     expect(wrapper.html()).toMatchSnapshot()
+  })
+  it('has loading mixin', () => {
+    expect(() => testIsLoadingMixin(VaButton)).not.toThrow()
   })
 })

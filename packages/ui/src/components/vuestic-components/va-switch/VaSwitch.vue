@@ -72,6 +72,7 @@
 <script>
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
@@ -80,6 +81,7 @@ export default {
   name: 'VaSwitch',
   mixins: [
     SelectableMixin,
+    LoadingMixin,
     makeContextablePropsMixin({
       value: { type: [Boolean, Array, String, Object], default: false },
       size: {
@@ -92,10 +94,6 @@ export default {
       color: {
         type: String,
         default: 'primary',
-      },
-      loading: {
-        type: Boolean,
-        default: false,
       },
       trueLabel: {
         type: String,
