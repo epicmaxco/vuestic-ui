@@ -5,19 +5,19 @@ const path = require('path')
 const buble = require('@rollup/plugin-buble')
 const json = require('@rollup/plugin-json')
 const nodeResolve = require('@rollup/plugin-node-resolve').default
+const vue = require('rollup-plugin-vue')
+const typescript = require('@rollup/plugin-typescript')
 
 import type { InputOptions, OutputOptions } from 'rollup'
 
 process.env.BABEL_ENV = 'production'
 
-const resolve = (_path: string) => {
-  return path.resolve(__dirname, '..', _path)
-}
-
 // Setup for when we don't need babel.
 const rollupPluginsModern = [
   nodeResolve(),
   json(),
+  vue(),
+  typescript(),
 ]
 
 // Setup for when we do need babel.
@@ -41,10 +41,10 @@ const builds: BuildConfig[] = [
   {
     rollup: {
       input: {
-        input: resolve(`./main.ts`),
+        input: path.resolve(__dirname, './main.ts'),
       },
       output: {
-        file: resolve(`dist/main.esm.js`),
+        file: path.resolve(__dirname, './../../dist/main.esm.js'),
         format: 'es',
       },
     },

@@ -1,4 +1,4 @@
-import Toasted from 'vue-toasted'
+import Toasted, { ToastOptions } from 'vue-toasted'
 import Vue from 'vue'
 
 const toastOptions = {
@@ -13,7 +13,8 @@ Vue.use(Toasted, toastOptions)
 
 export default {
   methods: {
-    showToast (msg, options) {
+    showToast (msg: string, options?: ToastOptions) {
+      // @ts-ignore
       this.$toasted.show(msg, options)
     },
   },

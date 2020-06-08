@@ -1,3 +1,8 @@
+// This directive was implemented for vuestic 1 and might not correspond current state of app.
+// It's being used in vuestic-admin for chat for now.
+// But maybe it'll find some usages for vuestic-ui as well.
+// @ts-nocheck
+
 export default {
   bind: (el, binding) => {
     const duration = binding.value.duration || 500
