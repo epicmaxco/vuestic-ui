@@ -664,27 +664,27 @@
       },
       "color": {
         "title": "Colors",
-        "text": "!!!"
+        "text": "With `color` prop you can change the color of the component."
       },
       "size": {
         "title": "Sizes",
-        "text": "!!!"
+        "text": "Using `size` prop specify custom size for an `va-rating` component."
       },
       "hover": {
         "title": "Hover",
-        "text": "!!!"
+        "text": "By using `hover` prop you can see visual changes of value before click."
       },
       "halves": {
         "title": "Halves",
-        "text": "!!!"
+        "text": "You can divide your `va-rating` component values on halves."
       },
       "texts": {
         "title": "Texts",
-        "text": "!!!"
+        "text": "A component can be covered by different custom labels for each value."
       },
       "clearable": {
         "title": "Clearable",
-        "text": "!!!"
+        "text": "You can set the component value to 0."
       },
       "numbers": {
         "title": "Numbers",
@@ -692,12 +692,8 @@
       },
       "customIcons": {
         "title": "Custom Icons",
-        "text": "!!!"
+        "text": "Providing this prop to component allows you to add custom icons."
       }
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props, events and slots that are used in va-rating component."
     },
     "faq": {
       "subtitle": "FAQ",
