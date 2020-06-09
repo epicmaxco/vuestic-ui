@@ -197,7 +197,7 @@
         "halfIcon": "The icon displayed when icon is half-filled (requires **`halves`**)",
         "emptyIcon": "The icon displayed when icon is empty (requires **`halves`**)",
         "readonly": "Disables all user interaction effects (pointer, hover)",
-        "numbers": "When true numbers from 1 to `max` are rendered instead of icons",
+        "numbers": "When `true`, numbers from 1 to **`max`** are rendered instead of icons",
         "halves": "Allow to select half of the item",
         "max": "The amount of items to display",
         "clearable": "Allows the components value to be set to 0. Triggered by clicking on currently selected icon",
@@ -660,7 +660,7 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": "The `va-rating` component has a simple interface to collect user feedback."        
+        "text": "The `va-rating` component has a simple interface to collect user feedback."
       },
       "color": {
         "title": "Colors",
@@ -684,7 +684,7 @@
       },
       "clearable": {
         "title": "Clearable",
-        "text": "You can set the component value to 0."
+        "text": "Selecting current value again will clear the component."
       },
       "numbers": {
         "title": "Numbers",
