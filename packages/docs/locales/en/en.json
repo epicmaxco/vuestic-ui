@@ -360,6 +360,7 @@
     "modal": "Modal",
     "tabs": "Tabs",
     "uiElements": "UI Elements",
+    "styles": "Styles",
     "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
@@ -372,7 +373,8 @@
     "divider": "Divider",
     "button": "Button",
     "checkbox": "Checkbox",
-    "infiniteScroll": "Infinite Scroll"
+    "infiniteScroll": "Infinite Scroll",
+    "grid": "Grid"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1059,5 +1061,9 @@
         "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
       }
     }
+  },
+  "grid": {
+    "title": "Grid System",
+    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool."
   }
 }
