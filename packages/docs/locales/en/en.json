@@ -197,7 +197,7 @@
         "halfIcon": "The icon displayed when icon is half-filled (requires **`halves`**)",
         "emptyIcon": "The icon displayed when icon is empty (requires **`halves`**)",
         "readonly": "Disables all user interaction effects (pointer, hover)",
-        "numbers": "When true numbers from 1 to `max` are rendered instead of icons",
+        "numbers": "When `true`, numbers from 1 to **`max`** are rendered instead of icons",
         "halves": "Allow to select half of the item",
         "max": "The amount of items to display",
         "clearable": "Allows the components value to be set to 0. Triggered by clicking on currently selected icon",
@@ -654,30 +654,44 @@
   },
   "rating": {
     "title": "Rating",
-    "paragraph": "The rating component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application",
-    "basic": {
-      "subtitle": "Usage example",
-      "paragraph": "The rating component has a simple interface to collect user feedback."
-    },
+    "summaryText": "The `va-rating` component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application.",
     "examples": {
-      "subtitle": "Examples",
-      "paragraph": "Here you can find some examples with simple or complex API usage",
-      "colorsAndSizes": {
-        "headline": "Different sizes and colors",
-        "paragraph": "Use predefined sizes and colors, or use your own with help of *size* and *color* props."
+      "default": {
+        "title": "Default",
+        "text": "The `va-rating` component has a simple interface to collect user feedback."
       },
-      "hoverAndHalves": {
-        "headline": "Add some visual interaction",
-        "paragraph": "Add hover and enable halves for more precise feedback gathering."
+      "color": {
+        "title": "Colors",
+        "text": "With `color` prop you can change the color of the component."
+      },
+      "size": {
+        "title": "Sizes",
+        "text": "Using `size` prop specify custom size for an `va-rating` component."
+      },
+      "hover": {
+        "title": "Hover",
+        "text": "By using `hover` prop you can see visual changes of value before click."
+      },
+      "halves": {
+        "title": "Halves",
+        "text": "You can divide your `va-rating` component values on halves."
+      },
+      "texts": {
+        "title": "Texts",
+        "text": "A component can be covered by different custom labels for each value."
+      },
+      "clearable": {
+        "title": "Clearable",
+        "text": "Selecting current value again will clear the component."
       },
       "numbers": {
-        "headline": "Numbers instead of icons",
-        "paragraph": "Want to see numbers instead of icons? We got you covered."
+        "title": "Numbers",
+        "text": "Want to see numbers instead of icons? We got you covered."
+      },
+      "customIcons": {
+        "title": "Custom Icons",
+        "text": "Providing this prop to component allows you to add custom icons."
       }
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props, events and slots that are used in va-rating component."
     },
     "faq": {
       "subtitle": "FAQ",
