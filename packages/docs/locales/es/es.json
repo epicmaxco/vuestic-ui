@@ -20,6 +20,7 @@
         "reset": "Reset values and validation state for all form-components"
       }
     },
+    "VaImage": { "props": {}, "events": {}, "methods": {}, "slots": {} },
     "VaDivider": {
       "props": {},
       "events": {},
@@ -36,6 +37,7 @@
   "menu": {
     "modals": "Modals",
     "uiElements": "Elementos UI",
+    "image": "Image",
     "checkbox": "Checkbox"
   },
   "language": {
@@ -43,6 +45,9 @@
     "english": "English",
     "spanish": "Spanish",
     "simplified_chinese": "Versión abreviada"
+  },
+  "image": {
+    "title": "-- Here is the title --"
   },
   "checkbox": {
     "title": "-- Here is the title --"

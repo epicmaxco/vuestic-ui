@@ -33,6 +33,7 @@
         "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
         "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
         "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
+        "src": "Source URL.",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
         "label": "Same as native `label`",
         "leftLabel": "Moves the label on the left of a checkbox",
@@ -289,6 +290,21 @@
         "outlined": "Toggles shadow of `va-card`"
       }
     },
+    "VaImage": {
+      "props": {
+        "ratio": "Width to height ratio.",
+        "contain": "Scales the image while maintaining the proportions so that the whole image fits inside the block."
+      },
+      "events": {
+        "loaded": "Emitted when image loading is finished.",
+        "error": "Emitted on loading error."
+      },
+      "slots": {
+        "loading": "Shown when image is loading.",
+        "error": "Is shown if loading gives an error.",
+        "default": "Image overlay for you to add content. Doesn't show on loading or error."
+      }
+    },
     "VaOptionList": {
       "props": {
         "value": "The array of currently selected items in a list",
@@ -302,10 +318,10 @@
         "leftLabel": "Put the labels to the left"
       },
       "events": {
-        "input": "Emited on value change."
+        "input": "Emitted on value change."
       },
       "slots": {
-        "default": "Intended to be used in order to render items. Available props are:\n`option: String | Object`\n`isDisabled: Boolean`\n`name: String`\n`color: String`\n`leftLabel: Boolean`\n`getText: (option: String | Object) => String` \n `selectedValue: Array<String | Object>`\n`index: Number`"
+        "default": "Used to render items. Available props are:\n`option: String | Object`\n`isDisabled: Boolean`\n`name: String`\n`color: String`\n`leftLabel: Boolean`\n`getText: (option: String | Object) => String` \n `selectedValue: Array<String | Object>`\n`index: Number`"
       }
     },
     "VaAvatar": {
@@ -368,6 +384,7 @@
     "pagination": "Pagination",
     "fileUpload": "File Upload",
     "form": "Form",
+    "image": "Image",
     "optionList": "Option List",
     "divider": "Divider",
     "button": "Button",
@@ -390,7 +407,7 @@
   },
   "avatar": {
     "title": "Avatar",
-    "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently thoroughout your web application. ",
+    "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application. ",
     "examples": {
       "default": {
         "title": "Default",
@@ -518,7 +535,7 @@
   },
   "button": {
     "title": "Button",
-    "summaryText": "The `va-button` component intended to be used instead of the standart HTMl button. It offers multiple built-in styles plus gives possibility to change color and size manually.",
+    "summaryText": "The `va-button` component intended to be used instead of the standard HTMl button. It offers multiple built-in styles plus gives possibility to change color and size manually.",
     "examples": {
       "default": {
         "title": "Default",
@@ -533,7 +550,7 @@
         "text": "Using `size` prop you can make your button fit in any place on your web page."
       },
       "withStyle": {
-        "title": "Differen styles",
+        "title": "Different styles",
         "text": "We have 3 styles available: \"outlined\", \"flat\" and \"square\"."
       },
       "withIcon": {
@@ -970,9 +987,6 @@
       },
       "colorAndGradient": {
         "title": "Color and gradient"
-      },
-      "image": {
-        "title": "Image"
       }
     },
     "faq": {
@@ -986,6 +1000,39 @@
           "answer": "No, we will do it for you. If tag is not set, but `href` is, component tag will be `<a>`, if any of router-link prop is set, it will be `<router-link>`."
         }
       ]
+    }
+  },
+  "image": {
+    "title": "Image",
+    "text": "The `va-image` is used to display responsive images. It has some features to make your work with images easier.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage of image component."
+      },
+      "contain": {
+        "title": "Contain",
+        "text": "Used to show full image while ignoring its original ratio and size."
+      },
+      "ratio": {
+        "title": "Ratio",
+        "text": "Change image original ratio, show part of image to fit new ratio."
+      },
+      "slots": {
+        "title": "Slots"
+      },
+      "defaultSlot": {
+        "title": "Default slot",
+        "text": "Always shown by default."
+      },
+      "loaderSlot": {
+        "title": "Loader slot",
+        "text": "Is visible when image is loading."
+      },
+      "errorSlot": {
+        "title": "Error slot",
+        "text": "Is visible when `src` path is incorrect."
+      }
     }
   },
   "optionList": {

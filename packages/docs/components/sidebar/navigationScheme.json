@@ -69,6 +69,10 @@
           "displayName": "menu.tabs"
         },
         {
+          "name": "image",
+          "displayName": "menu.image"
+        },
+        {
           "name": "option-list",
           "displayName": "menu.optionList"
         },
