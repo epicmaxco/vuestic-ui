@@ -32,9 +32,6 @@ export default {
     falseInnerLabel: {
       local: true,
     },
-    loading: {
-      local: true,
-    },
     trueValue: {
       local: true,
     },

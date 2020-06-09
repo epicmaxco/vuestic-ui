@@ -37,6 +37,7 @@
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
         "label": "Same as native `label`",
         "leftLabel": "Moves the label on the left of a checkbox",
+        "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
         "square": "Removes rounded corners."
@@ -61,7 +62,6 @@
         "icon": "The icon to be displayed to the left of a title",
         "iconRight": "The icon to be displayed to the right of a title",
         "type": "Will be used as value for html `type` attribute",
-        "loading": "Indicates that something is loading (spinner icon inside button)",
         "block": "Applies block styling (will take 100% of container width)",
         "round": "Adds rounded corners",
         "href": "Will be used as value for html `href` attribute. (If used, `<button />` will be replaced with `<a>` tag)",
@@ -198,7 +198,7 @@
         "halfIcon": "The icon displayed when icon is half-filled (requires **`halves`**)",
         "emptyIcon": "The icon displayed when icon is empty (requires **`halves`**)",
         "readonly": "Disables all user interaction effects (pointer, hover)",
-        "numbers": "When true numbers from 1 to `max` are rendered instead of icons",
+        "numbers": "When `true`, numbers from 1 to **`max`** are rendered instead of icons",
         "halves": "Allow to select half of the item",
         "max": "The amount of items to display",
         "clearable": "Allows the components value to be set to 0. Triggered by clicking on currently selected icon",
@@ -252,7 +252,6 @@
         "falseLabel": "Label when unchecked",
         "trueInnerLabel": "Inner label when checked",
         "falseInnerLabel": "Inner label when unchecked",
-        "loading": "Pending state mark",
         "value": "Switch value",
         "trueValue": "Value when checked",
         "falseValue": "Value when unchecked",
@@ -330,7 +329,6 @@
         "icon": "The icon to be displayed inside a container",
         "src": "URL to the image (will be placed inside `src` attribute of image tag)",
         "fontSize": "The font-size of text inside avatar",
-        "loading": "Displays spinner",
         "email": "Will display `gravatar` for provided email address"
       },
       "slots": {
@@ -346,6 +344,21 @@
       },
       "events": {
         "input": "Emitted when the component needs to change the value"
+      }
+    },
+    "VaInfiniteScroll": {
+      "props": {
+        "offset": "Number of pixels to the end of `va-infinite-scroll` container at which the component should start loading more content in advance.",
+        "reverse": "Instead of bottom, top of the container would trigger loading.",
+        "disabled": "Won't trigger load even when scroll reached end. Useful to prevent further loading when there is no more items in list.",
+        "scrollTarget": "The element to be used as a scroll container instead of default one. Could be CSS selector or Element. When not set - direct wrapper will be used as a scroll container.",
+        "debounce": "Debounce to be applied when listening to scroll event. Useful to prevent user from triggering loading multiple times.",
+        "load": "Function that loads data. Should return Promise",
+        "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
+      },
+      "slots": {
+        "loading": "Shown when content is fetching.",
+        "default": "The content to be scrolled"
       }
     }
   },
@@ -375,7 +388,8 @@
     "optionList": "Option List",
     "divider": "Divider",
     "button": "Button",
-    "checkbox": "Checkbox"
+    "checkbox": "Checkbox",
+    "infiniteScroll": "Infinite Scroll"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -657,30 +671,44 @@
   },
   "rating": {
     "title": "Rating",
-    "paragraph": "The rating component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application",
-    "basic": {
-      "subtitle": "Usage example",
-      "paragraph": "The rating component has a simple interface to collect user feedback."
-    },
+    "summaryText": "The `va-rating` component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application.",
     "examples": {
-      "subtitle": "Examples",
-      "paragraph": "Here you can find some examples with simple or complex API usage",
-      "colorsAndSizes": {
-        "headline": "Different sizes and colors",
-        "paragraph": "Use predefined sizes and colors, or use your own with help of *size* and *color* props."
+      "default": {
+        "title": "Default",
+        "text": "The `va-rating` component has a simple interface to collect user feedback."
       },
-      "hoverAndHalves": {
-        "headline": "Add some visual interaction",
-        "paragraph": "Add hover and enable halves for more precise feedback gathering."
+      "color": {
+        "title": "Colors",
+        "text": "With `color` prop you can change the color of the component."
+      },
+      "size": {
+        "title": "Sizes",
+        "text": "Using `size` prop specify custom size for an `va-rating` component."
+      },
+      "hover": {
+        "title": "Hover",
+        "text": "By using `hover` prop you can see visual changes of value before click."
+      },
+      "halves": {
+        "title": "Halves",
+        "text": "You can divide your `va-rating` component values on halves."
+      },
+      "texts": {
+        "title": "Texts",
+        "text": "A component can be covered by different custom labels for each value."
+      },
+      "clearable": {
+        "title": "Clearable",
+        "text": "Selecting current value again will clear the component."
       },
       "numbers": {
-        "headline": "Numbers instead of icons",
-        "paragraph": "Want to see numbers instead of icons? We got you covered."
+        "title": "Numbers",
+        "text": "Want to see numbers instead of icons? We got you covered."
+      },
+      "customIcons": {
+        "title": "Custom Icons",
+        "text": "Providing this prop to component allows you to add custom icons."
       }
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props, events and slots that are used in va-rating component."
     },
     "faq": {
       "subtitle": "FAQ",
@@ -1054,6 +1082,28 @@
       "error": {
         "title": "Errors",
         "text": "You can show your error messages while using `va-checkbox` with form."
+      }
+    }
+  },
+  "infiniteScroll": {
+    "title": "Inifinite Scroll",
+    "summaryText": "The `va-infinite-scroll` component is a wrapper component which is intended to be used to create lists with dynamically added content. It provides rich interface to customize scrolling behavior and much more.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Just wrap your content in `va-infinite-scroll` component and provide `load` callback, and you'll see it's called each time list is scrolled till the bottom."
+      },
+      "reverse": {
+        "title": "Reverse",
+        "text": "With `reverse` prop you can prepend content to your list. Might be useful in messenger windows."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "In case you need to prevent a list from loading more content, `disabled` prop is here for you."
+      },
+      "customTarget": {
+        "title": "Custom scroll target container",
+        "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
       }
     }
   }

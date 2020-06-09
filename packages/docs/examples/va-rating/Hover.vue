@@ -4,7 +4,6 @@
       class="mb-2"
       v-model="value"
       hover
-      halves
     />
     <span> Value: {{ value }}</span>
   </div>

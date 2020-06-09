@@ -18,15 +18,14 @@
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
 export default {
   name: 'VaInnerLoading',
   components: {
     VaIcon,
   },
-  props: {
-    loading: Boolean,
-  },
+  mixins: [LoadingMixin],
 }
 </script>
 

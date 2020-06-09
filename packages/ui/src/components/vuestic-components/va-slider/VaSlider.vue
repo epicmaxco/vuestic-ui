@@ -779,8 +779,12 @@ export default {
   &__track {
     position: absolute;
     border-radius: 0.25rem;
-    transition: none;
+    transition: 0.5s ease-out;
     opacity: 0.2;
+
+    &--active {
+      transition: 0s;
+    }
   }
 
   &__track--selected {
@@ -796,7 +800,7 @@ export default {
     border-radius: 50%;
     outline: none !important;
     left: -0.375rem;
-    transition: none;
+    transition: 0s;
 
     &__dot--focus {
       transform: translate(-0.625rem, -0.625rem);
@@ -891,7 +895,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: left 0.3s ease-out;
+        transition: left 0.5s ease-out;
       }
 
       &__dot--value {
@@ -960,7 +964,7 @@ export default {
 
     &__handler {
       &--inactive {
-        transition: bottom 0.3s ease-out;
+        transition: bottom 0.5s ease-out;
       }
 
       &__dot--value {

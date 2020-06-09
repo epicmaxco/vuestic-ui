@@ -45,7 +45,9 @@ export const getApiTableProp = (
     name: kebabCase(propName),
     version: manualPropOptions.version || manualOptions.version || '',
     required: componentOptions.required,
-    types: componentOptions.types.map(type => `\`${type}\``).join(' | '),
+    types: manualPropOptions.types
+      ? `\`${manualPropOptions.types}\``
+      : componentOptions.types.map(type => `\`${type}\``).join(' | '),
     default: componentOptions.default,
     description: `api.${manualPropOptions.local ? componentName : 'all'}.props.${propName}`,
   }

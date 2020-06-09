@@ -91,6 +91,8 @@ import VaForm
   from './vuestic-components/va-form/VaForm'
 import VaOptionList
   from './vuestic-components/va-option-list/VaOptionList'
+import VaInfiniteScroll
+  from './vuestic-components/va-infinite-scroll/VaInfiniteScroll'
 
 installPlatform()
 
@@ -166,6 +168,7 @@ const VuesticPlugin = {
       VaForm,
       VaDivider,
       VaOptionList,
+      VaInfiniteScroll,
     ].forEach(component => {
       Vue.component(component.name, component)
     })

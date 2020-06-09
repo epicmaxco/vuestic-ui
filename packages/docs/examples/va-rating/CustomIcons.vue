@@ -1,25 +1,25 @@
 <template>
   <div>
     <va-rating
-      class="mb-2"
+      icon="heart"
+      empty-icon="heart_empty"
       v-model="value"
-      color="success"
-      size="small"
     />
     <va-rating
-      class="mb-2"
+      icon="thumb_up"
+      empty-icon="thumb_up_empty"
       v-model="value"
-      color="info"
-      size="large"
     />
     <va-rating
+      icon="battery"
+      empty-icon="battery_empty"
+      half-icon="battery_half"
+      halves
+      hover
       v-model="value"
-      color="danger"
-      :size="48"
     />
   </div>
 </template>
-
 <script>
 export default {
   data () {

@@ -145,8 +145,6 @@ export default {
           },
         )
       }
-
-      this.onLoad()
     },
     stop () {
       if (this.disabled) {
@@ -190,18 +188,12 @@ export default {
   },
   computed: {
     scrollAmount () {
-      return this.offset + 1 + this.$el.offsetHeight - this.defaultSlotHeight
+      return this.offset + 1 + this.$el.offsetHeight
     },
     scrollTargetElement () {
       return typeof this.scrollTarget === 'string'
         ? document.querySelector(this.scrollTarget)
         : this.scrollTarget || this.$el.parentElement
-    },
-    defaultSlotHeight () {
-      return this.$slots.default.reduce((acc, { elm }) => {
-        acc += elm.offsetHeight
-        return acc
-      }, 0)
     },
     colors () {
       return { primary: getColor(this, 'primary', '#23e066'), danger: getColor(this, 'danger', '#e34b4a') }
