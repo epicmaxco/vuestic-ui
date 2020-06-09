@@ -125,6 +125,7 @@ import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
 const positions = {
@@ -138,6 +139,7 @@ export default {
   mixins: [
     ContextPluginMixin,
     FormComponentMixin,
+    LoadingMixin,
     makeContextablePropsMixin({
       value: { type: [String, Number, Object, Array], default: '' },
       label: { type: String, default: '' },
@@ -153,7 +155,6 @@ export default {
       multiple: { type: Boolean, default: false },
       disabled: { type: Boolean, default: false },
       readonly: { type: Boolean, default: false },
-      loading: { type: Boolean, default: false },
       width: { type: String, default: '100%' },
       maxHeight: { type: String, default: '128px' },
       keyBy: { type: String, default: 'id' },

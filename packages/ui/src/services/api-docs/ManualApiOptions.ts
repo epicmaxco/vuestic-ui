@@ -12,6 +12,8 @@ export type ManualApiOptionsItem = {
 }
 
 export type ManualPropApiOptions = ManualApiOptionsItem & {
+  hidden?: boolean; // Won't appear in documentation. Intended for internal usage props, such as icon and color configs.
+  types?: string;
   // add more here
 }
 

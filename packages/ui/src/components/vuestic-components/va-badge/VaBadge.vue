@@ -3,16 +3,16 @@
     class="va-badge"
     :class="badgeClass"
   >
-    <div
+    <span
       class="va-badge__text-wrapper"
       :style="badgeStyle"
     >
-      <div class="va-badge__text">
+      <span class="va-badge__text">
         <slot name="text">
           {{ c_text }}
         </slot>
-      </div>
-    </div>
+      </span>
+    </span>
     <slot />
   </div>
 </template>
@@ -108,7 +108,7 @@ export default {
 .va-badge {
   display: inline-flex;
   position: relative;
-  vertical-align: bottom;
+  $badge-overlap: $badge-size/3;
 
   &__text-wrapper {
     transition: $transition-secondary;
@@ -162,7 +162,7 @@ export default {
     }
 
     .va-badge--overlap & {
-      margin-left: -$badge-size/2;
+      margin-left: -$badge-overlap;
       margin-right: 0;
       transform: translateY(-25%);
     }
@@ -173,7 +173,7 @@ export default {
     }
 
     .va-badge--left.va-badge--overlap & {
-      margin-left: $badge-size/2;
+      margin-left: $badge-overlap;
       transform: translateX(-100%) translateY(-25%);
     }
 
@@ -187,12 +187,12 @@ export default {
     }
 
     .va-badge--bottom.va-badge--overlap & {
-      margin-left: -$badge-size/2;
+      margin-left: -$badge-overlap;
       transform: translateX(0) translateY(-75%);
     }
 
     .va-badge--bottom.va-badge--left.va-badge--overlap & {
-      margin-left: $badge-size/2;
+      margin-left: $badge-overlap;
       transform: translateX(-100%) translateY(-75%);
     }
   }

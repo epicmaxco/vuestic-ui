@@ -79,6 +79,10 @@
         {
           "name": "checkbox",
           "displayName": "menu.checkbox"
+        },
+        {
+          "name": "infinite-scroll",
+          "displayName": "menu.infiniteScroll"
         }
       ]
     }

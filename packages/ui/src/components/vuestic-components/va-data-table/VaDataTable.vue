@@ -46,6 +46,7 @@
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
 export default {
   name: 'VaDataTable',
@@ -54,6 +55,7 @@ export default {
     Vuetable,
     VaPagination,
   },
+  mixins: [LoadingMixin],
   props: {
     fields: {
       type: Array,
@@ -95,7 +97,6 @@ export default {
       type: Number,
       default: 0,
     },
-    loading: Boolean,
     dataManager: {
       type: Function,
       default: null,

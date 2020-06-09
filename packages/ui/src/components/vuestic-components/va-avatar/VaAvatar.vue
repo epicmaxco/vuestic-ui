@@ -31,6 +31,7 @@
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import VaIcon from '../va-icon/VaIcon'
 import gravatar from 'gravatar'
@@ -60,10 +61,6 @@ const contextConfigMixin = makeContextablePropsMixin({
     type: String,
     default: '',
   },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
   email: {
     type: String,
     default: '',
@@ -72,7 +69,7 @@ const contextConfigMixin = makeContextablePropsMixin({
 
 export default {
   name: 'VaAvatar',
-  mixins: [SizeMixin, ColorThemeMixin, contextConfigMixin],
+  mixins: [SizeMixin, ColorThemeMixin, contextConfigMixin, LoadingMixin],
   components: {
     VaIcon,
     VaProgressCircle,
@@ -89,7 +86,7 @@ export default {
         color: getColor(this, this.c_textColor, '#ffffff'),
         backgroundColor: this.c_loading || this.c_email ? 'transparent' : this.colorComputed,
         borderRadius: this.c_square ? 0 : '50%',
-        fontSize: this.c_fontSize,
+        fontSize: this.c_fontSize || this.fontSizeComputed,
         width: this.sizeComputed,
         minWidth: this.sizeComputed, // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
         height: this.sizeComputed,

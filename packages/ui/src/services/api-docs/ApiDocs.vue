@@ -132,9 +132,10 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ComponentOptions } from 'vue'
 import { ManualApiOptions } from './ManualApiOptions'
 import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
-import { getApiTableData } from './api-docs-helpers'
+import { getApiTableData, mergeInDefaults } from './api-docs-helpers'
 import MarkdownView
   from '../../../../docs/utilities/markdown-view/MarkdownView.vue'
+import { defaultApiOptions } from './default-api-options'
 
 @Component({
   components: { ApiDocsPropsRow, MarkdownView },
@@ -148,6 +149,8 @@ export default class ApiDocs extends Vue {
   @Prop({ type: Object, default: () => ({}) }) apiOptions!: ManualApiOptions
 
   get apiTableData () {
+    // TODO Modifies parent object, which is not ideal.
+    mergeInDefaults(this.apiOptions, defaultApiOptions)
     return getApiTableData(this.componentOptions, this.apiOptions)
   }
 
