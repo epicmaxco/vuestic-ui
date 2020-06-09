@@ -11,18 +11,23 @@
   >
     <div
       class="va-checkbox__input-container"
-      @click="clickWrapper()"
+      @click="onWrapperClick()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
       tabindex="-1"
       @blur="onBlur"
       ref="container"
     >
-      <div class="va-checkbox__square">
+      <div
+        class="va-checkbox__square"
+        :style="inputStyle"
+      >
         <input
           ref="input"
           :id="id"
           :name="name"
+          type="checkbox"
+          role="checkbox"
           readonly
           @focus="onFocus"
           @blur="onBlur($event)"
@@ -30,15 +35,15 @@
           @keypress.prevent="toggleSelection()"
           :disabled="c_disabled"
           :indeterminate="c_indeterminate"
-          :style="inputStyle"
         >
         <va-icon
-          class="va-checkbox__icon-selected"
+          class="va-checkbox__icon"
           :name="computedIconName"
+          size="20px"
         />
       </div>
       <div
-        class="va-checkbox__label-text"
+        class="va-checkbox__label"
         :style="labelStyle"
         ref="label"
         tabindex="-1"
@@ -54,8 +59,9 @@
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
-import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
+import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { getColor } from '../../../services/ColorThemePlugin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 
 export default {
@@ -65,18 +71,11 @@ export default {
     SelectableMixin,
     makeContextablePropsMixin({
       value: { type: [Boolean, Array, String, Object], default: false },
-      indeterminate: { type: Boolean, default: false },
       checkedIcon: { type: String, default: 'check' },
       indeterminateIcon: { type: String, default: 'remove' },
+      color: { type: String, default: 'primary' },
     }),
   ],
-  watch: {
-    value (newValue) {
-      if (newValue) {
-        this.ValidateMixin_onBlur()
-      }
-    },
-  },
   computed: {
     computedClass () {
       return {
@@ -85,32 +84,33 @@ export default {
         'va-checkbox--disabled': this.c_disabled,
         'va-checkbox--indeterminate': this.c_indeterminate,
         'va-checkbox--error': this.computedError,
+        'va-checkbox--left-label': this.c_leftLabel,
         'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
-        'va-checkbox--left-label': this.leftLabel,
       }
     },
     labelStyle () {
-      if (this.computedError) {
-        return { color: this.$themes.danger }
+      return {
+        color: this.computedError ? getColor(this, 'danger') : '',
+        padding: !this.c_label
+          ? ''
+          : this.c_leftLabel
+            ? '0 0.25rem 0 0'
+            : '0 0 0 0.25rem',
       }
-
-      return {}
     },
     inputStyle () {
-      if (this.computedError) {
-        if (this.isChecked) {
-          return { background: this.$themes.danger }
-        } else {
-          return { borderColor: this.$themes.danger }
-        }
-      } else {
-        if (this.isChecked) { return { background: this.colorComputed } }
-      }
-
-      return {}
+      return this.computedError
+        ? (this.isChecked || this.isIndeterminate)
+          ? { background: this.colorComputed, borderColor: getColor(this, 'danger') }
+          : { borderColor: getColor(this, 'danger') }
+        : (this.isChecked || this.isIndeterminate)
+          ? { background: this.colorComputed, borderColor: this.colorComputed }
+          : {}
     },
     computedIconName () {
-      return this.c_indeterminate ? this.c_indeterminateIcon : this.c_checkedIcon
+      return (this.c_indeterminate && this.isIndeterminate)
+        ? this.c_indeterminateIcon
+        : this.c_checkedIcon
     },
   },
 }
@@ -127,6 +127,7 @@ export default {
   &__input-container {
     align-items: center;
     display: flex;
+    padding: 0 0.3rem;
     cursor: pointer;
 
     @at-root {
@@ -149,87 +150,54 @@ export default {
   #{&}__square {
     @include flex-center();
 
-    width: 2rem;
-    height: 2rem;
+    width: 1.35rem;
+    min-width: 1.35rem;
+    height: 1.35rem;
     position: relative;
-    flex: 0 0 2rem;
-
-    @at-root {
-      .va-checkbox--on-keyboard-focus#{&} {
-        background-color: $light-gray;
-        transition: all, 0.6s, ease-in;
-        border-radius: 5rem;
-      }
-    }
-  }
-
-  #{&}__input {
-    box-sizing: border-box;
-    height: 1.375rem;
-    width: 1.375rem;
-    cursor: inherit;
-    color: $white;
     background-color: $white;
     border: solid 0.125rem $gray-light;
     border-radius: 0.25rem;
 
-    &:focus {
-      outline: none;
-    }
-
     @at-root {
-      .va-checkbox--selected#{&} {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 1.4rem;
-        width: 1.4rem;
-        color: $white;
-        background-color: $vue-green;
-        border: 0;
-      }
-
-      .va-checkbox--error#{&} {
-        border-color: $theme-red;
+      .va-checkbox--on-keyboard-focus#{&} {
+        transition: all, 0.6s, ease-in;
+        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
       }
     }
   }
 
-  #{&}__label-text {
+  &__input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  &__label {
     display: inline-block;
     position: relative;
-    margin-left: 0.25rem;
+  }
 
-    @at-root {
-      .va-checkbox--error#{&} {
-        color: $theme-red;
+  &__icon {
+    pointer-events: none;
+    position: absolute;
+    color: transparent;
+  }
+
+  &--selected {
+    .va-checkbox {
+      &__icon {
+        color: $white;
       }
     }
   }
 
-  &__error-message {
-    vertical-align: middle;
-    color: $theme-red;
-    font-size: $font-size-mini;
-  }
-
-  &__icon-selected {
-    pointer-events: none;
-    position: absolute;
-    color: $white;
-  }
-
-  &__error-message-container {
-    flex: 0 0 100%;
-    margin-left: 0.3rem; // To fit with checkbox.
-  }
-
-  &__label-container {
-    margin-left: 2rem;
-  }
-
-  &__content {
-    flex-direction: row;
+  &--indeterminate {
+    .va-checkbox {
+      &__icon {
+        color: $white;
+      }
+    }
   }
 }
+
 </style>

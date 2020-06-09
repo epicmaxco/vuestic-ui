@@ -1,0 +1,14 @@
+import { shallowMount } from '@vue/test-utils'
+// @ts-ignore
+import { testIsFormComponent } from '../testIsFormComponent'
+import { testHasStatefulMixin } from '../StatefullMixin/testHasStatefulMixin'
+
+export function testIsSelectableComponent (componentOptions: any) {
+  const wrapper = shallowMount(componentOptions)
+  // Test mixin applied
+  if (!(wrapper.vm as any).isSelectableComponent) {
+    throw new Error('SelectableMixin is not added')
+  }
+  testIsFormComponent(componentOptions)
+  testHasStatefulMixin(componentOptions)
+}

@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 import VaSwitch from './VaSwitch'
 
-import { testIsSelectableComponent } from '../../vuestic-mixins/testIsSelectableComponent'
+import { testIsSelectableComponent } from '../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
 import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
 import { testIsLoadingMixin } from '../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 
