@@ -103,6 +103,7 @@ export default {
 
 .va-progress-circle {
   position: relative;
+  overflow: hidden; // Prevents resizing container back and forth.
 
   &__progress-bar {
     position: absolute;
@@ -112,7 +113,6 @@ export default {
     right: 0;
     margin: auto;
     transform: rotate(-90deg);
-    stroke-linecap: center center;
     width: 80%;
     height: 80%;
 
