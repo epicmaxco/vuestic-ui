@@ -1064,6 +1064,22 @@
   },
   "grid": {
     "title": "Grid System",
-    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool."
+    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
+    "examples": {
+      "default": {
+        "title": "Enabling flexbox"
+      },
+      "breakpoints": {
+        "title": "Breakpoints",
+        "text": "You can use our `breakpoints` to set the length of you container.",
+        "sizes": {
+          "xs": "`xs` - Phones (<600px)",
+          "sm": "`sm` - Small devices Tablets (≥600px)",
+          "md": "`md` - Medium devices Desktops (≥960)",
+          "lg": "`lg` - Large devices Desktops (≥1280px)",
+          "xl": "`xl` - Extra large devices Desktops (≥1920px)"
+        }
+      }
+    }
   }
 }
