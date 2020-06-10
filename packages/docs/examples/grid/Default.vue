@@ -1,8 +1,8 @@
 <template>
   <va-card color="secondary" style="padding: 0.75rem;">
     <div class="row">
-      <div class="flex">
-        <div class="flex-center">Now I'm flexible</div>
+      <div class="flex" style="width: 100%;">
+        <div class="item">Now I'm flexible</div>
       </div>
     </div>
   </va-card>
@@ -18,8 +18,9 @@ export default {
 <style lang="scss" scoped>
 @import 'vuestic-ui/src/components/vuestic-sass/resources/resources';
 
-.flex-center {
+.item {
   border: 1px solid $gray;
   background-color: $white;
+  text-align: center;
 }
 </style>
