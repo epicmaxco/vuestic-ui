@@ -6,7 +6,9 @@ const buble = require('@rollup/plugin-buble')
 const json = require('@rollup/plugin-json')
 const nodeResolve = require('@rollup/plugin-node-resolve').default
 const vue = require('rollup-plugin-vue')
-const typescript = require('@rollup/plugin-typescript')
+const typescript = require('rollup-plugin-typescript2')
+const scss = require('rollup-plugin-scss')
+const commonjs = require('@rollup/plugin-commonjs')
 
 import type { InputOptions, OutputOptions } from 'rollup'
 
@@ -16,8 +18,20 @@ process.env.BABEL_ENV = 'production'
 const rollupPluginsModern = [
   nodeResolve(),
   json(),
+  typescript({
+    typescript: require('typescript'),
+  }),
   vue(),
-  typescript(),
+  scss(),
+  commonjs({
+    // We have to declare imports for rollup to catch up.
+    // Not ideal, so remove if rollup gets better or you have good solution.
+    namedExports: {
+      'node_modules/lodash/index.js': [
+        'isObject'
+      ]
+    }
+  })
 ]
 
 // Setup for when we do need babel.
@@ -42,6 +56,7 @@ const builds: BuildConfig[] = [
     rollup: {
       input: {
         input: path.resolve(__dirname, './main.ts'),
+        // input: path.resolve(__dirname, './../components/vuestic-components/va-avatar/VaAvatar.vue'),
       },
       output: {
         file: path.resolve(__dirname, './../../dist/main.esm.js'),

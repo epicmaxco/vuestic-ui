@@ -3,10 +3,11 @@
   "version": "1.0.0-alpha.2",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
+  "module": "dist/main.esm.js",
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
     "build:book": "vue-cli-service build --mode book",
-    "build": "vue-cli-service build --mode book",
+    "build": "ts-node src/build/build.ts",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
     "test:unit": "vue-cli-service test:unit -w 1",
@@ -21,6 +22,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@popperjs/core": "^2.1.1",
+    "@types/gravatar": "^1.8.1",
     "@vue/compiler-sfc": "^3.0.0-beta.14",
     "approximate-number": "^2.0.0",
     "asva-executors": "^0.1.23",
@@ -37,6 +39,8 @@
     "lodash": "^4.17.15",
     "medium-editor": "^5.23.3",
     "normalize.css": "^8.0.1",
+    "rollup-plugin-scss": "^2.5.0",
+    "rollup-plugin-typescript2": "^0.27.1",
     "stylelint": "^13.2.1",
     "stylelint-config-standard": "^20.0.0",
     "v-tooltip": "^2.0.3",
@@ -56,6 +60,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
+    "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-json": "^4.0.3",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-typescript": "^4.1.2",
