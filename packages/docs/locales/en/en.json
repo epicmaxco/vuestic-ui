@@ -1073,11 +1073,22 @@
         "title": "Breakpoints",
         "text": "You can use our `breakpoints` to set the length of you container.",
         "sizes": {
-          "xs": "`xs` - Phones (<600px)",
-          "sm": "`sm` - Small devices Tablets (≥600px)",
-          "md": "`md` - Medium devices Desktops (≥960)",
-          "lg": "`lg` - Large devices Desktops (≥1280px)",
-          "xl": "`xl` - Extra large devices Desktops (≥1920px)"
+          "xs": "`.xs` - Phones (<600px)",
+          "sm": "`.sm` - Small devices Tablets (≥600px)",
+          "md": "`.md` - Medium devices Desktops (≥960)",
+          "lg": "`.lg` - Large devices Desktops (≥1280px)",
+          "xl": "`.xl` - Extra large devices Desktops (≥1920px)"
+        }
+      },
+      "offsets": {
+        "title": "Offsets",
+        "text": "You can use our `offset` to set the space between left and current elements of you container.",
+        "sizes": {
+          "xs": "`.offset--xs` - Phones (<600px)",
+          "sm": "`.offset--sm` - Small devices Tablets (≥600px)",
+          "md": "`.offset--md` - Medium devices Desktops (≥960)",
+          "lg": "`.offset--lg` - Large devices Desktops (≥1280px)",
+          "xl": "`.offset--xl` - Extra large devices Desktops (≥1920px)"
         }
       }
     }

@@ -49,4 +49,36 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'grid/Breakpoints',
   },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'grid.examples.offsets.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.offsets.text',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.offsets.sizes.xs',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.offsets.sizes.sm',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.offsets.sizes.md',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.offsets.sizes.lg',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.offsets.sizes.xl',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'grid/Offsets',
+  },
 ] as ApiDocsBlock[]
