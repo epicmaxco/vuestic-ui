@@ -113,4 +113,116 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'grid/Gutters',
   },
+  {
+    type: BlockType.SUBTITLE,
+    translationString: 'anyPage.api',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'grid.api.align.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.align.variants[0]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.align.variants[1]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.align.variants[2]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.align.variants[3]',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'grid.api.alignSelf.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.alignSelf.variants[0]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.alignSelf.variants[1]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.alignSelf.variants[2]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.alignSelf.variants[3]',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'grid.api.alignContent.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.alignContent.variants[0]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.alignContent.variants[1]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.alignContent.variants[2]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.alignContent.variants[3]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.alignContent.variants[4]',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'grid.api.justify.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.justify.variants[0]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.justify.variants[1]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.justify.variants[2]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.justify.variants[3]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.justify.variants[4]',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'grid.api.justifySelf.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.justifySelf.variants[0]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.justifySelf.variants[1]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.justifySelf.variants[2]',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.api.justifySelf.variants[3]',
+  },
 ] as ApiDocsBlock[]
