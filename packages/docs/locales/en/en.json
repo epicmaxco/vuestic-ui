@@ -1090,6 +1090,17 @@
           "lg": "`.offset--lg` - Large devices Desktops (≥1280px)",
           "xl": "`.offset--xl` - Extra large devices Desktops (≥1920px)"
         }
+      },
+      "gutters": {
+        "title": "Gutters",
+        "text": "A `layout` controls by `gutter`.",
+        "sizes": {
+          "xs": "`.gutter--xs` - Extra small gutter between cells",
+          "sm": "`.gutter--sm` - Small gutter between cells",
+          "md": "`.gutter--md` - Default gutter between cells",
+          "lg": "`.gutter--lg` - Large gutter between cells",
+          "xl": "`.gutter--xl` - Extra large gutter between cells"
+        }
       }
     }
   }

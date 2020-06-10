@@ -81,4 +81,36 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'grid/Offsets',
   },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'grid.examples.gutters.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.gutters.text',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.gutters.sizes.xs',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.gutters.sizes.sm',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.gutters.sizes.md',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.gutters.sizes.lg',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'grid.examples.gutters.sizes.xl',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'grid/Gutters',
+  },
 ] as ApiDocsBlock[]
