@@ -59,7 +59,8 @@
   </va-input-wrapper>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-nocheck
 import VaRadio from '../va-radio/VaRadio'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaSwitch from '../va-switch/VaSwitch'
@@ -68,72 +69,76 @@ import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/Selecta
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { generateUuid } from '../../../services/utils'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { Component, Mixins } from 'vue-property-decorator'
 
-export default {
-  name: 'VaOptionList',
-  components: { VaRadio, VaCheckbox, VaSwitch, VaInputWrapper },
-  mixins: [
-    SelectableListMixin,
-    StatefulMixin,
-    makeContextablePropsMixin({
-      type: {
-        type: String,
-        default: 'checkbox',
-        validator: type => ['radio', 'checkbox', 'switch'].includes(type),
-      },
-      disabled: { type: Boolean, default: false },
-      readonly: { type: Boolean, default: false },
-      defaultValue: { type: [String, Number, Object, Array] },
-      name: { type: String, default: generateUuid },
-      color: { type: String, default: 'primary' },
-      leftLabel: { type: Boolean, default: false },
-      value: { type: [String, Number, Object, Array] },
-    }),
-  ],
-  methods: {
-    getKey (option) {
-      return this.getTrackBy(option)
-    },
-    isDisabled (option) {
-      return this.c_disabled || this.getDisabled(option)
-    },
-    reset () {
-      this.valueComputed = undefined
-    },
-    focus () {
-      const elements = this.$refs.input
-      const firstActiveEl = Array.isArray(elements) && elements.find(el => !el.disabled)
-      if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
-        firstActiveEl.focus()
-      }
-    },
+const OptionListPropsMixin = makeContextablePropsMixin({
+  type: {
+    type: String,
+    default: 'checkbox',
+    validator: type => ['radio', 'checkbox', 'switch'].includes(type),
   },
+  disabled: { type: Boolean, default: false },
+  readonly: { type: Boolean, default: false },
+  defaultValue: { type: [String, Number, Object, Array] },
+  name: { type: String, default: generateUuid },
+  color: { type: String, default: 'primary' },
+  leftLabel: { type: Boolean, default: false },
+  value: { type: [String, Number, Object, Array] },
+})
+
+@Component({
+  components: { VaRadio, VaCheckbox, VaSwitch, VaInputWrapper },
+})
+export default class VaOptionList extends Mixins(
+  SelectableListMixin,
+  StatefulMixin,
+  OptionListPropsMixin,
+) {
+  get isRadio () {
+    return this.type === 'radio'
+  }
+
+  get selectedValue () {
+    return this.valueComputed || this.c_defaultValue
+  }
+
+  set selectedValue (value) {
+    if (this.c_readonly) { return }
+    if (this.isRadio) {
+      this.valueComputed = this.getValue(value)
+    } else {
+      this.valueComputed = Array.isArray(value)
+        ? value.map(el => this.getValue(el))
+        : [this.getValue(value)]
+    }
+  }
+
+  getKey (option) {
+    return this.getTrackBy(option)
+  }
+
+  isDisabled (option) {
+    return this.c_disabled || this.getDisabled(option)
+  }
+
+  reset () {
+    this.valueComputed = undefined
+  }
+
+  focus () {
+    const elements = this.$refs.input
+    const firstActiveEl = Array.isArray(elements) && elements.find(el => !el.disabled)
+    if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
+      firstActiveEl.focus()
+    }
+  }
+
   mounted () {
     this.isSelectableListComponent = true
     if (!this.valueComputed && this.c_defaultValue) {
       this.selectedValue = this.c_defaultValue
     }
-  },
-  computed: {
-    isRadio () {
-      return this.type === 'radio'
-    },
-    selectedValue: {
-      get () {
-        return this.valueComputed || this.c_defaultValue
-      },
-      set (value) {
-        if (this.c_readonly) { return }
-        if (this.isRadio) {
-          this.valueComputed = this.getValue(value)
-        } else {
-          this.valueComputed = Array.isArray(value)
-            ? value.map(el => this.getValue(el))
-            : [this.getValue(value)]
-        }
-      },
-    },
-  },
+  }
 }
 </script>
 
