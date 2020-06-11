@@ -44,75 +44,65 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-nocheck
 import { progressMixin } from './progressMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
+import { Component, Mixins } from 'vue-property-decorator'
 
-export default {
-  name: 'VaProgressBar',
-  mixins: [
-    progressMixin,
-    ColorThemeMixin,
-    SizeMixin,
-    makeContextablePropsMixin({
-      buffer: {
-        type: Number,
-        default: 100,
-      },
-      rounded: {
-        type: Boolean,
-        default: true,
-      },
-      size: {
-        type: [Number, String],
-        default: 'medium',
-      },
-      reverse: {
-        type: Boolean,
-        default: false,
-      },
-      color: {
-        type: String,
-        default: 'primary',
-      },
-    }),
-  ],
-  computed: {
-    large () {
-      return this.c_size === 'large'
-    },
-    small () {
-      return this.c_size === 'small'
-    },
-    normalizedBuffer () {
-      if (this.c_indeterminate) {
-        return 100
-      }
+const ProgressBarPropsMixin = makeContextablePropsMixin({
+  buffer: { type: Number, default: 100 },
+  rounded: { type: Boolean, default: true },
+  size: { type: [Number, String], default: 'medium' },
+  reverse: { type: Boolean, default: false },
+  color: { type: String, default: 'primary' },
+})
 
-      return normalizeValue(this.c_buffer)
-    },
-    computedClass () {
-      return {
-        'va-progress-bar__progress-bar__square': (!this.c_rounded && !this.large) || this.small,
-        'va-progress-bar__small': this.small,
-        'va-progress-bar__large': this.large,
-      }
-    },
-    computedStyle () {
-      if (this.c_size === 'medium') {
-        return { height: '0.5rem' }
-      }
+@Component({})
+export default class VaProgressBar extends Mixins(
+  progressMixin,
+  ColorThemeMixin,
+  SizeMixin,
+  ProgressBarPropsMixin,
+) {
+  get large () {
+    return this.c_size === 'large'
+  }
 
-      if (!this.small && !this.large) {
-        return { height: typeof this.c_size === 'number' ? `${this.c_size}px` : this.c_size }
-      }
+  get small () {
+    return this.c_size === 'small'
+  }
 
-      return {}
-    },
-  },
+  get normalizedBuffer () {
+    if (this.c_indeterminate) {
+      return 100
+    }
+
+    return normalizeValue(this.c_buffer)
+  }
+
+  get computedClass () {
+    return {
+      'va-progress-bar__progress-bar__square': (!this.c_rounded && !this.large) || this.small,
+      'va-progress-bar__small': this.small,
+      'va-progress-bar__large': this.large,
+    }
+  }
+
+  get computedStyle () {
+    if (this.c_size === 'medium') {
+      return { height: '0.5rem' }
+    }
+
+    if (!this.small && !this.large) {
+      return { height: typeof this.c_size === 'number' ? `${this.c_size}px` : this.c_size }
+    }
+
+    return {}
+  }
 }
 </script>
 
