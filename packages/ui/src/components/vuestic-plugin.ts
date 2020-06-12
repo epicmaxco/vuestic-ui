@@ -11,7 +11,10 @@ import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-
 import { BusPlugin } from 'vue-epic-bus'
 // @ts-ignore
 import { registerVuesticObject } from './resize-events'
-import { allComponents } from './all-components'
+
+// TODO Replace when all components are converted to TS.
+// import { allComponents } from './all-components'
+import { allComponents } from './all-ts-components'
 
 installPlatform()
 
