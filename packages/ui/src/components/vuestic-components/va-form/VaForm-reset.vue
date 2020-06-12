@@ -16,13 +16,17 @@
   </VbCard>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-nocheck
 import VaInput from '../va-input/VaInput'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaForm from './VaForm'
-export default {
-  name: 'VaFormReset',
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({
   components: { VaForm, VaCheckbox, VaInput },
+})
+export default class VaFormReset extends Vue {
   data () {
     return {
       form: {
@@ -30,7 +34,7 @@ export default {
         checkbox: true,
       },
     }
-  },
+  }
 }
 </script>
 
