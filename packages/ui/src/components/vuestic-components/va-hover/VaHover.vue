@@ -1,30 +1,38 @@
-<script>
-export default {
-  name: 'VaHover',
+<script lang="ts">
+// @ts-nocheck
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+@Component({
+
+})
+export default class VaHover extends Vue {
+  @Prop({
+    type: Boolean,
+    default: false,
+  })
+  readonly disabled!: boolean
+
+  @Prop({
+    type: Boolean,
+  })
+  readonly value!: boolean
+
   data () {
     return {
       active: false,
     }
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    value: {
-      type: Boolean,
-    },
-  },
-  methods: {
-    onMouseEnter () {
-      this.active = true
-      this.$emit('input', true)
-    },
-    onMouseLeave () {
-      this.active = false
-      this.$emit('input', false)
-    },
-  },
+  }
+
+  onMouseEnter (): void {
+    (this as any).active = true
+    this.$emit('input', true)
+  }
+
+  onMouseLeave (): void {
+    (this as any).active = false
+    this.$emit('input', false)
+  }
+
   render () {
     let element
 
@@ -46,6 +54,6 @@ export default {
     }
 
     return element
-  },
+  }
 }
 </script>
