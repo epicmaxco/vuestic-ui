@@ -39,7 +39,9 @@ const IconPropsMixin = makeContextablePropsMixin({
   spin: { type: Boolean, default: false },
 })
 
-@Component({})
+@Component({
+  name: 'VaIcon',
+})
 export default class VaIcon extends Mixins(
   ColorThemeMixin,
   SizeMixin,

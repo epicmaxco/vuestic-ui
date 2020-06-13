@@ -46,7 +46,9 @@ const ProgressCirclePropsMixin = makeContextablePropsMixin({
   color: { type: String, default: 'primary' },
 })
 
-@Component({})
+@Component({
+  name: 'VaProgressCircle',
+})
 export default class VaProgressCircle extends Mixins(
   progressMixin,
   ColorThemeMixin,

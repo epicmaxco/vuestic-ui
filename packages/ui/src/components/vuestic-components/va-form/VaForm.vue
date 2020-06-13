@@ -30,7 +30,9 @@ const FormPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'div' },
 })
 
-@Component({})
+@Component({
+  name: 'VaForm',
+})
 export default class VaForm extends Mixins(
   FormPropsMixin,
 ) {

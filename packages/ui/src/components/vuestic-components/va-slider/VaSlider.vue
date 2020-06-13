@@ -207,6 +207,7 @@ const SliderPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
+  name: 'VaSlider',
   components: { VaIcon },
 })
 export default class VaSlider extends Mixins(

@@ -95,6 +95,7 @@ const SwitchPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
+  name: 'VaSwitch',
   components: { VaProgressCircle, VaInputWrapper },
 })
 export default class VaSwitch extends Mixins(

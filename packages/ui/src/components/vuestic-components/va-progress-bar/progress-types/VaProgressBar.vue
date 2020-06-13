@@ -61,7 +61,9 @@ const ProgressBarPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: 'primary' },
 })
 
-@Component({})
+@Component({
+  name: 'VaProgressBar',
+})
 export default class VaProgressBar extends Mixins(
   progressMixin,
   ColorThemeMixin,

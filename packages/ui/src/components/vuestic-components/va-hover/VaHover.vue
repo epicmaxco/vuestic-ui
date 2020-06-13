@@ -3,7 +3,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component({
-
+  name: 'VaHover',
 })
 export default class VaHover extends Vue {
   @Prop({

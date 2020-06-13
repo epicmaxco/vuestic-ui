@@ -31,7 +31,9 @@ const DividerPropsMixin = makeContextablePropsMixin({
   },
 })
 
-@Component({})
+@Component({
+  name: 'VaDivider',
+})
 export default class VaDivider extends Mixins(
   DividerPropsMixin,
 ) {

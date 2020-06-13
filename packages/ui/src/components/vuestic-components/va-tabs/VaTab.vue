@@ -45,6 +45,7 @@ const TabPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
+  name: 'VaTab',
   components: { VaIcon },
 })
 export default class VaTab extends Mixins(

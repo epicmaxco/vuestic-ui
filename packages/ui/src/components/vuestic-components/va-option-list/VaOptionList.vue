@@ -87,6 +87,7 @@ const OptionListPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
+  name: 'VaOptionList',
   components: { VaRadio, VaCheckbox, VaSwitch, VaInputWrapper },
 })
 export default class VaOptionList extends Mixins(

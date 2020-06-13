@@ -49,6 +49,7 @@ const AvatarPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
+  name: 'VaAvatar',
   components: { VaIcon, VaProgressCircle },
 })
 export default class VaAvatar extends Mixins(

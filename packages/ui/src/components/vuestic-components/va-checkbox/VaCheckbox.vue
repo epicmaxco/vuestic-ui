@@ -73,6 +73,7 @@ const CheckboxPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
+  name: 'VaCheckbox',
   components: { VaInputWrapper, VaIcon },
 })
 export default class VaCheckbox extends Mixins(

@@ -35,7 +35,9 @@ const BadgePropsMixin = makeContextablePropsMixin({
   bottom: { type: Boolean, default: false },
 })
 
-@Component({})
+@Component({
+  name: 'VaBadge',
+})
 export default class VaBadge extends Mixins(
   ColorThemeMixin,
   BadgePropsMixin,

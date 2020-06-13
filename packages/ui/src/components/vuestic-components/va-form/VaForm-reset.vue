@@ -24,6 +24,7 @@ import VaForm from './VaForm'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
+  name: 'VaFormReset',
   components: { VaForm, VaCheckbox, VaInput },
 })
 export default class VaFormReset extends Vue {

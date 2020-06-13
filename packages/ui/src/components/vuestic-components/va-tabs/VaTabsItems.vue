@@ -1,7 +1,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component({})
+@Component({
+  name: 'VaTabsItems',
+})
 export default class VaTabsItems extends Vue {
   render (createElement: any) {
     return createElement(

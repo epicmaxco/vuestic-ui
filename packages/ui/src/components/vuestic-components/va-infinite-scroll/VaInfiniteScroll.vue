@@ -54,6 +54,7 @@ const InfiniteScrollPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
+  name: 'VaInfiniteScroll',
   components: { VaProgressCircle },
 })
 export default class VaInfiniteScroll extends Mixins(

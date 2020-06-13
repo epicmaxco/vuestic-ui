@@ -1,7 +1,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component({})
+@Component({
+  name: 'VaTabsContent',
+})
 export default class VaTabsContent extends Vue {
   render (createElement: any) {
     // Should render only html markup mapped to selected tab
