@@ -1,4 +1,4 @@
-import { setPaginationRange } from './setPaginationRange'
+import { setPaginationRange } from '../setPaginationRange'
 
 describe('pagination', () => {
   it('should set first page', () => {

@@ -1,10 +1,16 @@
+// @ts-nocheck
+// import { mount } from '@vue/test-utils'
 import { shallowMount } from '@vue/test-utils'
-import VaRating from './VaRating.vue'
+import VaRating from '../VaRating.vue'
 
-import { testHasStatefulMixin } from '../../vuestic-mixins/StatefullMixin/testHasStatefulMixin'
-import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
+import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefullMixin/testHasStatefulMixin'
+import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 
 describe('VaRating', () => {
+  // it('should render without an error', () => {
+  //   const wrapper = mount(VaRating)
+  //   expect(wrapper.isVueInstance()).toBeTruthy()
+  // })
   it('default', () => {
     const wrapper = shallowMount(VaRating)
     expect(wrapper.html()).toMatchSnapshot()

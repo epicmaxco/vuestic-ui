@@ -1,0 +1,10 @@
+import { mount } from '@vue/test-utils'
+// @ts-ignore
+import VaIcon from '../VaIcon.vue'
+
+describe('VaIcon', () => {
+  it('should render without an error', () => {
+    const wrapper = mount(VaIcon)
+    expect(wrapper.isVueInstance()).toBeTruthy()
+  })
+})

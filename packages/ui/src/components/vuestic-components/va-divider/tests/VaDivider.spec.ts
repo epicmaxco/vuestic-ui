@@ -1,7 +1,14 @@
-import VaDivider from './VaDivider'
-import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
+import { mount } from '@vue/test-utils'
+// @ts-ignore
+import VaDivider from '../VaDivider.vue'
+
+import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 
 describe('VaDivider', () => {
+  it('should render without an error', () => {
+    const wrapper = mount(VaDivider)
+    expect(wrapper.isVueInstance()).toBeTruthy()
+  })
   it('should throw if prop tag does not exist in the context', () => {
     const props = {
       tag: 'a',

@@ -1,11 +1,17 @@
-import { shallowMount } from '@vue/test-utils'
-import VaSwitch from './VaSwitch'
+// @ts-nocheck
+import { mount, shallowMount } from '@vue/test-utils'
 
-import { testIsSelectableComponent } from '../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
-import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
-import { testIsLoadingMixin } from '../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
+import VaSwitch from '../VaSwitch.vue'
+
+import { testIsSelectableComponent } from '../../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
+import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 
 describe('VaSwitch', () => {
+  it('should render without an error', () => {
+    const wrapper = mount(VaSwitch)
+    expect(wrapper.isVueInstance()).toBeTruthy()
+  })
   it('default', () => {
     const wrapper = shallowMount(VaSwitch, {
       propsData: { value: false },

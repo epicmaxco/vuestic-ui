@@ -1,13 +1,20 @@
+// @ts-nocheck
 import Vue from 'vue'
-import { shallowMount } from '@vue/test-utils'
-import VaCheckbox from './VaCheckbox'
+// import { mount } from '@vue/test-utils'
 
-import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
-import { testIsSelectableComponent } from '../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
+import VaCheckbox from '../VaCheckbox.vue'
+import { shallowMount } from '@vue/test-utils'
+
+import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
+import { testIsSelectableComponent } from '../../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
 
 Vue.use(ColorThemePlugin)
 
 describe('VaCheckbox', () => {
+  // it('should render without an error', () => {
+  //   const wrapper = mount(VaCheckbox)
+  //   expect(wrapper.isVueInstance()).toBeTruthy()
+  // })
   // TODO: need fix icon with context-config
 
   it('default', () => {

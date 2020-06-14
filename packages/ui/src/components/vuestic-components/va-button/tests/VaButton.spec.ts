@@ -1,15 +1,22 @@
 import Vue from 'vue'
-import { shallowMount, RouterLinkStub } from '@vue/test-utils'
-import VaButton from './VaButton'
+import { mount, shallowMount, RouterLinkStub } from '@vue/test-utils'
+// @ts-ignore
+import VaButton from '../VaButton.vue'
 
-import { ColorThemePlugin } from '../../../services/ColorThemePlugin'
-import { ContextPlugin } from '../../context-test/context-provide/ContextPlugin'
-import { testIsLoadingMixin } from '../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
+import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
+import { ContextPlugin } from '../../../context-test/context-provide/ContextPlugin'
+import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 
+// @ts-ignore
 Vue.use(ColorThemePlugin)
+// @ts-ignore
 Vue.use(ContextPlugin, {})
 
 describe('VaButton', () => {
+  it('should render without an error', () => {
+    const wrapper = mount(VaButton)
+    expect(wrapper.isVueInstance()).toBeTruthy()
+  })
   /* 1. Default button */
 
   it('button without defined props', () => {
