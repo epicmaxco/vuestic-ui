@@ -30,16 +30,16 @@
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Mixins, Component, Prop, Watch } from 'vue-property-decorator'
 
-const IconPropsMixin = makeContextablePropsMixin({
+const ImagePropsMixin = makeContextablePropsMixin({
   ratio: { type: [Number, String], default: 1 },
   contain: { type: Boolean, default: false },
 })
 
 @Component({
-  name: 'VaIcon',
+  name: 'VaImage',
 })
 export default class VaImage extends Mixins(
-  IconPropsMixin,
+  ImagePropsMixin,
 ) {
   @Prop({
     type: String,
