@@ -1,5 +1,4 @@
 <script lang="ts">
-// @ts-nocheck
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component({
@@ -34,10 +33,10 @@ export default class VaHover extends Vue {
   }
 
   render () {
-    let element
+    let element: any
 
     if (this.$scopedSlots.default) {
-      element = this.$scopedSlots.default({ hover: this.value || this.active })
+      element = this.$scopedSlots.default({ hover: this.value || (this as any).active })
     }
 
     if (Array.isArray(element) && element.length === 1) {
@@ -46,8 +45,7 @@ export default class VaHover extends Vue {
 
     if (!this.disabled) {
       element.data = element.data || {}
-
-      this._g(element.data, {
+      ;(this as any)._g(element.data, {
         mouseenter: this.onMouseEnter,
         mouseleave: this.onMouseLeave,
       })
