@@ -177,7 +177,7 @@ import { validateSlider } from './validateSlider'
 import { getHoverColor } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
+import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import {
   ContextPluginMixin,
   makeContextablePropsMixin,

@@ -32,7 +32,7 @@
 <script lang="ts">
 // @ts-nocheck
 import VaIcon from '../va-icon/VaIcon'
-import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
+import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
 import { Component, Mixins } from 'vue-property-decorator'
