@@ -31,8 +31,7 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import { progressMixin } from './progressMixin'
+import { ProgressMixin } from './progressMixin'
 import {
   ColorThemeMixin,
   getColor,
@@ -50,7 +49,7 @@ const ProgressCirclePropsMixin = makeContextablePropsMixin({
   name: 'VaProgressCircle',
 })
 export default class VaProgressCircle extends Mixins(
-  progressMixin,
+  ProgressMixin,
   ColorThemeMixin,
   SizeMixin,
   ProgressCirclePropsMixin,
