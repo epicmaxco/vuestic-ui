@@ -22,4 +22,3 @@ export class KeyboardOnlyFocusMixin extends Vue {
     (this as any).isFocused = true
   }
 }
-

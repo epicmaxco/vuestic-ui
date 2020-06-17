@@ -9,12 +9,11 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins } from 'vue-property-decorator'
 
-const getNestedFormElements = (vm, elements = []) => {
-  vm.$children.forEach((child) => {
+const getNestedFormElements = (vm: any, elements: any = []) => {
+  vm.$children.forEach((child: any) => {
     if (child.isFormComponent) {
       elements.push(child)
     }
@@ -45,22 +44,22 @@ export default class VaForm extends Mixins(
   // public methods
   reset () {
     getNestedFormElements(this)
-      .filter(({ reset }) => reset)
-      .forEach((item) => {
+      .filter(({ reset }: any) => reset)
+      .forEach((item: any) => {
         item.reset()
       })
   }
 
   resetValidation () {
     getNestedFormElements(this)
-      .filter(({ resetValidation }) => resetValidation)
-      .forEach((item) => {
+      .filter(({ resetValidation }: any) => resetValidation)
+      .forEach((item: any) => {
         item.resetValidation()
       })
   }
 
   focus () {
-    const focusableElement = getNestedFormElements(this).find(({ focus }) => focus)
+    const focusableElement = getNestedFormElements(this).find(({ focus }: any) => focus)
 
     if (focusableElement) {
       focusableElement.focus()
@@ -69,8 +68,8 @@ export default class VaForm extends Mixins(
 
   focusInvalid () {
     const invalidComponent = getNestedFormElements(this)
-      .filter(({ hasError }) => hasError)
-      .find((item) => item.hasError())
+      .filter(({ hasError }: any) => hasError)
+      .find((item: any) => item.hasError())
 
     if (invalidComponent) {
       invalidComponent.focus()
@@ -81,8 +80,8 @@ export default class VaForm extends Mixins(
     let formValid = true
 
     getNestedFormElements(this)
-      .filter(({ validate }) => validate)
-      .forEach((child) => {
+      .filter(({ validate }: any) => validate)
+      .forEach((child: any) => {
         const isValidChild = child.validate()
         if (!isValidChild) {
           formValid = false
