@@ -55,9 +55,8 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import VaIcon from '../va-icon/VaIcon'
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
+import VaIcon from '../va-icon/VaIcon.vue'
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
 import {
   getGradientBackground,
   getFocusColor,
@@ -66,7 +65,7 @@ import {
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
@@ -78,7 +77,7 @@ const ButtonPropsMixin = makeContextablePropsMixin({
   size: {
     type: String,
     default: 'medium',
-    validator: value => {
+    validator: (value: string) => {
       return ['medium', 'small', 'large'].includes(value)
     },
   },
@@ -116,8 +115,8 @@ export default class VaButton extends Mixins(
   }
 
   @Watch('c_loading')
-  onLoadingChanged (newValue) {
-    this.$el.blur()
+  onLoadingChanged (newValue: boolean) {
+    (this as any).$el.blur()
 
     if (newValue === true) {
       this.updateFocusState(false)
@@ -167,7 +166,7 @@ export default class VaButton extends Mixins(
   }
 
   get loaderSize () {
-    const size = /([0-9]*)(px)/.exec(this.sizeComputed)
+    const size: any = /([0-9]*)(px)/.exec(this.sizeComputed)
 
     if (size) {
       return `${size[1] / 2}${size[2]}`
@@ -177,7 +176,7 @@ export default class VaButton extends Mixins(
   }
 
   get computedStyle () {
-    const computedStyle = {
+    const computedStyle: any = {
       color: '',
       borderColor: '',
       background: '',
@@ -210,7 +209,7 @@ export default class VaButton extends Mixins(
     }
 
     if (this.va.color && !this.c_outline && !this.c_flat) {
-      computedStyle.background = this.c_color ? this.colorComputed : this.$themes[this.va.color]
+      computedStyle.background = this.c_color ? this.colorComputed : (this as any).$themes[this.va.color]
       computedStyle.backgroundImage = ''
     }
 
@@ -235,18 +234,18 @@ export default class VaButton extends Mixins(
     return Object.assign({},
       this.$listeners,
       {
-        click: (event) => {
+        click: (event: any) => {
           this.$emit('click', event)
         },
       },
     )
   }
 
-  updateHoverState (isHover) {
+  updateHoverState (isHover: boolean) {
     this.hoverState = isHover
   }
 
-  updateFocusState (isHover) {
+  updateFocusState (isHover: boolean) {
     this.focusState = isHover
   }
 }
