@@ -13,11 +13,10 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import vaIconMixin from './vaIconMixin'
+import { IconMixin } from './vaIconMixin'
 import { warn } from '../../../services/utils'
 import { Component, Mixins } from 'vue-property-decorator'
 
@@ -46,7 +45,7 @@ export default class VaIcon extends Mixins(
   ColorThemeMixin,
   SizeMixin,
   IconPropsMixin,
-  vaIconMixin,
+  IconMixin,
 ) {
   get icon () {
     return this.getIcon()
