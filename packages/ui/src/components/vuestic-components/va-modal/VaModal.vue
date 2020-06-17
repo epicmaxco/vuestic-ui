@@ -74,7 +74,6 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
 import { noop } from 'lodash'
 import { CreateElement } from 'vue'
 import { Component, Watch, Mixins, Vue, Prop } from 'vue-property-decorator'
