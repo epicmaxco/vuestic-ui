@@ -8,6 +8,7 @@ export default class ExampleComponent extends Mixins(FormComponentMixin) {
   render () {
     return ''
   }
+
   @Prop({ }) value: any
 }
 

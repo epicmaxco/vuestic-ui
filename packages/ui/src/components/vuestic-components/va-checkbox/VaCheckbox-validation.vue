@@ -13,14 +13,14 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import VaCheckbox from './VaCheckbox'
-import { Component } from 'vue-property-decorator'
+
+import VaCheckbox from './VaCheckbox.vue'
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
   components: { VaCheckbox },
 })
-export default class VaCheckboxValidation {
+export default class VaCheckboxValidation extends Vue {
   data () {
     return {
       value: false,

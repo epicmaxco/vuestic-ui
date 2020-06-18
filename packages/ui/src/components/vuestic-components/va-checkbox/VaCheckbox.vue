@@ -58,9 +58,8 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import VaIcon from '../va-icon/VaIcon'
-import VaInputWrapper from '../va-input/VaInputWrapper'
+import VaIcon from '../va-icon/VaIcon.vue'
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
