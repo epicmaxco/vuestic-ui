@@ -1,10 +1,8 @@
-import { Watch, Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-// @ts-ignore
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefullMixin/StatefulMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-// @ts-ignore
 import { KeyboardOnlyFocusMixin } from '../KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
 const componentProps = {
