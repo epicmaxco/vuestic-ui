@@ -1,4 +1,4 @@
-export const validateSlider = (value, step, min, max) => {
+export const validateSlider = (value: any, step: number, min: number, max: number) => {
   if (max < min) {
     throw new Error('The maximum value can not be less than the minimum value.')
   }
@@ -11,7 +11,7 @@ export const validateSlider = (value, step, min, max) => {
     throw new Error('Step is illegal. Slider is nondivisible.')
   }
 
-  const inRange = (v) => {
+  const inRange = (v: number) => {
     if (v < min) {
       throw new Error(`The value of the slider is ${v}, the minimum value is ${min}, the value of this slider can not be less than the minimum value`)
     } else if (v > max) {

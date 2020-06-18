@@ -1,4 +1,4 @@
-import { validateSlider } from './validateSlider'
+import { validateSlider } from '../validateSlider'
 
 describe('slider', () => {
   it('slider right value', () => {
