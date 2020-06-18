@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { mount, shallowMount } from '@vue/test-utils'
-import { testIsFormComponent } from '../../../vuestic-mixins/testIsFormComponent'
+import { testIsFormComponent } from '../../../vuestic-mixins/FormComponent/testIsFormComponent'
 
 import VaOptionList from '../VaOptionList.vue'
 

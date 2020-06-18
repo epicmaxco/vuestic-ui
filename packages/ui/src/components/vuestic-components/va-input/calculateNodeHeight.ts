@@ -30,10 +30,10 @@ const SIZING_STYLE = [
   'box-sizing',
 ]
 
-const computedStyleCache = {}
-let hiddenTextarea
+const computedStyleCache: any = {}
+let hiddenTextarea: any
 
-function calculateNodeStyling (node, useCache = false) {
+function calculateNodeStyling (node: any, useCache = false) {
   const nodeRef =
     node.getAttribute('id') || node.getAttribute('data-reactid') || node.getAttribute('name')
 
@@ -73,10 +73,10 @@ function calculateNodeStyling (node, useCache = false) {
 }
 
 export default function calculateNodeHeight (
-  uiTextNode,
+  uiTextNode: any,
   useCache = false,
-  minRows = null,
-  maxRows = null,
+  minRows: any = null,
+  maxRows: any = null,
 ) {
   if (!hiddenTextarea) {
     hiddenTextarea = document.createElement('textarea')

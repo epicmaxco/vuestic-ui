@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 
 // Ensure that component is proper form component
-export function testIsFormComponent (componentOptions, props = {}) {
+export function testIsFormComponent (componentOptions: any, props = {}) {
   const wrapper = shallowMount(componentOptions, {
     propsData: Object.assign({
       value: true,
@@ -11,7 +11,7 @@ export function testIsFormComponent (componentOptions, props = {}) {
   })
 
   // Test mixin applied
-  if (!wrapper.vm.isFormComponent) {
+  if (!(wrapper.vm as any).isFormComponent) {
     throw new Error('FormElementMixin is not added')
   }
 
@@ -20,6 +20,8 @@ export function testIsFormComponent (componentOptions, props = {}) {
   wrapper.get('[name="test-name"]')
 
   // Test focus and reset are implemented.
+  // @ts-ignore
   wrapper.vm.focus()
+  // @ts-ignore
   wrapper.vm.reset()
 }
