@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-// @ts-ignore
 import VaIcon from '../VaIcon.vue'
 
 describe('VaIcon', () => {

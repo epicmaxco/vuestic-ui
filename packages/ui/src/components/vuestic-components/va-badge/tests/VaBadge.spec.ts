@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-// @ts-ignore
 import VaBadge from '../VaBadge.vue'
 
 describe('VaBadge', () => {

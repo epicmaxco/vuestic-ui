@@ -4,7 +4,6 @@ import { mount } from '@vue/test-utils'
 import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefullMixin/testHasStatefulMixin'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 import { StatefulMixin } from '../../../vuestic-mixins/StatefullMixin/StatefulMixin'
-// @ts-ignore
 import VaModal from '../VaModal.vue'
 
 describe('VaModal', () => {

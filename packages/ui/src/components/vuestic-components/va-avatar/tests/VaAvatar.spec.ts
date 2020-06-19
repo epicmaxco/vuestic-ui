@@ -1,4 +1,3 @@
-// @ts-ignore
 import VaAvatar from '../VaAvatar.vue'
 import { mount } from '@vue/test-utils'
 import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'

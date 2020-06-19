@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-// @ts-ignore
 import VaForm from '../VaForm.vue'
 
 describe('VaForm', () => {

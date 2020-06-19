@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils'
 
-// @ts-ignore
 import VaRadio from '../VaRadio.vue'
 
 describe('VaRadio', () => {

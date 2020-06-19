@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Vue from 'vue'
 // import { mount } from '@vue/test-utils'
 
@@ -8,6 +7,7 @@ import { shallowMount } from '@vue/test-utils'
 import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
 import { testIsSelectableComponent } from '../../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
 
+// @ts-ignore
 Vue.use(ColorThemePlugin)
 
 describe('VaCheckbox', () => {
@@ -37,11 +37,11 @@ describe('VaCheckbox', () => {
   })
   it('computedClass defined', () => {
     const wrapper = shallowMount(VaCheckbox)
-    expect(wrapper.vm.computedClass).toBeDefined()
+    expect((wrapper.vm as any).computedClass).toBeDefined()
   })
   it('computedIconName should be "check" ', () => {
     const wrapper = shallowMount(VaCheckbox)
-    expect(wrapper.vm.computedIconName).toBe('check')
+    expect((wrapper.vm as any).computedIconName).toBe('check')
   })
   it('is Selectable Component', () => {
     expect(() => testIsSelectableComponent(VaCheckbox)).not.toThrow()

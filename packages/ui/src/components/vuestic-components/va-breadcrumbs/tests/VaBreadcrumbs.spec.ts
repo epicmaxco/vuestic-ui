@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-// @ts-ignore
 import VaBreadcrumbs from '../VaBreadcrumbs.vue'
 
 describe('VaBreadcrumbs', () => {

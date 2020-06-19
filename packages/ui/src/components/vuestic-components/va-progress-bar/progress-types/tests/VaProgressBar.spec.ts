@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils'
 
-// @ts-ignore
 import VaProgressBar from '../VaProgressBar.vue'
 
 describe('VaProgressBar', () => {

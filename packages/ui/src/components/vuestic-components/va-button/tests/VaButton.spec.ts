@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import { mount, shallowMount, RouterLinkStub } from '@vue/test-utils'
-// @ts-ignore
 import VaButton from '../VaButton.vue'
 
 import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'

@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-// @ts-ignore
 import VaDivider from '../VaDivider.vue'
 
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'

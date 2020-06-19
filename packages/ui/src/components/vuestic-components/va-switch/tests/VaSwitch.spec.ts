@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { mount, shallowMount } from '@vue/test-utils'
 
 import VaSwitch from '../VaSwitch.vue'
@@ -37,7 +36,7 @@ describe('VaSwitch', () => {
       color: 'test-color',
       stateful: true,
     }
-    expect(() => testIsContextableComponent(VaSwitch, contextProps).not.toThrow())
+    expect(() => testIsContextableComponent(VaSwitch, contextProps)).not.toThrow()
   })
   it('has loading mixin', () => {
     expect(() => testIsLoadingMixin(VaSwitch)).not.toThrow()
