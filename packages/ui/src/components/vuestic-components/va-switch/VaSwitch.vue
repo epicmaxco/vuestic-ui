@@ -70,9 +70,8 @@
   </va-input-wrapper>
 </template>
 <script lang="ts">
-// @ts-nocheck
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
-import VaInputWrapper from '../va-input/VaInputWrapper'
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
@@ -84,7 +83,7 @@ const SwitchPropsMixin = makeContextablePropsMixin({
   size: {
     type: String,
     default: 'medium',
-    validator: value => {
+    validator: (value: string) => {
       return ['medium', 'small', 'large'].includes(value)
     },
   },
@@ -136,11 +135,12 @@ export default class VaSwitch extends Mixins(
   }
 
   get progressCircleSize () {
-    return {
+    const size: any = {
       small: '15px',
       medium: '20px',
       large: '25px',
-    }[this.c_size]
+    }
+    return size[this.c_size]
   }
 
   get trackStyle () {
