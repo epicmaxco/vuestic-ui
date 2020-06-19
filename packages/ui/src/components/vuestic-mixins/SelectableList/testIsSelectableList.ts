@@ -4,11 +4,11 @@ export function testIsSelectableList (componentOptions) {
   const wrapper = shallowMount(componentOptions)
 
   // Test mixin applied
-  if (!wrapper.vm.isSelectableListComponent) {
+  if (!(wrapper.vm as any).isSelectableListComponent) {
     throw new Error('SelectableListMixin is not added')
   }
 
-  if (!wrapper.vm.isFormComponent) {
+  if (!(wrapper.vm as any).isFormComponent) {
     throw new Error('FormElementMixin is not added')
   }
 }

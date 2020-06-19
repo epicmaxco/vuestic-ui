@@ -60,11 +60,10 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import VaRadio from '../va-radio/VaRadio'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaSwitch from '../va-switch/VaSwitch'
-import VaInputWrapper from '../va-input/VaInputWrapper'
+import VaRadio from '../va-radio/VaRadio.vue'
+import VaCheckbox from '../va-checkbox/VaCheckbox.vue'
+import VaSwitch from '../va-switch/VaSwitch.vue'
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { generateUuid } from '../../../services/utils'
@@ -75,7 +74,7 @@ const OptionListPropsMixin = makeContextablePropsMixin({
   type: {
     type: String,
     default: 'checkbox',
-    validator: type => ['radio', 'checkbox', 'switch'].includes(type),
+    validator: (type: any) => ['radio', 'checkbox', 'switch'].includes(type),
   },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
@@ -114,11 +113,11 @@ export default class VaOptionList extends Mixins(
     }
   }
 
-  getKey (option) {
+  getKey (option: any) {
     return this.getTrackBy(option)
   }
 
-  isDisabled (option) {
+  isDisabled (option: any) {
     return this.c_disabled || this.getDisabled(option)
   }
 
@@ -127,7 +126,7 @@ export default class VaOptionList extends Mixins(
   }
 
   focus () {
-    const elements = this.$refs.input
+    const elements = (this as any).$refs.input
     const firstActiveEl = Array.isArray(elements) && elements.find(el => !el.disabled)
     if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
       firstActiveEl.focus()
