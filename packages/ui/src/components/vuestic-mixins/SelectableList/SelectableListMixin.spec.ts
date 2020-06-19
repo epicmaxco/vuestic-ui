@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { shallowMount } from '@vue/test-utils'
 import { SelectableListMixin } from './SelectableListMixin'
 import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
