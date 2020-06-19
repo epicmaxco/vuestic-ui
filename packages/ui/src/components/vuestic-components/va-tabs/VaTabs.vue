@@ -58,14 +58,14 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import VaButton from '../va-button/VaButton'
-import VaTabsItems from './VaTabsItems'
-import VaTabsContent from './VaTabsContent'
+import VaButton from '../va-button/VaButton.vue'
+import VaTabsItems from './VaTabsItems.vue'
+import VaTabsContent from './VaTabsContent.vue'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import { Component, Mixins, Watch } from 'vue-property-decorator'
+import VaTab from './VaTab.vue'
 
 const TabsPropsMixin = makeContextablePropsMixin({
   value: { type: [String, Number], default: null },
@@ -185,9 +185,9 @@ export default class VaTabs extends Mixins(
             // eslint-disable-next-line @typescript-eslint/no-this-alias
             const self = this
 
-            instance.$on('click', function () { self.selectTab(this) })
-            instance.$on('keydown.enter', function () { self.selectTab(this) })
-            instance.$on('focus', function () { self.ensureVisible(this) })
+            instance.$on('click', function (this: VaTab) { self.selectTab(this) })
+            instance.$on('keydown.enter', function (this: VaTab) { self.selectTab(this) })
+            instance.$on('focus', function (this: VaTab) { self.ensureVisible(this) })
             instance._tabEventsInited = true
           }
         }
@@ -259,7 +259,7 @@ export default class VaTabs extends Mixins(
     this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
   }
 
-  ensureVisible (tab) {
+  ensureVisible (tab: any) {
     if (tab.leftSidePosition < this.tabsContentOffset) {
       this.tabsContentOffset = tab.leftSidePosition
     } else if (tab.rightSidePosition > this.tabsContentOffset + (this as any).$refs.container.clientWidth) {
@@ -267,7 +267,7 @@ export default class VaTabs extends Mixins(
     }
   }
 
-  updateSlider (tab) {
+  updateSlider (tab: any) {
     if (this.c_vertical) {
       this.sliderOffsetY = ((this as any).$refs.container.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
       this.sliderHeight = tab.$el.clientHeight

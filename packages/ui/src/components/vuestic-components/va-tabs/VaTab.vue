@@ -30,11 +30,10 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import VaIcon from '../va-icon/VaIcon'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 import { Component, Mixins } from 'vue-property-decorator'
 
 const TabPropsMixin = makeContextablePropsMixin({
@@ -53,7 +52,7 @@ export default class VaTab extends Mixins(
   RouterLinkMixin,
   TabPropsMixin,
 ) {
-  data () {
+  data (): any {
     return {
       isActive: false,
       id: null,
@@ -80,11 +79,11 @@ export default class VaTab extends Mixins(
   }
 
   get rightSidePosition () {
-    return this.$el.offsetLeft + this.$el.offsetWidth
+    return (this as any).$el.offsetLeft + (this as any).$el.offsetWidth
   }
 
   get leftSidePosition () {
-    return this.$el.offsetLeft
+    return (this as any).$el.offsetLeft
   }
 
   onTabClick () {
@@ -96,7 +95,7 @@ export default class VaTab extends Mixins(
   }
 
   onFocus () {
-    this.KeyboardOnlyFocusMixin_onFocus()
+    (this as any).KeyboardOnlyFocusMixin_onFocus()
     this.$emit('focus')
   }
 }
