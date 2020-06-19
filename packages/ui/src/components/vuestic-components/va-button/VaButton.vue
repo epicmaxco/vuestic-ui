@@ -166,10 +166,10 @@ export default class VaButton extends Mixins(
   }
 
   get loaderSize () {
-    const size: any = /([0-9]*)(px)/.exec(this.sizeComputed)
+    const size = /([0-9]*)(px)/.exec(this.sizeComputed) as null | [string, string, string]
 
     if (size) {
-      return `${size[1] / 2}${size[2]}`
+      return `${+size[1] / 2}${size[2]}`
     }
 
     return this.sizeComputed
@@ -234,7 +234,7 @@ export default class VaButton extends Mixins(
     return Object.assign({},
       this.$listeners,
       {
-        click: (event: any) => {
+        click: (event: Event) => {
           this.$emit('click', event)
         },
       },

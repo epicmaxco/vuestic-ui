@@ -202,25 +202,25 @@ export default class VaInput extends Mixins(
         input: (event: any) => {
           this.$emit('input', event.target.value)
         },
-        click: (event: any) => {
+        click: (event: Event) => {
           this.$emit('click', event)
         },
-        focus: (event: any) => {
+        focus: (event: Event) => {
           // eslint-disable-next-line vue/no-side-effects-in-computed-properties
           this.isFocused = true
 
           this.$emit('focus', event)
         },
-        blur: (event: any) => {
+        blur: (event: Event) => {
           // eslint-disable-next-line vue/no-side-effects-in-computed-properties
           this.ValidateMixin_onBlur()
 
           this.$emit('blur', event)
         },
-        keyup: (event: any) => {
+        keyup: (event: Event) => {
           this.$emit('keyup', event)
         },
-        keydown: (event: any) => {
+        keydown: (event: Event) => {
           this.$emit('keydown', event)
         },
       },
