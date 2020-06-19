@@ -135,8 +135,8 @@ class ModalElement extends Vue {
 })
 export default class VaModal extends Mixins(
   StatefulMixin,
-  ModalPropsMixin,
   ClickOutsideMixin,
+  ModalPropsMixin,
 ) {
   private clearClickOutsideEvents: () => void = noop
 

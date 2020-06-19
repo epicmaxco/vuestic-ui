@@ -44,8 +44,8 @@ const IconPropsMixin = makeContextablePropsMixin({
 export default class VaIcon extends Mixins(
   ColorThemeMixin,
   SizeMixin,
-  IconPropsMixin,
   IconMixin,
+  IconPropsMixin,
 ) {
   get icon () {
     return this.getIcon()

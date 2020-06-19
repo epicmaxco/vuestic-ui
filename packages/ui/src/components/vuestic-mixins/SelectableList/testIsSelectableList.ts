@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 
-export function testIsSelectableList (componentOptions) {
+export function testIsSelectableList (componentOptions: any) {
   const wrapper = shallowMount(componentOptions)
 
   // Test mixin applied

@@ -141,7 +141,6 @@ const InputPropsMixin = makeContextablePropsMixin({
 })
 export default class VaInput extends Mixins(
   ColorThemeMixin,
-
   FormComponentMixin,
   InputPropsMixin,
 ) {
