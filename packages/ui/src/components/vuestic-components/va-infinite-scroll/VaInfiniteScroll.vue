@@ -63,7 +63,7 @@ export default class VaInfiniteScroll extends Mixins(
   index = 0
   fetching = false
   error = false
-  initialHeight = null
+  initialHeight = null as any
 
   get scrollAmount () {
     return this.offset + 1 + (this as any).$el.offsetHeight

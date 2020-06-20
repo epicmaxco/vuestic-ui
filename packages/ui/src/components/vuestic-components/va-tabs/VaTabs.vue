@@ -91,14 +91,14 @@ export default class VaTabs extends Mixins(
   StatefulMixin,
   TabsPropsMixin,
 ) {
-  tabs = []
-  sliderHeight = null
-  sliderWidth = null
+  tabs = [] as any
+  sliderHeight = null as any
+  sliderWidth = null as any
   sliderOffsetX = 0
   sliderOffsetY = 0
   showPagination = false
   tabsContentOffset = 0
-  mutationObserver = null
+  mutationObserver = null as any
 
   get computedClass () {
     return {

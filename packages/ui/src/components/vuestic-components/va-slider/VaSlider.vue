@@ -357,7 +357,7 @@ export default class VaSlider extends Mixins(
     return (this.max / this.step) - 1
   }
 
-  get position () {
+  get position (): any {
     return this.isRange ? [(this.value[0] - this.min) / this.step * this.gap, (this.value[1] - this.min) / this.step * this.gap] : ((this.value - this.min) / this.step * this.gap)
   }
 
@@ -374,26 +374,26 @@ export default class VaSlider extends Mixins(
   }
 
   @Watch('val')
-  onValChanged (val: any) {
+  onValChanged (val: number | number[]) {
     validateSlider(val, this.step, this.min, this.max)
   }
 
   @Watch('max')
-  onMaxChanged (val: any) {
+  onMaxChanged (val: number) {
     if (val < this.min) {
       validateSlider(this.value, this.step, val, this.max)
     }
   }
 
   @Watch('min')
-  onMinChanged (val: any) {
+  onMinChanged (val: number) {
     if (val > this.max) {
       validateSlider(this.value, this.step, this.min, val)
     }
   }
 
   @Watch('hasMouseDown')
-  onMouseDown (val: any) {
+  onMouseDown (val: boolean) {
     if (val) {
       document.documentElement.style.cursor = 'grabbing'
     } else {
@@ -402,7 +402,7 @@ export default class VaSlider extends Mixins(
   }
 
   onFocus () {
-    (this as any).KeyboardOnlyFocusMixin_onFocus()
+    this.KeyboardOnlyFocusMixin_onFocus()
   }
 
   bindEvents () {
@@ -433,19 +433,19 @@ export default class VaSlider extends Mixins(
     return this.range ? this.currentSlider === index : this.currentSlider === 0
   }
 
-  setMouseDown (e: any, index: number) {
+  setMouseDown (e: Event, index: number) {
     if (!this.readonly && !this.disabled) {
-      this.hasMouseDown = index || true
+      this.hasMouseDown = Boolean(index) || true
     }
   }
 
-  moveStart (e: any, index: number) {
+  moveStart (e: Event, index: number) {
     if (!index) {
       if (!this.range) {
         index = 0
       } else {
         const pos = this.getPos(e)
-        index = pos > (((this as any).position[1] - (this as any).position[0]) / 2 + (this as any).position[0]) ? 1 : 0
+        index = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
       }
     }
 

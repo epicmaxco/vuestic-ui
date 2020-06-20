@@ -1,4 +1,4 @@
-export const validateSlider = (value: any, step: number, min: number, max: number) => {
+export const validateSlider = (value: number | number[], step: number, min: number, max: number) => {
   if (max < min) {
     throw new Error('The maximum value can not be less than the minimum value.')
   }

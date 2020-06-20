@@ -41,7 +41,7 @@ const ImagePropsMixin = makeContextablePropsMixin({
 export default class VaImage extends Mixins(
   ImagePropsMixin,
 ) {
-  image = null
+  image = null as any
   loading = false
   loadingError = false
 
