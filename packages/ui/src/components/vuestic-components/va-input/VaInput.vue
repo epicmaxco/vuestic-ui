@@ -144,14 +144,10 @@ export default class VaInput extends Mixins(
   FormComponentMixin,
   InputPropsMixin,
 ) {
+  isFocused = false
+
   mounted () {
     this.adjustHeight()
-  }
-
-  data (): any {
-    return {
-      isFocused: false,
-    }
   }
 
   @Watch('value')

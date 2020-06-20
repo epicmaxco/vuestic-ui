@@ -60,14 +60,10 @@ const InfiniteScrollPropsMixin = makeContextablePropsMixin({
 export default class VaInfiniteScroll extends Mixins(
   InfiniteScrollPropsMixin,
 ) {
-  data () {
-    return {
-      index: 0,
-      fetching: false,
-      error: false,
-      initialHeight: null,
-    }
-  }
+  index = 0
+  fetching = false
+  error = false
+  initialHeight = null
 
   get scrollAmount () {
     return this.offset + 1 + (this as any).$el.offsetHeight

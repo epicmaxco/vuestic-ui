@@ -5,6 +5,8 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
   name: 'VaHover',
 })
 export default class VaHover extends Vue {
+  active = false
+
   @Prop({
     type: Boolean,
     default: false,
@@ -15,12 +17,6 @@ export default class VaHover extends Vue {
     type: Boolean,
   })
   readonly value!: boolean
-
-  data () {
-    return {
-      active: false,
-    }
-  }
 
   onMouseEnter (): void {
     (this as any).active = true

@@ -41,18 +41,14 @@ const ImagePropsMixin = makeContextablePropsMixin({
 export default class VaImage extends Mixins(
   ImagePropsMixin,
 ) {
+  image = null
+  loading = false
+  loadingError = false
+
   @Prop({
     type: String,
     required: true,
   }) readonly src!: string
-
-  data () {
-    return {
-      image: null,
-      loading: false,
-      loadingError: false,
-    }
-  }
 
   beforeDestroy () {
     this.destroyLoader()

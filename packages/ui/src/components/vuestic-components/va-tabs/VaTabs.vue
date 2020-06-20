@@ -91,18 +91,14 @@ export default class VaTabs extends Mixins(
   StatefulMixin,
   TabsPropsMixin,
 ) {
-  data () {
-    return {
-      tabs: [],
-      sliderHeight: null,
-      sliderWidth: null,
-      sliderOffsetX: 0,
-      sliderOffsetY: 0,
-      showPagination: false,
-      tabsContentOffset: 0,
-      mutationObserver: null,
-    }
-  }
+  tabs = []
+  sliderHeight = null
+  sliderWidth = null
+  sliderOffsetX = 0
+  sliderOffsetY = 0
+  showPagination = false
+  tabsContentOffset = 0
+  mutationObserver = null
 
   get computedClass () {
     return {

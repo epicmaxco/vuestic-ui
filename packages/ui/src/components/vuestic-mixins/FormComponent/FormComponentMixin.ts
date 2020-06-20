@@ -28,6 +28,11 @@ const PropsMixin = makeContextablePropsMixin(componentProps)
 export class FormComponentMixin extends Mixins(
   PropsMixin,
 ) {
+  hadFocus = false
+  isFocused = false
+  internalErrorMessages = null
+  internalError = false
+
   @Prop({ type: [String, Number], default: undefined }) id!: string | number
   @Prop({ type: [String, Number], default: undefined }) name!: string | number
   @Prop({
@@ -39,16 +44,6 @@ export class FormComponentMixin extends Mixins(
   created () {
     // That's just a flag for form to figure out whether component is form component.
     this.isFormComponent = true
-  }
-
-  data () {
-    return {
-      hadFocus: false,
-
-      isFocused: false,
-      internalErrorMessages: null,
-      internalError: false,
-    }
   }
 
   @Watch('rules', { deep: true })

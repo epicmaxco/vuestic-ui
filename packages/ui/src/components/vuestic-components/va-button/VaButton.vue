@@ -103,16 +103,12 @@ export default class VaButton extends Mixins(
   LoadingMixin,
   ButtonPropsMixin,
 ) {
+  hoverState = false
+  focusState = false
+
   @Inject({
     default: () => ({}),
   }) readonly va!: any
-
-  data () {
-    return {
-      hoverState: false,
-      focusState: false,
-    }
-  }
 
   @Watch('c_loading')
   onLoadingChanged (newValue: boolean) {

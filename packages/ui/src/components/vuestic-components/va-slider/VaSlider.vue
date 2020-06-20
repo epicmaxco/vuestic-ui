@@ -215,16 +215,12 @@ export default class VaSlider extends Mixins(
   ContextPluginMixin,
   SliderPropsMixin,
 ) {
-  data (): any {
-    return {
-      flag: false,
-      size: 0,
-      currentValue: this.value,
-      currentSlider: 0,
-      isComponentExists: false,
-      dimensions: this.vertical ? ['height', 'bottom'] : ['width', 'left'],
-    }
-  }
+  flag = false
+  size = 0
+  currentValue = this.value
+  currentSlider = 0
+  isComponentExists = false
+  dimensions = this.vertical ? ['height', 'bottom'] : ['width', 'left']
 
   get moreToLess () {
     return this.val[1] - this.step < this.val[0]

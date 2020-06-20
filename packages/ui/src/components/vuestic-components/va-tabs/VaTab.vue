@@ -52,12 +52,8 @@ export default class VaTab extends Mixins(
   RouterLinkMixin,
   TabPropsMixin,
 ) {
-  data (): any {
-    return {
-      isActive: false,
-      id: null,
-    }
-  }
+  isActive = false
+  id = null
 
   get classComputed () {
     return {

@@ -32,11 +32,7 @@ export default class VaMessageList extends Mixins(
   ColorThemeMixin,
   MessageListPropsMixin,
 ) {
-  data () {
-    return {
-      colorThemeDefault: 'gray', // mixin override
-    }
-  }
+  colorThemeDefault = 'gray' // mixin override
 
   get messages () {
     if (!this.c_value) {
