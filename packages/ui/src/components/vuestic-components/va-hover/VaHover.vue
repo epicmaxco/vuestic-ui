@@ -19,12 +19,12 @@ export default class VaHover extends Vue {
   readonly value!: boolean
 
   onMouseEnter (): void {
-    (this as any).active = true
+    this.active = true
     this.$emit('input', true)
   }
 
   onMouseLeave (): void {
-    (this as any).active = false
+    this.active = false
     this.$emit('input', false)
   }
 
@@ -32,7 +32,7 @@ export default class VaHover extends Vue {
     let element: any
 
     if (this.$scopedSlots.default) {
-      element = this.$scopedSlots.default({ hover: this.value || (this as any).active })
+      element = this.$scopedSlots.default({ hover: this.value || this.active })
     }
 
     if (Array.isArray(element) && element.length === 1) {
