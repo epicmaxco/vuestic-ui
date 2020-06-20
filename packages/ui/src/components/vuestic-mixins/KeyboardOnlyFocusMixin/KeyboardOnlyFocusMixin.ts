@@ -10,7 +10,7 @@ export class KeyboardOnlyFocusMixin extends Vue {
   // Might be not the best approach.
   hasMouseDown = false
 
-  KeyboardOnlyFocusMixin_onFocus (e?: Event, index?: number) {
+  KeyboardOnlyFocusMixin_onFocus (e?: Event, index?: number): void {
     // TODO Index is 100% hack. Please Kill Destroy.
     if (!this.hasMouseDown) {
       this.isKeyboardFocused = Boolean(index) || true

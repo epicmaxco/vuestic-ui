@@ -9,6 +9,6 @@ export class LoadingMixin extends Mixins(makeContextablePropsMixin({
   },
 })) {
   created () {
-    (this as any).isLoadingMixin = true
+    this.isLoadingMixin = true
   }
 }
