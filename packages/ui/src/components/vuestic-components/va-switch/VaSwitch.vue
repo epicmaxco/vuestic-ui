@@ -69,6 +69,7 @@
     </div>
   </va-input-wrapper>
 </template>
+
 <script lang="ts">
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
 import VaInputWrapper from '../va-input/VaInputWrapper.vue'

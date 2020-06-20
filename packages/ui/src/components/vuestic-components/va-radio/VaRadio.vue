@@ -99,13 +99,13 @@ export default class VaRadio extends Mixins(
     return this.label || this.option
   }
 
-  onClick (e: any) {
+  onClick (e: Event) {
     if (!this.disabled) {
       this.$emit('input', this.option, e)
     }
   }
 
-  onFocus (e: any) {
+  onFocus (e: Event) {
     if (!this.disabled) {
       this.$emit('focus', e)
     }
