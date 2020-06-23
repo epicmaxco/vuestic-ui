@@ -362,10 +362,12 @@
       }
     },
     "VaIcon": {
-      "props": {},
-      "events": {},
-      "methods": {},
-      "slots": {}
+      "props": {
+        "component": "Allows to use the svg component as an icon.",
+        "rotation": "Rotates a component by a degree value.",
+        "spin": "Starts rotation animation.",
+        "iconsConfig": "Allows you to configurate iconset."
+      }
     }
   },
   "anyPage": {
@@ -1116,35 +1118,35 @@
   },
   "icon": {
     "title": "Icon",
-    "summaryText": "",
+    "summaryText": "The `va-icon` component allows you to use different iconfonts.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": ""
+        "text": "Basic usage of component with different iconfonts."
       },
       "color": {
         "title": "Color",
-        "text": ""
+        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
       },
       "size": {
         "title": "Size",
-        "text": ""
+        "text": "Utilize `size` prop in order to make `va-icon` fit your needs."
       },
       "rotation": {
         "title": "Rotation",
-        "text": ""
+        "text": "Used to rotate the `va-icon` component."
       },
       "spin": {
         "title": "Spin",
-        "text": ""
+        "text": "You can add animation of rotation of the icon using the property `spin`."
       },
       "text": {
         "title": "Text as icon",
-        "text": ""
+        "text": "Using `text` prop will allow you to cover the text with an icon style."
       },
       "tag": {
         "title": "Custom tag",
-        "text": ""
+        "text": "With `tag` prop you can attach the icon to another tag."
       }
     }
   }
