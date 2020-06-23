@@ -360,6 +360,12 @@
         "loading": "Shown when content is fetching.",
         "default": "The content to be scrolled"
       }
+    },
+    "VaIcon": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "anyPage": {
@@ -389,7 +395,8 @@
     "divider": "Divider",
     "button": "Button",
     "checkbox": "Checkbox",
-    "infiniteScroll": "Infinite Scroll"
+    "infiniteScroll": "Infinite Scroll",
+    "icon": "Icon"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1104,6 +1111,40 @@
       "customTarget": {
         "title": "Custom scroll target container",
         "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
+      }
+    }
+  },
+  "icon": {
+    "title": "Icon",
+    "summaryText": "",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": ""
+      },
+      "color": {
+        "title": "Color",
+        "text": ""
+      },
+      "size": {
+        "title": "Size",
+        "text": ""
+      },
+      "rotation": {
+        "title": "Rotation",
+        "text": ""
+      },
+      "spin": {
+        "title": "Spin",
+        "text": ""
+      },
+      "text": {
+        "title": "Text as icon",
+        "text": ""
+      },
+      "tag": {
+        "title": "Custom tag",
+        "text": ""
       }
     }
   }
