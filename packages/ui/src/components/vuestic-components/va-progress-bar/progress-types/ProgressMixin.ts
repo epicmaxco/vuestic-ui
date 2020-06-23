@@ -9,7 +9,6 @@ const ProgressMixinContextableProps = makeContextablePropsMixin({
   indeterminate: { type: Boolean, default: false },
 })
 
-@Component
 export class ProgressMixin extends Mixins(
   ProgressMixinContextableProps,
 ) {
