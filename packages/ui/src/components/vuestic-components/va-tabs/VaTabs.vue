@@ -57,256 +57,233 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import VaButton from '../va-button/VaButton.vue'
+import VaTabsItems from './VaTabsItems.vue'
+import VaTabsContent from './VaTabsContent.vue'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
-import VaButton from '../va-button/VaButton'
-import VaTabsItems from './VaTabsItems'
-import VaTabsContent from './VaTabsContent'
+import { Component, Mixins, Watch } from 'vue-property-decorator'
+import VaTab from './VaTab.vue'
 
-export default {
+const TabsPropsMixin = makeContextablePropsMixin({
+  value: { type: [String, Number], default: null },
+  left: { type: Boolean, default: true },
+  right: { type: Boolean, default: false },
+  center: { type: Boolean, default: false },
+  grow: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  hideSlider: { type: Boolean, default: false },
+  vertical: { type: Boolean, default: false },
+  color: { type: String, default: 'primary' },
+  prevIcon: { type: String, default: 'chevron_left' },
+  nextIcon: { type: String, default: 'chevron_right' },
+})
+
+@Component({
   name: 'VaTabs',
-  components: {
-    VaButton,
-    VaTabsContent,
-    VaTabsItems,
-  },
-  mixins: [
-    ColorThemeMixin,
-    VaTabsItems,
-    StatefulMixin,
-    makeContextablePropsMixin({
-      value: {
-        type: [String, Number],
-        default: null,
-      },
-      left: {
-        type: Boolean,
-        default: true,
-      },
-      right: {
-        type: Boolean,
-        default: false,
-      },
-      center: {
-        type: Boolean,
-        default: false,
-      },
-      grow: {
-        type: Boolean,
-        default: false,
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
-      hideSlider: {
-        type: Boolean,
-        default: false,
-      },
-      vertical: {
-        type: Boolean,
-        default: false,
-      },
-      color: {
-        type: String,
-        default: 'primary',
-      },
-      prevIcon: {
-        type: String,
-        default: 'chevron_left',
-      },
-      nextIcon: {
-        type: String,
-        default: 'chevron_right',
-      },
-    }),
-  ],
-  data () {
+  components: { VaButton, VaTabsContent, VaTabsItems },
+})
+export default class VaTabs extends Mixins(
+  ColorThemeMixin,
+  VaTabsItems,
+  StatefulMixin,
+  TabsPropsMixin,
+) {
+  tabs: any = []
+  sliderHeight: null | number = null
+  sliderWidth: null | number = null
+  sliderOffsetX = 0
+  sliderOffsetY = 0
+  showPagination = false
+  tabsContentOffset = 0
+  mutationObserver: any = null
+
+  get computedClass () {
     return {
-      tabs: [],
-      sliderHeight: null,
-      sliderWidth: null,
-      sliderOffsetX: 0,
-      sliderOffsetY: 0,
-      showPagination: false,
-      tabsContentOffset: 0,
-      mutationObserver: null,
+      'va-tabs__container--left': this.c_left && !this.c_right && !this.c_center && !this.c_grow,
+      'va-tabs__container--right': this.c_right,
+      'va-tabs__container--center': this.c_center,
+      'va-tabs__container--grow': this.c_grow,
+      'va-tabs__container--disabled': this.c_disabled,
     }
-  },
-  computed: {
-    computedClass () {
+  }
+
+  get computedTabsClass () {
+    return {
+      'va-tabs--vertical': this.c_vertical,
+    }
+  }
+
+  get tabSelected () {
+    return this.valueComputed
+  }
+
+  get sliderStyles () {
+    if (this.c_hideSlider) {
       return {
-        'va-tabs__container--left': this.c_left && !this.c_right && !this.c_center && !this.c_grow,
-        'va-tabs__container--right': this.c_right,
-        'va-tabs__container--center': this.c_center,
-        'va-tabs__container--grow': this.c_grow,
-        'va-tabs__container--disabled': this.c_disabled,
       }
-    },
-    computedTabsClass () {
-      return {
-        'va-tabs--vertical': this.c_vertical,
-      }
-    },
-    tabSelected () {
-      return this.valueComputed
-    },
-    sliderStyles () {
-      if (this.c_hideSlider) {
-        return {
-        }
-      }
-      if (this.c_vertical) {
-        return {
-          'background-color': this.colorComputed,
-          height: `${this.sliderHeight}px`,
-          transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
-        }
-      }
+    }
+    if (this.c_vertical) {
       return {
         'background-color': this.colorComputed,
-        width: `${this.sliderWidth}px`,
+        height: `${this.sliderHeight}px`,
         transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
       }
-    },
-    paginationControlledStyles () {
-      // Prevents the movement of vertical tabs
-      if (this.c_vertical) {
-        return {
-          transform: 'translateX(0px)',
-        }
-      }
+    }
+    return {
+      'background-color': this.colorComputed,
+      width: `${this.sliderWidth}px`,
+      transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
+    }
+  }
+
+  get paginationControlledStyles () {
+    // Prevents the movement of vertical tabs
+    if (this.c_vertical) {
       return {
-        transform: `translateX(-${this.tabsContentOffset}px)`,
+        transform: 'translateX(0px)',
       }
-    },
-    disablePaginationLeft () {
-      return this.tabsContentOffset === 0
-    },
-    disablePaginationRight () {
-      return this.tabs[this.tabs.length - 1].rightSidePosition <= this.tabsContentOffset + this.$refs.container.clientWidth
-    },
-  },
-  watch: {
-    value () {
-      this.updateTabsState()
-    },
-  },
-  methods: {
-    parseItems () {
-      const content = this.$slots.default
-      const length = content.length
-      this.tabs = []
+    }
+    return {
+      transform: `translateX(-${this.tabsContentOffset}px)`,
+    }
+  }
 
-      for (let i = 0; i < length; i++) {
-        if (content[i].componentOptions) {
-          if (content[i].componentOptions.Ctor.options.name === 'VaTab') {
-            const instance = content[i].componentInstance
-            instance.id = instance.name || i
+  get disablePaginationLeft () {
+    return this.tabsContentOffset === 0
+  }
 
-            this.tabs.push(instance)
+  get disablePaginationRight () {
+    return this.tabs[this.tabs.length - 1].rightSidePosition <= this.tabsContentOffset + (this as any).$refs.container.clientWidth
+  }
 
-            if (!instance._tabEventsInited) {
-              // eslint-disable-next-line @typescript-eslint/no-this-alias
-              const self = this
+  @Watch('value')
+  onValueChanged () {
+    this.updateTabsState()
+  }
 
-              instance.$on('click', function () { self.selectTab(this) })
-              instance.$on('keydown.enter', function () { self.selectTab(this) })
-              instance.$on('focus', function () { self.ensureVisible(this) })
-              instance._tabEventsInited = true
-            }
+  parseItems () {
+    const content = (this as any).$slots.default
+    const length = content.length
+    this.tabs = []
+
+    for (let i = 0; i < length; i++) {
+      if (content[i].componentOptions) {
+        if (content[i].componentOptions.Ctor.options.name === 'VaTab') {
+          const instance = content[i].componentInstance
+          instance.id = instance.name || i
+
+          this.tabs.push(instance)
+
+          if (!instance._tabEventsInited) {
+            // eslint-disable-next-line @typescript-eslint/no-this-alias
+            const self = this
+
+            instance.$on('click', function (this: VaTab) { self.selectTab(this) })
+            instance.$on('keydown.enter', function (this: VaTab) { self.selectTab(this) })
+            instance.$on('focus', function (this: VaTab) { self.ensureVisible(this) })
+            instance._tabEventsInited = true
           }
         }
       }
-    },
-    selectTab (tab) {
-      this.valueComputed = tab.id
-      if (this.stateful) {
-        this.updateTabsState()
-      }
-    },
-    updateTabsState () {
-      let hasActive = false
-      for (let i = 0; i < this.tabs.length; i++) {
-        if (this.tabs[i].isActiveRouterLink) {
-          this.ensureVisible(this.tabs[i])
-          this.updateSlider(this.tabs[i])
-          hasActive = true
-          this.tabs[i].isActive = true
-        } else if (this.tabs[i].id === this.tabSelected) {
-          hasActive = true
-          this.ensureVisible(this.tabs[i])
-          this.updateSlider(this.tabs[i])
-          this.tabs[i].isActive = true
-        } else {
-          this.tabs[i].isActive = false
-        }
-      }
-      if (!hasActive) {
-        this.resetSlider()
-      }
-    },
-    updatePagination () {
-      this.showPagination = false
-      if (this.$refs.tabs && this.$refs.wrapper) {
-        if (this.$refs.tabs.clientWidth > this.$refs.wrapper.clientWidth) { this.showPagination = true }
-      }
-    },
-    movePaginationLeft () {
-      let offsetToSet = this.tabsContentOffset - this.$refs.container.clientWidth
+    }
+  }
 
-      for (let i = 0; i < this.tabs.length; i++) {
-        if (this.tabs[i].rightSidePosition > this.tabsContentOffset && this.tabs[i].leftSidePosition < this.tabsContentOffset) {
-          offsetToSet = this.tabs[i].rightSidePosition - this.$refs.container.clientWidth
-        }
-      }
+  selectTab (tab: any) {
+    this.valueComputed = tab.id
+    if (this.stateful) {
+      this.updateTabsState()
+    }
+  }
 
-      this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
-    },
-    movePaginationRight () {
-      const containerRightSide = this.tabsContentOffset + this.$refs.container.clientWidth
-      let offsetToSet = containerRightSide
-
-      for (let i = 0; i < this.tabs.length; i++) {
-        if (this.tabs[i].rightSidePosition > containerRightSide && this.tabs[i].leftSidePosition < containerRightSide) {
-          offsetToSet = this.tabs[i].leftSidePosition
-        }
-      }
-
-      const maxOffset = this.tabs[this.tabs.length - 1].rightSidePosition - this.$refs.container.clientWidth
-
-      offsetToSet = offsetToSet >= maxOffset ? maxOffset : offsetToSet
-      this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
-    },
-    ensureVisible (tab) {
-      if (tab.leftSidePosition < this.tabsContentOffset) {
-        this.tabsContentOffset = tab.leftSidePosition
-      } else if (tab.rightSidePosition > this.tabsContentOffset + this.$refs.container.clientWidth) {
-        this.tabsContentOffset = tab.rightSidePosition - this.$refs.container.clientWidth
-      }
-    },
-    updateSlider (tab) {
-      if (this.c_vertical) {
-        this.sliderOffsetY = (this.$refs.container.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
-        this.sliderHeight = tab.$el.clientHeight
-        this.sliderOffsetX = 0
-        this.sliderWidth = null
+  updateTabsState () {
+    let hasActive = false
+    for (let i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].isActiveRouterLink) {
+        this.ensureVisible(this.tabs[i])
+        this.updateSlider(this.tabs[i])
+        hasActive = true
+        this.tabs[i].isActive = true
+      } else if (this.tabs[i].id === this.tabSelected) {
+        hasActive = true
+        this.ensureVisible(this.tabs[i])
+        this.updateSlider(this.tabs[i])
+        this.tabs[i].isActive = true
       } else {
-        this.sliderOffsetX = tab.$el.offsetLeft
-        this.sliderWidth = tab.$el.clientWidth
-        this.sliderOffsetY = 0
-        this.sliderHeight = null
+        this.tabs[i].isActive = false
       }
-    },
-    resetSlider () {
+    }
+    if (!hasActive) {
+      this.resetSlider()
+    }
+  }
+
+  updatePagination () {
+    this.showPagination = false
+    if (this.$refs.tabs && this.$refs.wrapper) {
+      if ((this as any).$refs.tabs.clientWidth > (this as any).$refs.wrapper.clientWidth) { this.showPagination = true }
+    }
+  }
+
+  movePaginationLeft () {
+    let offsetToSet = this.tabsContentOffset - (this as any).$refs.container.clientWidth
+
+    for (let i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].rightSidePosition > this.tabsContentOffset && this.tabs[i].leftSidePosition < this.tabsContentOffset) {
+        offsetToSet = this.tabs[i].rightSidePosition - (this as any).$refs.container.clientWidth
+      }
+    }
+
+    this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
+  }
+
+  movePaginationRight () {
+    const containerRightSide = this.tabsContentOffset + (this as any).$refs.container.clientWidth
+    let offsetToSet = containerRightSide
+
+    for (let i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].rightSidePosition > containerRightSide && this.tabs[i].leftSidePosition < containerRightSide) {
+        offsetToSet = this.tabs[i].leftSidePosition
+      }
+    }
+
+    const maxOffset = this.tabs[this.tabs.length - 1].rightSidePosition - (this as any).$refs.container.clientWidth
+
+    offsetToSet = offsetToSet >= maxOffset ? maxOffset : offsetToSet
+    this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
+  }
+
+  ensureVisible (tab: any) {
+    if (tab.leftSidePosition < this.tabsContentOffset) {
+      this.tabsContentOffset = tab.leftSidePosition
+    } else if (tab.rightSidePosition > this.tabsContentOffset + (this as any).$refs.container.clientWidth) {
+      this.tabsContentOffset = tab.rightSidePosition - (this as any).$refs.container.clientWidth
+    }
+  }
+
+  updateSlider (tab: any) {
+    if (this.c_vertical) {
+      this.sliderOffsetY = ((this as any).$refs.container.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
+      this.sliderHeight = tab.$el.clientHeight
       this.sliderOffsetX = 0
-      this.sliderWidth = 0
+      this.sliderWidth = null
+    } else {
+      this.sliderOffsetX = tab.$el.offsetLeft
+      this.sliderWidth = tab.$el.clientWidth
       this.sliderOffsetY = 0
-      this.sliderHeight = 0
-    },
-  },
+      this.sliderHeight = null
+    }
+  }
+
+  resetSlider () {
+    this.sliderOffsetX = 0
+    this.sliderWidth = 0
+    this.sliderOffsetY = 0
+    this.sliderHeight = 0
+  }
+
   mounted () {
     this.parseItems()
     this.updateTabsState()
@@ -317,10 +294,11 @@ export default {
       this.updateTabsState()
     })
     this.mutationObserver.observe(this.$refs.tabs, { childList: true, subtree: true })
-  },
+  }
+
   beforeDestroy () {
     if (this.mutationObserver) { this.mutationObserver.disconnect() }
-  },
+  }
 }
 </script>
 

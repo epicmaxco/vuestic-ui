@@ -30,29 +30,25 @@
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Mixins, Component, Prop, Watch } from 'vue-property-decorator'
 
-@Component
-export default class VaImage extends Mixins(makeContextablePropsMixin({
-  ratio: {
-    type: [Number, String],
-    default: 1,
-  },
-  contain: {
-    type: Boolean,
-    default: false,
-  },
-})) {
+const ImagePropsMixin = makeContextablePropsMixin({
+  ratio: { type: [Number, String], default: 1 },
+  contain: { type: Boolean, default: false },
+})
+
+@Component({
+  name: 'VaImage',
+})
+export default class VaImage extends Mixins(
+  ImagePropsMixin,
+) {
+  image: any = null
+  loading = false
+  loadingError = false
+
   @Prop({
     type: String,
     required: true,
   }) readonly src!: string
-
-  data () {
-    return {
-      image: null,
-      loading: false,
-      loadingError: false,
-    }
-  }
 
   beforeDestroy () {
     this.destroyLoader()

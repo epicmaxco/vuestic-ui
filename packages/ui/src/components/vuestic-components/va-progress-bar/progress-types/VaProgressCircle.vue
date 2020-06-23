@@ -30,71 +30,72 @@
   </div>
 </template>
 
-<script>
-import { progressMixin } from './progressMixin'
+<script lang="ts">
+import { ProgressMixin } from './ProgressMixin'
 import {
   ColorThemeMixin,
   getColor,
 } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
+import { Component, Mixins } from 'vue-property-decorator'
 
-const ProgressCircleContextMixin = makeContextablePropsMixin({
-  thickness: {
-    type: Number,
-    default: 0.06,
-  },
-  color: {
-    type: String,
-    default: 'primary',
-  },
+const ProgressCirclePropsMixin = makeContextablePropsMixin({
+  thickness: { type: Number, default: 0.06 },
+  color: { type: String, default: 'primary' },
 })
 
-export default {
+@Component({
   name: 'VaProgressCircle',
-  mixins: [
-    progressMixin,
-    ColorThemeMixin,
-    SizeMixin,
-    ProgressCircleContextMixin,
-  ],
-  computed: {
-    radius () {
-      return 20 - (20 * this.cappedThickness / 100)
-    },
-    dasharray () {
-      return 2 * Math.PI * this.radius
-    },
-    dashoffset () {
-      return this.dasharray * (1 - this.normalizedValue / 100)
-    },
-    computedThickness () {
-      return `${this.cappedThickness}%`
-    },
-    computedStyle () {
-      return { width: this.sizeComputed, height: this.sizeComputed }
-    },
-    computedClass () {
-      return {
-        'va-progress-circle--indeterminate': this.c_indeterminate,
-      }
-    },
-    computedStyles () {
-      return {
-        color: getColor(this, this.c_color),
-      }
-    },
-    cappedThickness () {
-      // value translated to percentage, divided in half, since final maximum value should be 50%
-      if (this.c_thickness <= 0) {
-        return 0
-      } else if (this.c_thickness >= 1) {
-        return 50
-      } else {
-        return this.c_thickness / 2 * 100
-      }
-    },
-  },
+})
+export default class VaProgressCircle extends Mixins(
+  ProgressMixin,
+  ColorThemeMixin,
+  SizeMixin,
+  ProgressCirclePropsMixin,
+) {
+  get radius () {
+    return 20 - (20 * this.cappedThickness / 100)
+  }
+
+  get dasharray () {
+    return 2 * Math.PI * this.radius
+  }
+
+  get dashoffset () {
+    return this.dasharray * (1 - this.normalizedValue / 100)
+  }
+
+  get computedThickness () {
+    return `${this.cappedThickness}%`
+  }
+
+  get computedStyle () {
+    return { width: this.sizeComputed, height: this.sizeComputed }
+  }
+
+  get computedClass () {
+    return {
+      'va-progress-circle--indeterminate': this.c_indeterminate,
+    }
+  }
+
+  get computedStyles () {
+    return {
+      color: getColor(this, this.c_color),
+    }
+  }
+
+  get cappedThickness () {
+    // value translated to percentage, divided in half, since final maximum value should be 50%
+    if (this.c_thickness <= 0) {
+      return 0
+    } else if (this.c_thickness >= 1) {
+      return 50
+    } else {
+      return this.c_thickness / 2 * 100
+    }
+  }
 }
 </script>
 

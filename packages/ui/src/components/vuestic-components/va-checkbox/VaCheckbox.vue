@@ -57,62 +57,66 @@
   </va-input-wrapper>
 </template>
 
-<script>
-import VaIcon from '../va-icon/VaIcon'
+<script lang="ts">
+import VaIcon from '../va-icon/VaIcon.vue'
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
-import VaInputWrapper from '../va-input/VaInputWrapper'
+import { Component, Mixins } from 'vue-property-decorator'
 
-export default {
+const CheckboxPropsMixin = makeContextablePropsMixin({
+  value: { type: [Boolean, Array, String, Object], default: false },
+  checkedIcon: { type: String, default: 'check' },
+  indeterminateIcon: { type: String, default: 'remove' },
+})
+
+@Component({
   name: 'VaCheckbox',
   components: { VaInputWrapper, VaIcon },
-  mixins: [
-    SelectableMixin,
-    makeContextablePropsMixin({
-      value: { type: [Boolean, Array, String, Object], default: false },
-      checkedIcon: { type: String, default: 'check' },
-      indeterminateIcon: { type: String, default: 'remove' },
-      color: { type: String, default: 'primary' },
-    }),
-  ],
-  computed: {
-    computedClass () {
-      return {
-        'va-checkbox--selected': this.isChecked,
-        'va-checkbox--readonly': this.c_readonly,
-        'va-checkbox--disabled': this.c_disabled,
-        'va-checkbox--indeterminate': this.c_indeterminate,
-        'va-checkbox--error': this.computedError,
-        'va-checkbox--left-label': this.c_leftLabel,
-        'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
-      }
-    },
-    labelStyle () {
-      return {
-        color: this.computedError ? getColor(this, 'danger') : '',
-        padding: !this.c_label
-          ? ''
-          : this.c_leftLabel
-            ? '0 0.25rem 0 0'
-            : '0 0 0 0.25rem',
-      }
-    },
-    inputStyle () {
-      return this.computedError
-        ? (this.isChecked || this.isIndeterminate)
-          ? { background: this.colorComputed, borderColor: getColor(this, 'danger') }
-          : { borderColor: getColor(this, 'danger') }
-        : (this.isChecked || this.isIndeterminate)
-          ? { background: this.colorComputed, borderColor: this.colorComputed }
-          : {}
-    },
-    computedIconName () {
-      return (this.c_indeterminate && this.isIndeterminate)
-        ? this.c_indeterminateIcon
-        : this.c_checkedIcon
-    },
-  },
+})
+export default class VaCheckbox extends Mixins(
+  SelectableMixin,
+  CheckboxPropsMixin,
+) {
+  get computedClass () {
+    return {
+      'va-checkbox--selected': this.isChecked,
+      'va-checkbox--readonly': this.c_readonly,
+      'va-checkbox--disabled': this.c_disabled,
+      'va-checkbox--indeterminate': this.c_indeterminate,
+      'va-checkbox--error': this.computedError,
+      'va-checkbox--left-label': this.c_leftLabel,
+      'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
+    }
+  }
+
+  get labelStyle () {
+    return {
+      color: this.computedError ? getColor(this, 'danger') : '',
+      padding: !this.c_label
+        ? ''
+        : this.c_leftLabel
+          ? '0 0.25rem 0 0'
+          : '0 0 0 0.25rem',
+    }
+  }
+
+  get inputStyle () {
+    return this.computedError
+      ? (this.isChecked || this.isIndeterminate)
+        ? { background: this.colorComputed, borderColor: getColor(this, 'danger') }
+        : { borderColor: getColor(this, 'danger') }
+      : (this.isChecked || this.isIndeterminate)
+        ? { background: this.colorComputed, borderColor: this.colorComputed }
+        : {}
+  }
+
+  get computedIconName () {
+    return (this.c_indeterminate && this.isIndeterminate)
+      ? this.c_indeterminateIcon
+      : this.c_checkedIcon
+  }
 }
 </script>
 

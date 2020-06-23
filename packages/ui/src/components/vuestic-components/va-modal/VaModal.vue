@@ -85,59 +85,20 @@ import ClickOutsideMixin, {
   ClickOutsideOptions,
 } from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'
 
-const props = {
-  value: {
-    type: Boolean,
-    default: false,
-  },
-  title: {
-    type: String,
-    default: '',
-  },
-  message: {
-    type: String,
-    default: '',
-  },
-  okText: {
-    type: String,
-    default: 'OK',
-  },
-  cancelText: {
-    type: String,
-    default: 'Cancel',
-  },
-  hideDefaultActions: {
-    type: Boolean,
-    default: false,
-  },
-  fullscreen: {
-    type: Boolean,
-    default: false,
-  },
-  mobileFullscreen: {
-    type: Boolean,
-    default: true,
-  },
-  noDismiss: {
-    type: Boolean,
-    default: false,
-  },
-  noOutsideDismiss: {
-    type: Boolean,
-    default: false,
-  },
-  noEscDismiss: {
-    type: Boolean,
-    default: false,
-  },
-  maxWidth: {
-    type: String,
-    default: '',
-  },
-  maxHeight: {
-    type: String,
-    default: '',
-  },
+const ModalPropsMixin = makeContextablePropsMixin({
+  value: { type: Boolean, default: false },
+  title: { type: String, default: '' },
+  message: { type: String, default: '' },
+  okText: { type: String, default: 'OK' },
+  cancelText: { type: String, default: 'Cancel' },
+  hideDefaultActions: { type: Boolean, default: false },
+  fullscreen: { type: Boolean, default: false },
+  mobileFullscreen: { type: Boolean, default: true },
+  noDismiss: { type: Boolean, default: false },
+  noOutsideDismiss: { type: Boolean, default: false },
+  noEscDismiss: { type: Boolean, default: false },
+  maxWidth: { type: String, default: '' },
+  maxHeight: { type: String, default: '' },
   size: {
     type: String,
     default: 'medium',
@@ -145,29 +106,12 @@ const props = {
       return ['medium', 'small', 'large'].includes(size)
     },
   },
-  fixedLayout: {
-    type: Boolean,
-    default: false,
-  },
-  withoutTransitions: {
-    type: Boolean,
-    default: false,
-  },
-  overlay: {
-    type: Boolean,
-    default: true,
-  },
-  overlayOpacity: {
-    type: [Number, String],
-    default: undefined,
-  },
-  zIndex: {
-    type: [Number, String],
-    default: undefined,
-  },
-}
-
-const ContextableMixin = makeContextablePropsMixin(props)
+  fixedLayout: { type: Boolean, default: false },
+  withoutTransitions: { type: Boolean, default: false },
+  overlay: { type: Boolean, default: true },
+  overlayOpacity: { type: [Number, String], default: undefined },
+  zIndex: { type: [Number, String], default: undefined },
+})
 
 @Component
 class ModalElement extends Vue {
@@ -191,8 +135,8 @@ class ModalElement extends Vue {
 })
 export default class VaModal extends Mixins(
   StatefulMixin,
-  ContextableMixin,
   ClickOutsideMixin,
+  ModalPropsMixin,
 ) {
   private clearClickOutsideEvents: () => void = noop
 

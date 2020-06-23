@@ -92,8 +92,7 @@ import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
-import Component, { mixins } from 'vue-class-component'
-import { Watch, Ref } from 'vue-property-decorator'
+import { Watch, Ref, Component, Mixins } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 const PaginationPropsMixin = makeContextablePropsMixin({
@@ -128,7 +127,7 @@ const PaginationPropsMixin = makeContextablePropsMixin({
     VaInput,
   },
 })
-export default class VaPagination extends mixins(
+export default class VaPagination extends Mixins(
   ContextPluginMixin,
   StatefulMixin,
   ColorThemeMixin,
