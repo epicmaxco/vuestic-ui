@@ -12,85 +12,85 @@
   </component>
 </template>
 
-<script>
+<script lang="ts">
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import vaIconMixin from './vaIconMixin'
+import { IconMixin } from './IconMixin'
 import { warn } from '../../../services/utils'
+import { Component, Mixins } from 'vue-property-decorator'
 
-const IconContextMixin = makeContextablePropsMixin({
+const IconPropsMixin = makeContextablePropsMixin({
   name: {
     type: [String, Array],
-    validator: name => {
+    default: '',
+    validator: (name: string) => {
       if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
         return warn(`${name} icon is not available.`)
       }
       return true
     },
-    default: '',
   },
-  tag: {
-    type: String,
-    default: 'i',
-  },
-  component: {
-    type: Object,
-  },
-  color: {
-    type: String,
-    default: '',
-  },
-  rotation: {
-    type: [String, Number],
-    default: '',
-  },
-  spin: {
-    type: Boolean,
-    default: false,
-  },
+  tag: { type: String, default: 'i' },
+  component: { type: Object },
+  color: { type: String, default: '' },
+  rotation: { type: [String, Number], default: '' },
+  spin: { type: Boolean, default: false },
 })
 
-export default {
+@Component({
   name: 'VaIcon',
-  mixins: [ColorThemeMixin, SizeMixin, IconContextMixin, vaIconMixin],
-  computed: {
-    icon () {
-      return this.getIcon()
-    },
-    computedTag () {
-      return (this.icon && this.icon.component) || this.c_component || this.c_tag
-    },
-    computedClass () {
-      return `${this.icon && this.icon.iconClass} ${this.spin && 'va-icon--spin'}`
-    },
-    hasClickListener () {
-      return this.$listeners && this.$listeners.click
-    },
-    cursorStyle () {
-      return { cursor: this.hasClickListener ? 'pointer' : null }
-    },
-    rotateStyle () {
-      return { transform: 'rotate(' + this.c_rotation + 'deg)' }
-    },
-    fontSizeStyle () {
-      return { fontSize: this.sizeComputed }
-    },
-    colorStyle () {
-      return { color: this.c_color ? this.colorComputed : null }
-    },
-    computedStyle () {
-      return {
-        ...this.cursorStyle,
-        ...this.rotateStyle,
-        ...this.fontSizeStyle,
-        ...this.colorStyle,
-      }
-    },
-    computedContent () {
-      return this.icon && this.icon.content
-    },
-  },
+})
+export default class VaIcon extends Mixins(
+  ColorThemeMixin,
+  SizeMixin,
+  IconMixin,
+  IconPropsMixin,
+) {
+  get icon () {
+    return this.getIcon()
+  }
+
+  get computedTag () {
+    return (this.icon && this.icon.component) || this.c_component || this.c_tag
+  }
+
+  get computedClass () {
+    return `${this.icon && this.icon.iconClass} ${this.spin && 'va-icon--spin'}`
+  }
+
+  get hasClickListener () {
+    return this.$listeners && this.$listeners.click
+  }
+
+  get cursorStyle () {
+    return { cursor: this.hasClickListener ? 'pointer' : null }
+  }
+
+  get rotateStyle () {
+    return { transform: 'rotate(' + this.c_rotation + 'deg)' }
+  }
+
+  get fontSizeStyle () {
+    return { fontSize: this.sizeComputed }
+  }
+
+  get colorStyle () {
+    return { color: this.c_color ? this.colorComputed : null }
+  }
+
+  get computedStyle () {
+    return {
+      ...this.cursorStyle,
+      ...this.rotateStyle,
+      ...this.fontSizeStyle,
+      ...this.colorStyle,
+    }
+  }
+
+  get computedContent () {
+    return this.icon && this.icon.content
+  }
 }
 </script>
 

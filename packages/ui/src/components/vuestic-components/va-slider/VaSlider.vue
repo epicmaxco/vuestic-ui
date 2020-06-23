@@ -171,578 +171,617 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { validateSlider } from './validateSlider'
 import { getHoverColor } from '../../../services/color-functions'
-import VaIcon from '../va-icon/VaIcon'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
+import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Watch, Mixins } from 'vue-property-decorator'
 
-export default {
+const SliderPropsMixin = makeContextablePropsMixin({
+  range: { type: Boolean, default: false },
+  value: { type: [Number, Array], default: () => [] },
+  trackLabel: { type: String, default: '' },
+  color: { type: String, default: 'primary' },
+  trackColor: { type: String, default: 'primary' },
+  labelColor: { type: String, default: 'primary' },
+  trackLabelVisible: { type: Boolean, default: false },
+  min: { type: Number, default: 0 },
+  max: { type: Number, default: 100 },
+  step: { type: Number, default: 1 },
+  label: { type: String, default: '' },
+  invertLabel: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  readonly: { type: Boolean, default: false },
+  pins: { type: Boolean, default: false },
+  iconPrepend: { type: String, default: '' },
+  iconAppend: { type: String, default: '' },
+  vertical: { type: Boolean, default: false },
+  showTrack: { type: Boolean, default: true },
+})
+
+@Component({
   name: 'VaSlider',
-  components: {
-    VaIcon,
-  },
-  mixins: [
-    ColorThemeMixin,
-    KeyboardOnlyFocusMixin,
-    ContextPluginMixin,
-    makeContextablePropsMixin({
-      range: { type: Boolean, default: false },
-      value: { type: [Number, Array], default: () => [] },
-      trackLabel: { type: String, default: '' },
-      color: { type: String, default: 'primary' },
-      trackColor: { type: String, default: 'primary' },
-      labelColor: { type: String, default: 'primary' },
-      trackLabelVisible: { type: Boolean, default: false },
-      min: { type: Number, default: 0 },
-      max: { type: Number, default: 100 },
-      step: { type: Number, default: 1 },
-      label: { type: String, default: '' },
-      invertLabel: { type: Boolean, default: false },
-      disabled: { type: Boolean, default: false },
-      readonly: { type: Boolean, default: false },
-      pins: { type: Boolean, default: false },
-      iconPrepend: { type: String, default: '' },
-      iconAppend: { type: String, default: '' },
-      vertical: { type: Boolean, default: false },
-      showTrack: { type: Boolean, default: true },
-    }),
-  ],
-  data () {
+  components: { VaIcon },
+})
+export default class VaSlider extends Mixins(
+  ColorThemeMixin,
+  KeyboardOnlyFocusMixin,
+  ContextPluginMixin,
+  SliderPropsMixin,
+) {
+  flag = false
+  size = 0
+  currentValue = this.value
+  currentSlider = 0
+  isComponentExists = false
+  dimensions = this.vertical ? ['height', 'bottom'] : ['width', 'left']
+
+  get moreToLess () {
+    return this.val[1] - this.step < this.val[0]
+  }
+
+  get lessToMore () {
+    return this.val[0] + this.step > this.val[1]
+  }
+
+  get sliderClass () {
     return {
-      flag: false,
-      size: 0,
-      currentValue: this.value,
-      currentSlider: 0,
-      isComponentExists: false,
-      dimensions: this.vertical ? ['height', 'bottom'] : ['width', 'left'],
+      'va-slider--active': this.hasMouseDown,
+      'va-slider--disabled': this.disabled,
+      'va-slider--readonly': this.readonly,
+      'va-slider--horizontal': !this.vertical,
+      'va-slider--vertical': this.vertical,
     }
-  },
-  computed: {
-    moreToLess () {
-      return this.val[1] - this.step < this.val[0]
-    },
-    lessToMore () {
-      return this.val[0] + this.step > this.val[1]
-    },
-    sliderClass () {
-      return {
-        'va-slider--active': this.hasMouseDown,
-        'va-slider--disabled': this.disabled,
-        'va-slider--readonly': this.readonly,
-        'va-slider--horizontal': !this.vertical,
-        'va-slider--vertical': this.vertical,
-      }
-    },
-    dotClass () {
-      if (this.range) {
-        return [
-          { 'va-slider__handler--inactive': !this.hasMouseDown },
-          { 'va-slider__handler--inactive': !this.hasMouseDown },
-        ]
-      }
+  }
+
+  get dotClass () {
+    if (this.range) {
+      return [
+        { 'va-slider__handler--inactive': !this.hasMouseDown },
+        { 'va-slider__handler--inactive': !this.hasMouseDown },
+      ]
+    }
+
+    return {
+      'va-slider__handler--on-focus': !this.range && (this.flag || this.isKeyboardFocused),
+      'va-slider__handler--inactive': !this.hasMouseDown,
+    }
+  }
+
+  get labelStyles () {
+    return {
+      color: this.labelColor ? this.computeColor(this.labelColor) : this.colorComputed,
+    }
+  }
+
+  get trackStyles () {
+    return {
+      backgroundColor: this.trackColor
+        ? this.computeColor(this.trackColor)
+        : getHoverColor(this.colorComputed),
+    }
+  }
+
+  get processedStyles () {
+    const validatedValue = this.limitValue(this.value)
+
+    if (this.range) {
+      const val0 = ((validatedValue[0] - this.min) / (this.max - this.min)) * 100
+      const val1 = ((validatedValue[1] - this.min) / (this.max - this.min)) * 100
 
       return {
-        'va-slider__handler--on-focus': !this.range && (this.flag || this.isKeyboardFocused),
-        'va-slider__handler--inactive': !this.hasMouseDown,
+        [this.dimensions[1]]: `${val0}%`,
+        [this.dimensions[0]]: `${val1 - val0}%`,
+        backgroundColor: this.colorComputed,
+        visibility: this.showTrack ? 'visible' : 'hidden',
       }
-    },
-    labelStyles () {
+    } else {
+      const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
+
       return {
-        color: this.labelColor ? this.computeColor(this.labelColor) : this.colorComputed,
+        [this.dimensions[0]]: `${val}%`,
+        backgroundColor: this.colorComputed,
+        visibility: this.showTrack ? 'visible' : 'hidden',
       }
-    },
-    trackStyles () {
-      return {
-        backgroundColor: this.trackColor
-          ? this.computeColor(this.trackColor)
-          : getHoverColor(this.colorComputed),
-      }
-    },
-    processedStyles () {
-      const validatedValue = this.limitValue(this.value)
+    }
+  }
 
-      if (this.range) {
-        const val0 = ((validatedValue[0] - this.min) / (this.max - this.min)) * 100
-        const val1 = ((validatedValue[1] - this.min) / (this.max - this.min)) * 100
+  get dottedStyles () {
+    const validatedValue = this.limitValue(this.value)
 
-        return {
-          [this.dimensions[1]]: `${val0}%`,
-          [this.dimensions[0]]: `${val1 - val0}%`,
-          backgroundColor: this.colorComputed,
-          visibility: this.showTrack ? 'visible' : 'hidden',
-        }
-      } else {
-        const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
+    if (this.range) {
+      const val0 = ((validatedValue[0] - this.min) / (this.max - this.min)) * 100
+      const val1 = ((validatedValue[1] - this.min) / (this.max - this.min)) * 100
 
-        return {
-          [this.dimensions[0]]: `${val}%`,
-          backgroundColor: this.colorComputed,
-          visibility: this.showTrack ? 'visible' : 'hidden',
-        }
-      }
-    },
-    dottedStyles () {
-      const validatedValue = this.limitValue(this.value)
-
-      if (this.range) {
-        const val0 = ((validatedValue[0] - this.min) / (this.max - this.min)) * 100
-        const val1 = ((validatedValue[1] - this.min) / (this.max - this.min)) * 100
-
-        return [
-          {
-            [this.dimensions[1]]: `calc(${val0}% - 8px)`,
-            backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
-            borderColor: this.colorComputed,
-          },
-          {
-            [this.dimensions[1]]: `calc(${val1}% - 8px)`,
-            backgroundColor: this.isActiveDot(1) ? this.colorComputed : '#ffffff',
-            borderColor: this.colorComputed,
-          },
-        ]
-      } else {
-        const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
-
-        return {
-          [this.dimensions[1]]: `calc(${val}% - 8px)`,
+      return [
+        {
+          [this.dimensions[1]]: `calc(${val0}% - 8px)`,
           backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
-        }
+        },
+        {
+          [this.dimensions[1]]: `calc(${val1}% - 8px)`,
+          backgroundColor: this.isActiveDot(1) ? this.colorComputed : '#ffffff',
+          borderColor: this.colorComputed,
+        },
+      ]
+    } else {
+      const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
+
+      return {
+        [this.dimensions[1]]: `calc(${val}% - 8px)`,
+        backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
+        borderColor: this.colorComputed,
       }
-    },
-    val: {
-      get () {
-        return this.value
-      },
-      set (val) {
-        if (!this.range) {
-          val = this.limitValue(val)
-        }
-        if (!this.flag) {
-          this.$emit('change', val)
-        }
-        this.$emit('input', val)
-      },
-    },
-    total () {
-      return (this.max - this.min) / this.step
-    },
-    gap () {
-      return this.size / this.total
-    },
-    multiple () {
-      const decimals = `${this.step}`.split('.')[1]
-      return decimals ? Math.pow(10, decimals.length) : 1
-    },
-    interval () {
-      return this.value[1] - this.value[0]
-    },
-    pinsCol () {
-      return (this.max / this.step) - 1
-    },
-    position () {
-      return this.isRange ? [(this.value[0] - this.min) / this.step * this.gap, (this.value[1] - this.min) / this.step * this.gap] : ((this.value - this.min) / this.step * this.gap)
-    },
-    limit () {
-      return [0, this.size]
-    },
-    valueLimit () {
-      return [this.min, this.max]
-    },
-    isRange () {
-      return Array.isArray(this.value)
-    },
-  },
-  watch: {
-    val (val) {
-      validateSlider(val, this.step, this.min, this.max)
-    },
-    max (val) {
-      if (val < this.min) {
-        validateSlider(this.value, this.step, val, this.max)
-      }
-    },
-    min (val) {
-      if (val > this.max) {
-        validateSlider(this.value, this.step, this.min, val)
-      }
-    },
-    hasMouseDown (val) {
-      if (val) {
-        document.documentElement.style.cursor = 'grabbing'
+    }
+  }
+
+  get val () {
+    return this.value
+  }
+
+  set val (val) {
+    if (!this.range) {
+      val = this.limitValue(val)
+    }
+    if (!this.flag) {
+      this.$emit('change', val)
+    }
+    this.$emit('input', val)
+  }
+
+  get total () {
+    return (this.max - this.min) / this.step
+  }
+
+  get gap () {
+    return this.size / this.total
+  }
+
+  get multiple () {
+    const decimals = `${this.step}`.split('.')[1]
+    return decimals ? Math.pow(10, decimals.length) : 1
+  }
+
+  get interval () {
+    return this.value[1] - this.value[0]
+  }
+
+  get pinsCol () {
+    return (this.max / this.step) - 1
+  }
+
+  get position (): any {
+    return this.isRange ? [(this.value[0] - this.min) / this.step * this.gap, (this.value[1] - this.min) / this.step * this.gap] : ((this.value - this.min) / this.step * this.gap)
+  }
+
+  get limit () {
+    return [0, this.size]
+  }
+
+  get valueLimit () {
+    return [this.min, this.max]
+  }
+
+  get isRange () {
+    return Array.isArray(this.value)
+  }
+
+  @Watch('val')
+  onValChanged (val: number | number[]) {
+    validateSlider(val, this.step, this.min, this.max)
+  }
+
+  @Watch('max')
+  onMaxChanged (val: number) {
+    if (val < this.min) {
+      validateSlider(this.value, this.step, val, this.max)
+    }
+  }
+
+  @Watch('min')
+  onMinChanged (val: number) {
+    if (val > this.max) {
+      validateSlider(this.value, this.step, this.min, val)
+    }
+  }
+
+  @Watch('hasMouseDown')
+  onMouseDown (val: boolean) {
+    if (val) {
+      document.documentElement.style.cursor = 'grabbing'
+    } else {
+      document.documentElement.style.cursor = ''
+    }
+  }
+
+  onFocus () {
+    this.KeyboardOnlyFocusMixin_onFocus()
+  }
+
+  bindEvents () {
+    document.addEventListener('mousemove', this.moving)
+    document.addEventListener('touchmove', this.moving)
+    document.addEventListener('mouseup', this.moveEnd)
+    document.addEventListener('mouseleave', this.moveEnd)
+    document.addEventListener('touchcancel', this.moveEnd)
+    document.addEventListener('touchend', this.moveEnd)
+    document.addEventListener('keydown', this.moveWithKeys)
+  }
+
+  unbindEvents () {
+    document.removeEventListener('mousemove', this.moving)
+    document.removeEventListener('touchmove', this.moving)
+    document.removeEventListener('mouseup', this.moveEnd)
+    document.removeEventListener('mouseleave', this.moveEnd)
+    document.removeEventListener('touchcancel', this.moveEnd)
+    document.removeEventListener('touchend', this.moveEnd)
+    document.removeEventListener('keydown', this.moveWithKeys)
+  }
+
+  isActiveDot (index: number) {
+    if ((!this.isKeyboardFocused && !this.flag) || this.disabled || this.readonly) {
+      return false
+    }
+
+    return this.range ? this.currentSlider === index : this.currentSlider === 0
+  }
+
+  setMouseDown (e: Event, index: number) {
+    if (!this.readonly && !this.disabled) {
+      this.hasMouseDown = Boolean(index) || true
+    }
+  }
+
+  moveStart (e: Event, index: number) {
+    if (!index) {
+      if (!this.range) {
+        index = 0
       } else {
-        document.documentElement.style.cursor = null
+        const pos = this.getPos(e)
+        index = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
       }
-    },
-  },
-  methods: {
-    onFocus () {
-      this.KeyboardOnlyFocusMixin_onFocus()
-    },
-    bindEvents () {
-      document.addEventListener('mousemove', this.moving)
-      document.addEventListener('touchmove', this.moving)
-      document.addEventListener('mouseup', this.moveEnd)
-      document.addEventListener('mouseleave', this.moveEnd)
-      document.addEventListener('touchcancel', this.moveEnd)
-      document.addEventListener('touchend', this.moveEnd)
-      document.addEventListener('keydown', this.moveWithKeys)
-    },
-    unbindEvents () {
-      document.removeEventListener('mousemove', this.moving)
-      document.removeEventListener('touchmove', this.moving)
-      document.removeEventListener('mouseup', this.moveEnd)
-      document.removeEventListener('mouseleave', this.moveEnd)
-      document.removeEventListener('touchcancel', this.moveEnd)
-      document.removeEventListener('touchend', this.moveEnd)
-      document.removeEventListener('keydown', this.moveWithKeys)
-    },
-    isActiveDot (index) {
-      if ((!this.isKeyboardFocused && !this.flag) || this.disabled || this.readonly) {
+    }
+
+    if (this.isRange) {
+      this.currentSlider = index
+    }
+
+    this.flag = true
+    this.$emit('dragStart')
+  }
+
+  moving (e: any) {
+    if (!this.hasMouseDown) { return }
+    if (!this.disabled && !this.readonly) {
+      if (!this.flag) {
         return false
       }
 
-      return this.range ? this.currentSlider === index : this.currentSlider === 0
-    },
-    setMouseDown (e, index) {
-      if (!this.readonly && !this.disabled) {
-        this.hasMouseDown = index || true
+      if (e.type === 'touchmove') {
+        this.setValueOnPos(this.getPos(e.touches[0]))
+      } else {
+        e.preventDefault()
+        this.setValueOnPos(this.getPos(e))
       }
-    },
-    moveStart (e, index) {
-      if (!index) {
-        if (!this.range) {
-          index = 0
+    }
+  }
+
+  moveEnd () {
+    if (!this.disabled && !this.readonly) {
+      if (this.flag) {
+        this.$emit('dragEnd')
+        this.$emit('change', this.range ? Array.from(this.value) : this.value)
+      } else {
+        return false
+      }
+      this.flag = false
+      this.hasMouseDown = false
+    }
+  }
+
+  moveWithKeys (event: any) {
+    // don't do anything if a dot isn't focused or if the slider's disabled or readonly
+    if (![(this as any).$refs.dot0, (this as any).$refs.dot1, (this as any).$refs.dot].includes(document.activeElement)) { return }
+    if (this.disabled || this.readonly) { return }
+
+    /*
+      where: where to move
+        0 - to left
+        1 - to right
+
+      which: which dot to move (only makes sence when isRange is true)
+        0 - left dot
+        1 - right dot
+      */
+    const moveDot = (isRange: boolean, where: number, which: number) => {
+      if (isRange) {
+        if (!this.pins) { return this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step)) }
+
+        // how many value units one pin occupies
+        const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
+        // how many full pins are to the left of the dot now
+        const fullPinsNow = this.val[which] / onePinInterval | 0
+        // the value of the nearest pin
+        let nearestPinVal = fullPinsNow * onePinInterval
+
+        if (this.val[which] !== nearestPinVal) { // if the dot's not pinned already
+          nearestPinVal += where ? onePinInterval : 0 // take one more pin if moving right
+          this.val.splice(which, 1, nearestPinVal)
         } else {
-          const pos = this.getPos(e)
-          index = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
-        }
-      }
-
-      if (this.isRange) {
-        this.currentSlider = index
-      }
-
-      this.flag = true
-      this.$emit('dragStart')
-    },
-    moving (e) {
-      if (!this.hasMouseDown) { return }
-      if (!this.disabled && !this.readonly) {
-        if (!this.flag) {
-          return false
-        }
-
-        if (e.type === 'touchmove') {
-          this.setValueOnPos(this.getPos(e.touches[0]))
-        } else {
-          e.preventDefault()
-          this.setValueOnPos(this.getPos(e))
-        }
-      }
-    },
-    moveEnd () {
-      if (!this.disabled && !this.readonly) {
-        if (this.flag) {
-          this.$emit('dragEnd')
-          this.$emit('change', this.range ? Array.from(this.value) : this.value)
-        } else {
-          return false
-        }
-        this.flag = false
-        this.hasMouseDown = false
-      }
-    },
-    moveWithKeys (event) {
-      // don't do anything if a dot isn't focused or if the slider's disabled or readonly
-      if (![this.$refs.dot0, this.$refs.dot1, this.$refs.dot].includes(document.activeElement)) { return }
-      if (this.disabled || this.readonly) { return }
-
-      /*
-        where: where to move
-          0 - to left
-          1 - to right
-
-        which: which dot to move (only makes sence when isRange is true)
-          0 - left dot
-          1 - right dot
-       */
-      const moveDot = (isRange, where, which) => {
-        if (isRange) {
-          if (!this.pins) { return this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step)) }
-
-          // how many value units one pin occupies
-          const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
-          // how many full pins are to the left of the dot now
-          const fullPinsNow = this.val[which] / onePinInterval | 0
-          // the value of the nearest pin
-          let nearestPinVal = fullPinsNow * onePinInterval
-
-          if (this.val[which] !== nearestPinVal) { // if the dot's not pinned already
-            nearestPinVal += where ? onePinInterval : 0 // take one more pin if moving right
-            this.val.splice(which, 1, nearestPinVal)
-          } else {
-            this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step))
-          }
-        } else {
-          if (!this.pins) {
-            this.val += where ? this.step : -this.step
-            return
-          }
-
-          // how many value units one pin occupies
-          const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
-          // how many full pins are to the left of the dot now
-          const fullPinsNow = this.val / onePinInterval | 0
-          // the value of the nearest pin
-          let nearestPinVal = fullPinsNow * onePinInterval
-
-          if (this.val !== nearestPinVal) { // if the dot's not pinned already
-            nearestPinVal += where ? onePinInterval : 0 // take one more pin if moving right
-            this.val = nearestPinVal
-          } else {
-            this.val += where ? this.step : -this.step
-          }
-        }
-      }
-
-      const arrowKeyCodes = [37, 38, 39, 40] // LEFT, UP, RIGHT, DOWN
-      const [CODE_LEFT, CODE_UP, CODE_RIGHT, CODE_DOWN] = arrowKeyCodes
-      // prevent page scroll
-      if (arrowKeyCodes.indexOf(event.keyCode) !== -1) {
-        event.preventDefault()
-      }
-
-      if (this.range) {
-        const isVerticalDot0More = (event) =>
-          this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_UP
-        const isVerticalDot0Less = (event) => this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_DOWN
-        const isVerticalDot1More = (event) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_UP
-        const isVerticalDot1Less = (event) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_DOWN
-        const isHorizontalDot0Less = (event) =>
-          !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_LEFT
-        const isHorizontalDot0More = (event) =>
-          !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_RIGHT
-        const isHorizontalDot1Less = (event) =>
-          !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_LEFT
-        const isHorizontalDot1More = (event) =>
-          !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
-
-        switch (true) {
-          case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
-            this.$refs.dot0.focus()
-            moveDot(true, 0, 0)
-            break
-          case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
-            this.$refs.dot1.focus()
-            moveDot(true, 1, 1)
-            break
-          case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
-            moveDot(true, 0, 0)
-            break
-          case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
-            moveDot(true, 1, 1)
-            break
-          case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
-            moveDot(true, 0, 1)
-            break
-          case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
-            moveDot(true, 1, 0)
-            break
-          default:
-            break
+          this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step))
         }
       } else {
-        if (this.vertical) {
-          if (event.keyCode === CODE_DOWN) { moveDot(false, 0) }
-          if (event.keyCode === CODE_UP) { moveDot(false, 1) }
+        if (!this.pins) {
+          this.val += where ? this.step : -this.step
+          return
+        }
+
+        // how many value units one pin occupies
+        const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
+        // how many full pins are to the left of the dot now
+        const fullPinsNow = this.val / onePinInterval | 0
+        // the value of the nearest pin
+        let nearestPinVal = fullPinsNow * onePinInterval
+
+        if (this.val !== nearestPinVal) { // if the dot's not pinned already
+          nearestPinVal += where ? onePinInterval : 0 // take one more pin if moving right
+          this.val = nearestPinVal
         } else {
-          if (event.keyCode === CODE_LEFT) { moveDot(false, 0) }
-          if (event.keyCode === CODE_RIGHT) { moveDot(false, 1) }
+          this.val += where ? this.step : -this.step
         }
       }
-    },
-    // wrapClick (e) {
-    //   if (!this.disabled && !this.readonly && !this.flag) {
-    //     const pos = this.getPos(e)
-    //     if (this.isRange) {
-    //       this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
-    //     }
-    //     this.setValueOnPos(pos)
-    //     if (this.pins) {
-    //       if (this.isRange) {
-    //         if (this.currentValue[0] % this.step !== 0) {
-    //           this.currentValue[0] = this.normalizeValue(this.currentValue[0])
-    //           this.val = [this.currentValue[0], this.val[1]]
-    //         }
-    //         if (this.currentValue[1] % this.step !== 0) {
-    //           this.currentValue[1] = this.normalizeValue(this.currentValue[1])
-    //           this.val = [this.val[0], this.currentValue[1]]
-    //         }
-    //       } else {
-    //         this.currentValue = this.normalizeValue(this.currentValue)
-    //         this.val = this.currentValue
-    //       }
-    //     }
-    //   }
-    // },
-    checkActivePin (pin) {
-      if (this.isRange) {
-        return pin * this.step > this.val[0] && pin * this.step < this.val[1]
+    }
+
+    const arrowKeyCodes = [37, 38, 39, 40] // LEFT, UP, RIGHT, DOWN
+    const [CODE_LEFT, CODE_UP, CODE_RIGHT, CODE_DOWN] = arrowKeyCodes
+    // prevent page scroll
+    if (arrowKeyCodes.indexOf(event.keyCode) !== -1) {
+      event.preventDefault()
+    }
+
+    if (this.range) {
+      const isVerticalDot0More = (event: any) =>
+        this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_UP
+      const isVerticalDot0Less = (event: any) => this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_DOWN
+      const isVerticalDot1More = (event: any) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_UP
+      const isVerticalDot1Less = (event: any) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_DOWN
+      const isHorizontalDot0Less = (event: any) =>
+        !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_LEFT
+      const isHorizontalDot0More = (event: any) =>
+        !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_RIGHT
+      const isHorizontalDot1Less = (event: any) =>
+        !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_LEFT
+      const isHorizontalDot1More = (event: any) =>
+        !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
+
+      switch (true) {
+        case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
+          (this as any).$refs.dot0.focus()
+          moveDot(true, 0, 0)
+          break
+        case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
+          (this as any).$refs.dot1.focus()
+          moveDot(true, 1, 1)
+          break
+        case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
+          moveDot(true, 0, 0)
+          break
+        case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
+          moveDot(true, 1, 1)
+          break
+        case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
+          moveDot(true, 0, 1)
+          break
+        case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
+          moveDot(true, 1, 0)
+          break
+        default:
+          break
+      }
+    } else {
+      if (this.vertical) {
+        if (event.keyCode === CODE_DOWN) { moveDot(false, 0, 0) }
+        if (event.keyCode === CODE_UP) { moveDot(false, 1, 0) }
       } else {
-        return pin * this.step < this.val
+        if (event.keyCode === CODE_LEFT) { moveDot(false, 0, 0) }
+        if (event.keyCode === CODE_RIGHT) { moveDot(false, 1, 0) }
       }
-    },
-    getPinStyles (pin) {
-      return {
-        backgroundColor: this.checkActivePin(pin) ? this.colorComputed : getHoverColor(this.colorComputed),
-        [this.dimensions[1]]: `${pin * this.step}%`,
-        transition: this.hasMouseDown ? 'none' : 'background-color .3s ease-out .1s',
-      }
-    },
-    getPos (e) {
-      this.getStaticData()
-      return this.vertical ? this.offset - e.clientY : e.clientX - this.offset
-    },
-    getStaticData () {
-      if (this.$refs.sliderContainer) {
-        this.size = this.$refs.sliderContainer[this.vertical ? 'offsetHeight' : 'offsetWidth']
-        this.offset = this.$refs.sliderContainer.getBoundingClientRect()[this.dimensions[1]]
-      }
-    },
-    getValueByIndex (index) {
-      return ((this.step * this.multiple) * index + (this.min * this.multiple)) / this.multiple
-    },
-    setCurrentValue (val) {
-      const slider = this.currentSlider
-      if (this.isRange) {
-        if (this.isDiff(this.currentValue[slider], val)) {
-          this.currentValue.splice(slider, 1, val)
-          if (slider === 0) {
-            this.val = [this.currentValue.splice(slider, 1, val)[0], this.value[1]]
-            this.currentValue = [this.currentValue.splice(slider, 1, val)[0], this.value[1]]
-          } else {
-            this.val = [this.value[0], this.currentValue.splice(slider, 1, val)[0]]
-            this.currentValue = [this.value[0], this.currentValue.splice(slider, 1, val)[0]]
-          }
-        }
-      } else {
-        if (val < this.min || val > this.max) {
-          return false
-        }
-        if (this.isDiff(this.currentValue, val)) {
-          this.currentValue = val
-          this.val = val
-        }
-      }
-    },
-    setValueOnPos (pixelPosition) {
-      const range = this.limit
-      const valueRange = this.valueLimit
+    }
+  }
+  // wrapClick (e) {
+  //   if (!this.disabled && !this.readonly && !this.flag) {
+  //     const pos = this.getPos(e)
+  //     if (this.isRange) {
+  //       this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+  //     }
+  //     this.setValueOnPos(pos)
+  //     if (this.pins) {
+  //       if (this.isRange) {
+  //         if (this.currentValue[0] % this.step !== 0) {
+  //           this.currentValue[0] = this.normalizeValue(this.currentValue[0])
+  //           this.val = [this.currentValue[0], this.val[1]]
+  //         }
+  //         if (this.currentValue[1] % this.step !== 0) {
+  //           this.currentValue[1] = this.normalizeValue(this.currentValue[1])
+  //           this.val = [this.val[0], this.currentValue[1]]
+  //         }
+  //       } else {
+  //         this.currentValue = this.normalizeValue(this.currentValue)
+  //         this.val = this.currentValue
+  //       }
+  //     }
+  //   }
+  // },
 
-      this.setTransform()
+  checkActivePin (pin: number) {
+    if (this.isRange) {
+      return pin * this.step > this.val[0] && pin * this.step < this.val[1]
+    } else {
+      return pin * this.step < this.val
+    }
+  }
 
-      if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
-        if (this.currentSlider) {
-          if (pixelPosition <= this.position[0]) {
-            this.val[1] = this.val[0]
-            this.currentSlider = 0
-          }
-          const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
-          this.setCurrentValue(v)
-        } else {
-          if (pixelPosition >= this.position[1]) {
-            this.val[0] = this.val[1]
-            this.currentSlider = 1
-          }
-          const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
-          this.setCurrentValue(v)
-        }
-      } else if (pixelPosition < range[0]) {
-        this.setCurrentValue(valueRange[0])
-      } else {
-        this.setCurrentValue(valueRange[1])
-      }
-    },
-    setTransform () {
-      if (this.isRange) {
-        const slider = this.currentSlider
-        const difference = 100 / (this.max - this.min)
-        const val0 = (this.value[0] - this.min) * difference
-        const val1 = (this.value[1] - this.min) * difference
-        const processSize = `${val1 - val0}%`
-        const processPosition = `${val0}%`
+  getPinStyles (pin: number) {
+    return {
+      backgroundColor: this.checkActivePin(pin) ? this.colorComputed : getHoverColor(this.colorComputed),
+      [this.dimensions[1]]: `${pin * this.step}%`,
+      transition: this.hasMouseDown ? 'none' : 'background-color .3s ease-out .1s',
+    }
+  }
 
-        this.$refs.process.style[this.dimensions[0]] = processSize
-        this.$refs.process.style[this.dimensions[1]] = processPosition
+  getPos (e: any) {
+    this.getStaticData()
+    return this.vertical ? this.offset - e.clientY : e.clientX - this.offset
+  }
 
+  getStaticData () {
+    if (this.$refs.sliderContainer) {
+      this.size = (this as any).$refs.sliderContainer[this.vertical ? 'offsetHeight' : 'offsetWidth']
+      this.offset = (this as any).$refs.sliderContainer.getBoundingClientRect()[this.dimensions[1]]
+    }
+  }
+
+  getValueByIndex (index: number) {
+    return ((this.step * this.multiple) * index + (this.min * this.multiple)) / this.multiple
+  }
+
+  setCurrentValue (val: any) {
+    const slider = this.currentSlider
+    if (this.isRange) {
+      if (this.isDiff(this.currentValue[slider], val)) {
+        this.currentValue.splice(slider, 1, val)
         if (slider === 0) {
-          this.$refs.dot0.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
-          this.$refs.dot0.focus()
+          this.val = [this.currentValue.splice(slider, 1, val)[0], this.value[1]]
+          this.currentValue = [this.currentValue.splice(slider, 1, val)[0], this.value[1]]
         } else {
-          this.$refs.dot1.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
-          this.$refs.dot1.focus()
+          this.val = [this.value[0], this.currentValue.splice(slider, 1, val)[0]]
+          this.currentValue = [this.value[0], this.currentValue.splice(slider, 1, val)[0]]
         }
-      } else {
-        const val = ((this.value - this.min) / (this.max - this.min)) * 100
+      }
+    } else {
+      if (val < this.min || val > this.max) {
+        return false
+      }
+      if (this.isDiff(this.currentValue, val)) {
+        this.currentValue = val
+        this.val = val
+      }
+    }
+  }
 
-        this.$refs.process.style[this.dimensions[0]] = `${val}%`
-        this.$refs.dot.style[this.dimensions[1]] = `calc('${val} - 8px)`
-      }
-    },
-    normalizeValue (value) {
-      const currentRest = value % this.step
-      if ((currentRest / this.step) >= 0.5) {
-        value = value + (this.step - currentRest)
-      } else {
-        value = value - currentRest
-      }
-      return value
-    },
-    limitValue (val) {
-      const inRange = (v) => {
-        if (v < this.min) {
-          return this.min
-        } else if (v > this.max) {
-          return this.max
-        }
-        return v
-      }
+  setValueOnPos (pixelPosition: any) {
+    const range = this.limit
+    const valueRange = this.valueLimit
 
-      if (this.isRange) {
-        if (val[0] >= val[1] && this.currentSlider === 0) {
-          return [val[1], val[1]]
+    this.setTransform()
+
+    if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
+      if (this.currentSlider) {
+        if (pixelPosition <= (this as any).position[0]) {
+          this.val[1] = this.val[0]
+          this.currentSlider = 0
         }
-        if (val[0] >= val[1] && this.currentSlider === 1) {
-          return [val[0], val[0]]
-        }
-        return val.map((v) => inRange(v))
+        const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
+        this.setCurrentValue(v)
       } else {
-        return inRange(val)
+        if (pixelPosition >= (this as any).position[1]) {
+          this.val[0] = this.val[1]
+          this.currentSlider = 1
+        }
+        const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
+        this.setCurrentValue(v)
       }
-    },
-    isDiff (a, b) {
-      return JSON.stringify(a) !== JSON.stringify(b)
-    },
-    clickOnContainer (e) {
-      if (this.disabled || this.readonly) {
-        return
+    } else if (pixelPosition < range[0]) {
+      this.setCurrentValue(valueRange[0])
+    } else {
+      this.setCurrentValue(valueRange[1])
+    }
+  }
+
+  setTransform () {
+    if (this.isRange) {
+      const slider = this.currentSlider
+      const difference = 100 / (this.max - this.min)
+      const val0 = (this.value[0] - this.min) * difference
+      const val1 = (this.value[1] - this.min) * difference
+      const processSize = `${val1 - val0}%`
+      const processPosition = `${val0}%`
+
+      ;(this as any).$refs.process.style[this.dimensions[0]] = processSize
+      ;(this as any).$refs.process.style[this.dimensions[1]] = processPosition
+
+      if (slider === 0) {
+        (this as any).$refs.dot0.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
+        ;(this as any).$refs.dot0.focus()
+      } else {
+        (this as any).$refs.dot1.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
+        ;(this as any).$refs.dot1.focus()
       }
-      const pos = this.getPos(e)
-      if (this.isRange) {
-        this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+    } else {
+      const val = ((this.value - this.min) / (this.max - this.min)) * 100
+
+      ;(this as any).$refs.process.style[this.dimensions[0]] = `${val}%`
+      ;(this as any).$refs.dot.style[this.dimensions[1]] = `calc('${val} - 8px)`
+    }
+  }
+
+  normalizeValue (value: any) {
+    const currentRest = value % this.step
+    if ((currentRest / this.step) >= 0.5) {
+      value = value + (this.step - currentRest)
+    } else {
+      value = value - currentRest
+    }
+    return value
+  }
+
+  limitValue (val: any) {
+    const inRange = (v: any) => {
+      if (v < this.min) {
+        return this.min
+      } else if (v > this.max) {
+        return this.max
       }
-      this.setMouseDown()
-      this.setValueOnPos(pos)
-      this.moveStart(e)
-    },
-  },
+      return v
+    }
+
+    if (this.isRange) {
+      if (val[0] >= val[1] && this.currentSlider === 0) {
+        return [val[1], val[1]]
+      }
+      if (val[0] >= val[1] && this.currentSlider === 1) {
+        return [val[0], val[0]]
+      }
+      return val.map((v: any) => inRange(v))
+    } else {
+      return inRange(val)
+    }
+  }
+
+  isDiff (a: any, b: any) {
+    return JSON.stringify(a) !== JSON.stringify(b)
+  }
+
+  clickOnContainer (e: any) {
+    if (this.disabled || this.readonly) {
+      return
+    }
+    const pos = this.getPos(e)
+    if (this.isRange) {
+      this.currentSlider = pos > (((this as any).position[1] - (this as any).position[0]) / 2 + (this as any).position[0]) ? 1 : 0
+    }
+    (this as any).setMouseDown()
+    ;(this as any).setValueOnPos(pos)
+    ;(this as any).moveStart(e)
+  }
+
   mounted () {
     this.$nextTick(() => {
       if (validateSlider(this.value, this.step, this.min, this.max)) {
@@ -750,10 +789,11 @@ export default {
         this.bindEvents()
       }
     })
-  },
+  }
+
   beforeDestroy () {
     this.unbindEvents()
-  },
+  }
 }
 </script>
 

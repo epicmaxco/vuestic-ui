@@ -27,26 +27,28 @@ import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
-import Component, { mixins } from 'vue-class-component'
+import { Component, Mixins } from 'vue-property-decorator'
+
+const CardPropsMixin = makeContextablePropsMixin({
+  tag: { type: String, default: 'div' },
+  square: { type: Boolean, default: false },
+  outlined: { type: Boolean, default: false },
+  bordered: { type: Boolean, default: true },
+  disabled: { type: Boolean, default: false },
+  href: { type: String, default: null },
+  target: { type: String, default: null },
+  stripe: { type: Boolean, default: false },
+  stripeColor: { type: String, default: '' },
+  gradient: { type: Boolean, default: false },
+})
 
 @Component({
   name: 'VaCard',
 })
-export default class VaCard extends mixins(
+export default class VaCard extends Mixins(
   ColorThemeMixin,
   RouterLinkMixin,
-  makeContextablePropsMixin({
-    tag: { type: String, default: 'div' },
-    square: { type: Boolean, default: false },
-    outlined: { type: Boolean, default: false },
-    bordered: { type: Boolean, default: true },
-    disabled: { type: Boolean, default: false },
-    href: { type: String, default: null },
-    target: { type: String, default: null },
-    stripe: { type: Boolean, default: false },
-    stripeColor: { type: String, default: '' },
-    gradient: { type: Boolean, default: false },
-  }),
+  CardPropsMixin,
 ) {
   get cardTag () {
     if (this.c_tag === 'a' || this.c_href) {
