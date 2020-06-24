@@ -78,7 +78,7 @@ const OptionListPropsMixin = makeContextablePropsMixin({
   },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
-  defaultValue: { type: [String, Number, Object, Array] },
+  defaultValue: { type: [String, Number, Object, Array], default: () => [] },
   name: { type: String, default: generateUuid },
   color: { type: String, default: 'primary' },
   leftLabel: { type: Boolean, default: false },
