@@ -36,7 +36,7 @@
         "src": "Source URL.",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
         "label": "Same as native `label`",
-        "leftLabel": "Moves the label on the left of a checkbox",
+        "leftLabel": "Moves the label on the left of a component",
         "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
@@ -362,10 +362,11 @@
       }
     },
     "VaRadio": {
-      "props": {},
-      "events": {},
-      "methods": {},
-      "slots": {}
+      "props": {
+        "value": "Model of the component",
+        "option": "Option value that model is updated to when an option is selected",
+        "tabindex": "Sets a custom tabindex"
+      }
     }
   },
   "anyPage": {
