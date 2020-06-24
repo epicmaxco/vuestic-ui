@@ -78,7 +78,7 @@ const OptionListPropsMixin = makeContextablePropsMixin({
   },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
-  defaultValue: { type: [String, Number, Object, Array], default: () => [] },
+  defaultValue: { type: [String, Number, Object, Array] },
   name: { type: String, default: generateUuid },
   color: { type: String, default: 'primary' },
   leftLabel: { type: Boolean, default: false },
@@ -99,7 +99,8 @@ export default class VaOptionList extends Mixins(
   }
 
   get selectedValue () {
-    return this.valueComputed || this.c_defaultValue
+    const value = this.isRadio ? null : []
+    return this.valueComputed || this.c_defaultValue || value
   }
 
   set selectedValue (value) {
