@@ -4,19 +4,19 @@
     name="fade"
   >
     <div
-      class="va-notification"
-      :style="notificationStyle"
+      class="va-alert"
+      :style="alertStyle"
     >
-      <div class="va-notification__content">
+      <div class="va-alert__content">
         <slot />
       </div>
 
       <va-icon
         v-if="closeable"
-        class="va-notification__close-icon"
+        class="va-alert__close-icon"
         :color="color"
         name="close"
-        @click.native="hideNotification()"
+        @click.native="hideAlert()"
       />
     </div>
   </transition>
@@ -30,12 +30,12 @@ import {
 } from '../../../services/color-functions'
 
 export default {
-  name: 'VaNotification',
+  name: 'VaAlert',
   components: {
     VaIcon,
   },
   computed: {
-    notificationStyle () {
+    alertStyle () {
       return {
         background: getHoverColor(this.$themes[this.color]),
         boxShadow: '0 0.125rem 0.125rem 0 ' + getBoxShadowColor(this.$themes[this.color]),
@@ -57,7 +57,7 @@ export default {
     },
   },
   methods: {
-    hideNotification () {
+    hideAlert () {
       this.$emit('input', false)
     },
   },
@@ -67,13 +67,13 @@ export default {
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
 
-// Notifications
-$va-notification-margin-y: 0.25rem;
-$va-notification-padding-x: 0.5rem;
-$va-notification-padding-y: 0.75rem;
-$va-notification-border: 0;
-$va-notification-border-radius: 0.5rem;
-$va-notification-box-shadow: 0.125rem;
+// Alerts
+$va-alert-margin-y: 0.25rem;
+$va-alert-padding-x: 0.5rem;
+$va-alert-padding-y: 0.75rem;
+$va-alert-border: 0;
+$va-alert-border-radius: 0.5rem;
+$va-alert-box-shadow: 0.125rem;
 
 // Badge
 $va-badge-margin-right: 0.5rem;
@@ -88,13 +88,13 @@ $va-close-icon-padding-x: 0.5rem;
 $va-close-icon-padding-y: 0.0625rem;
 $va-close-icon-font-size: 1.5rem;
 
-.va-notification {
-  padding: $va-notification-padding-y $va-notification-padding-x;
-  margin: $va-notification-margin-y auto;
+.va-alert {
+  padding: $va-alert-padding-y $va-alert-padding-x;
+  margin: $va-alert-margin-y auto;
   display: flex;
   align-items: center;
-  border: $va-notification-border solid transparent;
-  border-radius: $va-notification-border-radius;
+  border: $va-alert-border solid transparent;
+  border-radius: $va-alert-border-radius;
 
   &__content {
     display: flex;
@@ -110,7 +110,7 @@ $va-close-icon-font-size: 1.5rem;
 
   @include media-breakpoint-down(xs) {
     @at-root {
-      .va-notification {
+      .va-alert {
         &__content {
           flex-direction: column;
           align-items: flex-start;
