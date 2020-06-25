@@ -22,45 +22,42 @@
   </transition>
 </template>
 
-<script>
-import VaIcon from '../va-icon/VaIcon'
+<script lang="ts">
+import VaIcon from '../va-icon/VaIcon.vue'
 import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-export default {
+const AlertPropsMixin = makeContextablePropsMixin({
+  color: { type: String, default: 'success' },
+  closeable: { type: Boolean, default: false },
+})
+
+@Component({
   name: 'VaAlert',
-  components: {
-    VaIcon,
-  },
-  computed: {
-    alertStyle () {
-      return {
-        background: getHoverColor(this.$themes[this.color]),
-        boxShadow: '0 0.125rem 0.125rem 0 ' + getBoxShadowColor(this.$themes[this.color]),
-      }
-    },
-  },
-  props: {
-    color: {
-      type: String,
-      default: 'success',
-    },
-    value: {
-      type: Boolean,
-      default: true,
-    },
-    closeable: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  methods: {
-    hideAlert () {
-      this.$emit('input', false)
-    },
-  },
+  components: { VaIcon },
+})
+export default class VaAlert extends Mixins(
+  AlertPropsMixin,
+) {
+  @Prop({
+    type: Boolean,
+    default: true,
+  }) readonly value!: boolean
+
+  get alertStyle () {
+    return {
+      background: getHoverColor((this as any).$themes[this.color]),
+      boxShadow: '0 0.125rem 0.125rem 0 ' + getBoxShadowColor((this as any).$themes[this.color]),
+    }
+  }
+
+  hideAlert (): void {
+    this.$emit('input', false)
+  }
 }
 </script>
 
