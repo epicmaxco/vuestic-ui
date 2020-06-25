@@ -23,6 +23,7 @@
 </template>
 
 <script lang="ts">
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import VaIcon from '../va-icon/VaIcon.vue'
 import {
   getHoverColor,
@@ -41,6 +42,7 @@ const AlertPropsMixin = makeContextablePropsMixin({
   components: { VaIcon },
 })
 export default class VaAlert extends Mixins(
+  ColorThemeMixin,
   AlertPropsMixin,
 ) {
   @Prop({
@@ -50,8 +52,8 @@ export default class VaAlert extends Mixins(
 
   get alertStyle () {
     return {
-      background: getHoverColor((this as any).$themes[this.color]),
-      boxShadow: '0 0.125rem 0.125rem 0 ' + getBoxShadowColor((this as any).$themes[this.color]),
+      background: getHoverColor(this.colorComputed),
+      boxShadow: '0 0.125rem 0.125rem 0 ' + getBoxShadowColor(this.colorComputed),
     }
   }
 
