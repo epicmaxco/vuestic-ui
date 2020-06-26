@@ -1,5 +1,24 @@
 <template>
   <VbDemo>
+    <VbCard title="Default">
+      <va-alert description="You successfully read this important alert message." />
+      <va-alert>
+        You successfully read this important slotted alert message.
+      </va-alert>
+    </VbCard>
+
+    <VbCard title="With title">
+      <va-alert title="Title">
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert>
+        <template slot="title">
+          Slotted title
+        </template>
+        You successfully read this important alert message.
+      </va-alert>
+    </VbCard>
+
     <VbCard title="Colorful Alert">
       <va-alert>
         <va-badge
@@ -45,6 +64,7 @@
         Change a few things up and try submitting again.
       </va-alert>
     </VbCard>
+
     <VbCard title="Closeable Alert">
       <va-checkbox
         label="Toggle visibility"
@@ -54,19 +74,73 @@
         v-model="isCloseableAlertVisible"
         closeable
       >
-        <va-badge
-          color="success"
-          label="Paid"
-        />
+        You successfully read this important alert message.
+      </va-alert>
+
+      <va-alert
+        v-model="isCloseableAlertVisible"
+        closeable
+        close-icon="warning"
+      >
+        You successfully read this important alert message.
+      </va-alert>
+
+      <va-alert
+        v-model="isCloseableAlertVisible"
+        closeable
+        close-text="close"
+      >
+        You successfully read this important alert message.
+      </va-alert>
+
+      <va-alert
+        v-model="isCloseableAlertVisible"
+        closeable
+      >
+        <template slot="close">
+          slotted close
+        </template>
         You successfully read this important alert message.
       </va-alert>
     </VbCard>
+
+    <VbCard title="Center">
+      <va-alert center>
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert title="Title" center>
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert closeable title="Title" icon="warning" center>
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert closeable title="Title" center>
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert title="Title" icon="warning" center>
+        You successfully read this important alert message.
+      </va-alert>
+    </VbCard>
+
+    <VbCard title="With icon">
+      <va-alert icon="warning">
+        You successfully read this important alert message.
+      </va-alert>
+
+      <va-alert>
+        <template slot="icon">
+          Slotted icon
+          <va-icon name="warning" color="success" />
+        </template>
+        You successfully read this important alert message.
+      </va-alert>
+    </VbCard>
+
     <VbCard
       title="Long"
       style="width: 300px;"
     >
       <va-alert
-        v-model="isCloseableAlertVisible"
         closeable
       >
         <va-badge
@@ -83,12 +157,14 @@
 import VaCheckbox from '../va-checkbox/VaCheckbox'
 import VaAlert from './VaAlert'
 import VaBadge from '../va-badge/VaBadge'
+import VaIcon from '../va-icon/VaIcon'
 
 export default {
   components: {
     VaCheckbox,
     VaAlert,
     VaBadge,
+    VaIcon,
   },
   data () {
     return {
