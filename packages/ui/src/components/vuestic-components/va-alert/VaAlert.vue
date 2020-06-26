@@ -1,6 +1,6 @@
 <template>
   <transition
-    v-if="value"
+    v-if="valueComputed"
     name="fade"
   >
     <div
@@ -65,6 +65,7 @@ import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
+import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins, Prop } from 'vue-property-decorator'
 
@@ -84,6 +85,7 @@ const AlertPropsMixin = makeContextablePropsMixin({
   components: { VaIcon },
 })
 export default class VaAlert extends Mixins(
+  StatefulMixin,
   ColorThemeMixin,
   AlertPropsMixin,
 ) {
@@ -114,7 +116,7 @@ export default class VaAlert extends Mixins(
   }
 
   hideAlert (): void {
-    this.$emit('input', false)
+    this.valueComputed = false
   }
 }
 </script>

@@ -150,6 +150,17 @@
         You successfully read this important alert message. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long. Long.
       </va-alert>
     </VbCard>
+
+    <VbCard
+      title="Stateful"
+    >
+      <va-alert
+        closeable
+        stateful
+      >
+        You successfully read this important alert message.
+      </va-alert>
+    </VbCard>
   </VbDemo>
 </template>
 
