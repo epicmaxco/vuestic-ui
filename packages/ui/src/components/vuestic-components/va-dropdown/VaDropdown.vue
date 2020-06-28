@@ -7,7 +7,7 @@
       @click="onAnchorClick()"
       ref="anchor"
     >
-      <slot name="anchor" />
+      <slot name="anchor"/>
     </div>
     <div
       class="va-dropdown__content"
@@ -22,9 +22,9 @@
         class="va-dropdown__anchor-width-container"
         :style="anchorWidthContainerStyles"
       >
-        <slot />
+        <slot/>
       </div>
-      <slot v-else />
+      <slot v-else/>
     </div>
   </div>
 </template>
@@ -316,6 +316,9 @@ export default {
 @import '../../vuestic-sass/resources/resources';
 
 .va-dropdown {
+  /* Solved the alignment problem (if we try to align inline and block elements) */
+  line-height: 1;
+
   &__content {
     /* overflow: hidden; */
     z-index: 100;
