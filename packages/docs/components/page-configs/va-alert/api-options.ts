@@ -2,11 +2,54 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export default {
   props: {
+    value: {
+      local: true,
+    },
+    title: {
+      local: true,
+    },
+    description: {
+      local: true,
+    },
+    icon: {
+      local: true,
+    },
+    closeIcon: {
+      local: true,
+    },
+    closeText: {
+      local: true,
+    },
+    closeable: {
+      local: true,
+    },
+    center: {
+      local: true,
+    },
   },
   events: {
+    input: {
+      types: '(value: boolean) => void',
+    },
   },
   methods: {
+    hide: {
+      types: '() => void',
+      local: true,
+    },
   },
   slots: {
+    default: {
+      local: true,
+    },
+    title: {
+      local: true,
+    },
+    icon: {
+      local: true,
+    },
+    close: {
+      local: true,
+    },
   },
 } as ManualApiOptions

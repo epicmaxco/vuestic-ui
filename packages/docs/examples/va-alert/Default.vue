@@ -1,8 +1,8 @@
 <template>
   <div>
-    <va-alert description="You successfully read this important alert message." />
+    <va-alert description="You read this important alert message." />
     <va-alert>
-      You successfully read this important slotted alert message.
+      You read this important slotted alert message.
     </va-alert>
   </div>
 </template>

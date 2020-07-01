@@ -1,6 +1,9 @@
 <template>
   <div>
     <va-alert>
+      You read this important alert message.
+    </va-alert>
+    <va-alert color="success">
       You successfully read this important alert message.
     </va-alert>
     <va-alert color="info">

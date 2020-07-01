@@ -1,13 +1,13 @@
 <template>
   <div>
     <va-alert icon="info">
-    You successfully read this important alert message with an icon.
+    You read this important alert message with an icon.
     </va-alert>
     <va-alert>
     <template slot="icon">
-        <va-icon name="info" color="success" />
+        <va-icon name="info"/>
     </template>
-    You successfully read this important alert message with a slotted icon.
+    You read this important alert message with a slotted icon.
     </va-alert>
   </div>
 </template>

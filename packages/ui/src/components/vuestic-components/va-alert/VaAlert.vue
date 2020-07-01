@@ -42,7 +42,7 @@
       >
         <div
           class="va-alert__close--closeable"
-          @click="hideAlert()"
+          @click="hide()"
         >
           <slot name="close">
             <va-icon v-if="!c_closeText"
@@ -75,7 +75,7 @@ const AlertPropsMixin = makeContextablePropsMixin({
   icon: { type: String, default: '' },
   closeIcon: { type: String, default: 'close' },
   closeText: { type: String, default: '' },
-  color: { type: String, default: 'success' },
+  color: { type: String, default: '' },
   closeable: { type: Boolean, default: false },
   center: { type: Boolean, default: false },
 })
@@ -115,7 +115,7 @@ export default class VaAlert extends Mixins(
     }
   }
 
-  hideAlert (): void {
+  hide (): void {
     this.valueComputed = false
   }
 }
