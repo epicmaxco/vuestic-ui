@@ -21,7 +21,7 @@
         </slot>
       </va-button>
       <div class="va-button-dropdown__content">
-        <slot/>
+        <slot />
       </div>
     </va-dropdown>
     <va-button-group v-else>
@@ -54,7 +54,7 @@
           @click="click"
         />
         <div class="va-button-dropdown__content">
-          <slot/>
+          <slot />
         </div>
       </va-dropdown>
     </va-button-group>
@@ -62,7 +62,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import { Component, Mixins, Inject } from 'vue-property-decorator'
 import VaDropdown from '../va-dropdown/VaDropdown.vue'
 import VaButton from '../va-button/VaButton.vue'
@@ -118,7 +117,9 @@ export default class VaButtonDropdown extends Mixins(
     return {
       'va-button-dropdown': true,
       'va-button-dropdown--split': this.c_split,
-      [`va-button-dropdown--${this.c_size}`]: true,
+      'va-button-dropdown--normal': this.c_size === 'normal',
+      'va-button-dropdown--large': this.c_size === 'large',
+      'va-button-dropdown--small': this.c_size === 'small',
     }
   }
 

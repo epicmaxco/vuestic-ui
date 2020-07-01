@@ -7,7 +7,7 @@
       @click="onAnchorClick()"
       ref="anchor"
     >
-      <slot name="anchor"/>
+      <slot name="anchor" />
     </div>
     <div
       class="va-dropdown__content"
@@ -22,9 +22,9 @@
         class="va-dropdown__anchor-width-container"
         :style="anchorWidthContainerStyles"
       >
-        <slot/>
+        <slot />
       </div>
-      <slot v-else/>
+      <slot v-else />
     </div>
   </div>
 </template>
