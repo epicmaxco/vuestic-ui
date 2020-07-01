@@ -4,7 +4,7 @@
       You successfully read this important alert message.
     </va-alert>
     <va-alert color="info">
-      This alert needs your attention, but it's not super important. Longer text.
+      This alert needs your attention, but it's not super important.
     </va-alert>
     <va-alert color="warning">
       Better check yourself, you're not looking too good.
