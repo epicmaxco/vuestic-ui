@@ -7,6 +7,12 @@
       class="va-alert"
       :style="alertStyle"
     >
+    <div
+      class="va-alert__border"
+      :class="borderClass"
+      :style="borderStyle"
+    />
+
       <div
         class="va-alert__icon"
         v-if="hasIcon"
@@ -59,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import VaIcon from '../va-icon/VaIcon.vue'
 import {
   getHoverColor,
@@ -78,6 +84,14 @@ const AlertPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
   closeable: { type: Boolean, default: false },
   center: { type: Boolean, default: false },
+  borderColor: { type: String, default: '' },
+  border: {
+    type: String,
+    default: '',
+    validator: (value: string) => {
+      return ['top', 'right', 'bottom', 'left'].includes(value)
+    },
+  },
 })
 
 @Component({
@@ -115,6 +129,18 @@ export default class VaAlert extends Mixins(
     }
   }
 
+  get borderClass () {
+    return `va-alert__border--${this.c_border}`
+  }
+
+  get borderStyle () {
+    return {
+      backgroundColor: this.c_borderColor
+        ? getColor(this, this.c_borderColor)
+        : this.colorComputed,
+    }
+  }
+
   hide (): void {
     this.valueComputed = false
   }
@@ -124,6 +150,12 @@ export default class VaAlert extends Mixins(
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
 
+// Border border-radius
+$va-alert__border--top: 0.5rem 0.5rem 0 0;
+$va-alert__border--right: 0 0.5rem 0.5rem 0;
+$va-alert__border--bottom: 0 0 0.5rem 0.5rem;
+$va-alert__border--left: 0.5rem 0 0 0.5rem;
+
 // Alerts
 $va-alert-margin-y: 0.25rem;
 $va-alert-padding-x: 0.5rem;
@@ -131,6 +163,10 @@ $va-alert-padding-y: 0.75rem;
 $va-alert-border: 0;
 $va-alert-border-radius: 0.5rem;
 $va-alert-box-shadow: 0.125rem;
+
+// Alert paddings with border
+$va-alert__border-padding-x: $va-alert-padding-x + 0.375rem;
+$va-alert__border-padding-y: $va-alert-padding-y + 0.375rem;
 
 // Badge
 $va-badge-margin-right: 0.5rem;
@@ -146,12 +182,50 @@ $va-close-padding-y: 0.0625rem;
 $va-close-font-size: 1rem;
 
 .va-alert {
+  position: relative;
   padding: $va-alert-padding-y $va-alert-padding-x;
   margin: $va-alert-margin-y auto;
   display: flex;
   align-items: center;
   border: $va-alert-border solid transparent;
   border-radius: $va-alert-border-radius;
+
+  &__border {
+    content: '';
+    position: absolute;
+
+    &--top {
+      border-radius: $va-alert__border--top;
+      width: 100%;
+      height: 0.375rem;
+      top: 0;
+      left: 0;
+    }
+
+    &--right {
+      border-radius: $va-alert__border--right;
+      height: 100%;
+      width: 0.375rem;
+      bottom: 0;
+      right: 0;
+    }
+
+    &--bottom {
+      border-radius: $va-alert__border--bottom;
+      width: 100%;
+      height: 0.375rem;
+      bottom: 0;
+      left: 0;
+    }
+
+    &--left {
+      border-radius: $va-alert__border--left;
+      height: 100%;
+      width: 0.375rem;
+      bottom: 0;
+      left: 0;
+    }
+  }
 
   &__icon {
     display: flex;

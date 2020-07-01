@@ -65,6 +65,27 @@
       </va-alert>
     </VbCard>
 
+    <VbCard title="Border">
+      <va-alert border="top" >
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert color="info" border="right">
+        This alert needs your attention, but it's not super important. Longer text.
+      </va-alert>
+      <va-alert color="warning" border="bottom">
+        Better check yourself, you're not looking too good.
+      </va-alert>
+      <va-alert color="danger" border="left">
+        Change a few things up and try submitting again.
+      </va-alert>
+      <va-alert color="gray" border="top" border-color="danger">
+        Better check yourself, you're not looking too good.
+      </va-alert>
+      <va-alert color="dark" border="top" border-color="#117ae4">
+        Change a few things up and try submitting again.
+      </va-alert>
+    </VbCard>
+
     <VbCard title="Closeable Alert">
       <va-checkbox
         label="Toggle visibility"
@@ -130,7 +151,7 @@
       <va-alert>
         <template slot="icon">
           Slotted icon
-          <va-icon name="warning" color="success" />
+          <va-icon name="warning" />
         </template>
         You successfully read this important alert message.
       </va-alert>
