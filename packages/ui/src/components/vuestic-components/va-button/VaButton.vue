@@ -56,7 +56,8 @@
 
 <script lang="ts">
 import VaIcon from '../va-icon/VaIcon.vue'
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
+import VaProgressCircle
+  from '../va-progress-bar/progress-types/VaProgressCircle.vue'
 import {
   getGradientBackground,
   getFocusColor,
@@ -118,6 +119,12 @@ export default class VaButton extends Mixins(
       this.updateFocusState(false)
       this.updateHoverState(false)
     }
+  }
+
+  @Watch('hoverState')
+  onHoverChange (value: boolean) {
+    this.updateFocusState(value)
+    this.updateHoverState(value)
   }
 
   get computedClass () {

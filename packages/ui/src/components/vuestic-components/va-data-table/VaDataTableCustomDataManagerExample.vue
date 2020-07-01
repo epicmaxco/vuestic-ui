@@ -6,88 +6,99 @@
       :data="filteredUsers"
       :per-page="perPage"
       :data-manager="dataManager"
+      :currentPage="currentPage"
     />
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
+import { Component } from 'vue-property-decorator'
 import users from '../../../data/users.json'
-import VaDataTable from './VaDataTable'
+import VaDataTable from './VaDataTable.vue'
 
-export default {
+@Component({
   components: { VaDataTable },
-  data () {
-    return {
-      term: '',
-      perPage: 4,
-      perPageOptions: [4, 6, 10],
-      users: users.slice(),
-      fields: [{
-        name: 'firstName',
-        label: 'First Name',
-        sortField: 'firstName',
-        width: '30%',
-      }, {
-        name: 'lastName',
-        label: 'Last Name',
-        sortField: 'lastName',
-        width: '30%',
-      }],
+})
+export default class VaDataTableCustomDataManagerExample extends Vue {
+  term = ''
+  perPage = 4
+  currentPage = 1
+  perPageOptions: Array<number> = [4, 6, 10]
+  users: Array<any> = users.slice()
+  fields: Array<any> = [{
+    name: 'firstName',
+    label: 'First Name',
+    sortField: 'firstName',
+    width: '30%',
+  }, {
+    name: 'lastName',
+    label: 'Last Name',
+    sortField: 'lastName',
+    width: '30%',
+  }]
+
+  get selected (): Array<any> {
+    return this.users.filter(user => user.checked)
+  }
+
+  get filteredUsers (): Array<any> {
+    if (!this.term || this.term.length < 1) {
+      return this.users
     }
-  },
-  computed: {
-    selected () {
-      return this.users.filter(user => user.checked)
-    },
-    filteredUsers () {
-      if (!this.term || this.term.length < 1) {
-        return this.users
-      }
 
-      return this.users.filter(user => {
-        return user.firstName.toLowerCase().startsWith(this.term.toLowerCase())
+    return this.users.filter(user => {
+      return user.firstName.toLowerCase().startsWith(this.term.toLowerCase())
+    })
+  }
+
+  get noPagination (): boolean {
+    return (this.$refs.datatable as Vue & { noPagination: boolean }).noPagination
+  }
+
+  sortAsc (items: Array<any>, field: any): Array<any> {
+    return items.slice().sort((a: any, b: any) => {
+      return a[field].localeCompare(b[field], undefined, {
+        numeric: true,
+        sensitivity: 'base',
       })
-    },
-  },
-  methods: {
-    sortAsc (items, field) {
-      return items.slice().sort((a, b) => {
-        return a[field].split('').reverse().join('').localeCompare(b[field].split('').reverse().join(''))
+    })
+  }
+
+  sortDesc (items: Array<any>, field: any): Array<any> {
+    return items.slice().sort((a: any, b: any) => {
+      return b[field].localeCompare(a[field], undefined, {
+        numeric: true,
+        sensitivity: 'base',
       })
-    },
-    sortDesc (items, field) {
-      return items.slice().sort((a, b) => {
-        return b[field].split('').reverse().join('').localeCompare(a[field].split('').reverse().join(''))
-      })
-    },
-    dataManager (sortOrder, pagination) {
-      let sorted = []
+    })
+  }
 
-      if (!sortOrder.length) {
-        sorted = this.filteredUsers
-      } else {
-        const { sortField, direction } = sortOrder[0]
-        sorted = direction === 'asc' ? this.sortAsc(this.filteredUsers, sortField) : this.sortDesc(this.filteredUsers, sortField)
-      }
+  dataManager (sortOrder: any, pagination: any) {
+    let sorted: Array<any> = []
 
-      if (this.noPagination) {
-        return {
-          data: sorted,
-        }
-      }
+    if (!sortOrder.length) {
+      sorted = this.filteredUsers
+    } else {
+      const { sortField, direction } = sortOrder[0]
+      sorted = direction === 'asc' ? this.sortAsc(this.filteredUsers, sortField) : this.sortDesc(this.filteredUsers, sortField)
+    }
 
-      pagination = this.$refs.datatable.buildPagination(sorted.length, this.perPage)
-      const { from } = pagination
-      const sliceFrom = from - 1
-
+    if (this.noPagination) {
       return {
-        pagination,
-        data: sorted.slice(sliceFrom, sliceFrom + this.perPage),
+        data: sorted,
       }
-    },
-  },
+    }
+
+    pagination = (this.$refs.datatable as Vue & { buildPagination: (length: number, perPage: number) => void }).buildPagination(sorted.length, this.perPage)
+    const { from } = pagination
+    const sliceFrom = from - 1
+    this.currentPage = pagination.current_page
+
+    return {
+      pagination,
+      data: sorted.slice(sliceFrom, sliceFrom + this.perPage),
+    }
+  }
 }
 </script>
-
-<style lang="scss">
-</style>

@@ -42,175 +42,168 @@
   </div>
 </template>
 
-<script>
-import Vuetable from 'vuetable-2/src/components/Vuetable'
+<script lang="ts">
+import Vue from 'vue'
+import { Component, Prop, Mixins, Watch } from 'vue-property-decorator'
+import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
 import VaPagination from '../va-pagination/VaPagination.vue'
-import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
+import VaInnerLoading from '../va-inner-loading/VaInnerLoading.vue'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
-export default {
-  name: 'VaDataTable',
+@Component({
   components: {
     VaInnerLoading,
     Vuetable,
     VaPagination,
   },
-  mixins: [LoadingMixin],
-  props: {
-    fields: {
-      type: Array,
-      required: true,
-    },
-    data: {
-      type: Array,
-      required: true,
-    },
-    perPage: {
-      type: Number,
-      default: 6,
-    },
-    visiblePages: {
-      type: Number,
-      default: 4,
-    },
-    currentPage: {
-      type: Number,
-      default: 1,
-    },
-    apiMode: Boolean,
-    clickable: Boolean,
-    hoverable: Boolean,
-    noPagination: Boolean,
-    noDataLabel: {
-      type: String,
-      default: undefined,
-    },
-    rowClass: {
-      type: Function,
-      default: undefined,
-    },
-    sortOrder: {
-      type: Array,
-      default: undefined,
-    },
-    totalPages: {
-      type: Number,
-      default: 0,
-    },
-    dataManager: {
-      type: Function,
-      default: null,
-    },
-  },
-  data () {
-    return {
+})
+export default class VaDataTable extends Mixins(LoadingMixin) {
+  @Prop({ type: Array, required: true }) fields!: Array<any>
+  @Prop({ type: Array, required: true }) data!: Array<any>
+  @Prop({
+    type: Array,
+  }) sortOrder!: Array<any> | undefined
+
+  @Prop({ type: Number, default: 6 }) perPage!: number
+  @Prop({ type: Number, default: 4 }) visiblePages!: number
+  @Prop({ type: Number, default: 1 }) currentPage!: number
+  @Prop({ type: Number, default: 0 }) totalPages!: number
+  @Prop({ type: Boolean }) apiMode!: boolean
+  @Prop({ type: Boolean }) clickable!: boolean
+  @Prop({ type: Boolean }) hoverable!: boolean
+  @Prop({ type: Boolean }) noPagination!: boolean
+  @Prop({
+    type: Boolean,
+    default: undefined,
+  }) noDataLabel!: string | undefined
+
+  @Prop({
+    type: Function,
+    default: undefined,
+  }) rowClass!: Function | undefined
+
+  @Prop({
+    type: Function,
+    default: null,
+  }) dataManager!: Function | null
+
+  get currentPageProxy (): number {
+    return this.currentPage
+  }
+
+  set currentPageProxy (page: number) {
+    if (!this.apiMode) {
+      (this.$refs.vuetable as Vue & { changePage: (page: number) => void }).changePage(page)
     }
-  },
-  computed: {
-    currentPageProxy: {
-      get () {
-        return this.currentPage
+    this.$emit('pageSelected', page)
+  }
+
+  get styles () {
+    return {
+      tableClass: this.buildTableClass(),
+      ascendingIcon: 'fa fa-caret-up',
+      descendingIcon: 'fa fa-caret-down',
+      renderIcon: (classes: any) => {
+        return '<span class="' + classes.join(' ') + '"></span>'
       },
-      set (page) {
-        if (this.apiMode) {
-          this.$emit('pageSelected', page)
-          return
-        }
+    }
+  }
 
-        this.$refs.vuetable.changePage(page)
-      },
-    },
-    styles () {
+  get paginationTotal () {
+    return this.apiMode ? this.totalPages : Math.ceil(this.data.length / this.perPage)
+  }
+
+  @Watch('perPage')
+  onPerPageChanged (): void {
+    this.refresh()
+  }
+
+  @Watch('data')
+  onDataChanged (): void {
+    this.refresh()
+  }
+
+  @Watch('fields')
+  onFieldsChanged (): void {
+    this.refreshFields()
+  }
+
+  buildTableClass () {
+    let name = 'va-data-table__vuetable va-table va-table--striped'
+
+    if (this.clickable) {
+      name += ' va-table--clickable'
+    }
+
+    if (this.hoverable) {
+      name += ' va-table--hoverable'
+    }
+
+    return name
+  }
+
+  dataManagerComputed (sortOrder: any, pagination: any) {
+    if (this.dataManager) {
+      return this.dataManager(sortOrder, pagination)
+    }
+
+    let sorted = []
+
+    if (!sortOrder.length) {
+      sorted = this.data
+    } else {
+      const { sortField, direction } = sortOrder[0]
+      sorted = direction === 'asc' ? this.sortAsc(this.data, sortField) : this.sortDesc(this.data, sortField)
+    }
+
+    if (this.noPagination) {
       return {
-        tableClass: this.buildTableClass(),
-        ascendingIcon: 'fa fa-caret-up',
-        descendingIcon: 'fa fa-caret-down',
-        renderIcon: classes => {
-          return '<span class="' + classes.join(' ') + '"></span>'
-        },
+        data: sorted,
       }
-    },
-    paginationTotal () {
-      return this.apiMode ? this.totalPages : Math.ceil(this.data.length / this.perPage)
-    },
-  },
-  watch: {
-    perPage () {
-      this.refresh()
-    },
-    data () {
-      this.refresh()
-    },
-    fields () {
-      this.refreshFields() // support dynamic translations
-    },
-  },
-  methods: {
-    buildTableClass () {
-      let name = 'va-data-table__vuetable va-table va-table--striped'
+    }
 
-      if (this.clickable) {
-        name += ' va-table--clickable'
-      }
+    pagination = this.buildPagination(sorted.length, this.perPage)
+    const { from } = pagination
+    const sliceFrom = from - 1
+    this.$emit('pageSelected', 1)
 
-      if (this.hoverable) {
-        name += ' va-table--hoverable'
-      }
+    return {
+      pagination,
+      data: sorted.slice(sliceFrom, sliceFrom + this.perPage),
+    }
+  }
 
-      return name
-    },
-    dataManagerComputed (sortOrder, pagination) {
-      if (this.dataManager) { return this.dataManager(sortOrder, pagination) }
+  sortAsc (items: any, field: any) {
+    return items.slice().sort((a: any, b: any) => {
+      return a[field].toLocaleString()
+        .localeCompare(b[field].toLocaleString(), undefined, { numeric: true })
+    })
+  }
 
-      let sorted = []
+  sortDesc (items: any, field: any) {
+    return items.slice().sort((a: any, b: any) => {
+      return b[field].toLocaleString()
+        .localeCompare(a[field].toLocaleString(), undefined, { numeric: true })
+    })
+  }
 
-      if (!sortOrder.length) {
-        sorted = this.data
-      } else {
-        const { sortField, direction } = sortOrder[0]
-        sorted = direction === 'asc' ? this.sortAsc(this.data, sortField) : this.sortDesc(this.data, sortField)
-      }
+  buildPagination (length: number, perPage: number) {
+    return (this.$refs.vuetable as Vue & { makePagination: (length: number, perPage: number) => any }).makePagination(length, perPage)
+  }
 
-      if (this.noPagination) {
-        return {
-          data: sorted,
-        }
-      }
+  refresh (): void {
+    (this.$refs.vuetable as Vue & { refresh: () => any }).refresh()
+  }
 
-      pagination = this.buildPagination(sorted.length, this.perPage)
-      const { from } = pagination
-      const sliceFrom = from - 1
+  refreshFields (): void {
+    this.$nextTick(() => {
+      (this.$refs.vuetable as Vue & { normalizeFields: () => void }).normalizeFields()
+    })
+  }
 
-      return {
-        pagination,
-        data: sorted.slice(sliceFrom, sliceFrom + this.perPage),
-      }
-    },
-    sortAsc (items, field) {
-      return items.slice().sort((a, b) => {
-        return a[field].toLocaleString().localeCompare(b[field].toLocaleString(), { numeric: true })
-      })
-    },
-    sortDesc (items, field) {
-      return items.slice().sort((a, b) => {
-        return b[field].toLocaleString().localeCompare(a[field].toLocaleString(), { numeric: true })
-      })
-    },
-    buildPagination (l, perPage) {
-      return this.$refs.vuetable.makePagination(l, perPage)
-    },
-    refresh () {
-      this.$refs.vuetable.refresh()
-    },
-    refreshFields () {
-      this.$nextTick(() => {
-        this.$refs.vuetable.normalizeFields()
-      })
-    },
-    rowClicked (row) {
-      this.$emit('rowClicked', row)
-    },
-  },
+  rowClicked (row: any) {
+    this.$emit('rowClicked', row)
+  }
 }
 </script>
 
