@@ -360,6 +360,12 @@
         "loading": "Shown when content is fetching.",
         "default": "The content to be scrolled"
       }
+    },
+    "VaAlert": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "anyPage": {
@@ -389,7 +395,8 @@
     "divider": "Divider",
     "button": "Button",
     "checkbox": "Checkbox",
-    "infiniteScroll": "Infinite Scroll"
+    "infiniteScroll": "Infinite Scroll",
+    "alert": "Alert"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1106,5 +1113,36 @@
         "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
       }
     }
+  },
+  "alert": {
+    "title": "Alert",
+    "summaryText": "",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": ""
+      },
+      "color": {
+        "title": "Color",
+        "text": ""
+      },
+      "title": {
+        "title": "Title",
+        "text": ""
+      },
+      "icon": {
+        "title": "Icon",
+        "text": ""
+      },
+      "closeable": {
+        "title": "Closeable",
+        "text": ""
+      },
+      "center": {
+        "title": "Center",
+        "text": ""
+      }
+    }
+
   }
 }
