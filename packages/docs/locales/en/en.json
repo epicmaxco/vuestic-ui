@@ -1131,31 +1131,31 @@
   },
   "alert": {
     "title": "Alert",
-    "summaryText": "",
+    "summaryText": "Alert displays an important message to attract user attention.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": ""
+        "text": "The basic usage of the `va-alert` component."
       },
       "color": {
         "title": "Color",
-        "text": ""
+        "text": "Use `color` property to change the color of the component."
       },
       "title": {
         "title": "Title",
-        "text": ""
+        "text": "The `title` property allows you to write text over the description area. Use the `title` slot to costomize the title area."
       },
       "icon": {
         "title": "Icon",
-        "text": ""
+        "text": "The `icon` property allows you to add an icon in front of the description area. Use the `icon` slot to costomize the icon area."
       },
       "closeable": {
         "title": "Closeable",
-        "text": ""
+        "text": "The `closeable` property add a close alert area. "
       },
       "center": {
         "title": "Center",
-        "text": ""
+        "text": "The `center` property allows you to center title and description areas."
       }
     }
 

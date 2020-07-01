@@ -8,6 +8,10 @@ export default [
     translationString: 'alert.title',
   },
   {
+    type: BlockType.PARAGRAPH,
+    translationString: 'alert.summaryText',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.examples',
   },
