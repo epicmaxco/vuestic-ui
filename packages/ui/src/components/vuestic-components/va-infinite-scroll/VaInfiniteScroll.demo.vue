@@ -168,7 +168,7 @@
       </VbCard>
 
       <VbCard title="disabled">
-        <VbCheckbox v-model="disabled" label="Disabled"/>
+        <VbCheckbox v-model="disabled" label="Disabled" />
         <div class="scroll__container">
           <va-infinite-scroll
             :disabled="disabled"

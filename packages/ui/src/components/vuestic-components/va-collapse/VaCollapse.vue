@@ -17,7 +17,7 @@
         v-if="!customHeader"
         class="va-collapse__header__content"
       >
-        <slot name="header"/>
+        <slot name="header" />
         <va-icon
           v-if="show"
           class="va-collapse__header__icon"
@@ -34,7 +34,7 @@
       class="va-collapse__body"
       :style="stylesComputed"
     >
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>
