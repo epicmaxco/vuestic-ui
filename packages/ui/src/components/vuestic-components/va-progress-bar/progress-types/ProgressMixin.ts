@@ -1,6 +1,6 @@
 import { normalizeValue } from '../../../../services/utils'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 const ProgressMixinContextableProps = makeContextablePropsMixin({
   value: { type: Number, default: 0 },
