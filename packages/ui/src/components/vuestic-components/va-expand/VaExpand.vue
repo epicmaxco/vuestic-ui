@@ -55,6 +55,7 @@ const ExpandPropsMixin = makeContextablePropsMixin({
   disabled: { type: Boolean, default: false },
   header: { type: String, default: '' },
   icon: { type: String, default: '' },
+  solid: { type: Boolean, default: false },
 })
 
 @Component({
@@ -80,6 +81,7 @@ export default class VaExpand extends Mixins(
   get computedClasses () {
     return {
       'va-expand--disabled': this.c_disabled,
+      'va-expand--solid': this.c_solid,
     }
   }
 
@@ -154,12 +156,6 @@ export default class VaExpand extends Mixins(
     margin-top: 1.5rem;
   }
 
-  &--disabled {
-    @include va-disabled();
-
-    pointer-events: none;
-  }
-
   &__body {
     height: 0;
     transition: ease-in 0.3s;
@@ -167,14 +163,6 @@ export default class VaExpand extends Mixins(
     margin-top: 0.1rem;
     padding-left: 1rem;
     padding-right: 1rem;
-
-    @at-root {
-      .va-expand--with-background > & {
-        margin-top: 0.1rem;
-        border-radius: 0.375rem;
-        background-color: $light-gray3;
-      }
-    }
   }
 
   &__header {
@@ -203,6 +191,32 @@ export default class VaExpand extends Mixins(
       margin-right: 0.5rem;
       color: $gray;
     }
+  }
+
+  &--solid {
+    box-shadow: 0 2px 3px 0 rgba(98, 106, 119, 0.25);
+    border-radius: 0.375rem;
+
+    .va-expand {
+      &__header {
+        &__content {
+          border-radius: 0.375rem 0.375rem 0 0;
+          box-shadow: none;
+          background-color: $light-gray3;
+        }
+      }
+
+      &__body {
+        border-radius: 0 0 0.375rem 0.375rem;
+        margin-top: 0;
+      }
+    }
+  }
+
+  &--disabled {
+    @include va-disabled();
+
+    pointer-events: none;
   }
 }
 </style>
