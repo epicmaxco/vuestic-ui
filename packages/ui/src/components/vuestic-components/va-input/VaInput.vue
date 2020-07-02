@@ -232,7 +232,9 @@ export default class VaInput extends Mixins(
   }
 
   adjustHeight () {
-    if (!this.autosize || !this.isTextarea) { return }
+    if (!this.autosize || !this.isTextarea) {
+      return
+    }
 
     const minRows = this.minRows || 1
     const maxRows = this.maxRows || Number.MAX_SAFE_INTEGER
@@ -335,6 +337,10 @@ export default class VaInput extends Mixins(
 
       &:placeholder-shown {
         padding-bottom: 0.875rem;
+      }
+
+      &:disabled {
+        opacity: 0.4;
       }
     }
 
