@@ -11,6 +11,18 @@
       </va-expand>
     </VbCard>
 
+    <VbCard title="Disabled">
+      <va-expand
+        style="width: 400px;"
+        :header="expandHeader"
+        disabled
+      >
+        <div>
+          {{ expandContent }}
+        </div>
+      </va-expand>
+    </VbCard>
+
     <VbCard title="Icon">
       <va-expand
         style="width: 400px;"

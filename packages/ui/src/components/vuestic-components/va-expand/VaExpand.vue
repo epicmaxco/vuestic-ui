@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-expand"
-    :class="{'va-expand--with-background': withBackground}"
+    :class="computedClasses"
   >
     <div
       class="va-expand__header"
@@ -52,9 +52,7 @@ import {
 } from '../../context-test/context-provide/ContextPlugin'
 
 const ExpandPropsMixin = makeContextablePropsMixin({
-  isOpenDefault: { type: Boolean },
-  withBackground: { type: Boolean },
-  customHeader: { type: Boolean },
+  disabled: { type: Boolean, default: false },
   header: { type: String, default: '' },
   icon: { type: String, default: '' },
 })
@@ -78,6 +76,12 @@ export default class VaExpand extends Mixins(
   show = false
   height = this.getHeight()
   mutationObserver: any = null
+
+  get computedClasses () {
+    return {
+      'va-expand--disabled': this.c_disabled,
+    }
+  }
 
   get contentStyle () {
     if (this.c_icon) {
@@ -148,6 +152,12 @@ export default class VaExpand extends Mixins(
 .va-expand {
   & + & {
     margin-top: 1.5rem;
+  }
+
+  &--disabled {
+    @include va-disabled();
+
+    pointer-events: none;
   }
 
   &__body {
