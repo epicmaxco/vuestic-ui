@@ -361,6 +361,14 @@
         "default": "The content to be scrolled"
       }
     },
+    "VaIcon": {
+      "props": {
+        "component": "Allows to use the svg component as an icon.",
+        "rotation": "Rotates a component by a degree value.",
+        "spin": "Starts rotation animation.",
+        "iconsConfig": "Allows you to configurate iconset."
+      }
+    },
     "VaRadio": {
       "props": {
         "value": "Model of the component",
@@ -397,6 +405,7 @@
     "button": "Button",
     "checkbox": "Checkbox",
     "infiniteScroll": "Infinite Scroll",
+    "icon": "Icon",
     "radio": "Radio"
   },
   "language": {
@@ -1112,6 +1121,40 @@
       "customTarget": {
         "title": "Custom scroll target container",
         "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
+      }
+    }
+  },
+  "icon": {
+    "title": "Icon",
+    "summaryText": "The `va-icon` component allows you to use different iconfonts.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Basic usage of component with different iconfonts."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
+      },
+      "size": {
+        "title": "Size",
+        "text": "Utilize `size` prop in order to make `va-icon` fit your needs."
+      },
+      "rotation": {
+        "title": "Rotation",
+        "text": "Used to rotate the `va-icon` component."
+      },
+      "spin": {
+        "title": "Spin",
+        "text": "You can add animation of rotation of the icon using the property `spin`."
+      },
+      "text": {
+        "title": "Text as icon",
+        "text": "Using `text` prop will allow you to cover the text with an icon style."
+      },
+      "tag": {
+        "title": "Custom tag",
+        "text": "With `tag` prop you can attach the icon to another tag."
       }
     }
   },
