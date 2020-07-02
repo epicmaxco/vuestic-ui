@@ -21,12 +21,12 @@
         <va-icon
           v-if="show"
           class="va-expand__header__icon"
-          name="arrow_back_ios"
+          name="expand_less"
         />
         <va-icon
           v-else
           class="va-expand__header__icon"
-          name="arrow_forward_ios"
+          name="expand_more"
         />
       </div>
     </div>
@@ -167,7 +167,6 @@ export default class VaExpand extends Mixins(
       margin-left: 0.5rem;
       margin-right: 0.5rem;
       color: $gray;
-      transform: rotate(90deg); // hack for show large material arrow icons
     }
   }
 }
