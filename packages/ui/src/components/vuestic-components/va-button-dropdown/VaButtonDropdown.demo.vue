@@ -30,46 +30,46 @@
     </VbCard>
     <VbCard title="button props">
       <va-button-dropdown
-        :button-props="{ small: true }"
+        size="small"
         label="small"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
-        :button-props="{ large: true }"
+        size="large"
         label="large"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
-        :button-props="{ outline: true }"
+        outline
         label="outline"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
-        :button-props="{ flat: true }"
+        flat
         label="flat"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
-        :button-props="{ outline: true }"
+        outline
         split
         label="outline split"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
+        size="small"
         split
-        :button-props="{small: true}"
         label="small + split"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
+        size="large"
         split
-        :button-props="{large: true}"
         label="large + split"
       >
         Content

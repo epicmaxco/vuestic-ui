@@ -91,6 +91,10 @@
         {
           "name": "icon",
           "displayName": "menu.icon"
+        },
+        {
+          "name": "radio",
+          "displayName": "menu.radio"
         }
       ]
     }

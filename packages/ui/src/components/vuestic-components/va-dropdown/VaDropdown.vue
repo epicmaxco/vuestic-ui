@@ -316,6 +316,9 @@ export default {
 @import '../../vuestic-sass/resources/resources';
 
 .va-dropdown {
+  /* Solved the alignment problem (if we try to align inline and block elements) */
+  line-height: 1;
+
   &__content {
     /* overflow: hidden; */
     z-index: 100;

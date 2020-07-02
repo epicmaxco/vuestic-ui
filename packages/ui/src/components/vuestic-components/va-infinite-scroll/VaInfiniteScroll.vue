@@ -33,135 +33,139 @@
   </component>
 </template>
 
-<script>
+<script lang="ts">
+
 import { debounce } from 'lodash'
+// @ts-ignore
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
 import { sleep } from '../../../services/utils'
+import { Component, Mixins, Watch } from 'vue-property-decorator'
 
-export default {
+const InfiniteScrollPropsMixin = makeContextablePropsMixin({
+  offset: { type: Number, default: 500 },
+  reverse: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  scrollTarget: { type: [Element, String], default: null },
+  debounce: { type: Number, default: 100 },
+  load: { type: Function },
+  tag: { type: String, default: 'div' },
+})
+
+@Component({
   name: 'VaInfiniteScroll',
   components: { VaProgressCircle },
-  mixins: [
-    makeContextablePropsMixin({
-      offset: {
-        type: Number,
-        default: 500,
-      },
-      reverse: {
-        type: Boolean,
-        default: false,
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
-      scrollTarget: {
-        type: [Element, String],
-        default: null,
-      },
-      debounce: {
-        type: Number,
-        default: 100,
-      },
-      load: {
-        type: Function,
-      },
-      tag: {
-        type: String,
-        default: 'div',
-      },
-    }),
-  ],
-  data () {
-    return {
-      index: 0,
-      fetching: false,
-      error: false,
-      initialHeight: null,
-    }
-  },
-  watch: {
-    disabled (value) {
-      if (value) {
-        this.stop()
-      } else {
-        this.resume()
-      }
-    },
-    debounce (value) {
-      this.setDebounce(value)
-    },
-  },
-  methods: {
-    onLoad () {
-      if (this.disabled || this.error || this.fetching) {
-        return
-      }
+})
+export default class VaInfiniteScroll extends Mixins(
+  InfiniteScrollPropsMixin,
+) {
+  index = 0
+  fetching = false
+  error = false
+  initialHeight: any = null
 
-      const { scrollTop, scrollHeight } = this.scrollTargetElement
-      const containerHeight = this.scrollTargetElement.offsetHeight
-      const isLoadingRequired = this.reverse
-        ? scrollTop < this.scrollAmount
-        : scrollTop + containerHeight + this.scrollAmount >= scrollHeight
-      if (!isLoadingRequired) { return }
+  get scrollAmount () {
+    return this.offset + 1 + (this as any).$el.offsetHeight
+  }
 
-      this.fetching = true
-      this.scrollTop = this.reverse ? 0 : this.$el.offsetHeight
-      this.initialHeight = this.$el.offsetHeight
-      this.load()
-        .then(this.finishLoading).catch(this.onError)
-    },
-    onError () {
+  get scrollTargetElement () {
+    return typeof this.scrollTarget === 'string'
+      ? document.querySelector(this.scrollTarget)
+      : this.scrollTarget || this.$el.parentElement
+  }
+
+  get colors () {
+    return { primary: getColor(this, 'primary', '#23e066'), danger: getColor(this, 'danger', '#e34b4a') }
+  }
+
+  @Watch('disabled')
+  onDisabled (value: boolean) {
+    if (value) {
       this.stop()
-      this.error = true
-      this.fetching = true
-      sleep(1200)
-        .then(this.stopErrorDisplay)
-        .then(this.resume)
-    },
-    stopErrorDisplay () {
-      this.scrollTargetElement.scrollTop = this.reverse
-        ? this.scrollAmount
-        : this.scrollTargetElement.scrollTop - this.scrollTargetElement.offsetHeight - this.scrollAmount
-      this.error = false
-      this.fetching = false
-    },
-    finishLoading () {
-      this.fetching = false
-      if (this.reverse) {
-        const heightDifference = this.$el.offsetHeight - this.initialHeight
-        this.scrollTargetElement.scrollTop = heightDifference
-      }
-    },
-    resume () {
-      if (!this.disabled) {
-        this.scrollTargetElement.addEventListener(
-          'scroll',
-          this.debouncedLoad,
-          {
-            passive: true,
-          },
-        )
-      }
-    },
-    stop () {
-      if (this.disabled) {
-        return
-      }
+    } else {
+      this.resume()
+    }
+  }
 
-      this.fetching = false
-      this.scrollTargetElement.removeEventListener(
+  @Watch('debounce')
+  onDebounce (value: number) {
+    this.setDebounce(value)
+  }
+
+  onLoad () {
+    if (this.disabled || this.error || this.fetching) {
+      return
+    }
+
+    const { scrollTop, scrollHeight } = this.scrollTargetElement
+    const containerHeight = this.scrollTargetElement.offsetHeight
+    const isLoadingRequired = this.reverse
+      ? scrollTop < this.scrollAmount
+      : scrollTop + containerHeight + this.scrollAmount >= scrollHeight
+    if (!isLoadingRequired) { return }
+
+    this.fetching = true
+    this.scrollTop = this.reverse ? 0 : (this as any).$el.offsetHeight
+    this.initialHeight = (this as any).$el.offsetHeight
+    this.load()
+      .then(this.finishLoading).catch(this.onError)
+  }
+
+  onError () {
+    this.stop()
+    this.error = true
+    this.fetching = true
+    sleep(1200)
+      .then(this.stopErrorDisplay)
+      .then(this.resume)
+  }
+
+  stopErrorDisplay () {
+    this.scrollTargetElement.scrollTop = this.reverse
+      ? this.scrollAmount
+      : this.scrollTargetElement.scrollTop - this.scrollTargetElement.offsetHeight - this.scrollAmount
+    this.error = false
+    this.fetching = false
+  }
+
+  finishLoading () {
+    this.fetching = false
+    if (this.reverse) {
+      const heightDifference = (this as any).$el.offsetHeight - this.initialHeight
+      this.scrollTargetElement.scrollTop = heightDifference
+    }
+  }
+
+  resume () {
+    if (!this.disabled) {
+      this.scrollTargetElement.addEventListener(
         'scroll',
         this.debouncedLoad,
-        { passive: true },
+        {
+          passive: true,
+        },
       )
-    },
-    setDebounce (value) {
-      this.debouncedLoad = debounce(this.onLoad, value)
-    },
-  },
+    }
+  }
+
+  stop () {
+    if (this.disabled) {
+      return
+    }
+
+    this.fetching = false
+    this.scrollTargetElement.removeEventListener(
+      'scroll',
+      this.debouncedLoad,
+      { passive: true },
+    )
+  }
+
+  setDebounce (value: number) {
+    this.debouncedLoad = debounce(this.onLoad, value)
+  }
+
   mounted () {
     if (!this.scrollTargetElement) {
       return
@@ -176,7 +180,8 @@ export default {
     this.scrollTargetElement.addEventListener('scroll', this.debouncedLoad, {
       passive: true,
     })
-  },
+  }
+
   beforeDestroy () {
     if (!this.disabled) {
       this.scrollTargetElement.removeEventListener(
@@ -185,20 +190,7 @@ export default {
         { passive: true },
       )
     }
-  },
-  computed: {
-    scrollAmount () {
-      return this.offset + 1 + this.$el.offsetHeight
-    },
-    scrollTargetElement () {
-      return typeof this.scrollTarget === 'string'
-        ? document.querySelector(this.scrollTarget)
-        : this.scrollTarget || this.$el.parentElement
-    },
-    colors () {
-      return { primary: getColor(this, 'primary', '#23e066'), danger: getColor(this, 'danger', '#e34b4a') }
-    },
-  },
+  }
 }
 </script>
 

@@ -5,14 +5,14 @@
       label="3"
       overlap
     >
-      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"/>
+      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg" />
     </va-badge>
     <va-badge
       class="item"
       dot
       label="3"
     >
-      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"/>
+      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg" />
     </va-badge>
     <va-badge
       class="item"
@@ -20,7 +20,7 @@
       label="3"
       overlap
     >
-      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"/>
+      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg" />
     </va-badge>
     <va-badge
       class="item"

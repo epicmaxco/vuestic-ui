@@ -333,7 +333,7 @@
       <br>
     </VbCard>
 
-    <BadgeAvatarDemo/>
+    <BadgeAvatarDemo />
   </VbDemo>
 </template>
 

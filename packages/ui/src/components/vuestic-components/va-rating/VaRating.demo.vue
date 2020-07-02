@@ -4,7 +4,7 @@
       {{ value }}
     </VbCard>
     <VbCard title="Default">
-      <va-rating v-model="value"/>
+      <va-rating v-model="value" />
     </VbCard>
     <VbCard title="With texts" style="width: 300px;">
       <va-rating
@@ -22,27 +22,27 @@
       />
     </VbCard>
     <VbCard title="Custom length">
-      <va-rating :max="3" v-model="value"/>
+      <va-rating :max="3" v-model="value" />
     </VbCard>
     <VbCard title="With halves">
-      <va-rating halves v-model="value"/>
+      <va-rating halves v-model="value" />
     </VbCard>
     <VbCard title="With hover">
-      <va-rating hover v-model="value"/>
+      <va-rating hover v-model="value" />
     </VbCard>
     <VbCard title="With halves and hover">
-      <va-rating hover halves v-model="value"/>
+      <va-rating hover halves v-model="value" />
     </VbCard>
     <VbCard title="Clearable">
-      <va-rating clearable v-model="value"/>
+      <va-rating clearable v-model="value" />
     </VbCard>
     <VbCard title="Colors" dark>
-      <va-rating color="success" v-model="value"/>
-      <va-rating color="info" v-model="value"/>
-      <va-rating color="warning" v-model="value"/>
-      <va-rating color="danger" v-model="value"/>
-      <va-rating color="dark" v-model="value"/>
-      <va-rating color="grey" v-model="value"/>
+      <va-rating color="success" v-model="value" />
+      <va-rating color="info" v-model="value" />
+      <va-rating color="warning" v-model="value" />
+      <va-rating color="danger" v-model="value" />
+      <va-rating color="dark" v-model="value" />
+      <va-rating color="grey" v-model="value" />
     </VbCard>
     <VbCard title="Custom color for unselected">
       <va-rating
@@ -52,17 +52,17 @@
       />
     </VbCard>
     <VbCard title="Sizes">
-      <va-rating size='small' v-model="value"/>
-      <va-rating size='medium' v-model="value"/>
-      <va-rating size='large' v-model="value"/>
-      <va-rating :size="40" v-model="value"/>
-      <va-rating :size="60" v-model="value"/>
+      <va-rating size='small' v-model="value" />
+      <va-rating size='medium' v-model="value" />
+      <va-rating size='large' v-model="value" />
+      <va-rating :size="40" v-model="value" />
+      <va-rating :size="60" v-model="value" />
     </VbCard>
     <VbCard title="Disabled">
-      <va-rating disabled hover v-model="value"/>
+      <va-rating disabled hover v-model="value" />
     </VbCard>
     <VbCard title="Readonly">
-      <va-rating readonly hover v-model="value"/>
+      <va-rating readonly hover v-model="value" />
     </VbCard>
     <VbCard title="With custom icons">
       <va-rating
@@ -123,30 +123,30 @@
       />
     </VbCard>
     <VbCard title="Numbers">
-      <va-rating numbers v-model="value"/>
+      <va-rating numbers v-model="value" />
     </VbCard>
     <VbCard title="Custom length">
-      <va-rating numbers :max="3" v-model="value"/>
+      <va-rating numbers :max="3" v-model="value" />
     </VbCard>
     <VbCard title="With halves">
-      <va-rating numbers halves v-model="value"/>
+      <va-rating numbers halves v-model="value" />
     </VbCard>
     <VbCard title="With hover">
-      <va-rating numbers hover v-model="value"/>
+      <va-rating numbers hover v-model="value" />
     </VbCard>
     <VbCard title="With halves and hover">
-      <va-rating numbers hover halves v-model="value"/>
+      <va-rating numbers hover halves v-model="value" />
     </VbCard>
     <VbCard title="Clearable">
-      <va-rating numbers clearable v-model="value"/>
+      <va-rating numbers clearable v-model="value" />
     </VbCard>
     <VbCard title="Colors" dark>
-      <va-rating numbers color="success" v-model="value"/>
-      <va-rating numbers color="info" v-model="value"/>
-      <va-rating numbers color="warning" v-model="value"/>
-      <va-rating numbers color="danger" v-model="value"/>
-      <va-rating numbers color="dark" v-model="value"/>
-      <va-rating numbers color="#ffff00" v-model="value"/>
+      <va-rating numbers color="success" v-model="value" />
+      <va-rating numbers color="info" v-model="value" />
+      <va-rating numbers color="warning" v-model="value" />
+      <va-rating numbers color="danger" v-model="value" />
+      <va-rating numbers color="dark" v-model="value" />
+      <va-rating numbers color="#ffff00" v-model="value" />
     </VbCard>
     <VbCard title="Custom color for unselected">
       <va-rating
@@ -157,17 +157,17 @@
       />
     </VbCard>
     <VbCard title="Sizes">
-      <va-rating numbers size='small' v-model="value"/>
-      <va-rating numbers size='medium' v-model="value"/>
-      <va-rating numbers size='large' v-model="value"/>
-      <va-rating numbers :size="40" v-model="value"/>
-      <va-rating numbers :size="60" v-model="value"/>
+      <va-rating numbers size='small' v-model="value" />
+      <va-rating numbers size='medium' v-model="value" />
+      <va-rating numbers size='large' v-model="value" />
+      <va-rating numbers :size="40" v-model="value" />
+      <va-rating numbers :size="60" v-model="value" />
     </VbCard>
     <VbCard title="Disabled">
-      <va-rating numbers disabled hover v-model="value"/>
+      <va-rating numbers disabled hover v-model="value" />
     </VbCard>
     <VbCard title="Readonly">
-      <va-rating numbers readonly hover v-model="value"/>
+      <va-rating numbers readonly hover v-model="value" />
     </VbCard>
     <VbCard
       title="Uses context and is stateful"

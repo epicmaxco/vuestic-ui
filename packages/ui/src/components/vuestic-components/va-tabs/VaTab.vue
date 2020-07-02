@@ -29,81 +29,71 @@
   </component>
 </template>
 
-<script>
-import { KeyboardOnlyFocusMixin } from '../va-checkbox/KeyboardOnlyFocusMixin'
+<script lang="ts">
+import VaIcon from '../va-icon/VaIcon.vue'
+import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
-import VaIcon from '../va-icon/VaIcon'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { Component, Mixins } from 'vue-property-decorator'
 
-const tabContextMixin = makeContextablePropsMixin({
-  icon: {
-    type: String,
-    default: null,
-  },
-  label: {
-    type: String,
-    default: null,
-  },
-  disabled: {
-    type: Boolean,
-  },
-  name: {
-    type: [String, Number],
-  },
+const TabPropsMixin = makeContextablePropsMixin({
+  icon: { type: String, default: null },
+  label: { type: String, default: null },
+  disabled: { type: Boolean },
+  name: { type: [String, Number] },
 })
 
-export default {
+@Component({
   name: 'VaTab',
-  components: {
-    VaIcon,
-  },
-  mixins: [
-    tabContextMixin,
-    KeyboardOnlyFocusMixin,
-    RouterLinkMixin,
-  ],
-  data () {
+  components: { VaIcon },
+})
+export default class VaTab extends Mixins(
+  KeyboardOnlyFocusMixin,
+  RouterLinkMixin,
+  TabPropsMixin,
+) {
+  isActive = false
+  id = null
+
+  get classComputed () {
     return {
-      isActive: false,
-      id: null,
+      'va-tab--active': this.isActive,
+      'va-tab--disabled': this.c_disabled,
+      'va-tab--on-keyboard-focus': this.isKeyboardFocused,
     }
-  },
-  methods: {
-    onTabClick () {
-      this.$emit('click')
-    },
-    onTabKeydown () {
-      this.$emit('keydown.enter')
-    },
-    onFocus () {
-      this.KeyboardOnlyFocusMixin_onFocus()
-      this.$emit('focus')
-    },
-  },
-  computed: {
-    classComputed () {
-      return {
-        'va-tab--active': this.isActive,
-        'va-tab--disabled': this.c_disabled,
-        'va-tab--on-keyboard-focus': this.isKeyboardFocused,
-      }
-    },
-    computedTag () {
-      if (this.hasRouterLinkParams) {
-        return 'router-link'
-      }
-      return 'div'
-    },
-    tabIndexComputed () {
-      return (this.disabled || this.isActive) ? -1 : 0
-    },
-    rightSidePosition () {
-      return this.$el.offsetLeft + this.$el.offsetWidth
-    },
-    leftSidePosition () {
-      return this.$el.offsetLeft
-    },
-  },
+  }
+
+  get computedTag () {
+    if (this.hasRouterLinkParams) {
+      return 'router-link'
+    }
+    return 'div'
+  }
+
+  get tabIndexComputed () {
+    return (this.c_disabled || this.isActive) ? -1 : 0
+  }
+
+  get rightSidePosition () {
+    return (this as any).$el.offsetLeft + (this as any).$el.offsetWidth
+  }
+
+  get leftSidePosition () {
+    return (this as any).$el.offsetLeft
+  }
+
+  onTabClick () {
+    this.$emit('click')
+  }
+
+  onTabKeydown () {
+    this.$emit('keydown.enter')
+  }
+
+  onFocus () {
+    (this as any).KeyboardOnlyFocusMixin_onFocus()
+    this.$emit('focus')
+  }
 }
 </script>
 

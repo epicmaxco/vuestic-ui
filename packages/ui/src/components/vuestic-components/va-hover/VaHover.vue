@@ -1,32 +1,35 @@
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+@Component({
   name: 'VaHover',
-  data () {
-    return {
-      active: false,
-    }
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    value: {
-      type: Boolean,
-    },
-  },
-  methods: {
-    onMouseEnter () {
-      this.active = true
-      this.$emit('input', true)
-    },
-    onMouseLeave () {
-      this.active = false
-      this.$emit('input', false)
-    },
-  },
+})
+export default class VaHover extends Vue {
+  active = false
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  })
+  readonly disabled!: boolean
+
+  @Prop({
+    type: Boolean,
+  })
+  readonly value!: boolean
+
+  onMouseEnter (): void {
+    this.active = true
+    this.$emit('input', true)
+  }
+
+  onMouseLeave (): void {
+    this.active = false
+    this.$emit('input', false)
+  }
+
   render () {
-    let element
+    let element: any
 
     if (this.$scopedSlots.default) {
       element = this.$scopedSlots.default({ hover: this.value || this.active })
@@ -38,14 +41,13 @@ export default {
 
     if (!this.disabled) {
       element.data = element.data || {}
-
-      this._g(element.data, {
+      ;(this as any)._g(element.data, {
         mouseenter: this.onMouseEnter,
         mouseleave: this.onMouseLeave,
       })
     }
 
     return element
-  },
+  }
 }
 </script>

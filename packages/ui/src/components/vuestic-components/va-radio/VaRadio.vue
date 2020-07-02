@@ -36,105 +36,88 @@
   </label>
 </template>
 
-<script>
+<script lang="ts">
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins } from 'vue-property-decorator'
 
-const RadioContextMixin = makeContextablePropsMixin({
-  value: {
-    type: [Object, String, Number, Boolean],
-    default: null,
-  },
-  option: {
-    type: [Object, String, Number, Boolean],
-    default: null,
-  },
-  name: {
-    type: [String, Number],
-    default: '',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  leftLabel: {
-    type: Boolean,
-    default: false,
-  },
-  color: {
-    type: String,
-    default: '',
-  },
-
-  tabindex: {
-    type: Number,
-    default: 0,
-  },
+const RadioPropsMixin = makeContextablePropsMixin({
+  value: { type: [Object, String, Number, Boolean], default: null },
+  option: { type: [Object, String, Number, Boolean], default: null },
+  name: { type: [String, Number], default: '' },
+  disabled: { type: Boolean, default: false },
+  label: { type: String, default: '' },
+  leftLabel: { type: Boolean, default: false },
+  color: { type: String, default: '' },
+  tabindex: { type: Number, default: 0 },
 })
 
-export default {
+@Component({
   name: 'VaRadio',
-  mixins: [ColorThemeMixin, RadioContextMixin],
-  props: {
-  },
-  computed: {
-    isActive () {
-      return this.value === this.option
-    },
-    computedClass () {
+})
+export default class VaRadio extends Mixins(
+  ColorThemeMixin,
+  RadioPropsMixin,
+) {
+  get isActive () {
+    return this.value === this.option
+  }
+
+  get computedClass () {
+    return {
+      'va-radio--disabled': this.disabled,
+      'va-radio--left-label': this.leftLabel,
+    }
+  }
+
+  get iconBackgroundComputedStyles () {
+    return {
+      backgroundColor: this.colorComputed,
+    }
+  }
+
+  get iconDotComputedStyles () {
+    if (this.isActive) {
       return {
-        'va-radio--disabled': this.disabled,
-        'va-radio--left-label': this.leftLabel,
-      }
-    },
-    iconBackgroundComputedStyles () {
-      return {
+        borderColor: this.colorComputed,
         backgroundColor: this.colorComputed,
       }
-    },
-    iconDotComputedStyles () {
-      if (this.isActive) {
-        return {
-          borderColor: this.colorComputed,
-          backgroundColor: this.colorComputed,
-        }
+    }
+    return {}
+  }
+
+  get iconComputedStyles () {
+    if (this.isActive) {
+      return {
+        borderColor: this.colorComputed,
       }
-      return {}
-    },
-    iconComputedStyles () {
-      if (this.isActive) {
-        return {
-          borderColor: this.colorComputed,
-        }
-      }
-      return {}
-    },
-    computedLabel () {
-      return this.label || this.option
-    },
-  },
-  methods: {
-    onClick (e) {
-      if (!this.disabled) {
-        this.$emit('input', this.option, e)
-      }
-    },
-    onFocus (e) {
-      if (!this.disabled) {
-        this.$emit('focus', e)
-      }
-    },
-    validate () {
-      return null
-    },
-    clear () {
-      this.$emit('input', null)
-    },
-  },
+    }
+    return {}
+  }
+
+  get computedLabel () {
+    return this.label || this.option
+  }
+
+  onClick (e: Event) {
+    if (!this.disabled) {
+      this.$emit('input', this.option, e)
+    }
+  }
+
+  onFocus (e: Event) {
+    if (!this.disabled) {
+      this.$emit('focus', e)
+    }
+  }
+
+  validate () {
+    return null
+  }
+
+  clear () {
+    this.$emit('input', null)
+  }
 }
 </script>
 

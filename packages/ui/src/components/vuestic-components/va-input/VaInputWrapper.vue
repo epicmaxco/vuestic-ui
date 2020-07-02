@@ -29,52 +29,38 @@
   </div>
 </template>
 
-<script>
-import VaMessageList from './VaMessageList'
+<script lang="ts">
+import VaMessageList from './VaMessageList.vue'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins } from 'vue-property-decorator'
 
-const InputWrapperContextMixin = makeContextablePropsMixin({
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  success: {
-    type: Boolean,
-    default: false,
-  },
-  messages: {
-    type: Array,
-    default: () => [],
-  },
-  errorMessages: {
-    type: Array,
-    default: () => [],
-  },
-  errorCount: {
-    type: Number,
-    default: 1,
-  },
+const InputWrapperPropsMixin = makeContextablePropsMixin({
+  disabled: { type: Boolean, default: false },
+  error: { type: Boolean, default: false },
+  success: { type: Boolean, default: false },
+  messages: { type: Array, default: () => [] },
+  errorMessages: { type: Array, default: () => [] },
+  errorCount: { type: Number, default: 1 },
 })
 
-export default {
+@Component({
   name: 'VaInputWrapper',
   components: { VaMessageList },
-  mixins: [InputWrapperContextMixin],
-  computed: {
-    messagesComputed () {
-      return this.c_error ? this.c_errorMessages : this.messages
-    },
-    messagesColor () {
-      return (this.c_error && 'danger') || (this.c_success && 'success') || ''
-    },
-    errorLimit () {
-      return this.c_error ? this.c_errorCount : 99
-    },
-  },
+})
+export default class VaInputWrapper extends Mixins(
+  InputWrapperPropsMixin,
+) {
+  get messagesComputed () {
+    return this.c_error ? this.c_errorMessages : this.messages
+  }
+
+  get messagesColor () {
+    return (this.c_error && 'danger') || (this.c_success && 'success') || ''
+  }
+
+  get errorLimit () {
+    return this.c_error ? this.c_errorCount : 99
+  }
 }
 </script>
 

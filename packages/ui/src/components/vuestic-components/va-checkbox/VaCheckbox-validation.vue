@@ -12,16 +12,19 @@
   </VbCard>
 </template>
 
-<script>
-import VaCheckbox from './VaCheckbox'
+<script lang="ts">
 
-export default {
-  name: 'VaCheckboxValidation',
+import VaCheckbox from './VaCheckbox.vue'
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({
   components: { VaCheckbox },
+})
+export default class VaCheckboxValidation extends Vue {
   data () {
     return {
       value: false,
     }
-  },
+  }
 }
 </script>
