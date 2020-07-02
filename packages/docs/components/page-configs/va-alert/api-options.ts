@@ -26,6 +26,12 @@ export default {
     center: {
       local: true,
     },
+    borderColor: {
+      local: true,
+    },
+    border: {
+      local: true,
+    },
   },
   events: {
     input: {
