@@ -8,6 +8,33 @@
         </div>
       </va-expand>
     </VbCard>
+
+    <VbCard title="Layers">
+      <va-expand style="width: 400px;">
+        <span slot="header">{{ expandHeader }}</span>
+        <div>
+          <va-expand style="width: 380px;">
+            <span slot="header">{{ expandHeader }}</span>
+            <div>
+              {{ expandContent }}
+            </div>
+          </va-expand>
+                    <va-expand style="width: 380px;">
+            <span slot="header">{{ expandHeader }}</span>
+            <div>
+              {{ expandContent }}
+            </div>
+          </va-expand>
+                    <va-expand style="width: 380px;">
+            <span slot="header">{{ expandHeader }}</span>
+            <div>
+              {{ expandContent }}
+            </div>
+          </va-expand>
+        </div>
+      </va-expand>
+    </VbCard>
+
     <VbCard title="Custom header">
       <va-expand
         style="width: 400px;"

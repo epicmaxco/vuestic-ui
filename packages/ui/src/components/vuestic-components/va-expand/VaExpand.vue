@@ -33,6 +33,7 @@
     <div
       class="va-expand__body"
       :style="stylesComputed"
+      ref="body"
     >
       <slot />
     </div>
@@ -77,11 +78,13 @@ export default class VaExpand extends Mixins(
   ExpandPropsMixin,
 ) {
   show = false
+  height = this.getHeight()
+  mutationObserver: any = null
 
   get stylesComputed () {
     if (this.show && this.$slots.default?.[0]) {
       return {
-        height: this.getHeight(),
+        height: this.height,
         paddingTop: 1 + 'rem',
         paddingBottom: 1 + 'rem',
       }
@@ -117,6 +120,17 @@ export default class VaExpand extends Mixins(
   getHeight () {
     const node = this.$slots.default?.[0].elm as HTMLElement
     return node ? `calc(${node.clientHeight}px + 2rem)` : '100%'
+  }
+
+  beforeMount () {
+    this.mutationObserver = new MutationObserver(() => {
+      this.height = this.getHeight()
+    })
+    this.mutationObserver.observe(this.$refs.body, { attributes: true, childList: true, subtree: true })
+  }
+
+  beforeDestroy () {
+    if (this.mutationObserver) { this.mutationObserver.disconnect() }
   }
 }
 </script>
