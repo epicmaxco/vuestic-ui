@@ -370,10 +370,12 @@
         "closeIcon": "Replace the default close icon with a custom one",
         "closeText": "Use text instead of the close icon",
         "closeable": "Add a close alert area",
-        "center": "Center the title and description of the alert"
+        "center": "Center the title and description of the alert",
+        "borderColor": "Border color of the alert",
+        "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available."
       },
       "methods": {
-        "hide":"Hide alert. On stateless modal only emits `@input`"
+        "hide":"Hide alert. On stateless alert only emits `@input`"
       },
       "slots": {
         "default": "Content of alert body",
@@ -1140,6 +1142,10 @@
       "color": {
         "title": "Color",
         "text": "Use `color` property to change the color of the component."
+      },
+      "border": {
+        "title": "Border",
+        "text": "Use the `border` property to add a strip and the `border-color` property to change the color of the strip."
       },
       "title": {
         "title": "Title",

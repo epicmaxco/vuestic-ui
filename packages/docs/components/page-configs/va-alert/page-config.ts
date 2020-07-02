@@ -41,6 +41,18 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'alert.examples.border.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'alert.examples.border.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-alert/Border',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'alert.examples.title.title',
   },
   {

@@ -158,7 +158,7 @@ $va-alert__border--left: 0.5rem 0 0 0.5rem;
 
 // Alerts
 $va-alert-margin-y: 0.25rem;
-$va-alert-padding-x: 0.5rem;
+$va-alert-padding-x: 0.75rem;
 $va-alert-padding-y: 0.75rem;
 $va-alert-border: 0;
 $va-alert-border-radius: 0.5rem;
