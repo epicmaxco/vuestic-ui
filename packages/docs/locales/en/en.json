@@ -36,7 +36,7 @@
         "src": "Source URL.",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
         "label": "Same as native `label`",
-        "leftLabel": "Moves the label on the left of a checkbox",
+        "leftLabel": "Moves the label on the left of a component",
         "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
@@ -360,6 +360,13 @@
         "loading": "Shown when content is fetching.",
         "default": "The content to be scrolled"
       }
+    },
+    "VaRadio": {
+      "props": {
+        "value": "Model of the component",
+        "option": "Option value that model is updated to when an option is selected",
+        "tabindex": "Sets a custom tabindex"
+      }
     }
   },
   "anyPage": {
@@ -389,7 +396,8 @@
     "divider": "Divider",
     "button": "Button",
     "checkbox": "Checkbox",
-    "infiniteScroll": "Infinite Scroll"
+    "infiniteScroll": "Infinite Scroll",
+    "radio": "Radio"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1104,6 +1112,28 @@
       "customTarget": {
         "title": "Custom scroll target container",
         "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
+      }
+    }
+  },
+  "radio": {
+    "title": "Radio",
+    "summaryText": "The `va-radio` allows the user to select one option from a set.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage  of the `va-radio` component."
+      },
+      "color": {
+        "title": "Colors",
+        "text": "With `color` prop you can change the color of the component."
+      },
+      "customLabels": {
+        "title": "Custom Labels",
+        "text": "You can add a label text by setting the `label` property. To switch label side use `left-label` property."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
       }
     }
   }
