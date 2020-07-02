@@ -7,28 +7,31 @@
       class="va-expand__header"
       @click="onHeaderClick()"
     >
-      <template>
-        <slot
-          name="header"
-          v-if="customHeader"
-        />
-      </template>
-      <div
-        v-if="!customHeader"
-        class="va-expand__header__content"
-      >
-        <slot name="header" />
-        <va-icon
-          v-if="show"
-          class="va-expand__header__icon"
-          name="expand_less"
-        />
-        <va-icon
-          v-else
-          class="va-expand__header__icon"
-          name="expand_more"
-        />
-      </div>
+      <slot name="header">
+        <div
+          class="va-expand__header__content"
+          :style="contentStyle"
+        >
+          <va-icon
+            v-if="c_icon"
+            class="va-expand__header__icon"
+            :name="c_icon"
+          />
+          <div class="va-expand__header__text">
+            {{c_header}}
+          </div>
+          <va-icon
+            v-if="show"
+            class="va-expand__header__icon"
+            name="expand_less"
+          />
+          <va-icon
+            v-else
+            class="va-expand__header__icon"
+            name="expand_more"
+          />
+        </div>
+      </slot>
     </div>
     <div
       class="va-expand__body"
@@ -52,6 +55,8 @@ const ExpandPropsMixin = makeContextablePropsMixin({
   isOpenDefault: { type: Boolean },
   withBackground: { type: Boolean },
   customHeader: { type: Boolean },
+  header: { type: String, default: '' },
+  icon: { type: String, default: '' },
 })
 
 @Component({
@@ -65,13 +70,6 @@ const ExpandPropsMixin = makeContextablePropsMixin({
   components: {
     VaIcon,
   },
-  mixins: [
-    makeContextablePropsMixin({
-      isOpenDefault: { type: Boolean },
-      withBackground: { type: Boolean },
-      customHeader: { type: Boolean },
-    }),
-  ],
 })
 
 export default class VaExpand extends Mixins(
@@ -80,6 +78,15 @@ export default class VaExpand extends Mixins(
   show = false
   height = this.getHeight()
   mutationObserver: any = null
+
+  get contentStyle () {
+    if (this.c_icon) {
+      return {
+        paddingLeft: 0,
+      }
+    }
+    return {}
+  }
 
   get stylesComputed () {
     if (this.show && this.$slots.default?.[0]) {
@@ -122,7 +129,7 @@ export default class VaExpand extends Mixins(
     return node ? `calc(${node.clientHeight}px + 2rem)` : '100%'
   }
 
-  beforeMount () {
+  mount () {
     this.mutationObserver = new MutationObserver(() => {
       this.height = this.getHeight()
     })
@@ -172,6 +179,10 @@ export default class VaExpand extends Mixins(
       padding-top: 0.75rem;
       padding-bottom: 0.75rem;
       padding-left: 1rem;
+    }
+
+    &__text {
+      width: 100%;
     }
 
     &__icon {

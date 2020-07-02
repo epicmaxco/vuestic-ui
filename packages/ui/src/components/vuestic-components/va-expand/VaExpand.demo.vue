@@ -1,8 +1,22 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <va-expand style="width: 400px;">
-        <span slot="header">{{ expandHeader }}</span>
+      <va-expand
+        style="width: 400px;"
+        :header="expandHeader"
+      >
+        <div>
+          {{ expandContent }}
+        </div>
+      </va-expand>
+    </VbCard>
+
+    <VbCard title="Icon">
+      <va-expand
+        style="width: 400px;"
+        :header="expandHeader"
+        icon="home"
+      >
         <div>
           {{ expandContent }}
         </div>
@@ -10,23 +24,31 @@
     </VbCard>
 
     <VbCard title="Layers">
-      <va-expand style="width: 400px;">
-        <span slot="header">{{ expandHeader }}</span>
+      <va-expand
+        style="width: 400px;"
+        :header="expandHeader"
+      >
         <div>
-          <va-expand style="width: 380px;">
-            <span slot="header">{{ expandHeader }}</span>
+          <va-expand
+            style="width: 380px;"
+            :header="expandHeader"
+          >
             <div>
               {{ expandContent }}
             </div>
           </va-expand>
-                    <va-expand style="width: 380px;">
-            <span slot="header">{{ expandHeader }}</span>
+          <va-expand
+            style="width: 380px;"
+            :header="expandHeader"
+          >
             <div>
               {{ expandContent }}
             </div>
           </va-expand>
-                    <va-expand style="width: 380px;">
-            <span slot="header">{{ expandHeader }}</span>
+          <va-expand
+            style="width: 380px;"
+            :header="expandHeader"
+          >
             <div>
               {{ expandContent }}
             </div>
@@ -38,50 +60,17 @@
     <VbCard title="Custom header">
       <va-expand
         style="width: 400px;"
-        custom-header
       >
-        <va-button
-          slot="header"
-          style="width: 100%;"
-        >
-          {{ expandHeader }}
-        </va-button>
+        <template slot="header">
+          <va-button
+            style="width: 100%;"
+          >
+            {{ expandHeader }}
+          </va-button>
+        </template>
+
         <div>
           {{ expandContent }}
-        </div>
-      </va-expand>
-    </VbCard>
-    <VbCard title="With background">
-      <va-expand
-        style="width: 400px;"
-        with-background
-      >
-        <span slot="header">{{ expandHeader }}</span>
-        <div>
-          {{ expandContent }}
-        </div>
-      </va-expand>
-    </VbCard>
-    <VbCard title="Is open default">
-      <va-expand
-        style="width: 400px;"
-        is-open-default
-      >
-        <span slot="header">{{ expandHeader }}</span>
-        <div>
-          {{ expandContent }}
-        </div>
-      </va-expand>
-    </VbCard>
-    <VbCard title="looooong texts">
-      <va-expand
-        style="width: 400px;"
-        default-value
-      >
-        <span slot="header">{{ expandHeader }} {{ expandHeader }} {{ expandHeader }} {{ expandHeader }} {{ expandHeader }} {{ expandHeader }} {{ expandHeader }} {{ expandHeader }} {{ expandHeader }} {{ expandHeader }}</span>
-        <div>
-          {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }}
-          {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }} {{ expandContent }}
         </div>
       </va-expand>
     </VbCard>
