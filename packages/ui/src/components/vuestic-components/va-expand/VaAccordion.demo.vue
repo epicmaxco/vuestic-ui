@@ -2,30 +2,30 @@
   <VbDemo>
     <VbCard>
       <va-accordion style="width: 400px;">
-        <va-collapse>
-          <span slot="header">One collapse</span>
+        <va-expand>
+          <span slot="header">One expand</span>
           <div slot="body">
             <div>
               Expand first content
             </div>
           </div>
-        </va-collapse>
-        <va-collapse>
-          <span slot="header">Two collapse</span>
+        </va-expand>
+        <va-expand>
+          <span slot="header">Two expand</span>
           <div slot="body">
             <div>
               Expand three content
             </div>
           </div>
-        </va-collapse>
-        <va-collapse>
-          <span slot="header">Three collapse</span>
+        </va-expand>
+        <va-expand>
+          <span slot="header">Three expand</span>
           <div slot="body">
             <div>
               Expand three content
             </div>
           </div>
-        </va-collapse>
+        </va-expand>
       </va-accordion>
     </VbCard>
   </VbDemo>
@@ -34,12 +34,12 @@
 <script>
 
 import VaAccordion from './VaAccordion'
-import VaCollapse from './VaCollapse'
+import VaExpand from './VaExpand'
 
 export default {
   components: {
     VaAccordion,
-    VaCollapse,
+    VaExpand,
   },
 }
 </script>

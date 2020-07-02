@@ -1,10 +1,10 @@
 <template>
   <div
-    class="va-collapse"
-    :class="{'va-collapse--with-background': withBackground}"
+    class="va-expand"
+    :class="{'va-expand--with-background': withBackground}"
   >
     <div
-      class="va-collapse__header"
+      class="va-expand__header"
       @click="onHeaderClick()"
     >
       <template>
@@ -15,23 +15,23 @@
       </template>
       <div
         v-if="!customHeader"
-        class="va-collapse__header__content"
+        class="va-expand__header__content"
       >
         <slot name="header" />
         <va-icon
           v-if="show"
-          class="va-collapse__header__icon"
+          class="va-expand__header__icon"
           name="arrow_back_ios"
         />
         <va-icon
           v-else
-          class="va-collapse__header__icon"
+          class="va-expand__header__icon"
           name="arrow_forward_ios"
         />
       </div>
     </div>
     <div
-      class="va-collapse__body"
+      class="va-expand__body"
       :style="stylesComputed"
     >
       <slot />
@@ -41,12 +41,17 @@
 
 <script lang="ts">
 
-import { Component } from 'vue-property-decorator'
+import { Component, Mixins } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
-import { mixins } from 'vue-class-component'
+
+const ExpandPropsMixin = makeContextablePropsMixin({
+  isOpenDefault: { type: Boolean },
+  withBackground: { type: Boolean },
+  customHeader: { type: Boolean },
+})
 
 @Component({
   inject: {
@@ -67,12 +72,9 @@ import { mixins } from 'vue-class-component'
     }),
   ],
 })
-export default class VaCollapse extends mixins(
-  makeContextablePropsMixin({
-    isOpenDefault: { type: Boolean },
-    withBackground: { type: Boolean },
-    customHeader: { type: Boolean },
-  }),
+
+export default class VaExpand extends Mixins(
+  ExpandPropsMixin,
 ) {
   show = false
 
@@ -96,25 +98,25 @@ export default class VaCollapse extends mixins(
     this.accordion.onChildChange(this, this.show)
   }
 
-  collapse () {
+  expand () {
     this.show = false
   }
 
-  expand () {
+  hide () {
     this.show = true
   }
 
   toggle () {
     if (this.show) {
-      this.collapse()
-    } else {
       this.expand()
+    } else {
+      this.hide()
     }
   }
 
   getHeight () {
     const node = this.$slots.default?.[0].elm as HTMLElement
-    return node ? `calc(${node.clientHeight}px + 2rem))` : '100%'
+    return node ? `calc(${node.clientHeight}px + 2rem)` : '100%'
   }
 }
 </script>
@@ -122,7 +124,7 @@ export default class VaCollapse extends mixins(
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.va-collapse {
+.va-expand {
   & + & {
     margin-top: 1.5rem;
   }
@@ -136,7 +138,7 @@ export default class VaCollapse extends mixins(
     padding-right: 1rem;
 
     @at-root {
-      .va-collapse--with-background > & {
+      .va-expand--with-background > & {
         margin-top: 0.1rem;
         border-radius: 0.375rem;
         background-color: $light-gray3;
