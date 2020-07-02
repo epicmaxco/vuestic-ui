@@ -58,19 +58,13 @@ export default class VaDataTableCustomDataManagerExample extends Vue {
 
   sortAsc (items: Array<any>, field: any): Array<any> {
     return items.slice().sort((a: any, b: any) => {
-      return a[field].localeCompare(b[field], undefined, {
-        numeric: true,
-        sensitivity: 'base',
-      })
+      return a[field].split('').reverse().join('').localeCompare(b[field].split('').reverse().join(''))
     })
   }
 
   sortDesc (items: Array<any>, field: any): Array<any> {
     return items.slice().sort((a: any, b: any) => {
-      return b[field].localeCompare(a[field], undefined, {
-        numeric: true,
-        sensitivity: 'base',
-      })
+      return b[field].split('').reverse().join('').localeCompare(a[field].split('').reverse().join(''))
     })
   }
 
