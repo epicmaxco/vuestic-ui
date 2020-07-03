@@ -11,11 +11,57 @@
       </va-expand>
     </VbCard>
 
-    <VbCard title="Default">
+    <VbCard title="Solid">
       <va-expand
         style="width: 400px;"
         :header="expandHeader"
         solid
+      >
+        <div>
+          {{ expandContent }}
+        </div>
+      </va-expand>
+    </VbCard>
+
+    <VbCard title="Color">
+      <va-expand
+        style="width: 400px;"
+        :header="expandHeader"
+        color="success"
+      >
+        <div>
+          {{ expandContent }}
+        </div>
+      </va-expand>
+      <va-expand
+        style="width: 400px;"
+        :header="expandHeader"
+        solid
+        color="warning"
+      >
+        <div>
+          {{ expandContent }}
+        </div>
+      </va-expand>
+      <va-expand
+        style="width: 400px;"
+        :header="expandHeader"
+        solid
+        color="danger"
+        color-all
+      >
+        <div>
+          {{ expandContent }}
+        </div>
+      </va-expand>
+      <va-expand
+        style="width: 400px;"
+        :header="expandHeader"
+        solid
+        color="#000"
+        color-all
+        text-color="white"
+        icon="info"
       >
         <div>
           {{ expandContent }}

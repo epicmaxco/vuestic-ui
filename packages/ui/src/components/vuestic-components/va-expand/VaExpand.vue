@@ -16,6 +16,7 @@
             v-if="c_icon"
             class="va-expand__header__icon"
             :name="c_icon"
+            :color="c_textColor"
           />
           <div class="va-expand__header__text">
             {{c_header}}
@@ -24,11 +25,13 @@
             v-if="show"
             class="va-expand__header__icon"
             name="expand_less"
+            :color="c_textColor"
           />
           <va-icon
             v-else
             class="va-expand__header__icon"
             name="expand_more"
+            :color="c_textColor"
           />
         </div>
       </slot>
@@ -50,12 +53,19 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import {
+  getHoverColor,
+} from '../../../services/color-functions'
 
 const ExpandPropsMixin = makeContextablePropsMixin({
   disabled: { type: Boolean, default: false },
   header: { type: String, default: '' },
   icon: { type: String, default: '' },
   solid: { type: Boolean, default: false },
+  color: { type: String, default: '' },
+  textColor: { type: String, default: '' },
+  colorAll: { type: Boolean, default: false },
 })
 
 @Component({
@@ -72,6 +82,7 @@ const ExpandPropsMixin = makeContextablePropsMixin({
 })
 
 export default class VaExpand extends Mixins(
+  ColorThemeMixin,
   ExpandPropsMixin,
 ) {
   show = false
@@ -82,16 +93,16 @@ export default class VaExpand extends Mixins(
     return {
       'va-expand--disabled': this.c_disabled,
       'va-expand--solid': this.c_solid,
+      'va-expand--solid--active': this.c_solid && this.show,
     }
   }
 
   get contentStyle () {
-    if (this.c_icon) {
-      return {
-        paddingLeft: 0,
-      }
+    return {
+      paddingLeft: this.c_icon && 0,
+      color: this.c_textColor ? getColor(this, this.c_textColor) : '',
+      backgroundColor: this.c_color ? this.colorComputed : '',
     }
-    return {}
   }
 
   get stylesComputed () {
@@ -100,6 +111,9 @@ export default class VaExpand extends Mixins(
         height: this.height,
         paddingTop: 1 + 'rem',
         paddingBottom: 1 + 'rem',
+        background: this.c_color && this.c_colorAll
+          ? getHoverColor(this.colorComputed)
+          : '',
       }
     }
     return {
@@ -200,7 +214,8 @@ export default class VaExpand extends Mixins(
     .va-expand {
       &__header {
         &__content {
-          border-radius: 0.375rem 0.375rem 0 0;
+          border-radius: 0.375rem;
+          transition: ease-in 0.3s;
           box-shadow: none;
           background-color: $light-gray3;
         }
@@ -209,6 +224,17 @@ export default class VaExpand extends Mixins(
       &__body {
         border-radius: 0 0 0.375rem 0.375rem;
         margin-top: 0;
+      }
+    }
+
+    &--active {
+      .va-expand {
+        &__header {
+          &__content {
+            border-radius: 0.375rem 0.375rem 0 0;
+            transition: ease-in 0.3s;
+          }
+        }
       }
     }
   }
