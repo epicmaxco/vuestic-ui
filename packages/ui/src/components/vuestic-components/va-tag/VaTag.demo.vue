@@ -70,7 +70,13 @@
       </va-tag>
     </VbCard>
 
-      <VbCard title="Stateful">
+    <VbCard title="Disabled">
+      <va-tag disabled closeable stateful>
+        vuestic
+      </va-tag>
+    </VbCard>
+
+    <VbCard title="Stateful">
       <va-tag
         stateful
         closeable

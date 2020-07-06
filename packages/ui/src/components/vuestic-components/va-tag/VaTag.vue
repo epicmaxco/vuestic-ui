@@ -39,6 +39,7 @@ const TagPropsMixin = makeContextablePropsMixin({
   flat: { type: Boolean, default: false },
   icon: { type: String, default: '' },
   iconSize: { type: [Number, String], default: '18px' },
+  disabled: { type: Boolean, default: false },
   size: {
     type: String,
     default: 'medium',
@@ -61,6 +62,7 @@ export default class VaTag extends Mixins(
     return {
       'va-tag--small': this.c_size === 'small',
       'va-tag--large': this.c_size === 'large',
+      'va-tag--disabled': this.c_disabled,
     }
   }
 
@@ -81,7 +83,9 @@ export default class VaTag extends Mixins(
   }
 
   close () {
-    this.valueComputed = false
+    if (!this.c_disabled) {
+      this.valueComputed = false
+    }
   }
 }
 </script>
@@ -113,7 +117,7 @@ export default class VaTag extends Mixins(
 
   &__close-icon {
     cursor: pointer;
-    padding-left: 0.375rem;
+    margin-left: 0.375rem;
   }
 
   &--small {
@@ -122,6 +126,10 @@ export default class VaTag extends Mixins(
 
   &--large {
     height: 2.5rem;
+  }
+
+  &--disabled {
+    @include va-disabled;
   }
 }
 </style>
