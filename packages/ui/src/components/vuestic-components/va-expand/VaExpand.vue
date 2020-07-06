@@ -5,7 +5,7 @@
   >
     <div
       class="va-expand__header"
-      @click="onHeaderClick()"
+      @click="changeValue()"
     >
       <slot name="header">
         <div
@@ -22,7 +22,7 @@
             {{c_header}}
           </div>
           <va-icon
-            v-if="show"
+            v-if="valueComputed"
             class="va-expand__header__icon"
             name="expand_less"
             :color="c_textColor"
@@ -57,8 +57,10 @@ import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import {
   getHoverColor,
 } from '../../../services/color-functions'
+import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
 const ExpandPropsMixin = makeContextablePropsMixin({
+  value: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   header: { type: String, default: '' },
   icon: { type: String, default: '' },
@@ -66,6 +68,7 @@ const ExpandPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
   textColor: { type: String, default: '' },
   colorAll: { type: Boolean, default: false },
+  stateful: { type: Boolean, default: false },
 })
 
 @Component({
@@ -82,10 +85,10 @@ const ExpandPropsMixin = makeContextablePropsMixin({
 })
 
 export default class VaExpand extends Mixins(
+  StatefulMixin,
   ColorThemeMixin,
   ExpandPropsMixin,
 ) {
-  show = false
   height = this.getHeight()
   mutationObserver: any = null
 
@@ -93,7 +96,7 @@ export default class VaExpand extends Mixins(
     return {
       'va-expand--disabled': this.c_disabled,
       'va-expand--solid': this.c_solid,
-      'va-expand--solid--active': this.c_solid && this.show,
+      'va-expand--solid--active': this.c_solid && this.valueComputed,
     }
   }
 
@@ -106,7 +109,7 @@ export default class VaExpand extends Mixins(
   }
 
   get stylesComputed () {
-    if (this.show && this.$slots.default?.[0]) {
+    if (this.valueComputed && this.$slots.default?.[0]) {
       return {
         height: this.height,
         paddingTop: 1 + 'rem',
@@ -123,25 +126,11 @@ export default class VaExpand extends Mixins(
     }
   }
 
-  onHeaderClick () {
-    this.toggle()
-    this.accordion.onChildChange(this, this.show)
-  }
-
-  expand () {
-    this.show = false
-  }
-
-  hide () {
-    this.show = true
-  }
-
-  toggle () {
-    if (this.show) {
-      this.expand()
-    } else {
-      this.hide()
-    }
+  changeValue () {
+    this.valueComputed = this.c_stateful
+      ? !this.valueComputed
+      : !this.c_value
+    this.accordion.onChildChange(this, this.valueComputed)
   }
 
   getHeight () {

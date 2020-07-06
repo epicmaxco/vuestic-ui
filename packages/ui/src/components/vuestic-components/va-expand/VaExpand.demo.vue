@@ -2,6 +2,7 @@
   <VbDemo>
     <VbCard title="Default">
       <va-expand
+        v-model="expandValue"
         style="width: 400px;"
         :header="expandHeader"
       >
@@ -13,6 +14,7 @@
 
     <VbCard title="Solid">
       <va-expand
+        v-model="expandValue"
         style="width: 400px;"
         :header="expandHeader"
         solid
@@ -23,8 +25,22 @@
       </va-expand>
     </VbCard>
 
+    <VbCard title="Disabled">
+      <va-expand
+        v-model="expandValue"
+        style="width: 400px;"
+        :header="expandHeader"
+        disabled
+      >
+        <div>
+          {{ expandContent }}
+        </div>
+      </va-expand>
+    </VbCard>
+
     <VbCard title="Color">
       <va-expand
+        v-model="expandValue"
         style="width: 400px;"
         :header="expandHeader"
         color="success"
@@ -34,6 +50,7 @@
         </div>
       </va-expand>
       <va-expand
+        v-model="expandValue"
         style="width: 400px;"
         :header="expandHeader"
         solid
@@ -44,6 +61,7 @@
         </div>
       </va-expand>
       <va-expand
+        v-model="expandValue"
         style="width: 400px;"
         :header="expandHeader"
         solid
@@ -55,6 +73,7 @@
         </div>
       </va-expand>
       <va-expand
+        v-model="expandValue"
         style="width: 400px;"
         :header="expandHeader"
         solid
@@ -69,20 +88,9 @@
       </va-expand>
     </VbCard>
 
-    <VbCard title="Disabled">
-      <va-expand
-        style="width: 400px;"
-        :header="expandHeader"
-        disabled
-      >
-        <div>
-          {{ expandContent }}
-        </div>
-      </va-expand>
-    </VbCard>
-
     <VbCard title="Icon">
       <va-expand
+        v-model="expandValue"
         style="width: 400px;"
         :header="expandHeader"
         icon="home"
@@ -95,32 +103,30 @@
 
     <VbCard title="Layers">
       <va-expand
+        v-model="expandValue"
         style="width: 400px;"
         :header="expandHeader"
       >
         <div>
           <va-expand
+            v-for="(value, index) in expandLayerValue"
+            :key="index"
+            v-model="expandLayerValue[index]"
             style="width: 380px;"
             :header="expandHeader"
           >
             <div>
-              {{ expandContent }}
-            </div>
-          </va-expand>
-          <va-expand
-            style="width: 380px;"
-            :header="expandHeader"
-          >
-            <div>
-              {{ expandContent }}
-            </div>
-          </va-expand>
-          <va-expand
-            style="width: 380px;"
-            :header="expandHeader"
-          >
-            <div>
-              {{ expandContent }}
+              <va-expand
+                v-for="(value, index) in expandSecondLayerValue"
+                :key="index"
+                v-model="expandSecondLayerValue[index]"
+                style="width: 340px;"
+                :header="expandHeader"
+              >
+                <div>
+                  {{ expandContent }}
+                </div>
+              </va-expand>
             </div>
           </va-expand>
         </div>
@@ -129,6 +135,7 @@
 
     <VbCard title="Custom header">
       <va-expand
+        v-model="expandValue"
         style="width: 400px;"
       >
         <template slot="header">
@@ -139,6 +146,18 @@
           </va-button>
         </template>
 
+        <div>
+          {{ expandContent }}
+        </div>
+      </va-expand>
+    </VbCard>
+
+    <VbCard title="Stateful">
+      <va-expand
+        stateful
+        style="width: 400px;"
+        :header="expandHeader"
+      >
         <div>
           {{ expandContent }}
         </div>
@@ -158,6 +177,9 @@ export default {
   },
   data () {
     return {
+      expandValue: false,
+      expandLayerValue: [false, false, false],
+      expandSecondLayerValue: [false, false, false],
       expandHeader: 'Expand This Block',
       expandContent: 'Expand content',
     }
