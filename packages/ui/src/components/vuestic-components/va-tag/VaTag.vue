@@ -53,11 +53,9 @@ export default class VaTag extends Mixins(
       borderColor: !this.c_flat
         ? this.colorComputed
         : '',
-      color: this.c_flat
-        ? ''
-        : this.c_outline
-          ? this.colorComputed
-          : '#fff',
+      color: this.c_outline || this.c_flat
+        ? this.colorComputed
+        : '#fff',
     }
   }
 
