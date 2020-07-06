@@ -2,6 +2,7 @@
   <div
     v-if="valueComputed"
     class="va-tag"
+    :class="computedClass"
     :style="computedStyle"
   >
     <div class="va-tag__content">
@@ -20,7 +21,6 @@
 <script lang="ts">
 import VaIcon from '../va-icon/VaIcon.vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { SizeMixin } from '../../../mixins/SizeMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins } from 'vue-property-decorator'
@@ -31,6 +31,13 @@ const TagPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
   outline: { type: Boolean, default: false },
   flat: { type: Boolean, default: false },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
+    },
+  },
 })
 
 @Component({
@@ -40,9 +47,15 @@ const TagPropsMixin = makeContextablePropsMixin({
 export default class VaTag extends Mixins(
   StatefulMixin,
   ColorThemeMixin,
-  SizeMixin,
   TagPropsMixin,
 ) {
+  get computedClass () {
+    return {
+      'va-tag--small': this.c_size === 'small',
+      'va-tag--large': this.c_size === 'large',
+    }
+  }
+
   get computedStyle () {
     return {
       backgroundColor: this.c_flat
@@ -71,7 +84,7 @@ export default class VaTag extends Mixins(
 .va-tag {
   display: inline-flex;
   border: 0.125rem solid transparent;
-  border-radius: 1rem;
+  border-radius: 2rem;
   width: auto;
   height: auto;
   min-width: initial;
@@ -88,6 +101,14 @@ export default class VaTag extends Mixins(
 
   &__icon {
     cursor: pointer;
+  }
+
+  &--small {
+    height: 1.5rem;
+  }
+
+  &--large {
+    height: 2.5rem;
   }
 }
 </style>

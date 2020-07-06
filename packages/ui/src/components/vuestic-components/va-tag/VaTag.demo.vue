@@ -38,6 +38,17 @@
       </va-tag>
     </VbCard>
 
+    <VbCard title="Sizes">
+      <va-tag
+        v-for="(size, index) in sizes"
+        :key="index"
+        :size="size"
+        closeable
+      >
+        {{size}} size
+      </va-tag>
+    </VbCard>
+
     <VbCard title="Closeable">
       <va-checkbox v-model="value" />
       <va-tag
@@ -76,6 +87,11 @@ export default {
         'danger',
         'info',
         '#7f1f90',
+      ],
+      sizes: [
+        'small',
+        'medium',
+        'large',
       ],
     }
   },
