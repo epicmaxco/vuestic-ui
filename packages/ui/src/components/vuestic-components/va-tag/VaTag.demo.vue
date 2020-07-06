@@ -49,6 +49,17 @@
       </va-tag>
     </VbCard>
 
+    <VbCard title="Icons">
+      <va-tag
+        v-for="(icon, index) in icons"
+        :key="index"
+        :icon="icon"
+        icon-size="20px"
+      >
+        {{icon}}
+      </va-tag>
+    </VbCard>
+
     <VbCard title="Closeable">
       <va-checkbox v-model="value" />
       <va-tag
@@ -92,6 +103,11 @@ export default {
         'small',
         'medium',
         'large',
+      ],
+      icons: [
+        'heart',
+        'star',
+        'battery',
       ],
     }
   },

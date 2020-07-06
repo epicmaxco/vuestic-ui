@@ -6,13 +6,19 @@
     :style="computedStyle"
   >
     <div class="va-tag__content">
+      <va-icon
+        v-if="c_icon"
+        class="va-tag__icon"
+        :name="icon"
+        :size="iconSize"
+      />
       <slot></slot>
       <va-icon
         v-if="c_closeable"
         class="va-tag__close-icon"
         @click="close()"
         name="close"
-        size="18px"
+        size="20px"
       />
     </div>
   </div>
@@ -31,6 +37,8 @@ const TagPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
   outline: { type: Boolean, default: false },
   flat: { type: Boolean, default: false },
+  icon: { type: String, default: '' },
+  iconSize: { type: [Number, String], default: '18px' },
   size: {
     type: String,
     default: 'medium',
@@ -100,7 +108,12 @@ export default class VaTag extends Mixins(
   }
 
   &__icon {
+    padding-right: 0.375rem;
+  }
+
+  &__close-icon {
     cursor: pointer;
+    padding-left: 0.375rem;
   }
 
   &--small {
