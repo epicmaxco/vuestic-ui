@@ -107,6 +107,11 @@ export default class VaTag extends Mixins(
   margin: 0;
   padding: 0 0.5rem;
   color: $white;
+  cursor: default;
+
+  &:hover {
+    opacity: 0.85;
+  }
 
   &__content {
     display: flex;
@@ -138,6 +143,10 @@ export default class VaTag extends Mixins(
 
   &--disabled {
     @include va-disabled;
+
+    &:hover {
+      opacity: 0.4;
+    }
   }
 }
 </style>
