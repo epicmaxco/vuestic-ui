@@ -68,7 +68,6 @@ const ExpandPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
   textColor: { type: String, default: '' },
   colorAll: { type: Boolean, default: false },
-  stateful: { type: Boolean, default: false },
 })
 
 @Component({
@@ -127,9 +126,7 @@ export default class VaExpand extends Mixins(
   }
 
   changeValue () {
-    this.valueComputed = this.c_stateful
-      ? !this.valueComputed
-      : !this.c_value
+    this.valueComputed = !this.valueComputed
     this.accordion.onChildChange(this, this.valueComputed)
   }
 
