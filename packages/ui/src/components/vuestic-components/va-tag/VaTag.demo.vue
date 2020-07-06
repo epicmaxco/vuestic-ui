@@ -6,6 +6,38 @@
       </va-tag>
     </VbCard>
 
+    <VbCard title="Colors">
+      <va-tag
+        v-for="(color, index) in colors"
+        :key="index"
+        :color="color"
+      >
+        {{color}}
+      </va-tag>
+    </VbCard>
+
+    <VbCard title="Outline">
+      <va-tag
+        v-for="(color, index) in colors"
+        :key="index"
+        outline
+        :color="color"
+      >
+        {{color}}
+      </va-tag>
+    </VbCard>
+
+    <VbCard title="Flat">
+      <va-tag
+        v-for="(color, index) in colors"
+        :key="index"
+        flat
+        :color="color"
+      >
+        {{color}}
+      </va-tag>
+    </VbCard>
+
     <VbCard title="Closeable">
       <va-checkbox v-model="value" />
       <va-tag
@@ -14,7 +46,15 @@
       >
         vuestic
       </va-tag>
+    </VbCard>
 
+      <VbCard title="Stateful">
+      <va-tag
+        stateful
+        closeable
+      >
+        vuestic
+      </va-tag>
     </VbCard>
   </VbDemo>
 </template>
@@ -31,6 +71,12 @@ export default {
   data () {
     return {
       value: true,
+      colors: [
+        'primary',
+        'danger',
+        'info',
+        '#7f1f90',
+      ],
     }
   },
 }

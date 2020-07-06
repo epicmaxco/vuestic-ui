@@ -1,11 +1,8 @@
 <template>
-  <component
+  <div
     v-if="valueComputed"
-    :is="computedTag"
     class="va-tag"
-    :class="computedClass"
     :style="computedStyle"
-    v-on="$listeners"
   >
     <div class="va-tag__content">
       <slot></slot>
@@ -17,7 +14,7 @@
         size="18px"
       />
     </div>
-  </component>
+  </div>
 </template>
 
 <script lang="ts">
@@ -31,6 +28,9 @@ import { Component, Mixins } from 'vue-property-decorator'
 const TagPropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: true },
   closeable: { type: Boolean, default: false },
+  color: { type: String, default: '' },
+  outline: { type: Boolean, default: false },
+  flat: { type: Boolean, default: false },
 })
 
 @Component({
@@ -43,14 +43,22 @@ export default class VaTag extends Mixins(
   SizeMixin,
   TagPropsMixin,
 ) {
-  get computedTag () {
-    if (this.c_tag === 'a') {
-      return 'a'
+  get computedStyle () {
+    return {
+      backgroundColor: this.c_flat
+        ? ''
+        : !this.c_outline
+          ? this.colorComputed
+          : '',
+      borderColor: !this.c_flat
+        ? this.colorComputed
+        : '',
+      color: this.c_flat
+        ? ''
+        : this.c_outline
+          ? this.colorComputed
+          : '#fff',
     }
-    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
-      return 'router-link'
-    }
-    return 'div'
   }
 
   close () {
@@ -64,9 +72,7 @@ export default class VaTag extends Mixins(
 
 .va-tag {
   display: inline-flex;
-  background-color: yellowgreen;
-  border: 0.125rem solid;
-  border-color: yellowgreen;
+  border: 0.125rem solid transparent;
   border-radius: 1rem;
   width: auto;
   height: auto;
@@ -78,6 +84,8 @@ export default class VaTag extends Mixins(
   &__content {
     display: flex;
     align-items: center;
+    padding: auto;
+    line-height: 1.6;
   }
 
   &__icon {
