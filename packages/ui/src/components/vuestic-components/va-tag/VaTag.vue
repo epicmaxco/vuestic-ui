@@ -78,17 +78,9 @@ export default class VaTag extends Mixins(
 
   get computedStyle () {
     return {
-      backgroundColor: this.c_flat
-        ? ''
-        : !this.c_outline
-          ? this.colorComputed
-          : '',
-      borderColor: !this.c_flat
-        ? this.colorComputed
-        : '',
-      color: this.c_outline || this.c_flat
-        ? this.colorComputed
-        : '#fff',
+      backgroundColor: !this.c_flat && !this.c_outline && this.colorComputed,
+      borderColor: !this.c_flat && this.colorComputed,
+      color: (this.c_outline || this.c_flat) && this.colorComputed,
       boxShadow: this.shadowStyle,
     }
   }
@@ -114,6 +106,7 @@ export default class VaTag extends Mixins(
   min-height: initial;
   margin: 0;
   padding: 0 0.5rem;
+  color: $white;
 
   &__content {
     display: flex;
