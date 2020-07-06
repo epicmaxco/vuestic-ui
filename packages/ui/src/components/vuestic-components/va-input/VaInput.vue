@@ -63,13 +63,13 @@
         >
       </div>
       <div
-        v-if="c_success || computedError || $slots.append || (c_removable && hasContent)"
+        v-if="showIcon"
         class="va-input__container__icon-wrapper"
       >
         <va-icon
           v-if="c_success"
           class="va-input__container__icon"
-          color="c_success"
+          color="success"
           name="check"
         />
         <va-icon
@@ -80,7 +80,7 @@
         />
         <slot name="append" />
         <va-icon
-          v-if="c_removable && hasContent"
+          v-if="canBeCleared"
           @click.native="reset()"
           class="va-input__container__close-icon"
           :color="computedError ? 'danger': 'gray'"
@@ -146,16 +146,16 @@ export default class VaInput extends Mixins(
 ) {
   isFocused = false
 
-  mounted () {
+  mounted (): void {
     this.adjustHeight()
   }
 
   @Watch('value')
-  onValueChanged () {
+  onValueChanged (): void {
     this.adjustHeight()
   }
 
-  get labelStyles () {
+  get labelStyles (): any {
     if (this.computedError) {
       return { color: this.computeColor('danger') }
     }
@@ -167,7 +167,7 @@ export default class VaInput extends Mixins(
     return { color: this.colorComputed }
   }
 
-  get containerStyles () {
+  get containerStyles (): any {
     return {
       backgroundColor:
         this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
@@ -179,7 +179,7 @@ export default class VaInput extends Mixins(
     }
   }
 
-  get textareaStyles () {
+  get textareaStyles (): any {
     return {
       paddingBottom: this.label ? '0.125rem' : '',
       marginTop: this.label ? '0.875rem' : '',
@@ -190,48 +190,64 @@ export default class VaInput extends Mixins(
   }
 
   get inputListeners () {
-    // TODO Probably not the best idea to stick this in computed.
-    return Object.assign(
-      {},
-      this.$listeners,
-      {
-        input: (event: any) => {
-          this.$emit('input', event.target.value)
-        },
-        click: (event: Event) => {
-          this.$emit('click', event)
-        },
-        focus: (event: Event) => {
-          // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-          this.isFocused = true
-
-          this.$emit('focus', event)
-        },
-        blur: (event: Event) => {
-          // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-          this.ValidateMixin_onBlur()
-
-          this.$emit('blur', event)
-        },
-        keyup: (event: Event) => {
-          this.$emit('keyup', event)
-        },
-        keydown: (event: Event) => {
-          this.$emit('keydown', event)
-        },
-      },
-    )
+    return {
+      ...this.$listeners,
+      input: this.onInput,
+      click: this.onClick,
+      focus: this.onFocus,
+      blur: this.onBlur,
+      keyup: this.onKeyup,
+      keydown: this.onKeydown,
+    }
   }
 
-  get hasContent () {
+  get showIcon (): boolean {
+    return this.c_success || this.computedError || this.$slots.append || this.canBeCleared
+  }
+
+  get canBeCleared (): boolean {
+    return this.hasContent && this.c_removable
+  }
+
+  get hasContent (): boolean {
     return ![null, undefined, ''].includes(this.c_value)
   }
 
-  get isTextarea () {
+  get isTextarea (): boolean {
     return this.c_type === 'textarea'
   }
 
-  adjustHeight () {
+  onInput (event: any): void {
+    this.$emit('input', event.target.value)
+  }
+
+  onClick (event: Event): void {
+    this.$emit('click', event)
+  }
+
+  onFocus (event: Event): void {
+    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+    this.isFocused = true
+
+    this.$emit('focus', event)
+  }
+
+  onBlur (event: Event): void {
+    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+    this.ValidateMixin_onBlur()
+
+    this.$emit('blur', event)
+  }
+
+  onKeyup (event: Event): void {
+    this.$emit('keyup', event)
+  }
+
+  onKeydown (event: Event): void {
+    this.$emit('keydown', event)
+  }
+
+  adjustHeight (): void {
     if (!this.autosize || !this.isTextarea) {
       return
     }
@@ -247,12 +263,12 @@ export default class VaInput extends Mixins(
   }
 
   /** @public */
-  focus () {
+  focus (): void {
     (this as any).$refs.input.focus()
   }
 
   /** @public */
-  reset () {
+  reset (): void {
     this.$emit('input', '')
   }
 }
@@ -296,7 +312,7 @@ export default class VaInput extends Mixins(
       bottom: 0.875rem;
       left: 0.5rem;
       margin-bottom: 0.5rem;
-      max-width: calc(100% - 0.25rem);
+      max-width: calc(100% - 0.75rem);
       color: $vue-green;
       font-size: 0.625rem;
       letter-spacing: 0.0375rem;
