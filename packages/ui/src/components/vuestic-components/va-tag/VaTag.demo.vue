@@ -60,6 +60,12 @@
       </va-tag>
     </VbCard>
 
+    <VbCard title="Square">
+      <va-tag square>
+        vuestic
+      </va-tag>
+    </VbCard>
+
     <VbCard title="Closeable">
       <va-checkbox v-model="value" />
       <va-tag

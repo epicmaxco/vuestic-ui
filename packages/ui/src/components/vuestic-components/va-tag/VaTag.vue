@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import VaIcon from '../va-icon/VaIcon.vue'
+import { getBoxShadowColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
@@ -40,6 +41,7 @@ const TagPropsMixin = makeContextablePropsMixin({
   icon: { type: String, default: '' },
   iconSize: { type: [Number, String], default: '18px' },
   disabled: { type: Boolean, default: false },
+  square: { type: Boolean, default: false },
   size: {
     type: String,
     default: 'medium',
@@ -62,8 +64,16 @@ export default class VaTag extends Mixins(
     return {
       'va-tag--small': this.c_size === 'small',
       'va-tag--large': this.c_size === 'large',
+      'va-tag--square': this.c_square,
       'va-tag--disabled': this.c_disabled,
     }
+  }
+
+  get shadowStyle () {
+    if (this.c_flat || this.c_outline) {
+      return
+    }
+    return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
   }
 
   get computedStyle () {
@@ -79,6 +89,7 @@ export default class VaTag extends Mixins(
       color: this.c_outline || this.c_flat
         ? this.colorComputed
         : '#fff',
+      boxShadow: this.shadowStyle,
     }
   }
 
@@ -118,6 +129,10 @@ export default class VaTag extends Mixins(
   &__close-icon {
     cursor: pointer;
     margin-left: 0.375rem;
+  }
+
+  &--square {
+    border-radius: 0.2rem;
   }
 
   &--small {
