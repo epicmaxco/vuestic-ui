@@ -6,6 +6,7 @@
     class="va-tag"
     :class="computedClass"
     :style="computedStyle"
+    :tabindex="tagIndexComputed"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
     @focus="updateFocusState(true)"
@@ -23,9 +24,9 @@
     <va-icon
       v-if="c_closeable"
       class="va-tag__close-icon"
-      @click="close()"
       name="close"
       :size="iconSize"
+      @click="close()"
     />
   </component>
 </template>
@@ -40,6 +41,7 @@ import {
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins, Watch } from 'vue-property-decorator'
 
@@ -66,6 +68,7 @@ const TagPropsMixin = makeContextablePropsMixin({
   components: { VaIcon },
 })
 export default class VaTag extends Mixins(
+  KeyboardOnlyFocusMixin,
   RouterLinkMixin,
   StatefulMixin,
   ColorThemeMixin,
@@ -87,6 +90,10 @@ export default class VaTag extends Mixins(
       large: '1.25rem',
     }
     return size[this.c_size]
+  }
+
+  get tagIndexComputed () {
+    return (this.c_disabled) ? -1 : 0
   }
 
   get computedClass () {
@@ -151,8 +158,13 @@ export default class VaTag extends Mixins(
     this.hoverState = isHover
   }
 
-  updateFocusState (isHover: boolean) {
-    this.focusState = isHover
+  updateFocusState (isFocus: boolean) {
+    this.focusState = isFocus
+    if (isFocus) {
+      this.isKeyboardFocused = isFocus
+      this.KeyboardOnlyFocusMixin_onFocus()
+      this.$emit('focus')
+    }
   }
 
   close () {
