@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="empty">
-      <va-button/>
+      <va-button />
     </VbCard>
 
     <VbCard>
@@ -332,7 +332,7 @@
         <tr>
           <td>All Buttons Without Title</td>
           <td>
-            <va-button icon="block"/>
+            <va-button icon="block" />
             <va-button
               size="large"
               icon="block"
