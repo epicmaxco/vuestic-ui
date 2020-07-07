@@ -74,7 +74,7 @@
         "click": "Emitted when user clicks on button"
       },
       "methods": {
-        "focus": "Sets focus on button.",
+        "focus": "Sets focus on button",
         "blur": "Removes focus from button"
       }
     },
