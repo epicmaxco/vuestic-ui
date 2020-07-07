@@ -106,13 +106,13 @@
       </va-tag>
     </VbCard>
 
-    <VbCard title="Link with closeable prop" style="border: 2px solid red;">
+    <VbCard title="Link with closeable prop">
       <va-tag
         to="/demo/vuestic-components/va-button/VaButton.demo.vue"
         closeable
         v-model="value"
       >
-        Need to fix
+        Vuestic va-button
       </va-tag>
     </VbCard>
 

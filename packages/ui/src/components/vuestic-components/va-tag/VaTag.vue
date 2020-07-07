@@ -1,8 +1,6 @@
 <template>
-  <component
+  <div
     v-if="valueComputed"
-    :is="computedTag"
-    :to="to"
     class="va-tag"
     :class="computedClass"
     :style="computedStyle"
@@ -12,6 +10,11 @@
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
   >
+    <router-link
+      v-if="hasRouterLinkParams"
+      class="va-tag__link"
+      :to="to"
+    />
     <va-icon
       v-if="c_icon"
       class="va-tag__icon"
@@ -28,7 +31,7 @@
       :size="iconSize"
       @click="close()"
     />
-  </component>
+  </div>
 </template>
 
 <script lang="ts">
@@ -147,13 +150,6 @@ export default class VaTag extends Mixins(
     return computedStyle
   }
 
-  get computedTag () {
-    if (this.hasRouterLinkParams) {
-      return 'router-link'
-    }
-    return 'div'
-  }
-
   updateHoverState (isHover: boolean) {
     this.hoverState = isHover
   }
@@ -185,6 +181,7 @@ $tag-font-size-lg: 1.25rem !default;
 .va-tag {
   display: inline-flex;
   border: 0.125rem solid transparent;
+  position: relative;
   border-radius: 2rem;
   width: auto;
   height: auto;
@@ -201,6 +198,14 @@ $tag-font-size-lg: 1.25rem !default;
     opacity: 0.85;
   }
 
+  &__link {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
   &__content {
     display: flex;
     align-items: center;
@@ -210,6 +215,7 @@ $tag-font-size-lg: 1.25rem !default;
 
   &__close-icon {
     cursor: pointer;
+    z-index: 500;
   }
 
   &--square {
