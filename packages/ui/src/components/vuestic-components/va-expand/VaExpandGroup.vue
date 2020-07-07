@@ -1,12 +1,12 @@
 <template>
-  <div class="va-accordion">
+  <div class="va-expand-group">
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'VaAccordion',
+  name: 'VaExpandGroup',
   provide () {
     return {
       accordion: {
@@ -33,6 +33,6 @@ export default {
 </script>
 
 <style lang="scss">
-.va-accordion {
+.va-expand-group {
 }
 </style>
