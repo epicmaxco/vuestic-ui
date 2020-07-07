@@ -1,5 +1,5 @@
 <template>
-  <div
+  <span
     v-if="valueComputed"
     class="va-tag"
     :class="computedClass"
@@ -21,9 +21,9 @@
       :name="icon"
       :size="iconSize"
     />
-    <div class="va-tag__content">
+    <span class="va-tag__content">
       <slot></slot>
-    </div>
+    </span>
     <va-icon
       v-if="c_closeable"
       class="va-tag__close-icon"
@@ -31,7 +31,7 @@
       :size="iconSize"
       @click="close()"
     />
-  </div>
+  </span>
 </template>
 
 <script lang="ts">
