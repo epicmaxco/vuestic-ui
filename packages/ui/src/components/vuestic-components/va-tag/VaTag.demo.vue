@@ -100,8 +100,28 @@
       </va-tag>
     </VbCard>
 
+    <VbCard title="Link">
+      <va-tag to="/demo/vuestic-components/va-switch/VaSwitch.demo.vue">
+        Vuestic va-switch
+      </va-tag>
+    </VbCard>
+
+    <VbCard title="Link with closeable prop" style="border: 2px solid red;">
+      <va-tag
+        to="/demo/vuestic-components/va-button/VaButton.demo.vue"
+        closeable
+        v-model="value"
+      >
+        Need to fix
+      </va-tag>
+    </VbCard>
+
     <VbCard title="Disabled">
-      <va-tag disabled closeable stateful>
+      <va-tag
+        disabled
+        closeable
+        stateful
+      >
         vuestic
       </va-tag>
     </VbCard>

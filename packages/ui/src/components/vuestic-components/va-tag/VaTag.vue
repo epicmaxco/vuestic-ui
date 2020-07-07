@@ -1,6 +1,8 @@
 <template>
-  <div
+  <component
     v-if="valueComputed"
+    :is="computedTag"
+    :to="to"
     class="va-tag"
     :class="computedClass"
     :style="computedStyle"
@@ -25,7 +27,7 @@
       name="close"
       :size="iconSize"
     />
-  </div>
+  </component>
 </template>
 
 <script lang="ts">
@@ -36,6 +38,7 @@ import {
   getFocusColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins, Watch } from 'vue-property-decorator'
@@ -63,6 +66,7 @@ const TagPropsMixin = makeContextablePropsMixin({
   components: { VaIcon },
 })
 export default class VaTag extends Mixins(
+  RouterLinkMixin,
   StatefulMixin,
   ColorThemeMixin,
   TagPropsMixin,
@@ -136,6 +140,13 @@ export default class VaTag extends Mixins(
     return computedStyle
   }
 
+  get computedTag () {
+    if (this.hasRouterLinkParams) {
+      return 'router-link'
+    }
+    return 'div'
+  }
+
   updateHoverState (isHover: boolean) {
     this.hoverState = isHover
   }
@@ -195,13 +206,11 @@ $tag-font-size-lg: 1.25rem !default;
 
   &--small {
     height: 1.5rem;
-    font-size: 14px;
     font-size: $tag-font-size-sm;
   }
 
   &--large {
     height: 2.5rem;
-    font-size: 20px;
     font-size: $tag-font-size-lg;
   }
 
