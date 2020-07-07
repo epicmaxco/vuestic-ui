@@ -138,7 +138,7 @@ export default class VaTag extends Mixins(
         computedStyle.boxShadow = this.shadowStyle
       }
     } else {
-      computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : '#ffffff'
+      computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : ''
       computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
       computedStyle.boxShadow = !this.c_disabled && this.shadowStyle
     }
