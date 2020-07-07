@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="empty">
-      <va-button />
+      <va-button/>
     </VbCard>
 
     <VbCard>
@@ -332,7 +332,7 @@
         <tr>
           <td>All Buttons Without Title</td>
           <td>
-            <va-button icon="block" />
+            <va-button icon="block"/>
             <va-button
               size="large"
               icon="block"
@@ -447,6 +447,33 @@
               style="margin-left: 10px;"
             >
               Square Button
+            </va-button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Public methods (focus, blur)
+          </td>
+          <td style="padding-top: 10px;">
+            <va-button
+              style="margin-right: 10px;"
+              @click="$refs.testButton.focus()"
+            >
+              Focus right button
+            </va-button>
+            <va-button
+              size="large"
+              style="margin-right: 10px;"
+              ref="testButton"
+            >
+              Button
+            </va-button>
+            <va-button
+              style="margin-right: 10px;"
+              @click="$refs.testButton.blur()"
+            >
+              Blur left button
             </va-button>
           </td>
         </tr>
