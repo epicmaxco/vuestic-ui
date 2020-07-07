@@ -9,22 +9,22 @@
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
   >
+    <va-icon
+      v-if="c_icon"
+      class="va-tag__icon"
+      :name="icon"
+      :size="iconSize"
+    />
     <div class="va-tag__content">
-      <va-icon
-        v-if="c_icon"
-        class="va-tag__icon"
-        :name="icon"
-        :size="iconSize"
-      />
       <slot></slot>
-      <va-icon
-        v-if="c_closeable"
-        class="va-tag__close-icon"
-        @click="close()"
-        name="close"
-        size="20px"
-      />
     </div>
+    <va-icon
+      v-if="c_closeable"
+      class="va-tag__close-icon"
+      @click="close()"
+      name="close"
+      :size="iconSize"
+    />
   </div>
 </template>
 
@@ -47,7 +47,6 @@ const TagPropsMixin = makeContextablePropsMixin({
   outline: { type: Boolean, default: false },
   flat: { type: Boolean, default: false },
   icon: { type: String, default: '' },
-  iconSize: { type: [Number, String], default: '18px' },
   disabled: { type: Boolean, default: false },
   square: { type: Boolean, default: false },
   size: {
@@ -75,6 +74,15 @@ export default class VaTag extends Mixins(
   onHoverChange (value: boolean) {
     this.updateFocusState(value)
     this.updateHoverState(value)
+  }
+
+  get iconSize () {
+    const size: any = {
+      small: '0.875rem',
+      medium: '1rem',
+      large: '1.25rem',
+    }
+    return size[this.c_size]
   }
 
   get computedClass () {
@@ -147,6 +155,10 @@ export default class VaTag extends Mixins(
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
+$tag-font-size-nrm: 1rem !default;
+$tag-font-size-sm: 0.875rem !default;
+$tag-font-size-lg: 1.25rem !default;
+
 .va-tag {
   display: inline-flex;
   border: 0.125rem solid transparent;
@@ -155,10 +167,12 @@ export default class VaTag extends Mixins(
   height: auto;
   min-width: initial;
   min-height: initial;
-  margin: 0;
-  padding: 0 0.5rem;
+  margin: 0 0.1rem;
+  padding: 0 0.3rem;
   color: $white;
   cursor: default;
+  align-items: center;
+  font-size: $tag-font-size-nrm;
 
   &:hover {
     opacity: 0.85;
@@ -167,17 +181,12 @@ export default class VaTag extends Mixins(
   &__content {
     display: flex;
     align-items: center;
-    padding: auto;
+    padding: 0 0.3rem;
     line-height: 1.6;
-  }
-
-  &__icon {
-    padding-right: 0.375rem;
   }
 
   &__close-icon {
     cursor: pointer;
-    margin-left: 0.375rem;
   }
 
   &--square {
@@ -186,10 +195,14 @@ export default class VaTag extends Mixins(
 
   &--small {
     height: 1.5rem;
+    font-size: 14px;
+    font-size: $tag-font-size-sm;
   }
 
   &--large {
     height: 2.5rem;
+    font-size: 20px;
+    font-size: $tag-font-size-lg;
   }
 
   &--disabled {

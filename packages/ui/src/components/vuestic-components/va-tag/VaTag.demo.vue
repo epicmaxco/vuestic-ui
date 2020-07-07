@@ -54,15 +54,39 @@
         v-for="(icon, index) in icons"
         :key="index"
         :icon="icon"
-        icon-size="20px"
       >
         {{icon}}
+      </va-tag>
+    </VbCard>
+
+    <VbCard title="Sizes with icons">
+      <va-tag
+        v-for="(size, index) in sizes"
+        :key="index"
+        :size="size"
+        icon="info"
+        closeable
+      >
+        {{size}} size
       </va-tag>
     </VbCard>
 
     <VbCard title="Square">
       <va-tag square>
         vuestic
+      </va-tag>
+    </VbCard>
+
+    <VbCard title="Sizes with square prop and icons">
+      <va-tag
+        v-for="(size, index) in sizes"
+        :key="index"
+        :size="size"
+        icon="info"
+        square
+        closeable
+      >
+        {{size}} size
       </va-tag>
     </VbCard>
 
@@ -118,9 +142,11 @@ export default {
         'large',
       ],
       icons: [
-        'heart',
-        'star',
-        'battery',
+        'face',
+        'email',
+        'thumb_up',
+        'info',
+        'remove',
       ],
     }
   },
