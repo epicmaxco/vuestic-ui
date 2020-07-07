@@ -4,31 +4,35 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins, Provide } from 'vue-property-decorator'
+
+const ExpandGroupPropsMixin = makeContextablePropsMixin({
+})
+
+@Component({
   name: 'VaExpandGroup',
-  provide () {
-    return {
-      accordion: {
-        onChildChange: (child, state) => this.onChildChange(child, state),
-      },
+})
+export default class VaExpandGroup extends Mixins(
+  ExpandGroupPropsMixin,
+) {
+  @Provide() accordion = {
+    onChildChange: (child: any, state: any) => this.onChildChange(child, state),
+  }
+
+  onChildChange (child: any, state: any) {
+    // No reaction when user closes collapse.
+    if (state === false) {
+      return
     }
-  },
-  methods: {
-    onChildChange (child, state) {
-      // No reaction when user closes collapse.
-      if (state === false) {
+    this.$children.forEach(expand => {
+      if (expand === child) {
         return
       }
-
-      this.$children.forEach(collapse => {
-        if (collapse === child) {
-          return
-        }
-        collapse.collapse()
-      })
-    },
-  },
+      console.log('test')
+    })
+  }
 }
 </script>
 

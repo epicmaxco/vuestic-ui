@@ -48,7 +48,7 @@
 
 <script lang="ts">
 
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Inject } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 import {
   makeContextablePropsMixin,
@@ -71,18 +71,8 @@ const ExpandPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
-  inject: {
-    accordion: {
-      default: () => ({
-        onChildChange: () => undefined,
-      }),
-    },
-  },
-  components: {
-    VaIcon,
-  },
+  components: { VaIcon },
 })
-
 export default class VaExpand extends Mixins(
   StatefulMixin,
   ColorThemeMixin,
@@ -90,6 +80,12 @@ export default class VaExpand extends Mixins(
 ) {
   height = this.getHeight()
   mutationObserver: any = null
+
+  @Inject({
+    default: () => ({
+      onChildChange: () => undefined,
+    }),
+  }) readonly accordion!: any
 
   get computedClasses () {
     return {
