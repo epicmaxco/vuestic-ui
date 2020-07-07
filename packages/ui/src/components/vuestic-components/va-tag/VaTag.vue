@@ -140,7 +140,7 @@ export default class VaTag extends Mixins(
     } else {
       computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : '#ffffff'
       computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
-      computedStyle.boxShadow = this.shadowStyle
+      computedStyle.boxShadow = !this.c_disabled && this.shadowStyle
     }
 
     if (!this.c_outline && !this.c_flat) {
@@ -204,6 +204,7 @@ $tag-font-size-lg: 1.25rem !default;
     position: absolute;
     top: 0;
     left: 0;
+    cursor: default;
   }
 
   &__content {
@@ -216,6 +217,14 @@ $tag-font-size-lg: 1.25rem !default;
   &__close-icon {
     cursor: pointer;
     z-index: 500;
+
+    @at-root {
+      .va-tag--disabled {
+        .va-tag__close-icon {
+          cursor: default !important;
+        }
+      }
+    }
   }
 
   &--square {
@@ -232,12 +241,8 @@ $tag-font-size-lg: 1.25rem !default;
     font-size: $tag-font-size-lg;
   }
 
-  &--disabled {
+  &.va-tag--disabled {
     @include va-disabled;
-
-    &:hover {
-      opacity: 0.4;
-    }
   }
 }
 </style>
