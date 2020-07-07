@@ -109,6 +109,7 @@ export default {
         'primary',
         'danger',
         'info',
+        'gray',
         '#7f1f90',
       ],
       sizes: [

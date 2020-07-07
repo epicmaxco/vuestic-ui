@@ -4,6 +4,10 @@
     class="va-tag"
     :class="computedClass"
     :style="computedStyle"
+    @mouseenter="updateHoverState(true)"
+    @mouseleave="updateHoverState(false)"
+    @focus="updateFocusState(true)"
+    @blur="updateFocusState(false)"
   >
     <div class="va-tag__content">
       <va-icon
@@ -26,11 +30,15 @@
 
 <script lang="ts">
 import VaIcon from '../va-icon/VaIcon.vue'
-import { getBoxShadowColor } from '../../../services/color-functions'
+import {
+  getBoxShadowColor,
+  getHoverColor,
+  getFocusColor,
+} from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Watch } from 'vue-property-decorator'
 
 const TagPropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: true },
@@ -60,6 +68,15 @@ export default class VaTag extends Mixins(
   ColorThemeMixin,
   TagPropsMixin,
 ) {
+  hoverState = false
+  focusState = false
+
+  @Watch('hoverState')
+  onHoverChange (value: boolean) {
+    this.updateFocusState(value)
+    this.updateHoverState(value)
+  }
+
   get computedClass () {
     return {
       'va-tag--small': this.c_size === 'small',
@@ -77,12 +94,46 @@ export default class VaTag extends Mixins(
   }
 
   get computedStyle () {
-    return {
-      backgroundColor: !this.c_flat && !this.c_outline && this.colorComputed,
-      borderColor: !this.c_flat && this.colorComputed,
-      color: (this.c_outline || this.c_flat) && this.colorComputed,
-      boxShadow: this.shadowStyle,
+    const computedStyle: any = {
+      color: '',
+      borderColor: '',
+      background: '',
+      boxShadow: '',
     }
+
+    if (this.focusState) {
+      if (this.c_outline || this.c_flat) {
+        computedStyle.color = this.colorComputed
+        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.background = getFocusColor(this.colorComputed)
+      }
+    } else if (this.hoverState) {
+      if (this.c_outline || this.c_flat) {
+        computedStyle.color = this.colorComputed
+        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.background = getHoverColor(this.colorComputed)
+      } else {
+        computedStyle.boxShadow = this.shadowStyle
+      }
+    } else {
+      computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : '#ffffff'
+      computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+      computedStyle.boxShadow = this.shadowStyle
+    }
+
+    if (!this.c_outline && !this.c_flat) {
+      computedStyle.background = this.colorComputed
+    }
+
+    return computedStyle
+  }
+
+  updateHoverState (isHover: boolean) {
+    this.hoverState = isHover
+  }
+
+  updateFocusState (isHover: boolean) {
+    this.focusState = isHover
   }
 
   close () {
