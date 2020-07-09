@@ -52,7 +52,10 @@ export default class VaIcon extends Mixins(
   }
 
   get computedClass () {
-    return `${this.icon && this.icon.iconClass} ${this.spin && 'va-icon--spin'}`
+    return [
+      this.icon ? this.icon.iconClass : '',
+      this.spin ? 'va-icon--spin' : '',
+    ]
   }
 
   get hasClickListener () {
