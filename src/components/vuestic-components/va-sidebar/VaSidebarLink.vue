@@ -139,6 +139,12 @@ export default {
     }
   }
 
+  &--active {
+    color: white !important;
+    background-color: $evollu-dark;
+    font-weight: bold;
+  }
+
   &--minimized {
     .va-sidebar-link__content {
       &__title {
