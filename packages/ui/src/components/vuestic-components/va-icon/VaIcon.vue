@@ -47,16 +47,15 @@ export default class VaIcon extends Mixins(
   IconMixin,
   IconPropsMixin,
 ) {
-  get icon () {
-    return this.getIcon()
-  }
-
   get computedTag () {
     return (this.icon && this.icon.component) || this.c_component || this.c_tag
   }
 
   get computedClass () {
-    return `${this.icon && this.icon.iconClass} ${this.spin && 'va-icon--spin'}`
+    return [
+      this.icon ? this.icon.iconClass : '',
+      this.spin ? 'va-icon--spin' : '',
+    ]
   }
 
   get hasClickListener () {
