@@ -20,7 +20,6 @@
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
     :tabindex="c_loading ? -1 : 0"
-    ref="button"
   >
     <div class="va-button__content">
       <template v-if="c_loading">
@@ -249,12 +248,12 @@ export default class VaButton extends Mixins(
 
   /** @public */
   focus (): void {
-    (this.$refs.button as HTMLElement).focus()
+    (this.$el as HTMLElement).focus()
   }
 
   /** @public */
   blur (): void {
-    (this.$refs.button as HTMLElement).blur()
+    (this.$el as HTMLElement).blur()
   }
 }
 </script>
