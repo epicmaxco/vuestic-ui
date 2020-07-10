@@ -232,10 +232,6 @@ export default class VaModal extends Mixins(
     this.$emit('ok')
   }
 
-  emitTransitionEvent (eventName: string): void {
-    this.$emit(eventName)
-  }
-
   listenKeyUp (e: KeyboardEvent) {
     if (e.code === 'Escape' && !this.c_noEscDismiss && !this.c_noDismiss) {
       this.cancel()
