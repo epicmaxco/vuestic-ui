@@ -103,7 +103,9 @@ export default {
         return this.c_value
       },
       set (value) {
-        this.$emit('input', value)
+        if (!this.c_disabled) {
+          this.$emit('input', value)
+        }
       },
     },
     fullConfig () {

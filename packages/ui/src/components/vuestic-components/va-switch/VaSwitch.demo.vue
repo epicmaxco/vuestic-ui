@@ -167,7 +167,7 @@
       <va-switch />
     </VbCard>
     <VbCard title="Stateful">
-      <va-switch stateful/>
+      <va-switch stateful />
     </VbCard>
   </VbDemo>
 </template>

@@ -36,7 +36,7 @@
         "src": "Source URL.",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
         "label": "Same as native `label`",
-        "leftLabel": "Moves the label on the left of a checkbox",
+        "leftLabel": "Moves the label on the left of a component",
         "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
@@ -383,6 +383,21 @@
         "icon": "Alert icon area content",
         "close": "Alert close area content"
       }
+    },
+    "VaIcon": {
+      "props": {
+        "component": "Allows to use the svg component as an icon.",
+        "rotation": "Rotates a component by a degree value.",
+        "spin": "Starts rotation animation.",
+        "iconsConfig": "Allows you to configurate iconset."
+      }
+    },
+    "VaRadio": {
+      "props": {
+        "value": "Model of the component",
+        "option": "Option value that model is updated to when an option is selected",
+        "tabindex": "Sets a custom tabindex"
+      }
     }
   },
   "anyPage": {
@@ -413,7 +428,9 @@
     "button": "Button",
     "checkbox": "Checkbox",
     "infiniteScroll": "Infinite Scroll",
-    "alert": "Alert"
+    "alert": "Alert",
+    "icon": "Icon",
+    "radio": "Radio"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1164,6 +1181,61 @@
         "text": "The `center` property allows you to center title and description areas."
       }
     }
-
+  },
+  "icon": {
+    "title": "Icon",
+    "summaryText": "The `va-icon` component allows you to use different iconfonts.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Basic usage of component with different iconfonts."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
+      },
+      "size": {
+        "title": "Size",
+        "text": "Utilize `size` prop in order to make `va-icon` fit your needs."
+      },
+      "rotation": {
+        "title": "Rotation",
+        "text": "Used to rotate the `va-icon` component."
+      },
+      "spin": {
+        "title": "Spin",
+        "text": "You can add animation of rotation of the icon using the property `spin`."
+      },
+      "text": {
+        "title": "Text as icon",
+        "text": "Using `text` prop will allow you to cover the text with an icon style."
+      },
+      "tag": {
+        "title": "Custom tag",
+        "text": "With `tag` prop you can attach the icon to another tag."
+      }
+    }
+  },
+  "radio": {
+    "title": "Radio",
+    "summaryText": "The `va-radio` allows the user to select one option from a set.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage  of the `va-radio` component."
+      },
+      "color": {
+        "title": "Colors",
+        "text": "With `color` prop you can change the color of the component."
+      },
+      "customLabels": {
+        "title": "Custom Labels",
+        "text": "You can add a label text by setting the `label` property. To switch label side use `left-label` property."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
+      }
+    }
   }
 }

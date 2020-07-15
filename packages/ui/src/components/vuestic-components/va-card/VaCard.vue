@@ -18,7 +18,7 @@
       class="va-card__stripe"
       :style="stripeStyles"
     />
-    <slot/>
+    <slot />
   </component>
 </template>
 

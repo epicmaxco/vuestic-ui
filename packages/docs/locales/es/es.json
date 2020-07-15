@@ -43,6 +43,18 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaIcon": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaRadio": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -50,7 +62,9 @@
     "uiElements": "Elementos UI",
     "image": "Image",
     "checkbox": "Checkbox",
-    "alert": "Alert"
+    "alert": "Alert",
+    "icon": "Icon",
+    "radio": "Radio"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -66,6 +80,12 @@
   },
   "divider": {},
   "alert": {
+    "title": "-- Here is the title --"
+  },
+  "icon": {
+    "title": "-- Here is the title --"
+  },
+  "radio": {
     "title": "-- Here is the title --"
   }
 }
