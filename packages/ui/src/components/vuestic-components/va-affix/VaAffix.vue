@@ -23,27 +23,18 @@ import { handleThrottledEvent, useEventsHandlerWithThrottle, getWindowHeight, St
 
 const prefixClass = 'va-affix'
 
-const props = {
-  offsetTop: {
-    type: Number,
-    default: undefined,
-  },
-  offsetBottom: {
-    type: Number,
-    default: undefined,
-  },
-  target: {
-    type: [HTMLElement, Window],
-    default: () => window,
-  },
-}
-
-const ContextableMixin = makeContextablePropsMixin(props)
+const AffixPropsMixin = makeContextablePropsMixin({
+  offsetTop: { type: Number, default: undefined },
+  offsetBottom: { type: Number, default: undefined },
+  target: { type: [HTMLElement, Window], default: () => window },
+})
 
 @Component({
   name: 'VaAffix',
 })
-export default class VaAffix extends Mixins(ContextableMixin) {
+export default class VaAffix extends Mixins(
+  AffixPropsMixin,
+) {
   private state: State = {
     isTopAffixed: false,
     isBottomAffixed: false,

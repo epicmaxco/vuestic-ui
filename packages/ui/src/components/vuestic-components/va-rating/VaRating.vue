@@ -76,7 +76,7 @@ import VaRatingItem from './VaRatingItem.vue'
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import Component, { mixins } from 'vue-class-component'
+import { Component, Mixins } from 'vue-property-decorator'
 import { ColorInput } from 'colortranslator/dist/@types'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { RatingValue } from './VaRating.types'
@@ -100,9 +100,10 @@ const RatingPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
+  name: 'VaRating',
   components: { VaRatingItem },
 })
-export default class VaRating extends mixins(
+export default class VaRating extends Mixins(
   RatingPropsMixin,
   ColorThemeMixin,
   ContextPluginMixin,

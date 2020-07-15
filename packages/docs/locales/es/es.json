@@ -20,6 +20,12 @@
         "reset": "Reset values and validation state for all form-components"
       }
     },
+    "VaImage": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaDivider": {
       "props": {},
       "events": {},
@@ -31,12 +37,34 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaAlert": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaIcon": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaRadio": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
     "modals": "Modals",
     "uiElements": "Elementos UI",
-    "checkbox": "Checkbox"
+    "image": "Image",
+    "checkbox": "Checkbox",
+    "alert": "Alert",
+    "icon": "Icon",
+    "radio": "Radio"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -44,8 +72,20 @@
     "spanish": "Spanish",
     "simplified_chinese": "Versión abreviada"
   },
+  "image": {
+    "title": "-- Here is the title --"
+  },
   "checkbox": {
     "title": "-- Here is the title --"
   },
-  "divider": {}
+  "divider": {},
+  "alert": {
+    "title": "-- Here is the title --"
+  },
+  "icon": {
+    "title": "-- Here is the title --"
+  },
+  "radio": {
+    "title": "-- Here is the title --"
+  }
 }

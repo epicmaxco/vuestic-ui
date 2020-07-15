@@ -83,6 +83,10 @@
           "displayName": "menu.tabs"
         },
         {
+          "name": "image",
+          "displayName": "menu.image"
+        },
+        {
           "name": "option-list",
           "displayName": "menu.optionList"
         },
@@ -97,6 +101,18 @@
         {
           "name": "infinite-scroll",
           "displayName": "menu.infiniteScroll"
+        },
+        {
+          "name": "alert",
+          "displayName": "menu.alert"
+        },
+        {
+          "name": "icon",
+          "displayName": "menu.icon"
+        },
+        {
+          "name": "radio",
+          "displayName": "menu.radio"
         }
       ]
     }

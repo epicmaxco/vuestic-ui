@@ -12,7 +12,7 @@ import switchConfig from '../../components/page-configs/va-switch/page-config'
     DocsContent,
   },
 })
-export default class VaSwitch extends Vue {
+export default class Switch extends Vue {
   get configComputed () {
     return switchConfig
   }

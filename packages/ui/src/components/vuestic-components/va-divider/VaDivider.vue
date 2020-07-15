@@ -13,55 +13,49 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins } from 'vue-property-decorator'
 
 const prefixClass = 'va-divider'
-
-const DividerContextMixin = makeContextablePropsMixin({
-  vertical: {
-    type: Boolean,
-    default: false,
-  },
-  dashed: {
-    type: Boolean,
-    default: false,
-  },
-  inset: {
-    type: Boolean,
-    default: false,
-  },
+const DividerPropsMixin = makeContextablePropsMixin({
+  vertical: { type: Boolean, default: false },
+  dashed: { type: Boolean, default: false },
+  inset: { type: Boolean, default: false },
   orientation: {
     type: String,
-    validator (value) {
+    default: 'center',
+    validator (value: string) {
       return ['left', 'right', 'center'].includes(value)
     },
-    default: 'center',
   },
 })
 
-export default {
+@Component({
   name: 'VaDivider',
-  mixins: [DividerContextMixin],
-  computed: {
-    hasSlot () {
-      return !!this.$slots.default
-    },
-    classComputed () {
-      return [
-        `${prefixClass}`,
-        {
-          [`${prefixClass}--vertical`]: this.c_vertical,
-          [`${prefixClass}--inset`]: this.c_inset,
-          [`${prefixClass}--${this.c_orientation}`]: this.c_orientation && !this.c_vertical,
-          [`${prefixClass}--dashed`]: this.c_dashed,
-        },
-      ]
-    },
-    slotClassComputed () {
-      return `${prefixClass}__text`
-    },
-  },
+})
+export default class VaDivider extends Mixins(
+  DividerPropsMixin,
+) {
+  get hasSlot () {
+    return !!this.$slots.default
+  }
+
+  get classComputed () {
+    return [
+      `${prefixClass}`,
+      {
+        [`${prefixClass}--vertical`]: this.c_vertical,
+        [`${prefixClass}--inset`]: this.c_inset,
+        [`${prefixClass}--${this.c_orientation}`]: this.c_orientation && !this.c_vertical,
+        [`${prefixClass}--dashed`]: this.c_dashed,
+      },
+    ]
+  }
+
+  get slotClassComputed () {
+    return `${prefixClass}__text`
+  }
 }
 </script>
 

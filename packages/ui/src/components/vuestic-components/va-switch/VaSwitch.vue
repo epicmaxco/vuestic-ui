@@ -69,109 +69,102 @@
     </div>
   </va-input-wrapper>
 </template>
-<script>
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
+
+<script lang="ts">
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
-import VaInputWrapper from '../va-input/VaInputWrapper'
+import { Component, Mixins } from 'vue-property-decorator'
 
-export default {
-  name: 'VaSwitch',
-  mixins: [
-    SelectableMixin,
-    LoadingMixin,
-    makeContextablePropsMixin({
-      value: { type: [Boolean, Array, String, Object], default: false },
-      size: {
-        type: String,
-        default: 'medium',
-        validator: value => {
-          return ['medium', 'small', 'large'].includes(value)
-        },
-      },
-      color: {
-        type: String,
-        default: 'primary',
-      },
-      trueLabel: {
-        type: String,
-        default: null,
-      },
-      falseLabel: {
-        type: String,
-        default: null,
-      },
-      trueInnerLabel: {
-        type: String,
-        default: null,
-      },
-      falseInnerLabel: {
-        type: String,
-        default: null,
-      },
-    }),
-  ],
-  components: { VaProgressCircle, VaInputWrapper },
-  computed: {
-    computedInnerLabel () {
-      if (this.c_trueInnerLabel && this.isChecked) {
-        return this.c_trueInnerLabel
-      }
-      if (this.c_falseInnerLabel && !this.isChecked) {
-        return this.c_falseInnerLabel
-      }
-      return ''
-    },
-    computedLabel () {
-      if (this.c_trueLabel && this.isChecked) {
-        return this.c_trueLabel
-      }
-      if (this.c_falseLabel && !this.isChecked) {
-        return this.c_falseLabel
-      }
-      return this.c_label
-    },
-    computedClass () {
-      return {
-        'va-switch--checked': this.isChecked,
-        'va-switch--small': this.c_size === 'small',
-        'va-switch--large': this.c_size === 'large',
-        'va-switch--disabled': this.c_disabled,
-        'va-switch--left-label': this.c_leftLabel,
-        'va-switch--error': this.computedError,
-        'va-switch--on-keyboard-focus': this.isKeyboardFocused,
-      }
-    },
-    progressCircleSize () {
-      return {
-        small: '15px',
-        medium: '20px',
-        large: '25px',
-      }[this.c_size]
-    },
-    trackStyle () {
-      return {
-        borderColor: this.c_error
-          ? getColor(this, 'danger')
-          : '',
-        backgroundColor: this.isChecked
-          ? this.colorComputed
-          : getColor(this, 'gray'),
-      }
-    },
-    labelStyle () {
-      return {
-        color: this.c_error ? getColor(this, 'danger') : '',
-        padding: !this.c_label && !(this.c_trueLabel || this.c_falseLabel)
-          ? ''
-          : this.c_leftLabel
-            ? '0 0.3rem 0 0'
-            : '0 0 0 0.3rem',
-      }
+const SwitchPropsMixin = makeContextablePropsMixin({
+  value: { type: [Boolean, Array, String, Object], default: false },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
     },
   },
+  trueLabel: { type: String, default: null },
+  falseLabel: { type: String, default: null },
+  trueInnerLabel: { type: String, default: null },
+  falseInnerLabel: { type: String, default: null },
+})
+
+@Component({
+  name: 'VaSwitch',
+  components: { VaProgressCircle, VaInputWrapper },
+})
+export default class VaSwitch extends Mixins(
+  SelectableMixin,
+  LoadingMixin,
+  SwitchPropsMixin,
+) {
+  get computedInnerLabel () {
+    if (this.c_trueInnerLabel && this.isChecked) {
+      return this.c_trueInnerLabel
+    }
+    if (this.c_falseInnerLabel && !this.isChecked) {
+      return this.c_falseInnerLabel
+    }
+    return ''
+  }
+
+  get computedLabel () {
+    if (this.c_trueLabel && this.isChecked) {
+      return this.c_trueLabel
+    }
+    if (this.c_falseLabel && !this.isChecked) {
+      return this.c_falseLabel
+    }
+    return this.c_label
+  }
+
+  get computedClass () {
+    return {
+      'va-switch--checked': this.isChecked,
+      'va-switch--small': this.c_size === 'small',
+      'va-switch--large': this.c_size === 'large',
+      'va-switch--disabled': this.c_disabled,
+      'va-switch--left-label': this.c_leftLabel,
+      'va-switch--error': this.computedError,
+      'va-switch--on-keyboard-focus': this.isKeyboardFocused,
+    }
+  }
+
+  get progressCircleSize () {
+    const size: any = {
+      small: '15px',
+      medium: '20px',
+      large: '25px',
+    }
+    return size[this.c_size]
+  }
+
+  get trackStyle () {
+    return {
+      borderColor: this.c_error
+        ? getColor(this, 'danger')
+        : '',
+      backgroundColor: this.isChecked
+        ? this.colorComputed
+        : getColor(this, 'gray'),
+    }
+  }
+
+  get labelStyle () {
+    return {
+      color: this.c_error ? getColor(this, 'danger') : '',
+      padding: !this.c_label && !(this.c_trueLabel || this.c_falseLabel)
+        ? ''
+        : this.c_leftLabel
+          ? '0 0.3rem 0 0'
+          : '0 0 0 0.3rem',
+    }
+  }
 }
 </script>
 

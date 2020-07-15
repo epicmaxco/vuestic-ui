@@ -91,55 +91,32 @@
   </va-input-wrapper>
 </template>
 
-<script>
-import VaInputWrapper from '../va-input/VaInputWrapper'
-import VaIcon from '../va-icon/VaIcon'
+<script lang="ts">
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { getHoverColor } from '../../../services/color-functions'
 import calculateNodeHeight from './calculateNodeHeight'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import { warn } from '../../../services/utils'
+import { Component, Mixins, Watch } from 'vue-property-decorator'
 
-const InputContextMixin = makeContextablePropsMixin({
-  color: {
-    type: String,
-    default: '',
-  },
-  value: {
-    type: [String, Number],
-    default: '',
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  placeholder: {
-    type: String,
-    default: '',
-  },
-  type: {
-    type: String,
-    default: 'text',
-  },
-  removable: {
-    type: Boolean,
-    default: false,
-  },
-  tabindex: {
-    type: Number,
-    default: 0,
-  },
+const InputPropsMixin = makeContextablePropsMixin({
+  color: { type: String, default: '' },
+  value: { type: [String, Number], default: '' },
+  label: { type: String, default: '' },
+  placeholder: { type: String, default: '' },
+  type: { type: String, default: 'text' },
+  removable: { type: Boolean, default: false },
+  tabindex: { type: Number, default: 0 },
 
   // textarea-specific
-  autosize: {
-    type: Boolean,
-    default: false,
-  },
+  autosize: { type: Boolean, default: false },
   minRows: {
     type: Number,
     default: null,
-    validator: (val) => {
+    validator: (val: number) => {
       if (!(val > 0 && (val | 0) === val)) {
         return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
       }
@@ -148,7 +125,7 @@ const InputContextMixin = makeContextablePropsMixin({
   },
   maxRows: {
     type: Number,
-    validator: (val) => {
+    validator: (val: number) => {
       if (!(val > 0 && (val | 0) === val)) {
         return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
       }
@@ -158,118 +135,124 @@ const InputContextMixin = makeContextablePropsMixin({
   },
 })
 
-export default {
+@Component({
   name: 'VaInput',
-  mixins: [ColorThemeMixin, InputContextMixin, FormComponentMixin],
   components: { VaInputWrapper, VaIcon },
+})
+export default class VaInput extends Mixins(
+  ColorThemeMixin,
+  FormComponentMixin,
+  InputPropsMixin,
+) {
+  isFocused = false
+
   mounted () {
     this.adjustHeight()
-  },
-  watch: {
-    value () {
-      this.adjustHeight()
-    },
-  },
-  data () {
-    return {
-      isFocused: false,
+  }
+
+  @Watch('value')
+  onValueChanged () {
+    this.adjustHeight()
+  }
+
+  get labelStyles () {
+    if (this.computedError) {
+      return { color: this.computeColor('danger') }
     }
-  },
-  computed: {
-    labelStyles () {
-      if (this.computedError) {
-        return { color: this.computeColor('danger') }
-      }
 
-      if (this.c_success) {
-        return { color: this.computeColor('success') }
-      }
+    if (this.c_success) {
+      return { color: this.computeColor('success') }
+    }
 
-      return { color: this.colorComputed }
-    },
-    containerStyles () {
-      return {
-        backgroundColor:
-          this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
-            : this.c_success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
-        borderColor:
-          this.computedError ? this.computeColor('danger')
-            : this.c_success ? this.computeColor('success')
-              : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
-      }
-    },
-    textareaStyles () {
-      return {
-        paddingBottom: this.label ? '0.125rem' : '',
-        marginTop: this.label ? '0.875rem' : '',
-        paddingTop: this.label ? 0 : '',
-        minHeight: this.label ? '1.5rem' : '2.25rem',
-        marginBottom: 0,
-      }
-    },
-    inputListeners () {
-      // TODO Probably not the best idea to stick this in computed.
-      return Object.assign(
-        {},
-        this.$listeners,
-        {
-          input: event => {
-            this.$emit('input', event.target.value)
-          },
-          click: event => {
-            this.$emit('click', event)
-          },
-          focus: event => {
-            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.isFocused = true
+    return { color: this.colorComputed }
+  }
 
-            this.$emit('focus', event)
-          },
-          blur: event => {
-            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-            this.ValidateMixin_onBlur()
+  get containerStyles () {
+    return {
+      backgroundColor:
+        this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
+          : this.c_success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
+      borderColor:
+        this.computedError ? this.computeColor('danger')
+          : this.c_success ? this.computeColor('success')
+            : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
+    }
+  }
 
-            this.$emit('blur', event)
-          },
-          keyup: event => {
-            this.$emit('keyup', event)
-          },
-          keydown: event => {
-            this.$emit('keydown', event)
-          },
+  get textareaStyles () {
+    return {
+      paddingBottom: this.label ? '0.125rem' : '',
+      marginTop: this.label ? '0.875rem' : '',
+      paddingTop: this.label ? 0 : '',
+      minHeight: this.label ? '1.5rem' : '2.25rem',
+      marginBottom: 0,
+    }
+  }
+
+  get inputListeners () {
+    // TODO Probably not the best idea to stick this in computed.
+    return Object.assign(
+      {},
+      this.$listeners,
+      {
+        input: (event: any) => {
+          this.$emit('input', event.target.value)
         },
-      )
-    },
-    hasContent () {
-      return ![null, undefined, ''].includes(this.c_value)
-    },
-    isTextarea () {
-      return this.c_type === 'textarea'
-    },
-  },
-  methods: {
-    adjustHeight () {
-      if (!this.autosize || !this.isTextarea) { return }
+        click: (event: Event) => {
+          this.$emit('click', event)
+        },
+        focus: (event: Event) => {
+          // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+          this.isFocused = true
 
-      const minRows = this.minRows || 1
-      const maxRows = this.maxRows || Number.MAX_SAFE_INTEGER
-      const textareaStyles = calculateNodeHeight(this.$refs.input, false, minRows, maxRows)
+          this.$emit('focus', event)
+        },
+        blur: (event: Event) => {
+          // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+          this.ValidateMixin_onBlur()
 
-      // We modify DOM directly instead of using reactivity because the whole adjustHeight method takes place
-      // each time the value of textarea is modified, so there's no real need in an additional layer of reactivity.
-      // The operation is basically reactive though implicitly.
-      Object.assign(this.$refs.input.style, textareaStyles)
-    },
+          this.$emit('blur', event)
+        },
+        keyup: (event: Event) => {
+          this.$emit('keyup', event)
+        },
+        keydown: (event: Event) => {
+          this.$emit('keydown', event)
+        },
+      },
+    )
+  }
 
-    /** @public */
-    focus () {
-      this.$refs.input.focus()
-    },
-    /** @public */
-    reset () {
-      this.$emit('input', '')
-    },
-  },
+  get hasContent () {
+    return ![null, undefined, ''].includes(this.c_value)
+  }
+
+  get isTextarea () {
+    return this.c_type === 'textarea'
+  }
+
+  adjustHeight () {
+    if (!this.autosize || !this.isTextarea) { return }
+
+    const minRows = this.minRows || 1
+    const maxRows = this.maxRows || Number.MAX_SAFE_INTEGER
+    const textareaStyles = calculateNodeHeight(this.$refs.input, false, minRows, maxRows)
+
+    // We modify DOM directly instead of using reactivity because the whole adjustHeight method takes place
+    // each time the value of textarea is modified, so there's no real need in an additional layer of reactivity.
+    // The operation is basically reactive though implicitly.
+    Object.assign((this as any).$refs.input.style, textareaStyles)
+  }
+
+  /** @public */
+  focus () {
+    (this as any).$refs.input.focus()
+  }
+
+  /** @public */
+  reset () {
+    this.$emit('input', '')
+  }
 }
 </script>
 
