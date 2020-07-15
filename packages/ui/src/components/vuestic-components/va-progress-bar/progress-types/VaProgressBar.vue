@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { ProgressMixin } from './ProgressMixin'
+import { ProgressMixin } from './progressMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'

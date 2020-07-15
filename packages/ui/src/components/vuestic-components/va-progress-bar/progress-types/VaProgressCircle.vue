@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { ProgressMixin } from './ProgressMixin'
+import { ProgressMixin } from './progressMixin'
 import {
   ColorThemeMixin,
   getColor,

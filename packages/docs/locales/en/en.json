@@ -361,6 +361,29 @@
         "default": "The content to be scrolled"
       }
     },
+    "VaAlert": {
+      "props": {
+        "value": "The current visibility state of the alert",
+        "title": "The text content placed in the title",
+        "description": "The text content of the alert",
+        "icon": "Show icon in front of alert content",
+        "closeIcon": "Replace the default close icon with a custom one",
+        "closeText": "Use text instead of the close icon",
+        "closeable": "Add a close alert area",
+        "center": "Center the title and description of the alert",
+        "borderColor": "Border color of the alert",
+        "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available."
+      },
+      "methods": {
+        "hide":"Hide alert. On stateless alert only emits `@input`"
+      },
+      "slots": {
+        "default": "Content of alert body",
+        "title": "Alert title area content",
+        "icon": "Alert icon area content",
+        "close": "Alert close area content"
+      }
+    },
     "VaIcon": {
       "props": {
         "component": "Allows to use the svg component as an icon.",
@@ -405,6 +428,7 @@
     "button": "Button",
     "checkbox": "Checkbox",
     "infiniteScroll": "Infinite Scroll",
+    "alert": "Alert",
     "icon": "Icon",
     "radio": "Radio"
   },
@@ -1121,6 +1145,40 @@
       "customTarget": {
         "title": "Custom scroll target container",
         "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
+      }
+    }
+  },
+  "alert": {
+    "title": "Alert",
+    "summaryText": "Alert displays an important message to attract user attention.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "The basic usage of the `va-alert` component."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Use `color` property to change the color of the component."
+      },
+      "border": {
+        "title": "Border",
+        "text": "Use the `border` property to add a strip and the `border-color` property to change the color of the strip."
+      },
+      "title": {
+        "title": "Title",
+        "text": "The `title` property allows you to write text over the description area. Use the `title` slot to costomize the title area."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "The `icon` property allows you to add an icon in front of the description area. Use the `icon` slot to costomize the icon area."
+      },
+      "closeable": {
+        "title": "Closeable",
+        "text": "The `closeable` property add a close alert area. "
+      },
+      "center": {
+        "title": "Center",
+        "text": "The `center` property allows you to center title and description areas."
       }
     }
   },

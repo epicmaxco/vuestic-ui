@@ -38,6 +38,12 @@
       "methods": {},
       "slots": {}
     },
+    "VaAlert": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaIcon": {
       "props": {},
       "events": {},
@@ -56,6 +62,7 @@
     "uiElements": "Elementos UI",
     "image": "Image",
     "checkbox": "Checkbox",
+    "alert": "Alert",
     "icon": "Icon",
     "radio": "Radio"
   },
@@ -72,6 +79,9 @@
     "title": "-- Here is the title --"
   },
   "divider": {},
+  "alert": {
+    "title": "-- Here is the title --"
+  },
   "icon": {
     "title": "-- Here is the title --"
   },
