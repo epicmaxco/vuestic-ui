@@ -414,6 +414,7 @@
     "modal": "Modal",
     "tabs": "Tabs",
     "uiElements": "UI Elements",
+    "styles": "Styles",
     "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
@@ -430,7 +431,8 @@
     "infiniteScroll": "Infinite Scroll",
     "alert": "Alert",
     "icon": "Icon",
-    "radio": "Radio"
+    "radio": "Radio",
+    "grid": "Grid"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1235,6 +1237,97 @@
       "disabled": {
         "title": "Disabled",
         "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
+      }
+    }
+  },
+  "grid": {
+    "title": "Grid System",
+    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
+    "examples": {
+      "default": {
+        "title": "Enabling flexbox"
+      },
+      "breakpoints": {
+        "title": "Breakpoints",
+        "text": "You can use our `breakpoints` to set the length of you container.",
+        "sizes": {
+          "xs": "`.xs` - Phones (<600px)",
+          "sm": "`.sm` - Small devices Tablets (≥600px)",
+          "md": "`.md` - Medium devices Desktops (≥960)",
+          "lg": "`.lg` - Large devices Desktops (≥1280px)",
+          "xl": "`.xl` - Extra large devices Desktops (≥1920px)"
+        }
+      },
+      "offsets": {
+        "title": "Offsets",
+        "text": "You can use our `offset` to set the space between left and current elements of you container.",
+        "sizes": {
+          "xs": "`.offset--xs` - Phones (<600px)",
+          "sm": "`.offset--sm` - Small devices Tablets (≥600px)",
+          "md": "`.offset--md` - Medium devices Desktops (≥960)",
+          "lg": "`.offset--lg` - Large devices Desktops (≥1280px)",
+          "xl": "`.offset--xl` - Extra large devices Desktops (≥1920px)"
+        }
+      },
+      "gutters": {
+        "title": "Gutters",
+        "text": "A `layout` controls by `gutter`.",
+        "sizes": {
+          "xs": "`.gutter--xs` - Extra small gutter between cells",
+          "sm": "`.gutter--sm` - Small gutter between cells",
+          "md": "`.gutter--md` - Default gutter between cells",
+          "lg": "`.gutter--lg` - Large gutter between cells",
+          "xl": "`.gutter--xl` - Extra large gutter between cells"
+        }
+      }
+    },
+    "api": {
+      "align": {
+        "title": "`align`:",
+        "variants": [
+          "`.align--start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align--end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align--center` - items are centered in the cross-axis",
+          "`.align--baseline` - items are aligned such as their baselines align"
+        ]
+      },
+      "alignSelf": {
+        "title": "`align-self`:",
+        "variants": [
+          "`.align-self--start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align-self--end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align-self--center` - items are centered in the cross-axis",
+          "`.align-self--baseline` - items are aligned such as their baselines align"
+        ]
+      },
+      "alignContent": {
+        "title": "`align-content`:",
+        "variants": [
+          "`.align-content--start` - lines packed to the start of the container",
+          "`.align-content--end` - lines packed to the end of the container",
+          "`.align-content--center` - lines packed to the center of the container",
+          "`.align-content--space-between` - lines evenly distributed; the first line is at the start of the container while the last one is at the end",
+          "`.align-content--space-around` - lines evenly distributed with equal space between them"
+        ]
+      },
+      "justify": {
+        "title": "`justify`:",
+        "variants": [
+          "`.justify--start` - items are packed toward the start line",
+          "`.justify--end` - items are packed toward to end line",
+          "`.justify--center` - items are centered along the line",
+          "`.justify--space-around` - items are evenly distributed in the line with equal space around them",
+          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item on the end line"
+        ]
+      },
+      "justifySelf": {
+        "title": "`justify-self`:",
+        "variants": [
+          "`.justify-self--start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
+          "`.justify-self--end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
+          "`.justify-self--center` - For items that are not children of a flex container, this value is treated like start.",
+          "`.justify-self--baseline`"
+        ]
       }
     }
   }
