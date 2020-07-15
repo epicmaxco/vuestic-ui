@@ -49,6 +49,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaTag": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -57,7 +63,8 @@
     "image": "Image",
     "checkbox": "Checkbox",
     "icon": "Icon",
-    "radio": "Radio"
+    "radio": "Radio",
+    "tag": "Tag"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -76,6 +83,9 @@
     "title": "-- Here is the title --"
   },
   "radio": {
+    "title": "-- Here is the title --"
+  },
+  "tag": {
     "title": "-- Here is the title --"
   }
 }

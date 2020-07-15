@@ -375,6 +375,12 @@
         "option": "Option value that model is updated to when an option is selected",
         "tabindex": "Sets a custom tabindex"
       }
+    },
+    "VaTag": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "anyPage": {
@@ -406,7 +412,8 @@
     "checkbox": "Checkbox",
     "infiniteScroll": "Infinite Scroll",
     "icon": "Icon",
-    "radio": "Radio"
+    "radio": "Radio",
+    "tag": "Tag"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1177,6 +1184,48 @@
       "disabled": {
         "title": "Disabled",
         "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
+      }
+    }
+  },
+  "tag": {
+    "title": "Tag",
+    "summaryText": "",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": ""
+      },
+      "outline": {
+        "title": "Outline",
+        "text": ""
+      },
+      "flat": {
+        "title": "Flat",
+        "text": ""
+      },
+      "square": {
+        "title": "Square",
+        "text": ""
+      },
+      "color": {
+        "title": "Color",
+        "text": ""
+      },
+      "size": {
+        "title": "Size",
+        "text": ""
+      },
+      "icon": {
+        "title": "Icon",
+        "text": ""
+      },
+      "closeable": {
+        "title": "closeable",
+        "text": ""
+      },
+      "link": {
+        "title": "Link",
+        "text": ""
       }
     }
   }

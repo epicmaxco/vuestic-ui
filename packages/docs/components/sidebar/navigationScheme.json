@@ -95,6 +95,10 @@
         {
           "name": "radio",
           "displayName": "menu.radio"
+        },
+        {
+          "name": "tag",
+          "displayName": "menu.tag"
         }
       ]
     }
