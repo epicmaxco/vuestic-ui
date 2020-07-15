@@ -9,7 +9,7 @@ const ProgressMixinContextableProps = makeContextablePropsMixin({
   indeterminate: { type: Boolean, default: false },
 })
 
-export class ProgressMixin extends Mixins(
+export class ProgressComponentMixin extends Mixins(
   ProgressMixinContextableProps,
 ) {
   get normalizedValue () {

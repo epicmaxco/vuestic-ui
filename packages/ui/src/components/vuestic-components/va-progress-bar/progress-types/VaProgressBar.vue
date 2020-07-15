@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { ProgressMixin } from './progressMixin'
+import { ProgressComponentMixin } from './ProgressComponentMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
@@ -64,7 +64,7 @@ const ProgressBarPropsMixin = makeContextablePropsMixin({
   name: 'VaProgressBar',
 })
 export default class VaProgressBar extends Mixins(
-  ProgressMixin,
+  ProgressComponentMixin,
   ColorThemeMixin,
   SizeMixin,
   ProgressBarPropsMixin,
