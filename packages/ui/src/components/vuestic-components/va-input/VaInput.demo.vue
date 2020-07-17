@@ -164,6 +164,58 @@
         :max-rows="4"
       />
     </VbCard>
+    <VbCard title="Masked input">
+      <va-input
+        v-model="maskCreditCardValue"
+        :style="{paddingTop: '4px'}"
+        label="Credit card mask"
+        type="input"
+        mask="creditCard"
+      />
+      Value: {{maskCreditCardValue}}
+      <va-input
+        v-model="maskDateValue"
+        :style="{paddingTop: '4px'}"
+        label="Date mask"
+        type="input"
+        mask="date"
+      />
+      Value: {{maskDateValue}}
+      <va-input
+        v-model="maskTimeValue"
+        :style="{paddingTop: '4px'}"
+        label="Time mask"
+        type="input"
+        mask="time"
+      />
+      Value: {{maskTimeValue}}
+      <va-input
+        v-model="maskNumeralsValue"
+        :style="{paddingTop: '4px'}"
+        label="Only numerals mask"
+        type="input"
+        mask="numeral"
+      />
+      Value: {{maskNumeralsValue}}
+      <va-input
+        v-model="maskCustomBlocksValue"
+        :style="{paddingTop: '4px'}"
+        label="Custom blocks mask"
+        placeholder="# ##### #####"
+        type="input"
+        :mask="{blocks: [1, 5, 5]}"
+      />
+      Value: {{maskCustomBlocksValue}}
+      <va-input
+        v-model="maskReturnFormattedValue"
+        :style="{paddingTop: '4px'}"
+        label="Date mask, return formatted"
+        :returnRaw="false"
+        type="input"
+        mask="date"
+      />
+      Value: {{maskReturnFormattedValue}}
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -191,6 +243,13 @@ export default {
 
       autosizeValue: 'one\ntwo\nthree',
       autosizeValueWithLimits: 'one\ntwo\nthree',
+
+      maskCreditCardValue: '',
+      maskDateValue: '',
+      maskTimeValue: '',
+      maskNumeralsValue: '',
+      maskCustomBlocksValue: '',
+      maskReturnFormattedValue: '',
     }
   },
 }
