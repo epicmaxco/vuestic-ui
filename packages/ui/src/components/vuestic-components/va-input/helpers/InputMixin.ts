@@ -84,6 +84,21 @@ export class InputMixin extends Mixins(PropsMixin) {
     this.$emit('input', event.target.value)
   }
 
+  onChange (event: any): void {
+    if (typeof this.mask !== 'string' && !Object.keys(this.mask).length) {
+      this.$emit('change', event.target.value)
+      return
+    }
+    if (this.inputElement) {
+      this.inputElement.setRawValue(event.target.value)
+      if (this.returnRaw) {
+        this.$emit('change', this.inputElement.getRawValue())
+        return
+      }
+    }
+    this.$emit('change', event.target.value)
+  }
+
   onClick (event: Event): void {
     this.$emit('click', event)
   }
@@ -131,6 +146,7 @@ export class InputMixin extends Mixins(PropsMixin) {
   setEventListeners () {
     this.eventListeners = {
       input: this.onInput,
+      change: this.onChange,
       click: this.onClick,
       focus: this.onFocus,
       blur: this.onBlur,
