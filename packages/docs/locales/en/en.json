@@ -182,7 +182,10 @@
         "clickOutside": "Emits when overlay is clicked",
         "input": "Emits when modal's visibility should change",
         "ok": "Emits when **Ok** button is clicked",
-        "cancel": "Emits when **Cancel** button is clicked"
+        "beforeOpen": "Emits before modal's open after transition started",
+        "open": "Emits when modal's is open and transition is complete",
+        "beforeClose": "Emits before modal's start closing after transition started",
+        "close": "Emits when modal's is closed and transition is complete"
       },
       "methods": {
         "hide": "Hide modal. On stateless modal only emits `@input`",
