@@ -2,32 +2,33 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export default {
   props: {
-    value: { local: true },
-    type: { local: true },
-    label: { local: true },
-    placeholder: { local: true },
-    mask: { local: true },
-    color: { local: true },
-    removable: { local: true },
-    tabindex: { local: true },
-    returnRaw: { local: true },
     autosize: { local: true },
-    minRows: { local: true },
+    color: {},
+    disabled: {},
+    error: {},
+    errorCount: {},
+    errorMessages: {},
+    label: {},
+    mask: { local: true },
     maxRows: { local: true },
-    rules: { local: true },
-    disabled: { local: true },
-    readonly: { local: true },
-    success: { local: true },
-    messages: { local: true },
-    error: { local: true },
-    errorMessages: { local: true },
-    errorCount: { local: true },
+    messages: {},
+    minRows: { local: true },
+    placeholder: { local: true },
+    readonly: {},
+    removable: { local: true },
+    returnRaw: { local: true },
+    rules: {},
+    success: {},
+    tabindex: { local: true },
+    type: { local: true },
+    value: { local: true },
   },
   events: {
     input: {
       types: 'any',
     },
     change: {
+      local: true,
       types: 'any',
     },
     blur: {
@@ -39,10 +40,28 @@ export default {
     click: {
       types: 'Event',
     },
+    'click:prepend': {
+      local: true,
+      types: 'Event',
+    },
+    'click:prepend-inner': {
+      local: true,
+      types: 'Event',
+    },
+    'click:append': {
+      local: true,
+      types: 'Event',
+    },
+    'click:append-inner': {
+      local: true,
+      types: 'Event',
+    },
     keyup: {
+      local: true,
       types: 'Event',
     },
     keydown: {
+      local: true,
       types: 'Event',
     },
   },

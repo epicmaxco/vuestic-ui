@@ -9,6 +9,10 @@ export default [
     translationString: 'input.title',
   },
   {
+    type: BlockType.PARAGRAPH,
+    translationString: 'input.paragraph',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.examples',
   },
@@ -86,11 +90,11 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'all.api',
+    translationString: 'anyPage.api',
   },
   {
+    apiOptions,
     type: BlockType.API,
     componentOptions: VaInput,
-    apiOptions,
   },
 ] as ApiDocsBlock[]
