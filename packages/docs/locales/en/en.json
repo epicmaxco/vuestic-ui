@@ -360,6 +360,12 @@
         "loading": "Shown when content is fetching.",
         "default": "The content to be scrolled"
       }
+    },
+    "VaInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "anyPage": {
@@ -389,7 +395,8 @@
     "divider": "Divider",
     "button": "Button",
     "checkbox": "Checkbox",
-    "infiniteScroll": "Infinite Scroll"
+    "infiniteScroll": "Infinite Scroll",
+    "input": "Input"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1104,6 +1111,36 @@
       "customTarget": {
         "title": "Custom scroll target container",
         "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
+      }
+    }
+  },
+  "input": {
+    "title": "Input",
+    "summaryText": "The `va-input` component intended to be used instead of the standard HTMl input or textarea.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default `va-input` have no any attributes, but can be combined with placeholder and/or label. It also can be disabled or readonly."
+      },
+      "hint": {
+        "title": "Hint messages",
+        "text": "Support single/multi line messages to give some hint for improve UX"
+      },
+      "validate": {
+        "title": "Validation and error/success state",
+        "text": "Support a simple validation using the rules prop. The prop accepts an array of callbacks. While validating rules, the current v-model value will be passed to the callback. This callback should return either true or a String, the error message. Also you can manually pass error/success prop to manage input state/"
+      },
+      "slots": {
+        "title": "Slots",
+        "text": "You can use slots for pass custom elements to input (inner or outer), such as icons or buttons etc."
+      },
+      "textarea": {
+        "title": "Textarea",
+        "text": "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
+      },
+      "mask": {
+        "title": "Mask",
+        "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on cleave.js. By default returning a raw value."
       }
     }
   }

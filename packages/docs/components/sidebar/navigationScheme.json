@@ -87,6 +87,10 @@
         {
           "name": "infinite-scroll",
           "displayName": "menu.infiniteScroll"
+        },
+        {
+          "name": "input",
+          "displayName": "menu.input"
         }
       ]
     }
