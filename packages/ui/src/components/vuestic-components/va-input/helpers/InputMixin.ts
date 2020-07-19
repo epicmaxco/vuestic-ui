@@ -58,7 +58,7 @@ export class InputMixin extends Mixins(PropsMixin) {
   }
 
   get showIcon (): boolean {
-    return this.c_success || this.computedError || this.$slots.append || this.canBeCleared
+    return this.c_success || this.computedError || this.canBeCleared
   }
 
   get canBeCleared (): boolean {

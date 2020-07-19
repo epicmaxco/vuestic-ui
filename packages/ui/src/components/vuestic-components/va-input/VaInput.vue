@@ -18,8 +18,14 @@
       :style="containerStyles"
     >
       <div
+        v-if="$slots.prependInner"
+        class="va-input__container__prepend-inner"
+      >
+        <slot name="prependInner" />
+      </div>
+      <div
         class="va-input__container__content-wrapper"
-        :style="{ paddingTop: c_label ? '' : '0'}"
+        :style="{ alignItems: c_label ? 'flex-end' : 'center'}"
       >
         <label
           :style="labelStyles"
@@ -33,7 +39,6 @@
           :id="id"
           :name="name"
           class="va-input__container__input"
-          :style="{ paddingBottom: c_label ? '0.125rem' : '0.875rem' }"
           :aria-label="c_label"
           :type="c_type"
           :placeholder="c_placeholder"
@@ -63,6 +68,12 @@
         />
       </div>
       <div
+        v-if="$slots.appendInner"
+        class="va-input__container__append-inner"
+      >
+        <slot name="appendInner" />
+      </div>
+      <div
         v-if="showIcon"
         class="va-input__container__icon-wrapper"
       >
@@ -78,7 +89,6 @@
           color="danger"
           name="warning"
         />
-        <slot name="append" />
         <va-icon
           v-if="canBeCleared"
           @click.native="reset()"
@@ -88,6 +98,10 @@
         />
       </div>
     </div>
+    <slot
+      name="append"
+      slot="append"
+    />
   </va-input-wrapper>
 </template>
 
@@ -167,11 +181,24 @@ export default class VaInput extends Mixins(
       display: flex;
       align-items: flex-end;
       width: 100%;
+      padding: 0 0.5rem;
 
       /* min-width: 100%; */
     }
 
     &__icon-wrapper {
+      display: flex;
+      align-items: center;
+      margin-right: 0.5rem;
+    }
+
+    &__prepend-inner {
+      display: flex;
+      align-items: center;
+      margin-left: 0.5rem;
+    }
+
+    &__append-inner {
       display: flex;
       align-items: center;
       margin-right: 0.5rem;
@@ -184,8 +211,11 @@ export default class VaInput extends Mixins(
 
     &__label {
       position: absolute;
-      bottom: 0.875rem;
-      left: 0.5rem;
+
+      /* bottom: 0.875rem; */
+      top: 0.125rem;
+
+      /* left: 0.5rem; */
       margin-bottom: 0.5rem;
       max-width: calc(100% - 0.75rem);
       color: $vue-green;
@@ -208,8 +238,10 @@ export default class VaInput extends Mixins(
     &__input {
       width: 100%;
       height: 1.5rem;
-      margin-bottom: 0.125rem;
-      padding: 0.25rem 0.5rem;
+
+      /* margin-bottom: 0.125rem; */
+
+      /* padding: 0.25rem 0.5rem; */
       color: #34495e;
       background-color: transparent;
       border-style: none;
@@ -227,7 +259,9 @@ export default class VaInput extends Mixins(
       }
 
       &:placeholder-shown {
-        padding-bottom: 0.875rem;
+        /* padding-bottom: 0.875rem; */
+
+        /* margin-bottom: 0.125rem; */
       }
 
       &:disabled {

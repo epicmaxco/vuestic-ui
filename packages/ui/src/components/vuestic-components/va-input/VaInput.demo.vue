@@ -42,7 +42,7 @@
         label="Name"
       >
         <va-icon
-          slot="append"
+          slot="prependInner"
           name="share"
         />
       </va-input>
@@ -53,7 +53,7 @@
         label="Name"
       >
         <va-button
-          slot="append"
+          slot="appendInner"
           style="margin-right: 0;"
           size="small"
         >
@@ -72,6 +72,17 @@
         />
       </va-input>
     </VbCard>
+    <VbCard title="Prepend Inner Slot">
+      <va-input
+        v-model="text"
+        label="Name"
+      >
+        <va-icon
+          slot="prependInner"
+          name="share"
+        />
+      </va-input>
+    </VbCard>
     <VbCard title="Append Slot">
       <va-input
         v-model="text"
@@ -79,6 +90,17 @@
       >
         <va-icon
           slot="append"
+          name="share"
+        />
+      </va-input>
+    </VbCard>
+    <VbCard title="Append Inner Slot">
+      <va-input
+        v-model="text"
+        label="Name"
+      >
+        <va-icon
+          slot="appendInner"
           name="share"
         />
       </va-input>

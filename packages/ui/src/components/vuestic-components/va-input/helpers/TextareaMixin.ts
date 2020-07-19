@@ -40,11 +40,11 @@ export class TextareaMixin extends Mixins(PropsMixin) {
 
   get textareaStyles (): any {
     return {
-      paddingBottom: this.label ? '0.125rem' : '',
+      // paddingBottom: this.label ? '0.125rem' : '',
       marginTop: this.label ? '0.875rem' : '',
       paddingTop: this.label ? 0 : '',
       minHeight: this.label ? '1.5rem' : '2.25rem',
-      marginBottom: 0,
+      // marginBottom: 0,
     }
   }
 
