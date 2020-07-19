@@ -103,6 +103,22 @@ export class InputMixin extends Mixins(PropsMixin) {
     this.$emit('click', event)
   }
 
+  onPrependClick (event: Event): void {
+    this.$emit('click:prepend', event)
+  }
+
+  onPrependInnerClick (event: Event): void {
+    this.$emit('click:prepend-inner', event)
+  }
+
+  onAppendClick (event: Event): void {
+    this.$emit('click:append', event)
+  }
+
+  onAppendInnerClick (event: Event): void {
+    this.$emit('click:append-inner', event)
+  }
+
   onFocus (event: Event): void {
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
     this.isFocused = true

@@ -7,6 +7,8 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
+    @click:prepend="onPrependClick"
+    @click:append="onAppendClick"
   >
     <slot
       name="prepend"
@@ -19,6 +21,7 @@
     >
       <div
         v-if="$slots.prependInner"
+        @click="onPrependInnerClick"
         class="va-input__container__prepend-inner"
       >
         <slot name="prependInner" />
@@ -69,6 +72,7 @@
       </div>
       <div
         v-if="$slots.appendInner"
+        @click="onAppendInnerClick"
         class="va-input__container__append-inner"
       >
         <slot name="appendInner" />
