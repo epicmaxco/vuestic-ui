@@ -3,7 +3,7 @@ import { NotificationInterface } from './types'
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $message: NotificationInterface
+    $message: NotificationInterface;
   }
 }
 

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Toast from './Toast.vue'
 import { NotificationOptions } from './types'
-import { VNode } from 'vue/types/umd';
+import { VNode } from 'vue/types/umd'
 
-const NotificationConstructor = Vue.extend(Toast) 
+const NotificationConstructor = Vue.extend(Toast)
 
 type OptionKeys = keyof NotificationOptions;
 
@@ -52,25 +52,25 @@ const Notification = function (options: NotificationOptions) {
     instance.$slots.default = [options.message as VNode]
     options.message = 'REPLACED_BY_VNODE'
   }
-  instance.id = id
+  ;(instance as any).id = id
   instance.$mount()
   document.body.appendChild(instance.$el)
-  instance.visible = true
+  ;(instance as any).visible = true
   // instance.$el as HTMLElement
-  (instance.$el as HTMLElement).style.zIndex = Z_INDEX
+  ;(instance.$el as HTMLElement).style.zIndex = Z_INDEX + ''
 
   let verticalOffset = options.offset || 0
   instances.filter(item => item.position === position).forEach(item => {
     verticalOffset += item.$el.offsetHeight + 16
   })
   verticalOffset += 16
-  instance.verticalOffset = verticalOffset
+  ;(instance as any).verticalOffset = verticalOffset
   instances.push(instance)
   return instance
 };
 
 ['success', 'warning', 'info', 'error'].forEach(type => {
-  Notification[type] = options => {
+  ;(Notification as any)[type] = (options: any) => {
     if (typeof options === 'string' || isVNode(options)) {
       options = {
         message: options,
@@ -81,7 +81,7 @@ const Notification = function (options: NotificationOptions) {
   }
 })
 
-Notification.close = function (id, userOnClose) {
+Notification.close = function (id: any, userOnClose?: Function) {
   let index = -1
   const len = instances.length
   const instance = instances.filter((instance, i) => {

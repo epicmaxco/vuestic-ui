@@ -13,76 +13,76 @@ export declare class NotificationComponent extends Vue {
 
 export interface NotificationOptions {
   /** Title */
-  title?: string
+  title?: string;
 
   /** Description text */
-  message: string | VNode
+  message: string | VNode;
 
   /** Notification type */
-  type?: MessageType
+  type?: MessageType;
 
   /** Custom icon's class. It will be overridden by type */
-  iconClass?: string
+  iconClass?: string;
 
   /** Custom class name for Notification */
-  customClass?: string
+  customClass?: string;
 
   /** Duration before close. It will not automatically close if set 0 */
-  duration?: number
+  duration?: number;
 
   /** Whether to show a close button */
-  showClose?: boolean
+  showClose?: boolean;
 
   /** Whether message is treated as HTML string */
-  dangerouslyUseHTMLString?: boolean
+  dangerouslyUseHTMLString?: boolean;
 
   /** Callback function when closed */
-  onClose?: () => void
+  onClose?: () => void;
 
   /** Callback function when notification clicked */
-  onClick?: () => void
+  onClick?: () => void;
 
   /** Offset from the top edge of the screen. Every Notification instance of the same moment should have the same offset */
-  offset?: number
+  offset?: number;
 
   /** custom position */
-  position?: NotificationPosition
+  position?: NotificationPosition;
 
-  id?: string
+  id?: string;
 
-  verticalOffset?: number
+  verticalOffset?: number;
 
-  visible?: boolean
+  visible?: boolean;
 
   // id?: string
 }
 
 export interface NotificationInterface {
   /** Show a notification */
-  (options: NotificationOptions | string): NotificationComponent
+  (options: NotificationOptions | string): NotificationComponent;
 
   /** Show a success notification */
-  success? (message: string | VNode): NotificationComponent
+  success? (message: string | VNode): NotificationComponent;
 
   /** Show a success notification */
-  success? (options: NotificationOptions): NotificationComponent
+  success? (options: NotificationOptions): NotificationComponent;
 
   /** Show a warning notification */
-  warning? (message: string | VNode): NotificationComponent
+  warning? (message: string | VNode): NotificationComponent;
 
   /** Show a warning notification */
-  warning? (options: NotificationOptions): NotificationComponent
+  warning? (options: NotificationOptions): NotificationComponent;
 
   /** Show an info notification */
-  info? (message: string | VNode): NotificationComponent
+  info? (message: string | VNode): NotificationComponent;
 
   /** Show an info notification */
-  info? (options: NotificationOptions): NotificationComponent
+  info? (options: NotificationOptions): NotificationComponent;
 
   /** Show an error notification */
-  error? (message: string | VNode): NotificationComponent
+  error? (message: string | VNode): NotificationComponent;
 
   /** Show an error notification */
-  error? (options: NotificationOptions): NotificationComponent
+  error? (options: NotificationOptions): NotificationComponent;
 
 }
