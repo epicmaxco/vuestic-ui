@@ -96,7 +96,7 @@ export default class VaTag extends Mixins(
   }
 
   get tagIndexComputed () {
-    return (this.c_disabled) ? -1 : 0
+    return this.c_disabled ? -1 : 0
   }
 
   get computedClass () {

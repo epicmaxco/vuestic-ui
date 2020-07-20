@@ -30,7 +30,6 @@ describe('VaTag', () => {
         to: 'http://epic-spinners.epicmax.co/',
       },
     })
-    console.log(wrapper)
     expect(wrapper.is('router-link')).toBe(true)
   })
 })
