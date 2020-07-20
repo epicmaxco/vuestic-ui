@@ -377,7 +377,12 @@
       }
     },
     "VaTag": {
-      "props": {},
+      "props": {
+        "closeable": "Provides the ability to close the tag",
+        "outline": "Applies outline styling",
+        "flat": "Applies flat styling",
+        "icon": "The icon to be displayed inside a tag"
+      },
       "events": {},
       "methods": {},
       "slots": {}
@@ -1193,39 +1198,39 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": ""
+        "text": "Default usage of the `va-tag` compoment."
       },
       "outline": {
         "title": "Outline",
-        "text": ""
+        "text": "Outline style without background."
       },
       "flat": {
         "title": "Flat",
-        "text": ""
+        "text": "Flat style without borders and background."
       },
       "square": {
         "title": "Square",
-        "text": ""
+        "text": "Makes your `va-tag` square."
       },
       "color": {
         "title": "Color",
-        "text": ""
+        "text": "You can use the `va-tag` component with different colors."
       },
       "size": {
         "title": "Size",
-        "text": ""
+        "text": "Set different tag sizes using size presets."
       },
       "icon": {
         "title": "Icon",
-        "text": ""
+        "text": "You can use icons in tag."
       },
       "closeable": {
-        "title": "closeable",
-        "text": ""
+        "title": "Closeable",
+        "text": "A tag can be closened by using property `closeable`."
       },
       "link": {
         "title": "Link",
-        "text": ""
+        "text": "Make your tag clickable."
       }
     }
   }
