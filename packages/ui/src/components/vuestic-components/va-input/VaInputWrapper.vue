@@ -101,6 +101,7 @@ export default class VaInputWrapper extends Mixins(
   &__slot {
     display: inline-flex;
     position: relative;
+    width: 100%;
   }
 
   &__details {

@@ -8,11 +8,11 @@
       :disabled="disabled"
       class="va-select__dropdown"
       :max-height="maxHeight"
-      keep-anchor-width
+      closeOnAnchorClick
+      keepAnchorWidth
       ref="dropdown"
       :fixed="fixed"
       :style="{width}"
-      :close-on-anchor-click="false"
       boundary-body
     >
       <va-input
@@ -61,64 +61,76 @@
 
       <div
         slot="anchor"
+        class="va-select"
         :class="selectClass"
         :style="selectStyle"
       >
-        <label
-          class="va-select__label"
-          :style="labelStyle"
-          aria-hidden="true"
-        >{{ label }}</label>
-        <div
-          class="va-select__input-wrapper"
-          :style="inputWrapperStyles"
-        >
-          <span
-            class="va-select__tags"
-            v-if="multiple && valueProxy.length <= tagMax"
-          >
-            <span
-              class="va-select__tags__tag"
+        <div class="va-select__content-wrapper">
+          <div class="va-select__content">
+            <label
+              v-if="label"
+              class="va-select__content__label"
+              :style="labelStyle"
+              aria-hidden="true"
             >
-              {{ [...this.valueProxy.map(val => getText(val))].join(', ') }}
-            </span>
-          </span>
-          <span
-            v-else-if="displayedText"
-            class="va-select__displayed-text"
-          >{{ displayedText }}</span>
-          <span
-            v-else
-            class="va-select__placeholder"
-          >{{ placeholder }}</span>
+              {{ label }}
+            </label>
+            <div
+              class="va-select__content__selection"
+              v-if="multiple && valueProxy.length <= tagMax"
+            >
+              <div class="va-select__content--tag">
+                {{ selectionTags }}
+              </div>
+            </div>
+            <div
+              v-else-if="selectionValue"
+              class="va-select__content__selection"
+            >
+              {{ selectionValue }}
+            </div>
+            <div
+              v-else
+              class="va-select__placeholder"
+            >
+              {{ placeholder }}
+            </div>
+          </div>
+
+          <div class="va-select__append-inner">
+            <div v-if="showClearIcon" class="va-select__icon">
+              <va-icon
+                name="cancel"
+                @click.native.stop="clear()"
+              />
+            </div>
+
+            <div v-if="loading" class="va-select__icon">
+              <va-icon
+                spin
+                :color="$themes.success"
+                :size="24"
+                name="loop"
+              />
+            </div>
+
+            <div class="va-select__icon">
+              <va-icon
+                :name="visible ? 'arrow_drop_up' : 'arrow_drop_down'"
+              />
+            </div>
+          </div>
         </div>
-        <va-icon
-          v-if="showClearIcon"
-          class="va-select__clear-icon"
-          name="cancel"
-          @click.native.stop="clear()"
-        />
-        <va-icon
-          spin
-          :color="$themes.success"
-          v-if="loading"
-          :size="24"
-          name="loop"
-          class="va-select__loading"
-        />
-        <va-icon
-          class="va-select__open-icon"
-          :name="visible ? 'arrow_back_ios' : 'arrow_forward_ios'"
-        />
       </div>
     </va-dropdown>
   </va-input-wrapper>
 </template>
 
-<script>
-import VaDropdown from '../va-dropdown/VaDropdown'
-import VaIcon from '../va-icon/VaIcon'
-import VaInput from '../va-input/VaInput'
+<script lang="ts">
+import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
+import VaDropdown from '../va-dropdown/VaDropdown.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
+import VaInput from '../va-input/VaInput.vue'
 import { getHoverColor } from '../../../services/color-functions'
 import {
   ContextPluginMixin,
@@ -126,249 +138,263 @@ import {
 } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import VaInputWrapper from '../va-input/VaInputWrapper'
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 const positions = {
   top: 'T',
   bottom: 'B',
 }
 
-export default {
-  name: 'VaSelect',
+const SelectPropsMixin = makeContextablePropsMixin({
+  value: { type: [String, Number, Object, Array], default: '' },
+  label: { type: String, default: '' },
+  placeholder: { type: String, default: '' },
+  options: { type: Array, default: () => [] },
+  position: {
+    type: String,
+    default: 'bottom',
+    validator: (position: string) => Object.keys(positions).includes(position),
+  },
+  tagMax: { type: Number, default: 5 },
+  searchable: { type: Boolean, default: false },
+  multiple: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  readonly: { type: Boolean, default: false },
+  width: { type: String, default: '100%' },
+  maxHeight: { type: String, default: '128px' },
+  keyBy: { type: String, default: 'id' },
+  textBy: { type: String, default: 'text' },
+  clearValue: { type: String, default: '' },
+  noOptionsText: { type: String, default: 'Items not found' },
+  fixed: { type: Boolean, default: true },
+  noClear: { type: Boolean, default: false },
+})
+
+@Component({
+  name: 'VaSelect2',
   components: { VaIcon, VaDropdown, VaInput, VaInputWrapper },
-  mixins: [
-    ContextPluginMixin,
-    FormComponentMixin,
-    LoadingMixin,
-    makeContextablePropsMixin({
-      value: { type: [String, Number, Object, Array], default: '' },
-      label: { type: String, default: '' },
-      placeholder: { type: String, default: '' },
-      options: { type: Array, default: () => [] },
-      position: {
-        type: String,
-        default: 'bottom',
-        validator: position => Object.keys(positions).includes(position),
-      },
-      tagMax: { type: Number, default: 5 },
-      searchable: { type: Boolean, default: false },
-      multiple: { type: Boolean, default: false },
-      disabled: { type: Boolean, default: false },
-      readonly: { type: Boolean, default: false },
-      width: { type: String, default: '100%' },
-      maxHeight: { type: String, default: '128px' },
-      keyBy: { type: String, default: 'id' },
-      textBy: { type: String, default: 'text' },
-      clearValue: { type: String, default: '' },
-      noOptionsText: { type: String, default: 'Items not found' },
-      fixed: { type: Boolean, default: true },
-      noClear: { type: Boolean, default: false },
-    }),
-  ],
-  data () {
-    return {
-      search: '',
-      mounted: false,
-      hoveredOption: null,
-    }
-  },
-  watch: {
-    search (val) {
-      this.$emit('updateSearch', val)
-    },
-    visible (val) {
-      if (val && this.c_searchable) {
-        this.$nextTick(() => {
-          this.$refs.search.$refs.input.focus()
-        })
-      }
-    },
-  },
-  computed: {
-    visible () {
-      return this.mounted ? this.$refs.dropdown.isClicked : false
-    },
-    selectClass () {
-      return {
-        'va-select': true,
-        'va-select--multiple': this.multiple,
-        'va-select--visible': this.visible,
-        'va-select--searchable': this.c_searchable,
-        'va-select--disabled': this.disabled,
-        'va-select--loading': this.loading,
-      }
-    },
-    selectStyle () {
-      return {
-        backgroundColor:
-          this.computedError ? getHoverColor(this.$themes?.danger)
-            : this.success ? getHoverColor(this.$themes?.success) : '#f5f8f9',
-        // TODO Color should not depend on theme explicitly and use color mixin handling instead.
-        borderColor:
-          this.computedError ? this.$themes?.danger
-            : this.success ? this.$themes?.success
-              : this.$themes?.gray,
-      }
-    },
-    optionsListStyle () {
-      return { maxHeight: this.maxHeight }
-    },
-    labelStyle () {
-      return {
-        color: this.computedError ? this.$themes?.danger
-          : this.success ? this.$themes?.success
-            : this.$themes?.primary,
-      }
-    },
-    displayedText () {
-      if (!this.valueProxy) {
-        return ''
-      }
-      if (this.multiple) {
-        return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
-      }
-      // We try to find a match from options, if we don't find any - we take value.
-      // This way select can display value even when options are not loaded yet.
-      const selectedOption = this.valueProxy || this.selectedOption
-      const isString = typeof selectedOption === 'string'
-      return isString ? selectedOption : selectedOption[this.textBy]
-    },
-    selectedOption () {
-      return (!this.valueProxy || this.multiple) ? null : this.options.find(option => this.compareOptions(option, this.valueProxy)) || null
-    },
-    filteredOptions () {
-      if (!this.search) {
-        return this.options
-      }
+})
+export default class VaSelect2 extends Mixins(
+  ContextPluginMixin,
+  FormComponentMixin,
+  LoadingMixin,
+  SelectPropsMixin,
+  ColorThemeMixin,
+) {
+  search = ''
+  isMounted = false
+  hoveredOption: any = null
 
-      return this.options.filter(option => {
-        const optionText = this.getText(option).toUpperCase()
-        const search = this.search.toUpperCase()
-        return optionText.includes(search)
+  @Watch('search')
+  onSearchValueChange (value: string) {
+    this.$emit('updateSearch', value)
+  }
+
+  @Watch('visible')
+  onLoadingChanged (value: boolean) {
+    if (value && this.c_searchable) {
+      this.$nextTick(() => {
+        (this as any).$refs.search.$refs.input.focus()
       })
-    },
-    showClearIcon () {
-      if (this.noClear) {
-        return false
-      }
-      if (this.disabled) {
-        return false
-      }
-      return this.multiple ? this.valueProxy.length : this.valueProxy !== this.clearValue
-    },
-    inputWrapperStyles () {
-      let paddingRight = 2
-      if (this.showClearIcon) {
-        paddingRight += 2
-      }
-      return {
-        paddingRight: `${paddingRight}rem`,
-        paddingTop: this.label ? this.multiple ? '.59rem' : '.84rem' : 'inherit',
-        paddingBottom: this.label ? 0 : this.multiple ? '.3125rem' : '.4375rem',
-      }
-    },
-    valueProxy: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('input', value)
-      },
-    },
-  },
-  methods: {
-    getOptionClass (option) {
-      return {
-        'va-select__option': true,
-        'va-select__option--selected': this.isSelected(option),
-      }
-    },
-    getOptionStyle (option) {
-      return {
-        color: this.isSelected(option) ? this.$themes?.success : 'inherit',
-        backgroundColor: this.isHovered(option) ? getHoverColor(this.$themes?.success) : 'transparent',
-      }
-    },
-    getText (option) {
-      return typeof option === 'string' ? option : option[this.textBy]
-    },
-    getKey (option) {
-      return typeof option === 'string' ? option : option[this.keyBy]
-    },
-    updateSearch (val) {
-      this.search = val
-    },
-    compareOptions (one, two) {
-      // identity check works nice for strings and exact matches.
-      if (one === two) {
-        return true
-      }
-      // i'm not sure why we need this
-      if (typeof this.value === 'string') {
-        return false
-      }
-      if (typeof one === 'string' && typeof two === 'string') {
-        return one === two
-      }
-      if (typeof one === 'object' && typeof two === 'object') {
-        return one[this.keyBy] === two[this.keyBy]
-      }
-    },
-    isSelected (option) {
-      if (!this.valueProxy) {
-        return false
-      }
-      if (typeof option === 'string') {
-        return this.multiple
-          ? this.valueProxy.includes(option)
-          : this.valueProxy === option
-      } else {
-        return this.multiple
-          ? this.valueProxy.filter(item => item[this.keyBy] === option[this.keyBy]).length
-          : this.valueProxy[this.keyBy] === option[this.keyBy]
-      }
-    },
-    isHovered (option) {
-      return this.hoveredOption
-        ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.keyBy] === option[this.keyBy]
-        : false
-    },
-    selectOption (option) {
-      this.search = ''
-      const isSelected = this.isSelected(option)
-      const value = this.value || []
+    }
+  }
 
-      if (this.multiple) {
-        this.valueProxy = isSelected
-          ? value.filter(optionSelected => !this.compareOptions(option, optionSelected))
-          : [...value, option]
-        this.$refs.dropdown.updatePopper()
-      } else {
-        this.valueProxy = typeof option === 'string' ? option : { ...option }
-        this.search = ''
-        this.$refs.dropdown.hide()
-      }
-      if (this.c_searchable) {
-        this.$refs.search.$refs.input.focus()
-      }
-    },
-    clear () {
-      this.valueProxy = this.multiple
-        ? (Array.isArray(this.clearValue) ? this.clearValue : [])
-        : this.clearValue
+  get valueProxy () {
+    return this.value
+  }
+
+  set valueProxy (value: any) {
+    this.$emit('input', value)
+  }
+
+  get visible () {
+    return this.isMounted ? (this as any).$refs.dropdown.isClicked : false
+  }
+
+  get selectClass () {
+    return {
+      // 'va-select': true,
+      'va-select--multiple': this.multiple,
+      'va-select--visible': this.visible,
+      'va-select--searchable': this.c_searchable,
+      'va-select--disabled': this.disabled,
+      'va-select--loading': this.loading,
+    }
+  }
+
+  get selectStyle () {
+    return {
+      backgroundColor:
+        this.computedError ? getHoverColor(this.computeColor('danger'))
+          : this.success ? getHoverColor(this.computeColor('success')) : '#f5f8f9',
+      borderColor:
+        this.computedError ? this.computeColor('danger')
+          : this.success ? this.computeColor('success')
+            : this.computeColor('gray'),
+    }
+  }
+
+  get optionsListStyle () {
+    return {
+      maxHeight: this.maxHeight,
+    }
+  }
+
+  get labelStyle () {
+    return {
+      color: this.computedError ? this.computeColor('danger')
+        : this.success ? this.computeColor('success')
+          : this.computeColor('primary'),
+    }
+  }
+
+  get selectionValue () {
+    if (!this.valueProxy) {
+      return ''
+    }
+    if (this.multiple) {
+      return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
+    }
+    // We try to find a match from options, if we don't find any - we take value.
+    // This way select can display value even when options are not loaded yet.
+    const selectedOption = this.valueProxy || this.selectedOption
+    const isString = typeof selectedOption === 'string'
+    return isString ? selectedOption : selectedOption[this.textBy]
+  }
+
+  get selectionTags (): string | null {
+    return Array.isArray(this.valueProxy) ? [...this.valueProxy.map(val => this.getText(val))].join(', ') : null
+  }
+
+  get selectedOption () {
+    return (!this.valueProxy || this.multiple) ? null : this.options.find((option: any) => this.compareOptions(option, this.valueProxy)) || null
+  }
+
+  get filteredOptions () {
+    if (!this.search) {
+      return this.options
+    }
+
+    return this.options.filter((option: string) => {
+      const optionText = this.getText(option).toUpperCase()
+      const search = this.search.toUpperCase()
+      return optionText.includes(search)
+    })
+  }
+
+  get showClearIcon () {
+    if (this.noClear) {
+      return false
+    }
+    if (this.disabled) {
+      return false
+    }
+    return this.multiple ? this.valueProxy.length : this.valueProxy !== this.clearValue
+  }
+
+  getOptionClass (option: any) {
+    return {
+      'va-select__option': true,
+      'va-select__option--selected': this.isSelected(option),
+    }
+  }
+
+  getOptionStyle (option: any) {
+    return {
+      color: this.isSelected(option) ? this.computeColor('success') : 'inherit',
+      backgroundColor: this.isHovered(option) ? getHoverColor(this.computeColor('success')) : 'transparent',
+    }
+  }
+
+  getText (option: any): string {
+    return typeof option === 'string' ? option : option[this.textBy]
+  }
+
+  getKey (option: any) {
+    return typeof option === 'string' ? option : option[this.keyBy]
+  }
+
+  updateSearch (value: string) {
+    this.search = value
+  }
+
+  compareOptions (one: any, two: any) {
+    // identity check works nice for strings and exact matches.
+    if (one === two) {
+      return true
+    }
+    // i'm not sure why we need this
+    if (typeof this.value === 'string') {
+      return false
+    }
+    if (typeof one === 'string' && typeof two === 'string') {
+      return one === two
+    }
+    if (typeof one === 'object' && typeof two === 'object') {
+      return one[this.keyBy] === two[this.keyBy]
+    }
+  }
+
+  isSelected (option: any) {
+    if (!this.valueProxy) {
+      return false
+    }
+    if (typeof option === 'string') {
+      return this.multiple
+        ? this.valueProxy.includes(option)
+        : this.valueProxy === option
+    } else {
+      return this.multiple
+        ? this.valueProxy.filter((item: any) => item[this.keyBy] === option[this.keyBy]).length
+        : this.valueProxy[this.keyBy] === option[this.keyBy]
+    }
+  }
+
+  isHovered (option: any) {
+    return this.hoveredOption
+      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.keyBy] === option[this.keyBy]
+      : false
+  }
+
+  selectOption (option: any): void {
+    this.search = ''
+    const isSelected = this.isSelected(option)
+    const value = this.value || []
+
+    if (this.multiple) {
+      this.valueProxy = isSelected
+        ? value.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
+        : [...value, option]
+      ;(this as any).$refs.dropdown.updatePopper()
+    } else {
+      this.valueProxy = typeof option === 'string' ? option : { ...option }
       this.search = ''
-    },
-    updateHoveredOption (option) {
-      if (option) {
-        this.hoveredOption = typeof option === 'string' ? option : { ...option }
-      } else {
-        this.hoveredOption = null
-      }
-    },
-  },
-  mounted () {
-    this.mounted = true
-  },
+      ;(this as any).$refs.dropdown.hide()
+    }
+    if (this.c_searchable) {
+      (this as any).$refs.search.$refs.input.focus()
+    }
+  }
+
+  clear (): void {
+    this.valueProxy = this.multiple
+      ? (Array.isArray(this.clearValue) ? this.clearValue : [])
+      : this.clearValue
+    this.search = ''
+  }
+
+  updateHoveredOption (option: string[] | string): void {
+    if (option) {
+      this.hoveredOption = typeof option === 'string' ? option : { ...option }
+    } else {
+      this.hoveredOption = null
+    }
+  }
+
+  mounted (): void {
+    this.isMounted = true
+  }
 }
 </script>
 
@@ -377,8 +403,6 @@ export default {
 
 .va-select {
   cursor: pointer;
-  display: flex;
-  align-items: flex-end;
   position: relative;
   width: 100%;
   min-height: 2.375rem;
@@ -399,28 +423,50 @@ export default {
     }
   }
 
-  &__label {
-    @include va-title();
-
-    position: absolute;
-    top: 0.125rem;
-    left: 0.5rem;
-    margin-bottom: 0.5rem;
-    max-width: calc(100% - 0.25rem);
-
-    @include va-ellipsis();
-
-    transform-origin: top left;
+  &__append-inner {
+    display: flex;
+    align-items: center;
   }
 
-  &__input-wrapper {
+  &__content-wrapper {
+    position: absolute;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-between;
     height: 100%;
     width: 100%;
-    justify-content: stretch;
-    padding-left: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+
+    &__label {
+      @include va-title();
+
+      padding-top: 0.125rem;
+
+      @include va-ellipsis();
+    }
+
+    &__selection {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    &--tag {
+      word-break: break-word;
+    }
   }
 
   &__input {
@@ -444,14 +490,8 @@ export default {
     }
   }
 
-  &__displayed-text {
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-  }
-
   &__placeholder {
+    color: $brand-secondary;
     opacity: 0.5;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -459,39 +499,9 @@ export default {
     width: 100%;
   }
 
-  &__clear-icon {
+  &__icon {
     color: $va-link-color-secondary;
-    width: 1.5rem;
-    height: 1.5rem;
-    padding: 0.25rem;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 2rem;
-    margin: auto;
-    transform: rotate(90deg); // hack for show large material arrow icons
-  }
-
-  &__open-icon {
-    @extend .va-select__clear-icon;
-
-    right: 0.5rem;
-  }
-
-  &__tags {
-    &__tag {
-      word-break: break-word;
-    }
-  }
-
-  &__loading {
-    position: absolute;
-    right: 0.5rem;
-    top: 0;
-    bottom: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: auto;
+    padding-left: 0.5rem;
   }
 
   &__dropdown {
@@ -515,7 +525,7 @@ export default {
       padding: 0;
       overflow-y: auto;
       box-shadow: $datepicker-box-shadow;
-      border-radius: 0.5rem;
+      border-radius: 0 0 0.5rem 0.5rem;
     }
   }
 
