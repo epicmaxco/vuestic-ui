@@ -4,6 +4,7 @@ import { Component } from 'vue-property-decorator'
 
 declare module 'vue/types/vue' {
   interface Vue {
+    // @deprecated, use getColor instead
     $themes: Record<string, string> | undefined;
   }
 }

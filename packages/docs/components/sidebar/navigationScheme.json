@@ -5,6 +5,20 @@
   },
   "routes": [
     {
+      "name": "styles",
+      "displayName": "menu.styles",
+      "meta": {
+        "iconClass": "vuestic-iconset-image"
+      },
+      "disabled": true,
+      "children": [
+        {
+          "name": "grid",
+          "displayName": "menu.grid"
+        }
+      ]
+    },
+    {
       "name": "ui",
       "displayName": "menu.uiElements",
       "meta": {
@@ -87,6 +101,26 @@
         {
           "name": "infinite-scroll",
           "displayName": "menu.infiniteScroll"
+        },
+        {
+          "name": "alert",
+          "displayName": "menu.alert"
+        },
+        {
+          "name": "icon",
+          "displayName": "menu.icon"
+        },
+        {
+          "name": "radio",
+          "displayName": "menu.radio"
+        },
+        {
+          "name": "tag",
+          "displayName": "menu.tag"
+        },
+        {
+          "name": "input",
+          "displayName": "menu.input"
         }
       ]
     }
