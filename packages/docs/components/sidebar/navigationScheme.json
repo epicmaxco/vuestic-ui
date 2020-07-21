@@ -113,6 +113,10 @@
         {
           "name": "radio",
           "displayName": "menu.radio"
+        },
+        {
+          "name": "input",
+          "displayName": "menu.input"
         }
       ]
     }

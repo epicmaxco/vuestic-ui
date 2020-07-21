@@ -55,7 +55,13 @@
       "events": {},
       "methods": {},
       "slots": {}
-    }
+    },
+    "VaInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
   },
   "menu": {
     "modals": "Modals",
@@ -64,7 +70,8 @@
     "checkbox": "Checkbox",
     "alert": "Alert",
     "icon": "Icon",
-    "radio": "Radio"
+    "radio": "Radio",
+     "input": "Input"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -87,5 +94,8 @@
   },
   "radio": {
     "title": "-- Here is the title --"
-  }
+  },
+  "input": {
+    "title": "-- Here is the title --"
+  },
 }

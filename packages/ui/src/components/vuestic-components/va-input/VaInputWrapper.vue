@@ -4,6 +4,7 @@
       <div class="va-input-wrapper__slot">
         <div
           v-if="$slots.prepend"
+          @click="$emit('click:prepend')"
           class="va-input-wrapper__prepend-inner"
         >
           <slot name="prepend" />
@@ -20,6 +21,7 @@
         </div>
         <div
           v-if="$slots.append"
+          @click="$emit('click:append')"
           class="va-input-wrapper__append-inner"
         >
           <slot name="append" />
