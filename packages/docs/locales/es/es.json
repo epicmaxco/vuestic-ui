@@ -56,12 +56,18 @@
       "methods": {},
       "slots": {}
     },
-    "VaInput": {
+    "VaTag": {
       "props": {},
       "events": {},
       "methods": {},
       "slots": {}
     },
+    "VaInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    }
   },
   "menu": {
     "modals": "Modals",
@@ -71,6 +77,7 @@
     "alert": "Alert",
     "icon": "Icon",
     "radio": "Radio",
+    "tag": "Tag",
      "input": "Input"
   },
   "language": {
@@ -95,7 +102,10 @@
   "radio": {
     "title": "-- Here is the title --"
   },
-  "input": {
+  "tag": {
     "title": "-- Here is the title --"
   },
+  "input": {
+    "title": "-- Here is the title --"
+  }
 }

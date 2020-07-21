@@ -406,6 +406,18 @@
         "tabindex": "Sets a custom tabindex"
       }
     },
+    "VaTag": {
+      "props": {
+        "closeable": "Provides the ability to close the tag",
+        "outline": "Applies outline styling",
+        "flat": "Applies flat styling",
+        "icon": "The icon to be displayed inside a tag"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    {
     "VaInput": {
       "props": {
         "value": "The input value",
@@ -485,6 +497,7 @@
     "alert": "Alert",
     "icon": "Icon",
     "radio": "Radio",
+    "tag": "Tag",
     "grid": "Grid",
     "input": "Input"
   },
@@ -1321,6 +1334,48 @@
       "disabled": {
         "title": "Disabled",
         "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
+      }
+    }
+  },
+  "tag": {
+    "title": "Tag",
+    "summaryText": "",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage of the `va-tag` compoment."
+      },
+      "outline": {
+        "title": "Outline",
+        "text": "Outline style without background."
+      },
+      "flat": {
+        "title": "Flat",
+        "text": "Flat style without borders and background."
+      },
+      "square": {
+        "title": "Square",
+        "text": "Makes your `va-tag` square."
+      },
+      "color": {
+        "title": "Color",
+        "text": "You can use the `va-tag` component with different colors."
+      },
+      "size": {
+        "title": "Size",
+        "text": "Set different tag sizes using size presets."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "You can use icons in tag."
+      },
+      "closeable": {
+        "title": "Closeable",
+        "text": "A tag can be closened by using property `closeable`."
+      },
+      "link": {
+        "title": "Link",
+        "text": "Make your tag clickable."
       }
     }
   },

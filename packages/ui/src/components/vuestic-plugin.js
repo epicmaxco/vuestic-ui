@@ -58,6 +58,7 @@ import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
 import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
 import VaTab from './vuestic-components/va-tabs/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
+import VaTag from './vuestic-components/va-tag/VaTag.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline'
 import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem'
 import VaTreeCategory from './vuestic-components/va-tree-view/VaTreeCategory'
@@ -149,6 +150,7 @@ const VuesticPlugin = {
       VaSwitch,
       VaTab,
       VaTabs,
+      VaTag,
       VaTimeline,
       VaTimelineItem,
       VaTreeCategory,

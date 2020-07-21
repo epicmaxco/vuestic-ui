@@ -115,6 +115,10 @@
           "displayName": "menu.radio"
         },
         {
+          "name": "tag",
+          "displayName": "menu.tag"
+        },
+        {
           "name": "input",
           "displayName": "menu.input"
         }
