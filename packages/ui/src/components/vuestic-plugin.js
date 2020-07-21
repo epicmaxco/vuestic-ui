@@ -1,5 +1,6 @@
 import VaAccordion from './vuestic-components/va-collapse/VaAccordion'
 import VaAffix from './vuestic-components/va-affix/VaAffix'
+import VaAlert from './vuestic-components/va-alert/VaAlert.vue'
 import VaAvatar from './vuestic-components/va-avatar/VaAvatar'
 import VaBadge from './vuestic-components/va-badge/VaBadge.vue'
 import VaButton from './vuestic-components/va-button/VaButton.vue'
@@ -18,8 +19,7 @@ import VaContent from './vuestic-components/va-content/VaContent'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDivider from './vuestic-components/va-divider/VaDivider'
 
-// TODO: https://github.com/epicmaxco/vuestic-ui/issues/246
-// import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
+import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
 
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
@@ -38,8 +38,6 @@ import VaMediumEditor
   from './vuestic-components/va-medium-editor/VaMediumEditor.vue'
 import VaModal from './vuestic-components/va-modal/VaModal.vue'
 import VaNavbar from './vuestic-components/va-navbar/VaNavbar'
-import VaNotification
-  from './vuestic-components/va-notification/VaNotification.vue'
 import VaPagination from './vuestic-components/va-pagination/VaPagination.vue'
 import VaPopover from './vuestic-components/va-popover/VaPopover.vue'
 import VaPopup
@@ -57,12 +55,12 @@ import VaSidebar from './vuestic-components/va-sidebar/VaSidebar'
 import VaSidebarLink from './vuestic-components/va-sidebar/VaSidebarLink'
 import VaSidebarLinkGroup from './vuestic-components/va-sidebar/VaSidebarLinkGroup'
 import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
+import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
 import VaTab from './vuestic-components/va-tabs/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
 import VaTag from './vuestic-components/va-tag/VaTag.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline'
 import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem'
-import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
 import VaTreeCategory from './vuestic-components/va-tree-view/VaTreeCategory'
 import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot'
@@ -102,6 +100,7 @@ const VuesticPlugin = {
     [
       VaAccordion,
       VaAffix,
+      VaAlert,
       VaAvatar,
       VaBadge,
       VaButton,
@@ -116,8 +115,7 @@ const VuesticPlugin = {
       VaCollapse,
       VaContent,
       VaDataTable,
-      // TODO: https://github.com/epicmaxco/vuestic-ui/issues/246
-      // VaDatePicker,
+      VaDatePicker,
       VaDropdown,
       VaFileUpload,
       VaIcon,
@@ -134,7 +132,6 @@ const VuesticPlugin = {
       VaMediumEditor,
       VaModal,
       VaNavbar,
-      VaNotification,
       VaPagination,
       VaPopover,
       VaPopup,

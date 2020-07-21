@@ -251,6 +251,16 @@ export default class VaButton extends Mixins(
   updateFocusState (isHover: boolean) {
     this.focusState = isHover
   }
+
+  /** @public */
+  focus (): void {
+    (this.$el as HTMLElement).focus()
+  }
+
+  /** @public */
+  blur (): void {
+    (this.$el as HTMLElement).blur()
+  }
 }
 </script>
 
