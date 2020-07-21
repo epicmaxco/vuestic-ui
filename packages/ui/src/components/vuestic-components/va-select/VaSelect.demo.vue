@@ -43,7 +43,7 @@
       <va-select
         v-model="iconsSelect.value"
         :options="iconsSelect.options"
-        key-by="value"
+        text-by="value"
       />
       <p>textBy='icon'</p>
       <va-select

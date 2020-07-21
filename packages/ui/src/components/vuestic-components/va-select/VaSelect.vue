@@ -4,30 +4,29 @@
     :error-messages="computedErrorMessages"
   >
     <va-dropdown
+      class="va-select__dropdown"
       :position="position"
       :disabled="disabled"
-      class="va-select__dropdown"
       :max-height="maxHeight"
+      :fixed="fixed"
+      :style="{width}"
+      boundaryBody
       closeOnAnchorClick
       keepAnchorWidth
       ref="dropdown"
-      :fixed="fixed"
-      :style="{width}"
-      boundary-body
     >
       <va-input
         v-if="searchable"
+        class="va-select__input"
+        v-model="search"
         :id="id"
         :name="name"
         :placeholder="placeholder"
-        v-model="search"
-        class="va-select__input"
-        ref="search"
         removable
+        ref="search"
       />
       <ul
         class="va-select__option-list"
-        :style="optionsListStyle"
       >
         <li
           v-for="option in filteredOptions"
@@ -46,14 +45,13 @@
           <span>{{ getText(option) }}</span>
           <va-icon
             v-show="isSelected(option)"
-            class="va-select__option__selected-icon"
+            class="va-select__option__select  ed-icon"
             name="done"
           />
         </li>
       </ul>
       <div
         class="va-select__option-list no-options"
-        :style="optionsListStyle"
         v-if="!filteredOptions.length"
       >
         {{ noOptionsText }}
@@ -172,7 +170,7 @@ const SelectPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
-  name: 'VaSelect2',
+  name: 'VaSelect',
   components: { VaIcon, VaDropdown, VaInput, VaInputWrapper },
 })
 export default class VaSelect2 extends Mixins(
@@ -232,12 +230,6 @@ export default class VaSelect2 extends Mixins(
         this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
             : this.computeColor('gray'),
-    }
-  }
-
-  get optionsListStyle () {
-    return {
-      maxHeight: this.maxHeight,
     }
   }
 

@@ -11,13 +11,13 @@ export const iconOptionsList = [
     text: 'item2',
     id: 1,
     value: 1,
-    icon: 'android',
+    icon: 'info',
   },
   {
     text: 'item2',
     id: 2,
     value: 2,
-    icon: 'android',
+    icon: 'face',
   },
   {
     text: 'item2',
@@ -28,6 +28,6 @@ export const iconOptionsList = [
     text: 'item2',
     id: 4,
     value: 4,
-    icon: 'android',
+    icon: 'warning',
   },
 ]
