@@ -19,8 +19,7 @@ import VaContent from './vuestic-components/va-content/VaContent'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDivider from './vuestic-components/va-divider/VaDivider'
 
-// TODO: https://github.com/epicmaxco/vuestic-ui/issues/246
-// import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
+import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
 
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
@@ -115,8 +114,7 @@ const VuesticPlugin = {
       VaCollapse,
       VaContent,
       VaDataTable,
-      // TODO: https://github.com/epicmaxco/vuestic-ui/issues/246
-      // VaDatePicker,
+      VaDatePicker,
       VaDropdown,
       VaFileUpload,
       VaIcon,
