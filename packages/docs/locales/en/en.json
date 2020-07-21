@@ -36,7 +36,7 @@
         "src": "Source URL.",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
         "label": "Same as native `label`",
-        "leftLabel": "Moves the label on the left of a checkbox",
+        "leftLabel": "Moves the label on the left of a component",
         "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
@@ -72,6 +72,10 @@
       },
       "events": {
         "click": "Emitted when user clicks on button"
+      },
+      "methods": {
+        "focus": "Sets focus on button",
+        "blur": "Removes focus from button"
       }
     },
     "VaForm": {
@@ -178,7 +182,10 @@
         "clickOutside": "Emits when overlay is clicked",
         "input": "Emits when modal's visibility should change",
         "ok": "Emits when **Ok** button is clicked",
-        "cancel": "Emits when **Cancel** button is clicked"
+        "beforeOpen": "Emits before modal's open after transition started",
+        "open": "Emits when modal's is open and transition is complete",
+        "beforeClose": "Emits before modal's start closing after transition started",
+        "close": "Emits when modal's is closed and transition is complete"
       },
       "methods": {
         "hide": "Hide modal. On stateless modal only emits `@input`",
@@ -361,6 +368,44 @@
         "default": "The content to be scrolled"
       }
     },
+    "VaAlert": {
+      "props": {
+        "value": "The current visibility state of the alert",
+        "title": "The text content placed in the title",
+        "description": "The text content of the alert",
+        "icon": "Show icon in front of alert content",
+        "closeIcon": "Replace the default close icon with a custom one",
+        "closeText": "Use text instead of the close icon",
+        "closeable": "Add a close alert area",
+        "center": "Center the title and description of the alert",
+        "borderColor": "Border color of the alert",
+        "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available."
+      },
+      "methods": {
+        "hide":"Hide alert. On stateless alert only emits `@input`"
+      },
+      "slots": {
+        "default": "Content of alert body",
+        "title": "Alert title area content",
+        "icon": "Alert icon area content",
+        "close": "Alert close area content"
+      }
+    },
+    "VaIcon": {
+      "props": {
+        "component": "Allows to use the svg component as an icon.",
+        "rotation": "Rotates a component by a degree value.",
+        "spin": "Starts rotation animation.",
+        "iconsConfig": "Allows you to configurate iconset."
+      }
+    },
+    "VaRadio": {
+      "props": {
+        "value": "Model of the component",
+        "option": "Option value that model is updated to when an option is selected",
+        "tabindex": "Sets a custom tabindex"
+      }
+    },
     "VaInput": {
       "props": {
         "value": "The input value",
@@ -407,7 +452,6 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content"
       }
-    }
   },
   "anyPage": {
     "examples": "Examples",
@@ -423,6 +467,7 @@
     "modal": "Modal",
     "tabs": "Tabs",
     "uiElements": "UI Elements",
+    "styles": "Styles",
     "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
@@ -437,6 +482,10 @@
     "button": "Button",
     "checkbox": "Checkbox",
     "infiniteScroll": "Infinite Scroll",
+    "alert": "Alert",
+    "icon": "Icon",
+    "radio": "Radio",
+    "grid": "Grid",
     "input": "Input"
   },
   "language": {
@@ -1182,6 +1231,187 @@
       "mask": {
         "title": "Mask",
         "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/). By default returning a raw value."
+      }
+    }
+  },
+  "alert": {
+    "title": "Alert",
+    "summaryText": "Alert displays an important message to attract user attention.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "The basic usage of the `va-alert` component."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Use `color` property to change the color of the component."
+      },
+      "border": {
+        "title": "Border",
+        "text": "Use the `border` property to add a strip and the `border-color` property to change the color of the strip."
+      },
+      "title": {
+        "title": "Title",
+        "text": "The `title` property allows you to write text over the description area. Use the `title` slot to costomize the title area."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "The `icon` property allows you to add an icon in front of the description area. Use the `icon` slot to costomize the icon area."
+      },
+      "closeable": {
+        "title": "Closeable",
+        "text": "The `closeable` property add a close alert area. "
+      },
+      "center": {
+        "title": "Center",
+        "text": "The `center` property allows you to center title and description areas."
+      }
+    }
+  },
+  "icon": {
+    "title": "Icon",
+    "summaryText": "The `va-icon` component allows you to use different iconfonts.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Basic usage of component with different iconfonts."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
+      },
+      "size": {
+        "title": "Size",
+        "text": "Utilize `size` prop in order to make `va-icon` fit your needs."
+      },
+      "rotation": {
+        "title": "Rotation",
+        "text": "Used to rotate the `va-icon` component."
+      },
+      "spin": {
+        "title": "Spin",
+        "text": "You can add animation of rotation of the icon using the property `spin`."
+      },
+      "text": {
+        "title": "Text as icon",
+        "text": "Using `text` prop will allow you to cover the text with an icon style."
+      },
+      "tag": {
+        "title": "Custom tag",
+        "text": "With `tag` prop you can attach the icon to another tag."
+      }
+    }
+  },
+  "radio": {
+    "title": "Radio",
+    "summaryText": "The `va-radio` allows the user to select one option from a set.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage  of the `va-radio` component."
+      },
+      "color": {
+        "title": "Colors",
+        "text": "With `color` prop you can change the color of the component."
+      },
+      "customLabels": {
+        "title": "Custom Labels",
+        "text": "You can add a label text by setting the `label` property. To switch label side use `left-label` property."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
+      }
+    }
+  },
+  "grid": {
+    "title": "Grid System",
+    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
+    "examples": {
+      "default": {
+        "title": "Enabling flexbox"
+      },
+      "breakpoints": {
+        "title": "Breakpoints",
+        "text": "You can use our `breakpoints` to set the length of you container.",
+        "sizes": {
+          "xs": "`.xs` - Phones (<600px)",
+          "sm": "`.sm` - Small devices Tablets (≥600px)",
+          "md": "`.md` - Medium devices Desktops (≥960)",
+          "lg": "`.lg` - Large devices Desktops (≥1280px)",
+          "xl": "`.xl` - Extra large devices Desktops (≥1920px)"
+        }
+      },
+      "offsets": {
+        "title": "Offsets",
+        "text": "You can use our `offset` to set the space between left and current elements of you container.",
+        "sizes": {
+          "xs": "`.offset--xs` - Phones (<600px)",
+          "sm": "`.offset--sm` - Small devices Tablets (≥600px)",
+          "md": "`.offset--md` - Medium devices Desktops (≥960)",
+          "lg": "`.offset--lg` - Large devices Desktops (≥1280px)",
+          "xl": "`.offset--xl` - Extra large devices Desktops (≥1920px)"
+        }
+      },
+      "gutters": {
+        "title": "Gutters",
+        "text": "A `layout` controls by `gutter`.",
+        "sizes": {
+          "xs": "`.gutter--xs` - Extra small gutter between cells",
+          "sm": "`.gutter--sm` - Small gutter between cells",
+          "md": "`.gutter--md` - Default gutter between cells",
+          "lg": "`.gutter--lg` - Large gutter between cells",
+          "xl": "`.gutter--xl` - Extra large gutter between cells"
+        }
+      }
+    },
+    "api": {
+      "align": {
+        "title": "`align`:",
+        "variants": [
+          "`.align--start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align--end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align--center` - items are centered in the cross-axis",
+          "`.align--baseline` - items are aligned such as their baselines align"
+        ]
+      },
+      "alignSelf": {
+        "title": "`align-self`:",
+        "variants": [
+          "`.align-self--start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align-self--end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align-self--center` - items are centered in the cross-axis",
+          "`.align-self--baseline` - items are aligned such as their baselines align"
+        ]
+      },
+      "alignContent": {
+        "title": "`align-content`:",
+        "variants": [
+          "`.align-content--start` - lines packed to the start of the container",
+          "`.align-content--end` - lines packed to the end of the container",
+          "`.align-content--center` - lines packed to the center of the container",
+          "`.align-content--space-between` - lines evenly distributed; the first line is at the start of the container while the last one is at the end",
+          "`.align-content--space-around` - lines evenly distributed with equal space between them"
+        ]
+      },
+      "justify": {
+        "title": "`justify`:",
+        "variants": [
+          "`.justify--start` - items are packed toward the start line",
+          "`.justify--end` - items are packed toward to end line",
+          "`.justify--center` - items are centered along the line",
+          "`.justify--space-around` - items are evenly distributed in the line with equal space around them",
+          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item on the end line"
+        ]
+      },
+      "justifySelf": {
+        "title": "`justify-self`:",
+        "variants": [
+          "`.justify-self--start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
+          "`.justify-self--end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
+          "`.justify-self--center` - For items that are not children of a flex container, this value is treated like start.",
+          "`.justify-self--baseline`"
+        ]
       }
     }
   }

@@ -154,4 +154,22 @@ describe('VaButton', () => {
   it('has loading mixin', () => {
     expect(() => testIsLoadingMixin(VaButton)).not.toThrow()
   })
+
+  it('button public methods focus and blur should works', () => {
+    const wrapper = shallowMount(VaButton, {
+      attachToDocument: true,
+    }) as any
+    const spaceRemover = (value: string) => {
+      return value.replace(/\s+|\n|\r/g, '')
+    }
+    wrapper.vm.focus()
+    const focusedButtonString = spaceRemover(wrapper.find('button').html())
+    const activeElement: Element | null = document.activeElement
+    // @ts-ignore
+    const activeElementString: string = spaceRemover(document.activeElement.outerHTML)
+    expect(focusedButtonString === activeElementString).toEqual(true)
+
+    wrapper.vm.blur()
+    expect(document.hasFocus()).toEqual(false)
+  })
 })

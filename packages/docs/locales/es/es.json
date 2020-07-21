@@ -38,19 +38,40 @@
       "methods": {},
       "slots": {}
     },
+    "VaAlert": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaIcon": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaRadio": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaInput": {
       "props": {},
       "events": {},
       "methods": {},
       "slots": {}
-    }
+    },
   },
   "menu": {
     "modals": "Modals",
     "uiElements": "Elementos UI",
     "image": "Image",
     "checkbox": "Checkbox",
-    "input": "Input"
+    "alert": "Alert",
+    "icon": "Icon",
+    "radio": "Radio",
+     "input": "Input"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -65,7 +86,16 @@
     "title": "-- Here is the title --"
   },
   "divider": {},
+  "alert": {
+    "title": "-- Here is the title --"
+  },
+  "icon": {
+    "title": "-- Here is the title --"
+  },
+  "radio": {
+    "title": "-- Here is the title --"
+  },
   "input": {
     "title": "-- Here is the title --"
-  }
+  },
 }

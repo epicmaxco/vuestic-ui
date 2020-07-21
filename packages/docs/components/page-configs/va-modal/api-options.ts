@@ -77,6 +77,22 @@ export default {
       types: '() => void',
       local: true,
     },
+    beforeOpen: {
+      types: '() => HTMLElement',
+      local: true,
+    },
+    open: {
+      types: '() => HTMLElement',
+      local: true,
+    },
+    beforeClose: {
+      types: '() => HTMLElement',
+      local: true,
+    },
+    close: {
+      types: '() => HTMLElement',
+      local: true,
+    },
   },
   methods: {
     hide: {

@@ -99,7 +99,8 @@ export default class VaOptionList extends Mixins(
   }
 
   get selectedValue () {
-    return this.valueComputed || this.c_defaultValue
+    const value = this.isRadio ? null : []
+    return this.valueComputed || this.c_defaultValue || value
   }
 
   set selectedValue (value) {
