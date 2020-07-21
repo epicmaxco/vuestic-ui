@@ -3,6 +3,8 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
   >
+    <slot name="prepend" slot="prepend" />
+
     <va-dropdown
       class="va-select__dropdown"
       :position="position"
@@ -11,7 +13,7 @@
       :fixed="fixed"
       :style="{width}"
       boundaryBody
-      closeOnAnchorClick
+      :closeOnAnchorClick="false"
       keepAnchorWidth
       ref="dropdown"
     >
@@ -25,37 +27,15 @@
         removable
         ref="search"
       />
-      <ul
-        class="va-select__option-list"
-      >
-        <li
-          v-for="option in filteredOptions"
-          :key="getKey(option)"
-          :class="getOptionClass(option)"
-          :style="getOptionStyle(option)"
-          @click.stop="selectOption(option)"
-          @mouseleave="updateHoveredOption(null)"
-          @mouseover="updateHoveredOption(option)"
-        >
-          <va-icon
-            v-if="option.icon"
-            :name="option.icon"
-            class="va-select__option__icon"
-          />
-          <span>{{ getText(option) }}</span>
-          <va-icon
-            v-show="isSelected(option)"
-            class="va-select__option__select  ed-icon"
-            name="done"
-          />
-        </li>
-      </ul>
-      <div
-        class="va-select__option-list no-options"
-        v-if="!filteredOptions.length"
-      >
-        {{ noOptionsText }}
-      </div>
+      <va-select-option-list
+        :style="{maxHeight: maxHeight}"
+        :options="options"
+        @selectOption="selectOption"
+        :selectedValue="valueProxy"
+        :getSelectedState="getSelectedState"
+        :noOptionsText="noOptionsText"
+        :search="search"
+      />
 
       <div
         slot="anchor"
@@ -99,7 +79,7 @@
             <div v-if="showClearIcon" class="va-select__icon">
               <va-icon
                 name="cancel"
-                @click.native.stop="clear()"
+                @click.native.stop="reset()"
               />
             </div>
 
@@ -112,7 +92,7 @@
               />
             </div>
 
-            <div class="va-select__icon">
+            <div class="va-select__icon va-select__icon--toggle">
               <va-icon
                 :name="visible ? 'arrow_drop_up' : 'arrow_drop_down'"
               />
@@ -121,11 +101,14 @@
         </div>
       </div>
     </va-dropdown>
+
+    <slot name="append" slot="append" />
+
   </va-input-wrapper>
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
+import { Component, Mixins, Watch } from 'vue-property-decorator'
 import VaDropdown from '../va-dropdown/VaDropdown.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaInput from '../va-input/VaInput.vue'
@@ -138,6 +121,7 @@ import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormCompo
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import VaSelectOptionList from './VaSelectOptionList.vue'
 
 const positions = {
   top: 'T',
@@ -171,9 +155,15 @@ const SelectPropsMixin = makeContextablePropsMixin({
 
 @Component({
   name: 'VaSelect',
-  components: { VaIcon, VaDropdown, VaInput, VaInputWrapper },
+  components: {
+    VaSelectOptionList,
+    VaIcon,
+    VaDropdown,
+    VaInput,
+    VaInputWrapper,
+  },
 })
-export default class VaSelect2 extends Mixins(
+export default class VaSelect extends Mixins(
   ContextPluginMixin,
   FormComponentMixin,
   LoadingMixin,
@@ -256,59 +246,21 @@ export default class VaSelect2 extends Mixins(
   }
 
   get selectionTags (): string | null {
-    return Array.isArray(this.valueProxy) ? [...this.valueProxy.map(val => this.getText(val))].join(', ') : null
+    return Array.isArray(this.valueProxy) ? [...this.valueProxy.map(val => this.getOptionText(val))].join(', ') : null
   }
 
   get selectedOption () {
     return (!this.valueProxy || this.multiple) ? null : this.options.find((option: any) => this.compareOptions(option, this.valueProxy)) || null
   }
 
-  get filteredOptions () {
-    if (!this.search) {
-      return this.options
-    }
-
-    return this.options.filter((option: string) => {
-      const optionText = this.getText(option).toUpperCase()
-      const search = this.search.toUpperCase()
-      return optionText.includes(search)
-    })
-  }
-
-  get showClearIcon () {
+  get showClearIcon (): boolean {
     if (this.noClear) {
       return false
     }
     if (this.disabled) {
       return false
     }
-    return this.multiple ? this.valueProxy.length : this.valueProxy !== this.clearValue
-  }
-
-  getOptionClass (option: any) {
-    return {
-      'va-select__option': true,
-      'va-select__option--selected': this.isSelected(option),
-    }
-  }
-
-  getOptionStyle (option: any) {
-    return {
-      color: this.isSelected(option) ? this.computeColor('success') : 'inherit',
-      backgroundColor: this.isHovered(option) ? getHoverColor(this.computeColor('success')) : 'transparent',
-    }
-  }
-
-  getText (option: any): string {
-    return typeof option === 'string' ? option : option[this.textBy]
-  }
-
-  getKey (option: any) {
-    return typeof option === 'string' ? option : option[this.keyBy]
-  }
-
-  updateSearch (value: string) {
-    this.search = value
+    return this.multiple ? !!this.valueProxy.length : this.valueProxy !== this.clearValue
   }
 
   compareOptions (one: any, two: any) {
@@ -328,7 +280,7 @@ export default class VaSelect2 extends Mixins(
     }
   }
 
-  isSelected (option: any) {
+  getSelectedState (option: any) {
     if (!this.valueProxy) {
       return false
     }
@@ -351,7 +303,7 @@ export default class VaSelect2 extends Mixins(
 
   selectOption (option: any): void {
     this.search = ''
-    const isSelected = this.isSelected(option)
+    const isSelected = this.getSelectedState(option)
     const value = this.value || []
 
     if (this.multiple) {
@@ -369,19 +321,14 @@ export default class VaSelect2 extends Mixins(
     }
   }
 
-  clear (): void {
+  /**
+   * @public
+   */
+  reset (): void {
     this.valueProxy = this.multiple
       ? (Array.isArray(this.clearValue) ? this.clearValue : [])
       : this.clearValue
     this.search = ''
-  }
-
-  updateHoveredOption (option: string[] | string): void {
-    if (option) {
-      this.hoveredOption = typeof option === 'string' ? option : { ...option }
-    } else {
-      this.hoveredOption = null
-    }
   }
 
   mounted (): void {
@@ -492,8 +439,11 @@ export default class VaSelect2 extends Mixins(
   }
 
   &__icon {
-    color: $va-link-color-secondary;
     padding-left: 0.5rem;
+
+    &--toggle {
+      color: $va-link-color-secondary;
+    }
   }
 
   &__dropdown {

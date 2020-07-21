@@ -281,6 +281,32 @@
         multiple
       />
     </VbCard>
+    <VbCard
+      title="Slots"
+      style="width: 400px;"
+    >
+      <va-select
+        :options="validationSelect.options"
+        :rules="validationSelect.rules.required"
+        v-model="validationSelect.value"
+      >
+        <va-icon
+          slot="prepend"
+          name="share"
+        />
+      </va-select>
+      <va-select
+        :options="validationSelect.options"
+        :rules="validationSelect.rules.twoOptions"
+        v-model="validationSelect.multipleValue"
+        multiple
+      >
+        <va-icon
+          slot="append"
+          name="share"
+        />
+      </va-select>
+    </VbCard>
     <VbCard :style="{ 'width': '100%' }">
       <p>{{ defaultSelect.value }}</p>
       <p>{{ objectSelect.value }}</p>
@@ -297,11 +323,12 @@
 import CountriesList from '../../../data/CountriesList'
 import VaSelect from './VaSelect'
 import { objectOptionsList, iconOptionsList } from './getDemoData'
+import VaIcon from '../va-icon/VaIcon.vue'
 
 const positions = ['top', 'bottom']
 
 export default {
-  components: { VaSelect },
+  components: { VaSelect, VaIcon },
   data () {
     return {
       defaultSelect: {
