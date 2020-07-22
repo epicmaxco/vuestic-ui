@@ -48,13 +48,9 @@ export interface NotificationOptions {
   /** custom position */
   position?: NotificationPosition;
 
-  id?: string;
-
   verticalOffset?: number;
 
   visible?: boolean;
-
-  // id?: string
 }
 
 export interface NotificationInterface {

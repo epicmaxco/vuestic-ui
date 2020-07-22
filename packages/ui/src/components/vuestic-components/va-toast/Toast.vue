@@ -1,7 +1,7 @@
 <template>
-  <transition name="va-notification-fade">
+  <transition name="va-toast-fade">
     <div
-      :class="['va-notification', customClass, horizontalClass]"
+      :class="['va-toast', customClass, horizontalClass]"
       v-show="visible"
       :style="positionStyle"
       @mouseenter="clearTimer()"
@@ -11,13 +11,13 @@
     >
       <va-icon
         v-if="type || iconClass"
-        class="va-notification__icon"
+        class="va-toast__icon"
         :class="[ typeClass, iconClass ]"
-        :name="type"
+        :name="type === 'success' ? 'check_circle' : type"
       />
-      <div class="va-notification__group" :class="{ 'is-with-icon': typeClass || iconClass }">
-        <h2 class="va-notification__title" v-text="title"></h2>
-        <div class="va-notification__content" v-show="message">
+      <div class="va-toast__group" :class="{ 'is-with-icon': typeClass || iconClass }">
+        <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
+        <div class="va-toast__content" v-show="message">
           <slot>
             <p v-if="!dangerouslyUseHTMLString">{{ message }}</p>
             <p v-else v-html="message"></p>
@@ -27,7 +27,7 @@
           v-if="showClose"
           size="small"
           name="close"
-          class="va-notification__closeBtn"
+          class="va-toast__closeBtn"
           @click.stop="close"
         />
       </div>
@@ -40,6 +40,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { NotificationPosition, MessageType } from './types'
 import { PropType } from 'vue'
 import { Component, Mixins, Watch } from 'vue-property-decorator'
+import VaIcon from '../va-icon/VaIcon.vue'
 
 enum typeMap {
   success,
@@ -65,8 +66,9 @@ const ToastPropsMixin = makeContextablePropsMixin({
 
 @Component({
   name: 'VaToast',
+  components: { VaIcon },
 })
-export default class VaIcon extends Mixins(ToastPropsMixin) {
+export default class Toast extends Mixins(ToastPropsMixin) {
   private closed = false;
   private timer: number | null = null;
 
@@ -85,7 +87,7 @@ export default class VaIcon extends Mixins(ToastPropsMixin) {
     return /^top-/.test(this.position) ? 'top' : 'bottom'
   }
 
-  get cpositionStyle () {
+  get positionStyle () {
     return {
       [this.verticalProperty]: `${this.verticalOffset}px`,
     }
@@ -161,53 +163,19 @@ export default class VaIcon extends Mixins(ToastPropsMixin) {
 }
 </script>
 <style lang="scss">
-/* Notification
--------------------------- */
-$--notification-width: 330px !default;
-/// padding||Spacing|3
-$--notification-padding: 14px 26px 14px 13px !default;
-$--notification-radius: 8px !default;
-$--notification-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !default;
-/// color||Color|0
-$--notification-border-color: #ebeef5 !default;
-$--notification-icon-size: 24px !default;
-$--notification-close-font-size: 16px !default;
-$--notification-group-margin-left: 13px !default;
-$--notification-group-margin-right: 8px !default;
-/// fontSize||Font|1
-$--notification-content-font-size: 14px !default;
-/// color||Color|0
-$--notification-content-color: #606266 !default;
-/// fontSize||Font|1
-$--notification-title-font-size: 16px !default;
-/// color||Color|0
-$--notification-title-color: #303133 !default;
+@import "../../vuestic-sass/resources/resources";
 
-/// color||Color|0
-$--notification-close-color: #909399 !default;
-/// color||Color|0
-$--notification-close-hover-color: #909399 !default;
-
-/// color||Color|0
-$--notification-success-icon-color: green !default;
-/// color||Color|0
-$--notification-info-icon-color: gray !default;
-/// color||Color|0
-$--notification-warning-icon-color: yellow !default;
-/// color||Color|0
-$--notification-danger-icon-color: red !default;
-
-.va-notification {
+.va-toast {
   display: flex;
-  width: $--notification-width;
-  padding: $--notification-padding;
-  border-radius: $--notification-radius;
+  width: $toast-width;
+  padding: $toast-padding;
+  border-radius: $toast-radius;
   box-sizing: border-box;
-  border: 1px solid $--notification-border-color;
+  border: 1px solid $toast-border-color;
   position: fixed;
   background-color: white;
-  box-shadow: $--notification-shadow;
-  transition: opacity .3s, transform .3s, left .3s, right .3s, top 0.4s, bottom .3s;
+  box-shadow: $toast-shadow;
+  transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   overflow: hidden;
 
   &.right {
@@ -219,23 +187,22 @@ $--notification-danger-icon-color: red !default;
   }
 
   &__group {
-    margin-left: $--notification-group-margin-left;
-    margin-right: $--notification-group-margin-right;
+    margin-left: $toast-group-margin-left;
+    margin-right: $toast-group-margin-right;
   }
 
   &__title {
     font-weight: bold;
-    font-size: $--notification-title-font-size;
-    color: $--notification-title-color;
-    margin: 0;
+    font-size: $toast-title-font-size;
+    color: $toast-title-color;
+    margin: 0 0 6px;
   }
 
   &__content {
-    font-size: $--notification-content-font-size;
+    font-size: $toast-content-font-size;
     line-height: 21px;
-    margin: 6px 0 0 0;
-    color: $--notification-content-color;
-    text-align: justify;
+    padding-right: 20px;
+    color: $toast-content-color;
 
     p {
       margin: 0;
@@ -243,9 +210,9 @@ $--notification-danger-icon-color: red !default;
   }
 
   &__icon {
-    height: $--notification-icon-size;
-    width: $--notification-icon-size;
-    font-size: $--notification-icon-size;
+    height: $toast-icon-size;
+    width: $toast-icon-size;
+    font-size: $toast-icon-size;
   }
 
   &__closeBtn {
@@ -253,32 +220,32 @@ $--notification-danger-icon-color: red !default;
     top: 18px;
     right: 15px;
     cursor: pointer;
-    color: $--notification-close-color;
-    font-size: $--notification-close-font-size;
+    color: $toast-close-color;
+    font-size: $toast-close-font-size;
 
     &:hover {
-      color: $--notification-close-hover-color;
+      color: $toast-close-hover-color;
     }
   }
 
   .va-icon-success {
-    color: $--notification-success-icon-color;
+    color: $toast-success-icon-color;
   }
 
   .va-icon-error {
-    color: $--notification-danger-icon-color;
+    color: $toast-danger-icon-color;
   }
 
   .va-icon-info {
-    color: $--notification-info-icon-color;
+    color: $toast-info-icon-color;
   }
 
   .va-icon-warning {
-    color: $--notification-warning-icon-color;
+    color: $toast-warning-icon-color;
   }
 }
 
-.va-notification-fade-enter {
+.va-toast-fade-enter {
   &.right {
     right: 0;
     transform: translateX(100%);
@@ -290,7 +257,7 @@ $--notification-danger-icon-color: red !default;
   }
 }
 
-.va-notification-fade-leave-active {
+.va-toast-fade-leave-active {
   opacity: 0;
 }
 

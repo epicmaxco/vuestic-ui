@@ -56,7 +56,6 @@ const Notification = function (options: NotificationOptions) {
   instance.$mount()
   document.body.appendChild(instance.$el)
   ;(instance as any).visible = true
-  // instance.$el as HTMLElement
   ;(instance.$el as HTMLElement).style.zIndex = Z_INDEX + ''
 
   let verticalOffset = options.offset || 0
