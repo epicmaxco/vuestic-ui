@@ -57,7 +57,7 @@ import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import {
   getHoverColor,
 } from '../../../services/color-functions'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { StatefulMixin } from './StatefulExpandMixin'
 
 const ExpandPropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: false },
