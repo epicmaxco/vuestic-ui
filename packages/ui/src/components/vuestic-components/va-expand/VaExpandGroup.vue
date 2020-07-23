@@ -47,7 +47,11 @@ export default class VaExpandGroup extends Mixins(
       //   ;(expand as any).$el.style.padding = '0.5rem'
       // }
     })
-    this.valueComputed = emitValue
+    if (this.c_multiply) {
+      this.valueComputed = emitValue
+    } else {
+      this.valueComputed = emitValue.includes(true)
+    }
   }
 
   mounted () {
