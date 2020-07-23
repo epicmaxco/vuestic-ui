@@ -42,17 +42,9 @@ export default class VaExpandGroup extends Mixins(
   }
 
   mounted () {
-    // if (this.c_multiply) {
     this.$children.forEach((expand, index) => {
       (expand as any).valueComputed = this.valueComputed[index]
-      this.onChildChange(expand, this.valueComputed[index])
     })
-    // } else {
-    //   this.$children.forEach((expand) => {
-    //     (expand as any).valueComputed = this.valueComputed
-    //     this.onChildChange(expand, this.valueComputed)
-    //   })
-    // }
   }
 
   updated () {
