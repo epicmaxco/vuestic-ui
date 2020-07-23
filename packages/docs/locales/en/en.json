@@ -1195,9 +1195,47 @@
     }
   },
   "expand": {
-    "title": "-- Here is the title --"
+    "title": "Expand",
+    "summaryText": "Toggles the visibility of content.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage  of the `va-expand` component."
+      },
+      "solid": {
+        "title": "Solid",
+        "text": "Add borders to your expand component by using 'solid' property."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "You can add an icon to the expand's header."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Use two color schemes."
+      }
+    }
   },
   "expandGroup": {
-    "title": "-- Here is the title --"
+    "title": "Expand group",
+    "summaryText": "Allows you to control group of expands",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage  of the `va-expand-group` component."
+      },
+      "multiply": {
+        "title": "Multiply",
+        "text": "Expand group component allows you to select multiply expands."
+      },
+      "inset": {
+        "title": "Inset",
+        "text": "Active expand component becomes smaller."
+      },
+      "popout": {
+        "title": "Popout",
+        "text": "Active expand component becomes bigger."
+      }
+    }
   }
 }
