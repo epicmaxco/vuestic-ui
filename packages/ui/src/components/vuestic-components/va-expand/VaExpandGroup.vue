@@ -30,19 +30,11 @@ export default class VaExpandGroup extends Mixins(
     const emitValue: any = []
     this.$children.forEach(expand => {
       if (expand === child) {
-        if (state && this.c_inset) {
-          child.$el.style.padding = '1rem'
-        } else if (state && this.c_popout) {
-          child.$el.style.padding = '0'
-        } else {
-          child.$el.style.padding = '0.5rem'
-        }
         emitValue.push((expand as any).valueComputed)
         return
       }
       if (!this.c_multiply) {
         (expand as any).valueComputed = false
-        ;(expand as any).$el.style.padding = '0.5rem'
       }
       emitValue.push((expand as any).valueComputed)
     })

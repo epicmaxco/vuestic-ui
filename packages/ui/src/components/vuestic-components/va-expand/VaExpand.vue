@@ -92,6 +92,8 @@ export default class VaExpand extends Mixins(
       'va-expand--disabled': this.c_disabled,
       'va-expand--solid': this.c_solid,
       'va-expand--solid--active': this.c_solid && this.valueComputed,
+      'va-expand--popout': this.$parent.$props.popout && this.valueComputed,
+      'va-expand--inset': this.$parent.$props.inset && this.valueComputed,
     }
   }
 
@@ -222,6 +224,14 @@ export default class VaExpand extends Mixins(
         }
       }
     }
+  }
+
+  &--popout {
+    padding: 0;
+  }
+
+  &--inset {
+    padding: 1rem;
   }
 
   &--disabled {
