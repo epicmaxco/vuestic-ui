@@ -28,7 +28,7 @@
       </va-expand-group>
     </VbCard>
 
-    <!-- <VbCard title="Inset">
+    <VbCard title="Inset">
       <va-expand-group v-model="value" inset style="width: 400px;">
         <va-expand
           v-for="(expand, index) in expands"
@@ -43,7 +43,7 @@
     </VbCard>
 
     <VbCard title="Inset multiply">
-      <va-expand-group v-model="value" inset multiply style="width: 400px;">
+      <va-expand-group v-model="valueArray" inset multiply style="width: 400px;">
         <va-expand
           v-for="(expand, index) in expands"
           :key="index"
@@ -71,7 +71,7 @@
     </VbCard>
 
     <VbCard title="Popout multiply">
-      <va-expand-group v-model="value" popout multiply style="width: 400px;">
+      <va-expand-group v-model="valueArray" popout multiply style="width: 400px;">
         <va-expand
           v-for="(expand, index) in expands"
           :key="index"
@@ -82,7 +82,7 @@
           </div>
         </va-expand>
       </va-expand-group>
-    </VbCard> -->
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -98,7 +98,7 @@ export default {
   },
   data () {
     return {
-      value: false,
+      value: [true, false, true],
       valueArray: [false, true, false],
       expands: [
         { title: 'First expand', content: 'first expand content' },
