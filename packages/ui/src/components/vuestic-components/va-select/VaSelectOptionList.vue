@@ -1,11 +1,9 @@
 <template>
-  <ul
-    class="va-select-option-list"
-  >
+  <ul class="va-select-option-list">
     <template v-if="options.length">
       <li
         v-for="option in filteredOptions"
-        :key="getOptionKey(option)"
+        :key="getTrackBy(option)"
         :class="getOptionClass(option)"
         :style="getOptionStyle(option)"
         @click.stop="selectOption(option)"
@@ -17,7 +15,7 @@
           :name="option.icon"
           class="va-select-option-list__option--icon"
         />
-        <span>{{ getOptionText(option) }}</span>
+        <span>{{ getText(option) }}</span>
         <va-icon
           v-show="getSelectedState(option)"
           class="va-select-option-list__option--selected-icon"
@@ -25,7 +23,7 @@
         />
       </li>
     </template>
-    <li v-else>
+    <li class="va-select-option-list no-options" v-else>
       {{ noOptionsText }}
     </li>
   </ul>
@@ -41,7 +39,6 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
   components: { VaIcon },
 })
 export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
-  @Prop({ type: [String, Object] }) readonly selectedValue!: any
   @Prop({ type: Array, default: () => [] }) readonly options!: any
   @Prop({
     type: String,
@@ -52,6 +49,14 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
     type: Function,
     default: () => false,
   }) readonly getSelectedState!: any
+
+  @Prop({
+    type: Function,
+  }) readonly getText!: any
+
+  @Prop({
+    type: Function,
+  }) readonly getTrackBy!: any
 
   @Prop({ type: Boolean, default: false }) readonly multiple!: boolean
   @Prop({ type: String, default: 'id' }) readonly keyBy!: string
@@ -66,7 +71,7 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
     }
 
     return this.options.filter((option: string) => {
-      const optionText = this.getOptionText(option).toUpperCase()
+      const optionText = this.getText(option).toUpperCase()
       const search = this.search.toUpperCase()
       return optionText.includes(search)
     })
@@ -78,8 +83,8 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
 
   getOptionClass (option: any) {
     return {
-      'va-select__option': true,
-      'va-select__option--selected': this.getSelectedState(option),
+      'va-select-option-list__option': true,
+      'va-select-option-list__option--selected': this.getSelectedState(option),
     }
   }
 
@@ -88,14 +93,6 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
       color: this.getSelectedState(option) ? this.computeColor('success') : 'inherit',
       backgroundColor: this.isHovered(option) ? getHoverColor(this.computeColor('success')) : 'transparent',
     }
-  }
-
-  getOptionText (option: any): string {
-    return typeof option === 'string' ? option : option[this.textBy]
-  }
-
-  getOptionKey (option: any) {
-    return typeof option === 'string' ? option : option[this.keyBy]
   }
 
   isHovered (option: any) {
@@ -111,10 +108,6 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
       this.hoveredOption = null
     }
   }
-
-  // updateSearch (value: string) {
-  //   this.search = value
-  // }
 }
 </script>
 <style lang="scss">
@@ -125,6 +118,13 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
   list-style: none;
 
   &__option {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.375rem 0.5rem 0.375rem 0.5rem;
+    min-height: 2.25rem;
+    word-break: break-word;
+
     &--selected {
 
     }

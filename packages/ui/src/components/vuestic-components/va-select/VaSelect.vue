@@ -1,38 +1,43 @@
 <template>
   <va-input-wrapper
     :error="computedError"
+    :success="c_success"
     :error-messages="computedErrorMessages"
+    :messages="c_messages"
   >
     <slot name="prepend" slot="prepend" />
 
     <va-dropdown
       class="va-select__dropdown"
       :position="position"
-      :disabled="disabled"
-      :max-height="maxHeight"
-      :fixed="fixed"
+      :disabled="c_disabled"
+      :max-height="c_maxHeight"
+      :fixed="c_fixed"
       :style="{width}"
       boundaryBody
-      :closeOnAnchorClick="false"
+      :closeOnAnchorClick="c_multiple"
       keepAnchorWidth
       ref="dropdown"
     >
       <va-input
-        v-if="searchable"
+        v-if="inputVisible"
         class="va-select__input"
         v-model="search"
         :id="id"
         :name="name"
-        :placeholder="placeholder"
+        placeholder="Search"
         removable
         ref="search"
+        @keyup.enter="addNewOption"
       />
       <va-select-option-list
         :style="{maxHeight: maxHeight}"
-        :options="options"
+        :options="filteredOptions"
         @selectOption="selectOption"
         :selectedValue="valueProxy"
         :getSelectedState="getSelectedState"
+        :getText="getText"
+        :getTrackBy="getTrackBy"
         :noOptionsText="noOptionsText"
         :search="search"
       />
@@ -43,42 +48,72 @@
         :class="selectClass"
         :style="selectStyle"
       >
+
         <div class="va-select__content-wrapper">
-          <div class="va-select__content">
+          <div class="va-select__controls" v-if="$slots.prependInner">
+            <div class="va-select__prepend-slot">
+              <slot name="prependInner" />
+            </div>
+          </div>
+          <div
+            class="va-select__content"
+            :class="[label ? 'va-select__content__selection--no-label' : '']"
+          >
             <label
               v-if="label"
               class="va-select__content__label"
               :style="labelStyle"
+              ref="label"
               aria-hidden="true"
             >
               {{ label }}
             </label>
-            <div
-              class="va-select__content__selection"
-              v-if="multiple && valueProxy.length <= tagMax"
-            >
-              <div class="va-select__content--tag">
-                {{ selectionTags }}
+            <template v-if="selectionValue || selectionTags">
+              <div
+                class="va-select__content__selection"
+                v-if="c_multiple"
+              >
+                <div v-if="chips && selectionTags.length <= tagMax">
+                  <va-tag
+                    class="va-select__content__selection--tag"
+                    v-for="(option, i) in selectionTags"
+                    :key="i"
+                    size="small"
+                    color="primary"
+                    :closeable="deletableChips"
+                    @input="selectOption(option)"
+                  >
+                    {{option}}
+                  </va-tag>
+                </div>
+                <div v-else>
+                  {{ selectionTags }}
+                </div>
               </div>
-            </div>
-            <div
-              v-else-if="selectionValue"
-              class="va-select__content__selection"
-            >
-              {{ selectionValue }}
-            </div>
+              <div
+                v-else-if="selectionValue"
+                class="va-select__content__selection"
+              >
+                {{ selectionValue }}
+              </div>
+            </template>
             <div
               v-else
-              class="va-select__placeholder"
+              class="va-select__content__selection va-select__content__selection--placeholder"
             >
               {{ placeholder }}
             </div>
           </div>
 
-          <div class="va-select__append-inner">
+          <div class="va-select__controls">
+
+            <div class="va-select__append-slot">
+              <slot name="appendInner" />
+            </div>
+
             <div v-if="showClearIcon" class="va-select__icon">
               <va-icon
-                name="cancel"
+                :name="clearIcon"
                 @click.native.stop="reset()"
               />
             </div>
@@ -86,15 +121,16 @@
             <div v-if="loading" class="va-select__icon">
               <va-icon
                 spin
-                :color="$themes.success"
+                :color="computeColor('success')"
                 :size="24"
                 name="loop"
               />
             </div>
 
-            <div class="va-select__icon va-select__icon--toggle">
+            <div class="va-select__icon">
               <va-icon
-                :name="visible ? 'arrow_drop_up' : 'arrow_drop_down'"
+                :color="computeColor('grey')"
+                :name="toggleIcon"
               />
             </div>
           </div>
@@ -117,28 +153,27 @@ import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
-import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import VaSelectOptionList from './VaSelectOptionList.vue'
+import VaTag from '../va-tag/VaTag.vue'
+import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 
-const positions = {
-  top: 'T',
-  bottom: 'B',
-}
+const positions: string[] = ['top', 'bottom']
 
-const SelectPropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeContextablePropsMixin({
   value: { type: [String, Number, Object, Array], default: '' },
   label: { type: String, default: '' },
   placeholder: { type: String, default: '' },
-  options: { type: Array, default: () => [] },
   position: {
     type: String,
     default: 'bottom',
-    validator: (position: string) => Object.keys(positions).includes(position),
+    validator: (position: string) => positions.includes(position),
   },
-  tagMax: { type: Number, default: 5 },
+  tagMax: { type: Number, default: 10 },
+  chips: { type: Boolean, default: false },
+  deletableChips: { type: Boolean, default: false },
   searchable: { type: Boolean, default: false },
   multiple: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
@@ -146,16 +181,28 @@ const SelectPropsMixin = makeContextablePropsMixin({
   width: { type: String, default: '100%' },
   maxHeight: { type: String, default: '128px' },
   keyBy: { type: String, default: 'id' },
-  textBy: { type: String, default: 'text' },
   clearValue: { type: String, default: '' },
   noOptionsText: { type: String, default: 'Items not found' },
   fixed: { type: Boolean, default: true },
-  noClear: { type: Boolean, default: false },
+  clearable: { type: Boolean, default: false },
+  hideSelected: { type: Boolean, default: false },
+  allowCreate: {
+    type: [Boolean, String],
+    default: false,
+    validator: (mode: string | boolean) => {
+      return [true, false, 'unique'].includes(mode)
+    },
+  },
+  clearIcon: { type: String, default: 'close' },
+  dropdownIcon: {
+    type: [String, Object],
+    default: () => ({ open: 'arrow_drop_down', close: 'arrow_drop_up' }),
+  },
 })
 
 @Component({
-  name: 'VaSelect',
   components: {
+    VaTag,
     VaSelectOptionList,
     VaIcon,
     VaDropdown,
@@ -165,10 +212,10 @@ const SelectPropsMixin = makeContextablePropsMixin({
 })
 export default class VaSelect extends Mixins(
   ContextPluginMixin,
-  FormComponentMixin,
   LoadingMixin,
-  SelectPropsMixin,
   ColorThemeMixin,
+  SelectableListMixin,
+  PropsMixin,
 ) {
   search = ''
   isMounted = false
@@ -189,11 +236,30 @@ export default class VaSelect extends Mixins(
   }
 
   get valueProxy () {
+    if (this.multiple && !this.isArrayValue) {
+      return this.value ? [this.value] : []
+    }
     return this.value
   }
 
   set valueProxy (value: any) {
     this.$emit('input', value)
+  }
+
+  get isArrayValue () {
+    return Array.isArray(this.value)
+  }
+
+  get isPrimitiveValue () {
+    return typeof this.value === 'string' || typeof this.value === 'number'
+  }
+
+  get isObjectValue () {
+    return !this.isArrayValue && !this.isPrimitiveValue
+  }
+
+  get inputVisible () {
+    return this.searchable || this.allowCreate
   }
 
   get visible () {
@@ -231,7 +297,7 @@ export default class VaSelect extends Mixins(
     }
   }
 
-  get selectionValue () {
+  get selectionValue (): string {
     if (!this.valueProxy) {
       return ''
     }
@@ -241,12 +307,32 @@ export default class VaSelect extends Mixins(
     // We try to find a match from options, if we don't find any - we take value.
     // This way select can display value even when options are not loaded yet.
     const selectedOption = this.valueProxy || this.selectedOption
-    const isString = typeof selectedOption === 'string'
-    return isString ? selectedOption : selectedOption[this.textBy]
+    const isPrimitive = ['string', 'number'].includes(typeof selectedOption)
+    return isPrimitive ? selectedOption : selectedOption[this.textBy] + ''
   }
 
-  get selectionTags (): string | null {
-    return Array.isArray(this.valueProxy) ? [...this.valueProxy.map(val => this.getOptionText(val))].join(', ') : null
+  get selectionTags (): string | string[] {
+    if (this.isArrayValue && this.valueProxy.length > this.tagMax) {
+      return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
+    }
+    if (this.multiple && this.chips) {
+      return this.valueProxy.map((value: any) => this.getText(value))
+    }
+    if (this.isArrayValue) {
+      const stringValueArr: string[] = this.valueProxy.map((value: any) => this.getText(value))
+      return stringValueArr.join(', ')
+    }
+    return ''
+  }
+
+  get filteredOptions (): any[] {
+    if (!this.hideSelected) {
+      return this.options
+    }
+    const filteredOptions: any[] = this.options.reduce((acc: any[], option: any) => {
+      return this.getSelectedState(option) ? [...acc] : [...acc, option]
+    }, [])
+    return filteredOptions
   }
 
   get selectedOption () {
@@ -254,13 +340,20 @@ export default class VaSelect extends Mixins(
   }
 
   get showClearIcon (): boolean {
-    if (this.noClear) {
+    if (!this.clearable) {
       return false
     }
     if (this.disabled) {
       return false
     }
     return this.multiple ? !!this.valueProxy.length : this.valueProxy !== this.clearValue
+  }
+
+  get toggleIcon (): string {
+    if (this.dropdownIcon.open && this.dropdownIcon.close) {
+      return this.visible ? this.dropdownIcon.close : this.dropdownIcon.open
+    }
+    return this.dropdownIcon
   }
 
   compareOptions (one: any, two: any) {
@@ -280,7 +373,7 @@ export default class VaSelect extends Mixins(
     }
   }
 
-  getSelectedState (option: any) {
+  getSelectedState (option: any): boolean {
     if (!this.valueProxy) {
       return false
     }
@@ -304,20 +397,38 @@ export default class VaSelect extends Mixins(
   selectOption (option: any): void {
     this.search = ''
     const isSelected = this.getSelectedState(option)
-    const value = this.value || []
+    const value: any = this.value || []
 
     if (this.multiple) {
-      this.valueProxy = isSelected
-        ? value.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
-        : [...value, option]
+      const filterSelected = () => {
+        return value.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
+      }
+      this.valueProxy = isSelected ? filterSelected() : [...value, option]
       ;(this as any).$refs.dropdown.updatePopper()
     } else {
       this.valueProxy = typeof option === 'string' ? option : { ...option }
-      this.search = ''
       ;(this as any).$refs.dropdown.hide()
     }
     if (this.c_searchable) {
       (this as any).$refs.search.$refs.input.focus()
+    }
+  }
+
+  addNewOption (): void {
+    if (this.allowCreate) {
+      if (this.multiple) {
+        const hasAddedOption: boolean = this.valueProxy.some((value: any) => value === this.search)
+        // Do not change valueProxy if option already exist
+        if (this.allowCreate === 'unique' && hasAddedOption) {
+          this.search = ''
+          return
+        }
+        this.valueProxy = [...this.valueProxy, this.search]
+        this.search = ''
+        return
+      }
+      this.valueProxy = this.search
+      this.search = ''
     }
   }
 
@@ -329,6 +440,7 @@ export default class VaSelect extends Mixins(
       ? (Array.isArray(this.clearValue) ? this.clearValue : [])
       : this.clearValue
     this.search = ''
+    this.$emit('clear')
   }
 
   mounted (): void {
@@ -341,8 +453,9 @@ export default class VaSelect extends Mixins(
 @import "../../vuestic-sass/resources/resources";
 
 .va-select {
+  display: flex;
+  align-items: stretch;
   cursor: pointer;
-  position: relative;
   width: 100%;
   min-height: 2.375rem;
   border-style: solid;
@@ -362,49 +475,66 @@ export default class VaSelect extends Mixins(
     }
   }
 
-  &__append-inner {
-    display: flex;
+  &__controls {
+    display: inline-flex;
     align-items: center;
   }
 
   &__content-wrapper {
-    position: absolute;
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    align-items: stretch;
     width: 100%;
     padding: 0 0.5rem;
   }
 
   &__content {
     display: flex;
-    flex-direction: column;
-    height: 100%;
     width: 100%;
     justify-content: space-between;
+    align-items: stretch;
 
     &__label {
       @include va-title();
 
       padding-top: 0.125rem;
+      position: absolute;
+      top: 0;
+      right: auto;
+      max-width: 90%;
 
       @include va-ellipsis();
     }
 
     &__selection {
       width: 100%;
-      height: 100%;
       display: flex;
+      padding: 0.125rem 0;
+      margin-top: 0.125rem;
       align-items: center;
-      white-space: nowrap;
+      white-space: normal;
       overflow: hidden;
       text-overflow: ellipsis;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
 
-    &--tag {
-      word-break: break-word;
+      &--no-label {
+        padding: 0.75rem 0 0.125rem 0;
+      }
+
+      &--tag {
+        margin: 0.25rem 0.25rem 0.25rem 0;
+      }
+
+      &--placeholder {
+        color: $brand-secondary;
+        opacity: 0.8;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        -webkit-box-align: start;
+        -webkit-box-pack: center;
+      }
     }
   }
 
@@ -422,28 +552,24 @@ export default class VaSelect extends Mixins(
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    margin: 0 0.5rem;
+
+    /* margin: 0 0.5rem; */
 
     &:focus {
       outline: none;
     }
   }
 
-  &__placeholder {
-    color: $brand-secondary;
-    opacity: 0.5;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    width: 100%;
+  &__icon {
+    padding-left: 0.25rem;
   }
 
-  &__icon {
-    padding-left: 0.5rem;
+  &__prepend-slot {
+    padding-right: 0.5rem;
+  }
 
-    &--toggle {
-      color: $va-link-color-secondary;
-    }
+  &__append-slot {
+    padding-left: 0.25rem;
   }
 
   &__dropdown {
@@ -468,33 +594,6 @@ export default class VaSelect extends Mixins(
       overflow-y: auto;
       box-shadow: $datepicker-box-shadow;
       border-radius: 0 0 0.5rem 0.5rem;
-    }
-  }
-
-  &__option-list {
-    width: 100%;
-    list-style: none;
-
-    &.no-options {
-      padding: 0.5rem;
-    }
-  }
-
-  &__option {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 0.375rem 0.5rem 0.375rem 0.5rem;
-    min-height: 2.25rem;
-    word-break: break-word;
-
-    &__selected-icon {
-      margin-left: auto;
-      font-size: 1.2rem;
-    }
-
-    &__icon {
-      margin-right: 0.5rem;
     }
   }
 }
