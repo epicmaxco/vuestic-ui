@@ -22,7 +22,7 @@
             {{c_header}}
           </div>
           <va-icon
-            v-if="valueComputed"
+            v-if="childValue"
             class="va-expand__header__icon"
             name="expand_less"
             :color="c_textColor"
@@ -57,7 +57,7 @@ import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import {
   getHoverColor,
 } from '../../../services/color-functions'
-import { StatefulMixin } from './StatefulExpandMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
 const ExpandPropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: false },
@@ -80,6 +80,9 @@ export default class VaExpand extends Mixins(
 ) {
   height = this.getHeight()
   mutationObserver: any = null
+  valueExpand = {
+    value: undefined,
+  }
 
   @Inject({
     default: () => ({
@@ -87,13 +90,27 @@ export default class VaExpand extends Mixins(
     }),
   }) readonly accordion!: any
 
+  get childValue () {
+    if (this.$parent?.$options?.name === 'VaExpandGroup') {
+      return this.valueExpand.value
+    }
+    return this.valueComputed
+  }
+
+  set childValue (value) {
+    if (this.$parent?.$options?.name === 'VaExpandGroup') {
+      this.valueExpand.value = value
+    }
+    this.valueComputed = value
+  }
+
   get computedClasses () {
     return {
       'va-expand--disabled': this.c_disabled,
       'va-expand--solid': this.c_solid,
-      'va-expand--solid--active': this.c_solid && this.valueComputed,
-      'va-expand--popout': this.$parent.$props.popout && this.valueComputed,
-      'va-expand--inset': this.$parent.$props.inset && this.valueComputed,
+      'va-expand--solid--active': this.c_solid && this.childValue,
+      'va-expand--popout': this.$parent.$props.popout && this.childValue,
+      'va-expand--inset': this.$parent.$props.inset && this.childValue,
     }
   }
 
@@ -106,7 +123,7 @@ export default class VaExpand extends Mixins(
   }
 
   get stylesComputed () {
-    if (this.valueComputed && this.$slots.default?.[0]) {
+    if (this.childValue && this.$slots.default?.[0]) {
       return {
         height: this.height,
         paddingTop: 1 + 'rem',
@@ -124,8 +141,8 @@ export default class VaExpand extends Mixins(
   }
 
   changeValue () {
-    this.valueComputed = !this.valueComputed
-    this.accordion.onChildChange(this, this.valueComputed)
+    this.childValue = !this.childValue
+    this.accordion.onChildChange(this, this.childValue)
   }
 
   getHeight () {

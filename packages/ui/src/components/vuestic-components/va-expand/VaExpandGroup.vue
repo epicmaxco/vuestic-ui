@@ -7,7 +7,7 @@
 <script lang="ts">
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins, Provide } from 'vue-property-decorator'
-import { StatefulMixin } from './StatefulExpandMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
 const ExpandGroupPropsMixin = makeContextablePropsMixin({
   multiply: { type: Boolean, default: false },
@@ -30,26 +30,26 @@ export default class VaExpandGroup extends Mixins(
     const emitValue: any = []
     this.$children.forEach(expand => {
       if (expand === child) {
-        emitValue.push((expand as any).valueComputed)
+        emitValue.push((expand as any).childValue)
         return
       }
       if (!this.c_multiply) {
-        (expand as any).valueComputed = false
+        (expand as any).childValue = false
       }
-      emitValue.push((expand as any).valueComputed)
+      emitValue.push((expand as any).childValue)
     })
     this.valueComputed = emitValue
   }
 
   mounted () {
     this.$children.forEach((expand, index) => {
-      (expand as any).valueComputed = this.valueComputed[index]
+      (expand as any).childValue = this.valueComputed[index]
     })
   }
 
   updated () {
     this.$children.forEach((expand, index) => {
-      (expand as any).valueComputed = this.valueComputed[index]
+      (expand as any).childValue = this.valueComputed[index]
     })
   }
 }

@@ -98,7 +98,7 @@ export default {
   },
   data () {
     return {
-      value: [true, false, true],
+      value: [false, false, false],
       valueArray: [false, true, false],
       expands: [
         { title: 'First expand', content: 'first expand content' },
