@@ -148,6 +148,9 @@ export default class VaExpand extends Mixins(
 @import "../../vuestic-sass/resources/resources";
 
 .va-expand {
+  transition: all 0.3s linear;
+  padding: 0.5rem;
+
   & + & {
     margin-top: 1.5rem;
   }

@@ -11,6 +11,8 @@ import { StatefulMixin } from './StatefulExpandMixin'
 
 const ExpandGroupPropsMixin = makeContextablePropsMixin({
   multiply: { type: Boolean, default: false },
+  inset: { type: Boolean, default: false },
+  popout: { type: Boolean, default: false },
 })
 
 @Component({
@@ -28,10 +30,20 @@ export default class VaExpandGroup extends Mixins(
     this.valueComputed = !this.valueComputed
     this.$children.forEach(expand => {
       if (expand === child) {
+        // inset
+        if (state && this.c_inset) {
+          child.$el.style.padding = '1rem'
+        } else if (state && this.c_popout) {
+          child.$el.style.padding = '0'
+        } else {
+          child.$el.style.padding = '0.5rem'
+        }
+        // /inset
         return
       }
       if (!this.c_multiply) {
         (expand as any).valueComputed = false
+        ;(expand as any).$el.style.padding = '0.5rem'
       }
     })
   }
