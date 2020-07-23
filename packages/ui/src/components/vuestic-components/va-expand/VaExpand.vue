@@ -151,7 +151,7 @@ export default class VaExpand extends Mixins(
 
 .va-expand {
   transition: all 0.3s linear;
-  padding: 0.5rem;
+  margin: 0.5rem;
 
   & + & {
     margin-top: 1.5rem;
@@ -227,11 +227,11 @@ export default class VaExpand extends Mixins(
   }
 
   &--popout {
-    padding: 0;
+    margin: 0;
   }
 
   &--inset {
-    padding: 1rem;
+    margin: 1rem;
   }
 
   &--disabled {
