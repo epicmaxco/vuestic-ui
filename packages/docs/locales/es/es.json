@@ -49,6 +49,18 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaExpand": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaExpandGroup": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -57,7 +69,9 @@
     "image": "Image",
     "checkbox": "Checkbox",
     "icon": "Icon",
-    "radio": "Radio"
+    "radio": "Radio",
+    "expand": "Expand",
+    "expandGroup": "Expand Group"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -76,6 +90,12 @@
     "title": "-- Here is the title --"
   },
   "radio": {
+    "title": "-- Here is the title --"
+  },
+  "expand": {
+    "title": "-- Here is the title --"
+  },
+  "expandGroup": {
     "title": "-- Here is the title --"
   }
 }

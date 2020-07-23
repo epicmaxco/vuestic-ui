@@ -95,6 +95,14 @@
         {
           "name": "radio",
           "displayName": "menu.radio"
+        },
+        {
+          "name": "expand",
+          "displayName": "menu.expand"
+        },
+        {
+          "name": "expand-group",
+          "displayName": "menu.expandGroup"
         }
       ]
     }

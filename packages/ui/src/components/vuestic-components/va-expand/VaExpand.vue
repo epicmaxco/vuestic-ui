@@ -105,12 +105,18 @@ export default class VaExpand extends Mixins(
   }
 
   get computedClasses () {
+    let popout = false
+    let inset = false
+    if (this.$parent.$props) {
+      popout = this.$parent.$props.popout
+      inset = this.$parent.$props.inset
+    }
     return {
       'va-expand--disabled': this.c_disabled,
       'va-expand--solid': this.c_solid,
       'va-expand--solid--active': this.c_solid && this.childValue,
-      'va-expand--popout': this.$parent.$props.popout && this.childValue,
-      'va-expand--inset': this.$parent.$props.inset && this.childValue,
+      'va-expand--popout': popout && this.childValue,
+      'va-expand--inset': inset && this.childValue,
     }
   }
 

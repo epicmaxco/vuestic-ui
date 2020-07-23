@@ -89,7 +89,7 @@
 <script>
 
 import VaExpandGroup from './VaExpandGroup'
-import VaExpand from './VaExpand'
+import VaExpand from './../va-expand/VaExpand'
 
 export default {
   components: {

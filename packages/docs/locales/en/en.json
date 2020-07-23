@@ -375,6 +375,18 @@
         "option": "Option value that model is updated to when an option is selected",
         "tabindex": "Sets a custom tabindex"
       }
+    },
+    "VaExpand": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaExpandGroup": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "anyPage": {
@@ -406,7 +418,9 @@
     "checkbox": "Checkbox",
     "infiniteScroll": "Infinite Scroll",
     "icon": "Icon",
-    "radio": "Radio"
+    "radio": "Radio",
+    "expand": "Expand",
+    "expandGroup": "Expand Group"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1179,5 +1193,11 @@
         "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
       }
     }
+  },
+  "expand": {
+    "title": "-- Here is the title --"
+  },
+  "expandGroup": {
+    "title": "-- Here is the title --"
   }
 }
