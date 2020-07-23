@@ -29,7 +29,7 @@
       class="va-tag__close-icon"
       name="close"
       :size="iconSize"
-      @click="close()"
+      @click.stop="close()"
     />
   </span>
 </template>
@@ -187,7 +187,8 @@ $tag-font-size-lg: 1.25rem !default;
   height: auto;
   min-width: initial;
   min-height: initial;
-  margin: 0 0.1rem;
+
+  /* margin: 0 0.1rem; */
   padding: 0 0.3rem;
   color: $white;
   cursor: default;
@@ -216,7 +217,8 @@ $tag-font-size-lg: 1.25rem !default;
 
   &__close-icon {
     cursor: pointer;
-    z-index: 500;
+
+    /* z-index: 500; */
 
     @at-root {
       .va-tag--disabled {
