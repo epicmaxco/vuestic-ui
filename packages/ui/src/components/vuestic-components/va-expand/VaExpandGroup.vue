@@ -27,25 +27,38 @@ export default class VaExpandGroup extends Mixins(
   }
 
   onChildChange (child: any, state: any) {
-    this.valueComputed = !this.valueComputed
+    const emitValue: any = []
     this.$children.forEach(expand => {
-      if (expand === child) {
-        // inset
-        if (state && this.c_inset) {
-          child.$el.style.padding = '1rem'
-        } else if (state && this.c_popout) {
-          child.$el.style.padding = '0'
-        } else {
-          child.$el.style.padding = '0.5rem'
-        }
-        // /inset
-        return
-      }
-      if (!this.c_multiply) {
-        (expand as any).valueComputed = false
-        ;(expand as any).$el.style.padding = '0.5rem'
-      }
+      emitValue.push(expand.valueComputed)
+      // if (expand === child) {
+      //   // inset
+      //   if (state && this.c_inset) {
+      //     child.$el.style.padding = '1rem'
+      //   } else if (state && this.c_popout) {
+      //     child.$el.style.padding = '0'
+      //   } else {
+      //     child.$el.style.padding = '0.5rem'
+      //   }
+      //   // /inset
+      //   return
+      // }
+      // if (!this.c_multiply) {
+      //   (expand as any).valueComputed = false
+      //   ;(expand as any).$el.style.padding = '0.5rem'
+      // }
     })
+    this.valueComputed = emitValue
+  }
+
+  mounted () {
+    this.$children.forEach((expand, index) => {
+      (expand as any).valueComputed = this.valueComputed[index]
+    })
+    console.log('value', this.valueComputed)
+  }
+
+  updated () {
+    console.log('value2', this.valueComputed)
   }
 }
 </script>

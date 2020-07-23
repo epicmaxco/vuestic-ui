@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard title="Default">
+    <!-- <VbCard title="Default">
       <va-expand-group v-model="value" style="width: 400px;">
         <va-expand
           v-for="(expand, index) in expands"
@@ -12,7 +12,7 @@
           </div>
         </va-expand>
       </va-expand-group>
-    </VbCard>
+    </VbCard> -->
 
     <VbCard title="Multiply">
       <va-expand-group v-model="value" multiply style="width: 400px;">
@@ -28,7 +28,7 @@
       </va-expand-group>
     </VbCard>
 
-    <VbCard title="Inset">
+    <!-- <VbCard title="Inset">
       <va-expand-group v-model="value" inset style="width: 400px;">
         <va-expand
           v-for="(expand, index) in expands"
@@ -82,7 +82,7 @@
           </div>
         </va-expand>
       </va-expand-group>
-    </VbCard>
+    </VbCard> -->
   </VbDemo>
 </template>
 
@@ -98,7 +98,7 @@ export default {
   },
   data () {
     return {
-      value: true,
+      value: [false, true, false],
       expands: [
         { title: 'First expand', content: 'first expand content' },
         { title: 'Second expand', content: 'second expand content' },
