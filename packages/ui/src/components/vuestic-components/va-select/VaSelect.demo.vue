@@ -1,33 +1,77 @@
 <template>
   <VbDemo>
     <VbCard
-      title="String options (default)"
+      title="Basic usage"
       style="width: 400px;"
     >
       <va-select
-        :options="defaultSelect.options"
-        v-model="defaultSelect.value"
+        style="margin: 8px 0;"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+      />
+      <p>Value: {{defaultSingleSelect.value}}</p>
+    </VbCard>
+    <VbCard
+      title="Single select"
+      style="width: 400px;"
+    >
+      <va-select
+        style="margin: 8px 0;"
+        label="Default"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Default, hide selected"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        hideSelected
       />
     </VbCard>
     <VbCard
-      title="error"
+      title="Multi select"
       style="width: 400px;"
     >
       <va-select
-        :options="defaultSelect.options"
-        v-model="defaultSelect.value"
-        error
+        style="margin: 8px 0;"
+        label="Default"
+        :options="defaultMultiSelect.options"
+        v-model="defaultMultiSelect.value"
+        multiple
       />
       <va-select
-        :options="defaultSelect.options"
-        v-model="defaultSelect.value"
-        success
+        style="margin: 8px 0;"
+        label="Default, hide selected"
+        :options="defaultMultiSelect.options"
+        v-model="defaultMultiSelect.value"
+        multiple
+        hideSelected
       />
       <va-select
-        :options="defaultSelect.options"
-        v-model="defaultSelect.value"
-        error
-        :error-messages="['error message']"
+        style="margin: 8px 0;"
+        label="Custom tag max (3)"
+        :options="defaultMultiSelect.options"
+        v-model="defaultMultiSelect.value"
+        multiple
+        :tagMax="3"
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Chips"
+        :options="defaultMultiSelect.options"
+        v-model="defaultMultiSelect.value"
+        multiple
+        chips
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Deletable chips"
+        :options="defaultMultiSelect.options"
+        v-model="defaultMultiSelect.value"
+        multiple
+        chips
+        deletableChips
       />
     </VbCard>
     <VbCard
@@ -35,208 +79,269 @@
       style="width: 400px;"
     >
       <va-select
-        label="Object value"
-        v-model="objectSelect.value"
-        :options="objectSelect.options"
+        label="Options with icon"
+        v-model="objectSingleSelectWithIcons.value"
+        :options="objectSingleSelectWithIcons.options"
+        textBy="text"
       />
-      <p>key-by='value'</p>
       <va-select
-        v-model="iconsSelect.value"
-        :options="iconsSelect.options"
-        text-by="value"
+        label="Single select text by text (default)"
+        v-model="objectSingleSelect.value"
+        :options="objectSingleSelect.options"
+        textBy="text"
       />
-      <p>textBy='icon'</p>
       <va-select
-        text-by="icon"
-        v-model="iconsSelect.value"
-        :options="iconsSelect.options"
+        label="Text by value"
+        v-model="objectSingleSelect.value"
+        :options="objectSingleSelect.options"
+        textBy="value"
       />
-      <p>key-by='value' (multiple)</p>
+      <p>Value: {{objectSingleSelect.value}}</p>
       <va-select
-        key-by="value"
-        v-model="multipleValue"
-        :options="iconsSelect.options"
+        label="Multi select Text by value"
+        v-model="objectMultiSelect.value"
+        :options="objectMultiSelect.options"
+        textBy="value"
         multiple
       />
+      <p>Value: {{objectMultiSelect.value}}</p>
     </VbCard>
     <VbCard
-      title="Options with icons"
+      title="Decorators"
       style="width: 400px;"
     >
       <va-select
-        v-model="iconsSelect.value"
-        :options="iconsSelect.options"
-      />
-    </VbCard>
-    <VbCard
-      title="No options"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="defaultSelect.value"
-        :options="[]"
+        style="margin: 8px 0;"
+        label="With label"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
       />
       <va-select
-        label="custom no options text"
-        v-model="defaultSelect.value"
-        :options="[]"
-        no-options-text="Sorry..."
-      />
-    </VbCard>
-    <VbCard
-      title="Custom clear value"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="defaultSelect.value"
-        clear-value="1"
-        :options="defaultSelect.options"
-      />
-    </VbCard>
-    <VbCard
-      title="No clear"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="defaultSelect.value"
-        :options="defaultSelect.options"
-        no-clear
-      />
-    </VbCard>
-    <VbCard
-      title="Placeholder"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="defaultSelect.value"
-        :options="CountriesList"
-        placeholder="select country"
+        label="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+        placeholder="Long label"
+        v-model="defaultSingleSelect.value"
+        :options="defaultSingleSelect.options"
       />
       <va-select
-        v-model="defaultSelect.value"
-        :options="CountriesList"
+        style="margin: 8px 0;"
+        placeholder="With placeholder"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+      />
+      <va-select
+        label="Long placeholder"
         placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+        v-model="defaultSingleSelect.value"
+        :options="defaultSingleSelect.options"
       />
-    </VbCard>
-    <VbCard
-      title="Label"
-      style="width: 400px;"
-    >
       <va-select
-        label="country label"
-        v-model="defaultSelect.value"
-        :options="CountriesList"
+        label="No options"
+        v-model="defaultSingleSelect.value"
+        :options="[]"
       />
-    </VbCard>
-    <VbCard
-      title="Label and placeholder"
-      style="width: 400px;"
-    >
       <va-select
-        label="country label"
-        placeholder="select country"
-        v-model="defaultSelect.value"
-        :options="CountriesList"
+        label="No options with custom text"
+        v-model="defaultSingleSelect.value"
+        :options="[]"
+        noOptionsText="Sorry, nothing to show :("
       />
-    </VbCard>
-    <VbCard
-      title="positions"
-      style="width: 400px;"
-    >
-      <div
-        v-for="position in positions"
-        :key="position"
+      <va-select
+        style="margin: 8px 0;"
+        label="Clearable"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        clearable
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Clearable and custom clear icon"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        clearable
+        clearIcon="cancel"
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Hint messages"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        :messages="['Hint message 1', 'Hint message 2']"
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Prepend slot"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
       >
-        <p>{{ position }}</p>
-        <va-select
-          :position="position"
-          v-model="defaultSelect.value"
-          :options="CountriesList"
+        <va-icon
+          slot="prepend"
+          name="share"
         />
-      </div>
+      </va-select>
+      <va-select
+        style="margin: 8px 0;"
+        label="Prepend inner slot"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+      >
+        <va-icon
+          slot="prependInner"
+          name="share"
+        />
+      </va-select>
+      <va-select
+        style="margin: 8px 0;"
+        label="Append inner slot"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+      >
+        <va-icon
+          slot="appendInner"
+          name="share"
+        />
+      </va-select>
+      <va-select
+        style="margin: 8px 0;"
+        label="Append slot"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+      >
+        <va-icon
+          slot="append"
+          name="share"
+        />
+      </va-select>
+      <va-select
+        style="margin: 8px 0;"
+        label="Custom list position (top)"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        position="top"
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Custom list position (bottom)"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        position="bottom"
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Custom list height (320px)"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        maxHeight="320px"
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Custom select width (50%)"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        width="50%"
+      />
     </VbCard>
     <VbCard
-      title="disabled"
+      title="State"
       style="width: 400px;"
     >
       <va-select
-        v-model="defaultSelect.value"
-        :options="CountriesList"
+        style="margin: 8px 0;"
+        label="Disabled"
+        :options="defaultSingleSelect.options"
+        v-model="disabledValue"
         disabled
       />
-    </VbCard>
-    <VbCard
-      title="multiple"
-      style="width: 400px;"
-    >
       <va-select
-        v-model="multipleValue"
-        multiple
-        :options="CountriesList"
-      />
-      <va-select
-        label="with custom tag-max"
-        v-model="multipleValue"
-        multiple
-        :tag-max="8"
-        :options="CountriesList"
-      />
-    </VbCard>
-    <VbCard
-      title="searchable"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="defaultSelect.value"
-        :options="CountriesList"
-        searchable
-      />
-    </VbCard>
-    <VbCard
-      title="searchable + multiple"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="multipleValue"
-        :options="CountriesList"
-        searchable
-        multiple
-      />
-    </VbCard>
-    <VbCard
-      title="custom max-height (320px)"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="defaultSelect.value"
-        :options="CountriesList"
-        max-height="320px"
-      />
-    </VbCard>
-    <VbCard
-      title="custom width (30%)"
-      :style="{'width': '100%'}"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="defaultSelect.value"
-        :options="CountriesList"
-        width="30%"
-      />
-      <va-select
-        v-model="defaultSelect.value"
-        :options="CountriesList"
-        width="120px"
-      />
-    </VbCard>
-    <VbCard
-      title="loading"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="defaultSelect.value"
-        :options="CountriesList"
+        style="margin: 8px 0;"
+        label="Loading"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
         loading
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Error state"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        error
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Error state with messages"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        error
+        :error-messages="['Error message']"
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Success state"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        success
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Success state with messages"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        success
+        :messages="['Success message']"
+      />
+    </VbCard>
+    <VbCard
+      title="Searchable"
+      style="width: 400px;"
+    >
+      <va-select
+        style="margin: 8px 0;"
+        label="Searchable single select"
+        :options="defaultSingleSelect.options"
+        v-model="defaultSingleSelect.value"
+        searchable
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Searchable multi select"
+        :options="defaultMultiSelect.options"
+        v-model="defaultMultiSelect.value"
+        multiple
+        searchable
+      />
+    </VbCard>
+    <VbCard
+      title="Allow create new"
+      style="width: 400px;"
+    >
+      <va-select
+        style="margin: 8px 0;"
+        label="Default mode and single select"
+        :options="defaultSingleSelect.options"
+        v-model="allowCreateValue"
+        allowCreate
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Unique mode and single select"
+        :options="defaultSingleSelect.options"
+        v-model="allowCreateValueMultiple"
+        allowCreate="unique"
+      />
+      <va-select
+        style="margin: 8px 0;"
+        label="Default mode and multi select"
+        :options="defaultMultiSelect.options"
+        v-model="allowCreateValueMultiple"
+        allowCreate
+        multiple
+      />
+      <va-select
+        label="Unique mode and multi select"
+        style="margin: 8px 0;"
+        :options="defaultMultiSelect.options"
+        v-model="allowCreateValueMultiple"
+        allowCreate="unique"
+        multiple
       />
     </VbCard>
     <VbCard
@@ -245,22 +350,10 @@
     >
       <va-select
         searchable
-        v-model="defaultSelect.value"
+        v-model="defaultSingleSelect.value"
         :options="CountriesList"
         :loading="isLoading"
         @updateSearch="updateSearch"
-      />
-    </VbCard>
-    <VbCard
-      title="long textes"
-      style="width: 400px;"
-    >
-      <va-select
-        searchable
-        placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-        label="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-        v-model="longSelect.value"
-        :options="longSelect.options"
       />
     </VbCard>
     <VbCard
@@ -281,36 +374,9 @@
         multiple
       />
     </VbCard>
-    <VbCard
-      title="Slots"
-      style="width: 400px;"
-    >
-      <va-select
-        :options="validationSelect.options"
-        :rules="validationSelect.rules.required"
-        v-model="validationSelect.value"
-      >
-        <va-icon
-          slot="prepend"
-          name="share"
-        />
-      </va-select>
-      <va-select
-        :options="validationSelect.options"
-        :rules="validationSelect.rules.twoOptions"
-        v-model="validationSelect.multipleValue"
-        multiple
-      >
-        <va-icon
-          slot="append"
-          name="share"
-        />
-      </va-select>
-    </VbCard>
     <VbCard :style="{ 'width': '100%' }">
-      <p>{{ defaultSelect.value }}</p>
-      <p>{{ objectSelect.value }}</p>
-      <p>{{ iconsSelect.value }}</p>
+      <p>{{ defaultSingleSelect.value }}</p>
+      <p>{{ objectSingleSelect.value }}</p>
       <p>{{ multipleValue }}</p>
       <p>{{ longSelect.value }}</p>
       <p>{{ validationSelect.value }}</p>
@@ -331,16 +397,31 @@ export default {
   components: { VaSelect, VaIcon },
   data () {
     return {
-      defaultSelect: {
-        options: ['one', 'two', 'three'],
-        value: 'one',
+      allowCreateValue: '',
+      allowCreateValueMultiple: '',
+      disabledValue: 'Selected option',
+      defaultSingleSelect: {
+        options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
+        value: '',
       },
-      objectSelect: {
+      defaultMultiSelect: {
+        options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
+        value: [],
+      },
+      objectSingleSelect: {
         value: '',
         options: objectOptionsList,
       },
-      iconsSelect: {
+      objectMultiSelect: {
+        value: [],
+        options: objectOptionsList,
+      },
+      objectSingleSelectWithIcons: {
         value: '',
+        options: iconOptionsList,
+      },
+      objectMultiSelectWithIcons: {
+        value: [],
         options: iconOptionsList,
       },
       longSelect: {
@@ -356,7 +437,7 @@ export default {
         multipleValue: [],
         rules: {
           required: [v => Array.isArray(v) ? v.length : !!v || 'at least 1 option should be selected'],
-          twoOptions: [v => (Array.isArray(v) && v.length === 2) || '2 options should be selected'],
+          twoOptions: [v => (Array.isArray(v) && v.length === 1) || '1 options should be selected'],
         },
       },
       multipleValue: [],
