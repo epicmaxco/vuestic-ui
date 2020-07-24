@@ -6,6 +6,11 @@
     <div
       class="va-expand__header"
       @click="changeValue()"
+      :tabindex="expandIndexComputed"
+      @mousedown="hasMouseDown = true"
+      @mouseup="hasMouseDown = false"
+      @focus="onFocus"
+      @blur="isKeyboardFocused = false"
     >
       <slot name="header">
         <div
@@ -58,6 +63,7 @@ import {
   getHoverColor,
 } from '../../../services/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
 const ExpandPropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: false },
@@ -74,6 +80,7 @@ const ExpandPropsMixin = makeContextablePropsMixin({
   components: { VaIcon },
 })
 export default class VaExpand extends Mixins(
+  KeyboardOnlyFocusMixin,
   StatefulMixin,
   ColorThemeMixin,
   ExpandPropsMixin,
@@ -125,6 +132,7 @@ export default class VaExpand extends Mixins(
       paddingLeft: this.c_icon && 0,
       color: this.c_textColor ? getColor(this, this.c_textColor) : '',
       backgroundColor: this.c_color ? this.colorComputed : '',
+      boxShadow: this.isKeyboardFocused ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
     }
   }
 
@@ -144,6 +152,15 @@ export default class VaExpand extends Mixins(
       paddingTop: 0,
       paddingBottom: 0,
     }
+  }
+
+  get expandIndexComputed () {
+    return (this.c_disabled) ? -1 : 0
+  }
+
+  onFocus () {
+    this.KeyboardOnlyFocusMixin_onFocus()
+    this.$emit('focus')
   }
 
   changeValue () {

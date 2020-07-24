@@ -112,7 +112,6 @@
             v-for="(value, index) in expandLayerValue"
             :key="index"
             v-model="expandLayerValue[index]"
-            style="width: 380px;"
             :header="expandHeader"
           >
             <div>
@@ -120,7 +119,6 @@
                 v-for="(value, index) in expandSecondLayerValue"
                 :key="index"
                 v-model="expandSecondLayerValue[index]"
-                style="width: 340px;"
                 :header="expandHeader"
               >
                 <div>
