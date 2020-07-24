@@ -383,10 +383,19 @@
       "slots": {}
     },
     "VaExpandGroup": {
-      "props": {},
-      "events": {},
+      "props": {
+        "value": "The array of currently opened expands",
+        "multiply": "Allows to expand multiply components",
+        "inset": "Expand becomes smaller when activated",
+        "popout": "Expand becomes bigger when activated"
+      },
+      "events": {
+        "input": "Emits when any of expands is clicked"
+      },
       "methods": {},
-      "slots": {}
+      "slots": {
+        "default": "Contains expands"
+      }
     }
   },
   "anyPage": {

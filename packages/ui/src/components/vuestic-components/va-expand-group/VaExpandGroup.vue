@@ -10,6 +10,7 @@ import { Component, Mixins, Provide } from 'vue-property-decorator'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
 const ExpandGroupPropsMixin = makeContextablePropsMixin({
+  value: { type: Array, default: () => [] },
   multiply: { type: Boolean, default: false },
   inset: { type: Boolean, default: false },
   popout: { type: Boolean, default: false },
