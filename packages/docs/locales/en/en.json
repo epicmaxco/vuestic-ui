@@ -377,10 +377,21 @@
       }
     },
     "VaExpand": {
-      "props": {},
-      "events": {},
+      "props": {
+        "value": "Current expand state",
+        "header": "Text content to place in the header",
+        "icon": "The icon to be displayed inside a header",
+        "solid": "Adds borders to the expand",
+        "colorAll": "Applies color to expand contents background"
+      },
+      "events": {
+        "input": "Emits when expand is clicked"
+      },
       "methods": {},
-      "slots": {}
+      "slots": {
+        "default": "Content of the expand component",
+        "header": "Replaces content of the header to custom"
+      }
     },
     "VaExpandGroup": {
       "props": {
@@ -1213,7 +1224,7 @@
       },
       "solid": {
         "title": "Solid",
-        "text": "Add borders to your expand component by using 'solid' property."
+        "text": "Add borders to your expand component by using `solid` property."
       },
       "icon": {
         "title": "Icon",
