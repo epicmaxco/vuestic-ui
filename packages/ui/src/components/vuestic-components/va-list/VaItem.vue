@@ -16,6 +16,7 @@ import { Component, Mixins } from 'vue-property-decorator'
 const ItemPropsMixin = makeContextablePropsMixin({
   to: { type: [String, Object], default: '' },
   clickable: { type: Boolean, default: false },
+  disabled: { type: Boolean, defaulr: false },
 })
 @Component({
   name: 'VaItem',
@@ -24,7 +25,10 @@ export default class VaItem extends Mixins(
   ItemPropsMixin,
 ) {
   get computedClass () {
-    return { 'va-item--clickable': this.c_clickable || this.c_to }
+    return {
+      'va-item--clickable': this.c_clickable || this.c_to,
+      'va-item--disabled': this.c_disabled,
+    }
   }
 }
 </script>
@@ -41,6 +45,10 @@ export default class VaItem extends Mixins(
       background-color: $light-gray3;
       cursor: pointer;
     }
+  }
+
+  &--disabled {
+    @include va-disabled();
   }
 }
 </style>

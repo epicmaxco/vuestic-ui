@@ -91,6 +91,34 @@
           />
         </va-item-section>
       </va-item>
+      <va-list-label>
+        Disabled
+      </va-list-label>
+
+      <va-item disabled>
+        <va-item-section avatar>
+          <va-avatar>
+            <img src="https://randomuser.me/api/portraits/men/5.jpg">
+          </va-avatar>
+        </va-item-section>
+
+        <va-item-section>
+          <va-item-label>
+            Herbert Keller
+          </va-item-label>
+
+          <va-item-label caption>
+            286 NW. Shore St.Longwood, FL 32779
+          </va-item-label>
+        </va-item-section>
+
+        <va-item-section side>
+          <va-icon
+            name="remove_red_eye"
+            color="gray"
+          />
+        </va-item-section>
+      </va-item>
     </va-list>
 
     <va-list
