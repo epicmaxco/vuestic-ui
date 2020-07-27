@@ -1,26 +1,31 @@
 <template>
   <component
-    :is="to ? 'router-link' : 'div'"
-    :to="to"
+    :is="c_to ? 'router-link' : 'div'"
+    :to="c_to"
     class="va-item align--center no-wrap"
-    :class="{'va-item--clickable': clickable || to}"
+    :class="computedClass"
     @click="$emit('click')"
   >
     <slot />
   </component>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins } from 'vue-property-decorator'
+const ItemPropsMixin = makeContextablePropsMixin({
+  to: { type: [String, Object], default: '' },
+  clickable: { type: Boolean, default: false },
+})
+@Component({
   name: 'VaItem',
-  props: {
-    to: {
-      type: [String, Object],
-      default: '',
-    },
-    clickable: Boolean,
-  },
-
+})
+export default class VaItem extends Mixins(
+  ItemPropsMixin,
+) {
+  get computedClass () {
+    return { 'va-item--clickable': this.c_clickable || this.c_to }
+  }
 }
 </script>
 

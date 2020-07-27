@@ -1,23 +1,32 @@
 <template>
   <div
     class="va-item-section"
-    :class="{
-      'va-item-section--main': !side && !avatar,
-      'va-item-section--side': side,
-      'va-item-section--avatar': avatar
-    }"
+    :class="computedClass"
   >
     <slot />
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins } from 'vue-property-decorator'
+const ItemSectionPropsMixin = makeContextablePropsMixin({
+  side: { type: Boolean, default: false },
+  avatar: { type: Boolean, default: false },
+})
+@Component({
   name: 'VaItemSection',
-  props: {
-    side: Boolean,
-    avatar: Boolean,
-  },
+})
+export default class VaItemSection extends Mixins(
+  ItemSectionPropsMixin,
+) {
+  get computedClass () {
+    return {
+      'va-item-section--main': !this.c_side && !this.c_avatar,
+      'va-item-section--side': this.c_side,
+      'va-item-section--avatar': this.c_avatar,
+    }
+  }
 }
 </script>
 
