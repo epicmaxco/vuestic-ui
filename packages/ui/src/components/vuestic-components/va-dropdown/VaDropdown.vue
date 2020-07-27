@@ -86,20 +86,6 @@ export default class VaDropdown extends Vue {
     return false
   }
 
-  get scrollWidth (): number {
-    const div: HTMLElement = document.createElement('div')
-
-    div.style.overflowY = 'scroll'
-    div.style.width = '50px'
-    div.style.height = '50px'
-    div.style.visibility = 'hidden'
-
-    document.body.appendChild(div)
-    const scrollWidth: number = div.offsetWidth - div.clientWidth
-    document.body.removeChild(div)
-    return scrollWidth
-  }
-
   handlePopperInstance (): void {
     if (this.popperInstance) {
       this.removePopper()
@@ -183,11 +169,7 @@ export default class VaDropdown extends Vue {
 
   updateAnchorWidth (): void {
     if (this.keepAnchorWidth) {
-      let anchorWidth = (this as any).$refs.anchor.offsetWidth
-      if (this.$refs.anchorWidthContainer && (this as any).$refs.anchorWidthContainer.scrollHeight > (this as any).$refs.anchorWidthContainer.clientHeight) {
-        anchorWidth = (this as any).$refs.anchor.offsetWidth - this.scrollWidth
-      }
-      this.anchorWidth = anchorWidth
+      this.anchorWidth = (this as any).$refs.anchor.offsetWidth
     }
     if (this.popperInstance) {
       this.popperInstance.forceUpdate()
