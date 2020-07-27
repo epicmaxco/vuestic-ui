@@ -417,7 +417,6 @@
       "methods": {},
       "slots": {}
     },
-    {
     "VaInput": {
       "props": {
         "value": "The input value",
@@ -464,6 +463,7 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content"
       }
+    }
   },
   "anyPage": {
     "examples": "Examples",
