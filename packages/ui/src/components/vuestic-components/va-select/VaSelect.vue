@@ -5,7 +5,7 @@
     :error-messages="computedErrorMessages"
     :messages="c_messages"
   >
-    <slot name="prepend" slot="prepend" />
+    <slot name="prepend" slot="prepend"/>
 
     <va-dropdown
       class="va-select__dropdown"
@@ -40,6 +40,7 @@
         :getTrackBy="getTrackBy"
         :noOptionsText="noOptionsText"
         :search="search"
+        :hintedOption="hintedOption"
       />
 
       <div
@@ -47,12 +48,14 @@
         class="va-select"
         :class="selectClass"
         :style="selectStyle"
+        tabindex="0"
+        @keydown="updateHintedOption"
       >
 
         <div class="va-select__content-wrapper">
           <div class="va-select__controls" v-if="$slots.prependInner">
             <div class="va-select__prepend-slot">
-              <slot name="prependInner" />
+              <slot name="prependInner"/>
             </div>
           </div>
           <div
@@ -108,7 +111,7 @@
           <div class="va-select__controls">
 
             <div class="va-select__append-slot">
-              <slot name="appendInner" />
+              <slot name="appendInner"/>
             </div>
 
             <div v-if="showClearIcon" class="va-select__icon">
@@ -138,7 +141,7 @@
       </div>
     </va-dropdown>
 
-    <slot name="append" slot="append" />
+    <slot name="append" slot="append"/>
 
   </va-input-wrapper>
 </template>
@@ -217,8 +220,10 @@ export default class VaSelect extends Mixins(
   SelectableListMixin,
   PropsMixin,
 ) {
-  search = ''
-  isMounted = false
+  search: string = ''
+  hintedSearch: string = ''
+  hintedOption: any = null
+  isMounted: boolean = false
   hoveredOption: any = null
 
   @Watch('search')
@@ -285,7 +290,7 @@ export default class VaSelect extends Mixins(
       borderColor:
         this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
-            : this.computeColor('gray'),
+          : this.computeColor('gray'),
     }
   }
 
@@ -429,6 +434,26 @@ export default class VaSelect extends Mixins(
       this.valueProxy = this.search
       this.search = ''
     }
+  }
+
+  updateHintedOption (event: KeyboardEvent) {
+    const isLetter: boolean = event.key.length === 1
+    const isDeleteKey: boolean = event.keyCode === 8 || event.keyCode === 46
+    clearTimeout(this.timer)
+    if (isDeleteKey) {
+      //Remove last letter from query
+      this.hintedSearch = this.hintedSearch ? this.hintedSearch.slice(0, -1) : ''
+    } else {
+      //Add every new letter to the query
+      isLetter && (this.hintedSearch += event.key)
+    }
+    //Search for an option that matches the query
+    this.hintedOption = this.options.find((option: any) => {
+      return this.getText(option).toLowerCase().startsWith(this.hintedSearch.toLowerCase())
+    })
+    this.timer = setTimeout(() => {
+      this.hintedSearch = ''
+    }, 1000)
   }
 
   /**

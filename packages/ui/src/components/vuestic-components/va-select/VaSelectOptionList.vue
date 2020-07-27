@@ -9,6 +9,7 @@
         @click.stop="selectOption(option)"
         @mouseleave="updateHoveredOption(null)"
         @mouseover="updateHoveredOption(option)"
+        :ref="getTrackBy(option)"
       >
         <va-icon
           v-if="option.icon"
@@ -30,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Prop } from 'vue-property-decorator'
+import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { getHoverColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
@@ -39,6 +40,16 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
   components: { VaIcon },
 })
 export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
+  @Watch('hintedOption')
+  onHintedOptionChange (option: any) {
+    if (option) {
+      this.updateHoveredOption(option)
+      const optionElement: HTMLElement = (this as any).$refs[this.getTrackBy(option)][0]
+      // Scroll list to hinted option position
+      optionElement.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   @Prop({ type: Array, default: () => [] }) readonly options!: any
   @Prop({
     type: String,
@@ -62,6 +73,10 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
   @Prop({ type: String, default: 'id' }) readonly keyBy!: string
   @Prop({ type: String, default: 'text' }) readonly textBy!: string
   @Prop({ type: String, default: '' }) readonly search!: string
+  @Prop({
+    type: [String, Object],
+    default: null,
+  }) readonly hintedOption!: string | object | undefined
 
   hoveredOption: any = null
 
