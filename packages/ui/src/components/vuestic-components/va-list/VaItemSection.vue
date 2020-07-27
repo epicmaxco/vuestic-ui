@@ -44,6 +44,7 @@ export default class VaItemSection extends Mixins(
 
   &--side {
     min-width: 1.5rem;
+    align-items: center;
 
     .va-icon {
       font-size: 1.25rem;

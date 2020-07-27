@@ -1,23 +1,20 @@
 <template>
-  <va-card
-    no-padding
+  <div
     class="va-list"
     :class="computedClass"
   >
     <slot />
-  </va-card>
+  </div>
 </template>
 
 <script lang="ts">
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins } from 'vue-property-decorator'
-import VaCard from '../va-card/VaCard.vue'
 const ListPropsMixin = makeContextablePropsMixin({
   fit: { type: Boolean, default: false },
 })
 @Component({
   name: 'VaList',
-  components: { VaCard },
 })
 export default class VaList extends Mixins(
   ListPropsMixin,
@@ -33,6 +30,7 @@ export default class VaList extends Mixins(
 
 .va-list {
   padding: $list-padding;
+  background-color: #ffffff;
 
   &--fit {
     width: 100%;
