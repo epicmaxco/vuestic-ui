@@ -404,7 +404,6 @@ export default class VaSelect extends Mixins(
         return value.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
       }
       this.valueProxy = isSelected ? filterSelected() : [...value, option]
-      ;(this as any).$refs.dropdown.updatePopper()
     } else {
       this.valueProxy = typeof option === 'string' ? option : { ...option }
       ;(this as any).$refs.dropdown.hide()
