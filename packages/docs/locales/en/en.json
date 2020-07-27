@@ -382,7 +382,7 @@
         "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available."
       },
       "methods": {
-        "hide": "Hide alert. On stateless alert only emits `@input`"
+        "hide":"Hide alert. On stateless alert only emits `@input`"
       },
       "slots": {
         "default": "Content of alert body",
@@ -463,1010 +463,1010 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content"
       }
-    },
-    "anyPage": {
-      "examples": "Examples",
-      "api": "API"
-    },
-    "menu": {
-      "affix": "Affix",
-      "avatar": "Avatar",
-      "breadcrumbs": "Breadcrumbs",
-      "badge": "Badge",
-      "card": "Card",
-      "rating": "Rating",
-      "modal": "Modal",
-      "tabs": "Tabs",
-      "uiElements": "UI Elements",
-      "styles": "Styles",
-      "treeView": "Tree view",
-      "slider": "Slider",
-      "switch": "Switch",
-      "popovers": "Popovers",
-      "chat": "Chat",
-      "pagination": "Pagination",
-      "fileUpload": "File Upload",
-      "form": "Form",
-      "image": "Image",
-      "optionList": "Option List",
-      "divider": "Divider",
-      "button": "Button",
-      "checkbox": "Checkbox",
-      "infiniteScroll": "Infinite Scroll",
-      "alert": "Alert",
-      "icon": "Icon",
-      "radio": "Radio",
-      "tag": "Tag",
-      "grid": "Grid",
-      "input": "Input"
-    },
-    "language": {
-      "brazilian_portuguese": "Português",
-      "english": "English",
-      "spanish": "Spanish",
-      "simplified_chinese": "Simplified Chinese"
-    },
-    "all": {
-      "examples": "Examples",
-      "api": "API",
-      "faq": "FAQ"
-    },
-    "docsExample": {
-      "showCode": "Show Code"
-    },
-    "avatar": {
-      "title": "Avatar",
-      "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application. ",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "By default `va-avatar` is displayed as a circle container."
-        },
-        "size": {
-          "title": "Different sizes",
-          "text": "With `size` prop you can specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop to force text size you need."
-        },
-        "color": {
-          "title": "Different colors"
-        },
-        "withImage": {
-          "title": "With images",
-          "text": "Providing `src` prop to component allows you to add custom icons to a component."
-        },
-        "withIcon": {
-          "title": "With icons",
-          "text": "With `icon` prop you could display icons inside an avatar."
-        },
-        "withEmail": {
-          "title": "With Gravatar",
-          "text": "Provide `email` prop and [gravatar](https://en.gravatar.com/support/what-is-gravatar/) will be used to get user profile pic."
-        }
-      }
-    },
-    "affix": {
-      "title": "Affix",
-      "paragraph": "Affix component is created to fix any content in proper position relative to container.",
-      "demo": {
-        "subtitle": "Demo",
-        "top": {
-          "headline": "Fixed at the top."
-        },
-        "bottom": {
-          "headline": "Fixed at them bottom."
-        },
-        "target": {
-          "headline": "Fixes element relative to custom container."
-        }
+    }
+  },
+  "anyPage": {
+    "examples": "Examples",
+    "api": "API"
+  },
+  "menu": {
+    "affix": "Affix",
+    "avatar": "Avatar",
+    "breadcrumbs": "Breadcrumbs",
+    "badge": "Badge",
+    "card": "Card",
+    "rating": "Rating",
+    "modal": "Modal",
+    "tabs": "Tabs",
+    "uiElements": "UI Elements",
+    "styles": "Styles",
+    "treeView": "Tree view",
+    "slider": "Slider",
+    "switch": "Switch",
+    "popovers": "Popovers",
+    "chat": "Chat",
+    "pagination": "Pagination",
+    "fileUpload": "File Upload",
+    "form": "Form",
+    "image": "Image",
+    "optionList": "Option List",
+    "divider": "Divider",
+    "button": "Button",
+    "checkbox": "Checkbox",
+    "infiniteScroll": "Infinite Scroll",
+    "alert": "Alert",
+    "icon": "Icon",
+    "radio": "Radio",
+    "tag": "Tag",
+    "grid": "Grid",
+    "input": "Input"
+  },
+  "language": {
+    "brazilian_portuguese": "Português",
+    "english": "English",
+    "spanish": "Spanish",
+    "simplified_chinese": "Simplified Chinese"
+  },
+  "all": {
+    "examples": "Examples",
+    "api": "API",
+    "faq": "FAQ"
+  },
+  "docsExample": {
+    "showCode": "Show Code"
+  },
+  "avatar": {
+    "title": "Avatar",
+    "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application. ",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "By default `va-avatar` is displayed as a circle container."
       },
-      "api": {
-        "subtitle": "API",
-        "paragraph": "Here are props and events that are used in va-affix component."
-      }
-    },
-    "breadcrumbs": {
-      "title": "Breadcrumbs",
-      "text": "Breadcrumbs component is used on a page for application navigation. It shows the location of the current page in the navigation hierarchy. Is used with `va-breadcrumb-item` components.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "This is basic usage of `va-breadcrumbs` component."
-        },
-        "color": {
-          "title": "Color",
-          "text": "Sets color of breadcrumbs content"
-        },
-        "align": {
-          "title": "Align",
-          "text": "Changes component position on the page."
-        },
-        "separator": {
-          "title": "Separator",
-          "text": "You can use your own separator and customize its color."
-        },
-        "activeColor": {
-          "title": "Active color",
-          "text": "Color of active `va-breadcrumb-item` elements."
-        },
-        "item": {
-          "title": "Item",
-          "text": "Some `va-breadcrumbs-item` props examples."
-        }
+      "size": {
+        "title": "Different sizes",
+        "text": "With `size` prop you can specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop to force text size you need."
       },
-      "api": {
-        "component": {
-          "title": "API",
-          "text": "Here are props and slots of `va-breadcrumbs` component."
-        },
-        "item": {
-          "title": "Item API",
-          "text": "API for `va-breadcrumb-item` component."
-        }
+      "color": {
+        "title": "Different colors"
       },
-      "faq": {
-        "questions": [
-          {
-            "question": "Can `separator` prop work with `separator` slot?",
-            "answer": "No, slot has higher priority, prop is ignored when slot is used. Same is legit for `label` of `va-breadcrumbs-item`, it is ignored when you use `default` slot."
-          }
-        ]
-      }
-    },
-    "badge": {
-      "title": "Badge",
-      "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications on top of avatar.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "Useful for information views and tables."
-        },
-        "withAvatar": {
-          "title": "With Avatar"
-        },
-        "withCard": {
-          "title": "With Card"
-        },
-        "position": {
-          "title": "Position left and bottom"
-        },
-        "overlap": {
-          "title": "Overlap"
-        },
-        "dot": {
-          "title": "Dot"
-        },
-        "transparent": {
-          "title": "Transparent"
-        },
-        "color": {
-          "title": "Color"
-        }
-      }
-    },
-    "button": {
-      "title": "Button",
-      "summaryText": "The `va-button` component intended to be used instead of the standard HTMl button. It offers multiple built-in styles plus gives possibility to change color and size manually.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "Just a simple button."
-        },
-        "withColor": {
-          "title": "Colors",
-          "text": "With `color` prop you can change the color of the component."
-        },
-        "withSize": {
-          "title": "Sizes",
-          "text": "Using `size` prop you can make your button fit in any place on your web page."
-        },
-        "withStyle": {
-          "title": "Different styles",
-          "text": "We have 3 styles available: \"outlined\", \"flat\" and \"square\"."
-        },
-        "withIcon": {
-          "title": "Add icons",
-          "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`"
-        }
-      }
-    },
-    "slider": {
-      "title": "Slider",
-      "paragraph": "Slider component is a visualization for number input. User can drag slider within a fixed range to get required value.",
-      "basic": {
-        "subtitle": "Basic Element",
-        "paragraph": "This is basic usage of slider component."
+      "withImage": {
+        "title": "With images",
+        "text": "Providing `src` prop to component allows you to add custom icons to a component."
       },
-      "advanced": {
-        "subtitle": "Advanced Element",
-        "color": {
-          "headline": "Color",
-          "paragraph": "You can customize color of slider."
-        },
-        "minmax": {
-          "headline": "Minimum and maximum values",
-          "paragraph": "You can set a range between min and max values."
-        },
-        "state": {
-          "headline": "State",
-          "paragraph": "Slider can be in disabled or readonly state."
-        },
-        "range": {
-          "headline": "Range slider",
-          "paragraph": "You can set a range of values."
-        },
-        "step": {
-          "headline": "Step",
-          "paragraph": "Step can be changed."
-        },
-        "pins": {
-          "headline": "Pins",
-          "paragraph": "Display markers on slider track."
-        },
-        "label": {
-          "headline": "Label",
-          "paragraph": "Label of switch, could have inverted position or custom color."
-        },
-        "slots": {
-          "headline": "Slots",
-          "paragraph": "You can add inputs before and after the slider using 'append' or 'prepend' slot name. Also default label can be replaced using 'label' slot."
-        },
-        "icon": {
-          "headline": "Icon",
-          "paragraph": "You can insert icon at the start or end of slider."
-        },
-        "track": {
-          "headline": "Track",
-          "paragraph": "Track can be hidden or have custom color."
-        },
-        "trackLabel": {
-          "headline": "Track label",
-          "paragraph": "You can show track label and overwrite it's view."
-        },
-        "vertical": {
-          "headline": "Vertical",
-          "paragraph": "Vertical state of slider."
-        }
+      "withIcon": {
+        "title": "With icons",
+        "text": "With `icon` prop you could display icons inside an avatar."
       },
-      "api": {
-        "subtitle": "API",
-        "paragraph": "Here are props, events and slots that are used in va-slider component."
+      "withEmail": {
+        "title": "With Gravatar",
+        "text": "Provide `email` prop and [gravatar](https://en.gravatar.com/support/what-is-gravatar/) will be used to get user profile pic."
+      }
+    }
+  },
+  "affix": {
+    "title": "Affix",
+    "paragraph": "Affix component is created to fix any content in proper position relative to container.",
+    "demo": {
+      "subtitle": "Demo",
+      "top": {
+        "headline": "Fixed at the top."
+      },
+      "bottom": {
+        "headline": "Fixed at them bottom."
+      },
+      "target": {
+        "headline": "Fixes element relative to custom container."
       }
     },
-    "switch": {
-      "title": "Switch",
-      "paragraph": "Switch component turns on or off the state of your custom option",
-      "examples": {
-        "subtitle": "Examples",
-        "default": {
-          "headline": "Default",
-          "paragraph": "This is basic usage of switch component."
-        },
-        "color": {
-          "headline": "Color",
-          "paragraph": "You can customize color."
-        },
-        "state": {
-          "headline": "State",
-          "paragraph": "Switch can be in disabled or readonly state."
-        },
-        "label": {
-          "headline": "Label",
-          "paragraph": "Switch can be labeled on the left or on the right."
-        },
-        "customLabel": {
-          "headline": "Custom Label",
-          "paragraph": "You can label any state of switch."
-        },
-        "innerLabel": {
-          "headline": "Inner Label",
-          "paragraph": "You may put a label inside of a switch."
-        },
-        "size": {
-          "headline": "Size",
-          "paragraph": "Switches have 3 different sizes."
-        },
-        "loading": {
-          "headline": "Loading",
-          "paragraph": "You can mark a pending state of switch."
-        },
-        "error": {
-          "headline": "Error",
-          "paragraph": "Switch has an error style"
-        }
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props and events that are used in va-affix component."
+    }
+  },
+  "breadcrumbs": {
+    "title": "Breadcrumbs",
+    "text": "Breadcrumbs component is used on a page for application navigation. It shows the location of the current page in the navigation hierarchy. Is used with `va-breadcrumb-item` components.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "This is basic usage of `va-breadcrumbs` component."
       },
-      "api": {
-        "subtitle": "API",
-        "paragraph": "Here are props, events and slots that are used in va-switch component."
+      "color": {
+        "title": "Color",
+        "text": "Sets color of breadcrumbs content"
+      },
+      "align": {
+        "title": "Align",
+        "text": "Changes component position on the page."
+      },
+      "separator": {
+        "title": "Separator",
+        "text": "You can use your own separator and customize its color."
+      },
+      "activeColor": {
+        "title": "Active color",
+        "text": "Color of active `va-breadcrumb-item` elements."
+      },
+      "item": {
+        "title": "Item",
+        "text": "Some `va-breadcrumbs-item` props examples."
       }
     },
-    "rating": {
-      "title": "Rating",
-      "summaryText": "The `va-rating` component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "The `va-rating` component has a simple interface to collect user feedback."
-        },
-        "color": {
-          "title": "Colors",
-          "text": "With `color` prop you can change the color of the component."
-        },
-        "size": {
-          "title": "Sizes",
-          "text": "Using `size` prop specify custom size for an `va-rating` component."
-        },
-        "hover": {
-          "title": "Hover",
-          "text": "By using `hover` prop you can see visual changes of value before click."
-        },
-        "halves": {
-          "title": "Halves",
-          "text": "You can divide your `va-rating` component values on halves."
-        },
-        "texts": {
-          "title": "Texts",
-          "text": "A component can be covered by different custom labels for each value."
-        },
-        "clearable": {
-          "title": "Clearable",
-          "text": "Selecting current value again will clear the component."
-        },
-        "numbers": {
-          "title": "Numbers",
-          "text": "Want to see numbers instead of icons? We got you covered."
-        },
-        "customIcons": {
-          "title": "Custom Icons",
-          "text": "Providing this prop to component allows you to add custom icons."
-        }
+    "api": {
+      "component": {
+        "title": "API",
+        "text": "Here are props and slots of `va-breadcrumbs` component."
       },
-      "faq": {
-        "subtitle": "FAQ",
-        "questions": [
-          {
-            "question": "Is rating component keyboard accessible?",
-            "answer": "Yes, you can use Tab(Shift+Tab) to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
-          },
-          {
-            "question": "Can I use every other prop in combination with **numbers** prop?",
-            "answer": "Yes, all props are compatible between each other."
-          }
-        ]
+      "item": {
+        "title": "Item API",
+        "text": "API for `va-breadcrumb-item` component."
       }
     },
-    "modal": {
-      "title": "Modal",
-      "description": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
-      "overview": {
-        "subtitle": "Overview",
-        "paragraphs": [
-          "`<va-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. You can provide custom message and title with the `message` and `title` props respectively.",
-          "`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
-        ]
+    "faq": {
+      "questions": [
+        {
+          "question": "Can `separator` prop work with `separator` slot?",
+          "answer": "No, slot has higher priority, prop is ignored when slot is used. Same is legit for `label` of `va-breadcrumbs-item`, it is ignored when you use `default` slot."
+        }
+      ]
+    }
+  },
+  "badge": {
+    "title": "Badge",
+    "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications on top of avatar.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Useful for information views and tables."
+      },
+      "withAvatar": {
+        "title": "With Avatar"
+      },
+      "withCard": {
+        "title": "With Card"
+      },
+      "position": {
+        "title": "Position left and bottom"
+      },
+      "overlap": {
+        "title": "Overlap"
+      },
+      "dot": {
+        "title": "Dot"
+      },
+      "transparent": {
+        "title": "Transparent"
+      },
+      "color": {
+        "title": "Color"
+      }
+    }
+  },
+  "button": {
+    "title": "Button",
+    "summaryText": "The `va-button` component intended to be used instead of the standard HTMl button. It offers multiple built-in styles plus gives possibility to change color and size manually.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Just a simple button."
+      },
+      "withColor": {
+        "title": "Colors",
+        "text": "With `color` prop you can change the color of the component."
+      },
+      "withSize": {
+        "title": "Sizes",
+        "text": "Using `size` prop you can make your button fit in any place on your web page."
+      },
+      "withStyle": {
+        "title": "Different styles",
+        "text": "We have 3 styles available: \"outlined\", \"flat\" and \"square\"."
+      },
+      "withIcon": {
+        "title": "Add icons",
+        "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`"
+      }
+    }
+  },
+  "slider": {
+    "title": "Slider",
+    "paragraph": "Slider component is a visualization for number input. User can drag slider within a fixed range to get required value.",
+    "basic": {
+      "subtitle": "Basic Element",
+      "paragraph": "This is basic usage of slider component."
+    },
+    "advanced": {
+      "subtitle": "Advanced Element",
+      "color": {
+        "headline": "Color",
+        "paragraph": "You can customize color of slider."
+      },
+      "minmax": {
+        "headline": "Minimum and maximum values",
+        "paragraph": "You can set a range between min and max values."
+      },
+      "state": {
+        "headline": "State",
+        "paragraph": "Slider can be in disabled or readonly state."
+      },
+      "range": {
+        "headline": "Range slider",
+        "paragraph": "You can set a range of values."
+      },
+      "step": {
+        "headline": "Step",
+        "paragraph": "Step can be changed."
+      },
+      "pins": {
+        "headline": "Pins",
+        "paragraph": "Display markers on slider track."
+      },
+      "label": {
+        "headline": "Label",
+        "paragraph": "Label of switch, could have inverted position or custom color."
+      },
+      "slots": {
+        "headline": "Slots",
+        "paragraph": "You can add inputs before and after the slider using 'append' or 'prepend' slot name. Also default label can be replaced using 'label' slot."
+      },
+      "icon": {
+        "headline": "Icon",
+        "paragraph": "You can insert icon at the start or end of slider."
+      },
+      "track": {
+        "headline": "Track",
+        "paragraph": "Track can be hidden or have custom color."
+      },
+      "trackLabel": {
+        "headline": "Track label",
+        "paragraph": "You can show track label and overwrite it's view."
+      },
+      "vertical": {
+        "headline": "Vertical",
+        "paragraph": "Vertical state of slider."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in va-slider component."
+    }
+  },
+  "switch": {
+    "title": "Switch",
+    "paragraph": "Switch component turns on or off the state of your custom option",
+    "examples": {
+      "subtitle": "Examples",
+      "default": {
+        "headline": "Default",
+        "paragraph": "This is basic usage of switch component."
+      },
+      "color": {
+        "headline": "Color",
+        "paragraph": "You can customize color."
+      },
+      "state": {
+        "headline": "State",
+        "paragraph": "Switch can be in disabled or readonly state."
+      },
+      "label": {
+        "headline": "Label",
+        "paragraph": "Switch can be labeled on the left or on the right."
+      },
+      "customLabel": {
+        "headline": "Custom Label",
+        "paragraph": "You can label any state of switch."
+      },
+      "innerLabel": {
+        "headline": "Inner Label",
+        "paragraph": "You may put a label inside of a switch."
+      },
+      "size": {
+        "headline": "Size",
+        "paragraph": "Switches have 3 different sizes."
+      },
+      "loading": {
+        "headline": "Loading",
+        "paragraph": "You can mark a pending state of switch."
+      },
+      "error": {
+        "headline": "Error",
+        "paragraph": "Switch has an error style"
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in va-switch component."
+    }
+  },
+  "rating": {
+    "title": "Rating",
+    "summaryText": "The `va-rating` component is a simple yet powerful element when it comes to gathering users feedback. Just in a few lines of code it can provide you with users ratings about your product or application.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "The `va-rating` component has a simple interface to collect user feedback."
+      },
+      "color": {
+        "title": "Colors",
+        "text": "With `color` prop you can change the color of the component."
+      },
+      "size": {
+        "title": "Sizes",
+        "text": "Using `size` prop specify custom size for an `va-rating` component."
+      },
+      "hover": {
+        "title": "Hover",
+        "text": "By using `hover` prop you can see visual changes of value before click."
+      },
+      "halves": {
+        "title": "Halves",
+        "text": "You can divide your `va-rating` component values on halves."
+      },
+      "texts": {
+        "title": "Texts",
+        "text": "A component can be covered by different custom labels for each value."
+      },
+      "clearable": {
+        "title": "Clearable",
+        "text": "Selecting current value again will clear the component."
+      },
+      "numbers": {
+        "title": "Numbers",
+        "text": "Want to see numbers instead of icons? We got you covered."
+      },
+      "customIcons": {
+        "title": "Custom Icons",
+        "text": "Providing this prop to component allows you to add custom icons."
+      }
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "question": "Is rating component keyboard accessible?",
+          "answer": "Yes, you can use Tab(Shift+Tab) to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
+        },
+        {
+          "question": "Can I use every other prop in combination with **numbers** prop?",
+          "answer": "Yes, all props are compatible between each other."
+        }
+      ]
+    }
+  },
+  "modal": {
+    "title": "Modal",
+    "description": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
+    "overview": {
+      "subtitle": "Overview",
+      "paragraphs": [
+        "`<va-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. You can provide custom message and title with the `message` and `title` props respectively.",
+        "`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
+      ]
+    },
+    "stateful": {
+      "subtitle": "Stateful",
+      "paragraph": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
+    },
+    "fullscreen": {
+      "subtitle": "Full screen",
+      "paragraphs": [
+        "Add the `fullscreen` prop to cover the whole page.",
+        "Note that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`"
+      ]
+    },
+    "modalSizing": {
+      "subtitle": "Modal sizing",
+      "paragraph": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
+    },
+    "toggleVisibility": {
+      "subtitle": "Toggle modal visibility",
+      "paragraph": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
+      "sections": [
+        {
+          "headline": "Using `v-model` property",
+          "paragraph": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
+        },
+        {
+          "headline": "Using `show()`, `hide()`, and `toggle()` component methods.",
+          "paragraph": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
+        }
+      ]
+    },
+    "disableAnimation": {
+      "subtitle": "Disable open and close animation",
+      "paragraph": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
+    },
+    "hidingOverlay": {
+      "subtitle": "Hiding the overlay",
+      "paragraphs": [
+        "Hide the modal's overlay via setting the `overlay` prop to `false`.",
+        "Note that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
+      ]
+    },
+    "scrollingLongContent": {
+      "subtitle": "Scrolling long content",
+      "paragraphs": [
+        "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.",
+        "You can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
+      ]
+    },
+    "customization": {
+      "subtitle": "Customization",
+      "paragraphs": [
+        "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.",
+        "You can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.",
+        "`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
+      ]
+    },
+    "nestedModals": {
+      "subtitle": "Nested modals",
+      "paragraph": "Modals can be nested: you can open one modal from another."
+    },
+    "api": {
+      "subtitle": "API"
+    }
+  },
+  "pagination": {
+    "title": "Pagination",
+    "paragraph": "The pagination component is used to split big data sets into chunks so that it's simpler for users to use provided information.",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "By default the component is displayed as a list of pages with length equal to `pages` prop value."
+    },
+    "examples": {
+      "subtitle": "Examples",
+      "paragraph": "Here you can find some examples with simple or complex API usage",
+      "colors": {
+        "headline": "Color",
+        "paragraph": "Set different colors using `color` prop. You can either user theme string *HEX* color value"
+      },
+      "sizes": {
+        "headline": "Size",
+        "paragraph": "Utilize `size` prop in order to make component fit your needs. Refer to *API* section for more in-depth explanation of how to use `size` prop."
+      },
+      "icons": {
+        "headline": "Custom icons",
+        "paragraph": "Feeling the need to change icons for arrows? We have 4 props to enable full customization of `va-pagination` component."
+      },
+      "limitVisible": {
+        "headline": "Limiting the length",
+        "paragraph": "By using `visible-pages` prop you can set the amount of pages visible on screen."
+      },
+      "withInput": {
+        "headline": "Using HTML input instead of pages",
+        "paragraph": "With `input` prop you can have input with arrow buttons instead of default pagination."
+      },
+      "totalAndPageSize": {
+        "headline": "Using `total` and `page-size`",
+        "paragraph": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in va-pagination component."
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "question": "What will happen if both `pages` and `total` props are set?",
+          "answer": "The error will be thrown into the console. Component is meant to be used only in one of these modes."
+        },
+        {
+          "question": "Can I use `total` and `input` props together?",
+          "answer": "Yep. In v-model you'll get item number instead of page number."
+        }
+      ]
+    }
+  },
+  "tabs": {
+    "title": "Tabs",
+    "paragraph": "The `va-tabs` component could be used as an on-page navigation offering rich variety of visual customizations and usage flexibility",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "By default it's displayed as a horizontal list of `va-tab` items"
+    },
+    "examples": {
+      "subtitle": "Examples",
+      "paragraph": "Here you can find some examples with simple or complex API usage",
+      "pagination": {
+        "headline": "With pagination arrows",
+        "paragraph": "When wrapper width is less then tabs width, pagination arrows are shown"
+      },
+      "vertical": {
+        "headline": "Vertical alignment",
+        "paragraph": "By using `vertical` prop alignment of `va-tabs` can be customized"
       },
       "stateful": {
-        "subtitle": "Stateful",
-        "paragraph": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
-      },
-      "fullscreen": {
-        "subtitle": "Full screen",
-        "paragraphs": [
-          "Add the `fullscreen` prop to cover the whole page.",
-          "Note that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`"
-        ]
-      },
-      "modalSizing": {
-        "subtitle": "Modal sizing",
-        "paragraph": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
-      },
-      "toggleVisibility": {
-        "subtitle": "Toggle modal visibility",
-        "paragraph": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
-        "sections": [
-          {
-            "headline": "Using `v-model` property",
-            "paragraph": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
-          },
-          {
-            "headline": "Using `show()`, `hide()`, and `toggle()` component methods.",
-            "paragraph": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
-          }
-        ]
-      },
-      "disableAnimation": {
-        "subtitle": "Disable open and close animation",
-        "paragraph": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
-      },
-      "hidingOverlay": {
-        "subtitle": "Hiding the overlay",
-        "paragraphs": [
-          "Hide the modal's overlay via setting the `overlay` prop to `false`.",
-          "Note that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
-        ]
-      },
-      "scrollingLongContent": {
-        "subtitle": "Scrolling long content",
-        "paragraphs": [
-          "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.",
-          "You can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
-        ]
-      },
-      "customization": {
-        "subtitle": "Customization",
-        "paragraphs": [
-          "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.",
-          "You can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.",
-          "`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
-        ]
-      },
-      "nestedModals": {
-        "subtitle": "Nested modals",
-        "paragraph": "Modals can be nested: you can open one modal from another."
-      },
-      "api": {
-        "subtitle": "API"
+        "headline": "Without value",
+        "paragraph": "Sometimes `v-model` is too much and in that case using `stateful` prop you can delegate state handling to the component itself"
       }
     },
-    "pagination": {
-      "title": "Pagination",
-      "paragraph": "The pagination component is used to split big data sets into chunks so that it's simpler for users to use provided information.",
-      "basic": {
-        "subtitle": "Usage example",
-        "paragraph": "By default the component is displayed as a list of pages with length equal to `pages` prop value."
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in `va-tabs` component."
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "questions": [
+        {
+          "question": "How can I map content to tabs so that only specific tab content will be displayed?",
+          "answer": "We have this functionality in our nearest plans, but for now you could use `v-model` value to map the content yourself"
+        }
+      ]
+    }
+  },
+  "fileUpload": {
+    "title": "File Upload",
+    "paragraph": "The `va-file-upload` component is an input for selecting and uploading files with much richer interface than default one",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "By default it's displayed as simple button to upload files"
+    },
+    "examples": {
+      "subtitle": "Examples",
+      "paragraph": "Here you can find some usage examples",
+      "dragAndDrop": {
+        "headline": "Drag & Drop",
+        "paragraph": "With `dropzone` prop add drag and drop possibility to `va-file-upload` component"
       },
-      "examples": {
-        "subtitle": "Examples",
-        "paragraph": "Here you can find some examples with simple or complex API usage",
-        "colors": {
-          "headline": "Color",
-          "paragraph": "Set different colors using `color` prop. You can either user theme string *HEX* color value"
+      "validation": {
+        "headline": "Specify file types",
+        "paragraph": "Add `file-types` prop with allowed extensions to add file types validation"
+      },
+      "gallery": {
+        "headline": "As gallery",
+        "paragraph": "With `type === gallery` prop you can show user picture preview of uploaded files"
+      }
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in `va-file-upload` component."
+    }
+  },
+  "divider": {
+    "title": "Divider",
+    "summaryText": "The `va-divider` component is used to separate sections of lists or layouts.",
+    "examples": {
+      "default": {
+        "title": "Simple divider",
+        "text": "Dividers in their simplest form display a horizontal line."
+      },
+      "customContent": {
+        "title": "Custom content",
+        "text": "You can customize the content on the divider line. Also you can set position of the content by setting the `orientation` property to `left`, `center` or `right`."
+      },
+      "inset": {
+        "title": "Inset divider",
+        "text": "Add the `inset` attribute in order to set whether or not the divider is an inset divider."
+      },
+      "vertical": {
+        "title": "Vertical divider",
+        "text": "Add the `vertical` attribute in order to set whether or not the divider is vertically-oriented."
+      },
+      "dashed": {
+        "title": "Dashed divider",
+        "text": "Add the `dashed` attribute in order to set whether or not the divider line is dashed."
+      },
+      "withList": {
+        "title": "Divider with lists",
+        "text": "Dividers perfectly work with `va-list`."
+      }
+    }
+  },
+  "form": {
+    "title": "Form",
+    "paragraph": "Need more advanced validation than just `type=\"email\"` over your input elements? **`va-form`** has solution to offer.",
+    "basic": {
+      "subtitle": "Usage example",
+      "paragraph": "All from elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you'd be able to specify exact cases when the field is *valid* or *invalid*."
+    },
+    "advanced": {
+      "subtitle": "Trigger validation",
+      "paragraph": "You can trigger validation from parent component by using `validate()` method of `va-form` component."
+    },
+    "api": {
+      "subtitle": "API",
+      "paragraph": "Here are props, events and slots that are used in `va-form` component."
+    }
+  },
+  "card": {
+    "title": "Card",
+    "text": "The `va-card` is a multipurpose representative component that can be used for anything from links to articles. It has some helper components to make markup easier.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "This is default `va-card` implementation using `va-card-title` and `va-card-content` helper components."
+      },
+      "tag": {
+        "title": "Tag",
+        "text": "Changed tag to `<b>`"
+      },
+      "borderAndShape": {
+        "title": "Border, shadow and shape"
+      },
+      "disabled": {
+        "title": "Disabled"
+      },
+      "link": {
+        "title": "Card as link"
+      },
+      "stripe": {
+        "title": "Stripe"
+      },
+      "colorAndGradient": {
+        "title": "Color and gradient"
+      }
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "Can I use `va-card` without helper components?",
+          "answer": "Yes, if you don't like our styling preset, you are free to use your own."
         },
+        {
+          "question": "Should I manually set tag if i use link attributes?",
+          "answer": "No, we will do it for you. If tag is not set, but `href` is, component tag will be `<a>`, if any of router-link prop is set, it will be `<router-link>`."
+        }
+      ]
+    }
+  },
+  "image": {
+    "title": "Image",
+    "text": "The `va-image` is used to display responsive images. It has some features to make your work with images easier.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage of image component."
+      },
+      "contain": {
+        "title": "Contain",
+        "text": "Used to show full image while ignoring its original ratio and size."
+      },
+      "ratio": {
+        "title": "Ratio",
+        "text": "Change image original ratio, show part of image to fit new ratio."
+      },
+      "slots": {
+        "title": "Slots"
+      },
+      "defaultSlot": {
+        "title": "Default slot",
+        "text": "Always shown by default."
+      },
+      "loaderSlot": {
+        "title": "Loader slot",
+        "text": "Is visible when image is loading."
+      },
+      "errorSlot": {
+        "title": "Error slot",
+        "text": "Is visible when `src` path is incorrect."
+      }
+    }
+  },
+  "optionList": {
+    "title": "Option List",
+    "summaryText": "The `va-option-list` component is a component to be used to group form inputs (like checkboxes and radio buttons) into a list for better control over the data.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "By default `va-option-list` will render list of checkboxes provided by `options` prop"
+      },
+      "withRadio": {
+        "title": "Radio",
+        "text": "Set `type=\"radio\"` to display list radio buttons"
+      },
+      "withSwitch": {
+        "title": "Switch",
+        "text": "Set `type=\"switch\"` to display list switches"
+      },
+      "withComplexData": {
+        "title": "Array of objects",
+        "text": "Instead of array of strings you can provide array of objects and specify which key is for each setting."
+      }
+    }
+  },
+  "checkbox": {
+    "title": "Checkbox",
+    "summaryText": "Checkboxes allow the user to select multiple options from a set.",
+    "examples": {
+      "default": {
+        "title": "Standard",
+        "text": "Perfectly works with `v-model` by default."
+      },
+      "label": {
+        "title": "Label",
+        "text": "You can add a label text by setting the `label` property. You can also set the `left-label` property to move your label on the left side of a checkbox."
+      },
+      "indeterminate": {
+        "title": "Indeterminate"
+      },
+      "coloring": {
+        "title": "Coloring"
+      },
+      "array": {
+        "title": "Grouped (Array)",
+        "text": "Just add the same `v-model` to multiple checkboxes, and set the `array-value` prop."
+      },
+      "error": {
+        "title": "Errors",
+        "text": "You can show your error messages while using `va-checkbox` with form."
+      }
+    }
+  },
+  "infiniteScroll": {
+    "title": "Inifinite Scroll",
+    "summaryText": "The `va-infinite-scroll` component is a wrapper component which is intended to be used to create lists with dynamically added content. It provides rich interface to customize scrolling behavior and much more.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Just wrap your content in `va-infinite-scroll` component and provide `load` callback, and you'll see it's called each time list is scrolled till the bottom."
+      },
+      "reverse": {
+        "title": "Reverse",
+        "text": "With `reverse` prop you can prepend content to your list. Might be useful in messenger windows."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "In case you need to prevent a list from loading more content, `disabled` prop is here for you."
+      },
+      "customTarget": {
+        "title": "Custom scroll target container",
+        "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
+      }
+    }
+  },
+  "input": {
+    "title": "Input",
+    "paragraph": "The `va-input` component intended to be used instead of the standard HTMl input or textarea.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default `va-input` have no any attributes, but can be combined with placeholder and/or label. It also can be disabled or readonly."
+      },
+      "hint": {
+        "title": "Hint messages",
+        "text": "Support single/multi line messages to give some hint for improve UX"
+      },
+      "validate": {
+        "title": "Validation and error/success state",
+        "text": "Support a simple validation using the rules prop. The prop accepts an array of callbacks. While validating rules, the current v-model value will be passed to the callback. This callback should return either true or a String, the error message. Also you can manually pass error/success prop to manage input state."
+      },
+      "slots": {
+        "title": "Slots",
+        "text": "You can use slots for pass custom elements to input (inner or outer), such as icons or buttons etc."
+      },
+      "textarea": {
+        "title": "Textarea",
+        "text": "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
+      },
+      "mask": {
+        "title": "Mask",
+        "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/). By default returning a raw value."
+      }
+    }
+  },
+  "alert": {
+    "title": "Alert",
+    "summaryText": "Alert displays an important message to attract user attention.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "The basic usage of the `va-alert` component."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Use `color` property to change the color of the component."
+      },
+      "border": {
+        "title": "Border",
+        "text": "Use the `border` property to add a strip and the `border-color` property to change the color of the strip."
+      },
+      "title": {
+        "title": "Title",
+        "text": "The `title` property allows you to write text over the description area. Use the `title` slot to costomize the title area."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "The `icon` property allows you to add an icon in front of the description area. Use the `icon` slot to costomize the icon area."
+      },
+      "closeable": {
+        "title": "Closeable",
+        "text": "The `closeable` property add a close alert area. "
+      },
+      "center": {
+        "title": "Center",
+        "text": "The `center` property allows you to center title and description areas."
+      }
+    }
+  },
+  "icon": {
+    "title": "Icon",
+    "summaryText": "The `va-icon` component allows you to use different iconfonts.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Basic usage of component with different iconfonts."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
+      },
+      "size": {
+        "title": "Size",
+        "text": "Utilize `size` prop in order to make `va-icon` fit your needs."
+      },
+      "rotation": {
+        "title": "Rotation",
+        "text": "Used to rotate the `va-icon` component."
+      },
+      "spin": {
+        "title": "Spin",
+        "text": "You can add animation of rotation of the icon using the property `spin`."
+      },
+      "text": {
+        "title": "Text as icon",
+        "text": "Using `text` prop will allow you to cover the text with an icon style."
+      },
+      "tag": {
+        "title": "Custom tag",
+        "text": "With `tag` prop you can attach the icon to another tag."
+      }
+    }
+  },
+  "radio": {
+    "title": "Radio",
+    "summaryText": "The `va-radio` allows the user to select one option from a set.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage  of the `va-radio` component."
+      },
+      "color": {
+        "title": "Colors",
+        "text": "With `color` prop you can change the color of the component."
+      },
+      "customLabels": {
+        "title": "Custom Labels",
+        "text": "You can add a label text by setting the `label` property. To switch label side use `left-label` property."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
+      }
+    }
+  },
+  "tag": {
+    "title": "Tag",
+    "summaryText": "",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage of the `va-tag` compoment."
+      },
+      "outline": {
+        "title": "Outline",
+        "text": "Outline style without background."
+      },
+      "flat": {
+        "title": "Flat",
+        "text": "Flat style without borders and background."
+      },
+      "square": {
+        "title": "Square",
+        "text": "Makes your `va-tag` square."
+      },
+      "color": {
+        "title": "Color",
+        "text": "You can use the `va-tag` component with different colors."
+      },
+      "size": {
+        "title": "Size",
+        "text": "Set different tag sizes using size presets."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "You can use icons in tag."
+      },
+      "closeable": {
+        "title": "Closeable",
+        "text": "A tag can be closened by using property `closeable`."
+      },
+      "link": {
+        "title": "Link",
+        "text": "Make your tag clickable."
+      }
+    }
+  },
+  "grid": {
+    "title": "Grid System",
+    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
+    "examples": {
+      "default": {
+        "title": "Enabling flexbox"
+      },
+      "breakpoints": {
+        "title": "Breakpoints",
+        "text": "You can use our `breakpoints` to set the length of you container.",
         "sizes": {
-          "headline": "Size",
-          "paragraph": "Utilize `size` prop in order to make component fit your needs. Refer to *API* section for more in-depth explanation of how to use `size` prop."
-        },
-        "icons": {
-          "headline": "Custom icons",
-          "paragraph": "Feeling the need to change icons for arrows? We have 4 props to enable full customization of `va-pagination` component."
-        },
-        "limitVisible": {
-          "headline": "Limiting the length",
-          "paragraph": "By using `visible-pages` prop you can set the amount of pages visible on screen."
-        },
-        "withInput": {
-          "headline": "Using HTML input instead of pages",
-          "paragraph": "With `input` prop you can have input with arrow buttons instead of default pagination."
-        },
-        "totalAndPageSize": {
-          "headline": "Using `total` and `page-size`",
-          "paragraph": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
+          "xs": "`.xs` - Phones (<600px)",
+          "sm": "`.sm` - Small devices Tablets (≥600px)",
+          "md": "`.md` - Medium devices Desktops (≥960)",
+          "lg": "`.lg` - Large devices Desktops (≥1280px)",
+          "xl": "`.xl` - Extra large devices Desktops (≥1920px)"
         }
       },
-      "api": {
-        "subtitle": "API",
-        "paragraph": "Here are props, events and slots that are used in va-pagination component."
+      "offsets": {
+        "title": "Offsets",
+        "text": "You can use our `offset` to set the space between left and current elements of you container.",
+        "sizes": {
+          "xs": "`.offset--xs` - Phones (<600px)",
+          "sm": "`.offset--sm` - Small devices Tablets (≥600px)",
+          "md": "`.offset--md` - Medium devices Desktops (≥960)",
+          "lg": "`.offset--lg` - Large devices Desktops (≥1280px)",
+          "xl": "`.offset--xl` - Extra large devices Desktops (≥1920px)"
+        }
       },
-      "faq": {
-        "subtitle": "FAQ",
-        "questions": [
-          {
-            "question": "What will happen if both `pages` and `total` props are set?",
-            "answer": "The error will be thrown into the console. Component is meant to be used only in one of these modes."
-          },
-          {
-            "question": "Can I use `total` and `input` props together?",
-            "answer": "Yep. In v-model you'll get item number instead of page number."
-          }
+      "gutters": {
+        "title": "Gutters",
+        "text": "A `layout` controls by `gutter`.",
+        "sizes": {
+          "xs": "`.gutter--xs` - Extra small gutter between cells",
+          "sm": "`.gutter--sm` - Small gutter between cells",
+          "md": "`.gutter--md` - Default gutter between cells",
+          "lg": "`.gutter--lg` - Large gutter between cells",
+          "xl": "`.gutter--xl` - Extra large gutter between cells"
+        }
+      }
+    },
+    "api": {
+      "align": {
+        "title": "`align`:",
+        "variants": [
+          "`.align--start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align--end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align--center` - items are centered in the cross-axis",
+          "`.align--baseline` - items are aligned such as their baselines align"
         ]
-      }
-    },
-    "tabs": {
-      "title": "Tabs",
-      "paragraph": "The `va-tabs` component could be used as an on-page navigation offering rich variety of visual customizations and usage flexibility",
-      "basic": {
-        "subtitle": "Usage example",
-        "paragraph": "By default it's displayed as a horizontal list of `va-tab` items"
       },
-      "examples": {
-        "subtitle": "Examples",
-        "paragraph": "Here you can find some examples with simple or complex API usage",
-        "pagination": {
-          "headline": "With pagination arrows",
-          "paragraph": "When wrapper width is less then tabs width, pagination arrows are shown"
-        },
-        "vertical": {
-          "headline": "Vertical alignment",
-          "paragraph": "By using `vertical` prop alignment of `va-tabs` can be customized"
-        },
-        "stateful": {
-          "headline": "Without value",
-          "paragraph": "Sometimes `v-model` is too much and in that case using `stateful` prop you can delegate state handling to the component itself"
-        }
-      },
-      "api": {
-        "subtitle": "API",
-        "paragraph": "Here are props, events and slots that are used in `va-tabs` component."
-      },
-      "faq": {
-        "subtitle": "FAQ",
-        "questions": [
-          {
-            "question": "How can I map content to tabs so that only specific tab content will be displayed?",
-            "answer": "We have this functionality in our nearest plans, but for now you could use `v-model` value to map the content yourself"
-          }
+      "alignSelf": {
+        "title": "`align-self`:",
+        "variants": [
+          "`.align-self--start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align-self--end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align-self--center` - items are centered in the cross-axis",
+          "`.align-self--baseline` - items are aligned such as their baselines align"
         ]
-      }
-    },
-    "fileUpload": {
-      "title": "File Upload",
-      "paragraph": "The `va-file-upload` component is an input for selecting and uploading files with much richer interface than default one",
-      "basic": {
-        "subtitle": "Usage example",
-        "paragraph": "By default it's displayed as simple button to upload files"
       },
-      "examples": {
-        "subtitle": "Examples",
-        "paragraph": "Here you can find some usage examples",
-        "dragAndDrop": {
-          "headline": "Drag & Drop",
-          "paragraph": "With `dropzone` prop add drag and drop possibility to `va-file-upload` component"
-        },
-        "validation": {
-          "headline": "Specify file types",
-          "paragraph": "Add `file-types` prop with allowed extensions to add file types validation"
-        },
-        "gallery": {
-          "headline": "As gallery",
-          "paragraph": "With `type === gallery` prop you can show user picture preview of uploaded files"
-        }
-      },
-      "api": {
-        "subtitle": "API",
-        "paragraph": "Here are props, events and slots that are used in `va-file-upload` component."
-      }
-    },
-    "divider": {
-      "title": "Divider",
-      "summaryText": "The `va-divider` component is used to separate sections of lists or layouts.",
-      "examples": {
-        "default": {
-          "title": "Simple divider",
-          "text": "Dividers in their simplest form display a horizontal line."
-        },
-        "customContent": {
-          "title": "Custom content",
-          "text": "You can customize the content on the divider line. Also you can set position of the content by setting the `orientation` property to `left`, `center` or `right`."
-        },
-        "inset": {
-          "title": "Inset divider",
-          "text": "Add the `inset` attribute in order to set whether or not the divider is an inset divider."
-        },
-        "vertical": {
-          "title": "Vertical divider",
-          "text": "Add the `vertical` attribute in order to set whether or not the divider is vertically-oriented."
-        },
-        "dashed": {
-          "title": "Dashed divider",
-          "text": "Add the `dashed` attribute in order to set whether or not the divider line is dashed."
-        },
-        "withList": {
-          "title": "Divider with lists",
-          "text": "Dividers perfectly work with `va-list`."
-        }
-      }
-    },
-    "form": {
-      "title": "Form",
-      "paragraph": "Need more advanced validation than just `type=\"email\"` over your input elements? **`va-form`** has solution to offer.",
-      "basic": {
-        "subtitle": "Usage example",
-        "paragraph": "All from elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you'd be able to specify exact cases when the field is *valid* or *invalid*."
-      },
-      "advanced": {
-        "subtitle": "Trigger validation",
-        "paragraph": "You can trigger validation from parent component by using `validate()` method of `va-form` component."
-      },
-      "api": {
-        "subtitle": "API",
-        "paragraph": "Here are props, events and slots that are used in `va-form` component."
-      }
-    },
-    "card": {
-      "title": "Card",
-      "text": "The `va-card` is a multipurpose representative component that can be used for anything from links to articles. It has some helper components to make markup easier.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "This is default `va-card` implementation using `va-card-title` and `va-card-content` helper components."
-        },
-        "tag": {
-          "title": "Tag",
-          "text": "Changed tag to `<b>`"
-        },
-        "borderAndShape": {
-          "title": "Border, shadow and shape"
-        },
-        "disabled": {
-          "title": "Disabled"
-        },
-        "link": {
-          "title": "Card as link"
-        },
-        "stripe": {
-          "title": "Stripe"
-        },
-        "colorAndGradient": {
-          "title": "Color and gradient"
-        }
-      },
-      "faq": {
-        "questions": [
-          {
-            "question": "Can I use `va-card` without helper components?",
-            "answer": "Yes, if you don't like our styling preset, you are free to use your own."
-          },
-          {
-            "question": "Should I manually set tag if i use link attributes?",
-            "answer": "No, we will do it for you. If tag is not set, but `href` is, component tag will be `<a>`, if any of router-link prop is set, it will be `<router-link>`."
-          }
+      "alignContent": {
+        "title": "`align-content`:",
+        "variants": [
+          "`.align-content--start` - lines packed to the start of the container",
+          "`.align-content--end` - lines packed to the end of the container",
+          "`.align-content--center` - lines packed to the center of the container",
+          "`.align-content--space-between` - lines evenly distributed; the first line is at the start of the container while the last one is at the end",
+          "`.align-content--space-around` - lines evenly distributed with equal space between them"
         ]
-      }
-    },
-    "image": {
-      "title": "Image",
-      "text": "The `va-image` is used to display responsive images. It has some features to make your work with images easier.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "Default usage of image component."
-        },
-        "contain": {
-          "title": "Contain",
-          "text": "Used to show full image while ignoring its original ratio and size."
-        },
-        "ratio": {
-          "title": "Ratio",
-          "text": "Change image original ratio, show part of image to fit new ratio."
-        },
-        "slots": {
-          "title": "Slots"
-        },
-        "defaultSlot": {
-          "title": "Default slot",
-          "text": "Always shown by default."
-        },
-        "loaderSlot": {
-          "title": "Loader slot",
-          "text": "Is visible when image is loading."
-        },
-        "errorSlot": {
-          "title": "Error slot",
-          "text": "Is visible when `src` path is incorrect."
-        }
-      }
-    },
-    "optionList": {
-      "title": "Option List",
-      "summaryText": "The `va-option-list` component is a component to be used to group form inputs (like checkboxes and radio buttons) into a list for better control over the data.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "By default `va-option-list` will render list of checkboxes provided by `options` prop"
-        },
-        "withRadio": {
-          "title": "Radio",
-          "text": "Set `type=\"radio\"` to display list radio buttons"
-        },
-        "withSwitch": {
-          "title": "Switch",
-          "text": "Set `type=\"switch\"` to display list switches"
-        },
-        "withComplexData": {
-          "title": "Array of objects",
-          "text": "Instead of array of strings you can provide array of objects and specify which key is for each setting."
-        }
-      }
-    },
-    "checkbox": {
-      "title": "Checkbox",
-      "summaryText": "Checkboxes allow the user to select multiple options from a set.",
-      "examples": {
-        "default": {
-          "title": "Standard",
-          "text": "Perfectly works with `v-model` by default."
-        },
-        "label": {
-          "title": "Label",
-          "text": "You can add a label text by setting the `label` property. You can also set the `left-label` property to move your label on the left side of a checkbox."
-        },
-        "indeterminate": {
-          "title": "Indeterminate"
-        },
-        "coloring": {
-          "title": "Coloring"
-        },
-        "array": {
-          "title": "Grouped (Array)",
-          "text": "Just add the same `v-model` to multiple checkboxes, and set the `array-value` prop."
-        },
-        "error": {
-          "title": "Errors",
-          "text": "You can show your error messages while using `va-checkbox` with form."
-        }
-      }
-    },
-    "infiniteScroll": {
-      "title": "Inifinite Scroll",
-      "summaryText": "The `va-infinite-scroll` component is a wrapper component which is intended to be used to create lists with dynamically added content. It provides rich interface to customize scrolling behavior and much more.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "Just wrap your content in `va-infinite-scroll` component and provide `load` callback, and you'll see it's called each time list is scrolled till the bottom."
-        },
-        "reverse": {
-          "title": "Reverse",
-          "text": "With `reverse` prop you can prepend content to your list. Might be useful in messenger windows."
-        },
-        "disabled": {
-          "title": "Disabled",
-          "text": "In case you need to prevent a list from loading more content, `disabled` prop is here for you."
-        },
-        "customTarget": {
-          "title": "Custom scroll target container",
-          "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
-        }
-      }
-    },
-    "input": {
-      "title": "Input",
-      "paragraph": "The `va-input` component intended to be used instead of the standard HTMl input or textarea.",
-      "examples": {
-        "default": {
-          "title": "Basic usage",
-          "text": "By default `va-input` have no any attributes, but can be combined with placeholder and/or label. It also can be disabled or readonly."
-        },
-        "hint": {
-          "title": "Hint messages",
-          "text": "Support single/multi line messages to give some hint for improve UX"
-        },
-        "validate": {
-          "title": "Validation and error/success state",
-          "text": "Support a simple validation using the rules prop. The prop accepts an array of callbacks. While validating rules, the current v-model value will be passed to the callback. This callback should return either true or a String, the error message. Also you can manually pass error/success prop to manage input state."
-        },
-        "slots": {
-          "title": "Slots",
-          "text": "You can use slots for pass custom elements to input (inner or outer), such as icons or buttons etc."
-        },
-        "textarea": {
-          "title": "Textarea",
-          "text": "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
-        },
-        "mask": {
-          "title": "Mask",
-          "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/). By default returning a raw value."
-        }
-      }
-    },
-    "alert": {
-      "title": "Alert",
-      "summaryText": "Alert displays an important message to attract user attention.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "The basic usage of the `va-alert` component."
-        },
-        "color": {
-          "title": "Color",
-          "text": "Use `color` property to change the color of the component."
-        },
-        "border": {
-          "title": "Border",
-          "text": "Use the `border` property to add a strip and the `border-color` property to change the color of the strip."
-        },
-        "title": {
-          "title": "Title",
-          "text": "The `title` property allows you to write text over the description area. Use the `title` slot to costomize the title area."
-        },
-        "icon": {
-          "title": "Icon",
-          "text": "The `icon` property allows you to add an icon in front of the description area. Use the `icon` slot to costomize the icon area."
-        },
-        "closeable": {
-          "title": "Closeable",
-          "text": "The `closeable` property add a close alert area. "
-        },
-        "center": {
-          "title": "Center",
-          "text": "The `center` property allows you to center title and description areas."
-        }
-      }
-    },
-    "icon": {
-      "title": "Icon",
-      "summaryText": "The `va-icon` component allows you to use different iconfonts.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "Basic usage of component with different iconfonts."
-        },
-        "color": {
-          "title": "Color",
-          "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
-        },
-        "size": {
-          "title": "Size",
-          "text": "Utilize `size` prop in order to make `va-icon` fit your needs."
-        },
-        "rotation": {
-          "title": "Rotation",
-          "text": "Used to rotate the `va-icon` component."
-        },
-        "spin": {
-          "title": "Spin",
-          "text": "You can add animation of rotation of the icon using the property `spin`."
-        },
-        "text": {
-          "title": "Text as icon",
-          "text": "Using `text` prop will allow you to cover the text with an icon style."
-        },
-        "tag": {
-          "title": "Custom tag",
-          "text": "With `tag` prop you can attach the icon to another tag."
-        }
-      }
-    },
-    "radio": {
-      "title": "Radio",
-      "summaryText": "The `va-radio` allows the user to select one option from a set.",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "Default usage  of the `va-radio` component."
-        },
-        "color": {
-          "title": "Colors",
-          "text": "With `color` prop you can change the color of the component."
-        },
-        "customLabels": {
-          "title": "Custom Labels",
-          "text": "You can add a label text by setting the `label` property. To switch label side use `left-label` property."
-        },
-        "disabled": {
-          "title": "Disabled",
-          "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
-        }
-      }
-    },
-    "tag": {
-      "title": "Tag",
-      "summaryText": "",
-      "examples": {
-        "default": {
-          "title": "Default",
-          "text": "Default usage of the `va-tag` compoment."
-        },
-        "outline": {
-          "title": "Outline",
-          "text": "Outline style without background."
-        },
-        "flat": {
-          "title": "Flat",
-          "text": "Flat style without borders and background."
-        },
-        "square": {
-          "title": "Square",
-          "text": "Makes your `va-tag` square."
-        },
-        "color": {
-          "title": "Color",
-          "text": "You can use the `va-tag` component with different colors."
-        },
-        "size": {
-          "title": "Size",
-          "text": "Set different tag sizes using size presets."
-        },
-        "icon": {
-          "title": "Icon",
-          "text": "You can use icons in tag."
-        },
-        "closeable": {
-          "title": "Closeable",
-          "text": "A tag can be closened by using property `closeable`."
-        },
-        "link": {
-          "title": "Link",
-          "text": "Make your tag clickable."
-        }
-      }
-    },
-    "grid": {
-      "title": "Grid System",
-      "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
-      "examples": {
-        "default": {
-          "title": "Enabling flexbox"
-        },
-        "breakpoints": {
-          "title": "Breakpoints",
-          "text": "You can use our `breakpoints` to set the length of you container.",
-          "sizes": {
-            "xs": "`.xs` - Phones (<600px)",
-            "sm": "`.sm` - Small devices Tablets (≥600px)",
-            "md": "`.md` - Medium devices Desktops (≥960)",
-            "lg": "`.lg` - Large devices Desktops (≥1280px)",
-            "xl": "`.xl` - Extra large devices Desktops (≥1920px)"
-          }
-        },
-        "offsets": {
-          "title": "Offsets",
-          "text": "You can use our `offset` to set the space between left and current elements of you container.",
-          "sizes": {
-            "xs": "`.offset--xs` - Phones (<600px)",
-            "sm": "`.offset--sm` - Small devices Tablets (≥600px)",
-            "md": "`.offset--md` - Medium devices Desktops (≥960)",
-            "lg": "`.offset--lg` - Large devices Desktops (≥1280px)",
-            "xl": "`.offset--xl` - Extra large devices Desktops (≥1920px)"
-          }
-        },
-        "gutters": {
-          "title": "Gutters",
-          "text": "A `layout` controls by `gutter`.",
-          "sizes": {
-            "xs": "`.gutter--xs` - Extra small gutter between cells",
-            "sm": "`.gutter--sm` - Small gutter between cells",
-            "md": "`.gutter--md` - Default gutter between cells",
-            "lg": "`.gutter--lg` - Large gutter between cells",
-            "xl": "`.gutter--xl` - Extra large gutter between cells"
-          }
-        }
       },
-      "api": {
-        "align": {
-          "title": "`align`:",
-          "variants": [
-            "`.align--start` - cross-start margin edge of the items is placed on the cross-start line",
-            "`.align--end` - cross-end margin edge of the items is placed on the cross-end line",
-            "`.align--center` - items are centered in the cross-axis",
-            "`.align--baseline` - items are aligned such as their baselines align"
-          ]
-        },
-        "alignSelf": {
-          "title": "`align-self`:",
-          "variants": [
-            "`.align-self--start` - cross-start margin edge of the items is placed on the cross-start line",
-            "`.align-self--end` - cross-end margin edge of the items is placed on the cross-end line",
-            "`.align-self--center` - items are centered in the cross-axis",
-            "`.align-self--baseline` - items are aligned such as their baselines align"
-          ]
-        },
-        "alignContent": {
-          "title": "`align-content`:",
-          "variants": [
-            "`.align-content--start` - lines packed to the start of the container",
-            "`.align-content--end` - lines packed to the end of the container",
-            "`.align-content--center` - lines packed to the center of the container",
-            "`.align-content--space-between` - lines evenly distributed; the first line is at the start of the container while the last one is at the end",
-            "`.align-content--space-around` - lines evenly distributed with equal space between them"
-          ]
-        },
-        "justify": {
-          "title": "`justify`:",
-          "variants": [
-            "`.justify--start` - items are packed toward the start line",
-            "`.justify--end` - items are packed toward to end line",
-            "`.justify--center` - items are centered along the line",
-            "`.justify--space-around` - items are evenly distributed in the line with equal space around them",
-            "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item on the end line"
-          ]
-        },
-        "justifySelf": {
-          "title": "`justify-self`:",
-          "variants": [
-            "`.justify-self--start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
-            "`.justify-self--end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
-            "`.justify-self--center` - For items that are not children of a flex container, this value is treated like start.",
-            "`.justify-self--baseline`"
-          ]
-        }
+      "justify": {
+        "title": "`justify`:",
+        "variants": [
+          "`.justify--start` - items are packed toward the start line",
+          "`.justify--end` - items are packed toward to end line",
+          "`.justify--center` - items are centered along the line",
+          "`.justify--space-around` - items are evenly distributed in the line with equal space around them",
+          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item on the end line"
+        ]
+      },
+      "justifySelf": {
+        "title": "`justify-self`:",
+        "variants": [
+          "`.justify-self--start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
+          "`.justify-self--end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
+          "`.justify-self--center` - For items that are not children of a flex container, this value is treated like start.",
+          "`.justify-self--baseline`"
+        ]
       }
     }
   }
