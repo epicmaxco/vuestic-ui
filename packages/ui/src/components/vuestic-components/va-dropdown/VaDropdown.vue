@@ -7,7 +7,7 @@
       @click="onAnchorClick()"
       ref="anchor"
     >
-      <slot name="anchor"/>
+      <slot name="anchor" />
     </div>
     <template v-if="showContent">
       <div
@@ -17,7 +17,7 @@
         :style="keepAnchorWidth ? anchorWidthStyles : ''"
         ref="content"
       >
-        <slot/>
+        <slot />
       </div>
     </template>
   </div>
@@ -31,7 +31,6 @@ import { DebounceLoader } from 'asva-executors'
 
 @Component
 export default class VaDropdown extends Vue {
-
   @Prop({ type: String, default: '' }) debugId!: string
   @Prop({ type: String, default: '' }) position!: string
   @Prop({ type: Number, default: 30 }) hoverOverTimeout!: number
@@ -54,20 +53,19 @@ export default class VaDropdown extends Vue {
     validator: (trigger: string): boolean => ['click', 'hover', 'none'].includes(trigger),
   }) trigger!: string
 
-
   @Watch('showContent')
-  onShowContentChange (value: boolean): void {
+  onShowContentChange (): void {
     this.handlePopperInstance()
   }
 
   popperInstance: any = null
-  isClicked: boolean = false
-  isMouseHovered: boolean = false
+  isClicked = false
+  isMouseHovered = false
   anchorWidth: string | undefined = undefined
-  hoverOverDebounceLoader: DebounceLoader | null = null
-  hoverOutDebounceLoader: DebounceLoader | null = null
+  hoverOverDebounceLoader!: DebounceLoader
+  hoverOutDebounceLoader!: DebounceLoader
 
-  get anchorWidthStyles (): { width: string, maxWidth: string } {
+  get anchorWidthStyles (): { width: string; maxWidth: string } {
     return {
       width: this.anchorWidth + 'px',
       maxWidth: this.anchorWidth + 'px',
@@ -118,7 +116,6 @@ export default class VaDropdown extends Vue {
     })
   }
 
-
   onAnchorClick (): void {
     this.$emit('anchorClick')
     if (this.disabled) {
@@ -145,7 +142,6 @@ export default class VaDropdown extends Vue {
     this.hoverOutDebounceLoader && this.hoverOutDebounceLoader.reset()
   }
 
-
   onMouseOut (): void {
     if (!this.isContentHoverable) {
       this.isMouseHovered = false
@@ -154,16 +150,13 @@ export default class VaDropdown extends Vue {
     this.hoverOverDebounceLoader && this.hoverOverDebounceLoader.reset()
   }
 
-
   registerClickOutsideListener (): void {
     document.addEventListener('click', event => this.handleDocumentClick(event), false)
   }
 
-
   unregisterClickOutsideListener (): void {
     document.removeEventListener('click', event => this.handleDocumentClick(event), false)
   }
-
 
   handleDocumentClick (event: any): void {
     let el = event.target
@@ -180,7 +173,6 @@ export default class VaDropdown extends Vue {
     this.onClickOutside()
   }
 
-
   onClickOutside (): void {
     this.$emit('clickOutside')
     if (!this.closeOnClickOutside) {
@@ -188,7 +180,6 @@ export default class VaDropdown extends Vue {
     }
     this.hide()
   }
-
 
   updateAnchorWidth (): void {
     if (this.keepAnchorWidth) {
@@ -203,14 +194,12 @@ export default class VaDropdown extends Vue {
     }
   }
 
-
   // @public
   hide (): void {
     if (this.trigger === 'click') {
       this.isClicked = false
     }
   }
-
 
   initPopper (): void {
     const options: any = {
@@ -250,7 +239,6 @@ export default class VaDropdown extends Vue {
     )
   }
 
-
   removePopper (): void {
     this.$emit('input', false)
 
@@ -262,14 +250,6 @@ export default class VaDropdown extends Vue {
   }
 
   created (): void {
-    // nuxt fix
-    if (this.$isServer) {
-      return
-    }
-    this.registerClickOutsideListener()
-  }
-
-  mounted (): void {
     this.hoverOverDebounceLoader = new DebounceLoader(
       async () => {
         this.isMouseHovered = true
@@ -283,6 +263,14 @@ export default class VaDropdown extends Vue {
       },
       this.hoverOutTimeout,
     )
+    // nuxt fix
+    if (this.$isServer) {
+      return
+    }
+    this.registerClickOutsideListener()
+  }
+
+  mounted (): void {
     this.handlePopperInstance()
   }
 

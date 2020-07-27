@@ -66,7 +66,7 @@
     </VbCard>
 
     <VbCard title="Border">
-      <va-alert border="top" >
+      <va-alert border="top">
         You successfully read this important alert message.
       </va-alert>
       <va-alert color="info" border="right">
