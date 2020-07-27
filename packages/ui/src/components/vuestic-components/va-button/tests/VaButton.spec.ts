@@ -164,7 +164,6 @@ describe('VaButton', () => {
     }
     wrapper.vm.focus()
     const focusedButtonString = spaceRemover(wrapper.find('button').html())
-    const activeElement: Element | null = document.activeElement
     // @ts-ignore
     const activeElementString: string = spaceRemover(document.activeElement.outerHTML)
     expect(focusedButtonString === activeElementString).toEqual(true)
