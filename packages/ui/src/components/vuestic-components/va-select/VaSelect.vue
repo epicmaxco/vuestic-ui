@@ -5,7 +5,7 @@
     :error-messages="computedErrorMessages"
     :messages="c_messages"
   >
-    <slot name="prepend" slot="prepend"/>
+    <slot name="prepend" slot="prepend" />
 
     <va-dropdown
       class="va-select__dropdown"
@@ -28,7 +28,9 @@
         placeholder="Search"
         removable
         ref="search"
-        @keyup.enter="addNewOption"
+        @keydown.enter.stop.prevent="addNewOption"
+        @keydown.up.stop.prevent="hoverPreviousOption"
+        @keydown.down.stop.prevent="hoverNextOption"
       />
       <va-select-option-list
         :style="{maxHeight: maxHeight}"
@@ -41,6 +43,7 @@
         :noOptionsText="noOptionsText"
         :search="search"
         :hintedOption="hintedOption"
+        ref="optionList"
       />
 
       <div
@@ -49,13 +52,19 @@
         :class="selectClass"
         :style="selectStyle"
         tabindex="0"
-        @keydown="updateHintedOption"
+        @keydown.stop.prevent="updateHintedOption"
+        @keydown.up.stop.prevent="hoverPreviousOption"
+        @keydown.left.stop.prevent="hoverPreviousOption"
+        @keydown.down.stop.prevent="hoverNextOption"
+        @keydown.right.stop.prevent="hoverNextOption"
+        @keydown.enter.stop.prevent="selectHoveredOption"
+        @keydown.space.stop.prevent="selectHoveredOption"
       >
 
         <div class="va-select__content-wrapper">
           <div class="va-select__controls" v-if="$slots.prependInner">
             <div class="va-select__prepend-slot">
-              <slot name="prependInner"/>
+              <slot name="prependInner" />
             </div>
           </div>
           <div
@@ -76,14 +85,14 @@
                 class="va-select__content__selection"
                 v-if="c_multiple"
               >
-                <div v-if="chips && selectionTags.length <= tagMax">
+                <div v-if="tags && selectionTags.length <= tagMax">
                   <va-tag
                     class="va-select__content__selection--tag"
                     v-for="(option, i) in selectionTags"
                     :key="i"
                     size="small"
                     color="primary"
-                    :closeable="deletableChips"
+                    :closeable="deletableTags"
                     @input="selectOption(option)"
                   >
                     {{option}}
@@ -111,7 +120,7 @@
           <div class="va-select__controls">
 
             <div class="va-select__append-slot">
-              <slot name="appendInner"/>
+              <slot name="appendInner" />
             </div>
 
             <div v-if="showClearIcon" class="va-select__icon">
@@ -141,7 +150,7 @@
       </div>
     </va-dropdown>
 
-    <slot name="append" slot="append"/>
+    <slot name="append" slot="append" />
 
   </va-input-wrapper>
 </template>
@@ -175,8 +184,8 @@ const PropsMixin = makeContextablePropsMixin({
     validator: (position: string) => positions.includes(position),
   },
   tagMax: { type: Number, default: 10 },
-  chips: { type: Boolean, default: false },
-  deletableChips: { type: Boolean, default: false },
+  tags: { type: Boolean, default: false },
+  deletableTags: { type: Boolean, default: false },
   searchable: { type: Boolean, default: false },
   multiple: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
@@ -220,10 +229,10 @@ export default class VaSelect extends Mixins(
   SelectableListMixin,
   PropsMixin,
 ) {
-  search: string = ''
-  hintedSearch: string = ''
+  search = ''
+  hintedSearch = ''
   hintedOption: any = null
-  isMounted: boolean = false
+  isMounted = false
   hoveredOption: any = null
 
   @Watch('search')
@@ -290,7 +299,7 @@ export default class VaSelect extends Mixins(
       borderColor:
         this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
-          : this.computeColor('gray'),
+            : this.computeColor('gray'),
     }
   }
 
@@ -320,7 +329,7 @@ export default class VaSelect extends Mixins(
     if (this.isArrayValue && this.valueProxy.length > this.tagMax) {
       return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
     }
-    if (this.multiple && this.chips) {
+    if (this.multiple && this.tags) {
       return this.valueProxy.map((value: any) => this.getText(value))
     }
     if (this.isArrayValue) {
@@ -436,21 +445,40 @@ export default class VaSelect extends Mixins(
     }
   }
 
+  selectHoveredOption () {
+    if (this.$refs.optionList) {
+      const hoveredOption: any = (this as any).$refs.optionList.hoveredOption
+      hoveredOption && this.selectOption((this as any).$refs.optionList.hoveredOption)
+    }
+  }
+
+  hoverPreviousOption () {
+    if (this.$refs.optionList) {
+      (this as any).$refs.optionList.hoverPreviousOption()
+    }
+  }
+
+  hoverNextOption () {
+    if (this.$refs.optionList) {
+      (this as any).$refs.optionList.hoverNextOption()
+    }
+  }
+
   updateHintedOption (event: KeyboardEvent) {
     const isLetter: boolean = event.key.length === 1
     const isDeleteKey: boolean = event.keyCode === 8 || event.keyCode === 46
     clearTimeout(this.timer)
     if (isDeleteKey) {
-      //Remove last letter from query
+      // Remove last letter from query
       this.hintedSearch = this.hintedSearch ? this.hintedSearch.slice(0, -1) : ''
     } else {
-      //Add every new letter to the query
+      // Add every new letter to the query
       isLetter && (this.hintedSearch += event.key)
     }
-    //Search for an option that matches the query
-    this.hintedOption = this.options.find((option: any) => {
+    // Search for an option that matches the query
+    this.hintedOption = this.hintedSearch ? this.options.find((option: any) => {
       return this.getText(option).toLowerCase().startsWith(this.hintedSearch.toLowerCase())
-    })
+    }) : ''
     this.timer = setTimeout(() => {
       this.hintedSearch = ''
     }, 1000)

@@ -1,6 +1,6 @@
 <template>
   <ul class="va-select-option-list">
-    <template v-if="options.length">
+    <template v-if="filteredOptions.length">
       <li
         v-for="option in filteredOptions"
         :key="getTrackBy(option)"
@@ -44,9 +44,7 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
   onHintedOptionChange (option: any) {
     if (option) {
       this.updateHoveredOption(option)
-      const optionElement: HTMLElement = (this as any).$refs[this.getTrackBy(option)][0]
-      // Scroll list to hinted option position
-      optionElement.scrollIntoView({ behavior: 'smooth' })
+      this.scrollToOption(option)
     }
   }
 
@@ -78,7 +76,7 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
     default: null,
   }) readonly hintedOption!: string | object | undefined
 
-  hoveredOption: any = null
+  public hoveredOption: any = null
 
   get filteredOptions () {
     if (!this.search) {
@@ -122,6 +120,38 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
     } else {
       this.hoveredOption = null
     }
+  }
+
+  public hoverPreviousOption () {
+    if (!this.hoveredOption) {
+      // Hover last option from list
+      this.filteredOptions.length && this.updateHoveredOption(this.filteredOptions[this.filteredOptions.length - 1])
+    } else {
+      const hoveredOptionIndex: any = this.filteredOptions.findIndex((option: any) => this.getText(option) === this.getText(this.hoveredOption))
+      if (this.filteredOptions[hoveredOptionIndex - 1]) {
+        this.hoveredOption = this.filteredOptions[hoveredOptionIndex - 1]
+      }
+    }
+    this.scrollToOption(this.hoveredOption)
+  }
+
+  public hoverNextOption () {
+    if (!this.hoveredOption) {
+      // Hover first option from list
+      this.filteredOptions.length && this.updateHoveredOption(this.filteredOptions[0])
+    } else {
+      const hoveredOptionIndex: any = this.filteredOptions.findIndex((option: any) => this.getText(option) === this.getText(this.hoveredOption))
+      if (this.filteredOptions[hoveredOptionIndex + 1]) {
+        this.hoveredOption = this.filteredOptions[hoveredOptionIndex + 1]
+      }
+    }
+    this.scrollToOption(this.hoveredOption)
+  }
+
+  scrollToOption (option: any) {
+    const optionElement: HTMLElement = (this as any).$refs[this.getTrackBy(option)][0]
+    // Scroll list to hinted option position
+    optionElement.scrollIntoView({ behavior: 'smooth' })
   }
 }
 </script>

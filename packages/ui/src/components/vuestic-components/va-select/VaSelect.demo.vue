@@ -58,20 +58,20 @@
       />
       <va-select
         style="margin: 8px 0;"
-        label="Chips"
+        label="Tags"
         :options="defaultMultiSelect.options"
         v-model="defaultMultiSelect.value"
         multiple
-        chips
+        tags
       />
       <va-select
         style="margin: 8px 0;"
-        label="Deletable chips"
+        label="Deletable tags"
         :options="defaultMultiSelect.options"
         v-model="defaultMultiSelect.value"
         multiple
-        chips
-        deletableChips
+        tags
+        deletableTags
       />
     </VbCard>
     <VbCard
