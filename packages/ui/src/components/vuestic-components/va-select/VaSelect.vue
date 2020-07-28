@@ -4,6 +4,7 @@
     :success="c_success"
     :error-messages="computedErrorMessages"
     :messages="c_messages"
+    :style="{width}"
   >
     <slot name="prepend" slot="prepend" />
 
@@ -13,7 +14,6 @@
       :disabled="c_disabled"
       :max-height="c_maxHeight"
       :fixed="c_fixed"
-      :style="{width}"
       boundaryBody
       :closeOnAnchorClick="c_multiple"
       keepAnchorWidth
@@ -53,6 +53,8 @@
         :class="selectClass"
         :style="selectStyle"
         tabindex="0"
+        @focus="isFocused = true"
+        @blur="isFocused = false"
         @keydown.stop.prevent="updateHintedOption"
         @keydown.up.stop.prevent="hoverPreviousOption"
         @keydown.left.stop.prevent="hoverPreviousOption"
@@ -193,7 +195,6 @@ const PropsMixin = makeContextablePropsMixin({
   readonly: { type: Boolean, default: false },
   width: { type: String, default: '100%' },
   maxHeight: { type: String, default: '128px' },
-  keyBy: { type: String, default: 'id' },
   clearValue: { type: String, default: '' },
   noOptionsText: { type: String, default: 'Items not found' },
   fixed: { type: Boolean, default: true },
@@ -235,6 +236,7 @@ export default class VaSelect extends Mixins(
   hintedOption: any = null
   isMounted = false
   hoveredOption: any = null
+  showOptionList = false
 
   @Watch('search')
   onSearchValueChange (value: string) {
@@ -298,7 +300,7 @@ export default class VaSelect extends Mixins(
         this.computedError ? getHoverColor(this.computeColor('danger'))
           : this.success ? getHoverColor(this.computeColor('success')) : '#f5f8f9',
       borderColor:
-        this.computedError ? this.computeColor('danger')
+        this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
             : this.computeColor('gray'),
     }
@@ -306,9 +308,9 @@ export default class VaSelect extends Mixins(
 
   get labelStyle () {
     return {
-      color: this.computedError ? this.computeColor('danger')
+      color: this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computedError ? this.computeColor('danger')
         : this.success ? this.computeColor('success')
-          : this.computeColor('primary'),
+          : this.computeColor('gray'),
     }
   }
 
@@ -384,7 +386,7 @@ export default class VaSelect extends Mixins(
       return one === two
     }
     if (typeof one === 'object' && typeof two === 'object') {
-      return one[this.keyBy] === two[this.keyBy]
+      return one[this.trackBy] === two[this.trackBy]
     }
   }
 
@@ -398,14 +400,14 @@ export default class VaSelect extends Mixins(
         : this.valueProxy === option
     } else {
       return this.multiple
-        ? this.valueProxy.filter((item: any) => item[this.keyBy] === option[this.keyBy]).length
-        : this.valueProxy[this.keyBy] === option[this.keyBy]
+        ? this.valueProxy.filter((item: any) => item[this.trackBy] === option[this.trackBy]).length
+        : this.valueProxy[this.trackBy] === option[this.trackBy]
     }
   }
 
   isHovered (option: any) {
     return this.hoveredOption
-      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.keyBy] === option[this.keyBy]
+      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.trackBy] === option[this.trackBy]
       : false
   }
 
@@ -426,7 +428,6 @@ export default class VaSelect extends Mixins(
     if (this.c_searchable) {
       (this as any).$refs.search.$refs.input.focus()
     }
-    // this.validate()
   }
 
   addNewOption (): void {
@@ -488,7 +489,10 @@ export default class VaSelect extends Mixins(
 
   onDropdownInput (value: boolean) {
     if (!value) {
+      this.showOptionList = value
       this.validate()
+    } else {
+      this.showOptionList = value
     }
   }
 
@@ -523,6 +527,7 @@ export default class VaSelect extends Mixins(
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   margin-bottom: 1rem;
+  transition: ease-in-out border-bottom-color 0.25s;
 
   &--disabled {
     @include va-disabled();
@@ -562,6 +567,7 @@ export default class VaSelect extends Mixins(
       top: 0;
       right: auto;
       max-width: 90%;
+      transition: ease-in-out color 0.25s;
 
       @include va-ellipsis();
     }

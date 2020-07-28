@@ -8,7 +8,7 @@
       @keyup.enter.stop.prevent="onAnchorClick()"
       ref="anchor"
     >
-      <slot name="anchor"/>
+      <slot name="anchor" />
     </div>
     <template v-if="showContent">
       <div
@@ -18,7 +18,7 @@
         :style="keepAnchorWidth ? anchorWidthStyles : ''"
         ref="content"
       >
-        <slot/>
+        <slot />
       </div>
     </template>
   </div>

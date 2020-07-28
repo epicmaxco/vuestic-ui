@@ -1,7 +1,7 @@
 <template>
-  <ul class="va-select-option-list">
+  <div class="va-select-option-list">
     <template v-if="filteredOptions.length">
-      <li
+      <div
         v-for="option in filteredOptions"
         :key="getTrackBy(option)"
         :class="getOptionClass(option)"
@@ -22,12 +22,12 @@
           class="va-select-option-list__option--selected-icon"
           name="done"
         />
-      </li>
+      </div>
     </template>
-    <li class="va-select-option-list no-options" v-else>
+    <div class="va-select-option-list no-options" v-else>
       {{ noOptionsText }}
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -103,8 +103,8 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
 
   getOptionStyle (option: any) {
     return {
-      color: this.getSelectedState(option) ? this.computeColor('success') : 'inherit',
-      backgroundColor: this.isHovered(option) ? getHoverColor(this.computeColor('success')) : 'transparent',
+      color: this.getSelectedState(option) ? this.computeColor('primary') : 'inherit',
+      backgroundColor: this.isHovered(option) ? getHoverColor(this.computeColor('primary')) : 'transparent',
     }
   }
 
@@ -159,6 +159,8 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
 @import "../../vuestic-sass/resources/resources";
 
 .va-select-option-list {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   list-style: none;
 
