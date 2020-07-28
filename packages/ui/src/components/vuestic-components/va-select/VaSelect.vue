@@ -17,6 +17,7 @@
       boundaryBody
       :closeOnAnchorClick="c_multiple"
       keepAnchorWidth
+      @input="onDropdownInput"
       ref="dropdown"
     >
       <va-input
@@ -425,6 +426,7 @@ export default class VaSelect extends Mixins(
     if (this.c_searchable) {
       (this as any).$refs.search.$refs.input.focus()
     }
+    // this.validate()
   }
 
   addNewOption (): void {
@@ -482,6 +484,12 @@ export default class VaSelect extends Mixins(
     this.timer = setTimeout(() => {
       this.hintedSearch = ''
     }, 1000)
+  }
+
+  onDropdownInput (value: boolean) {
+    if (!value) {
+      this.validate()
+    }
   }
 
   /**
