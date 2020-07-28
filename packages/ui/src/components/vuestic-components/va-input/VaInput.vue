@@ -95,7 +95,7 @@
         />
         <va-icon
           v-if="canBeCleared"
-          @click.native="reset()"
+          @click.native.stop="reset()"
           class="va-input__container__close-icon"
           :color="computedError ? 'danger': 'gray'"
           name="highlight_off"

@@ -58,20 +58,20 @@
       />
       <va-select
         style="margin: 8px 0;"
-        label="Chips"
+        label="Tags"
         :options="defaultMultiSelect.options"
         v-model="defaultMultiSelect.value"
         multiple
-        chips
+        tags
       />
       <va-select
         style="margin: 8px 0;"
-        label="Deletable chips"
+        label="Deletable tags"
         :options="defaultMultiSelect.options"
         v-model="defaultMultiSelect.value"
         multiple
-        chips
-        deletableChips
+        tags
+        deletableTags
       />
     </VbCard>
     <VbCard
@@ -345,7 +345,7 @@
       />
     </VbCard>
     <VbCard
-      title="with ajax"
+      title="With ajax"
       style="width: 400px;"
     >
       <va-select
@@ -357,7 +357,7 @@
       />
     </VbCard>
     <VbCard
-      title="With validation rules"
+      title="Validation rules (on blur)"
       style="width: 400px;"
     >
       <va-select
@@ -437,7 +437,7 @@ export default {
         multipleValue: [],
         rules: {
           required: [v => Array.isArray(v) ? v.length : !!v || 'at least 1 option should be selected'],
-          twoOptions: [v => (Array.isArray(v) && v.length === 1) || '1 options should be selected'],
+          twoOptions: [v => (Array.isArray(v) && v.length === 2) || '2 options should be selected'],
         },
       },
       multipleValue: [],

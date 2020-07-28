@@ -4,6 +4,7 @@
     :success="c_success"
     :error-messages="computedErrorMessages"
     :messages="c_messages"
+    :style="{width}"
   >
     <slot name="prepend" slot="prepend" />
 
@@ -13,10 +14,10 @@
       :disabled="c_disabled"
       :max-height="c_maxHeight"
       :fixed="c_fixed"
-      :style="{width}"
       boundaryBody
       :closeOnAnchorClick="c_multiple"
       keepAnchorWidth
+      @input="onDropdownInput"
       ref="dropdown"
     >
       <va-input
@@ -28,7 +29,9 @@
         placeholder="Search"
         removable
         ref="search"
-        @keyup.enter="addNewOption"
+        @keydown.enter.stop.prevent="addNewOption"
+        @keydown.up.stop.prevent="hoverPreviousOption"
+        @keydown.down.stop.prevent="hoverNextOption"
       />
       <va-select-option-list
         :style="{maxHeight: maxHeight}"
@@ -40,6 +43,8 @@
         :getTrackBy="getTrackBy"
         :noOptionsText="noOptionsText"
         :search="search"
+        :hintedOption="hintedOption"
+        ref="optionList"
       />
 
       <div
@@ -47,6 +52,16 @@
         class="va-select"
         :class="selectClass"
         :style="selectStyle"
+        tabindex="0"
+        @focus="isFocused = true"
+        @blur="isFocused = false"
+        @keydown.stop.prevent="updateHintedOption"
+        @keydown.up.stop.prevent="hoverPreviousOption"
+        @keydown.left.stop.prevent="hoverPreviousOption"
+        @keydown.down.stop.prevent="hoverNextOption"
+        @keydown.right.stop.prevent="hoverNextOption"
+        @keydown.enter.stop.prevent="selectHoveredOption"
+        @keydown.space.stop.prevent="selectHoveredOption"
       >
 
         <div class="va-select__content-wrapper">
@@ -73,14 +88,14 @@
                 class="va-select__content__selection"
                 v-if="c_multiple"
               >
-                <div v-if="chips && selectionTags.length <= tagMax">
+                <div v-if="tags && selectionTags.length <= tagMax">
                   <va-tag
                     class="va-select__content__selection--tag"
                     v-for="(option, i) in selectionTags"
                     :key="i"
                     size="small"
                     color="primary"
-                    :closeable="deletableChips"
+                    :closeable="deletableTags"
                     @input="selectOption(option)"
                   >
                     {{option}}
@@ -172,15 +187,14 @@ const PropsMixin = makeContextablePropsMixin({
     validator: (position: string) => positions.includes(position),
   },
   tagMax: { type: Number, default: 10 },
-  chips: { type: Boolean, default: false },
-  deletableChips: { type: Boolean, default: false },
+  tags: { type: Boolean, default: false },
+  deletableTags: { type: Boolean, default: false },
   searchable: { type: Boolean, default: false },
   multiple: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
   width: { type: String, default: '100%' },
   maxHeight: { type: String, default: '128px' },
-  keyBy: { type: String, default: 'id' },
   clearValue: { type: String, default: '' },
   noOptionsText: { type: String, default: 'Items not found' },
   fixed: { type: Boolean, default: true },
@@ -218,8 +232,11 @@ export default class VaSelect extends Mixins(
   PropsMixin,
 ) {
   search = ''
+  hintedSearch = ''
+  hintedOption: any = null
   isMounted = false
   hoveredOption: any = null
+  showOptionList = false
 
   @Watch('search')
   onSearchValueChange (value: string) {
@@ -283,7 +300,7 @@ export default class VaSelect extends Mixins(
         this.computedError ? getHoverColor(this.computeColor('danger'))
           : this.success ? getHoverColor(this.computeColor('success')) : '#f5f8f9',
       borderColor:
-        this.computedError ? this.computeColor('danger')
+        this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
             : this.computeColor('gray'),
     }
@@ -291,9 +308,9 @@ export default class VaSelect extends Mixins(
 
   get labelStyle () {
     return {
-      color: this.computedError ? this.computeColor('danger')
+      color: this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computedError ? this.computeColor('danger')
         : this.success ? this.computeColor('success')
-          : this.computeColor('primary'),
+          : this.computeColor('gray'),
     }
   }
 
@@ -315,7 +332,7 @@ export default class VaSelect extends Mixins(
     if (this.isArrayValue && this.valueProxy.length > this.tagMax) {
       return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
     }
-    if (this.multiple && this.chips) {
+    if (this.multiple && this.tags) {
       return this.valueProxy.map((value: any) => this.getText(value))
     }
     if (this.isArrayValue) {
@@ -369,7 +386,7 @@ export default class VaSelect extends Mixins(
       return one === two
     }
     if (typeof one === 'object' && typeof two === 'object') {
-      return one[this.keyBy] === two[this.keyBy]
+      return one[this.trackBy] === two[this.trackBy]
     }
   }
 
@@ -383,14 +400,14 @@ export default class VaSelect extends Mixins(
         : this.valueProxy === option
     } else {
       return this.multiple
-        ? this.valueProxy.filter((item: any) => item[this.keyBy] === option[this.keyBy]).length
-        : this.valueProxy[this.keyBy] === option[this.keyBy]
+        ? this.valueProxy.filter((item: any) => item[this.trackBy] === option[this.trackBy]).length
+        : this.valueProxy[this.trackBy] === option[this.trackBy]
     }
   }
 
   isHovered (option: any) {
     return this.hoveredOption
-      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.keyBy] === option[this.keyBy]
+      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.trackBy] === option[this.trackBy]
       : false
   }
 
@@ -431,6 +448,54 @@ export default class VaSelect extends Mixins(
     }
   }
 
+  selectHoveredOption () {
+    if (this.$refs.optionList) {
+      const hoveredOption: any = (this as any).$refs.optionList.hoveredOption
+      hoveredOption && this.selectOption((this as any).$refs.optionList.hoveredOption)
+    }
+  }
+
+  hoverPreviousOption () {
+    if (this.$refs.optionList) {
+      (this as any).$refs.optionList.hoverPreviousOption()
+    }
+  }
+
+  hoverNextOption () {
+    if (this.$refs.optionList) {
+      (this as any).$refs.optionList.hoverNextOption()
+    }
+  }
+
+  updateHintedOption (event: KeyboardEvent) {
+    const isLetter: boolean = event.key.length === 1
+    const isDeleteKey: boolean = event.keyCode === 8 || event.keyCode === 46
+    clearTimeout(this.timer)
+    if (isDeleteKey) {
+      // Remove last letter from query
+      this.hintedSearch = this.hintedSearch ? this.hintedSearch.slice(0, -1) : ''
+    } else {
+      // Add every new letter to the query
+      isLetter && (this.hintedSearch += event.key)
+    }
+    // Search for an option that matches the query
+    this.hintedOption = this.hintedSearch ? this.options.find((option: any) => {
+      return this.getText(option).toLowerCase().startsWith(this.hintedSearch.toLowerCase())
+    }) : ''
+    this.timer = setTimeout(() => {
+      this.hintedSearch = ''
+    }, 1000)
+  }
+
+  onDropdownInput (value: boolean) {
+    if (!value) {
+      this.showOptionList = value
+      this.validate()
+    } else {
+      this.showOptionList = value
+    }
+  }
+
   /**
    * @public
    */
@@ -462,6 +527,7 @@ export default class VaSelect extends Mixins(
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   margin-bottom: 1rem;
+  transition: ease-in-out border-bottom-color 0.25s;
 
   &--disabled {
     @include va-disabled();
@@ -501,6 +567,7 @@ export default class VaSelect extends Mixins(
       top: 0;
       right: auto;
       max-width: 90%;
+      transition: ease-in-out color 0.25s;
 
       @include va-ellipsis();
     }
