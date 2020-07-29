@@ -496,14 +496,13 @@ export default class VaSelect extends Mixins(
     }
   }
 
-  /**
-   * @public
-   */
-  reset (): void {
+  /** @public */
+  public reset (): void {
     this.valueProxy = this.multiple
       ? (Array.isArray(this.clearValue) ? this.clearValue : [])
       : this.clearValue
     this.search = ''
+    this.value = this.clearValue
     this.$emit('clear')
   }
 
