@@ -382,7 +382,7 @@
         "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available."
       },
       "methods": {
-        "hide":"Hide alert. On stateless alert only emits `@input`"
+        "hide": "Hide alert. On stateless alert only emits `@input`"
       },
       "slots": {
         "default": "Content of alert body",
@@ -463,6 +463,46 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content"
       }
+    },
+    "VaSelect": {
+      "props": {
+        "value": "Model of the component. Must be Array if using 'multiple' prop",
+        "clearValue": "Sets value that should be setted after clearing",
+        "options": "Available options that the user can select from",
+        "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
+        "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
+        "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
+        "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
+        "placeholder": "Sets the input’s placeholder text",
+        "position": "Sets option list position",
+        "tagMax": "Sets maximum tag count after whom selection will be cropped",
+        "tags": "Sets selection display as tags",
+        "deletableTags": "Sets ability to delete tags",
+        "searchable": "Sets ability to filter option list by typing",
+        "multiple": "Sets select in multiple mode",
+        "width": "Sets option list width",
+        "maxHeight": "Sets option list maximum height",
+        "noOptionsText": "Sets text whom displaying if list have no items",
+        "fixed": "Sets dropdown position strategy",
+        "clearable": "Sets ability to clear selection",
+        "hideSelected": "Sets ability to hide selected options",
+        "allowCreate": "Allow creating new options. Can be setted to `unique` if you want to create only unique options",
+        "clearIcon": "Sets the clear icon",
+        "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons"
+      },
+      "events": {
+        "clear": "Emitted if select value has been cleared",
+        "updateSearch": "Emitted if search value has changed"
+      },
+      "methods": {
+        "reset": "Clearing select value"
+      },
+      "slots": {
+        "prepend": "Adds an item outside the input and before input content",
+        "prependInner": "Adds an item inside the input and before input content",
+        "append": "Adds an item outside the input and after input content",
+        "appendInner": "Adds an item inside the input and after input content"
+      }
     }
   },
   "anyPage": {
@@ -499,7 +539,8 @@
     "radio": "Radio",
     "tag": "Tag",
     "grid": "Grid",
-    "input": "Input"
+    "input": "Input",
+    "select": "Select"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1467,6 +1508,48 @@
           "`.justify-self--center` - For items that are not children of a flex container, this value is treated like start.",
           "`.justify-self--baseline`"
         ]
+      }
+    }
+  },
+  "select": {
+    "title": "Select",
+    "summaryText": "Select are used for collecting user provided information from a list of options. This component opens up a menu for the selection list and action",
+    "examples": {
+      "default": "Default select",
+      "variations": {
+        "title": "Variants",
+        "text": "Includes single or multiple selects"
+      },
+      "decorators": "Decorators",
+      "slots": {
+        "title": "Slots",
+        "text": "Includes prepend, prepend-inner, append and append-inner slots"
+      },
+      "state": {
+        "title": "State",
+        "text": "Includes error, success, disabled or loading state"
+      },
+      "tags": {
+        "title": "Tags",
+        "text": "Includes selection display as tags and maximum tags count"
+      },
+      "searchable": {
+        "title": "Searchable",
+        "text": "Supports ability to filter option list by typing"
+      },
+      "allowCreate": {
+        "title": "Allow create",
+        "text": "You can add options that initial options not contain"
+      },
+      "validation": {
+        "title": "Validation rules",
+        "text": "Select accepts an array of functions that take an input value as an argument and return either true / false or a string with an error message"
+      },
+      "keyboardNavigation": {
+        "title": "Keyboard navigation",
+        "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
+        "selects": "By using `ENTER` and `SPACE` you can select current option",
+        "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
       }
     }
   }

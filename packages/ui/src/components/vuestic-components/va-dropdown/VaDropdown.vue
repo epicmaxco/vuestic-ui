@@ -5,6 +5,7 @@
       @mouseover="onMouseOver()"
       @mouseout="onMouseOut()"
       @click="onAnchorClick()"
+      @keyup.enter.stop.prevent="onAnchorClick()"
       ref="anchor"
     >
       <slot name="anchor" />
