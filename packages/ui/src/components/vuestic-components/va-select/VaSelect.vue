@@ -300,17 +300,17 @@ export default class VaSelect extends Mixins(
         this.computedError ? getHoverColor(this.computeColor('danger'))
           : this.success ? getHoverColor(this.computeColor('success')) : '#f5f8f9',
       borderColor:
-        this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computedError ? this.computeColor('danger')
+        this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
-            : this.computeColor('gray'),
+            : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
     }
   }
 
   get labelStyle () {
     return {
-      color: this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computedError ? this.computeColor('danger')
+      color: this.computedError ? this.computeColor('danger')
         : this.success ? this.computeColor('success')
-          : this.computeColor('gray'),
+          : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
     }
   }
 
@@ -496,14 +496,13 @@ export default class VaSelect extends Mixins(
     }
   }
 
-  /**
-   * @public
-   */
-  reset (): void {
+  /** @public */
+  public reset (): void {
     this.valueProxy = this.multiple
       ? (Array.isArray(this.clearValue) ? this.clearValue : [])
       : this.clearValue
     this.search = ''
+    this.value = this.clearValue
     this.$emit('clear')
   }
 
