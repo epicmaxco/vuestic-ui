@@ -3,9 +3,10 @@
     <va-icon
       name="search"
       size="100%"
-      color="#8496A5"
+      :color="color"
+      class="search-icon"
     />
-    <input id="algolia-search-input" placeholder="Search...">
+    <input id="algolia-search-input" placeholder="Search..." @focus="color = ''" @blur="color = '#8496A5'">
   </form>
 </template>
 
@@ -16,6 +17,8 @@ import { Component, Vue } from 'vue-property-decorator'
   name: 'VaSearch',
 })
 export default class VaSearch extends Vue {
+  color = ''
+
   initialize () {
     Promise.all([
       // @ts-ignore
@@ -48,6 +51,10 @@ export default class VaSearch extends Vue {
   justify-content: space-between;
   width: 100%;
 
+  .search-icon {
+    transition: background-color, 0.5s;
+  }
+
   #algolia-search-input {
     display: block;
     background: none;
@@ -63,8 +70,7 @@ export default class VaSearch extends Vue {
       display: none;
     }
 
-    .ds-dataset-1,
-    .ds-dataset-3 {
+    > div {
       position: fixed;
       border: none;
       box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
@@ -115,6 +121,10 @@ export default class VaSearch extends Vue {
           padding: 0.5rem 1rem;
           float: left;
           width: 100%;
+
+          &::before {
+            display: none;
+          }
 
           .algolia-docsearch-suggestion--title {
             font-family: Source Sans Pro;
