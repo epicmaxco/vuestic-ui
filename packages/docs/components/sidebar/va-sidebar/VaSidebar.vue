@@ -64,6 +64,7 @@ export default class VaSidebar extends Vue {
     max-height: 100%;
     list-style: none;
     padding-left: 0;
+    padding-top: 0;
   }
 
   @include media-breakpoint-down(sm) {
