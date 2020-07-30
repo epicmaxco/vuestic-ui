@@ -1,5 +1,6 @@
 <template>
   <aside class="va-sidebar" :class="computedClass" :style="computedStyle">
+    <va-search />
     <div class="va-sidebar__menu">
       <slot name="menu" />
     </div>
@@ -8,8 +9,11 @@
 
 <script lang="ts">
 import { Component, Vue, Inject, Prop } from 'vue-property-decorator'
+import VaSearch from './VaSearch.vue'
+
 @Component({
   name: 'VaSidebar',
+  components: { VaSearch },
 })
 export default class VaSidebar extends Vue {
   @Prop({
