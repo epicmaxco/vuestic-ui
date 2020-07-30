@@ -1,7 +1,14 @@
 <template>
   <component
-    :is="computedComponent"
+    :is="tagComputed"
     v-if="valueComputed"
+    :href="href"
+    :target="target"
+    :to="to"
+    :replace="replace"
+    :exact="exact"
+    :active-class="activeClass"
+    :exact-active-class="exactActiveClass"
     class="va-tag"
     :class="computedClass"
     :style="computedStyle"
@@ -10,7 +17,6 @@
     @mouseleave="updateHoverState(false)"
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
-    :to="to"
   >
     <va-icon
       v-if="c_icon"
@@ -54,6 +60,7 @@ const TagPropsMixin = makeContextablePropsMixin({
   icon: { type: String, default: '' },
   disabled: { type: Boolean, default: false },
   square: { type: Boolean, default: false },
+  tag: { type: String, default: 'span' },
   size: {
     type: String,
     default: 'medium',
@@ -81,10 +88,6 @@ export default class VaTag extends Mixins(
   onHoverChange (value: boolean) {
     this.updateFocusState(value)
     this.updateHoverState(value)
-  }
-
-  get computedComponent () {
-    return this.hasRouterLinkParams ? 'router-link' : 'span'
   }
 
   get iconSize () {
