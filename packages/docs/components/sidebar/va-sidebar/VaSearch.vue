@@ -63,11 +63,100 @@ export default class VaSearch extends Vue {
       display: none;
     }
 
-    .ds-dataset-1 {
+    .ds-dataset-1,
+    .ds-dataset-3 {
       position: fixed;
       border: none;
       box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
       border-radius: 4px;
+      padding: 0;
+
+      .ds-suggestion {
+        .algolia-docsearch-suggestion {
+          padding: 0;
+        }
+
+        &:first-child {
+          .algolia-docsearch-suggestion--category-header {
+            border-top: none;
+          }
+        }
+
+        .algolia-docsearch-suggestion--category-header {
+          padding: 0.25rem 1rem;
+          border-bottom: none;
+          border-top: 1px solid #f4f8fa;
+
+          &-lvl0 {
+            font-family: Source Sans Pro;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 10px;
+            line-height: 14px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: #8396a5;
+
+            .algolia-docsearch-suggestion--highlight {
+              box-shadow: inset 0 -2px 0 0 rgba(44, 130, 224, 0.1);
+            }
+          }
+        }
+
+        .algolia-docsearch-suggestion--wrapper {
+          padding-top: 0;
+        }
+
+        .algolia-docsearch-suggestion--subcategory-column {
+          display: none;
+        }
+
+        .algolia-docsearch-suggestion--content {
+          padding: 0.5rem 1rem;
+          float: left;
+          width: 100%;
+
+          .algolia-docsearch-suggestion--title {
+            font-family: Source Sans Pro;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 20px;
+            color: #1b1a1f;
+
+            .algolia-docsearch-suggestion--highlight {
+              padding: 0;
+              color: #2c82e0;
+              background: rgba(44, 130, 224, 0.1);
+            }
+          }
+
+          .algolia-docsearch-suggestion--text {
+            font-family: Source Sans Pro;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 20px;
+            color: #8396a5;
+
+            .algolia-docsearch-suggestion--highlight {
+              color: #2c82e0;
+              background: rgba(44, 130, 224, 0.1);
+              box-shadow: none;
+            }
+          }
+        }
+      }
+
+      .ds-cursor {
+        .algolia-docsearch-suggestion--content {
+          background-color: #f4f8fa;
+        }
+      }
+
+      .algolia-docsearch-footer {
+        margin: 1rem;
+      }
     }
   }
 }
