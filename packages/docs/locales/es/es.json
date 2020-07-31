@@ -67,6 +67,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaList": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -78,7 +84,8 @@
     "icon": "Icon",
     "radio": "Radio",
     "tag": "Tag",
-     "input": "Input"
+    "input": "Input",
+    "list": "List"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -106,6 +113,9 @@
     "title": "-- Here is the title --"
   },
   "input": {
+    "title": "-- Here is the title --"
+  },
+  "list": {
     "title": "-- Here is the title --"
   }
 }

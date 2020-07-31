@@ -382,7 +382,7 @@
         "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available."
       },
       "methods": {
-        "hide":"Hide alert. On stateless alert only emits `@input`"
+        "hide": "Hide alert. On stateless alert only emits `@input`"
       },
       "slots": {
         "default": "Content of alert body",
@@ -463,6 +463,12 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content"
       }
+    },
+    "VaList": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "anyPage": {
@@ -499,7 +505,8 @@
     "radio": "Radio",
     "tag": "Tag",
     "grid": "Grid",
-    "input": "Input"
+    "input": "Input",
+    "list": "List"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1469,5 +1476,8 @@
         ]
       }
     }
+  },
+  "list": {
+    "title": "-- Here is the title --"
   }
 }

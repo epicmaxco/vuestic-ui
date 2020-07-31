@@ -121,6 +121,10 @@
         {
           "name": "input",
           "displayName": "menu.input"
+        },
+        {
+          "name": "list",
+          "displayName": "menu.list"
         }
       ]
     }
