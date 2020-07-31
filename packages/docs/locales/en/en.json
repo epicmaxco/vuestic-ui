@@ -1483,9 +1483,9 @@
       "list": "List",
       "listLabel": "List Label",
       "listSeparator": "List Separator",
-      "item": "Item",
-      "itemLabel": "Item Label",
-      "itemSection": "Item Section"
+      "listItem": "List Item",
+      "listItemLabel": "List Item Label",
+      "listItemSection": "List Item Section"
     }
   }
 }

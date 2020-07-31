@@ -8,7 +8,7 @@
     :exact="exact"
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
-    class="va-item align--center no-wrap"
+    class="va-list-item"
     :class="computedClass"
     :tabindex="indexComputed"
     @mousedown="hasMouseDown = true"
@@ -28,13 +28,12 @@ import { RouterLinkMixin } from './../../vuestic-mixins/RouterLinkMixin'
 import { KeyboardOnlyFocusMixin } from './../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 const ItemPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'div' },
-  clickable: { type: Boolean, default: false },
   disabled: { type: Boolean, defaulr: false },
 })
 @Component({
-  name: 'VaItem',
+  name: 'VaListItem',
 })
-export default class VaItem extends Mixins(
+export default class VaListItem extends Mixins(
   RouterLinkMixin,
   KeyboardOnlyFocusMixin,
   ItemPropsMixin,
@@ -45,9 +44,8 @@ export default class VaItem extends Mixins(
 
   get computedClass () {
     return {
-      'va-item--clickable': this.c_clickable || this.hasRouterLinkParams,
-      'va-item--disabled': this.c_disabled,
-      'va-item--focus': this.isKeyboardFocused,
+      'va-list-item--disabled': this.c_disabled,
+      'va-list-item--focus': this.isKeyboardFocused,
     }
   }
 
@@ -61,19 +59,17 @@ export default class VaItem extends Mixins(
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.va-item {
+.va-list-item {
   display: flex;
   padding: $list-item-padding;
 
-  &--clickable {
-    &:hover {
-      background-color: $light-gray3;
-      cursor: pointer;
-    }
+  &:hover {
+    background-color: $light-gray3;
+    cursor: pointer;
   }
 
   &--focus {
-    box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.1);
+    background-color: $light-gray3;
   }
 
   &--disabled {

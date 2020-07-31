@@ -1,6 +1,6 @@
 <template>
   <div
-    class="va-item-label"
+    class="va-list-item-label"
     :class="computedClass"
     :style="computedStyle"
   >
@@ -16,13 +16,13 @@ const ItemLabelPropsMixin = makeContextablePropsMixin({
   lines: { type: Number, default: 1 },
 })
 @Component({
-  name: 'VaItemLabel',
+  name: 'VaListItemLabel',
 })
-export default class VaItemLabel extends Mixins(
+export default class VaListItemLabel extends Mixins(
   ItemLabelPropsMixin,
 ) {
   get computedClass () {
-    return { 'va-item-label--caption': this.c_caption }
+    return { 'va-list-item-label--caption': this.c_caption }
   }
 
   get computedStyle () {
@@ -36,7 +36,7 @@ export default class VaItemLabel extends Mixins(
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.va-item-label {
+.va-list-item-label {
   color: $vue-darkest-blue;
   display: -webkit-box;
   -webkit-box-orient: vertical;

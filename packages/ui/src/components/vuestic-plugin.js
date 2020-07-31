@@ -28,10 +28,10 @@ import VaImage from './vuestic-components/va-image/VaImage'
 import VaInnerLoading
   from './vuestic-components/va-inner-loading/VaInnerLoading'
 import VaInput from './vuestic-components/va-input/VaInput'
-import VaItem from './vuestic-components/va-list/VaItem'
-import VaItemLabel from './vuestic-components/va-list/VaItemLabel'
-import VaItemSection from './vuestic-components/va-list/VaItemSection'
 import VaList from './vuestic-components/va-list/VaList'
+import VaListItem from './vuestic-components/va-list/VaListItem'
+import VaListItemLabel from './vuestic-components/va-list/VaListItemLabel'
+import VaListItemSection from './vuestic-components/va-list/VaListItemSection'
 import VaListLabel from './vuestic-components/va-list/VaListLabel'
 import VaListSeparator from './vuestic-components/va-list/VaListSeparator'
 import VaMediumEditor
@@ -123,10 +123,10 @@ const VuesticPlugin = {
       VaInnerLoading,
       VaInput,
       VaInputWrapper,
-      VaItem,
-      VaItemLabel,
-      VaItemSection,
       VaList,
+      VaListItem,
+      VaListItemLabel,
+      VaListItemSection,
       VaListLabel,
       VaListSeparator,
       VaMediumEditor,

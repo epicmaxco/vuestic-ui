@@ -1,6 +1,6 @@
 <template>
   <div
-    class="va-item-section"
+    class="va-list-item-section"
     :class="computedClass"
   >
     <slot />
@@ -15,16 +15,16 @@ const ItemSectionPropsMixin = makeContextablePropsMixin({
   avatar: { type: Boolean, default: false },
 })
 @Component({
-  name: 'VaItemSection',
+  name: 'VaListItemSection',
 })
-export default class VaItemSection extends Mixins(
+export default class VaListItemSection extends Mixins(
   ItemSectionPropsMixin,
 ) {
   get computedClass () {
     return {
-      'va-item-section--main': !this.c_icon && !this.c_avatar,
-      'va-item-section--icon': this.c_icon,
-      'va-item-section--avatar': this.c_avatar,
+      'va-list-item-section--main': !this.c_icon && !this.c_avatar,
+      'va-list-item-section--icon': this.c_icon,
+      'va-list-item-section--avatar': this.c_avatar,
     }
   }
 }
@@ -33,7 +33,7 @@ export default class VaItemSection extends Mixins(
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.va-item-section {
+.va-list-item-section {
   display: flex;
 
   &--main {
@@ -56,7 +56,7 @@ export default class VaItemSection extends Mixins(
   }
 }
 
-.va-item-section + .va-item-section {
+.va-list-item-section + .va-list-item-section {
   margin-left: 0.5rem;
 
   &--icon {

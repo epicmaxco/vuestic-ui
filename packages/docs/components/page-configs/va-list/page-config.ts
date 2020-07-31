@@ -2,9 +2,9 @@ import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
 import VaList from 'vuestic-ui/src/components/vuestic-components/va-list/VaList.vue'
 import VaListLabel from 'vuestic-ui/src/components/vuestic-components/va-list/VaListLabel.vue'
 import VaListSeparator from 'vuestic-ui/src/components/vuestic-components/va-list/VaListSeparator.vue'
-import VaItem from 'vuestic-ui/src/components/vuestic-components/va-list/VaItem.vue'
-import VaItemLabel from 'vuestic-ui/src/components/vuestic-components/va-list/VaItemLabel.vue'
-import VaItemSection from 'vuestic-ui/src/components/vuestic-components/va-list/VaItemSection.vue'
+import VaListItem from 'vuestic-ui/src/components/vuestic-components/va-list/VaListItem.vue'
+import VaListItemLabel from 'vuestic-ui/src/components/vuestic-components/va-list/VaListItemLabel.vue'
+import VaListItemSection from 'vuestic-ui/src/components/vuestic-components/va-list/VaListItemSection.vue'
 import apiOptions from './api-options'
 
 export default [
@@ -77,29 +77,29 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'list.api.item',
+    translationString: 'list.api.listItem',
   },
   {
     type: BlockType.API,
-    componentOptions: VaItem,
+    componentOptions: VaListItem,
     apiOptions,
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'list.api.itemLabel',
+    translationString: 'list.api.listItemLabel',
   },
   {
     type: BlockType.API,
-    componentOptions: VaItemLabel,
+    componentOptions: VaListItemLabel,
     apiOptions,
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'list.api.itemSection',
+    translationString: 'list.api.listItemSection',
   },
   {
     type: BlockType.API,
-    componentOptions: VaItemSection,
+    componentOptions: VaListItemSection,
     apiOptions,
   },
 ] as ApiDocsBlock[]

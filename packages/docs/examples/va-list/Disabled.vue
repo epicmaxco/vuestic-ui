@@ -4,34 +4,34 @@
       Blocked
     </va-list-label>
 
-    <va-item
+    <va-list-item
       v-for="(contact, index) in contacts"
       :key="index"
       disabled
     >
-      <va-item-section avatar>
+      <va-list-item-section avatar>
         <va-avatar>
           <img :src="contact.img">
         </va-avatar>
-      </va-item-section>
+      </va-list-item-section>
 
-      <va-item-section>
-        <va-item-label>
+      <va-list-item-section>
+        <va-list-item-label>
           {{ contact.name }}
-        </va-item-label>
+        </va-list-item-label>
 
-        <va-item-label caption>
+        <va-list-item-label caption>
           {{ contact.address }}
-        </va-item-label>
-      </va-item-section>
+        </va-list-item-label>
+      </va-list-item-section>
 
-      <va-item-section icon>
+      <va-list-item-section icon>
         <va-icon
           name="remove_red_eye"
           color="gray"
         />
-      </va-item-section>
-    </va-item>
+      </va-list-item-section>
+    </va-list-item>
   </va-list>
 </template>
 

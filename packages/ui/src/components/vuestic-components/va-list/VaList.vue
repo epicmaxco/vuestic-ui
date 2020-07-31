@@ -31,6 +31,7 @@ export default class VaList extends Mixins(
 .va-list {
   padding: $list-padding;
   background-color: #ffffff;
+  width: 100%;
 
   &--fit {
     width: fit-content;
