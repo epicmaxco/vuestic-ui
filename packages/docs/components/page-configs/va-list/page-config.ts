@@ -14,7 +14,7 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'list.paragraph',
+    translationString: 'list.summaryText',
   },
   {
     type: BlockType.SUBTITLE,

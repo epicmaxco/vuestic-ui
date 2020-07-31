@@ -1479,6 +1479,29 @@
   },
   "list": {
     "title": "List",
+    "summaryText": "The `va-list` component is used to display structured information.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "Has no attributes by default. Build a structure by using components `va-list-label`, `va-list-separator`, `va-list-item` and etc."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "You can disable any user interaction by using 'disabled' prop."
+      },
+      "clickable": {
+        "title": "Clickable",
+        "text": "Support a ability to use a list item as a link."
+      },
+      "fit": {
+        "title": "Fit",
+        "text": "Support a fitting of the list item by its content length."
+      },
+      "lines": {
+        "title": "Lines",
+        "text": "You can divide item label content on a custom count of lines."
+      }
+    },
     "api": {
       "list": "List",
       "listLabel": "List Label",
