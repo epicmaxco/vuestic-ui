@@ -89,7 +89,7 @@ const AlertPropsMixin = makeContextablePropsMixin({
     type: String,
     default: '',
     validator: (value: string) => {
-      return ['top', 'right', 'bottom', 'left'].includes(value)
+      return ['top', 'right', 'bottom', 'left', ''].includes(value)
     },
   },
 })

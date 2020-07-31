@@ -12,7 +12,7 @@
     class="va-tag"
     :class="computedClass"
     :style="computedStyle"
-    :tabindex="tagIndexComputed"
+    :tabindex="indexComputed"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
     @focus="updateFocusState(true)"
@@ -99,7 +99,7 @@ export default class VaTag extends Mixins(
     return size[this.c_size]
   }
 
-  get tagIndexComputed () {
+  get indexComputed () {
     return this.c_disabled ? -1 : 0
   }
 
