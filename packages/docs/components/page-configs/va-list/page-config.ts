@@ -5,7 +5,14 @@ import VaListSeparator from 'vuestic-ui/src/components/vuestic-components/va-lis
 import VaListItem from 'vuestic-ui/src/components/vuestic-components/va-list/VaListItem.vue'
 import VaListItemLabel from 'vuestic-ui/src/components/vuestic-components/va-list/VaListItemLabel.vue'
 import VaListItemSection from 'vuestic-ui/src/components/vuestic-components/va-list/VaListItemSection.vue'
-import apiOptions from './api-options'
+import {
+  listApiOptions,
+  listLabelApiOptions,
+  listSeparatorApiOptions,
+  listItemApiOptions,
+  listItemLabelApiOptions,
+  listItemSectionApiOptions,
+} from './api-options'
 
 export default [
   {
@@ -91,7 +98,7 @@ export default [
   {
     type: BlockType.API,
     componentOptions: VaList,
-    apiOptions,
+    apiOptions: listApiOptions,
   },
   {
     type: BlockType.HEADLINE,
@@ -100,7 +107,7 @@ export default [
   {
     type: BlockType.API,
     componentOptions: VaListLabel,
-    apiOptions,
+    apiOptions: listLabelApiOptions,
   },
   {
     type: BlockType.HEADLINE,
@@ -109,7 +116,7 @@ export default [
   {
     type: BlockType.API,
     componentOptions: VaListSeparator,
-    apiOptions,
+    apiOptions: listSeparatorApiOptions,
   },
   {
     type: BlockType.HEADLINE,
@@ -118,7 +125,7 @@ export default [
   {
     type: BlockType.API,
     componentOptions: VaListItem,
-    apiOptions,
+    apiOptions: listItemApiOptions,
   },
   {
     type: BlockType.HEADLINE,
@@ -127,7 +134,7 @@ export default [
   {
     type: BlockType.API,
     componentOptions: VaListItemLabel,
-    apiOptions,
+    apiOptions: listItemLabelApiOptions,
   },
   {
     type: BlockType.HEADLINE,
@@ -136,6 +143,6 @@ export default [
   {
     type: BlockType.API,
     componentOptions: VaListItemSection,
-    apiOptions,
+    apiOptions: listItemSectionApiOptions,
   },
 ] as ApiDocsBlock[]

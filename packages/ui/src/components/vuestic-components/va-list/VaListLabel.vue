@@ -16,7 +16,6 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 export default class VaListLabel extends Mixins(
   ColorThemeMixin,
 ) {
-  colorThemeDefault = 'info'
   get computedStyle () {
     return {
       color: this.colorComputed,

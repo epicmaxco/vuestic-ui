@@ -465,10 +465,50 @@
       }
     },
     "VaList": {
-      "props": {},
-      "events": {},
-      "methods": {},
-      "slots": {}
+      "props": {
+        "fit": "Stretches list by its content width"
+      },
+      "slots": {
+        "default": "Contains list items"
+      }
+    },
+    "VaListLabel": {
+      "slots": {
+        "default": "Contains the label text"
+      }
+    },
+    "VaListSeparator": {
+      "props": {
+        "fit": "Adds space on the left side",
+        "spaced": "Adds spaces over and under the separator"
+      }
+    },
+    "VaListItem": {
+      "events": {
+        "focus": "Emitted when item is focused",
+        "click": "Emitted when user clicked on item"
+      },
+      "slots": {
+        "default": "For a list item content"
+      }
+    },
+    "VaListItemLabel": {
+      "props": {
+        "caption": "Applies another style to text",
+        "lines": "Divides item label content on a custom count of lines"
+      },
+      "slots": {
+        "default": "Contains the label text"
+      }
+    },
+    "VaListItemSection": {
+      "props": {
+        "icon": "Makes section for icon",
+        "avatar": "Makes section for avatar"
+      },
+      "slots": {
+        "default": "For a section content"
+      }
     }
   },
   "anyPage": {
