@@ -2,6 +2,7 @@
   <div
     class="va-item-label"
     :class="computedClass"
+    :style="computedStyle"
   >
     <slot />
   </div>
@@ -12,6 +13,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { Component, Mixins } from 'vue-property-decorator'
 const ItemLabelPropsMixin = makeContextablePropsMixin({
   caption: { type: Boolean, default: false },
+  lines: { type: Number, default: 1 },
 })
 @Component({
   name: 'VaItemLabel',
@@ -22,6 +24,12 @@ export default class VaItemLabel extends Mixins(
   get computedClass () {
     return { 'va-item-label--caption': this.c_caption }
   }
+
+  get computedStyle () {
+    return {
+      '-webkit-line-clamp': this.c_lines,
+    }
+  }
 }
 </script>
 
@@ -30,6 +38,9 @@ export default class VaItemLabel extends Mixins(
 
 .va-item-label {
   color: $vue-darkest-blue;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 
   &--caption {
     font-size: $font-size-smaller;
