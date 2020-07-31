@@ -49,9 +49,17 @@ export default [
     translationString: 'all.api',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'list.api.list',
+  },
+  {
     type: BlockType.API,
     componentOptions: VaList,
     apiOptions,
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'list.api.listLabel',
   },
   {
     type: BlockType.API,
@@ -59,9 +67,17 @@ export default [
     apiOptions,
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'list.api.listSeparator',
+  },
+  {
     type: BlockType.API,
     componentOptions: VaListSeparator,
     apiOptions,
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'list.api.item',
   },
   {
     type: BlockType.API,
@@ -69,9 +85,17 @@ export default [
     apiOptions,
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'list.api.itemLabel',
+  },
+  {
     type: BlockType.API,
     componentOptions: VaItemLabel,
     apiOptions,
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'list.api.itemSection',
   },
   {
     type: BlockType.API,
