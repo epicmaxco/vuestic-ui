@@ -26,7 +26,7 @@
           </va-item-label>
         </va-item-section>
 
-        <va-item-section side>
+        <va-item-section icon>
           <va-icon
             name="remove_red_eye"
             color="gray"
@@ -53,7 +53,7 @@
           </va-item-label>
         </va-item-section>
 
-        <va-item-section side>
+        <va-item-section icon>
           <va-icon
             name="remove_red_eye"
             color="gray"
@@ -84,7 +84,7 @@
           </va-item-label>
         </va-item-section>
 
-        <va-item-section side>
+        <va-item-section icon>
           <va-icon
             name="remove_red_eye"
             color="gray"
@@ -112,7 +112,7 @@
           </va-item-label>
         </va-item-section>
 
-        <va-item-section side>
+        <va-item-section icon>
           <va-icon
             name="remove_red_eye"
             color="gray"
@@ -130,7 +130,7 @@
       </va-list-label>
 
       <va-item clickable>
-        <va-item-section side>
+        <va-item-section icon>
           <va-icon
             name="star"
             color="warning"
@@ -153,7 +153,7 @@
           </va-item-label>
         </va-item-section>
 
-        <va-item-section side>
+        <va-item-section icon>
           <va-icon
             name="remove_red_eye"
             color="gray"
@@ -164,7 +164,7 @@
       <va-list-separator />
 
       <va-item clickable>
-        <va-item-section side />
+        <va-item-section icon />
 
         <va-item-section avatar>
           <va-avatar>
@@ -182,7 +182,7 @@
           </va-item-label>
         </va-item-section>
 
-        <va-item-section side>
+        <va-item-section icon>
           <va-icon
             name="remove_red_eye"
             color="gray"
@@ -215,7 +215,7 @@
           </va-item-label>
         </va-item-section>
 
-        <va-item-section side>
+        <va-item-section icon>
           <va-icon
             name="remove_red_eye"
             color="gray"
@@ -242,7 +242,7 @@
           </va-item-label>
         </va-item-section>
 
-        <va-item-section side>
+        <va-item-section icon>
           <va-icon
             name="remove_red_eye"
             color="gray"
@@ -260,7 +260,7 @@
       </va-list-label>
 
       <va-item>
-        <va-item-section side>
+        <va-item-section icon>
           <va-checkbox v-model="check1" />
         </va-item-section>
 
@@ -272,7 +272,7 @@
       </va-item>
 
       <va-item>
-        <va-item-section side>
+        <va-item-section icon>
           <va-checkbox v-model="check2" />
         </va-item-section>
 

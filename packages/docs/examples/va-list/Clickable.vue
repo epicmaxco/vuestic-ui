@@ -1,12 +1,13 @@
 <template>
   <va-list>
     <va-list-label>
-      Contacts
+      Clickable
     </va-list-label>
 
     <va-item
       v-for="(contact, index) in contacts"
       :key="index"
+      clickable
     >
       <va-item-section avatar>
         <va-avatar>

@@ -25,7 +25,7 @@
         </va-item-label>
       </va-item-section>
 
-      <va-item-section side>
+      <va-item-section icon>
         <va-icon
           name="remove_red_eye"
           color="gray"

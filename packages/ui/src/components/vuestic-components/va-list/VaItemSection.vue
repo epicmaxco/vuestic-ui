@@ -11,7 +11,7 @@
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins } from 'vue-property-decorator'
 const ItemSectionPropsMixin = makeContextablePropsMixin({
-  side: { type: Boolean, default: false },
+  icon: { type: Boolean, default: false },
   avatar: { type: Boolean, default: false },
 })
 @Component({
@@ -22,8 +22,8 @@ export default class VaItemSection extends Mixins(
 ) {
   get computedClass () {
     return {
-      'va-item-section--main': !this.c_side && !this.c_avatar,
-      'va-item-section--side': this.c_side,
+      'va-item-section--main': !this.c_icon && !this.c_avatar,
+      'va-item-section--icon': this.c_icon,
       'va-item-section--avatar': this.c_avatar,
     }
   }
@@ -42,7 +42,7 @@ export default class VaItemSection extends Mixins(
     flex: 1 0;
   }
 
-  &--side {
+  &--icon {
     min-width: 1.5rem;
     align-items: center;
 
@@ -59,7 +59,7 @@ export default class VaItemSection extends Mixins(
 .va-item-section + .va-item-section {
   margin-left: 0.5rem;
 
-  &--side {
+  &--icon {
     &:last-child {
       margin-left: 1rem;
     }

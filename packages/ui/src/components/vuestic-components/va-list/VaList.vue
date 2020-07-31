@@ -33,7 +33,7 @@ export default class VaList extends Mixins(
   background-color: #ffffff;
 
   &--fit {
-    width: 100%;
+    width: fit-content;
   }
 }
 </style>

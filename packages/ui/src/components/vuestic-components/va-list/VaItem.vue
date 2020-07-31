@@ -11,6 +11,8 @@
     class="va-item align--center no-wrap"
     :class="computedClass"
     :tabindex="indexComputed"
+    @mousedown="hasMouseDown = true"
+    @mouseup="hasMouseDown = false"
     @focus="onFocus"
     @blur="isKeyboardFocused = false"
     @click="$emit('click')"
