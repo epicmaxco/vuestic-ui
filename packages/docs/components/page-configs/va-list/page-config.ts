@@ -33,16 +33,52 @@ export default [
     component: 'va-list/Default',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'list.examples.disabled.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.examples.disabled.text',
+  },
+  {
     type: BlockType.EXAMPLE,
     component: 'va-list/Disabled',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'list.examples.clickable.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.examples.clickable.text',
   },
   {
     type: BlockType.EXAMPLE,
     component: 'va-list/Clickable',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'list.examples.fit.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.examples.fit.text',
+  },
+  {
     type: BlockType.EXAMPLE,
     component: 'va-list/Fit',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'list.examples.lines.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.examples.lines.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-list/Lines',
   },
   {
     type: BlockType.SUBTITLE,

@@ -28,7 +28,7 @@ import { RouterLinkMixin } from './../../vuestic-mixins/RouterLinkMixin'
 import { KeyboardOnlyFocusMixin } from './../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 const ItemPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'div' },
-  disabled: { type: Boolean, defaulr: false },
+  disabled: { type: Boolean, default: false },
 })
 @Component({
   name: 'VaListItem',

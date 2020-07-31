@@ -7,7 +7,7 @@
     <va-list-item
       v-for="(contact, index) in contacts"
       :key="index"
-      clickable
+      to="/"
     >
       <va-list-item-section avatar>
         <va-avatar>
