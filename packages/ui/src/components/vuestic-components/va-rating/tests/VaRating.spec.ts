@@ -3,7 +3,7 @@
 import { shallowMount } from '@vue/test-utils'
 import VaRating from '../VaRating.vue'
 
-import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefullMixin/testHasStatefulMixin'
+import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 
 describe('VaRating', () => {
