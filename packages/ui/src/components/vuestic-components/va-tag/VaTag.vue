@@ -45,7 +45,7 @@ import {
   getFocusColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'

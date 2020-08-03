@@ -66,7 +66,7 @@ import {
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'

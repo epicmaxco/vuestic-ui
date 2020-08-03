@@ -1,5 +1,5 @@
 import { Vue, Component, Prop, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from './../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const RouterLinkPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'router-link' },
@@ -77,5 +77,9 @@ export class RouterLinkMixin extends Mixins(
     const currentHref = this.$router.currentRoute.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
+  }
+
+  created () {
+    this.hasRouterLinkMixin = true
   }
 }
