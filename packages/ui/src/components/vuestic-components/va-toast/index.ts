@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import Toast from './Toast.vue'
+import VaToast from './VaToast.vue'
 import { NotificationOptions } from './types'
 import { VNode } from 'vue/types/umd'
 
-const NotificationConstructor = Vue.extend(Toast)
+const NotificationConstructor = Vue.extend(VaToast)
 
 type OptionKeys = keyof NotificationOptions;
 
@@ -15,7 +15,9 @@ const isVNode = (node: any) => node !== null && typeof node === 'object' &&
   Object.prototype.hasOwnProperty.call(node, 'componentOptions')
 const merge = (target: NotificationOptions | any, ...args: NotificationOptions[]): NotificationOptions => {
   args.forEach((source) => {
-    if (typeof source !== 'object') { return }
+    if (typeof source !== 'object') {
+      return
+    }
     for (const prop in source) {
       if (Object.prototype.hasOwnProperty.call(source, prop)) {
         const value = source[prop as OptionKeys]
@@ -29,7 +31,9 @@ const merge = (target: NotificationOptions | any, ...args: NotificationOptions[]
 }
 
 const Notification = function (options: NotificationOptions) {
-  if (Vue.prototype.$isServer) { return }
+  if (Vue.prototype.$isServer) {
+    return
+  }
   if (typeof options === 'string') {
     options = {
       message: options,
@@ -90,14 +94,18 @@ Notification.close = function (id: any, userOnClose?: Function) {
     }
     return false
   })[0]
-  if (!instance) { return }
+  if (!instance) {
+    return
+  }
 
   if (typeof userOnClose === 'function') {
     userOnClose(instance)
   }
   instances.splice(index, 1)
 
-  if (len <= 1) { return }
+  if (len <= 1) {
+    return
+  }
   const position = instance.position
   const removedHeight = instance.$el.offsetHeight
   for (let i = index; i < len - 1; i++) {
