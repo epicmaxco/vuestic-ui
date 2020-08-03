@@ -16,8 +16,9 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import users from '../../../data/users.json'
 import VaDataTable from './VaDataTable.vue'
-const transformToString = (a: any = '') => {
-  if (a === 'string') { return a }
+const transformToString = (a: any) => {
+  a = a ?? ''
+  if (typeof a === 'string') { return a }
   return a.toString()
 }
 
