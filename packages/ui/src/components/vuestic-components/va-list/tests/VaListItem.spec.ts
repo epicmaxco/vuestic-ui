@@ -1,6 +1,8 @@
 import { mount, shallowMount } from '@vue/test-utils'
+import { testHasRouterLinkMixin } from './../../../vuestic-mixins/RouterLinkMixin/testHasRouterLinkMixin'
 
 import VaListItem from '../VaListItem.vue'
+import { RouterLinkMixin } from 'src/components/vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
 describe('VaListItem', () => {
   it('should render without an error', () => {
@@ -14,5 +16,10 @@ describe('VaListItem', () => {
       },
     })
     expect(wrapper.is('a')).toBe(true)
+  })
+  it('has RouterLinkMixin', () => {
+    expect(() =>
+      testHasRouterLinkMixin((VaListItem as unknown) as RouterLinkMixin),
+    ).not.toThrow()
   })
 })

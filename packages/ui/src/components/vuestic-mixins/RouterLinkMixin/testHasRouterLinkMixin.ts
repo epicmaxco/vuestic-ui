@@ -1,7 +1,7 @@
 import { shallowMount, Wrapper } from '@vue/test-utils'
 import { RouterLinkMixin } from './RouterLinkMixin'
 
-export function testHasStatefulMixin<T extends RouterLinkMixin> (componentOptions: T) {
+export function testHasRouterLinkMixin<T extends RouterLinkMixin> (componentOptions: T) {
   const wrapper: Wrapper<T> = shallowMount(componentOptions)
 
   // Test mixin applied
