@@ -17,4 +17,8 @@ export class KeyboardOnlyFocusMixin extends Vue {
     }
     this.isFocused = true
   }
+
+  created () {
+    (this as any).hasKeyboardOnlyFocusMixin = true
+  }
 }
