@@ -1,7 +1,13 @@
 <template>
   <component
-    :is="computedTag"
+    :is="tagComputed"
+    :href="href"
+    :target="target"
     :to="to"
+    :replace="replace"
+    :exact="exact"
+    :active-class="activeClass"
+    :exact-active-class="exactActiveClass"
     class="va-tab"
     :class="classComputed"
     @click="onTabClick"
@@ -33,7 +39,7 @@
 import VaIcon from '../va-icon/VaIcon.vue'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { Component, Mixins } from 'vue-property-decorator'
 
 const TabPropsMixin = makeContextablePropsMixin({
@@ -41,6 +47,7 @@ const TabPropsMixin = makeContextablePropsMixin({
   label: { type: String, default: null },
   disabled: { type: Boolean },
   name: { type: [String, Number] },
+  tag: { type: String, default: 'div' },
 })
 
 @Component({
@@ -61,13 +68,6 @@ export default class VaTab extends Mixins(
       'va-tab--disabled': this.c_disabled,
       'va-tab--on-keyboard-focus': this.isKeyboardFocused,
     }
-  }
-
-  get computedTag () {
-    if (this.hasRouterLinkParams) {
-      return 'router-link'
-    }
-    return 'div'
   }
 
   get tabIndexComputed () {

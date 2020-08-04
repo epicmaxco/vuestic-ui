@@ -68,6 +68,12 @@
       "methods": {},
       "slots": {}
     },
+    "VaList": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaSelect": {
       "props": {},
       "events": {},
@@ -85,6 +91,7 @@
     "radio": "Radio",
     "tag": "Tag",
     "input": "Input",
+    "list": "List",
     "select": "Select"
   },
   "language": {
@@ -113,6 +120,9 @@
     "title": "-- Here is the title --"
   },
   "input": {
+    "title": "-- Here is the title --"
+  },
+  "list": {
     "title": "-- Here is the title --"
   },
   "select": {

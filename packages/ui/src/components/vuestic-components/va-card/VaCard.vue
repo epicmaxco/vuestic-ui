@@ -1,11 +1,11 @@
 <template>
   <component
-    :is="cardTag"
+    :is="tagComputed"
     class="va-card"
     :class="cardClasses"
     :style="cardStyles"
-    :href="c_href"
-    :target="c_target"
+    :href="href"
+    :target="target"
     :to="to"
     :replace="replace"
     :exact="exact"
@@ -26,7 +26,7 @@
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { Component, Mixins } from 'vue-property-decorator'
 
 const CardPropsMixin = makeContextablePropsMixin({
@@ -50,18 +50,6 @@ export default class VaCard extends Mixins(
   RouterLinkMixin,
   CardPropsMixin,
 ) {
-  get cardTag () {
-    if (this.c_tag === 'a' || this.c_href) {
-      return 'a'
-    }
-
-    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
-      return 'router-link'
-    }
-
-    return this.c_tag
-  }
-
   get cardClasses () {
     return {
       'va-card--dark': this.dark,

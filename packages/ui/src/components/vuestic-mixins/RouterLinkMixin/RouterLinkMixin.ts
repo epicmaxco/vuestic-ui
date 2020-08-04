@@ -1,8 +1,14 @@
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Mixins } from 'vue-property-decorator'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
+const RouterLinkPropsMixin = makeContextablePropsMixin({
+  tag: { type: String, default: 'router-link' },
+})
 // should not be contextable as it's a unique case (we just pass values to vue-router's <router-link/>)
 @Component
-export class RouterLinkMixin extends Vue {
+export class RouterLinkMixin extends Mixins(
+  RouterLinkPropsMixin,
+) {
   @Prop({
     type: [String, Object],
   }) readonly to!: string | Record<string, any>
@@ -31,6 +37,20 @@ export class RouterLinkMixin extends Vue {
     type: String,
   }) readonly href!: string
 
+  @Prop({
+    type: String,
+  }) readonly target!: string
+
+  get tagComputed () {
+    if (this.c_tag === 'a' || this.href || this.target) {
+      return 'a'
+    }
+    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
+      return 'router-link'
+    }
+    return this.c_tag
+  }
+
   get hasRouterLinkParams () {
     return Boolean(
       this.to ||
@@ -57,5 +77,9 @@ export class RouterLinkMixin extends Vue {
     const currentHref = this.$router.currentRoute.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
+  }
+
+  created () {
+    this.hasRouterLinkMixin = true
   }
 }

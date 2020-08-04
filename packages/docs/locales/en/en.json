@@ -464,6 +464,52 @@
         "appendInner": "Adds an item inside the input and after input content"
       }
     },
+    "VaList": {
+      "props": {
+        "fit": "Stretches list by its content width"
+      },
+      "slots": {
+        "default": "Contains list items"
+      }
+    },
+    "VaListLabel": {
+      "slots": {
+        "default": "Contains the label text"
+      }
+    },
+    "VaListSeparator": {
+      "props": {
+        "fit": "Adds space on the left side",
+        "spaced": "Adds spaces over and under the separator"
+      }
+    },
+    "VaListItem": {
+      "events": {
+        "focus": "Emitted when item is focused",
+        "click": "Emitted when user clicked on item"
+      },
+      "slots": {
+        "default": "For a list item content"
+      }
+    },
+    "VaListItemLabel": {
+      "props": {
+        "caption": "Applies another style to text",
+        "lines": "Divides item label content on a custom count of lines"
+      },
+      "slots": {
+        "default": "Contains the label text"
+      }
+    },
+    "VaListItemSection": {
+      "props": {
+        "icon": "Makes section for icon",
+        "avatar": "Makes section for avatar"
+      },
+      "slots": {
+        "default": "For a section content"
+      }
+    },
     "VaSelect": {
       "props": {
         "value": "Model of the component. Must be Array if using 'multiple' prop",
@@ -540,6 +586,7 @@
     "tag": "Tag",
     "grid": "Grid",
     "input": "Input",
+    "list": "List",
     "select": "Select"
   },
   "language": {
@@ -1509,6 +1556,40 @@
           "`.justify-self--baseline`"
         ]
       }
+    }
+  },
+  "list": {
+    "title": "List",
+    "summaryText": "The `va-list` component is used to display structured information.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "Has no attributes by default. Build a structure by using components `va-list-label`, `va-list-separator`, `va-list-item` and etc."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "You can disable any user interaction by using 'disabled' prop."
+      },
+      "clickable": {
+        "title": "Clickable",
+        "text": "Support a ability to use a list item as a link."
+      },
+      "fit": {
+        "title": "Fit",
+        "text": "Support a fitting of the list item by its content length."
+      },
+      "lines": {
+        "title": "Lines",
+        "text": "You can divide item label content on a custom count of lines."
+      }
+    },
+    "api": {
+      "list": "List",
+      "listLabel": "List Label",
+      "listSeparator": "List Separator",
+      "listItem": "List Item",
+      "listItemLabel": "List Item Label",
+      "listItemSection": "List Item Section"
     }
   },
   "select": {

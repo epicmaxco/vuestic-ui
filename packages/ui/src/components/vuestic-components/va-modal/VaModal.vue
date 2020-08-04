@@ -85,7 +85,7 @@ import { Component, Watch, Mixins } from 'vue-property-decorator'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import ClickOutsideMixin, {
   ClickOutsideOptions,
 } from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'

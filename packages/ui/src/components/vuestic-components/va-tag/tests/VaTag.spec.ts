@@ -24,12 +24,12 @@ describe('VaTag', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('a tag with defined href', () => {
+  it('should be a link', () => {
     const wrapper = shallowMount(VaTag, {
       propsData: {
-        to: 'http://epic-spinners.epicmax.co/',
+        href: 'http://epic-spinners.epicmax.co/',
       },
     })
-    expect(wrapper.is('router-link')).toBe(true)
+    expect(wrapper.is('a')).toBe(true)
   })
 })

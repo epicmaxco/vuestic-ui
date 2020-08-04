@@ -123,6 +123,10 @@
           "displayName": "menu.input"
         },
         {
+          "name": "list",
+          "displayName": "menu.list"
+        },
+        {
           "name": "select",
           "displayName": "menu.select"
         }

@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 import { SelectableMixin } from './SelectableMixin'
-import { StatefulMixin } from '../StatefullMixin/StatefulMixin'
+import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
 import Component, { mixins } from 'vue-class-component'
 
 // TODO Should probably have better typing. A  bit rushed.

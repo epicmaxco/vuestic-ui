@@ -1,22 +1,29 @@
 <template>
-  <div>
-    <div
-      class="va-list-separator"
-      :class="{
-        'va-list-separator--offset': !fit,
-        'va-list-separator--spaced': spaced
-      }"
-    />
-  </div>
+  <div
+    class="va-list-separator"
+    :class="computedClass"
+  />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins } from 'vue-property-decorator'
+const ListSeparatorPropsMixin = makeContextablePropsMixin({
+  fit: { type: Boolean, default: false },
+  spaced: { type: Boolean, default: false },
+})
+@Component({
   name: 'VaListSeparator',
-  props: {
-    fit: Boolean,
-    spaced: Boolean,
-  },
+})
+export default class VaListSeparator extends Mixins(
+  ListSeparatorPropsMixin,
+) {
+  get computedClass () {
+    return {
+      'va-list-separator--offset': !this.c_fit,
+      'va-list-separator--spaced': this.c_spaced,
+    }
+  }
 }
 </script>
 

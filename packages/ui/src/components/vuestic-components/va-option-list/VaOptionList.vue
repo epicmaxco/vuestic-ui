@@ -67,7 +67,7 @@ import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { generateUuid } from '../../../services/utils'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { Component, Mixins } from 'vue-property-decorator'
 
 const OptionListPropsMixin = makeContextablePropsMixin({
