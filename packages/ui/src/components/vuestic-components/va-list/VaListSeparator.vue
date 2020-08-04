@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div
-      class="va-list-separator"
-      :class="computedClass"
-    />
-  </div>
+  <div
+    class="va-list-separator"
+    :class="computedClass"
+  />
 </template>
 
 <script lang="ts">

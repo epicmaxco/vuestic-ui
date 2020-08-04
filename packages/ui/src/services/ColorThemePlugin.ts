@@ -116,4 +116,8 @@ export class ColorThemeMixin extends Vue {
   setTheme (theme: Record<string, string>) {
     Object.assign(this.$themes, theme)
   }
+
+  created () {
+    (this as any).hasColorThemeMixin = true
+  }
 }
