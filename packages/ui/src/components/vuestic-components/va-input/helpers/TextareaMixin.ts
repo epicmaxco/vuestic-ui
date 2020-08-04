@@ -31,7 +31,7 @@ const PropsMixin = makeContextablePropsMixin({
 @Component
 export class TextareaMixin extends Mixins(PropsMixin) {
   @Watch('value')
-  onValueChanged (value: string | number): void {
+  onValueChanged (): void {
     // only for textarea
     if (this.isTextarea) {
       this.adjustHeight()

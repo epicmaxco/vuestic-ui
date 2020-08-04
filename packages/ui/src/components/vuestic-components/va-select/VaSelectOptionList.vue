@@ -1,7 +1,7 @@
 <template>
-  <ul class="va-select-option-list">
-    <template v-if="options.length">
-      <li
+  <div class="va-select-option-list">
+    <template v-if="filteredOptions.length">
+      <div
         v-for="option in filteredOptions"
         :key="getTrackBy(option)"
         :class="getOptionClass(option)"
@@ -9,6 +9,7 @@
         @click.stop="selectOption(option)"
         @mouseleave="updateHoveredOption(null)"
         @mouseover="updateHoveredOption(option)"
+        :ref="getTrackBy(option)"
       >
         <va-icon
           v-if="option.icon"
@@ -21,16 +22,16 @@
           class="va-select-option-list__option--selected-icon"
           name="done"
         />
-      </li>
+      </div>
     </template>
-    <li class="va-select-option-list no-options" v-else>
+    <div class="va-select-option-list no-options" v-else>
       {{ noOptionsText }}
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Prop } from 'vue-property-decorator'
+import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { getHoverColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
@@ -39,6 +40,14 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
   components: { VaIcon },
 })
 export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
+  @Watch('hintedOption')
+  onHintedOptionChange (option: any) {
+    if (option) {
+      this.updateHoveredOption(option)
+      this.scrollToOption(option)
+    }
+  }
+
   @Prop({ type: Array, default: () => [] }) readonly options!: any
   @Prop({
     type: String,
@@ -62,8 +71,12 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
   @Prop({ type: String, default: 'id' }) readonly keyBy!: string
   @Prop({ type: String, default: 'text' }) readonly textBy!: string
   @Prop({ type: String, default: '' }) readonly search!: string
+  @Prop({
+    type: [String, Object],
+    default: null,
+  }) readonly hintedOption!: string | object | undefined
 
-  hoveredOption: any = null
+  public hoveredOption: any = null
 
   get filteredOptions () {
     if (!this.search) {
@@ -90,8 +103,8 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
 
   getOptionStyle (option: any) {
     return {
-      color: this.getSelectedState(option) ? this.computeColor('success') : 'inherit',
-      backgroundColor: this.isHovered(option) ? getHoverColor(this.computeColor('success')) : 'transparent',
+      color: this.getSelectedState(option) ? this.computeColor('primary') : 'inherit',
+      backgroundColor: this.isHovered(option) ? getHoverColor(this.computeColor('primary')) : 'transparent',
     }
   }
 
@@ -108,12 +121,46 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
       this.hoveredOption = null
     }
   }
+
+  public hoverPreviousOption () {
+    if (!this.hoveredOption) {
+      // Hover last option from list
+      this.filteredOptions.length && this.updateHoveredOption(this.filteredOptions[this.filteredOptions.length - 1])
+    } else {
+      const hoveredOptionIndex: any = this.filteredOptions.findIndex((option: any) => this.getText(option) === this.getText(this.hoveredOption))
+      if (this.filteredOptions[hoveredOptionIndex - 1]) {
+        this.hoveredOption = this.filteredOptions[hoveredOptionIndex - 1]
+      }
+    }
+    this.scrollToOption(this.hoveredOption)
+  }
+
+  public hoverNextOption () {
+    if (!this.hoveredOption) {
+      // Hover first option from list
+      this.filteredOptions.length && this.updateHoveredOption(this.filteredOptions[0])
+    } else {
+      const hoveredOptionIndex: any = this.filteredOptions.findIndex((option: any) => this.getText(option) === this.getText(this.hoveredOption))
+      if (this.filteredOptions[hoveredOptionIndex + 1]) {
+        this.hoveredOption = this.filteredOptions[hoveredOptionIndex + 1]
+      }
+    }
+    this.scrollToOption(this.hoveredOption)
+  }
+
+  scrollToOption (option: any) {
+    const optionElement: HTMLElement = (this as any).$refs[this.getTrackBy(option)][0]
+    // Scroll list to hinted option position
+    optionElement.scrollIntoView({ behavior: 'smooth' })
+  }
 }
 </script>
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
 .va-select-option-list {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   list-style: none;
 

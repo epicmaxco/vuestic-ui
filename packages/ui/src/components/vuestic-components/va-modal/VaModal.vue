@@ -81,8 +81,7 @@
 
 <script lang="ts">
 import { noop } from 'lodash'
-import { CreateElement } from 'vue'
-import { Component, Watch, Mixins, Vue, Prop } from 'vue-property-decorator'
+import { Component, Watch, Mixins } from 'vue-property-decorator'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
