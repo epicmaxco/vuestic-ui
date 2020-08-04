@@ -57,9 +57,9 @@ describe('VaRating', () => {
   //   }
   //   expect(() => testIsContextableComponent(VaRating, props)).not.toThrow()
   // })
-  // it('has ColorThemeMixin', () => {
-  //   expect(() =>
-  //     testHasColorThemeMixin((VaRating as unknown) as ColorThemeMixin),
-  //   ).not.toThrow()
-  // })
+  it('has ColorThemeMixin', () => {
+    expect(() =>
+      testHasColorThemeMixin((VaRating as unknown) as ColorThemeMixin),
+    ).not.toThrow()
+  })
 })
