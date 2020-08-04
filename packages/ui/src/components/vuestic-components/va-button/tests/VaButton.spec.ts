@@ -2,7 +2,8 @@ import Vue from 'vue'
 import { mount, shallowMount, RouterLinkStub } from '@vue/test-utils'
 import VaButton from '../VaButton.vue'
 
-import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
+import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
+import { ColorThemePlugin, ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { ContextPlugin } from '../../../context-test/context-provide/ContextPlugin'
 import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 
@@ -170,5 +171,11 @@ describe('VaButton', () => {
 
     wrapper.vm.blur()
     expect(document.hasFocus()).toEqual(false)
+  })
+
+  it('has ColorThemeMixin', () => {
+    expect(() =>
+      testHasColorThemeMixin((VaButton as unknown) as ColorThemeMixin),
+    ).not.toThrow()
   })
 })

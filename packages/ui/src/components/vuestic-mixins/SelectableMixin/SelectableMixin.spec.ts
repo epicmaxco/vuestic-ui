@@ -2,6 +2,8 @@ import { shallowMount } from '@vue/test-utils'
 import { SelectableMixin } from './SelectableMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
 import Component, { mixins } from 'vue-class-component'
+import { testHasColorThemeMixin } from '../../../services/testHasColorThemeMixin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 // TODO Should probably have better typing. A  bit rushed.
 @Component
@@ -43,5 +45,10 @@ describe('SelectableMixin', () => {
       expect(wrapper.vm.isChecked).toBe(true)
       expect(wrapper.vm.isIndeterminate).toBe(false)
     })
+  })
+  it('has ColorThemeMixin', () => {
+    expect(() =>
+      testHasColorThemeMixin((ExampleComponent as unknown) as ColorThemeMixin),
+    ).not.toThrow()
   })
 })

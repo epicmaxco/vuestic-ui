@@ -2,6 +2,8 @@ import { mount } from '@vue/test-utils'
 import VaCard from '../VaCard.vue'
 
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
+import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
 describe('VaCard', () => {
   it('should render without an error', () => {
@@ -22,5 +24,10 @@ describe('VaCard', () => {
       gradient: true,
     }
     expect(() => testIsContextableComponent(VaCard, props)).not.toThrow()
+  })
+  it('has ColorThemeMixin', () => {
+    expect(() =>
+      testHasColorThemeMixin((VaCard as unknown) as ColorThemeMixin),
+    ).not.toThrow()
   })
 })
