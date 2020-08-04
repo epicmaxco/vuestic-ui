@@ -62,7 +62,7 @@ import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import {
   getHoverColor,
 } from '../../../services/color-functions'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
 const ExpandPropsMixin = makeContextablePropsMixin({

@@ -100,9 +100,8 @@
     "checkbox": "Checkbox",
     "alert": "Alert",
     "icon": "Icon",
-    "radio": "Radio",
     "expand": "Expand",
-    "expandGroup": "Expand Group"
+    "expandGroup": "Expand Group",
     "radio": "Radio",
     "tag": "Tag",
     "input": "Input",

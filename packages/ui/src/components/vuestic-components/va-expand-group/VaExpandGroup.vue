@@ -7,7 +7,7 @@
 <script lang="ts">
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins, Provide } from 'vue-property-decorator'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 const ExpandGroupPropsMixin = makeContextablePropsMixin({
   value: { type: Array, default: () => [] },
