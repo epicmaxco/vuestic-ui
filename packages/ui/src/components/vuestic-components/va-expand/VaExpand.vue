@@ -85,6 +85,8 @@ export default class VaExpand extends Mixins(
   ColorThemeMixin,
   ExpandPropsMixin,
 ) {
+  popout = undefined
+  inset = undefined
   height = this.getHeight()
   mutationObserver: any = null
   valueExpand = {
@@ -112,18 +114,16 @@ export default class VaExpand extends Mixins(
   }
 
   get computedClasses () {
-    let popout = false
-    let inset = false
     if (this.$parent.$props) {
-      popout = this.$parent.$props.popout
-      inset = this.$parent.$props.inset
+      this.popout = this.$parent.$props.popout
+      this.inset = this.$parent.$props.inset
     }
     return {
       'va-expand--disabled': this.c_disabled,
       'va-expand--solid': this.c_solid,
       'va-expand--solid--active': this.c_solid && this.childValue,
-      'va-expand--popout': popout && this.childValue,
-      'va-expand--inset': inset && this.childValue,
+      'va-expand--popout': this.popout && this.childValue,
+      'va-expand--inset': this.inset && this.childValue,
     }
   }
 
@@ -173,7 +173,7 @@ export default class VaExpand extends Mixins(
     return node ? `calc(${node.clientHeight}px + 2rem)` : '100%'
   }
 
-  mount () {
+  mounted () {
     this.mutationObserver = new MutationObserver(() => {
       this.height = this.getHeight()
     })
