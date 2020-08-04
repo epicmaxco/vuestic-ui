@@ -5,6 +5,8 @@ import VaRating from '../VaRating.vue'
 
 import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
+import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
 describe('VaRating', () => {
   // it('should render without an error', () => {
@@ -54,5 +56,10 @@ describe('VaRating', () => {
   //     unselectedColor: 'test-color',
   //   }
   //   expect(() => testIsContextableComponent(VaRating, props)).not.toThrow()
+  // })
+  // it('has ColorThemeMixin', () => {
+  //   expect(() =>
+  //     testHasColorThemeMixin((VaRating as unknown) as ColorThemeMixin),
+  //   ).not.toThrow()
   // })
 })

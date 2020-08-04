@@ -165,7 +165,7 @@ export default class VaTabs extends Mixins(
   }
 
   parseItems () {
-    const content = (this as any).$slots.default
+    const content = (this as any).$slots.default || 0
     const length = content.length
     this.tabs = []
 

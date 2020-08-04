@@ -1,6 +1,8 @@
 import { createWrapper, mount, shallowMount } from '@vue/test-utils'
 import VaSelect from '../VaSelect.vue'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
+import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
 describe('VaSelect', () => {
   // ToDO: Fix after context will work fine
@@ -80,5 +82,10 @@ describe('contextable mixin', () => {
     wrapper.vm.reset()
     expect(wrapper.emitted().clear).toBeTruthy()
     expect(wrapper.emitted().input[0]).toEqual([newClearValue])
+  })
+  it('has ColorThemeMixin', () => {
+    expect(() =>
+      testHasColorThemeMixin((VaSelect as unknown) as ColorThemeMixin),
+    ).not.toThrow()
   })
 })
