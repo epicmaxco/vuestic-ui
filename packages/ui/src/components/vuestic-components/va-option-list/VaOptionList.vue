@@ -67,7 +67,7 @@ import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { generateUuid } from '../../../services/utils'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { Component, Mixins } from 'vue-property-decorator'
 
 const OptionListPropsMixin = makeContextablePropsMixin({
@@ -99,7 +99,8 @@ export default class VaOptionList extends Mixins(
   }
 
   get selectedValue () {
-    return this.valueComputed || this.c_defaultValue
+    const value = this.isRadio ? null : []
+    return this.valueComputed || this.c_defaultValue || value
   }
 
   set selectedValue (value) {

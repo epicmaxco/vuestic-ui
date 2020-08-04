@@ -18,4 +18,8 @@ export default {
   events: {
     click: { local: true, types: '`() => Event`' },
   },
+  methods: {
+    focus: { local: true, types: '`() => void`' },
+    blur: { local: true, types: '`() => void`' },
+  },
 } as ManualApiOptions

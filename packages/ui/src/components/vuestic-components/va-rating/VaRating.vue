@@ -80,7 +80,7 @@ import { Component, Mixins } from 'vue-property-decorator'
 import { ColorInput } from 'colortranslator/dist/@types'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { RatingValue } from './VaRating.types'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 const RatingPropsMixin = makeContextablePropsMixin({
   value: { type: Number, default: 0 },
