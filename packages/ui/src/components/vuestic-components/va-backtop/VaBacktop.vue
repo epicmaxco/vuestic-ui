@@ -2,6 +2,7 @@
   <div
   v-if="visible"
     class="va-backtop"
+    :style="computedStyle"
     @click="scrollToTop()"
   >
     <slot>
@@ -20,6 +21,10 @@ const BacktopPropsMixin = makeContextablePropsMixin({
   target: { type: [String, HTMLElement], default: '' },
   visibilityHeight: { type: Number, default: 400 },
   speed: { type: Number, default: 50 },
+  top: { type: String, default: 'auto' },
+  left: { type: String, default: 'auto' },
+  right: { type: String, default: '40px' },
+  bottom: { type: String, default: '40px' },
 })
 
 @Component({
@@ -32,6 +37,15 @@ export default class VaBacktop extends Mixins(
   visible = false
   scrolled = false
   interval = 0
+
+  get computedStyle () {
+    return {
+      bottom: this.c_bottom,
+      right: this.c_right,
+      left: this.c_left,
+      top: this.c_top,
+    }
+  }
 
   get computedDomElement (): any {
     if (this.c_target) {
@@ -73,7 +87,5 @@ export default class VaBacktop extends Mixins(
 
 .va-backtop {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
 }
 </style>
