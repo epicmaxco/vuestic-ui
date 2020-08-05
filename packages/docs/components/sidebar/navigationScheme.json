@@ -137,6 +137,10 @@
         {
           "name": "select",
           "displayName": "menu.select"
+        },
+        {
+          "name": "backtop",
+          "displayName": "menu.backtop"
         }
       ]
     }

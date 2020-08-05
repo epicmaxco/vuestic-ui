@@ -581,6 +581,12 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content"
       }
+    },
+    "VaBacktop": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "anyPage": {
@@ -621,7 +627,8 @@
     "grid": "Grid",
     "input": "Input",
     "list": "List",
-    "select": "Select"
+    "select": "Select",
+    "backtop": "Backtop"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1711,5 +1718,8 @@
         "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
       }
     }
+  },
+  "backtop": {
+    "title": "-- Here is the title --"
   }
 }
