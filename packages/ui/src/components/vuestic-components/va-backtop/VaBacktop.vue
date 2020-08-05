@@ -19,6 +19,7 @@ import VaButton from '../va-button/VaButton.vue'
 const BacktopPropsMixin = makeContextablePropsMixin({
   target: { type: [String, HTMLElement], default: '' },
   visibilityHeight: { type: Number, default: 400 },
+  speed: { type: Number, default: 50 },
 })
 
 @Component({
@@ -28,8 +29,9 @@ const BacktopPropsMixin = makeContextablePropsMixin({
 export default class VaBacktop extends Mixins(
   BacktopPropsMixin,
 ) {
-  scrolled = false
   visible = false
+  scrolled = false
+  interval = 0
 
   get computedDomElement (): any {
     if (this.c_target) {
@@ -51,7 +53,17 @@ export default class VaBacktop extends Mixins(
   }
 
   scrollToTop () {
-    this.computedDomElement.scrollTo(0, 0)
+    if (this.scrolled) { return }
+    this.scrolled = true
+    this.interval = setInterval(() => {
+      const next = Math.floor(this.computedDomElement.scrollTop - this.c_speed)
+      if (this.computedDomElement.scrollTop === 0) {
+        clearInterval(this.interval)
+        this.scrolled = false
+      } else {
+        this.computedDomElement.scrollTo(0, next)
+      }
+    }, 15)
   }
 }
 </script>
@@ -61,8 +73,7 @@ export default class VaBacktop extends Mixins(
 
 .va-backtop {
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  transition: all 1s linear;
+  bottom: 1.5rem;
+  right: 1.5rem;
 }
 </style>
