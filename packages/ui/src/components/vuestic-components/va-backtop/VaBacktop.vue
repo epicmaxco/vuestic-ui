@@ -1,7 +1,13 @@
 <template>
-  <div class="va-backtop">
+  <div
+  v-if="visible"
+    class="va-backtop"
+    @click="scrollToTop()"
+  >
     <slot>
-      <va-button icon="expand_less" />
+      <va-button
+        icon="expand_less"
+      />
     </slot>
   </div>
 </template>
@@ -12,6 +18,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import VaButton from '../va-button/VaButton.vue'
 const BacktopPropsMixin = makeContextablePropsMixin({
   target: { type: [String, HTMLElement], default: '' },
+  visibilityHeight: { type: Number, default: 400 },
 })
 
 @Component({
@@ -22,12 +29,13 @@ export default class VaBacktop extends Mixins(
   BacktopPropsMixin,
 ) {
   scrolled = false
+  visible = false
 
   get computedDomElement (): any {
     if (this.c_target) {
       return document.querySelector(`${this.c_target}`)
     }
-    return window
+    return document.body
   }
 
   mounted () {
@@ -38,8 +46,12 @@ export default class VaBacktop extends Mixins(
     this.computedDomElement.removeEventListener('scroll', this.handleScroll)
   }
 
-  handleScroll (e: Event) {
-    console.log('scrolling...')
+  handleScroll () {
+    this.visible = this.computedDomElement.scrollTop > this.visibilityHeight
+  }
+
+  scrollToTop () {
+    this.computedDomElement.scrollTo(0, 0)
   }
 }
 </script>
@@ -47,13 +59,10 @@ export default class VaBacktop extends Mixins(
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
 
-body {
-  height: 200vh;
-}
-
 .va-backtop {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
+  transition: all 1s linear;
 }
 </style>
