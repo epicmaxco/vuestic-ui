@@ -56,6 +56,18 @@
       "methods": {},
       "slots": {}
     },
+    "VaExpand": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaExpandGroup": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaTag": {
       "props": {},
       "events": {},
@@ -88,6 +100,8 @@
     "checkbox": "Checkbox",
     "alert": "Alert",
     "icon": "Icon",
+    "expand": "Expand",
+    "expandGroup": "Expand Group",
     "radio": "Radio",
     "tag": "Tag",
     "input": "Input",
@@ -114,6 +128,12 @@
     "title": "-- Here is the title --"
   },
   "radio": {
+    "title": "-- Here is the title --"
+  },
+  "expand": {
+    "title": "-- Here is the title --"
+  },
+  "expandGroup": {
     "title": "-- Here is the title --"
   },
   "tag": {

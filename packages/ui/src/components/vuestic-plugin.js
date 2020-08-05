@@ -1,4 +1,3 @@
-import VaAccordion from './vuestic-components/va-collapse/VaAccordion'
 import VaAffix from './vuestic-components/va-affix/VaAffix'
 import VaAlert from './vuestic-components/va-alert/VaAlert.vue'
 import VaAvatar from './vuestic-components/va-avatar/VaAvatar'
@@ -14,7 +13,6 @@ import VaCard from './vuestic-components/va-card/VaCard'
 import VaCardContent from './vuestic-components/va-card/VaCardContent'
 import VaCardTitle from './vuestic-components/va-card/VaCardTitle'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
-import VaCollapse from './vuestic-components/va-collapse/VaCollapse'
 import VaContent from './vuestic-components/va-content/VaContent'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDivider from './vuestic-components/va-divider/VaDivider'
@@ -22,6 +20,8 @@ import VaDivider from './vuestic-components/va-divider/VaDivider'
 import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker'
 
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
+import VaExpand from './vuestic-components/va-expand/VaExpand'
+import VaExpandGroup from './vuestic-components/va-expand-group/VaExpandGroup'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
 import VaIcon from './vuestic-components/va-icon/VaIcon'
 import VaImage from './vuestic-components/va-image/VaImage'
@@ -98,7 +98,6 @@ installPlatform()
 const VuesticPlugin = {
   install (Vue) {
     [
-      VaAccordion,
       VaAffix,
       VaAlert,
       VaAvatar,
@@ -112,11 +111,12 @@ const VuesticPlugin = {
       VaCardContent,
       VaCardTitle,
       VaCheckbox,
-      VaCollapse,
       VaContent,
       VaDataTable,
       VaDatePicker,
       VaDropdown,
+      VaExpand,
+      VaExpandGroup,
       VaFileUpload,
       VaIcon,
       VaImage,

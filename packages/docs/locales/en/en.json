@@ -406,6 +406,38 @@
         "tabindex": "Sets a custom tabindex"
       }
     },
+    "VaExpand": {
+      "props": {
+        "value": "Current expand state",
+        "header": "Text content to place in the header",
+        "icon": "The icon to be displayed inside a header",
+        "solid": "Adds borders to the expand",
+        "colorAll": "Applies color to expand contents background"
+      },
+      "events": {
+        "input": "Emits when expand is clicked"
+      },
+      "methods": {},
+      "slots": {
+        "default": "Content of the expand component",
+        "header": "Replaces content of the header to custom"
+      }
+    },
+    "VaExpandGroup": {
+      "props": {
+        "value": "The array of currently opened expands",
+        "multiply": "Allows to expand multiply components",
+        "inset": "Expand becomes smaller when activated",
+        "popout": "Expand becomes bigger when activated"
+      },
+      "events": {
+        "input": "Emits when any of expands is clicked"
+      },
+      "methods": {},
+      "slots": {
+        "default": "Contains expands"
+      }
+    },
     "VaTag": {
       "props": {
         "closeable": "Provides the ability to close the tag",
@@ -583,6 +615,8 @@
     "alert": "Alert",
     "icon": "Icon",
     "radio": "Radio",
+    "expand": "Expand",
+    "expandGroup": "Expand Group",
     "tag": "Tag",
     "grid": "Grid",
     "input": "Input",
@@ -1422,6 +1456,50 @@
       "disabled": {
         "title": "Disabled",
         "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
+      }
+    }
+  },
+  "expand": {
+    "title": "Expand",
+    "summaryText": "Toggles the visibility of content.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage  of the `va-expand` component."
+      },
+      "solid": {
+        "title": "Solid",
+        "text": "Add borders to your expand component by using `solid` property."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "You can add an icon to the expand's header."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Use two color schemes."
+      }
+    }
+  },
+  "expandGroup": {
+    "title": "Expand group",
+    "summaryText": "Allows you to control group of expands",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage  of the `va-expand-group` component."
+      },
+      "multiply": {
+        "title": "Multiply",
+        "text": "Expand group component allows you to select multiply expands."
+      },
+      "inset": {
+        "title": "Inset",
+        "text": "Active expand component becomes smaller."
+      },
+      "popout": {
+        "title": "Popout",
+        "text": "Active expand component becomes bigger."
       }
     }
   },
