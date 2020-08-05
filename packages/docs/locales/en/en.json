@@ -583,10 +583,22 @@
       }
     },
     "VaBacktop": {
-      "props": {},
-      "events": {},
+      "props": {
+        "target": "Applies the selector to which the backtop is bound",
+        "visibilityHeight": "The minimum height after which the backtop is displayed",
+        "speed": "Sets the scrolling speed",
+        "top": "Sets the position of the component",
+        "right": "Sets the position of the component",
+        "bottom": "Sets the position of the component",
+        "left": "Sets the position of the component"
+      },
+      "events": {
+        "click" :"Emitted when user clicked on backtop"
+      },
       "methods": {},
-      "slots": {}
+      "slots": {
+        "default": "Slot for backtop content"
+      }
     }
   },
   "anyPage": {
@@ -1720,6 +1732,13 @@
     }
   },
   "backtop": {
-    "title": "-- Here is the title --"
+    "title": "Backtop",
+    "summaryText": "A backtop is a button used to return to the top of a component.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
+      }
+    }
   }
 }

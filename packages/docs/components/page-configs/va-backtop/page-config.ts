@@ -8,8 +8,24 @@ export default [
     translationString: 'backtop.title',
   },
   {
+    type: BlockType.PARAGRAPH,
+    translationString: 'backtop.summaryText',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.examples',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'backtop.examples.default.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'backtop.examples.default.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-backtop/Default',
   },
   {
     type: BlockType.SUBTITLE,

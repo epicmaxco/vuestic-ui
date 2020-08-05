@@ -1,6 +1,6 @@
 <template>
   <div
-  v-if="visible"
+    v-if="visible"
     class="va-backtop"
     :style="computedStyle"
     @click="scrollToTop()"
@@ -18,8 +18,8 @@ import { Component, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaButton from '../va-button/VaButton.vue'
 const BacktopPropsMixin = makeContextablePropsMixin({
-  target: { type: [String, HTMLElement], default: '' },
-  visibilityHeight: { type: Number, default: 400 },
+  target: { type: [String, HTMLElement], default: 'body' },
+  visibilityHeight: { type: Number, default: 300 },
   speed: { type: Number, default: 50 },
   top: { type: String, default: 'auto' },
   left: { type: String, default: 'auto' },
@@ -36,7 +36,7 @@ export default class VaBacktop extends Mixins(
 ) {
   visible = false
   scrolled = false
-  interval = 0
+  interval = 0 as any
 
   get computedStyle () {
     return {
@@ -48,10 +48,7 @@ export default class VaBacktop extends Mixins(
   }
 
   get computedDomElement (): any {
-    if (this.c_target) {
-      return document.querySelector(`${this.c_target}`)
-    }
-    return document.body
+    return document.querySelector(`${this.c_target}`)
   }
 
   mounted () {
