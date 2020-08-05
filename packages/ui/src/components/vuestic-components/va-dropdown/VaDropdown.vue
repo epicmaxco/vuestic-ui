@@ -30,7 +30,9 @@ import { Component, Prop, Watch } from 'vue-property-decorator'
 import { createPopper } from '@popperjs/core'
 import { DebounceLoader } from 'asva-executors'
 
-@Component
+@Component({
+  name: 'VaDropdown',
+})
 export default class VaDropdown extends Vue {
   @Prop({ type: String, default: '' }) debugId!: string
   @Prop({ type: String, default: '' }) position!: string
@@ -39,7 +41,8 @@ export default class VaDropdown extends Vue {
   @Prop({ type: Boolean }) boundaryBody!: boolean
   @Prop({ type: Boolean }) value!: boolean
   @Prop({ type: Boolean }) disabled!: boolean
-  @Prop({ type: Boolean }) fixed!: boolean
+  // Makes no sense
+  // @Prop({ type: Boolean }) fixed!: boolean
   // Means dropdown width should be the same as anchor's width.
   @Prop({ type: Boolean }) keepAnchorWidth!: boolean
   // If set to false - dropdown won't dodge outside container.
@@ -188,7 +191,7 @@ export default class VaDropdown extends Vue {
     const options: any = {
       placement: this.position || 'bottom',
       modifiers: [],
-      strategy: this.fixed ? 'fixed' : undefined,
+      // strategy: this.fixed ? 'fixed' : undefined,
       onFirstUpdate: () => {
         this.$emit('input', true)
       },
