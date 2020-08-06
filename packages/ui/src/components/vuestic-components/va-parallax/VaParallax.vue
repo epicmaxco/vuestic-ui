@@ -1,7 +1,7 @@
 <template>
-  <div class="va-parallax" v-on="$listeners">
+  <div class="va-parallax" :style="styleComputed" v-on="$listeners">
     <div class="va-parallax__image-container">
-      <img class="va-parallax__image" ref="img" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg" alt="" :style="styles" />
+      <img class="va-parallax__image" ref="img" src="https://wallpapercave.com/wp/wp4748242.png" alt="" :style="computedImgStyles" />
       </div>
   </div>
 </template>
@@ -12,7 +12,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 
 const ParallaxPropsMixin = makeContextablePropsMixin({
   target: { type: [String, HTMLElement], default: 'body' },
-  height: { type: Number, default: 500 },
+  height: { type: Number, default: 900 },
 })
 @Component({
   name: 'VaParallax',
@@ -29,11 +29,21 @@ export default class VaParallax extends Mixins(
   windowHeight = 0
   windowBottom = 0
 
+  get styleComputed () {
+    return {
+      height: this.height + 'px',
+    }
+  }
+
   get imgHeight (): number {
     return this.objHeight()
   }
 
-  get styles (): object {
+  get computedDomElement (): any {
+    return document.querySelector(`${this.c_target}`)
+  }
+
+  get computedImgStyles (): object {
     return {
       display: 'block',
       opacity: this.isBooted ? 1 : 0,
@@ -47,8 +57,8 @@ export default class VaParallax extends Mixins(
   }
 
   beforeDestroy () {
-    window.removeEventListener('scroll', this.translate, false)
-    window.removeEventListener('resize', this.translate, false)
+    this.computedDomElement.removeEventListener('scroll', this.translate, false)
+    this.computedDomElement.removeEventListener('resize', this.translate, false)
   }
 
   objHeight () {
@@ -58,7 +68,7 @@ export default class VaParallax extends Mixins(
   calcDimensions () {
     const offset = this.$el.getBoundingClientRect()
 
-    this.scrollTop = window.pageYOffset
+    this.scrollTop = this.computedDomElement.scrollTop
     this.parallaxDist = this.imgHeight - this.height
     this.elOffsetTop = offset.top + this.scrollTop
     this.windowHeight = window.innerHeight
@@ -66,19 +76,23 @@ export default class VaParallax extends Mixins(
   }
 
   listeners () {
-    window.addEventListener('scroll', this.translate, false)
-    window.addEventListener('resize', this.translate, false)
+    this.computedDomElement.addEventListener('scroll', this.translate, false)
+    this.computedDomElement.addEventListener('resize', this.translate, false)
   }
 
   translate () {
     this.calcDimensions()
-    console.log('this.calcDimensions()', this.calcDimensions())
     this.percentScrolled = (
       (this.windowBottom - this.elOffsetTop) /
       (parseInt(this.height) + this.windowHeight)
     )
-    console.log('this.percentScrolled', this.percentScrolled)
+    console.log('this.windowBottom', this.windowBottom)
+    console.log('this.elOffsetTop', this.elOffsetTop)
+    console.log('this.scrollTop', this.scrollTop)
+    // this.parallax = Math.round(this.parallaxDist * this.percentScrolled)
     this.parallax = Math.round(this.parallaxDist * this.percentScrolled)
+    console.log('this.parallax = Math.round(this.parallaxDist * this.percentScrolled)', this.parallax = Math.round(this.parallaxDist * this.percentScrolled))
+    // this.parallax = Math.round(this.elOffsetTop + this.windowBottom - this.height)
   }
 }
 </script>
@@ -87,10 +101,10 @@ export default class VaParallax extends Mixins(
 @import '../../vuestic-sass/resources/resources';
 
 .va-parallax {
+  display: block;
   position: relative;
   overflow: hidden;
-  height: 300px;
-  width: 300px;
+  width: auto;
   z-index: 0;
 
   &__image-container {
