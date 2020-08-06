@@ -91,6 +91,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaParallax": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -106,7 +112,8 @@
     "tag": "Tag",
     "input": "Input",
     "list": "List",
-    "select": "Select"
+    "select": "Select",
+    "parallax": "Parallax"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -146,6 +153,9 @@
     "title": "-- Here is the title --"
   },
   "select": {
+    "title": "-- Here is the title --"
+  },
+  "parallax": {
     "title": "-- Here is the title --"
   }
 }

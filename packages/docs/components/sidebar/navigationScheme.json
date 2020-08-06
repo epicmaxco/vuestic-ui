@@ -137,6 +137,10 @@
         {
           "name": "select",
           "displayName": "menu.select"
+        },
+        {
+          "name": "parallax",
+          "displayName": "menu.parallax"
         }
       ]
     }
