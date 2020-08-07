@@ -58,7 +58,7 @@ export default class VaParallax extends Mixins(
   }
 
   get imgHeight (): number {
-    return this.objHeight()
+    return (this as any).$refs.img.naturalHeight
   }
 
   get computedDomElement (): any {
@@ -82,10 +82,6 @@ export default class VaParallax extends Mixins(
   beforeDestroy () {
     this.computedDomElement.removeEventListener('scroll', this.translate)
     this.computedDomElement.removeEventListener('resize', this.translate)
-  }
-
-  objHeight () {
-    return (this as any).$refs.img.naturalHeight
   }
 
   calcDimensions () {
