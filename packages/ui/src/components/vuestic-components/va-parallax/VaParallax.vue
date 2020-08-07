@@ -25,9 +25,10 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 
 const ParallaxPropsMixin = makeContextablePropsMixin({
   target: { type: [String, HTMLElement], default: 'body' },
-  height: { type: Number, default: 500 },
+  height: { type: Number, default: 400 },
   src: { type: String, default: '' },
   alt: { type: String, default: 'parallax' },
+  reversed: { type: Boolean, default: false },
   speed: {
     type: Number,
     default: 1,
@@ -68,6 +69,7 @@ export default class VaParallax extends Mixins(
     return {
       display: 'block',
       transform: `translate(-50%, ${this.parallax}px)`,
+      top: this.reversed ? 0 : 'auto',
     }
   }
 
@@ -105,6 +107,9 @@ export default class VaParallax extends Mixins(
     // console.log('this.elOffsetTop', this.elOffsetTop)
     // console.log('this.scrollTop', this.scrollTop)
     this.parallax = Math.round(this.parallaxDist * this.percentScrolled) * this.c_speed
+    if (this.c_reversed) {
+      this.parallax = -this.parallax
+    }
     // this.parallax = Math.round(this.parallaxDist * this.percentScrolled) + Math.round(this.parallaxDist * this.percentScrolled)
     // this.parallax = Math.round(this.parallaxDist * this.percentScrolled)
     // this.parallax = Math.round(this.parallaxDist * this.percentScrolled - this.c_height + this.parallaxDist * this.percentScrolled)
