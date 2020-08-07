@@ -57,10 +57,6 @@ export default class VaParallax extends Mixins(
     }
   }
 
-  get imgHeight (): number {
-    return (this as any).$refs.img.naturalHeight
-  }
-
   get computedDomElement (): any {
     return document.querySelector(`${this.c_target}`)
   }
@@ -73,18 +69,11 @@ export default class VaParallax extends Mixins(
     }
   }
 
-  mounted () {
-    this.translate()
-    this.computedDomElement.addEventListener('scroll', this.translate)
-    this.computedDomElement.addEventListener('resize', this.translate)
+  get imgHeight (): number {
+    return (this as any).$refs.img.naturalHeight
   }
 
-  beforeDestroy () {
-    this.computedDomElement.removeEventListener('scroll', this.translate)
-    this.computedDomElement.removeEventListener('resize', this.translate)
-  }
-
-  calcDimensions () {
+  calcDimensions (): void {
     const offset = this.$el.getBoundingClientRect()
 
     this.scrollTop = this.computedDomElement.scrollTop
@@ -100,15 +89,21 @@ export default class VaParallax extends Mixins(
       (this.windowBottom - this.elOffsetTop) /
       (parseInt(this.height) + this.windowHeight)
     )
-    // console.log('this.elOffsetTop', this.elOffsetTop)
-    // console.log('this.scrollTop', this.scrollTop)
     this.parallax = Math.round(this.parallaxDist * this.percentScrolled) * this.c_speed
     if (this.c_reversed) {
       this.parallax = -this.parallax
     }
-    // this.parallax = Math.round(this.parallaxDist * this.percentScrolled) + Math.round(this.parallaxDist * this.percentScrolled)
-    // this.parallax = Math.round(this.parallaxDist * this.percentScrolled)
-    // this.parallax = Math.round(this.parallaxDist * this.percentScrolled - this.c_height + this.parallaxDist * this.percentScrolled)
+  }
+
+  mounted () {
+    this.translate()
+    this.computedDomElement.addEventListener('scroll', this.translate)
+    this.computedDomElement.addEventListener('resize', this.translate)
+  }
+
+  beforeDestroy () {
+    this.computedDomElement.removeEventListener('scroll', this.translate)
+    this.computedDomElement.removeEventListener('resize', this.translate)
   }
 }
 </script>
