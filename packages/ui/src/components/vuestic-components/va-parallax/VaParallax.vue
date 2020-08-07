@@ -1,8 +1,21 @@
 <template>
-  <div class="va-parallax" :style="styleComputed" v-on="$listeners">
+  <div
+    class="va-parallax"
+    :style="styleComputed"
+    v-on="$listeners"
+  >
     <div class="va-parallax__image-container">
-      <img class="va-parallax__image" ref="img" src="https://wallpapercave.com/wp/wp4748242.png" alt="" :style="computedImgStyles" />
-      </div>
+      <img
+        class="va-parallax__image"
+        ref="img"
+        :src="c_src"
+        :alt="c_alt"
+        :style="computedImgStyles"
+      />
+    </div>
+    <div class="va-parallax__item-container">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -12,7 +25,16 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 
 const ParallaxPropsMixin = makeContextablePropsMixin({
   target: { type: [String, HTMLElement], default: 'body' },
-  height: { type: Number, default: 900 },
+  height: { type: Number, default: 500 },
+  src: { type: String, default: '' },
+  alt: { type: String, default: 'parallax' },
+  speed: {
+    type: Number,
+    default: 1,
+    validator: (value: number) => {
+      return value >= 0 && value <= 1
+    },
+  },
 })
 @Component({
   name: 'VaParallax',
@@ -20,7 +42,6 @@ const ParallaxPropsMixin = makeContextablePropsMixin({
 export default class VaParallax extends Mixins(
   ParallaxPropsMixin,
 ) {
-  isBooted = true
   elOffsetTop = 0
   parallax = 0
   parallaxDist = 0
@@ -29,7 +50,7 @@ export default class VaParallax extends Mixins(
   windowHeight = 0
   windowBottom = 0
 
-  get styleComputed () {
+  get styleComputed (): object {
     return {
       height: this.height + 'px',
     }
@@ -46,19 +67,19 @@ export default class VaParallax extends Mixins(
   get computedImgStyles (): object {
     return {
       display: 'block',
-      opacity: this.isBooted ? 1 : 0,
       transform: `translate(-50%, ${this.parallax}px)`,
     }
   }
 
   mounted () {
     this.translate()
-    this.listeners()
+    this.computedDomElement.addEventListener('scroll', this.translate)
+    this.computedDomElement.addEventListener('resize', this.translate)
   }
 
   beforeDestroy () {
-    this.computedDomElement.removeEventListener('scroll', this.translate, false)
-    this.computedDomElement.removeEventListener('resize', this.translate, false)
+    this.computedDomElement.removeEventListener('scroll', this.translate)
+    this.computedDomElement.removeEventListener('resize', this.translate)
   }
 
   objHeight () {
@@ -75,24 +96,18 @@ export default class VaParallax extends Mixins(
     this.windowBottom = this.scrollTop + this.windowHeight
   }
 
-  listeners () {
-    this.computedDomElement.addEventListener('scroll', this.translate, false)
-    this.computedDomElement.addEventListener('resize', this.translate, false)
-  }
-
-  translate () {
+  translate (): void {
     this.calcDimensions()
     this.percentScrolled = (
       (this.windowBottom - this.elOffsetTop) /
       (parseInt(this.height) + this.windowHeight)
     )
-    console.log('this.windowBottom', this.windowBottom)
-    console.log('this.elOffsetTop', this.elOffsetTop)
-    console.log('this.scrollTop', this.scrollTop)
+    // console.log('this.elOffsetTop', this.elOffsetTop)
+    // console.log('this.scrollTop', this.scrollTop)
+    this.parallax = Math.round(this.parallaxDist * this.percentScrolled) * this.c_speed
+    // this.parallax = Math.round(this.parallaxDist * this.percentScrolled) + Math.round(this.parallaxDist * this.percentScrolled)
     // this.parallax = Math.round(this.parallaxDist * this.percentScrolled)
-    this.parallax = Math.round(this.parallaxDist * this.percentScrolled)
-    console.log('this.parallax = Math.round(this.parallaxDist * this.percentScrolled)', this.parallax = Math.round(this.parallaxDist * this.percentScrolled))
-    // this.parallax = Math.round(this.elOffsetTop + this.windowBottom - this.height)
+    // this.parallax = Math.round(this.parallaxDist * this.percentScrolled - this.c_height + this.parallaxDist * this.percentScrolled)
   }
 }
 </script>
@@ -115,6 +130,7 @@ export default class VaParallax extends Mixins(
     bottom: 0;
     z-index: 1;
     contain: strict;
+    user-select: none;
   }
 
   &__image {
@@ -129,6 +145,15 @@ export default class VaParallax extends Mixins(
     transition: 0.3s opacity linear;
     z-index: 1;
   }
-}
 
+  &__item-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    contain: strict;
+  }
+}
 </style>
