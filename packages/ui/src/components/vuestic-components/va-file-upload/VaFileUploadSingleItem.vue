@@ -15,18 +15,21 @@
   </div>
 </template>
 
-<script>
-import VaButton from '../va-button/VaButton'
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import VaButton from '../va-button/VaButton.vue'
 
-export default {
+@Component({
   name: 'VaFileUploadSingleItem',
-  components: { VaButton },
-  props: {
-    file: {
-      type: Object,
-      default: null,
-    },
+  components: {
+    VaButton,
   },
+})
+export default class VaFileUploadSingleItem extends Vue {
+  @Prop({
+    type: Object,
+    default: null,
+  }) readonly file!: any
 }
 </script>
 
