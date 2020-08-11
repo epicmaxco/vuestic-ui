@@ -16,17 +16,20 @@
   </div>
 </template>
 
-<script>
-import VaIcon from '../va-icon/VaIcon'
+<script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
+import VaIcon from '../va-icon/VaIcon.vue'
+
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
-export default {
+@Component({
   name: 'VaInnerLoading',
-  components: {
-    VaIcon,
-  },
-  mixins: [LoadingMixin],
-}
+  components: { VaIcon },
+})
+export default class VaInnerLoading extends Mixins(
+  LoadingMixin,
+) {}
 </script>
 
 <style lang="scss" scoped>

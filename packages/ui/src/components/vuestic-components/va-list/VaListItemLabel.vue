@@ -9,12 +9,15 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins } from 'vue-property-decorator'
+
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
 const ItemLabelPropsMixin = makeContextablePropsMixin({
   caption: { type: Boolean, default: false },
   lines: { type: Number, default: 1 },
 })
+
 @Component({
   name: 'VaListItemLabel',
 })

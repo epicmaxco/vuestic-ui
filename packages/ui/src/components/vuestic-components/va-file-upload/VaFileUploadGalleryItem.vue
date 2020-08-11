@@ -40,78 +40,80 @@
   </div>
 </template>
 
-<script>
-import VaFileUploadUndo from './VaFileUploadUndo'
-import VaIcon from '../va-icon/VaIcon'
+<script lang="ts">
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+
+import VaFileUploadUndo from './VaFileUploadUndo.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
+
 import { colorToRgba } from '../../../services/color-functions'
 
-export default {
+@Component({
   name: 'VaFileUploadGalleryItem',
   components: {
     VaIcon,
     VaFileUploadUndo,
   },
-  data () {
+})
+export default class VaFileUploadGalleryItem extends Vue {
+  previewImage = ''
+  removed = false
+
+  @Prop({
+    type: Object,
+    default: null,
+  }) readonly file!: any
+
+  @Prop({
+    type: String,
+    default: 'success',
+  }) readonly color!: string
+
+  @Watch('file')
+  onFileChange () {
+    this.convertToImg()
+  }
+
+  get overlayStyles () {
     return {
-      previewImage: '',
-      removed: false,
+      backgroundColor: colorToRgba(this.color, 0.7),
     }
-  },
-  props: {
-    file: {
-      type: Object,
-      default: null,
-    },
-    color: {
-      type: String,
-      default: 'success',
-    },
-  },
-  watch: {
-    file () {
-      this.convertToImg()
-    },
-  },
-  computed: {
-    overlayStyles () {
-      return {
-        backgroundColor: colorToRgba(this.color, 0.7),
+  }
+
+  removeImage () {
+    this.removed = true
+    setTimeout(() => {
+      if (this.removed) {
+        this.$emit('remove')
+        this.removed = false
       }
-    },
-  },
-  methods: {
-    removeImage () {
-      this.removed = true
-      setTimeout(() => {
-        if (this.removed) {
-          this.$emit('remove')
-          this.removed = false
-        }
-      }, 2000)
-    },
-    recoverImage () {
-      this.removed = false
-    },
-    convertToImg () {
-      if (!this.file.name) {
-        return
-      }
-      if (this.file.image && this.file.image.url) {
-        this.previewImage = this.file.image.url
-      } else {
-        const reader = new FileReader()
-        reader.readAsDataURL(this.file.image)
-        reader.onload = (e) => {
-          if (e.target.result.includes('image')) {
-            this.previewImage = e.target.result
-          }
+    }, 2000)
+  }
+
+  recoverImage () {
+    this.removed = false
+  }
+
+  convertToImg () {
+    if (!this.file.name) {
+      return
+    }
+    if (this.file.image && this.file.image.url) {
+      this.previewImage = this.file.image.url
+    } else {
+      const reader = new FileReader()
+      reader.readAsDataURL(this.file.image)
+      reader.onload = (e: any) => {
+        if (e.target.result.includes('image')) {
+          this.previewImage = e.target.result
         }
       }
-    },
-  },
+    }
+  }
+
   mounted () {
     this.convertToImg()
-  },
+  }
 }
 </script>
 

@@ -160,19 +160,21 @@
 
 <script lang="ts">
 import { Component, Mixins, Watch } from 'vue-property-decorator'
+
 import VaDropdown from '../va-dropdown/VaDropdown.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaInput from '../va-input/VaInput.vue'
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
+import VaSelectOptionList from './VaSelectOptionList.vue'
+import VaTag from '../va-tag/VaTag.vue'
+
 import { getHoverColor } from '../../../services/color-functions'
 import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import VaSelectOptionList from './VaSelectOptionList.vue'
-import VaTag from '../va-tag/VaTag.vue'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 
 const positions: string[] = ['top', 'bottom']

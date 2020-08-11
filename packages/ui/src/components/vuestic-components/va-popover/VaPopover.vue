@@ -41,7 +41,9 @@
 
 <script>
 import { VPopover } from 'v-tooltip'
+
 import VaIcon from '../va-icon/VaIcon'
+
 import {
   getHoverColor,
   getBoxShadowColor,

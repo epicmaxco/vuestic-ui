@@ -36,11 +36,13 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
+
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
-import { Component, Mixins } from 'vue-property-decorator'
 
 const TabPropsMixin = makeContextablePropsMixin({
   icon: { type: String, default: null },

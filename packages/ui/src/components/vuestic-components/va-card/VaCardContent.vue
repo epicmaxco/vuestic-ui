@@ -7,23 +7,26 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
 
-export default {
+const CardContentPropsMixin = makeContextablePropsMixin({
+  textColor: { type: String, default: '' },
+})
+
+@Component({
   name: 'VaCardContent',
-  mixins: [makeContextablePropsMixin({
-    textColor: {
-      type: String,
-    },
-  })],
-  computed: {
-    contentStyles () {
-      return {
-        color: getColor(this, this.c_textColor),
-      }
-    },
-  },
+})
+export default class VaCardContent extends Mixins(
+  CardContentPropsMixin,
+) {
+  get contentStyles () {
+    return {
+      color: getColor(this, this.c_textColor),
+    }
+  }
 }
 </script>

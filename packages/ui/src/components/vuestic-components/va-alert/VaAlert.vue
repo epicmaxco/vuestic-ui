@@ -65,15 +65,18 @@
 </template>
 
 <script lang="ts">
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
+
 import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
+
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Component, Mixins, Prop } from 'vue-property-decorator'
 
 const AlertPropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },

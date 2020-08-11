@@ -31,6 +31,8 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
 import { ProgressComponentMixin } from './ProgressComponentMixin'
 import {
   ColorThemeMixin,
@@ -38,7 +40,6 @@ import {
 } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
-import { Component, Mixins } from 'vue-property-decorator'
 
 const ProgressCirclePropsMixin = makeContextablePropsMixin({
   thickness: { type: Number, default: 0.06 },
