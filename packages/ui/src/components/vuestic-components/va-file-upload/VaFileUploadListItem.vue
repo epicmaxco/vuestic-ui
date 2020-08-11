@@ -33,6 +33,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+
 import VaFileUploadUndo from './VaFileUploadUndo.vue'
 import VaCard from '../va-card/VaCard.vue'
 import VaIcon from '../va-icon/VaIcon.vue'

@@ -52,9 +52,10 @@
 </template>
 
 <script lang="ts">
-
 import { Component, Mixins, Inject } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
+
 import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'

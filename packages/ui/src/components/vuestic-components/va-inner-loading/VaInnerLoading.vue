@@ -18,7 +18,9 @@
 
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
+
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
 @Component({

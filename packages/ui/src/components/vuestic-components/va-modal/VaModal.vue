@@ -80,10 +80,12 @@
 </template>
 
 <script lang="ts">
-import { noop } from 'lodash'
 import { Component, Watch, Mixins } from 'vue-property-decorator'
+import { noop } from 'lodash'
+
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
+
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import ClickOutsideMixin, {

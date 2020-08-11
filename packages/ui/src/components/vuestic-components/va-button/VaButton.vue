@@ -55,9 +55,12 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaProgressCircle
   from '../va-progress-bar/progress-types/VaProgressCircle.vue'
+
 import {
   getGradientBackground,
   getFocusColor,
@@ -68,7 +71,6 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
 const ButtonPropsMixin = makeContextablePropsMixin({

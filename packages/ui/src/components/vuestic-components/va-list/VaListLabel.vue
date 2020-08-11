@@ -9,7 +9,9 @@
 
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
+
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+
 @Component({
   name: 'VaListLabel',
 })

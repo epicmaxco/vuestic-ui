@@ -50,9 +50,11 @@
 
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
+
 import VaFileUploadList from './VaFileUploadList.vue'
 import VaButton from '../va-button/VaButton.vue'
 import VaModal from '../va-modal/VaModal.vue'
+
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'

@@ -83,16 +83,18 @@
 </template>
 
 <script lang="ts">
+import { Watch, Ref, Component, Mixins } from 'vue-property-decorator'
+
 import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
 import VaButton from '../va-button/VaButton.vue'
 import VaInput from '../va-input/VaInput.vue'
+
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { setPaginationRange } from './setPaginationRange'
 import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
-import { Watch, Ref, Component, Mixins } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 const PaginationPropsMixin = makeContextablePropsMixin({
