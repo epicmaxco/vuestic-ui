@@ -2,7 +2,7 @@
 import { Mixins, Component, Prop } from 'vue-property-decorator'
 import { ScopedSlotChildren } from 'vue/types/vnode'
 import { CreateElement } from 'vue/types/umd'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 @Component({
   name: 'VaHover',

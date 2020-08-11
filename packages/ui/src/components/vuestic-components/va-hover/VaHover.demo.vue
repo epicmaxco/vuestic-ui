@@ -14,7 +14,7 @@
     <VbCard title="slot access">
       <va-hover #default="{ hover }">
         <div style="background-color: #babfc2;">
-          {{ hover }}
+          {{ hover }} value
         </div>
       </va-hover>
     </VbCard>
