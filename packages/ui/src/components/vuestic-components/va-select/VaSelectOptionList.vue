@@ -172,10 +172,6 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
     min-height: 2.25rem;
     word-break: break-word;
 
-    &--selected {
-
-    }
-
     &--icon {
       margin-right: 0.5rem;
     }

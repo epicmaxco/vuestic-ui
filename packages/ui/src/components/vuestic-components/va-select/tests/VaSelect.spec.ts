@@ -4,6 +4,9 @@ import { testIsContextableComponent } from '../../../context-test/context-provid
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
+// import { testIsFormComponent } from '../../../vuestic-mixins/testIsFormComponent'
+// import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
+
 describe('VaSelect', () => {
   // ToDO: Fix after context will work fine
   // it('should render without an error', () => {
@@ -87,5 +90,12 @@ describe('contextable mixin', () => {
     expect(() =>
       testHasColorThemeMixin((VaSelect as unknown) as ColorThemeMixin),
     ).not.toThrow()
+  })
+  it('is Form Component', () => {
+    // TODO Reenable after fixing select.
+    // expect(() => testIsFormComponent(VaSelect)).not.toThrow()
+  })
+  it('has loading mixin', () => {
+    // expect(() => testIsLoadingMixin(VaSelect)).not.toThrow()
   })
 })

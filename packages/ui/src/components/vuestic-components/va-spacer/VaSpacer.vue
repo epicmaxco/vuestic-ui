@@ -2,10 +2,13 @@
   <div class="spacer" />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({
   name: 'VaSpacer',
-}
+})
+export default class VaSpacer extends Vue {}
 </script>
 
 <style lang="scss" scoped>
