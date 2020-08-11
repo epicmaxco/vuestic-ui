@@ -23,6 +23,7 @@ import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
 import VaExpand from './vuestic-components/va-expand/VaExpand'
 import VaExpandGroup from './vuestic-components/va-expand-group/VaExpandGroup'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
+import VaHover from './vuestic-components/va-hover/VaHover'
 import VaIcon from './vuestic-components/va-icon/VaIcon'
 import VaImage from './vuestic-components/va-image/VaImage'
 import VaInnerLoading
@@ -118,6 +119,7 @@ const VuesticPlugin = {
       VaExpand,
       VaExpandGroup,
       VaFileUpload,
+      VaHover,
       VaIcon,
       VaImage,
       VaInnerLoading,

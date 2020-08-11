@@ -277,6 +277,17 @@
         "value": "The array with uploaded files"
       }
     },
+    "VaHover": {
+      "props": {
+        "value": "Hover state."
+      },
+      "events": {
+        "input": "Emits hover state when it changes."
+      },
+      "slots": {
+        "default": "Vue default slot."
+      }
+    },
     "VaDivider": {
       "props": {
         "vertical": "Displays divider vertically",
@@ -606,6 +617,7 @@
     "pagination": "Pagination",
     "fileUpload": "File Upload",
     "form": "Form",
+    "hover": "Hover",
     "image": "Image",
     "optionList": "Option List",
     "divider": "Divider",
@@ -639,7 +651,7 @@
   },
   "avatar": {
     "title": "Avatar",
-    "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application. ",
+    "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application.",
     "examples": {
       "default": {
         "title": "Default",
@@ -1191,6 +1203,32 @@
     "api": {
       "subtitle": "API",
       "paragraph": "Here are props, events and slots that are used in `va-form` component."
+    }
+  },
+  "hover": {
+    "title": "Hover",
+    "text": "The `va-hover` provides easy access for hover state for any component. To work with hover state you can use either `v-model` or slot-scoped `hover` property.",
+    "examples": {
+      "slot": {
+        "title": "Slot based access",
+        "text": "You are also free to use Vue default slot."
+      },
+      "vModel": {
+        "title": "Default usage",
+        "text": "You can use `v-model` to get access to hover state."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "Won't change value if disabled."
+      }
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "Can I wrap multiple elements with `va-hover`?",
+          "answer": "Yes, but they will share the hover state value."
+        }
+      ]
     }
   },
   "card": {

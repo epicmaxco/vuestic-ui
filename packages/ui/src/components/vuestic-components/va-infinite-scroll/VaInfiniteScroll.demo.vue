@@ -31,7 +31,7 @@
             >
               {{ record.text }} #{{ index }}
             </div>
-            <template v-slot:loading>
+            <template #loading>
               <va-progress-circle
                 indeterminate
                 :thickness=".5"

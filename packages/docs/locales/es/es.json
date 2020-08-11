@@ -20,6 +20,12 @@
         "reset": "Reset values and validation state for all form-components"
       }
     },
+    "VaHover": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaImage": {
       "props": {},
       "events": {},
@@ -96,6 +102,8 @@
   "menu": {
     "modals": "Modals",
     "uiElements": "Elementos UI",
+    "hover": "Hover",
+    "checkbox": "Checkbox",
     "image": "Image",
     "checkbox": "Checkbox",
     "alert": "Alert",
@@ -113,6 +121,9 @@
     "english": "English",
     "spanish": "Spanish",
     "simplified_chinese": "Versión abreviada"
+  },
+  "hover": {
+    "title": "-- Here is the title --"
   },
   "image": {
     "title": "-- Here is the title --"

@@ -83,6 +83,10 @@
           "displayName": "menu.tabs"
         },
         {
+          "name": "hover",
+          "displayName": "menu.hover"
+        },
+        {
           "name": "image",
           "displayName": "menu.image"
         },

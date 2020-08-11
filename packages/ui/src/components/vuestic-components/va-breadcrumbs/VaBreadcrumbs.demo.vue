@@ -99,7 +99,7 @@
       <br>
       Slotted separator:
       <va-breadcrumbs>
-        <template v-slot:separator>
+        <template #separator>
           👌
         </template>
 
