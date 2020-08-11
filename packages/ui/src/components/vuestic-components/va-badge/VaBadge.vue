@@ -3,102 +3,78 @@
     class="va-badge"
     :class="badgeClass"
   >
-    <div
+    <span
       class="va-badge__text-wrapper"
       :style="badgeStyle"
     >
-      <div class="va-badge__text">
+      <span class="va-badge__text">
         <slot name="text">
           {{ c_text }}
         </slot>
-      </div>
-    </div>
+      </span>
+    </span>
     <slot />
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Mixins } from 'vue-property-decorator'
 
-const contextConfigMixin = makeContextablePropsMixin({
-  color: {
-    type: String,
-    default: 'danger',
-  },
-  textColor: {
-    type: String,
-    default: 'white',
-  },
-  text: {
-    type: [String, Number],
-    default: '',
-  },
-  overlap: {
-    type: Boolean,
-    default: false,
-  },
-  multiLine: {
-    type: Boolean,
-    default: false,
-  },
-  visibleEmpty: {
-    type: Boolean,
-    default: false,
-  },
-  dot: {
-    type: Boolean,
-    default: false,
-  },
-  transparent: {
-    type: Boolean,
-    default: false,
-  },
-  left: {
-    type: Boolean,
-    default: false,
-  },
-  bottom: {
-    type: Boolean,
-    default: false,
-  },
+const BadgePropsMixin = makeContextablePropsMixin({
+  color: { type: String, default: 'danger' },
+  textColor: { type: String, default: 'white' },
+  text: { type: [String, Number], default: '' },
+  overlap: { type: Boolean, default: false },
+  multiLine: { type: Boolean, default: false },
+  visibleEmpty: { type: Boolean, default: false },
+  dot: { type: Boolean, default: false },
+  transparent: { type: Boolean, default: false },
+  left: { type: Boolean, default: false },
+  bottom: { type: Boolean, default: false },
 })
 
-export default {
+@Component({
   name: 'VaBadge',
-  mixins: [ColorThemeMixin, contextConfigMixin],
-  computed: {
-    isEmpty () {
-      if (this.c_text || this.c_visibleEmpty || this.c_dot || this.$slots.text) {
-        return false
-      }
+})
+export default class VaBadge extends Mixins(
+  ColorThemeMixin,
+  BadgePropsMixin,
+) {
+  get isEmpty () {
+    if (this.c_text || this.c_visibleEmpty || this.c_dot || this.$slots.text) {
+      return false
+    }
 
-      return true
-    },
-    isFloating () {
-      return this.$slots.default || this.c_dot
-    },
-    badgeClass () {
-      return {
-        'va-badge--visible-empty': this.c_visibleEmpty,
-        'va-badge--empty': this.isEmpty,
-        'va-badge--dot': this.c_dot,
-        'va-badge--multiLine': this.c_multiLine,
-        'va-badge--floating': this.isFloating,
-        'va-badge--left': this.c_left,
-        'va-badge--bottom': this.c_bottom,
-        'va-badge--overlap': this.c_overlap,
-      }
-    },
-    badgeStyle () {
-      return {
-        color: getColor(this, this.c_textColor, '#ffffff'),
-        borderColor: this.colorComputed,
-        backgroundColor: this.colorComputed,
-        opacity: this.c_transparent ? 0.5 : 1,
-      }
-    },
-  },
+    return true
+  }
+
+  get isFloating () {
+    return this.$slots.default || this.c_dot
+  }
+
+  get badgeClass () {
+    return {
+      'va-badge--visible-empty': this.c_visibleEmpty,
+      'va-badge--empty': this.isEmpty,
+      'va-badge--dot': this.c_dot,
+      'va-badge--multiLine': this.c_multiLine,
+      'va-badge--floating': this.isFloating,
+      'va-badge--left': this.c_left,
+      'va-badge--bottom': this.c_bottom,
+      'va-badge--overlap': this.c_overlap,
+    }
+  }
+
+  get badgeStyle () {
+    return {
+      color: getColor(this, this.c_textColor, '#ffffff'),
+      borderColor: this.colorComputed,
+      backgroundColor: this.colorComputed,
+      opacity: this.c_transparent ? 0.5 : 1,
+    }
+  }
 }
 </script>
 
@@ -108,7 +84,7 @@ export default {
 .va-badge {
   display: inline-flex;
   position: relative;
-  vertical-align: bottom;
+  $badge-overlap: $badge-size/3;
 
   &__text-wrapper {
     transition: $transition-secondary;
@@ -162,7 +138,7 @@ export default {
     }
 
     .va-badge--overlap & {
-      margin-left: -$badge-size/2;
+      margin-left: -$badge-overlap;
       margin-right: 0;
       transform: translateY(-25%);
     }
@@ -173,7 +149,7 @@ export default {
     }
 
     .va-badge--left.va-badge--overlap & {
-      margin-left: $badge-size/2;
+      margin-left: $badge-overlap;
       transform: translateX(-100%) translateY(-25%);
     }
 
@@ -187,12 +163,12 @@ export default {
     }
 
     .va-badge--bottom.va-badge--overlap & {
-      margin-left: -$badge-size/2;
+      margin-left: -$badge-overlap;
       transform: translateX(0) translateY(-75%);
     }
 
     .va-badge--bottom.va-badge--left.va-badge--overlap & {
-      margin-left: $badge-size/2;
+      margin-left: $badge-overlap;
       transform: translateX(-100%) translateY(-75%);
     }
   }

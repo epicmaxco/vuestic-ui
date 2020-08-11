@@ -1,6 +1,6 @@
 <template>
   <va-input-wrapper
-    class="va-switch-wrapper"
+    class="va-switch"
     :class="computedClass"
     :disabled="c_disabled"
     :success="c_success"
@@ -10,44 +10,58 @@
     :error-count="errorCount"
   >
     <div
-      class="va-switch"
-      :id="id"
-      :name="name"
-      :class="computedClass"
-      @blur="onBlur($event)"
-      @focus="onFocus"
+      class="va-switch__container"
+      @click="onWrapperClick()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
-      :tabindex="computedTabindex"
-      ref="input"
+      tabindex="-1"
+      @blur="onBlur"
+      ref="container"
     >
-      <div class="va-switch__inner"
-        @click="toggleSelection"
-        @keydown.enter="toggleSelection"
-      >
+      <div class="va-switch__inner">
+        <input
+          class="va-switch__input"
+          ref="input"
+          type="checkbox"
+          role="switch"
+          :aria-checked="isChecked"
+          :id="id"
+          :name="name"
+          readonly
+          :disabled="c_disabled"
+          @focus="onFocus"
+          @blur="onBlur"
+          @keypress.prevent="toggleSelection()"
+        >
         <div
           class="va-switch__track"
           :style="trackStyle"
-          :class="computedTrackClass"
         >
-          <div class="va-switch__track-label" :style="computedTrackLabelSize">
+          <div class="va-switch__track-label">
             <slot name="innerLabel">
               {{ computedInnerLabel }}
             </slot>
           </div>
-          <div class="va-switch__input-wrapper" :style="wrapperStyle">
-            <span class="va-switch__input" :style="indicatorStyle">
+          <div class="va-switch__checker-wrapper">
+            <span
+              class="va-switch__checker"
+            >
               <va-progress-circle
                 v-if="loading"
                 indeterminate
-                :size="computedProgressCircleSize"
+                :size="progressCircleSize"
                 :color="trackStyle.backgroundColor"
               />
             </span>
           </div>
         </div>
       </div>
-      <div class="va-switch__label" :class="computedLabelClass">
+      <div
+        class="va-switch__label"
+        ref="label"
+        @blur="onBlur"
+        :style="labelStyle"
+      >
         <slot>
           {{ computedLabel }}
         </slot>
@@ -55,152 +69,118 @@
     </div>
   </va-input-wrapper>
 </template>
-<script>
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
-import { getFocusColor } from '../../../services/color-functions'
-import { SelectableMixin } from '../../vuestic-mixins/SelectableComponent/SelectableMixin'
+
+<script lang="ts">
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
+import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
-import VaInputWrapper from '../va-input/VaInputWrapper'
+import { Component, Mixins } from 'vue-property-decorator'
 
-export default {
-  name: 'VaSwitch',
-  mixins: [
-    SelectableMixin,
-    makeContextablePropsMixin({
-      value: { type: [Boolean, Array, String, Object], default: false },
-      size: {
-        type: String,
-        default: 'medium',
-        validator: value => {
-          return ['medium', 'small', 'large'].includes(value)
-        },
-      },
-      color: {
-        type: String,
-        default: 'primary',
-      },
-      loading: {
-        type: Boolean,
-        default: false,
-      },
-      trueLabel: {
-        type: String,
-        default: null,
-      },
-      falseLabel: {
-        type: String,
-        default: null,
-      },
-      trueInnerLabel: {
-        type: String,
-        default: null,
-      },
-      falseInnerLabel: {
-        type: String,
-        default: null,
-      },
-    }),
-  ],
-  components: { VaProgressCircle, VaInputWrapper },
-  computed: {
-    computedInnerLabel () {
-      if (this.trueInnerLabel && this.isTrue) {
-        return this.trueInnerLabel
-      }
-      if (this.falseInnerLabel && !this.isTrue) {
-        return this.falseInnerLabel
-      }
-      return ''
-    },
-    computedLabel () {
-      if (this.trueLabel && this.isTrue) {
-        return this.trueLabel
-      }
-      if (this.falseLabel && !this.isTrue) {
-        return this.falseLabel
-      }
-      return this.label
-    },
-    computedClass () {
-      return {
-        'va-switch--small': this.size === 'small',
-        'va-switch--large': this.size === 'large',
-        'va-switch--disabled': this.c_disabled,
-        'va-switch--left-label': this.leftLabel,
-      }
-    },
-    computedProgressCircleSize () {
-      if (this.size === 'small') {
-        return 15
-      } else if (this.size === 'large') {
-        return 25
-      }
-      return 20
-    },
-    computedTrackLabelSize () {
-      if (this.size === 'small') {
-        return {
-          margin: this.isTrue ? 'auto 25px auto 7px' : 'auto 7px auto 25px',
-        }
-      } else if (this.size === 'large') {
-        return {
-          margin: this.isTrue ? 'auto 37px auto 7px' : 'auto 7px auto 37px',
-        }
-      }
-      return {
-        margin: this.isTrue ? 'auto 33px auto 7px' : 'auto 7px auto 33px',
-      }
-    },
-    trackStyle () {
-      const color = this.isTrue ? this.colorComputed : this.$themes.gray
-      const backgroundColor = this.isKeyboardFocused
-        ? getFocusColor(color)
-        : getColor(this, color, '#000')
-      return { backgroundColor }
-    },
-    indicatorStyle () {
-      return {
-        margin: this.isTrue ? 'auto -5px' : 'auto 5px',
-        transform: this.isTrue
-          ? 'translateX(-100%)'
-          : 'translateX(0rem)',
-      }
-    },
-    wrapperStyle () {
-      return {
-        transform: this.isTrue
-          ? 'translateX(100%)'
-          : 'translateX(0rem)',
-      }
-    },
-    computedTabindex () {
-      return this.disabled ? -1 : 0
-    },
-    computedTrackClass () {
-      return {
-        'va-switch__track--error': this.computedError,
-      }
-    },
-    computedLabelClass () {
-      return {
-        'va-switch__label--error': this.computedError,
-      }
+const SwitchPropsMixin = makeContextablePropsMixin({
+  value: { type: [Boolean, Array, String, Object], default: false },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
     },
   },
+  trueLabel: { type: String, default: null },
+  falseLabel: { type: String, default: null },
+  trueInnerLabel: { type: String, default: null },
+  falseInnerLabel: { type: String, default: null },
+})
+
+@Component({
+  name: 'VaSwitch',
+  components: { VaProgressCircle, VaInputWrapper },
+})
+export default class VaSwitch extends Mixins(
+  SelectableMixin,
+  LoadingMixin,
+  SwitchPropsMixin,
+) {
+  get computedInnerLabel () {
+    if (this.c_trueInnerLabel && this.isChecked) {
+      return this.c_trueInnerLabel
+    }
+    if (this.c_falseInnerLabel && !this.isChecked) {
+      return this.c_falseInnerLabel
+    }
+    return ''
+  }
+
+  get computedLabel () {
+    if (this.c_trueLabel && this.isChecked) {
+      return this.c_trueLabel
+    }
+    if (this.c_falseLabel && !this.isChecked) {
+      return this.c_falseLabel
+    }
+    return this.c_label
+  }
+
+  get computedClass () {
+    return {
+      'va-switch--checked': this.isChecked,
+      'va-switch--small': this.c_size === 'small',
+      'va-switch--large': this.c_size === 'large',
+      'va-switch--disabled': this.c_disabled,
+      'va-switch--left-label': this.c_leftLabel,
+      'va-switch--error': this.computedError,
+      'va-switch--on-keyboard-focus': this.isKeyboardFocused,
+    }
+  }
+
+  get progressCircleSize () {
+    const size: any = {
+      small: '15px',
+      medium: '20px',
+      large: '25px',
+    }
+    return size[this.c_size]
+  }
+
+  get trackStyle () {
+    return {
+      borderColor: this.c_error
+        ? getColor(this, 'danger')
+        : '',
+      backgroundColor: this.isChecked
+        ? this.colorComputed
+        : getColor(this, 'gray'),
+    }
+  }
+
+  get labelStyle () {
+    return {
+      color: this.c_error ? getColor(this, 'danger') : '',
+      padding: !this.c_label && !(this.c_trueLabel || this.c_falseLabel)
+        ? ''
+        : this.c_leftLabel
+          ? '0 0.3rem 0 0'
+          : '0 0 0 0.3rem',
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.va-switch-wrapper {
-  display: inline-block;
-}
-
 .va-switch {
-  display: inline-flex;
-  align-items: center;
+  @at-root {
+    .va-switch__container {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 0.3rem;
+    }
+  }
+
+  display: inline-block;
   margin-bottom: $checkbox-between-items-margin;
 
   &:focus {
@@ -218,7 +198,7 @@ export default {
 
     &:focus {
       outline: 0;
-      box-shadow: 0 0 0 4px rgba(52, 144, 220, 0.5);
+      box-shadow: 0 0 0 0.3rem rgba(52, 144, 220, 0.5);
     }
   }
 
@@ -230,13 +210,9 @@ export default {
         min-width: 3rem;
       }
 
-      &__input {
+      &__checker {
         height: 1.1rem;
         width: 1.1rem;
-      }
-
-      &__track {
-        border-radius: 0.75rem;
       }
     }
   }
@@ -249,13 +225,9 @@ export default {
         min-width: 5rem;
       }
 
-      &__input {
+      &__checker {
         height: 1.8rem;
         width: 1.8rem;
-      }
-
-      &__track {
-        border-radius: 1.25rem;
       }
     }
   }
@@ -265,56 +237,113 @@ export default {
   }
 
   &--left-label {
-    flex-direction: row-reverse;
-  }
-
-  &__label {
-    text-align: left;
-    margin: 0 4px;
-
-    &--error {
-      color: $theme-red;
+    .va-switch__container {
+      flex-direction: row-reverse;
     }
   }
 
-  &__track {
+  &--checked {
+    .va-switch {
+      &__checker {
+        margin: auto -0.3rem;
+        transform: translateX(-100%);
+      }
+
+      &__checker-wrapper {
+        transform: translateX(100%);
+      }
+    }
+  }
+
+  &--error {
+    .va-switch {
+      &__track {
+        border: 0.1rem solid;
+      }
+    }
+  }
+
+  &__label {
+    cursor: pointer;
+    text-align: left;
+  }
+
+  #{&}__track {
     display: flex;
     overflow: hidden;
     border-radius: 1rem;
     height: 100%;
     width: 100%;
     background: $white;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease;
 
-    &--error {
-      border: 2px solid $theme-red;
+    @at-root {
+      .va-switch--on-keyboard-focus#{&} {
+        transition: all, 0.6s, ease-in;
+        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
+      }
+      .va-switch--small#{&} {
+        border-radius: 0.75rem;
+      }
+      .va-switch--large#{&} {
+        border-radius: 1.25rem;
+      }
     }
   }
 
-  &__track-label {
+  #{&}__track-label {
     color: $white;
+    margin: auto 0.5rem auto 2rem;
+
+    @at-root {
+      .va-switch--checked#{&} {
+        margin: auto 2rem auto 0.5rem;
+      }
+
+      .va-switch--small#{&} {
+        margin: auto 0.5rem auto 1.55rem;
+
+        @at-root {
+          .va-switch--checked#{&} {
+            margin: auto 1.55rem auto 0.5rem;
+          }
+        }
+      }
+
+      .va-switch--large#{&} {
+        margin: auto 0.5rem auto 2.3rem;
+
+        @at-root {
+          .va-switch--checked#{&} {
+            margin: auto 2.3rem auto 0.5rem;
+          }
+        }
+      }
+    }
   }
 
-  &__input {
+  &__checker {
     position: absolute;
     top: 0;
     bottom: 0;
-    margin: auto;
+    margin: auto 0.3rem;
+    transform: translateX(0);
     height: 1.5rem;
     width: 1.5rem;
     background-color: $white;
     border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  &__input-wrapper {
+  &__checker-wrapper {
     position: absolute;
     margin: auto;
+    transform: translateX(0);
     top: 0;
     left: 0;
     bottom: 0;
@@ -323,6 +352,13 @@ export default {
     height: 100%;
     transition: all 0.2s ease;
     pointer-events: none;
+  }
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
   }
 }
 </style>

@@ -31,9 +31,9 @@
     <VbCard
       title="Custom target"
     >
-      <div class="demo-target">
+      <div class="demo-target" ref="customTarget">
         <p class="demo-content">{{$vb.lorem(1000)}}</p>
-        <VaAffix :target="customTarget" :offset-bottom="0" :offset-top="50">
+        <VaAffix :target="getTarget" :offset-bottom="0" :offset-top="50">
           <div class="demo-affix">Fixed at custom position</div>
         </VaAffix>
         <p class="demo-content">{{$vb.lorem(1000)}}</p></div>
@@ -43,6 +43,7 @@
 
 <script>
 import VaAffix from './VaAffix'
+
 export default {
   components: {
     VaAffix,
@@ -57,6 +58,9 @@ export default {
     this.customTarget = document.querySelector('.demo-target')
   },
   methods: {
+    getTarget () {
+      return this.$refs.customTarget
+    },
     handleAffixedStateChange (value) {
       this.affixedState = value
     },
@@ -65,22 +69,22 @@ export default {
 </script>
 
 <style scoped>
-  .VbCard {
-    width: 23%;
-  }
+.VbCard {
+  width: 23%;
+}
 
-  .demo-affix {
-    padding: 10px 30px;
-    background-color: lightblue;
-  }
+.demo-affix {
+  padding: 10px 30px;
+  background-color: lightblue;
+}
 
-  .demo-content {
-    margin: 1rem 0;
-  }
+.demo-content {
+  margin: 1rem 0;
+}
 
-  .demo-target {
-    height: 500px;
-    margin: 10rem 0;
-    overflow-y: scroll;
-  }
+.demo-target {
+  height: 500px;
+  margin: 10rem 0;
+  overflow-y: scroll;
+}
 </style>

@@ -4,7 +4,9 @@ import { ScopedSlotChildren } from 'vue/types/vnode'
 import { CreateElement } from 'vue/types/umd'
 import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
 
-@Component
+@Component({
+  name: 'VaHover',
+})
 export default class VaHover extends Mixins(StatefulMixin) {
   @Prop({
     type: Boolean,

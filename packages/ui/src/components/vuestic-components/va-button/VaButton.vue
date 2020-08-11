@@ -1,13 +1,13 @@
 <template>
   <component
-    :is="computedTag"
+    :is="tagComputed"
     class="va-button"
     :class="computedClass"
     :style="computedStyle"
     :disabled="c_disabled"
     :type="c_type"
-    :href="c_href"
-    :target="c_target"
+    :href="href"
+    :target="target"
     :to="to"
     :replace="replace"
     :append="append"
@@ -55,9 +55,9 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import VaIcon from '../va-icon/VaIcon'
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
+import VaIcon from '../va-icon/VaIcon.vue'
+import VaProgressCircle
+  from '../va-progress-bar/progress-types/VaProgressCircle.vue'
 import {
   getGradientBackground,
   getFocusColor,
@@ -66,56 +66,62 @@ import {
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
-@Component({ components: { VaIcon, VaProgressCircle } })
+const ButtonPropsMixin = makeContextablePropsMixin({
+  tag: { type: String, default: 'button' },
+  outline: { type: Boolean, default: false },
+  flat: { type: Boolean, default: false },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
+    },
+  },
+  icon: { type: String, default: '' },
+  iconRight: { type: String, default: '' },
+  type: { type: String, default: 'button' },
+  disabled: { type: Boolean, default: false },
+  block: { type: Boolean, default: false },
+  round: { type: Boolean, default: true },
+})
+
+@Component({
+  name: 'VaButton',
+  components: { VaIcon, VaProgressCircle },
+})
 export default class VaButton extends Mixins(
   ColorThemeMixin,
   RouterLinkMixin,
   SizeMixin,
-  makeContextablePropsMixin({
-    tag: { type: String, default: 'button' },
-    outline: { type: Boolean, default: false },
-    flat: { type: Boolean, default: false },
-    size: {
-      type: String,
-      default: 'medium',
-      validator: value => {
-        return ['medium', 'small', 'large'].includes(value)
-      },
-    },
-    icon: { type: String, default: '' },
-    iconRight: { type: String, default: '' },
-    type: { type: String, default: 'button' },
-    disabled: { type: Boolean, default: false },
-    loading: { type: Boolean, default: false },
-    block: { type: Boolean, default: false },
-    round: { type: Boolean, default: true },
-    /* Link props */
-    href: { type: String, default: undefined },
-    target: { type: String, default: undefined },
-  })) {
+  LoadingMixin,
+  ButtonPropsMixin,
+) {
+  hoverState = false
+  focusState = false
+
   @Inject({
     default: () => ({}),
   }) readonly va!: any
 
-  data () {
-    return {
-      hoverState: false,
-      focusState: false,
-    }
-  }
-
   @Watch('c_loading')
-  onLoadingChanged (newValue) {
-    this.$el.blur()
+  onLoadingChanged (newValue: boolean) {
+    (this as any).$el.blur()
 
     if (newValue === true) {
       this.updateFocusState(false)
       this.updateHoverState(false)
     }
+  }
+
+  @Watch('hoverState')
+  onHoverChange (value: boolean) {
+    this.updateFocusState(value)
+    this.updateHoverState(value)
   }
 
   get computedClass () {
@@ -160,17 +166,17 @@ export default class VaButton extends Mixins(
   }
 
   get loaderSize () {
-    const size = /([0-9]*)(px)/.exec(this.sizeComputed)
+    const size = /([0-9]*)(px)/.exec(this.sizeComputed) as null | [string, string, string]
 
     if (size) {
-      return `${size[1] / 2}${size[2]}`
+      return `${+size[1] / 2}${size[2]}`
     }
 
     return this.sizeComputed
   }
 
   get computedStyle () {
-    const computedStyle = {
+    const computedStyle: any = {
       color: '',
       borderColor: '',
       background: '',
@@ -202,7 +208,7 @@ export default class VaButton extends Mixins(
       computedStyle.boxShadow = this.shadowStyle
     }
 
-    if (this.va.color && !this.c_outline && !this.c_flat) {
+    if (this.va.color && !this.c_outline && !this.c_flat && this.$themes) {
       computedStyle.background = this.c_color ? this.colorComputed : this.$themes[this.va.color]
       computedStyle.backgroundImage = ''
     }
@@ -214,33 +220,33 @@ export default class VaButton extends Mixins(
     return this.$slots.default
   }
 
-  get computedTag () {
-    if (this.c_tag === 'a' || this.c_href || this.c_target) {
-      return 'a'
-    }
-    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
-      return 'router-link'
-    }
-    return 'button'
-  }
-
   get inputListeners () {
     return Object.assign({},
       this.$listeners,
       {
-        click: (event) => {
+        click: (event: Event) => {
           this.$emit('click', event)
         },
       },
     )
   }
 
-  updateHoverState (isHover) {
+  updateHoverState (isHover: boolean) {
     this.hoverState = isHover
   }
 
-  updateFocusState (isHover) {
+  updateFocusState (isHover: boolean) {
     this.focusState = isHover
+  }
+
+  /** @public */
+  focus (): void {
+    (this.$el as HTMLElement).focus()
+  }
+
+  /** @public */
+  blur (): void {
+    (this.$el as HTMLElement).blur()
   }
 }
 </script>

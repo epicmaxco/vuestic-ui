@@ -4,6 +4,7 @@ import { Component } from 'vue-property-decorator'
 
 declare module 'vue/types/vue' {
   interface Vue {
+    // @deprecated, use getColor instead
     $themes: Record<string, string> | undefined;
   }
 }
@@ -114,5 +115,9 @@ export class ColorThemeMixin extends Vue {
 
   setTheme (theme: Record<string, string>) {
     Object.assign(this.$themes, theme)
+  }
+
+  created () {
+    (this as any).hasColorThemeMixin = true
   }
 }

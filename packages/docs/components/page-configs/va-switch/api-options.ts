@@ -32,9 +32,6 @@ export default {
     falseInnerLabel: {
       local: true,
     },
-    loading: {
-      local: true,
-    },
     trueValue: {
       local: true,
     },
@@ -47,15 +44,12 @@ export default {
   },
   events: {
     blur: {
-      local: true,
       types: 'FocusEvent',
     },
     focus: {
-      local: true,
       types: 'FocusEvent',
     },
     input: {
-      local: true,
       types: 'any',
     },
   },

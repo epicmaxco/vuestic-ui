@@ -1,0 +1,33 @@
+<template>
+  <div>
+    <va-icon
+      name="home"
+      size="small"
+    />
+    <va-icon
+      name="home"
+    />
+    <va-icon
+      name="home"
+      size="large"
+    />
+    <va-icon
+      name="home"
+      :size="44"
+    />
+    <va-icon
+      name="home"
+      size="4rem"
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+
+    }
+  },
+}
+</script>

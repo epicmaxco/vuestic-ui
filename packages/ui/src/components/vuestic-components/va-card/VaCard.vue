@@ -1,11 +1,11 @@
 <template>
   <component
-    :is="cardTag"
+    :is="tagComputed"
     class="va-card"
     :class="cardClasses"
     :style="cardStyles"
-    :href="c_href"
-    :target="c_target"
+    :href="href"
+    :target="target"
     :to="to"
     :replace="replace"
     :exact="exact"
@@ -18,7 +18,7 @@
       class="va-card__stripe"
       :style="stripeStyles"
     />
-    <slot/>
+    <slot />
   </component>
 </template>
 
@@ -26,40 +26,30 @@
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
-import Component, { mixins } from 'vue-class-component'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
+import { Component, Mixins } from 'vue-property-decorator'
+
+const CardPropsMixin = makeContextablePropsMixin({
+  tag: { type: String, default: 'div' },
+  square: { type: Boolean, default: false },
+  outlined: { type: Boolean, default: false },
+  bordered: { type: Boolean, default: true },
+  disabled: { type: Boolean, default: false },
+  href: { type: String, default: null },
+  target: { type: String, default: null },
+  stripe: { type: Boolean, default: false },
+  stripeColor: { type: String, default: '' },
+  gradient: { type: Boolean, default: false },
+})
 
 @Component({
   name: 'VaCard',
 })
-export default class VaCard extends mixins(
+export default class VaCard extends Mixins(
   ColorThemeMixin,
   RouterLinkMixin,
-  makeContextablePropsMixin({
-    tag: { type: String, default: 'div' },
-    square: { type: Boolean, default: false },
-    outlined: { type: Boolean, default: false },
-    bordered: { type: Boolean, default: true },
-    disabled: { type: Boolean, default: false },
-    href: { type: String, default: null },
-    target: { type: String, default: null },
-    stripe: { type: Boolean, default: false },
-    stripeColor: { type: String, default: '' },
-    gradient: { type: Boolean, default: false },
-  }),
+  CardPropsMixin,
 ) {
-  get cardTag () {
-    if (this.c_tag === 'a' || this.c_href) {
-      return 'a'
-    }
-
-    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
-      return 'router-link'
-    }
-
-    return this.c_tag
-  }
-
   get cardClasses () {
     return {
       'va-card--dark': this.dark,

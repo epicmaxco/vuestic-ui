@@ -450,6 +450,33 @@
             </va-button>
           </td>
         </tr>
+
+        <tr>
+          <td>
+            Public methods (focus, blur)
+          </td>
+          <td style="padding-top: 10px;">
+            <va-button
+              style="margin-right: 10px;"
+              @click="$refs.testButton.focus()"
+            >
+              Focus right button
+            </va-button>
+            <va-button
+              size="large"
+              style="margin-right: 10px;"
+              ref="testButton"
+            >
+              Button
+            </va-button>
+            <va-button
+              style="margin-right: 10px;"
+              @click="$refs.testButton.blur()"
+            >
+              Blur left button
+            </va-button>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>
