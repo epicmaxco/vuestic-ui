@@ -9,7 +9,7 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'hover.text',
+    translationString: 'hover.summaryText',
   },
   {
     type: BlockType.SUBTITLE,

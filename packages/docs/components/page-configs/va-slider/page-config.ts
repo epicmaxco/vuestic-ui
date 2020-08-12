@@ -10,31 +10,31 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.paragraph',
+    translationString: 'slider.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'slider.basic.subtitle',
+    translationString: 'all.examples',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'slider.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.basic.paragraph',
+    translationString: 'slider.examples.default.text',
   },
   {
     type: BlockType.EXAMPLE,
     component: 'va-slider/Default',
   },
   {
-    type: BlockType.SUBTITLE,
-    translationString: 'slider.advanced.subtitle',
-  },
-  {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.color.headline',
+    translationString: 'slider.examples.color.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.color.paragraph',
+    translationString: 'slider.examples.color.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -42,11 +42,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.minmax.headline',
+    translationString: 'slider.examples.minmax.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.minmax.paragraph',
+    translationString: 'slider.examples.minmax.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -54,11 +54,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.state.headline',
+    translationString: 'slider.examples.state.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.state.paragraph',
+    translationString: 'slider.examples.state.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -66,11 +66,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.range.headline',
+    translationString: 'slider.examples.range.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.range.paragraph',
+    translationString: 'slider.examples.range.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -78,11 +78,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.step.headline',
+    translationString: 'slider.examples.step.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.step.paragraph',
+    translationString: 'slider.examples.step.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -90,11 +90,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.pins.headline',
+    translationString: 'slider.examples.pins.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.pins.paragraph',
+    translationString: 'slider.examples.pins.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -102,11 +102,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.label.headline',
+    translationString: 'slider.examples.label.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.label.paragraph',
+    translationString: 'slider.examples.label.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -114,11 +114,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.slots.headline',
+    translationString: 'slider.examples.slots.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.slots.paragraph',
+    translationString: 'slider.examples.slots.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -126,11 +126,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.icon.headline',
+    translationString: 'slider.examples.icon.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.icon.paragraph',
+    translationString: 'slider.examples.icon.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -138,11 +138,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.track.headline',
+    translationString: 'slider.examples.track.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.track.paragraph',
+    translationString: 'slider.examples.track.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -150,11 +150,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.trackLabel.headline',
+    translationString: 'slider.examples.trackLabel.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.trackLabel.paragraph',
+    translationString: 'slider.examples.trackLabel.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -162,11 +162,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'slider.advanced.vertical.headline',
+    translationString: 'slider.examples.vertical.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'slider.advanced.vertical.paragraph',
+    translationString: 'slider.examples.vertical.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -174,11 +174,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'slider.api.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.api.paragraph',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,

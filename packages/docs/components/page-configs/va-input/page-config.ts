@@ -10,7 +10,7 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'input.paragraph',
+    translationString: 'input.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
@@ -90,7 +90,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'anyPage.api',
+    translationString: 'all.api',
   },
   {
     apiOptions,

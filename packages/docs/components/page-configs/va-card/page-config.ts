@@ -10,7 +10,7 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'card.text',
+    translationString: 'card.summaryText',
   },
   {
     type: BlockType.SUBTITLE,

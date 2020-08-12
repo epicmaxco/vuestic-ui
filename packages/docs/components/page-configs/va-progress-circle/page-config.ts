@@ -13,7 +13,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'anyPage.examples',
+    translationString: 'all.examples',
   },
   {
     type: BlockType.HEADLINE,
@@ -89,7 +89,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'anyPage.api',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,

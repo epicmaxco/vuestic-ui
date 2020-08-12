@@ -616,10 +616,6 @@
       }
     }
   },
-  "anyPage": {
-    "examples": "Examples",
-    "api": "API"
-  },
   "menu": {
     "affix": "Affix",
     "avatar": "Avatar",
@@ -675,7 +671,7 @@
   },
   "avatar": {
     "title": "Avatar",
-    "paragraph": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application.",
+    "summaryText": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application.",
     "examples": {
       "default": {
         "title": "Default",
@@ -704,22 +700,17 @@
   },
   "affix": {
     "title": "Affix",
-    "paragraph": "Affix component is created to fix any content in proper position relative to container.",
-    "demo": {
-      "subtitle": "Demo",
+    "summaryText": "Affix component is created to fix any content in proper position relative to container.",
+    "examples": {
       "top": {
-        "headline": "Fixed at the top."
+        "title": "Fixed at the top."
       },
       "bottom": {
-        "headline": "Fixed at them bottom."
+        "title": "Fixed at them bottom."
       },
       "target": {
-        "headline": "Fixes element relative to custom container."
+        "title": "Fixes element relative to custom container."
       }
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props and events that are used in va-affix component."
     }
   },
   "breadcrumbs": {
@@ -752,10 +743,6 @@
       }
     },
     "api": {
-      "component": {
-        "title": "API",
-        "text": "Here are props and slots of `va-breadcrumbs` component."
-      },
       "item": {
         "title": "Item API",
         "text": "API for `va-breadcrumb-item` component."
@@ -829,112 +816,102 @@
   },
   "slider": {
     "title": "Slider",
-    "paragraph": "Slider component is a visualization for number input. User can drag slider within a fixed range to get required value.",
-    "basic": {
-      "subtitle": "Basic Element",
-      "paragraph": "This is basic usage of slider component."
-    },
-    "advanced": {
-      "subtitle": "Advanced Element",
+    "summaryText": "Slider component is a visualization for number input. User can drag slider within a fixed range to get required value.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "This is basic usage of slider component."
+      },
       "color": {
-        "headline": "Color",
-        "paragraph": "You can customize color of slider."
+        "title": "Color",
+        "text": "You can customize color of slider."
       },
       "minmax": {
-        "headline": "Minimum and maximum values",
-        "paragraph": "You can set a range between min and max values."
+        "title": "Minimum and maximum values",
+        "text": "You can set a range between min and max values."
       },
       "state": {
-        "headline": "State",
-        "paragraph": "Slider can be in disabled or readonly state."
+        "title": "State",
+        "text": "Slider can be in disabled or readonly state."
       },
       "range": {
-        "headline": "Range slider",
-        "paragraph": "You can set a range of values."
+        "title": "Range slider",
+        "text": "You can set a range of values."
       },
       "step": {
-        "headline": "Step",
-        "paragraph": "Step can be changed."
+        "title": "Step",
+        "text": "Step can be changed."
       },
       "pins": {
-        "headline": "Pins",
-        "paragraph": "Display markers on slider track."
+        "title": "Pins",
+        "text": "Display markers on slider track."
       },
       "label": {
-        "headline": "Label",
-        "paragraph": "Label of switch, could have inverted position or custom color."
+        "title": "Label",
+        "text": "Label of switch, could have inverted position or custom color."
       },
       "slots": {
-        "headline": "Slots",
-        "paragraph": "You can add inputs before and after the slider using 'append' or 'prepend' slot name. Also default label can be replaced using 'label' slot."
+        "title": "Slots",
+        "text": "You can add inputs before and after the slider using 'append' or 'prepend' slot name. Also default label can be replaced using 'label' slot."
       },
       "icon": {
-        "headline": "Icon",
-        "paragraph": "You can insert icon at the start or end of slider."
+        "title": "Icon",
+        "text": "You can insert icon at the start or end of slider."
       },
       "track": {
-        "headline": "Track",
-        "paragraph": "Track can be hidden or have custom color."
+        "title": "Track",
+        "text": "Track can be hidden or have custom color."
       },
       "trackLabel": {
-        "headline": "Track label",
-        "paragraph": "You can show track label and overwrite it's view."
+        "title": "Track label",
+        "text": "You can show track label and overwrite it's view."
       },
       "vertical": {
-        "headline": "Vertical",
-        "paragraph": "Vertical state of slider."
+        "title": "Vertical",
+        "text": "Vertical state of slider."
       }
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props, events and slots that are used in va-slider component."
     }
   },
   "switch": {
     "title": "Switch",
-    "paragraph": "Switch component turns on or off the state of your custom option",
+    "summaryText": "Switch component turns on or off the state of your custom option",
     "examples": {
-      "subtitle": "Examples",
       "default": {
-        "headline": "Default",
-        "paragraph": "This is basic usage of switch component."
+        "title": "Default",
+        "text": "This is basic usage of switch component."
       },
       "color": {
-        "headline": "Color",
-        "paragraph": "You can customize color."
+        "title": "Color",
+        "text": "You can customize color."
       },
       "state": {
-        "headline": "State",
-        "paragraph": "Switch can be in disabled or readonly state."
+        "title": "State",
+        "text": "Switch can be in disabled or readonly state."
       },
       "label": {
-        "headline": "Label",
-        "paragraph": "Switch can be labeled on the left or on the right."
+        "title": "Label",
+        "text": "Switch can be labeled on the left or on the right."
       },
       "customLabel": {
-        "headline": "Custom Label",
-        "paragraph": "You can label any state of switch."
+        "title": "Custom Label",
+        "text": "You can label any state of switch."
       },
       "innerLabel": {
-        "headline": "Inner Label",
-        "paragraph": "You may put a label inside of a switch."
+        "title": "Inner Label",
+        "text": "You may put a label inside of a switch."
       },
       "size": {
-        "headline": "Size",
-        "paragraph": "Switches have 3 different sizes."
+        "title": "Size",
+        "text": "Switches have 3 different sizes."
       },
       "loading": {
-        "headline": "Loading",
-        "paragraph": "You can mark a pending state of switch."
+        "title": "Loading",
+        "text": "You can mark a pending state of switch."
       },
       "error": {
-        "headline": "Error",
-        "paragraph": "Switch has an error style"
+        "title": "Error",
+        "text": "Switch has an error style"
       }
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props, events and slots that are used in va-switch component."
     }
   },
   "rating": {
@@ -1067,42 +1044,36 @@
   },
   "pagination": {
     "title": "Pagination",
-    "paragraph": "The pagination component is used to split big data sets into chunks so that it's simpler for users to use provided information.",
-    "basic": {
-      "subtitle": "Usage example",
-      "paragraph": "By default the component is displayed as a list of pages with length equal to `pages` prop value."
-    },
+    "summaryText": "The pagination component is used to split big data sets into chunks so that it's simpler for users to use provided information.",
     "examples": {
-      "subtitle": "Examples",
-      "paragraph": "Here you can find some examples with simple or complex API usage",
+      "default": {
+        "title": "Default",
+        "text": "By default the component is displayed as a list of pages with length equal to `pages` prop value."
+      },
       "colors": {
-        "headline": "Color",
-        "paragraph": "Set different colors using `color` prop. You can either user theme string *HEX* color value"
+        "title": "Color",
+        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value"
       },
       "sizes": {
-        "headline": "Size",
-        "paragraph": "Utilize `size` prop in order to make component fit your needs. Refer to *API* section for more in-depth explanation of how to use `size` prop."
+        "title": "Size",
+        "text": "Utilize `size` prop in order to make component fit your needs. Refer to *API* section for more in-depth explanation of how to use `size` prop."
       },
       "icons": {
-        "headline": "Custom icons",
-        "paragraph": "Feeling the need to change icons for arrows? We have 4 props to enable full customization of `va-pagination` component."
+        "title": "Custom icons",
+        "text": "Feeling the need to change icons for arrows? We have 4 props to enable full customization of `va-pagination` component."
       },
       "limitVisible": {
-        "headline": "Limiting the length",
-        "paragraph": "By using `visible-pages` prop you can set the amount of pages visible on screen."
+        "title": "Limiting the length",
+        "text": "By using `visible-pages` prop you can set the amount of pages visible on screen."
       },
       "withInput": {
-        "headline": "Using HTML input instead of pages",
-        "paragraph": "With `input` prop you can have input with arrow buttons instead of default pagination."
+        "title": "Using HTML input instead of pages",
+        "text": "With `input` prop you can have input with arrow buttons instead of default pagination."
       },
       "totalAndPageSize": {
-        "headline": "Using `total` and `page-size`",
-        "paragraph": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
+        "title": "Using `total` and `page-size`",
+        "text": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
       }
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props, events and slots that are used in va-pagination component."
     },
     "faq": {
       "subtitle": "FAQ",
@@ -1120,30 +1091,24 @@
   },
   "tabs": {
     "title": "Tabs",
-    "paragraph": "The `va-tabs` component could be used as an on-page navigation offering rich variety of visual customizations and usage flexibility",
-    "basic": {
-      "subtitle": "Usage example",
-      "paragraph": "By default it's displayed as a horizontal list of `va-tab` items"
-    },
+    "summaryText": "The `va-tabs` component could be used as an on-page navigation offering rich variety of visual customizations and usage flexibility",
     "examples": {
-      "subtitle": "Examples",
-      "paragraph": "Here you can find some examples with simple or complex API usage",
+      "default": {
+        "title": "Default usage",
+        "text": "By default it's displayed as a horizontal list of `va-tab` items"
+      },
       "pagination": {
-        "headline": "With pagination arrows",
-        "paragraph": "When wrapper width is less then tabs width, pagination arrows are shown"
+        "title": "With pagination arrows",
+        "text": "When wrapper width is less then tabs width, pagination arrows are shown"
       },
       "vertical": {
-        "headline": "Vertical alignment",
-        "paragraph": "By using `vertical` prop alignment of `va-tabs` can be customized"
+        "title": "Vertical alignment",
+        "text": "By using `vertical` prop alignment of `va-tabs` can be customized"
       },
       "stateful": {
-        "headline": "Without value",
-        "paragraph": "Sometimes `v-model` is too much and in that case using `stateful` prop you can delegate state handling to the component itself"
+        "title": "Without value",
+        "text": "Sometimes `v-model` is too much and in that case using `stateful` prop you can delegate state handling to the component itself"
       }
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props, events and slots that are used in `va-tabs` component."
     },
     "faq": {
       "subtitle": "FAQ",
@@ -1157,30 +1122,24 @@
   },
   "fileUpload": {
     "title": "File Upload",
-    "paragraph": "The `va-file-upload` component is an input for selecting and uploading files with much richer interface than default one",
-    "basic": {
-      "subtitle": "Usage example",
-      "paragraph": "By default it's displayed as simple button to upload files"
-    },
+    "summaryText": "The `va-file-upload` component is an input for selecting and uploading files with much richer interface than default one",
     "examples": {
-      "subtitle": "Examples",
-      "paragraph": "Here you can find some usage examples",
+      "default": {
+        "title": "Default usage",
+        "text": "By default it's displayed as simple button to upload files"
+      },
       "dragAndDrop": {
-        "headline": "Drag & Drop",
-        "paragraph": "With `dropzone` prop add drag and drop possibility to `va-file-upload` component"
+        "title": "Drag & Drop",
+        "text": "With `dropzone` prop add drag and drop possibility to `va-file-upload` component"
       },
       "validation": {
-        "headline": "Specify file types",
-        "paragraph": "Add `file-types` prop with allowed extensions to add file types validation"
+        "title": "Specify file types",
+        "text": "Add `file-types` prop with allowed extensions to add file types validation"
       },
       "gallery": {
-        "headline": "As gallery",
-        "paragraph": "With `type === gallery` prop you can show user picture preview of uploaded files"
+        "title": "As gallery",
+        "text": "With `type === gallery` prop you can show user picture preview of uploaded files"
       }
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props, events and slots that are used in `va-file-upload` component."
     }
   },
   "divider": {
@@ -1215,23 +1174,21 @@
   },
   "form": {
     "title": "Form",
-    "paragraph": "Need more advanced validation than just `type=\"email\"` over your input elements? **`va-form`** has solution to offer.",
-    "basic": {
-      "subtitle": "Usage example",
-      "paragraph": "All from elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you'd be able to specify exact cases when the field is *valid* or *invalid*."
-    },
-    "advanced": {
-      "subtitle": "Trigger validation",
-      "paragraph": "You can trigger validation from parent component by using `validate()` method of `va-form` component."
-    },
-    "api": {
-      "subtitle": "API",
-      "paragraph": "Here are props, events and slots that are used in `va-form` component."
+    "summaryText": "Need more advanced validation than just `type=\"email\"` over your input elements? **`va-form`** has solution to offer.",
+    "examples": {
+      "default": {
+        "title": "Default usage",
+        "text": "All from elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you'd be able to specify exact cases when the field is *valid* or *invalid*."
+      },
+      "advanced": {
+        "title": "Trigger validation",
+        "text": "You can trigger validation from parent component by using `validate()` method of `va-form` component."
+      }
     }
   },
   "hover": {
     "title": "Hover",
-    "text": "The `va-hover` provides easy access for hover state for any component. To work with hover state you can use either `v-model` or slot-scoped `hover` property.",
+    "summaryText": "The `va-hover` provides easy access for hover state for any component. To work with hover state you can use either `v-model` or slot-scoped `hover` property.",
     "examples": {
       "slot": {
         "title": "Slot based access",
@@ -1257,7 +1214,7 @@
   },
   "card": {
     "title": "Card",
-    "text": "The `va-card` is a multipurpose representative component that can be used for anything from links to articles. It has some helper components to make markup easier.",
+    "summaryText": "The `va-card` is a multipurpose representative component that can be used for anything from links to articles. It has some helper components to make markup easier.",
     "examples": {
       "default": {
         "title": "Default",
@@ -1298,7 +1255,7 @@
   },
   "image": {
     "title": "Image",
-    "text": "The `va-image` is used to display responsive images. It has some features to make your work with images easier.",
+    "summaryText": "The `va-image` is used to display responsive images. It has some features to make your work with images easier.",
     "examples": {
       "default": {
         "title": "Default",
@@ -1463,7 +1420,7 @@
   },
   "input": {
     "title": "Input",
-    "paragraph": "The `va-input` component intended to be used instead of the standard HTMl input or textarea.",
+    "summaryText": "The `va-input` component intended to be used instead of the standard HTMl input or textarea.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -1784,12 +1741,29 @@
       }
     },
     "api": {
-      "list": "List",
-      "listLabel": "List Label",
-      "listSeparator": "List Separator",
-      "listItem": "List Item",
-      "listItemLabel": "List Item Label",
-      "listItemSection": "List Item Section"
+      "list": {
+        "text": "API for `va-list` component."
+      },
+      "listLabel": {
+        "title": "List Label API",
+        "text": "API for `va-list-label` component."
+      },
+      "listSeparator": {
+        "title": "List Separator API",
+        "text": "API for `va-list-separator` component."
+      },
+      "listItem": {
+        "title": "List Item API",
+        "text": "API for `va-list-item` component."
+      },
+      "listItemLabel": {
+        "title": "List Item Label API",
+        "text": "API for `va-list-item-label` component."
+      },
+      "listItemSection": {
+        "title": "List Item Section API",
+        "text": "API for `va-list-item-section` component."
+      }
     }
   },
   "select": {

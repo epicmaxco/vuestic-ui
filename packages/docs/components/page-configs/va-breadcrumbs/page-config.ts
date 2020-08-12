@@ -92,11 +92,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'breadcrumbs.api.component.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'breadcrumbs.api.component.text',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,
