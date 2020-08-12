@@ -1,7 +1,7 @@
 <template>
   <div class="flex lg6 xs12">
-    <div class="my-2 text--bold muted">Thickness 0.01:</div>
-    <va-progress-circle :thickness="0.01" :value="value" />
+    <div class="my-2 text--bold muted">Thickness 0.1:</div>
+    <va-progress-circle :thickness="0.1" :value="value" />
     <div class="my-2 text--bold muted">Thickness 0.6:</div>
     <va-progress-circle :thickness="0.6" :value="value" />
     <div class="my-2 text--bold muted">Thickness 0.6 with intermediate state</div>
@@ -18,9 +18,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-  .muted {
-    color: #7f828b;
-  }
-</style>

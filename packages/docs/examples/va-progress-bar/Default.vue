@@ -1,8 +1,6 @@
 <template>
   <div class="flex lg6 xs12">
     <div class="mt-2 mb-5">
-      <div class="my-2 text--bold muted">No value:</div>
-      <va-progress-bar />
       <div class="my-2 text--bold muted">Default:</div>
       <va-progress-bar :value="value" />
     </div>
@@ -22,9 +20,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.muted {
-  color: #7f828b;
-}
-</style>

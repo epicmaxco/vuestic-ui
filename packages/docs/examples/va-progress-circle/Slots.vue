@@ -1,6 +1,6 @@
 <template>
   <div class="flex lg6 xs12">
-    <div class="mt-2 text--bold muted">Dynamic value:</div>
+    <div class="mt-2 text--bold muted">Value:</div>
     <va-progress-circle :value="value">
       {{ value + '%' }}
     </va-progress-circle>
@@ -11,7 +11,6 @@
     >
       {{ value + '%' }}
     </va-progress-circle>
-    <div class="mb-4" />
   </div>
 </template>
 
@@ -24,9 +23,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.muted {
-  color: #7f828b;
-}
-</style>
