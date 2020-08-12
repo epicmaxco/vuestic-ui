@@ -32,6 +32,7 @@ Hi! We are really excited that you are interested in contributing to Vuestic. Be
 ### For core contributors
 
 * Always link PR to issue (via `fix #123`).
+* When you start working on the task - please assign yourself. That's needed to prevent conflict.
 * For small issues you may push to `develop` branch directly while adding (`fix #123`) to commit message.
 * Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.
 * Be sure to have only one person assigned per issue.
@@ -65,6 +66,9 @@ Here's couple of points about these files:
 ``` bash
 # Run vue-book dev server
 $ yarn serve:book
+
+# Generate all needed files for component (component itself, docs, tests)
+$ yarn generate:component
 
 # Build vue-book bundle
 $ yarn build:book

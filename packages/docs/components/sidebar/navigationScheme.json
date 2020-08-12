@@ -5,6 +5,20 @@
   },
   "routes": [
     {
+      "name": "styles",
+      "displayName": "menu.styles",
+      "meta": {
+        "iconClass": "vuestic-iconset-image"
+      },
+      "disabled": true,
+      "children": [
+        {
+          "name": "grid",
+          "displayName": "menu.grid"
+        }
+      ]
+    },
+    {
       "name": "ui",
       "displayName": "menu.uiElements",
       "meta": {
@@ -69,6 +83,14 @@
           "displayName": "menu.tabs"
         },
         {
+          "name": "hover",
+          "displayName": "menu.hover"
+        },
+        {
+          "name": "image",
+          "displayName": "menu.image"
+        },
+        {
           "name": "option-list",
           "displayName": "menu.optionList"
         },
@@ -87,6 +109,46 @@
         {
           "name": "progress-circle",
           "displayName": "menu.progressCircle"
+        },
+        {
+          "name": "infinite-scroll",
+          "displayName": "menu.infiniteScroll"
+        },
+        {
+          "name": "alert",
+          "displayName": "menu.alert"
+        },
+        {
+          "name": "icon",
+          "displayName": "menu.icon"
+        },
+        {
+          "name": "radio",
+          "displayName": "menu.radio"
+        },
+        {
+          "name": "expand",
+          "displayName": "menu.expand"
+        },
+        {
+          "name": "expand-group",
+          "displayName": "menu.expandGroup"
+        },
+        {
+          "name": "tag",
+          "displayName": "menu.tag"
+        },
+        {
+          "name": "input",
+          "displayName": "menu.input"
+        },
+        {
+          "name": "list",
+          "displayName": "menu.list"
+        },
+        {
+          "name": "select",
+          "displayName": "menu.select"
         }
       ]
     }

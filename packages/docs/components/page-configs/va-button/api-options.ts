@@ -7,7 +7,6 @@ export default {
     icon: { local: true },
     iconRight: { local: true },
     type: { local: true },
-    loading: { local: true },
     block: { local: true },
     round: { local: true },
     href: { local: true },
@@ -18,5 +17,9 @@ export default {
   },
   events: {
     click: { local: true, types: '`() => Event`' },
+  },
+  methods: {
+    focus: { local: true, types: '`() => void`' },
+    blur: { local: true, types: '`() => void`' },
   },
 } as ManualApiOptions

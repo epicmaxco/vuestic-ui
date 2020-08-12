@@ -231,7 +231,7 @@
           visiblePages: 5,
         }
       }">
-        <va-pagination v-model="activePage"/>
+        <va-pagination v-model="activePage" />
       </va-context>
     </VbCard>
     <VbCard

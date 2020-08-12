@@ -22,9 +22,10 @@
 </template>
 
 <script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { shiftHslColor } from '../../../services/color-functions'
 import VaIcon from '../va-icon/VaIcon'
+
+import { shiftHslColor } from '../../../services/color-functions'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 export default {
   name: 'VaSidebarLink',

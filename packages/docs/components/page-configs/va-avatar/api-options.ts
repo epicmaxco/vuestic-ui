@@ -11,9 +11,6 @@ export default {
     fontSize: {
       local: true,
     },
-    loading: {
-      local: true,
-    },
     email: {
       local: true,
     },

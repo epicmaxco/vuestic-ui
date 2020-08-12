@@ -80,7 +80,9 @@
 
 <script>
 import Expanding from 'vue-bulma-expanding/src/Expanding'
+
 import VaIcon from '../va-icon/VaIcon'
+
 import { shiftHslColor } from '../../../services/color-functions'
 
 export default {

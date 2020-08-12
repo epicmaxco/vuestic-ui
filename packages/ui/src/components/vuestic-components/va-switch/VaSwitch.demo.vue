@@ -44,7 +44,7 @@
       <va-switch
         v-model="value"
       >
-        <template v-slot:innerLabel>
+        <template #innerLabel>
           Inner
         </template>
       </va-switch>
@@ -166,7 +166,7 @@
     <VbCard title="Stateless switch without v-model">
       <va-switch />
     </VbCard>
-    <VbCard title="Stateful" style="border: 4px solid red;">
+    <VbCard title="Stateful">
       <va-switch stateful />
     </VbCard>
   </VbDemo>

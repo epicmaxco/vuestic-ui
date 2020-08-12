@@ -1,38 +1,32 @@
 <script lang="ts">
+import { Mixins, Component } from 'vue-property-decorator'
+
+import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
+
+import { hasOwnProperty } from '../../../services/utils'
+import { VNode, VNodeChildren } from 'vue'
+import { RecordPropsDefinition } from 'vue/types/options'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
-import { hasOwnProperty } from '../../../services/utils'
-import { Mixins, Component } from 'vue-property-decorator'
-import { VNode, VNodeChildren } from 'vue'
-import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
-import { RecordPropsDefinition } from 'vue/types/options'
 
-const props = {
-  separator: {
-    type: String,
-    default: '/',
-  },
-  color: {
-    type: String,
-    default: 'gray',
-  },
-  activeColor: {
-    type: String,
-    default: null,
-  },
-  separatorColor: {
-    type: String,
-    default: null,
-  },
-}
+const BreadcrumbsPropsMixin = makeContextablePropsMixin({
+  separator: { type: String, default: '/' },
+  color: { type: String, default: 'gray' },
+  activeColor: { type: String, default: null },
+  separatorColor: { type: String, default: null },
+})
 
-const ContextableMixin = makeContextablePropsMixin(props)
-
-@Component({})
-export default class VaBreadcrumbs extends Mixins(ColorThemeMixin, AlignMixin, ContextableMixin) {
+@Component({
+  name: 'VaBreadcrumbs',
+})
+export default class VaBreadcrumbs extends Mixins(
+  ColorThemeMixin,
+  AlignMixin,
+  BreadcrumbsPropsMixin,
+) {
   get computedStyles () {
     return this.alignComputed
   }

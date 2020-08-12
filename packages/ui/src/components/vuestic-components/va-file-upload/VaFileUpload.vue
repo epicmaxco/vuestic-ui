@@ -48,121 +48,112 @@
   </div>
 </template>
 
-<script>
-import VaFileUploadList from './VaFileUploadList'
-import VaButton from '../va-button/VaButton'
-import VaModal from '../va-modal/VaModal'
+<script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
+import VaFileUploadList from './VaFileUploadList.vue'
+import VaButton from '../va-button/VaButton.vue'
+import VaModal from '../va-modal/VaModal.vue'
+
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-export default {
+const FileUploadPropsMixin = makeContextablePropsMixin({
+  type: {
+    type: String,
+    default: 'list',
+    validator (value: string) {
+      return ['list', 'gallery', 'single'].includes(value)
+    },
+  },
+  fileTypes: { type: String, default: '' },
+  dropzone: { type: Boolean, default: false },
+  value: { type: Array, default: () => [] },
+  color: { type: String, default: 'success' },
+  disabled: { type: Boolean, default: false },
+})
+
+@Component({
   name: 'VaFileUpload',
   components: {
     VaModal,
     VaButton,
     VaFileUploadList,
   },
-  mixins: [
-    ColorThemeMixin,
-    makeContextablePropsMixin({
-      type: {
-        type: String,
-        default: 'list',
-        validator (value) {
-          return ['list', 'gallery', 'single'].includes(value)
-        },
-      },
-      fileTypes: {
-        type: String,
-        default: '',
-      },
-      dropzone: {
-        type: Boolean,
-        default: false,
-      },
-      value: {
-        type: Array,
-        default: () => [],
-      },
-      color: {
-        type: String,
-        default: 'success',
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
-    }),
-  ],
-  data () {
+})
+export default class VaFileUpload extends Mixins(
+  ColorThemeMixin,
+  FileUploadPropsMixin,
+) {
+  modal = false
+
+  get computedStyle () {
     return {
-      modal: false,
+      backgroundColor: this.dropzone ? getFocusColor(this.colorComputed) : 'transparent',
     }
-  },
+  }
+
+  get files () {
+    return this.value
+  }
+
+  set files (files) {
+    this.$emit('input', files)
+  }
+
+  changeFieldValue (e: Event) {
+    this.uploadFile(e)
+    ;(this as any).$refs.fileInput.value = ''
+  }
+
+  uploadFile (e: any) {
+    let files = e.target.files || e.dataTransfer.files
+
+    // type validation
+    if (this.fileTypes) {
+      files = this.validateFiles(Array.from(files))
+    }
+    this.files = [...this.files, ...files]
+  }
+
+  removeFile (index: number) {
+    this.files.splice(index, 1)
+  }
+
+  removeSingleFile () {
+    this.files = []
+  }
+
+  validateFiles (files: any) {
+    return files.filter((file: any) => {
+      const fileName = file.name || file.url
+      if (!fileName) {
+        return false
+      } else {
+        if (file.url) {
+          return true
+        } else {
+          const extn = fileName.substring(fileName.lastIndexOf('.') + 1)
+            .toLowerCase()
+          const correctExt = this.fileTypes.includes(extn)
+          if (!correctExt) {
+            this.modal = true
+          }
+          return correctExt
+        }
+      }
+    })
+  }
+
+  callFileDialogue () {
+    // HACK Seems like safari fix. If you happen to stumble upon this and have mac - please test.
+    (this as any).$refs.fileInput.click()
+  }
+
   mounted () {
     this.files = this.validateFiles(this.files)
-  },
-  methods: {
-    changeFieldValue (e) {
-      this.uploadFile(e)
-      this.$refs.fileInput.value = ''
-    },
-    uploadFile (e) {
-      let files = e.target.files || e.dataTransfer.files
-
-      // type validation
-      if (this.fileTypes) {
-        files = this.validateFiles(Array.from(files))
-      }
-      this.files = [...this.files, ...files]
-    },
-    removeFile (index) {
-      this.files.splice(index, 1)
-    },
-    removeSingleFile () {
-      this.files = []
-    },
-    validateFiles (files) {
-      return files.filter(file => {
-        const fileName = file.name || file.url
-        if (!fileName) {
-          return false
-        } else {
-          if (file.url) {
-            return true
-          } else {
-            const extn = fileName.substring(fileName.lastIndexOf('.') + 1)
-              .toLowerCase()
-            const correctExt = this.fileTypes.includes(extn)
-            if (!correctExt) {
-              this.modal = true
-            }
-            return correctExt
-          }
-        }
-      })
-    },
-    callFileDialogue () {
-      // HACK Seems like safari fix. If you happen to stumble upon this and have mac - please test.
-      this.$refs.fileInput.click()
-    },
-  },
-  computed: {
-    computedStyle () {
-      return {
-        backgroundColor: this.dropzone ? getFocusColor(this.colorComputed) : 'transparent',
-      }
-    },
-    files: {
-      get () {
-        return this.value
-      },
-      set (files) {
-        this.$emit('input', files)
-      },
-    },
-  },
+  }
 }
 </script>
 

@@ -7,7 +7,7 @@
     </va-breadcrumbs>
     <br/>
     <va-breadcrumbs>
-      <template v-slot:separator>
+      <template #separator>
         <va-icon name="arrow_forward_ios" />
       </template>
       <va-breadcrumbs-item label="Application" />
