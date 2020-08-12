@@ -174,7 +174,7 @@ export default class VaExpand extends Mixins(
     return node ? `calc(${node.clientHeight}px + 2rem)` : '100%'
   }
 
-  mounted () {
+  mount () {
     this.mutationObserver = new MutationObserver(() => {
       this.height = this.getHeight()
     })
