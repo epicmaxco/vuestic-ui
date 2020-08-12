@@ -1,6 +1,11 @@
 <template>
   <VbDemo>
     <VbCard title="Sidebar" style="width: 100%; height: 100%;">
+      <div style="display: flex; justify-content: space-between;">
+        <va-switch v-model="hoverState" label="hoverState" />
+        <va-switch v-model="minimized" label="minimized" />
+        <va-switch v-model="right" label="right" />
+      </div>
       <div style="position: relative; width: inherit; height: inherit; background-color: green;">
       <va-sidebar
         style="height: auto;"
@@ -11,6 +16,7 @@
           <template v-for="(item, index) in items">
             <sidebar-link-group
               :key="index"
+              :minimized="minimized"
               icon="home"
               v-if="item.children"
             >
@@ -44,6 +50,7 @@
 
 <script>
 import VaSidebar from '../../vuestic-components/va-sidebar/VaSidebar'
+import VaSwitch from '../va-switch/VaSwitch'
 import SidebarLinkGroup from './VaSidebarLinkGroup'
 import SidebarLink from './VaSidebarLink'
 import { navigationRoutes } from './navigation-router-example'
@@ -51,6 +58,7 @@ import { navigationRoutes } from './navigation-router-example'
 export default {
   components: {
     VaSidebar,
+    VaSwitch,
     SidebarLinkGroup,
     SidebarLink,
   },

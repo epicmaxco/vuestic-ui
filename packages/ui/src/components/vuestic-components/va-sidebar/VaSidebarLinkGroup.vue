@@ -21,7 +21,7 @@
           <slot name="title">
             {{ title }}
           </slot>
-          <sup v-if="showChildrenCount" class="va-sidebar-link__children-counter" >{{children.length}}</sup>
+          <sup v-if="showChildrenCount" class="va-sidebar-link__children-counter">{{children.length}}</sup>
         </span>
         <va-icon
           class="va-sidebar-link-group__dropdown-icon"
@@ -132,54 +132,49 @@ export default class VaSidebarLinkGroup extends Vue {
    default: 'secondary',
  }) readonly color!: string
 
- data () {
-   return {
-     isActive: this.activeByDefault,
-     isHovered: false,
-     expanded: this.expanded,
-     dropdownOpened: false,
-   }
- }
+  isActive = this.activeByDefault
+  isHovered = false
+  expanded = false
+  dropdownOpened = false
 
- get computedLinkClass () {
-   return {
-     'va-sidebar-link': true,
-     'va-sidebar-link--expanded': this.expanded,
-     'va-sidebar-link--active': this.isActive,
-   }
- }
+  get computedLinkClass () {
+    return {
+      'va-sidebar-link': true,
+      'va-sidebar-link--expanded': this.expanded,
+      'va-sidebar-link--active': this.isActive,
+    }
+  }
 
- get computedClass () {
-   return {
-     'va-sidebar-link-group': true,
-     'va-sidebar-link-group--minimized': this.minimized,
-   }
- }
+  get computedClass () {
+    return {
+      'va-sidebar-link-group': true,
+      'va-sidebar-link-group--minimized': this.minimized,
+    }
+  }
 
- get sidebarLinkStyles () {
-   return {
-     color: this.isHovered || this.isActive ? this.$themes.primary : this.textColor,
-     backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }) : this.c_color,
-     borderColor: this.isActive && !this.noHighlight ? this.$themes.primary : 'transparent',
-   }
- }
+  get sidebarLinkStyles () {
+    return {
+      color: this.isHovered || this.isActive ? this.$themes.primary : this.textColor,
+      backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }) : this.c_color,
+      borderColor: this.isActive && !this.noHighlight ? this.$themes.primary : 'transparent',
+    }
+  }
 
- get iconStyles () {
-   return (this.isHovered || this.isActive)
-     ? { color: this.$themes.primary }
-     : { color: this.textColor, fontWeight: 'normal' }
- }
+  get iconStyles () {
+    return (this.isHovered || this.isActive)
+      ? { color: this.$themes.primary }
+      : { color: this.textColor, fontWeight: 'normal' }
+  }
 
  @Watch('$route')
- onRouteChanged () {
-   this.$nextTick(() => {
-     this.updateActiveState()
-   })
- }
+  onRouteChanged () {
+    this.$nextTick(() => {
+      this.updateActiveState()
+    })
+  }
 
 @Watch('minimized')
  onMinimizedChanged (value) {
-   debugger
    if (!value) {
      this.isActive = false
    } else {
