@@ -364,6 +364,28 @@
         "input": "Emitted when the component needs to change the value"
       }
     },
+    "VaProgressBar": {
+      "props": {
+        "value": "The progress value",
+        "indeterminate": "Create a indeterminate loading bar",
+        "buffer": "Create a loading bar with a buffer. Commonly used in videos",
+        "reverse": "Reverse the progress bar direction",
+        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)"
+      },
+      "slots": {
+        "default": "Display any additional info about the progress"
+      }
+    },
+    "VaProgressCircle": {
+      "props": {
+        "value": "The progress value",
+        "indeterminate": "Create a indeterminate loading circle",
+        "thickness": "Circle border size between 0 and 1"
+      },
+      "slots": {
+        "default": "Display any additional info about the progress"
+      }
+    },
     "VaInfiniteScroll": {
       "props": {
         "offset": "Number of pixels to the end of `va-infinite-scroll` container at which the component should start loading more content in advance.",
@@ -623,6 +645,8 @@
     "divider": "Divider",
     "button": "Button",
     "checkbox": "Checkbox",
+    "progressBar": "Progress Bar",
+    "progressCircle": "Progress Circle",
     "infiniteScroll": "Infinite Scroll",
     "alert": "Alert",
     "icon": "Icon",
@@ -1352,6 +1376,66 @@
       "error": {
         "title": "Errors",
         "text": "You can show your error messages while using `va-checkbox` with form."
+      }
+    }
+  },
+  "progressBar": {
+    "title": "Progress Bar",
+    "summaryText": "The `va-progress-bar` component is used to display an indicator of an app loading content. Also check the <a href=\"/en/progress-circle\">va-progress-circle</a> component.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "By default, the `va-progress-bar` displays a horizontal progress bar. Use the `value` prop to control the progress."
+      },
+      "indeterminate": {
+        "title": "Indeterminate",
+        "text": "Use the `indeterminate` prop so that the `va-progress-bar` continuously animates."
+      },
+      "coloring": {
+        "title": "Coloring",
+        "text": "Use predefined colors or use your own with the `color` prop."
+      },
+      "sizing": {
+        "title": "Sizing",
+        "text": "Use predefined sizes or use your own with the `size` prop."
+      },
+      "slots": {
+        "title": "Slots",
+        "text": "There is also the default `slot` if you want to display some additional info about the progress."
+      },
+      "buffer": {
+        "title": "Buffer",
+        "text": "When dealing with media content like streaming videos we can use progress bars to show the buffering progress indicator on a video."
+      }
+    }
+  },
+  "progressCircle": {
+    "title": "Progress Circle",
+    "summaryText": "The `va-progress-circle` component is used to display an indicator of an app loading content. Also check the <a href=\"/en/progress-bar\">va-progress-bar</a> component.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "By default, the `va-progress-circle` displays a circular progress bar. Use the `value` prop to control the progress."
+      },
+      "indeterminate": {
+        "title": "Indeterminate",
+        "text": "Use the `indeterminate` prop so that the `va-progress-circle` continuously animates."
+      },
+      "coloring": {
+        "title": "Coloring",
+        "text": "Use predefined colors or use your own with the `color` prop."
+      },
+      "sizing": {
+        "title": "Sizing",
+        "text": "Use predefined sizes or use your own with the `size` prop."
+      },
+      "slots": {
+        "title": "Slots",
+        "text": "There is also the default `slot` if you want to display some additional info about the progress."
+      },
+      "thickness": {
+        "title": "Thickness",
+        "text": "Use the `thickness` prop to adjust the stroke size."
       }
     }
   },
