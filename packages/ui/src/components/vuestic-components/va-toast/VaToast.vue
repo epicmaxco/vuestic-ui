@@ -10,6 +10,9 @@
       @click="onToastClick"
       role="alert"
     >
+      <template>
+        <slot name="prepend" />
+      </template>
       <va-icon
         v-if="type || iconClass"
         class="va-toast__icon"
@@ -24,13 +27,18 @@
             <p v-else v-html="message"></p>
           </slot>
         </div>
+        <div
+          v-if="$slots.append"
+          @click.stop="onToastClose"
+        >
+          <slot name="append" />
+        </div>
         <va-icon
-          v-if="closeable"
+          v-else-if="closeable"
           size="small"
           name="close"
           class="va-toast__close-icon"
-          :class="[ toastTypeIconClass, iconClass ]"
-          @click.stop="closeToast"
+          @click.stop="onToastClose"
         />
       </div>
     </div>
@@ -42,8 +50,8 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { NotificationPosition, MessageType } from './types'
 import { PropType } from 'vue'
 import { Component, Mixins, Watch } from 'vue-property-decorator'
-import VaIcon from '../va-icon/VaIcon.vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import VaIcon from '../va-icon/VaIcon.vue'
 
 const toastTypes: Record<string, string> = {
   success: 'success',
@@ -54,11 +62,13 @@ const toastTypes: Record<string, string> = {
 
 const ToastPropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },
+  offsetY: { type: Number, default: 16 },
+  offsetX: { type: Number, default: 16 },
   message: { type: [String, Function], default: '' },
   type: { type: String as PropType<MessageType> },
   iconClass: { type: String, default: '' },
   customClass: { type: String, default: '' },
-  duration: { type: Number, default: 4500 },
+  duration: { type: Number, default: 20000 },
   closeable: { type: Boolean, default: true },
   dangerouslyUseHTMLString: { type: Boolean, default: false },
   onClose: { type: [Function as PropType<() => void>, undefined] },
@@ -89,25 +99,21 @@ export default class VaToast extends Mixins(
   private timer: number | null = null
 
   public visible = false
-  public offsetY = 16
-  public offsetX = 16
 
   get toastTypeIconClass () {
     return this.type && toastTypes[this.type] ? `va-icon-${toastTypes[this.type]}` : ''
   }
 
-  get positionX () {
+  get positionX (): 'right' | 'left' {
     return this.position.includes('right') ? 'right' : 'left'
   }
 
-  get positionY () {
+  get positionY (): 'top' | 'bottom' {
     return this.position.includes('top') ? 'top' : 'bottom'
   }
 
   get toastClasses () {
-    return [
-      this.customClass,
-    ]
+    return [this.customClass]
   }
 
   get toastStyles () {
@@ -128,14 +134,18 @@ export default class VaToast extends Mixins(
   onToastClick () {
     if (typeof this.onClick === 'function') {
       this.onClick()
+      return
     }
+    this.$emit('onClick')
   }
 
-  closeToast () {
+  onToastClose () {
     this.closed = true
     if (typeof this.onClose === 'function') {
       this.onClose()
+      return
     }
+    this.$emit('onClose')
   }
 
   clearTimer () {
@@ -146,18 +156,20 @@ export default class VaToast extends Mixins(
     if (this.duration > 0) {
       this.timer = window.setTimeout(() => {
         if (!this.closed) {
-          this.closeToast()
+          this.onToastClose()
         }
       }, this.duration)
     }
   }
 
-  keydown (e: KeyboardEvent) {
+  onKeydown (e: KeyboardEvent) {
+    // Reset timer if user press Delete or Backspace. I'm not sure we need this
     if (e.keyCode === 46 || e.keyCode === 8) {
-      this.clearTimer() // delete
-    } else if (e.keyCode === 27) { // esc
+      this.clearTimer()
+      // Close if user press Escape
+    } else if (e.keyCode === 27) {
       if (!this.closed) {
-        this.closeToast()
+        this.onToastClose()
       }
     } else {
       this.startTimer()
@@ -168,15 +180,15 @@ export default class VaToast extends Mixins(
     if (this.duration > 0) {
       this.timer = window.setTimeout(() => {
         if (!this.closed) {
-          this.closeToast()
+          this.onToastClose()
         }
       }, this.duration)
     }
-    document.addEventListener('keydown', this.keydown)
+    document.addEventListener('keydown', this.onKeydown)
   }
 
   beforeDestroy () {
-    document.removeEventListener('keydown', this.keydown)
+    document.removeEventListener('keydown', this.onKeydown)
   }
 }
 </script>
@@ -242,22 +254,6 @@ export default class VaToast extends Mixins(
     &:hover {
       color: $toast-close-hover-color;
     }
-  }
-
-  .va-icon-success {
-    color: $toast-success-icon-color;
-  }
-
-  .va-icon-error {
-    color: $toast-danger-icon-color;
-  }
-
-  .va-icon-info {
-    color: $toast-info-icon-color;
-  }
-
-  .va-icon-warning {
-    color: $toast-warning-icon-color;
   }
 }
 

@@ -1,12 +1,26 @@
 import Vue, { VNode } from 'vue'
+
 export type MessageType = 'success' | 'warning' | 'info' | 'error';
 
-export type NotificationPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+export type NotificationPosition =
+  'top-right'
+  | 'top-left'
+  | 'bottom-right'
+  | 'bottom-left'
+
+/** Notification Component Inteface */
+export interface NotificationComponentInterface {
+  (options: NotificationOptions): any;
+
+  close (id: string, onCloseHandler?: Function): void;
+
+  closeAll? (): void;
+}
 
 /** Notification Component */
 export declare class NotificationComponent extends Vue {
   /** Close the Notification instance */
-  close? (id: string, userOnClose: () => void): void
+  close (id: string, userOnClose: () => void): void
 
   closeAll? (): void
 }
@@ -31,7 +45,7 @@ export interface NotificationOptions {
   duration?: number;
 
   /** Whether to show a close button */
-  showClose?: boolean;
+  closeable?: boolean;
 
   /** Whether message is treated as HTML string */
   dangerouslyUseHTMLString?: boolean;
@@ -43,12 +57,12 @@ export interface NotificationOptions {
   onClick?: () => void;
 
   /** Offset from the top edge of the screen. Every Notification instance of the same moment should have the same offset */
-  offset?: number;
+  offsetX?: number;
 
   /** custom position */
   position?: NotificationPosition;
 
-  verticalOffset?: number;
+  offsetY?: number;
 
   visible?: boolean;
 }

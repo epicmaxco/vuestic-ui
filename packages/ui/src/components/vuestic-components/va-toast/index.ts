@@ -1,18 +1,22 @@
 import Vue from 'vue'
 import VaToast from './VaToast.vue'
-import { NotificationOptions } from './types'
+import { NotificationComponentInterface, NotificationOptions } from './types'
 import { VNode } from 'vue/types/umd'
+import { Constructor } from 'vue-property-decorator'
 
-const NotificationConstructor = Vue.extend(VaToast)
+const notificationTypes: string[] = ['success', 'warning', 'info', 'error']
+const Z_INDEX: number = 100
+let seed = 1
+
+const NotificationConstructor: Constructor = VaToast
+let toastInstances: any[] = []
+let toastInstance: any
 
 type OptionKeys = keyof NotificationOptions;
 
-let instance
-const instances: any[] = []
-let seed = 1
-const Z_INDEX = 100
 const isVNode = (node: any) => node !== null && typeof node === 'object' &&
   Object.prototype.hasOwnProperty.call(node, 'componentOptions')
+
 const merge = (target: NotificationOptions | any, ...args: NotificationOptions[]): NotificationOptions => {
   args.forEach((source) => {
     if (typeof source !== 'object') {
@@ -30,96 +34,126 @@ const merge = (target: NotificationOptions | any, ...args: NotificationOptions[]
   return target
 }
 
-const Notification = function (options: NotificationOptions) {
-  if (Vue.prototype.$isServer) {
-    return
-  }
+const getToastOptions = (options: string | NotificationOptions): any => {
   if (typeof options === 'string') {
     options = {
       message: options,
     }
   }
-  options = merge({}, options)
-  const userOnClose = options.onClose
+
+  const onCloseHandler = options.onClose
   const id: string = 'notification_' + seed++
-  const position = options.position || 'top-right'
-
-  options.onClose = function () {
-    Notification.close(id, userOnClose)
+  options.onClose = () => {
+    Notification.close(id, onCloseHandler)
   }
+  return merge({}, options)
+}
 
-  instance = new NotificationConstructor({
+const createToastInstance = (options: NotificationOptions): VaToast => {
+  const id: string = 'notification_' + seed++
+  toastInstance = new NotificationConstructor({
     propsData: options,
   })
 
+  const position: string = toastInstance.position
+
   if (isVNode(options.message)) {
-    instance.$slots.default = [options.message as VNode]
+    toastInstance.$slots.default = [options.message as VNode]
     options.message = 'REPLACED_BY_VNODE'
   }
-  ;(instance as any).id = id
-  instance.$mount()
-  document.body.appendChild(instance.$el)
-  ;(instance as any).visible = true
-  ;(instance.$el as HTMLElement).style.zIndex = Z_INDEX + ''
+  toastInstance.id = id
+  toastInstance.$mount()
+  document.body.appendChild(toastInstance.$el)
+  toastInstance.visible = true
+  ;(toastInstance.$el as HTMLElement).style.zIndex = Z_INDEX + ''
 
-  let verticalOffset = options.offset || 0
-  instances.filter(item => item.position === position).forEach(item => {
-    verticalOffset += item.$el.offsetHeight + 16
+  let offsetX = options.offsetX || (toastInstance as any).offsetX
+  let offsetY = options.offsetY || (toastInstance as any).offsetX
+
+  toastInstances.filter(item => item.position === position).forEach((item: any) => {
+    offsetY += item.$el.offsetHeight + 16
   })
-  verticalOffset += 16
-  ;(instance as any).verticalOffset = verticalOffset
-  instances.push(instance)
-  return instance
-};
+  toastInstance.offsetX = offsetX
+  toastInstance.offsetY = offsetY
+  return toastInstance
+}
 
-['success', 'warning', 'info', 'error'].forEach(type => {
-  ;(Notification as any)[type] = (options: any) => {
-    if (typeof options === 'string' || isVNode(options)) {
-      options = {
-        message: options,
+
+const initNotification = (options: NotificationOptions | string) => {
+  const toastInstance: VaToast = createToastInstance(getToastOptions(options))
+  toastInstances.push(toastInstance)
+  return toastInstance
+}
+
+const closeNotification = (id: any) => {
+  if (!toastInstances.length) {
+    seed = 1
+    return
+  }
+  const closableInstance = toastInstances.find((toastInstance: any) => toastInstance.id === id)
+  if (!closableInstance) {
+    return
+  }
+
+  const closableInstanceIndex = toastInstances.findIndex((toastInstance: any) => toastInstance.id === id)
+
+  if (typeof closableInstance.onClose() === 'function') {
+    closableInstance.onClose()
+  }
+
+  const closableInstancePosition = closableInstance.position
+  const removedHeight = toastInstance.$el.offsetHeight
+
+  toastInstances = toastInstances.reduce((acc: any[], toastInstance: any, index: number) => {
+    if (index === closableInstanceIndex) {
+      toastInstance.$el.style.visibility = 'hidden'
+      return acc
+    }
+    //Check for following instance and modify it position if true
+    const isFollowingInstance: boolean = index > closableInstanceIndex && toastInstance.position === closableInstancePosition
+    if (isFollowingInstance) {
+      toastInstance.$el.style[toastInstance.positionY] =
+        parseInt(toastInstance.$el.style[toastInstance.positionY], 10) - removedHeight - 16 + 'px'
+      acc.push(toastInstance)
+      return acc
+    }
+    return [...acc, toastInstance]
+  }, [])
+  if (!toastInstances.length) seed = 1
+}
+
+const closeAllNotifications = () => {
+  if (!toastInstances.length) {
+    seed = 1
+    return
+  }
+
+  toastInstances.forEach((toastInstance: any) => {
+    closeNotification(toastInstance.id)
+  })
+}
+
+const setNotificationType = () => {
+  notificationTypes.forEach(type => {
+    Notification[type] = (options: any) => {
+      if (typeof options === 'string' || isVNode(options)) {
+        options = {
+          message: options,
+        }
       }
+      options.type = type
+      return Notification(options)
     }
-    options.type = type
-    return Notification(options)
-  }
-})
-
-Notification.close = function (id: any, userOnClose?: Function) {
-  let index = -1
-  const len = instances.length
-  const instance = instances.filter((instance, i) => {
-    if (instance.id === id) {
-      index = i
-      return true
-    }
-    return false
-  })[0]
-  if (!instance) {
-    return
-  }
-
-  if (typeof userOnClose === 'function') {
-    userOnClose(instance)
-  }
-  instances.splice(index, 1)
-
-  if (len <= 1) {
-    return
-  }
-  const position = instance.position
-  const removedHeight = instance.$el.offsetHeight
-  for (let i = index; i < len - 1; i++) {
-    if (instances[i].position === position) {
-      instances[i].$el.style[instance.verticalProperty] =
-        parseInt(instances[i].$el.style[instance.verticalProperty], 10) - removedHeight - 16 + 'px'
-    }
-  }
+  })
 }
 
-Notification.closeAll = function () {
-  for (let i = instances.length - 1; i >= 0; i--) {
-    instances[i].close()
-  }
+//TODO: need to use classes
+const Notification: any = (options: NotificationOptions) => {
+  initNotification(options)
 }
+
+Notification.close = (id: any) => closeNotification(id)
+Notification.closeAll = () => closeAllNotifications()
+setNotificationType()
 
 export default Notification
