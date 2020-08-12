@@ -26,19 +26,10 @@
   </va-card>
 </template>
 
-<script>
-import VaCard from '../../../ui/src/components/vuestic-components/va-card/VaCard'
-export default {
-  components: { VaCard },
-}
-</script>
-
 <style lang="scss" scoped>
-@import 'vuestic-ui/src/components/vuestic-sass/resources/resources';
-
 .item {
-  border: 1px solid $gray;
-  background-color: $white;
+  border: 1px solid rgb(212, 205, 205);
+  background-color: #ffffff;
   text-align: center;
 }
 </style>

@@ -4,13 +4,3 @@
     <va-icon>&#10032;</va-icon>
   </div>
 </template>
-
-<script>
-export default {
-  data () {
-    return {
-
-    }
-  },
-}
-</script>
