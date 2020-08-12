@@ -1,15 +1,17 @@
 <template>
   <VbDemo>
-    <VbCard title="Sidebar">
+    <VbCard title="Sidebar" style="width: 100%; height: 100%;">
+      <div style="position: relative; width: inherit; height: inherit; background-color: green;">
       <va-sidebar
-        style="position: static; height: auto;"
+        style="height: auto;"
         :minimized="minimized"
+        :right="right"
       >
         <template slot="menu">
           <template v-for="(item, index) in items">
             <sidebar-link-group
               :key="index"
-              :icon="[ 'sidebar-menu-item-icon vuestic-iconset', item.meta.iconClass ]"
+              icon="home"
               v-if="item.children"
             >
               <span slot="title">{{ item.displayName }}</span>
@@ -27,7 +29,7 @@
             <sidebar-link
               v-else
               :key="index"
-              :icon="[ 'sidebar-menu-item-icon vuestic-iconset', item.meta.iconClass ]"
+              icon="warning"
               :to="{ name: item.name }"
             >
               <span slot="title">{{ item.displayName }}</span>
@@ -35,6 +37,7 @@
           </template>
         </template>
       </va-sidebar>
+      </div>
     </VbCard>
   </VbDemo>
 </template>
@@ -59,6 +62,7 @@ export default {
       items: navigationRoutes.routes,
       hoverState: false,
       minimized: false,
+      right: false,
     }
   },
 }

@@ -25,12 +25,17 @@ export default {
       type: String,
       default: 'secondary',
     },
+    right: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     computedClass () {
       return {
         'va-sidebar': true,
         'va-sidebar--minimized': this.minimized,
+        'va-sidebar--right': this.right,
       }
     },
   },
@@ -45,7 +50,7 @@ export default {
   height: $sidebar-viewport-height;
   position: absolute;
   width: $sidebar-width;
-  top: $top-nav-height;
+  // top: $top-nav-height;
   left: 0;
   transition: all 0.3s ease;
   overflow-y: auto;
@@ -80,6 +85,11 @@ export default {
     & + .content-wrap {
       margin-left: $sidebar-width--hidden !important;
     }
+  }
+
+  &--right {
+    left: auto;
+    right: 0;
   }
 }
 </style>

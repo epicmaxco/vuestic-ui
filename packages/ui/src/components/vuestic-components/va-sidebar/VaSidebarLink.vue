@@ -66,17 +66,13 @@ export default class VaSidebarLink extends Mixins(ColorThemeMixin) {
    type: Boolean,
  }) readonly noHighlight!: boolean
 
- data () {
-   return {
-     isHovered: false,
-     isActive: this.activeByDefault,
-   }
- }
+  isHovered = false
+  isActive = this.activeByDefault
 
   @Watch('$route')
- onRouteChange () {
-   this.updateActiveState()
- }
+  onRouteChange () {
+    this.updateActiveState()
+  }
 
   get computedLinkClass () {
     return {
