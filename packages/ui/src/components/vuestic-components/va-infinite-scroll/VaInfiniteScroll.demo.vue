@@ -31,7 +31,7 @@
             >
               {{ record.text }} #{{ index }}
             </div>
-            <template v-slot:loading>
+            <template #loading>
               <va-progress-circle
                 indeterminate
                 :thickness=".5"
@@ -168,7 +168,7 @@
       </VbCard>
 
       <VbCard title="disabled">
-        <VbCheckbox v-model="disabled" label="Disabled"/>
+        <VbCheckbox v-model="disabled" label="Disabled" />
         <div class="scroll__container">
           <va-infinite-scroll
             :disabled="disabled"

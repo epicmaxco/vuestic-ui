@@ -21,13 +21,13 @@
       >
         <td><strong>{{ propRow.name }}</strong></td>
         <td>
-          <MarkdownView :value="$t(propRow.description)"/>
+          <MarkdownView :value="$t(propRow.description)" />
         </td>
         <td>
-          <MarkdownView :value="propRow.types"/>
+          <MarkdownView :value="propRow.types" />
         </td>
         <td>
-          <MarkdownView :value="propRow.default"/>
+          <MarkdownView :value="propRow.default" />
         </td>
         <td>{{ propRow.required ? '+' : '' }}</td>
         <td>{{ propRow.version }}</td>
@@ -54,10 +54,10 @@
         >
           <td><strong>{{ eventName }}</strong></td>
           <td>
-            <MarkdownView :value="$t(apiEventOption.description)"/>
+            <MarkdownView :value="$t(apiEventOption.description)" />
           </td>
           <td>
-            <MarkdownView :value="apiEventOption.types"/>
+            <MarkdownView :value="apiEventOption.types" />
           </td>
           <td>
             {{apiEventOption.version}}
@@ -84,7 +84,7 @@
         >
           <td><strong>{{ slotName }}</strong></td>
           <td>
-            <MarkdownView :value="$t(apiSlotOption.description)"/>
+            <MarkdownView :value="$t(apiSlotOption.description)" />
           </td>
           <td>
             <pre>{{apiSlotOption.version}}</pre>
@@ -112,10 +112,10 @@
         >
           <td><strong>{{ methodName }}</strong></td>
           <td>
-            <MarkdownView :value="$t(apiMethodOption.description)"/>
+            <MarkdownView :value="$t(apiMethodOption.description)" />
           </td>
           <td>
-            <MarkdownView :value="apiMethodOption.types"/>
+            <MarkdownView :value="apiMethodOption.types" />
           </td>
           <td>
             <pre>{{apiMethodOption.version}}</pre>
@@ -132,9 +132,10 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ComponentOptions } from 'vue'
 import { ManualApiOptions } from './ManualApiOptions'
 import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
-import { getApiTableData } from './api-docs-helpers'
+import { getApiTableData, mergeInDefaults } from './api-docs-helpers'
 import MarkdownView
   from '../../../../docs/utilities/markdown-view/MarkdownView.vue'
+import { defaultApiOptions } from './default-api-options'
 
 @Component({
   components: { ApiDocsPropsRow, MarkdownView },
@@ -148,6 +149,8 @@ export default class ApiDocs extends Vue {
   @Prop({ type: Object, default: () => ({}) }) apiOptions!: ManualApiOptions
 
   get apiTableData () {
+    // TODO Modifies parent object, which is not ideal.
+    mergeInDefaults(this.apiOptions, defaultApiOptions)
     return getApiTableData(this.componentOptions, this.apiOptions)
   }
 

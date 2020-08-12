@@ -31,47 +31,47 @@
   </va-card>
 </template>
 
-<script>
-import VaFileUploadUndo from './VaFileUploadUndo'
-import VaCard from '../va-card/VaCard'
-import VaIcon from '../va-icon/VaIcon'
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
-export default {
+import VaFileUploadUndo from './VaFileUploadUndo.vue'
+import VaCard from '../va-card/VaCard.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
+
+@Component({
   name: 'VaFileUploadListItem',
   components: {
     VaIcon,
     VaCard,
     VaFileUploadUndo,
   },
-  props: {
-    file: {
-      type: Object,
-      default: null,
-    },
-    color: {
-      type: String,
-      default: 'success',
-    },
-  },
-  data () {
-    return {
-      removed: false,
-    }
-  },
-  methods: {
-    removeFile () {
-      this.removed = true
-      setTimeout(() => {
-        if (this.removed) {
-          this.$emit('remove')
-          this.removed = false
-        }
-      }, 2000)
-    },
-    recoverFile () {
-      this.removed = false
-    },
-  },
+})
+export default class VaFileUploadListItem extends Vue {
+  removed = false
+
+  @Prop({
+    type: Object,
+    default: null,
+  }) readonly file!: any
+
+  @Prop({
+    type: String,
+    default: 'success',
+  }) readonly color!: string
+
+  removeFile () {
+    this.removed = true
+    setTimeout(() => {
+      if (this.removed) {
+        this.$emit('remove')
+        this.removed = false
+      }
+    }, 2000)
+  }
+
+  recoverFile () {
+    this.removed = false
+  }
 }
 </script>
 

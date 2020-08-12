@@ -28,6 +28,7 @@
 
 <script>
 import VaPopover from '../va-popover/VaPopover'
+
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { getGradientBackground } from '../../../services/color-functions'
 

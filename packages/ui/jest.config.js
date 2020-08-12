@@ -3,6 +3,9 @@ module.exports = {
   testMatch: [
     '**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
   ],
+  moduleNameMapper: {
+    '\\.(css|less)$': 'identity-obj-proxy',
+  },
   collectCoverage: false,
   collectCoverageFrom: [
     'src/**/*.(js|vue)',

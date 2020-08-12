@@ -1,6 +1,8 @@
 import { shallowMount } from '@vue/test-utils'
 import VaDataTable from './VaDataTable'
 
+import { testIsLoadingMixin } from '../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
+
 jest.mock('vuetable-2/src/components/Vuetable', () => jest.fn())
 
 describe('VaDataTable', () => {
@@ -30,5 +32,11 @@ describe('VaDataTable', () => {
 
     expect(new Set(wrapper.vm.sortAsc(wrapper.vm.data, 'alnum'))).toEqual(new Set(expectedAsc))
     expect(new Set(wrapper.vm.sortDesc(wrapper.vm.data, 'alnum'))).toEqual(new Set(expectedAsc.reverse()))
+  })
+  it('has loading mixin', () => {
+    const props = {
+      data: [],
+    }
+    expect(() => testIsLoadingMixin(VaDataTable, props)).not.toThrow()
   })
 })

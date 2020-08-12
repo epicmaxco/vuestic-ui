@@ -11,35 +11,31 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tabs.paragraph',
+    translationString: 'tabs.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'tabs.basic.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'tabs.basic.paragraph',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-tabs/Basic',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'pagination.examples.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.paragraph',
+    translationString: 'all.examples',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tabs.examples.pagination.headline',
+    translationString: 'tabs.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tabs.examples.pagination.paragraph',
+    translationString: 'tabs.examples.default.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-tabs/Default',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'tabs.examples.pagination.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'tabs.examples.pagination.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -47,11 +43,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tabs.examples.vertical.headline',
+    translationString: 'tabs.examples.vertical.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tabs.examples.vertical.paragraph',
+    translationString: 'tabs.examples.vertical.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -59,11 +55,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tabs.examples.stateful.headline',
+    translationString: 'tabs.examples.stateful.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tabs.examples.stateful.paragraph',
+    translationString: 'tabs.examples.stateful.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -71,11 +67,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'tabs.api.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'tabs.api.paragraph',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,

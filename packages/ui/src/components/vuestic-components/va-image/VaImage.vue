@@ -26,90 +26,85 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Mixins, Component, Prop, Watch } from 'vue-property-decorator'
+
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-export default {
-  name: 'VaImage',
-  mixins: [
-    makeContextablePropsMixin({
-      ratio: {
-        type: [Number, String],
-        default: 1,
-      },
-      contain: {
-        type: Boolean,
-        default: false,
-      },
-    }),
-  ],
-  props: {
-    src: {
-      type: String,
-      required: true,
-    },
-  },
-  data () {
-    return {
-      image: null,
+const ImagePropsMixin = makeContextablePropsMixin({
+  ratio: { type: [Number, String], default: 1 },
+  contain: { type: Boolean, default: false },
+})
 
-      loading: false,
-      loadingError: false,
-    }
-  },
+@Component({
+  name: 'VaImage',
+})
+export default class VaImage extends Mixins(
+  ImagePropsMixin,
+) {
+  image: any = null
+  loading = false
+  loadingError = false
+
+  @Prop({
+    type: String,
+    required: true,
+  }) readonly src!: string
+
   beforeDestroy () {
     this.destroyLoader()
-  },
-  watch: {
-    src: {
-      handler () {
-        this.createLoader()
-      },
-      immediate: true,
-    },
-  },
-  computed: {
-    imageStyles () {
-      return {
-        'background-image': `url(${this.src})`,
-        'background-size': this.contain ? 'contain' : 'cover',
-      }
-    },
-    paddingStyles () {
-      return {
-        'padding-bottom': `${1 / this.c_ratio * 100}%`,
-      }
-    },
-  },
-  methods: {
-    createLoader () {
-      this.destroyLoader()
-      this.loading = true
-      this.loadingError = false
-      this.image = new Image()
-      this.image.onload = this.handleLoad
-      this.image.onerror = this.handleError
+  }
+
+  @Watch('src', { immediate: true })
+  onSrcChange () {
+    this.createLoader()
+  }
+
+  get imageStyles () {
+    return {
+      'background-image': `url(${this.src})`,
+      'background-size': this.contain ? 'contain' : 'cover',
+    }
+  }
+
+  get paddingStyles () {
+    return {
+      'padding-bottom': `${1 / this.c_ratio * 100}%`,
+    }
+  }
+
+  createLoader () {
+    this.destroyLoader()
+    this.loading = true
+    this.loadingError = false
+    this.image = new Image()
+    this.image.onload = this.handleLoad
+    this.image.onerror = this.handleError
+    if (this.src) {
       this.image.src = this.src
-    },
-    destroyLoader () {
-      if (this.image) {
-        this.image.onload = null
-        this.image.onerror = null
-        this.image = null
-      }
-    },
-    handleLoad () {
-      this.destroyLoader()
-      this.loading = false
-      this.$emit('loaded', this.src)
-    },
-    handleError (err) {
-      this.destroyLoader()
-      this.loadingError = true
-      this.loading = false
-      this.$emit('error', err)
-    },
-  },
+    }
+  }
+
+  destroyLoader () {
+    if (this.image) {
+      this.image.onload = null
+      this.image.onerror = null
+      this.image = null
+    }
+  }
+
+  handleLoad () {
+    this.destroyLoader()
+    this.loading = false
+    this.$emit('loaded', this.src)
+  }
+
+  handleError (err: string) {
+    this.destroyLoader()
+    this.loadingError = true
+    this.loading = false
+    this.$emit('error', err)
+  }
 }
 </script>
 

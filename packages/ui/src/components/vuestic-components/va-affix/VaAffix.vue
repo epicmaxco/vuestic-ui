@@ -8,8 +8,8 @@
     </div>
     <div
       v-if="isAffixed"
-      :class="classes"
-      :style="styles"
+      :class="computedClass"
+      :style="computedStyle"
     >
       <slot />
     </div>
@@ -17,33 +17,28 @@
 </template>
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
+
 import { noop } from 'lodash'
+import {
+  handleThrottledEvent,
+  useEventsHandlerWithThrottle,
+  getWindowHeight,
+  State,
+} from './VaAffix-utils'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { handleThrottledEvent, useEventsHandlerWithThrottle, getWindowHeight, State } from './VaAffix-utils'
 
-const prefixClass = 'va-affix'
-
-const props = {
-  offsetTop: {
-    type: Number,
-    default: undefined,
-  },
-  offsetBottom: {
-    type: Number,
-    default: undefined,
-  },
-  target: {
-    type: [HTMLElement, Window],
-    default: () => window,
-  },
-}
-
-const ContextableMixin = makeContextablePropsMixin(props)
+const AffixPropsMixin = makeContextablePropsMixin({
+  offsetTop: { type: Number, default: undefined },
+  offsetBottom: { type: Number, default: undefined },
+  target: { type: Function, default: () => window },
+})
 
 @Component({
   name: 'VaAffix',
 })
-export default class VaAffix extends Mixins(ContextableMixin) {
+export default class VaAffix extends Mixins(
+  AffixPropsMixin,
+) {
   private state: State = {
     isTopAffixed: false,
     isBottomAffixed: false,
@@ -52,25 +47,24 @@ export default class VaAffix extends Mixins(ContextableMixin) {
   private initialPosition?: undefined | ClientRect
   private clearEventListeners = noop
 
-  get classes () {
+  get computedClass () {
     return [
       {
-        [`${prefixClass}--affixed`]: this.isAffixed,
+        'va-affix--affixed': this.isAffixed,
       },
     ]
   }
 
-  getTarget () {
+  getTargetElement () {
     // a custom target may get rendered later than
     // a component gets a property from the context
     const { c_target, target } = this
-
-    return target || c_target
+    return target() || c_target()
   }
 
-  get styles () {
+  get computedStyle () {
     const calculateTop = () => {
-      const target = this.getTarget()
+      const target = this.getTargetElement()
 
       if (this.c_offsetTop === undefined) {
         return
@@ -85,7 +79,7 @@ export default class VaAffix extends Mixins(ContextableMixin) {
     }
 
     const calculateBottom = () => {
-      const target = this.getTarget()
+      const target = this.getTargetElement()
       if (this.c_offsetBottom === undefined) {
         return
       }
@@ -127,7 +121,7 @@ export default class VaAffix extends Mixins(ContextableMixin) {
       ...this.$data,
       ...this.$props,
       element: this.$refs.element,
-      target: this.getTarget(),
+      target: this.getTargetElement(),
       setState: this.setState.bind(this),
       getState: this.getState.bind(this),
     }
@@ -135,7 +129,7 @@ export default class VaAffix extends Mixins(ContextableMixin) {
     if (!eventName || eventName === 'resize') {
       handleThrottledEvent(eventName, context)
     } else if (event && event.target) {
-      const target = this.getTarget()
+      const target = this.getTargetElement()
 
       if ((target as HTMLElement) === event.target || target === window) {
         handleThrottledEvent(eventName, context)
@@ -180,13 +174,13 @@ export default class VaAffix extends Mixins(ContextableMixin) {
 }
 </script>
 
-<style scoped>
-  .va-affix {}
+<style lang="scss">
+@import '../../vuestic-sass/resources/resources';
 
-  .va-affix--affixed {
+.va-affix {
+  &--affixed {
     position: fixed;
-
-    /* TODO: make it a global variable */
-    z-index: 10;
+    z-index: $zindex-affix;
   }
+}
 </style>

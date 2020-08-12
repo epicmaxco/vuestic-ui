@@ -33,6 +33,7 @@
 @mixin va-disabled() {
   cursor: default;
   opacity: 0.4;
+  pointer-events: none;
 }
 
 @mixin theme-button-variant($color, $background, $border, $shadow) {

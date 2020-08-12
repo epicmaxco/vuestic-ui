@@ -1,3 +1,5 @@
+`va-notification` component is meant to catch user attention in order to convey important information.
+
 ```html
 <va-notification 
   v-model="isVisible" 

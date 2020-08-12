@@ -8,10 +8,13 @@ export type VersionString = string | '' // vuestic-ui version at which feature w
 // Universal options for props, events, methods, slots.
 export type ManualApiOptionsItem = {
   version?: VersionString;
+  // If true - set translate fallback to api.all
   local?: boolean;
 }
 
 export type ManualPropApiOptions = ManualApiOptionsItem & {
+  hidden?: boolean; // Won't appear in documentation. Intended for internal usage props, such as icon and color configs.
+  types?: string;
   // add more here
 }
 

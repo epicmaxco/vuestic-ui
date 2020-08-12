@@ -1,51 +1,51 @@
-<script>
-export default {
+<script lang="ts">
+import { Mixins, Component, Prop } from 'vue-property-decorator'
+import { ScopedSlotChildren } from 'vue/types/vnode'
+import { CreateElement } from 'vue/types/umd'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+
+@Component({
   name: 'VaHover',
-  data () {
-    return {
-      active: false,
-    }
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    value: {
-      type: Boolean,
-    },
-  },
-  methods: {
-    onMouseEnter () {
-      this.active = true
-      this.$emit('input', true)
-    },
-    onMouseLeave () {
-      this.active = false
-      this.$emit('input', false)
-    },
-  },
-  render () {
-    let element
+})
+export default class VaHover extends Mixins(StatefulMixin) {
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) readonly disabled!: boolean
 
-    if (this.$scopedSlots.default) {
-      element = this.$scopedSlots.default({ hover: this.value || this.active })
+  onMouseEnter () {
+    this.value = true
+    this.$emit('input', true)
+  }
+
+  onMouseLeave () {
+    this.value = false
+    this.$emit('input', false)
+  }
+
+  render (h: CreateElement) {
+    if (!this.$scopedSlots.default) {
+      return
     }
 
-    if (Array.isArray(element) && element.length === 1) {
-      element = element[0]
+    const slot: ScopedSlotChildren = this.$scopedSlots.default({ hover: this.value })
+
+    if (!Array.isArray(slot) || !slot.length) {
+      return
     }
 
     if (!this.disabled) {
-      element.data = element.data || {}
-
-      this._g(element.data, {
-        mouseenter: this.onMouseEnter,
-        mouseleave: this.onMouseLeave,
+      slot.forEach((element) => {
+        element.data = element.data || {}
+        // is used to bind listeners using vue native function
+        // @ts-ignore
+        this._g(element.data, {
+          mouseenter: this.onMouseEnter,
+          mouseleave: this.onMouseLeave,
+        })
       })
     }
-
-    return element
-  },
+    return h('div', slot)
+  }
 }
 </script>
