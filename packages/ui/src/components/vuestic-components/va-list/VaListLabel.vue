@@ -35,6 +35,6 @@ export default class VaListLabel extends Mixins(
   text-align: center;
   // padding: $list-item-padding;
   // padding-top: 0;
-  padding-top: 0.75rem;
+  padding: 0.3rem 0;
 }
 </style>

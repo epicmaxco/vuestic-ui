@@ -21,8 +21,8 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 const SidebarPropsMixin = makeContextablePropsMixin({
   minimized: { type: Boolean, required: true },
   color: { type: String, default: '' },
-  right: { type: Boolean, default: false },
   hoverable: { type: Boolean, default: false },
+  position: { type: String, default: 'left' },
 })
 
 @Component({
@@ -43,9 +43,10 @@ export default class VaSidebar extends Mixins(
   get computedClass () {
     return {
       'va-sidebar': true,
-      // 'va-sidebar--minimized': this.c_minimized,
       'va-sidebar--minimized': this.c_minimized || (this.c_hoverable && !this.isHovered),
-      'va-sidebar--right': this.c_right,
+      'va-sidebar--right': this.c_position === 'right',
+      'va-sidebar--vertical': this.c_position === 'top',
+      'va-sidebar--vertical va-sidebar--vertical-bottom': this.c_position === 'bottom',
     }
   }
 
@@ -72,8 +73,8 @@ export default class VaSidebar extends Mixins(
   &__menu {
     max-height: 100%;
     margin-bottom: 0;
-    padding-top: 2.5625rem;
-    padding-bottom: 2.5rem;
+    // padding-top: 2.5625rem;
+    // padding-bottom: 2.5rem;
     list-style: none;
     padding-left: 0;
   }
@@ -104,6 +105,33 @@ export default class VaSidebar extends Mixins(
   &--right {
     left: auto;
     right: 0;
+  }
+
+  &--vertical {
+    top: 0;
+    left: 0;
+    width: $sidebar-viewport-height;
+    height: $sidebar-width;
+    min-height: auto;
+    min-width: 100%;
+
+    .va-sidebar__menu {
+      > div {
+        display: flex;
+        padding: 0;
+        align-items: center;
+
+        > div {
+          width: 4rem;
+          overflow: hidden;
+        }
+      }
+    }
+
+    &-bottom {
+      bottom: 0;
+      top: auto;
+    }
   }
 }
 </style>
