@@ -77,7 +77,7 @@ export default class VaSidebar extends Mixins(
 
   &--minimized {
     left: 0;
-    width: $sidebar-minimized-width;
+    width: 4rem;
 
     .va-sidebar-link-group {
       .va-sidebar-link__content {

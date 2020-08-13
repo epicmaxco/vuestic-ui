@@ -59,13 +59,19 @@
               v-for="(contact, index) in contacts"
               :key="index"
             >
-              <va-list-item-section avatar>
+              <!-- <va-list-item-section avatar>
                 <va-avatar>
                   <img :src="contact.img">
                 </va-avatar>
-              </va-list-item-section>
+              </va-list-item-section> -->
 
-              <va-list-item-section v-if="!minimized">
+                  <va-list-item-section icon>
+                    <va-icon
+                      name="home"
+                      color="gray"
+                    />
+                  </va-list-item-section>
+              <va-list-item-section  v-if="!minimized">
                 <va-list-item-label>
                   {{ contact.name }}
                 </va-list-item-label>
@@ -75,7 +81,7 @@
                 </va-list-item-label>
               </va-list-item-section>
 
-              <va-list-item-section icon  v-if="!minimized">
+              <va-list-item-section icon v-if="!minimized">
                 <va-icon
                   name="remove_red_eye"
                   color="gray"

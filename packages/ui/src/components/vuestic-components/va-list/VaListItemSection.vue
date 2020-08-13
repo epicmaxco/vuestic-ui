@@ -42,12 +42,15 @@ export default class VaListItemSection extends Mixins(
   &--main {
     min-width: 0; // for ellipsis to work correctly
     flex-direction: column;
+    // padding: 0 0.5rem;
     flex: 1 0;
   }
 
   &--icon {
     min-width: 1.5rem;
     align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0.7rem;
 
     .va-icon {
       font-size: 1.25rem;

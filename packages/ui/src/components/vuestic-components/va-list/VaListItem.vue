@@ -63,7 +63,7 @@ export default class VaListItem extends Mixins(
 
 .va-list-item {
   display: flex;
-  padding: $list-item-padding;
+  padding: 0.5rem;
 
   &:hover {
     background-color: $light-gray3;
