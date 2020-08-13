@@ -5,6 +5,7 @@
         <va-switch v-model="hoverState" label="hoverState" />
         <va-switch v-model="minimized" label="minimized" />
         <va-switch v-model="right" label="right" />
+        <va-switch v-model="hoverable" label="hoverable" />
       </div>
       <div style="position: relative; width: inherit; height: inherit; background-color: green;">
       <!-- <va-sidebar
@@ -48,6 +49,7 @@
         :minimized="minimized"
         :right="right"
         color="secondary"
+        :hoverable="hoverable"
       >
         <template slot="menu">
           <va-list>
@@ -71,7 +73,7 @@
                       color="gray"
                     />
                   </va-list-item-section>
-              <va-list-item-section  v-if="!minimized">
+              <va-list-item-section>
                 <va-list-item-label>
                   {{ contact.name }}
                 </va-list-item-label>
@@ -81,7 +83,7 @@
                 </va-list-item-label>
               </va-list-item-section>
 
-              <va-list-item-section icon v-if="!minimized">
+              <va-list-item-section icon>
                 <va-icon
                   name="remove_red_eye"
                   color="gray"
@@ -96,7 +98,8 @@
         style="height: auto;"
         :minimized="minimized"
         :right="!right"
-        color="secondary"
+        color="#fff"
+        :hoverable="hoverable"
       >
         <template slot="menu">
           <va-list>
@@ -187,6 +190,7 @@ export default {
       hoverState: false,
       minimized: false,
       right: false,
+      hoverable: false,
       contacts: [
         { name: 'Audrey Clay', address: '644 Vermont Court, Freelandville, Kentucky, 2619', img: 'https://randomuser.me/api/portraits/women/5.jpg' },
         { name: 'Aguirre Klein', address: '626 Carroll Street, Roulette, Ohio, 1477', img: 'https://randomuser.me/api/portraits/men/1.jpg' },

@@ -2,6 +2,8 @@
   <aside
     :class="computedClass"
     :style="computedStyle"
+    @mouseenter="updateHoverState(true)"
+    @mouseleave="updateHoverState(false)"
   >
     <div class="va-sidebar__menu">
       <slot name="menu" />
@@ -20,6 +22,7 @@ const SidebarPropsMixin = makeContextablePropsMixin({
   minimized: { type: Boolean, required: true },
   color: { type: String, default: '' },
   right: { type: Boolean, default: false },
+  hoverable: { type: Boolean, default: false },
 })
 
 @Component({
@@ -29,6 +32,8 @@ export default class VaSidebar extends Mixins(
   ColorThemeMixin,
   SidebarPropsMixin,
 ) {
+  isHovered = false
+
   get computedStyle () {
     return {
       backgroundImage: getGradientBackground(this.colorComputed),
@@ -38,9 +43,14 @@ export default class VaSidebar extends Mixins(
   get computedClass () {
     return {
       'va-sidebar': true,
-      'va-sidebar--minimized': this.c_minimized,
+      // 'va-sidebar--minimized': this.c_minimized,
+      'va-sidebar--minimized': this.c_minimized || (this.c_hoverable && !this.isHovered),
       'va-sidebar--right': this.c_right,
     }
+  }
+
+  updateHoverState (isHovered: boolean) {
+    this.isHovered = this.c_hoverable ? isHovered : false
   }
 }
 </script>
@@ -57,6 +67,7 @@ export default class VaSidebar extends Mixins(
   left: 0;
   transition: all 0.3s ease;
   overflow-y: auto;
+  overflow-x: hidden;
 
   &__menu {
     max-height: 100%;

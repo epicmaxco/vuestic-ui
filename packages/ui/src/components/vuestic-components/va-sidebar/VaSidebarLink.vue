@@ -22,94 +22,94 @@
 </template>
 
 <script lang="ts">
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { shiftHslColor } from '../../../services/color-functions'
-import VaIcon from '../va-icon/VaIcon.vue'
-import { Mixins, Prop, Component, Watch } from 'vue-property-decorator'
+// import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+// import { shiftHslColor } from '../../../services/color-functions'
+// import VaIcon from '../va-icon/VaIcon.vue'
+// import { Mixins, Prop, Component, Watch } from 'vue-property-decorator'
 
-@Component({ components: { VaIcon } })
-export default class VaSidebarLink extends Mixins(ColorThemeMixin) {
- @Prop({
-   type: [Object, String],
-   default: '',
- }) readonly to!: Record<string, any> | string
+// @Component({ components: { VaIcon } })
+// export default class VaSidebarLink extends Mixins(ColorThemeMixin) {
+//  @Prop({
+//    type: [Object, String],
+//    default: '',
+//  }) readonly to!: Record<string, any> | string
 
- @Prop({
-   type: String,
-   default: '_self',
- }) readonly target!: string
+//  @Prop({
+//    type: String,
+//    default: '_self',
+//  }) readonly target!: string
 
- @Prop({
-   type: String,
-   default: '',
- }) readonly icon!: string
+//  @Prop({
+//    type: String,
+//    default: '',
+//  }) readonly icon!: string
 
- @Prop({
-   type: String,
-   default: '',
- }) readonly title!: string
+//  @Prop({
+//    type: String,
+//    default: '',
+//  }) readonly title!: string
 
- @Prop({
-   type: Boolean,
- }) readonly minimized!: boolean
+//  @Prop({
+//    type: Boolean,
+//  }) readonly minimized!: boolean
 
- @Prop({
-   type: Boolean,
- }) readonly activeByDefault!: boolean
+//  @Prop({
+//    type: Boolean,
+//  }) readonly activeByDefault!: boolean
 
- @Prop({
-   type: String,
-   default: '#323742',
- }) readonly textColor!: string
+//  @Prop({
+//    type: String,
+//    default: '#323742',
+//  }) readonly textColor!: string
 
- @Prop({
-   type: Boolean,
- }) readonly noHighlight!: boolean
+//  @Prop({
+//    type: Boolean,
+//  }) readonly noHighlight!: boolean
 
-  isHovered = false
-  isActive = this.activeByDefault
+//   isHovered = false
+//   isActive = this.activeByDefault
 
-  @Watch('$route')
-  onRouteChange () {
-    this.updateActiveState()
-  }
+//   @Watch('$route')
+//   onRouteChange () {
+//     this.updateActiveState()
+//   }
 
-  get computedLinkClass () {
-    return {
-      'va-sidebar-link': true,
-      'va-sidebar-link--minimized': this.minimized,
-    }
-  }
+//   get computedLinkClass () {
+//     return {
+//       'va-sidebar-link': true,
+//       'va-sidebar-link--minimized': this.minimized,
+//     }
+//   }
 
-  get computedLinkStyles () {
-    return {
-      color: this.isHovered || this.isActive ? this.$themes.primary : this.textColor,
-      backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }) : this.c_color,
-      borderColor: this.isActive && !this.noHighlight ? this.$themes.primary : 'transparent',
-    }
-  }
+//   get computedLinkStyles () {
+//     return {
+//       color: this.isHovered || this.isActive ? this.$themes.primary : this.textColor,
+//       backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }) : this.c_color,
+//       borderColor: this.isActive && !this.noHighlight ? this.$themes.primary : 'transparent',
+//     }
+//   }
 
-  get computedIconStyles () {
-    return (this.isHovered || this.isActive)
-      ? { color: this.$themes.primary }
-      : { color: 'white' }
-  }
+//   get computedIconStyles () {
+//     return (this.isHovered || this.isActive)
+//       ? { color: this.$themes.primary }
+//       : { color: 'white' }
+//   }
 
-  updateHoverState (isHovered) {
-    this.isHovered = isHovered
-  }
+//   updateHoverState (isHovered) {
+//     this.isHovered = isHovered
+//   }
 
-  updateActiveState () {
-    this.$nextTick(() => {
-      const name = typeof this.to === 'string' ? this.to : this.to.name
-      this.isActive = this.$router.resolve(name).route.name === this.$route.name
-    })
-  }
+//   updateActiveState () {
+//     this.$nextTick(() => {
+//       const name = typeof this.to === 'string' ? this.to : this.to.name
+//       this.isActive = this.$router.resolve(name).route.name === this.$route.name
+//     })
+//   }
 
-  mounted () {
-    this.updateActiveState()
-  }
-}
+//   mounted () {
+//     this.updateActiveState()
+//   }
+// }
 </script>
 
 <style lang="scss">
