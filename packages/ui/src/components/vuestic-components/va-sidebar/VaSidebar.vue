@@ -1,7 +1,7 @@
 <template>
   <aside
     :class="computedClass"
-    :style="{ backgroundColor: colorComputed }"
+    :style="computedStyle"
   >
     <div class="va-sidebar__menu">
       <slot name="menu" />
@@ -9,36 +9,39 @@
   </aside>
 </template>
 
-<script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+<script lang="ts">
+import { Mixins, Component } from 'vue-property-decorator'
 
-export default {
+import { getGradientBackground } from '../../../services/color-functions'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
+const SidebarPropsMixin = makeContextablePropsMixin({
+  minimized: { type: Boolean, required: true },
+  color: { type: String, default: '' },
+  right: { type: Boolean, default: false },
+})
+
+@Component({
   name: 'VaSidebar',
-  components: {},
-  mixins: [ColorThemeMixin],
-  props: {
-    minimized: {
-      type: Boolean,
-      required: true,
-    },
-    color: {
-      type: String,
-      default: 'secondary',
-    },
-    right: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    computedClass () {
-      return {
-        'va-sidebar': true,
-        'va-sidebar--minimized': this.minimized,
-        'va-sidebar--right': this.right,
-      }
-    },
-  },
+})
+export default class VaSidebar extends Mixins(
+  ColorThemeMixin,
+  SidebarPropsMixin,
+) {
+  get computedStyle () {
+    return {
+      backgroundImage: getGradientBackground(this.colorComputed),
+    }
+  }
+
+  get computedClass () {
+    return {
+      'va-sidebar': true,
+      'va-sidebar--minimized': this.c_minimized,
+      'va-sidebar--right': this.c_right,
+    }
+  }
 }
 </script>
 
