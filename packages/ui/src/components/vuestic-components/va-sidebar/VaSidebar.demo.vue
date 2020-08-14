@@ -2,9 +2,10 @@
   <VbDemo>
     <VbCard title="Sidebar" style="width: 100%; height: 100%; background-color: red;">
       <div style="display: flex; justify-content: space-between;">
-        <va-switch v-model="hoverable" label="hoverable" />
-        <va-switch v-model="minimized" label="minimized" />
+        <va-checkbox v-model="hoverable" label="hoverable" />
+        <va-checkbox v-model="minimized" label="minimized" />
         <div>
+          <va-slider v-model="valueWidth" />
           <div>
             Position:
           </div>
@@ -15,6 +16,17 @@
           :option="option"
         />
         </div>
+      </div>
+        <div>
+          <div>
+            Sidebar:
+          </div>
+      <va-checkbox
+        v-for="(sidebar, index) in sidebars"
+        :key="index"
+        v-model="sidebars[index]"
+        :label="`sidebar ${index}: ${sidebar}`"
+      />
       </div>
       <div style="position: relative; width: inherit; height: inherit; background-image: url(https://wallpapercave.com/wp/wp4748242.png);">
       <!-- <va-sidebar
@@ -56,10 +68,12 @@
 
       <!-- EXPAND -->
       <va-sidebar
-        style="height: auto; max-width: 300px;"
+        v-if="sidebars[1]"
+        style="height: auto;"
         :minimized="minimized"
         position="right"
         color="#fff"
+        :width="`${valueWidth}%`"
         :hoverable="hoverable"
       >
         <template slot="menu">
@@ -107,10 +121,12 @@
 
       <!-- DEFAULT -->
       <va-sidebar
+        v-if="sidebars[0]"
         style="height: auto;"
         :minimized="minimized"
         color="secondary"
         :hoverable="hoverable"
+        :width="`${valueWidth}%`"
         :position="selectedOptionString"
       >
         <template slot="menu">
@@ -163,8 +179,8 @@
 
 <script>
 import VaSidebar from '../../vuestic-components/va-sidebar/VaSidebar'
-import VaSwitch from '../va-switch/VaSwitch'
 import VaRadio from '../va-radio/VaRadio'
+import VaCheckbox from '../va-checkbox/VaCheckbox'
 // import SidebarLinkGroup from './VaSidebarLinkGroup'
 // import SidebarLink from './VaSidebarLink'
 import VaExpand from '../va-expand/VaExpand'
@@ -176,15 +192,17 @@ import VaListItemSection from '../va-list/VaListItemSection'
 import VaListItemLabel from '../va-list/VaListItemLabel'
 import VaIcon from '../va-icon/VaIcon'
 import VaAvatar from '../va-avatar/VaAvatar'
+import VaSlider from '../va-slider/VaSlider'
 import { navigationRoutes } from './navigation-router-example'
 
 export default {
   components: {
     VaSidebar,
-    VaSwitch,
     VaIcon,
     VaRadio,
     VaAvatar,
+    VaCheckbox,
+    VaSlider,
     // SidebarLinkGroup,
     // SidebarLink,
     VaExpand,
@@ -203,8 +221,14 @@ export default {
         'top',
         'bottom',
       ],
+      sidebars: [
+        true,
+        false,
+        false,
+      ],
       selectedOptionString: 'left',
       value: 60,
+      valueWidth: 20,
       valueExpand: [false, false, false, false],
       icon: 'info_outline',
       theme: 'info',

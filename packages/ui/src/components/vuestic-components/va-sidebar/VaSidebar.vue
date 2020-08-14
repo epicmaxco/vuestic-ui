@@ -23,6 +23,7 @@ const SidebarPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
   hoverable: { type: Boolean, default: false },
   position: { type: String, default: 'left' },
+  width: { type: String, default: '16rem' },
 })
 
 @Component({
@@ -34,16 +35,21 @@ export default class VaSidebar extends Mixins(
 ) {
   isHovered = false
 
+  get isMinimized () {
+    return this.c_minimized || (this.c_hoverable && !this.isHovered)
+  }
+
   get computedStyle () {
     return {
       backgroundImage: getGradientBackground(this.colorComputed),
+      width: this.isMinimized ? '4rem' : this.c_width,
     }
   }
 
   get computedClass () {
     return {
       'va-sidebar': true,
-      'va-sidebar--minimized': this.c_minimized || (this.c_hoverable && !this.isHovered),
+      'va-sidebar--minimized': this.isMinimized,
       'va-sidebar--right': this.c_position === 'right',
       'va-sidebar--vertical': this.c_position === 'top',
       'va-sidebar--vertical va-sidebar--vertical-bottom': this.c_position === 'bottom',
@@ -69,8 +75,6 @@ export default class VaSidebar extends Mixins(
   top: 0;
   left: 0;
   transition: all 0.3s ease;
-  overflow-y: auto;
-  overflow-x: hidden;
 
   &__menu {
     max-height: 100%;
@@ -79,6 +83,8 @@ export default class VaSidebar extends Mixins(
     // padding-bottom: 2.5rem;
     list-style: none;
     padding-left: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   @include media-breakpoint-down(sm) {
@@ -91,7 +97,7 @@ export default class VaSidebar extends Mixins(
 
   &--minimized {
     left: 0;
-    width: 4rem;
+    // width: 4rem;
 
     .va-sidebar-link-group {
       .va-sidebar-link__content {
