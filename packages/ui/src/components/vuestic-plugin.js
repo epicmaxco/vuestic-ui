@@ -53,8 +53,6 @@ import VaScrollbar from './vuestic-components/va-scrollbar/VaScrollbar.vue'
 import VaSelect from './vuestic-components/va-select/VaSelect.vue'
 import VaSeparator from './vuestic-components/va-card/VaSeparator'
 import VaSidebar from './vuestic-components/va-sidebar/VaSidebar'
-import VaSidebarLink from './vuestic-components/va-sidebar/VaSidebarLink'
-import VaSidebarLinkGroup from './vuestic-components/va-sidebar/VaSidebarLinkGroup'
 import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
 import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
 import VaTab from './vuestic-components/va-tabs/VaTab.vue'
@@ -146,8 +144,6 @@ const VuesticPlugin = {
       VaSelect,
       VaSeparator,
       VaSidebar,
-      VaSidebarLink,
-      VaSidebarLinkGroup,
       VaSlider,
       VaSwitch,
       VaTab,

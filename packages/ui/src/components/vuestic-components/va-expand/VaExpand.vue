@@ -264,6 +264,7 @@ export default class VaExpand extends Mixins(
 
   &--popout {
     margin: -0.5rem;
+    padding-top: 1rem;
   }
 
   &--inset {

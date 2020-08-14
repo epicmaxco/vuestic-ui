@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard title="Sidebar" style="width: 100%; height: 100%; background-color: #f1f1f1;">
+    <VbCard title="Sidebar" style="width: 100%; height: 80%; background-color: #f1f1f1;">
       <div style="display: flex; justify-content: space-between;">
         <va-checkbox v-model="hoverable" label="hoverable" />
         <va-checkbox v-model="minimized" label="minimized" />
@@ -28,13 +28,15 @@
         :label="`sidebar ${index}: ${sidebar}`"
       />
       </div>
-      <div style="display: block; position: relative; width: inherit; height: 90%; background-image: url(https://wallpapercave.com/wp/wp4748242.png);">
+      <div style="display: block; position: relative; width: inherit; height: 90%; background: linear-gradient(45deg, grey, transparent);">
+      <!-- NAVIGATION
       <va-sidebar
         v-if="sidebars[2]"
         style="height: auto;"
         :minimized="minimized"
         :width="`${valueWidth}%`"
         :hoverable="hoverable"
+        :position="selectedOptionString"
       >
         <template slot="menu">
           <template v-for="(item, index) in items">
@@ -66,7 +68,7 @@
             </sidebar-link>
           </template>
         </template>
-      </va-sidebar>
+      </va-sidebar> -->
 
       <!-- EXPAND -->
       <va-sidebar
@@ -183,8 +185,6 @@
 import VaSidebar from '../../vuestic-components/va-sidebar/VaSidebar'
 import VaRadio from '../va-radio/VaRadio'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
-import SidebarLinkGroup from './VaSidebarLinkGroup'
-import SidebarLink from './VaSidebarLink'
 import VaExpand from '../va-expand/VaExpand'
 import VaExpandGroup from '../va-expand-group/VaExpandGroup'
 import VaList from '../va-list/VaList'
@@ -205,8 +205,6 @@ export default {
     VaAvatar,
     VaCheckbox,
     VaSlider,
-    SidebarLinkGroup,
-    SidebarLink,
     VaExpand,
     VaExpandGroup,
     VaList,
