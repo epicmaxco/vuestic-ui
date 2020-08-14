@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard title="Sidebar" style="width: 100%; height: 100%; background-color: red;">
+    <VbCard title="Sidebar" style="width: 100%; height: 100%; background-color: #f1f1f1;">
       <div style="display: flex; justify-content: space-between;">
         <va-checkbox v-model="hoverable" label="hoverable" />
         <va-checkbox v-model="minimized" label="minimized" />
@@ -28,7 +28,7 @@
         :label="`sidebar ${index}: ${sidebar}`"
       />
       </div>
-      <div style="position: relative; width: inherit; height: inherit; background-image: url(https://wallpapercave.com/wp/wp4748242.png);">
+      <div style="display: block; position: relative; width: inherit; height: 90%; background-image: url(https://wallpapercave.com/wp/wp4748242.png);">
       <!-- <va-sidebar
         style="height: auto;"
         :minimized="minimized"
