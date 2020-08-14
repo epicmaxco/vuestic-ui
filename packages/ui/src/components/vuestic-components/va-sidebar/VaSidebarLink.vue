@@ -22,94 +22,99 @@
 </template>
 
 <script lang="ts">
-// import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-// import { shiftHslColor } from '../../../services/color-functions'
-// import VaIcon from '../va-icon/VaIcon.vue'
-// import { Mixins, Prop, Component, Watch } from 'vue-property-decorator'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { shiftHslColor } from '../../../services/color-functions'
+import VaIcon from '../va-icon/VaIcon.vue'
+import { Mixins, Prop, Component, Watch } from 'vue-property-decorator'
 
-// @Component({ components: { VaIcon } })
-// export default class VaSidebarLink extends Mixins(ColorThemeMixin) {
-//  @Prop({
-//    type: [Object, String],
-//    default: '',
-//  }) readonly to!: Record<string, any> | string
+@Component({ components: { VaIcon } })
+export default class VaSidebarLink extends Mixins(ColorThemeMixin) {
+ @Prop({
+   type: [Object, String],
+   default: '',
+ }) readonly to!: Record<string, any> | string
 
-//  @Prop({
-//    type: String,
-//    default: '_self',
-//  }) readonly target!: string
+ @Prop({
+   type: String,
+   default: '_self',
+ }) readonly target!: string
 
-//  @Prop({
-//    type: String,
-//    default: '',
-//  }) readonly icon!: string
+ @Prop({
+   type: String,
+   default: '',
+ }) readonly icon!: string
 
-//  @Prop({
-//    type: String,
-//    default: '',
-//  }) readonly title!: string
+ @Prop({
+   type: String,
+   default: '',
+ }) readonly title!: string
 
-//  @Prop({
-//    type: Boolean,
-//  }) readonly minimized!: boolean
+@Prop({
+  type: String,
+  default: '',
+}) readonly color!: string
 
-//  @Prop({
-//    type: Boolean,
-//  }) readonly activeByDefault!: boolean
+ @Prop({
+   type: Boolean,
+ }) readonly minimized!: boolean
 
-//  @Prop({
-//    type: String,
-//    default: '#323742',
-//  }) readonly textColor!: string
+ @Prop({
+   type: Boolean,
+ }) readonly activeByDefault!: boolean
 
-//  @Prop({
-//    type: Boolean,
-//  }) readonly noHighlight!: boolean
+ @Prop({
+   type: String,
+   default: '#323742',
+ }) readonly textColor!: string
 
-//   isHovered = false
-//   isActive = this.activeByDefault
+ @Prop({
+   type: Boolean,
+ }) readonly noHighlight!: boolean
 
-//   @Watch('$route')
-//   onRouteChange () {
-//     this.updateActiveState()
-//   }
+  isHovered = false
+  isActive = this.activeByDefault
 
-//   get computedLinkClass () {
-//     return {
-//       'va-sidebar-link': true,
-//       'va-sidebar-link--minimized': this.minimized,
-//     }
-//   }
+  @Watch('$route')
+  onRouteChange () {
+    this.updateActiveState()
+  }
 
-//   get computedLinkStyles () {
-//     return {
-//       color: this.isHovered || this.isActive ? this.$themes.primary : this.textColor,
-//       backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor(this.$themes.secondary, { s: 13, l: -3 }) : this.c_color,
-//       borderColor: this.isActive && !this.noHighlight ? this.$themes.primary : 'transparent',
-//     }
-//   }
+  get computedLinkClass () {
+    return {
+      'va-sidebar-link': true,
+      'va-sidebar-link--minimized': this.minimized,
+    }
+  }
 
-//   get computedIconStyles () {
-//     return (this.isHovered || this.isActive)
-//       ? { color: this.$themes.primary }
-//       : { color: 'white' }
-//   }
+  get computedLinkStyles () {
+    return {
+      color: this.isHovered || this.isActive ? (this as any).$themes.primary : this.textColor,
+      backgroundColor: this.isHovered || (!this.noHighlight && this.isActive) ? shiftHslColor((this as any).$themes.secondary, { s: 13, l: -3 }) : this.color,
+      borderColor: this.isActive && !this.noHighlight ? (this as any).$themes.primary : 'transparent',
+    }
+  }
 
-//   updateHoverState (isHovered) {
-//     this.isHovered = isHovered
-//   }
+  get computedIconStyles () {
+    return (this.isHovered || this.isActive)
+      ? { color: (this as any).$themes.primary }
+      : { color: 'white' }
+  }
 
-//   updateActiveState () {
-//     this.$nextTick(() => {
-//       const name = typeof this.to === 'string' ? this.to : this.to.name
-//       this.isActive = this.$router.resolve(name).route.name === this.$route.name
-//     })
-//   }
+  updateHoverState (isHovered: boolean) {
+    this.isHovered = isHovered
+  }
 
-//   mounted () {
-//     this.updateActiveState()
-//   }
-// }
+  updateActiveState () {
+    this.$nextTick(() => {
+      const name = typeof this.to === 'string' ? this.to : this.to.name
+      this.isActive = (this as any).$router.resolve(name).route.name === (this as any).$route.name
+    })
+  }
+
+  mounted () {
+    this.updateActiveState()
+  }
+}
 </script>
 
 <style lang="scss">
@@ -133,7 +138,7 @@
       min-width: 1.5rem;
       text-align: center;
       font-size: $sidebar-menu-item-icon-size;
-      margin-right: 0.5rem;
+      margin: 0 0.4rem;
     }
 
     &__title &__title--no-nested {

@@ -29,10 +29,12 @@
       />
       </div>
       <div style="display: block; position: relative; width: inherit; height: 90%; background-image: url(https://wallpapercave.com/wp/wp4748242.png);">
-      <!-- <va-sidebar
+      <va-sidebar
+        v-if="sidebars[2]"
         style="height: auto;"
         :minimized="minimized"
-        :right="right"
+        :width="`${valueWidth}%`"
+        :hoverable="hoverable"
       >
         <template slot="menu">
           <template v-for="(item, index) in items">
@@ -64,7 +66,7 @@
             </sidebar-link>
           </template>
         </template>
-      </va-sidebar> -->
+      </va-sidebar>
 
       <!-- EXPAND -->
       <va-sidebar
@@ -181,8 +183,8 @@
 import VaSidebar from '../../vuestic-components/va-sidebar/VaSidebar'
 import VaRadio from '../va-radio/VaRadio'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
-// import SidebarLinkGroup from './VaSidebarLinkGroup'
-// import SidebarLink from './VaSidebarLink'
+import SidebarLinkGroup from './VaSidebarLinkGroup'
+import SidebarLink from './VaSidebarLink'
 import VaExpand from '../va-expand/VaExpand'
 import VaExpandGroup from '../va-expand-group/VaExpandGroup'
 import VaList from '../va-list/VaList'
@@ -203,8 +205,8 @@ export default {
     VaAvatar,
     VaCheckbox,
     VaSlider,
-    // SidebarLinkGroup,
-    // SidebarLink,
+    SidebarLinkGroup,
+    SidebarLink,
     VaExpand,
     VaExpandGroup,
     VaList,
@@ -222,9 +224,9 @@ export default {
         'bottom',
       ],
       sidebars: [
+        false,
+        false,
         true,
-        false,
-        false,
       ],
       selectedOptionString: 'left',
       value: 60,
