@@ -60,11 +60,13 @@ export default class VaSidebar extends Mixins(
 @import "../../vuestic-sass/resources/resources";
 
 .va-sidebar {
-  min-height: $sidebar-viewport-min-height;
+  // min-height: $sidebar-viewport-min-height;
+  min-height: 100%;
   height: $sidebar-viewport-height;
   position: absolute;
-  width: $sidebar-width;
+  // width: $sidebar-width;
   // top: $top-nav-height;
+  top: 0;
   left: 0;
   transition: all 0.3s ease;
   overflow-y: auto;
@@ -80,7 +82,7 @@ export default class VaSidebar extends Mixins(
   }
 
   @include media-breakpoint-down(sm) {
-    top: $sidebar-mobile-top;
+    // top: $sidebar-mobile-top;
   }
 
   @include media-breakpoint-down(xs) {
