@@ -6,7 +6,6 @@
   >
     <template slot="menu">
       <va-list class="sidebar__links">
-        {{ value }}
         <va-expand-group v-model="value">
         <va-expand
           v-for="(item, key) in items"
@@ -16,10 +15,17 @@
         >
           <template slot="header">
             <va-list-item class="sidebar__category">
-              <va-list-item-section>
+              <va-list-item-section class="sidebar__category__section">
                 <va-list-item-label class="sidebar__category__label">
                   {{ $t(item.displayName) }}
                 </va-list-item-label>
+              </va-list-item-section>
+              <va-list-item-section icon>
+                <va-icon
+                  :name="value[key] ? 'expand_less' : 'expand_more'"
+                  :color="value[key] ? '#2c82e0' : ''"
+
+                />
               </va-list-item-section>
             </va-list-item>
           </template>
@@ -28,7 +34,11 @@
             v-for="(subMenuItem, index) in item.children"
             :key="index"
           >
-            <va-list-label class="">
+            <va-list-label
+              v-if="subMenuItem.category"
+              class="sidebar__subcategory__label"
+              color="gray"
+            >
               {{ $t(subMenuItem.category) }}
             </va-list-label>
             <va-list-item
@@ -92,7 +102,7 @@ export default class Sidebar extends Vue {
 
   &__links {
     background-color: inherit;
-    max-height: 100vh;
+    max-height: 95vh;
   }
 
   &__link {
@@ -117,9 +127,25 @@ export default class Sidebar extends Vue {
     font-weight: bold;
   }
 
-  &__expand--active {
-    .sidebar__category__label {
-      color: #2c82e0;
+  &__expand {
+    .sidebar__category__section {
+      padding-left: 0.5rem;
+      justify-content: center;
+    }
+
+    &--active {
+      .sidebar__category__label {
+        color: #2c82e0;
+      }
+    }
+  }
+
+  &__subcategory {
+    &__label {
+      padding-top: 1rem;
+      text-align: left;
+      padding-left: 1.5rem;
+      color: #8396a5;
     }
   }
 }

@@ -617,6 +617,13 @@
     }
   },
   "menu": {
+    "categories": {
+      "view": "View",
+      "form": "Form",
+      "layout": "Layout",
+      "navigation": "Navigation",
+      "other": "Other"
+    },
     "affix": "Affix",
     "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",
