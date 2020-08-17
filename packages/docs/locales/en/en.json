@@ -639,6 +639,7 @@
     "image": "Image",
     "optionList": "Option List",
     "divider": "Divider",
+    "checkbox": "Checkbox",
     "button": "Button",
     "progressBar": "Progress Bar",
     "progressCircle": "Progress Circle",

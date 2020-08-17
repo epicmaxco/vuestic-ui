@@ -1,46 +1,53 @@
 <template>
-  <va-sidebar :minimized="minimized" color="secondary">
+  <va-sidebar
+    class="sidebar"
+    style="height: auto;"
+    color="secondary"
+  >
     <template slot="menu">
-      <template v-for="(item, key) in items">
-        <va-sidebar-link-group
-          v-if="item.children"
+      <va-list class="sidebar__links">
+        {{ value }}
+        <va-expand-group v-model="value">
+        <va-expand
+          v-for="(item, key) in items"
           :key="key"
-          :minimized="minimized"
-          :title="$t(item.displayName)"
-          :children="item.children"
-          show-children-count
-          no-highlight
+          class="sidebar__expand"
+          :class="{'sidebar__expand--active': value[key]}"
         >
-          <template v-for="category in item.childrenCategories">
-            <span class="category py-3" :style="categoryTitleStyle" :key="category">{{$t(category)}}</span>
-            <va-sidebar-link
-              v-for="(subMenuItem, index) in item.children.filter(child => child.category === category)"
-              :key="index"
-              :to="subMenuItem.name"
-              :title="$t(subMenuItem.displayName)"
-              no-highlight
-            />
+          <template slot="header">
+            <va-list-item class="sidebar__category">
+              <va-list-item-section>
+                <va-list-item-label class="sidebar__category__label">
+                  {{ $t(item.displayName) }}
+                </va-list-item-label>
+              </va-list-item-section>
+            </va-list-item>
           </template>
-          <va-sidebar-link
-            class="pl-3"
-            v-for="(subMenuItem, index) in item.children.filter(({category}) => !category)"
+          <!-- links -->
+          <div
+            v-for="(subMenuItem, index) in item.children"
             :key="index"
-            :to="subMenuItem.name"
-            :title="$t(subMenuItem.displayName)"
-            no-highlight
-          />
-        </va-sidebar-link-group>
-        <va-sidebar-link
-          v-else
-          :key="key"
-          :minimized="minimized"
-          :active-by-default="item.name === route.name"
-          :to="item.name"
-          no-highlight
-        >
-          <span slot="title">{{ $t(item.displayName) }}</span>
-        </va-sidebar-link>
-      </template>
+          >
+            <va-list-label class="">
+              {{ $t(subMenuItem.category) }}
+            </va-list-label>
+            <va-list-item
+
+              :to="subMenuItem.name"
+               class="sidebar__link"
+               active-class="sidebar__link--active"
+            >
+              <va-list-item-section>
+                <va-list-item-label>
+                  {{ $t(subMenuItem.displayName) }}
+                </va-list-item-label>
+              </va-list-item-section>
+            </va-list-item>
+          </div>
+          <!-- /links -->
+        </va-expand>
+        </va-expand-group>
+      </va-list>
     </template>
   </va-sidebar>
 </template>
@@ -51,7 +58,15 @@ import { NavigationRoute } from './NavigationRoutes'
 
 @Component({})
 export default class Sidebar extends Vue {
-  @Prop({ type: Boolean, required: true }) readonly minimized!: boolean
+  value = []
+  contacts = [
+    { name: 'Audrey Clay', address: '644 Vermont Court, Freelandville, Kentucky, 2619', img: 'https://randomuser.me/api/portraits/women/5.jpg' },
+    { name: 'Aguirre Klein', address: '626 Carroll Street, Roulette, Ohio, 1477', img: 'https://randomuser.me/api/portraits/men/1.jpg' },
+    { name: 'Tucker Kaufman', address: '887 Winthrop Street, Tryon, Florida, 3912', img: 'https://randomuser.me/api/portraits/men/3.jpg' },
+    { name: 'Herbert Keller', address: '286 NW. Shore St.Longwood, FL 32779', img: 'https://randomuser.me/api/portraits/men/5.jpg' },
+  ]
+
+  // @Prop({ type: Boolean, required: true }) readonly minimized!: boolean
   @Prop({ type: Array, default: [] }) readonly items!: NavigationRoute[]
 
   get categoryTitleStyle () {
@@ -71,6 +86,44 @@ export default class Sidebar extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.sidebar {
+  padding-top: 2.5625rem;
+  padding-bottom: 2.5rem;
+
+  &__links {
+    background-color: inherit;
+    max-height: 100vh;
+  }
+
+  &__link {
+    padding: 1rem 0 1rem 2rem;
+
+    &:hover {
+      background: #ecf4f8;
+
+      .va-list-item-label {
+        color: #2c82e0;
+      }
+    }
+
+    &--active {
+      .va-list-item-label {
+        color: #2c82e0;
+      }
+    }
+  }
+
+  &__category {
+    font-weight: bold;
+  }
+
+  &__expand--active {
+    .sidebar__category__label {
+      color: #2c82e0;
+    }
+  }
+}
+
 .category {
   padding-left: 2rem;
 }

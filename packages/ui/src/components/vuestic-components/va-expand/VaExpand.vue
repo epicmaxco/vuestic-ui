@@ -141,8 +141,6 @@ export default class VaExpand extends Mixins(
     if (this.childValue && this.$slots.default?.[0]) {
       return {
         height: this.height,
-        paddingTop: 1 + 'rem',
-        paddingBottom: 1 + 'rem',
         background: this.c_color && this.c_colorAll
           ? getHoverColor(this.colorComputed)
           : '',
@@ -187,7 +185,7 @@ export default class VaExpand extends Mixins(
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../vuestic-sass/resources/resources";
 
 .va-expand {
@@ -198,8 +196,7 @@ export default class VaExpand extends Mixins(
     transition: ease-in 0.3s;
     overflow: hidden;
     margin-top: 0.1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    // padding: 1rem;
   }
 
   &__header {
