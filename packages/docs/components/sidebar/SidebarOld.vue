@@ -46,28 +46,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { NavigationRoute } from './NavigationRoutes'
+// import { Component, Vue, Prop } from 'vue-property-decorator'
+// import { NavigationRoute } from './NavigationRoutes'
 
-@Component({})
-export default class Sidebar extends Vue {
-  @Prop({ type: Boolean, required: true }) readonly minimized!: boolean
-  @Prop({ type: Array, default: [] }) readonly items!: NavigationRoute[]
+// @Component({})
+// export default class Sidebar extends Vue {
+//   @Prop({ type: Boolean, required: true }) readonly minimized!: boolean
+//   @Prop({ type: Array, default: [] }) readonly items!: NavigationRoute[]
 
-  get categoryTitleStyle () {
-    return {
-      textTransform: 'uppercase',
-      color: (this as any).$themes.gray,
-      fontSize: '10px',
-      fontWeight: 'bold',
-      letterSpacing: '0.6px',
-    }
-  }
+//   get categoryTitleStyle () {
+//     return {
+//       textTransform: 'uppercase',
+//       color: (this as any).$themes.gray,
+//       fontSize: '10px',
+//       fontWeight: 'bold',
+//       letterSpacing: '0.6px',
+//     }
+//   }
 
-  get route () {
-    return this.$route || {}
-  }
-}
+//   get route () {
+//     return (this as any).$route || {}
+//   }
+// }
 </script>
 
 <style lang="scss" scoped>

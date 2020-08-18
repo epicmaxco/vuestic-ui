@@ -1,61 +1,58 @@
 <template>
   <va-sidebar
     class="sidebar"
-    style="height: auto;"
     color="secondary"
   >
     <template slot="menu">
       <va-list class="sidebar__links">
         <va-expand-group v-model="value">
-        <va-expand
-          v-for="(item, key) in items"
-          :key="key"
-          class="sidebar__expand"
-          :class="{'sidebar__expand--active': value[key]}"
-        >
-          <template slot="header">
-            <va-list-item class="sidebar__category">
-              <va-list-item-section class="sidebar__category__section">
-                <va-list-item-label class="sidebar__category__label">
-                  {{ $t(item.displayName) }}
-                </va-list-item-label>
-              </va-list-item-section>
-              <va-list-item-section icon>
-                <va-icon
-                  :name="value[key] ? 'expand_less' : 'expand_more'"
-                  :color="value[key] ? '#2c82e0' : ''"
-
-                />
-              </va-list-item-section>
-            </va-list-item>
-          </template>
-          <!-- links -->
-          <div
-            v-for="(subMenuItem, index) in item.children"
-            :key="index"
+          <va-expand
+            v-for="(item, key) in items"
+            :key="key"
+            class="sidebar__expand"
+            :class="{'sidebar__expand--active': value[key]}"
           >
-            <va-list-label
-              v-if="subMenuItem.category"
-              class="sidebar__subcategory__label"
-              color="gray"
-            >
-              {{ $t(subMenuItem.category) }}
-            </va-list-label>
-            <va-list-item
+            <template slot="header">
+              <va-list-item class="sidebar__category">
+                <va-list-item-section class="sidebar__category__section">
+                  <va-list-item-label class="sidebar__category__label">
+                    {{ $t(item.displayName) }}
+                  </va-list-item-label>
+                </va-list-item-section>
+                <va-list-item-section icon>
+                  <va-icon
+                    :name="value[key] ? 'expand_less' : 'expand_more'"
+                    :color="value[key] ? '#2c82e0' : ''"
 
-              :to="subMenuItem.name"
-               class="sidebar__link"
-               active-class="sidebar__link--active"
+                  />
+                </va-list-item-section>
+              </va-list-item>
+            </template>
+            <div
+              v-for="(subMenuItem, index) in item.children"
+              :key="index"
             >
-              <va-list-item-section>
-                <va-list-item-label>
-                  {{ $t(subMenuItem.displayName) }}
-                </va-list-item-label>
-              </va-list-item-section>
-            </va-list-item>
-          </div>
-          <!-- /links -->
-        </va-expand>
+              <va-list-label
+                v-if="subMenuItem.category"
+                class="sidebar__subcategory__label"
+                color="gray"
+              >
+                {{ $t(subMenuItem.category) }}
+              </va-list-label>
+              <va-list-item
+
+                :to="subMenuItem.name"
+                class="sidebar__link"
+                active-class="sidebar__link--active"
+              >
+                <va-list-item-section>
+                  <va-list-item-label>
+                    {{ $t(subMenuItem.displayName) }}
+                  </va-list-item-label>
+                </va-list-item-section>
+              </va-list-item>
+            </div>
+          </va-expand>
         </va-expand-group>
       </va-list>
     </template>
@@ -69,44 +66,25 @@ import { NavigationRoute } from './NavigationRoutes'
 @Component({})
 export default class Sidebar extends Vue {
   value = []
-  contacts = [
-    { name: 'Audrey Clay', address: '644 Vermont Court, Freelandville, Kentucky, 2619', img: 'https://randomuser.me/api/portraits/women/5.jpg' },
-    { name: 'Aguirre Klein', address: '626 Carroll Street, Roulette, Ohio, 1477', img: 'https://randomuser.me/api/portraits/men/1.jpg' },
-    { name: 'Tucker Kaufman', address: '887 Winthrop Street, Tryon, Florida, 3912', img: 'https://randomuser.me/api/portraits/men/3.jpg' },
-    { name: 'Herbert Keller', address: '286 NW. Shore St.Longwood, FL 32779', img: 'https://randomuser.me/api/portraits/men/5.jpg' },
-  ]
 
-  // @Prop({ type: Boolean, required: true }) readonly minimized!: boolean
   @Prop({ type: Array, default: [] }) readonly items!: NavigationRoute[]
-
-  get categoryTitleStyle () {
-    return {
-      textTransform: 'uppercase',
-      color: (this as any).$themes.gray,
-      fontSize: '10px',
-      fontWeight: 'bold',
-      letterSpacing: '0.6px',
-    }
-  }
-
-  get route () {
-    return this.$route || {}
-  }
 }
 </script>
 
 <style lang="scss" scoped>
 .sidebar {
   padding-top: 2.5625rem;
-  padding-bottom: 2.5rem;
+  // padding-bottom: 1rem;
 
   &__links {
     background-color: inherit;
-    max-height: 95vh;
+    // max-height: calc(100vh - 1rem);
+    padding-bottom: 1rem;
   }
 
   &__link {
     padding: 1rem 0 1rem 2rem;
+    line-height: 1.1;
 
     &:hover {
       background: #ecf4f8;
@@ -148,9 +126,5 @@ export default class Sidebar extends Vue {
       color: #8396a5;
     }
   }
-}
-
-.category {
-  padding-left: 2rem;
 }
 </style>
