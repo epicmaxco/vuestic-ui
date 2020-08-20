@@ -34,6 +34,61 @@ const merge = (target: NotificationOptions | any, ...args: NotificationOptions[]
   return target
 }
 
+
+const initNotification = (options: NotificationOptions | string) => {
+  const toastInstance: VaToast = createToastInstance(getToastOptions(options))
+  toastInstances.push(toastInstance)
+  return toastInstance
+}
+
+const closeNotification = (id: any) => {
+  if (!toastInstances.length) {
+    seed = 1
+    return
+  }
+  const closableInstance = toastInstances.find((toastInstance: any) => toastInstance.id === id)
+  if (!closableInstance) {
+    return
+  }
+
+  const closableInstanceIndex = toastInstances.findIndex((toastInstance: any) => toastInstance.id === id)
+
+  // if (typeof closableInstance.onClose() === 'function') {
+  //   closableInstance.onClose()
+  // }
+
+  const closableInstancePosition = closableInstance.position
+  const removedHeight = toastInstance.$el.offsetHeight
+
+  toastInstances = toastInstances.reduce((acc: any[], toastInstance: any, index: number) => {
+    if (index === closableInstanceIndex) {
+      toastInstance.$el.style.visibility = 'hidden'
+      return acc
+    }
+    //Check for following instance and modify it position if true
+    const isFollowingInstance: boolean = index > closableInstanceIndex && toastInstance.position === closableInstancePosition
+    if (isFollowingInstance) {
+      toastInstance.$el.style[toastInstance.positionY] =
+        parseInt(toastInstance.$el.style[toastInstance.positionY], 10) - removedHeight - 16 + 'px'
+      acc.push(toastInstance)
+      return acc
+    }
+    return [...acc, toastInstance]
+  }, [])
+  if (!toastInstances.length) seed = 1
+}
+
+const closeAllNotifications = () => {
+  if (!toastInstances.length) {
+    seed = 1
+    return
+  }
+
+  toastInstances.forEach((toastInstance: any) => {
+    closeNotification(toastInstance.id)
+  })
+}
+
 const getToastOptions = (options: string | NotificationOptions): any => {
   if (typeof options === 'string') {
     options = {
@@ -42,7 +97,7 @@ const getToastOptions = (options: string | NotificationOptions): any => {
   }
 
   const onCloseHandler = options.onClose
-  const id: string = 'notification_' + seed++
+  const id: string = 'notification_' + seed
   options.onClose = () => {
     Notification.close(id, onCloseHandler)
   }
@@ -78,61 +133,6 @@ const createToastInstance = (options: NotificationOptions): VaToast => {
   return toastInstance
 }
 
-
-const initNotification = (options: NotificationOptions | string) => {
-  const toastInstance: VaToast = createToastInstance(getToastOptions(options))
-  toastInstances.push(toastInstance)
-  return toastInstance
-}
-
-const closeNotification = (id: any) => {
-  if (!toastInstances.length) {
-    seed = 1
-    return
-  }
-  const closableInstance = toastInstances.find((toastInstance: any) => toastInstance.id === id)
-  if (!closableInstance) {
-    return
-  }
-
-  const closableInstanceIndex = toastInstances.findIndex((toastInstance: any) => toastInstance.id === id)
-
-  if (typeof closableInstance.onClose() === 'function') {
-    closableInstance.onClose()
-  }
-
-  const closableInstancePosition = closableInstance.position
-  const removedHeight = toastInstance.$el.offsetHeight
-
-  toastInstances = toastInstances.reduce((acc: any[], toastInstance: any, index: number) => {
-    if (index === closableInstanceIndex) {
-      toastInstance.$el.style.visibility = 'hidden'
-      return acc
-    }
-    //Check for following instance and modify it position if true
-    const isFollowingInstance: boolean = index > closableInstanceIndex && toastInstance.position === closableInstancePosition
-    if (isFollowingInstance) {
-      toastInstance.$el.style[toastInstance.positionY] =
-        parseInt(toastInstance.$el.style[toastInstance.positionY], 10) - removedHeight - 16 + 'px'
-      acc.push(toastInstance)
-      return acc
-    }
-    return [...acc, toastInstance]
-  }, [])
-  if (!toastInstances.length) seed = 1
-}
-
-const closeAllNotifications = () => {
-  if (!toastInstances.length) {
-    seed = 1
-    return
-  }
-
-  toastInstances.forEach((toastInstance: any) => {
-    closeNotification(toastInstance.id)
-  })
-}
-
 const setNotificationType = () => {
   notificationTypes.forEach(type => {
     Notification[type] = (options: any) => {
@@ -152,7 +152,9 @@ const Notification: any = (options: NotificationOptions) => {
   initNotification(options)
 }
 
-Notification.close = (id: any) => closeNotification(id)
+Notification.close = (id: any) => {
+  closeNotification(id)
+}
 Notification.closeAll = () => closeAllNotifications()
 setNotificationType()
 

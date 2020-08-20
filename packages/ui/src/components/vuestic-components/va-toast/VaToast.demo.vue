@@ -22,13 +22,10 @@
       <button @click="$vaToast.info(customPosition)">notification with custom position</button>
     </VbCard>
     <VbCard>
-      <div>
-        THAT DOESN'T WORK AS EXPECTED, Position is broken after close
-      </div>
       <button @click="$vaToast.info(customOnCloseHandler)">notification with custom onClose handler</button>
     </VbCard>
     <VbCard>
-      <button @click="$vaToast.close('notification_2')">Close all toasts</button>
+      <button @click="$vaToast.close('notification_4')">Close #4 toast</button>
     </VbCard>
     <VbCard>
       <button @click="$vaToast.closeAll()">Close all toasts</button>
