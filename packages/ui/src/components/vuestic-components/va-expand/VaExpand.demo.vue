@@ -6,7 +6,7 @@
         style="width: 400px;"
         :header="expandHeader"
       >
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -19,7 +19,7 @@
         :header="expandHeader"
         solid
       >
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -32,7 +32,7 @@
         :header="expandHeader"
         disabled
       >
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -45,7 +45,7 @@
         :header="expandHeader"
         color="success"
       >
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -56,7 +56,7 @@
         solid
         color="warning"
       >
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -68,7 +68,7 @@
         color="danger"
         color-all
       >
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -82,7 +82,7 @@
         text-color="white"
         icon="info"
       >
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -95,7 +95,7 @@
         :header="expandHeader"
         icon="home"
       >
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -107,21 +107,21 @@
         style="width: 400px;"
         :header="expandHeader"
       >
-        <div>
+        <div style="padding: 1rem;">
           <va-expand
             v-for="(value, index) in expandLayerValue"
             :key="index"
             v-model="expandLayerValue[index]"
             :header="expandHeader"
           >
-            <div>
+            <div style="padding: 1rem;">
               <va-expand
                 v-for="(value, index) in expandSecondLayerValue"
                 :key="index"
                 v-model="expandSecondLayerValue[index]"
                 :header="expandHeader"
               >
-                <div>
+                <div style="padding: 1rem;">
                   {{ expandContent }}
                 </div>
               </va-expand>
@@ -144,7 +144,7 @@
           </va-button>
         </template>
 
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -156,7 +156,7 @@
         style="width: 400px;"
         :header="expandHeader"
       >
-        <div>
+        <div style="padding: 1rem;">
           {{ expandContent }}
         </div>
       </va-expand>

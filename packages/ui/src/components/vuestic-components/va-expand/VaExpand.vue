@@ -27,15 +27,8 @@
             {{c_header}}
           </div>
           <va-icon
-            v-if="childValue"
             class="va-expand__header__icon"
-            name="expand_less"
-            :color="c_textColor"
-          />
-          <va-icon
-            v-else
-            class="va-expand__header__icon"
-            name="expand_more"
+            :name="childValue ? 'expand_less' : 'expand_more'"
             :color="c_textColor"
           />
         </div>
@@ -147,9 +140,7 @@ export default class VaExpand extends Mixins(
       }
     }
     return {
-      height: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
+      display: 'none',
     }
   }
 
@@ -192,11 +183,11 @@ export default class VaExpand extends Mixins(
   transition: all 0.3s linear;
 
   &__body {
-    height: 0;
-    transition: ease-in 0.3s;
+    // height: 0;
+    transition: linear 0.3s;
     overflow: hidden;
     margin-top: 0.1rem;
-    // padding: 1rem;
+    // padding: 1rem 0;
   }
 
   &__header {
