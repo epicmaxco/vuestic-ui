@@ -99,6 +99,9 @@ const getToastOptions = (options: string | NotificationOptions): any => {
   const onCloseHandler = options.onClose
   const id: string = 'notification_' + seed
   options.onClose = () => {
+    if (onCloseHandler) {
+      onCloseHandler()
+    }
     Notification.close(id, onCloseHandler)
   }
   return merge({}, options)
