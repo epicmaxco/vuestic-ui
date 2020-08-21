@@ -1,8 +1,7 @@
 <template>
   <div
     class="va-parallax"
-    :style="styleComputed"
-    v-on="$listeners"
+    :style="computedWrapperStyles"
   >
     <div class="va-parallax__image-container">
       <img
@@ -31,7 +30,7 @@ const ParallaxPropsMixin = makeContextablePropsMixin({
   reversed: { type: Boolean, default: false },
   speed: {
     type: Number,
-    default: 1,
+    default: 0.5,
     validator: (value: number) => {
       return value >= 0 && value <= 1
     },
@@ -50,8 +49,9 @@ export default class VaParallax extends Mixins(
   scrollTop = 0
   windowHeight = 0
   windowBottom = 0
+  isLoaded = false
 
-  get styleComputed (): object {
+  get computedWrapperStyles (): object {
     return {
       height: this.height + 'px',
     }
@@ -65,6 +65,7 @@ export default class VaParallax extends Mixins(
     return {
       display: 'block',
       transform: `translate(-50%, ${this.parallax}px)`,
+      opacity: this.isLoaded ? 1 : 0,
       top: this.reversed ? 0 : 'auto',
     }
   }
@@ -95,15 +96,36 @@ export default class VaParallax extends Mixins(
     }
   }
 
-  mounted () {
-    this.translate()
+  addEventListeners (): void {
     this.computedDomElement.addEventListener('scroll', this.translate)
     this.computedDomElement.addEventListener('resize', this.translate)
   }
 
-  beforeDestroy () {
+  removeEventListeners (): void {
     this.computedDomElement.removeEventListener('scroll', this.translate)
     this.computedDomElement.removeEventListener('resize', this.translate)
+  }
+
+  initImage (): void {
+    const img: HTMLImageElement = this.$refs.img as HTMLImageElement
+    if (img.complete) {
+      this.translate()
+      this.addEventListeners()
+    } else {
+      img.addEventListener('load', () => {
+        this.translate()
+        this.addEventListeners()
+      }, false)
+    }
+    this.isLoaded = true
+  }
+
+  mounted () {
+    this.initImage()
+  }
+
+  beforeDestroy () {
+    this.removeEventListeners()
   }
 }
 </script>
