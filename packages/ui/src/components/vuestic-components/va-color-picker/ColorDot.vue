@@ -1,6 +1,6 @@
 <template>
   <div
-    class="color-dot flex-center"
+    class="color-dot"
     @click="$emit('click')"
     :class="{'color-dot--selected': selected}"
   >
@@ -31,6 +31,9 @@ export default {
 @import "../../vuestic-sass/resources/resources";
 
 .color-dot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 1.5rem;
   height: 1.5rem;
   min-width: 1.5rem;
