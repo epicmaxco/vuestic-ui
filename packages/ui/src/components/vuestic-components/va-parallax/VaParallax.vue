@@ -24,9 +24,9 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 
 const ParallaxPropsMixin = makeContextablePropsMixin({
   target: { type: [String, HTMLElement], default: 'body' },
-  height: { type: Number, default: 400 },
-  src: { type: String, default: '' },
+  src: { type: String, default: '', required: true },
   alt: { type: String, default: 'parallax' },
+  height: { type: Number, default: 400 },
   reversed: { type: Boolean, default: false },
   speed: {
     type: Number,
