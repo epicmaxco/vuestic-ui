@@ -12,44 +12,42 @@
   </div>
 </template>
 
-<script>
-import ColorDot from './ColorDot'
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import ColorDot from './ColorDot.vue'
 
-export default {
+@Component({
   name: 'VaSimplePalettePicker',
   components: {
     ColorDot,
   },
-  props: {
-    palette: {
-      type: Array,
-      default () {
-        return []
-      },
-    },
-    value: {
-      type: String,
-      default: '',
-    },
-  },
-  computed: {
-    valueProxy: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('input', value)
-      },
-    },
-  },
-  methods: {
-    isSelected (color) {
-      return this.value === color
-    },
-    handlerClick (color) {
-      this.valueProxy = color
-    },
-  },
+})
+export default class VaSimplePalettePicker extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly value!: string
+
+  @Prop({
+    type: Array,
+    default: () => [],
+  }) readonly palette!: Array<string>
+
+  get valueProxy (): any {
+    return this.value
+  }
+
+  set valueProxy (value: any) {
+    this.$emit('input', value)
+  }
+
+  isSelected (color: any): boolean {
+    return this.value === color
+  }
+
+  handlerClick (color: any): void {
+    this.valueProxy = color
+  }
 }
 </script>
 

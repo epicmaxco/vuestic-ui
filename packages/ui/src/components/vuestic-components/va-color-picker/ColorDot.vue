@@ -11,19 +11,22 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+@Component({
   name: 'ColorDot',
-  props: {
-    color: {
-      type: String,
-      default: '',
-    },
-    selected: {
-      type: Boolean,
-      default: false,
-    },
-  },
+})
+export default class ColorDot extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly color!: string
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) readonly selected!: boolean
 }
 </script>
 
