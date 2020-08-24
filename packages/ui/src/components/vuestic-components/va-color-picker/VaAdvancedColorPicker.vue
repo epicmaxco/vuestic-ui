@@ -5,30 +5,28 @@
   />
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+// @ts-ignore
 import { Chrome } from 'vue-color'
 
-export default {
+@Component({
   name: 'VaAdvancedColorPicker',
-  components: {
-    ChromePicker: Chrome,
-  },
-  props: {
-    value: {
-      type: String,
-      default: '',
-    },
-  },
-  computed: {
-    valueProxy: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('input', value.hex)
-      },
-    },
-  },
+  components: { ChromePicker: Chrome },
+})
+export default class VaAdvancedColorPicker extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly value!: string
+
+  get valueProxy (): any {
+    return this.value
+  }
+
+  set valueProxy (value: any) {
+    this.$emit('input', value.hex)
+  }
 }
 </script>
 

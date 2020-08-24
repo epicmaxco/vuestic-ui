@@ -5,16 +5,18 @@
   />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+@Component({
   name: 'VaColorSquare',
-  props: {
-    value: {
-      type: String,
-      default: '',
-      required: true,
-    },
-  },
+})
+export default class VaColorSquare extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+    required: true,
+  }) readonly value!: string
 }
 </script>
 
