@@ -142,6 +142,7 @@ import VaTreeNode from '../../vuestic-components/va-tree-view/VaTreeNode'
 import { getLineChartData } from '../../../data/charts/LineChartData'
 import VaBadge from '../../vuestic-components/va-badge/VaBadge'
 import VaFileUpload from '../../vuestic-components/va-file-upload/VaFileUpload'
+import VaSlider from '../../vuestic-components/va-slider/VaSlider'
 
 export default {
   components: {
@@ -155,6 +156,7 @@ export default {
     VaButton,
     VaAlert,
     VaProgressBar,
+    VaSlider,
   },
   data () {
     return {
