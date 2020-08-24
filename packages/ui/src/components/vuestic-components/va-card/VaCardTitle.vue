@@ -23,7 +23,7 @@ const CardTitlePropsMixin = makeContextablePropsMixin({
 export default class VaCardTitle extends Mixins(
   CardTitlePropsMixin,
 ) {
-  get contentStyles () {
+  get titleStyles () {
     return {
       color: getColor(this, this.c_textColor),
     }
