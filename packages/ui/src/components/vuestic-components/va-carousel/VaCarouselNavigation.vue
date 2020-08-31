@@ -6,7 +6,7 @@
       class="va-carousel-navigation-button va-carousel-navigation-prev"
       flat
       size="medium"
-      color="white"
+      color="#fff"
       icon="chevron_left"
       :tabindex="canAdvanceBackward ? 0 : -1"
       @click.prevent="triggerPageAdvance('backward')"
@@ -17,7 +17,7 @@
       class="va-carousel-navigation-button va-carousel-navigation-next"
       flat
       size="medium"
-      color="white"
+      color="#fff"
       icon="chevron_right"
       :tabindex="canAdvanceForward ? 0 : -1"
       @click.prevent="triggerPageAdvance('forward')"

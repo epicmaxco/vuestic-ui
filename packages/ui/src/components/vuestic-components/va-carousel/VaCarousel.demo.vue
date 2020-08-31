@@ -18,7 +18,7 @@
     </VbCard>
 
     <VbCard title="wallpapers">
-    <va-carousel>
+    <va-carousel loop>
       <va-carousel-item style="max-width: 1280px; height: 700px;">
       <!-- <va-carousel-item> -->
         <img src="https://images.wallpaperscraft.com/image/spruce_branches_needles_183603_1280x800.jpg" alt="">
