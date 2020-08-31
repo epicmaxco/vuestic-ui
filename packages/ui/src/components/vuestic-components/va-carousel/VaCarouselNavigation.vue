@@ -66,14 +66,11 @@ export default class VaCarouselNavigation extends Mixins(
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    box-sizing: border-box;
     text-decoration: none;
     appearance: none;
     border: none;
     background-color: transparent;
-    padding: 0;
     cursor: pointer;
-    outline: none;
     z-index: 100;
   }
 
