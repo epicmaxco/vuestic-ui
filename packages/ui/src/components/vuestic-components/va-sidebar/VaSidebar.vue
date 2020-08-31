@@ -6,7 +6,7 @@
     @mouseleave="updateHoverState(false)"
   >
     <div class="va-sidebar__menu">
-      <slot name="menu" />
+      <slot />
     </div>
   </aside>
 </template>
@@ -19,7 +19,7 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const SidebarPropsMixin = makeContextablePropsMixin({
-  minimized: { type: Boolean, required: true },
+  minimized: { type: Boolean, default: false },
   color: { type: String, default: '' },
   hoverable: { type: Boolean, default: false },
   position: { type: String, default: 'left' },
