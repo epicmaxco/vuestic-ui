@@ -109,6 +109,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaCarousel": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -119,7 +125,6 @@
     "hover": "Hover",
     "checkbox": "Checkbox",
     "image": "Image",
-    "checkbox": "Checkbox",
     "alert": "Alert",
     "icon": "Icon",
     "expand": "Expand",
@@ -128,7 +133,8 @@
     "tag": "Tag",
     "input": "Input",
     "list": "List",
-    "select": "Select"
+    "select": "Select",
+    "carousel": "Carousel"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -145,16 +151,13 @@
   "checkbox": {
     "title": "-- Here is the title --"
   },
-  "divider": {
-    "title": "-- Here is the title --"
-  },
+  "divider": {},
   "progressBar": {
     "title": "-- Here is the title --"
   },
   "progressCircle": {
     "title": "-- Here is the title --"
   },
-  "divider": {},
   "alert": {
     "title": "-- Here is the title --"
   },
@@ -180,6 +183,9 @@
     "title": "-- Here is the title --"
   },
   "select": {
+    "title": "-- Here is the title --"
+  },
+  "carousel": {
     "title": "-- Here is the title --"
   }
 }

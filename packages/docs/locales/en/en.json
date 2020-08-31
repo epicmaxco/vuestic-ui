@@ -614,6 +614,12 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content"
       }
+    },
+    "VaCarousel": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -653,7 +659,8 @@
     "grid": "Grid",
     "input": "Input",
     "list": "List",
-    "select": "Select"
+    "select": "Select",
+    "carousel": "Carousel"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1807,5 +1814,8 @@
         "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
       }
     }
+  },
+  "carousel": {
+    "title": "-- Here is the title --"
   }
 }

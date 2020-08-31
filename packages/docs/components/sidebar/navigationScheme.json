@@ -149,6 +149,10 @@
         {
           "name": "select",
           "displayName": "menu.select"
+        },
+        {
+          "name": "carousel",
+          "displayName": "menu.carousel"
         }
       ]
     }
