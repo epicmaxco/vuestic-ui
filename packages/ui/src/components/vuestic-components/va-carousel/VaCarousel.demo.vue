@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="default">
-    <va-carousel>
+    <va-carousel navigation>
       <va-carousel-item style="background: yellow;">
         Item 1 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
       </va-carousel-item>
@@ -17,8 +17,58 @@
     </va-carousel>
     </VbCard>
 
+    <VbCard title="loop">
+    <va-carousel loop navigation pagination>
+      <va-carousel-item style="background: yellow;">
+        <div style="min-width: 300px; height: 100px;">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, maiores?
+        </div>
+      </va-carousel-item>
+      <va-carousel-item style="background: green;">
+        <div style="min-width: 300px; height: 100px;">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, quos?
+        </div>
+      </va-carousel-item>
+      <va-carousel-item style="background: red;">
+        <div style="min-width: 300px; height: 100px;">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, magnam.
+        </div>
+      </va-carousel-item>
+      <va-carousel-item style="background: blue;">
+        <div style="min-width: 300px; height: 100px;">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, expedita.
+        </div>
+      </va-carousel-item>
+    </va-carousel>
+    </VbCard>
+
+    <VbCard title="draggable">
+    <va-carousel draggable>
+      <va-carousel-item style="background: yellow;">
+        <div style="min-width: 300px; height: 100px;">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, maiores?
+        </div>
+      </va-carousel-item>
+      <va-carousel-item style="background: green;">
+        <div style="min-width: 300px; height: 100px;">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, quos?
+        </div>
+      </va-carousel-item>
+      <va-carousel-item style="background: red;">
+        <div style="min-width: 300px; height: 100px;">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, magnam.
+        </div>
+      </va-carousel-item>
+      <va-carousel-item style="background: blue;">
+        <div style="min-width: 300px; height: 100px;">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, expedita.
+        </div>
+      </va-carousel-item>
+    </va-carousel>
+    </VbCard>
+
     <VbCard title="wallpapers">
-    <va-carousel loop>
+    <va-carousel>
       <va-carousel-item style="max-width: 1280px; height: 700px;">
       <!-- <va-carousel-item> -->
         <img src="https://images.wallpaperscraft.com/image/spruce_branches_needles_183603_1280x800.jpg" alt="">

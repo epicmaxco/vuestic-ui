@@ -39,9 +39,9 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 const PropsMixin = makeContextablePropsMixin({
   value: { type: Number },
   loop: { type: Boolean, default: false },
-  draggable: { type: Boolean, default: true },
-  navigation: { type: Boolean, default: true },
-  pagination: { type: Boolean, default: true },
+  draggable: { type: Boolean, default: false },
+  navigation: { type: Boolean, default: false },
+  pagination: { type: Boolean, default: false },
 })
 
 @Component({
