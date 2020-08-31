@@ -401,7 +401,7 @@ export default class VaCarousel extends Mixins(
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 99;
+    z-index: 70;
   }
 
   &-wrapper {

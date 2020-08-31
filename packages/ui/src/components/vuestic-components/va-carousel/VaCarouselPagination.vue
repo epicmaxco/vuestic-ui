@@ -68,6 +68,7 @@ export default class VaCarouselPagination extends Vue {
   width: 100%;
   text-align: center;
   position: absolute;
+  z-index: 90;
   bottom: 0;
 
   &__dot-container {
