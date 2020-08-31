@@ -56,11 +56,7 @@ export default class VaCarouselPagination extends Vue {
       padding: '0.5rem',
       width: '0.6rem',
       height: '0.6rem',
-      opacity: `${
-          this.isCurrentDot(index)
-            ? 1
-            : 0.5
-        }`,
+      opacity: this.isCurrentDot(index) ? 1 : 0.5,
     }
     return basicBtnStyle
   }

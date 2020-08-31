@@ -5,6 +5,7 @@
       ref="wrapper"
       :style="{maxWidth: carouselWidth + 'px'}"
     >
+      <slot name="content"></slot>
       <div
         class="va-carousel-inner"
         ref="inner"
