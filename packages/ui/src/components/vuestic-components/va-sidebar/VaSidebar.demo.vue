@@ -33,8 +33,8 @@
       </div>
     </VbCard>
     <VbCard title="minimized" :state="{minimized: true}" #default="{state}">
-      <va-checkbox v-model="state.minimized" label="minimized"/>
-      <br/>
+      <va-checkbox v-model="state.minimized" label="minimized" />
+      <br />
       <div class="demo__sidebar-container-2x">
         <va-sidebar :minimized="state.minimized">
           <div>Item</div>
@@ -70,13 +70,20 @@
         </va-sidebar>
       </div>
     </VbCard>
+    <VbCard title="color">
+      <div class="demo__sidebar-container">
+        <va-sidebar color="secondary">
+          <div>secondary</div>
+        </va-sidebar>
+      </div>
+    </VbCard>
 
     <VbCard title="Sidebar" style="width: 100%; height: 80%; background-color: #f1f1f1;">
       <div style="display: flex; justify-content: space-between;">
-        <va-checkbox v-model="hoverable" label="hoverable"/>
-        <va-checkbox v-model="minimized" label="minimized"/>
+        <va-checkbox v-model="hoverable" label="hoverable" />
+        <va-checkbox v-model="minimized" label="minimized" />
         <div>
-          <va-slider v-model="valueWidth"/>
+          <va-slider v-model="valueWidth" />
           <div>
             Position:
           </div>

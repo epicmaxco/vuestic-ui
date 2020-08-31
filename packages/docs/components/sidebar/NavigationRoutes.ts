@@ -1,5 +1,4 @@
 import { TranslationString } from '../../../ui/src/services/api-docs/ManualApiOptions'
-import scheme from './navigationScheme.json'
 
 export type NavigationRoute = {
   name: string,
@@ -17,5 +16,3 @@ export type NavigationScheme = {
   root: NavigationRoute,
   routes: NavigationRoute[],
 }
-
-export const navigationRoutes: NavigationScheme = scheme

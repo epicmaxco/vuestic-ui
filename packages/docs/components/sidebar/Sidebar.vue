@@ -3,59 +3,57 @@
     class="sidebar"
     color="secondary"
   >
-    <template slot="menu">
-      <va-list class="sidebar__links">
-        <va-expand-group v-model="value">
-          <va-expand
-            v-for="(item, key) in items"
-            :key="key"
-            class="sidebar__expand"
-            :class="{'sidebar__expand--active': value[key]}"
+    <va-list class="sidebar__links">
+      <va-expand-group v-model="value">
+        <va-expand
+          v-for="(item, key) in items"
+          :key="key"
+          class="sidebar__expand"
+          :class="{'sidebar__expand--active': value[key]}"
+        >
+          <template slot="header">
+            <va-list-item class="sidebar__category">
+              <va-list-item-section class="sidebar__category__section">
+                <va-list-item-label class="sidebar__category__label">
+                  {{ $t(item.displayName) }}
+                </va-list-item-label>
+              </va-list-item-section>
+              <va-list-item-section icon>
+                <va-icon
+                  :name="value[key] ? 'expand_less' : 'expand_more'"
+                  :color="value[key] ? '#2c82e0' : ''"
+
+                />
+              </va-list-item-section>
+            </va-list-item>
+          </template>
+          <div
+            v-for="(subMenuItem, index) in item.children"
+            :key="index"
           >
-            <template slot="header">
-              <va-list-item class="sidebar__category">
-                <va-list-item-section class="sidebar__category__section">
-                  <va-list-item-label class="sidebar__category__label">
-                    {{ $t(item.displayName) }}
-                  </va-list-item-label>
-                </va-list-item-section>
-                <va-list-item-section icon>
-                  <va-icon
-                    :name="value[key] ? 'expand_less' : 'expand_more'"
-                    :color="value[key] ? '#2c82e0' : ''"
-
-                  />
-                </va-list-item-section>
-              </va-list-item>
-            </template>
-            <div
-              v-for="(subMenuItem, index) in item.children"
-              :key="index"
+            <va-list-label
+              v-if="subMenuItem.category"
+              class="sidebar__subcategory__label"
+              color="gray"
             >
-              <va-list-label
-                v-if="subMenuItem.category"
-                class="sidebar__subcategory__label"
-                color="gray"
-              >
-                {{ $t(subMenuItem.category) }}
-              </va-list-label>
-              <va-list-item
+              {{ $t(subMenuItem.category) }}
+            </va-list-label>
+            <va-list-item
 
-                :to="subMenuItem.name"
-                class="sidebar__link"
-                active-class="sidebar__link--active"
-              >
-                <va-list-item-section>
-                  <va-list-item-label>
-                    {{ $t(subMenuItem.displayName) }}
-                  </va-list-item-label>
-                </va-list-item-section>
-              </va-list-item>
-            </div>
-          </va-expand>
-        </va-expand-group>
-      </va-list>
-    </template>
+              :to="subMenuItem.name"
+              class="sidebar__link"
+              active-class="sidebar__link--active"
+            >
+              <va-list-item-section>
+                <va-list-item-label>
+                  {{ $t(subMenuItem.displayName) }}
+                </va-list-item-label>
+              </va-list-item-section>
+            </va-list-item>
+          </div>
+        </va-expand>
+      </va-expand-group>
+    </va-list>
   </va-sidebar>
 </template>
 
