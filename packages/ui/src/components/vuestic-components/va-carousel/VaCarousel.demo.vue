@@ -1,85 +1,62 @@
 <template>
   <VbDemo>
     <VbCard title="default">
-    <va-carousel navigation>
-      <va-carousel-item style="background: yellow;">
-        Item 1 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      </va-carousel-item>
-      <va-carousel-item style="background: green;">
-        Item 2 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      </va-carousel-item>
-      <va-carousel-item style="background: red;">
-        Item 3 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      </va-carousel-item>
-      <va-carousel-item style="background: blue;">
-        Item 4 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      </va-carousel-item>
-    </va-carousel>
+      <va-carousel navigation pagination>
+        <va-carousel-item
+          v-for="(item, index) in items"
+          :key="index"
+          :style="{background: item.color }"
+        >
+          <div class="demo-item">
+            {{ item.text }}
+          </div>
+        </va-carousel-item>
+      </va-carousel>
     </VbCard>
 
     <VbCard title="loop">
-    <va-carousel loop navigation pagination>
-      <va-carousel-item style="background: yellow;">
-        <div style="min-width: 300px; height: 100px;">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, maiores?
-        </div>
-      </va-carousel-item>
-      <va-carousel-item style="background: green;">
-        <div style="min-width: 300px; height: 100px;">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, quos?
-        </div>
-      </va-carousel-item>
-      <va-carousel-item style="background: red;">
-        <div style="min-width: 300px; height: 100px;">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, magnam.
-        </div>
-      </va-carousel-item>
-      <va-carousel-item style="background: blue;">
-        <div style="min-width: 300px; height: 100px;">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, expedita.
-        </div>
-      </va-carousel-item>
-    </va-carousel>
+      <va-carousel loop navigation pagination>
+        <va-carousel-item
+          v-for="(item, index) in items"
+          :key="index"
+          :style="{background: item.color }"
+        >
+          <div class="demo-item">
+            {{ item.text }}
+          </div>
+        </va-carousel-item>
+      </va-carousel>
     </VbCard>
 
     <VbCard title="draggable">
-    <va-carousel draggable>
-      <va-carousel-item style="background: yellow;">
-        <div style="min-width: 300px; height: 100px;">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, maiores?
-        </div>
-      </va-carousel-item>
-      <va-carousel-item style="background: green;">
-        <div style="min-width: 300px; height: 100px;">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, quos?
-        </div>
-      </va-carousel-item>
-      <va-carousel-item style="background: red;">
-        <div style="min-width: 300px; height: 100px;">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, magnam.
-        </div>
-      </va-carousel-item>
-      <va-carousel-item style="background: blue;">
-        <div style="min-width: 300px; height: 100px;">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, expedita.
-        </div>
-      </va-carousel-item>
-    </va-carousel>
+      <va-carousel draggable>
+        <va-carousel-item
+          v-for="(item, index) in items"
+          :key="index"
+          :style="{background: item.color }"
+        >
+          <div class="demo-item">
+            {{ item.text }}
+          </div>
+        </va-carousel-item>
+      </va-carousel>
     </VbCard>
 
     <VbCard title="wallpapers">
-    <va-carousel>
-      <va-carousel-item style="max-width: 1280px; height: 700px;">
-      <!-- <va-carousel-item> -->
+    <va-carousel navigation pagination>
+      <template slot="content">
+        <div class="demo-content-wrapper">
+          <h1 style="font-size: 5rem;">Vuestic</h1>
+          <h2 style="font-size: 2rem;">UI framework for vuestic-admin</h2>
+        </div>
+      </template>
+      <va-carousel-item class="demo-wallpaper">
         <img src="https://images.wallpaperscraft.com/image/spruce_branches_needles_183603_1280x800.jpg" alt="">
       </va-carousel-item>
-      <va-carousel-item style="max-width: 1280px; height: 700px;">
-      <!-- <va-carousel-item> -->
-        <!-- <img src="https://images.wallpaperscraft.com/image/tulips_flowers_flowering_183645_1366x768.jpg" alt=""> -->
+      <va-carousel-item class="demo-wallpaper">
         <img src="https://images.wallpaperscraft.com/image/fern_leaves_branch_183649_1280x800.jpg" alt="">
       </va-carousel-item>
-      <va-carousel-item style="max-width: 1280px; height: 700px;">
-      <!-- <va-carousel-item> -->
+      <va-carousel-item class="demo-wallpaper">
         <img src="https://images.wallpaperscraft.com/image/spruce_branches_needles_128622_1280x800.jpg" alt="">
       </va-carousel-item>
     </va-carousel>
@@ -95,6 +72,15 @@ export default {
   data () {
     return {
       value: 0,
+      items: [
+        { color: 'red', text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, architecto.' },
+        { color: 'orange', text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, porro.' },
+        { color: 'yellow', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, dicta?' },
+        { color: 'green', text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, maiores?' },
+        { color: 'skyblue', text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, maiores?' },
+        { color: 'blue', text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis, numquam!' },
+        { color: 'purple', text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, consequuntur?' },
+      ],
     }
   },
   components: {
@@ -103,3 +89,24 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.demo-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #ffffff;
+}
+
+.demo-wallpaper {
+  max-width: 1280px;
+  height: 700px;
+}
+
+.demo-item {
+  min-width: 300px;
+  height: 100px;
+}
+</style>

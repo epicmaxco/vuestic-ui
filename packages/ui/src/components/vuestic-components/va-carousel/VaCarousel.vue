@@ -5,7 +5,9 @@
       ref="wrapper"
       :style="{maxWidth: carouselWidth + 'px'}"
     >
-      <slot name="content"></slot>
+      <div class="va-carousel__content">
+        <slot name="content"></slot>
+      </div>
       <div
         class="va-carousel-inner"
         ref="inner"
@@ -392,6 +394,15 @@ export default class VaCarousel extends Mixins(
   display: flex;
   flex-direction: column;
   position: relative;
+
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+  }
 
   &-wrapper {
     width: 100%;
