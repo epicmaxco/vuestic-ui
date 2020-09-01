@@ -23,13 +23,20 @@ export class AutoplayMixin extends Mixins(PropsMixin) {
     }
   }
 
+  pauseAutoplay () {
+    if (this.autoplayTimeout) {
+      this.autoplayTimeout = clearInterval(this.autoplayTimeout)
+    }
+  }
+
   mounted () {
+    this.$el.addEventListener('mouseenter', this.pauseAutoplay)
+    this.$el.addEventListener('mouseleave', this.startAutoplay)
     this.startAutoplay()
   }
 
   beforeDestroy () {
-    if (this.autoplayTimeout) {
-      this.autoplayTimeout = clearInterval(this.autoplayTimeout)
-    }
+    this.$el.removeEventListener('mouseenter', this.pauseAutoplay)
+    this.$el.removeEventListener('mouseleave', this.startAutoplay)
   }
 }
