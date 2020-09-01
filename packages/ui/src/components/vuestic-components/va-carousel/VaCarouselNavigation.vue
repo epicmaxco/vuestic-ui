@@ -37,8 +37,6 @@ import VaButton from '../va-button/VaButton.vue'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const PropsMixin = makeContextablePropsMixin({
-  nextLabel: { type: String, default: '&#9654' },
-  prevLabel: { type: String, default: '&#9664' },
   color: { type: String, default: '#fff' },
 })
 
