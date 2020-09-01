@@ -7,7 +7,7 @@
           :key="index"
           :style="{background: item.color }"
         >
-          <div class="demo-item">
+          <div>
             {{ item.text }}
           </div>
         </va-carousel-item>
@@ -21,7 +21,7 @@
           :key="index"
           :style="{background: item.color }"
         >
-          <div class="demo-item">
+          <div>
             {{ item.text }}
           </div>
         </va-carousel-item>
@@ -35,7 +35,7 @@
           :key="index"
           :style="{background: item.color }"
         >
-          <div class="demo-item">
+          <div>
             {{ item.text }}
           </div>
         </va-carousel-item>
@@ -49,7 +49,7 @@
           :key="index"
           :style="{background: item.color }"
         >
-          <div class="demo-item">
+          <div>
             {{ item.text }}
           </div>
         </va-carousel-item>
@@ -64,13 +64,13 @@
           <h2 style="font-size: 2rem;">UI framework for vuestic-admin</h2>
         </div>
       </template>
-      <va-carousel-item class="demo-wallpaper">
+      <va-carousel-item>
         <img src="https://images.wallpaperscraft.com/image/spruce_branches_needles_183603_1280x800.jpg" alt="">
       </va-carousel-item>
-      <va-carousel-item class="demo-wallpaper .demo-wallpaper--a">
+      <va-carousel-item>
         <img src="https://images.wallpaperscraft.com/image/fern_leaves_branch_183649_1280x800.jpg" alt="">
       </va-carousel-item>
-      <va-carousel-item class="demo-wallpaper">
+      <va-carousel-item>
         <img src="https://images.wallpaperscraft.com/image/spruce_branches_needles_128622_1280x800.jpg" alt="">
       </va-carousel-item>
     </va-carousel>
@@ -112,15 +112,5 @@ export default {
   align-items: center;
   height: 100%;
   color: #ffffff;
-}
-
-.demo-wallpaper {
-  max-width: 1280px;
-  height: 700px;
-}
-
-.demo-item {
-  min-width: 300px;
-  height: 100px;
 }
 </style>

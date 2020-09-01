@@ -3,7 +3,7 @@
     class="va-carousel-item"
     role="tabpanel"
     tabindex="-1"
-    :style="{ maxWidth: width > 0 ? width + 'px' : 'auto'}"
+    :style="itemStyle"
   >
     <slot></slot>
   </div>
@@ -18,8 +18,16 @@ import { Component, Vue, Inject } from 'vue-property-decorator'
 export default class VaCarouselItem extends Vue {
   carouselItem = true
   width = 0
+  height = 0
 
   @Inject() readonly carousel!: any
+
+  get itemStyle () {
+    return {
+      width: this.width > 0 ? this.width + 'px' : 'auto',
+      height: this.height > 0 ? this.height + 'px' : 'auto',
+    }
+  }
 
   onTouchEnd (e: any) {
     const eventPosX =
@@ -36,11 +44,13 @@ export default class VaCarouselItem extends Vue {
   }
 
   mounted () {
-    (this as any).$slots.default.forEach((child: any) => {
-      if (this.width < child.elm.clientWidth) {
-        this.width = child.elm.clientWidth
-      }
-    })
+    // (this as any).$slots.default.forEach((child: any) => {
+    //   if (this.width < child.elm.clientWidth) {
+    //     this.width = child.elm.clientWidth
+    //   }
+    // })
+    this.width = this.carousel.width
+    this.height = this.carousel.height
     if (!this.$isServer) {
       this.$el.addEventListener('dragstart', e => e.preventDefault())
     }

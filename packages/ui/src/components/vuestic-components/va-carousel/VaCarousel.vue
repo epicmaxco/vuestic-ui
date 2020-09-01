@@ -3,7 +3,7 @@
     <div
       class="va-carousel-wrapper"
       ref="wrapper"
-      :style="{maxWidth: carouselWidth + 'px'}"
+      :style="{width: carouselWidth + 'px', height: carouselHeight + 'px'}"
     >
       <div class="va-carousel__content">
         <slot name="content"></slot>
@@ -48,6 +48,8 @@ const PropsMixin = makeContextablePropsMixin({
   draggable: { type: Boolean, default: false },
   navigation: { type: Boolean, default: false },
   pagination: { type: Boolean, default: false },
+  width: { type: Number, default: 500 },
+  height: { type: Number, default: 250 },
   paginationPosition: {
     type: String,
     default: 'bottom',
@@ -74,6 +76,7 @@ export default class VaCarousel extends Mixins(
   PropsMixin,
 ) {
   carouselWidth = 0
+  carouselHeight = 0
   currentPage = 0
   dragging = false
   dragMomentum = 0
@@ -220,11 +223,6 @@ export default class VaCarousel extends Mixins(
     return window.innerWidth
   }
 
-  getCarouselWidth () {
-    const carouselItems = this.$children.filter((child: any) => child.carouselItem)
-    this.carouselWidth = carouselItems[this.currentPage].$el.clientWidth
-  }
-
   getItemCount () {
     this.slideCount =
       (this.$slots &&
@@ -334,10 +332,12 @@ export default class VaCarousel extends Mixins(
     this.currentPage = Math.round(this.offset / this.slideWidth / 1)
   }
 
+  // WIP
   computeCarouselWidth () {
+    this.carouselWidth = this.c_width
+    this.carouselHeight = this.c_height
     this.getItemCount()
     this.getBrowserWidth()
-    this.getCarouselWidth()
     this.setCurrentPageInBounds()
   }
 
