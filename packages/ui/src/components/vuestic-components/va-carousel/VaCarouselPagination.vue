@@ -101,6 +101,7 @@ export default class VaCarouselPagination extends Mixins(
     display: flex;
     margin: 0 auto;
     padding: 0;
+    height: 100%;
     justify-content: center;
     align-items: center;
   }

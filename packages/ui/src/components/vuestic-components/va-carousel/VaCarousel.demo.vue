@@ -15,7 +15,7 @@
     </VbCard>
 
     <VbCard title="loop">
-      <va-carousel loop navigation pagination pagination-position="right">
+      <va-carousel loop navigation pagination>
         <va-carousel-item
           v-for="(item, index) in items"
           :key="index"
@@ -57,7 +57,7 @@
     </VbCard>
 
     <VbCard title="wallpapers">
-    <va-carousel navigation pagination>
+    <va-carousel pagination pagination-position="right">
       <template slot="content">
         <div class="demo-content-wrapper">
           <h1 style="font-size: 5rem;">Vuestic</h1>

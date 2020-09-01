@@ -77,11 +77,13 @@ export default class VaCarouselNavigation extends Mixins(
   &-next {
     right: 0;
     font-family: "system";
+    margin-right: 0.5rem;
   }
 
   &-prev {
     left: 0;
     font-family: "system";
+    margin-left: 0.5rem;
   }
 }
 </style>
