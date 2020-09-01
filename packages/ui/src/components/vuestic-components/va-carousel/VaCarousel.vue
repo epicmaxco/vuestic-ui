@@ -107,10 +107,10 @@ export default class VaCarousel extends Mixins(
     return {
       transform: `translate(${this.currentOffset}px, 0)`,
       transition: this.dragging ? 'none' : '0.5s ease-out transform',
-      'ms-flex-preferred-size': `${this.slideWidth}px`,
-      'webkit-flex-basis': `${this.slideWidth}px`,
-      'flex-basis': `${this.slideWidth}px`,
-      visibility: this.slideWidth ? 'visible' : 'hidden',
+      'ms-flex-preferred-size': `${this.c_width}px`,
+      'webkit-flex-basis': `${this.c_width}px`,
+      'flex-basis': `${this.c_width}px`,
+      visibility: this.c_width ? 'visible' : 'hidden',
       height: 'auto',
     }
   }
@@ -133,19 +133,13 @@ export default class VaCarousel extends Mixins(
 
   get maxOffset () {
     return Math.max(
-      this.slideWidth * (this.slideCount - 1),
+      this.c_width * (this.slideCount - 1),
       0,
     )
   }
 
   get pageCount () {
     return Math.ceil(this.slideCount / 1)
-  }
-
-  get slideWidth () {
-    const width = this.c_width
-    const perPage = 1
-    return width / perPage
   }
 
   get isNavigationRequired () {
@@ -224,8 +218,7 @@ export default class VaCarousel extends Mixins(
 
   goToPage (page: number) {
     if (page >= 0 && page <= this.pageCount) {
-      this.offset = Math.min(this.slideWidth * 1 * page, this.maxOffset)
-      // update the current page
+      this.offset = Math.min(this.c_width * 1 * page, this.maxOffset)
       this.currentPage = page
     }
   }
@@ -255,7 +248,7 @@ export default class VaCarousel extends Mixins(
     const deltaX = this.dragStartX - eventPosX
     this.dragMomentum = deltaX / (e.timeStamp - this.startTime)
     if (Math.abs(deltaX) >= 10) {
-      const width = this.slideWidth * 1
+      const width = this.c_width * 1
       this.dragOffset = this.dragOffset + Math.sign(deltaX) * (width / 2)
     }
     this.offset += this.dragOffset
@@ -306,21 +299,21 @@ export default class VaCarousel extends Mixins(
           Math.max(
             -1 + 1,
             Math.min(Math.round(this.dragMomentum), 1 - 1),
-          ) * this.slideWidth
+          ) * this.c_width
 
-    const width = this.slideWidth * 1
+    const width = this.c_width * 1
     const lastFullPageOffset =
         width * Math.floor(this.slideCount / (1 - 1))
     const remainderOffset =
         lastFullPageOffset +
-        this.slideWidth * (this.slideCount % 1)
+        this.c_width * (this.slideCount % 1)
     if (this.offset > (lastFullPageOffset + remainderOffset) / 2) {
       this.offset = remainderOffset
     } else {
       this.offset = width * Math.round(this.offset / width)
     }
     this.offset = Math.max(0, Math.min(this.offset, this.maxOffset))
-    this.currentPage = Math.round(this.offset / this.slideWidth / 1)
+    this.currentPage = Math.round(this.offset / this.c_width / 1)
   }
 
   // WIP
@@ -347,9 +340,7 @@ export default class VaCarousel extends Mixins(
   }
 
   addEventListeners () {
-    window.addEventListener(
-      'resize',
-      debounce(this.onResize, this.refreshRate),
+    window.addEventListener('resize', debounce(this.onResize, this.refreshRate),
     )
     if (this.isTouch || this.c_draggable) {
       (this as any).$refs.wrapper.addEventListener(

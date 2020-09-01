@@ -15,9 +15,6 @@
         class="va-carousel-pagination__dot"
         aria-hidden="false"
         role="tab"
-        :title="getDotTitle(index)"
-        :value="getDotTitle(index)"
-        :aria-label="getDotTitle(index)"
         :aria-selected="isCurrentDot(index) ? 'true' : 'false'"
         :class="{ 'va-carousel-pagination-dot--active': isCurrentDot(index) }"
         @click="goToPage(index)"
@@ -73,12 +70,6 @@ export default class VaCarouselPagination extends Mixins(
 
   isCurrentDot (index: number) {
     return index === this.carousel.currentPage
-  }
-
-  getDotTitle (index: number) {
-    return this.carousel.$children[index].title
-      ? this.carousel.$children[index].title
-      : `Item ${index}`
   }
 
   dotStyle (index: number) {

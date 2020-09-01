@@ -44,11 +44,6 @@ export default class VaCarouselItem extends Vue {
   }
 
   mounted () {
-    // (this as any).$slots.default.forEach((child: any) => {
-    //   if (this.width < child.elm.clientWidth) {
-    //     this.width = child.elm.clientWidth
-    //   }
-    // })
     this.width = this.carousel.c_width
     this.height = this.carousel.c_height
     if (!this.$isServer) {
