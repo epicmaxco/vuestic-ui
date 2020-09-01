@@ -20,12 +20,14 @@
     <slot name="navigation" v-if="navigation">
       <va-carousel-navigation
         v-if="isNavigationRequired"
+        :color="c_color"
         @click="handleNavigation"
       />
     </slot>
 
     <slot name="pagination" v-if="pagination">
       <va-carousel-pagination
+        :color="c_color"
         :position="c_paginationPosition"
         @click="goToPage($event)"
       />
@@ -50,6 +52,7 @@ const PropsMixin = makeContextablePropsMixin({
   pagination: { type: Boolean, default: false },
   width: { type: Number, default: 500 },
   height: { type: Number, default: 250 },
+  color: { type: String, default: '#fff' },
   paginationPosition: {
     type: String,
     default: 'bottom',

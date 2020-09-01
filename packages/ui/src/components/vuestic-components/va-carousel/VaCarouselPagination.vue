@@ -31,6 +31,7 @@
 import { Component, Mixins, Inject } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 const PropsMixin = makeContextablePropsMixin({
   position: { type: String, default: 'bottom' },
@@ -40,6 +41,7 @@ const PropsMixin = makeContextablePropsMixin({
   name: 'VaCarouselPagination',
 })
 export default class VaCarouselPagination extends Mixins(
+  ColorThemeMixin,
   PropsMixin,
 ) {
   @Inject() readonly carousel!: any
@@ -81,6 +83,7 @@ export default class VaCarouselPagination extends Mixins(
 
   dotStyle (index: number) {
     const basicBtnStyle = {
+      backgroundColor: this.colorComputed,
       padding: '0.5rem',
       width: '0.6rem',
       height: '0.6rem',
@@ -111,7 +114,6 @@ export default class VaCarouselPagination extends Mixins(
     cursor: pointer;
     appearance: none;
     border: none;
-    background-color: #ffffff;
     background-clip: content-box;
     box-sizing: content-box;
     padding: 0;
