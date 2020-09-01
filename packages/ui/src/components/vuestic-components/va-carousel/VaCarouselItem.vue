@@ -49,8 +49,8 @@ export default class VaCarouselItem extends Vue {
     //     this.width = child.elm.clientWidth
     //   }
     // })
-    this.width = this.carousel.width
-    this.height = this.carousel.height
+    this.width = this.carousel.c_width
+    this.height = this.carousel.c_height
     if (!this.$isServer) {
       this.$el.addEventListener('dragstart', e => e.preventDefault())
     }

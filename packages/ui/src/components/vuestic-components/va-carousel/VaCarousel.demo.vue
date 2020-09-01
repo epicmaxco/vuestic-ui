@@ -57,7 +57,12 @@
     </VbCard>
 
     <VbCard title="wallpapers">
-    <va-carousel pagination pagination-position="right">
+    <va-carousel
+      pagination
+      pagination-position="right"
+      :width="1280"
+      :height="800"
+    >
       <template slot="content">
         <div class="demo-content-wrapper">
           <h1 style="font-size: 5rem;">Vuestic</h1>

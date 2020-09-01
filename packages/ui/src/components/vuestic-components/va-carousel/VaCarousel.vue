@@ -3,7 +3,7 @@
     <div
       class="va-carousel-wrapper"
       ref="wrapper"
-      :style="{width: carouselWidth + 'px', height: carouselHeight + 'px'}"
+      :style="{width: c_width + 'px', height: c_height + 'px'}"
     >
       <div class="va-carousel__content">
         <slot name="content"></slot>
@@ -75,8 +75,6 @@ export default class VaCarousel extends Mixins(
   AutoplayMixin,
   PropsMixin,
 ) {
-  carouselWidth = 0
-  carouselHeight = 0
   currentPage = 0
   dragging = false
   dragMomentum = 0
@@ -127,7 +125,7 @@ export default class VaCarousel extends Mixins(
   }
 
   get isHidden () {
-    return this.carouselWidth <= 0
+    return this.c_width <= 0
   }
 
   get maxOffset () {
@@ -142,7 +140,7 @@ export default class VaCarousel extends Mixins(
   }
 
   get slideWidth () {
-    const width = this.carouselWidth
+    const width = this.c_width
     const perPage = 1
     return width / perPage
   }
@@ -334,8 +332,6 @@ export default class VaCarousel extends Mixins(
 
   // WIP
   computeCarouselWidth () {
-    this.carouselWidth = this.c_width
-    this.carouselHeight = this.c_height
     this.getItemCount()
     this.getBrowserWidth()
     this.setCurrentPageInBounds()
