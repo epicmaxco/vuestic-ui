@@ -2,7 +2,7 @@
   <div class="va-carousel-navigation">
 
     <va-button
-      :disabled="!canAdvanceBackward"
+      :disabled="!canAdvanceBackward && !hoverBackward"
       class="va-carousel-navigation-button va-carousel-navigation-prev"
       flat
       size="medium"
@@ -10,10 +10,12 @@
       icon="chevron_left"
       :tabindex="canAdvanceBackward ? 0 : -1"
       @click.prevent="triggerPageAdvance('backward')"
+      @mouseover="hoverBackward = true"
+      @mouseleave="hoverBackward = false"
     />
 
     <va-button
-      :disabled="!canAdvanceForward"
+      :disabled="!canAdvanceForward && !hoverForward"
       class="va-carousel-navigation-button va-carousel-navigation-next"
       flat
       size="medium"
@@ -21,6 +23,8 @@
       icon="chevron_right"
       :tabindex="canAdvanceForward ? 0 : -1"
       @click.prevent="triggerPageAdvance('forward')"
+      @mouseover="hoverForward = true"
+      @mouseleave="hoverForward = false"
     />
   </div>
 </template>
@@ -44,6 +48,9 @@ const PropsMixin = makeContextablePropsMixin({
 export default class VaCarouselNavigation extends Mixins(
   PropsMixin,
 ) {
+  hoverBackward = false
+  hoverForward = false
+
   @Inject() readonly carousel!: any
 
   get canAdvanceForward () {
