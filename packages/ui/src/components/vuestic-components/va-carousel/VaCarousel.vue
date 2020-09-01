@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <slot name="navigation" v-if="navigation">
+    <slot name="navigation" v-if="c_navigation">
       <va-carousel-navigation
         v-if="isNavigationRequired"
         :color="c_color"
@@ -25,7 +25,7 @@
       />
     </slot>
 
-    <slot name="pagination" v-if="pagination">
+    <slot name="pagination" v-if="c_pagination">
       <va-carousel-pagination
         :color="c_color"
         :position="c_paginationPosition"
@@ -90,7 +90,7 @@ export default class VaCarousel extends Mixins(
   slideCount = 0
   resistanceCoef = 20
 
-  @Watch('value')
+  @Watch('c_value')
   onValueChanged (val: number) {
     if (val !== this.currentPage) {
       this.goToPage(val)
@@ -116,11 +116,11 @@ export default class VaCarousel extends Mixins(
   }
 
   get canAdvanceForward () {
-    return this.loop || this.offset < this.maxOffset
+    return this.c_loop || this.offset < this.maxOffset
   }
 
   get canAdvanceBackward () {
-    return this.loop || this.currentPage > 0
+    return this.c_loop || this.currentPage > 0
   }
 
   get currentOffset () {
@@ -156,14 +156,14 @@ export default class VaCarousel extends Mixins(
     if (this.currentPage < this.pageCount - 1) {
       return this.currentPage + 1
     }
-    return this.loop ? 0 : this.currentPage
+    return this.c_loop ? 0 : this.currentPage
   }
 
   getPreviousPage () {
     if (this.currentPage > 0) {
       return this.currentPage - 1
     }
-    return this.loop ? this.pageCount - 1 : this.currentPage
+    return this.c_loop ? this.pageCount - 1 : this.currentPage
   }
 
   advancePage (direction: string) {
@@ -351,7 +351,7 @@ export default class VaCarousel extends Mixins(
       'resize',
       debounce(this.onResize, this.refreshRate),
     )
-    if (this.isTouch || this.draggable) {
+    if (this.isTouch || this.c_draggable) {
       (this as any).$refs.wrapper.addEventListener(
         this.isTouch ? 'touchstart' : 'mousedown',
         this.onStart,
