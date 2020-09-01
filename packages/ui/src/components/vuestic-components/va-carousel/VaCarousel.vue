@@ -37,6 +37,7 @@ import VaCarouselNavigation from './VaCarouselNavigation.vue'
 import VaCarouselPagination from './VaCarouselPagination.vue'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { AutoplayMixin } from './helpers/AutoplayMixin'
 
 const PropsMixin = makeContextablePropsMixin({
   value: { type: Number },
@@ -59,6 +60,7 @@ const PropsMixin = makeContextablePropsMixin({
   },
 })
 export default class VaCarousel extends Mixins(
+  AutoplayMixin,
   PropsMixin,
 ) {
   carouselWidth = 0

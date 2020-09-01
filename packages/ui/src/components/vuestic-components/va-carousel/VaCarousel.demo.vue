@@ -28,6 +28,20 @@
       </va-carousel>
     </VbCard>
 
+    <VbCard title="autoplay & loop">
+      <va-carousel loop autoplay>
+        <va-carousel-item
+          v-for="(item, index) in items"
+          :key="index"
+          :style="{background: item.color }"
+        >
+          <div class="demo-item">
+            {{ item.text }}
+          </div>
+        </va-carousel-item>
+      </va-carousel>
+    </VbCard>
+
     <VbCard title="draggable">
       <va-carousel draggable>
         <va-carousel-item
@@ -44,7 +58,8 @@
 
     <VbCard title="wallpapers">
     <va-carousel navigation pagination>
-      <template slot="content">
+      <template slot="content">Vuestic
+
         <div class="demo-content-wrapper">
           <h1 style="font-size: 5rem;">Vuestic</h1>
           <h2 style="font-size: 2rem;">UI framework for vuestic-admin</h2>
