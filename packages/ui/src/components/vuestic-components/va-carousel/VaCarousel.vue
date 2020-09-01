@@ -25,7 +25,10 @@
     </slot>
 
     <slot name="pagination" v-if="pagination">
-      <va-carousel-pagination @click="goToPage($event)" />
+      <va-carousel-pagination
+        :position="c_paginationPosition"
+        @click="goToPage($event)"
+      />
     </slot>
   </div>
 </template>
@@ -45,6 +48,13 @@ const PropsMixin = makeContextablePropsMixin({
   draggable: { type: Boolean, default: false },
   navigation: { type: Boolean, default: false },
   pagination: { type: Boolean, default: false },
+  paginationPosition: {
+    type: String,
+    default: 'bottom',
+    validator: (value: string) => {
+      return ['top', 'right', 'bottom', 'left'].includes(value)
+    },
+  },
 })
 
 @Component({

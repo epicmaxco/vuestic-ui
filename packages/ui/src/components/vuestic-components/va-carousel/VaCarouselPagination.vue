@@ -2,8 +2,13 @@
   <div
     v-show="carousel.pageCount > 1"
     class="va-carousel-pagination"
+    :style="paginationStyle"
   >
-    <div class="va-carousel-pagination__dot-container" role="tablist">
+    <div
+      class="va-carousel-pagination__dot-container"
+      :style="dotContainerStyle"
+      role="tablist"
+    >
       <button
         v-for="(page, index) in paginationCount"
         :key="`${page}_${index}`"
@@ -14,8 +19,8 @@
         :value="getDotTitle(index)"
         :aria-label="getDotTitle(index)"
         :aria-selected="isCurrentDot(index) ? 'true' : 'false'"
-        v-bind:class="{ 'va-carousel-pagination-dot--active': isCurrentDot(index) }"
-        v-on:click="goToPage(index)"
+        :class="{ 'va-carousel-pagination-dot--active': isCurrentDot(index) }"
+        @click="goToPage(index)"
         :style="dotStyle(index)"
       ></button>
     </div>
@@ -23,13 +28,36 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject } from 'vue-property-decorator'
+import { Component, Mixins, Inject } from 'vue-property-decorator'
+
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
+const PropsMixin = makeContextablePropsMixin({
+  position: { type: String, default: 'bottom' },
+})
 
 @Component({
   name: 'VaCarouselPagination',
 })
-export default class VaCarouselPagination extends Vue {
+export default class VaCarouselPagination extends Mixins(
+  PropsMixin,
+) {
   @Inject() readonly carousel!: any
+
+  get paginationStyle () {
+    return {
+      width: ['top', 'bottom'].includes(this.c_position) ? '100%' : 'auto',
+      height: ['left', 'right'].includes(this.c_position) ? '100%' : 'auto',
+      [this.c_position]: 0,
+    }
+  }
+
+  get dotContainerStyle () {
+    return {
+      flexDirection: ['top', 'bottom'].includes(this.c_position) ? 'row' : 'column',
+      [`padding-${this.c_position}`]: '0.5rem',
+    }
+  }
 
   get paginationCount () {
     return this.carousel && this.carousel.scrollPerPage
@@ -65,16 +93,16 @@ export default class VaCarouselPagination extends Vue {
 
 <style lang="scss" scoped>
 .va-carousel-pagination {
-  width: 100%;
   text-align: center;
   position: absolute;
   z-index: 90;
-  bottom: 0;
 
   &__dot-container {
-    display: inline-block;
+    display: flex;
     margin: 0 auto;
     padding: 0;
+    justify-content: center;
+    align-items: center;
   }
 
   &__dot {

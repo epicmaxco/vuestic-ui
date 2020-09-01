@@ -15,7 +15,7 @@
     </VbCard>
 
     <VbCard title="loop">
-      <va-carousel loop navigation pagination>
+      <va-carousel loop navigation pagination pagination-position="right">
         <va-carousel-item
           v-for="(item, index) in items"
           :key="index"
@@ -58,8 +58,7 @@
 
     <VbCard title="wallpapers">
     <va-carousel navigation pagination>
-      <template slot="content">Vuestic
-
+      <template slot="content">
         <div class="demo-content-wrapper">
           <h1 style="font-size: 5rem;">Vuestic</h1>
           <h2 style="font-size: 2rem;">UI framework for vuestic-admin</h2>
@@ -68,7 +67,7 @@
       <va-carousel-item class="demo-wallpaper">
         <img src="https://images.wallpaperscraft.com/image/spruce_branches_needles_183603_1280x800.jpg" alt="">
       </va-carousel-item>
-      <va-carousel-item class="demo-wallpaper">
+      <va-carousel-item class="demo-wallpaper .demo-wallpaper--a">
         <img src="https://images.wallpaperscraft.com/image/fern_leaves_branch_183649_1280x800.jpg" alt="">
       </va-carousel-item>
       <va-carousel-item class="demo-wallpaper">
