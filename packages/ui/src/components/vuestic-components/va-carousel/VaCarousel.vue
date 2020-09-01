@@ -174,16 +174,6 @@ export default class VaCarousel extends Mixins(
     }
   }
 
-  goToLastItem () {
-    this.dragging = true
-    setTimeout(() => {
-      this.dragging = false
-    }, this.refreshRate)
-    this.$nextTick(() => {
-      this.goToPage(this.pageCount)
-    })
-  }
-
   attachMutationObserver () {
     const MutationObserver = window.MutationObserver
     if (MutationObserver) {
