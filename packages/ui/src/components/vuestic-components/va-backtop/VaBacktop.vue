@@ -17,7 +17,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaButton from '../va-button/VaButton.vue'
-const BacktopPropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeContextablePropsMixin({
   target: { type: [Element, String], default: null },
   visibilityHeight: { type: Number, default: 300 },
   speed: { type: Number, default: 50 },
@@ -32,7 +32,7 @@ const BacktopPropsMixin = makeContextablePropsMixin({
   components: { VaButton },
 })
 export default class VaBacktop extends Mixins(
-  BacktopPropsMixin,
+  PropsMixin,
 ) {
   visible = false
   scrolled = false
