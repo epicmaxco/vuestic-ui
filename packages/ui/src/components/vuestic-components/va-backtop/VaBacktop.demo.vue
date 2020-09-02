@@ -60,6 +60,12 @@
       />
       </VbCard>
 
+      <VbCard title="Slot">
+      <va-checkbox
+        v-model="isSlot"
+        :label="`Active Slot: ${isSlot}`" />
+      </VbCard>
+
       <va-backtop
         target=".VbDemo"
         :vertical-offset="verticalOffset + '%'"
@@ -68,7 +74,9 @@
         :vertical-position="positionVertical"
         :visibility-height="visibilityHeight"
         :speed="scrollSpeed"
-      />
+      >
+        <p v-if="isSlot">Slot: back to top</p>
+      </va-backtop>
     </VbCard>
   </VbDemo>
 </template>
@@ -77,12 +85,14 @@
 import VaBacktop from './VaBacktop'
 import VaRadio from '../va-radio/VaRadio'
 import VaSlider from '../va-slider/VaSlider'
+import VaCheckbox from '../va-checkbox/VaCheckbox'
 
 export default {
   components: {
     VaBacktop,
     VaRadio,
     VaSlider,
+    VaCheckbox,
   },
   data () {
     return {
@@ -101,6 +111,7 @@ export default {
       horizontalOffset: 1,
       visibilityHeight: 1,
       scrollSpeed: 50,
+      isSlot: false,
     }
   },
 }

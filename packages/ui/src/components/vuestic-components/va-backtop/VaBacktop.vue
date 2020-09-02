@@ -88,5 +88,6 @@ export default class VaBacktop extends Mixins(
   left: auto;
   right: auto;
   bottom: auto;
+  cursor: pointer;
 }
 </style>
