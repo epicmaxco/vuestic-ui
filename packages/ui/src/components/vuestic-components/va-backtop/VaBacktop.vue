@@ -36,7 +36,7 @@ export default class VaBacktop extends Mixins(
 ) {
   visible = false
   scrolled = false
-  interval = 0 as any
+  interval = 0
 
   get computedStyle () {
     return {
