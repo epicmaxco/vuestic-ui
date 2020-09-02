@@ -18,7 +18,7 @@ import { Component, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaButton from '../va-button/VaButton.vue'
 const BacktopPropsMixin = makeContextablePropsMixin({
-  target: { type: [String, HTMLElement], default: 'body' },
+  target: { type: [Element, String], default: null },
   visibilityHeight: { type: Number, default: 300 },
   speed: { type: Number, default: 50 },
   top: { type: String, default: 'auto' },
@@ -38,7 +38,7 @@ export default class VaBacktop extends Mixins(
   scrolled = false
   interval = 0
 
-  get computedStyle () {
+  get computedStyle (): object {
     return {
       bottom: this.c_bottom,
       right: this.c_right,
@@ -47,34 +47,36 @@ export default class VaBacktop extends Mixins(
     }
   }
 
-  get computedDomElement (): any {
-    return document.querySelector(`${this.c_target}`)
+  get targetElement (): Element {
+    return typeof this.c_target === 'string'
+      ? document.querySelector(this.c_target)
+      : this.c_target || this.$el.parentElement
   }
 
-  mounted () {
-    this.computedDomElement.addEventListener('scroll', this.handleScroll)
+  handleScroll (): void {
+    this.visible = this.targetElement.scrollTop > this.visibilityHeight
   }
 
-  beforeDestroy () {
-    this.computedDomElement.removeEventListener('scroll', this.handleScroll)
-  }
-
-  handleScroll () {
-    this.visible = this.computedDomElement.scrollTop > this.visibilityHeight
-  }
-
-  scrollToTop () {
+  scrollToTop (): void {
     if (this.scrolled) { return }
     this.scrolled = true
     this.interval = setInterval(() => {
-      const next = Math.floor(this.computedDomElement.scrollTop - this.c_speed)
-      if (this.computedDomElement.scrollTop === 0) {
+      const next = Math.floor(this.targetElement.scrollTop - this.c_speed)
+      if (this.targetElement.scrollTop === 0) {
         clearInterval(this.interval)
         this.scrolled = false
       } else {
-        this.computedDomElement.scrollTo(0, next)
+        this.targetElement.scrollTo(0, next)
       }
     }, 15)
+  }
+
+  mounted () {
+    this.targetElement.addEventListener('scroll', this.handleScroll)
+  }
+
+  beforeDestroy () {
+    this.targetElement.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
