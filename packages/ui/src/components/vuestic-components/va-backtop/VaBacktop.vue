@@ -21,10 +21,10 @@ const BacktopPropsMixin = makeContextablePropsMixin({
   target: { type: [Element, String], default: null },
   visibilityHeight: { type: Number, default: 300 },
   speed: { type: Number, default: 50 },
-  top: { type: String, default: 'auto' },
-  left: { type: String, default: 'auto' },
-  right: { type: String, default: '40px' },
-  bottom: { type: String, default: '40px' },
+  verticalPosition: { type: String, default: 'right' },
+  horizontalPosition: { type: String, default: 'bottom' },
+  verticalOffset: { type: String, default: '1rem' },
+  horizontalOffset: { type: String, default: '1rem' },
 })
 
 @Component({
@@ -40,10 +40,8 @@ export default class VaBacktop extends Mixins(
 
   get computedStyle (): object {
     return {
-      bottom: this.c_bottom,
-      right: this.c_right,
-      left: this.c_left,
-      top: this.c_top,
+      [this.c_verticalPosition]: this.c_verticalOffset,
+      [this.c_horizontalPosition]: this.c_horizontalOffset,
     }
   }
 
@@ -86,5 +84,9 @@ export default class VaBacktop extends Mixins(
 
 .va-backtop {
   position: fixed;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
 }
 </style>
