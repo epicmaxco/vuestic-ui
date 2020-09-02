@@ -1,6 +1,6 @@
 import { normalizeValue } from '../../../../services/utils'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
-import { Mixins } from 'vue-property-decorator'
+import { Mixins, Component } from 'vue-property-decorator'
 
 const ProgressMixinContextableProps = makeContextablePropsMixin({
   value: { type: Number, default: 0 },
@@ -9,10 +9,11 @@ const ProgressMixinContextableProps = makeContextablePropsMixin({
   indeterminate: { type: Boolean, default: false },
 })
 
+@Component
 export class ProgressComponentMixin extends Mixins(
   ProgressMixinContextableProps,
 ) {
-  get normalizedValue () {
+  get normalizedValue (): number {
     return normalizeValue(this.c_value)
   }
 }

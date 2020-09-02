@@ -15,45 +15,45 @@
   </div>
 </template>
 
-<script>
-import ColorDot from './ColorDot'
-import VaInput from '../va-input/VaInput'
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import ColorDot from './ColorDot.vue'
+import VaInput from '../va-input/VaInput.vue'
 
-export default {
+@Component({
   name: 'VaColorInput',
   components: {
     VaInput,
     ColorDot,
   },
-  props: {
-    value: {
-      type: String,
-      default: '',
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    selected: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    valueProxy: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('input', value)
-      },
-    },
-  },
-  methods: {
-    onClick () {
-      this.$emit('click')
-    },
-  },
+})
+export default class VaColorInput extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly value!: string
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) readonly selected!: boolean
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) readonly disabled!: boolean
+
+  get valueProxy (): any {
+    return this.value
+  }
+
+  set valueProxy (value: any) {
+    this.$emit('input', value)
+  }
+
+  onClick (): void {
+    this.$emit('click')
+  }
 }
 </script>
 

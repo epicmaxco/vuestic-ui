@@ -18,44 +18,42 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import VaColorPickerInput from './VaColorPickerInput.vue'
+import VaSimplePalettePicker from './VaSimplePalettePicker.vue'
+import VaColorInput from './VaColorInput.vue'
 
-import VaColorPickerInput from './VaColorPickerInput'
-import VaSimplePalettePicker from './VaSimplePalettePicker'
-import VaColorInput from './VaColorInput'
-
-export default {
+@Component({
   name: 'VaPaletteCustom',
   components: {
     VaColorInput,
     VaColorPickerInput,
     VaSimplePalettePicker,
   },
-  props: {
-    value: {
-      type: String,
-      default: '',
-    },
-    palette: {
-      type: Array,
-      default () {
-        return []
-      },
-    },
-  },
-  computed: {
-    valueProxy: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('input', value)
-      },
-    },
-    dotIsSelected () {
-      return this.palette.includes(this.value)
-    },
-  },
+})
+export default class VaPaletteCustom extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly value!: string
+
+  @Prop({
+    type: Array,
+    default: () => [],
+  }) readonly palette!: Array<string>
+
+  get valueProxy (): any {
+    return this.value
+  }
+
+  set valueProxy (value: any) {
+    this.$emit('input', value)
+  }
+
+  get dotIsSelected (): boolean {
+    return this.palette.includes(this.value)
+  }
 }
 </script>
 

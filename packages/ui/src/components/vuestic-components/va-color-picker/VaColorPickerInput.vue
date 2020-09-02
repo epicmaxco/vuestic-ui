@@ -44,14 +44,15 @@
   </div>
 </template>
 
-<script>
-import VaAdvancedColorPicker from './VaAdvancedColorPicker'
-import VaSimplePalettePicker from './VaSimplePalettePicker'
-import VaSliderColorPicker from './VaSliderColorPicker'
-import VaColorInput from './VaColorInput'
-import VaDropdownPopper from '../va-dropdown/VaDropdown'
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import VaAdvancedColorPicker from './VaAdvancedColorPicker.vue'
+import VaSimplePalettePicker from './VaSimplePalettePicker.vue'
+import VaSliderColorPicker from './VaSliderColorPicker.vue'
+import VaColorInput from './VaColorInput.vue'
+import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
 
-export default {
+@Component({
   name: 'VaColorPickerInput',
   components: {
     VaDropdownPopper,
@@ -60,44 +61,43 @@ export default {
     VaSliderColorPicker,
     VaColorInput,
   },
-  props: {
-    mode: {
-      type: String,
-      default: '',
-    },
-    palette: {
-      type: Array,
-      default () {
-        return []
-      },
-    },
-    value: {
-      type: String,
-      default: '',
-    },
-    selected: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    valueProxy: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('input', value)
-      },
-    },
-    isInputDisabled () {
-      return !!(this.mode === 'palette' && this.palette)
-    },
-  },
-  methods: {
-    validator (value) {
-      return ['palette', 'slider', 'advanced'].includes(value)
-    },
-  },
+})
+export default class VaColorPickerInput extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly value!: string
+
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly mode!: string
+
+  @Prop({
+    type: Array,
+    default: () => [],
+  }) readonly palette!: Array<string>
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) readonly selected!: boolean
+
+  get valueProxy (): any {
+    return this.value
+  }
+
+  set valueProxy (value: any) {
+    this.$emit('input', value)
+  }
+
+  get isInputDisabled () {
+    return !!(this.mode === 'palette' && this.palette)
+  }
+
+  validator (value: string): boolean {
+    return ['palette', 'slider', 'advanced'].includes(value)
+  }
 }
 </script>
 
