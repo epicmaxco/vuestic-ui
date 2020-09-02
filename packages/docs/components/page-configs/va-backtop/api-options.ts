@@ -5,10 +5,10 @@ export default {
     target: { local: true },
     visibilityHeight: { local: true },
     speed: { local: true },
-    top: { local: true },
-    right: { local: true },
-    bottom: { local: true },
-    left: { local: true },
+    verticalPosition: { local: true },
+    horizontalPosition: { local: true },
+    verticalOffset: { local: true },
+    horizontalOffset: { local: true },
   },
   events: {
     click: {
