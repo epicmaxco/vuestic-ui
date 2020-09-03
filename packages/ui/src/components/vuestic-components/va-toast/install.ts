@@ -1,11 +1,11 @@
 import Notification from './index'
-import { NotificationInterface } from './types'
+// import { NotificationInterface } from './types'
 
-declare module 'vue/types/vue' {
-  interface Vue {
-    $vaToast: NotificationInterface;
-  }
-}
+// declare module 'vue/types/vue' {
+//   interface Vue {
+//     $vaToast: NotificationInterface;
+//   }
+// }
 
 export default {
   install (Vue: any) {

@@ -72,29 +72,4 @@ export interface NotificationOptions {
 export interface NotificationInterface {
   /** Show a notification */
   (options: NotificationOptions | string): NotificationComponent;
-
-  /** Show a success notification */
-  success? (message: string | VNode): NotificationComponent;
-
-  /** Show a success notification */
-  success? (options: NotificationOptions): NotificationComponent;
-
-  /** Show a warning notification */
-  warning? (message: string | VNode): NotificationComponent;
-
-  /** Show a warning notification */
-  warning? (options: NotificationOptions): NotificationComponent;
-
-  /** Show an info notification */
-  info? (message: string | VNode): NotificationComponent;
-
-  /** Show an info notification */
-  info? (options: NotificationOptions): NotificationComponent;
-
-  /** Show an error notification */
-  error? (message: string | VNode): NotificationComponent;
-
-  /** Show an error notification */
-  error? (options: NotificationOptions): NotificationComponent;
-
 }

@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard>
+    <VbCard title="Basic usage">
       <button @click="$vaToast.init('yo')">notification</button>
     </VbCard>
     <VbCard title="Colors">
@@ -9,31 +9,22 @@
         :key="index"
         @click="$vaToast.init({ message: `${color} notification`, color })"
       >
-        {{color}} notification
+        {{color}}
       </button>
     </VbCard>
-    <VbCard>
-      <button @click="$vaToast.init('info notification')">info notification</button>
-    </VbCard>
-    <VbCard>
-      <button @click="$vaToast.warning('warning notification')">warning notification</button>
-    </VbCard>
-    <VbCard>
-      <button @click="$vaToast.error('error notification')">error notification</button>
-    </VbCard>
-    <VbCard>
+    <VbCard title="Custom Offsets">
       <button @click="$vaToast.init(customOffsets)">notification with custom offsets</button>
     </VbCard>
-    <VbCard>
+    <VbCard title="Custom Position">
       <button @click="$vaToast.init(customPosition)">notification with custom position</button>
     </VbCard>
-    <VbCard>
+    <VbCard title="Custom onClose">
       <button @click="$vaToast.init(customOnCloseHandler)">notification with custom onClose handler</button>
     </VbCard>
-    <VbCard>
+    <VbCard title="Close">
       <button @click="$vaToast.close('notification_4')">Close #4 toast</button>
     </VbCard>
-    <VbCard>
+    <VbCard title="Close All">
       <button @click="$vaToast.closeAll()">Close all toasts</button>
     </VbCard>
   </VbDemo>
