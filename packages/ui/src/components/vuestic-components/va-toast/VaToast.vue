@@ -13,12 +13,6 @@
       <template>
         <slot name="prepend" />
       </template>
-      <va-icon
-        v-if="type || iconClass"
-        class="va-toast__icon"
-        :class="[ toastTypeIconClass, iconClass ]"
-        :name="type === 'success' ? 'check_circle' : type"
-      />
       <div class="va-toast__group">
         <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
         <div class="va-toast__content" v-show="message">
@@ -47,25 +41,17 @@
 
 <script lang="ts">
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { NotificationPosition, MessageType } from './types'
+import { NotificationPosition } from './types'
 import { PropType } from 'vue'
 import { Component, Mixins, Watch } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import VaIcon from '../va-icon/VaIcon.vue'
-
-const toastTypes: Record<string, string> = {
-  success: 'success',
-  info: 'info',
-  warning: 'warning',
-  error: 'danger',
-}
 
 const ToastPropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },
   offsetY: { type: Number, default: 16 },
   offsetX: { type: Number, default: 16 },
   message: { type: [String, Function], default: '' },
-  type: { type: String as PropType<MessageType> },
   iconClass: { type: String, default: '' },
   customClass: { type: String, default: '' },
   duration: { type: Number, default: 20000 },
@@ -100,10 +86,6 @@ export default class VaToast extends Mixins(
   private timer: number | null = null
 
   public visible = false
-
-  get toastTypeIconClass () {
-    return this.type && toastTypes[this.type] ? `va-icon-${toastTypes[this.type]}` : ''
-  }
 
   get positionX (): 'right' | 'left' {
     return this.position.includes('right') ? 'right' : 'left'
