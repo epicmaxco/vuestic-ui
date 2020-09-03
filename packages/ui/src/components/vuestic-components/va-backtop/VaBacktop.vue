@@ -23,11 +23,23 @@ const PropsMixin = makeContextablePropsMixin({
   target: { type: [Element, String], default: null },
   visibilityHeight: { type: Number, default: 300 },
   speed: { type: Number, default: 50 },
-  verticalPosition: { type: String, default: 'right' },
-  horizontalPosition: { type: String, default: 'bottom' },
   verticalOffset: { type: String, default: '1rem' },
   horizontalOffset: { type: String, default: '1rem' },
   color: { type: String, default: '' },
+  horizontalPosition: {
+    type: String,
+    default: 'right',
+    validator: (value: string) => {
+      return ['right', 'left'].includes(value)
+    },
+  },
+  verticalPosition: {
+    type: String,
+    default: 'bottom',
+    validator: (value: string) => {
+      return ['bottom', 'top'].includes(value)
+    },
+  },
 })
 
 @Component({
