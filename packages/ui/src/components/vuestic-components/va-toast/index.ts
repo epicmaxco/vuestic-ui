@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VaToast from './VaToast.vue'
-import { NotificationComponentInterface, NotificationOptions } from './types'
+import { NotificationComponentInterface, NotificationOptions, NotificationComponent } from './types'
 import { VNode } from 'vue/types/umd'
 import { Constructor } from 'vue-property-decorator'
 
@@ -102,7 +102,7 @@ const getToastOptions = (options: string | NotificationOptions): any => {
     if (onCloseHandler) {
       onCloseHandler()
     }
-    Notification.close(id, onCloseHandler)
+    // Notification.close(id, onCloseHandler)
   }
   return merge({}, options)
 }
@@ -136,29 +136,43 @@ const createToastInstance = (options: NotificationOptions): VaToast => {
   return toastInstance
 }
 
-const setNotificationType = () => {
-  notificationTypes.forEach(type => {
-    Notification[type] = (options: any) => {
-      if (typeof options === 'string' || isVNode(options)) {
-        options = {
-          message: options,
-        }
-      }
-      options.type = type
-      return Notification(options)
-    }
-  })
-}
+// const setNotificationType = () => {
+//   notificationTypes.forEach(type => {
+//     Notification[type] = (options: any) => {
+//       if (typeof options === 'string' || isVNode(options)) {
+//         options = {
+//           message: options,
+//         }
+//       }
+//       options.type = type
+//       return Notification(options)
+//     }
+//   })
+// }
 
 //TODO: need to use classes
-const Notification: any = (options: NotificationOptions) => {
-  initNotification(options)
-}
+// const Notification: any = (options: NotificationOptions) => {
+//   initNotification(options)
+// }
 
-Notification.close = (id: any) => {
-  closeNotification(id)
+// Notification.close = (id: any) => {
+//   closeNotification(id)
+// }
+// Notification.closeAll = () => closeAllNotifications()
+// setNotificationType()
+
+class Notification {
+  init (options: NotificationOptions) {
+    initNotification(options)
+  }
+
+  close (id: any) {
+    closeNotification(id)
+  }
+
+  closeAll () {
+    closeAllNotifications()
+  }
 }
-Notification.closeAll = () => closeAllNotifications()
-setNotificationType()
 
 export default Notification

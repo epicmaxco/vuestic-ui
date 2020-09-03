@@ -69,6 +69,7 @@ const ToastPropsMixin = makeContextablePropsMixin({
   iconClass: { type: String, default: '' },
   customClass: { type: String, default: '' },
   duration: { type: Number, default: 20000 },
+  color: { type: String, default: '' },
   closeable: { type: Boolean, default: true },
   dangerouslyUseHTMLString: { type: Boolean, default: false },
   onClose: { type: [Function as PropType<() => void>, undefined] },
@@ -120,8 +121,7 @@ export default class VaToast extends Mixins(
     return {
       [this.positionY]: `${this.offsetY}px`,
       [this.positionX]: `${this.offsetX}px`,
-      color: toastTypes[this.type] ? this.computeColor('white') : this.computeColor('black'),
-      backgroundColor: this.type && toastTypes[this.type] ? this.computeColor(toastTypes[this.type]) : this.computeColor('white'),
+      backgroundColor: this.colorComputed,
     }
   }
 
@@ -204,6 +204,7 @@ export default class VaToast extends Mixins(
   border: 1px solid $toast-border-color;
   position: fixed;
   background-color: white;
+  color: #ffffff;
   box-shadow: $toast-shadow;
   transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   overflow: hidden;

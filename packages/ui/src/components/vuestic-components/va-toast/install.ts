@@ -9,6 +9,6 @@ declare module 'vue/types/vue' {
 
 export default {
   install (Vue: any) {
-    Vue.prototype.$vaToast = Notification
+    Vue.prototype.$vaToast = new Notification()
   },
 }

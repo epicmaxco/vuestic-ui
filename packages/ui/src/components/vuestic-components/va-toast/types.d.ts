@@ -65,6 +65,8 @@ export interface NotificationOptions {
   offsetY?: number;
 
   visible?: boolean;
+
+  color?: string;
 }
 
 export interface NotificationInterface {

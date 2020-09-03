@@ -1,13 +1,19 @@
 <template>
   <VbDemo>
     <VbCard>
-      <button @click="$vaToast('yo')">notification</button>
+      <button @click="$vaToast.init('yo')">notification</button>
+    </VbCard>
+    <VbCard title="Colors">
+      <button
+        v-for="(color, index) in colors"
+        :key="index"
+        @click="$vaToast.init({ message: `${color} notification`, color })"
+      >
+        {{color}} notification
+      </button>
     </VbCard>
     <VbCard>
-      <button @click="$vaToast.success('success notification')">success notification</button>
-    </VbCard>
-    <VbCard>
-      <button @click="$vaToast.info('info notification')">info notification</button>
+      <button @click="$vaToast.init('info notification')">info notification</button>
     </VbCard>
     <VbCard>
       <button @click="$vaToast.warning('warning notification')">warning notification</button>
@@ -16,13 +22,13 @@
       <button @click="$vaToast.error('error notification')">error notification</button>
     </VbCard>
     <VbCard>
-      <button @click="$vaToast.info(customOffsets)">notification with custom offsets</button>
+      <button @click="$vaToast.init(customOffsets)">notification with custom offsets</button>
     </VbCard>
     <VbCard>
-      <button @click="$vaToast.info(customPosition)">notification with custom position</button>
+      <button @click="$vaToast.init(customPosition)">notification with custom position</button>
     </VbCard>
     <VbCard>
-      <button @click="$vaToast.info(customOnCloseHandler)">notification with custom onClose handler</button>
+      <button @click="$vaToast.init(customOnCloseHandler)">notification with custom onClose handler</button>
     </VbCard>
     <VbCard>
       <button @click="$vaToast.close('notification_4')">Close #4 toast</button>
@@ -37,6 +43,7 @@
 export default {
   data () {
     return {
+      colors: ['primary', 'secondary', 'danger', 'warning', 'info'],
       customOffsets: {
         message: 'Custom offsets, (Y: 100, X: 100)',
         offsetX: 100,
