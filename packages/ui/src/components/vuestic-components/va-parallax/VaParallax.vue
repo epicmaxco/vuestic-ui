@@ -20,10 +20,11 @@
 
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
+
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const ParallaxPropsMixin = makeContextablePropsMixin({
-  target: { type: [String, HTMLElement], default: 'body' },
+const PropsMixin = makeContextablePropsMixin({
+  target: { type: [Element, String], default: '' },
   src: { type: String, default: '', required: true },
   alt: { type: String, default: 'parallax' },
   height: { type: Number, default: 400 },
@@ -40,7 +41,7 @@ const ParallaxPropsMixin = makeContextablePropsMixin({
   name: 'VaParallax',
 })
 export default class VaParallax extends Mixins(
-  ParallaxPropsMixin,
+  PropsMixin,
 ) {
   elOffsetTop = 0
   parallax = 0
@@ -57,8 +58,10 @@ export default class VaParallax extends Mixins(
     }
   }
 
-  get computedDomElement (): any {
-    return document.querySelector(`${this.c_target}`)
+  get targetElement () {
+    return typeof this.c_target === 'string'
+      ? document.querySelector(this.c_target)
+      : this.c_target || this.$el.parentElement
   }
 
   get computedImgStyles (): object {
@@ -77,7 +80,7 @@ export default class VaParallax extends Mixins(
   calcDimensions (): void {
     const offset = this.$el.getBoundingClientRect()
 
-    this.scrollTop = this.computedDomElement.scrollTop
+    this.scrollTop = this.targetElement.scrollTop
     this.parallaxDist = this.imgHeight - this.height
     this.elOffsetTop = offset.top + this.scrollTop
     this.windowHeight = window.innerHeight
@@ -97,13 +100,13 @@ export default class VaParallax extends Mixins(
   }
 
   addEventListeners (): void {
-    this.computedDomElement.addEventListener('scroll', this.translate)
-    this.computedDomElement.addEventListener('resize', this.translate)
+    this.targetElement.addEventListener('scroll', this.translate)
+    this.targetElement.addEventListener('resize', this.translate)
   }
 
   removeEventListeners (): void {
-    this.computedDomElement.removeEventListener('scroll', this.translate)
-    this.computedDomElement.removeEventListener('resize', this.translate)
+    this.targetElement.removeEventListener('scroll', this.translate)
+    this.targetElement.removeEventListener('resize', this.translate)
   }
 
   initImage (): void {
