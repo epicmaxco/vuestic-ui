@@ -29,10 +29,7 @@ export interface NotificationOptions {
 
   /** Description text */
   message: string | VNode;
-
-  /** Notification type */
-  type?: MessageType;
-
+  
   /** Custom icon's class. It will be overridden by type */
   iconClass?: string;
 
