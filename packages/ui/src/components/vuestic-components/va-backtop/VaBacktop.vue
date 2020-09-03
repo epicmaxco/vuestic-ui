@@ -8,6 +8,7 @@
     <slot>
       <va-button
         icon="expand_less"
+        :color="c_color"
       />
     </slot>
   </div>
@@ -17,6 +18,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaButton from '../va-button/VaButton.vue'
+
 const PropsMixin = makeContextablePropsMixin({
   target: { type: [Element, String], default: null },
   visibilityHeight: { type: Number, default: 300 },
@@ -25,6 +27,7 @@ const PropsMixin = makeContextablePropsMixin({
   horizontalPosition: { type: String, default: 'bottom' },
   verticalOffset: { type: String, default: '1rem' },
   horizontalOffset: { type: String, default: '1rem' },
+  color: { type: String, default: '' },
 })
 
 @Component({
@@ -58,7 +61,7 @@ export default class VaBacktop extends Mixins(
   scrollToTop (): void {
     if (this.scrolled) { return }
     this.scrolled = true
-    this.interval = setInterval(() => {
+    this.interval = window.setInterval(() => {
       const next = Math.floor(this.targetElement.scrollTop - this.c_speed)
       if (this.targetElement.scrollTop === 0) {
         clearInterval(this.interval)
