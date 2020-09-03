@@ -1,7 +1,5 @@
 import Vue, { VNode } from 'vue'
 
-export type MessageType = 'success' | 'warning' | 'info' | 'error';
-
 export type NotificationPosition =
   'top-right'
   | 'top-left'
