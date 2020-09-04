@@ -67,7 +67,7 @@ export default {
 
 .docs-nav {
   background: $prism-background;
-  margin-bottom: 0.2rem;
+  margin: 0.2rem 0;
   border-radius: 0.25rem;
 
   &__button {
