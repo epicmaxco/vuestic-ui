@@ -42,14 +42,14 @@ export default {
     return {
       links: [
         {
-          text: 'Open in CodePen',
-          icon: 'fa fa-codepen',
-          url: '#',
-        },
-        {
           text: 'Open in GitHub',
           icon: 'fa fa-github',
           url: `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/examples/${this.gitUrl}.vue`,
+        },
+        {
+          text: 'Open in CodePen',
+          icon: 'fa fa-codepen',
+          url: '#',
         },
       ],
     }
@@ -86,7 +86,7 @@ export default {
 
     &__icon {
       font-style: normal !important;
-      margin-right: 0.25rem;
+      margin-right: 0.5rem;
     }
   }
 }
