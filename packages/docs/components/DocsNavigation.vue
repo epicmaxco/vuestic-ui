@@ -33,6 +33,10 @@ export default {
       type: String,
       default: '',
     },
+    gitUrl: {
+      type: String,
+      default: '',
+    },
   },
   data () {
     return {
@@ -45,7 +49,7 @@ export default {
         {
           text: 'Open in GitHub',
           icon: 'fa fa-github',
-          url: 'https://github.com/epicmaxco/vuestic-ui',
+          url: `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/examples/${this.gitUrl}.vue`,
         },
       ],
     }

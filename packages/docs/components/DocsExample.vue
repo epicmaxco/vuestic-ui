@@ -7,7 +7,7 @@
       {{ $t('docsExample.showCode') }}
     </va-button>
     <va-content v-if="showCode">
-      <DocsNavigation :code="parsed.template"/>
+      <DocsNavigation :code="parsed.template" :git-url="file"/>
       <DocsCode :code="parsed.template" language="markup" />
     </va-content>
   </div>
