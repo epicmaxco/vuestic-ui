@@ -1,6 +1,17 @@
 <template>
   <div class="docs-nav">
     <va-button
+      flat
+      size="small"
+      class="docs-nav__button"
+      color="gray"
+      @click="copy"
+    >
+      <i class="docs-nav__button__icon fa fa-files-o" />
+      <span class="docs-nav__button__text">Copy code</span>
+    </va-button>
+
+    <va-button
       v-for="(link, index) in links" :key="index"
       flat
       size="small"
@@ -17,14 +28,15 @@
 
 <script>
 export default {
+  props: {
+    code: {
+      type: String,
+      default: '',
+    },
+  },
   data () {
     return {
       links: [
-        {
-          text: 'Copy code',
-          icon: 'fa fa-files-o',
-          url: '#',
-        },
         {
           text: 'Open in CodePen',
           icon: 'fa fa-codepen',
@@ -38,6 +50,11 @@ export default {
       ],
     }
   },
+  methods: {
+    copy () {
+      this.$clipboard(this.code)
+    },
+  },
 }
 </script>
 
@@ -46,7 +63,7 @@ export default {
 
 .docs-nav {
   background: $prism-background;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.2rem;
   border-radius: 0.25rem;
 
   &__button {
