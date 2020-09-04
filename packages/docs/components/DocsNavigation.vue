@@ -7,8 +7,8 @@
       color="gray"
       @click="copy"
     >
-      <i class="docs-nav__button__icon fa fa-files-o" />
-      <span class="docs-nav__button__text">Copy code</span>
+      <i class="docs-nav__button__icon" :class="copyIcon" />
+      <span class="docs-nav__button__text">{{ copyText }}</span>
     </va-button>
 
     <va-button
@@ -52,11 +52,19 @@ export default {
           url: '#',
         },
       ],
+      copyIcon: 'fa fa-files-o',
+      copyText: 'Copy code',
     }
   },
   methods: {
     copy () {
       this.$clipboard(this.code)
+      this.copyIcon = 'fa fa-check'
+      this.copyText = 'Copied'
+      setTimeout(() => {
+        this.copyText = 'Copy code'
+        this.copyIcon = 'fa fa-files-o'
+      }, 1500)
     },
   },
 }
