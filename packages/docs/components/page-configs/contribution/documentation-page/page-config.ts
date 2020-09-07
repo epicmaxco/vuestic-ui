@@ -110,10 +110,6 @@ export default [
     translationString: 'documentationPage.apiOptionsTitle',
   },
   {
-    type: BlockType.HEADLINE,
-    translationString: 'documentationPage.apiOptions.title',
-  },
-  {
     type: BlockType.PARAGRAPH,
     translationString: 'documentationPage.apiOptions.text',
   },
