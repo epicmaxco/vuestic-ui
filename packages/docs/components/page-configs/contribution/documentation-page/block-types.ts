@@ -26,13 +26,13 @@ const example = `{
 const code = `{
   type: BlockType.CODE,
   code: 'code string',
-},`
+}`
 
 const api = `{
   type: BlockType.API,
   componentOptions: 'component',
   apiOptions,
-},`
+}`
 
 const blocktypes = {
   title,
