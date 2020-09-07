@@ -671,7 +671,33 @@
   },
   "documentationPage": {
     "title": "Documentation Page",
-    "blocktypesTitle": "Block Types"
+    "blocktypesTitle": "Block Types",
+    "blocktypes": {
+      "title": {
+        "title": "Title"
+      },
+      "subtitle": {
+        "title": "Subtitle"
+      },
+      "headline": {
+        "title": "Headline"
+      },
+      "paragraph": {
+        "title": "Paragraph"
+      },
+      "example": {
+        "title": "Example"
+      },
+      "code": {
+        "title": "Code"
+      },
+      "api": {
+        "title": "API"
+      }
+    },
+    "apiOptionsTitle": "API Options",
+    "apiOptions": {
+    }
   },
   "avatar": {
     "title": "Avatar",

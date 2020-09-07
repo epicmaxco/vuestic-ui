@@ -23,23 +23,25 @@ const example = `{
   component: 'path to an example in the component folder',
 }`
 
-const api = `{
-  type: BlockType.EXAMPLE,
-  component: 'path to an example in the component folder',
-}`
+const code = `{
+  type: BlockType.CODE,
+  code: 'code string',
+},`
 
-const faq = `{
-  type: BlockType.EXAMPLE,
-  component: 'path to an example in the component folder',
-}`
+const api = `{
+  type: BlockType.API,
+  componentOptions: 'component',
+  apiOptions,
+},`
+
 const blocktypes = {
   title,
   subtitle,
   headline,
   paragraph,
   example,
+  code,
   api,
-  faq,
 }
 
 export default blocktypes

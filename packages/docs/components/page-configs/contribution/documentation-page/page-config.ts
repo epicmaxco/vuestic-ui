@@ -1,5 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import blocktypes from './block-types'
+import apiOptions from './api-options'
 export default [
   {
     type: BlockType.TITLE,
@@ -77,5 +78,47 @@ export default [
   {
     type: BlockType.CODE,
     code: blocktypes.example,
+  },
+  // code
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'documentationPage.blocktypes.code.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'documentationPage.blocktypes.code.text',
+  },
+  {
+    type: BlockType.CODE,
+    code: blocktypes.code,
+  },
+  // api
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'documentationPage.blocktypes.api.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'documentationPage.blocktypes.api.text',
+  },
+  {
+    type: BlockType.CODE,
+    code: blocktypes.api,
+  },
+  {
+    type: BlockType.SUBTITLE,
+    translationString: 'documentationPage.apiOptionsTitle',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'documentationPage.apiOptions.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'documentationPage.apiOptions.text',
+  },
+  {
+    type: BlockType.CODE,
+    code: apiOptions,
   },
 ] as ApiDocsBlock[]
