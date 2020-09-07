@@ -17,6 +17,15 @@
           <i class="button__icon" :class="link.icon" />
           <span class="button__text">{{ link.text }}</span>
         </va-button>
+        <va-button
+          flat
+          class="header__links__button"
+          color="primary"
+          to="/documentation-page"
+        >
+          <i class="button__icon fa fa-share-alt" />
+          <span class="button__text">Contribution</span>
+        </va-button>
       </div>
     </div>
     <div class="header__prefences flex shrink">

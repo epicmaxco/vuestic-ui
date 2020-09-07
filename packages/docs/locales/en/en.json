@@ -669,6 +669,10 @@
   "docsExample": {
     "showCode": "Show Code"
   },
+  "documentationPage": {
+    "title": "Documentation Page",
+    "blocktypesTitle": "Block Types"
+  },
   "avatar": {
     "title": "Avatar",
     "summaryText": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application.",
