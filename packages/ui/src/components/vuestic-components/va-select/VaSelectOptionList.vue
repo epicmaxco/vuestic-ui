@@ -32,7 +32,9 @@
 
 <script lang="ts">
 import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
+
 import { getHoverColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
@@ -171,10 +173,6 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
     padding: 0.375rem 0.5rem 0.375rem 0.5rem;
     min-height: 2.25rem;
     word-break: break-word;
-
-    &--selected {
-
-    }
 
     &--icon {
       margin-right: 0.5rem;

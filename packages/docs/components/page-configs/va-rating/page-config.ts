@@ -14,7 +14,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'anyPage.examples',
+    translationString: 'all.examples',
   },
   {
     type: BlockType.HEADLINE,

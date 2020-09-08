@@ -28,12 +28,12 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import Component, { mixins } from 'vue-class-component'
+import { Watch, Component, Mixins, Vue } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
-import { Watch } from 'vue-property-decorator'
+
 import { RatingValue } from './VaRating.types'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
 const RatingItemProps = Vue.extend({
   props: {
@@ -53,7 +53,7 @@ const RatingItemProps = Vue.extend({
   name: 'VaRatingItem',
   components: { VaIcon },
 })
-export default class VaRatingItem extends mixins(RatingItemProps, ColorThemeMixin) {
+export default class VaRatingItem extends Mixins(RatingItemProps, ColorThemeMixin) {
   private isHovered = false
   private isFocused = false
   private shouldEmitClick = false

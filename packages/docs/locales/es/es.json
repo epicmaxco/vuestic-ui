@@ -20,6 +20,24 @@
         "reset": "Reset values and validation state for all form-components"
       }
     },
+    "VaProgressBar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaHover": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaProgressCircle": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaImage": {
       "props": {},
       "events": {},
@@ -93,6 +111,8 @@
       "slots": {}
     },
     "VaParallax": {
+    },
+    "VaBacktop": {
       "props": {},
       "events": {},
       "methods": {},
@@ -102,6 +122,10 @@
   "menu": {
     "modals": "Modals",
     "uiElements": "Elementos UI",
+    "progressBar": "Progress Bar",
+    "progressCircle": "Progress Circle",
+    "hover": "Hover",
+    "checkbox": "Checkbox",
     "image": "Image",
     "checkbox": "Checkbox",
     "alert": "Alert",
@@ -113,7 +137,8 @@
     "input": "Input",
     "list": "List",
     "select": "Select",
-    "parallax": "Parallax"
+    "parallax": "Parallax",
+    "backtop": "Backtop"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -121,10 +146,22 @@
     "spanish": "Spanish",
     "simplified_chinese": "Versión abreviada"
   },
+  "hover": {
+    "title": "-- Here is the title --"
+  },
   "image": {
     "title": "-- Here is the title --"
   },
   "checkbox": {
+    "title": "-- Here is the title --"
+  },
+  "divider": {
+    "title": "-- Here is the title --"
+  },
+  "progressBar": {
+    "title": "-- Here is the title --"
+  },
+  "progressCircle": {
     "title": "-- Here is the title --"
   },
   "divider": {},
@@ -156,6 +193,8 @@
     "title": "-- Here is the title --"
   },
   "parallax": {
+  },
+  "backtop": {
     "title": "-- Here is the title --"
   }
 }

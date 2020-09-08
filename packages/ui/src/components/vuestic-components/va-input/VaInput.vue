@@ -110,13 +110,15 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
 import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
+
 import { getHoverColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
-import { Component, Mixins } from 'vue-property-decorator'
 import { InputMixin } from './helpers/InputMixin'
 import { TextareaMixin } from './helpers/TextareaMixin'
 

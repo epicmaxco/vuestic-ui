@@ -34,14 +34,14 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins, Watch } from 'vue-property-decorator'
+
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
 
 import { debounce } from 'lodash'
-// @ts-ignore
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { getColor } from '../../../services/ColorThemePlugin'
 import { sleep } from '../../../services/utils'
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { getColor } from '../../../services/ColorThemePlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const InfiniteScrollPropsMixin = makeContextablePropsMixin({
   offset: { type: Number, default: 500 },

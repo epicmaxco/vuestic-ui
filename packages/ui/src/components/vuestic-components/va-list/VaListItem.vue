@@ -22,10 +22,12 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins } from 'vue-property-decorator'
+
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from './../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { KeyboardOnlyFocusMixin } from './../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+
 const ItemPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'div' },
   disabled: { type: Boolean, default: false },

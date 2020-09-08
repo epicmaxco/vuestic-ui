@@ -28,15 +28,17 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
+
+// @ts-ignore
+import gravatar from 'gravatar'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
-// @ts-ignore
-import gravatar from 'gravatar'
-import { Component, Mixins } from 'vue-property-decorator'
 
 const AvatarPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: 'info' },

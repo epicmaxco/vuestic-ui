@@ -21,13 +21,3 @@
       <va-icon name="ion-home" />
   </div>
 </template>
-
-<script>
-export default {
-  data () {
-    return {
-
-    }
-  },
-}
-</script>

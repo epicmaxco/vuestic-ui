@@ -32,9 +32,11 @@
 </template>
 
 <script lang="ts">
-import VaMessageList from './VaMessageList.vue'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins } from 'vue-property-decorator'
+
+import VaMessageList from './VaMessageList.vue'
+
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const InputWrapperPropsMixin = makeContextablePropsMixin({
   disabled: { type: Boolean, default: false },

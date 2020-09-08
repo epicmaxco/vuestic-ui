@@ -18,9 +18,10 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Component, Mixins } from 'vue-property-decorator'
 
 const BadgePropsMixin = makeContextablePropsMixin({
   color: { type: String, default: 'danger' },

@@ -6,12 +6,15 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins } from 'vue-property-decorator'
+
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
 const ListSeparatorPropsMixin = makeContextablePropsMixin({
   fit: { type: Boolean, default: false },
   spaced: { type: Boolean, default: false },
 })
+
 @Component({
   name: 'VaListSeparator',
 })

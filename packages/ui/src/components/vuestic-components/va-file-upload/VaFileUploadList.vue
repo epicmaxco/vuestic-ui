@@ -29,67 +29,63 @@
   </div>
 </template>
 
-<script>
-import VaFileUploadListItem from './VaFileUploadListItem'
-import VaFileUploadGalleryItem from './VaFileUploadGalleryItem'
-import VaFileUploadSingleItem from './VaFileUploadSingleItem'
+<script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
+import VaFileUploadListItem from './VaFileUploadListItem.vue'
+import VaFileUploadGalleryItem from './VaFileUploadGalleryItem.vue'
+import VaFileUploadSingleItem from './VaFileUploadSingleItem.vue'
+
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-export default {
+const FileUploadListPropsMixin = makeContextablePropsMixin({
+  type: { type: String, default: '' },
+  files: { type: [Object, Array], default: null },
+  color: { type: String, default: 'success' },
+})
+
+@Component({
   name: 'VaFileUploadList',
-  mixins: [
-    makeContextablePropsMixin({
-      type: {
-        type: String,
-        default: '',
-      },
-      files: {
-        type: [Object, Array],
-        default: null,
-      },
-      color: {
-        type: String,
-        default: 'success',
-      },
-    }),
-  ],
   components: {
     VaFileUploadListItem,
     VaFileUploadGalleryItem,
     VaFileUploadSingleItem,
   },
-  computed: {
-    filesList () {
-      return this.files.map(this.convertFile)
-    },
-  },
-  methods: {
-    convertFile (file) {
-      return {
-        name: file.name || file.url,
-        size: file.size ? this.formatSize(file.size) : '',
-        date: this.formatDate(new Date()),
-        image: file,
-      }
-    },
-    formatSize (bytes) {
-      if (bytes === 0) { return '0 Bytes' }
-      const k = 1024
-      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-      const i = Math.floor(Math.log(bytes) / Math.log(k))
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-    },
-    formatDate (date) {
-      if (!date) { return '' }
-      return date.toLocaleDateString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    },
-  },
+})
+export default class VaFileUploadList extends Mixins(
+  FileUploadListPropsMixin,
+) {
+  get filesList () {
+    return this.files.map(this.convertFile)
+  }
+
+  convertFile (file: any) {
+    return {
+      name: file.name || file.url,
+      size: file.size ? this.formatSize(file.size) : '',
+      date: this.formatDate(new Date()),
+      image: file,
+    }
+  }
+
+  formatSize (bytes: number) {
+    if (bytes === 0) { return '0 Bytes' }
+    const k = 1024
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+  }
+
+  formatDate (date: Date) {
+    if (!date) { return '' }
+    return date.toLocaleDateString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+  }
 }
 </script>
 

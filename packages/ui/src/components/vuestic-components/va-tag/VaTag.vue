@@ -38,7 +38,10 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins, Watch } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
+
 import {
   getBoxShadowColor,
   getHoverColor,
@@ -49,7 +52,6 @@ import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLink
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Component, Mixins, Watch } from 'vue-property-decorator'
 
 const TagPropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: true },

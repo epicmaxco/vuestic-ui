@@ -1,6 +1,7 @@
 import VaAffix from './vuestic-components/va-affix/VaAffix'
 import VaAlert from './vuestic-components/va-alert/VaAlert.vue'
 import VaAvatar from './vuestic-components/va-avatar/VaAvatar'
+import VaBacktop from './vuestic-components/va-backtop/VaBacktop.vue'
 import VaBadge from './vuestic-components/va-badge/VaBadge.vue'
 import VaButton from './vuestic-components/va-button/VaButton.vue'
 import VaButtonGroup
@@ -23,6 +24,7 @@ import VaDropdown from './vuestic-components/va-dropdown/VaDropdown'
 import VaExpand from './vuestic-components/va-expand/VaExpand'
 import VaExpandGroup from './vuestic-components/va-expand-group/VaExpandGroup'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload'
+import VaHover from './vuestic-components/va-hover/VaHover'
 import VaIcon from './vuestic-components/va-icon/VaIcon'
 import VaImage from './vuestic-components/va-image/VaImage'
 import VaInnerLoading
@@ -102,6 +104,7 @@ const VuesticPlugin = {
       VaAffix,
       VaAlert,
       VaAvatar,
+      VaBacktop,
       VaBadge,
       VaButton,
       VaButtonGroup,
@@ -119,6 +122,7 @@ const VuesticPlugin = {
       VaExpand,
       VaExpandGroup,
       VaFileUpload,
+      VaHover,
       VaIcon,
       VaImage,
       VaInnerLoading,

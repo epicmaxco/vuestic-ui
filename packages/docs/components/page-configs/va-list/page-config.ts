@@ -92,8 +92,8 @@ export default [
     translationString: 'all.api',
   },
   {
-    type: BlockType.HEADLINE,
-    translationString: 'list.api.list',
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.api.list.text',
   },
   {
     type: BlockType.API,
@@ -101,8 +101,12 @@ export default [
     apiOptions: listApiOptions,
   },
   {
-    type: BlockType.HEADLINE,
-    translationString: 'list.api.listLabel',
+    type: BlockType.SUBTITLE,
+    translationString: 'list.api.listLabel.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.api.listLabel.text',
   },
   {
     type: BlockType.API,
@@ -110,8 +114,12 @@ export default [
     apiOptions: listLabelApiOptions,
   },
   {
-    type: BlockType.HEADLINE,
-    translationString: 'list.api.listSeparator',
+    type: BlockType.SUBTITLE,
+    translationString: 'list.api.listSeparator.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.api.listSeparator.text',
   },
   {
     type: BlockType.API,
@@ -119,8 +127,12 @@ export default [
     apiOptions: listSeparatorApiOptions,
   },
   {
-    type: BlockType.HEADLINE,
-    translationString: 'list.api.listItem',
+    type: BlockType.SUBTITLE,
+    translationString: 'list.api.listItem.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.api.listItem.text',
   },
   {
     type: BlockType.API,
@@ -128,8 +140,12 @@ export default [
     apiOptions: listItemApiOptions,
   },
   {
-    type: BlockType.HEADLINE,
-    translationString: 'list.api.listItemLabel',
+    type: BlockType.SUBTITLE,
+    translationString: 'list.api.listItemLabel.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.api.listItemLabel.text',
   },
   {
     type: BlockType.API,
@@ -137,8 +153,12 @@ export default [
     apiOptions: listItemLabelApiOptions,
   },
   {
-    type: BlockType.HEADLINE,
-    translationString: 'list.api.listItemSection',
+    type: BlockType.SUBTITLE,
+    translationString: 'list.api.listItemSection.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'list.api.listItemSection.text',
   },
   {
     type: BlockType.API,

@@ -10,7 +10,11 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'avatar.paragraph',
+    translationString: 'avatar.summaryText',
+  },
+  {
+    type: BlockType.SUBTITLE,
+    translationString: 'all.examples',
   },
   {
     type: BlockType.SUBTITLE,
@@ -79,6 +83,10 @@ export default [
   {
     type: BlockType.EXAMPLE,
     component: 'va-avatar/WithEmail',
+  },
+  {
+    type: BlockType.SUBTITLE,
+    translationString: 'all.api',
   },
   {
     apiOptions,

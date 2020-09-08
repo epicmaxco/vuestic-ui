@@ -44,7 +44,7 @@
       <va-switch
         v-model="value"
       >
-        <template v-slot:innerLabel>
+        <template #innerLabel>
           Inner
         </template>
       </va-switch>

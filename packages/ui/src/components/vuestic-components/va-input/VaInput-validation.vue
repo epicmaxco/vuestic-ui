@@ -13,8 +13,9 @@
 </template>
 
 <script lang="ts">
-import VaInput from './VaInput.vue'
 import { Component, Vue } from 'vue-property-decorator'
+
+import VaInput from './VaInput.vue'
 
 @Component({
   name: 'VaInputValidation',

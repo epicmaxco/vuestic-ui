@@ -49,6 +49,7 @@ import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading.vue'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
+import _sortBy from 'lodash/sortBy'
 
 @Component({
   components: {
@@ -173,18 +174,12 @@ export default class VaDataTable extends Mixins(LoadingMixin) {
     }
   }
 
-  sortAsc (items: any, field: any) {
-    return items.slice().sort((a: any, b: any) => {
-      return a[field].toLocaleString()
-        .localeCompare(b[field].toLocaleString(), undefined, { numeric: true })
-    })
+  sortAsc (items: any[], field: string | []) {
+    return _sortBy(items, field)
   }
 
-  sortDesc (items: any, field: any) {
-    return items.slice().sort((a: any, b: any) => {
-      return b[field].toLocaleString()
-        .localeCompare(a[field].toLocaleString(), undefined, { numeric: true })
-    })
+  sortDesc (items: any[], field: string | []) {
+    return _sortBy(items, field).reverse()
   }
 
   buildPagination (length: number, perPage: number) {

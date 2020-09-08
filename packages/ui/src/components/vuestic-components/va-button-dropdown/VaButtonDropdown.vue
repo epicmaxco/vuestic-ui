@@ -63,9 +63,11 @@
 
 <script lang="ts">
 import { Component, Mixins, Inject } from 'vue-property-decorator'
+
 import VaDropdown from '../va-dropdown/VaDropdown.vue'
 import VaButton from '../va-button/VaButton.vue'
 import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
+
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'

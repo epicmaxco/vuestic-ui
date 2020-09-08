@@ -83,6 +83,10 @@
           "displayName": "menu.tabs"
         },
         {
+          "name": "hover",
+          "displayName": "menu.hover"
+        },
+        {
           "name": "image",
           "displayName": "menu.image"
         },
@@ -97,6 +101,14 @@
         {
           "name": "checkbox",
           "displayName": "menu.checkbox"
+        },
+        {
+          "name": "progress-bar",
+          "displayName": "menu.progressBar"
+        },
+        {
+          "name": "progress-circle",
+          "displayName": "menu.progressCircle"
         },
         {
           "name": "infinite-scroll",
@@ -141,6 +153,10 @@
         {
           "name": "parallax",
           "displayName": "menu.parallax"
+        },
+        {
+          "name": "backtop",
+          "displayName": "menu.backtop"
         }
       ]
     }

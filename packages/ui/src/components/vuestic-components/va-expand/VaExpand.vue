@@ -52,9 +52,10 @@
 </template>
 
 <script lang="ts">
-
 import { Component, Mixins, Inject } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
+
 import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
@@ -173,7 +174,7 @@ export default class VaExpand extends Mixins(
     return node ? `calc(${node.clientHeight}px + 2rem)` : '100%'
   }
 
-  mounted () {
+  mount () {
     this.mutationObserver = new MutationObserver(() => {
       this.height = this.getHeight()
     })

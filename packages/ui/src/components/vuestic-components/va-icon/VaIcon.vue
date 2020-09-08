@@ -13,12 +13,13 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
+import { warn } from '../../../services/utils'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { IconMixin } from './IconMixin'
-import { warn } from '../../../services/utils'
-import { Component, Mixins } from 'vue-property-decorator'
 
 const IconPropsMixin = makeContextablePropsMixin({
   name: {
