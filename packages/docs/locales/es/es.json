@@ -110,6 +110,8 @@
       "methods": {},
       "slots": {}
     },
+    "VaParallax": {
+    },
     "VaBacktop": {
       "props": {},
       "events": {},
@@ -135,6 +137,7 @@
     "input": "Input",
     "list": "List",
     "select": "Select",
+    "parallax": "Parallax",
     "backtop": "Backtop"
   },
   "language": {
@@ -188,6 +191,8 @@
   },
   "select": {
     "title": "-- Here is the title --"
+  },
+  "parallax": {
   },
   "backtop": {
     "title": "-- Here is the title --"

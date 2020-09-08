@@ -41,6 +41,7 @@ import VaMediumEditor
 import VaModal from './vuestic-components/va-modal/VaModal.vue'
 import VaNavbar from './vuestic-components/va-navbar/VaNavbar'
 import VaPagination from './vuestic-components/va-pagination/VaPagination.vue'
+import VaParallax from './vuestic-components/va-parallax/VaParallax.vue'
 import VaPopover from './vuestic-components/va-popover/VaPopover.vue'
 import VaPopup
   from './vuestic-components/va-popup/popup/VaPopup.vue'
@@ -137,6 +138,7 @@ const VuesticPlugin = {
       VaModal,
       VaNavbar,
       VaPagination,
+      VaParallax,
       VaPopover,
       VaPopup,
       VaProgressBar,

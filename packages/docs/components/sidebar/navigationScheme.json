@@ -151,6 +151,10 @@
           "displayName": "menu.select"
         },
         {
+          "name": "parallax",
+          "displayName": "menu.parallax"
+        },
+        {
           "name": "backtop",
           "displayName": "menu.backtop"
         }

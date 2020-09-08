@@ -615,6 +615,19 @@
         "appendInner": "Adds an item inside the input and after input content"
       }
     },
+    "VaParallax": {
+      "props": {
+        "target": "The element relative to which the component is fixed",
+        "src": "URL to the image",
+        "alt": "Specifies an alternate text for an image",
+        "height": "Sets a height of the parallax",
+        "reversed": "Flips the parallax scrolling",
+        "speed": "Sets a speed of the parallax scrolling"
+      },
+      "slots": {
+        "default": "For a content over the parallax"
+      }
+    },
     "VaBacktop": {
       "props": {
         "target": "Applies the selector to which the backtop is bound",
@@ -672,6 +685,7 @@
     "input": "Input",
     "list": "List",
     "select": "Select",
+    "parallax": "Parallax",
     "backtop": "Backtop"
   },
   "language": {
@@ -1824,6 +1838,28 @@
         "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
         "selects": "By using `ENTER` and `SPACE` you can select current option",
         "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
+      }
+    }
+  },
+  "parallax": {
+    "title": "Parallax",
+    "summaryText": "Parallax is a component where the background image is moved at a different speed than the foreground content while scrolling.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "A block with a background image is displayed by default. You need to pass the 'src' property."
+      },
+      "custom": {
+        "title": "Custom height and speed",
+        "text": "You can adjust parallax height and scroll speed. Attention, the scrolling speed depends on the ratio of the parallax height to the image height."
+      },
+      "reversed": {
+        "title": "Reversed",
+        "text": "You can flip the parallax scrolling."
+      },
+      "slot": {
+        "title": "Slot",
+        "text": "You can provide some kind of content over the parallax."
       }
     }
   },
