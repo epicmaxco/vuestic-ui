@@ -671,8 +671,9 @@
   },
   "documentationPage": {
     "title": "Documentation Page",
-    "description": "It's documentation to work with a documentation engine. Try to use script `generate:component` to generate required files. It will allow you to skip unnecessary steps and simplify you to create docs.",
-    "blocktypesTitle": "Block Types",
+    "description": "It's documentation to work with a documentation engine. Try to use script `generate:component` to generate required files: [api-options](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/api-options.ts) and [page-config](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/page-config.ts). It will allow you to skip unnecessary steps and simplify you to create docs.",
+    "pageConfigTitle": "Page Config",
+    "pageConfigText": "It is an array of API blocks.",
     "blocktypes": {
       "title": {
         "title": "Title",
@@ -705,7 +706,11 @@
     },
     "apiOptionsTitle": "API Options",
     "apiOptions": {
-      "text": "This object allows you to configure API."
+      "text": "This object allows you to configure API: version, props, events, methods and slots.",
+      "version": "`version` - to describe the version of vuestic-ui in which this parameter was or will be implemented.",
+      "types": "`types` - to describe custom types to parameter.",
+      "local": "`local` - this flag allows to use component's own translation of the parameter. By default uses 'all' section of the translation object.",
+      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page."
     }
   },
   "avatar": {

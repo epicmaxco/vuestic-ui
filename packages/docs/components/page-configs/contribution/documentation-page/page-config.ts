@@ -12,7 +12,11 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'documentationPage.blocktypesTitle',
+    translationString: 'documentationPage.pageConfigTitle',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'documentationPage.pageConfigText',
   },
   // title
   {
@@ -112,6 +116,22 @@ export default [
   {
     type: BlockType.PARAGRAPH,
     translationString: 'documentationPage.apiOptions.text',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'documentationPage.apiOptions.version',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'documentationPage.apiOptions.local',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'documentationPage.apiOptions.hidden',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'documentationPage.apiOptions.types',
   },
   {
     type: BlockType.CODE,
