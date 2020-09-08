@@ -614,6 +614,24 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content"
       }
+    },
+    "VaBacktop": {
+      "props": {
+        "target": "Applies the selector to which the backtop is bound",
+        "visibilityHeight": "The minimum height after which the backtop is displayed",
+        "speed": "Sets the scrolling speed",
+        "horizontalPosition": "Sets the horizontal position of the component",
+        "verticalPosition": "Sets the vertical position of the component",
+        "horizontalOffset": "Sets the horizontal offset of the component from the border of the monitor",
+        "verticalOffset": "Sets the vertical offset of the component from the border of the monitor"
+      },
+      "events": {
+        "click" :"Emitted when user clicked on backtop"
+      },
+      "methods": {},
+      "slots": {
+        "default": "Slot for backtop content"
+      }
     }
   },
   "menu": {
@@ -653,7 +671,8 @@
     "grid": "Grid",
     "input": "Input",
     "list": "List",
-    "select": "Select"
+    "select": "Select",
+    "backtop": "Backtop"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1805,6 +1824,16 @@
         "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
         "selects": "By using `ENTER` and `SPACE` you can select current option",
         "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
+      }
+    }
+  },
+  "backtop": {
+    "title": "Backtop",
+    "summaryText": "A backtop is a button used to return to the top of a component.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
       }
     }
   }

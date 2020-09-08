@@ -109,6 +109,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaBacktop": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -128,7 +134,8 @@
     "tag": "Tag",
     "input": "Input",
     "list": "List",
-    "select": "Select"
+    "select": "Select",
+    "backtop": "Backtop"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -180,6 +187,9 @@
     "title": "-- Here is the title --"
   },
   "select": {
+    "title": "-- Here is the title --"
+  },
+  "backtop": {
     "title": "-- Here is the title --"
   }
 }
