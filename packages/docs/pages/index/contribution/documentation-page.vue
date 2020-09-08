@@ -4,8 +4,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import DocsContent from '../../components/DocsContent.vue'
-import affixConfig from '../../components/page-configs/contribution/documentation-page/page-config'
+import DocsContent from '../../../components/DocsContent.vue'
+import affixConfig from '../../../components/page-configs/contribution/documentation-page/page-config'
 
 @Component({
   components: {
