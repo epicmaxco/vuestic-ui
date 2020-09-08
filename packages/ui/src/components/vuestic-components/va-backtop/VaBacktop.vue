@@ -20,7 +20,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import VaButton from '../va-button/VaButton.vue'
 
 const PropsMixin = makeContextablePropsMixin({
-  target: { type: [Element, String], default: null },
+  target: { type: [Element, String], default: window },
   visibilityHeight: { type: Number, default: 300 },
   speed: { type: Number, default: 50 },
   verticalOffset: { type: String, default: '1rem' },

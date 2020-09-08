@@ -13,10 +13,11 @@ describe('VaBacktop', () => {
       target: 'body',
       visibilityHeight: 0,
       speed: 50,
-      top: 'auto',
-      left: 'auto',
-      right: '40px',
-      bottom: '40px',
+      verticalOffset: '1rem',
+      horizontalOffset: '1rem',
+      color: '',
+      horizontalPosition: 'left',
+      verticalPosition: 'right',
     }
     expect(() => testIsContextableComponent(VaBacktop, props)).not.toThrow()
   })
