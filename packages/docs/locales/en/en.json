@@ -673,7 +673,7 @@
     "title": "Documentation Page",
     "description": "It's documentation to work with a documentation engine. Try to use script `generate:component` to generate required files: [api-options](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/api-options.ts) and [page-config](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/page-config.ts). It will allow you to skip unnecessary steps and simplify you to create docs.",
     "pageConfigTitle": "Page Config",
-    "pageConfigText": "It is an array of API blocks.",
+    "pageConfigText": "Page config allows you to build an documentation page. Commonly documentation page is an array of blocks.",
     "blocktypes": {
       "title": {
         "title": "Title",
