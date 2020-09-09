@@ -100,7 +100,7 @@ export default class Index extends Vue {
     const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
     return pathSteps.reduce((acc, step, index, array) => {
       switch (true) {
-        case !index:
+        case !index && this.$root.$i18n.locales.includes(step):
           acc.push({
             label: 'Home',
             path: `/${this.$root.$i18n.locale}/`,
@@ -109,6 +109,12 @@ export default class Index extends Vue {
         case !step && index:
           break
         default:
+          if (!index && !array.includes(this.$root.$i18n.locale)) {
+            acc.push({
+              label: 'Home',
+              path: `/${this.$root.$i18n.locale}/`,
+            })
+          }
           acc.push({
             path: '/' + array.slice(0, index + 1).join('/'),
             label: step,
