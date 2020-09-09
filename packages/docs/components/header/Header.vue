@@ -21,7 +21,7 @@
           flat
           class="header__links__button"
           color="primary"
-          to="/contribution/documentation-page"
+          :to="`/${this.$root.$i18n.locale}/contribution/documentation-page`"
         >
           <i class="button__icon fa fa-share-alt" />
           <span class="button__text">Contribution</span>
