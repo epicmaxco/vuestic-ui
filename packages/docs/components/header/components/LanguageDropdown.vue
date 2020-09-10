@@ -3,18 +3,22 @@
     <va-button iconRight="expand_more" flat square slot="anchor" color="primary">
       <va-icon :class="['flag-icon flag-icon-large', flagIconClass(currentLanguage)]"></va-icon>
     </va-button>
-    <div class="language-dropdown__content pl-4 pr-4 pt-2 pb-2">
-      <div
-        v-for="(option, id) in options"
-        :key="id"
-        class="language-dropdown__item row align--center pt-1 pb-1 mt-2 mb-2"
-        :class="{ active: option.code === currentLanguage }"
-        @click="setLanguage(option.code)"
-      >
+  <va-list class="language-dropdown__content">
+    <va-list-item
+      v-for="(option, id) in options"
+      :key="id"
+      class="language-dropdown__item row align--center pt-2 pb-2"
+      :class="{ active: option.code === currentLanguage }"
+      @click="setLanguage(option.code)"
+    >
+      <va-list-item-section icon>
         <va-icon :class="['flag-icon flag-icon-small', flagIconClass(option.code)]" />
+      </va-list-item-section>
+      <va-list-item-section>
         <span class="dropdown-item__text">{{ $t(`language.${option.name}`) }}</span>
-      </div>
-    </div>
+      </va-list-item-section>
+    </va-list-item>
+  </va-list>
   </va-dropdown>
 </template>
 
@@ -23,8 +27,10 @@ import { Component, Vue } from 'vue-property-decorator'
 import VaIcon from 'vuestic-ui/src/components/vuestic-components/va-icon/VaIcon.vue'
 import VaDropdown from 'vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue'
 import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
+import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
 @Component({
   name: 'language-dropdown',
+  mixins: [ColorThemeMixin],
   components: {
     VaIcon,
     VaDropdown,
@@ -58,6 +64,10 @@ export default class LanguageDropdown extends Vue {
   setLanguage (locale) {
     localStorage.setItem('currentLanguage', locale)
     this.$root.$i18n.setLocale(locale)
+  }
+
+  get primaryColor () {
+    return this.computeColor('primary')
   }
 
   get currentLanguage () {
@@ -101,7 +111,9 @@ export default class LanguageDropdown extends Vue {
 
     &:hover,
     &.active {
-      color: $vue-green;
+      .dropdown-item__text {
+        color: #1b1a1f;
+      }
     }
   }
 
