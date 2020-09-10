@@ -60,7 +60,7 @@ export default class VaSearch extends Vue {
   width: 100%;
 
   .va-input__container {
-    background-color: transparent;
+    background-color: transparent !important;
     border: none;
   }
 
