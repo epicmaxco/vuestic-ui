@@ -24,7 +24,7 @@ import { Component, Vue } from 'vue-property-decorator'
   name: 'VaSearch',
 })
 export default class VaSearch extends Vue {
-  color = 'dark'
+  color = 'gray'
 
   initialize () {
     Promise.all([
