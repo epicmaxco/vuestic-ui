@@ -14,7 +14,7 @@
           :href="link.url"
           target="_blank"
         >
-          <i class="button__icon" :class="link.icon" />
+          <va-icon class="button__icon" :class="link.icon" />
           <span class="button__text">{{ link.text }}</span>
         </va-button>
       </div>
@@ -58,7 +58,7 @@ export default class Header extends Vue {
       links: [
         {
           text: 'Overview',
-          icon: 'vuestic-iconset vuestic-iconset-dashboard',
+          icon: 'fa fa-eye',
           url: '#',
         },
         {
@@ -96,7 +96,7 @@ export default class Header extends Vue {
     font-weight: $font-weight-bold;
 
     .button__icon {
-      margin-right: 0.5em;
+      margin-right: 0.25em;
     }
 
     @include media-breakpoint-down(md) {
