@@ -7,14 +7,14 @@
     <va-list-item
       v-for="(option, id) in options"
       :key="id"
-      class="language-dropdown__item row align--center pt-2 pb-2"
+      class="language-dropdown__item row align--center py-2"
       :class="{ active: option.code === currentLanguage }"
       @click="setLanguage(option.code)"
     >
       <va-list-item-section icon>
         <va-icon :class="['flag-icon flag-icon-small', flagIconClass(option.code)]" />
       </va-list-item-section>
-      <va-list-item-section>
+      <va-list-item-section :style="{color: primaryColor}">
         <span class="dropdown-item__text">{{ $t(`language.${option.name}`) }}</span>
       </va-list-item-section>
     </va-list-item>
@@ -88,10 +88,10 @@ export default class LanguageDropdown extends Vue {
   cursor: pointer;
 
   &__content {
-    background-color: $dropdown-background;
     box-shadow: $gray-box-shadow;
     border-radius: 0.5rem;
     width: 12rem;
+    padding: 1rem 0;
 
     .flag-icon-small {
       min-width: 1.5rem;
@@ -104,10 +104,6 @@ export default class LanguageDropdown extends Vue {
     padding-bottom: 0.625rem;
     cursor: pointer;
     flex-wrap: nowrap;
-
-    &:last-of-type {
-      padding-bottom: 0 !important;
-    }
 
     &:hover,
     &.active {
