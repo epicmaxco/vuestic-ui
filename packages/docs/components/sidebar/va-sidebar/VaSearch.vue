@@ -3,7 +3,7 @@
     <va-input
       id="algolia-search-input"
       placeholder="Search..."
-      @focus="color = ''"
+      @focus="color = 'dark'"
       @blur="color = 'gray'"
     >
       <va-icon
@@ -24,7 +24,7 @@ import { Component, Vue } from 'vue-property-decorator'
   name: 'VaSearch',
 })
 export default class VaSearch extends Vue {
-  color = ''
+  color = 'dark'
 
   initialize () {
     Promise.all([
