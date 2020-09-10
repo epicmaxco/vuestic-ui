@@ -51,14 +51,6 @@ export default class VaSearch extends Vue {
 </script>
 
 <style lang="scss">
-.va-input__container {
-  background-color: transparent;
-  border: none;
-}
-
-.va-input-wrapper__prepend-inner {
-  margin: 0;
-}
 
 #search-form {
   padding: 1rem;
@@ -66,6 +58,15 @@ export default class VaSearch extends Vue {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  .va-input__container {
+    background-color: transparent;
+    border: none;
+  }
+
+  .va-input-wrapper__prepend-inner {
+    margin: 0;
+  }
 
   .search-icon {
     transition: background-color, 0.2s;
