@@ -45,12 +45,13 @@
 </template>
 
 <script lang="ts">
-import { ProgressComponentMixin } from './ProgressComponentMixin'
+import { Component, Mixins } from 'vue-property-decorator'
+
+import { SizeMixin } from '../../../../mixins/SizeMixin'
 import { normalizeValue } from '../../../../services/utils'
+import { ProgressComponentMixin } from './ProgressComponentMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
-import { SizeMixin } from '../../../../mixins/SizeMixin'
-import { Component, Mixins } from 'vue-property-decorator'
 
 const ProgressBarPropsMixin = makeContextablePropsMixin({
   buffer: { type: Number, default: 100 },

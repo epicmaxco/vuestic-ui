@@ -11,15 +11,15 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'affix.paragraph',
+    translationString: 'affix.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'affix.demo.subtitle',
+    translationString: 'all.examples',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'affix.demo.top.headline',
+    translationString: 'affix.examples.top.title',
   },
   {
     type: BlockType.EXAMPLE,
@@ -27,7 +27,7 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'affix.demo.target.headline',
+    translationString: 'affix.examples.target.title',
   },
   {
     type: BlockType.EXAMPLE,
@@ -35,7 +35,7 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'affix.demo.bottom.headline',
+    translationString: 'affix.examples.bottom.title',
   },
   {
     type: BlockType.EXAMPLE,
@@ -43,11 +43,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'affix.api.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'affix.api.paragraph',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,

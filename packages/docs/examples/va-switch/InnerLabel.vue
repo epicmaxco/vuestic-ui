@@ -2,7 +2,7 @@
   <div>
     <va-switch v-model="value" true-inner-label="Agree" false-inner-label="Disagree" />
     <va-switch v-model="value">
-      <template v-slot:innerLabel>
+      <template #innerLabel>
         Inner Label
       </template>
     </va-switch>

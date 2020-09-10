@@ -10,27 +10,31 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'form.paragraph',
+    translationString: 'form.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'form.basic.subtitle',
+    translationString: 'all.examples',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'form.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'form.basic.paragraph',
+    translationString: 'form.examples.default.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-form/Basic',
+    component: 'va-form/Default',
   },
   {
-    type: BlockType.SUBTITLE,
-    translationString: 'form.advanced.subtitle',
+    type: BlockType.HEADLINE,
+    translationString: 'form.examples.advanced.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'form.advanced.paragraph',
+    translationString: 'form.examples.advanced.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -38,11 +42,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'form.api.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'form.api.paragraph',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,

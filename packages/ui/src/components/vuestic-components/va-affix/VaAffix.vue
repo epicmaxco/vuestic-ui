@@ -17,16 +17,15 @@
 </template>
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
+
 import { noop } from 'lodash'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import {
   handleThrottledEvent,
   useEventsHandlerWithThrottle,
   getWindowHeight,
   State,
 } from './VaAffix-utils'
-
-const prefixClass = 'va-affix'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const AffixPropsMixin = makeContextablePropsMixin({
   offsetTop: { type: Number, default: undefined },
@@ -51,7 +50,7 @@ export default class VaAffix extends Mixins(
   get computedClass () {
     return [
       {
-        [`${prefixClass}--affixed`]: this.isAffixed,
+        'va-affix--affixed': this.isAffixed,
       },
     ]
   }

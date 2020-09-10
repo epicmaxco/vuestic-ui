@@ -5,30 +5,30 @@
   />
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+// @ts-ignore
 import { Slider } from 'vue-color'
 
-export default {
-  name: 'VaSliderColorPicker',
+@Component({
+  name: 'VaColorPickerInput',
   components: {
     SliderPicker: Slider,
   },
-  props: {
-    value: {
-      type: String,
-      default: '',
-    },
-  },
-  computed: {
-    valueProxy: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('input', value.hex)
-      },
-    },
-  },
+})
+export default class VaColorPickerInput extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly value!: string
+
+  get valueProxy (): any {
+    return this.value
+  }
+
+  set valueProxy (value: any) {
+    this.$emit('input', value.hex)
+  }
 }
 </script>
 

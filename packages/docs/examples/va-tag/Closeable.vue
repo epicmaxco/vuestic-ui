@@ -11,11 +11,7 @@
 </template>
 
 <script>
-import VaCheckbox from '../../../ui/src/components/vuestic-components/va-checkbox/VaCheckbox'
 export default {
-  components: {
-    VaCheckbox,
-  },
   data () {
     return {
       value: true,

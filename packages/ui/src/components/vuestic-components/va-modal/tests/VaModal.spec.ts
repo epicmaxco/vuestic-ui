@@ -1,9 +1,9 @@
 import noop from 'lodash/noop'
 import { mount } from '@vue/test-utils'
 
-import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefullMixin/testHasStatefulMixin'
+import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
-import { StatefulMixin } from '../../../vuestic-mixins/StatefullMixin/StatefulMixin'
+import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import VaModal from '../VaModal.vue'
 
 describe('VaModal', () => {

@@ -12,13 +12,20 @@
   </div>
 </template>
 
-<script>
-import VaButton from '../va-button/VaButton'
-export default {
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+import VaButton from '../va-button/VaButton.vue'
+
+@Component({
   name: 'VaFileUploadUndo',
-  components: { VaButton },
-}
+  components: {
+    VaButton,
+  },
+})
+export default class VaFileUploadUndo extends Vue {}
 </script>
+
 <style lang="scss" scoped>
 .va-file-upload-undo {
   height: 1.5rem;

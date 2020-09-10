@@ -11,17 +11,3 @@
     </va-alert>
   </div>
 </template>
-
-<script>
-import VaIcon from '../../../ui/src/components/vuestic-components/va-icon/VaIcon'
-export default {
-  components: {
-    VaIcon,
-  },
-  data () {
-    return {
-
-    }
-  },
-}
-</script>

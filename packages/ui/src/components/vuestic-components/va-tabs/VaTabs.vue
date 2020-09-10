@@ -58,14 +58,16 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins, Watch } from 'vue-property-decorator'
+
 import VaButton from '../va-button/VaButton.vue'
+import VaTab from './VaTab.vue'
 import VaTabsItems from './VaTabsItems.vue'
 import VaTabsContent from './VaTabsContent.vue'
+
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { StatefulMixin } from '../../vuestic-mixins/StatefullMixin/StatefulMixin'
-import { Component, Mixins, Watch } from 'vue-property-decorator'
-import VaTab from './VaTab.vue'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 const TabsPropsMixin = makeContextablePropsMixin({
   value: { type: [String, Number], default: null },
@@ -165,7 +167,7 @@ export default class VaTabs extends Mixins(
   }
 
   parseItems () {
-    const content = (this as any).$slots.default
+    const content = (this as any).$slots.default || 0
     const length = content.length
     this.tabs = []
 

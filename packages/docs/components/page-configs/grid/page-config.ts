@@ -115,7 +115,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'anyPage.api',
+    translationString: 'all.api',
   },
   {
     type: BlockType.HEADLINE,

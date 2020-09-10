@@ -17,11 +17,11 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import VaInput from '../va-input/VaInput'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaForm from './VaForm'
 import { Component, Vue } from 'vue-property-decorator'
+
+import VaInput from '../va-input/VaInput.vue'
+import VaCheckbox from '../va-checkbox/VaCheckbox.vue'
+import VaForm from './VaForm.vue'
 
 @Component({
   name: 'VaFormReset',

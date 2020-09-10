@@ -1,5 +1,7 @@
 import { mount, shallowMount } from '@vue/test-utils'
 import VaTag from '../VaTag.vue'
+import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
+import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
 describe('VaTag', () => {
   it('should render without an error', () => {
@@ -24,12 +26,17 @@ describe('VaTag', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('a tag with defined href', () => {
+  it('should be a link', () => {
     const wrapper = shallowMount(VaTag, {
       propsData: {
-        to: 'http://epic-spinners.epicmax.co/',
+        href: '/',
       },
     })
-    expect(wrapper.is('router-link')).toBe(true)
+    expect(wrapper.is('a')).toBe(true)
+  })
+  it('has ColorThemeMixin', () => {
+    expect(() =>
+      testHasColorThemeMixin((VaTag as unknown) as ColorThemeMixin),
+    ).not.toThrow()
   })
 })

@@ -160,19 +160,21 @@
 
 <script lang="ts">
 import { Component, Mixins, Watch } from 'vue-property-decorator'
+
 import VaDropdown from '../va-dropdown/VaDropdown.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaInput from '../va-input/VaInput.vue'
+import VaInputWrapper from '../va-input/VaInputWrapper.vue'
+import VaSelectOptionList from './VaSelectOptionList.vue'
+import VaTag from '../va-tag/VaTag.vue'
+
 import { getHoverColor } from '../../../services/color-functions'
 import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import VaSelectOptionList from './VaSelectOptionList.vue'
-import VaTag from '../va-tag/VaTag.vue'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 
 const positions: string[] = ['top', 'bottom']
@@ -300,17 +302,17 @@ export default class VaSelect extends Mixins(
         this.computedError ? getHoverColor(this.computeColor('danger'))
           : this.success ? getHoverColor(this.computeColor('success')) : '#f5f8f9',
       borderColor:
-        this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computedError ? this.computeColor('danger')
+        this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
-            : this.computeColor('gray'),
+            : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
     }
   }
 
   get labelStyle () {
     return {
-      color: this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computedError ? this.computeColor('danger')
+      color: this.computedError ? this.computeColor('danger')
         : this.success ? this.computeColor('success')
-          : this.computeColor('gray'),
+          : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
     }
   }
 
@@ -496,14 +498,13 @@ export default class VaSelect extends Mixins(
     }
   }
 
-  /**
-   * @public
-   */
-  reset (): void {
+  /** @public */
+  public reset (): void {
     this.valueProxy = this.multiple
       ? (Array.isArray(this.clearValue) ? this.clearValue : [])
       : this.clearValue
     this.search = ''
+    this.value = this.clearValue
     this.$emit('clear')
   }
 

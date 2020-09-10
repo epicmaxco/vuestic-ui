@@ -16,6 +16,11 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import users from '../../../data/users.json'
 import VaDataTable from './VaDataTable.vue'
+const transformToString = (a: any) => {
+  a = a ?? ''
+  if (typeof a === 'string') { return a }
+  return a.toString()
+}
 
 @Component({
   components: { VaDataTable },
@@ -58,13 +63,17 @@ export default class VaDataTableCustomDataManagerExample extends Vue {
 
   sortAsc (items: Array<any>, field: any): Array<any> {
     return items.slice().sort((a: any, b: any) => {
-      return a[field].split('').reverse().join('').localeCompare(b[field].split('').reverse().join(''))
+      const first: string = transformToString(a[field])
+      const second: string = transformToString(b[field])
+      return first.split('').reverse().join('').localeCompare(second.split('').reverse().join(''))
     })
   }
 
   sortDesc (items: Array<any>, field: any): Array<any> {
     return items.slice().sort((a: any, b: any) => {
-      return b[field].split('').reverse().join('').localeCompare(a[field].split('').reverse().join(''))
+      const first: string = transformToString(a[field])
+      const second: string = transformToString(b[field])
+      return second.split('').reverse().join('').localeCompare(first.split('').reverse().join(''))
     })
   }
 

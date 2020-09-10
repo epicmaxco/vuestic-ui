@@ -1,13 +1,13 @@
 <template>
   <component
-    :is="computedTag"
+    :is="tagComputed"
     class="va-button"
     :class="computedClass"
     :style="computedStyle"
     :disabled="c_disabled"
     :type="c_type"
-    :href="c_href"
-    :target="c_target"
+    :href="href"
+    :target="target"
     :to="to"
     :replace="replace"
     :append="append"
@@ -55,9 +55,12 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaProgressCircle
   from '../va-progress-bar/progress-types/VaProgressCircle.vue'
+
 import {
   getGradientBackground,
   getFocusColor,
@@ -66,9 +69,8 @@ import {
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
 const ButtonPropsMixin = makeContextablePropsMixin({
@@ -88,9 +90,6 @@ const ButtonPropsMixin = makeContextablePropsMixin({
   disabled: { type: Boolean, default: false },
   block: { type: Boolean, default: false },
   round: { type: Boolean, default: true },
-  /* Link props */
-  href: { type: String, default: undefined },
-  target: { type: String, default: undefined },
 })
 
 @Component({
@@ -221,16 +220,6 @@ export default class VaButton extends Mixins(
 
   get hasTitleData () {
     return this.$slots.default
-  }
-
-  get computedTag () {
-    if (this.c_tag === 'a' || this.c_href || this.c_target) {
-      return 'a'
-    }
-    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
-      return 'router-link'
-    }
-    return 'button'
   }
 
   get inputListeners () {

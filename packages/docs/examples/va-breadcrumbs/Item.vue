@@ -9,7 +9,3 @@
     </va-breadcrumbs-item>
   </va-breadcrumbs>
 </template>
-<script>
-export default {
-}
-</script>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="color-dot flex-center"
+    class="color-dot"
     @click="$emit('click')"
     :class="{'color-dot--selected': selected}"
   >
@@ -11,19 +11,22 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+@Component({
   name: 'ColorDot',
-  props: {
-    color: {
-      type: String,
-      default: '',
-    },
-    selected: {
-      type: Boolean,
-      default: false,
-    },
-  },
+})
+export default class ColorDot extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly color!: string
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) readonly selected!: boolean
 }
 </script>
 
@@ -31,6 +34,9 @@ export default {
 @import "../../vuestic-sass/resources/resources";
 
 .color-dot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 1.5rem;
   height: 1.5rem;
   min-width: 1.5rem;

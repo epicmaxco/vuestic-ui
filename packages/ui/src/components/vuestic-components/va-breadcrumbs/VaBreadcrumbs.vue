@@ -1,14 +1,16 @@
 <script lang="ts">
+import { Mixins, Component } from 'vue-property-decorator'
+
+import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
+
+import { hasOwnProperty } from '../../../services/utils'
+import { VNode, VNodeChildren } from 'vue'
+import { RecordPropsDefinition } from 'vue/types/options'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
-import { hasOwnProperty } from '../../../services/utils'
-import { Mixins, Component } from 'vue-property-decorator'
-import { VNode, VNodeChildren } from 'vue'
-import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
-import { RecordPropsDefinition } from 'vue/types/options'
 
 const BreadcrumbsPropsMixin = makeContextablePropsMixin({
   separator: { type: String, default: '/' },

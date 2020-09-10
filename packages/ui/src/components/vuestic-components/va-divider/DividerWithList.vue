@@ -1,33 +1,30 @@
 <template>
   <VbCard title="divider with list">
-    <VaList
-      style="width: 400px;"
-      class="ma-2"
-    >
-      <VaItem>Item 1</VaItem>
-      <VaDivider>Default</VaDivider>
-      <VaItem>Item 2</VaItem>
-      <VaDivider />
+    <va-list style="width: 400px;">
+      <va-list-item>Item 1</va-list-item>
+      <va-divider>Default</va-divider>
+      <va-list-item>Item 2</va-list-item>
+      <va-divider />
 
-      <VaItem>Item 1</VaItem>
-      <VaDivider inset>
+      <va-list-item>Item 1</va-list-item>
+      <va-divider inset>
         Inset
-      </VaDivider>
-      <VaItem>Item 2</VaItem>
-      <VaDivider inset />
-      <VaItem>Item 3</VaItem>
-    </VaList>
+      </va-divider>
+      <va-list-item>Item 2</va-list-item>
+      <va-divider inset />
+      <va-list-item>Item 3</va-list-item>
+    </va-list>
   </VbCard>
 </template>
 
 <script>
 import VaList from '../va-list/VaList'
-import VaItem from '../va-list/VaItem'
+import VaListItem from '../va-list/VaListItem'
 import VaDivider from './VaDivider'
 
 export default {
   name: 'DividerWithList',
-  components: { VaDivider, VaItem, VaList },
+  components: { VaDivider, VaListItem, VaList },
   data () {
     return {
       isInset: false,

@@ -172,24 +172,26 @@
 </template>
 
 <script lang="ts">
-import { validateSlider } from './validateSlider'
-import { getHoverColor } from '../../../services/color-functions'
+import { Component, Watch, Mixins } from 'vue-property-decorator'
+
 import VaIcon from '../va-icon/VaIcon.vue'
+
+import { getHoverColor } from '../../../services/color-functions'
+import { validateSlider } from './validateSlider'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
-import { Component, Watch, Mixins } from 'vue-property-decorator'
 
 const SliderPropsMixin = makeContextablePropsMixin({
   range: { type: Boolean, default: false },
   value: { type: [Number, Array], default: () => [] },
   trackLabel: { type: String, default: '' },
-  color: { type: String, default: 'primary' },
-  trackColor: { type: String, default: 'primary' },
-  labelColor: { type: String, default: 'primary' },
+  color: { type: String, default: '' },
+  trackColor: { type: String, default: '' },
+  labelColor: { type: String, default: '' },
   trackLabelVisible: { type: Boolean, default: false },
   min: { type: Number, default: 0 },
   max: { type: Number, default: 100 },
