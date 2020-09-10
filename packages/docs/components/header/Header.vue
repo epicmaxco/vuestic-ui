@@ -2,7 +2,7 @@
   <div class="header row justify--space-between">
     <div class="header__logo flex">
       <header-selector class="header__logo__selector" :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
-      <img class="header__logo__image" src="../../assets/svg/vuestic-docs.svg" height="30" width="150">
+      <vuestic-logo class="header__logo__image"  height="30" width="150"/>
     </div>
     <div class="header__links flex grow justify--center">
       <div class="shrink">
@@ -35,6 +35,7 @@ import LanguageDropdown from './components/LanguageDropdown.vue'
 import VersionDropdown from './components/VersionDropdown.vue'
 import ColorDropdown from './components/ColorDropdown.vue'
 import HeaderSelector from './components/HeaderSelector.vue'
+import VuesticLogo from './components/VuesticLogo.vue'
 @Component({
   components: {
     VaButton,
@@ -43,6 +44,7 @@ import HeaderSelector from './components/HeaderSelector.vue'
     LanguageDropdown,
     ColorDropdown,
     VersionDropdown,
+    VuesticLogo,
   },
 })
 export default class Header extends Vue {
