@@ -1,12 +1,19 @@
 <template>
   <form id="search-form">
-    <va-icon
-      name="search"
-      size="100%"
-      :color="color"
-      class="search-icon"
-    />
-    <input id="algolia-search-input" placeholder="Search..." @focus="color = ''" @blur="color = '#8496A5'">
+    <va-input
+      id="algolia-search-input"
+      placeholder="Search..."
+      @focus="color = ''"
+      @blur="color = 'gray'"
+    >
+      <va-icon
+        slot="prepend"
+        class="search-icon"
+        name="search"
+        :color="color"
+        size="100%"
+      />
+    </va-input>
   </form>
 </template>
 
@@ -44,6 +51,15 @@ export default class VaSearch extends Vue {
 </script>
 
 <style lang="scss">
+.va-input__container {
+  background-color: transparent;
+  border: none;
+}
+
+.va-input-wrapper__prepend-inner {
+  margin: 0;
+}
+
 #search-form {
   padding: 1rem;
   display: flex;
@@ -52,7 +68,7 @@ export default class VaSearch extends Vue {
   width: 100%;
 
   .search-icon {
-    transition: background-color, 0.5s;
+    transition: background-color, 0.2s;
   }
 
   #algolia-search-input {
