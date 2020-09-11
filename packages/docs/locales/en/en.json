@@ -702,6 +702,50 @@
   "docsExample": {
     "showCode": "Show Code"
   },
+  "documentationPage": {
+    "title": "Documentation Page",
+    "description": "It's documentation to work with a documentation engine. Try to use script `generate:component` to generate required files: [api-options](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/api-options.ts) and [page-config](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/page-config.ts). It will allow you to skip unnecessary steps and simplify you to create docs.",
+    "pageConfigTitle": "Page Config",
+    "pageConfigText": "Page config allows you to build an documentation page. Commonly documentation page is an array of blocks.",
+    "blocktypes": {
+      "title": {
+        "title": "Title",
+        "text": "This block used once per page to describe what the page is about."
+      },
+      "subtitle": {
+        "title": "Subtitle",
+        "text": "This block used to mark parts of the page: Examples, API and FAQ."
+      },
+      "headline": {
+        "title": "Headline",
+        "text": "This block used to mark titles of examples or to FAQ questions."
+      },
+      "paragraph": {
+        "title": "Paragraph",
+        "text": "This block used to any description text or to answers in FAQ block."
+      },
+      "example": {
+        "title": "Example",
+        "text": "This block used to provide vue example component to the docs page."
+      },
+      "code": {
+        "title": "Code",
+        "text": "This block used to provide code to the docs page."
+      },
+      "api": {
+        "title": "API",
+        "text": "This block used to provide API of the component to the docs page."
+      }
+    },
+    "apiOptionsTitle": "API Options",
+    "apiOptions": {
+      "text": "This object allows you to configure API: version, props, events, methods and slots.",
+      "version": "`version` - to describe the version of vuestic-ui in which this parameter was or will be implemented.",
+      "types": "`types` - to describe custom types to parameter.",
+      "local": "`local` - this flag allows to use component's own translation of the parameter. By default uses 'all' section of the translation object.",
+      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page."
+    }
+  },
   "avatar": {
     "title": "Avatar",
     "summaryText": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application.",
