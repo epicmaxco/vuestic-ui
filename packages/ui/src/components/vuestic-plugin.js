@@ -1,6 +1,7 @@
 import VaAffix from './vuestic-components/va-affix/VaAffix'
 import VaAlert from './vuestic-components/va-alert/VaAlert.vue'
 import VaAvatar from './vuestic-components/va-avatar/VaAvatar'
+import VaBacktop from './vuestic-components/va-backtop/VaBacktop.vue'
 import VaBadge from './vuestic-components/va-badge/VaBadge.vue'
 import VaButton from './vuestic-components/va-button/VaButton.vue'
 import VaButtonGroup
@@ -40,6 +41,7 @@ import VaMediumEditor
 import VaModal from './vuestic-components/va-modal/VaModal.vue'
 import VaNavbar from './vuestic-components/va-navbar/VaNavbar'
 import VaPagination from './vuestic-components/va-pagination/VaPagination.vue'
+import VaParallax from './vuestic-components/va-parallax/VaParallax.vue'
 import VaPopover from './vuestic-components/va-popover/VaPopover.vue'
 import VaPopup
   from './vuestic-components/va-popup/popup/VaPopup.vue'
@@ -100,6 +102,7 @@ const VuesticPlugin = {
       VaAffix,
       VaAlert,
       VaAvatar,
+      VaBacktop,
       VaBadge,
       VaButton,
       VaButtonGroup,
@@ -133,6 +136,7 @@ const VuesticPlugin = {
       VaModal,
       VaNavbar,
       VaPagination,
+      VaParallax,
       VaPopover,
       VaPopup,
       VaProgressBar,

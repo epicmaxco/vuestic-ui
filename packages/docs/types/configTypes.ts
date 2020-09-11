@@ -17,7 +17,6 @@ export enum BlockType {
   EXAMPLE = 'EXAMPLE',
   API = 'API',
   CODE = 'CODE',
-  FAQ = 'FAQ'
 }
 
 export type TextBlockType =
@@ -34,10 +33,6 @@ export type TextBlock = {
 export type ApiDocsBlock =
   | TextBlock
   | {
-      type: BlockType.FAQ,
-      component: VueConstructor,
-    }
-  | {
       type: BlockType.EXAMPLE,
       component: string, // path to example
     }
@@ -50,8 +45,3 @@ export type ApiDocsBlock =
       componentOptions: VueConstructor,
       apiOptions: ManualApiOptions,
     }
-
-export type FaqBlock = {
-  question: TranslationString,
-  answer: TranslationString,
-}

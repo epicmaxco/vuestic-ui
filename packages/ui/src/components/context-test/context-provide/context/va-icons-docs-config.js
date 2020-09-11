@@ -17,4 +17,8 @@ export default {
   arrow_forward_ios: {
     code: 'arrow_forward_ios',
   },
+  search: {
+    code: 'search',
+    font: 'fa4',
+  },
 }
