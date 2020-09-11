@@ -84,7 +84,7 @@ const AlertPropsMixin = makeContextablePropsMixin({
   icon: { type: String, default: '' },
   closeIcon: { type: String, default: 'close' },
   closeText: { type: String, default: '' },
-  color: { type: String, default: '' },
+  color: { type: String, default: 'gray' },
   closeable: { type: Boolean, default: false },
   center: { type: Boolean, default: false },
   borderColor: { type: String, default: '' },

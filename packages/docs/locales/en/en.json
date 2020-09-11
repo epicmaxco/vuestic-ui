@@ -614,6 +614,37 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content"
       }
+    },
+    "VaParallax": {
+      "props": {
+        "target": "The element relative to which the component is fixed",
+        "src": "URL to the image",
+        "alt": "Specifies an alternate text for an image",
+        "height": "Sets a height of the parallax",
+        "reversed": "Flips the parallax scrolling",
+        "speed": "Sets a speed of the parallax scrolling"
+      },
+      "slots": {
+        "default": "For a content over the parallax"
+      }
+    },
+    "VaBacktop": {
+      "props": {
+        "target": "Applies the selector to which the backtop is bound",
+        "visibilityHeight": "The minimum height after which the backtop is displayed",
+        "speed": "Sets the scrolling speed",
+        "horizontalPosition": "Sets the horizontal position of the component",
+        "verticalPosition": "Sets the vertical position of the component",
+        "horizontalOffset": "Sets the horizontal offset of the component from the border of the monitor",
+        "verticalOffset": "Sets the vertical offset of the component from the border of the monitor"
+      },
+      "events": {
+        "click" :"Emitted when user clicked on backtop"
+      },
+      "methods": {},
+      "slots": {
+        "default": "Slot for backtop content"
+      }
     }
   },
   "menu": {
@@ -660,7 +691,9 @@
     "grid": "Grid",
     "input": "Input",
     "list": "List",
-    "select": "Select"
+    "select": "Select",
+    "parallax": "Parallax",
+    "backtop": "Backtop"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -675,6 +708,50 @@
   },
   "docsExample": {
     "showCode": "Show Code"
+  },
+  "documentationPage": {
+    "title": "Documentation Page",
+    "description": "It's documentation to work with a documentation engine. Try to use script `generate:component` to generate required files: [api-options](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/api-options.ts) and [page-config](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/page-config.ts). It will allow you to skip unnecessary steps and simplify you to create docs.",
+    "pageConfigTitle": "Page Config",
+    "pageConfigText": "Page config allows you to build an documentation page. Commonly documentation page is an array of blocks.",
+    "blocktypes": {
+      "title": {
+        "title": "Title",
+        "text": "This block used once per page to describe what the page is about."
+      },
+      "subtitle": {
+        "title": "Subtitle",
+        "text": "This block used to mark parts of the page: Examples, API and FAQ."
+      },
+      "headline": {
+        "title": "Headline",
+        "text": "This block used to mark titles of examples or to FAQ questions."
+      },
+      "paragraph": {
+        "title": "Paragraph",
+        "text": "This block used to any description text or to answers in FAQ block."
+      },
+      "example": {
+        "title": "Example",
+        "text": "This block used to provide vue example component to the docs page."
+      },
+      "code": {
+        "title": "Code",
+        "text": "This block used to provide code to the docs page."
+      },
+      "api": {
+        "title": "API",
+        "text": "This block used to provide API of the component to the docs page."
+      }
+    },
+    "apiOptionsTitle": "API Options",
+    "apiOptions": {
+      "text": "This object allows you to configure API: version, props, events, methods and slots.",
+      "version": "`version` - to describe the version of vuestic-ui in which this parameter was or will be implemented.",
+      "types": "`types` - to describe custom types to parameter.",
+      "local": "`local` - this flag allows to use component's own translation of the parameter. By default uses 'all' section of the translation object.",
+      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page."
+    }
   },
   "avatar": {
     "title": "Avatar",
@@ -1812,6 +1889,38 @@
         "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
         "selects": "By using `ENTER` and `SPACE` you can select current option",
         "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
+      }
+    }
+  },
+  "parallax": {
+    "title": "Parallax",
+    "summaryText": "Parallax is a component where the background image is moved at a different speed than the foreground content while scrolling.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "A block with a background image is displayed by default. You need to pass the 'src' property."
+      },
+      "custom": {
+        "title": "Custom height and speed",
+        "text": "You can adjust parallax height and scroll speed. Attention, the scrolling speed depends on the ratio of the parallax height to the image height."
+      },
+      "reversed": {
+        "title": "Reversed",
+        "text": "You can flip the parallax scrolling."
+      },
+      "slot": {
+        "title": "Slot",
+        "text": "You can provide some kind of content over the parallax."
+      }
+    }
+  },
+  "backtop": {
+    "title": "Backtop",
+    "summaryText": "A backtop is a button used to return to the top of a component.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
       }
     }
   }

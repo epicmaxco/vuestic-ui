@@ -3,6 +3,7 @@
     class="sidebar"
     color="secondary"
   >
+    <va-search />
     <va-list class="sidebar__links">
       <va-expand-group v-model="value">
         <va-expand
@@ -60,8 +61,11 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { NavigationRoute } from './NavigationRoutes'
+import VaSearch from './va-sidebar/VaSearch.vue'
 
-@Component({})
+@Component({
+  components: { VaSearch },
+})
 export default class Sidebar extends Vue {
   value = []
 
@@ -71,13 +75,14 @@ export default class Sidebar extends Vue {
 
 <style lang="scss" scoped>
 .sidebar {
-  padding-top: 2.5625rem;
+  padding-top: 4rem;
   // padding-bottom: 1rem;
 
   &__links {
     background-color: inherit;
     // max-height: calc(100vh - 1rem);
     padding-bottom: 1rem;
+    padding-top: 0;
   }
 
   &__link {
