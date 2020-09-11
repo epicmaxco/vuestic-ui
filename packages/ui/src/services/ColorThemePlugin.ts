@@ -99,7 +99,7 @@ export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_
   mixins: [
     makeContextablePropsMixin({
       color: {
-        type: String, default: 'dark',
+        type: String,
       },
     }),
   ] as any,
