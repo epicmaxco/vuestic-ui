@@ -11,20 +11,12 @@
           flat
           class="header__links__button"
           color="primary"
+          :to="link.to"
           :href="link.url"
-          target="_blank"
+          :target="link.target"
         >
           <va-icon class="button__icon" :class="link.icon" />
           <span class="button__text">{{ link.text }}</span>
-        </va-button>
-        <va-button
-          flat
-          class="header__links__button"
-          color="primary"
-          :to="`/${this.$root.$i18n.locale}/contribution/documentation-page`"
-        >
-          <i class="button__icon fa fa-share-alt" />
-          <span class="button__text">Contribution</span>
         </va-button>
       </div>
     </div>
@@ -69,16 +61,24 @@ export default class Header extends Vue {
           text: 'Overview',
           icon: 'fa fa-eye',
           url: '#',
+          target: '_blank',
         },
         {
           text: 'Documentation',
           icon: 'fa fa-cube',
           url: '#', // TODO: add actual links when pages are ready
+          target: '_blank',
         },
         {
           text: 'GitHub',
           icon: 'fa fa-github',
           url: 'https://github.com/epicmaxco/vuestic-ui',
+          target: '_blank',
+        },
+        {
+          text: 'Contribution',
+          icon: 'fa fa-share-alt',
+          to: `/${(this as any).$root.$i18n.locale}/contribution/documentation-page`,
         },
       ],
     }
