@@ -39,7 +39,7 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
-import { navigationScheme } from '../components/sidebar/navigationScheme'
+import { navigationScheme } from '../components/sidebar/navigationScheme.ts'
 
 @Component({
   components: {

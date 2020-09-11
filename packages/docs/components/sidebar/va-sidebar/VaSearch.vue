@@ -54,6 +54,7 @@ export default class VaSearch extends Vue {
 
 #search-form {
   padding: 1rem;
+  padding-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
