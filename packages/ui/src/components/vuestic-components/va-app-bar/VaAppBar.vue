@@ -14,8 +14,7 @@ import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const AppBarPropsMixin = makeContextablePropsMixin({
-  hoverable: { type: Boolean, default: false },
+const PropsMixin = makeContextablePropsMixin({
   gradient: { type: Boolean, default: false },
   position: { type: String, default: 'top' },
 })
@@ -25,7 +24,7 @@ const AppBarPropsMixin = makeContextablePropsMixin({
 })
 export default class VaAppBar extends Mixins(
   ColorThemeMixin,
-  AppBarPropsMixin,
+  PropsMixin,
 ) {
   get computedStyle () {
     return {
@@ -54,7 +53,7 @@ export default class VaAppBar extends Mixins(
   transition: all 0.3s ease;
   top: 0;
   left: 0;
-  width: $sidebar-viewport-height;
+  width: 100%;
   height: auto;
   min-height: auto;
   min-width: 100%;
