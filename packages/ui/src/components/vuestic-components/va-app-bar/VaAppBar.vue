@@ -94,13 +94,5 @@ export default class VaAppBar extends Mixins(
       }
     }
   }
-
-  @include media-breakpoint-down(sm) {
-    // top: $app-bar-mobile-top;
-  }
-
-  @include media-breakpoint-down(xs) {
-    width: 100%;
-  }
 }
 </style>

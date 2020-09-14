@@ -9,23 +9,27 @@
           color="secondary"
         >
           <template>
-            <va-list>
-              <va-list-label>
-                Contacts
-              </va-list-label>
-
-              <va-list-item
-                :key="index"
-              >
+            <va-list style="background: inherit;">
+              <va-list-item>
+                <va-list-item-section icon>
+                  <va-icon
+                    class="fa fa-bars"
+                    color="gray"
+                  />
+                </va-list-item-section>
+              </va-list-item>
+              <va-list-item>
                 <va-list-item-section icon>
                   <va-icon
                     name="home"
                     color="gray"
                   />
                 </va-list-item-section>
+              </va-list-item>
+              <va-list-item>
                 <va-list-item-section icon>
                   <va-icon
-                    name="home"
+                    name="battery"
                     color="gray"
                   />
                 </va-list-item-section>
@@ -43,7 +47,6 @@
 import VaSidebar from '../va-app-bar/VaAppBar'
 import VaList from '../va-list/VaList'
 import VaListItem from '../va-list/VaListItem'
-import VaListLabel from '../va-list/VaListLabel'
 import VaListItemSection from '../va-list/VaListItemSection'
 import VaIcon from '../va-icon/VaIcon'
 
@@ -54,7 +57,6 @@ export default {
     VaList,
     VaListItem,
     VaListItemSection,
-    VaListLabel,
   },
   data () {
     return {
