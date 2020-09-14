@@ -1,5 +1,6 @@
 import VaAffix from './vuestic-components/va-affix/VaAffix'
 import VaAlert from './vuestic-components/va-alert/VaAlert.vue'
+import VaAppBar from './vuestic-components/va-app-bar/VaAppBar.vue'
 import VaAvatar from './vuestic-components/va-avatar/VaAvatar'
 import VaBacktop from './vuestic-components/va-backtop/VaBacktop.vue'
 import VaBadge from './vuestic-components/va-badge/VaBadge.vue'
@@ -103,6 +104,7 @@ const VuesticPlugin = {
     [
       VaAffix,
       VaAlert,
+      VaAppBar,
       VaAvatar,
       VaBacktop,
       VaBadge,
