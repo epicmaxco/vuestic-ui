@@ -5,7 +5,7 @@
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
   >
-    <div class="va-sidebar__menu">
+    <div class="va-app-bar__menu">
       <slot />
     </div>
   </aside>
@@ -18,27 +18,20 @@ import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const SidebarPropsMixin = makeContextablePropsMixin({
-  minimized: { type: Boolean, default: false },
+const AppBarPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: 'gray' },
   hoverable: { type: Boolean, default: false },
-  position: { type: String, default: 'left' },
+  position: { type: String, default: 'top' },
   width: { type: String, default: '16rem' },
 })
 
 @Component({
-  name: 'VaSidebar',
+  name: 'VaAppBar',
 })
-export default class VaSidebar extends Mixins(
+export default class VaAppBar extends Mixins(
   ColorThemeMixin,
-  SidebarPropsMixin,
+  AppBarPropsMixin,
 ) {
-  isHovered = false
-
-  get isMinimized () {
-    return this.c_minimized || (this.c_hoverable && !this.isHovered)
-  }
-
   get computedStyle () {
     return {
       backgroundImage: getGradientBackground(this.colorComputed),
@@ -48,9 +41,8 @@ export default class VaSidebar extends Mixins(
 
   get computedClass () {
     return {
-      'va-sidebar': true,
-      'va-sidebar--minimized': this.isMinimized,
-      'va-sidebar--right': this.c_position === 'right',
+      'va-app-bar': true,
+      'va-app-bar--bottom': this.c_position === 'bottom',
     }
   }
 
@@ -63,16 +55,23 @@ export default class VaSidebar extends Mixins(
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.va-sidebar {
-  // min-height: $sidebar-viewport-min-height;
-  min-height: 100%;
-  height: $sidebar-viewport-height;
+.va-app-bar {
+  // min-height: $app-bar-viewport-min-height;
   position: absolute;
-  // width: $sidebar-width;
+  // width: $app-bar-width;
   // top: $top-nav-height;
+  transition: all 0.3s ease;
   top: 0;
   left: 0;
-  transition: all 0.3s ease;
+  width: $sidebar-viewport-height;
+  height: $sidebar-width;
+  min-height: auto;
+  min-width: 100%;
+
+  &--bottom {
+    bottom: 0;
+    top: auto;
+  }
 
   &__menu {
     max-height: 100%;
@@ -83,34 +82,25 @@ export default class VaSidebar extends Mixins(
     padding-left: 0;
     overflow-y: auto;
     overflow-x: hidden;
+
+    > div {
+      display: flex;
+      padding: 0;
+      align-items: center;
+
+      > div {
+        width: 4rem;
+        overflow: hidden;
+      }
+    }
   }
 
   @include media-breakpoint-down(sm) {
-    // top: $sidebar-mobile-top;
+    // top: $app-bar-mobile-top;
   }
 
   @include media-breakpoint-down(xs) {
     width: 100%;
-  }
-
-  &--minimized {
-    left: 0;
-    // width: 4rem;
-
-    .va-sidebar-link-group {
-      .va-sidebar-link__content {
-        padding-right: 0;
-      }
-    }
-
-    & + .content-wrap {
-      margin-left: $sidebar-width--hidden !important;
-    }
-  }
-
-  &--right {
-    left: auto;
-    right: 0;
   }
 }
 </style>
