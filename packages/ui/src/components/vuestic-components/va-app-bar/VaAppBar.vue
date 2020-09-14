@@ -2,12 +2,8 @@
   <aside
     :class="computedClass"
     :style="computedStyle"
-    @mouseenter="updateHoverState(true)"
-    @mouseleave="updateHoverState(false)"
   >
-    <div class="va-app-bar__menu">
-      <slot />
-    </div>
+    <slot />
   </aside>
 </template>
 
@@ -20,8 +16,8 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 
 const AppBarPropsMixin = makeContextablePropsMixin({
   hoverable: { type: Boolean, default: false },
+  gradient: { type: Boolean, default: false },
   position: { type: String, default: 'top' },
-  width: { type: String, default: '16rem' },
 })
 
 @Component({
@@ -33,8 +29,7 @@ export default class VaAppBar extends Mixins(
 ) {
   get computedStyle () {
     return {
-      backgroundImage: getGradientBackground(this.colorComputed),
-      width: this.isMinimized ? '4rem' : this.c_width,
+      background: this.c_gradient ? getGradientBackground(this.colorComputed) : this.colorComputed,
     }
   }
 
@@ -44,10 +39,6 @@ export default class VaAppBar extends Mixins(
       'va-app-bar--bottom': this.c_position === 'bottom',
     }
   }
-
-  updateHoverState (isHovered: boolean) {
-    this.isHovered = this.c_hoverable ? isHovered : false
-  }
 }
 </script>
 
@@ -55,7 +46,8 @@ export default class VaAppBar extends Mixins(
 @import "../../vuestic-sass/resources/resources";
 
 .va-app-bar {
-  // min-height: $app-bar-viewport-min-height;
+  display: flex;
+  align-items: center;
   position: absolute;
   // width: $app-bar-width;
   // top: $top-nav-height;
@@ -63,35 +55,13 @@ export default class VaAppBar extends Mixins(
   top: 0;
   left: 0;
   width: $sidebar-viewport-height;
-  height: $sidebar-width;
+  height: auto;
   min-height: auto;
   min-width: 100%;
 
   &--bottom {
     bottom: 0;
     top: auto;
-  }
-
-  &__menu {
-    max-height: 100%;
-    margin-bottom: 0;
-    // padding-top: 2.5625rem;
-    // padding-bottom: 2.5rem;
-    list-style: none;
-    padding-left: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    > div {
-      display: flex;
-      padding: 0;
-      align-items: center;
-
-      > div {
-        width: 4rem;
-        overflow: hidden;
-      }
-    }
   }
 }
 </style>
