@@ -19,7 +19,6 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const AppBarPropsMixin = makeContextablePropsMixin({
-  color: { type: String, default: 'gray' },
   hoverable: { type: Boolean, default: false },
   position: { type: String, default: 'top' },
   width: { type: String, default: '16rem' },
