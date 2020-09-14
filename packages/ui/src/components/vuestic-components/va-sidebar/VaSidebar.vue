@@ -20,7 +20,6 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 
 const SidebarPropsMixin = makeContextablePropsMixin({
   minimized: { type: Boolean, default: false },
-  color: { type: String, default: 'gray' },
   hoverable: { type: Boolean, default: false },
   position: { type: String, default: 'left' },
   width: { type: String, default: '16rem' },

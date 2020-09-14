@@ -3,16 +3,16 @@ import { mount } from '@vue/test-utils'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
-import VaAppBar from '../VaAppBar.vue'
+import VaSidebar from '../VaSidebar.vue'
 
-describe('VaAppBar', () => {
+describe('VaSidebar', () => {
   it('should render without an error', () => {
-    const wrapper = mount(VaAppBar)
+    const wrapper = mount(VaSidebar)
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
   it('has ColorThemeMixin', () => {
     expect(() =>
-      testHasColorThemeMixin((VaAppBar as unknown) as ColorThemeMixin),
+      testHasColorThemeMixin((VaSidebar as unknown) as ColorThemeMixin),
     ).not.toThrow()
   })
 })
