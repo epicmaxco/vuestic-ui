@@ -5,7 +5,7 @@
       class="base-layout__header"
     />
     <div class="base-layout__main">
-      <Sidebar v-if="isSidebarVisible" :minimized="!isSidebarVisible" :items="navigationItems" />
+      <Sidebar v-if="isSidebarVisible" :minimized="!isSidebarVisible" :navigationRoutes="navigationRoutes" />
       <!-- TODO: remove v-if when icon handling for sidebar is implemented -->
       <div
         class="base-layout__content"
@@ -39,7 +39,7 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
-import { navigationScheme } from '../components/sidebar/navigationScheme.ts'
+import { navigationScheme } from '../components/sidebar/navigationScheme'
 
 @Component({
   components: {
@@ -74,7 +74,7 @@ export default class Index extends Vue {
     }
   }
 
-  get navigationItems () {
+  get navigationRoutes () {
     return navigationScheme.routes
   }
 
@@ -105,7 +105,7 @@ export default class Index extends Vue {
     const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
     return pathSteps.reduce((acc, step, index, array) => {
       switch (true) {
-        case !index && this.$root.$i18n.locales.includes(step):
+        case !index:
           acc.push({
             label: 'Home',
             path: `/${this.$root.$i18n.locale}/`,
@@ -114,12 +114,6 @@ export default class Index extends Vue {
         case !step && index:
           break
         default:
-          if (!index && !array.includes(this.$root.$i18n.locale)) {
-            acc.push({
-              label: 'Home',
-              path: `/${this.$root.$i18n.locale}/`,
-            })
-          }
           acc.push({
             path: '/' + array.slice(0, index + 1).join('/'),
             label: step,

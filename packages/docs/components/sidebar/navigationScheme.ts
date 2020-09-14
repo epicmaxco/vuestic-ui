@@ -27,7 +27,6 @@ export const navigationScheme: NavigationScheme = {
         iconClass: 'vuestic-iconset-ui-elements',
       },
       disabled: true,
-      childrenCategories: ['menu.categories.navigation'],
       children: [
         {
           category: 'menu.categories.view',

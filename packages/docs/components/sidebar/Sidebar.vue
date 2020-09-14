@@ -1,53 +1,45 @@
 <template>
-  <va-sidebar
-    class="sidebar"
-    color="secondary"
-  >
+  <va-sidebar :minimized="minimized" class="sidebar" color="secondary">
     <va-search />
     <va-list class="sidebar__links">
       <va-expand-group v-model="value">
         <va-expand
-          v-for="(item, key) in items"
+          v-for="(route, key) in navigationRoutes"
           :key="key"
           class="sidebar__expand"
-          :class="{'sidebar__expand--active': value[key]}"
+          :class="{ 'sidebar__expand--active': value[key] }"
         >
           <template slot="header">
             <va-list-item class="sidebar__category">
               <va-list-item-section class="sidebar__category__section">
                 <va-list-item-label class="sidebar__category__label">
-                  {{ $t(item.displayName) }}
+                  {{ $t(route.displayName) }}
                 </va-list-item-label>
               </va-list-item-section>
               <va-list-item-section icon>
                 <va-icon
                   :name="value[key] ? 'expand_less' : 'expand_more'"
-                  :color="value[key] ? '#2c82e0' : ''"
-
+                  :color="value[key] ? 'primary' : ''"
                 />
               </va-list-item-section>
             </va-list-item>
           </template>
-          <div
-            v-for="(subMenuItem, index) in item.children"
-            :key="index"
-          >
+          <div v-for="(childRoute, index) in route.children" :key="index">
             <va-list-label
-              v-if="subMenuItem.category"
+              v-if="childRoute.category"
               class="sidebar__subcategory__label"
               color="gray"
             >
-              {{ $t(subMenuItem.category) }}
+              {{ $t(childRoute.category) }}
             </va-list-label>
             <va-list-item
-
-              :to="subMenuItem.name"
+              :to="childRoute.name"
               class="sidebar__link"
               active-class="sidebar__link--active"
             >
               <va-list-item-section>
                 <va-list-item-label>
-                  {{ $t(subMenuItem.displayName) }}
+                  {{ $t(childRoute.displayName) }}
                 </va-list-item-label>
               </va-list-item-section>
             </va-list-item>
@@ -69,14 +61,16 @@ import VaSearch from './va-sidebar/VaSearch.vue'
 export default class Sidebar extends Vue {
   value = []
 
-  @Prop({ type: Array, default: [] }) readonly items!: NavigationRoute[]
+  @Prop({ type: Array }) readonly navigationRoutes!: NavigationRoute[]
+  @Prop({ type: Boolean, default: false }) readonly minimized!: boolean
 }
 </script>
 
 <style lang="scss" scoped>
+@import "../../../ui/src/components/vuestic-sass/resources/resources.scss";
+
 .sidebar {
   padding-top: 4rem;
-  // padding-bottom: 1rem;
 
   &__links {
     background-color: inherit;
@@ -90,16 +84,16 @@ export default class Sidebar extends Vue {
     line-height: 1.1;
 
     &:hover {
-      background: #ecf4f8;
+      background: $light-blue;
 
       .va-list-item-label {
-        color: #2c82e0;
+        color: $theme-blue-dark;
       }
     }
 
     &--active {
       .va-list-item-label {
-        color: #2c82e0;
+        color: $theme-blue-dark;
       }
     }
   }
@@ -116,14 +110,17 @@ export default class Sidebar extends Vue {
 
     &--active {
       .sidebar__category__label {
-        color: #2c82e0;
+        color: $theme-blue-dark;
       }
     }
   }
 
   &__subcategory {
     &__label {
-      padding-top: 1rem;
+      &:not(:first-child) {
+        padding-top: 1rem;
+      }
+
       text-align: left;
       padding-left: 1.5rem;
       color: #8396a5;
