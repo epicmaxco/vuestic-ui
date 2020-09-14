@@ -1,21 +1,23 @@
 <template>
   <VbDemo>
-    <VbCard title="Sidebar" style="width: 100%; height: 80%; background-color: #f1f1f1;">
-      <div style="display: block; position: relative; width: 40rem; height: 90%; background: linear-gradient(45deg, grey, transparent);">
-        <va-app-bar>
+    <VbCard title="AppBar">
+      <div class="frame">
+      <div class="display">
+        <va-app-bar color="warning">
         <va-button icon="home" :color="color" outline :round="false">
         </va-button>
-        <div>
-          GG
-        </div>
         <va-spacer />
         <va-button :color="color">
           GG
         </va-button>
-        <va-app-bar-section>
-          LL
+        <va-app-bar-section hover="dark">
+          Dark
+        </va-app-bar-section>
+        <va-app-bar-section hover="light">
+          Light
         </va-app-bar-section>
         </va-app-bar>
+      </div>
       </div>
     </VbCard>
   </VbDemo>
@@ -36,8 +38,25 @@ export default {
   },
   data () {
     return {
-      color: '#fff',
+      color: 'primary',
     }
   },
 }
 </script>
+
+<style>
+  .frame {
+    border-radius: 1rem;
+    background: #000000;
+    padding: 3rem 0.5rem;
+    display: block;
+  }
+
+  .display {
+    display: block;
+    position: relative;
+    background: linear-gradient(90deg, aqua, yellow);
+    width: 414px;
+    height: 736px;
+  }
+</style>
