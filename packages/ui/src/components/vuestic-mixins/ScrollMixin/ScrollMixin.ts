@@ -3,7 +3,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 
 @Component
 export class ScrollMixin extends Mixins(makeContextablePropsMixin({
-  target: { type: [Element, String], default: '' },
+  target: { type: [Element, String], default: window },
 })) {
   get targetElement (): Element {
     return typeof this.c_target === 'string'
@@ -24,7 +24,7 @@ export class ScrollMixin extends Mixins(makeContextablePropsMixin({
   }
 
   handleScroll (): void {
-    console.log('Rewrite')
+    throw new Error('handleScroll method should be implemented in component')
   }
 
   mounted () {
