@@ -4,18 +4,13 @@
       <div class="frame">
         <div class="display">
           <va-app-bar>
-          <va-button icon="home" :color="color" outline :round="false">
-          </va-button>
-          <va-spacer />
-          <va-button :color="color">
-            GG
-          </va-button>
-          <va-app-bar-section hover="dark">
-            Dark
-          </va-app-bar-section>
-          <va-app-bar-section hover="light">
-            Light
-          </va-app-bar-section>
+            <va-button icon="home" :color="color" flat :round="false" />
+            <va-button icon="info" :color="color" flat :round="false" />
+            <va-button icon="battery" :color="color" flat :round="false" />
+            <va-spacer />
+            <va-button :color="color" outline>
+              Login
+            </va-button>
           </va-app-bar>
         </div>
       </div>
@@ -25,18 +20,13 @@
       <div class="frame">
         <div class="display">
           <va-app-bar color="danger">
-          <va-button icon="home" :color="color" outline :round="false">
-          </va-button>
-          <va-spacer />
-          <va-button :color="color">
-            GG
-          </va-button>
-          <va-app-bar-section hover="dark">
-            Dark
-          </va-app-bar-section>
-          <va-app-bar-section hover="light">
-            Light
-          </va-app-bar-section>
+            <va-button icon="home" :color="color" flat :round="false" />
+            <va-button icon="info" :color="color" flat :round="false" />
+            <va-button icon="battery" :color="color" flat :round="false" />
+            <va-spacer />
+            <va-button :color="color" outline>
+              Login
+            </va-button>
           </va-app-bar>
         </div>
       </div>
@@ -45,19 +35,14 @@
     <VbCard title="Bottom">
       <div class="frame">
         <div class="display">
-          <va-app-bar position="bottom">
-          <va-button icon="home" :color="color" outline :round="false">
-          </va-button>
-          <va-spacer />
-          <va-button :color="color">
-            GG
-          </va-button>
-          <va-app-bar-section hover="dark">
-            Dark
-          </va-app-bar-section>
-          <va-app-bar-section hover="light">
-            Light
-          </va-app-bar-section>
+            <va-app-bar position="bottom">
+            <va-button icon="home" :color="color" flat :round="false" />
+            <va-button icon="info" :color="color" flat :round="false" />
+            <va-button icon="battery" :color="color" flat :round="false" />
+            <va-spacer />
+            <va-button :color="color" outline>
+              Login
+            </va-button>
           </va-app-bar>
         </div>
       </div>
@@ -69,18 +54,13 @@
           <va-app-bar
             target="#scrollable-element2"
           >
-          <va-button icon="home" :color="color" outline :round="false">
-          </va-button>
-          <va-spacer />
-          <va-button :color="color">
-            GG
-          </va-button>
-          <va-app-bar-section hover="dark">
-            Dark
-          </va-app-bar-section>
-          <va-app-bar-section hover="light">
-            Light
-          </va-app-bar-section>
+            <va-button icon="home" :color="color" flat :round="false" />
+            <va-button icon="info" :color="color" flat :round="false" />
+            <va-button icon="battery" :color="color" flat :round="false" />
+            <va-spacer />
+            <va-button :color="color" outline>
+              Login
+            </va-button>
           </va-app-bar>
           <div
             class="content"
@@ -99,18 +79,13 @@
             position="bottom"
             target="#scrollable-element"
           >
-          <va-button icon="home" :color="color" outline :round="false">
-          </va-button>
-          <va-spacer />
-          <va-button :color="color">
-            GG
-          </va-button>
-          <va-app-bar-section hover="dark">
-            Dark
-          </va-app-bar-section>
-          <va-app-bar-section hover="light">
-            Light
-          </va-app-bar-section>
+            <va-button icon="home" :color="color" flat :round="false" />
+            <va-button icon="info" :color="color" flat :round="false" />
+            <va-button icon="battery" :color="color" flat :round="false" />
+            <va-spacer />
+            <va-button :color="color" outline>
+              Login
+            </va-button>
           </va-app-bar>
           <div
             class="content"
@@ -128,18 +103,16 @@
 import VaAppBar from '../va-app-bar/VaAppBar'
 import VaButton from '../va-button/VaButton'
 import VaSpacer from '../va-spacer/VaSpacer'
-import VaAppBarSection from './VaAppBarSection'
 
 export default {
   components: {
     VaAppBar,
     VaButton,
     VaSpacer,
-    VaAppBarSection,
   },
   data () {
     return {
-      color: 'primary',
+      color: '#fff',
     }
   },
 }
