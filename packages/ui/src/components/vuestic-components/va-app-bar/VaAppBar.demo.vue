@@ -8,7 +8,7 @@
             <va-button icon="info" :color="color" flat :round="false" />
             <va-button icon="battery" :color="color" flat :round="false" />
             <va-spacer />
-            <va-button :color="color" outline>
+            <va-button :color="color" flat :round="false">
               Login
             </va-button>
           </va-app-bar>
@@ -19,12 +19,12 @@
     <VbCard title="Color">
       <div class="frame">
         <div class="display">
-          <va-app-bar color="danger">
+          <va-app-bar color="secondary">
             <va-button icon="home" :color="color" flat :round="false" />
             <va-button icon="info" :color="color" flat :round="false" />
             <va-button icon="battery" :color="color" flat :round="false" />
             <va-spacer />
-            <va-button :color="color" outline>
+            <va-button :color="color" flat :round="false">
               Login
             </va-button>
           </va-app-bar>
@@ -40,7 +40,7 @@
             <va-button icon="info" :color="color" flat :round="false" />
             <va-button icon="battery" :color="color" flat :round="false" />
             <va-spacer />
-            <va-button :color="color" outline>
+            <va-button :color="color" flat :round="false">
               Login
             </va-button>
           </va-app-bar>
@@ -58,7 +58,7 @@
             <va-button icon="info" :color="color" flat :round="false" />
             <va-button icon="battery" :color="color" flat :round="false" />
             <va-spacer />
-            <va-button :color="color" outline>
+            <va-button :color="color" flat :round="false">
               Login
             </va-button>
           </va-app-bar>
@@ -83,7 +83,7 @@
             <va-button icon="info" :color="color" flat :round="false" />
             <va-button icon="battery" :color="color" flat :round="false" />
             <va-spacer />
-            <va-button :color="color" outline>
+            <va-button :color="color" flat :round="false">
               Login
             </va-button>
           </va-app-bar>
