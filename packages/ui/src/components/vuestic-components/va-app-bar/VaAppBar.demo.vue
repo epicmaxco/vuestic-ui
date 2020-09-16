@@ -21,11 +21,82 @@
       </div>
     </VbCard>
 
+    <VbCard title="Color">
+      <div class="frame">
+        <div class="display">
+          <va-app-bar color="danger">
+          <va-button icon="home" :color="color" outline :round="false">
+          </va-button>
+          <va-spacer />
+          <va-button :color="color">
+            GG
+          </va-button>
+          <va-app-bar-section hover="dark">
+            Dark
+          </va-app-bar-section>
+          <va-app-bar-section hover="light">
+            Light
+          </va-app-bar-section>
+          </va-app-bar>
+        </div>
+      </div>
+    </VbCard>
+
+    <VbCard title="Bottom">
+      <div class="frame">
+        <div class="display">
+          <va-app-bar position="bottom">
+          <va-button icon="home" :color="color" outline :round="false">
+          </va-button>
+          <va-spacer />
+          <va-button :color="color">
+            GG
+          </va-button>
+          <va-app-bar-section hover="dark">
+            Dark
+          </va-app-bar-section>
+          <va-app-bar-section hover="light">
+            Light
+          </va-app-bar-section>
+          </va-app-bar>
+        </div>
+      </div>
+    </VbCard>
+
     <VbCard title="Hide on scroll">
       <div class="frame">
         <div class="display">
           <va-app-bar
-            color="warning"
+            target="#scrollable-element2"
+          >
+          <va-button icon="home" :color="color" outline :round="false">
+          </va-button>
+          <va-spacer />
+          <va-button :color="color">
+            GG
+          </va-button>
+          <va-app-bar-section hover="dark">
+            Dark
+          </va-app-bar-section>
+          <va-app-bar-section hover="light">
+            Light
+          </va-app-bar-section>
+          </va-app-bar>
+          <div
+            class="content"
+            id="scrollable-element2"
+          >
+            {{ $vb.lorem(2000)}}
+          </div>
+        </div>
+      </div>
+    </VbCard>
+
+    <VbCard title="Hide & Bottom">
+      <div class="frame">
+        <div class="display">
+          <va-app-bar
+            position="bottom"
             target="#scrollable-element"
           >
           <va-button icon="home" :color="color" outline :round="false">

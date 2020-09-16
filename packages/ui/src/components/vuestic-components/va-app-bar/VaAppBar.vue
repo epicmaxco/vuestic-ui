@@ -51,7 +51,7 @@ export default class VaAppBar extends Mixins(
 
   handleScroll (): void {
     if (this.scrollPos < this.targetElement.scrollTop) {
-      (this as any).$refs.appBar.style.transform = 'translateY(-100%)'
+      (this as any).$refs.appBar.style.transform = `translateY(${this.c_position === 'top' ? '-100%' : '100%'})`
     } else {
       (this as any).$refs.appBar.style.transform = 'translateY(0)'
     }
@@ -77,7 +77,7 @@ export default class VaAppBar extends Mixins(
   position: absolute;
   // width: $app-bar-width;
   // top: $top-nav-height;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   top: 0;
   left: 0;
   width: 100%;
