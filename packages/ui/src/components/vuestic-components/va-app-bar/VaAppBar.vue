@@ -18,7 +18,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 const PropsMixin = makeContextablePropsMixin({
   gradient: { type: Boolean, default: false },
   position: { type: String, default: 'top' },
-  target: { type: [Element, String], default: 'body' },
+  target: { type: [Element, String], default: '' },
 })
 
 @Component({
@@ -59,11 +59,15 @@ export default class VaAppBar extends Mixins(
   }
 
   mounted () {
-    this.targetElement.addEventListener('scroll', this.handleScroll)
+    if (this.c_target) {
+      this.targetElement.addEventListener('scroll', this.handleScroll)
+    }
   }
 
   beforeDestroy () {
-    this.targetElement.removeEventListener('scroll', this.handleScroll)
+    if (this.c_target) {
+      this.targetElement.removeEventListener('scroll', this.handleScroll)
+    }
   }
 }
 </script>
