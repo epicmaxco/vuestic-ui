@@ -59,6 +59,7 @@
         <div class="display">
           <va-app-bar
             target="#scrollable-element2"
+            hide-on-scroll
           >
             <va-button icon="home" :color="color" flat :round="false" />
             <va-button icon="info" :color="color" flat :round="false" />
@@ -83,6 +84,7 @@
         <div class="display">
           <va-app-bar
             position="bottom"
+            hide-on-scroll
             target="#scrollable-element"
           >
             <va-button icon="home" :color="color" flat :round="false" />
@@ -96,6 +98,83 @@
           <div
             class="content"
             id="scrollable-element"
+          >
+            {{ $vb.lorem(2000)}}
+          </div>
+        </div>
+      </div>
+    </VbCard>
+
+    <VbCard title="Shadow on scroll">
+      <div class="frame">
+        <div class="display">
+          <va-app-bar
+            target="#scrollable-element3"
+            shadow-on-scroll
+          >
+            <va-button icon="home" :color="color" flat :round="false" />
+            <va-button icon="info" :color="color" flat :round="false" />
+            <va-button icon="battery" :color="color" flat :round="false" />
+            <va-spacer />
+            <va-button :color="color" flat :round="false">
+              Login
+            </va-button>
+          </va-app-bar>
+          <div
+            class="content"
+            id="scrollable-element3"
+          >
+            {{ $vb.lorem(2000)}}
+          </div>
+        </div>
+      </div>
+    </VbCard>
+
+    <VbCard title="Shadow on scroll & Bottom">
+      <div class="frame">
+        <div class="display">
+          <va-app-bar
+            position="bottom"
+            shadow-on-scroll
+            target="#scrollable-element4"
+          >
+            <va-button icon="home" :color="color" flat :round="false" />
+            <va-button icon="info" :color="color" flat :round="false" />
+            <va-button icon="battery" :color="color" flat :round="false" />
+            <va-spacer />
+            <va-button :color="color" flat :round="false">
+              Login
+            </va-button>
+          </va-app-bar>
+          <div
+            class="content"
+            id="scrollable-element4"
+          >
+            {{ $vb.lorem(2000)}}
+          </div>
+        </div>
+      </div>
+    </VbCard>
+
+    <VbCard title="Shadow on scroll and custom shadow color">
+      <div class="frame">
+        <div class="display">
+          <va-app-bar
+            shadow-on-scroll
+            shadow-color="danger"
+            target="#scrollable-element5"
+          >
+            <va-button icon="home" :color="color" flat :round="false" />
+            <va-button icon="info" :color="color" flat :round="false" />
+            <va-button icon="battery" :color="color" flat :round="false" />
+            <va-spacer />
+            <va-button :color="color" flat :round="false">
+              Login
+            </va-button>
+          </va-app-bar>
+          <div
+            class="content"
+            id="scrollable-element5"
           >
             {{ $vb.lorem(2000)}}
           </div>

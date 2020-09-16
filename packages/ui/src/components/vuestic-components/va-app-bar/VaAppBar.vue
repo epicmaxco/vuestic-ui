@@ -11,8 +11,8 @@
 <script lang="ts">
 import { Mixins, Component } from 'vue-property-decorator'
 
-import { getGradientBackground } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { getGradientBackground, getBoxShadowColor } from '../../../services/color-functions'
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { ScrollMixin } from '../../vuestic-mixins/ScrollMixin/ScrollMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
@@ -20,6 +20,9 @@ const PropsMixin = makeContextablePropsMixin({
   gradient: { type: Boolean, default: false },
   position: { type: String, default: 'top' },
   target: { type: [Element, String], default: '' },
+  hideOnScroll: { type: Boolean, default: false },
+  shadowOnScroll: { type: Boolean, default: false },
+  shadowColor: { type: String, default: '' },
 })
 
 @Component({
@@ -47,9 +50,13 @@ export default class VaAppBar extends Mixins(
 
   handleScroll (): void {
     if (this.scrollPos < this.targetElement.scrollTop) {
-      (this as any).$refs.appBar.style.transform = `translateY(${this.c_position === 'top' ? '-100%' : '100%'})`
+      (this as any).$refs.appBar.style.transform = this.c_hideOnScroll ? `translateY(${this.c_position === 'top' ? '-100%' : '100%'})` : ''
+      ;(this as any).$refs.appBar.style.boxShadow = this.c_shadowOnScroll
+        ? `0px 0px 12px 2px ${getBoxShadowColor(getColor(this, this.c_shadowColor) || this.colorComputed)}`
+        : ''
     } else {
       (this as any).$refs.appBar.style.transform = 'translateY(0)'
+      ;(this as any).$refs.appBar.style.boxShadow = 'none'
     }
     this.scrollPos = this.targetElement.scrollTop
   }
