@@ -13,6 +13,7 @@ import { Mixins, Component } from 'vue-property-decorator'
 
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ScrollMixin } from '../../vuestic-mixins/ScrollMixin/ScrollMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const PropsMixin = makeContextablePropsMixin({
@@ -26,6 +27,7 @@ const PropsMixin = makeContextablePropsMixin({
 })
 export default class VaAppBar extends Mixins(
   ColorThemeMixin,
+  ScrollMixin,
   PropsMixin,
 ) {
   scrollPos = 0
