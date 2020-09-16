@@ -11,6 +11,9 @@
             <va-button :color="color" flat :round="false">
               Login
             </va-button>
+            <va-button-dropdown size="small" icon="ellipsis">
+              Content
+            </va-button-dropdown>
           </va-app-bar>
         </div>
       </div>
@@ -43,6 +46,9 @@
             <va-button :color="color" flat :round="false">
               Login
             </va-button>
+            <va-button-dropdown size="small" icon="ellipsis">
+              Content
+            </va-button-dropdown>
           </va-app-bar>
         </div>
       </div>
@@ -103,12 +109,14 @@
 import VaAppBar from '../va-app-bar/VaAppBar'
 import VaButton from '../va-button/VaButton'
 import VaSpacer from '../va-spacer/VaSpacer'
+import VaButtonDropdown from '../va-button-dropdown/VaButtonDropdown'
 
 export default {
   components: {
     VaAppBar,
     VaButton,
     VaSpacer,
+    VaButtonDropdown,
   },
   data () {
     return {
