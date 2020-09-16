@@ -16,8 +16,11 @@
 
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
 import VaButton from '../va-button/VaButton.vue'
+
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ScrollMixin } from '../../vuestic-mixins/ScrollMixin/ScrollMixin'
 
 const PropsMixin = makeContextablePropsMixin({
   target: { type: [Element, String], default: window },
@@ -47,6 +50,7 @@ const PropsMixin = makeContextablePropsMixin({
   components: { VaButton },
 })
 export default class VaBacktop extends Mixins(
+  ScrollMixin,
   PropsMixin,
 ) {
   visible = false
@@ -58,12 +62,6 @@ export default class VaBacktop extends Mixins(
       [this.c_verticalPosition]: this.c_verticalOffset,
       [this.c_horizontalPosition]: this.c_horizontalOffset,
     }
-  }
-
-  get targetElement (): Element {
-    return typeof this.c_target === 'string'
-      ? document.querySelector(this.c_target)
-      : this.c_target || this.$el.parentElement
   }
 
   handleScroll (): void {
@@ -82,14 +80,6 @@ export default class VaBacktop extends Mixins(
         this.targetElement.scrollTo(0, next)
       }
     }, 15)
-  }
-
-  mounted () {
-    this.targetElement.addEventListener('scroll', this.handleScroll)
-  }
-
-  beforeDestroy () {
-    this.targetElement.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
