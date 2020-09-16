@@ -5,7 +5,7 @@ export function testHasScrollMixin<T extends ScrollMixin> (componentOptions: T) 
   const wrapper: Wrapper<T> = shallowMount(componentOptions)
 
   // Test mixin applied
-  if (!(wrapper.vm as any).hasRouterLinkMixin) {
+  if (!(wrapper.vm as any).hasScrollMixin) {
     throw new Error('ScrollMixin is not added')
   }
 }

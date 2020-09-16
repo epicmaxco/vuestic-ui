@@ -63,8 +63,6 @@ export default class VaAppBar extends Mixins(
   display: flex;
   align-items: center;
   position: absolute;
-  // width: $app-bar-width;
-  // top: $top-nav-height;
   transition: all 0.5s ease;
   top: 0;
   left: 0;

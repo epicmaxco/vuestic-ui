@@ -34,4 +34,8 @@ export class ScrollMixin extends Mixins(makeContextablePropsMixin({
   beforeDestroy () {
     this.removeEventListeners()
   }
+
+  created () {
+    this.hasScrollMixin = true
+  }
 }
