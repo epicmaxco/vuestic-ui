@@ -2,6 +2,7 @@
   <aside
     :class="computedClass"
     :style="computedStyle"
+    ref="appBar"
   >
     <slot />
   </aside>
@@ -17,6 +18,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 const PropsMixin = makeContextablePropsMixin({
   gradient: { type: Boolean, default: false },
   position: { type: String, default: 'top' },
+  target: { type: [Element, String], default: 'body' },
 })
 
 @Component({
@@ -26,6 +28,8 @@ export default class VaAppBar extends Mixins(
   ColorThemeMixin,
   PropsMixin,
 ) {
+  scrollPos = 0
+
   get computedStyle () {
     return {
       background: this.c_gradient ? getGradientBackground(this.colorComputed) : this.colorComputed,
@@ -37,6 +41,29 @@ export default class VaAppBar extends Mixins(
       'va-app-bar': true,
       'va-app-bar--bottom': this.c_position === 'bottom',
     }
+  }
+
+  get targetElement (): Element {
+    return typeof this.c_target === 'string'
+      ? document.querySelector(this.c_target)
+      : this.c_target || this.$el.parentElement
+  }
+
+  handleScroll (): void {
+    if (this.scrollPos < this.targetElement.scrollTop) {
+      (this as any).$refs.appBar.style.transform = 'translateY(-100%)'
+    } else {
+      (this as any).$refs.appBar.style.transform = 'translateY(0)'
+    }
+    this.scrollPos = this.targetElement.scrollTop
+  }
+
+  mounted () {
+    this.targetElement.addEventListener('scroll', this.handleScroll)
+  }
+
+  beforeDestroy () {
+    this.targetElement.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
