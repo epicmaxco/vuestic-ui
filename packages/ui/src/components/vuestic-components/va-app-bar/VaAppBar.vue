@@ -45,12 +45,6 @@ export default class VaAppBar extends Mixins(
     }
   }
 
-  get targetElement (): Element {
-    return typeof this.c_target === 'string'
-      ? document.querySelector(this.c_target)
-      : this.c_target || this.$el.parentElement
-  }
-
   handleScroll (): void {
     if (this.scrollPos < this.targetElement.scrollTop) {
       (this as any).$refs.appBar.style.transform = `translateY(${this.c_position === 'top' ? '-100%' : '100%'})`
@@ -58,18 +52,6 @@ export default class VaAppBar extends Mixins(
       (this as any).$refs.appBar.style.transform = 'translateY(0)'
     }
     this.scrollPos = this.targetElement.scrollTop
-  }
-
-  mounted () {
-    if (this.c_target) {
-      this.targetElement.addEventListener('scroll', this.handleScroll)
-    }
-  }
-
-  beforeDestroy () {
-    if (this.c_target) {
-      this.targetElement.removeEventListener('scroll', this.handleScroll)
-    }
   }
 }
 </script>
