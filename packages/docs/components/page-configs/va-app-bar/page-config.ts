@@ -52,6 +52,30 @@ export default [
     component: 'va-app-bar/Bottom',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'appBar.examples.hide.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'appBar.examples.hide.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-app-bar/Hide',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'appBar.examples.shadow.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'appBar.examples.shadow.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-app-bar/Shadow',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },

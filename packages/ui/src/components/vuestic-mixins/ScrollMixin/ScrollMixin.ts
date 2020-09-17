@@ -12,13 +12,13 @@ export class ScrollMixin extends Mixins(makeContextablePropsMixin({
   }
 
   addEventListeners () {
-    if (this.c_target) {
+    if (this.c_target && this.targetElement) {
       this.targetElement.addEventListener('scroll', this.handleScroll)
     }
   }
 
   removeEventListeners () {
-    if (this.c_target) {
+    if (this.c_target && this.targetElement) {
       this.targetElement.removeEventListener('scroll', this.handleScroll)
     }
   }
