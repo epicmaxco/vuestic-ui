@@ -52,7 +52,7 @@ export default class VaAppBar extends Mixins(
     if (this.scrollPos < this.targetElement.scrollTop) {
       (this as any).$refs.appBar.style.transform = this.c_hideOnScroll ? `translateY(${this.c_bottom ? '100%' : '-100%'})` : ''
       ;(this as any).$refs.appBar.style.boxShadow = this.c_shadowOnScroll
-        ? `0px 0px 12px 2px ${getBoxShadowColor(getColor(this, this.c_shadowColor) || this.colorComputed)}`
+        ? `0px 0px 12px 2px ${getBoxShadowColor(this.c_shadowColor ? getColor(this, this.c_shadowColor) : this.colorComputed)}`
         : ''
     } else {
       (this as any).$refs.appBar.style.transform = 'translateY(0)'

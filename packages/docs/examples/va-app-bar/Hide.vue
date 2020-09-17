@@ -1,6 +1,9 @@
 <template>
-  <div style="position: relative;">
-    <va-app-bar hide-on-scroll>
+  <div class="wrapper">
+    <va-app-bar
+      hide-on-scroll
+      target="#hide"
+    >
       <va-button icon="home" color="#fff" flat :round="false" />
       <va-button icon="info" color="#fff" flat :round="false" />
       <va-button icon="battery" color="#fff" flat :round="false" />
@@ -12,6 +15,7 @@
         Content
       </va-button-dropdown>
     </va-app-bar>
+    <div id="hide">content</div>
   </div>
 </template>
 
@@ -24,3 +28,19 @@ export default {
   },
 }
 </script>
+
+<style>
+  .wrapper {
+    position: relative;
+    max-height: 100px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #hide {
+    background: #ffffff;
+    padding-bottom: 500px;
+    overflow: auto;
+  }
+</style>

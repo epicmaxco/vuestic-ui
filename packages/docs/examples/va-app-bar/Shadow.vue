@@ -1,8 +1,9 @@
 <template>
-  <div style="position: relative; height: 50px;">
+  <div class="wrapper">
     <va-app-bar
       shadow-on-scroll
       target="#shadow"
+      color="primary"
     >
       <va-button icon="home" color="#fff" flat :round="false" />
       <va-button icon="info" color="#fff" flat :round="false" />
@@ -15,16 +16,22 @@
         Content
       </va-button-dropdown>
     </va-app-bar>
-    <div id="#shadow" style="height: 500px;"></div>
+    <div id="shadow">content</div>
   </div>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
+<style>
+  .wrapper {
+    position: relative;
+    max-height: 100px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
 
-    }
-  },
-}
-</script>
+  #shadow {
+    background: #ffffff;
+    padding-bottom: 500px;
+    overflow: auto;
+  }
+</style>
