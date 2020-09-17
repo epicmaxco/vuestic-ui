@@ -4,7 +4,6 @@ export default {
   props: {
     gradient: { local: true },
     bottom: { local: true },
-    target: { local: true },
     hideOnScroll: { local: true },
     shadowOnScroll: { local: true },
     shadowColor: { local: true },

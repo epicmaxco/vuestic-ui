@@ -1,11 +1,11 @@
 <template>
-  <aside
+  <header
     :class="computedClass"
     :style="computedStyle"
     ref="appBar"
   >
     <slot />
-  </aside>
+  </header>
 </template>
 
 <script lang="ts">

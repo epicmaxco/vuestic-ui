@@ -647,10 +647,18 @@
       }
     },
     "VaAppBar": {
-      "props": {},
+      "props": {
+        "gradient": "Applies gradient style to background",
+        "bottom": "Sets the component position to the bottom",
+        "hideOnScroll": "Hides component when scrolling target",
+        "shadowOnScroll": "Applies box-shadow to the component when scrolling target",
+        "shadowColor": "Sets color to the box-shadow"
+      },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "default": "Slot for app-bar content"
+      }
     }
   },
   "menu": {
@@ -1881,6 +1889,29 @@
     }
   },
   "appBar": {
-    "title": "-- Here is the title --"
+    "title": "App bar",
+    "summaryText": "An app bar component is a part of site navigation and it's an alternative for header in apps.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, a `va-app-bar` needs a parent element with relative position."
+      },
+      "color": {
+        "title": "Color",
+        "text": "You can set a background of the component."
+      },
+      "bottom": {
+        "title": "Bottom",
+        "text": "You can fits app bar to bottom."
+      },
+      "hide": {
+        "title": "Hide",
+        "text": "By using `hide-on-scroll` you can hide app bar when scroll target element."
+      },
+      "shadow": {
+        "title": "Shadow",
+        "text": "You can sets a shadow of the app bar when scroll target element."
+      }
+    }
   }
 }
