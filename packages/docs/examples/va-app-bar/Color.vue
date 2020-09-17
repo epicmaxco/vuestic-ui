@@ -1,6 +1,6 @@
 <template>
   <div style="position: relative;">
-    <va-app-bar>
+    <va-app-bar color="primary">
       <va-button icon="home" color="#fff" flat :round="false" />
       <va-button icon="info" color="#fff" flat :round="false" />
       <va-button icon="battery" color="#fff" flat :round="false" />

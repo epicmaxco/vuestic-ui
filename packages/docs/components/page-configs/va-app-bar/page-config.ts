@@ -28,6 +28,30 @@ export default [
     component: 'va-app-bar/Default',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'appBar.examples.color.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'appBar.examples.color.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-app-bar/Color',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'appBar.examples.bottom.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'appBar.examples.bottom.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-app-bar/Bottom',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },

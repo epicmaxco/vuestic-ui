@@ -18,7 +18,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 
 const PropsMixin = makeContextablePropsMixin({
   gradient: { type: Boolean, default: false },
-  position: { type: String, default: 'top' },
+  bottom: { type: Boolean, default: false },
   target: { type: [Element, String], default: '' },
   hideOnScroll: { type: Boolean, default: false },
   shadowOnScroll: { type: Boolean, default: false },
@@ -44,13 +44,13 @@ export default class VaAppBar extends Mixins(
   get computedClass () {
     return {
       'va-app-bar': true,
-      'va-app-bar--bottom': this.c_position === 'bottom',
+      'va-app-bar--bottom': this.c_bottom,
     }
   }
 
   handleScroll (): void {
     if (this.scrollPos < this.targetElement.scrollTop) {
-      (this as any).$refs.appBar.style.transform = this.c_hideOnScroll ? `translateY(${this.c_position === 'top' ? '-100%' : '100%'})` : ''
+      (this as any).$refs.appBar.style.transform = this.c_hideOnScroll ? `translateY(${this.c_bottom ? '100%' : '-100%'})` : ''
       ;(this as any).$refs.appBar.style.boxShadow = this.c_shadowOnScroll
         ? `0px 0px 12px 2px ${getBoxShadowColor(getColor(this, this.c_shadowColor) || this.colorComputed)}`
         : ''

@@ -38,7 +38,7 @@
     <VbCard title="Bottom">
       <div class="frame">
         <div class="display">
-            <va-app-bar position="bottom">
+            <va-app-bar bottom>
             <va-button icon="home" :color="color" flat :round="false" />
             <va-button icon="info" :color="color" flat :round="false" />
             <va-button icon="battery" :color="color" flat :round="false" />
@@ -83,7 +83,7 @@
       <div class="frame">
         <div class="display">
           <va-app-bar
-            position="bottom"
+            bottom
             hide-on-scroll
             target="#scrollable-element"
           >
@@ -134,7 +134,7 @@
       <div class="frame">
         <div class="display">
           <va-app-bar
-            position="bottom"
+            bottom
             shadow-on-scroll
             target="#scrollable-element4"
           >
