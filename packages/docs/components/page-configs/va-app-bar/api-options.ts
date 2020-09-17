@@ -2,11 +2,18 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export default {
   props: {
+    gradient: { local: true },
+    bottom: { local: true },
+    target: { local: true },
+    hideOnScroll: { local: true },
+    shadowOnScroll: { local: true },
+    shadowColor: { local: true },
   },
   events: {
   },
   methods: {
   },
   slots: {
+    default: { local: true },
   },
 } as ManualApiOptions

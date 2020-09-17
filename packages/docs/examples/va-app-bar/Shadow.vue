@@ -3,7 +3,6 @@
     <va-app-bar
       shadow-on-scroll
       target="#shadow"
-      color="primary"
     >
       <va-button icon="home" color="#fff" flat :round="false" />
       <va-button icon="info" color="#fff" flat :round="false" />
