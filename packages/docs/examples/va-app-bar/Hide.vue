@@ -15,19 +15,9 @@
         Content
       </va-button-dropdown>
     </va-app-bar>
-    <div id="hide">content</div>
+    <div id="hide">.</div>
   </div>
 </template>
-
-<script>
-export default {
-  data () {
-    return {
-
-    }
-  },
-}
-</script>
 
 <style>
   .wrapper {

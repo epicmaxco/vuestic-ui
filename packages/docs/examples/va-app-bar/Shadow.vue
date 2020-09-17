@@ -16,7 +16,7 @@
         Content
       </va-button-dropdown>
     </va-app-bar>
-    <div id="shadow">content</div>
+    <div id="shadow">.</div>
   </div>
 </template>
 
