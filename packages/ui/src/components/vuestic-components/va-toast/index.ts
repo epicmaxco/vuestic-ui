@@ -1,9 +1,9 @@
 import VaToast from './VaToast.vue'
-import { NotificationComponentInterface, NotificationOptions, NotificationComponent } from './types'
+import { NotificationOptions } from './types'
 import { VNode } from 'vue/types/umd'
 import { Constructor } from 'vue-property-decorator'
 
-const Z_INDEX: number = 100
+const Z_INDEX = 100
 let seed = 1
 
 const NotificationConstructor: Constructor = VaToast
@@ -32,10 +32,32 @@ const merge = (target: NotificationOptions | any, ...args: NotificationOptions[]
   return target
 }
 
+const createToastInstance = (options: NotificationOptions): VaToast => {
+  const id: string = 'notification_' + seed++
+  toastInstance = new NotificationConstructor({
+    propsData: options,
+  })
 
-const initNotification = (options: NotificationOptions | string) => {
-  const toastInstance: VaToast = createToastInstance(getToastOptions(options))
-  toastInstances.push(toastInstance)
+  const position: string = toastInstance.position
+
+  if (isVNode(options.message)) {
+    toastInstance.$slots.default = [options.message as VNode]
+    options.message = 'REPLACED_BY_VNODE'
+  }
+  toastInstance.id = id
+  toastInstance.$mount()
+  document.body.appendChild(toastInstance.$el)
+  toastInstance.visible = true
+  ;(toastInstance.$el as HTMLElement).style.zIndex = Z_INDEX + ''
+
+  const offsetX = options.offsetX || (toastInstance as NotificationOptions).offsetX
+  let offsetY = options.offsetY || (toastInstance as NotificationOptions).offsetX
+
+  toastInstances.filter(item => item.position === position).forEach((item: any) => {
+    offsetY += item.$el.offsetHeight + 16
+  })
+  toastInstance.offsetX = offsetX
+  toastInstance.offsetY = offsetY
   return toastInstance
 }
 
@@ -51,10 +73,6 @@ const closeNotification = (id: any) => {
 
   const closableInstanceIndex = toastInstances.findIndex((toastInstance: any) => toastInstance.id === id)
 
-  // if (typeof closableInstance.onClose() === 'function') {
-  //   closableInstance.onClose()
-  // }
-
   const closableInstancePosition = closableInstance.position
   const removedHeight = toastInstance.$el.offsetHeight
 
@@ -63,7 +81,7 @@ const closeNotification = (id: any) => {
       toastInstance.$el.style.visibility = 'hidden'
       return acc
     }
-    //Check for following instance and modify it position if true
+    // Check for following instance and modify it position if true
     const isFollowingInstance: boolean = index > closableInstanceIndex && toastInstance.position === closableInstancePosition
     if (isFollowingInstance) {
       toastInstance.$el.style[toastInstance.positionY] =
@@ -73,7 +91,7 @@ const closeNotification = (id: any) => {
     }
     return [...acc, toastInstance]
   }, [])
-  if (!toastInstances.length) seed = 1
+  if (!toastInstances.length) { seed = 1 }
 }
 
 const closeAllNotifications = () => {
@@ -100,37 +118,14 @@ const getToastOptions = (options: string | NotificationOptions): any => {
     if (onCloseHandler) {
       onCloseHandler()
     }
-    // Notification.close(id, onCloseHandler)
+    closeNotification(id)
   }
   return merge({}, options)
 }
 
-const createToastInstance = (options: NotificationOptions): VaToast => {
-  const id: string = 'notification_' + seed++
-  toastInstance = new NotificationConstructor({
-    propsData: options,
-  })
-
-  const position: string = toastInstance.position
-
-  if (isVNode(options.message)) {
-    toastInstance.$slots.default = [options.message as VNode]
-    options.message = 'REPLACED_BY_VNODE'
-  }
-  toastInstance.id = id
-  toastInstance.$mount()
-  document.body.appendChild(toastInstance.$el)
-  toastInstance.visible = true
-  ;(toastInstance.$el as HTMLElement).style.zIndex = Z_INDEX + ''
-
-  let offsetX = options.offsetX || (toastInstance as any).offsetX
-  let offsetY = options.offsetY || (toastInstance as any).offsetX
-
-  toastInstances.filter(item => item.position === position).forEach((item: any) => {
-    offsetY += item.$el.offsetHeight + 16
-  })
-  toastInstance.offsetX = offsetX
-  toastInstance.offsetY = offsetY
+const initNotification = (options: NotificationOptions | string) => {
+  const toastInstance: VaToast = createToastInstance(getToastOptions(options))
+  toastInstances.push(toastInstance)
   return toastInstance
 }
 
