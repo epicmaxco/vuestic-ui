@@ -902,6 +902,7 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "reset": "Reset"
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
@@ -2196,6 +2197,17 @@
         "title": "Basic usage",
         "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
       }
+    }
+  },
+  "reset": {
+    "title": "CSS Reset",
+    "summaryText": "Base styles for Vuestic projects.",
+    "description": "We use [normalize.css](https://github.com/necolas/normalize.css) to reset and normalize basic CSS styles",
+    "features": {
+      "title": "Normalize.css features",
+      "info": "Below is a list of features that are provided by normalize.css:",
+      "list": "* Correct the line height in all browsers. \n * Prevent adjustments of font size after orientation changes in iOS. \n * Remove the margin in all browsers. \n * Render the `main` element consistently in IE. \n * Correct the font size and margin on `h1` elements within `section` and `article` contexts in Chrome, Firefox, and Safari. \n * Add the correct box sizing in Firefox. \n * Show the overflow in Edge and IE. \n * Correct the inheritance and scaling of font size in all browsers. \n * Correct the odd `em` font sizing in all browsers.",
+      "more": "For a complete list of all applied styles, see the [normalize.css](https://github.com/necolas/normalize.css/blob/master/normalize.css) stylesheet."
     }
   },
   "colorPicker": {
