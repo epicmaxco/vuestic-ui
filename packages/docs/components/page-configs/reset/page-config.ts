@@ -7,10 +7,6 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'reset.summaryText',
-  },
-  {
-    type: BlockType.PARAGRAPH,
     translationString: 'reset.description',
   },
   {
