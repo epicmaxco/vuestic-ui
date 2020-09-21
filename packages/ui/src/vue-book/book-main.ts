@@ -13,6 +13,7 @@ import { registerVuesticObject } from '../components/resize-events'
 import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin.js'
 import { installPlatform } from '../components/vuestic-components/va-popup/install.js'
 import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
+import ToastInstall from '../components/vuestic-components/va-toast/install'
 
 // eslint-disable-next-line
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
@@ -46,6 +47,7 @@ Vue.use(BusPlugin)
 Vue.use(VueClipboard)
 Vue.use(DropdownPopperPlugin)
 Vue.use(ColorHelpersPlugin)
+Vue.use(ToastInstall)
 
 new Vue({
   router,

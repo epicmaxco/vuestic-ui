@@ -95,6 +95,7 @@ import VaOptionList
   from './vuestic-components/va-option-list/VaOptionList'
 import VaInfiniteScroll
   from './vuestic-components/va-infinite-scroll/VaInfiniteScroll'
+import ToastInstall from './vuestic-components/va-toast/install'
 
 installPlatform()
 
@@ -183,6 +184,8 @@ const VuesticPlugin = {
     Vue.use(BusPlugin)
 
     Vue.use(DropdownPopperPlugin)
+
+    Vue.use(ToastInstall)
 
     Vue.mixin(Toasted)
 
