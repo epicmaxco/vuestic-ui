@@ -23,6 +23,7 @@ const SidebarPropsMixin = makeContextablePropsMixin({
   hoverable: { type: Boolean, default: false },
   position: { type: String, default: 'left' },
   width: { type: String, default: '16rem' },
+  minimizedWidth: { type: String, default: '4rem' },
 })
 
 @Component({
@@ -41,7 +42,7 @@ export default class VaSidebar extends Mixins(
   get computedStyle () {
     return {
       backgroundImage: getGradientBackground(this.colorComputed),
-      width: this.isMinimized ? '4rem' : this.c_width,
+      width: this.isMinimized ? this.c_minimizedWidth : this.c_width,
     }
   }
 

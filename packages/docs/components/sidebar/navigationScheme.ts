@@ -104,6 +104,10 @@ export const navigationScheme: NavigationScheme = {
           displayName: 'menu.card',
         },
         {
+          name: 'sidebar',
+          displayName: 'menu.sidebar',
+        },
+        {
           name: 'divider',
           displayName: 'menu.divider',
         },

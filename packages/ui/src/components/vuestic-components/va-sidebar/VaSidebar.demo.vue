@@ -46,6 +46,20 @@
         </va-sidebar>
       </div>
     </VbCard>
+    <VbCard title="minimized width" :state="{minimized: true}" #default="{state}">
+      <va-checkbox v-model="state.minimized" label="minimized" />
+      <br />
+      <div class="demo__sidebar-container-2x">
+        <va-sidebar :minimized="state.minimized" minimizedWidth="0">
+          <div>Item</div>
+          <div>Item</div>
+        </va-sidebar>
+        <va-sidebar :minimized="state.minimized" position="right" minimizedWidth="0">
+          <div>Item</div>
+          <div>Item</div>
+        </va-sidebar>
+      </div>
+    </VbCard>
     <VbCard title="hoverable">
       <div class="demo__sidebar-container-2x">
         <va-sidebar hoverable>

@@ -1,5 +1,5 @@
 <template>
-  <va-sidebar :minimized="minimized" class="sidebar" color="secondary">
+  <va-sidebar :minimized="minimized" class="sidebar" color="secondary" minimizedWidth="0">
     <va-search />
     <va-list class="sidebar__links">
       <va-expand-group v-model="value">

@@ -5,8 +5,7 @@
       class="base-layout__header"
     />
     <div class="base-layout__main">
-      <Sidebar v-if="isSidebarVisible" :minimized="!isSidebarVisible" :navigationRoutes="navigationRoutes" />
-      <!-- TODO: remove v-if when icon handling for sidebar is implemented -->
+      <Sidebar :minimized="!isSidebarVisible" :navigationRoutes="navigationRoutes"/>
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"

@@ -308,6 +308,15 @@
         "outlined": "Toggles shadow of `va-card`"
       }
     },
+    "VaSidebar": {
+      "props": {
+        "minimized": "Minimized state of sidebar.",
+        "hoverable": "Expand sidebar on hover",
+        "position": "Position of `va-sidebar`, can be `right` or `left`.",
+        "width": "Width of component in maximized state.",
+        "minimizedWidth": "Width of component in minimized state."
+      }
+    },
     "VaImage": {
       "props": {
         "ratio": "Width to height ratio.",
@@ -666,6 +675,7 @@
     "breadcrumbs": "Breadcrumbs",
     "badge": "Badge",
     "card": "Card",
+    "sidebar": "Sidebar",
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
@@ -1340,6 +1350,48 @@
         {
           "question": "Should I manually set tag if i use link attributes?",
           "answer": "No, we will do it for you. If tag is not set, but `href` is, component tag will be `<a>`, if any of router-link prop is set, it will be `<router-link>`."
+        }
+      ]
+    }
+  },
+  "sidebar": {
+    "title": "Sidebar",
+    "summaryText": "`va-sidebar` is a column to store navigation or secondary information of your app.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage of `va-sidebar`"
+      },
+      "minimized": {
+        "title": "Minimized",
+        "text": "You can minimize sidebar using `minimized` prop"
+      },
+      "hoverable": {
+        "title": "Hoverable",
+        "text": "Manage your sidebar state using `hoverable` prop. It allows to expand 'va-sidebar' on hover."
+      },
+      "position": {
+        "title": "Position",
+        "text": "Align `va-sidebar` to the left or right."
+      },
+      "width": {
+        "title": "Width",
+        "text": "Define custom width of sidebar in maximixed state."
+      },
+      "minimizedWidth": {
+        "title": "Minimized width",
+        "text": "Width of `va-sidebar` when minimized."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Change background color of a sidebar."
+      }
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "What if `minimized` conflicts with `hoverable`?",
+          "answer": "No conflict there, `minimized` has higher priority. If it's `true`, hover will not expand sidebar."
         }
       ]
     }
