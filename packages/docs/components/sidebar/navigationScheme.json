@@ -157,6 +157,10 @@
         {
           "name": "backtop",
           "displayName": "menu.backtop"
+        },
+        {
+          "name": "button-group",
+          "displayName": "menu.buttonGroup"
         }
       ]
     }

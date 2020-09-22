@@ -28,7 +28,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 export default class VaButtonGroup extends Vue {
   @Prop({
     type: String,
-    default: 'primary',
+    default: '',
   }) readonly color!: string
 
   // get computedClass () {
