@@ -755,6 +755,30 @@
         "default": "Slot for backtop content"
       }
     },
+    "VaButtonDropdown": {
+      "props": {
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
+        "value": "Sets a dropdown state",
+        "disableDropdown": "Disables the dropdown menu",
+        "disableButton": "Disables the button",
+        "round": "Sets the square style for a button",
+        "split": "Divides the button into two parts. This is useful when you have main action (button) and a number of secondary actions (icon + dropdown).",
+        "splitTo": "Sets a vue navigation link in a split component",
+        "splitHref": "Sets a native navigation link in a split component",
+        "icon": "Applies a custom icon in the dropdown section",
+        "leftIcon": "Applies a button left icon",
+        "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened",
+        "position": "Sets the position of the dropdown content"
+      },
+      "events": {
+        "click":"Emitted when user clicks on button",
+        "mainButtonClick":"Emitted when user clicks on main button in split component"
+      },
+      "methods": {},
+      "slots": {
+        "default": "Dropdown content slot"
+      }
+    },
     "VaColorPicker": {
       "props": {
         "value": "Current picked color"
@@ -954,6 +978,7 @@
     "datePicker": "Date Picker",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
+    "buttonDropdown": "Button Dropdown",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading",
     "installation": "Installation",
@@ -2660,11 +2685,11 @@
     "title": "What is Vuestic UI",
     "description": "Vuestic UI was created with the goal of making development easier and reducing the time spent creating your apps. We are designed the framework in such a way as to satisfy the most sophisticated design fantasies and also allow you to realize them. All this is possible thanks to a deep component customization system based on a two-level configuration.",
     "featuresOverview": "Features overview",
-    "vueThreeCompatible": "- Fully **Vue.js 3 compatible**",
+    "vueThreeCompatible": "- Fully **Vue.js 3 compatible**.",
     "featureRich": "- Contains a **50+ feature rich components** that could be used in any design solution.",
-    "configurable": "- Allows ** to configure components** globally via config and css variables.",
+    "configurable": "- Allows **to configure components** globally via config and css variables.",
     "responsive": "- Fully **responsive** and **supports modern browsers** (no IE11, sorry).",
-    "translatable": "- Integrates seamlessly with **i18n**"
+    "translatable": "- Integrates seamlessly with **i18n**."
   },
   "translation": {
     "title": "Translation",
@@ -2902,6 +2927,44 @@
       "shape": {
         "title": "Shape",
         "text": "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
+      }
+    }
+  },
+  "buttonDropdown": {
+    "title": "Button Dropdown",
+    "summaryText": "This is a button that displays drop-down content when clicked.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, wrap your content in `va-button-dropdown` component."
+      },
+      "split": {
+        "title": "Split",
+        "text": "You can split the button in two."
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "The `va-dropdown-button` can be colored."
+      },
+      "sizes": {
+        "title": "Sizes",
+        "text": "Component can apply button sizes."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can use the same styles as in `va-button`."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "The component can be disabled."
+      },
+      "icons": {
+        "title": "Icons",
+        "text": "You can set the dropdown icon."
+      },
+      "events": {
+        "title": "Events",
+        "text": "The `va-dropdown-button` can handle click events."
       }
     }
   }

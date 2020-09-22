@@ -96,6 +96,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.buttonToggle',
       },
       {
+        name: 'button-dropdown',
+        displayName: 'menu.buttonDropdown',
+      },
+      {
         name: 'icon',
         displayName: 'menu.icon',
       },
