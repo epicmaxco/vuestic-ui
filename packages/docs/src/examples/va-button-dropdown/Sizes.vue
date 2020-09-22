@@ -1,0 +1,16 @@
+<template>
+  <div>
+    <va-button-dropdown
+      size="small"
+      label="small"
+    >
+      Content
+    </va-button-dropdown>
+    <va-button-dropdown
+      size="large"
+      label="large"
+    >
+      Content
+    </va-button-dropdown>
+  </div>
+</template>

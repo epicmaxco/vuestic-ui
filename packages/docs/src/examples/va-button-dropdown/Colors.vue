@@ -1,0 +1,22 @@
+<template>
+  <div>
+    <va-button-dropdown
+      color="warning"
+      label="warning"
+    >
+      Content
+    </va-button-dropdown>
+    <va-button-dropdown
+      color="danger"
+      label="danger"
+    >
+      Content
+    </va-button-dropdown>
+    <va-button-dropdown
+      color="info"
+      label="info"
+    >
+      Content
+    </va-button-dropdown>
+  </div>
+</template>

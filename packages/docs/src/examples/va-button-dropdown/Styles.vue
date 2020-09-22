@@ -1,0 +1,22 @@
+<template>
+  <div>
+    <va-button-dropdown
+      outline
+      label="outline"
+    >
+      Content
+    </va-button-dropdown>
+    <va-button-dropdown
+      flat
+      label="flat"
+    >
+      Content
+    </va-button-dropdown>
+    <va-button-dropdown
+      :round="false"
+      label="square"
+    >
+      Content
+    </va-button-dropdown>
+  </div>
+</template>
