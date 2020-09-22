@@ -647,10 +647,9 @@
       }
     },
     "VaButtonGroup": {
-      "props": {},
-      "events": {},
-      "methods": {},
-      "slots": {}
+      "slots": {
+        "default": "Slot for buttons"
+      }
     }
   },
   "menu": {
@@ -1881,6 +1880,29 @@
     }
   },
   "buttonGroup": {
-    "title": "-- Here is the title --"
+    "title": "Button Group",
+    "summaryText": "It is a special component that wraps buttons and applies special styles to them.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, you need to wrap your buttons with a `va-button-group` component."
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "Component provides color to each child button."
+      },
+      "sizes": {
+        "title": "Colors",
+        "text": "You can set different sizes."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can set button styles."
+      },
+      "icons": {
+        "title": "Icons",
+        "text": "Looks good with icons provided to buttons."
+      }
+    }
   }
 }
