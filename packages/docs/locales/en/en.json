@@ -1887,6 +1887,22 @@
       "default": {
         "title": "Basic usage",
         "text": "By default, you need to provide an options object and v-model"
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "Applies color presets and HEX colors. Use `toggle-color` prop to set the color of the active button."
+      },
+      "sizes": {
+        "title": "Sizes",
+        "text": "You can provide size presets to the component."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can sets a button styles to the component."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "The component can be disabled."
       }
     }
   }
