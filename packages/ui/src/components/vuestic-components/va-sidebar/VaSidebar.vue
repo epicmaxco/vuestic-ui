@@ -17,6 +17,7 @@ import { Mixins, Component } from 'vue-property-decorator'
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 const SidebarPropsMixin = makeContextablePropsMixin({
   minimized: { type: Boolean, default: false },
@@ -24,12 +25,14 @@ const SidebarPropsMixin = makeContextablePropsMixin({
   position: { type: String, default: 'left' },
   width: { type: String, default: '16rem' },
   minimizedWidth: { type: String, default: '4rem' },
+  value: { type: Boolean, default: true },
 })
 
 @Component({
   name: 'VaSidebar',
 })
 export default class VaSidebar extends Mixins(
+  StatefulMixin,
   ColorThemeMixin,
   SidebarPropsMixin,
 ) {
@@ -42,8 +45,15 @@ export default class VaSidebar extends Mixins(
   get computedStyle () {
     return {
       backgroundImage: getGradientBackground(this.colorComputed),
-      width: this.isMinimized ? this.c_minimizedWidth : this.c_width,
+      width: this.computedWidth,
     }
+  }
+
+  get computedWidth () {
+    if (!this.value) {
+      return 0
+    }
+    return this.isMinimized ? this.c_minimizedWidth : this.c_width
   }
 
   get computedClass () {
@@ -64,12 +74,9 @@ export default class VaSidebar extends Mixins(
 @import "../../vuestic-sass/resources/resources";
 
 .va-sidebar {
-  // min-height: $sidebar-viewport-min-height;
   min-height: 100%;
   height: $sidebar-viewport-height;
   position: absolute;
-  // width: $sidebar-width;
-  // top: $top-nav-height;
   top: 0;
   left: 0;
   transition: all 0.3s ease;
@@ -77,16 +84,10 @@ export default class VaSidebar extends Mixins(
   &__menu {
     max-height: 100%;
     margin-bottom: 0;
-    // padding-top: 2.5625rem;
-    // padding-bottom: 2.5rem;
     list-style: none;
     padding-left: 0;
     overflow-y: auto;
     overflow-x: hidden;
-  }
-
-  @include media-breakpoint-down(sm) {
-    // top: $sidebar-mobile-top;
   }
 
   @include media-breakpoint-down(xs) {
@@ -95,7 +96,6 @@ export default class VaSidebar extends Mixins(
 
   &--minimized {
     left: 0;
-    // width: 4rem;
 
     .va-sidebar-link-group {
       .va-sidebar-link__content {

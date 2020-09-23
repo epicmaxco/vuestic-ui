@@ -5,7 +5,7 @@
       class="base-layout__header"
     />
     <div class="base-layout__main">
-      <Sidebar :minimized="!isSidebarVisible" :navigationRoutes="navigationRoutes"/>
+      <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes"/>
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"

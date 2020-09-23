@@ -101,6 +101,18 @@ export default [
     component: 'va-sidebar/Hoverable',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'sidebar.examples.vModel.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'sidebar.examples.vModel.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-sidebar/VModel',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },

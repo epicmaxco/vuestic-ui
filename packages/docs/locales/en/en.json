@@ -311,10 +311,11 @@
     "VaSidebar": {
       "props": {
         "minimized": "Minimized state of sidebar.",
-        "hoverable": "Expand sidebar on hover",
+        "hoverable": "Expand sidebar on hover.",
         "position": "Position of `va-sidebar`, can be `right` or `left`.",
         "width": "Width of component in maximized state.",
-        "minimizedWidth": "Width of component in minimized state."
+        "minimizedWidth": "Width of component in minimized state.",
+        "value": "The current visibility state of `va-sidebar`."
       }
     },
     "VaImage": {
@@ -1377,6 +1378,10 @@
       "width": {
         "title": "Width",
         "text": "Define custom width of sidebar in maximixed state."
+      },
+      "vModel": {
+        "title": "V-model",
+        "text": "Use v-model to enable/disable `va-sidebar`."
       },
       "minimizedWidth": {
         "title": "Minimized width",

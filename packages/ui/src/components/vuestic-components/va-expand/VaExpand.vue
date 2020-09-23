@@ -183,11 +183,9 @@ export default class VaExpand extends Mixins(
   transition: all 0.3s linear;
 
   &__body {
-    // height: 0;
     transition: linear 0.3s;
     overflow: hidden;
     margin-top: 0.1rem;
-    // padding: 1rem 0;
   }
 
   &__header {

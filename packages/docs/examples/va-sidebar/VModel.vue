@@ -3,8 +3,8 @@
     style="position: relative; height: 10rem; width: 100%; border: 2px solid black;"
     class="row"
   >
-  <va-checkbox v-model="minimized" style="margin-left: 20rem;" label="Minimized"/>
-    <va-sidebar :minimized="minimized">
+  <va-checkbox v-model="enabled" style="margin-left: 20rem;" label="Enabled"/>
+    <va-sidebar v-model="enabled">
       <ul style="color: white;">
         <li><span>item</span></li>
         <li><span>item</span></li>
@@ -20,7 +20,7 @@
 export default {
   data () {
     return {
-      minimized: false,
+      enabled: true,
     }
   },
 }

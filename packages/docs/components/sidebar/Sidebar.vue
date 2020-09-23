@@ -1,8 +1,8 @@
 <template>
-  <va-sidebar :minimized="minimized" class="sidebar" color="secondary" minimizedWidth="0">
+  <va-sidebar class="sidebar" color="secondary" v-model="minimized">
     <va-search />
     <va-list class="sidebar__links">
-      <va-expand-group v-model="value">
+      <va-expand-group v-model="value" multiply>
         <va-expand
           v-for="(route, key) in navigationRoutes"
           :key="key"
@@ -59,10 +59,14 @@ import VaSearch from './va-sidebar/VaSearch.vue'
   components: { VaSearch },
 })
 export default class Sidebar extends Vue {
-  value = []
+  value = [] as Array<boolean|undefined>
 
   @Prop({ type: Array }) readonly navigationRoutes!: NavigationRoute[]
   @Prop({ type: Boolean, default: false }) readonly minimized!: boolean
+
+  mounted () {
+    this.value = this.navigationRoutes.map((route, index) => this.value[index] || route?.children?.some(({ name }) => this.$router.currentRoute.name?.includes(name)))
+  }
 }
 </script>
 
@@ -74,7 +78,6 @@ export default class Sidebar extends Vue {
 
   &__links {
     background-color: inherit;
-    // max-height: calc(100vh - 1rem);
     padding-bottom: 1rem;
     padding-top: 0;
   }

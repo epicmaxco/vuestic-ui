@@ -17,10 +17,8 @@ export default {
     minimizedWidth: {
       local: true,
     },
-  },
-  events: {
-    click: {
-      types: 'Event',
+    value: {
+      local: true,
     },
   },
 } as ManualApiOptions
