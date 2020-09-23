@@ -647,8 +647,15 @@
       }
     },
     "VaButtonToggle": {
-      "props": {},
-      "events": {},
+      "props": {
+        "options": "The array of objects with `label` and `value` properties",
+        "value": "Current toggle state",
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
+        "toggleColor": "Color of the toggle button"
+      },
+      "events": {
+        "input":"Emits when toggling to the different button"
+      },
       "methods": {},
       "slots": {}
     }
