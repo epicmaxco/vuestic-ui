@@ -27,8 +27,9 @@ import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
 
 import { getGradientBackground } from '../../../services/color-functions'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 
-const ButtonTogglePropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeContextablePropsMixin({
   options: { type: Array, default: () => [] },
   value: { type: [String, Number], default: '' },
   outline: { type: Boolean, default: false },
@@ -41,7 +42,6 @@ const ButtonTogglePropsMixin = makeContextablePropsMixin({
       return ['medium', 'small', 'large'].includes(value)
     },
   },
-  color: { type: String, default: 'success' },
   toggleColor: { type: String, default: '' },
 })
 
@@ -53,10 +53,11 @@ const ButtonTogglePropsMixin = makeContextablePropsMixin({
   },
 })
 export default class VaButtonToggle extends Mixins(
-  ButtonTogglePropsMixin,
+  ColorThemeMixin,
+  PropsMixin,
 ) {
   buttonColor (buttonValue: any) {
-    return buttonValue === this.c_value && this.c_toggleColor ? this.c_toggleColor : this.c_color
+    return buttonValue === this.c_value && this.c_toggleColor ? getColor(this, this.c_toggleColor) : this.colorComputed
   }
 
   buttonStyle (buttonValue: any) {
@@ -66,13 +67,14 @@ export default class VaButtonToggle extends Mixins(
 
     if (this.c_outline || this.c_flat) {
       return {
-        backgroundColor: (this as any).$themes[this.c_toggleColor ? this.c_toggleColor : this.c_color],
+        backgroundColor: this.c_toggleColor ? getColor(this, this.c_toggleColor) : this.colorComputed,
         color: '#ffffff',
       }
     } else {
       return {
-        backgroundColor: getGradientBackground((this as any).$themes[this.c_color]),
+        backgroundColor: getGradientBackground(this.colorComputed),
         filter: 'brightness(85%)',
+        boxShadow: 'none',
       }
     }
   }

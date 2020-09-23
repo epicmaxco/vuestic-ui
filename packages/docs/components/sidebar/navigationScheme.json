@@ -157,6 +157,10 @@
         {
           "name": "backtop",
           "displayName": "menu.backtop"
+        },
+        {
+          "name": "button-toggle",
+          "displayName": "menu.buttonToggle"
         }
       ]
     }
