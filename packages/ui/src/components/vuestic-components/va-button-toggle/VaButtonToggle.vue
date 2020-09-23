@@ -5,10 +5,11 @@
         v-for="option in options"
         :key="option.value"
         :style="buttonStyle(option.value)"
-        :outline="outline"
-        :flat="flat"
-        :disabled="disabled"
-        :size="size"
+        :outline="c_outline"
+        :flat="c_flat"
+        :round="c_round"
+        :disabled="c_disabled"
+        :size="c_size"
         :color="buttonColor(option.value)"
         :class="buttonClass(option.value)"
         @click="changeValue(option.value)"
@@ -34,6 +35,7 @@ const PropsMixin = makeContextablePropsMixin({
   value: { type: [String, Number], default: '' },
   outline: { type: Boolean, default: false },
   flat: { type: Boolean, default: false },
+  round: { type: Boolean, default: true },
   disabled: { type: Boolean, default: false },
   size: {
     type: String,

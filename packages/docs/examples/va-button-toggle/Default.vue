@@ -1,7 +1,11 @@
 <template>
   <va-button-toggle
     v-model="model"
-    :options="options"
+    :options="[
+        { label: 'One', value: 'one' },
+        { label: 'Two', value: 'two' },
+        { label: 'Three', value: 'three' },
+      ]"
   />
 </template>
 
@@ -9,11 +13,6 @@
 export default {
   data () {
     return {
-      options: [
-        { label: 'One', value: 'one' },
-        { label: 'Two', value: 'two' },
-        { label: 'Three', value: 'three' },
-      ],
       model: 'two',
     }
   },

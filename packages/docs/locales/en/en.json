@@ -1881,6 +1881,13 @@
     }
   },
   "buttonToggle": {
-    "title": "-- Here is the title --"
+    "title": "Button Toggle",
+    "summaryText": "Button to switch between different values.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, you need to provide an options object and v-model"
+      }
+    }
   }
 }
