@@ -1,9 +1,16 @@
-import VaDatePicker from './VaDatePicker'
-import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
-import iconsFrameworkConfig
-  from '../../context-test/context-provide/context/va-icons-framework-config'
+import { mount } from '@vue/test-utils'
+
+import VaDatePicker from '../VaDatePicker.vue'
+import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+// @ts-ignore
+import iconsFrameworkConfig from '../../../context-test/context-provide/context/va-icons-framework-config'
 
 describe('VaDatePicker', () => {
+  it('should render without an error', () => {
+    // TODO: Fix icon config
+    // const wrapper = mount(VaDatePicker)
+    // expect(wrapper.isVueInstance()).toBeTruthy()
+  })
   it('is contextable', () => {
     const props = {
       value: null,

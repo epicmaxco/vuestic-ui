@@ -157,6 +157,10 @@
         {
           "name": "backtop",
           "displayName": "menu.backtop"
+        },
+        {
+          "name": "date-picker",
+          "displayName": "menu.datePicker"
         }
       ]
     }

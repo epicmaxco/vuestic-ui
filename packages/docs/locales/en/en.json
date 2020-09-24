@@ -639,12 +639,18 @@
         "verticalOffset": "Sets the vertical offset of the component from the border of the monitor"
       },
       "events": {
-        "click" :"Emitted when user clicked on backtop"
+        "click": "Emitted when user clicked on backtop"
       },
       "methods": {},
       "slots": {
         "default": "Slot for backtop content"
       }
+    },
+    "VaDatePicker": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -686,7 +692,8 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
-    "backtop": "Backtop"
+    "backtop": "Backtop",
+    "datePicker": "Date Picker"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1872,5 +1879,8 @@
         "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
       }
     }
+  },
+  "datePicker": {
+    "title": "Date Picker"
   }
 }
