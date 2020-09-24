@@ -8,7 +8,7 @@
       <va-icon
         spin
         :color="c_color"
-        :size="c_iconSize"
+        :size="c_size"
         :name="c_icon"
         class="inner-loading__spinner"
       />
@@ -27,7 +27,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 const PropsMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
   icon: { type: String, default: 'loop' },
-  iconSize: { type: Number, default: 30 },
+  size: { type: Number, default: 30 },
 })
 
 @Component({
