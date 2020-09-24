@@ -8,5 +8,6 @@ export default {
   methods: {
   },
   slots: {
+    default: { local: true },
   },
 } as ManualApiOptions
