@@ -110,9 +110,14 @@
       "methods": {},
       "slots": {}
     },
-    "VaParallax": {
-    },
+    "VaParallax": {},
     "VaBacktop": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaInnerLoading": {
       "props": {},
       "events": {},
       "methods": {},
@@ -127,7 +132,6 @@
     "hover": "Hover",
     "checkbox": "Checkbox",
     "image": "Image",
-    "checkbox": "Checkbox",
     "alert": "Alert",
     "icon": "Icon",
     "expand": "Expand",
@@ -138,7 +142,8 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
-    "backtop": "Backtop"
+    "backtop": "Backtop",
+    "innerLoading": "Inner Loading"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -155,16 +160,13 @@
   "checkbox": {
     "title": "-- Here is the title --"
   },
-  "divider": {
-    "title": "-- Here is the title --"
-  },
+  "divider": {},
   "progressBar": {
     "title": "-- Here is the title --"
   },
   "progressCircle": {
     "title": "-- Here is the title --"
   },
-  "divider": {},
   "alert": {
     "title": "-- Here is the title --"
   },
@@ -192,9 +194,11 @@
   "select": {
     "title": "-- Here is the title --"
   },
-  "parallax": {
-  },
+  "parallax": {},
   "backtop": {
+    "title": "-- Here is the title --"
+  },
+  "innerLoading": {
     "title": "-- Here is the title --"
   }
 }

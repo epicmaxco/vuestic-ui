@@ -157,6 +157,10 @@
         {
           "name": "backtop",
           "displayName": "menu.backtop"
+        },
+        {
+          "name": "inner-loading",
+          "displayName": "menu.innerLoading"
         }
       ]
     }
