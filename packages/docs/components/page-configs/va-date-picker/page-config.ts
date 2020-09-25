@@ -89,18 +89,6 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'datePicker.examples.range.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'datePicker.examples.range.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-date-picker/Range',
-  },
-  {
-    type: BlockType.HEADLINE,
     translationString: 'datePicker.examples.dayTime.title',
   },
   {
@@ -110,6 +98,18 @@ export default [
   {
     type: BlockType.EXAMPLE,
     component: 'va-date-picker/DayTime',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'datePicker.examples.range.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'datePicker.examples.range.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-date-picker/Range',
   },
   {
     type: BlockType.HEADLINE,
