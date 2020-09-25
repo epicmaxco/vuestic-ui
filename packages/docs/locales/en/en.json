@@ -647,7 +647,12 @@
       }
     },
     "VaDatePicker": {
-      "props": {},
+      "props": {
+        "value": "Sets the input value",
+        "weekDays": "Adds days to the table",
+        "placeholder": "Sets input placeholder",
+        "config": "Object with settings for date picker"
+      },
       "events": {},
       "methods": {},
       "slots": {}
