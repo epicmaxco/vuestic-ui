@@ -729,46 +729,53 @@
   },
   "documentationPage": {
     "title": "Documentation Page",
-    "description": "It's documentation to work with a documentation engine. Try to use script `generate:component` to generate required files: [api-options](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/api-options.ts) and [page-config](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/docs/components/page-configs/va-button/page-config.ts). It will allow you to skip unnecessary steps and simplify you to create docs.",
-    "pageConfigTitle": "Page Config",
-    "pageConfigText": "Page config allows you to build an documentation page. Commonly documentation page is an array of blocks.",
+    "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
+    "introduction": {
+      "title": "Introduction",
+      "description": "Instead of using established documentation system, such as [vue-press](https://vuepress.vuejs.org/) or [docsify](https://docsify.js.org/#/), we decided to create a system specifically tailored for Vuestic. It's meant to provide an excellent flexibility for future growth."
+    },
+    "pageConfig": {
+      "title": "Page Config",
+      "generate": "If you're trying to document a component from the scratch - use `yarn generate:component` command, which will guide through the process.",
+      "description": "Documentation is using a flat structure - list of blocks. In all text blocks markdown is supported. Here's the blocks you can use:"
+    },
     "blocktypes": {
       "title": {
         "title": "Title",
-        "text": "This block used once per page to describe what the page is about."
+        "text": "Page title is mandatory for documentation pages."
       },
       "subtitle": {
         "title": "Subtitle",
-        "text": "This block used to mark parts of the page: Examples, API and FAQ."
+        "text": "Used for: Examples, API, FAQ. Think `h2`."
       },
       "headline": {
         "title": "Headline",
-        "text": "This block used to mark titles of examples or to FAQ questions."
+        "text": "This block used to mark titles of examples or to FAQ questions. Think `h3`."
       },
       "paragraph": {
         "title": "Paragraph",
-        "text": "This block used to any description text or to answers in FAQ block."
-      },
-      "example": {
-        "title": "Example",
-        "text": "This block used to provide vue example component to the docs page."
+        "text": "Should be used for all non-special text blocks."
       },
       "code": {
         "title": "Code",
-        "text": "This block used to provide code to the docs page."
+        "text": "Code preview. We use [prism](https://prismjs.com/)."
+      },
+      "example": {
+        "title": "Example",
+        "text": "Shows a component with code preview. Component can use all global services: css classes, colors etc."
       },
       "api": {
         "title": "API",
-        "text": "This block used to provide API of the component to the docs page."
+        "text": "API documentation for component. Combines component options with manual declarations."
       }
     },
     "apiOptionsTitle": "API Options",
     "apiOptions": {
-      "text": "This object allows you to configure API: version, props, events, methods and slots.",
-      "version": "`version` - to describe the version of vuestic-ui in which this parameter was or will be implemented.",
-      "types": "`types` - to describe custom types to parameter.",
-      "local": "`local` - this flag allows to use component's own translation of the parameter. By default uses 'all' section of the translation object.",
-      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page."
+      "text": "With automated code analysis we can't go too far. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
+      "version": "`version` - specifies at which version of vuestic this component or feature were implemented.",
+      "types": "`types` - simpler prop types documentation engine can figure from component options (`String`, `Number` etc). For almost everything else it has to be defined.",
+      "local": "`local` - forces to use component-specific translation. Default behaviour is using 'all' section of the translation object.",
+      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. As some props could be intended for internal use."
     }
   },
   "avatar": {

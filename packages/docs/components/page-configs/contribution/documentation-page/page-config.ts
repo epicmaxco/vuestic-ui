@@ -1,114 +1,46 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import blocktypes from './block-types'
+import { blocktypes } from './block-types'
 import apiOptions from './api-options'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'documentationPage.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'documentationPage.description',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'documentationPage.pageConfigTitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'documentationPage.pageConfigText',
-  },
-  // title
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'documentationPage.blocktypes.title.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'documentationPage.blocktypes.title.text',
-  },
-  {
-    type: BlockType.CODE,
-    code: blocktypes.title,
-  },
-  // subtitle
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'documentationPage.blocktypes.subtitle.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'documentationPage.blocktypes.subtitle.text',
-  },
-  {
-    type: BlockType.CODE,
-    code: blocktypes.subtitle,
-  },
-  // headline
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'documentationPage.blocktypes.headline.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'documentationPage.blocktypes.headline.text',
-  },
-  {
-    type: BlockType.CODE,
-    code: blocktypes.headline,
-  },
-  // paragraph
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'documentationPage.blocktypes.paragraph.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'documentationPage.blocktypes.paragraph.text',
-  },
-  {
-    type: BlockType.CODE,
-    code: blocktypes.paragraph,
-  },
-  // example
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'documentationPage.blocktypes.example.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'documentationPage.blocktypes.example.text',
-  },
-  {
-    type: BlockType.CODE,
-    code: blocktypes.example,
-  },
-  // code
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'documentationPage.blocktypes.code.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'documentationPage.blocktypes.code.text',
-  },
-  {
-    type: BlockType.CODE,
-    code: blocktypes.code,
-  },
-  // api
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'documentationPage.blocktypes.api.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'documentationPage.blocktypes.api.text',
-  },
-  {
-    type: BlockType.CODE,
-    code: blocktypes.api,
-  },
+  DocsHelper.title('documentationPage.title'),
+  DocsHelper.paragraph('documentationPage.description'),
+
+  DocsHelper.headline('documentationPage.introduction.title'),
+  DocsHelper.paragraph('documentationPage.introduction.description'),
+
+  DocsHelper.subtitle('documentationPage.pageConfig.title'),
+  DocsHelper.paragraph('documentationPage.pageConfig.generate'),
+  DocsHelper.paragraph('documentationPage.pageConfig.description'),
+
+  DocsHelper.headline('documentationPage.blocktypes.title.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.title.text'),
+  DocsHelper.code(blocktypes.title),
+
+  DocsHelper.headline('documentationPage.blocktypes.subtitle.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.subtitle.text'),
+  DocsHelper.code(blocktypes.subtitle),
+
+  DocsHelper.headline('documentationPage.blocktypes.headline.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.headline.text'),
+  DocsHelper.code(blocktypes.headline),
+
+  DocsHelper.headline('documentationPage.blocktypes.paragraph.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.paragraph.text'),
+  DocsHelper.code(blocktypes.paragraph),
+
+  DocsHelper.headline('documentationPage.blocktypes.code.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.code.text'),
+  DocsHelper.code(blocktypes.code),
+
+  DocsHelper.headline('documentationPage.blocktypes.example.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.example.text'),
+  DocsHelper.code(blocktypes.example),
+
+  DocsHelper.headline('documentationPage.blocktypes.api.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.api.text'),
+  DocsHelper.code(blocktypes.api),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'documentationPage.apiOptionsTitle',
