@@ -59,13 +59,13 @@ import VaSearch from './va-sidebar/VaSearch.vue'
   components: { VaSearch },
 })
 export default class Sidebar extends Vue {
-  value = [] as Array<boolean|undefined>
+  value = [] as Array<boolean>
 
-  @Prop({ type: Array }) readonly navigationRoutes!: NavigationRoute[]
+  @Prop({ type: Array, default: () => [] }) readonly navigationRoutes!: NavigationRoute[]
   @Prop({ type: Boolean, default: false }) readonly minimized!: boolean
 
   mounted () {
-    this.value = this.navigationRoutes.map((route, index) => this.value[index] || route?.children?.some(({ name }) => this.$router.currentRoute.name?.includes(name)))
+    this.value = this.navigationRoutes.map((route, index) => this.value[index] || !!route.children?.some(({ name }) => this.$router.currentRoute.name?.includes(name)))
   }
 }
 </script>

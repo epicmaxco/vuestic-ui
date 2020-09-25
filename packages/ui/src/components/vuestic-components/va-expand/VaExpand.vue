@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="va-expand"
-    :class="computedClasses"
-  >
+  <div class="va-expand" :class="computedClasses">
     <div
       class="va-expand__header"
       @click="changeValue()"
@@ -13,10 +10,7 @@
       @blur="isKeyboardFocused = false"
     >
       <slot name="header">
-        <div
-          class="va-expand__header__content"
-          :style="contentStyle"
-        >
+        <div class="va-expand__header__content" :style="contentStyle">
           <va-icon
             v-if="c_icon"
             class="va-expand__header__icon"
@@ -24,7 +18,7 @@
             :color="c_textColor"
           />
           <div class="va-expand__header__text">
-            {{c_header}}
+            {{ c_header }}
           </div>
           <va-icon
             class="va-expand__header__icon"
@@ -34,30 +28,23 @@
         </div>
       </slot>
     </div>
-    <div
-      class="va-expand__body"
-      :style="stylesComputed"
-      ref="body"
-    >
+    <div class="va-expand__body" :style="stylesComputed" ref="body">
       <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Inject } from 'vue-property-decorator'
+import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
-import {
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import {
-  getHoverColor,
-} from '../../../services/color-functions'
+import { getHoverColor } from '../../../services/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import { VNode } from 'vue'
 
 const ExpandPropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: false },
@@ -134,18 +121,19 @@ export default class VaExpand extends Mixins(
     if (this.childValue && this.$slots.default?.[0]) {
       return {
         height: this.height,
-        background: this.c_color && this.c_colorAll
-          ? getHoverColor(this.colorComputed)
-          : '',
+        background:
+          this.c_color && this.c_colorAll
+            ? getHoverColor(this.colorComputed)
+            : '',
       }
     }
     return {
-      display: 'none',
+      height: 0,
     }
   }
 
   get expandIndexComputed () {
-    return (this.c_disabled) ? -1 : 0
+    return this.c_disabled ? -1 : 0
   }
 
   onFocus () {
@@ -159,11 +147,35 @@ export default class VaExpand extends Mixins(
   }
 
   getHeight () {
-    const node = this.$slots.default?.[0].elm as HTMLElement
-    return node ? `calc(${node.clientHeight}px + 2rem)` : '100%'
+    const node = [...((this.$refs.body as any)?.childNodes || [])]
+    return node.reduce((result: number, node: HTMLElement) => {
+      // handling text nodes height
+      result += node.nodeType === 3 ? this.getTextNodeHeight(node) : node.clientHeight
+      return result
+    }, 0) + 'px'
   }
 
-  mount () {
+  getTextNodeHeight (textNode: Node) {
+    let height = 0
+    if (document.createRange) {
+      const range = document.createRange()
+      range.selectNodeContents(textNode)
+      if (range.getBoundingClientRect) {
+        const rect = range.getBoundingClientRect()
+        if (rect) {
+          height = rect.bottom - rect.top
+        }
+      }
+    }
+    return height
+  }
+
+  @Watch('childValue')
+  onChildValueChange () {
+    this.height = this.getHeight()
+  }
+
+  mounted () {
     this.mutationObserver = new MutationObserver(() => {
       this.height = this.getHeight()
     })
@@ -183,7 +195,7 @@ export default class VaExpand extends Mixins(
   transition: all 0.3s linear;
 
   &__body {
-    transition: linear 0.3s;
+    transition: height linear 0.3s;
     overflow: hidden;
     margin-top: 0.1rem;
   }
