@@ -2,6 +2,8 @@
 
 'use strict'
 
+import { PlopGeneratorConfig } from 'node-plop'
+
 module.exports = {
   description: 'Generate boilerplate for component. Includes: component file, specs, demo, documentation page.',
   prompts: [
@@ -18,7 +20,7 @@ module.exports = {
       },
     },
   ],
-  actions: data => {
+  actions: () => {
     const actions = []
 
     actions.push({
@@ -94,4 +96,4 @@ module.exports = {
 
     return actions
   },
-}
+} as PlopGeneratorConfig

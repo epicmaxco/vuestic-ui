@@ -161,6 +161,7 @@ export const navigationScheme: NavigationScheme = {
           name: 'infinite-scroll',
           displayName: 'menu.infiniteScroll',
         },
+        // GENERATOR_ADD Do no remove this comment as `yarn generate:component` adds routes here.
       ],
     },
   ],
