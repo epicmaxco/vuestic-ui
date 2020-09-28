@@ -157,6 +157,10 @@
         {
           "name": "backtop",
           "displayName": "menu.backtop"
+        },
+        {
+          "name": "toast",
+          "displayName": "menu.toast"
         }
       ]
     }
