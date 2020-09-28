@@ -841,6 +841,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaToast": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -912,7 +918,15 @@
     "browsersList": "Browsers List",
     "overview": "Overview",
     "translation": "Translation",
-    "browserSupport": "Browser Support"
+    "browserSupport": "Browser Support",
+    "backtop": "Backtop",
+    "toast": "Toast"
+  },
+  "language": {
+    "brazilian_portuguese": "Português",
+    "english": "English",
+    "spanish": "Spanish",
+    "simplified_chinese": "Simplified Chinese"
   },
   "all": {
     "examples": "Examples",
@@ -2359,5 +2373,8 @@
   },
   "translation": {
     "title": "Work In Progress"
+  },
+  "toast": {
+    "title": "-- Here is the title --"
   }
 }

@@ -205,6 +205,12 @@
       "methods": {},
       "slots": {}
     },
+    "VaToast": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaColorPicker": {
       "props": {},
       "events": {},
@@ -290,7 +296,6 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
-    "backtop": "Backtop",
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
@@ -306,7 +311,15 @@
     "configurationGuide": "Configuration Guide",
     "overview": "Overview",
     "translation": "Translation",
-    "browserSupport": "Browser Support"
+    "browserSupport": "Browser Support",
+    "backtop": "Backtop",
+    "toast": "Toast"
+  },
+  "language": {
+    "brazilian_portuguese": "Português",
+    "english": "English",
+    "spanish": "Spanish",
+    "simplified_chinese": "Versión abreviada"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -402,5 +415,8 @@
   },
   "translation": {
     "title": "Trabajo En Progreso"
+  },
+  "toast": {
+    "title": "-- Here is the title --"
   }
 }
