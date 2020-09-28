@@ -1881,6 +1881,29 @@
     }
   },
   "toast": {
-    "title": "-- Here is the title --"
+    "title": "Toast",
+    "summaryText": "Component for sending a notification to the user.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, run this component in events by using the `init` method with a setting object."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
+      },
+      "offset": {
+        "title": "Offset",
+        "text": "Use `offset` property to set the offset of the toast."
+      },
+      "position": {
+        "title": "Position",
+        "text": "Use `position` property to set the custom position of the toast. Available are `top-right`, `top-left`, `bottom-right`, `bottom-left`."
+      },
+      "close": {
+        "title": "Close",
+        "text": "You can use close methods to close the notification and you can set custom onClose event."
+      }
+    }
   }
 }
