@@ -1,9 +1,9 @@
 <template>
   <div>
-    <button @click="$vaToast.init({
-      message: 'Custom position (bottom-left)',
+    <va-button @click="$vaToast.init({
+      message: 'Notification with onClick handler',
       onClick: clickHandler
-    })">notification with custom onClick handler</button>
+    })">notification with custom onClick handler</va-button>
   </div>
 </template>
 
