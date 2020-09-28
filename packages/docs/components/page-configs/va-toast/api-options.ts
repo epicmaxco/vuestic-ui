@@ -2,6 +2,18 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export default {
   props: {
+    title: { local: true },
+    offsetY: { local: true },
+    offsetX: { local: true },
+    message: { local: true },
+    iconClass: { local: true },
+    customClass: { local: true },
+    duration: { local: true },
+    closeable: { local: true },
+    // dangerouslyUseHtmlString: { local: true },
+    onClose: { local: true },
+    onClick: { local: true },
+    position: { local: true },
   },
   events: {
   },
