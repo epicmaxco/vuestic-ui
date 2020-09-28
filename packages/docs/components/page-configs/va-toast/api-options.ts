@@ -6,7 +6,7 @@ export default {
     offsetY: { local: true },
     offsetX: { local: true },
     message: { local: true },
-    iconClass: { local: true },
+    icon: { local: true },
     customClass: { local: true },
     duration: { local: true },
     closeable: { local: true },
