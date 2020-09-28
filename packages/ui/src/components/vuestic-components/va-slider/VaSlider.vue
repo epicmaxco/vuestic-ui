@@ -53,7 +53,7 @@
         <div
           ref="process"
           class="va-slider__track va-slider__track--selected"
-          :class="{'va-slider__track--active': hasMouseDown}"
+          :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
           @mousedown="moveStart($event, null)"
         />
@@ -64,8 +64,8 @@
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
           @touchstart="moveStart($event, 0)"
-          @focus="KeyboardOnlyFocusMixin_onFocus($event, 1), currentSlider = 0"
-          @blur="isKeyboardFocused = false"
+          @focus="isFocused = true, currentSlider = 0"
+          @blur="isFocused = false"
           :tabindex="(!disabled && !readonly) && 0"
         >
           <div
@@ -88,8 +88,8 @@
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
           @touchstart="moveStart($event, 1)"
-          @focus="KeyboardOnlyFocusMixin_onFocus($event, 2), currentSlider = 1"
-          @blur="isKeyboardFocused = false"
+          @focus="isFocused = true, currentSlider = 1"
+          @blur="isFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
           <div
@@ -110,7 +110,7 @@
         <div
           ref="process"
           class="va-slider__track va-slider__track--selected"
-          :class="{'va-slider__track--active': hasMouseDown}"
+          :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
           @mousedown="moveStart($event, 0)"
         />
@@ -121,8 +121,8 @@
           :style="dottedStyles"
           @mousedown="(moveStart(), setMouseDown())"
           @touchstart="moveStart()"
-          @focus="onFocus"
-          @blur="isKeyboardFocused = false"
+          @focus="isFocused = true"
+          @blur="isFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
           <div
@@ -179,7 +179,6 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import { getHoverColor } from '../../../services/color-functions'
 import { validateSlider } from './validateSlider'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import {
   ContextPluginMixin,
   makeContextablePropsMixin,
@@ -213,10 +212,10 @@ const SliderPropsMixin = makeContextablePropsMixin({
 })
 export default class VaSlider extends Mixins(
   ColorThemeMixin,
-  KeyboardOnlyFocusMixin,
   ContextPluginMixin,
   SliderPropsMixin,
 ) {
+  isFocused = false
   flag = false
   size = 0
   currentValue = this.value
@@ -234,7 +233,7 @@ export default class VaSlider extends Mixins(
 
   get sliderClass () {
     return {
-      'va-slider--active': this.hasMouseDown,
+      'va-slider--active': this.isFocused,
       'va-slider--disabled': this.disabled,
       'va-slider--readonly': this.readonly,
       'va-slider--horizontal': !this.vertical,
@@ -245,14 +244,14 @@ export default class VaSlider extends Mixins(
   get dotClass () {
     if (this.range) {
       return [
-        { 'va-slider__handler--inactive': !this.hasMouseDown },
-        { 'va-slider__handler--inactive': !this.hasMouseDown },
+        { 'va-slider__handler--inactive': !this.isFocused },
+        { 'va-slider__handler--inactive': !this.isFocused },
       ]
     }
 
     return {
-      'va-slider__handler--on-focus': !this.range && (this.flag || this.isKeyboardFocused),
-      'va-slider__handler--inactive': !this.hasMouseDown,
+      'va-slider__handler--on-focus': !this.range && (this.flag || this.isFocused),
+      'va-slider__handler--inactive': !this.isFocused,
     }
   }
 
@@ -403,10 +402,6 @@ export default class VaSlider extends Mixins(
     }
   }
 
-  onFocus () {
-    this.KeyboardOnlyFocusMixin_onFocus()
-  }
-
   bindEvents () {
     document.addEventListener('mousemove', this.moving)
     document.addEventListener('touchmove', this.moving)
@@ -428,7 +423,7 @@ export default class VaSlider extends Mixins(
   }
 
   isActiveDot (index: number) {
-    if ((!this.isKeyboardFocused && !this.flag) || this.disabled || this.readonly) {
+    if ((!this.isFocused && !this.flag) || this.disabled || this.readonly) {
       return false
     }
 
