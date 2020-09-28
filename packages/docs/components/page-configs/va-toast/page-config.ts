@@ -76,6 +76,18 @@ export default [
     component: 'va-toast/Close',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'toast.examples.click.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'toast.examples.click.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-toast/Click',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
