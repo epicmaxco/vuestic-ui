@@ -1,11 +1,11 @@
 <template>
   <div>
-    <button @click="$vaToast.init({
-      message: 'Custom position (bottom-left)',
+    <va-button @click="$vaToast.init({
+      message: 'Notification with onClose handler',
       onClose: () => closeHandler
-    })">notification with custom onClose handler</button>
-    <button @click="$vaToast.close('notification_4')">Close #4 toast</button>
-    <button @click="$vaToast.closeAll()">Close all toasts</button>
+    })">notification with custom onClose handler</va-button>
+    <va-button @click="$vaToast.close('notification_4')">Close #4 toast</va-button>
+    <va-button @click="$vaToast.closeAll()">Close all toasts</va-button>
   </div>
 </template>
 

@@ -1,3 +1,3 @@
 <template>
-  <button @click="$vaToast.init({message: 'Custom position (bottom-left)', position: 'bottom-left'})">notification</button>
+  <va-button @click="$vaToast.init({message: 'Notification', position: 'bottom-left'})">notification</va-button>
 </template>

@@ -1,3 +1,3 @@
 <template>
-  <button @click="$vaToast.init('Hello')">notification</button>
+  <va-button @click="$vaToast.init('Hello')">notification</va-button>
 </template>
