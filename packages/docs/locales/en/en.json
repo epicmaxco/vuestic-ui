@@ -647,7 +647,19 @@
       }
     },
     "VaToast": {
-      "props": {},
+      "props": {
+        "title": "Sets the title for the notification",
+        "offsetY": "Sets the Y offset",
+        "offsetX": "Sets the X offset",
+        "message": "Notification message",
+        "icon": "Sets the close icon",
+        "customClass": "Applies custom class to the component",
+        "duration": "Sets the duration of the notification display",
+        "closeable":"Provides the ability to close the component",
+        "onClose":"Applies a function to use when pressed a close button",
+        "onClick":"Applies a function to use when clicked",
+        "position":"Sets the position of the notification"
+      },
       "events": {},
       "methods": {},
       "slots": {}

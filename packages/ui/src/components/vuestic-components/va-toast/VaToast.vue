@@ -17,8 +17,8 @@
         <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
         <div class="va-toast__content" v-show="message">
           <slot>
-            <p v-if="!dangerouslyUseHTMLString" v-text="message"></p>
-            <p v-else v-html="message"></p>
+            <!-- <p v-if="!dangerouslyUseHTMLString" v-text="message"></p> -->
+            <p v-html="message"></p>
           </slot>
         </div>
         <div
@@ -30,7 +30,7 @@
         <va-icon
           v-else-if="closeable"
           size="small"
-          name="close"
+          :name="icon"
           class="va-toast__close-icon"
           @click.stop="onToastClose"
         />
@@ -52,12 +52,12 @@ const ToastPropsMixin = makeContextablePropsMixin({
   offsetY: { type: Number, default: 16 },
   offsetX: { type: Number, default: 16 },
   message: { type: [String, Function], default: '' },
-  iconClass: { type: String, default: '' },
+  icon: { type: String, default: 'close' },
   customClass: { type: String, default: '' },
   duration: { type: Number, default: 20000 },
   color: { type: String, default: '' },
   closeable: { type: Boolean, default: true },
-  dangerouslyUseHTMLString: { type: Boolean, default: false },
+  // dangerouslyUseHTMLString: { type: Boolean, default: false },
   onClose: { type: [Function as PropType<() => void>, undefined] },
   onClick: { type: [Function as PropType<() => void>, undefined] },
   position: {
