@@ -2409,6 +2409,10 @@
       "close": {
         "title": "Close",
         "text": "You can use close methods to close the notification and you can set custom onClose event."
+      },
+      "click": {
+        "title": "Click",
+        "text": "You can set custom onClick event to handle the click on button."
       }
     }
   }
