@@ -726,6 +726,7 @@ export default class VaSlider extends Mixins(
 
       ;(this as any).$refs.process.style[this.dimensions[0]] = `${val}%`
       ;(this as any).$refs.dot.style[this.dimensions[1]] = `calc('${val} - 8px)`
+      ;(this as any).$refs.dot.focus()
     }
   }
 
