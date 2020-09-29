@@ -374,10 +374,10 @@ export default class VaSlider extends Mixins(
     return Array.isArray(this.value)
   }
 
-  @Watch('val')
-  onValChanged (val: number | number[]) {
-    validateSlider(val, this.step, this.min, this.max)
-  }
+  // @Watch('val')
+  // onValChanged (val: number | number[]) {
+  //   validateSlider(val, this.step, this.min, this.max)
+  // }
 
   @Watch('max')
   onMaxChanged (val: number) {
@@ -711,9 +711,6 @@ export default class VaSlider extends Mixins(
       const processSize = `${val1 - val0}%`
       const processPosition = `${val0}%`
 
-      ;(this as any).$refs.process.style[this.dimensions[0]] = processSize
-      ;(this as any).$refs.process.style[this.dimensions[1]] = processPosition
-
       if (slider === 0) {
         (this as any).$refs.dot0.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
         ;(this as any).$refs.dot0.focus()
@@ -724,7 +721,6 @@ export default class VaSlider extends Mixins(
     } else {
       const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
-      ;(this as any).$refs.process.style[this.dimensions[0]] = `${val}%`
       ;(this as any).$refs.dot.style[this.dimensions[1]] = `calc('${val} - 8px)`
       ;(this as any).$refs.dot.focus()
     }
