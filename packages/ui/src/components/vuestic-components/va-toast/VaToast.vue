@@ -54,7 +54,7 @@ const ToastPropsMixin = makeContextablePropsMixin({
   message: { type: [String, Function], default: '' },
   icon: { type: String, default: 'close' },
   customClass: { type: String, default: '' },
-  duration: { type: Number, default: 20000 },
+  duration: { type: Number, default: 5000 },
   color: { type: String, default: '' },
   closeable: { type: Boolean, default: true },
   onClose: { type: [Function as PropType<() => void>, undefined] },
