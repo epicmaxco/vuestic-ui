@@ -50,7 +50,7 @@ export const DocsHelper = {
   },
   api: (componentOptions: VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock => {
     return {
-      type: BlockType.CODE,
+      type: BlockType.API,
       componentOptions,
       apiOptions,
     }

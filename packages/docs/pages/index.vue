@@ -38,7 +38,7 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
-import { navigationScheme } from '../components/sidebar/navigationScheme'
+import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 
 @Component({
   components: {
@@ -74,7 +74,7 @@ export default class Index extends Vue {
   }
 
   get navigationRoutes () {
-    return navigationScheme.routes
+    return navigationRoutes
   }
 
   beforeDestroy () {

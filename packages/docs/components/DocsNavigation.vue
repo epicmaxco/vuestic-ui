@@ -1,5 +1,5 @@
 <template>
-  <div class="docs-nav">
+  <div class="docs-navigation">
     <va-button
       flat
       size="small"
@@ -73,7 +73,7 @@ export default {
 <style lang="scss">
 @import "../ui/src/components/vuestic-sass/resources/resources";
 
-.docs-nav {
+.docs-navigation {
   background: $prism-background;
   margin: 0.2rem 0;
   border-radius: 0.25rem;

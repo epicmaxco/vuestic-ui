@@ -21,9 +21,9 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
-  name: 'VaSearch',
+  name: 'Search',
 })
-export default class VaSearch extends Vue {
+export default class Search extends Vue {
   color = 'gray'
 
   initialize () {
@@ -51,6 +51,8 @@ export default class VaSearch extends Vue {
 </script>
 
 <style lang="scss">
+
+@import '../../../../ui/src/components/vuestic-sass/vuestic-styles';
 
 #search-form {
   padding: 1rem;
@@ -119,7 +121,7 @@ export default class VaSearch extends Vue {
             line-height: 14px;
             letter-spacing: 0.6px;
             text-transform: uppercase;
-            color: #8396a5;
+            color: $default-gray;
 
             .algolia-docsearch-suggestion--highlight {
               box-shadow: inset 0 -2px 0 0 rgba(44, 130, 224, 0.1);
@@ -165,7 +167,7 @@ export default class VaSearch extends Vue {
             font-weight: normal;
             font-size: 15px;
             line-height: 20px;
-            color: #8396a5;
+            color: $default-gray;
 
             .algolia-docsearch-suggestion--highlight {
               color: #2c82e0;

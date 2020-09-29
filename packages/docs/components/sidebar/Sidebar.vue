@@ -1,6 +1,6 @@
 <template>
   <va-sidebar class="sidebar" color="secondary" v-model="minimized">
-    <va-search />
+    <algolia-search />
     <va-list class="sidebar__links">
       <va-expand-group v-model="value" multiply>
         <va-expand
@@ -33,7 +33,7 @@
               {{ $t(childRoute.category) }}
             </va-list-label>
             <va-list-item
-              :to="childRoute.name"
+              :to="`/${$root.$i18n.locale}/${childRoute.name}`"
               class="sidebar__link"
               active-class="sidebar__link--active"
             >
@@ -52,20 +52,22 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { NavigationRoute } from './NavigationRoutes'
-import VaSearch from './va-sidebar/VaSearch.vue'
+import { NavigationRoute } from './NavigationRoute'
+import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
 
 @Component({
-  components: { VaSearch },
+  components: { AlgoliaSearch },
 })
 export default class Sidebar extends Vue {
-  value = [] as Array<boolean>
+  value = [] as boolean[]
 
   @Prop({ type: Array, default: () => [] }) readonly navigationRoutes!: NavigationRoute[]
   @Prop({ type: Boolean, default: false }) readonly minimized!: boolean
 
   mounted () {
-    this.value = this.navigationRoutes.map((route, index) => this.value[index] || !!route.children?.some(({ name }) => this.$router.currentRoute.name?.includes(name)))
+    this.value = this.navigationRoutes.map((route, index) => {
+      return this.value[index] || !!route.children?.some(({ name }) => this.$router.currentRoute.name?.includes(name))
+    })
   }
 }
 </script>
@@ -126,7 +128,7 @@ export default class Sidebar extends Vue {
 
       text-align: left;
       padding-left: 1.5rem;
-      color: #8396a5;
+      color: $default-gray;
     }
   }
 }

@@ -17,7 +17,8 @@ import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 export default class DocsSubtitle extends Mixins(ColorThemeMixin) {
   @Prop({ type: String }) text!: TranslationString
   get anchor () {
-    return kebabCase(this.$t(this.text) as string)
+    // @ts-ignore
+    return kebabCase(this.$t(this.text))
   }
 
   get primaryColor () {
