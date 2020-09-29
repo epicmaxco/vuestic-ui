@@ -17,8 +17,7 @@
         <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
         <div class="va-toast__content" v-show="message">
           <slot>
-            <!-- <p v-if="!dangerouslyUseHTMLString" v-text="message"></p> -->
-            <p v-html="message"></p>
+            <p v-text="message"></p>
           </slot>
         </div>
         <div
@@ -58,7 +57,6 @@ const ToastPropsMixin = makeContextablePropsMixin({
   duration: { type: Number, default: 20000 },
   color: { type: String, default: '' },
   closeable: { type: Boolean, default: true },
-  // dangerouslyUseHTMLString: { type: Boolean, default: false },
   onClose: { type: [Function as PropType<() => void>, undefined] },
   onClick: { type: [Function as PropType<() => void>, undefined] },
   position: {
