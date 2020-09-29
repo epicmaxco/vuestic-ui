@@ -10,7 +10,6 @@ export default {
     customClass: { local: true },
     duration: { local: true },
     closeable: { local: true },
-    // dangerouslyUseHtmlString: { local: true },
     onClose: { local: true },
     onClick: { local: true },
     position: { local: true },
