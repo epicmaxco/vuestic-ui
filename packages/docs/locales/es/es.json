@@ -111,6 +111,10 @@
       "slots": {}
     },
     "VaCarousel": {
+    },
+    "VaParallax": {
+    },
+    "VaBacktop": {
       "props": {},
       "events": {},
       "methods": {},
@@ -134,7 +138,9 @@
     "input": "Input",
     "list": "List",
     "select": "Select",
-    "carousel": "Carousel"
+    "carousel": "Carousel",
+    "parallax": "Parallax",
+    "backtop": "Backtop"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -186,6 +192,10 @@
     "title": "-- Here is the title --"
   },
   "carousel": {
+  },
+  "parallax": {
+  },
+  "backtop": {
     "title": "-- Here is the title --"
   }
 }

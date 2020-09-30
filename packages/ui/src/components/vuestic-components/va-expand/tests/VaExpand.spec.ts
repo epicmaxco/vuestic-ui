@@ -13,6 +13,7 @@ import VaExpand from '../VaExpand.vue'
 
 describe('VaExpand', () => {
   it('should render without an error', () => {
+  // -------------- Troxubles with an icon context ------------------
     // const wrapper = mount(VaExpand)
     // expect(wrapper.isVueInstance()).toBeTruthy()
   })
@@ -26,13 +27,13 @@ describe('VaExpand', () => {
       testHasKeyboardOnlyFocusMixin((VaExpand as unknown) as KeyboardOnlyFocusMixin),
     ).not.toThrow()
   })
-  // -------------- Troubles with an icon context ------------------
-  // it('has ColorThemeMixin', () => {
-  //   expect(() =>
-  //     testHasColorThemeMixin((VaExpand as unknown) as ColorThemeMixin),
-  //   ).not.toThrow()
-  // })
+  it('has ColorThemeMixin', () => {
+    expect(() =>
+      testHasColorThemeMixin((VaExpand as unknown) as ColorThemeMixin),
+    ).not.toThrow()
+  })
 
+  // -------------- Troxubles with an icon context ------------------
   // it('is contextable', () => {
   //   const props = {
   //     value: false,
