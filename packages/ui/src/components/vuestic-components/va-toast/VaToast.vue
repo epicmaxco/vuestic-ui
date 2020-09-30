@@ -61,7 +61,7 @@ const PropsMixin = makeContextablePropsMixin({
   position: {
     type: String as PropType<NotificationPosition>,
     default: 'top-right',
-    validator (value: string) {
+    validator: (value: string) => {
       return ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value)
     },
   },
