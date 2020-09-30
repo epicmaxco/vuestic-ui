@@ -56,7 +56,7 @@
       </va-carousel>
     </VbCard>
 
-    <VbCard title="wallpapers">
+    <VbCard title="Gallery mode">
     <va-carousel
       pagination
       pagination-position="right"

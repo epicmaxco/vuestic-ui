@@ -1849,7 +1849,38 @@
     }
   },
   "carousel": {
-    "title": "-- Here is the title --"
+    "title": "Carousel",
+    "summaryText": "A slideshow component that allows you to slide between elements.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, put your content in `va-carousel-item` components and wrap everything in `va-carousel`."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Navigation and pagination can be colourized by using a `color` property."
+      },
+      "loop": {
+        "title": "Loop",
+        "text": "You can loop the scrolling of the component."
+      },
+      "autoplay": {
+        "title": "Autoplay",
+        "text": "You can add the ability to autoplay the carousel."
+      },
+      "draggable": {
+        "title": "Draggable",
+        "text": "The component has the ability to handle mouse drag."
+      },
+      "pagination": {
+        "title": "Pagination position",
+        "text": "You can set a different position of the pagination by using `pagination-position` property with `top`, `right`, `left` or `bottom` (by default) values."
+      },
+      "gallery": {
+        "title": "Gallery",
+        "text": "An example of how to use carousel with the wallpapers background and slot for content."
+      }
+    }
   },
   "parallax": {
     "title": "Parallax",
