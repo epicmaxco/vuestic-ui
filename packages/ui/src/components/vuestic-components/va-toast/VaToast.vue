@@ -39,14 +39,14 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { NotificationPosition } from './types'
-import { PropType } from 'vue'
 import { Component, Mixins, Watch } from 'vue-property-decorator'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+
 import VaIcon from '../va-icon/VaIcon.vue'
 
-const ToastPropsMixin = makeContextablePropsMixin({
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+
+const PropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },
   offsetY: { type: Number, default: 16 },
   offsetX: { type: Number, default: 16 },
@@ -54,13 +54,15 @@ const ToastPropsMixin = makeContextablePropsMixin({
   icon: { type: String, default: 'close' },
   customClass: { type: String, default: '' },
   duration: { type: Number, default: 5000 },
-  color: { type: String, default: '' },
   closeable: { type: Boolean, default: true },
-  onClose: { type: [Function as PropType<() => void>, undefined] },
-  onClick: { type: [Function as PropType<() => void>, undefined] },
+  onClose: { type: Function, default: undefined },
+  onClick: { type: Function, default: undefined },
   position: {
-    type: String as PropType<NotificationPosition>,
+    type: String,
     default: 'top-right',
+    validator (value: string) {
+      return ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value)
+    },
   },
 })
 
@@ -70,7 +72,7 @@ const ToastPropsMixin = makeContextablePropsMixin({
 })
 export default class VaToast extends Mixins(
   ColorThemeMixin,
-  ToastPropsMixin,
+  PropsMixin,
 ) {
   @Watch('closed')
   onClosed (value: boolean) {
