@@ -620,6 +620,37 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaParallax": {
+      "props": {
+        "target": "The element relative to which the component is fixed",
+        "src": "URL to the image",
+        "alt": "Specifies an alternate text for an image",
+        "height": "Sets a height of the parallax",
+        "reversed": "Flips the parallax scrolling",
+        "speed": "Sets a speed of the parallax scrolling"
+      },
+      "slots": {
+        "default": "For a content over the parallax"
+      }
+    },
+    "VaBacktop": {
+      "props": {
+        "target": "Applies the selector to which the backtop is bound",
+        "visibilityHeight": "The minimum height after which the backtop is displayed",
+        "speed": "Sets the scrolling speed",
+        "horizontalPosition": "Sets the horizontal position of the component",
+        "verticalPosition": "Sets the vertical position of the component",
+        "horizontalOffset": "Sets the horizontal offset of the component from the border of the monitor",
+        "verticalOffset": "Sets the vertical offset of the component from the border of the monitor"
+      },
+      "events": {
+        "click" :"Emitted when user clicked on backtop"
+      },
+      "methods": {},
+      "slots": {
+        "default": "Slot for backtop content"
+      }
     }
   },
   "menu": {
@@ -660,7 +691,9 @@
     "input": "Input",
     "list": "List",
     "select": "Select",
-    "carousel": "Carousel"
+    "carousel": "Carousel",
+    "parallax": "Parallax",
+    "backtop": "Backtop"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1817,5 +1850,37 @@
   },
   "carousel": {
     "title": "-- Here is the title --"
+  },
+  "parallax": {
+    "title": "Parallax",
+    "summaryText": "Parallax is a component where the background image is moved at a different speed than the foreground content while scrolling.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "A block with a background image is displayed by default. You need to pass the 'src' property."
+      },
+      "custom": {
+        "title": "Custom height and speed",
+        "text": "You can adjust parallax height and scroll speed. Attention, the scrolling speed depends on the ratio of the parallax height to the image height."
+      },
+      "reversed": {
+        "title": "Reversed",
+        "text": "You can flip the parallax scrolling."
+      },
+      "slot": {
+        "title": "Slot",
+        "text": "You can provide some kind of content over the parallax."
+      }
+    }
+  },
+  "backtop": {
+    "title": "Backtop",
+    "summaryText": "A backtop is a button used to return to the top of a component.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
+      }
+    }
   }
 }

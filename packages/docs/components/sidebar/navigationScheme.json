@@ -153,6 +153,14 @@
         {
           "name": "carousel",
           "displayName": "menu.carousel"
+        },
+        {
+          "name": "parallax",
+          "displayName": "menu.parallax"
+        },
+        {
+          "name": "backtop",
+          "displayName": "menu.backtop"
         }
       ]
     }

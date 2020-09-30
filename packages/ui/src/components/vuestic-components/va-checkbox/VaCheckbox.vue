@@ -126,9 +126,8 @@ export default class VaCheckbox extends Mixins(
 @import "../../vuestic-sass/resources/resources";
 
 .va-checkbox {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: block;
+  max-width: fit-content;
 
   &__input-container {
     align-items: center;
