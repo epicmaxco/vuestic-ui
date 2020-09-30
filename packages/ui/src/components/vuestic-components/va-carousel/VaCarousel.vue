@@ -384,6 +384,7 @@ export default class VaCarousel extends Mixins(
 
 .va-carousel {
   display: flex;
+  width: fit-content;
   flex-direction: column;
   position: relative;
 
