@@ -1920,6 +1920,14 @@
         "title": "Click",
         "text": "You can set custom onClick event to handle the click on button."
       }
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "What is the difference between a component and a service?",
+          "answer": "The difference is in implementation. The service behaves more flexibly and it is easier to bind it to certain events than to render the whole element. \n Each prop you provide to the component you can provide to the service too by using the setting object."
+        }
+      ]
     }
   }
 }

@@ -96,4 +96,16 @@ export default [
     componentOptions: VaToast,
     apiOptions,
   },
+  {
+    type: BlockType.SUBTITLE,
+    translationString: 'all.faq',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'toast.faq.questions[0].question',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'toast.faq.questions[0].answer',
+  },
 ] as ApiDocsBlock[]
