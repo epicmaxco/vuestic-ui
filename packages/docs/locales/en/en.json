@@ -616,10 +616,27 @@
       }
     },
     "VaCarousel": {
-      "props": {},
+      "props": {
+        "autoplay": "Sets the carousel autoplay option",
+        "autoplayInterval": "Sets the interval for changing slides",
+        "autoplayDirection": "Autoplay slide direction: `backward` or `forward`",
+        "value": "The current slide of the carousel",
+        "loop": "Adds the ability to loop through slides",
+        "draggable": "Adds the ability to handle mouse drag",
+        "navigation": "Shows carousel navigation",
+        "pagination": "Shows carousel pagination",
+        "width": "Sets the width of the carousel",
+        "height": "Sets the height of the carousel",
+        "paginationPosition": "Sets the pagination position"
+      },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "default": "For `va-carousel-item` components",
+        "content": "For content above the carousel",
+        "pagination": "For custom pagination",
+        "navigation": "For custom navigation"
+      }
     },
     "VaParallax": {
       "props": {
