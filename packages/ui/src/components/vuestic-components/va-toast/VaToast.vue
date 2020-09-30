@@ -39,15 +39,14 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { NotificationPosition } from './types'
-import { PropType } from 'vue'
 import { Mixins, Watch } from 'vue-property-decorator'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { Options } from 'vue-class-component'
 
-const ToastPropsMixin = makeContextablePropsMixin({
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+
+const PropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },
   offsetY: { type: Number, default: 16 },
   offsetX: { type: Number, default: 16 },
@@ -62,6 +61,9 @@ const ToastPropsMixin = makeContextablePropsMixin({
   position: {
     type: String as PropType<NotificationPosition>,
     default: 'top-right',
+    validator (value: string) {
+      return ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value)
+    },
   },
 })
 
@@ -72,7 +74,7 @@ const ToastPropsMixin = makeContextablePropsMixin({
 })
 export default class VaToast extends Mixins(
   ColorThemeMixin,
-  ToastPropsMixin,
+  PropsMixin,
 ) {
   @Watch('closed')
   onClosed (value: boolean) {
