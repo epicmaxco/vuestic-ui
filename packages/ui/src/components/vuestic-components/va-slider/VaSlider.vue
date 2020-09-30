@@ -753,10 +753,12 @@ export default class VaSlider extends Mixins(
 
     if (this.isRange) {
       if (val[0] >= val[1] && this.currentSlider === 0) {
-        return [val[1], val[1]]
+        const v = inRange(val[1])
+        return [v, v]
       }
       if (val[0] >= val[1] && this.currentSlider === 1) {
-        return [val[0], val[0]]
+        const v = inRange(val[0])
+        return [v, v]
       }
       return val.map((v: any) => inRange(v))
     } else {
