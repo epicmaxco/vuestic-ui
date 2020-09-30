@@ -172,7 +172,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch, Mixins } from 'vue-property-decorator'
+import { Component, Watch, Mixins, Ref } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
@@ -215,13 +215,17 @@ export default class VaSlider extends Mixins(
   ContextPluginMixin,
   SliderPropsMixin,
 ) {
+  @Ref('dot') readonly dot !: HTMLElement
+  @Ref('dot0') readonly dot0 !: HTMLElement
+  @Ref('dot1') readonly dot1 !: HTMLElement
+  @Ref('sliderContainer') readonly sliderContainer !: HTMLElement
   isFocused = false
   flag = false
   size = 0
   currentValue = this.value
   currentSlider = 0
   isComponentExists = false
-  dimensions = this.vertical ? ['height', 'bottom'] : ['width', 'left']
+  dimensions: string[] = this.vertical ? ['height', 'bottom'] : ['width', 'left']
 
   get moreToLess () {
     return this.val[1] - this.step < this.val[0]
@@ -485,7 +489,7 @@ export default class VaSlider extends Mixins(
 
   moveWithKeys (event: any) {
     // don't do anything if a dot isn't focused or if the slider's disabled or readonly
-    if (![(this as any).$refs.dot0, (this as any).$refs.dot1, (this as any).$refs.dot].includes(document.activeElement)) { return }
+    if (![this.dot0, this.dot1, this.dot].includes(document.activeElement as any)) { return }
     if (this.disabled || this.readonly) { return }
 
     /*
@@ -545,26 +549,26 @@ export default class VaSlider extends Mixins(
 
     if (this.range) {
       const isVerticalDot0More = (event: any) =>
-        this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_UP
-      const isVerticalDot0Less = (event: any) => this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_DOWN
-      const isVerticalDot1More = (event: any) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_UP
-      const isVerticalDot1Less = (event: any) => this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_DOWN
+        this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_UP
+      const isVerticalDot0Less = (event: any) => this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_DOWN
+      const isVerticalDot1More = (event: any) => this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_UP
+      const isVerticalDot1Less = (event: any) => this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_DOWN
       const isHorizontalDot0Less = (event: any) =>
-        !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_LEFT
+        !this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_LEFT
       const isHorizontalDot0More = (event: any) =>
-        !this.vertical && this.$refs.dot0 === document.activeElement && event.keyCode === CODE_RIGHT
+        !this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_RIGHT
       const isHorizontalDot1Less = (event: any) =>
-        !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_LEFT
+        !this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_LEFT
       const isHorizontalDot1More = (event: any) =>
-        !this.vertical && this.$refs.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
+        !this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
 
       switch (true) {
         case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
-          (this as any).$refs.dot0.focus()
+          this.dot0.focus()
           moveDot(true, 0, 0)
           break
         case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
-          (this as any).$refs.dot1.focus()
+          this.dot1.focus()
           moveDot(true, 1, 1)
           break
         case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
@@ -639,9 +643,9 @@ export default class VaSlider extends Mixins(
   }
 
   getStaticData () {
-    if (this.$refs.sliderContainer) {
-      this.size = (this as any).$refs.sliderContainer[this.vertical ? 'offsetHeight' : 'offsetWidth']
-      this.offset = (this as any).$refs.sliderContainer.getBoundingClientRect()[this.dimensions[1]]
+    if (this.sliderContainer) {
+      this.size = this.sliderContainer[this.vertical ? 'offsetHeight' : 'offsetWidth']
+      this.offset = (this.sliderContainer.getBoundingClientRect() as Record<string, any>)[this.dimensions[1]]
     }
   }
 
@@ -656,10 +660,10 @@ export default class VaSlider extends Mixins(
         this.currentValue.splice(slider, 1, val)
         if (slider === 0) {
           this.val = [this.currentValue.splice(slider, 1, val)[0], this.value[1]]
-          this.currentValue = [this.currentValue.splice(slider, 1, val)[0], this.value[1]]
+          this.currentValue = [...this.val]
         } else {
           this.val = [this.value[0], this.currentValue.splice(slider, 1, val)[0]]
-          this.currentValue = [this.value[0], this.currentValue.splice(slider, 1, val)[0]]
+          this.currentValue = [...this.val]
         }
       }
     } else {
@@ -678,6 +682,9 @@ export default class VaSlider extends Mixins(
     const valueRange = this.valueLimit
 
     this.setTransform()
+
+    // set focus on current thumb
+    // ;(this.isRange ? (this.currentSlider ? this.dot1 : this.dot0) : this.dot).focus()
 
     if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
       if (this.currentSlider) {
@@ -707,34 +714,32 @@ export default class VaSlider extends Mixins(
       const slider = this.currentSlider
       const difference = 100 / (this.max - this.min)
       const val0 = (this.value[0] - this.min) * difference
-      const val1 = (this.value[1] - this.min) * difference
-      const processSize = `${val1 - val0}%`
       const processPosition = `${val0}%`
 
       if (slider === 0) {
-        (this as any).$refs.dot0.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
-        ;(this as any).$refs.dot0.focus()
+        this.dot0.style[this.dimensions[1] as any] = `calc('${processPosition} - 8px)`
+        this.dot0.focus()
       } else {
-        (this as any).$refs.dot1.style[this.dimensions[1]] = `calc('${processPosition} - 8px)`
-        ;(this as any).$refs.dot1.focus()
+        this.dot1.style[this.dimensions[1] as any] = `calc('${processPosition} - 8px)`
+        this.dot1.focus()
       }
     } else {
       const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
-      ;(this as any).$refs.dot.style[this.dimensions[1]] = `calc('${val} - 8px)`
-      ;(this as any).$refs.dot.focus()
+      this.dot.style[this.dimensions[1] as any] = `calc('${val} - 8px)`
+      this.dot.focus()
     }
   }
 
-  normalizeValue (value: any) {
-    const currentRest = value % this.step
-    if ((currentRest / this.step) >= 0.5) {
-      value = value + (this.step - currentRest)
-    } else {
-      value = value - currentRest
-    }
-    return value
-  }
+  // normalizeValue (value: any) {
+  //   const currentRest = value % this.step
+  //   if ((currentRest / this.step) >= 0.5) {
+  //     value = value + (this.step - currentRest)
+  //   } else {
+  //     value = value - currentRest
+  //   }
+  //   return value
+  // }
 
   limitValue (val: any) {
     const inRange = (v: any) => {
