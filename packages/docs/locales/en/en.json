@@ -1900,6 +1900,25 @@
     }
   },
   "colorInput": {
-    "title": "Color Input"
+    "title": "Color Input",
+    "summaryText": "",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model`."
+      },
+      "selected": {
+        "title": "Selected",
+        "text": "Dot style changes can be applied."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "All user interactions can be disabled."
+      },
+      "advanced": {
+        "title": "Advanced",
+        "text": "It's a heavier component which provides an ability to pick color by click."
+      }
+    }
   }
 }
