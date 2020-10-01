@@ -15,7 +15,7 @@
 * [va-card](components/VaCard.md)
 * [va-checkbox](components/VaCheckbox.md)
 * [va-collapse](components/VaCollapse.md)
-* [va-color-picker](components/VaColorPicker.md)
+* [va-color-input-advanced](components/VaColorInputAdvanced.md)
 * [va-data-table](components/VaDataTable.md)
 * [va-date-picker](components/VaDataPicker.md)
 * [va-file-upload](components/VaFileUpload.md)

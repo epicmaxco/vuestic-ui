@@ -1,66 +1,18 @@
 <template>
-  <div class="va-color-picker">
-    <div v-if="validator(this.mode)">
-      <va-dropdown-popper fixed>
-        <div
-          slot="anchor"
-          class="va-color-picker__slot"
-        >
-          <slot>
-            <va-color-input
-              v-model="valueProxy"
-              mode="palette"
-              :disabled="isInputDisabled"
-              :selected="selected"
-            />
-          </slot>
-        </div>
-        <div class="va-color-picker__dropdown">
-          <va-color-advanced
-            v-if="this.mode === 'advanced'"
-            v-model="valueProxy"
-          />
-          <va-color-palette
-            v-if="this.mode === 'palette'"
-            v-model="valueProxy"
-            :palette="palette"
-          />
-          <va-color-slider
-            v-if="this.mode === 'slider'"
-            v-model="valueProxy"
-          />
-        </div>
-      </va-dropdown-popper>
-    </div>
-    <div v-else>
-      <slot>
-        <va-color-input
-          v-model="valueProxy"
-          mode="palette"
-          :disabled="isInputDisabled"
-        />
-      </slot>
-    </div>
-  </div>
+  <ChromePicker
+    v-model="valueProxy"
+    class="va-color-picker"
+  />
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import VaColorAdvanced from './VaColorAdvanced.vue'
-import VaColorPalette from './VaColorPalette.vue'
-import VaColorSlider from './VaColorSlider.vue'
-import VaColorInput from './VaColorInput.vue'
-import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
+// @ts-ignore
+import { Chrome } from 'vue-color'
 
 @Component({
   name: 'VaColorPicker',
-  components: {
-    VaDropdownPopper,
-    VaColorPalette,
-    VaColorAdvanced,
-    VaColorSlider,
-    VaColorInput,
-  },
+  components: { ChromePicker: Chrome },
 })
 export default class VaColorPicker extends Vue {
   @Prop({
@@ -68,50 +20,28 @@ export default class VaColorPicker extends Vue {
     default: '',
   }) readonly value!: string
 
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly mode!: string
-
-  @Prop({
-    type: Array,
-    default: () => [],
-  }) readonly palette!: Array<string>
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly selected!: boolean
-
   get valueProxy (): any {
     return this.value
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value)
-  }
-
-  get isInputDisabled () {
-    return !!(this.mode === 'palette' && this.palette)
-  }
-
-  validator (value: string): boolean {
-    return ['palette', 'slider', 'advanced'].includes(value)
+    this.$emit('input', value.hex)
   }
 }
 </script>
 
 <style lang="scss">
-@import "../../vuestic-sass/resources/resources";
-
 .va-color-picker {
-  &__dropdown {
-    background: $white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  .vc-chrome-alpha-wrap {
+    display: none;
   }
 
-  &__slot {
-    cursor: pointer;
+  .vc-chrome-hue-wrap {
+    margin-top: 10px;
+  }
+
+  .vc-chrome-toggle-btn {
+    display: none;
   }
 }
 </style>

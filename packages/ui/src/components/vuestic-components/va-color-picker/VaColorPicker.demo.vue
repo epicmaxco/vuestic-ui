@@ -26,49 +26,49 @@
 
     <VbCard title="Color Picker Input">
       <p>Default</p>
-      <va-color-picker
+      <va-color-input-advanced
         v-model="value"
       >
-      </va-color-picker>
+      </va-color-input-advanced>
 
       <p>Slider Mode</p>
-      <va-color-picker
+      <va-color-input-advanced
         v-model="value"
         mode="slider"
       >
-      </va-color-picker>
+      </va-color-input-advanced>
 
       <p>Advanced Mode</p>
-      <va-color-picker
+      <va-color-input-advanced
         v-model="value"
         mode="advanced"
       >
         <va-color-input v-model="value" />
-      </va-color-picker>
+      </va-color-input-advanced>
 
       <p>Palette Mode</p>
-      <va-color-picker
+      <va-color-input-advanced
         v-model="value"
         mode="palette"
         :palette="palette"
       />
 
       <p>Palette Mode With Slot</p>
-      <va-color-picker
+      <va-color-input-advanced
         v-model="value"
         mode="palette"
         :palette="palette"
       >
         <color-dot :color="value" />
-      </va-color-picker>
+      </va-color-input-advanced>
     </VbCard>
 
     <VbCard title="Advanced Color Picker">
-      <va-color-advanced v-model="value" />
+      <va-color-picker v-model="value" />
     </VbCard>
 
     <VbCard title="Palette Custom">
-      <va-palette-custom
+      <va-color-palette-advanced
         :palette="palette"
         v-model="value"
       />
@@ -89,10 +89,10 @@
 
 <script>
 import ColorDot from './ColorDot.vue'
-import VaColorAdvanced from './VaColorAdvanced'
 import VaColorPicker from './VaColorPicker'
+import VaColorInputAdvanced from './VaColorInputAdvanced'
 import VaColorInput from './VaColorInput'
-import VaPaletteCustom from './VaPaletteCustom'
+import VaColorPaletteAdvanced from './VaColorPaletteAdvanced'
 import VaColorPalette from './VaColorPalette'
 import VaColorSlider from './VaColorSlider'
 import { colorArray } from './VuesticTheme'
@@ -100,10 +100,10 @@ import { colorArray } from './VuesticTheme'
 export default {
   components: {
     ColorDot,
-    VaColorAdvanced,
-    VaColorInput,
     VaColorPicker,
-    VaPaletteCustom,
+    VaColorInput,
+    VaColorInputAdvanced,
+    VaColorPaletteAdvanced,
     VaColorPalette,
     VaColorSlider,
   },

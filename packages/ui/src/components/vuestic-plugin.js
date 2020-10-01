@@ -83,12 +83,12 @@ import VaColorPalette
 import VaColorSquare from './vuestic-components/va-color-picker/VaColorSquare'
 import VaColorSlider
   from './vuestic-components/va-color-picker/VaColorSlider'
-import VaColorAdvanced
-  from './vuestic-components/va-color-picker/VaColorAdvanced'
 import VaColorPicker
   from './vuestic-components/va-color-picker/VaColorPicker'
-import VaPaletteCustom
-  from './vuestic-components/va-color-picker/VaPaletteCustom'
+import VaColorInputAdvanced
+  from './vuestic-components/va-color-picker/VaColorInputAdvanced'
+import VaColorPaletteAdvanced
+  from './vuestic-components/va-color-picker/VaColorPaletteAdvanced'
 import VaForm
   from './vuestic-components/va-form/VaForm'
 import VaOptionList
@@ -167,9 +167,9 @@ const VuesticPlugin = {
       VaColorPalette,
       VaColorSquare,
       VaColorSlider,
-      VaColorAdvanced,
       VaColorPicker,
-      VaPaletteCustom,
+      VaColorInputAdvanced,
+      VaColorPaletteAdvanced,
       VaButtonDropdown,
       VaForm,
       VaDivider,

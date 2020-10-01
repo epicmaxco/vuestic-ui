@@ -1,12 +1,12 @@
 <template>
-  <div class="va-palette-custom">
+  <div class="va-color-palette-advanced">
     <va-color-palette
-      class="va-palette-custom__palette mr-2"
+      class="va-color-palette-advanced__palette mr-2"
       :palette="palette"
       v-model="valueProxy"
     />
-    <va-color-picker
-      class="va-palette-custom__input"
+    <va-color-input-advanced
+      class="va-color-palette-advanced__input"
       mode="advanced"
       v-model="valueProxy"
     >
@@ -14,25 +14,25 @@
         :selected="dotIsSelected"
         v-model="valueProxy"
       />
-    </va-color-picker>
+    </va-color-input-advanced>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import VaColorPicker from './VaColorPicker.vue'
+import VaColorInputAdvanced from './VaColorInputAdvanced.vue'
 import VaColorPalette from './VaColorPalette.vue'
 import VaColorInput from './VaColorInput.vue'
 
 @Component({
-  name: 'VaPaletteCustom',
+  name: 'VaColorPaletteAdvanced',
   components: {
     VaColorInput,
-    VaColorPicker,
+    VaColorInputAdvanced,
     VaColorPalette,
   },
 })
-export default class VaPaletteCustom extends Vue {
+export default class VaColorPaletteAdvanced extends Vue {
   @Prop({
     type: String,
     default: '',
@@ -58,7 +58,7 @@ export default class VaPaletteCustom extends Vue {
 </script>
 
 <style lang="scss">
-.va-palette-custom {
+.va-color-palette-advanced {
   display: flex;
   align-items: baseline !important;
 }
