@@ -2,6 +2,8 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export default {
   props: {
+    value: { local: true },
+    selected: { local: true },
   },
   events: {
   },

@@ -655,7 +655,10 @@
       "slots": {}
     },
     "VaColorInput": {
-      "props": {},
+      "props": {
+        "value": "Current color",
+        "selected": "Select the dot"
+      },
       "events": {},
       "methods": {},
       "slots": {}
