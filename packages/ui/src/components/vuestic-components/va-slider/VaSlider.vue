@@ -225,7 +225,14 @@ export default class VaSlider extends Mixins(
   currentValue = this.value
   currentSlider = 0
   isComponentExists = false
-  dimensions: string[] = this.vertical ? ['height', 'bottom'] : ['width', 'left']
+
+  get pinPositionStyle (): 'bottom' | 'left' {
+    return this.vertical ? 'bottom' : 'left'
+  }
+
+  get trackSizeStyle (): 'height' | 'width' {
+    return this.vertical ? 'height' : 'width'
+  }
 
   get moreToLess () {
     return this.val[1] - this.step < this.val[0]
@@ -281,8 +288,8 @@ export default class VaSlider extends Mixins(
       const val1 = ((validatedValue[1] - this.min) / (this.max - this.min)) * 100
 
       return {
-        [this.dimensions[1]]: `${val0}%`,
-        [this.dimensions[0]]: `${val1 - val0}%`,
+        [this.pinPositionStyle]: `${val0}%`,
+        [this.trackSizeStyle]: `${val1 - val0}%`,
         backgroundColor: this.colorComputed,
         visibility: this.showTrack ? 'visible' : 'hidden',
       }
@@ -290,7 +297,7 @@ export default class VaSlider extends Mixins(
       const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
 
       return {
-        [this.dimensions[0]]: `${val}%`,
+        [this.trackSizeStyle]: `${val}%`,
         backgroundColor: this.colorComputed,
         visibility: this.showTrack ? 'visible' : 'hidden',
       }
@@ -306,12 +313,12 @@ export default class VaSlider extends Mixins(
 
       return [
         {
-          [this.dimensions[1]]: `calc(${val0}% - 8px)`,
+          [this.pinPositionStyle]: `calc(${val0}% - 8px)`,
           backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
         },
         {
-          [this.dimensions[1]]: `calc(${val1}% - 8px)`,
+          [this.pinPositionStyle]: `calc(${val1}% - 8px)`,
           backgroundColor: this.isActiveDot(1) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
         },
@@ -320,7 +327,7 @@ export default class VaSlider extends Mixins(
       const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
 
       return {
-        [this.dimensions[1]]: `calc(${val}% - 8px)`,
+        [this.pinPositionStyle]: `calc(${val}% - 8px)`,
         backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
         borderColor: this.colorComputed,
       }
@@ -378,23 +385,18 @@ export default class VaSlider extends Mixins(
     return Array.isArray(this.value)
   }
 
-  // @Watch('val')
-  // onValChanged (val: number | number[]) {
-  //   validateSlider(val, this.step, this.min, this.max)
-  // }
-
-  @Watch('max')
-  onMaxChanged (val: number) {
-    if (val < this.min) {
-      validateSlider(this.value, this.step, val, this.max)
+  get propsForValidation () {
+    return {
+      value: this.val,
+      step: this.step,
+      min: this.min,
+      max: this.max,
     }
   }
 
-  @Watch('min')
-  onMinChanged (val: number) {
-    if (val > this.max) {
-      validateSlider(this.value, this.step, this.min, val)
-    }
+  @Watch('propsForValidation')
+  onPropsForValidationChanged (props: any) {
+    validateSlider(props.value, props.step, props.min, props.max)
   }
 
   @Watch('hasMouseDown')
@@ -632,7 +634,7 @@ export default class VaSlider extends Mixins(
   getPinStyles (pin: number) {
     return {
       backgroundColor: this.checkActivePin(pin) ? this.colorComputed : getHoverColor(this.colorComputed),
-      [this.dimensions[1]]: `${pin * this.step}%`,
+      [this.pinPositionStyle]: `${pin * this.step}%`,
       transition: this.hasMouseDown ? 'none' : 'background-color .3s ease-out .1s',
     }
   }
@@ -645,7 +647,7 @@ export default class VaSlider extends Mixins(
   getStaticData () {
     if (this.sliderContainer) {
       this.size = this.sliderContainer[this.vertical ? 'offsetHeight' : 'offsetWidth']
-      this.offset = (this.sliderContainer.getBoundingClientRect() as Record<string, any>)[this.dimensions[1]]
+      this.offset = (this.sliderContainer.getBoundingClientRect() as Record<string, any>)[this.pinPositionStyle]
     }
   }
 
@@ -717,16 +719,16 @@ export default class VaSlider extends Mixins(
       const processPosition = `${val0}%`
 
       if (slider === 0) {
-        this.dot0.style[this.dimensions[1] as any] = `calc('${processPosition} - 8px)`
+        this.dot0.style[this.pinPositionStyle] = `calc('${processPosition} - 8px)`
         this.dot0.focus()
       } else {
-        this.dot1.style[this.dimensions[1] as any] = `calc('${processPosition} - 8px)`
+        this.dot1.style[this.pinPositionStyle] = `calc('${processPosition} - 8px)`
         this.dot1.focus()
       }
     } else {
       const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
-      this.dot.style[this.dimensions[1] as any] = `calc('${val} - 8px)`
+      this.dot.style[this.pinPositionStyle] = `calc('${val} - 8px)`
       this.dot.focus()
     }
   }
