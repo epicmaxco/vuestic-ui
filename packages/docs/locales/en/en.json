@@ -1,4 +1,7 @@
 {
+  "translation": {
+    "path": "Expamle translation string"
+  },
   "api": {
     "all": {
       "events": {
@@ -671,6 +674,10 @@
       "navigation": "Navigation",
       "other": "Other"
     },
+    "contribution": "Contribution",
+    "": "Documentation Page",
+    "pageConfig": "Page Config",
+    "apiOptions": "API Options",
     "affix": "Affix",
     "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",
@@ -728,6 +735,7 @@
     "showCode": "Show Code"
   },
   "documentationPage": {
+    "compilesTo": "compiles to:",
     "title": "Documentation Page",
     "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
     "introduction": {

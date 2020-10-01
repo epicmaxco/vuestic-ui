@@ -158,4 +158,20 @@ export const navigationRoutes: NavigationRoute[] = [
       },
     ],
   },
+  {
+    name: 'contribution',
+    displayName: 'menu.contribution',
+    children: [
+      {
+        name: 'contribution/documentation-page',
+        hash: '#page-config',
+        displayName: 'menu.pageConfig',
+      },
+      {
+        name: 'contribution/documentation-page',
+        hash: '#api-options',
+        displayName: 'menu.apiOptions',
+      },
+    ],
+  },
 ]

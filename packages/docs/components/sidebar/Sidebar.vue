@@ -33,7 +33,7 @@
               {{ $t(childRoute.category) }}
             </va-list-label>
             <va-list-item
-              :to="`/${$root.$i18n.locale}/${childRoute.name}`"
+              :to="`/${$root.$i18n.locale}/${childRoute.name}${childRoute.hash || ''}`"
               class="sidebar__link"
               active-class="sidebar__link--active"
             >
@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { NavigationRoute } from './NavigationRoute'
 import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
 
@@ -65,8 +65,27 @@ export default class Sidebar extends Vue {
   @Prop({ type: Boolean, default: false }) readonly minimized!: boolean
 
   mounted () {
+    this.setActiveExpand()
+    if (this.$route.hash) {
+      // dirty hack, not working with hash links or $nextTick
+      setTimeout(() => {
+        location.href = this.$route.hash
+      }, 1)
+    }
+  }
+
+  @Watch('$route.hash')
+  onHashChange (value: string) {
+    if (!value) {
+      return
+    }
+    location.href = value
+    this.setActiveExpand()
+  }
+
+  setActiveExpand () {
     this.value = this.navigationRoutes.map((route, index) => {
-      return this.value[index] || !!route.children?.some(({ name }) => this.$router.currentRoute.name?.includes(name))
+      return this.value[index] || !!route.children?.some(({ name, hash }) => this.$router.currentRoute.fullPath?.includes(name + (hash || '')))
     })
   }
 }
