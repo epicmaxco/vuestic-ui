@@ -1,6 +1,6 @@
 <template>
   <div
-    style="position: relative; height: 10rem; width: 100%; border: 2px solid black;"
+    style="position: relative; height: 13rem; width: 100%; border: 2px solid black;"
     class="row"
   >
   <va-checkbox v-model="enabled" style="margin-left: 20rem;" label="Enabled"/>
@@ -11,8 +11,8 @@
           <div style="margin-left: 0.5rem;">Home</div></va-list-item
         >
         <va-list-item
-          ><va-icon name="search"></va-icon>
-          <div style="margin-left: 0.5rem;">Search</div></va-list-item
+          ><va-icon name="close"></va-icon>
+          <div style="margin-left: 0.5rem;">Close</div></va-list-item
         >
         <va-list-item
           ><va-icon name="loop"></va-icon>

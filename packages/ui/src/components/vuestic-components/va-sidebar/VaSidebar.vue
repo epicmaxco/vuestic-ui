@@ -24,7 +24,7 @@ const SidebarPropsMixin = makeContextablePropsMixin({
   hoverable: { type: Boolean, default: false },
   position: { type: String, default: 'left' },
   width: { type: String, default: '16rem' },
-  minimizedWidth: { type: String, default: '4rem' },
+  minimizedWidth: { type: String, default: '2.5rem' },
   value: { type: Boolean, default: true },
 })
 

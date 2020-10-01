@@ -33,7 +33,10 @@
               {{ $t(childRoute.category) }}
             </va-list-label>
             <va-list-item
-              :to="`/${$root.$i18n.locale}/${childRoute.name}${childRoute.hash || ''}`"
+              :to="
+                `/${$root.$i18n.locale}/${childRoute.name}${childRoute.hash ||
+                  ''}`
+              "
               class="sidebar__link"
               active-class="sidebar__link--active"
             >
@@ -61,7 +64,9 @@ import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
 export default class Sidebar extends Vue {
   value = [] as boolean[]
 
-  @Prop({ type: Array, default: () => [] }) readonly navigationRoutes!: NavigationRoute[]
+  @Prop({ type: Array, default: () => [] })
+  readonly navigationRoutes!: NavigationRoute[]
+
   @Prop({ type: Boolean, default: false }) readonly minimized!: boolean
 
   mounted () {
@@ -85,7 +90,12 @@ export default class Sidebar extends Vue {
 
   setActiveExpand () {
     this.value = this.navigationRoutes.map((route, index) => {
-      return this.value[index] || !!route.children?.some(({ name, hash }) => this.$router.currentRoute.fullPath?.includes(name + (hash || '')))
+      return (
+        this.value[index] ||
+        !!route.children?.some(({ name, hash }) =>
+          this.$router.currentRoute.fullPath?.includes(name + (hash || ''))
+        )
+      )
     })
   }
 }
@@ -97,29 +107,31 @@ export default class Sidebar extends Vue {
 .sidebar {
   padding-top: 4rem;
 
+  .va-list-item {
+    &.sidebar__link {
+      padding: 1rem 0 1rem 2rem;
+      line-height: 1.1;
+
+      &:hover {
+        background: $light-blue;
+
+        .va-list-item-label {
+          color: $theme-blue-dark;
+        }
+      }
+
+      &--active {
+        .va-list-item-label {
+          color: $theme-blue-dark;
+        }
+      }
+    }
+  }
+
   &__links {
     background-color: inherit;
     padding-bottom: 1rem;
     padding-top: 0;
-  }
-
-  &__link {
-    padding: 1rem 0 1rem 2rem;
-    line-height: 1.1;
-
-    &:hover {
-      background: $light-blue;
-
-      .va-list-item-label {
-        color: $theme-blue-dark;
-      }
-    }
-
-    &--active {
-      .va-list-item-label {
-        color: $theme-blue-dark;
-      }
-    }
   }
 
   &__category {
