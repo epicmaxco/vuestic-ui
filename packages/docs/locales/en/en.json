@@ -653,6 +653,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaColorInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -695,7 +701,8 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "colorInput": "Color Input"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1891,5 +1898,8 @@
         "text": "By default use this component with `v-model`."
       }
     }
+  },
+  "colorInput": {
+    "title": "-- Here is the title --"
   }
 }

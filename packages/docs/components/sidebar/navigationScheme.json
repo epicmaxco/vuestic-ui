@@ -161,6 +161,10 @@
         {
           "name": "color-picker",
           "displayName": "menu.colorPicker"
+        },
+        {
+          "name": "color-input",
+          "displayName": "menu.colorInput"
         }
       ]
     }

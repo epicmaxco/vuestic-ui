@@ -22,7 +22,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import VaColorInputAdvanced from './VaColorInputAdvanced.vue'
 import VaColorPalette from './VaColorPalette.vue'
-import VaColorInput from './VaColorInput.vue'
+import VaColorInput from '../va-color-input/VaColorInput.vue'
 
 @Component({
   name: 'VaColorPaletteAdvanced',
