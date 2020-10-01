@@ -108,6 +108,15 @@ export default class Sidebar extends Vue {
   padding-top: 4rem;
 
   .va-list-item {
+    &:hover {
+      background-color: $light-gray3;
+      cursor: pointer;
+    }
+
+    &--focus {
+      background-color: $light-gray3;
+    }
+
     &.sidebar__link {
       padding: 1rem 0 1rem 2rem;
       line-height: 1.1;
