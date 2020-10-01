@@ -25,41 +25,46 @@
     </VbCard>
 
     <VbCard title="Color Picker Input">
+      <p>Default</p>
+      <va-color-picker
+        v-model="value"
+      >
+      </va-color-picker>
+
       <p>Slider Mode</p>
-      <va-color-picker-input
+      <va-color-picker
         v-model="value"
         mode="slider"
       >
-        <va-color-square :value="value" />
-      </va-color-picker-input>
+      </va-color-picker>
 
       <p>Advanced Mode</p>
-      <va-color-picker-input
+      <va-color-picker
         v-model="value"
         mode="advanced"
       >
         <va-color-input v-model="value" />
-      </va-color-picker-input>
+      </va-color-picker>
 
       <p>Palette Mode</p>
-      <va-color-picker-input
+      <va-color-picker
         v-model="value"
         mode="palette"
         :palette="palette"
       />
 
       <p>Palette Mode With Slot</p>
-      <va-color-picker-input
+      <va-color-picker
         v-model="value"
         mode="palette"
         :palette="palette"
       >
         <color-dot :color="value" />
-      </va-color-picker-input>
+      </va-color-picker>
     </VbCard>
 
     <VbCard title="Advanced Color Picker">
-      <va-advanced-color-picker v-model="value" />
+      <va-color-advanced v-model="value" />
     </VbCard>
 
     <VbCard title="Palette Custom">
@@ -70,39 +75,37 @@
     </VbCard>
 
     <VbCard title="Simple Palette Picker">
-      <va-simple-palette-picker
+      <va-color-palette
         v-model="value"
         :palette="palette"
       />
     </VbCard>
 
     <VbCard title="Slider Color Picker">
-      <va-slider-color-picker v-model="value" />
+      <va-color-slider v-model="value" />
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import ColorDot from './ColorDot.vue'
-import VaAdvancedColorPicker from './VaAdvancedColorPicker'
-import VaColorPickerInput from './VaColorPickerInput'
-import VaColorSquare from './VaColorSquare'
+import VaColorAdvanced from './VaColorAdvanced'
+import VaColorPicker from './VaColorPicker'
 import VaColorInput from './VaColorInput'
 import VaPaletteCustom from './VaPaletteCustom'
-import VaSimplePalettePicker from './VaSimplePalettePicker'
-import VaSliderColorPicker from './VaSliderColorPicker'
+import VaColorPalette from './VaColorPalette'
+import VaColorSlider from './VaColorSlider'
 import { colorArray } from './VuesticTheme'
 
 export default {
   components: {
     ColorDot,
-    VaAdvancedColorPicker,
+    VaColorAdvanced,
     VaColorInput,
-    VaColorSquare,
-    VaColorPickerInput,
+    VaColorPicker,
     VaPaletteCustom,
-    VaSimplePalettePicker,
-    VaSliderColorPicker,
+    VaColorPalette,
+    VaColorSlider,
   },
   data () {
     return {

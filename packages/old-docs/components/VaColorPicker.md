@@ -1,22 +1,22 @@
 ## Components
 
 Color pickers are composed of 7 components:
-* **va-color-picker-input**
-* **va-simple-palette-picker**
+* **va-color-picker**
+* **va-color-palette**
 * **va-color-input**
-* **va-advanced-color-picker**
-* **va-slider-color-picker**
+* **va-color-advanced**
+* **va-color-slider**
 * **va-color-square**
 * **color-dot**
 
 Let's break them apart:
 
-# va-color-picker-input
+# va-color-picker
 
 ```html
-  <va-color-picker-input v-model="value" mode="palette" :palette="palette">
+  <va-color-picker v-model="value" mode="palette" :palette="palette">
     <color-dot :color="value"/>
-  </va-color-picker-input>
+  </va-color-picker>
 ```
 
 This component provides 3 modes:
@@ -35,10 +35,10 @@ Picker is shown in dropdown.
 * `palette` - Array
 * `selected` - Boolean
 
-# va-simple-palette-picker
+# va-color-palette
 
 ```html
-  <va-simple-palette-picker
+  <va-color-palette
     v-model="value"
     :palette="palette"
   />
@@ -69,19 +69,19 @@ Dot could be selected.
 * `selected` - Boolean - selected/unselected dot
 * `disabled` - Boolean - enabled/disabled input
 
-# va-advanced-color-picker
+# va-color-advanced
 
 ```html
-  <va-advanced-color-picker v-model="value"/>
+  <va-color-advanced v-model="value"/>
 ```
 
 ### Props
 * `value` - String - Color string
 
-# va-slider-color-picker
+# va-color-slider
 
 ```html
-  <va-slider-color-picker v-model="value"/>
+  <va-color-slider v-model="value"/>
 ```
 
 ### Props

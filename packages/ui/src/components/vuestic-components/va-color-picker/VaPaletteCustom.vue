@@ -1,11 +1,11 @@
 <template>
   <div class="va-palette-custom">
-    <va-simple-palette-picker
+    <va-color-palette
       class="va-palette-custom__palette mr-2"
       :palette="palette"
       v-model="valueProxy"
     />
-    <va-color-picker-input
+    <va-color-picker
       class="va-palette-custom__input"
       mode="advanced"
       v-model="valueProxy"
@@ -14,22 +14,22 @@
         :selected="dotIsSelected"
         v-model="valueProxy"
       />
-    </va-color-picker-input>
+    </va-color-picker>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import VaColorPickerInput from './VaColorPickerInput.vue'
-import VaSimplePalettePicker from './VaSimplePalettePicker.vue'
+import VaColorPicker from './VaColorPicker.vue'
+import VaColorPalette from './VaColorPalette.vue'
 import VaColorInput from './VaColorInput.vue'
 
 @Component({
   name: 'VaPaletteCustom',
   components: {
     VaColorInput,
-    VaColorPickerInput,
-    VaSimplePalettePicker,
+    VaColorPicker,
+    VaColorPalette,
   },
 })
 export default class VaPaletteCustom extends Vue {
