@@ -82,7 +82,7 @@ import VaColorPalette
   from './vuestic-components/va-color-picker/VaColorPalette'
 import VaColorSquare from './vuestic-components/va-color-picker/VaColorSquare'
 import VaColorSlider
-  from './vuestic-components/va-color-picker/VaColorSlider'
+  from './vuestic-components/va-color-slider/VaColorSlider'
 import VaColorPicker
   from './vuestic-components/va-color-picker/VaColorPicker'
 import VaColorInput

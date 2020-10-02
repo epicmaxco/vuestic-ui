@@ -165,6 +165,10 @@
         {
           "name": "color-input",
           "displayName": "menu.colorInput"
+        },
+        {
+          "name": "color-slider",
+          "displayName": "menu.colorSlider"
         }
       ]
     }

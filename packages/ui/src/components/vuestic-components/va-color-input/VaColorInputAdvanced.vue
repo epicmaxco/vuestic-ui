@@ -48,7 +48,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import VaColorPicker from '../va-color-picker/VaColorPicker.vue'
 import VaColorPalette from '../va-color-picker/VaColorPalette.vue'
-import VaColorSlider from '../va-color-picker/VaColorSlider.vue'
+import VaColorSlider from '../va-color-slider/VaColorSlider.vue'
 import VaColorInput from '../va-color-input/VaColorInput.vue'
 import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
 

@@ -128,6 +128,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaColorSlider": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -150,7 +156,8 @@
     "parallax": "Parallax",
     "backtop": "Backtop",
     "colorPicker": "Color Picker",
-    "colorInput": "Color Input"
+    "colorInput": "Color Input",
+    "colorSlider": "Color Slider"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -209,6 +216,9 @@
     "title": "-- Here is the title --"
   },
   "colorInput": {
+    "title": "-- Here is the title --"
+  },
+  "colorSlider": {
     "title": "-- Here is the title --"
   }
 }

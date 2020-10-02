@@ -25,10 +25,6 @@
         :palette="palette"
       />
     </VbCard>
-
-    <VbCard title="Slider Color Picker">
-      <va-color-slider v-model="value" />
-    </VbCard>
   </VbDemo>
 </template>
 
@@ -37,7 +33,6 @@ import ColorDot from './ColorDot.vue'
 import VaColorPicker from './VaColorPicker'
 import VaColorPaletteAdvanced from './VaColorPaletteAdvanced'
 import VaColorPalette from './VaColorPalette'
-import VaColorSlider from './VaColorSlider'
 import { colorArray } from './VuesticTheme'
 
 export default {
@@ -46,7 +41,6 @@ export default {
     VaColorPicker,
     VaColorPaletteAdvanced,
     VaColorPalette,
-    VaColorSlider,
   },
   data () {
     return {
