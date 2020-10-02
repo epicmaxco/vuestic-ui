@@ -23,6 +23,5 @@ export const apiOptionsAdvanced = {
   methods: {
   },
   slots: {
-    default: { local: true },
   },
 } as ManualApiOptions
