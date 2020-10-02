@@ -21,6 +21,7 @@
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@popperjs/core": "^2.1.1",
     "@types/cleave.js": "^1.4.3",
+    "@types/gravatar": "^1.8.1",
     "approximate-number": "^2.0.0",
     "asva-executors": "^0.1.23",
     "babel-loader": "^8.1.0",
