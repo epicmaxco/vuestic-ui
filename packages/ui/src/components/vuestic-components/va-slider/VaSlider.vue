@@ -719,16 +719,16 @@ export default class VaSlider extends Mixins(
       const processPosition = `${val0}%`
 
       if (slider === 0) {
-        this.dot0.style[this.pinPositionStyle] = `calc('${processPosition} - 8px)`
+        this.dot0.style[this.pinPositionStyle] = `calc(${processPosition} - 8px)`
         this.dot0.focus()
       } else {
-        this.dot1.style[this.pinPositionStyle] = `calc('${processPosition} - 8px)`
+        this.dot1.style[this.pinPositionStyle] = `calc(${processPosition} - 8px)`
         this.dot1.focus()
       }
     } else {
       const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
-      this.dot.style[this.pinPositionStyle] = `calc('${val} - 8px)`
+      this.dot.style[this.pinPositionStyle] = `calc(${val} - 8px)`
       this.dot.focus()
     }
   }
