@@ -41,17 +41,17 @@ export default class VaColorPaletteAdvanced extends Vue {
   }) readonly value!: string
 
   @Prop({
-    type: Array,
-    default: () => [],
-  }) readonly palette!: Array<string>
-
-  @Prop({
     type: String,
     default: 'dot',
     validator: (value: string) => {
       return ['dot', 'square'].includes(value)
     },
   }) readonly indicator!: string
+
+  @Prop({
+    type: Array,
+    default: () => [],
+  }) readonly palette!: Array<string>
 
   get valueProxy (): any {
     return this.value

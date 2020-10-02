@@ -693,6 +693,15 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaColorPaletteAdvanced": {
+      "props": {
+        "value": "Current color",
+        "palette": "An array of colors"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1987,6 +1996,10 @@
         "title": "Advanced",
         "text": "The component has an advanced version with an input component and color picker."
       }
+    },
+    "api": {
+      "colorPalette": "Color Palette API",
+      "colorPaletteAdvanced": "Color Palette Advanced API"
     }
   }
 }

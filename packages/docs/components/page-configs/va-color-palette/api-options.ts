@@ -12,3 +12,17 @@ export default {
   slots: {
   },
 } as ManualApiOptions
+
+export const apiOptionsAdvanced = {
+  props: {
+    value: { local: true },
+    palette: { local: true },
+  },
+  events: {
+  },
+  methods: {
+  },
+  slots: {
+    default: { local: true },
+  },
+} as ManualApiOptions
