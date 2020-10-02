@@ -69,9 +69,17 @@ export default [
     translationString: 'all.api',
   },
   {
+    type: BlockType.SUBTITLE,
+    translationString: 'colorInput.api.colorInput',
+  },
+  {
     type: BlockType.API,
     componentOptions: VaColorInput,
     apiOptions,
+  },
+  {
+    type: BlockType.SUBTITLE,
+    translationString: 'colorInput.api.colorInputAdvanced',
   },
   {
     type: BlockType.API,

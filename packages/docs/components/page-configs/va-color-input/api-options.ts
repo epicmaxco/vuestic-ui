@@ -15,11 +15,16 @@ export default {
 
 export const apiOptionsAdvanced = {
   props: {
+    value: { local: true },
+    mode: { local: true },
+    palette: { local: true },
+    selected: { local: true },
   },
   events: {
   },
   methods: {
   },
   slots: {
+    default: { local: true },
   },
 } as ManualApiOptions

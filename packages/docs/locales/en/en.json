@@ -662,6 +662,19 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaColorInputAdvanced": {
+      "props": {
+        "value": "Current color",
+        "selected": "Select the dot",
+        "mode": "Sets the mode of the component",
+        "palette": "An array of colors to palette mode"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Component content"
+      }
     }
   },
   "menu": {
@@ -1904,7 +1917,7 @@
   },
   "colorInput": {
     "title": "Color Input",
-    "summaryText": "",
+    "summaryText": "Input component that allows you to select a color.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -1922,6 +1935,10 @@
         "title": "Advanced",
         "text": "It's a heavier component which provides an ability to pick color by click."
       }
+    },
+    "api": {
+      "colorInput": "Color Input API",
+      "colorInputAdvanced": "Color Input Advanced API"
     }
   }
 }
