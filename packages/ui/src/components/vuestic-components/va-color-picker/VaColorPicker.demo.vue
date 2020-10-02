@@ -1,9 +1,15 @@
 <template>
   <VbDemo>
-    <VbCard title="Color Dot">
-      <color-dot
+    <VbCard title="Color Indicator">
+      <va-color-indicator
         :color="value"
         :selected="selected"
+        @click="selected = !selected"
+      />
+      <va-color-indicator
+        :color="value"
+        :selected="selected"
+        indicator="square"
         @click="selected = !selected"
       />
     </VbCard>
@@ -29,7 +35,7 @@
 </template>
 
 <script>
-import ColorDot from './ColorDot.vue'
+import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
 import VaColorPicker from './VaColorPicker'
 import VaColorPaletteAdvanced from '../va-color-palette/VaColorPaletteAdvanced'
 import VaColorPalette from '../va-color-palette/VaColorPalette'
@@ -37,7 +43,7 @@ import { colorArray } from './VuesticTheme'
 
 export default {
   components: {
-    ColorDot,
+    VaColorIndicator,
     VaColorPicker,
     VaColorPaletteAdvanced,
     VaColorPalette,

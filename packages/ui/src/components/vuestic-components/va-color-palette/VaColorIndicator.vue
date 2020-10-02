@@ -1,12 +1,13 @@
 <template>
   <div
-    class="color-dot"
+    class="color-indicator"
     @click="$emit('click')"
-    :class="{'color-dot--selected': selected}"
+    :class="{'color-indicator--selected': selected}"
+    :style="{'border-radius': indicator === 'square' ? 0 : '50%'}"
   >
     <div
-      class="color-dot__core"
-      :style="{'background-color': color}"
+      class="color-indicator__core"
+      :style="{'background-color': color, 'border-radius': indicator === 'square' ? 0 : '50%'}"
     />
   </div>
 </template>
@@ -15,13 +16,21 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component({
-  name: 'ColorDot',
+  name: 'VaColorIndicator',
 })
-export default class ColorDot extends Vue {
+export default class VaColorIndicator extends Vue {
   @Prop({
     type: String,
     default: '',
   }) readonly color!: string
+
+  @Prop({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  }) readonly indicator!: string
 
   @Prop({
     type: Boolean,
@@ -33,7 +42,7 @@ export default class ColorDot extends Vue {
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.color-dot {
+.color-indicator {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,11 +59,17 @@ export default class ColorDot extends Vue {
   }
 
   &__core {
+    transition: transform 0.1s linear;
     display: inline-block;
     vertical-align: baseline;
     border-radius: 50%;
     width: 1rem;
     height: 1rem;
+
+    &:hover {
+      transform: scale(1.3);
+      transition: transform 0.1s linear;
+    }
   }
 }
 </style>

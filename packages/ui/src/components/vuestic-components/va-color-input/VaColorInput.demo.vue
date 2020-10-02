@@ -51,21 +51,21 @@
         mode="palette"
         :palette="palette"
       >
-        <color-dot :color="value" />
+        <va-color-indicator :color="value" />
       </va-color-input-advanced>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import ColorDot from '../va-color-picker/ColorDot.vue'
+import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
 import VaColorInputAdvanced from './VaColorInputAdvanced.vue'
 import VaColorInput from './VaColorInput'
 import { colorArray } from '../va-color-picker/VuesticTheme'
 
 export default {
   components: {
-    ColorDot,
+    VaColorIndicator,
     VaColorInput,
     VaColorInputAdvanced,
   },

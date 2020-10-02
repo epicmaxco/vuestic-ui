@@ -7,10 +7,26 @@
       />
     </VbCard>
 
-    <VbCard title="Palette Custom">
+    <VbCard title="Palette Advanced">
       <va-color-palette-advanced
         :palette="palette"
         v-model="value"
+      />
+    </VbCard>
+
+    <VbCard title="Palette with square indicators">
+      <va-color-palette
+        v-model="value"
+        :palette="palette"
+        indicator="square"
+      />
+    </VbCard>
+
+    <VbCard title="Palette Advanced with square indicators">
+      <va-color-palette-advanced
+        :palette="palette"
+        v-model="value"
+        indicator="square"
       />
     </VbCard>
   </VbDemo>

@@ -12,6 +12,7 @@
               mode="palette"
               :disabled="isInputDisabled"
               :selected="selected"
+              :indicator="indicator"
             />
           </slot>
         </div>
@@ -38,6 +39,7 @@
           v-model="valueProxy"
           mode="palette"
           :disabled="isInputDisabled"
+          :indicator="indicator"
         />
       </slot>
     </div>
@@ -67,6 +69,14 @@ export default class VaColorInputAdvanced extends Vue {
     type: String,
     default: '',
   }) readonly value!: string
+
+  @Prop({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  }) readonly indicator!: string
 
   @Prop({
     type: String,

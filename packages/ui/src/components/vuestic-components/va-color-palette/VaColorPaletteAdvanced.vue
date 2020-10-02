@@ -4,6 +4,7 @@
       class="va-color-palette-advanced__palette mr-2"
       :palette="palette"
       v-model="valueProxy"
+      :indicator="indicator"
     />
     <va-color-input-advanced
       class="va-color-palette-advanced__input"
@@ -13,6 +14,7 @@
       <va-color-input
         :selected="dotIsSelected"
         v-model="valueProxy"
+        :indicator="indicator"
       />
     </va-color-input-advanced>
   </div>
@@ -42,6 +44,14 @@ export default class VaColorPaletteAdvanced extends Vue {
     type: Array,
     default: () => [],
   }) readonly palette!: Array<string>
+
+  @Prop({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  }) readonly indicator!: string
 
   get valueProxy (): any {
     return this.value

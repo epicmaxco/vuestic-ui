@@ -80,7 +80,6 @@ import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from './resize-events'
 import VaColorPalette
   from './vuestic-components/va-color-palette/VaColorPalette'
-import VaColorSquare from './vuestic-components/va-color-picker/VaColorSquare'
 import VaColorSlider from './vuestic-components/va-color-slider/VaColorSlider'
 import VaColorPicker
   from './vuestic-components/va-color-picker/VaColorPicker'
@@ -166,7 +165,6 @@ const VuesticPlugin = {
       VaTreeRoot,
       VaInnerLoading,
       VaColorPalette,
-      VaColorSquare,
       VaColorSlider,
       VaColorPicker,
       VaColorInput,
