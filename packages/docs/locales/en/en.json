@@ -677,7 +677,9 @@
       }
     },
     "VaColorSlider": {
-      "props": {},
+      "props": {
+        "value": "Current color"
+      },
       "events": {},
       "methods": {},
       "slots": {}
@@ -1949,6 +1951,13 @@
     }
   },
   "colorSlider": {
-    "title": "-- Here is the title --"
+    "title": "Color Slider",
+    "summaryText": "Slider component for color pick.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model`."
+      }
+    }
   }
 }

@@ -8,8 +8,24 @@ export default [
     translationString: 'colorSlider.title',
   },
   {
+    type: BlockType.PARAGRAPH,
+    translationString: 'colorSlider.summaryText',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.examples',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'colorSlider.examples.default.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'colorSlider.examples.default.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-color-slider/Default',
   },
   {
     type: BlockType.SUBTITLE,

@@ -11,12 +11,12 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Slider } from 'vue-color'
 
 @Component({
-  name: 'VaColorInputAdvanced',
+  name: 'VaColorSlider',
   components: {
     SliderPicker: Slider,
   },
 })
-export default class VaColorInputAdvanced extends Vue {
+export default class VaColorSlider extends Vue {
   @Prop({
     type: String,
     default: '',
