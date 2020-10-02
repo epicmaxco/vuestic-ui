@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import VaColorInputAdvanced from './VaColorInputAdvanced.vue'
+import VaColorInputAdvanced from '../va-color-input/VaColorInputAdvanced.vue'
 import VaColorPalette from './VaColorPalette.vue'
 import VaColorInput from '../va-color-input/VaColorInput.vue'
 

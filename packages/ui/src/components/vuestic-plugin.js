@@ -86,9 +86,9 @@ import VaColorSlider
 import VaColorPicker
   from './vuestic-components/va-color-picker/VaColorPicker'
 import VaColorInput
-  from './vuestic-components/va-color-input/VaColorInput.vue'
+  from './vuestic-components/va-color-input/VaColorInput'
 import VaColorInputAdvanced
-  from './vuestic-components/va-color-picker/VaColorInputAdvanced'
+  from './vuestic-components/va-color-input/VaColorInputAdvanced'
 import VaColorPaletteAdvanced
   from './vuestic-components/va-color-picker/VaColorPaletteAdvanced'
 import VaForm

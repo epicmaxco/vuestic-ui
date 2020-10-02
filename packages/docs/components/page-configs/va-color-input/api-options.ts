@@ -12,3 +12,14 @@ export default {
   slots: {
   },
 } as ManualApiOptions
+
+export const apiOptionsAdvanced = {
+  props: {
+  },
+  events: {
+  },
+  methods: {
+  },
+  slots: {
+  },
+} as ManualApiOptions

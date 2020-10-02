@@ -59,7 +59,7 @@
 
 <script>
 import ColorDot from '../va-color-picker/ColorDot.vue'
-import VaColorInputAdvanced from '../va-color-picker/VaColorInputAdvanced'
+import VaColorInputAdvanced from './VaColorInputAdvanced.vue'
 import VaColorInput from './VaColorInput'
 import { colorArray } from '../va-color-picker/VuesticTheme'
 
