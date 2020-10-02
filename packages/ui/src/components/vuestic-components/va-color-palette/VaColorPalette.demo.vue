@@ -1,16 +1,16 @@
 <template>
   <VbDemo>
-    <VbCard title="Palette Custom">
-      <va-color-palette-advanced
-        :palette="palette"
-        v-model="value"
-      />
-    </VbCard>
-
     <VbCard title="Simple Palette Picker">
       <va-color-palette
         v-model="value"
         :palette="palette"
+      />
+    </VbCard>
+
+    <VbCard title="Palette Custom">
+      <va-color-palette-advanced
+        :palette="palette"
+        v-model="value"
       />
     </VbCard>
   </VbDemo>
