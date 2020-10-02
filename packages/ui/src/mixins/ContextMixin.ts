@@ -17,7 +17,8 @@ class ContextMixin extends Vue {
   @Inject({
     from: ContextProviderKey,
     default: () => CONFIGS_DEFAULT,
-  }) readonly _$configs!: ContextConfig[]
+  })
+  readonly _$configs!: ContextConfig[]
 }
 
 export default ContextMixin
