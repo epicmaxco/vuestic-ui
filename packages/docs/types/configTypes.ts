@@ -4,9 +4,6 @@ import {
 } from '../../ui/src/services/api-docs/ManualApiOptions'
 import { VueConstructor } from 'vue'
 
-// TODO: move i18n types to appropriate place, e.g. tsconfig, ...
-// import 'nuxt-i18n'
-
 export type CodeString = string
 // example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
 export type PathToExample = string

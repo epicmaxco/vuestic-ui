@@ -1,7 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import { blocktypes, codeForCodeblock } from './block-types'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
+
+export const codeForCodeblock = '<div>Code string</div>'
+
 export default [
   DocsHelper.title('documentationPage.title'),
   DocsHelper.paragraph('documentationPage.description'),
@@ -15,41 +17,41 @@ export default [
 
   DocsHelper.headline('documentationPage.blocktypes.title.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.title.text'),
-  DocsHelper.code(blocktypes.title),
+  DocsHelper.code('DocsHelper.title(\'translation.path\')'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.title('translation.path'),
 
   DocsHelper.headline('documentationPage.blocktypes.subtitle.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.subtitle.text'),
-  DocsHelper.code(blocktypes.subtitle),
+  DocsHelper.code('DocsHelper.subtitle(\'translation.path\')'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.subtitle('translation.path'),
 
   DocsHelper.headline('documentationPage.blocktypes.headline.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.headline.text'),
-  DocsHelper.code(blocktypes.headline),
+  DocsHelper.code('DocsHelper.headline(\'translation.path\')'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.headline('translation.path'),
 
   DocsHelper.headline('documentationPage.blocktypes.paragraph.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.paragraph.text'),
-  DocsHelper.code(blocktypes.paragraph),
+  DocsHelper.code('DocsHelper.paragraph(\'translation.path\')'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.paragraph('translation.path'),
 
   DocsHelper.headline('documentationPage.blocktypes.code.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.code.text'),
-  DocsHelper.code(blocktypes.code),
+  DocsHelper.code(`DocsHelper.code(${codeForCodeblock})`),
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.code(codeForCodeblock),
 
   DocsHelper.headline('documentationPage.blocktypes.example.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.example.text'),
-  DocsHelper.code(blocktypes.example),
+  DocsHelper.code('DocsHelper.example(\'va-component/ComponentName\')'),
 
   DocsHelper.headline('documentationPage.blocktypes.api.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.api.text'),
-  DocsHelper.code(blocktypes.api),
+  DocsHelper.code('DocsHelper.api(VaComponent, apiOptions)'),
 
   {
     type: BlockType.SUBTITLE,

@@ -114,7 +114,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .demo__sidebar-container {
   position: relative;
   height: 10rem;
