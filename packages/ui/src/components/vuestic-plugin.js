@@ -79,7 +79,7 @@ import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-
 import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from './resize-events'
 import VaColorPalette
-  from './vuestic-components/va-color-picker/VaColorPalette'
+  from './vuestic-components/va-color-palette/VaColorPalette'
 import VaColorSquare from './vuestic-components/va-color-picker/VaColorSquare'
 import VaColorSlider from './vuestic-components/va-color-slider/VaColorSlider'
 import VaColorPicker
@@ -89,7 +89,7 @@ import VaColorInput
 import VaColorInputAdvanced
   from './vuestic-components/va-color-input/VaColorInputAdvanced'
 import VaColorPaletteAdvanced
-  from './vuestic-components/va-color-picker/VaColorPaletteAdvanced'
+  from './vuestic-components/va-color-palette/VaColorPaletteAdvanced'
 import VaForm
   from './vuestic-components/va-form/VaForm'
 import VaOptionList

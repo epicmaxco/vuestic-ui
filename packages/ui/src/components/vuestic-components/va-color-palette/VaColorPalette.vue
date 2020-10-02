@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import ColorDot from './ColorDot.vue'
+import ColorDot from '../va-color-picker/ColorDot.vue'
 
 @Component({
   name: 'VaColorPalette',

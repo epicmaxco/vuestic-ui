@@ -31,8 +31,8 @@
 <script>
 import ColorDot from './ColorDot.vue'
 import VaColorPicker from './VaColorPicker'
-import VaColorPaletteAdvanced from './VaColorPaletteAdvanced'
-import VaColorPalette from './VaColorPalette'
+import VaColorPaletteAdvanced from '../va-color-palette/VaColorPaletteAdvanced'
+import VaColorPalette from '../va-color-palette/VaColorPalette'
 import { colorArray } from './VuesticTheme'
 
 export default {

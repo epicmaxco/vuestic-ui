@@ -169,6 +169,10 @@
         {
           "name": "color-slider",
           "displayName": "menu.colorSlider"
+        },
+        {
+          "name": "color-palette",
+          "displayName": "menu.colorPalette"
         }
       ]
     }
