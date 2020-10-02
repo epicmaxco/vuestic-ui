@@ -94,6 +94,7 @@ import VaOptionList
 import VaInfiniteScroll
   from './vuestic-components/va-infinite-scroll/VaInfiniteScroll'
 import ToastInstall from './vuestic-components/va-toast/install'
+import GlobalConfigPlugin from '../services/GlobalConfigPlugin'
 
 installPlatform()
 
@@ -182,6 +183,8 @@ const VuesticPlugin = {
     Vue.use(DropdownPopperPlugin)
 
     Vue.use(ToastInstall)
+
+    Vue.use(GlobalConfigPlugin)
 
     Vue.mixin(Toasted)
 

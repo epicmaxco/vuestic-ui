@@ -36,8 +36,8 @@ export const setGlobalConfig = (updater: ContextConfig | Updater) => {
 /**
  * Plugin provides global config to Vue component through prototype
  */
-export const GlobalConfigPlugin = {
-  install (Vue: VueConstructor, config: ContextConfig) {
+const GlobalConfigPlugin = {
+  install (Vue: VueConstructor, config: ContextConfig = {}) {
     setGlobalConfig(config)
 
     Object.defineProperty(Vue.prototype, '$vaGlobalConfig', {
@@ -47,3 +47,5 @@ export const GlobalConfigPlugin = {
     })
   },
 }
+
+export default GlobalConfigPlugin

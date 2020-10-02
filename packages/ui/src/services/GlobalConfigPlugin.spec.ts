@@ -1,8 +1,7 @@
 import Vue, { CreateElement, ComponentOptions } from 'vue'
 import { createLocalVue, mount } from '@vue/test-utils'
 
-import {
-  GlobalConfigPlugin,
+import GlobalConfigPlugin, {
   setGlobalConfig,
   ContextConfig,
 } from './GlobalConfigPlugin'
