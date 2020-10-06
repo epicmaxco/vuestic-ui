@@ -47,7 +47,7 @@ export default class VaButtonGroup extends Vue {
 .va-button-group {
   display: flex;
   justify-content: stretch;
-  margin: 0.375rem 0.5rem;
+  // margin: 0.375rem 0.5rem;
 
   &--small {
     border-radius: $btn-border-radius-sm;
