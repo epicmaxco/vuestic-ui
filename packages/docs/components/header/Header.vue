@@ -5,7 +5,7 @@
       <img class="header__logo__image" src="../../assets/svg/vuestic-docs.svg" height="30" width="150">
     </div>
     <div class="header__links flex grow justify--center">
-      <div class="shrink">
+      <div class="shrink" style="display: flex;">
         <va-button
           v-for="(link, index) in links" :key="index"
           flat
@@ -17,6 +17,7 @@
           <i class="button__icon" :class="link.icon" />
           <span class="button__text">{{ link.text }}</span>
         </va-button>
+        <github-dropdown />
       </div>
     </div>
     <div class="header__prefences flex shrink">
@@ -34,6 +35,7 @@ import VaSelect from '../../../ui/src/components/vuestic-components/va-select/Va
 import LanguageDropdown from './components/LanguageDropdown.vue'
 import VersionDropdown from './components/VersionDropdown.vue'
 import ColorDropdown from './components/ColorDropdown.vue'
+import GithubDropdown from './components/GithubDropdown.vue'
 import HeaderSelector from './components/HeaderSelector.vue'
 @Component({
   components: {
@@ -41,6 +43,7 @@ import HeaderSelector from './components/HeaderSelector.vue'
     HeaderSelector,
     VaSelect,
     LanguageDropdown,
+    GithubDropdown,
     ColorDropdown,
     VersionDropdown,
   },
