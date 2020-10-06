@@ -11,9 +11,7 @@
         Three
       </va-button>
     </va-button-group>
-
-    <br />
-
+    <div class="mb-2" />
     <va-button-group>
       <va-button size="small">
         One
