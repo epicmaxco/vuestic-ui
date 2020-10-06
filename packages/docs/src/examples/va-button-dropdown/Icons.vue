@@ -7,6 +7,12 @@
       Content
     </va-button-dropdown>
     <va-button-dropdown
+      label="left icon"
+      left-icon="info"
+    >
+      Content
+    </va-button-dropdown>
+    <va-button-dropdown
       label="custom icon"
       icon="info"
     >
