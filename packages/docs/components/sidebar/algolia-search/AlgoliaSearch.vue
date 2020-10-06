@@ -2,9 +2,10 @@
   <form id="search-form">
     <va-input
       id="algolia-search-input"
+      v-model="value"
       placeholder="Search..."
-      @focus="color = 'dark'"
-      @blur="color = 'gray'"
+      @focus="onFocusHandler('dark', 'block')"
+      @blur="onFocusHandler('gray', 'none')"
     >
       <va-icon
         slot="prepend"
@@ -24,7 +25,14 @@ import { Component, Vue } from 'vue-property-decorator'
   name: 'Search',
 })
 export default class Search extends Vue {
+  value = ''
   color = 'gray'
+
+  onFocusHandler (colorValue: string, displayValue: string): void {
+    this.color = colorValue
+    const el: HTMLElement | null = document.querySelector('.ds-dropdown-menu')
+    if (el) { el.style.display = displayValue }
+  }
 
   initialize () {
     Promise.all([
