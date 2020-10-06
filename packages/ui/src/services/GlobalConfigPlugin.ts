@@ -34,6 +34,13 @@ export const setGlobalConfig = (updater: ContextConfig | Updater) => {
 }
 
 /**
+ * The global configuration's getter
+ */
+export const getGlobalConfig = () => {
+  return globalConfigRef.value
+}
+
+/**
  * Plugin provides global config to Vue component through prototype
  */
 const GlobalConfigPlugin = {

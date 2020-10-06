@@ -24,6 +24,10 @@ And you can use it in component code or template like this:
 this.$vaGlobalConfig
 ```
 
+```js
+const globalConfig = getGlobalConfig()
+```
+
 **Template**
 ```html
 <div :style="{ backgroundColor: $vaGlobalConfig.theme.themes.light }"/>

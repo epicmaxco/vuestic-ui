@@ -3,6 +3,7 @@ import { createLocalVue, mount } from '@vue/test-utils'
 
 import GlobalConfigPlugin, {
   setGlobalConfig,
+  getGlobalConfig,
   ContextConfig,
 } from './GlobalConfigPlugin'
 
@@ -51,10 +52,13 @@ describe('GlobalConfigPlugin', () => {
 
       setGlobalConfig(partialConfig)
 
-      expect(instance.$vaGlobalConfig).toStrictEqual({
+      const nextConfig = {
         ...initialConfig,
         ...partialConfig,
-      })
+      }
+
+      expect(instance.$vaGlobalConfig).toStrictEqual(nextConfig)
+      expect(getGlobalConfig()).toStrictEqual(nextConfig)
     })
 
     it("should update the global config with a user's update function", () => {
@@ -69,11 +73,14 @@ describe('GlobalConfigPlugin', () => {
         ...anotherComponentConfig,
       }))
 
-      expect(instance.$vaGlobalConfig).toStrictEqual({
+      const nextConfig = {
         ...initialConfig,
         all: { value: `${prefix}${initialConfig.all.value}` },
         ...anotherComponentConfig,
-      })
+      }
+
+      expect(instance.$vaGlobalConfig).toStrictEqual(nextConfig)
+      expect(getGlobalConfig()).toStrictEqual(nextConfig)
     })
   })
 })
