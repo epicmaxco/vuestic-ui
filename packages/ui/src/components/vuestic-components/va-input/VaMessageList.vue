@@ -18,7 +18,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const MessageListPropsMixin = makeContextablePropsMixin({
   value: { type: [String, Number, Object, Array], default: '' },

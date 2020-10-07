@@ -117,7 +117,7 @@ import VaIcon from '../va-icon/VaIcon.vue'
 
 import { getHoverColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import { InputMixin } from './helpers/InputMixin'
 import { TextareaMixin } from './helpers/TextareaMixin'

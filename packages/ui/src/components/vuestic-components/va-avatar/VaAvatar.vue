@@ -36,7 +36,7 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import * as gravatar from 'gravatar'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
 const AvatarPropsMixin = makeContextablePropsMixin({

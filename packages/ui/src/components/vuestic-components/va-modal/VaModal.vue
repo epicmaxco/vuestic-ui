@@ -86,7 +86,7 @@ import { noop } from 'lodash'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import ClickOutsideMixin, {
   ClickOutsideOptions,

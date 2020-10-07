@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import VaButton from '../va-button/VaButton.vue'
 
 const PropsMixin = makeContextablePropsMixin({

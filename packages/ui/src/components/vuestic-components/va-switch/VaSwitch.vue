@@ -82,7 +82,7 @@ import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import { getColor } from '../../../services/ColorThemePlugin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const SwitchPropsMixin = makeContextablePropsMixin({
   value: { type: [Boolean, Array, String, Object], default: false },

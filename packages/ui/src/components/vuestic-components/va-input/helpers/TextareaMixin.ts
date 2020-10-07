@@ -1,7 +1,7 @@
 import Component from 'vue-class-component'
 import { Mixins, Watch } from 'vue-property-decorator'
 import calculateNodeHeight from '../calculateNodeHeight'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
 import { warn } from '../../../../services/utils'
 
 const PropsMixin = makeContextablePropsMixin({

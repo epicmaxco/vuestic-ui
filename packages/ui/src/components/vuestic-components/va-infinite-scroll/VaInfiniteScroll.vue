@@ -41,7 +41,7 @@ import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle
 import { debounce } from 'lodash'
 import { sleep } from '../../../services/utils'
 import { getColor } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const InfiniteScrollPropsMixin = makeContextablePropsMixin({
   offset: { type: Number, default: 500 },
@@ -132,8 +132,7 @@ export default class VaInfiniteScroll extends Mixins(
   finishLoading () {
     this.fetching = false
     if (this.reverse) {
-      const heightDifference = (this as any).$el.offsetHeight - this.initialHeight
-      this.scrollTargetElement.scrollTop = heightDifference
+      this.scrollTargetElement.scrollTop = (this as any).$el.offsetHeight - this.initialHeight
     }
   }
 

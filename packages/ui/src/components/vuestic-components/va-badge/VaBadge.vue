@@ -21,7 +21,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const BadgePropsMixin = makeContextablePropsMixin({
   color: { type: String, default: 'danger' },
@@ -44,11 +44,7 @@ export default class VaBadge extends Mixins(
   BadgePropsMixin,
 ) {
   get isEmpty () {
-    if (this.c_text || this.c_visibleEmpty || this.c_dot || this.$slots.text) {
-      return false
-    }
-
-    return true
+    return !(this.c_text || this.c_visibleEmpty || this.c_dot || this.$slots.text)
   }
 
   get isFloating () {

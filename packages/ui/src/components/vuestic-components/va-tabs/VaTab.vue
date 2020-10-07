@@ -41,7 +41,7 @@ import { Component, Mixins } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
 const TabPropsMixin = makeContextablePropsMixin({

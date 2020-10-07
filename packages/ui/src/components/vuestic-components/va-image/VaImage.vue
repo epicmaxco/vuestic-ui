@@ -29,7 +29,7 @@
 <script lang="ts">
 import { Mixins, Component, Prop, Watch } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const ImagePropsMixin = makeContextablePropsMixin({
   ratio: { type: [Number, String], default: 1 },

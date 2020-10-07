@@ -18,7 +18,7 @@ import { Component, Mixins } from 'vue-property-decorator'
 import { warn } from '../../../services/utils'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { IconMixin } from './IconMixin'
 
 const IconPropsMixin = makeContextablePropsMixin({

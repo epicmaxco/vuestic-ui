@@ -1,5 +1,6 @@
-import { mergeConfigs, makeContextablePropsMixin } from './ContextPlugin'
 import { shallowMount, mount } from '@vue/test-utils'
+import { mergeConfigs } from './ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import VaContext from './VaContext'
 import { CreateElement } from 'vue'
 

@@ -26,7 +26,7 @@
 <script lang="ts">
 // @ts-ignore
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { Component, Mixins } from 'vue-property-decorator'
 
 const props = {

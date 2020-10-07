@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { makeContextablePropsMixin } from './context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../services/context/makeContextablePropsMixin'
 
 const contextConfigMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },

@@ -25,7 +25,7 @@ import {
   getWindowHeight,
   State,
 } from './VaAffix-utils'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const AffixPropsMixin = makeContextablePropsMixin({
   offsetTop: { type: Number, default: undefined },

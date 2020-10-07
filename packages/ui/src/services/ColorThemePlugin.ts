@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from './context/makeContextablePropsMixin'
 import { getGlobalConfig, setGlobalConfig } from './GlobalConfigPlugin'
 
 declare module 'vue/types/vue' {

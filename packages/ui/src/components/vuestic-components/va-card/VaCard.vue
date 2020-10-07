@@ -27,7 +27,7 @@ import { Component, Mixins } from 'vue-property-decorator'
 
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
 const CardPropsMixin = makeContextablePropsMixin({

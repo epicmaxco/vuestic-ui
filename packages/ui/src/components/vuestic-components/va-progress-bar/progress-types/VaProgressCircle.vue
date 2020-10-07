@@ -38,7 +38,7 @@ import {
   ColorThemeMixin,
   getColor,
 } from '../../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 
 const ProgressCirclePropsMixin = makeContextablePropsMixin({

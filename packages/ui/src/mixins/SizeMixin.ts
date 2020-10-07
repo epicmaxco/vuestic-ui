@@ -1,4 +1,4 @@
-import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../services/context/makeContextablePropsMixin'
 import Component, { mixins } from 'vue-class-component'
 
 export const sizesConfig = {

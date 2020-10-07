@@ -36,7 +36,7 @@ import VaFileUploadListItem from './VaFileUploadListItem.vue'
 import VaFileUploadGalleryItem from './VaFileUploadGalleryItem.vue'
 import VaFileUploadSingleItem from './VaFileUploadSingleItem.vue'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const FileUploadListPropsMixin = makeContextablePropsMixin({
   type: { type: String, default: '' },

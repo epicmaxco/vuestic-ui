@@ -70,7 +70,7 @@ import {
   getBoxShadowColor,
 } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
@@ -116,7 +116,7 @@ export default class VaButton extends Mixins(
   onLoadingChanged (newValue: boolean) {
     (this as any).$el.blur()
 
-    if (newValue === true) {
+    if (newValue) {
       this.updateFocusState(false)
       this.updateHoverState(false)
     }

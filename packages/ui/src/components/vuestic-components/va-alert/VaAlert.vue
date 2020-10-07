@@ -76,7 +76,7 @@ import {
 
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const AlertPropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },

@@ -27,7 +27,7 @@ import VaButton from '../va-button/VaButton.vue'
 import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
 
 import { getGradientBackground } from '../../../services/color-functions'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 
 const PropsMixin = makeContextablePropsMixin({

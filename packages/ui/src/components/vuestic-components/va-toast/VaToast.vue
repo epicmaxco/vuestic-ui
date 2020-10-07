@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { NotificationPosition } from './types'
 import { PropType } from 'vue'
 import { Component, Mixins, Watch } from 'vue-property-decorator'

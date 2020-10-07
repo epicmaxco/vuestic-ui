@@ -1,5 +1,5 @@
-import { Vue, Component, Prop, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const RouterLinkPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'router-link' },

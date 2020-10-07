@@ -69,7 +69,7 @@ import VaButton from '../va-button/VaButton.vue'
 import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
 
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 
 const ButtonPropsMixin = makeContextablePropsMixin({

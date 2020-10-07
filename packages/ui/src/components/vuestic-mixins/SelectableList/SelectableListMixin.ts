@@ -1,7 +1,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { getProp } from '../../../services/utils'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const componentProps = {
   options: { type: Array, default: () => [] },
@@ -23,10 +23,9 @@ export class SelectableListMixin extends Mixins(
   }
 
   getValue (option: any) {
-    const value = typeof option === 'string'
+    return typeof option === 'string'
       ? option
       : getProp(option, this.valueBy)
-    return value
   }
 
   getText (option: any) {

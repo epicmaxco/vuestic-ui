@@ -51,7 +51,7 @@ import { SizeMixin } from '../../../../mixins/SizeMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ProgressComponentMixin } from './ProgressComponentMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
 
 const ProgressBarPropsMixin = makeContextablePropsMixin({
   buffer: { type: Number, default: 100 },

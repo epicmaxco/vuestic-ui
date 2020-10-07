@@ -1,5 +1,5 @@
 import { Mixins, Component } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const componentProps = {
   loading: { type: Boolean, default: false },

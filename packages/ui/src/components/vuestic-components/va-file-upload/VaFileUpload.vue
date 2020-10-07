@@ -57,7 +57,7 @@ import VaModal from '../va-modal/VaModal.vue'
 
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 
 const FileUploadPropsMixin = makeContextablePropsMixin({
   type: {

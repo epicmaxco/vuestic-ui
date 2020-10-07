@@ -1,7 +1,7 @@
 import isString from 'lodash/isString'
 import isFunction from 'lodash/isFunction'
 import flatten from 'lodash/flatten'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { deepEqual } from '../../../services/utils'
 import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
 

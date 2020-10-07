@@ -1,5 +1,5 @@
 import Cleave from 'cleave.js'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
 import { Mixins, Watch } from 'vue-property-decorator'
 import Component from 'vue-class-component'
 import { CleaveOptions } from 'cleave.js/options'
