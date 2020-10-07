@@ -16624,10 +16624,15 @@ tsconfig@^7.0.0:
     strip-bom "^3.0.0"
     strip-json-comments "^2.0.0"
 
-tslib@^1.11.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
   integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
+
+tslib@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.2.tgz#462295631185db44b21b1ea3615b63cd1c038242"
+  integrity sha512-wAH28hcEKwna96/UacuWaVspVLkg4x1aDM9JlzqaQTOFczCktkVAb5fmXChgandR1EraDPs2w8P+ozM+oafwxg==
 
 tslint@^5.20.1:
   version "5.20.1"
@@ -17277,12 +17282,12 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-book@0.1.0-alpha.33:
-  version "0.1.0-alpha.33"
-  resolved "https://registry.yarnpkg.com/vue-book/-/vue-book-0.1.0-alpha.33.tgz#158b8f6c2717c0cfe1c309b9f1b42f555369545a"
-  integrity sha512-meQii/OJBxzHX7DQtJD/zZrscWTNSAiQvP/QeH6984xveSca0MtdNyoto0GBotpd2Dvhogi5dRu9TcElYVW2Xw==
+vue-book@0.1.0-alpha.42:
+  version "0.1.0-alpha.42"
+  resolved "https://registry.yarnpkg.com/vue-book/-/vue-book-0.1.0-alpha.42.tgz#3b036ce27668e86546a8a16b7d24cd18c53cdc90"
+  integrity sha512-6NnLpy8SxciUw+D5JHoUPTC4yhPgvKT0IfAJMKRPoMMAPattHO1Znem35ju1//MkA1hcryobDB+DXbln02Fppw==
   dependencies:
-    tslib "^1.11.1"
+    tslib "^2.0.0"
 
 vue-bulma-expanding@0.0.1:
   version "0.0.1"
