@@ -42,7 +42,6 @@ export default class VaListItemSection extends Mixins(
   &--main {
     min-width: 0; // for ellipsis to work correctly
     flex-direction: column;
-    // padding: 0 0.5rem;
     flex: 1 0;
   }
 

@@ -17,7 +17,6 @@ import { Mixins, Component } from 'vue-property-decorator'
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 const SidebarPropsMixin = makeContextablePropsMixin({
   minimized: { type: Boolean, default: false },
@@ -32,7 +31,6 @@ const SidebarPropsMixin = makeContextablePropsMixin({
   name: 'VaSidebar',
 })
 export default class VaSidebar extends Mixins(
-  StatefulMixin,
   ColorThemeMixin,
   SidebarPropsMixin,
 ) {
@@ -50,7 +48,7 @@ export default class VaSidebar extends Mixins(
   }
 
   get computedWidth () {
-    if (!this.value) {
+    if (!this.c_value) {
       return 0
     }
     return this.isMinimized ? this.c_minimizedWidth : this.c_width
@@ -91,7 +89,7 @@ export default class VaSidebar extends Mixins(
   }
 
   @include media-breakpoint-down(xs) {
-    width: 100%;
+    width: 100% !important;
   }
 
   &--minimized {

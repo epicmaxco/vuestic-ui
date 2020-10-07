@@ -675,9 +675,7 @@
       "other": "Other"
     },
     "contribution": "Contribution",
-    "": "Documentation Page",
-    "pageConfig": "Page Config",
-    "apiOptions": "API Options",
+    "documentationPage": "Documentation Page",
     "affix": "Affix",
     "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",

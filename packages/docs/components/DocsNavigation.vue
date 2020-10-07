@@ -3,25 +3,25 @@
     <va-button
       flat
       size="small"
-      class="docs-nav__button"
+      class="docs-navigation__button"
       color="gray"
       @click="copy"
     >
-      <i class="docs-nav__button__icon" :class="copyIcon" />
-      <span class="docs-nav__button__text">{{ copyText }}</span>
+      <i class="docs-navigation__button__icon" :class="copyIcon" />
+      <span class="docs-navigation__button__text">{{ copyText }}</span>
     </va-button>
 
     <va-button
       v-for="(link, index) in links" :key="index"
       flat
       size="small"
-      class="docs-nav__button"
+      class="docs-navigation__button"
       color="gray"
       :href="link.url"
       target="_blank"
     >
-      <i class="docs-nav__button__icon" :class="link.icon" />
-      <span class="docs-nav__button__text">{{ link.text }}</span>
+      <i class="docs-navigation__button__icon" :class="link.icon" />
+      <span class="docs-navigation__button__text">{{ link.text }}</span>
     </va-button>
   </div>
 </template>

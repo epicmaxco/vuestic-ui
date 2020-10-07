@@ -25,10 +25,10 @@ export default class VaExpandGroup extends Mixins(
   ExpandGroupPropsMixin,
 ) {
   @Provide() accordion = {
-    onChildChange: this.onChildChange,
+    onChildChange: (child: any, state: any) => this.onChildChange(child, state),
   }
 
-  onChildChange (child: any) {
+  onChildChange (child: any, state: any) {
     const emitValue: any = []
     this.$children.forEach(expand => {
       if (expand === child) {

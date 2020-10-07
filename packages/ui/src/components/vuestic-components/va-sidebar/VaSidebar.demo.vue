@@ -46,15 +46,29 @@
         </va-sidebar>
       </div>
     </VbCard>
+    <VbCard title="v-model" :state="{minimized: true}" #default="{state}">
+      <va-checkbox v-model="state.minimized" label="v-model value" />
+      <br />
+      <div class="demo__sidebar-container-2x">
+        <va-sidebar v-model="state.minimized">
+          <div>Item</div>
+          <div>Item</div>
+        </va-sidebar>
+        <va-sidebar v-model="state.minimized" position="right">
+          <div>Item</div>
+          <div>Item</div>
+        </va-sidebar>
+      </div>
+    </VbCard>
     <VbCard title="minimized width" :state="{minimized: true}" #default="{state}">
       <va-checkbox v-model="state.minimized" label="minimized" />
       <br />
       <div class="demo__sidebar-container-2x">
-        <va-sidebar :minimized="state.minimized" minimizedWidth="0">
+        <va-sidebar :minimized="state.minimized" minimizedWidth="25%">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
-        <va-sidebar :minimized="state.minimized" position="right" minimizedWidth="0">
+        <va-sidebar :minimized="state.minimized" position="right" minimizedWidth="25%">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>

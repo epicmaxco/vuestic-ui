@@ -165,6 +165,8 @@ export default class ApiDocs extends Vue {
 </script>
 
 <style lang="scss">
+@import "../ui/src/components/vuestic-sass/resources/resources";
+
 .ApiDocs {
   &__table {
     width: 100%;
@@ -172,7 +174,7 @@ export default class ApiDocs extends Vue {
     font-size: 16px;
 
     &__row {
-      border-bottom: 1px solid #f4f8fa;
+      border-bottom: 1px solid $prism-background;
     }
 
     th {
