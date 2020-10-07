@@ -110,6 +110,8 @@
       "methods": {},
       "slots": {}
     },
+    "VaCarousel": {
+    },
     "VaParallax": {
     },
     "VaBacktop": {
@@ -127,7 +129,6 @@
     "hover": "Hover",
     "checkbox": "Checkbox",
     "image": "Image",
-    "checkbox": "Checkbox",
     "alert": "Alert",
     "icon": "Icon",
     "expand": "Expand",
@@ -137,6 +138,7 @@
     "input": "Input",
     "list": "List",
     "select": "Select",
+    "carousel": "Carousel",
     "parallax": "Parallax",
     "backtop": "Backtop"
   },
@@ -155,16 +157,13 @@
   "checkbox": {
     "title": "-- Here is the title --"
   },
-  "divider": {
-    "title": "-- Here is the title --"
-  },
+  "divider": {},
   "progressBar": {
     "title": "-- Here is the title --"
   },
   "progressCircle": {
     "title": "-- Here is the title --"
   },
-  "divider": {},
   "alert": {
     "title": "-- Here is the title --"
   },
@@ -191,6 +190,8 @@
   },
   "select": {
     "title": "-- Here is the title --"
+  },
+  "carousel": {
   },
   "parallax": {
   },

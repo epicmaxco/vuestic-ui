@@ -13,6 +13,8 @@ import VaBreadcrumbsItem from './vuestic-components/va-breadcrumbs/VaBreadcrumbs
 import VaCard from './vuestic-components/va-card/VaCard'
 import VaCardContent from './vuestic-components/va-card/VaCardContent'
 import VaCardTitle from './vuestic-components/va-card/VaCardTitle'
+import VaCarousel from './vuestic-components/va-carousel/VaCarousel.vue'
+import VaCarouselItem from './vuestic-components/va-carousel/VaCarouselItem.vue'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
 import VaContent from './vuestic-components/va-content/VaContent'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
@@ -115,6 +117,8 @@ const VuesticPlugin = {
       VaCard,
       VaCardContent,
       VaCardTitle,
+      VaCarousel,
+      VaCarouselItem,
       VaCheckbox,
       VaContent,
       VaDataTable,

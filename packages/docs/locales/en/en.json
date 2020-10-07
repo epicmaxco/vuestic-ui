@@ -615,6 +615,29 @@
         "appendInner": "Adds an item inside the input and after input content"
       }
     },
+    "VaCarousel": {
+      "props": {
+        "autoplay": "Sets the carousel autoplay option",
+        "autoplayInterval": "Sets the interval for changing slides",
+        "autoplayDirection": "Autoplay slide direction: `backward` or `forward`",
+        "value": "The current slide of the carousel",
+        "loop": "Adds the ability to loop through slides",
+        "draggable": "Adds the ability to handle mouse drag",
+        "navigation": "Shows carousel navigation",
+        "pagination": "Shows carousel pagination",
+        "width": "Sets the width of the carousel",
+        "height": "Sets the height of the carousel",
+        "paginationPosition": "Sets the pagination position"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "For `va-carousel-item` components",
+        "content": "For content above the carousel",
+        "pagination": "For custom pagination",
+        "navigation": "For custom navigation"
+      }
+    },
     "VaParallax": {
       "props": {
         "target": "The element relative to which the component is fixed",
@@ -685,6 +708,7 @@
     "input": "Input",
     "list": "List",
     "select": "Select",
+    "carousel": "Carousel",
     "parallax": "Parallax",
     "backtop": "Backtop"
   },
@@ -1838,6 +1862,40 @@
         "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
         "selects": "By using `ENTER` and `SPACE` you can select current option",
         "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
+      }
+    }
+  },
+  "carousel": {
+    "title": "Carousel",
+    "summaryText": "A slideshow component that allows you to slide between elements.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, put your content in `va-carousel-item` components and wrap everything in `va-carousel`."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Navigation and pagination can be colourized by using a `color` property."
+      },
+      "loop": {
+        "title": "Loop",
+        "text": "You can loop the scrolling of the component."
+      },
+      "autoplay": {
+        "title": "Autoplay",
+        "text": "You can add the ability to autoplay the carousel."
+      },
+      "draggable": {
+        "title": "Draggable",
+        "text": "The component has the ability to handle mouse drag."
+      },
+      "pagination": {
+        "title": "Pagination position",
+        "text": "You can set a different position of the pagination by using `pagination-position` property with `top`, `right`, `left` or `bottom` (by default) values."
+      },
+      "gallery": {
+        "title": "Gallery",
+        "text": "An example of how to use carousel with the wallpapers background and slot for content."
       }
     }
   },
