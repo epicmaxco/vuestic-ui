@@ -74,7 +74,7 @@ import {
   getBoxShadowColor,
 } from '../../../services/color-functions'
 
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 

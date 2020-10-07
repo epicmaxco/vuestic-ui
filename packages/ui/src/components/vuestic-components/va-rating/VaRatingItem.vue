@@ -33,7 +33,7 @@ import { Watch, Component, Mixins, Vue } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { RatingValue } from './VaRating.types'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const RatingItemProps = Vue.extend({
   props: {

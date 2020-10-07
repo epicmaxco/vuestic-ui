@@ -8,6 +8,7 @@ import { testIsContextableComponent } from '../../../context-test/context-provid
 import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
 import { ContextPlugin } from '../../../context-test/context-provide/ContextPlugin'
 
+// TODO Everything should work without this plugin.
 // @ts-ignore
 Vue.use(ColorThemePlugin)
 // @ts-ignore

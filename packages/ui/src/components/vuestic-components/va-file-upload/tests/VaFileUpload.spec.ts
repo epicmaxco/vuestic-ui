@@ -4,6 +4,7 @@ import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 import VaFileUpload from '../VaFileUpload.vue'
 
+// TODO Everything should work without this plugin.
 // @ts-ignore
 Vue.use(ColorThemePlugin)
 

@@ -28,7 +28,7 @@ import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
 
 import { getGradientBackground } from '../../../services/color-functions'
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { getColor, ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const PropsMixin = makeContextablePropsMixin({
   options: { type: Array, default: () => [] },
@@ -69,7 +69,7 @@ export default class VaButtonToggle extends Mixins(
 
     if (this.c_outline || this.c_flat) {
       return {
-        backgroundColor: this.c_toggleColor ? getColor(this, this.c_toggleColor) : this.colorComputed,
+        backgroundColor: this.c_toggleColor ? getColor(this.c_toggleColor) : this.colorComputed,
         color: '#ffffff',
       }
     } else {

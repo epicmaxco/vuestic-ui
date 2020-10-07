@@ -35,7 +35,7 @@ import VaIcon from '../va-icon/VaIcon.vue'
 
 import * as gravatar from 'gravatar'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 

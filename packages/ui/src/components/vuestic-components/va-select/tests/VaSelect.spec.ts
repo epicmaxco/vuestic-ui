@@ -2,7 +2,7 @@ import { createWrapper, mount, shallowMount } from '@vue/test-utils'
 import VaSelect from '../VaSelect.vue'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
 // import { testIsFormComponent } from '../../../vuestic-mixins/testIsFormComponent'
 // import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'

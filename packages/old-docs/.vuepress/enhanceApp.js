@@ -1,5 +1,4 @@
 // .vuepress/enhanceApp.js
-import { ColorThemePlugin } from '../../ui/src/services/ColorThemePlugin'
 import { ContextPlugin } from '../../ui/src/components/context-test/context-provide/ContextPlugin'
 
 import '../../ui/src/components/vuestic-sass/global/reset.scss'
@@ -11,7 +10,5 @@ export default ({
   router, // the router instance for the app
   siteData, // site metadata
 }) => {
-  Vue.use(ColorThemePlugin)
-
   Vue.use(ContextPlugin, {})
 }

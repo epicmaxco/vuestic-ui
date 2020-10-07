@@ -69,11 +69,11 @@ import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
+import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
 
 const ButtonPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'button' },
@@ -163,8 +163,9 @@ export default class VaButton extends Mixins(
     if (this.c_flat || this.c_outline) {
       return
     }
-    if (this.va.color && this.$themes && this.$themes[this.va.color]) {
-      return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.c_color ? this.colorComputed : this.$themes[this.va.color])
+    // TODO Not super sure what's the idea here.
+    if (getColor(this, this.va.color)) {
+      return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.c_color ? this.colorComputed : getColor(this, this.va.color))
     }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
   }
@@ -212,8 +213,8 @@ export default class VaButton extends Mixins(
       computedStyle.boxShadow = this.shadowStyle
     }
 
-    if (this.va.color && !this.c_outline && !this.c_flat && this.$themes) {
-      computedStyle.background = this.c_color ? this.colorComputed : this.$themes[this.va.color]
+    if (this.va.color && !this.c_outline && !this.c_flat) {
+      computedStyle.background = this.c_color ? this.colorComputed : getColor(this, this.va.color)
       computedStyle.backgroundImage = ''
     }
 

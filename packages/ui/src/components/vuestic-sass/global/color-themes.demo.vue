@@ -72,42 +72,42 @@
       <div>
         primary
         <va-color-picker-input
-          v-model="$themes.primary"
+          v-model="themes.primary"
           mode="advanced"
         />
       </div>
       <div>
         secondary
         <va-color-picker-input
-          v-model="$themes.secondary"
+          v-model="themes.secondary"
           mode="advanced"
         />
       </div>
       <div>
         success
         <va-color-picker-input
-          v-model="$themes.success"
+          v-model="themes.success"
           mode="advanced"
         />
       </div>
       <div>
         info
         <va-color-picker-input
-          v-model="$themes.info"
+          v-model="themes.info"
           mode="advanced"
         />
       </div>
       <div>
         warning
         <va-color-picker-input
-          v-model="$themes.warning"
+          v-model="themes.warning"
           mode="advanced"
         />
       </div>
       <div>
         danger
         <va-color-picker-input
-          v-model="$themes.danger"
+          v-model="themes.danger"
           mode="advanced"
         />
       </div>
@@ -143,6 +143,7 @@ import { getLineChartData } from '../../../data/charts/LineChartData'
 import VaBadge from '../../vuestic-components/va-badge/VaBadge'
 import VaFileUpload from '../../vuestic-components/va-file-upload/VaFileUpload'
 import VaSlider from '../../vuestic-components/va-slider/VaSlider'
+import { themesRef } from '../../../services/ColorThemePlugin'
 
 export default {
   components: {
@@ -162,17 +163,17 @@ export default {
     return {
       value: 60,
       icon: 'info_outline',
-      chartData: getLineChartData(this.$themes),
+      chartData: getLineChartData(this.themes),
       files: [],
     }
   },
   methods: {
     refreshData () {
-      this.chartData = getLineChartData(this.$themes)
+      this.chartData = getLineChartData(this.themes)
     },
     darkenTheme () {
-      // NOTE For testing. So that we can observe theme changed
-      const newTheme = {
+      // NOTE That's just for testing. So that we can observe theme changed
+      themesRef.value = {
         primary: '#9A0931',
         secondary: '#C50B0B',
         success: '#06421E',
@@ -182,10 +183,11 @@ export default {
         gray: '#babfc2',
         dark: '#34495e',
       }
-
-      for (const index in newTheme) {
-        this.$set(this.$themes, index, newTheme[index])
-      }
+    },
+  },
+  computed: {
+    themes () {
+      return themesRef.value
     },
   },
 }

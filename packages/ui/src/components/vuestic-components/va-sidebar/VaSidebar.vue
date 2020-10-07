@@ -14,8 +14,8 @@
 <script lang="ts">
 import { Mixins, Component } from 'vue-property-decorator'
 
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { getGradientBackground } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const SidebarPropsMixin = makeContextablePropsMixin({

@@ -6,11 +6,11 @@ import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
 import { hasOwnProperty } from '../../../services/utils'
 import { VNode, VNodeChildren } from 'vue'
 import { RecordPropsDefinition } from 'vue/types/options'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const BreadcrumbsPropsMixin = makeContextablePropsMixin({
   separator: { type: String, default: '/' },

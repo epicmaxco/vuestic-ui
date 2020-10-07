@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import { isCssColor, getColor, ColorThemeMixin } from './ColorThemePlugin'
+import { ColorThemeMixin, getColor, isCssColor } from '../components/vuestic-mixins/ColorMixin'
 import Component, { mixins } from 'vue-class-component'
 
 // TODO Should probably have better typing. A bit rushed.

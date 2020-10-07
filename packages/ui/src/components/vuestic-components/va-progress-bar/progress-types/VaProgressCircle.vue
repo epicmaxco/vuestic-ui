@@ -34,10 +34,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 
 import { ProgressComponentMixin } from './ProgressComponentMixin'
-import {
-  ColorThemeMixin,
-  getColor,
-} from '../../../../services/ColorThemePlugin'
+import { ColorThemeMixin, getColor } from '../../../vuestic-mixins/ColorMixin'
 import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 

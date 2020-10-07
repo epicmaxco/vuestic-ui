@@ -1,8 +1,9 @@
-import { mount, shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 
 import VaPagination from '../VaPagination.vue'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
+
 describe('VaPagination', () => {
   it('should render without an error', () => {
     const wrapper = mount(VaPagination)

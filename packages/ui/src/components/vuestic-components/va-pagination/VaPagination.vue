@@ -95,7 +95,7 @@ import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 const PaginationPropsMixin = makeContextablePropsMixin({
   value: { type: Number, default: 1 },

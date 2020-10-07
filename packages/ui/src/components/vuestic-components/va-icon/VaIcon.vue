@@ -16,7 +16,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 
 import { warn } from '../../../services/utils'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { IconMixin } from './IconMixin'

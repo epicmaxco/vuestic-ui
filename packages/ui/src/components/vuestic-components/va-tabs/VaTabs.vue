@@ -66,7 +66,7 @@ import VaTabsItems from './VaTabsItems.vue'
 import VaTabsContent from './VaTabsContent.vue'
 
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 const TabsPropsMixin = makeContextablePropsMixin({

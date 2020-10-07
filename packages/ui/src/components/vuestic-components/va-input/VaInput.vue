@@ -116,7 +116,7 @@ import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { getHoverColor } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import { InputMixin } from './helpers/InputMixin'

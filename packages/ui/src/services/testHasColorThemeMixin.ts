@@ -1,5 +1,5 @@
 import { shallowMount, Wrapper } from '@vue/test-utils'
-import { ColorThemeMixin } from './ColorThemePlugin'
+import { ColorThemeMixin } from '../components/vuestic-mixins/ColorMixin'
 import { testIsContextableComponent } from '../components/context-test/context-provide/testIsContextableComponent'
 
 export function testHasColorThemeMixin<T extends ColorThemeMixin> (componentOptions: T) {
@@ -10,7 +10,7 @@ export function testHasColorThemeMixin<T extends ColorThemeMixin> (componentOpti
     throw new Error('ColorThemeMixin is not added')
   }
 
-  // Test is contextable [troubles with icon context]
+  // // Test is contextable [troubles with icon context]
   // const props = {
   //   color: '',
   // }

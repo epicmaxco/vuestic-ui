@@ -1,7 +1,7 @@
 import { mount, shallowMount } from '@vue/test-utils'
 import VaTag from '../VaTag.vue'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
 describe('VaTag', () => {
   it('should render without an error', () => {

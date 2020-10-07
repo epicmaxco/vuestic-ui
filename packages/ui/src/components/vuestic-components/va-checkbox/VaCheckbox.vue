@@ -63,9 +63,9 @@ import { Component, Mixins } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 
-import { getColor } from '../../../services/ColorThemePlugin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { getColor } from '../../vuestic-mixins/ColorMixin'
 
 const CheckboxPropsMixin = makeContextablePropsMixin({
   value: { type: [Boolean, Array, String, Object], default: false },

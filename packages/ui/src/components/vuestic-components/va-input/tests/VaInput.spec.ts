@@ -1,9 +1,9 @@
-import VaInput from '../VaInput.vue'
 import { mount } from '@vue/test-utils'
 
+import VaInput from '../VaInput.vue'
 import { testIsFormComponent } from '../../../vuestic-mixins/FormComponent/testIsFormComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
 describe('VaInput', () => {
   it('should render without an error', () => {

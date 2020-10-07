@@ -7,6 +7,7 @@ import { shallowMount } from '@vue/test-utils'
 import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
 import { testIsSelectableComponent } from '../../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
 
+// TODO Everything should work without this plugin.
 // @ts-ignore
 Vue.use(ColorThemePlugin)
 

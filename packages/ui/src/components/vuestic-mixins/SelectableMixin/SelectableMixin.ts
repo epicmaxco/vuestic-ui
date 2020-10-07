@@ -2,7 +2,7 @@ import { Component, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../ColorMixin'
 import { KeyboardOnlyFocusMixin } from '../KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
 const componentProps = {

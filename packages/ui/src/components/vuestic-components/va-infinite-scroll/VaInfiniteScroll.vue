@@ -40,8 +40,8 @@ import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle
 
 import { debounce } from 'lodash'
 import { sleep } from '../../../services/utils'
-import { getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { getColor } from '../../vuestic-mixins/ColorMixin'
 
 const InfiniteScrollPropsMixin = makeContextablePropsMixin({
   offset: { type: Number, default: 500 },

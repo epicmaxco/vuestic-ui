@@ -44,7 +44,7 @@ import { makeContextablePropsMixin } from '../../../services/context/makeContext
 import { NotificationPosition } from './types'
 import { PropType } from 'vue'
 import { Component, Mixins, Watch } from 'vue-property-decorator'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 const ToastPropsMixin = makeContextablePropsMixin({

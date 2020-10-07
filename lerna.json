@@ -2,6 +2,7 @@
   "packages": [
     "packages/*"
   ],
+  "concurrency": 1,
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true

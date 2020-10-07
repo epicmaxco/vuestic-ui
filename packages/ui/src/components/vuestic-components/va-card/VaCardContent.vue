@@ -11,7 +11,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
-import { getColor } from '../../../services/ColorThemePlugin'
+import { getColor } from '../../vuestic-mixins/ColorMixin'
 
 const CardContentPropsMixin = makeContextablePropsMixin({
   textColor: { type: String, default: '' },

@@ -50,7 +50,7 @@ import { Component, Mixins } from 'vue-property-decorator'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ProgressComponentMixin } from './ProgressComponentMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
 
 const ProgressBarPropsMixin = makeContextablePropsMixin({

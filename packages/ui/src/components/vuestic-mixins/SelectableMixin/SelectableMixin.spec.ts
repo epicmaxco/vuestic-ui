@@ -3,7 +3,7 @@ import { SelectableMixin } from './SelectableMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
 import Component, { mixins } from 'vue-class-component'
 import { testHasColorThemeMixin } from '../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../ColorMixin'
 
 // TODO Should probably have better typing. A  bit rushed.
 @Component

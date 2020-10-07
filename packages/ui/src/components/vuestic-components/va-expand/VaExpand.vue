@@ -39,8 +39,8 @@ import { Component, Mixins, Inject, Ref } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
 import { getHoverColor } from '../../../services/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
@@ -116,7 +116,7 @@ export default class VaExpand extends Mixins(
   get contentStyle () {
     return {
       paddingLeft: this.c_icon && 0,
-      color: this.c_textColor ? getColor(this, this.c_textColor) : '',
+      color: this.c_textColor ? getColor(this.c_textColor) : '',
       backgroundColor: this.c_color ? this.colorComputed : '',
       boxShadow: this.isKeyboardFocused ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
     }

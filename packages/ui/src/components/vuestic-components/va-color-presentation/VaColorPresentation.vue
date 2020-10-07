@@ -29,7 +29,7 @@
 <script>
 import VaPopover from '../va-popover/VaPopover'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { getGradientBackground } from '../../../services/color-functions'
 
 // NOTE This component is a tad weird.

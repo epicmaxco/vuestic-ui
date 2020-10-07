@@ -9,7 +9,7 @@
 
 <script>
 import VaIcon from '../../va-icon/VaIcon'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
 export default {
   name: 'SquareWithIcon',

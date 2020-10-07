@@ -169,12 +169,9 @@ import VaSelectOptionList from './VaSelectOptionList.vue'
 import VaTag from '../va-tag/VaTag.vue'
 
 import { getHoverColor } from '../../../services/color-functions'
-import {
-  ContextPluginMixin,
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 
 const positions: string[] = ['top', 'bottom']
@@ -348,10 +345,9 @@ export default class VaSelect extends Mixins(
     if (!this.hideSelected) {
       return this.options
     }
-    const filteredOptions: any[] = this.options.reduce((acc: any[], option: any) => {
+    return this.options.reduce((acc: any[], option: any) => {
       return this.getSelectedState(option) ? [...acc] : [...acc, option]
     }, [])
-    return filteredOptions
   }
 
   get selectedOption () {
