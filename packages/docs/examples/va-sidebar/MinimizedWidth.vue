@@ -8,18 +8,18 @@
       style="margin-left: 20rem; color: black;"
       label="Minimized"
     />
-    <va-sidebar :minimized="minimized" minimized-width="3rem">
+    <va-sidebar :minimized="minimized" minimized-width="6rem">
       <va-list style="background-color: inherit; color: white;">
         <va-list-item
-          ><va-icon name="home" size="large"></va-icon>
+          ><va-icon name="home"></va-icon>
           <div style="margin-left: 0.5rem;">Home</div></va-list-item
         >
         <va-list-item
-          ><va-icon name="close" size="large"></va-icon>
+          ><va-icon name="close"></va-icon>
           <div style="margin-left: 0.5rem;">Close</div></va-list-item
         >
         <va-list-item
-          ><va-icon name="loop" size="large"></va-icon>
+          ><va-icon name="loop"></va-icon>
           <div style="margin-left: 0.5rem;">Loop</div></va-list-item
         >
       </va-list>
