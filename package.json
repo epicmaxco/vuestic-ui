@@ -18,6 +18,7 @@
     "test:coverage": "yarn workspace vuestic-ui test:coverage",
     "lint:style": "yarn workspace vuestic-ui lint:style",
     "serve:docs": "yarn workspace @vuestic-ui/docs serve",
+    "serve:docs:debug": "yarn workspace @vuestic-ui/docs serve:debug",
     "build:docs": "yarn workspace @vuestic-ui/docs build",
     "generate:docs": "yarn workspace @vuestic-ui/docs generate",
     "push": "yarn workspace vuestic-ui push",

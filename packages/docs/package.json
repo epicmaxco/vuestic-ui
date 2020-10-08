@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "nuxt-ts",
+    "serve:debug": "node --inspect-brk node_modules/.bin/nuxt-ts",
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
     "lint": "eslint --ext .js,.vue,.ts --ignore-path ./../../.gitignore .",

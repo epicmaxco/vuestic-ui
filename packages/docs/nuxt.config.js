@@ -52,6 +52,10 @@ export default {
   build: {
     transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vuetable-2', 'vue-bulma-expanding', 'medium-editor', 'vue-toasted'],
     extend (config, { isDev, isClient }) {
+      // improve debugging
+      // https://medium.com/@fernalvarez/nuxt-js-debugging-for-webstorm-9b4ef5415a5
+      config.devtool = isClient ? 'eval-source-map' : 'inline-source-map'
+
       !isDev && Object.assign(config.optimization, {
         minimize: true,
         minimizer: [
