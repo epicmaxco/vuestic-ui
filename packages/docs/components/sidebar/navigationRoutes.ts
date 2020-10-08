@@ -16,7 +16,7 @@ export const navigationRoutes: NavigationRoute[] = [
     ],
   },
   {
-    name: 'ui-components',
+    name: 'ui-elements',
     displayName: 'menu.uiElements',
     meta: {
       iconClass: 'vuestic-iconset-ui-elements',
