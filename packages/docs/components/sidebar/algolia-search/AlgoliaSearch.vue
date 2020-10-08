@@ -119,7 +119,7 @@ export default class Search extends Vue {
         .algolia-docsearch-suggestion--category-header {
           padding: 0.25rem 1rem;
           border-bottom: none;
-          border-top: 1px solid #f4f8fa;
+          border-top: 1px solid $prism-background;
 
           &-lvl0 {
             font-family: Source Sans Pro;
@@ -188,7 +188,7 @@ export default class Search extends Vue {
 
       .ds-cursor {
         .algolia-docsearch-suggestion--content {
-          background-color: #f4f8fa;
+          background-color: $prism-background;
         }
       }
 
