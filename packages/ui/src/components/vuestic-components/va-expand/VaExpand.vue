@@ -22,7 +22,7 @@
           </div>
           <va-icon
             class="va-expand__header__icon"
-            :name="childValue ? 'expand_less' : 'expand_more'"
+            :name="valueProxy ? 'expand_less' : 'expand_more'"
             :color="c_textColor"
           />
         </div>
@@ -84,14 +84,14 @@ export default class VaExpand extends Mixins(
 
   @Ref() readonly body!: HTMLElement
 
-  get childValue () {
+  get valueProxy () {
     if (this.$parent?.$options?.name === 'VaExpandGroup') {
       return this.valueExpand.value
     }
     return this.valueComputed
   }
 
-  set childValue (value) {
+  set valueProxy (value) {
     if (this.$parent?.$options?.name === 'VaExpandGroup') {
       this.valueExpand.value = value
     }
@@ -107,9 +107,9 @@ export default class VaExpand extends Mixins(
     return {
       'va-expand--disabled': this.c_disabled,
       'va-expand--solid': this.c_solid,
-      'va-expand--active': this.c_solid && this.childValue,
-      'va-expand--popout': this.popout && this.childValue,
-      'va-expand--inset': this.inset && this.childValue,
+      'va-expand--active': this.c_solid && this.valueProxy,
+      'va-expand--popout': this.popout && this.valueProxy,
+      'va-expand--inset': this.inset && this.valueProxy,
     }
   }
 
@@ -123,7 +123,7 @@ export default class VaExpand extends Mixins(
   }
 
   get stylesComputed () {
-    if (this.childValue && this.$slots.default?.[0]) {
+    if (this.valueProxy && this.$slots.default?.[0]) {
       return {
         height: this.height + 'px',
         transitionDuration: this.transitionDuration + 's',
@@ -149,8 +149,8 @@ export default class VaExpand extends Mixins(
   }
 
   changeValue () {
-    this.childValue = !this.childValue
-    this.accordion.onChildChange(this, this.childValue)
+    this.valueProxy = !this.valueProxy
+    this.accordion.onChildChange(this, this.valueProxy)
   }
 
   getHeight () {
@@ -162,15 +162,15 @@ export default class VaExpand extends Mixins(
   }
 
   getTransitionDuration () {
-    return this.height / 1000 * 0.2
+    const duration = this.height / 1000 * 0.2
+    return duration > 0.2 ? duration : 0.2
   }
 
   getTextNodeHeight (textNode: Node) {
-    let height = 0
     const range = document.createRange()
     range.selectNodeContents(textNode)
     const rect = range.getBoundingClientRect()
-    height = rect.bottom - rect.top
+    const height = rect.bottom - rect.top
     return height
   }
 

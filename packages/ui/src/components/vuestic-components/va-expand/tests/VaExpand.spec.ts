@@ -64,7 +64,7 @@ describe('VaExpand', () => {
     })
     expect(wrapper.classes()).toContain('va-expand--disabled')
     expect(wrapper.classes()).toContain('va-expand--solid')
-    expect(wrapper.classes()).toContain('va-expand--solid--active')
+    expect(wrapper.classes()).toContain('va-expand--active')
     expect(wrapper.classes()).toContain('va-expand--popout')
     expect(wrapper.classes()).toContain('va-expand--inset')
   })

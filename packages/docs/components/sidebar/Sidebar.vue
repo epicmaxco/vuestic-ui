@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { NavigationRoute } from './NavigationRoute'
 import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
 
@@ -65,8 +65,8 @@ export default class Sidebar extends Vue {
   readonly navigationRoutes!: NavigationRoute[]
 
   @Prop({ type: Boolean, default: false }) readonly minimized!: boolean
-
-  created () {
+  @Watch('$route', { immediate: true })
+  onRouteChange () {
     this.setActiveExpand()
   }
 

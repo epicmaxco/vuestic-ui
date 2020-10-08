@@ -2,8 +2,6 @@ import { TranslationString } from '../../../ui/src/services/api-docs/ManualApiOp
 
 export type NavigationRoute = {
   name: string,
-  path?: string,
-  childrenCategories?: TranslationString[],
   category?: TranslationString,
   displayName: TranslationString,
   meta?: {
