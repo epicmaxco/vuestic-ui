@@ -40,7 +40,8 @@
         "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
-        "square": "Removes rounded corners."
+        "square": "Removes rounded corners.",
+        "icon": "Sets an icon."
       }
     },
     "VaBadge": {
@@ -639,11 +640,19 @@
         "verticalOffset": "Sets the vertical offset of the component from the border of the monitor"
       },
       "events": {
-        "click" :"Emitted when user clicked on backtop"
+        "click": "Emitted when user clicked on backtop"
       },
       "methods": {},
       "slots": {
         "default": "Slot for backtop content"
+      }
+    },
+    "VaInnerLoading": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Slot for the component to which you want to apply loading styles"
       }
     }
   },
@@ -686,7 +695,8 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
-    "backtop": "Backtop"
+    "backtop": "Backtop",
+    "innerLoading": "Inner Loading"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -1870,6 +1880,28 @@
       "default": {
         "title": "Basic usage",
         "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
+      }
+    }
+  },
+  "innerLoading": {
+    "title": "Inner Loading",
+    "summaryText": "You can handle the loading state of the wrapped component by using a `va-inner-loading` component.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default wrap a component in `va-inner-loading` with a `loading` property."
+      },
+      "color": {
+        "title": "Color",
+        "text": "You can change the color of the icon."
+      },
+      "size": {
+        "title": "Size",
+        "text": "Supports the ability to resize the icon."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "You can change the loading icon."
       }
     }
   }
