@@ -96,10 +96,15 @@ export default class Header extends Vue {
 @import "../../../ui/src/components/vuestic-sass/global/typography";
 
 .header {
+  z-index: 2000;
   position: fixed;
   width: 100%;
-  height: 64px;
+  height: 4rem;
   box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
+
+  @include media-breakpoint-down(sm) {
+    height: 8rem;
+  }
 
   &__links__button {
     font-weight: $font-weight-bold;
@@ -108,7 +113,7 @@ export default class Header extends Vue {
       margin-right: 0.25em;
     }
 
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) {
       .button__text {
         display: none;
       }

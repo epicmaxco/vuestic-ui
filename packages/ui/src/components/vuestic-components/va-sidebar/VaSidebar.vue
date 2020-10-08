@@ -43,7 +43,7 @@ export default class VaSidebar extends Mixins(
   get computedStyle () {
     return {
       backgroundImage: getGradientBackground(this.colorComputed),
-      width: this.computedWidth,
+      width: this.computedWidth || `${this.computedWidth} !important`,
     }
   }
 

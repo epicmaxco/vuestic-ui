@@ -87,7 +87,12 @@ export default class Sidebar extends Vue {
 @import "../../../ui/src/components/vuestic-sass/resources/resources.scss";
 
 .sidebar {
+  z-index: 1000;
   padding-top: 4rem;
+
+  @include media-breakpoint-down(sm) {
+    padding-top: 8rem;
+  }
 
   .va-list-item {
     &:hover {

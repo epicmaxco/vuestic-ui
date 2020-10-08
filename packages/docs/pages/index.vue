@@ -150,7 +150,12 @@ html {
     flex-direction: row;
     min-height: $sidebar-viewport-min-height;
     height: $sidebar-viewport-height;
-    margin-top: 64px;
+    margin-top: 4rem;
+
+    @include media-breakpoint-down(sm) {
+      margin-top: 8rem;
+    }
+
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -170,7 +175,7 @@ html {
 
     padding: 2em;
     padding-top: 0;
-    width: calc(100% - 250px);
+    width: 100%;
 
     & > :last-child {
       padding-bottom: 2em;
