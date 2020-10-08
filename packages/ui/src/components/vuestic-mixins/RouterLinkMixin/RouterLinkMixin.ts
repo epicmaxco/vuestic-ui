@@ -42,6 +42,9 @@ export class RouterLinkMixin extends Mixins(
   }) readonly target!: string
 
   get tagComputed () {
+    if (this.c_tag === 'nuxt-link') {
+      return 'nuxt-link'
+    }
     if (this.c_tag === 'a' || this.href || this.target) {
       return 'a'
     }
