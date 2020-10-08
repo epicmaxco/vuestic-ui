@@ -19,6 +19,18 @@ module.exports = {
         return 'The name is required'
       },
     },
+    {
+      type: 'input',
+      name: 'category',
+      message: 'What\'s the component categoty (ex.: uiElements)?',
+      validate: value => {
+        if (/.+/.test(value)) {
+          return true
+        }
+
+        return 'The name is required'
+      },
+    },
   ],
   actions: () => {
     const actions = []
@@ -33,7 +45,7 @@ module.exports = {
     const createDocsActions = [
       {
         type: 'add',
-        path: `${docsBasePath}/pages/index/{{kebabCase name}}.vue`,
+        path: `${docsBasePath}/pages/index/{{kebabCase category}}/{{kebabCase name}}.vue`,
         templateFile: './component/doc-page.vue.hbs',
         abortOnFail: false,
       },
