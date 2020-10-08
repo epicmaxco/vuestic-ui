@@ -33,7 +33,7 @@
               {{ $t(childRoute.category) }}
             </va-list-label>
             <va-list-item
-              :to="`/${$root.$i18n.locale}/${childRoute.name}`"
+              :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
               class="sidebar__link"
               active-class="sidebar__link--active"
             >
