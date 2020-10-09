@@ -251,15 +251,6 @@ export default class VaExpand extends Mixins(
         margin-top: 0;
       }
     }
-
-    & .va-expand--active {
-      &__header {
-        &__content {
-          border-radius: 0.375rem 0.375rem 0 0;
-          transition: ease-in 0.3s;
-        }
-      }
-    }
   }
 
   &--popout {
