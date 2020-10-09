@@ -156,6 +156,18 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'infinite-scroll',
         displayName: 'menu.infiniteScroll',
       },
+      {
+        name: 'parallax',
+        displayName: 'menu.parallax',
+      },
+      {
+        name: 'backtop',
+        displayName: 'menu.backtop',
+      },
+      {
+        name: 'inner-loading',
+        displayName: 'menu.innerLoading',
+      },
     ],
   },
   {
