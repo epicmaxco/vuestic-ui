@@ -13,6 +13,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'grid',
         displayName: 'menu.grid',
       },
+      // GENERATOR_ADD.styles
     ],
   },
   {
@@ -168,6 +169,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'inner-loading',
         displayName: 'menu.innerLoading',
       },
+      // GENERATOR_ADD.uiElements
     ],
   },
   {
@@ -178,6 +180,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'documentation-page',
         displayName: 'menu.documentationPage',
       },
+      // GENERATOR_ADD.contribution
     ],
   },
 ]

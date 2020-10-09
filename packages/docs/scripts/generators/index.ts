@@ -12,7 +12,7 @@ const { execSync } = require('child_process')
 // eslint-disable-next-line
 const componentGenerator = require('./component')
 
-type GeneratorAnswers = { name: string, }
+type GeneratorAnswers = { name: string, category: string, }
 
 const getDirectoryNames = (source: string) => {
   return fs.readdirSync(source, { withFileTypes: true })
@@ -68,7 +68,7 @@ module.exports = (plop: NodePlopAPI) => {
   })
 
   plop.setActionType('addRoutes', ((answers: GeneratorAnswers, config: AddActionConfig) => {
-    const navigationSchemePath = `${config.path}/components/sidebar/navigationScheme.ts`
+    const navigationSchemePath = `${config.path}/components/sidebar/navigationRoutes.ts`
     const navigationScheme = fs.readFileSync(navigationSchemePath).toString()
 
     const routeName = plop.getHelper('kebabCase')(answers.name)
@@ -78,7 +78,7 @@ module.exports = (plop: NodePlopAPI) => {
       throw new Error(`Route ${routeName} already exists.`)
     }
 
-    const replaceString = '// GENERATOR_ADD'
+    const replaceString = `// GENERATOR_ADD.${answers.category}`
 
     const routeItemString = `{
         name: '${routeName}',
