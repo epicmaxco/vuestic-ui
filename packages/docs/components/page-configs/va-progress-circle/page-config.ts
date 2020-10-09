@@ -1,99 +1,45 @@
-import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
-import VaProgressCircle from 'vuestic-ui/src/components/vuestic-components/va-progress-bar/progress-types/VaProgressCircle.vue'
+import { ApiDocsBlock } from '../../../types/configTypes'
+import VaProgressCircle
+  from 'vuestic-ui/src/components/vuestic-components/va-progress-bar/progress-types/VaProgressCircle.vue'
 import apiOptions from './api-options'
+import { DocsHelper } from '../../../helpers/DocsHelper'
 
 export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'progressCircle.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'progressCircle.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'progressCircle.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'progressCircle.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-progress-circle/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'progressCircle.examples.indeterminate.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'progressCircle.examples.indeterminate.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-progress-circle/Indeterminate',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'progressCircle.examples.coloring.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'progressCircle.examples.coloring.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-progress-circle/Coloring',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'progressCircle.examples.sizing.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'progressCircle.examples.sizing.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-progress-circle/Sizing',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'progressCircle.examples.slots.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'progressCircle.examples.slots.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-progress-circle/Slots',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'progressCircle.examples.thickness.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'progressCircle.examples.thickness.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-progress-circle/Thickness',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaProgressCircle,
-    apiOptions,
-  },
+  DocsHelper.title('progressCircle.title'),
+  DocsHelper.paragraph('progressCircle.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+  ...DocsHelper.exampleBlock(
+    'progressCircle.examples.default.title',
+    'progressCircle.examples.default.text',
+    'va-progress-circle/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'progressCircle.examples.indeterminate.title',
+    'progressCircle.examples.indeterminate.text',
+    'va-progress-circle/Indeterminate',
+  ),
+  ...DocsHelper.exampleBlock(
+    'progressCircle.examples.coloring.title',
+    'progressCircle.examples.coloring.text',
+    'va-progress-circle/Coloring',
+  ),
+  ...DocsHelper.exampleBlock(
+    'progressCircle.examples.sizing.title',
+    'progressCircle.examples.sizing.text',
+    'va-progress-circle/Sizing',
+  ),
+  ...DocsHelper.exampleBlock(
+    'progressCircle.examples.slots.title',
+    'progressCircle.examples.slots.text',
+    'va-progress-circle/Slots',
+  ),
+  ...DocsHelper.exampleBlock(
+    'progressCircle.examples.thickness.title',
+    'progressCircle.examples.thickness.text',
+    'va-progress-circle/Thickness',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaProgressCircle, apiOptions),
 ] as ApiDocsBlock[]

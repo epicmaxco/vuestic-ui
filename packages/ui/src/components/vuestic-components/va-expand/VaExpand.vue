@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="va-expand"
-    :class="computedClasses"
-  >
+  <div class="va-expand" :class="computedClasses">
     <div
       class="va-expand__header"
       @click="changeValue()"
@@ -13,10 +10,7 @@
       @blur="isKeyboardFocused = false"
     >
       <slot name="header">
-        <div
-          class="va-expand__header__content"
-          :style="contentStyle"
-        >
+        <div class="va-expand__header__content" :style="contentStyle">
           <va-icon
             v-if="c_icon"
             class="va-expand__header__icon"
@@ -24,45 +18,30 @@
             :color="c_textColor"
           />
           <div class="va-expand__header__text">
-            {{c_header}}
+            {{ c_header }}
           </div>
           <va-icon
-            v-if="childValue"
             class="va-expand__header__icon"
-            name="expand_less"
-            :color="c_textColor"
-          />
-          <va-icon
-            v-else
-            class="va-expand__header__icon"
-            name="expand_more"
+            :name="valueProxy ? 'expand_less' : 'expand_more'"
             :color="c_textColor"
           />
         </div>
       </slot>
     </div>
-    <div
-      class="va-expand__body"
-      :style="stylesComputed"
-      ref="body"
-    >
+    <div class="va-expand__body" :style="stylesComputed" ref="body">
       <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Inject } from 'vue-property-decorator'
+import { Component, Mixins, Inject, Ref } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
-import {
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import {
-  getHoverColor,
-} from '../../../services/color-functions'
+import { getHoverColor } from '../../../services/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
@@ -77,6 +56,8 @@ const ExpandPropsMixin = makeContextablePropsMixin({
   colorAll: { type: Boolean, default: false },
 })
 
+const TEXT_NODE_TYPE = 3
+
 @Component({
   components: { VaIcon },
 })
@@ -89,6 +70,7 @@ export default class VaExpand extends Mixins(
   popout = undefined
   inset = undefined
   height = this.getHeight()
+  transitionDuration = this.getTransitionDuration();
   mutationObserver: any = null
   valueExpand = {
     value: undefined,
@@ -100,18 +82,21 @@ export default class VaExpand extends Mixins(
     }),
   }) readonly accordion!: any
 
-  get childValue () {
+  @Ref() readonly body!: HTMLElement
+
+  get valueProxy () {
     if (this.$parent?.$options?.name === 'VaExpandGroup') {
       return this.valueExpand.value
     }
     return this.valueComputed
   }
 
-  set childValue (value) {
+  set valueProxy (value) {
     if (this.$parent?.$options?.name === 'VaExpandGroup') {
       this.valueExpand.value = value
     }
     this.valueComputed = value
+    this.setExpandParams()
   }
 
   get computedClasses () {
@@ -122,9 +107,9 @@ export default class VaExpand extends Mixins(
     return {
       'va-expand--disabled': this.c_disabled,
       'va-expand--solid': this.c_solid,
-      'va-expand--solid--active': this.c_solid && this.childValue,
-      'va-expand--popout': this.popout && this.childValue,
-      'va-expand--inset': this.inset && this.childValue,
+      'va-expand--active': this.c_solid && this.valueProxy,
+      'va-expand--popout': this.popout && this.valueProxy,
+      'va-expand--inset': this.inset && this.valueProxy,
     }
   }
 
@@ -138,25 +123,24 @@ export default class VaExpand extends Mixins(
   }
 
   get stylesComputed () {
-    if (this.childValue && this.$slots.default?.[0]) {
+    if (this.valueProxy && this.$slots.default?.[0]) {
       return {
-        height: this.height,
-        paddingTop: 1 + 'rem',
-        paddingBottom: 1 + 'rem',
-        background: this.c_color && this.c_colorAll
-          ? getHoverColor(this.colorComputed)
-          : '',
+        height: this.height + 'px',
+        transitionDuration: this.transitionDuration + 's',
+        background:
+          this.c_color && this.c_colorAll
+            ? getHoverColor(this.colorComputed)
+            : '',
       }
     }
     return {
       height: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
+      transitionDuration: this.transitionDuration + 's',
     }
   }
 
   get expandIndexComputed () {
-    return (this.c_disabled) ? -1 : 0
+    return this.c_disabled ? -1 : 0
   }
 
   onFocus () {
@@ -165,20 +149,41 @@ export default class VaExpand extends Mixins(
   }
 
   changeValue () {
-    this.childValue = !this.childValue
-    this.accordion.onChildChange(this, this.childValue)
+    this.valueProxy = !this.valueProxy
+    this.accordion.onChildChange(this, this.valueProxy)
   }
 
   getHeight () {
-    const node = this.$slots.default?.[0].elm as HTMLElement
-    return node ? `calc(${node.clientHeight}px + 2rem)` : '100%'
+    const nodes = [...(this.body?.childNodes || [])] as HTMLElement[]
+    return nodes.reduce((result: number, node: HTMLElement) => {
+      result += node.nodeType === TEXT_NODE_TYPE ? this.getTextNodeHeight(node) : node.clientHeight
+      return result
+    }, 0)
   }
 
-  mount () {
+  getTransitionDuration () {
+    const duration = this.height / 1000 * 0.2
+    return duration > 0.2 ? duration : 0.2
+  }
+
+  getTextNodeHeight (textNode: Node) {
+    const range = document.createRange()
+    range.selectNodeContents(textNode)
+    const rect = range.getBoundingClientRect()
+    const height = rect.bottom - rect.top
+    return height
+  }
+
+  setExpandParams () {
+    this.height = this.getHeight()
+    this.transitionDuration = this.getTransitionDuration()
+  }
+
+  mounted () {
     this.mutationObserver = new MutationObserver(() => {
-      this.height = this.getHeight()
+      this.setExpandParams()
     })
-    this.mutationObserver.observe(this.$refs.body, { attributes: true, childList: true, subtree: true })
+    this.mutationObserver.observe(this.body, { attributes: true, childList: true, subtree: true })
   }
 
   beforeDestroy () {
@@ -187,24 +192,16 @@ export default class VaExpand extends Mixins(
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../vuestic-sass/resources/resources";
 
 .va-expand {
   transition: all 0.3s linear;
-  margin: 0.5rem;
-
-  & + & {
-    margin-top: 1.5rem;
-  }
 
   &__body {
-    height: 0;
-    transition: ease-in 0.3s;
+    transition: height linear 0.3s;
     overflow: hidden;
     margin-top: 0.1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 
   &__header {
@@ -254,25 +251,15 @@ export default class VaExpand extends Mixins(
         margin-top: 0;
       }
     }
-
-    &--active {
-      .va-expand {
-        &__header {
-          &__content {
-            border-radius: 0.375rem 0.375rem 0 0;
-            transition: ease-in 0.3s;
-          }
-        }
-      }
-    }
   }
 
   &--popout {
-    margin: 0;
+    margin: -0.5rem;
+    padding-top: 1rem;
   }
 
   &--inset {
-    margin: 1rem;
+    margin: 0.5rem;
   }
 
   &--disabled {

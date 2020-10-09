@@ -117,6 +117,12 @@
       "methods": {},
       "slots": {}
     },
+    "VaAppBar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaInnerLoading": {
       "props": {},
       "events": {},
@@ -143,6 +149,7 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "appBar": "App Bar",
     "innerLoading": "Inner Loading"
   },
   "language": {
@@ -196,6 +203,9 @@
   },
   "parallax": {},
   "backtop": {
+    "title": "-- Here is the title --"
+  },
+  "appBar": {
     "title": "-- Here is the title --"
   },
   "innerLoading": {
