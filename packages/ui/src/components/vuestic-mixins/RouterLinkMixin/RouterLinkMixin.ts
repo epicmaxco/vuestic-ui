@@ -42,13 +42,16 @@ export class RouterLinkMixin extends Mixins(
   }) readonly target!: string
 
   get tagComputed () {
-    if (this.c_tag === 'a' || (this.href && !this.to) || this.target) {
-      return 'a'
+    switch (true) {
+      case this.c_tag === 'a' || (this.href && !this.to) || this.target:
+        return 'a'
+      case this.c_tag === 'nuxt-link' || (this.$nuxt && this.to):
+        return 'nuxt-link'
+      case this.c_tag === 'router-link' || this.hasRouterLinkParams:
+        return 'router-link'
+      default:
+        return this.c_tag
     }
-    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
-      return 'router-link'
-    }
-    return this.c_tag
   }
 
   get hasRouterLinkParams () {
