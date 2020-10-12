@@ -78,7 +78,7 @@ module.exports = (plop: NodePlopAPI) => {
       throw new Error(`Route ${routeName} already exists.`)
     }
 
-    const replaceString = `// GENERATOR_ADD.${answers.category}`
+    const replaceString = `// GENERATOR_ADD - ${answers.category}`
 
     const routeItemString = `{
         name: '${routeName}',
