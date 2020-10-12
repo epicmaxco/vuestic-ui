@@ -155,8 +155,7 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
-    "buttonToggle": "Button Toggle"
-    "backtop": "Backtop",
+    "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading"
   },
