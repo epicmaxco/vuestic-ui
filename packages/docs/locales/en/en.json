@@ -660,6 +660,19 @@
         "default": "Slot for backtop content"
       }
     },
+    "VaButtonToggle": {
+      "props": {
+        "options": "The array of objects with `label` and `value` properties",
+        "value": "Current toggle state",
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
+        "toggleColor": "Color of the toggle button"
+      },
+      "events": {
+        "input":"Emits when toggling to the different button"
+      },
+      "methods": {},
+      "slots": {}
+    },
     "VaAppBar": {
       "props": {},
       "events": {},
@@ -724,6 +737,7 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
+    "buttonToggle": "Button Toggle",
     "backtop": "Backtop",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading"
@@ -2008,6 +2022,32 @@
       "default": {
         "title": "Basic usage",
         "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
+      }
+    }
+  },
+  "buttonToggle": {
+    "title": "Button Toggle",
+    "summaryText": "Button to switch between different values.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, you need to provide an options object and v-model"
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "Applies color presets and HEX colors. Use `toggle-color` prop to set the color of the active button."
+      },
+      "sizes": {
+        "title": "Sizes",
+        "text": "You can provide size presets to the component."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can sets a button styles to the component."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "The component can be disabled."
       }
     }
   },

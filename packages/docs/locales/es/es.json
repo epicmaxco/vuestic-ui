@@ -117,6 +117,12 @@
       "methods": {},
       "slots": {}
     },
+    "VaButtonToggle": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaAppBar": {
       "props": {},
       "events": {},
@@ -149,6 +155,7 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading"
   },
@@ -203,6 +210,9 @@
   },
   "parallax": {},
   "backtop": {
+    "title": "-- Here is the title --"
+  },
+  "buttonToggle": {
     "title": "-- Here is the title --"
   },
   "appBar": {
