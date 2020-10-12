@@ -81,5 +81,7 @@ export class RouterLinkMixin extends Mixins(
 
   created () {
     this.hasRouterLinkMixin = true
+    // manually set href for SEO optimisation
+    this.$props.href = this.href || (this.to ? this.$router.resolve(this.to, this.$route).href : '')
   }
 }
