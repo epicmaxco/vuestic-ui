@@ -32,26 +32,26 @@ export default class VaExpandGroup extends Mixins(
     const emitValue: any = []
     this.$children.forEach(expand => {
       if (expand === child) {
-        emitValue.push((expand as any).childValue)
+        emitValue.push((expand as any).valueProxy)
         return
       }
       if (!this.c_multiply) {
-        (expand as any).childValue = false
+        (expand as any).valueProxy = false
       }
-      emitValue.push((expand as any).childValue)
+      emitValue.push((expand as any).valueProxy)
     })
     this.valueComputed = emitValue
   }
 
   mounted () {
     this.$children.forEach((expand, index) => {
-      (expand as any).childValue = this.valueComputed[index]
+      (expand as any).valueProxy = this.valueComputed[index]
     })
   }
 
   updated () {
     this.$children.forEach((expand, index) => {
-      (expand as any).childValue = this.valueComputed[index]
+      (expand as any).valueProxy = this.valueComputed[index]
     })
   }
 }

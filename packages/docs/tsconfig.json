@@ -16,7 +16,8 @@
         "webpack-env",
         "jest",
         "@types/node",
-        "@nuxt/types"
+        "@nuxt/types",
+        "nuxt-i18n/types"
       ],
       "lib": [
         "esnext",

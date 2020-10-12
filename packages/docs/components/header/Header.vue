@@ -2,7 +2,7 @@
   <div class="header row justify--space-between">
     <div class="header__logo flex">
       <header-selector class="header__logo__selector" :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
-      <img class="header__logo__image" src="../../assets/svg/vuestic-docs.svg" height="30" width="150">
+      <vuestic-logo class="header__logo__image"  height="30" width="150"/>
     </div>
     <div class="header__links flex grow justify--center">
       <div class="shrink">
@@ -11,10 +11,11 @@
           flat
           class="header__links__button"
           color="primary"
+          :to="link.to"
           :href="link.url"
-          target="_blank"
+          :target="link.target"
         >
-          <i class="button__icon" :class="link.icon" />
+          <va-icon class="button__icon" :class="link.icon" />
           <span class="button__text">{{ link.text }}</span>
         </va-button>
       </div>
@@ -35,6 +36,7 @@ import LanguageDropdown from './components/LanguageDropdown.vue'
 import VersionDropdown from './components/VersionDropdown.vue'
 import ColorDropdown from './components/ColorDropdown.vue'
 import HeaderSelector from './components/HeaderSelector.vue'
+import VuesticLogo from './components/VuesticLogo.vue'
 @Component({
   components: {
     VaButton,
@@ -43,6 +45,7 @@ import HeaderSelector from './components/HeaderSelector.vue'
     LanguageDropdown,
     ColorDropdown,
     VersionDropdown,
+    VuesticLogo,
   },
 })
 export default class Header extends Vue {
@@ -56,18 +59,26 @@ export default class Header extends Vue {
       links: [
         {
           text: 'Overview',
-          icon: 'vuestic-iconset vuestic-iconset-dashboard',
+          icon: 'fa fa-eye',
           url: '#',
+          target: '_blank',
         },
         {
           text: 'Documentation',
           icon: 'fa fa-cube',
           url: '#', // TODO: add actual links when pages are ready
+          target: '_blank',
         },
         {
           text: 'GitHub',
           icon: 'fa fa-github',
           url: 'https://github.com/epicmaxco/vuestic-ui',
+          target: '_blank',
+        },
+        {
+          text: 'Contribution',
+          icon: 'fa fa-share-alt',
+          to: `/${(this as any).$root.$i18n.locale}/contribution/documentation-page`,
         },
       ],
     }
@@ -85,19 +96,24 @@ export default class Header extends Vue {
 @import "../../../ui/src/components/vuestic-sass/global/typography";
 
 .header {
+  z-index: 2000;
   position: fixed;
   width: 100%;
-  height: 64px;
+  height: 4rem;
   box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
+
+  @include media-breakpoint-down(sm) {
+    height: 8rem;
+  }
 
   &__links__button {
     font-weight: $font-weight-bold;
 
     .button__icon {
-      margin-right: 0.5em;
+      margin-right: 0.25em;
     }
 
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) {
       .button__text {
         display: none;
       }

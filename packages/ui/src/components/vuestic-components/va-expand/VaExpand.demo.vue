@@ -6,7 +6,7 @@
         style="width: 400px;"
         :header="expandHeader"
       >
-        <div>
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -19,7 +19,7 @@
         :header="expandHeader"
         solid
       >
-        <div>
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -32,7 +32,7 @@
         :header="expandHeader"
         disabled
       >
-        <div>
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -45,7 +45,7 @@
         :header="expandHeader"
         color="success"
       >
-        <div>
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -56,7 +56,7 @@
         solid
         color="warning"
       >
-        <div>
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -68,7 +68,7 @@
         color="danger"
         color-all
       >
-        <div>
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -82,7 +82,7 @@
         text-color="white"
         icon="info"
       >
-        <div>
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -95,7 +95,7 @@
         :header="expandHeader"
         icon="home"
       >
-        <div>
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -107,21 +107,21 @@
         style="width: 400px;"
         :header="expandHeader"
       >
-        <div>
+        <div class="expand-content">
           <va-expand
             v-for="(value, index) in expandLayerValue"
             :key="index"
             v-model="expandLayerValue[index]"
             :header="expandHeader"
           >
-            <div>
+            <div class="expand-content">
               <va-expand
                 v-for="(value, index) in expandSecondLayerValue"
                 :key="index"
                 v-model="expandSecondLayerValue[index]"
                 :header="expandHeader"
               >
-                <div>
+                <div class="expand-content">
                   {{ expandContent }}
                 </div>
               </va-expand>
@@ -132,31 +132,22 @@
     </VbCard>
 
     <VbCard title="Custom header">
-      <va-expand
-        v-model="expandValue"
-        style="width: 400px;"
-      >
+      <va-expand v-model="expandValue" style="width: 400px;">
         <template slot="header">
-          <va-button
-            style="width: 100%;"
-          >
+          <va-button style="width: 100%;">
             {{ expandHeader }}
           </va-button>
         </template>
 
-        <div>
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
     </VbCard>
 
     <VbCard title="Stateful">
-      <va-expand
-        stateful
-        style="width: 400px;"
-        :header="expandHeader"
-      >
-        <div>
+      <va-expand stateful style="width: 400px;" :header="expandHeader">
+        <div class="expand-content">
           {{ expandContent }}
         </div>
       </va-expand>
@@ -184,3 +175,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.expand-content {
+  padding: 1rem;
+}
+</style>

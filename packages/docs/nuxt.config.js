@@ -41,6 +41,7 @@ export default {
   plugins: [
     { mode: 'server', src: '~/plugins/jsdom.ts' },
     { src: '~/plugins/colorHelper.ts' },
+    { src: '~/plugins/clipboard.ts' },
     { src: '~/plugins/client-services.ts' },
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },

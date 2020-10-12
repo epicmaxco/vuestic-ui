@@ -174,7 +174,7 @@ export default class VaCheckbox extends Mixins(
   &__input {
     opacity: 0;
     width: 0;
-    height: 0;
+    height: 0 !important;
   }
 
   &__label {

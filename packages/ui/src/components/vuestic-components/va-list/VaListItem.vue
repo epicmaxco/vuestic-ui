@@ -63,19 +63,7 @@ export default class VaListItem extends Mixins(
 
 .va-list-item {
   display: flex;
-  padding: $list-item-padding;
-
-  &:hover {
-    background-color: $light-gray3;
-    cursor: pointer;
-  }
-
-  &--focus {
-    background-color: $light-gray3;
-  }
-
-  &--disabled {
-    @include va-disabled();
-  }
+  align-items: center;
+  padding: $grid-gutter-default;
 }
 </style>

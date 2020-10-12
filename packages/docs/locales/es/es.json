@@ -122,6 +122,18 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaAppBar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaInnerLoading": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -144,6 +156,9 @@
     "parallax": "Parallax",
     "backtop": "Backtop",
     "buttonToggle": "Button Toggle"
+    "backtop": "Backtop",
+    "appBar": "App Bar",
+    "innerLoading": "Inner Loading"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -199,6 +214,12 @@
     "title": "-- Here is the title --"
   },
   "buttonToggle": {
+    "title": "-- Here is the title --"
+  },
+  "appBar": {
+    "title": "-- Here is the title --"
+  },
+  "innerLoading": {
     "title": "-- Here is the title --"
   }
 }
