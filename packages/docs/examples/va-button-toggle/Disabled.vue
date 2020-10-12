@@ -5,18 +5,27 @@
       v-model="model"
       :options="options"
     />
+
+    <div class="mb-2" />
+
     <va-button-toggle
       :round="false"
       disabled
       v-model="model"
       :options="options"
     />
+
+    <div class="mb-2" />
+
     <va-button-toggle
       outline
       disabled
       v-model="model"
       :options="options"
     />
+
+    <div class="mb-2" />
+
     <va-button-toggle
       flat
       disabled

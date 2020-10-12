@@ -743,9 +743,8 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
-    "buttonGroup": "Button Group"
+    "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
-    "backtop": "Backtop",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading"
   },

@@ -161,8 +161,7 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
-    "buttonGroup": "Button Group"
-    "backtop": "Backtop",
+    "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading"

@@ -5,17 +5,26 @@
       v-model="model"
       :options="options"
     />
+
+    <div class="mb-2" />
+
     <va-button-toggle
       color="success"
       v-model="model"
       :options="options"
     />
+
+    <div class="mb-2" />
+
     <va-button-toggle
       toggle-color="warning"
       color="danger"
       v-model="model"
       :options="options"
     />
+
+    <div class="mb-2" />
+
     <va-button-toggle
       toggle-color="#5600ff"
       color="#7e06ae"

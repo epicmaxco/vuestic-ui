@@ -4,8 +4,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import DocsContent from '../../components/DocsContent.vue'
-import buttonGroupConfig from '../../components/page-configs/va-button-group/page-config'
+import DocsContent from '../../../components/DocsContent.vue'
+import buttonGroupConfig from '../../../components/page-configs/va-button-group/page-config'
 
 @Component({
   components: {
