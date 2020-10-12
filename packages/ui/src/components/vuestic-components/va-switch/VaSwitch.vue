@@ -11,14 +11,16 @@
   >
     <div
       class="va-switch__container"
-      @click="onWrapperClick()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
       tabindex="-1"
       @blur="onBlur"
       ref="container"
     >
-      <div class="va-switch__inner">
+      <div
+        class="va-switch__inner"
+        @click="onWrapperClick()"
+      >
         <input
           class="va-switch__input"
           ref="input"
@@ -61,6 +63,7 @@
         ref="label"
         @blur="onBlur"
         :style="labelStyle"
+        @click="onWrapperClick()"
       >
         <slot>
           {{ computedLabel }}

@@ -1,9 +1,9 @@
 <template>
   <va-button-dropdown
-    :button-props="{ flat: true }"
     color="primary"
     :label="version.value"
     class="version-dropdown"
+    flat
   >
     <div
       v-for="(option, index) in version.options"
