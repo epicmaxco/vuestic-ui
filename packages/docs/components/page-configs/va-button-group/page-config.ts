@@ -1,83 +1,39 @@
-import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
+import { ApiDocsBlock } from '../../../types/configTypes'
 import VaButtonGroup from 'vuestic-ui/src/components/vuestic-components/va-button-group/VaButtonGroup.vue'
 import apiOptions from './api-options'
+import { DocsHelper } from '../../../helpers/DocsHelper'
 
 export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'buttonGroup.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'buttonGroup.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'buttonGroup.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'buttonGroup.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button-group/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'buttonGroup.examples.colors.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'buttonGroup.examples.colors.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button-group/Colors',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'buttonGroup.examples.sizes.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'buttonGroup.examples.sizes.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button-group/Sizes',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'buttonGroup.examples.styles.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'buttonGroup.examples.styles.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button-group/Styles',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'buttonGroup.examples.icons.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'buttonGroup.examples.icons.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button-group/Icons',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaButtonGroup,
-    apiOptions,
-  },
+  DocsHelper.title('buttonGroup.title'),
+  DocsHelper.paragraph('buttonGroup.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+  ...DocsHelper.exampleBlock(
+    'buttonGroup.examples.default.title',
+    'buttonGroup.examples.default.text',
+    'va-button-group/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'buttonGroup.examples.colors.title',
+    'buttonGroup.examples.colors.text',
+    'va-button-group/Colors',
+  ),
+  ...DocsHelper.exampleBlock(
+    'buttonGroup.examples.sizes.title',
+    'buttonGroup.examples.sizes.text',
+    'va-button-group/Sizes',
+  ),
+  ...DocsHelper.exampleBlock(
+    'buttonGroup.examples.styles.title',
+    'buttonGroup.examples.styles.text',
+    'va-button-group/Styles',
+  ),
+  ...DocsHelper.exampleBlock(
+    'buttonGroup.examples.icons.title',
+    'buttonGroup.examples.icons.text',
+    'va-button-group/Icons',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaButtonGroup, apiOptions),
 ] as ApiDocsBlock[]
