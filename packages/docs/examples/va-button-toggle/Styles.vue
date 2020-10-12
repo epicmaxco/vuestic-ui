@@ -5,11 +5,17 @@
       v-model="model"
       :options="options"
     />
+
+    <div class="mb-2" />
+
     <va-button-toggle
       flat
       v-model="model"
       :options="options"
     />
+
+    <div class="mb-2" />
+
     <va-button-toggle
       :round="false"
       v-model="model"

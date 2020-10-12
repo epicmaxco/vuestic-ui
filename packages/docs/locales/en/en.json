@@ -660,6 +660,11 @@
         "default": "Slot for backtop content"
       }
     },
+    "VaButtonGroup": {
+      "slots": {
+        "default": "Slot for buttons"
+      }
+    },
     "VaButtonToggle": {
       "props": {
         "options": "The array of objects with `label` and `value` properties",
@@ -737,8 +742,9 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
-    "buttonToggle": "Button Toggle",
     "backtop": "Backtop",
+    "buttonGroup": "Button Group",
+    "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading"
   },
@@ -2022,6 +2028,32 @@
       "default": {
         "title": "Basic usage",
         "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
+      }
+    }
+  },
+  "buttonGroup": {
+    "title": "Button Group",
+    "summaryText": "It is a special component that wraps buttons and applies special styles to them.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, you need to wrap your buttons with a `va-button-group` component."
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "Component provides color to each child button."
+      },
+      "sizes": {
+        "title": "Sizes",
+        "text": "You can set different sizes."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can set button styles."
+      },
+      "icons": {
+        "title": "Icons",
+        "text": "Looks good with icons provided to buttons."
       }
     }
   },

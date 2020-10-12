@@ -34,6 +34,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.button',
       },
       {
+        name: 'button-group',
+        displayName: 'menu.buttonGroup',
+      },
+      {
         name: 'button-toggle',
         displayName: 'menu.buttonToggle',
       },

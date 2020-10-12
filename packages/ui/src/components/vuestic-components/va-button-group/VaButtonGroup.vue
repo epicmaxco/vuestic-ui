@@ -28,7 +28,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 export default class VaButtonGroup extends Vue {
   @Prop({
     type: String,
-    default: 'primary',
+    default: '',
   }) readonly color!: string
 
   // get computedClass () {
@@ -47,7 +47,7 @@ export default class VaButtonGroup extends Vue {
 .va-button-group {
   display: flex;
   justify-content: stretch;
-  margin: 0.375rem 0.5rem;
+  // margin: 0.375rem 0.5rem;
 
   &--small {
     border-radius: $btn-border-radius-sm;

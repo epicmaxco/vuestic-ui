@@ -5,6 +5,9 @@
       v-model="model"
       :options="options"
     />
+
+    <div class="mb-2" />
+
     <va-button-toggle
       size="small"
       v-model="model"
