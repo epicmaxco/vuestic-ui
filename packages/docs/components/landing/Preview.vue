@@ -149,7 +149,7 @@ export default class Preview extends Vue {}
   &__frame {
     display: inline-block;
     padding: 0.75rem;
-    border: 1px dashed #6c7898;
+    border: 1px dashed $gray;
     border-radius: 1rem;
   }
 

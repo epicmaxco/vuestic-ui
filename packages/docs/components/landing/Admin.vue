@@ -3,6 +3,7 @@
     <div class="admin__wrapper">
       <div class="admin__inner">
         <div class="admin__title">Vuestic Admin</div>
+        <div class="admin__subtitle">Check out Vuestic UI Library in action.</div>
         <div class="admin__buttons">
           <va-button class="admin__buttons--button"
             :round="false"
@@ -102,6 +103,16 @@ export default class Admin extends Vue {}
     font-size: 4.5rem;
   }
 
+  &__subtitle {
+    @include col();
+    @include size(12);
+
+    padding-top: 1rem;
+    text-align: center;
+    font-weight: normal;
+    font-size: 1.1rem;
+  }
+
   &__buttons {
     @include col();
     @include size(12);
@@ -166,7 +177,7 @@ export default class Admin extends Vue {}
   &__frame {
     display: inline-block;
     padding: 0.75rem;
-    border: 1px dashed #6c7898;
+    border: 1px dashed $gray;
     border-radius: 1rem;
   }
 
