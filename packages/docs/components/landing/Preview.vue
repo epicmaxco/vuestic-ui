@@ -72,6 +72,7 @@ export default class Preview extends Vue {}
 
 .preview {
   width: 100%;
+  position: relative;
   padding-top: 4.5rem;
   background: transparent;
 
@@ -137,6 +138,7 @@ export default class Preview extends Vue {}
 }
 
 .item {
+  @include col();
   @include size(3);
 
   display: flex;
