@@ -56,6 +56,7 @@
     "markdown-it": "^10.0.0",
     "nuxt-i18n": "^6.9.1",
     "plop": "^2.7.0",
+    "smart-grid": "^2.1.2",
     "stylelint": "^13.3.3",
     "terser-webpack-plugin": "^3.0.1"
   },
