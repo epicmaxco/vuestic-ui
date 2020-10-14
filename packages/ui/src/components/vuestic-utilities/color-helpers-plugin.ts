@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { themesRef } from '../../services/ColorThemePlugin'
+import { getTheme } from '../../services/Theme'
 import { addOrUpdateStyleElement } from '../../services/dom-functions'
 
 const vmInstance = new Vue()
@@ -20,11 +20,11 @@ const createThemeColorStyles = (themes: Record<string, string>): string => {
 const ColorHelpersPlugin = {
   install () {
     // @ts-ignore
-    vmInstance.$watch(() => themesRef.value, {
+    vmInstance.$watch(() => getTheme(), {
       deep: true,
       immediate: true,
       handler: () => {
-        addOrUpdateStyleElement('va-theme-styles', () => createThemeColorStyles(themesRef.value))
+        addOrUpdateStyleElement('va-theme-styles', () => createThemeColorStyles(getTheme() || {}))
       },
     })
   },

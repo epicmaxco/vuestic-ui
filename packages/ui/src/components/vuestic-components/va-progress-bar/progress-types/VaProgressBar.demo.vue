@@ -206,11 +206,11 @@
 
 <script>
 import VaProgressBar from './VaProgressBar'
-import VaContext from '../../../context-test/context-provide/VaContext'
+import VaConfig from '../../va-config/VaConfig'
 
 export default {
   components: {
-    VaContext,
+    VaContext: VaConfig,
     VaProgressBar,
   },
   data () {

@@ -26,12 +26,12 @@
 </template>
 
 <script>
-import { ContextPluginMixin } from '../../../ui/src/components/context-test/context-provide/ContextPlugin'
+import LocalConfigMixin from 'vuestic-ui/src/mixins/LocalConfigMixin'
 import VaBadge from '../../../ui/src/components/vuestic-components/va-badge/VaBadge'
 import VaIcon from '../../../ui/src/components/vuestic-components/va-icon/VaIcon'
 
 export default {
-  mixins: [ContextPluginMixin],
+  mixins: [LocalConfigMixin],
   components: {
     VaBadge,
     VaIcon,

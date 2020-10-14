@@ -1,19 +1,9 @@
-import Vue from 'vue'
 import { mount, shallowMount, RouterLinkStub } from '@vue/test-utils'
 import VaButton from '../VaButton.vue'
 
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
-import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
-import { ContextPlugin } from '../../../context-test/context-provide/ContextPlugin'
 import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
-
-// TODO Everything should work without this plugin.
-// Please remove at early convenience.
-// @ts-ignore
-Vue.use(ColorThemePlugin)
-// @ts-ignore
-Vue.use(ContextPlugin, {})
 
 describe('VaButton', () => {
   it('should render without an error', () => {

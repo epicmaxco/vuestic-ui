@@ -4,21 +4,23 @@
       v-if="minimized"
       class="i-nav"
       @click.native="$emit('toggleSidebar', !minimized)"
-      :color="$themes.primary"
+      :color="primaryColor"
     />
     <va-icon-menu-collapsed
       v-else
       class="i-nav"
       @click.native="$emit('toggleSidebar', !minimized)"
-      :color="$themes.primary"
+      :color="primaryColor"
     />
   </div>
 </template>
 
 <script lang="ts">
+// @ts-nocheck
+import { getColor } from '../../../../ui/src/components/vuestic-mixins/ColorMixin'
 import VaIconMenu from '../../../iconset/VaIconMenu.vue'
 import VaIconMenuCollapsed from '../../../iconset/VaIconMenuCollapsed.vue'
-// @ts-nocheck
+
 export default {
   name: 'HeaderSelector',
   components: {
@@ -29,6 +31,11 @@ export default {
     minimized: {
       type: Boolean,
       required: true,
+    },
+  },
+  computed: {
+    primaryColor () {
+      return getColor('primary')
     },
   },
 }

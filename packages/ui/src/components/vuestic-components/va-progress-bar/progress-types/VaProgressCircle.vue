@@ -35,10 +35,10 @@ import { Component, Mixins } from 'vue-property-decorator'
 
 import { ProgressComponentMixin } from './ProgressComponentMixin'
 import { ColorThemeMixin, getColor } from '../../../vuestic-mixins/ColorMixin'
-import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../../services/config-transport/makeConfigTransportMixin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 
-const ProgressCirclePropsMixin = makeContextablePropsMixin({
+const ProgressCirclePropsMixin = makeConfigTransportMixin({
   thickness: { type: Number, default: 0.06 },
   color: { type: String, default: 'primary' },
 })
@@ -80,7 +80,7 @@ export default class VaProgressCircle extends Mixins(
 
   get computedStyles () {
     return {
-      color: getColor(this, this.c_color),
+      color: getColor(this.c_color),
     }
   }
 

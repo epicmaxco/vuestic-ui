@@ -15,7 +15,7 @@
     >
       <va-icon
         :name="icon"
-        :color="$themes['info']"
+        :color="theme.info"
         :size="24"
       />
     </div>
@@ -29,7 +29,7 @@
     >
       <va-icon
         :name="iconRight"
-        :color="$themes['info']"
+        :color="theme.info"
       />
     </div>
   </div>
@@ -37,6 +37,8 @@
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
+import { getTheme } from '../../../services/Theme'
+
 export default {
   name: 'VaTreeNode',
   components: { VaIcon },
@@ -52,6 +54,11 @@ export default {
     iconRight: {
       type: String,
       default: '',
+    },
+  },
+  computed: {
+    theme () {
+      return getTheme() || {}
     },
   },
 }

@@ -22,7 +22,7 @@
       >
         <va-icon
           :name="icon"
-          :color="$themes['info']"
+          :color="theme.info"
         />
       </div>
       <div class="va-tree-category__header-label">
@@ -45,6 +45,7 @@
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import SquareWithIcon from './SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../va-icon/VaIcon'
+import { getTheme } from '../../../services/Theme'
 
 export default {
   name: 'VaTreeCategory',
@@ -79,6 +80,11 @@ export default {
     icon: {
       type: String,
       default: '',
+    },
+  },
+  computed: {
+    theme () {
+      return getTheme() || {}
     },
   },
   methods: {

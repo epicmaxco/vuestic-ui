@@ -11,9 +11,9 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const ItemLabelPropsMixin = makeContextablePropsMixin({
+const ItemLabelPropsMixin = makeConfigTransportMixin({
   caption: { type: Boolean, default: false },
   lines: { type: Number, default: 1 },
 })

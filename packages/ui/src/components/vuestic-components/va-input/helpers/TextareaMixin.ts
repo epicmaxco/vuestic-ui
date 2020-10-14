@@ -1,10 +1,10 @@
 import Component from 'vue-class-component'
 import { Mixins, Watch } from 'vue-property-decorator'
 import calculateNodeHeight from '../calculateNodeHeight'
-import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../../services/config-transport/makeConfigTransportMixin'
 import { warn } from '../../../../services/utils'
 
-const PropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeConfigTransportMixin({
   autosize: { type: Boolean, default: false },
   minRows: {
     type: Number,

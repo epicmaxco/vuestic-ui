@@ -140,11 +140,11 @@
 
 <script>
 import VaProgressCircle from './VaProgressCircle'
-import VaContext from '../../../context-test/context-provide/VaContext'
+import VaConfig from '../../va-config/VaConfig'
 
 export default {
   components: {
-    VaContext,
+    VaContext: VaConfig,
     VaProgressCircle,
   },
   data () {

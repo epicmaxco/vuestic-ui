@@ -1,12 +1,5 @@
-import Vue from 'vue'
-
-import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import VaFileUpload from '../VaFileUpload.vue'
-
-// TODO Everything should work without this plugin.
-// @ts-ignore
-Vue.use(ColorThemePlugin)
 
 describe('VaFileUpload', () => {
   it('is contextable', () => {
@@ -18,6 +11,6 @@ describe('VaFileUpload', () => {
       color: 'danger',
       disabled: true,
     }
-    expect(() => testIsContextableComponent(VaFileUpload, props)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaFileUpload, props)).not.toThrow()
   })
 })

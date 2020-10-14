@@ -1,7 +1,7 @@
 import { mount, shallowMount } from '@vue/test-utils'
 
 import VaBacktop from '../VaBacktop.vue'
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 
 describe('VaBacktop', () => {
   it('should render without an error', () => {
@@ -19,6 +19,6 @@ describe('VaBacktop', () => {
       horizontalPosition: 'left',
       verticalPosition: 'right',
     }
-    expect(() => testIsContextableComponent(VaBacktop, props)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaBacktop, props)).not.toThrow()
   })
 })

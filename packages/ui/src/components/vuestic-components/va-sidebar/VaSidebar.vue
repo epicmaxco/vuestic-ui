@@ -16,9 +16,9 @@ import { Mixins, Component } from 'vue-property-decorator'
 
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { getGradientBackground } from '../../../services/color-functions'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const SidebarPropsMixin = makeContextablePropsMixin({
+const SidebarPropsMixin = makeConfigTransportMixin({
   minimized: { type: Boolean, default: false },
   hoverable: { type: Boolean, default: false },
   position: { type: String, default: 'left' },

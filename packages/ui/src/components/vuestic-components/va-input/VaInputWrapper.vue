@@ -36,9 +36,9 @@ import { Component, Mixins } from 'vue-property-decorator'
 
 import VaMessageList from './VaMessageList.vue'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const InputWrapperPropsMixin = makeContextablePropsMixin({
+const InputWrapperPropsMixin = makeConfigTransportMixin({
   disabled: { type: Boolean, default: false },
   error: { type: Boolean, default: false },
   success: { type: Boolean, default: false },

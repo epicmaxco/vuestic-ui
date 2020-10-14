@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import VaImage from '../VaImage.vue'
 
 describe('VaImage', () => {
@@ -15,6 +15,6 @@ describe('VaImage', () => {
       ratio: 4 / 3,
       contain: true,
     }
-    expect(() => testIsContextableComponent(VaImage, props, componentProps)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaImage, props, componentProps)).not.toThrow()
   })
 })

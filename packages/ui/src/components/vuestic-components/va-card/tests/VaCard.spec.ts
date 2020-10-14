@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import VaCard from '../VaCard.vue'
 
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
@@ -23,7 +23,7 @@ describe('VaCard', () => {
       stripeColor: 'purple',
       gradient: true,
     }
-    expect(() => testIsContextableComponent(VaCard, props)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaCard, props)).not.toThrow()
   })
   it('has ColorThemeMixin', () => {
     expect(() =>

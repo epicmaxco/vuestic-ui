@@ -29,20 +29,24 @@
 
 <script>
 import { shiftHslColor } from '../../../services/color-functions'
+import { getTheme } from '../../../services/Theme'
 
 export default {
   name: 'VaNavbar',
   computed: {
+    theme () {
+      return getTheme() || {}
+    },
     navbarStyle () {
       // saturation and lightness color components differ from the secondary color for the navbar
       return {
-        backgroundColor: shiftHslColor(this.$themes?.secondary || '#000', { s: -13, l: 15 }),
+        backgroundColor: shiftHslColor(this.theme.secondary || '#000', { s: -13, l: 15 }),
       }
     },
     shapeStyle () {
       // all the 3 color components differ for the shape from the secondary color
       return {
-        borderTopColor: shiftHslColor(this.$themes?.secondary || '#000', { h: -1, s: -11, l: 10 }),
+        borderTopColor: shiftHslColor(this.theme.secondary || '#000', { h: -1, s: -11, l: 10 }),
       }
     },
   },

@@ -64,10 +64,10 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { getColor } from '../../vuestic-mixins/ColorMixin'
 
-const CheckboxPropsMixin = makeContextablePropsMixin({
+const CheckboxPropsMixin = makeConfigTransportMixin({
   value: { type: [Boolean, Array, String, Object], default: false },
   checkedIcon: { type: String, default: 'check' },
   indeterminateIcon: { type: String, default: 'remove' },
@@ -95,7 +95,7 @@ export default class VaCheckbox extends Mixins(
 
   get labelStyle () {
     return {
-      color: this.computedError ? getColor(this, 'danger') : '',
+      color: this.computedError ? getColor('danger') : '',
       padding: !this.c_label
         ? ''
         : this.c_leftLabel
@@ -107,8 +107,8 @@ export default class VaCheckbox extends Mixins(
   get inputStyle () {
     return this.computedError
       ? (this.isChecked || this.isIndeterminate)
-        ? { background: this.colorComputed, borderColor: getColor(this, 'danger') }
-        : { borderColor: getColor(this, 'danger') }
+        ? { background: this.colorComputed, borderColor: getColor('danger') }
+        : { borderColor: getColor('danger') }
       : (this.isChecked || this.isIndeterminate)
         ? { background: this.colorComputed, borderColor: this.colorComputed }
         : {}

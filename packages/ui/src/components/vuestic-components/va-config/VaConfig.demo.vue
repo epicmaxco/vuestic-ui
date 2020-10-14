@@ -11,24 +11,24 @@
       <va-test>no context</va-test>
 
       <span style="font-size: 12px;">context 1</span>
-      <va-context :config="{ VaTest: { color: 'warning' } }">
+      <va-config :config="{ VaTest: { color: 'warning' } }">
         <div style="border: 1px solid gray; padding: 4px;">
           <va-test>No props</va-test>
           <span style="font-size: 12px;">context 2</span>
-          <va-context :config="{ VaTest: { color: 'danger' } }">
+          <va-config :config="{ VaTest: { color: 'danger' } }">
             <div style="border: 1px solid gray; padding: 4px;">
               <va-test>No props</va-test>
               <va-test color="green">
                 Prop set
               </va-test>
             </div>
-          </va-context>
+          </va-config>
         </div>
-      </va-context>
+      </va-config>
     </VbCard>
 
     <VbCard title="Empty values">
-      <va-context :config="{ VaTest: { label: 'my label' } }">
+      <va-config :config="{ VaTest: { label: 'my label' } }">
         <div>
           Default:
           <va-test />
@@ -39,7 +39,7 @@
           undefined (should be same as default):
           <va-test :label="undefined" />
         </div>
-      </va-context>
+      </va-config>
     </VbCard>
 
     <VbCard title="Reactive update from local context">
@@ -47,14 +47,14 @@
         Should change color on change and refresh.
       </div>
       <span style="font-size: 12px;">dynamic context</span>
-      <va-context :config="dynamicContextConfig">
+      <va-config :config="dynamicContextConfig">
         <div style="border: 1px solid gray; padding: 4px;">
           <va-test>No props</va-test>
           <va-test color="green">
             Prop set
           </va-test>
         </div>
-      </va-context>
+      </va-config>
       <label>
         <input
           type="checkbox"
@@ -68,18 +68,18 @@
       <va-button>Global config</va-button>
       <br>
       <span style="font-size: 12px;">context 1</span>
-      <va-context :config="{ VaButton: { color: 'warning' } }">
+      <va-config :config="{ VaButton: { color: 'warning' } }">
         <div style="border: 1px solid gray; padding: 4px;">
           <va-button>Local config 1 (only color)</va-button>
           <br>
           <span style="font-size: 12px;">context 2</span>
-          <va-context :config="{ VaButton: buttonConfig }">
+          <va-config :config="{ VaButton: buttonConfig }">
             <div style="border: 1px solid gray; padding: 4px;">
               <va-button>Local config 2 (override)</va-button>
             </div>
-          </va-context>
+          </va-config>
         </div>
-      </va-context>
+      </va-config>
     </VbCard>
 
     <VbCard title="Partial rewriting global config">
@@ -110,35 +110,38 @@
 
 <script>
 import VaTest from './ContextTest'
-import VaContext from './context-provide/VaContext'
-import VaButton from '../vuestic-components/va-button/VaButton'
-import VaBadge from '../vuestic-components/va-badge/VaBadge'
-import { overrideContextConfig } from './context-provide/ContextPlugin'
-import { getContext } from './context-provide/context'
+import VaConfig from './VaConfig'
+import VaButton from '../va-button/VaButton'
+import VaBadge from '../va-badge/VaBadge'
+import { setGlobalConfig } from '../../../services/GlobalConfigPlugin'
 
 export default {
   components: {
     VaTest,
-    VaContext,
+    VaConfig,
     VaButton,
     VaBadge,
   },
   beforeCreate () {
-    overrideContextConfig(this, {
+    setGlobalConfig(config => ({
+      ...config,
       VaTest: {
         color: 'blue',
       },
       VaBadge: {
+        ...config.VaBadge,
         color: 'info',
         label: 'default label',
       },
       VaButton: {
+        ...config.VaButton,
         size: 'small',
         icon: 'room',
         color: 'info',
         outline: true,
       },
       VaIcon: {
+        ...config.VaIcon,
         font: 'md',
         config: {
           room: {
@@ -149,11 +152,7 @@ export default {
           },
         },
       },
-    })
-  },
-  beforeRouteUpdate (to, from, next) {
-    overrideContextConfig(this, getContext())
-    next()
+    }))
   },
   data () {
     return {
@@ -180,7 +179,13 @@ export default {
   },
   methods: {
     overrideButtonsColor (color) {
-      this.$vaContextConfig.VaButton.color = color
+      setGlobalConfig(config => ({
+        ...config,
+        VaButton: {
+          ...config.VaButton,
+          color,
+        },
+      }))
     },
     overrideConfig () {
       const newConfig = {
@@ -200,7 +205,7 @@ export default {
         },
       }
 
-      overrideContextConfig(this, newConfig)
+      setGlobalConfig(newConfig)
     },
   },
 }

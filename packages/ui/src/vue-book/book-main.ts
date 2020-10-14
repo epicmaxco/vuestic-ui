@@ -5,9 +5,9 @@ import BookApp from './BookApp.vue'
 import VueClipboard from 'vue-clipboard2'
 import Router from 'vue-router'
 import { VueBookComponents, createRoute } from 'vue-book'
-import { setTheme } from '../services/ColorThemePlugin'
-import { getContext } from '../components/context-test/context-provide/context'
-import { ContextPlugin } from '../components/context-test/context-provide/ContextPlugin'
+import { setTheme, DEFAULT_THEME } from '../services/Theme'
+import { getDefaultConfig } from '../components/vuestic-components/va-config/config-default'
+import GlobalConfigPlugin from '../services/GlobalConfigPlugin'
 import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from '../components/resize-events'
 import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin.js'
@@ -23,10 +23,10 @@ installPlatform()
 Vue.use(Router)
 Vue.use(VueBookComponents)
 if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
-  setTheme({ primary: '#e71919' })
+  setTheme(DEFAULT_THEME)
 }
 Vue.use(DropdownPopperPlugin)
-Vue.use(ContextPlugin, getContext())
+Vue.use(GlobalConfigPlugin, getDefaultConfig())
 
 const router = new Router({
   routes: [

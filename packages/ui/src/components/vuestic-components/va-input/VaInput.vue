@@ -117,12 +117,12 @@ import VaIcon from '../va-icon/VaIcon.vue'
 
 import { getHoverColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import { InputMixin } from './helpers/InputMixin'
 import { TextareaMixin } from './helpers/TextareaMixin'
 
-const InputPropsMixin = makeContextablePropsMixin({
+const InputPropsMixin = makeConfigTransportMixin({
   color: { type: String, default: '' },
   value: { type: [String, Number], default: '' },
   label: { type: String, default: '' },

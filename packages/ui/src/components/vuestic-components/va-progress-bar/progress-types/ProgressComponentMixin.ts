@@ -1,8 +1,8 @@
 import { normalizeValue } from '../../../../services/utils'
-import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../../services/config-transport/makeConfigTransportMixin'
 import { Mixins, Component } from 'vue-property-decorator'
 
-const ProgressMixinContextableProps = makeContextablePropsMixin({
+const ProgressMixinContextableProps = makeConfigTransportMixin({
   value: { type: Number, default: 0 },
   color: { type: String, default: 'primary' },
   // If 'indeterminate' is 'true' 'value' prop will be ignored.

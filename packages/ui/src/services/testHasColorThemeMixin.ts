@@ -1,6 +1,6 @@
 import { shallowMount, Wrapper } from '@vue/test-utils'
 import { ColorThemeMixin } from '../components/vuestic-mixins/ColorMixin'
-import { testIsContextableComponent } from '../components/context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from './config-transport/testIsConfigProvidedComponent'
 
 export function testHasColorThemeMixin<T extends ColorThemeMixin> (componentOptions: T) {
   const wrapper: Wrapper<T> = shallowMount(componentOptions)

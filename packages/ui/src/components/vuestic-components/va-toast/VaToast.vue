@@ -40,14 +40,14 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { NotificationPosition } from './types'
 import { PropType } from 'vue'
 import { Component, Mixins, Watch } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import VaIcon from '../va-icon/VaIcon.vue'
 
-const ToastPropsMixin = makeContextablePropsMixin({
+const ToastPropsMixin = makeConfigTransportMixin({
   title: { type: String, default: '' },
   offsetY: { type: Number, default: 16 },
   offsetX: { type: Number, default: 16 },
@@ -58,8 +58,8 @@ const ToastPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
   closeable: { type: Boolean, default: true },
   dangerouslyUseHTMLString: { type: Boolean, default: false },
-  onClose: { type: [Function as PropType<() => void>, undefined] },
-  onClick: { type: [Function as PropType<() => void>, undefined] },
+  onClose: { type: Function },
+  onClick: { type: Function },
   position: {
     type: String as PropType<NotificationPosition>,
     default: 'top-right',

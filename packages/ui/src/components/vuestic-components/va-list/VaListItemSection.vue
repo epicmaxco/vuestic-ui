@@ -10,9 +10,9 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const ItemSectionPropsMixin = makeContextablePropsMixin({
+const ItemSectionPropsMixin = makeConfigTransportMixin({
   icon: { type: Boolean, default: false },
   avatar: { type: Boolean, default: false },
 })

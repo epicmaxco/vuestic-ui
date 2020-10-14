@@ -76,9 +76,9 @@ import {
 
 import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const AlertPropsMixin = makeContextablePropsMixin({
+const AlertPropsMixin = makeConfigTransportMixin({
   title: { type: String, default: '' },
   description: { type: String, default: '' },
   icon: { type: String, default: '' },
@@ -138,7 +138,7 @@ export default class VaAlert extends Mixins(
   get borderStyle () {
     return {
       backgroundColor: this.c_borderColor
-        ? getColor(this, this.c_borderColor)
+        ? getColor(this.c_borderColor)
         : this.colorComputed,
     }
   }

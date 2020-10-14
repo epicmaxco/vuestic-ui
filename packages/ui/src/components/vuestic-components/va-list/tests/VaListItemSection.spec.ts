@@ -1,7 +1,7 @@
 import { mount, shallowMount } from '@vue/test-utils'
 
 import VaListItemSection from '../VaListItemSection.vue'
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 
 describe('VaListItemSection', () => {
   it('should render without an error', () => {
@@ -14,7 +14,7 @@ describe('VaListItemSection', () => {
       icon: false,
       avatar: false,
     }
-    expect(() => testIsContextableComponent(VaListItemSection, props)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaListItemSection, props)).not.toThrow()
   })
 
   it('should have main class', () => {

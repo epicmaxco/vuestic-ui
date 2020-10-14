@@ -30,11 +30,11 @@
 
 <script>
 import ContextTestInterfaces from './ContextTestInterfaces'
-import VaContext from './context-provide/VaContext'
+import VaConfig from './VaConfig'
 
 export default {
   components: {
-    VaContext,
+    VaContext: VaConfig,
     ContextTestInterfaces,
   },
 }

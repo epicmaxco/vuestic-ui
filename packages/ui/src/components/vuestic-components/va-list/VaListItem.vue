@@ -24,11 +24,11 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
-const ItemPropsMixin = makeContextablePropsMixin({
+const ItemPropsMixin = makeConfigTransportMixin({
   tag: { type: String, default: 'div' },
   disabled: { type: Boolean, default: false },
 })

@@ -36,14 +36,12 @@ import VueFlatpickrComponent from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
 import VaInput from '../va-input/VaInput'
 import VaIcon from '../va-icon/VaIcon'
-import {
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
 export default {
   name: 'VaDatePicker',
   mixins: [
-    makeContextablePropsMixin(
+    makeConfigTransportMixin(
       {
         value: {
           type: [String, Object, Number],

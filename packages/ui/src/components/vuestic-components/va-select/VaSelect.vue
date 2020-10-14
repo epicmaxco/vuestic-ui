@@ -169,14 +169,14 @@ import VaSelectOptionList from './VaSelectOptionList.vue'
 import VaTag from '../va-tag/VaTag.vue'
 
 import { getHoverColor } from '../../../services/color-functions'
-import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
 const positions: string[] = ['top', 'bottom']
 
-const PropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeConfigTransportMixin({
   value: { type: [String, Number, Object, Array], default: '' },
   label: { type: String, default: '' },
   placeholder: { type: String, default: '' },
@@ -224,7 +224,6 @@ const PropsMixin = makeContextablePropsMixin({
   },
 })
 export default class VaSelect extends Mixins(
-  ContextPluginMixin,
   LoadingMixin,
   ColorThemeMixin,
   SelectableListMixin,

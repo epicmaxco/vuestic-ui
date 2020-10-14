@@ -4,12 +4,12 @@ import { createLocalVue, mount } from '@vue/test-utils'
 import GlobalConfigPlugin, {
   setGlobalConfig,
   getGlobalConfig,
-  ContextConfig,
+  GlobalConfig,
 } from './GlobalConfigPlugin'
 
 function mountWithPlugin (
   component: ComponentOptions<Vue>,
-  options: ContextConfig,
+  options: GlobalConfig,
 ) {
   const _Vue = createLocalVue()
   _Vue.use(GlobalConfigPlugin, options)
@@ -24,6 +24,7 @@ describe('GlobalConfigPlugin', () => {
     let instance: any
 
     const initialConfig = {
+      theme: undefined,
       all: { value: 'value' },
       VaComponent: { propValue: 'propValue' },
     }
@@ -69,7 +70,7 @@ describe('GlobalConfigPlugin', () => {
 
       setGlobalConfig((config) => ({
         ...config,
-        all: { value: `${prefix}${config.all.value}` },
+        all: { value: `${prefix}${config.all?.value}` },
         ...anotherComponentConfig,
       }))
 

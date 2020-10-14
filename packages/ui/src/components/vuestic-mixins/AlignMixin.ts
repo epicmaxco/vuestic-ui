@@ -1,5 +1,5 @@
 import { Mixins, Component } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../services/config-transport/makeConfigTransportMixin'
 
 export const alignMap = {
   left: 'flex-start',
@@ -11,7 +11,7 @@ export const alignMap = {
 }
 
 @Component
-export class AlignMixin extends Mixins(makeContextablePropsMixin({
+export class AlignMixin extends Mixins(makeConfigTransportMixin({
   align: {
     type: String,
     default: 'left',

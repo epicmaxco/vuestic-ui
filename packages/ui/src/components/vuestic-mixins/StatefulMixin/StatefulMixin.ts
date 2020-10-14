@@ -1,5 +1,5 @@
 import { Watch, Component, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
 const componentProps = {
   value: {
@@ -12,7 +12,7 @@ const componentProps = {
   },
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = makeConfigTransportMixin(componentProps)
 
 // TODO Definitions could be done better, but it's too complicated to bother.
 

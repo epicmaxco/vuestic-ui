@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import { makeContextablePropsMixin } from '../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const contextConfigMixin = makeContextablePropsMixin({
+const contextConfigMixin = makeConfigTransportMixin({
   value: { default: 'default' },
 })
 

@@ -2,7 +2,7 @@ import noop from 'lodash/noop'
 import { mount } from '@vue/test-utils'
 
 import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import VaModal from '../VaModal.vue'
 
@@ -36,7 +36,7 @@ describe('VaModal', () => {
       const props = {
         tag: 'a',
       }
-      expect(() => testIsContextableComponent(VaModal, props)).toThrow()
+      expect(() => testIsConfigProvidedComponent(VaModal, props)).toThrow()
     })
     it('is contextable', () => {
       const props = {
@@ -60,7 +60,7 @@ describe('VaModal', () => {
         overlayOpacity: undefined,
         zIndex: undefined,
       }
-      expect(() => testIsContextableComponent(VaModal, props)).not.toThrow()
+      expect(() => testIsConfigProvidedComponent(VaModal, props)).not.toThrow()
     })
   })
 

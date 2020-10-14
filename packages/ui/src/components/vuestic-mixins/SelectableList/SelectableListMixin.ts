@@ -1,7 +1,7 @@
 import { Component, Mixins } from 'vue-property-decorator'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { getProp } from '../../../services/utils'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
 const componentProps = {
   options: { type: Array, default: () => [] },
@@ -11,7 +11,7 @@ const componentProps = {
   disabledBy: { type: [String, Function], default: 'disabled' },
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = makeConfigTransportMixin(componentProps)
 
 @Component
 export class SelectableListMixin extends Mixins(

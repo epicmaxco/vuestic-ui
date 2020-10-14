@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { shallowMount } from '@vue/test-utils'
 import { SelectableListMixin } from './SelectableListMixin'
-import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../services/config-transport/testIsConfigProvidedComponent'
 
 describe('SelectableListMixin', () => {
   const baseComponentOptions = {
@@ -15,7 +15,7 @@ describe('SelectableListMixin', () => {
   }
 
   it('should mount without errors', () => {
-    expect(() => testIsContextableComponent(baseComponentOptions, {}, {})).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(baseComponentOptions, {}, {})).not.toThrow()
   })
 
   describe('getValue', () => {

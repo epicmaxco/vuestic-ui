@@ -11,7 +11,6 @@ export default class ExampleComponent extends mixins(ColorThemeMixin) {
 }
 
 describe('ColorThemePlugin', () => {
-  const wrapper: any = shallowMount(ExampleComponent)
   it('isCssColor', () => {
     expect(isCssColor('tomato')).toBe(true)
     expect(isCssColor('#123')).toBe(true)
@@ -19,10 +18,10 @@ describe('ColorThemePlugin', () => {
     expect(isCssColor('not-css-color')).toBe(false)
   })
   it('getColor should return default color', () => {
-    expect(getColor(wrapper, 'not-css-color')).toBe('#000000')
+    expect(getColor('not-css-color')).toBe('#000000')
   })
   it('getColor should return prop color', () => {
-    expect(getColor(wrapper, 'green')).toBe('green')
+    expect(getColor('green')).toBe('green')
   })
 
   it('should compute color', async () => {

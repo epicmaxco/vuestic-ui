@@ -3,7 +3,7 @@ import { mount, shallowMount } from '@vue/test-utils'
 import VaSwitch from '../VaSwitch.vue'
 
 import { testIsSelectableComponent } from '../../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 
 describe('VaSwitch', () => {
@@ -36,7 +36,7 @@ describe('VaSwitch', () => {
       color: 'test-color',
       stateful: true,
     }
-    expect(() => testIsContextableComponent(VaSwitch, contextProps)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaSwitch, contextProps)).not.toThrow()
   })
   it('has loading mixin', () => {
     expect(() => testIsLoadingMixin(VaSwitch)).not.toThrow()

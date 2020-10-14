@@ -1,4 +1,6 @@
 <script>
+import { getTheme } from '../../../services/Theme'
+
 const $root = 'va-timeline-separator'
 
 export default {
@@ -23,6 +25,8 @@ export default {
     },
   },
   render (createElement, context) {
+    const theme = getTheme() || {}
+
     return createElement(
       'div',
       {
@@ -38,7 +42,7 @@ export default {
             [`${$root}__line--active`]: context.props.activePrevious,
           },
           style: {
-            backgroundColor: context.props.activePrevious ? context.parent.$themes[context.props.color] : '#dddddd',
+            backgroundColor: context.props.activePrevious ? theme[context.props.color] : '#dddddd',
           },
         }),
         createElement('div', {
@@ -47,7 +51,7 @@ export default {
             [`${$root}__center--active`]: context.props.active,
           },
           style: {
-            backgroundColor: context.props.active ? context.parent.$themes[context.props.color] : '#dddddd',
+            backgroundColor: context.props.active ? theme[context.props.color] : '#dddddd',
           },
         }),
         createElement('div', {
@@ -56,7 +60,7 @@ export default {
             [`${$root}__line--active`]: context.props.activeNext,
           },
           style: {
-            backgroundColor: context.props.activeNext ? context.parent.$themes[context.props.color] : '#dddddd',
+            backgroundColor: context.props.activeNext ? theme[context.props.color] : '#dddddd',
           },
         }),
       ],

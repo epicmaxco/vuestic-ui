@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import VaDivider from '../VaDivider.vue'
 
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 
 describe('VaDivider', () => {
   it('should render without an error', () => {
@@ -12,7 +12,7 @@ describe('VaDivider', () => {
     const props = {
       tag: 'a',
     }
-    expect(() => testIsContextableComponent(VaDivider, props)).toThrow()
+    expect(() => testIsConfigProvidedComponent(VaDivider, props)).toThrow()
   })
   it('is contextable', () => {
     const props = {
@@ -21,6 +21,6 @@ describe('VaDivider', () => {
       inset: false,
       orientation: 'left',
     }
-    expect(() => testIsContextableComponent(VaDivider, props)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaDivider, props)).not.toThrow()
   })
 })

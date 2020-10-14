@@ -1,11 +1,27 @@
-import { Component, Vue, Prop, Inject } from 'vue-property-decorator'
-import {
-  ContextConfig,
-  ContextProviderKey,
-  mergeConfigs,
-} from './ContextPlugin'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
+import LocalConfigMixin, { LocalConfigProviderKey } from '../../../mixins/LocalConfigMixin'
 import { hasOwnProperty } from '../../../services/utils'
 
+export type ContextConfig = Record<string, Record<string, any>>
+
+// Just 2 levels deep merge. B has priority.
+export const mergeConfigs = (
+  configA: ContextConfig,
+  configB: ContextConfig,
+) => {
+  const result: Record<string, any> = {}
+  // A or A + B
+  for (const key in configA) {
+    result[key] = { ...configA[key], ...configB[key] }
+  }
+  // B
+  for (const key in configB) {
+    if (!result[key]) {
+      result[key] = { ...configB[key] }
+    }
+  }
+  return result
+}
 // This component just attaches local config to injected config chain,
 // then passes it down via provide in as a fresh object reference.
 @Component({
@@ -14,18 +30,12 @@ import { hasOwnProperty } from '../../../services/utils'
     const newConfig = self._$configs ? [...self._$configs, self.configComputed] : []
 
     return {
-      [ContextProviderKey]: newConfig,
+      [LocalConfigProviderKey]: newConfig,
     }
   },
 })
-export default class VaContext extends Vue {
+export default class VaConfig extends Mixins(LocalConfigMixin) {
   @Prop({ type: Object, default: () => ({}) }) config: any;
-
-  @Inject({
-    from: ContextProviderKey,
-    default: [],
-  })
-  readonly _$configs!: ContextConfig[];
 
   render () {
     return this.$slots.default || null

@@ -38,6 +38,7 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
+import { setTheme } from '../../ui/src/services/Theme'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 
 @Component({
@@ -49,19 +50,14 @@ import { navigationRoutes } from '../components/sidebar/navigationRoutes'
   },
 })
 export default class Index extends Vue {
-  data () {
-    return {
-      isSidebarVisible: true,
-      // only default theme guaranteed to work
-      contextConfig: {
-        gradient: true,
-        shadow: 'lg',
-        invertedColor: false,
-      },
-    }
-  }
+  isSidebarVisible = true
 
-  @Provide() contextConfig = this.contextConfig
+  // only default theme guaranteed to work
+  @Provide() contextConfig = {
+    gradient: true,
+    shadow: 'lg',
+    invertedColor: false,
+  }
 
   created () {
     this.$root.$on('changeTheme', this.setTheme)
@@ -82,10 +78,7 @@ export default class Index extends Vue {
   }
 
   setTheme (themeName) {
-    Object.assign(
-      this.$themes,
-      COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT],
-    )
+    setTheme(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
   }
 
   get crumbs () {

@@ -51,9 +51,9 @@ import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const TagPropsMixin = makeContextablePropsMixin({
+const TagPropsMixin = makeConfigTransportMixin({
   value: { type: Boolean, default: true },
   closeable: { type: Boolean, default: false },
   color: { type: String, default: '' },

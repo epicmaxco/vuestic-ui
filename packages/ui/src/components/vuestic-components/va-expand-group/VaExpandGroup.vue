@@ -7,10 +7,10 @@
 <script lang="ts">
 import { Component, Mixins, Provide } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
-const ExpandGroupPropsMixin = makeContextablePropsMixin({
+const ExpandGroupPropsMixin = makeConfigTransportMixin({
   value: { type: Array, default: () => [] },
   multiply: { type: Boolean, default: false },
   inset: { type: Boolean, default: false },

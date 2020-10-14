@@ -1,5 +1,5 @@
 import Cleave from 'cleave.js'
-import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../../services/config-transport/makeConfigTransportMixin'
 import { Mixins, Watch } from 'vue-property-decorator'
 import Component from 'vue-class-component'
 import { CleaveOptions } from 'cleave.js/options'
@@ -22,7 +22,7 @@ const DEFAULT_MASK_TOKENS: Record<string, object> = {
     numeralThousandsGroupStyle: 'thousand',
   },
 }
-const PropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeConfigTransportMixin({
   // Mask option list - https://github.com/nosir/cleave.js/blob/master/doc/options.md#blocks
   mask: {
     type: [String, Object],

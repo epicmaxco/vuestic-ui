@@ -179,12 +179,9 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import { getHoverColor } from '../../../services/color-functions'
 import { validateSlider } from './validateSlider'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import {
-  ContextPluginMixin,
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const SliderPropsMixin = makeContextablePropsMixin({
+const SliderPropsMixin = makeConfigTransportMixin({
   range: { type: Boolean, default: false },
   value: { type: [Number, Array], default: () => [] },
   trackLabel: { type: String, default: '' },
@@ -212,7 +209,6 @@ const SliderPropsMixin = makeContextablePropsMixin({
 })
 export default class VaSlider extends Mixins(
   ColorThemeMixin,
-  ContextPluginMixin,
   SliderPropsMixin,
 ) {
   @Ref('dot') readonly dot !: HTMLElement

@@ -1,6 +1,6 @@
 import { createWrapper, mount, shallowMount } from '@vue/test-utils'
 import VaSelect from '../VaSelect.vue'
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
@@ -20,7 +20,7 @@ describe('contextable mixin', () => {
     const props = {
       tag: 'a',
     }
-    expect(() => testIsContextableComponent(VaSelect, props)).toThrow()
+    expect(() => testIsConfigProvidedComponent(VaSelect, props)).toThrow()
   })
 
   // it('is contextable component', () => {

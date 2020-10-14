@@ -1,10 +1,10 @@
 import { Component, Inject, Vue } from 'vue-property-decorator'
-import { ContextConfig } from '../services/GlobalConfigPlugin'
+import { GlobalConfig } from '../services/GlobalConfigPlugin'
 
 /**
  * Key for communication inject/provide
  */
-export const ContextProviderKey = Symbol('va-context-provider')
+export const LocalConfigProviderKey = Symbol('va-config-provider')
 
 export const CONFIGS_DEFAULT = []
 
@@ -13,12 +13,12 @@ export const CONFIGS_DEFAULT = []
  * All list of local configs contain in this._$configs
  */
 @Component
-class ContextMixin extends Vue {
+class LocalConfigMixin extends Vue {
   @Inject({
-    from: ContextProviderKey,
+    from: LocalConfigProviderKey,
     default: () => CONFIGS_DEFAULT,
   })
-  readonly _$configs!: ContextConfig[]
+  readonly _$configs!: GlobalConfig[]
 }
 
-export default ContextMixin
+export default LocalConfigMixin

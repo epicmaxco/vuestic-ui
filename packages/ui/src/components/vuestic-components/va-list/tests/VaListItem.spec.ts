@@ -1,7 +1,7 @@
 import { mount, shallowMount } from '@vue/test-utils'
 import { testHasRouterLinkMixin } from './../../../vuestic-mixins/RouterLinkMixin/testHasRouterLinkMixin'
 import { testHasKeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/testHasKeyboardOnlyFocusMixin'
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 
 import VaListItem from '../VaListItem.vue'
 import { RouterLinkMixin } from '../../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
@@ -37,7 +37,7 @@ describe('VaListItem', () => {
       tag: 'div',
       disabled: false,
     }
-    expect(() => testIsContextableComponent(VaListItem, props)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaListItem, props)).not.toThrow()
   })
 
   it('should have disabled class', () => {

@@ -10,9 +10,9 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const ListPropsMixin = makeContextablePropsMixin({
+const ListPropsMixin = makeConfigTransportMixin({
   fit: { type: Boolean, default: false },
 })
 @Component({

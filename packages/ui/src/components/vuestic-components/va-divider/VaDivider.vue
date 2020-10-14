@@ -16,10 +16,10 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
 const prefixClass = 'va-divider'
-const DividerPropsMixin = makeContextablePropsMixin({
+const DividerPropsMixin = makeConfigTransportMixin({
   vertical: { type: Boolean, default: false },
   dashed: { type: Boolean, default: false },
   inset: { type: Boolean, default: false },

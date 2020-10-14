@@ -1,25 +1,25 @@
 import { CreateElement, Component } from 'vue'
 import { mount } from '@vue/test-utils'
-import VaContext from './VaContext'
+import VaConfig from '../../components/vuestic-components/va-config/VaConfig'
 
-// Check passed props are contextable.
+// Check passed props are from config.
 // componentProps could be used to pass down required props.
-// contextConfigProps are for declaring global configs, such as icons and sizes.
-export function testIsContextableComponent (
+// globalConfigProps are for declaring global configs, such as icons and sizes.
+export function testIsConfigProvidedComponent (
   componentOptions: Component,
-  contextProps: Record<string, any>,
+  localConfigProps: Record<string, any>,
   componentProps?: Record<string, any>,
-  contextConfigProps?: Record<string, any>,
+  globalConfigProps?: Record<string, any>,
 ) {
   const wrapperComponentOptions = {
     render (createElement: CreateElement) {
       return createElement(
-        VaContext,
+        VaConfig,
         {
           props: {
             config: {
-              [componentOptions.name as any]: contextProps,
-              ...contextConfigProps,
+              [componentOptions.name as any]: localConfigProps,
+              ...globalConfigProps,
             },
           },
         },
@@ -31,10 +31,10 @@ export function testIsContextableComponent (
   const wrapper = mount(wrapperComponentOptions)
   const component = wrapper.vm.$children[0].$children[0]
 
-  Object.keys(contextProps).forEach((prop) => {
-    if ((component as any)[`c_${prop}`] !== contextProps[prop]) {
+  Object.keys(localConfigProps).forEach((prop) => {
+    if ((component as any)[`c_${prop}`] !== localConfigProps[prop]) {
       throw new Error(
-        `Prop ${prop} doesn't appear to take value from context.`,
+        `Prop ${prop} doesn't appear to take value from config.`,
       )
     }
   })

@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import VaContext
-  from '../../../ui/src/components/context-test/context-provide/VaContext'
+import VaConfig
+  from 'vuestic-ui/src/components/vuestic-components/va-config/VaConfig'
 import ContextSwapExampleSnippet from './ContextSwapExampleSnippet'
 
 export default {
   components: {
     ContextSwapExampleSnippet,
-    VaContext,
+    VaContext: VaConfig,
   },
   data () {
     return {

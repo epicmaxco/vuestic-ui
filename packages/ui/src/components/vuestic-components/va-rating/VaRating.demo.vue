@@ -188,12 +188,12 @@
 
 <script>
 import VaRating from './VaRating'
-import VaContext from '../../context-test/context-provide/VaContext'
+import VaConfig from '../va-config/VaConfig'
 
 export default {
   components: {
     VaRating,
-    VaContext,
+    VaContext: VaConfig,
   },
   data () {
     return {

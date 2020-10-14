@@ -26,11 +26,11 @@
 import { Component, Mixins } from 'vue-property-decorator'
 
 import { getGradientBackground } from '../../../services/color-functions'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
 
-const CardPropsMixin = makeContextablePropsMixin({
+const CardPropsMixin = makeConfigTransportMixin({
   tag: { type: String, default: 'div' },
   square: { type: Boolean, default: false },
   outlined: { type: Boolean, default: false },
@@ -63,7 +63,7 @@ export default class VaCard extends Mixins(
   }
 
   get cardStyles () {
-    const color = this.dark ? this.computeColor(this.c_color) : getColor(this, this.c_color, '#ffffff')
+    const color = this.dark ? this.computeColor(this.c_color) : getColor(this.c_color, '#ffffff')
 
     if (this.c_gradient && this.c_color) {
       return {

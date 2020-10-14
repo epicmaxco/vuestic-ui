@@ -1,9 +1,8 @@
-import Vue from 'vue'
 import { Component, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../services/context/makeContextablePropsMixin'
-import { DEFAULT_COLOR, themesRef } from '../../services/ColorThemePlugin'
+import { makeConfigTransportMixin } from '../../services/config-transport/makeConfigTransportMixin'
+import { DEFAULT_COLOR, getTheme } from '../../services/Theme'
 
-const ContextableMixin = makeContextablePropsMixin({
+const ContextableMixin = makeConfigTransportMixin({
   color: {
     type: String,
   },
@@ -21,10 +20,11 @@ export const isCssColor = (strColor: string): boolean => {
   return style.color !== ''
 }
 
-export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_COLOR): string => {
-  // We do not really want to absolutely keep this ref global, but it probably will do for 1.0.
-  if (themesRef.value[prop]) {
-    return themesRef.value[prop]
+export const getColor = (prop: string, defaultColor: string = DEFAULT_COLOR): string => {
+  const theme = getTheme() || {}
+
+  if (theme[prop]) {
+    return theme[prop]
   }
 
   if (isCssColor(prop)) {
@@ -41,11 +41,11 @@ export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_
 @Component
 export class ColorThemeMixin extends Mixins(ContextableMixin) {
   get colorComputed () {
-    return getColor(this, (this as any).c_color)
+    return getColor((this as any).c_color)
   }
 
   computeColor (prop: string, defaultColor?: string) {
-    return getColor(this, prop, defaultColor)
+    return getColor(prop, defaultColor)
   }
 
   created () {

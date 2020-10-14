@@ -12,7 +12,7 @@
 
 <script>
 import { Component, Vue } from 'vue-property-decorator'
-import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../../../ui/src/components/vuestic-mixins/ColorMixin'
 @Component({
   name: 'vuestic-logo',
   mixins: [ColorThemeMixin],

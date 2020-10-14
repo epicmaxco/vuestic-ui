@@ -22,9 +22,9 @@ import { Component, Mixins } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const PropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeConfigTransportMixin({
   color: { type: String, default: '' },
   icon: { type: String, default: 'loop' },
   size: { type: Number, default: 30 },

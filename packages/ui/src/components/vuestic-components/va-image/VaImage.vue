@@ -29,9 +29,9 @@
 <script lang="ts">
 import { Mixins, Component, Prop, Watch } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const ImagePropsMixin = makeContextablePropsMixin({
+const ImagePropsMixin = makeConfigTransportMixin({
   ratio: { type: [Number, String], default: 1 },
   contain: { type: Boolean, default: false },
 })

@@ -81,10 +81,10 @@ import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { getColor } from '../../vuestic-mixins/ColorMixin'
 
-const SwitchPropsMixin = makeContextablePropsMixin({
+const SwitchPropsMixin = makeConfigTransportMixin({
   value: { type: [Boolean, Array, String, Object], default: false },
   size: {
     type: String,
@@ -152,17 +152,17 @@ export default class VaSwitch extends Mixins(
   get trackStyle () {
     return {
       borderColor: this.c_error
-        ? getColor(this, 'danger')
+        ? getColor('danger')
         : '',
       backgroundColor: this.isChecked
         ? this.colorComputed
-        : getColor(this, 'gray'),
+        : getColor('gray'),
     }
   }
 
   get labelStyle () {
     return {
-      color: this.c_error ? getColor(this, 'danger') : '',
+      color: this.c_error ? getColor('danger') : '',
       padding: !this.c_label && !(this.c_trueLabel || this.c_falseLabel)
         ? ''
         : this.c_leftLabel

@@ -56,10 +56,10 @@ import VaButton from '../va-button/VaButton.vue'
 import VaModal from '../va-modal/VaModal.vue'
 
 import { getFocusColor } from '../../../services/color-functions'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
-const FileUploadPropsMixin = makeContextablePropsMixin({
+const FileUploadPropsMixin = makeConfigTransportMixin({
   type: {
     type: String,
     default: 'list',

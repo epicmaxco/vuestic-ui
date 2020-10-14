@@ -1,4 +1,4 @@
-import { makeContextablePropsMixin } from '../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../services/config-transport/makeConfigTransportMixin'
 import Component, { mixins } from 'vue-class-component'
 
 export const sizesConfig = {
@@ -38,7 +38,7 @@ const sizeProps = {
 }
 
 @Component
-export class SizeMixin extends mixins(makeContextablePropsMixin(sizeProps)) {
+export class SizeMixin extends mixins(makeConfigTransportMixin(sizeProps)) {
   fontRegex = /(?<fontSize>\d+)(?<extension>px|rem)/i
 
   get sizeComputed (): string {

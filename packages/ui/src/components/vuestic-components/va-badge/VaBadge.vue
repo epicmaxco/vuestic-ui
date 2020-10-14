@@ -20,10 +20,10 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
 
-const BadgePropsMixin = makeContextablePropsMixin({
+const BadgePropsMixin = makeConfigTransportMixin({
   color: { type: String, default: 'danger' },
   textColor: { type: String, default: 'white' },
   text: { type: [String, Number], default: '' },
@@ -66,7 +66,7 @@ export default class VaBadge extends Mixins(
 
   get badgeStyle () {
     return {
-      color: getColor(this, this.c_textColor, '#ffffff'),
+      color: getColor(this.c_textColor, '#ffffff'),
       borderColor: this.colorComputed,
       backgroundColor: this.colorComputed,
       opacity: this.c_transparent ? 0.5 : 1,

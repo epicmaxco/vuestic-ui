@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import VaAffix from '../VaAffix.vue'
 
 describe('VaAffix', () => {
@@ -31,7 +31,7 @@ describe('VaAffix', () => {
     const props = {
       tag: 'a',
     }
-    expect(() => testIsContextableComponent(VaAffix, props)).toThrow()
+    expect(() => testIsConfigProvidedComponent(VaAffix, props)).toThrow()
   })
   it('is contextable', () => {
     const props = {
@@ -39,6 +39,6 @@ describe('VaAffix', () => {
       offsetBottom: undefined,
       target: window,
     }
-    expect(() => testIsContextableComponent(VaAffix, props)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaAffix, props)).not.toThrow()
   })
 })

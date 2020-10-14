@@ -91,13 +91,10 @@ import VaInput from '../va-input/VaInput.vue'
 
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { setPaginationRange } from './setPaginationRange'
-import {
-  ContextPluginMixin,
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const PaginationPropsMixin = makeContextablePropsMixin({
+const PaginationPropsMixin = makeConfigTransportMixin({
   value: { type: Number, default: 1 },
   visiblePages: { type: Number, default: 0 },
   pages: { type: Number, default: 0 },
@@ -130,7 +127,6 @@ const PaginationPropsMixin = makeContextablePropsMixin({
   },
 })
 export default class VaPagination extends Mixins(
-  ContextPluginMixin,
   StatefulMixin,
   ColorThemeMixin,
   PaginationPropsMixin,

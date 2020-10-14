@@ -40,9 +40,9 @@
 import { Component, Mixins } from 'vue-property-decorator'
 
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const RadioPropsMixin = makeContextablePropsMixin({
+const RadioPropsMixin = makeConfigTransportMixin({
   value: { type: [Object, String, Number, Boolean], default: null },
   option: { type: [Object, String, Number, Boolean], default: null },
   name: { type: [String, Number], default: '' },

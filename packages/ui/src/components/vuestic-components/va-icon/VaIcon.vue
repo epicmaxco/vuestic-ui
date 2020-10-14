@@ -18,10 +18,10 @@ import { Component, Mixins } from 'vue-property-decorator'
 import { warn } from '../../../services/utils'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { IconMixin } from './IconMixin'
 
-const IconPropsMixin = makeContextablePropsMixin({
+const IconPropsMixin = makeConfigTransportMixin({
   name: {
     type: [String, Array],
     default: '',

@@ -71,6 +71,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { ThemeName } from '../../../theme-config'
 import { capitalize } from 'lodash'
+import { getTheme } from '../../../../ui/src/services/Theme'
 
 @Component({})
 export default class ColorDropdown extends Vue {
@@ -94,7 +95,7 @@ export default class ColorDropdown extends Vue {
   }
 
   get themes () {
-    return this.$themes || {}
+    return getTheme() || {}
   }
 }
 </script>

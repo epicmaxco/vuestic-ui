@@ -23,12 +23,14 @@
 
 <script>
 import './color-helpers-plugin'
-import { themesRef } from '../../services/ColorThemePlugin'
+import { setTheme } from '../../services/Theme'
 
 export default {
   methods: {
     change (color) {
-      themesRef.value.danger = color
+      setTheme({
+        danger: color,
+      })
     },
   },
 }

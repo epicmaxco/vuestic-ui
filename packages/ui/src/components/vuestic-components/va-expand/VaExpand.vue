@@ -39,13 +39,13 @@ import { Component, Mixins, Inject, Ref } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
 import { getHoverColor } from '../../../services/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
-const ExpandPropsMixin = makeContextablePropsMixin({
+const ExpandPropsMixin = makeConfigTransportMixin({
   value: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   header: { type: String, default: '' },

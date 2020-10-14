@@ -27,7 +27,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import VaIcon from 'vuestic-ui/src/components/vuestic-components/va-icon/VaIcon.vue'
 import VaDropdown from 'vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue'
 import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
-import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
+import { ColorThemeMixin } from '../../../../ui/src/components/vuestic-mixins/ColorMixin'
 @Component({
   name: 'language-dropdown',
   mixins: [ColorThemeMixin],

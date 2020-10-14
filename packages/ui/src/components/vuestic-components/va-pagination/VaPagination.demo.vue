@@ -261,12 +261,12 @@
 
 <script>
 import VaPagination from './VaPagination'
-import VaContext from '../../context-test/context-provide/VaContext'
+import VaConfig from '../va-config/VaConfig'
 
 export default {
   components: {
     VaPagination,
-    VaContext,
+    VaContext: VaConfig,
   },
   data () {
     return {

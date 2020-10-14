@@ -7,12 +7,10 @@ import { hasOwnProperty } from '../../../services/utils'
 import { VNode, VNodeChildren } from 'vue'
 import { RecordPropsDefinition } from 'vue/types/options'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
-import {
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const BreadcrumbsPropsMixin = makeContextablePropsMixin({
+const BreadcrumbsPropsMixin = makeConfigTransportMixin({
   separator: { type: String, default: '/' },
   color: { type: String, default: 'gray' },
   activeColor: { type: String, default: null },

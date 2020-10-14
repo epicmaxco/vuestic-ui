@@ -143,7 +143,7 @@ import { getLineChartData } from '../../../data/charts/LineChartData'
 import VaBadge from '../../vuestic-components/va-badge/VaBadge'
 import VaFileUpload from '../../vuestic-components/va-file-upload/VaFileUpload'
 import VaSlider from '../../vuestic-components/va-slider/VaSlider'
-import { themesRef } from '../../../services/ColorThemePlugin'
+import { setTheme, getTheme } from '../../../services/Theme'
 
 export default {
   components: {
@@ -163,7 +163,7 @@ export default {
     return {
       value: 60,
       icon: 'info_outline',
-      chartData: getLineChartData(this.themes),
+      chartData: getLineChartData(this.themes || {}),
       files: [],
     }
   },
@@ -173,7 +173,7 @@ export default {
     },
     darkenTheme () {
       // NOTE That's just for testing. So that we can observe theme changed
-      themesRef.value = {
+      setTheme({
         primary: '#9A0931',
         secondary: '#C50B0B',
         success: '#06421E',
@@ -182,12 +182,12 @@ export default {
         warning: '#3C2D03',
         gray: '#babfc2',
         dark: '#34495e',
-      }
+      })
     },
   },
   computed: {
     themes () {
-      return themesRef.value
+      return getTheme() || {}
     },
   },
 }

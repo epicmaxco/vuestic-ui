@@ -26,7 +26,7 @@
 <script lang="ts">
 // @ts-ignore
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { Component, Mixins } from 'vue-property-decorator'
 
 const props = {
@@ -40,7 +40,7 @@ const props = {
   },
 }
 
-const ContextableMixin = makeContextablePropsMixin(props)
+const ContextableMixin = makeConfigTransportMixin(props)
 
 @Component({})
 export default class VaBreadcrumbsItem extends Mixins(RouterLinkMixin, ContextableMixin) {

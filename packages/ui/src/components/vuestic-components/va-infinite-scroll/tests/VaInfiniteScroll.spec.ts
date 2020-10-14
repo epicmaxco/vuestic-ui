@@ -1,18 +1,8 @@
-import Vue from 'vue'
 import { shallowMount, mount } from '@vue/test-utils'
 
 import VaInfiniteScroll from '../VaInfiniteScroll.vue'
 
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
-
-import { ColorThemePlugin } from '../../../../services/ColorThemePlugin'
-import { ContextPlugin } from '../../../context-test/context-provide/ContextPlugin'
-
-// TODO Everything should work without this plugin.
-// @ts-ignore
-Vue.use(ColorThemePlugin)
-// @ts-ignore
-Vue.use(ContextPlugin, {})
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 
 describe('VaInfiniteScroll', () => {
   it('should render without an error', () => {
@@ -28,7 +18,7 @@ describe('VaInfiniteScroll', () => {
       scrollTarget: '.scroll__container',
       debounce: 200,
     }
-    expect(() => testIsContextableComponent(VaInfiniteScroll, props)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaInfiniteScroll, props)).not.toThrow()
   })
 
   it('default snapshot', () => {

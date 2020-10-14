@@ -68,11 +68,11 @@ import VaDropdown from '../va-dropdown/VaDropdown.vue'
 import VaButton from '../va-button/VaButton.vue'
 import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
-const ButtonPropsMixin = makeContextablePropsMixin({
+const ButtonPropsMixin = makeConfigTransportMixin({
   value: { type: Boolean },
   outline: { type: Boolean, default: false },
   disableButton: { type: Boolean, default: false },

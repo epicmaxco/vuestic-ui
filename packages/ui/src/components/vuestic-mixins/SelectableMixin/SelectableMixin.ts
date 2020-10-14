@@ -1,5 +1,5 @@
 import { Component, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
 import { ColorThemeMixin } from '../ColorMixin'
@@ -15,7 +15,7 @@ const componentProps = {
   indeterminateValue: { type: [Boolean, Array, String, Object], default: null },
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = makeConfigTransportMixin(componentProps)
 
 @Component
 export class SelectableMixin extends Mixins(

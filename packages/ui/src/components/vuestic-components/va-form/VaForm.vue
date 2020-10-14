@@ -11,7 +11,7 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
 const getNestedFormElements = (vm: any, elements: any = []) => {
   vm.$children.forEach((child: any) => {
@@ -25,7 +25,7 @@ const getNestedFormElements = (vm: any, elements: any = []) => {
   return elements
 }
 
-const FormPropsMixin = makeContextablePropsMixin({
+const FormPropsMixin = makeConfigTransportMixin({
   autofocus: { type: Boolean, default: false },
   tag: { type: String, default: 'div' },
 })

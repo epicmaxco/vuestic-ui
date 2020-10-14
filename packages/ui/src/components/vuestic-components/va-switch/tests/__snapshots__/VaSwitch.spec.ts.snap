@@ -4,7 +4,7 @@ exports[`VaSwitch default 1`] = `
 <va-input-wrapper-stub messages="" errormessages="" errorcount="1" class="va-switch">
   <div tabindex="-1" class="va-switch__container">
     <div class="va-switch__inner"><input type="checkbox" role="switch" readonly="readonly" class="va-switch__input">
-      <div class="va-switch__track" style="background-color: rgb(180, 182, 185);">
+      <div class="va-switch__track" style="background-color: gray;">
         <div class="va-switch__track-label">
 
         </div>

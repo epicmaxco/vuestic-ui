@@ -10,10 +10,10 @@
 <script lang="ts">
 import { Component, Mixins } from 'vue-property-decorator'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { getColor } from '../../vuestic-mixins/ColorMixin'
 
-const CardContentPropsMixin = makeContextablePropsMixin({
+const CardContentPropsMixin = makeConfigTransportMixin({
   textColor: { type: String, default: '' },
 })
 
@@ -25,7 +25,7 @@ export default class VaCardContent extends Mixins(
 ) {
   get contentStyles () {
     return {
-      color: getColor(this, this.c_textColor),
+      color: getColor(this.c_textColor),
     }
   }
 }

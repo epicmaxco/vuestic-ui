@@ -1,4 +1,4 @@
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { Component, Mixins } from 'vue-property-decorator'
 
 const isMaterialFont = (font: string) => {
@@ -63,7 +63,7 @@ const getComponent = (iconConfig: any) => {
   return iconConfig.component
 }
 
-const IconMixinContextableProps = makeContextablePropsMixin({
+const IconMixinContextableProps = makeConfigTransportMixin({
   name: { type: String, default: '' },
   iconsConfig: { type: Object, default: () => ({}) },
 })

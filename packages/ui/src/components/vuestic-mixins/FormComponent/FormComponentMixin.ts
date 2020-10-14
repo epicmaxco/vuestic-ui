@@ -1,7 +1,7 @@
 import isString from 'lodash/isString'
 import isFunction from 'lodash/isFunction'
 import flatten from 'lodash/flatten'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { deepEqual } from '../../../services/utils'
 import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
 
@@ -22,7 +22,7 @@ const componentProps = {
   errorCount: { type: Number, default: 1 },
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = makeConfigTransportMixin(componentProps)
 
 @Component
 export class FormComponentMixin extends Mixins(

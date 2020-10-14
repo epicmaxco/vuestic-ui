@@ -45,7 +45,7 @@
             <div
               v-if="c_title"
               class="va-modal__title"
-              :style="{ color: this.$themes.primary }"
+              :style="{ color: this.theme.primary }"
             >
               {{ c_title }}
             </div>
@@ -86,13 +86,14 @@ import { noop } from 'lodash'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import ClickOutsideMixin, {
   ClickOutsideOptions,
 } from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'
+import { getTheme } from '../../../services/Theme'
 
-const ModalPropsMixin = makeContextablePropsMixin({
+const ModalPropsMixin = makeConfigTransportMixin({
   value: { type: Boolean, default: false },
   title: { type: String, default: '' },
   message: { type: String, default: '' },
@@ -174,6 +175,10 @@ export default class VaModal extends Mixins(
 
   get hasFooterSlot () {
     return this.$slots.footer
+  }
+
+  get theme () {
+    return getTheme()
   }
 
   @Watch('valueComputed')

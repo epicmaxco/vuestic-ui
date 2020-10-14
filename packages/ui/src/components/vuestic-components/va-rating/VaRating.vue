@@ -80,11 +80,11 @@ import { ColorInput } from 'colortranslator/dist/@types'
 import { RatingValue } from './VaRating.types'
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const RatingPropsMixin = makeContextablePropsMixin({
+const RatingPropsMixin = makeConfigTransportMixin({
   value: { type: Number, default: 0 },
   icon: { type: String, default: 'star' },
   halfIcon: { type: String, default: 'star_half' },
@@ -108,7 +108,6 @@ const RatingPropsMixin = makeContextablePropsMixin({
 export default class VaRating extends Mixins(
   RatingPropsMixin,
   ColorThemeMixin,
-  ContextPluginMixin,
   SizeMixin,
   StatefulMixin,
 ) {

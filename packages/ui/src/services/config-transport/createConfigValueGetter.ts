@@ -27,7 +27,7 @@ const ALL_COMPONENTS = 'all'
 /**
  * Create getter which calculates value of property from component, local and global config
  */
-const createContextPropValueGetter = (
+const createConfigValueGetter = (
   context: Record<string, any>,
   componentName = '',
 ) => (
@@ -58,4 +58,4 @@ const createContextPropValueGetter = (
   return typeof defaultValue === 'function' ? defaultValue() : defaultValue
 }
 
-export default createContextPropValueGetter
+export default createConfigValueGetter

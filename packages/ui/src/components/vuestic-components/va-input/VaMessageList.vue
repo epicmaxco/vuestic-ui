@@ -18,9 +18,9 @@
 import { Component, Mixins } from 'vue-property-decorator'
 
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const MessageListPropsMixin = makeContextablePropsMixin({
+const MessageListPropsMixin = makeConfigTransportMixin({
   value: { type: [String, Number, Object, Array], default: '' },
   limit: { type: Number, default: 1 },
   color: { type: String, default: 'gray' },

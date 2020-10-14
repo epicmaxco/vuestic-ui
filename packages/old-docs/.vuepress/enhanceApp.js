@@ -1,5 +1,5 @@
 // .vuepress/enhanceApp.js
-import { ContextPlugin } from '../../ui/src/components/context-test/context-provide/ContextPlugin'
+import GlobalConfigPlugin from 'vuestic-ui/src/services/GlobalConfigPlugin';
 
 import '../../ui/src/components/vuestic-sass/global/reset.scss'
 import '../../ui/src/components/vuestic-sass/vuestic-styles.scss'
@@ -10,5 +10,5 @@ export default ({
   router, // the router instance for the app
   siteData, // site metadata
 }) => {
-  Vue.use(ContextPlugin, {})
+  Vue.use(GlobalConfigPlugin, {})
 }

@@ -217,7 +217,7 @@ import VaCardTitle from './VaCardTitle'
 import VaCardContent from './VaCardContent'
 import VaButton from '../va-button/VaButton'
 import VaImage from '../va-image/VaImage'
-import VaContext from '../../context-test/context-provide/VaContext'
+import VaConfig from '../va-config/VaConfig'
 
 export default {
   components: {
@@ -226,7 +226,7 @@ export default {
     VaCardContent,
     VaButton,
     VaImage,
-    VaContext,
+    VaContext: VaConfig,
   },
   data () {
     return {

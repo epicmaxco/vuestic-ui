@@ -36,10 +36,10 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import * as gravatar from 'gravatar'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
-const AvatarPropsMixin = makeContextablePropsMixin({
+const AvatarPropsMixin = makeConfigTransportMixin({
   color: { type: String, default: 'info' },
   textColor: { type: String, default: 'white' },
   square: { type: Boolean, default: false },
@@ -68,7 +68,7 @@ export default class VaAvatar extends Mixins(
 
   get computedStyle () {
     return {
-      color: getColor(this, this.c_textColor, '#ffffff'),
+      color: getColor(this.c_textColor, '#ffffff'),
       backgroundColor: this.c_loading || this.c_email ? 'transparent' : this.colorComputed,
       borderRadius: this.c_square ? 0 : '50%',
       fontSize: this.c_fontSize || this.fontSizeComputed,

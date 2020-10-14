@@ -1,7 +1,7 @@
 import { mount, shallowMount } from '@vue/test-utils'
 
 import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
-import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { testHasKeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/testHasKeyboardOnlyFocusMixin'
 
@@ -29,7 +29,7 @@ describe('VaExpandGroup', () => {
       inset: false,
       popout: false,
     }
-    expect(() => testIsContextableComponent(VaExpandGroup, props)).not.toThrow()
+    expect(() => testIsConfigProvidedComponent(VaExpandGroup, props)).not.toThrow()
   })
 
   it('should emit `input`', async () => {

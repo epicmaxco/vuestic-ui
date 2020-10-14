@@ -65,11 +65,11 @@ import VaTab from './VaTab.vue'
 import VaTabsItems from './VaTabsItems.vue'
 import VaTabsContent from './VaTabsContent.vue'
 
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
-const TabsPropsMixin = makeContextablePropsMixin({
+const TabsPropsMixin = makeConfigTransportMixin({
   value: { type: [String, Number], default: null },
   left: { type: Boolean, default: true },
   right: { type: Boolean, default: false },

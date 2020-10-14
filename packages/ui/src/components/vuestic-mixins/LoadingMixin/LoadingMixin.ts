@@ -1,11 +1,11 @@
 import { Mixins, Component } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
 const componentProps = {
   loading: { type: Boolean, default: false },
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = makeConfigTransportMixin(componentProps)
 
 @Component
 export class LoadingMixin extends Mixins(PropsMixin) {

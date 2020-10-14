@@ -1,7 +1,7 @@
 import { PropOptions } from 'vue'
 import { Component, Mixins } from 'vue-property-decorator'
-import { ContextPluginMixin } from '../../components/context-test/context-provide/ContextPlugin'
-import createContextPropValueGetter from './createContextPropsValueGetter'
+import LocalConfigMixin from '../../mixins/LocalConfigMixin'
+import createConfigValueGetter from './createConfigValueGetter'
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
@@ -25,20 +25,20 @@ const pascalCase = flow(camelCase, upperFirst)
  * @param prefix - that prefix goes to contexted prop (that's intended for userland usage)
  * @returns object - vue mixin with props and computed
  */
-export const makeContextablePropsMixin = (componentProps: Record<string, PropOptions>, prefix = 'c_') => {
+export const makeConfigTransportMixin = (componentProps: Record<string, PropOptions>, prefix = 'c_') => {
   const computed: Record<string, any> = {}
 
   Object.entries(componentProps).forEach(([name, definition]) => {
     computed[`${prefix}${name}`] = function () {
       const componentName = pascalCase(this.$options.name)
 
-      const getContextPropValue = createContextPropValueGetter(this, componentName)
+      const getLocalConfigPropValue = createConfigValueGetter(this, componentName)
 
       // We want to fallback to context in 2 cases:
       // * prop value is undefined (allows user to dynamically enter/exit context).
       // * prop value is not defined
       if (!(name in this.$options.propsData) || this.$options.propsData[name] === undefined) {
-        return getContextPropValue(name, definition.default)
+        return getLocalConfigPropValue(name, definition.default)
       }
       // In other cases we return the prop itself.
       return this[name]
@@ -49,9 +49,9 @@ export const makeContextablePropsMixin = (componentProps: Record<string, PropOpt
     props: componentProps,
     computed,
   })
-  class ContextableMixin extends Mixins(ContextPluginMixin) {
+  class ConfigTransportMixin extends Mixins(LocalConfigMixin) {
     [x: string]: any
   }
 
-  return ContextableMixin
+  return ConfigTransportMixin
 }

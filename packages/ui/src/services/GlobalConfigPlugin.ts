@@ -3,26 +3,28 @@ import OurVue, { VueConstructor } from 'vue'
 declare module 'vue/types/vue' {
   interface Vue {
     $vaGlobalConfig?: {
-      value: ContextConfig;
+      value: GlobalConfig;
     };
   }
 }
 
-export type ContextConfig = Record<string, Record<string, any>>;
+export type GlobalConfig = Record<string, Record<string, any> | undefined>;
 
 /**
  * The global configuration reference
  */
 export const globalConfigRef = OurVue.observable({
-  value: {},
+  value: {
+    theme: undefined,
+  },
 })
 
-type Updater = (config: ContextConfig) => ContextConfig;
+type Updater = (config: GlobalConfig) => GlobalConfig;
 
 /**
  * The global configuration's setter
  */
-export const setGlobalConfig = (updater: ContextConfig | Updater) => {
+export const setGlobalConfig = (updater: GlobalConfig | Updater) => {
   if (typeof updater === 'function') {
     globalConfigRef.value = {
       ...globalConfigRef.value,
@@ -44,10 +46,11 @@ export const getGlobalConfig = () => {
  * Plugin provides global config to Vue component through prototype
  */
 const GlobalConfigPlugin = {
-  install (Vue: VueConstructor, config: ContextConfig = {}) {
+  install (Vue: VueConstructor, config: GlobalConfig = {}) {
     setGlobalConfig(config)
 
     Object.defineProperty(Vue.prototype, '$vaGlobalConfig', {
+      configurable: true,
       get () {
         return globalConfigRef.value
       },

@@ -48,6 +48,7 @@ import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
+import { getTheme } from '../../../services/Theme'
 
 export default {
   name: 'VaPopover',
@@ -94,10 +95,13 @@ export default {
     },
   },
   computed: {
+    theme () {
+      return getTheme() || {}
+    },
     computedPopoverStyle () {
       return {
-        boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(this.$themes[this.color]),
-        backgroundColor: getHoverColor(this.$themes[this.color]),
+        boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(this.theme[this.color]),
+        backgroundColor: getHoverColor(this.theme[this.color]),
       }
     },
   },

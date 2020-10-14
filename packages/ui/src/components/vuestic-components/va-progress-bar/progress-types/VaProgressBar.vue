@@ -51,9 +51,9 @@ import { SizeMixin } from '../../../../mixins/SizeMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ProgressComponentMixin } from './ProgressComponentMixin'
 import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
-import { makeContextablePropsMixin } from '../../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../../services/config-transport/makeConfigTransportMixin'
 
-const ProgressBarPropsMixin = makeContextablePropsMixin({
+const ProgressBarPropsMixin = makeConfigTransportMixin({
   buffer: { type: Number, default: 100 },
   rounded: { type: Boolean, default: true },
   size: { type: [Number, String], default: 'medium' },

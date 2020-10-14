@@ -95,6 +95,7 @@ import VaInfiniteScroll
   from './vuestic-components/va-infinite-scroll/VaInfiniteScroll'
 import ToastInstall from './vuestic-components/va-toast/install'
 import GlobalConfigPlugin from '../services/GlobalConfigPlugin'
+import VaConfig from './vuestic-components/va-config/VaConfig'
 
 installPlatform()
 
@@ -115,6 +116,7 @@ const VuesticPlugin = {
       VaCardContent,
       VaCardTitle,
       VaCheckbox,
+      VaConfig,
       VaContent,
       VaDataTable,
       VaDatePicker,

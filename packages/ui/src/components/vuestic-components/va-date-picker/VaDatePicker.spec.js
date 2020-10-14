@@ -1,7 +1,7 @@
 import VaDatePicker from './VaDatePicker'
-import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
+import { testIsConfigProvidedComponent } from '../../../services/config-transport/testIsConfigProvidedComponent'
 import iconsFrameworkConfig
-  from '../../context-test/context-provide/context/va-icons-framework-config'
+  from '../va-config/config-default/va-icons-framework-config'
 
 describe('VaDatePicker', () => {
   it('is contextable', () => {
@@ -17,7 +17,7 @@ describe('VaDatePicker', () => {
       errorMessages: ['1'],
       config: {},
     }
-    expect(() => testIsContextableComponent(
+    expect(() => testIsConfigProvidedComponent(
       VaDatePicker,
       props,
       undefined,

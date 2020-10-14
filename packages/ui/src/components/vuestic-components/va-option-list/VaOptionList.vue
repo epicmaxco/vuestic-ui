@@ -69,10 +69,10 @@ import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 
 import { generateUuid } from '../../../services/utils'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
-const OptionListPropsMixin = makeContextablePropsMixin({
+const OptionListPropsMixin = makeConfigTransportMixin({
   type: {
     type: String,
     default: 'checkbox',

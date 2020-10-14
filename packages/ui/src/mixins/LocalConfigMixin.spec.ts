@@ -1,10 +1,10 @@
 import { CreateElement } from 'vue'
 import { Vue, Component, Provide, Mixins } from 'vue-property-decorator'
 import { mount } from '@vue/test-utils'
-import ContextMixin, { ContextProviderKey, CONFIGS_DEFAULT } from './ContextMixin'
+import LocalConfigMixin, { LocalConfigProviderKey, CONFIGS_DEFAULT } from './LocalConfigMixin'
 
 @Component
-class ExampleComponent extends Mixins(ContextMixin) {
+class ExampleComponent extends Mixins(LocalConfigMixin) {
   render () {
     return null
   }
@@ -14,7 +14,7 @@ const providedValue = [{ context: { value: 'value' } }]
 
 @Component
 class Provider extends Vue {
-  @Provide(ContextProviderKey) providedValue = providedValue
+  @Provide(LocalConfigProviderKey) providedValue = providedValue
 
   render () {
     return this.$slots.default || null

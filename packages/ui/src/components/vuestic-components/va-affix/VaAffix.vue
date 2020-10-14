@@ -25,9 +25,9 @@ import {
   getWindowHeight,
   State,
 } from './VaAffix-utils'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const AffixPropsMixin = makeContextablePropsMixin({
+const AffixPropsMixin = makeConfigTransportMixin({
   offsetTop: { type: Number, default: undefined },
   offsetBottom: { type: Number, default: undefined },
   target: { type: Function, default: () => window },

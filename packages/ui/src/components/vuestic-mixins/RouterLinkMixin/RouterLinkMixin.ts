@@ -1,7 +1,7 @@
 import { Component, Prop, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const RouterLinkPropsMixin = makeContextablePropsMixin({
+const RouterLinkPropsMixin = makeConfigTransportMixin({
   tag: { type: String, default: 'router-link' },
 })
 // should not be contextable as it's a unique case (we just pass values to vue-router's <router-link/>)

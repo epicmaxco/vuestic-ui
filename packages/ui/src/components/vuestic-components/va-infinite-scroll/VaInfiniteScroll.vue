@@ -40,10 +40,10 @@ import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle
 
 import { debounce } from 'lodash'
 import { sleep } from '../../../services/utils'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
+import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { getColor } from '../../vuestic-mixins/ColorMixin'
 
-const InfiniteScrollPropsMixin = makeContextablePropsMixin({
+const InfiniteScrollPropsMixin = makeConfigTransportMixin({
   offset: { type: Number, default: 500 },
   reverse: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
@@ -76,7 +76,7 @@ export default class VaInfiniteScroll extends Mixins(
   }
 
   get colors () {
-    return { primary: getColor(this, 'primary', '#23e066'), danger: getColor(this, 'danger', '#e34b4a') }
+    return { primary: getColor('primary', '#23e066'), danger: getColor('danger', '#e34b4a') }
   }
 
   @Watch('disabled')

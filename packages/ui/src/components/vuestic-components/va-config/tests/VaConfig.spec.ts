@@ -1,17 +1,16 @@
-import { shallowMount, mount } from '@vue/test-utils'
-import { mergeConfigs } from './ContextPlugin'
-import { makeContextablePropsMixin } from '../../../services/context/makeContextablePropsMixin'
-import VaContext from './VaContext'
 import { CreateElement } from 'vue'
+import { shallowMount, mount } from '@vue/test-utils'
+import { makeConfigTransportMixin } from '../../../../services/config-transport/makeConfigTransportMixin'
+import VaConfig, { mergeConfigs } from '../VaConfig'
 
-const ContextableComponentConfig = {
-  mixins: [makeContextablePropsMixin({
+const ComponentConfig = {
+  mixins: [makeConfigTransportMixin({
     value: { default: 'one' },
   })],
   render: (h: CreateElement) => h(''),
 }
 
-describe('ContextPlugin', () => {
+describe('ConfigTransportMixin', () => {
   it('mergeConfigs', () => {
     const configA = {
       A: { A: 'A' },
@@ -39,10 +38,10 @@ describe('ContextPlugin', () => {
     })
   })
 
-  describe('makeContextablePropsMixin', () => {
-    it('context mixin doesn\'t interfere with props defaults', () => {
+  describe('makeConfigTransportMixin', () => {
+    it('config mixin doesn\'t interfere with props defaults', () => {
       const vm = shallowMount({
-        mixins: [makeContextablePropsMixin({
+        mixins: [makeConfigTransportMixin({
           value: { default: 'one' },
         })],
         render: h => h(''),
@@ -52,18 +51,18 @@ describe('ContextPlugin', () => {
     })
   })
 
-  describe('VaContext', () => {
-    it('context overrides default value', () => {
+  describe('VaConfig', () => {
+    it('config overrides default value', () => {
       const vm = mount({
         render: (h: CreateElement) => h(
-          VaContext,
+          VaConfig,
           { props: { config: { all: { value: 'two' } } } },
-          [h(ContextableComponentConfig)],
+          [h(ComponentConfig)],
         ),
       }).vm as any
-      const contextableComponent = vm.$children[0].$children[0]
-      expect(contextableComponent.value).toBe('one')
-      expect(contextableComponent.c_value).toBe('two')
+      const componentWithConfig = vm.$children[0].$children[0]
+      expect(componentWithConfig.value).toBe('one')
+      expect(componentWithConfig.c_value).toBe('two')
     })
   })
 })
