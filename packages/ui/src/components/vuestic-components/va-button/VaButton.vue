@@ -6,7 +6,7 @@
     :style="computedStyle"
     :disabled="c_disabled"
     :type="c_type"
-    :href="href"
+    :href="hrefComputed"
     :target="target"
     :to="to"
     :replace="replace"
