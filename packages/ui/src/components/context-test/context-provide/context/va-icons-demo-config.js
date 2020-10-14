@@ -145,4 +145,8 @@ export default {
     code: 'thumb_up',
     font: 'md-outlined',
   },
+  github: {
+    code: 'github',
+    font: 'fa4',
+  },
 }
