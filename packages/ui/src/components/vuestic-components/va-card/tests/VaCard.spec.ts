@@ -10,7 +10,7 @@ describe('VaCard', () => {
     const wrapper = mount(VaCard)
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
-  it('is contextable', () => {
+  it('is configurable', () => {
     const props = {
       tag: 'a',
       square: true,

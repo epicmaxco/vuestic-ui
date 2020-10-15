@@ -1,14 +1,13 @@
 import VaCheckbox from '../VaCheckbox.vue'
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, mount } from '@vue/test-utils'
 
 import { testIsSelectableComponent } from '../../../vuestic-mixins/SelectableMixin/testIsSelectableComponent'
 
 describe('VaCheckbox', () => {
-  // it('should render without an error', () => {
-  //   const wrapper = mount(VaCheckbox)
-  //   expect(wrapper.isVueInstance()).toBeTruthy()
-  // })
-  // TODO: need fix icon with context-config
+  it('should render without an error', () => {
+    const wrapper = mount(VaCheckbox)
+    expect(wrapper.isVueInstance()).toBeTruthy()
+  })
 
   it('default', () => {
     const wrapper = shallowMount(VaCheckbox, {

@@ -2,7 +2,7 @@ import { testIsConfigProvidedComponent } from '../../../../services/config-trans
 import VaFileUpload from '../VaFileUpload.vue'
 
 describe('VaFileUpload', () => {
-  it('is contextable', () => {
+  it('is configurable', () => {
     const props = {
       type: 'gallery',
       fileTypes: 'png',

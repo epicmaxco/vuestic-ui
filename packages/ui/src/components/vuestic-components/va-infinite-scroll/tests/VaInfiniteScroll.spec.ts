@@ -9,7 +9,7 @@ describe('VaInfiniteScroll', () => {
     const wrapper = mount(VaInfiniteScroll)
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
-  it('is contextable', () => {
+  it('is configurable', () => {
     const props = {
       tag: 'ul',
       offset: 300,

@@ -499,7 +499,6 @@ export default class VaSelect extends Mixins(
       ? (Array.isArray(this.clearValue) ? this.clearValue : [])
       : this.clearValue
     this.search = ''
-    this.value = this.clearValue
     this.$emit('clear')
   }
 

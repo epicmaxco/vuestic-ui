@@ -14,7 +14,7 @@ export default class VaTabsItems extends Vue {
           class: 'va-tabs__tabs-items',
         },
       },
-      (this as any).$slots.default.filter((e: any) => {
+      ((this as any).$slots.default || []).filter((e: any) => {
         if (e.componentOptions) {
           return e.componentOptions.Ctor.options.name === 'VaTab'
         }

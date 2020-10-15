@@ -4,10 +4,10 @@ import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMi
 import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
 describe('VaButtonDropdown', () => {
-  // it('should render without an error', () => {
-  //   const wrapper = mount(VaButtonDropdown)
-  //   expect(wrapper.isVueInstance()).toBeTruthy()
-  // })
+  it('should render without an error', () => {
+    const wrapper = mount(VaButtonDropdown)
+    expect(wrapper.isVueInstance()).toBeTruthy()
+  })
   it('has ColorThemeMixin', () => {
     expect(() =>
       testHasColorThemeMixin((VaButtonDropdown as unknown) as ColorThemeMixin),

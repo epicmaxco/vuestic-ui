@@ -9,7 +9,7 @@ describe('VaListItemLabel', () => {
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
-  it('is contextable', () => {
+  it('is configurable', () => {
     const props = {
       caption: false,
       lines: 1,

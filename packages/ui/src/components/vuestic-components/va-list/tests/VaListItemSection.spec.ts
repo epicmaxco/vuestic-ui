@@ -9,7 +9,7 @@ describe('VaListItemSection', () => {
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
-  it('is contextable', () => {
+  it('is configurable', () => {
     const props = {
       icon: false,
       avatar: false,

@@ -14,7 +14,7 @@ const isFontAwesome4Font = (font: string) => {
 }
 
 const isFontAwesome5Font = (font: string) => {
-  return font.match(/fas|far|fal|fad|fab/)
+  return font ? font.match(/fas|far|fal|fad|fab/) : false
 }
 
 const isIonicFont = (font: string) => {
@@ -27,7 +27,7 @@ const isIonicOutlineFont = (font: string) => {
 
 // https://weloveiconfonts.com/
 const isWeLoveIconsFont = (font: string) => {
-  return font.match(/brandico|entypo|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial/)
+  return font ? font.match(/brandico|entypo|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial/) : false
 }
 
 const getClass = (iconConfig: any, font: string) => {
@@ -86,7 +86,7 @@ export class IconMixin extends Mixins(
       throw new Error(`Icon config for icon '${this.c_name}' not found`)
     }
 
-    const iconConfig = this.c_iconsConfig.icons[this.c_name]
+    const iconConfig = (this.c_iconsConfig.icons || {})[this.c_name] || {}
     const iconFont = iconConfig.font || // from icon alias config
       this.c_iconsConfig.defaultFont // from icon component context config
 

@@ -1,4 +1,3 @@
-import noop from 'lodash/noop'
 import { mount } from '@vue/test-utils'
 
 import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
@@ -8,22 +7,6 @@ import VaModal from '../VaModal.vue'
 
 describe('VaModal', () => {
   describe('stateful mixin', () => {
-    // Manually disable the vue props check here
-    // because `testHasStatefulMixin` uses `value: string`
-    // instead of `value: boolean`
-    let logError: any
-    beforeEach(() => {
-      // eslint-disable-next-line no-console
-      logError = console.error
-      // eslint-disable-next-line no-console
-      console.error = noop
-    })
-
-    afterEach(() => {
-      // eslint-disable-next-line no-console
-      console.error = logError
-    })
-
     it('has StatefulMixin', () => {
       expect(() =>
         testHasStatefulMixin((VaModal as unknown) as StatefulMixin),
@@ -31,14 +14,14 @@ describe('VaModal', () => {
     })
   })
 
-  describe('contextable mixin', () => {
-    it('should throw if prop tag does not exist in the context', () => {
+  describe('config transport mixin', () => {
+    it('should throw if prop tag does not exist in the config', () => {
       const props = {
         tag: 'a',
       }
       expect(() => testIsConfigProvidedComponent(VaModal, props)).toThrow()
     })
-    it('is contextable', () => {
+    it('is configurable', () => {
       const props = {
         value: false,
         title: '',

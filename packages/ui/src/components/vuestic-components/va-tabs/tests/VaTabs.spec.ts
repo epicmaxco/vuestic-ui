@@ -5,10 +5,11 @@ import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 import VaTabs from '../VaTabs.vue'
 
 describe('VaTabs', () => {
-  // it('should render without an error', () => {
-  //   const wrapper = mount(VaTabs)
-  //   expect(wrapper.isVueInstance()).toBeTruthy()
-  // })
+  it('should render without an error', () => {
+    const wrapper = mount(VaTabs)
+    expect(wrapper.isVueInstance()).toBeTruthy()
+  })
+
   it('has ColorThemeMixin', () => {
     expect(() =>
       testHasColorThemeMixin((VaTabs as unknown) as ColorThemeMixin),

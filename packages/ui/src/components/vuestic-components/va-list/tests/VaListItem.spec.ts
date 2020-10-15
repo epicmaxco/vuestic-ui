@@ -1,5 +1,5 @@
 import { mount, shallowMount } from '@vue/test-utils'
-import { testHasRouterLinkMixin } from './../../../vuestic-mixins/RouterLinkMixin/testHasRouterLinkMixin'
+import { testHasRouterLinkMixin } from '../../../vuestic-mixins/RouterLinkMixin/testHasRouterLinkMixin'
 import { testHasKeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/testHasKeyboardOnlyFocusMixin'
 import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 
@@ -32,7 +32,7 @@ describe('VaListItem', () => {
     ).not.toThrow()
   })
 
-  it('is contextable', () => {
+  it('is configurable', () => {
     const props = {
       tag: 'div',
       disabled: false,

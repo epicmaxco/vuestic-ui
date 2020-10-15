@@ -20,7 +20,7 @@ import { makeConfigTransportMixin } from '../../../services/config-transport/mak
 import VaButton from '../va-button/VaButton.vue'
 
 const PropsMixin = makeConfigTransportMixin({
-  target: { type: [Element, String], default: () => window },
+  target: { type: [Element, String, Window], default: () => window },
   visibilityHeight: { type: Number, default: 300 },
   speed: { type: Number, default: 50 },
   verticalOffset: { type: String, default: '1rem' },

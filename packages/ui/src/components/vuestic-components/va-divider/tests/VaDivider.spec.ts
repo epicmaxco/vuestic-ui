@@ -8,13 +8,13 @@ describe('VaDivider', () => {
     const wrapper = mount(VaDivider)
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
-  it('should throw if prop tag does not exist in the context', () => {
+  it('should throw if prop tag does not exist in the config', () => {
     const props = {
       tag: 'a',
     }
     expect(() => testIsConfigProvidedComponent(VaDivider, props)).toThrow()
   })
-  it('is contextable', () => {
+  it('is configurable', () => {
     const props = {
       vertical: false,
       dashed: false,

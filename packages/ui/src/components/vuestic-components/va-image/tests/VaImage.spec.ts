@@ -7,7 +7,7 @@ describe('VaImage', () => {
     const wrapper = mount(VaImage)
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
-  it('is contextable', () => {
+  it('is configurable', () => {
     const componentProps = {
       src: 'https://picsum.photos/510/300?random',
     }

@@ -9,7 +9,7 @@ export default class VaTabsContent extends Vue {
     // Should render only html markup mapped to selected tab
     // ATM renders all content that is not tabs
     return createElement(
-      'div', (this as any).$slots.default.filter((e: any) => {
+      'div', ((this as any).$slots.default || []).filter((e: any) => {
         if (e.componentOptions) {
           return e.componentOptions.Ctor.options.name !== 'VaTab'
         }

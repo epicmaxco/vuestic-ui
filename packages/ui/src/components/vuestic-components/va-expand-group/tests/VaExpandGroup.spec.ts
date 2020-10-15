@@ -2,13 +2,7 @@ import { mount, shallowMount } from '@vue/test-utils'
 
 import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
 import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
-import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { testHasKeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/testHasKeyboardOnlyFocusMixin'
-
-import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { KeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
-
 import VaExpandGroup from '../VaExpandGroup.vue'
 
 describe('VaExpandGroup', () => {

@@ -1,4 +1,4 @@
-import { createWrapper, mount, shallowMount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import VaSelect from '../VaSelect.vue'
 import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
@@ -8,14 +8,13 @@ import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 // import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 
 describe('VaSelect', () => {
-  // ToDO: Fix after context will work fine
-  // it('should render without an error', () => {
-  //   const wrapper = mount(VaSelect)
-  //   expect(wrapper.isVueInstance()).toBeTruthy()
-  // })
+  it('should render without an error', () => {
+    const wrapper = mount(VaSelect)
+    expect(wrapper.isVueInstance()).toBeTruthy()
+  })
 })
 
-describe('contextable mixin', () => {
+describe('config transport mixin', () => {
   it('should throw if prop tag does not exist in the context', () => {
     const props = {
       tag: 'a',
@@ -23,33 +22,32 @@ describe('contextable mixin', () => {
     expect(() => testIsConfigProvidedComponent(VaSelect, props)).toThrow()
   })
 
-  // it('is contextable component', () => {
-  //   //ToDO: Fix after context will work fine
-  //   const props = {
-  //     value: '',
-  //     label: '',
-  //     placeholder: '',
-  //     position: 'bottom',
-  //     tagMax: 10,
-  //     tags: false,
-  //     deletableTags: false,
-  //     searchable: false,
-  //     multiple: false,
-  //     disabled: false,
-  //     readonly: false,
-  //     width: 100,
-  //     maxHeight: '128px',
-  //     clearValue: '',
-  //     noOptionsText: 'Items not found',
-  //     fixed: true,
-  //     clearable: false,
-  //     hideSelected: false,
-  //     allowCreate: false,
-  //     clearIcon: 'close',
-  //     dropdownIcon: 'arrow_drop_down',
-  //   }
-  //   expect(() => testIsContextableComponent(VaSelect, props)).not.toThrow()
-  // })
+  it('is configurable component', () => {
+    const props = {
+      value: '',
+      label: '',
+      placeholder: '',
+      position: 'bottom',
+      tagMax: 10,
+      tags: false,
+      deletableTags: false,
+      searchable: false,
+      multiple: false,
+      disabled: false,
+      readonly: false,
+      width: 100,
+      maxHeight: '128px',
+      clearValue: '',
+      noOptionsText: 'Items not found',
+      fixed: true,
+      clearable: false,
+      hideSelected: false,
+      allowCreate: false,
+      clearIcon: 'close',
+      dropdownIcon: 'arrow_drop_down',
+    }
+    expect(() => testIsConfigProvidedComponent(VaSelect, props)).not.toThrow()
+  })
 
   it('reset() should clear value on single select', async () => {
     const wrapper: any = shallowMount(VaSelect, {

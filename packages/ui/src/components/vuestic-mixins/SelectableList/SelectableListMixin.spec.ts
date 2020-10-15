@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { shallowMount } from '@vue/test-utils'
-import { SelectableListMixin } from './SelectableListMixin'
 import { testIsConfigProvidedComponent } from '../../../services/config-transport/testIsConfigProvidedComponent'
+import { SelectableListMixin } from './SelectableListMixin'
 
 describe('SelectableListMixin', () => {
   const baseComponentOptions = {

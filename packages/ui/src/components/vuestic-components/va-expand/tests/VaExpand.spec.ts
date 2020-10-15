@@ -13,9 +13,8 @@ import VaExpand from '../VaExpand.vue'
 
 describe('VaExpand', () => {
   it('should render without an error', () => {
-  // -------------- Troxubles with an icon context ------------------
-    // const wrapper = mount(VaExpand)
-    // expect(wrapper.isVueInstance()).toBeTruthy()
+    const wrapper = mount(VaExpand)
+    expect(wrapper.isVueInstance()).toBeTruthy()
   })
   it('has StatefulMixin', () => {
     expect(() =>
@@ -33,20 +32,19 @@ describe('VaExpand', () => {
     ).not.toThrow()
   })
 
-  // -------------- Troxubles with an icon context ------------------
-  // it('is contextable', () => {
-  //   const props = {
-  //     value: false,
-  //     disabled: false,
-  //     header: '',
-  //     icon: '',
-  //     solid: false,
-  //     color: '',
-  //     textColor: '',
-  //     colorAll: false,
-  //   }
-  //   expect(() => testIsContextableComponent(VaExpand, props)).not.toThrow()
-  // })
+  it('is configurable', () => {
+    const props = {
+      value: false,
+      disabled: false,
+      header: '',
+      icon: '',
+      solid: false,
+      color: '',
+      textColor: '',
+      colorAll: false,
+    }
+    expect(() => testIsConfigProvidedComponent(VaExpand, props)).not.toThrow()
+  })
 
   it('should have disabled class', () => {
     const wrapper = shallowMount(VaExpand, {

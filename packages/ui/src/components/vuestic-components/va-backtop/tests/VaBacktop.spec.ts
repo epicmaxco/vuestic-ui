@@ -1,4 +1,4 @@
-import { mount, shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 
 import VaBacktop from '../VaBacktop.vue'
 import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
@@ -8,7 +8,7 @@ describe('VaBacktop', () => {
     const wrapper = mount(VaBacktop)
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
-  it('is contextable', () => {
+  it('is configurable', () => {
     const props = {
       target: 'body',
       visibilityHeight: 0,

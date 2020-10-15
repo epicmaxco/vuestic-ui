@@ -4,7 +4,7 @@ import iconsFrameworkConfig
   from '../va-config/config-default/va-icons-framework-config'
 
 describe('VaDatePicker', () => {
-  it('is contextable', () => {
+  it('is configurable', () => {
     const props = {
       value: null,
       weekDays: true,

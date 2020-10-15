@@ -1,7 +1,7 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
-import { RouterLinkMixin } from './RouterLinkMixin'
 import Component, { mixins } from 'vue-class-component'
 import VueRouter from 'vue-router'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { RouterLinkMixin } from './RouterLinkMixin'
 
 @Component
 export default class ExampleComponent extends mixins(RouterLinkMixin) {
