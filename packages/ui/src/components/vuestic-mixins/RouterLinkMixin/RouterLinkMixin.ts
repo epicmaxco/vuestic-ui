@@ -85,8 +85,7 @@ export class RouterLinkMixin extends Mixins(
   get hrefComputed () {
     // to resolve href on server for SEO optimization
     // https://github.com/nuxt/nuxt.js/issues/8204
-    // TODO: remove after issue is fixed
-    return this.href || (this.to ? this.$router.resolve(this.to, this.$route).href : null)
+    return this.href || (this.to ? this.$router?.resolve(this.to, this.$route).href : null)
   }
 
   created () {
