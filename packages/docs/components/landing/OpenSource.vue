@@ -1,18 +1,18 @@
 <template>
-  <div class="preview">
-    <div class="preview__wrapper">
-      <div class="preview__inner">
-        <div class="preview__info">
-          <div class="preview__icon">
+  <div class="opensource">
+    <div class="opensource__wrapper">
+      <div class="opensource__inner">
+        <div class="opensource__info">
+          <div class="opensource__icon">
             <img src="../../assets/landing/images/open-source-icon.png" alt="">
           </div>
-          <div class="preview__title">Open Source</div>
-          <div class="preview__text">
+          <div class="opensource__title">Open Source</div>
+          <div class="opensource__text">
             Vuestic UI is forever free and open to contributions.
             See our <a href="#">issues</a>, <a href="#">contributing guide</a> and <a href="#">discord server</a>
             to help us improve Vuestic UI experience.</div>
         </div>
-        <div class="preview__actions">
+        <div class="opensource__actions">
           <img src="../../assets/landing/images/open-source.png" alt="">
         </div>
       </div>
@@ -29,7 +29,7 @@ export default class OpenSource extends Vue {}
 <style lang="scss" scoped>
 @import "../../assets/main.scss";
 
-.preview {
+.opensource {
   width: 100%;
   position: relative;
   padding-top: 6.5rem;

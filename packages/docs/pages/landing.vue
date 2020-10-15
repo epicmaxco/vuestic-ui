@@ -6,6 +6,8 @@
   <div class="layout">
   </div>
   </div>
+  <Seamless />
+  <Customize />
   <OpenSource />
   <Admin />
   <Footer />
@@ -20,6 +22,8 @@ import Preview from '../../docs/components/landing/Preview.vue'
 import Admin from '../../docs/components/landing/Admin.vue'
 import Footer from '../../docs/components/landing/Footer.vue'
 import OpenSource from '../../docs/components/landing/OpenSource.vue'
+import Seamless from '../../docs/components/landing/Seamless.vue'
+import Customize from '../../docs/components/landing/Customize.vue'
 
 @Component({
   components: {
@@ -28,6 +32,8 @@ import OpenSource from '../../docs/components/landing/OpenSource.vue'
     Admin,
     Footer,
     OpenSource,
+    Seamless,
+    Customize,
   },
 })
 export default class Landing extends Vue {
