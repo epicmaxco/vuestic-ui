@@ -1,0 +1,12 @@
+<template>
+  <div>
+    <va-icon
+      tag="span"
+      name="home"
+    />
+    <va-icon
+      tag="div"
+      name="home"
+    />
+  </div>
+</template>

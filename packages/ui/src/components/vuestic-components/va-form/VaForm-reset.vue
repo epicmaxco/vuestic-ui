@@ -16,13 +16,18 @@
   </VbCard>
 </template>
 
-<script>
-import VaInput from '../va-input/VaInput'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaForm from './VaForm'
-export default {
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+import VaInput from '../va-input/VaInput.vue'
+import VaCheckbox from '../va-checkbox/VaCheckbox.vue'
+import VaForm from './VaForm.vue'
+
+@Component({
   name: 'VaFormReset',
   components: { VaForm, VaCheckbox, VaInput },
+})
+export default class VaFormReset extends Vue {
   data () {
     return {
       form: {
@@ -30,7 +35,7 @@ export default {
         checkbox: true,
       },
     }
-  },
+  }
 }
 </script>
 

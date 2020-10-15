@@ -12,16 +12,20 @@
   </VbCard>
 </template>
 
-<script>
-import VaInput from './VaInput'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 
-export default {
+import VaInput from './VaInput.vue'
+
+@Component({
   name: 'VaInputValidation',
   components: { VaInput },
+})
+export default class VaInputValidation extends Vue {
   data () {
     return {
       value: '',
     }
-  },
+  }
 }
 </script>

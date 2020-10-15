@@ -14,7 +14,7 @@
 * use with slot:
 
 ```
-<va-hover v-slot:default="{ hover }">
+<va-hover #default="{ hover }">
   <div>{{ hover }}</div>
 </va-hover>
 ```

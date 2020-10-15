@@ -5,10 +5,11 @@
         v-for="option in options"
         :key="option.value"
         :style="buttonStyle(option.value)"
-        :outline="outline"
-        :flat="flat"
-        :disabled="disabled"
-        :size="size"
+        :outline="c_outline"
+        :flat="c_flat"
+        :round="c_round"
+        :disabled="c_disabled"
+        :size="c_size"
         :color="buttonColor(option.value)"
         :class="buttonClass(option.value)"
         @click="changeValue(option.value)"
@@ -19,82 +20,75 @@
   </div>
 </template>
 
-<script>
-import VaButtonGroup from '../va-button-group/VaButtonGroup'
-import { getGradientBackground } from '../../../services/color-functions'
-import VaButton from '../va-button/VaButton'
+<script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
 
-export default {
+import VaButton from '../va-button/VaButton.vue'
+import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
+
+import { getGradientBackground } from '../../../services/color-functions'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+
+const PropsMixin = makeContextablePropsMixin({
+  options: { type: Array, default: () => [] },
+  value: { type: [String, Number], default: '' },
+  outline: { type: Boolean, default: false },
+  flat: { type: Boolean, default: false },
+  round: { type: Boolean, default: true },
+  disabled: { type: Boolean, default: false },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
+    },
+  },
+  toggleColor: { type: String, default: '' },
+})
+
+@Component({
   name: 'VaButtonToggle',
   components: {
     VaButtonGroup,
     VaButton,
   },
-  props: {
-    options: {
-      type: Array,
-      default () {
-        return []
-      },
-    },
-    value: {
-      type: [String, Number],
-      default: '',
-    },
-    outline: {
-      type: Boolean,
-    },
-    flat: {
-      type: Boolean,
-    },
-    disabled: {
-      type: Boolean,
-    },
-    size: {
-      type: String,
-      default: 'medium',
-      validator: value => {
-        return ['medium', 'small', 'large'].includes(value)
-      },
-    },
-    color: {
-      type: String,
-      default: 'success',
-    },
-    toggleColor: {
-      type: String,
-      default: '',
-    },
-  },
-  methods: {
-    buttonColor (buttonValue) {
-      return buttonValue === this.value && this.toggleColor ? this.toggleColor : this.color
-    },
-    buttonStyle (buttonValue) {
-      if (buttonValue !== this.value) {
-        return {}
-      }
+})
+export default class VaButtonToggle extends Mixins(
+  ColorThemeMixin,
+  PropsMixin,
+) {
+  buttonColor (buttonValue: any) {
+    return buttonValue === this.c_value && this.c_toggleColor ? getColor(this, this.c_toggleColor) : this.colorComputed
+  }
 
-      if (this.outline || this.flat) {
-        return {
-          backgroundColor: this.$themes[this.toggleColor ? this.toggleColor : this.color],
-          color: '#ffffff',
-        }
-      } else {
-        return {
-          backgroundColor: getGradientBackground(this.$themes[this.color]),
-          filter: 'brightness(85%)',
-        }
-      }
-    },
-    buttonClass (buttonValue) {
+  buttonStyle (buttonValue: any) {
+    if (buttonValue !== this.c_value) {
+      return {}
+    }
+
+    if (this.c_outline || this.c_flat) {
       return {
-        'va-button--active': buttonValue === this.value,
+        backgroundColor: this.c_toggleColor ? getColor(this, this.c_toggleColor) : this.colorComputed,
+        color: '#ffffff',
       }
-    },
-    changeValue (value) {
-      this.$emit('input', value)
-    },
-  },
+    } else {
+      return {
+        backgroundColor: getGradientBackground(this.colorComputed),
+        filter: 'brightness(85%)',
+        boxShadow: 'none',
+      }
+    }
+  }
+
+  buttonClass (buttonValue: any) {
+    return {
+      'va-button--active': buttonValue === this.c_value,
+    }
+  }
+
+  changeValue (value: any) {
+    this.$emit('input', value)
+  }
 }
 </script>

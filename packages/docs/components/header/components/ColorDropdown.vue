@@ -1,6 +1,12 @@
 <template>
   <va-dropdown class="color-dropdown" :offset="[0, 13]">
-    <va-button-dropdown slot="anchor" :button-props="{flat: true}" class="color-dropdown__icon" color="primary" :label="themeLabel">
+    <va-button-dropdown
+      slot="anchor"
+      class="color-dropdown__icon"
+      color="primary"
+      flat
+      :label="themeLabel"
+    >
     <div class="color-dropdown__content px-1">
       <va-button-toggle
         v-model="selectedTheme"

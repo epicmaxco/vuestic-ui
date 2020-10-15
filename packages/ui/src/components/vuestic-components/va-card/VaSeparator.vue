@@ -2,10 +2,13 @@
   <div class="va-separator" />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({
   name: 'VaSeparator',
-}
+})
+export default class VaSeparator extends Vue {}
 </script>
 
 <style lang="scss">

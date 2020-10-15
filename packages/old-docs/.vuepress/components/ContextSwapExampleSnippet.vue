@@ -3,46 +3,46 @@
     <div class="row justify--space-around">
       <div class="flex xs5">
         <va-list>
-          <va-item>
-            <va-item-section avatar>
+          <va-list-item>
+            <va-list-item-section avatar>
               <va-badge label="12" overlap>
                 <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"/>
               </va-badge>
-            </va-item-section>
+            </va-list-item-section>
 
-            <va-item-section>
-              <va-item-label>
+            <va-list-item-section>
+              <va-list-item-label>
                 Audrey Clay
-              </va-item-label>
+              </va-list-item-label>
 
-              <va-item-label caption>
+              <va-list-item-label caption>
                 644 Vermont Court, Freelandville, Kentucky, 2619
-              </va-item-label>
-            </va-item-section>
+              </va-list-item-label>
+            </va-list-item-section>
 
-            <va-item-section side>
+            <va-list-item-section side>
               <va-icon name="remove_red_eye" color="gray"/>
-            </va-item-section>
-          </va-item>
-          <va-item>
-            <va-item-section avatar>
+            </va-list-item-section>
+          </va-list-item>
+          <va-list-item>
+            <va-list-item-section avatar>
               <va-avatar/>
-            </va-item-section>
+            </va-list-item-section>
 
-            <va-item-section>
-              <va-item-label>
+            <va-list-item-section>
+              <va-list-item-label>
                 Audrey Clay
-              </va-item-label>
+              </va-list-item-label>
 
-              <va-item-label caption>
+              <va-list-item-label caption>
                 644 Vermont Court, Freelandville, Kentucky, 2619
-              </va-item-label>
-            </va-item-section>
+              </va-list-item-label>
+            </va-list-item-section>
 
-            <va-item-section side>
+            <va-list-item-section side>
               <va-icon name="remove_red_eye" color="gray"/>
-            </va-item-section>
-          </va-item>
+            </va-list-item-section>
+          </va-list-item>
         </va-list>
       </div>
 
@@ -122,13 +122,13 @@
 
 <script>
 import VaList from '../../../ui/src/components/vuestic-components/va-list/VaList'
-import VaItem from '../../../ui/src/components/vuestic-components/va-list/VaItem'
+import VaListItem from '../../../ui/src/components/vuestic-components/va-list/VaListItem'
 import VaAvatar
   from '../../../ui/src/components/vuestic-components/va-avatar/VaAvatar'
-import VaItemSection
-  from '../../../ui/src/components/vuestic-components/va-list/VaItemSection'
-import VaItemLabel
-  from '../../../ui/src/components/vuestic-components/va-list/VaItemLabel'
+import VaListItemSection
+  from '../../../ui/src/components/vuestic-components/va-list/VaListItemSection'
+import VaListItemLabel
+  from '../../../ui/src/components/vuestic-components/va-list/VaListItemLabel'
 import VaIcon from '../../../ui/src/components/vuestic-components/va-icon/VaIcon'
 import VaBadge
   from '../../../ui/src/components/vuestic-components/va-badge/VaBadge'
@@ -160,10 +160,10 @@ export default {
     VaCard,
     VaBadge,
     VaIcon,
-    VaItemLabel,
-    VaItemSection,
+    VaListItemLabel,
+    VaListItemSection,
     VaAvatar,
-    VaItem,
+    VaListItem,
     VaList,
   },
   data () {

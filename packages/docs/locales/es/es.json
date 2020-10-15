@@ -20,6 +20,30 @@
         "reset": "Reset values and validation state for all form-components"
       }
     },
+    "VaProgressBar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaHover": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaProgressCircle": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaImage": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaDivider": {
       "props": {},
       "events": {},
@@ -31,12 +55,116 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaAlert": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaIcon": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaRadio": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaExpand": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaExpandGroup": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaTag": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaList": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaSelect": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaParallax": {},
+    "VaBacktop": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaButtonGroup": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaButtonToggle": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaAppBar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaInnerLoading": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
     "modals": "Modals",
     "uiElements": "Elementos UI",
-    "checkbox": "Checkbox"
+    "progressBar": "Progress Bar",
+    "progressCircle": "Progress Circle",
+    "hover": "Hover",
+    "checkbox": "Checkbox",
+    "image": "Image",
+    "alert": "Alert",
+    "icon": "Icon",
+    "expand": "Expand",
+    "expandGroup": "Expand Group",
+    "radio": "Radio",
+    "tag": "Tag",
+    "input": "Input",
+    "list": "List",
+    "select": "Select",
+    "parallax": "Parallax",
+    "backtop": "Backtop",
+    "buttonGroup": "Button Group",
+    "buttonToggle": "Button Toggle",
+    "appBar": "App Bar",
+    "innerLoading": "Inner Loading"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -44,8 +172,63 @@
     "spanish": "Spanish",
     "simplified_chinese": "Versión abreviada"
   },
+  "hover": {
+    "title": "-- Here is the title --"
+  },
+  "image": {
+    "title": "-- Here is the title --"
+  },
   "checkbox": {
     "title": "-- Here is the title --"
   },
-  "divider": {}
+  "divider": {},
+  "progressBar": {
+    "title": "-- Here is the title --"
+  },
+  "progressCircle": {
+    "title": "-- Here is the title --"
+  },
+  "alert": {
+    "title": "-- Here is the title --"
+  },
+  "icon": {
+    "title": "-- Here is the title --"
+  },
+  "radio": {
+    "title": "-- Here is the title --"
+  },
+  "expand": {
+    "title": "-- Here is the title --"
+  },
+  "expandGroup": {
+    "title": "-- Here is the title --"
+  },
+  "tag": {
+    "title": "-- Here is the title --"
+  },
+  "input": {
+    "title": "-- Here is the title --"
+  },
+  "list": {
+    "title": "-- Here is the title --"
+  },
+  "select": {
+    "title": "-- Here is the title --"
+  },
+  "parallax": {},
+  "backtop": {
+    "title": "-- Here is the title --"
+  },
+  "buttonGroup": {
+    "title": "-- Here is the title --"
+  },
+  "buttonToggle": {
+    "title": "-- Here is the title --"
+  },
+  "appBar": {
+    "title": "-- Here is the title --"
+  },
+  "innerLoading": {
+    "title": "-- Here is the title --"
+  }
 }

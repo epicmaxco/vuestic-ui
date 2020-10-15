@@ -13,12 +13,31 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
+import { warn } from '../../../services/utils'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import vaIconMixin from './vaIconMixin'
-import { warn } from '../../../services/utils'
-import { Component, Mixins } from 'vue-property-decorator'
+import { IconMixin } from './IconMixin'
+
+const IconPropsMixin = makeContextablePropsMixin({
+  name: {
+    type: [String, Array],
+    default: '',
+    validator: (name: string) => {
+      if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
+        return warn(`${name} icon is not available.`)
+      }
+      return true
+    },
+  },
+  tag: { type: String, default: 'i' },
+  component: { type: Object },
+  color: { type: String, default: '' },
+  rotation: { type: [String, Number], default: '' },
+  spin: { type: Boolean, default: false },
+})
 
 @Component({
   name: 'VaIcon',
@@ -26,49 +45,18 @@ import { Component, Mixins } from 'vue-property-decorator'
 export default class VaIcon extends Mixins(
   ColorThemeMixin,
   SizeMixin,
-  makeContextablePropsMixin({
-    name: {
-      type: [String, Array], // TODO Array is either redundant or should be reaccessed.
-      validator: (name: string) => {
-        if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-          return warn(`${name} icon is not available.`)
-        }
-        return true
-      },
-      default: '',
-    },
-    tag: {
-      type: String,
-      default: 'i',
-    },
-    component: {
-      type: Object,
-    },
-    color: {
-      type: String,
-      default: '',
-    },
-    rotation: {
-      type: [String, Number],
-      default: '',
-    },
-    spin: {
-      type: Boolean,
-      default: false,
-    },
-  }),
-  vaIconMixin,
+  IconMixin,
+  IconPropsMixin,
 ) {
-  get icon () {
-    return this.getIcon()
-  }
-
   get computedTag () {
     return (this.icon && this.icon.component) || this.c_component || this.c_tag
   }
 
   get computedClass () {
-    return `${this.icon && this.icon.iconClass} ${this.spin && 'va-icon--spin'}`
+    return [
+      this.icon ? this.icon.iconClass : '',
+      this.spin ? 'va-icon--spin' : '',
+    ]
   }
 
   get hasClickListener () {

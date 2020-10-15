@@ -28,15 +28,27 @@
 </template>
 
 <script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
+import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
+
+// @ts-ignore
+import gravatar from 'gravatar'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import VaProgressCircle
-  from '../va-progress-bar/progress-types/VaProgressCircle.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
-import gravatar from 'gravatar'
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 
-import { Component, Mixins } from 'vue-property-decorator'
+const AvatarPropsMixin = makeContextablePropsMixin({
+  color: { type: String, default: 'info' },
+  textColor: { type: String, default: 'white' },
+  square: { type: Boolean, default: false },
+  icon: { type: String, default: '' },
+  src: { type: String, default: null },
+  fontSize: { type: String, default: '' },
+  email: { type: String, default: '' },
+})
 
 @Component({
   name: 'VaAvatar',
@@ -45,40 +57,8 @@ import { Component, Mixins } from 'vue-property-decorator'
 export default class VaAvatar extends Mixins(
   SizeMixin,
   ColorThemeMixin,
-  makeContextablePropsMixin({
-    color: {
-      type: String,
-      default: 'info',
-    },
-    textColor: {
-      type: String,
-      default: 'white',
-    },
-    square: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-    src: {
-      type: String,
-      default: null,
-    },
-    fontSize: {
-      type: String,
-      default: '',
-    },
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-    email: {
-      type: String,
-      default: '',
-    },
-  }),
+  LoadingMixin,
+  AvatarPropsMixin,
 ) {
   get computedGravarar () {
     return gravatar.url(this.c_email, {

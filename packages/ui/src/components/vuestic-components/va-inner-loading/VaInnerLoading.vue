@@ -7,33 +7,44 @@
     >
       <va-icon
         spin
-        :color="$themes.primary"
-        :size="48"
-        name="loop"
+        :color="c_color"
+        :size="c_size"
+        :name="c_icon"
         class="inner-loading__spinner"
       />
     </div>
   </div>
 </template>
 
-<script>
-import VaIcon from '../va-icon/VaIcon'
+<script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
 
-export default {
+import VaIcon from '../va-icon/VaIcon.vue'
+
+import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+
+const PropsMixin = makeContextablePropsMixin({
+  color: { type: String, default: '' },
+  icon: { type: String, default: 'loop' },
+  size: { type: Number, default: 30 },
+})
+
+@Component({
   name: 'VaInnerLoading',
-  components: {
-    VaIcon,
-  },
-  props: {
-    loading: Boolean,
-  },
-}
+  components: { VaIcon },
+})
+export default class VaInnerLoading extends Mixins(
+  PropsMixin,
+  LoadingMixin,
+) {}
 </script>
 
 <style lang="scss" scoped>
   .inner-loading {
     position: relative;
-    min-width: 100%;
+    min-width: fit-content;
+    width: fit-content;
 
     &__overlay {
       display: flex;

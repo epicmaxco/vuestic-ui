@@ -1,26 +1,19 @@
 <template>
   <div
     class="va-button-group"
-    :class="computedClass"
   >
     <slot />
   </div>
 </template>
 
-<script>
-import Vue from 'vue'
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-export default {
+@Component({
   name: 'VaButtonGroup',
-  props: {
-    color: {
-      type: String,
-      default: 'primary',
-    },
-  },
   provide () {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const parent = this
+    const parent = this as any
     return {
       va: new Vue({
         computed: {
@@ -31,15 +24,20 @@ export default {
       }),
     }
   },
-  computed: {
-    computedClass () {
-      return {
-        'va-button-group--large': this.large,
-        'va-button-group--small': this.small,
-        'va-button-group--normal': !this.large && !this.small,
-      }
-    },
-  },
+})
+export default class VaButtonGroup extends Vue {
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly color!: string
+
+  // get computedClass () {
+  //   return {
+  //     'va-button-group--large': this.large,
+  //     'va-button-group--small': this.small,
+  //     'va-button-group--normal': !this.large && !this.small,
+  //   }
+  // }
 }
 </script>
 
@@ -49,7 +47,7 @@ export default {
 .va-button-group {
   display: flex;
   justify-content: stretch;
-  margin: 0.375rem 0.5rem;
+  // margin: 0.375rem 0.5rem;
 
   &--small {
     border-radius: $btn-border-radius-sm;
@@ -67,15 +65,43 @@ export default {
     margin: 0;
   }
 
+  & > .va-button:last-child {
+    width: auto;
+    padding-right: 1rem;
+
+    &.va-button--small {
+      padding-right: 0.75rem;
+    }
+
+    &.va-button--large {
+      padding-right: 1.5rem;
+    }
+  }
+
+  & > .va-button:first-child {
+    width: auto;
+    padding-left: 1rem;
+
+    &.va-button--small {
+      padding-left: 0.75rem;
+    }
+
+    &.va-button--large {
+      padding-left: 1.5rem;
+    }
+  }
+
   & > .va-button:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    padding-right: 0.5rem;
     border-right: 0;
   }
 
   & > .va-button + .va-button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    padding-left: 0.5rem;
     border-left: 0;
   }
 }

@@ -18,16 +18,17 @@
       <tr
         v-for="(propRow, key) in apiTableData.props"
         :key="key"
+        class="ApiDocs__table__row"
       >
         <td><strong>{{ propRow.name }}</strong></td>
         <td>
-          <MarkdownView :value="$t(propRow.description)"/>
+          <MarkdownView :value="$t(propRow.description)" />
         </td>
         <td>
-          <MarkdownView :value="propRow.types"/>
+          <MarkdownView :value="propRow.types" />
         </td>
         <td>
-          <MarkdownView :value="propRow.default"/>
+          <MarkdownView :value="propRow.default" />
         </td>
         <td>{{ propRow.required ? '+' : '' }}</td>
         <td>{{ propRow.version }}</td>
@@ -51,13 +52,14 @@
         <tr
           v-for="(apiEventOption, eventName) in apiTableData.events"
           :key="eventName"
+          class="ApiDocs__table__row"
         >
           <td><strong>{{ eventName }}</strong></td>
           <td>
-            <MarkdownView :value="$t(apiEventOption.description)"/>
+            <MarkdownView :value="$t(apiEventOption.description)" />
           </td>
           <td>
-            <MarkdownView :value="apiEventOption.types"/>
+            <MarkdownView :value="apiEventOption.types" />
           </td>
           <td>
             {{apiEventOption.version}}
@@ -81,10 +83,11 @@
         <tr
           v-for="(apiSlotOption, slotName) in apiTableData.slots"
           :key="slotName"
+          class="ApiDocs__table__row"
         >
           <td><strong>{{ slotName }}</strong></td>
           <td>
-            <MarkdownView :value="$t(apiSlotOption.description)"/>
+            <MarkdownView :value="$t(apiSlotOption.description)" />
           </td>
           <td>
             <pre>{{apiSlotOption.version}}</pre>
@@ -109,13 +112,14 @@
         <tr
           v-for="(apiMethodOption, methodName) in apiTableData.methods"
           :key="methodName"
+          class="ApiDocs__table__row"
         >
           <td><strong>{{ methodName }}</strong></td>
           <td>
-            <MarkdownView :value="$t(apiMethodOption.description)"/>
+            <MarkdownView :value="$t(apiMethodOption.description)" />
           </td>
           <td>
-            <MarkdownView :value="apiMethodOption.types"/>
+            <MarkdownView :value="apiMethodOption.types" />
           </td>
           <td>
             <pre>{{apiMethodOption.version}}</pre>
@@ -161,11 +165,17 @@ export default class ApiDocs extends Vue {
 </script>
 
 <style lang="scss">
+@import "../ui/src/components/vuestic-sass/resources/resources";
+
 .ApiDocs {
   &__table {
     width: 100%;
     font-family: "Source Code Pro";
     font-size: 16px;
+
+    &__row {
+      border-bottom: 1px solid $prism-background;
+    }
 
     th {
       font-family: Source Sans Pro !important;

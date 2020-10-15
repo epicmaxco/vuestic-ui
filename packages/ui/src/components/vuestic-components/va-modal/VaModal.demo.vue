@@ -49,9 +49,9 @@
           <div>{{ message }}</div>
         </slot>
         <template slot="footer">
-          <button @click="customActionClick">
+          <va-button @click="customActionClick">
             Custom action
-          </button>
+          </va-button>
         </template>
       </va-modal>
     </VbCard>
@@ -255,9 +255,10 @@
 
 <script>
 import VaModal from './VaModal'
+import VaButton from '../va-button'
 
 export default {
-  components: { VaModal },
+  components: { VaModal, VaButton },
   data () {
     return {
       showModalSizeSmall: false,

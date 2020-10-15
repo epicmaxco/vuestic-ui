@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { ProgressMixin } from './progressMixin'
+import { ProgressComponentMixin } from './ProgressComponentMixin'
 import {
   ColorThemeMixin,
   getColor,
@@ -40,23 +40,19 @@ import { makeContextablePropsMixin } from '../../../context-test/context-provide
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 import { Component, Mixins } from 'vue-property-decorator'
 
+const ProgressCirclePropsMixin = makeContextablePropsMixin({
+  thickness: { type: Number, default: 0.06 },
+  color: { type: String, default: 'primary' },
+})
+
 @Component({
   name: 'VaProgressCircle',
 })
 export default class VaProgressCircle extends Mixins(
-  ProgressMixin,
+  ProgressComponentMixin,
   ColorThemeMixin,
   SizeMixin,
-  makeContextablePropsMixin({
-    thickness: {
-      type: Number,
-      default: 0.06,
-    },
-    color: {
-      type: String,
-      default: 'primary',
-    },
-  }),
+  ProgressCirclePropsMixin,
 ) {
   get radius () {
     return 20 - (20 * this.cappedThickness / 100)
@@ -108,6 +104,7 @@ export default class VaProgressCircle extends Mixins(
 
 .va-progress-circle {
   position: relative;
+  overflow: hidden; // Prevents resizing container back and forth.
 
   &__progress-bar {
     position: absolute;
@@ -117,7 +114,6 @@ export default class VaProgressCircle extends Mixins(
     right: 0;
     margin: auto;
     transform: rotate(-90deg);
-    stroke-linecap: center center;
     width: 80%;
     height: 80%;
 

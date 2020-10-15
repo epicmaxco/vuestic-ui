@@ -10,19 +10,19 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.paragraph',
+    translationString: 'switch.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'switch.examples.subtitle',
+    translationString: 'all.examples',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.examples.default.headline',
+    translationString: 'switch.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.default.paragraph',
+    translationString: 'switch.examples.default.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -30,11 +30,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.examples.color.headline',
+    translationString: 'switch.examples.color.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.color.paragraph',
+    translationString: 'switch.examples.color.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -42,11 +42,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.examples.label.headline',
+    translationString: 'switch.examples.label.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.label.paragraph',
+    translationString: 'switch.examples.label.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -54,11 +54,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.examples.customLabel.headline',
+    translationString: 'switch.examples.customLabel.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.customLabel.paragraph',
+    translationString: 'switch.examples.customLabel.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -66,11 +66,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.examples.innerLabel.headline',
+    translationString: 'switch.examples.innerLabel.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.innerLabel.paragraph',
+    translationString: 'switch.examples.innerLabel.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -78,11 +78,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.examples.size.headline',
+    translationString: 'switch.examples.size.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.size.paragraph',
+    translationString: 'switch.examples.size.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -90,11 +90,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.examples.state.headline',
+    translationString: 'switch.examples.state.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.state.paragraph',
+    translationString: 'switch.examples.state.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -102,11 +102,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.examples.loading.headline',
+    translationString: 'switch.examples.loading.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.loading.paragraph',
+    translationString: 'switch.examples.loading.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -114,11 +114,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'switch.examples.error.headline',
+    translationString: 'switch.examples.error.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.error.paragraph',
+    translationString: 'switch.examples.error.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -126,11 +126,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'switch.api.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.api.paragraph',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,

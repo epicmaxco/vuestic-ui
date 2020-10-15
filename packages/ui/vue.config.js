@@ -13,6 +13,9 @@ module.exports = {
       template: 'public/index.html',
     },
   },
+  devServer: {
+    disableHostCheck: true,
+  },
   configureWebpack: {
     plugins: [
       new (require('webpack')).DefinePlugin({

@@ -7,7 +7,7 @@
       :replace="replace"
       :append="append"
       :exact="exact"
-      :href="href"
+      :href="hrefComputed"
       :active-class="activeClass"
       :exact-active-class="exactActiveClass"
       tag="a"
@@ -25,7 +25,7 @@
 
 <script lang="ts">
 // @ts-ignore
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin.ts'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { Component, Mixins } from 'vue-property-decorator'
 

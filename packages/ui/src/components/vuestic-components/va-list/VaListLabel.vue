@@ -1,23 +1,28 @@
 <template>
   <div
     class="va-list-label"
-    :style="{'color': colorComputed}"
+    :style="computedStyle"
   >
     <slot />
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Mixins } from 'vue-property-decorator'
+
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
-export default {
+@Component({
   name: 'VaListLabel',
-  mixins: [ColorThemeMixin],
-  data () {
+})
+export default class VaListLabel extends Mixins(
+  ColorThemeMixin,
+) {
+  get computedStyle () {
     return {
-      colorThemeDefault: 'info',
+      color: this.colorComputed,
     }
-  },
+  }
 }
 </script>
 
@@ -27,8 +32,7 @@ export default {
 .va-list-label {
   @include va-title();
 
-  padding: $list-item-padding;
-  padding-top: 0;
-  padding-bottom: 0.75rem;
+  text-align: center;
+  padding: 0.3rem 0;
 }
 </style>

@@ -1,15 +1,11 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <VbCheckbox
-        v-model="value"
-        label="Selected"
-      />
-      {{  value }}
       <va-checkbox
         v-model="value"
         label="Selected"
       />
+      {{ value }}
     </VbCard>
     <VbCard title="Long label">
       <va-checkbox
@@ -71,10 +67,31 @@
         label="true"
       />
     </VbCard>
+    <VbCard title="Custom trueValue, falseValue">
+      <div>
+        {{customTrueFalse}}
+      </div>
+      <va-checkbox
+        v-model="customTrueFalse"
+        true-value="agree"
+        false-value="disagree"
+        :label="`${customTrueFalse}`"
+      />
+    </VbCard>
     <VbCard title="Indeterminate">
       <va-checkbox
-        v-model="value"
-        label="Indeterminate"
+        v-model="valueIndeterminateDefault"
+        :label="`${valueIndeterminateDefault}`"
+        indeterminate
+      />
+    </VbCard>
+    <VbCard title="Indeterminate with custom values">
+      <va-checkbox
+        v-model="valueIndeterminate"
+        :label="`${valueIndeterminate}`"
+        true-value="agree"
+        false-value="disagree"
+        indeterminate-value="idk"
         indeterminate
       />
     </VbCard>
@@ -161,6 +178,17 @@
         label="four"
       />
     </VbCard>
+    <VbCard title="Stateful">
+      <va-checkbox
+        stateful
+      />
+    </VbCard>
+    <VbCard title="Stateful indeterminate">
+      <va-checkbox
+        stateful
+        indeterminate
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -176,6 +204,9 @@ export default {
   data () {
     return {
       value: true,
+      valueIndeterminateDefault: null,
+      valueIndeterminate: 'agree',
+      customTrueFalse: 'disagree',
       selection: [],
       stringErrorMessage: 'String error message',
       errorMessages: ['Error message', 'Another error message', 'Long long long long long long long long long long long long long long error message'],

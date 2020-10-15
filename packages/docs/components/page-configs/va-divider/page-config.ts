@@ -15,7 +15,7 @@ const config: ApiDocsBlock[] = [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'anyPage.examples',
+    translationString: 'all.examples',
   },
   {
     type: BlockType.HEADLINE,
@@ -91,7 +91,7 @@ const config: ApiDocsBlock[] = [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'anyPage.api',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,

@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-ignore': 0,
     '@typescript-eslint/camelcase': 0,
     '@typescript-eslint/no-var-requires': 0,
-    "id-match": ["error", "^[A-Za-z0-9\-_\$]+$", {"properties": true}], // To prevent cyrillic letters etc.
+    'id-match': ['error', '^[A-Za-z0-9\-_\$]+$', { 'properties': true }], // To prevent cyrillic letters etc.
+    'vue/html-closing-bracket-spacing': 1,
   },
 }

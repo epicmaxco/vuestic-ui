@@ -1,6 +1,6 @@
 {
   "name": "vuestic-ui-wrapper",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "devDependencies": {
@@ -21,7 +21,7 @@
     "build:docs": "yarn workspace @vuestic-ui/docs build",
     "generate:docs": "yarn workspace @vuestic-ui/docs generate",
     "push": "yarn workspace vuestic-ui push",
-    "push-production": "yarn workspace vuestic-ui ush-production",
+    "push-production": "yarn workspace vuestic-ui push-production",
     "generate:component": "yarn workspace @vuestic-ui/docs generate:component"
   },
   "workspaces": [

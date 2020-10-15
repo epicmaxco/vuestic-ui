@@ -5,7 +5,3 @@
     <va-breadcrumbs-item label="Three"/>
   </va-breadcrumbs>
 </template>
-<script>
-export default {
-}
-</script>

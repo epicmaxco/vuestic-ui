@@ -9,35 +9,31 @@ export default [
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'pagination.paragraph',
+    translationString: 'pagination.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'pagination.basic.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.basic.paragraph',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-pagination/Basic',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'pagination.examples.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.paragraph',
+    translationString: 'all.examples',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.colors.headline',
+    translationString: 'pagination.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.colors.paragraph',
+    translationString: 'pagination.examples.default.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-pagination/Default',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'pagination.examples.colors.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'pagination.examples.colors.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -45,11 +41,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.sizes.headline',
+    translationString: 'pagination.examples.sizes.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.sizes.paragraph',
+    translationString: 'pagination.examples.sizes.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -57,11 +53,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.limitVisible.headline',
+    translationString: 'pagination.examples.limitVisible.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.limitVisible.paragraph',
+    translationString: 'pagination.examples.limitVisible.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -69,11 +65,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.icons.headline',
+    translationString: 'pagination.examples.icons.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.icons.paragraph',
+    translationString: 'pagination.examples.icons.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -81,11 +77,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.withInput.headline',
+    translationString: 'pagination.examples.withInput.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.withInput.paragraph',
+    translationString: 'pagination.examples.withInput.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -93,11 +89,11 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.totalAndPageSize.headline',
+    translationString: 'pagination.examples.totalAndPageSize.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.totalAndPageSize.paragraph',
+    translationString: 'pagination.examples.totalAndPageSize.text',
   },
   {
     type: BlockType.EXAMPLE,
@@ -105,11 +101,7 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'pagination.api.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.api.paragraph',
+    translationString: 'all.api',
   },
   {
     type: BlockType.API,

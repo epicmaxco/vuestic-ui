@@ -33,6 +33,7 @@
 @mixin va-disabled() {
   cursor: default;
   opacity: 0.4;
+  pointer-events: none;
 }
 
 @mixin theme-button-variant($color, $background, $border, $shadow) {
@@ -82,7 +83,6 @@
 }
 
 @mixin va-button($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
-  padding: $padding-y $padding-x;
   font-size: $font-size;
   line-height: $line-height;
   border-radius: $border-radius;

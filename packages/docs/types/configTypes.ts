@@ -4,10 +4,9 @@ import {
 } from '../../ui/src/services/api-docs/ManualApiOptions'
 import { VueConstructor } from 'vue'
 
-// TODO: move i18n types to appropriate place, e.g. tsconfig, ...
-import 'nuxt-i18n'
-
 export type CodeString = string
+// example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
+export type PathToExample = string
 
 export enum BlockType {
   TITLE = 'TITLE',
@@ -17,7 +16,6 @@ export enum BlockType {
   EXAMPLE = 'EXAMPLE',
   API = 'API',
   CODE = 'CODE',
-  FAQ = 'FAQ'
 }
 
 export type TextBlockType =
@@ -34,12 +32,8 @@ export type TextBlock = {
 export type ApiDocsBlock =
   | TextBlock
   | {
-      type: BlockType.FAQ,
-      component: VueConstructor,
-    }
-  | {
       type: BlockType.EXAMPLE,
-      component: string, // path to example
+      component: PathToExample, // path to example
     }
   | {
       type: BlockType.CODE,
@@ -50,8 +44,3 @@ export type ApiDocsBlock =
       componentOptions: VueConstructor,
       apiOptions: ManualApiOptions,
     }
-
-export type FaqBlock = {
-  question: TranslationString,
-  answer: TranslationString,
-}

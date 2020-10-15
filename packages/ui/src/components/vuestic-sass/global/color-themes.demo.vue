@@ -7,7 +7,7 @@
       >
         Default Button
       </va-button>
-      <va-notification
+      <va-alert
         class="mb-5"
         color="info"
       >
@@ -16,7 +16,7 @@
           label="Info"
         />
         You successfully read this important alert message.
-      </va-notification>
+      </va-alert>
       <va-progress-bar
         class="mb-5"
         indeterminate
@@ -128,8 +128,8 @@
 
 <script>
 import VaButton from './../../vuestic-components/va-button/VaButton'
-import VaNotification
-  from './../../vuestic-components/va-notification/VaNotification'
+import VaAlert
+  from './../../vuestic-components/va-alert/VaAlert'
 import VaProgressBar
   from './../../vuestic-components/va-progress-bar/progress-types/VaProgressBar'
 import VaColorPickerInput
@@ -142,6 +142,7 @@ import VaTreeNode from '../../vuestic-components/va-tree-view/VaTreeNode'
 import { getLineChartData } from '../../../data/charts/LineChartData'
 import VaBadge from '../../vuestic-components/va-badge/VaBadge'
 import VaFileUpload from '../../vuestic-components/va-file-upload/VaFileUpload'
+import VaSlider from '../../vuestic-components/va-slider/VaSlider'
 
 export default {
   components: {
@@ -153,8 +154,9 @@ export default {
     VaRating,
     VaColorPickerInput,
     VaButton,
-    VaNotification,
+    VaAlert,
     VaProgressBar,
+    VaSlider,
   },
   data () {
     return {

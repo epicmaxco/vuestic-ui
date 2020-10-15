@@ -1,5 +1,5 @@
 <template>
-  <div class="flex lg4">
+  <div>
     <va-checkbox class="mt-4" v-model="value" :label="label" />
     <va-checkbox class="mt-4" v-model="value" :label="longLabel" />
     <va-checkbox class="mt-4" v-model="value" :label="leftLabel" left-label />
