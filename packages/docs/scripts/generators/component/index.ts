@@ -22,10 +22,13 @@ module.exports = {
     {
       type: 'input',
       name: 'category',
-      message: 'What\'s the component categoty (ex.: uiElements)?',
+      message: 'What\'s the component categoty (ex.: uiElements, styles, contribution)?',
       validate: value => {
         if (/.+/.test(value)) {
-          return true
+          if (['uiElements', 'styles', 'contribution'].includes(value)) {
+            return true
+          }
+          return 'Name is invalid'
         }
 
         return 'The name is required'

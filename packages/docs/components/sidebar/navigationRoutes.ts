@@ -13,7 +13,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'grid',
         displayName: 'menu.grid',
       },
-      // GENERATOR_ADD.styles
+      // GENERATOR_ADD - styles
     ],
   },
   {
@@ -32,6 +32,14 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'button',
         displayName: 'menu.button',
+      },
+      {
+        name: 'button-group',
+        displayName: 'menu.buttonGroup',
+      },
+      {
+        name: 'button-toggle',
+        displayName: 'menu.buttonToggle',
       },
       {
         name: 'icon',
@@ -169,7 +177,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'inner-loading',
         displayName: 'menu.innerLoading',
       },
-      // GENERATOR_ADD.uiElements
+      // GENERATOR_ADD - uiElements
     ],
   },
   {
@@ -180,7 +188,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'documentation-page',
         displayName: 'menu.documentationPage',
       },
-      // GENERATOR_ADD.contribution
+      // GENERATOR_ADD - contribution
     ],
   },
 ]
