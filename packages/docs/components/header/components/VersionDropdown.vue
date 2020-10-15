@@ -41,5 +41,6 @@ export default class VersionDropdown extends Vue {
 <style lang="scss">
   .version-dropdown .va-button__content {
     font-weight: bold;
+    padding-right: 1rem !important;
   }
 </style>

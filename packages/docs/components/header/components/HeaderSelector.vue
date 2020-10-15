@@ -57,7 +57,15 @@ export default {
 
 .header-selector {
   cursor: pointer;
-  max-width: 60px;
+  max-width: 55px;
+
+  @include media-breakpoint-down(sm) {
+    flex-grow: 1;
+    min-width: 150px;
+    display: flex;
+    justify-content: start;
+    margin-left: 16px;
+  }
 }
 
 </style>
