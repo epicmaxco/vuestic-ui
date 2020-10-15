@@ -6,6 +6,7 @@
   <div class="layout">
   </div>
   </div>
+  <OpenSource />
   <Admin />
   <Footer />
 
@@ -18,6 +19,7 @@ import Header from '../../docs/components/landing/Header.vue'
 import Preview from '../../docs/components/landing/Preview.vue'
 import Admin from '../../docs/components/landing/Admin.vue'
 import Footer from '../../docs/components/landing/Footer.vue'
+import OpenSource from '../../docs/components/landing/OpenSource.vue'
 
 @Component({
   components: {
@@ -25,6 +27,7 @@ import Footer from '../../docs/components/landing/Footer.vue'
     Preview,
     Admin,
     Footer,
+    OpenSource,
   },
 })
 export default class Landing extends Vue {
@@ -44,6 +47,5 @@ export default class Landing extends Vue {
   background-size: unset;
   background-repeat: no-repeat;
   background-position: top;
-  min-height: 500px;
 }
 </style>
