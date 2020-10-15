@@ -7,6 +7,7 @@
   </div>
   </div>
   <Admin />
+  <Footer />
 
 </div>
 </template>
@@ -16,12 +17,14 @@ import { Component, Vue } from 'vue-property-decorator'
 import Header from '../../docs/components/landing/Header.vue'
 import Preview from '../../docs/components/landing/Preview.vue'
 import Admin from '../../docs/components/landing/Admin.vue'
+import Footer from '../../docs/components/landing/Footer.vue'
 
 @Component({
   components: {
     Header,
     Preview,
     Admin,
+    Footer,
   },
 })
 export default class Landing extends Vue {

@@ -129,19 +129,6 @@ export default class Admin extends Vue {}
     }
   }
 
-  &__image {
-    position: absolute;
-    background-image: url("../../assets/landing/images/image-components.png");
-    background-size: contain;
-    background-repeat: repeat-x;
-    background-position: top;
-    height: 342px;
-    top: 20rem;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-  }
-
   &__content {
     padding-top: 4rem;
 
