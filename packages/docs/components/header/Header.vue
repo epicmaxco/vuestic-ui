@@ -20,7 +20,7 @@
         </va-button>
       </div>
     </div>
-    <div class="header__prefences flex shrink">
+    <div class="header__prefences flex">
       <version-dropdown />
       <color-dropdown />
       <language-dropdown />
@@ -90,13 +90,13 @@ export default class Header extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../../ui/src/components/vuestic-sass/resources/resources";
 @import "../../../ui/src/components/vuestic-sass/grid/grid-global-styles";
 @import "../../../ui/src/components/vuestic-sass/global/typography";
 
 .header {
-  z-index: 2000;
+  z-index: 2000 !important;
   position: fixed;
   width: 100%;
   height: 4rem;
@@ -104,16 +104,35 @@ export default class Header extends Vue {
 
   @include media-breakpoint-down(sm) {
     height: 8rem;
+
+    &__links {
+      justify-content: flex-end !important;
+
+      @media screen and (max-width: 479px) {
+        justify-content: center !important;
+      }
+    }
+
+    &__prefences {
+      flex: 1 1 !important;
+      justify-content: space-between;
+
+      & .va-dropdown__anchor,
+      .color-dropdown {
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 
   &__links__button {
     font-weight: $font-weight-bold;
 
-    .button__icon {
-      margin-right: 0.25em;
+    .button__text {
+      margin-left: 0.375rem;
     }
 
-    @include media-breakpoint-down(lg) {
+    @media screen and (max-width: 1209px) {
       .button__text {
         display: none;
       }
@@ -134,6 +153,18 @@ export default class Header extends Vue {
     }
 
     &__image {
+      @media screen and (max-width: 945px) {
+        display: none;
+      }
+
+      @include media-breakpoint-down(sm) {
+        display: block;
+      }
+
+      @media screen and (max-width: 479px) {
+        display: none;
+      }
+
       max-width: 162px;
       min-width: 162px;
     }
