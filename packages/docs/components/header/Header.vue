@@ -106,7 +106,11 @@ export default class Header extends Vue {
     height: 8rem;
 
     &__links {
-      justify-content: space-between;
+      justify-content: flex-end !important;
+
+      @media screen and (max-width: 479px) {
+        justify-content: center !important;
+      }
     }
 
     &__prefences {
@@ -150,6 +154,14 @@ export default class Header extends Vue {
 
     &__image {
       @media screen and (max-width: 945px) {
+        display: none;
+      }
+
+      @include media-breakpoint-down(sm) {
+        display: block;
+      }
+
+      @media screen and (max-width: 479px) {
         display: none;
       }
 
