@@ -7,7 +7,7 @@
       :replace="replace"
       :append="append"
       :exact="exact"
-      :href="hrefComputed"
+      :href="href"
       :active-class="activeClass"
       :exact-active-class="exactActiveClass"
       tag="a"

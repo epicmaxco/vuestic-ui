@@ -2,7 +2,7 @@
   <component
     :is="tagComputed"
     v-if="valueComputed"
-    :href="hrefComputed"
+    :href="href"
     :target="target"
     :to="to"
     :replace="replace"

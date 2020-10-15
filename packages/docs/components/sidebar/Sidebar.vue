@@ -33,6 +33,8 @@
               {{ $t(childRoute.category) }}
             </va-list-label>
             <va-list-item
+              tag="nuxt-link"
+              :href="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
               :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
               class="sidebar__link"
               active-class="sidebar__link--active"
