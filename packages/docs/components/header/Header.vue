@@ -132,7 +132,7 @@ export default class Header extends Vue {
       margin-left: 0.375rem;
     }
 
-    @include media-breakpoint-down(xl) {
+    @media screen and (max-width: 1209px) {
       .button__text {
         display: none;
       }
