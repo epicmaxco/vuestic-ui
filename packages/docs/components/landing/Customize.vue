@@ -9,7 +9,9 @@
           <!-- First block -->
           <div class="seamless__content--first">
             <div class="block__components">
-              <va-button color="#6F80E7">Пампуй</va-button>
+              <va-button color="#6F80E7">
+                Default Button
+              </va-button>
               <div style="width: 200px;">
                 <va-select
                   v-model="value3"
@@ -18,13 +20,15 @@
                   label="Country"
                 />
               </div>
-              <div style="width: 200px;">
-                <va-slider color="#6F80E7" v-model="value2"/>
-              </div>
+              <va-slider
+                style="width: 200px;"
+                color="#6F80E7"
+                v-model="value2"
+              />
 
               <va-checkbox
                 v-model="value"
-                label="选中的复选框"
+                label="Checkbox"
                 color="#6F80E7"
               />
             </div>
@@ -33,16 +37,9 @@
 
           <!-- Second block -->
           <div class="seamless__content--second">
-            <pre>
-            <code class="code">
-              p { color: red; }
-              body { background-color: #eee; }
-              body { background-color: #eee; }
-              body { background-color: #eee; }
-              body { background-color: #eee; }
-              body { background-color: #eee; }
-            </code>
-          </pre>
+            <div class="code-wrapper">
+              <prism  class="code" language="javascript">{{ code }}</prism>
+            </div>
           </div>
           <!-- /Second block -->
 
@@ -54,8 +51,36 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-@Component({})
+import 'prismjs'
+// @ts-ignore
+import Prism from 'vue-prism-component'
+
+@Component({
+  components: { Prism },
+})
 export default class Seamless extends Vue {
+  code =`<va-button color="#6F80E7">
+  Default Button
+</va-button>
+<div style="width: 200px;">
+  <va-select
+    v-model="value3"
+    :options="options"
+    color="#6F80E7"
+    label="Country"
+  />
+</div>
+<va-slider
+  style="width: 200px"
+  color="#6F80E7"
+  v-model="value2"
+/>
+
+<va-checkbox
+  v-model="value"
+  label="Checkbox"
+  color="#6F80E7"
+/>`
   value = true
   value2 = 45
   value3 = 'Spain'
@@ -122,15 +147,12 @@ export default class Seamless extends Vue {
       display: flex;
       flex-direction: column;
       padding: 3rem;
-      border-bottom: 1px solid #d9e8e6;
       width: 100%;
       border-radius: 1rem;
 
       img {
         position: absolute;
         bottom: 0;
-        // width: 100px;
-        // height: 100px;
         left: 50%;
         transform: translate(-50%, 50%);
       }
@@ -138,7 +160,8 @@ export default class Seamless extends Vue {
 
     &--second {
       background: #ffffff1a;
-      padding: 3rem;
+      padding: 1rem;
+      padding-bottom: 3rem;
       width: 80%;
       border-radius: 0 0 1rem 1rem;
     }
@@ -167,8 +190,32 @@ export default class Seamless extends Vue {
   }
 }
 
+.code-wrapper {
+  height: 12rem;
+  padding: 0 4rem;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #1a287a;
+    opacity: 0.3;
+    border-radius: 2px;
+  }
+
+  -ms-overflow-style: none; // hide for IE & Edge
+  scrollbar-width: none; // hide for Firefox
+}
+
 .code {
   color: #ffffff;
-  opacity: 1;
+  line-height: 1.4;
 }
 </style>
