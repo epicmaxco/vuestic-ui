@@ -1,5 +1,7 @@
 <template>
+  <div class="seamless__bg">
   <div class="seamless">
+    <div class="seamless__bg"></div>
     <div class="seamless__wrapper">
       <div class="seamless__inner">
         <div class="seamless__title">Customize Everything</div>
@@ -50,6 +52,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -99,9 +102,14 @@ export default class Seamless extends Vue {
   position: relative;
   padding-top: 8.5rem;
   padding-bottom: 12rem;
-  background: linear-gradient(90.81deg, #182879 0.7%, #5b3c9b 99.3%);
+  background-image: url("../../assets/landing/images/vector-bg.svg");
   background-repeat: no-repeat;
+  background-size: contain;
   background-position: top;
+
+  &__bg {
+    background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
+  }
 
   &__wrapper {
     @include wrapper();
@@ -162,26 +170,12 @@ export default class Seamless extends Vue {
       padding: 1rem;
       padding-bottom: 0;
       width: 80%;
-      border-radius: 0 0 1rem 1rem;
+      border-radius: 0 0 0.7rem 0.7rem;
     }
   }
 }
 
 .block {
-  &__label {
-    font-size: 0.8rem;
-    text-align: center;
-    color: $dark;
-    padding-bottom: 2rem;
-    letter-spacing: 0.4px;
-    font-weight: 700;
-    text-transform: uppercase;
-
-    &--vuestic {
-      color: $lavender;
-    }
-  }
-
   &__components {
     display: flex;
     align-items: center;
