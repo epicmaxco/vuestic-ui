@@ -32,10 +32,10 @@ export default class OpenSource extends Vue {}
 .opensource {
   width: 100%;
   position: relative;
-  padding-top: 6.5rem;
-  padding-bottom: 6.5rem;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
   background-image: url("../../assets/landing/images/pattern-2.png");
-  background-size: unset;
+  background-size: contain;
   background-color: $bg-light-sky;
   background-repeat: no-repeat;
   background-position: top;
