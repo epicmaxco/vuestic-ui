@@ -47,6 +47,7 @@
           </div>
           <!-- /Second block -->
 
+          <a class="customize__content__link" href="#">See our configuration guides</a>
         </div>
       </div>
     </div>
@@ -103,8 +104,8 @@ export default class Seamless extends Vue {
   padding-bottom: 12rem;
   background-image: url("../../assets/landing/images/vector-bg.svg");
   background-repeat: no-repeat;
-  background-size: unset;
-  background-position: top;
+  background-size: cover;
+  background-position: center;
 
   &__bg {
     background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
@@ -167,9 +168,16 @@ export default class Seamless extends Vue {
       align-items: center;
       flex-direction: column;
       padding: 1rem;
-      padding-bottom: 0;
+      padding-bottom: 1rem;
       width: 80%;
       border-radius: 0 0 0.7rem 0.7rem;
+    }
+
+    &__link {
+      color: #ffffff;
+      font-weight: 600;
+      padding-top: 1rem;
+      line-height: 1.5rem;
     }
   }
 }
