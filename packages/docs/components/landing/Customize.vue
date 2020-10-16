@@ -1,15 +1,14 @@
 <template>
-  <div class="seamless__bg">
-  <div class="seamless">
-    <div class="seamless__bg"></div>
-    <div class="seamless__wrapper">
-      <div class="seamless__inner">
-        <div class="seamless__title">Customize Everything</div>
-        <div class="seamless__subtitle">Make Vuestic UI components match your designs with powerful dynamic configs.</div>
-        <div class="seamless__content">
+  <div class="customize__bg">
+  <div class="customize">
+    <div class="customize__wrapper">
+      <div class="customize__inner">
+        <div class="customize__title">Customize Everything</div>
+        <div class="customize__subtitle">Make Vuestic UI components match your designs with powerful dynamic configs.</div>
+        <div class="customize__content">
 
           <!-- First block -->
-          <div class="seamless__content--first">
+          <div class="customize__content--first">
             <div class="block__components">
               <va-button color="#6F80E7">
                 Default Button
@@ -38,7 +37,7 @@
           <!-- /First block -->
 
           <!-- Second block -->
-          <div class="seamless__content--second">
+          <div class="customize__content--second">
             <div class="code-wrapper">
               <div class="code-subwrapper">
               <prism  class="code" language="javascript">{{ code }}</prism>
@@ -97,14 +96,14 @@ export default class Seamless extends Vue {
 <style lang="scss" scoped>
 @import "../../assets/main.scss";
 
-.seamless {
+.customize {
   width: 100%;
   position: relative;
   padding-top: 8.5rem;
   padding-bottom: 12rem;
   background-image: url("../../assets/landing/images/vector-bg.svg");
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: unset;
   background-position: top;
 
   &__bg {
