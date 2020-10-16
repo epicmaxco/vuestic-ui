@@ -38,8 +38,11 @@
           <!-- Second block -->
           <div class="seamless__content--second">
             <div class="code-wrapper">
+              <div class="code-subwrapper">
               <prism  class="code" language="javascript">{{ code }}</prism>
+              </div>
             </div>
+            <div class="clipboard">Copied to clipboard</div>
           </div>
           <!-- /Second block -->
 
@@ -149,19 +152,15 @@ export default class Seamless extends Vue {
       padding: 3rem;
       width: 100%;
       border-radius: 1rem;
-
-      img {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%, 50%);
-      }
     }
 
     &--second {
       background: #ffffff1a;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
       padding: 1rem;
-      padding-bottom: 3rem;
+      padding-bottom: 0;
       width: 80%;
       border-radius: 0 0 1rem 1rem;
     }
@@ -190,7 +189,18 @@ export default class Seamless extends Vue {
   }
 }
 
+.clipboard {
+  width: fit-content;
+  background-color: #b0e2a7;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.1rem;
+  opacity: 1;
+  border-radius: 0.2rem;
+}
+
 .code-wrapper {
+  width: 100%;
   height: 12rem;
   padding: 0 4rem;
   overflow: auto;
