@@ -42,6 +42,7 @@
         :getText="getText"
         :getTrackBy="getTrackBy"
         :noOptionsText="noOptionsText"
+        :color="c_color"
         :search="search"
         :hintedOption="hintedOption"
         ref="optionList"
@@ -94,7 +95,7 @@
                     v-for="(option, i) in selectionTags"
                     :key="i"
                     size="small"
-                    color="primary"
+                    :color="c_color"
                     :closeable="deletableTags"
                     @input="selectOption(option)"
                   >
@@ -304,7 +305,7 @@ export default class VaSelect extends Mixins(
       borderColor:
         this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
-            : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
+            : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
     }
   }
 
@@ -312,7 +313,7 @@ export default class VaSelect extends Mixins(
     return {
       color: this.computedError ? this.computeColor('danger')
         : this.success ? this.computeColor('success')
-          : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
+          : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
     }
   }
 
