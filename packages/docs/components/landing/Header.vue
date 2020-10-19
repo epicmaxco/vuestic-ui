@@ -6,7 +6,20 @@
           <img src="../../assets/landing/images/logo.png" alt="Vuestic UI">
         </div>
         <div class="header__links">
-          <a href="#" class="header__links--link">
+          <!-- vuestic buttons -->
+          <va-button class="header__links--link" flat color="#2550C0">Overview</va-button>
+          <va-button class="header__links--link" flat color="#2550C0">Docs</va-button>
+          <va-button class="header__links--link" flat color="#2550C0">Discord</va-button>
+          <va-dropdown :offset="[0, 25]" fixed>
+            <va-button class="header__links--link" iconRight="expand_more" flat slot="anchor" color="#2550C0">
+              English
+            </va-button>
+          <va-list>
+            languages
+          </va-list>
+          </va-dropdown>
+          <!-- vuestic buttons -->
+          <!-- <a href="#" class="header__links--link">
             Overview
           </a>
           <a href="#" class="header__links--link">
@@ -18,7 +31,8 @@
           <a href="#" class="header__links--link">
             English &#8659;
           </a>
-          <button>&#10029; Star  780</button>
+          <button>&#10029; Star  780</button> -->
+
         </div>
       </div>
     </div>
@@ -36,7 +50,9 @@ export default class Header extends Vue {}
 
 .header {
   z-index: 2000;
-  position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   background: transparent;
 
@@ -65,9 +81,9 @@ export default class Header extends Vue {}
     align-items: center;
 
     &--link {
-      padding-right: 1.5rem;
-      color: $active-blue;
-      font-weight: 600;
+      // padding-right: 1.5rem;
+      // color: $active-blue;
+      font-weight: 600 !important;
       line-height: 1.5rem;
     }
   }

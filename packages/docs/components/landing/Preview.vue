@@ -19,6 +19,9 @@
           </va-button>
         </div>
         <div class="preview__image">
+          <div class="components-slideshow">
+            <div class="mover"></div>
+          </div>
         </div>
         <div class="preview__features">
 
@@ -114,7 +117,7 @@ export default class Preview extends Vue {}
 
   &__image {
     position: absolute;
-    background-image: url("../../assets/landing/images/image-components.png");
+    // background-image: url("../../assets/landing/images/image-components.png");
     background-size: contain;
     background-repeat: repeat-x;
     background-position: top;
@@ -167,6 +170,33 @@ export default class Preview extends Vue {}
     line-height: 1.6rem;
     font-size: 1rem;
     color: $active-blue;
+  }
+}
+
+.components-slideshow {
+  height: 342px;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.components-slideshow .mover {
+  width: 3153px;
+  background: url(../../assets/landing/images/components.png);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  animation: moveSlideshow 20s linear infinite;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes moveSlideshow {
+  100% {
+    transform: translateX(-33.33333%);
+    // transform: translateX(-1051px);
   }
 }
 </style>
