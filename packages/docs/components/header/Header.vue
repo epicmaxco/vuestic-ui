@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="header row justify--space-between">
+  <header class="header row justify--space-between">
     <div class="header__logo flex">
       <header-selector class="header__logo__selector" :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
       <vuestic-logo class="header__logo__image"  height="30" width="150"/>
@@ -25,7 +25,7 @@
       <color-dropdown />
       <language-dropdown />
     </div>
-  </div>
+  </header>
 </template>
 
 <script lang="ts">
