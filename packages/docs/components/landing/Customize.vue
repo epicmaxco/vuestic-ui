@@ -205,6 +205,7 @@ export default class Seamless extends Vue {
   height: 12rem;
   padding: 0 4rem;
   overflow: auto;
+  cursor: pointer;
 
   &::-webkit-scrollbar {
     width: 4px;

@@ -29,11 +29,11 @@
         </div>
         <div class="admin__content">
           <div class="admin__content__item admin__content__item--first">
-            <img src="../../assets/landing/images/vuestic-admin.png" alt="">
+            <img src="../../assets/landing/images/admin.png" alt="vuestic-admin">
           </div>
-          <div class="admin__content__item">
+          <div class="admin__content__item admin__content__item--second">
             <!-- items -->
-            <div class="item">
+            <div class="item item--first">
               <div class="item__frame">
                 <img src="@/assets/landing/images/admin/open-source.png" alt="open-source">
               </div>
@@ -58,7 +58,7 @@
               <div class="item__frame">
                 <img src="@/assets/landing/images/admin/i18n.png" alt="i18n">
               </div>
-              <h2 class="item__title">Modern Browsers Support</h2>
+              <h2 class="item__title">i18n-ready</h2>
             </div>
             <!-- /items -->
           </div>
@@ -81,7 +81,8 @@ export default class Admin extends Vue {}
   width: 100%;
   position: relative;
   padding-top: 4.5rem;
-  background: transparent;
+  padding-bottom: 8.5rem;
+  background-color: $bg-light-sky;
 
   &__wrapper {
     @include wrapper();
@@ -107,7 +108,7 @@ export default class Admin extends Vue {}
     @include col();
     @include size(12);
 
-    padding-top: 1rem;
+    padding-top: 1.5rem;
     text-align: center;
     font-weight: normal;
     font-size: 1.1rem;
@@ -152,6 +153,12 @@ export default class Admin extends Vue {}
           max-height: 100%;
         }
       }
+
+      &--second {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
     }
   }
 }
@@ -160,6 +167,10 @@ export default class Admin extends Vue {}
   display: flex;
   align-items: center;
   padding-top: 2.2rem;
+
+  &--first {
+    padding-top: 0;
+  }
 
   &__frame {
     display: inline-block;

@@ -4,7 +4,7 @@
       <div class="opensource__inner">
         <div class="opensource__info">
           <div class="opensource__icon">
-            <img src="../../assets/landing/images/open-source-icon.png" alt="">
+            <img src="../../assets/landing/images/icon-open-source.png" alt="">
           </div>
           <div class="opensource__title">Open Source</div>
           <div class="opensource__text">
@@ -13,7 +13,7 @@
             to help us improve Vuestic UI experience.</div>
         </div>
         <div class="opensource__actions">
-          <img src="../../assets/landing/images/open-source.png" alt="">
+          <img src="../../assets/landing/images/image-open-source.png" alt="open-source">
         </div>
       </div>
     </div>
@@ -34,9 +34,8 @@ export default class OpenSource extends Vue {}
   position: relative;
   padding-top: 10rem;
   padding-bottom: 10rem;
-  background-image: url("../../assets/landing/images/pattern-2.png");
+  background-image: url("../../assets/landing/images/pattern-2.svg");
   background-size: contain;
-  background-color: $bg-light-sky;
   background-repeat: no-repeat;
   background-position: top;
 
@@ -59,19 +58,22 @@ export default class OpenSource extends Vue {}
   &__title {
     font-weight: 900;
     font-size: 4.5rem;
-    padding: 1.2rem 0;
+    padding-bottom: 1.7rem;
   }
 
   &__text {
     font-weight: 400;
     font-size: 1.1rem;
     line-height: 1.5rem;
+
+    a {
+      color: $active-blue;
+    }
   }
 
   &__actions {
     @include col();
-    @include size(5);
-    @include shift-right(1);
+    @include size(6);
 
     img {
       max-width: 100%;

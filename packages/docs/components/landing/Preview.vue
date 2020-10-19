@@ -166,6 +166,7 @@ export default class Preview extends Vue {}
     font-weight: 600;
     line-height: 1.6rem;
     font-size: 1rem;
+    color: $active-blue;
   }
 }
 </style>

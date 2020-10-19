@@ -5,7 +5,6 @@
         <div class="footer__image">
           <img src="../../assets/landing/images/logo.png" alt="">
         </div>
-        <div class="footer__subtitle">Open source, free to use. Development inquiries: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
         <div class="footer__buttons">
           <va-button class="footer__buttons__button"
             :round="false"
@@ -51,7 +50,14 @@
             icon="home"
           >
           </va-button>
+          <va-button class="footer__social__item"
+            color="#2550C0"
+            flat
+            icon="heart"
+          >
+          </va-button>
         </div>
+        <div class="footer__subtitle">Open source, free to use. Development inquiries: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
       </div>
     </div>
   </div>
@@ -96,7 +102,7 @@ export default class Footer extends Vue {}
     @include col();
     @include size(12);
 
-    padding-top: 3rem;
+    padding: 3rem 0 4rem;
     text-align: center;
     font-weight: normal;
     font-size: 1.1rem;
@@ -109,7 +115,7 @@ export default class Footer extends Vue {}
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 2.5rem;
+    padding-top: 3rem;
 
     &__button {
       font-weight: 600;
@@ -124,8 +130,7 @@ export default class Footer extends Vue {}
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 2rem;
-    padding-bottom: 4rem;
+    padding-top: 3rem;
 
     &__item {
       font-weight: 600;
