@@ -70,6 +70,7 @@ $theme-colors: (
 ) !default;
 
 // Layout //
+$min-body-width: 375px;
 $body-color: $vue-darkest-blue !default;
 $layout-padding: 24px !default;
 $top-mobile-nav-height: 6.5rem !default;
