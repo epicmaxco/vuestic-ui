@@ -33,6 +33,7 @@
           </div>
           <div class="admin__content__item admin__content__item--second">
             <!-- items -->
+            <div class="items">
             <div class="item item--first">
               <div class="item__frame">
                 <img src="@/assets/landing/images/admin/open-source.png" alt="open-source">
@@ -59,6 +60,7 @@
                 <img src="@/assets/landing/images/admin/i18n.png" alt="i18n">
               </div>
               <h2 class="item__title">i18n-ready</h2>
+            </div>
             </div>
             <!-- /items -->
           </div>
@@ -114,37 +116,57 @@ export default class Admin extends Vue {}
   }
 
   &__buttons {
+    @include row-flex();
     @include col();
-    @include size(12);
+    @include size(6);
+    @include shift-left(3);
 
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 1.5rem;
+    // lg
+    @include size-lg(10);
+    @include shift-lg-left(1);
+    // // md
+    @include size-md(6);
+    @include shift-md-left(3);
+    // // md
+    @include size-xs(10);
+    @include shift-xs-left(1);
 
     &--button {
+      @include col();
+      @include size(4);
+      // display: inline-block;
+
       height: 3rem;
       font-weight: 600;
       font-size: 1rem;
+
+      // md
+      @include size-md(12);
+      @include md(margin-bottom, 1rem);
     }
   }
 
   &__content {
-    padding-top: 4rem;
-
     @include row-flex();
     @include col();
     @include size(12);
 
+    padding-top: 4rem;
     justify-content: center;
 
     &__item {
-      @include col();
-      @include size(3);
-
       &--first {
+        @include col();
         @include size(8);
         @include shift-right(1);
+
+        // md
+        @include size-md(12);
+        @include shift-md-right(0);
 
         img {
           object-fit: contain;
@@ -154,35 +176,52 @@ export default class Admin extends Vue {}
       }
 
       &--second {
+        @include col();
+        @include size(3);
+
         display: flex;
         flex-direction: column;
         justify-content: center;
+        // md
+        @include size-md(12);
       }
     }
   }
 }
 
-.item {
-  display: flex;
-  align-items: center;
-  padding-top: 2.2rem;
+.items {
+  @include row-flex();
 
-  &--first {
-    padding-top: 0;
-  }
+  .item {
+    @include col();
+    @include size(12);
 
-  &__frame {
-    display: inline-block;
-    padding: 0.75rem;
-    border: 1px dashed $gray;
-    border-radius: 1rem;
-  }
+    display: flex;
+    align-items: center;
+    padding-top: 2.2rem;
+    // md
+    @include size-md(6);
+    // xs
+    @include size-xs(12);
 
-  &__title {
-    padding-left: 1rem;
-    font-weight: 400;
-    font-size: 1.1rem;
-    line-height: 1.8rem;
+    &--first {
+      padding-top: 0;
+    }
+
+    &__frame {
+      display: inline-block;
+      padding: 0.75rem;
+      border: 1px dashed $gray;
+      border-radius: 1rem;
+    }
+
+    &__title {
+      padding-left: 1rem;
+      font-weight: 400;
+      font-size: 1.1rem;
+      line-height: 1.8rem;
+    }
   }
 }
+
 </style>
