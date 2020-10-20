@@ -1,14 +1,14 @@
 <template>
   <VbDemo>
     <VbCard title="default">
-      <va-carousel navigation pagination>
+      <va-carousel navigation>
         <va-carousel-item
           v-for="(item, index) in items"
           :key="index"
           :style="{background: item.color }"
         >
           <div>
-            {{ item.text }}
+            {{$vb.lorem(100)}}
           </div>
         </va-carousel-item>
       </va-carousel>
@@ -22,7 +22,7 @@
           :style="{background: item.color }"
         >
           <div>
-            {{ item.text }}
+            {{$vb.lorem(100)}}
           </div>
         </va-carousel-item>
       </va-carousel>
@@ -36,7 +36,7 @@
           :style="{background: item.color }"
         >
           <div>
-            {{ item.text }}
+            {{$vb.lorem(100)}}
           </div>
         </va-carousel-item>
       </va-carousel>
@@ -50,7 +50,7 @@
           :style="{background: item.color }"
         >
           <div>
-            {{ item.text }}
+            {{$vb.lorem(100)}}
           </div>
         </va-carousel-item>
       </va-carousel>
@@ -83,29 +83,24 @@
   </VbDemo>
 </template>
 
-<script>
-import VaCarousel from './VaCarousel'
-import VaCarouselItem from './VaCarouselItem'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import VaCarousel from './VaCarousel.vue'
+import VaCarouselItem from './VaCarouselItem.vue'
 
-export default {
-  data () {
-    return {
-      value: 0,
-      items: [
-        { color: 'red', text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, architecto.' },
-        { color: 'orange', text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, porro.' },
-        { color: 'yellow', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, dicta?' },
-        { color: 'green', text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, maiores?' },
-        { color: 'skyblue', text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, maiores?' },
-        { color: 'blue', text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis, numquam!' },
-        { color: 'purple', text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, consequuntur?' },
-      ],
-    }
-  },
-  components: {
-    VaCarousel,
-    VaCarouselItem,
-  },
+@Component({
+  components: { VaCarousel, VaCarouselItem },
+})
+export default class VaCarouselDemo extends Vue {
+  items = [
+    { color: 'red' },
+    { color: 'orange' },
+    { color: 'yellow' },
+    { color: 'green' },
+    { color: 'skyblue' },
+    { color: 'blue' },
+    { color: 'purple' },
+  ]
 }
 </script>
 

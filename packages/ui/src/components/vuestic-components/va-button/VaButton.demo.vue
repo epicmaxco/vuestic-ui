@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="empty">
-      <va-button />
+      <va-button/>
     </VbCard>
 
     <VbCard>
@@ -332,7 +332,7 @@
         <tr>
           <td>All Buttons Without Title</td>
           <td>
-            <va-button icon="block" />
+            <va-button icon="block"/>
             <va-button
               size="large"
               icon="block"
@@ -482,18 +482,15 @@
   </VbDemo>
 </template>
 
-<script>
+<script lang="ts">
 
-import VaButton from './VaButton'
+import { Component, Vue, Ref } from 'vue-property-decorator'
+import VaButton from './VaButton.vue'
 
-export default {
-  components: {
-    VaButton,
-  },
-  data () {
-    return {
-      buttonLoading: true,
-    }
-  },
+@Component({
+  components: { VaButton },
+})
+export default class VaButtonDemo extends Vue {
+  buttonLoading = true
 }
 </script>

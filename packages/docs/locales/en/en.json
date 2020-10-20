@@ -1875,7 +1875,7 @@
       },
       "color": {
         "title": "Color",
-        "text": "Navigation and pagination can be colourized by using a `color` property."
+        "text": "Navigation and pagination can be colorized by using a `color` property."
       },
       "loop": {
         "title": "Loop",
