@@ -109,17 +109,35 @@ export default class Footer extends Vue {}
   }
 
   &__buttons {
+    @include row-flex();
     @include col();
-    @include size(12);
+    @include size(6);
+    @include shift-left(3);
 
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 3rem;
+    // lg
+    @include size-lg(10);
+    @include shift-lg-left(1);
+    // md
+    @include size-md(6);
+    @include shift-md-left(3);
+    // xs
+    @include size-xs(10);
+    @include shift-xs-left(1);
 
     &__button {
+      @include col();
+      @include size(4);
+
       font-weight: 600;
       font-size: 1rem;
+
+      // md
+      @include size-md(12);
+      @include md(margin-bottom, 1rem);
     }
   }
 

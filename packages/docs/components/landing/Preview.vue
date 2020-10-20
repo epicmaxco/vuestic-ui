@@ -130,6 +130,7 @@ export default class Preview extends Vue {}
       font-size: 1rem;
       // md
       @include size-md(12);
+      @include md(margin-bottom, 1rem);
     }
   }
 
