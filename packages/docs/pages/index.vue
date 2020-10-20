@@ -4,7 +4,7 @@
       :is-sidebar-visible.sync="isSidebarVisible"
       class="base-layout__header"
     />
-    <div class="base-layout__main">
+    <main class="base-layout__main">
       <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes"/>
       <div
         class="base-layout__content"
@@ -26,7 +26,7 @@
         </va-breadcrumbs>
         <nuxt-child class="layout gutter--xl" />
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -132,6 +132,10 @@ html {
   font-family: $font-family-sans-serif;
   color: #1b1a1f;
   font-size: $font-size-root;
+}
+
+body {
+  min-width: $min-body-width;
 }
 
 .base-layout {

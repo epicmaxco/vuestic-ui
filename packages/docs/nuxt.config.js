@@ -3,6 +3,20 @@ import TerserPlugin from 'terser-webpack-plugin'
 
 export default {
   head: {
+    title: 'Vuestic UI',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        name: 'viewport',
+        content:
+          'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no',
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'UI framework for vuestic-admin',
+      },
+    ],
     link: [
       {
         rel: 'stylesheet',

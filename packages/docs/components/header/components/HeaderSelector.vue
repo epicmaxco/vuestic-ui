@@ -57,7 +57,7 @@ export default {
 
 .header-selector {
   cursor: pointer;
-  max-width: 60px;
+  max-width: 55px;
 }
 
 </style>
