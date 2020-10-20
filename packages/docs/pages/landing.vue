@@ -49,7 +49,7 @@ export default class Landing extends Vue {
 }
 
 .preview-wrapper {
-  background-image: url("../assets/landing/images/pattern.png");
+  background-image: url("../assets/landing/images/pattern.svg");
   background-size: unset;
   background-repeat: no-repeat;
   background-position: top;
