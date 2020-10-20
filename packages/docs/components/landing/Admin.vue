@@ -128,10 +128,10 @@ export default class Admin extends Vue {}
     // lg
     @include size-lg(10);
     @include shift-lg-left(1);
-    // // md
+    // md
     @include size-md(6);
     @include shift-md-left(3);
-    // // md
+    // xs
     @include size-xs(10);
     @include shift-xs-left(1);
 
