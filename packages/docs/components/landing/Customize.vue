@@ -10,10 +10,14 @@
           <!-- First block -->
           <div class="customize__content--first">
             <div class="block__components">
-              <va-button color="#6F80E7">
-                Default Button
-              </va-button>
-              <div style="width: 200px;">
+
+              <div class="component">
+                <va-button color="#6F80E7">
+                  Submit
+                </va-button>
+              </div>
+
+              <div class="component">
                 <va-select
                   v-model="value3"
                   :options="options"
@@ -21,17 +25,21 @@
                   label="Country"
                 />
               </div>
+
+              <div class="component">
               <va-slider
-                style="width: 200px;"
                 color="#6F80E7"
                 v-model="value2"
               />
+              </div>
 
-              <va-checkbox
-                v-model="value"
-                label="Checkbox"
-                color="#6F80E7"
-              />
+              <div class="component">
+                <va-checkbox
+                  v-model="value"
+                  label="Checkbox"
+                  color="#6F80E7"
+                />
+              </div>
             </div>
           </div>
           <!-- /First block -->
@@ -160,14 +168,17 @@ export default class Seamless extends Vue {
   }
 
   &__content {
-    margin-top: 3rem;
-
     @include row-flex();
     @include col();
     @include size(8);
     @include shift-left(2);
 
+    margin-top: 3rem;
     justify-content: center;
+
+    // sm
+    @include size-sm(12);
+    @include shift-sm-left(0);
 
     &--first {
       background: #ffffff;
@@ -201,9 +212,21 @@ export default class Seamless extends Vue {
 
 .block {
   &__components {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include row-flex();
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+
+    .component {
+      @include col();
+      @include size(3);
+
+      // lg
+      @include size-lg(6);
+      @include lg(padding-bottom, 1rem);
+      // sm
+      @include size-sm(12);
+    }
   }
 }
 
@@ -223,7 +246,11 @@ export default class Seamless extends Vue {
   height: 12rem;
   padding: 0 4rem;
   overflow: auto;
+  overflow-x: hidden;
   cursor: pointer;
+
+  // sm
+  @include sm(padding, 0 0.5rem);
 
   &::-webkit-scrollbar {
     width: 4px;
