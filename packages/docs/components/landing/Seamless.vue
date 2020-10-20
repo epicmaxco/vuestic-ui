@@ -10,8 +10,12 @@
           <div class="seamless__content--first">
             <h3 class="block__label block__label--vuestic">Vuestic UI components</h3>
             <div class="block__components">
-              <va-button color="#6F80E7">Пампуй</va-button>
-              <div style="width: 200px;">
+
+              <div class="component">
+                <va-button color="#6F80E7">Пампуй</va-button>
+              </div>
+
+              <div class="component">
                 <va-select
                   v-model="value3"
                   :options="options"
@@ -19,15 +23,18 @@
                   label="Country"
                 />
               </div>
-              <div style="width: 200px;">
+
+              <div class="component">
                 <va-slider color="#6F80E7" v-model="value2"/>
               </div>
 
-              <va-checkbox
-                v-model="value"
-                label="选中的复选框"
-                color="#6F80E7"
-              />
+              <div class="component">
+                <va-checkbox
+                  v-model="value"
+                  label="选中的复选框"
+                  color="#6F80E7"
+                />
+              </div>
             </div>
             <img src="../../assets/landing/images/plus.png" alt="">
           </div>
@@ -36,9 +43,14 @@
           <!-- Second block -->
           <div class="seamless__content--second">
             <h3 class="block__label block__label">Other components</h3>
+
             <div class="block__components">
-              <va-button :round="false" color="#F8CB2D">Télécharger</va-button>
-              <div style="width: 200px;">
+
+              <div class="component">
+                <va-button :round="false" color="#F8CB2D">Télécharger</va-button>
+              </div>
+
+              <div class="component">
                 <va-select
                   v-model="value3"
                   :options="options"
@@ -46,15 +58,18 @@
                   label="Another select"
                 />
               </div>
-              <div style="width: 200px;">
+
+              <div class="component">
                 <va-slider v-model="value2"/>
               </div>
 
-              <va-checkbox
-                v-model="value"
-                label="Agree to terms"
-                color="#419488"
-              />
+              <div class="component">
+                <va-checkbox
+                  v-model="value"
+                  label="Agree to terms"
+                  color="#419488"
+                />
+              </div>
             </div>
           </div>
           <!-- /Second block -->
@@ -131,6 +146,10 @@ export default class Seamless extends Vue {
     border-radius: 1rem;
     justify-content: center;
 
+    // sm
+    @include size-sm(12);
+    @include shift-sm-left(0);
+
     &--first {
       position: relative;
       display: flex;
@@ -172,9 +191,18 @@ export default class Seamless extends Vue {
   }
 
   &__components {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include row-flex();
+
+    .component {
+      @include col();
+      @include size(3);
+
+      // lg
+      @include size-lg(6);
+      @include lg(padding-bottom, 1rem);
+      // sm
+      @include size-sm(12);
+    }
   }
 }
 </style>
