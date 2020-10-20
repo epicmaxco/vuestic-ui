@@ -92,6 +92,7 @@ export default class Preview extends Vue {}
   &__title {
     @include col();
     @include size(12);
+    @include title-font();
 
     padding-top: 3.5rem;
     text-align: center;
@@ -148,6 +149,11 @@ export default class Preview extends Vue {}
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  // large
+  @include size-lg(6);
+  @include lg(padding-bottom, 3rem);
+  // small
+  @include size-sm(12);
 
   &__frame {
     display: inline-block;

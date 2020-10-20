@@ -1,0 +1,9 @@
+// headers
+@mixin title-font(){
+  font-weight: 900;
+  font-size: 4.5rem;
+  @include lg(font-size, 4rem);
+  @include md(font-size, 3rem);
+  @include sm(font-size, 2.5rem);
+  @include xs(font-size, 2rem);
+}

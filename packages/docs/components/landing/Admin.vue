@@ -97,11 +97,10 @@ export default class Admin extends Vue {}
   &__title {
     @include col();
     @include size(12);
+    @include title-font();
 
     padding-top: 3.5rem;
     text-align: center;
-    font-weight: 900;
-    font-size: 4.5rem;
   }
 
   &__subtitle {

@@ -56,8 +56,8 @@ export default class OpenSource extends Vue {}
   }
 
   &__title {
-    font-weight: 900;
-    font-size: 4.5rem;
+    @include title-font();
+
     padding-bottom: 1.7rem;
   }
 

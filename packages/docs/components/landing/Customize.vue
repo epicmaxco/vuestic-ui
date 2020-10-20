@@ -142,11 +142,10 @@ export default class Seamless extends Vue {
   &__title {
     @include col();
     @include size(12);
+    @include title-font();
 
     color: #ffffff;
     text-align: center;
-    font-weight: 900;
-    font-size: 4.5rem;
   }
 
   &__subtitle {

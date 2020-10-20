@@ -82,6 +82,9 @@ export default class Header extends Vue {
     justify-content: flex-end;
     align-items: center;
 
+    // small
+    @include sm(display, none);
+
     &--link {
       // padding-right: 1.5rem;
       // color: $active-blue;
