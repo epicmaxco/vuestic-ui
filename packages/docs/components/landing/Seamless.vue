@@ -100,7 +100,7 @@ export default class Seamless extends Vue {
   padding-top: 8.5rem;
   padding-bottom: 12rem;
   background-image: url("../../assets/landing/images/pattern-3.svg");
-  background-size: contain;
+  background-size: cover;
   background-color: $bg-light-sky;
   background-repeat: no-repeat;
   background-position: top;
