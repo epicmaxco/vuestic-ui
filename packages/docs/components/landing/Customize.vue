@@ -38,12 +38,13 @@
 
           <!-- Second block -->
           <div class="customize__content--second">
-            <div class="code-wrapper">
+            <div class="code-wrapper" @click="copyText">
               <div class="code-subwrapper">
               <prism  class="code" language="javascript">{{ code }}</prism>
+              <input type="hidden" ref="codeInput" :value="code">
               </div>
             </div>
-            <div class="clipboard">Copied to clipboard</div>
+            <div class="clipboard" ref="message">Copied to clipboard</div>
           </div>
           <!-- /Second block -->
 
@@ -91,6 +92,23 @@ export default class Seamless extends Vue {
   value2 = 45
   value3 = 'Spain'
   options = ['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA']
+
+  copyText () {
+    const testingCodeToCopy: any = this.$refs.codeInput
+    testingCodeToCopy.setAttribute('type', 'text')
+    testingCodeToCopy.select()
+    try {
+      document.execCommand('copy')
+      ;(this as any).$refs.message.style.opacity = 1
+      setTimeout(() => {
+        ;(this as any).$refs.message.style.opacity = 0
+      }, 2000)
+    } catch (err) {
+      alert('Oops, unable to copy')
+    }
+    testingCodeToCopy.setAttribute('type', 'hidden')
+    ;(window as any).getSelection().removeAllRanges()
+  }
 }
 </script>
 
@@ -196,7 +214,8 @@ export default class Seamless extends Vue {
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   margin-bottom: 0.1rem;
-  opacity: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
   border-radius: 0.2rem;
 }
 
