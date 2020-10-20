@@ -1,5 +1,5 @@
 const utils = require('./utils')
-const uglify = require('uglify-es')
+const { terser } = require('rollup-plugin-terser')
 const rollup = require('rollup')
 const path = require('path')
 const buble = require('@rollup/plugin-buble')
@@ -10,28 +10,30 @@ const typescript = require('rollup-plugin-typescript2')
 const scss = require('rollup-plugin-scss')
 const commonjs = require('@rollup/plugin-commonjs')
 
+// eslint-disable-next-line
 import type { InputOptions, OutputOptions } from 'rollup'
 
 process.env.BABEL_ENV = 'production'
 
 // Setup for when we don't need babel.
 const rollupPluginsModern = [
+  terser(),
   nodeResolve(),
   json(),
   typescript({
     typescript: require('typescript'),
   }),
-  vue(),
   scss(),
+  vue(),
   commonjs({
     // We have to declare imports for rollup to catch up.
     // Not ideal, so remove if rollup gets better or you have good solution.
     namedExports: {
       'node_modules/lodash/index.js': [
-        'isObject'
-      ]
-    }
-  })
+        'isObject',
+      ],
+    },
+  }),
 ]
 
 // Setup for when we do need babel.
@@ -45,10 +47,10 @@ const rollupPluginsLegacy = [
 // There could be a number of configs for specific cases, i.e. icons, css etc.
 type BuildConfig = {
   rollup: {
-    input: InputOptions,
-    output: OutputOptions
-  },
-  build: { minified?: boolean, minExt?: boolean, modern?: boolean, unminified?: boolean },
+    input: InputOptions;
+    output: OutputOptions;
+  };
+  build: { minified?: boolean; minExt?: boolean; modern?: boolean; unminified?: boolean };
 }
 
 const builds: BuildConfig[] = [
@@ -56,7 +58,6 @@ const builds: BuildConfig[] = [
     rollup: {
       input: {
         input: path.resolve(__dirname, './main.ts'),
-        // input: path.resolve(__dirname, './../components/vuestic-components/va-avatar/VaAvatar.vue'),
       },
       output: {
         file: path.resolve(__dirname, './../../dist/main.esm.js'),
@@ -72,12 +73,6 @@ const builds: BuildConfig[] = [
   },
 ]
 
-function build (builds: BuildConfig[]) {
-  return Promise
-    .all(builds.map(genConfig).map(buildEntry))
-    .catch(utils.logError)
-}
-
 function genConfig (config: BuildConfig) {
   config.rollup.input.plugins = config.build.modern === true
     ? rollupPluginsModern
@@ -87,10 +82,10 @@ function genConfig (config: BuildConfig) {
   config.rollup.input.external.push('vue')
 
   config.rollup.output.banner =
-    `/*!\n` +
+    '/*!\n' +
     ` * VuesticUI v' + ${require('./../../package.json').version}\n` +
-    ` * Released under the MIT License.\n` +
-    ` */\n`
+    ' * Released under the MIT License.\n' +
+    ' */\n'
   config.rollup.output.name = config.rollup.output.name || 'VuesticUI'
 
   config.rollup.output.globals = config.rollup.output.globals || {}
@@ -115,7 +110,7 @@ function addExtension (filename: string, ext = 'min') {
  * @param code
  */
 function injectVueRequirement (code: string) {
-  const index = code.indexOf(`Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue`)
+  const index = code.indexOf('Vue = Vue && Vue.hasOwnProperty(\'default\') ? Vue[\'default\'] : Vue')
 
   if (index === -1) {
     return code
@@ -151,25 +146,11 @@ function buildEntry (config: BuildConfig) {
     })
     // @ts-ignore
     .then(code => {
-      if (!config.build.minified) {
-        return code
-      }
-
-      const minified = uglify.minify(code, {
-        compress: {
-          ecma: config.build.modern ? 6 : 5,
-        },
-      })
-
-      if (minified.error) {
-        return Promise.reject(minified.error)
-      }
-
       return utils.writeFile(
         config.build.minExt !== false
           ? addExtension(destination)
           : destination,
-        utils.getBanner(destination) + minified.code,
+        utils.getBanner(destination) + code,
         true,
       )
     })
@@ -178,6 +159,12 @@ function buildEntry (config: BuildConfig) {
       console.error(err)
       process.exit(1)
     })
+}
+
+function build (builds: BuildConfig[]) {
+  return Promise
+    .all(builds.map(genConfig).map(buildEntry))
+    .catch(utils.logError)
 }
 
 build(builds)

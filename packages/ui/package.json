@@ -22,9 +22,9 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@popperjs/core": "^2.1.1",
+    "@types/cleave.js": "^1.4.3",
     "@types/gravatar": "^1.8.1",
     "@vue/compiler-sfc": "^3.0.0-beta.14",
-    "@types/cleave.js": "^1.4.3",
     "approximate-number": "^2.0.0",
     "asva-executors": "^0.1.23",
     "babel-loader": "^8.1.0",
@@ -89,6 +89,7 @@
     "jsdom": "^16.2.2",
     "lint-staged": "^10.1.2",
     "rollup": "^2.13.1",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.27.1",
     "rollup-plugin-vue": "^6.0.0-beta.6",
     "sass": "^1.25.0",

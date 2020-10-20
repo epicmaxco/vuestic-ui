@@ -1,11 +1,8 @@
 <script lang="ts">
 import { Mixins, Component } from 'vue-property-decorator'
 
-import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
-
 import { hasOwnProperty } from '../../../services/utils'
 import { VNode, VNodeChildren } from 'vue'
-import { RecordPropsDefinition } from 'vue/types/options'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import {
@@ -62,7 +59,7 @@ export default class VaBreadcrumbs extends Mixins(
     )
 
     const isDisabledChild = (child: VNode) => {
-      const childPropData = child?.componentOptions?.propsData as RecordPropsDefinition<VaBreadcrumbsItem>
+      const childPropData = child?.componentOptions?.propsData as Record<string, any>
       if (!childPropData || !hasOwnProperty(childPropData, 'disabled')) {
         return false
       }

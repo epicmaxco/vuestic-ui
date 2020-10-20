@@ -3,7 +3,6 @@ const { green, blue, red, magenta, grey } = require('chalk')
 const path = require('path')
 const zlib = require('zlib')
 
-
 const logError = (err: any) => {
   console.error('\n' + red('[Error]'), err)
   console.log()
@@ -45,7 +44,7 @@ const getBanner = (path: string): string => {
  * @param code
  * @param zip - pass true to zip
  */
-const writeFile = (destination: string, code: string, zip: boolean = false): Promise<string> => {
+const writeFile = (destination: string, code: string, zip = false): Promise<string> => {
   const fileSize = getSize(code)
   const filePath = path.relative(process.cwd(), destination)
 
@@ -57,11 +56,11 @@ const writeFile = (destination: string, code: string, zip: boolean = false): Pro
 
     // @ts-ignore
     fs.writeFile(destination, code, err => {
-      if (err) return reject(err)
+      if (err) { return reject(err) }
       if (zip) {
         // @ts-ignore
         zlib.gzip(code, (err, zipped) => {
-          if (err) return reject(err)
+          if (err) { return reject(err) }
           const size = getSize(zipped)
           report(` (gzipped: ${size.padStart(8)})`)
         })
