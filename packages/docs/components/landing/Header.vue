@@ -10,8 +10,8 @@
           <va-button class="header__links--link" flat color="#2550C0">Overview</va-button>
           <va-button class="header__links--link" flat color="#2550C0">Docs</va-button>
           <va-button class="header__links--link" flat color="#2550C0">Discord</va-button>
-          <va-dropdown :offset="[0, 25]" fixed>
-            <va-button class="header__links--link" iconRight="expand_more" flat slot="anchor" color="#2550C0">
+          <va-dropdown v-model="value" :offset="[0, 25]" fixed>
+            <va-button class="header__links--link" :iconRight="value ? 'expand_less' : 'expand_more'" flat slot="anchor" color="#2550C0">
               English
             </va-button>
           <va-list>
@@ -42,7 +42,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 @Component({})
-export default class Header extends Vue {}
+export default class Header extends Vue {
+  value = false
+}
 </script>
 
 <style lang="scss" scoped>
