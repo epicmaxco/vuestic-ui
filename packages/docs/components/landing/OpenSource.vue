@@ -53,18 +53,33 @@ export default class OpenSource extends Vue {}
     @include col();
     @include size(5);
     @include shift-left(1);
+
+    // sm
+    @include size-sm(12);
+    @include shift-sm-left(0);
   }
 
   &__title {
     @include title-font();
 
     padding-bottom: 1.7rem;
+
+    // sm
+    @include sm(text-align, center);
+  }
+
+  &__icon {
+    display: flex;
+
+    @include sm(justify-content, center);
   }
 
   &__text {
     font-weight: 400;
     font-size: 1.1rem;
     line-height: 1.5rem;
+
+    @include sm(text-align, center);
 
     a {
       color: $active-blue;
@@ -74,6 +89,9 @@ export default class OpenSource extends Vue {}
   &__actions {
     @include col();
     @include size(6);
+
+    // sm
+    @include size-sm(12);
 
     img {
       max-width: 100%;
