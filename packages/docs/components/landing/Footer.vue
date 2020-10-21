@@ -111,8 +111,8 @@ export default class Footer extends Vue {}
   &__buttons {
     @include row-flex();
     @include col();
-    @include size(6);
-    @include shift-left(3);
+    @include size(8);
+    @include shift-left(2);
 
     display: flex;
     justify-content: center;
@@ -122,11 +122,14 @@ export default class Footer extends Vue {}
     @include size-lg(10);
     @include shift-lg-left(1);
     // md
+    @include size-md(4);
+    @include shift-md-left(4);
+    // sm
     @include size-md(6);
     @include shift-md-left(3);
     // xs
-    @include size-xs(10);
-    @include shift-xs-left(1);
+    @include size-xs(12);
+    @include shift-xs-left(0);
 
     &__button {
       @include col();

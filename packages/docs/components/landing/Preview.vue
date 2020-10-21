@@ -28,7 +28,7 @@
           <!-- items -->
           <div class="item">
             <div class="item__frame">
-              <img src="@/assets/landing/images/features/nuxt-support.png" alt="nuxt-support">
+              <img src="@/assets/landing/images/features/nuxt-support.svg" alt="nuxt-support">
             </div>
             <h2 class="item__title">Nuxt support</h2>
             <a href="#" class="item__link">Nuxt integration guides</a>
@@ -36,7 +36,7 @@
 
           <div class="item">
             <div class="item__frame">
-              <img src="@/assets/landing/images/features/components.png" alt="responsive-components">
+              <img src="@/assets/landing/images/features/components.svg" alt="responsive-components">
             </div>
             <h2 class="item__title">52 Responsive Components</h2>
             <a href="#" class="item__link">Available components docs</a>
@@ -44,7 +44,7 @@
 
           <div class="item">
             <div class="item__frame">
-              <img src="@/assets/landing/images/features/keyboard-navigation.png" alt="keyboard-navigation">
+              <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="keyboard-navigation">
             </div>
             <h2 class="item__title">Keyboard Navigation</h2>
             <a href="#" class="item__link">Accessibility guides</a>
@@ -52,7 +52,7 @@
 
           <div class="item">
             <div class="item__frame">
-              <img src="@/assets/landing/images/features/modern-browsers.png" alt="modern-browsers">
+              <img src="@/assets/landing/images/features/modern-browsers.svg" alt="modern-browsers">
             </div>
             <h2 class="item__title">Modern Browsers Support</h2>
             <a href="#" class="item__link">Supported browsers list</a>

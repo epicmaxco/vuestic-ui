@@ -36,7 +36,7 @@
                 />
               </div>
             </div>
-            <img src="../../assets/landing/images/plus.png" alt="">
+            <img src="../../assets/landing/images/plus.svg" alt="">
           </div>
           <!-- /First block -->
 

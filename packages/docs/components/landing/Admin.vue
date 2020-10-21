@@ -36,28 +36,28 @@
             <div class="items">
             <div class="item item--first">
               <div class="item__frame">
-                <img src="@/assets/landing/images/admin/open-source.png" alt="open-source">
+                <img src="@/assets/landing/images/admin/open-source.svg" alt="open-source">
               </div>
               <h2 class="item__title">Open source MIT license</h2>
             </div>
 
             <div class="item">
               <div class="item__frame">
-                <img src="@/assets/landing/images/admin/themes.png" alt="themes">
+                <img src="@/assets/landing/images/admin/themes.svg" alt="themes">
               </div>
               <h2 class="item__title">Two built-in color schemes</h2>
             </div>
 
             <div class="item">
               <div class="item__frame">
-                <img src="@/assets/landing/images/admin/responsive.png" alt="responsive">
+                <img src="@/assets/landing/images/admin/responsive.svg" alt="responsive">
               </div>
               <h2 class="item__title">Cross-browser & responsive</h2>
             </div>
 
             <div class="item">
               <div class="item__frame">
-                <img src="@/assets/landing/images/admin/i18n.png" alt="i18n">
+                <img src="@/assets/landing/images/admin/i18n.svg" alt="i18n">
               </div>
               <h2 class="item__title">i18n-ready</h2>
             </div>
