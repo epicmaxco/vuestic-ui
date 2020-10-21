@@ -6,6 +6,18 @@
         <div class="customize__title">Customize Everything</div>
         <div class="customize__subtitle">Make Vuestic UI components match your designs with powerful dynamic configs.</div>
         <div class="customize__content">
+          <!-- Tabs -->
+          <div  class="tabs-wrapper">
+          <va-tabs v-model="tabValue" class="tabs" color="#fff" center grow>
+            <va-tab
+              class="tabs__tab"
+              v-for="tab in ['Large Modern', 'Squared Classy', 'Multiple Themes']"
+              :key="tab"
+            >
+              {{ tab }}
+            </va-tab>
+          </va-tabs>
+          </div>
 
           <!-- First block -->
           <div class="customize__content--first">
@@ -100,6 +112,7 @@ export default class Seamless extends Vue {
   value2 = 45
   value3 = 'Spain'
   options = ['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA']
+  tabValue = 'Large Modern'
 
   copyText () {
     const testingCodeToCopy: any = this.$refs.codeInput
@@ -290,5 +303,21 @@ export default class Seamless extends Vue {
 
   color: #ffffff;
   line-height: 1.4;
+}
+
+.tabs-wrapper {
+  width: 100%;
+}
+
+.tabs {
+  &__tab {
+    margin-bottom: 1rem;
+    margin-left: 0.51rem;
+    margin-right: 0.51rem;
+    // width: 30%;
+    color: #ffffff;
+  }
+
+  padding-bottom: 1rem;
 }
 </style>
