@@ -3,7 +3,7 @@
     <div class="footer__wrapper">
       <div class="footer__inner">
         <div class="footer__image">
-          <img src="../../assets/landing/images/logo.png" alt="">
+          <img src="../../assets/landing/images/logo.svg" alt="">
         </div>
         <div class="footer__buttons">
           <va-button class="footer__buttons__button"

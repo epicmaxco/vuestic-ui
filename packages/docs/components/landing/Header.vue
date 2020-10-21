@@ -3,7 +3,7 @@
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">
-          <img src="../../assets/landing/images/logo.png" alt="Vuestic UI">
+          <img src="../../assets/landing/images/logo.svg" alt="Vuestic UI">
         </div>
         <div class="header__links">
           <!-- vuestic buttons -->
