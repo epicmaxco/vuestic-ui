@@ -3,8 +3,6 @@
   <div class="preview-wrapper">
   <Header />
   <Preview />
-  <div class="layout">
-  </div>
   </div>
   <Seamless />
   <Customize />

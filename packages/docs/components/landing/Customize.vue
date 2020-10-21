@@ -133,6 +133,10 @@ export default class Seamless extends Vue {
   background-size: cover;
   background-position: center;
 
+  // sm
+  @include sm(padding-top, 5rem);
+  @include sm(padding-bottom, 6rem);
+
   &__bg {
     background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
   }
@@ -165,6 +169,9 @@ export default class Seamless extends Vue {
     text-align: center;
     font-weight: normal;
     font-size: 1.1rem;
+
+    // sm
+    @include sm(padding-top, 2rem);
   }
 
   &__content {
@@ -179,6 +186,7 @@ export default class Seamless extends Vue {
     // sm
     @include size-sm(12);
     @include shift-sm-left(0);
+    @include sm(margin-top, 2rem);
 
     &--first {
       background: #ffffff;
@@ -188,6 +196,9 @@ export default class Seamless extends Vue {
       padding: 3rem;
       width: 100%;
       border-radius: 1rem;
+
+      // xs
+      @include xs(padding, 2rem);
     }
 
     &--second {

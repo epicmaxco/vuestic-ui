@@ -39,6 +39,10 @@ export default class OpenSource extends Vue {}
   background-repeat: no-repeat;
   background-position: top;
 
+  // sm
+  @include sm(padding-top, 5rem);
+  @include sm(padding-bottom, 5rem);
+
   &__wrapper {
     @include wrapper();
   }

@@ -78,6 +78,9 @@ export default class Footer extends Vue {}
   padding-top: 4.5rem;
   background: transparent;
 
+  // sm
+  @include sm(padding-top, 1rem);
+
   &__wrapper {
     @include wrapper();
   }
@@ -106,6 +109,10 @@ export default class Footer extends Vue {}
     text-align: center;
     font-weight: normal;
     font-size: 1.1rem;
+
+    // sm
+    @include sm(padding-top, 2rem);
+    @include sm(padding-bottom, 3rem);
   }
 
   &__buttons {
@@ -152,6 +159,9 @@ export default class Footer extends Vue {}
     justify-content: center;
     align-items: center;
     padding-top: 3rem;
+
+    // sm
+    @include sm(padding-top, 1.5rem);
 
     &__item {
       font-weight: 600;

@@ -98,6 +98,9 @@ export default class Preview extends Vue {}
     text-align: center;
     font-weight: 900;
     font-size: 4.5rem;
+
+    // sm
+    @include sm(padding-top, 2rem);
   }
 
   &__buttons {
@@ -156,6 +159,10 @@ export default class Preview extends Vue {}
     @include size(12);
 
     justify-content: center;
+
+    // sm
+    @include sm(padding-top, 26rem);
+    @include sm(padding-bottom, 4rem);
   }
 }
 
