@@ -79,8 +79,8 @@ export default class OpenSource extends Vue {}
   }
 
   &__text {
-    font-weight: 400;
-    font-size: 1.1rem;
+    @include text-font();
+
     line-height: 1.5rem;
 
     @include sm(text-align, center);
@@ -95,7 +95,12 @@ export default class OpenSource extends Vue {}
     @include size(6);
 
     // sm
-    @include size-sm(12);
+    @include size-sm(8);
+    @include shift-sm-left(2);
+    @include sm(padding-top, 1rem);
+    // xs
+    @include size-xs(12);
+    @include shift-xs-left(0);
 
     img {
       max-width: 100%;

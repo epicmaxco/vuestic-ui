@@ -112,11 +112,10 @@ export default class Admin extends Vue {}
   &__subtitle {
     @include col();
     @include size(12);
+    @include text-font();
 
     padding-top: 1.5rem;
     text-align: center;
-    font-weight: normal;
-    font-size: 1.1rem;
   }
 
   &__buttons {
@@ -142,11 +141,9 @@ export default class Admin extends Vue {}
     &--button {
       @include col();
       @include size(4);
-      // display: inline-block;
+      @include button-font();
 
       height: 3rem;
-      font-weight: 600;
-      font-size: 1rem;
 
       // md
       @include size-md(12);
@@ -210,6 +207,8 @@ export default class Admin extends Vue {}
 
     &--first {
       padding-top: 0;
+
+      @include md(padding-top, 2.2rem);
     }
 
     &__frame {
@@ -220,9 +219,9 @@ export default class Admin extends Vue {}
     }
 
     &__title {
+      @include text-font();
+
       padding-left: 1rem;
-      font-weight: 400;
-      font-size: 1.1rem;
       line-height: 1.8rem;
     }
   }

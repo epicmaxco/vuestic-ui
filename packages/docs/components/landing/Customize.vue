@@ -163,12 +163,11 @@ export default class Seamless extends Vue {
   &__subtitle {
     @include col();
     @include size(12);
+    @include text-font();
 
     color: #ffffff;
     padding-top: 3rem;
     text-align: center;
-    font-weight: normal;
-    font-size: 1.1rem;
 
     // sm
     @include sm(padding-top, 2rem);
@@ -213,8 +212,9 @@ export default class Seamless extends Vue {
     }
 
     &__link {
+      @include link-font();
+
       color: #ffffff;
-      font-weight: 600;
       padding-top: 1rem;
       line-height: 1.5rem;
     }
@@ -242,8 +242,11 @@ export default class Seamless extends Vue {
 }
 
 .clipboard {
+  @include text-font();
+
   width: fit-content;
   background-color: #b0e2a7;
+  color: #11380a;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   margin-bottom: 0.1rem;
@@ -283,6 +286,8 @@ export default class Seamless extends Vue {
 }
 
 .code {
+  @include code-font();
+
   color: #ffffff;
   line-height: 1.4;
 }

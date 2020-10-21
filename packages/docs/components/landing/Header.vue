@@ -86,9 +86,8 @@ export default class Header extends Vue {
     @include sm(display, none);
 
     &--link {
-      // padding-right: 1.5rem;
-      // color: $active-blue;
-      font-weight: 600 !important;
+      @include link-font();
+
       line-height: 1.5rem;
     }
   }

@@ -104,11 +104,10 @@ export default class Footer extends Vue {}
   &__subtitle {
     @include col();
     @include size(12);
+    @include text-font();
 
     padding: 3rem 0 4rem;
     text-align: center;
-    font-weight: normal;
-    font-size: 1.1rem;
 
     // sm
     @include sm(padding-top, 2rem);
@@ -141,9 +140,7 @@ export default class Footer extends Vue {}
     &__button {
       @include col();
       @include size(4);
-
-      font-weight: 600;
-      font-size: 1rem;
+      @include button-font();
 
       // md
       @include size-md(12);

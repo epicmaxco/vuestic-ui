@@ -130,11 +130,10 @@ export default class Seamless extends Vue {
   &__subtitle {
     @include col();
     @include size(12);
+    @include text-font();
 
     padding-top: 3rem;
     text-align: center;
-    font-weight: normal;
-    font-size: 1.1rem;
 
     // sm
     @include sm(padding-top, 2rem);

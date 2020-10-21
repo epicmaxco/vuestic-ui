@@ -127,10 +127,9 @@ export default class Preview extends Vue {}
     &--button {
       @include col();
       @include size(4);
+      @include button-font();
 
       height: 3rem;
-      font-weight: 600;
-      font-size: 1rem;
       // md
       @include size-md(12);
       @include md(margin-bottom, 1rem);
@@ -173,7 +172,7 @@ export default class Preview extends Vue {}
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   // large
   @include size-lg(6);
   @include lg(padding-bottom, 3rem);
@@ -188,18 +187,18 @@ export default class Preview extends Vue {}
   }
 
   &__title {
+    @include subtitle-font();
+
     text-align: center;
     padding: 0.75rem 0 0.5rem;
-    font-weight: 700;
-    font-size: 1.4rem;
     line-height: 1.8rem;
   }
 
   &__link {
+    @include link-font();
+
     text-align: center;
-    font-weight: 600;
     line-height: 1.6rem;
-    font-size: 1rem;
     color: $active-blue;
   }
 }
