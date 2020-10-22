@@ -8,7 +8,7 @@
             <img src="../../assets/landing/images/hamburger.svg" alt="menu">
           </div>
         </div>
-        <div class="header__links" ref="links">
+        <div class="header__links" :class="computedClass" ref="links">
           <!-- vuestic buttons -->
           <va-button class="header__links--link" flat color="#2550C0">Overview</va-button>
           <va-button class="header__links--link" flat color="#2550C0">Docs</va-button>
@@ -51,26 +51,14 @@ export default class Header extends Vue {
   width = 0
 
   onClick (value: boolean) {
-    (this as any).$refs.links.style.display = value ? 'none' : 'flex'
     this.isHidden = value
   }
 
-  onResize () {
-    if (this.width > 780) {
-      this.onClick(false)
-    } else if (this.width !== window.innerWidth) {
-      this.onClick(true)
+  get computedClass () {
+    return {
+      'header__links--mobile': window.innerWidth < 780,
+      'header__links--mobile--open': window.innerWidth < 780 && !this.isHidden,
     }
-    this.width = window.innerWidth
-  }
-
-  mounted () {
-    window.addEventListener('resize', this.onResize)
-    this.width = window.innerWidth
-  }
-
-  beforeDestroy () {
-    window.removeEventListener('resize', this.onResize)
   }
 }
 </script>
@@ -96,14 +84,13 @@ export default class Header extends Vue {
     position: relative;
     align-items: center;
     height: 4.5rem;
-    // @include sm(height, auto);
   }
 
   &__logo {
     @include col();
     @include size(4);
     @include size-sm(12);
-    // @include sm(margin-top, 0.7rem);
+
     display: flex;
     justify-content: space-between;
   }
@@ -117,16 +104,23 @@ export default class Header extends Vue {
     align-items: center;
 
     // small
-    @include sm(display, none);
-    @include size-sm(12);
-    @include sm(flex-direction, column);
-    @include sm(background-color, #fff);
-    @include sm(box-shadow, 0 0 29px 0 rgba(111,128,231,1));
-    @include sm(padding, 0.5rem);
-    @include sm(border-radius, 1.1rem);
-    @include sm(position, absolute);
-    @include sm(top, 4.5rem);
-    @include sm(left, 0);
+
+    &--mobile {
+      @include sm(display, none);
+      @include size-sm(12);
+      @include sm(flex-direction, column);
+      @include sm(background-color, #fff);
+      @include sm(box-shadow, 0 0 29px 0 rgba(111,128,231,1));
+      @include sm(padding, 0.5rem);
+      @include sm(border-radius, 1.1rem);
+      @include sm(position, absolute);
+      @include sm(top, 4.5rem);
+      @include sm(left, 0);
+
+      &--open {
+        display: flex;
+      }
+    }
 
     &--link {
       @include link-font();
