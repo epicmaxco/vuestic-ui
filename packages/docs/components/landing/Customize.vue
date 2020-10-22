@@ -311,6 +311,8 @@ export default class Seamless extends Vue {
 
 .tabs {
   &__tab {
+    @include button-font();
+
     margin-bottom: 1rem;
     margin-left: 0.51rem;
     margin-right: 0.51rem;
