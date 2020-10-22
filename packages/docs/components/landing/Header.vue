@@ -47,7 +47,7 @@ import { Component, Vue } from 'vue-property-decorator'
 @Component({})
 export default class Header extends Vue {
   value = false
-  isHidden = false
+  isHidden = true
   width = 0
 
   onClick (value: boolean) {
@@ -56,12 +56,12 @@ export default class Header extends Vue {
   }
 
   onResize () {
-    this.width = window.innerWidth
     if (this.width > 780) {
       this.onClick(false)
     } else if (this.width !== window.innerWidth) {
       this.onClick(true)
     }
+    this.width = window.innerWidth
   }
 
   mounted () {

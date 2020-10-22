@@ -106,8 +106,8 @@ export default class Preview extends Vue {}
   &__buttons {
     @include row-flex();
     @include col();
-    @include size(6);
-    @include shift-left(3);
+    @include size(8);
+    @include shift-left(2);
 
     display: flex;
     justify-content: center;
