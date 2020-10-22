@@ -159,6 +159,8 @@ export default class Preview extends Vue {}
     padding-bottom: 8rem;
     justify-content: center;
 
+    // md
+    @include md(padding-top, 27rem);
     // sm
     @include sm(padding-top, 26rem);
     @include sm(padding-bottom, 4rem);
