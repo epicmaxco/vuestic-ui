@@ -4,7 +4,7 @@
       <div class="opensource__inner">
         <div class="opensource__info">
           <div class="opensource__icon">
-            <img src="../../assets/landing/images/icon-open-source.png" alt="">
+            <img src="../../assets/landing/images/icon-open-source.svg" alt="">
           </div>
           <div class="opensource__title">Open Source</div>
           <div class="opensource__text">
