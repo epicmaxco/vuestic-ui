@@ -237,9 +237,6 @@ export default class Seamless extends Vue {
 .block {
   &__components {
     @include row-flex();
-    // display: flex;
-    // align-items: center;
-    // justify-content: space-between;
 
     .component {
       @include col();
@@ -316,7 +313,6 @@ export default class Seamless extends Vue {
     margin-bottom: 1rem;
     margin-left: 0.51rem;
     margin-right: 0.51rem;
-    // width: 30%;
     color: #ffffff;
   }
 

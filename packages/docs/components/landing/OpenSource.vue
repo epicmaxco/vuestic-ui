@@ -74,7 +74,7 @@ export default class OpenSource extends Vue {}
 
   &__icon {
     display: flex;
-
+    // sm
     @include sm(justify-content, center);
   }
 
@@ -83,6 +83,7 @@ export default class OpenSource extends Vue {}
 
     line-height: 1.5rem;
 
+    // sm
     @include sm(text-align, center);
 
     a {

@@ -103,11 +103,10 @@ export default class Header extends Vue {
     justify-content: flex-end;
     align-items: center;
 
-    // small
-
     &--mobile {
-      @include sm(display, none);
+      // sm
       @include size-sm(12);
+      @include sm(display, none);
       @include sm(flex-direction, column);
       @include sm(background-color, #fff);
       @include sm(box-shadow, 0 0 29px 0 rgba(111,128,231,1));

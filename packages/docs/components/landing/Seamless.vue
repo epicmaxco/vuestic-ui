@@ -140,13 +140,12 @@ export default class Seamless extends Vue {
   }
 
   &__content {
-    margin-top: 3rem;
-
     @include row-flex();
     @include col();
     @include size(8);
     @include shift-left(2);
 
+    margin-top: 3rem;
     background: #ffffff;
     box-shadow: 0 47px 72px -39px rgba(155, 179, 206, 0.8);
     border-radius: 1rem;
@@ -173,6 +172,7 @@ export default class Seamless extends Vue {
         bottom: 0;
         left: 50%;
         transform: translate(-50%, 50%);
+
         // sm
         @include sm(height,25%);
         @include sm(width, 25%);

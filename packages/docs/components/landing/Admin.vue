@@ -128,6 +128,7 @@ export default class Admin extends Vue {}
     justify-content: center;
     align-items: center;
     padding-top: 1.5rem;
+
     // lg
     @include size-lg(10);
     @include shift-lg-left(1);
@@ -183,6 +184,7 @@ export default class Admin extends Vue {}
         display: flex;
         flex-direction: column;
         justify-content: center;
+
         // md
         @include size-md(12);
       }
@@ -200,6 +202,7 @@ export default class Admin extends Vue {}
     display: flex;
     align-items: center;
     padding-top: 2.2rem;
+
     // md
     @include size-md(6);
     // xs
@@ -208,6 +211,7 @@ export default class Admin extends Vue {}
     &--first {
       padding-top: 0;
 
+      // md
       @include md(padding-top, 2.2rem);
     }
 

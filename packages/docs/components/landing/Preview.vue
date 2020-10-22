@@ -130,6 +130,7 @@ export default class Preview extends Vue {}
       @include button-font();
 
       height: 3rem;
+
       // md
       @include size-md(12);
       @include md(margin-bottom, 1rem);
@@ -150,13 +151,12 @@ export default class Preview extends Vue {}
   }
 
   &__features {
-    padding-top: 30rem;
-    padding-bottom: 8rem;
-
     @include row-flex();
     @include col();
     @include size(12);
 
+    padding-top: 30rem;
+    padding-bottom: 8rem;
     justify-content: center;
 
     // sm
@@ -173,10 +173,11 @@ export default class Preview extends Vue {}
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  // large
+
+  // lg
   @include size-lg(6);
   @include lg(padding-bottom, 3rem);
-  // small
+  // sm
   @include size-sm(12);
 
   &__frame {
@@ -226,7 +227,6 @@ export default class Preview extends Vue {}
 @keyframes moveSlideshow {
   100% {
     transform: translateX(-33.33333%);
-    // transform: translateX(-1051px);
   }
 }
 </style>

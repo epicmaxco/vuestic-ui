@@ -124,6 +124,7 @@ export default class Footer extends Vue {}
     justify-content: center;
     align-items: center;
     padding-top: 3rem;
+
     // lg
     @include size-lg(10);
     @include shift-lg-left(1);
