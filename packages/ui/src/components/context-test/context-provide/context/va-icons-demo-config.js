@@ -145,8 +145,21 @@ export default {
     code: 'thumb_up',
     font: 'md-outlined',
   },
+  // social
   github: {
     code: 'github',
-    font: 'fa4',
+    font: 'fab',
+  },
+  discord: {
+    code: 'discord',
+    font: 'fab',
+  },
+  facebook: {
+    code: 'facebook',
+    font: 'fab',
+  },
+  twitter: {
+    code: 'twitter',
+    font: 'fab',
   },
 }

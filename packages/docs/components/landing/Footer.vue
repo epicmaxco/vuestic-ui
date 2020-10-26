@@ -40,20 +40,20 @@
           </va-button>
           <va-button class="footer__social__item"
             color="#2550C0"
-            icon="star_empty"
             flat
+            icon="discord"
           >
           </va-button>
           <va-button class="footer__social__item"
             color="#2550C0"
             flat
-            icon="home"
+            icon="facebook"
           >
           </va-button>
           <va-button class="footer__social__item"
             color="#2550C0"
             flat
-            icon="heart"
+            icon="twitter"
           >
           </va-button>
         </div>
@@ -174,6 +174,8 @@ export default class Footer extends Vue {
 
     &__item {
       font-weight: 600;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
       font-size: 1rem;
     }
   }
