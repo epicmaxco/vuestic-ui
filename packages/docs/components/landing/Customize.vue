@@ -11,7 +11,7 @@
           <va-tabs v-model="tabValue" class="tabs" color="#fff" center grow>
             <va-tab
               class="tabs__tab"
-              v-for="tab in ['Large Modern', 'Squared Classy', 'Multiple Themes']"
+              v-for="tab in [`${$t('landing.customize.tabs[0]')}`, `${$t('landing.customize.tabs[1]')}`, `${$t('landing.customize.tabs[2]')}`]"
               :key="tab"
             >
               {{ tab }}
