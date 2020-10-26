@@ -3,8 +3,8 @@
   <div class="customize">
     <div class="customize__wrapper">
       <div class="customize__inner">
-        <div class="customize__title">Customize Everything</div>
-        <div class="customize__subtitle">Make Vuestic UI components match your designs with powerful dynamic configs.</div>
+        <div class="customize__title">{{$t('landing.customize.title')}}</div>
+        <div class="customize__subtitle">{{$t('landing.customize.text')}}</div>
         <div class="customize__content">
           <!-- Tabs -->
           <div  class="tabs-wrapper">
@@ -64,11 +64,11 @@
               <input type="hidden" ref="codeInput" :value="code">
               </div>
             </div>
-            <div class="clipboard" ref="message">Copied to clipboard</div>
+            <div class="clipboard" ref="message">{{$t('landing.customize.copy')}}</div>
           </div>
           <!-- /Second block -->
 
-          <a class="customize__content__link" href="#">See our configuration guides</a>
+          <a class="customize__content__link" href="#">{{$t('landing.customize.configuration')}}</a>
         </div>
       </div>
     </div>

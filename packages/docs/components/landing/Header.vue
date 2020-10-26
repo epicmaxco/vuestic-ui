@@ -10,9 +10,9 @@
         </div>
         <div class="header__links" :class="computedClass" ref="links">
           <!-- vuestic buttons -->
-          <va-button class="header__links--link" flat color="#2550C0">Overview</va-button>
-          <va-button class="header__links--link" flat color="#2550C0">Docs</va-button>
-          <va-button class="header__links--link" flat color="#2550C0">Discord</va-button>
+          <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
+          <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
+          <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
           <va-dropdown class="header__links--dropdown" v-model="value" :offset="[0, 25]" fixed>
             <va-button class="header__links--link" :iconRight="value ? 'expand_less' : 'expand_more'" flat slot="anchor" color="#2550C0">
               English

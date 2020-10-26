@@ -2,6 +2,88 @@
   "translation": {
     "path": "Example translation string"
   },
+  "landing": {
+    "header": {
+      "buttons": {
+        "overview": "Overview",
+        "docs": "Docs",
+        "discord": "Join on Discord"
+      }
+    },
+    "preview": {
+      "title": "Vue.js UI Library",
+      "buttons": {
+        "start": "Get started",
+        "github": "View on GitHub"
+      },
+      "features": {
+        "nuxt": {
+          "title": "Nuxt Support",
+          "text": "Nuxt integration guides"
+        },
+        "components": {
+          "title": "52 Responsive Components",
+          "text": "Available components docs"
+        },
+        "keyboard": {
+          "title": "Keyboard Navigation",
+          "text": "Accessibility guides"
+        },
+        "browsers": {
+          "title": "Modern Browsers Support",
+          "text": "Supported browsers list"
+        }
+      }
+    },
+    "seamless": {
+      "title": "Seamless Integration",
+      "text": "Use Vuestic UI with other component libraries without any conflicts.",
+      "compare": {
+        "vuestic": "Vuestic UI components",
+        "other": "Other components"
+      }
+    },
+    "customize": {
+      "title": "Customize Everything",
+      "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
+      "copy": "Copied to clipboard",
+      "configuration": "See our configuration guides"
+    },
+    "opensource": {
+      "title": "Open Source",
+      "text": [
+        "Vuestic UI is forever free and open to contributions. See our",
+        "issues",
+        "contributing guide",
+        "and",
+        "discord server",
+        "to help us improve Vuestic UI experience."
+      ]
+    },
+    "admin": {
+      "title": "Vuestic Admin",
+      "text": "Check out Vuestic UI Library in action.",
+      "buttons": {
+        "github": "View on GitHub",
+        "demo": "Live Demo",
+        "star": "Star"
+      },
+      "features": {
+        "opensource": "Open source MIT license",
+        "themes": "Two built-in color schemes",
+        "responsive": "Cross-browser & responsive",
+        "i18n": "i18n-ready"
+      }
+    },
+    "footer": {
+      "text": "Open source, free to use. Development inquiries:",
+      "buttons": {
+        "epicmax": "About Epicmax",
+        "admin": "Vuestic Admin",
+        "spinners": "Epic Spinners"
+      }
+    }
+  },
   "api": {
     "all": {
       "events": {

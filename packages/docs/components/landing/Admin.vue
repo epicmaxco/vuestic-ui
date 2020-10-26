@@ -2,29 +2,29 @@
   <div class="admin">
     <div class="admin__wrapper">
       <div class="admin__inner">
-        <div class="admin__title">Vuestic Admin</div>
-        <div class="admin__subtitle">Check out Vuestic UI Library in action.</div>
+        <div class="admin__title">{{$t('landing.admin.title')}}</div>
+        <div class="admin__subtitle">{{$t('landing.admin.text')}}</div>
         <div class="admin__buttons">
           <va-button class="admin__buttons--button"
             :round="false"
             color="#2550C0"
             icon="github"
           >
-            View on GitHub
+            {{$t('landing.admin.buttons.github')}}
           </va-button>
           <va-button class="admin__buttons--button"
             :round="false"
             color="#2550C0"
             flat
           >
-            Live Demo
+            {{$t('landing.admin.buttons.demo')}}
           </va-button>
           <va-button class="admin__buttons--button"
             :round="false"
             color="#2550C0"
             icon="star_empty"
           >
-            Star
+            {{$t('landing.admin.buttons.star')}}
           </va-button>
         </div>
         <div class="admin__content">
@@ -38,28 +38,28 @@
               <div class="item__frame">
                 <img src="@/assets/landing/images/admin/open-source.svg" alt="open-source">
               </div>
-              <h2 class="item__title">Open source MIT license</h2>
+              <h2 class="item__title">{{$t('landing.admin.features.opensource')}}</h2>
             </div>
 
             <div class="item">
               <div class="item__frame">
                 <img src="@/assets/landing/images/admin/themes.svg" alt="themes">
               </div>
-              <h2 class="item__title">Two built-in color schemes</h2>
+              <h2 class="item__title">{{$t('landing.admin.features.themes')}}</h2>
             </div>
 
             <div class="item">
               <div class="item__frame">
                 <img src="@/assets/landing/images/admin/responsive.svg" alt="responsive">
               </div>
-              <h2 class="item__title">Cross-browser & responsive</h2>
+              <h2 class="item__title">{{$t('landing.admin.features.responsive')}}</h2>
             </div>
 
             <div class="item">
               <div class="item__frame">
                 <img src="@/assets/landing/images/admin/i18n.svg" alt="i18n">
               </div>
-              <h2 class="item__title">i18n-ready</h2>
+              <h2 class="item__title">{{$t('landing.admin.features.i18n')}}</h2>
             </div>
             </div>
             <!-- /items -->

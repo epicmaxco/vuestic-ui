@@ -12,7 +12,7 @@
             flat
             icon="github"
           >
-            About Epicmax
+            {{$t('landing.footer.buttons.epicmax')}}
           </va-button>
           <va-button class="footer__buttons__button"
             :round="false"
@@ -20,7 +20,7 @@
             icon="star_empty"
             flat
           >
-            Vuestic Admin
+            {{$t('landing.footer.buttons.admin')}}
           </va-button>
           <va-button class="footer__buttons__button"
             :round="false"
@@ -28,7 +28,7 @@
             flat
             icon="star_empty"
           >
-            Epic Spinners
+            {{$t('landing.footer.buttons.spinners')}}
           </va-button>
         </div>
         <div class="footer__social">
@@ -57,7 +57,7 @@
           >
           </va-button>
         </div>
-        <div class="footer__subtitle">Open source, free to use. Development inquiries: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
+        <div class="footer__subtitle">{{$t('landing.footer.text')}} <a href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
       </div>
     </div>
   </div>

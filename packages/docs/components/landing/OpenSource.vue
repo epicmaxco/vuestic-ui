@@ -6,11 +6,14 @@
           <div class="opensource__icon">
             <img src="../../assets/landing/images/icon-open-source.svg" alt="">
           </div>
-          <div class="opensource__title">Open Source</div>
+          <div class="opensource__title">{{$t('landing.opensource.title')}}</div>
           <div class="opensource__text">
-            Vuestic UI is forever free and open to contributions.
-            See our <a href="#">issues</a>, <a href="#">contributing guide</a> and <a href="#">discord server</a>
-            to help us improve Vuestic UI experience.</div>
+            {{$t('landing.opensource.text[0]')}}
+            <a href="#">{{$t('landing.opensource.text[1]')}}</a>,
+            <a href="#">{{$t('landing.opensource.text[2]')}}</a>
+            {{$t('landing.opensource.text[3]')}}
+            <a href="#">{{$t('landing.opensource.text[4]')}}</a>
+            {{$t('landing.opensource.text[5]')}}</div>
         </div>
         <div class="opensource__actions">
           <img src="../../assets/landing/images/image-open-source.png" alt="open-source">

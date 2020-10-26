@@ -2,20 +2,20 @@
   <div class="preview">
     <div class="preview__wrapper">
       <div class="preview__inner">
-        <div class="preview__title">Vue.js UI Library</div>
+        <div class="preview__title">{{$t('landing.preview.title')}}</div>
         <div class="preview__buttons">
           <va-button class="preview__buttons--button"
             :round="false"
             color="#2550C0"
           >
-            Get started
+            {{$t('landing.preview.buttons.start')}}
           </va-button>
           <va-button class="preview__buttons--button"
             :round="false"
             color="#2550C0"
             flat icon="github"
           >
-            View on GitHub
+            {{$t('landing.preview.buttons.github')}}
           </va-button>
         </div>
         <div class="preview__image">
@@ -30,32 +30,32 @@
             <div class="item__frame">
               <img src="@/assets/landing/images/features/nuxt-support.svg" alt="nuxt-support">
             </div>
-            <h2 class="item__title">Nuxt support</h2>
-            <a href="#" class="item__link">Nuxt integration guides</a>
+            <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>
+            <a href="#" class="item__link">{{$t('landing.preview.features.nuxt.text')}}</a>
           </div>
 
           <div class="item">
             <div class="item__frame">
               <img src="@/assets/landing/images/features/components.svg" alt="responsive-components">
             </div>
-            <h2 class="item__title">52 Responsive Components</h2>
-            <a href="#" class="item__link">Available components docs</a>
+            <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
+            <a href="#" class="item__link">{{$t('landing.preview.features.components.text')}}</a>
           </div>
 
           <div class="item">
             <div class="item__frame">
               <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="keyboard-navigation">
             </div>
-            <h2 class="item__title">Keyboard Navigation</h2>
-            <a href="#" class="item__link">Accessibility guides</a>
+            <h2 class="item__title">{{$t('landing.preview.features.keyboard.title')}}</h2>
+            <a href="#" class="item__link">{{$t('landing.preview.features.keyboard.text')}}</a>
           </div>
 
           <div class="item">
             <div class="item__frame">
               <img src="@/assets/landing/images/features/modern-browsers.svg" alt="modern-browsers">
             </div>
-            <h2 class="item__title">Modern Browsers Support</h2>
-            <a href="#" class="item__link">Supported browsers list</a>
+            <h2 class="item__title">{{$t('landing.preview.features.browsers.title')}}</h2>
+            <a href="#" class="item__link">{{$t('landing.preview.features.browsers.text')}}</a>
           </div>
           <!-- /items -->
         </div>
