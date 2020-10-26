@@ -10,24 +10,24 @@
             :round="false"
             color="#2550C0"
             flat
-            icon="github"
           >
+            <va-icon class="button-icon" :component="IconEpicmax" />
             {{$t('landing.footer.buttons.epicmax')}}
           </va-button>
           <va-button class="footer__buttons__button"
             :round="false"
             color="#2550C0"
-            icon="star_empty"
             flat
           >
+            <va-icon class="button-icon" :component="IconAdmin" />
             {{$t('landing.footer.buttons.admin')}}
           </va-button>
           <va-button class="footer__buttons__button"
             :round="false"
             color="#2550C0"
             flat
-            icon="star_empty"
           >
+            <va-icon class="button-icon" :component="IconSpinners" />
             {{$t('landing.footer.buttons.spinners')}}
           </va-button>
         </div>
@@ -65,8 +65,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import IconEpicmax from './icons/IconEpicmax.vue'
+import IconAdmin from './icons/IconAdmin.vue'
+import IconSpinners from './icons/IconSpinners.vue'
 @Component({})
-export default class Footer extends Vue {}
+export default class Footer extends Vue {
+  IconEpicmax = IconEpicmax
+  IconAdmin = IconAdmin
+  IconSpinners = IconSpinners
+}
 </script>
 
 <style lang="scss" scoped>
@@ -146,6 +153,10 @@ export default class Footer extends Vue {}
       // md
       @include size-md(12);
       @include md(margin-bottom, 1rem);
+
+      .button-icon {
+        margin-right: 0.5rem;
+      }
     }
   }
 
