@@ -12,11 +12,3 @@ export default {
   name: 'IconEpicmax',
 }
 </script>
-
-<style lang="scss">
-.va-icon-vue {
-  display: inline-block;
-  width: 55px;
-  height: 47.8px;
-}
-</style>
