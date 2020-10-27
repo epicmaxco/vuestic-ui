@@ -15,7 +15,7 @@
           <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
           <va-dropdown class="language-dropdown"  :offset="[0, 25]" fixed>
             <va-button class="header__links--link" iconRight="expand_more" flat square slot="anchor" color="#2550C0">
-              {{ $t(`language.english`) }}
+              {{ $t(`language.${currentLanguage}`) }}
             </va-button>
             <va-list class="language-dropdown__content">
               <va-list-item
@@ -26,7 +26,7 @@
                 @click="setLanguage(option.code)"
               >
                 <va-list-item-section :style="{color: '#2550C0'}">
-                  <span class="dropdown-item__text">{{ $t(`language.${option.name}`) }}</span>
+                  <span class="dropdown-item__text">{{ $t(`language.${option.code}`) }}</span>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>

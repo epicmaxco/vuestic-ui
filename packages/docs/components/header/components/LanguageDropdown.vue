@@ -15,7 +15,7 @@
         <va-icon :class="['flag-icon flag-icon-small', flagIconClass(option.code)]" />
       </va-list-item-section>
       <va-list-item-section :style="{color: primaryColor}">
-        <span class="dropdown-item__text">{{ $t(`language.${option.name}`) }}</span>
+        <span class="dropdown-item__text">{{ $t(`language.${option.code}`) }}</span>
       </va-list-item-section>
     </va-list-item>
   </va-list>

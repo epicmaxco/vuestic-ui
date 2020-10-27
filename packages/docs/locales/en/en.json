@@ -837,10 +837,10 @@
     "innerLoading": "Inner Loading"
   },
   "language": {
-    "brazilian_portuguese": "Português",
-    "english": "English",
-    "spanish": "Spanish",
-    "simplified_chinese": "Simplified Chinese"
+    "br": "Português",
+    "en": "English",
+    "es": "Spanish",
+    "cn": "Simplified Chinese"
   },
   "all": {
     "examples": "Examples",
