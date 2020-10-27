@@ -13,27 +13,29 @@
           <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
           <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
           <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
-          <va-dropdown class="header__links--dropdown" v-model="value" :offset="[0, 25]" fixed>
-            <va-button class="header__links--link" :iconRight="value ? 'expand_less' : 'expand_more'" flat slot="anchor" color="#2550C0">
-              English
+          <va-dropdown class="language-dropdown"  :offset="[0, 25]" fixed>
+            <va-button class="header__links--link" iconRight="expand_more" flat square slot="anchor" color="#2550C0">
+              {{ $t(`language.english`) }}
             </va-button>
-          <va-list>
-            <va-list-item style="display: flex; flex-direction: column; padding: 1rem;">
-              <va-list-item-section>
-                <span>English</span>
-              </va-list-item-section>
-            </va-list-item>
-            <va-list-item style="display: flex; flex-direction: column; padding: 1rem;">
-              <va-list-item-section>
-                <span>中文</span>
-              </va-list-item-section>
-            </va-list-item>
-            <va-list-item style="display: flex; flex-direction: column; padding: 1rem;">
-              <va-list-item-section>
-                <span>Add translation…</span>
-              </va-list-item-section>
-            </va-list-item>
-          </va-list>
+            <va-list class="language-dropdown__content">
+              <va-list-item
+                v-for="(option, id) in options"
+                :key="id"
+                class="language-dropdown__item"
+                :class="{ active: option.code === currentLanguage }"
+                @click="setLanguage(option.code)"
+              >
+                <va-list-item-section :style="{color: '#2550C0'}">
+                  <span class="dropdown-item__text">{{ $t(`language.${option.name}`) }}</span>
+                </va-list-item-section>
+              </va-list-item>
+              <va-list-item>
+                <va-list-item-section :style="{color: '#2550C0', padding: '0.5rem'}">
+                  <va-button outline :round="false" size="small" color="#2550C0">{{$t('landing.header.buttons.translation')}}</va-button>
+                </va-list-item-section>
+              </va-list-item>
+
+            </va-list>
           </va-dropdown>
         </div>
       </div>
@@ -44,7 +46,32 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component({})
+@Component({
+  name: 'language-dropdown',
+  props: {
+    options: {
+      type: Array,
+      default: () => [
+        {
+          code: 'en',
+          name: 'english',
+        },
+        {
+          code: 'es',
+          name: 'spanish',
+        },
+        {
+          code: 'br',
+          name: 'brazilian_portuguese',
+        },
+        {
+          code: 'cn',
+          name: 'simplified_chinese',
+        },
+      ],
+    },
+  },
+})
 export default class Header extends Vue {
   value = false
   isHidden = true
@@ -59,6 +86,15 @@ export default class Header extends Vue {
       'header__links--mobile': window.innerWidth < 780,
       'header__links--mobile--open': window.innerWidth < 780 && !this.isHidden,
     }
+  }
+
+  setLanguage (locale: any) {
+    localStorage.setItem('currentLanguage', locale)
+    ;(this as any).$root.$i18n.setLocale(locale)
+  }
+
+  get currentLanguage () {
+    return (this as any).$root.$i18n.locale
   }
 }
 </script>
@@ -142,6 +178,34 @@ export default class Header extends Vue {
 
   img {
     display: block;
+  }
+}
+
+.language-dropdown {
+  cursor: pointer;
+
+  &__content {
+    background-color: #f6f8f9;
+    border-radius: 0.5rem;
+    // width: 12rem;
+    padding: 0.5rem 0;
+  }
+
+  &__item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    flex-wrap: nowrap;
+
+    &:hover,
+    &.active {
+      .dropdown-item__text {
+        color: #1b1a1f;
+      }
+    }
+  }
+
+  .va-dropdown__anchor {
+    display: inline-block;
   }
 }
 </style>
