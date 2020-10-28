@@ -28,7 +28,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 export default class VaButtonGroup extends Vue {
   @Prop({
     type: String,
-    default: 'primary',
+    default: '',
   }) readonly color!: string
 
   // get computedClass () {
@@ -47,7 +47,7 @@ export default class VaButtonGroup extends Vue {
 .va-button-group {
   display: flex;
   justify-content: stretch;
-  margin: 0.375rem 0.5rem;
+  // margin: 0.375rem 0.5rem;
 
   &--small {
     border-radius: $btn-border-radius-sm;
@@ -65,15 +65,43 @@ export default class VaButtonGroup extends Vue {
     margin: 0;
   }
 
+  & > .va-button:last-child {
+    width: auto;
+    padding-right: 1rem;
+
+    &.va-button--small {
+      padding-right: 0.75rem;
+    }
+
+    &.va-button--large {
+      padding-right: 1.5rem;
+    }
+  }
+
+  & > .va-button:first-child {
+    width: auto;
+    padding-left: 1rem;
+
+    &.va-button--small {
+      padding-left: 0.75rem;
+    }
+
+    &.va-button--large {
+      padding-left: 1.5rem;
+    }
+  }
+
   & > .va-button:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    padding-right: 0.5rem;
     border-right: 0;
   }
 
   & > .va-button + .va-button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    padding-left: 0.5rem;
     border-left: 0;
   }
 }

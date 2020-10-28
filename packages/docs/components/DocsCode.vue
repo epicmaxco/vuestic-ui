@@ -50,6 +50,7 @@ pre[class*='language-'] {
   line-height: 1.5;
   tab-size: 4;
   hyphens: none;
+  border-radius: 0.25rem;
 }
 
 pre[class*='language-'] {

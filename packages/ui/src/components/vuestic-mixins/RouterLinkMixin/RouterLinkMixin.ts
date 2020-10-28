@@ -1,4 +1,4 @@
-import { Vue, Component, Prop, Mixins } from 'vue-property-decorator'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const RouterLinkPropsMixin = makeContextablePropsMixin({
@@ -42,8 +42,11 @@ export class RouterLinkMixin extends Mixins(
   }) readonly target!: string
 
   get tagComputed () {
-    if (this.c_tag === 'a' || this.href || this.target) {
+    if (this.c_tag === 'a' || (this.href && !this.to) || this.target) {
       return 'a'
+    }
+    if (this.c_tag === 'nuxt-link' || (this.$nuxt && this.hasRouterLinkParams)) {
+      return 'nuxt-link'
     }
     if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
       return 'router-link'
@@ -77,6 +80,12 @@ export class RouterLinkMixin extends Mixins(
     const currentHref = this.$router.currentRoute.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
+  }
+
+  get hrefComputed () {
+    // to resolve href on server for SEO optimization
+    // https://github.com/nuxt/nuxt.js/issues/8204
+    return this.href || (this.to ? this.$router?.resolve(this.to, this.$route).href : null)
   }
 
   created () {

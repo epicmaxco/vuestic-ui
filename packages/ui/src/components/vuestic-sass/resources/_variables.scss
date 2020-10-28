@@ -35,6 +35,7 @@ $brand-secondary: #babfc2 !default;
 $light-gray2: #eff4f5 !default;
 $dark-gray: #282828 !default;
 $gray: #adb3b9 !default;
+$default-gray: #8396a5 !default;
 $dark-blue: #0e4ac4 !default;
 $text-gray: #b4b4b4 !default;
 $markdown-code: #d7234e !default;
@@ -69,6 +70,7 @@ $theme-colors: (
 ) !default;
 
 // Layout //
+$min-body-width: 375px;
 $body-color: $vue-darkest-blue !default;
 $layout-padding: 24px !default;
 $top-mobile-nav-height: 6.5rem !default;

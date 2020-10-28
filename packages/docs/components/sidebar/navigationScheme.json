@@ -173,6 +173,10 @@
         {
           "name": "color-palette",
           "displayName": "menu.colorPalette"
+        },
+        {
+          "name": "button-group",
+          "displayName": "menu.buttonGroup"
         }
       ]
     }
