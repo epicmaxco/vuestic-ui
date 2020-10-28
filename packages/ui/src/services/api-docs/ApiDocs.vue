@@ -18,6 +18,7 @@
       <tr
         v-for="(propRow, key) in apiTableData.props"
         :key="key"
+        class="ApiDocs__table__row"
       >
         <td><strong>{{ propRow.name }}</strong></td>
         <td>
@@ -51,6 +52,7 @@
         <tr
           v-for="(apiEventOption, eventName) in apiTableData.events"
           :key="eventName"
+          class="ApiDocs__table__row"
         >
           <td><strong>{{ eventName }}</strong></td>
           <td>
@@ -81,6 +83,7 @@
         <tr
           v-for="(apiSlotOption, slotName) in apiTableData.slots"
           :key="slotName"
+          class="ApiDocs__table__row"
         >
           <td><strong>{{ slotName }}</strong></td>
           <td>
@@ -109,6 +112,7 @@
         <tr
           v-for="(apiMethodOption, methodName) in apiTableData.methods"
           :key="methodName"
+          class="ApiDocs__table__row"
         >
           <td><strong>{{ methodName }}</strong></td>
           <td>
@@ -161,11 +165,17 @@ export default class ApiDocs extends Vue {
 </script>
 
 <style lang="scss">
+@import "../ui/src/components/vuestic-sass/resources/resources";
+
 .ApiDocs {
   &__table {
     width: 100%;
     font-family: "Source Code Pro";
     font-size: 16px;
+
+    &__row {
+      border-bottom: 1px solid $prism-background;
+    }
 
     th {
       font-family: Source Sans Pro !important;

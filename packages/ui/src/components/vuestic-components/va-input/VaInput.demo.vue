@@ -238,6 +238,9 @@
       />
       Value: {{maskReturnFormattedValue}}
     </VbCard>
+    <VbCard title="Number input">
+      <va-input type="number" v-model="num" />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -272,6 +275,7 @@ export default {
       maskNumeralsValue: '',
       maskCustomBlocksValue: '',
       maskReturnFormattedValue: '',
+      num: 10,
     }
   },
 }

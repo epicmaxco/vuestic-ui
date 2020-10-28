@@ -4,9 +4,8 @@
       :is-sidebar-visible.sync="isSidebarVisible"
       class="base-layout__header"
     />
-    <div class="base-layout__main">
-      <Sidebar v-if="isSidebarVisible" :minimized="!isSidebarVisible" />
-      <!-- TODO: remove v-if when icon handling for sidebar is implemented -->
+    <main class="base-layout__main">
+      <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes"/>
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
@@ -27,7 +26,7 @@
         </va-breadcrumbs>
         <nuxt-child class="layout gutter--xl" />
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -39,6 +38,7 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
+import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 
 @Component({
   components: {
@@ -71,6 +71,10 @@ export default class Index extends Vue {
     if (this.$route.hash) {
       document.querySelector(this.$route.hash).scrollIntoView()
     }
+  }
+
+  get navigationRoutes () {
+    return navigationRoutes
   }
 
   beforeDestroy () {
@@ -130,6 +134,10 @@ html {
   font-size: $font-size-root;
 }
 
+body {
+  min-width: $min-body-width;
+}
+
 .base-layout {
   height: 100vh;
   position: fixed;
@@ -146,7 +154,12 @@ html {
     flex-direction: row;
     min-height: $sidebar-viewport-min-height;
     height: $sidebar-viewport-height;
-    margin-top: 64px;
+    margin-top: 4rem;
+
+    @include media-breakpoint-down(sm) {
+      margin-top: 8rem;
+    }
+
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -166,7 +179,7 @@ html {
 
     padding: 2em;
     padding-top: 0;
-    width: calc(100% - 250px);
+    width: 100%;
 
     & > :last-child {
       padding-bottom: 2em;

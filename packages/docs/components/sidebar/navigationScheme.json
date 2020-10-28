@@ -161,6 +161,10 @@
         {
           "name": "date-picker",
           "displayName": "menu.datePicker"
+        },
+        {
+          "name": "button-group",
+          "displayName": "menu.buttonGroup"
         }
       ]
     }

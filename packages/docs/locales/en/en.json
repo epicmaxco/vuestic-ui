@@ -1,4 +1,7 @@
 {
+  "translation": {
+    "path": "Example translation string"
+  },
   "api": {
     "all": {
       "events": {
@@ -40,7 +43,8 @@
         "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
-        "square": "Removes rounded corners."
+        "square": "Removes rounded corners.",
+        "icon": "Sets an icon."
       }
     },
     "VaBadge": {
@@ -306,6 +310,16 @@
         "gradient": "Adds color gradient to `va-card` body.",
         "bordered": "Toggles borders of a card component.",
         "outlined": "Toggles shadow of `va-card`"
+      }
+    },
+    "VaSidebar": {
+      "props": {
+        "minimized": "Minimized state of sidebar.",
+        "hoverable": "Expand sidebar on hover.",
+        "position": "Position of `va-sidebar`, can be `right` or `left`.",
+        "width": "Width of component in maximized state.",
+        "minimizedWidth": "Width of component in minimized state.",
+        "value": "The current visibility state of `va-sidebar`."
       }
     },
     "VaImage": {
@@ -656,14 +670,56 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaButtonGroup": {
+      "slots": {
+        "default": "Slot for buttons"
+      }
+    },
+    "VaButtonToggle": {
+      "props": {
+        "options": "The array of objects with `label` and `value` properties",
+        "value": "Current toggle state",
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
+        "toggleColor": "Color of the toggle button"
+      },
+      "events": {
+        "input":"Emits when toggling to the different button"
+      },
+      "methods": {},
+      "slots": {}
+    },
+    "VaAppBar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaInnerLoading": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Slot for the component to which you want to apply loading styles"
+      }
     }
   },
   "menu": {
+    "categories": {
+      "view": "View",
+      "form": "Form",
+      "layout": "Layout",
+      "navigation": "Navigation",
+      "other": "Other"
+    },
+    "contribution": "Contribution",
+    "documentationPage": "Documentation Page",
     "affix": "Affix",
     "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",
     "badge": "Badge",
     "card": "Card",
+    "sidebar": "Sidebar",
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
@@ -681,8 +737,8 @@
     "image": "Image",
     "optionList": "Option List",
     "divider": "Divider",
-    "button": "Button",
     "checkbox": "Checkbox",
+    "button": "Button",
     "progressBar": "Progress Bar",
     "progressCircle": "Progress Circle",
     "infiniteScroll": "Infinite Scroll",
@@ -699,6 +755,11 @@
     "parallax": "Parallax",
     "backtop": "Backtop",
     "datePicker": "Date Picker"
+    "backtop": "Backtop",
+    "buttonGroup": "Button Group",
+    "buttonToggle": "Button Toggle",
+    "appBar": "App Bar",
+    "innerLoading": "Inner Loading"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -713,6 +774,58 @@
   },
   "docsExample": {
     "showCode": "Show Code"
+  },
+  "documentationPage": {
+    "compilesTo": "compiles to:",
+    "title": "Documentation Page",
+    "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
+    "introduction": {
+      "title": "Introduction",
+      "description": "Instead of using established documentation system, such as [vue-press](https://vuepress.vuejs.org/) or [docsify](https://docsify.js.org/#/), we decided to create a system specifically tailored for Vuestic. It's meant to provide an excellent flexibility for future growth."
+    },
+    "pageConfig": {
+      "title": "Page Config",
+      "generate": "If you're trying to document a component from the scratch - use `yarn generate:component` command, which will guide through the process.",
+      "description": "Documentation is using a flat structure - list of blocks. In all text blocks markdown is supported. Here's the blocks you can use:"
+    },
+    "blocktypes": {
+      "title": {
+        "title": "Title",
+        "text": "Page title is mandatory for documentation pages."
+      },
+      "subtitle": {
+        "title": "Subtitle",
+        "text": "Used for: Examples, API, FAQ. Think `h2`."
+      },
+      "headline": {
+        "title": "Headline",
+        "text": "This block used to mark titles of examples or to FAQ questions. Think `h3`."
+      },
+      "paragraph": {
+        "title": "Paragraph",
+        "text": "Should be used for all non-special text blocks."
+      },
+      "code": {
+        "title": "Code",
+        "text": "Code preview. We use [prism](https://prismjs.com/)."
+      },
+      "example": {
+        "title": "Example",
+        "text": "Shows a component with code preview. Component can use all global services: css classes, colors etc."
+      },
+      "api": {
+        "title": "API",
+        "text": "API documentation for component. Combines component options with manual declarations."
+      }
+    },
+    "apiOptionsTitle": "API Options",
+    "apiOptions": {
+      "text": "With automated code analysis we can't go too far. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
+      "version": "`version` - specifies at which version of vuestic this component or feature were implemented.",
+      "types": "`types` - simpler prop types documentation engine can figure from component options (`String`, `Number` etc). For almost everything else it has to be defined.",
+      "local": "`local` - forces to use component-specific translation. Default behaviour is using 'all' section of the translation object.",
+      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. As some props could be intended for internal use."
+    }
   },
   "avatar": {
     "title": "Avatar",
@@ -1294,6 +1407,52 @@
         {
           "question": "Should I manually set tag if i use link attributes?",
           "answer": "No, we will do it for you. If tag is not set, but `href` is, component tag will be `<a>`, if any of router-link prop is set, it will be `<router-link>`."
+        }
+      ]
+    }
+  },
+  "sidebar": {
+    "title": "Sidebar",
+    "summaryText": "`va-sidebar` is a column to store navigation or secondary information of your app.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage of `va-sidebar`"
+      },
+      "minimized": {
+        "title": "Minimized",
+        "text": "You can minimize sidebar using `minimized` prop"
+      },
+      "hoverable": {
+        "title": "Hoverable",
+        "text": "Manage your sidebar state using `hoverable` prop. It allows to expand 'va-sidebar' on hover."
+      },
+      "position": {
+        "title": "Position",
+        "text": "Align `va-sidebar` to the left or right."
+      },
+      "width": {
+        "title": "Width",
+        "text": "Define custom width of sidebar in maximixed state."
+      },
+      "vModel": {
+        "title": "V-model",
+        "text": "Use v-model to enable/disable `va-sidebar`."
+      },
+      "minimizedWidth": {
+        "title": "Minimized width",
+        "text": "Width of `va-sidebar` when minimized."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Change background color of a sidebar."
+      }
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "What if `minimized` conflicts with `hoverable`?",
+          "answer": "No conflict there, `minimized` has higher priority. If it's `true`, hover will not expand sidebar."
         }
       ]
     }
@@ -1928,6 +2087,83 @@
       "inline": {
         "title": "Inline",
         "text": "You can provide a config object with an `inline` property to add the ability to select multiple dates."
+      }
+    }
+  },
+  "buttonGroup": {
+    "title": "Button Group",
+    "summaryText": "It is a special component that wraps buttons and applies special styles to them.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, you need to wrap your buttons with a `va-button-group` component."
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "Component provides color to each child button."
+      },
+      "sizes": {
+        "title": "Sizes",
+        "text": "You can set different sizes."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can set button styles."
+      },
+      "icons": {
+        "title": "Icons",
+        "text": "Looks good with icons provided to buttons."
+      }
+    }
+  },
+  "buttonToggle": {
+    "title": "Button Toggle",
+    "summaryText": "Button to switch between different values.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, you need to provide an options object and v-model"
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "Applies color presets and HEX colors. Use `toggle-color` prop to set the color of the active button."
+      },
+      "sizes": {
+        "title": "Sizes",
+        "text": "You can provide size presets to the component."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can sets a button styles to the component."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "The component can be disabled."
+      }
+    }
+  },
+  "appBar": {
+    "title": "-- Here is the title --"
+  },
+  "innerLoading": {
+    "title": "Inner Loading",
+    "summaryText": "You can handle the loading state of the wrapped component by using a `va-inner-loading` component.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default wrap a component in `va-inner-loading` with a `loading` property."
+      },
+      "color": {
+        "title": "Color",
+        "text": "You can change the color of the icon."
+      },
+      "size": {
+        "title": "Size",
+        "text": "Supports the ability to resize the icon."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "You can change the loading icon."
       }
     }
   }
