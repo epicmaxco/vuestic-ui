@@ -184,6 +184,8 @@ export default class Header extends Vue {
 .language-dropdown {
   cursor: pointer;
 
+  @include sm(width, 100%);
+
   &__content {
     background-color: #f6f8f9;
     border-radius: 0.5rem;
