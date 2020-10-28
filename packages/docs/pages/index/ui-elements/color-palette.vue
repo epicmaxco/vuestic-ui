@@ -4,17 +4,17 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import DocsContent from '../../components/DocsContent.vue'
-import colorPickerConfig from '../../components/page-configs/va-color-picker/page-config'
+import DocsContent from '../../../components/DocsContent.vue'
+import colorPaletteConfig from '../../../components/page-configs/va-color-palette/page-config'
 
 @Component({
   components: {
     DocsContent,
   },
 })
-export default class ColorPicker extends Vue {
+export default class ColorPalette extends Vue {
   get configComputed () {
-    return colorPickerConfig
+    return colorPaletteConfig
   }
 }
 </script>

@@ -4,8 +4,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import DocsContent from '../../components/DocsContent.vue'
-import colorInputConfig from '../../components/page-configs/va-color-input/page-config'
+import DocsContent from '../../../components/DocsContent.vue'
+import colorInputConfig from '../../../components/page-configs/va-color-input/page-config'
 
 @Component({
   components: {

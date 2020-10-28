@@ -44,8 +44,7 @@
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
         "square": "Removes rounded corners",
-        "indicator": "Sets the indicator style"
-        "square": "Removes rounded corners.",
+        "indicator": "Sets the indicator style",
         "icon": "Sets an icon."
       }
     },
@@ -757,6 +756,7 @@
       "form": "Form",
       "layout": "Layout",
       "navigation": "Navigation",
+      "color": "Color",
       "other": "Other"
     },
     "contribution": "Contribution",
@@ -804,8 +804,7 @@
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
-    "colorPalette": "Color Palette"
-    "backtop": "Backtop",
+    "colorPalette": "Color Palette",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
