@@ -120,7 +120,7 @@
           :class="dotClass"
           :style="dottedStyles"
           @mousedown="(moveStart(), setMouseDown())"
-          @touchstart="moveStart()"
+          @touchstart="(moveStart(), setMouseDown())"
           @focus="isFocused = true"
           @blur="isFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
