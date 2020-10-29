@@ -83,8 +83,7 @@ export default class Header extends Vue {
 
   get computedClass () {
     return {
-      'header__links--mobile': window.innerWidth < 780,
-      'header__links--mobile--open': window.innerWidth < 780 && !this.isHidden,
+      'header__links--open': window.innerWidth < 780 && !this.isHidden,
     }
   }
 
@@ -139,22 +138,19 @@ export default class Header extends Vue {
     justify-content: flex-end;
     align-items: center;
 
-    &--mobile {
-      // sm
-      @include size-sm(12);
-      @include sm(display, none);
-      @include sm(flex-direction, column);
-      @include sm(background-color, #fff);
-      @include sm(box-shadow, 0 0 29px 0 rgba(111,128,231,0.5));
-      @include sm(padding, 0.5rem);
-      @include sm(border-radius, 1.1rem);
-      @include sm(position, absolute);
-      @include sm(top, 4.5rem);
-      @include sm(left, 0);
+    @include size-sm(12);
+    @include sm(display, none);
+    @include sm(flex-direction, column);
+    @include sm(background-color, #fff);
+    @include sm(box-shadow, 0 0 29px 0 rgba(111,128,231,0.5));
+    @include sm(padding, 0.5rem);
+    @include sm(border-radius, 1.1rem);
+    @include sm(position, absolute);
+    @include sm(top, 4.5rem);
+    @include sm(left, 0);
 
-      &--open {
-        display: flex;
-      }
+    &--open {
+      display: flex;
     }
 
     &--link {
