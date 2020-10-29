@@ -287,10 +287,10 @@ export default class VaTabs extends Mixins(
   }
 
   mounted () {
+    window.addEventListener('resize', this.updateTabsState)
     this.parseItems()
     this.updateTabsState()
     this.updatePagination()
-
     this.mutationObserver = new MutationObserver(() => {
       this.parseItems()
       this.updateTabsState()
@@ -300,6 +300,7 @@ export default class VaTabs extends Mixins(
 
   beforeDestroy () {
     if (this.mutationObserver) { this.mutationObserver.disconnect() }
+    window.removeEventListener('resize', this.updateTabsState)
   }
 }
 </script>
