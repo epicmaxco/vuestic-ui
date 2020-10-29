@@ -85,7 +85,7 @@ import Prism from 'vue-prism-component'
 @Component({
   components: { Prism },
 })
-export default class Seamless extends Vue {
+export default class Customize extends Vue {
   code =`<va-button color="#6F80E7">
   Default Button
 </va-button>
@@ -112,7 +112,7 @@ export default class Seamless extends Vue {
   value2 = 45
   value3 = 'Spain'
   options = ['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA']
-  tabValue = 'Large Modern'
+  tabValue = 0
 
   copyText () {
     const testingCodeToCopy: any = this.$refs.codeInput
