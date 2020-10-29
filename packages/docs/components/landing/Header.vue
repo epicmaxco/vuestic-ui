@@ -4,8 +4,9 @@
       <div class="header__inner">
         <div class="header__logo">
           <img src="../../assets/landing/images/logo.svg" alt="Vuestic UI">
-          <div class="menu" @click="onClick(!isHidden)">
-            <img src="../../assets/landing/images/hamburger.svg" alt="menu">
+          <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
+            <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
+            <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
           </div>
         </div>
         <div class="header__links" :class="computedClass" ref="links">
@@ -140,13 +141,15 @@ export default class Header extends Vue {
 
     @include size-sm(12);
     @include sm(display, none);
+    @include sm(margin, 0);
+    @include sm(width, 100%);
+    @include sm(height, 100vh);
     @include sm(flex-direction, column);
+    @include sm(justify-content, center);
     @include sm(background-color, #fff);
-    @include sm(box-shadow, 0 0 29px 0 rgba(111,128,231,0.5));
     @include sm(padding, 0.5rem);
-    @include sm(border-radius, 1.1rem);
-    @include sm(position, absolute);
-    @include sm(top, 4.5rem);
+    @include sm(position, fixed);
+    @include sm(top, 0);
     @include sm(left, 0);
 
     &--open {
@@ -168,6 +171,10 @@ export default class Header extends Vue {
 }
 
 .menu {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  z-index: 1000;
   display: none;
 
   @include sm(display, block);
