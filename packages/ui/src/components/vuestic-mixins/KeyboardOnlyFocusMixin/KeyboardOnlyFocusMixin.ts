@@ -1,6 +1,6 @@
-import { Component, Vue } from 'vue-property-decorator'
 
-@Component
+import { Vue } from 'vue-class-component'
+
 export class KeyboardOnlyFocusMixin extends Vue {
   isFocused = false
   isKeyboardFocused = false
@@ -9,6 +9,7 @@ export class KeyboardOnlyFocusMixin extends Vue {
   // That allows to differentiate mouse from keyboard navigation.
   // Might be not the best approach.
   hasMouseDown = false
+  hasKeyboardOnlyFocusMixin = false
 
   KeyboardOnlyFocusMixin_onFocus (e?: Event, index?: number): void {
     // TODO Index is 100% hack. Please Kill Destroy.
@@ -19,6 +20,6 @@ export class KeyboardOnlyFocusMixin extends Vue {
   }
 
   created () {
-    (this as any).hasKeyboardOnlyFocusMixin = true
+    this.hasKeyboardOnlyFocusMixin = true
   }
 }

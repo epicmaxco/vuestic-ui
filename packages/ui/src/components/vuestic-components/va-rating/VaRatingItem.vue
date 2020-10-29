@@ -28,16 +28,19 @@
 </template>
 
 <script lang="ts">
-import { Watch, Component, Mixins, Vue } from 'vue-property-decorator'
+import { Watch, Mixins } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { RatingValue } from './VaRating.types'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { Options } from 'vue-class-component'
 
-const RatingItemProps = Vue.extend({
+@Options({
+  name: 'VaRatingItem',
+  components: { VaIcon },
   props: {
-    value: { type: Number, default: 0 },
+    modelValue: { type: Number, default: 0 },
     filledIconName: { type: String, default: 'star' },
     halfIconName: { type: String, default: 'star_half' },
     emptyIconName: { type: String, default: 'star_empty' },
@@ -48,16 +51,11 @@ const RatingItemProps = Vue.extend({
     emptyIconColor: { type: String },
   },
 })
-
-@Component({
-  name: 'VaRatingItem',
-  components: { VaIcon },
-})
-export default class VaRatingItem extends Mixins(RatingItemProps, ColorThemeMixin) {
+export default class VaRatingItem extends Mixins(ColorThemeMixin) {
   private isHovered = false
   private isFocused = false
   private shouldEmitClick = false
-  private hoveredValue: RatingValue = this.value
+  private hoveredValue: RatingValue = this.modelValue
 
   private get computedIconName (): string {
     if (this.halves && this.valueProxy === RatingValue.HALF) {
@@ -74,7 +72,7 @@ export default class VaRatingItem extends Mixins(RatingItemProps, ColorThemeMixi
       : this.colorComputed
   }
 
-  @Watch('value')
+  @Watch('modelValue')
   private onValueChange (newVal: RatingValue) {
     this.hoveredValue = newVal
   }
@@ -90,7 +88,7 @@ export default class VaRatingItem extends Mixins(RatingItemProps, ColorThemeMixi
   }
 
   private get valueProxy (): RatingValue {
-    return this.isHovered ? this.hoveredValue : this.value
+    return this.isHovered ? this.hoveredValue : this.modelValue
   }
 
   private onClick (cursorPosition: MouseEvent) {
@@ -123,7 +121,7 @@ export default class VaRatingItem extends Mixins(RatingItemProps, ColorThemeMixi
   }
 
   private removeHover () {
-    this.valueProxy = this.value
+    this.valueProxy = this.modelValue
     this.isHovered = false
   }
 }

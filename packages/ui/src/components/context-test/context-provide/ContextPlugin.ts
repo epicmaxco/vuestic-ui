@@ -1,14 +1,17 @@
+import { App } from 'vue';
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
-import { Component, Mixins, Vue, Inject } from 'vue-property-decorator'
-import { hasOwnProperty } from '../../../services/utils'
+import { Options, mixins, Vue, VueMixin, VueConstructor, MixedVueBase, VueBase } from 'vue-class-component'
 
-declare module 'vue/types/vue' {
-  interface Vue {
-    $vaContextConfig?: ContextConfig;
-  }
-}
+import { hasOwnProperty } from '../../../services/utils'
+import { reactive } from 'vue'
+import { Inject } from 'vue-property-decorator';
+// declare module 'vue/types/vue' {
+//   interface Vue {
+//     $vaContextConfig?: ContextConfig;
+//   }
+// }
 
 const pascalCase = flow(camelCase, upperFirst)
 /**
@@ -25,8 +28,8 @@ export const ContextProviderKey = 'va-context-provider'
  * Plugin provide global config to Vue component through prototype
  */
 export const ContextPlugin = {
-  install (vue: Vue, options: ContextConfig = {}) {
-    Vue.prototype.$vaContextConfig = Vue.observable(options)
+  install(app: App, options: ContextConfig = {}) {
+    app.config.globalProperties.$vaContextConfig = reactive(options)
   },
 }
 
@@ -34,7 +37,7 @@ export const ContextPlugin = {
  * Mixin provide local configs to Vue component through injecting
  * All list of local configs contain in this._$configs
  */
-@Component
+
 export class ContextPluginMixin extends Vue {
   @Inject({
     from: ContextProviderKey,
@@ -80,9 +83,9 @@ export const getContextPropValue = (
   // and methods are not accessible there.
 
   // Local prop takes priority even when empty.
-  if (hasOwnProperty(context, prop)) {
-    return context[prop]
-  }
+  // if (hasOwnProperty(context, prop)) {
+  //   return context[prop]
+  // }
 
   const componentName = pascalCase(context.$options.name)
 
@@ -110,13 +113,14 @@ export const overrideContextConfig = (
   context: { $vaContextConfig: object },
   options: { [x: string]: any },
 ) => {
-  for (const key in { ...options, ...context.$vaContextConfig }) {
-    if (!(key in options)) {
-      Vue.delete(context.$vaContextConfig, key)
-      continue
-    }
-    Vue.set(context.$vaContextConfig, key, options[key])
-  }
+  context.$vaContextConfig = reactive(options)
+  // for (const key in { ...options, ...context.$vaContextConfig }) {
+  //   if (!(key in options)) {
+  //     Vue.delete(context.$vaContextConfig, key)
+  //     continue
+  //   }
+  //   Vue.set(context.$vaContextConfig, key, options[key])
+  // }
 }
 
 /**
@@ -126,7 +130,7 @@ export const overrideContextConfig = (
  * @param context - [object] this of the vue component.
  * @returns {any} Returns property value.
  */
-export function getOriginalPropValue (
+export function getOriginalPropValue(
   key: string,
   context: {
     $options: {
@@ -180,32 +184,43 @@ export const mergeConfigs = (
  * @returns object - vue mixin with props and computed
  */
 export const makeContextablePropsMixin = (componentProps: any, prefix = 'c_') => {
-  const computed = {}
+  const computed: any = {}
 
   Object.entries(componentProps).forEach(([name, definition]) => {
-    // @ts-ignore
+    
     computed[`${prefix}${name}`] = function () {
+      
       // We want to fallback to context in 2 cases:
       // * prop value is undefined (allows user to dynamically enter/exit context).
       // * prop value is not defined
-      // @ts-ignore
-      if (!(name in this.$options.propsData) || this.$options.propsData[name] === undefined) {
-        // @ts-ignore
-        return getContextPropValue(this, name, definition.default)
+      
+      if (typeof (definition as any).default === "function") {
+        if ((definition as any).default() === this.$props[name]) {
+          return getContextPropValue(this, name, (definition as any).default)
+        }
+      } else if ((definition as any).default === this.$props[name]) {
+        return getContextPropValue(this, name, (definition as any).default)
+      } else {
+        return this[name]
       }
-      // In other cases we return the prop itself.
-      // @ts-ignore
-      return this[name]
+
+      // if (!(name in this.$options.propsData) || this.$options.propsData[name] === undefined) {
+      // if (!hasOwnProperty(this.$props, name) || this.$props[name] === undefined) {
+      //   return getContextPropValue(this, name, (definition as any).default)
+      // }
+      // // In other cases we return the prop itself.
+      // return this[name]
     }
   })
 
-  @Component({
-    props: componentProps,
-    computed,
+  @Options({
+    computed: computed,
+    props: componentProps
   })
-  class ContextableMixin extends Mixins(ContextPluginMixin) {
+  class ContextableMixin extends mixins(ContextPluginMixin) {
     [x: string]: any
   }
 
   return ContextableMixin
+
 }

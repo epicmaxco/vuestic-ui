@@ -36,13 +36,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Inject, Mixins } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
+import { Options } from 'vue-class-component'
+import VaTabs from './VaTabs.vue'
+import mitt from 'mitt'
 
 const TabPropsMixin = makeContextablePropsMixin({
   icon: { type: String, default: null },
@@ -52,17 +55,20 @@ const TabPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'div' },
 })
 
-@Component({
+@Options({
   name: 'VaTab',
   components: { VaIcon },
+  emits: ['click', 'keydown-enter', 'focus'],
 })
 export default class VaTab extends Mixins(
   KeyboardOnlyFocusMixin,
   RouterLinkMixin,
   TabPropsMixin,
 ) {
+  @Inject() tabsHanler!: VaTabs
+  // @Inject() eventEmitter!: any
   isActive = false
-  id = null
+  id: any = null
 
   get classComputed () {
     return {
@@ -85,16 +91,30 @@ export default class VaTab extends Mixins(
   }
 
   onTabClick () {
+    this.tabsHanler.eventEmitter.emit('click:tab', this)
     this.$emit('click')
   }
 
   onTabKeydown () {
-    this.$emit('keydown.enter')
+    this.tabsHanler.eventEmitter.emit('keydown.enter:tab', this)
+    this.$emit('keydown-enter')
   }
 
   onFocus () {
     (this as any).KeyboardOnlyFocusMixin_onFocus()
+    this.tabsHanler.eventEmitter.emit('focus:tab', this)
     this.$emit('focus')
+  }
+
+  mounted () {
+    const idx = this.tabsHanler.tabs.push(this)
+    this.id = (this as any).$props.name || idx
+  }
+
+  beforeUnmaunt () {
+    this.tabsHanler.tabs = this.tabsHanler.tabs.filter((t: { id: any }) => t.id === this.id)
+    // eslint-disable-next-line no-return-assign
+    this.tabsHanler.tabs.forEach((t: VaTab | any, idx: number) => t.id = t.$props.name || idx)
   }
 }
 </script>

@@ -1,4 +1,6 @@
 <script>
+import { h } from 'vue'
+
 const $root = 'va-timeline-separator'
 
 export default {
@@ -22,41 +24,41 @@ export default {
       type: Boolean,
     },
   },
-  render (createElement, context) {
-    return createElement(
+  render () {
+    return h(
       'div',
       {
         class: {
           [$root]: true,
-          [`${$root}--vertical`]: context.props.vertical,
+          [`${$root}--vertical`]: this.$props.vertical,
         },
       },
       [
-        createElement('div', {
+        h('div', {
           class: {
             [`${$root}__line`]: true,
-            [`${$root}__line--active`]: context.props.activePrevious,
+            [`${$root}__line--active`]: this.$props.activePrevious,
           },
           style: {
-            backgroundColor: context.props.activePrevious ? context.parent.$themes[context.props.color] : '#dddddd',
+            backgroundColor: this.$props.activePrevious ? this.$parent.$themes[this.$props.color] : '#dddddd',
           },
         }),
-        createElement('div', {
+        h('div', {
           class: {
             [`${$root}__center`]: true,
-            [`${$root}__center--active`]: context.props.active,
+            [`${$root}__center--active`]: this.$props.active,
           },
           style: {
-            backgroundColor: context.props.active ? context.parent.$themes[context.props.color] : '#dddddd',
+            backgroundColor: this.$props.active ? this.$parent.$themes[this.$props.color] : '#dddddd',
           },
         }),
-        createElement('div', {
+        h('div', {
           class: {
             [`${$root}__line`]: true,
-            [`${$root}__line--active`]: context.props.activeNext,
+            [`${$root}__line--active`]: this.$props.activeNext,
           },
           style: {
-            backgroundColor: context.props.activeNext ? context.parent.$themes[context.props.color] : '#dddddd',
+            backgroundColor: this.$props.activeNext ? this.$parent.$themes[this.$props.color] : '#dddddd',
           },
         }),
       ],

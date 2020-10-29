@@ -52,8 +52,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Inject } from 'vue-property-decorator'
-
+import { Mixins, Inject } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import {
@@ -65,6 +64,7 @@ import {
 } from '../../../services/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import { Options } from 'vue-class-component'
 
 const ExpandPropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: false },
@@ -77,8 +77,9 @@ const ExpandPropsMixin = makeContextablePropsMixin({
   colorAll: { type: Boolean, default: false },
 })
 
-@Component({
+@Options({
   components: { VaIcon },
+  emits: ['focus'],
 })
 export default class VaExpand extends Mixins(
   KeyboardOnlyFocusMixin,
@@ -115,9 +116,9 @@ export default class VaExpand extends Mixins(
   }
 
   get computedClasses () {
-    if (this.$parent.$props) {
-      this.popout = this.$parent.$props.popout
-      this.inset = this.$parent.$props.inset
+    if (this.$parent?.$props) {
+      this.popout = (this.$parent.$props as any).popout
+      this.inset = (this.$parent.$props as any).inset
     }
     return {
       'va-expand--disabled': this.c_disabled,
@@ -138,7 +139,7 @@ export default class VaExpand extends Mixins(
   }
 
   get stylesComputed () {
-    if (this.childValue && this.$slots.default?.[0]) {
+    if (this.childValue && (this.$slots as any).default()?.[0]) {
       return {
         height: this.height,
         paddingTop: 1 + 'rem',
@@ -170,7 +171,7 @@ export default class VaExpand extends Mixins(
   }
 
   getHeight () {
-    const node = this.$slots.default?.[0].elm as HTMLElement
+    const node = (this.$slots as any).default()?.[0].elm as HTMLElement
     return node ? `calc(${node.clientHeight}px + 2rem)` : '100%'
   }
 

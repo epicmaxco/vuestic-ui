@@ -37,13 +37,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
+import { Mixins } from 'vue-property-decorator'
 
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const RadioPropsMixin = makeContextablePropsMixin({
-  value: { type: [Object, String, Number, Boolean], default: null },
+  modelValue: { type: [Object, String, Number, Boolean], default: null },
   option: { type: [Object, String, Number, Boolean], default: null },
   name: { type: [String, Number], default: '' },
   disabled: { type: Boolean, default: false },
@@ -53,15 +54,16 @@ const RadioPropsMixin = makeContextablePropsMixin({
   tabindex: { type: Number, default: 0 },
 })
 
-@Component({
+@Options({
   name: 'VaRadio',
+  emits: ['update:modelValue', 'focus'],
 })
 export default class VaRadio extends Mixins(
   ColorThemeMixin,
   RadioPropsMixin,
 ) {
   get isActive () {
-    return this.value === this.option
+    return this.modelValue === this.option
   }
 
   get computedClass () {
@@ -102,7 +104,7 @@ export default class VaRadio extends Mixins(
 
   onClick (e: Event) {
     if (!this.disabled) {
-      this.$emit('input', this.option, e)
+      this.$emit('update:modelValue', this.option, e)
     }
   }
 
@@ -117,7 +119,7 @@ export default class VaRadio extends Mixins(
   }
 
   clear () {
-    this.$emit('input', null)
+    this.$emit('update:modelValue', null)
   }
 }
 </script>

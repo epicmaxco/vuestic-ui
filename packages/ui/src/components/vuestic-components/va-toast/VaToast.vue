@@ -43,9 +43,10 @@
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { NotificationPosition } from './types'
 import { PropType } from 'vue'
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { Mixins, Watch } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import VaIcon from '../va-icon/VaIcon.vue'
+import { Options } from 'vue-class-component'
 
 const ToastPropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },
@@ -66,9 +67,10 @@ const ToastPropsMixin = makeContextablePropsMixin({
   },
 })
 
-@Component({
+@Options({
   name: 'VaToast',
   components: { VaIcon },
+  emits: ['on-click', 'on-close'],
 })
 export default class VaToast extends Mixins(
   ColorThemeMixin,
@@ -118,7 +120,7 @@ export default class VaToast extends Mixins(
       this.onClick()
       return
     }
-    this.$emit('onClick')
+    this.$emit('on-click')
   }
 
   onToastClose () {
@@ -127,7 +129,7 @@ export default class VaToast extends Mixins(
       this.onClose()
       return
     }
-    this.$emit('onClose')
+    this.$emit('on-close')
   }
 
   clearTimer () {

@@ -1,4 +1,4 @@
-import { Component, Mixins } from 'vue-property-decorator'
+import { mixins } from 'vue-class-component'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { getProp } from '../../../services/utils'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
@@ -13,8 +13,7 @@ const componentProps = {
 
 const PropsMixin = makeContextablePropsMixin(componentProps)
 
-@Component
-export class SelectableListMixin extends Mixins(
+export class SelectableListMixin extends mixins(
   FormComponentMixin,
   PropsMixin,
 ) {

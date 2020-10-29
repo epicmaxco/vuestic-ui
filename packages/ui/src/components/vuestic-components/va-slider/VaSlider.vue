@@ -172,7 +172,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch, Mixins, Ref } from 'vue-property-decorator'
+import { Watch, Mixins, Ref } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
@@ -183,10 +183,11 @@ import {
   ContextPluginMixin,
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const SliderPropsMixin = makeContextablePropsMixin({
   range: { type: Boolean, default: false },
-  value: { type: [Number, Array], default: () => [] },
+  modelValue: { type: [Number, Array], default: () => [] },
   trackLabel: { type: String, default: '' },
   color: { type: String, default: '' },
   trackColor: { type: String, default: '' },
@@ -206,9 +207,10 @@ const SliderPropsMixin = makeContextablePropsMixin({
   showTrack: { type: Boolean, default: true },
 })
 
-@Component({
+@Options({
   name: 'VaSlider',
   components: { VaIcon },
+  emits: ['drag-start', 'drag-end', 'change', 'update:modelValue'],
 })
 export default class VaSlider extends Mixins(
   ColorThemeMixin,
@@ -222,9 +224,10 @@ export default class VaSlider extends Mixins(
   isFocused = false
   flag = false
   size = 0
-  currentValue = this.value
+  currentValue = this.modelValue
   currentSlider = 0
   isComponentExists = false
+  hasMouseDown = false
 
   get pinPositionStyle (): 'bottom' | 'left' {
     return this.vertical ? 'bottom' : 'left'
@@ -281,7 +284,7 @@ export default class VaSlider extends Mixins(
   }
 
   get processedStyles () {
-    const validatedValue = this.limitValue(this.value)
+    const validatedValue = this.limitValue(this.modelValue)
 
     if (this.range) {
       const val0 = ((validatedValue[0] - this.min) / (this.max - this.min)) * 100
@@ -305,7 +308,7 @@ export default class VaSlider extends Mixins(
   }
 
   get dottedStyles () {
-    const validatedValue = this.limitValue(this.value)
+    const validatedValue = this.limitValue(this.modelValue)
 
     if (this.range) {
       const val0 = ((validatedValue[0] - this.min) / (this.max - this.min)) * 100
@@ -335,7 +338,7 @@ export default class VaSlider extends Mixins(
   }
 
   get val () {
-    return this.value
+    return this.modelValue
   }
 
   set val (val) {
@@ -345,7 +348,7 @@ export default class VaSlider extends Mixins(
     if (!this.flag) {
       this.$emit('change', val)
     }
-    this.$emit('input', val)
+    this.$emit('update:modelValue', val)
   }
 
   get total () {
@@ -362,7 +365,7 @@ export default class VaSlider extends Mixins(
   }
 
   get interval () {
-    return this.value[1] - this.value[0]
+    return this.modelValue[1] - this.modelValue[0]
   }
 
   get pinsCol () {
@@ -370,7 +373,7 @@ export default class VaSlider extends Mixins(
   }
 
   get position (): any {
-    return this.isRange ? [(this.value[0] - this.min) / this.step * this.gap, (this.value[1] - this.min) / this.step * this.gap] : ((this.value - this.min) / this.step * this.gap)
+    return this.isRange ? [(this.modelValue[0] - this.min) / this.step * this.gap, (this.modelValue[1] - this.min) / this.step * this.gap] : ((this.modelValue - this.min) / this.step * this.gap)
   }
 
   get limit () {
@@ -382,7 +385,7 @@ export default class VaSlider extends Mixins(
   }
 
   get isRange () {
-    return Array.isArray(this.value)
+    return Array.isArray(this.modelValue)
   }
 
   get propsForValidation () {
@@ -457,7 +460,7 @@ export default class VaSlider extends Mixins(
     }
 
     this.flag = true
-    this.$emit('dragStart')
+    this.$emit('drag-start')
   }
 
   moving (e: any) {
@@ -479,8 +482,8 @@ export default class VaSlider extends Mixins(
   moveEnd () {
     if (!this.disabled && !this.readonly) {
       if (this.flag) {
-        this.$emit('dragEnd')
-        this.$emit('change', this.range ? Array.from(this.value) : this.value)
+        this.$emit('drag-end')
+        this.$emit('change', this.range ? Array.from(this.modelValue) : this.modelValue)
       } else {
         return false
       }
@@ -661,10 +664,10 @@ export default class VaSlider extends Mixins(
       if (this.isDiff(this.currentValue[slider], val)) {
         this.currentValue.splice(slider, 1, val)
         if (slider === 0) {
-          this.val = [this.currentValue.splice(slider, 1, val)[0], this.value[1]]
+          this.val = [this.currentValue.splice(slider, 1, val)[0], this.modelValue[1]]
           this.currentValue = [...this.val]
         } else {
-          this.val = [this.value[0], this.currentValue.splice(slider, 1, val)[0]]
+          this.val = [this.modelValue[0], this.currentValue.splice(slider, 1, val)[0]]
           this.currentValue = [...this.val]
         }
       }
@@ -690,14 +693,14 @@ export default class VaSlider extends Mixins(
 
     if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
       if (this.currentSlider) {
-        if (pixelPosition <= (this as any).position[0]) {
+        if (pixelPosition <= this.position[0]) {
           this.val[1] = this.val[0]
           this.currentSlider = 0
         }
         const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
         this.setCurrentValue(v)
       } else {
-        if (pixelPosition >= (this as any).position[1]) {
+        if (pixelPosition >= this.position[1]) {
           this.val[0] = this.val[1]
           this.currentSlider = 1
         }
@@ -715,7 +718,7 @@ export default class VaSlider extends Mixins(
   //   if (this.isRange) {
   //     const slider = this.currentSlider
   //     const difference = 100 / (this.max - this.min)
-  //     const val0 = (this.value[0] - this.min) * difference
+  //     const val0 = (this.modelValue[0] - this.min) * difference
   //     const processPosition = `${val0}%`
 
   //     if (slider === 0) {
@@ -726,7 +729,7 @@ export default class VaSlider extends Mixins(
   //       this.dot1.focus()
   //     }
   //   } else {
-  //     const val = ((this.value - this.min) / (this.max - this.min)) * 100
+  //     const val = ((this.modelValue - this.min) / (this.max - this.min)) * 100
 
   //     this.dot.style[this.pinPositionStyle] = `calc(${val} - 8px)`
   //     this.dot.focus()
@@ -778,16 +781,16 @@ export default class VaSlider extends Mixins(
     }
     const pos = this.getPos(e)
     if (this.isRange) {
-      this.currentSlider = pos > (((this as any).position[1] - (this as any).position[0]) / 2 + (this as any).position[0]) ? 1 : 0
+      this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
     }
-    (this as any).setMouseDown()
-    ;(this as any).setValueOnPos(pos)
-    ;(this as any).moveStart(e)
+    this.setMouseDown(e, 1)
+    this.setValueOnPos(pos)
+    this.moveStart(e, 1)
   }
 
   mounted () {
     this.$nextTick(() => {
-      if (validateSlider(this.value, this.step, this.min, this.max)) {
+      if (validateSlider(this.modelValue, this.step, this.min, this.max)) {
         this.getStaticData()
         this.bindEvents()
       }

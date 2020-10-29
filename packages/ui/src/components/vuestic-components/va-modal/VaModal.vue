@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch, Mixins } from 'vue-property-decorator'
+import { Watch, Mixins } from 'vue-property-decorator'
 import { noop } from 'lodash'
 
 import VaButton from '../va-button'
@@ -91,9 +91,10 @@ import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import ClickOutsideMixin, {
   ClickOutsideOptions,
 } from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'
+import { Options } from 'vue-class-component'
 
 const ModalPropsMixin = makeContextablePropsMixin({
-  value: { type: Boolean, default: false },
+  modelValue: { type: Boolean, default: false },
   title: { type: String, default: '' },
   message: { type: String, default: '' },
   okText: { type: String, default: 'OK' },
@@ -120,9 +121,10 @@ const ModalPropsMixin = makeContextablePropsMixin({
   zIndex: { type: [Number, String], default: undefined },
 })
 
-@Component({
+@Options({
   name: 'VaModal',
   components: { VaButton, VaIcon },
+  emits: ['update:modelValue', 'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside'],
 })
 export default class VaModal extends Mixins(
   StatefulMixin,
@@ -183,7 +185,7 @@ export default class VaModal extends Mixins(
 
       const options: ClickOutsideOptions = {
         onClickOutside: () => {
-          this.$emit('clickOutside')
+          this.$emit('click-outside')
           this.cancel()
         },
         disabled: this.c_noOutsideDismiss || this.c_noDismiss,
@@ -207,7 +209,7 @@ export default class VaModal extends Mixins(
     if (this.c_stateful) {
       this.valueComputed = value
     } else {
-      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
     }
   }
 
@@ -240,7 +242,7 @@ export default class VaModal extends Mixins(
   }
 
   onBeforeEnterTransition (el: HTMLElement) {
-    this.$emit('beforeOpen', el)
+    this.$emit('before-open', el)
   }
 
   onAfterEnterTransition (el: HTMLElement) {
@@ -248,7 +250,7 @@ export default class VaModal extends Mixins(
   }
 
   onBeforeLeaveTransition (el: HTMLElement) {
-    this.$emit('beforeClose', el)
+    this.$emit('before-close', el)
   }
 
   onAfterLeaveTransition (el: HTMLElement) {

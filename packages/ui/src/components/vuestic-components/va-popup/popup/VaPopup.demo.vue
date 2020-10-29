@@ -339,6 +339,7 @@
 import VaPopup from './VaPopup.vue'
 import VaButton from '../../va-button/VaButton'
 import { closeOverlay } from '../directives/closeOverlay'
+import { h } from 'vue'
 
 export default {
   directives: {
@@ -348,7 +349,7 @@ export default {
     VaPopup,
     VaButton,
     TestComponent: {
-      render (h) {
+      render () {
         return h('div', 'Test component')
       },
     },

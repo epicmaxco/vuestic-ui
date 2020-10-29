@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import VaFileUploadList from './VaFileUploadList.vue'
 import VaButton from '../va-button/VaButton.vue'
@@ -58,29 +58,31 @@ import VaModal from '../va-modal/VaModal.vue'
 import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const FileUploadPropsMixin = makeContextablePropsMixin({
   type: {
     type: String,
     default: 'list',
-    validator (value: string) {
-      return ['list', 'gallery', 'single'].includes(value)
+    validator (modelValue: string) {
+      return ['list', 'gallery', 'single'].includes(modelValue)
     },
   },
   fileTypes: { type: String, default: '' },
   dropzone: { type: Boolean, default: false },
-  value: { type: Array, default: () => [] },
+  modelValue: { type: Array, default: () => [] },
   color: { type: String, default: 'success' },
   disabled: { type: Boolean, default: false },
 })
 
-@Component({
+@Options({
   name: 'VaFileUpload',
   components: {
     VaModal,
     VaButton,
     VaFileUploadList,
   },
+  emits: ['update:modelValue'],
 })
 export default class VaFileUpload extends Mixins(
   ColorThemeMixin,
@@ -95,11 +97,11 @@ export default class VaFileUpload extends Mixins(
   }
 
   get files () {
-    return this.value
+    return this.modelValue
   }
 
   set files (files) {
-    this.$emit('input', files)
+    this.$emit('update:modelValue', files)
   }
 
   changeFieldValue (e: Event) {

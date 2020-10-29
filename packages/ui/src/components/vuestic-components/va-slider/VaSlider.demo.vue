@@ -324,14 +324,16 @@
         range
         v-model="value2"
       >
-        <va-input
-          v-model.number="value2[0]"
-          slot="prepend"
-        />
-        <va-input
-          v-model="value2[1]"
-          slot="append"
-        />
+        <template #prepend>
+          <va-input
+            v-model.number="value2[0]"
+          />
+        </template>
+        <template #append>
+          <va-input
+            v-model="value2[1]"
+          />
+        </template>
       </va-slider>
     </VbCard>
   </VbDemo>

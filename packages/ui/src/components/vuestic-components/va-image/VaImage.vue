@@ -27,7 +27,8 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Component, Prop, Watch } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
+import { Mixins, Prop, Watch } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
@@ -36,8 +37,9 @@ const ImagePropsMixin = makeContextablePropsMixin({
   contain: { type: Boolean, default: false },
 })
 
-@Component({
+@Options({
   name: 'VaImage',
+  emits: ['loaded', 'error'],
 })
 export default class VaImage extends Mixins(
   ImagePropsMixin,

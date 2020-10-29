@@ -1,46 +1,27 @@
-import { Vue, Component, Prop, Mixins } from 'vue-property-decorator'
+import { Options, prop, mixins } from 'vue-class-component'
+
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const RouterLinkPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'router-link' },
 })
 // should not be contextable as it's a unique case (we just pass values to vue-router's <router-link/>)
-@Component
-export class RouterLinkMixin extends Mixins(
+
+@Options({
+  props: {
+    to: [String, Object],
+    replace: Boolean,
+    append: Boolean,
+    exact: Boolean,
+    activeClass: String,
+    exactActiveClass: String,
+    href: String,
+    target: String,
+  },
+})
+export class RouterLinkMixin extends mixins(
   RouterLinkPropsMixin,
 ) {
-  @Prop({
-    type: [String, Object],
-  }) readonly to!: string | Record<string, any>
-
-  @Prop({
-    type: Boolean,
-  }) readonly replace!: boolean
-
-  @Prop({
-    type: Boolean,
-  }) readonly append!: boolean
-
-  @Prop({
-    type: Boolean,
-  }) readonly exact!: boolean
-
-  @Prop({
-    type: String,
-  }) readonly activeClass!: string
-
-  @Prop({
-    type: String,
-  }) readonly exactActiveClass!: string
-
-  @Prop({
-    type: String,
-  }) readonly href!: string
-
-  @Prop({
-    type: String,
-  }) readonly target!: string
-
   get tagComputed () {
     if (this.c_tag === 'a' || this.href || this.target) {
       return 'a'
@@ -70,11 +51,10 @@ export class RouterLinkMixin extends Mixins(
 
     const resolve = this.$router.resolve(
       this.to,
-      this.$route,
     )
 
     const to = resolve.href
-    const currentHref = this.$router.currentRoute.path
+    const currentHref = this.$router.currentRoute.value.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
   }

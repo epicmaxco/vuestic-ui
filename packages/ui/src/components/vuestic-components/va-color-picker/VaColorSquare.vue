@@ -6,9 +6,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 
-@Component({
+@Options({
   name: 'VaColorSquare',
 })
 export default class VaColorSquare extends Vue {
@@ -16,7 +17,7 @@ export default class VaColorSquare extends Vue {
     type: String,
     default: '',
     required: true,
-  }) readonly value!: string
+  }) readonly modelValue!: string
 }
 </script>
 

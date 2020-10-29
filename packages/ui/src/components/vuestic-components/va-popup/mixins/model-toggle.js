@@ -14,7 +14,7 @@ export default {
   watch: {
     value (val) {
       if (this.disable && val) {
-        this.$emit('input', false)
+        this.$emit('update:modelValue', false)
         return
       }
 
@@ -38,7 +38,7 @@ export default {
 
       this.showing = true
       if (this.value === false) {
-        this.$emit('input', true)
+        this.$emit('update:modelValue', true)
       }
 
       if (this.$options.modelToggle === void 0 || this.$options.modelToggle.history) {
@@ -79,7 +79,7 @@ export default {
 
       this.showing = false
       if (this.value === true) {
-        this.$emit('input', false)
+        this.$emit('update:modelValue', false)
       }
 
       this.__removeHistory()

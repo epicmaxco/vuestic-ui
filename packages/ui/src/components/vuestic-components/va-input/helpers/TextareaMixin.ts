@@ -1,4 +1,3 @@
-import Component from 'vue-class-component'
 import { Mixins, Watch } from 'vue-property-decorator'
 import calculateNodeHeight from '../calculateNodeHeight'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
@@ -28,9 +27,8 @@ const PropsMixin = makeContextablePropsMixin({
   },
 })
 
-@Component
 export class TextareaMixin extends Mixins(PropsMixin) {
-  @Watch('value')
+  @Watch('modelValue')
   onValueChanged (): void {
     // only for textarea
     if (this.isTextarea) {

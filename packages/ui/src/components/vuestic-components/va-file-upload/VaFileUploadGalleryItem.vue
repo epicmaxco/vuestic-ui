@@ -34,26 +34,28 @@
         name="delete_outline"
         color="danger"
         class="va-file-upload-gallery-item__delete"
-        @click.native="removeImage"
+        @click="removeImage"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import { Prop, Watch } from 'vue-property-decorator'
 
 import VaFileUploadUndo from './VaFileUploadUndo.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { colorToRgba } from '../../../services/color-functions'
+import { Options, Vue } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaFileUploadGalleryItem',
   components: {
     VaIcon,
     VaFileUploadUndo,
   },
+  emits: ['remove'],
 })
 export default class VaFileUploadGalleryItem extends Vue {
   previewImage = ''

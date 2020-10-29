@@ -17,13 +17,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
 
 import VaInput from '../va-input/VaInput.vue'
 import VaCheckbox from '../va-checkbox/VaCheckbox.vue'
 import VaForm from './VaForm.vue'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaFormReset',
   components: { VaForm, VaCheckbox, VaInput },
 })

@@ -16,22 +16,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import ColorDot from './ColorDot.vue'
 import VaInput from '../va-input/VaInput.vue'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaColorInput',
   components: {
     VaInput,
     ColorDot,
   },
+  emits: ['update:modelValue', 'click'],
 })
 export default class VaColorInput extends Vue {
   @Prop({
     type: String,
     default: '',
-  }) readonly value!: string
+  }) readonly modelValue!: string
 
   @Prop({
     type: Boolean,
@@ -44,11 +46,11 @@ export default class VaColorInput extends Vue {
   }) readonly disabled!: boolean
 
   get valueProxy (): any {
-    return this.value
+    return this.modelValue
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 
   onClick (): void {

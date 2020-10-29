@@ -65,10 +65,9 @@ const getComponent = (iconConfig: any) => {
 
 const IconMixinContextableProps = makeContextablePropsMixin({
   name: { type: String, default: '' },
-  iconsConfig: { type: Object, default: () => ({}) },
+  iconsConfig: { type: Object, default: {} },
 })
 
-@Component
 export class IconMixin extends Mixins(
   IconMixinContextableProps,
 ) {

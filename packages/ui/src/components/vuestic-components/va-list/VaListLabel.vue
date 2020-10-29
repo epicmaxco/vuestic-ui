@@ -8,11 +8,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
+import { Mixins } from 'vue-property-decorator'
 
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
-@Component({
+@Options({
   name: 'VaListLabel',
 })
 export default class VaListLabel extends Mixins(

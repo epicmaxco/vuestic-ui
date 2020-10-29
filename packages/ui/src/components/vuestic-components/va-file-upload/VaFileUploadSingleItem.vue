@@ -16,15 +16,17 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 
 import VaButton from '../va-button/VaButton.vue'
 
-@Component({
+@Options({
   name: 'VaFileUploadSingleItem',
   components: {
     VaButton,
   },
+  emits: ['remove'],
 })
 export default class VaFileUploadSingleItem extends Vue {
   @Prop({

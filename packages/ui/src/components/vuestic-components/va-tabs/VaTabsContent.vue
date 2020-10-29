@@ -1,20 +1,20 @@
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { h, VNode } from 'vue'
+import { Vue, Options } from 'vue-class-component'
+import { filterSlots } from './tabsUtils'
 
-@Component({
+@Options({
   name: 'VaTabsContent',
 })
 export default class VaTabsContent extends Vue {
-  render (createElement: any) {
+  render () {
+    // todo fix filter for non VaTabs elements
+    // filterSlots((this as any).$slots.default(), (n: VNode | any) => typeof n.type === 'string'),
     // Should render only html markup mapped to selected tab
     // ATM renders all content that is not tabs
-    return createElement(
-      'div', (this as any).$slots.default.filter((e: any) => {
-        if (e.componentOptions) {
-          return e.componentOptions.Ctor.options.name !== 'VaTab'
-        }
-        return true
-      }),
+    return h(
+      'div', {},
+      // filterSlots((this as any).$slots.default(), (n: VNode | any) => typeof n.type === 'string'),
     )
   }
 }

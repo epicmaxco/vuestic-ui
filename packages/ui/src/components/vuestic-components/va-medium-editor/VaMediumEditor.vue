@@ -5,13 +5,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 
 // @ts-ignore
 import MediumEditor from 'medium-editor'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaMediumEditor',
+  emits: ['initialized'],
 })
 export default class VaMediumEditor extends Vue {
   editor = null as any

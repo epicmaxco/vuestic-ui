@@ -41,10 +41,11 @@
         v-model="text"
         label="Name"
       >
-        <va-icon
-          slot="prependInner"
-          name="share"
-        />
+        <template #prependInner>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-input>
     </VbCard>
     <VbCard title="Button">
@@ -52,13 +53,14 @@
         v-model="text"
         label="Name"
       >
-        <va-button
-          slot="appendInner"
-          style="margin-right: 0;"
-          size="small"
-        >
-          Upload
-        </va-button>
+        <template #appendInner>
+          <va-button
+            style="margin-right: 0;"
+            size="small"
+          >
+            Upload
+          </va-button>
+        </template>
       </va-input>
     </VbCard>
     <VbCard title="Prepend Slot">
@@ -66,10 +68,11 @@
         v-model="text"
         label="Name"
       >
-        <va-icon
-          slot="prepend"
-          name="share"
-        />
+        <template #prepend>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-input>
     </VbCard>
     <VbCard title="Prepend Inner Slot">
@@ -77,10 +80,11 @@
         v-model="text"
         label="Name"
       >
-        <va-icon
-          slot="prependInner"
-          name="share"
-        />
+        <template #prependInner>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-input>
     </VbCard>
     <VbCard title="Append Slot">
@@ -88,10 +92,11 @@
         v-model="text"
         label="Name"
       >
-        <va-icon
-          slot="append"
-          name="share"
-        />
+        <template #append>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-input>
     </VbCard>
     <VbCard title="Append Inner Slot">
@@ -99,10 +104,11 @@
         v-model="text"
         label="Name"
       >
-        <va-icon
-          slot="appendInner"
-          name="share"
-        />
+        <template #appendInner>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-input>
     </VbCard>
     <VbCard title="Removable Icon">

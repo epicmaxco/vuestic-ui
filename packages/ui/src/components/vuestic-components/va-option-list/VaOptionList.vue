@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import VaRadio from '../va-radio/VaRadio.vue'
 import VaCheckbox from '../va-checkbox/VaCheckbox.vue'
@@ -71,6 +71,7 @@ import { generateUuid } from '../../../services/utils'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { Options } from 'vue-class-component'
 
 const OptionListPropsMixin = makeContextablePropsMixin({
   type: {
@@ -84,10 +85,10 @@ const OptionListPropsMixin = makeContextablePropsMixin({
   name: { type: String, default: generateUuid },
   color: { type: String, default: 'primary' },
   leftLabel: { type: Boolean, default: false },
-  value: { type: [String, Number, Object, Array] },
+  modelValue: { type: [String, Number, Object, Array] },
 })
 
-@Component({
+@Options({
   name: 'VaOptionList',
   components: { VaRadio, VaCheckbox, VaSwitch, VaInputWrapper },
 })

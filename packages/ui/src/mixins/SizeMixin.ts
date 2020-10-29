@@ -1,5 +1,6 @@
 import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
-import Component, { mixins } from 'vue-class-component'
+import { mixins, Vue } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 
 export const sizesConfig = {
   defaultSize: 48,
@@ -37,7 +38,6 @@ const sizeProps = {
   },
 }
 
-@Component
 export class SizeMixin extends mixins(makeContextablePropsMixin(sizeProps)) {
   fontRegex = /(?<fontSize>\d+)(?<extension>px|rem)/i
 

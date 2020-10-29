@@ -8,7 +8,7 @@
 import { makeContextablePropsMixin } from './context-provide/ContextPlugin'
 
 const contextConfigMixin = makeContextablePropsMixin({
-  value: { default: 'default' },
+  modelValue: { default: 'default' },
 })
 
 export default {

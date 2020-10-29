@@ -30,13 +30,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import VaFileUploadListItem from './VaFileUploadListItem.vue'
 import VaFileUploadGalleryItem from './VaFileUploadGalleryItem.vue'
 import VaFileUploadSingleItem from './VaFileUploadSingleItem.vue'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const FileUploadListPropsMixin = makeContextablePropsMixin({
   type: { type: String, default: '' },
@@ -44,13 +45,14 @@ const FileUploadListPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: 'success' },
 })
 
-@Component({
+@Options({
   name: 'VaFileUploadList',
   components: {
     VaFileUploadListItem,
     VaFileUploadGalleryItem,
     VaFileUploadSingleItem,
   },
+  emits: ['remove', 'removeSingle'],
 })
 export default class VaFileUploadList extends Mixins(
   FileUploadListPropsMixin,

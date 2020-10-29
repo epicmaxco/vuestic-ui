@@ -19,24 +19,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import VaColorPickerInput from './VaColorPickerInput.vue'
 import VaSimplePalettePicker from './VaSimplePalettePicker.vue'
 import VaColorInput from './VaColorInput.vue'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaPaletteCustom',
   components: {
     VaColorInput,
     VaColorPickerInput,
     VaSimplePalettePicker,
   },
+  emits: ['update:modelValue'],
 })
 export default class VaPaletteCustom extends Vue {
   @Prop({
     type: String,
     default: '',
-  }) readonly value!: string
+  }) readonly modelValue!: string
 
   @Prop({
     type: Array,
@@ -44,15 +46,15 @@ export default class VaPaletteCustom extends Vue {
   }) readonly palette!: Array<string>
 
   get valueProxy (): any {
-    return this.value
+    return this.modelValue
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 
   get dotIsSelected (): boolean {
-    return this.palette.includes(this.value)
+    return this.palette.includes(this.modelValue)
   }
 }
 </script>

@@ -3,7 +3,8 @@ import isFunction from 'lodash/isFunction'
 import flatten from 'lodash/flatten'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { deepEqual } from '../../../services/utils'
-import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
+// import { Watch } from 'vue-property-decorator'
+import { Vue, mixins, Options } from 'vue-class-component'
 
 const prepareValidations = (messages: any = [], callArguments = null) => {
   if (isString(messages)) { messages = [messages] }
@@ -24,8 +25,24 @@ const componentProps = {
 
 const PropsMixin = makeContextablePropsMixin(componentProps)
 
-@Component
-export class FormComponentMixin extends Mixins(
+@Options({
+  props: {
+    id: {
+      type: [String, Number],
+      default: undefined,
+    },
+    name: {
+      type: [String, Number],
+      default: undefined,
+    },
+    modelValue: {
+      validator: () => {
+        throw new Error('ValidateMixin: `modelValue` prop should be defined in component.')
+      },
+    },
+  },
+})
+export class FormComponentMixin extends mixins(
   PropsMixin,
 ) {
   hadFocus = false
@@ -33,35 +50,27 @@ export class FormComponentMixin extends Mixins(
   internalErrorMessages = null
   internalError = false
 
-  @Prop({ type: [String, Number], default: undefined }) id!: string | number
-  @Prop({ type: [String, Number], default: undefined }) name!: string | number
-  @Prop({
-    validator: () => {
-      throw new Error('ValidateMixin: `value` prop should be defined in component.')
-    },
-  }) value: any
-
   created () {
     // That's just a flag for form to figure out whether component is form component.
     this.isFormComponent = true
   }
 
-  @Watch('rules', { deep: true })
-  onRulesChanged (newVal: any, oldVal: any) {
-    // We want this check, because rules are passed as function,
-    // and, therefore, are recalculated on pretty much every change.
-    if (deepEqual(newVal, oldVal)) {
-      return
-    }
-    this.validate()
-  }
+  // @Watch('rules', { deep: true })
+  // onRulesChanged (newVal: any, oldVal: any) {
+  //   // We want this check, because rules are passed as function,
+  //   // and, therefore, are recalculated on pretty much every change.
+  //   if (deepEqual(newVal, oldVal)) {
+  //     return
+  //   }
+  //   this.validate()
+  // }
 
-  @Watch('isFocused')
-  onIsFocusedChanged (isFocused: boolean) {
-    if (isFocused) {
-      this.hadFocus = true
-    }
-  }
+  // @Watch('isFocused')
+  // onIsFocusedChanged (isFocused: boolean) {
+  //   if (isFocused) {
+  //     this.hadFocus = true
+  //   }
+  // }
 
   /** @public */
   validate (): any {
@@ -69,7 +78,7 @@ export class FormComponentMixin extends Mixins(
     this.computedErrorMessages = []
 
     if (this.rules && this.rules.length > 0) {
-      prepareValidations(flatten(this.rules), this.value)
+      prepareValidations(flatten(this.rules), this.modelValue)
         .forEach((validateResult: any) => {
           if (isString(validateResult)) {
             this.computedErrorMessages.push(validateResult)

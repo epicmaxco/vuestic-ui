@@ -6,7 +6,7 @@
     :messages="c_messages"
     :style="{width}"
   >
-    <slot name="prepend" slot="prepend" />
+    <slot name="prepend" />
 
     <va-dropdown
       class="va-select__dropdown"
@@ -17,7 +17,7 @@
       boundaryBody
       :closeOnAnchorClick="c_multiple"
       keepAnchorWidth
-      @input="onDropdownInput"
+      @update:modelValue="onDropdownInput"
       ref="dropdown"
     >
       <va-input
@@ -47,119 +47,120 @@
         ref="optionList"
       />
 
-      <div
-        slot="anchor"
-        class="va-select"
-        :class="selectClass"
-        :style="selectStyle"
-        tabindex="0"
-        @focus="isFocused = true"
-        @blur="isFocused = false"
-        @keydown.stop.prevent="updateHintedOption"
-        @keydown.up.stop.prevent="hoverPreviousOption"
-        @keydown.left.stop.prevent="hoverPreviousOption"
-        @keydown.down.stop.prevent="hoverNextOption"
-        @keydown.right.stop.prevent="hoverNextOption"
-        @keydown.enter.stop.prevent="selectHoveredOption"
-        @keydown.space.stop.prevent="selectHoveredOption"
-      >
+      <template #anchor>
+        <div
+          class="va-select"
+          :class="selectClass"
+          :style="selectStyle"
+          tabindex="0"
+          @focus="isFocused = true"
+          @blur="isFocused = false"
+          @keydown.stop.prevent="updateHintedOption"
+          @keydown.up.stop.prevent="hoverPreviousOption"
+          @keydown.left.stop.prevent="hoverPreviousOption"
+          @keydown.down.stop.prevent="hoverNextOption"
+          @keydown.right.stop.prevent="hoverNextOption"
+          @keydown.enter.stop.prevent="selectHoveredOption"
+          @keydown.space.stop.prevent="selectHoveredOption"
+        >
 
-        <div class="va-select__content-wrapper">
-          <div class="va-select__controls" v-if="$slots.prependInner">
-            <div class="va-select__prepend-slot">
-              <slot name="prependInner" />
+          <div class="va-select__content-wrapper">
+            <div class="va-select__controls" v-if="$slots.prependInner">
+              <div class="va-select__prepend-slot">
+                <slot name="prependInner" />
+              </div>
             </div>
-          </div>
-          <div
-            class="va-select__content"
-            :class="[label ? 'va-select__content__selection--no-label' : '']"
-          >
-            <label
-              v-if="label"
-              class="va-select__content__label"
-              :style="labelStyle"
-              ref="label"
-              aria-hidden="true"
-            >
-              {{ label }}
-            </label>
-            <template v-if="selectionValue || selectionTags">
-              <div
-                class="va-select__content__selection"
-                v-if="c_multiple"
-              >
-                <div v-if="tags && selectionTags.length <= tagMax">
-                  <va-tag
-                    class="va-select__content__selection--tag"
-                    v-for="(option, i) in selectionTags"
-                    :key="i"
-                    size="small"
-                    color="primary"
-                    :closeable="deletableTags"
-                    @input="selectOption(option)"
-                  >
-                    {{option}}
-                  </va-tag>
-                </div>
-                <div v-else>
-                  {{ selectionTags }}
-                </div>
-              </div>
-              <div
-                v-else-if="selectionValue"
-                class="va-select__content__selection"
-              >
-                {{ selectionValue }}
-              </div>
-            </template>
             <div
-              v-else
-              class="va-select__content__selection va-select__content__selection--placeholder"
+              class="va-select__content"
+              :class="[label ? 'va-select__content__selection--no-label' : '']"
             >
-              {{ placeholder }}
+              <label
+                v-if="label"
+                class="va-select__content__label"
+                :style="labelStyle"
+                ref="label"
+                aria-hidden="true"
+              >
+                {{ label }}
+              </label>
+              <template v-if="selectionValue || selectionTags">
+                <div
+                  class="va-select__content__selection"
+                  v-if="c_multiple"
+                >
+                  <div v-if="tags && selectionTags.length <= tagMax">
+                    <va-tag
+                      class="va-select__content__selection--tag"
+                      v-for="(option, i) in selectionTags"
+                      :key="i"
+                      size="small"
+                      color="primary"
+                      :closeable="deletableTags"
+                      @update:modelValue="selectOption(option)"
+                    >
+                      {{option}}
+                    </va-tag>
+                  </div>
+                  <div v-else>
+                    {{ selectionTags }}
+                  </div>
+                </div>
+                <div
+                  v-else-if="selectionValue"
+                  class="va-select__content__selection"
+                >
+                  {{ selectionValue }}
+                </div>
+              </template>
+              <div
+                v-else
+                class="va-select__content__selection va-select__content__selection--placeholder"
+              >
+                {{ placeholder }}
+              </div>
             </div>
-          </div>
 
-          <div class="va-select__controls">
+            <div class="va-select__controls">
 
-            <div class="va-select__append-slot">
-              <slot name="appendInner" />
-            </div>
+              <div class="va-select__append-slot">
+                <slot name="appendInner" />
+              </div>
 
-            <div v-if="showClearIcon" class="va-select__icon">
-              <va-icon
-                :name="clearIcon"
-                @click.native.stop="reset()"
-              />
-            </div>
+              <div v-if="showClearIcon" class="va-select__icon">
+                <va-icon
+                  :name="clearIcon"
+                  @click.stop="reset()"
+                />
+              </div>
 
-            <div v-if="loading" class="va-select__icon">
-              <va-icon
-                spin
-                :color="computeColor('success')"
-                :size="24"
-                name="loop"
-              />
-            </div>
+              <div v-if="loading" class="va-select__icon">
+                <va-icon
+                  spin
+                  :color="computeColor('success')"
+                  :size="24"
+                  name="loop"
+                />
+              </div>
 
-            <div class="va-select__icon">
-              <va-icon
-                :color="computeColor('grey')"
-                :name="toggleIcon"
-              />
+              <div class="va-select__icon">
+                <va-icon
+                  :color="computeColor('grey')"
+                  :name="toggleIcon"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
     </va-dropdown>
 
-    <slot name="append" slot="append" />
+    <slot name="append" />
 
   </va-input-wrapper>
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { Mixins, Watch } from 'vue-property-decorator'
 
 import VaDropdown from '../va-dropdown/VaDropdown.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
@@ -176,11 +177,12 @@ import {
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
+import { Options } from 'vue-class-component'
 
 const positions: string[] = ['top', 'bottom']
 
 const PropsMixin = makeContextablePropsMixin({
-  value: { type: [String, Number, Object, Array], default: '' },
+  modelValue: { type: [String, Number, Object, Array], default: '' },
   label: { type: String, default: '' },
   placeholder: { type: String, default: '' },
   position: {
@@ -216,7 +218,7 @@ const PropsMixin = makeContextablePropsMixin({
   },
 })
 
-@Component({
+@Options({
   components: {
     VaTag,
     VaSelectOptionList,
@@ -225,6 +227,7 @@ const PropsMixin = makeContextablePropsMixin({
     VaInput,
     VaInputWrapper,
   },
+  emits: ['update-search', 'update:modelValue', 'clear'],
 })
 export default class VaSelect extends Mixins(
   ContextPluginMixin,
@@ -242,7 +245,7 @@ export default class VaSelect extends Mixins(
 
   @Watch('search')
   onSearchValueChange (value: string) {
-    this.$emit('updateSearch', value)
+    this.$emit('update-search', value)
   }
 
   @Watch('visible')
@@ -256,21 +259,21 @@ export default class VaSelect extends Mixins(
 
   get valueProxy () {
     if (this.multiple && !this.isArrayValue) {
-      return this.value ? [this.value] : []
+      return this.modelValue ? [this.modelValue] : []
     }
-    return this.value
+    return this.modelValue
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 
   get isArrayValue () {
-    return Array.isArray(this.value)
+    return Array.isArray(this.modelValue)
   }
 
   get isPrimitiveValue () {
-    return typeof this.value === 'string' || typeof this.value === 'number'
+    return typeof this.modelValue === 'string' || typeof this.modelValue === 'number'
   }
 
   get isObjectValue () {
@@ -381,7 +384,7 @@ export default class VaSelect extends Mixins(
       return true
     }
     // i'm not sure why we need this
-    if (typeof this.value === 'string') {
+    if (typeof this.modelValue === 'string') {
       return false
     }
     if (typeof one === 'string' && typeof two === 'string') {
@@ -416,7 +419,7 @@ export default class VaSelect extends Mixins(
   selectOption (option: any): void {
     this.search = ''
     const isSelected = this.getSelectedState(option)
-    const value: any = this.value || []
+    const value: any = this.modelValue || []
 
     if (this.multiple) {
       const filterSelected = () => {
@@ -504,7 +507,7 @@ export default class VaSelect extends Mixins(
       ? (Array.isArray(this.clearValue) ? this.clearValue : [])
       : this.clearValue
     this.search = ''
-    this.value = this.clearValue
+    this.modelValue = this.clearValue
     this.$emit('clear')
   }
 

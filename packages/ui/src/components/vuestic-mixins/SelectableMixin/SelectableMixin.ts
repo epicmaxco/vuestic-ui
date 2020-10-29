@@ -1,9 +1,10 @@
-import { Component, Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { KeyboardOnlyFocusMixin } from '../KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import { mixins, Options } from 'vue-class-component'
+import { Ref } from 'vue-property-decorator'
 
 const componentProps = {
   arrayValue: { type: [String, Object], default: '' },
@@ -17,8 +18,10 @@ const componentProps = {
 
 const PropsMixin = makeContextablePropsMixin(componentProps)
 
-@Component
-export class SelectableMixin extends Mixins(
+@Options({
+  emits: ['update:modelValue', 'focus', 'blur'],
+})
+export class SelectableMixin extends mixins(
   PropsMixin,
   ColorThemeMixin,
   StatefulMixin,
@@ -32,7 +35,7 @@ export class SelectableMixin extends Mixins(
 
   get isChecked (): boolean {
     if (this.modelIsArray) {
-      return this.c_value && this.c_value.includes(this.c_arrayValue)
+      return this.c_modelValue && this.c_modelValue.includes(this.c_arrayValue)
     }
     return this.valueComputed === this.c_trueValue
   }
@@ -47,12 +50,12 @@ export class SelectableMixin extends Mixins(
 
   /** @public */
   focus (): void {
-    (this as any).$refs.input.focus()
+    (this.$refs.input as any).focus()
   }
 
   /** @public */
   reset (): void {
-    this.$emit('input', false)
+    this.$emit('update:modelValue', false)
   }
 
   checkDuplicates (): void {
@@ -87,7 +90,7 @@ export class SelectableMixin extends Mixins(
 
   onWrapperClick (): void {
     if (this.isElementRelated(document.activeElement)) {
-      (this as any).$refs.input.focus()
+      (this.$refs.input as any).focus()
       this.isKeyboardFocused = false
     }
     this.toggleSelection()
@@ -97,14 +100,14 @@ export class SelectableMixin extends Mixins(
     if (this.c_readonly || this.c_disabled || this.c_loading) {
       return
     }
-    // For array access we pretend computedValue does not exist and use c_value + emit input directly.
+    // For array access we pretend computedValue does not exist and use c_modelValue + emit input directly.
     if (this.modelIsArray) {
-      if (!this.c_value) {
-        this.$emit('input', [this.c_arrayValue])
-      } else if (this.c_value.includes(this.c_arrayValue)) {
-        this.$emit('input', this.c_value.filter((option: any) => option !== this.c_arrayValue))
+      if (!this.c_modelValue) {
+        this.$emit('update:modelValue', [this.c_arrayValue])
+      } else if (this.c_modelValue.includes(this.c_arrayValue)) {
+        this.$emit('update:modelValue', this.c_modelValue.filter((option: any) => option !== this.c_arrayValue))
       } else {
-        this.$emit('input', this.c_value.concat(this.c_arrayValue))
+        this.$emit('update:modelValue', this.c_modelValue.concat(this.c_arrayValue))
       }
       return
     }

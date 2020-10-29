@@ -15,7 +15,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
+import { Mixins } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import VaButton from '../va-button/VaButton.vue'
 
@@ -42,7 +43,7 @@ const PropsMixin = makeContextablePropsMixin({
   },
 })
 
-@Component({
+@Options({
   name: 'VaBacktop',
   components: { VaButton },
 })

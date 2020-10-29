@@ -25,7 +25,7 @@
           <div
             class="va-tabs__tabs"
             :style="paginationControlledStyles"
-            ref="tabs"
+            ref="tabsR"
           >
             <div
               class="va-tabs__slider-wrapper"
@@ -58,19 +58,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { Mixins, Provide, Watch } from 'vue-property-decorator'
 
 import VaButton from '../va-button/VaButton.vue'
-import VaTab from './VaTab.vue'
 import VaTabsItems from './VaTabsItems.vue'
 import VaTabsContent from './VaTabsContent.vue'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { Options } from 'vue-class-component'
+import mitt from 'mitt'
 
 const TabsPropsMixin = makeContextablePropsMixin({
-  value: { type: [String, Number], default: null },
+  modelValue: { type: [String, Number], default: null },
   left: { type: Boolean, default: true },
   right: { type: Boolean, default: false },
   center: { type: Boolean, default: false },
@@ -83,16 +84,19 @@ const TabsPropsMixin = makeContextablePropsMixin({
   nextIcon: { type: String, default: 'chevron_right' },
 })
 
-@Component({
+@Options({
   name: 'VaTabs',
   components: { VaButton, VaTabsContent, VaTabsItems },
 })
 export default class VaTabs extends Mixins(
   ColorThemeMixin,
-  VaTabsItems,
+  // VaTabsItems,
   StatefulMixin,
   TabsPropsMixin,
 ) {
+  @Provide() tabsHanler = this
+  eventEmitter = mitt()
+
   tabs: any = []
   sliderHeight: null | number = null
   sliderWidth: null | number = null
@@ -161,40 +165,13 @@ export default class VaTabs extends Mixins(
     return this.tabs[this.tabs.length - 1].rightSidePosition <= this.tabsContentOffset + (this as any).$refs.container.clientWidth
   }
 
-  @Watch('value')
+  @Watch('modelValue')
   onValueChanged () {
     this.updateTabsState()
   }
 
-  parseItems () {
-    const content = (this as any).$slots.default || 0
-    const length = content.length
-    this.tabs = []
-
-    for (let i = 0; i < length; i++) {
-      if (content[i].componentOptions) {
-        if (content[i].componentOptions.Ctor.options.name === 'VaTab') {
-          const instance = content[i].componentInstance
-          instance.id = instance.name || i
-
-          this.tabs.push(instance)
-
-          if (!instance._tabEventsInited) {
-            // eslint-disable-next-line @typescript-eslint/no-this-alias
-            const self = this
-
-            instance.$on('click', function (this: VaTab) { self.selectTab(this) })
-            instance.$on('keydown.enter', function (this: VaTab) { self.selectTab(this) })
-            instance.$on('focus', function (this: VaTab) { self.ensureVisible(this) })
-            instance._tabEventsInited = true
-          }
-        }
-      }
-    }
-  }
-
   selectTab (tab: any) {
-    this.valueComputed = tab.id
+    this.valueComputed = tab.$props.name || tab.id
     if (this.stateful) {
       this.updateTabsState()
     }
@@ -208,7 +185,7 @@ export default class VaTabs extends Mixins(
         this.updateSlider(this.tabs[i])
         hasActive = true
         this.tabs[i].isActive = true
-      } else if (this.tabs[i].id === this.tabSelected) {
+      } else if ((this.tabs[i].$props.name || this.tabs[i].id) === this.tabSelected) {
         hasActive = true
         this.ensureVisible(this.tabs[i])
         this.updateSlider(this.tabs[i])
@@ -224,8 +201,8 @@ export default class VaTabs extends Mixins(
 
   updatePagination () {
     this.showPagination = false
-    if (this.$refs.tabs && this.$refs.wrapper) {
-      if ((this as any).$refs.tabs.clientWidth > (this as any).$refs.wrapper.clientWidth) { this.showPagination = true }
+    if (this.$refs.tabsR && this.$refs.wrapper) {
+      if ((this as any).$refs.tabsR.clientWidth > (this as any).$refs.wrapper.clientWidth) { this.showPagination = true }
     }
   }
 
@@ -287,15 +264,17 @@ export default class VaTabs extends Mixins(
   }
 
   mounted () {
-    this.parseItems()
+    this.eventEmitter.on('click:tab', tab => this.selectTab(tab))
+    this.eventEmitter.on('keydown.enter:tab', tab => this.selectTab(tab))
+    this.eventEmitter.on('focus:tab', tab => this.ensureVisible(tab))
+
     this.updateTabsState()
     this.updatePagination()
 
     this.mutationObserver = new MutationObserver(() => {
-      this.parseItems()
       this.updateTabsState()
     })
-    this.mutationObserver.observe(this.$refs.tabs, { childList: true, subtree: true })
+    this.mutationObserver.observe(this.$refs.tabsR, { childList: true, subtree: true })
   }
 
   beforeDestroy () {

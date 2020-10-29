@@ -25,13 +25,15 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import { Prop, Watch } from 'vue-property-decorator'
 
 import { createPopper } from '@popperjs/core'
 import { DebounceLoader } from 'asva-executors'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaDropdown',
+  emits: ['update:modelValue', 'anchor-click', 'click-outside'],
 })
 export default class VaDropdown extends Vue {
   @Prop({ type: String, default: '' }) debugId!: string
@@ -39,7 +41,7 @@ export default class VaDropdown extends Vue {
   @Prop({ type: Number, default: 30 }) hoverOverTimeout!: number
   @Prop({ type: Number, default: 200 }) hoverOutTimeout!: number
   @Prop({ type: Boolean }) boundaryBody!: boolean
-  @Prop({ type: Boolean }) value!: boolean
+  @Prop({ type: Boolean }) modelValue!: boolean
   @Prop({ type: Boolean }) disabled!: boolean
   // Makes no sense
   // @Prop({ type: Boolean }) fixed!: boolean
@@ -84,7 +86,7 @@ export default class VaDropdown extends Vue {
       return this.isClicked
     }
     if (this.trigger === 'none') {
-      return this.value
+      return this.modelValue
     }
 
     return false
@@ -107,7 +109,7 @@ export default class VaDropdown extends Vue {
   }
 
   onAnchorClick (): void {
-    this.$emit('anchorClick')
+    this.$emit('anchor-click')
     if (this.disabled) {
       return
     }
@@ -164,7 +166,7 @@ export default class VaDropdown extends Vue {
   }
 
   onClickOutside (): void {
-    this.$emit('clickOutside')
+    this.$emit('click-outside')
     if (!this.closeOnClickOutside) {
       return
     }
@@ -193,7 +195,7 @@ export default class VaDropdown extends Vue {
       modifiers: [],
       // strategy: this.fixed ? 'fixed' : undefined,
       onFirstUpdate: () => {
-        this.$emit('input', true)
+        this.$emit('update:modelValue', true)
       },
     }
 
@@ -226,7 +228,7 @@ export default class VaDropdown extends Vue {
   }
 
   removePopper (): void {
-    this.$emit('input', false)
+    this.$emit('update:modelValue', false)
 
     if (!this.popperInstance) {
       return
@@ -250,7 +252,7 @@ export default class VaDropdown extends Vue {
       this.hoverOutTimeout,
     )
     // nuxt fix
-    if (this.$isServer) {
+    if ((this as any).$isServer) {
       return
     }
     this.registerClickOutsideListener()

@@ -15,18 +15,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
+import { Options } from 'vue-class-component'
+import { Mixins } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const MessageListPropsMixin = makeContextablePropsMixin({
-  value: { type: [String, Number, Object, Array], default: '' },
+  modelValue: { type: [String, Number, Object, Array], default: '' },
   limit: { type: Number, default: 1 },
   color: { type: String, default: 'gray' },
 })
 
-@Component({
+@Options({
   name: 'VaMessageList',
 })
 export default class VaMessageList extends Mixins(
@@ -36,13 +36,13 @@ export default class VaMessageList extends Mixins(
   colorThemeDefault = 'gray' // mixin override
 
   get messages () {
-    if (!this.c_value) {
+    if (!this.c_modelValue) {
       return []
     }
-    if (!Array.isArray(this.c_value)) {
-      return [this.c_value]
+    if (!Array.isArray(this.c_modelValue)) {
+      return [this.c_modelValue]
     }
-    return this.c_value.slice(0, this.limit)
+    return this.c_modelValue.slice(0, this.limit)
   }
 
   get computedStyle () {

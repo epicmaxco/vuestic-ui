@@ -12,10 +12,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 
-@Component({
+@Options({
   name: 'ColorDot',
+  emits: ['click'],
 })
 export default class ColorDot extends Vue {
   @Prop({

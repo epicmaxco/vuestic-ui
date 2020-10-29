@@ -12,7 +12,7 @@
         :messages="c_messages"
         :error-messages="c_errorMessages"
       >
-        <template slot="append">
+        <template #append>
           <va-icon
             color="gray"
             name="calendar_today"
@@ -36,99 +36,96 @@ import VueFlatpickrComponent from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
 import VaInput from '../va-input/VaInput'
 import VaIcon from '../va-icon/VaIcon'
-import {
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Mixins } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
 
-export default {
+const contextableProps = makeContextablePropsMixin(
+  {
+    modelValue: {
+      type: [String, Object, Number],
+      default: '',
+    },
+    weekDays: {
+      type: Boolean,
+      default: false,
+    },
+    placeholder: {
+      type: String,
+      default: '',
+    },
+    label: {
+      type: String,
+      default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    error: {
+      type: Boolean,
+      default: false,
+    },
+    success: {
+      type: Boolean,
+      default: false,
+    },
+    messages: {
+      type: Array,
+      default: () => [],
+    },
+    errorMessages: {
+      type: Array,
+      default: () => [],
+    },
+    config: {
+      type: Object,
+      default: () => undefined,
+    },
+  },
+)
+
+@Options({
   name: 'VaDatePicker',
-  mixins: [
-    makeContextablePropsMixin(
-      {
-        value: {
-          type: [String, Object, Number],
-          default: '',
-        },
-        weekDays: {
-          type: Boolean,
-          default: false,
-        },
-        placeholder: {
-          type: String,
-          default: '',
-        },
-        label: {
-          type: String,
-          default: '',
-        },
-        disabled: {
-          type: Boolean,
-          default: false,
-        },
-        error: {
-          type: Boolean,
-          default: false,
-        },
-        success: {
-          type: Boolean,
-          default: false,
-        },
-        messages: {
-          type: Array,
-          default: () => [],
-        },
-        errorMessages: {
-          type: Array,
-          default: () => [],
-        },
-        config: {
-          type: Object,
-          default: () => undefined,
-        },
-      },
-    ),
-  ],
   components: {
     VaInput,
     VueFlatpickrComponent,
     VaIcon,
   },
-  data () {
-    return {
-      isOpen: false,
+  emits: ['update:modelValue'],
+})
+export default class VaDatePicker extends Mixins(contextableProps) {
+  isOpen = false
+
+  get valueProxy () {
+    return this.c_modelValue
+  }
+
+  set valueProxy (value) {
+    if (!this.c_disabled) {
+      this.$emit('update:modelValue', value)
     }
-  },
-  computed: {
-    valueProxy: {
-      get () {
-        return this.c_value
-      },
-      set (value) {
-        if (!this.c_disabled) {
-          this.$emit('input', value)
-        }
-      },
-    },
-    fullConfig () {
-      return Object.assign({}, this.defaultConfig, this.c_config)
-    },
-    defaultConfig () {
-      return {
-        wrap: true,
-        nextArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-forward"/>', // TODO: Need to change on material-icons
-        prevArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-back"/>', // TODO: Need to change on material-icons
-        disableMobile: true, // doesn't work without this one at all
-      }
-    },
-  },
-  methods: {
-    onOpen (selectedDates, dateStr, pcrObject) {
-      const calendar = pcrObject.calendarContainer
-      if (this.weekDays) {
-        calendar.classList.add('flatpickr-calendar--show-days')
-      }
-    },
-  },
+  }
+
+  get fullConfig () {
+    return Object.assign({}, this.defaultConfig, this.c_config)
+  }
+
+  get defaultConfig () {
+    return {
+      wrap: true,
+      nextArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-forward"/>', // TODO: Need to change on material-icons
+      prevArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-back"/>', // TODO: Need to change on material-icons
+      disableMobile: true, // doesn't work without this one at all
+    }
+  }
+
+  onOpen (selectedDates, dateStr, pcrObject) {
+    const calendar = pcrObject.calendarContainer
+    if (this.weekDays) {
+      calendar.classList.add('flatpickr-calendar--show-days')
+    }
+  }
 }
 </script>
 

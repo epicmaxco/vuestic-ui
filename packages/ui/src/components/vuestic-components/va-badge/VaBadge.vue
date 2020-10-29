@@ -18,7 +18,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
+import { Mixins } from 'vue-property-decorator'
 
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
@@ -36,7 +37,7 @@ const BadgePropsMixin = makeContextablePropsMixin({
   bottom: { type: Boolean, default: false },
 })
 
-@Component({
+@Options({
   name: 'VaBadge',
 })
 export default class VaBadge extends Mixins(

@@ -22,18 +22,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from './../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { KeyboardOnlyFocusMixin } from './../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import { Options } from 'vue-class-component'
 
 const ItemPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'div' },
   disabled: { type: Boolean, default: false },
 })
-@Component({
+@Options({
   name: 'VaListItem',
+  emits: ['focus', 'click'],
 })
 export default class VaListItem extends Mixins(
   RouterLinkMixin,

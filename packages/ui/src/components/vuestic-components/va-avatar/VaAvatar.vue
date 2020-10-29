@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
@@ -39,6 +39,7 @@ import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
+import { Options } from 'vue-class-component'
 
 const AvatarPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: 'info' },
@@ -50,7 +51,7 @@ const AvatarPropsMixin = makeContextablePropsMixin({
   email: { type: String, default: '' },
 })
 
-@Component({
+@Options({
   name: 'VaAvatar',
   components: { VaIcon, VaProgressCircle },
 })

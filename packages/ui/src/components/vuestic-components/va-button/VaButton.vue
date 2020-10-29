@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
+import { Mixins, Inject, Watch } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaProgressCircle
@@ -72,6 +72,7 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
+import { Options } from 'vue-class-component'
 
 const ButtonPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'button' },
@@ -92,9 +93,10 @@ const ButtonPropsMixin = makeContextablePropsMixin({
   round: { type: Boolean, default: true },
 })
 
-@Component({
+@Options({
   name: 'VaButton',
   components: { VaIcon, VaProgressCircle },
+  emits: ['click'],
 })
 export default class VaButton extends Mixins(
   ColorThemeMixin,
@@ -223,8 +225,9 @@ export default class VaButton extends Mixins(
   }
 
   get inputListeners () {
+    // vue3 $listeners.click -> $attrs.onClick
     return Object.assign({},
-      this.$listeners,
+      this.$attrs,
       {
         click: (event: Event) => {
           this.$emit('click', event)

@@ -1,18 +1,18 @@
-import Vue from 'vue'
+import { mixins } from 'vue-class-component'
+import Vue, { App, reactive } from 'vue'
 import { makeContextablePropsMixin } from '../components/context-test/context-provide/ContextPlugin'
-import { Component } from 'vue-property-decorator'
 
-declare module 'vue/types/vue' {
-  interface Vue {
-    // @deprecated, use getColor instead
-    $themes: Record<string, string> | undefined;
-  }
-}
+// declare module 'vue/types/vue' {
+//   interface App {
+//     // @deprecated, use getColor instead
+//     $themes: Record<string, string> | undefined;
+//   }
+// }
 
 // Most default color - fallback when nothing else is found.
 const DEFAULT_COLOR = '#000000'
 
-const defaultOptions = Vue.observable({
+const defaultOptions = reactive({
   themes: {
     primary: '#23e066',
     secondary: '#002c85',
@@ -62,13 +62,12 @@ export const COLOR_THEMES = [
 export const getDefaultOptions = () => defaultOptions
 
 export const ColorThemePlugin = {
-  install (Vue: Vue, options?: { themes?: Record<string, string> }) {
+  install (app: App, options?: { themes?: Record<string, string> }) {
     if (options && options.themes) {
       defaultOptions.themes = { ...defaultOptions.themes, ...options.themes }
     }
-
-    // @ts-ignore
-    Vue.prototype.$themes = defaultOptions.themes
+    // (app as any).$options.$themes = defaultOptions.themes
+    app.config.globalProperties.$themes = defaultOptions.themes
   },
 }
 
@@ -83,9 +82,11 @@ export const isCssColor = (strColor: string): boolean => {
   return s.color !== ''
 }
 
-export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_COLOR): string => {
-  if ($vm.$themes && $vm.$themes[prop]) {
-    return $vm.$themes[prop]
+// TODO fix App| any
+export const getColor = ($app: App| any, prop: string, defaultColor: string = DEFAULT_COLOR): string => {
+  const $themes = $app.$themes
+  if ($themes && $themes[prop]) {
+    return $themes[prop]
   }
 
   if (isCssColor(prop)) {
@@ -95,18 +96,15 @@ export const getColor = ($vm: Vue, prop: string, defaultColor: string = DEFAULT_
   return defaultColor
 }
 
-@Component({
-  mixins: [
-    makeContextablePropsMixin({
-      color: {
-        type: String,
-      },
-    }),
-  ] as any,
-})
-export class ColorThemeMixin extends Vue {
+export class ColorThemeMixin extends mixins(
+  makeContextablePropsMixin({
+    color: {
+      type: String,
+    },
+  }),
+) {
   get colorComputed () {
-    return getColor(this, (this as any).c_color)
+    return getColor(this, this.c_color)
   }
 
   computeColor (prop: string, defaultColor?: string) {
@@ -118,6 +116,6 @@ export class ColorThemeMixin extends Vue {
   }
 
   created () {
-    (this as any).hasColorThemeMixin = true
+    this.hasColorThemeMixin = true
   }
 }

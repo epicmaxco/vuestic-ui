@@ -6,11 +6,11 @@
         :minimized="minimized"
       >
         <template slot="menu">
-          <template v-for="(item, index) in items">
+          <template v-for="item in items">
             <sidebar-link-group
-              :key="index"
               :icon="[ 'sidebar-menu-item-icon vuestic-iconset', item.meta.iconClass ]"
               v-if="item.children"
+              :key="item.name"
             >
               <span slot="title">{{ item.displayName }}</span>
               <sidebar-link
@@ -26,9 +26,9 @@
 
             <sidebar-link
               v-else
-              :key="index"
               :icon="[ 'sidebar-menu-item-icon vuestic-iconset', item.meta.iconClass ]"
               :to="{ name: item.name }"
+              :key="item.name"
             >
               <span slot="title">{{ item.displayName }}</span>
             </sidebar-link>

@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 <template>
   <span class="va-breadcrumb-item">
     <router-link
@@ -27,7 +28,8 @@
 // @ts-ignore
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
 
 const props = {
   disabled: {
@@ -42,7 +44,9 @@ const props = {
 
 const ContextableMixin = makeContextablePropsMixin(props)
 
-@Component({})
+@Options({
+  name: 'VaBreadcrumbsItem',
+})
 export default class VaBreadcrumbsItem extends Mixins(RouterLinkMixin, ContextableMixin) {
   get isDisabled () {
     return this.disabled || !this.hasRouterLinkParams

@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaSeparator',
 })
 export default class VaSeparator extends Vue {}

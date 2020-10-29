@@ -1,25 +1,29 @@
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { CreateElement } from 'vue'
+import { h, VNode, VNodeArrayChildren } from 'vue'
+import { Vue, Options } from 'vue-class-component'
+import { filterSlots } from './tabsUtils'
 
-@Component({
+function filterTabs (children: VNodeArrayChildren): any {
+  const result: any[] = []
+  children.forEach((n: any) => {
+    if (Array.isArray(n.children)) { n.children = filterTabs(n.children); result.push(n) }
+    if (n.type.name === 'VaTab') { result.push(n) }
+  })
+  console.log(result)
+  return result
+}
+
+@Options({
   name: 'VaTabsItems',
 })
 export default class VaTabsItems extends Vue {
-  render (createElement: CreateElement) {
-    return createElement(
+  render () {
+    return h(
       'div',
       {
-        attrs: {
-          class: 'va-tabs__tabs-items',
-        },
+        class: 'va-tabs__tabs-items',
       },
-      (this as any).$slots.default.filter((e: any) => {
-        if (e.componentOptions) {
-          return e.componentOptions.Ctor.options.name === 'VaTab'
-        }
-        return false
-      }),
+      filterSlots((this as any).$slots.default(), (n: VNode | any) => n.type.name === 'VaTab'),
     )
   }
 }

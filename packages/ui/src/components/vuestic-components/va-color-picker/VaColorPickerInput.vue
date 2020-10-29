@@ -45,14 +45,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import VaAdvancedColorPicker from './VaAdvancedColorPicker.vue'
 import VaSimplePalettePicker from './VaSimplePalettePicker.vue'
 import VaSliderColorPicker from './VaSliderColorPicker.vue'
 import VaColorInput from './VaColorInput.vue'
 import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaColorPickerInput',
   components: {
     VaDropdownPopper,
@@ -61,12 +62,13 @@ import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
     VaSliderColorPicker,
     VaColorInput,
   },
+  emits: ['update:modelValue'],
 })
 export default class VaColorPickerInput extends Vue {
   @Prop({
     type: String,
     default: '',
-  }) readonly value!: string
+  }) readonly modelValue!: string
 
   @Prop({
     type: String,
@@ -84,11 +86,11 @@ export default class VaColorPickerInput extends Vue {
   }) readonly selected!: boolean
 
   get valueProxy (): any {
-    return this.value
+    return this.modelValue
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 
   get isInputDisabled () {

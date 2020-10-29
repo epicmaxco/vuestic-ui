@@ -31,15 +31,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
+import { Mixins, Prop, Watch } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { getHoverColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { Options } from 'vue-class-component'
 
-@Component({
+@Options({
   components: { VaIcon },
+  emits: ['select-option'],
 })
 export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
   @Watch('hintedOption')
@@ -93,7 +95,7 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
   }
 
   selectOption (option: any): void {
-    this.$emit('selectOption', option)
+    this.$emit('select-option', option)
   }
 
   getOptionClass (option: any) {

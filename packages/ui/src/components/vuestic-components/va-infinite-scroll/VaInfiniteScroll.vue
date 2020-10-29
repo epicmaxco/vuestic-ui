@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { Mixins, Watch } from 'vue-property-decorator'
 
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
 
@@ -42,6 +42,7 @@ import { debounce } from 'lodash'
 import { sleep } from '../../../services/utils'
 import { getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const InfiniteScrollPropsMixin = makeContextablePropsMixin({
   offset: { type: Number, default: 500 },
@@ -53,7 +54,7 @@ const InfiniteScrollPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'div' },
 })
 
-@Component({
+@Options({
   name: 'VaInfiniteScroll',
   components: { VaProgressCircle },
 })

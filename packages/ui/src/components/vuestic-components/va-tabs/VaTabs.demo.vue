@@ -14,7 +14,7 @@
         </va-tab>
         <va-tab label="Tab without name" />
         <va-tab
-          icon="fas-home"
+          icon="home"
           label="Tab with icon"
           name="icon"
         />
@@ -266,10 +266,10 @@
       </va-tabs>
     </VbCard>
     <VbCard
-      title=":value only"
+      title=":modelValue only"
       style="width: 100%;"
     >
-      <va-tabs :value="1">
+      <va-tabs :modelValue="1">
         <va-tab v-for="title in ['One', 'Two', 'Three']" :key="title">
           {{ title }}
         </va-tab>
@@ -314,7 +314,7 @@
     >
       <va-tabs
         stateful
-        :value="1"
+        :modelValue="1"
       >
         <va-tab
           name="Link 1"
@@ -336,7 +336,7 @@
     >
       <va-tabs
         stateful
-        :value="1"
+        :modelValue="1"
         hide-slider
       >
         <va-tab

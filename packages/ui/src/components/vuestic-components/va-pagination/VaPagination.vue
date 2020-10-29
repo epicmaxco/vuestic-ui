@@ -83,7 +83,7 @@
 </template>
 
 <script lang="ts">
-import { Watch, Ref, Component, Mixins } from 'vue-property-decorator'
+import { Watch, Ref, Mixins } from 'vue-property-decorator'
 
 import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
 import VaButton from '../va-button/VaButton.vue'
@@ -96,9 +96,10 @@ import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { Options } from 'vue-class-component'
 
 const PaginationPropsMixin = makeContextablePropsMixin({
-  value: { type: Number, default: 1 },
+  modelValue: { type: Number, default: 1 },
   visiblePages: { type: Number, default: 0 },
   pages: { type: Number, default: 0 },
   disabled: { type: Boolean, default: false },
@@ -121,7 +122,7 @@ const PaginationPropsMixin = makeContextablePropsMixin({
   directionIconRight: { type: String, default: 'chevron_right' },
 })
 
-@Component({
+@Options({
   name: 'VaPagination',
   components: {
     VaButtonGroup,

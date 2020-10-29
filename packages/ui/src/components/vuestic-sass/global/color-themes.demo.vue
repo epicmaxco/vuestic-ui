@@ -24,7 +24,7 @@
       />
       <va-slider
         class="mb-5"
-        :value="60"
+        :modelValue="60"
         value-visible
         label="Label"
         color="info"
@@ -35,7 +35,7 @@
       <va-rating
         class="mb-5"
         color="info"
-        :value="3"
+        :modelValue="3"
       >
         Default Button
       </va-rating>

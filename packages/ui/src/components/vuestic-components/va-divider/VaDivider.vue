@@ -14,7 +14,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
+import { Mixins } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
@@ -32,7 +33,7 @@ const DividerPropsMixin = makeContextablePropsMixin({
   },
 })
 
-@Component({
+@Options({
   name: 'VaDivider',
 })
 export default class VaDivider extends Mixins(

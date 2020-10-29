@@ -12,7 +12,6 @@
   >
     <slot
       name="prepend"
-      slot="prepend"
     />
     <div
       class="va-input__container"
@@ -63,7 +62,7 @@
           :placeholder="c_placeholder"
           :disabled="c_disabled"
           :readonly="c_readonly"
-          :value="c_value"
+          :value="c_modelValue"
           v-on="eventListeners"
           v-bind="$attrs"
           ref="textarea"
@@ -95,7 +94,7 @@
         />
         <va-icon
           v-if="canBeCleared"
-          @click.native.stop="reset()"
+          @click.stop="reset()"
           class="va-input__container__close-icon"
           :color="computedError ? 'danger': 'gray'"
           name="highlight_off"
@@ -104,13 +103,12 @@
     </div>
     <slot
       name="append"
-      slot="append"
     />
   </va-input-wrapper>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
@@ -121,10 +119,11 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import { InputMixin } from './helpers/InputMixin'
 import { TextareaMixin } from './helpers/TextareaMixin'
+import { Options } from 'vue-class-component'
 
 const InputPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: '' },
-  value: { type: [String, Number], default: '' },
+  modelValue: { type: [String, Number], default: '' },
   label: { type: String, default: '' },
   placeholder: { type: String, default: '' },
   type: { type: String, default: 'text' },
@@ -132,9 +131,11 @@ const InputPropsMixin = makeContextablePropsMixin({
   tabindex: { type: Number, default: 0 },
 })
 
-@Component({
+@Options({
   name: 'VaInput',
   components: { VaInputWrapper, VaIcon },
+  emits: ['update:modelValue', 'change', 'click-prepend', 'click-prepend-inner',
+    'click-append', 'click-append-inner', 'focus', 'blur', 'keyup', 'keydown', 'click'],
 })
 export default class VaInput extends Mixins(
   ColorThemeMixin,

@@ -1,8 +1,9 @@
-import Vue from 'vue'
+import Vue from 'vue-class-component'
+import { App } from 'vue'
 import { getDefaultOptions } from '../../services/ColorThemePlugin'
 import { addOrUpdateStyleElement } from '../../services/dom-functions'
 
-const vmInstance = new Vue()
+// const vmInstance = new Vue()
 
 const createThemeColorStyles = (themes: Record<string, string>): string => {
   let result = ''

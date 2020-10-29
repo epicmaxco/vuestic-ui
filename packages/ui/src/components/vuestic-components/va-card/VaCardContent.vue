@@ -12,12 +12,13 @@ import { Component, Mixins } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { getColor } from '../../../services/ColorThemePlugin'
+import { Options } from 'vue-class-component'
 
 const CardContentPropsMixin = makeContextablePropsMixin({
   textColor: { type: String, default: '' },
 })
 
-@Component({
+@Options({
   name: 'VaCardContent',
 })
 export default class VaCardContent extends Mixins(

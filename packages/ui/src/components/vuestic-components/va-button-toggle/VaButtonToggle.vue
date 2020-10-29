@@ -20,47 +20,49 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import VaButton from '../va-button/VaButton.vue'
 import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
 
 import { getGradientBackground } from '../../../services/color-functions'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const ButtonTogglePropsMixin = makeContextablePropsMixin({
   options: { type: Array, default: () => [] },
-  value: { type: [String, Number], default: '' },
+  modelValue: { type: [String, Number], default: '' },
   outline: { type: Boolean, default: false },
   flat: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   size: {
     type: String,
     default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
+    validator: (modelValue: string) => {
+      return ['medium', 'small', 'large'].includes(modelValue)
     },
   },
   color: { type: String, default: 'success' },
   toggleColor: { type: String, default: '' },
 })
 
-@Component({
+@Options({
   name: 'VaButtonToggle',
   components: {
     VaButtonGroup,
     VaButton,
   },
+  emits: ['update:modelValue'],
 })
 export default class VaButtonToggle extends Mixins(
   ButtonTogglePropsMixin,
 ) {
   buttonColor (buttonValue: any) {
-    return buttonValue === this.c_value && this.c_toggleColor ? this.c_toggleColor : this.c_color
+    return buttonValue === this.c_modelValue && this.c_toggleColor ? this.c_toggleColor : this.c_color
   }
 
   buttonStyle (buttonValue: any) {
-    if (buttonValue !== this.c_value) {
+    if (buttonValue !== this.c_modelValue) {
       return {}
     }
 
@@ -79,12 +81,12 @@ export default class VaButtonToggle extends Mixins(
 
   buttonClass (buttonValue: any) {
     return {
-      'va-button--active': buttonValue === this.c_value,
+      'va-button--active': buttonValue === this.c_modelValue,
     }
   }
 
   changeValue (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 }
 </script>

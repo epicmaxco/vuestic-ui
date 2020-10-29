@@ -4,7 +4,7 @@
       <div class="va-input-wrapper__slot">
         <div
           v-if="$slots.prepend"
-          @click="$emit('click:prepend')"
+          @click="$emit('click-prepend')"
           class="va-input-wrapper__prepend-inner"
         >
           <slot name="prepend" />
@@ -14,14 +14,14 @@
           <div class="va-input-wrapper__details py-0 px-2">
             <va-message-list
               :color="messagesColor"
-              :value="messagesComputed"
+              :modelValue="messagesComputed"
               :limit="errorLimit"
             />
           </div>
         </div>
         <div
           v-if="$slots.append"
-          @click="$emit('click:append')"
+          @click="$emit('click-append')"
           class="va-input-wrapper__append-inner"
         >
           <slot name="append" />
@@ -32,11 +32,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import VaMessageList from './VaMessageList.vue'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const InputWrapperPropsMixin = makeContextablePropsMixin({
   disabled: { type: Boolean, default: false },
@@ -47,9 +48,10 @@ const InputWrapperPropsMixin = makeContextablePropsMixin({
   errorCount: { type: Number, default: 1 },
 })
 
-@Component({
+@Options({
   name: 'VaInputWrapper',
   components: { VaMessageList },
+  emits: ['click-append', 'click-prepend'],
 })
 export default class VaInputWrapper extends Mixins(
   InputWrapperPropsMixin,

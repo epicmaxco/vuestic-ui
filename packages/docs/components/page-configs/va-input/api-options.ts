@@ -40,19 +40,19 @@ export default {
     click: {
       types: 'Event',
     },
-    'click:prepend': {
+    'click-prepend': {
       local: true,
       types: 'Event',
     },
-    'click:prepend-inner': {
+    'click-prepend-inner': {
       local: true,
       types: 'Event',
     },
-    'click:append': {
+    'click-append': {
       local: true,
       types: 'Event',
     },
-    'click:append-inner': {
+    'click-append-inner': {
       local: true,
       types: 'Event',
     },

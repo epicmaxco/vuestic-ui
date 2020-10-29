@@ -13,11 +13,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-
+import { Options, Vue } from 'vue-class-component'
 import VaInput from './VaInput.vue'
 
-@Component({
+@Options({
   name: 'VaInputValidation',
   components: { VaInput },
 })

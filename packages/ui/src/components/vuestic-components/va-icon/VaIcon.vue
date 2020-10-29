@@ -6,20 +6,19 @@
     :style="computedStyle"
     aria-hidden="true"
     notranslate
-    v-on="$listeners"
   >
     <slot>{{ computedContent }}</slot>
   </component>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
 import { warn } from '../../../services/utils'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { IconMixin } from './IconMixin'
+import { mixin } from 'lodash'
+import { mixins, Options } from 'vue-class-component'
 
 const IconPropsMixin = makeContextablePropsMixin({
   name: {
@@ -39,10 +38,10 @@ const IconPropsMixin = makeContextablePropsMixin({
   spin: { type: Boolean, default: false },
 })
 
-@Component({
+@Options({
   name: 'VaIcon',
 })
-export default class VaIcon extends Mixins(
+export default class VaIcon extends mixins(
   ColorThemeMixin,
   SizeMixin,
   IconMixin,
@@ -60,7 +59,7 @@ export default class VaIcon extends Mixins(
   }
 
   get hasClickListener () {
-    return this.$listeners && this.$listeners.click
+    return this.$attrs && this.$attrs.onClick
   }
 
   get cursorStyle () {

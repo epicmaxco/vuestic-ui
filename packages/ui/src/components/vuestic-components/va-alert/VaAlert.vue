@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Prop } from 'vue-property-decorator'
+import { Mixins, Prop } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
@@ -77,6 +77,7 @@ import {
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const AlertPropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },
@@ -97,7 +98,7 @@ const AlertPropsMixin = makeContextablePropsMixin({
   },
 })
 
-@Component({
+@Options({
   name: 'VaAlert',
   components: { VaIcon },
 })
@@ -109,7 +110,13 @@ export default class VaAlert extends Mixins(
   @Prop({
     type: Boolean,
     default: true,
-  }) readonly value!: boolean
+  }) readonly modelValue!: boolean
+
+  mounted () {
+    console.log('VaAlert has mounted')
+    console.log(this.$options.props)
+    console.log(this.$props)
+  }
 
   get hasIcon () {
     return this.c_icon || this.$slots.icon

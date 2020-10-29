@@ -7,9 +7,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 
-@Component({
+@Options({
   name: 'VaButtonGroup',
   provide () {
     // eslint-disable-next-line @typescript-eslint/no-this-alias

@@ -5,9 +5,11 @@
         is-first
         is-last
       >
-        <div slot="before">
-          22 February, 2018
-        </div>
+        <template #before>
+          <div>
+            22 February, 2018
+          </div>
+        </template>
       </va-timeline-item>
     </VbCard>
     <VbCard title="Timeline Item with Card">
@@ -15,17 +17,18 @@
         is-first
         is-last
       >
-        <va-card
-          slot="after"
-          stripe
-          stripe-color="success"
-          title-on-image
-        >
-          <va-card-content>
-            Running out of pages in your passport. Two trailer park girls go
-            around the outside.
-          </va-card-content>
-        </va-card>
+        <template #after>
+          <va-card
+            stripe
+            stripe-color="success"
+            title-on-image
+          >
+            <va-card-content>
+              Running out of pages in your passport. Two trailer park girls go
+              around the outside.
+            </va-card-content>
+          </va-card>
+        </template>
       </va-timeline-item>
     </VbCard>
   </VbDemo>

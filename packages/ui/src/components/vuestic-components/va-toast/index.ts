@@ -1,6 +1,6 @@
 import VaToast from './VaToast.vue'
 import { NotificationOptions } from './types'
-import { VNode } from 'vue/types/umd'
+import { VNode } from 'vue'
 import { Constructor } from 'vue-property-decorator'
 
 const Z_INDEX = 100

@@ -1,4 +1,4 @@
-import { Mixins, Component } from 'vue-property-decorator'
+import { mixins } from 'vue-class-component'
 import { makeContextablePropsMixin } from '../context-test/context-provide/ContextPlugin'
 
 export const alignMap = {
@@ -10,8 +10,7 @@ export const alignMap = {
   stretch: 'stretch',
 }
 
-@Component
-export class AlignMixin extends Mixins(makeContextablePropsMixin({
+export class AlignMixin extends mixins(makeContextablePropsMixin({
   align: {
     type: String,
     default: 'left',

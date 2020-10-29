@@ -30,7 +30,7 @@
         v-model="value"
         mode="slider"
       >
-        <va-color-square :value="value" />
+        <va-color-square :modelValue="value" />
       </va-color-picker-input>
 
       <p>Advanced Mode</p>

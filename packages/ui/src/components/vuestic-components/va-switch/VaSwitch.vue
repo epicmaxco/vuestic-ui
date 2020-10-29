@@ -71,7 +71,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
 import VaInputWrapper from '../va-input/VaInputWrapper.vue'
@@ -80,14 +80,15 @@ import { getColor } from '../../../services/ColorThemePlugin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const SwitchPropsMixin = makeContextablePropsMixin({
-  value: { type: [Boolean, Array, String, Object], default: false },
+  modelValue: { type: [Boolean, Array, String, Object], default: false },
   size: {
     type: String,
     default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
+    validator: (modelmodelValue: string) => {
+      return ['medium', 'small', 'large'].includes(modelmodelValue)
     },
   },
   trueLabel: { type: String, default: null },
@@ -96,9 +97,10 @@ const SwitchPropsMixin = makeContextablePropsMixin({
   falseInnerLabel: { type: String, default: null },
 })
 
-@Component({
+@Options({
   name: 'VaSwitch',
   components: { VaProgressCircle, VaInputWrapper },
+  emits: ['focus', 'blur', 'update:modelmodelValue'],
 })
 export default class VaSwitch extends Mixins(
   SelectableMixin,

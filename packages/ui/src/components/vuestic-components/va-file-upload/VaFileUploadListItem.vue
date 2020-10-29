@@ -24,7 +24,7 @@
       <va-icon
         color="danger"
         name="clear"
-        @click.native="removeFile"
+        @click="removeFile"
         class="va-file-upload-list-item__delete"
       />
     </div>
@@ -32,19 +32,21 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 
 import VaFileUploadUndo from './VaFileUploadUndo.vue'
 import VaCard from '../va-card/VaCard.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaFileUploadListItem',
   components: {
     VaIcon,
     VaCard,
     VaFileUploadUndo,
   },
+  emits: ['remove'],
 })
 export default class VaFileUploadListItem extends Vue {
   removed = false

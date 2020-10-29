@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="With tab">
-      <va-tabs :value="1">
+      <va-tabs :modelValue="1">
         <va-tab>One</va-tab>
         <va-tab>Two</va-tab>
       </va-tabs>

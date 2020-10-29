@@ -1,5 +1,6 @@
 <script>
 import VaTimelineSeparator from './VaTimelineSeparator.vue'
+import { h } from 'vue'
 
 export const $root = 'va-timeline-item'
 
@@ -32,7 +33,7 @@ export default {
       type: Boolean,
     },
   },
-  render (createElement) {
+  render () {
     const props = {
       color: this.color,
       vertical: this.vertical,
@@ -42,10 +43,10 @@ export default {
     }
 
     const children = [
-      createElement(
+      h(
         VaTimelineSeparator,
         {
-          props,
+          ...props,
         },
       ),
     ]
@@ -54,13 +55,13 @@ export default {
 
     if (before) {
       children.unshift(
-        createElement(
+        h(
           'div',
           {
             class: `${$root}__before`,
-            props,
+            ...props,
           },
-          before,
+          before(),
         ),
       )
     }
@@ -68,26 +69,26 @@ export default {
     const after = this.inverted ? this.$slots.before : this.$slots.after
     if (after) {
       children.push(
-        createElement(
+        h(
           'div',
           {
             class: `${$root}__after`,
-            props,
+            ...props,
           },
-          after,
+          after(),
         ),
       )
     }
 
-    return createElement(
+    return h(
       'div',
       {
-        class: {
-          [$root]: true,
-          [`${$root}--vertical`]: this.vertical,
-          [`${$root}--is-first`]: this.isFirst,
-          [`${$root}--is-last`]: this.isLast,
-        },
+        class: [
+          { [$root]: true },
+          { [`${$root}--vertical`]: this.vertical },
+          { [`${$root}--is-first`]: this.isFirst },
+          { [`${$root}--is-last`]: this.isLast },
+        ],
       },
       children,
     )

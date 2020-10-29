@@ -1,16 +1,14 @@
 <script lang="ts">
-import { Mixins, Component } from 'vue-property-decorator'
-
-import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
-
+import { Mixins } from 'vue-property-decorator'
 import { hasOwnProperty } from '../../../services/utils'
-import { VNode, VNodeChildren } from 'vue'
-import { RecordPropsDefinition } from 'vue/types/options'
+import { VNode, h } from 'vue'
+
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import {
   makeContextablePropsMixin,
 } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const BreadcrumbsPropsMixin = makeContextablePropsMixin({
   separator: { type: String, default: '/' },
@@ -19,7 +17,7 @@ const BreadcrumbsPropsMixin = makeContextablePropsMixin({
   separatorColor: { type: String, default: null },
 })
 
-@Component({
+@Options({
   name: 'VaBreadcrumbs',
 })
 export default class VaBreadcrumbs extends Mixins(
@@ -39,30 +37,32 @@ export default class VaBreadcrumbs extends Mixins(
     return this.activeColor ? this.computeColor(this.c_activeColor) : this.colorComputed
   }
 
-  render (createElement: Vue.CreateElement) {
-    const childNodeFilter = (node?: VNode) => !!node?.tag?.match(/VaBreadcrumbsItem$/)
+  render () {
+    // const childNodeFilter = (node?: VNode) => !!node?.tag?.match(/VaBreadcrumbsItem$/)
+    const childNodeFilter = (node?: VNode) => !!(node?.type as any)?.name?.match(/VaBreadcrumbsItem$/)
 
-    const childNodes = this.$slots.default?.filter(childNodeFilter) || []
+    const childNodes = (this.$slots as any)?.default()?.filter(childNodeFilter) || []
+    // .?default()?.filter(childNodeFilter) || []
 
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
 
-    const separatorNode = this.$slots.separator || [this.separator]
+    const separatorNode = (this.$slots.separator ? this.$slots.separator() : 0) || [this.separator]
 
-    const createSeparatorComponent = () => createElement(
+    const createSeparatorComponent = () => h(
       'span',
       {
-        staticClass: 'va-breadcrumbs__separator',
-        class: this.computedClass,
-        style: {
-          color: this.computedThemesSeparatorColor,
-        },
+        class: ['va-breadcrumbs__separator',
+        // this.computedClass
+        ],
+        style: [{ color: this.computedThemesSeparatorColor }],
       },
       separatorNode,
     )
 
     const isDisabledChild = (child: VNode) => {
-      const childPropData = child?.componentOptions?.propsData as RecordPropsDefinition<VaBreadcrumbsItem>
+      // const childPropData = child?.componentOptions?.propsData as RecordPropsDefinition<VaBreadcrumbsItem>
+      const childPropData = child?.props
       if (!childPropData || !hasOwnProperty(childPropData, 'disabled')) {
         return false
       }
@@ -74,9 +74,9 @@ export default class VaBreadcrumbs extends Mixins(
       return Boolean(childPropData.disabled)
     }
 
-    const createChildComponent = (child: VNode, index: number) => createElement(
+    const createChildComponent = (child: VNode, index: number) => h(
       'span', {
-        staticClass: 'va-breadcrumbs__item',
+        class: 'va-breadcrumbs__item',
         style: {
           color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? this.computedThemesActiveColor : null,
         },
@@ -96,12 +96,10 @@ export default class VaBreadcrumbs extends Mixins(
       })
     }
 
-    return createElement('div', {
-      staticClass: 'va-breadcrumbs',
-      style: {
-        ...this.computedStyles,
-      },
-    }, children as VNodeChildren)
+    return h('div', {
+      class: 'va-breadcrumbs',
+      style: { ...this.computedStyles },
+    }, children)
   }
 }
 </script>

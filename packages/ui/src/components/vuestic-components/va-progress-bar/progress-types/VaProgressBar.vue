@@ -45,13 +45,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ProgressComponentMixin } from './ProgressComponentMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const ProgressBarPropsMixin = makeContextablePropsMixin({
   buffer: { type: Number, default: 100 },
@@ -61,7 +62,7 @@ const ProgressBarPropsMixin = makeContextablePropsMixin({
   color: { type: String, default: 'primary' },
 })
 
-@Component({
+@Options({
   name: 'VaProgressBar',
 })
 export default class VaProgressBar extends Mixins(

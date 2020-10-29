@@ -16,16 +16,17 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import { noop } from 'lodash'
 import {
   handleThrottledEvent,
   useEventsHandlerWithThrottle,
   getWindowHeight,
-  State,
+  State, Context,
 } from './VaAffix-utils'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const AffixPropsMixin = makeContextablePropsMixin({
   offsetTop: { type: Number, default: undefined },
@@ -33,8 +34,9 @@ const AffixPropsMixin = makeContextablePropsMixin({
   target: { type: Function, default: () => window },
 })
 
-@Component({
+@Options({
   name: 'VaAffix',
+  emits: ['change'],
 })
 export default class VaAffix extends Mixins(
   AffixPropsMixin,
@@ -117,10 +119,10 @@ export default class VaAffix extends Mixins(
   }
 
   handleThrottledEvent (eventName: string | null, event?: Event) {
-    const context = {
+    const context: Context = {
       ...this.$data,
       ...this.$props,
-      element: this.$refs.element,
+      element: this.$refs.element as any,
       target: this.getTargetElement(),
       setState: this.setState.bind(this),
       getState: this.getState.bind(this),

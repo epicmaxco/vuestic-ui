@@ -5,7 +5,7 @@
         v-for="(color, index) in palette"
         :key="index"
         :color="color"
-        @click.native="handlerClick(color)"
+        @click="handlerClick(color)"
         :selected="isSelected(color)"
       />
     </ul>
@@ -13,20 +13,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 import ColorDot from './ColorDot.vue'
 
-@Component({
+@Options({
   name: 'VaSimplePalettePicker',
   components: {
     ColorDot,
   },
+  emits: ['update:modelValue'],
 })
 export default class VaSimplePalettePicker extends Vue {
   @Prop({
     type: String,
     default: '',
-  }) readonly value!: string
+  }) readonly modelValue!: string
 
   @Prop({
     type: Array,
@@ -34,15 +36,15 @@ export default class VaSimplePalettePicker extends Vue {
   }) readonly palette!: Array<string>
 
   get valueProxy (): any {
-    return this.value
+    return this.modelValue
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 
   isSelected (color: any): boolean {
-    return this.value === color
+    return this.modelValue === color
   }
 
   handlerClick (color: any): void {

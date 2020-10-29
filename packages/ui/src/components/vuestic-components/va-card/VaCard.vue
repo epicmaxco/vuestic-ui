@@ -23,7 +23,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
+import { Mixins } from 'vue-property-decorator'
 
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
@@ -41,10 +42,12 @@ const CardPropsMixin = makeContextablePropsMixin({
   stripe: { type: Boolean, default: false },
   stripeColor: { type: String, default: '' },
   gradient: { type: Boolean, default: false },
+  dark: { type: Boolean, default: false },
 })
 
-@Component({
+@Options({
   name: 'VaCard',
+  emits: ['click'],
 })
 export default class VaCard extends Mixins(
   ColorThemeMixin,

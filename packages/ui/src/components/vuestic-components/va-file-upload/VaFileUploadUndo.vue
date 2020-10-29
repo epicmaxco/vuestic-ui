@@ -13,15 +13,16 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
 
 import VaButton from '../va-button/VaButton.vue'
 
-@Component({
+@Options({
   name: 'VaFileUploadUndo',
   components: {
     VaButton,
   },
+  emits: ['recover'],
 })
 export default class VaFileUploadUndo extends Vue {}
 </script>

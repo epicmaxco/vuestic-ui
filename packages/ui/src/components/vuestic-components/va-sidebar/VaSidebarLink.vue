@@ -1,8 +1,8 @@
 <template>
   <router-link
     :class="computedLinkClass"
-    @mouseenter.native="updateHoverState(true)"
-    @mouseleave.native="updateHoverState(false)"
+    @mouseenter="updateHoverState(true)"
+    @mouseleave="updateHoverState(false)"
     :style="computedLinkStyles"
     active-class="va-sidebar-link--active"
     :to="to"

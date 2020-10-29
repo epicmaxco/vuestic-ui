@@ -6,7 +6,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
+import { Mixins } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
@@ -15,7 +16,7 @@ const ListSeparatorPropsMixin = makeContextablePropsMixin({
   spaced: { type: Boolean, default: false },
 })
 
-@Component({
+@Options({
   name: 'VaListSeparator',
 })
 export default class VaListSeparator extends Mixins(

@@ -173,10 +173,11 @@
         :options="defaultSingleSelect.options"
         v-model="defaultSingleSelect.value"
       >
-        <va-icon
-          slot="prepend"
-          name="share"
-        />
+        <template #prepend>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-select>
       <va-select
         style="margin: 8px 0;"
@@ -184,10 +185,11 @@
         :options="defaultSingleSelect.options"
         v-model="defaultSingleSelect.value"
       >
+      <template #prependInner>
         <va-icon
-          slot="prependInner"
           name="share"
         />
+      </template>
       </va-select>
       <va-select
         style="margin: 8px 0;"
@@ -195,10 +197,11 @@
         :options="defaultSingleSelect.options"
         v-model="defaultSingleSelect.value"
       >
+      <template #appendInner>
         <va-icon
-          slot="appendInner"
           name="share"
         />
+      </template>
       </va-select>
       <va-select
         style="margin: 8px 0;"
@@ -206,10 +209,11 @@
         :options="defaultSingleSelect.options"
         v-model="defaultSingleSelect.value"
       >
+      <template #append>
         <va-icon
-          slot="append"
           name="share"
         />
+      </template>
       </va-select>
       <va-select
         style="margin: 8px 0;"

@@ -23,7 +23,7 @@
           :color="c_color"
           :empty-icon-color="c_unselectedColor"
           :tabindex="tabIndex"
-          :value="getItemValue(number)"
+          :modelValue="getItemValue(number)"
           @hover="onHover(number, $event)"
           @click="onItemSelected(number, $event)"
         >
@@ -59,7 +59,7 @@
           :color="c_color"
           :empty-icon-color="c_unselectedColor"
           :tabindex="tabIndex"
-          :value="getItemValue(itemNumber)"
+          :modelValue="getItemValue(itemNumber)"
           @hover="onHover(itemNumber, $event)"
           @click="onItemSelected(itemNumber, $event)"
         />
@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import VaRatingItem from './VaRatingItem.vue'
 
@@ -83,9 +83,10 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { Options } from 'vue-class-component'
 
 const RatingPropsMixin = makeContextablePropsMixin({
-  value: { type: Number, default: 0 },
+  modelValue: { type: Number, default: 0 },
   icon: { type: String, default: 'star' },
   halfIcon: { type: String, default: 'star_half' },
   emptyIcon: { type: String, default: 'star_empty' },
@@ -101,7 +102,7 @@ const RatingPropsMixin = makeContextablePropsMixin({
   unselectedColor: { type: String },
 })
 
-@Component({
+@Options({
   name: 'VaRating',
   components: { VaRatingItem },
 })

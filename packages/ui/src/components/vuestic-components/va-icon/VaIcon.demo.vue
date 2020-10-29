@@ -7,7 +7,7 @@
       <va-icon name="home" />
     </VbCard>
     <VbCard title="FA 4">
-      <va-icon class="fa fa-home" />
+      <va-icon name="home" />
       <va-icon name="fa4-home" />
     </VbCard>
     <VbCard title="FA 5">

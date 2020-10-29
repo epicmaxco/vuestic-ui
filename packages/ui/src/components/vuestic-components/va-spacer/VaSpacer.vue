@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaSpacer',
 })
 export default class VaSpacer extends Vue {}
