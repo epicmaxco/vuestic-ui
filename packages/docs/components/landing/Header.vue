@@ -76,7 +76,6 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class Header extends Vue {
   value = false
   isHidden = true
-  width = 0
 
   onClick (value: boolean) {
     this.isHidden = value
@@ -84,7 +83,7 @@ export default class Header extends Vue {
 
   get computedClass () {
     return {
-      'header__links--open': window.innerWidth < 780 && !this.isHidden,
+      'header__links--open': !this.isHidden,
     }
   }
 
@@ -153,7 +152,7 @@ export default class Header extends Vue {
     @include sm(left, 0);
 
     &--open {
-      display: flex;
+      @include sm(display, flex);
     }
 
     &--link {
@@ -192,7 +191,6 @@ export default class Header extends Vue {
   &__content {
     background-color: #f6f8f9;
     border-radius: 0.5rem;
-    // width: 12rem;
     padding: 0.5rem 0;
   }
 
