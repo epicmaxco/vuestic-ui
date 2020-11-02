@@ -131,7 +131,7 @@ export function resolveVirtualComponent (vnode) {
 
       registerComponentHook(cid, 'lifecycle', 'create', createVirtualComponent)
     },
-    beforeDestroy () {
+    beforeUnmount () {
       delete this._virtualComponents
     },
   })

@@ -73,7 +73,7 @@ export default class Index extends Vue {
     }
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.$root.$off('changeTheme', this.setTheme)
   }
 

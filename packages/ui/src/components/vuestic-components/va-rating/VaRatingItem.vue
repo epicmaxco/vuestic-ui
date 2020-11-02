@@ -50,6 +50,7 @@ import { Options } from 'vue-class-component'
     size: { type: [String, Number], default: 'medium' },
     emptyIconColor: { type: String },
   },
+  emits: ['click', 'hover']
 })
 export default class VaRatingItem extends Mixins(ColorThemeMixin) {
   private isHovered = false

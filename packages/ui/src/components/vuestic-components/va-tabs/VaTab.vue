@@ -44,8 +44,6 @@ import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMi
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { Options } from 'vue-class-component'
-import VaTabs from './VaTabs.vue'
-import mitt from 'mitt'
 
 const TabPropsMixin = makeContextablePropsMixin({
   icon: { type: String, default: null },
@@ -65,8 +63,8 @@ export default class VaTab extends Mixins(
   RouterLinkMixin,
   TabPropsMixin,
 ) {
-  @Inject() tabsHanler!: VaTabs
-  // @Inject() eventEmitter!: any
+  @Inject() tabsService!: any
+
   isActive = false
   id: any = null
 
@@ -91,30 +89,35 @@ export default class VaTab extends Mixins(
   }
 
   onTabClick () {
-    this.tabsHanler.eventEmitter.emit('click:tab', this)
+    // this.tabsHanler.eventEmitter.emit('click:tab', this)
+    this.tabsService.tabClick(this)
     this.$emit('click')
   }
 
   onTabKeydown () {
-    this.tabsHanler.eventEmitter.emit('keydown.enter:tab', this)
+    // this.tabsHanler.eventEmitter.emit('keydown-enter:tab', this)
+    this.tabsService.tabPressEnter(this)
     this.$emit('keydown-enter')
   }
 
   onFocus () {
     (this as any).KeyboardOnlyFocusMixin_onFocus()
-    this.tabsHanler.eventEmitter.emit('focus:tab', this)
+    // this.tabsHanler.eventEmitter.emit('focus:tab', this)
+    this.tabsService.tabFocus(this)
     this.$emit('focus')
   }
 
   mounted () {
-    const idx = this.tabsHanler.tabs.push(this)
-    this.id = (this as any).$props.name || idx
+    // const idx = this.tabsHanler.tabs.push(this)
+    // this.id = (this as any).$props.name || idx
+    this.tabsService.register(this)
   }
 
-  beforeUnmaunt () {
-    this.tabsHanler.tabs = this.tabsHanler.tabs.filter((t: { id: any }) => t.id === this.id)
-    // eslint-disable-next-line no-return-assign
-    this.tabsHanler.tabs.forEach((t: VaTab | any, idx: number) => t.id = t.$props.name || idx)
+  beforeUnmount () {
+    this.tabsService.unregister(this)
+    // this.tabsHanler.tabs = this.tabsHanler.tabs.filter((t: { id: any }) => t.id === this.id)
+    // // eslint-disable-next-line no-return-assign
+    // this.tabsHanler.tabs.forEach((t: VaTab | any, idx: number) => t.id = t.$props.name || idx)
   }
 }
 </script>

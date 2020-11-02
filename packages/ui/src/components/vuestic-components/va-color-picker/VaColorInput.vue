@@ -3,7 +3,7 @@
     <color-dot
       class="va-color-input__dot"
       :selected="selected"
-      :color="value"
+      :color="modelValue"
       @click="onClick"
     />
     <va-input

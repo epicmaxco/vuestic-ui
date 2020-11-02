@@ -2,16 +2,10 @@ import { App } from 'vue';
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
-import { Options, mixins, Vue, VueMixin, VueConstructor, MixedVueBase, VueBase } from 'vue-class-component'
-
+import { Options, mixins, Vue } from 'vue-class-component'
 import { hasOwnProperty } from '../../../services/utils'
 import { reactive } from 'vue'
 import { Inject } from 'vue-property-decorator';
-// declare module 'vue/types/vue' {
-//   interface Vue {
-//     $vaContextConfig?: ContextConfig;
-//   }
-// }
 
 const pascalCase = flow(camelCase, upperFirst)
 /**
@@ -193,11 +187,11 @@ export const makeContextablePropsMixin = (componentProps: any, prefix = 'c_') =>
       // We want to fallback to context in 2 cases:
       // * prop value is undefined (allows user to dynamically enter/exit context).
       // * prop value is not defined
-      
       if (typeof (definition as any).default === "function") {
         if ((definition as any).default() === this.$props[name]) {
           return getContextPropValue(this, name, (definition as any).default)
         }
+        return this[name]
       } else if ((definition as any).default === this.$props[name]) {
         return getContextPropValue(this, name, (definition as any).default)
       } else {

@@ -35,7 +35,7 @@ const PropsMixin = makeContextablePropsMixin({
 
 export class InputMixin extends Mixins(PropsMixin) {
   inputElement: Cleave | null = null
-  eventListeners: any = null
+  eventListeners: any = {}
   isFocused = false
 
   @Watch('mask', { deep: true })
@@ -176,7 +176,7 @@ export class InputMixin extends Mixins(PropsMixin) {
   /**
    * Free up memory
    */
-  beforeDestroy () {
+  beforeUnmount () {
     this.destroyCleaveInstance()
   }
 

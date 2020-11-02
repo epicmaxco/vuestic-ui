@@ -9,6 +9,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
+import { reactive } from 'vue'
 
 @Options({
   name: 'VaButtonGroup',
@@ -16,12 +17,8 @@ import { Prop } from 'vue-property-decorator'
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const parent = this as any
     return {
-      va: new Vue({
-        computed: {
-          color () {
-            return parent.color
-          },
-        },
+      va: reactive({
+        color: parent.color,
       }),
     }
   },

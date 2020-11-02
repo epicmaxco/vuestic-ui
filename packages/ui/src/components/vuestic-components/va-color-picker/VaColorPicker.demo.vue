@@ -24,8 +24,7 @@
       />
     </VbCard>
 
-    <VbCard title="Color Picker Input">
-      <p>Slider Mode</p>
+    <!-- <VbCard title="Color Picker Input">
       <va-color-picker-input
         v-model="value"
         mode="slider"
@@ -67,7 +66,7 @@
         :palette="palette"
         v-model="value"
       />
-    </VbCard>
+    </VbCard> -->
 
     <VbCard title="Simple Palette Picker">
       <va-simple-palette-picker
@@ -76,9 +75,9 @@
       />
     </VbCard>
 
-    <VbCard title="Slider Color Picker">
+    <!-- <VbCard title="Slider Color Picker">
       <va-slider-color-picker v-model="value" />
-    </VbCard>
+    </VbCard> -->
   </VbDemo>
 </template>
 
@@ -96,13 +95,13 @@ import { colorArray } from './VuesticTheme'
 export default {
   components: {
     ColorDot,
-    VaAdvancedColorPicker,
+    // VaAdvancedColorPicker,
     VaColorInput,
-    VaColorSquare,
-    VaColorPickerInput,
-    VaPaletteCustom,
+    // VaColorSquare,
+    // VaColorPickerInput,
+    // VaPaletteCustom,
     VaSimplePalettePicker,
-    VaSliderColorPicker,
+    // VaSliderColorPicker,
   },
   data () {
     return {

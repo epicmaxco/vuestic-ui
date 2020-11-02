@@ -89,7 +89,7 @@ export default class VaBacktop extends Mixins(
     this.targetElement.addEventListener('scroll', this.handleScroll)
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.targetElement.removeEventListener('scroll', this.handleScroll)
   }
 }

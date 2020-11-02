@@ -10,9 +10,11 @@
     @click:prepend="onPrependClick"
     @click:append="onAppendClick"
   >
-    <slot
-      name="prepend"
-    />
+    <template #prepend>
+      <slot
+        name="prepend"
+      />
+    </template>
     <div
       class="va-input__container"
       :class="{'va-input__container--textarea': isTextarea}"
@@ -101,9 +103,11 @@
         />
       </div>
     </div>
-    <slot
-      name="append"
-    />
+    <template #append>
+      <slot
+        name="append"
+      />
+    </template>
   </va-input-wrapper>
 </template>
 

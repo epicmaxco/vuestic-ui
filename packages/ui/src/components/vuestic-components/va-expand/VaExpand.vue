@@ -182,7 +182,7 @@ export default class VaExpand extends Mixins(
     this.mutationObserver.observe(this.$refs.body, { attributes: true, childList: true, subtree: true })
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     if (this.mutationObserver) { this.mutationObserver.disconnect() }
   }
 }

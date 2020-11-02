@@ -4,52 +4,43 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import Vue from 'vue'
+import { reactive } from 'vue'
+import { Options, mixins } from 'vue-class-component'
 
-export default {
+@Options({
   name: 'VaTreeRoot',
-  mixins: [ColorThemeMixin],
   provide () {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const parent = this
     return {
-      va: new Vue({
-        computed: {
-          color () {
-            return parent.color
-          },
-        },
+      va: reactive({
+        color: parent.color,
       }),
     }
   },
-  methods: {
-    /**
-     * @public
-     */
-    collapse () {
-      this.$nextTick(() => {
-        this.$children.forEach(child => {
-          if (child.$options.name === 'va-tree-category') {
-            child.collapse()
-          }
-        })
+})
+export default class VaTreeRoot extends mixins(ColorThemeMixin) {
+  collapse () {
+    this.$nextTick(() => {
+      this.$children.forEach(child => {
+        if (child.$options.name === 'va-tree-category') {
+          child.collapse()
+        }
       })
-    },
-    /**
-     * @public
-     */
-    expand () {
-      this.$nextTick(() => {
-        this.$children.forEach(child => {
-          if (child.$options.name === 'va-tree-category') {
-            child.expand()
-          }
-        })
+    })
+  }
+
+  expand () {
+    this.$nextTick(() => {
+      this.$children.forEach(child => {
+        if (child.$options.name === 'va-tree-category') {
+          child.expand()
+        }
       })
-    },
-  },
+    })
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 const isMaterialFont = (font: string) => {
   return font === 'md'

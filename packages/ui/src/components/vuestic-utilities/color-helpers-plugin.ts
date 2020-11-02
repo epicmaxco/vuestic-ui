@@ -1,5 +1,5 @@
-import Vue from 'vue-class-component'
-import { App } from 'vue'
+
+import { App , watch} from 'vue'
 import { getDefaultOptions } from '../../services/ColorThemePlugin'
 import { addOrUpdateStyleElement } from '../../services/dom-functions'
 
@@ -21,14 +21,17 @@ const createThemeColorStyles = (themes: Record<string, string>): string => {
 const ColorHelpersPlugin = {
   install () {
     const defaultOptions = getDefaultOptions()
-    // @ts-ignore
-    vmInstance.$watch(() => defaultOptions.themes, {
-      deep: true,
-      immediate: true,
-      handler: () => {
+    
+    watch(
+      () => defaultOptions.themes,
+      () => {
         addOrUpdateStyleElement('va-theme-styles', () => createThemeColorStyles(defaultOptions.themes))
       },
-    })
+      {
+        deep: true,
+        immediate: true,
+      }
+    )
   },
 }
 

@@ -170,7 +170,7 @@ export default class VaAffix extends Mixins(
     })
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.clearEventListeners()
   }
 }

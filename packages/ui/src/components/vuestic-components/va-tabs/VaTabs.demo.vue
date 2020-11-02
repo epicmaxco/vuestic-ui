@@ -4,8 +4,9 @@
       title="Default usage"
       style="width: 100%;"
     >
-      <va-tabs v-model="tabValue1">
-        <va-tab
+      <va-tabs v-model="tabValue1" focus>
+        <template #tabs>
+          <va-tab
           v-for="title in tabStatic"
           :name="title"
           :key="title"
@@ -24,6 +25,7 @@
           disabled
           name="disabled"
         />
+        </template>
       </va-tabs>
       Value: {{ tabValue1 }}
     </VbCard>
@@ -32,25 +34,27 @@
       style="width: 30%;"
     >
       <va-tabs v-model="tabValue1">
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
-          :name="title"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
-        <va-tab label="Tab without name" />
-        <va-tab
-          icon="fas-home"
-          label="Tab with icon"
-          name="icon"
-        />
-        <va-tab
-          icon="face"
-          label="Disabled tab"
-          disabled
-          name="disabled"
-        />
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
+            :name="title"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+          <va-tab label="Tab without name" />
+          <va-tab
+            icon="fas-home"
+            label="Tab with icon"
+            name="icon"
+          />
+          <va-tab
+            icon="face"
+            label="Disabled tab"
+            disabled
+            name="disabled"
+          />
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -62,25 +66,27 @@
         prev-icon="arrow_back_ios"
         next-icon="arrow_forward_ios"
       >
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
-          :name="title"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
-        <va-tab label="Tab without name" />
-        <va-tab
-          icon="fas-home"
-          label="Tab with icon"
-          name="icon"
-        />
-        <va-tab
-          icon="face"
-          label="Disabled tab"
-          disabled
-          name="disabled"
-        />
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
+            :name="title"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+          <va-tab label="Tab without name" />
+          <va-tab
+            icon="fas-home"
+            label="Tab with icon"
+            name="icon"
+          />
+          <va-tab
+            icon="face"
+            label="Disabled tab"
+            disabled
+            name="disabled"
+          />
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -91,28 +97,32 @@
         v-model="tabValue1"
         vertical
       >
-        <va-tab
-          v-for="title in tabDynamic"
-          :name="title"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
-        <div style="width: 100%; height: 100%; background-color: wheat;" />
+        <template #tabs>
+          <va-tab
+            v-for="title in tabDynamic"
+            :name="title"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
+      <div style="width: 100%; height: 100%; background-color: wheat;" />
     </VbCard>
     <VbCard
       title="Tabs with names"
       style="width: 100%;"
     >
       <va-tabs v-model="tabValue2">
-        <va-tab
-          v-for="title in tabDynamic"
-          :name="title"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in tabDynamic"
+            :name="title"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
       Value: {{ tabValue2 }}
       <div>
@@ -130,15 +140,17 @@
       style="width: 100%;"
     >
       <va-tabs v-model="tabValue3">
-        <va-tab>
-          Inital tab
-        </va-tab>
-        <va-tab
-          v-for="title in tabAdded"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab>
+            Inital tab
+          </va-tab>
+          <va-tab
+            v-for="title in tabAdded"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
       Value: {{ tabValue3 }}
       <div>
@@ -152,31 +164,37 @@
       style="width: 100%;"
     >
       <va-tabs v-model="tabValue">
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
       <va-tabs v-model="tabValue">
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
       <va-tabs
         v-model="tabValue"
         v-if="show"
       >
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
 
       <div>
@@ -191,12 +209,14 @@
       style="width: 100%;"
     >
       <va-tabs>
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -204,12 +224,14 @@
       style="width: 100%;"
     >
       <va-tabs stateful>
-        <va-tab
-          v-for="title in tabStateful"
-          :key="title"
-        >
-          Tab #{{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in tabStateful"
+            :key="title"
+          >
+            Tab #{{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
       <div>
         <button @click="tabStateful.push(tabStateful.length + 1)">
@@ -225,12 +247,14 @@
         stateful
         right
       >
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -241,12 +265,14 @@
         stateful
         grow
       >
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -257,12 +283,14 @@
         stateful
         center
       >
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -270,9 +298,11 @@
       style="width: 100%;"
     >
       <va-tabs :modelValue="1">
-        <va-tab v-for="title in ['One', 'Two', 'Three']" :key="title">
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab v-for="title in ['One', 'Two', 'Three']" :key="title">
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -283,12 +313,14 @@
         stateful
         disabled
       >
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -300,12 +332,14 @@
         v-model="tabValue"
         color="danger"
       >
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -316,18 +350,20 @@
         stateful
         :modelValue="1"
       >
-        <va-tab
-          name="Link 1"
-          to="/demo/vuestic-components/va-breadcrumbs/VaBreadcrumbs.demo.vue"
-        >
-          Link 1
-        </va-tab>
-        <va-tab
-          name="Link 2"
-          to="/demo/vuestic-components/va-tabs/VaTabs.demo.vue"
-        >
-          Active link
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            name="Link 1"
+            to="/demo/vuestic-components/va-breadcrumbs/VaBreadcrumbs.demo.vue"
+          >
+            Link 1
+          </va-tab>
+          <va-tab
+            name="Link 2"
+            to="/demo/vuestic-components/va-tabs/VaTabs.demo.vue"
+          >
+            Active link
+          </va-tab>
+        </template>
       </va-tabs>
     </VbCard>
     <VbCard
@@ -339,12 +375,14 @@
         :modelValue="1"
         hide-slider
       >
-        <va-tab
-          v-for="title in ['One', 'Two', 'Three', 'Four']"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
+        <template #tabs>
+          <va-tab
+            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
       </va-tabs>
     </VbCard>
   </VbDemo>

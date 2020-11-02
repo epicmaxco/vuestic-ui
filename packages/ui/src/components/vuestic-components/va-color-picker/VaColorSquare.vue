@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-color-square"
-    :style="{'background-color': value}"
+    :style="{'background-color': modelValue}"
   />
 </template>
 

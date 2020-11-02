@@ -53,7 +53,7 @@ export default class VaImage extends Mixins(
     required: true,
   }) readonly src!: string
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.destroyLoader()
   }
 

@@ -39,7 +39,7 @@
       >
         Default Button
       </va-rating>
-      <va-tree-root color="info">
+      <va-tree-root color="warning">
         <va-tree-category label="Electronics">
           <va-tree-node>Cellphones</va-tree-node>
           <va-tree-node>Camera Body Kits</va-tree-node>
@@ -68,7 +68,7 @@
         color="info"
       />
     </VbCard>
-    <VbCard title="Change color">
+    <!-- <VbCard title="Change color">
       <div>
         primary
         <va-color-picker-input
@@ -111,7 +111,7 @@
           mode="advanced"
         />
       </div>
-    </VbCard>
+    </VbCard> -->
     <VbCard title="These 2 badges share `info` theme">
       <va-badge
         color="info"
@@ -132,8 +132,8 @@ import VaAlert
   from './../../vuestic-components/va-alert/VaAlert'
 import VaProgressBar
   from './../../vuestic-components/va-progress-bar/progress-types/VaProgressBar'
-import VaColorPickerInput
-  from '../../vuestic-components/va-color-picker/VaColorPickerInput'
+// import VaColorPickerInput
+//   from '../../vuestic-components/va-color-picker/VaColorPickerInput'
 import VaRating from '../../vuestic-components/va-rating/VaRating'
 import VaTreeRoot from '../../vuestic-components/va-tree-view/VaTreeRoot'
 import VaTreeCategory
@@ -152,7 +152,7 @@ export default {
     VaTreeCategory,
     VaTreeRoot,
     VaRating,
-    VaColorPickerInput,
+    // VaColorPickerInput,
     VaButton,
     VaAlert,
     VaProgressBar,
@@ -171,6 +171,7 @@ export default {
       this.chartData = getLineChartData(this.$themes)
     },
     darkenTheme () {
+      console.log('darken')
       // NOTE For testing. So that we can observe theme changed
       const newTheme = {
         primary: '#9A0931',
@@ -184,7 +185,7 @@ export default {
       }
 
       for (const index in newTheme) {
-        this.$set(this.$themes, index, newTheme[index])
+        this.$themes[index] = newTheme[index]
       }
     },
   },

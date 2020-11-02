@@ -112,12 +112,6 @@ export default class VaAlert extends Mixins(
     default: true,
   }) readonly modelValue!: boolean
 
-  mounted () {
-    console.log('VaAlert has mounted')
-    console.log(this.$options.props)
-    console.log(this.$props)
-  }
-
   get hasIcon () {
     return this.c_icon || this.$slots.icon
   }

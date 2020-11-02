@@ -128,7 +128,7 @@ export default class VaParallax extends Mixins(
     this.initImage()
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.removeEventListeners()
   }
 }

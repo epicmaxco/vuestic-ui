@@ -1,4 +1,4 @@
-import { mount, shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 
 import VaBacktop from '../VaBacktop.vue'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
