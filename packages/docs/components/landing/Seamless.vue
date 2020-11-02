@@ -1,8 +1,8 @@
 <template>
-  <div class="seamless">
+  <section class="seamless">
     <div class="seamless__wrapper">
       <div class="seamless__inner">
-        <div class="seamless__title">{{$t('landing.seamless.title')}}</div>
+        <h2 class="seamless__title">{{$t('landing.seamless.title')}}</h2>
         <div class="seamless__subtitle">{{$t('landing.seamless.text')}}</div>
         <div class="seamless__content">
 
@@ -77,7 +77,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

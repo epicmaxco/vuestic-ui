@@ -1,8 +1,8 @@
 <template>
-  <div class="preview">
+  <section class="preview">
     <div class="preview__wrapper">
       <div class="preview__inner">
-        <div class="preview__title">{{$t('landing.preview.title')}}</div>
+        <h1 class="preview__title">{{$t('landing.preview.title')}}</h1>
         <div class="preview__buttons">
           <va-button class="preview__buttons--button"
             :round="false"
@@ -61,7 +61,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

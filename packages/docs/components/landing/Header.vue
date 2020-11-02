@@ -1,15 +1,16 @@
 <template>
-  <div class="header">
+  <header class="header">
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">
-          <img src="../../assets/landing/images/logo.svg" alt="Vuestic UI">
+          <!--        TODO: add root link-->
+          <a href="/"><img src="../../assets/landing/images/logo.svg" alt="Vuestic UI"></a>
           <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
             <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
             <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
           </div>
         </div>
-        <div class="header__links">
+        <nav class="header__links">
           <!-- vuestic buttons -->
           <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
           <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
@@ -38,9 +39,9 @@
 
             </va-list>
           </va-dropdown>
-        </div>
+        </nav>
         <!-- mobile -->
-        <div class="mobile-menu" :class="computedClass">
+        <nav class="mobile-menu" :class="computedClass">
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
@@ -79,10 +80,10 @@
               </va-list-item-section>
             </va-list-item>
           </va-list>
-        </div>
+        </nav>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <script lang="ts">
@@ -217,6 +218,7 @@ export default class Header extends Vue {
   top: 1.5rem;
   z-index: 1000;
   display: none;
+  cursor: pointer;
 
   @include sm(display, block);
 

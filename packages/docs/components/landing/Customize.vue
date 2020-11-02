@@ -1,9 +1,9 @@
 <template>
-  <div class="customize__bg">
+  <section class="customize__bg">
   <div class="customize">
     <div class="customize__wrapper">
       <div class="customize__inner">
-        <div class="customize__title">{{$t('landing.customize.title')}}</div>
+        <h2 class="customize__title">{{$t('landing.customize.title')}}</h2>
         <div class="customize__subtitle">{{$t('landing.customize.text')}}</div>
         <div class="customize__content">
           <!-- Tabs -->
@@ -73,7 +73,7 @@
       </div>
     </div>
   </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

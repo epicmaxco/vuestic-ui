@@ -1,10 +1,11 @@
 <template>
-  <div class="footer">
+  <footer class="footer">
     <div class="footer__wrapper">
       <div class="footer__inner">
-        <div class="footer__image">
+        <!--        TODO: add root link-->
+        <a href="/" class="footer__image">
           <img src="../../assets/landing/images/logo.svg" alt="">
-        </div>
+        </a>
         <div class="footer__buttons">
           <va-button class="footer__buttons__button"
             :round="false"
@@ -60,7 +61,7 @@
         <div class="footer__subtitle">{{$t('landing.footer.text')}} <a href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
       </div>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script lang="ts">

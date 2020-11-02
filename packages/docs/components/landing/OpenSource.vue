@@ -1,12 +1,12 @@
 <template>
-  <div class="opensource">
+  <section class="opensource">
     <div class="opensource__wrapper">
       <div class="opensource__inner">
         <div class="opensource__info">
           <div class="opensource__icon">
             <img src="../../assets/landing/images/icon-open-source.svg" alt="">
           </div>
-          <div class="opensource__title">{{$t('landing.opensource.title')}}</div>
+          <h2 class="opensource__title">{{$t('landing.opensource.title')}}</h2>
           <div class="opensource__text">
             {{$t('landing.opensource.text[0]')}}
             <a href="#">{{$t('landing.opensource.text[1]')}}</a>,
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">

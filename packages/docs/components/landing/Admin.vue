@@ -1,8 +1,8 @@
 <template>
-  <div class="admin">
+  <section class="admin">
     <div class="admin__wrapper">
       <div class="admin__inner">
-        <div class="admin__title">{{$t('landing.admin.title')}}</div>
+        <h2 class="admin__title">{{$t('landing.admin.title')}}</h2>
         <div class="admin__subtitle">{{$t('landing.admin.text')}}</div>
         <div class="admin__buttons">
           <va-button class="admin__buttons--button"
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
