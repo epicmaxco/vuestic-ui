@@ -60,14 +60,15 @@
             <va-list-label color="#757B83" class="mobile-menu__label">
               Language
             </va-list-label>
-            <va-list-item>
+            <va-list-item
+              v-for="(option, id) in options"
+              :key="id"
+              class="mobile-menu__language"
+              :class="{ active: option.code === currentLanguage }"
+              @click="setLanguage(option.code)"
+            >
               <va-list-item-section class="mobile-menu__link">
-                <a href="">English</a>
-              </va-list-item-section>
-            </va-list-item>
-            <va-list-item>
-              <va-list-item-section class="mobile-menu__link">
-                <a href="">Espanol</a>
+                <span class="language">{{ $t(`language.${option.code}`) }}</span>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
@@ -255,6 +256,14 @@ export default class Header extends Vue {
     @include sm(display, flex);
   }
 
+  &__language {
+    &.active {
+      .language {
+        color: #1b1a1f;
+      }
+    }
+  }
+
   &__label {
     font-size: 12px;
     padding-top: 5rem;
@@ -265,6 +274,7 @@ export default class Header extends Vue {
 
     text-align: center;
 
+    span,
     a {
       color: #2550c0;
       padding: 1rem 0;
