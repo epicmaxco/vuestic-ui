@@ -60,6 +60,7 @@
             <va-list-label color="#757B83" class="mobile-menu__label">
               Language
             </va-list-label>
+            <div style="overflow: auto; height: 40vh;">
             <va-list-item
               v-for="(option, id) in options"
               :key="id"
@@ -68,9 +69,10 @@
               @click="setLanguage(option.code)"
             >
               <va-list-item-section class="mobile-menu__link">
-                <span class="language">{{ $t(`language.${option.code}`) }}</span>
+                <span class="language">{{ option.name }}</span>
               </va-list-item-section>
             </va-list-item>
+            </div>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
                 <a href="">Add translation...</a>
@@ -94,19 +96,35 @@ import { Component, Vue } from 'vue-property-decorator'
       default: () => [
         {
           code: 'en',
-          name: 'english',
+          name: 'English',
         },
         {
           code: 'es',
-          name: 'spanish',
+          name: 'Español',
         },
         {
-          code: 'br',
-          name: 'brazilian_portuguese',
+          code: 'ru',
+          name: 'Русский',
+        },
+        {
+          code: 'by',
+          name: 'Беларуская',
+        },
+        {
+          code: 'ru',
+          name: 'Русский',
+        },
+        {
+          code: 'ru',
+          name: 'Русский',
+        },
+        {
+          code: 'ru',
+          name: 'Русский',
         },
         {
           code: 'cn',
-          name: 'simplified_chinese',
+          name: '简体中文',
         },
       ],
     },
@@ -267,6 +285,7 @@ export default class Header extends Vue {
   &__label {
     font-size: 12px;
     padding-top: 5rem;
+    padding-bottom: 1rem;
   }
 
   &__link {
