@@ -39,6 +39,44 @@
             </va-list>
           </va-dropdown>
         </div>
+        <!-- mobile -->
+        <div class="header__links" :class="computedClass" ref="links">
+          <va-list>
+            <va-list-item>
+              <va-list-item-section class="mobile-menu__link">
+                <a href="">{{$t('landing.header.buttons.overview')}}</a>
+              </va-list-item-section>
+            </va-list-item>
+            <va-list-item>
+              <va-list-item-section class="mobile-menu__link">
+                <a href="">{{$t('landing.header.buttons.docs')}}</a>
+              </va-list-item-section>
+            </va-list-item>
+            <va-list-item>
+              <va-list-item-section class="mobile-menu__link">
+                <a href="">{{$t('landing.header.buttons.discord')}}</a>
+              </va-list-item-section>
+            </va-list-item>
+            <va-list-label color="#757B83" class="mobile-menu__label">
+              Language
+            </va-list-label>
+            <va-list-item>
+              <va-list-item-section class="mobile-menu__link">
+                <a href="">English</a>
+              </va-list-item-section>
+            </va-list-item>
+            <va-list-item>
+              <va-list-item-section class="mobile-menu__link">
+                <a href="">Espanol</a>
+              </va-list-item-section>
+            </va-list-item>
+            <va-list-item>
+              <va-list-item-section class="mobile-menu__link">
+                <a href="">Add translation...</a>
+              </va-list-item-section>
+            </va-list-item>
+          </va-list>
+        </div>
       </div>
     </div>
   </div>
@@ -209,6 +247,28 @@ export default class Header extends Vue {
 
   .va-dropdown__anchor {
     display: inline-block;
+  }
+}
+
+.mobile-menu {
+  &__label {
+    font-size: 12px;
+    padding-top: 5rem;
+  }
+
+  &__link {
+    @include link-font();
+
+    text-align: center;
+
+    a {
+      color: #2550c0;
+      padding: 1rem 0;
+
+      &:hover {
+        color: #1b1a1f;
+      }
+    }
   }
 }
 </style>
