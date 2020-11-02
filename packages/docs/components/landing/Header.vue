@@ -9,7 +9,7 @@
             <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
           </div>
         </div>
-        <div class="header__links" :class="computedClass" ref="links">
+        <div class="header__links">
           <!-- vuestic buttons -->
           <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
           <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
@@ -40,7 +40,7 @@
           </va-dropdown>
         </div>
         <!-- mobile -->
-        <div class="header__links" :class="computedClass" ref="links">
+        <div class="mobile-menu" :class="computedClass">
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
@@ -121,7 +121,7 @@ export default class Header extends Vue {
 
   get computedClass () {
     return {
-      'header__links--open': !this.isHidden,
+      'mobile-menu--open': !this.isHidden,
     }
   }
 
@@ -176,22 +176,7 @@ export default class Header extends Vue {
     justify-content: flex-end;
     align-items: center;
 
-    @include size-sm(12);
     @include sm(display, none);
-    @include sm(margin, 0);
-    @include sm(width, 100%);
-    @include sm(height, 100vh);
-    @include sm(flex-direction, column);
-    @include sm(justify-content, center);
-    @include sm(background-color, #fff);
-    @include sm(padding, 0.5rem);
-    @include sm(position, fixed);
-    @include sm(top, 0);
-    @include sm(left, 0);
-
-    &--open {
-      @include sm(display, flex);
-    }
 
     &--link {
       @include link-font();
@@ -251,6 +236,25 @@ export default class Header extends Vue {
 }
 
 .mobile-menu {
+  display: none;
+
+  @include col();
+  @include size-sm(12);
+  @include sm(margin, 0);
+  @include sm(width, 100%);
+  @include sm(height, 100vh);
+  @include sm(flex-direction, column);
+  @include sm(justify-content, center);
+  @include sm(background-color, #fff);
+  @include sm(padding, 0.5rem);
+  @include sm(position, fixed);
+  @include sm(top, 0);
+  @include sm(left, 0);
+
+  &--open {
+    @include sm(display, flex);
+  }
+
   &__label {
     font-size: 12px;
     padding-top: 5rem;
