@@ -6,7 +6,9 @@
     :messages="c_messages"
     :style="{width}"
   >
-    <slot name="prepend" />
+    <template #prepend>
+      <slot name="prepend" />
+    </template>
 
     <va-dropdown
       class="va-select__dropdown"
@@ -154,8 +156,9 @@
       </template>
     </va-dropdown>
 
-    <slot name="append" />
-
+    <template #append>
+      <slot name="append" />
+    </template>
   </va-input-wrapper>
 </template>
 
