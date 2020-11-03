@@ -17,7 +17,7 @@
           <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
           <va-dropdown class="language-dropdown"  :offset="[0, 25]" fixed>
             <va-button class="header__links--link" iconRight="expand_more" flat square slot="anchor" color="#2550C0">
-              {{ $t(`language.${currentLanguage}`) }}
+              {{ currentLanguageName }}
             </va-button>
             <va-list class="language-dropdown__content">
               <va-list-item
@@ -152,6 +152,11 @@ export default class Header extends Vue {
 
   get currentLanguage () {
     return (this as any).$root.$i18n.locale
+  }
+
+  get currentLanguageName () {
+    const result = (this as any).options.find(({ code }: any) => code === this.currentLanguage)
+    return result.name
   }
 }
 </script>
