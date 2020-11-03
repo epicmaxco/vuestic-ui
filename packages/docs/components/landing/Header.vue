@@ -28,7 +28,7 @@
                 @click="setLanguage(option.code)"
               >
                 <va-list-item-section :style="{color: '#2550C0'}">
-                  <span class="dropdown-item__text">{{ $t(`language.${option.code}`) }}</span>
+                  <span class="dropdown-item__text">{{ option.name }}</span>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
@@ -112,20 +112,20 @@ import { Component, Vue } from 'vue-property-decorator'
           name: 'Беларуская',
         },
         {
-          code: 'ru',
-          name: 'Русский',
+          code: 'de',
+          name: 'Deutsch',
         },
         {
-          code: 'ru',
-          name: 'Русский',
+          code: 'fr',
+          name: 'Français',
         },
         {
-          code: 'ru',
-          name: 'Русский',
+          code: 'pl',
+          name: 'Polski',
         },
         {
           code: 'cn',
-          name: '简体中文',
+          name: '中文',
         },
       ],
     },
@@ -267,7 +267,7 @@ export default class Header extends Vue {
   @include sm(flex-direction, column);
   @include sm(justify-content, center);
   @include sm(background-color, #fff);
-  @include sm(padding, 0.5rem);
+  @include sm(padding, 1rem 0);
   @include sm(position, fixed);
   @include sm(top, 0);
   @include sm(left, 0);
@@ -286,7 +286,7 @@ export default class Header extends Vue {
 
   &__label {
     font-size: 12px;
-    padding-top: 5rem;
+    padding-top: 4rem;
     padding-bottom: 1rem;
   }
 
