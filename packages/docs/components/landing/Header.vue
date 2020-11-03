@@ -63,7 +63,7 @@
               </va-list-item-section>
             </va-list-item>
             <va-list-label color="#757B83" class="mobile-menu__label">
-              Language
+              {{$t('landing.header.buttons.language')}}
             </va-list-label>
             <div class="mobile-menu__languages">
             <va-list-item
@@ -80,7 +80,7 @@
             </div>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a class="mobile-menu__language" href="">Add translation...</a>
+                <a class="mobile-menu__language" href="">{{$t('landing.header.buttons.translation')}}</a>
               </va-list-item-section>
             </va-list-item>
           </va-list>
