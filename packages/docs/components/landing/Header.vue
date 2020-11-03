@@ -27,18 +27,22 @@
                 :class="{ active: option.code === currentLanguage }"
                 @click="setLanguage(option.code)"
               >
-                <va-list-item-section :style="{color: '#2550C0'}">
+                <va-list-item-section>
                   <span class="dropdown-item__text">{{ option.name }}</span>
                 </va-list-item-section>
               </va-list-item>
-              <va-list-item>
-                <va-list-item-section :style="{color: '#2550C0', padding: '0.5rem'}">
-                  <va-button outline :round="false" size="small" color="#2550C0">{{$t('landing.header.buttons.translation')}}</va-button>
+              <va-list-item class="language-dropdown__item">
+                <va-list-item-section>
+                  <a href="/" class="dropdown-item__text">{{$t('landing.header.buttons.translation')}}</a>
                 </va-list-item-section>
               </va-list-item>
 
             </va-list>
           </va-dropdown>
+          <va-button-group>
+            <va-button class="test" href="https://github.com/epicmaxco/vuestic-ui" :round="false" size="small" icon="star_empty">Star</va-button>
+            <va-button class="test" :round="false" size="small">780</va-button>
+          </va-button-group>
         </nav>
         <!-- mobile -->
         <nav class="mobile-menu" :class="computedClass">
@@ -61,7 +65,7 @@
             <va-list-label color="#757B83" class="mobile-menu__label">
               Language
             </va-list-label>
-            <div style="overflow: auto; height: 40vh;">
+            <div class="mobile-menu__languages">
             <va-list-item
               v-for="(option, id) in options"
               :key="id"
@@ -76,7 +80,7 @@
             </div>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="">Add translation...</a>
+                <a class="mobile-menu__language" href="">Add translation...</a>
               </va-list-item-section>
             </va-list-item>
           </va-list>
@@ -186,7 +190,7 @@ export default class Header extends Vue {
 
   &__logo {
     @include col();
-    @include size(4);
+    @include size(3);
     @include size-sm(12);
 
     display: flex;
@@ -195,7 +199,7 @@ export default class Header extends Vue {
 
   &__links {
     @include col();
-    @include size(8);
+    @include size(9);
 
     display: flex;
     justify-content: flex-end;
@@ -240,6 +244,7 @@ export default class Header extends Vue {
   &__content {
     background-color: #f6f8f9;
     border-radius: 0.5rem;
+    min-width: 12rem;
     padding: 0.5rem 0;
   }
 
@@ -247,6 +252,7 @@ export default class Header extends Vue {
     padding: 0.75rem 1rem;
     cursor: pointer;
     flex-wrap: nowrap;
+    color: green;
 
     &:hover,
     &.active {
@@ -254,6 +260,10 @@ export default class Header extends Vue {
         color: #1b1a1f;
       }
     }
+  }
+
+  .dropdown-item__text {
+    color: #2550c0;
   }
 
   .va-dropdown__anchor {
@@ -279,6 +289,11 @@ export default class Header extends Vue {
 
   &--open {
     @include sm(display, flex);
+  }
+
+  &__languages {
+    overflow: auto;
+    height: 40vh;
   }
 
   &__language {
@@ -310,5 +325,9 @@ export default class Header extends Vue {
       }
     }
   }
+}
+
+.test {
+  padding: 0 !important;
 }
 </style>
