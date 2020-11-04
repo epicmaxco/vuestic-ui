@@ -40,8 +40,8 @@
             </va-list>
           </va-dropdown>
           <va-button-group>
-            <va-button class="test" href="https://github.com/epicmaxco/vuestic-ui" :round="false" size="small" icon="star_empty">Star</va-button>
-            <va-button class="test" :round="false" size="small">780</va-button>
+            <va-button class="star-button" href="https://github.com/epicmaxco/vuestic-ui" :round="false" size="small" icon="star_empty">Star</va-button>
+            <va-button class="star-button" :round="false" size="small">{{ stars }}</va-button>
           </va-button-group>
         </nav>
         <!-- mobile -->
@@ -138,6 +138,7 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class Header extends Vue {
   value = false
   isHidden = true
+  stars = 0
 
   onClick (value: boolean) {
     this.isHidden = value
@@ -161,6 +162,12 @@ export default class Header extends Vue {
   get currentLanguageName () {
     const result = (this as any).options.find(({ code }: any) => code === this.currentLanguage)
     return result.name
+  }
+
+  async beforeMount () {
+    const resRepo = await fetch('https://api.github.com/repos/epicmaxco/vuestic-ui')
+    const repo = await resRepo.json()
+    this.stars = repo.stargazers_count
   }
 }
 </script>
@@ -327,7 +334,7 @@ export default class Header extends Vue {
   }
 }
 
-.test {
+.star-button {
   padding: 0 !important;
 }
 </style>
