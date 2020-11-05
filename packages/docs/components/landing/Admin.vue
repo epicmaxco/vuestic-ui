@@ -19,13 +19,13 @@
           >
             {{$t('landing.admin.buttons.demo')}}
           </va-button>
-          <va-button class="admin__buttons--button"
-            :round="false"
-            color="#2550C0"
-            icon="star_empty"
-          >
-            {{$t('landing.admin.buttons.star')}}
-          </va-button>
+          <va-button-group class="admin__buttons--button">
+            <va-button class="star-button" color="#f4f4f4" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
+              <va-icon color="#000" size="small" name="star_empty"/>
+              {{$t('landing.admin.buttons.star')}}
+            </va-button>
+            <va-button class="star-button" color="#f4f4f4" :round="false" size="small">{{ stars }}</va-button>
+          </va-button-group>
         </div>
         <div class="admin__content">
           <div class="admin__content__item admin__content__item--first">
@@ -73,7 +73,15 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 @Component({})
-export default class Admin extends Vue {}
+export default class Admin extends Vue {
+  stars = 0
+
+  async beforeMount () {
+    const resRepo = await fetch('https://api.github.com/repos/epicmaxco/vuestic-admin')
+    const repo = await resRepo.json()
+    this.stars = repo.stargazers_count
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -145,6 +153,8 @@ export default class Admin extends Vue {}
       @include button-font();
 
       height: 3rem;
+      display: flex;
+      align-items: center;
 
       // md
       @include size-md(12);
@@ -229,6 +239,14 @@ export default class Admin extends Vue {}
       line-height: 1.8rem;
     }
   }
+}
+
+.star-button {
+  @include code-font();
+
+  padding: 0 !important;
+  color: #000000 !important;
+  height: 1.75rem;
 }
 
 </style>
