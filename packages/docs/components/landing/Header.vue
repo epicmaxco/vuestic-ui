@@ -39,7 +39,7 @@
 
             </va-list>
           </va-dropdown>
-          <va-button-group>
+          <va-button-group style="padding-left: 0.1rem;">
             <va-button class="star-button" href="https://github.com/epicmaxco/vuestic-ui" :round="false" size="small" icon="star_empty">Star</va-button>
             <va-button class="star-button" :round="false" size="small">{{ stars }}</va-button>
           </va-button-group>
