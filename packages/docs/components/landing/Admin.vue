@@ -159,6 +159,7 @@ export default class Admin extends Vue {
       // md
       @include size-md(12);
       @include md(margin-bottom, 1rem);
+      @include md(justify-content, center);
     }
   }
 
