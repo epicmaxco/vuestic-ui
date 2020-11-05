@@ -23,7 +23,7 @@
           </va-button>
           <va-button-group class="admin__buttons--button">
             <va-button class="star-button" color="#f4f4f4" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
-              <va-icon color="#000" size="small" name="star_empty"/>
+              <va-icon color="#000" size="small" name="star_empty" style="padding-right: 0.5rem;"/>
               {{$t('landing.admin.buttons.star')}}
             </va-button>
             <va-button class="star-button" color="#f4f4f4" :round="false" size="small">{{ stars }}</va-button>

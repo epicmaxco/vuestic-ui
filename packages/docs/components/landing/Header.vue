@@ -83,7 +83,7 @@
                 <a class="mobile-menu__language" href="">{{$t('landing.header.buttons.translation')}}</a>
               </va-list-item-section>
             </va-list-item>
-            <va-list-item style="display: flex; justify-content: center; padding-bottom: 1rem;">
+            <va-list-item style="display: flex; justify-content: center; padding-bottom: 1rem; padding-top: 0.5rem;">
               <va-button-group>
                 <va-button class="star-button" href="https://github.com/epicmaxco/vuestic-ui" :round="false" size="small" icon="star_empty">Star</va-button>
                 <va-button class="star-button" :round="false" size="small">{{ stars }}</va-button>
@@ -306,7 +306,7 @@ export default class Header extends Vue {
 
   &__languages {
     overflow: auto;
-    height: 40vh;
+    height: 35vh;
   }
 
   &__language {
@@ -319,8 +319,8 @@ export default class Header extends Vue {
 
   &__label {
     font-size: 12px;
-    padding-top: 4rem;
-    padding-bottom: 1rem;
+    padding-top: 3rem;
+    padding-bottom: 0.8rem;
   }
 
   &__link {
@@ -331,7 +331,7 @@ export default class Header extends Vue {
     span,
     a {
       color: #2550c0;
-      padding: 1rem 0;
+      padding: 0.8rem 0;
 
       &:hover {
         color: #1b1a1f;
