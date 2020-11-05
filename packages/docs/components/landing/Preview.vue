@@ -11,6 +11,7 @@
             {{$t('landing.preview.buttons.start')}}
           </va-button>
           <va-button class="preview__buttons--button"
+            href="https://github.com/epicmaxco/vuestic-ui"
             :round="false"
             color="#2550C0"
             flat icon="github"

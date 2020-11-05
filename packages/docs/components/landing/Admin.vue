@@ -6,6 +6,7 @@
         <div class="admin__subtitle">{{$t('landing.admin.text')}}</div>
         <div class="admin__buttons">
           <va-button class="admin__buttons--button"
+            href="https://github.com/epicmaxco/vuestic-admin"
             :round="false"
             color="#2550C0"
             icon="github"
@@ -13,6 +14,7 @@
             {{$t('landing.admin.buttons.github')}}
           </va-button>
           <va-button class="admin__buttons--button"
+            href="https://vuestic.epicmax.co/admin/dashboard"
             :round="false"
             color="#2550C0"
             flat

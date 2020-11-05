@@ -8,6 +8,7 @@
         </a>
         <div class="footer__buttons">
           <va-button class="footer__buttons__button"
+            href="https://epicmax.co/about"
             :round="false"
             color="#2550C0"
             flat
@@ -16,6 +17,7 @@
             {{$t('landing.footer.buttons.epicmax')}}
           </va-button>
           <va-button class="footer__buttons__button"
+            href="https://github.com/epicmaxco/vuestic-admin"
             :round="false"
             color="#2550C0"
             flat
@@ -24,6 +26,7 @@
             {{$t('landing.footer.buttons.admin')}}
           </va-button>
           <va-button class="footer__buttons__button"
+            href="https://github.com/epicmaxco/epic-spinners"
             :round="false"
             color="#2550C0"
             flat
