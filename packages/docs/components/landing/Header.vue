@@ -12,9 +12,9 @@
         </div>
         <nav class="header__links">
           <!-- vuestic buttons -->
-          <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
-          <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
-          <va-button class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
+          <va-button href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
+          <va-button href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
+          <va-button href="https://discord.gg/jTKTjj2weV" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
           <va-dropdown class="language-dropdown"  :offset="[0, 25]" fixed>
             <va-button class="header__links--link" iconRight="expand_more" flat square slot="anchor" color="#2550C0">
               {{ currentLanguageName }}
@@ -33,7 +33,7 @@
               </va-list-item>
               <va-list-item class="language-dropdown__item">
                 <va-list-item-section>
-                  <a href="/" class="dropdown-item__text">{{$t('landing.header.buttons.translation')}}</a>
+                  <a href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="dropdown-item__text">{{$t('landing.header.buttons.translation')}}</a>
                 </va-list-item-section>
               </va-list-item>
 
@@ -49,17 +49,17 @@
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="">{{$t('landing.header.buttons.overview')}}</a>
+                <a href="https://github.com/epicmaxco/vuestic-ui/issues/457">{{$t('landing.header.buttons.overview')}}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="">{{$t('landing.header.buttons.docs')}}</a>
+                <a href="https://github.com/epicmaxco/vuestic-ui/issues/457">{{$t('landing.header.buttons.docs')}}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="">{{$t('landing.header.buttons.discord')}}</a>
+                <a href="https://discord.gg/jTKTjj2weV">{{$t('landing.header.buttons.discord')}}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-label color="#757B83" class="mobile-menu__label">
@@ -80,7 +80,7 @@
             </div>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a class="mobile-menu__language" href="">{{$t('landing.header.buttons.translation')}}</a>
+                <a class="mobile-menu__language" href="https://github.com/epicmaxco/vuestic-ui/issues/457">{{$t('landing.header.buttons.translation')}}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-item class="star-button-wrapper">

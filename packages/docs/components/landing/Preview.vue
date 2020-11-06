@@ -5,6 +5,7 @@
         <h1 class="preview__title">{{$t('landing.preview.title')}}</h1>
         <div class="preview__buttons">
           <va-button class="preview__buttons--button"
+            href="https://github.com/epicmaxco/vuestic-ui/issues/457"
             :round="false"
             color="#2550C0"
           >
@@ -32,7 +33,7 @@
               <img src="@/assets/landing/images/features/nuxt-support.svg" alt="nuxt-support">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>
-            <a href="#" class="item__link">{{$t('landing.preview.features.nuxt.text')}}</a>
+            <a href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="item__link">{{$t('landing.preview.features.nuxt.text')}}</a>
           </div>
 
           <div class="item">
@@ -40,7 +41,7 @@
               <img src="@/assets/landing/images/features/components.svg" alt="responsive-components">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
-            <a href="#" class="item__link">{{$t('landing.preview.features.components.text')}}</a>
+            <a href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="item__link">{{$t('landing.preview.features.components.text')}}</a>
           </div>
 
           <div class="item">
@@ -48,7 +49,7 @@
               <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="keyboard-navigation">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.keyboard.title')}}</h2>
-            <a href="#" class="item__link">{{$t('landing.preview.features.keyboard.text')}}</a>
+            <a href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="item__link">{{$t('landing.preview.features.keyboard.text')}}</a>
           </div>
 
           <div class="item">
@@ -56,7 +57,7 @@
               <img src="@/assets/landing/images/features/modern-browsers.svg" alt="modern-browsers">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.browsers.title')}}</h2>
-            <a href="#" class="item__link">{{$t('landing.preview.features.browsers.text')}}</a>
+            <a href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="item__link">{{$t('landing.preview.features.browsers.text')}}</a>
           </div>
           <!-- /items -->
         </div>

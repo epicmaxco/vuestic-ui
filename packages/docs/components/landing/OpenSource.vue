@@ -9,10 +9,10 @@
           <h2 class="opensource__title">{{$t('landing.opensource.title')}}</h2>
           <div class="opensource__text">
             {{$t('landing.opensource.text[0]')}}
-            <a href="#">{{$t('landing.opensource.text[1]')}}</a>,
-            <a href="#">{{$t('landing.opensource.text[2]')}}</a>
+            <a href="https://github.com/epicmaxco/vuestic-ui/issues">{{$t('landing.opensource.text[1]')}}</a>,
+            <a href="https://github.com/epicmaxco/vuestic-ui/issues/457">{{$t('landing.opensource.text[2]')}}</a>
             {{$t('landing.opensource.text[3]')}}
-            <a href="#">{{$t('landing.opensource.text[4]')}}</a>
+            <a href="https://discord.gg/jTKTjj2weV">{{$t('landing.opensource.text[4]')}}</a>
             {{$t('landing.opensource.text[5]')}}</div>
         </div>
         <div class="opensource__actions">

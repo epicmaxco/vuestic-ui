@@ -68,7 +68,7 @@
           </div>
           <!-- /Second block -->
 
-          <a class="customize__content__link" href="#">{{$t('landing.customize.configuration')}}</a>
+          <a class="customize__content__link" href="https://github.com/epicmaxco/vuestic-ui/issues/457">{{$t('landing.customize.configuration')}}</a>
         </div>
       </div>
     </div>

@@ -37,24 +37,28 @@
         </div>
         <div class="footer__social">
           <va-button class="footer__social__item"
+            href="https://github.com/epicmaxco/vuestic-ui/"
             color="#2550C0"
             flat
             icon="github"
           >
           </va-button>
           <va-button class="footer__social__item"
+            href="https://discord.gg/jTKTjj2weV"
             color="#2550C0"
             flat
             icon="discord"
           >
           </va-button>
           <va-button class="footer__social__item"
+            href="https://github.com/epicmaxco/vuestic-ui/issues/457"
             color="#2550C0"
             flat
             icon="facebook"
           >
           </va-button>
           <va-button class="footer__social__item"
+            href="https://github.com/epicmaxco/vuestic-ui/issues/457"
             color="#2550C0"
             flat
             icon="twitter"
