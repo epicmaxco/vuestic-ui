@@ -39,7 +39,7 @@
 
             </va-list>
           </va-dropdown>
-          <va-button-group style="padding-left: 0.1rem;">
+          <va-button-group style="padding-left: 0.5rem;">
             <va-button class="star-button" href="https://github.com/epicmaxco/vuestic-ui" :round="false" size="small" icon="star_empty">Star</va-button>
             <va-button class="star-button" :round="false" size="small">{{ stars }}</va-button>
           </va-button-group>
@@ -224,6 +224,7 @@ export default class Header extends Vue {
       @include link-font();
 
       line-height: 1.5rem;
+      margin-left: 0.5rem;
 
       @include sm(width, 100%);
     }
