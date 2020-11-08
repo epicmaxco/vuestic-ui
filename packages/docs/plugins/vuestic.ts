@@ -1,4 +1,6 @@
 import Vue from 'vue'
-import VuesticPlugin from 'vuestic-ui/src/components/vuestic-plugin'
+import { VuesticPlugin } from 'vuestic-ui'
+
+console.log('VuesticPlugin', VuesticPlugin)
 
 Vue.use(VuesticPlugin)

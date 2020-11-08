@@ -18,7 +18,7 @@ import { allComponents } from './all-ts-components'
 
 installPlatform()
 
-const VuesticPlugin = {
+export const VuesticPlugin = {
   install (Vue: typeof _Vue) {
     allComponents.forEach(component => {
       Vue.component(component.name, component)
