@@ -22,10 +22,10 @@ module.exports = {
     {
       type: 'input',
       name: 'category',
-      message: 'What\'s the component categoty (ex.: uiElements, styles, contribution)?',
+      message: 'What\'s the component categoty (ex.: uiElements, styles, contribution, gettingStarted, introduction)?',
       validate: value => {
         if (/.+/.test(value)) {
-          if (['uiElements', 'styles', 'contribution'].includes(value)) {
+          if (['uiElements', 'styles', 'contribution', 'gettingStarted', 'introduction'].includes(value)) {
             return true
           }
           return 'Name is invalid'
@@ -48,19 +48,19 @@ module.exports = {
     const createDocsActions = [
       {
         type: 'add',
-        path: `${docsBasePath}/pages/index/{{kebabCase category}}/{{kebabCase name}}.vue`,
+        path: `${docsBasePath}/pages/{{kebabCase category}}/{{kebabCase name}}.vue`,
         templateFile: './component/doc-page.vue.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/va-{{kebabCase name}}/api-options.ts`,
+        path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/va-{{kebabCase name}}/api-options.ts`,
         templateFile: './component/api-options.ts.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/va-{{kebabCase name}}/page-config.ts`,
+        path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/va-{{kebabCase name}}/page-config.ts`,
         templateFile: './component/page-config.ts.hbs',
         abortOnFail: false,
       },
