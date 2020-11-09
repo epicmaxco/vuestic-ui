@@ -47,6 +47,7 @@ import SquareWithIcon from './SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { Options, mixins } from 'vue-class-component'
 import { Prop, Watch, Inject } from 'vue-property-decorator'
+import type { ComponentPublicInstance } from '@vue/runtime-core'
 
 @Options({
   name: 'VaTreeCategory',
@@ -54,11 +55,11 @@ import { Prop, Watch, Inject } from 'vue-property-decorator'
 })
 export default class VaTreeCategory extends mixins(ColorThemeMixin) {
   isOpenCached = false
-  @Prop({default: '', type: [String, Number]}) label!: String | Number
-  @Prop(Boolean) isOpen!: Boolean
-  @Prop({default: '', type: String}) icon!: String
+  @Prop({ default: '', type: [String, Number] }) label!: string | number
+  @Prop(Boolean) isOpen!: boolean
+  @Prop({ default: '', type: String }) icon!: string
 
-  @Inject({default: {} }) va: any
+  @Inject({ default: {} }) va: any
 
   @Watch('isisOpen', { immediate: true })
   handler (isOpen: boolean) {
@@ -68,9 +69,9 @@ export default class VaTreeCategory extends mixins(ColorThemeMixin) {
   collapse () {
     this.isOpenCached = false
     this.$nextTick(() => {
-      this.$children.forEach(child => {
+      this.$children.forEach((child: ComponentPublicInstance) => {
         if (child.$options.name === 'va-tree-category') {
-          child.collapse()
+          (child as VaTreeCategory).collapse()
         }
       })
     })
@@ -79,16 +80,16 @@ export default class VaTreeCategory extends mixins(ColorThemeMixin) {
   expand () {
     this.isOpenCached = true
     this.$nextTick(() => {
-      this.$children.forEach(child => {
+      this.$children.forEach((child: ComponentPublicInstance) => {
         if (child.$options.name === 'va-tree-category') {
-          child.expand()
+          (child as VaTreeCategory).expand()
         }
       })
     })
   }
 
-  toggle (e) {
-    if (!e.target.classList.contains('va-checkbox__input')) {
+  toggle (e: MouseEvent) {
+    if (!(e.target as HTMLElement).classList.contains('va-checkbox__input')) {
       this.isOpenCached = !this.isOpenCached
     }
   }

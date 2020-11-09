@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import VaIcon from '../../va-icon/VaIcon'
+import VaIcon from '../../va-icon/VaIcon.vue'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { Options, mixins } from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
@@ -18,7 +18,7 @@ import { Prop } from 'vue-property-decorator'
   components: { VaIcon },
 })
 export default class SquareWithIcon extends mixins(ColorThemeMixin) {
-  @Prop({ default: '', type: String, required: true }) icon!: String
+  @Prop({ default: '', type: String, required: true }) icon!: string
 }
 </script>
 

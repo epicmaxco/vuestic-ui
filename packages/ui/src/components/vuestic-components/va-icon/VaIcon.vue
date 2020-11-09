@@ -17,7 +17,6 @@ import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { IconMixin } from './IconMixin'
-import { mixin } from 'lodash'
 import { mixins, Options } from 'vue-class-component'
 
 const IconPropsMixin = makeContextablePropsMixin({

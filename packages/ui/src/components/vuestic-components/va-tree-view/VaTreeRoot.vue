@@ -8,6 +8,8 @@
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { reactive } from 'vue'
 import { Options, mixins } from 'vue-class-component'
+import type { ComponentPublicInstance } from '@vue/runtime-core'
+import VaTreeCategory from './VaTreeCategory.vue'
 
 @Options({
   name: 'VaTreeRoot',
@@ -24,9 +26,9 @@ import { Options, mixins } from 'vue-class-component'
 export default class VaTreeRoot extends mixins(ColorThemeMixin) {
   collapse () {
     this.$nextTick(() => {
-      this.$children.forEach(child => {
-        if (child.$options.name === 'va-tree-category') {
-          child.collapse()
+      this.$children.forEach((child: ComponentPublicInstance) => {
+        if ((child as VaTreeCategory).$options.name === 'va-tree-category') {
+          (child as VaTreeCategory).collapse()
         }
       })
     })
@@ -34,9 +36,9 @@ export default class VaTreeRoot extends mixins(ColorThemeMixin) {
 
   expand () {
     this.$nextTick(() => {
-      this.$children.forEach(child => {
-        if (child.$options.name === 'va-tree-category') {
-          child.expand()
+      this.$children.forEach((child: ComponentPublicInstance) => {
+        if ((child as VaTreeCategory).$options.name === 'va-tree-category') {
+          (child as VaTreeCategory).expand()
         }
       })
     })
