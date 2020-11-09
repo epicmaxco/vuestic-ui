@@ -234,6 +234,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaRoadmap": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -259,7 +265,8 @@
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading",
-    "installation": "Installation"
+    "installation": "Installation",
+    "roadmap": "Roadmap"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -327,6 +334,9 @@
     "title": "-- Here is the title --"
   },
   "installation": {
+    "title": "-- Here is the title --"
+  },
+  "roadmap": {
     "title": "-- Here is the title --"
   }
 }

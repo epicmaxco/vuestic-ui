@@ -9,6 +9,10 @@ export const navigationRoutes: NavigationRoute[] = [
     },
     disabled: true,
     children: [
+      {
+        name: 'roadmap',
+        displayName: 'menu.roadmap',
+      },
       // GENERATOR_ADD - introduction
     ],
   },
@@ -25,21 +29,6 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.installation',
       },
       // GENERATOR_ADD - gettingStarted
-    ],
-  },
-  {
-    name: 'styles',
-    displayName: 'menu.styles',
-    meta: {
-      iconClass: 'vuestic-iconset-image',
-    },
-    disabled: true,
-    children: [
-      {
-        name: 'grid',
-        displayName: 'menu.grid',
-      },
-      // GENERATOR_ADD - styles
     ],
   },
   {

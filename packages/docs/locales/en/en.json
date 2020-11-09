@@ -780,12 +780,6 @@
       "slots": {
         "default": "Slot for the component to which you want to apply loading styles"
       }
-    },
-    "VaInstallation": {
-      "props": {},
-      "events": {},
-      "methods": {},
-      "slots": {}
     }
   },
   "menu": {
@@ -796,7 +790,13 @@
       "navigation": "Navigation",
       "other": "Other"
     },
+
+    "introduction": "Introduction",
+    "gettingStarted": "Getting Started",
+    "styles": "Styles",
+    "uiElements": "UI Elements",
     "contribution": "Contribution",
+
     "documentationPage": "Documentation Page",
     "affix": "Affix",
     "avatar": "Avatar",
@@ -807,8 +807,6 @@
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
-    "uiElements": "UI Elements",
-    "styles": "Styles",
     "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
@@ -842,7 +840,8 @@
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading",
-    "installation": "Installation"
+    "installation": "Installation",
+    "roadmap": "Roadmap"
   },
   "language": {
     "br": "Português",
@@ -2205,6 +2204,9 @@
     }
   },
   "installation": {
-    "title": "-- Here is the title --"
+    "title": "Work In Progress"
+  },
+  "roadmap": {
+    "title": "Work In Progress"
   }
 }
