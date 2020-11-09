@@ -5,16 +5,16 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import {{camelCase name}}Config from '../../components/page-configs/{{kebabCase category}}/va-{{kebabCase name}}/page-config'
+import installationConfig from '../../components/page-configs/getting-started/installation/page-config'
 
 @Component({
   components: {
     DocsContent,
   },
 })
-export default class {{properCase name}} extends Vue {
+export default class Installation extends Vue {
   get configComputed () {
-    return {{camelCase name}}Config
+    return installationConfig
   }
 }
 </script>

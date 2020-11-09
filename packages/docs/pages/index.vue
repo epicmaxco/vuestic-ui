@@ -1,8 +1,8 @@
 <template>
 <div class="landing">
   <div class="preview-wrapper">
-  <Header />
-  <Preview />
+    <Header />
+    <Preview />
   </div>
   <Seamless />
   <Customize />
@@ -34,7 +34,7 @@ import Customize from '../../docs/components/landing/Customize.vue'
     Seamless,
     Customize,
   },
-})
+} as any)
 export default class Landing extends Vue {
 }
 </script>

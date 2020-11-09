@@ -2,6 +2,47 @@ import { NavigationRoute } from './NavigationRoute'
 
 export const navigationRoutes: NavigationRoute[] = [
   {
+    name: 'introduction',
+    displayName: 'menu.introduction',
+    meta: {
+      iconClass: 'vuestic-iconset-image',
+    },
+    disabled: true,
+    children: [
+      // GENERATOR_ADD - introduction
+    ],
+  },
+  {
+    name: 'getting-started',
+    displayName: 'menu.gettingStarted',
+    meta: {
+      iconClass: 'vuestic-iconset-image',
+    },
+    disabled: true,
+    children: [
+      {
+        name: 'installation',
+        displayName: 'menu.installation',
+      },
+      // GENERATOR_ADD - gettingStarted
+    ],
+  },
+  {
+    name: 'styles',
+    displayName: 'menu.styles',
+    meta: {
+      iconClass: 'vuestic-iconset-image',
+    },
+    disabled: true,
+    children: [
+      {
+        name: 'grid',
+        displayName: 'menu.grid',
+      },
+      // GENERATOR_ADD - styles
+    ],
+  },
+  {
     name: 'styles',
     displayName: 'menu.styles',
     meta: {

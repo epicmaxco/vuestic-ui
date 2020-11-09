@@ -228,6 +228,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaInstallation": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -252,7 +258,8 @@
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
-    "innerLoading": "Inner Loading"
+    "innerLoading": "Inner Loading",
+    "installation": "Installation"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -317,6 +324,9 @@
     "title": "-- Here is the title --"
   },
   "innerLoading": {
+    "title": "-- Here is the title --"
+  },
+  "installation": {
     "title": "-- Here is the title --"
   }
 }
