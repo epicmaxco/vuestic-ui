@@ -90,7 +90,7 @@ export default class Header extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../../ui/src/components/vuestic-sass/resources/resources";
 @import "../../../ui/src/components/vuestic-sass/grid/grid-global-styles";
 @import "../../../ui/src/components/vuestic-sass/global/typography";

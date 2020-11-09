@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../ui/src/components/vuestic-sass/resources/resources";
 
 /* PrismJS 1.20.0
