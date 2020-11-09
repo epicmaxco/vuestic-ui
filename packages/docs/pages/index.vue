@@ -24,6 +24,7 @@ import Seamless from '../../docs/components/landing/Seamless.vue'
 import Customize from '../../docs/components/landing/Customize.vue'
 
 @Component({
+  layout: 'landing',
   components: {
     Header,
     Preview,
