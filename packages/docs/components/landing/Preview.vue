@@ -5,7 +5,7 @@
         <h1 class="preview__title">{{$t('landing.preview.title')}}</h1>
         <div class="preview__buttons">
           <va-button class="preview__buttons--button"
-            href="https://github.com/epicmaxco/vuestic-ui/issues/457"
+            :to="`/${$root.$i18n.locale}/getting-started/installation`"
             :round="false"
             color="#2550C0"
           >
