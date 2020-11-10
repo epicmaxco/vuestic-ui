@@ -28,6 +28,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'installation',
         displayName: 'menu.installation',
       },
+      {
+        name: 'nuxt-integration',
+        displayName: 'menu.nuxtIntegration',
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },

@@ -240,6 +240,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaNuxtIntegration": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -266,7 +272,8 @@
     "appBar": "App Bar",
     "innerLoading": "Inner Loading",
     "installation": "Installation",
-    "roadmap": "Roadmap"
+    "roadmap": "Roadmap",
+    "nuxtIntegration": "Nuxt Integration"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -337,6 +344,9 @@
     "title": "-- Here is the title --"
   },
   "roadmap": {
+    "title": "-- Here is the title --"
+  },
+  "nuxtIntegration": {
     "title": "-- Here is the title --"
   }
 }

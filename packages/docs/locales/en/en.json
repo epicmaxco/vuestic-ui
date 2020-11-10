@@ -780,6 +780,12 @@
       "slots": {
         "default": "Slot for the component to which you want to apply loading styles"
       }
+    },
+    "VaNuxtIntegration": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -790,13 +796,11 @@
       "navigation": "Navigation",
       "other": "Other"
     },
-
     "introduction": "Introduction",
     "gettingStarted": "Getting Started",
     "styles": "Styles",
     "uiElements": "UI Elements",
     "contribution": "Contribution",
-
     "documentationPage": "Documentation Page",
     "affix": "Affix",
     "avatar": "Avatar",
@@ -841,7 +845,8 @@
     "appBar": "App Bar",
     "innerLoading": "Inner Loading",
     "installation": "Installation",
-    "roadmap": "Roadmap"
+    "roadmap": "Roadmap",
+    "nuxtIntegration": "Nuxt Integration"
   },
   "language": {
     "br": "Português",
@@ -2207,6 +2212,9 @@
     "title": "Work In Progress"
   },
   "roadmap": {
+    "title": "Work In Progress"
+  },
+  "nuxtIntegration": {
     "title": "Work In Progress"
   }
 }
