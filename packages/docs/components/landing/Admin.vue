@@ -7,6 +7,7 @@
         <div class="admin__buttons">
           <va-button class="admin__buttons--button"
             href="https://github.com/epicmaxco/vuestic-admin"
+            target="blank"
             :round="false"
             color="#2550C0"
             icon="github"
@@ -15,6 +16,7 @@
           </va-button>
           <va-button class="admin__buttons--button"
             href="https://vuestic.epicmax.co/admin/dashboard"
+            target="blank"
             :round="false"
             color="#2550C0"
             flat
@@ -22,7 +24,7 @@
             {{$t('landing.admin.buttons.demo')}}
           </va-button>
           <va-button-group class="admin__buttons--button">
-            <va-button class="star-button" color="#f4f4f4" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
+            <va-button class="star-button" color="#f4f4f4" target="blank" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
               <va-icon color="#000" size="small" name="star_empty" style="padding-right: 0.5rem;"/>
               {{$t('landing.admin.buttons.star')}}
             </va-button>
