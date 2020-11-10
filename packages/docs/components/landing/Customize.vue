@@ -68,7 +68,9 @@
           </div>
           <!-- /Second block -->
 
-          <a class="customize__content__link" href="https://github.com/epicmaxco/vuestic-ui/issues/457">{{$t('landing.customize.configuration')}}</a>
+          <nuxt-link class="customize__content__link" :to="`/${$root.$i18n.locale}/getting-started/configuration-guide`">
+            {{$t('landing.customize.configuration')}}
+          </nuxt-link>
         </div>
       </div>
     </div>
