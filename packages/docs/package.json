@@ -13,7 +13,7 @@
     "generate": "nuxt-ts generate",
     "precommit": "lint-staged --concurrent=false",
     "generate:component": "plop --plopfile scripts/generators/index.ts",
-    "generate:docspage": "plop --plopfile scripts/generators/docspage.ts"
+    "generate:docspage": "plop --plopfile scripts/generators/documentation.ts"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.1",
