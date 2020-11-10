@@ -846,7 +846,8 @@
     "innerLoading": "Inner Loading",
     "installation": "Installation",
     "roadmap": "Roadmap",
-    "nuxtIntegration": "Nuxt Integration"
+    "nuxtIntegration": "Nuxt Integration",
+    "accessibilityGuide": "Accessibility Guide"
   },
   "language": {
     "br": "Português",
@@ -2216,5 +2217,8 @@
   },
   "nuxtIntegration": {
     "title": "Work In Progress"
+  },
+  "accessibilityGuide": {
+    "title": "-- Here is the title --"
   }
 }

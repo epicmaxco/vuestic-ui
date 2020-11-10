@@ -49,13 +49,13 @@ module.exports = {
       {
         type: 'add',
         path: `${docsBasePath}/pages/{{kebabCase category}}/{{kebabCase name}}.vue`,
-        templateFile: './component/doc-page.vue.hbs',
+        templateFile: './docspage/doc-page.vue.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
         path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/va-{{kebabCase name}}/page-config.ts`,
-        templateFile: './component/page-config.ts.hbs',
+        templateFile: './docspage/page-config.ts.hbs',
         abortOnFail: false,
       },
       {

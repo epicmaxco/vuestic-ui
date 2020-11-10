@@ -32,6 +32,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'nuxt-integration',
         displayName: 'menu.nuxtIntegration',
       },
+      {
+        name: 'accessibility-guide',
+        displayName: 'menu.accessibilityGuide',
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },
