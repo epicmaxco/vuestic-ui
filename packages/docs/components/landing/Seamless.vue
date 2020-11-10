@@ -47,33 +47,31 @@
             <div class="block__components">
 
               <div class="component">
-                <div style="display: inline-block; background: #f8cb2d; border-radius: 2px; padding: 0.5rem 1rem; color: #ffffff; font-weight: 600;">Télécharger</div>
+                <div class="example-button">Télécharger</div>
               </div>
 
               <div class="component">
-                <div style="padding: 0.25rem 0.7rem; display: flex; justify-content: space-between; border: 1px solid #ced4da; border-radius: 0.3rem;">
-
+                <div class="example-select">
                   <div>
-                    <div style="color: #42d1a6; font-size: 0.75rem;">Another select</div>
+                    <div class="example-select__label">Another select</div>
                     <div>Polar bear</div>
                   </div>
-                  <div style="transform: rotate(90deg); color: #b4b6b9;">&#10132;</div>
-
+                  <div class="example-select__icon">&#10132;</div>
                 </div>
               </div>
 
               <div class="component">
-                <div style="display: flex; width: 100%;">
-                  <div style="width: 45%; height: 5px; border-radius: 2rem 0 0 2rem; background-color: #000000; position: relative;">
-                    <div style="position: absolute; border-radius: 50%; height: 10px; width: 10px; right: 0; top: 50%; transform: translate(50%, -50%); background-color: #000000;"></div>
+                <div class="example-slider">
+                  <div class="example-slider__fill-part">
+                    <div class="example-slider__fill-part__mover"></div>
                   </div>
-                  <div style="width: 55%; height: 5px; border-radius: 0 2rem 2rem 0; background-color: #f3f3f3;"></div>
+                  <div class="example-slider__empty-part"></div>
                 </div>
               </div>
 
               <div class="component">
-                <div style="display: flex;">
-                  <div style="background-color: #419488; width: 20px; height: 20px; border-radius: 2px; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 1.4rem; margin-right: 0.3rem;">
+                <div class="example-checkbox">
+                  <div class="example-checkbox__checker">
                     &#10003;
                   </div>
                   <span>Agree to terms</span>
@@ -229,6 +227,81 @@ export default class Seamless extends Vue {
       @include lg(padding-bottom, 1rem);
       // sm
       @include size-sm(12);
+    }
+
+    .example-button {
+      display: inline-block;
+      background: #f8cb2d;
+      border-radius: 2px;
+      padding: 0.5rem 1rem;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .example-select {
+      padding: 0.25rem 0.7rem;
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid #ced4da;
+      border-radius: 0.3rem;
+
+      &__icon {
+        transform: rotate(90deg);
+        color: #b4b6b9;
+      }
+
+      &__label {
+        color: #42d1a6;
+        font-size: 0.75rem;
+      }
+    }
+
+    .example-slider {
+      display: flex;
+      width: 100%;
+
+      &__fill-part {
+        width: 45%;
+        height: 5px;
+        border-radius: 2rem 0 0 2rem;
+        background-color: #000000;
+        position: relative;
+
+        &__mover {
+          position: absolute;
+          border-radius: 50%;
+          height: 10px;
+          width: 10px;
+          right: 0;
+          top: 50%;
+          transform: translate(50%, -50%);
+          background-color: #000000;
+        }
+      }
+
+      &__empty-part {
+        width: 55%;
+        height: 5px;
+        border-radius: 0 2rem 2rem 0;
+        background-color: #f3f3f3;
+      }
+    }
+
+    .example-checkbox {
+      display: flex;
+
+      &__checker {
+        background-color: #419488;
+        width: 20px;
+        height: 20px;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 1.4rem;
+        margin-right: 0.3rem;
+      }
     }
   }
 }
