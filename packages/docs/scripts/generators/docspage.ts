@@ -10,7 +10,7 @@ const fs = require('fs')
 // eslint-disable-next-line
 const { execSync } = require('child_process')
 // eslint-disable-next-line
-const componentGenerator = require('./docs')
+const docspageGenerator = require('./docspage')
 
 type GeneratorAnswers = { name: string, category: string, }
 
@@ -26,7 +26,7 @@ const readFrom = (path: string) => {
 }
 
 module.exports = (plop: NodePlopAPI) => {
-  plop.setGenerator('component', componentGenerator)
+  plop.setGenerator('docspage', docspageGenerator)
 
   plop.setActionType('addTranslations', (answers: GeneratorAnswers, config: AddActionConfig) => {
     const directoryNames = getDirectoryNames(config.path)
