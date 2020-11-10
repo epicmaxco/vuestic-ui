@@ -60,8 +60,7 @@ export default class Header extends Vue {
         {
           text: 'Overview',
           icon: 'fa fa-eye',
-          url: '#',
-          target: '_blank',
+          to: `/${(this as any).$root.$i18n.locale}/introduction/overview`,
         },
         {
           text: 'Documentation',
