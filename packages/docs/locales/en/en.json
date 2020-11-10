@@ -1,6 +1,6 @@
 {
   "translation": {
-    "path": "Example translation string"
+    "title": "-- Here is the title --"
   },
   "landing": {
     "header": {
@@ -848,7 +848,10 @@
     "roadmap": "Roadmap",
     "nuxtIntegration": "Nuxt Integration",
     "accessibilityGuide": "Accessibility Guide",
-    "configurationGuide": "Configuration Guide"
+    "configurationGuide": "Configuration Guide",
+    "browsersList": "Browsers List",
+    "overview": "Overview",
+    "translation": "Translation"
   },
   "language": {
     "br": "Português",
@@ -2223,6 +2226,12 @@
     "title": "-- Here is the title --"
   },
   "configurationGuide": {
+    "title": "-- Here is the title --"
+  },
+  "browsersList": {
+    "title": "-- Here is the title --"
+  },
+  "overview": {
     "title": "-- Here is the title --"
   }
 }

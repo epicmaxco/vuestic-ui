@@ -13,6 +13,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'roadmap',
         displayName: 'menu.roadmap',
       },
+      {
+        name: 'browsers-list',
+        displayName: 'menu.browsersList',
+      },
+      {
+        name: 'overview',
+        displayName: 'menu.overview',
+      },
       // GENERATOR_ADD - introduction
     ],
   },
@@ -229,6 +237,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'documentation-page',
         displayName: 'menu.documentationPage',
+      },
+      {
+        name: 'translation',
+        displayName: 'menu.translation',
       },
       // GENERATOR_ADD - contribution
     ],

@@ -12,9 +12,9 @@
         </div>
         <nav class="header__links">
           <!-- vuestic buttons -->
-          <va-button href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
+          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
           <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
-          <va-button href="https://discord.gg/jTKTjj2weV" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
+          <va-button href="https://discord.gg/jTKTjj2weV" target="blank" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
           <va-dropdown class="language-dropdown"  :offset="[0, 25]" fixed>
             <va-button class="header__links--link" iconRight="expand_more" flat square slot="anchor" color="#2550C0">
               {{ currentLanguageName }}
@@ -33,14 +33,19 @@
               </va-list-item>
               <va-list-item class="language-dropdown__item">
                 <va-list-item-section>
-                  <a href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="dropdown-item__text">{{$t('landing.header.buttons.translation')}}</a>
+                  <nuxt-link
+                    class="dropdown-item__text"
+                    :to="`/${$root.$i18n.locale}/contribution/translation`"
+                  >
+                    {{$t('landing.header.buttons.translation')}}
+                  </nuxt-link>
                 </va-list-item-section>
               </va-list-item>
 
             </va-list>
           </va-dropdown>
           <va-button-group style="padding-left: 0.5rem;">
-            <va-button class="star-button" href="https://github.com/epicmaxco/vuestic-ui" :round="false" size="small" icon="star_empty">Star</va-button>
+            <va-button class="star-button" href="https://github.com/epicmaxco/vuestic-ui" target="blank" :round="false" size="small" icon="star_empty">Star</va-button>
             <va-button class="star-button" :round="false" size="small">{{ stars }}</va-button>
           </va-button-group>
         </nav>
@@ -49,17 +54,17 @@
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://github.com/epicmaxco/vuestic-ui/issues/457">{{$t('landing.header.buttons.overview')}}</a>
+                <nuxt-link :to="`/${$root.$i18n.locale}/introduction/overview`">{{$t('landing.header.buttons.overview')}}</nuxt-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://github.com/epicmaxco/vuestic-ui/issues/457">{{$t('landing.header.buttons.docs')}}</a>
+                <nuxt-link :to="`/${$root.$i18n.locale}/introduction/roadmap`">{{$t('landing.header.buttons.docs')}}</nuxt-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://discord.gg/jTKTjj2weV">{{$t('landing.header.buttons.discord')}}</a>
+                <a href="https://discord.gg/jTKTjj2weV" target="_blank">{{$t('landing.header.buttons.discord')}}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-label color="#757B83" class="mobile-menu__label">
@@ -80,12 +85,17 @@
             </div>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a class="mobile-menu__language" href="https://github.com/epicmaxco/vuestic-ui/issues/457">{{$t('landing.header.buttons.translation')}}</a>
+                <nuxt-link
+                  class="mobile-menu__language"
+                  :to="`/${$root.$i18n.locale}/contribution/translation`"
+                >
+                  {{$t('landing.header.buttons.translation')}}
+                </nuxt-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item class="star-button-wrapper">
               <va-button-group>
-                <va-button class="star-button" href="https://github.com/epicmaxco/vuestic-ui" :round="false" size="small" icon="star_empty">Star</va-button>
+                <va-button class="star-button" href="https://github.com/epicmaxco/vuestic-ui" target="blank" :round="false" size="small" icon="star_empty">Star</va-button>
                 <va-button class="star-button" :round="false" size="small">{{ stars }}</va-button>
               </va-button-group>
             </va-list-item>
