@@ -13,7 +13,7 @@
         <nav class="header__links">
           <!-- vuestic buttons -->
           <va-button href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
-          <va-button href="https://github.com/epicmaxco/vuestic-ui/issues/457" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
+          <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
           <va-button href="https://discord.gg/jTKTjj2weV" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
           <va-dropdown class="language-dropdown"  :offset="[0, 25]" fixed>
             <va-button class="header__links--link" iconRight="expand_more" flat square slot="anchor" color="#2550C0">
