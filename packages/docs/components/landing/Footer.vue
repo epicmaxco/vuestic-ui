@@ -9,6 +9,7 @@
         <div class="footer__buttons">
           <va-button class="footer__buttons__button"
             href="https://epicmax.co/about"
+            target="blank"
             :round="false"
             color="#2550C0"
             flat
@@ -18,6 +19,7 @@
           </va-button>
           <va-button class="footer__buttons__button"
             href="https://github.com/epicmaxco/vuestic-admin"
+            target="blank"
             :round="false"
             color="#2550C0"
             flat
@@ -27,6 +29,7 @@
           </va-button>
           <va-button class="footer__buttons__button"
             href="https://github.com/epicmaxco/epic-spinners"
+            target="blank"
             :round="false"
             color="#2550C0"
             flat
@@ -38,6 +41,7 @@
         <div class="footer__social">
           <va-button class="footer__social__item"
             href="https://github.com/epicmaxco/vuestic-ui/"
+            target="blank"
             color="#2550C0"
             flat
             icon="github"
@@ -45,6 +49,7 @@
           </va-button>
           <va-button class="footer__social__item"
             href="https://discord.gg/jTKTjj2weV"
+            target="blank"
             color="#2550C0"
             flat
             icon="discord"
@@ -52,6 +57,7 @@
           </va-button>
           <va-button class="footer__social__item"
             href="https://www.facebook.com/epicmaxco/"
+            target="blank"
             color="#2550C0"
             flat
             icon="facebook"
@@ -59,6 +65,7 @@
           </va-button>
           <va-button class="footer__social__item"
             href="https://twitter.com/epicmaxco"
+            target="blank"
             color="#2550C0"
             flat
             icon="twitter"
