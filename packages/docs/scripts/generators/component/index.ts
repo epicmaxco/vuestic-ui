@@ -5,12 +5,12 @@
 import { PlopGeneratorConfig } from 'node-plop'
 
 module.exports = {
-  description: 'Generate boilerplate for component. Includes: component file, specs, demo, documentation page.',
+  description: 'Generate boilerplate for page. Includes: documentation page, page config.',
   prompts: [
     {
       type: 'input',
       name: 'name',
-      message: 'What\'s the component name (ex.: fileUpload)?',
+      message: 'What\'s the page name (ex.: installationGuide)?',
       validate: value => {
         if (/.+/.test(value)) {
           return true
@@ -22,10 +22,10 @@ module.exports = {
     {
       type: 'input',
       name: 'category',
-      message: 'What\'s the component categoty (ex.: uiElements, styles, contribution, gettingStarted, introduction)?',
+      message: 'What\'s the page categoty (ex.: styles, contribution, gettingStarted, introduction)?',
       validate: value => {
         if (/.+/.test(value)) {
-          if (['uiElements', 'styles', 'contribution', 'gettingStarted', 'introduction'].includes(value)) {
+          if (['styles', 'contribution', 'gettingStarted', 'introduction'].includes(value)) {
             return true
           }
           return 'Name is invalid'
@@ -54,20 +54,8 @@ module.exports = {
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/va-{{kebabCase name}}/api-options.ts`,
-        templateFile: './component/api-options.ts.hbs',
-        abortOnFail: false,
-      },
-      {
-        type: 'add',
         path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/va-{{kebabCase name}}/page-config.ts`,
         templateFile: './component/page-config.ts.hbs',
-        abortOnFail: false,
-      },
-      {
-        type: 'add',
-        path: `${docsBasePath}/examples/va-{{kebabCase name}}/Example.vue`,
-        templateFile: './component/Example.vue.hbs',
         abortOnFail: false,
       },
       {
@@ -83,31 +71,6 @@ module.exports = {
     ]
 
     actions.push(...createDocsActions)
-
-    // Generate ui component
-    const uiBasePath = `${process.cwd()}/../ui/src`
-    const createUiActions = [
-      {
-        type: 'add',
-        path: `${uiBasePath}/components/vuestic-components/va-{{kebabCase name}}/Va{{properCase name}}.vue`,
-        templateFile: './component/Component.vue.hbs',
-        abortOnFail: false,
-      },
-      {
-        type: 'add',
-        path: `${uiBasePath}/components/vuestic-components/va-{{kebabCase name}}/Va{{properCase name}}.demo.vue`,
-        templateFile: './component/Component.demo.vue.hbs',
-        abortOnFail: false,
-      },
-      {
-        type: 'add',
-        path: `${uiBasePath}/components/vuestic-components/va-{{kebabCase name}}/tests/Va{{properCase name}}.spec.ts`,
-        templateFile: './component/Component.spec.ts.hbs',
-        abortOnFail: false,
-      },
-    ]
-
-    actions.push(...createUiActions)
 
     return actions
   },
