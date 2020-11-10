@@ -36,6 +36,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'accessibility-guide',
         displayName: 'menu.accessibilityGuide',
       },
+      {
+        name: 'configuration-guide',
+        displayName: 'menu.configurationGuide',
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },

@@ -847,7 +847,8 @@
     "installation": "Installation",
     "roadmap": "Roadmap",
     "nuxtIntegration": "Nuxt Integration",
-    "accessibilityGuide": "Accessibility Guide"
+    "accessibilityGuide": "Accessibility Guide",
+    "configurationGuide": "Configuration Guide"
   },
   "language": {
     "br": "Português",
@@ -2219,6 +2220,9 @@
     "title": "Work In Progress"
   },
   "accessibilityGuide": {
+    "title": "-- Here is the title --"
+  },
+  "configurationGuide": {
     "title": "-- Here is the title --"
   }
 }

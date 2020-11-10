@@ -54,7 +54,7 @@ module.exports = {
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/va-{{kebabCase name}}/page-config.ts`,
+        path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/{{kebabCase name}}/page-config.ts`,
         templateFile: './docspage/page-config.ts.hbs',
         abortOnFail: false,
       },
