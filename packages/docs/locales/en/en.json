@@ -1,7 +1,4 @@
 {
-  "translation": {
-    "title": "-- Here is the title --"
-  },
   "landing": {
     "header": {
       "buttons": {
@@ -2232,6 +2229,9 @@
     "title": "Work In Progress"
   },
   "overview": {
+    "title": "Work In Progress"
+  },
+  "translation": {
     "title": "Work In Progress"
   }
 }
