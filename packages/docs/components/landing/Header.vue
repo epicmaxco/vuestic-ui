@@ -44,7 +44,16 @@
 
             </va-list>
           </va-dropdown>
-            <va-button class="star-button" style="padding-left: 0.5rem;" href="https://github.com/epicmaxco/vuestic-ui" target="blank" :round="false" size="small" icon="star_empty">Star {{ stars }}</va-button>
+          <va-button
+            class="star-button star-button--desktop"
+            href="https://github.com/epicmaxco/vuestic-ui"
+            target="blank"
+            :round="false"
+            size="small"
+            icon="star_empty"
+          >
+            {{$t('landing.header.buttons.star')}} {{stars}}
+          </va-button>
         </nav>
         <!-- mobile -->
         <nav class="mobile-menu" :class="computedClass">
@@ -91,7 +100,16 @@
               </va-list-item-section>
             </va-list-item>
             <va-list-item class="star-button-wrapper">
-              <va-button class="star-button" href="https://github.com/epicmaxco/vuestic-ui" target="blank" :round="false" size="small" icon="star_empty">Star {{ stars }}</va-button>
+              <va-button
+                class="star-button"
+                href="https://github.com/epicmaxco/vuestic-ui"
+                target="blank"
+                :round="false"
+                size="small"
+                icon="star_empty"
+              >
+                {{$t('landing.header.buttons.star')}} {{stars}}
+              </va-button>
             </va-list-item>
           </va-list>
         </nav>
@@ -355,6 +373,11 @@ export default class Header extends Vue {
 .star-button {
   @include code-font();
 
+  min-height: 1.8rem;
   padding: 0 !important;
+
+  &--desktop {
+    margin-left: 0.5rem;
+  }
 }
 </style>
