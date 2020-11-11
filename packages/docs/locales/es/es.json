@@ -228,6 +228,24 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaInstallation": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaRoadmap": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaNuxtIntegration": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -252,7 +270,15 @@
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
-    "innerLoading": "Inner Loading"
+    "innerLoading": "Inner Loading",
+    "installation": "Installation",
+    "roadmap": "Roadmap",
+    "nuxtIntegration": "Nuxt Integration",
+    "accessibilityGuide": "Accessibility Guide",
+    "configurationGuide": "Configuration Guide",
+    "browsersList": "Browsers List",
+    "overview": "Overview",
+    "translation": "Translation"
   },
   "language": {
     "brazilian_portuguese": "Português",
@@ -318,5 +344,29 @@
   },
   "innerLoading": {
     "title": "-- Here is the title --"
+  },
+  "installation": {
+    "title": "Trabajo En Progreso"
+  },
+  "roadmap": {
+    "title": "Trabajo En Progreso"
+  },
+  "nuxtIntegration": {
+    "title": "Trabajo En Progreso"
+  },
+  "accessibilityGuide": {
+    "title": "Trabajo En Progreso"
+  },
+  "configurationGuide": {
+    "title": "Trabajo En Progreso"
+  },
+  "browsersList": {
+    "title": "Trabajo En Progreso"
+  },
+  "overview": {
+    "title": "Trabajo En Progreso"
+  },
+  "translation": {
+    "title": "Trabajo En Progreso"
   }
 }

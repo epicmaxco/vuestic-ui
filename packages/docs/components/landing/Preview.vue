@@ -5,6 +5,7 @@
         <h1 class="preview__title">{{$t('landing.preview.title')}}</h1>
         <div class="preview__buttons">
           <va-button class="preview__buttons--button"
+            :to="`/${$root.$i18n.locale}/getting-started/installation`"
             :round="false"
             color="#2550C0"
           >
@@ -12,6 +13,7 @@
           </va-button>
           <va-button class="preview__buttons--button"
             href="https://github.com/epicmaxco/vuestic-ui"
+            target="_blank"
             :round="false"
             color="#2550C0"
             flat icon="github"
@@ -32,7 +34,9 @@
               <img src="@/assets/landing/images/features/nuxt-support.svg" alt="nuxt-support">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>
-            <a href="#" class="item__link">{{$t('landing.preview.features.nuxt.text')}}</a>
+            <nuxt-link class="item__link" :to="`/${$root.$i18n.locale}/getting-started/nuxt-integration`">
+              {{$t('landing.preview.features.nuxt.text')}}
+            </nuxt-link>
           </div>
 
           <div class="item">
@@ -40,7 +44,9 @@
               <img src="@/assets/landing/images/features/components.svg" alt="responsive-components">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
-            <a href="#" class="item__link">{{$t('landing.preview.features.components.text')}}</a>
+            <nuxt-link class="item__link" :to="`/${$root.$i18n.locale}/ui-elements/avatar`">
+              {{$t('landing.preview.features.components.text')}}
+            </nuxt-link>
           </div>
 
           <div class="item">
@@ -48,7 +54,9 @@
               <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="keyboard-navigation">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.keyboard.title')}}</h2>
-            <a href="#" class="item__link">{{$t('landing.preview.features.keyboard.text')}}</a>
+            <nuxt-link class="item__link" :to="`/${$root.$i18n.locale}/getting-started/accessibility-guide`">
+              {{$t('landing.preview.features.keyboard.text')}}
+            </nuxt-link>
           </div>
 
           <div class="item">
@@ -56,7 +64,9 @@
               <img src="@/assets/landing/images/features/modern-browsers.svg" alt="modern-browsers">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.browsers.title')}}</h2>
-            <a href="#" class="item__link">{{$t('landing.preview.features.browsers.text')}}</a>
+            <nuxt-link class="item__link" :to="`/${$root.$i18n.locale}/introduction/browsers-list`">
+              {{$t('landing.preview.features.browsers.text')}}
+            </nuxt-link>
           </div>
           <!-- /items -->
         </div>
@@ -223,7 +233,7 @@ export default class Preview extends Vue {}
   top: 0;
   left: 0;
   height: 100%;
-  animation: moveSlideshow 20s linear infinite;
+  animation: moveSlideshow 120s linear infinite;
   transform: translate3d(0, 0, 0);
 }
 

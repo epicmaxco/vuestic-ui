@@ -1,7 +1,4 @@
 {
-  "translation": {
-    "path": "Example translation string"
-  },
   "landing": {
     "header": {
       "buttons": {
@@ -9,7 +6,8 @@
         "docs": "Docs",
         "discord": "Join on Discord",
         "translation": "Add translation...",
-        "language": "Language"
+        "language": "Language",
+        "star": "Star"
       }
     },
     "preview": {
@@ -762,7 +760,7 @@
         "toggleColor": "Color of the toggle button"
       },
       "events": {
-        "input":"Emits when toggling to the different button"
+        "input": "Emits when toggling to the different button"
       },
       "methods": {},
       "slots": {}
@@ -780,6 +778,12 @@
       "slots": {
         "default": "Slot for the component to which you want to apply loading styles"
       }
+    },
+    "VaNuxtIntegration": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -790,6 +794,10 @@
       "navigation": "Navigation",
       "other": "Other"
     },
+    "introduction": "Introduction",
+    "gettingStarted": "Getting Started",
+    "styles": "Styles",
+    "uiElements": "UI Elements",
     "contribution": "Contribution",
     "documentationPage": "Documentation Page",
     "affix": "Affix",
@@ -801,8 +809,6 @@
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
-    "uiElements": "UI Elements",
-    "styles": "Styles",
     "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
@@ -835,7 +841,15 @@
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
-    "innerLoading": "Inner Loading"
+    "innerLoading": "Inner Loading",
+    "installation": "Installation",
+    "roadmap": "Roadmap",
+    "nuxtIntegration": "Nuxt Integration",
+    "accessibilityGuide": "Accessibility Guide",
+    "configurationGuide": "Configuration Guide",
+    "browsersList": "Browsers List",
+    "overview": "Overview",
+    "translation": "Translation"
   },
   "language": {
     "br": "Português",
@@ -2196,5 +2210,29 @@
         "text": "You can change the loading icon."
       }
     }
+  },
+  "installation": {
+    "title": "Work In Progress"
+  },
+  "roadmap": {
+    "title": "Work In Progress"
+  },
+  "nuxtIntegration": {
+    "title": "Work In Progress"
+  },
+  "accessibilityGuide": {
+    "title": "Work In Progress"
+  },
+  "configurationGuide": {
+    "title": "Work In Progress"
+  },
+  "browsersList": {
+    "title": "Work In Progress"
+  },
+  "overview": {
+    "title": "Work In Progress"
+  },
+  "translation": {
+    "title": "Work In Progress"
   }
 }

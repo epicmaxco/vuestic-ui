@@ -21,8 +21,8 @@
 
           <!-- First block -->
           <div class="customize__content--first">
-            <div class="block__components">
 
+            <div class="block__components" v-if="tabValue === 0">
               <div class="component">
                 <va-button color="#6F80E7">
                   Submit
@@ -53,6 +53,9 @@
                 />
               </div>
             </div>
+
+            <div v-else-if="tabValue === 1">Work In Progress</div>
+            <div v-else>Work In Progress</div>
           </div>
           <!-- /First block -->
 
@@ -68,7 +71,9 @@
           </div>
           <!-- /Second block -->
 
-          <a class="customize__content__link" href="#">{{$t('landing.customize.configuration')}}</a>
+          <nuxt-link class="customize__content__link" :to="`/${$root.$i18n.locale}/getting-started/configuration-guide`">
+            {{$t('landing.customize.configuration')}}
+          </nuxt-link>
         </div>
       </div>
     </div>
