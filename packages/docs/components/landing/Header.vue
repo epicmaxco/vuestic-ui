@@ -120,53 +120,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { languages } from './../languages'
 
 @Component({
   name: 'language-dropdown',
-  props: {
-    options: {
-      type: Array,
-      default: () => [
-        {
-          code: 'en',
-          name: 'English',
-        },
-        {
-          code: 'es',
-          name: 'Español',
-        },
-        {
-          code: 'ru',
-          name: 'Русский',
-        },
-        {
-          code: 'by',
-          name: 'Беларуская',
-        },
-        {
-          code: 'de',
-          name: 'Deutsch',
-        },
-        {
-          code: 'fr',
-          name: 'Français',
-        },
-        {
-          code: 'pl',
-          name: 'Polski',
-        },
-        {
-          code: 'cn',
-          name: '中文',
-        },
-      ],
-    },
-  },
 })
 export default class Header extends Vue {
   value = false
   isHidden = true
   stars = 0
+  options = languages
 
   onClick (value: boolean) {
     this.isHidden = value

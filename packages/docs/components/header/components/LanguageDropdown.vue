@@ -15,7 +15,7 @@
         <va-icon :class="['flag-icon flag-icon-small', flagIconClass(option.code)]" />
       </va-list-item-section>
       <va-list-item-section :style="{color: primaryColor}">
-        <span class="dropdown-item__text">{{ $t(`language.${option.code}`) }}</span>
+        <span class="dropdown-item__text">{{ option.name }}</span>
       </va-list-item-section>
     </va-list-item>
   </va-list>
@@ -28,6 +28,7 @@ import VaIcon from 'vuestic-ui/src/components/vuestic-components/va-icon/VaIcon.
 import VaDropdown from 'vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue'
 import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
 import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
+import { languages } from './../../languages'
 @Component({
   name: 'language-dropdown',
   mixins: [ColorThemeMixin],
@@ -36,31 +37,10 @@ import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
     VaDropdown,
     VaButton,
   },
-  props: {
-    options: {
-      type: Array,
-      default: () => [
-        {
-          code: 'en',
-          name: 'english',
-        },
-        {
-          code: 'es',
-          name: 'spanish',
-        },
-        {
-          code: 'br',
-          name: 'brazilian_portuguese',
-        },
-        {
-          code: 'cn',
-          name: 'simplified_chinese',
-        },
-      ],
-    },
-  },
 })
 export default class LanguageDropdown extends Vue {
+  options = languages
+
   setLanguage (locale) {
     localStorage.setItem('currentLanguage', locale)
     this.$root.$i18n.setLocale(locale)
