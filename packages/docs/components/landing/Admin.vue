@@ -23,13 +23,11 @@
           >
             {{$t('landing.admin.buttons.demo')}}
           </va-button>
-          <va-button-group class="admin__buttons--button">
-            <va-button class="star-button" color="#f4f4f4" target="blank" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
-              <va-icon color="#000" size="small" name="star_empty" style="padding-right: 0.5rem;"/>
-              {{$t('landing.admin.buttons.star')}}
+          <div class="admin__buttons--button">
+            <va-button class="star-button" color="#000" icon="star_empty" flat target="blank" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
+              {{$t('landing.admin.buttons.star')}} {{ stars }}
             </va-button>
-            <va-button class="star-button" color="#f4f4f4" :round="false" size="small">{{ stars }}</va-button>
-          </va-button-group>
+          </div>
         </div>
         <div class="admin__content">
           <div class="admin__content__item admin__content__item--first">
