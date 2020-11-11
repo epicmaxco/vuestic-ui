@@ -1,7 +1,7 @@
 import { NodePlopAPI, CustomActionFunction, AddActionConfig } from 'plop'
 
 /**
- * generator/index.js
+ * generator/language.js
  *
  * Exports the generators so plop knows them
  */
@@ -23,14 +23,14 @@ module.exports = (plop: NodePlopAPI) => {
     return 'Added translations'
   })
 
-  plop.setActionType('addLanguages', ((answers: GeneratorAnswers, config: AddActionConfig) => {
+  plop.setActionType('addLanguage', ((answers: GeneratorAnswers, config: AddActionConfig) => {
     const languagesPath = `${config.path}/components/languages.ts`
     const languages = fs.readFileSync(languagesPath).toString()
 
     const isoCode = plop.getHelper('lowerCase')(answers.code)
     const languageName = plop.getHelper('titleCase')(answers.name)
 
-    if (languages.includes(isoCode)) {
+    if (languages.includes(`code: ${isoCode},`)) {
       throw new Error(`${languageName} language already exists.`)
     }
 
@@ -40,7 +40,7 @@ module.exports = (plop: NodePlopAPI) => {
     code: '${isoCode}',
     name: '${languageName}',
   },
-    ${replaceString}`
+  ${replaceString}`
 
     const replacedlanguages = languages.replace(replaceString, langString)
 

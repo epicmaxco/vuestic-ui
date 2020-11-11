@@ -49,7 +49,7 @@ module.exports = {
         abortOnFail: false,
       },
       {
-        type: 'addLanguages',
+        type: 'addLanguage',
         path: docsBasePath,
         abortOnFail: false,
       },
