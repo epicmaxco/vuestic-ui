@@ -233,7 +233,7 @@ export default class Preview extends Vue {}
   top: 0;
   left: 0;
   height: 100%;
-  animation: moveSlideshow 20s linear infinite;
+  animation: moveSlideshow 120s linear infinite;
   transform: translate3d(0, 0, 0);
 }
 
