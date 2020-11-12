@@ -237,14 +237,15 @@ export default class Header extends Vue {
 
 .language-dropdown {
   cursor: pointer;
-  max-height: 2rem;
+  // TODO: fix dropdown
+  max-height: 36px; // temporary solution
 
   @include sm(width, 100%);
 
   &__content {
     background-color: #f6f8f9;
     border-radius: 0.5rem;
-    min-width: 12rem;
+    // min-width: 12rem;
     padding: 0.5rem 0;
   }
 
