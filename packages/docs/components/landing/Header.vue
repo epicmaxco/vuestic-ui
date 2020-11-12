@@ -15,7 +15,7 @@
           <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
           <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
           <va-button href="https://discord.gg/jTKTjj2weV" target="blank" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
-          <va-dropdown class="language-dropdown"  :offset="[0, 25]" fixed>
+          <va-dropdown class="language-dropdown"  fixed>
             <va-button class="header__links--link" iconRight="expand_more" flat square slot="anchor" color="#2550C0">
               {{ currentLanguageName }}
             </va-button>
@@ -237,13 +237,15 @@ export default class Header extends Vue {
 
 .language-dropdown {
   cursor: pointer;
+  // TODO: fix dropdown
+  max-height: 36px; // temporary solution
 
   @include sm(width, 100%);
 
   &__content {
     background-color: #f6f8f9;
     border-radius: 0.5rem;
-    min-width: 12rem;
+    // min-width: 12rem;
     padding: 0.5rem 0;
   }
 
