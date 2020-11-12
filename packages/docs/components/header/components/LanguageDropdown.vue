@@ -59,7 +59,6 @@ export default class LanguageDropdown extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "flag-icon-css/css/flag-icon.css";
 @import "vuestic-ui/src/components/vuestic-sass/resources/resources";
 
 .language-dropdown {
@@ -73,15 +72,9 @@ export default class LanguageDropdown extends Vue {
     background-color: #f7f7f7 !important;
     box-shadow: $gray-box-shadow;
     border-radius: 0.5rem;
-    width: 12rem;
-    padding: 1rem 0;
+    min-width: 10rem;
+    padding: 1rem 0.5rem;
     margin-right: 0.1rem;
-
-    .flag-icon-small {
-      min-width: 1.5rem;
-      min-height: 1.5rem;
-      margin-right: 0.5rem;
-    }
   }
 
   &__item {
@@ -95,16 +88,6 @@ export default class LanguageDropdown extends Vue {
         color: #1b1a1f;
       }
     }
-  }
-
-  .flag-icon::before {
-    content: "";
-  }
-
-  .flag-icon-large {
-    display: block;
-    width: 31px;
-    height: 23px;
   }
 
   .va-dropdown__anchor {
