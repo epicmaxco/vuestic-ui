@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import paginationConfig from '../../components/page-configs/va-pagination/page-config'
+import paginationConfig from '../../components/page-configs/ui-elements/va-pagination/page-config'
 
 @Component({
   components: {

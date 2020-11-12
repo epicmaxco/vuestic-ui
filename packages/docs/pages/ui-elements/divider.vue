@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import dividerConfig from '../../components/page-configs/va-divider/page-config'
+import dividerConfig from '../../components/page-configs/ui-elements/va-divider/page-config'
 
 @Component({
   components: {

@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import checkboxConfig from '../../components/page-configs/va-checkbox/page-config'
+import checkboxConfig from '../../components/page-configs/ui-elements/va-checkbox/page-config'
 
 @Component({
   components: {

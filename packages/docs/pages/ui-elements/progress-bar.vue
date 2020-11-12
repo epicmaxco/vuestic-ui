@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import progressBarConfig from '../../components/page-configs/va-progress-bar/page-config'
+import progressBarConfig from '../../components/page-configs/ui-elements/va-progress-bar/page-config'
 
 @Component({
   components: {

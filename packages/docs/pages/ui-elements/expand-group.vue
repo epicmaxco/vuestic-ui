@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import expandGroupConfig from '../../components/page-configs/va-expand-group/page-config'
+import expandGroupConfig from '../../components/page-configs/ui-elements/va-expand-group/page-config'
 
 @Component({
   components: {

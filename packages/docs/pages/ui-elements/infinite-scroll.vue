@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import infiniteScrollConfig from '../../components/page-configs/va-infinite-scroll/page-config'
+import infiniteScrollConfig from '../../components/page-configs/ui-elements/va-infinite-scroll/page-config'
 
 @Component({
   components: {

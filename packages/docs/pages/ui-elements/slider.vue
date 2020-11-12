@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import sliderConfig from '../../components/page-configs/va-slider/page-config'
+import sliderConfig from '../../components/page-configs/ui-elements/va-slider/page-config'
 
 @Component({
   components: {
