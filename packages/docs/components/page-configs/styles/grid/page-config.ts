@@ -1,4 +1,4 @@
-import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
+import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 
 export default [
   {
