@@ -17,6 +17,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'overview',
         displayName: 'menu.overview',
       },
+      {
+        name: 'browser-support',
+        displayName: 'menu.browserSupport',
+      },
       // GENERATOR_ADD - introduction
     ],
   },

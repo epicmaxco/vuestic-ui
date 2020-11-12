@@ -276,15 +276,9 @@
     "nuxtIntegration": "Nuxt Integration",
     "accessibilityGuide": "Accessibility Guide",
     "configurationGuide": "Configuration Guide",
-    "browsersList": "Browsers List",
     "overview": "Overview",
-    "translation": "Translation"
-  },
-  "language": {
-    "brazilian_portuguese": "Português",
-    "english": "English",
-    "spanish": "Spanish",
-    "simplified_chinese": "Versión abreviada"
+    "translation": "Translation",
+    "browserSupport": "Browser Support"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -360,7 +354,7 @@
   "configurationGuide": {
     "title": "Trabajo En Progreso"
   },
-  "browsersList": {
+  "browserSupport": {
     "title": "Trabajo En Progreso"
   },
   "overview": {

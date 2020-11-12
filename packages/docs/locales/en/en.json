@@ -849,13 +849,8 @@
     "configurationGuide": "Configuration Guide",
     "browsersList": "Browsers List",
     "overview": "Overview",
-    "translation": "Translation"
-  },
-  "language": {
-    "br": "Português",
-    "en": "English",
-    "es": "Spanish",
-    "cn": "Simplified Chinese"
+    "translation": "Translation",
+    "browserSupport": "Browser Support"
   },
   "all": {
     "examples": "Examples",
@@ -2226,7 +2221,7 @@
   "configurationGuide": {
     "title": "Work In Progress"
   },
-  "browsersList": {
+  "browserSupport": {
     "title": "Work In Progress"
   },
   "overview": {
