@@ -33,7 +33,7 @@ module.exports = {
     const createDocsActions = [
       {
         type: 'add',
-        path: `${docsBasePath}/pages/{{kebabCase category}}/{{kebabCase name}}.vue`,
+        path: `${docsBasePath}/pages/ui-components/{{kebabCase name}}.vue`,
         templateFile: './component/doc-page.vue.hbs',
         abortOnFail: false,
       },
