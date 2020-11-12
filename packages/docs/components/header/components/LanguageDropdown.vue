@@ -15,6 +15,11 @@
         <span class="dropdown-item__text">{{ option.name }}</span>
       </va-list-item-section>
     </va-list-item>
+    <va-list-item class="language-dropdown__item row align--center py-2">
+      <va-list-item-section>
+        <nuxt-link :to="`/${$root.$i18n.locale}/contribution/translation`" class="dropdown-item__text" :style="{color: primaryColor}">{{$t('landing.header.buttons.translation')}}</nuxt-link>
+      </va-list-item-section>
+    </va-list-item>
   </va-list>
   </va-dropdown>
 </template>
