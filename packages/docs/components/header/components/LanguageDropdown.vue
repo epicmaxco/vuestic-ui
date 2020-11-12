@@ -1,7 +1,7 @@
 <template>
   <va-dropdown class="language-dropdown" :offset="[0, 25]" fixed>
-    <va-button iconRight="expand_more" flat square slot="anchor" color="primary">
-      <va-icon :class="['flag-icon flag-icon-large', flagIconClass(currentLanguage)]"></va-icon>
+    <va-button class="language-dropdown__button" iconRight="expand_more" flat square slot="anchor" color="primary">
+      {{currentLanguageName}}
     </va-button>
   <va-list class="language-dropdown__content">
     <va-list-item
@@ -11,9 +11,6 @@
       :class="{ active: option.code === currentLanguage }"
       @click="setLanguage(option.code)"
     >
-      <va-list-item-section icon>
-        <va-icon :class="['flag-icon flag-icon-small', flagIconClass(option.code)]" />
-      </va-list-item-section>
       <va-list-item-section :style="{color: primaryColor}">
         <span class="dropdown-item__text">{{ option.name }}</span>
       </va-list-item-section>
@@ -54,8 +51,9 @@ export default class LanguageDropdown extends Vue {
     return this.$root.$i18n.locale
   }
 
-  flagIconClass (code) {
-    return `flag-icon-${code === 'en' ? 'gb' : code}`
+  get currentLanguageName () {
+    const result = this.options.find(({ code }) => code === this.currentLanguage)
+    return result.name
   }
 }
 </script>
@@ -66,6 +64,10 @@ export default class LanguageDropdown extends Vue {
 
 .language-dropdown {
   cursor: pointer;
+
+  &__button {
+    font-weight: 700;
+  }
 
   &__content {
     background-color: #f7f7f7 !important;
