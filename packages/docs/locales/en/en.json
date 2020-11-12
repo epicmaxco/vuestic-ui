@@ -1,6 +1,93 @@
 {
-  "translation": {
-    "path": "Example translation string"
+  "landing": {
+    "header": {
+      "buttons": {
+        "overview": "Overview",
+        "docs": "Docs",
+        "discord": "Join on Discord",
+        "translation": "Add translation...",
+        "language": "Language",
+        "star": "Star"
+      }
+    },
+    "preview": {
+      "title": "Vue.js UI Library",
+      "buttons": {
+        "start": "Get started",
+        "github": "View on GitHub"
+      },
+      "features": {
+        "nuxt": {
+          "title": "Nuxt Support",
+          "text": "Nuxt integration guides"
+        },
+        "components": {
+          "title": "52 Responsive Components",
+          "text": "Available components docs"
+        },
+        "keyboard": {
+          "title": "Keyboard Navigation",
+          "text": "Accessibility guides"
+        },
+        "browsers": {
+          "title": "Modern Browsers Support",
+          "text": "Supported browsers list"
+        }
+      }
+    },
+    "seamless": {
+      "title": "Seamless Integration",
+      "text": "Use Vuestic UI with other component libraries without any conflicts.",
+      "compare": {
+        "vuestic": "Vuestic UI components",
+        "other": "Other components"
+      }
+    },
+    "customize": {
+      "title": "Customize Everything",
+      "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
+      "tabs": [
+        "Large Modern",
+        "Squared Classy",
+        "Multiple Themes"
+      ],
+      "copy": "Copied to clipboard",
+      "configuration": "See our configuration guides"
+    },
+    "opensource": {
+      "title": "Open Source",
+      "text": [
+        "Vuestic UI is forever free and open to contributions. See our",
+        "issues",
+        "contributing guide",
+        "and",
+        "discord server",
+        "to help us improve Vuestic UI experience."
+      ]
+    },
+    "admin": {
+      "title": "Vuestic Admin",
+      "text": "Check out Vuestic UI Library in action.",
+      "buttons": {
+        "github": "View on GitHub",
+        "demo": "Live Demo",
+        "star": "Star"
+      },
+      "features": {
+        "opensource": "Open source MIT license",
+        "themes": "Two built-in color schemes",
+        "responsive": "Cross-browser & responsive",
+        "i18n": "i18n-ready"
+      }
+    },
+    "footer": {
+      "text": "Open source, free to use. Development inquiries:",
+      "buttons": {
+        "epicmax": "About Epicmax",
+        "admin": "Vuestic Admin",
+        "spinners": "Epic Spinners"
+      }
+    }
   },
   "api": {
     "all": {
@@ -673,7 +760,7 @@
         "toggleColor": "Color of the toggle button"
       },
       "events": {
-        "input":"Emits when toggling to the different button"
+        "input": "Emits when toggling to the different button"
       },
       "methods": {},
       "slots": {}
@@ -691,6 +778,12 @@
       "slots": {
         "default": "Slot for the component to which you want to apply loading styles"
       }
+    },
+    "VaNuxtIntegration": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -701,6 +794,10 @@
       "navigation": "Navigation",
       "other": "Other"
     },
+    "introduction": "Introduction",
+    "gettingStarted": "Getting Started",
+    "styles": "Styles",
+    "uiElements": "UI Elements",
     "contribution": "Contribution",
     "documentationPage": "Documentation Page",
     "affix": "Affix",
@@ -712,8 +809,6 @@
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
-    "uiElements": "UI Elements",
-    "styles": "Styles",
     "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
@@ -746,13 +841,16 @@
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
-    "innerLoading": "Inner Loading"
-  },
-  "language": {
-    "brazilian_portuguese": "Português",
-    "english": "English",
-    "spanish": "Spanish",
-    "simplified_chinese": "Simplified Chinese"
+    "innerLoading": "Inner Loading",
+    "installation": "Installation",
+    "roadmap": "Roadmap",
+    "nuxtIntegration": "Nuxt Integration",
+    "accessibilityGuide": "Accessibility Guide",
+    "configurationGuide": "Configuration Guide",
+    "browsersList": "Browsers List",
+    "overview": "Overview",
+    "translation": "Translation",
+    "browserSupport": "Browser Support"
   },
   "all": {
     "examples": "Examples",
@@ -2107,5 +2205,29 @@
         "text": "You can change the loading icon."
       }
     }
+  },
+  "installation": {
+    "title": "Work In Progress"
+  },
+  "roadmap": {
+    "title": "Work In Progress"
+  },
+  "nuxtIntegration": {
+    "title": "Work In Progress"
+  },
+  "accessibilityGuide": {
+    "title": "Work In Progress"
+  },
+  "configurationGuide": {
+    "title": "Work In Progress"
+  },
+  "browserSupport": {
+    "title": "Work In Progress"
+  },
+  "overview": {
+    "title": "Work In Progress"
+  },
+  "translation": {
+    "title": "Work In Progress"
   }
 }

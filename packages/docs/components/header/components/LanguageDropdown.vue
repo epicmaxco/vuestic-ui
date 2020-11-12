@@ -1,7 +1,7 @@
 <template>
   <va-dropdown class="language-dropdown" :offset="[0, 25]" fixed>
-    <va-button iconRight="expand_more" flat square slot="anchor" color="primary">
-      <va-icon :class="['flag-icon flag-icon-large', flagIconClass(currentLanguage)]"></va-icon>
+    <va-button class="language-dropdown__button" iconRight="expand_more" flat square slot="anchor" color="primary">
+      {{currentLanguageName}}
     </va-button>
   <va-list class="language-dropdown__content">
     <va-list-item
@@ -11,11 +11,13 @@
       :class="{ active: option.code === currentLanguage }"
       @click="setLanguage(option.code)"
     >
-      <va-list-item-section icon>
-        <va-icon :class="['flag-icon flag-icon-small', flagIconClass(option.code)]" />
-      </va-list-item-section>
       <va-list-item-section :style="{color: primaryColor}">
-        <span class="dropdown-item__text">{{ $t(`language.${option.name}`) }}</span>
+        <span class="dropdown-item__text">{{ option.name }}</span>
+      </va-list-item-section>
+    </va-list-item>
+    <va-list-item class="language-dropdown__item row align--center py-2">
+      <va-list-item-section>
+        <nuxt-link :to="`/${$root.$i18n.locale}/contribution/translation`" class="dropdown-item__text" :style="{color: primaryColor}">{{$t('landing.header.buttons.translation')}}</nuxt-link>
       </va-list-item-section>
     </va-list-item>
   </va-list>
@@ -28,6 +30,7 @@ import VaIcon from 'vuestic-ui/src/components/vuestic-components/va-icon/VaIcon.
 import VaDropdown from 'vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue'
 import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
 import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
+import { languages } from './../../languages'
 @Component({
   name: 'language-dropdown',
   mixins: [ColorThemeMixin],
@@ -36,31 +39,10 @@ import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
     VaDropdown,
     VaButton,
   },
-  props: {
-    options: {
-      type: Array,
-      default: () => [
-        {
-          code: 'en',
-          name: 'english',
-        },
-        {
-          code: 'es',
-          name: 'spanish',
-        },
-        {
-          code: 'br',
-          name: 'brazilian_portuguese',
-        },
-        {
-          code: 'cn',
-          name: 'simplified_chinese',
-        },
-      ],
-    },
-  },
 })
 export default class LanguageDropdown extends Vue {
+  options = languages
+
   setLanguage (locale) {
     localStorage.setItem('currentLanguage', locale)
     this.$root.$i18n.setLocale(locale)
@@ -74,30 +56,30 @@ export default class LanguageDropdown extends Vue {
     return this.$root.$i18n.locale
   }
 
-  flagIconClass (code) {
-    return `flag-icon-${code === 'en' ? 'gb' : code}`
+  get currentLanguageName () {
+    const result = this.options.find(({ code }) => code === this.currentLanguage)
+    return result.name
   }
 }
 </script>
 
-<style lang="scss">
-@import "flag-icon-css/css/flag-icon.css";
+<style lang="scss" scoped>
 @import "vuestic-ui/src/components/vuestic-sass/resources/resources";
 
 .language-dropdown {
   cursor: pointer;
 
+  &__button {
+    font-weight: 700;
+  }
+
   &__content {
+    background-color: #f7f7f7 !important;
     box-shadow: $gray-box-shadow;
     border-radius: 0.5rem;
-    width: 12rem;
-    padding: 1rem 0;
-
-    .flag-icon-small {
-      min-width: 1.5rem;
-      min-height: 1.5rem;
-      margin-right: 0.5rem;
-    }
+    min-width: 10rem;
+    padding: 1rem 0.5rem;
+    margin-right: 0.1rem;
   }
 
   &__item {
@@ -111,16 +93,6 @@ export default class LanguageDropdown extends Vue {
         color: #1b1a1f;
       }
     }
-  }
-
-  .flag-icon::before {
-    content: "";
-  }
-
-  .flag-icon-large {
-    display: block;
-    width: 31px;
-    height: 23px;
   }
 
   .va-dropdown__anchor {

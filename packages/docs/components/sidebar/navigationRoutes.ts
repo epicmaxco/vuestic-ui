@@ -2,6 +2,56 @@ import { NavigationRoute } from './NavigationRoute'
 
 export const navigationRoutes: NavigationRoute[] = [
   {
+    name: 'introduction',
+    displayName: 'menu.introduction',
+    meta: {
+      iconClass: 'vuestic-iconset-image',
+    },
+    disabled: true,
+    children: [
+      {
+        name: 'roadmap',
+        displayName: 'menu.roadmap',
+      },
+      {
+        name: 'overview',
+        displayName: 'menu.overview',
+      },
+      {
+        name: 'browser-support',
+        displayName: 'menu.browserSupport',
+      },
+      // GENERATOR_ADD - introduction
+    ],
+  },
+  {
+    name: 'getting-started',
+    displayName: 'menu.gettingStarted',
+    meta: {
+      iconClass: 'vuestic-iconset-image',
+    },
+    disabled: true,
+    children: [
+      {
+        name: 'installation',
+        displayName: 'menu.installation',
+      },
+      {
+        name: 'nuxt-integration',
+        displayName: 'menu.nuxtIntegration',
+      },
+      {
+        name: 'accessibility-guide',
+        displayName: 'menu.accessibilityGuide',
+      },
+      {
+        name: 'configuration-guide',
+        displayName: 'menu.configurationGuide',
+      },
+      // GENERATOR_ADD - gettingStarted
+    ],
+  },
+  {
     name: 'styles',
     displayName: 'menu.styles',
     meta: {
@@ -187,6 +237,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'documentation-page',
         displayName: 'menu.documentationPage',
+      },
+      {
+        name: 'translation',
+        displayName: 'menu.translation',
       },
       // GENERATOR_ADD - contribution
     ],
