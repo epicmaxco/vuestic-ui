@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import radioConfig from '../../components/page-configs/va-radio/page-config'
+import radioConfig from '../../components/page-configs/ui-elements/va-radio/page-config'
 
 @Component({
   components: {

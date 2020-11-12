@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import selectConfig from '../../components/page-configs/va-select/page-config'
+import selectConfig from '../../components/page-configs/ui-elements/va-select/page-config'
 
 @Component({
   components: {

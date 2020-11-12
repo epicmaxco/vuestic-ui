@@ -14,12 +14,12 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.roadmap',
       },
       {
-        name: 'browsers-list',
-        displayName: 'menu.browsersList',
-      },
-      {
         name: 'overview',
         displayName: 'menu.overview',
+      },
+      {
+        name: 'browser-support',
+        displayName: 'menu.browserSupport',
       },
       // GENERATOR_ADD - introduction
     ],

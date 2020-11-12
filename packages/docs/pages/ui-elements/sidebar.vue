@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import sidebarConfig from '../../components/page-configs/va-sidebar/page-config'
+import sidebarConfig from '../../components/page-configs/ui-elements/va-sidebar/page-config'
 
 @Component({
   components: {

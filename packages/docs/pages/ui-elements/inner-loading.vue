@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import innerLoadingConfig from '../../components/page-configs/va-inner-loading/page-config'
+import innerLoadingConfig from '../../components/page-configs/ui-elements/va-inner-loading/page-config'
 
 @Component({
   components: {

@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import buttonConfig from '../../components/page-configs/va-button/page-config'
+import buttonConfig from '../../components/page-configs/ui-elements/va-button/page-config'
 
 @Component({
   components: {

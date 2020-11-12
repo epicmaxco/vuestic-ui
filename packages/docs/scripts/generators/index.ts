@@ -12,7 +12,7 @@ const { execSync } = require('child_process')
 // eslint-disable-next-line
 const componentGenerator = require('./component')
 
-type GeneratorAnswers = { name: string, category: string, }
+type GeneratorAnswers = { name: string, }
 
 const getDirectoryNames = (source: string) => {
   return fs.readdirSync(source, { withFileTypes: true })
@@ -78,7 +78,7 @@ module.exports = (plop: NodePlopAPI) => {
       throw new Error(`Route ${routeName} already exists.`)
     }
 
-    const replaceString = `// GENERATOR_ADD - ${answers.category}`
+    const replaceString = '// GENERATOR_ADD - uiElements'
 
     const routeItemString = `{
         name: '${routeName}',

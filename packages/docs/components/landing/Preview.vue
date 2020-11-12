@@ -64,7 +64,7 @@
               <img src="@/assets/landing/images/features/modern-browsers.svg" alt="modern-browsers">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.browsers.title')}}</h2>
-            <nuxt-link class="item__link" :to="`/${$root.$i18n.locale}/introduction/browsers-list`">
+            <nuxt-link class="item__link" :to="`/${$root.$i18n.locale}/introduction/browser-support`">
               {{$t('landing.preview.features.browsers.text')}}
             </nuxt-link>
           </div>

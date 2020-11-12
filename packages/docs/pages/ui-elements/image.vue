@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import imageConfig from '../../components/page-configs/va-image/page-config'
+import imageConfig from '../../components/page-configs/ui-elements/va-image/page-config'
 
 @Component({
   components: {

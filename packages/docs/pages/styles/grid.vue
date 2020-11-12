@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import gridConfig from '../../components/page-configs/grid/page-config'
+import gridConfig from '../../components/page-configs/styles/grid/page-config'
 
 @Component({
   components: {

@@ -1,7 +1,7 @@
 import { NodePlopAPI, CustomActionFunction, AddActionConfig } from 'plop'
 
 /**
- * generator/index.js
+ * generator/documentation.js
  *
  * Exports the generators so plop knows them
  */

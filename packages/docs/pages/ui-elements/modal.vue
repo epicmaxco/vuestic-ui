@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import modalConfig from '../../components/page-configs/va-modal/page-config'
+import modalConfig from '../../components/page-configs/ui-elements/va-modal/page-config'
 
 @Component({
   components: {

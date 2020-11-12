@@ -263,8 +263,7 @@ export default class Customize extends Vue {
   background-color: #b0e2a7;
   color: #11380a;
   padding: 0.5rem 1rem;
-  margin-top: 1rem;
-  margin-bottom: 0.1rem;
+  margin: 0.1rem 0;
   opacity: 0;
   transition: opacity 0.5s ease-in;
   border-radius: 0.2rem;

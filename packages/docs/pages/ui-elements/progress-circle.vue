@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import progressCircleConfig from '../../components/page-configs/va-progress-circle/page-config'
+import progressCircleConfig from '../../components/page-configs/ui-elements/va-progress-circle/page-config'
 
 @Component({
   components: {
