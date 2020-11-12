@@ -19,21 +19,6 @@ module.exports = {
         return 'The name is required'
       },
     },
-    {
-      type: 'input',
-      name: 'category',
-      message: 'What\'s the component categoty (ex.: uiElements, styles, contribution, gettingStarted, introduction)?',
-      validate: value => {
-        if (/.+/.test(value)) {
-          if (['uiElements', 'styles', 'contribution', 'gettingStarted', 'introduction'].includes(value)) {
-            return true
-          }
-          return 'Name is invalid'
-        }
-
-        return 'The name is required'
-      },
-    },
   ],
   actions: () => {
     const actions = []
@@ -54,13 +39,13 @@ module.exports = {
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/va-{{kebabCase name}}/api-options.ts`,
+        path: `${docsBasePath}/components/page-configs/ui-components/va-{{kebabCase name}}/api-options.ts`,
         templateFile: './component/api-options.ts.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/va-{{kebabCase name}}/page-config.ts`,
+        path: `${docsBasePath}/components/page-configs/ui-components/va-{{kebabCase name}}/page-config.ts`,
         templateFile: './component/page-config.ts.hbs',
         abortOnFail: false,
       },
