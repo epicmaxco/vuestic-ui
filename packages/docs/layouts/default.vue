@@ -137,9 +137,9 @@ html {
   font-size: $font-size-root;
 }
 
-body {
-  min-width: $min-body-width;
-}
+// body {
+//   min-width: $min-body-width;
+// }
 
 .base-layout {
   height: 100vh;
