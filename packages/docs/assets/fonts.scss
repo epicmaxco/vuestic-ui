@@ -51,9 +51,9 @@
 // code
 @mixin code-font(){
   font-weight: normal;
-  font-size: 1rem;
-  @include lg(font-size, 0.925rem);
-  @include md(font-size, 0.9rem);
-  @include sm(font-size, 0.875rem);
-  @include xs(font-size, 0.85rem);
+  font-size: 0.8rem;
+  @include lg(font-size, 0.775rem);
+  @include md(font-size, 0.75rem);
+  @include sm(font-size, 0.725rem);
+  @include xs(font-size, 0.7rem);
 }
