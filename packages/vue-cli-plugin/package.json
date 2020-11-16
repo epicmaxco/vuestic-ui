@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-vuestic-ui",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.9",
   "description": "Vuestic UI plugin for Vue CLI v4+",
   "main": "index.js",
   "repository": "https://github.com/epicmaxco/vuestic-ui",

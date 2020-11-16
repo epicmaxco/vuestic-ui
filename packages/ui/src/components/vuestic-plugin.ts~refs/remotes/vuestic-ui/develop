@@ -1,5 +1,3 @@
-
-import VaAccordion from './vuestic-components/va-accordion/VaAccordion.vue'
 import VaAffix from './vuestic-components/va-affix/VaAffix.vue'
 import VaAlert from './vuestic-components/va-alert/VaAlert.vue'
 import VaAvatar from './vuestic-components/va-avatar/VaAvatar.vue'
@@ -16,15 +14,15 @@ import VaCard from './vuestic-components/va-card/VaCard.vue'
 import VaCardContent from './vuestic-components/va-card/VaCardContent.vue'
 import VaCardTitle from './vuestic-components/va-card/VaCardTitle.vue'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
-import VaChip from './vuestic-components/va-chip/VaChip.vue'
-import VaCollapse from './vuestic-components/va-collapse/VaCollapse.vue'
 import VaContent from './vuestic-components/va-content/VaContent.vue'
-// import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
+import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDivider from './vuestic-components/va-divider/VaDivider.vue'
 
 import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker.vue'
 
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown.vue'
+import VaExpand from './vuestic-components/va-expand/VaExpand.vue'
+import VaExpandGroup from './vuestic-components/va-expand-group/VaExpandGroup.vue'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload.vue'
 import VaHover from './vuestic-components/va-hover/VaHover.vue'
 import VaIcon from './vuestic-components/va-icon/VaIcon.vue'
@@ -61,6 +59,7 @@ import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
 import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
 import VaTab from './vuestic-components/va-tabs/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
+import VaTag from './vuestic-components/va-tag/VaTag.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline.vue'
 import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem.vue'
 import VaTreeCategory from './vuestic-components/va-tree-view/VaTreeCategory.vue'
@@ -68,48 +67,40 @@ import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode.vue'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot.vue'
 import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper.vue'
 
-// @ts-ignore
-import Toasted from './vuestic-mixins/VuesticToasted.js'
-// @ts-ignore
-import StickyScroll from './vuestic-directives/StickyScroll.js'
+import Toasted from './vuestic-mixins/VuesticToasted.vue'
+
+import StickyScroll from './vuestic-directives/StickyScroll'
 import VaButtonDropdown from './vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
-// @ts-ignore
-import { installPlatform } from './vuestic-components/va-popup/install.js'
-// @ts-ignore
-import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-popover-subplugin.js'
+import { installPlatform } from './vuestic-components/va-popup/install'
+import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 
 // @ts-ignore
 import { BusPlugin } from 'vue-epic-bus'
-// @ts-ignore
-import { registerVuesticObject } from './resize-events.js'
-import VaColorPalette
-  from './vuestic-components/va-color-palette/VaColorPalette.vue'
-import VaColorSlider from './vuestic-components/va-color-slider/VaColorSlider.vue'
-import VaColorPicker
-  from './vuestic-components/va-color-picker/VaColorPicker.vue'
-import VaColorInput
-  from './vuestic-components/va-color-input/VaColorInput.vue'
-import VaColorInputAdvanced
-  from './vuestic-components/va-color-input/VaColorInputAdvanced.vue'
-import VaColorPaletteAdvanced
-  from './vuestic-components/va-color-palette/VaColorPaletteAdvanced.vue'
+import { registerVuesticObject } from './resize-events'
+import VaSimplePalettePicker
+  from './vuestic-components/va-color-picker/VaSimplePalettePicker.vue'
+import VaColorSquare from './vuestic-components/va-color-picker/VaColorSquare.vue'
+import VaSliderColorPicker
+  from './vuestic-components/va-color-picker/VaSliderColorPicker.vue'
+import VaAdvancedColorPicker
+  from './vuestic-components/va-color-picker/VaAdvancedColorPicker.vue'
+import VaColorPickerInput
+  from './vuestic-components/va-color-picker/VaColorPickerInput.vue'
+import VaPaletteCustom
+  from './vuestic-components/va-color-picker/VaPaletteCustom.vue'
 import VaForm
   from './vuestic-components/va-form/VaForm.vue'
 import VaOptionList
   from './vuestic-components/va-option-list/VaOptionList.vue'
 import VaInfiniteScroll
   from './vuestic-components/va-infinite-scroll/VaInfiniteScroll.vue'
-// @ts-ignore
 import ToastInstall from './vuestic-components/va-toast/install'
-
-import _Vue from 'vue'
 
 installPlatform()
 
-export const VuesticPlugin = {
-  install (Vue: typeof _Vue) {
+const VuesticPlugin = {
+  install (Vue: any) {
     [
-      VaAccordion,
       VaAffix,
       VaAlert,
       VaAvatar,
@@ -124,12 +115,12 @@ export const VuesticPlugin = {
       VaCardContent,
       VaCardTitle,
       VaCheckbox,
-      VaChip,
-      VaCollapse,
       VaContent,
-      // VaDataTable,
+      VaDataTable,
       VaDatePicker,
       VaDropdown,
+      VaExpand,
+      VaExpandGroup,
       VaFileUpload,
       VaHover,
       VaIcon,
@@ -163,18 +154,19 @@ export const VuesticPlugin = {
       VaSwitch,
       VaTab,
       VaTabs,
+      VaTag,
       VaTimeline,
       VaTimelineItem,
       VaTreeCategory,
       VaTreeNode,
       VaTreeRoot,
       VaInnerLoading,
-      VaColorPalette,
-      VaColorPicker,
-      VaColorSlider,
-      VaColorInput,
-      VaColorInputAdvanced,
-      VaColorPaletteAdvanced,
+      VaSimplePalettePicker,
+      VaColorSquare,
+      VaSliderColorPicker,
+      VaAdvancedColorPicker,
+      VaColorPickerInput,
+      VaPaletteCustom,
       VaButtonDropdown,
       VaForm,
       VaDivider,
@@ -194,7 +186,8 @@ export const VuesticPlugin = {
 
     Vue.mixin(Toasted)
 
-    // @ts-ignore
     Vue.directive('sticky-scroll', StickyScroll)
   },
 }
+
+export default VuesticPlugin
