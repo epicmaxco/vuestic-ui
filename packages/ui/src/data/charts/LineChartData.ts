@@ -9,7 +9,7 @@ const generateYLabels = () => {
   return flip ? ['Debit', 'Credit'] : ['Credit', 'Debit']
 }
 
-const generateArray = (length) => {
+const generateArray = (length: any) => {
   return Array.from(Array(length), generateValue)
 }
 
@@ -18,9 +18,9 @@ const getSize = () => {
   return minSize + Math.floor(Math.random() * 3)
 }
 
-let generatedData
+let generatedData: any
 
-export const getLineChartData = (themes) => {
+export const getLineChartData = (themes: any) => {
   const size = getSize()
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
   const yLabels = generateYLabels()

@@ -1,10 +1,11 @@
 /* eslint-disable */
+// @ts-nocheck
 
-export default function (fn) {
+export default function (fn: any) {
   let wait = false
-  let frame
+  let frame: any
 
-  function debounced (...args) {
+  function debounced (...args: any) {
     if (wait) {
       return
     }

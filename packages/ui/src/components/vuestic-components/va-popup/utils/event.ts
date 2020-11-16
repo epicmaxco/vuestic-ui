@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 
 export const listenOpts = {}
 Object.defineProperty(listenOpts, 'passive', {

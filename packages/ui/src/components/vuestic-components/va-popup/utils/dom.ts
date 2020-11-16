@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 
 export function offset (el) {
   if (!el || el === window) {

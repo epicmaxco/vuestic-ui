@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 
 import { isSSR } from './plugins/platform'
 

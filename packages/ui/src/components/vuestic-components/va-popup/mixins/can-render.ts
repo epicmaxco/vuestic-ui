@@ -10,4 +10,4 @@ export default {
   mounted () {
     this.canRender === false && (this.canRender = true)
   },
-}
+} as any

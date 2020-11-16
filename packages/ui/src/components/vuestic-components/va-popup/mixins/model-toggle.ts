@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 
 import History from '../history'
 

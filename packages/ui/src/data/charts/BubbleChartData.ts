@@ -1,6 +1,6 @@
 import { colorToRgba } from '../../services/color-functions'
 
-export const getBubbleChartData = (themes) => ({
+export const getBubbleChartData = (themes: any) => ({
   datasets: [
     {
       label: 'USA',

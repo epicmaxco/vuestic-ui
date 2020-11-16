@@ -1,15 +1,15 @@
 export default {
-  bind: (el, binding) => {
+  bind: (el: HTMLElement, binding: any) => {
     const duration = binding.value.duration || 500
     const isAnimated = binding.value.animate
 
-    const animateScroll = (duration) => {
+    const animateScroll = (duration: number) => {
       const start = el.scrollTop
       const end = el.scrollHeight
       const change = end - start
       const increment = 20
 
-      function easeInOut (currentTime, start, change, duration) {
+      function easeInOut (currentTime: number, start: number, change: number, duration: number) {
         currentTime /= duration / 2
         if (currentTime < 1) {
           return change / 2 * currentTime * currentTime + start
@@ -18,7 +18,7 @@ export default {
         return -change / 2 * (currentTime * (currentTime - 2) - 1) + start
       }
 
-      function animate (elapsedTime) {
+      function animate (elapsedTime: number) {
         elapsedTime += increment
         const position = easeInOut(elapsedTime, start, change, duration)
         el.scrollTop = position

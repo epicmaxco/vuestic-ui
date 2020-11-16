@@ -13,8 +13,8 @@ Vue.use(Toasted, toastOptions)
 
 export default {
   methods: {
-    showToast (msg, options) {
-      this.$toasted.show(msg, options)
+    showToast (msg: string, options: object) {
+      (this as any).$toasted.show(msg, options)
     },
   },
 }

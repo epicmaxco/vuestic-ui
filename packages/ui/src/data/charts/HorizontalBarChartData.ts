@@ -1,4 +1,4 @@
-export const getHorizontalBarChartData = (themes) => ({
+export const getHorizontalBarChartData = (themes: any) => ({
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   datasets: [
     {

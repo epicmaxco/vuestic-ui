@@ -1,8 +1,10 @@
+import { VNode } from 'vue/types/umd'
+
 export const closeOverlay = {
   name: 'close-overlay',
-  bind (el, binding, vnode) {
-    const handler = ev => {
-      let vm = vnode.componentInstance
+  bind (el: HTMLElement | any, binding: any, vnode: VNode) {
+    const handler = (ev: any) => {
+      let vm: any = vnode.componentInstance
       while ((vm = vm.$parent)) {
         const name = vm.$options.name
         if (name === 'va-popup' || name === 'QModal') {
@@ -11,7 +13,7 @@ export const closeOverlay = {
         }
       }
     }
-    const handlerKey = ev => {
+    const handlerKey = (ev: any) => {
       if (ev.keyCode === 13) {
         handler(ev)
       }
@@ -20,7 +22,7 @@ export const closeOverlay = {
     el.addEventListener('click', handler)
     el.addEventListener('keyup', handlerKey)
   },
-  unbind (el) {
+  unbind (el: any) {
     const ctx = el.__qclose
     if (!ctx) {
       return

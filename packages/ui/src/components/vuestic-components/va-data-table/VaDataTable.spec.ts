@@ -1,10 +1,9 @@
+// @ts-nocheck
 import { shallowMount } from '@vue/test-utils'
-import VaDataTable from './VaDataTable'
+import VaDataTable from './VaDataTable.vue'
 
 import { testIsLoadingMixin } from '../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
-
 jest.mock('vuetable-2/src/components/Vuetable', () => jest.fn())
-
 describe('VaDataTable', () => {
   it('should properly sort numeric values', () => {
     const wrapper = shallowMount(VaDataTable, {

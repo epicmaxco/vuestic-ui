@@ -1,30 +1,30 @@
 /* eslint-disable */
 
-import { css } from './dom.js'
+import { css } from './dom'
 
-export function getScrollTarget (el) {
+export function getScrollTarget (el: HTMLElement | any) {
   return el.closest('.scroll,.scroll-y,.overflow-auto') || window
 }
 
-export function getScrollHeight (el) {
+export function getScrollHeight (el: HTMLElement | any) {
   return (el === window ? document.body : el).scrollHeight
 }
 
-export function getScrollPosition (scrollTarget) {
+export function getScrollPosition (scrollTarget: HTMLElement | any) {
   if (scrollTarget === window) {
     return window.pageYOffset || window.scrollY || document.body.scrollTop || 0
   }
   return scrollTarget.scrollTop
 }
 
-export function getHorizontalScrollPosition (scrollTarget) {
+export function getHorizontalScrollPosition (scrollTarget: HTMLElement | any) {
   if (scrollTarget === window) {
     return window.pageXOffset || window.scrollX || document.body.scrollLeft || 0
   }
   return scrollTarget.scrollLeft
 }
 
-export function animScrollTo (el, to, duration) {
+export function animScrollTo (el: HTMLElement | any, to: any, duration: any) {
   if (duration <= 0) {
     return
   }
@@ -39,7 +39,7 @@ export function animScrollTo (el, to, duration) {
   })
 }
 
-function setScroll (scrollTarget, offset) {
+function setScroll (scrollTarget: HTMLElement | any, offset: any) {
   if (scrollTarget === window) {
     document.documentElement.scrollTop = offset
     document.body.scrollTop = offset
@@ -48,7 +48,7 @@ function setScroll (scrollTarget, offset) {
   scrollTarget.scrollTop = offset
 }
 
-export function setScrollPosition (scrollTarget, offset, duration) {
+export function setScrollPosition (scrollTarget: HTMLElement | any, offset: any, duration: any) {
   if (duration) {
     animScrollTo(scrollTarget, offset, duration)
     return
@@ -56,7 +56,7 @@ export function setScrollPosition (scrollTarget, offset, duration) {
   setScroll(scrollTarget, offset)
 }
 
-let size
+let size: number
 
 export function getScrollbarWidth () {
   if (size !== undefined) {
@@ -98,7 +98,7 @@ export function getScrollbarWidth () {
   return size
 }
 
-export function hasScrollbar (el, onY = true) {
+export function hasScrollbar (el: HTMLElement, onY = true) {
   if (!el || el.nodeType !== Node.ELEMENT_NODE) {
     return false
   }
@@ -108,14 +108,14 @@ export function hasScrollbar (el, onY = true) {
       el.scrollHeight > el.clientHeight && (
         el.classList.contains('scroll') ||
         el.classList.contains('overflow-auto') ||
-        ['auto', 'scroll'].includes(window.getComputedStyle(el)['overflow-y'])
+        ['auto', 'scroll'].includes((window as any).getComputedStyle(el)['overflow-y'])
       )
     )
     : (
       el.scrollWidth > el.clientWidth && (
         el.classList.contains('scroll') ||
         el.classList.contains('overflow-auto') ||
-        ['auto', 'scroll'].includes(window.getComputedStyle(el)['overflow-x'])
+        ['auto', 'scroll'].includes((window as any).getComputedStyle(el)['overflow-x'])
       )
     )
 }

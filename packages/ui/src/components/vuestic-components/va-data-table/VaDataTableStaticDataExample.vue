@@ -54,7 +54,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import users from '../../../data/users.json'
+import users from '../../../data/Users'
 import VaDataTable from './VaDataTable.vue'
 import VaCheckbox from '../va-checkbox/VaCheckbox.vue'
 import VaButton from '../va-button/VaButton.vue'

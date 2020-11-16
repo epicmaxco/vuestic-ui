@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 
 export const isSSR = typeof window === 'undefined'
 export let fromSSR = false

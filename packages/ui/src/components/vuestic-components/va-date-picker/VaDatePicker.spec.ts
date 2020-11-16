@@ -1,4 +1,4 @@
-import VaDatePicker from './VaDatePicker'
+import VaDatePicker from './VaDatePicker.vue'
 import { testIsContextableComponent } from '../../context-test/context-provide/testIsContextableComponent'
 import iconsFrameworkConfig
   from '../../context-test/context-provide/context/va-icons-framework-config'

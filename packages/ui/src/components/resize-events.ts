@@ -1,6 +1,6 @@
 import { DebounceLoader } from 'asva-executors'
 
-export function registerVuesticObject (Vue) {
+export function registerVuesticObject (Vue: any) {
   const $va = Vue.prototype.$va = new Vue({
     data () {
       return {}

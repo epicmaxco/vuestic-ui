@@ -1,5 +1,5 @@
 export const DropdownPopperPlugin = {
-  install (Vue) {
+  install (Vue: any) {
     Vue.prototype.$closeDropdown = function () {
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       let vm = this

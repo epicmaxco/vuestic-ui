@@ -1,7 +1,8 @@
 /* eslint-disable */
+// @ts-nocheck
 
-import { position as eventPosition } from './event.js'
-import { getScrollbarWidth } from './scroll.js'
+import { position as eventPosition } from './event'
+import { getScrollbarWidth } from './scroll'
 
 export function getAnchorPosition (el, offset) {
   let { top, left, right, bottom } = el.getBoundingClientRect()
