@@ -1,12 +1,11 @@
 {
   "name": "vuestic-ui",
-  "version": "1.0.0-alpha.9",
+  "version": "1.0.0-alpha.10",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
-  "main": "dist/vuestic-ui.min.js",
-
-  "jsdelivr": "dist/vuestic-ui.min.js",
-  "unpkg": "dist/vuestic-ui.min.js",
+  "main": "dist/vuestic-ui.js",
+  "jsdelivr": "dist/vuestic-ui.js",
+  "unpkg": "dist/vuestic-ui.js",
   "bugs": {
     "url": "https://github.com/epicmaxco/vuestic-ui/issues"
   },
@@ -38,6 +37,7 @@
     "gravatar": "^1.8.0",
     "ionicons": "^3.0.0",
     "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15",
     "medium-editor": "^5.23.3",
     "normalize.css": "^8.0.1",
     "stylelint": "^13.2.1",
@@ -55,9 +55,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@types/cleave.js": "^1.4.3",
     "@types/jest": "^25.2.1",
+    "@types/lodash-es": "^4.17.3",
     "@types/mini-css-extract-plugin": "^1.2.1",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",

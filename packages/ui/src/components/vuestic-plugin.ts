@@ -68,20 +68,15 @@ import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode.vue'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot.vue'
 import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper.vue'
 
-// @ts-ignore
-import Toasted from './vuestic-mixins/VuesticToasted.js'
-// @ts-ignore
-import StickyScroll from './vuestic-directives/StickyScroll.js'
+import Toasted from './vuestic-mixins/VuesticToasted'
+import StickyScroll from './vuestic-directives/StickyScroll'
 import VaButtonDropdown from './vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
-// @ts-ignore
-import { installPlatform } from './vuestic-components/va-popup/install.js'
-// @ts-ignore
-import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-popover-subplugin.js'
+import { installPlatform } from './vuestic-components/va-popup/install'
+import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 
 // @ts-ignore
 import { BusPlugin } from 'vue-epic-bus'
-// @ts-ignore
-import { registerVuesticObject } from './resize-events.js'
+import { registerVuesticObject } from './resize-events'
 import VaColorPalette
   from './vuestic-components/va-color-palette/VaColorPalette.vue'
 import VaColorSlider from './vuestic-components/va-color-slider/VaColorSlider.vue'
@@ -99,7 +94,6 @@ import VaOptionList
   from './vuestic-components/va-option-list/VaOptionList.vue'
 import VaInfiniteScroll
   from './vuestic-components/va-infinite-scroll/VaInfiniteScroll.vue'
-// @ts-ignore
 import ToastInstall from './vuestic-components/va-toast/install'
 
 import _Vue from 'vue'
