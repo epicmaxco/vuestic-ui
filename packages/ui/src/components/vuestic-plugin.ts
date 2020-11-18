@@ -67,7 +67,7 @@ import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode.vue'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot.vue'
 import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper.vue'
 
-import Toasted from './vuestic-mixins/VuesticToasted.vue'
+import Toasted from './vuestic-mixins/VuesticToasted'
 
 import StickyScroll from './vuestic-directives/StickyScroll'
 import VaButtonDropdown from './vuestic-components/va-button-dropdown/VaButtonDropdown.vue'

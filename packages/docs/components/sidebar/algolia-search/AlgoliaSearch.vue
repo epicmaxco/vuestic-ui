@@ -43,8 +43,8 @@ export default class Search extends Vue {
     ]).then(([docsearch]) => {
       docsearch = docsearch.default
       docsearch(Object.assign({
-        apiKey: '85cc3221c9f23bfbaa4e3913dd7625ea',
-        indexName: 'vuejs',
+        apiKey: 'be3528055c92da2ea5133b93ed548c6d',
+        indexName: 'vuestic',
       }, {
         inputSelector: '#algolia-search-input',
         debug: true,
