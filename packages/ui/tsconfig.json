@@ -22,9 +22,6 @@
       "scripthost"
     ],
     "paths": {
-      "v-tooltip": [
-        "src/types/v-tooltip.d.ts"
-      ],
       "json-loader": ["src/types/json-loader.d.ts"]
     }
   },
