@@ -22,7 +22,7 @@
           </div>
           <va-icon
             class="va-collapse__header__icon"
-            :name="valueProxy ? 'collapse_less' : 'collapse_more'"
+            :name="valueProxy ? 'expand_less' : 'expand_more'"
             :color="c_textColor"
           />
         </div>
