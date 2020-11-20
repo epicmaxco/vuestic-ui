@@ -70,15 +70,15 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'select.examples.tags.title',
+    translationString: 'select.examples.chips.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'select.examples.tags.text',
+    translationString: 'select.examples.chips.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-select/Tags',
+    component: 'va-select/Chips',
   },
   {
     type: BlockType.HEADLINE,

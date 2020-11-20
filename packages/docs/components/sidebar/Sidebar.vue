@@ -2,8 +2,8 @@
   <va-sidebar class="sidebar" color="secondary" v-model="minimized">
     <algolia-search />
     <va-list class="sidebar__links">
-      <va-expand-group v-model="value" multiply>
-        <va-expand
+      <va-accordion v-model="value" multiply>
+        <va-collapse
           v-for="(route, key) in navigationRoutes"
           :key="key"
           class="sidebar__expand"
@@ -42,8 +42,8 @@
               </va-list-item-section>
             </va-list-item>
           </div>
-        </va-expand>
-      </va-expand-group>
+        </va-collapse>
+      </va-accordion>
     </va-list>
   </va-sidebar>
 </template>

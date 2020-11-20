@@ -100,8 +100,8 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.image',
       },
       {
-        name: 'tag',
-        displayName: 'menu.tag',
+        name: 'chip',
+        displayName: 'menu.chip',
       },
       {
         name: 'alert',
@@ -170,12 +170,12 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.list',
       },
       {
-        name: 'expand',
-        displayName: 'menu.expand',
+        name: 'collapse',
+        displayName: 'menu.collapse',
       },
       {
-        name: 'expand-group',
-        displayName: 'menu.expandGroup',
+        name: 'accordion',
+        displayName: 'menu.accordion',
       },
       {
         category: 'menu.categories.navigation',

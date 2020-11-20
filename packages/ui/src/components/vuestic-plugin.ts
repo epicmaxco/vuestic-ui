@@ -1,3 +1,5 @@
+
+import VaAccordion from './vuestic-components/va-accordion/VaAccordion.vue'
 import VaAffix from './vuestic-components/va-affix/VaAffix.vue'
 import VaAlert from './vuestic-components/va-alert/VaAlert.vue'
 import VaAvatar from './vuestic-components/va-avatar/VaAvatar.vue'
@@ -14,6 +16,8 @@ import VaCard from './vuestic-components/va-card/VaCard.vue'
 import VaCardContent from './vuestic-components/va-card/VaCardContent.vue'
 import VaCardTitle from './vuestic-components/va-card/VaCardTitle.vue'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
+import VaChip from './vuestic-components/va-chip/VaChip.vue'
+import VaCollapse from './vuestic-components/va-collapse/VaCollapse.vue'
 import VaContent from './vuestic-components/va-content/VaContent.vue'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDivider from './vuestic-components/va-divider/VaDivider.vue'
@@ -21,8 +25,6 @@ import VaDivider from './vuestic-components/va-divider/VaDivider.vue'
 import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker.vue'
 
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown.vue'
-import VaExpand from './vuestic-components/va-expand/VaExpand.vue'
-import VaExpandGroup from './vuestic-components/va-expand-group/VaExpandGroup.vue'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload.vue'
 import VaHover from './vuestic-components/va-hover/VaHover.vue'
 import VaIcon from './vuestic-components/va-icon/VaIcon.vue'
@@ -59,7 +61,6 @@ import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
 import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
 import VaTab from './vuestic-components/va-tabs/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
-import VaTag from './vuestic-components/va-tag/VaTag.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline.vue'
 import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem.vue'
 import VaTreeCategory from './vuestic-components/va-tree-view/VaTreeCategory.vue'
@@ -101,6 +102,7 @@ installPlatform()
 const VuesticPlugin = {
   install (Vue: any) {
     [
+      VaAccordion,
       VaAffix,
       VaAlert,
       VaAvatar,
@@ -115,12 +117,12 @@ const VuesticPlugin = {
       VaCardContent,
       VaCardTitle,
       VaCheckbox,
+      VaChip,
+      VaCollapse,
       VaContent,
       VaDataTable,
       VaDatePicker,
       VaDropdown,
-      VaExpand,
-      VaExpandGroup,
       VaFileUpload,
       VaHover,
       VaIcon,
@@ -154,7 +156,6 @@ const VuesticPlugin = {
       VaSwitch,
       VaTab,
       VaTabs,
-      VaTag,
       VaTimeline,
       VaTimelineItem,
       VaTreeCategory,
