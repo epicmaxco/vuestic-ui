@@ -174,8 +174,8 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.collapse',
       },
       {
-        name: 'expand-group',
-        displayName: 'menu.expandGroup',
+        name: 'accordion',
+        displayName: 'menu.accordion',
       },
       {
         category: 'menu.categories.navigation',

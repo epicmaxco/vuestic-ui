@@ -9,16 +9,16 @@ import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
-import VaExpandGroup from '../VaExpandGroup.vue'
+import VaAccordion from '../VaAccordion.vue'
 
-describe('VaExpandGroup', () => {
+describe('VaAccordion', () => {
   it('should render without an error', () => {
-    const wrapper = mount(VaExpandGroup)
+    const wrapper = mount(VaAccordion)
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
   it('has StatefulMixin', () => {
     expect(() =>
-      testHasStatefulMixin((VaExpandGroup as unknown) as StatefulMixin),
+      testHasStatefulMixin((VaAccordion as unknown) as StatefulMixin),
     ).not.toThrow()
   })
 
@@ -29,11 +29,11 @@ describe('VaExpandGroup', () => {
       inset: false,
       popout: false,
     }
-    expect(() => testIsContextableComponent(VaExpandGroup, props)).not.toThrow()
+    expect(() => testIsContextableComponent(VaAccordion, props)).not.toThrow()
   })
 
   it('should emit `input`', async () => {
-    const wrapper: any = shallowMount(VaExpandGroup)
+    const wrapper: any = shallowMount(VaAccordion)
     await wrapper.vm.onChildChange()
     expect(wrapper.emitted().input.length).toBe(1)
   })

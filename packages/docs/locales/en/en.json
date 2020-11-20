@@ -557,7 +557,7 @@
         "header": "Replaces content of the header to custom"
       }
     },
-    "VaExpandGroup": {
+    "VaAccordion": {
       "props": {
         "value": "The array of currently opened collapses",
         "multiply": "Allows to expand multiply components",
@@ -830,7 +830,7 @@
     "icon": "Icon",
     "radio": "Radio",
     "collapse": "Collapse",
-    "expandGroup": "Expand Group",
+    "accordion": "Accordion",
     "chip": "Chip",
     "grid": "Grid",
     "input": "Input",
@@ -1841,7 +1841,7 @@
       },
       "icon": {
         "title": "Icon",
-        "text": "You can add an icon to the expand's header."
+        "text": "You can add an icon to the header."
       },
       "color": {
         "title": "Color",
@@ -1849,17 +1849,17 @@
       }
     }
   },
-  "expandGroup": {
+  "accordion": {
     "title": "Expand group",
     "summaryText": "Allows you to control group of collapses",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage  of the `va-expand-group` component."
+        "text": "Default usage  of the `va-accordion` component."
       },
       "multiply": {
         "title": "Multiply",
-        "text": "Expand group component allows you to select multiply collapses."
+        "text": "Accordion component allows you to select multiply collapses."
       },
       "inset": {
         "title": "Inset",

@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <va-expand-group v-model="value" style="width: 400px;">
+      <va-accordion v-model="value" style="width: 400px;">
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"
@@ -11,25 +11,25 @@
             {{ collapse.content }}
           </div>
         </va-collapse>
-      </va-expand-group>
+      </va-accordion>
     </VbCard>
 
     <VbCard title="Multiply">
-      <va-expand-group v-model="valueArray" multiply style="width: 400px;">
+      <va-accordion v-model="valueArray" multiply style="width: 400px;">
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"
           :header="collapse.title"
         >
           <div>
-            {{ expand.content }}
+            {{ collapse.content }}
           </div>
         </va-collapse>
-      </va-expand-group>
+      </va-accordion>
     </VbCard>
 
     <VbCard title="Inset">
-      <va-expand-group v-model="value" inset style="width: 400px;">
+      <va-accordion v-model="value" inset style="width: 400px;">
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"
@@ -39,11 +39,11 @@
             {{ collapse.content }}
           </div>
         </va-collapse>
-      </va-expand-group>
+      </va-accordion>
     </VbCard>
 
     <VbCard title="Inset multiply">
-      <va-expand-group v-model="valueArray" inset multiply style="width: 400px;">
+      <va-accordion v-model="valueArray" inset multiply style="width: 400px;">
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"
@@ -53,11 +53,11 @@
             {{ collapse.content }}
           </div>
         </va-collapse>
-      </va-expand-group>
+      </va-accordion>
     </VbCard>
 
     <VbCard title="Popout">
-      <va-expand-group v-model="value" popout style="width: 400px;">
+      <va-accordion v-model="value" popout style="width: 400px;">
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"
@@ -67,11 +67,11 @@
             {{ collapse.content }}
           </div>
         </va-collapse>
-      </va-expand-group>
+      </va-accordion>
     </VbCard>
 
     <VbCard title="Popout multiply">
-      <va-expand-group v-model="valueArray" popout multiply style="width: 400px;">
+      <va-accordion v-model="valueArray" popout multiply style="width: 400px;">
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"
@@ -81,19 +81,19 @@
             {{ collapse.content }}
           </div>
         </va-collapse>
-      </va-expand-group>
+      </va-accordion>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
 
-import VaExpandGroup from './VaExpandGroup'
+import VaAccordion from './VaAccordion'
 import VaCollapse from './../va-collapse/VaCollapse'
 
 export default {
   components: {
-    VaExpandGroup,
+    VaAccordion,
     VaCollapse,
   },
   data () {
@@ -101,9 +101,9 @@ export default {
       value: [false, false, false],
       valueArray: [false, true, false],
       collapses: [
-        { title: 'First expand', content: 'first expand content' },
-        { title: 'Second expand', content: 'second expand content' },
-        { title: 'Third expand', content: 'third expand content' },
+        { title: 'First collapse', content: 'first collapse content' },
+        { title: 'Second collapse', content: 'second collapse content' },
+        { title: 'Third collapse', content: 'third collapse content' },
       ],
     }
   },

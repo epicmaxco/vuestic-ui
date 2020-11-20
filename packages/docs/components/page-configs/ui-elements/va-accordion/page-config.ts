@@ -1,15 +1,15 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaExpandGroup from 'vuestic-ui/src/components/vuestic-components/va-expand-group/VaExpandGroup.vue'
+import VaAccordion from 'vuestic-ui/src/components/vuestic-components/va-accordion/VaAccordion.vue'
 import apiOptions from './api-options'
 
 export default [
   {
     type: BlockType.TITLE,
-    translationString: 'expandGroup.title',
+    translationString: 'accordion.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expandGroup.summaryText',
+    translationString: 'accordion.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
@@ -17,51 +17,51 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'expandGroup.examples.default.title',
+    translationString: 'accordion.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expandGroup.examples.default.text',
+    translationString: 'accordion.examples.default.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-expand-group/Default',
+    component: 'va-accordion/Default',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'expandGroup.examples.multiply.title',
+    translationString: 'accordion.examples.multiply.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expandGroup.examples.multiply.text',
+    translationString: 'accordion.examples.multiply.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-expand-group/Multiply',
+    component: 'va-accordion/Multiply',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'expandGroup.examples.inset.title',
+    translationString: 'accordion.examples.inset.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expandGroup.examples.inset.text',
+    translationString: 'accordion.examples.inset.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-expand-group/Inset',
+    component: 'va-accordion/Inset',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'expandGroup.examples.popout.title',
+    translationString: 'accordion.examples.popout.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expandGroup.examples.popout.text',
+    translationString: 'accordion.examples.popout.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-expand-group/Popout',
+    component: 'va-accordion/Popout',
   },
   {
     type: BlockType.SUBTITLE,
@@ -69,7 +69,7 @@ export default [
   },
   {
     type: BlockType.API,
-    componentOptions: VaExpandGroup,
+    componentOptions: VaAccordion,
     apiOptions,
   },
 ] as ApiDocsBlock[]

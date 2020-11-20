@@ -2,10 +2,10 @@
   <va-collapse
     v-model="value"
     style="width: 400px;"
-    header="Expand header"
+    header="Collapse header"
     solid
   >
-    <div>Expand content</div>
+    <div>Collapse content</div>
   </va-collapse>
 </template>
 

@@ -3,40 +3,40 @@
     <va-collapse
       v-model="value[0]"
       style="width: 400px;"
-      header="Expand header"
+      header="Collapse header"
       color="success"
     >
       <div>
-        Expand content
+        Collapse content
       </div>
     </va-collapse>
     <va-collapse
       v-model="value[1]"
       style="width: 400px;"
-      header="Expand header"
+      header="Collapse header"
       solid
       color="warning"
     >
       <div>
-        Expand content
+        Collapse content
       </div>
     </va-collapse>
     <va-collapse
       v-model="value[2]"
       style="width: 400px;"
-      header="Expand header"
+      header="Collapse header"
       solid
       color="danger"
       color-all
     >
       <div>
-        Expand content
+        Collapse content
       </div>
     </va-collapse>
     <va-collapse
       v-model="value[3]"
       style="width: 400px;"
-      header="Expand header"
+      header="Collapse header"
       solid
       color="#000"
       color-all
@@ -44,7 +44,7 @@
       icon="info"
     >
       <div>
-        Expand content
+        Collapse content
       </div>
     </va-collapse>
   </div>

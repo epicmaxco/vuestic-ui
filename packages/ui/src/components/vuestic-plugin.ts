@@ -1,3 +1,5 @@
+
+import VaAccordion from './vuestic-components/va-accordion/VaAccordion.vue'
 import VaAffix from './vuestic-components/va-affix/VaAffix.vue'
 import VaAlert from './vuestic-components/va-alert/VaAlert.vue'
 import VaAvatar from './vuestic-components/va-avatar/VaAvatar.vue'
@@ -23,7 +25,6 @@ import VaDivider from './vuestic-components/va-divider/VaDivider.vue'
 import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker.vue'
 
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown.vue'
-import VaExpandGroup from './vuestic-components/va-expand-group/VaExpandGroup.vue'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload.vue'
 import VaHover from './vuestic-components/va-hover/VaHover.vue'
 import VaIcon from './vuestic-components/va-icon/VaIcon.vue'
@@ -101,6 +102,7 @@ installPlatform()
 const VuesticPlugin = {
   install (Vue: any) {
     [
+      VaAccordion,
       VaAffix,
       VaAlert,
       VaAvatar,
@@ -121,7 +123,6 @@ const VuesticPlugin = {
       VaDataTable,
       VaDatePicker,
       VaDropdown,
-      VaExpandGroup,
       VaFileUpload,
       VaHover,
       VaIcon,

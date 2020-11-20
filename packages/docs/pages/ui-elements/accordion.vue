@@ -5,16 +5,16 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import DocsContent from '../../components/DocsContent.vue'
-import expandGroupConfig from '../../components/page-configs/ui-elements/va-expand-group/page-config'
+import accordionConfig from '../../components/page-configs/ui-elements/va-accordion/page-config'
 
 @Component({
   components: {
     DocsContent,
   },
 })
-export default class ExpandGroup extends Vue {
+export default class Accordion extends Vue {
   get configComputed () {
-    return expandGroupConfig
+    return accordionConfig
   }
 }
 </script>
