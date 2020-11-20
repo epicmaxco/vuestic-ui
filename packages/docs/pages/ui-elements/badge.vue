@@ -13,7 +13,7 @@ import badgeConfig from '../../components/page-configs/ui-elements/va-badge/page
   },
 })
 export default class Badge extends Vue {
-  get badgeConfig () {
+  get configComputed () {
     return badgeConfig
   }
 }
