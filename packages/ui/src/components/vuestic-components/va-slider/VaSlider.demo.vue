@@ -338,8 +338,8 @@
 </template>
 
 <script>
-import VaSlider from './VaSlider.vue'
-import VaInput from '../va-input/VaInput'
+import VaSlider from '../va-slider'
+import VaInput from '../va-input'
 
 export default {
   components: {

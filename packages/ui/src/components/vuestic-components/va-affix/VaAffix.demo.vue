@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import VaAffix from './VaAffix'
+import VaAffix from './index'
 
 export default {
   components: {

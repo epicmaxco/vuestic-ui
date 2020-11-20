@@ -1,4 +1,4 @@
-import { warn } from './../../../services/utils'
+import { warn } from '../../../services/utils'
 
 export const validateSlider = (value: number | number[], step: number, min: number, max: number) => {
   if (max < min) {

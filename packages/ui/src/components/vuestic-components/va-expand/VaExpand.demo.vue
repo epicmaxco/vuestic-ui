@@ -156,8 +156,8 @@
 </template>
 
 <script>
-import VaButton from '../va-button/VaButton'
-import VaExpand from './VaExpand.vue'
+import VaButton from '../va-button'
+import VaExpand from './index'
 
 export default {
   components: {

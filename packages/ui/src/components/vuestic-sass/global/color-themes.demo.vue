@@ -143,7 +143,7 @@ import { getLineChartData } from '../../../data/charts/LineChartData'
 import VaBadge from '../../vuestic-components/va-badge/VaBadge'
 import VaFileUpload from '../../vuestic-components/va-file-upload/VaFileUpload'
 import VaSlider from '../../vuestic-components/va-slider/VaSlider'
-import { setTheme, getTheme } from '../../../services/Theme'
+import { useTheme } from '../../../services/Theme'
 
 export default {
   components: {
@@ -167,13 +167,21 @@ export default {
       files: [],
     }
   },
+  setup () {
+    const { setTheme, getTheme } = useTheme()
+
+    return {
+      setTheme,
+      getTheme,
+    }
+  },
   methods: {
     refreshData () {
       this.chartData = getLineChartData(this.themes)
     },
     darkenTheme () {
       // NOTE That's just for testing. So that we can observe theme changed
-      setTheme({
+      this.setTheme({
         primary: '#9A0931',
         secondary: '#C50B0B',
         success: '#06421E',
@@ -187,7 +195,7 @@ export default {
   },
   computed: {
     themes () {
-      return getTheme() || {}
+      return this.getTheme() || {}
     },
   },
 }

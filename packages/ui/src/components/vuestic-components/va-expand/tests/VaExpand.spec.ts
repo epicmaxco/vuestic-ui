@@ -1,7 +1,6 @@
 import { mount, shallowMount } from '@vue/test-utils'
 
 import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
-import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { testHasKeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/testHasKeyboardOnlyFocusMixin'
 
@@ -30,20 +29,6 @@ describe('VaExpand', () => {
     expect(() =>
       testHasColorThemeMixin((VaExpand as unknown) as ColorThemeMixin),
     ).not.toThrow()
-  })
-
-  it('is configurable', () => {
-    const props = {
-      value: false,
-      disabled: false,
-      header: '',
-      icon: '',
-      solid: false,
-      color: '',
-      textColor: '',
-      colorAll: false,
-    }
-    expect(() => testIsConfigProvidedComponent(VaExpand, props)).not.toThrow()
   })
 
   it('should have disabled class', () => {

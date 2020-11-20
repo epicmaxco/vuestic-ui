@@ -43,8 +43,8 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 
-import VaFileUploadUndo from './VaFileUploadUndo.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
+import { VaFileUploadUndo } from './index'
+import VaIcon from '../va-icon'
 
 import { colorToRgba } from '../../../services/color-functions'
 

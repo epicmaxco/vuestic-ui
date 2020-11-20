@@ -4,8 +4,8 @@
     class="va-button"
     :class="computedClass"
     :style="computedStyle"
-    :disabled="c_disabled"
-    :type="c_type"
+    :disabled="disabled"
+    :type="type"
     :href="href"
     :target="target"
     :to="to"
@@ -17,14 +17,14 @@
     v-on="inputListeners"
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
-    :tabindex="c_loading ? -1 : 0"
+    :tabindex="loading ? -1 : 0"
   >
     <div
       class="va-button__content"
       @mouseenter="updateHoverState(true)"
       @mouseleave="updateHoverState(false)"
     >
-      <template v-if="c_loading">
+      <template v-if="loading">
         <va-progress-circle
           indeterminate
           :size="loaderSize"
@@ -34,9 +34,9 @@
       </template>
       <template v-else>
         <va-icon
-          v-if="c_icon"
+          v-if="icon"
           class="va-button__content__icon"
-          :name="c_icon"
+          :name="icon"
           :size="size"
         />
         <div
@@ -46,9 +46,9 @@
           <slot />
         </div>
         <va-icon
-          v-if="c_iconRight"
+          v-if="iconRight"
           class="va-button__content__icon"
-          :name="c_iconRight"
+          :name="iconRight"
           :size="size"
         />
       </template>
@@ -57,11 +57,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Inject, Watch } from 'vue-property-decorator'
+import { Component, Mixins, Inject, Watch, Prop } from 'vue-property-decorator'
 
-import VaIcon from '../va-icon/VaIcon.vue'
-import VaProgressCircle
-  from '../va-progress-bar/progress-types/VaProgressCircle.vue'
+import VaIcon from '../va-icon'
+import { VaProgressCircle } from '../va-progress-bar'
 
 import {
   getGradientBackground,
@@ -69,30 +68,10 @@ import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
-
-const ButtonPropsMixin = makeConfigTransportMixin({
-  tag: { type: String, default: 'button' },
-  outline: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
-    },
-  },
-  icon: { type: String, default: '' },
-  iconRight: { type: String, default: '' },
-  type: { type: String, default: 'button' },
-  disabled: { type: Boolean, default: false },
-  block: { type: Boolean, default: false },
-  round: { type: Boolean, default: true },
-})
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 @Component({
   name: 'VaButton',
@@ -103,16 +82,33 @@ export default class VaButton extends Mixins(
   RouterLinkMixin,
   SizeMixin,
   LoadingMixin,
-  ButtonPropsMixin,
 ) {
   hoverState = false
   focusState = false
+
+  @Prop({ type: String, default: 'button' }) tag?: string
+  @Prop({ type: Boolean, default: false }) outline?: boolean
+  @Prop({ type: Boolean, default: false }) flat?: boolean
+  @Prop({
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
+    },
+  }) size?: string
+
+  @Prop({ type: String, default: '' }) icon?: string
+  @Prop({ type: String, default: '' }) iconRight?: string
+  @Prop({ type: String, default: 'button' }) type?: string
+  @Prop({ type: Boolean, default: false }) disabled?: boolean
+  @Prop({ type: Boolean, default: false }) block?: boolean
+  @Prop({ type: Boolean, default: true }) round?: boolean
 
   @Inject({
     default: () => ({}),
   }) readonly va!: any
 
-  @Watch('c_loading')
+  @Watch('loading')
   onLoadingChanged (newValue: boolean) {
     (this as any).$el.blur()
 
@@ -130,26 +126,26 @@ export default class VaButton extends Mixins(
 
   get computedClass () {
     return {
-      'va-button--default': !this.c_flat && !this.c_outline && !this.c_disabled,
-      'va-button--flat': this.c_flat,
-      'va-button--outline': this.c_outline,
-      'va-button--disabled': this.c_disabled,
+      'va-button--default': !this.flat && !this.outline && !this.disabled,
+      'va-button--flat': this.flat,
+      'va-button--outline': this.outline,
+      'va-button--disabled': this.disabled,
       'va-button--hover': this.hoverState,
       'va-button--focus': this.focusState,
       'va-button--without-title': !this.hasTitleData,
-      'va-button--with-left-icon': this.c_icon,
-      'va-button--with-right-icon': this.c_iconRight,
-      'va-button--large': this.c_size === 'large',
-      'va-button--small': this.c_size === 'small',
-      'va-button--normal': !this.c_size || this.c_size === 'medium',
-      'va-button--loading': this.c_loading,
-      'va-button--block': this.c_block,
-      'va-button--square': !this.c_round,
+      'va-button--with-left-icon': this.icon,
+      'va-button--with-right-icon': this.iconRight,
+      'va-button--large': this.size === 'large',
+      'va-button--small': this.size === 'small',
+      'va-button--normal': !this.size || this.size === 'medium',
+      'va-button--loading': this.loading,
+      'va-button--block': this.block,
+      'va-button--square': !this.round,
     }
   }
 
   get gradientStyle () {
-    if (this.c_flat || this.c_outline) {
+    if (this.flat || this.outline) {
       return
     }
     // Allows button to grab color from button group.
@@ -160,12 +156,12 @@ export default class VaButton extends Mixins(
   }
 
   get shadowStyle () {
-    if (this.c_flat || this.c_outline) {
+    if (this.flat || this.outline) {
       return
     }
     // TODO Not super sure what's the idea here.
-    if (getColor(this.va.color)) {
-      return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.c_color ? this.colorComputed : getColor(this.va.color))
+    if ((this as any).getColor(this.va.color)) {
+      return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.color ? this.colorComputed : (this as any).getColor(this.va.color))
     }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
   }
@@ -190,31 +186,31 @@ export default class VaButton extends Mixins(
     }
 
     if (this.focusState) {
-      if (this.c_outline || this.c_flat) {
+      if (this.outline || this.flat) {
         computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.borderColor = this.outline ? this.colorComputed : ''
         computedStyle.background = getFocusColor(this.colorComputed)
       } else {
         computedStyle.backgroundImage = this.gradientStyle
       }
     } else if (this.hoverState) {
-      if (this.c_outline || this.c_flat) {
+      if (this.outline || this.flat) {
         computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.borderColor = this.outline ? this.colorComputed : ''
         computedStyle.background = getHoverColor(this.colorComputed)
       } else {
         computedStyle.backgroundImage = this.gradientStyle
         computedStyle.boxShadow = this.shadowStyle
       }
     } else {
-      computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : '#ffffff'
-      computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+      computedStyle.color = this.flat || this.outline ? this.colorComputed : '#ffffff'
+      computedStyle.borderColor = this.outline ? this.colorComputed : ''
       computedStyle.backgroundImage = this.gradientStyle
       computedStyle.boxShadow = this.shadowStyle
     }
 
-    if (this.va.color && !this.c_outline && !this.c_flat) {
-      computedStyle.background = this.c_color ? this.colorComputed : getColor(this.va.color)
+    if (this.va.color && !this.outline && !this.flat) {
+      computedStyle.background = this.color ? this.colorComputed : (this as any).getColor(this.va.color)
       computedStyle.backgroundImage = ''
     }
 

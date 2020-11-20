@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import VaImage from './VaImage'
+import VaImage from './index'
 
 export default {
   components: {

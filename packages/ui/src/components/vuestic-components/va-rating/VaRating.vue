@@ -11,17 +11,17 @@
       class="va-rating__item-wrapper"
     >
       <template
-        v-if="c_numbers"
+        v-if="numbers"
       >
         <va-rating-item
-          v-for="number in c_max"
+          v-for="number in max"
           :key="number"
           class="va-rating__number-item"
-          :halves="c_halves"
+          :halves="halves"
           :hover="hoverEnabled"
-          :size="c_size"
-          :color="c_color"
-          :empty-icon-color="c_unselectedColor"
+          :size="size"
+          :color="color"
+          :empty-icon-color="unselectedColor"
           :tabindex="tabIndex"
           :value="getItemValue(number)"
           @hover="onHover(number, $event)"
@@ -48,16 +48,16 @@
       </template>
       <template v-else>
         <va-rating-item
-          v-for="itemNumber in c_max"
+          v-for="itemNumber in max"
           :key="itemNumber"
-          :halves="c_halves"
+          :halves="halves"
           :hover="hoverEnabled"
-          :filled-icon-name="c_icon"
-          :half-icon-name="c_halfIcon"
-          :empty-icon-name="c_emptyIcon"
-          :size="c_size"
-          :color="c_color"
-          :empty-icon-color="c_unselectedColor"
+          :filled-icon-name="icon"
+          :half-icon-name="halfIcon"
+          :empty-icon-name="emptyIcon"
+          :size="size"
+          :color="color"
+          :empty-icon-color="unselectedColor"
           :tabindex="tabIndex"
           :value="getItemValue(itemNumber)"
           @hover="onHover(itemNumber, $event)"
@@ -65,14 +65,14 @@
         />
       </template>
     </div>
-    <span class="va-rating__text-wrapper" v-if="c_texts.length === c_max" :style="{ color: computeColor(c_textColor) }">
-      {{ c_texts[Math.round(valueProxy) - 1] }}
+    <span class="va-rating__text-wrapper" v-if="texts.length === max" :style="{ color: computeColor(textColor) }">
+      {{ texts[Math.round(valueProxy) - 1] }}
     </span>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
 import VaRatingItem from './VaRatingItem.vue'
 
@@ -82,31 +82,12 @@ import { getFocusColor } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const RatingPropsMixin = makeConfigTransportMixin({
-  value: { type: Number, default: 0 },
-  icon: { type: String, default: 'star' },
-  halfIcon: { type: String, default: 'star_half' },
-  emptyIcon: { type: String, default: 'star_empty' },
-  readonly: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  numbers: { type: Boolean, default: false },
-  halves: { type: Boolean, default: false },
-  max: { type: Number, default: 5 },
-  clearable: { type: Boolean, default: false },
-  hover: { type: Boolean, default: false },
-  texts: { type: Array, default: () => [] },
-  textColor: { type: String },
-  unselectedColor: { type: String },
-})
 
 @Component({
   name: 'VaRating',
   components: { VaRatingItem },
 })
 export default class VaRating extends Mixins(
-  RatingPropsMixin,
   ColorThemeMixin,
   SizeMixin,
   StatefulMixin,
@@ -114,6 +95,21 @@ export default class VaRating extends Mixins(
   isHovered = false
   forceEmit = false
   hoveredValue = RatingValue.EMPTY
+
+  @Prop({ type: Number, default: 0 }) value!: number
+  @Prop({ type: String, default: 'star' }) icon!: string
+  @Prop({ type: String, default: 'star_half' }) halfIcon!: string
+  @Prop({ type: String, default: 'star_empty' }) emptyIcon!: string
+  @Prop({ type: Boolean, default: false }) readonly!: boolean
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({ type: Boolean, default: false }) numbers!: boolean
+  @Prop({ type: Boolean, default: false }) halves!: boolean
+  @Prop({ type: Number, default: 5 }) max!: number
+  @Prop({ type: Boolean, default: false }) clearable!: boolean
+  @Prop({ type: Boolean, default: false }) hover!: boolean
+  @Prop({ type: Array, default: () => [] }) texts!: any[]
+  @Prop({ type: String }) textColor!: string
+  @Prop({ type: String }) unselectedColor!: string
 
   mounted () {
     this.hoveredValue = this.valueComputed
@@ -132,24 +128,24 @@ export default class VaRating extends Mixins(
   }
 
   get focusColor () {
-    return this.c_unselectedColor
-      ? this.computeColor(this.c_unselectedColor)
+    return this.unselectedColor
+      ? this.computeColor(this.unselectedColor)
       : getFocusColor(this.colorComputed as ColorInput)
   }
 
   get classList () {
     return {
-      'va-rating--disabled': this.c_disabled,
-      'va-rating--readonly': this.c_readonly,
+      'va-rating--disabled': this.disabled,
+      'va-rating--readonly': this.readonly,
     }
   }
 
   get interactionsEnabled () {
-    return !(this.c_disabled || this.c_readonly)
+    return !(this.disabled || this.readonly)
   }
 
   get hoverEnabled () {
-    return this.c_hover && this.interactionsEnabled
+    return this.hover && this.interactionsEnabled
   }
 
   get tabIndex () {
@@ -160,7 +156,7 @@ export default class VaRating extends Mixins(
     const diff = itemNumber - this.valueProxy
     switch (true) {
       case diff <= 0: return RatingValue.FULL
-      case diff === RatingValue.HALF && this.c_halves: return RatingValue.HALF
+      case diff === RatingValue.HALF && this.halves: return RatingValue.HALF
       default: return RatingValue.EMPTY
     }
   }
@@ -181,9 +177,9 @@ export default class VaRating extends Mixins(
 
   onArrow (event: KeyboardEvent, directon: 1 | -1) {
     const currentValue = this.valueProxy || RatingValue.EMPTY
-    const step = this.c_halves ? RatingValue.HALF : RatingValue.FULL
+    const step = this.halves ? RatingValue.HALF : RatingValue.FULL
     const nextValue = currentValue + (step * directon)
-    if (nextValue < 0 || nextValue > this.c_max) { return }
+    if (nextValue < 0 || nextValue > this.max) { return }
 
     this.forceEmit = true
     this.valueProxy = nextValue
@@ -191,10 +187,10 @@ export default class VaRating extends Mixins(
 
   onItemSelected (itemNumber: number, value: RatingValue) {
     if (!this.interactionsEnabled) { return }
-    const currentClickedValue = this.c_halves
+    const currentClickedValue = this.halves
       ? value === RatingValue.HALF ? itemNumber - RatingValue.HALF : itemNumber
       : itemNumber
-    const valueToEmit = this.c_clearable && this.valueComputed === currentClickedValue
+    const valueToEmit = this.clearable && this.valueComputed === currentClickedValue
       ? RatingValue.EMPTY
       : currentClickedValue
 

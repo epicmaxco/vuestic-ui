@@ -1,5 +1,5 @@
 import { hasOwnProperty } from '../utils'
-import { getGlobalConfig } from '../GlobalConfigPlugin'
+import { useGlobalConfig } from '../GlobalConfigPlugin'
 
 /**
  * Attempt to find a prop value from config chain.
@@ -42,7 +42,10 @@ const createConfigValueGetter = (
     return context[prop]
   }
 
+  const { getGlobalConfig } = useGlobalConfig()
+
   const globalConfig = getGlobalConfig()
+
   const configs = globalConfig ? [globalConfig, ...context._$configs] : context._$configs
 
   const componentConfig = getLocalConfigWithComponentProp(configs, componentName, prop)

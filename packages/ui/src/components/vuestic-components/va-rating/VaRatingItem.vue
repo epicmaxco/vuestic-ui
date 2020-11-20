@@ -28,32 +28,28 @@
 </template>
 
 <script lang="ts">
-import { Watch, Component, Mixins, Vue } from 'vue-property-decorator'
+import { Watch, Component, Mixins, Prop } from 'vue-property-decorator'
 
-import VaIcon from '../va-icon/VaIcon.vue'
+import VaIcon from '../va-icon'
 
 import { RatingValue } from './VaRating.types'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-
-const RatingItemProps = Vue.extend({
-  props: {
-    value: { type: Number, default: 0 },
-    filledIconName: { type: String, default: 'star' },
-    halfIconName: { type: String, default: 'star_half' },
-    emptyIconName: { type: String, default: 'star_empty' },
-    halves: { type: Boolean, default: false },
-    hover: { type: Boolean, default: false },
-    tabindex: { type: Number },
-    size: { type: [String, Number], default: 'medium' },
-    emptyIconColor: { type: String },
-  },
-})
 
 @Component({
   name: 'VaRatingItem',
   components: { VaIcon },
 })
-export default class VaRatingItem extends Mixins(RatingItemProps, ColorThemeMixin) {
+export default class VaRatingItem extends Mixins(ColorThemeMixin) {
+  @Prop({ type: Number, default: 0 }) value!: number
+  @Prop({ type: String, default: 'star' }) filledIconName!: string
+  @Prop({ type: String, default: 'star_half' }) halfIconName!: string
+  @Prop({ type: String, default: 'star_empty' }) emptyIconName!: string
+  @Prop({ type: Boolean, default: false }) halves!: boolean
+  @Prop({ type: Boolean, default: false }) hover!: boolean
+  @Prop({ type: Number }) tabindex!: number
+  @Prop({ type: [String, Number], default: 'medium' }) size!: string | number
+  @Prop({ type: String }) emptyIconColor!: string
+
   private isHovered = false
   private isFocused = false
   private shouldEmitClick = false

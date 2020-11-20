@@ -20,7 +20,7 @@
 <script>
 import VaList from '../va-list/VaList'
 import VaListItem from '../va-list/VaListItem'
-import VaDivider from './VaDivider'
+import VaDivider from './index'
 
 export default {
   name: 'DividerWithList',

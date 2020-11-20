@@ -1,8 +1,8 @@
 import Cleave from 'cleave.js'
-import { makeConfigTransportMixin } from '../../../../services/config-transport/makeConfigTransportMixin'
-import { Mixins, Watch } from 'vue-property-decorator'
+import { Mixins, Prop, Watch } from 'vue-property-decorator'
 import Component from 'vue-class-component'
 import { CleaveOptions } from 'cleave.js/options'
+import { FormComponentMixin } from '../../../vuestic-mixins/FormComponent/FormComponentMixin'
 
 const DEFAULT_MASK_TOKENS: Record<string, object> = {
   creditCard: {
@@ -22,23 +22,25 @@ const DEFAULT_MASK_TOKENS: Record<string, object> = {
     numeralThousandsGroupStyle: 'thousand',
   },
 }
-const PropsMixin = makeConfigTransportMixin({
-  // Mask option list - https://github.com/nosir/cleave.js/blob/master/doc/options.md#blocks
-  mask: {
-    type: [String, Object],
-    default: () => ({}),
-  },
-  returnRaw: {
-    type: Boolean,
-    default: true,
-  },
-})
 
 @Component
-export class InputMixin extends Mixins(PropsMixin) {
+export class InputMixin extends Mixins(FormComponentMixin) {
   inputElement: Cleave | null = null
   eventListeners: any = null
   isFocused = false
+
+  // Mask option list - https://github.com/nosir/cleave.js/blob/master/doc/options.md#blocks
+  @Prop({
+    type: [String, Object],
+    default: () => ({}),
+  }) mask!: string | object
+
+  @Prop({
+    type: Boolean,
+    default: true,
+  }) returnRaw!: boolean
+
+  @Prop({ type: Boolean, default: false }) removable!: boolean
 
   @Watch('mask', { deep: true })
   onOptionsChange (mask: CleaveOptions | string) {
@@ -58,15 +60,15 @@ export class InputMixin extends Mixins(PropsMixin) {
   }
 
   get showIcon (): boolean {
-    return this.c_success || this.computedError || this.canBeCleared
+    return this.success || this.computedError || this.canBeCleared
   }
 
   get canBeCleared (): boolean {
-    return this.hasContent && this.c_removable
+    return this.hasContent && this.removable
   }
 
   get hasContent (): boolean {
-    return ![null, undefined, ''].includes(this.c_value)
+    return ![null, undefined, ''].includes(this.value)
   }
 
   onInput (event: any): void {

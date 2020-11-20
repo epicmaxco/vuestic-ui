@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import VaCard from '../VaCard.vue'
 
-import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
@@ -9,21 +8,6 @@ describe('VaCard', () => {
   it('should render without an error', () => {
     const wrapper = mount(VaCard)
     expect(wrapper.isVueInstance()).toBeTruthy()
-  })
-  it('is configurable', () => {
-    const props = {
-      tag: 'a',
-      square: true,
-      outlined: true,
-      bordered: false,
-      disabled: true,
-      href: 'example.com',
-      target: '_blank',
-      stripe: true,
-      stripeColor: 'purple',
-      gradient: true,
-    }
-    expect(() => testIsConfigProvidedComponent(VaCard, props)).not.toThrow()
   })
   it('has ColorThemeMixin', () => {
     expect(() =>

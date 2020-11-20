@@ -8,24 +8,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-import { getColor } from '../../vuestic-mixins/ColorMixin'
-
-const CardTitlePropsMixin = makeConfigTransportMixin({
-  textColor: { type: String, default: '' },
-})
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 @Component({
   name: 'VaCardTitle',
 })
 export default class VaCardTitle extends Mixins(
-  CardTitlePropsMixin,
+  ColorThemeMixin,
 ) {
+  @Prop({ type: String, default: '' }) textColor!: string
+
   get titleStyles () {
     return {
-      color: getColor(this.c_textColor),
+      color: (this as any).getColor(this.textColor),
     }
   }
 }

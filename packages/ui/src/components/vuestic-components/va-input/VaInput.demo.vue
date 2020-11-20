@@ -245,9 +245,9 @@
 </template>
 
 <script>
-import VaInput from './VaInput'
-import VaButton from './../va-button/VaButton'
-import VaIcon from './../va-icon/VaIcon'
+import VaInput from './index'
+import VaButton from './../va-button'
+import VaIcon from './../va-icon'
 import VaInputValidation from './VaInput-validation'
 
 export default {

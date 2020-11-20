@@ -1,9 +1,8 @@
 import isString from 'lodash/isString'
 import isFunction from 'lodash/isFunction'
 import flatten from 'lodash/flatten'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { deepEqual } from '../../../services/utils'
-import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 
 const prepareValidations = (messages: any = [], callArguments = null) => {
   if (isString(messages)) { messages = [messages] }
@@ -11,27 +10,21 @@ const prepareValidations = (messages: any = [], callArguments = null) => {
     .map((message: any) => isFunction(message) ? message(callArguments) : message)
 }
 
-const componentProps = {
-  rules: { type: Array, default: () => [] },
-  disabled: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
-  success: { type: Boolean, default: false },
-  messages: { type: Array, default: () => [] },
-  error: { type: Boolean, default: false },
-  errorMessages: { type: [Array, String], default: () => [] },
-  errorCount: { type: Number, default: 1 },
-}
-
-const PropsMixin = makeConfigTransportMixin(componentProps)
-
 @Component
-export class FormComponentMixin extends Mixins(
-  PropsMixin,
-) {
+export class FormComponentMixin extends Vue {
   hadFocus = false
   isFocused = false
   internalErrorMessages = null
   internalError = false
+
+  @Prop({ type: Array, default: () => [] }) rules?: any[]
+  @Prop({ type: Boolean, default: false }) disabled?: boolean
+  @Prop({ type: Boolean, default: false }) readonly?: boolean
+  @Prop({ type: Boolean, default: false }) success?: boolean
+  @Prop({ type: Array, default: () => [] }) messages?: any[]
+  @Prop({ type: Boolean, default: false }) error?: boolean
+  @Prop({ type: [Array, String], default: () => [] }) errorMessages?: any[] | string
+  @Prop({ type: Number, default: 1 }) errorCount?: number
 
   @Prop({ type: [String, Number], default: undefined }) id!: string | number
   @Prop({ type: [String, Number], default: undefined }) name!: string | number
@@ -41,9 +34,11 @@ export class FormComponentMixin extends Mixins(
     },
   }) value: any
 
-  created () {
-    // That's just a flag for form to figure out whether component is form component.
-    this.isFormComponent = true
+  setup () {
+    return {
+      // That's just a flag for form to figure out whether component is form component.
+      isFormComponent: true,
+    }
   }
 
   @Watch('rules', { deep: true })

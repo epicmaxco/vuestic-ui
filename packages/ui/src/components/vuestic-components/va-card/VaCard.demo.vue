@@ -212,11 +212,9 @@
 </template>
 
 <script>
-import VaCard from './VaCard'
-import VaCardTitle from './VaCardTitle'
-import VaCardContent from './VaCardContent'
-import VaButton from '../va-button/VaButton'
-import VaImage from '../va-image/VaImage'
+import VaCard, { VaCardContent, VaCardTitle } from './index'
+import VaButton from '../va-button'
+import VaImage from '../va-image'
 import VaConfig from '../va-config/VaConfig'
 
 export default {

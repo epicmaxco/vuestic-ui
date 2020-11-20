@@ -1,9 +1,9 @@
 <template>
   <va-input-wrapper
     :error="computedError"
-    :success="c_success"
+    :success="success"
     :error-messages="computedErrorMessages"
-    :messages="c_messages"
+    :messages="messages"
     :style="{width}"
   >
     <slot name="prepend" slot="prepend" />
@@ -11,11 +11,11 @@
     <va-dropdown
       class="va-select__dropdown"
       :position="position"
-      :disabled="c_disabled"
-      :max-height="c_maxHeight"
-      :fixed="c_fixed"
+      :disabled="disabled"
+      :max-height="maxHeight"
+      :fixed="fixed"
       boundaryBody
-      :closeOnAnchorClick="c_multiple"
+      :closeOnAnchorClick="multiple"
       keepAnchorWidth
       @input="onDropdownInput"
       ref="dropdown"
@@ -86,7 +86,7 @@
             <template v-if="selectionValue || selectionTags">
               <div
                 class="va-select__content__selection"
-                v-if="c_multiple"
+                v-if="multiple"
               >
                 <div v-if="tags && selectionTags.length <= tagMax">
                   <va-tag
@@ -159,59 +159,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { Component, Mixins, Watch, Prop } from 'vue-property-decorator'
 
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
-import VaInput from '../va-input/VaInput.vue'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
-import VaSelectOptionList from './VaSelectOptionList.vue'
-import VaTag from '../va-tag/VaTag.vue'
+import VaDropdown from '../va-dropdown'
+import VaIcon from '../va-icon'
+import VaInput, { VaInputWrapper } from '../va-input'
+import { VaSelectOptionList } from './index'
+import VaTag from '../va-tag'
 
 import { getHoverColor } from '../../../services/color-functions'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 
 const positions: string[] = ['top', 'bottom']
 
-const PropsMixin = makeConfigTransportMixin({
-  value: { type: [String, Number, Object, Array], default: '' },
-  label: { type: String, default: '' },
-  placeholder: { type: String, default: '' },
-  position: {
-    type: String,
-    default: 'bottom',
-    validator: (position: string) => positions.includes(position),
-  },
-  tagMax: { type: Number, default: 10 },
-  tags: { type: Boolean, default: false },
-  deletableTags: { type: Boolean, default: false },
-  searchable: { type: Boolean, default: false },
-  multiple: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
-  width: { type: String, default: '100%' },
-  maxHeight: { type: String, default: '128px' },
-  clearValue: { type: String, default: '' },
-  noOptionsText: { type: String, default: 'Items not found' },
-  fixed: { type: Boolean, default: true },
-  clearable: { type: Boolean, default: false },
-  hideSelected: { type: Boolean, default: false },
-  allowCreate: {
-    type: [Boolean, String],
-    default: false,
-    validator: (mode: string | boolean) => {
-      return [true, false, 'unique'].includes(mode)
-    },
-  },
-  clearIcon: { type: String, default: 'close' },
-  dropdownIcon: {
-    type: [String, Object],
-    default: () => ({ open: 'arrow_drop_down', close: 'arrow_drop_up' }),
-  },
-})
+type DropdownIcon = {
+  open: string;
+  close: string;
+}
 
 @Component({
   components: {
@@ -227,14 +194,52 @@ export default class VaSelect extends Mixins(
   LoadingMixin,
   ColorThemeMixin,
   SelectableListMixin,
-  PropsMixin,
+  FormComponentMixin,
 ) {
+  @Prop({ type: [String, Number, Object, Array], default: '' }) value!: string | number | object | any[]
+  @Prop({ type: String, default: '' }) label!: string
+  @Prop({ type: String, default: '' }) placeholder!: string
+  @Prop({
+    type: String,
+    default: 'bottom',
+    validator: (position: string) => positions.includes(position),
+  }) position!: string
+
+  @Prop({ type: Number, default: 10 }) tagMax!: number
+  @Prop({ type: Boolean, default: false }) tags!: boolean
+  @Prop({ type: Boolean, default: false }) deletableTags!: boolean
+  @Prop({ type: Boolean, default: false }) searchable!: boolean
+  @Prop({ type: Boolean, default: false }) multiple!: boolean
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({ type: Boolean, default: false }) readonly!: boolean
+  @Prop({ type: String, default: '100%' }) width!: string
+  @Prop({ type: String, default: '128px' }) maxHeight!: string
+  @Prop({ type: String, default: '' }) clearValue!: string
+  @Prop({ type: String, default: 'Items not found' }) noOptionsText!: string
+  @Prop({ type: Boolean, default: true }) fixed!: boolean
+  @Prop({ type: Boolean, default: false }) clearable!: boolean
+  @Prop({ type: Boolean, default: false }) hideSelected!: boolean
+  @Prop({
+    type: [Boolean, String],
+    default: false,
+    validator: (mode: string | boolean) => {
+      return [true, false, 'unique'].includes(mode)
+    },
+  }) allowCreate!: string | boolean
+
+  @Prop({ type: String, default: 'close' }) clearIcon!: string
+  @Prop({
+    type: [String, Object],
+    default: () => ({ open: 'arrow_drop_down', close: 'arrow_drop_up' }),
+  }) dropdownIcon!: string | DropdownIcon
+
   search = ''
   hintedSearch = ''
   hintedOption: any = null
   isMounted = false
   hoveredOption: any = null
   showOptionList = false
+  timer!: any
 
   @Watch('search')
   onSearchValueChange (value: string) {
@@ -243,7 +248,7 @@ export default class VaSelect extends Mixins(
 
   @Watch('visible')
   onLoadingChanged (value: boolean) {
-    if (value && this.c_searchable) {
+    if (value && this.searchable) {
       this.$nextTick(() => {
         (this as any).$refs.search.$refs.input.focus()
       })
@@ -286,7 +291,7 @@ export default class VaSelect extends Mixins(
       // 'va-select': true,
       'va-select--multiple': this.multiple,
       'va-select--visible': this.visible,
-      'va-select--searchable': this.c_searchable,
+      'va-select--searchable': this.searchable,
       'va-select--disabled': this.disabled,
       'va-select--loading': this.loading,
     }
@@ -323,7 +328,7 @@ export default class VaSelect extends Mixins(
     // This way select can display value even when options are not loaded yet.
     const selectedOption = this.valueProxy || this.selectedOption
     const isPrimitive = ['string', 'number'].includes(typeof selectedOption)
-    return isPrimitive ? selectedOption : selectedOption[this.textBy] + ''
+    return isPrimitive ? selectedOption : selectedOption[this.textBy as string] + ''
   }
 
   get selectionTags (): string | string[] {
@@ -364,10 +369,11 @@ export default class VaSelect extends Mixins(
   }
 
   get toggleIcon (): string {
-    if (this.dropdownIcon.open && this.dropdownIcon.close) {
-      return this.visible ? this.dropdownIcon.close : this.dropdownIcon.open
+    const icon = this.dropdownIcon as DropdownIcon
+    if (icon.open && icon.close) {
+      return this.visible ? icon.close : icon.open
     }
-    return this.dropdownIcon
+    return this.dropdownIcon as string
   }
 
   compareOptions (one: any, two: any) {
@@ -383,7 +389,7 @@ export default class VaSelect extends Mixins(
       return one === two
     }
     if (typeof one === 'object' && typeof two === 'object') {
-      return one[this.trackBy] === two[this.trackBy]
+      return one[this.trackBy as string] === two[this.trackBy as string]
     }
   }
 
@@ -397,14 +403,14 @@ export default class VaSelect extends Mixins(
         : this.valueProxy === option
     } else {
       return this.multiple
-        ? this.valueProxy.filter((item: any) => item[this.trackBy] === option[this.trackBy]).length
-        : this.valueProxy[this.trackBy] === option[this.trackBy]
+        ? this.valueProxy.filter((item: any) => item[this.trackBy as string] === option[this.trackBy as string]).length
+        : this.valueProxy[this.trackBy as string] === option[this.trackBy as string]
     }
   }
 
   isHovered (option: any) {
     return this.hoveredOption
-      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.trackBy] === option[this.trackBy]
+      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.trackBy as string] === option[this.trackBy as string]
       : false
   }
 
@@ -422,7 +428,7 @@ export default class VaSelect extends Mixins(
       this.valueProxy = typeof option === 'string' ? option : { ...option }
       ;(this as any).$refs.dropdown.hide()
     }
-    if (this.c_searchable) {
+    if (this.searchable) {
       (this as any).$refs.search.$refs.input.focus()
     }
   }

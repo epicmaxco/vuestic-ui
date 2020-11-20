@@ -260,7 +260,7 @@
 </template>
 
 <script>
-import VaPagination from './VaPagination'
+import VaPagination from './'
 import VaConfig from '../va-config/VaConfig'
 
 export default {

@@ -5,11 +5,11 @@
         v-for="option in options"
         :key="option.value"
         :style="buttonStyle(option.value)"
-        :outline="c_outline"
-        :flat="c_flat"
-        :round="c_round"
-        :disabled="c_disabled"
-        :size="c_size"
+        :outline="outline"
+        :flat="flat"
+        :round="round"
+        :disabled="disabled"
+        :size="size"
         :color="buttonColor(option.value)"
         :class="buttonClass(option.value)"
         @click="changeValue(option.value)"
@@ -21,31 +21,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
 import VaButton from '../va-button/VaButton.vue'
 import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
 
 import { getGradientBackground } from '../../../services/color-functions'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-import { getColor, ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-
-const PropsMixin = makeConfigTransportMixin({
-  options: { type: Array, default: () => [] },
-  value: { type: [String, Number], default: '' },
-  outline: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  round: { type: Boolean, default: true },
-  disabled: { type: Boolean, default: false },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
-    },
-  },
-  toggleColor: { type: String, default: '' },
-})
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 @Component({
   name: 'VaButtonToggle',
@@ -56,39 +38,54 @@ const PropsMixin = makeConfigTransportMixin({
 })
 export default class VaButtonToggle extends Mixins(
   ColorThemeMixin,
-  PropsMixin,
 ) {
-  buttonColor (buttonValue: any) {
-    return buttonValue === this.c_value && this.c_toggleColor ? getColor(this.c_toggleColor) : this.colorComputed
-  }
+  @Prop({ type: Array, default: () => [] }) readonly options!: string
+  @Prop({ type: [String, Number], default: '' }) readonly value!: string
+  @Prop({ type: Boolean, default: false }) readonly outline!: string
+  @Prop({ type: Boolean, default: false }) readonly flat!: string
+  @Prop({ type: Boolean, default: true }) readonly round!: string
+  @Prop({ type: Boolean, default: false }) readonly disabled!: string
+  @Prop({
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
+    },
+  }) readonly size!: string
 
-  buttonStyle (buttonValue: any) {
-    if (buttonValue !== this.c_value) {
-      return {}
-    }
+ @Prop({ type: String, default: '' }) readonly toggleColor!: string
 
-    if (this.c_outline || this.c_flat) {
-      return {
-        backgroundColor: this.c_toggleColor ? getColor(this.c_toggleColor) : this.colorComputed,
-        color: '#ffffff',
-      }
-    } else {
-      return {
-        backgroundColor: getGradientBackground(this.colorComputed),
-        filter: 'brightness(85%)',
-        boxShadow: 'none',
-      }
-    }
-  }
+ buttonColor (buttonValue: any) {
+   return buttonValue === this.value && this.toggleColor ? (this as any).getColor(this.toggleColor) : this.colorComputed
+ }
 
-  buttonClass (buttonValue: any) {
-    return {
-      'va-button--active': buttonValue === this.c_value,
-    }
-  }
+ buttonStyle (buttonValue: any) {
+   if (buttonValue !== this.value) {
+     return {}
+   }
 
-  changeValue (value: any) {
-    this.$emit('input', value)
-  }
+   if (this.outline || this.flat) {
+     return {
+       backgroundColor: this.toggleColor ? (this as any).getColor(this.toggleColor) : this.colorComputed,
+       color: '#ffffff',
+     }
+   } else {
+     return {
+       backgroundColor: getGradientBackground(this.colorComputed),
+       filter: 'brightness(85%)',
+       boxShadow: 'none',
+     }
+   }
+ }
+
+ buttonClass (buttonValue: any) {
+   return {
+     'va-button--active': buttonValue === this.value,
+   }
+ }
+
+ changeValue (value: any) {
+   this.$emit('input', value)
+ }
 }
 </script>

@@ -22,31 +22,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
-const ItemPropsMixin = makeConfigTransportMixin({
-  tag: { type: String, default: 'div' },
-  disabled: { type: Boolean, default: false },
-})
 @Component({
   name: 'VaListItem',
 })
 export default class VaListItem extends Mixins(
   RouterLinkMixin,
   KeyboardOnlyFocusMixin,
-  ItemPropsMixin,
 ) {
+  @Prop({ type: String, default: 'div' }) tag!: string
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+
   get indexComputed () {
-    return this.c_disabled ? -1 : 0
+    return this.disabled ? -1 : 0
   }
 
   get computedClass () {
     return {
-      'va-list-item--disabled': this.c_disabled,
+      'va-list-item--disabled': this.disabled,
       'va-list-item--focus': this.isKeyboardFocused,
     }
   }

@@ -13,31 +13,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
 import { warn } from '../../../services/utils'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { IconMixin } from './IconMixin'
-
-const IconPropsMixin = makeConfigTransportMixin({
-  name: {
-    type: [String, Array],
-    default: '',
-    validator: (name: string) => {
-      if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-        return warn(`${name} icon is not available.`)
-      }
-      return true
-    },
-  },
-  tag: { type: String, default: 'i' },
-  component: { type: Object },
-  color: { type: String, default: '' },
-  rotation: { type: [String, Number], default: '' },
-  spin: { type: Boolean, default: false },
-})
 
 @Component({
   name: 'VaIcon',
@@ -46,10 +27,26 @@ export default class VaIcon extends Mixins(
   ColorThemeMixin,
   SizeMixin,
   IconMixin,
-  IconPropsMixin,
 ) {
+  @Prop({
+    type: String,
+    default: '',
+    validator: (name: string) => {
+      if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
+        return warn(`${name} icon is not available.`)
+      }
+      return true
+    },
+  }) readonly name!: string
+
+  @Prop({ type: String, default: 'i' }) tag!: string
+  @Prop({ type: Object }) component!: object
+  @Prop({ type: String, default: '' }) color!: string
+  @Prop({ type: [String, Number], default: '' }) rotation!: string | number
+  @Prop({ type: Boolean, default: false }) spin!: boolean
+
   get computedTag () {
-    return (this.icon && this.icon.component) || this.c_component || this.c_tag
+    return (this.icon && this.icon.component) || this.component || this.tag
   }
 
   get computedClass () {
@@ -68,7 +65,7 @@ export default class VaIcon extends Mixins(
   }
 
   get rotateStyle () {
-    return { transform: 'rotate(' + this.c_rotation + 'deg)' }
+    return { transform: 'rotate(' + this.rotation + 'deg)' }
   }
 
   get fontSizeStyle () {
@@ -76,7 +73,7 @@ export default class VaIcon extends Mixins(
   }
 
   get colorStyle () {
-    return { color: this.c_color ? this.colorComputed : null }
+    return { color: this.color ? this.colorComputed : null }
   }
 
   get computedStyle () {

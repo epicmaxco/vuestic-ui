@@ -14,7 +14,7 @@
           class="va-tabs__pagination"
           flat
           size="medium"
-          :icon="c_prevIcon"
+          :icon="prevIcon"
           @click="movePaginationLeft"
         />
         <div
@@ -44,7 +44,7 @@
           class="va-tabs__pagination"
           flat
           size="medium"
-          :icon="c_nextIcon"
+          :icon="nextIcon"
           @click="movePaginationRight"
         />
       </div>
@@ -58,30 +58,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { Component, Mixins, Watch, Prop } from 'vue-property-decorator'
 
-import VaButton from '../va-button/VaButton.vue'
-import VaTab from './VaTab.vue'
-import VaTabsItems from './VaTabsItems.vue'
-import VaTabsContent from './VaTabsContent.vue'
+import VaButton from '../va-button'
+import VaTabBase from './VaTab.vue'
+import VaTabsItemsBase from './VaTabsItems.vue'
+import VaTabsContentBase from './VaTabsContent.vue'
+import withConfigTransport from '../../../services/config-transport/withConfigTransport'
 
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
+import VaTabsItemsMixin from './VaTabsItemsMixin'
+
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
-const TabsPropsMixin = makeConfigTransportMixin({
-  value: { type: [String, Number], default: null },
-  left: { type: Boolean, default: true },
-  right: { type: Boolean, default: false },
-  center: { type: Boolean, default: false },
-  grow: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  hideSlider: { type: Boolean, default: false },
-  vertical: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
-  prevIcon: { type: String, default: 'chevron_left' },
-  nextIcon: { type: String, default: 'chevron_right' },
-})
+export const VaTab = withConfigTransport(VaTabBase)
+export const VaTabsItems = withConfigTransport(VaTabsItemsBase)
+export const VaTabsContent = withConfigTransport(VaTabsContentBase)
 
 @Component({
   name: 'VaTabs',
@@ -89,10 +81,21 @@ const TabsPropsMixin = makeConfigTransportMixin({
 })
 export default class VaTabs extends Mixins(
   ColorThemeMixin,
-  VaTabsItems,
+  VaTabsItemsMixin,
   StatefulMixin,
-  TabsPropsMixin,
 ) {
+  @Prop({ type: [String, Number], default: null }) value!: string | number
+  @Prop({ type: Boolean, default: true }) left!: boolean
+  @Prop({ type: Boolean, default: false }) right!: boolean
+  @Prop({ type: Boolean, default: false }) center!: boolean
+  @Prop({ type: Boolean, default: false }) grow!: boolean
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({ type: Boolean, default: false }) hideSlider!: boolean
+  @Prop({ type: Boolean, default: false }) vertical!: boolean
+  @Prop({ type: String, default: 'primary' }) color!: string
+  @Prop({ type: String, default: 'chevron_left' }) prevIcon!: string
+  @Prop({ type: String, default: 'chevron_right' }) nextIcon!: string
+
   tabs: any = []
   sliderHeight: null | number = null
   sliderWidth: null | number = null
@@ -104,17 +107,17 @@ export default class VaTabs extends Mixins(
 
   get computedClass () {
     return {
-      'va-tabs__container--left': this.c_left && !this.c_right && !this.c_center && !this.c_grow,
-      'va-tabs__container--right': this.c_right,
-      'va-tabs__container--center': this.c_center,
-      'va-tabs__container--grow': this.c_grow,
-      'va-tabs__container--disabled': this.c_disabled,
+      'va-tabs__container--left': this.left && !this.right && !this.center && !this.grow,
+      'va-tabs__container--right': this.right,
+      'va-tabs__container--center': this.center,
+      'va-tabs__container--grow': this.grow,
+      'va-tabs__container--disabled': this.disabled,
     }
   }
 
   get computedTabsClass () {
     return {
-      'va-tabs--vertical': this.c_vertical,
+      'va-tabs--vertical': this.vertical,
     }
   }
 
@@ -123,11 +126,11 @@ export default class VaTabs extends Mixins(
   }
 
   get sliderStyles () {
-    if (this.c_hideSlider) {
+    if (this.hideSlider) {
       return {
       }
     }
-    if (this.c_vertical) {
+    if (this.vertical) {
       return {
         'background-color': this.colorComputed,
         height: `${this.sliderHeight}px`,
@@ -143,7 +146,7 @@ export default class VaTabs extends Mixins(
 
   get paginationControlledStyles () {
     // Prevents the movement of vertical tabs
-    if (this.c_vertical) {
+    if (this.vertical) {
       return {
         transform: 'translateX(0px)',
       }
@@ -183,9 +186,9 @@ export default class VaTabs extends Mixins(
             // eslint-disable-next-line @typescript-eslint/no-this-alias
             const self = this
 
-            instance.$on('click', function (this: VaTab) { self.selectTab(this) })
-            instance.$on('keydown.enter', function (this: VaTab) { self.selectTab(this) })
-            instance.$on('focus', function (this: VaTab) { self.ensureVisible(this) })
+            instance.$on('click', function (this: typeof VaTab) { self.selectTab(this) })
+            instance.$on('keydown.enter', function (this: typeof VaTab) { self.selectTab(this) })
+            instance.$on('focus', function (this: typeof VaTab) { self.ensureVisible(this) })
             instance._tabEventsInited = true
           }
         }
@@ -266,7 +269,7 @@ export default class VaTabs extends Mixins(
   }
 
   updateSlider (tab: any) {
-    if (this.c_vertical) {
+    if (this.vertical) {
       this.sliderOffsetY = ((this as any).$refs.container.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
       this.sliderHeight = tab.$el.clientHeight
       this.sliderOffsetX = 0

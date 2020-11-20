@@ -1,10 +1,10 @@
 <template>
   <div
     :class="classComputed"
-    :aria-orientation="c_vertical ? 'vertical' : 'horizontal'"
+    :aria-orientation="ariaOrientationComputed"
   >
     <div
-      v-if="hasSlot && !c_vertical"
+      v-if="hasSlot && !vertical"
       :class="slotClassComputed"
       role="separator"
     >
@@ -14,42 +14,42 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 const prefixClass = 'va-divider'
-const DividerPropsMixin = makeConfigTransportMixin({
-  vertical: { type: Boolean, default: false },
-  dashed: { type: Boolean, default: false },
-  inset: { type: Boolean, default: false },
-  orientation: {
+
+@Component({
+  name: 'VaDivider',
+})
+export default class VaDivider extends Vue {
+  @Prop({ type: Boolean, default: false }) vertical!: string
+  @Prop({ type: Boolean, default: false }) dashed!: string
+  @Prop({ type: Boolean, default: false }) inset!: string
+  @Prop({
     type: String,
     default: 'center',
     validator (value: string) {
       return ['left', 'right', 'center'].includes(value)
     },
-  },
-})
+  })
+  orientation!: string
 
-@Component({
-  name: 'VaDivider',
-})
-export default class VaDivider extends Mixins(
-  DividerPropsMixin,
-) {
   get hasSlot () {
     return !!this.$slots.default
+  }
+
+  ariaOrientationComputed () {
+    return this.vertical ? 'vertical' : 'horizontal'
   }
 
   get classComputed () {
     return [
       `${prefixClass}`,
       {
-        [`${prefixClass}--vertical`]: this.c_vertical,
-        [`${prefixClass}--inset`]: this.c_inset,
-        [`${prefixClass}--${this.c_orientation}`]: this.c_orientation && !this.c_vertical,
-        [`${prefixClass}--dashed`]: this.c_dashed,
+        [`${prefixClass}--vertical`]: this.vertical,
+        [`${prefixClass}--inset`]: this.inset,
+        [`${prefixClass}--${this.orientation}`]: this.orientation && !this.vertical,
+        [`${prefixClass}--dashed`]: this.dashed,
       },
     ]
   }

@@ -27,21 +27,12 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Component, Prop, Watch } from 'vue-property-decorator'
-
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const ImagePropsMixin = makeConfigTransportMixin({
-  ratio: { type: [Number, String], default: 1 },
-  contain: { type: Boolean, default: false },
-})
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 
 @Component({
   name: 'VaImage',
 })
-export default class VaImage extends Mixins(
-  ImagePropsMixin,
-) {
+export default class VaImage extends Vue {
   image: any = null
   loading = false
   loadingError = false
@@ -50,6 +41,9 @@ export default class VaImage extends Mixins(
     type: String,
     required: true,
   }) readonly src!: string
+
+  @Prop({ type: Number, default: 1 }) ratio!: number
+  @Prop({ type: Boolean, default: false }) contain!: string
 
   beforeDestroy () {
     this.destroyLoader()
@@ -69,7 +63,7 @@ export default class VaImage extends Mixins(
 
   get paddingStyles () {
     return {
-      'padding-bottom': `${1 / this.c_ratio * 100}%`,
+      'padding-bottom': `${1 / this.ratio * 100}%`,
     }
   }
 

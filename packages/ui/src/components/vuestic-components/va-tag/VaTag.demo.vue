@@ -138,8 +138,8 @@
 </template>
 
 <script>
-import VaTag from './VaTag'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
+import VaTag from './index'
+import VaCheckbox from '../va-checkbox'
 
 export default {
   components: {

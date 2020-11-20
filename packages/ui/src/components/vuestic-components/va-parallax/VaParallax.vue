@@ -7,8 +7,8 @@
       <img
         class="va-parallax__image"
         ref="img"
-        :src="c_src"
-        :alt="c_alt"
+        :src="src"
+        :alt="alt"
         :style="computedImgStyles"
       />
     </div>
@@ -19,30 +19,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const PropsMixin = makeConfigTransportMixin({
-  target: { type: [Element, String], default: '' },
-  src: { type: String, default: '', required: true },
-  alt: { type: String, default: 'parallax' },
-  height: { type: Number, default: 400 },
-  reversed: { type: Boolean, default: false },
-  speed: {
-    type: Number,
-    default: 0.5,
-    validator: (value: number) => {
-      return value >= 0 && value <= 1
-    },
-  },
-})
 @Component({
   name: 'VaParallax',
 })
-export default class VaParallax extends Mixins(
-  PropsMixin,
-) {
+export default class VaParallax extends Vue {
   elOffsetTop = 0
   parallax = 0
   parallaxDist = 0
@@ -52,6 +34,19 @@ export default class VaParallax extends Mixins(
   windowBottom = 0
   isLoaded = false
 
+  @Prop({ type: [Element, String], default: '' }) target!: Element | string
+  @Prop({ type: String, default: '', required: true }) src!: string
+  @Prop({ type: String, default: 'parallax' }) alt!: string
+  @Prop({ type: Number, default: 400 }) height!: number
+  @Prop({ type: Boolean, default: false }) reversed!: boolean
+  @Prop({
+    type: Number,
+    default: 0.5,
+    validator: (value: number) => {
+      return value >= 0 && value <= 1
+    },
+  }) speed!: number
+
   get computedWrapperStyles (): object {
     return {
       height: this.height + 'px',
@@ -59,9 +54,9 @@ export default class VaParallax extends Mixins(
   }
 
   get targetElement () {
-    return typeof this.c_target === 'string'
-      ? document.querySelector(this.c_target)
-      : this.c_target || this.$el.parentElement
+    return typeof this.target === 'string'
+      ? document.querySelector(this.target)
+      : this.target || this.$el.parentElement
   }
 
   get computedImgStyles (): object {
@@ -80,7 +75,7 @@ export default class VaParallax extends Mixins(
   calcDimensions (): void {
     const offset = this.$el.getBoundingClientRect()
 
-    this.scrollTop = this.targetElement.scrollTop
+    this.scrollTop = (this.targetElement as HTMLElement).scrollTop
     this.parallaxDist = this.imgHeight - this.height
     this.elOffsetTop = offset.top + this.scrollTop
     this.windowHeight = window.innerHeight
@@ -91,22 +86,22 @@ export default class VaParallax extends Mixins(
     this.calcDimensions()
     this.percentScrolled = (
       (this.windowBottom - this.elOffsetTop) /
-      (parseInt(this.height) + this.windowHeight)
+      (this.height + this.windowHeight)
     )
-    this.parallax = Math.round(this.parallaxDist * this.percentScrolled) * this.c_speed
-    if (this.c_reversed) {
+    this.parallax = Math.round(this.parallaxDist * this.percentScrolled) * this.speed
+    if (this.reversed) {
       this.parallax = -this.parallax
     }
   }
 
   addEventListeners (): void {
-    this.targetElement.addEventListener('scroll', this.translate)
-    this.targetElement.addEventListener('resize', this.translate)
+    (this.targetElement as HTMLElement).addEventListener('scroll', this.translate)
+    ;(this.targetElement as HTMLElement).addEventListener('resize', this.translate)
   }
 
   removeEventListeners (): void {
-    this.targetElement.removeEventListener('scroll', this.translate)
-    this.targetElement.removeEventListener('resize', this.translate)
+    (this.targetElement as HTMLElement).removeEventListener('scroll', this.translate)
+    ;(this.targetElement as HTMLElement).removeEventListener('resize', this.translate)
   }
 
   initImage (): void {

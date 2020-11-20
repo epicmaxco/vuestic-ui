@@ -24,9 +24,9 @@
             ref="input"
             :option="getValue(option)"
             :disabled="isDisabled(option)"
-            :name="c_name"
-            :color="c_color"
-            :left-label="c_leftLabel"
+            :name="name"
+            :color="color"
+            :left-label="leftLabel"
             :label="getText(option)"
             v-model="selectedValue"
             :tabindex="index"
@@ -37,10 +37,10 @@
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
-            :left-label="c_leftLabel"
+            :left-label="leftLabel"
             :array-value="getValue(option)"
-            :color="c_color"
-            :name="c_name"
+            :color="color"
+            :name="name"
           />
           <va-switch
             v-else
@@ -48,10 +48,10 @@
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
-            :left-label="c_leftLabel"
+            :left-label="leftLabel"
             :array-value="getValue(option)"
-            :color="c_color"
-            :name="c_name"
+            :color="color"
+            :name="name"
           />
         </slot>
       </li>
@@ -60,32 +60,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import VaRadio from '../va-radio/VaRadio.vue'
-import VaCheckbox from '../va-checkbox/VaCheckbox.vue'
-import VaSwitch from '../va-switch/VaSwitch.vue'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
+import VaRadio from '../va-radio'
+import VaCheckbox from '../va-checkbox'
+import VaSwitch from '../va-switch'
+import { VaInputWrapper } from '../va-input'
 
 import { generateUuid } from '../../../services/utils'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-
-const OptionListPropsMixin = makeConfigTransportMixin({
-  type: {
-    type: String,
-    default: 'checkbox',
-    validator: (type: any) => ['radio', 'checkbox', 'switch'].includes(type),
-  },
-  disabled: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
-  defaultValue: { type: [String, Number, Object, Array] },
-  name: { type: String, default: generateUuid },
-  color: { type: String, default: 'primary' },
-  leftLabel: { type: Boolean, default: false },
-  value: { type: [String, Number, Object, Array] },
-})
 
 @Component({
   name: 'VaOptionList',
@@ -94,19 +78,32 @@ const OptionListPropsMixin = makeConfigTransportMixin({
 export default class VaOptionList extends Mixins(
   SelectableListMixin,
   StatefulMixin,
-  OptionListPropsMixin,
 ) {
+  @Prop({
+    type: String,
+    default: 'checkbox',
+    validator: (type: any) => ['radio', 'checkbox', 'switch'].includes(type),
+  }) type!: string
+
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({ type: Boolean, default: false }) readonly!: boolean
+  @Prop({ type: [String, Number, Object, Array] }) defaultValue!: string | number | object | any[]
+  @Prop({ type: String, default: generateUuid }) name!: string
+  @Prop({ type: String, default: 'primary' }) color!: string
+  @Prop({ type: Boolean, default: false }) leftLabel!: boolean
+  @Prop({ type: [String, Number, Object, Array] }) value!: string | number | object | any[]
+
   get isRadio () {
     return this.type === 'radio'
   }
 
   get selectedValue () {
     const value = this.isRadio ? null : []
-    return this.valueComputed || this.c_defaultValue || value
+    return this.valueComputed || this.defaultValue || value
   }
 
   set selectedValue (value) {
-    if (this.c_readonly) { return }
+    if (this.readonly) { return }
     if (this.isRadio) {
       this.valueComputed = this.getValue(value)
     } else {
@@ -121,7 +118,7 @@ export default class VaOptionList extends Mixins(
   }
 
   isDisabled (option: any) {
-    return this.c_disabled || this.getDisabled(option)
+    return this.disabled || this.getDisabled(option)
   }
 
   reset () {
@@ -137,9 +134,8 @@ export default class VaOptionList extends Mixins(
   }
 
   mounted () {
-    this.isSelectableListComponent = true
-    if (!this.valueComputed && this.c_defaultValue) {
-      this.selectedValue = this.c_defaultValue
+    if (!this.valueComputed && this.defaultValue) {
+      this.selectedValue = this.defaultValue
     }
   }
 }

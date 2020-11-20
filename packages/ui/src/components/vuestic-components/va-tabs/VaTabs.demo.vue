@@ -351,8 +351,7 @@
 </template>
 
 <script>
-import VaTabs from './VaTabs'
-import VaTab from './VaTab'
+import VaTabs, { VaTab } from '../va-tabs'
 
 export default {
   components: {

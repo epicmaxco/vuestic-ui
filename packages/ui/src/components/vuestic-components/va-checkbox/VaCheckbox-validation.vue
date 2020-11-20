@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-import VaCheckbox from './VaCheckbox.vue'
+import VaCheckbox from './index'
 
 @Component({
   components: { VaCheckbox },

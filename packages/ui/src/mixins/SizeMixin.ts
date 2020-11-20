@@ -1,5 +1,4 @@
-import { makeConfigTransportMixin } from '../services/config-transport/makeConfigTransportMixin'
-import Component, { mixins } from 'vue-class-component'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 export const sizesConfig = {
   defaultSize: 48,
@@ -19,40 +18,42 @@ export const fontSizesConfig = {
   },
 }
 
-const sizeProps = {
-  size: {
-    type: [String, Number],
-    default: '',
-    validator: (size: string| number) => {
-      return typeof size === 'string' || typeof size === 'number'
-    },
-  },
-  sizesConfig: {
-    type: Object,
-    default: () => sizesConfig,
-  },
-  fontSizesConfig: {
-    type: Object,
-    default: () => fontSizesConfig,
-  },
-}
+type Size = 'small' | 'medium' | 'large'
 
 @Component
-export class SizeMixin extends mixins(makeConfigTransportMixin(sizeProps)) {
+export class SizeMixin extends Vue {
   fontRegex = /(?<fontSize>\d+)(?<extension>px|rem)/i
 
-  get sizeComputed (): string {
-    const { defaultSize, sizes } = this.c_sizesConfig
+  @Prop({
+    type: [String, Number],
+    default: '',
+    validator: (size: string | number) => {
+      return ['string', 'number'].includes(typeof size)
+    },
+  }) size?: string | number
 
-    if (!this.c_size) {
+  @Prop({
+    type: Object,
+    default: () => sizesConfig,
+  }) sizesConfig?: typeof sizesConfig
+
+  @Prop({
+    type: Object,
+    default: () => fontSizesConfig,
+  }) fontSizesConfig?: typeof fontSizesConfig
+
+  get sizeComputed (): string {
+    const { defaultSize, sizes } = this.sizesConfig as typeof sizesConfig
+
+    if (!this.size) {
       return `${defaultSize}px`
     }
 
-    if (typeof this.c_size === 'string') {
-      return this.c_size in sizes ? `${sizes[this.c_size]}px` : this.c_size
+    if (typeof this.size === 'string') {
+      return this.size in sizes ? `${sizes[this.size as Size]}px` : this.size
     }
 
-    return `${this.c_size}px`
+    return `${this.size}px`
   }
 
   get fontSizeComputed (): string {
@@ -60,18 +61,20 @@ export class SizeMixin extends mixins(makeConfigTransportMixin(sizeProps)) {
   }
 
   get SizeMixin_fontSize (): number {
-    const { defaultSize, sizes } = this.c_fontSizesConfig
+    const { defaultSize, sizes } = this.fontSizesConfig as typeof fontSizesConfig
 
     const convertToRem = (px: number) => px / 16 - 0.5
 
-    if (!this.c_size) {
+    if (!this.size) {
       return defaultSize
     }
 
-    if (typeof this.c_size === 'string') {
-      if (this.c_size in sizes) { return sizes[this.c_size] }
+    if (typeof this.size === 'string') {
+      if (this.size in sizes) {
+        return sizes[this.size as Size]
+      }
 
-      const fontSizeParsed = this.c_size.match(this.fontRegex)
+      const fontSizeParsed = this.size.match(this.fontRegex)
       if (!fontSizeParsed || !fontSizeParsed.groups) {
         throw new Error('Size prop should be either valid string or number')
       }
@@ -80,6 +83,6 @@ export class SizeMixin extends mixins(makeConfigTransportMixin(sizeProps)) {
       return extension === 'rem' ? +fontSize : convertToRem(+fontSize)
     }
 
-    return convertToRem(this.c_size)
+    return convertToRem(this.size)
   }
 }

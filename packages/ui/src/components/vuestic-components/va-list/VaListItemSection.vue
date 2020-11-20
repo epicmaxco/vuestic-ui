@@ -8,26 +8,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const ItemSectionPropsMixin = makeConfigTransportMixin({
-  icon: { type: Boolean, default: false },
-  avatar: { type: Boolean, default: false },
-})
+import { Vue, Prop, Component } from 'vue-property-decorator'
 
 @Component({
   name: 'VaListItemSection',
 })
-export default class VaListItemSection extends Mixins(
-  ItemSectionPropsMixin,
-) {
+export default class VaListItemSection extends Vue {
+  @Prop({ type: Boolean, default: false }) icon!: boolean
+  @Prop({ type: Boolean, default: false }) avatar!: boolean
+
   get computedClass () {
     return {
-      'va-list-item-section--main': !this.c_icon && !this.c_avatar,
-      'va-list-item-section--icon': this.c_icon,
-      'va-list-item-section--avatar': this.c_avatar,
+      'va-list-item-section--main': !this.icon && !this.avatar,
+      'va-list-item-section--icon': this.icon,
+      'va-list-item-section--avatar': this.avatar,
     }
   }
 }

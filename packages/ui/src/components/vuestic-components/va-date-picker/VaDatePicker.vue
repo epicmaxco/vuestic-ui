@@ -1,16 +1,16 @@
 <template>
   <div class="va-date-picker">
-    <div :data-toggle="!c_disabled">
+    <div :data-toggle="!disabled">
       <va-input
         v-model="valueProxy"
         readonly
-        :placeholder="c_placeholder"
-        :label="c_label"
-        :disabled="c_disabled"
-        :error="c_error"
+        :placeholder="placeholder"
+        :label="label"
+        :disabled="disabled"
+        :error="error"
         :success="success"
-        :messages="c_messages"
-        :error-messages="c_errorMessages"
+        :messages="messages"
+        :error-messages="errorMessages"
       >
         <template slot="append">
           <va-icon
@@ -24,7 +24,7 @@
       class="va-date-picker__flatpickr"
       v-model="valueProxy"
       :config="fullConfig"
-      :disabled="c_disabled"
+      :disabled="disabled"
       @on-open="onOpen"
       data-input
     />
@@ -34,58 +34,53 @@
 <script>
 import VueFlatpickrComponent from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
-import VaInput from '../va-input/VaInput'
-import VaIcon from '../va-icon/VaIcon'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
+import VaInput from '../va-input'
+import VaIcon from '../va-icon'
 
 export default {
   name: 'VaDatePicker',
-  mixins: [
-    makeConfigTransportMixin(
-      {
-        value: {
-          type: [String, Object, Number],
-          default: '',
-        },
-        weekDays: {
-          type: Boolean,
-          default: false,
-        },
-        placeholder: {
-          type: String,
-          default: '',
-        },
-        label: {
-          type: String,
-          default: '',
-        },
-        disabled: {
-          type: Boolean,
-          default: false,
-        },
-        error: {
-          type: Boolean,
-          default: false,
-        },
-        success: {
-          type: Boolean,
-          default: false,
-        },
-        messages: {
-          type: Array,
-          default: () => [],
-        },
-        errorMessages: {
-          type: Array,
-          default: () => [],
-        },
-        config: {
-          type: Object,
-          default: () => undefined,
-        },
-      },
-    ),
-  ],
+  props: {
+    value: {
+      type: [String, Object, Number],
+      default: '',
+    },
+    weekDays: {
+      type: Boolean,
+      default: false,
+    },
+    placeholder: {
+      type: String,
+      default: '',
+    },
+    label: {
+      type: String,
+      default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    error: {
+      type: Boolean,
+      default: false,
+    },
+    success: {
+      type: Boolean,
+      default: false,
+    },
+    messages: {
+      type: Array,
+      default: () => [],
+    },
+    errorMessages: {
+      type: Array,
+      default: () => [],
+    },
+    config: {
+      type: Object,
+      default: () => undefined,
+    },
+  },
   components: {
     VaInput,
     VueFlatpickrComponent,
@@ -99,16 +94,16 @@ export default {
   computed: {
     valueProxy: {
       get () {
-        return this.c_value
+        return this.value
       },
       set (value) {
-        if (!this.c_disabled) {
+        if (!this.disabled) {
           this.$emit('input', value)
         }
       },
     },
     fullConfig () {
-      return Object.assign({}, this.defaultConfig, this.c_config)
+      return Object.assign({}, this.defaultConfig, this.config)
     },
     defaultConfig () {
       return {

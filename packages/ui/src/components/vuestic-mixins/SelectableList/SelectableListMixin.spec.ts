@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { shallowMount } from '@vue/test-utils'
-import { testIsConfigProvidedComponent } from '../../../services/config-transport/testIsConfigProvidedComponent'
 import { SelectableListMixin } from './SelectableListMixin'
 
 describe('SelectableListMixin', () => {
@@ -13,10 +12,6 @@ describe('SelectableListMixin', () => {
   const prepareWrapper = (data) => {
     return shallowMount(baseComponentOptions, { propsData: data })
   }
-
-  it('should mount without errors', () => {
-    expect(() => testIsConfigProvidedComponent(baseComponentOptions, {}, {})).not.toThrow()
-  })
 
   describe('getValue', () => {
     it('should work with a string', () => {

@@ -236,7 +236,7 @@
 </template>
 
 <script>
-import VaButtonToggle from './VaButtonToggle'
+import VaButtonToggle from './index'
 
 export default {
   components: {

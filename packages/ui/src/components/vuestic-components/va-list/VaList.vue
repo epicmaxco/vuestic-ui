@@ -8,21 +8,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const ListPropsMixin = makeConfigTransportMixin({
-  fit: { type: Boolean, default: false },
-})
 @Component({
   name: 'VaList',
 })
-export default class VaList extends Mixins(
-  ListPropsMixin,
-) {
+export default class VaList extends Vue {
+  @Prop({ type: Boolean, default: false }) fit!: boolean
+
   get computedClass () {
-    return { 'va-list--fit': this.c_fit }
+    return { 'va-list--fit': this.fit }
   }
 }
 </script>

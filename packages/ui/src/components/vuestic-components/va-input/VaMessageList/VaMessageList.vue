@@ -15,34 +15,30 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const MessageListPropsMixin = makeConfigTransportMixin({
-  value: { type: [String, Number, Object, Array], default: '' },
-  limit: { type: Number, default: 1 },
-  color: { type: String, default: 'gray' },
-})
+import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
 @Component({
   name: 'VaMessageList',
 })
 export default class VaMessageList extends Mixins(
   ColorThemeMixin,
-  MessageListPropsMixin,
 ) {
   colorThemeDefault = 'gray' // mixin override
 
+  @Prop({ type: [String, Number, Object, Array], default: '' }) value!: string | number | object | any[]
+  @Prop({ type: Number, default: 1 }) limit!: number
+  @Prop({ type: String, default: 'gray' }) color!: string
+
   get messages () {
-    if (!this.c_value) {
+    if (!this.value) {
       return []
     }
-    if (!Array.isArray(this.c_value)) {
-      return [this.c_value]
+    if (!Array.isArray(this.value)) {
+      return [this.value]
     }
-    return this.c_value.slice(0, this.limit)
+    return this.value.slice(0, this.limit)
   }
 
   get computedStyle () {
@@ -54,7 +50,7 @@ export default class VaMessageList extends Mixins(
 </script>
 
 <style lang="scss">
-@import "../../vuestic-sass/resources/resources";
+@import "../../../vuestic-sass/resources/resources";
 
 .va-message-list {
   &__message {

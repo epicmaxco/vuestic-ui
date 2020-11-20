@@ -40,31 +40,13 @@
 </template>
 
 <script lang="ts">
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { NotificationPosition } from './types'
 import { PropType } from 'vue'
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { Component, Mixins, Watch, Prop } from 'vue-property-decorator'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import VaIcon from '../va-icon/VaIcon.vue'
+import VaIcon from '../va-icon'
 
-const ToastPropsMixin = makeConfigTransportMixin({
-  title: { type: String, default: '' },
-  offsetY: { type: Number, default: 16 },
-  offsetX: { type: Number, default: 16 },
-  message: { type: [String, Function], default: '' },
-  iconClass: { type: String, default: '' },
-  customClass: { type: String, default: '' },
-  duration: { type: Number, default: 20000 },
-  color: { type: String, default: '' },
-  closeable: { type: Boolean, default: true },
-  dangerouslyUseHTMLString: { type: Boolean, default: false },
-  onClose: { type: Function },
-  onClick: { type: Function },
-  position: {
-    type: String as PropType<NotificationPosition>,
-    default: 'top-right',
-  },
-})
+type Function = (...args: any[]) => any
 
 @Component({
   name: 'VaToast',
@@ -72,8 +54,25 @@ const ToastPropsMixin = makeConfigTransportMixin({
 })
 export default class VaToast extends Mixins(
   ColorThemeMixin,
-  ToastPropsMixin,
 ) {
+  @Prop({ type: String, default: '' }) title!: string
+  @Prop({ type: Number, default: 16 }) offsetY!: number
+  @Prop({ type: Number, default: 16 }) offsetX!: number
+  @Prop({ type: [String, Function], default: '' }) message!: string
+  @Prop({ type: String, default: '' }) iconClass!: string
+  @Prop({ type: String, default: '' }) customClass!: string
+  @Prop({ type: Number, default: 20000 }) duration!: number
+  @Prop({ type: String, default: '' }) color!: string
+  @Prop({ type: Boolean, default: true }) closeable!: boolean
+  @Prop({ type: Boolean, default: false }) dangerouslyUseHTMLString!: boolean
+  @Prop({ type: Function }) onClose!: Function
+  @Prop({ type: Function }) onClick!: Function
+  @Prop({
+    type: String as PropType<NotificationPosition>,
+    default: 'top-right',
+  },
+  ) position!: string
+
   @Watch('closed')
   onClosed (value: boolean) {
     if (value) {

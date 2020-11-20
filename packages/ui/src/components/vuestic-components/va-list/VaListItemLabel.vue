@@ -9,28 +9,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const ItemLabelPropsMixin = makeConfigTransportMixin({
-  caption: { type: Boolean, default: false },
-  lines: { type: Number, default: 1 },
-})
+import { Vue, Prop, Component } from 'vue-property-decorator'
 
 @Component({
   name: 'VaListItemLabel',
 })
-export default class VaListItemLabel extends Mixins(
-  ItemLabelPropsMixin,
-) {
+export default class VaListItemLabel extends Vue {
+  @Prop({ type: Boolean, default: false }) caption!: boolean
+  @Prop({ type: Number, default: 1 }) lines!: number
+
   get computedClass () {
-    return { 'va-list-item-label--caption': this.c_caption }
+    return { 'va-list-item-label--caption': this.caption }
   }
 
   get computedStyle () {
     return {
-      '-webkit-line-clamp': this.c_lines,
+      '-webkit-line-clamp': this.lines,
     }
   }
 }

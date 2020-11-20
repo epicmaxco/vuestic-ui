@@ -73,10 +73,10 @@
 </template>
 
 <script>
-import VaInputWrapper from './VaInputWrapper'
-import VaIcon from './../va-icon/VaIcon'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaRadio from '../va-radio/VaRadio'
+import VaInputWrapper from './index'
+import VaIcon from '../../va-icon'
+import VaCheckbox from '../../va-checkbox'
+import VaRadio from '../../va-radio'
 
 export default {
   components: {

@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 
 import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
-import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import VaModal from '../VaModal.vue'
 
@@ -11,39 +10,6 @@ describe('VaModal', () => {
       expect(() =>
         testHasStatefulMixin((VaModal as unknown) as StatefulMixin),
       ).not.toThrow()
-    })
-  })
-
-  describe('config transport mixin', () => {
-    it('should throw if prop tag does not exist in the config', () => {
-      const props = {
-        tag: 'a',
-      }
-      expect(() => testIsConfigProvidedComponent(VaModal, props)).toThrow()
-    })
-    it('is configurable', () => {
-      const props = {
-        value: false,
-        title: '',
-        message: '',
-        okText: 'OK',
-        cancelText: 'Cancel',
-        hideDefaultActions: false,
-        fullscreen: false,
-        mobileFullscreen: true,
-        noDismiss: false,
-        noOutsideDismiss: false,
-        noEscDismiss: false,
-        maxWidth: '',
-        maxHeight: '',
-        size: 'medium',
-        fixedLayout: false,
-        withoutTransitions: false,
-        overlay: true,
-        overlayOpacity: undefined,
-        zIndex: undefined,
-      }
-      expect(() => testIsConfigProvidedComponent(VaModal, props)).not.toThrow()
     })
   })
 

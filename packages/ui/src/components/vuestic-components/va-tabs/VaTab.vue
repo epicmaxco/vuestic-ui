@@ -36,21 +36,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import VaIcon from '../va-icon/VaIcon.vue'
+import VaIcon from '../va-icon'
 
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
-
-const TabPropsMixin = makeConfigTransportMixin({
-  icon: { type: String, default: null },
-  label: { type: String, default: null },
-  disabled: { type: Boolean },
-  name: { type: [String, Number] },
-  tag: { type: String, default: 'div' },
-})
 
 @Component({
   name: 'VaTab',
@@ -59,21 +50,26 @@ const TabPropsMixin = makeConfigTransportMixin({
 export default class VaTab extends Mixins(
   KeyboardOnlyFocusMixin,
   RouterLinkMixin,
-  TabPropsMixin,
 ) {
+  @Prop({ type: String, default: null }) icon!: string
+  @Prop({ type: String, default: null }) label!: string
+  @Prop({ type: Boolean }) disabled!: boolean
+  @Prop({ type: [String, Number] }) name!: string | number
+  @Prop({ type: String, default: 'div' }) tag!: string
+
   isActive = false
   id = null
 
   get classComputed () {
     return {
       'va-tab--active': this.isActive,
-      'va-tab--disabled': this.c_disabled,
+      'va-tab--disabled': this.disabled,
       'va-tab--on-keyboard-focus': this.isKeyboardFocused,
     }
   }
 
   get tabIndexComputed () {
-    return (this.c_disabled || this.isActive) ? -1 : 0
+    return (this.disabled || this.isActive) ? -1 : 0
   }
 
   get rightSidePosition () {

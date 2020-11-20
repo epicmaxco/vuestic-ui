@@ -1,38 +1,43 @@
 import Component from 'vue-class-component'
-import { Mixins, Watch } from 'vue-property-decorator'
+import { Watch, Prop, Vue } from 'vue-property-decorator'
 import calculateNodeHeight from '../calculateNodeHeight'
-import { makeConfigTransportMixin } from '../../../../services/config-transport/makeConfigTransportMixin'
 import { warn } from '../../../../services/utils'
 
-const PropsMixin = makeConfigTransportMixin({
-  autosize: { type: Boolean, default: false },
-  minRows: {
-    type: Number,
-    default: null,
-    validator: (val: number) => {
-      if (!(val > 0 && (val | 0) === val)) {
-        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
-      }
-      return true
-    },
-  },
-  maxRows: {
-    type: Number,
-    validator: (val: number) => {
-      if (!(val > 0 && (val | 0) === val)) {
-        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
-      }
-      return true
-    },
-    default: null,
-  },
-})
-
 @Component
-export class TextareaMixin extends Mixins(PropsMixin) {
+export class TextareaMixin extends Vue {
+  @Prop({ type: Boolean, default: false }) autosize!: boolean
+
+  @Prop({ type: String, default: '' }) label!: string
+
+  @Prop({ type: String, default: 'text' }) type!: string
+
+  @Prop({
+    type: Number,
+    default: null,
+    validator: (val: number) => {
+      if (!(val > 0 && (val | 0) === val)) {
+        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
+      }
+      return true
+    },
+  })
+  minRows!: number
+
+  @Prop({
+    type: Number,
+    validator: (val: number) => {
+      if (!(val > 0 && (val | 0) === val)) {
+        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
+      }
+      return true
+    },
+    default: null,
+  })
+  maxRows!: number
+
   @Watch('value')
   onValueChanged (): void {
-    // only for textarea
+  // only for textarea
     if (this.isTextarea) {
       this.adjustHeight()
     }
@@ -50,7 +55,7 @@ export class TextareaMixin extends Mixins(PropsMixin) {
   }
 
   get isTextarea (): boolean {
-    return this.c_type === 'textarea'
+    return this.type === 'textarea'
   }
 
   adjustHeight (): void {

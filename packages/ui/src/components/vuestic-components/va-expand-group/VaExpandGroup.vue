@@ -5,53 +5,51 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Provide } from 'vue-property-decorator'
+import { Component, Mixins, Provide, Prop } from 'vue-property-decorator'
 
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
-const ExpandGroupPropsMixin = makeConfigTransportMixin({
-  value: { type: Array, default: () => [] },
-  multiply: { type: Boolean, default: false },
-  inset: { type: Boolean, default: false },
-  popout: { type: Boolean, default: false },
-})
+export const ExpandGroupService = Symbol('ExpandGroupService')
 
 @Component({
   name: 'VaExpandGroup',
 })
 export default class VaExpandGroup extends Mixins(
   StatefulMixin,
-  ExpandGroupPropsMixin,
 ) {
-  @Provide() accordion = {
+  @Provide(ExpandGroupService) accordion = {
+    getProps: () => this.getProps(),
+    getState: () => this.getState(),
     onChildChange: (child: any, state: any) => this.onChildChange(child, state),
   }
 
-  onChildChange (child: any, state: any) {
-    const emitValue: any = []
-    this.$children.forEach(expand => {
-      if (expand === child) {
-        emitValue.push((expand as any).valueProxy)
-        return
-      }
-      if (!this.c_multiply) {
-        (expand as any).valueProxy = false
-      }
-      emitValue.push((expand as any).valueProxy)
-    })
-    this.valueComputed = emitValue
+  @Prop({ type: Array, default: () => [] }) value!: boolean[]
+  @Prop({ type: Boolean, default: false }) multiply!: boolean
+  @Prop({ type: Boolean, default: false }) inset!: boolean
+  @Prop({ type: Boolean, default: false }) popout!: boolean
+
+  getProps () {
+    return {
+      inset: this.inset,
+      popout: this.popout,
+    }
   }
 
-  mounted () {
-    this.$children.forEach((expand, index) => {
-      (expand as any).valueProxy = this.valueComputed[index]
-    })
+  getState () {
+    return this.valueComputed
   }
 
-  updated () {
-    this.$children.forEach((expand, index) => {
-      (expand as any).valueProxy = this.valueComputed[index]
+  onChildChange (index: number, value: boolean) {
+    this.valueComputed = (this.valueComputed as boolean[]).map((v, i) => {
+      if (i === index) {
+        return value
+      }
+
+      if (!this.multiply) {
+        return false
+      }
+
+      return v
     })
   }
 }

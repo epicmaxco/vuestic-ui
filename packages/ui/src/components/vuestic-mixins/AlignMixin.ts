@@ -1,5 +1,4 @@
-import { Mixins, Component } from 'vue-property-decorator'
-import { makeConfigTransportMixin } from '../../services/config-transport/makeConfigTransportMixin'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
 export const alignMap = {
   left: 'flex-start',
@@ -11,17 +10,17 @@ export const alignMap = {
 }
 
 @Component
-export class AlignMixin extends Mixins(makeConfigTransportMixin({
-  align: {
+export class AlignMixin extends Vue {
+  @Prop({
     type: String,
     default: 'left',
     validator: (align: string) => align in alignMap,
-  },
-})) {
+  }) readonly align!: string
+
   get alignComputed () {
     return {
       display: 'flex',
-      justifyContent: alignMap[this.c_align as keyof typeof alignMap],
+      justifyContent: alignMap[this.align as keyof typeof alignMap],
     }
   }
 }

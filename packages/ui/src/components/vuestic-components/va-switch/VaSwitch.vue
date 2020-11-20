@@ -2,9 +2,9 @@
   <va-input-wrapper
     class="va-switch"
     :class="computedClass"
-    :disabled="c_disabled"
-    :success="c_success"
-    :messages="c_messages"
+    :disabled="disabled"
+    :success="success"
+    :messages="messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
@@ -30,7 +30,7 @@
           :id="id"
           :name="name"
           readonly
-          :disabled="c_disabled"
+          :disabled="disabled"
           @focus="onFocus"
           @blur="onBlur"
           @keypress.prevent="toggleSelection()"
@@ -74,30 +74,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
+import { VaProgressCircle } from '../va-progress-bar'
+import VaInputWrapper from '../va-input/VaInputWrapper'
 
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-import { getColor } from '../../vuestic-mixins/ColorMixin'
-
-const SwitchPropsMixin = makeConfigTransportMixin({
-  value: { type: [Boolean, Array, String, Object], default: false },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
-    },
-  },
-  trueLabel: { type: String, default: null },
-  falseLabel: { type: String, default: null },
-  trueInnerLabel: { type: String, default: null },
-  falseInnerLabel: { type: String, default: null },
-})
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 @Component({
   name: 'VaSwitch',
@@ -106,35 +90,49 @@ const SwitchPropsMixin = makeConfigTransportMixin({
 export default class VaSwitch extends Mixins(
   SelectableMixin,
   LoadingMixin,
-  SwitchPropsMixin,
+  ColorThemeMixin,
 ) {
+  @Prop({ type: [Boolean, Array, String, Object], default: false }) value!: boolean | any[] | string | object
+  @Prop({
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
+    },
+  }) size!: string
+
+  @Prop({ type: String, default: null }) trueLabel!: string
+  @Prop({ type: String, default: null }) falseLabel!: string
+  @Prop({ type: String, default: null }) trueInnerLabel!: string
+  @Prop({ type: String, default: null }) falseInnerLabel!: string
+
   get computedInnerLabel () {
-    if (this.c_trueInnerLabel && this.isChecked) {
-      return this.c_trueInnerLabel
+    if (this.trueInnerLabel && this.isChecked) {
+      return this.trueInnerLabel
     }
-    if (this.c_falseInnerLabel && !this.isChecked) {
-      return this.c_falseInnerLabel
+    if (this.falseInnerLabel && !this.isChecked) {
+      return this.falseInnerLabel
     }
     return ''
   }
 
   get computedLabel () {
-    if (this.c_trueLabel && this.isChecked) {
-      return this.c_trueLabel
+    if (this.trueLabel && this.isChecked) {
+      return this.trueLabel
     }
-    if (this.c_falseLabel && !this.isChecked) {
-      return this.c_falseLabel
+    if (this.falseLabel && !this.isChecked) {
+      return this.falseLabel
     }
-    return this.c_label
+    return this.label
   }
 
   get computedClass () {
     return {
       'va-switch--checked': this.isChecked,
-      'va-switch--small': this.c_size === 'small',
-      'va-switch--large': this.c_size === 'large',
-      'va-switch--disabled': this.c_disabled,
-      'va-switch--left-label': this.c_leftLabel,
+      'va-switch--small': this.size === 'small',
+      'va-switch--large': this.size === 'large',
+      'va-switch--disabled': this.disabled,
+      'va-switch--left-label': this.leftLabel,
       'va-switch--error': this.computedError,
       'va-switch--on-keyboard-focus': this.isKeyboardFocused,
     }
@@ -146,26 +144,26 @@ export default class VaSwitch extends Mixins(
       medium: '20px',
       large: '25px',
     }
-    return size[this.c_size]
+    return size[this.size]
   }
 
   get trackStyle () {
     return {
-      borderColor: this.c_error
-        ? getColor('danger')
+      borderColor: this.error
+        ? (this as any).getColor('danger')
         : '',
       backgroundColor: this.isChecked
         ? this.colorComputed
-        : getColor('gray'),
+        : (this as any).getColor('gray'),
     }
   }
 
   get labelStyle () {
     return {
-      color: this.c_error ? getColor('danger') : '',
-      padding: !this.c_label && !(this.c_trueLabel || this.c_falseLabel)
+      color: this.error ? (this as any).getColor('danger') : '',
+      padding: !this.label && !(this.trueLabel || this.falseLabel)
         ? ''
-        : this.c_leftLabel
+        : this.leftLabel
           ? '0 0.3rem 0 0'
           : '0 0 0 0.3rem',
     }

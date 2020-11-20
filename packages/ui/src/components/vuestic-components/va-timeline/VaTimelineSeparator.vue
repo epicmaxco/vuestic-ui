@@ -1,5 +1,5 @@
 <script>
-import { getTheme } from '../../../services/Theme'
+import { useTheme } from '../../../services/Theme'
 
 const $root = 'va-timeline-separator'
 
@@ -25,6 +25,7 @@ export default {
     },
   },
   render (createElement, context) {
+    const { getTheme } = useTheme()
     const theme = getTheme() || {}
 
     return createElement(

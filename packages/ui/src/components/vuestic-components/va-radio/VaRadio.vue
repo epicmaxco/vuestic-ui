@@ -37,29 +37,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const RadioPropsMixin = makeConfigTransportMixin({
-  value: { type: [Object, String, Number, Boolean], default: null },
-  option: { type: [Object, String, Number, Boolean], default: null },
-  name: { type: [String, Number], default: '' },
-  disabled: { type: Boolean, default: false },
-  label: { type: String, default: '' },
-  leftLabel: { type: Boolean, default: false },
-  color: { type: String, default: '' },
-  tabindex: { type: Number, default: 0 },
-})
 
 @Component({
   name: 'VaRadio',
 })
 export default class VaRadio extends Mixins(
   ColorThemeMixin,
-  RadioPropsMixin,
 ) {
+  @Prop({ type: [Object, String, Number, Boolean], default: null }) value!: object | string | number | boolean
+  @Prop({ type: [Object, String, Number, Boolean], default: null }) option!: object | string | number | boolean
+  @Prop({ type: [String, Number], default: '' }) name!: string | number
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({ type: String, default: '' }) label!: string
+  @Prop({ type: Boolean, default: false }) leftLabel!: boolean
+  @Prop({ type: String, default: '' }) color!: string
+  @Prop({ type: Number, default: 0 }) tabindex!: number
+
   get isActive () {
     return this.value === this.option
   }

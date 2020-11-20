@@ -1,5 +1,4 @@
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 const isMaterialFont = (font: string) => {
   return font === 'md'
@@ -63,32 +62,29 @@ const getComponent = (iconConfig: any) => {
   return iconConfig.component
 }
 
-const IconMixinContextableProps = makeConfigTransportMixin({
-  name: { type: String, default: '' },
-  iconsConfig: { type: Object, default: () => ({}) },
-})
-
 @Component
-export class IconMixin extends Mixins(
-  IconMixinContextableProps,
-) {
+export class IconMixin extends Vue {
+  @Prop({ type: String, default: '' }) name!: string
+  @Prop({ type: Object, default: () => ({}) }) iconsConfig!: Record<string, any>
+
   get icon () {
-    // return this.getIcon(this.c_name)  ---- old
     return this.getIcon()
   }
 
   getIcon (): any {
-    if (!this.c_name) {
+    const { iconsConfig = {} } = this
+
+    if (!this.name) {
       return null
     }
 
-    if (this.c_iconsConfig.icons && !(this.c_name in this.c_iconsConfig.icons)) {
-      throw new Error(`Icon config for icon '${this.c_name}' not found`)
+    if (iconsConfig.icons && !(this.name in iconsConfig.icons)) {
+      throw new Error(`Icon config for icon '${this.name}' not found`)
     }
 
-    const iconConfig = (this.c_iconsConfig.icons || {})[this.c_name] || {}
+    const iconConfig = (iconsConfig.icons || {})[this.name] || {}
     const iconFont = iconConfig.font || // from icon alias config
-      this.c_iconsConfig.defaultFont // from icon component context config
+      iconsConfig.defaultFont // from icon component context config
 
     return {
       iconClass: getClass(iconConfig, iconFont),

@@ -1,22 +1,20 @@
-import Vue, { CreateElement, ComponentOptions } from 'vue'
-import { createLocalVue, mount } from '@vue/test-utils'
+import Vue, { ComponentOptions } from 'vue'
+import VueCompositionApi, { h } from '@vue/composition-api'
+
+import { mount } from '@vue/test-utils'
 
 import GlobalConfigPlugin, {
-  setGlobalConfig,
-  getGlobalConfig,
   GlobalConfig,
 } from './GlobalConfigPlugin'
 
+Vue.use(VueCompositionApi)
+
 function mountWithPlugin (
   component: ComponentOptions<Vue>,
-  options: GlobalConfig,
 ) {
-  const _Vue = createLocalVue()
-  _Vue.use(GlobalConfigPlugin, options)
+  Vue.use(GlobalConfigPlugin)
 
-  return mount(component, {
-    localVue: _Vue,
-  })
+  return mount(component)
 }
 
 describe('GlobalConfigPlugin', () => {
@@ -32,18 +30,18 @@ describe('GlobalConfigPlugin', () => {
     beforeEach(() => {
       const wrapper = mountWithPlugin(
         {
-          render (h: CreateElement) {
+          render () {
             return h('')
           },
-        },
-        initialConfig,
-      )
+        })
 
       instance = wrapper.vm
+
+      instance.setGlobalConfig(initialConfig)
     })
 
     it("should update the global config with a partial user's config", () => {
-      expect(instance.$vaGlobalConfig).toStrictEqual(initialConfig)
+      expect(instance.getGlobalConfig()).toStrictEqual(initialConfig)
 
       const partialConfig = {
         all: {
@@ -51,15 +49,14 @@ describe('GlobalConfigPlugin', () => {
         },
       }
 
-      setGlobalConfig(partialConfig)
+      instance.setGlobalConfig(partialConfig)
 
       const nextConfig = {
         ...initialConfig,
         ...partialConfig,
       }
 
-      expect(instance.$vaGlobalConfig).toStrictEqual(nextConfig)
-      expect(getGlobalConfig()).toStrictEqual(nextConfig)
+      expect(instance.getGlobalConfig()).toStrictEqual(nextConfig)
     })
 
     it("should update the global config with a user's update function", () => {
@@ -68,7 +65,7 @@ describe('GlobalConfigPlugin', () => {
         VaAnotherComponent: { propValue: 'propValue' },
       }
 
-      setGlobalConfig((config) => ({
+      instance.setGlobalConfig((config: GlobalConfig) => ({
         ...config,
         all: { value: `${prefix}${config.all?.value}` },
         ...anotherComponentConfig,
@@ -80,8 +77,7 @@ describe('GlobalConfigPlugin', () => {
         ...anotherComponentConfig,
       }
 
-      expect(instance.$vaGlobalConfig).toStrictEqual(nextConfig)
-      expect(getGlobalConfig()).toStrictEqual(nextConfig)
+      expect(instance.getGlobalConfig()).toStrictEqual(nextConfig)
     })
   })
 })

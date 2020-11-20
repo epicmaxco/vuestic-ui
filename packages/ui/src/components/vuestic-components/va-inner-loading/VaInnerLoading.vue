@@ -7,9 +7,9 @@
     >
       <va-icon
         spin
-        :color="c_color"
-        :size="c_size"
-        :name="c_icon"
+        :color="color"
+        :size="size"
+        :name="icon"
         class="inner-loading__spinner"
       />
     </div>
@@ -17,27 +17,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import VaIcon from '../va-icon/VaIcon.vue'
+import VaIcon from '../va-icon'
 
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const PropsMixin = makeConfigTransportMixin({
-  color: { type: String, default: '' },
-  icon: { type: String, default: 'loop' },
-  size: { type: Number, default: 30 },
-})
 
 @Component({
   name: 'VaInnerLoading',
   components: { VaIcon },
 })
 export default class VaInnerLoading extends Mixins(
-  PropsMixin,
   LoadingMixin,
-) {}
+) {
+  @Prop({ type: String, default: '' }) color!: string
+  @Prop({ type: String, default: 'loop' }) icon!: string
+  @Prop({ type: Number, default: 30 }) size!: number
+}
 </script>
 
 <style lang="scss" scoped>

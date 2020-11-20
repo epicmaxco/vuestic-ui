@@ -31,17 +31,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
 import { ProgressComponentMixin } from './ProgressComponentMixin'
-import { ColorThemeMixin, getColor } from '../../../vuestic-mixins/ColorMixin'
-import { makeConfigTransportMixin } from '../../../../services/config-transport/makeConfigTransportMixin'
+import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
-
-const ProgressCirclePropsMixin = makeConfigTransportMixin({
-  thickness: { type: Number, default: 0.06 },
-  color: { type: String, default: 'primary' },
-})
 
 @Component({
   name: 'VaProgressCircle',
@@ -50,8 +44,10 @@ export default class VaProgressCircle extends Mixins(
   ProgressComponentMixin,
   ColorThemeMixin,
   SizeMixin,
-  ProgressCirclePropsMixin,
 ) {
+  @Prop({ type: Number, default: 0.06 }) thickness!: number
+  @Prop({ type: String, default: 'primary' }) color!: string
+
   get radius () {
     return 20 - (20 * this.cappedThickness / 100)
   }
@@ -74,24 +70,24 @@ export default class VaProgressCircle extends Mixins(
 
   get computedClass () {
     return {
-      'va-progress-circle--indeterminate': this.c_indeterminate,
+      'va-progress-circle--indeterminate': this.indeterminate,
     }
   }
 
   get computedStyles () {
     return {
-      color: getColor(this.c_color),
+      color: (this as any).getColor(this.color),
     }
   }
 
   get cappedThickness () {
     // value translated to percentage, divided in half, since final maximum value should be 50%
-    if (this.c_thickness <= 0) {
+    if (this.thickness <= 0) {
       return 0
-    } else if (this.c_thickness >= 1) {
+    } else if (this.thickness >= 1) {
       return 50
     } else {
-      return this.c_thickness / 2 * 100
+      return this.thickness / 2 * 100
     }
   }
 }

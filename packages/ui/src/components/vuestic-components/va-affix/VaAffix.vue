@@ -16,7 +16,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 import { noop } from 'lodash'
 import {
@@ -25,24 +25,19 @@ import {
   getWindowHeight,
   State,
 } from './VaAffix-utils'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const AffixPropsMixin = makeConfigTransportMixin({
-  offsetTop: { type: Number, default: undefined },
-  offsetBottom: { type: Number, default: undefined },
-  target: { type: Function, default: () => window },
-})
 
 @Component({
   name: 'VaAffix',
 })
-export default class VaAffix extends Mixins(
-  AffixPropsMixin,
-) {
+export default class VaAffix extends Vue {
   private state: State = {
     isTopAffixed: false,
     isBottomAffixed: false,
   }
+
+  @Prop({ type: Number, default: undefined }) readonly offsetTop?: number
+  @Prop({ type: Number, default: undefined }) readonly offsetBottom?: number
+  @Prop({ type: Function, default: undefined }) readonly target?: () => any
 
   private initialPosition?: undefined | ClientRect
   private clearEventListeners = noop
@@ -55,32 +50,34 @@ export default class VaAffix extends Mixins(
     ]
   }
 
-  getTargetElement () {
+  get targetComputed () {
     // a custom target may get rendered later than
     // a component gets a property from the context
-    const { c_target, target } = this
-    return target() || c_target()
+    const { target } = this
+
+    return target ? target() : window
   }
 
   get computedStyle () {
     const calculateTop = () => {
-      const target = this.getTargetElement()
+      const target = this.targetComputed
 
-      if (this.c_offsetTop === undefined) {
+      if (this.offsetTop === undefined) {
         return
       }
 
       if (target !== window) {
         const { top } = (target as HTMLElement).getBoundingClientRect()
-        return top + this.c_offsetTop
+        return top + this.offsetTop
       }
 
-      return this.c_offsetTop
+      return this.offsetTop
     }
 
     const calculateBottom = () => {
-      const target = this.getTargetElement()
-      if (this.c_offsetBottom === undefined) {
+      const target = this.targetComputed
+
+      if (this.offsetBottom === undefined) {
         return
       }
 
@@ -89,10 +86,10 @@ export default class VaAffix extends Mixins(
         const { offsetHeight, clientHeight } = (target as HTMLElement)
         const scrollBarHeight = offsetHeight - clientHeight
         const windowHeight = getWindowHeight()
-        return windowHeight - (bottom - this.c_offsetBottom) + scrollBarHeight
+        return windowHeight - (bottom - this.offsetBottom) + scrollBarHeight
       }
 
-      return this.c_offsetBottom
+      return this.offsetBottom
     }
 
     const convertToPixels = (calculate: Function) => {
@@ -121,7 +118,7 @@ export default class VaAffix extends Mixins(
       ...this.$data,
       ...this.$props,
       element: this.$refs.element,
-      target: this.getTargetElement(),
+      target: this.targetComputed,
       setState: this.setState.bind(this),
       getState: this.getState.bind(this),
     }
@@ -129,7 +126,7 @@ export default class VaAffix extends Mixins(
     if (!eventName || eventName === 'resize') {
       handleThrottledEvent(eventName, context)
     } else if (event && event.target) {
-      const target = this.getTargetElement()
+      const target = this.targetComputed
 
       if ((target as HTMLElement) === event.target || target === window) {
         handleThrottledEvent(eventName, context)

@@ -46,7 +46,7 @@
 
 <script>
 import VaAvatar from '../va-avatar/VaAvatar'
-import VaBadge from './VaBadge'
+import VaBadge from './index'
 export default {
   name: 'badge-avatar-demo',
   components: { VaBadge, VaAvatar },

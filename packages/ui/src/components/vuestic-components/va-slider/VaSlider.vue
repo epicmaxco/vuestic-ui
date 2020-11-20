@@ -172,36 +172,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch, Mixins, Ref } from 'vue-property-decorator'
+import { Component, Watch, Mixins, Ref, Prop } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { getHoverColor } from '../../../services/color-functions'
 import { validateSlider } from './validateSlider'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const SliderPropsMixin = makeConfigTransportMixin({
-  range: { type: Boolean, default: false },
-  value: { type: [Number, Array], default: () => [] },
-  trackLabel: { type: String, default: '' },
-  color: { type: String, default: '' },
-  trackColor: { type: String, default: '' },
-  labelColor: { type: String, default: '' },
-  trackLabelVisible: { type: Boolean, default: false },
-  min: { type: Number, default: 0 },
-  max: { type: Number, default: 100 },
-  step: { type: Number, default: 1 },
-  label: { type: String, default: '' },
-  invertLabel: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
-  pins: { type: Boolean, default: false },
-  iconPrepend: { type: String, default: '' },
-  iconAppend: { type: String, default: '' },
-  vertical: { type: Boolean, default: false },
-  showTrack: { type: Boolean, default: true },
-})
 
 @Component({
   name: 'VaSlider',
@@ -209,8 +186,27 @@ const SliderPropsMixin = makeConfigTransportMixin({
 })
 export default class VaSlider extends Mixins(
   ColorThemeMixin,
-  SliderPropsMixin,
 ) {
+  @Prop({ type: Boolean, default: false }) range!: boolean
+  @Prop({ type: [Number, Array], default: () => [] }) value!: number | any[]
+  @Prop({ type: String, default: '' }) trackLabel!: string
+  @Prop({ type: String, default: '' }) color!: string
+  @Prop({ type: String, default: '' }) trackColor!: string
+  @Prop({ type: String, default: '' }) labelColor!: string
+  @Prop({ type: Boolean, default: false }) trackLabelVisible!: boolean
+  @Prop({ type: Number, default: 0 }) min!: number
+  @Prop({ type: Number, default: 100 }) max!: number
+  @Prop({ type: Number, default: 1 }) step!: number
+  @Prop({ type: String, default: '' }) label!: string
+  @Prop({ type: Boolean, default: false }) invertLabel!: boolean
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({ type: Boolean, default: false }) readonly!: boolean
+  @Prop({ type: Boolean, default: false }) pins!: boolean
+  @Prop({ type: String, default: '' }) iconPrepend!: string
+  @Prop({ type: String, default: '' }) iconAppend!: string
+  @Prop({ type: Boolean, default: false }) vertical!: boolean
+  @Prop({ type: Boolean, default: true }) showTrack!: boolean
+
   @Ref('dot') readonly dot !: HTMLElement
   @Ref('dot0') readonly dot0 !: HTMLElement
   @Ref('dot1') readonly dot1 !: HTMLElement
@@ -221,6 +217,8 @@ export default class VaSlider extends Mixins(
   currentValue = this.value
   currentSlider = 0
   isComponentExists = false
+  hasMouseDown!: boolean
+  offset!: number
 
   get pinPositionStyle (): 'bottom' | 'left' {
     return this.vertical ? 'bottom' : 'left'
@@ -330,7 +328,7 @@ export default class VaSlider extends Mixins(
     }
   }
 
-  get val () {
+  get val (): any {
     return this.value
   }
 
@@ -358,7 +356,8 @@ export default class VaSlider extends Mixins(
   }
 
   get interval () {
-    return this.value[1] - this.value[0]
+    const value = this.value as any[]
+    return value[1] - value[0]
   }
 
   get pinsCol () {
@@ -366,7 +365,8 @@ export default class VaSlider extends Mixins(
   }
 
   get position (): any {
-    return this.isRange ? [(this.value[0] - this.min) / this.step * this.gap, (this.value[1] - this.min) / this.step * this.gap] : ((this.value - this.min) / this.step * this.gap)
+    const value = this.value as any[]
+    return this.isRange ? [(value[0] - this.min) / this.step * this.gap, (value[1] - this.min) / this.step * this.gap] : (((this.value as number) - this.min) / this.step * this.gap)
   }
 
   get limit () {
@@ -476,7 +476,7 @@ export default class VaSlider extends Mixins(
     if (!this.disabled && !this.readonly) {
       if (this.flag) {
         this.$emit('dragEnd')
-        this.$emit('change', this.range ? Array.from(this.value) : this.value)
+        this.$emit('change', this.range ? Array.from(this.value as any[]) : this.value)
       } else {
         return false
       }
@@ -653,14 +653,16 @@ export default class VaSlider extends Mixins(
 
   setCurrentValue (val: any) {
     const slider = this.currentSlider
+    const currentValue = this.currentValue as any[]
+    const value = this.value as any[]
     if (this.isRange) {
-      if (this.isDiff(this.currentValue[slider], val)) {
-        this.currentValue.splice(slider, 1, val)
+      if (this.isDiff(currentValue[slider], val)) {
+        currentValue.splice(slider, 1, val)
         if (slider === 0) {
-          this.val = [this.currentValue.splice(slider, 1, val)[0], this.value[1]]
+          this.val = [currentValue.splice(slider, 1, val)[0], value[1]]
           this.currentValue = [...this.val]
         } else {
-          this.val = [this.value[0], this.currentValue.splice(slider, 1, val)[0]]
+          this.val = [value[0], currentValue.splice(slider, 1, val)[0]]
           this.currentValue = [...this.val]
         }
       }
@@ -708,10 +710,11 @@ export default class VaSlider extends Mixins(
   }
 
   setTransform () {
+    const value = this.value as any[]
     if (this.isRange) {
       const slider = this.currentSlider
       const difference = 100 / (this.max - this.min)
-      const val0 = (this.value[0] - this.min) * difference
+      const val0 = (value[0] - this.min) * difference
       const processPosition = `${val0}%`
 
       if (slider === 0) {
@@ -722,7 +725,7 @@ export default class VaSlider extends Mixins(
         this.dot1.focus()
       }
     } else {
-      const val = ((this.value - this.min) / (this.max - this.min)) * 100
+      const val = (((this.value as number) - this.min) / (this.max - this.min)) * 100
 
       this.dot.style[this.pinPositionStyle] = `calc(${val} - 8px)`
       this.dot.focus()

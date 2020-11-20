@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import { ColorThemeMixin, getColor, isCssColor } from '../components/vuestic-mixins/ColorMixin'
+import { ColorThemeMixin, isCssColor } from '../components/vuestic-mixins/ColorMixin'
 import Component, { mixins } from 'vue-class-component'
 
 // TODO Should probably have better typing. A bit rushed.
@@ -16,12 +16,6 @@ describe('ColorThemePlugin', () => {
     expect(isCssColor('#123')).toBe(true)
     expect(isCssColor('#123FFF')).toBe(true)
     expect(isCssColor('not-css-color')).toBe(false)
-  })
-  it('getColor should return default color', () => {
-    expect(getColor('not-css-color')).toBe('#000000')
-  })
-  it('getColor should return prop color', () => {
-    expect(getColor('green')).toBe('green')
   })
 
   it('should compute color', async () => {

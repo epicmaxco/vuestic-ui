@@ -1,12 +1,8 @@
-import { Component, Mixins } from 'vue-property-decorator'
-import { makeConfigTransportMixin } from '../../services/config-transport/makeConfigTransportMixin'
-import { DEFAULT_COLOR, getTheme } from '../../services/Theme'
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { DEFAULT_COLOR, useTheme } from '../../services/Theme'
 
-const ContextableMixin = makeConfigTransportMixin({
-  color: {
-    type: String,
-  },
-})
+// https://github.com/vuejs/composition-api/issues/136
+Component.registerHooks(['setup'])
 
 /**
  * Check if color is valid css color
@@ -20,18 +16,21 @@ export const isCssColor = (strColor: string): boolean => {
   return style.color !== ''
 }
 
-export const getColor = (prop: string, defaultColor: string = DEFAULT_COLOR): string => {
+export const useColor = () => {
+  const { getTheme = () => ({}) } = useTheme() as any || {}
   const theme = getTheme() || {}
 
-  if (theme[prop]) {
-    return theme[prop]
-  }
+  return (prop: string, defaultColor: string = DEFAULT_COLOR): string => {
+    if (theme[prop]) {
+      return theme[prop]
+    }
 
-  if (isCssColor(prop)) {
-    return prop
-  }
+    if (isCssColor(prop)) {
+      return prop
+    }
 
-  return defaultColor
+    return defaultColor
+  }
 }
 
 /**
@@ -39,16 +38,21 @@ export const getColor = (prop: string, defaultColor: string = DEFAULT_COLOR): st
  * Its main purpose is raw code reuse.
  */
 @Component
-export class ColorThemeMixin extends Mixins(ContextableMixin) {
+export class ColorThemeMixin extends Vue {
+  @Prop() color!: string
+
+  setup () {
+    return {
+      getColor: useColor(),
+      hasColorThemeMixin: true,
+    }
+  }
+
   get colorComputed () {
-    return getColor((this as any).c_color)
+    return (this as any).getColor(this.color)
   }
 
   computeColor (prop: string, defaultColor?: string) {
-    return getColor(prop, defaultColor)
-  }
-
-  created () {
-    (this as any).hasColorThemeMixin = true
+    return (this as any).getColor(prop, defaultColor)
   }
 }

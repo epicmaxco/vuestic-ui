@@ -5,6 +5,7 @@
         <va-expand
           v-for="(expand, index) in expands"
           :key="index"
+          :index="index"
           :header="expand.title"
         >
           <div>
@@ -19,6 +20,7 @@
         <va-expand
           v-for="(expand, index) in expands"
           :key="index"
+          :index="index"
           :header="expand.title"
         >
           <div>
@@ -33,6 +35,7 @@
         <va-expand
           v-for="(expand, index) in expands"
           :key="index"
+          :index="index"
           :header="expand.title"
         >
           <div>
@@ -47,6 +50,7 @@
         <va-expand
           v-for="(expand, index) in expands"
           :key="index"
+          :index="index"
           :header="expand.title"
         >
           <div>
@@ -61,6 +65,7 @@
         <va-expand
           v-for="(expand, index) in expands"
           :key="index"
+          :index="index"
           :header="expand.title"
         >
           <div>
@@ -74,6 +79,7 @@
       <va-expand-group v-model="valueArray" popout multiply style="width: 400px;">
         <va-expand
           v-for="(expand, index) in expands"
+          :index="index"
           :key="index"
           :header="expand.title"
         >
@@ -87,9 +93,8 @@
 </template>
 
 <script>
-
-import VaExpandGroup from './VaExpandGroup'
-import VaExpand from './../va-expand/VaExpand'
+import VaExpandGroup from './index'
+import VaExpand from './../va-expand'
 
 export default {
   components: {

@@ -387,9 +387,9 @@
 <script>
 
 import CountriesList from '../../../data/CountriesList'
-import VaSelect from './VaSelect'
+import VaSelect from './index'
 import { objectOptionsList, iconOptionsList } from './getDemoData'
-import VaIcon from '../va-icon/VaIcon.vue'
+import VaIcon from '../va-icon'
 
 const positions = ['top', 'bottom']
 

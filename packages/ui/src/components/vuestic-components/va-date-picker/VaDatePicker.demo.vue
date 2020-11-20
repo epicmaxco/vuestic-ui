@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import VaDatePicker from './VaDatePicker.vue'
+import VaDatePicker from './index'
 
 export default {
   components: {

@@ -1,15 +1,12 @@
-import { Mixins, Component } from 'vue-property-decorator'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const componentProps = {
-  loading: { type: Boolean, default: false },
-}
-
-const PropsMixin = makeConfigTransportMixin(componentProps)
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
-export class LoadingMixin extends Mixins(PropsMixin) {
-  created () {
-    this.isLoadingMixin = true
+export class LoadingMixin extends Vue {
+  @Prop({ type: Boolean, default: false }) loading?: boolean
+
+  setup () {
+    return {
+      isLoadingMixin: true,
+    }
   }
 }

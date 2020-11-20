@@ -1,16 +1,9 @@
-import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
-import VaFileUpload from '../VaFileUpload.vue'
+import { mount } from '@vue/test-utils'
+import VaFileUpload from '../index'
 
 describe('VaFileUpload', () => {
-  it('is configurable', () => {
-    const props = {
-      type: 'gallery',
-      fileTypes: 'png',
-      dropzone: true,
-      value: [],
-      color: 'danger',
-      disabled: true,
-    }
-    expect(() => testIsConfigProvidedComponent(VaFileUpload, props)).not.toThrow()
+  it('should render without an error', () => {
+    const wrapper = mount(VaFileUpload as any)
+    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 })

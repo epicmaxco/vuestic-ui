@@ -19,7 +19,7 @@
     @blur="updateFocusState(false)"
   >
     <va-icon
-      v-if="c_icon"
+      v-if="icon"
       class="va-tag__icon"
       :name="icon"
       :size="iconSize"
@@ -28,7 +28,7 @@
       <slot></slot>
     </span>
     <va-icon
-      v-if="c_closeable"
+      v-if="closeable"
       class="va-tag__close-icon"
       name="close"
       :size="iconSize"
@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { Component, Mixins, Watch, Prop } from 'vue-property-decorator'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
@@ -51,26 +51,6 @@ import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const TagPropsMixin = makeConfigTransportMixin({
-  value: { type: Boolean, default: true },
-  closeable: { type: Boolean, default: false },
-  color: { type: String, default: '' },
-  outline: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  icon: { type: String, default: '' },
-  disabled: { type: Boolean, default: false },
-  square: { type: Boolean, default: false },
-  tag: { type: String, default: 'span' },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
-    },
-  },
-})
 
 @Component({
   name: 'VaTag',
@@ -81,8 +61,24 @@ export default class VaTag extends Mixins(
   RouterLinkMixin,
   StatefulMixin,
   ColorThemeMixin,
-  TagPropsMixin,
 ) {
+  @Prop({ type: Boolean, default: true }) value!: string
+  @Prop({ type: Boolean, default: false }) closeable!: string
+  @Prop({ type: String, default: '' }) color!: string
+  @Prop({ type: Boolean, default: false }) outline!: string
+  @Prop({ type: Boolean, default: false }) flat!: string
+  @Prop({ type: String, default: '' }) icon!: string
+  @Prop({ type: Boolean, default: false }) disabled!: string
+  @Prop({ type: Boolean, default: false }) square!: string
+  @Prop({ type: String, default: 'span' }) tag!: string
+  @Prop({
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
+    },
+  }) size!: string
+
   hoverState = false
   focusState = false
 
@@ -98,24 +94,24 @@ export default class VaTag extends Mixins(
       medium: '1rem',
       large: '1.25rem',
     }
-    return size[this.c_size]
+    return size[this.size]
   }
 
   get indexComputed () {
-    return this.c_disabled ? -1 : 0
+    return this.disabled ? -1 : 0
   }
 
   get computedClass () {
     return {
-      'va-tag--small': this.c_size === 'small',
-      'va-tag--large': this.c_size === 'large',
-      'va-tag--square': this.c_square,
-      'va-tag--disabled': this.c_disabled,
+      'va-tag--small': this.size === 'small',
+      'va-tag--large': this.size === 'large',
+      'va-tag--square': this.square,
+      'va-tag--disabled': this.disabled,
     }
   }
 
   get shadowStyle () {
-    if (this.c_flat || this.c_outline) {
+    if (this.flat || this.outline) {
       return
     }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
@@ -130,26 +126,26 @@ export default class VaTag extends Mixins(
     }
 
     if (this.focusState) {
-      if (this.c_outline || this.c_flat) {
+      if (this.outline || this.flat) {
         computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.borderColor = this.outline ? this.colorComputed : ''
         computedStyle.background = getFocusColor(this.colorComputed)
       }
     } else if (this.hoverState) {
-      if (this.c_outline || this.c_flat) {
+      if (this.outline || this.flat) {
         computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.borderColor = this.outline ? this.colorComputed : ''
         computedStyle.background = getHoverColor(this.colorComputed)
       } else {
         computedStyle.boxShadow = this.shadowStyle
       }
     } else {
-      computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : ''
-      computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
-      computedStyle.boxShadow = !this.c_disabled && this.shadowStyle
+      computedStyle.color = this.flat || this.outline ? this.colorComputed : ''
+      computedStyle.borderColor = this.outline ? this.colorComputed : ''
+      computedStyle.boxShadow = !this.disabled && this.shadowStyle
     }
 
-    if (!this.c_outline && !this.c_flat) {
+    if (!this.outline && !this.flat) {
       computedStyle.background = this.colorComputed
     }
 
@@ -170,7 +166,7 @@ export default class VaTag extends Mixins(
   }
 
   close () {
-    if (!this.c_disabled) {
+    if (!this.disabled) {
       this.valueComputed = false
     }
   }

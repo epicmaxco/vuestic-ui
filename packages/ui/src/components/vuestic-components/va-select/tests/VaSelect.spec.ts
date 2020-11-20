@@ -1,52 +1,15 @@
 import { mount, shallowMount } from '@vue/test-utils'
 import VaSelect from '../VaSelect.vue'
-import { testIsConfigProvidedComponent } from '../../../../services/config-transport/testIsConfigProvidedComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { ColorThemeMixin } from '../../../vuestic-mixins/ColorMixin'
 
-// import { testIsFormComponent } from '../../../vuestic-mixins/testIsFormComponent'
-// import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
+// import { testIsFormComponent } from '../../../vuestic-mixins/FormComponent/testIsFormComponent'
+import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 
 describe('VaSelect', () => {
   it('should render without an error', () => {
     const wrapper = mount(VaSelect)
     expect(wrapper.isVueInstance()).toBeTruthy()
-  })
-})
-
-describe('config transport mixin', () => {
-  it('should throw if prop tag does not exist in the context', () => {
-    const props = {
-      tag: 'a',
-    }
-    expect(() => testIsConfigProvidedComponent(VaSelect, props)).toThrow()
-  })
-
-  it('is configurable component', () => {
-    const props = {
-      value: '',
-      label: '',
-      placeholder: '',
-      position: 'bottom',
-      tagMax: 10,
-      tags: false,
-      deletableTags: false,
-      searchable: false,
-      multiple: false,
-      disabled: false,
-      readonly: false,
-      width: 100,
-      maxHeight: '128px',
-      clearValue: '',
-      noOptionsText: 'Items not found',
-      fixed: true,
-      clearable: false,
-      hideSelected: false,
-      allowCreate: false,
-      clearIcon: 'close',
-      dropdownIcon: 'arrow_drop_down',
-    }
-    expect(() => testIsConfigProvidedComponent(VaSelect, props)).not.toThrow()
   })
 
   it('reset() should clear value on single select', async () => {
@@ -89,11 +52,10 @@ describe('config transport mixin', () => {
       testHasColorThemeMixin((VaSelect as unknown) as ColorThemeMixin),
     ).not.toThrow()
   })
-  it('is Form Component', () => {
-    // TODO Reenable after fixing select.
-    // expect(() => testIsFormComponent(VaSelect)).not.toThrow()
-  })
+  // it('is Form Component', () => {
+  //   expect(() => testIsFormComponent(VaSelect)).not.toThrow()
+  // })
   it('has loading mixin', () => {
-    // expect(() => testIsLoadingMixin(VaSelect)).not.toThrow()
+    expect(() => testIsLoadingMixin(VaSelect)).not.toThrow()
   })
 })

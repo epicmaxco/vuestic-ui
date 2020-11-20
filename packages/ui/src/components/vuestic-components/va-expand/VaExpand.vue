@@ -12,18 +12,18 @@
       <slot name="header">
         <div class="va-expand__header__content" :style="contentStyle">
           <va-icon
-            v-if="c_icon"
+            v-if="icon"
             class="va-expand__header__icon"
-            :name="c_icon"
-            :color="c_textColor"
+            :name="icon"
+            :color="textColor"
           />
           <div class="va-expand__header__text">
-            {{ c_header }}
+            {{ header }}
           </div>
           <va-icon
             class="va-expand__header__icon"
             :name="valueProxy ? 'expand_less' : 'expand_more'"
-            :color="c_textColor"
+            :color="textColor"
           />
         </div>
       </slot>
@@ -35,26 +35,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Inject, Ref } from 'vue-property-decorator'
+import { Component, Inject, Mixins, Prop, Ref } from 'vue-property-decorator'
 
-import VaIcon from '../va-icon/VaIcon.vue'
+import VaIcon from '../va-icon'
 
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { getHoverColor } from '../../../services/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
-
-const ExpandPropsMixin = makeConfigTransportMixin({
-  value: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  header: { type: String, default: '' },
-  icon: { type: String, default: '' },
-  solid: { type: Boolean, default: false },
-  color: { type: String, default: '' },
-  textColor: { type: String, default: '' },
-  colorAll: { type: Boolean, default: false },
-})
+import { ExpandGroupService } from '../va-expand-group/VaExpandGroup.vue'
 
 const TEXT_NODE_TYPE = 3
 
@@ -65,7 +54,6 @@ export default class VaExpand extends Mixins(
   KeyboardOnlyFocusMixin,
   StatefulMixin,
   ColorThemeMixin,
-  ExpandPropsMixin,
 ) {
   popout = undefined
   inset = undefined
@@ -76,8 +64,21 @@ export default class VaExpand extends Mixins(
     value: undefined,
   }
 
+  @Prop({ type: Number, default: 0 }) index!: number
+  @Prop({ type: Boolean, default: false }) value!: boolean
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({ type: String, default: '' }) header!: string
+  @Prop({ type: String, default: '' }) icon!: string
+  @Prop({ type: Boolean, default: false }) solid!: boolean
+  @Prop({ type: String, default: '' }) color!: string
+  @Prop({ type: String, default: '' }) textColor!: string
+  @Prop({ type: Boolean, default: false }) colorAll!: boolean
+
   @Inject({
+    from: ExpandGroupService,
     default: () => ({
+      getProps: () => undefined,
+      getState: () => undefined,
       onChildChange: () => undefined,
     }),
   }) readonly accordion!: any
@@ -85,29 +86,34 @@ export default class VaExpand extends Mixins(
   @Ref() readonly body!: HTMLElement
 
   get valueProxy () {
-    if (this.$parent?.$options?.name === 'VaExpandGroup') {
-      return this.valueExpand.value
+    if (!this.accordion.getState()) {
+      return this.valueComputed
     }
-    return this.valueComputed
+
+    return this.valueExpand.value
   }
 
   set valueProxy (value) {
-    if (this.$parent?.$options?.name === 'VaExpandGroup') {
-      this.valueExpand.value = value
-    }
     this.valueComputed = value
-    this.setExpandParams()
+
+    if (this.accordion.getState()) {
+      // @ts-ignore
+      this.valueExpand.value = value
+      this.setExpandParams()
+    }
   }
 
   get computedClasses () {
-    if (this.$parent.$props) {
-      this.popout = this.$parent.$props.popout
-      this.inset = this.$parent.$props.inset
+    const accordionProps = this.accordion.getProps()
+
+    if (accordionProps) {
+      this.popout = accordionProps.popout
+      this.inset = accordionProps.inset
     }
     return {
-      'va-expand--disabled': this.c_disabled,
-      'va-expand--solid': this.c_solid,
-      'va-expand--active': this.c_solid && this.valueProxy,
+      'va-expand--disabled': this.disabled,
+      'va-expand--solid': this.solid,
+      'va-expand--active': this.solid && this.valueProxy,
       'va-expand--popout': this.popout && this.valueProxy,
       'va-expand--inset': this.inset && this.valueProxy,
     }
@@ -115,9 +121,9 @@ export default class VaExpand extends Mixins(
 
   get contentStyle () {
     return {
-      paddingLeft: this.c_icon && 0,
-      color: this.c_textColor ? getColor(this.c_textColor) : '',
-      backgroundColor: this.c_color ? this.colorComputed : '',
+      paddingLeft: this.icon && 0,
+      color: this.textColor ? (this as any).getColor(this.textColor) : '',
+      backgroundColor: this.color ? this.colorComputed : '',
       boxShadow: this.isKeyboardFocused ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
     }
   }
@@ -128,7 +134,7 @@ export default class VaExpand extends Mixins(
         height: this.height + 'px',
         transitionDuration: this.transitionDuration + 's',
         background:
-          this.c_color && this.c_colorAll
+          this.color && this.colorAll
             ? getHoverColor(this.colorComputed)
             : '',
       }
@@ -140,7 +146,7 @@ export default class VaExpand extends Mixins(
   }
 
   get expandIndexComputed () {
-    return this.c_disabled ? -1 : 0
+    return this.disabled ? -1 : 0
   }
 
   onFocus () {
@@ -150,7 +156,8 @@ export default class VaExpand extends Mixins(
 
   changeValue () {
     this.valueProxy = !this.valueProxy
-    this.accordion.onChildChange(this, this.valueProxy)
+
+    this.accordion.onChildChange(this.index, this.valueProxy)
   }
 
   getHeight () {
@@ -170,8 +177,7 @@ export default class VaExpand extends Mixins(
     const range = document.createRange()
     range.selectNodeContents(textNode)
     const rect = range.getBoundingClientRect()
-    const height = rect.bottom - rect.top
-    return height
+    return rect.bottom - rect.top
   }
 
   setExpandParams () {
@@ -179,7 +185,20 @@ export default class VaExpand extends Mixins(
     this.transitionDuration = this.getTransitionDuration()
   }
 
+  updateValue () {
+    const state = this.accordion.getState()
+    if (state) {
+      this.valueProxy = state[this.index]
+    }
+  }
+
+  updated () {
+    this.updateValue()
+  }
+
   mounted () {
+    this.updateValue()
+
     this.mutationObserver = new MutationObserver(() => {
       this.setExpandParams()
     })

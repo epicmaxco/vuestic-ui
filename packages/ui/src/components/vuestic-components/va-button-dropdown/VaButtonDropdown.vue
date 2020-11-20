@@ -1,58 +1,60 @@
 <template>
   <div :class="computedClass">
     <va-dropdown
-      v-if="!c_split"
-      :disabled="c_disabled"
-      :position="c_position"
+      v-if="!split"
+      :disabled="disabled"
+      :position="position"
       @input="toggleDropdown"
     >
-      <va-button
-        slot="anchor"
-        :size="c_size"
-        :flat="c_flat"
-        :outline="c_outline"
-        :disabled="c_disabled"
-        :color="c_color"
-        :icon-right="computedIcon"
-        @click="click"
-      >
-        <slot name="label">
-          {{ c_label }}
-        </slot>
-      </va-button>
+      <template #anchor>
+        <va-button
+          :size="size"
+          :flat="flat"
+          :outline="outline"
+          :disabled="disabled"
+          :color="color"
+          :icon-right="computedIcon"
+          @click="click"
+        >
+          <slot name="label">
+            {{ label }}
+          </slot>
+        </va-button>
+      </template>
       <div class="va-button-dropdown__content">
         <slot />
       </div>
     </va-dropdown>
     <va-button-group v-else>
       <va-button
-        :size="c_size"
-        :flat="c_flat"
-        :outline="c_outline"
-        :disabled="c_disabled || c_disableButton"
-        :color="c_color"
-        :to="c_splitTo"
+        :size="size"
+        :flat="flat"
+        :outline="outline"
+        :disabled="disabled || disableButton"
+        :color="color"
+        :to="splitTo"
         @click="mainButtonClick"
       >
         <slot name="label">
-          {{ c_label }}
+          {{ label }}
         </slot>
       </va-button>
       <va-dropdown
-        :disabled="c_disabled || c_disableDropdown"
-        :position="c_position"
+        :disabled="disabled || disableDropdown"
+        :position="position"
         @input="toggleDropdown"
       >
-        <va-button
-          :size="c_size"
-          :flat="c_flat"
-          :outline="c_outline"
-          :disabled="c_disabled || c_disableDropdown"
-          :color="c_color"
-          :icon="computedIcon"
-          slot="anchor"
-          @click="click"
-        />
+        <template #anchor>
+          <va-button
+            :size="size"
+            :flat="flat"
+            :outline="outline"
+            :disabled="disabled || disableDropdown"
+            :color="color"
+            :icon="computedIcon"
+            @click="click"
+          />
+        </template>
         <div class="va-button-dropdown__content">
           <slot />
         </div>
@@ -62,37 +64,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Inject } from 'vue-property-decorator'
+import { Component, Mixins, Inject, Prop } from 'vue-property-decorator'
 
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
-import VaButton from '../va-button/VaButton.vue'
-import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
-
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
+import VaDropdown from '../va-dropdown'
+import VaButton from '../va-button'
+import VaButtonGroup from '../va-button-group'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-
-const ButtonPropsMixin = makeConfigTransportMixin({
-  value: { type: Boolean },
-  outline: { type: Boolean, default: false },
-  disableButton: { type: Boolean, default: false },
-  disableDropdown: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
-    },
-  },
-  split: { type: Boolean },
-  splitTo: { type: String, default: '' },
-  icon: { type: String, default: 'expand_more' },
-  openedIcon: { type: String, default: 'expand_less' },
-  position: { type: String, default: 'bottom' },
-  label: { type: String },
-})
 
 @Component({
   name: 'VaButtonDropdown',
@@ -100,7 +78,6 @@ const ButtonPropsMixin = makeConfigTransportMixin({
 })
 export default class VaButtonDropdown extends Mixins(
   SizeMixin,
-  ButtonPropsMixin,
   ColorThemeMixin,
 ) {
   @Inject({
@@ -109,19 +86,41 @@ export default class VaButtonDropdown extends Mixins(
 
   showDropdown = false
 
+  @Prop({ type: Boolean, default: false }) value!: boolean
+  @Prop({ type: Boolean, default: false }) outline!: boolean
+  @Prop({ type: Boolean, default: false }) disableButton!: boolean
+  @Prop({ type: Boolean, default: false }) disableDropdown!: boolean
+  @Prop({ type: Boolean, default: false }) flat!: boolean
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({
+    type: String,
+    default: 'medium',
+    validator: (value: string) => {
+      return ['medium', 'small', 'large'].includes(value)
+    },
+  },
+  ) size!: string
+
+  @Prop({ type: Boolean, default: false }) split!: boolean
+  @Prop({ type: String, default: '' }) splitTo!: string
+  @Prop({ type: String, default: 'expand_more' }) icon!: string
+  @Prop({ type: String, default: 'expand_less' }) openedIcon!: string
+  @Prop({ type: String, default: 'bottom' }) position!: string
+  @Prop({ type: String, default: '' }) label!: string
+
   get computedIcon (): string {
     const propsData: any = this.$options.propsData
-    const resultedIcon = propsData.openedIcon || (propsData.icon ? this.c_icon : this.c_openedIcon)
-    return this.showDropdown ? resultedIcon : this.c_icon
+    const resultedIcon = propsData.openedIcon || (propsData.icon ? this.icon : this.openedIcon)
+    return this.showDropdown ? resultedIcon : this.icon
   }
 
   get computedClass () {
     return {
       'va-button-dropdown': true,
-      'va-button-dropdown--split': this.c_split,
-      'va-button-dropdown--normal': this.c_size === 'normal',
-      'va-button-dropdown--large': this.c_size === 'large',
-      'va-button-dropdown--small': this.c_size === 'small',
+      'va-button-dropdown--split': this.split,
+      'va-button-dropdown--normal': this.size === 'normal',
+      'va-button-dropdown--large': this.size === 'large',
+      'va-button-dropdown--small': this.size === 'small',
     }
   }
 

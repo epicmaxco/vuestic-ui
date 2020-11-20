@@ -1,30 +1,32 @@
-import { Watch, Component, Mixins } from 'vue-property-decorator'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const componentProps = {
-  value: {
-    type: undefined,
-    default: undefined,
-  },
-  stateful: {
-    type: Boolean,
-    default: false,
-  },
-}
-
-const PropsMixin = makeConfigTransportMixin(componentProps)
+import { Watch, Component, Prop, Vue } from 'vue-property-decorator'
 
 // TODO Definitions could be done better, but it's too complicated to bother.
 
+type ValueState = {
+  value?: string | boolean | number | any[];
+}
+
 @Component
-export class StatefulMixin extends Mixins(PropsMixin) {
-  valueState = {
+export class StatefulMixin extends Vue {
+  setup () {
+    return {
+      hasStatefulMixin: true,
+    }
+  }
+
+  valueState: ValueState = {
     value: undefined,
   }
 
-  created () {
-    this.hasStatefulMixin = true
-  }
+  @Prop({
+    type: undefined,
+    default: undefined,
+  }) value?: any
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) stateful?: boolean
 
   @Watch('value', { immediate: true })
   onValueChange () {

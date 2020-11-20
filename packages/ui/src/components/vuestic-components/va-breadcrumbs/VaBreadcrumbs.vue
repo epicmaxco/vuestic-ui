@@ -1,21 +1,12 @@
 <script lang="ts">
-import { Mixins, Component } from 'vue-property-decorator'
-
-import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
-
-import { hasOwnProperty } from '../../../services/utils'
 import { VNode, VNodeChildren } from 'vue'
 import { RecordPropsDefinition } from 'vue/types/options'
+import { Mixins, Component, Prop } from 'vue-property-decorator'
+
+import { hasOwnProperty } from '../../../services/utils'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const BreadcrumbsPropsMixin = makeConfigTransportMixin({
-  separator: { type: String, default: '/' },
-  color: { type: String, default: 'gray' },
-  activeColor: { type: String, default: null },
-  separatorColor: { type: String, default: null },
-})
+import VaBreadcrumbsItem from './VaBreadcrumbsItem.vue'
 
 @Component({
   name: 'VaBreadcrumbs',
@@ -23,18 +14,22 @@ const BreadcrumbsPropsMixin = makeConfigTransportMixin({
 export default class VaBreadcrumbs extends Mixins(
   ColorThemeMixin,
   AlignMixin,
-  BreadcrumbsPropsMixin,
 ) {
+  @Prop({ type: String, default: '/' }) separator!: string
+  @Prop({ type: String, default: 'gray' }) color!: string
+  @Prop({ type: String, default: null }) activeColor!: string
+  @Prop({ type: String, default: null }) separatorColor!: string
+
   get computedStyles () {
     return this.alignComputed
   }
 
   get computedThemesSeparatorColor () {
-    return this.separatorColor ? this.computeColor(this.c_separatorColor) : this.colorComputed
+    return this.separatorColor ? this.computeColor(this.separatorColor) : this.colorComputed
   }
 
   get computedThemesActiveColor () {
-    return this.activeColor ? this.computeColor(this.c_activeColor) : this.colorComputed
+    return this.activeColor ? this.computeColor(this.activeColor) : this.colorComputed
   }
 
   render (createElement: Vue.CreateElement) {
@@ -51,7 +46,6 @@ export default class VaBreadcrumbs extends Mixins(
       'span',
       {
         staticClass: 'va-breadcrumbs__separator',
-        class: this.computedClass,
         style: {
           color: this.computedThemesSeparatorColor,
         },

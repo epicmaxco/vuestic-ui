@@ -512,8 +512,8 @@
 
 <script>
 
-import VaButtonGroup from './VaButtonGroup'
-import VaButton from '../va-button/VaButton'
+import VaButtonGroup from './index'
+import VaButton from '../va-button'
 
 export default {
   data () {

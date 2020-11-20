@@ -186,10 +186,10 @@
 </template>
 
 <script>
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaAlert from './VaAlert'
-import VaBadge from '../va-badge/VaBadge'
-import VaIcon from '../va-icon/VaIcon'
+import VaCheckbox from '../va-checkbox/'
+import VaAlert from './index'
+import VaBadge from '../va-badge/'
+import VaIcon from '../va-icon/'
 
 export default {
   components: {

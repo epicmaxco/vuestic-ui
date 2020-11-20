@@ -1,25 +1,27 @@
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { getProp } from '../../../services/utils'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 
-const componentProps = {
-  options: { type: Array, default: () => [] },
-  textBy: { type: [String, Function], default: 'text' },
-  valueBy: { type: [String, Function] },
-  trackBy: { type: [String, Function], default: 'value' },
-  disabledBy: { type: [String, Function], default: 'disabled' },
-}
-
-const PropsMixin = makeConfigTransportMixin(componentProps)
+type Function = (...args: any[]) => any
 
 @Component
 export class SelectableListMixin extends Mixins(
   FormComponentMixin,
-  PropsMixin,
 ) {
+  @Prop({ type: Array, default: () => [] }) options!: any[]
+  @Prop({ type: [String, Function], default: 'text' }) textBy!: string | Function
+  @Prop({ type: [String, Function] }) valueBy!: string | Function
+  @Prop({ type: [String, Function], default: 'value' }) trackBy!: string | Function
+  @Prop({ type: [String, Function], default: 'disabled' }) disabledBy!: string | Function
+
+  setup (): any {
+    return {
+      isSelectableListComponent: true,
+    }
+  }
+
   created () {
-    this.isSelectableListComponent = true
+    (this as any).isSelectableListComponent = true
   }
 
   getValue (option: any) {

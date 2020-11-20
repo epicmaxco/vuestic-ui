@@ -24,26 +24,21 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-const props = {
-  disabled: {
+@Component
+export default class VaBreadcrumbsItem extends Mixins(RouterLinkMixin) {
+  @Prop({
     type: Boolean,
     default: false,
-  },
-  label: {
+  }) readonly disabled!: string
+
+  @Prop({
     type: String,
     default: '',
-  },
-}
+  }) readonly label!: string
 
-const ContextableMixin = makeConfigTransportMixin(props)
-
-@Component({})
-export default class VaBreadcrumbsItem extends Mixins(RouterLinkMixin, ContextableMixin) {
   get isDisabled () {
     return this.disabled || !this.hasRouterLinkParams
   }

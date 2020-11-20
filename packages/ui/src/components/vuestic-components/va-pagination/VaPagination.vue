@@ -6,38 +6,38 @@
     <va-button
       v-if="showBoundaryLinks"
       outline
-      :color="c_color"
-      :size="c_size"
-      :disabled="c_disabled || currentValue === 1"
-      :icon="c_boundaryIconLeft"
+      :color="color"
+      :size="size"
+      :disabled="disabled || currentValue === 1"
+      :icon="boundaryIconLeft"
       @click="onUserInput(1)"
-      :flat="c_flat"
+      :flat="flat"
     />
     <va-button
       v-if="showDirectionLinks"
       outline
-      :color="c_color"
-      :size="c_size"
-      :disabled="c_disabled || currentValue === 1"
-      :icon="c_directionIconLeft"
+      :color="color"
+      :size="size"
+      :disabled="disabled || currentValue === 1"
+      :icon="directionIconLeft"
       @click="onUserInput(currentValue - 1)"
-      :flat="c_flat"
+      :flat="flat"
     />
-    <slot v-if="!c_input">
+    <slot v-if="!input">
       <va-button
         :style="activeButtonStyle(n)"
         outline
         v-for="(n, key) in paginationRange"
         :key="key"
-        :color="c_color"
-        :size="c_size"
-        :disabled="c_disabled || n === '...'"
+        :color="color"
+        :size="size"
+        :disabled="disabled || n === '...'"
         :class="{
           'va-button--ellipsis': n === '...',
         }"
 
         @click="onUserInput(n)"
-        :flat="c_flat"
+        :flat="flat"
       >
         {{ n }}
       </va-button>
@@ -48,75 +48,50 @@
       class="va-pagination__input va-button"
       :style="{
         cursor: 'default',
-        color: computeColor(c_color),
-        opacity: c_disabled ? 0.4 : 1
+        color: computeColor(color),
+        opacity: disabled ? 0.4 : 1
       }"
-      :class="{ 'va-pagination__input--flat': c_flat }"
+      :class="{ 'va-pagination__input--flat': flat }"
       @keydown.enter="changeValue"
       @focus="focusInput"
       @blur="changeValue"
-      :disabled="c_disabled"
+      :disabled="disabled"
       :placeholder="`${currentValue}/${lastPage}`"
       v-model="inputValue"
     />
     <va-button
       v-if="showDirectionLinks"
       outline
-      :color="c_color"
-      :size="c_size"
-      :disabled="c_disabled || currentValue === lastPage"
-      :icon="c_directionIconRight"
+      :color="color"
+      :size="size"
+      :disabled="disabled || currentValue === lastPage"
+      :icon="directionIconRight"
       @click="onUserInput(currentValue + 1)"
-      :flat="c_flat"
+      :flat="flat"
     />
     <va-button
       v-if="showBoundaryLinks"
       outline
-      :color="c_color"
-      :size="c_size"
-      :disabled="c_disabled || currentValue === lastPage"
-      :icon="c_boundaryIconRight"
-      :flat="c_flat"
+      :color="color"
+      :size="size"
+      :disabled="disabled || currentValue === lastPage"
+      :icon="boundaryIconRight"
+      :flat="flat"
       @click="onUserInput(lastPage)"
     />
   </va-button-group>
 </template>
 
 <script lang="ts">
-import { Watch, Ref, Component, Mixins } from 'vue-property-decorator'
+import { Watch, Ref, Component, Mixins, Prop } from 'vue-property-decorator'
 
-import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
-import VaButton from '../va-button/VaButton.vue'
-import VaInput from '../va-input/VaInput.vue'
+import VaButtonGroup from '../va-button-group'
+import VaButton from '../va-button'
+import VaInput from '../va-input'
 
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { setPaginationRange } from './setPaginationRange'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const PaginationPropsMixin = makeConfigTransportMixin({
-  value: { type: Number, default: 1 },
-  visiblePages: { type: Number, default: 0 },
-  pages: { type: Number, default: 0 },
-  disabled: { type: Boolean, default: false },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: (v: string) => ['medium', 'small', 'large'].includes(v),
-  },
-  boundaryLinks: { type: Boolean, default: true },
-  boundaryNumbers: { type: Boolean, default: false },
-  directionLinks: { type: Boolean, default: true },
-  input: { type: Boolean, default: false },
-  hideOnSinglePage: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  total: { type: Number, default: null },
-  pageSize: { type: Number, default: null },
-  boundaryIconLeft: { type: String, default: 'first_page' },
-  boundaryIconRight: { type: String, default: 'last_page' },
-  directionIconLeft: { type: String, default: 'chevron_left' },
-  directionIconRight: { type: String, default: 'chevron_right' },
-})
 
 @Component({
   name: 'VaPagination',
@@ -129,53 +104,77 @@ const PaginationPropsMixin = makeConfigTransportMixin({
 export default class VaPagination extends Mixins(
   StatefulMixin,
   ColorThemeMixin,
-  PaginationPropsMixin,
 ) {
   inputValue = ''
+
+  @Prop({ type: Number, default: 1 }) value!: number
+  @Prop({ type: Number, default: 0 }) visiblePages!: number
+  @Prop({ type: Number, default: 0 }) pages!: number
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({
+    type: String,
+    default: 'medium',
+    validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+  }) size!: string
+
+  @Prop({ type: Boolean, default: true }) boundaryLinks!: boolean
+  @Prop({ type: Boolean, default: false }) boundaryNumbers!: boolean
+  @Prop({ type: Boolean, default: true }) directionLinks!: boolean
+  @Prop({ type: Boolean, default: false }) input!: boolean
+  @Prop({ type: Boolean, default: false }) hideOnSinglePage!: boolean
+  @Prop({ type: Boolean, default: false }) flat!: string
+  @Prop({ type: Number, default: null }) total!: number
+  @Prop({ type: Number, default: null }) pageSize!: number
+  @Prop({ type: String, default: 'first_page' }) boundaryIconLeft!: string
+  @Prop({ type: String, default: 'last_page' }) boundaryIconRight!: string
+  @Prop({ type: String, default: 'chevron_left' }) directionIconLeft!: string
+  @Prop({ type: String, default: 'chevron_right' }) directionIconRight!: string
 
   @Ref() readonly htmlInput!: HTMLInputElement
 
   get lastPage () {
-    const { c_total, c_pageSize, c_pages } = this
+    const { total, pageSize, pages } = this
     return this.useTotal
-      ? Math.ceil(c_total / c_pageSize) || 1
-      : c_pages
+      ? Math.ceil(total / pageSize) || 1
+      : pages
   }
 
   get paginationRange () {
-    const { c_visiblePages, c_total, c_pageSize, c_boundaryNumbers, c_pages } = this
+    const { visiblePages, total, pageSize, boundaryNumbers, pages } = this
     const value = this.currentValue || 1
-    const totalPages = this.useTotal ? Math.ceil(c_total / c_pageSize) : c_pages
-    return setPaginationRange(value, c_visiblePages, totalPages, c_boundaryNumbers)
+    const totalPages = this.useTotal ? Math.ceil(total / pageSize) : pages
+    return setPaginationRange(value as number, visiblePages, totalPages, boundaryNumbers)
   }
 
   get showBoundaryLinks () {
-    const { c_visiblePages, c_boundaryLinks, c_boundaryNumbers, c_input } = this
-    return c_input ||
-      ((c_visiblePages && this.lastPage > c_visiblePages) && c_boundaryLinks && !c_boundaryNumbers)
+    const { visiblePages, boundaryLinks, boundaryNumbers, input } = this
+    return input ||
+      ((visiblePages && this.lastPage > visiblePages) && boundaryLinks && !boundaryNumbers)
   }
 
   get showDirectionLinks () {
-    const { c_visiblePages, c_directionLinks, c_input } = this
-    return c_input || ((c_visiblePages && this.lastPage > c_visiblePages) && c_directionLinks)
+    const { visiblePages, directionLinks, input } = this
+    return input || ((visiblePages && this.lastPage > visiblePages) && directionLinks)
   }
 
   get showPagination () {
-    return this.lastPage > 1 || (!this.c_hideOnSinglePage && this.lastPage <= 1)
+    return this.lastPage > 1 || (!this.hideOnSinglePage && this.lastPage <= 1)
   }
 
   get fontColor () {
-    return this.computeColor(this.c_color)
+    // @ts-ignore
+    return this.computeColor(this.color)
   }
 
   get useTotal () {
-    const { c_total, c_pageSize } = this
-    return !!((c_total || c_total === 0) && c_pageSize)
+    const { total, pageSize } = this
+    return !!((total || total === 0) && pageSize)
   }
 
   get currentValue () {
     if (this.useTotal) {
-      return Math.ceil(this.valueComputed / this.c_pageSize) || 1
+      // @ts-ignore
+      return Math.ceil(this.valueComputed / this.pageSize) || 1
     } else {
       return this.valueComputed
     }
@@ -188,7 +187,7 @@ export default class VaPagination extends Mixins(
   @Watch('useTotal', { immediate: true })
   @Watch('pages', { immediate: true })
   onModeChange () {
-    if (this.useTotal && this.c_pages) {
+    if (this.useTotal && this.pages) {
       if (process.env.NODE_ENV !== 'production') {
         throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
       }
@@ -197,6 +196,7 @@ export default class VaPagination extends Mixins(
 
   focusInput () {
     const { currentValue, $nextTick } = this
+    // @ts-ignore
     this.inputValue = currentValue
     $nextTick(() => this.htmlInput.setSelectionRange(0, this.htmlInput.value.length))
   }
@@ -206,7 +206,7 @@ export default class VaPagination extends Mixins(
       return
     }
     this.currentValue = this.useTotal
-      ? (pageNum - 1) * this.c_pageSize + 1
+      ? (pageNum - 1) * this.pageSize + 1
       : pageNum
   }
 
@@ -227,6 +227,7 @@ export default class VaPagination extends Mixins(
         pageNum = this.lastPage
         break
       case isNaN(pageNum):
+        // @ts-ignore
         pageNum = this.currentValue
         break
       default:

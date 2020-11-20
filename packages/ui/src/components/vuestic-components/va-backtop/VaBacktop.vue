@@ -8,88 +8,86 @@
     <slot>
       <va-button
         icon="expand_less"
-        :color="c_color"
+        :color="color"
       />
     </slot>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import VaButton from '../va-button/VaButton.vue'
 
-const PropsMixin = makeConfigTransportMixin({
-  target: { type: [Element, String, Window], default: () => window },
-  visibilityHeight: { type: Number, default: 300 },
-  speed: { type: Number, default: 50 },
-  verticalOffset: { type: String, default: '1rem' },
-  horizontalOffset: { type: String, default: '1rem' },
-  color: { type: String, default: '' },
-  horizontalPosition: {
+@Component({
+  name: 'VaBacktop',
+  components: { VaButton },
+})
+export default class VaBacktop extends Vue {
+  visible = false
+  scrolled = false
+  interval = 0
+
+  @Prop({ type: [Element, String, Window], default: () => window }) target!: string | Element
+  @Prop({ type: Number, default: 300 }) visibilityHeight!: number
+  @Prop({ type: Number, default: 50 }) speed!: number
+  @Prop({ type: String, default: '1rem' }) verticalOffset!: string
+  @Prop({ type: String, default: '1rem' }) horizontalOffset!: string
+  @Prop({ type: String, default: '' }) color!: string
+  @Prop({
     type: String,
     default: 'right',
     validator: (value: string) => {
       return ['right', 'left'].includes(value)
     },
   },
-  verticalPosition: {
+  ) horizontalPosition!: string
+
+  @Prop({
     type: String,
     default: 'bottom',
     validator: (value: string) => {
       return ['bottom', 'top'].includes(value)
     },
   },
-})
-
-@Component({
-  name: 'VaBacktop',
-  components: { VaButton },
-})
-export default class VaBacktop extends Mixins(
-  PropsMixin,
-) {
-  visible = false
-  scrolled = false
-  interval = 0
+  ) verticalPosition!: string
 
   get computedStyle (): object {
     return {
-      [this.c_verticalPosition]: this.c_verticalOffset,
-      [this.c_horizontalPosition]: this.c_horizontalOffset,
+      [this.verticalPosition]: this.verticalOffset,
+      [this.horizontalPosition]: this.horizontalOffset,
     }
   }
 
-  get targetElement (): Element {
-    return typeof this.c_target === 'string'
-      ? document.querySelector(this.c_target)
-      : this.c_target || this.$el.parentElement
+  get targetElement (): Element | null {
+    return typeof this.target === 'string'
+      ? document.querySelector(this.target)
+      : this.target || this.$el.parentElement
   }
 
   handleScroll (): void {
-    this.visible = this.targetElement.scrollTop > this.visibilityHeight
+    this.visible = (this.targetElement as Element).scrollTop > this.visibilityHeight
   }
 
   scrollToTop (): void {
     if (this.scrolled) { return }
     this.scrolled = true
     this.interval = window.setInterval(() => {
-      const next = Math.floor(this.targetElement.scrollTop - this.c_speed)
-      if (this.targetElement.scrollTop === 0) {
+      const next = Math.floor((this.targetElement as Element).scrollTop - this.speed)
+      if (this.targetElement?.scrollTop === 0) {
         clearInterval(this.interval)
         this.scrolled = false
       } else {
-        this.targetElement.scrollTo(0, next)
+        (this.targetElement as Element).scrollTo(0, next)
       }
     }, 15)
   }
 
   mounted () {
-    this.targetElement.addEventListener('scroll', this.handleScroll)
+    (this.targetElement as Element).addEventListener('scroll', this.handleScroll)
   }
 
   beforeDestroy () {
-    this.targetElement.removeEventListener('scroll', this.handleScroll)
+    (this.targetElement as Element).removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>

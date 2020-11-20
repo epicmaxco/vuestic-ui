@@ -2,19 +2,19 @@
   <div class="va-modal">
     <transition
       name="va-modal__overlay--transition"
-      :duration="c_withoutTransitions ? 0 : 300"
-      :appear="c_withoutTransitions ? false : true"
+      :duration="withoutTransitions ? 0 : 300"
+      :appear="withoutTransitions"
     >
       <div
-        v-if="valueComputed && c_overlay"
+        v-if="valueComputed && overlay"
         class="va-modal__overlay"
         :style="computedOverlayStyles"
       />
     </transition>
     <transition
       name="va-modal__container--transition"
-      :duration="c_withoutTransitions ? 0 : 300"
-      :appear="c_withoutTransitions ? false : true"
+      :duration="withoutTransitions ? 0 : 300"
+      :appear="withoutTransitions"
       @beforeEnter="onBeforeEnterTransition"
       @afterEnter="onAfterEnterTransition"
       @beforeLeave="onBeforeLeaveTransition"
@@ -28,11 +28,11 @@
         <div
           class="va-modal__dialog"
           :class="computedClass"
-          :style="{ maxWidth: c_maxWidth, maxHeight: c_maxHeight }"
+          :style="{ maxWidth, maxHeight }"
           ref="modal"
         >
           <va-icon
-            v-if="c_fullscreen"
+            v-if="fullscreen"
             @click="cancel"
             name="close"
             class="va-modal__close"
@@ -40,33 +40,33 @@
 
           <div
             class="va-modal__inner"
-            :style="{ maxWidth: c_maxWidth, maxHeight: c_maxHeight }"
+            :style="{ maxWidth, maxHeight }"
           >
             <div
-              v-if="c_title"
+              v-if="title"
               class="va-modal__title"
               :style="{ color: this.theme.primary }"
             >
-              {{ c_title }}
+              {{ title }}
             </div>
             <div v-if="hasHeaderSlot" class="va-modal__header">
               <slot name="header" />
             </div>
-            <div v-if="c_message" class="va-modal__message">
-              {{ c_message }}
+            <div v-if="message" class="va-modal__message">
+              {{ message }}
             </div>
             <div v-if="hasContentSlot" class="va-modal__message">
               <slot />
             </div>
             <div
-              v-if="(c_cancelText || c_okText) && !c_hideDefaultActions"
+              v-if="(cancelText || okText) && !hideDefaultActions"
               class="va-modal__footer"
             >
-              <va-button v-if="c_cancelText" color="gray" flat @click="cancel">
-                {{ c_cancelText }}
+              <va-button v-if="cancelText" color="gray" flat @click="cancel">
+                {{ cancelText }}
               </va-button>
               <va-button @click="ok">
-                {{ c_okText }}
+                {{ okText }}
               </va-button>
             </div>
             <div v-if="hasFooterSlot" class="va-modal__footer">
@@ -80,46 +80,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch, Mixins } from 'vue-property-decorator'
+import { Component, Watch, Mixins, Prop } from 'vue-property-decorator'
 import { noop } from 'lodash'
 
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import ClickOutsideMixin, {
   ClickOutsideOptions,
 } from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'
-import { getTheme } from '../../../services/Theme'
-
-const ModalPropsMixin = makeConfigTransportMixin({
-  value: { type: Boolean, default: false },
-  title: { type: String, default: '' },
-  message: { type: String, default: '' },
-  okText: { type: String, default: 'OK' },
-  cancelText: { type: String, default: 'Cancel' },
-  hideDefaultActions: { type: Boolean, default: false },
-  fullscreen: { type: Boolean, default: false },
-  mobileFullscreen: { type: Boolean, default: true },
-  noDismiss: { type: Boolean, default: false },
-  noOutsideDismiss: { type: Boolean, default: false },
-  noEscDismiss: { type: Boolean, default: false },
-  maxWidth: { type: String, default: '' },
-  maxHeight: { type: String, default: '' },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: (size: string) => {
-      return ['medium', 'small', 'large'].includes(size)
-    },
-  },
-  fixedLayout: { type: Boolean, default: false },
-  withoutTransitions: { type: Boolean, default: false },
-  overlay: { type: Boolean, default: true },
-  overlayOpacity: { type: [Number, String], default: undefined },
-  zIndex: { type: [Number, String], default: undefined },
-})
+import { useTheme } from '../../../services/Theme'
 
 @Component({
   name: 'VaModal',
@@ -128,16 +99,46 @@ const ModalPropsMixin = makeConfigTransportMixin({
 export default class VaModal extends Mixins(
   StatefulMixin,
   ClickOutsideMixin,
-  ModalPropsMixin,
 ) {
   private clearClickOutsideEvents: () => void = noop
 
+  @Prop({ type: String, default: '' }) title?: string
+  @Prop({ type: String, default: '' }) message?: string
+  @Prop({ type: String, default: 'OK' }) okText?: string
+  @Prop({ type: String, default: 'Cancel' }) cancelText?: string
+  @Prop({ type: Boolean, default: false }) hideDefaultActions?: boolean
+  @Prop({ type: Boolean, default: false }) fullscreen?: boolean
+  @Prop({ type: Boolean, default: true }) mobileFullscreen?: boolean
+  @Prop({ type: Boolean, default: false }) noDismiss?: boolean
+  @Prop({ type: Boolean, default: false }) noOutsideDismiss?: boolean
+  @Prop({ type: Boolean, default: false }) noEscDismiss?: boolean
+  @Prop({ type: String, default: '' }) maxWidth?: string
+  @Prop({ type: String, default: '' }) maxHeight?: string
+  @Prop({
+    type: String,
+    default: 'medium',
+    validator: (size: string) => {
+      return ['medium', 'small', 'large'].includes(size)
+    },
+  }) size?: string
+
+  @Prop({ type: Boolean, default: false }) fixedLayout?: boolean
+  @Prop({ type: Boolean, default: false }) withoutTransitions?: boolean
+  @Prop({ type: Boolean, default: true }) overlay?: boolean
+  @Prop({ type: [Number, String], default: undefined }) overlayOpacity?: number | string
+  @Prop({ type: [Number, String], default: undefined }) zIndex?: number | string
+
+  // todo: proper definition for setup?
+  setup (): any {
+    return useTheme()
+  }
+
   get computedClass () {
     return {
-      'va-modal--fullscreen': this.c_fullscreen,
-      'va-modal--mobile-fullscreen': this.c_mobileFullscreen,
-      'va-modal--fixed-layout': this.c_fixedLayout,
-      [`va-modal--size-${this.c_size}`]: this.c_size !== 'medium',
+      'va-modal--fullscreen': this.fullscreen,
+      'va-modal--mobile-fullscreen': this.mobileFullscreen,
+      'va-modal--fixed-layout': this.fixedLayout,
+      [`va-modal--size-${this.size}`]: this.size !== 'medium',
     }
   }
 
@@ -153,15 +154,15 @@ export default class VaModal extends Mixins(
     return moreThanOneModalIsOpen
       ? {}
       : {
-        'background-color': `rgba(0, 0, 0, ${this.c_overlayOpacity || 0.6})`,
+        'background-color': `rgba(0, 0, 0, ${this.overlayOpacity || 0.6})`,
         'z-index':
-          this.c_zIndex != null ? parseInt(this.c_zIndex) - 10 : undefined,
+          this.zIndex != null ? parseInt(this.zIndex as string) - 10 : undefined,
       }
   }
 
   get computedModalContainerStyle () {
     return {
-      'z-index': this.c_zIndex,
+      'z-index': this.zIndex,
     }
   }
 
@@ -178,7 +179,7 @@ export default class VaModal extends Mixins(
   }
 
   get theme () {
-    return getTheme()
+    return (this as any).getTheme()
   }
 
   @Watch('valueComputed')
@@ -191,7 +192,7 @@ export default class VaModal extends Mixins(
           this.$emit('clickOutside')
           this.cancel()
         },
-        disabled: this.c_noOutsideDismiss || this.c_noDismiss,
+        disabled: this.noOutsideDismiss || this.noDismiss || false,
         trigger: 'mousedown',
       }
 
@@ -209,7 +210,7 @@ export default class VaModal extends Mixins(
   }
 
   setStateOrEmit (value: boolean) {
-    if (this.c_stateful) {
+    if (this.stateful) {
       this.valueComputed = value
     } else {
       this.$emit('input', value)
@@ -239,7 +240,7 @@ export default class VaModal extends Mixins(
   }
 
   listenKeyUp (e: KeyboardEvent) {
-    if (e.code === 'Escape' && !this.c_noEscDismiss && !this.c_noDismiss) {
+    if (e.code === 'Escape' && !this.noEscDismiss && !this.noDismiss) {
       this.cancel()
     }
   }

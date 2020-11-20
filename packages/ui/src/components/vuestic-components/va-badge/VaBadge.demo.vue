@@ -338,11 +338,11 @@
 </template>
 
 <script>
-import VaBadge from './VaBadge'
-import VaButton from '../va-button/VaButton'
+import VaBadge from './index'
+import VaButton from '../va-button/'
 import VaCard from '../va-card/VaCard'
 import VaCardContent from '../va-card/VaCardContent'
-import VaIcon from '../va-icon/VaIcon'
+import VaIcon from '../va-icon/'
 import BadgeAvatarDemo from './BadgeAvatarDemo'
 
 export default {

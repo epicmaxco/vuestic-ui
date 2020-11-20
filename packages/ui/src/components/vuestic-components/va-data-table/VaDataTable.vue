@@ -46,7 +46,7 @@
 import Vue from 'vue'
 import { Component, Prop, Mixins, Watch } from 'vue-property-decorator'
 import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
-import VaPagination from '../va-pagination/VaPagination.vue'
+import VaPagination from '../va-pagination'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading.vue'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import _sortBy from 'lodash/sortBy'

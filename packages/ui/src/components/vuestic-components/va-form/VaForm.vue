@@ -9,9 +9,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 const getNestedFormElements = (vm: any, elements: any = []) => {
   vm.$children.forEach((child: any) => {
@@ -25,17 +23,13 @@ const getNestedFormElements = (vm: any, elements: any = []) => {
   return elements
 }
 
-const FormPropsMixin = makeConfigTransportMixin({
-  autofocus: { type: Boolean, default: false },
-  tag: { type: String, default: 'div' },
-})
-
 @Component({
   name: 'VaForm',
 })
-export default class VaForm extends Mixins(
-  FormPropsMixin,
-) {
+export default class VaForm extends Vue {
+  @Prop({ type: Boolean, default: false }) autofocus!: boolean
+  @Prop({ type: String, default: 'div' }) tag!: string
+
   mounted () {
     if (this.autofocus) {
       this.focus()

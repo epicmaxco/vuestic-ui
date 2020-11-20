@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 
-import VaButton from '../va-button/VaButton.vue'
+import VaButton from '../va-button'
 
 @Component({
   name: 'VaFileUploadUndo',

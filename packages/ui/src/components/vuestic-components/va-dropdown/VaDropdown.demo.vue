@@ -2,9 +2,11 @@
   <VbDemo>
     <VbCard title="Click">
       <va-dropdown>
-        <button slot="anchor">
-          Activator
-        </button>
+        <template #anchor>
+          <button>
+            Activator
+          </button>
+        </template>
         Dropdown text
       </va-dropdown>
     </VbCard>
@@ -260,7 +262,7 @@
 </template>
 
 <script>
-import VaDropdown from './VaDropdown.vue'
+import VaDropdown from './index'
 import DropdownCloseButton from './__demo__/DropdownCloseButton'
 
 export default {

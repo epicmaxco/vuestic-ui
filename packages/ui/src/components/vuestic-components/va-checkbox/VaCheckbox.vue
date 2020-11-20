@@ -2,9 +2,9 @@
   <va-input-wrapper
     class="va-checkbox"
     :class="computedClass"
-    :disabled="c_disabled"
-    :success="c_success"
-    :messages="c_messages"
+    :disabled="disabled"
+    :success="success"
+    :messages="messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
@@ -33,8 +33,8 @@
           @blur="onBlur($event)"
           class="va-checkbox__input"
           @keypress.prevent="toggleSelection()"
-          :disabled="c_disabled"
-          :indeterminate="c_indeterminate"
+          :disabled="disabled"
+          :indeterminate="indeterminate"
         >
         <va-icon
           class="va-checkbox__icon"
@@ -50,7 +50,7 @@
         @blur="onBlur"
       >
         <slot name="label">
-          {{ c_label }}
+          {{ label }}
         </slot>
       </div>
     </div>
@@ -58,20 +58,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import VaIcon from '../va-icon/VaIcon.vue'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
+import VaIcon from '../va-icon'
+import VaInputWrapper from '../va-input/VaInputWrapper'
 
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-import { getColor } from '../../vuestic-mixins/ColorMixin'
-
-const CheckboxPropsMixin = makeConfigTransportMixin({
-  value: { type: [Boolean, Array, String, Object], default: false },
-  checkedIcon: { type: String, default: 'check' },
-  indeterminateIcon: { type: String, default: 'remove' },
-})
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 @Component({
   name: 'VaCheckbox',
@@ -79,26 +72,30 @@ const CheckboxPropsMixin = makeConfigTransportMixin({
 })
 export default class VaCheckbox extends Mixins(
   SelectableMixin,
-  CheckboxPropsMixin,
+  ColorThemeMixin,
 ) {
+  @Prop({ type: [Boolean, Array, String, Object], default: false }) value!: boolean | any[] | string | object
+  @Prop({ type: String, default: 'check' }) checkedIcon!: string
+  @Prop({ type: String, default: 'remove' }) indeterminateIcon!: string
+
   get computedClass () {
     return {
       'va-checkbox--selected': this.isChecked,
-      'va-checkbox--readonly': this.c_readonly,
-      'va-checkbox--disabled': this.c_disabled,
-      'va-checkbox--indeterminate': this.c_indeterminate,
+      'va-checkbox--readonly': this.readonly,
+      'va-checkbox--disabled': this.disabled,
+      'va-checkbox--indeterminate': this.indeterminate,
       'va-checkbox--error': this.computedError,
-      'va-checkbox--left-label': this.c_leftLabel,
+      'va-checkbox--left-label': this.leftLabel,
       'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
     }
   }
 
   get labelStyle () {
     return {
-      color: this.computedError ? getColor('danger') : '',
-      padding: !this.c_label
+      color: this.computedError ? (this as any).getColor('danger') : '',
+      padding: !this.label
         ? ''
-        : this.c_leftLabel
+        : this.leftLabel
           ? '0 0.25rem 0 0'
           : '0 0 0 0.25rem',
     }
@@ -107,17 +104,17 @@ export default class VaCheckbox extends Mixins(
   get inputStyle () {
     return this.computedError
       ? (this.isChecked || this.isIndeterminate)
-        ? { background: this.colorComputed, borderColor: getColor('danger') }
-        : { borderColor: getColor('danger') }
+        ? { background: this.colorComputed, borderColor: (this as any).getColor('danger') }
+        : { borderColor: (this as any).getColor('danger') }
       : (this.isChecked || this.isIndeterminate)
         ? { background: this.colorComputed, borderColor: this.colorComputed }
         : {}
   }
 
   get computedIconName () {
-    return (this.c_indeterminate && this.isIndeterminate)
-      ? this.c_indeterminateIcon
-      : this.c_checkedIcon
+    return (this.indeterminate && this.isIndeterminate)
+      ? this.indeterminateIcon
+      : this.checkedIcon
   }
 }
 </script>

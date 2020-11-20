@@ -21,33 +21,22 @@
       />
       <img
         v-else-if="email"
-        :src="computedGravarar"
+        :src="computedGravatar"
       >
     </slot>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
+import { VaProgressCircle } from '../va-progress-bar'
+import VaIcon from '../va-icon'
 
 import * as gravatar from 'gravatar'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { ColorThemeMixin, getColor } from '../../vuestic-mixins/ColorMixin'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-
-const AvatarPropsMixin = makeConfigTransportMixin({
-  color: { type: String, default: 'info' },
-  textColor: { type: String, default: 'white' },
-  square: { type: Boolean, default: false },
-  icon: { type: String, default: '' },
-  src: { type: String, default: null },
-  fontSize: { type: String, default: '' },
-  email: { type: String, default: '' },
-})
 
 @Component({
   name: 'VaAvatar',
@@ -57,10 +46,17 @@ export default class VaAvatar extends Mixins(
   SizeMixin,
   ColorThemeMixin,
   LoadingMixin,
-  AvatarPropsMixin,
 ) {
-  get computedGravarar () {
-    return gravatar.url(this.c_email, {
+  @Prop({ type: String, default: 'info' }) color!: string
+  @Prop({ type: String, default: 'white' }) textColor!: string
+  @Prop({ type: Boolean, default: false }) square!: boolean
+  @Prop({ type: String, default: '' }) icon!: string
+  @Prop({ type: String, default: null }) src!: string
+  @Prop({ type: String, default: '' }) fontSize!: string
+  @Prop({ type: String, default: '' }) email!: string
+
+  get computedGravatar () {
+    return gravatar.url(this.email, {
       s: this.sizeComputed,
       d: 'mp',
     })
@@ -68,10 +64,10 @@ export default class VaAvatar extends Mixins(
 
   get computedStyle () {
     return {
-      color: getColor(this.c_textColor, '#ffffff'),
-      backgroundColor: this.c_loading || this.c_email ? 'transparent' : this.colorComputed,
-      borderRadius: this.c_square ? 0 : '50%',
-      fontSize: this.c_fontSize || this.fontSizeComputed,
+      color: (this as any).getColor(this.textColor, '#ffffff'),
+      backgroundColor: this.loading || this.email ? 'transparent' : this.colorComputed,
+      borderRadius: this.square ? 0 : '50%',
+      fontSize: this.fontSize || this.fontSizeComputed,
       width: this.sizeComputed,
       minWidth: this.sizeComputed, // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
       height: this.sizeComputed,

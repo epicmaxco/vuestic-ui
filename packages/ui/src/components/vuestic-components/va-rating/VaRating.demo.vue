@@ -187,7 +187,7 @@
 </template>
 
 <script>
-import VaRating from './VaRating'
+import VaRating from './index'
 import VaConfig from '../va-config/VaConfig'
 
 export default {

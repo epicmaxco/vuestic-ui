@@ -276,15 +276,10 @@
 </template>
 
 <script>
-import VaList from './VaList'
-import VaListLabel from './VaListLabel'
-import VaListItem from './VaListItem'
-import VaListItemSection from './VaListItemSection'
-import VaListSeparator from './VaListSeparator'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaListItemLabel from './VaListItemLabel'
-import VaAvatar from '../va-avatar/VaAvatar'
-import VaIcon from '../va-icon/VaIcon'
+import VaList, { VaListItem, VaListItemLabel, VaListItemSection, VaListLabel, VaListSeparator } from './index'
+import VaCheckbox from '../va-checkbox'
+import VaAvatar from '../va-avatar'
+import VaIcon from '../va-icon'
 import DividerWithList from '../va-divider/DividerWithList'
 
 export default {

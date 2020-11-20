@@ -139,7 +139,7 @@
 </template>
 
 <script>
-import VaProgressCircle from './VaProgressCircle'
+import { VaProgressCircle } from '../index'
 import VaConfig from '../../va-config/VaConfig'
 
 export default {

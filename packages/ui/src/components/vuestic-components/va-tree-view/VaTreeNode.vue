@@ -37,7 +37,7 @@
 
 <script>
 import VaIcon from '../va-icon/VaIcon'
-import { getTheme } from '../../../services/Theme'
+import { useTheme } from '../../../services/Theme'
 
 export default {
   name: 'VaTreeNode',
@@ -56,9 +56,16 @@ export default {
       default: '',
     },
   },
+  setup () {
+    const { getTheme } = useTheme()
+
+    return {
+      getTheme,
+    }
+  },
   computed: {
     theme () {
-      return getTheme() || {}
+      return this.getTheme() || {}
     },
   },
 }

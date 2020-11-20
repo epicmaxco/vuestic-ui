@@ -484,7 +484,7 @@
 
 <script>
 
-import VaButton from './VaButton'
+import VaButton from './index'
 
 export default {
   components: {

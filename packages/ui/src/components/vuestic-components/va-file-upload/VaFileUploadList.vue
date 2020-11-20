@@ -24,25 +24,15 @@
     <va-file-upload-single-item
       v-if="type === 'single' && filesList.length"
       :file="filesList[filesList.length - 1]"
-    S@remove="$emit('removeSingle')"
+      @remove="$emit('removeSingle')"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-import VaFileUploadListItem from './VaFileUploadListItem.vue'
-import VaFileUploadGalleryItem from './VaFileUploadGalleryItem.vue'
-import VaFileUploadSingleItem from './VaFileUploadSingleItem.vue'
-
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const FileUploadListPropsMixin = makeConfigTransportMixin({
-  type: { type: String, default: '' },
-  files: { type: [Object, Array], default: null },
-  color: { type: String, default: 'success' },
-})
+import { VaFileUploadListItem, VaFileUploadGalleryItem, VaFileUploadSingleItem } from './index'
 
 @Component({
   name: 'VaFileUploadList',
@@ -52,9 +42,11 @@ const FileUploadListPropsMixin = makeConfigTransportMixin({
     VaFileUploadSingleItem,
   },
 })
-export default class VaFileUploadList extends Mixins(
-  FileUploadListPropsMixin,
-) {
+export default class VaFileUploadList extends Vue {
+  @Prop({ type: String, default: '' }) type!: string
+  @Prop({ type: Array, default: null }) files!: any[]
+  @Prop({ type: String, default: 'success' }) color!: string
+
   get filesList () {
     return this.files.map(this.convertFile)
   }

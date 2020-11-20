@@ -1,17 +1,13 @@
-import { Component, Prop, Mixins } from 'vue-property-decorator'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
-const RouterLinkPropsMixin = makeConfigTransportMixin({
-  tag: { type: String, default: 'router-link' },
-})
 // should not be contextable as it's a unique case (we just pass values to vue-router's <router-link/>)
 @Component
-export class RouterLinkMixin extends Mixins(
-  RouterLinkPropsMixin,
-) {
+export class RouterLinkMixin extends Vue {
   @Prop({
     type: [String, Object],
   }) readonly to!: string | Record<string, any>
+
+  @Prop({ type: String, default: 'router-link' }) tag?: string
 
   @Prop({
     type: Boolean,
@@ -41,17 +37,28 @@ export class RouterLinkMixin extends Mixins(
     type: String,
   }) readonly target!: string
 
+  setup () {
+    return {
+      hasRouterLinkMixin: true,
+    }
+  }
+
+  // TODO: for some reason setup is not always working
+  created () {
+    (this as any).hasRouterLinkMixin = true
+  }
+
   get tagComputed () {
-    if (this.c_tag === 'nuxt-link') {
+    if (this.tag === 'nuxt-link') {
       return 'nuxt-link'
     }
-    if (this.c_tag === 'a' || this.href || this.target) {
+    if (this.tag === 'a' || this.href || this.target) {
       return 'a'
     }
-    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
+    if (this.tag === 'router-link' || this.hasRouterLinkParams) {
       return 'router-link'
     }
-    return this.c_tag
+    return this.tag
   }
 
   get hasRouterLinkParams () {
@@ -80,9 +87,5 @@ export class RouterLinkMixin extends Mixins(
     const currentHref = this.$router.currentRoute.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
-  }
-
-  created () {
-    this.hasRouterLinkMixin = true
   }
 }

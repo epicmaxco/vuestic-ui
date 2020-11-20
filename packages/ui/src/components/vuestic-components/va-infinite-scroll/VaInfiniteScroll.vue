@@ -34,36 +34,34 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
-
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
-
 import { debounce } from 'lodash'
-import { sleep } from '../../../services/utils'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-import { getColor } from '../../vuestic-mixins/ColorMixin'
+import { Component, Mixins, Watch, Prop } from 'vue-property-decorator'
 
-const InfiniteScrollPropsMixin = makeConfigTransportMixin({
-  offset: { type: Number, default: 500 },
-  reverse: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  scrollTarget: { type: [Element, String], default: null },
-  debounce: { type: Number, default: 100 },
-  load: { type: Function },
-  tag: { type: String, default: 'div' },
-})
+import { VaProgressCircle } from '../va-progress-bar'
+import { sleep } from '../../../services/utils'
+import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 
 @Component({
   name: 'VaInfiniteScroll',
   components: { VaProgressCircle },
 })
 export default class VaInfiniteScroll extends Mixins(
-  InfiniteScrollPropsMixin,
+  ColorThemeMixin,
 ) {
   index = 0
   fetching = false
   error = false
   initialHeight: any = null
+  scrollTop: any
+  debouncedLoad!: (() => void)
+
+  @Prop({ type: Number, default: 500 }) offset!: number
+  @Prop({ type: Boolean, default: false }) reverse!: boolean
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({ type: [Element, String], default: null }) scrollTarget!: Element | string
+  @Prop({ type: Number, default: 100 }) debounce!: number
+  @Prop({ type: Function }) load!: (...args: any[]) => any
+  @Prop({ type: String, default: 'div' }) tag!: string
 
   get scrollAmount () {
     return this.offset + 1 + (this as any).$el.offsetHeight
@@ -76,7 +74,10 @@ export default class VaInfiniteScroll extends Mixins(
   }
 
   get colors () {
-    return { primary: getColor('primary', '#23e066'), danger: getColor('danger', '#e34b4a') }
+    return {
+      primary: (this as any).getColor('primary', '#23e066'),
+      danger: (this as any).getColor('danger', '#e34b4a'),
+    }
   }
 
   @Watch('disabled')
@@ -98,8 +99,8 @@ export default class VaInfiniteScroll extends Mixins(
       return
     }
 
-    const { scrollTop, scrollHeight } = this.scrollTargetElement
-    const containerHeight = this.scrollTargetElement.offsetHeight
+    const { scrollTop, scrollHeight } = this.scrollTargetElement as Element
+    const containerHeight = (this.scrollTargetElement as HTMLElement).offsetHeight
     const isLoadingRequired = this.reverse
       ? scrollTop < this.scrollAmount
       : scrollTop + containerHeight + this.scrollAmount >= scrollHeight
@@ -122,9 +123,10 @@ export default class VaInfiniteScroll extends Mixins(
   }
 
   stopErrorDisplay () {
-    this.scrollTargetElement.scrollTop = this.reverse
+    const scrollTargetElement = this.scrollTargetElement as HTMLElement
+    scrollTargetElement.scrollTop = this.reverse
       ? this.scrollAmount
-      : this.scrollTargetElement.scrollTop - this.scrollTargetElement.offsetHeight - this.scrollAmount
+      : scrollTargetElement.scrollTop - scrollTargetElement.offsetHeight - this.scrollAmount
     this.error = false
     this.fetching = false
   }
@@ -132,13 +134,13 @@ export default class VaInfiniteScroll extends Mixins(
   finishLoading () {
     this.fetching = false
     if (this.reverse) {
-      this.scrollTargetElement.scrollTop = (this as any).$el.offsetHeight - this.initialHeight
+      (this.scrollTargetElement as HTMLElement).scrollTop = (this as any).$el.offsetHeight - this.initialHeight
     }
   }
 
   resume () {
     if (!this.disabled) {
-      this.scrollTargetElement.addEventListener(
+      (this.scrollTargetElement as HTMLElement).addEventListener(
         'scroll',
         this.debouncedLoad,
         {
@@ -154,10 +156,9 @@ export default class VaInfiniteScroll extends Mixins(
     }
 
     this.fetching = false
-    this.scrollTargetElement.removeEventListener(
+    ;(this.scrollTargetElement as HTMLElement).removeEventListener(
       'scroll',
       this.debouncedLoad,
-      { passive: true },
     )
   }
 
@@ -169,7 +170,7 @@ export default class VaInfiniteScroll extends Mixins(
     if (!this.scrollTargetElement) {
       return
     }
-    this.scrollTargetElement.style.overflowY = 'scroll'
+    (this.scrollTargetElement as HTMLElement).style.overflowY = 'scroll'
 
     if (this.reverse) {
       this.scrollTargetElement.scrollTop = this.scrollTargetElement.scrollHeight
@@ -183,10 +184,9 @@ export default class VaInfiniteScroll extends Mixins(
 
   beforeDestroy () {
     if (!this.disabled) {
-      this.scrollTargetElement.removeEventListener(
+      (this.scrollTargetElement as HTMLElement).removeEventListener(
         'scroll',
         this.debouncedLoad,
-        { passive: true },
       )
     }
   }

@@ -109,8 +109,8 @@
 </template>
 
 <script>
-import VaSidebar from '../../vuestic-components/va-sidebar/VaSidebar'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
+import VaSidebar from '../va-sidebar'
+import VaCheckbox from '../va-checkbox'
 import { navigationRoutes } from './navigation-router-example'
 
 export default {

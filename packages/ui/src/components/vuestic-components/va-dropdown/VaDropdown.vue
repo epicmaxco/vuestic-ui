@@ -34,28 +34,28 @@ import { DebounceLoader } from 'asva-executors'
   name: 'VaDropdown',
 })
 export default class VaDropdown extends Vue {
-  @Prop({ type: String, default: '' }) debugId!: string
-  @Prop({ type: String, default: '' }) position!: string
-  @Prop({ type: Number, default: 30 }) hoverOverTimeout!: number
-  @Prop({ type: Number, default: 200 }) hoverOutTimeout!: number
-  @Prop({ type: Boolean }) boundaryBody!: boolean
-  @Prop({ type: Boolean }) value!: boolean
-  @Prop({ type: Boolean }) disabled!: boolean
+  @Prop({ type: String, default: '' }) readonly debugId!: string
+  @Prop({ type: String, default: '' }) readonly position!: string
+  @Prop({ type: Number, default: 30 }) readonly hoverOverTimeout!: number
+  @Prop({ type: Number, default: 200 }) readonly hoverOutTimeout!: number
+  @Prop({ type: Boolean }) readonly boundaryBody!: boolean
+  @Prop({ type: Boolean }) readonly value!: boolean
+  @Prop({ type: Boolean }) readonly disabled!: boolean
   // Makes no sense
-  // @Prop({ type: Boolean }) fixed!: boolean
+  // @Prop({ type: Boolean }) readonly fixed!: boolean
   // Means dropdown width should be the same as anchor's width.
-  @Prop({ type: Boolean }) keepAnchorWidth!: boolean
+  @Prop({ type: Boolean }) readonly keepAnchorWidth!: boolean
   // If set to false - dropdown won't dodge outside container.
-  @Prop({ type: Boolean, default: false }) preventOverflow!: boolean
-  @Prop({ type: Boolean, default: true }) closeOnClickOutside!: boolean
-  @Prop({ type: Boolean, default: true }) closeOnAnchorClick!: boolean
-  @Prop({ type: Boolean, default: true }) isContentHoverable!: boolean
-  @Prop({ type: [Array, Number], default: () => [] }) offset!: number | number[]
+  @Prop({ type: Boolean, default: false }) readonly preventOverflow!: boolean
+  @Prop({ type: Boolean, default: true }) readonly closeOnClickOutside!: boolean
+  @Prop({ type: Boolean, default: true }) readonly closeOnAnchorClick!: boolean
+  @Prop({ type: Boolean, default: true }) readonly isContentHoverable!: boolean
+  @Prop({ type: [Array, Number], default: () => [] }) readonly offset!: number | number[]
   @Prop({
     type: [Array, Number, String],
     default: 'click',
     validator: (trigger: string): boolean => ['click', 'hover', 'none'].includes(trigger),
-  }) trigger!: string
+  }) readonly trigger!: string
 
   @Watch('showContent')
   onShowContentChange (): void {
@@ -65,7 +65,7 @@ export default class VaDropdown extends Vue {
   popperInstance: any = null
   isClicked = false
   isMouseHovered = false
-  anchorWidth: string | undefined = undefined
+  anchorWidth = '0'
   hoverOverDebounceLoader!: DebounceLoader
   hoverOutDebounceLoader!: DebounceLoader
 

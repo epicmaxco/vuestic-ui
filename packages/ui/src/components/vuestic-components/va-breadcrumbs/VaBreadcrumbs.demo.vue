@@ -157,7 +157,7 @@
 </template>
 
 <script>
-import VaBreadcrumbs from './VaBreadcrumbs'
+import VaBreadcrumbs from './index'
 import VaBreadcrumbsItem from './VaBreadcrumbsItem'
 
 export default {

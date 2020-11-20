@@ -6,25 +6,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const ListSeparatorPropsMixin = makeConfigTransportMixin({
-  fit: { type: Boolean, default: false },
-  spaced: { type: Boolean, default: false },
-})
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component({
   name: 'VaListSeparator',
 })
-export default class VaListSeparator extends Mixins(
-  ListSeparatorPropsMixin,
-) {
+export default class VaListSeparator extends Vue {
+  @Prop({ type: Boolean, default: false }) fit!: boolean
+  @Prop({ type: Boolean, default: false }) spaced!: boolean
+
   get computedClass () {
     return {
-      'va-list-separator--offset': !this.c_fit,
-      'va-list-separator--spaced': this.c_spaced,
+      'va-list-separator--offset': !this.fit,
+      'va-list-separator--spaced': this.spaced,
     }
   }
 }

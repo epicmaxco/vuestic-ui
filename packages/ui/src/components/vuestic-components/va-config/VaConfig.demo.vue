@@ -11,11 +11,11 @@
       <va-test>no context</va-test>
 
       <span style="font-size: 12px;">context 1</span>
-      <va-config :config="{ VaTest: { color: 'warning' } }">
+      <va-config :config="{ VaConfigTest: { color: 'warning' } }">
         <div style="border: 1px solid gray; padding: 4px;">
           <va-test>No props</va-test>
           <span style="font-size: 12px;">context 2</span>
-          <va-config :config="{ VaTest: { color: 'danger' } }">
+          <va-config :config="{ VaConfigTest: { color: 'danger' } }">
             <div style="border: 1px solid gray; padding: 4px;">
               <va-test>No props</va-test>
               <va-test color="green">
@@ -28,7 +28,7 @@
     </VbCard>
 
     <VbCard title="Empty values">
-      <va-config :config="{ VaTest: { label: 'my label' } }">
+      <va-config :config="{ VaConfigTest: { label: 'my label' } }">
         <div>
           Default:
           <va-test />
@@ -109,24 +109,30 @@
 </template>
 
 <script>
-import VaTest from './ContextTest'
-import VaConfig from './VaConfig'
-import VaButton from '../va-button/VaButton'
-import VaBadge from '../va-badge/VaBadge'
-import { setGlobalConfig } from '../../../services/GlobalConfigPlugin'
+import VaButton from '../va-button'
+import VaBadge from '../va-badge'
+import { useGlobalConfig } from '../../../services/GlobalConfigPlugin'
+import { WithConfig as VaConfigTest } from './ConfigTest'
+import { LocalConfigProvider } from '../../../mixins/LocalConfigMixin'
+import { ColorThemeMixin, useColor } from '../../vuestic-mixins/ColorMixin'
 
 export default {
+  mixins: [ColorThemeMixin],
   components: {
-    VaTest,
-    VaConfig,
     VaButton,
     VaBadge,
+    VaTest: VaConfigTest,
+    VaConfig: LocalConfigProvider,
   },
-  beforeCreate () {
+  setup () {
+    const { setGlobalConfig } = useGlobalConfig()
+
+    const getColor = useColor()
+
     setGlobalConfig(config => ({
       ...config,
-      VaTest: {
-        color: 'blue',
+      VaConfigTest: {
+        color: getColor('blue'),
       },
       VaBadge: {
         ...config.VaBadge,
@@ -153,10 +159,14 @@ export default {
         },
       },
     }))
+
+    return {
+      setGlobalConfig,
+    }
   },
   data () {
     return {
-      dynamicContextConfig: { VaTest: { color: 'orange' } },
+      dynamicContextConfig: { VaConfigTest: { color: 'orange' } },
       buttonConfig: {
         size: 'large',
         icon: 'schedule',
@@ -165,21 +175,22 @@ export default {
         color: 'success',
         outline: false,
       },
+      symbol: Symbol(''),
     }
   },
   computed: {
     redOrange: {
       get () {
-        return this.dynamicContextConfig.VaTest.color === 'red'
+        return this.dynamicContextConfig.VaConfigTest.color === 'red'
       },
       set (value) {
-        this.dynamicContextConfig.VaTest.color = value ? 'red' : 'orange'
+        this.dynamicContextConfig.VaConfigTest.color = value ? 'red' : 'orange'
       },
     },
   },
   methods: {
     overrideButtonsColor (color) {
-      setGlobalConfig(config => ({
+      this.setGlobalConfig(config => ({
         ...config,
         VaButton: {
           ...config.VaButton,
@@ -189,8 +200,8 @@ export default {
     },
     overrideConfig () {
       const newConfig = {
-        VaTest: {
-          color: 'red',
+        VaConfigTest: {
+          color: this.getColor('red'),
         },
         VaBadge: {
           color: 'danger',
@@ -205,7 +216,7 @@ export default {
         },
       }
 
-      setGlobalConfig(newConfig)
+      this.setGlobalConfig(newConfig)
     },
   },
 }

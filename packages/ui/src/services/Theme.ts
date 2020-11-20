@@ -1,4 +1,4 @@
-import { setGlobalConfig, getGlobalConfig } from './GlobalConfigPlugin'
+import { GlobalConfig, useGlobalConfig } from './GlobalConfigPlugin'
 
 // Most default color - fallback when nothing else is found.
 export const DEFAULT_COLOR = '#000000'
@@ -15,13 +15,26 @@ export const DEFAULT_THEME = {
   dark: '#34495e',
 }
 
-export const setTheme = (theme: Record<string, string>): void => {
-  setGlobalConfig(config => ({
-    ...config,
-    theme: { ...config.theme, ...theme },
-  }))
-}
+export const useTheme = () => {
+  const { setGlobalConfig, getGlobalConfig } = useGlobalConfig()
 
-export const getTheme = (): Record<string, string> | undefined => {
-  return getGlobalConfig().theme
+  if (!setGlobalConfig && !getGlobalConfig) {
+    return
+  }
+
+  const setTheme = (theme: Record<string, string>): void => {
+    setGlobalConfig((config: GlobalConfig) => ({
+      ...config,
+      theme: { ...config.theme, ...theme },
+    }))
+  }
+
+  const getTheme = (): Record<string, string> | undefined => {
+    return getGlobalConfig().theme
+  }
+
+  return {
+    setTheme,
+    getTheme,
+  }
 }

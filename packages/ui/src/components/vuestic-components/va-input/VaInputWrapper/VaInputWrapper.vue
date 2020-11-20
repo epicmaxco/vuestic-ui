@@ -32,44 +32,38 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-import VaMessageList from './VaMessageList.vue'
-
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const InputWrapperPropsMixin = makeConfigTransportMixin({
-  disabled: { type: Boolean, default: false },
-  error: { type: Boolean, default: false },
-  success: { type: Boolean, default: false },
-  messages: { type: Array, default: () => [] },
-  errorMessages: { type: Array, default: () => [] },
-  errorCount: { type: Number, default: 1 },
-})
+import VaMessageList from '../VaMessageList'
 
 @Component({
   name: 'VaInputWrapper',
   components: { VaMessageList },
 })
-export default class VaInputWrapper extends Mixins(
-  InputWrapperPropsMixin,
-) {
+export default class VaInputWrapper extends Vue {
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
+  @Prop({ type: Boolean, default: false }) error!: boolean
+  @Prop({ type: Boolean, default: false }) success!: boolean
+  @Prop({ type: Array, default: () => [] }) messages!: any[]
+  @Prop({ type: Array, default: () => [] }) errorMessages!: any[]
+  @Prop({ type: Number, default: 1 }) errorCount!: number
+
   get messagesComputed () {
-    return this.c_error ? this.c_errorMessages : this.messages
+    return this.error ? this.errorMessages : this.messages
   }
 
   get messagesColor () {
-    return (this.c_error && 'danger') || (this.c_success && 'success') || ''
+    return (this.error && 'danger') || (this.success && 'success') || ''
   }
 
   get errorLimit () {
-    return this.c_error ? this.c_errorCount : 99
+    return this.error ? this.errorCount : 99
   }
 }
 </script>
 
 <style lang='scss'>
-@import '../../vuestic-sass/resources/resources';
+@import '../../../vuestic-sass/resources/resources';
 
 .va-input-wrapper {
   display: flex;

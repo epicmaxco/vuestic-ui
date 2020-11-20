@@ -23,12 +23,19 @@
 
 <script>
 import './color-helpers-plugin'
-import { setTheme } from '../../services/Theme'
+import { useTheme } from '../../services/Theme'
 
 export default {
+  setup () {
+    const { setTheme } = useTheme()
+
+    return {
+      setTheme,
+    }
+  },
   methods: {
     change (color) {
-      setTheme({
+      this.setTheme({
         danger: color,
       })
     },

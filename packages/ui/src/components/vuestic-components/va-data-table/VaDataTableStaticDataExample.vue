@@ -56,8 +56,8 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import users from '../../../data/users.json'
 import VaDataTable from './VaDataTable.vue'
-import VaCheckbox from '../va-checkbox/VaCheckbox.vue'
-import VaButton from '../va-button/VaButton.vue'
+import VaCheckbox from '../va-checkbox'
+import VaButton from '../va-button'
 
 @Component({
   components: {

@@ -50,7 +50,7 @@ import VaAdvancedColorPicker from './VaAdvancedColorPicker.vue'
 import VaSimplePalettePicker from './VaSimplePalettePicker.vue'
 import VaSliderColorPicker from './VaSliderColorPicker.vue'
 import VaColorInput from './VaColorInput.vue'
-import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
+import VaDropdownPopper from '../va-dropdown'
 
 @Component({
   name: 'VaColorPickerInput',

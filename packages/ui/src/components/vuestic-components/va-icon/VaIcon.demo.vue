@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import VaIcon from './VaIcon'
+import VaIcon from './index'
 import SvgComponent from './va-iconset/VaIconVue'
 
 export default {

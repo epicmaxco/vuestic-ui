@@ -12,32 +12,28 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Component } from 'vue-property-decorator'
+import { Mixins, Component, Prop } from 'vue-property-decorator'
 
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import { getGradientBackground } from '../../../services/color-functions'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
-
-const SidebarPropsMixin = makeConfigTransportMixin({
-  minimized: { type: Boolean, default: false },
-  hoverable: { type: Boolean, default: false },
-  position: { type: String, default: 'left' },
-  width: { type: String, default: '16rem' },
-  minimizedWidth: { type: String, default: '2.5rem' },
-  value: { type: Boolean, default: true },
-})
 
 @Component({
   name: 'VaSidebar',
 })
 export default class VaSidebar extends Mixins(
   ColorThemeMixin,
-  SidebarPropsMixin,
 ) {
+  @Prop({ type: Boolean, default: false }) minimized!: boolean
+  @Prop({ type: Boolean, default: false }) hoverable!: boolean
+  @Prop({ type: String, default: 'left' }) position!: string
+  @Prop({ type: String, default: '16rem' }) width!: string
+  @Prop({ type: String, default: '2.5rem' }) minimizedWidth!: string
+  @Prop({ type: Boolean, default: true }) value!: boolean
+
   isHovered = false
 
   get isMinimized () {
-    return this.c_minimized || (this.c_hoverable && !this.isHovered)
+    return this.minimized || (this.hoverable && !this.isHovered)
   }
 
   get computedStyle () {
@@ -48,22 +44,22 @@ export default class VaSidebar extends Mixins(
   }
 
   get computedWidth () {
-    if (!this.c_value) {
+    if (!this.value) {
       return 0
     }
-    return this.isMinimized ? this.c_minimizedWidth : this.c_width
+    return this.isMinimized ? this.minimizedWidth : this.width
   }
 
   get computedClass () {
     return {
       'va-sidebar': true,
       'va-sidebar--minimized': this.isMinimized,
-      'va-sidebar--right': this.c_position === 'right',
+      'va-sidebar--right': this.position === 'right',
     }
   }
 
   updateHoverState (isHovered: boolean) {
-    this.isHovered = this.c_hoverable ? isHovered : false
+    this.isHovered = this.hoverable ? isHovered : false
   }
 }
 </script>

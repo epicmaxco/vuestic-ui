@@ -205,7 +205,7 @@
 </template>
 
 <script>
-import VaProgressBar from './VaProgressBar'
+import { VaProgressBar } from '../index'
 import VaConfig from '../../va-config/VaConfig'
 
 export default {

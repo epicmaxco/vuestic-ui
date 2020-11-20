@@ -121,9 +121,9 @@
 </template>
 
 <script>
-import VaForm from './VaForm'
-import VaInput from '../va-input/VaInput'
-import VaFormReset from './VaForm-reset'
+import VaForm from './index'
+import VaInput from '../va-input'
+import VaFormReset from './VaForm-reset.vue'
 
 export default {
   components: {
@@ -137,7 +137,7 @@ export default {
         hello: 'text',
         world: 'text',
         nestedHello: 'hell',
-        nestedWorld: 'worl',
+        nestedWorld: 'world',
         radio: 2,
         inputError: false,
       },

@@ -39,72 +39,83 @@
   </v-popover>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import { VPopover } from 'v-tooltip'
 
-import VaIcon from '../va-icon/VaIcon'
+import VaIcon from '../va-icon'
 
 import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
-import { getTheme } from '../../../services/Theme'
+import { useTheme } from '../../../services/Theme'
 
-export default {
+@Component({
   name: 'VaPopover',
   components: {
     VPopover,
     VaIcon,
   },
-  props: {
-    color: {
-      type: String,
-      default: 'success',
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    message: {
-      type: String,
-      default: '',
-    },
-    trigger: {
-      type: String,
-      default: 'hover',
-    },
-    open: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    placement: {
-      type: String,
-      default: 'bottom',
-    },
-    autoHide: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  computed: {
-    theme () {
-      return getTheme() || {}
-    },
-    computedPopoverStyle () {
-      return {
-        boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(this.theme[this.color]),
-        backgroundColor: getHoverColor(this.theme[this.color]),
-      }
-    },
-  },
+})
+export default class VaPopover extends Vue {
+  @Prop({
+    type: String,
+    default: 'success',
+  }) color!: string
+
+  @Prop({
+    type: String,
+    default: '',
+  }) icon!: string
+
+  @Prop({
+    type: String,
+    default: '',
+  }) title!: string
+
+  @Prop({
+    type: String,
+    default: '',
+  }) message!: string
+
+  @Prop({
+    type: String,
+    default: 'hover',
+  }) trigger!: string
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) open!: string
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) disabled!: string
+
+  @Prop({
+    type: String,
+    default: 'bottom',
+  }) placement!: string
+
+  @Prop({
+    type: Boolean,
+    default: true,
+  }) autoHide!: string
+
+  get theme () {
+    // @ts-ignore
+    const { getTheme } = useTheme()
+    return getTheme() || {}
+  }
+
+  get computedPopoverStyle () {
+    return {
+      boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(this.theme[this.color]),
+      backgroundColor: getHoverColor(this.theme[this.color]),
+    }
+  }
 }
 </script>
 

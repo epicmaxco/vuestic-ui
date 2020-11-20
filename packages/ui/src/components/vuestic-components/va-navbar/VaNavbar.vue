@@ -29,13 +29,19 @@
 
 <script>
 import { shiftHslColor } from '../../../services/color-functions'
-import { getTheme } from '../../../services/Theme'
+import { useTheme } from '../../../services/Theme'
 
 export default {
   name: 'VaNavbar',
+  setup () {
+    const { getTheme } = useTheme()
+    return {
+      getTheme,
+    }
+  },
   computed: {
     theme () {
-      return getTheme() || {}
+      return this.getTheme() || {}
     },
     navbarStyle () {
       // saturation and lightness color components differ from the secondary color for the navbar

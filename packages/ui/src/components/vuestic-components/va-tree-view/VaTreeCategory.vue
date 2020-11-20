@@ -45,7 +45,7 @@
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
 import SquareWithIcon from './SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../va-icon/VaIcon'
-import { getTheme } from '../../../services/Theme'
+import { useTheme } from '../../../services/Theme'
 
 export default {
   name: 'VaTreeCategory',
@@ -59,6 +59,13 @@ export default {
   data () {
     return {
       isOpenCached: false,
+    }
+  },
+  setup () {
+    const { getTheme } = useTheme()
+
+    return {
+      getTheme,
     }
   },
   watch: {
@@ -84,7 +91,7 @@ export default {
   },
   computed: {
     theme () {
-      return getTheme() || {}
+      return this.getTheme() || {}
     },
   },
   methods: {

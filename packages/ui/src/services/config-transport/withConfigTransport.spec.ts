@@ -1,21 +1,18 @@
 import OurVue, { ComponentOptions, CreateElement } from 'vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { createLocalVue, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 
 import withConfigTransport from './withConfigTransport'
-import GlobalConfigPlugin, { GlobalConfig, setGlobalConfig } from '../GlobalConfigPlugin'
+import GlobalConfigPlugin, { GlobalConfig, useGlobalConfig } from '../GlobalConfigPlugin'
 import VaConfig from '../../components/vuestic-components/va-config/VaConfig'
 
 function mountWithPlugin (
   component: ComponentOptions<OurVue>,
   options: GlobalConfig,
 ) {
-  const _Vue = createLocalVue()
-  _Vue.use(GlobalConfigPlugin, options)
+  OurVue.use(GlobalConfigPlugin, options)
 
-  return mount(component, {
-    localVue: _Vue,
-  })
+  return mount(component)
 }
 
 describe('withConfigTransport', () => {
@@ -40,6 +37,14 @@ describe('withConfigTransport', () => {
     })
     propValue?: string
 
+    setup () {
+      return useGlobalConfig()
+    }
+
+    testMethod () {
+      return `${this.value} ${this.propValue}`
+    }
+
     render () {
       return null
     }
@@ -49,17 +54,17 @@ describe('withConfigTransport', () => {
     const wrapper = mountWithPlugin(
       {
         render: (h: CreateElement) => h(
-          withConfigTransport(ExampleComponent),
+          withConfigTransport(ExampleComponent as any),
         ),
       },
       initialConfig,
-    ).find(ExampleComponent)
+    )
 
-    const instance = wrapper.vm
+    const instance = wrapper.find(ExampleComponent).vm
 
     expect((instance as any).value).toBe('valueFromContext')
 
-    setGlobalConfig(config => ({
+    ;(instance as any).setGlobalConfig((config: GlobalConfig) => ({
       ...config,
       all: { value: 'updateValueFromContext' },
     }))
@@ -69,7 +74,7 @@ describe('withConfigTransport', () => {
       done()
     })
 
-    setGlobalConfig(config => ({
+    ;(instance as any).setGlobalConfig((config: GlobalConfig) => ({
       ...config,
       ExampleComponent: { propValue: 'updatePropValueFromContext' },
     }))
@@ -86,7 +91,7 @@ describe('withConfigTransport', () => {
     const wrapper = mountWithPlugin(
       {
         render: (h: CreateElement) => h(
-          withConfigTransport(ExampleComponent),
+          withConfigTransport(ExampleComponent as any),
           {
             props: {
               value: 'local value',
@@ -107,7 +112,7 @@ describe('withConfigTransport', () => {
   })
 
   it('should take a local context prop', () => {
-    const WithConfigTransportExampleComponent = withConfigTransport(ExampleComponent)
+    const WithConfigTransportExampleComponent = withConfigTransport(ExampleComponent as any)
 
     const root = mountWithPlugin(
       {
@@ -139,5 +144,23 @@ describe('withConfigTransport', () => {
     root.find(WithConfigTransportExampleComponent as any).setProps({ propValue: undefined })
 
     expect((instance as any).propValue).toBe('context local value')
+  })
+
+  it("should work with child's methods", () => {
+    const wrapper = mountWithPlugin(
+      {
+        render: (h: CreateElement) => h(
+          withConfigTransport(ExampleComponent as any),
+          {
+            ref: 'example',
+          },
+        ),
+      },
+      initialConfig,
+    )
+
+    const instance = wrapper.vm.$refs.example
+
+    expect((instance as any).testMethod()).toBe('valueFromContext propValueFromContext')
   })
 })

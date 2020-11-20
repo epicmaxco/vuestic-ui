@@ -49,30 +49,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins, Prop } from 'vue-property-decorator'
 
-import VaFileUploadList from './VaFileUploadList.vue'
-import VaButton from '../va-button/VaButton.vue'
-import VaModal from '../va-modal/VaModal.vue'
+import { VaFileUploadList } from './index'
+import VaButton from '../va-button'
+import VaModal from '../va-modal'
 
 import { getFocusColor } from '../../../services/color-functions'
-import { makeConfigTransportMixin } from '../../../services/config-transport/makeConfigTransportMixin'
 import { ColorThemeMixin } from '../../vuestic-mixins/ColorMixin'
-
-const FileUploadPropsMixin = makeConfigTransportMixin({
-  type: {
-    type: String,
-    default: 'list',
-    validator (value: string) {
-      return ['list', 'gallery', 'single'].includes(value)
-    },
-  },
-  fileTypes: { type: String, default: '' },
-  dropzone: { type: Boolean, default: false },
-  value: { type: Array, default: () => [] },
-  color: { type: String, default: 'success' },
-  disabled: { type: Boolean, default: false },
-})
 
 @Component({
   name: 'VaFileUpload',
@@ -84,9 +68,22 @@ const FileUploadPropsMixin = makeConfigTransportMixin({
 })
 export default class VaFileUpload extends Mixins(
   ColorThemeMixin,
-  FileUploadPropsMixin,
 ) {
   modal = false
+
+  @Prop({
+    type: String,
+    default: 'list',
+    validator (value: string) {
+      return ['list', 'gallery', 'single'].includes(value)
+    },
+  }) type!: string
+
+  @Prop({ type: String, default: '' }) fileTypes!: string
+  @Prop({ type: Boolean, default: false }) dropzone!: boolean
+  @Prop({ type: Array, default: () => [] }) value!: any[]
+  @Prop({ type: String, default: 'success' }) color!: string
+  @Prop({ type: Boolean, default: false }) disabled!: boolean
 
   get computedStyle () {
     return {
