@@ -2,11 +2,11 @@
   <div style="max-width: 300px;">
     <va-select
       style="margin: 16px 0;"
-      label="Custom tag max (3)"
+      label="Custom chip max (3)"
       :options="options"
       v-model="value"
       multiple
-      :tagMax="3"
+      :chipMax="3"
     />
     <va-select
       style="margin: 16px 0;"
@@ -14,15 +14,15 @@
       :options="options"
       v-model="value"
       multiple
-      tags
+      chips
     />
     <va-select
       style="margin: 16px 0;"
-      label="Deletable tags"
+      label="Deletable chips"
       :options="options"
       v-model="value"
       multiple
-      tags
+      chips
       deletableTags
     />
   </div>
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: 'Tags',
+  name: 'Chips',
   data () {
     return {
       options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],

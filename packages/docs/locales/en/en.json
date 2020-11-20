@@ -572,7 +572,7 @@
         "default": "Contains expands"
       }
     },
-    "VaTag": {
+    "VaChip": {
       "props": {
         "closeable": "Provides the ability to close the tag",
         "outline": "Applies outline styling",
@@ -831,7 +831,7 @@
     "radio": "Radio",
     "expand": "Expand",
     "expandGroup": "Expand Group",
-    "tag": "Tag",
+    "chip": "Chip",
     "grid": "Grid",
     "input": "Input",
     "list": "List",
@@ -1871,13 +1871,13 @@
       }
     }
   },
-  "tag": {
-    "title": "Tag",
+  "chip": {
+    "title": "Chip",
     "summaryText": "",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage of the `va-tag` compoment."
+        "text": "Default usage of the `va-chip` compoment."
       },
       "outline": {
         "title": "Outline",
@@ -1889,11 +1889,11 @@
       },
       "square": {
         "title": "Square",
-        "text": "Makes your `va-tag` square."
+        "text": "Makes your `va-chip` square."
       },
       "color": {
         "title": "Color",
-        "text": "You can use the `va-tag` component with different colors."
+        "text": "You can use the `va-chip` component with different colors."
       },
       "size": {
         "title": "Size",
@@ -2073,9 +2073,9 @@
         "title": "State",
         "text": "Includes error, success, disabled or loading state"
       },
-      "tags": {
-        "title": "Tags",
-        "text": "Includes selection display as tags and maximum tags count"
+      "chips": {
+        "title": "Chips",
+        "text": "Includes selection display as chips and maximum chips count"
       },
       "searchable": {
         "title": "Searchable",

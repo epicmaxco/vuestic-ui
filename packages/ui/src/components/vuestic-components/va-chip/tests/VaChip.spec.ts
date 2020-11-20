@@ -1,33 +1,33 @@
 import { mount, shallowMount } from '@vue/test-utils'
-import VaTag from '../VaTag.vue'
+import VaChip from '../VaChip.vue'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
-describe('VaTag', () => {
+describe('VaChip', () => {
   it('should render without an error', () => {
-    const wrapper = mount(VaTag)
+    const wrapper = mount(VaChip)
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
   /* 2. Button sizes */
 
-  it('large tag', () => {
-    const wrapper = shallowMount(VaTag, {
+  it('large chip', () => {
+    const wrapper = shallowMount(VaChip, {
       propsData: { size: 'large' },
     })
-    expect(wrapper.find(VaTag).classes()).toContain('va-tag--large')
+    expect(wrapper.find(VaChip).classes()).toContain('va-chip--large')
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('small tag', () => {
-    const wrapper = shallowMount(VaTag, {
+  it('small chip', () => {
+    const wrapper = shallowMount(VaChip, {
       propsData: { size: 'small' },
     })
-    expect(wrapper.find(VaTag).classes()).toContain('va-tag--small')
+    expect(wrapper.find(VaChip).classes()).toContain('va-chip--small')
     expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('should be a link', () => {
-    const wrapper = shallowMount(VaTag, {
+    const wrapper = shallowMount(VaChip, {
       propsData: {
         href: '/',
       },
@@ -36,7 +36,7 @@ describe('VaTag', () => {
   })
   it('has ColorThemeMixin', () => {
     expect(() =>
-      testHasColorThemeMixin((VaTag as unknown) as ColorThemeMixin),
+      testHasColorThemeMixin((VaChip as unknown) as ColorThemeMixin),
     ).not.toThrow()
   })
 })

@@ -14,6 +14,7 @@ import VaCard from './vuestic-components/va-card/VaCard.vue'
 import VaCardContent from './vuestic-components/va-card/VaCardContent.vue'
 import VaCardTitle from './vuestic-components/va-card/VaCardTitle.vue'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
+import VaChip from './vuestic-components/va-chip/VaChip.vue'
 import VaContent from './vuestic-components/va-content/VaContent.vue'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDivider from './vuestic-components/va-divider/VaDivider.vue'
@@ -59,7 +60,6 @@ import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
 import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
 import VaTab from './vuestic-components/va-tabs/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
-import VaTag from './vuestic-components/va-tag/VaTag.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline.vue'
 import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem.vue'
 import VaTreeCategory from './vuestic-components/va-tree-view/VaTreeCategory.vue'
@@ -115,6 +115,7 @@ const VuesticPlugin = {
       VaCardContent,
       VaCardTitle,
       VaCheckbox,
+      VaChip,
       VaContent,
       VaDataTable,
       VaDatePicker,
@@ -154,7 +155,6 @@ const VuesticPlugin = {
       VaSwitch,
       VaTab,
       VaTabs,
-      VaTag,
       VaTimeline,
       VaTimelineItem,
       VaTreeCategory,

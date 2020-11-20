@@ -1,11 +1,11 @@
 <template>
   <div>
-    <va-tag
+    <va-chip
       v-model="value"
       closeable
     >
-      closeable tag
-    </va-tag>
+      closeable chip
+    </va-chip>
     <va-checkbox v-model="value" label="reset value" />
   </div>
 </template>

@@ -1,66 +1,66 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <va-tag>
+      <va-chip>
         vuestic
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Colors">
-      <va-tag
+      <va-chip
         v-for="(color, index) in colors"
         :key="index"
         :color="color"
       >
         {{color}}
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Outline">
-      <va-tag
+      <va-chip
         v-for="(color, index) in colors"
         :key="index"
         outline
         :color="color"
       >
         {{color}}
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Flat">
-      <va-tag
+      <va-chip
         v-for="(color, index) in colors"
         :key="index"
         flat
         :color="color"
       >
         {{color}}
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Sizes">
-      <va-tag
+      <va-chip
         v-for="(size, index) in sizes"
         :key="index"
         :size="size"
         closeable
       >
         {{size}} size
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Icons">
-      <va-tag
+      <va-chip
         v-for="(icon, index) in icons"
         :key="index"
         :icon="icon"
       >
         {{icon}}
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Sizes with icons">
-      <va-tag
+      <va-chip
         v-for="(size, index) in sizes"
         :key="index"
         :size="size"
@@ -68,17 +68,17 @@
         closeable
       >
         {{size}} size
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Square">
-      <va-tag square>
+      <va-chip square>
         vuestic
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Sizes with square prop and icons">
-      <va-tag
+      <va-chip
         v-for="(size, index) in sizes"
         :key="index"
         :size="size"
@@ -87,63 +87,63 @@
         closeable
       >
         {{size}} size
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Closeable">
       <va-checkbox v-model="value" />
-      <va-tag
+      <va-chip
         v-model="value"
         closeable
       >
         vuestic
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Link">
-      <va-tag to="/demo/vuestic-components/va-switch/VaSwitch.demo.vue">
+      <va-chip to="/demo/vuestic-components/va-switch/VaSwitch.demo.vue">
         Vuestic va-switch
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Link with closeable prop">
-      <va-tag
+      <va-chip
         to="/demo/vuestic-components/va-button/VaButton.demo.vue"
         closeable
         v-model="value"
       >
         Vuestic va-button
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Disabled">
-      <va-tag
+      <va-chip
         disabled
         closeable
         stateful
       >
         vuestic
-      </va-tag>
+      </va-chip>
     </VbCard>
 
     <VbCard title="Stateful">
-      <va-tag
+      <va-chip
         stateful
         closeable
       >
         vuestic
-      </va-tag>
+      </va-chip>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaTag from './VaTag'
+import VaChip from './VaChip'
 import VaCheckbox from '../va-checkbox/VaCheckbox'
 
 export default {
   components: {
-    VaTag,
+    VaChip,
     VaCheckbox,
   },
   data () {

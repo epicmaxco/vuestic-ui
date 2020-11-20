@@ -1,7 +1,7 @@
 <template>
-  <va-tag outline>
-    outline tag
-  </va-tag>
+  <va-chip outline>
+    outline chip
+  </va-chip>
 </template>
 
 <script>

@@ -1,12 +1,12 @@
 <template>
   <div>
-      <va-tag
+      <va-chip
         v-for="(size, index) in sizes"
         :key="index"
         :size="size"
       >
         {{size}} size
-      </va-tag>
+      </va-chip>
   </div>
 </template>
 

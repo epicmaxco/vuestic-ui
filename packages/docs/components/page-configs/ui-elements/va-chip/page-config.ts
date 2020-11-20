@@ -1,15 +1,15 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaTag from 'vuestic-ui/src/components/vuestic-components/va-tag/VaTag.vue'
+import VaChip from 'vuestic-ui/src/components/vuestic-components/va-chip/VaChip.vue'
 import apiOptions from './api-options'
 
 export default [
   {
     type: BlockType.TITLE,
-    translationString: 'tag.title',
+    translationString: 'chip.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.summaryText',
+    translationString: 'chip.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
@@ -17,111 +17,111 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tag.examples.default.title',
+    translationString: 'chip.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.examples.default.text',
+    translationString: 'chip.examples.default.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-tag/Default',
+    component: 'va-chip/Default',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tag.examples.outline.title',
+    translationString: 'chip.examples.outline.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.examples.outline.text',
+    translationString: 'chip.examples.outline.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-tag/Outline',
+    component: 'va-chip/Outline',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tag.examples.flat.title',
+    translationString: 'chip.examples.flat.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.examples.flat.text',
+    translationString: 'chip.examples.flat.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-tag/Flat',
+    component: 'va-chip/Flat',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tag.examples.square.title',
+    translationString: 'chip.examples.square.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.examples.square.text',
+    translationString: 'chip.examples.square.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-tag/Square',
+    component: 'va-chip/Square',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tag.examples.color.title',
+    translationString: 'chip.examples.color.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.examples.color.text',
+    translationString: 'chip.examples.color.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-tag/Color',
+    component: 'va-chip/Color',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tag.examples.size.title',
+    translationString: 'chip.examples.size.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.examples.size.text',
+    translationString: 'chip.examples.size.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-tag/Size',
+    component: 'va-chip/Size',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tag.examples.icon.title',
+    translationString: 'chip.examples.icon.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.examples.icon.text',
+    translationString: 'chip.examples.icon.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-tag/Icon',
+    component: 'va-chip/Icon',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tag.examples.closeable.title',
+    translationString: 'chip.examples.closeable.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.examples.closeable.text',
+    translationString: 'chip.examples.closeable.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-tag/Closeable',
+    component: 'va-chip/Closeable',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'tag.examples.link.title',
+    translationString: 'chip.examples.link.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'tag.examples.link.text',
+    translationString: 'chip.examples.link.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-tag/Link',
+    component: 'va-chip/Link',
   },
   {
     type: BlockType.SUBTITLE,
@@ -129,7 +129,7 @@ export default [
   },
   {
     type: BlockType.API,
-    componentOptions: VaTag,
+    componentOptions: VaChip,
     apiOptions,
   },
 ] as ApiDocsBlock[]

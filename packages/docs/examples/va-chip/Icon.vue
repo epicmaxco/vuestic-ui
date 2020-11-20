@@ -1,12 +1,12 @@
 <template>
   <div>
-      <va-tag
+      <va-chip
         v-for="(icon, index) in icons"
         :key="index"
         :icon="icon"
       >
         {{icon}}
-      </va-tag>
+      </va-chip>
   </div>
 </template>
 

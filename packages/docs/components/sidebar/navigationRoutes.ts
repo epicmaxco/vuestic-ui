@@ -100,8 +100,8 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.image',
       },
       {
-        name: 'tag',
-        displayName: 'menu.tag',
+        name: 'chip',
+        displayName: 'menu.chip',
       },
       {
         name: 'alert',

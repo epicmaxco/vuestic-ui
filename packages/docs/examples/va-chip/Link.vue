@@ -1,5 +1,5 @@
 <template>
-  <va-tag to="/">Link tag</va-tag>
+  <va-chip to="/">Link chip</va-chip>
 </template>
 
 <script>

@@ -1,12 +1,12 @@
 <template>
   <div>
-      <va-tag
+      <va-chip
         v-for="(color, index) in colors"
         :key="index"
         :color="color"
       >
         {{color}}
-      </va-tag>
+      </va-chip>
   </div>
 </template>
 

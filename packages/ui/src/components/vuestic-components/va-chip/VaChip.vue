@@ -9,7 +9,7 @@
     :exact="exact"
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
-    class="va-tag"
+    class="va-chip"
     :class="computedClass"
     :style="computedStyle"
     :tabindex="indexComputed"
@@ -20,16 +20,16 @@
   >
     <va-icon
       v-if="c_icon"
-      class="va-tag__icon"
+      class="va-chip__icon"
       :name="icon"
       :size="iconSize"
     />
-    <span class="va-tag__content">
+    <span class="va-chip__content">
       <slot></slot>
     </span>
     <va-icon
       v-if="c_closeable"
-      class="va-tag__close-icon"
+      class="va-chip__close-icon"
       name="close"
       :size="iconSize"
       @click.stop="close()"
@@ -53,7 +53,7 @@ import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const TagPropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: true },
   closeable: { type: Boolean, default: false },
   color: { type: String, default: '' },
@@ -73,15 +73,15 @@ const TagPropsMixin = makeContextablePropsMixin({
 })
 
 @Component({
-  name: 'VaTag',
+  name: 'VaChip',
   components: { VaIcon },
 })
-export default class VaTag extends Mixins(
+export default class VaChip extends Mixins(
   KeyboardOnlyFocusMixin,
   RouterLinkMixin,
   StatefulMixin,
   ColorThemeMixin,
-  TagPropsMixin,
+  PropsMixin,
 ) {
   hoverState = false
   focusState = false
@@ -107,10 +107,10 @@ export default class VaTag extends Mixins(
 
   get computedClass () {
     return {
-      'va-tag--small': this.c_size === 'small',
-      'va-tag--large': this.c_size === 'large',
-      'va-tag--square': this.c_square,
-      'va-tag--disabled': this.c_disabled,
+      'va-chip--small': this.c_size === 'small',
+      'va-chip--large': this.c_size === 'large',
+      'va-chip--square': this.c_square,
+      'va-chip--disabled': this.c_disabled,
     }
   }
 
@@ -184,7 +184,7 @@ $tag-font-size-nrm: 1rem !default;
 $tag-font-size-sm: 0.875rem !default;
 $tag-font-size-lg: 1.25rem !default;
 
-.va-tag {
+.va-chip {
   display: inline-flex;
   border: 0.125rem solid transparent;
   position: relative;
@@ -218,8 +218,8 @@ $tag-font-size-lg: 1.25rem !default;
     /* z-index: 500; */
 
     @at-root {
-      .va-tag--disabled {
-        .va-tag__close-icon {
+      .va-chip--disabled {
+        .va-chip__close-icon {
           cursor: default !important;
         }
       }
@@ -240,7 +240,7 @@ $tag-font-size-lg: 1.25rem !default;
     font-size: $tag-font-size-lg;
   }
 
-  &.va-tag--disabled {
+  &.va-chip--disabled {
     @include va-disabled;
   }
 }
