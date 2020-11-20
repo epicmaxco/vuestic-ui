@@ -10,21 +10,21 @@ describe('VaChip', () => {
   })
   /* 2. Button sizes */
 
-  it('large chip', () => {
-    const wrapper = shallowMount(VaChip, {
-      propsData: { size: 'large' },
-    })
-    expect(wrapper.find(VaChip).classes()).toContain('va-chip--large')
-    expect(wrapper.html()).toMatchSnapshot()
-  })
+  // it('large chip', () => {
+  //   const wrapper = shallowMount(VaChip, {
+  //     propsData: { size: 'large' },
+  //   })
+  //   expect(wrapper.find(VaChip).classes()).toContain('va-chip--large')
+  //   expect(wrapper.html()).toMatchSnapshot()
+  // })
 
-  it('small chip', () => {
-    const wrapper = shallowMount(VaChip, {
-      propsData: { size: 'small' },
-    })
-    expect(wrapper.find(VaChip).classes()).toContain('va-chip--small')
-    expect(wrapper.html()).toMatchSnapshot()
-  })
+  // it('small chip', () => {
+  //   const wrapper = shallowMount(VaChip, {
+  //     propsData: { size: 'small' },
+  //   })
+  //   expect(wrapper.find(VaChip).classes()).toContain('va-chip--small')
+  //   expect(wrapper.html()).toMatchSnapshot()
+  // })
 
   it('should be a link', () => {
     const wrapper = shallowMount(VaChip, {
