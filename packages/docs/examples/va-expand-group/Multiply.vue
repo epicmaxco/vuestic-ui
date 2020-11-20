@@ -4,7 +4,7 @@
     style="width: 400px;"
     multiply
   >
-    <va-expand
+    <va-collapse
       v-for="(expand, index) in expands"
       :key="index"
       :header="expand.title"
@@ -12,7 +12,7 @@
       <div>
         {{ expand.content }}
       </div>
-    </va-expand>
+    </va-collapse>
   </va-expand-group>
 </template>
 

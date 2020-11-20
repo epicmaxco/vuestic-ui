@@ -1,15 +1,15 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaExpand from 'vuestic-ui/src/components/vuestic-components/va-expand/VaExpand.vue'
+import VaCollapse from 'vuestic-ui/src/components/vuestic-components/va-collapse/VaCollapse.vue'
 import apiOptions from './api-options'
 
 export default [
   {
     type: BlockType.TITLE,
-    translationString: 'expand.title',
+    translationString: 'collapse.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expand.summaryText',
+    translationString: 'collapse.summaryText',
   },
   {
     type: BlockType.SUBTITLE,
@@ -17,51 +17,51 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'expand.examples.default.title',
+    translationString: 'collapse.examples.default.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expand.examples.default.text',
+    translationString: 'collapse.examples.default.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-expand/Default',
+    component: 'va-collapse/Default',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'expand.examples.solid.title',
+    translationString: 'collapse.examples.solid.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expand.examples.solid.text',
+    translationString: 'collapse.examples.solid.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-expand/Solid',
+    component: 'va-collapse/Solid',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'expand.examples.icon.title',
+    translationString: 'collapse.examples.icon.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expand.examples.icon.text',
+    translationString: 'collapse.examples.icon.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-expand/Icon',
+    component: 'va-collapse/Icon',
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'expand.examples.color.title',
+    translationString: 'collapse.examples.color.title',
   },
   {
     type: BlockType.PARAGRAPH,
-    translationString: 'expand.examples.color.text',
+    translationString: 'collapse.examples.color.text',
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-expand/Color',
+    component: 'va-collapse/Color',
   },
   {
     type: BlockType.SUBTITLE,
@@ -69,7 +69,7 @@ export default [
   },
   {
     type: BlockType.API,
-    componentOptions: VaExpand,
+    componentOptions: VaCollapse,
     apiOptions,
   },
 ] as ApiDocsBlock[]

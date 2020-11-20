@@ -540,36 +540,36 @@
         "tabindex": "Sets a custom tabindex"
       }
     },
-    "VaExpand": {
+    "VaCollapse": {
       "props": {
-        "value": "Current expand state",
+        "value": "Current collapse state",
         "header": "Text content to place in the header",
         "icon": "The icon to be displayed inside a header",
-        "solid": "Adds borders to the expand",
-        "colorAll": "Applies color to expand contents background"
+        "solid": "Adds borders to the collapse",
+        "colorAll": "Applies color to collapse contents background"
       },
       "events": {
-        "input": "Emits when expand is clicked"
+        "input": "Emits when collapse is clicked"
       },
       "methods": {},
       "slots": {
-        "default": "Content of the expand component",
+        "default": "Content of the collapse component",
         "header": "Replaces content of the header to custom"
       }
     },
     "VaExpandGroup": {
       "props": {
-        "value": "The array of currently opened expands",
+        "value": "The array of currently opened collapses",
         "multiply": "Allows to expand multiply components",
         "inset": "Expand becomes smaller when activated",
         "popout": "Expand becomes bigger when activated"
       },
       "events": {
-        "input": "Emits when any of expands is clicked"
+        "input": "Emits when any of collapses is clicked"
       },
       "methods": {},
       "slots": {
-        "default": "Contains expands"
+        "default": "Contains collapses"
       }
     },
     "VaChip": {
@@ -829,7 +829,7 @@
     "alert": "Alert",
     "icon": "Icon",
     "radio": "Radio",
-    "expand": "Expand",
+    "collapse": "Collapse",
     "expandGroup": "Expand Group",
     "chip": "Chip",
     "grid": "Grid",
@@ -1827,17 +1827,17 @@
       }
     }
   },
-  "expand": {
-    "title": "Expand",
+  "collapse": {
+    "title": "Collapse",
     "summaryText": "Toggles the visibility of content.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage  of the `va-expand` component."
+        "text": "Default usage  of the `va-collapse` component."
       },
       "solid": {
         "title": "Solid",
-        "text": "Add borders to your expand component by using `solid` property."
+        "text": "Add borders to your collapse component by using `solid` property."
       },
       "icon": {
         "title": "Icon",
@@ -1851,7 +1851,7 @@
   },
   "expandGroup": {
     "title": "Expand group",
-    "summaryText": "Allows you to control group of expands",
+    "summaryText": "Allows you to control group of collapses",
     "examples": {
       "default": {
         "title": "Default",
@@ -1859,15 +1859,15 @@
       },
       "multiply": {
         "title": "Multiply",
-        "text": "Expand group component allows you to select multiply expands."
+        "text": "Expand group component allows you to select multiply collapses."
       },
       "inset": {
         "title": "Inset",
-        "text": "Active expand component becomes smaller."
+        "text": "Active collapse component becomes smaller."
       },
       "popout": {
         "title": "Popout",
-        "text": "Active expand component becomes bigger."
+        "text": "Active collapse component becomes bigger."
       }
     }
   },

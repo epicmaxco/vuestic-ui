@@ -1,6 +1,6 @@
 <template>
   <div>
-    <va-expand
+    <va-collapse
       v-model="value[0]"
       style="width: 400px;"
       header="Expand header"
@@ -9,8 +9,8 @@
       <div>
         Expand content
       </div>
-    </va-expand>
-    <va-expand
+    </va-collapse>
+    <va-collapse
       v-model="value[1]"
       style="width: 400px;"
       header="Expand header"
@@ -20,8 +20,8 @@
       <div>
         Expand content
       </div>
-    </va-expand>
-    <va-expand
+    </va-collapse>
+    <va-collapse
       v-model="value[2]"
       style="width: 400px;"
       header="Expand header"
@@ -32,8 +32,8 @@
       <div>
         Expand content
       </div>
-    </va-expand>
-    <va-expand
+    </va-collapse>
+    <va-collapse
       v-model="value[3]"
       style="width: 400px;"
       header="Expand header"
@@ -46,7 +46,7 @@
       <div>
         Expand content
       </div>
-    </va-expand>
+    </va-collapse>
   </div>
 </template>
 

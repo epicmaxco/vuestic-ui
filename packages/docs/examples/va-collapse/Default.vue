@@ -1,12 +1,11 @@
 <template>
-  <va-expand
+  <va-collapse
     v-model="value"
     style="width: 400px;"
     header="Expand header"
-    solid
   >
     <div>Expand content</div>
-  </va-expand>
+  </va-collapse>
 </template>
 
 <script>

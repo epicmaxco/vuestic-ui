@@ -9,27 +9,27 @@ import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
-import VaExpand from '../VaExpand.vue'
+import VaCollapse from '../VaCollapse.vue'
 
-describe('VaExpand', () => {
+describe('VaCollapse', () => {
   it('should render without an error', () => {
   // -------------- Troxubles with an icon context ------------------
-    // const wrapper = mount(VaExpand)
+    // const wrapper = mount(VaCollapse)
     // expect(wrapper.isVueInstance()).toBeTruthy()
   })
   it('has StatefulMixin', () => {
     expect(() =>
-      testHasStatefulMixin((VaExpand as unknown) as StatefulMixin),
+      testHasStatefulMixin((VaCollapse as unknown) as StatefulMixin),
     ).not.toThrow()
   })
   it('has KeyboardOnlyFocusMixin', () => {
     expect(() =>
-      testHasKeyboardOnlyFocusMixin((VaExpand as unknown) as KeyboardOnlyFocusMixin),
+      testHasKeyboardOnlyFocusMixin((VaCollapse as unknown) as KeyboardOnlyFocusMixin),
     ).not.toThrow()
   })
   it('has ColorThemeMixin', () => {
     expect(() =>
-      testHasColorThemeMixin((VaExpand as unknown) as ColorThemeMixin),
+      testHasColorThemeMixin((VaCollapse as unknown) as ColorThemeMixin),
     ).not.toThrow()
   })
 
@@ -45,11 +45,11 @@ describe('VaExpand', () => {
   //     textColor: '',
   //     colorAll: false,
   //   }
-  //   expect(() => testIsContextableComponent(VaExpand, props)).not.toThrow()
+  //   expect(() => testIsContextableComponent(VaCollapse, props)).not.toThrow()
   // })
 
   it('should have disabled class', () => {
-    const wrapper = shallowMount(VaExpand, {
+    const wrapper = shallowMount(VaCollapse, {
       propsData: {
         value: true,
         disabled: true,
@@ -62,32 +62,32 @@ describe('VaExpand', () => {
         }
       },
     })
-    expect(wrapper.classes()).toContain('va-expand--disabled')
-    expect(wrapper.classes()).toContain('va-expand--solid')
-    expect(wrapper.classes()).toContain('va-expand--active')
-    expect(wrapper.classes()).toContain('va-expand--popout')
-    expect(wrapper.classes()).toContain('va-expand--inset')
+    expect(wrapper.classes()).toContain('va-collapse--disabled')
+    expect(wrapper.classes()).toContain('va-collapse--solid')
+    expect(wrapper.classes()).toContain('va-collapse--active')
+    expect(wrapper.classes()).toContain('va-collapse--popout')
+    expect(wrapper.classes()).toContain('va-collapse--inset')
   })
 
   it('should emit `input`', async () => {
-    const wrapper: any = shallowMount(VaExpand)
+    const wrapper: any = shallowMount(VaCollapse)
     await wrapper.vm.changeValue()
     expect(wrapper.emitted().input.length).toBe(1)
   })
 
   it('should emit `focus`', async () => {
-    const wrapper: any = shallowMount(VaExpand)
+    const wrapper: any = shallowMount(VaCollapse)
     await wrapper.vm.onFocus()
     expect(wrapper.emitted().focus.length).toBe(1)
   })
 
   it('should be triggered on mousedown', async () => {
-    const wrapper: any = shallowMount(VaExpand)
-    const expandHeader = wrapper.find('.va-expand__header')
+    const wrapper: any = shallowMount(VaCollapse)
+    const collapseHeader = wrapper.find('.va-collapse__header')
 
-    await expandHeader.trigger('mousedown')
+    await collapseHeader.trigger('mousedown')
     expect(wrapper.vm.hasMouseDown).toBe(true)
-    await expandHeader.trigger('mouseup')
+    await collapseHeader.trigger('mouseup')
     expect(wrapper.vm.hasMouseDown).toBe(false)
   })
 })

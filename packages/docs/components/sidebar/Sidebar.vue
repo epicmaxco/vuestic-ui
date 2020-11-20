@@ -3,7 +3,7 @@
     <algolia-search />
     <va-list class="sidebar__links">
       <va-expand-group v-model="value" multiply>
-        <va-expand
+        <va-collapse
           v-for="(route, key) in navigationRoutes"
           :key="key"
           class="sidebar__expand"
@@ -42,7 +42,7 @@
               </va-list-item-section>
             </va-list-item>
           </div>
-        </va-expand>
+        </va-collapse>
       </va-expand-group>
     </va-list>
   </va-sidebar>

@@ -1,34 +1,34 @@
 <template>
-  <div class="va-expand" :class="computedClasses">
+  <div class="va-collapse" :class="computedClasses">
     <div
-      class="va-expand__header"
+      class="va-collapse__header"
       @click="changeValue()"
-      :tabindex="expandIndexComputed"
+      :tabindex="collapseIndexComputed"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
       @focus="onFocus"
       @blur="isKeyboardFocused = false"
     >
       <slot name="header">
-        <div class="va-expand__header__content" :style="contentStyle">
+        <div class="va-collapse__header__content" :style="contentStyle">
           <va-icon
             v-if="c_icon"
-            class="va-expand__header__icon"
+            class="va-collapse__header__icon"
             :name="c_icon"
             :color="c_textColor"
           />
-          <div class="va-expand__header__text">
+          <div class="va-collapse__header__text">
             {{ c_header }}
           </div>
           <va-icon
-            class="va-expand__header__icon"
-            :name="valueProxy ? 'expand_less' : 'expand_more'"
+            class="va-collapse__header__icon"
+            :name="valueProxy ? 'collapse_less' : 'collapse_more'"
             :color="c_textColor"
           />
         </div>
       </slot>
     </div>
-    <div class="va-expand__body" :style="stylesComputed" ref="body">
+    <div class="va-collapse__body" :style="stylesComputed" ref="body">
       <slot />
     </div>
   </div>
@@ -45,7 +45,7 @@ import { getHoverColor } from '../../../services/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
-const ExpandPropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   header: { type: String, default: '' },
@@ -61,18 +61,18 @@ const TEXT_NODE_TYPE = 3
 @Component({
   components: { VaIcon },
 })
-export default class VaExpand extends Mixins(
+export default class VaCollapse extends Mixins(
   KeyboardOnlyFocusMixin,
   StatefulMixin,
   ColorThemeMixin,
-  ExpandPropsMixin,
+  PropsMixin,
 ) {
   popout = undefined
   inset = undefined
   height = this.getHeight()
   transitionDuration = this.getTransitionDuration();
   mutationObserver: any = null
-  valueExpand = {
+  valueCollapse = {
     value: undefined,
   }
 
@@ -85,18 +85,18 @@ export default class VaExpand extends Mixins(
   @Ref() readonly body!: HTMLElement
 
   get valueProxy () {
-    if (this.$parent?.$options?.name === 'VaExpandGroup') {
-      return this.valueExpand.value
+    if (this.$parent?.$options?.name === 'VaAccordion') {
+      return this.valueCollapse.value
     }
     return this.valueComputed
   }
 
   set valueProxy (value) {
-    if (this.$parent?.$options?.name === 'VaExpandGroup') {
-      this.valueExpand.value = value
+    if (this.$parent?.$options?.name === 'VaAccordion') {
+      this.valueCollapse.value = value
     }
     this.valueComputed = value
-    this.setExpandParams()
+    this.setCollapseParams()
   }
 
   get computedClasses () {
@@ -105,11 +105,11 @@ export default class VaExpand extends Mixins(
       this.inset = this.$parent.$props.inset
     }
     return {
-      'va-expand--disabled': this.c_disabled,
-      'va-expand--solid': this.c_solid,
-      'va-expand--active': this.c_solid && this.valueProxy,
-      'va-expand--popout': this.popout && this.valueProxy,
-      'va-expand--inset': this.inset && this.valueProxy,
+      'va-collapse--disabled': this.c_disabled,
+      'va-collapse--solid': this.c_solid,
+      'va-collapse--active': this.c_solid && this.valueProxy,
+      'va-collapse--popout': this.popout && this.valueProxy,
+      'va-collapse--inset': this.inset && this.valueProxy,
     }
   }
 
@@ -139,7 +139,7 @@ export default class VaExpand extends Mixins(
     }
   }
 
-  get expandIndexComputed () {
+  get collapseIndexComputed () {
     return this.c_disabled ? -1 : 0
   }
 
@@ -174,14 +174,14 @@ export default class VaExpand extends Mixins(
     return height
   }
 
-  setExpandParams () {
+  setCollapseParams () {
     this.height = this.getHeight()
     this.transitionDuration = this.getTransitionDuration()
   }
 
   mounted () {
     this.mutationObserver = new MutationObserver(() => {
-      this.setExpandParams()
+      this.setCollapseParams()
     })
     this.mutationObserver.observe(this.body, { attributes: true, childList: true, subtree: true })
   }
@@ -195,7 +195,7 @@ export default class VaExpand extends Mixins(
 <style lang="scss" scoped>
 @import "../../vuestic-sass/resources/resources";
 
-.va-expand {
+.va-collapse {
   transition: all 0.3s linear;
 
   &__body {
@@ -236,7 +236,7 @@ export default class VaExpand extends Mixins(
     box-shadow: 0 2px 3px 0 rgba(98, 106, 119, 0.25);
     border-radius: 0.375rem;
 
-    .va-expand {
+    .va-collapse {
       &__header {
         &__content {
           border-radius: 0.375rem;

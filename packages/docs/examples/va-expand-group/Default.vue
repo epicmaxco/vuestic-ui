@@ -1,6 +1,6 @@
 <template>
   <va-expand-group v-model="value" style="width: 400px;">
-    <va-expand
+    <va-collapse
       v-for="(expand, index) in expands"
       :key="index"
       :header="expand.title"
@@ -8,7 +8,7 @@
       <div>
         {{ expand.content }}
       </div>
-    </va-expand>
+    </va-collapse>
   </va-expand-group>
 </template>
 

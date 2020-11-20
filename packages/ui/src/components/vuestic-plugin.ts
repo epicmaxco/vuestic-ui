@@ -15,6 +15,7 @@ import VaCardContent from './vuestic-components/va-card/VaCardContent.vue'
 import VaCardTitle from './vuestic-components/va-card/VaCardTitle.vue'
 import VaCheckbox from './vuestic-components/va-checkbox/VaCheckbox.vue'
 import VaChip from './vuestic-components/va-chip/VaChip.vue'
+import VaCollapse from './vuestic-components/va-collapse/VaCollapse.vue'
 import VaContent from './vuestic-components/va-content/VaContent.vue'
 import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 import VaDivider from './vuestic-components/va-divider/VaDivider.vue'
@@ -22,7 +23,6 @@ import VaDivider from './vuestic-components/va-divider/VaDivider.vue'
 import VaDatePicker from './vuestic-components/va-date-picker/VaDatePicker.vue'
 
 import VaDropdown from './vuestic-components/va-dropdown/VaDropdown.vue'
-import VaExpand from './vuestic-components/va-expand/VaExpand.vue'
 import VaExpandGroup from './vuestic-components/va-expand-group/VaExpandGroup.vue'
 import VaFileUpload from './vuestic-components/va-file-upload/VaFileUpload.vue'
 import VaHover from './vuestic-components/va-hover/VaHover.vue'
@@ -116,11 +116,11 @@ const VuesticPlugin = {
       VaCardTitle,
       VaCheckbox,
       VaChip,
+      VaCollapse,
       VaContent,
       VaDataTable,
       VaDatePicker,
       VaDropdown,
-      VaExpand,
       VaExpandGroup,
       VaFileUpload,
       VaHover,

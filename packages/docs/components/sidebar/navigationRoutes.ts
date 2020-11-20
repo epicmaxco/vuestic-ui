@@ -170,8 +170,8 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.list',
       },
       {
-        name: 'expand',
-        displayName: 'menu.expand',
+        name: 'collapse',
+        displayName: 'menu.collapse',
       },
       {
         name: 'expand-group',
