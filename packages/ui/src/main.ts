@@ -1,6 +1,6 @@
 // @ts-ignore
 import { VuesticPlugin } from './components/vuestic-plugin'
 
-module.exports = {
+export default {
   VuesticPlugin,
 }

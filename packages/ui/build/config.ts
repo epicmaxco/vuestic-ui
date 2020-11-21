@@ -59,7 +59,7 @@ const result = {
   },
   module: {
     rules: [
-      { test: /\.m?js/, resolve: { fullySpecified: false } },
+      // { test: /\.m?js/, resolve: { fullySpecified: false } },
       {
         test: /\.js?$/,
         exclude: file => (
