@@ -1,4 +1,4 @@
-import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
+import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import VaColorPicker from 'vuestic-ui/src/components/vuestic-components/va-color-picker/VaColorPicker.vue'
 import apiOptions from './api-options'
 
