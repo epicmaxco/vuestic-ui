@@ -205,6 +205,30 @@
       "methods": {},
       "slots": {}
     },
+    "VaColorPicker": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorSlider": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorPalette": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaButtonGroup": {
       "props": {},
       "events": {},
@@ -267,6 +291,10 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "colorPicker": "Color Picker",
+    "colorInput": "Color Input",
+    "colorSlider": "Color Slider",
+    "colorPalette": "Color Palette",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
@@ -325,6 +353,18 @@
   },
   "parallax": {},
   "backtop": {
+    "title": "-- Here is the title --"
+  },
+  "colorPicker": {
+    "title": "-- Here is the title --"
+  },
+  "colorInput": {
+    "title": "-- Here is the title --"
+  },
+  "colorSlider": {
+    "title": "-- Here is the title --"
+  },
+  "colorPalette": {
     "title": "-- Here is the title --"
   },
   "buttonGroup": {

@@ -130,7 +130,8 @@
         "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
-        "square": "Removes rounded corners.",
+        "square": "Removes rounded corners",
+        "indicator": "Sets the indicator style",
         "icon": "Sets an icon."
       }
     },
@@ -747,6 +748,62 @@
         "default": "Slot for backtop content"
       }
     },
+    "VaColorPicker": {
+      "props": {
+        "value": "Current picked color"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorInput": {
+      "props": {
+        "value": "Current color",
+        "selected": "Select the indicator"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorInputAdvanced": {
+      "props": {
+        "value": "Current color",
+        "selected": "Select the indicator",
+        "mode": "Sets the mode of the component",
+        "palette": "An array of colors to palette mode"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Component content"
+      }
+    },
+    "VaColorSlider": {
+      "props": {
+        "value": "Current color"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorPalette": {
+      "props": {
+        "value": "Current color",
+        "palette": "An array of colors"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorPaletteAdvanced": {
+      "props": {
+        "value": "Current color",
+        "palette": "An array of colors"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaButtonGroup": {
       "slots": {
         "default": "Slot for buttons"
@@ -792,6 +849,7 @@
       "form": "Form",
       "layout": "Layout",
       "navigation": "Navigation",
+      "color": "Color",
       "other": "Other"
     },
     "introduction": "Introduction",
@@ -838,6 +896,10 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "colorPicker": "Color Picker",
+    "colorInput": "Color Input",
+    "colorSlider": "Color Slider",
+    "colorPalette": "Color Palette",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
@@ -2127,6 +2189,74 @@
         "title": "Basic usage",
         "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
       }
+    }
+  },
+  "colorPicker": {
+    "title": "Color Picker",
+    "summaryText": "A component which helps to pick the color. We use the [vue-color](https://github.com/xiaokaike/vue-color) library for this component. Will be replaced in next versions.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model`."
+      }
+    }
+  },
+  "colorInput": {
+    "title": "Color Input",
+    "summaryText": "Input component that allows you to select a color.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model`."
+      },
+      "selected": {
+        "title": "Selected",
+        "text": "Dot style changes can be applied."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "All user interactions can be disabled."
+      },
+      "advanced": {
+        "title": "Advanced",
+        "text": "It's a heavier component which provides an ability to pick color by click."
+      }
+    },
+    "api": {
+      "colorInput": "Color Input API",
+      "colorInputAdvanced": "Color Input Advanced API"
+    }
+  },
+  "colorSlider": {
+    "title": "Color Slider",
+    "summaryText": "Slider component for color pick.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model`."
+      }
+    }
+  },
+  "colorPalette": {
+    "title": "Color Palette",
+    "summaryText": "Palette component for color pick.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model` and palette array."
+      },
+      "indicator": {
+        "title": "Indicator",
+        "text": "You can apply different styles to the indicator: `dot` and `square` are available. "
+      },
+      "advanced": {
+        "title": "Advanced",
+        "text": "The component has an advanced version with an input component and color picker."
+      }
+    },
+    "api": {
+      "colorPalette": "Color Palette API",
+      "colorPaletteAdvanced": "Color Palette Advanced API"
     }
   },
   "buttonGroup": {

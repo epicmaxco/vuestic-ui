@@ -1,7 +1,7 @@
 <template>
   <ChromePicker
     v-model="valueProxy"
-    class="va-advanced-color-picker"
+    class="va-color-picker"
   />
 </template>
 
@@ -11,10 +11,10 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Chrome } from 'vue-color'
 
 @Component({
-  name: 'VaAdvancedColorPicker',
+  name: 'VaColorPicker',
   components: { ChromePicker: Chrome },
 })
-export default class VaAdvancedColorPicker extends Vue {
+export default class VaColorPicker extends Vue {
   @Prop({
     type: String,
     default: '',
@@ -31,7 +31,7 @@ export default class VaAdvancedColorPicker extends Vue {
 </script>
 
 <style lang="scss">
-.va-advanced-color-picker {
+.va-color-picker {
   .vc-chrome-alpha-wrap {
     display: none;
   }

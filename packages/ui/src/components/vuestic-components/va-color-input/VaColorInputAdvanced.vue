@@ -1,10 +1,10 @@
 <template>
-  <div class="va-color-picker-input">
+  <div class="va-color-input-advanced">
     <div v-if="validator(this.mode)">
       <va-dropdown-popper fixed>
         <div
           slot="anchor"
-          class="va-color-picker-input__slot"
+          class="va-color-input-advanced__slot"
         >
           <slot>
             <va-color-input
@@ -12,20 +12,21 @@
               mode="palette"
               :disabled="isInputDisabled"
               :selected="selected"
+              :indicator="indicator"
             />
           </slot>
         </div>
-        <div class="va-color-picker-input__dropdown">
-          <va-advanced-color-picker
+        <div class="va-color-input-advanced__dropdown">
+          <va-color-picker
             v-if="this.mode === 'advanced'"
             v-model="valueProxy"
           />
-          <va-simple-palette-picker
+          <va-color-palette
             v-if="this.mode === 'palette'"
             v-model="valueProxy"
             :palette="palette"
           />
-          <va-slider-color-picker
+          <va-color-slider
             v-if="this.mode === 'slider'"
             v-model="valueProxy"
           />
@@ -38,6 +39,7 @@
           v-model="valueProxy"
           mode="palette"
           :disabled="isInputDisabled"
+          :indicator="indicator"
         />
       </slot>
     </div>
@@ -46,27 +48,35 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import VaAdvancedColorPicker from './VaAdvancedColorPicker.vue'
-import VaSimplePalettePicker from './VaSimplePalettePicker.vue'
-import VaSliderColorPicker from './VaSliderColorPicker.vue'
-import VaColorInput from './VaColorInput.vue'
+import VaColorPicker from '../va-color-picker/VaColorPicker.vue'
+import VaColorPalette from '../va-color-palette/VaColorPalette.vue'
+import VaColorSlider from '../va-color-slider/VaColorSlider.vue'
+import VaColorInput from '../va-color-input/VaColorInput.vue'
 import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
 
 @Component({
-  name: 'VaColorPickerInput',
+  name: 'VaColorInputAdvanced',
   components: {
     VaDropdownPopper,
-    VaSimplePalettePicker,
-    VaAdvancedColorPicker,
-    VaSliderColorPicker,
+    VaColorPalette,
+    VaColorPicker,
+    VaColorSlider,
     VaColorInput,
   },
 })
-export default class VaColorPickerInput extends Vue {
+export default class VaColorInputAdvanced extends Vue {
   @Prop({
     type: String,
     default: '',
   }) readonly value!: string
+
+  @Prop({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  }) readonly indicator!: string
 
   @Prop({
     type: String,
@@ -104,7 +114,7 @@ export default class VaColorPickerInput extends Vue {
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 
-.va-color-picker-input {
+.va-color-input-advanced {
   &__dropdown {
     background: $white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

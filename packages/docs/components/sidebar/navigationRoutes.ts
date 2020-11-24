@@ -203,6 +203,23 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.progressCircle',
       },
       {
+        category: 'menu.categories.color',
+        name: 'color-picker',
+        displayName: 'menu.colorPicker',
+      },
+      {
+        name: 'color-input',
+        displayName: 'menu.colorInput',
+      },
+      {
+        name: 'color-slider',
+        displayName: 'menu.colorSlider',
+      },
+      {
+        name: 'color-palette',
+        displayName: 'menu.colorPalette',
+      },
+      {
         category: 'menu.categories.other',
         name: 'affix',
         displayName: 'menu.affix',

@@ -78,17 +78,17 @@ import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-
 // @ts-ignore
 import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from './resize-events'
-import VaSimplePalettePicker
-  from './vuestic-components/va-color-picker/VaSimplePalettePicker.vue'
-import VaColorSquare from './vuestic-components/va-color-picker/VaColorSquare.vue'
-import VaSliderColorPicker
-  from './vuestic-components/va-color-picker/VaSliderColorPicker.vue'
-import VaAdvancedColorPicker
-  from './vuestic-components/va-color-picker/VaAdvancedColorPicker.vue'
-import VaColorPickerInput
-  from './vuestic-components/va-color-picker/VaColorPickerInput.vue'
-import VaPaletteCustom
-  from './vuestic-components/va-color-picker/VaPaletteCustom.vue'
+import VaColorPalette
+  from './vuestic-components/va-color-palette/VaColorPalette.vue'
+import VaColorSlider from './vuestic-components/va-color-slider/VaColorSlider.vue'
+import VaColorPicker
+  from './vuestic-components/va-color-picker/VaColorPicker.vue'
+import VaColorInput
+  from './vuestic-components/va-color-input/VaColorInput.vue'
+import VaColorInputAdvanced
+  from './vuestic-components/va-color-input/VaColorInputAdvanced.vue'
+import VaColorPaletteAdvanced
+  from './vuestic-components/va-color-palette/VaColorPaletteAdvanced.vue'
 import VaForm
   from './vuestic-components/va-form/VaForm.vue'
 import VaOptionList
@@ -162,12 +162,12 @@ const VuesticPlugin = {
       VaTreeNode,
       VaTreeRoot,
       VaInnerLoading,
-      VaSimplePalettePicker,
-      VaColorSquare,
-      VaSliderColorPicker,
-      VaAdvancedColorPicker,
-      VaColorPickerInput,
-      VaPaletteCustom,
+      VaColorPalette,
+      VaColorPicker,
+      VaColorSlider,
+      VaColorInput,
+      VaColorInputAdvanced,
+      VaColorPaletteAdvanced,
       VaButtonDropdown,
       VaForm,
       VaDivider,

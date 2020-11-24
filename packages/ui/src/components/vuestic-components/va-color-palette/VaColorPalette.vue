@@ -1,11 +1,12 @@
 <template>
-  <div class="va-simple-palette-picker">
-    <ul class="va-simple-palette-picker__colors">
-      <color-dot
+  <div class="va-color-palette">
+    <ul class="va-color-palette__colors">
+      <va-color-indicator
         v-for="(color, index) in palette"
         :key="index"
         :color="color"
         @click.native="handlerClick(color)"
+        :indicator="indicator"
         :selected="isSelected(color)"
       />
     </ul>
@@ -14,19 +15,27 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import ColorDot from './ColorDot.vue'
+import VaColorIndicator from './VaColorIndicator.vue'
 
 @Component({
-  name: 'VaSimplePalettePicker',
+  name: 'VaColorPalette',
   components: {
-    ColorDot,
+    VaColorIndicator,
   },
 })
-export default class VaSimplePalettePicker extends Vue {
+export default class VaColorPalette extends Vue {
   @Prop({
     type: String,
     default: '',
   }) readonly value!: string
+
+  @Prop({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  }) readonly indicator!: string
 
   @Prop({
     type: Array,
@@ -52,7 +61,7 @@ export default class VaSimplePalettePicker extends Vue {
 </script>
 
 <style lang="scss">
-.va-simple-palette-picker {
+.va-color-palette {
   padding-top: 3px;
 
   &__colors {

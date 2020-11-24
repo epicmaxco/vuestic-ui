@@ -1,9 +1,10 @@
 <template>
   <div class="va-color-input">
-    <color-dot
+    <va-color-indicator
       class="va-color-input__dot"
       :selected="selected"
       :color="value"
+      :indicator="indicator"
       @click="onClick"
     />
     <va-input
@@ -17,14 +18,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import ColorDot from './ColorDot.vue'
+import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
 import VaInput from '../va-input/VaInput.vue'
 
 @Component({
   name: 'VaColorInput',
   components: {
     VaInput,
-    ColorDot,
+    VaColorIndicator,
   },
 })
 export default class VaColorInput extends Vue {
@@ -32,6 +33,14 @@ export default class VaColorInput extends Vue {
     type: String,
     default: '',
   }) readonly value!: string
+
+  @Prop({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  }) readonly indicator!: string
 
   @Prop({
     type: Boolean,
