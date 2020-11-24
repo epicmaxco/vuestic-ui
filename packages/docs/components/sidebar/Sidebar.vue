@@ -2,12 +2,11 @@
   <va-sidebar class="sidebar" color="secondary" v-model="minimized">
     <algolia-search />
     <va-list class="sidebar__links">
-      <va-expand-group v-model="value" multiply>
-        <va-expand
+      <va-accordion v-model="value" multiply>
+        <va-collapse
           v-for="(route, key) in navigationRoutes"
           :key="key"
           class="sidebar__expand"
-          :class="{ 'sidebar__expand--active': value[key] }"
         >
           <template slot="header">
             <va-list-item class="sidebar__category">
@@ -19,7 +18,6 @@
               <va-list-item-section icon>
                 <va-icon
                   :name="value[key] ? 'expand_less' : 'expand_more'"
-                  :color="value[key] ? 'primary' : ''"
                 />
               </va-list-item-section>
             </va-list-item>
@@ -44,8 +42,8 @@
               </va-list-item-section>
             </va-list-item>
           </div>
-        </va-expand>
-      </va-expand-group>
+        </va-collapse>
+      </va-accordion>
     </va-list>
   </va-sidebar>
 </template>
@@ -138,12 +136,6 @@ export default class Sidebar extends Vue {
     .sidebar__category__section {
       padding-left: 0.5rem;
       justify-content: center;
-    }
-
-    &--active {
-      .sidebar__category__label {
-        color: $theme-blue-dark;
-      }
     }
   }
 

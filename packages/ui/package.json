@@ -39,7 +39,7 @@
     "normalize.css": "^8.0.1",
     "stylelint": "^13.2.1",
     "stylelint-config-standard": "^20.0.0",
-    "v-tooltip": "^2.0.3",
+    "v-tooltip": "2.0.2",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
     "vue-clipboard2": "^0.3.0",

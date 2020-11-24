@@ -1,6 +1,93 @@
 {
-  "translation": {
-    "path": "Example translation string"
+  "landing": {
+    "header": {
+      "buttons": {
+        "overview": "Overview",
+        "docs": "Docs",
+        "discord": "Join on Discord",
+        "translation": "Add translation...",
+        "language": "Language",
+        "star": "Star"
+      }
+    },
+    "preview": {
+      "title": "Vue.js UI Library",
+      "buttons": {
+        "start": "Get started",
+        "github": "View on GitHub"
+      },
+      "features": {
+        "nuxt": {
+          "title": "Nuxt Support",
+          "text": "Nuxt integration guides"
+        },
+        "components": {
+          "title": "52 Responsive Components",
+          "text": "Available components docs"
+        },
+        "keyboard": {
+          "title": "Keyboard Navigation",
+          "text": "Accessibility guides"
+        },
+        "browsers": {
+          "title": "Modern Browsers Support",
+          "text": "Supported browsers list"
+        }
+      }
+    },
+    "seamless": {
+      "title": "Seamless Integration",
+      "text": "Use Vuestic UI with other component libraries without any conflicts.",
+      "compare": {
+        "vuestic": "Vuestic UI components",
+        "other": "Other components"
+      }
+    },
+    "customize": {
+      "title": "Customize Everything",
+      "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
+      "tabs": [
+        "Large Modern",
+        "Squared Classy",
+        "Multiple Themes"
+      ],
+      "copy": "Copied to clipboard",
+      "configuration": "See our configuration guides"
+    },
+    "opensource": {
+      "title": "Open Source",
+      "text": [
+        "Vuestic UI is forever free and open to contributions. See our",
+        "issues",
+        "contributing guide",
+        "and",
+        "discord server",
+        "to help us improve Vuestic UI experience."
+      ]
+    },
+    "admin": {
+      "title": "Vuestic Admin",
+      "text": "Check out Vuestic UI Library in action.",
+      "buttons": {
+        "github": "View on GitHub",
+        "demo": "Live Demo",
+        "star": "Star"
+      },
+      "features": {
+        "opensource": "Open source MIT license",
+        "themes": "Two built-in color schemes",
+        "responsive": "Cross-browser & responsive",
+        "i18n": "i18n-ready"
+      }
+    },
+    "footer": {
+      "text": "Open source, free to use. Development inquiries:",
+      "buttons": {
+        "epicmax": "About Epicmax",
+        "admin": "Vuestic Admin",
+        "spinners": "Epic Spinners"
+      }
+    }
   },
   "api": {
     "all": {
@@ -454,39 +541,39 @@
         "tabindex": "Sets a custom tabindex"
       }
     },
-    "VaExpand": {
+    "VaCollapse": {
       "props": {
-        "value": "Current expand state",
+        "value": "Current collapse state",
         "header": "Text content to place in the header",
         "icon": "The icon to be displayed inside a header",
-        "solid": "Adds borders to the expand",
-        "colorAll": "Applies color to expand contents background"
+        "solid": "Adds borders to the collapse",
+        "colorAll": "Applies color to collapse contents background"
       },
       "events": {
-        "input": "Emits when expand is clicked"
+        "input": "Emits when collapse is clicked"
       },
       "methods": {},
       "slots": {
-        "default": "Content of the expand component",
+        "default": "Content of the collapse component",
         "header": "Replaces content of the header to custom"
       }
     },
-    "VaExpandGroup": {
+    "VaAccordion": {
       "props": {
-        "value": "The array of currently opened expands",
+        "value": "The array of currently opened collapses",
         "multiply": "Allows to expand multiply components",
-        "inset": "Expand becomes smaller when activated",
-        "popout": "Expand becomes bigger when activated"
+        "inset": "Collapse becomes smaller when activated",
+        "popout": "Collapse becomes bigger when activated"
       },
       "events": {
-        "input": "Emits when any of expands is clicked"
+        "input": "Emits when any of collapses is clicked"
       },
       "methods": {},
       "slots": {
-        "default": "Contains expands"
+        "default": "Contains collapses"
       }
     },
-    "VaTag": {
+    "VaChip": {
       "props": {
         "closeable": "Provides the ability to close the tag",
         "outline": "Applies outline styling",
@@ -730,7 +817,7 @@
         "toggleColor": "Color of the toggle button"
       },
       "events": {
-        "input":"Emits when toggling to the different button"
+        "input": "Emits when toggling to the different button"
       },
       "methods": {},
       "slots": {}
@@ -748,6 +835,12 @@
       "slots": {
         "default": "Slot for the component to which you want to apply loading styles"
       }
+    },
+    "VaNuxtIntegration": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -759,6 +852,10 @@
       "color": "Color",
       "other": "Other"
     },
+    "introduction": "Introduction",
+    "gettingStarted": "Getting Started",
+    "styles": "Styles",
+    "uiElements": "UI Elements",
     "contribution": "Contribution",
     "documentationPage": "Documentation Page",
     "affix": "Affix",
@@ -770,8 +867,6 @@
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
-    "uiElements": "UI Elements",
-    "styles": "Styles",
     "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
@@ -792,9 +887,9 @@
     "alert": "Alert",
     "icon": "Icon",
     "radio": "Radio",
-    "expand": "Expand",
-    "expandGroup": "Expand Group",
-    "tag": "Tag",
+    "collapse": "Collapse",
+    "accordion": "Accordion",
+    "chip": "Chip",
     "grid": "Grid",
     "input": "Input",
     "list": "List",
@@ -808,13 +903,16 @@
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
-    "innerLoading": "Inner Loading"
-  },
-  "language": {
-    "brazilian_portuguese": "Português",
-    "english": "English",
-    "spanish": "Spanish",
-    "simplified_chinese": "Simplified Chinese"
+    "innerLoading": "Inner Loading",
+    "installation": "Installation",
+    "roadmap": "Roadmap",
+    "nuxtIntegration": "Nuxt Integration",
+    "accessibilityGuide": "Accessibility Guide",
+    "configurationGuide": "Configuration Guide",
+    "browsersList": "Browsers List",
+    "overview": "Overview",
+    "translation": "Translation",
+    "browserSupport": "Browser Support"
   },
   "all": {
     "examples": "Examples",
@@ -1791,21 +1889,21 @@
       }
     }
   },
-  "expand": {
-    "title": "Expand",
+  "collapse": {
+    "title": "Collapse",
     "summaryText": "Toggles the visibility of content.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage  of the `va-expand` component."
+        "text": "Default usage  of the `va-collapse` component."
       },
       "solid": {
         "title": "Solid",
-        "text": "Add borders to your expand component by using `solid` property."
+        "text": "Add borders to your collapse component by using `solid` property."
       },
       "icon": {
         "title": "Icon",
-        "text": "You can add an icon to the expand's header."
+        "text": "You can add an icon to the header."
       },
       "color": {
         "title": "Color",
@@ -1813,35 +1911,35 @@
       }
     }
   },
-  "expandGroup": {
-    "title": "Expand group",
-    "summaryText": "Allows you to control group of expands",
+  "accordion": {
+    "title": "Accordion",
+    "summaryText": "Allows you to control group of collapses",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage  of the `va-expand-group` component."
+        "text": "Default usage  of the `va-accordion` component."
       },
       "multiply": {
         "title": "Multiply",
-        "text": "Expand group component allows you to select multiply expands."
+        "text": "Accordion component allows you to select multiply collapses."
       },
       "inset": {
         "title": "Inset",
-        "text": "Active expand component becomes smaller."
+        "text": "Active collapse component becomes smaller."
       },
       "popout": {
         "title": "Popout",
-        "text": "Active expand component becomes bigger."
+        "text": "Active collapse component becomes bigger."
       }
     }
   },
-  "tag": {
-    "title": "Tag",
+  "chip": {
+    "title": "Chip",
     "summaryText": "",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage of the `va-tag` compoment."
+        "text": "Default usage of the `va-chip` compoment."
       },
       "outline": {
         "title": "Outline",
@@ -1853,11 +1951,11 @@
       },
       "square": {
         "title": "Square",
-        "text": "Makes your `va-tag` square."
+        "text": "Makes your `va-chip` square."
       },
       "color": {
         "title": "Color",
-        "text": "You can use the `va-tag` component with different colors."
+        "text": "You can use the `va-chip` component with different colors."
       },
       "size": {
         "title": "Size",
@@ -2037,9 +2135,9 @@
         "title": "State",
         "text": "Includes error, success, disabled or loading state"
       },
-      "tags": {
-        "title": "Tags",
-        "text": "Includes selection display as tags and maximum tags count"
+      "chips": {
+        "title": "Chips",
+        "text": "Includes selection display as chips and maximum chips count"
       },
       "searchable": {
         "title": "Searchable",
@@ -2237,5 +2335,29 @@
         "text": "You can change the loading icon."
       }
     }
+  },
+  "installation": {
+    "title": "Work In Progress"
+  },
+  "roadmap": {
+    "title": "Work In Progress"
+  },
+  "nuxtIntegration": {
+    "title": "Work In Progress"
+  },
+  "accessibilityGuide": {
+    "title": "Work In Progress"
+  },
+  "configurationGuide": {
+    "title": "Work In Progress"
+  },
+  "browserSupport": {
+    "title": "Work In Progress"
+  },
+  "overview": {
+    "title": "Work In Progress"
+  },
+  "translation": {
+    "title": "Work In Progress"
   }
 }

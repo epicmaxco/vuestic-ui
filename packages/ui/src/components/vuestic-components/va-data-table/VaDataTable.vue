@@ -45,6 +45,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Mixins, Watch } from 'vue-property-decorator'
+// @ts-ignore
 import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading.vue'

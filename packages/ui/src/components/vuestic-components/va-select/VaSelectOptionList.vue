@@ -105,8 +105,8 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
 
   getOptionStyle (option: any) {
     return {
-      color: this.getSelectedState(option) ? this.computeColor('primary') : 'inherit',
-      backgroundColor: this.isHovered(option) ? getHoverColor(this.computeColor('primary')) : 'transparent',
+      color: this.getSelectedState(option) ? this.colorComputed : 'inherit',
+      backgroundColor: this.isHovered(option) ? getHoverColor(this.colorComputed) : 'transparent',
     }
   }
 

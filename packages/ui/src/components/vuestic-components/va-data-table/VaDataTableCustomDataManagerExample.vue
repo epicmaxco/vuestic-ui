@@ -14,7 +14,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import users from '../../../data/users.json'
+import users from '../../../data/Users'
 import VaDataTable from './VaDataTable.vue'
 const transformToString = (a: any) => {
   a = a ?? ''
