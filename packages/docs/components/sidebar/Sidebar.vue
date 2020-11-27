@@ -70,10 +70,11 @@ export default class Sidebar extends Vue {
 
   setActiveExpand () {
     this.value = this.navigationRoutes.map((route, index) => {
+      const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
       return (
         this.value[index] ||
         !!route.children?.some(({ name }) =>
-          this.$router.currentRoute.fullPath?.includes(name)
+          pathSteps.includes(name)
         )
       )
     })
