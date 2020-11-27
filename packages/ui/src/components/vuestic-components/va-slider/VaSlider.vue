@@ -683,10 +683,10 @@ export default class VaSlider extends Mixins(
     const range = this.limit
     const valueRange = this.valueLimit
 
-    this.setTransform()
+    // this.setTransform()
 
     // set focus on current thumb
-    // ;(this.isRange ? (this.currentSlider ? this.dot1 : this.dot0) : this.dot).focus()
+    ;(this.isRange ? (this.currentSlider ? this.dot1 : this.dot0) : this.dot).focus()
 
     if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
       if (this.currentSlider) {
@@ -711,27 +711,27 @@ export default class VaSlider extends Mixins(
     }
   }
 
-  setTransform () {
-    if (this.isRange) {
-      const slider = this.currentSlider
-      const difference = 100 / (this.max - this.min)
-      const val0 = (this.value[0] - this.min) * difference
-      const processPosition = `${val0}%`
+  // setTransform () {
+  //   if (this.isRange) {
+  //     const slider = this.currentSlider
+  //     const difference = 100 / (this.max - this.min)
+  //     const val0 = (this.value[0] - this.min) * difference
+  //     const processPosition = `${val0}%`
 
-      if (slider === 0) {
-        this.dot0.style[this.pinPositionStyle] = `calc(${processPosition} - 8px)`
-        this.dot0.focus()
-      } else {
-        this.dot1.style[this.pinPositionStyle] = `calc(${processPosition} - 8px)`
-        this.dot1.focus()
-      }
-    } else {
-      const val = ((this.value - this.min) / (this.max - this.min)) * 100
+  //     if (slider === 0) {
+  //       this.dot0.style[this.pinPositionStyle] = `calc(${processPosition} - 8px)`
+  //       this.dot0.focus()
+  //     } else {
+  //       this.dot1.style[this.pinPositionStyle] = `calc(${processPosition} - 8px)`
+  //       this.dot1.focus()
+  //     }
+  //   } else {
+  //     const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
-      this.dot.style[this.pinPositionStyle] = `calc(${val} - 8px)`
-      this.dot.focus()
-    }
-  }
+  //     this.dot.style[this.pinPositionStyle] = `calc(${val} - 8px)`
+  //     this.dot.focus()
+  //   }
+  // }
 
   // normalizeValue (value: any) {
   //   const currentRest = value % this.step
