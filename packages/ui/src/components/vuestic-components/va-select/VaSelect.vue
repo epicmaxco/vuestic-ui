@@ -77,28 +77,36 @@
               class="va-select__content"
               :class="[label ? 'va-select__content__selection--no-label' : '']"
             >
-              {{ label }}
-            </label>
-            <template v-if="selectionValue || selectionChips">
-              <div
-                class="va-select__content__selection"
-                v-if="c_multiple"
+              <label
+                v-if="label"
+                class="va-select__content__label"
+                :style="labelStyle"
+                ref="label"
+                aria-hidden="true"
               >
-                <div v-if="chips && selectionChips.length <= chipMax">
-                  <va-chip
-                    class="va-select__content__selection--chip"
-                    v-for="(option, i) in selectionChips"
-                    :key="i"
-                    size="small"
-                    :color="c_color"
-                    :closeable="deletableChips"
-                    @input="selectOption(option)"
-                  >
-                    {{option}}
-                  </va-chip>
-                </div>
-                <div v-else>
-                  {{ selectionChips }}
+                {{ label }}
+              </label>
+              <template v-if="selectionValue || selectionChips">
+                <div
+                  class="va-select__content__selection"
+                  v-if="c_multiple"
+                >
+                  <div v-if="chips && selectionChips.length <= chipMax">
+                    <va-chip
+                      class="va-select__content__selection--chip"
+                      v-for="(option, i) in selectionChips"
+                      :key="i"
+                      size="small"
+                      :color="c_color"
+                      :closeable="deletableChips"
+                      @input="selectOption(option)"
+                    >
+                      {{ option }}
+                    </va-chip>
+                  </div>
+                  <div v-else>
+                    {{ selectionChips }}
+                  </div>
                 </div>
               </template>
               <div

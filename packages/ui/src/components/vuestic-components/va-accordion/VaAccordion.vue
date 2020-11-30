@@ -1,14 +1,15 @@
 <template>
   <div class="va-accordion">
-    <slot />
+    <slot/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Provide } from 'vue-property-decorator'
+import { Mixins, Provide } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { Options } from 'vue-class-component'
 
 const PropsMixin = makeContextablePropsMixin({
   value: { type: Array, default: () => [] },
@@ -17,7 +18,7 @@ const PropsMixin = makeContextablePropsMixin({
   popout: { type: Boolean, default: false },
 })
 
-@Component({
+@Options({
   name: 'VaAccordion',
 })
 export default class VaAccordion extends Mixins(
@@ -30,7 +31,7 @@ export default class VaAccordion extends Mixins(
 
   onChildChange (child: any, state: any) {
     const emitValue: any = []
-    this.$children.forEach(collapse => {
+    this.$children.forEach((collapse: any) => {
       if (collapse === child) {
         emitValue.push((collapse as any).valueProxy)
         return
@@ -44,14 +45,16 @@ export default class VaAccordion extends Mixins(
   }
 
   mounted () {
-    this.$children.forEach((collapse, index) => {
-      (collapse as any).valueProxy = this.valueComputed[index]
+    console.log('this.$children', this.$children)
+    console.log('this.$refs', this.$refs)
+    this.$children.forEach((collapse: any, index: number) => {
+      collapse.valueProxy = this.valueComputed[index]
     })
   }
 
   updated () {
-    this.$children.forEach((collapse, index) => {
-      (collapse as any).valueProxy = this.valueComputed[index]
+    this.$children.forEach((collapse: any, index: number) => {
+      collapse.valueProxy = this.valueComputed[index]
     })
   }
 }

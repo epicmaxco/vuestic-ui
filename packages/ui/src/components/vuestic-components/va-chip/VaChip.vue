@@ -38,7 +38,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { Mixins, Watch } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
 
 import VaIcon from '../va-icon/VaIcon.vue'
 
@@ -72,7 +73,7 @@ const PropsMixin = makeContextablePropsMixin({
   },
 })
 
-@Component({
+@Options({
   name: 'VaChip',
   components: { VaIcon },
 })

@@ -6,11 +6,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 // @ts-ignore
 import { Slider } from 'vue-color'
+import { Options, Vue } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaColorSlider',
   components: {
     SliderPicker: Slider,

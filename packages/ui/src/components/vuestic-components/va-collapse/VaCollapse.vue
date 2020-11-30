@@ -35,10 +35,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Inject, Ref } from 'vue-property-decorator'
-
+import { Mixins, Inject, Ref } from 'vue-property-decorator'
+import { Options } from 'vue-class-component'
 import VaIcon from '../va-icon/VaIcon.vue'
-
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { getHoverColor } from '../../../services/color-functions'
@@ -58,7 +57,7 @@ const PropsMixin = makeContextablePropsMixin({
 
 const TEXT_NODE_TYPE = 3
 
-@Component({
+@Options({
   components: { VaIcon },
 })
 export default class VaCollapse extends Mixins(
@@ -100,9 +99,9 @@ export default class VaCollapse extends Mixins(
   }
 
   get computedClasses () {
-    if (this.$parent.$props) {
-      this.popout = this.$parent.$props.popout
-      this.inset = this.$parent.$props.inset
+    if ((this as any).$parent.$props) {
+      this.popout = (this as any).$parent.$props.popout
+      this.inset = (this as any).$parent.$props.inset
     }
     return {
       'va-collapse--disabled': this.c_disabled,
@@ -123,7 +122,7 @@ export default class VaCollapse extends Mixins(
   }
 
   get stylesComputed () {
-    if (this.valueProxy && this.$slots.default?.[0]) {
+    if (this.valueProxy && (this as any).$slots.default?.[0]) {
       return {
         height: this.height + 'px',
         transitionDuration: this.transitionDuration + 's',

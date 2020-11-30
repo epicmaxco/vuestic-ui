@@ -110,7 +110,7 @@
     "stylelint-config-standard": "^20.0.0",
     "ts-node": "^9.0.0",
     "vue-bulma-expanding": "0.0.1",
-    "vuepress": "^1.4.0"
+    "vuepress": "^1.4.0",
     "vue-loader": "^15.9.5",
     "vue-template-compiler": "^2.6.12",
     "vuelidate": "^0.7.5",

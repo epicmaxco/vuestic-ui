@@ -12,11 +12,12 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Component } from 'vue-property-decorator'
+import { Mixins } from 'vue-property-decorator'
 
 import { getGradientBackground } from '../../../services/color-functions'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options } from 'vue-class-component'
 
 const SidebarPropsMixin = makeContextablePropsMixin({
   minimized: { type: Boolean, default: false },
@@ -27,7 +28,7 @@ const SidebarPropsMixin = makeContextablePropsMixin({
   value: { type: Boolean, default: true },
 })
 
-@Component({
+@Options({
   name: 'VaSidebar',
 })
 export default class VaSidebar extends Mixins(

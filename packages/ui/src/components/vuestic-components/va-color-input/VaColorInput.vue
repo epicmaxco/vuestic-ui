@@ -17,11 +17,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
 import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
 import VaInput from '../va-input/VaInput.vue'
 
-@Component({
+@Options({
   name: 'VaColorInput',
   components: {
     VaInput,

@@ -14,10 +14,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import VaColorIndicator from './VaColorIndicator.vue'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaColorPalette',
   components: {
     VaColorIndicator,

@@ -13,9 +13,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaColorIndicator',
 })
 export default class VaColorIndicator extends Vue {
