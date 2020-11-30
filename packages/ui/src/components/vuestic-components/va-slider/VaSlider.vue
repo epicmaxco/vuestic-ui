@@ -120,7 +120,7 @@
           :class="dotClass"
           :style="dottedStyles"
           @mousedown="(moveStart(), setMouseDown())"
-          @touchstart="moveStart()"
+          @touchstart="(moveStart(), setMouseDown())"
           @focus="isFocused = true"
           @blur="isFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
@@ -718,7 +718,7 @@ export default class VaSlider extends Mixins(
   //   if (this.isRange) {
   //     const slider = this.currentSlider
   //     const difference = 100 / (this.max - this.min)
-  //     const val0 = (this.modelValue[0] - this.min) * difference
+  //     const val0 = (this.value[0] - this.min) * difference
   //     const processPosition = `${val0}%`
 
   //     if (slider === 0) {
@@ -729,7 +729,7 @@ export default class VaSlider extends Mixins(
   //       this.dot1.focus()
   //     }
   //   } else {
-  //     const val = ((this.modelValue - this.min) / (this.max - this.min)) * 100
+  //     const val = ((this.value - this.min) / (this.max - this.min)) * 100
 
   //     this.dot.style[this.pinPositionStyle] = `calc(${val} - 8px)`
   //     this.dot.focus()

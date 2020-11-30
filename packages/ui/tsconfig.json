@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2018",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
@@ -13,7 +13,10 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "node",
+      "node",
+      "medium-editor"
     ],
     "lib": [
       "esnext",
@@ -25,7 +28,9 @@
       "v-tooltip": [
         "src/types/v-tooltip.d.ts"
       ],
-      "json-loader": ["src/types/json-loader.d.ts"]
+      "json-loader": [
+        "src/types/json-loader.d.ts"
+      ]
     }
   },
   "include": [

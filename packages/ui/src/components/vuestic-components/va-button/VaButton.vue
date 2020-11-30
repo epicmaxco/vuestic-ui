@@ -6,7 +6,7 @@
     :style="computedStyle"
     :disabled="c_disabled"
     :type="c_type"
-    :href="href"
+    :href="hrefComputed"
     :target="target"
     :to="to"
     :replace="replace"
@@ -15,13 +15,15 @@
     :exact="exact"
     :exact-active-class="exactActiveClass"
     v-on="inputListeners"
-    @mouseenter="updateHoverState(true)"
-    @mouseleave="updateHoverState(false)"
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
     :tabindex="c_loading ? -1 : 0"
   >
-    <div class="va-button__content">
+    <div
+      class="va-button__content"
+      @mouseenter="updateHoverState(true)"
+      @mouseleave="updateHoverState(false)"
+    >
       <template v-if="c_loading">
         <va-progress-circle
           indeterminate
@@ -277,6 +279,7 @@ export default class VaButton extends Mixins(
 
   &__content {
     display: flex;
+    align-items: center;
 
     &__title,
     &__icon {
@@ -340,6 +343,10 @@ export default class VaButton extends Mixins(
     height: 3rem;
     min-width: 5rem;
 
+    .va-button__content {
+      padding: 0 $btn-padding-x-lg;
+    }
+
     &.va-button--without-title {
       min-width: 0;
       width: 3rem;
@@ -381,6 +388,10 @@ export default class VaButton extends Mixins(
     height: 1.5rem;
     min-width: 3rem;
 
+    .va-button__content {
+      padding: 0 $btn-padding-x-sm;
+    }
+
     &.va-button--without-title {
       min-width: 0;
       width: 1.5rem;
@@ -421,6 +432,10 @@ export default class VaButton extends Mixins(
     letter-spacing: $btn-letter-spacing-nrm;
     height: 2.25rem;
     min-width: 4rem;
+
+    .va-button__content {
+      padding: 0 $btn-padding-x-nrm;
+    }
 
     &.va-button--without-title {
       min-width: 0;

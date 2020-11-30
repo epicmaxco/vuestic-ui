@@ -71,42 +71,42 @@
     <!-- <VbCard title="Change color">
       <div>
         primary
-        <va-color-picker-input
+        <va-color-input-advanced
           v-model="$themes.primary"
           mode="advanced"
         />
       </div>
       <div>
         secondary
-        <va-color-picker-input
+        <va-color-input-advanced
           v-model="$themes.secondary"
           mode="advanced"
         />
       </div>
       <div>
         success
-        <va-color-picker-input
+        <va-color-input-advanced
           v-model="$themes.success"
           mode="advanced"
         />
       </div>
       <div>
         info
-        <va-color-picker-input
+        <va-color-input-advanced
           v-model="$themes.info"
           mode="advanced"
         />
       </div>
       <div>
         warning
-        <va-color-picker-input
+        <va-color-input-advanced
           v-model="$themes.warning"
           mode="advanced"
         />
       </div>
       <div>
         danger
-        <va-color-picker-input
+        <va-color-input-advanced
           v-model="$themes.danger"
           mode="advanced"
         />
@@ -132,8 +132,8 @@ import VaAlert
   from './../../vuestic-components/va-alert/VaAlert'
 import VaProgressBar
   from './../../vuestic-components/va-progress-bar/progress-types/VaProgressBar'
-// import VaColorPickerInput
-//   from '../../vuestic-components/va-color-picker/VaColorPickerInput'
+import VaColorInputAdvanced
+  from '../../vuestic-components/va-color-input/VaColorInputAdvanced'
 import VaRating from '../../vuestic-components/va-rating/VaRating'
 import VaTreeRoot from '../../vuestic-components/va-tree-view/VaTreeRoot'
 import VaTreeCategory
@@ -152,7 +152,7 @@ export default {
     VaTreeCategory,
     VaTreeRoot,
     VaRating,
-    // VaColorPickerInput,
+    VaColorInputAdvanced,
     VaButton,
     VaAlert,
     VaProgressBar,

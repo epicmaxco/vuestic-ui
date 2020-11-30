@@ -1,7 +1,5 @@
-
 const getLastCommitHash = () => {
   const hash = require('child_process').execSync('git rev-parse HEAD').toString()
-
   return hash.slice(0, 6)
 }
 
@@ -12,6 +10,9 @@ module.exports = {
       entry: 'src/vue-book/book-main.ts',
       template: 'public/index.html',
     },
+  },
+  devServer: {
+    disableHostCheck: true,
   },
   configureWebpack: {
     plugins: [

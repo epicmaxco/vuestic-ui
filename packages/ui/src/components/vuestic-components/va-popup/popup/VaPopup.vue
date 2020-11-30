@@ -4,13 +4,13 @@ import {
   parsePosition,
   positionValidator,
   setPosition,
-} from '../utils/popup.js'
-import frameDebounce from '../utils/frame-debounce.js'
-import { getScrollTarget } from '../utils/scroll.js'
-import EscapeKey from '../utils/escape-key.js'
-import ModelToggleMixin from '../mixins/model-toggle.js'
-import { listenOpts, position as eventPosition } from '../utils/event.js'
-import CanRenderMixinMixin from '../mixins/can-render.js'
+} from '../utils/popup'
+import frameDebounce from '../utils/frame-debounce'
+import { getScrollTarget } from '../utils/scroll'
+import EscapeKey from '../utils/escape-key'
+import ModelToggleMixin from '../mixins/model-toggle'
+import { listenOpts, position as eventPosition } from '../utils/event'
+import CanRenderMixinMixin from '../mixins/can-render'
 import { h } from 'vue'
 
 // HACK Should not be in vuestic 2.0.

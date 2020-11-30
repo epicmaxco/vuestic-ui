@@ -44,6 +44,7 @@
         :getText="getText"
         :getTrackBy="getTrackBy"
         :noOptionsText="noOptionsText"
+        :color="c_color"
         :search="search"
         :hintedOption="hintedOption"
         ref="optionList"
@@ -76,42 +77,28 @@
               class="va-select__content"
               :class="[label ? 'va-select__content__selection--no-label' : '']"
             >
-              <label
-                v-if="label"
-                class="va-select__content__label"
-                :style="labelStyle"
-                ref="label"
-                aria-hidden="true"
+              {{ label }}
+            </label>
+            <template v-if="selectionValue || selectionChips">
+              <div
+                class="va-select__content__selection"
+                v-if="c_multiple"
               >
-                {{ label }}
-              </label>
-              <template v-if="selectionValue || selectionTags">
-                <div
-                  class="va-select__content__selection"
-                  v-if="c_multiple"
-                >
-                  <div v-if="tags && selectionTags.length <= tagMax">
-                    <va-tag
-                      class="va-select__content__selection--tag"
-                      v-for="(option, i) in selectionTags"
-                      :key="i"
-                      size="small"
-                      color="primary"
-                      :closeable="deletableTags"
-                      @update:modelValue="selectOption(option)"
-                    >
-                      {{option}}
-                    </va-tag>
-                  </div>
-                  <div v-else>
-                    {{ selectionTags }}
-                  </div>
+                <div v-if="chips && selectionChips.length <= chipMax">
+                  <va-chip
+                    class="va-select__content__selection--chip"
+                    v-for="(option, i) in selectionChips"
+                    :key="i"
+                    size="small"
+                    :color="c_color"
+                    :closeable="deletableChips"
+                    @input="selectOption(option)"
+                  >
+                    {{option}}
+                  </va-chip>
                 </div>
-                <div
-                  v-else-if="selectionValue"
-                  class="va-select__content__selection"
-                >
-                  {{ selectionValue }}
+                <div v-else>
+                  {{ selectionChips }}
                 </div>
               </template>
               <div
@@ -170,7 +157,7 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaInputWrapper from '../va-input/VaInputWrapper.vue'
 import VaSelectOptionList from './VaSelectOptionList.vue'
-import VaTag from '../va-tag/VaTag.vue'
+import VaChip from '../va-chip/VaChip.vue'
 
 import { getHoverColor } from '../../../services/color-functions'
 import {
@@ -193,9 +180,9 @@ const PropsMixin = makeContextablePropsMixin({
     default: 'bottom',
     validator: (position: string) => positions.includes(position),
   },
-  tagMax: { type: Number, default: 10 },
-  tags: { type: Boolean, default: false },
-  deletableTags: { type: Boolean, default: false },
+  chipMax: { type: Number, default: 10 },
+  chips: { type: Boolean, default: false },
+  deletableChips: { type: Boolean, default: false },
   searchable: { type: Boolean, default: false },
   multiple: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
@@ -223,7 +210,7 @@ const PropsMixin = makeContextablePropsMixin({
 
 @Options({
   components: {
-    VaTag,
+    VaChip,
     VaSelectOptionList,
     VaIcon,
     VaDropdown,
@@ -310,7 +297,7 @@ export default class VaSelect extends Mixins(
       borderColor:
         this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
-            : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
+            : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
     }
   }
 
@@ -318,7 +305,7 @@ export default class VaSelect extends Mixins(
     return {
       color: this.computedError ? this.computeColor('danger')
         : this.success ? this.computeColor('success')
-          : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
+          : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
     }
   }
 
@@ -336,11 +323,11 @@ export default class VaSelect extends Mixins(
     return isPrimitive ? selectedOption : selectedOption[this.textBy] + ''
   }
 
-  get selectionTags (): string | string[] {
-    if (this.isArrayValue && this.valueProxy.length > this.tagMax) {
+  get selectionChips (): string | string[] {
+    if (this.isArrayValue && this.valueProxy.length > this.chipMax) {
       return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
     }
-    if (this.multiple && this.tags) {
+    if (this.multiple && this.chips) {
       return this.valueProxy.map((value: any) => this.getText(value))
     }
     if (this.isArrayValue) {
@@ -593,7 +580,7 @@ export default class VaSelect extends Mixins(
         padding: 0.75rem 0 0.125rem 0;
       }
 
-      &--tag {
+      &--chip {
         margin: 0.25rem 0.25rem 0.25rem 0;
       }
 

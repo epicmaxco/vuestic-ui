@@ -1,54 +1,41 @@
 <template>
-  <div class="base-layout">
-    <Header
-      :is-sidebar-visible.sync="isSidebarVisible"
-      class="base-layout__header"
-    />
-    <div class="base-layout__main">
-      <Sidebar v-if="isSidebarVisible" :minimized="!isSidebarVisible" />
-      <!-- TODO: remove v-if when icon handling for sidebar is implemented -->
-      <div
-        class="base-layout__content"
-        :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
-      >
-        <va-breadcrumbs
-          align="left"
-          color="gray"
-          class="base-layout__breadcrumbs"
-        >
-          <va-breadcrumbs-item
-            v-for="(crumb, index) in crumbs"
-            :key="index"
-            :label="crumb.label"
-            :to="crumb.path"
-            :style="{ color: 'gray' }"
-          />
-          <va-icon slot="separator" name="arrow_forward_ios" :size="16" />
-        </va-breadcrumbs>
-        <nuxt-child class="layout gutter--xl" />
-      </div>
-    </div>
+<div class="landing">
+  <div class="preview-wrapper">
+    <Header />
+    <Preview />
   </div>
+  <Seamless />
+  <Customize />
+  <OpenSource />
+  <Admin />
+  <Footer />
+
+</div>
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import VaBreadcrumbs from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
-import VaBreadcrumbsItem from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
-import { Component, Vue, Provide } from 'vue-property-decorator'
-import Sidebar from '../components/sidebar/Sidebar.vue'
-import Header from '../components/header/Header.vue'
-import { COLOR_THEMES, ThemeName } from '../theme-config'
+import { Component, Vue } from 'vue-property-decorator'
+import Header from '../../docs/components/landing/Header.vue'
+import Preview from '../../docs/components/landing/Preview.vue'
+import Admin from '../../docs/components/landing/Admin.vue'
+import Footer from '../../docs/components/landing/Footer.vue'
+import OpenSource from '../../docs/components/landing/OpenSource.vue'
+import Seamless from '../../docs/components/landing/Seamless.vue'
+import Customize from '../../docs/components/landing/Customize.vue'
 
 @Component({
+  layout: 'landing',
   components: {
-    VaBreadcrumbsItem,
-    VaBreadcrumbs,
     Header,
-    Sidebar,
+    Preview,
+    Admin,
+    Footer,
+    OpenSource,
+    Seamless,
+    Customize,
   },
-})
-export default class Index extends Vue {
+} as any)
+export default class Landing extends Vue {
   data () {
     return {
       isSidebarVisible: true,
@@ -120,57 +107,19 @@ export default class Index extends Vue {
   }
 }
 </script>
+
 <style lang="scss">
 @import "vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
 @import "./../assets/main";
 
-html {
-  font-family: $font-family-sans-serif;
-  color: #1b1a1f;
-  font-size: $font-size-root;
+.landing {
+  font-family: Source Sans Pro;
 }
 
-.base-layout {
-  height: 100vh;
-  position: fixed;
-  width: 100%;
-
-  &__breadcrumbs {
-    text-transform: capitalize;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-  }
-
-  &__main {
-    display: flex;
-    flex-direction: row;
-    min-height: $sidebar-viewport-min-height;
-    height: $sidebar-viewport-height;
-    margin-top: 64px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  &__header {
-    z-index: 1;
-    background-color: #ffffff;
-  }
-
-  &__content {
-    margin-left: 250px;
-    height: 100%;
-
-    &--expanded {
-      margin-left: 0;
-    }
-
-    padding: 2em;
-    padding-top: 0;
-    width: calc(100% - 250px);
-
-    & > :last-child {
-      padding-bottom: 2em;
-    }
-  }
+.preview-wrapper {
+  background-image: url("../assets/landing/images/pattern.svg");
+  background-size: unset;
+  background-repeat: no-repeat;
+  background-position: top;
 }
 </style>

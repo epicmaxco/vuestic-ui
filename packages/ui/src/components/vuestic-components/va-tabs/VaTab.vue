@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tagComputed"
-    :href="href"
+    :href="hrefComputed"
     :target="target"
     :to="to"
     :replace="replace"

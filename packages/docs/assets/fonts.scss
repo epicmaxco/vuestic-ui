@@ -1,0 +1,59 @@
+// headers
+@mixin title-font(){
+  font-weight: 900;
+  font-size: 4.5rem;
+  @include lg(font-size, 4rem);
+  @include md(font-size, 3rem);
+  @include sm(font-size, 2.5rem);
+  @include xs(font-size, 2rem);
+}
+
+// sub headers
+@mixin subtitle-font(){
+  font-weight: 700;
+  font-size: 1.4rem;
+  @include lg(font-size, 1.4rem);
+  @include md(font-size, 1.3rem);
+  @include sm(font-size, 1.25rem);
+  @include xs(font-size, 1.2rem);
+}
+
+// text
+@mixin text-font(){
+  font-weight: normal;
+  font-size: 1.1rem;
+  @include lg(font-size, 1rem);
+  @include md(font-size, 0.95rem);
+  @include sm(font-size, 0.925rem);
+  @include xs(font-size, 0.9rem);
+}
+
+// link
+@mixin link-font(){
+  font-weight: 600;
+  font-size: 1rem;
+  @include lg(font-size, 0.95rem);
+  @include md(font-size, 0.925rem);
+  @include sm(font-size, 0.9rem);
+  @include xs(font-size, 0.875rem);
+}
+
+// button
+@mixin button-font(){
+  font-weight: 600;
+  font-size: 1.1rem;
+  @include lg(font-size, 1rem);
+  @include md(font-size, 0.95rem);
+  @include sm(font-size, 0.925rem);
+  @include xs(font-size, 0.9rem);
+}
+
+// code
+@mixin code-font(){
+  font-weight: normal;
+  font-size: 0.8rem;
+  @include lg(font-size, 0.775rem);
+  @include md(font-size, 0.75rem);
+  @include sm(font-size, 0.725rem);
+  @include xs(font-size, 0.7rem);
+}

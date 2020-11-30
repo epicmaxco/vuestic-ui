@@ -23,8 +23,11 @@ export class RouterLinkMixin extends mixins(
   RouterLinkPropsMixin,
 ) {
   get tagComputed () {
-    if (this.c_tag === 'a' || this.href || this.target) {
+    if (this.c_tag === 'a' || (this.href && !this.to) || this.target) {
       return 'a'
+    }
+    if (this.c_tag === 'nuxt-link' || (this.$nuxt && this.hasRouterLinkParams)) {
+      return 'nuxt-link'
     }
     if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
       return 'router-link'
@@ -57,6 +60,12 @@ export class RouterLinkMixin extends mixins(
     const currentHref = this.$router.currentRoute.value.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
+  }
+
+  get hrefComputed () {
+    // to resolve href on server for SEO optimization
+    // https://github.com/nuxt/nuxt.js/issues/8204
+    return this.href || (this.to ? this.$router?.resolve(this.to, this.$route).href : null)
   }
 
   created () {

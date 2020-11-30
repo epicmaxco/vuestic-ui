@@ -4,7 +4,7 @@
     class="va-card"
     :class="cardClasses"
     :style="cardStyles"
-    :href="href"
+    :href="hrefComputed"
     :target="target"
     :to="to"
     :replace="replace"

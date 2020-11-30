@@ -148,7 +148,6 @@ export default class VaProgressBar extends Mixins(
   &__buffer {
     position: absolute;
     top: 0;
-    // left: 0;
     height: inherit;
     border-radius: inherit;
     opacity: 0.3;
