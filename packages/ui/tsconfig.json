@@ -14,7 +14,9 @@
     "types": [
       "webpack-env",
       "jest",
-      "node"
+      "node",
+      "node",
+      "medium-editor"
     ],
     "lib": [
       "esnext",
@@ -23,7 +25,12 @@
       "scripthost"
     ],
     "paths": {
-      "json-loader": ["src/types/json-loader.d.ts"]
+      "v-tooltip": [
+        "src/types/v-tooltip.d.ts"
+      ],
+      "json-loader": [
+        "src/types/json-loader.d.ts"
+      ]
     }
   },
   "include": [
