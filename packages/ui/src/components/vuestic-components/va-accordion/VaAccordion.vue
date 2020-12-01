@@ -25,13 +25,15 @@ export default class VaAccordion extends Mixins(
   StatefulMixin,
   PropsMixin,
 ) {
+  collapses: any[] = []
   @Provide() accordion = {
     onChildChange: (child: any, state: any) => this.onChildChange(child, state),
+    onChildMounted: (child: any) => this.onChildMounted(child),
   }
 
   onChildChange (child: any, state: any) {
     const emitValue: any = []
-    this.$children.forEach((collapse: any) => {
+    this.collapses.forEach((collapse: any) => {
       if (collapse === child) {
         emitValue.push((collapse as any).valueProxy)
         return
@@ -44,16 +46,18 @@ export default class VaAccordion extends Mixins(
     this.valueComputed = emitValue
   }
 
+  onChildMounted (collapse: any) {
+    this.collapses.push(collapse)
+  }
+
   mounted () {
-    console.log('this.$children', this.$children)
-    console.log('this.$refs', this.$refs)
-    this.$children.forEach((collapse: any, index: number) => {
+    this.collapses.forEach((collapse: any, index: number) => {
       collapse.valueProxy = this.valueComputed[index]
     })
   }
 
   updated () {
-    this.$children.forEach((collapse: any, index: number) => {
+    this.collapses.forEach((collapse: any, index: number) => {
       collapse.valueProxy = this.valueComputed[index]
     })
   }

@@ -69,7 +69,7 @@ export default class VaCollapse extends Mixins(
   popout = undefined
   inset = undefined
   height = this.getHeight()
-  transitionDuration = this.getTransitionDuration();
+  transitionDuration = this.getTransitionDuration()
   mutationObserver: any = null
   valueCollapse = {
     value: undefined,
@@ -78,6 +78,7 @@ export default class VaCollapse extends Mixins(
   @Inject({
     default: () => ({
       onChildChange: () => undefined,
+      onChildMounted: () => undefined,
     }),
   }) readonly accordion!: any
 
@@ -122,7 +123,7 @@ export default class VaCollapse extends Mixins(
   }
 
   get stylesComputed () {
-    if (this.valueProxy && (this as any).$slots.default?.[0]) {
+    if (this.valueProxy && (this as any).$slots.default()?.[0]) {
       return {
         height: this.height + 'px',
         transitionDuration: this.transitionDuration + 's',
@@ -182,11 +183,20 @@ export default class VaCollapse extends Mixins(
     this.mutationObserver = new MutationObserver(() => {
       this.setCollapseParams()
     })
-    this.mutationObserver.observe(this.body, { attributes: true, childList: true, subtree: true })
+    this.mutationObserver.observe(this.body, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    })
+    if (this.accordion) {
+      this.accordion.onChildMounted(this)
+    }
   }
 
   beforeDestroy () {
-    if (this.mutationObserver) { this.mutationObserver.disconnect() }
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect()
+    }
   }
 }
 </script>

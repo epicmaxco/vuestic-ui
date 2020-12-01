@@ -15,19 +15,21 @@ import VaTreeCategory from './VaTreeCategory.vue'
   name: 'VaTreeRoot',
   provide () {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const parent = this
     return {
-      va: reactive({
-        color: parent.color,
+      treeRoot: reactive({
+        color: this.color,
+        onChildMounted: (child: any) => this.onChildMounted(child),
       }),
     }
   },
 })
 export default class VaTreeRoot extends mixins(ColorThemeMixin) {
+  categories: any = []
+
   collapse () {
     this.$nextTick(() => {
-      this.$children.forEach((child: ComponentPublicInstance) => {
-        if ((child as VaTreeCategory).$options.name === 'va-tree-category') {
+      this.categories.forEach((child: ComponentPublicInstance) => {
+        if ((child as VaTreeCategory).$options.name === 'VaTreeCategory') {
           (child as VaTreeCategory).collapse()
         }
       })
@@ -36,12 +38,16 @@ export default class VaTreeRoot extends mixins(ColorThemeMixin) {
 
   expand () {
     this.$nextTick(() => {
-      this.$children.forEach((child: ComponentPublicInstance) => {
-        if ((child as VaTreeCategory).$options.name === 'va-tree-category') {
+      this.categories.forEach((child: ComponentPublicInstance) => {
+        if ((child as VaTreeCategory).$options.name === 'VaTreeCategory') {
           (child as VaTreeCategory).expand()
         }
       })
     })
+  }
+
+  onChildMounted (category: any) {
+    this.categories.push(category)
   }
 }
 </script>

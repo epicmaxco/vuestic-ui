@@ -35,25 +35,31 @@
   </div>
 </template>
 
-<script>
-import VaIcon from '../va-icon/VaIcon'
-export default {
+<script lang="ts">
+import VaIcon from '../va-icon/VaIcon.vue'
+import { Inject, Prop } from 'vue-property-decorator'
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { mixins, Options } from 'vue-class-component'
+
+@Options({
   name: 'VaTreeNode',
   components: { VaIcon },
-  props: {
-    highlighted: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-    iconRight: {
-      type: String,
-      default: '',
-    },
-  },
+})
+export default class VaTreeNode extends mixins(ColorThemeMixin) {
+  @Prop(Boolean) highlighted!: boolean
+  @Prop({ default: '', type: String }) icon!: string
+  @Prop({ default: '', type: String }) iconRight!: string
+  @Inject({
+    default: () => ({
+      onChildMounted: () => undefined,
+    }),
+  }) readonly treeCategory!: any
+
+  mounted () {
+    if (this.treeCategory) {
+      this.treeCategory.onChildMounted(this)
+    }
+  }
 }
 </script>
 
