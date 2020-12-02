@@ -17,8 +17,7 @@
       >
         <va-card
           slot="after"
-          stripe
-          stripe-color="success"
+          stripe="success"
           title-on-image
         >
           <va-card-content>

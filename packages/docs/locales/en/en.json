@@ -393,8 +393,7 @@
     },
     "VaCard": {
       "props": {
-        "stripe": "Displays a stripe above a card title.",
-        "stripeColor": "Customize stripe color (theme string or *HEX* string).",
+        "stripe": "Displays a stripe above a card title with the provided color (theme string or *HEX* string).",
         "gradient": "Adds color gradient to `va-card` body.",
         "bordered": "Toggles borders of a card component.",
         "outlined": "Toggles shadow of `va-card`"

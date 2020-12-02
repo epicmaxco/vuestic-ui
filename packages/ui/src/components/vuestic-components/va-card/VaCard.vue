@@ -30,7 +30,7 @@ import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
-const CardPropsMixin = makeContextablePropsMixin({
+const PropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'div' },
   square: { type: Boolean, default: false },
   outlined: { type: Boolean, default: false },
@@ -38,8 +38,7 @@ const CardPropsMixin = makeContextablePropsMixin({
   disabled: { type: Boolean, default: false },
   href: { type: String, default: null },
   target: { type: String, default: null },
-  stripe: { type: Boolean, default: false },
-  stripeColor: { type: String, default: '' },
+  stripe: { type: String, default: '' },
   gradient: { type: Boolean, default: false },
 })
 
@@ -49,7 +48,7 @@ const CardPropsMixin = makeContextablePropsMixin({
 export default class VaCard extends Mixins(
   ColorThemeMixin,
   RouterLinkMixin,
-  CardPropsMixin,
+  PropsMixin,
 ) {
   get cardClasses () {
     return {
@@ -78,7 +77,7 @@ export default class VaCard extends Mixins(
 
   get stripeStyles () {
     return {
-      'background-color': this.computeColor(this.c_stripeColor),
+      'background-color': this.computeColor(this.c_stripe),
     }
   }
 }

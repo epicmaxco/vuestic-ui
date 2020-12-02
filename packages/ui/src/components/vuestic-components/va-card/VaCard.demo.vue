@@ -161,19 +161,17 @@
       <div>
         <va-card
           style="width: 400px;"
-          stripe
-          stripe-color="#ff0000"
+          stripe="#ff0000"
         >
           <va-card-title>Title</va-card-title>
-          <va-card-content>stripe stripeColor="#ff0000"</va-card-content>
+          <va-card-content>stripe="#ff0000"</va-card-content>
         </va-card>
         <va-card
           style="width: 400px; margin-top: 1rem;"
-          stripe
-          stripe-color="primary"
+          stripe="primary"
         >
           <va-card-title>Title</va-card-title>
-          <va-card-content>stripe color="primary"</va-card-content>
+          <va-card-content>stripe="primary"</va-card-content>
         </va-card>
       </div>
     </VbCard>
@@ -182,7 +180,7 @@
       <div style="display: flex;">
         <div>
           <va-context
-            :config="{VaCard: {stripe: true, stripeColor: 'primary'}, VaCardTitle: {textColor: 'info'}}"
+            :config="{VaCard: {stripe: 'primary'}, VaCardTitle: {textColor: 'info'}}"
           >
             <va-card style="width: 400px;">
               <va-card-title>Striped card</va-card-title>
