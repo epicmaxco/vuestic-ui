@@ -44,7 +44,7 @@ export default class VaInnerLoading extends Mixins(
   .inner-loading {
     position: relative;
     min-width: fit-content;
-    width: fit-content;
+    width: 100%;
 
     &__overlay {
       display: flex;
