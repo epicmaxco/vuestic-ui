@@ -40,6 +40,7 @@ const PropsMixin = makeContextablePropsMixin({
   target: { type: String, default: null },
   stripe: { type: String, default: '' },
   gradient: { type: Boolean, default: false },
+  color: { type: String, default: '#fff' },
 })
 
 @Component({
