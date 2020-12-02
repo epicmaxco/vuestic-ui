@@ -313,12 +313,12 @@ export default class VaSlider extends Mixins(
 
       return [
         {
-          [this.pinPositionStyle]: `calc(${val0}% - 8px)`,
+          [this.pinPositionStyle]: `${val0}%`,
           backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
         },
         {
-          [this.pinPositionStyle]: `calc(${val1}% - 8px)`,
+          [this.pinPositionStyle]: `${val1}%`,
           backgroundColor: this.isActiveDot(1) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
         },
@@ -327,7 +327,7 @@ export default class VaSlider extends Mixins(
       const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
 
       return {
-        [this.pinPositionStyle]: `calc(${val}% - 8px)`,
+        [this.pinPositionStyle]: `${val}%`,
         backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
         borderColor: this.colorComputed,
       }
@@ -937,6 +937,8 @@ export default class VaSlider extends Mixins(
     }
 
     &__handler {
+      transform: translateX(-50%);
+
       &--inactive {
         transition: left 0.5s ease-out;
       }
@@ -1006,6 +1008,8 @@ export default class VaSlider extends Mixins(
     }
 
     &__handler {
+      transform: translateY(50%);
+
       &--inactive {
         transition: bottom 0.5s ease-out;
       }
