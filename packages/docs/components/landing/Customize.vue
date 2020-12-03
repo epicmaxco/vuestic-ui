@@ -302,7 +302,7 @@ export default class Customize extends Vue {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #1a287a;
+    background: rgba(255, 255, 255, 0.728);
     opacity: 0.3;
     border-radius: 2px;
   }

@@ -1,10 +1,21 @@
 export const enum ThemeName {
+  ORIGINAL = 'ORIGINAL',
   DEFAULT = 'DEFAULT',
   CORPORATE = 'CORPORATE',
 }
 
 export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
   [ThemeName.DEFAULT]: {
+    primary: '#6C7FEE',
+    secondary: '#6E7FF1',
+    success: '#8DDC88',
+    info: '#71BAFF',
+    danger: '#F8706D',
+    warning: '#FFD652',
+    gray: '#8396A5',
+    dark: '#34495E',
+  },
+  [ThemeName.ORIGINAL]: {
     primary: '#2C82E0',
     secondary: '#f4f8fa',
     success: '#40e583',
