@@ -55,7 +55,9 @@
             </div>
 
             <div v-else-if="tabValue === 1">Work In Progress</div>
-            <div v-else>Work In Progress</div>
+            <div v-else>
+              <color-dropdown />
+            </div>
           </div>
           <!-- /First block -->
 
@@ -83,12 +85,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import ColorDropdown from './ColorDropdown.vue'
 import 'prismjs'
 // @ts-ignore
 import Prism from 'vue-prism-component'
 
 @Component({
-  components: { Prism },
+  components: { Prism, ColorDropdown },
 })
 export default class Customize extends Vue {
   code =`<va-button color="#6F80E7">

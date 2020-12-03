@@ -61,6 +61,7 @@ export default {
     { src: '~/plugins/externalVuetable.ts' },
     { src: '~/plugins/localeRoute.ts' },
     { src: '~/plugins/vuestic.ts' },
+    { src: '~/plugins/themes.ts' },
   ],
   build: {
     transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vuetable-2', 'vue-bulma-expanding', 'medium-editor', 'vue-toasted'],

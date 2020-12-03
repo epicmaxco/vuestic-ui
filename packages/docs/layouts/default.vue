@@ -39,7 +39,6 @@ import VaBreadcrumbsItem from 'vuestic-ui/src/components/vuestic-components/va-b
 import { Component, Vue, Provide } from 'vue-property-decorator'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
-import { COLOR_THEMES, ThemeName } from '../theme-config'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 
 @Component({
@@ -66,10 +65,6 @@ export default class DocsLayout extends Vue {
 
   @Provide() contextConfig = this.contextConfig
 
-  created () {
-    this.$root.$on('changeTheme', this.setTheme)
-  }
-
   mounted () {
     if (this.$route.hash) {
       document.querySelector(this.$route.hash).scrollIntoView()
@@ -78,17 +73,6 @@ export default class DocsLayout extends Vue {
 
   get navigationRoutes () {
     return navigationRoutes
-  }
-
-  beforeDestroy () {
-    this.$root.$off('changeTheme', this.setTheme)
-  }
-
-  setTheme (themeName) {
-    Object.assign(
-      this.$themes,
-      COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT],
-    )
   }
 
   get crumbs () {
