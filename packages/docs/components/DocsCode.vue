@@ -44,7 +44,7 @@ https://prismjs.com/download.html#themes=prism&languages=css */
     background: none;
     text-shadow: 0 1px white;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    font-size: calc(1rem / 1.4);
+    font-size: 1rem;
     text-align: left;
     white-space: pre;
     word-spacing: normal;
