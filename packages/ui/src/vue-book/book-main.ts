@@ -7,10 +7,11 @@ import { getContext } from '../components/context-test/context-provide/context'
 
 import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from '../components/resize-events'
-import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
+import DropdownPopperSubplugin, { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
 import { installPlatform } from '../components/vuestic-components/va-popup/install'
 import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
 import ToastInstall from '../components/vuestic-components/va-toast/install'
+
 import { VueBookComponents, createRoute } from 'vue-book'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
@@ -38,6 +39,7 @@ app.use(ColorHelpersPlugin)
 app.use(ColorThemePlugin)
 app.use(VueBookComponents)
 app.use(ToastInstall)
+app.use(DropdownPopperSubplugin)
 app.use(router)
 
 app.use(ContextPlugin, getContext())

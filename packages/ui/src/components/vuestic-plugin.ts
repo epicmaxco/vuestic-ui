@@ -1,4 +1,3 @@
-
 import VaAccordion from './vuestic-components/va-accordion/VaAccordion.vue'
 import VaAffix from './vuestic-components/va-affix/VaAffix.vue'
 import VaAlert from './vuestic-components/va-alert/VaAlert.vue'
@@ -10,8 +9,10 @@ import VaButtonGroup
   from './vuestic-components/va-button-group/VaButtonGroup.vue'
 import VaButtonToggle
   from './vuestic-components/va-button-toggle/VaButtonToggle.vue'
-import VaBreadcrumbs from './vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
-import VaBreadcrumbsItem from './vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
+import VaBreadcrumbs
+  from './vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
+import VaBreadcrumbsItem
+  from './vuestic-components/va-breadcrumbs/VaBreadcrumbsItem.vue'
 import VaCard from './vuestic-components/va-card/VaCard.vue'
 import VaCardContent from './vuestic-components/va-card/VaCardContent.vue'
 import VaCardTitle from './vuestic-components/va-card/VaCardTitle.vue'
@@ -35,7 +36,8 @@ import VaInput from './vuestic-components/va-input/VaInput.vue'
 import VaList from './vuestic-components/va-list/VaList.vue'
 import VaListItem from './vuestic-components/va-list/VaListItem.vue'
 import VaListItemLabel from './vuestic-components/va-list/VaListItemLabel.vue'
-import VaListItemSection from './vuestic-components/va-list/VaListItemSection.vue'
+import VaListItemSection
+  from './vuestic-components/va-list/VaListItemSection.vue'
 import VaListLabel from './vuestic-components/va-list/VaListLabel.vue'
 import VaListSeparator from './vuestic-components/va-list/VaListSeparator.vue'
 import VaMediumEditor
@@ -55,7 +57,7 @@ import VaRadio from './vuestic-components/va-radio/VaRadio.vue'
 import VaRating from './vuestic-components/va-rating/VaRating.vue'
 import VaScrollbar from './vuestic-components/va-scrollbar/VaScrollbar.vue'
 import VaSelect from './vuestic-components/va-select/VaSelect.vue'
-import VaSeparator from './vuestic-components/va-card/VaSeparator.vue'
+import VaSeparator from './vuestic-components/va-separator/VaSeparator.vue'
 import VaSidebar from './vuestic-components/va-sidebar/VaSidebar.vue'
 import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
 import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
@@ -63,23 +65,27 @@ import VaTab from './vuestic-components/va-tabs/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline.vue'
 import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem.vue'
-import VaTreeCategory from './vuestic-components/va-tree-view/VaTreeCategory.vue'
+import VaTreeCategory
+  from './vuestic-components/va-tree-view/VaTreeCategory.vue'
 import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode.vue'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot.vue'
 import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper.vue'
 
 import Toasted from './vuestic-mixins/VuesticToasted'
 import StickyScroll from './vuestic-directives/StickyScroll'
-import VaButtonDropdown from './vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
+import VaButtonDropdown
+  from './vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
 import { installPlatform } from './vuestic-components/va-popup/install'
-import { DropdownPopperPlugin } from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
+import DropdownPopperSubplugin
+  from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 
 // @ts-ignore
 import { BusPlugin } from 'vue-epic-bus'
 import { registerVuesticObject } from './resize-events'
 import VaColorPalette
   from './vuestic-components/va-color-palette/VaColorPalette.vue'
-import VaColorSlider from './vuestic-components/va-color-slider/VaColorSlider.vue'
+import VaColorSlider
+  from './vuestic-components/va-color-slider/VaColorSlider.vue'
 import VaColorPicker
   from './vuestic-components/va-color-picker/VaColorPicker.vue'
 import VaColorInput
@@ -96,12 +102,12 @@ import VaInfiniteScroll
   from './vuestic-components/va-infinite-scroll/VaInfiniteScroll.vue'
 import ToastInstall from './vuestic-components/va-toast/install'
 
-import _Vue from 'vue'
+import { App } from 'vue'
 
 installPlatform()
 
 export const VuesticPlugin = {
-  install (Vue: typeof _Vue) {
+  install (app: App) {
     [
       VaAccordion,
       VaAffix,
@@ -175,20 +181,20 @@ export const VuesticPlugin = {
       VaOptionList,
       VaInfiniteScroll,
     ].forEach(component => {
-      Vue.component(component.name, component)
+      app.component(component.name, component)
     })
 
-    registerVuesticObject(Vue)
+    registerVuesticObject(app)
 
-    Vue.use(BusPlugin)
+    app.use(BusPlugin)
 
-    Vue.use(DropdownPopperPlugin)
+    app.use(DropdownPopperSubplugin)
 
-    Vue.use(ToastInstall)
+    app.use(ToastInstall)
 
-    Vue.mixin(Toasted)
+    app.mixin(Toasted)
 
     // @ts-ignore
-    Vue.directive('sticky-scroll', StickyScroll)
+    app.directive('sticky-scroll', StickyScroll)
   },
 }
