@@ -1,5 +1,5 @@
 <template>
-  <section class="customize__bg">
+  <section class="customize__bg" :style="bgGradiernStyle">
   <div class="customize">
     <div class="customize__wrapper">
       <div class="customize__inner">
@@ -89,6 +89,9 @@ import ColorDropdown from './ColorDropdown.vue'
 import 'prismjs'
 // @ts-ignore
 import Prism from 'vue-prism-component'
+import {
+  colorToRgba,
+} from '../../../ui/src/services/color-functions'
 
 @Component({
   components: { Prism, ColorDropdown },
@@ -121,6 +124,12 @@ export default class Customize extends Vue {
   value3 = 'Spain'
   options = ['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA']
   tabValue = 0
+
+  get bgGradiernStyle () {
+    return {
+      background: `linear-gradient(180.81deg, ${this.$themes.primary} 0.7%, ${colorToRgba(this.$themes.primary, 0.8)} 99.3%)`,
+    }
+  }
 
   copyText () {
     const testingCodeToCopy: any = this.$refs.codeInput
