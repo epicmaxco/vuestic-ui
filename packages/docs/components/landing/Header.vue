@@ -4,7 +4,9 @@
       <div class="header__inner">
         <div class="header__logo">
           <!--        TODO: add root link-->
-          <a href="/"><img src="../../assets/landing/images/logo.svg" alt="Vuestic UI"></a>
+          <a href="/">
+            <va-icon :component="VuesticLogo" />
+          </a>
           <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
             <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
             <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
@@ -12,11 +14,11 @@
         </div>
         <nav class="header__links">
           <!-- vuestic buttons -->
-          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
-          <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
-          <va-button href="https://discord.gg/jTKTjj2weV" target="blank" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
+          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{$t('landing.header.buttons.overview')}}</va-button>
+          <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="primary">{{$t('landing.header.buttons.docs')}}</va-button>
+          <va-button href="https://discord.gg/jTKTjj2weV" target="blank" class="header__links--link" flat color="primary">{{$t('landing.header.buttons.discord')}}</va-button>
           <va-dropdown class="language-dropdown"  fixed>
-            <va-button class="header__links--link" iconRight="expand_more" flat square slot="anchor" color="#2550C0">
+            <va-button class="header__links--link" iconRight="expand_more" flat square slot="anchor" color="primary">
               {{ currentLanguageName }}
             </va-button>
             <va-list class="language-dropdown__content">
@@ -50,6 +52,7 @@
             target="blank"
             :round="false"
             size="small"
+            color="dark"
             icon="star_empty"
           >
             {{$t('landing.header.buttons.star')}} {{stars}}
@@ -107,6 +110,7 @@
                 :round="false"
                 size="small"
                 icon="star_empty"
+                color="dark"
               >
                 {{$t('landing.header.buttons.star')}} {{stars}}
               </va-button>
@@ -121,6 +125,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { languages } from './../languages'
+import VuesticLogo from './icons/VuesticLogo.vue'
 
 @Component({
   name: 'language-dropdown',
@@ -130,6 +135,7 @@ export default class Header extends Vue {
   isHidden = true
   stars = 0
   options = languages
+  VuesticLogo = VuesticLogo
 
   onClick (value: boolean) {
     this.isHidden = value

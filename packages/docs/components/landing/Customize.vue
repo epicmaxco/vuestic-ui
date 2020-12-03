@@ -24,7 +24,7 @@
 
             <div class="block__components" v-if="tabValue === 0">
               <div class="component">
-                <va-button color="#6F80E7">
+                <va-button color="primary">
                   Submit
                 </va-button>
               </div>
@@ -33,14 +33,14 @@
                 <va-select
                   v-model="value3"
                   :options="options"
-                  color="#6F80E7"
+                  color="primary"
                   label="Country"
                 />
               </div>
 
               <div class="component">
               <va-slider
-                color="#6F80E7"
+                color="primary"
                 v-model="value2"
               />
               </div>
@@ -49,7 +49,7 @@
                 <va-checkbox
                   v-model="value"
                   label="Checkbox"
-                  color="#6F80E7"
+                  color="primary"
                 />
               </div>
             </div>

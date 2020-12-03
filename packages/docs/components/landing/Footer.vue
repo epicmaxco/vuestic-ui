@@ -4,14 +4,14 @@
       <div class="footer__inner">
         <!--        TODO: add root link-->
         <a href="/" class="footer__image">
-          <img src="../../assets/landing/images/logo.svg" alt="">
+          <va-icon :component="VuesticLogo" />
         </a>
         <div class="footer__buttons">
           <va-button class="footer__buttons__button"
             href="https://epicmax.co/about"
             target="blank"
             :round="false"
-            color="#2550C0"
+            color="primary"
             flat
           >
             <va-icon class="button-icon" :component="IconEpicmax" />
@@ -21,7 +21,7 @@
             href="https://github.com/epicmaxco/vuestic-admin"
             target="blank"
             :round="false"
-            color="#2550C0"
+            color="primary"
             flat
           >
             <va-icon class="button-icon" :component="IconAdmin" />
@@ -31,7 +31,7 @@
             href="https://github.com/epicmaxco/epic-spinners"
             target="blank"
             :round="false"
-            color="#2550C0"
+            color="primary"
             flat
           >
             <va-icon class="button-icon" :component="IconSpinners" />
@@ -42,7 +42,7 @@
           <va-button class="footer__social__item"
             href="https://github.com/epicmaxco/vuestic-ui/"
             target="blank"
-            color="#2550C0"
+            color="primary"
             flat
             icon="github"
           >
@@ -50,7 +50,7 @@
           <va-button class="footer__social__item"
             href="https://discord.gg/jTKTjj2weV"
             target="blank"
-            color="#2550C0"
+            color="primary"
             flat
             icon="discord"
           >
@@ -58,7 +58,7 @@
           <va-button class="footer__social__item"
             href="https://www.facebook.com/epicmaxco/"
             target="blank"
-            color="#2550C0"
+            color="primary"
             flat
             icon="facebook"
           >
@@ -66,13 +66,13 @@
           <va-button class="footer__social__item"
             href="https://twitter.com/epicmaxco"
             target="blank"
-            color="#2550C0"
+            color="primary"
             flat
             icon="twitter"
           >
           </va-button>
         </div>
-        <div class="footer__subtitle">{{$t('landing.footer.text')}} <a href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
+        <div class="footer__subtitle">{{$t('landing.footer.text')}} <a :style="{color: $themes.primary}" href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
       </div>
     </div>
   </footer>
@@ -83,11 +83,13 @@ import { Component, Vue } from 'vue-property-decorator'
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
+import VuesticLogo from './icons/VuesticLogo.vue'
 @Component({})
 export default class Footer extends Vue {
   IconEpicmax = IconEpicmax
   IconAdmin = IconAdmin
   IconSpinners = IconSpinners
+  VuesticLogo = VuesticLogo
 }
 </script>
 
