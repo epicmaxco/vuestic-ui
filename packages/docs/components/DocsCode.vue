@@ -37,7 +37,6 @@ https://prismjs.com/download.html#themes=prism&languages=css */
 .prism-code {
   background: #f4f8fa;
   padding: 1.2rem 2rem;
-  font-size: calc(1rem / 1.4);
 
   code[class*='language-'],
   pre[class*='language-'] {
@@ -45,7 +44,7 @@ https://prismjs.com/download.html#themes=prism&languages=css */
     background: none;
     text-shadow: 0 1px white;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    font-size: 1rem;
+    font-size: calc(1rem / 1.4);
     text-align: left;
     white-space: pre;
     word-spacing: normal;
