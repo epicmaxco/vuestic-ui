@@ -90,7 +90,8 @@ import 'prismjs'
 // @ts-ignore
 import Prism from 'vue-prism-component'
 import {
-  colorToRgba,
+  // colorToRgba,
+  shiftHslColor,
 } from '../../../ui/src/services/color-functions'
 
 @Component({
@@ -127,7 +128,8 @@ export default class Customize extends Vue {
 
   get bgGradiernStyle () {
     return {
-      background: `linear-gradient(180.81deg, ${this.$themes.primary} 0.7%, ${colorToRgba(this.$themes.primary, 0.8)} 99.3%)`,
+      //  background: `linear-gradient(180.81deg, ${this.$themes.primary} 0.7%, ${colorToRgba(this.$themes.primary, 0.8)} 99.3%)`,
+      background: `linear-gradient(180.81deg, ${shiftHslColor(this.$themes?.primary || '#5B3C9B', { s: -15, l: -20 })} 0.7%, ${shiftHslColor(this.$themes?.primary || '#5B3C9B', { h: 10, s: -5, l: -10 })} 99.3%)`,
     }
   }
 
