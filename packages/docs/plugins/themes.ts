@@ -13,6 +13,9 @@ export default async function ({ app }) {
     created () {
       this.$root.$on('changeTheme', this.setTheme)
     },
+    beforeMount () {
+      this.setTheme(localStorage.getItem('currentTheme'))
+    },
     beforeDestroy () {
       this.$root.$off('changeTheme', this.setTheme)
     },

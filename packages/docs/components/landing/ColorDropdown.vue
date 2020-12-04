@@ -75,7 +75,7 @@ export default class ColorDropdown extends Vue {
     }
   }
 
-  mounted () {
+  beforeMount () {
     const currentTheme = localStorage.getItem('currentTheme')
     this.selectedTheme = Object.values(ThemeName).includes(currentTheme) ? currentTheme : ThemeName.DEFAULT
   }
@@ -88,7 +88,6 @@ export default class ColorDropdown extends Vue {
   onThemeChanged (themeName) {
     localStorage.setItem('currentTheme', themeName)
     this.$root.$emit('changeTheme', themeName.toUpperCase())
-    console.log(this.$themes)
   }
 
   get themes () {
