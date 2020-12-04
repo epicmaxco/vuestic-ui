@@ -161,9 +161,9 @@ export default class VaRating extends Mixins(
   getItemValue (itemNumber: number): RatingValue {
     const diff = itemNumber - this.valueProxy
     switch (true) {
-      case diff <= 0: return RatingValue.FULL
-      case diff === RatingValue.HALF && this.c_halves: return RatingValue.HALF
-      default: return RatingValue.EMPTY
+    case diff <= 0: return RatingValue.FULL
+    case diff === RatingValue.HALF && this.c_halves: return RatingValue.HALF
+    default: return RatingValue.EMPTY
     }
   }
 

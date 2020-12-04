@@ -1,6 +1,6 @@
 <template>
   <div class="va-accordion">
-    <slot/>
+    <slot />
   </div>
 </template>
 

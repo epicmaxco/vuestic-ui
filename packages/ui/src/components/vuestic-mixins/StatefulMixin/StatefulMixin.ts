@@ -2,6 +2,10 @@ import { mixins, Options } from 'vue-class-component'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
+export type ValueState = {
+  value?: string | boolean | number | any[];
+}
+
 const componentProps = {
   modelValue: {
     type: undefined,

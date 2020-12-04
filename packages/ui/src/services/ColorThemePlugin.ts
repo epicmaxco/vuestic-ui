@@ -68,7 +68,7 @@ export const ColorThemePlugin = {
     }
     // (app as any).$options.$themes = defaultOptions.themes
     app.config.globalProperties.$themes = reactive(defaultOptions.themes)
-  }, 
+  },
 }
 
 /**

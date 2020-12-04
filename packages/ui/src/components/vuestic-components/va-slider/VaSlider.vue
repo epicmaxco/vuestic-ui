@@ -568,28 +568,28 @@ export default class VaSlider extends Mixins(
         !this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
 
       switch (true) {
-        case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
-          this.dot0.focus()
-          moveDot(true, 0, 0)
-          break
-        case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
-          this.dot1.focus()
-          moveDot(true, 1, 1)
-          break
-        case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
-          moveDot(true, 0, 0)
-          break
-        case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
-          moveDot(true, 1, 1)
-          break
-        case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
-          moveDot(true, 0, 1)
-          break
-        case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
-          moveDot(true, 1, 0)
-          break
-        default:
-          break
+      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
+        this.dot0.focus()
+        moveDot(true, 0, 0)
+        break
+      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
+        this.dot1.focus()
+        moveDot(true, 1, 1)
+        break
+      case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
+        moveDot(true, 0, 0)
+        break
+      case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
+        moveDot(true, 1, 1)
+        break
+      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
+        moveDot(true, 0, 1)
+        break
+      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
+        moveDot(true, 1, 0)
+        break
+      default:
+        break
       }
     } else {
       if (this.vertical) {

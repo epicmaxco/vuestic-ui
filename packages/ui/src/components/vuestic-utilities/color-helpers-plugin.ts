@@ -1,5 +1,5 @@
 
-import { App , watch} from 'vue'
+import { App, watch } from 'vue'
 import { getDefaultOptions } from '../../services/ColorThemePlugin'
 import { addOrUpdateStyleElement } from '../../services/dom-functions'
 
@@ -21,7 +21,7 @@ const createThemeColorStyles = (themes: Record<string, string>): string => {
 const ColorHelpersPlugin = {
   install () {
     const defaultOptions = getDefaultOptions()
-    
+
     watch(
       () => defaultOptions.themes,
       () => {
@@ -30,7 +30,7 @@ const ColorHelpersPlugin = {
       {
         deep: true,
         immediate: true,
-      }
+      },
     )
   },
 }

@@ -1,11 +1,11 @@
-import { App } from 'vue';
+import { App, reactive } from 'vue'
 import flow from 'lodash/flow'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
 import { Options, mixins, Vue } from 'vue-class-component'
 import { hasOwnProperty } from '../../../services/utils'
-import { reactive } from 'vue'
-import { Inject } from 'vue-property-decorator';
+
+import { Inject } from 'vue-property-decorator'
 
 const pascalCase = flow(camelCase, upperFirst)
 /**
@@ -22,7 +22,7 @@ export const ContextProviderKey = 'va-context-provider'
  * Plugin provide global config to Vue component through prototype
  */
 export const ContextPlugin = {
-  install(app: App, options: ContextConfig = {}) {
+  install (app: App, options: ContextConfig = {}) {
     app.config.globalProperties.$vaContextConfig = reactive(options)
   },
 }
@@ -124,7 +124,7 @@ export const overrideContextConfig = (
  * @param context - [object] this of the vue component.
  * @returns {any} Returns property value.
  */
-export function getOriginalPropValue(
+export function getOriginalPropValue (
   key: string,
   context: {
     $options: {
@@ -181,13 +181,11 @@ export const makeContextablePropsMixin = (componentProps: any, prefix = 'c_') =>
   const computed: any = {}
 
   Object.entries(componentProps).forEach(([name, definition]) => {
-    
     computed[`${prefix}${name}`] = function () {
-      
       // We want to fallback to context in 2 cases:
       // * prop value is undefined (allows user to dynamically enter/exit context).
       // * prop value is not defined
-      if (typeof (definition as any).default === "function") {
+      if (typeof (definition as any).default === 'function') {
         if ((definition as any).default() === this.$props[name]) {
           return getContextPropValue(this, name, (definition as any).default)
         }
@@ -209,12 +207,11 @@ export const makeContextablePropsMixin = (componentProps: any, prefix = 'c_') =>
 
   @Options({
     computed: computed,
-    props: componentProps
+    props: componentProps,
   })
   class ContextableMixin extends mixins(ContextPluginMixin) {
     [x: string]: any
   }
 
   return ContextableMixin
-
 }

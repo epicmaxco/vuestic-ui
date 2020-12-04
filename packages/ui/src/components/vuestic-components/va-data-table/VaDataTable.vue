@@ -97,6 +97,7 @@ export default class VaDataTable extends Mixins(LoadingMixin) {
     if (!this.apiMode) {
       (this.$refs.vuetable as Vue & { changePage: (page: number) => void }).changePage(page)
     }
+    // eslint-disable-next-line vue/custom-event-name-casing
     this.$emit('pageSelected', page)
   }
 
@@ -167,6 +168,7 @@ export default class VaDataTable extends Mixins(LoadingMixin) {
     pagination = this.buildPagination(sorted.length, this.perPage)
     const { from } = pagination
     const sliceFrom = from - 1
+    // eslint-disable-next-line vue/custom-event-name-casing
     this.$emit('pageSelected', 1)
 
     return {
@@ -198,6 +200,7 @@ export default class VaDataTable extends Mixins(LoadingMixin) {
   }
 
   rowClicked (row: any) {
+    // eslint-disable-next-line vue/custom-event-name-casing
     this.$emit('rowClicked', row)
   }
 }

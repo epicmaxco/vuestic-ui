@@ -225,17 +225,17 @@ export default class VaPagination extends Mixins(
     if (!this.inputValue.length) { return }
     let pageNum = Number.parseInt(this.inputValue)
     switch (true) {
-      case pageNum < 1:
-        pageNum = 1
-        break
-      case pageNum > this.lastPage:
-        pageNum = this.lastPage
-        break
-      case isNaN(pageNum):
-        pageNum = this.currentValue
-        break
-      default:
-        break
+    case pageNum < 1:
+      pageNum = 1
+      break
+    case pageNum > this.lastPage:
+      pageNum = this.lastPage
+      break
+    case isNaN(pageNum):
+      pageNum = this.currentValue
+      break
+    default:
+      break
     }
     this.onUserInput(pageNum)
     this.resetInput()

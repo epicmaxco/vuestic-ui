@@ -152,7 +152,7 @@ export default {
     VaTreeCategory,
     VaTreeRoot,
     VaRating,
-    VaColorInputAdvanced,
+    // VaColorInputAdvanced,
     VaButton,
     VaAlert,
     VaProgressBar,
