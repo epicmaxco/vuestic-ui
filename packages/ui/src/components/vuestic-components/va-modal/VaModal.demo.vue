@@ -42,13 +42,13 @@
         v-model="showFullScreenModal"
         :fullscreen="true"
       >
-        <template slot="header">
+        <template #header>
           <h2>Step 2. Centered Layout</h2>
         </template>
         <slot>
           <div>{{ message }}</div>
         </slot>
-        <template slot="footer">
+        <template #footer>
           <va-button @click="customActionClick">
             Custom action
           </va-button>
@@ -60,7 +60,7 @@
         Show modal
       </button>
       <va-modal ref="statefulModal" stateful>
-        <template slot="header">
+        <template #header>
           <h2>Step 2. Centered Layout</h2>
         </template>
         <slot>
@@ -153,7 +153,7 @@
         :fixed-layout="true"
         :message="longMessage"
       >
-        <template slot="header">
+        <template #header>
           <p>Step 2. Centered Layout</p>
         </template>
       </va-modal>
@@ -167,7 +167,7 @@
         hide-default-actions
         :message="longMessage"
       >
-        <template slot="header">
+        <template #header>
           <p>Step 2. Centered Layout</p>
         </template>
       </va-modal>
@@ -182,7 +182,7 @@
         @cancel="onCancel"
         :message="longMessage"
       >
-        <template slot="header">
+        <template #header>
           <p>Step 2. Centered Layout</p>
         </template>
       </va-modal>
@@ -244,7 +244,7 @@
         v-model="showModalCustomFooter"
         :message="longMessage"
       >
-        <template slot="footer">
+        <template #footer>
           <div style="margin-top: 30px; width: 100%;" />
           <p style="background-color: lightblue; width: 100%; text-align: center;">Custom footer</p>
         </template>

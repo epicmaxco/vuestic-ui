@@ -3,7 +3,7 @@
     <VbCard title="Filled">
       <va-rating-item :modelValue="1" />
     </VbCard>
-    <!-- <VbCard title="Empty">
+    <VbCard title="Empty">
       <va-rating-item />
     </VbCard>
     <VbCard title="Custom empty color">
@@ -57,7 +57,7 @@
     </VbCard>
     <VbCard title="Using slot">
       <div>
-        <button @click="slotValue = 0">Reset button </button>
+        <button @click="slotValue = 0">Reset button</button>
         {{ slotValue }}
       </div>
       <va-rating-item halves hover :modelValue="slotValue" @click="slotValue = $event">
@@ -67,7 +67,7 @@
           <button @click="props.onClick" v-if="props.value === 0">Blank</button>
         </template>
       </va-rating-item>
-    </VbCard> -->
+    </VbCard>
   </VbDemo>
 </template>
 

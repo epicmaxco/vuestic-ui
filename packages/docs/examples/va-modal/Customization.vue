@@ -8,13 +8,13 @@
       hide-default-actions
       overlay-opacity="0.2"
     >
-      <template slot="header">
+      <template #header>
         <h2>Custom header</h2>
       </template>
       <slot>
         <div>{{ message }}</div>
       </slot>
-      <template slot="footer">
+      <template #footer>
         <va-button>
           Custom action
         </va-button>

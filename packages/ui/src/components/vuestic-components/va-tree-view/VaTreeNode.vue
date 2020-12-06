@@ -52,12 +52,19 @@ export default class VaTreeNode extends mixins(ColorThemeMixin) {
   @Inject({
     default: () => ({
       onChildMounted: () => undefined,
+      onChildUnmounted: () => undefined,
     }),
   }) readonly treeCategory!: any
 
   mounted () {
     if (this.treeCategory) {
       this.treeCategory.onChildMounted(this)
+    }
+  }
+
+  beforeUnmount () {
+    if (this.treeCategory) {
+      this.treeCategory.onChildUnmounted(this)
     }
   }
 }

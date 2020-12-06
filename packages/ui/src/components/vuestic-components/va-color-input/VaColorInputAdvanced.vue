@@ -1,37 +1,38 @@
 <template>
   <div class="va-color-input-advanced">
-    <div v-if="validator(this.mode)">
-      <va-dropdown-popper fixed>
-        <div
-          slot="anchor"
-          class="va-color-input-advanced__slot"
-        >
-          <slot>
-            <va-color-input
-              v-model="valueProxy"
-              mode="palette"
-              :disabled="isInputDisabled"
-              :selected="selected"
-              :indicator="indicator"
-            />
-          </slot>
-        </div>
+    <div v-if="validator(mode)">
+      <va-dropdown fixed>
+        <template #anchor>
+          <div
+            class="va-color-input-advanced__slot"
+          >
+            <slot>
+              <va-color-input
+                v-model="valueProxy"
+                mode="palette"
+                :disabled="isInputDisabled"
+                :selected="selected"
+                :indicator="indicator"
+              />
+            </slot>
+          </div>
+        </template>
         <div class="va-color-input-advanced__dropdown">
           <va-color-picker
-            v-if="this.mode === 'advanced'"
+            v-if="mode === 'advanced'"
             v-model="valueProxy"
           />
           <va-color-palette
-            v-if="this.mode === 'palette'"
+            v-if="mode === 'palette'"
             v-model="valueProxy"
             :palette="palette"
           />
           <va-color-slider
-            v-if="this.mode === 'slider'"
+            v-if="mode === 'slider'"
             v-model="valueProxy"
           />
         </div>
-      </va-dropdown-popper>
+      </va-dropdown>
     </div>
     <div v-else>
       <slot>
@@ -53,12 +54,12 @@ import VaColorPicker from '../va-color-picker/VaColorPicker.vue'
 import VaColorPalette from '../va-color-palette/VaColorPalette.vue'
 import VaColorSlider from '../va-color-slider/VaColorSlider.vue'
 import VaColorInput from '../va-color-input/VaColorInput.vue'
-import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
+import VaDropdown from '../va-dropdown/VaDropdown.vue'
 
 @Options({
   name: 'VaColorInputAdvanced',
   components: {
-    VaDropdownPopper,
+    VaDropdown,
     VaColorPalette,
     VaColorPicker,
     VaColorSlider,

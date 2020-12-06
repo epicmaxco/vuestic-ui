@@ -49,6 +49,7 @@ import { Options, mixins } from 'vue-class-component'
 import { Prop, Watch, Inject } from 'vue-property-decorator'
 import type { ComponentPublicInstance } from '@vue/runtime-core'
 import { reactive } from 'vue'
+import VaTreeNode from './VaTreeNode.vue'
 
 @Options({
   name: 'VaTreeCategory',
@@ -57,7 +58,8 @@ import { reactive } from 'vue'
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     return {
       treeCategory: reactive({
-        onChildMounted: (child: any) => this.onChildMounted(child),
+        onChildMounted: (child: VaTreeNode) => this.onChildMounted(child),
+        onChildUnmounted: (child: VaTreeNode) => this.onChildUnmounted(child),
       }),
     }
   },
@@ -72,6 +74,7 @@ export default class VaTreeCategory extends mixins(ColorThemeMixin) {
   @Inject({
     default: () => ({
       onChildMounted: () => undefined,
+      onChildUnmounted: () => undefined,
     }),
   }) readonly treeRoot!: any
 
@@ -94,9 +97,9 @@ export default class VaTreeCategory extends mixins(ColorThemeMixin) {
   expand () {
     this.isOpenCached = true
     this.$nextTick(() => {
-      this.nodes.forEach((child: ComponentPublicInstance) => {
-        if (child.$options.name === 'va-tree-category') {
-          (child as VaTreeCategory).expand()
+      this.nodes.forEach((child: VaTreeCategory | VaTreeNode) => {
+        if (child instanceof VaTreeCategory) {
+          child.expand()
         }
       })
     })
@@ -108,13 +111,23 @@ export default class VaTreeCategory extends mixins(ColorThemeMixin) {
     }
   }
 
-  onChildMounted (node: any) {
+  onChildMounted (node: VaTreeNode) {
     this.nodes.push(node)
+  }
+
+  onChildUnmounted (removableNode: VaTreeNode) {
+    this.nodes = this.nodes.filter((node: VaTreeNode) => node !== removableNode)
   }
 
   mounted () {
     if (this.treeRoot) {
       this.treeRoot.onChildMounted(this)
+    }
+  }
+
+  beforeUnmount () {
+    if (this.treeRoot) {
+      this.treeRoot.onChildUnmounted(this)
     }
   }
 }

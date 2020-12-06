@@ -22,10 +22,11 @@
     </VbCard>
     <VbCard title="with checkbox">
       <va-tree-node>
-        <va-checkbox
-          slot="checkbox"
-          v-model="checkboxValue"
-        />
+        <template #checkbox>
+          <va-checkbox
+            v-model="checkboxValue"
+          />
+        </template>
         Some text
       </va-tree-node>
     </VbCard>

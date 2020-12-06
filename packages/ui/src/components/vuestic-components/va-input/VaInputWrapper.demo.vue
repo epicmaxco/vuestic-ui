@@ -8,23 +8,25 @@
 
     <VbCard title="Slots scheme">
       <va-input-wrapper :messages="messages">
-        <div
-          slot="prepend"
-          style="width: 30px; height: 30px; border: 1px dotted black;"
-          class="flex-center"
-        >
-          <va-icon name="volume_down" />
-        </div>
+        <template #prepend>
+          <div
+            style="width: 30px; height: 30px; border: 1px dotted black;"
+            class="flex-center"
+          >
+            <va-icon name="volume_down" />
+          </div>
+        </template>
         <div style="width: 200px; height: 30px; border: 1px dotted black;">
           Default Slot
         </div>
-        <div
-          slot="append"
-          style="width: 30px; height: 30px; border: 1px dotted black;"
-          class="flex-center"
-        >
-          <va-icon name="volume_up" />
-        </div>
+        <template #append>
+          <div
+            style="width: 30px; height: 30px; border: 1px dotted black;"
+            class="flex-center"
+          >
+            <va-icon name="volume_up" />
+          </div>
+        </template>
       </va-input-wrapper>
     </VbCard>
 
@@ -51,7 +53,7 @@
           name="agree-to-terms"
           v-model="agreedToTerms"
         >
-          <template slot="label">
+          <template #label>
             I agree to
             <a
               class="link"

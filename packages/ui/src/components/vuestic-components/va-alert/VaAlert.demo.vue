@@ -12,7 +12,7 @@
         You successfully read this important alert message.
       </va-alert>
       <va-alert>
-        <template slot="title">
+        <template #title>
           Slotted title
         </template>
         You successfully read this important alert message.
@@ -118,7 +118,7 @@
         v-model="isCloseableAlertVisible"
         closeable
       >
-        <template slot="close">
+        <template #close>
           slotted close
         </template>
         You successfully read this important alert message.
@@ -149,7 +149,7 @@
       </va-alert>
 
       <va-alert>
-        <template slot="icon">
+        <template #icon>
           Slotted icon
           <va-icon name="warning" />
         </template>

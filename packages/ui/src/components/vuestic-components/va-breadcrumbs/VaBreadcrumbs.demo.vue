@@ -27,7 +27,7 @@
 
     <VbCard
       title="Align"
-      width="300px"
+      style="width: 500px;"
     >
       Left:
       <va-breadcrumbs align="left">

@@ -21,8 +21,8 @@
 import VaSeparator from './VaSeparator.vue'
 import VaTabs from '../va-tabs/VaTabs'
 import VaTab from '../va-tabs/VaTab'
-import VaCard from './VaCard'
-import VaCardContent from './VaCardContent'
+import VaCard from '../va-card/VaCard'
+import VaCardContent from '../va-card/VaCardContent'
 
 export default {
   components: {

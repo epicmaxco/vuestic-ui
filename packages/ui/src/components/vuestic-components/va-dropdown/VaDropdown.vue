@@ -12,13 +12,17 @@
     </div>
     <template v-if="showContent">
       <div
-        class="va-dropdown__content"
+        class="va-dropdown__content-wrapper"
         @mouseover="isContentHoverable && onMouseOver()"
         @mouseout="onMouseOut()"
-        :style="keepAnchorWidth ? anchorWidthStyles : ''"
-        ref="content"
+        ref="contentWrapper"
       >
-        <slot />
+        <div
+          class="va-dropdown__content"
+          :style="keepAnchorWidth ? anchorWidthStyles : ''"
+        >
+          <slot />
+        </div>
       </div>
     </template>
   </div>
@@ -158,7 +162,7 @@ export default class VaDropdown extends Vue {
       clickedElements.push(el)
       el = el.parentNode
     }
-    const isCurrentDropdownClicked = clickedElements.includes(this.$refs.anchor) || clickedElements.includes(this.$refs.content)
+    const isCurrentDropdownClicked = clickedElements.includes(this.$refs.anchor) || clickedElements.includes(this.$refs.contentWrapper)
     if (isCurrentDropdownClicked) {
       return
     }
@@ -222,7 +226,7 @@ export default class VaDropdown extends Vue {
     }
     this.popperInstance = createPopper(
       this.$refs.anchor as Element,
-      this.$refs.content as HTMLElement,
+      this.$refs.contentWrapper as HTMLElement,
       options,
     )
   }
@@ -276,9 +280,12 @@ export default class VaDropdown extends Vue {
   /* Solved the alignment problem (if we try to align inline and block elements) */
   line-height: 1;
 
-  &__content {
+  &__content-wrapper {
     /* overflow: hidden; */
     z-index: 100;
+  }
+
+  &__content {
   }
 }
 </style>

@@ -32,10 +32,11 @@
         </va-tree-node>
       </va-tree-category>
       <va-tree-category label="Category with checkbox">
-        <va-checkbox
-          v-model="value"
-          slot="checkbox"
-        />
+        <template #checkbox>
+          <va-checkbox
+            v-model="value"
+          />
+        </template>
         <va-tree-node>
           One
         </va-tree-node>
@@ -63,10 +64,11 @@
         label="Category with icon"
         color="info"
       >
-        <va-icon
-          slot="icon"
-          name="send"
-        />
+        <template #icon>
+          <va-icon
+            name="send"
+          />
+        </template>
         <va-tree-node>
           One
         </va-tree-node>

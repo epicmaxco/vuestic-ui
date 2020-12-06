@@ -10,6 +10,7 @@ import { Mixins, Provide } from 'vue-property-decorator'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { Options } from 'vue-class-component'
+import VaCollapse from '../va-collapse/VaCollapse.vue'
 
 const PropsMixin = makeContextablePropsMixin({
   value: { type: Array, default: () => [] },
@@ -27,37 +28,42 @@ export default class VaAccordion extends Mixins(
 ) {
   collapses: any[] = []
   @Provide() accordion = {
-    onChildChange: (child: any, state: any) => this.onChildChange(child, state),
-    onChildMounted: (child: any) => this.onChildMounted(child),
+    onChildChange: (child: VaCollapse) => this.onChildChange(child),
+    onChildMounted: (child: VaCollapse) => this.onChildMounted(child),
+    onChildUnmounted: (child: VaCollapse) => this.onChildUnmounted(child),
   }
 
-  onChildChange (child: any, state: any) {
+  onChildChange (child: VaCollapse) {
     const emitValue: any = []
-    this.collapses.forEach((collapse: any) => {
+    this.collapses.forEach((collapse: VaCollapse) => {
       if (collapse === child) {
-        emitValue.push((collapse as any).valueProxy)
+        emitValue.push(collapse.valueProxy)
         return
       }
       if (!this.c_multiply) {
-        (collapse as any).valueProxy = false
+        collapse.valueProxy = false
       }
-      emitValue.push((collapse as any).valueProxy)
+      emitValue.push(collapse.valueProxy)
     })
     this.valueComputed = emitValue
   }
 
-  onChildMounted (collapse: any) {
+  onChildMounted (collapse: VaCollapse) {
     this.collapses.push(collapse)
   }
 
+  onChildUnmounted (removableCollapse: VaCollapse) {
+    this.collapses = this.collapses.filter(collapse => collapse !== removableCollapse)
+  }
+
   mounted () {
-    this.collapses.forEach((collapse: any, index: number) => {
+    this.collapses.forEach((collapse: VaCollapse, index: number) => {
       collapse.valueProxy = this.valueComputed[index]
     })
   }
 
   updated () {
-    this.collapses.forEach((collapse: any, index: number) => {
+    this.collapses.forEach((collapse: VaCollapse, index: number) => {
       collapse.valueProxy = this.valueComputed[index]
     })
   }

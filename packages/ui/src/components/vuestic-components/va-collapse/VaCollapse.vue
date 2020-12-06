@@ -79,6 +79,7 @@ export default class VaCollapse extends Mixins(
     default: () => ({
       onChildChange: () => undefined,
       onChildMounted: () => undefined,
+      onChildUnmounted: () => undefined,
     }),
   }) readonly accordion!: any
 
@@ -150,7 +151,7 @@ export default class VaCollapse extends Mixins(
 
   changeValue () {
     this.valueProxy = !this.valueProxy
-    this.accordion.onChildChange(this, this.valueProxy)
+    this.accordion.onChildChange(this)
   }
 
   getHeight () {
@@ -193,9 +194,12 @@ export default class VaCollapse extends Mixins(
     }
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     if (this.mutationObserver) {
       this.mutationObserver.disconnect()
+    }
+    if (this.accordion) {
+      this.accordion.onChildUnmounted(this)
     }
   }
 }

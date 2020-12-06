@@ -55,7 +55,7 @@ import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMi
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const PropsMixin = makeContextablePropsMixin({
-  value: { type: Boolean, default: true },
+  modelValue: { type: Boolean, default: true },
   closeable: { type: Boolean, default: false },
   color: { type: String, default: '' },
   outline: { type: Boolean, default: false },

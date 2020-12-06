@@ -201,6 +201,33 @@ export default class VaTabs extends Mixins(
     this.updateTabsState()
   }
 
+  parseItems () {
+    const content = (this as any).$slots.default || 0
+    const length = content.length
+    this.tabs = []
+
+    for (let i = 0; i < length; i++) {
+      if (content[i].componentOptions) {
+        if (content[i].componentOptions.Ctor.options.name === 'VaTab') {
+          const instance = content[i].componentInstance
+          instance.id = instance.name || i
+
+          this.tabs.push(instance)
+
+          if (!instance._tabEventsInited) {
+            // eslint-disable-next-line @typescript-eslint/no-this-alias
+            const self = this
+
+            instance.$on('click', function (this: VaTab) { self.selectTab(this) })
+            instance.$on('keydown.enter', function (this: VaTab) { self.selectTab(this) })
+            instance.$on('focus', function (this: VaTab) { self.ensureVisible(this) })
+            instance._tabEventsInited = true
+          }
+        }
+      }
+    }
+  }
+
   selectTab (tab: any) {
     this.valueComputed = tab.$props.name || tab.id
     if (this.stateful) {

@@ -1,10 +1,10 @@
 import { Options, prop, mixins } from 'vue-class-component'
-
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
 const RouterLinkPropsMixin = makeContextablePropsMixin({
   tag: { type: String, default: 'router-link' },
 })
+
 // should not be contextable as it's a unique case (we just pass values to vue-router's <router-link/>)
 
 @Options({
@@ -23,10 +23,11 @@ export class RouterLinkMixin extends mixins(
   RouterLinkPropsMixin,
 ) {
   get tagComputed () {
+    const isNuxt = !!Object.getOwnPropertyDescriptor(this, '$nuxt')
     if (this.c_tag === 'a' || (this.href && !this.to) || this.target) {
       return 'a'
     }
-    if (this.c_tag === 'nuxt-link' || (this.$nuxt && this.hasRouterLinkParams)) {
+    if (this.c_tag === 'nuxt-link' || (isNuxt && this.hasRouterLinkParams)) {
       return 'nuxt-link'
     }
     if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
@@ -38,12 +39,12 @@ export class RouterLinkMixin extends mixins(
   get hasRouterLinkParams () {
     return Boolean(
       this.to ||
-        this.append ||
-        this.replace ||
-        this.exact ||
-        this.activeClass ||
-        this.href ||
-        this.exactActiveClass,
+      this.append ||
+      this.replace ||
+      this.exact ||
+      this.activeClass ||
+      this.href ||
+      this.exactActiveClass,
     )
   }
 

@@ -108,6 +108,12 @@
                     {{ selectionChips }}
                   </div>
                 </div>
+                <div
+                  v-else-if="selectionValue"
+                  class="va-select__content__selection"
+                >
+                  {{ selectionValue }}
+                </div>
               </template>
               <div
                 v-else

@@ -133,7 +133,7 @@
 
     <VbCard title="Custom header">
       <va-collapse v-model="collapseValue" style="width: 400px;">
-        <template slot="header">
+        <template #header>
           <va-button style="width: 100%;">
             {{ collapseHeader }}
           </va-button>

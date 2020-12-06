@@ -7,7 +7,9 @@ import { deepEqual } from '../../../services/utils'
 import { Vue, mixins, Options } from 'vue-class-component'
 
 const prepareValidations = (messages: any = [], callArguments = null) => {
-  if (isString(messages)) { messages = [messages] }
+  if (isString(messages)) {
+    messages = [messages]
+  }
   return messages
     .map((message: any) => isFunction(message) ? message(callArguments) : message)
 }
@@ -49,11 +51,13 @@ export class FormComponentMixin extends mixins(
   isFocused = false
   internalErrorMessages = null
   internalError = false
+  isFormComponent = true
 
-  created () {
-    // That's just a flag for form to figure out whether component is form component.
-    this.isFormComponent = true
-  }
+  // beforeMount () {
+  //   console.log('im here', )
+  //   // That's just a flag for form to figure out whether component is form component.
+  //   this.isFormComponent = true
+  // }
 
   // @Watch('rules', { deep: true })
   // onRulesChanged (newVal: any, oldVal: any) {

@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Provide } from 'vue-property-decorator'
 import Header from '../../docs/components/landing/Header.vue'
 import Preview from '../../docs/components/landing/Preview.vue'
 import Admin from '../../docs/components/landing/Admin.vue'
@@ -22,6 +22,7 @@ import Footer from '../../docs/components/landing/Footer.vue'
 import OpenSource from '../../docs/components/landing/OpenSource.vue'
 import Seamless from '../../docs/components/landing/Seamless.vue'
 import Customize from '../../docs/components/landing/Customize.vue'
+import { COLOR_THEMES, ThemeName } from '../theme-config'
 
 @Component({
   layout: 'landing',
