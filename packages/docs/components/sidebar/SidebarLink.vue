@@ -2,7 +2,8 @@
   <va-list-item
     :to="path"
     class="sidebar__link"
-    active-class="sidebar__link--active"
+    :style="computedStyle"
+    active-class="text--primary"
     @mouseenter.native="isHovered = true"
     @mouseleave.native="isHovered = false"
   >
@@ -15,13 +16,20 @@
 </template>
 <script lang='ts'>
 import { Component, Prop, Vue } from 'vue-property-decorator'
-// import { getHoverColor } from './../../../ui/src/services/color-functions'
+import { getHoverColor } from './../../../ui/src/services/color-functions'
 
 @Component({})
 export default class SidebarLink extends Vue {
   isHovered = false
 
   @Prop({ type: String }) path!: string
+
+  get computedStyle () {
+    return {
+      backgroundColor: this.isHovered ? getHoverColor(this.$themes.primary) : '',
+      color: this.isHovered ? this.$themes.primary : '',
+    }
+  }
 }
 </script>
 
@@ -29,24 +37,16 @@ export default class SidebarLink extends Vue {
   @import "../../../ui/src/components/vuestic-sass/resources/resources.scss";
 
   .sidebar__link {
+    color: inherit;
     padding: 1rem 0 1rem 2rem;
     line-height: 1.1;
 
-    // &:hover {
-    //   background: $light-blue;
+    .va-list-item-section {
+      color: inherit;
 
-    //   .va-list-item-label {
-    //     color: $theme-blue-dark;
-    //   }
-    // }
-
-    // &--active {
-    //   .va-list-item-label {
-    //     color: $theme-blue-dark;
-    //   }
-    // }
-    &--active {
-      background-color: #b11b1b;
+      .va-list-item-label {
+        color: inherit;
+      }
     }
   }
 </style>
