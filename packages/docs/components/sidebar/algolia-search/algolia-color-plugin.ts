@@ -21,7 +21,7 @@ const AlgoliaColorPlugin = {
       deep: true,
       immediate: true,
       handler: () => {
-        addOrUpdateStyleElement('va-theme-styles', () => createThemeColorStyles(defaultOptions.themes))
+        addOrUpdateStyleElement('va-algolia-styles', () => createThemeColorStyles(defaultOptions.themes))
       },
     })
   },
