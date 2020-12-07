@@ -4,7 +4,7 @@
       <div class="footer__inner">
         <!--        TODO: add root link-->
         <a href="/" class="footer__image">
-          <va-icon :component="VuesticLogo" />
+          <va-icon :component="VuesticLogoDark" />
         </a>
         <div class="footer__buttons">
           <va-button class="footer__buttons__button"
@@ -83,13 +83,13 @@ import { Component, Vue } from 'vue-property-decorator'
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
-import VuesticLogo from './icons/VuesticLogo.vue'
+import VuesticLogoDark from './icons/VuesticLogoDark.vue'
 @Component({})
 export default class Footer extends Vue {
   IconEpicmax = IconEpicmax
   IconAdmin = IconAdmin
   IconSpinners = IconSpinners
-  VuesticLogo = VuesticLogo
+  VuesticLogoDark = VuesticLogoDark
 }
 </script>
 
