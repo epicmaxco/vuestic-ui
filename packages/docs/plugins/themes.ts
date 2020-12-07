@@ -13,8 +13,11 @@ export default async function ({ app }) {
     created () {
       this.$root.$on('changeTheme', this.setTheme)
     },
-    beforeMount () {
-      this.setTheme(localStorage.getItem('currentTheme'))
+    mounted () {
+      const currentTheme = localStorage.getItem('currentTheme')
+      // @ts-ignore
+      const theme = Object.values(ThemeName).includes(currentTheme) ? currentTheme : ThemeName.DEFAULT
+      this.$root.$emit('changeTheme', theme)
     },
     beforeDestroy () {
       this.$root.$off('changeTheme', this.setTheme)
