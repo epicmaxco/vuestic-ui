@@ -1,5 +1,5 @@
 <template>
-  <va-sidebar class="sidebar" color="secondary" v-model="minimized">
+  <va-sidebar class="sidebar" color="#F4F8FA" v-model="minimized">
     <algolia-search />
     <va-list class="sidebar__links">
       <va-accordion v-model="value" multiply>
