@@ -30,17 +30,9 @@
             >
               {{ $t(childRoute.category) }}
             </va-list-label>
-            <va-list-item
-              :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
-              class="sidebar__link"
-              active-class="sidebar__link--active"
-            >
-              <va-list-item-section>
-                <va-list-item-label>
-                  {{ $t(childRoute.displayName) }}
-                </va-list-item-label>
-              </va-list-item-section>
-            </va-list-item>
+            <sidebar-link :path="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`">
+              {{ $t(childRoute.displayName) }}
+            </sidebar-link>
           </div>
         </va-collapse>
       </va-accordion>
@@ -52,9 +44,10 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { NavigationRoute } from './NavigationRoute'
 import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
+import SidebarLink from './SidebarLink.vue'
 
 @Component({
-  components: { AlgoliaSearch },
+  components: { AlgoliaSearch, SidebarLink },
 })
 export default class Sidebar extends Vue {
   value = [] as boolean[]
@@ -101,25 +94,6 @@ export default class Sidebar extends Vue {
 
     &--focus {
       background-color: $light-gray3;
-    }
-
-    &.sidebar__link {
-      padding: 1rem 0 1rem 2rem;
-      line-height: 1.1;
-
-      &:hover {
-        background: $light-blue;
-
-        .va-list-item-label {
-          color: $theme-blue-dark;
-        }
-      }
-
-      &--active {
-        .va-list-item-label {
-          color: $theme-blue-dark;
-        }
-      }
     }
   }
 
