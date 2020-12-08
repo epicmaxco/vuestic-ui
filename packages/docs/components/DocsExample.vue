@@ -3,7 +3,7 @@
     <p class="my-3">
       <component :is="component" />
     </p>
-    <va-button size="small" color="#cacaca" @click="showCode = !showCode">
+    <va-button size="small" outline color="primary" @click="showCode = !showCode">
       {{ $t('docsExample.showCode') }}
     </va-button>
     <va-content v-if="showCode">

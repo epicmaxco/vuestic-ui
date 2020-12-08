@@ -18,7 +18,7 @@
             {{$t('landing.opensource.text[5]')}}</div>
         </div>
         <div class="opensource__actions">
-          <img src="../../assets/landing/images/image-open-source.png" alt="open-source">
+          <img src="../../assets/landing/images/image-opensource.svg" alt="open-source">
         </div>
       </div>
     </div>

@@ -22,9 +22,6 @@
           </va-button>
         </div>
         <div class="preview__image">
-          <div class="components-slideshow">
-            <div class="mover"></div>
-          </div>
         </div>
         <div class="preview__features">
 
@@ -150,8 +147,7 @@ export default class Preview extends Vue {}
 
   &__image {
     position: absolute;
-    // background-image: url("../../assets/landing/images/image-components.png");
-    background-size: contain;
+    background-image: url("../../assets/landing/images/new-components.png");
     background-repeat: repeat-x;
     background-position: top;
     height: 342px;
@@ -159,6 +155,9 @@ export default class Preview extends Vue {}
     left: 0;
     width: 100%;
     z-index: 1;
+
+    // sm
+    @include sm(display, none);
   }
 
   &__features {
@@ -173,7 +172,7 @@ export default class Preview extends Vue {}
     // md
     @include md(padding-top, 27rem);
     // sm
-    @include sm(padding-top, 26rem);
+    @include sm(padding-top, 3rem);
     @include sm(padding-bottom, 4rem);
   }
 }
@@ -214,32 +213,6 @@ export default class Preview extends Vue {}
     text-align: center;
     line-height: 1.6rem;
     color: $active-blue;
-  }
-}
-
-.components-slideshow {
-  height: 342px;
-  max-width: 100%;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-  transform: translate3d(0, 0, 0);
-}
-
-.components-slideshow .mover {
-  width: 3153px;
-  background: url(../../assets/landing/images/components.png);
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  animation: moveSlideshow 120s linear infinite;
-  transform: translate3d(0, 0, 0);
-}
-
-@keyframes moveSlideshow {
-  100% {
-    transform: translateX(-33.33333%);
   }
 }
 </style>
