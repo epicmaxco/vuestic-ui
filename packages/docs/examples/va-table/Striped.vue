@@ -1,29 +1,27 @@
 <template>
-  <div class="markup">
-    <table class="va-table va-table--striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Country</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in users" :key="user.id">
-          <td>{{user.fullName}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.country}}</td>
-          <td>
-            <va-badge
-              :text="user.status"
-              :color="user.status"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="va-table va-table--striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Country</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="user in users" :key="user.id">
+      <td>{{user.fullName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.country}}</td>
+      <td>
+        <va-badge
+          :text="user.status"
+          :color="user.status"
+        />
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </template>
 
 <script lang="ts">
@@ -39,9 +37,3 @@ export default {
   components: { VaBadge },
 }
 </script>
-
-<style scoped lang="scss">
-  .markup .va-table {
-    width: 100%;
-  }
-</style>
