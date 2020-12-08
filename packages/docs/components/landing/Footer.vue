@@ -72,7 +72,7 @@
           >
           </va-button>
         </div>
-        <div class="footer__subtitle">{{$t('landing.footer.text')}} <a :style="{color: $themes.primary}" href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
+        <div class="footer__subtitle">{{$t('landing.footer.text')}} <a class="text--primary" href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
       </div>
     </div>
   </footer>

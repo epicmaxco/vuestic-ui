@@ -1,5 +1,5 @@
 <template>
-    <div class="color-dropdown__content px-1">
+    <div class="color-tab__content px-1">
       <va-button-toggle
         class="pb-2"
         v-model="selectedTheme"
@@ -64,7 +64,7 @@ import { ThemeName } from '../../theme-config'
 import { capitalize } from 'lodash'
 
 @Component({})
-export default class ColorDropdown extends Vue {
+export default class ColorTab extends Vue {
   data () {
     return {
       selectedTheme: ThemeName.DEFAULT,
@@ -99,11 +99,7 @@ export default class ColorDropdown extends Vue {
 <style lang="scss">
 @import "vuestic-ui/src/components/vuestic-sass/resources/resources";
 
-.color-dropdown {
-  .va-button-dropdown__content {
-    background-color: white;
-  }
-
+.color-tab {
   cursor: pointer;
 
   &__icon {
@@ -131,6 +127,7 @@ export default class ColorDropdown extends Vue {
       &__badge {
         /* Badges have 0.5rem to the right by default */
         margin-left: 0.5rem;
+        cursor: pointer;
       }
     }
   }

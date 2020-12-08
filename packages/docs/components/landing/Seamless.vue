@@ -8,7 +8,7 @@
 
           <!-- First block -->
           <div class="seamless__content--first">
-            <h3 :style="{color: $themes.primary}" class="block__label block__label--vuestic">{{$t('landing.seamless.compare.vuestic')}}</h3>
+            <h3 class="block__label block__label--vuestic text--primary">{{$t('landing.seamless.compare.vuestic')}}</h3>
             <div class="block__components">
 
               <div class="component">

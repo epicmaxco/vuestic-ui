@@ -34,7 +34,7 @@
               <img src="@/assets/landing/images/features/nuxt-support.svg" alt="nuxt-support">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>
-            <nuxt-link :style="{color: $themes.primary}" class="item__link" :to="`/${$root.$i18n.locale}/getting-started/nuxt-integration`">
+            <nuxt-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/getting-started/nuxt-integration`">
               {{$t('landing.preview.features.nuxt.text')}}
             </nuxt-link>
           </div>
@@ -44,7 +44,7 @@
               <img src="@/assets/landing/images/features/components.svg" alt="responsive-components">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
-            <nuxt-link :style="{color: $themes.primary}" class="item__link" :to="`/${$root.$i18n.locale}/ui-elements/avatar`">
+            <nuxt-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/ui-elements/avatar`">
               {{$t('landing.preview.features.components.text')}}
             </nuxt-link>
           </div>
@@ -54,7 +54,7 @@
               <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="keyboard-navigation">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.keyboard.title')}}</h2>
-            <nuxt-link :style="{color: $themes.primary}" class="item__link" :to="`/${$root.$i18n.locale}/getting-started/accessibility-guide`">
+            <nuxt-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/getting-started/accessibility-guide`">
               {{$t('landing.preview.features.keyboard.text')}}
             </nuxt-link>
           </div>
@@ -64,7 +64,7 @@
               <img src="@/assets/landing/images/features/modern-browsers.svg" alt="modern-browsers">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.browsers.title')}}</h2>
-            <nuxt-link :style="{color: $themes.primary}" class="item__link" :to="`/${$root.$i18n.locale}/introduction/browser-support`">
+            <nuxt-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/introduction/browser-support`">
               {{$t('landing.preview.features.browsers.text')}}
             </nuxt-link>
           </div>
