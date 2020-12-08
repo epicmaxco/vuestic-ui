@@ -17,6 +17,7 @@
 <script lang='ts'>
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { getHoverColor } from './../../../ui/src/services/color-functions'
+import { getColor } from './../../../ui/src/services/ColorThemePlugin'
 
 @Component({})
 export default class SidebarLink extends Vue {
@@ -26,8 +27,8 @@ export default class SidebarLink extends Vue {
 
   get computedStyle () {
     return {
-      backgroundColor: this.isHovered ? getHoverColor(this.$themes.primary) : '',
-      color: this.isHovered ? this.$themes.primary : '',
+      backgroundColor: this.isHovered ? getHoverColor(getColor(this, 'primary', '#ECF4F8')) : '',
+      color: this.isHovered ? getColor(this, 'primary', '#2C82E0') : '',
     }
   }
 }
