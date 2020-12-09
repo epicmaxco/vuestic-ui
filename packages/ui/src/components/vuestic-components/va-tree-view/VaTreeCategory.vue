@@ -89,7 +89,7 @@ export default {
       this.isOpenCached = false
       this.$nextTick(() => {
         this.$children.forEach(child => {
-          if (child.$options.name === 'va-tree-category') {
+          if (child.$options.name === 'VaTreeCategory') {
             child.collapse()
           }
         })

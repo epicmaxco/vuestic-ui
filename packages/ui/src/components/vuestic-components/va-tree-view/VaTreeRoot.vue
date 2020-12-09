@@ -31,7 +31,7 @@ export default {
     collapse () {
       this.$nextTick(() => {
         this.$children.forEach(child => {
-          if (child.$options.name === 'va-tree-category') {
+          if (child.$options.name === 'VaTreeCategory') {
             child.collapse()
           }
         })
@@ -43,7 +43,7 @@ export default {
     expand () {
       this.$nextTick(() => {
         this.$children.forEach(child => {
-          if (child.$options.name === 'va-tree-category') {
+          if (child.$options.name === 'VaTreeCategory') {
             child.expand()
           }
         })
