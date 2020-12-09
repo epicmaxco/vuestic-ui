@@ -4,13 +4,13 @@
   </div>
 </template>
 
-<script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import Vue from 'vue'
+<script lang="ts">
+import { Component, Mixins, Vue } from 'vue-property-decorator'
 
-export default {
+import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+
+@Component({
   name: 'VaTreeRoot',
-  mixins: [ColorThemeMixin],
   provide () {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const parent = this
@@ -24,32 +24,29 @@ export default {
       }),
     }
   },
-  methods: {
-    /**
-     * @public
-     */
-    collapse () {
-      this.$nextTick(() => {
-        this.$children.forEach(child => {
-          if (child.$options.name === 'VaTreeCategory') {
-            child.collapse()
-          }
-        })
+})
+export default class VaTreeRoot extends Mixins(
+  ColorThemeMixin,
+) {
+  public collapse () {
+    this.$nextTick(() => {
+      this.$children.forEach(child => {
+        if (child.$options.name === 'VaTreeCategory') {
+          child.collapse()
+        }
       })
-    },
-    /**
-     * @public
-     */
-    expand () {
-      this.$nextTick(() => {
-        this.$children.forEach(child => {
-          if (child.$options.name === 'VaTreeCategory') {
-            child.expand()
-          }
-        })
+    })
+  }
+
+  public expand () {
+    this.$nextTick(() => {
+      this.$children.forEach(child => {
+        if (child.$options.name === 'VaTreeCategory') {
+          child.expand()
+        }
       })
-    },
-  },
+    })
+  }
 }
 </script>
 

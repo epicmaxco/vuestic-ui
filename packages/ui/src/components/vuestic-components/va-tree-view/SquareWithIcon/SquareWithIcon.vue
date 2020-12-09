@@ -7,20 +7,24 @@
   </div>
 </template>
 
-<script>
-import VaIcon from '../../va-icon/VaIcon'
+<script lang="ts">
+import { Component, Mixins, Vue, Prop } from 'vue-property-decorator'
+
+import VaIcon from '../../va-icon/VaIcon.vue'
 import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
 
-export default {
+@Component({
   name: 'SquareWithIcon',
-  mixins: [ColorThemeMixin],
   components: { VaIcon },
-  props: {
-    icon: {
-      type: String,
-      required: true,
-    },
-  },
+})
+export default class SquareWithIcon extends Mixins(
+  ColorThemeMixin,
+) {
+  @Prop({
+    type: String,
+    default: '',
+    required: true,
+  }) readonly icon!: string
 }
 </script>
 

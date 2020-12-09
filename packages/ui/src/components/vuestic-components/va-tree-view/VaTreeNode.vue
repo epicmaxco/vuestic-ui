@@ -35,25 +35,30 @@
   </div>
 </template>
 
-<script>
-import VaIcon from '../va-icon/VaIcon'
-export default {
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+import VaIcon from '../va-icon/VaIcon.vue'
+
+@Component({
   name: 'VaTreeNode',
   components: { VaIcon },
-  props: {
-    highlighted: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-    iconRight: {
-      type: String,
-      default: '',
-    },
-  },
+})
+export default class VaTreeNode extends Vue {
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) readonly highlighted!: boolean
+
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly icon!: string
+
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly iconRight!: string
 }
 </script>
 

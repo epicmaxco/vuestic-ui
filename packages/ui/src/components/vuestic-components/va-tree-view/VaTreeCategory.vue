@@ -41,79 +41,74 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Mixins, Vue, Watch, Prop } from 'vue-property-decorator'
+
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import SquareWithIcon from './SquareWithIcon/SquareWithIcon.vue'
-import VaIcon from '../va-icon/VaIcon'
+import VaIcon from '../va-icon/VaIcon.vue'
 
-export default {
+@Component({
   name: 'VaTreeCategory',
-  mixins: [ColorThemeMixin],
   components: { VaIcon, SquareWithIcon },
   inject: {
     va: {
       default: () => ({}),
     },
   },
-  data () {
-    return {
-      isOpenCached: false,
+})
+export default class VaTreeCategory extends Mixins(
+  ColorThemeMixin,
+) {
+  isOpenCached = false
+
+  @Prop({
+    type: [String, Number],
+    default: '',
+  }) readonly label!: string | number
+
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) readonly isOpen!: boolean
+
+  @Prop({
+    type: String,
+    default: '',
+  }) readonly icon!: string
+
+  @Watch('isOpen', { immediate: true })
+  onIsOpenChanged (isOpen: boolean) {
+    this.isOpenCached = isOpen
+  }
+
+  public collapse () {
+    this.isOpenCached = false
+    this.$nextTick(() => {
+      this.$children.forEach(child => {
+        if (child.$options.name === 'VaTreeCategory') {
+          child.collapse()
+        }
+      })
+    })
+  }
+
+  public expand () {
+    this.isOpenCached = true
+    this.$nextTick(() => {
+      this.$children.forEach(child => {
+        if (child.$options.name === 'va-tree-category') {
+          child.expand()
+        }
+      })
+    })
+  }
+
+  toggle (e: HTMLElement) {
+    if (!e.target.classList.contains('va-checkbox__input')) {
+      this.isOpenCached = !this.isOpenCached
     }
-  },
-  watch: {
-    isOpen: {
-      handler (isOpen) {
-        this.isOpenCached = isOpen
-      },
-      immediate: true,
-    },
-  },
-  props: {
-    label: {
-      type: [String, Number],
-      default: '',
-    },
-    isOpen: {
-      type: Boolean,
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-  },
-  methods: {
-    /**
-     * @public
-     */
-    collapse () {
-      this.isOpenCached = false
-      this.$nextTick(() => {
-        this.$children.forEach(child => {
-          if (child.$options.name === 'VaTreeCategory') {
-            child.collapse()
-          }
-        })
-      })
-    },
-    /**
-     * @public
-     */
-    expand () {
-      this.isOpenCached = true
-      this.$nextTick(() => {
-        this.$children.forEach(child => {
-          if (child.$options.name === 'va-tree-category') {
-            child.expand()
-          }
-        })
-      })
-    },
-    toggle (e) {
-      if (!e.target.classList.contains('va-checkbox__input')) {
-        this.isOpenCached = !this.isOpenCached
-      }
-    },
-  },
+  }
 }
 </script>
 
