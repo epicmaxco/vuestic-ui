@@ -210,6 +210,7 @@ export default class Header extends Vue {
 
       line-height: 1.5rem;
       margin-left: 0.5rem;
+      letter-spacing: 0;
 
       @include sm(width, 100%);
     }
