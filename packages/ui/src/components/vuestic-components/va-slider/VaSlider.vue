@@ -469,7 +469,7 @@ export default class VaSlider extends Mixins(
 
   moveWithKeys (event: any) {
     // don't do anything if a dot isn't focused or if the slider's disabled or readonly
-    if (![this.dot0[0], this.dot1[0], this.dot].includes(document.activeElement as any)) { return }
+    if (![this.dot0?.[0], this.dot1?.[0], this.dot].includes(document.activeElement as any)) { return }
     if (this.disabled || this.readonly) { return }
 
     /*
