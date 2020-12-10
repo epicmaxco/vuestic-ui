@@ -5,6 +5,8 @@ import { makeContextablePropsMixin } from '../../context-test/context-provide/Co
 import { deepEqual } from '../../../services/utils'
 // import { Watch } from 'vue-property-decorator'
 import { Vue, mixins, Options } from 'vue-class-component'
+import { Inject } from 'vue-property-decorator'
+import VaInput from '../../vuestic-components/va-input/VaInput.vue'
 
 const prepareValidations = (messages: any = [], callArguments = null) => {
   if (isString(messages)) {
@@ -75,6 +77,20 @@ export class FormComponentMixin extends mixins(
   //     this.hadFocus = true
   //   }
   // }
+
+  @Inject() readonly form!: {
+    onChildChange: (child: FormComponentMixin) => void;
+    onChildMounted: (child: FormComponentMixin) => void;
+    onChildUnmounted: (child: FormComponentMixin) => void;
+  }
+
+  mounted () {
+    this.form.onChildMounted(this)
+  }
+
+  unmounted () {
+    this.form.onChildUnmounted(this)
+  }
 
   /** @public */
   validate (): any {

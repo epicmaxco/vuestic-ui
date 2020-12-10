@@ -9,21 +9,31 @@
 
 <script lang="ts">
 import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
+import { Mixins, Provide } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+// import { Slot, VNode } from 'vue'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 
-const getNestedFormElements = (vm: any, elements: any = []) => {
-  vm.$slots.default().forEach((child: any) => {
-    if (child.isFormComponent) {
-      elements.push(child)
-    }
+/* const isSlot = (slot: Slot | undefined): slot is Slot => {
+  return slot !== undefined
+} */
 
-    child.$slots && child.$slots.default().length > 0 && getNestedFormElements(child, elements)
-  })
+/* const getNestedFormElements = (vm: VaForm, elements: any = []) => {
+  const slots = vm.$slots
+  if (isSlot(slots.default)) {
+    slots.default().forEach((child: VNode) => {
+      console.log(child.type);
+      if (child.isFormComponent) {
+        elements.push(child)
+      }
 
-  return elements
-}
+      child.$slots && child.$slots.default().length > 0 && getNestedFormElements(child, elements)
+    })
+
+    return elements
+  }
+} */
 
 const FormPropsMixin = makeContextablePropsMixin({
   autofocus: { type: Boolean, default: false },
@@ -37,41 +47,62 @@ const FormPropsMixin = makeContextablePropsMixin({
 export default class VaForm extends Mixins(
   FormPropsMixin,
 ) {
+  nestedFormElements: FormComponentMixin[] = [];
+
+  @Provide() form = {
+    onChildChange: (child: FormComponentMixin) => this.childChangeHandler(child),
+    onChildMounted: (child: FormComponentMixin) => this.childMountedHandler(child),
+    onChildUnmounted: (removableChild: FormComponentMixin) => this.childUnmountedHandler(removableChild),
+  }
+
+  childChangeHandler (child: FormComponentMixin) {
+    console.log(child)
+  }
+
+  childMountedHandler (child: FormComponentMixin) {
+    this.nestedFormElements.push(child)
+  }
+
+  childUnmountedHandler (removableChild: FormComponentMixin) {
+    this.nestedFormElements = this.nestedFormElements.filter(child => child !== removableChild)
+  }
+
   mounted () {
     if (this.autofocus) {
-      this.focus()
+      this.$nextTick(() => {
+        this.focus()
+      })
     }
   }
 
   // public methods
   reset () {
-    getNestedFormElements(this)
-      .filter(({ reset }: any) => reset)
-      .forEach((item: any) => {
+    this.nestedFormElements
+      .filter(({ reset }) => reset)
+      .forEach((item) => {
         item.reset()
       })
   }
 
   resetValidation () {
-    getNestedFormElements(this)
-      .filter(({ resetValidation }: any) => resetValidation)
+    this.nestedFormElements
+      .filter(({ resetValidation }) => resetValidation)
       .forEach((item: any) => {
         item.resetValidation()
       })
   }
 
   focus () {
-    const focusableElement = getNestedFormElements(this).find(({ focus }: any) => focus)
-
+    const focusableElement = this.nestedFormElements.find(({ focus }) => focus)
     if (focusableElement) {
       focusableElement.focus()
     }
   }
 
   focusInvalid () {
-    const invalidComponent = getNestedFormElements(this)
-      .filter(({ hasError }: any) => hasError)
-      .find((item: any) => item.hasError())
+    const invalidComponent = this.nestedFormElements
+      .filter(({ hasError }) => hasError)
+      .find((item) => item.hasError())
 
     if (invalidComponent) {
       invalidComponent.focus()
@@ -80,8 +111,7 @@ export default class VaForm extends Mixins(
 
   validate () { // NOTE: temporarily synchronous validation
     let formValid = true
-
-    getNestedFormElements(this)
+    this.nestedFormElements
       .filter(({ validate }: any) => validate)
       .forEach((child: any) => {
         const isValidChild = child.validate()
@@ -89,9 +119,7 @@ export default class VaForm extends Mixins(
           formValid = false
         }
       })
-
     this.$emit('validation', formValid)
-
     return formValid
   }
 }
