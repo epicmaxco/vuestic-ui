@@ -58,18 +58,20 @@
           @mousedown="moveStart($event, null)"
         />
         <div
-          ref="dot0"
+          v-for="order in (this.vertical ? [1, 0] : [0, 1])"
+          :key="'dot' + order"
+          :ref="'dot' + order"
           class="va-slider__handler"
-          :class="dotClass[0]"
-          :style="dottedStyles[0]"
-          @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
-          @touchstart="moveStart($event, 0)"
-          @focus="isFocused = true, currentSlider = 0"
+          :class="dotClass[order]"
+          :style="dottedStyles[order]"
+          @mousedown="(moveStart($event, order), setMouseDown($event, order + 1))"
+          @touchstart="moveStart($event, order)"
+          @focus="isFocused = true, currentSlider = order"
           @blur="isFocused = false"
           :tabindex="(!disabled && !readonly) && 0"
         >
           <div
-            v-if="isActiveDot(0)"
+            v-if="isActiveDot(order)"
             :style="{ backgroundColor: colorComputed }"
             class="va-slider__handler__dot--focus"
           />
@@ -78,31 +80,7 @@
             :style="labelStyles"
             class="va-slider__handler__dot--value"
           >
-            {{ val[0] }}
-          </div>
-        </div>
-        <div
-          ref="dot1"
-          class="va-slider__handler"
-          :class="dotClass[1]"
-          :style="dottedStyles[1]"
-          @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
-          @touchstart="moveStart($event, 1)"
-          @focus="isFocused = true, currentSlider = 1"
-          @blur="isFocused = false"
-          :tabindex="(!this.disabled && !this.readonly) && 0"
-        >
-          <div
-            v-if="isActiveDot(1)"
-            :style="{ backgroundColor: colorComputed }"
-            class="va-slider__handler__dot--focus"
-          />
-          <div
-            v-if="trackLabelVisible"
-            :style="labelStyles"
-            class="va-slider__handler__dot--value"
-          >
-            {{ val[1] }}
+            {{ val[order] }}
           </div>
         </div>
       </template>
@@ -216,8 +194,8 @@ export default class VaSlider extends Mixins(
   SliderPropsMixin,
 ) {
   @Ref('dot') readonly dot !: HTMLElement
-  @Ref('dot0') readonly dot0 !: HTMLElement
-  @Ref('dot1') readonly dot1 !: HTMLElement
+  @Ref('dot0') readonly dot0 !: HTMLElement[]
+  @Ref('dot1') readonly dot1 !: HTMLElement[]
   @Ref('sliderContainer') readonly sliderContainer !: HTMLElement
   isFocused = false
   flag = false
@@ -491,7 +469,7 @@ export default class VaSlider extends Mixins(
 
   moveWithKeys (event: any) {
     // don't do anything if a dot isn't focused or if the slider's disabled or readonly
-    if (![this.dot0, this.dot1, this.dot].includes(document.activeElement as any)) { return }
+    if (![this.dot0?.[0], this.dot1?.[0], this.dot].includes(document.activeElement as any)) { return }
     if (this.disabled || this.readonly) { return }
 
     /*
@@ -551,26 +529,26 @@ export default class VaSlider extends Mixins(
 
     if (this.range) {
       const isVerticalDot0More = (event: any) =>
-        this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_UP
-      const isVerticalDot0Less = (event: any) => this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_DOWN
-      const isVerticalDot1More = (event: any) => this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_UP
-      const isVerticalDot1Less = (event: any) => this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_DOWN
+        this.vertical && this.dot0[0] === document.activeElement && event.keyCode === CODE_UP
+      const isVerticalDot0Less = (event: any) => this.vertical && this.dot0[0] === document.activeElement && event.keyCode === CODE_DOWN
+      const isVerticalDot1More = (event: any) => this.vertical && this.dot1[0] === document.activeElement && event.keyCode === CODE_UP
+      const isVerticalDot1Less = (event: any) => this.vertical && this.dot1[0] === document.activeElement && event.keyCode === CODE_DOWN
       const isHorizontalDot0Less = (event: any) =>
-        !this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_LEFT
+        !this.vertical && this.dot0[0] === document.activeElement && event.keyCode === CODE_LEFT
       const isHorizontalDot0More = (event: any) =>
-        !this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_RIGHT
+        !this.vertical && this.dot0[0] === document.activeElement && event.keyCode === CODE_RIGHT
       const isHorizontalDot1Less = (event: any) =>
-        !this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_LEFT
+        !this.vertical && this.dot1[0] === document.activeElement && event.keyCode === CODE_LEFT
       const isHorizontalDot1More = (event: any) =>
-        !this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
+        !this.vertical && this.dot1[0] === document.activeElement && event.keyCode === CODE_RIGHT
 
       switch (true) {
         case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
-          this.dot0.focus()
+          this.dot0[0].focus()
           moveDot(true, 0, 0)
           break
         case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
-          this.dot1.focus()
+          this.dot1[0].focus()
           moveDot(true, 1, 1)
           break
         case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
@@ -686,7 +664,7 @@ export default class VaSlider extends Mixins(
     // this.setTransform()
 
     // set focus on current thumb
-    ;(this.isRange ? (this.currentSlider ? this.dot1 : this.dot0) : this.dot).focus()
+    ;(this.isRange ? (this.currentSlider ? this.dot1[0] : this.dot0[0]) : this.dot).focus()
 
     if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
       if (this.currentSlider) {
