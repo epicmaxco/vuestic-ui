@@ -841,6 +841,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaTable": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -912,7 +918,8 @@
     "browsersList": "Browsers List",
     "overview": "Overview",
     "translation": "Translation",
-    "browserSupport": "Browser Support"
+    "browserSupport": "Browser Support",
+    "table": "Table"
   },
   "all": {
     "examples": "Examples",
@@ -2359,5 +2366,27 @@
   },
   "translation": {
     "title": "Work In Progress"
+  },
+  "table": {
+    "title": "Tables",
+    "summaryText": "You could use the class `.va-table` for customizing styles of your tables. Here is the couple examples.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text" : "Just add the `.va-table` to the table element."
+      },
+      "hoverable": {
+        "title": "Hoverable",
+        "text": "You could add more interaction to rows via additional `.va-table--hoverable` class."
+      },
+      "striped": {
+        "title": "Striped",
+        "text": "Striped `.va-table--striped` class colorize every second row in the table."
+      },
+      "clickable": {
+        "title": "Clickable",
+        "text": "To make rows looks like mouse `pointer` property you could add `.va-table-clickable` class."
+      }
+    }
   }
 }

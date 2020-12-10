@@ -270,6 +270,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaTable": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -306,7 +312,8 @@
     "configurationGuide": "Configuration Guide",
     "overview": "Overview",
     "translation": "Translation",
-    "browserSupport": "Browser Support"
+    "browserSupport": "Browser Support",
+    "table": "Table"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -402,5 +409,8 @@
   },
   "translation": {
     "title": "Trabajo En Progreso"
+  },
+  "table": {
+    "title": "-- Here is the title --"
   }
 }
