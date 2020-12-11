@@ -64,7 +64,7 @@
           :style="dottedStyles[0]"
           @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
           @touchstart="moveStart($event, 0)"
-          @focus="isFocused = true, currentSlider = 0"
+          @focus="isFocused = true, currentSliderDotIndex = 0"
           @blur="isFocused = false"
           :tabindex="(!disabled && !readonly) && 0"
         >
@@ -88,7 +88,7 @@
           :style="dottedStyles[1]"
           @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
           @touchstart="moveStart($event, 1)"
-          @focus="isFocused = true, currentSlider = 1"
+          @focus="isFocused = true, currentSliderDotIndex = 1"
           @blur="isFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
         >
@@ -119,8 +119,8 @@
           class="va-slider__handler"
           :class="dotClass"
           :style="dottedStyles"
-          @mousedown="(moveStart(), setMouseDown())"
-          @touchstart="(moveStart(), setMouseDown())"
+          @mousedown="(moveStart($event), setMouseDown($event))"
+          @touchstart="(moveStart($event), setMouseDown($event))"
           @focus="isFocused = true"
           @blur="isFocused = false"
           :tabindex="(!this.disabled && !this.readonly) && 0"
@@ -225,7 +225,7 @@ export default class VaSlider extends Mixins(
   flag = false
   size = 0
   currentValue = this.modelValue
-  currentSlider = 0
+  currentSliderDotIndex = 0
   isComponentExists = false
   hasMouseDown = false
 
@@ -436,16 +436,16 @@ export default class VaSlider extends Mixins(
       return false
     }
 
-    return this.range ? this.currentSlider === index : this.currentSlider === 0
+    return this.range ? this.currentSliderDotIndex === index : this.currentSliderDotIndex === 0
   }
 
-  setMouseDown (e: Event, index: number) {
+  setMouseDown (e: Event, index: number = this.currentSliderDotIndex) {
     if (!this.readonly && !this.disabled) {
       this.hasMouseDown = Boolean(index) || true
     }
   }
 
-  moveStart (e: Event, index: number) {
+  moveStart (e: Event, index: number = this.currentSliderDotIndex) {
     if (!index) {
       if (!this.range) {
         index = 0
@@ -456,7 +456,7 @@ export default class VaSlider extends Mixins(
     }
 
     if (this.isRange) {
-      this.currentSlider = index
+      this.currentSliderDotIndex = index
     }
 
     this.flag = true
@@ -605,7 +605,7 @@ export default class VaSlider extends Mixins(
   //   if (!this.disabled && !this.readonly && !this.flag) {
   //     const pos = this.getPos(e)
   //     if (this.isRange) {
-  //       this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+  //       this.currentSliderDotIndex = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
   //     }
   //     this.setValueOnPos(pos)
   //     if (this.pins) {
@@ -659,7 +659,7 @@ export default class VaSlider extends Mixins(
   }
 
   setCurrentValue (val: any) {
-    const slider = this.currentSlider
+    const slider = this.currentSliderDotIndex
     if (this.isRange) {
       if (this.isDiff(this.currentValue[slider], val)) {
         this.currentValue.splice(slider, 1, val)
@@ -689,20 +689,20 @@ export default class VaSlider extends Mixins(
     // this.setTransform()
 
     // set focus on current thumb
-    ;(this.isRange ? (this.currentSlider ? this.dot1 : this.dot0) : this.dot).focus()
+    ;(this.isRange ? (this.currentSliderDotIndex ? this.dot1 : this.dot0) : this.dot).focus()
 
     if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
-      if (this.currentSlider) {
+      if (this.currentSliderDotIndex) {
         if (pixelPosition <= this.position[0]) {
           this.val[1] = this.val[0]
-          this.currentSlider = 0
+          this.currentSliderDotIndex = 0
         }
         const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
         this.setCurrentValue(v)
       } else {
         if (pixelPosition >= this.position[1]) {
           this.val[0] = this.val[1]
-          this.currentSlider = 1
+          this.currentSliderDotIndex = 1
         }
         const v = this.getValueByIndex(Math.round(pixelPosition / this.gap))
         this.setCurrentValue(v)
@@ -716,7 +716,7 @@ export default class VaSlider extends Mixins(
 
   // setTransform () {
   //   if (this.isRange) {
-  //     const slider = this.currentSlider
+  //     const slider = this.currentSliderDotIndex
   //     const difference = 100 / (this.max - this.min)
   //     const val0 = (this.value[0] - this.min) * difference
   //     const processPosition = `${val0}%`
@@ -757,11 +757,11 @@ export default class VaSlider extends Mixins(
     }
 
     if (this.isRange) {
-      if (val[0] >= val[1] && this.currentSlider === 0) {
+      if (val[0] >= val[1] && this.currentSliderDotIndex === 0) {
         const v = inRange(val[1])
         return [v, v]
       }
-      if (val[0] >= val[1] && this.currentSlider === 1) {
+      if (val[0] >= val[1] && this.currentSliderDotIndex === 1) {
         const v = inRange(val[0])
         return [v, v]
       }
@@ -781,11 +781,11 @@ export default class VaSlider extends Mixins(
     }
     const pos = this.getPos(e)
     if (this.isRange) {
-      this.currentSlider = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
+      this.currentSliderDotIndex = pos > ((this.position[1] - this.position[0]) / 2 + this.position[0]) ? 1 : 0
     }
-    this.setMouseDown(e, 1)
+    this.setMouseDown(e, this.currentSliderDotIndex)
     this.setValueOnPos(pos)
-    this.moveStart(e, 1)
+    this.moveStart(e, this.currentSliderDotIndex)
   }
 
   mounted () {
