@@ -50,7 +50,7 @@
         />
       </div>
       <div class="va-tabs__content">
-          <slot />
+        <slot />
       </div>
     </div>
   </div>
@@ -67,7 +67,8 @@ import VaTab from './VaTab.vue'
 
 export class TabsService {
   // eslint-disable-next-line no-useless-constructor
-  constructor (private parent: VaTabs) {}
+  constructor (private parent: VaTabs) {
+  }
 
   tabs: VaTab[] = []
 
@@ -77,9 +78,9 @@ export class TabsService {
   }
 
   unregister (tab: VaTab) {
-    this.tabs = this.tabs.filter((t: { id: any }) => t.id === tab.id)
+    this.tabs = this.tabs.filter((filteredTab: { id: any }) => filteredTab.id !== tab.id)
     // eslint-disable-next-line no-return-assign
-    this.tabs.forEach((t: VaTab | any, idx: number) => t.id = t.$props.name || idx)
+    this.tabs.forEach((tab: VaTab | any, idx: number) => tab.id = tab.$props.name || idx)
   }
 
   tabClick (tab: VaTab) {
@@ -159,8 +160,7 @@ export default class VaTabs extends Mixins(
 
   get sliderStyles () {
     if (this.c_hideSlider) {
-      return {
-      }
+      return {}
     }
     if (this.c_vertical) {
       return {
@@ -218,9 +218,15 @@ export default class VaTabs extends Mixins(
             // eslint-disable-next-line @typescript-eslint/no-this-alias
             const self = this
 
-            instance.$on('click', function (this: VaTab) { self.selectTab(this) })
-            instance.$on('keydown.enter', function (this: VaTab) { self.selectTab(this) })
-            instance.$on('focus', function (this: VaTab) { self.ensureVisible(this) })
+            instance.$on('click', function (this: VaTab) {
+              self.selectTab(this)
+            })
+            instance.$on('keydown.enter', function (this: VaTab) {
+              self.selectTab(this)
+            })
+            instance.$on('focus', function (this: VaTab) {
+              self.ensureVisible(this)
+            })
             instance._tabEventsInited = true
           }
         }
@@ -237,13 +243,10 @@ export default class VaTabs extends Mixins(
 
   updateTabsState () {
     let hasActive = false
-    for (let i = 0; i < this.tabsService.tabs.length; i++) {
-      if (this.tabsService.tabs[i].isActiveRouterLink) {
-        this.ensureVisible(this.tabsService.tabs[i])
-        this.updateSlider(this.tabsService.tabs[i])
-        hasActive = true
-        this.tabsService.tabs[i].isActive = true
-      } else if (((this as any).tabsService.tabs[i].$props.name || this.tabsService.tabs[i].id) === this.tabSelected) {
+    this.tabsService.tabs.forEach((tab: VaTab, i: number) => {
+      const tabIsActiveRouterLink = this.tabsService.tabs[i].isActiveRouterLink
+      const isSelectedTab = (this.tabsService.tabs[i].$props.name || this.tabsService.tabs[i].id) === this.tabSelected
+      if (tabIsActiveRouterLink || isSelectedTab) {
         hasActive = true
         this.ensureVisible(this.tabsService.tabs[i])
         this.updateSlider(this.tabsService.tabs[i])
@@ -251,16 +254,19 @@ export default class VaTabs extends Mixins(
       } else {
         this.tabsService.tabs[i].isActive = false
       }
-    }
+    })
     if (!hasActive) {
-      this.resetSlider()
+      this.selectTab(this.tabsService.tabs[0])
+      // this.resetSlider()
     }
   }
 
   updatePagination () {
     this.showPagination = false
     if (this.tabsRef && this.wrapperRef) {
-      if (this.tabsRef.clientWidth > this.wrapperRef.clientWidth) { this.showPagination = true }
+      if (this.tabsRef.clientWidth > this.wrapperRef.clientWidth) {
+        this.showPagination = true
+      }
     }
   }
 
@@ -315,8 +321,9 @@ export default class VaTabs extends Mixins(
   }
 
   resetSlider () {
-    this.sliderOffsetX = 0
-    this.sliderWidth = 0
+    const tabs = this.tabsService.tabs
+    this.sliderOffsetX = tabs[0].$el.offsetLeft
+    this.sliderWidth = tabs[0].$el.clientWidth
     this.sliderOffsetY = 0
     this.sliderHeight = 0
   }
@@ -329,11 +336,16 @@ export default class VaTabs extends Mixins(
     this.mutationObserver = new MutationObserver(() => {
       this.updateTabsState()
     })
-    this.mutationObserver.observe(this.tabsRef, { childList: true, subtree: true })
+    this.mutationObserver.observe(this.tabsRef, {
+      childList: true,
+      subtree: true,
+    })
   }
 
   beforeUnmount () {
-    if (this.mutationObserver) { this.mutationObserver.disconnect() }
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect()
+    }
     window.removeEventListener('resize', this.updateTabsState)
   }
 }
