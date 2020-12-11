@@ -2,11 +2,8 @@ import isString from 'lodash/isString'
 import isFunction from 'lodash/isFunction'
 import flatten from 'lodash/flatten'
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { deepEqual } from '../../../services/utils'
-// import { Watch } from 'vue-property-decorator'
-import { Vue, mixins, Options } from 'vue-class-component'
+import { mixins, Options } from 'vue-class-component'
 import { Inject } from 'vue-property-decorator'
-import VaInput from '../../vuestic-components/va-input/VaInput.vue'
 
 const prepareValidations = (messages: any = [], callArguments = null) => {
   if (isString(messages)) {
@@ -78,18 +75,17 @@ export class FormComponentMixin extends mixins(
   //   }
   // }
 
-  @Inject() readonly form!: {
-    onChildChange: (child: FormComponentMixin) => void;
+  @Inject() readonly formProvider!: {
     onChildMounted: (child: FormComponentMixin) => void;
     onChildUnmounted: (child: FormComponentMixin) => void;
   }
 
   mounted () {
-    this.form.onChildMounted(this)
+    this.formProvider.onChildMounted(this)
   }
 
   unmounted () {
-    this.form.onChildUnmounted(this)
+    this.formProvider.onChildUnmounted(this)
   }
 
   /** @public */
