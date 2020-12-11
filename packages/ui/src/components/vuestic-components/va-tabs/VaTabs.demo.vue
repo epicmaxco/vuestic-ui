@@ -7,24 +7,24 @@
       <va-tabs v-model="tabValue1" focus>
         <template #tabs>
           <va-tab
-          v-for="title in tabStatic"
-          :name="title"
-          :key="title"
-        >
-          {{ title }}
-        </va-tab>
-        <va-tab label="Tab without name" />
-        <va-tab
-          icon="home"
-          label="Tab with icon"
-          name="icon"
-        />
-        <va-tab
-          icon="face"
-          label="Disabled tab"
-          disabled
-          name="disabled"
-        />
+            v-for="title in tabStatic"
+            :name="title"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+          <va-tab label="Tab without name"/>
+          <va-tab
+            icon="home"
+            label="Tab with icon"
+            name="icon"
+          />
+          <va-tab
+            icon="face"
+            label="Disabled tab"
+            disabled
+            name="disabled"
+          />
         </template>
       </va-tabs>
       Value: {{ tabValue1 }}
@@ -42,7 +42,7 @@
           >
             {{ title }}
           </va-tab>
-          <va-tab label="Tab without name" />
+          <va-tab label="Tab without name"/>
           <va-tab
             icon="fas-home"
             label="Tab with icon"
@@ -74,7 +74,7 @@
           >
             {{ title }}
           </va-tab>
-          <va-tab label="Tab without name" />
+          <va-tab label="Tab without name"/>
           <va-tab
             icon="fas-home"
             label="Tab with icon"
@@ -107,7 +107,7 @@
           </va-tab>
         </template>
       </va-tabs>
-      <div style="width: 100%; height: 100%; background-color: wheat;" />
+      <div style="width: 100%; height: 100%; background-color: wheat;"/>
     </VbCard>
     <VbCard
       title="Tabs with names"
@@ -130,7 +130,8 @@
           Add tab
         </button>
 
-        <button @click="tabDynamic.pop()">
+        <input style="width: 50px;" v-model="deletedTabIndex" placeholder="Index">
+        <button @click="tabDynamic.splice(deletedTabIndex || 0,1)">
           Remove tab
         </button>
       </div>
@@ -408,6 +409,7 @@ export default {
       tabStateful: [1, 2, 3, 4],
       tabAdded: [],
       show: false,
+      deletedTabIndex: '',
     }
   },
 }
