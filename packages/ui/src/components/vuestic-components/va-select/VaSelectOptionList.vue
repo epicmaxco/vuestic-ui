@@ -153,9 +153,13 @@ export default class VaSelectOptionList extends Mixins(ColorThemeMixin) {
   }
 
   scrollToOption (option: any) {
-    const optionElement: HTMLElement = (this as any).$refs[this.getTrackBy(option)][0]
+    const optionElement: HTMLElement = (this as any).$refs[this.getTrackBy(option)]
     // Scroll list to hinted option position
-    optionElement.scrollIntoView({ behavior: 'smooth' })
+    optionElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest',
+    })
   }
 }
 </script>

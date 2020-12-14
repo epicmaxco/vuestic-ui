@@ -30,7 +30,7 @@
         :name="name"
         placeholder="Search"
         removable
-        ref="search"
+        ref="searchBar"
         @keydown.enter.stop.prevent="addNewOption"
         @keydown.up.stop.prevent="hoverPreviousOption"
         @keydown.down.stop.prevent="hoverNextOption"
@@ -164,7 +164,7 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Watch } from 'vue-property-decorator'
+import { Mixins, Provide, Watch } from 'vue-property-decorator'
 
 import VaDropdown from '../va-dropdown/VaDropdown.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
@@ -182,6 +182,7 @@ import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { Options } from 'vue-class-component'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 
 const positions: string[] = ['top', 'bottom']
 
@@ -256,10 +257,16 @@ export default class VaSelect extends Mixins(
   onLoadingChanged (value: boolean) {
     if (value && this.c_searchable) {
       this.$nextTick(() => {
-        (this as any).$refs.search.$refs.input.focus()
+        (this as any).$refs.searchBar.$refs.input.focus()
       })
     }
   }
+
+  @Provide() formProvider = {
+    onChildMounted: (child: FormComponentMixin) => {},
+    onChildUnmounted: (removableChild: FormComponentMixin) => {},
+  }
+
 
   get valueProxy () {
     if (this.multiple && !this.isArrayValue) {
@@ -435,7 +442,7 @@ export default class VaSelect extends Mixins(
       ;(this as any).$refs.dropdown.hide()
     }
     if (this.c_searchable) {
-      (this as any).$refs.search.$refs.input.focus()
+      (this as any).$refs.searchBar.$refs.input.focus()
     }
   }
 
