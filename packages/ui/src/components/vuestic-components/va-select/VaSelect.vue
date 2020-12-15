@@ -255,7 +255,7 @@ export default class VaSelect extends Mixins(
 
   @Watch('visible')
   onLoadingChanged (value: boolean) {
-    if (value && this.c_searchable) {
+    if (value && this.inputVisible) {
       this.$nextTick(() => {
         (this as any).$refs.searchBar.$refs.input.focus()
       })
@@ -263,10 +263,9 @@ export default class VaSelect extends Mixins(
   }
 
   @Provide() formProvider = {
-    onChildMounted: (child: FormComponentMixin) => {},
-    onChildUnmounted: (removableChild: FormComponentMixin) => {},
+    onChildMounted: (child: FormComponentMixin) => ({}),
+    onChildUnmounted: (removableChild: FormComponentMixin) => ({}),
   }
-
 
   get valueProxy () {
     if (this.multiple && !this.isArrayValue) {
@@ -441,7 +440,7 @@ export default class VaSelect extends Mixins(
       this.valueProxy = typeof option === 'string' ? option : { ...option }
       ;(this as any).$refs.dropdown.hide()
     }
-    if (this.c_searchable) {
+    if (this.inputVisible) {
       (this as any).$refs.searchBar.$refs.input.focus()
     }
   }
