@@ -35,6 +35,7 @@ https://prismjs.com/download.html#themes=prism&languages=css */
  * @author Lea Verou
  */
 .prism-code {
+  font-size: 1.15rem;
   background: #f4f8fa;
   padding: 1.2rem 2rem;
 
