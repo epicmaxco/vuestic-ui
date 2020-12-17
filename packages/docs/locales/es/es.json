@@ -297,6 +297,7 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "normalize": "Normalize"
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
@@ -360,6 +361,9 @@
   },
   "parallax": {},
   "backtop": {
+    "title": "-- Here is the title --"
+  },
+  "reset": {
     "title": "-- Here is the title --"
   },
   "colorPicker": {

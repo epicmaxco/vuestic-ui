@@ -67,6 +67,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'table',
         displayName: 'menu.table',
       },
+      {
+        name: 'reset',
+        displayName: 'menu.reset',
+      },
       // GENERATOR_ADD - styles
     ],
   },

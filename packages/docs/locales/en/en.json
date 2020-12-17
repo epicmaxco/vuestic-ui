@@ -902,6 +902,7 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "reset": "Reset"
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
@@ -2196,6 +2197,16 @@
         "title": "Basic usage",
         "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
       }
+    }
+  },
+  "reset": {
+    "title": "CSS Reset",
+    "description": "We use `reset.scss` to reset and normalize basic CSS styles",
+    "features": {
+      "title": "Reset features",
+      "info": "Below is a list of features that are provided by reset.scss:",
+      "list": "* Margin and padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix for newer browsers. \n * HTML5 display-role reset for older browsers",
+      "more": "For a complete list of all applied styles, see the [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-sass/global/reset.scss) stylesheet."
     }
   },
   "colorPicker": {
