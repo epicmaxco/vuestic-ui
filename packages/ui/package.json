@@ -51,7 +51,7 @@
     "stylelint": "^13.2.1",
     "stylelint-config-standard": "^20.0.0",
     "v-tooltip": "^2.0.3",
-    "vue": "^3.0.0",
+    "vue": "^3.0.4",
     "vue-class-component": "npm:@tehnorg/vue-class-component@^8.0.0-beta.5",
     "vue-clipboard2": "^0.3.0",
     "vue-color": "^2.7.1",

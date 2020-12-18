@@ -2,7 +2,15 @@ import { Options, Vue } from 'vue-class-component'
 import { Inject, Prop } from 'vue-property-decorator'
 import { ContextProviderKey, mergeConfigs } from './ContextPlugin'
 
-@Options({})
+@Options({
+  render () {
+    return this.$slots.default()
+  },
+  provide () {
+    const newConfig = this._$configs ? [...this._$configs, this.configComputed] : []
+    return { [ContextProviderKey]: newConfig }
+  },
+})
 export default class VaContext extends Vue {
   @Prop({ type: Object, default: () => ({}) }) config: any
 
@@ -10,12 +18,6 @@ export default class VaContext extends Vue {
     from: [ContextProviderKey],
     default: () => [],
   }) readonly _$configs!: any
-
-  provide () {
-    const newConfig = this._$configs ? [...this._$configs, this.configComputed] : []
-
-    return { [ContextProviderKey]: newConfig }
-  }
 
   get configComputed () {
     return mergeConfigs(this.config, this.perValueConfig)
