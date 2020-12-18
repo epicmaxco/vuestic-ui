@@ -75,17 +75,21 @@ export class FormComponentMixin extends mixins(
   //   }
   // }
 
-  @Inject() readonly formProvider!: {
+  @Inject() readonly formProvider?: {
     onChildMounted: (child: FormComponentMixin) => void;
     onChildUnmounted: (child: FormComponentMixin) => void;
   }
 
   mounted () {
-    this.formProvider.onChildMounted(this)
+    if (this.formProvider) {
+      this.formProvider.onChildMounted(this)
+    }
   }
 
   unmounted () {
-    this.formProvider.onChildUnmounted(this)
+    if (this.formProvider) {
+      this.formProvider.onChildUnmounted(this)
+    }
   }
 
   /** @public */
