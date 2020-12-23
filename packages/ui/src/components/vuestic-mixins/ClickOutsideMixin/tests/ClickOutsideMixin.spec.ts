@@ -1,13 +1,17 @@
-import { CreateElement } from 'vue'
 import { shallowMount } from '@vue/test-utils'
 import ClickOutsideMixin, { ClickOutsideOptions } from '../ClickOutsideMixin'
+import { mixins } from 'vue-class-component'
+import { h } from 'vue'
 
-describe('ClickOutsideMixin', () => {
-  const Component = (h: CreateElement) =>
-    h('div', {
+export default class ExampleComponent extends mixins() {
+  render () {
+    return h('', {
       ref: 'clickOutsideRef',
     })
+  }
+}
 
+describe('ClickOutsideMixin', () => {
   const onClickOutside = jest.fn()
 
   const options: ClickOutsideOptions = {
@@ -17,7 +21,7 @@ describe('ClickOutsideMixin', () => {
   }
 
   const baseComponentOptions: any = {
-    render: Component,
+    render: ExampleComponent,
     mixins: [ClickOutsideMixin],
     mounted () {
       const ref = this.$refs.clickOutsideRef
@@ -60,7 +64,10 @@ describe('ClickOutsideMixin', () => {
 
     mountComponentWithOptions(options)
 
-    const mouseDownEvent = new MouseEvent('mousedown', { button: 0, bubbles: true })
+    const mouseDownEvent = new MouseEvent('mousedown', {
+      button: 0,
+      bubbles: true,
+    })
     const mouseUpEvent = new MouseEvent('mouseup', { button: 0, bubbles: true })
 
     document.body.dispatchEvent(mouseDownEvent)

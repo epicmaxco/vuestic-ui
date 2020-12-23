@@ -13,7 +13,7 @@
           >
             {{ title }}
           </va-tab>
-          <va-tab label="Tab without name"/>
+          <va-tab label="Tab without name" />
           <va-tab
             icon="home"
             label="Tab with icon"
@@ -42,7 +42,7 @@
           >
             {{ title }}
           </va-tab>
-          <va-tab label="Tab without name"/>
+          <va-tab label="Tab without name" />
           <va-tab
             icon="fas-home"
             label="Tab with icon"
@@ -74,7 +74,7 @@
           >
             {{ title }}
           </va-tab>
-          <va-tab label="Tab without name"/>
+          <va-tab label="Tab without name" />
           <va-tab
             icon="fas-home"
             label="Tab with icon"
@@ -107,7 +107,7 @@
           </va-tab>
         </template>
       </va-tabs>
-      <div style="width: 100%; height: 100%; background-color: wheat;"/>
+      <div style="width: 100%; height: 100%; background-color: wheat;" />
     </VbCard>
     <VbCard
       title="Tabs with names"

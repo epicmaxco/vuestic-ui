@@ -1,13 +1,13 @@
 import { mergeConfigs, makeContextablePropsMixin } from './ContextPlugin'
 import { shallowMount, mount } from '@vue/test-utils'
 import VaContext from './VaContext'
-import { CreateElement } from 'vue'
+import { h, VNode } from 'vue'
 
 const ContextableComponentConfig = {
   mixins: [makeContextablePropsMixin({
     value: { default: 'one' },
   })],
-  render: (h: CreateElement) => h(''),
+  render: (): VNode => h(''),
 }
 
 describe('ContextPlugin', () => {
@@ -44,7 +44,7 @@ describe('ContextPlugin', () => {
         mixins: [makeContextablePropsMixin({
           value: { default: 'one' },
         })],
-        render: h => h(''),
+        render: () => h(''),
       }).vm as any
       expect(vm.value).toBe('one')
       expect(vm.c_value).toBe('one')
@@ -54,7 +54,7 @@ describe('ContextPlugin', () => {
   describe('VaContext', () => {
     it('context overrides default value', () => {
       const vm = mount({
-        render: (h: CreateElement) => h(
+        render: () => h(
           VaContext,
           { props: { config: { all: { value: 'two' } } } },
           [h(ContextableComponentConfig)],

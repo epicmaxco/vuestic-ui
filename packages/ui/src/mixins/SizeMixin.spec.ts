@@ -1,11 +1,11 @@
 import { shallowMount } from '@vue/test-utils'
 import { SizeMixin, sizesConfig, fontSizesConfig } from './SizeMixin'
 import Component, { mixins } from 'vue-class-component'
+import { h } from 'vue'
 
-@Component
 export default class ExampleComponent extends mixins(SizeMixin) {
   render () {
-    return ''
+    return h('')
   }
 }
 

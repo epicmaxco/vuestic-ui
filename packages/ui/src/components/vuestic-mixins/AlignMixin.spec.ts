@@ -1,11 +1,11 @@
 import { shallowMount } from '@vue/test-utils'
 import { AlignMixin, alignMap } from './AlignMixin'
-import Component, { mixins } from 'vue-class-component'
+import { mixins } from 'vue-class-component'
+import { h } from 'vue'
 
-@Component
 export default class ExampleComponent extends mixins(AlignMixin) {
   render () {
-    return ''
+    return h('')
   }
 }
 
