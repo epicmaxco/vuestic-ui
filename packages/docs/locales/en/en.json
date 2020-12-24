@@ -2057,7 +2057,7 @@
       },
       "weekDays": {
         "title": "Days of the week",
-        "text": "You can specify the days of the week in the date table."
+        "text": "Passing `week-days` shows weekdays in picker."
       },
       "successError": {
         "title": "Success & Error",
@@ -2065,7 +2065,7 @@
       },
       "disabled": {
         "title": "Disabled",
-        "text": "You can apply apply disabled styles and disable interaction with the component."
+        "text": "You can apply disabled styles and disable interaction with the component."
       },
       "disabledDays": {
         "title": "Disabled days",
