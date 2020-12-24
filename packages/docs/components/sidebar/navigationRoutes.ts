@@ -161,6 +161,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.fileUpload',
       },
       {
+        name: 'date-picker',
+        displayName: 'menu.datePicker',
+      },
+      {
         category: 'menu.categories.layout',
         name: 'card',
         displayName: 'menu.card',

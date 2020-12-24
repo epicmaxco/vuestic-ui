@@ -229,6 +229,12 @@
       "methods": {},
       "slots": {}
     },
+    "VaDatePicker": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaButtonGroup": {
       "props": {},
       "events": {},
@@ -302,6 +308,7 @@
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
     "colorPalette": "Color Palette",
+    "datePicker": "Date Picker",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
@@ -376,6 +383,9 @@
     "title": "-- Here is the title --"
   },
   "colorPalette": {
+    "title": "-- Here is the title --"
+  },
+  "datePicker": {
     "title": "-- Here is the title --"
   },
   "buttonGroup": {

@@ -108,8 +108,8 @@
         "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
         "success": "Show component in success state.",
         "error": "Show component in error state.",
-        "messages": "Description messages for form component.",
-        "errorMessages": "Error messages for form component.",
+        "messages": "Description messages for the component.",
+        "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
         "stateful": "Add possibility to work with component without setting `v-model`",
         "color": "Color of the component (theme string or *HEX* string)",
@@ -804,6 +804,17 @@
       "methods": {},
       "slots": {}
     },
+    "VaDatePicker": {
+      "props": {
+        "value": "Sets the input value",
+        "weekDays": "Adds days to the table",
+        "placeholder": "Sets input placeholder",
+        "config": "Object with settings for date picker"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaButtonGroup": {
       "slots": {
         "default": "Slot for buttons"
@@ -907,6 +918,7 @@
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
     "colorPalette": "Color Palette",
+    "datePicker": "Date Picker",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "appBar": "App Bar",
@@ -2275,6 +2287,52 @@
     "api": {
       "colorPalette": "Color Palette API",
       "colorPaletteAdvanced": "Color Palette Advanced API"
+    }
+  },
+  "datePicker": {
+    "title": "Date Picker",
+    "summaryText": "Input component for data selection.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, use this component with v-model."
+      },
+      "placeholder": {
+        "title": "Placeholder",
+        "text": "You can set the input component placeholder."
+      },
+      "weekDays": {
+        "title": "Days of the week",
+        "text": "Passing `week-days` shows weekdays in picker."
+      },
+      "successError": {
+        "title": "Success & Error",
+        "text": "You can apply success and error styles."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "You can apply disabled styles and disable interaction with the component."
+      },
+      "disabledDays": {
+        "title": "Disabled days",
+        "text": "You can provide a config object with a `disable` property to disable the array of days."
+      },
+      "range": {
+        "title": "Range",
+        "text": "You can provide a config object with a `mode: range` property to add the ability to set a date range."
+      },
+      "dayTime": {
+        "title": "Day time",
+        "text": "You can provide a config object with an `enableTime` property to add the ability to set a time."
+      },
+      "multiple": {
+        "title": "Multiple",
+        "text": "You can provide a config object with an `mode: multiple` property to add the ability to select multiple dates."
+      },
+      "inline": {
+        "title": "Inline",
+        "text": "You can provide a config object with an `inline` property to add the ability to select multiple dates."
+      }
     }
   },
   "buttonGroup": {
