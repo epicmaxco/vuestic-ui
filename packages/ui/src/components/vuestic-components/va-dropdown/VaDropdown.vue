@@ -8,7 +8,7 @@
       @keyup.enter.stop.prevent="onAnchorClick()"
       ref="anchor"
     >
-      <slot name="anchor" />
+      <slot name="anchor"/>
     </div>
     <template v-if="showContent">
       <div
@@ -21,7 +21,7 @@
           class="va-dropdown__content"
           :style="keepAnchorWidth ? anchorWidthStyles : ''"
         >
-          <slot />
+          <slot/>
         </div>
       </div>
     </template>
@@ -31,9 +31,11 @@
 <script lang="ts">
 import { Prop, Watch } from 'vue-property-decorator'
 
-import { createPopper } from '@popperjs/core'
+import { createPopper, Instance } from '@popperjs/core'
 import { DebounceLoader } from 'asva-executors'
 import { Vue, Options } from 'vue-class-component'
+
+type PopperInstance = Instance | null
 
 @Options({
   name: 'VaDropdown',
@@ -47,6 +49,7 @@ export default class VaDropdown extends Vue {
   @Prop({ type: Boolean }) boundaryBody!: boolean
   @Prop({ type: Boolean }) modelValue!: boolean
   @Prop({ type: Boolean }) disabled!: boolean
+  @Prop({ type: Boolean }) opened!: boolean
   // Makes no sense
   // @Prop({ type: Boolean }) fixed!: boolean
   // Means dropdown width should be the same as anchor's width.
@@ -68,7 +71,7 @@ export default class VaDropdown extends Vue {
     this.handlePopperInstance()
   }
 
-  popperInstance: any = null
+  popperInstance: PopperInstance = null
   isClicked = false
   isMouseHovered = false
   anchorWidth: string | undefined = undefined
@@ -83,14 +86,17 @@ export default class VaDropdown extends Vue {
   }
 
   get showContent (): boolean {
-    if (this.trigger === 'hover') {
-      return this.isMouseHovered
+    if (this.opened) {
+      return true
     }
-    if (this.trigger === 'click') {
-      return this.isClicked
-    }
-    if (this.trigger === 'none') {
-      return this.modelValue
+
+    switch (this.trigger) {
+      case 'hover':
+        return this.isMouseHovered
+      case 'click':
+        return this.isClicked
+      case 'none':
+        return this.modelValue
     }
 
     return false
@@ -132,18 +138,19 @@ export default class VaDropdown extends Vue {
       return
     }
     if (!this.isMouseHovered) {
-      this.hoverOverDebounceLoader && this.hoverOverDebounceLoader.run()
+      this.hoverOverDebounceLoader.run()
     }
 
-    this.hoverOutDebounceLoader && this.hoverOutDebounceLoader.reset()
+    this.hoverOutDebounceLoader.reset()
   }
 
   onMouseOut (): void {
-    if (!this.isContentHoverable) {
+    if (this.isContentHoverable) {
+      this.hoverOutDebounceLoader.run()
+    } else {
       this.isMouseHovered = false
     }
-    this.hoverOutDebounceLoader && this.hoverOutDebounceLoader.run()
-    this.hoverOverDebounceLoader && this.hoverOverDebounceLoader.reset()
+    this.hoverOverDebounceLoader.reset()
   }
 
   registerClickOutsideListener (): void {
@@ -260,10 +267,6 @@ export default class VaDropdown extends Vue {
       return
     }
     this.registerClickOutsideListener()
-  }
-
-  mounted (): void {
-    this.handlePopperInstance()
   }
 
   beforeUnmount (): void {

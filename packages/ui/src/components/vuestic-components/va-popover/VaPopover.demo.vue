@@ -15,7 +15,6 @@
             >
               <va-button>Top</va-button>
             </va-popover>
-
             <va-popover
               placement="right"
               message="Placement Right"
@@ -165,7 +164,7 @@
 </template>
 
 <script>
-import VaPopover from './VaPopover'
+import VaPopover from './VaPopover2'
 import VaButton from '../va-button/VaButton'
 
 export default {
@@ -174,9 +173,7 @@ export default {
     VaButton,
   },
   data () {
-    return {
-
-    }
+    return {}
   },
 }
 </script>
