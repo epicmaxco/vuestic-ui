@@ -164,7 +164,7 @@
 </template>
 
 <script>
-import VaPopover from './VaPopover2'
+import VaPopover from './VaPopover'
 import VaButton from '../va-button/VaButton'
 
 export default {
