@@ -81,7 +81,11 @@ const closeNotification = (targetInstance: VNode, destroyElementFn: () => void) 
     return
   }
 
-  const { offsetX: targetOffsetX, offsetY: targetOffsetY, position: targetPosition } = targetInstance.component?.props as Record<OptionKeys, any>
+  const {
+    offsetX: targetOffsetX,
+    offsetY: targetOffsetY,
+    position: targetPosition,
+  } = targetInstance.component?.props as Record<OptionKeys, any>
   const redundantHeight: number | null = targetInstance.el?.offsetHeight
 
   destroyElementFn()
@@ -135,16 +139,21 @@ const createToastInstance = (customProps: NotificationOptions, app: App): VNode 
 
     let transformY = 0
     toastInstances.filter(item => {
-      const { offsetX: itemOffsetX, offsetY: itemOffsetY, position: itemPosition } = item.component?.props as Record<OptionKeys, any>
+      const {
+        offsetX: itemOffsetX,
+        offsetY: itemOffsetY,
+        position: itemPosition,
+      } = item.component?.props as Record<OptionKeys, any>
       return itemOffsetX === offsetX && itemOffsetY === offsetY && position === itemPosition
     }).forEach((item) => {
       transformY += getTranslateValue(item, position)
     })
     vNode.el.style.transform = `translate(0, ${transformY}px)`
 
-    if (!customProps.onClose) {
-      nodeProps.onClose = () => {
-        closeNotification(vNode, destroy)
+    nodeProps.onClose = () => {
+      closeNotification(vNode, destroy)
+      if (customProps.onClose) {
+        customProps.onClose()
       }
     }
 
