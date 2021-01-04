@@ -45,7 +45,8 @@ export default {
         message: 'Custom position (bottom-left)',
       },
       customOnCloseHandler: {
-        message: 'Custom position (bottom-left)',
+        position: 'bottom-right',
+        message: 'Custom handler (bottom-right)',
         onClose: () => console.log('Handle onClose'),
       },
     }
