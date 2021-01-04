@@ -2,8 +2,7 @@
   <transition name="va-toast-fade">
     <div
       v-show="visible"
-      class="va-toast"
-      :class="toastClasses"
+      :class="['va-toast', $props.multiLine ? 'va-toast--multiline' : '', ...toastClasses]"
       :style="toastStyles"
       @mouseenter="clearTimer()"
       @mouseleave="startTimer()"
@@ -64,6 +63,7 @@ const PropsMixin = makeContextablePropsMixin({
   closeable: { type: Boolean, default: true },
   onClose: { type: [Function as PropType<() => void>, undefined] },
   onClick: { type: [Function as PropType<() => void>, undefined] },
+  multiLine: { type: Boolean, default: false },
   position: {
     type: String as PropType<NotificationPosition>,
     default: 'top-right',
@@ -175,6 +175,7 @@ export default class VaToast extends Mixins(
   display: flex;
   width: $toast-width;
   padding: $toast-padding;
+  align-items: center;
   border-radius: $toast-radius;
   box-sizing: border-box;
   border: 1px solid $toast-border-color;
@@ -184,6 +185,10 @@ export default class VaToast extends Mixins(
   box-shadow: $toast-shadow;
   transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   overflow: hidden;
+
+  &--multiline {
+    min-height: 70px;
+  }
 
   &--right {
     right: 16px;
@@ -223,9 +228,10 @@ export default class VaToast extends Mixins(
 
   &__close-icon {
     position: absolute;
-    top: 18px;
+    top: 50%;
     right: 15px;
     cursor: pointer;
+    transform: translateY(-50%);
     font-size: $toast-close-font-size;
 
     &:hover {

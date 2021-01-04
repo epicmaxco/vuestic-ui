@@ -186,8 +186,8 @@ class Notification {
     this.app = app
   }
 
-  init (options: NotificationOptions) {
-    initNotification(options, this.app)
+  init (options: NotificationOptions): string {
+    return (initNotification(options, this.app) as any).id
   }
 
   close (id: string) {

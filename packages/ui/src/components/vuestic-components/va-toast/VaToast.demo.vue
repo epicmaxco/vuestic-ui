@@ -33,6 +33,13 @@
     <VbCard title="HTML inside message">
       <button @click="$vaToast.init(htmlMessage)">HTML inside message</button>
     </VbCard>
+    <VbCard title="Multi-line">
+      <button @click="$vaToast.init(multiLine)">Multi-line</button>
+    </VbCard>
+    <VbCard title="Return ID">
+      <button @click="handleToast">Open Toast</button>
+      <button @click="$vaToast.close(handleId)">Close {{handleId}}</button>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -64,7 +71,21 @@ export default {
       htmlMessage: {
         message: '<i style="font-style: italic">Ironically message</i>',
       },
+      multiLine: {
+        message: 'Multi-line message',
+        multiLine: true,
+      },
+      handleId: null,
     }
+  },
+  methods: {
+    handleToast () {
+      const id = this.$vaToast.init({
+        message: `Toast ${this.handleId} is opened`, // this example is buggy because of lack of reactivity inside the toast data
+        onClose: () => { this.handleId = null },
+      })
+      this.handleId = id
+    },
   },
 }
 </script>
