@@ -27,6 +27,12 @@
     <VbCard title="Close All">
       <button @click="$vaToast.closeAll()">Close all toasts</button>
     </VbCard>
+    <VbCard title="Custom message">
+      <button @click="$vaToast.init(customMessage)">Custom message</button>
+    </VbCard>
+    <VbCard title="HTML inside message">
+      <button @click="$vaToast.init(htmlMessage)">HTML inside message</button>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -47,6 +53,15 @@ export default {
       customOnCloseHandler: {
         message: 'Custom position (bottom-left)',
         onClose: () => console.log('Handle onClose'),
+      },
+      customMessage: {
+        message: 'Simple message',
+        render: () => {
+          return (<div>This is a <span style={{ fontWeight: 'bold' }}>custom</span> render message</div>)
+        },
+      },
+      htmlMessage: {
+        message: '<i style="font-style: italic">Ironically message</i>',
       },
     }
   },

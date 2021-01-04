@@ -15,11 +15,17 @@
       </template>
       <div class="va-toast__group">
         <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
+
         <div class="va-toast__content" v-show="message">
           <slot>
-            <p v-text="message"></p>
+            <p v-html="message"></p>
           </slot>
         </div>
+
+        <div class="va-toast__content" v-if="render">
+          <VaToastRenderer :content="render" />
+        </div>
+
         <div
           v-if="$slots.append"
           @click.stop="onToastClose"
@@ -39,10 +45,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
-
+import { Component, Mixins } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
-
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 
@@ -64,27 +68,29 @@ const PropsMixin = makeContextablePropsMixin({
       return ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value)
     },
   },
+  render: { type: Function, default: undefined },
 })
 
 @Component({
+  name: 'VaToastRenderer',
+})
+class VaToastRenderer extends Mixins(makeContextablePropsMixin({
+    content: { type: Function, default: undefined },
+  })) {
+  render (h) {
+    return this.content(h)
+  }
+}
+
+@Component({
   name: 'VaToast',
-  components: { VaIcon },
+  components: { VaIcon, VaToastRenderer },
 })
 export default class VaToast extends Mixins(
   ColorThemeMixin,
   PropsMixin,
 ) {
-  @Watch('closed')
-  onClosed (value: boolean) {
-    if (value) {
-      this.visible = false
-      this.$el.addEventListener('transitionend', this.destroyElement)
-    }
-  }
-
-  private closed = false
-  private timer: number | null = null
-
+  private timer: NodeJS.Timer | null = null
   public visible = false
 
   get positionX (): 'right' | 'left' {
@@ -122,7 +128,8 @@ export default class VaToast extends Mixins(
   }
 
   onToastClose () {
-    this.closed = true
+    this.visible = false
+    this.$el.addEventListener('transitionend', this.destroyElement)
     if (typeof this.onClose === 'function') {
       this.onClose()
       return
@@ -131,46 +138,29 @@ export default class VaToast extends Mixins(
   }
 
   clearTimer () {
-    clearTimeout(this.timer as number)
+    if (this.timer) {
+      clearTimeout(this.timer)
+    }
   }
 
   startTimer () {
     if (this.duration > 0) {
-      this.timer = window.setTimeout(() => {
-        if (!this.closed) {
+      this.timer = setTimeout(() => {
+        if (this.visible) {
           this.onToastClose()
         }
       }, this.duration)
-    }
-  }
-
-  onKeydown (e: KeyboardEvent) {
-    // Reset timer if user press Delete or Backspace. I'm not sure we need this
-    if (e.keyCode === 46 || e.keyCode === 8) {
-      this.clearTimer()
-      // Close if user press Escape
-    } else if (e.keyCode === 27) {
-      if (!this.closed) {
-        this.onToastClose()
-      }
-    } else {
-      this.startTimer()
     }
   }
 
   mounted () {
     if (this.duration > 0) {
-      this.timer = window.setTimeout(() => {
-        if (!this.closed) {
+      this.timer = setTimeout(() => {
+        if (this.visible) {
           this.onToastClose()
         }
       }, this.duration)
     }
-    document.addEventListener('keydown', this.onKeydown)
-  }
-
-  beforeDestroy () {
-    document.removeEventListener('keydown', this.onKeydown)
   }
 }
 </script>
