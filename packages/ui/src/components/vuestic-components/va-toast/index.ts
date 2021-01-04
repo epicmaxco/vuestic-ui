@@ -130,8 +130,9 @@ const initNotification = (options: NotificationOptions | string) => {
 }
 
 class Notification {
-  init (options: NotificationOptions) {
-    initNotification(options)
+  // TODO: Need to add reactivity on content change
+  init (options: NotificationOptions): string {
+    return (initNotification(options) as any).id
   }
 
   close (id: any) {
