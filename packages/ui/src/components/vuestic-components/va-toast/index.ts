@@ -133,7 +133,7 @@ const createToastInstance = (customProps: NotificationOptions, app: App): VNode 
     const nodeProps = vNode.component.props as Record<OptionKeys, any>
     const { offsetX, offsetY, position } = nodeProps
 
-    vNode.el.style.display = 'block'
+    vNode.el.style.display = 'flex'
     vNode.el.id = 'notification_' + seed
     vNode.el.style.zIndex = Z_INDEX + ''
 
@@ -177,6 +177,7 @@ const initNotification = (options: NotificationOptions | string, app: App) => {
   if (toastInstance) {
     toastInstances.push(toastInstance)
   }
+  return toastInstance
 }
 
 class Notification {
@@ -186,8 +187,8 @@ class Notification {
     this.app = app
   }
 
-  init (options: NotificationOptions): string {
-    return (initNotification(options, this.app) as any).id
+  init (options: NotificationOptions) {
+    return initNotification(options, this.app)?.el?.id as null | string
   }
 
   close (id: string) {

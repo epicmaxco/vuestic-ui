@@ -21,9 +21,6 @@
     <VbCard title="Custom onClose">
       <button @click="$vaToast.init(customOnCloseHandler)">notification with custom onClose handler</button>
     </VbCard>
-    <VbCard title="Close">
-      <button @click="$vaToast.close('notification_4')">Close #4 toast</button>
-    </VbCard>
     <VbCard title="Close All">
       <button @click="$vaToast.closeAll()">Close all toasts</button>
     </VbCard>
@@ -61,7 +58,8 @@ export default {
       },
       customMessage: {
         message: 'Simple message',
-        render: () => {
+        render: (h) => {
+          console.log(h)
           return (<div>This is a <span style={{ fontWeight: 'bold' }}>custom</span> render message</div>)
         },
       },

@@ -44,13 +44,14 @@
 </template>
 
 <script lang="ts">
-import { Mixins } from 'vue-property-decorator'
+import { Mixins, Component } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { Options } from 'vue-class-component'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { VNode } from 'vue'
+import { PropType } from 'vue'
+import { NotificationPosition } from './types'
 
 const PropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },
@@ -81,8 +82,8 @@ const PropsMixin = makeContextablePropsMixin({
 class VaToastRenderer extends Mixins(makeContextablePropsMixin({
     content: { type: Function, default: undefined },
   })) {
-  render (h: () => VNode) {
-    return this.content(h)
+  render () {
+    return this.content()
   }
 }
 
@@ -159,6 +160,7 @@ export default class VaToast extends Mixins(
   }
 
   mounted () {
+    this.visible = true
     if (this.duration > 0) {
       this.timer = setTimeout(() => {
         if (this.visible) {
