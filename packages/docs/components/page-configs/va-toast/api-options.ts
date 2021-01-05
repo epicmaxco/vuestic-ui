@@ -13,6 +13,8 @@ export default {
     onClose: { local: true },
     onClick: { local: true },
     position: { local: true },
+    render: { local: true },
+    multiLine: { local: true },
   },
   events: {
   },

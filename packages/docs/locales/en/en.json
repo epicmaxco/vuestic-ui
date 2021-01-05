@@ -658,7 +658,9 @@
         "closeable":"Provides the ability to close the component",
         "onClose":"Applies a function to use when pressed a close button",
         "onClick":"Applies a function to use when clicked",
-        "position":"Sets the position of the notification"
+        "position":"Sets the position of the notification",
+        "render":"Render function to use a custom content",
+        "multiLine": "Sets more space for the Toast component"
       },
       "events": {},
       "methods": {},
