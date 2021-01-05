@@ -30,9 +30,6 @@
     <VbCard title="Custom message">
       <button @click="$vaToast.init(customMessage)">Custom message</button>
     </VbCard>
-    <VbCard title="HTML inside message">
-      <button @click="$vaToast.init(htmlMessage)">HTML inside message</button>
-    </VbCard>
     <VbCard title="Multi-line">
       <button @click="$vaToast.init(multiLine)">Multi-line</button>
     </VbCard>
@@ -66,9 +63,6 @@ export default {
         render: () => {
           return (<div>This is a <span style={{ fontWeight: 'bold' }}>custom</span> render message</div>)
         },
-      },
-      htmlMessage: {
-        message: '<i style="font-style: italic">Ironically message</i>',
       },
       multiLine: {
         message: 'Multi-line message',

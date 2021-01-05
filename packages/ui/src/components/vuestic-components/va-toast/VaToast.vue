@@ -17,7 +17,7 @@
 
         <div class="va-toast__content" v-show="message">
           <slot>
-            <p v-html="message"></p>
+            <p v-text="message"></p>
           </slot>
         </div>
 
