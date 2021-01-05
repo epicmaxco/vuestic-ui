@@ -13,7 +13,7 @@
 export default {
   methods: {
     closeHandler () {
-      alert('close button clicked')
+      alert('Toast closed')
     },
   },
 }

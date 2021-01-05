@@ -50,6 +50,7 @@ import { Options } from 'vue-class-component'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { VNode } from 'vue'
 
 const PropsMixin = makeContextablePropsMixin({
   title: { type: String, default: '' },
@@ -80,7 +81,7 @@ const PropsMixin = makeContextablePropsMixin({
 class VaToastRenderer extends Mixins(makeContextablePropsMixin({
     content: { type: Function, default: undefined },
   })) {
-  render (h) {
+  render (h: () => VNode) {
     return this.content(h)
   }
 }
