@@ -59,8 +59,11 @@ export default {
       customMessage: {
         message: 'Simple message',
         render: (h) => {
-          console.log(h)
-          return (<div>This is a <span style={{ fontWeight: 'bold' }}>custom</span> render message</div>)
+          return h('div', [
+            'This is a ',
+            h('span', { style: 'font-weight: bold' }, 'custom'),
+            ' render message',
+          ])
         },
       },
       multiLine: {

@@ -9,30 +9,19 @@
       @click="onToastClick"
       role="alert"
     >
-      <template>
-        <slot name="prepend" />
-      </template>
       <div class="va-toast__group">
         <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
 
         <div class="va-toast__content" v-show="message">
-          <slot>
-            <p v-text="message"></p>
-          </slot>
+          <p v-text="message"></p>
         </div>
 
         <div class="va-toast__content" v-if="render">
           <VaToastRenderer :content="render" />
         </div>
 
-        <div
-          v-if="$slots.append"
-          @click.stop="onToastClose"
-        >
-          <slot name="append" />
-        </div>
         <va-icon
-          v-else-if="closeable"
+          v-if="closeable"
           size="small"
           :name="icon"
           class="va-toast__close-icon"
@@ -44,13 +33,14 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Component } from 'vue-property-decorator'
+import { h, PropType } from 'vue'
+import { Mixins } from 'vue-property-decorator'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { Options } from 'vue-class-component'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { PropType } from 'vue'
+
 import { NotificationPosition } from './types'
 
 const PropsMixin = makeContextablePropsMixin({
@@ -83,7 +73,7 @@ class VaToastRenderer extends Mixins(makeContextablePropsMixin({
     content: { type: Function, default: undefined },
   })) {
   render () {
-    return this.content()
+    return this.content(h)
   }
 }
 
