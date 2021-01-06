@@ -23,10 +23,26 @@
       <i class="docs-navigation__button__icon" :class="link.icon" />
       <span class="docs-navigation__button__text">{{ link.text }}</span>
     </va-button>
+
+    <form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+      <input type="hidden" name="parameters" :value="getSandboxParams" />
+      <va-button
+        flat
+        type="submit"
+        size="small"
+        class="docs-navigation__button"
+        color="gray"
+      >
+        <i class="docs-navigation__button__icon" :class="codeIcon" />
+        <span class="docs-navigation__button__text">Open in CodeSandbox</span>
+      </va-button>
+    </form>
   </div>
 </template>
 
 <script>
+import { getParameters } from 'codesandbox/lib/api/define'
+
 export default {
   props: {
     code: {
@@ -46,13 +62,15 @@ export default {
           icon: 'fa fa-github',
           url: `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/examples/${this.gitUrl}.vue`,
         },
-        {
+        // commented it while it's not working
+        /* {
           text: 'Open in CodePen',
           icon: 'fa fa-codepen',
           url: '#',
-        },
+        }, */
       ],
       copyIcon: 'fa fa-files-o',
+      codeIcon: 'fa fa-code',
       copyText: 'Copy code',
     }
   },
@@ -67,6 +85,54 @@ export default {
       }, 1500)
     },
   },
+  computed: {
+    getSandboxParams () {
+      const code = `import React from 'react';
+import ReactDOM from 'react-dom';
+
+function formatName(user) {
+  return user.firstName + ' ' + user.lastName;
+}
+
+const user = {
+  firstName: 'Harper',
+  lastName: 'Meck',
+};
+
+const element = (
+  <h1>
+    Hello, {formatName(user)}!
+  </h1>
+);
+
+ReactDOM.render(
+  element,
+  document.getElementById('root')
+);`
+      const html = '<div id="root"></div>'
+
+      const parameters = getParameters({
+        files: {
+          'package.json': {
+            content: {
+              dependencies: {
+                react: 'latest',
+                'react-dom': 'latest',
+              },
+            },
+          },
+          'index.js': {
+            content: code,
+          },
+          'index.html': {
+            content: html,
+          },
+        },
+      })
+      console.log(parameters)
+      return parameters
+    },
+  },
 }
 </script>
 
@@ -77,6 +143,10 @@ export default {
   background: $prism-background;
   margin: 0.2rem 0;
   border-radius: 0.25rem;
+
+  form {
+    display: inline-block;
+  }
 
   &__button {
     padding: 1.5rem 0.5rem;

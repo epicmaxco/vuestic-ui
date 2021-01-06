@@ -21,6 +21,7 @@
     "@types/algoliasearch": "^3.34.10",
     "@types/markdown-it": "^10.0.0",
     "algoliasearch": "^4.1.0",
+    "codesandbox": "^2.2.1",
     "core-js": "2",
     "docsearch.js": "^2.6.3",
     "flag-icon-css": "^3.4.6",
