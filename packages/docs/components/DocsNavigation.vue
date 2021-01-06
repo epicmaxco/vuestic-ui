@@ -87,50 +87,54 @@ export default {
   },
   computed: {
     getSandboxParams () {
-      const code = `import React from 'react';
-import ReactDOM from 'react-dom';
+      const main = `import { createApp } from "vue";
+import App from "./App.vue";
+import { VuesticPlugin } from "vuestic-ui";
 
-function formatName(user) {
-  return user.firstName + ' ' + user.lastName;
-}
+const app = createApp(App);
+// app.use(VuesticPlugin);
+app.mount("#app");
+`
+      const babel = `module.exports = {
+  presets: [
+    '@vue/cli-plugin-babel/preset'
+  ]
+}`
+      const html = '<div id="app"></div>'
 
-const user = {
-  firstName: 'Harper',
-  lastName: 'Meck',
-};
-
-const element = (
-  <h1>
-    Hello, {formatName(user)}!
-  </h1>
-);
-
-ReactDOM.render(
-  element,
-  document.getElementById('root')
-);`
-      const html = '<div id="root"></div>'
-
-      const parameters = getParameters({
+      return getParameters({
         files: {
           'package.json': {
             content: {
+              scripts: {
+                serve: 'vue-cli-service serve',
+              },
               dependencies: {
-                react: 'latest',
-                'react-dom': 'latest',
+                'core-js': '^3.6.5',
+                vue: '^3.0.0-0',
+                'vuestic-ui': '1.0.0-alpha.11',
+              },
+              devDependencies: {
+                '@vue/cli-plugin-babel': '~4.5.0',
+                '@vue/cli-service': '~4.5.0',
+                '@vue/compiler-sfc': '^3.0.0-0',
               },
             },
           },
-          'index.js': {
-            content: code,
+          'babel.config.js': {
+            content: babel,
           },
-          'index.html': {
+          'src/main.js': {
+            content: main,
+          },
+          'src/App.vue': {
+            content: this.code,
+          },
+          'public/index.html': {
             content: html,
           },
         },
       })
-      console.log(parameters)
-      return parameters
     },
   },
 }
