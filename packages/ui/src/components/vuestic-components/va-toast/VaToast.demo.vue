@@ -75,11 +75,12 @@ export default {
   },
   methods: {
     handleToast () {
-      const id = this.$vaToast.init({
+      this.handleId = this.$vaToast.init({
         message: `Toast ${this.handleId} is opened`, // this example is buggy because of lack of reactivity inside the toast data
-        onClose: () => { this.handleId = null },
+        onClose: () => {
+          this.handleId = null
+        },
       })
-      this.handleId = id
     },
   },
 }
