@@ -14,20 +14,20 @@ export default {
 }
 ```
 
-To fire an event you should call $cast method of your component:
+To fire an event you should call $pub method of your component:
 
 ```js
 export default {
   methods: {
     fireEvent() {
-      this.$cast('MessageSent', this.message)
+      this.$pub('MessageSent', this.message)
     }
   }
 }
 ```
 
-$cast may be called from template as well:
+$pub may be called from template as well:
 
 ```html
-<va-button v-on:click="$cast('MessageSent', message)">Fire event from template</va-button>
+<va-button v-on:click="$pub('MessageSent', message)">Fire event from template</va-button>
 ```
