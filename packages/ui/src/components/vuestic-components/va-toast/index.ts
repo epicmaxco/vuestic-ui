@@ -1,4 +1,4 @@
-import VaToast from './VaToast.vue'
+import VaToast from './VaToast'
 import { NotificationOptions } from './types'
 import { VNode, App, createVNode, render } from 'vue'
 

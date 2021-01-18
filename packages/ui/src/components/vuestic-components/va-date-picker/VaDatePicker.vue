@@ -1,16 +1,16 @@
 <template>
   <div class="va-date-picker">
-    <div :data-toggle="!c_disabled">
+    <div :data-toggle="!disabled">
       <va-input
         v-model="valueProxy"
         readonly
-        :placeholder="c_placeholder"
-        :label="c_label"
-        :disabled="c_disabled"
-        :error="c_error"
+        :placeholder="placeholder"
+        :label="label"
+        :disabled="disabled"
+        :error="error"
         :success="success"
-        :messages="c_messages"
-        :error-messages="c_errorMessages"
+        :messages="messages"
+        :error-messages="errorMessages"
       >
         <template #append>
           <va-icon
@@ -24,66 +24,74 @@
       class="va-date-picker__flatpickr"
       v-model="valueProxy"
       :config="fullConfig"
-      :disabled="c_disabled"
+      :disabled="disabled"
       @on-open="onOpen"
       data-input
     />
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Options, Vue, prop, mixins } from 'vue-class-component'
+// @ts-ignore
 import VueFlatpickrComponent from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
-import VaInput from '../va-input/VaInput'
-import VaIcon from '../va-icon/VaIcon'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Mixins } from 'vue-property-decorator'
-import { Options } from 'vue-class-component'
+import VaInput from '../va-input'
+import VaIcon from '../va-icon'
 
-const contextableProps = makeContextablePropsMixin(
-  {
-    modelValue: {
-      type: [String, Object, Number],
-      default: '',
-    },
-    weekDays: {
-      type: Boolean,
-      default: false,
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    error: {
-      type: Boolean,
-      default: false,
-    },
-    success: {
-      type: Boolean,
-      default: false,
-    },
-    messages: {
-      type: Array,
-      default: () => [],
-    },
-    errorMessages: {
-      type: Array,
-      default: () => [],
-    },
-    config: {
-      type: Object,
-      default: () => undefined,
-    },
-  },
-)
+class DatePickerProps {
+  modelValue = prop({
+    type: [String, Object, Number],
+    default: '',
+  })
+
+  weekDays = prop({
+    type: Boolean,
+    default: false,
+  })
+
+  placeholder = prop({
+    type: String,
+    default: '',
+  })
+
+  label = prop({
+    type: String,
+    default: '',
+  })
+
+  disabled = prop({
+    type: Boolean,
+    default: false,
+  })
+
+  error = prop({
+    type: Boolean,
+    default: false,
+  })
+
+  success = prop({
+    type: Boolean,
+    default: false,
+  })
+
+  messages = prop({
+    type: Array,
+    default: () => [],
+  })
+
+  errorMessages = prop({
+    type: Array,
+    default: () => [],
+  })
+
+  config = prop({
+    type: Object,
+    default: () => undefined,
+  })
+}
+
+const DatePickerPropsMixin = Vue.with(DatePickerProps)
 
 @Options({
   name: 'VaDatePicker',
@@ -94,21 +102,21 @@ const contextableProps = makeContextablePropsMixin(
   },
   emits: ['update:modelValue'],
 })
-export default class VaDatePicker extends Mixins(contextableProps) {
+export default class VaDatePicker extends mixins(DatePickerPropsMixin) {
   isOpen = false
 
   get valueProxy () {
-    return this.c_modelValue
+    return this.modelValue
   }
 
   set valueProxy (value) {
-    if (!this.c_disabled) {
+    if (!this.disabled) {
       this.$emit('update:modelValue', value)
     }
   }
 
   get fullConfig () {
-    return Object.assign({}, this.defaultConfig, this.c_config)
+    return Object.assign({}, this.defaultConfig, this.config)
   }
 
   get defaultConfig () {
@@ -120,7 +128,7 @@ export default class VaDatePicker extends Mixins(contextableProps) {
     }
   }
 
-  onOpen (selectedDates, dateStr, pcrObject) {
+  onOpen (selectedDates: any, dateStr: any, pcrObject: { calendarContainer: any }) {
     const calendar = pcrObject.calendarContainer
     if (this.weekDays) {
       calendar.classList.add('flatpickr-calendar--show-days')

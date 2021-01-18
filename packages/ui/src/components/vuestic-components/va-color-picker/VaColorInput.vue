@@ -16,10 +16,29 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
-import ColorDot from './ColorDot.vue'
-import VaInput from '../va-input/VaInput.vue'
-import { Vue, Options } from 'vue-class-component'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+
+import VaInput from '../va-input'
+import { ColorDot } from './index'
+
+class ColorInputProps {
+  modelValue = prop({
+    type: String,
+    default: '',
+  })
+
+  selected = prop({
+    type: Boolean,
+    default: false,
+  })
+
+  disabled = prop({
+    type: Boolean,
+    default: false,
+  })
+}
+
+const ColorInputPropsMixin = Vue.with(ColorInputProps)
 
 @Options({
   name: 'VaColorInput',
@@ -29,22 +48,7 @@ import { Vue, Options } from 'vue-class-component'
   },
   emits: ['update:modelValue', 'click'],
 })
-export default class VaColorInput extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly modelValue!: string
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly selected!: boolean
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly disabled!: boolean
-
+export default class VaColorInput extends mixins(ColorInputPropsMixin) {
   get valueProxy (): any {
     return this.modelValue
   }

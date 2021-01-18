@@ -19,7 +19,7 @@
     @blur="updateFocusState(false)"
   >
     <va-icon
-      v-if="c_icon"
+      v-if="icon"
       class="va-chip__icon"
       :name="icon"
       :size="iconSize"
@@ -28,7 +28,7 @@
       <slot></slot>
     </span>
     <va-icon
-      v-if="c_closeable"
+      v-if="closeable"
       class="va-chip__close-icon"
       name="close"
       :size="iconSize"
@@ -38,59 +38,61 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Watch } from 'vue-property-decorator'
-import { Options } from 'vue-class-component'
+import { watch } from 'vue'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import VaIcon from '../va-icon/VaIcon.vue'
-
-import {
-  getBoxShadowColor,
-  getHoverColor,
-  getFocusColor,
-} from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../../services/color-functions'
+import ColorMixin from '../../../services/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import VaIcon from '../va-icon'
 
-const PropsMixin = makeContextablePropsMixin({
-  modelValue: { type: Boolean, default: true },
-  closeable: { type: Boolean, default: false },
-  color: { type: String, default: '' },
-  outline: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  icon: { type: String, default: '' },
-  disabled: { type: Boolean, default: false },
-  square: { type: Boolean, default: false },
-  tag: { type: String, default: 'span' },
-  size: {
+class ChipProps {
+  modelValue = prop({ type: Boolean, default: true })
+  closeable = prop({ type: Boolean, default: false })
+  color = prop({ type: String, default: '' })
+  outline = prop({ type: Boolean, default: false })
+  flat = prop({ type: Boolean, default: false })
+  icon = prop({ type: String, default: '' })
+  disabled = prop({ type: Boolean, default: false })
+  square = prop({ type: Boolean, default: false })
+  tag = prop({ type: String, default: 'span' })
+  size = prop({
     type: String,
     default: 'medium',
     validator: (value: string) => {
       return ['medium', 'small', 'large'].includes(value)
     },
-  },
-})
+  })
+}
+
+const ChipPropsMixin = Vue.with(ChipProps)
 
 @Options({
   name: 'VaChip',
   components: { VaIcon },
+  emits: ['focus'],
 })
-export default class VaChip extends Mixins(
+export default class VaChip extends mixins(
   KeyboardOnlyFocusMixin,
   RouterLinkMixin,
   StatefulMixin,
-  ColorThemeMixin,
-  PropsMixin,
+  ColorMixin,
+  ChipPropsMixin,
 ) {
   hoverState = false
   focusState = false
 
-  @Watch('hoverState')
-  onHoverChange (value: boolean) {
-    this.updateFocusState(value)
-    this.updateHoverState(value)
+  created () {
+    if (this.$props.stateful) {
+      this.valueComputed = true
+    }
+
+    watch(() => this.hoverState, (value) => {
+      this.updateFocusState(value)
+      this.updateHoverState(value)
+    })
   }
 
   get iconSize () {
@@ -99,24 +101,24 @@ export default class VaChip extends Mixins(
       medium: '1rem',
       large: '1.25rem',
     }
-    return size[this.c_size]
+    return size[this.size]
   }
 
   get indexComputed () {
-    return this.c_disabled ? -1 : 0
+    return this.disabled ? -1 : 0
   }
 
   get computedClass () {
     return {
-      'va-chip--small': this.c_size === 'small',
-      'va-chip--large': this.c_size === 'large',
-      'va-chip--square': this.c_square,
-      'va-chip--disabled': this.c_disabled,
+      'va-chip--small': this.size === 'small',
+      'va-chip--large': this.size === 'large',
+      'va-chip--square': this.square,
+      'va-chip--disabled': this.disabled,
     }
   }
 
   get shadowStyle () {
-    if (this.c_flat || this.c_outline) {
+    if (this.flat || this.outline) {
       return
     }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
@@ -131,26 +133,26 @@ export default class VaChip extends Mixins(
     }
 
     if (this.focusState) {
-      if (this.c_outline || this.c_flat) {
+      if (this.outline || this.flat) {
         computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.borderColor = this.outline ? this.colorComputed : ''
         computedStyle.background = getFocusColor(this.colorComputed)
       }
     } else if (this.hoverState) {
-      if (this.c_outline || this.c_flat) {
+      if (this.outline || this.flat) {
         computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.borderColor = this.outline ? this.colorComputed : ''
         computedStyle.background = getHoverColor(this.colorComputed)
       } else {
         computedStyle.boxShadow = this.shadowStyle
       }
     } else {
-      computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : ''
-      computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
-      computedStyle.boxShadow = !this.c_disabled && this.shadowStyle
+      computedStyle.color = this.flat || this.outline ? this.colorComputed : ''
+      computedStyle.borderColor = this.outline ? this.colorComputed : ''
+      computedStyle.boxShadow = !this.disabled && this.shadowStyle
     }
 
-    if (!this.c_outline && !this.c_flat) {
+    if (!this.outline && !this.flat) {
       computedStyle.background = this.colorComputed
     }
 
@@ -171,7 +173,7 @@ export default class VaChip extends Mixins(
   }
 
   close () {
-    if (!this.c_disabled) {
+    if (!this.disabled) {
       this.valueComputed = false
     }
   }

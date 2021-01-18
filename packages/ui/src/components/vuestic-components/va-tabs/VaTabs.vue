@@ -14,7 +14,7 @@
           class="va-tabs__pagination"
           flat
           size="medium"
-          :icon="c_prevIcon"
+          :icon="$props.prevIcon"
           @click="movePaginationLeft"
         />
         <div
@@ -45,7 +45,7 @@
           class="va-tabs__pagination"
           flat
           size="medium"
-          :icon="c_nextIcon"
+          :icon="$props.nextIcon"
           @click="movePaginationRight"
         />
       </div>
@@ -57,13 +57,14 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { provide, watch, ref } from 'vue'
+import { Options, Vue, prop, mixins, setup } from 'vue-class-component'
+
+import { Ref } from '../../../utils/decorators'
+import ColorMixin from '../../../services/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { Mixins, Watch, Ref } from 'vue-property-decorator'
-import { Options } from 'vue-class-component'
-import VaButton from '../va-button/VaButton.vue'
-import VaTab from './VaTab.vue'
+import VaButton from '../va-button'
+import VaTab from './VaTab/VaTab.vue'
 
 export class TabsService {
   // eslint-disable-next-line no-useless-constructor
@@ -96,32 +97,30 @@ export class TabsService {
   }
 }
 
-const TabsPropsMixin = makeContextablePropsMixin({
-  modelValue: { type: [String, Number], default: null },
-  left: { type: Boolean, default: true },
-  right: { type: Boolean, default: false },
-  center: { type: Boolean, default: false },
-  grow: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  hideSlider: { type: Boolean, default: false },
-  vertical: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
-  prevIcon: { type: String, default: 'chevron_left' },
-  nextIcon: { type: String, default: 'chevron_right' },
-})
+class TabsProps {
+  modelValue = prop<string | number>({ type: [String, Number], default: null })
+  left = prop({ type: Boolean, default: true })
+  right = prop({ type: Boolean, default: false })
+  center = prop({ type: Boolean, default: false })
+  grow = prop({ type: Boolean, default: false })
+  disabled = prop({ type: Boolean, default: false })
+  hideSlider = prop({ type: Boolean, default: false })
+  vertical = prop({ type: Boolean, default: false })
+  color = prop({ type: String, default: 'primary' })
+  prevIcon = prop({ type: String, default: 'chevron_left' })
+  nextIcon = prop({ type: String, default: 'chevron_right' })
+}
+
+const TabsPropsMixin = Vue.with(TabsProps)
+
+export const TabsServiceKey = Symbol('TabsService')
 
 @Options({
   name: 'VaTabs',
   components: { VaButton },
-  provide () {
-    this.tabsService = new TabsService(this)
-    return {
-      tabsService: this.tabsService,
-    }
-  },
 })
-export default class VaTabs extends Mixins(
-  ColorThemeMixin,
+export default class VaTabs extends mixins(
+  ColorMixin,
   StatefulMixin,
   TabsPropsMixin,
 ) {
@@ -138,19 +137,48 @@ export default class VaTabs extends Mixins(
   tabsContentOffset = 0
   mutationObserver: any = null
 
-  get computedClass () {
+  context = setup(() => {
+    const tabsService = ref<TabsService | null>(null)
+
+    provide(TabsServiceKey, tabsService)
+
     return {
-      'va-tabs__container--left': this.c_left && !this.c_right && !this.c_center && !this.c_grow,
-      'va-tabs__container--right': this.c_right,
-      'va-tabs__container--center': this.c_center,
-      'va-tabs__container--grow': this.c_grow,
-      'va-tabs__container--disabled': this.c_disabled,
+      tabsService,
+    }
+  })
+
+  created () {
+    // NOTE: this is just a temporary hack not to break everything
+    // because we need to stick to `this` for now
+    // TODO: move this logic to setup
+    this.context.tabsService = new TabsService(this)
+
+    watch(() => this.$props.modelValue, () => {
+      this.updateTabsState()
+    })
+  }
+
+  get computedClass () {
+    const {
+      left,
+      right,
+      center,
+      grow,
+      disabled,
+    } = this.$props
+
+    return {
+      'va-tabs__container--left': left && !right && !center && !grow,
+      'va-tabs__container--right': right,
+      'va-tabs__container--center': center,
+      'va-tabs__container--grow': grow,
+      'va-tabs__container--disabled': disabled,
     }
   }
 
   get computedTabsClass () {
     return {
-      'va-tabs--vertical': this.c_vertical,
+      'va-tabs--vertical': this.$props.vertical,
     }
   }
 
@@ -159,10 +187,10 @@ export default class VaTabs extends Mixins(
   }
 
   get sliderStyles () {
-    if (this.c_hideSlider) {
+    if (this.$props.hideSlider) {
       return {}
     }
-    if (this.c_vertical) {
+    if (this.$props.vertical) {
       return {
         'background-color': this.colorComputed,
         height: `${this.sliderHeight}px`,
@@ -178,7 +206,7 @@ export default class VaTabs extends Mixins(
 
   get paginationControlledStyles () {
     // Prevents the movement of vertical tabs
-    if (this.c_vertical) {
+    if (this.$props.vertical) {
       return {
         transform: 'translateX(0px)',
       }
@@ -193,14 +221,10 @@ export default class VaTabs extends Mixins(
   }
 
   get disablePaginationRight () {
-    return this.tabsService.tabs[this.tabsService.tabs.length - 1].rightSidePosition <= this.tabsContentOffset + this.containerRef.clientWidth
+    return this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1].rightSidePosition <= this.tabsContentOffset + this.containerRef.clientWidth
   }
 
-  @Watch('modelValue')
-  onValueChanged () {
-    this.updateTabsState()
-  }
-
+  // TODO: check if this even works
   parseItems () {
     const content = (this as any).$slots.default || 0
     const length = content.length
@@ -235,28 +259,38 @@ export default class VaTabs extends Mixins(
   }
 
   selectTab (tab: any) {
-    this.valueComputed = tab.$props.name || tab.id
-    if (this.stateful) {
-      this.updateTabsState()
+    if (tab) {
+      this.valueComputed = tab.$props.name || tab.id
+      if (this.stateful) {
+        this.updateTabsState()
+      }
     }
   }
 
   updateTabsState () {
     let hasActive = false
-    this.tabsService.tabs.forEach((tab: VaTab, i: number) => {
-      const tabIsActiveRouterLink = this.tabsService.tabs[i].isActiveRouterLink
-      const isSelectedTab = (this.tabsService.tabs[i].$props.name || this.tabsService.tabs[i].id) === this.tabSelected
-      if (tabIsActiveRouterLink || isSelectedTab) {
-        hasActive = true
-        this.ensureVisible(this.tabsService.tabs[i])
-        this.updateSlider(this.tabsService.tabs[i])
-        this.tabsService.tabs[i].isActive = true
-      } else {
-        this.tabsService.tabs[i].isActive = false
-      }
-    })
+    if (this.context.tabsService) {
+      this.context.tabsService.tabs.forEach((tab: VaTab, i: number) => {
+        const tabIsActiveRouterLink = this.context.tabsService?.tabs[i].isActiveRouterLink
+        const isSelectedTab = (this.context.tabsService?.tabs[i].$props.name || this.context.tabsService?.tabs[i].id) === this.tabSelected
+        if (tabIsActiveRouterLink || isSelectedTab) {
+          hasActive = true
+          this.ensureVisible(this.context.tabsService?.tabs[i])
+          this.updateSlider(this.context.tabsService?.tabs[i])
+
+          if (this.context.tabsService) {
+            this.context.tabsService.tabs[i].isActive = true
+          }
+        } else {
+          if (this.context.tabsService) {
+            this.context.tabsService.tabs[i].isActive = false
+          }
+        }
+      })
+    }
+
     if (!hasActive) {
-      this.selectTab(this.tabsService.tabs[0])
+      this.selectTab(this.context.tabsService?.tabs[0])
       // this.resetSlider()
     }
   }
@@ -273,9 +307,11 @@ export default class VaTabs extends Mixins(
   movePaginationLeft () {
     let offsetToSet = this.tabsContentOffset - this.containerRef.clientWidth
 
-    for (let i = 0; i < this.tabsService.tabs.length; i++) {
-      if (this.tabsService.tabs[i].rightSidePosition > this.tabsContentOffset && this.tabsService.tabs[i].leftSidePosition < this.tabsContentOffset) {
-        offsetToSet = this.tabsService.tabs[i].rightSidePosition - this.containerRef.clientWidth
+    if (this.context.tabsService) {
+      for (let i = 0; i < this.context.tabsService.tabs.length; i++) {
+        if (this.context.tabsService.tabs[i].rightSidePosition > this.tabsContentOffset && this.context.tabsService.tabs[i].leftSidePosition < this.tabsContentOffset) {
+          offsetToSet = this.context.tabsService.tabs[i].rightSidePosition - this.containerRef.clientWidth
+        }
       }
     }
 
@@ -286,13 +322,15 @@ export default class VaTabs extends Mixins(
     const containerRightSide = this.tabsContentOffset + this.containerRef.clientWidth
     let offsetToSet = containerRightSide
 
-    for (let i = 0; i < this.tabsService.tabs.length; i++) {
-      if (this.tabsService.tabs[i].rightSidePosition > containerRightSide && this.tabsService.tabs[i].leftSidePosition < containerRightSide) {
-        offsetToSet = this.tabsService.tabs[i].leftSidePosition
+    if (this.context.tabsService) {
+      for (let i = 0; i < this.context.tabsService.tabs.length; i++) {
+        if (this.context.tabsService.tabs[i].rightSidePosition > containerRightSide && this.context.tabsService.tabs[i].leftSidePosition < containerRightSide) {
+          offsetToSet = this.context.tabsService.tabs[i].leftSidePosition
+        }
       }
     }
 
-    const maxOffset = this.tabsService.tabs[this.tabsService.tabs.length - 1].rightSidePosition - this.containerRef.clientWidth
+    const maxOffset = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1].rightSidePosition - this.containerRef.clientWidth
 
     offsetToSet = offsetToSet >= maxOffset ? maxOffset : offsetToSet
     this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
@@ -307,7 +345,7 @@ export default class VaTabs extends Mixins(
   }
 
   updateSlider (tab: any) {
-    if (this.c_vertical) {
+    if (this.$props.vertical) {
       this.sliderOffsetY = (this.containerRef.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
       this.sliderHeight = tab.$el.clientHeight
       this.sliderOffsetX = 0
@@ -321,9 +359,12 @@ export default class VaTabs extends Mixins(
   }
 
   resetSlider () {
-    const tabs = this.tabsService.tabs
-    this.sliderOffsetX = tabs[0].$el.offsetLeft
-    this.sliderWidth = tabs[0].$el.clientWidth
+    if (this.context.tabsService) {
+      const tabs = this.context.tabsService.tabs
+      this.sliderOffsetX = tabs[0].$el.offsetLeft
+      this.sliderWidth = tabs[0].$el.clientWidth
+    }
+
     this.sliderOffsetY = 0
     this.sliderHeight = 0
   }

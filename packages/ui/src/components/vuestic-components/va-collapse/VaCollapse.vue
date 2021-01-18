@@ -2,7 +2,7 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header"
-      @click="changeValue()"
+      @click="changeValue"
       :tabindex="collapseIndexComputed"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
@@ -12,18 +12,18 @@
       <slot name="header">
         <div class="va-collapse__header__content" :style="contentStyle">
           <va-icon
-            v-if="c_icon"
+            v-if="icon"
             class="va-collapse__header__icon"
-            :name="c_icon"
-            :color="c_textColor"
+            :name="icon"
+            :color="textColor"
           />
           <div class="va-collapse__header__text">
-            {{ c_header }}
+            {{ header }}
           </div>
           <va-icon
             class="va-collapse__header__icon"
             :name="valueProxy ? 'expand_less' : 'expand_more'"
-            :color="c_textColor"
+            :color="textColor"
           />
         </div>
       </slot>
@@ -35,39 +35,41 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Inject, Ref } from 'vue-property-decorator'
-import { Options } from 'vue-class-component'
-import VaIcon from '../va-icon/VaIcon.vue'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import { inject } from 'vue'
+import { mixins, Options, prop, setup, Vue } from 'vue-class-component'
+import VaIcon from '../va-icon'
+import ColorMixin from '../../../services/ColorMixin'
 import { getHoverColor } from '../../../services/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import { Accordion, AccordionServiceKey } from '../va-accordion/VaAccordion.vue'
 
-const PropsMixin = makeContextablePropsMixin({
-  value: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  header: { type: String, default: '' },
-  icon: { type: String, default: '' },
-  solid: { type: Boolean, default: false },
-  color: { type: String, default: '' },
-  textColor: { type: String, default: '' },
-  colorAll: { type: Boolean, default: false },
-})
+class Props {
+  value = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  header = prop<string>({ type: String, default: '' })
+  icon = prop<string>({ type: String, default: '' })
+  solid = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: '' })
+  textColor = prop<string>({ type: String, default: '' })
+  colorAll = prop<boolean>({ type: Boolean, default: false })
+}
+
+const PropsMixin = Vue.with(Props)
 
 const TEXT_NODE_TYPE = 3
 
 @Options({
+  name: 'VaCollapse',
   components: { VaIcon },
+  emits: ['focus'],
 })
-export default class VaCollapse extends Mixins(
+export default class VaCollapse extends mixins(
   KeyboardOnlyFocusMixin,
   StatefulMixin,
-  ColorThemeMixin,
+  ColorMixin,
   PropsMixin,
 ) {
-  popout = undefined
-  inset = undefined
   height = this.getHeight()
   transitionDuration = this.getTransitionDuration()
   mutationObserver: any = null
@@ -75,50 +77,57 @@ export default class VaCollapse extends Mixins(
     value: undefined,
   }
 
-  @Inject({
-    default: () => ({
-      onChildChange: () => undefined,
-      onChildMounted: () => undefined,
-      onChildUnmounted: () => undefined,
-    }),
-  }) readonly accordion!: any
+  accordion: Accordion = setup(() => {
+    return inject(
+      AccordionServiceKey,
+      {
+        isInsideAccordion: false,
+        getProps: () => undefined,
+        getState: () => undefined,
+        onChildChange: (ctx: any) => undefined,
+        onChildMounted: (ctx: any) => undefined,
+        onChildUnmounted: (ctx: any) => undefined,
+      })
+  })
 
-  @Ref() readonly body!: HTMLElement
+  get body (): HTMLElement {
+    return this.$refs?.body as HTMLElement
+  }
 
   get valueProxy () {
-    if (this.$parent?.$options?.name === 'VaAccordion') {
-      return this.valueCollapse.value
+    if (!this.accordion.isInsideAccordion) {
+      return this.valueComputed
     }
-    return this.valueComputed
+
+    return this.valueCollapse.value
   }
 
   set valueProxy (value) {
-    if (this.$parent?.$options?.name === 'VaAccordion') {
+    if (this.accordion.isInsideAccordion) {
       this.valueCollapse.value = value
     }
+
     this.valueComputed = value
     this.setCollapseParams()
   }
 
   get computedClasses () {
-    if ((this as any).$parent.$props) {
-      this.popout = (this as any).$parent.$props.popout
-      this.inset = (this as any).$parent.$props.inset
-    }
+    const accordionProps = this.accordion.getProps()
+
     return {
-      'va-collapse--disabled': this.c_disabled,
-      'va-collapse--solid': this.c_solid,
-      'va-collapse--active': this.c_solid && this.valueProxy,
-      'va-collapse--popout': this.popout && this.valueProxy,
-      'va-collapse--inset': this.inset && this.valueProxy,
+      'va-collapse--disabled': this.disabled,
+      'va-collapse--solid': this.solid,
+      'va-collapse--active': this.solid && this.valueProxy,
+      'va-collapse--popout': accordionProps?.popout && this.valueProxy,
+      'va-collapse--inset': accordionProps?.inset && this.valueProxy,
     }
   }
 
   get contentStyle () {
     return {
-      paddingLeft: this.c_icon && 0,
-      color: this.c_textColor ? getColor(this, this.c_textColor) : '',
-      backgroundColor: this.c_color ? this.colorComputed : '',
+      paddingLeft: this.icon && 0,
+      color: this.textColor ? this.theme.getColor(this.textColor) : '',
+      backgroundColor: this.color ? this.colorComputed : '',
       boxShadow: this.isKeyboardFocused ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
     }
   }
@@ -129,7 +138,7 @@ export default class VaCollapse extends Mixins(
         height: this.height + 'px',
         transitionDuration: this.transitionDuration + 's',
         background:
-          this.c_color && this.c_colorAll
+          this.color && this.colorAll
             ? getHoverColor(this.colorComputed)
             : '',
       }
@@ -141,7 +150,7 @@ export default class VaCollapse extends Mixins(
   }
 
   get collapseIndexComputed () {
-    return this.c_disabled ? -1 : 0
+    return this.disabled ? -1 : 0
   }
 
   onFocus () {
@@ -171,8 +180,8 @@ export default class VaCollapse extends Mixins(
     const range = document.createRange()
     range.selectNodeContents(textNode)
     const rect = range.getBoundingClientRect()
-    const height = rect.bottom - rect.top
-    return height
+
+    return rect.bottom - rect.top
   }
 
   setCollapseParams () {
@@ -189,7 +198,7 @@ export default class VaCollapse extends Mixins(
       childList: true,
       subtree: true,
     })
-    if (this.accordion) {
+    if (this.accordion.isInsideAccordion) {
       this.accordion.onChildMounted(this)
     }
   }
@@ -198,7 +207,7 @@ export default class VaCollapse extends Mixins(
     if (this.mutationObserver) {
       this.mutationObserver.disconnect()
     }
-    if (this.accordion) {
+    if (this.accordion.isInsideAccordion) {
       this.accordion.onChildUnmounted(this)
     }
   }

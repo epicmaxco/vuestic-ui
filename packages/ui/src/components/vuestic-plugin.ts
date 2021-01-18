@@ -61,10 +61,10 @@ import VaSeparator from './vuestic-components/va-separator/VaSeparator.vue'
 import VaSidebar from './vuestic-components/va-sidebar/VaSidebar.vue'
 import VaSlider from './vuestic-components/va-slider/VaSlider.vue'
 import VaSwitch from './vuestic-components/va-switch/VaSwitch.vue'
-import VaTab from './vuestic-components/va-tabs/VaTab.vue'
+import VaTab from './vuestic-components/va-tabs/VaTab/VaTab.vue'
 import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline.vue'
-import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem.vue'
+import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem/VaTimelineItem.vue'
 import VaTreeCategory
   from './vuestic-components/va-tree-view/VaTreeCategory.vue'
 import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode.vue'
@@ -181,7 +181,7 @@ export const VuesticPlugin = {
       VaOptionList,
       VaInfiniteScroll,
     ].forEach(component => {
-      app.component(component.name, component)
+      app.component((component as any).name, component as any)
     })
 
     registerVuesticObject(app)

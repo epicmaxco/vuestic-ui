@@ -19,11 +19,27 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
-import VaColorPickerInput from './VaColorPickerInput.vue'
-import VaSimplePalettePicker from './VaSimplePalettePicker.vue'
-import VaColorInput from './VaColorInput.vue'
-import { Vue, Options } from 'vue-class-component'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+
+import {
+  VaColorPickerInput,
+  VaSimplePalettePicker,
+  VaColorInput,
+} from './index'
+
+class PaletteCustomProps {
+  modelValue = prop<string>({
+    type: String,
+    default: '',
+  })
+
+  palette = prop<Array<string>>({
+    type: Array,
+    default: () => [],
+  })
+}
+
+const PaletteCustomPropsMixin = Vue.with(PaletteCustomProps)
 
 @Options({
   name: 'VaPaletteCustom',
@@ -34,17 +50,7 @@ import { Vue, Options } from 'vue-class-component'
   },
   emits: ['update:modelValue'],
 })
-export default class VaPaletteCustom extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly modelValue!: string
-
-  @Prop({
-    type: Array,
-    default: () => [],
-  }) readonly palette!: Array<string>
-
+export default class VaPaletteCustom extends mixins(PaletteCustomPropsMixin) {
   get valueProxy (): any {
     return this.modelValue
   }

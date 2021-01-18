@@ -1,6 +1,6 @@
 import VaButtonDropdown from '../VaButtonDropdown.vue'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ColorMixin } from '../../../../services/ColorMixin'
 
 describe('VaButtonDropdown', () => {
   // it('should render without an error', () => {

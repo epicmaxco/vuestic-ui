@@ -8,20 +8,20 @@
       @keyup.enter.stop.prevent="onAnchorClick()"
       ref="anchor"
     >
-      <slot name="anchor"/>
+      <slot name="anchor" />
     </div>
     <template v-if="showContent">
       <div
         class="va-dropdown__content-wrapper"
-        @mouseover="isContentHoverable && onMouseOver()"
+        @mouseover="$props.isContentHoverable && onMouseOver()"
         @mouseout="onMouseOut()"
         ref="contentWrapper"
       >
         <div
           class="va-dropdown__content"
-          :style="keepAnchorWidth ? anchorWidthStyles : ''"
+          :style="$props.keepAnchorWidth ? anchorWidthStyles : ''"
         >
-          <slot/>
+          <slot />
         </div>
       </div>
     </template>
@@ -29,52 +29,50 @@
 </template>
 
 <script lang="ts">
-import { Prop, Watch } from 'vue-property-decorator'
-
-import { createPopper, Instance } from '@popperjs/core'
+import { watch, nextTick } from 'vue'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 import { DebounceLoader } from 'asva-executors'
-import { Vue, Options } from 'vue-class-component'
+import { createPopper, Instance } from '@popperjs/core'
 
 type PopperInstance = Instance | null
 
-@Options({
-  name: 'VaDropdown',
-  emits: ['update:modelValue', 'anchor-click', 'click-outside'],
-})
-export default class VaDropdown extends Vue {
-  @Prop({ type: String, default: '' }) debugId!: string
-  @Prop({ type: String, default: '' }) position!: string
-  @Prop({ type: Number, default: 30 }) hoverOverTimeout!: number
-  @Prop({ type: Number, default: 200 }) hoverOutTimeout!: number
-  @Prop({ type: Boolean }) boundaryBody!: boolean
-  @Prop({ type: Boolean }) modelValue!: boolean
-  @Prop({ type: Boolean }) disabled!: boolean
-  @Prop({ type: Boolean }) opened!: boolean
+class DropdownProps {
+  debugId = prop<string>({ type: String, default: '' })
+  position = prop<string>({ type: String, default: '' })
+  hoverOverTimeout = prop<number>({ type: Number, default: 30 })
+  hoverOutTimeout = prop<number>({ type: Number, default: 200 })
+  boundaryBody = prop<boolean>({ type: Boolean })
+  modelValue = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean })
+  opened = prop<boolean>({ type: Boolean })
   // Makes no sense
-  // @Prop({ type: Boolean }) fixed!: boolean
+  // fixed = prop<boolean>({ type: Boolean })
   // Means dropdown width should be the same as anchor's width.
-  @Prop({ type: Boolean }) keepAnchorWidth!: boolean
+  keepAnchorWidth = prop<boolean>({ type: Boolean })
   // If set to false - dropdown won't dodge outside container.
-  @Prop({ type: Boolean, default: false }) preventOverflow!: boolean
-  @Prop({ type: Boolean, default: true }) closeOnClickOutside!: boolean
-  @Prop({ type: Boolean, default: true }) closeOnAnchorClick!: boolean
-  @Prop({ type: Boolean, default: true }) isContentHoverable!: boolean
-  @Prop({ type: [Array, Number], default: () => [] }) offset!: number | number[]
-  @Prop({
+  preventOverflow = prop<boolean>({ type: Boolean, default: false })
+  closeOnClickOutside = prop<boolean>({ type: Boolean, default: true })
+  closeOnAnchorClick = prop<boolean>({ type: Boolean, default: true })
+  isContentHoverable = prop<boolean>({ type: Boolean, default: true })
+  offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
+  trigger = prop<string | number | any[]>({
     type: [Array, Number, String],
     default: 'click',
     validator: (trigger: string): boolean => ['click', 'hover', 'none'].includes(trigger),
-  }) trigger!: string
+  })
+}
 
-  @Watch('showContent')
-  onShowContentChange (): void {
-    this.handlePopperInstance()
-  }
+const DropdownPropsMixin = Vue.with(DropdownProps)
 
+@Options({
+  name: 'VaDropdown',
+  emits: ['update:modelValue', 'anchor-click', 'click-outside', 'trigger'],
+})
+export default class VaDropdown extends mixins(DropdownPropsMixin) {
   popperInstance: PopperInstance = null
   isClicked = false
   isMouseHovered = false
-  anchorWidth: string | undefined = undefined
+  anchorWidth!: number
   hoverOverDebounceLoader!: DebounceLoader
   hoverOutDebounceLoader!: DebounceLoader
 
@@ -85,21 +83,36 @@ export default class VaDropdown extends Vue {
     }
   }
 
-  get showContent (): boolean {
-    if (this.opened) {
-      return true
-    }
-
-    switch (this.trigger) {
+  get triggeredValue (): boolean {
+    const getTriggeredValue = () => {
+      switch (this.trigger) {
       case 'hover':
         return this.isMouseHovered
       case 'click':
         return this.isClicked
       case 'none':
         return this.modelValue
+      default:
+        return false
+      }
     }
 
-    return false
+    const triggeredValue = getTriggeredValue()
+
+    this.$emit('trigger', triggeredValue)
+
+    return triggeredValue
+  }
+
+  get showContent (): boolean {
+    // the idea is to emit 'trigger' in any case
+    const triggeredValue = this.triggeredValue
+
+    if (this.opened) {
+      return true
+    }
+
+    return triggeredValue
   }
 
   handlePopperInstance (): void {
@@ -113,7 +126,7 @@ export default class VaDropdown extends Vue {
 
     this.updateAnchorWidth()
 
-    this.$nextTick(() => {
+    nextTick(() => {
       this.initPopper()
     })
   }
@@ -193,7 +206,7 @@ export default class VaDropdown extends Vue {
     }
   }
 
-  // @public
+  /** @public */
   hide (): void {
     if (this.trigger === 'click') {
       this.isClicked = false
@@ -231,6 +244,7 @@ export default class VaDropdown extends Vue {
       // options.modifiers.keepTogether = { enabled: false }
       // options.modifiers.arrow = { enabled: false }
     }
+
     this.popperInstance = createPopper(
       this.$refs.anchor as Element,
       this.$refs.contentWrapper as HTMLElement,
@@ -249,6 +263,10 @@ export default class VaDropdown extends Vue {
   }
 
   created (): void {
+    watch(() => this.showContent, () => {
+      this.handlePopperInstance()
+    })
+
     this.hoverOverDebounceLoader = new DebounceLoader(
       async () => {
         this.isMouseHovered = true

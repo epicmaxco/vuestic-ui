@@ -1,33 +1,36 @@
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { mixins, Options, prop, Vue } from 'vue-class-component'
+
+import ColorMixin from '../../../services/ColorMixin'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { KeyboardOnlyFocusMixin } from '../KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
-import { mixins, Options } from 'vue-class-component'
-import { Ref } from 'vue-property-decorator'
+import { LoadingMixin } from '../LoadingMixin/LoadingMixin'
 
-const componentProps = {
-  arrayValue: { type: [String, Object], default: '' },
-  label: { type: String, default: '' },
-  leftLabel: { type: Boolean, default: false },
-  trueValue: { default: true },
-  falseValue: { default: false },
-  indeterminate: { type: Boolean, default: false },
-  indeterminateValue: { type: [Boolean, Array, String, Object], default: null },
+class Props {
+  arrayValue = prop({ type: [String, Object], default: '' })
+  label = prop({ type: String, default: '' })
+  leftLabel = prop({ type: Boolean, default: false })
+  trueValue = prop({ default: true })
+  falseValue = prop({ default: false })
+  indeterminate = prop({ type: Boolean, default: false })
+  indeterminateValue = prop({ type: [Boolean, Array, String, Object], default: null })
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = Vue.with(Props)
 
 @Options({
   emits: ['update:modelValue', 'focus', 'blur'],
 })
 export class SelectableMixin extends mixins(
-  PropsMixin,
-  ColorThemeMixin,
+  ColorMixin,
   StatefulMixin,
   FormComponentMixin,
   KeyboardOnlyFocusMixin,
+  LoadingMixin,
+  PropsMixin,
 ) {
+  isSelectableComponent!: boolean
+
   created () {
     this.isSelectableComponent = true
     this.checkDuplicates()
@@ -35,17 +38,17 @@ export class SelectableMixin extends mixins(
 
   get isChecked (): boolean {
     if (this.modelIsArray) {
-      return this.c_modelValue && this.c_modelValue.includes(this.c_arrayValue)
+      return this.modelValue && this.modelValue.includes(this.arrayValue)
     }
-    return this.valueComputed === this.c_trueValue
+    return this.valueComputed === this.trueValue
   }
 
   get isIndeterminate (): boolean {
-    return this.valueComputed === this.c_indeterminateValue
+    return this.valueComputed === this.indeterminateValue
   }
 
   get modelIsArray (): boolean {
-    return !!this.c_arrayValue
+    return !!this.arrayValue
   }
 
   /** @public */
@@ -60,9 +63,9 @@ export class SelectableMixin extends mixins(
 
   checkDuplicates (): void {
     // Just validating state values.
-    const values = [this.c_falseValue, this.c_trueValue]
-    if (this.c_indeterminate) {
-      values.push(this.c_indeterminateValue)
+    const values = [this.falseValue, this.trueValue]
+    if (this.indeterminate) {
+      values.push(this.indeterminateValue)
     }
     const hasDuplicates = new Set(values).size !== values.length
     if (hasDuplicates) {
@@ -97,37 +100,37 @@ export class SelectableMixin extends mixins(
   }
 
   toggleSelection (): void {
-    if (this.c_readonly || this.c_disabled || this.c_loading) {
+    if (this.readonly || this.disabled || this.loading) {
       return
     }
-    // For array access we pretend computedValue does not exist and use c_modelValue + emit input directly.
+    // For array access we pretend computedValue does not exist and use modelValue + emit input directly.
     if (this.modelIsArray) {
-      if (!this.c_modelValue) {
-        this.$emit('update:modelValue', [this.c_arrayValue])
-      } else if (this.c_modelValue.includes(this.c_arrayValue)) {
-        this.$emit('update:modelValue', this.c_modelValue.filter((option: any) => option !== this.c_arrayValue))
+      if (!this.modelValue) {
+        this.$emit('update:modelValue', [this.arrayValue])
+      } else if (this.modelValue.includes(this.arrayValue)) {
+        this.$emit('update:modelValue', this.modelValue.filter((option: any) => option !== this.arrayValue))
       } else {
-        this.$emit('update:modelValue', this.c_modelValue.concat(this.c_arrayValue))
+        this.$emit('update:modelValue', this.modelValue.concat(this.arrayValue))
       }
       return
     }
 
-    if (this.c_indeterminate) {
+    if (this.indeterminate) {
       if (this.isIndeterminate) {
-        this.valueComputed = this.c_trueValue
+        this.valueComputed = this.trueValue
       } else if (this.isChecked) {
-        this.valueComputed = this.c_falseValue
+        this.valueComputed = this.falseValue
       } else {
         // unchecked
-        this.valueComputed = this.c_indeterminateValue
+        this.valueComputed = this.indeterminateValue
       }
       return
     }
 
     if (this.isChecked) {
-      this.valueComputed = this.c_falseValue
+      this.valueComputed = this.falseValue
     } else {
-      this.valueComputed = this.c_trueValue
+      this.valueComputed = this.trueValue
     }
   }
 }

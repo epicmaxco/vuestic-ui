@@ -148,7 +148,7 @@
     $modal-transition: $modal-overlay-opacity-transition;
   }
 
-  &-enter,
+  &-enter-from,
   &-leave-to {
     opacity: 0;
 
@@ -157,10 +157,7 @@
     }
   }
 
-  &-enter-active {
-    transition: $modal-transition;
-  }
-
+  &-enter-active,
   &-leave-active {
     transition: $modal-transition;
   }

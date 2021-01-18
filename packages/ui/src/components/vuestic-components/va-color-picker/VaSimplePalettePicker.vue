@@ -13,9 +13,22 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
-import { Prop } from 'vue-property-decorator'
-import ColorDot from './ColorDot.vue'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+import { ColorDot } from './index'
+
+class SimplePalettePickerProps {
+  modelValue = prop<string>({
+    type: String,
+    default: '',
+  })
+
+  palette = prop<Array<string>>({
+    type: Array,
+    default: () => [],
+  })
+}
+
+const SimplePalettePickerPropsMixin = Vue.with(SimplePalettePickerProps)
 
 @Options({
   name: 'VaSimplePalettePicker',
@@ -24,17 +37,7 @@ import ColorDot from './ColorDot.vue'
   },
   emits: ['update:modelValue'],
 })
-export default class VaSimplePalettePicker extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly modelValue!: string
-
-  @Prop({
-    type: Array,
-    default: () => [],
-  }) readonly palette!: Array<string>
-
+export default class VaSimplePalettePicker extends mixins(SimplePalettePickerPropsMixin) {
   get valueProxy (): any {
     return this.modelValue
   }

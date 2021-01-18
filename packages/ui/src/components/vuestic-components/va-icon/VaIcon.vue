@@ -12,31 +12,31 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Prop } from 'vue-property-decorator'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
+import ColorMixin from '../../../services/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { IconMixin } from './IconMixin'
-import { Options } from 'vue-class-component'
+
+class Props {
+  name = prop<string>({ type: String, default: '' })
+  tag = prop<string>({ type: String, default: 'i' })
+  component = prop<object>({ type: Object })
+  color = prop<string>({ type: String, default: '' })
+  rotation = prop<number | string>({ type: [String, Number], default: '' })
+  spin = prop<boolean>({ type: Boolean, default: false })
+}
+
+const PropsMixin = Vue.with(Props)
 
 @Options({
   name: 'VaIcon',
 })
-export default class VaIcon extends Mixins(
-  ColorThemeMixin,
+export default class VaIcon extends mixins(
+  ColorMixin,
   SizeMixin,
   IconMixin,
+  PropsMixin,
 ) {
-  @Prop({ type: String, default: '' }) readonly name!: string
-  @Prop({ type: String, default: 'i' }) readonly tag?: string
-  @Prop({ type: Object }) readonly component?: object
-  @Prop({ type: String, default: '' }) readonly color?: string
-  @Prop({
-    type: [String, Number],
-    default: '',
-  }) readonly rotation?: string | number
-
-  @Prop({ type: Boolean, default: false }) readonly spin?: boolean
-
   get computedTag () {
     return (this.icon && this.icon.component) || this.component || this.tag
   }

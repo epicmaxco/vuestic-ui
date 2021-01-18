@@ -12,4 +12,9 @@ module.exports = {
     '!src/**/*.demo.vue',
   ],
   coverageReporters: ['text', 'text-summary'],
+  globals: {
+    'ts-jest': {
+      diagnostics: false,
+    },
+  },
 }

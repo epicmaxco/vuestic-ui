@@ -6,18 +6,23 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
-import { Prop } from 'vue-property-decorator'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+
+class ColorSquareProps {
+  modelValue = prop({
+    type: String,
+    default: '',
+    required: true,
+  })
+}
+
+const ColorSquarePropsMixin = Vue.with(ColorSquareProps)
 
 @Options({
   name: 'VaColorSquare',
 })
-export default class VaColorSquare extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-    required: true,
-  }) readonly modelValue!: string
+export default class VaColorSquare extends mixins(ColorSquarePropsMixin) {
+
 }
 </script>
 

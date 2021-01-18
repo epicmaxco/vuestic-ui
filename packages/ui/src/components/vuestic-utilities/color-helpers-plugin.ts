@@ -1,6 +1,6 @@
 
 import { App, watch } from 'vue'
-import { getDefaultOptions } from '../../services/ColorThemePlugin'
+import { getDefaultOptions } from '../../services/ColorMixin'
 import { addOrUpdateStyleElement } from '../../services/dom-functions'
 
 // const vmInstance = new Vue()

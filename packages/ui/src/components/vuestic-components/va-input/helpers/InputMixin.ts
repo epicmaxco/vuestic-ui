@@ -1,7 +1,9 @@
 import Cleave from 'cleave.js'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
-import { Mixins, Watch } from 'vue-property-decorator'
+import { watch } from 'vue'
+import { mixins, prop, setup, Vue } from 'vue-class-component'
 import { CleaveOptions } from 'cleave.js/options'
+import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { FormComponentMixin } from '../../../vuestic-mixins/FormComponent/FormComponentMixin'
 
 const DEFAULT_MASK_TOKENS: Record<string, object> = {
   creditCard: {
@@ -21,29 +23,40 @@ const DEFAULT_MASK_TOKENS: Record<string, object> = {
     numeralThousandsGroupStyle: 'thousand',
   },
 }
-const PropsMixin = makeContextablePropsMixin({
+
+class Props {
   // Mask option list - https://github.com/nosir/cleave.js/blob/master/doc/options.md#blocks
-  mask: {
+  mask = prop({
     type: [String, Object],
     default: () => ({}),
-  },
-  returnRaw: {
+  })
+
+  returnRaw = prop({
     type: Boolean,
     default: true,
-  },
-})
+  })
 
-export class InputMixin extends Mixins(PropsMixin) {
+  removable = prop({ type: Boolean, default: false })
+
+  modelValue = prop<string | number>({ type: [String, Number], default: '' })
+}
+
+const PropsMixin = Vue.with(Props)
+
+export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsMixin) {
   inputElement: Cleave | null = null
   eventListeners: any = {}
   isFocused = false
 
-  @Watch('mask', { deep: true })
-  onOptionsChange (mask: CleaveOptions | string) {
-    this.destroyCleaveInstance()
-    this.inputElement = new Cleave(this.$refs.input as HTMLInputElement, this.getMask(mask))
-    this.inputElement.setRawValue(this.modelValue)
-  }
+  context = setup(() => {
+    watch(() => this.$props.mask, (mask) => {
+      this.destroyCleaveInstance()
+      this.inputElement = new Cleave(this.$refs.input as HTMLInputElement, this.getMask(mask))
+      this.inputElement.setRawValue(this.modelValue)
+    })
+
+    return {}
+  })
 
   get computedValue (): string {
     if (!this.inputElement) {
@@ -56,15 +69,15 @@ export class InputMixin extends Mixins(PropsMixin) {
   }
 
   get showIcon (): boolean {
-    return this.c_success || this.computedError || this.canBeCleared
+    return this.success || this.computedError || this.canBeCleared
   }
 
   get canBeCleared (): boolean {
-    return this.hasContent && this.c_removable
+    return this.hasContent && this.removable
   }
 
   get hasContent (): boolean {
-    return ![null, undefined, ''].includes(this.c_modelValue)
+    return ![null, undefined, ''].includes(this.modelValue)
   }
 
   onInput (event: any): void {

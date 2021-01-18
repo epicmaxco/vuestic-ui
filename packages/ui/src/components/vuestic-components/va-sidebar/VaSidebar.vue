@@ -12,33 +12,33 @@
 </template>
 
 <script lang="ts">
-import { Mixins } from 'vue-property-decorator'
+import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 import { getGradientBackground } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Options } from 'vue-class-component'
+import ColorMixin from '../../../services/ColorMixin'
 
-const SidebarPropsMixin = makeContextablePropsMixin({
-  minimized: { type: Boolean, default: false },
-  hoverable: { type: Boolean, default: false },
-  position: { type: String, default: 'left' },
-  width: { type: String, default: '16rem' },
-  minimizedWidth: { type: String, default: '2.5rem' },
-  value: { type: Boolean, default: true },
-})
+class SidebarProps {
+  minimized = prop({ type: Boolean, default: false })
+  hoverable = prop({ type: Boolean, default: false })
+  position = prop({ type: String, default: 'left' })
+  width = prop({ type: String, default: '16rem' })
+  minimizedWidth = prop({ type: String, default: '2.5rem' })
+  modelValue = prop({ type: Boolean, default: true })
+}
+
+const SidebarPropsMixin = Vue.with(SidebarProps)
 
 @Options({
   name: 'VaSidebar',
 })
-export default class VaSidebar extends Mixins(
-  ColorThemeMixin,
+export default class VaSidebar extends mixins(
+  ColorMixin,
   SidebarPropsMixin,
 ) {
   isHovered = false
 
   get isMinimized () {
-    return this.c_minimized || (this.c_hoverable && !this.isHovered)
+    return this.$props.minimized || (this.$props.hoverable && !this.isHovered)
   }
 
   get computedStyle () {
@@ -49,22 +49,22 @@ export default class VaSidebar extends Mixins(
   }
 
   get computedWidth () {
-    if (!this.c_value) {
+    if (!this.$props.modelValue) {
       return 0
     }
-    return this.isMinimized ? this.c_minimizedWidth : this.c_width
+    return this.isMinimized ? this.$props.minimizedWidth : this.$props.width
   }
 
   get computedClass () {
     return {
       'va-sidebar': true,
       'va-sidebar--minimized': this.isMinimized,
-      'va-sidebar--right': this.c_position === 'right',
+      'va-sidebar--right': this.$props.position === 'right',
     }
   }
 
   updateHoverState (isHovered: boolean) {
-    this.isHovered = this.c_hoverable ? isHovered : false
+    this.isHovered = this.$props.hoverable ? isHovered : false
   }
 }
 </script>

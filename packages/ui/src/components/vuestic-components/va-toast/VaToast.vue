@@ -40,54 +40,57 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { NotificationPosition } from './types'
-import { PropType } from 'vue'
-import { Mixins, Watch } from 'vue-property-decorator'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import VaIcon from '../va-icon/VaIcon.vue'
-import { Options } from 'vue-class-component'
+import { watch, PropType } from 'vue'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-const ToastPropsMixin = makeContextablePropsMixin({
-  title: { type: String, default: '' },
-  offsetY: { type: Number, default: 16 },
-  offsetX: { type: Number, default: 16 },
-  message: { type: [String, Function], default: '' },
-  iconClass: { type: String, default: '' },
-  customClass: { type: String, default: '' },
-  duration: { type: Number, default: 20000 },
-  color: { type: String, default: '' },
-  closeable: { type: Boolean, default: true },
-  dangerouslyUseHTMLString: { type: Boolean, default: false },
-  onClose: { type: [Function as PropType<() => void>, undefined] },
-  onClick: { type: [Function as PropType<() => void>, undefined] },
-  position: {
+import ColorMixin from '../../../services/ColorMixin'
+import VaIcon from '../va-icon'
+
+import { NotificationPosition } from './types'
+
+class ToastProps {
+  title = prop({ type: String, default: '' })
+  offsetY = prop({ type: Number, default: 16 })
+  offsetX = prop({ type: Number, default: 16 })
+  message = prop<string | Function>({ type: [String, Function], default: '' })
+  iconClass = prop({ type: String, default: '' })
+  customClass = prop({ type: String, default: '' })
+  duration = prop({ type: Number, default: 20000 })
+  color = prop({ type: String, default: '' })
+  closeable = prop({ type: Boolean, default: true })
+  dangerouslyUseHTMLString = prop({ type: Boolean, default: false })
+  onClose = prop({ type: Function as PropType<() => void> })
+  onClick = prop({ type: Function as PropType<() => void> })
+  position = prop({
     type: String as PropType<NotificationPosition>,
     default: 'top-right',
-  },
-})
+  })
+}
+
+const ToastPropsMixin = Vue.with(ToastProps)
 
 @Options({
   name: 'VaToast',
   components: { VaIcon },
   emits: ['on-click', 'on-close'],
 })
-export default class VaToast extends Mixins(
-  ColorThemeMixin,
+export default class VaToast extends mixins(
+  ColorMixin,
   ToastPropsMixin,
 ) {
-  @Watch('closed')
-  onClosed (value: boolean) {
-    if (value) {
-      this.visible = false
-      this.$el.addEventListener('transitionend', this.destroyElement)
-    }
-  }
-
   private closed = false
   private timer: number | null = null
 
   public visible = false
+
+  created () {
+    watch(() => this.closed, (value) => {
+      if (value) {
+        this.visible = false
+        this.$el.addEventListener('transitionend', this.destroyElement)
+      }
+    })
+  }
 
   get positionX (): 'right' | 'left' {
     return this.position.includes('right') ? 'right' : 'left'
@@ -111,7 +114,10 @@ export default class VaToast extends Mixins(
 
   destroyElement () {
     this.$el.removeEventListener('transitionend', this.destroyElement)
-    this.$destroy() // or this.$destroy(true)
+
+    // TODO: not sure if this is really needed (it doesn't work in vue3)
+    // this.$destroy() // or this.$destroy(true)
+
     this.$el.remove() // or this.$el.parentNode?.removeChild(this.$el)
   }
 

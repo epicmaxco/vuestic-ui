@@ -27,39 +27,36 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins, Prop, Watch } from 'vue-property-decorator'
+import { watch } from 'vue'
+import { Options, prop, Vue, mixins } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+class ImageProps {
+  ratio = prop<number>({ type: [Number], default: 1 })
+  contain = prop({ type: Boolean, default: false })
+  src = prop({ type: String, required: true })
+}
 
-const ImagePropsMixin = makeContextablePropsMixin({
-  ratio: { type: [Number, String], default: 1 },
-  contain: { type: Boolean, default: false },
-})
+const ImagePropsMixin = Vue.with(ImageProps)
 
 @Options({
   name: 'VaImage',
   emits: ['loaded', 'error'],
 })
-export default class VaImage extends Mixins(
+export default class VaImage extends mixins(
   ImagePropsMixin,
 ) {
   image: any = null
   loading = false
   loadingError = false
 
-  @Prop({
-    type: String,
-    required: true,
-  }) readonly src!: string
+  created () {
+    watch(() => this.src, () => {
+      this.createLoader()
+    })
+  }
 
   beforeUnmount () {
     this.destroyLoader()
-  }
-
-  @Watch('src', { immediate: true })
-  onSrcChange () {
-    this.createLoader()
   }
 
   get imageStyles () {
@@ -71,7 +68,7 @@ export default class VaImage extends Mixins(
 
   get paddingStyles () {
     return {
-      'padding-bottom': `${1 / this.c_ratio * 100}%`,
+      'padding-bottom': `${1 / this.ratio * 100}%`,
     }
   }
 

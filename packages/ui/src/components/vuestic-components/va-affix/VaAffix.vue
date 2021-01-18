@@ -16,29 +16,29 @@
   </div>
 </template>
 <script lang="ts">
-import { Mixins } from 'vue-property-decorator'
-
 import { noop } from 'lodash'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
+
 import {
   handleThrottledEvent,
   useEventsHandlerWithThrottle,
   getWindowHeight,
   State, Context,
 } from './VaAffix-utils'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Options } from 'vue-class-component'
 
-const AffixPropsMixin = makeContextablePropsMixin({
-  offsetTop: { type: Number, default: undefined },
-  offsetBottom: { type: Number, default: undefined },
-  target: { type: Function, default: () => window },
-})
+class AffixProps {
+  offsetTop = prop<number>({ type: Number, default: undefined })
+  offsetBottom = prop<number>({ type: Number, default: undefined })
+  target = prop<Function>({ type: Function, default: () => () => window })
+}
+
+const AffixPropsMixin = Vue.with(AffixProps)
 
 @Options({
   name: 'VaAffix',
   emits: ['change'],
 })
-export default class VaAffix extends Mixins(
+export default class VaAffix extends mixins(
   AffixPropsMixin,
 ) {
   private state: State = {
@@ -60,29 +60,29 @@ export default class VaAffix extends Mixins(
   getTargetElement () {
     // a custom target may get rendered later than
     // a component gets a property from the context
-    const { c_target, target } = this
-    return target() || c_target()
+    const { target } = this
+    return target()
   }
 
   get computedStyle () {
     const calculateTop = () => {
       const target = this.getTargetElement()
 
-      if (this.c_offsetTop === undefined) {
+      if (this.offsetTop === undefined) {
         return
       }
 
       if (target !== window) {
         const { top } = (target as HTMLElement).getBoundingClientRect()
-        return top + this.c_offsetTop
+        return top + this.offsetTop
       }
 
-      return this.c_offsetTop
+      return this.offsetTop
     }
 
     const calculateBottom = () => {
       const target = this.getTargetElement()
-      if (this.c_offsetBottom === undefined) {
+      if (this.offsetBottom === undefined) {
         return
       }
 
@@ -91,10 +91,10 @@ export default class VaAffix extends Mixins(
         const { offsetHeight, clientHeight } = (target as HTMLElement)
         const scrollBarHeight = offsetHeight - clientHeight
         const windowHeight = getWindowHeight()
-        return windowHeight - (bottom - this.c_offsetBottom) + scrollBarHeight
+        return windowHeight - (bottom - this.offsetBottom) + scrollBarHeight
       }
 
-      return this.c_offsetBottom
+      return this.offsetBottom
     }
 
     const convertToPixels = (calculate: Function) => {

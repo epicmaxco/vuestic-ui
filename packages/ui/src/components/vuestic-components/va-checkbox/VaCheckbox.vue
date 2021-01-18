@@ -2,9 +2,9 @@
   <va-input-wrapper
     class="va-checkbox"
     :class="computedClass"
-    :disabled="c_disabled"
-    :success="c_success"
-    :messages="c_messages"
+    :disabled="disabled"
+    :success="success"
+    :messages="messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
@@ -33,8 +33,8 @@
           @blur="onBlur($event)"
           class="va-checkbox__input"
           @keypress.prevent="toggleSelection()"
-          :disabled="c_disabled"
-          :indeterminate="c_indeterminate"
+          :disabled="disabled"
+          :indeterminate="indeterminate"
         >
         <va-icon
           class="va-checkbox__icon"
@@ -50,7 +50,7 @@
         @blur="onBlur"
       >
         <slot name="label">
-          {{ c_label }}
+          {{ label }}
         </slot>
       </div>
     </div>
@@ -58,48 +58,50 @@
 </template>
 
 <script lang="ts">
-import { Mixins } from 'vue-property-decorator'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import VaIcon from '../va-icon/VaIcon.vue'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
-
-import { getColor } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/ColorMixin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Options } from 'vue-class-component'
+import VaIcon from '../va-icon/'
+import { VaInputWrapper } from '../va-input'
 
-const CheckboxPropsMixin = makeContextablePropsMixin({
-  modelValue: { type: [Boolean, Array, String, Object], default: false },
-  checkedIcon: { type: String, default: 'check' },
-  indeterminateIcon: { type: String, default: 'remove' },
-})
+type ModelValue = boolean | boolean[] | string | object
+
+class CheckboxProps {
+  modelValue = prop<ModelValue>({ type: [Boolean, Array, String, Object], default: false })
+  checkedIcon = prop<string>({ type: String, default: 'check' })
+  indeterminateIcon = prop<string>({ type: String, default: 'remove' })
+}
+
+const CheckboxPropsMixin = Vue.with(CheckboxProps)
 
 @Options({
   name: 'VaCheckbox',
   components: { VaInputWrapper, VaIcon },
 })
-export default class VaCheckbox extends Mixins(
+export default class VaCheckbox extends mixins(
+  ColorMixin,
   SelectableMixin,
   CheckboxPropsMixin,
 ) {
   get computedClass () {
     return {
       'va-checkbox--selected': this.isChecked,
-      'va-checkbox--readonly': this.c_readonly,
-      'va-checkbox--disabled': this.c_disabled,
-      'va-checkbox--indeterminate': this.c_indeterminate,
+      'va-checkbox--readonly': this.readonly,
+      'va-checkbox--disabled': this.disabled,
+      'va-checkbox--indeterminate': this.indeterminate,
       'va-checkbox--error': this.computedError,
-      'va-checkbox--left-label': this.c_leftLabel,
+      'va-checkbox--left-label': this.leftLabel,
       'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
     }
   }
 
   get labelStyle () {
     return {
-      color: this.computedError ? getColor(this, 'danger') : '',
-      padding: !this.c_label
+      color: this.computedError ? this.theme.getColor('danger') : '',
+      padding: !this.label
         ? ''
-        : this.c_leftLabel
+        : this.leftLabel
           ? '0 0.25rem 0 0'
           : '0 0 0 0.25rem',
     }
@@ -108,17 +110,17 @@ export default class VaCheckbox extends Mixins(
   get inputStyle () {
     return this.computedError
       ? (this.isChecked || this.isIndeterminate)
-        ? { background: this.colorComputed, borderColor: getColor(this, 'danger') }
-        : { borderColor: getColor(this, 'danger') }
+        ? { background: this.colorComputed, borderColor: this.theme.getColor('danger') }
+        : { borderColor: this.theme.getColor('danger') }
       : (this.isChecked || this.isIndeterminate)
         ? { background: this.colorComputed, borderColor: this.colorComputed }
         : {}
   }
 
   get computedIconName () {
-    return (this.c_indeterminate && this.isIndeterminate)
-      ? this.c_indeterminateIcon
-      : this.c_checkedIcon
+    return (this.indeterminate && this.isIndeterminate)
+      ? this.indeterminateIcon
+      : this.checkedIcon
   }
 }
 </script>

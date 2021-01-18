@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 
 import VaProgressCircle from '../VaProgressCircle.vue'
 import { testHasColorThemeMixin } from '../../../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../../../services/ColorThemePlugin'
+import { ColorMixin } from '../../../../../services/ColorMixin'
 
 describe('VaProgressCircle', () => {
   it('should render without an error', () => {

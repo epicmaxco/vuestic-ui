@@ -1,10 +1,10 @@
 <template>
   <div
     :class="classComputed"
-    :aria-orientation="c_vertical ? 'vertical' : 'horizontal'"
+    :aria-orientation="vertical ? 'vertical' : 'horizontal'"
   >
     <div
-      v-if="hasSlot && !c_vertical"
+      v-if="hasSlot && !vertical"
       :class="slotClassComputed"
       role="separator"
     >
@@ -14,29 +14,29 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
-
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 const prefixClass = 'va-divider'
-const DividerPropsMixin = makeContextablePropsMixin({
-  vertical: { type: Boolean, default: false },
-  dashed: { type: Boolean, default: false },
-  inset: { type: Boolean, default: false },
-  orientation: {
+
+class DividerProps {
+  vertical = prop({ type: Boolean, default: false })
+  dashed = prop({ type: Boolean, default: false })
+  inset = prop({ type: Boolean, default: false })
+  orientation = prop({
     type: String,
     default: 'center',
     validator (value: string) {
       return ['left', 'right', 'center'].includes(value)
     },
-  },
-})
+  })
+}
+
+const DividerPropsMixin = Vue.with(DividerProps)
 
 @Options({
   name: 'VaDivider',
 })
-export default class VaDivider extends Mixins(
+export default class VaDivider extends mixins(
   DividerPropsMixin,
 ) {
   get hasSlot () {
@@ -47,10 +47,10 @@ export default class VaDivider extends Mixins(
     return [
       `${prefixClass}`,
       {
-        [`${prefixClass}--vertical`]: this.c_vertical,
-        [`${prefixClass}--inset`]: this.c_inset,
-        [`${prefixClass}--${this.c_orientation}`]: this.c_orientation && !this.c_vertical,
-        [`${prefixClass}--dashed`]: this.c_dashed,
+        [`${prefixClass}--vertical`]: this.vertical,
+        [`${prefixClass}--inset`]: this.inset,
+        [`${prefixClass}--${this.orientation}`]: this.orientation && !this.vertical,
+        [`${prefixClass}--dashed`]: this.dashed,
       },
     ]
   }

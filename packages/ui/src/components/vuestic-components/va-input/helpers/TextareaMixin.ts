@@ -1,11 +1,12 @@
-import { Mixins, Watch } from 'vue-property-decorator'
+import { watch } from 'vue'
+import { mixins, prop, Vue, setup } from 'vue-class-component'
 import calculateNodeHeight from '../calculateNodeHeight'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
 import { warn } from '../../../../services/utils'
+import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
-const PropsMixin = makeContextablePropsMixin({
-  autosize: { type: Boolean, default: false },
-  minRows: {
+class Props {
+  autosize = prop({ type: Boolean, default: false })
+  minRows = prop({
     type: Number,
     default: null,
     validator: (val: number) => {
@@ -14,8 +15,9 @@ const PropsMixin = makeContextablePropsMixin({
       }
       return true
     },
-  },
-  maxRows: {
+  })
+
+  maxRows = prop({
     type: Number,
     validator: (val: number) => {
       if (!(val > 0 && (val | 0) === val)) {
@@ -24,17 +26,25 @@ const PropsMixin = makeContextablePropsMixin({
       return true
     },
     default: null,
-  },
-})
+  })
 
-export class TextareaMixin extends Mixins(PropsMixin) {
-  @Watch('modelValue')
-  onValueChanged (): void {
-    // only for textarea
-    if (this.isTextarea) {
-      this.adjustHeight()
-    }
-  }
+  type = prop({ type: String, default: 'text' })
+  label = prop({ type: String, default: '' })
+}
+
+const PropsMixin = Vue.with(Props)
+
+export class TextareaMixin extends mixins(StatefulMixin, PropsMixin) {
+  context = setup(() => {
+    watch(() => this.$props.modelValue, () => {
+      // only for textarea
+      if (this.isTextarea) {
+        this.adjustHeight()
+      }
+    })
+
+    return {}
+  })
 
   get textareaStyles (): any {
     return {
@@ -48,7 +58,7 @@ export class TextareaMixin extends Mixins(PropsMixin) {
   }
 
   get isTextarea (): boolean {
-    return this.c_type === 'textarea'
+    return this.type === 'textarea'
   }
 
   adjustHeight (): void {

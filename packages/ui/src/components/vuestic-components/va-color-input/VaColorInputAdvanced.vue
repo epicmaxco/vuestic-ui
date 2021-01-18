@@ -48,13 +48,43 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
-import { Vue, Options } from 'vue-class-component'
-import VaColorPicker from '../va-color-picker/VaColorPicker.vue'
-import VaColorPalette from '../va-color-palette/VaColorPalette.vue'
-import VaColorSlider from '../va-color-slider/VaColorSlider.vue'
-import VaColorInput from '../va-color-input/VaColorInput.vue'
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+import VaColorPicker, { VaColorInput } from '../va-color-picker'
+import VaColorPalette from '../va-color-palette'
+import VaColorSlider from '../va-color-slider'
+import VaDropdown from '../va-dropdown'
+
+class ColorInputAdvancedProps {
+  value = prop({
+    type: String,
+    default: '',
+  })
+
+  indicator = prop({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  })
+
+  mode = prop({
+    type: String,
+    default: '',
+  })
+
+  palette = prop({
+    type: Array,
+    default: () => [],
+  })
+
+  selected = prop({
+    type: Boolean,
+    default: false,
+  })
+}
+
+const ColorInputAdvancedPropsMixin = Vue.with(ColorInputAdvancedProps)
 
 @Options({
   name: 'VaColorInputAdvanced',
@@ -65,36 +95,9 @@ import VaDropdown from '../va-dropdown/VaDropdown.vue'
     VaColorSlider,
     VaColorInput,
   },
+  emits: ['input'],
 })
-export default class VaColorInputAdvanced extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly value!: string
-
-  @Prop({
-    type: String,
-    default: 'dot',
-    validator: (value: string) => {
-      return ['dot', 'square'].includes(value)
-    },
-  }) readonly indicator!: string
-
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly mode!: string
-
-  @Prop({
-    type: Array,
-    default: () => [],
-  }) readonly palette!: Array<string>
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly selected!: boolean
-
+export default class VaColorInputAdvanced extends mixins(ColorInputAdvancedPropsMixin) {
   get valueProxy (): any {
     return this.value
   }

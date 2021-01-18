@@ -17,10 +17,36 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
-import { Vue, Options } from 'vue-class-component'
-import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
-import VaInput from '../va-input/VaInput.vue'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+import { VaColorIndicator } from '../va-color-palette'
+import VaInput from '../va-input'
+
+class ColorInputProps {
+  value = prop({
+    type: String,
+    default: '',
+  })
+
+  indicator = prop({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  })
+
+  selected = prop({
+    type: Boolean,
+    default: false,
+  })
+
+  disabled = prop({
+    type: Boolean,
+    default: false,
+  })
+}
+
+const ColorInputPropsMixin = Vue.with(ColorInputProps)
 
 @Options({
   name: 'VaColorInput',
@@ -28,31 +54,9 @@ import VaInput from '../va-input/VaInput.vue'
     VaInput,
     VaColorIndicator,
   },
+  emits: ['click', 'input'],
 })
-export default class VaColorInput extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly value!: string
-
-  @Prop({
-    type: String,
-    default: 'dot',
-    validator: (value: string) => {
-      return ['dot', 'square'].includes(value)
-    },
-  }) readonly indicator!: string
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly selected!: boolean
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly disabled!: boolean
-
+export default class VaColorInput extends mixins(ColorInputPropsMixin) {
   get valueProxy (): any {
     return this.value
   }

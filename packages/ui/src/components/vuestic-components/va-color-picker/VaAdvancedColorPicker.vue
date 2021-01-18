@@ -6,22 +6,25 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 // @ts-ignore
 import { Chrome } from 'vue-color'
-import { Vue, Options } from 'vue-class-component'
+
+class AdvancedColorPickerProps {
+  modelValue = prop({
+    type: String,
+    default: '',
+  })
+}
+
+const AdvancedColorPickerPropsMixin = Vue.with(AdvancedColorPickerProps)
 
 @Options({
   name: 'VaAdvancedColorPicker',
   components: { ChromePicker: Chrome },
   emits: ['update:modelValue'],
 })
-export default class VaAdvancedColorPicker extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly modelValue!: string
-
+export default class VaAdvancedColorPicker extends mixins(AdvancedColorPickerPropsMixin) {
   get valueProxy (): any {
     return this.modelValue
   }

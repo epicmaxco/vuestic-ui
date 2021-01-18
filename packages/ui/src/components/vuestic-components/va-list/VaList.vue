@@ -8,22 +8,22 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+class ListProps {
+  fit = prop({ type: Boolean, default: false })
+}
 
-const ListPropsMixin = makeContextablePropsMixin({
-  fit: { type: Boolean, default: false },
-})
+const ListPropsMixin = Vue.with(ListProps)
+
 @Options({
   name: 'VaList',
 })
-export default class VaList extends Mixins(
+export default class VaList extends mixins(
   ListPropsMixin,
 ) {
   get computedClass () {
-    return { 'va-list--fit': this.c_fit }
+    return { 'va-list--fit': this.fit }
   }
 }
 </script>

@@ -1,27 +1,25 @@
 <script lang="ts">
-import { Mixins } from 'vue-property-decorator'
-import { hasOwnProperty } from '../../../services/utils'
 import { VNode, h } from 'vue'
+import { Options, prop, Vue, mixins } from 'vue-class-component'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { hasOwnProperty } from '../../../services/utils'
+import ColorMixin from '../../../services/ColorMixin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
-import {
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
-import { Options } from 'vue-class-component'
 
-const BreadcrumbsPropsMixin = makeContextablePropsMixin({
-  separator: { type: String, default: '/' },
-  color: { type: String, default: 'gray' },
-  activeColor: { type: String, default: null },
-  separatorColor: { type: String, default: null },
-})
+class BreadcrumbsProps {
+  separator = prop({ type: String, default: '/' })
+  color = prop({ type: String, default: 'gray' })
+  activeColor = prop({ type: String, default: null })
+  separatorColor = prop({ type: String, default: null })
+}
+
+const BreadcrumbsPropsMixin = Vue.with(BreadcrumbsProps)
 
 @Options({
   name: 'VaBreadcrumbs',
 })
-export default class VaBreadcrumbs extends Mixins(
-  ColorThemeMixin,
+export default class VaBreadcrumbs extends mixins(
+  ColorMixin,
   AlignMixin,
   BreadcrumbsPropsMixin,
 ) {
@@ -30,15 +28,16 @@ export default class VaBreadcrumbs extends Mixins(
   }
 
   get computedThemesSeparatorColor () {
-    return this.separatorColor ? this.computeColor(this.c_separatorColor) : this.colorComputed
+    return this.separatorColor ? this.computeColor(this.separatorColor) : this.colorComputed
   }
 
   get computedThemesActiveColor () {
-    return this.activeColor ? this.computeColor(this.c_activeColor) : this.colorComputed
+    return this.activeColor ? this.computeColor(this.activeColor) : this.colorComputed
   }
 
   render () {
     // const childNodeFilter = (node?: VNode) => !!node?.tag?.match(/VaBreadcrumbsItem$/)
+    // TODO: use provide/inject for this not to stick to component's name
     const childNodeFilter = (node?: VNode) => !!(node?.type as any)?.name?.match(/VaBreadcrumbsItem$/)
 
     const childNodes = (this.$slots as any)?.default()?.filter(childNodeFilter) || []

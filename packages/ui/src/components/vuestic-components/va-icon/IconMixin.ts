@@ -1,5 +1,4 @@
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Mixins } from 'vue-property-decorator'
+import { prop, Vue } from 'vue-class-component'
 
 const isMaterialFont = (font: string) => {
   return font === 'md'
@@ -63,31 +62,28 @@ const getComponent = (iconConfig: any) => {
   return iconConfig.component
 }
 
-const IconMixinContextableProps = makeContextablePropsMixin({
-  name: { type: String, default: '' },
-  iconsConfig: { type: Object, default: {} },
-})
+class IconMixinProps {
+  name = prop({ type: String, default: '' })
+  iconsConfig = prop({ type: Object, default: {} })
+}
 
-export class IconMixin extends Mixins(
-  IconMixinContextableProps,
-) {
+export class IconMixin extends Vue.with(IconMixinProps) {
   get icon () {
-    // return this.getIcon(this.c_name)  ---- old
     return this.getIcon()
   }
 
   getIcon (): any {
-    if (!this.c_name) {
+    if (!this.name) {
       return null
     }
 
-    if (this.c_iconsConfig.icons && !(this.c_name in this.c_iconsConfig.icons)) {
-      throw new Error(`Icon config for icon '${this.c_name}' not found`)
+    if (this.iconsConfig.icons && !(this.name in this.iconsConfig.icons)) {
+      throw new Error(`Icon config for icon '${this.name}' not found`)
     }
 
-    const iconConfig = this.c_iconsConfig.icons[this.c_name]
+    const iconConfig = this.iconsConfig.icons[this.name]
     const iconFont = iconConfig.font || // from icon alias config
-      this.c_iconsConfig.defaultFont // from icon component context config
+      this.iconsConfig.defaultFont // from icon component context config
 
     return {
       iconClass: getClass(iconConfig, iconFont),

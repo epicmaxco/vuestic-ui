@@ -8,25 +8,26 @@
 </template>
 
 <script lang="ts">
-import { Mixins } from 'vue-property-decorator'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { getColor } from '../../../services/ColorThemePlugin'
-import { Options } from 'vue-class-component'
+import ColorMixin from '../../../services/ColorMixin'
 
-const CardContentPropsMixin = makeContextablePropsMixin({
-  textColor: { type: String, default: '' },
-})
+class CardContentProps {
+  textColor = prop({ type: String, default: '' })
+}
+
+const CardContentPropsMixin = Vue.with(CardContentProps)
 
 @Options({
   name: 'VaCardContent',
 })
-export default class VaCardContent extends Mixins(
+export default class VaCardContent extends mixins(
+  ColorMixin,
   CardContentPropsMixin,
 ) {
   get contentStyles () {
     return {
-      color: getColor(this, this.c_textColor),
+      color: this.theme.getColor(this.textColor),
     }
   }
 }

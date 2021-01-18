@@ -12,23 +12,28 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
-import { Prop } from 'vue-property-decorator'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+
+class ColorDotProps {
+  color = prop({
+    type: String,
+    default: '',
+  })
+
+  selected = prop({
+    type: Boolean,
+    default: false,
+  })
+}
+
+const ColorDotPropsMixin = Vue.with(ColorDotProps)
 
 @Options({
   name: 'ColorDot',
   emits: ['click'],
 })
-export default class ColorDot extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly color!: string
+export default class ColorDot extends mixins(ColorDotPropsMixin) {
 
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly selected!: boolean
 }
 </script>
 

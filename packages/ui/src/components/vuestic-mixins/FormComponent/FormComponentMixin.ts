@@ -1,9 +1,10 @@
 import isString from 'lodash/isString'
 import isFunction from 'lodash/isFunction'
 import flatten from 'lodash/flatten'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { mixins, Options } from 'vue-class-component'
-import { Inject } from 'vue-property-decorator'
+import { inject } from 'vue'
+import { mixins, Options, prop, Vue, setup } from 'vue-class-component'
+
+import { FormProvider, FormServiceKey } from '../../vuestic-components/va-form/VaForm.vue'
 
 const prepareValidations = (messages: any = [], callArguments = null) => {
   if (isString(messages)) {
@@ -13,36 +14,35 @@ const prepareValidations = (messages: any = [], callArguments = null) => {
     .map((message: any) => isFunction(message) ? message(callArguments) : message)
 }
 
-const componentProps = {
-  rules: { type: Array, default: () => [] },
-  disabled: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
-  success: { type: Boolean, default: false },
-  messages: { type: Array, default: () => [] },
-  error: { type: Boolean, default: false },
-  errorMessages: { type: [Array, String], default: () => [] },
-  errorCount: { type: Number, default: 1 },
+class Props {
+  rules = prop({ type: Array, default: () => [] })
+  disabled = prop({ type: Boolean, default: false })
+  readonly = prop({ type: Boolean, default: false })
+  success = prop({ type: Boolean, default: false })
+  messages = prop({ type: Array, default: () => [] })
+  error = prop({ type: Boolean, default: false })
+  errorMessages = prop<any[] | string>({ type: [Array, String] })
+  errorCount = prop({ type: Number, default: 1 })
+  id = prop<string | number>({
+    type: [String, Number],
+    default: undefined,
+  })
+
+  name = prop<string | number>({
+    type: [String, Number],
+    default: undefined,
+  })
+
+  modelValue = prop({
+    validator: () => {
+      throw new Error('ValidateMixin: `modelValue` prop should be defined in component.')
+    },
+  })
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = Vue.with(Props)
 
-@Options({
-  props: {
-    id: {
-      type: [String, Number],
-      default: undefined,
-    },
-    name: {
-      type: [String, Number],
-      default: undefined,
-    },
-    modelValue: {
-      validator: () => {
-        throw new Error('ValidateMixin: `modelValue` prop should be defined in component.')
-      },
-    },
-  },
-})
+@Options({})
 export class FormComponentMixin extends mixins(
   PropsMixin,
 ) {
@@ -75,32 +75,37 @@ export class FormComponentMixin extends mixins(
   //   }
   // }
 
-  @Inject() readonly formProvider?: {
-    onChildMounted: (child: FormComponentMixin) => void;
-    onChildUnmounted: (child: FormComponentMixin) => void;
-  }
+  formProvider = setup(() => {
+    const formProvider: FormProvider | undefined = inject(FormServiceKey, undefined)
+
+    return {
+      ...formProvider,
+    }
+  })
 
   mounted () {
-    if (this.formProvider) {
-      this.formProvider.onChildMounted(this)
+    if (Object.keys(this.formProvider).length) {
+      (this.formProvider as FormProvider).onChildMounted(this)
     }
   }
 
   unmounted () {
-    if (this.formProvider) {
-      this.formProvider.onChildUnmounted(this)
+    if (Object.keys(this.formProvider).length) {
+      (this.formProvider as FormProvider).onChildUnmounted(this)
     }
   }
 
   /** @public */
   validate (): any {
     this.computedError = false
+    // @ts-ignore
     this.computedErrorMessages = []
 
     if (this.rules && this.rules.length > 0) {
-      prepareValidations(flatten(this.rules), this.modelValue)
+      prepareValidations(flatten(this.rules), this.modelValue as any)
         .forEach((validateResult: any) => {
           if (isString(validateResult)) {
+            // @ts-ignore
             this.computedErrorMessages.push(validateResult)
             this.computedError = true
           } else if (validateResult === false) {
@@ -123,6 +128,7 @@ export class FormComponentMixin extends mixins(
   }
 
   resetValidation (): void {
+    // @ts-ignore
     this.computedErrorMessages = []
     this.computedError = false
   }
@@ -151,7 +157,7 @@ export class FormComponentMixin extends mixins(
   }
 
   get computedErrorMessages () {
-    return prepareValidations(this.errorMessages) || this.internalErrorMessages
+    return this.errorMessages ? prepareValidations(this.errorMessages) : this.internalErrorMessages
   }
 
   set computedErrorMessages (errorMessages) {

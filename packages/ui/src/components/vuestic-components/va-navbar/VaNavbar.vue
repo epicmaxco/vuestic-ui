@@ -27,25 +27,29 @@
   </nav>
 </template>
 
-<script>
+<script lang="ts">
+import { Options, mixins } from 'vue-class-component'
+
+import ColorMixin from '../../../services/ColorMixin'
 import { shiftHslColor } from '../../../services/color-functions'
 
-export default {
+@Options({
   name: 'VaNavbar',
-  computed: {
-    navbarStyle () {
-      // saturation and lightness color components differ from the secondary color for the navbar
-      return {
-        backgroundColor: shiftHslColor(this.$themes?.secondary || '#000', { s: -13, l: 15 }),
-      }
-    },
-    shapeStyle () {
-      // all the 3 color components differ for the shape from the secondary color
-      return {
-        borderTopColor: shiftHslColor(this.$themes?.secondary || '#000', { h: -1, s: -11, l: 10 }),
-      }
-    },
-  },
+})
+export default class VaNavbar extends mixins(ColorMixin) {
+  get navbarStyle () {
+  // saturation and lightness color components differ from the secondary color for the navbar
+    return {
+      backgroundColor: shiftHslColor(this.theme.getColor('secondary', '#000'), { s: -13, l: 15 }),
+    }
+  }
+
+  get shapeStyle () {
+    // all the 3 color components differ for the shape from the secondary color
+    return {
+      borderTopColor: shiftHslColor(this.theme.getColor('secondary', '#000'), { h: -1, s: -11, l: 10 }),
+    }
+  }
 }
 </script>
 

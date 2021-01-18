@@ -29,7 +29,7 @@
 <script>
 import VaPopover from '../va-popover/VaPopover'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/ColorMixin'
 import { getGradientBackground } from '../../../services/color-functions'
 
 // NOTE This component is a tad weird.
@@ -39,7 +39,7 @@ import { getGradientBackground } from '../../../services/color-functions'
 export default {
   name: 'VaColorPresentation',
   components: { VaPopover },
-  mixins: [ColorThemeMixin],
+  mixins: [ColorMixin],
   props: {
     color: {
       type: String,

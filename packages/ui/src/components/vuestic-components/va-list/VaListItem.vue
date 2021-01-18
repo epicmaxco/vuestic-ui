@@ -22,33 +22,34 @@
 </template>
 
 <script lang="ts">
-import { Mixins } from 'vue-property-decorator'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { RouterLinkMixin } from './../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
-import { KeyboardOnlyFocusMixin } from './../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
-import { Options } from 'vue-class-component'
+import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
+import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
-const ItemPropsMixin = makeContextablePropsMixin({
-  tag: { type: String, default: 'div' },
-  disabled: { type: Boolean, default: false },
-})
+class ListItemProps {
+  tag = prop({ type: String, default: 'div' })
+  disabled = prop({ type: Boolean, default: false })
+}
+
+const ListItemPropsMixin = Vue.with(ListItemProps)
+
 @Options({
   name: 'VaListItem',
   emits: ['focus', 'click'],
 })
-export default class VaListItem extends Mixins(
+export default class VaListItem extends mixins(
   RouterLinkMixin,
   KeyboardOnlyFocusMixin,
-  ItemPropsMixin,
+  ListItemPropsMixin,
 ) {
   get indexComputed () {
-    return this.c_disabled ? -1 : 0
+    return this.disabled ? -1 : 0
   }
 
   get computedClass () {
     return {
-      'va-list-item--disabled': this.c_disabled,
+      'va-list-item--disabled': this.disabled,
       'va-list-item--focus': this.isKeyboardFocused,
     }
   }

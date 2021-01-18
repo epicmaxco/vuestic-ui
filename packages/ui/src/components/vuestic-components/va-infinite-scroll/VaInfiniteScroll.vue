@@ -1,8 +1,8 @@
 <template>
   <component
-    :is="tag"
+    :is="$props.tag"
     class="va-infinite-scroll"
-    :class="{'va-infinite-scroll--reversed': reverse}"
+    :class="{'va-infinite-scroll--reversed': $props.reverse}"
   >
     <slot
       name="default"
@@ -15,7 +15,7 @@
     >
       <slot
         name="loading"
-        v-if="!disabled"
+        v-if="!$props.disabled"
       >
         <div
           ref="defaultSpinner"
@@ -34,82 +34,88 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Watch } from 'vue-property-decorator'
-
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
-
 import { debounce } from 'lodash'
-import { sleep } from '../../../services/utils'
-import { getColor } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Options } from 'vue-class-component'
+import { watch } from 'vue'
+import { mixins, Options, prop, Vue } from 'vue-class-component'
 
-const InfiniteScrollPropsMixin = makeContextablePropsMixin({
-  offset: { type: Number, default: 500 },
-  reverse: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  scrollTarget: { type: [Element, String], default: null },
-  debounce: { type: Number, default: 100 },
-  load: { type: Function },
-  tag: { type: String, default: 'div' },
-})
+import { sleep } from '../../../services/utils'
+import ColorMixin from '../../../services/ColorMixin'
+import { VaProgressCircle } from '../va-progress-bar'
+
+class InfiniteScrollProps {
+  load = prop({ type: Function, required: true })
+  offset = prop({ type: Number, default: 500 })
+  reverse = prop({ type: Boolean, default: false })
+  disabled = prop({ type: Boolean, default: false })
+  scrollTarget = prop<Element | string>({ type: [Element, String], default: null })
+  debounce = prop({ type: Number, default: 100 })
+  tag = prop({ type: String, default: 'div' })
+}
+
+const InfiniteScrollPropsMixin = Vue.with(InfiniteScrollProps)
 
 @Options({
   name: 'VaInfiniteScroll',
   components: { VaProgressCircle },
 })
-export default class VaInfiniteScroll extends Mixins(
+export default class VaInfiniteScroll extends mixins(
+  ColorMixin,
   InfiniteScrollPropsMixin,
 ) {
   index = 0
   fetching = false
   error = false
   initialHeight: any = null
+  debouncedLoad!: any
+  scrollTop!: number
+
+  created () {
+    watch(() => this.$props.disabled, (value) => {
+      if (value) {
+        this.stop()
+      } else {
+        this.resume()
+      }
+    })
+
+    watch(() => this.$props.debounce, (value) => {
+      this.setDebounce(value as number)
+    })
+  }
 
   get scrollAmount () {
-    return this.offset + 1 + (this as any).$el.offsetHeight
+    return this.$props.offset as number + 1 + this.$el.offsetHeight
   }
 
   get scrollTargetElement () {
-    return typeof this.scrollTarget === 'string'
-      ? document.querySelector(this.scrollTarget)
-      : this.scrollTarget || this.$el.parentElement
+    return typeof this.$props.scrollTarget === 'string'
+      ? document.querySelector(this.$props.scrollTarget)
+      : this.$props.scrollTarget || this.$el.parentElement
   }
 
   get colors () {
-    return { primary: getColor(this, 'primary', '#23e066'), danger: getColor(this, 'danger', '#e34b4a') }
-  }
-
-  @Watch('disabled')
-  onDisabled (value: boolean) {
-    if (value) {
-      this.stop()
-    } else {
-      this.resume()
+    return {
+      primary: this.theme.getColor('primary', '#23e066'),
+      danger: this.theme.getColor('danger', '#e34b4a'),
     }
   }
 
-  @Watch('debounce')
-  onDebounce (value: number) {
-    this.setDebounce(value)
-  }
-
   onLoad () {
-    if (this.disabled || this.error || this.fetching) {
+    if (this.$props.disabled || this.error || this.fetching) {
       return
     }
 
     const { scrollTop, scrollHeight } = this.scrollTargetElement
     const containerHeight = this.scrollTargetElement.offsetHeight
-    const isLoadingRequired = this.reverse
+    const isLoadingRequired = this.$props.reverse
       ? scrollTop < this.scrollAmount
       : scrollTop + containerHeight + this.scrollAmount >= scrollHeight
     if (!isLoadingRequired) { return }
 
     this.fetching = true
-    this.scrollTop = this.reverse ? 0 : (this as any).$el.offsetHeight
-    this.initialHeight = (this as any).$el.offsetHeight
-    this.load()
+    this.scrollTop = this.$props.reverse ? 0 : (this as any).$el.offsetHeight
+    this.initialHeight = this.$el.offsetHeight
+    this.$props.load()
       .then(this.finishLoading).catch(this.onError)
   }
 
@@ -123,7 +129,7 @@ export default class VaInfiniteScroll extends Mixins(
   }
 
   stopErrorDisplay () {
-    this.scrollTargetElement.scrollTop = this.reverse
+    this.scrollTargetElement.scrollTop = this.$props.reverse
       ? this.scrollAmount
       : this.scrollTargetElement.scrollTop - this.scrollTargetElement.offsetHeight - this.scrollAmount
     this.error = false
@@ -132,14 +138,13 @@ export default class VaInfiniteScroll extends Mixins(
 
   finishLoading () {
     this.fetching = false
-    if (this.reverse) {
-      const heightDifference = (this as any).$el.offsetHeight - this.initialHeight
-      this.scrollTargetElement.scrollTop = heightDifference
+    if (this.$props.reverse) {
+      this.scrollTargetElement.scrollTop = this.$el.offsetHeight - this.initialHeight
     }
   }
 
   resume () {
-    if (!this.disabled) {
+    if (!this.$props.disabled) {
       this.scrollTargetElement.addEventListener(
         'scroll',
         this.debouncedLoad,
@@ -151,7 +156,7 @@ export default class VaInfiniteScroll extends Mixins(
   }
 
   stop () {
-    if (this.disabled) {
+    if (this.$props.disabled) {
       return
     }
 
@@ -173,18 +178,18 @@ export default class VaInfiniteScroll extends Mixins(
     }
     this.scrollTargetElement.style.overflowY = 'scroll'
 
-    if (this.reverse) {
+    if (this.$props.reverse) {
       this.scrollTargetElement.scrollTop = this.scrollTargetElement.scrollHeight
     }
 
-    this.setDebounce(this.debounce)
+    this.setDebounce(this.$props.debounce as number)
     this.scrollTargetElement.addEventListener('scroll', this.debouncedLoad, {
       passive: true,
     })
   }
 
   beforeUnmount () {
-    if (!this.disabled) {
+    if (!this.$props.disabled) {
       this.scrollTargetElement.removeEventListener(
         'scroll',
         this.debouncedLoad,

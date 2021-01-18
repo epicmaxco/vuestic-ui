@@ -73,7 +73,6 @@ const $root = 'va-timeline'
 
 export default {
   name: $root,
-  functional: true,
   props: {
     vertical: Boolean,
     centered: Boolean,

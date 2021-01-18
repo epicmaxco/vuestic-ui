@@ -5,65 +5,100 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Provide } from 'vue-property-decorator'
-
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { provide } from 'vue'
+import { Options, Vue, mixins, prop, setup } from 'vue-class-component'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { Options } from 'vue-class-component'
-import VaCollapse from '../va-collapse/VaCollapse.vue'
+import Collapse from '../va-collapse/VaCollapse.vue'
 
-const PropsMixin = makeContextablePropsMixin({
-  value: { type: Array, default: () => [] },
-  multiply: { type: Boolean, default: false },
-  inset: { type: Boolean, default: false },
-  popout: { type: Boolean, default: false },
-})
+export const AccordionServiceKey = Symbol('AccordionService')
+
+class Props {
+  value = prop<any[]>({ type: Array, default: () => [] })
+  multiply = prop<boolean>({ type: Boolean, default: false })
+  inset = prop<boolean>({ type: Boolean, default: false })
+  popout = prop<boolean>({ type: Boolean, default: false })
+}
+
+const PropsMixin = Vue.with(Props)
+
+export type Accordion = {
+  isInsideAccordion: boolean;
+  getProps: () => any;
+  getState: () => any;
+  onChildChange: (child: Collapse) => void;
+  onChildMounted: (child: Collapse) => void;
+  onChildUnmounted: (child: Collapse) => void;
+}
 
 @Options({
   name: 'VaAccordion',
 })
-export default class VaAccordion extends Mixins(
+export default class VaAccordion extends mixins(
   StatefulMixin,
   PropsMixin,
 ) {
   collapses: any[] = []
-  @Provide() accordion = {
-    onChildChange: (child: VaCollapse) => this.onChildChange(child),
-    onChildMounted: (child: VaCollapse) => this.onChildMounted(child),
-    onChildUnmounted: (child: VaCollapse) => this.onChildUnmounted(child),
-  }
 
-  onChildChange (child: VaCollapse) {
+  accordion = setup(() => {
+    const accordion: Accordion = {
+      isInsideAccordion: true,
+      getProps: () => this.getProps(),
+      getState: () => this.getState(),
+      onChildChange: (child: Collapse) => this.onChildChange(child),
+      onChildMounted: (child: Collapse) => this.onChildMounted(child),
+      onChildUnmounted: (child: Collapse) => this.onChildUnmounted(child),
+    }
+
+    provide(AccordionServiceKey, accordion)
+
+    return accordion
+  })
+
+  onChildChange (child: Collapse) {
     const emitValue: any = []
-    this.collapses.forEach((collapse: VaCollapse) => {
+    this.collapses.forEach((collapse: Collapse) => {
       if (collapse === child) {
         emitValue.push(collapse.valueProxy)
         return
       }
-      if (!this.c_multiply) {
+
+      if (!this.multiply) {
         collapse.valueProxy = false
       }
+
       emitValue.push(collapse.valueProxy)
     })
+
     this.valueComputed = emitValue
   }
 
-  onChildMounted (collapse: VaCollapse) {
+  getProps () {
+    return {
+      inset: this.inset,
+      popout: this.popout,
+    }
+  }
+
+  getState () {
+    return this.valueComputed
+  }
+
+  onChildMounted (collapse: Collapse) {
     this.collapses.push(collapse)
   }
 
-  onChildUnmounted (removableCollapse: VaCollapse) {
+  onChildUnmounted (removableCollapse: Collapse) {
     this.collapses = this.collapses.filter(collapse => collapse !== removableCollapse)
   }
 
   mounted () {
-    this.collapses.forEach((collapse: VaCollapse, index: number) => {
+    this.collapses.forEach((collapse: Collapse, index: number) => {
       collapse.valueProxy = this.valueComputed[index]
     })
   }
 
   updated () {
-    this.collapses.forEach((collapse: VaCollapse, index: number) => {
+    this.collapses.forEach((collapse: Collapse, index: number) => {
       collapse.valueProxy = this.valueComputed[index]
     })
   }

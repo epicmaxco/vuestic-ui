@@ -14,9 +14,31 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
-import VaColorIndicator from './VaColorIndicator.vue'
-import { Vue, Options } from 'vue-class-component'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+
+import { VaColorIndicator } from './index'
+
+class ColorPaletteProps {
+  value = prop<string>({
+    type: String,
+    default: '',
+  })
+
+  indicator = prop<string>({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  })
+
+  palette = prop<Array<string>>({
+    type: Array,
+    default: () => [],
+  })
+}
+
+const ColorPalettePropsMixin = Vue.with(ColorPaletteProps)
 
 @Options({
   name: 'VaColorPalette',
@@ -24,25 +46,7 @@ import { Vue, Options } from 'vue-class-component'
     VaColorIndicator,
   },
 })
-export default class VaColorPalette extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly value!: string
-
-  @Prop({
-    type: String,
-    default: 'dot',
-    validator: (value: string) => {
-      return ['dot', 'square'].includes(value)
-    },
-  }) readonly indicator!: string
-
-  @Prop({
-    type: Array,
-    default: () => [],
-  }) readonly palette!: Array<string>
-
+export default class VaColorPalette extends mixins(ColorPalettePropsMixin) {
   get valueProxy (): any {
     return this.value
   }

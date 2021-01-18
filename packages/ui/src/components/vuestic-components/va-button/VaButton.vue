@@ -4,8 +4,8 @@
     class="va-button"
     :class="computedClass"
     :style="computedStyle"
-    :disabled="c_disabled"
-    :type="c_type"
+    :disabled="disabled"
+    :type="type"
     :href="hrefComputed"
     :target="target"
     :to="to"
@@ -17,14 +17,14 @@
     v-on="inputListeners"
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
-    :tabindex="c_loading ? -1 : 0"
+    :tabindex="loading ? -1 : 0"
   >
     <div
       class="va-button__content"
       @mouseenter="updateHoverState(true)"
       @mouseleave="updateHoverState(false)"
     >
-      <template v-if="c_loading">
+      <template v-if="loading">
         <va-progress-circle
           indeterminate
           :size="loaderSize"
@@ -34,9 +34,9 @@
       </template>
       <template v-else>
         <va-icon
-          v-if="c_icon"
+          v-if="icon"
           class="va-button__content__icon"
-          :name="c_icon"
+          :name="icon"
           :size="size"
         />
         <div
@@ -46,9 +46,9 @@
           <slot />
         </div>
         <va-icon
-          v-if="c_iconRight"
+          v-if="iconRight"
           class="va-button__content__icon"
-          :name="c_iconRight"
+          :name="iconRight"
           :size="size"
         />
       </template>
@@ -57,51 +57,51 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Inject, Watch } from 'vue-property-decorator'
-
-import VaIcon from '../va-icon/VaIcon.vue'
-import VaProgressCircle
-  from '../va-progress-bar/progress-types/VaProgressCircle.vue'
-
+import { inject, watchEffect, watch } from 'vue'
+import { mixins, Vue, prop, Options, setup } from 'vue-class-component'
 import {
   getGradientBackground,
   getFocusColor,
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import ColorMixin from '../../../services/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { Options } from 'vue-class-component'
+import VaIcon from '../va-icon'
+import { VaProgressCircle } from '../va-progress-bar'
+import { ButtonGroupServiceKey } from '../va-button-group'
 
-const ButtonPropsMixin = makeContextablePropsMixin({
-  tag: { type: String, default: 'button' },
-  outline: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  size: {
+class ButtonProps {
+  tag = prop({ type: String, default: 'button' })
+  outline = prop({ type: Boolean, default: false })
+  flat = prop({ type: Boolean, default: false })
+  size = prop({
     type: String,
     default: 'medium',
     validator: (value: string) => {
       return ['medium', 'small', 'large'].includes(value)
     },
-  },
-  icon: { type: String, default: '' },
-  iconRight: { type: String, default: '' },
-  type: { type: String, default: 'button' },
-  disabled: { type: Boolean, default: false },
-  block: { type: Boolean, default: false },
-  round: { type: Boolean, default: true },
-})
+  })
+
+  icon = prop({ type: String, default: '' })
+  iconRight = prop({ type: String, default: '' })
+  type = prop({ type: String, default: 'button' })
+  disabled = prop({ type: Boolean, default: false })
+  block = prop({ type: Boolean, default: false })
+  round = prop({ type: Boolean, default: true })
+}
+
+const ButtonPropsMixin = Vue.with(ButtonProps)
 
 @Options({
   name: 'VaButton',
   components: { VaIcon, VaProgressCircle },
   emits: ['click'],
 })
-export default class VaButton extends Mixins(
-  ColorThemeMixin,
+export default class VaButton extends mixins(
+  ColorMixin,
   RouterLinkMixin,
   SizeMixin,
   LoadingMixin,
@@ -110,63 +110,67 @@ export default class VaButton extends Mixins(
   hoverState = false
   focusState = false
 
-  @Inject({
-    default: () => ({}),
-  }) readonly va!: any
+  context = setup(() => {
+    const va = inject(ButtonGroupServiceKey, {})
 
-  @Watch('c_loading')
-  onLoadingChanged (newValue: boolean) {
-    (this as any).$el.blur()
+    watch(() => this.$props.loading, (loading) => {
+      this.$el.blur()
 
-    if (newValue === true) {
-      this.updateFocusState(false)
-      this.updateHoverState(false)
+      if (loading) {
+        this.updateFocusState(false)
+        this.updateHoverState(false)
+      }
+    })
+
+    watchEffect(() => {
+      this.updateFocusState(this.hoverState)
+      this.updateHoverState(this.hoverState)
+    })
+
+    return {
+      va,
     }
-  }
-
-  @Watch('hoverState')
-  onHoverChange (value: boolean) {
-    this.updateFocusState(value)
-    this.updateHoverState(value)
-  }
+  })
 
   get computedClass () {
     return {
-      'va-button--default': !this.c_flat && !this.c_outline && !this.c_disabled,
-      'va-button--flat': this.c_flat,
-      'va-button--outline': this.c_outline,
-      'va-button--disabled': this.c_disabled,
+      'va-button--default': !this.flat && !this.outline && !this.disabled,
+      'va-button--flat': this.flat,
+      'va-button--outline': this.outline,
+      'va-button--disabled': this.disabled,
       'va-button--hover': this.hoverState,
       'va-button--focus': this.focusState,
       'va-button--without-title': !this.hasTitleData,
-      'va-button--with-left-icon': this.c_icon,
-      'va-button--with-right-icon': this.c_iconRight,
-      'va-button--large': this.c_size === 'large',
-      'va-button--small': this.c_size === 'small',
-      'va-button--normal': !this.c_size || this.c_size === 'medium',
-      'va-button--loading': this.c_loading,
-      'va-button--block': this.c_block,
-      'va-button--square': !this.c_round,
+      'va-button--with-left-icon': this.icon,
+      'va-button--with-right-icon': this.iconRight,
+      'va-button--large': this.size === 'large',
+      'va-button--small': this.size === 'small',
+      'va-button--normal': !this.size || this.size === 'medium',
+      'va-button--loading': this.loading,
+      'va-button--block': this.block,
+      'va-button--square': !this.round,
     }
   }
 
   get gradientStyle () {
-    if (this.c_flat || this.c_outline) {
+    if (this.flat || this.outline) {
       return
     }
     // Allows button to grab color from button group.
-    if (this.va.color) {
+    if (this.context.va.color) {
       return
     }
+
     return getGradientBackground(this.colorComputed)
   }
 
   get shadowStyle () {
-    if (this.c_flat || this.c_outline) {
+    if (this.flat || this.outline) {
       return
     }
-    if (this.va.color && this.$themes && this.$themes[this.va.color]) {
-      return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.c_color ? this.colorComputed : this.$themes[this.va.color])
+    if (this.context.va.color && this.theme.getColor(this.context.va.color)) {
+      return '0 0.125rem 0.19rem 0 ' +
+        getBoxShadowColor(this.color ? this.colorComputed : this.theme.getColor(this.context.va.color))
     }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
   }
@@ -191,31 +195,31 @@ export default class VaButton extends Mixins(
     }
 
     if (this.focusState) {
-      if (this.c_outline || this.c_flat) {
+      if (this.outline || this.flat) {
         computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.borderColor = this.outline ? this.colorComputed : ''
         computedStyle.background = getFocusColor(this.colorComputed)
       } else {
         computedStyle.backgroundImage = this.gradientStyle
       }
     } else if (this.hoverState) {
-      if (this.c_outline || this.c_flat) {
+      if (this.outline || this.flat) {
         computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+        computedStyle.borderColor = this.outline ? this.colorComputed : ''
         computedStyle.background = getHoverColor(this.colorComputed)
       } else {
         computedStyle.backgroundImage = this.gradientStyle
         computedStyle.boxShadow = this.shadowStyle
       }
     } else {
-      computedStyle.color = this.c_flat || this.c_outline ? this.colorComputed : '#ffffff'
-      computedStyle.borderColor = this.c_outline ? this.colorComputed : ''
+      computedStyle.color = this.flat || this.outline ? this.colorComputed : '#ffffff'
+      computedStyle.borderColor = this.outline ? this.colorComputed : ''
       computedStyle.backgroundImage = this.gradientStyle
       computedStyle.boxShadow = this.shadowStyle
     }
 
-    if (this.va.color && !this.c_outline && !this.c_flat && this.$themes) {
-      computedStyle.background = this.c_color ? this.colorComputed : this.$themes[this.va.color]
+    if (this.context.va.color && !this.outline && !this.flat) {
+      computedStyle.background = this.color ? this.colorComputed : this.theme.getColor(this.context.va.color)
       computedStyle.backgroundImage = ''
     }
 

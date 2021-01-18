@@ -6,10 +6,18 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 // @ts-ignore
 import { Slider } from 'vue-color'
-import { Vue, Options } from 'vue-class-component'
+
+class ColorPickerInputProps {
+  modelValue = prop({
+    type: String,
+    default: '',
+  })
+}
+
+const ColorPickerInputPropsMixin = Vue.with(ColorPickerInputProps)
 
 @Options({
   name: 'VaColorPickerInput',
@@ -18,12 +26,7 @@ import { Vue, Options } from 'vue-class-component'
   },
   emits: ['update:modelValue'],
 })
-export default class VaColorPickerInput extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly modelValue!: string
-
+export default class VaColorPickerInput extends mixins(ColorPickerInputPropsMixin) {
   get valueProxy (): any {
     return this.modelValue
   }

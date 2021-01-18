@@ -8,27 +8,26 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
+import { Options, Vue, mixins, prop } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+class ListItemSectionProps {
+  icon = prop({ type: Boolean, default: false })
+  avatar = prop({ type: Boolean, default: false })
+}
 
-const ItemSectionPropsMixin = makeContextablePropsMixin({
-  icon: { type: Boolean, default: false },
-  avatar: { type: Boolean, default: false },
-})
+const ListItemSectionPropsMixin = Vue.with(ListItemSectionProps)
 
 @Options({
   name: 'VaListItemSection',
 })
-export default class VaListItemSection extends Mixins(
-  ItemSectionPropsMixin,
+export default class VaListItemSection extends mixins(
+  ListItemSectionPropsMixin,
 ) {
   get computedClass () {
     return {
-      'va-list-item-section--main': !this.c_icon && !this.c_avatar,
-      'va-list-item-section--icon': this.c_icon,
-      'va-list-item-section--avatar': this.c_avatar,
+      'va-list-item-section--main': !this.icon && !this.avatar,
+      'va-list-item-section--icon': this.icon,
+      'va-list-item-section--avatar': this.avatar,
     }
   }
 }

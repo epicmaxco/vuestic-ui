@@ -14,7 +14,7 @@
     @click="$emit('click', $event)"
   >
     <div
-      v-if="c_stripe"
+      v-if="stripe"
       class="va-card__stripe"
       :style="stripeStyles"
     />
@@ -23,52 +23,52 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
 import { getGradientBackground } from '../../../services/color-functions'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import ColorMixin from '../../../services/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
-const CardPropsMixin = makeContextablePropsMixin({
-  tag: { type: String, default: 'div' },
-  square: { type: Boolean, default: false },
-  outlined: { type: Boolean, default: false },
-  bordered: { type: Boolean, default: true },
-  disabled: { type: Boolean, default: false },
-  href: { type: String, default: null },
-  target: { type: String, default: null },
-  stripe: { type: Boolean, default: false },
-  stripeColor: { type: String, default: '' },
-  gradient: { type: Boolean, default: false },
-  dark: { type: Boolean, default: false },
-})
+class CardProps {
+  tag = prop({ type: String, default: 'div' })
+  square = prop({ type: Boolean, default: false })
+  outlined = prop({ type: Boolean, default: false })
+  bordered = prop({ type: Boolean, default: true })
+  disabled = prop({ type: Boolean, default: false })
+  href = prop({ type: String, default: null })
+  target = prop({ type: String, default: null })
+  stripe = prop({ type: Boolean, default: false })
+  stripeColor = prop({ type: String, default: '' })
+  gradient = prop({ type: Boolean, default: false })
+  dark = prop({ type: Boolean, default: false })
+}
+
+const CardPropsMixin = Vue.with(CardProps)
 
 @Options({
   name: 'VaCard',
   emits: ['click'],
 })
-export default class VaCard extends Mixins(
-  ColorThemeMixin,
+export default class VaCard extends mixins(
+  ColorMixin,
   RouterLinkMixin,
   CardPropsMixin,
 ) {
   get cardClasses () {
     return {
       'va-card--dark': this.dark,
-      'va-card--square': this.c_square,
-      'va-card--outlined': this.c_outlined,
-      'va-card--no-border': !this.c_bordered,
-      'va-card--disabled': this.c_disabled,
-      'va-card--link': this.c_href || this.hasRouterLinkParams,
+      'va-card--square': this.square,
+      'va-card--outlined': this.outlined,
+      'va-card--no-border': !this.bordered,
+      'va-card--disabled': this.disabled,
+      'va-card--link': this.href || this.hasRouterLinkParams,
     }
   }
 
   get cardStyles () {
-    const color = this.dark ? this.computeColor(this.c_color) : getColor(this, this.c_color, '#ffffff')
+    const color = this.dark ? this.computeColor(this.color) : this.theme.getColor(this.color, '#ffffff')
 
-    if (this.c_gradient && this.c_color) {
+    if (this.gradient && this.color) {
       return {
         background: getGradientBackground(color),
       }
@@ -81,7 +81,7 @@ export default class VaCard extends Mixins(
 
   get stripeStyles () {
     return {
-      'background-color': this.computeColor(this.c_stripeColor),
+      'background-color': this.computeColor(this.stripeColor),
     }
   }
 }

@@ -37,29 +37,29 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
+import { Options, mixins, Vue, prop } from 'vue-class-component'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import ColorMixin from '../../../services/ColorMixin'
 
-const RadioPropsMixin = makeContextablePropsMixin({
-  modelValue: { type: [Object, String, Number, Boolean], default: null },
-  option: { type: [Object, String, Number, Boolean], default: null },
-  name: { type: [String, Number], default: '' },
-  disabled: { type: Boolean, default: false },
-  label: { type: String, default: '' },
-  leftLabel: { type: Boolean, default: false },
-  color: { type: String, default: '' },
-  tabindex: { type: Number, default: 0 },
-})
+class RadioProps {
+  modelValue = prop({ type: [Object, String, Number, Boolean], default: null })
+  option = prop({ type: [Object, String, Number, Boolean], default: null })
+  name = prop<string | number>({ type: [String, Number], default: '' })
+  disabled = prop({ type: Boolean, default: false })
+  label = prop({ type: String, default: '' })
+  leftLabel = prop({ type: Boolean, default: false })
+  color = prop({ type: String, default: '' })
+  tabindex = prop({ type: Number, default: 0 })
+}
+
+const RadioPropsMixin = Vue.with(RadioProps)
 
 @Options({
   name: 'VaRadio',
   emits: ['update:modelValue', 'focus'],
 })
-export default class VaRadio extends Mixins(
-  ColorThemeMixin,
+export default class VaRadio extends mixins(
+  ColorMixin,
   RadioPropsMixin,
 ) {
   get isActive () {

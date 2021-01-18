@@ -3,7 +3,7 @@ import { SelectableMixin } from './SelectableMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
 import { mixins } from 'vue-class-component'
 import { testHasColorThemeMixin } from '../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { ColorMixin } from '../../../services/ColorMixin'
 import { h } from 'vue'
 // TODO Should probably have better typing. A  bit rushed.
 export default class ExampleComponent extends mixins(SelectableMixin, StatefulMixin) {

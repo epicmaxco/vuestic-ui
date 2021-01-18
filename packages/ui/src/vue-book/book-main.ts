@@ -1,15 +1,11 @@
-// @ts-nocheck
 import { createApp } from 'vue'
 import App from './BookApp.vue'
-import { ContextPlugin, ContextPlugin } from '../components/context-test/context-provide/ContextPlugin'
-import { ColorThemePlugin } from '../services/ColorThemePlugin'
-import { getContext } from '../components/context-test/context-provide/context'
-
-import { BusPlugin } from 'vue-epic-bus'
-import { registerVuesticObject } from '../components/resize-events'
-import DropdownPopperSubplugin, { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
-import { installPlatform } from '../components/vuestic-components/va-popup/install'
-import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
+import GlobalConfigPlugin, { useGlobalConfig } from '../services/GlobalConfigPlugin'
+import { useTheme, DEFAULT_THEME } from '../services/Theme'
+import { getDefaultConfig } from '../components/vuestic-components/va-config/config-default'
+// import { ColorThemePlugin } from '../services/ColorThemePlugin'
+import DropdownPopperSubplugin from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
+// import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
 import ToastInstall from '../components/vuestic-components/va-toast/install'
 
 import { VueBookComponents, createRoute } from 'vue-book'
@@ -21,7 +17,7 @@ const app = createApp(App)
 
 const routes = [
   createRoute({
-    requireContext: require.context('../components', true, /.demo.vue$/),
+    requireContext: require.context('../components', true, /.vdemo.vue$/),
     path: '/demo',
   }),
   {
@@ -35,13 +31,27 @@ const router = createRouter({
   routes,
 })
 
-app.use(ColorHelpersPlugin)
-app.use(ColorThemePlugin)
+// app.use(ColorHelpersPlugin)
+// app.use(ColorThemePlugin)
 app.use(VueBookComponents)
 app.use(ToastInstall)
 app.use(DropdownPopperSubplugin)
 app.use(router)
 
-app.use(ContextPlugin, getContext())
+app.use(GlobalConfigPlugin)
+
+if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
+  app.mixin({
+    created () {
+      const { setGlobalConfig } = useGlobalConfig()
+
+      setGlobalConfig(getDefaultConfig())
+
+      const { setTheme } = { ...useTheme() }
+
+      setTheme && setTheme(DEFAULT_THEME)
+    },
+  })
+}
 
 app.mount('#app')

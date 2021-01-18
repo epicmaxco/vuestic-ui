@@ -5,27 +5,28 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Prop } from 'vue-property-decorator'
-import { Options } from 'vue-class-component'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import {
-  StatefulMixin,
-} from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+
+class HoverProps {
+  disabled = prop({
+    type: Boolean,
+    default: false,
+  })
+
+  modelValue = prop({
+    type: Boolean,
+    default: false,
+  })
+}
+
+const HoverPropsMixin = Vue.with(HoverProps)
 
 @Options({
   name: 'VaHover',
 })
-export default class VaHover extends Mixins(StatefulMixin) {
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly disabled!: boolean
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) modelValue!: boolean
-
+export default class VaHover extends mixins(StatefulMixin, HoverPropsMixin) {
   onMouseEnter () {
     if (!this.disabled) {
       this.valueComputed = true

@@ -5,20 +5,18 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
-
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 // @ts-ignore
 import MediumEditor from 'medium-editor'
-import { Vue, Options } from 'vue-class-component'
 
-@Options({
-  name: 'VaMediumEditor',
-  emits: ['initialized'],
-})
-export default class VaMediumEditor extends Vue {
-  editor = null as any
+type EditorOptions = {
+  buttonLabels: string;
+  autoLink: boolean;
+  toolbar: object;
+}
 
-  @Prop({
+class MediumEditorProps {
+  editorOptions = prop<EditorOptions>({
     type: Object,
     default: () => {
       return {
@@ -38,7 +36,16 @@ export default class VaMediumEditor extends Vue {
       }
     },
   })
-  readonly editorOptions!: object
+}
+
+const MediumEditorPropsMixin = Vue.with(MediumEditorProps)
+
+@Options({
+  name: 'VaMediumEditor',
+  emits: ['initialized'],
+})
+export default class VaMediumEditor extends mixins(MediumEditorPropsMixin) {
+  editor = null as any
 
   initEditor () {
     this.editor = new MediumEditor(this.$el, this.editorOptions)

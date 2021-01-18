@@ -8,16 +8,15 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
+import { Options, mixins } from 'vue-class-component'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/ColorMixin'
 
 @Options({
   name: 'VaListLabel',
 })
-export default class VaListLabel extends Mixins(
-  ColorThemeMixin,
+export default class VaListLabel extends mixins(
+  ColorMixin,
 ) {
   get computedStyle () {
     return {

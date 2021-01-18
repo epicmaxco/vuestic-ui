@@ -1,4 +1,5 @@
-import Vue, { VNode } from 'vue'
+import { Vue } from 'vue-class-component'
+import { VNode } from 'vue'
 
 export type NotificationPosition =
   'top-right'
