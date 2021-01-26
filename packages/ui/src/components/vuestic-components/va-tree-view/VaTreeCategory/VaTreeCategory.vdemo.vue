@@ -84,11 +84,11 @@
 </template>
 
 <script>
+import VaIcon from '../../va-icon'
+import VaCheckbox from '../../va-checkbox'
 
-import VaTreeCategory from './VaTreeCategory'
-import VaTreeNode from './VaTreeNode'
-import VaIcon from '../va-icon/VaIcon'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
+import VaTreeNode from '../VaTreeNode'
+import VaTreeCategory from './index'
 
 export default {
   components: { VaCheckbox, VaIcon, VaTreeNode, VaTreeCategory },

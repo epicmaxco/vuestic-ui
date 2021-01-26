@@ -7,7 +7,7 @@
       <div class="va-tree-category__header-switcher">
         <square-with-icon
           :icon="isOpenCached ? 'remove' : 'add'"
-          :color="treeRoot.color || colorComputed"
+          :color="setupContext.treeRoot.color || colorComputed"
         />
       </div>
       <div
@@ -18,15 +18,15 @@
       </div>
       <div
         class="va-tree-category__header-icon"
-        v-if="icon"
+        v-if="$props.icon"
       >
         <va-icon
-          :name="icon"
-          :color="$themes['info']"
+          :name="$props.icon"
+          :color="theme.getColor('info')"
         />
       </div>
       <div class="va-tree-category__header-label">
-        {{ label }}
+        {{ $props.label }}
       </div>
     </div>
 
@@ -42,51 +42,75 @@
 </template>
 
 <script lang="ts">
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import SquareWithIcon from './SquareWithIcon/SquareWithIcon.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
-import { Options, mixins } from 'vue-class-component'
-import { Prop, Watch, Inject } from 'vue-property-decorator'
-import type { ComponentPublicInstance } from '@vue/runtime-core'
-import { reactive } from 'vue'
-import VaTreeNode from './VaTreeNode.vue'
+import { provide, inject, watch, ComponentPublicInstance, ref } from 'vue'
+import { Options, Vue, mixins, prop, setup } from 'vue-class-component'
+
+import ColorMixin from '../../../../services/ColorMixin'
+import SquareWithIcon from '../SquareWithIcon'
+import VaIcon from '../../va-icon'
+import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
+
+class TreeCategoryProps {
+  label = prop<string | number>({ default: '', type: [String, Number] })
+  isOpen = prop(Boolean)
+  icon = prop({ default: '', type: String })
+}
+
+const TreeCategoryPropsMixin = Vue.with(TreeCategoryProps)
 
 @Options({
   name: 'VaTreeCategory',
   components: { VaIcon, SquareWithIcon },
-  provide () {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    return {
-      treeCategory: reactive({
-        onChildMounted: (child: VaTreeNode) => this.onChildMounted(child),
-        onChildUnmounted: (child: VaTreeNode) => this.onChildUnmounted(child),
-      }),
-    }
-  },
 })
-export default class VaTreeCategory extends mixins(ColorThemeMixin) {
-  isOpenCached = false
-  nodes: any[] = []
-  @Prop({ default: '', type: [String, Number] }) label!: string | number
-  @Prop(Boolean) isOpen!: boolean
-  @Prop({ default: '', type: String }) icon!: string
+export default class VaTreeCategory extends mixins(
+  ColorMixin,
+  TreeCategoryPropsMixin,
+) {
+  isOpenCached: boolean | undefined = false
 
-  @Inject({
-    default: () => ({
-      onChildMounted: () => undefined,
-      onChildUnmounted: () => undefined,
-    }),
-  }) readonly treeRoot!: any
+  setupContext = setup(() => {
+    const nodes = ref<(VaTreeCategory | VaTreeNode)[]>([])
 
-  @Watch('isisOpen', { immediate: true })
-  handler (isOpen: boolean) {
-    this.isOpenCached = isOpen
+    const onChildMounted = (node: VaTreeCategory | VaTreeNode) => {
+      nodes.value.push(node)
+    }
+
+    const onChildUnmounted = (removableNode: VaTreeCategory | VaTreeNode) => {
+      nodes.value = nodes.value.filter((node: VaTreeCategory | VaTreeNode) => node !== removableNode)
+    }
+
+    const treeCategory = {
+      onChildMounted,
+      onChildUnmounted,
+    }
+
+    provide('treeCategory', treeCategory)
+
+    const treeRoot = inject('treeRoot', {
+      onChildMounted: (value: any) => undefined,
+      onChildUnmounted: (value: any) => undefined,
+    })
+
+    return {
+      treeCategory,
+      treeRoot,
+      nodes,
+    }
+  })
+
+  created () {
+    watch(
+      () => this.$props.isOpen,
+      (isOpen) => {
+        this.isOpenCached = isOpen
+      },
+      { immediate: true })
   }
 
   collapse () {
     this.isOpenCached = false
     this.$nextTick(() => {
-      this.nodes.forEach((child: ComponentPublicInstance) => {
+      this.setupContext.nodes.forEach((child: ComponentPublicInstance) => {
         if (child.$options.name === 'va-tree-category') {
           (child as VaTreeCategory).collapse()
         }
@@ -97,7 +121,7 @@ export default class VaTreeCategory extends mixins(ColorThemeMixin) {
   expand () {
     this.isOpenCached = true
     this.$nextTick(() => {
-      this.nodes.forEach((child: VaTreeCategory | VaTreeNode) => {
+      this.setupContext.nodes.forEach((child: VaTreeCategory | VaTreeNode) => {
         if (child instanceof VaTreeCategory) {
           child.expand()
         }
@@ -111,30 +135,22 @@ export default class VaTreeCategory extends mixins(ColorThemeMixin) {
     }
   }
 
-  onChildMounted (node: VaTreeNode) {
-    this.nodes.push(node)
-  }
-
-  onChildUnmounted (removableNode: VaTreeNode) {
-    this.nodes = this.nodes.filter((node: VaTreeNode) => node !== removableNode)
-  }
-
   mounted () {
-    if (this.treeRoot) {
-      this.treeRoot.onChildMounted(this)
+    if (this.setupContext.treeRoot) {
+      this.setupContext.treeRoot.onChildMounted(this)
     }
   }
 
   beforeUnmount () {
-    if (this.treeRoot) {
-      this.treeRoot.onChildUnmounted(this)
+    if (this.setupContext.treeRoot) {
+      this.setupContext.treeRoot.onChildUnmounted(this)
     }
   }
 }
 </script>
 
 <style lang="scss">
-@import "../../vuestic-sass/resources/resources";
+@import "src/components/vuestic-sass/resources/resources";
 
 .va-tree-category {
   &__header {

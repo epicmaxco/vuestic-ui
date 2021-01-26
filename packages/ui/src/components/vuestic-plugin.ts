@@ -66,8 +66,8 @@ import VaTabs from './vuestic-components/va-tabs/VaTabs.vue'
 import VaTimeline from './vuestic-components/va-timeline/VaTimeline.vue'
 import VaTimelineItem from './vuestic-components/va-timeline/VaTimelineItem/VaTimelineItem.vue'
 import VaTreeCategory
-  from './vuestic-components/va-tree-view/VaTreeCategory.vue'
-import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode.vue'
+  from './vuestic-components/va-tree-view/VaTreeCategory/VaTreeCategory.vue'
+import VaTreeNode from './vuestic-components/va-tree-view/VaTreeNode/VaTreeNode.vue'
 import VaTreeRoot from './vuestic-components/va-tree-view/VaTreeRoot.vue'
 import VaInputWrapper from './vuestic-components/va-input/VaInputWrapper.vue'
 

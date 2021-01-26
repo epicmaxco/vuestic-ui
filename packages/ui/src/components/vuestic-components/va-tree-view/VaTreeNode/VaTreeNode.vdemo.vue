@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import VaTreeNode from './VaTreeNode.vue'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
+import VaCheckbox from '../../va-checkbox'
+import VaTreeNode from './index'
 
 export default {
   components: {

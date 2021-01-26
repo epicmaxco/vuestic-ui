@@ -5,31 +5,44 @@
 </template>
 
 <script lang="ts">
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { reactive } from 'vue'
-import { Options, mixins } from 'vue-class-component'
-import VaTreeCategory from './VaTreeCategory.vue'
+import { provide, ref } from 'vue'
+import { Options, setup, mixins } from 'vue-class-component'
+
+import ColorMixin from '../../../services/ColorMixin'
+import VaTreeCategory from './VaTreeCategory/VaTreeCategory.vue'
 
 @Options({
   name: 'VaTreeRoot',
-  provide () {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    return {
-      treeRoot: reactive({
-        color: this.color,
-        onChildMounted: (child: VaTreeCategory) => this.onChildMounted(child),
-        onChildUnmounted: (child: VaTreeCategory) => this.onChildUnmounted(child),
-      }),
-    }
-  },
 })
 
-export default class VaTreeRoot extends mixins(ColorThemeMixin) {
-  categories: any = []
+export default class VaTreeRoot extends mixins(ColorMixin) {
+  setupContext = setup(() => {
+    const categories = ref<VaTreeCategory[]>([])
+
+    const onChildMounted = (category: VaTreeCategory) => {
+      categories.value.push(category)
+    }
+
+    const onChildUnmounted = (removableCategory: VaTreeCategory) => {
+      categories.value = categories.value.filter((category: VaTreeCategory) => category !== removableCategory)
+    }
+
+    const treeRoot = {
+      color: this.$props.color,
+      onChildMounted,
+      onChildUnmounted,
+    }
+
+    provide('treeRoot', treeRoot)
+
+    return {
+      categories,
+    }
+  })
 
   collapse () {
     this.$nextTick(() => {
-      this.categories.forEach((child: VaTreeCategory) => {
+      this.setupContext.categories.forEach((child: VaTreeCategory) => {
         child.collapse()
       })
     })
@@ -37,18 +50,10 @@ export default class VaTreeRoot extends mixins(ColorThemeMixin) {
 
   expand () {
     this.$nextTick(() => {
-      this.categories.forEach((child: VaTreeCategory) => {
+      this.setupContext.categories.forEach((child: VaTreeCategory) => {
         child.expand()
       })
     })
-  }
-
-  onChildMounted (category: VaTreeCategory) {
-    this.categories.push(category)
-  }
-
-  onChildUnmounted (removableCategory: VaTreeCategory) {
-    this.categories = this.categories.filter((category: VaTreeCategory) => category !== removableCategory)
   }
 }
 </script>
