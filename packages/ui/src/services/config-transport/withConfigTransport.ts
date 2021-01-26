@@ -91,7 +91,10 @@ export function resolveProps (options: any, optionsType = 'props') {
   return result
 }
 
-const withConfigTransport = (component: DefineComponent | VueConstructor): ComponentOptions<any> => {
+// TODO: improve typing
+// (component: DefineComponent | VueConstructor): ComponentOptions<any> doesn't work here
+
+const withConfigTransport = (component: any): any => {
   const options = getComponentOptions(component as DefineComponent)
 
   const props = resolveProps(options)

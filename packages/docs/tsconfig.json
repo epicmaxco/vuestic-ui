@@ -30,7 +30,12 @@
       "../ui/src/**/*.ts",
       "components/**/*.ts",
       "components/**/*.tsx",
-      "components/**/*.vue"
+      "components/**/*.vue",
+      "../ui/src/types/version.d.ts",
+      "../ui/src/types/version.d.ts",
+      "../ui/src/types/version.d.ts",
+      "../ui/src/types/version.d.ts",
+      "../ui/src/types/version.d.ts"
     ],
     "exclude": [
       "node_modules",

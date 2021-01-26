@@ -15,7 +15,6 @@
       "webpack-env",
       "jest",
       "node",
-      "node",
       "medium-editor"
     ],
     "lib": [
@@ -38,10 +37,10 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "../../node_modules/@types/node/globals.d.ts"
+    "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.spec.ts"
   ]
 }

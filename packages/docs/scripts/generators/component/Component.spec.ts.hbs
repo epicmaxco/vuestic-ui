@@ -5,6 +5,6 @@ import Va{{properCase name}} from '../Va{{properCase name}}.vue'
 describe('Va{{properCase name}}', () => {
   it('should render without an error', () => {
     const wrapper = mount(Va{{properCase name}})
-    expect(wrapper.isVueInstance()).toBeTruthy()
+    expect(wrapper.findComponent('Va{{properCase name}}')).toBeTruthy()
   })
 })

@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { App, watch } from 'vue'
 import { getDefaultOptions } from '../../services/ColorMixin'
 import { addOrUpdateStyleElement } from '../../services/dom-functions'

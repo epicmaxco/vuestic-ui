@@ -1,3 +1,4 @@
+// @ts-nocheck
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
 
 import VaColorIndicatorBase from './VaColorIndicator.vue'

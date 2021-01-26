@@ -1,4 +1,4 @@
-import { inject, provide, h } from 'vue'
+import { inject, provide } from 'vue'
 import { Options, prop, Vue, setup } from 'vue-class-component'
 
 import { hasOwnProperty } from '../../../services/utils'

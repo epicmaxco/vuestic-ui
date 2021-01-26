@@ -7,7 +7,6 @@ import VaAccordion from '../VaAccordion.vue'
 
 describe('VaAccordion', () => {
   it('should render without an error', () => {
-    // @ts-ignore
     const wrapper = mount(VaAccordion)
     expect(wrapper.exists()).toBeTruthy()
   })
@@ -18,7 +17,6 @@ describe('VaAccordion', () => {
   })
 
   it('should emit `input`', async () => {
-    // @ts-ignore
     const wrapper: any = mount(VaAccordion)
     await wrapper.vm.onChildChange()
     expect(wrapper.emitted().input.length).toBe(1)

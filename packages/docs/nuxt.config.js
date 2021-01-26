@@ -63,7 +63,7 @@ export default {
     { src: '~/plugins/vuestic.ts' },
   ],
   build: {
-    transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vuetable-2', 'vue-bulma-expanding', 'medium-editor', 'vue-toasted'],
+    transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vuetable-2', 'medium-editor', 'vue-toasted'],
     extend (config, { isDev, isClient }) {
       !isDev && Object.assign(config.optimization, {
         minimize: true,

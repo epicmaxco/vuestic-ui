@@ -1,5 +1,7 @@
 import { ref, inject, App } from 'vue'
 
+import { getDefaultConfig } from '../components/vuestic-components/va-config/config-default'
+
 export type GlobalConfig = Record<string, Record<string, any> | undefined> & { theme?: Record<string, any> };
 
 type Updater = (config: GlobalConfig) => GlobalConfig;
@@ -15,12 +17,12 @@ export function useGlobalConfig () {
   const globalConfig = inject(GLOBAL_CONFIG, {} as any)
 
   return {
-    getGlobalConfig: globalConfig.get,
-    setGlobalConfig: globalConfig.set,
+    getGlobalConfig: globalConfig?.get,
+    setGlobalConfig: globalConfig?.set,
   }
 }
 
-const set = (updater: GlobalConfig | Updater): void => {
+const setGlobalConfig = (updater: GlobalConfig | Updater): void => {
   if (typeof updater === 'function') {
     globalConfigRef.value = {
       ...globalConfigRef.value,
@@ -31,22 +33,17 @@ const set = (updater: GlobalConfig | Updater): void => {
   }
 }
 
-const get = (): GlobalConfig => globalConfigRef.value
+const getGlobalConfig = (): GlobalConfig => globalConfigRef.value
 
 /**
  * Plugin provides global config to Vue component through prototype
  */
 const GlobalConfigPlugin = {
-  install (app: App, options: GlobalConfig = {}) {
-    const config = { get, set }
+  install (app: App, options: GlobalConfig) {
+    setGlobalConfig(options || getDefaultConfig())
+    const config = { get: getGlobalConfig, set: setGlobalConfig }
 
     app.provide(GLOBAL_CONFIG, config)
-
-    app.mixin({
-      created () {
-        set(options)
-      },
-    })
   },
 }
 
