@@ -157,14 +157,20 @@ const withConfigTransport = (component: DefineComponent | VueConstructor): Compo
         [`on${formatEmitString(emit)}`]: (...args: any[]) => context.emit(emit, ...args),
       }), {})
 
-      return () => h(
+      return {
+        computedProps,
+        proxiedEmits,
+      }
+    },
+    render () {
+      return h(
         component,
         {
-          ...computedProps.value,
-          ...proxiedEmits,
+          ...this.computedProps,
+          ...this.proxiedEmits,
           ref: 'innerRef',
         },
-        { ...context.slots },
+        { ...this.$slots },
       )
     },
   }

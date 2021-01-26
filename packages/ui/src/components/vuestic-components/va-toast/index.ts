@@ -1,6 +1,6 @@
 import VaToast from './VaToast'
 import { NotificationOptions } from './types'
-import { VNode, App, createVNode, render } from 'vue'
+import { VNode, App, createVNode, render, cloneVNode } from 'vue'
 
 const Z_INDEX = 100
 const GAP = 5
@@ -9,36 +9,6 @@ let seed = 1
 let toastInstances: VNode[] = []
 
 type OptionKeys = keyof NotificationOptions;
-
-const mount = (component: any, {
-  props,
-  children,
-  element,
-  app,
-}: { props?: { [key: string]: any }; children?: any; element?: HTMLElement; app?: App } = {}): { vNode: VNode; destroy: typeof destroy; el?: HTMLElement } => {
-  let el: HTMLElement | null | undefined = element
-
-  let vNode: VNode | null = createVNode(component, props, children)
-  if (app?._context) {
-    vNode.appContext = app._context
-  }
-  if (el) {
-    render(vNode, el)
-  } else if (typeof document !== 'undefined') {
-    render(vNode, el = document.createElement('div'))
-  }
-
-  const destroy = () => {
-    if (el) {
-      render(null, el)
-      el.remove()
-    }
-    el = null
-    vNode = null
-  }
-
-  return { vNode, destroy, el }
-}
 
 const merge = (target: NotificationOptions | any, ...args: NotificationOptions[]): NotificationOptions => {
   args.forEach((source) => {
@@ -70,7 +40,19 @@ const getNewTranslateValue = (transformY: string, redundantHeight: number, posit
   return parseInt(transformY, 10) - (redundantHeight + GAP) * direction
 }
 
-const closeNotification = (targetInstance: VNode, destroyElementFn: () => void) => {
+const getNodeProps = (vNode: VNode) => {
+  // Here we assume that vNode is a `withConfigTransport` wrapped component
+  // so we can derive computedProps from it
+
+  // @ts-ignore
+  return vNode.component?.proxy?.computedProps as Record<OptionKeys, any>
+}
+
+const closeNotification = (targetInstance: VNode | null, destroyElementFn: () => void) => {
+  if (!targetInstance) {
+    return
+  }
+
   if (!toastInstances.length) {
     seed = 1
     return
@@ -81,11 +63,13 @@ const closeNotification = (targetInstance: VNode, destroyElementFn: () => void) 
     return
   }
 
+  const nodeProps = getNodeProps(targetInstance)
+
   const {
     offsetX: targetOffsetX,
     offsetY: targetOffsetY,
     position: targetPosition,
-  } = targetInstance.component?.props as Record<OptionKeys, any>
+  } = nodeProps
   const redundantHeight: number | null = targetInstance.el?.offsetHeight
 
   destroyElementFn()
@@ -95,7 +79,7 @@ const closeNotification = (targetInstance: VNode, destroyElementFn: () => void) 
       return acc
     }
     if (instance.component) {
-      const { offsetX, offsetY, position } = instance.component.props as Record<OptionKeys, any>
+      const { offsetX, offsetY, position } = getNodeProps(instance)
       const isNextInstance = index > targetInstanceIndex && targetOffsetX === offsetX && targetOffsetY === offsetY && targetPosition === position
       if (isNextInstance && instance.el && redundantHeight) {
         const [_, transformY] = instance.el.style.transform.match(/[\d-]+(?=px)/g)
@@ -111,26 +95,72 @@ const closeNotification = (targetInstance: VNode, destroyElementFn: () => void) 
   }
 }
 
+const destroy = (el: HTMLElement | null | undefined, node: VNode | null) => {
+  if (el) {
+    render(null, el)
+    el.remove()
+  }
+  el = null
+  node = null
+}
+
+const mount = (component: any, {
+  props,
+  children,
+  element,
+  app,
+}: { props?: { [key: string]: any }; children?: any; element?: HTMLElement; app?: App } = {}): { vNode: VNode; el?: HTMLElement } => {
+  let el: HTMLElement | null | undefined = element
+
+  // eslint-disable-next-line prefer-const
+  let vNode: VNode | null
+
+  const onClose = () => {
+    closeNotification(vNode, () => destroy(el, vNode))
+
+    if (props?.onClose) {
+      props.onClose()
+    }
+  }
+
+  vNode = createVNode(component, { ...props, onClose }, children)
+
+  if (app?._context) {
+    vNode.appContext = app._context
+  }
+  if (el) {
+    render(vNode, el)
+  } else if (typeof document !== 'undefined') {
+    render(vNode, el = document.createElement('div'))
+  }
+
+  return { vNode, el }
+}
+
 const closeAllNotifications = () => {
   if (!toastInstances.length) {
     seed = 1
     return
   }
-  toastInstances.forEach(instance => (instance.component?.props as Record<OptionKeys, any>).onClose())
+  toastInstances.forEach(instance => getNodeProps(instance).onClose())
 }
 
 const closeById = (id: string) => {
   const targetInstance = toastInstances.find(instance => instance.el?.id === id)
+
   if (targetInstance) {
-    (targetInstance.component?.props as Record<OptionKeys, any>).onClose()
+    const nodeProps = getNodeProps(targetInstance)
+    nodeProps.onClose()
   }
 }
 
 const createToastInstance = (customProps: NotificationOptions, app: App): VNode | null => {
-  const { vNode, destroy, el } = mount(VaToast, { app, props: customProps })
-  if (el && vNode.el && vNode.component?.props) {
+  const { vNode, el } = mount(VaToast, { app, props: customProps })
+
+  const nodeProps = getNodeProps(vNode)
+
+  if (el && vNode.el && nodeProps) {
     document.body.appendChild(el)
-    const nodeProps = vNode.component.props as Record<OptionKeys, any>
     const { offsetX, offsetY, position } = nodeProps
 
     vNode.el.style.display = 'block'
@@ -143,19 +173,13 @@ const createToastInstance = (customProps: NotificationOptions, app: App): VNode 
         offsetX: itemOffsetX,
         offsetY: itemOffsetY,
         position: itemPosition,
-      } = item.component?.props as Record<OptionKeys, any>
+      } = getNodeProps(item)
+
       return itemOffsetX === offsetX && itemOffsetY === offsetY && position === itemPosition
     }).forEach((item) => {
       transformY += getTranslateValue(item, position)
     })
     vNode.el.style.transform = `translate(0, ${transformY}px)`
-
-    nodeProps.onClose = () => {
-      closeNotification(vNode, destroy)
-      if (customProps.onClose) {
-        customProps.onClose()
-      }
-    }
 
     seed += 1
     return vNode

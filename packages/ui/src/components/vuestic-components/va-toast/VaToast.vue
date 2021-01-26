@@ -14,11 +14,11 @@
         <slot name="prepend" />
       </template>
       <div class="va-toast__group">
-        <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
-        <div class="va-toast__content" v-show="message">
+        <h2 v-if="$props.title" class="va-toast__title" v-text="$props.title"></h2>
+        <div class="va-toast__content" v-show="$props.message">
           <slot>
-            <p v-if="!dangerouslyUseHTMLString" v-text="message"></p>
-            <p v-else v-html="message"></p>
+            <p v-if="!$props.dangerouslyUseHTMLString" v-text="$props.message"></p>
+            <p v-else v-html="$props.message"></p>
           </slot>
         </div>
         <div
@@ -28,7 +28,7 @@
           <slot name="append" />
         </div>
         <va-icon
-          v-else-if="closeable"
+          v-else-if="$props.closeable"
           size="small"
           name="close"
           class="va-toast__close-icon"
@@ -72,7 +72,7 @@ const ToastPropsMixin = Vue.with(ToastProps)
 @Options({
   name: 'VaToast',
   components: { VaIcon },
-  emits: ['on-click', 'on-close'],
+  emits: ['click', 'close'],
 })
 export default class VaToast extends mixins(
   ColorMixin,
@@ -81,7 +81,7 @@ export default class VaToast extends mixins(
   private closed = false
   private timer: number | null = null
 
-  public visible = false
+  public visible = true
 
   created () {
     watch(() => this.closed, (value) => {
@@ -122,20 +122,20 @@ export default class VaToast extends mixins(
   }
 
   onToastClick () {
-    if (typeof this.onClick === 'function') {
-      this.onClick()
+    if (typeof this.$props.onClick === 'function') {
+      this.$props.onClick()
       return
     }
-    this.$emit('on-click')
+    this.$emit('click')
   }
 
   onToastClose () {
     this.closed = true
-    if (typeof this.onClose === 'function') {
-      this.onClose()
+    if (typeof this.$props.onClose === 'function') {
+      this.$props.onClose()
       return
     }
-    this.$emit('on-close')
+    this.$emit('close')
   }
 
   clearTimer () {
