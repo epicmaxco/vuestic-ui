@@ -4,7 +4,7 @@
       :is-sidebar-visible.sync="isSidebarVisible"
       class="base-layout__header"
     />
-    <main class="base-layout__main">
+    <main id="base-layout" class="base-layout__main">
       <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes"/>
       <div
         class="base-layout__content"

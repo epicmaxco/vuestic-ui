@@ -270,6 +270,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaTable": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -291,6 +297,7 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "normalize": "Normalize"
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
@@ -306,7 +313,8 @@
     "configurationGuide": "Configuration Guide",
     "overview": "Overview",
     "translation": "Translation",
-    "browserSupport": "Browser Support"
+    "browserSupport": "Browser Support",
+    "table": "Table"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -353,6 +361,9 @@
   },
   "parallax": {},
   "backtop": {
+    "title": "-- Here is the title --"
+  },
+  "reset": {
     "title": "-- Here is the title --"
   },
   "colorPicker": {
@@ -402,5 +413,8 @@
   },
   "translation": {
     "title": "Trabajo En Progreso"
+  },
+  "table": {
+    "title": "-- Here is the title --"
   }
 }

@@ -841,6 +841,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaTable": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -896,6 +902,7 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "reset": "Reset"
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
@@ -912,7 +919,8 @@
     "browsersList": "Browsers List",
     "overview": "Overview",
     "translation": "Translation",
-    "browserSupport": "Browser Support"
+    "browserSupport": "Browser Support",
+    "table": "Table"
   },
   "all": {
     "examples": "Examples",
@@ -2191,6 +2199,16 @@
       }
     }
   },
+  "reset": {
+    "title": "CSS Reset",
+    "description": "We use `reset.scss` to reset and normalize basic CSS styles",
+    "features": {
+      "title": "Reset features",
+      "info": "Below is a list of features that are provided by reset.scss:",
+      "list": "* Margin and padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix for newer browsers. \n * HTML5 display-role reset for older browsers",
+      "more": "For a complete list of all applied styles, see the [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-sass/global/reset.scss) stylesheet."
+    }
+  },
   "colorPicker": {
     "title": "Color Picker",
     "summaryText": "A component which helps to pick the color. We use the [vue-color](https://github.com/xiaokaike/vue-color) library for this component. Will be replaced in next versions.",
@@ -2359,5 +2377,27 @@
   },
   "translation": {
     "title": "Work In Progress"
+  },
+  "table": {
+    "title": "Tables",
+    "summaryText": "You could use the class `.va-table` for customizing styles of your tables. Here is the couple examples.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text" : "Just add the `.va-table` to the table element."
+      },
+      "hoverable": {
+        "title": "Hoverable",
+        "text": "You could add more interaction to rows via additional `.va-table--hoverable` class."
+      },
+      "striped": {
+        "title": "Striped",
+        "text": "Striped `.va-table--striped` class colorize every second row in the table."
+      },
+      "clickable": {
+        "title": "Clickable",
+        "text": "To make rows looks like mouse `pointer` property you could add `.va-table-clickable` class."
+      }
+    }
   }
 }

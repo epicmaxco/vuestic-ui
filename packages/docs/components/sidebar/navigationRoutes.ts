@@ -63,6 +63,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'grid',
         displayName: 'menu.grid',
       },
+      {
+        name: 'table',
+        displayName: 'menu.table',
+      },
+      {
+        name: 'reset',
+        displayName: 'menu.reset',
+      },
       // GENERATOR_ADD - styles
     ],
   },
@@ -151,6 +159,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'file-upload',
         displayName: 'menu.fileUpload',
+      },
+      {
+        name: 'date-picker',
+        displayName: 'menu.datePicker',
       },
       {
         category: 'menu.categories.layout',
