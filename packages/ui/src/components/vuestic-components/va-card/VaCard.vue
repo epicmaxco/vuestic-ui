@@ -30,17 +30,17 @@ import ColorMixin from '../../../services/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
 class CardProps {
-  tag = prop({ type: String, default: 'div' })
-  square = prop({ type: Boolean, default: false })
-  outlined = prop({ type: Boolean, default: false })
-  bordered = prop({ type: Boolean, default: true })
-  disabled = prop({ type: Boolean, default: false })
-  href = prop({ type: String, default: null })
-  target = prop({ type: String, default: null })
-  stripe = prop({ type: Boolean, default: false })
-  stripeColor = prop({ type: String, default: '' })
-  gradient = prop({ type: Boolean, default: false })
-  dark = prop({ type: Boolean, default: false })
+  tag = prop<string>({ type: String, default: 'div' })
+  square = prop<boolean>({ type: Boolean, default: false })
+  outlined = prop<boolean>({ type: Boolean, default: false })
+  bordered = prop<boolean>({ type: Boolean, default: true })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  href = prop<string>({ type: String, default: null })
+  target = prop<string>({ type: String, default: null })
+  stripe = prop<boolean>({ type: Boolean, default: false })
+  stripeColor = prop<string>({ type: String, default: '' })
+  gradient = prop<boolean>({ type: Boolean, default: false })
+  dark = prop<boolean>({ type: Boolean, default: false })
 }
 
 const CardPropsMixin = Vue.with(CardProps)

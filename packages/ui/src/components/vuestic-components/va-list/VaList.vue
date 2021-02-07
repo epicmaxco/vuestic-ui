@@ -11,7 +11,7 @@
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 class ListProps {
-  fit = prop({ type: Boolean, default: false })
+  fit = prop<boolean>({ type: Boolean, default: false })
 }
 
 const ListPropsMixin = Vue.with(ListProps)

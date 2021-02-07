@@ -21,8 +21,8 @@ export type FormProvider = {
 export const FormServiceKey: InjectionKey<FormProvider> = Symbol('FormService')
 
 class FormProps {
-  autofocus = prop({ type: Boolean, default: false })
-  tag = prop({ type: String, default: 'div' })
+  autofocus = prop<boolean>({ type: Boolean, default: false })
+  tag = prop<string>({ type: String, default: 'div' })
 }
 
 const FormPropsMixin = Vue.with(FormProps)

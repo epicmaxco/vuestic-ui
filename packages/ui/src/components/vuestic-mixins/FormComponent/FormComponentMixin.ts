@@ -15,14 +15,14 @@ const prepareValidations = (messages: any = [], callArguments = null) => {
 }
 
 class Props {
-  rules = prop({ type: Array, default: () => [] })
-  disabled = prop({ type: Boolean, default: false })
-  readonly = prop({ type: Boolean, default: false })
-  success = prop({ type: Boolean, default: false })
-  messages = prop({ type: Array, default: () => [] })
-  error = prop({ type: Boolean, default: false })
+  rules = prop<any[]>({ type: Array, default: () => [] })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  readonly = prop<boolean>({ type: Boolean, default: false })
+  success = prop<boolean>({ type: Boolean, default: false })
+  messages = prop<any[]>({ type: Array, default: () => [] })
+  error = prop<boolean>({ type: Boolean, default: false })
   errorMessages = prop<any[] | string>({ type: [Array, String] })
-  errorCount = prop({ type: Number, default: 1 })
+  errorCount = prop<string | number>({ type: Number, default: 1 })
   id = prop<string | number>({
     type: [String, Number],
     default: undefined,

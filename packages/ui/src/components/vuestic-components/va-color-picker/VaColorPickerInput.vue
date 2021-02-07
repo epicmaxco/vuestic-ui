@@ -56,22 +56,22 @@ import {
 } from './index'
 
 class ColorPickerInputProps {
-  modelValue = prop({
+  modelValue = prop<string>({
     type: String,
     default: '',
   })
 
-  mode = prop({
+  mode = prop<string>({
     type: String,
     default: '',
   })
 
-  palette = prop({
+  palette = prop<any[]>({
     type: Array,
     default: () => [],
   })
 
-  selected = prop({
+  selected = prop<boolean>({
     type: Boolean,
     default: false,
   })

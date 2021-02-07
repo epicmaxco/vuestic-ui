@@ -5,12 +5,12 @@ export type ValueState = {
 }
 
 class Props {
-  modelValue: any = prop({
+  modelValue: any = prop<undefined>({
     type: undefined,
     default: undefined,
   })
 
-  stateful = prop({
+  stateful = prop<boolean>({
     type: Boolean,
     default: false,
   })

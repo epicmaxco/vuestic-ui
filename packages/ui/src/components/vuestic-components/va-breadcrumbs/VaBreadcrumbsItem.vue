@@ -29,12 +29,12 @@ import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLink
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
 class BreadcrumbsItemProps {
-  disabled = prop({
+  disabled = prop<boolean>({
     type: Boolean,
     default: false,
   })
 
-  label = prop({
+  label = prop<string>({
     type: String,
     default: '',
   })

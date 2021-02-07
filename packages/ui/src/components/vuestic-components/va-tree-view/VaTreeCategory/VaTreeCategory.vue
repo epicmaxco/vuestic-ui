@@ -52,8 +52,8 @@ import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
 
 class TreeCategoryProps {
   label = prop<string | number>({ default: '', type: [String, Number] })
-  isOpen = prop(Boolean)
-  icon = prop({ default: '', type: String })
+  isOpen = prop<boolean>(Boolean)
+  icon = prop<string>({ default: '', type: String })
 }
 
 const TreeCategoryPropsMixin = Vue.with(TreeCategoryProps)

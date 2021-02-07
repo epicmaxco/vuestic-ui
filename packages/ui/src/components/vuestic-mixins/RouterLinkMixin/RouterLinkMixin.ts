@@ -1,15 +1,15 @@
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
 class RouterLinkProps {
-  tag = prop({ type: String, default: 'router-link' })
-  to = prop([String, Object])
-  replace = prop(Boolean)
-  append = prop(Boolean)
-  exact = prop(Boolean)
-  activeClass = prop(String)
-  exactActiveClass = prop(String)
-  href = prop(String)
-  target = prop(String)
+  tag = prop<string>({ type: String, default: 'router-link' })
+  to = prop<string | object>({ type: [String, Object] })
+  replace = prop<boolean>({ type: Boolean })
+  append = prop<boolean>({ type: Boolean })
+  exact = prop<boolean>({ type: Boolean })
+  activeClass = prop<string>({ type: String })
+  exactActiveClass = prop<string>({ type: String })
+  href = prop<string>({ type: String })
+  target = prop<string>({ type: String })
 }
 
 const RouterLinkPropsMixin = Vue.with(RouterLinkProps)

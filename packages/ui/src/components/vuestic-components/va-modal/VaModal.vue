@@ -91,20 +91,20 @@ import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
 class ModalProps {
-  modelValue = prop({ type: Boolean, default: false })
-  title = prop({ type: String, default: '' })
-  message = prop({ type: String, default: '' })
-  okText = prop({ type: String, default: 'OK' })
-  cancelText = prop({ type: String, default: 'Cancel' })
-  hideDefaultActions = prop({ type: Boolean, default: false })
-  fullscreen = prop({ type: Boolean, default: false })
-  mobileFullscreen = prop({ type: Boolean, default: true })
-  noDismiss = prop({ type: Boolean, default: false })
-  noOutsideDismiss = prop({ type: Boolean, default: false })
-  noEscDismiss = prop({ type: Boolean, default: false })
-  maxWidth = prop({ type: String, default: '' })
-  maxHeight = prop({ type: String, default: '' })
-  size = prop({
+  modelValue = prop<boolean>({ type: Boolean, default: false })
+  title = prop<string>({ type: String, default: '' })
+  message = prop<string>({ type: String, default: '' })
+  okText = prop<string>({ type: String, default: 'OK' })
+  cancelText = prop<string>({ type: String, default: 'Cancel' })
+  hideDefaultActions = prop<boolean>({ type: Boolean, default: false })
+  fullscreen = prop<boolean>({ type: Boolean, default: false })
+  mobileFullscreen = prop<boolean>({ type: Boolean, default: true })
+  noDismiss = prop<boolean>({ type: Boolean, default: false })
+  noOutsideDismiss = prop<boolean>({ type: Boolean, default: false })
+  noEscDismiss = prop<boolean>({ type: Boolean, default: false })
+  maxWidth = prop<string>({ type: String, default: '' })
+  maxHeight = prop<string>({ type: String, default: '' })
+  size = prop<string>({
     type: String,
     default: 'medium',
     validator: (size: string) => {
@@ -112,9 +112,9 @@ class ModalProps {
     },
   })
 
-  fixedLayout = prop({ type: Boolean, default: false })
-  withoutTransitions = prop({ type: Boolean, default: false })
-  overlay = prop({ type: Boolean, default: true })
+  fixedLayout = prop<boolean>({ type: Boolean, default: false })
+  withoutTransitions = prop<boolean>({ type: Boolean, default: false })
+  overlay = prop<boolean>({ type: Boolean, default: true })
   overlayOpacity = prop<number | string>({ type: [Number, String], default: undefined })
   zIndex = prop<number | string>({ type: [Number, String], default: undefined })
 }
@@ -122,7 +122,7 @@ class ModalProps {
 const ModalPropsMixin = Vue.with(ModalProps)
 
 class ModalElementProps {
-  isTransition = prop({
+  isTransition = prop<boolean>({
     type: Boolean,
     default: true,
   })

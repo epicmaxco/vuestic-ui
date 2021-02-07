@@ -5,7 +5,7 @@ import { getProp } from '../../../services/utils'
 type StringOrFunction = string | Function
 
 class SelectableListProps {
-  options = prop({ type: Array, default: () => [] })
+  options = prop<any[]>({ type: Array, default: () => [] })
   textBy = prop<StringOrFunction>({ type: [String, Function], default: 'text' })
   valueBy = prop<StringOrFunction>({ type: [String, Function] })
   trackBy = prop<StringOrFunction>({ type: [String, Function], default: 'value' })

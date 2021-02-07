@@ -12,8 +12,8 @@
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
 class ListItemLabelProps {
-  caption = prop({ type: Boolean, default: false })
-  lines = prop({ type: Number, default: 1 })
+  caption = prop<boolean>({ type: Boolean, default: false })
+  lines = prop<number>({ type: Number, default: 1 })
 }
 
 const ListItemLabelPropsMixin = Vue.with(ListItemLabelProps)

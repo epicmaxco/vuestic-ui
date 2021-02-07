@@ -123,10 +123,10 @@ import { InputMixin } from './helpers/InputMixin'
 import { TextareaMixin } from './helpers/TextareaMixin'
 
 class InputProps {
-  color = prop({ type: String, default: '' })
-  placeholder = prop({ type: String, default: '' })
-  removable = prop({ type: Boolean, default: false })
-  tabindex = prop({ type: Number, default: 0 })
+  color = prop<string>({ type: String, default: '' })
+  placeholder = prop<string>({ type: String, default: '' })
+  removable = prop<boolean>({ type: Boolean, default: false })
+  tabindex = prop<number>({ type: Number, default: 0 })
 }
 
 const InputPropsMixin = Vue.with(InputProps)

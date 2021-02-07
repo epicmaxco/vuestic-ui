@@ -9,8 +9,8 @@
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
 class ListSeparatorProps {
-  fit = prop({ type: Boolean, default: false })
-  spaced = prop({ type: Boolean, default: false })
+  fit = prop<boolean>({ type: Boolean, default: false })
+  spaced = prop<boolean>({ type: Boolean, default: false })
 }
 
 const ListSeparatorPropsMixin = Vue.with(ListSeparatorProps)

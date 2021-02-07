@@ -19,10 +19,10 @@ import { Options, prop, mixins, Vue } from 'vue-class-component'
 const prefixClass = 'va-divider'
 
 class DividerProps {
-  vertical = prop({ type: Boolean, default: false })
-  dashed = prop({ type: Boolean, default: false })
-  inset = prop({ type: Boolean, default: false })
-  orientation = prop({
+  vertical = prop<boolean>({ type: Boolean, default: false })
+  dashed = prop<boolean>({ type: Boolean, default: false })
+  inset = prop<boolean>({ type: Boolean, default: false })
+  orientation = prop<string>({
     type: String,
     default: 'center',
     validator (value: string) {

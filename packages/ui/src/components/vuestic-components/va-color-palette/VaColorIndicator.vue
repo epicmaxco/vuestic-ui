@@ -16,12 +16,12 @@
 import { Vue, Options, prop, mixins } from 'vue-class-component'
 
 class ColorIndicatorProps {
-  color = prop({
+  color = prop<string>({
     type: String,
     default: '',
   })
 
-  indicator = prop({
+  indicator = prop<string>({
     type: String,
     default: 'dot',
     validator: (value: string) => {
@@ -29,7 +29,7 @@ class ColorIndicatorProps {
     },
   })
 
-  selected = prop({
+  selected = prop<boolean>({
     type: Boolean,
     default: false,
   })

@@ -1,7 +1,7 @@
 import { prop, Vue } from 'vue-class-component'
 
 class Props {
-  loading = prop({ type: Boolean, default: false })
+  loading = prop<boolean>({ type: Boolean, default: false })
 }
 
 export class LoadingMixin extends Vue.with(Props) {

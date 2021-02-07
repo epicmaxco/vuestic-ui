@@ -63,8 +63,8 @@ const getComponent = (iconConfig: any) => {
 }
 
 class IconMixinProps {
-  name = prop({ type: String, default: '' })
-  iconsConfig = prop({ type: Object, default: {} })
+  name = prop<string>({ type: String, default: '' })
+  iconsConfig = prop<any>({ type: Object, default: {} })
 }
 
 export class IconMixin extends Vue.with(IconMixinProps) {

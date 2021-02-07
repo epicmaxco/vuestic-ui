@@ -22,17 +22,17 @@ import VaInput from '../va-input'
 import { ColorDot } from './index'
 
 class ColorInputProps {
-  modelValue = prop({
+  modelValue = prop<string>({
     type: String,
     default: '',
   })
 
-  selected = prop({
+  selected = prop<boolean>({
     type: Boolean,
     default: false,
   })
 
-  disabled = prop({
+  disabled = prop<boolean>({
     type: Boolean,
     default: false,
   })

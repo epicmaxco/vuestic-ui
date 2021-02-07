@@ -23,9 +23,9 @@ import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import VaIcon from '../va-icon'
 
 class InnerLoadingProps {
-  color = prop({ type: String, default: '' })
-  icon = prop({ type: String, default: 'loop' })
-  size = prop({ type: Number, default: 30 })
+  color = prop<string>({ type: String, default: '' })
+  icon = prop<string>({ type: String, default: 'loop' })
+  size = prop<number>({ type: Number, default: 30 })
 }
 
 const InnerLoadingPropsMixin = Vue.with(InnerLoadingProps)

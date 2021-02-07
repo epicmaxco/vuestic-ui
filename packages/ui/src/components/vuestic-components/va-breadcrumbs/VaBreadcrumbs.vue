@@ -7,10 +7,10 @@ import ColorMixin from '../../../services/ColorMixin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 
 class BreadcrumbsProps {
-  separator = prop({ type: String, default: '/' })
-  color = prop({ type: String, default: 'gray' })
-  activeColor = prop({ type: String, default: null })
-  separatorColor = prop({ type: String, default: null })
+  separator = prop<string>({ type: String, default: '/' })
+  color = prop<string>({ type: String, default: 'gray' })
+  activeColor = prop<string>({ type: String, default: null })
+  separatorColor = prop<string>({ type: String, default: null })
 }
 
 const BreadcrumbsPropsMixin = Vue.with(BreadcrumbsProps)

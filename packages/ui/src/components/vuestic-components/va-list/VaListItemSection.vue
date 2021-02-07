@@ -11,8 +11,8 @@
 import { Options, Vue, mixins, prop } from 'vue-class-component'
 
 class ListItemSectionProps {
-  icon = prop({ type: Boolean, default: false })
-  avatar = prop({ type: Boolean, default: false })
+  icon = prop<boolean>({ type: Boolean, default: false })
+  avatar = prop<boolean>({ type: Boolean, default: false })
 }
 
 const ListItemSectionPropsMixin = Vue.with(ListItemSectionProps)

@@ -56,17 +56,17 @@ import VaIcon from '../va-icon'
 import VaDropdown from '../va-dropdown'
 
 class PopoverProps {
-  color = prop({ type: String, default: 'success' })
-  icon = prop({ type: String, default: '' })
-  title = prop({ type: String, default: '' })
-  message = prop({ type: String, default: '' })
-  trigger = prop({ type: String, default: 'hover' })
-  opened = prop({ type: Boolean, default: false })
-  disabled = prop({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: 'success' })
+  icon = prop<string>({ type: String, default: '' })
+  title = prop<string>({ type: String, default: '' })
+  message = prop<string>({ type: String, default: '' })
+  trigger = prop<string>({ type: String, default: 'hover' })
+  opened = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
   placement = prop<Placement>({ type: String as PropType<Placement>, default: 'bottom' })
-  autoHide = prop({ type: Boolean, default: true })
-  hoverOverTimeout = prop({ type: Number, default: 0 })
-  hoverOutTimeout = prop({ type: Number, default: 0 })
+  autoHide = prop<boolean>({ type: Boolean, default: true })
+  hoverOverTimeout = prop<number>({ type: Number, default: 0 })
+  hoverOutTimeout = prop<number>({ type: Number, default: 0 })
 }
 
 const PopoverPropsMixin = Vue.with(PopoverProps)

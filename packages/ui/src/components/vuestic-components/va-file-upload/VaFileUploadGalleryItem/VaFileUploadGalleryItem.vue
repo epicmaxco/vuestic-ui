@@ -50,12 +50,12 @@ import VaIcon from '../../va-icon'
 import VaFileUploadUndo from '../VaFileUploadUndo'
 
 class FileUploadGalleryItemProps {
-  file = prop({
+  file = prop<any>({
     type: Object,
     default: null,
   })
 
-  color = prop({
+  color = prop<string>({
     type: String,
     default: 'success',
   })
@@ -109,7 +109,7 @@ export default class VaFileUploadGalleryItem extends mixins(FileUploadGalleryIte
       this.previewImage = this.$props.file.image.url
     } else {
       const reader = new FileReader()
-      reader.readAsDataURL(this.$props.file.image)
+      reader.readAsDataURL(this?.$props?.file?.image)
       reader.onload = (e: any) => {
         if (e.target.result.includes('image')) {
           this.previewImage = e.target.result

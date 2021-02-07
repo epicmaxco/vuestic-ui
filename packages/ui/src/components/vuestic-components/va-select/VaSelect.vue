@@ -7,7 +7,7 @@
     :style="{ width: $props.width }"
   >
     <template #prepend>
-      <slot name="prepend" />
+      <slot name="prepend"/>
     </template>
 
     <va-dropdown
@@ -70,7 +70,7 @@
           <div class="va-select__content-wrapper">
             <div class="va-select__controls" v-if="$slots.prependInner">
               <div class="va-select__prepend-slot">
-                <slot name="prependInner" />
+                <slot name="prependInner"/>
               </div>
             </div>
             <div
@@ -126,7 +126,7 @@
             <div class="va-select__controls">
 
               <div class="va-select__append-slot">
-                <slot name="appendInner" />
+                <slot name="appendInner"/>
               </div>
 
               <div v-if="showClearIcon" class="va-select__icon">
@@ -158,7 +158,7 @@
     </va-dropdown>
 
     <template #append>
-      <slot name="append" />
+      <slot name="append"/>
     </template>
   </va-input-wrapper>
 </template>
@@ -180,31 +180,38 @@ import VaInput, { VaInputWrapper } from '../va-input'
 import VaSelectOptionList from './VaSelectOptionList'
 
 const positions: string[] = ['top', 'bottom']
+type DropdownIcon = {
+  open: string,
+  close: string
+}
 
 class SelectProps {
-  modelValue = prop({ type: [String, Number, Object, Array], default: '' })
-  label = prop({ type: String, default: '' })
-  placeholder = prop({ type: String, default: '' })
-  position = prop({
+  modelValue = prop<string | number | object | any[]>({
+    type: [String, Number, Object, Array],
+    default: '',
+  })
+  label = prop<string>({ type: String, default: '' })
+  placeholder = prop<string>({ type: String, default: '' })
+  position = prop<string>({
     type: String,
     default: 'bottom',
     validator: (position: string) => positions.includes(position),
   })
 
-  chipMax = prop({ type: Number, default: 10 })
-  chips = prop({ type: Boolean, default: false })
-  deletableChips = prop({ type: Boolean, default: false })
-  searchable = prop({ type: Boolean, default: false })
-  multiple = prop({ type: Boolean, default: false })
-  disabled = prop({ type: Boolean, default: false })
-  readonly = prop({ type: Boolean, default: false })
-  width = prop({ type: String, default: '100%' })
-  maxHeight = prop({ type: String, default: '128px' })
-  clearValue = prop({ type: String, default: '' })
-  noOptionsText = prop({ type: String, default: 'Items not found' })
-  fixed = prop({ type: Boolean, default: true })
-  clearable = prop({ type: Boolean, default: false })
-  hideSelected = prop({ type: Boolean, default: false })
+  chipMax = prop<number>({ type: Number, default: 10 })
+  chips = prop<boolean>({ type: Boolean, default: false })
+  deletableChips = prop<boolean>({ type: Boolean, default: false })
+  searchable = prop<boolean>({ type: Boolean, default: false })
+  multiple = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  readonly = prop<boolean>({ type: Boolean, default: false })
+  width = prop<string>({ type: String, default: '100%' })
+  maxHeight = prop<string>({ type: String, default: '128px' })
+  clearValue = prop<string>({ type: String, default: '' })
+  noOptionsText = prop<string>({ type: String, default: 'Items not found' })
+  fixed = prop<boolean>({ type: Boolean, default: true })
+  clearable = prop<boolean>({ type: Boolean, default: false })
+  hideSelected = prop<boolean>({ type: Boolean, default: false })
   allowCreate = prop<boolean | string>({
     type: [Boolean, String],
     default: false,
@@ -213,10 +220,13 @@ class SelectProps {
     },
   })
 
-  clearIcon = prop({ type: String, default: 'close' })
-  dropdownIcon = prop({
+  clearIcon = prop<string>({ type: String, default: 'close' })
+  dropdownIcon = prop<string | DropdownIcon>({
     type: [String, Object],
-    default: () => ({ open: 'arrow_drop_down', close: 'arrow_drop_up' }),
+    default: (): DropdownIcon => ({
+      open: 'arrow_drop_down',
+      close: 'arrow_drop_up',
+    }),
   })
 }
 
@@ -313,7 +323,7 @@ export default class VaSelect extends mixins(
       borderColor:
         this.computedError ? this.computeColor('danger')
           : this.$props.success ? this.computeColor('success')
-            : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
+          : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
     }
   }
 
@@ -382,10 +392,10 @@ export default class VaSelect extends mixins(
   }
 
   get toggleIcon (): string {
-    if (this.$props.dropdownIcon.open && this.$props.dropdownIcon.close) {
+    if (typeof this.$props.dropdownIcon !== 'string' && this.$props.dropdownIcon) {
       return this.visible ? this.$props.dropdownIcon.close : this.$props.dropdownIcon.open
     }
-    return this.$props.dropdownIcon
+    return this.$props.dropdownIcon ? this.$props.dropdownIcon : ''
   }
 
   compareOptions (one: any, two: any) {

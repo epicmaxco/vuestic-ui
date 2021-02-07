@@ -39,30 +39,30 @@ import ColorMixin from '../../../../services/ColorMixin'
 import VaIcon from '../../va-icon/'
 
 class SelectOptionListProps {
-  options = prop({ type: Array, default: () => [] })
-  noOptionsText = prop({
+  options = prop<any[]>({ type: Array, default: () => [] })
+  noOptionsText = prop<string>({
     type: String,
     default: 'Items not found',
   })
 
-  getSelectedState = prop({
+  getSelectedState = prop<Function>({
     type: Function,
     default: () => false,
   })
 
-  getText = prop({
+  getText = prop<Function>({
     type: Function,
   })
 
-  getTrackBy = prop({
+  getTrackBy = prop<Function>({
     type: Function,
   })
 
-  multiple = prop({ type: Boolean, default: false })
-  keyBy = prop({ type: String, default: 'id' })
-  textBy = prop({ type: String, default: 'text' })
-  search = prop({ type: String, default: '' })
-  hintedOption = prop({
+  multiple = prop<boolean>({ type: Boolean, default: false })
+  keyBy = prop<string>({ type: String, default: 'id' })
+  textBy = prop<string>({ type: String, default: 'text' })
+  search = prop<string>({ type: String, default: '' })
+  hintedOption = prop<string | object>({
     type: [String, Object],
     default: null,
   })
@@ -81,7 +81,7 @@ export default class VaSelectOptionList extends mixins(
   itemRefs: Record<number, any> = {}
 
   created () {
-    watch(() => this.$props.hintedOption, (option) => {
+    watch(() => this.$props.hintedOption, (option: any) => {
       if (option) {
         this.updateHoveredOption(option)
         this.scrollToOption(option)

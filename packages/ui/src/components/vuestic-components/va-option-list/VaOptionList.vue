@@ -76,19 +76,19 @@ import VaSwitch from '../va-switch'
 import { VaInputWrapper } from '../va-input'
 
 class OptionListProps {
-  type = prop({
+  type = prop<string>({
     type: String,
     default: 'checkbox',
     validator: (type: any) => ['radio', 'checkbox', 'switch'].includes(type),
   })
 
-  disabled = prop({ type: Boolean, default: false })
-  readonly = prop({ type: Boolean, default: false })
-  defaultValue = prop({ type: [String, Number, Object, Array] })
-  name = prop({ type: String, default: generateUuid })
-  color = prop({ type: String, default: 'primary' })
-  leftLabel = prop({ type: Boolean, default: false })
-  modelValue = prop({ type: [String, Number, Object, Array] })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  readonly = prop<boolean>({ type: Boolean, default: false })
+  defaultValue = prop<string|number|object|any[]>({ type: [String, Number, Object, Array] })
+  name = prop<string>({ type: String, default: generateUuid })
+  color = prop<string>({ type: String, default: 'primary' })
+  leftLabel = prop<boolean>({ type: Boolean, default: false })
+  modelValue = prop<string|number|object|any[]>({ type: [String, Number, Object, Array] })
 }
 
 const OptionListPropsMixin = Vue.with(OptionListProps)

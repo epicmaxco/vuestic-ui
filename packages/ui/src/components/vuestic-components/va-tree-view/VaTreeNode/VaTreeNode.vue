@@ -7,7 +7,7 @@
       class="va-tree-node__checkbox"
       v-if="$slots.checkbox"
     >
-      <slot name="checkbox" />
+      <slot name="checkbox"/>
     </div>
     <div
       class="va-tree-node__icon"
@@ -20,7 +20,7 @@
       />
     </div>
     <div class="va-tree-node__label">
-      <slot />
+      <slot/>
     </div>
     <div
       class="va-tree-node__icon-right"
@@ -43,9 +43,9 @@ import ColorMixin from '../../../../services/ColorMixin'
 import VaIcon from '../../va-icon'
 
 class TreeNodeProps {
-  highlighted = prop(Boolean)
-  icon = prop({ default: '', type: String })
-  iconRight = prop({ default: '', type: String })
+  highlighted = prop<boolean>(Boolean)
+  icon = prop<string>({ type: String, default: '' })
+  iconRight = prop<string>({ type: String, default: '' })
 }
 
 const TreeNodePropsMixin = Vue.with(TreeNodeProps)

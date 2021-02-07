@@ -38,8 +38,8 @@ import ColorMixin from '../../../../services/ColorMixin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 
 class ProgressCircleProps {
-  thickness = prop({ type: Number, default: 0.06 })
-  color = prop({ type: String, default: 'primary' })
+  thickness = prop<number>({ type: Number, default: 0.06 })
+  color = prop<string>({ type: String, default: 'primary' })
 }
 
 const ProgressCirclePropsMixin = Vue.with(ProgressCircleProps)

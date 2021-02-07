@@ -49,19 +49,19 @@ import VaIcon from '../va-icon'
 import { NotificationPosition } from './types'
 
 class ToastProps {
-  title = prop({ type: String, default: '' })
-  offsetY = prop({ type: Number, default: 16 })
-  offsetX = prop({ type: Number, default: 16 })
+  title = prop<string>({ type: String, default: '' })
+  offsetY = prop<number>({ type: Number, default: 16 })
+  offsetX = prop<number>({ type: Number, default: 16 })
   message = prop<string | Function>({ type: [String, Function], default: '' })
-  iconClass = prop({ type: String, default: '' })
-  customClass = prop({ type: String, default: '' })
-  duration = prop({ type: Number, default: 20000 })
-  color = prop({ type: String, default: '' })
-  closeable = prop({ type: Boolean, default: true })
-  dangerouslyUseHTMLString = prop({ type: Boolean, default: false })
-  onClose = prop({ type: Function as PropType<() => void> })
-  onClick = prop({ type: Function as PropType<() => void> })
-  position = prop({
+  iconClass = prop<string>({ type: String, default: '' })
+  customClass = prop<string>({ type: String, default: '' })
+  duration = prop<number>({ type: Number, default: 20000 })
+  color = prop<string>({ type: String, default: '' })
+  closeable = prop<boolean>({ type: Boolean, default: true })
+  dangerouslyUseHTMLString = prop<boolean>({ type: Boolean, default: false })
+  onClose = prop<Function>({ type: Function as PropType<() => void> })
+  onClick = prop<Function>({ type: Function as PropType<() => void> })
+  position = prop<string>({
     type: String as PropType<NotificationPosition>,
     default: 'top-right',
   })

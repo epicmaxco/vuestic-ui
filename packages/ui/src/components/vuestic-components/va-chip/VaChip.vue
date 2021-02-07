@@ -49,16 +49,16 @@ import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMi
 import VaIcon from '../va-icon'
 
 class ChipProps {
-  modelValue = prop({ type: Boolean, default: true })
-  closeable = prop({ type: Boolean, default: false })
-  color = prop({ type: String, default: '' })
-  outline = prop({ type: Boolean, default: false })
-  flat = prop({ type: Boolean, default: false })
-  icon = prop({ type: String, default: '' })
-  disabled = prop({ type: Boolean, default: false })
-  square = prop({ type: Boolean, default: false })
-  tag = prop({ type: String, default: 'span' })
-  size = prop({
+  modelValue = prop<boolean>({ type: Boolean, default: true })
+  closeable = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: '' })
+  outline = prop<boolean>({ type: Boolean, default: false })
+  flat = prop<boolean>({ type: Boolean, default: false })
+  icon = prop<string>({ type: String, default: '' })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  square = prop<boolean>({ type: Boolean, default: false })
+  tag = prop<string>({ type: String, default: 'span' })
+  size = prop<string>({
     type: String,
     default: 'medium',
     validator: (value: string) => {

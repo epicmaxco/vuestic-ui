@@ -42,14 +42,14 @@ import { Options, mixins, Vue, prop } from 'vue-class-component'
 import ColorMixin from '../../../services/ColorMixin'
 
 class RadioProps {
-  modelValue = prop({ type: [Object, String, Number, Boolean], default: null })
-  option = prop({ type: [Object, String, Number, Boolean], default: null })
+  modelValue = prop<string|number|object|boolean>({ type: [Object, String, Number, Boolean], default: null })
+  option = prop<string|number|object|boolean>({ type: [Object, String, Number, Boolean], default: null })
   name = prop<string | number>({ type: [String, Number], default: '' })
-  disabled = prop({ type: Boolean, default: false })
-  label = prop({ type: String, default: '' })
-  leftLabel = prop({ type: Boolean, default: false })
-  color = prop({ type: String, default: '' })
-  tabindex = prop({ type: Number, default: 0 })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  label = prop<string>({ type: String, default: '' })
+  leftLabel = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: '' })
+  tabindex = prop<number>({ type: Number, default: 0 })
 }
 
 const RadioPropsMixin = Vue.with(RadioProps)

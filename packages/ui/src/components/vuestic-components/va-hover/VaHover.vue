@@ -10,12 +10,12 @@ import { Options, prop, mixins, Vue } from 'vue-class-component'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 class HoverProps {
-  disabled = prop({
+  disabled = prop<boolean>({
     type: Boolean,
     default: false,
   })
 
-  modelValue = prop({
+  modelValue = prop<boolean>({
     type: Boolean,
     default: false,
   })

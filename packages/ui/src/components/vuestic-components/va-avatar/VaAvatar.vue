@@ -39,13 +39,13 @@ import VaIcon from '../va-icon'
 import { VaProgressCircle } from '../va-progress-bar'
 
 class AvatarProps {
-  color = prop({ type: String, default: 'info' })
-  textColor = prop({ type: String, default: 'white' })
-  square = prop({ type: Boolean, default: false })
-  icon = prop({ type: String, default: '' })
-  src = prop({ type: String, default: null })
-  fontSize = prop({ type: String, default: '' })
-  email = prop({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'info' })
+  textColor = prop<string>({ type: String, default: 'white' })
+  square = prop<boolean>({ type: Boolean, default: false })
+  icon = prop<string>({ type: String, default: '' })
+  src = prop<string>({ type: String, default: null })
+  fontSize = prop<string>({ type: String, default: '' })
+  email = prop<string>({ type: String, default: '' })
 }
 
 const AvatarPropsMixin = Vue.with(AvatarProps)

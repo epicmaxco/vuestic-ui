@@ -28,8 +28,8 @@ import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLink
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 
 class ListItemProps {
-  tag = prop({ type: String, default: 'div' })
-  disabled = prop({ type: Boolean, default: false })
+  tag = prop<string>({ type: String, default: 'div' })
+  disabled = prop<boolean>({ type: Boolean, default: false })
 }
 
 const ListItemPropsMixin = Vue.with(ListItemProps)

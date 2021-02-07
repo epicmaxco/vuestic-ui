@@ -75,13 +75,13 @@ import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
 class ButtonDropdownProps {
-  modelValue = prop({ type: Boolean })
-  outline = prop({ type: Boolean, default: false })
-  disableButton = prop({ type: Boolean, default: false })
-  disableDropdown = prop({ type: Boolean, default: false })
-  flat = prop({ type: Boolean, default: false })
-  disabled = prop({ type: Boolean, default: false })
-  size = prop({
+  modelValue = prop<boolean>({ type: Boolean })
+  outline = prop<boolean>({ type: Boolean, default: false })
+  disableButton = prop<boolean>({ type: Boolean, default: false })
+  disableDropdown = prop<boolean>({ type: Boolean, default: false })
+  flat = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  size = prop<string>({
     type: String,
     default: 'medium',
     validator: (value: string) => {
@@ -89,12 +89,12 @@ class ButtonDropdownProps {
     },
   })
 
-  split = prop({ type: Boolean })
-  splitTo = prop({ type: String, default: '' })
+  split = prop<boolean>({ type: Boolean })
+  splitTo = prop<string>({ type: String, default: '' })
   icon = prop<string>({ type: String, default: 'expand_more' })
   openedIcon = prop<string>({ type: String, default: 'expand_less' })
-  position = prop({ type: String, default: 'bottom' })
-  label = prop({ type: String })
+  position = prop<string>({ type: String, default: 'bottom' })
+  label = prop<string>({ type: String })
 }
 
 const ButtonDropdownPropsMixin = Vue.with(ButtonDropdownProps)

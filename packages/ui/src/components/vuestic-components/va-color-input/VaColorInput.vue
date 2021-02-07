@@ -22,12 +22,12 @@ import { VaColorIndicator } from '../va-color-palette'
 import VaInput from '../va-input'
 
 class ColorInputProps {
-  value = prop({
+  value = prop<string>({
     type: String,
     default: '',
   })
 
-  indicator = prop({
+  indicator = prop<string>({
     type: String,
     default: 'dot',
     validator: (value: string) => {
@@ -35,12 +35,12 @@ class ColorInputProps {
     },
   })
 
-  selected = prop({
+  selected = prop<boolean>({
     type: Boolean,
     default: false,
   })
 
-  disabled = prop({
+  disabled = prop<boolean>({
     type: Boolean,
     default: false,
   })

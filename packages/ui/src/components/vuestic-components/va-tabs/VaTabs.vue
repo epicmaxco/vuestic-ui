@@ -99,16 +99,16 @@ export class TabsService {
 
 class TabsProps {
   modelValue = prop<string | number>({ type: [String, Number], default: null })
-  left = prop({ type: Boolean, default: true })
-  right = prop({ type: Boolean, default: false })
-  center = prop({ type: Boolean, default: false })
-  grow = prop({ type: Boolean, default: false })
-  disabled = prop({ type: Boolean, default: false })
-  hideSlider = prop({ type: Boolean, default: false })
-  vertical = prop({ type: Boolean, default: false })
-  color = prop({ type: String, default: 'primary' })
-  prevIcon = prop({ type: String, default: 'chevron_left' })
-  nextIcon = prop({ type: String, default: 'chevron_right' })
+  left = prop<boolean>({ type: Boolean, default: true })
+  right = prop<boolean>({ type: Boolean, default: false })
+  center = prop<boolean>({ type: Boolean, default: false })
+  grow = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  hideSlider = prop<boolean>({ type: Boolean, default: false })
+  vertical = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: 'primary' })
+  prevIcon = prop<string>({ type: String, default: 'chevron_left' })
+  nextIcon = prop<string>({ type: String, default: 'chevron_right' })
 }
 
 const TabsPropsMixin = Vue.with(TabsProps)

@@ -83,19 +83,19 @@ import { VaProgressCircle } from '../va-progress-bar'
 import { VaInputWrapper } from '../va-input'
 
 class SwitchProps {
-  modelValue = prop({ type: [Boolean, Array, String, Object], default: false })
-  size = prop({
+  modelValue = prop<boolean | any[] | string | object>({ type: [Boolean, Array, String, Object], default: false })
+  size = prop<string>({
     type: String,
     default: 'medium',
-    validator: (modelmodelValue: string) => {
-      return ['medium', 'small', 'large'].includes(modelmodelValue)
+    validator: (modelValue: string) => {
+      return ['medium', 'small', 'large'].includes(modelValue)
     },
   })
 
-  trueLabel = prop({ type: String, default: null })
-  falseLabel = prop({ type: String, default: null })
-  trueInnerLabel = prop({ type: String, default: null })
-  falseInnerLabel = prop({ type: String, default: null })
+  trueLabel = prop<string>({ type: String, default: null })
+  falseLabel = prop<string>({ type: String, default: null })
+  trueInnerLabel = prop<string>({ type: String, default: null })
+  falseInnerLabel = prop<string>({ type: String, default: null })
 }
 
 const SwitchPropsMixin = Vue.with(SwitchProps)
