@@ -311,27 +311,27 @@
       </table>
     </VbCard>
 
-<!--    <VbCard title="Interaction with components">-->
-<!--      <va-button>-->
-<!--        <va-badge text="10+">-->
-<!--          Button-->
-<!--        </va-badge>-->
-<!--      </va-button>-->
-<!--      <br>-->
-<!--      <br>-->
-<!--      <va-badge-->
-<!--        text="10+"-->
-<!--        overlap-->
-<!--      >-->
-<!--        <va-card>-->
-<!--          <va-card-content>-->
-<!--            Overlap badge outside card-->
-<!--          </va-card-content>-->
-<!--        </va-card>-->
-<!--      </va-badge>-->
-<!--      <br>-->
-<!--      <br>-->
-<!--    </VbCard>-->
+    <VbCard title="Interaction with components">
+      <va-button>
+        <va-badge text="10+">
+          Button
+        </va-badge>
+      </va-button>
+      <br>
+      <br>
+      <va-badge
+        text="10+"
+        overlap
+      >
+        <va-card>
+          <va-card-content>
+            Overlap badge outside card
+          </va-card-content>
+        </va-card>
+      </va-badge>
+      <br>
+      <br>
+    </VbCard>
 
     <BadgeAvatarDemo />
   </VbDemo>
@@ -339,9 +339,9 @@
 
 <script>
 import VaBadge from './VaBadge'
-// import VaButton from '../va-button'
-// import VaCard from '../va-card'
-// import VaCardContent from '../va-card/VaCardContent'
+import VaButton from '../va-button'
+import VaCard from '../va-card'
+import VaCardContent from '../va-card/VaCardContent'
 import VaIcon from '../va-icon/'
 import BadgeAvatarDemo from './BadgeAvatarDemo'
 
@@ -349,9 +349,9 @@ export default {
   components: {
     BadgeAvatarDemo,
     VaBadge,
-    // VaButton,
-    // VaCard,
-    // VaCardContent,
+    VaButton,
+    VaCard,
+    VaCardContent,
     VaIcon,
   },
   data () {

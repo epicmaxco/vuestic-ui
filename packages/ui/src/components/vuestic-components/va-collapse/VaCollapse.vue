@@ -2,11 +2,11 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header"
-      @click="changeValue"
+      @click="changeValue()"
       :tabindex="collapseIndexComputed"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
-      @focus="onFocus"
+      @focus="onFocus()"
       @blur="isKeyboardFocused = false"
     >
       <slot name="header">
@@ -95,11 +95,11 @@ export default class VaCollapse extends mixins(
   }
 
   get valueProxy () {
-    if (!this.accordion.isInsideAccordion) {
-      return this.valueComputed
+    if (this.accordion.isInsideAccordion) {
+      return this.valueCollapse.value
     }
 
-    return this.valueCollapse.value
+    return this.valueComputed
   }
 
   set valueProxy (value) {

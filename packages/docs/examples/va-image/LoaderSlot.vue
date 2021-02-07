@@ -10,7 +10,7 @@
         </template>
       </va-image>
       <div class="flex">
-        <va-button color="success" @click="newImage">
+        <va-button color="success" @click="newImage()">
           New image
         </va-button>
       </div>

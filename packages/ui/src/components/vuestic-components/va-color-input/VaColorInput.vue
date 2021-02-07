@@ -5,7 +5,7 @@
       :selected="selected"
       :color="value"
       :indicator="indicator"
-      @click="onClick"
+      @click="onClick()"
     />
     <va-input
       class="va-color-input__input"

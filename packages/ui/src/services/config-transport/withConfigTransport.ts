@@ -91,6 +91,17 @@ export function resolveProps (options: any, optionsType = 'props') {
   return result
 }
 
+const formatEmitString = (str: string): string => {
+  const [beforeColon, afterColon] = str.split(':')
+
+  if (afterColon) {
+    return [upperFirst(beforeColon), camelCase(afterColon)].join(':')
+  }
+
+  return upperFirst(camelCase(beforeColon))
+}
+
+
 // TODO: improve typing
 // (component: DefineComponent | VueConstructor): ComponentOptions<any> doesn't work here
 
@@ -144,16 +155,6 @@ const withConfigTransport = (component: any): any => {
           [name]: getValue(name, definition.default),
         }), {})
       })
-
-      const formatEmitString = (str: string) => {
-        const [beforeColon, afterColon] = str.split(':')
-
-        if (afterColon) {
-          return [upperFirst(beforeColon), camelCase(afterColon)].join(':')
-        }
-
-        return upperFirst(camelCase(beforeColon))
-      }
 
       const proxiedEmits = emits.reduce((acc, emit) => ({
         ...acc,

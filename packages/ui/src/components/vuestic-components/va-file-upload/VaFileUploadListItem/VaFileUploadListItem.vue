@@ -24,7 +24,7 @@
       <va-icon
         color="danger"
         name="clear"
-        @click="removeFile"
+        @click="removeFile()"
         class="va-file-upload-list-item__delete"
       />
     </div>

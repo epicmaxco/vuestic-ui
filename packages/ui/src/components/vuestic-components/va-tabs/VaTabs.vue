@@ -15,7 +15,7 @@
           flat
           size="medium"
           :icon="$props.prevIcon"
-          @click="movePaginationLeft"
+          @click="movePaginationLeft()"
         />
         <div
           class="va-tabs__container"
@@ -46,7 +46,7 @@
           flat
           size="medium"
           :icon="$props.nextIcon"
-          @click="movePaginationRight"
+          @click="movePaginationRight()"
         />
       </div>
       <div class="va-tabs__content">

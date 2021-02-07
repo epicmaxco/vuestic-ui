@@ -12,14 +12,12 @@ import Collapse from '../va-collapse/VaCollapse.vue'
 
 export const AccordionServiceKey = Symbol('AccordionService')
 
-class Props {
+const PropsMixin = Vue.with(class{
   value = prop<any[]>({ type: Array, default: () => [] })
   multiply = prop<boolean>({ type: Boolean, default: false })
   inset = prop<boolean>({ type: Boolean, default: false })
   popout = prop<boolean>({ type: Boolean, default: false })
-}
-
-const PropsMixin = Vue.with(Props)
+})
 
 export type Accordion = {
   isInsideAccordion: boolean;

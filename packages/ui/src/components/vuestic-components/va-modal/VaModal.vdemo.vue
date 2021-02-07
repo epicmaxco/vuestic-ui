@@ -49,7 +49,7 @@
           <div>{{ message }}</div>
         </slot>
         <template #footer>
-          <va-button @click="customActionClick">
+          <va-button @click="customActionClick()">
             Custom action
           </va-button>
         </template>

@@ -10,7 +10,7 @@
     :exact-active-class="exactActiveClass"
     class="va-tab"
     :class="classComputed"
-    @click="onTabClick"
+    @click="onTabClick()"
     @keydown.enter="onTabKeydown"
     @mousedown="hasMouseDown = true"
     @mouseup="hasMouseDown = false"

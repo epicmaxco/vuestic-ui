@@ -5,7 +5,7 @@
       size="small"
       class="docs-navigation__button"
       color="gray"
-      @click="copy"
+      @click="copy()"
     >
       <i class="docs-navigation__button__icon" :class="copyIcon" />
       <span class="docs-navigation__button__text">{{ copyText }}</span>

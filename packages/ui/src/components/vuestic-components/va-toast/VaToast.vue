@@ -7,7 +7,7 @@
       :style="toastStyles"
       @mouseenter="clearTimer()"
       @mouseleave="startTimer()"
-      @click="onToastClick"
+      @click="onToastClick()"
       role="alert"
     >
       <template>

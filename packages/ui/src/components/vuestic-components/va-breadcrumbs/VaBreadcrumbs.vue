@@ -36,12 +36,10 @@ export default class VaBreadcrumbs extends mixins(
   }
 
   render () {
-    // const childNodeFilter = (node?: VNode) => !!node?.tag?.match(/VaBreadcrumbsItem$/)
     // TODO: use provide/inject for this not to stick to component's name
     const childNodeFilter = (node?: VNode) => !!(node?.type as any)?.name?.match(/VaBreadcrumbsItem$/)
 
     const childNodes = (this.$slots as any)?.default()?.filter(childNodeFilter) || []
-    // .?default()?.filter(childNodeFilter) || []
 
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
@@ -51,16 +49,13 @@ export default class VaBreadcrumbs extends mixins(
     const createSeparatorComponent = () => h(
       'span',
       {
-        class: ['va-breadcrumbs__separator',
-        // this.computedClass
-        ],
+        class: ['va-breadcrumbs__separator'],
         style: [{ color: this.computedThemesSeparatorColor }],
       },
       separatorNode,
     )
 
     const isDisabledChild = (child: VNode) => {
-      // const childPropData = child?.componentOptions?.propsData as RecordPropsDefinition<VaBreadcrumbsItem>
       const childPropData = child?.props
       if (!childPropData || !hasOwnProperty(childPropData, 'disabled')) {
         return false

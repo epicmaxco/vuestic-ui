@@ -4,7 +4,7 @@
       class="va-color-input__dot"
       :selected="selected"
       :color="modelValue"
-      @click="onClick"
+      @click="onClick()"
     />
     <va-input
       class="va-color-input__input"

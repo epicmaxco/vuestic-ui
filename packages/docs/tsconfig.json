@@ -31,10 +31,6 @@
       "components/**/*.ts",
       "components/**/*.tsx",
       "components/**/*.vue",
-      "../ui/src/types/version.d.ts",
-      "../ui/src/types/version.d.ts",
-      "../ui/src/types/version.d.ts",
-      "../ui/src/types/version.d.ts",
       "../ui/src/types/version.d.ts"
     ],
     "exclude": [

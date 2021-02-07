@@ -33,7 +33,7 @@
         >
           <va-icon
             v-if="$props.fullscreen"
-            @click="cancel"
+            @click="cancel()"
             name="close"
             class="va-modal__close"
           />

@@ -1,4 +1,3 @@
-/* eslint-disable comma-dangle */
 <template>
   <span class="va-breadcrumb-item">
     <router-link
