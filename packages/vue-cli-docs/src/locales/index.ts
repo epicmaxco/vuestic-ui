@@ -4,7 +4,8 @@ const translations = languages.reduce((result, { code, name }) => ({
   ...result,
   [code]: {
     name,
-    load: () => import(`./${code}/${code}.json`),
+    messages: require(`./${code}/${code}.json`),
+    // load: () => import(`./${code}/${code}.json`),
   },
 }), {})
 
