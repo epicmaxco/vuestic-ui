@@ -1,6 +1,6 @@
 <template>
   <va-dropdown class="language-dropdown" :offset="[0, 25]" fixed>
-    <template #slot>
+    <template #anchor>
       <va-button class="language-dropdown__button" iconRight="expand_more" flat square color="primary">
         {{currentLanguageName}}
       </va-button>
@@ -48,7 +48,7 @@ export default class LanguageDropdown extends mixins(ColorMixin) {
 
   setLanguage (locale) {
     localStorage.setItem('VueAppLanguage', locale)
-    this.$root.$i18n.setLocale(locale)
+    this.$root.$i18n.locale = locale
   }
 
   get primaryColor () {

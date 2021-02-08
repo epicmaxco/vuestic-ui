@@ -148,7 +148,7 @@ export default class Header extends Vue {
     // vue-cli temporarily: use 'VueAppLanguage' insted 'currentLanguage'
     // @ts-ignore
     localStorage.setItem('VueAppLanguage', locale)
-    ;(this as any).$root.$i18n.setLocale(locale)
+    ;(this as any).$root.$i18n.locale = locale
   }
 
   get currentLanguage () {
