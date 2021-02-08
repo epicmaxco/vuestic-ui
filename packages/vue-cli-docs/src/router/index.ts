@@ -1,5 +1,5 @@
 import { createWebHistory } from 'vue-router'
-import { createRouterLayout } from 'vue-router-layout'
+import { createRouterLayout } from './vue-router-layout'
 import { createLangRouter } from 'vue-lang-router'
 import routes from 'vue-auto-routing'
 import translations from '../locales'

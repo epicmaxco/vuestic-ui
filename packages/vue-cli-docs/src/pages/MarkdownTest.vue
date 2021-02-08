@@ -4,14 +4,13 @@
 
 <script lang="ts">
 // @ts-ignore
-import withLayout from '@/components/withLayout'
 import { Options, Vue } from 'vue-class-component'
 import MdView from '@/utilities/markdown-view/MarkdownView.vue'
 
 @Options({
   components: { MdView },
 })
-class MarkdownTest extends Vue {
+export default class MarkdownTest extends Vue {
   get text () {
     return `## Some markdown
 * with
@@ -21,8 +20,6 @@ class MarkdownTest extends Vue {
 \`\`\``
   }
 }
-
-export default withLayout(MarkdownTest)
 </script>
 
 <style lang="scss">
