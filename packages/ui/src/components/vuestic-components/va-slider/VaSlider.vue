@@ -66,7 +66,7 @@
           :style="dottedStyles[order]"
           @mousedown="(moveStart($event, order), setMouseDown($event, order + 1))"
           @touchstart="moveStart($event, order)"
-          @focus="isFocused = true, currentSlider = order"
+          @focus="isFocused = true, currentSliderDotIndex = order"
           @blur="isFocused = false"
           :tabindex="(!disabled && !readonly) && 0"
         >
