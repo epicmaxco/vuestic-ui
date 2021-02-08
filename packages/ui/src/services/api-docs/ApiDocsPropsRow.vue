@@ -10,15 +10,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import MarkdownView from '../../../../docs/utilities/markdown-view/MarkdownView.vue'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
+import MarkdownView from '../../../../vue-cli-docs/src/utilities/markdown-view/MarkdownView.vue'
 import { ApiPropRowOptions } from './ApiTableData'
 
-@Component({
+class Props {
+  propRow = prop<ApiPropRowOptions>({})
+}
+
+const PropsMixin = Vue.with(Props)
+
+@Options({
   components: { MarkdownView },
 })
-export default class ApiDocsPropsRow extends Vue {
-  @Prop() propRow!: ApiPropRowOptions
+export default class ApiDocsPropsRow extends mixins(PropsMixin) {
 }
 </script>
 
