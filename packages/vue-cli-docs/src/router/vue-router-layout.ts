@@ -58,7 +58,7 @@ function loadAsyncComponents (route: RouteLocationNormalized): Promise<unknown> 
   route.matched.forEach((record) => {
     Object.keys(record.components).forEach((key) => {
       const component: any = record.components[key]
-      const isAsync = typeof component === 'function' && !component.options
+      const isAsync = typeof component === 'function' && !(component.options || component.__o)
 
       if (isAsync) {
         promises.push(
