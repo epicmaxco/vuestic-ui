@@ -10,8 +10,8 @@
             target="blank"
             :round="false"
             color="#2550C0"
-            icon="github"
           >
+            <va-icon class="fa fa-github" style="margin-right: 0.5rem" />
             {{$t('landing.admin.buttons.github')}}
           </va-button>
           <va-button class="admin__buttons--button"
