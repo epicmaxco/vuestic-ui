@@ -14,7 +14,6 @@
 
 <script lang="ts">
 // @ts-nocheck
-import withLayout from '@/components/withLayout'
 import { Options, Vue } from 'vue-class-component'
 import Header from '@/components/landing/Header.vue'
 import Preview from '@/components/landing/Preview.vue'
@@ -26,6 +25,7 @@ import Customize from '@/components/landing/Customize.vue'
 import { COLOR_THEMES, ThemeName } from '@/theme-config'
 
 @Options({
+  layout: 'landing',
   components: {
     Header,
     Preview,
@@ -36,7 +36,7 @@ import { COLOR_THEMES, ThemeName } from '@/theme-config'
     Customize,
   },
 } as any)
-class Landing extends Vue {
+export default class Landing extends Vue {
   data () {
     return {
       isSidebarVisible: true,
@@ -111,8 +111,6 @@ class Landing extends Vue {
     }, [] as { [key: string]: string, }[])
   }
 }
-
-export default withLayout(Landing, 'landing')
 </script>
 
 <style lang="scss">
