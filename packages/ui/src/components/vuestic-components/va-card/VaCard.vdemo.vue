@@ -16,6 +16,17 @@
         <va-card-content>{{ lorem }}</va-card-content>
       </va-card>
     </VbCard>
+
+    <VbCard title="Dark (Colored)">
+      <va-card
+        style="width: 400px;"
+        dark
+      >
+        <va-card-title textColor="primary">Title</va-card-title>
+        <va-card-content textColor="info">{{ lorem }}</va-card-content>
+      </va-card>
+    </VbCard>
+
     <VbCard title="Square">
       <va-card
         style="width: 400px;"
