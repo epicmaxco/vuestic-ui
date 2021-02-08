@@ -44,32 +44,32 @@
             target="blank"
             color="#2550C0"
             flat
-            icon="github"
           >
+            <va-icon class="fa fa-github" />
           </va-button>
           <va-button class="footer__social__item"
             href="https://discord.gg/jTKTjj2weV"
             target="blank"
             color="#2550C0"
             flat
-            icon="discord"
           >
+            <va-icon class="fa fa-comments" />
           </va-button>
           <va-button class="footer__social__item"
             href="https://www.facebook.com/epicmaxco/"
             target="blank"
             color="#2550C0"
             flat
-            icon="facebook"
           >
+            <va-icon class="fa fa-facebook" />
           </va-button>
           <va-button class="footer__social__item"
             href="https://twitter.com/epicmaxco"
             target="blank"
             color="#2550C0"
             flat
-            icon="twitter"
           >
+            <va-icon class="fa fa-twitter" />
           </va-button>
         </div>
         <div class="footer__subtitle">{{$t('landing.footer.text')}} <a href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>

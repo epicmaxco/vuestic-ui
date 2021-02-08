@@ -16,8 +16,9 @@
             target="_blank"
             :round="false"
             color="#2550C0"
-            flat icon="github"
+            flat
           >
+            <va-icon class="fa fa-github" style="margin-right: 0.5rem" />
             {{$t('landing.preview.buttons.github')}}
           </va-button>
         </div>
