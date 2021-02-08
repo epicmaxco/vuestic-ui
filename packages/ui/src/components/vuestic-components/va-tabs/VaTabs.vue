@@ -221,7 +221,7 @@ export default class VaTabs extends mixins(
   }
 
   get disablePaginationRight () {
-    return this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1].rightSidePosition <= this.tabsContentOffset + this.containerRef.clientWidth
+    return this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]?.rightSidePosition <= this.tabsContentOffset + this.containerRef.clientWidth
   }
 
   // TODO: check if this even works
