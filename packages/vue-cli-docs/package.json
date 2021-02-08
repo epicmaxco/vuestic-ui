@@ -9,7 +9,13 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "docsearch.js": "^2.6.3",
+    "lodash": "^4.17.20",
+    "markdown-it": "^12.0.4",
     "prismjs": "^1.23.0",
+    "raw-loader": "^4.0.2",
+    "smart-grid": "^2.1.2",
+    "tiny-emitter": "^2.1.0",
     "vue": "^3.0.5",
     "vue-lang-router": "^2.0.0-beta.3",
     "vue-prism-component": "^2.0.0",

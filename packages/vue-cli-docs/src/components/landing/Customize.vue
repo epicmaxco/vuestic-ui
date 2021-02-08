@@ -71,9 +71,6 @@
           </div>
           <!-- /Second block -->
 
-          <!-- <nuxt-link class="customize__content__link" :to="`/${$root.$i18n.locale}/getting-started/configuration-guide`">
-            {{$t('landing.customize.configuration')}}
-          </nuxt-link> -->
           <router-link class="customize__content__link" :to="`/${$root.$i18n.locale}/getting-started/configuration-guide`">
             {{$t('landing.customize.configuration')}}
           </router-link>

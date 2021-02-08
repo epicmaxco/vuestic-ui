@@ -189,7 +189,7 @@ export default class VaSelectOptionList extends mixins(
 }
 </script>
 <style lang="scss">
-@import "src/components/vuestic-sass/resources/resources";
+@import "../../../vuestic-sass/resources/resources";
 
 .va-select-option-list {
   display: flex;

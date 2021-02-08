@@ -36,12 +36,6 @@
               </va-list-item>
               <va-list-item class="language-dropdown__item">
                 <va-list-item-section>
-                  <!-- <nuxt-link
-                    class="dropdown-item__text"
-                    :to="`/${$root.$i18n.locale}/contribution/translation`"
-                  >
-                    {{$t('landing.header.buttons.translation')}}
-                  </nuxt-link> -->
                   <router-link
                     class="dropdown-item__text"
                     :to="`/${$root.$i18n.locale}/contribution/translation`"
@@ -69,13 +63,11 @@
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <!-- <nuxt-link :to="`/${$root.$i18n.locale}/introduction/overview`">{{$t('landing.header.buttons.overview')}}</nuxt-link> -->
                 <router-link :to="`/${$root.$i18n.locale}/introduction/overview`">{{$t('landing.header.buttons.overview')}}</router-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <!-- <nuxt-link :to="`/${$root.$i18n.locale}/introduction/roadmap`">{{$t('landing.header.buttons.docs')}}</nuxt-link> -->
                 <router-link :to="`/${$root.$i18n.locale}/introduction/roadmap`">{{$t('landing.header.buttons.docs')}}</router-link>
               </va-list-item-section>
             </va-list-item>
@@ -102,12 +94,6 @@
             </div>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <!-- <nuxt-link
-                  class="mobile-menu__language"
-                  :to="`/${$root.$i18n.locale}/contribution/translation`"
-                >
-                  {{$t('landing.header.buttons.translation')}}
-                </nuxt-link> -->
                 <router-link
                   class="mobile-menu__language"
                   :to="`/${$root.$i18n.locale}/contribution/translation`"

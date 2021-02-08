@@ -12,7 +12,7 @@ module.exports = {
     resolve: {
       alias: {
         'vuestic-ui-dev': resolve('../ui'),
-        src: resolve('../ui/src'),
+        assets: resolve('./src/assets'),
       },
     },
   },

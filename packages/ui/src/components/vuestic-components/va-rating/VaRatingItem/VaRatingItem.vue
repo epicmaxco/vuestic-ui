@@ -105,7 +105,8 @@ export default class VaRatingItem extends mixins(
 
   private processCursorInput (iconSize: number, offsetX: number) {
     this.valueProxy = this.halves && (offsetX / iconSize <= RatingValue.HALF)
-      ? RatingValue.HALF : RatingValue.FULL
+      ? RatingValue.HALF
+      : RatingValue.FULL
   }
 
   private onEnter () {
@@ -135,7 +136,7 @@ export default class VaRatingItem extends mixins(
 </script>
 
 <style lang="scss">
-  @import "src/components/vuestic-sass/resources/resources";
+  @import "../../../vuestic-sass/resources/resources";
 
   .va-rating-item {
     display: inline-block;

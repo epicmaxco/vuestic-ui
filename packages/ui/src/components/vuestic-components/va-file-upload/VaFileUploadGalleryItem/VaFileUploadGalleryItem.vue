@@ -125,7 +125,7 @@ export default class VaFileUploadGalleryItem extends mixins(FileUploadGalleryIte
 </script>
 
 <style lang='scss'>
-@import 'src/components/vuestic-sass/resources/resources';
+@import '../../../vuestic-sass/resources/resources';
 
 $max-image-size: 8.5714rem;
 

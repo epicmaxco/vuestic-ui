@@ -1,16 +1,16 @@
 <template>
   <div class="base-layout">
-    <!-- <Header
-      :is-sidebar-visible.sync="isSidebarVisible"
+    <Header
+      v-model:is-sidebar-visible="isSidebarVisible"
       class="base-layout__header"
-    /> -->
+    />
     <main id="base-layout" class="base-layout__main">
-      <!-- <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes" /> -->
+      <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes" />
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
       >
-        <!-- <va-breadcrumbs
+        <va-breadcrumbs
           align="left"
           color="gray"
           class="base-layout__breadcrumbs"
@@ -25,9 +25,8 @@
           <template #separator>
             <va-icon name="arrow_forward_ios" :size="16" />
           </template>
-        </va-breadcrumbs> -->
+        </va-breadcrumbs>
         <div class="layout gutter--xl">
-          <!-- <Nuxt /> -->
           <router-view />
         </div>
       </div>
@@ -39,15 +38,15 @@
 // @ts-nocheck
 import { provide } from 'vue'
 import { Options, Vue } from 'vue-class-component'
-// import Sidebar from '../components/sidebar/Sidebar.vue'
-// import Header from '../components/header/Header.vue'
+import Sidebar from '../components/sidebar/Sidebar.vue'
+import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 
 @Options({
   components: {
-    // Header,
-    // Sidebar,
+    Header,
+    Sidebar,
   },
 })
 export default class DocsLayout extends Vue {
@@ -70,7 +69,7 @@ export default class DocsLayout extends Vue {
   }
 
   created () {
-    // this.$root.$on('changeTheme', this.setTheme)
+    this.$root.eventBus.$on('changeTheme', this.setTheme)
   }
 
   mounted () {
@@ -84,7 +83,7 @@ export default class DocsLayout extends Vue {
   }
 
   beforeDestroy () {
-    // this.$root.$off('changeTheme', this.setTheme)
+    this.$root.eventBus.$off('changeTheme', this.setTheme)
   }
 
   setTheme (themeName) {
@@ -132,8 +131,8 @@ export default class DocsLayout extends Vue {
 </script>
 
 <style lang="scss">
-@import "../../../ui/src/components/vuestic-sass/resources/resources.scss";
-@import "./../assets/main";
+@import "vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
+@import "@/assets/main";
 
 html {
   font-family: $font-family-sans-serif;

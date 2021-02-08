@@ -10,9 +10,6 @@
           <div class="opensource__text">
             {{$t('landing.opensource.text[0]')}}
             <a href="https://github.com/epicmaxco/vuestic-ui/issues" target="_blank">{{$t('landing.opensource.text[1]')}}</a>,
-            <!-- <nuxt-link :to="`/${$root.$i18n.locale}/contribution/documentation-page`">
-              {{$t('landing.opensource.text[2]')}}
-            </nuxt-link> -->
             <router-link :to="`/${$root.$i18n.locale}/contribution/documentation-page`">
               {{$t('landing.opensource.text[2]')}}
             </router-link>
