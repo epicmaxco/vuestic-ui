@@ -23,7 +23,7 @@ import Footer from '@/components/landing/Footer.vue'
 import OpenSource from '@/components/landing/OpenSource.vue'
 import Seamless from '@/components/landing/Seamless.vue'
 import Customize from '@/components/landing/Customize.vue'
-import { COLOR_THEMES, ThemeName } from '../theme-config'
+import { COLOR_THEMES, ThemeName } from '@/theme-config'
 
 @Options({
   components: {
@@ -56,7 +56,7 @@ class Landing extends Vue {
   }
 
   created () {
-    // this.$root.$on('changeTheme', this.setTheme)
+    this.$root.eventBus.$on('changeTheme', this.setTheme)
   }
 
   mounted () {
@@ -66,7 +66,7 @@ class Landing extends Vue {
   }
 
   beforeUnmount () {
-    // this.$root.$off('changeTheme', this.setTheme)
+    this.$root.eventBus.$off('changeTheme', this.setTheme)
   }
 
   setTheme (themeName) {

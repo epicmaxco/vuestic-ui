@@ -81,7 +81,7 @@ export default class VaFileUploadListItem extends mixins(FileUploadListItemProps
 </script>
 
 <style lang='scss'>
-@import 'src/components/vuestic-sass/resources/resources';
+@import '../../../vuestic-sass/resources/resources';
 
 .va-file-upload-list-item {
   & + & {
