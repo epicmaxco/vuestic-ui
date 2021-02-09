@@ -1,16 +1,16 @@
 <template>
 <h3>
   <MarkdownView tag="span" inline :value="$t(text)" />
-  <a :id="anchor" :style="{ color: primaryColor }" :href="`#${anchor}`">#</a>
+  <a :id="anchor" :style="{ color: themes.primary }" :href="`#${anchor}`">#</a>
 </h3>
 </template>
 <script lang='ts'>
 // @ts-nocheck
 import { kebabCase } from 'lodash'
 import { TranslationString } from 'vuestic-ui-dev/src/services/api-docs/ManualApiOptions'
-import { Options, Vue, mixins, prop } from 'vue-class-component'
-import ColorMixin from 'vuestic-ui-dev/src/services/ColorMixin'
+import { Options, Vue, mixins, prop, setup } from 'vue-class-component'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
+import { useTheme } from 'vuestic-ui'
 
 class Props {
   text = prop<TranslationString>({ type: String })
@@ -21,13 +21,17 @@ const PropsMixin = Vue.with(Props)
 @Options({
   components: { MarkdownView },
 })
-export default class DocsSubtitle extends mixins(ColorMixin, PropsMixin) {
+export default class DocsSubtitle extends mixins(PropsMixin) {
   get anchor () {
     return kebabCase(this.$t(this.text) as string)
   }
 
-  get primaryColor () {
-    return this.computeColor('primary')
-  }
+  themes = setup(() => {
+    const { getTheme } = { ...useTheme() }
+
+    const themes = getTheme ? getTheme() : {}
+
+    return themes
+  })
 }
 </script>

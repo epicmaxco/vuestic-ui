@@ -4,21 +4,26 @@
     <defs>
     <linearGradient id="paint0_linear" x1="161" y1="5.50002" x2="-2.44809e-06" y2="8.00001" gradientUnits="userSpaceOnUse">
     <stop stop-color="#191B1E" />
-    <stop offset="1" :stop-color="primaryColor" />
+    <stop offset="1" :stop-color="themes.primary" />
     </linearGradient>
     </defs>
   </svg>
 </template>
 
 <script>
-import { Options, mixins } from 'vue-class-component'
-import ColorMixin from 'vuestic-ui-dev/src/services/ColorMixin'
+import { Options, Vue, setup } from 'vue-class-component'
+import { useTheme } from 'vuestic-ui'
+
 @Options({
   name: 'vuestic-logo',
 })
-export default class VuesticLogo extends mixins(ColorMixin) {
-  get primaryColor () {
-    return this.computeColor('primary')
-  }
+export default class VuesticLogo extends Vue {
+  themes = setup(() => {
+    const { getTheme } = { ...useTheme() }
+
+    const themes = getTheme ? getTheme() : {}
+
+    return themes
+  })
 }
 </script>

@@ -13,13 +13,13 @@
       :class="{ active: option.code === currentLanguage }"
       @click="setLanguage(option.code)"
     >
-      <va-list-item-section :style="{color: primaryColor}">
+      <va-list-item-section :style="{color: themes.primary}">
         <span class="dropdown-item__text">{{ option.name }}</span>
       </va-list-item-section>
     </va-list-item>
     <va-list-item class="language-dropdown__item row align--center py-2">
       <va-list-item-section>
-        <router-link :to="`/${$root.$i18n.locale}/contribution/translation`" class="dropdown-item__text" :style="{color: primaryColor}">{{$t('landing.header.buttons.translation')}}</router-link>
+        <router-link :to="`/${$root.$i18n.locale}/contribution/translation`" class="dropdown-item__text" :style="{color: themes.primary}">{{$t('landing.header.buttons.translation')}}</router-link>
       </va-list-item-section>
     </va-list-item>
   </va-list>
@@ -28,12 +28,12 @@
 
 <script>
 // @ts-nocheck
-import { Options, mixins } from 'vue-class-component'
+import { Options, Vue, setup } from 'vue-class-component'
 // import VaIcon from 'vuestic-ui/src/components/vuestic-components/va-icon/VaIcon.vue'
 // import VaDropdown from 'vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue'
 // import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
-import ColorMixin from 'vuestic-ui-dev/src/services/ColorMixin'
 import { languages } from './../../languages'
+import { useTheme } from 'vuestic-ui'
 
 @Options({
   name: 'language-dropdown',
@@ -43,7 +43,7 @@ import { languages } from './../../languages'
     // VaButton,
   },
 })
-export default class LanguageDropdown extends mixins(ColorMixin) {
+export default class LanguageDropdown extends Vue {
   options = languages
 
   setLanguage (locale) {
@@ -51,9 +51,13 @@ export default class LanguageDropdown extends mixins(ColorMixin) {
     this.$root.$i18n.locale = locale
   }
 
-  get primaryColor () {
-    return this.computeColor('primary')
-  }
+  themes = setup(() => {
+    const { getTheme } = { ...useTheme() }
+
+    const themes = getTheme ? getTheme() : {}
+
+    return themes
+  })
 
   get currentLanguage () {
     return this.$root.$i18n.locale
