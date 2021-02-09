@@ -37,10 +37,11 @@
 <script lang="ts">
 // @ts-nocheck
 import { provide } from 'vue'
-import { Options, Vue } from 'vue-class-component'
+import { Options, Vue, setup } from 'vue-class-component'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
+import { useTheme } from 'vuestic-ui'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 
 @Options({
@@ -86,12 +87,11 @@ export default class DocsLayout extends Vue {
     this.$root.eventBus.$off('changeTheme', this.setTheme)
   }
 
-  setTheme (themeName) {
-    Object.assign(
-      this.$themes ?? {},
-      COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT],
-    )
-  }
+  setTheme = setup(() => {
+    const { setTheme } = { ...useTheme() }
+
+    return themeName => setTheme(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
+  })
 
   get crumbs () {
     if (this.$isServer) {

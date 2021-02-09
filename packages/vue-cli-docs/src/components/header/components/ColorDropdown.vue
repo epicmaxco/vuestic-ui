@@ -86,9 +86,10 @@
 <script lang="ts">
 // @ts-nocheck
 import { watch } from 'vue'
-import { Options, Vue } from 'vue-class-component'
+import { Options, Vue, setup } from 'vue-class-component'
 import { ThemeName } from '../../../theme-config'
 import { capitalize } from 'lodash'
+import { useTheme } from 'vuestic-ui'
 
 @Options({})
 export default class ColorDropdown extends Vue {
@@ -114,9 +115,13 @@ export default class ColorDropdown extends Vue {
     this.$root.eventBus.$emit('changeTheme', themeName.toUpperCase())
   }
 
-  get themes () {
-    return this.$themes || {}
-  }
+  themes = setup(() => {
+    const { getTheme } = { ...useTheme() }
+
+    const themes = getTheme ? getTheme() : {}
+
+    return themes
+  })
 }
 </script>
 
