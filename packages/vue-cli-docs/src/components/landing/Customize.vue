@@ -8,15 +8,17 @@
         <div class="customize__content">
           <!-- Tabs -->
           <div  class="tabs-wrapper">
-          <va-tabs v-model="tabValue" class="tabs" color="#fff" center grow>
-            <va-tab
-              class="tabs__tab"
-              v-for="tab in [`${$t('landing.customize.tabs[0]')}`, `${$t('landing.customize.tabs[1]')}`, `${$t('landing.customize.tabs[2]')}`]"
-              :key="tab"
-            >
-              {{ tab }}
-            </va-tab>
-          </va-tabs>
+            <va-tabs v-model="tabValue" class="tabs" color="#fff" center grow>
+              <template #tabs>
+                <va-tab
+                  class="tabs__tab"
+                  v-for="tab in [`${$t('landing.customize.tabs[0]')}`, `${$t('landing.customize.tabs[1]')}`, `${$t('landing.customize.tabs[2]')}`]"
+                  :key="tab"
+                >
+                  {{ tab }}
+                </va-tab>
+              </template>
+            </va-tabs>
           </div>
 
           <!-- First block -->
