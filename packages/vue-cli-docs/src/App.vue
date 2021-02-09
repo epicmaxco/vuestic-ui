@@ -4,6 +4,8 @@
 
 <script>
 import emitter from 'tiny-emitter/instance'
+import { useTheme } from 'vuestic-ui'
+import { COLOR_THEMES, ThemeName } from '@/theme-config'
 
 const eventBus = {
   $on: (...args) => emitter.on(...args),
@@ -17,6 +19,12 @@ export default {
     return {
       eventBus,
     }
+  },
+
+  setup () {
+    const { setTheme } = { ...useTheme() }
+
+    setTheme && setTheme(COLOR_THEMES[ThemeName.DEFAULT])
   },
 }
 </script>

@@ -19,6 +19,7 @@
 // @ts-nocheck
 import VaIconMenu from '@/iconset/VaIconMenu.vue'
 import VaIconMenuCollapsed from '@/iconset/VaIconMenuCollapsed.vue'
+import { useTheme } from 'vuestic-ui'
 
 export default {
   name: 'HeaderSelector',
@@ -32,10 +33,14 @@ export default {
       required: true,
     },
   },
-  computed: {
-    themes () {
-      return this.$themes || {}
-    },
+  setup () {
+    const { getTheme } = { ...useTheme() }
+
+    const themes = getTheme ? getTheme() : {}
+
+    return {
+      themes,
+    }
   },
 }
 </script>

@@ -14,7 +14,7 @@
 
 <script lang="ts">
 // @ts-nocheck
-import { Options, Vue } from 'vue-class-component'
+import { Options, Vue, setup } from 'vue-class-component'
 import Header from '@/components/landing/Header.vue'
 import Preview from '@/components/landing/Preview.vue'
 import Admin from '@/components/landing/Admin.vue'
@@ -23,6 +23,7 @@ import OpenSource from '@/components/landing/OpenSource.vue'
 import Seamless from '@/components/landing/Seamless.vue'
 import Customize from '@/components/landing/Customize.vue'
 import { COLOR_THEMES, ThemeName } from '@/theme-config'
+import { useTheme } from 'vuestic-ui'
 
 @Options({
   layout: 'landing',
@@ -69,12 +70,11 @@ export default class Landing extends Vue {
     this.$root.eventBus.$off('changeTheme', this.setTheme)
   }
 
-  setTheme (themeName) {
-    Object.assign(
-      this.$themes ?? {},
-      COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT],
-    )
-  }
+  setTheme = setup(() => {
+    const { setTheme } = { ...useTheme() }
+
+    return themeName => setTheme(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
+  })
 
   get crumbs () {
     if (this.$isServer) {
