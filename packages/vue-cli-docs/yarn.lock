@@ -9382,11 +9382,6 @@ vue-route-generator@^1.0.0:
     fast-glob "^3.2.4"
     prettier "2.2.1"
 
-vue-router-layout@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/vue-router-layout/-/vue-router-layout-0.3.0.tgz#faf206e53baa684926814bafc40e4d42d48e08d3"
-  integrity sha512-XPfeoy4kxBf/4vLeSjZoki29GT0CcySCUlbdXXM4jJWkdo9ann45wZ9DvmTFumG6/4LH0IVHPZBrhBKSLD5A0A==
-
 vue-router@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.2.tgz#5702bf8fa14535b80142fde226bf41a84917b1f4"

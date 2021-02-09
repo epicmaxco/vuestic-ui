@@ -20,7 +20,6 @@
     "vue-lang-router": "^2.0.0-beta.3",
     "vue-prism-component": "^2.0.0",
     "vue-router": "^4.0.3",
-    "vue-router-layout": "^0.3.0",
     "vuestic-ui": "^1.0.0-alpha.14",
     "vuex": "^4.0.0"
   },
