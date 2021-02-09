@@ -224,40 +224,6 @@ export default class VaTabs extends mixins(
     return this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]?.rightSidePosition <= this.tabsContentOffset + this.containerRef.clientWidth
   }
 
-  // TODO: check if this even works
-  parseItems () {
-    const content = (this as any).$slots.default || 0
-    const length = content.length
-    this.tabs = []
-
-    for (let i = 0; i < length; i++) {
-      if (content[i].componentOptions) {
-        if (content[i].componentOptions.Ctor.options.name === 'VaTab') {
-          const instance = content[i].componentInstance
-          instance.id = instance.name || i
-
-          this.tabs.push(instance)
-
-          if (!instance._tabEventsInited) {
-            // eslint-disable-next-line @typescript-eslint/no-this-alias
-            const self = this
-
-            instance.$on('click', function (this: VaTab) {
-              self.selectTab(this)
-            })
-            instance.$on('keydown.enter', function (this: VaTab) {
-              self.selectTab(this)
-            })
-            instance.$on('focus', function (this: VaTab) {
-              self.ensureVisible(this)
-            })
-            instance._tabEventsInited = true
-          }
-        }
-      }
-    }
-  }
-
   selectTab (tab: any) {
     if (tab) {
       this.valueComputed = tab.$props.name || tab.id
@@ -268,31 +234,20 @@ export default class VaTabs extends mixins(
   }
 
   updateTabsState () {
-    let hasActive = false
-    if (this.context.tabsService) {
-      this.context.tabsService.tabs.forEach((tab: VaTab, i: number) => {
-        const tabIsActiveRouterLink = this.context.tabsService?.tabs[i].isActiveRouterLink
-        const isSelectedTab = (this.context.tabsService?.tabs[i].$props.name || this.context.tabsService?.tabs[i].id) === this.tabSelected
-        if (tabIsActiveRouterLink || isSelectedTab) {
-          hasActive = true
-          this.ensureVisible(this.context.tabsService?.tabs[i])
-          this.updateSlider(this.context.tabsService?.tabs[i])
+    this.resetSliderSizes()
 
-          if (this.context.tabsService) {
-            this.context.tabsService.tabs[i].isActive = true
-          }
-        } else {
-          if (this.context.tabsService) {
-            this.context.tabsService.tabs[i].isActive = false
-          }
-        }
-      })
-    }
+    this.context.tabsService?.tabs.forEach((tab: VaTab) => {
+      const tabIsActiveRouterLink = tab.isActiveRouterLink
+      const isSelectedTab = (tab.$props.name || tab.id) === this.tabSelected
+      if (tabIsActiveRouterLink || isSelectedTab) {
+        this.ensureVisible(tab)
+        this.updateSlider(tab)
 
-    if (!hasActive) {
-      this.selectTab(this.context.tabsService?.tabs[0])
-      // this.resetSlider()
-    }
+        tab.isActive = true
+      } else {
+        tab.isActive = false
+      }
+    })
   }
 
   updatePagination () {
@@ -358,20 +313,13 @@ export default class VaTabs extends mixins(
     }
   }
 
-  resetSlider () {
-    if (this.context.tabsService) {
-      const tabs = this.context.tabsService.tabs
-      this.sliderOffsetX = tabs[0].$el.offsetLeft
-      this.sliderWidth = tabs[0].$el.clientWidth
-    }
-
-    this.sliderOffsetY = 0
+  resetSliderSizes () {
+    this.sliderWidth = 0
     this.sliderHeight = 0
   }
 
   mounted () {
     window.addEventListener('resize', this.updateTabsState)
-    this.parseItems()
     this.updateTabsState()
     this.updatePagination()
     this.mutationObserver = new MutationObserver(() => {
