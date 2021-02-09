@@ -1,3 +1,11 @@
+<route>
+{
+  "meta": {
+    "layout": "landing"
+  }
+}
+</route>
+
 <template>
   <div class="landing">
     <div class="preview-wrapper">
@@ -26,7 +34,6 @@ import { COLOR_THEMES, ThemeName } from '@/theme-config'
 import { useTheme } from 'vuestic-ui'
 
 @Options({
-  layout: 'landing',
   components: {
     Header,
     Preview,
