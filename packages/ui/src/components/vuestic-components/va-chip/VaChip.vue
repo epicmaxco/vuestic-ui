@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tagComputed"
-    v-if="valueComputed"
+    v-if="doShowChip"
     :href="hrefComputed"
     :target="target"
     :to="to"
@@ -85,14 +85,18 @@ export default class VaChip extends mixins(
   focusState = false
 
   created () {
-    if (this.$props.stateful) {
-      this.valueComputed = true
-    }
-
     watch(() => this.hoverState, (value) => {
       this.updateFocusState(value)
       this.updateHoverState(value)
     })
+  }
+
+  get doShowChip () {
+    return this.valueComputed
+  }
+
+  set doShowChip (val) {
+    this.valueComputed = val
   }
 
   get iconSize () {
@@ -174,7 +178,7 @@ export default class VaChip extends mixins(
 
   close () {
     if (!this.disabled) {
-      this.valueComputed = false
+      this.doShowChip = false
     }
   }
 }
