@@ -122,6 +122,7 @@
 </template>
 
 <script lang="ts">
+// @ts-nocheck
 import { Options, Vue } from 'vue-class-component'
 import { languages } from './../languages'
 
@@ -145,10 +146,14 @@ export default class Header extends Vue {
   }
 
   setLanguage (locale: any) {
-    // vue-cli temporarily: use 'VueAppLanguage' insted 'currentLanguage'
-    // @ts-ignore
+    this.$root.$i18n.locale = locale
+    document.querySelector('html').setAttribute('lang', locale)
     localStorage.setItem('VueAppLanguage', locale)
-    ;(this as any).$root.$i18n.locale = locale
+    this.$nextTick(() => {
+      // a little hack to change the same route alias
+      const path = this.$localizePath(this.$route.fullPath, locale)
+      this.$router.replace({ path, hash: `#${+new Date()}` }).then(() => this.$router.replace({ hash: '' }))
+    })
   }
 
   get currentLanguage () {
