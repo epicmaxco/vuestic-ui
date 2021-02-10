@@ -48,7 +48,7 @@ import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 import DocsExample from './DocsExample.vue'
 import DocsCode from './DocsCode.vue'
 import DocsSubtitle from './DocsSubtitle.vue'
-import ApiDocs from 'vuestic-ui-dev/src/services/api-docs/ApiDocs.vue'
+import ApiDocs from './DocsApi/ApiDocs.vue'
 
 class Props {
   config = prop<ApiDocsBlock[]>({})
