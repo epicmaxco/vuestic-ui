@@ -47,8 +47,14 @@ export default class LanguageDropdown extends Vue {
   options = languages
 
   setLanguage (locale) {
-    localStorage.setItem('VueAppLanguage', locale)
     this.$root.$i18n.locale = locale
+    document.querySelector('html').setAttribute('lang', locale)
+    localStorage.setItem('VueAppLanguage', locale)
+    this.$nextTick(() => {
+      // a little hack to change the same route alias
+      const path = this.$localizePath(this.$route.fullPath, locale)
+      this.$router.replace({ path, hash: `#${+new Date()}` }).then(() => this.$router.replace({ hash: '' }))
+    })
   }
 
   themes = setup(() => {
