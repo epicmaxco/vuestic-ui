@@ -24,7 +24,7 @@
           <!-- First block -->
           <div class="customize__content--first">
 
-            <div class="block__components" v-if="tabValue === 0">
+            <div class="block__components" v-if="tabValue === 1">
               <div class="component">
                 <va-button color="#6F80E7">
                   Submit
@@ -56,7 +56,7 @@
               </div>
             </div>
 
-            <div v-else-if="tabValue === 1">Work In Progress</div>
+            <div v-else-if="tabValue === 2">Work In Progress</div>
             <div v-else>Work In Progress</div>
           </div>
           <!-- /First block -->
@@ -119,7 +119,7 @@ export default class Customize extends Vue {
   value2 = 45
   value3 = 'Spain'
   options = ['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA']
-  tabValue = 0
+  tabValue = 1
 
   copyText () {
     const testingCodeToCopy: any = this.$refs.codeInput
