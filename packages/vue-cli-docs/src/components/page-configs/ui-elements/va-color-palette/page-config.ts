@@ -56,18 +56,18 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'colorPalette.api.colorPalette',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaColorPalette,
-    apiOptions,
-  },
+  // {
+  //   type: BlockType.API,
+  //   componentOptions: VaColorPalette,
+  //   apiOptions,
+  // },
   {
     type: BlockType.SUBTITLE,
     translationString: 'colorPalette.api.colorPaletteAdvanced',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaColorPaletteAdvanced,
-    apiOptions: apiOptionsAdvanced,
-  },
+  // {
+  //   type: BlockType.API,
+  //   componentOptions: VaColorPaletteAdvanced,
+  //   apiOptions: apiOptionsAdvanced,
+  // },
 ] as ApiDocsBlock[]
