@@ -45,7 +45,7 @@
             color="#2550C0"
             flat
           >
-            <va-icon class="fa fa-github" />
+            <va-icon class="mdi mdi-github" />
           </va-button>
           <va-button class="footer__social__item"
             href="https://discord.gg/jTKTjj2weV"
@@ -53,7 +53,7 @@
             color="#2550C0"
             flat
           >
-            <va-icon class="fa fa-comments" />
+            <va-icon class="mdi mdi-discord" />
           </va-button>
           <va-button class="footer__social__item"
             href="https://www.facebook.com/epicmaxco/"
@@ -61,7 +61,7 @@
             color="#2550C0"
             flat
           >
-            <va-icon class="fa fa-facebook" />
+            <va-icon class="mdi mdi-facebook" />
           </va-button>
           <va-button class="footer__social__item"
             href="https://twitter.com/epicmaxco"
@@ -69,7 +69,7 @@
             color="#2550C0"
             flat
           >
-            <va-icon class="fa fa-twitter" />
+            <va-icon class="mdi mdi-twitter" />
           </va-button>
         </div>
         <div class="footer__subtitle">{{$t('landing.footer.text')}} <a href="mailto:hello@epicmax.co">hello@epicmax.co</a></div>
