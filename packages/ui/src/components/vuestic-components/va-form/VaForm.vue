@@ -8,17 +8,10 @@
 </template>
 
 <script lang="ts">
-import { InjectionKey, inject, provide } from 'vue'
+import { inject, provide } from 'vue'
 import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
-
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
-
-export type FormProvider = {
-  onChildMounted: (child: FormComponentMixin) => void;
-  onChildUnmounted: (child: FormComponentMixin) => void;
-}
-
-export const FormServiceKey: InjectionKey<FormProvider> = Symbol('FormService')
+import { FormProvider, FormServiceKey } from './consts'
 
 class FormProps {
   autofocus = prop<boolean>({ type: Boolean, default: false })
