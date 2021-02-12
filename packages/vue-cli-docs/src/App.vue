@@ -22,9 +22,8 @@ export default {
   },
 
   setup () {
-    const { setTheme } = { ...useTheme() }
-
-    setTheme && setTheme(COLOR_THEMES[ThemeName.DEFAULT])
+    const { setTheme } = useTheme()
+    setTheme(COLOR_THEMES[ThemeName.DEFAULT])
   },
 }
 </script>

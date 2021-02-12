@@ -33,13 +33,17 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    themes () {
+      return this.getTheme()
+    },
+  },
+
   setup () {
-    const { getTheme } = { ...useTheme() }
-
-    const themes = getTheme ? getTheme() : {}
-
+    const { getTheme } = useTheme()
     return {
-      themes,
+      getTheme,
     }
   },
 }
