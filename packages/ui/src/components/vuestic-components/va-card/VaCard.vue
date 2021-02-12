@@ -11,14 +11,18 @@
     :exact="exact"
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
-    @click="$emit('click', $event)"
   >
     <div
       v-if="stripe"
       class="va-card__stripe"
       :style="stripeStyles"
     />
-    <slot />
+    <div
+      class="va-card__inner"
+      @click="$emit('click', $event)"
+    >
+      <slot />
+    </div>
   </component>
 </template>
 
