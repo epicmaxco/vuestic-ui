@@ -11,13 +11,17 @@
     class="va-list-item"
     :class="computedClass"
     :tabindex="indexComputed"
-    @mousedown="hasMouseDown = true"
-    @mouseup="hasMouseDown = false"
-    @focus="onFocus"
-    @blur="isKeyboardFocused = false"
-    @click="$emit('click')"
   >
-    <slot />
+    <div
+      class="va-list-item__inner"
+      @mousedown="hasMouseDown = true"
+      @mouseup="hasMouseDown = false"
+      @focus="onFocus"
+      @blur="isKeyboardFocused = false"
+      @click="$emit('click')"
+    >
+      <slot />
+    </div>
   </component>
 </template>
 
@@ -65,8 +69,12 @@ export default class VaListItem extends mixins(
 @import "../../vuestic-sass/resources/resources";
 
 .va-list-item {
-  display: flex;
-  align-items: center;
-  padding: $grid-gutter-default;
+  &__inner {
+    display: flex;
+    align-items: center;
+    padding: $grid-gutter-default;
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
