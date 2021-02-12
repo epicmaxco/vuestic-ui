@@ -1,40 +1,44 @@
 <template>
-  <component
-    :is="tagComputed"
-    v-if="valueComputed"
-    :href="hrefComputed"
-    :target="target"
-    :to="to"
-    :replace="replace"
-    :exact="exact"
-    :active-class="activeClass"
-    :exact-active-class="exactActiveClass"
-    class="va-chip"
-    :class="computedClass"
-    :style="computedStyle"
-    :tabindex="indexComputed"
+  <div
+    class="va-chip__wrapper"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
   >
-    <va-icon
-      v-if="icon"
-      class="va-chip__icon"
-      :name="icon"
-      :size="iconSize"
-    />
-    <span class="va-chip__content">
-      <slot></slot>
-    </span>
-    <va-icon
-      v-if="closeable"
-      class="va-chip__close-icon"
-      name="close"
-      :size="iconSize"
-      @click.stop="close()"
-    />
-  </component>
+    <component
+      v-if="valueComputed"
+      class="va-chip"
+      :is="tagComputed"
+      :href="hrefComputed"
+      :target="target"
+      :to="to"
+      :replace="replace"
+      :exact="exact"
+      :active-class="activeClass"
+      :exact-active-class="exactActiveClass"
+      :class="computedClass"
+      :style="computedStyle"
+      :tabindex="indexComputed"
+    >
+      <va-icon
+        v-if="icon"
+        class="va-chip__icon"
+        :name="icon"
+        :size="iconSize"
+      />
+      <span class="va-chip__content">
+        <slot></slot>
+      </span>
+      <va-icon
+        v-if="closeable"
+        class="va-chip__close-icon"
+        name="close"
+        :size="iconSize"
+        @click.stop="close()"
+      />
+    </component>
+  </div>
 </template>
 
 <script lang="ts">
