@@ -1,5 +1,5 @@
 <template>
-  <div class="base-layout">
+  <div class="base-layout" :key="themeKey">
     <Header
       v-model:is-sidebar-visible="isSidebarVisible"
       class="base-layout__header"
@@ -20,7 +20,7 @@
               {{ crumb.label }}
             </router-link>
             <span v-if="index < crumbs.length - 1" class="va-breadcrumbs__separator">
-              <va-icon name="arrow_forward_ios" :size="16" />
+              <va-icon name="arrow_forward_ios" :size="16" color="gray" />
             </span>
           </span>
         </div>
@@ -68,6 +68,9 @@ import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 export default class DocsLayout extends Vue {
   data () {
     return {
+      // TODO: temporary use key for changing theme
+      themeKey: +new Date(),
+
       isSidebarVisible: true,
       // only default theme guaranteed to work
       contextConfig: {
@@ -85,7 +88,7 @@ export default class DocsLayout extends Vue {
   }
 
   created () {
-    this.$root.eventBus.$on('changeTheme', this.setTheme)
+    this.$root.eventBus.$on('changeTheme', this.changeTheme)
   }
 
   mounted () {
@@ -99,13 +102,17 @@ export default class DocsLayout extends Vue {
   }
 
   beforeDestroy () {
-    this.$root.eventBus.$off('changeTheme', this.setTheme)
+    this.$root.eventBus.$off('changeTheme', this.changeTheme)
+  }
+
+  changeTheme (themeName) {
+    this.setTheme(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
+    this.$nextTick(() => (this.themeKey = +new Date()))
   }
 
   setTheme = setup(() => {
-    const { setTheme } = { ...useTheme() }
-
-    return themeName => setTheme(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
+    const { setTheme } = useTheme()
+    return setTheme
   })
 
   get crumbs () {

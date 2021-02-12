@@ -57,12 +57,13 @@ export default class LanguageDropdown extends Vue {
     })
   }
 
-  themes = setup(() => {
-    const { getTheme } = { ...useTheme() }
+  get themes () {
+    return this.getTheme()
+  }
 
-    const themes = getTheme ? getTheme() : {}
-
-    return themes
+  getTheme = setup(() => {
+    const { getTheme } = useTheme()
+    return getTheme
   })
 
   get currentLanguage () {

@@ -1,12 +1,11 @@
 <template>
-  <va-dropdown class="color-dropdown" :offset="[0, 13]">
-    <template #anchor>
-      <va-button-dropdown
-        class="color-dropdown__icon"
-        color="primary"
-        flat
-        :label="themeLabel"
-      >
+  <div class="color-dropdown">
+    <va-button-dropdown
+      class="color-dropdown__icon"
+      color="primary"
+      flat
+      :label="themeLabel"
+    >
       <div class="color-dropdown__content px-1">
         <va-button-toggle
           v-model="selectedTheme"
@@ -20,14 +19,14 @@
           <template #anchor>
             <va-badge class="color-picker-dropdown__badge" color="primary" text="primary" />
           </template>
-          <va-color-picker v-model="themes.primary" class="my-1" />
+          <!-- <va-color-picker v-model="themes.primary" class="my-1" /> -->
         </va-dropdown>
 
         <va-dropdown class="color-picker-dropdown mt-1 mb-1">
           <template #anchor>
             <va-badge class="color-picker-dropdown__badge" color="secondary" text="secondary" />
           </template>
-          <va-color-picker v-model="themes.secondary" class="my-1" />
+          <!-- <va-color-picker v-model="themes.secondary" class="my-1" /> -->
         </va-dropdown>
 
         <va-dropdown class="color-picker-dropdown mt-1 mb-1">
@@ -35,7 +34,7 @@
             <va-badge class="color-picker-dropdown__badge" color="success" text="Success" />
           </template>
 
-          <va-color-picker v-model="themes.success" class="my-1" />
+          <!-- <va-color-picker v-model="themes.success" class="my-1" /> -->
         </va-dropdown>
 
         <va-dropdown class="color-picker-dropdown mt-1 mb-1">
@@ -43,7 +42,7 @@
             <va-badge class="color-picker-dropdown__badge" color="info" text="Info" />
           </template>
 
-          <va-color-picker v-model="themes.info" class="my-1" />
+          <!-- <va-color-picker v-model="themes.info" class="my-1" /> -->
         </va-dropdown>
 
         <va-dropdown class="color-picker-dropdown mt-1 mb-1">
@@ -51,7 +50,7 @@
             <va-badge class="color-picker-dropdown__badge" color="danger" text="Danger" />
           </template>
 
-          <va-color-picker v-model="themes.danger" class="my-1" />
+          <!-- <va-color-picker v-model="themes.danger" class="my-1" /> -->
         </va-dropdown>
 
         <va-dropdown class="color-picker-dropdown mt-1 mb-1">
@@ -59,7 +58,7 @@
             <va-badge class="color-picker-dropdown__badge" color="warning" text="Warning" />
           </template>
 
-          <va-color-picker v-model="themes.warning" class="my-1" />
+          <!-- <va-color-picker v-model="themes.warning" class="my-1" /> -->
         </va-dropdown>
 
         <va-dropdown class="color-picker-dropdown mt-1 mb-1">
@@ -67,7 +66,7 @@
             <va-badge class="color-picker-dropdown__badge" color="gray" text="Gray" />
           </template>
 
-          <va-color-picker v-model="themes.gray" class="my-1" />
+          <!-- <va-color-picker v-model="themes.gray" class="my-1" /> -->
         </va-dropdown>
 
         <va-dropdown class="color-picker-dropdown mt-1 mb-1">
@@ -75,33 +74,39 @@
             <va-badge class="color-picker-dropdown__badge" color="dark" text="Dark" />
           </template>
 
-          <va-color-picker v-model="themes.dark" class="my-1" />
+          <!-- <va-color-picker v-model="themes.dark" class="my-1" /> -->
         </va-dropdown>
       </div>
-      </va-button-dropdown>
-    </template>
-  </va-dropdown>
+    </va-button-dropdown>
+  </div>
 </template>
 
 <script lang="ts">
 // @ts-nocheck
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
-import { ThemeName } from '../../../theme-config'
-import { capitalize } from 'lodash'
+import { ThemeName, COLOR_THEMES } from '../../../theme-config'
+import { capitalize, isEqual } from 'lodash'
 import { useTheme } from 'vuestic-ui'
 
 @Options({})
 export default class ColorDropdown extends Vue {
   data () {
     return {
-      selectedTheme: ThemeName.DEFAULT,
+      // selectedTheme: ThemeName.DEFAULT,
       themeOptions: Object.keys(ThemeName).map(name => ({
         label: capitalize(name),
         value: name,
       })),
     }
   }
+
+  selectedTheme = setup(() => {
+    const { getTheme } = useTheme()
+    const selectedTheme = ref(isEqual(COLOR_THEMES[ThemeName.DEFAULT], getTheme()) ? ThemeName.DEFAULT : ThemeName.CORPORATE)
+
+    return selectedTheme
+  })
 
   get themeLabel () {
     return capitalize(this.selectedTheme)
@@ -115,12 +120,13 @@ export default class ColorDropdown extends Vue {
     this.$root.eventBus.$emit('changeTheme', themeName.toUpperCase())
   }
 
-  themes = setup(() => {
-    const { getTheme } = { ...useTheme() }
+  get themes () {
+    return this.getTheme()
+  }
 
-    const themes = getTheme ? getTheme() : {}
-
-    return themes
+  getTheme = setup(() => {
+    const { getTheme } = useTheme()
+    return getTheme
   })
 }
 </script>

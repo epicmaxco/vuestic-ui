@@ -18,12 +18,13 @@ import { useTheme } from 'vuestic-ui'
   name: 'vuestic-logo',
 })
 export default class VuesticLogo extends Vue {
-  themes = setup(() => {
-    const { getTheme } = { ...useTheme() }
+  get themes () {
+    return this.getTheme()
+  }
 
-    const themes = getTheme ? getTheme() : {}
-
-    return themes
+  getTheme = setup(() => {
+    const { getTheme } = useTheme()
+    return getTheme
   })
 }
 </script>

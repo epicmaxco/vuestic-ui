@@ -30,8 +30,6 @@ import Footer from '@/components/landing/Footer.vue'
 import OpenSource from '@/components/landing/OpenSource.vue'
 import Seamless from '@/components/landing/Seamless.vue'
 import Customize from '@/components/landing/Customize.vue'
-import { COLOR_THEMES, ThemeName } from '@/theme-config'
-import { useTheme } from 'vuestic-ui'
 
 @Options({
   components: {
@@ -44,80 +42,7 @@ import { useTheme } from 'vuestic-ui'
     Customize,
   },
 } as any)
-export default class Landing extends Vue {
-  data () {
-    return {
-      isSidebarVisible: true,
-      // only default theme guaranteed to work
-      contextConfig: {
-        gradient: true,
-        shadow: 'lg',
-        invertedColor: false,
-      },
-    }
-  }
-
-  provide () {
-    return {
-      contextConfig: this.contextConfig,
-    }
-  }
-
-  created () {
-    this.$root.eventBus.$on('changeTheme', this.setTheme)
-  }
-
-  mounted () {
-    if (this.$route.hash) {
-      document.querySelector(this.$route.hash).scrollIntoView()
-    }
-  }
-
-  beforeUnmount () {
-    this.$root.eventBus.$off('changeTheme', this.setTheme)
-  }
-
-  setTheme = setup(() => {
-    const { setTheme } = { ...useTheme() }
-
-    return themeName => setTheme(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
-  })
-
-  get crumbs () {
-    if (this.$isServer) {
-      return []
-    }
-    // @ts-ignore
-    if (this.$route.path === '/') {
-      return [
-        {
-          label: 'Home',
-          path: `/${this.$root.$i18n.locale}/`,
-        },
-      ]
-    }
-    const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
-    return pathSteps.reduce((acc, step, index, array) => {
-      switch (true) {
-      case !index:
-        acc.push({
-          label: 'Home',
-          path: `/${this.$root.$i18n.locale}/`,
-        })
-        break
-      case !step && index:
-        break
-      default:
-        acc.push({
-          path: '/' + array.slice(0, index + 1).join('/'),
-          label: step,
-        })
-        break
-      }
-      return acc
-    }, [] as { [key: string]: string, }[])
-  }
-}
+export default class Landing extends Vue {}
 </script>
 
 <style lang="scss">
