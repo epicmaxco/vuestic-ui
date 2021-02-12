@@ -1,5 +1,6 @@
 <template>
   <component
+    class="va-tab"
     :is="tagComputed"
     :href="hrefComputed"
     :target="target"
@@ -8,17 +9,18 @@
     :exact="exact"
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
-    class="va-tab"
     :class="classComputed"
-    @click="onTabClick()"
-    @keydown.enter="onTabKeydown"
-    @mousedown="hasMouseDown = true"
-    @mouseup="hasMouseDown = false"
     :tabindex="tabIndexComputed"
-    @focus="onFocus"
-    @blur="isKeyboardFocused = false"
   >
-    <div class="va-tab__content">
+    <div
+      class="va-tab__content"
+      @focus="onFocus"
+      @blur="isKeyboardFocused = false"
+      @click="onTabClick()"
+      @keydown.enter="onTabKeydown"
+      @mousedown="hasMouseDown = true"
+      @mouseup="hasMouseDown = false"
+    >
       <slot>
         <va-icon
           v-if="icon"
@@ -152,8 +154,6 @@ export default class VaTab extends mixins(
   max-width: 264px;
   text-align: center;
   vertical-align: middle;
-  padding: 0.4375rem 0.75rem;
-  cursor: pointer;
   color: inherit;
 
   &:not(.va-tab--active) {
@@ -172,6 +172,8 @@ export default class VaTab extends mixins(
     transition: $transition-primary;
     user-select: none;
     white-space: nowrap;
+    padding: 0.4375rem 0.75rem;
+    cursor: pointer;
   }
 
   &__icon {
