@@ -1,4 +1,3 @@
-// @ts-nocheck
 import 'vuestic-ui/dist/vuestic-ui.css'
 
 import { createApp } from 'vue'
