@@ -51,7 +51,7 @@
 
 <script lang="ts">
 // @ts-nocheck
-import { provide } from 'vue'
+import { provide, reactive } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
@@ -72,20 +72,20 @@ export default class DocsLayout extends Vue {
       themeKey: +new Date(),
 
       isSidebarVisible: true,
-      // only default theme guaranteed to work
-      contextConfig: {
-        gradient: true,
-        shadow: 'lg',
-        invertedColor: false,
-      },
     }
   }
 
-  provide () {
-    return {
-      contextConfig: this.contextConfig,
-    }
-  }
+  contextConfig = setup(() => {
+    const contextConfig = reactive({
+      gradient: true,
+      shadow: 'lg',
+      invertedColor: false,
+    })
+
+    provide('contextConfig', contextConfig)
+
+    return contextConfig
+  })
 
   created () {
     this.$root.eventBus.$on('changeTheme', this.changeTheme)
@@ -116,9 +116,9 @@ export default class DocsLayout extends Vue {
   })
 
   get crumbs () {
-    if (this.$isServer) {
-      return []
-    }
+    // if (this.$isServer) {
+    //   return []
+    // }
     // @ts-ignore
     if (this.$route.path === '/') {
       return [
