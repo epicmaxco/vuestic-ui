@@ -153,8 +153,8 @@ export default class DocsLayout extends Vue {
 </script>
 
 <style lang="scss">
-@import "vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
-@import "@/assets/main";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
+@import "~@/assets/main";
 
 html {
   font-family: $font-family-sans-serif;

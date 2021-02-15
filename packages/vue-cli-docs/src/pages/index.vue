@@ -46,7 +46,7 @@ export default class Landing extends Vue {}
 </script>
 
 <style lang="scss">
-@import "vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
 @import "./../assets/main";
 
 .landing {
