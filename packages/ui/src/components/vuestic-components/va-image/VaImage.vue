@@ -32,8 +32,8 @@ import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 class ImageProps {
   ratio = prop<number>({ type: [Number], default: 1 })
-  contain = prop({ type: Boolean, default: false })
-  src = prop({ type: String, required: true })
+  contain = prop<boolean>({ type: Boolean, default: false })
+  src = prop<string>({ type: String, required: true })
 }
 
 const ImagePropsMixin = Vue.with(ImageProps)

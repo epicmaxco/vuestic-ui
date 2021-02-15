@@ -11,7 +11,7 @@ import { Vue, Options, prop, mixins } from 'vue-class-component'
 import { Slider } from 'vue-color'
 
 class ColorPickerInputProps {
-  modelValue = prop({
+  modelValue = prop<string>({
     type: String,
     default: '',
   })

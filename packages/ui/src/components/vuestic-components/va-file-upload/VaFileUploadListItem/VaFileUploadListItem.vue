@@ -24,7 +24,7 @@
       <va-icon
         color="danger"
         name="clear"
-        @click="removeFile"
+        @click="removeFile()"
         class="va-file-upload-list-item__delete"
       />
     </div>
@@ -40,12 +40,12 @@ import VaIcon from '../../va-icon'
 import VaFileUploadUndo from '../VaFileUploadUndo'
 
 class FileUploadListItemProps {
-  file = prop({
+  file = prop<object>({
     type: Object,
     default: null,
   })
 
-  color = prop({
+  color = prop<string>({
     type: String,
     default: 'success',
   })

@@ -18,12 +18,12 @@ import { getGradientBackground } from '../../../services/color-functions'
 import ColorMixin from '../../../services/ColorMixin'
 
 class SidebarProps {
-  minimized = prop({ type: Boolean, default: false })
-  hoverable = prop({ type: Boolean, default: false })
-  position = prop({ type: String, default: 'left' })
-  width = prop({ type: String, default: '16rem' })
-  minimizedWidth = prop({ type: String, default: '2.5rem' })
-  modelValue = prop({ type: Boolean, default: true })
+  minimized = prop<boolean>({ type: Boolean, default: false })
+  hoverable = prop<boolean>({ type: Boolean, default: false })
+  position = prop<string>({ type: String, default: 'left' })
+  width = prop<string>({ type: String, default: '16rem' })
+  minimizedWidth = prop<string>({ type: String, default: '2.5rem' })
+  modelValue = prop<boolean>({ type: Boolean, default: true })
 }
 
 const SidebarPropsMixin = Vue.with(SidebarProps)

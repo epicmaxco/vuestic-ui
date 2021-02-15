@@ -23,7 +23,7 @@
         :palette="palette"
         v-model="value"
       />
-    </VbCard> -->
+    </VbCard>
 
     <VbCard title="Simple Palette Picker">
       <va-color-palette

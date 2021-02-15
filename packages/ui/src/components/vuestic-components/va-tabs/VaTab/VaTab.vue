@@ -10,7 +10,7 @@
     :exact-active-class="exactActiveClass"
     class="va-tab"
     :class="classComputed"
-    @click="onTabClick"
+    @click="onTabClick()"
     @keydown.enter="onTabKeydown"
     @mousedown="hasMouseDown = true"
     @mouseup="hasMouseDown = false"
@@ -50,11 +50,11 @@ type Context = {
 }
 
 class TabProps {
-  icon = prop({ type: String, default: null })
-  label = prop({ type: String, default: null })
-  disabled = prop({ type: Boolean })
+  icon = prop<string>({ type: String, default: null })
+  label = prop<string>({ type: String, default: null })
+  disabled = prop<boolean>({ type: Boolean })
   name = prop<string | number>({ type: [String, Number] })
-  tag = prop({ type: String, default: 'div' })
+  tag = prop<string>({ type: String, default: 'div' })
 }
 
 const TabPropsMixin = Vue.with(TabProps)

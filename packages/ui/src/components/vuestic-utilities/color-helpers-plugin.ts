@@ -3,8 +3,6 @@ import { App, watch } from 'vue'
 import { getDefaultOptions } from '../../services/ColorMixin'
 import { addOrUpdateStyleElement } from '../../services/dom-functions'
 
-// const vmInstance = new Vue()
-
 const createThemeColorStyles = (themes: Record<string, string>): string => {
   let result = ''
 

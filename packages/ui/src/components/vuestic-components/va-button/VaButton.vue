@@ -74,10 +74,10 @@ import { VaProgressCircle } from '../va-progress-bar'
 import { ButtonGroupServiceKey } from '../va-button-group'
 
 class ButtonProps {
-  tag = prop({ type: String, default: 'button' })
-  outline = prop({ type: Boolean, default: false })
-  flat = prop({ type: Boolean, default: false })
-  size = prop({
+  tag = prop<string>({ type: String, default: 'button' })
+  outline = prop<boolean>({ type: Boolean, default: false })
+  flat = prop<boolean>({ type: Boolean, default: false })
+  size = prop<string>({
     type: String,
     default: 'medium',
     validator: (value: string) => {
@@ -85,12 +85,12 @@ class ButtonProps {
     },
   })
 
-  icon = prop({ type: String, default: '' })
-  iconRight = prop({ type: String, default: '' })
-  type = prop({ type: String, default: 'button' })
-  disabled = prop({ type: Boolean, default: false })
-  block = prop({ type: Boolean, default: false })
-  round = prop({ type: Boolean, default: true })
+  icon = prop<string>({ type: String, default: '' })
+  iconRight = prop<string>({ type: String, default: '' })
+  type = prop<string>({ type: String, default: 'button' })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  block = prop<boolean>({ type: Boolean, default: false })
+  round = prop<boolean>({ type: Boolean, default: true })
 }
 
 const ButtonPropsMixin = Vue.with(ButtonProps)

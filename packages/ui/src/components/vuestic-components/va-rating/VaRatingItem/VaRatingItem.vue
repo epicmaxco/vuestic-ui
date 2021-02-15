@@ -36,15 +36,15 @@ import { RatingValue } from '../VaRating.types'
 import VaIcon from '../../va-icon'
 
 class RatingItemProps {
-  modelValue = prop({ type: Number, default: 0 })
-  filledIconName = prop({ type: String, default: 'star' })
-  halfIconName = prop({ type: String, default: 'star_half' })
-  emptyIconName = prop({ type: String, default: 'star_empty' })
-  halves = prop({ type: Boolean, default: false })
-  hover = prop({ type: Boolean, default: false })
-  tabindex = prop({ type: Number })
+  modelValue = prop<number>({ type: Number, default: 0 })
+  filledIconName = prop<string>({ type: String, default: 'star' })
+  halfIconName = prop<string>({ type: String, default: 'star_half' })
+  emptyIconName = prop<string>({ type: String, default: 'star_empty' })
+  halves = prop<boolean>({ type: Boolean, default: false })
+  hover = prop<boolean>({ type: Boolean, default: false })
+  tabindex = prop<number>({ type: Number })
   size = prop<string | number>({ type: [String, Number], default: 'medium' })
-  emptyIconColor = prop({ type: String })
+  emptyIconColor = prop<string>({ type: String })
 }
 
 const RatingItemPropsMixin = Vue.with(RatingItemProps)

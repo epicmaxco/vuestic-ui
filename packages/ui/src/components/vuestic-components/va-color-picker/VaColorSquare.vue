@@ -9,7 +9,7 @@
 import { Vue, Options, prop, mixins } from 'vue-class-component'
 
 class ColorSquareProps {
-  modelValue = prop({
+  modelValue = prop<string>({
     type: String,
     default: '',
     required: true,

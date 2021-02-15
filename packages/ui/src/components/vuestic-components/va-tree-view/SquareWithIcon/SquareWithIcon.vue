@@ -14,7 +14,7 @@ import ColorMixin from '../../../../services/ColorMixin'
 import VaIcon from '../../va-icon'
 
 class SquareWithIconProps {
-  icon = prop({ default: '', type: String, required: true })
+  icon = prop<string>({ default: '', type: String, required: true })
 }
 
 const SquareWithIconPropsMixin = Vue.with(SquareWithIconProps)

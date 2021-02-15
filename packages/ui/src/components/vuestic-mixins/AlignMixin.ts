@@ -10,7 +10,7 @@ export const alignMap = {
 }
 
 class AlignMixinProps {
-  align = prop({
+  align = prop<string>({
     type: String,
     default: 'left',
     validator: (align: string) => align in alignMap,

@@ -5,8 +5,8 @@ import { warn } from '../../../../services/utils'
 import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 class Props {
-  autosize = prop({ type: Boolean, default: false })
-  minRows = prop({
+  autosize = prop<boolean>({ type: Boolean, default: false })
+  minRows = prop<number>({
     type: Number,
     default: null,
     validator: (val: number) => {
@@ -17,7 +17,7 @@ class Props {
     },
   })
 
-  maxRows = prop({
+  maxRows = prop<number>({
     type: Number,
     validator: (val: number) => {
       if (!(val > 0 && (val | 0) === val)) {
@@ -28,8 +28,8 @@ class Props {
     default: null,
   })
 
-  type = prop({ type: String, default: 'text' })
-  label = prop({ type: String, default: '' })
+  type = prop<string>({ type: String, default: 'text' })
+  label = prop<string>({ type: String, default: '' })
 }
 
 const PropsMixin = Vue.with(Props)

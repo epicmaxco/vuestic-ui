@@ -14,8 +14,8 @@ const initialConfig = {
 config.global.plugins.push([GlobalConfigPlugin, initialConfig])
 
 class MixinProps {
-  value = prop({ type: Number, default: 42 })
-  anotherProp = prop({ type: Object, default: {} })
+  value = prop<number>({ type: Number, default: 42 })
+  anotherProp = prop<object>({ type: Object, default: {} })
 }
 
 const Mixin = Vue.with(MixinProps)

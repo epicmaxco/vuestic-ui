@@ -55,12 +55,12 @@ import VaColorSlider from '../va-color-slider'
 import VaDropdown from '../va-dropdown'
 
 class ColorInputAdvancedProps {
-  value = prop({
+  value = prop<string>({
     type: String,
     default: '',
   })
 
-  indicator = prop({
+  indicator = prop<string>({
     type: String,
     default: 'dot',
     validator: (value: string) => {
@@ -68,17 +68,17 @@ class ColorInputAdvancedProps {
     },
   })
 
-  mode = prop({
+  mode = prop<string>({
     type: String,
     default: '',
   })
 
-  palette = prop({
+  palette = prop<any[]>({
     type: Array,
     default: () => [],
   })
 
-  selected = prop({
+  selected = prop<boolean>({
     type: Boolean,
     default: false,
   })

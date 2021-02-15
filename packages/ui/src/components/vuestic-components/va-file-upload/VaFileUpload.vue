@@ -59,7 +59,7 @@ import VaModal from '../va-modal'
 import VaFileUploadList from './VaFileUploadList'
 
 class FileUploadProps {
-  type = prop({
+  type = prop<string>({
     type: String,
     default: 'list',
     validator (modelValue: string) {
@@ -67,11 +67,11 @@ class FileUploadProps {
     },
   })
 
-  fileTypes = prop({ type: String, default: '' })
-  dropzone = prop({ type: Boolean, default: false })
-  modelValue = prop({ type: Array, default: () => [] })
-  color = prop({ type: String, default: 'success' })
-  disabled = prop({ type: Boolean, default: false })
+  fileTypes = prop<string>({ type: String, default: '' })
+  dropzone = prop<boolean>({ type: Boolean, default: false })
+  modelValue = prop<any[]>({ type: Array, default: () => [] })
+  color = prop<string>({ type: String, default: 'success' })
+  disabled = prop<boolean>({ type: Boolean, default: false })
 }
 
 const FileUploadPropsMixin = Vue.with(FileUploadProps)

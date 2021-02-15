@@ -42,9 +42,6 @@ var config = {
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
         new VueLoaderPlugin(),
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static'
-        }),
     ],
     performance: {
         hints: false
@@ -158,5 +155,5 @@ Object.defineProperty(RegExp.prototype, 'toJSON', {
     // eslint-disable-next-line
     value: RegExp.prototype.toString
 });
-console.log('config', JSON.stringify(config, null, 2));
+// console.log('config', JSON.stringify(config, null, 2))
 module.exports = config;

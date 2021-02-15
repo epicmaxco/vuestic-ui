@@ -26,17 +26,17 @@ const DEFAULT_MASK_TOKENS: Record<string, object> = {
 
 class Props {
   // Mask option list - https://github.com/nosir/cleave.js/blob/master/doc/options.md#blocks
-  mask = prop({
+  mask = prop<string | CleaveOptions>({
     type: [String, Object],
     default: () => ({}),
   })
 
-  returnRaw = prop({
+  returnRaw = prop<boolean>({
     type: Boolean,
     default: true,
   })
 
-  removable = prop({ type: Boolean, default: false })
+  removable = prop<boolean>({ type: Boolean, default: false })
 
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
 }
@@ -49,7 +49,7 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
   isFocused = false
 
   context = setup(() => {
-    watch(() => this.$props.mask, (mask) => {
+    watch(() => this.$props.mask, (mask: string | CleaveOptions) => {
       this.destroyCleaveInstance()
       this.inputElement = new Cleave(this.$refs.input as HTMLInputElement, this.getMask(mask))
       this.inputElement.setRawValue(this.modelValue)

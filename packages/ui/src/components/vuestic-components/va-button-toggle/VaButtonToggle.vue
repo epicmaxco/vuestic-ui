@@ -29,13 +29,13 @@ import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
 class ButtonToggleProps {
-  options = prop({ type: Array, default: () => [] })
+  options = prop<any[]>({ type: Array, default: () => [] })
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
-  outline = prop({ type: Boolean, default: false })
-  flat = prop({ type: Boolean, default: false })
-  round = prop({ type: Boolean, default: true })
-  disabled = prop({ type: Boolean, default: false })
-  size = prop({
+  outline = prop<boolean>({ type: Boolean, default: false })
+  flat = prop<boolean>({ type: Boolean, default: false })
+  round = prop<boolean>({ type: Boolean, default: true })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  size = prop<string>({
     type: String,
     default: 'medium',
     validator: (modelValue: string) => {
@@ -43,7 +43,7 @@ class ButtonToggleProps {
     },
   })
 
-  toggleColor = prop({ type: String, default: '' })
+  toggleColor = prop<string>({ type: String, default: '' })
 }
 
 const ButtonTogglePropsMixin = Vue.with(ButtonToggleProps)

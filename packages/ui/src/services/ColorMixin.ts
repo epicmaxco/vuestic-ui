@@ -35,7 +35,7 @@ export const useColor = () => {
 }
 
 class Props {
-  color = prop({
+  color = prop<string>({
     type: String,
     default: '',
   })

@@ -11,7 +11,7 @@ import { Vue, Options, prop, mixins } from 'vue-class-component'
 import { Chrome } from 'vue-color'
 
 class AdvancedColorPickerProps {
-  modelValue = prop({
+  modelValue = prop<string>({
     type: String,
     default: '',
   })

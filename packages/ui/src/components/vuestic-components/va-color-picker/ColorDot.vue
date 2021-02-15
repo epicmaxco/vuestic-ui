@@ -15,12 +15,12 @@
 import { Vue, Options, prop, mixins } from 'vue-class-component'
 
 class ColorDotProps {
-  color = prop({
+  color = prop<string>({
     type: String,
     default: '',
   })
 
-  selected = prop({
+  selected = prop<boolean>({
     type: Boolean,
     default: false,
   })

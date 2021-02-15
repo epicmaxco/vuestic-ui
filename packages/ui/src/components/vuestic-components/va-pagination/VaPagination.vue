@@ -96,28 +96,28 @@ import VaInput from '../va-input'
 import { setPaginationRange } from './setPaginationRange'
 
 class PaginationProps {
-  modelValue = prop({ type: Number, default: 1 })
-  visiblePages = prop({ type: Number, default: 0 })
-  pages = prop({ type: Number, default: 0 })
-  disabled = prop({ type: Boolean, default: false })
-  size = prop({
+  modelValue = prop<number>({ type: Number, default: 1 })
+  visiblePages = prop<number>({ type: Number, default: 0 })
+  pages = prop<number>({ type: Number, default: 0 })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  size = prop<string>({
     type: String,
     default: 'medium',
     validator: (v: string) => ['medium', 'small', 'large'].includes(v),
   })
 
-  boundaryLinks = prop({ type: Boolean, default: true })
-  boundaryNumbers = prop({ type: Boolean, default: false })
-  directionLinks = prop({ type: Boolean, default: true })
-  input = prop({ type: Boolean, default: false })
-  hideOnSinglePage = prop({ type: Boolean, default: false })
-  flat = prop({ type: Boolean, default: false })
-  total = prop({ type: Number, default: null })
-  pageSize = prop({ type: Number, default: null })
-  boundaryIconLeft = prop({ type: String, default: 'first_page' })
-  boundaryIconRight = prop({ type: String, default: 'last_page' })
-  directionIconLeft = prop({ type: String, default: 'chevron_left' })
-  directionIconRight = prop({ type: String, default: 'chevron_right' })
+  boundaryLinks = prop<boolean>({ type: Boolean, default: true })
+  boundaryNumbers = prop<boolean>({ type: Boolean, default: false })
+  directionLinks = prop<boolean>({ type: Boolean, default: true })
+  input = prop<boolean>({ type: Boolean, default: false })
+  hideOnSinglePage = prop<boolean>({ type: Boolean, default: false })
+  flat = prop<boolean>({ type: Boolean, default: false })
+  total = prop<number>({ type: Number, default: null })
+  pageSize = prop<number>({ type: Number, default: null })
+  boundaryIconLeft = prop<string>({ type: String, default: 'first_page' })
+  boundaryIconRight = prop<string>({ type: String, default: 'last_page' })
+  directionIconLeft = prop<string>({ type: String, default: 'chevron_left' })
+  directionIconRight = prop<string>({ type: String, default: 'chevron_right' })
 }
 
 const PaginationPropsMixin = Vue.with(PaginationProps)

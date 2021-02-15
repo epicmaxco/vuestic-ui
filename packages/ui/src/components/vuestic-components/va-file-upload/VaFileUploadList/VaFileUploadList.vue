@@ -37,9 +37,9 @@ import VaFileUploadGalleryItem from '../VaFileUploadGalleryItem'
 import VaFileUploadSingleItem from '../VaFileUploadSingleItem'
 
 class FileUploadListProps {
-  type = prop({ type: String, default: '' })
-  files = prop({ type: [Object, Array], default: null })
-  color = prop({ type: String, default: 'success' })
+  type = prop<string>({ type: String, default: '' })
+  files = prop<any|any[]>({ type: [Object, Array], default: null })
+  color = prop<string>({ type: String, default: 'success' })
 }
 
 const FileUploadListPropsMixin = Vue.with(FileUploadListProps)

@@ -23,11 +23,11 @@ import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 class ParallaxProps {
   target = prop<Element | string>({ type: [Element, String], default: '' })
-  src = prop({ type: String, default: '', required: true })
-  alt = prop({ type: String, default: 'parallax' })
-  height = prop({ type: Number, default: 400 })
-  reversed = prop({ type: Boolean, default: false })
-  speed = prop({
+  src = prop<string>({ type: String, default: '', required: true })
+  alt = prop<string>({ type: String, default: 'parallax' })
+  height = prop<number>({ type: Number, default: 400 })
+  reversed = prop<boolean>({ type: Boolean, default: false })
+  speed = prop<number>({
     type: Number,
     default: 0.5,
     validator: (value: number) => {

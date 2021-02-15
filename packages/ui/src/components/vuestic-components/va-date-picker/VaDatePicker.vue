@@ -40,52 +40,52 @@ import VaInput from '../va-input'
 import VaIcon from '../va-icon'
 
 class DatePickerProps {
-  modelValue = prop({
+  modelValue = prop<string|object|number>({
     type: [String, Object, Number],
     default: '',
   })
 
-  weekDays = prop({
+  weekDays = prop<boolean>({
     type: Boolean,
     default: false,
   })
 
-  placeholder = prop({
+  placeholder = prop<string>({
     type: String,
     default: '',
   })
 
-  label = prop({
+  label = prop<string>({
     type: String,
     default: '',
   })
 
-  disabled = prop({
+  disabled = prop<boolean>({
     type: Boolean,
     default: false,
   })
 
-  error = prop({
+  error = prop<boolean>({
     type: Boolean,
     default: false,
   })
 
-  success = prop({
+  success = prop<boolean>({
     type: Boolean,
     default: false,
   })
 
-  messages = prop({
+  messages = prop<any[]>({
     type: Array,
     default: () => [],
   })
 
-  errorMessages = prop({
+  errorMessages = prop<any[]>({
     type: Array,
     default: () => [],
   })
 
-  config = prop({
+  config = prop<object>({
     type: Object,
     default: () => undefined,
   })

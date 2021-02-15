@@ -7,13 +7,16 @@ import { KeyboardOnlyFocusMixin } from '../KeyboardOnlyFocusMixin/KeyboardOnlyFo
 import { LoadingMixin } from '../LoadingMixin/LoadingMixin'
 
 class Props {
-  arrayValue = prop({ type: [String, Object], default: '' })
-  label = prop({ type: String, default: '' })
-  leftLabel = prop({ type: Boolean, default: false })
+  arrayValue = prop<string | object>({ type: [String, Object], default: '' })
+  label = prop<string>({ type: String, default: '' })
+  leftLabel = prop<boolean>({ type: Boolean, default: false })
   trueValue = prop({ default: true })
   falseValue = prop({ default: false })
-  indeterminate = prop({ type: Boolean, default: false })
-  indeterminateValue = prop({ type: [Boolean, Array, String, Object], default: null })
+  indeterminate = prop<boolean>({ type: Boolean, default: false })
+  indeterminateValue = prop<boolean | any[] | string | object>({
+    type: [Boolean, Array, String, Object],
+    default: null,
+  })
 }
 
 const PropsMixin = Vue.with(Props)
@@ -63,7 +66,7 @@ export class SelectableMixin extends mixins(
 
   checkDuplicates (): void {
     // Just validating state values.
-    const values = [this.falseValue, this.trueValue]
+    const values: any[] = [this.falseValue, this.trueValue]
     if (this.indeterminate) {
       values.push(this.indeterminateValue)
     }

@@ -43,13 +43,13 @@ import ColorMixin from '../../../services/ColorMixin'
 import { VaProgressCircle } from '../va-progress-bar'
 
 class InfiniteScrollProps {
-  load = prop({ type: Function, required: true })
-  offset = prop({ type: Number, default: 500 })
-  reverse = prop({ type: Boolean, default: false })
-  disabled = prop({ type: Boolean, default: false })
+  load = prop<Function>({ type: Function, required: true })
+  offset = prop<number>({ type: Number, default: 500 })
+  reverse = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
   scrollTarget = prop<Element | string>({ type: [Element, String], default: null })
-  debounce = prop({ type: Number, default: 100 })
-  tag = prop({ type: String, default: 'div' })
+  debounce = prop<number>({ type: Number, default: 100 })
+  tag = prop<string>({ type: String, default: 'div' })
 }
 
 const InfiniteScrollPropsMixin = Vue.with(InfiniteScrollProps)

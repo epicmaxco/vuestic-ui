@@ -21,7 +21,7 @@ import { Vue, Options, prop, mixins } from 'vue-class-component'
 import VaButton from '../../va-button'
 
 class FileUploadSingleItemProps {
-  file = prop({
+  file = prop<object>({
     type: Object,
     default: null,
   })

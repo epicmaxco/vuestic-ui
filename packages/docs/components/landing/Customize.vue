@@ -61,7 +61,7 @@
 
           <!-- Second block -->
           <div class="customize__content--second">
-            <div class="code-wrapper" @click="copyText">
+            <div class="code-wrapper" @click="copyText()">
               <div class="code-subwrapper">
               <prism  class="code" language="javascript">{{ code }}</prism>
               <input type="hidden" ref="codeInput" :value="code">
