@@ -1,5 +1,5 @@
 <script lang="ts">
-import { VNode, h } from 'vue'
+import { VNode, h, Fragment } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 import { hasOwnProperty } from '../../../services/utils'
@@ -37,9 +37,16 @@ export default class VaBreadcrumbs extends mixins(
 
   render () {
     // TODO: use provide/inject for this not to stick to component's name
-    const childNodeFilter = (node?: VNode) => !!(node?.type as any)?.name?.match(/VaBreadcrumbsItem$/)
+    const childNodeFilter = (result: Array<VNode>, node?: VNode) => {
+      const nodes = node && node.type === Fragment && node.children ? node.children as Array<VNode> : [node]
 
-    const childNodes = (this.$slots as any)?.default()?.filter(childNodeFilter) || []
+      return [
+        ...result,
+        ...nodes.filter((node?: VNode) => !!(node?.type as any)?.name?.match(/VaBreadcrumbsItem$/)),
+      ]
+    }
+
+    const childNodes = (this.$slots as any)?.default()?.reduce(childNodeFilter, []) || []
 
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
