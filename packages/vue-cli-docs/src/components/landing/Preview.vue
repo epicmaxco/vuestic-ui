@@ -22,11 +22,11 @@
             {{$t('landing.preview.buttons.github')}}
           </va-button>
         </div>
-        <div class="preview__image">
-          <div class="components-slideshow">
-            <div class="mover"></div>
-          </div>
-        </div>
+<!--        <div class="preview__image">-->
+<!--          <div class="components-slideshow">-->
+<!--            <div class="mover"></div>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="preview__features">
 
           <!-- items -->
@@ -161,14 +161,14 @@
     @include col();
     @include size(12);
 
-    padding-top: 30rem;
+    padding-top: 4rem;
     padding-bottom: 8rem;
     justify-content: center;
 
     // md
-    @include md(padding-top, 27rem);
+    //@include md(padding-top, 27rem);
     // sm
-    @include sm(padding-top, 26rem);
+    //@include sm(padding-top, 26rem);
     @include sm(padding-bottom, 4rem);
   }
 }
@@ -221,20 +221,20 @@
   transform: translate3d(0, 0, 0);
 }
 
-.components-slideshow .mover {
-  width: 3153px;
-  background: url(../../assets/landing/images/components.png);
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  animation: moveSlideshow 120s linear infinite;
-  transform: translate3d(0, 0, 0);
-}
-
-@keyframes moveSlideshow {
-  100% {
-    transform: translateX(-33.33333%);
-  }
-}
+//.components-slideshow .mover {
+//  width: 3153px;
+//  background: url(../../assets/landing/images/components.png);
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  height: 100%;
+//  animation: moveSlideshow 120s linear infinite;
+//  transform: translate3d(0, 0, 0);
+//}
+//
+//@keyframes moveSlideshow {
+//  100% {
+//    transform: translateX(-33.33333%);
+//  }
+//}
 </style>
