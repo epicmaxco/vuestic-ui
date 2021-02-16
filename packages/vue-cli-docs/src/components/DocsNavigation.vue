@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
 
 .docs-navigation {
   background: $prism-background;

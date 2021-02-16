@@ -139,7 +139,6 @@ import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
 import { getApiTableData, mergeInDefaults } from './api-docs-helpers'
 import MarkdownView from '@/utilities/markdown-view/MarkdownView.vue'
 import { defaultApiOptions } from './default-api-options'
-import { cloneDeep } from 'lodash'
 
 class Props {
   componentOptions = prop<DefineComponent | VueConstructor>({ type: Object, required: true })
@@ -164,7 +163,7 @@ export default class ApiDocs extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss">
-@import "vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
 
 .ApiDocs {
   &__table {

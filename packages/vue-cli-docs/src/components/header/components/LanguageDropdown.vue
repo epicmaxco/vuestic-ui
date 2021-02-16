@@ -29,19 +29,11 @@
 <script>
 // @ts-nocheck
 import { Options, Vue, setup } from 'vue-class-component'
-// import VaIcon from 'vuestic-ui/src/components/vuestic-components/va-icon/VaIcon.vue'
-// import VaDropdown from 'vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue'
-// import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
 import { languages } from './../../languages'
 import { useTheme } from 'vuestic-ui'
 
 @Options({
   name: 'language-dropdown',
-  components: {
-    // VaIcon,
-    // VaDropdown,
-    // VaButton,
-  },
 })
 export default class LanguageDropdown extends Vue {
   options = languages
@@ -78,7 +70,7 @@ export default class LanguageDropdown extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
 
 .language-dropdown {
   cursor: pointer;

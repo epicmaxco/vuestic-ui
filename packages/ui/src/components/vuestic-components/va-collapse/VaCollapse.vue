@@ -164,6 +164,7 @@ export default class VaCollapse extends mixins(
   }
 
   getHeight () {
+    // @ts-ignore
     const nodes = [...(this.body?.childNodes || [])] as HTMLElement[]
     return nodes.reduce((result: number, node: HTMLElement) => {
       result += node.nodeType === TEXT_NODE_TYPE ? this.getTextNodeHeight(node) : node.clientHeight
