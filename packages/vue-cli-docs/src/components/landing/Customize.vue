@@ -9,14 +9,16 @@
           <!-- Tabs -->
           <div  class="tabs-wrapper">
             <va-tabs v-model="tabValue" class="tabs" color="#fff" center grow>
-              <template #tabs>
-                <va-tab
-                  class="tabs__tab"
-                  v-for="tab in [`${$t('landing.customize.tabs[0]')}`, `${$t('landing.customize.tabs[1]')}`, `${$t('landing.customize.tabs[2]')}`]"
-                  :key="tab"
-                >
-                  {{ tab }}
-                </va-tab>
+              <template #tabs="scope">
+                <div :class="scope.class">
+                  <va-tab
+                    class="tabs__tab"
+                    v-for="tab in [`${$t('landing.customize.tabs[0]')}`, `${$t('landing.customize.tabs[1]')}`, `${$t('landing.customize.tabs[2]')}`]"
+                    :key="tab"
+                  >
+                    {{ tab }}
+                  </va-tab>
+                </div>
               </template>
             </va-tabs>
           </div>
