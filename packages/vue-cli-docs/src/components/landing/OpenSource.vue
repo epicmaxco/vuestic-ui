@@ -32,7 +32,7 @@ export default class OpenSource extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/main.scss";
+@import "~@/assets/main.scss";
 
 .opensource {
   width: 100%;

@@ -144,7 +144,7 @@ export default class Customize extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/main.scss";
+@import "~@/assets/main.scss";
 
 .customize {
   width: 100%;
