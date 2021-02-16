@@ -5,7 +5,7 @@
       v-model="value"
     >
     </va-color-input-advanced>
-    <br/>
+    <br />
 
     <p>Slider Mode</p>
     <va-color-input-advanced
@@ -13,7 +13,7 @@
       mode="slider"
     >
     </va-color-input-advanced>
-    <br/>
+    <br />
 
     <p>Advanced Mode</p>
     <va-color-input-advanced
@@ -22,7 +22,7 @@
     >
       <va-color-input v-model="value" />
     </va-color-input-advanced>
-    <br/>
+    <br />
 
     <p>Palette Mode</p>
     <va-color-input-advanced

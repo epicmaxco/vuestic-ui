@@ -3,7 +3,7 @@
     style="position: relative; height: 13rem; width: 100%; border: 2px solid black;"
     class="row"
   >
-  <va-checkbox v-model="enabled" style="margin-left: 20rem;" label="Enabled"/>
+  <va-checkbox v-model="enabled" style="margin-left: 20rem;" label="Enabled" />
     <va-sidebar v-model="enabled">
       <va-list style="background-color: inherit; color: white;">
         <va-list-item

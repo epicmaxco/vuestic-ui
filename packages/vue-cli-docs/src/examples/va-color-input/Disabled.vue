@@ -1,5 +1,5 @@
 <template>
-  <va-color-input v-model="value" disabled/>
+  <va-color-input v-model="value" disabled />
 </template>
 
 <script>

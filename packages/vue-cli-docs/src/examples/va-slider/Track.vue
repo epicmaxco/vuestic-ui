@@ -1,7 +1,7 @@
 <template>
   <div>
-    <va-slider v-model="value1" track-color="warning"/>
-    <va-slider v-model="value2" :show-track="false"/>
+    <va-slider v-model="value1" track-color="warning" />
+    <va-slider v-model="value2" :show-track="false" />
   </div>
 </template>
 

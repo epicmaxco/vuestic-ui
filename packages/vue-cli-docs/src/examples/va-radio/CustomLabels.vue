@@ -7,7 +7,7 @@
       :option="option"
       :label="labels[index]"
     />
-    <br/>
+    <br />
     <va-radio
       v-for="(option, index) in options"
       :key="index"

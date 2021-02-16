@@ -5,7 +5,7 @@
         style="min-height: 300px;"
         src="https://picsum.photos/1500"
       >
-        <va-badge text="default slot"/>
+        <va-badge text="default slot" />
       </va-image>
     </div>
   </div>
