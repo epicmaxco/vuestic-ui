@@ -17,14 +17,8 @@
 
 <script lang="ts">
 // @ts-nocheck
-import { Options, Vue } from 'vue-class-component'
-// import VaButtonDropdown from 'vuestic-ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
+import { Vue } from 'vue-class-component'
 
-@Options({
-  components: {
-    // VaButtonDropdown,
-  },
-})
 export default class VersionDropdown extends Vue {
   data () {
     return {

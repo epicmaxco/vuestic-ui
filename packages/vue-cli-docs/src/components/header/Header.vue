@@ -30,8 +30,6 @@
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-// import VaButton from 'vuestic-ui-dev/src/components/vuestic-components/va-button/VaButton.vue'
-// import VaSelect from '../../../ui/src/components/vuestic-components/va-select/VaSelect.vue'
 import LanguageDropdown from './components/LanguageDropdown.vue'
 import VersionDropdown from './components/VersionDropdown.vue'
 import ColorDropdown from './components/ColorDropdown.vue'
@@ -46,9 +44,7 @@ const PropsMixin = Vue.with(Props)
 
 @Options({
   components: {
-    // VaButton,
     HeaderSelector,
-    // VaSelect,
     LanguageDropdown,
     ColorDropdown,
     VersionDropdown,
@@ -92,9 +88,9 @@ export default class Header extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss" scoped>
-@import "vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
-@import "vuestic-ui-dev/src/components/vuestic-sass/grid/grid-global-styles";
-@import "vuestic-ui-dev/src/components/vuestic-sass/global/typography";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/grid/grid-global-styles";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/global/typography";
 
 .header {
   z-index: 2000 !important;

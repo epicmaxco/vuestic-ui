@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'vuestic-ui-dev/src/components/vuestic-sass/resources/resources';
+@import '~vuestic-ui-dev/src/components/vuestic-sass/resources/resources';
 
 .i-nav {
   display: inline-block;

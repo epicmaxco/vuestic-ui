@@ -15,6 +15,9 @@
       "@/*": [
         "src/*"
       ],
+      "vuestic-ui-dev/*": [
+        "../ui/*"
+      ]
     },
     "types": [
       "webpack-env",

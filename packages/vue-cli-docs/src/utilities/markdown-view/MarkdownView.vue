@@ -35,7 +35,7 @@ export default class MarkdownView extends mixins(PropsMixin) {
 }
 </script>
 <style lang="scss">
-@import "vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
 
 .MarkdownView {
   code {
