@@ -1,25 +1,25 @@
 <template>
-  <div
-    class="va-chip__wrapper"
-    @mouseenter="updateHoverState(true)"
-    @mouseleave="updateHoverState(false)"
-    @focus="updateFocusState(true)"
-    @blur="updateFocusState(false)"
+  <component
+    v-if="valueComputed"
+    class="va-chip"
+    :is="tagComputed"
+    :href="hrefComputed"
+    :target="target"
+    :to="to"
+    :replace="replace"
+    :exact="exact"
+    :active-class="activeClass"
+    :exact-active-class="exactActiveClass"
+    :class="computedClass"
+    :style="computedStyle"
+    :tabindex="indexComputed"
   >
-    <component
-      v-if="valueComputed"
-      class="va-chip"
-      :is="tagComputed"
-      :href="hrefComputed"
-      :target="target"
-      :to="to"
-      :replace="replace"
-      :exact="exact"
-      :active-class="activeClass"
-      :exact-active-class="exactActiveClass"
-      :class="computedClass"
-      :style="computedStyle"
-      :tabindex="indexComputed"
+    <div
+      class="va-chip__inner"
+      @mouseenter="updateHoverState(true)"
+      @mouseleave="updateHoverState(false)"
+      @focus="updateFocusState(true)"
+      @blur="updateFocusState(false)"
     >
       <va-icon
         v-if="icon"
@@ -37,8 +37,8 @@
         :size="iconSize"
         @click.stop="close()"
       />
-    </component>
-  </div>
+    </div>
+  </component>
 </template>
 
 <script lang="ts">
@@ -200,13 +200,15 @@ $tag-font-size-lg: 1.25rem !default;
   height: auto;
   min-width: initial;
   min-height: initial;
-
-  /* margin: 0 0.1rem; */
   padding: 0 0.3rem;
   color: $white;
   cursor: default;
-  align-items: center;
   font-size: $tag-font-size-nrm;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
 
   &:hover {
     opacity: 0.85;
