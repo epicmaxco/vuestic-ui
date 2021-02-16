@@ -25,17 +25,16 @@
 
           <!-- First block -->
           <div class="customize__content--first">
-
             <div class="block__components" v-if="tabValue === 1">
               <div class="component">
-                <va-button color="#6F80E7">
+                <va-button color="#6F80E7" @click="btnClick()">
                   Submit
                 </va-button>
               </div>
 
               <div class="component">
                 <va-select
-                  v-model="value3"
+                  v-model="selectValue"
                   :options="options"
                   color="#6F80E7"
                   label="Country"
@@ -43,15 +42,15 @@
               </div>
 
               <div class="component">
-              <va-slider
-                color="#6F80E7"
-                v-model="value2"
-              />
+                <va-slider
+                  color="#6F80E7"
+                  v-model="sliderValue"
+                />
               </div>
 
               <div class="component">
                 <va-checkbox
-                  v-model="value"
+                  v-model="checkboxValue"
                   label="Checkbox"
                   color="#6F80E7"
                 />
@@ -59,7 +58,7 @@
             </div>
 
             <div v-else-if="tabValue === 2">Work In Progress</div>
-            <div v-else>Work In Progress</div>
+            <div v-else-if="tabValue === 3">Work In Progress</div>
           </div>
           <!-- /First block -->
 
@@ -67,7 +66,7 @@
           <div class="customize__content--second">
             <div class="code-wrapper" @click="copyText">
               <div class="code-subwrapper">
-              <prism  class="code" language="javascript">{{ code }}</prism>
+              <prism :key="code"  class="code" language="javascript">{{ code }}</prism>
               <input type="hidden" ref="codeInput" :value="code">
               </div>
             </div>
@@ -88,6 +87,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import 'prismjs'
+import dedent from 'dedent'
 // @ts-ignore
 import Prism from 'vue-prism-component'
 
@@ -95,33 +95,114 @@ import Prism from 'vue-prism-component'
   components: { Prism },
 })
 export default class Customize extends Vue {
-  code =`<va-button color="#6F80E7">
-  Default Button
-</va-button>
-<div style="width: 200px;">
-  <va-select
-    v-model="value3"
-    :options="options"
-    color="#6F80E7"
-    label="Country"
-  />
-</div>
-<va-slider
-  style="width: 200px"
-  color="#6F80E7"
-  v-model="value2"
-/>
-
-<va-checkbox
-  v-model="value"
-  label="Checkbox"
-  color="#6F80E7"
-/>`
-  value = true
-  value2 = 45
-  value3 = 'Spain'
+  clicksCount = 0
+  checkboxValue = true
+  sliderValue = 45
+  selectValue = 'Spain'
   options = ['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA']
   tabValue = 1
+
+  get code () {
+    switch (this.tabValue) {
+    case 1:
+      return dedent`
+          <template>
+            <div class="components">
+              <div class="component">
+                <va-button color="#6F80E7" @click="btnClick">
+                  Submit
+                </va-button>
+              </div>
+
+              <div class="component">
+                <va-select
+                  v-model="selectValue"
+                  :options="options"
+                  color="#6F80E7"
+                  label="Country"
+                />
+              </div>
+
+              <div class="component">
+                <va-slider
+                  color="#6F80E7"
+                  v-model="sliderValue"
+                />
+              </div>
+
+              <div class="component">
+                <va-checkbox
+                  v-model="checkboxValue"
+                  label="Checkbox"
+                  color="#6F80E7"
+                />
+              </div>
+            </div>
+          </template>
+
+          ${'<' + 'script>'}
+          export default {
+            data() {
+              return {
+                clicksCount: ${this.clicksCount},
+                checkboxValue: ${this.checkboxValue},
+                sliderValue: ${this.sliderValue},
+                selectValue: ${this.selectValue},
+                options = [
+                  'Spain',
+                  'Germany',
+                  'France',
+                  'Italy',
+                  'China',
+                  'Japan',
+                  'Poland',
+                  'Belarus',
+                  'USA'
+                ]
+              }
+            },
+
+            methods: {
+              btnClick() {
+                this.clicksCount++
+              }
+            }
+          }
+          ${'</' + 'script>'}
+        `
+    case 2:
+      return dedent``
+    case 3:
+      return dedent`
+        <template>
+          <div class="components">
+            <div class="component"></div>
+          </div>
+        </template>
+
+        ${'<' + 'script>'}
+        import { useTheme } from 'vuestic-ui'
+
+        export default {
+          setup () {
+            const { getTheme, setTheme } = useTheme()
+
+            return {
+              getTheme,
+              setTheme
+            }
+          },
+        }
+        ${'</' + 'script>'}
+      `
+    default:
+      return ''
+    }
+  }
+
+  btnClick () {
+    this.clicksCount++
+  }
 
   copyText () {
     const testingCodeToCopy: any = this.$refs.codeInput
