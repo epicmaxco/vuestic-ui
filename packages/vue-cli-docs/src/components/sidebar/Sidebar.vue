@@ -91,7 +91,7 @@ export default class Sidebar extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss" scoped>
-@import "vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
+@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
 
 .sidebar {
   z-index: 1000;

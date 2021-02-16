@@ -175,7 +175,7 @@ export default class Header extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/main.scss";
+@import "~@/assets/main.scss";
 
 .header {
   z-index: 2000;

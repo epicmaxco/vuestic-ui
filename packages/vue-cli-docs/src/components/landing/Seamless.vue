@@ -99,7 +99,7 @@ export default class Seamless extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/main.scss";
+@import "~@/assets/main.scss";
 
 .seamless {
   width: 100%;
