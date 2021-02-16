@@ -6,7 +6,7 @@
         :src="slotImagePath"
       >
         <template #loader>
-          <va-progress-circle indeterminate/>
+          <va-progress-circle indeterminate />
         </template>
       </va-image>
       <div class="flex">

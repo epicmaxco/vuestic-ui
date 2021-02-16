@@ -5,7 +5,7 @@
       overlap
       class="mr-2"
     >
-      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg"/>
+      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg" />
     </va-badge>
     <va-badge
       dot

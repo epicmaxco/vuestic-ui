@@ -1,6 +1,6 @@
 <template>
   <div>
-    <va-slider v-model="value" pins/>
+    <va-slider v-model="value" pins />
   </div>
 </template>
 

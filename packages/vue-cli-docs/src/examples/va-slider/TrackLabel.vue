@@ -1,7 +1,7 @@
 <template>
   <div>
-    <va-slider v-model="value1" track-label-visible/>
-    <va-slider v-model="value2" track-label-visible :track-label="value2+'%'"/>
+    <va-slider v-model="value1" track-label-visible />
+    <va-slider v-model="value2" track-label-visible :track-label="value2+'%'" />
   </div>
 </template>
 

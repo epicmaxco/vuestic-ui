@@ -4,7 +4,7 @@
       You read this important alert message.
     </va-alert>
     <va-alert>
-      <template slot="title">
+      <template v-slot:title>
         Slotted title
       </template>
       You read this important alert message.

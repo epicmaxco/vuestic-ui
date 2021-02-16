@@ -5,7 +5,7 @@
     </va-alert>
     <va-alert>
     <template #icon>
-        <va-icon name="info"/>
+        <va-icon name="info" />
     </template>
     You read this important alert message with a slotted icon.
     </va-alert>

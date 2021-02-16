@@ -3,7 +3,7 @@
     style="position: relative; height: 13rem; width: 100%; border: 2px solid black;"
     class="row"
   >
-  <va-checkbox v-model="minimized" style="margin-left: 20rem;" label="Minimized"/>
+  <va-checkbox v-model="minimized" style="margin-left: 20rem;" label="Minimized" />
     <va-sidebar :minimized="minimized">
       <va-list style="background-color: inherit; color: white;">
         <va-list-item
