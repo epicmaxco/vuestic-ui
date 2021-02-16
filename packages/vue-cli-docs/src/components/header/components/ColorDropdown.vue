@@ -83,30 +83,23 @@
 
 <script lang="ts">
 // @ts-nocheck
-import { watch, ref } from 'vue'
+import { watch } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
-import { ThemeName, COLOR_THEMES } from '../../../theme-config'
-import { capitalize, isEqual } from 'lodash'
+import { ThemeName } from '../../../theme-config'
+import { capitalize } from 'lodash'
 import { useTheme } from 'vuestic-ui'
 
 @Options({})
 export default class ColorDropdown extends Vue {
   data () {
     return {
-      // selectedTheme: ThemeName.DEFAULT,
+      selectedTheme: ThemeName.DEFAULT,
       themeOptions: Object.keys(ThemeName).map(name => ({
         label: capitalize(name),
         value: name,
       })),
     }
   }
-
-  selectedTheme = setup(() => {
-    const { getTheme } = useTheme()
-    const selectedTheme = ref(isEqual(COLOR_THEMES[ThemeName.DEFAULT], getTheme()) ? ThemeName.DEFAULT : ThemeName.CORPORATE)
-
-    return selectedTheme
-  })
 
   get themeLabel () {
     return capitalize(this.selectedTheme)
