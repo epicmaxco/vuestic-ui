@@ -1,5 +1,5 @@
 <template>
-  <div class="base-layout" :key="themeKey">
+  <div class="base-layout">
     <Header
       v-model:is-sidebar-visible="isSidebarVisible"
       class="base-layout__header"
@@ -68,9 +68,6 @@ import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 export default class DocsLayout extends Vue {
   data () {
     return {
-      // TODO: temporary use key for changing theme
-      themeKey: +new Date(),
-
       isSidebarVisible: true,
     }
   }
@@ -107,7 +104,6 @@ export default class DocsLayout extends Vue {
 
   changeTheme (themeName) {
     this.setTheme(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
-    this.$nextTick(() => (this.themeKey = +new Date()))
   }
 
   setTheme = setup(() => {
