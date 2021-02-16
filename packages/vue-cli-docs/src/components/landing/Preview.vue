@@ -30,15 +30,15 @@
         <div class="preview__features">
 
           <!-- items -->
-          <div class="item">
-            <div class="item__frame">
-              <img src="@/assets/landing/images/features/nuxt-support.svg" alt="nuxt-support">
-            </div>
-            <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>
-            <router-link class="item__link" :to="`/${$root.$i18n.locale}/getting-started/nuxt-integration`">
-              {{$t('landing.preview.features.nuxt.text')}}
-            </router-link>
-          </div>
+<!--          <div class="item">-->
+<!--            <div class="item__frame">-->
+<!--              <img src="@/assets/landing/images/features/nuxt-support.svg" alt="nuxt-support">-->
+<!--            </div>-->
+<!--            <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>-->
+<!--            <router-link class="item__link" :to="`/${$root.$i18n.locale}/getting-started/nuxt-integration`">-->
+<!--              {{$t('landing.preview.features.nuxt.text')}}-->
+<!--            </router-link>-->
+<!--          </div>-->
 
           <div class="item">
             <div class="item__frame">
