@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "dedent": "^0.7.0",
     "docsearch.js": "^2.6.3",
     "lodash": "^4.17.20",
     "markdown-it": "^12.0.4",
@@ -25,6 +26,7 @@
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@types/dedent": "^0.7.0",
     "@types/lodash": "^4.14.168",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
