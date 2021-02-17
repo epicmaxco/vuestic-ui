@@ -235,6 +235,7 @@ export default class VaTabs extends mixins(
 
   updateTabsState () {
     this.resetSliderSizes()
+    this.updatePagination()
 
     this.context.tabsService?.tabs.forEach((tab: VaTab) => {
       const tabIsActiveRouterLink = tab.isActiveRouterLink
@@ -296,6 +297,8 @@ export default class VaTabs extends mixins(
       this.tabsContentOffset = tab.leftSidePosition
     } else if (tab.rightSidePosition > this.tabsContentOffset + this.containerRef.clientWidth) {
       this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
+    } else if (tab.rightSidePosition - this.containerRef.clientWidth >= 0) {
+      this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
     }
   }
 
@@ -321,7 +324,6 @@ export default class VaTabs extends mixins(
   mounted () {
     window.addEventListener('resize', this.updateTabsState)
     this.updateTabsState()
-    this.updatePagination()
     this.mutationObserver = new MutationObserver(() => {
       this.updateTabsState()
     })
