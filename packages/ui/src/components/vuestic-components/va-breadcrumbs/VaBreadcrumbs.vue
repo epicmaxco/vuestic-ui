@@ -37,8 +37,8 @@ export default class VaBreadcrumbs extends mixins(
 
   render () {
     // TODO: use provide/inject for this not to stick to component's name
-    const childNodeFilter = (result: Array<VNode>, node?: VNode) => {
-      const nodes = node && node.type === Fragment && node.children ? node.children as Array<VNode> : [node]
+    const childNodeFilter = (result: VNode[], node?: VNode) => {
+      const nodes = node && node.type === Fragment && node.children ? node.children as VNode[] : [node]
 
       return [
         ...result,
