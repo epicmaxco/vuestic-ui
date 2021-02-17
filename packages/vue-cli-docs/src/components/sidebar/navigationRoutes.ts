@@ -214,23 +214,24 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'progress-circle',
         displayName: 'menu.progressCircle',
       },
-      {
-        category: 'menu.categories.color',
-        name: 'color-picker',
-        displayName: 'menu.colorPicker',
-      },
-      {
-        name: 'color-input',
-        displayName: 'menu.colorInput',
-      },
-      {
-        name: 'color-slider',
-        displayName: 'menu.colorSlider',
-      },
-      {
-        name: 'color-palette',
-        displayName: 'menu.colorPalette',
-      },
+      // TODO: Color components not released yet
+      // {
+      //   category: 'menu.categories.color',
+      //   name: 'color-picker',
+      //   displayName: 'menu.colorPicker',
+      // },
+      // {
+      //   name: 'color-input',
+      //   displayName: 'menu.colorInput',
+      // },
+      // {
+      //   name: 'color-slider',
+      //   displayName: 'menu.colorSlider',
+      // },
+      // {
+      //   name: 'color-palette',
+      //   displayName: 'menu.colorPalette',
+      // },
       {
         category: 'menu.categories.other',
         name: 'affix',
