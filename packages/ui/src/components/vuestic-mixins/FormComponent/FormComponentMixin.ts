@@ -4,9 +4,9 @@ import flatten from 'lodash/flatten'
 import { inject } from 'vue'
 import { mixins, Options, prop, Vue, setup } from 'vue-class-component'
 
-import { FormProvider, FormServiceKey } from '../../vuestic-components/va-form/VaForm.vue'
+import { FormProvider, FormServiceKey } from '../../vuestic-components/va-form/consts'
 
-const prepareValidations = (messages: any = [], callArguments = null) => {
+const prepareValidations = (messages: string | any[] = [], callArguments = null) => {
   if (isString(messages)) {
     messages = [messages]
   }
@@ -48,7 +48,7 @@ export class FormComponentMixin extends mixins(
 ) {
   hadFocus = false
   isFocused = false
-  internalErrorMessages = null
+  internalErrorMessages: any[] = []
   internalError = false
   isFormComponent = true
 
@@ -98,14 +98,12 @@ export class FormComponentMixin extends mixins(
   /** @public */
   validate (): any {
     this.computedError = false
-    // @ts-ignore
     this.computedErrorMessages = []
 
     if (this.rules && this.rules.length > 0) {
       prepareValidations(flatten(this.rules), this.modelValue as any)
         .forEach((validateResult: any) => {
           if (isString(validateResult)) {
-            // @ts-ignore
             this.computedErrorMessages.push(validateResult)
             this.computedError = true
           } else if (validateResult === false) {
@@ -128,7 +126,6 @@ export class FormComponentMixin extends mixins(
   }
 
   resetValidation (): void {
-    // @ts-ignore
     this.computedErrorMessages = []
     this.computedError = false
   }
@@ -137,6 +134,7 @@ export class FormComponentMixin extends mixins(
     return this.computedError
   }
 
+  // eslint-disable-next-line camelcase
   ValidateMixin_onBlur (): void {
     this.isFocused = false
     this.computedError = false

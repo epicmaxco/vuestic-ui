@@ -1,7 +1,8 @@
 <template>
   <component
-    :is="tagComputed"
     v-if="valueComputed"
+    class="va-chip"
+    :is="tagComputed"
     :href="hrefComputed"
     :target="target"
     :to="to"
@@ -9,31 +10,34 @@
     :exact="exact"
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
-    class="va-chip"
     :class="computedClass"
     :style="computedStyle"
     :tabindex="indexComputed"
-    @mouseenter="updateHoverState(true)"
-    @mouseleave="updateHoverState(false)"
-    @focus="updateFocusState(true)"
-    @blur="updateFocusState(false)"
   >
-    <va-icon
-      v-if="icon"
-      class="va-chip__icon"
-      :name="icon"
-      :size="iconSize"
-    />
-    <span class="va-chip__content">
-      <slot></slot>
-    </span>
-    <va-icon
-      v-if="closeable"
-      class="va-chip__close-icon"
-      name="close"
-      :size="iconSize"
-      @click.stop="close()"
-    />
+    <div
+      class="va-chip__inner"
+      @mouseenter="updateHoverState(true)"
+      @mouseleave="updateHoverState(false)"
+      @focus="updateFocusState(true)"
+      @blur="updateFocusState(false)"
+    >
+      <va-icon
+        v-if="icon"
+        class="va-chip__icon"
+        :name="icon"
+        :size="iconSize"
+      />
+      <span class="va-chip__content">
+        <slot></slot>
+      </span>
+      <va-icon
+        v-if="closeable"
+        class="va-chip__close-icon"
+        name="close"
+        :size="iconSize"
+        @click.stop="close()"
+      />
+    </div>
   </component>
 </template>
 
@@ -196,13 +200,15 @@ $tag-font-size-lg: 1.25rem !default;
   height: auto;
   min-width: initial;
   min-height: initial;
-
-  /* margin: 0 0.1rem; */
   padding: 0 0.3rem;
   color: $white;
   cursor: default;
-  align-items: center;
   font-size: $tag-font-size-nrm;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
 
   &:hover {
     opacity: 0.85;

@@ -1,8 +1,6 @@
 import { createApp } from 'vue'
 import App from './BookApp.vue'
 import GlobalConfigPlugin from '../services/GlobalConfigPlugin'
-import { DEFAULT_THEME } from '../services/Theme'
-import { getDefaultConfig } from '../components/vuestic-components/va-config/config-default'
 import DropdownPopperSubplugin from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
 // import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
 import ToastInstall from '../components/vuestic-components/va-toast/install'
@@ -39,8 +37,21 @@ app.use(router)
 
 if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
   app.use(GlobalConfigPlugin, {
-    ...getDefaultConfig(),
-    theme: DEFAULT_THEME,
+    // Provide custom style here, for example:
+
+    // theme: {
+    //   primary: '#0000ff',
+    //   dark: '#ff0000',
+    // },
+    // VaIcon: {
+    //   iconsConfig: {
+    //     icons: {
+    //       home: {
+    //         code: 'error',
+    //       },
+    //     },
+    //   },
+    // },
   })
 } else {
   app.use(GlobalConfigPlugin)
