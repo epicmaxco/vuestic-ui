@@ -114,6 +114,7 @@ export default class Sidebar extends mixins(PropsMixin) {
     &.sidebar__link {
       padding: 1rem 0 1rem 2rem;
       line-height: 1.1;
+      display: block;
 
       &:hover {
         background: $light-blue;
