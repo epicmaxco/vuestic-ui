@@ -70,7 +70,7 @@ export default class VaCard extends mixins(
   }
 
   get cardStyles () {
-    const color = this.dark ? this.computeColor(this.color) : this.theme.getColor(this.color, '#ffffff')
+    const color = this.dark ? this.computeColor(this.color || 'dark') : this.theme.getColor(this.color, '#ffffff')
 
     if (this.gradient && this.color) {
       return {
