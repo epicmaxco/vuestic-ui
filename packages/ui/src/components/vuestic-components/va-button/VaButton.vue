@@ -14,13 +14,13 @@
     :active-class="activeClass"
     :exact="exact"
     :exact-active-class="exactActiveClass"
-    v-on="inputListeners"
     @focus="updateFocusState(true)"
     @blur="updateFocusState(false)"
     :tabindex="loading ? -1 : 0"
   >
     <div
       class="va-button__content"
+      v-on="inputListeners"
       @mouseenter="updateHoverState(true)"
       @mouseleave="updateHoverState(false)"
     >
