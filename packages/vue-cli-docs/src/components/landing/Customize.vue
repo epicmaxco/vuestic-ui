@@ -57,8 +57,52 @@
               </div>
             </div>
 
-            <div v-else-if="tabValue === 2">Work In Progress</div>
-            <div v-else-if="tabValue === 3">Work In Progress</div>
+            <div v-else-if="tabValue === 2">
+              <table class="va-table va-table--striped va-table--hoverable" style="width: 100%">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Country</th>
+                  <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="user in users" :key="user.id">
+                  <td>{{ user.fullName }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.country }}</td>
+                  <td>
+                    <va-badge
+                      :text="user.status"
+                      :color="user.status"
+                    />
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="block__components" v-else-if="tabValue === 3">
+              <div class="component">
+                <va-button-toggle v-model="theme" :color="themeColor" :options="themeToggleOptions" />
+              </div>
+
+              <div class="component">
+                <va-switch v-model="switchValue" :color="themeColor" />
+              </div>
+
+              <div class="component">
+                <va-alert :color="themeColor">
+                  Important alert message
+                </va-alert>
+              </div>
+
+              <div class="component">
+                <va-button :color="themeColor">
+                  Submit
+                </va-button>
+              </div>
+            </div>
           </div>
           <!-- /First block -->
 
@@ -101,6 +145,49 @@ export default class Customize extends Vue {
   selectValue = 'Spain'
   options = ['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA']
   tabValue = 1
+
+  switchValue = true
+  theme = 'light'
+  themeToggleOptions = [{
+    label: 'Light',
+    value: 'light',
+  }, {
+    label: 'Dark',
+    value: 'dark',
+  }]
+
+  users = [{
+    id: 1,
+    fullName: 'Ashley Mcdaniel',
+    email: 'ashleymcdaniel@nebulean.com',
+    country: 'Cayman Islands',
+    status: 'warning',
+  },
+  {
+    id: 2,
+    fullName: 'Todd Sellers',
+    email: 'sellerstodd@nebulean.com',
+    country: 'Togo',
+    status: 'info',
+  },
+  {
+    id: 3,
+    fullName: 'Sherman Knowles',
+    email: 'shermanknowles@nebulean.com',
+    country: 'Central African Republic',
+    status: 'warning',
+  },
+  {
+    id: 4,
+    fullName: 'Vasquez Lawson',
+    email: 'vasquezlawson@nebulean.com',
+    country: 'Bouvet Island',
+    status: 'info',
+  }]
+
+  get themeColor () {
+    return this.theme === 'light' ? '#2C82E0' : '#042F83'
+  }
 
   get code () {
     switch (this.tabValue) {
@@ -171,12 +258,101 @@ export default class Customize extends Vue {
           ${'</' + 'script>'}
         `
     case 2:
-      return dedent``
+      return dedent`
+        <template>
+          <table class="va-table va-table--striped va-table--hoverable" style="width: 100%">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Country</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="user in users" :key="user.id">
+              <td>{{ user.fullName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.country }}</td>
+              <td>
+                <va-badge
+                  :text="user.status"
+                  :color="user.status"
+                />
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </template>
+
+        ${'<' + 'script>'}
+        export default {
+          data() {
+            return {
+              users: [{
+                id: 1,
+                fullName: 'Ashley Mcdaniel',
+                email: 'ashleymcdaniel@nebulean.com',
+                country: 'Cayman Islands',
+                status: 'warning',
+              },
+              {
+                id: 2,
+                fullName: 'Todd Sellers',
+                email: 'sellerstodd@nebulean.com',
+                country: 'Togo',
+                status: 'info',
+              },
+              {
+                id: 3,
+                fullName: 'Sherman Knowles',
+                email: 'shermanknowles@nebulean.com',
+                country: 'Central African Republic',
+                status: 'warning',
+              },
+              {
+                id: 4,
+                fullName: 'Vasquez Lawson',
+                email: 'vasquezlawson@nebulean.com',
+                country: 'Bouvet Island',
+                status: 'info',
+              }]
+            }
+          }
+        }
+        ${'</' + 'script>'}
+      `
     case 3:
       return dedent`
         <template>
           <div class="components">
-            <div class="component"></div>
+            <div class="component">
+              <va-button-toggle
+                v-model="theme"
+                color="primary"
+                :options="themeToggleOptions"
+                @input="updateTheme"
+              />
+            </div>
+
+            <div class="component">
+              <va-switch
+                v-model="switchValue"
+                color="primary"
+              />
+            </div>
+
+            <div class="component">
+              <va-alert color="primary">
+                Important alert message
+              </va-alert>
+            </div>
+
+            <div class="component">
+              <va-button color="primary">
+                Submit
+              </va-button>
+            </div>
           </div>
         </template>
 
@@ -192,6 +368,27 @@ export default class Customize extends Vue {
               setTheme
             }
           },
+
+          data() {
+            return {
+              theme: ${this.theme},
+              themeToggleOptions: [{
+                label: 'Light',
+                value: 'light',
+              }, {
+                label: 'Dark',
+                value: 'dark',
+              }]
+            }
+          },
+
+          methods: {
+            updateTheme (value) {
+              this.setTheme({
+                primary: value === 'light' ? '#2C82E0' : '#042F83'
+              })
+            }
+          }
         }
         ${'</' + 'script>'}
       `
@@ -329,6 +526,8 @@ export default class Customize extends Vue {
 
 .block {
   &__components {
+    text-align: center;
+    align-items: center;
     @include row-flex();
 
     .component {
