@@ -10,22 +10,7 @@
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
       >
-        <div class="va-breadcrumbs base-layout__breadcrumbs">
-          <span v-for="(crumb, index) in crumbs" class="va-breadcrumb-item" :key="index">
-            <router-link
-              class="va-breadcrumb-item__label va-breadcrumb-item__label--link"
-              :to="crumb.path"
-              :style="{ color: 'gray' }"
-            >
-              {{ crumb.label }}
-            </router-link>
-            <span v-if="index < crumbs.length - 1" class="va-breadcrumbs__separator">
-              <va-icon name="arrow_forward_ios" :size="16" color="gray" />
-            </span>
-          </span>
-        </div>
-
-        <!-- <va-breadcrumbs
+        <va-breadcrumbs
           align="left"
           color="gray"
           class="base-layout__breadcrumbs"
@@ -40,7 +25,8 @@
           <template #separator>
             <va-icon name="arrow_forward_ios" :size="16" />
           </template>
-        </va-breadcrumbs> -->
+        </va-breadcrumbs>
+
         <div class="layout gutter--xl">
           <router-view />
         </div>
