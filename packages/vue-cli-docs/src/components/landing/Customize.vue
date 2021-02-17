@@ -260,7 +260,7 @@ export default class Customize extends Vue {
     case 2:
       return dedent`
         <template>
-          <table class="va-table va-table--striped va-table--hoverable" style="width: 100%">
+          <table class="va-table va-table--striped va-table--hoverable">
             <thead>
             <tr>
               <th>Name</th>
