@@ -124,7 +124,7 @@ export default class VaTab extends mixins(
     this.$emit('focus')
   }
 
-  mounted () {
+  beforeMount () {
     // const idx = this.tabsHanler.tabs.push(this)
     // this.id = (this as any).$props.name || idx
     // eslint-disable-next-line no-unused-expressions

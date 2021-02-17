@@ -27,7 +27,7 @@ export default class VaCardTitle extends mixins(
 ) {
   get titleStyles () {
     return {
-      color: this.theme.getColor(this.textColor),
+      color: this.textColor ? this.theme.getColor(this.textColor): '',
     }
   }
 }
