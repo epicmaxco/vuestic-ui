@@ -66,7 +66,7 @@
           :style="dottedStyles[order]"
           @mousedown="(moveStart($event, order), setMouseDown($event, order + 1))"
           @touchstart="moveStart($event, order)"
-          @focus="isFocused = true, currentSlider = order"
+          @focus="isFocused = true, currentSliderDotIndex = order"
           @blur="isFocused = false"
           :tabindex="(!disabled && !readonly) && 0"
         >
@@ -193,8 +193,8 @@ export default class VaSlider extends mixins(
   SliderPropsMixin,
 ) {
   @Ref('dot') readonly dot!: HTMLElement
-  @Ref('dot0') readonly dot0!: HTMLElement[]
-  @Ref('dot1') readonly dot1!: HTMLElement[]
+  @Ref('dot0') readonly dot0!: HTMLElement
+  @Ref('dot1') readonly dot1!: HTMLElement
   @Ref('sliderContainer') readonly sliderContainer!: HTMLElement
 
   isFocused = false
@@ -484,7 +484,7 @@ export default class VaSlider extends mixins(
   moveWithKeys (event: any) {
     // don't do anything if a dot isn't focused or if the slider's disabled or readonly
     // @ts-ignore
-    if (![this.dot0?.[0], this.dot1?.[0], this.dot].includes(document.activeElement as any)) { return }
+    if (![this.dot0, this.dot1, this.dot].includes(document.activeElement as any)) { return }
     if (this.disabled || this.readonly) { return }
 
     /*
@@ -551,30 +551,30 @@ export default class VaSlider extends mixins(
 
     if (this.range) {
       const isVerticalDot0More = (event: any) =>
-        this.vertical && this.dot0[0] === document.activeElement && event.keyCode === CODE_UP
-      const isVerticalDot0Less = (event: any) => this.vertical && this.dot0[0] === document.activeElement && event.keyCode === CODE_DOWN
-      const isVerticalDot1More = (event: any) => this.vertical && this.dot1[0] === document.activeElement && event.keyCode === CODE_UP
-      const isVerticalDot1Less = (event: any) => this.vertical && this.dot1[0] === document.activeElement && event.keyCode === CODE_DOWN
+        this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_UP
+      const isVerticalDot0Less = (event: any) => this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_DOWN
+      const isVerticalDot1More = (event: any) => this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_UP
+      const isVerticalDot1Less = (event: any) => this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_DOWN
       const isHorizontalDot0Less = (event: any) =>
-        !this.vertical && this.dot0[0] === document.activeElement && event.keyCode === CODE_LEFT
+        !this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_LEFT
       const isHorizontalDot0More = (event: any) =>
-        !this.vertical && this.dot0[0] === document.activeElement && event.keyCode === CODE_RIGHT
+        !this.vertical && this.dot0 === document.activeElement && event.keyCode === CODE_RIGHT
       const isHorizontalDot1Less = (event: any) =>
-        !this.vertical && this.dot1[0] === document.activeElement && event.keyCode === CODE_LEFT
+        !this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_LEFT
       const isHorizontalDot1More = (event: any) =>
-        !this.vertical && this.dot1[0] === document.activeElement && event.keyCode === CODE_RIGHT
+        !this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
 
       switch (true) {
         // @ts-ignore
       case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
         // @ts-ignore
-        this.dot0[0].focus()
+        this.dot0.focus()
         moveDot(true, 0, 0)
         break
         // @ts-ignore
       case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
         // @ts-ignore
-        this.dot0[0].focus()
+        this.dot0.focus()
         moveDot(true, 1, 1)
         break
         // @ts-ignore
@@ -702,7 +702,8 @@ export default class VaSlider extends mixins(
     // this.setTransform()
 
     // set focus on current thumb
-    ;(this.isRange ? (this.currentSliderDotIndex ? this.dot1[0] : this.dot0[0]) : this.dot).focus()
+    const dotToFocus = this.isRange ? (this.currentSliderDotIndex ? this.dot1 : this.dot0) : this.dot
+    dotToFocus.focus()
 
     if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
       if (this.currentSliderDotIndex) {
