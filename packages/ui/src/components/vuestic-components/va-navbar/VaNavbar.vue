@@ -3,21 +3,17 @@
     class="va-navbar"
     :style="navbarStyle"
   >
-    <div class="va-navbar__icon-container">
-      <slot name="selector" />
-    </div>
-    <router-link
-      class="va-navbar__logo row align--center mr-3"
-      to="/"
-    >
-      <slot name="logo" />
-    </router-link>
-    <div class="va-navbar__content row">
-      <div class="va-navbar__center flex offset--lg3 offset--md3 lg5 md4 flex-center">
+    <div class="va-navbar__content">
+      <div class="va-navbar__left">
+        <slot name="left" />
+      </div>
+
+      <div class="va-navbar__center">
         <slot name="center" />
       </div>
-      <div class="md5 lg4 va-navbar__actions align--center row">
-        <slot />
+
+      <div class="va-navbar__right">
+        <slot name="right" />
       </div>
     </div>
     <div
@@ -75,41 +71,62 @@ $nav-border-side-width: 3.1875rem;
   display: flex;
 
   &__content {
-    z-index: 1;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-  }
-
-  &__text {
-    color: $lighter-gray;
-  }
-
-  &__actions {
-    margin-left: auto;
-  }
-
-  &__logo {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 3.5rem;
-    width: 9.5rem;
-    height: 1rem;
-    margin: auto;
-    z-index: 2;
-
-    & * {
-      max-height: 100%;
-      max-width: 100%;
-      width: 100%;
-      height: 100%;
-      display: block;
+    width: 100%;
+    z-index: 1;
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+      align-items: center;
+      & > * {
+        width: 100%;
+      }
     }
   }
 
-  &__icon-container {
-    font-size: $font-size-base;
+  &__center {
     display: flex;
-    align-items: center;
+    & > .va-navbar__item {
+      margin: 0 0.75rem;
+      &:last-child {
+        margin-right: 0;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: row;
+    & > .va-navbar__item {
+      margin-right: 1.5rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    & > .va-navbar__item {
+      margin-right: 1.5rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   &__background-shape {
@@ -127,71 +144,12 @@ $nav-border-side-width: 3.1875rem;
     height: 0;
   }
 
-  &__item {
-    padding: 0;
-    height: 100%;
-    margin: auto 1.25rem;
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-
-    .va-dropdown-popper__anchor {
-      display: flex;
-      justify-content: center;
-    }
-  }
-
-  @include media-breakpoint-down(lg) {
-    &__button {
-      display: none !important;
-    }
-
-    &__item {
-      margin-right: 0.25rem;
-    }
-  }
-
   @include media-breakpoint-down(sm) {
     height: $top-mobile-nav-height;
     padding: $nav-mobile-py $nav-mobile-px 1rem;
 
-    &__icon-container {
-      align-items: flex-start;
-      position: absolute;
-      z-index: 10;
-    }
-
-    &__center {
+    &__center, &__background-shape  {
       display: none;
-    }
-
-    &__content {
-      align-items: flex-end;
-    }
-
-    &__logo {
-      top: $nav-mobile-brand-top;
-      left: 3.5rem;
-      bottom: auto;
-      z-index: 1;
-      margin-right: 0 !important;
-    }
-
-    &__actions {
-      margin-left: 0;
-    }
-
-    &__background-shape {
-      display: none;
-    }
-
-    &__item {
-      margin-right: 0;
-
-      &:first-of-type {
-        margin-left: 0;
-      }
     }
   }
 }
