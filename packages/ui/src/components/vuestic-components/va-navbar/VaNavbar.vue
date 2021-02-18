@@ -21,7 +21,7 @@
       </div>
     </div>
     <div
-      class="va-navbar__shape"
+      class="va-navbar__background-shape"
       :style="shapeStyle"
     />
   </nav>
@@ -112,7 +112,7 @@ $nav-border-side-width: 3.1875rem;
     align-items: center;
   }
 
-  &__shape {
+  &__background-shape {
     transition: border-top-color 0.3s ease; /* sidebar's bg color transitions as well -> consistency */
     width: 33%;
     max-width: 467px;
@@ -182,7 +182,7 @@ $nav-border-side-width: 3.1875rem;
       margin-left: 0;
     }
 
-    &__shape {
+    &__background-shape {
       display: none;
     }
 
