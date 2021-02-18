@@ -129,6 +129,10 @@ export default {
 </script>
 
 <style scoped>
+.va-sidebar div { /* sidebar items must be stylized outside of sidebar styles */
+  color: white;
+}
+
 .demo__sidebar-container {
   position: relative;
   height: 10rem;
