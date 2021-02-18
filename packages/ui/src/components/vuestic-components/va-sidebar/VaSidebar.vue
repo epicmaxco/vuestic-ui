@@ -18,6 +18,7 @@ import { getGradientBackground } from '../../../services/color-functions'
 import ColorMixin from '../../../services/ColorMixin'
 
 class SidebarProps {
+  color = prop<string>({ type: String, default: 'secondary' })
   minimized = prop<boolean>({ type: Boolean, default: false })
   hoverable = prop<boolean>({ type: Boolean, default: false })
   position = prop<string>({ type: String, default: 'left' })
