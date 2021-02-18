@@ -22,7 +22,7 @@
     "vue-lang-router": "^2.0.0-beta.3",
     "vue-prism-component": "^2.0.0",
     "vue-router": "^4.0.3",
-    "vuestic-ui": "^1.0.0-alpha.14",
+    "vuestic-ui": "^1.0.0-alpha.15",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
