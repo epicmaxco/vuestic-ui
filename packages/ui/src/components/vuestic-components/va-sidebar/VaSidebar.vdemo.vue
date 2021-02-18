@@ -32,43 +32,43 @@
         </va-sidebar>
       </div>
     </VbCard>
-    <VbCard title="minimized" :state="{minimized: true}" #default="{state}">
-      <va-checkbox v-model="state.minimized" label="minimized" />
+    <VbCard title="minimized">
+      <va-checkbox v-model="minimized" label="minimized" />
       <br />
       <div class="demo__sidebar-container-2x">
-        <va-sidebar :minimized="state.minimized">
+        <va-sidebar :minimized="minimized">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
-        <va-sidebar :minimized="state.minimized" position="right">
+        <va-sidebar :minimized="minimized" position="right">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
       </div>
     </VbCard>
-    <VbCard title="v-model" :state="{minimized: true}" #default="{state}">
-      <va-checkbox v-model="state.minimized" label="v-model value" />
+    <VbCard title="v-model">
+      <va-checkbox v-model="doShowVmodelDemoSidebar" label="v-model value" />
       <br />
       <div class="demo__sidebar-container-2x">
-        <va-sidebar v-model="state.minimized">
+        <va-sidebar v-model="doShowVmodelDemoSidebar">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
-        <va-sidebar v-model="state.minimized" position="right">
+        <va-sidebar v-model="doShowVmodelDemoSidebar" position="right">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
       </div>
     </VbCard>
-    <VbCard title="minimized width" :state="{minimized: true}" #default="{state}">
-      <va-checkbox v-model="state.minimized" label="minimized" />
+    <VbCard title="minimized width">
+      <va-checkbox v-model="minimizedWithWidth" label="minimized" />
       <br />
       <div class="demo__sidebar-container-2x">
-        <va-sidebar :minimized="state.minimized" minimizedWidth="25%">
+        <va-sidebar :minimized="minimizedWithWidth" minimizedWidth="25%">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
-        <va-sidebar :minimized="state.minimized" position="right" minimizedWidth="25%">
+        <va-sidebar :minimized="minimizedWithWidth" position="right" minimizedWidth="25%">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
@@ -123,6 +123,9 @@ export default {
       icon: 'info_outline',
       theme: 'info',
       items: navigationRoutes.routes,
+      minimized: true,
+      minimizedWithWidth: true,
+      doShowVmodelDemoSidebar: true,
     }
   },
 }
