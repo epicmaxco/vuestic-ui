@@ -291,6 +291,7 @@ export default class VaButton extends mixins(
       justify-content: center;
       align-items: center;
       margin: auto;
+      white-space: nowrap;
     }
   }
 

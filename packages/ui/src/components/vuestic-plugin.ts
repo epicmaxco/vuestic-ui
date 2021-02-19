@@ -130,6 +130,7 @@ export const VuesticPlugin = {
       VaSeparator,
       VaSidebar,
       VaSlider,
+      VaSpacer,
       VaSwitch,
       VaTab,
       VaTabs,

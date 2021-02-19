@@ -45,6 +45,7 @@
             color="#2550C0"
             flat
             icon="github"
+            :round="false"
           >
           </va-button>
           <va-button class="footer__social__item"
@@ -53,6 +54,7 @@
             color="#2550C0"
             flat
             icon="discord"
+            :round="false"
           >
           </va-button>
           <va-button class="footer__social__item"
@@ -61,6 +63,7 @@
             color="#2550C0"
             flat
             icon="facebook"
+            :round="false"
           >
           </va-button>
           <va-button class="footer__social__item"
@@ -69,6 +72,7 @@
             color="#2550C0"
             flat
             icon="twitter"
+            :round="false"
           >
           </va-button>
         </div>

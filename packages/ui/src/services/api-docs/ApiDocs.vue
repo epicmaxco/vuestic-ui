@@ -168,6 +168,10 @@ export default class ApiDocs extends Vue {
 @import "../ui/src/components/vuestic-sass/resources/resources";
 
 .ApiDocs {
+  h5 {
+    margin-top: 4rem;
+  }
+
   &__table {
     width: 100%;
     font-family: "Source Code Pro";
