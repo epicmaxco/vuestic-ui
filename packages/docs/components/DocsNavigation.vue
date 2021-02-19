@@ -25,7 +25,7 @@
     </va-button>
 
     <form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
-      <input type="hidden" name="parameters" :value="getSandboxParams" />
+      <input type="hidden" name="parameters" :value="sandboxParams" />
       <va-button
         flat
         type="submit"
@@ -86,13 +86,14 @@ export default {
     },
   },
   computed: {
-    getSandboxParams () {
+    sandboxParams () {
       const main = `import { createApp } from "vue";
 import App from "./App.vue";
 import { VuesticPlugin } from "vuestic-ui";
+import 'vuestic-ui/dist/vuestic-ui.css'
 
 const app = createApp(App);
-// app.use(VuesticPlugin);
+app.use(VuesticPlugin);
 app.mount("#app");
 `
       const babel = `module.exports = {
@@ -111,13 +112,13 @@ app.mount("#app");
               },
               dependencies: {
                 'core-js': '^3.6.5',
-                vue: '^3.0.0-0',
-                'vuestic-ui': '1.0.0-alpha.11',
+                vue: '^3.0.0',
+                'vuestic-ui': '1.0.0-alpha.14',
               },
               devDependencies: {
                 '@vue/cli-plugin-babel': '~4.5.0',
                 '@vue/cli-service': '~4.5.0',
-                '@vue/compiler-sfc': '^3.0.0-0',
+                '@vue/compiler-sfc': '^3.0.0',
               },
             },
           },
