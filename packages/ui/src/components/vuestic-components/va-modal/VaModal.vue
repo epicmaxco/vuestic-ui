@@ -231,24 +231,16 @@ export default class VaModal extends mixins(
     return this.$slots.footer
   }
 
-  setStateOrEmit (value: boolean) {
-    if (this.$props.stateful) {
-      this.valueComputed = value
-    } else {
-      this.$emit('update:modelValue', value)
-    }
-  }
-
   show () {
-    this.setStateOrEmit(true)
+    this.valueComputed = true
   }
 
   hide () {
-    this.setStateOrEmit(false)
+    this.valueComputed = false
   }
 
   toggle () {
-    this.setStateOrEmit(!this.valueComputed)
+    this.valueComputed = !this.valueComputed
   }
 
   cancel () {

@@ -89,10 +89,6 @@ export default class VaChip extends mixins(
   focusState = false
 
   created () {
-    if (this.$props.stateful) {
-      this.valueComputed = true
-    }
-
     watch(() => this.hoverState, (value) => {
       this.updateFocusState(value)
       this.updateHoverState(value)
