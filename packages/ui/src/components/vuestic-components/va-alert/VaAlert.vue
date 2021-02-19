@@ -19,8 +19,8 @@
       >
         <slot name="icon">
           <va-icon
-            :color="c_color"
-            :name="c_icon"
+            :color="color"
+            :name="icon"
           />
         </slot>
       </div>
@@ -34,11 +34,11 @@
           v-if="hasTitle"
         >
           <slot name="title">
-            {{c_title}}
+            {{ title }}
           </slot>
         </div>
         <slot>
-          {{c_description}}
+          {{ description }}
         </slot>
       </div>
 
@@ -51,11 +51,11 @@
           @click="hide()"
         >
           <slot name="close">
-            <va-icon v-if="!c_closeText"
-              :color="c_color"
+            <va-icon v-if="!closeText"
+              :color="color"
               :name="closeIcon"
             />
-            {{c_closeText}}
+            {{closeText}}
           </slot>
         </div>
       </div>
@@ -65,57 +65,57 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Prop } from 'vue-property-decorator'
-
-import VaIcon from '../va-icon/VaIcon.vue'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 import {
   getHoverColor,
   getBoxShadowColor,
 } from '../../../services/color-functions'
-
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const AlertPropsMixin = makeContextablePropsMixin({
-  title: { type: String, default: '' },
-  description: { type: String, default: '' },
-  icon: { type: String, default: '' },
-  closeIcon: { type: String, default: 'close' },
-  closeText: { type: String, default: '' },
-  closeable: { type: Boolean, default: false },
-  center: { type: Boolean, default: false },
-  borderColor: { type: String, default: '' },
-  border: {
+import VaIcon from '../va-icon'
+
+class AlertProps {
+  title = prop<string>({ type: String, default: '' })
+  description = prop<string>({ type: String, default: '' })
+  icon = prop<string>({ type: String, default: '' })
+  closeIcon = prop<string>({ type: String, default: 'close' })
+  closeText = prop<string>({ type: String, default: '' })
+  closeable = prop<boolean>({ type: Boolean, default: false })
+  center = prop<boolean>({ type: Boolean, default: false })
+  borderColor = prop<string>({ type: String, default: '' })
+  border = prop<string>({
     type: String,
     default: '',
     validator: (value: string) => {
       return ['top', 'right', 'bottom', 'left', ''].includes(value)
     },
-  },
-})
+  })
 
-@Component({
+  modelValue = prop<boolean>({
+    type: Boolean,
+    default: true,
+  })
+}
+
+const AlertPropsMixin = Vue.with(AlertProps)
+
+@Options({
   name: 'VaAlert',
   components: { VaIcon },
 })
-export default class VaAlert extends Mixins(
+export default class VaAlert extends mixins(
   StatefulMixin,
-  ColorThemeMixin,
+  ColorMixin,
   AlertPropsMixin,
 ) {
-  @Prop({
-    type: Boolean,
-    default: true,
-  }) readonly value!: boolean
-
   get hasIcon () {
-    return this.c_icon || this.$slots.icon
+    return this.$props.icon || this.$slots.icon
   }
 
   get hasTitle () {
-    return this.c_title || this.$slots.title
+    return this.$props.title || this.$slots.title
   }
 
   get alertStyle () {
@@ -127,18 +127,18 @@ export default class VaAlert extends Mixins(
 
   get contentStyle () {
     return {
-      alignItems: this.c_center && 'center',
+      alignItems: this.$props.center && 'center',
     }
   }
 
   get borderClass () {
-    return `va-alert__border--${this.c_border}`
+    return `va-alert__border--${this.$props.border}`
   }
 
   get borderStyle () {
     return {
-      backgroundColor: this.c_borderColor
-        ? getColor(this, this.c_borderColor)
+      backgroundColor: this.$props.borderColor
+        ? this.theme.getColor(this.$props.borderColor)
         : this.colorComputed,
     }
   }

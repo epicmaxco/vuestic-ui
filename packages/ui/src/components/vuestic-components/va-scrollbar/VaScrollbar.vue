@@ -152,7 +152,7 @@ export default {
       this.calcThumb()
     })
   },
-  beforeDestroy () {
+  beforeUnmount () {
     erd.removeAllListeners(this.content)
   },
   data () {

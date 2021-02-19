@@ -31,7 +31,7 @@
       v-model="isCloseableAlertVisible"
       closeable
     >
-      <template slot="close">
+      <template #close>
         close
       </template>
       You read this important alert message with a slotted text instead of an icon.

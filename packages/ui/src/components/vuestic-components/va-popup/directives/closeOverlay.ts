@@ -1,10 +1,10 @@
-import { VNode } from 'vue/types/umd'
+import { VNode } from 'vue'
 
 export const closeOverlay = {
   name: 'close-overlay',
   bind (el: HTMLElement | any, binding: any, vnode: VNode) {
     const handler = (ev: any) => {
-      let vm: any = vnode.componentInstance
+      let vm: any = (vnode as any).componentInstance
       while ((vm = vm.$parent)) {
         const name = vm.$options.name
         if (name === 'va-popup' || name === 'QModal') {

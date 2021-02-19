@@ -5,45 +5,53 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Vue } from 'vue-property-decorator'
+import { provide, ref } from 'vue'
+import { Options, setup, mixins } from 'vue-class-component'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/ColorMixin'
+import VaTreeCategory from './VaTreeCategory/VaTreeCategory.vue'
 
-@Component({
+@Options({
   name: 'VaTreeRoot',
-  provide () {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const parent = this
-    return {
-      va: new Vue({
-        computed: {
-          color () {
-            return parent.color
-          },
-        },
-      }),
-    }
-  },
 })
-export default class VaTreeRoot extends Mixins(
-  ColorThemeMixin,
-) {
-  public collapse () {
+
+export default class VaTreeRoot extends mixins(ColorMixin) {
+  setupContext = setup(() => {
+    const categories = ref<VaTreeCategory[]>([])
+
+    const onChildMounted = (category: VaTreeCategory) => {
+      categories.value.push(category)
+    }
+
+    const onChildUnmounted = (removableCategory: VaTreeCategory) => {
+      categories.value = categories.value.filter((category: VaTreeCategory) => category !== removableCategory)
+    }
+
+    const treeRoot = {
+      color: this.$props.color,
+      onChildMounted,
+      onChildUnmounted,
+    }
+
+    provide('treeRoot', treeRoot)
+
+    return {
+      categories,
+    }
+  })
+
+  collapse () {
     this.$nextTick(() => {
-      this.$children.forEach(child => {
-        if (child.$options.name === 'VaTreeCategory') {
-          child.collapse()
-        }
+      this.setupContext.categories.forEach((child: VaTreeCategory) => {
+        child.collapse()
       })
     })
   }
 
-  public expand () {
+  expand () {
     this.$nextTick(() => {
-      this.$children.forEach(child => {
-        if (child.$options.name === 'VaTreeCategory') {
-          child.expand()
-        }
+      this.setupContext.categories.forEach((child: VaTreeCategory) => {
+        child.expand()
       })
     })
   }

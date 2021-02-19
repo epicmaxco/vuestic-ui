@@ -6,25 +6,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+class ListSeparatorProps {
+  fit = prop<boolean>({ type: Boolean, default: false })
+  spaced = prop<boolean>({ type: Boolean, default: false })
+}
 
-const ListSeparatorPropsMixin = makeContextablePropsMixin({
-  fit: { type: Boolean, default: false },
-  spaced: { type: Boolean, default: false },
-})
+const ListSeparatorPropsMixin = Vue.with(ListSeparatorProps)
 
-@Component({
+@Options({
   name: 'VaListSeparator',
 })
-export default class VaListSeparator extends Mixins(
+export default class VaListSeparator extends mixins(
   ListSeparatorPropsMixin,
 ) {
   get computedClass () {
     return {
-      'va-list-separator--offset': !this.c_fit,
-      'va-list-separator--spaced': this.c_spaced,
+      'va-list-separator--offset': !this.fit,
+      'va-list-separator--spaced': this.spaced,
     }
   }
 }

@@ -15,16 +15,16 @@
         :style="{
           width: normalizedBuffer + '%',
           backgroundColor: colorComputed,
-          ...(c_reverse ? { right: 0 } : { left: 0 })
+          ...(reverse ? { right: 0 } : { left: 0 })
         }"
         class="va-progress-bar__buffer"
       />
       <div
-        v-if="!c_indeterminate"
+        v-if="!indeterminate"
         :style="{
           width: normalizedValue + '%',
           backgroundColor: colorComputed,
-          ...(c_reverse && { 'margin-left': 'auto' })
+          ...(reverse && { 'margin-left': 'auto' })
         }"
         class="va-progress-bar__overlay"
       >
@@ -32,11 +32,11 @@
       </div>
       <template v-else>
         <div
-          :style="{backgroundColor: colorComputed, animationDirection: this.c_reverse ? 'reverse' : 'normal'}"
+          :style="{backgroundColor: colorComputed, animationDirection: reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-start"
         />
         <div
-          :style="{backgroundColor: colorComputed, animationDirection: this.c_reverse ? 'reverse' : 'normal'}"
+          :style="{backgroundColor: colorComputed, animationDirection: reverse ? 'reverse' : 'normal'}"
           class="va-progress-bar__overlay__indeterminate-end"
         />
       </template>
@@ -45,62 +45,63 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ProgressComponentMixin } from './ProgressComponentMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import ColorMixin from '../../../../services/ColorMixin'
 
-const ProgressBarPropsMixin = makeContextablePropsMixin({
-  buffer: { type: Number, default: 100 },
-  rounded: { type: Boolean, default: true },
-  size: { type: [Number, String], default: 'medium' },
-  reverse: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
-})
+class ProgressBarProps {
+  buffer = prop<number>({ type: Number, default: 100 })
+  rounded = prop<boolean>({ type: Boolean, default: true })
+  size = prop<string | number>({ type: [Number, String], default: 'medium' })
+  reverse = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: 'primary' })
+}
 
-@Component({
+const ProgressBarPropsMixin = Vue.with(ProgressBarProps)
+
+@Options({
   name: 'VaProgressBar',
 })
-export default class VaProgressBar extends Mixins(
+export default class VaProgressBar extends mixins(
   ProgressComponentMixin,
-  ColorThemeMixin,
+  ColorMixin,
   SizeMixin,
   ProgressBarPropsMixin,
 ) {
   get large () {
-    return this.c_size === 'large'
+    return this.size === 'large'
   }
 
   get small () {
-    return this.c_size === 'small'
+    return this.size === 'small'
   }
 
   get normalizedBuffer () {
-    if (this.c_indeterminate) {
+    if (this.indeterminate) {
       return 100
     }
 
-    return normalizeValue(this.c_buffer)
+    return normalizeValue(this.buffer)
   }
 
   get computedClass () {
     return {
-      'va-progress-bar__progress-bar__square': (!this.c_rounded && !this.large) || this.small,
+      'va-progress-bar__progress-bar__square': (!this.rounded && !this.large) || this.small,
       'va-progress-bar__small': this.small,
       'va-progress-bar__large': this.large,
     }
   }
 
   get computedStyle () {
-    if (this.c_size === 'medium') {
+    if (this.size === 'medium') {
       return { height: '0.5rem' }
     }
 
     if (!this.small && !this.large) {
-      return { height: typeof this.c_size === 'number' ? `${this.c_size}px` : this.c_size }
+      return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
     }
 
     return {}

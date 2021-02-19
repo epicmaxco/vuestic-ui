@@ -5,7 +5,7 @@
       size="small"
       class="docs-navigation__button"
       color="gray"
-      @click="copy"
+      @click="copy()"
     >
       <va-icon class="docs-navigation__button__icon" size="small" :class="copyIcon" />
       <span class="docs-navigation__button__text">{{ copyText }}</span>

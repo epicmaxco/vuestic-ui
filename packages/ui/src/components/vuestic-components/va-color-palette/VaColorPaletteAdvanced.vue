@@ -21,12 +21,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 import VaColorInputAdvanced from '../va-color-input/VaColorInputAdvanced.vue'
 import VaColorPalette from './VaColorPalette.vue'
 import VaColorInput from '../va-color-input/VaColorInput.vue'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaColorPaletteAdvanced',
   components: {
     VaColorInput,

@@ -9,28 +9,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+class ListItemLabelProps {
+  caption = prop<boolean>({ type: Boolean, default: false })
+  lines = prop<number>({ type: Number, default: 1 })
+}
 
-const ItemLabelPropsMixin = makeContextablePropsMixin({
-  caption: { type: Boolean, default: false },
-  lines: { type: Number, default: 1 },
-})
+const ListItemLabelPropsMixin = Vue.with(ListItemLabelProps)
 
-@Component({
+@Options({
   name: 'VaListItemLabel',
 })
-export default class VaListItemLabel extends Mixins(
-  ItemLabelPropsMixin,
+export default class VaListItemLabel extends mixins(
+  ListItemLabelPropsMixin,
 ) {
   get computedClass () {
-    return { 'va-list-item-label--caption': this.c_caption }
+    return { 'va-list-item-label--caption': this.caption }
   }
 
   get computedStyle () {
     return {
-      '-webkit-line-clamp': this.c_lines,
+      '-webkit-line-clamp': this.lines,
     }
   }
 }

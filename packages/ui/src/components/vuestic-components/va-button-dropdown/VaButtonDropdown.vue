@@ -1,58 +1,61 @@
 <template>
   <div :class="computedClass">
     <va-dropdown
-      v-if="!c_split"
-      :disabled="c_disabled"
-      :position="c_position"
-      @input="toggleDropdown"
+      v-if="!split"
+      :disabled="disabled"
+      :position="position"
+      @update:modelValue="toggleDropdown"
     >
-      <va-button
-        slot="anchor"
-        :size="c_size"
-        :flat="c_flat"
-        :outline="c_outline"
-        :disabled="c_disabled"
-        :color="c_color"
-        :icon-right="computedIcon"
-        @click="click"
-      >
-        <slot name="label">
-          {{ c_label }}
-        </slot>
-      </va-button>
+      <template #anchor>
+        <va-button
+          :size="size"
+          :flat="flat"
+          :outline="outline"
+          :disabled="disabled"
+          :color="color"
+          :icon-right="computedIcon"
+          @click="click"
+        >
+          <slot name="label">
+            {{ label }}
+          </slot>
+        </va-button>
+      </template>
+
       <div class="va-button-dropdown__content">
         <slot />
       </div>
     </va-dropdown>
     <va-button-group v-else>
       <va-button
-        :size="c_size"
-        :flat="c_flat"
-        :outline="c_outline"
-        :disabled="c_disabled || c_disableButton"
-        :color="c_color"
-        :to="c_splitTo"
+        :size="size"
+        :flat="flat"
+        :outline="outline"
+        :disabled="disabled || disableButton"
+        :color="color"
+        :to="splitTo"
         @click="mainButtonClick"
       >
         <slot name="label">
-          {{ c_label }}
+          {{ label }}
         </slot>
       </va-button>
       <va-dropdown
-        :disabled="c_disabled || c_disableDropdown"
-        :position="c_position"
-        @input="toggleDropdown"
+        :disabled="disabled || disableDropdown"
+        :position="position"
+        @update:modelValue="toggleDropdown"
       >
+      <template #anchor>
         <va-button
-          :size="c_size"
-          :flat="c_flat"
-          :outline="c_outline"
-          :disabled="c_disabled || c_disableDropdown"
-          :color="c_color"
+          :size="size"
+          :flat="flat"
+          :outline="outline"
+          :disabled="disabled || disableDropdown"
+          :color="color"
           :icon="computedIcon"
-          slot="anchor"
           @click="click"
         />
+      </template>
         <div class="va-button-dropdown__content">
           <slot />
         </div>
@@ -62,66 +65,64 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Inject } from 'vue-property-decorator'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
-import VaButton from '../va-button/VaButton.vue'
-import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
-
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import ColorMixin from '../../../services/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 
-const ButtonPropsMixin = makeContextablePropsMixin({
-  value: { type: Boolean },
-  outline: { type: Boolean, default: false },
-  disableButton: { type: Boolean, default: false },
-  disableDropdown: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  size: {
+import VaDropdown from '../va-dropdown'
+import VaButton from '../va-button'
+import VaButtonGroup from '../va-button-group'
+
+class ButtonDropdownProps {
+  modelValue = prop<boolean>({ type: Boolean })
+  outline = prop<boolean>({ type: Boolean, default: false })
+  disableButton = prop<boolean>({ type: Boolean, default: false })
+  disableDropdown = prop<boolean>({ type: Boolean, default: false })
+  flat = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  size = prop<string>({
     type: String,
     default: 'medium',
     validator: (value: string) => {
       return ['medium', 'small', 'large'].includes(value)
     },
-  },
-  split: { type: Boolean },
-  splitTo: { type: String, default: '' },
-  icon: { type: String, default: 'expand_more' },
-  openedIcon: { type: String, default: 'expand_less' },
-  position: { type: String, default: 'bottom' },
-  label: { type: String },
-})
+  })
 
-@Component({
+  split = prop<boolean>({ type: Boolean })
+  splitTo = prop<string>({ type: String, default: '' })
+  icon = prop<string>({ type: String, default: 'expand_more' })
+  openedIcon = prop<string>({ type: String, default: 'expand_less' })
+  position = prop<string>({ type: String, default: 'bottom' })
+  label = prop<string>({ type: String })
+}
+
+const ButtonDropdownPropsMixin = Vue.with(ButtonDropdownProps)
+
+@Options({
   name: 'VaButtonDropdown',
   components: { VaButtonGroup, VaButton, VaDropdown },
+  emits: ['click', 'main-button-click'],
 })
-export default class VaButtonDropdown extends Mixins(
+export default class VaButtonDropdown extends mixins(
   SizeMixin,
-  ButtonPropsMixin,
-  ColorThemeMixin,
+  ColorMixin,
+  ButtonDropdownPropsMixin,
 ) {
-  @Inject({
-    default: () => ({}),
-  }) readonly va!: any
-
   showDropdown = false
 
   get computedIcon (): string {
-    const propsData: any = this.$options.propsData
-    const resultedIcon = propsData.openedIcon || (propsData.icon ? this.c_icon : this.c_openedIcon)
-    return this.showDropdown ? resultedIcon : this.c_icon
+    // @ts-ignore
+    return this.showDropdown ? this.$props.openedIcon : this.$props.icon
   }
 
   get computedClass () {
     return {
       'va-button-dropdown': true,
-      'va-button-dropdown--split': this.c_split,
-      'va-button-dropdown--normal': this.c_size === 'normal',
-      'va-button-dropdown--large': this.c_size === 'large',
-      'va-button-dropdown--small': this.c_size === 'small',
+      'va-button-dropdown--split': this.split,
+      'va-button-dropdown--normal': this.size === 'normal',
+      'va-button-dropdown--large': this.size === 'large',
+      'va-button-dropdown--small': this.size === 'small',
     }
   }
 
@@ -130,7 +131,7 @@ export default class VaButtonDropdown extends Mixins(
   }
 
   mainButtonClick (event: Event): void {
-    this.$emit('mainButtonClick', event)
+    this.$emit('main-button-click', event)
   }
 
   toggleDropdown (value: boolean): void {

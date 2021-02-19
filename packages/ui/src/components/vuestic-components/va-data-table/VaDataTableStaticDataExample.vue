@@ -7,7 +7,7 @@
       :currentPage="currentPage"
       @pageSelected="currentPage = $event"
     >
-      <template slot="header">
+      <template #header>
         <input
           type="text"
           v-model="term"

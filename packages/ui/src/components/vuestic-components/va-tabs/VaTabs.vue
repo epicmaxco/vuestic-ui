@@ -14,8 +14,8 @@
           class="va-tabs__pagination"
           flat
           size="medium"
-          :icon="c_prevIcon"
-          @click="movePaginationLeft"
+          :icon="$props.prevIcon"
+          @click="movePaginationLeft()"
         />
         <div
           class="va-tabs__container"
@@ -33,9 +33,10 @@
             >
               <div class="va-tabs__slider" />
             </div>
-            <va-tabs-items>
-              <slot />
-            </va-tabs-items>
+            <slot
+              name="tabs"
+              class="va-tabs__tabs-items"
+            />
           </div>
         </div>
         <va-button
@@ -44,55 +45,89 @@
           class="va-tabs__pagination"
           flat
           size="medium"
-          :icon="c_nextIcon"
-          @click="movePaginationRight"
+          :icon="$props.nextIcon"
+          @click="movePaginationRight()"
         />
       </div>
       <div class="va-tabs__content">
-        <va-tabs-content>
-          <slot />
-        </va-tabs-content>
+        <slot />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { provide, watch, ref } from 'vue'
+import { Options, Vue, prop, mixins, setup } from 'vue-class-component'
 
-import VaButton from '../va-button/VaButton.vue'
-import VaTab from './VaTab.vue'
-import VaTabsItems from './VaTabsItems.vue'
-import VaTabsContent from './VaTabsContent.vue'
-
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { Ref } from '../../../utils/decorators'
+import ColorMixin from '../../../services/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import VaButton from '../va-button'
+import VaTab from './VaTab/VaTab.vue'
 
-const TabsPropsMixin = makeContextablePropsMixin({
-  value: { type: [String, Number], default: null },
-  left: { type: Boolean, default: true },
-  right: { type: Boolean, default: false },
-  center: { type: Boolean, default: false },
-  grow: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  hideSlider: { type: Boolean, default: false },
-  vertical: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
-  prevIcon: { type: String, default: 'chevron_left' },
-  nextIcon: { type: String, default: 'chevron_right' },
-})
+export class TabsService {
+  // eslint-disable-next-line no-useless-constructor
+  constructor (private parent: VaTabs) {
+  }
 
-@Component({
+  tabs: VaTab[] = []
+
+  register (tab: VaTab | any) {
+    const idx = this.tabs.push(tab)
+    tab.id = tab.$props.name || idx
+  }
+
+  unregister (tab: VaTab) {
+    this.tabs = this.tabs.filter((filteredTab: { id: any }) => filteredTab.id !== tab.id)
+    // eslint-disable-next-line no-return-assign
+    this.tabs.forEach((tab: VaTab | any, idx: number) => tab.id = tab.$props.name || idx)
+  }
+
+  tabClick (tab: VaTab) {
+    this.parent.selectTab(tab)
+  }
+
+  tabFocus (tab: VaTab) {
+    this.parent.ensureVisible(tab)
+  }
+
+  tabPressEnter (tab: VaTab) {
+    this.parent.selectTab(tab)
+  }
+}
+
+class TabsProps {
+  modelValue = prop<string | number>({ type: [String, Number], default: null })
+  left = prop<boolean>({ type: Boolean, default: true })
+  right = prop<boolean>({ type: Boolean, default: false })
+  center = prop<boolean>({ type: Boolean, default: false })
+  grow = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  hideSlider = prop<boolean>({ type: Boolean, default: false })
+  vertical = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: 'primary' })
+  prevIcon = prop<string>({ type: String, default: 'chevron_left' })
+  nextIcon = prop<string>({ type: String, default: 'chevron_right' })
+}
+
+const TabsPropsMixin = Vue.with(TabsProps)
+
+export const TabsServiceKey = Symbol('TabsService')
+
+@Options({
   name: 'VaTabs',
-  components: { VaButton, VaTabsContent, VaTabsItems },
+  components: { VaButton },
 })
-export default class VaTabs extends Mixins(
-  ColorThemeMixin,
-  VaTabsItems,
+export default class VaTabs extends mixins(
+  ColorMixin,
   StatefulMixin,
   TabsPropsMixin,
 ) {
+  @Ref('wrapper') wrapperRef!: Element
+  @Ref('container') containerRef!: Element
+  @Ref('tabs') tabsRef!: Element
+
   tabs: any = []
   sliderHeight: null | number = null
   sliderWidth: null | number = null
@@ -102,19 +137,48 @@ export default class VaTabs extends Mixins(
   tabsContentOffset = 0
   mutationObserver: any = null
 
-  get computedClass () {
+  context = setup(() => {
+    const tabsService = ref<TabsService | null>(null)
+
+    provide(TabsServiceKey, tabsService)
+
     return {
-      'va-tabs__container--left': this.c_left && !this.c_right && !this.c_center && !this.c_grow,
-      'va-tabs__container--right': this.c_right,
-      'va-tabs__container--center': this.c_center,
-      'va-tabs__container--grow': this.c_grow,
-      'va-tabs__container--disabled': this.c_disabled,
+      tabsService,
+    }
+  })
+
+  created () {
+    // NOTE: this is just a temporary hack not to break everything
+    // because we need to stick to `this` for now
+    // TODO: move this logic to setup
+    this.context.tabsService = new TabsService(this)
+
+    watch(() => this.$props.modelValue, () => {
+      this.updateTabsState()
+    })
+  }
+
+  get computedClass () {
+    const {
+      left,
+      right,
+      center,
+      grow,
+      disabled,
+    } = this.$props
+
+    return {
+      'va-tabs__container--left': left && !right && !center && !grow,
+      'va-tabs__container--right': right,
+      'va-tabs__container--center': center,
+      'va-tabs__container--grow': grow,
+      'va-tabs__container--disabled': disabled,
     }
   }
 
   get computedTabsClass () {
     return {
-      'va-tabs--vertical': this.c_vertical,
+      'va-tabs--vertical': this.$props.vertical,
     }
   }
 
@@ -123,11 +187,10 @@ export default class VaTabs extends Mixins(
   }
 
   get sliderStyles () {
-    if (this.c_hideSlider) {
-      return {
-      }
+    if (this.$props.hideSlider) {
+      return {}
     }
-    if (this.c_vertical) {
+    if (this.$props.vertical) {
       return {
         'background-color': this.colorComputed,
         height: `${this.sliderHeight}px`,
@@ -143,7 +206,7 @@ export default class VaTabs extends Mixins(
 
   get paginationControlledStyles () {
     // Prevents the movement of vertical tabs
-    if (this.c_vertical) {
+    if (this.$props.vertical) {
       return {
         transform: 'translateX(0px)',
       }
@@ -158,83 +221,53 @@ export default class VaTabs extends Mixins(
   }
 
   get disablePaginationRight () {
-    return this.tabs[this.tabs.length - 1].rightSidePosition <= this.tabsContentOffset + (this as any).$refs.container.clientWidth
-  }
-
-  @Watch('value')
-  onValueChanged () {
-    this.updateTabsState()
-  }
-
-  parseItems () {
-    const content = (this as any).$slots.default || 0
-    const length = content.length
-    this.tabs = []
-
-    for (let i = 0; i < length; i++) {
-      if (content[i].componentOptions) {
-        if (content[i].componentOptions.Ctor.options.name === 'VaTab') {
-          const instance = content[i].componentInstance
-          instance.id = instance.name || i
-
-          this.tabs.push(instance)
-
-          if (!instance._tabEventsInited) {
-            // eslint-disable-next-line @typescript-eslint/no-this-alias
-            const self = this
-
-            instance.$on('click', function (this: VaTab) { self.selectTab(this) })
-            instance.$on('keydown.enter', function (this: VaTab) { self.selectTab(this) })
-            instance.$on('focus', function (this: VaTab) { self.ensureVisible(this) })
-            instance._tabEventsInited = true
-          }
-        }
-      }
-    }
+    return this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]?.rightSidePosition <= this.tabsContentOffset + this.containerRef.clientWidth
   }
 
   selectTab (tab: any) {
-    this.valueComputed = tab.id
-    if (this.stateful) {
-      this.updateTabsState()
+    if (tab) {
+      this.valueComputed = tab.$props.name || tab.id
+      if (this.stateful) {
+        this.updateTabsState()
+      }
     }
   }
 
   updateTabsState () {
-    let hasActive = false
-    for (let i = 0; i < this.tabs.length; i++) {
-      if (this.tabs[i].isActiveRouterLink) {
-        this.ensureVisible(this.tabs[i])
-        this.updateSlider(this.tabs[i])
-        hasActive = true
-        this.tabs[i].isActive = true
-      } else if (this.tabs[i].id === this.tabSelected) {
-        hasActive = true
-        this.ensureVisible(this.tabs[i])
-        this.updateSlider(this.tabs[i])
-        this.tabs[i].isActive = true
+    this.resetSliderSizes()
+    this.updatePagination()
+
+    this.context.tabsService?.tabs.forEach((tab: VaTab) => {
+      const tabIsActiveRouterLink = tab.isActiveRouterLink
+      const isSelectedTab = (tab.$props.name || tab.id) === this.tabSelected
+      if (tabIsActiveRouterLink || isSelectedTab) {
+        this.ensureVisible(tab)
+        this.updateSlider(tab)
+
+        tab.isActive = true
       } else {
-        this.tabs[i].isActive = false
+        tab.isActive = false
       }
-    }
-    if (!hasActive) {
-      this.resetSlider()
-    }
+    })
   }
 
   updatePagination () {
     this.showPagination = false
-    if (this.$refs.tabs && this.$refs.wrapper) {
-      if ((this as any).$refs.tabs.clientWidth > (this as any).$refs.wrapper.clientWidth) { this.showPagination = true }
+    if (this.tabsRef && this.wrapperRef) {
+      if (this.tabsRef.clientWidth > this.wrapperRef.clientWidth) {
+        this.showPagination = true
+      }
     }
   }
 
   movePaginationLeft () {
-    let offsetToSet = this.tabsContentOffset - (this as any).$refs.container.clientWidth
+    let offsetToSet = this.tabsContentOffset - this.containerRef.clientWidth
 
-    for (let i = 0; i < this.tabs.length; i++) {
-      if (this.tabs[i].rightSidePosition > this.tabsContentOffset && this.tabs[i].leftSidePosition < this.tabsContentOffset) {
-        offsetToSet = this.tabs[i].rightSidePosition - (this as any).$refs.container.clientWidth
+    if (this.context.tabsService) {
+      for (let i = 0; i < this.context.tabsService.tabs.length; i++) {
+        if (this.context.tabsService.tabs[i].rightSidePosition > this.tabsContentOffset && this.context.tabsService.tabs[i].leftSidePosition < this.tabsContentOffset) {
+          offsetToSet = this.context.tabsService.tabs[i].rightSidePosition - this.containerRef.clientWidth
+        }
       }
     }
 
@@ -242,16 +275,18 @@ export default class VaTabs extends Mixins(
   }
 
   movePaginationRight () {
-    const containerRightSide = this.tabsContentOffset + (this as any).$refs.container.clientWidth
+    const containerRightSide = this.tabsContentOffset + this.containerRef.clientWidth
     let offsetToSet = containerRightSide
 
-    for (let i = 0; i < this.tabs.length; i++) {
-      if (this.tabs[i].rightSidePosition > containerRightSide && this.tabs[i].leftSidePosition < containerRightSide) {
-        offsetToSet = this.tabs[i].leftSidePosition
+    if (this.context.tabsService) {
+      for (let i = 0; i < this.context.tabsService.tabs.length; i++) {
+        if (this.context.tabsService.tabs[i].rightSidePosition > containerRightSide && this.context.tabsService.tabs[i].leftSidePosition < containerRightSide) {
+          offsetToSet = this.context.tabsService.tabs[i].leftSidePosition
+        }
       }
     }
 
-    const maxOffset = this.tabs[this.tabs.length - 1].rightSidePosition - (this as any).$refs.container.clientWidth
+    const maxOffset = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1].rightSidePosition - this.containerRef.clientWidth
 
     offsetToSet = offsetToSet >= maxOffset ? maxOffset : offsetToSet
     this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
@@ -260,14 +295,16 @@ export default class VaTabs extends Mixins(
   ensureVisible (tab: any) {
     if (tab.leftSidePosition < this.tabsContentOffset) {
       this.tabsContentOffset = tab.leftSidePosition
-    } else if (tab.rightSidePosition > this.tabsContentOffset + (this as any).$refs.container.clientWidth) {
-      this.tabsContentOffset = tab.rightSidePosition - (this as any).$refs.container.clientWidth
+    } else if (tab.rightSidePosition > this.tabsContentOffset + this.containerRef.clientWidth) {
+      this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
+    } else if (tab.rightSidePosition - this.containerRef.clientWidth >= 0) {
+      this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
     }
   }
 
   updateSlider (tab: any) {
-    if (this.c_vertical) {
-      this.sliderOffsetY = ((this as any).$refs.container.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
+    if (this.$props.vertical) {
+      this.sliderOffsetY = (this.containerRef.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
       this.sliderHeight = tab.$el.clientHeight
       this.sliderOffsetX = 0
       this.sliderWidth = null
@@ -279,27 +316,27 @@ export default class VaTabs extends Mixins(
     }
   }
 
-  resetSlider () {
-    this.sliderOffsetX = 0
+  resetSliderSizes () {
     this.sliderWidth = 0
-    this.sliderOffsetY = 0
     this.sliderHeight = 0
   }
 
   mounted () {
     window.addEventListener('resize', this.updateTabsState)
-    this.parseItems()
     this.updateTabsState()
-    this.updatePagination()
     this.mutationObserver = new MutationObserver(() => {
-      this.parseItems()
       this.updateTabsState()
     })
-    this.mutationObserver.observe(this.$refs.tabs, { childList: true, subtree: true })
+    this.mutationObserver.observe(this.tabsRef, {
+      childList: true,
+      subtree: true,
+    })
   }
 
-  beforeDestroy () {
-    if (this.mutationObserver) { this.mutationObserver.disconnect() }
+  beforeUnmount () {
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect()
+    }
     window.removeEventListener('resize', this.updateTabsState)
   }
 }

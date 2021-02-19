@@ -9,13 +9,13 @@ export function registerVuesticObject (Vue: any) {
 
   const resizeDebounceLoader = new DebounceLoader(
     async resizeEvent => {
-      $va.$cast('resizeEnd', resizeEvent)
+      $va.$pub('resizeEnd', resizeEvent)
     },
     150,
   )
 
   window.addEventListener('resize', resizeEvent => {
-    $va.$cast('resize', resizeEvent)
+    $va.$pub('resize', resizeEvent)
     resizeDebounceLoader.run(resizeEvent)
   })
 }

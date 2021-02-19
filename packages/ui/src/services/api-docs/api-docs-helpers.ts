@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Vue, { ComponentOptions } from 'vue'
 import { PropOptions } from 'vue/types/options'
 // @ts-ignore

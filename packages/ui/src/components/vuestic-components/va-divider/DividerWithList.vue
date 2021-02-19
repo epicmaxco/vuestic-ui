@@ -18,8 +18,7 @@
 </template>
 
 <script>
-import VaList from '../va-list/VaList'
-import VaListItem from '../va-list/VaListItem'
+import VaList, { VaListItem } from '../va-list'
 import VaDivider from './VaDivider'
 
 export default {

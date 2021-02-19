@@ -1,30 +1,39 @@
-import { Component, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { mixins, Options, prop, Vue } from 'vue-class-component'
+
+import ColorMixin from '../../../services/ColorMixin'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
 import { KeyboardOnlyFocusMixin } from '../KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import { LoadingMixin } from '../LoadingMixin/LoadingMixin'
 
-const componentProps = {
-  arrayValue: { type: [String, Object], default: '' },
-  label: { type: String, default: '' },
-  leftLabel: { type: Boolean, default: false },
-  trueValue: { default: true },
-  falseValue: { default: false },
-  indeterminate: { type: Boolean, default: false },
-  indeterminateValue: { type: [Boolean, Array, String, Object], default: null },
+class Props {
+  arrayValue = prop<string | object>({ type: [String, Object], default: '' })
+  label = prop<string>({ type: String, default: '' })
+  leftLabel = prop<boolean>({ type: Boolean, default: false })
+  trueValue = prop({ default: true })
+  falseValue = prop({ default: false })
+  indeterminate = prop<boolean>({ type: Boolean, default: false })
+  indeterminateValue = prop<boolean | any[] | string | object>({
+    type: [Boolean, Array, String, Object],
+    default: null,
+  })
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = Vue.with(Props)
 
-@Component
-export class SelectableMixin extends Mixins(
-  PropsMixin,
-  ColorThemeMixin,
+@Options({
+  emits: ['update:modelValue', 'focus', 'blur'],
+})
+export class SelectableMixin extends mixins(
+  ColorMixin,
   StatefulMixin,
   FormComponentMixin,
   KeyboardOnlyFocusMixin,
+  LoadingMixin,
+  PropsMixin,
 ) {
+  isSelectableComponent!: boolean
+
   created () {
     this.isSelectableComponent = true
     this.checkDuplicates()
@@ -32,34 +41,34 @@ export class SelectableMixin extends Mixins(
 
   get isChecked (): boolean {
     if (this.modelIsArray) {
-      return this.c_value && this.c_value.includes(this.c_arrayValue)
+      return this.modelValue && this.modelValue.includes(this.arrayValue)
     }
-    return this.valueComputed === this.c_trueValue
+    return this.valueComputed === this.trueValue
   }
 
   get isIndeterminate (): boolean {
-    return this.valueComputed === this.c_indeterminateValue
+    return this.valueComputed === this.indeterminateValue
   }
 
   get modelIsArray (): boolean {
-    return !!this.c_arrayValue
+    return !!this.arrayValue
   }
 
   /** @public */
   focus (): void {
-    (this as any).$refs.input.focus()
+    (this.$refs.input as any).focus()
   }
 
   /** @public */
   reset (): void {
-    this.$emit('input', false)
+    this.$emit('update:modelValue', false)
   }
 
   checkDuplicates (): void {
     // Just validating state values.
-    const values = [this.c_falseValue, this.c_trueValue]
-    if (this.c_indeterminate) {
-      values.push(this.c_indeterminateValue)
+    const values: any[] = [this.falseValue, this.trueValue]
+    if (this.indeterminate) {
+      values.push(this.indeterminateValue)
     }
     const hasDuplicates = new Set(values).size !== values.length
     if (hasDuplicates) {
@@ -87,44 +96,44 @@ export class SelectableMixin extends Mixins(
 
   onWrapperClick (): void {
     if (this.isElementRelated(document.activeElement)) {
-      (this as any).$refs.input.focus()
+      (this.$refs.input as any).focus()
       this.isKeyboardFocused = false
     }
     this.toggleSelection()
   }
 
   toggleSelection (): void {
-    if (this.c_readonly || this.c_disabled || this.c_loading) {
+    if (this.readonly || this.disabled || this.loading) {
       return
     }
-    // For array access we pretend computedValue does not exist and use c_value + emit input directly.
+    // For array access we pretend computedValue does not exist and use modelValue + emit input directly.
     if (this.modelIsArray) {
-      if (!this.c_value) {
-        this.$emit('input', [this.c_arrayValue])
-      } else if (this.c_value.includes(this.c_arrayValue)) {
-        this.$emit('input', this.c_value.filter((option: any) => option !== this.c_arrayValue))
+      if (!this.modelValue) {
+        this.$emit('update:modelValue', [this.arrayValue])
+      } else if (this.modelValue.includes(this.arrayValue)) {
+        this.$emit('update:modelValue', this.modelValue.filter((option: any) => option !== this.arrayValue))
       } else {
-        this.$emit('input', this.c_value.concat(this.c_arrayValue))
+        this.$emit('update:modelValue', this.modelValue.concat(this.arrayValue))
       }
       return
     }
 
-    if (this.c_indeterminate) {
+    if (this.indeterminate) {
       if (this.isIndeterminate) {
-        this.valueComputed = this.c_trueValue
+        this.valueComputed = this.trueValue
       } else if (this.isChecked) {
-        this.valueComputed = this.c_falseValue
+        this.valueComputed = this.falseValue
       } else {
         // unchecked
-        this.valueComputed = this.c_indeterminateValue
+        this.valueComputed = this.indeterminateValue
       }
       return
     }
 
     if (this.isChecked) {
-      this.valueComputed = this.c_falseValue
+      this.valueComputed = this.falseValue
     } else {
-      this.valueComputed = this.c_trueValue
+      this.valueComputed = this.trueValue
     }
   }
 }

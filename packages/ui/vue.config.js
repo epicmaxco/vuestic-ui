@@ -1,7 +1,5 @@
-
 const getLastCommitHash = () => {
   const hash = require('child_process').execSync('git rev-parse HEAD').toString()
-
   return hash.slice(0, 6)
 }
 

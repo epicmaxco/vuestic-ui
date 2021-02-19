@@ -13,29 +13,35 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 
-@Component({
-  name: 'VaColorIndicator',
-})
-export default class VaColorIndicator extends Vue {
-  @Prop({
+class ColorIndicatorProps {
+  color = prop<string>({
     type: String,
     default: '',
-  }) readonly color!: string
+  })
 
-  @Prop({
+  indicator = prop<string>({
     type: String,
     default: 'dot',
     validator: (value: string) => {
       return ['dot', 'square'].includes(value)
     },
-  }) readonly indicator!: string
+  })
 
-  @Prop({
+  selected = prop<boolean>({
     type: Boolean,
     default: false,
-  }) readonly selected!: boolean
+  })
+}
+
+const ColorIndicatorPropsMixin = Vue.with(ColorIndicatorProps)
+
+@Options({
+  name: 'VaColorIndicator',
+})
+export default class VaColorIndicator extends mixins(ColorIndicatorPropsMixin) {
+
 }
 </script>
 

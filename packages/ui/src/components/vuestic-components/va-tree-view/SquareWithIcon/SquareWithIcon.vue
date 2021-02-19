@@ -3,28 +3,31 @@
     class="square-with-icon"
     :style="{ backgroundColor: colorComputed }"
   >
-    <va-icon :name="icon" />
+    <va-icon :name="$props.icon" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Vue, Prop } from 'vue-property-decorator'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import VaIcon from '../../va-icon/VaIcon.vue'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import ColorMixin from '../../../../services/ColorMixin'
+import VaIcon from '../../va-icon'
 
-@Component({
+class SquareWithIconProps {
+  icon = prop<string>({ default: '', type: String, required: true })
+}
+
+const SquareWithIconPropsMixin = Vue.with(SquareWithIconProps)
+
+@Options({
   name: 'SquareWithIcon',
   components: { VaIcon },
 })
-export default class SquareWithIcon extends Mixins(
-  ColorThemeMixin,
+export default class SquareWithIcon extends mixins(
+  ColorMixin,
+  SquareWithIconPropsMixin,
 ) {
-  @Prop({
-    type: String,
-    default: '',
-    required: true,
-  }) readonly icon!: string
+
 }
 </script>
 

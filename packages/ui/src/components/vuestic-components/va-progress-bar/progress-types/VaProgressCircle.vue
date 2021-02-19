@@ -31,27 +31,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, mixins, Vue, prop } from 'vue-class-component'
 
 import { ProgressComponentMixin } from './ProgressComponentMixin'
-import {
-  ColorThemeMixin,
-  getColor,
-} from '../../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
+import ColorMixin from '../../../../services/ColorMixin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 
-const ProgressCirclePropsMixin = makeContextablePropsMixin({
-  thickness: { type: Number, default: 0.06 },
-  color: { type: String, default: 'primary' },
-})
+class ProgressCircleProps {
+  thickness = prop<number>({ type: Number, default: 0.06 })
+  color = prop<string>({ type: String, default: 'primary' })
+}
 
-@Component({
+const ProgressCirclePropsMixin = Vue.with(ProgressCircleProps)
+
+@Options({
   name: 'VaProgressCircle',
 })
-export default class VaProgressCircle extends Mixins(
+export default class VaProgressCircle extends mixins(
   ProgressComponentMixin,
-  ColorThemeMixin,
+  ColorMixin,
   SizeMixin,
   ProgressCirclePropsMixin,
 ) {
@@ -77,24 +75,24 @@ export default class VaProgressCircle extends Mixins(
 
   get computedClass () {
     return {
-      'va-progress-circle--indeterminate': this.c_indeterminate,
+      'va-progress-circle--indeterminate': this.indeterminate,
     }
   }
 
   get computedStyles () {
     return {
-      color: getColor(this, this.c_color),
+      color: this.theme.getColor(this.color),
     }
   }
 
   get cappedThickness () {
     // value translated to percentage, divided in half, since final maximum value should be 50%
-    if (this.c_thickness <= 0) {
+    if (this.thickness <= 0) {
       return 0
-    } else if (this.c_thickness >= 1) {
+    } else if (this.thickness >= 1) {
       return 50
     } else {
-      return this.c_thickness / 2 * 100
+      return this.thickness / 2 * 100
     }
   }
 }

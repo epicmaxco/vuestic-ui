@@ -7,9 +7,9 @@
     >
       <va-icon
         spin
-        :color="c_color"
-        :size="c_size"
-        :name="c_icon"
+        :color="$props.color"
+        :size="$props.size"
+        :name="$props.icon"
         class="inner-loading__spinner"
       />
     </div>
@@ -17,26 +17,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import VaIcon from '../va-icon/VaIcon.vue'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import VaIcon from '../va-icon'
 
-const PropsMixin = makeContextablePropsMixin({
-  color: { type: String, default: '' },
-  icon: { type: String, default: 'loop' },
-  size: { type: Number, default: 30 },
-})
+class InnerLoadingProps {
+  color = prop<string>({ type: String, default: '' })
+  icon = prop<string>({ type: String, default: 'loop' })
+  size = prop<number>({ type: Number, default: 30 })
+}
 
-@Component({
+const InnerLoadingPropsMixin = Vue.with(InnerLoadingProps)
+
+@Options({
   name: 'VaInnerLoading',
   components: { VaIcon },
 })
-export default class VaInnerLoading extends Mixins(
-  PropsMixin,
+export default class VaInnerLoading extends mixins(
   LoadingMixin,
+  InnerLoadingPropsMixin,
 ) {}
 </script>
 

@@ -6,20 +6,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 // @ts-ignore
 import { Chrome } from 'vue-color'
 
-@Component({
-  name: 'VaColorPicker',
-  components: { ChromePicker: Chrome },
-})
-export default class VaColorPicker extends Vue {
-  @Prop({
+class ColorPickerProps {
+  value = prop<string>({
     type: String,
     default: '',
-  }) readonly value!: string
+  })
+}
 
+const ColorPickerPropsMixin = Vue.with(ColorPickerProps)
+
+@Options({
+  name: 'VaColorPicker',
+  components: { ChromePicker: Chrome },
+  emits: ['input'],
+})
+export default class VaColorPicker extends mixins(ColorPickerPropsMixin) {
   get valueProxy (): any {
     return this.value
   }

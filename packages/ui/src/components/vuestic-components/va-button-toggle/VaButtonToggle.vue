@@ -5,11 +5,11 @@
         v-for="option in options"
         :key="option.value"
         :style="buttonStyle(option.value)"
-        :outline="c_outline"
-        :flat="c_flat"
-        :round="c_round"
-        :disabled="c_disabled"
-        :size="c_size"
+        :outline="outline"
+        :flat="flat"
+        :round="round"
+        :disabled="disabled"
+        :size="size"
         :color="buttonColor(option.value)"
         :class="buttonClass(option.value)"
         @click="changeValue(option.value)"
@@ -21,55 +21,57 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import VaButton from '../va-button/VaButton.vue'
-import VaButtonGroup from '../va-button-group/VaButtonGroup.vue'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 import { getGradientBackground } from '../../../services/color-functions'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/ColorMixin'
+import VaButton from '../va-button'
+import VaButtonGroup from '../va-button-group'
 
-const PropsMixin = makeContextablePropsMixin({
-  options: { type: Array, default: () => [] },
-  value: { type: [String, Number], default: '' },
-  outline: { type: Boolean, default: false },
-  flat: { type: Boolean, default: false },
-  round: { type: Boolean, default: true },
-  disabled: { type: Boolean, default: false },
-  size: {
+class ButtonToggleProps {
+  options = prop<any[]>({ type: Array, default: () => [] })
+  modelValue = prop<string | number>({ type: [String, Number], default: '' })
+  outline = prop<boolean>({ type: Boolean, default: false })
+  flat = prop<boolean>({ type: Boolean, default: false })
+  round = prop<boolean>({ type: Boolean, default: true })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  size = prop<string>({
     type: String,
     default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
+    validator: (modelValue: string) => {
+      return ['medium', 'small', 'large'].includes(modelValue)
     },
-  },
-  toggleColor: { type: String, default: '' },
-})
+  })
 
-@Component({
+  toggleColor = prop<string>({ type: String, default: '' })
+}
+
+const ButtonTogglePropsMixin = Vue.with(ButtonToggleProps)
+
+@Options({
   name: 'VaButtonToggle',
   components: {
     VaButtonGroup,
     VaButton,
   },
+  emits: ['update:modelValue'],
 })
-export default class VaButtonToggle extends Mixins(
-  ColorThemeMixin,
-  PropsMixin,
+export default class VaButtonToggle extends mixins(
+  ColorMixin,
+  ButtonTogglePropsMixin,
 ) {
   buttonColor (buttonValue: any) {
-    return buttonValue === this.c_value && this.c_toggleColor ? getColor(this, this.c_toggleColor) : this.colorComputed
+    return buttonValue === this.modelValue && this.toggleColor ? this.toggleColor : this.color
   }
 
   buttonStyle (buttonValue: any) {
-    if (buttonValue !== this.c_value) {
+    if (buttonValue !== this.modelValue) {
       return {}
     }
 
-    if (this.c_outline || this.c_flat) {
+    if (this.outline || this.flat) {
       return {
-        backgroundColor: this.c_toggleColor ? getColor(this, this.c_toggleColor) : this.colorComputed,
+        backgroundColor: this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed,
         color: '#ffffff',
       }
     } else {
@@ -83,12 +85,12 @@ export default class VaButtonToggle extends Mixins(
 
   buttonClass (buttonValue: any) {
     return {
-      'va-button--active': buttonValue === this.c_value,
+      'va-button--active': buttonValue === this.modelValue,
     }
   }
 
   changeValue (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 }
 </script>

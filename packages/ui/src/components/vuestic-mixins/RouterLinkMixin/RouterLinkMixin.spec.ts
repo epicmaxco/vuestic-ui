@@ -1,12 +1,12 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import { RouterLinkMixin } from './RouterLinkMixin'
-import Component, { mixins } from 'vue-class-component'
+import { mixins } from 'vue-class-component'
 import VueRouter from 'vue-router'
+import { h } from 'vue'
 
-@Component
 export default class ExampleComponent extends mixins(RouterLinkMixin) {
   render () {
-    return ''
+    return h('')
   }
 }
 
@@ -30,14 +30,19 @@ describe('RouterLinkMixin', () => {
   })
   it('isActiveRouterLink works correctly', () => {
     const localVue = createLocalVue()
+    // @ts-ignore
     localVue.use(VueRouter)
+    // @ts-ignore
     const router = new VueRouter({ routes: [{ path: '/active' }, { path: '/passive' }] })
     router.push('/active')
 
     const emptyWrapper = shallowMount(ExampleComponent)
     expect(emptyWrapper.vm.isActiveRouterLink).toBeFalsy()
 
-    const wrapperWithProps = shallowMount(ExampleComponent, { router, localVue })
+    const wrapperWithProps = shallowMount(ExampleComponent, {
+      router,
+      localVue,
+    })
     wrapperWithProps.setProps({ to: '/active' })
     expect(wrapperWithProps.vm.isActiveRouterLink).toBeTruthy()
 

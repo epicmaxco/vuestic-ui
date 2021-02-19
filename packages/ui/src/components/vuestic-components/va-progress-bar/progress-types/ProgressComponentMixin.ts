@@ -1,19 +1,19 @@
+import { mixins, prop, Vue } from 'vue-class-component'
 import { normalizeValue } from '../../../../services/utils'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
-import { Mixins, Component } from 'vue-property-decorator'
 
-const ProgressMixinContextableProps = makeContextablePropsMixin({
-  value: { type: Number, default: 0 },
-  color: { type: String, default: 'primary' },
+class ProgressProps {
+  modelValue = prop<number>({ type: Number, default: 0 })
+  color = prop<string>({ type: String, default: 'primary' })
   // If 'indeterminate' is 'true' 'value' prop will be ignored.
-  indeterminate: { type: Boolean, default: false },
-})
+  indeterminate = prop<boolean>({ type: Boolean, default: false })
+}
 
-@Component
-export class ProgressComponentMixin extends Mixins(
-  ProgressMixinContextableProps,
+const ProgressPropsMixin = Vue.with(ProgressProps)
+
+export class ProgressComponentMixin extends mixins(
+  ProgressPropsMixin,
 ) {
   get normalizedValue (): number {
-    return normalizeValue(this.c_value)
+    return normalizeValue(this.modelValue)
   }
 }

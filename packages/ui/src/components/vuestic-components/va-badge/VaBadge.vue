@@ -9,7 +9,7 @@
     >
       <span class="va-badge__text">
         <slot name="text">
-          {{ c_text }}
+          {{ text }}
         </slot>
       </span>
     </span>
@@ -18,62 +18,59 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, mixins, Vue, prop } from 'vue-class-component'
 
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import ColorMixin from '../../../services/ColorMixin'
 
-const BadgePropsMixin = makeContextablePropsMixin({
-  color: { type: String, default: 'danger' },
-  textColor: { type: String, default: 'white' },
-  text: { type: [String, Number], default: '' },
-  overlap: { type: Boolean, default: false },
-  multiLine: { type: Boolean, default: false },
-  visibleEmpty: { type: Boolean, default: false },
-  dot: { type: Boolean, default: false },
-  transparent: { type: Boolean, default: false },
-  left: { type: Boolean, default: false },
-  bottom: { type: Boolean, default: false },
-})
+class BadgeProps {
+  color = prop<string>({ type: String, default: 'danger' })
+  textColor = prop<string>({ type: String, default: 'white' })
+  text = prop<string | number>({ type: [String, Number], default: '' })
+  overlap = prop<boolean>({ type: Boolean, default: false })
+  multiLine = prop<boolean>({ type: Boolean, default: false })
+  visibleEmpty = prop<boolean>({ type: Boolean, default: false })
+  dot = prop<boolean>({ type: Boolean, default: false })
+  transparent = prop<boolean>({ type: Boolean, default: false })
+  left = prop<boolean>({ type: Boolean, default: false })
+  bottom = prop<boolean>({ type: Boolean, default: false })
+}
 
-@Component({
+const BadgePropsMixin = Vue.with(BadgeProps)
+
+@Options({
   name: 'VaBadge',
 })
-export default class VaBadge extends Mixins(
-  ColorThemeMixin,
+export default class VaBadge extends mixins(
+  ColorMixin,
   BadgePropsMixin,
 ) {
   get isEmpty () {
-    if (this.c_text || this.c_visibleEmpty || this.c_dot || this.$slots.text) {
-      return false
-    }
-
-    return true
+    return !(this.text || this.visibleEmpty || this.dot || this.$slots.text)
   }
 
   get isFloating () {
-    return this.$slots.default || this.c_dot
+    return this.$slots.default || this.dot
   }
 
   get badgeClass () {
     return {
-      'va-badge--visible-empty': this.c_visibleEmpty,
+      'va-badge--visible-empty': this.visibleEmpty,
       'va-badge--empty': this.isEmpty,
-      'va-badge--dot': this.c_dot,
-      'va-badge--multiLine': this.c_multiLine,
+      'va-badge--dot': this.dot,
+      'va-badge--multiLine': this.multiLine,
       'va-badge--floating': this.isFloating,
-      'va-badge--left': this.c_left,
-      'va-badge--bottom': this.c_bottom,
-      'va-badge--overlap': this.c_overlap,
+      'va-badge--left': this.left,
+      'va-badge--bottom': this.bottom,
+      'va-badge--overlap': this.overlap,
     }
   }
 
   get badgeStyle () {
     return {
-      color: getColor(this, this.c_textColor, '#ffffff'),
+      color: this.theme.getColor(this.textColor, '#ffffff'),
       borderColor: this.colorComputed,
       backgroundColor: this.colorComputed,
-      opacity: this.c_transparent ? 0.5 : 1,
+      opacity: this.transparent ? 0.5 : 1,
     }
   }
 }

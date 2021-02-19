@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import VaColorSlider from './VaColorSlider'
+import VaColorSlider from './index'
 
 export default {
   components: {

@@ -1,8 +1,9 @@
 import Cleave from 'cleave.js'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
-import { Mixins, Watch } from 'vue-property-decorator'
-import Component from 'vue-class-component'
+import { watch } from 'vue'
+import { mixins, prop, setup, Vue } from 'vue-class-component'
 import { CleaveOptions } from 'cleave.js/options'
+import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { FormComponentMixin } from '../../../vuestic-mixins/FormComponent/FormComponentMixin'
 
 const DEFAULT_MASK_TOKENS: Record<string, object> = {
   creditCard: {
@@ -22,66 +23,76 @@ const DEFAULT_MASK_TOKENS: Record<string, object> = {
     numeralThousandsGroupStyle: 'thousand',
   },
 }
-const PropsMixin = makeContextablePropsMixin({
+
+class Props {
   // Mask option list - https://github.com/nosir/cleave.js/blob/master/doc/options.md#blocks
-  mask: {
+  mask = prop<string | CleaveOptions>({
     type: [String, Object],
     default: () => ({}),
-  },
-  returnRaw: {
+  })
+
+  returnRaw = prop<boolean>({
     type: Boolean,
     default: true,
-  },
-})
+  })
 
-@Component
-export class InputMixin extends Mixins(PropsMixin) {
+  removable = prop<boolean>({ type: Boolean, default: false })
+
+  modelValue = prop<string | number>({ type: [String, Number], default: '' })
+}
+
+const PropsMixin = Vue.with(Props)
+
+export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsMixin) {
   inputElement: Cleave | null = null
-  eventListeners: any = null
+  eventListeners: any = {}
   isFocused = false
 
-  @Watch('mask', { deep: true })
-  onOptionsChange (mask: CleaveOptions | string) {
-    this.destroyCleaveInstance()
-    this.inputElement = new Cleave(this.$refs.input as HTMLInputElement, this.getMask(mask))
-    this.inputElement.setRawValue(this.value)
-  }
+  context = setup(() => {
+    watch(() => this.$props.mask, (mask: string | CleaveOptions) => {
+      this.destroyCleaveInstance()
+      this.inputElement = new Cleave(this.$refs.input as HTMLInputElement, this.getMask(mask))
+      this.inputElement.setRawValue(this.modelValue)
+    })
+
+    return {}
+  })
 
   get computedValue (): string {
     if (!this.inputElement) {
-      return this.value
+      return this.modelValue
     }
-    if (this.returnRaw && this.value === this.inputElement.getRawValue()) {
+    if (this.returnRaw && this.modelValue === this.inputElement.getRawValue()) {
       return this.inputElement.getFormattedValue()
     }
-    return this.value
+    return this.modelValue
   }
 
   get showIcon (): boolean {
-    return this.c_success || this.computedError || this.canBeCleared
+    return this.success || this.computedError || this.canBeCleared
   }
 
   get canBeCleared (): boolean {
-    return this.hasContent && this.c_removable
+    return this.hasContent && this.removable
   }
 
   get hasContent (): boolean {
-    return ![null, undefined, ''].includes(this.c_value)
+    return ![null, undefined, ''].includes(this.modelValue)
   }
 
   onInput (event: any): void {
     if (typeof this.mask !== 'string' && !Object.keys(this.mask).length) {
-      this.$emit('input', event.target.value)
+      this.$emit('update:modelValue', event.target.value)
       return
     }
     if (this.inputElement) {
       this.inputElement.setRawValue(event.target.value)
       if (this.returnRaw) {
-        this.$emit('input', this.inputElement.getRawValue())
+        this.$emit('update:modelValue', this.inputElement.getRawValue())
         return
       }
     }
-    this.$emit('input', event.target.value)
+    this.$emit('update:modelValue', event.target.value)
   }
 
   onChange (event: any): void {
@@ -104,19 +115,19 @@ export class InputMixin extends Mixins(PropsMixin) {
   }
 
   onPrependClick (event: Event): void {
-    this.$emit('click:prepend', event)
+    this.$emit('click-prepend', event)
   }
 
   onPrependInnerClick (event: Event): void {
-    this.$emit('click:prepend-inner', event)
+    this.$emit('click-prepend-inner', event)
   }
 
   onAppendClick (event: Event): void {
-    this.$emit('click:append', event)
+    this.$emit('click-append', event)
   }
 
   onAppendInnerClick (event: Event): void {
-    this.$emit('click:append-inner', event)
+    this.$emit('click-append-inner', event)
   }
 
   onFocus (event: Event): void {
@@ -178,7 +189,7 @@ export class InputMixin extends Mixins(PropsMixin) {
   /**
    * Free up memory
    */
-  beforeDestroy () {
+  beforeUnmount () {
     this.destroyCleaveInstance()
   }
 
@@ -189,6 +200,6 @@ export class InputMixin extends Mixins(PropsMixin) {
 
   /** @public */
   reset (): void {
-    this.$emit('input', '')
+    this.$emit('update:modelValue', '')
   }
 }

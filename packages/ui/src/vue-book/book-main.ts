@@ -1,55 +1,60 @@
-// @ts-nocheck
-
-import Vue from 'vue'
-import BookApp from './BookApp.vue'
-import VueClipboard from 'vue-clipboard2'
-import Router from 'vue-router'
-import { VueBookComponents, createRoute } from 'vue-book'
-import { ColorThemePlugin } from '../services/ColorThemePlugin'
-import { getContext } from '../components/context-test/context-provide/context'
-import { ContextPlugin } from '../components/context-test/context-provide/ContextPlugin'
-import { BusPlugin } from 'vue-epic-bus'
-import { registerVuesticObject } from '../components/resize-events'
-import { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
-import { installPlatform } from '../components/vuestic-components/va-popup/install'
-import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
+import { createApp } from 'vue'
+import App from './BookApp.vue'
+import GlobalConfigPlugin from '../services/GlobalConfigPlugin'
+import DropdownPopperSubplugin from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
+// import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
 import ToastInstall from '../components/vuestic-components/va-toast/install'
 
-// eslint-disable-next-line
+import { VueBookComponents, createRoute } from 'vue-book'
+import { createRouter, createWebHashHistory } from 'vue-router'
+
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
-installPlatform()
+// @ts-ignore
+const app = createApp(App)
 
-Vue.use(Router)
-Vue.use(VueBookComponents)
-if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
-  Vue.use(ColorThemePlugin)
-}
-Vue.use(DropdownPopperPlugin)
-Vue.use(ContextPlugin, getContext())
+const routes = [
+  createRoute({
+    requireContext: require.context('../components', true, /.vdemo.vue$/),
+    path: '/demo',
+  }),
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/demo',
+  },
+]
 
-const router = new Router({
-  routes: [
-    createRoute({
-      requireContext: require.context('./../components', true, /.demo.vue$/),
-      path: '/demo',
-    }),
-    {
-      path: '*',
-      redirect: '/demo',
-    },
-  ],
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
 })
 
-registerVuesticObject(Vue)
+// app.use(ColorHelpersPlugin)
+app.use(VueBookComponents)
+app.use(ToastInstall)
+app.use(DropdownPopperSubplugin)
+app.use(router)
 
-Vue.use(BusPlugin)
-Vue.use(VueClipboard)
-Vue.use(DropdownPopperPlugin)
-Vue.use(ColorHelpersPlugin)
-Vue.use(ToastInstall)
+if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
+  app.use(GlobalConfigPlugin, {
+    // Provide custom style here, for example:
 
-new Vue({
-  router,
-  render: h => h(BookApp),
-}).$mount('#app')
+    // theme: {
+    //   primary: '#0000ff',
+    //   dark: '#ff0000',
+    // },
+    // VaIcon: {
+    //   iconsConfig: {
+    //     icons: {
+    //       home: {
+    //         code: 'error',
+    //       },
+    //     },
+    //   },
+    // },
+  })
+} else {
+  app.use(GlobalConfigPlugin)
+}
+
+app.mount('#app')

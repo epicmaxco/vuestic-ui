@@ -37,31 +37,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, mixins, Vue, prop } from 'vue-class-component'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import ColorMixin from '../../../services/ColorMixin'
 
-const RadioPropsMixin = makeContextablePropsMixin({
-  value: { type: [Object, String, Number, Boolean], default: null },
-  option: { type: [Object, String, Number, Boolean], default: null },
-  name: { type: [String, Number], default: '' },
-  disabled: { type: Boolean, default: false },
-  label: { type: String, default: '' },
-  leftLabel: { type: Boolean, default: false },
-  color: { type: String, default: '' },
-  tabindex: { type: Number, default: 0 },
-})
+class RadioProps {
+  modelValue = prop<string|number|object|boolean>({ type: [Object, String, Number, Boolean], default: null })
+  option = prop<string|number|object|boolean>({ type: [Object, String, Number, Boolean], default: null })
+  name = prop<string | number>({ type: [String, Number], default: '' })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  label = prop<string>({ type: String, default: '' })
+  leftLabel = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: '' })
+  tabindex = prop<number>({ type: Number, default: 0 })
+}
 
-@Component({
+const RadioPropsMixin = Vue.with(RadioProps)
+
+@Options({
   name: 'VaRadio',
+  emits: ['update:modelValue', 'focus'],
 })
-export default class VaRadio extends Mixins(
-  ColorThemeMixin,
+export default class VaRadio extends mixins(
+  ColorMixin,
   RadioPropsMixin,
 ) {
   get isActive () {
-    return this.value === this.option
+    return this.modelValue === this.option
   }
 
   get computedClass () {
@@ -102,7 +104,7 @@ export default class VaRadio extends Mixins(
 
   onClick (e: Event) {
     if (!this.disabled) {
-      this.$emit('input', this.option, e)
+      this.$emit('update:modelValue', this.option, e)
     }
   }
 
@@ -117,7 +119,7 @@ export default class VaRadio extends Mixins(
   }
 
   clear () {
-    this.$emit('input', null)
+    this.$emit('update:modelValue', null)
   }
 }
 </script>

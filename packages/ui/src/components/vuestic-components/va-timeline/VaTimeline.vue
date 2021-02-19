@@ -1,7 +1,10 @@
 <script>
+import { h } from 'vue'
+
 const getPropsData = (slot) => {
-  return slot && slot.componentOptions && slot.componentOptions.propsData
+  return slot && slot.props
 }
+
 const getIsActive = (slot) => {
   const propsData = getPropsData(slot)
   if (!propsData) {
@@ -10,8 +13,10 @@ const getIsActive = (slot) => {
 
   return !!(propsData.active || propsData.active === '') // Check because for boolean empty prop means true
 }
+
 const processSlots = (context) => {
-  const slots = context.slots().default
+  const defaultSlots = context.$slots.default()
+  const slots = (defaultSlots && defaultSlots[0]) ? defaultSlots[0].children : []
 
   slots.forEach((slot, index) => {
     const propsData = getPropsData(slot)
@@ -21,9 +26,9 @@ const processSlots = (context) => {
     }
 
     // Pass down vertical prop.
-    propsData.vertical = context.props.vertical
+    propsData.vertical = context.$props.vertical
 
-    if (context.props.centered) {
+    if (context.$props.centered) {
       // Every second slot will be inverted
       propsData.inverted = !!(index % 2)
     }
@@ -68,29 +73,28 @@ const $root = 'va-timeline'
 
 export default {
   name: $root,
-  functional: true,
   props: {
     vertical: Boolean,
     centered: Boolean,
     alignTop: Boolean,
   },
-  render (createElement, context) {
+  render () {
     const classes = {
       [$root]: true,
-      [`${$root}--vertical`]: context.props.vertical,
-      [`${$root}--align-top`]: context.props.alignTop,
+      [`${$root}--vertical`]: this.$props.vertical,
+      [`${$root}--align-top`]: this.$props.alignTop,
     }
-    if (context.data.staticClass) {
-      classes[context.data.staticClass] = true
+    if (this.$data.staticClass) {
+      classes[this.$data.staticClass] = true
     }
 
-    return createElement(
+    return h(
       'div',
       {
         class: classes,
-        style: context.data.staticStyle,
+        style: this.$data.staticStyle,
       },
-      processSlots(context),
+      processSlots(this),
     )
   },
 }

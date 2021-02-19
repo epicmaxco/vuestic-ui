@@ -13,11 +13,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
 
-import VaCheckbox from './VaCheckbox.vue'
+import VaCheckbox from './index'
 
-@Component({
+@Options({
   components: { VaCheckbox },
 })
 export default class VaCheckboxValidation extends Vue {

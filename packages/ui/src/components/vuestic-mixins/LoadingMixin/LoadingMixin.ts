@@ -1,14 +1,12 @@
-import { Mixins, Component } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { prop, Vue } from 'vue-class-component'
 
-const componentProps = {
-  loading: { type: Boolean, default: false },
+class Props {
+  loading = prop<boolean>({ type: Boolean, default: false })
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+export class LoadingMixin extends Vue.with(Props) {
+  isLoadingMixin!: boolean
 
-@Component
-export class LoadingMixin extends Mixins(PropsMixin) {
   created () {
     this.isLoadingMixin = true
   }

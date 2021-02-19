@@ -11,12 +11,14 @@ import EscapeKey from '../utils/escape-key'
 import ModelToggleMixin from '../mixins/model-toggle'
 import { listenOpts, position as eventPosition } from '../utils/event'
 import CanRenderMixinMixin from '../mixins/can-render'
+import { h } from 'vue'
 
 // HACK Should not be in vuestic 2.0.
 
 // @depecated
 export default {
   name: 'VaPopup',
+  emits: ['escape-key'],
   mixins: [ModelToggleMixin, CanRenderMixinMixin],
   props: {
     anchor: {
@@ -78,13 +80,13 @@ export default {
       return parsePosition(this.self || `top ${this.horizSide}`)
     },
   },
-  render (h) {
+  render () {
     if (!this.canRender) {
       return
     }
 
     return h('div', {
-      staticClass: 'q-popover scroll',
+      class: 'q-popover scroll',
       ref: 'content',
       attrs: { tabindex: -1 },
       on: {
@@ -92,7 +94,7 @@ export default {
           e.stopPropagation()
         },
       },
-    }, this.$slots.default)
+    }, this.$slots.default())
   },
   mounted () {
     this.__updatePosition = frameDebounce((_, event, animate) => this.reposition(event, animate))
@@ -117,7 +119,7 @@ export default {
 
     this.value && this.show()
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.showing && this.__cleanup()
     if (this.anchorClick && this.anchorEl) {
       this.anchorEl.removeEventListener('click', this.toggle)
@@ -131,7 +133,7 @@ export default {
       }
       document.body.appendChild(this.$el)
       EscapeKey.register(() => {
-        this.$emit('escapeKey')
+        this.$emit('escape-key')
         this.hide()
       })
       this.scrollTarget = getScrollTarget(this.anchorEl)

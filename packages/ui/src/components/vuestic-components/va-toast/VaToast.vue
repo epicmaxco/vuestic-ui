@@ -7,18 +7,18 @@
       :style="toastStyles"
       @mouseenter="clearTimer()"
       @mouseleave="startTimer()"
-      @click="onToastClick"
+      @click="onToastClick()"
       role="alert"
     >
       <template>
         <slot name="prepend" />
       </template>
       <div class="va-toast__group">
-        <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
-        <div class="va-toast__content" v-show="message">
+        <h2 v-if="$props.title" class="va-toast__title" v-text="$props.title"></h2>
+        <div class="va-toast__content" v-show="$props.message">
           <slot>
-            <p v-if="!dangerouslyUseHTMLString" v-text="message"></p>
-            <p v-else v-html="message"></p>
+            <p v-if="!$props.dangerouslyUseHTMLString" v-text="$props.message"></p>
+            <p v-else v-html="$props.message"></p>
           </slot>
         </div>
         <div
@@ -28,7 +28,7 @@
           <slot name="append" />
         </div>
         <va-icon
-          v-else-if="closeable"
+          v-else-if="$props.closeable"
           size="small"
           name="close"
           class="va-toast__close-icon"
@@ -40,52 +40,57 @@
 </template>
 
 <script lang="ts">
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { NotificationPosition } from './types'
-import { PropType } from 'vue'
-import { Component, Mixins, Watch } from 'vue-property-decorator'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import VaIcon from '../va-icon/VaIcon.vue'
+import { watch, PropType } from 'vue'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-const ToastPropsMixin = makeContextablePropsMixin({
-  title: { type: String, default: '' },
-  offsetY: { type: Number, default: 16 },
-  offsetX: { type: Number, default: 16 },
-  message: { type: [String, Function], default: '' },
-  iconClass: { type: String, default: '' },
-  customClass: { type: String, default: '' },
-  duration: { type: Number, default: 20000 },
-  color: { type: String, default: '' },
-  closeable: { type: Boolean, default: true },
-  dangerouslyUseHTMLString: { type: Boolean, default: false },
-  onClose: { type: [Function as PropType<() => void>, undefined] },
-  onClick: { type: [Function as PropType<() => void>, undefined] },
-  position: {
+import ColorMixin from '../../../services/ColorMixin'
+import VaIcon from '../va-icon'
+
+import { NotificationPosition } from './types'
+
+class ToastProps {
+  title = prop<string>({ type: String, default: '' })
+  offsetY = prop<number>({ type: Number, default: 16 })
+  offsetX = prop<number>({ type: Number, default: 16 })
+  message = prop<string | Function>({ type: [String, Function], default: '' })
+  iconClass = prop<string>({ type: String, default: '' })
+  customClass = prop<string>({ type: String, default: '' })
+  duration = prop<number>({ type: Number, default: 20000 })
+  color = prop<string>({ type: String, default: '' })
+  closeable = prop<boolean>({ type: Boolean, default: true })
+  dangerouslyUseHTMLString = prop<boolean>({ type: Boolean, default: false })
+  onClose = prop<Function>({ type: Function as PropType<() => void> })
+  onClick = prop<Function>({ type: Function as PropType<() => void> })
+  position = prop<string>({
     type: String as PropType<NotificationPosition>,
     default: 'top-right',
-  },
-})
+  })
+}
 
-@Component({
+const ToastPropsMixin = Vue.with(ToastProps)
+
+@Options({
   name: 'VaToast',
   components: { VaIcon },
+  emits: ['click', 'close'],
 })
-export default class VaToast extends Mixins(
-  ColorThemeMixin,
+export default class VaToast extends mixins(
+  ColorMixin,
   ToastPropsMixin,
 ) {
-  @Watch('closed')
-  onClosed (value: boolean) {
-    if (value) {
-      this.visible = false
-      this.$el.addEventListener('transitionend', this.destroyElement)
-    }
-  }
-
   private closed = false
   private timer: number | null = null
 
-  public visible = false
+  public visible = true
+
+  created () {
+    watch(() => this.closed, (value) => {
+      if (value) {
+        this.visible = false
+        this.$el.addEventListener('transitionend', this.destroyElement)
+      }
+    })
+  }
 
   get positionX (): 'right' | 'left' {
     return this.position.includes('right') ? 'right' : 'left'
@@ -109,25 +114,28 @@ export default class VaToast extends Mixins(
 
   destroyElement () {
     this.$el.removeEventListener('transitionend', this.destroyElement)
-    this.$destroy() // or this.$destroy(true)
+
+    // TODO: not sure if this is really needed (it doesn't work in vue3)
+    // this.$destroy() // or this.$destroy(true)
+
     this.$el.remove() // or this.$el.parentNode?.removeChild(this.$el)
   }
 
   onToastClick () {
-    if (typeof this.onClick === 'function') {
-      this.onClick()
+    if (typeof this.$props.onClick === 'function') {
+      this.$props.onClick()
       return
     }
-    this.$emit('onClick')
+    this.$emit('click')
   }
 
   onToastClose () {
     this.closed = true
-    if (typeof this.onClose === 'function') {
-      this.onClose()
+    if (typeof this.$props.onClose === 'function') {
+      this.$props.onClose()
       return
     }
-    this.$emit('onClose')
+    this.$emit('close')
   }
 
   clearTimer () {
@@ -169,7 +177,7 @@ export default class VaToast extends Mixins(
     document.addEventListener('keydown', this.onKeydown)
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     document.removeEventListener('keydown', this.onKeydown)
   }
 }

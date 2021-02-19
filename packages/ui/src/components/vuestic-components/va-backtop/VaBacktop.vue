@@ -8,45 +8,48 @@
     <slot>
       <va-button
         icon="expand_less"
-        :color="c_color"
+        :color="color"
       />
     </slot>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import VaButton from '../va-button/VaButton.vue'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-const PropsMixin = makeContextablePropsMixin({
-  target: { type: [Element, String], default: () => window },
-  visibilityHeight: { type: Number, default: 300 },
-  speed: { type: Number, default: 50 },
-  verticalOffset: { type: String, default: '1rem' },
-  horizontalOffset: { type: String, default: '1rem' },
-  color: { type: String, default: '' },
-  horizontalPosition: {
+import VaButton from '../va-button'
+
+class Props {
+  target = prop<Element | string | undefined>({ type: [Element, String], default: () => window })
+  visibilityHeight = prop<number>({ type: Number, default: 300 })
+  speed = prop<number>({ type: Number, default: 50 })
+  verticalOffset = prop<string>({ type: String, default: '1rem' })
+  horizontalOffset = prop<string>({ type: String, default: '1rem' })
+  color = prop<string>({ type: String, default: '' })
+  horizontalPosition = prop<string>({
     type: String,
     default: 'right',
     validator: (value: string) => {
       return ['right', 'left'].includes(value)
     },
-  },
-  verticalPosition: {
+  })
+
+  verticalPosition = prop<string>({
     type: String,
     default: 'bottom',
     validator: (value: string) => {
       return ['bottom', 'top'].includes(value)
     },
-  },
-})
+  })
+}
 
-@Component({
+const PropsMixin = Vue.with(Props)
+
+@Options({
   name: 'VaBacktop',
   components: { VaButton },
 })
-export default class VaBacktop extends Mixins(
+export default class VaBacktop extends mixins(
   PropsMixin,
 ) {
   visible = false
@@ -55,15 +58,15 @@ export default class VaBacktop extends Mixins(
 
   get computedStyle (): object {
     return {
-      [this.c_verticalPosition]: this.c_verticalOffset,
-      [this.c_horizontalPosition]: this.c_horizontalOffset,
+      [this.verticalPosition]: this.verticalOffset,
+      [this.horizontalPosition]: this.horizontalOffset,
     }
   }
 
   get targetElement (): Element {
-    return typeof this.c_target === 'string'
-      ? document.querySelector(this.c_target)
-      : this.c_target || this.$el.parentElement
+    return typeof this.target === 'string'
+      ? document.querySelector(this.target)
+      : (this.target || this.$el.parentElement)
   }
 
   handleScroll (): void {
@@ -74,7 +77,7 @@ export default class VaBacktop extends Mixins(
     if (this.scrolled) { return }
     this.scrolled = true
     this.interval = window.setInterval(() => {
-      const next = Math.floor(this.targetElement.scrollTop - this.c_speed)
+      const next = Math.floor(this.targetElement.scrollTop - this.speed)
       if (this.targetElement.scrollTop === 0) {
         clearInterval(this.interval)
         this.scrolled = false
@@ -88,7 +91,7 @@ export default class VaBacktop extends Mixins(
     this.targetElement.addEventListener('scroll', this.handleScroll)
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.targetElement.removeEventListener('scroll', this.handleScroll)
   }
 }

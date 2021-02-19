@@ -7,29 +7,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options, prop, setup } from 'vue-class-component'
+import { InjectionKey, reactive, provide } from 'vue'
 
-@Component({
-  name: 'VaButtonGroup',
-  provide () {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const parent = this as any
-    return {
-      va: new Vue({
-        computed: {
-          color () {
-            return parent.color
-          },
-        },
-      }),
-    }
-  },
-})
-export default class VaButtonGroup extends Vue {
-  @Prop({
+export const ButtonGroupServiceKey: InjectionKey<{ color?: string }> = Symbol('ButtonGroupService')
+
+class Props {
+  color = prop<string>({
     type: String,
     default: '',
-  }) readonly color!: string
+  })
+}
+
+@Options({
+  name: 'VaButtonGroup',
+})
+export default class VaButtonGroup extends Vue.with(Props) {
+  context = setup(() => {
+    const va = reactive({
+      color: this.color,
+    })
+
+    provide(ButtonGroupServiceKey, va)
+
+    return {
+      va,
+    }
+  })
 
   // get computedClass () {
   //   return {

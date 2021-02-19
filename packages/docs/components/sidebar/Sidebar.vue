@@ -8,7 +8,7 @@
           :key="key"
           class="sidebar__expand"
         >
-          <template slot="header">
+          <template #header>
             <va-list-item class="sidebar__category">
               <va-list-item-section class="sidebar__category__section">
                 <va-list-item-label class="sidebar__category__label">

@@ -1,8 +1,8 @@
 <template>
   <va-input-wrapper
     class="va-input"
-    :disabled="c_disabled"
-    :success="c_success"
+    :disabled="disabled"
+    :success="success"
     :messages="messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
@@ -10,10 +10,11 @@
     @click:prepend="onPrependClick"
     @click:append="onAppendClick"
   >
-    <slot
-      name="prepend"
-      slot="prepend"
-    />
+    <template #prepend>
+      <slot
+        name="prepend"
+      />
+    </template>
     <div
       class="va-input__container"
       :class="{'va-input__container--textarea': isTextarea}"
@@ -28,7 +29,7 @@
       </div>
       <div
         class="va-input__container__content-wrapper"
-        :style="{ alignItems: c_label ? 'flex-end' : 'center'}"
+        :style="{ alignItems: label ? 'flex-end' : 'center'}"
       >
         <label
           :style="labelStyles"
@@ -42,16 +43,16 @@
           :id="id"
           :name="name"
           class="va-input__container__input"
-          :aria-label="c_label"
-          :type="c_type"
-          :placeholder="c_placeholder"
-          :disabled="c_disabled"
-          :readonly="c_readonly"
+          :aria-label="label"
+          :type="type"
+          :placeholder="placeholder"
+          :disabled="disabled"
+          :readonly="readonly"
           :value="computedValue"
           v-on="eventListeners"
           v-bind="$attrs"
           ref="input"
-          :tabindex="c_tabindex"
+          :tabindex="tabindex"
         />
         <textarea
           v-else
@@ -59,15 +60,15 @@
           :name="name"
           class="va-input__container__input"
           :style="textareaStyles"
-          :aria-label="c_label"
-          :placeholder="c_placeholder"
-          :disabled="c_disabled"
-          :readonly="c_readonly"
-          :value="c_value"
+          :aria-label="label"
+          :placeholder="placeholder"
+          :disabled="disabled"
+          :readonly="readonly"
+          :value="modelValue"
           v-on="eventListeners"
           v-bind="$attrs"
           ref="textarea"
-          :tabindex="c_tabindex"
+          :tabindex="tabindex"
         />
       </div>
       <div
@@ -82,7 +83,7 @@
         class="va-input__container__icon-wrapper"
       >
         <va-icon
-          v-if="c_success"
+          v-if="success"
           class="va-input__container__icon"
           color="success"
           name="check"
@@ -95,60 +96,59 @@
         />
         <va-icon
           v-if="canBeCleared"
-          @click.native.stop="reset()"
+          @click.stop="reset()"
           class="va-input__container__close-icon"
           :color="computedError ? 'danger': 'gray'"
           name="highlight_off"
         />
       </div>
     </div>
-    <slot
-      name="append"
-      slot="append"
-    />
+    <template #append>
+      <slot
+        name="append"
+      />
+    </template>
   </va-input-wrapper>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
 import { getHoverColor } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import ColorMixin from '../../../services/ColorMixin'
+import VaInputWrapper from '../va-input/VaInputWrapper'
+import VaIcon from '../va-icon'
+
 import { InputMixin } from './helpers/InputMixin'
 import { TextareaMixin } from './helpers/TextareaMixin'
 
-const InputPropsMixin = makeContextablePropsMixin({
-  color: { type: String, default: '' },
-  value: { type: [String, Number], default: '' },
-  label: { type: String, default: '' },
-  placeholder: { type: String, default: '' },
-  type: { type: String, default: 'text' },
-  removable: { type: Boolean, default: false },
-  tabindex: { type: Number, default: 0 },
-})
+class InputProps {
+  color = prop<string>({ type: String, default: '' })
+  placeholder = prop<string>({ type: String, default: '' })
+  removable = prop<boolean>({ type: Boolean, default: false })
+  tabindex = prop<number>({ type: Number, default: 0 })
+}
 
-@Component({
+const InputPropsMixin = Vue.with(InputProps)
+
+@Options({
   name: 'VaInput',
   components: { VaInputWrapper, VaIcon },
+  emits: ['update:modelValue', 'change', 'click-prepend', 'click-prepend-inner',
+    'click-append', 'click-append-inner', 'focus', 'blur', 'keyup', 'keydown', 'click'],
 })
-export default class VaInput extends Mixins(
-  ColorThemeMixin,
-  FormComponentMixin,
-  InputPropsMixin,
+export default class VaInput extends mixins(
+  ColorMixin,
   InputMixin,
   TextareaMixin,
+  InputPropsMixin,
 ) {
   get labelStyles (): any {
     if (this.computedError) {
       return { color: this.computeColor('danger') }
     }
 
-    if (this.c_success) {
+    if (this.success) {
       return { color: this.computeColor('success') }
     }
 
@@ -159,10 +159,10 @@ export default class VaInput extends Mixins(
     return {
       backgroundColor:
         this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
-          : this.c_success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
+          : this.success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
       borderColor:
         this.computedError ? this.computeColor('danger')
-          : this.c_success ? this.computeColor('success')
+          : this.success ? this.computeColor('success')
             : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
     }
   }

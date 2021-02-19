@@ -24,7 +24,7 @@
       />
       <va-slider
         class="mb-5"
-        :value="60"
+        :modelValue="60"
         value-visible
         label="Label"
         color="info"
@@ -35,11 +35,11 @@
       <va-rating
         class="mb-5"
         color="info"
-        :value="3"
+        :modelValue="3"
       >
         Default Button
       </va-rating>
-      <va-tree-root color="info">
+      <va-tree-root color="warning">
         <va-tree-category label="Electronics">
           <va-tree-node>Cellphones</va-tree-node>
           <va-tree-node>Camera Body Kits</va-tree-node>
@@ -68,7 +68,7 @@
         color="info"
       />
     </VbCard>
-    <VbCard title="Change color">
+    <!-- <VbCard title="Change color">
       <div>
         primary
         <va-color-input-advanced
@@ -111,7 +111,7 @@
           mode="advanced"
         />
       </div>
-    </VbCard>
+    </VbCard> -->
     <VbCard title="These 2 badges share `info` theme">
       <va-badge
         color="info"
@@ -137,8 +137,8 @@ import VaColorInputAdvanced
 import VaRating from '../../vuestic-components/va-rating/VaRating'
 import VaTreeRoot from '../../vuestic-components/va-tree-view/VaTreeRoot'
 import VaTreeCategory
-  from '../../vuestic-components/va-tree-view/VaTreeCategory'
-import VaTreeNode from '../../vuestic-components/va-tree-view/VaTreeNode'
+  from '../../vuestic-components/va-tree-view/VaTreeCategory/VaTreeCategory'
+import VaTreeNode from '../../vuestic-components/va-tree-view/VaTreeNode/VaTreeNode'
 import { getLineChartData } from '../../../data/charts/LineChartData'
 import VaBadge from '../../vuestic-components/va-badge/VaBadge'
 import VaFileUpload from '../../vuestic-components/va-file-upload/VaFileUpload'
@@ -152,7 +152,7 @@ export default {
     VaTreeCategory,
     VaTreeRoot,
     VaRating,
-    VaColorInputAdvanced,
+    // VaColorInputAdvanced,
     VaButton,
     VaAlert,
     VaProgressBar,
@@ -171,6 +171,7 @@ export default {
       this.chartData = getLineChartData(this.$themes)
     },
     darkenTheme () {
+      console.log('darken')
       // NOTE For testing. So that we can observe theme changed
       const newTheme = {
         primary: '#9A0931',
@@ -184,7 +185,7 @@ export default {
       }
 
       for (const index in newTheme) {
-        this.$set(this.$themes, index, newTheme[index])
+        this.$themes[index] = newTheme[index]
       }
     },
   },

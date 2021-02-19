@@ -6,50 +6,39 @@
     :style="computedStyle"
     aria-hidden="true"
     notranslate
-    v-on="$listeners"
   >
     <slot>{{ computedContent }}</slot>
   </component>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import { warn } from '../../../services/utils'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
+import ColorMixin from '../../../services/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 import { IconMixin } from './IconMixin'
 
-const IconPropsMixin = makeContextablePropsMixin({
-  name: {
-    type: [String, Array],
-    default: '',
-    validator: (name: string) => {
-      if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-        return warn(`${name} icon is not available.`)
-      }
-      return true
-    },
-  },
-  tag: { type: String, default: 'i' },
-  component: { type: Object },
-  color: { type: String, default: '' },
-  rotation: { type: [String, Number], default: '' },
-  spin: { type: Boolean, default: false },
-})
+class Props {
+  name = prop<string>({ type: String, default: '' })
+  tag = prop<string>({ type: String, default: 'i' })
+  component = prop<object>({ type: Object })
+  color = prop<string>({ type: String, default: '' })
+  rotation = prop<number | string>({ type: [String, Number], default: '' })
+  spin = prop<boolean>({ type: Boolean, default: false })
+}
 
-@Component({
+const PropsMixin = Vue.with(Props)
+
+@Options({
   name: 'VaIcon',
 })
-export default class VaIcon extends Mixins(
-  ColorThemeMixin,
+export default class VaIcon extends mixins(
+  ColorMixin,
   SizeMixin,
   IconMixin,
-  IconPropsMixin,
+  PropsMixin,
 ) {
   get computedTag () {
-    return (this.icon && this.icon.component) || this.c_component || this.c_tag
+    return (this.icon && this.icon.component) || this.component || this.tag
   }
 
   get computedClass () {
@@ -60,7 +49,7 @@ export default class VaIcon extends Mixins(
   }
 
   get hasClickListener () {
-    return this.$listeners && this.$listeners.click
+    return this.$attrs && this.$attrs.onClick
   }
 
   get cursorStyle () {
@@ -68,7 +57,7 @@ export default class VaIcon extends Mixins(
   }
 
   get rotateStyle () {
-    return { transform: 'rotate(' + this.c_rotation + 'deg)' }
+    return { transform: 'rotate(' + this.rotation + 'deg)' }
   }
 
   get fontSizeStyle () {
@@ -76,7 +65,7 @@ export default class VaIcon extends Mixins(
   }
 
   get colorStyle () {
-    return { color: this.c_color ? this.colorComputed : null }
+    return { color: this.color ? this.colorComputed : null }
   }
 
   get computedStyle () {

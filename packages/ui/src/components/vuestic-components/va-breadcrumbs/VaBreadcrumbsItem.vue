@@ -24,26 +24,27 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-const props = {
-  disabled: {
+class BreadcrumbsItemProps {
+  disabled = prop<boolean>({
     type: Boolean,
     default: false,
-  },
-  label: {
+  })
+
+  label = prop<string>({
     type: String,
     default: '',
-  },
+  })
 }
 
-const ContextableMixin = makeContextablePropsMixin(props)
+const BreadcrumbsItemPropsMixin = Vue.with(BreadcrumbsItemProps)
 
-@Component({})
-export default class VaBreadcrumbsItem extends Mixins(RouterLinkMixin, ContextableMixin) {
+@Options({
+  name: 'VaBreadcrumbsItem',
+})
+export default class VaBreadcrumbsItem extends mixins(RouterLinkMixin, BreadcrumbsItemPropsMixin) {
   get isDisabled () {
     return this.disabled || !this.hasRouterLinkParams
   }

@@ -11,19 +11,19 @@
       class="va-rating__item-wrapper"
     >
       <template
-        v-if="c_numbers"
+        v-if="$props.numbers"
       >
         <va-rating-item
-          v-for="number in c_max"
+          v-for="number in $props.max"
           :key="number"
           class="va-rating__number-item"
-          :halves="c_halves"
+          :halves="$props.halves"
           :hover="hoverEnabled"
-          :size="c_size"
-          :color="c_color"
-          :empty-icon-color="c_unselectedColor"
+          :size="$props.size"
+          :color="$props.color"
+          :empty-icon-color="$props.unselectedColor"
           :tabindex="tabIndex"
-          :value="getItemValue(number)"
+          :modelValue="getItemValue(number)"
           @hover="onHover(number, $event)"
           @click="onItemSelected(number, $event)"
         >
@@ -48,69 +48,68 @@
       </template>
       <template v-else>
         <va-rating-item
-          v-for="itemNumber in c_max"
+          v-for="itemNumber in $props.max"
           :key="itemNumber"
-          :halves="c_halves"
+          :halves="$props.halves"
           :hover="hoverEnabled"
-          :filled-icon-name="c_icon"
-          :half-icon-name="c_halfIcon"
-          :empty-icon-name="c_emptyIcon"
-          :size="c_size"
-          :color="c_color"
-          :empty-icon-color="c_unselectedColor"
+          :filled-icon-name="$props.icon"
+          :half-icon-name="$props.halfIcon"
+          :empty-icon-name="$props.emptyIcon"
+          :size="$props.size"
+          :color="$props.color"
+          :empty-icon-color="$props.unselectedColor"
           :tabindex="tabIndex"
-          :value="getItemValue(itemNumber)"
+          :modelValue="getItemValue(itemNumber)"
           @hover="onHover(itemNumber, $event)"
           @click="onItemSelected(itemNumber, $event)"
         />
       </template>
     </div>
-    <span class="va-rating__text-wrapper" v-if="c_texts.length === c_max" :style="{ color: computeColor(c_textColor) }">
-      {{ c_texts[Math.round(valueProxy) - 1] }}
+    <span class="va-rating__text-wrapper" v-if="$props.texts.length === $props.max" :style="{ color: computeColor($props.textColor) }">
+      {{ $props.texts[Math.round(valueProxy) - 1] }}
     </span>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import VaRatingItem from './VaRatingItem.vue'
-
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 import { ColorInput } from 'colortranslator/dist/@types'
-import { RatingValue } from './VaRating.types'
+
 import { getFocusColor } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { ContextPluginMixin, makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { SizeMixin } from '../../../mixins/SizeMixin'
+import ColorMixin from '../../../services/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { SizeMixin } from '../../../mixins/SizeMixin'
+import VaRatingItem from './VaRatingItem'
+import { RatingValue } from './VaRating.types'
 
-const RatingPropsMixin = makeContextablePropsMixin({
-  value: { type: Number, default: 0 },
-  icon: { type: String, default: 'star' },
-  halfIcon: { type: String, default: 'star_half' },
-  emptyIcon: { type: String, default: 'star_empty' },
-  readonly: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  numbers: { type: Boolean, default: false },
-  halves: { type: Boolean, default: false },
-  max: { type: Number, default: 5 },
-  clearable: { type: Boolean, default: false },
-  hover: { type: Boolean, default: false },
-  texts: { type: Array, default: () => [] },
-  textColor: { type: String },
-  unselectedColor: { type: String },
-})
+class RatingProps {
+  modelValue = prop<number>({ type: Number, default: 0 })
+  icon = prop<string>({ type: String, default: 'star' })
+  halfIcon = prop<string>({ type: String, default: 'star_half' })
+  emptyIcon = prop<string>({ type: String, default: 'star_empty' })
+  readonly = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  numbers = prop<boolean>({ type: Boolean, default: false })
+  halves = prop<boolean>({ type: Boolean, default: false })
+  max = prop<number>({ type: Number, default: 5 })
+  clearable = prop<boolean>({ type: Boolean, default: false })
+  hover = prop<boolean>({ type: Boolean, default: false })
+  texts = prop<any[]>({ type: Array, default: () => [] })
+  textColor = prop<string>({ type: String })
+  unselectedColor = prop<string>({ type: String })
+}
 
-@Component({
+const RatingPropsMixin = Vue.with(RatingProps)
+
+@Options({
   name: 'VaRating',
   components: { VaRatingItem },
 })
-export default class VaRating extends Mixins(
-  RatingPropsMixin,
-  ColorThemeMixin,
-  ContextPluginMixin,
+export default class VaRating extends mixins(
+  ColorMixin,
   SizeMixin,
   StatefulMixin,
+  RatingPropsMixin,
 ) {
   isHovered = false
   forceEmit = false
@@ -133,24 +132,24 @@ export default class VaRating extends Mixins(
   }
 
   get focusColor () {
-    return this.c_unselectedColor
-      ? this.computeColor(this.c_unselectedColor)
+    return this.$props.unselectedColor
+      ? this.computeColor(this.$props.unselectedColor)
       : getFocusColor(this.colorComputed as ColorInput)
   }
 
   get classList () {
     return {
-      'va-rating--disabled': this.c_disabled,
-      'va-rating--readonly': this.c_readonly,
+      'va-rating--disabled': this.$props.disabled,
+      'va-rating--readonly': this.$props.readonly,
     }
   }
 
   get interactionsEnabled () {
-    return !(this.c_disabled || this.c_readonly)
+    return !(this.$props.disabled || this.$props.readonly)
   }
 
   get hoverEnabled () {
-    return this.c_hover && this.interactionsEnabled
+    return this.$props.hover && this.interactionsEnabled
   }
 
   get tabIndex () {
@@ -160,9 +159,9 @@ export default class VaRating extends Mixins(
   getItemValue (itemNumber: number): RatingValue {
     const diff = itemNumber - this.valueProxy
     switch (true) {
-      case diff <= 0: return RatingValue.FULL
-      case diff === RatingValue.HALF && this.c_halves: return RatingValue.HALF
-      default: return RatingValue.EMPTY
+    case diff <= 0: return RatingValue.FULL
+    case diff === RatingValue.HALF && this.$props.halves: return RatingValue.HALF
+    default: return RatingValue.EMPTY
     }
   }
 
@@ -173,7 +172,7 @@ export default class VaRating extends Mixins(
   }
 
   onMouseEnter () {
-    this.isHovered = this.hoverEnabled && true
+    this.isHovered = (this.hoverEnabled as boolean) && true
   }
 
   onMouseLeave () {
@@ -182,9 +181,9 @@ export default class VaRating extends Mixins(
 
   onArrow (event: KeyboardEvent, directon: 1 | -1) {
     const currentValue = this.valueProxy || RatingValue.EMPTY
-    const step = this.c_halves ? RatingValue.HALF : RatingValue.FULL
+    const step = this.$props.halves ? RatingValue.HALF : RatingValue.FULL
     const nextValue = currentValue + (step * directon)
-    if (nextValue < 0 || nextValue > this.c_max) { return }
+    if (nextValue < 0 || nextValue > (this.$props.max as number)) { return }
 
     this.forceEmit = true
     this.valueProxy = nextValue
@@ -192,10 +191,10 @@ export default class VaRating extends Mixins(
 
   onItemSelected (itemNumber: number, value: RatingValue) {
     if (!this.interactionsEnabled) { return }
-    const currentClickedValue = this.c_halves
+    const currentClickedValue = this.$props.halves
       ? value === RatingValue.HALF ? itemNumber - RatingValue.HALF : itemNumber
       : itemNumber
-    const valueToEmit = this.c_clearable && this.valueComputed === currentClickedValue
+    const valueToEmit = this.$props.clearable && this.valueComputed === currentClickedValue
       ? RatingValue.EMPTY
       : currentClickedValue
 

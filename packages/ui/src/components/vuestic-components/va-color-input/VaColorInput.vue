@@ -5,7 +5,7 @@
       :selected="selected"
       :color="value"
       :indicator="indicator"
-      @click="onClick"
+      @click="onClick()"
     />
     <va-input
       class="va-color-input__input"
@@ -17,41 +17,46 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
-import VaInput from '../va-input/VaInput.vue'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+import { VaColorIndicator } from '../va-color-palette'
+import VaInput from '../va-input'
 
-@Component({
-  name: 'VaColorInput',
-  components: {
-    VaInput,
-    VaColorIndicator,
-  },
-})
-export default class VaColorInput extends Vue {
-  @Prop({
+class ColorInputProps {
+  value = prop<string>({
     type: String,
     default: '',
-  }) readonly value!: string
+  })
 
-  @Prop({
+  indicator = prop<string>({
     type: String,
     default: 'dot',
     validator: (value: string) => {
       return ['dot', 'square'].includes(value)
     },
-  }) readonly indicator!: string
+  })
 
-  @Prop({
+  selected = prop<boolean>({
     type: Boolean,
     default: false,
-  }) readonly selected!: boolean
+  })
 
-  @Prop({
+  disabled = prop<boolean>({
     type: Boolean,
     default: false,
-  }) readonly disabled!: boolean
+  })
+}
 
+const ColorInputPropsMixin = Vue.with(ColorInputProps)
+
+@Options({
+  name: 'VaColorInput',
+  components: {
+    VaInput,
+    VaColorIndicator,
+  },
+  emits: ['click', 'input'],
+})
+export default class VaColorInput extends mixins(ColorInputPropsMixin) {
   get valueProxy (): any {
     return this.value
   }

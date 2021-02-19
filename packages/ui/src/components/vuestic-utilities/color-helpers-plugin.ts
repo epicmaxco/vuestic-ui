@@ -1,8 +1,7 @@
-import Vue from 'vue'
-import { getDefaultOptions } from '../../services/ColorThemePlugin'
+// @ts-nocheck
+import { App, watch } from 'vue'
+import { getDefaultOptions } from '../../services/ColorMixin'
 import { addOrUpdateStyleElement } from '../../services/dom-functions'
-
-const vmInstance = new Vue()
 
 const createThemeColorStyles = (themes: Record<string, string>): string => {
   let result = ''
@@ -20,14 +19,17 @@ const createThemeColorStyles = (themes: Record<string, string>): string => {
 const ColorHelpersPlugin = {
   install () {
     const defaultOptions = getDefaultOptions()
-    // @ts-ignore
-    vmInstance.$watch(() => defaultOptions.themes, {
-      deep: true,
-      immediate: true,
-      handler: () => {
+
+    watch(
+      () => defaultOptions.themes,
+      () => {
         addOrUpdateStyleElement('va-theme-styles', () => createThemeColorStyles(defaultOptions.themes))
       },
-    })
+      {
+        deep: true,
+        immediate: true,
+      },
+    )
   },
 }
 

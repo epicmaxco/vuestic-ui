@@ -3,7 +3,7 @@
 // 2/ https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/ClickAwayListener/ClickAwayListener.js
 
 import noop from 'lodash/noop'
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue } from 'vue-class-component'
 
 import {
   ownerDocument,
@@ -18,7 +18,6 @@ export type ClickOutsideOptions = {
   onClickOutside: (e: Event | undefined) => void;
 }
 
-@Component
 class ClickOutsideMixin extends Vue {
   // Set it `true` to prevent handling a bubbled event
   // before handling a captured one for the first time

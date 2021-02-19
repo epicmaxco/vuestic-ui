@@ -2,95 +2,137 @@
   <component
     class="va-form"
     :is="tag"
-    v-on="$listeners"
   >
     <slot />
   </component>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { inject, provide } from 'vue'
+import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import { FormProvider, FormServiceKey } from './consts'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-
-const getNestedFormElements = (vm: any, elements: any = []) => {
-  vm.$children.forEach((child: any) => {
-    if (child.isFormComponent) {
-      elements.push(child)
-    }
-
-    child.$children.length > 0 && getNestedFormElements(child, elements)
-  })
-
-  return elements
+class FormProps {
+  autofocus = prop<boolean>({ type: Boolean, default: false })
+  tag = prop<string>({ type: String, default: 'div' })
 }
 
-const FormPropsMixin = makeContextablePropsMixin({
-  autofocus: { type: Boolean, default: false },
-  tag: { type: String, default: 'div' },
-})
+const FormPropsMixin = Vue.with(FormProps)
 
-@Component({
+interface UniversalFormBlock {
+  reset: () => void;
+  some: () => void;
+}
+
+@Options({
   name: 'VaForm',
+  emits: ['validation'],
 })
-export default class VaForm extends Mixins(
+export default class VaForm extends mixins(
   FormPropsMixin,
 ) {
+  nestedFormElements: (FormComponentMixin | VaForm)[] = [];
+
+  parentFormProvider: FormProvider | object = setup(() => {
+    return {
+      ...inject(FormServiceKey, undefined),
+    }
+  })
+
+  formProvider = setup(() => {
+    const onChildMounted = (child: FormComponentMixin | VaForm) => this.childMountedHandler(child)
+    const onChildUnmounted = (removableChild: FormComponentMixin | VaForm) => this.childUnmountedHandler(removableChild)
+
+    const formProvider = {
+      onChildMounted,
+      onChildUnmounted,
+    }
+
+    provide(FormServiceKey, formProvider)
+
+    return formProvider
+  })
+
+  childMountedHandler (child: FormComponentMixin | VaForm) {
+    this.nestedFormElements.push(child)
+  }
+
+  childUnmountedHandler (removableChild: FormComponentMixin | VaForm) {
+    this.nestedFormElements = this.nestedFormElements.filter(child => child !== removableChild)
+  }
+
   mounted () {
+    if (Object.keys(this.parentFormProvider).length) {
+      // @ts-ignore
+      this.parentFormProvider.onChildMounted(this)
+    }
     if (this.autofocus) {
-      this.focus()
+      this.$nextTick(() => {
+        this.focus()
+      })
+    }
+  }
+
+  unmounted () {
+    if (Object.keys(this.parentFormProvider).length) {
+      // @ts-ignore
+      this.parentFormProvider.onChildUnmounted(this)
     }
   }
 
   // public methods
   reset () {
-    getNestedFormElements(this)
-      .filter(({ reset }: any) => reset)
-      .forEach((item: any) => {
+    this.nestedFormElements
+      .filter(({ reset }) => reset)
+      .forEach((item) => {
         item.reset()
       })
   }
 
   resetValidation () {
-    getNestedFormElements(this)
-      .filter(({ resetValidation }: any) => resetValidation)
+    this.nestedFormElements
+      .filter(({ resetValidation }) => resetValidation)
       .forEach((item: any) => {
         item.resetValidation()
       })
   }
 
   focus () {
-    const focusableElement = getNestedFormElements(this).find(({ focus }: any) => focus)
-
+    const focusableElement = this.nestedFormElements.find(({ focus }) => focus)
     if (focusableElement) {
       focusableElement.focus()
     }
   }
 
   focusInvalid () {
-    const invalidComponent = getNestedFormElements(this)
-      .filter(({ hasError }: any) => hasError)
-      .find((item: any) => item.hasError())
+    const invalidComponent = this.nestedFormElements
+      // @ts-ignore
+      .filter(({ hasError }) => hasError)
+      // @ts-ignore
+      .find((item) => item.hasError())
 
     if (invalidComponent) {
       invalidComponent.focus()
+    } else {
+      // @ts-ignore
+      const nestedFormComponents = this.nestedFormElements.filter(({ nestedFormElements }) => nestedFormElements)
+      // @ts-ignore
+      nestedFormComponents.forEach(formComponent => formComponent.focusInvalid())
     }
   }
 
   validate () { // NOTE: temporarily synchronous validation
     let formValid = true
-
-    getNestedFormElements(this)
-      .filter(({ validate }: any) => validate)
-      .forEach((child: any) => {
+    this.nestedFormElements
+      .filter(({ validate }) => validate)
+      .forEach((child) => {
         const isValidChild = child.validate()
         if (!isValidChild) {
           formValid = false
         }
       })
-
     this.$emit('validation', formValid)
-
     return formValid
   }
 }
