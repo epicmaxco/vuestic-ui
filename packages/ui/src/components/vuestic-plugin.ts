@@ -36,7 +36,7 @@ import VaList, {
 } from './vuestic-components/va-list'
 import VaMediumEditor from './vuestic-components/va-medium-editor'
 import VaModal from './vuestic-components/va-modal'
-import VaNavbar from './vuestic-components/va-navbar'
+import VaNavbar, { VaNavbarItem } from './vuestic-components/va-navbar'
 import VaPagination from './vuestic-components/va-pagination'
 import VaParallax from './vuestic-components/va-parallax'
 import VaPopover from './vuestic-components/va-popover'
@@ -118,6 +118,7 @@ export const VuesticPlugin = {
       VaMediumEditor,
       VaModal,
       VaNavbar,
+      VaNavbarItem,
       VaPagination,
       VaParallax,
       VaPopover,
