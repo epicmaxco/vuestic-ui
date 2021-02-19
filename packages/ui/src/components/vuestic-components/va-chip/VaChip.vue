@@ -1,7 +1,8 @@
 <template>
   <component
+    v-if="valueComputed"
+    class="va-chip"
     :is="tagComputed"
-    v-if="doShowChip"
     :href="hrefComputed"
     :target="target"
     :to="to"
@@ -9,7 +10,6 @@
     :exact="exact"
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
-    class="va-chip"
     :class="computedClass"
     :style="computedStyle"
     :tabindex="indexComputed"
@@ -91,14 +91,6 @@ export default class VaChip extends mixins(
     })
   }
 
-  get doShowChip () {
-    return this.valueComputed
-  }
-
-  set doShowChip (val) {
-    this.valueComputed = val
-  }
-
   get iconSize () {
     const size: any = {
       small: '0.875rem',
@@ -178,7 +170,7 @@ export default class VaChip extends mixins(
 
   close () {
     if (!this.disabled) {
-      this.doShowChip = false
+      this.valueComputed = false
     }
   }
 }
