@@ -86,6 +86,7 @@
   font-size: $font-size;
   line-height: $line-height;
   border-radius: $border-radius;
+  padding: $padding-y $padding-x;
 }
 
 @mixin va-code-snippet {
