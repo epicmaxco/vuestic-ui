@@ -56,7 +56,7 @@ const CardPropsMixin = Vue.with(CardProps)
 export default class VaCard extends mixins(
   ColorMixin,
   RouterLinkMixin,
-  PropsMixin,
+  CardPropsMixin,
 ) {
   get cardClasses () {
     return {

@@ -76,6 +76,7 @@ import ToastInstall from './vuestic-components/va-toast/install'
 import GlobalConfigPlugin, { useGlobalConfig } from '../services/GlobalConfigPlugin'
 import { getDefaultConfig } from './vuestic-components/va-config/config-default'
 import { DEFAULT_THEME, useTheme } from '../services/Theme'
+import VaSpacer from './vuestic-components/va-spacer'
 
 installPlatform()
 
