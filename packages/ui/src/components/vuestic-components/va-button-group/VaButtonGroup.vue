@@ -13,10 +13,7 @@ import { InjectionKey, reactive, provide } from 'vue'
 export const ButtonGroupServiceKey: InjectionKey<{ color?: string }> = Symbol('ButtonGroupService')
 
 class Props {
-  color = prop<string>({
-    type: String,
-    default: '',
-  })
+  color = prop<string>({ type: String, default: '' })
 }
 
 @Options({

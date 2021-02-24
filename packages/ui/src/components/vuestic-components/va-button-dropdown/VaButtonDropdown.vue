@@ -76,6 +76,7 @@ import VaButtonGroup from '../va-button-group'
 
 class ButtonDropdownProps {
   modelValue = prop<boolean>({ type: Boolean })
+  color = prop<string>({ type: String, default: 'primary' })
   outline = prop<boolean>({ type: Boolean, default: false })
   disableButton = prop<boolean>({ type: Boolean, default: false })
   disableDropdown = prop<boolean>({ type: Boolean, default: false })
