@@ -158,11 +158,14 @@ export default class VaInput extends mixins(
   get containerStyles (): any {
     return {
       backgroundColor:
-        this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
+        this.computedError
+          ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
           : this.success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
       borderColor:
-        this.computedError ? this.computeColor('danger')
-          : this.success ? this.computeColor('success')
+        this.computedError
+          ? this.computeColor('danger')
+          : this.success
+            ? this.computeColor('success')
             : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
     }
   }
