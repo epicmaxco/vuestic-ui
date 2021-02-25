@@ -111,6 +111,7 @@
         Reroll
       </va-button>
     </VbCard>
+
     <VbCard title="Config">
       <VaConfig
         :config="{
@@ -146,6 +147,53 @@
           </va-timeline-item>
         </va-timeline>
       </VaConfig>
+    </VbCard>
+
+    <VbCard
+      title="Raw Items Timeline"
+      width="300px"
+    >
+      <va-timeline vertical>
+        <va-timeline-item
+          :active="false"
+        >
+          <template #before>
+            <span
+            class="title va-timeline-item__text"
+            :class="{ 'title--gray': false }"
+            >
+              Before text
+            </span>
+          </template>
+          <template #after>
+            <span
+              class="title va-timeline-item__text"
+              :class="{ 'title--gray': true }"
+            >
+              After text
+            </span>
+          </template>
+        </va-timeline-item>
+        <va-timeline-item
+          :active="false"
+        >
+          <template #before>
+            <span
+            class="title va-timeline-item__text"
+            :class="{'title--gray': true }"
+            >
+              Before text
+            </span>
+          </template>
+          <template #after>
+            <span
+              class="title va-timeline-item__text"
+            >
+              After text
+            </span>
+          </template>
+        </va-timeline-item>
+      </va-timeline>
     </VbCard>
   </VbDemo>
 </template>
