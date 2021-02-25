@@ -50,7 +50,7 @@
           :readonly="readonly"
           :value="computedValue"
           v-on="eventListeners"
-          v-bind="$attrs"
+          v-bind="computedAttributes"
           ref="input"
           :tabindex="tabindex"
         />
@@ -66,7 +66,7 @@
           :readonly="readonly"
           :value="modelValue"
           v-on="eventListeners"
-          v-bind="$attrs"
+          v-bind="computedAttributes"
           ref="textarea"
           :tabindex="tabindex"
         />
@@ -153,6 +153,10 @@ export default class VaInput extends mixins(
     }
 
     return { color: this.colorComputed }
+  }
+
+  get computedAttributes () {
+    return { ...this.$attrs, class: this.$attrs.inputClass }
   }
 
   get containerStyles (): any {
