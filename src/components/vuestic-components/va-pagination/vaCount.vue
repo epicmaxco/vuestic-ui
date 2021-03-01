@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination_float">
+  <div>
     Showing {{ isFirst ? 1 : perPage * currentPage - perPage + 1 }} to
     {{ count > perPage * currentPage ? perPage * currentPage : count }} of
     {{ count }} records.
@@ -13,9 +13,3 @@ export default {
   name: "Count"
 };
 </script>
-
-<style scoped>
-.pagination_float {
-  float: right;
-}
-</style>
