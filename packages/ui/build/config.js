@@ -54,16 +54,6 @@ var config = {
     },
     module: {
         rules: [
-            // { test: /\.m?js/, resolve: { fullySpecified: false } },
-            {
-                test: /\.js?$/,
-                exclude: function (file) { return (/node_modules/.test(file) &&
-                    !/\.vue\.js/.test(file)); },
-                loader: 'babel-loader',
-                options: {
-                    sourceType: 'unambiguous'
-                }
-            },
             {
                 test: /\.css$/,
                 use: [
@@ -109,6 +99,15 @@ var config = {
                 exclude: /node_modules/,
                 options: {
                     appendTsSuffixTo: [/\.vue$/]
+                }
+            },
+            {
+                test: /\.js?$/,
+                exclude: function (file) { return (/node_modules/.test(file) &&
+                    !/\.vue\.js/.test(file)); },
+                loader: 'babel-loader',
+                options: {
+                    sourceType: 'unambiguous'
                 }
             },
             {
