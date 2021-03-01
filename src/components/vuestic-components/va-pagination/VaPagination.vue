@@ -1,4 +1,5 @@
 <template>
+  <div>
   <va-button-group class="va-pagination">
     <va-button
       v-if="this.pages !== visiblePages && boundaryLinks"
@@ -59,9 +60,12 @@
       @click="changePage(lastPage)"
     />
   </va-button-group>
+  <Count :isFirst="currentPage === 1 ? true : false" :currentPage="currentPage" :count="parseInt(total)" :perPage="dataperpage"></Count>
+  </div>
 </template>
 
 <script>
+import Count from './vaCount'
 import VaButtonGroup from '../va-button-group/VaButtonGroup'
 import VaButton from '../va-button/VaButton'
 import { setPaginationRange } from './setPaginationRange'
@@ -71,8 +75,15 @@ export default {
   components: {
     VaButtonGroup,
     VaButton,
+    Count
   },
   props: {
+    total: {
+      type: Number,
+    },
+    dataperpage: {
+      type: Number,
+    },
     value: {
       type: Number,
     },
@@ -120,6 +131,7 @@ export default {
   },
   data () {
     return {
+      currentPage: null,
       defaultIconClass: {
         direction: 'fa fa-angle-left',
         boundary: 'fa fa-angle-double-left',
@@ -153,6 +165,8 @@ export default {
   },
   methods: {
     changePage (pageNum) {
+
+      this.currentPage = pageNum
       if (pageNum < 1 || pageNum > this.pages) {
         return
       }

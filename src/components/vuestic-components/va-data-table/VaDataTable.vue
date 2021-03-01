@@ -32,6 +32,8 @@
       >
         <va-pagination
           v-model="currentPage"
+          :total="datacount"
+          :dataperpage="dataperpage"
           :pages="paginationTotal"
           :visible-pages="visiblePages"
           :boundary-links="paginationTotal > visiblePages"
@@ -55,6 +57,14 @@ export default {
     VaPagination,
   },
   props: {
+    datacount: {
+      type: Number,
+      default: 0,
+    },
+    dataperpage: {
+      type: Number,
+      default: 0,
+    },
     fields: {
       type: Array,
       required: true,
