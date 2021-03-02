@@ -110,7 +110,7 @@
 
 <script>
 import { useGlobalConfig } from '../../../services/GlobalConfigPlugin'
-import ColorMixin, { useColor } from '../../../services/ColorMixin'
+import ColorMixin, { useColor } from '../../../services/color-theme/ColorMixin'
 import VaButton from '../va-button'
 import VaBadge from '../va-badge'
 

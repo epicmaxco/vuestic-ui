@@ -64,8 +64,8 @@ import {
   getFocusColor,
   getHoverColor,
   getBoxShadowColor,
-} from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+} from '../../../services/color-theme/color-functions'
+import ColorMixin from '../../../services/color-theme/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'

@@ -45,7 +45,7 @@
 import { provide, inject, watch, ComponentPublicInstance, ref } from 'vue'
 import { Options, Vue, mixins, prop, setup } from 'vue-class-component'
 
-import ColorMixin from '../../../../services/ColorMixin'
+import ColorMixin from '../../../../services/color-theme/ColorMixin'
 import SquareWithIcon from '../SquareWithIcon'
 import VaIcon from '../../va-icon'
 import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'

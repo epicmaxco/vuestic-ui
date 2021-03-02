@@ -39,7 +39,7 @@
 import { inject } from 'vue'
 import { mixins, Options, prop, setup, Vue } from 'vue-class-component'
 
-import ColorMixin from '../../../../services/ColorMixin'
+import ColorMixin from '../../../../services/color-theme/ColorMixin'
 import VaIcon from '../../va-icon'
 
 class TreeNodeProps {

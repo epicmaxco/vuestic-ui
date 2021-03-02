@@ -1,5 +1,7 @@
 import { prop, Vue } from 'vue-class-component'
 
+export type IconConfig = Record<string, >
+
 const isMaterialFont = (font: string) => {
   return font === 'md'
 }

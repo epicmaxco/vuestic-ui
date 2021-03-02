@@ -31,7 +31,7 @@
 import { watch } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../../services/ColorMixin'
+import ColorMixin from '../../../../services/color-theme/ColorMixin'
 import { RatingValue } from '../VaRating.types'
 import VaIcon from '../../va-icon'
 

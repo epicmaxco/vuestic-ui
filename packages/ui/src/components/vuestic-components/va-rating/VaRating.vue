@@ -75,8 +75,8 @@
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 import { ColorInput } from 'colortranslator/dist/@types'
 
-import { getFocusColor } from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+import { getFocusColor } from '../../../services/color-theme/color-functions'
+import ColorMixin from '../../../services/color-theme/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import VaRatingItem from './VaRatingItem'

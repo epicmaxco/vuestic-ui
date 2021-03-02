@@ -1,5 +1,5 @@
 import { Options, Vue, prop } from 'vue-class-component'
-import { DEFAULT_COLOR, useTheme } from '../../services/Theme'
+import { DEFAULT_COLOR, setupTheme } from '../../services/color-theme/color-config'
 
 /**
  * Check if color is valid css color
@@ -14,7 +14,7 @@ export const isCssColor = (strColor: string): boolean => {
 }
 
 export const useColor = () => {
-  const { getTheme = () => ({}) } = useTheme() as any || {}
+  const { getTheme = () => ({}) } = setupTheme() as any || {}
   const theme = getTheme() || {}
 
   return (prop: string, defaultColor: string = DEFAULT_COLOR): string => {

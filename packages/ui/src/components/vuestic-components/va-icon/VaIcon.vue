@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Options, mixins, prop, Vue } from 'vue-class-component'
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-theme/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { IconMixin } from './IconMixin'
 

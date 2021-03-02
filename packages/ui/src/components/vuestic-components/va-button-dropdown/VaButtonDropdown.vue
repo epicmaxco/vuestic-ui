@@ -67,7 +67,7 @@
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-theme/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 
 import VaDropdown from '../va-dropdown'

@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-theme/ColorMixin'
 
 class CardContentProps {
   textColor = prop<string>({ type: String, default: '' })

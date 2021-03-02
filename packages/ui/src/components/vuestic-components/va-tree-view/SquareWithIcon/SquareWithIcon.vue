@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../../services/ColorMixin'
+import ColorMixin from '../../../../services/color-theme/ColorMixin'
 import VaIcon from '../../va-icon'
 
 class SquareWithIconProps {

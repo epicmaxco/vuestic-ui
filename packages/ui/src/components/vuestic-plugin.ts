@@ -75,13 +75,21 @@ import ToastInstall from './vuestic-components/va-toast/install'
 
 import GlobalConfigPlugin, { useGlobalConfig } from '../services/GlobalConfigPlugin'
 import { getDefaultConfig } from './vuestic-components/va-config/config-default'
-import { DEFAULT_THEME, useTheme } from '../services/Theme'
+import { DEFAULT_THEME, setupTheme } from '../services/color-theme/color-config'
 import VaSpacer from './vuestic-components/va-spacer'
+import { colorThemes } from '../services/color-theme/color-theme-presets'
 
 installPlatform()
 
 export const VuesticPlugin = {
-  install (app: App) {
+  install (app: App, vuesticConfig: {
+    theme: ThemeConfig,
+    components: ComponentsConfig,
+
+
+    // Potential options.
+    // sizes
+  }) {
     [
       VaAccordion,
       VaAffix,
@@ -185,9 +193,9 @@ export const VuesticPlugin = {
 
         setGlobalConfig(getDefaultConfig())
 
-        const { setTheme } = { ...useTheme() }
+        const { setTheme } = { ...setupTheme() }
 
-        setTheme && setTheme(DEFAULT_THEME)
+        setTheme && setTheme(colorThemes.default)
       },
     })
   },

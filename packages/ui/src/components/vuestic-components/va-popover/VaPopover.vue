@@ -50,8 +50,8 @@ import { PropType } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 import { Placement } from '@popperjs/core'
 
-import { getBoxShadowColor, getHoverColor } from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+import { getBoxShadowColor, getHoverColor } from '../../../services/color-theme/color-functions'
+import ColorMixin from '../../../services/color-theme/ColorMixin'
 import VaIcon from '../va-icon'
 import VaDropdown from '../va-dropdown'
 

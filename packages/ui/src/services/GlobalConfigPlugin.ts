@@ -1,11 +1,18 @@
 import { ref, inject, App } from 'vue'
 
 import { getDefaultConfig } from '../components/vuestic-components/va-config/config-default'
-import { DEFAULT_THEME } from './Theme'
 import { merge } from 'lodash'
+import { colorThemes } from './color-theme/color-theme-presets'
+import { ColorConfig } from './color-theme/color-config'
+import { ComponentConfig } from './component-config/component-config'
 
-export type Theme = Record<string, any> // TODO: @m0ksem: need better typing
-export type GlobalConfig = Record<string, Record<string, any> | undefined> & { theme?: Theme };
+// export type GlobalConfig = Record<string, Record<string, any> | undefined> & { theme?: ColorTheme };
+
+export type GlobalConfig = {
+  colors?: ColorConfig,
+  icons?: IconConfig
+  components?: ComponentConfig
+} & { theme?: ColorConfig };
 
 type Updater = (config: GlobalConfig) => GlobalConfig;
 
@@ -13,7 +20,10 @@ type Updater = (config: GlobalConfig) => GlobalConfig;
  * The global configuration reference
  */
 const globalConfigRef = ref({
-  theme: DEFAULT_THEME as Theme,
+  theme: colorThemes.default as ColorConfig,
+  components: {
+    // TODO Component configs should go there.
+  },
   ...getDefaultConfig(),
 }) as Record<string, any>
 

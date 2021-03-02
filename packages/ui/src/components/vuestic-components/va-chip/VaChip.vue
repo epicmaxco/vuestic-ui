@@ -45,8 +45,8 @@
 import { watch } from 'vue'
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../../services/color-theme/color-functions'
+import ColorMixin from '../../../services/color-theme/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'

@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorMixin } from '../../../../services/ColorMixin'
+import { ColorMixin } from '../../../../services/color-theme/ColorMixin'
 
 import VaSidebar from '../VaSidebar.vue'
 

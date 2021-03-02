@@ -34,7 +34,7 @@
 import { Options, mixins, Vue, prop } from 'vue-class-component'
 
 import { ProgressComponentMixin } from './ProgressComponentMixin'
-import ColorMixin from '../../../../services/ColorMixin'
+import ColorMixin from '../../../../services/color-theme/ColorMixin'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 
 class ProgressCircleProps {

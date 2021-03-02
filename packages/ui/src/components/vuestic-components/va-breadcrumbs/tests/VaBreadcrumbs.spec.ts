@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import VaBreadcrumbs from '../VaBreadcrumbs.vue'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorMixin } from '../../../../services/ColorMixin'
+import { ColorMixin } from '../../../../services/color-theme/ColorMixin'
 
 describe('VaBreadcrumbs', () => {
   it('should render without an error', () => {

@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import VaIcon from '../VaIcon.vue'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorMixin } from '../../../../services/ColorMixin'
+import { ColorMixin } from '../../../../services/color-theme/ColorMixin'
 
 describe('VaIcon', () => {
   it('should render without an error', () => {

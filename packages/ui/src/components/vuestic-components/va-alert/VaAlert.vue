@@ -70,8 +70,8 @@ import { Options, prop, mixins, Vue } from 'vue-class-component'
 import {
   getHoverColor,
   getBoxShadowColor,
-} from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+} from '../../../services/color-theme/color-functions'
+import ColorMixin from '../../../services/color-theme/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 import VaIcon from '../va-icon'
