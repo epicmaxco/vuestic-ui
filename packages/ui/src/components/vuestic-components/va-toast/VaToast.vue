@@ -191,7 +191,6 @@ export default class VaToast extends mixins(
   padding: $toast-padding;
   border-radius: $toast-radius;
   box-sizing: border-box;
-  border: 1px solid $toast-border-color;
   position: fixed;
   background-color: white;
   color: #ffffff;
