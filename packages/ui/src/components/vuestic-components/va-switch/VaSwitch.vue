@@ -76,7 +76,7 @@
 <script lang="ts">
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { VaProgressCircle } from '../va-progress-bar'

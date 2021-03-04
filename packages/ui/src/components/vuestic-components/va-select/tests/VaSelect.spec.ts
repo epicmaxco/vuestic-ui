@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils'
 import VaSelect from '../VaSelect.vue'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import ColorMixin from '../../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../../services/color-config/ColorMixin'
 
 // import { testIsFormComponent } from '../../../vuestic-mixins/testIsFormComponent'
 // import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'

@@ -29,8 +29,8 @@
 <script lang="ts">
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import { getGradientBackground } from '../../../services/color-theme/color-functions'
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import { getGradientBackground } from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
 class CardProps {

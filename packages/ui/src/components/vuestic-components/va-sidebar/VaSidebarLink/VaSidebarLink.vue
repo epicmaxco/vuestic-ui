@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import { shiftHslColor } from '../../../../services/color-theme/color-functions'
-import ColorMixin from '../../../../services/color-theme/ColorMixin'
+import { shiftHslColor } from '../../../../services/color-config/color-functions'
+import ColorMixin from '../../../../services/color-config/ColorMixin'
 import VaIcon from '../../va-icon'
 
 export default {

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorMixin } from '../../../../services/color-theme/ColorMixin'
+import { ColorMixin } from '../../../../services/color-config/ColorMixin'
 
 import VaSlider from '../VaSlider.vue'
 

@@ -39,7 +39,7 @@
 <script lang="ts">
 import { Options, mixins, Vue, prop } from 'vue-class-component'
 
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 
 class RadioProps {
   modelValue = prop<string|number|object|boolean>({ type: [Object, String, Number, Boolean], default: null })

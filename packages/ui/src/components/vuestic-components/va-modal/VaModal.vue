@@ -84,7 +84,7 @@ import { watch, h, Transition } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 import { noop } from 'lodash'
 
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import ClickOutsideMixin, { ClickOutsideOptions } from '../../vuestic-mixins/ClickOutsideMixin/ClickOutsideMixin'
 import VaButton from '../va-button'

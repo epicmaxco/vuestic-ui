@@ -34,8 +34,8 @@
 import { watch } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
-import { getHoverColor } from '../../../../services/color-theme/color-functions'
-import ColorMixin from '../../../../services/color-theme/ColorMixin'
+import { getHoverColor } from '../../../../services/color-config/color-functions'
+import ColorMixin from '../../../../services/color-config/ColorMixin'
 import VaIcon from '../../va-icon/'
 
 class SelectOptionListProps {

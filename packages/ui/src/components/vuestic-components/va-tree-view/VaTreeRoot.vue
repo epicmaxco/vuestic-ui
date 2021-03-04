@@ -8,7 +8,7 @@
 import { provide, ref } from 'vue'
 import { Options, setup, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaTreeCategory from './VaTreeCategory/VaTreeCategory.vue'
 
 @Options({

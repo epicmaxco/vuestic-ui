@@ -1,6 +1,6 @@
 import { mixins, Options, prop, Vue } from 'vue-class-component'
 
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'

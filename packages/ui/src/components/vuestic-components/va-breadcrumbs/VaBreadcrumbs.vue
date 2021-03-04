@@ -3,7 +3,7 @@ import { VNode, h, Fragment } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 import { hasOwnProperty } from '../../../services/utils'
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 
 class BreadcrumbsProps {

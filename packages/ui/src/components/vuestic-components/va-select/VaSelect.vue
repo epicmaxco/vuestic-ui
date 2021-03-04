@@ -167,9 +167,9 @@
 import { watch } from 'vue'
 import { mixins, Options, prop, Vue } from 'vue-class-component'
 
-import { getHoverColor } from '../../../services/color-theme/color-functions'
+import { getHoverColor } from '../../../services/color-config/color-functions'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import VaChip from '../va-chip'

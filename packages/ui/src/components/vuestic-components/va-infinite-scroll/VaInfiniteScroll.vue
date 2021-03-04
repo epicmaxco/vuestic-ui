@@ -39,7 +39,7 @@ import { watch } from 'vue'
 import { mixins, Options, prop, Vue } from 'vue-class-component'
 
 import { sleep } from '../../../services/utils'
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { VaProgressCircle } from '../va-progress-bar'
 
 class InfiniteScrollProps {

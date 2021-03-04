@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Options, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 
 @Options({
   name: 'VaListLabel',

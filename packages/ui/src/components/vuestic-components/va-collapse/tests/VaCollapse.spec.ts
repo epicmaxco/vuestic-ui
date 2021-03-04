@@ -4,7 +4,7 @@ import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/test
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
 import { testHasKeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/testHasKeyboardOnlyFocusMixin'
 
-import ColorMixin from '../../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 

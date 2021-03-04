@@ -50,7 +50,7 @@ import { Options, mixins, prop, Vue } from 'vue-class-component'
 import { SizeMixin } from '../../../../mixins/SizeMixin'
 import { normalizeValue } from '../../../../services/utils'
 import { ProgressComponentMixin } from './ProgressComponentMixin'
-import ColorMixin from '../../../../services/color-theme/ColorMixin'
+import ColorMixin from '../../../../services/color-config/ColorMixin'
 
 class ProgressBarProps {
   buffer = prop<number>({ type: Number, default: 100 })

@@ -1,5 +1,5 @@
 import { Options, Vue, prop } from 'vue-class-component'
-import { DEFAULT_COLOR, setupTheme } from '../../services/color-theme/color-config'
+import { DEFAULT_COLOR, setupTheme } from '../../services/color-config/color-config'
 
 /**
  * Check if color is valid css color

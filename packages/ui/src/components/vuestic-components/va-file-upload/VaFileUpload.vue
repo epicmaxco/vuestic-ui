@@ -51,8 +51,8 @@
 <script lang="ts">
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import ColorMixin from '../../../services/color-theme/ColorMixin'
-import { getFocusColor } from '../../../services/color-theme/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import { getFocusColor } from '../../../services/color-config/color-functions'
 import VaButton from '../va-button'
 import VaModal from '../va-modal'
 
