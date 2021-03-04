@@ -13,7 +13,7 @@ export type GlobalConfig = {
   colors?: ColorConfig,
   icons?: IconConfig,
   components?: ComponentConfig
-} & { theme?: ColorConfig };
+};
 
 type Updater = (config: GlobalConfig) => GlobalConfig;
 

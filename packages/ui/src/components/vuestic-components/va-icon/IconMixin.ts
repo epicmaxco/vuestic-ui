@@ -1,7 +1,30 @@
 import { prop, Vue } from 'vue-class-component'
 
-export type IconConfig = Record<string, {
+type IconFontName = string
+type IconFont = {
+  type: 'ligature' | 'css' | 'component'
+  // resolution? (iconConfig => iconConfig?) // Different icon solution resolve differently.
+}
+type IconConfig = {
+  iconFont?: IconFontName
+  // TODO Add support for these props.
+  // size: string
+  // tag
+  // component
+  // color
+  // rotation
+  // spin
+  // other icon props from mixins? Maybe we also can grab interface from mixin to tone down duplication a bit.
+}
 
+export type IconConfig = Record<string, {
+  // In many cases application requires icon with all customization applied.
+  // <va-icon alias="star"/> - so you just use something like this, and color, size, and correct icon implementation are applied.
+  // Aliases shouldn't have fallback. So if alias is not defined - things should break :).
+  // Aliases are recommended way to use icons and prevent a lot of duplication.
+  aliases:  Record<string, IconConfig>,
+  iconFont: IconFontName, // default icon font
+  iconFonts: Record<IconFontName, IconFont> // Here we can probably use generics to make TS complain if IconFontName is invalid. Not 100% sure.
 }>
 
 const isMaterialFont = (font: string) => {
