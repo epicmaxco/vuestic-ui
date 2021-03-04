@@ -200,6 +200,20 @@
         </va-card>
       </div>
     </VbCard>
+    <VbCard title="Dropdown">
+      <div>
+        <va-card
+          style="width: 400px; margin-top: 1rem;"
+        >
+          <va-card-content>
+            There should be a yellow square somewhere in the bottom right. His name is fake dropdown.
+            <div style="position: absolute; top: 100%; left: 100%; background: yellow; z-index: 10000">
+              Im fake dropdown. I have to be outside the card.
+            </div>
+          </va-card-content>
+        </va-card>
+      </div>
+    </VbCard>
     <VbCard title="From zeplin">
       <span title="Shouldn't be in demo. But should be fine to keep it in docs.">❗❗</span>
       <div style="display: flex;">
