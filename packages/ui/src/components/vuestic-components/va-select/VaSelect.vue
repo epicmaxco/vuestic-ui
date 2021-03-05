@@ -235,6 +235,7 @@ class SelectProps {
   // SelectOptionList props
 
   keyBy = prop<string>({ type: String, default: 'id' })
+  textBy = prop<string>({ type: String, default: 'text' })
 }
 
 const SelectPropsMixin = Vue.with(SelectProps)
