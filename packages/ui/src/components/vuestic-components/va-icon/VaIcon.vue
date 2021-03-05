@@ -15,7 +15,7 @@
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { IconMixin } from './IconMixin'
+import { IconMixin } from '../../../services/icon-config/IconMixin'
 
 class Props {
   name = prop<string>({ type: String, default: '' })

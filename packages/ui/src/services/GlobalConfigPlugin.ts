@@ -5,13 +5,13 @@ import { merge } from 'lodash'
 import { colorThemes } from './color-config/color-theme-presets'
 import { ColorConfig } from './color-config/color-config'
 import { ComponentConfig } from './component-config/component-config'
-import { IconConfig } from '../components/vuestic-components/va-icon/IconMixin'
+import { IconsConfig } from './icon-config/types'
 
 // export type GlobalConfig = Record<string, Record<string, any> | undefined> & { theme?: ColorTheme };
 
 export type GlobalConfig = {
   colors?: ColorConfig,
-  icons?: IconConfig,
+  icons?: IconsConfig,
   components?: ComponentConfig
 };
 
