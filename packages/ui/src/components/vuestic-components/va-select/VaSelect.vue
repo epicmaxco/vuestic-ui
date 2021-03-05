@@ -38,16 +38,18 @@
       <va-select-option-list
         :style="{ maxHeight: $props.maxHeight }"
         :options="filteredOptions"
-        @selectOption="selectOption"
         :selectedValue="valueProxy"
         :getSelectedState="getSelectedState"
         :getText="getText"
         :getTrackBy="getTrackBy"
-        :noOptionsText="$props.noOptionsText"
-        :color="$props.color"
         :search="search"
         :hintedOption="hintedOption"
+        :noOptionsText="$props.noOptionsText"
+        :color="$props.color"
+        :key-by="$props.keyBy"
+        :text-by="$props.textBy"
         ref="optionList"
+        @selectOption="selectOption"
       />
 
       <template #anchor>
@@ -229,6 +231,10 @@ class SelectProps {
       close: 'arrow_drop_up',
     }),
   })
+
+  // SelectOptionList props
+
+  keyBy = prop<string>({ type: String, default: 'id' })
 }
 
 const SelectPropsMixin = Vue.with(SelectProps)
