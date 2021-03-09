@@ -6,26 +6,26 @@ export type ColorConfig = Record<string, HexColor>
 // Most default color - fallback when nothing else is found.
 export const DEFAULT_COLOR = '#000000'
 
-export const setupTheme = () => {
+export const setupColors = () => {
   const { setGlobalConfig, getGlobalConfig } = useGlobalConfig()
 
   if (!setGlobalConfig && !getGlobalConfig) {
     return
   }
 
-  const setTheme = (theme: Record<string, string>): void => {
+  const setColors = (theme: Record<string, string>): void => {
     setGlobalConfig((config: GlobalConfig) => ({
       ...config,
-      theme: { ...config.theme, ...theme },
+      theme: { ...config.colors, ...theme },
     }))
   }
 
-  const getTheme = (): Record<string, string> | undefined => {
+  const getColors = (): Record<string, string> | undefined => {
     return getGlobalConfig().theme
   }
 
   return {
-    setTheme,
-    getTheme,
+    setColors,
+    getColors,
   }
 }

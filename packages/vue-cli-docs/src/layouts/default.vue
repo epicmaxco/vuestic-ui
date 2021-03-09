@@ -89,7 +89,7 @@ export default class DocsLayout extends Vue {
   }
 
   changeTheme (themeName) {
-    this.setTheme(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
+    this.setСolors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
   }
 
   setTheme = setup(() => {

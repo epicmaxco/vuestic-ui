@@ -2,7 +2,7 @@ import { ref, inject, App } from 'vue'
 
 import { getDefaultConfig } from '../components/vuestic-components/va-config/config-default'
 import { merge } from 'lodash'
-import { colorThemes } from './color-config/color-theme-presets'
+import { colorsPresets } from './color-config/color-theme-presets'
 import { ColorConfig } from './color-config/color-config'
 import { ComponentConfig } from './component-config/component-config'
 import { IconsConfig } from './icon-config/types'
@@ -21,7 +21,7 @@ type Updater = (config: GlobalConfig) => GlobalConfig;
  * The global configuration reference
  */
 const globalConfigRef = ref({
-  theme: colorThemes.default as ColorConfig,
+  theme: colorsPresets.default as ColorConfig,
   components: {
     // TODO Component configs should go there.
   },

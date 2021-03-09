@@ -27,7 +27,7 @@ export default class DocsSubtitle extends mixins(PropsMixin) {
   }
 
   get themes () {
-    return this.getTheme()
+    return this.getColors()
   }
 
   getTheme = setup(() => {

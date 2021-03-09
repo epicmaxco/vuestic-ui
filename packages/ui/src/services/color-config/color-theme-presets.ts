@@ -1,6 +1,6 @@
 import { HexColor } from './color-config'
 
-type VuesticThemePreset = {
+type VuesticColorsPreset = {
   primary: HexColor,
   secondary: HexColor,
   success: HexColor,
@@ -11,7 +11,7 @@ type VuesticThemePreset = {
   dark: HexColor,
 }
 
-export const colorThemes: Record<string, VuesticThemePreset> = {
+export const colorsPresets: Record<string, VuesticColorsPreset> = {
   default: {
     primary: '#23e066',
     secondary: '#002c85',

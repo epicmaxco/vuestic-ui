@@ -36,14 +36,14 @@ export default {
 
   computed: {
     themes () {
-      return this.getTheme()
+      return this.getColors()
     },
   },
 
   setup () {
     const { getTheme } = useTheme()
     return {
-      getTheme,
+      getTheme: getColors,
     }
   },
 }
