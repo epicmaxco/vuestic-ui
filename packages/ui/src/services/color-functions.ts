@@ -84,3 +84,7 @@ export const getGradientBackground = (color: string) => {
 
   return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
 }
+
+export function colorToHsl (color: string) {
+  return ColorTranslator.toHSL(color, false) as HSLObject
+}

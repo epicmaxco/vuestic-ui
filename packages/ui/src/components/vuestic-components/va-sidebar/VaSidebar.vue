@@ -14,7 +14,7 @@
 <script lang="ts">
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
-import { getGradientBackground } from '../../../services/color-functions'
+import { getGradientBackground, colorToHsl } from '../../../services/color-functions'
 import ColorMixin from '../../../services/ColorMixin'
 
 class SidebarProps {
@@ -42,10 +42,18 @@ export default class VaSidebar extends mixins(
     return this.$props.minimized || (this.$props.hoverable && !this.isHovered)
   }
 
+  get textColor () {
+    const color = colorToHsl(this.colorComputed)
+
+    console.log(color)
+    return color.l < 50 ? 'white' : 'black'
+  }
+
   get computedStyle () {
     return {
       backgroundImage: getGradientBackground(this.colorComputed),
       width: this.computedWidth || `${this.computedWidth} !important`,
+      color: this.textColor,
     }
   }
 

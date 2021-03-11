@@ -100,8 +100,9 @@
     </VbCard>
     <VbCard title="color">
       <div class="demo__sidebar-container">
-        <va-sidebar color="secondary">
-          <div>secondary</div>
+        <va-sidebar color="danger">
+          <div>Auto sidebar items text color</div>
+          <div>Auto text color</div>
         </va-sidebar>
       </div>
     </VbCard>
@@ -132,10 +133,6 @@ export default {
 </script>
 
 <style scoped>
-.va-sidebar div { /* sidebar items must be stylized outside of sidebar styles */
-  color: white;
-}
-
 .demo__sidebar-container {
   position: relative;
   height: 10rem;
