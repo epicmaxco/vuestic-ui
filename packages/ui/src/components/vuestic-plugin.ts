@@ -1,3 +1,4 @@
+
 import { App } from 'vue'
 // @ts-ignore
 // import { BusPlugin } from 'vue-epic-bus'
@@ -18,6 +19,7 @@ import VaCheckbox from './vuestic-components/va-checkbox'
 import VaChip from './vuestic-components/va-chip'
 import VaCollapse from './vuestic-components/va-collapse'
 import { VaColorPalette, VaColorIndicator } from './vuestic-components/va-color-palette'
+import VaColorInput from './vuestic-components/va-color-input'
 import VaContent from './vuestic-components/va-content'
 import VaDivider from './vuestic-components/va-divider'
 import VaDatePicker from './vuestic-components/va-date-picker'
@@ -102,6 +104,7 @@ export const VuesticPlugin = {
       VaCollapse,
       VaColorPalette,
       VaColorIndicator,
+      VaColorInput,
       VaContent,
       VaDatePicker,
       VaDropdown,
