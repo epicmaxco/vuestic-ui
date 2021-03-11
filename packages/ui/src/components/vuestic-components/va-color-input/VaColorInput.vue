@@ -3,13 +3,13 @@
     <va-color-indicator
       class="va-color-input__dot"
       :selected="selected"
-      :color="value"
+      :color="valueComputed"
       :indicator="indicator"
       @click="onClick()"
     />
     <va-input
       class="va-color-input__input"
-      v-model="valueProxy"
+      v-model="valueComputed"
       :disabled="disabled"
       placeholder="input color"
     />
@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { Vue, Options, prop, mixins } from 'vue-class-component'
 import { VaColorIndicator } from '../va-color-palette'
 import VaInput from '../va-input'
@@ -56,15 +57,7 @@ const ColorInputPropsMixin = Vue.with(ColorInputProps)
   },
   emits: ['click', 'input'],
 })
-export default class VaColorInput extends mixins(ColorInputPropsMixin) {
-  get valueProxy (): any {
-    return this.value
-  }
-
-  set valueProxy (value: any) {
-    this.$emit('input', value)
-  }
-
+export default class VaColorInput extends mixins(ColorInputPropsMixin, StatefulMixin) {
   onClick (): void {
     this.$emit('click')
   }
@@ -82,7 +75,7 @@ export default class VaColorInput extends mixins(ColorInputPropsMixin) {
 
   &__input {
     margin-bottom: 0;
-    width: 9ch;
+    min-width: 5.6rem;
 
     &__pointer {
       cursor: pointer;
