@@ -16,7 +16,7 @@
       />
     </VbCard>
 
-    <VbCard title="Advanced Color Input">
+    <!-- <VbCard title="Advanced Color Input">
       <p>Default</p>
       <va-color-input-advanced
         v-model="value"
@@ -53,21 +53,21 @@
       >
         <va-color-indicator :color="value" />
       </va-color-input-advanced>
-    </VbCard>
+    </VbCard> -->
   </VbDemo>
 </template>
 
 <script>
-import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
-import VaColorInputAdvanced from './VaColorInputAdvanced.vue'
+// import { VaColorIndicator } from '../va-color-palette'
+// import VaColorInputAdvanced from './VaColorInputAdvanced.vue'
 import VaColorInput from './VaColorInput'
 import { colorArray } from '../va-color-picker/VuesticTheme'
 
 export default {
   components: {
-    VaColorIndicator,
+    // VaColorIndicator,
+    // VaColorInputAdvanced,
     VaColorInput,
-    VaColorInputAdvanced,
   },
   data () {
     return {
