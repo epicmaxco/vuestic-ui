@@ -44,8 +44,6 @@ export default class VaSidebar extends mixins(
 
   get textColor () {
     const color = colorToHsl(this.colorComputed)
-
-    console.log(color)
     return color.l < 50 ? 'white' : 'black'
   }
 
