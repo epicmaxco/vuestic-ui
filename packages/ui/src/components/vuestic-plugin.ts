@@ -17,6 +17,7 @@ import VaCard, { VaCardContent, VaCardTitle } from './vuestic-components/va-card
 import VaCheckbox from './vuestic-components/va-checkbox'
 import VaChip from './vuestic-components/va-chip'
 import VaCollapse from './vuestic-components/va-collapse'
+import { VaColorPalette, VaColorIndicator } from './vuestic-components/va-color-palette'
 import VaContent from './vuestic-components/va-content'
 import VaDivider from './vuestic-components/va-divider'
 import VaDatePicker from './vuestic-components/va-date-picker'
@@ -99,6 +100,8 @@ export const VuesticPlugin = {
       VaCheckbox,
       VaChip,
       VaCollapse,
+      VaColorPalette,
+      VaColorIndicator,
       VaContent,
       VaDatePicker,
       VaDropdown,
