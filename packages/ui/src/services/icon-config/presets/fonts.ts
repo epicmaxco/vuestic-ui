@@ -1,34 +1,36 @@
-import { IconFonts } from '../types'
+import { IconConfigPreset } from '../types/preset'
 
-export const fontPresets: IconFonts = [
+export const fontPresets: IconConfigPreset[] = [
   {
-    name: 'md',
+    name: /(md)-(.*)/,
     type: 'ligature',
     iconClass: 'material-icons',
+    content: (font: string, content: string) => content,
+    color: 'red',
   },
   {
-    name: 'fa4',
+    name: /fa4-(.*)/,
     type: 'css',
     iconClass: (code: string) => `fa fa-${code}`,
   },
   {
-    name: /fas|far|fal|fad|fab/,
+    name: /(fas|far|fal|fad|fab)-(.*)/,
     type: 'css',
-    iconClass: (code: string) => `fas fa-${code} fa-fw`,
+    iconClass: (font: string, code: string) => `${font} fa-${code} fa-fw`,
   },
   {
-    name: 'ion',
+    name: /ion-(.*)/,
     type: 'css',
     iconClass: (code: string) => `icon ion-md-${code}`,
   },
   {
-    name: 'ion-outline',
+    name: /ion-outline-(.*)/,
     type: 'css',
     iconClass: (code: string) => `icon ion-ios-${code}-outline`,
   },
   {
-    name: /brandico|entypo|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial/,
+    name: /(brandico|entypo|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial)-(.*)/,
     type: 'css',
-    iconClass: (code: string, font: string) => `${font}-${code}`,
+    iconClass: (font: string, code: string) => `${font}-${code}`,
   },
 ]

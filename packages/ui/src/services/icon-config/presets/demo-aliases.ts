@@ -1,3 +1,5 @@
+// TODO: Change this to new alias syntax
+
 export default {
   info_outline: {
     code: 'info_outline',
