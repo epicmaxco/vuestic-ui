@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard title="Simple colors Picker">
+    <VbCard title="Color indicator">
       <va-color-indicator :color="palette[0]" />
       <va-color-indicator :color="palette[1]" indicator="square" />
     </VbCard>
