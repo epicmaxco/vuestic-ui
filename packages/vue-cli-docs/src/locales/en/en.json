@@ -2413,7 +2413,18 @@
     }
   },
   "installation": {
-    "title": "Work In Progress"
+    "title": "Installation",
+    "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
+    "cli": {
+      "title": "Vue-CLI installation",
+      "desc": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic on the scratch project.",
+      "attention": "**Attention! Using that way will make changes in you `package.json` dependencies and `main.js(ts)` files. Make sure that you commit your code to avoid data loss.**",
+      "linkToOfficial": "To use installation via CLI you will need to install Vue-CLI first. To get more information please visit [Vue-CLI official documentation](https://cli.vuejs.org/).",
+      "codeAnnotation": "After you have Vue-CLI project you could install Vustic as a Vue-CLI package:"
+    },
+    "manual": {
+      "title": "Manual installation"
+    }
   },
   "roadmap": {
     "title": "Work In Progress"
