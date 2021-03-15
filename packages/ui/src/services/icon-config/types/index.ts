@@ -1,59 +1,110 @@
-import IconConfigAlias from './icon-alias'
-import { IconConfigPreset } from './preset'
+export type IconConfig = {
+  name: string | RegExp
 
-/**
- * @example
- *
- */
-export type IconsConfig = {
-  // In many cases application requires icon with all customization applied.
-  // <va-icon alias="star"/> - so you just use something like this, and color, size, and correct icon implementation are applied.
-  // Aliases shouldn't have fallback. So if alias is not defined - things should break :).
-  // Aliases are recommended way to use icons and prevent a lot of duplication.
-  /** Aliases will convert icon name `from` to `to`. Then `to` name will be given to `presets` */
-  aliases?: IconConfigAlias[],
-  presets?: IconConfigPreset[], // TODO: Preset is wrong name
-  defaultPreset?: IconConfigPreset
-}
+  /**
+   * This will transform icon class if its match regex
+   *
+   * @example
+   * ```
+   * {
+   *  name: /(fas|far|fal|fad|fab) (.*)/
+   *  iconClass: (font: string, icon: string) => `${font} fa-${code}`,
+   *  color: '#eee' // Additional styling for icon
+   * }
+   * ```
+   * `<va-icon name="fal home" />`
+   *  ->
+   *
+   * `<i class="fal fa-home" style="#eee"/>`
+   *
+   * @see https://fontawesome.com/icons/home?style=solid
+  */
+  iconClass?: string | ((...regexGroups: string[]) => string)
 
-/**
-const example: IconsConfig = {
-  presets: [
+  /**
+   * Content is used if we want to use custom symbols
+   *
+   * @example
+   * ```
+   * {
+   *  name: /md (.*)/,
+   *  content: (icon: string) => icon,
+   *  iconClass: 'material-icons'
+   *  color: '#eee' // Additional styling for icon
+   * }
+   * ```
+   * `<va-icon name="md alarm"/>` ->
+   *
+   * `<i class="md" style="color: #eee;">alarm</i>`
+   *
+   * @see https://material.io/resources/icons/?icon=alarm&style=baseline
+   */
+  content?: string | ((...regexGroups: string[]) => string | undefined)
+
+  /** Vue component */
+  component?: any,
+
+  /**
+   * You can use custom component, bind some props to it.
+   * @requires component
+   *
+   * @example
+   * ```
+   * {
+   *  name: /(brandico, eva, ant-design) (.*)/,
+   *  component: IconifyComponent,
+   *  componentProps: (font: string, icon: string) => ({ icon: `${font}:${icon}` })
+   *  color: '#eee' // Additional styling for icon
+   * }
+   * ```
+   *
+   * IconifyComponent example component:
+   * ```html
+   * <template>
+   *  <div class="iconify" :data-icon="icon" data-inline="false" />
+   * </template>
+   *
+   * <script>
+   * export defualt {
+   *  props: ['icon']
+   * }
+   * </script>
+   * ```
+   *
+   * @see https://iconify.design/icon-sets/brandico/
+   */
+  componentProps?: Record<string, any> | ((...regexGroups: string[]) => Record<string, any>)
+
+  /**
+   * Use this to create icon that u will often to use.
+   *
+   * Example:
+   * ```js
     {
-      name: /(fas, fad) (.*)/,
-      type: 'css',
-      iconClass: (font: string, icon: string) => `${font} fa-${icon}`,
-    },
-    {
-      name: /md (.*)/,
-      type: 'ligature',
-      iconClass: 'material-design',
-      content: (icon: string) => icon,
-    },
-    {
-      name: /(brandico, eva, ant-design) (.*)/,
-      type: 'component',
-      component: 'IconifyComponent',
-      componentProps: (font: string, icon: string) => ({ icon: `${font}:${icon}` }),
-      color: '#eee',
-    },
-  ],
-  aliases: [
-    {
-      from: 'twitter',
+      name: 'twitter',
       to: 'brandico twitter-bird',
       color: '#1da1f2',
     },
-    {
-      from: 'yandex',
+    { // Or for Yandex
+      name: 'yandex',
       to: 'brandico yandex',
       color: '#ff0000',
     },
     {
-      from: 'vuestic-logo',
-      to: 'VuesticLogoComponent',
+      name: 'vuestic-logo',
+      to: VuesticLogoComponent,
       color: '#62e471',
-    },
-  ],
+    }
+  * ```
+  */
+  to?: string
+
+  // PROPS
+
+  tag?: string
+  color?: string
+  rotation?: number | string
+  spin?: 'clockwise' | 'counterclock-wise'
 }
-*/
+
+export type IconsConfig = IconConfig[]

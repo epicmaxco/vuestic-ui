@@ -10,18 +10,7 @@ const config: {
   VaIcon: { iconsConfig: IconsConfig }
 } = {
   VaIcon: {
-    iconsConfig: {
-      presets: fontPresets,
-      defaultPreset: fontPresets[0],
-      aliases: [],
-      // iconFont: 'md',
-      // iconFonts: fontPresets,
-      // aliases: {
-      //   ...DemoAliases,
-      //   ...DocsAliases,
-      //   ...FrameworkAliases,
-      // },
-    },
+    iconsConfig: fontPresets,
   },
 }
 
