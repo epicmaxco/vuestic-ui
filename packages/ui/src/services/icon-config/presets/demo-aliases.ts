@@ -1,6 +1,4 @@
-// TODO: Change this to new alias syntax
-
-export default [
+const DemoAliases = [
   {
     name: 'info_outline',
     to: 'info_outline',
@@ -170,3 +168,5 @@ export default [
     to: 'md-outlined-thumb_up',
   },
 ]
+
+export default DemoAliases

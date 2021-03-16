@@ -1,6 +1,4 @@
-// TODO: Change this to new alias syntax
-
-export default [
+const DocsAliases = [
   {
     name: 'remove_red_eye',
     to: 'remove_red_eye',
@@ -30,3 +28,5 @@ export default [
     to: 'fa4-search',
   },
 ]
+
+export default DocsAliases

@@ -1,6 +1,4 @@
-// TODO: Change this to new alias syntax
-
-export default [
+const FrameworkAliases = [
   {
     name: 'arrow_back_ios',
     to: 'arrow_back_ios',
@@ -82,3 +80,5 @@ export default [
     to: 'loop',
   },
 ]
+
+export default FrameworkAliases

@@ -1,5 +1,5 @@
 import { IconsConfig } from '../types'
-import { fontPresets } from './fonts'
+import { allIconConfigsArray } from './fonts'
 import DemoAliases from './demo-aliases'
 import DocsAliases from './docs-aliases'
 import FrameworkAliases from './framework-aliases'
@@ -14,7 +14,7 @@ const config: {
       ...DemoAliases,
       ...DocsAliases,
       ...FrameworkAliases,
-      ...fontPresets,
+      ...allIconConfigsArray,
     ],
   },
 }
