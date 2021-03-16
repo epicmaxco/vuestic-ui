@@ -1,150 +1,172 @@
 // TODO: Change this to new alias syntax
 
-export default {
-  info_outline: {
-    code: 'info_outline',
+export default [
+  {
+    name: 'info_outline',
+    to: 'info_outline',
   },
-  check_circle: {
-    code: 'check_circle',
+  {
+    name: 'check_circle',
+    to: 'check_circle',
   },
-  share: {
-    code: 'share',
+  {
+    name: 'share',
+    to: 'share',
   },
-  volume_down: {
-    code: 'volume_down',
+  {
+    name: 'volume_down',
+    to: 'volume_down',
   },
-  volume_up: {
-    code: 'volume_up',
+  {
+    name: 'volume_up',
+    to: 'volume_up',
   },
-  star: {
-    code: 'star',
-    font: 'fas',
+  {
+    name: 'star',
+    to: 'fas-star',
   },
-  star_half: {
-    code: 'star-half-alt',
-    font: 'fas',
+  {
+    name: 'star_half',
+    to: 'fas-star-half-alt',
   },
-  star_empty: {
-    code: 'star',
-    font: 'far',
+  {
+    name: 'star_empty',
+    to: 'far-star',
   },
-  star_border: {
-    code: 'star_border',
+  {
+    name: 'star_border',
+    to: 'star_border',
   },
-  send: {
-    code: 'send',
+  {
+    name: 'send',
+    to: 'send',
   },
-  room: {
-    code: 'room',
+  {
+    name: 'room',
+    to: 'room',
   },
-  schedule: {
-    code: 'schedule',
+  {
+    name: 'schedule',
+    to: 'schedule',
   },
-  create: {
-    code: 'create',
+  {
+    name: 'create',
+    to: 'create',
   },
-  add: {
-    code: 'add',
+  {
+    name: 'add',
+    to: 'add',
   },
-  add_circle_outline: {
-    code: 'add_circle_outline',
+  {
+    name: 'add_circle_outline',
+    to: 'add_circle_outline',
   },
-  block: {
-    code: 'block',
+  {
+    name: 'block',
+    to: 'block',
   },
-  menu: {
-    code: 'menu',
+  {
+    name: 'menu',
+    to: 'menu',
   },
-  loop: {
-    code: 'loop',
+  {
+    name: 'loop',
+    to: 'loop',
   },
-  email: {
-    code: 'email',
+  {
+    name: 'email',
+    to: 'email',
   },
-  local_phone: {
-    code: 'local_phone',
+  {
+    name: 'local_phone',
+    to: 'local_phone',
   },
-  volume_mute: {
-    code: 'volume_mute',
+  {
+    name: 'volume_mute',
+    to: 'volume_mute',
   },
-  volume_off: {
-    code: 'volume_off',
+  {
+    name: 'volume_off',
+    to: 'volume_off',
   },
-  error: {
-    code: 'error',
+  {
+    name: 'error',
+    to: 'error',
   },
-  face: {
-    code: 'face',
+  {
+    name: 'face',
+    to: 'face',
   },
-  remove_red_eye: {
-    code: 'remove_red_eye',
+  {
+    name: 'remove_red_eye',
+    to: 'remove_red_eye',
   },
-  // VaIcons.demo.vue
-  home: {
-    code: 'home',
+  {
+    name: 'home',
+    to: 'home',
   },
-  'fa4-home': {
-    code: 'home',
-    font: 'fa4',
+  {
+    name: 'fa4-home',
+    to: 'fa4-home',
   },
-  'fas-home': {
-    code: 'home',
-    font: 'fas',
+  {
+    name: 'fas-home',
+    to: 'fas-home',
   },
-  'ion-home': {
-    code: 'home',
-    font: 'ion',
+  {
+    name: 'ion-home',
+    to: 'ion-home',
   },
-  'ion-home_empty': {
-    code: 'home',
-    font: 'ion-outline',
+  {
+    name: 'ion-home_empty',
+    to: 'ion-outline-home',
   },
-  'entypo-home': {
-    code: 'home',
-    font: 'entypo',
+  {
+    name: 'entypo-home',
+    to: 'entypo-home',
   },
-  info: {
-    code: 'info',
-    font: 'fas',
+  {
+    name: 'info',
+    to: 'fas-info',
   },
-  sync: {
-    code: 'sync',
-    font: 'fas',
+  {
+    name: 'sync',
+    to: 'fas-sync',
   },
-  'sync-spin': {
-    code: 'sync fa-spin',
-    font: 'fas',
+  {
+    name: 'sync-spin',
+    to: 'fas-sync fa-spin',
   },
-  remove: {
-    code: 'remove',
+  {
+    name: 'remove',
+    to: 'remove',
   },
-  // VaRatingItem.vue
-  heart: {
-    code: 'heart',
-    font: 'fas',
+  {
+    name: 'heart',
+    to: 'fas-heart',
   },
-  heart_empty: {
-    code: 'heart',
-    font: 'far',
+  {
+    name: 'heart_empty',
+    to: 'far-heart',
   },
-  // VaRating.vue
-  battery: {
-    code: 'battery-full',
-    font: 'fa4',
+  {
+    name: 'battery',
+    to: 'fa4-battery-full',
   },
-  battery_half: {
-    code: 'battery-half',
-    font: 'fa4',
+  {
+    name: 'battery_half',
+    to: 'fa4-battery-half',
   },
-  battery_empty: {
-    code: 'battery-empty',
-    font: 'fa4',
+  {
+    name: 'battery_empty',
+    to: 'fa4-battery-empty',
   },
-  thumb_up: {
-    code: 'thumb_up',
+  {
+    name: 'thumb_up',
+    to: 'thumb_up',
   },
-  thumb_up_empty: {
-    code: 'thumb_up',
-    font: 'md-outlined',
+  {
+    name: 'thumb_up_empty',
+    to: 'md-outlined-thumb_up',
   },
-}
+]

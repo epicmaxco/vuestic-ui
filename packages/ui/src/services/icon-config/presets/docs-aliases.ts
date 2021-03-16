@@ -1,26 +1,32 @@
 // TODO: Change this to new alias syntax
 
-export default {
-  remove_red_eye: {
-    code: 'remove_red_eye',
+export default [
+  {
+    name: 'remove_red_eye',
+    to: 'remove_red_eye',
   },
-  account_box: {
-    code: 'account_box',
+  {
+    name: 'account_box',
+    to: 'account_box',
   },
-  info: {
-    code: 'info',
+  {
+    name: 'info',
+    to: 'info',
   },
-  face: {
-    code: 'face',
+  {
+    name: 'face',
+    to: 'face',
   },
-  warning: {
-    code: 'warning',
+  {
+    name: 'warning',
+    to: 'warning',
   },
-  arrow_forward_ios: {
-    code: 'arrow_forward_ios',
+  {
+    name: 'arrow_forward_ios',
+    to: 'arrow_forward_ios',
   },
-  search: {
-    code: 'search',
-    font: 'fa4',
+  {
+    name: 'search',
+    to: 'fa4-search',
   },
-}
+]

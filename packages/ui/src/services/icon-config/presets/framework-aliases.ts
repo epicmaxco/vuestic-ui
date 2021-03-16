@@ -1,64 +1,84 @@
 // TODO: Change this to new alias syntax
 
-export default {
-  arrow_back_ios: {
-    code: 'arrow_back_ios',
+export default [
+  {
+    name: 'arrow_back_ios',
+    to: 'arrow_back_ios',
   },
-  arrow_forward_ios: {
-    code: 'arrow_forward_ios',
+  {
+    name: 'arrow_forward_ios',
+    to: 'arrow_forward_ios',
   },
-  first_page: {
-    code: 'first_page',
+  {
+    name: 'first_page',
+    to: 'first_page',
   },
-  last_page: {
-    code: 'last_page',
+  {
+    name: 'last_page',
+    to: 'last_page',
   },
-  chevron_right: {
-    code: 'chevron_right',
+  {
+    name: 'chevron_right',
+    to: 'chevron_right',
   },
-  chevron_left: {
-    code: 'chevron_left',
+  {
+    name: 'chevron_left',
+    to: 'chevron_left',
   },
-  expand_more: {
-    code: 'expand_more',
+  {
+    name: 'expand_more',
+    to: 'expand_more',
   },
-  expand_less: {
-    code: 'expand_less',
+  {
+    name: 'expand_less',
+    to: 'expand_less',
   },
-  arrow_drop_down: {
-    code: 'arrow_drop_down',
+  {
+    name: 'arrow_drop_down',
+    to: 'arrow_drop_down',
   },
-  arrow_drop_up: {
-    code: 'arrow_drop_up',
+  {
+    name: 'arrow_drop_up',
+    to: 'arrow_drop_up',
   },
-  calendar_today: {
-    code: 'calendar_today',
+  {
+    name: 'calendar_today',
+    to: 'calendar_today',
   },
-  delete_outline: {
-    code: 'delete_outline',
+  {
+    name: 'delete_outline',
+    to: 'delete_outline',
   },
-  clear: {
-    code: 'clear',
+  {
+    name: 'clear',
+    to: 'clear',
   },
-  check: {
-    code: 'check',
+  {
+    name: 'check',
+    to: 'check',
   },
-  warning: {
-    code: 'warning',
+  {
+    name: 'warning',
+    to: 'warning',
   },
-  highlight_off: {
-    code: 'highlight_off',
+  {
+    name: 'highlight_off',
+    to: 'highlight_off',
   },
-  close: {
-    code: 'close',
+  {
+    name: 'close',
+    to: 'close',
   },
-  done: {
-    code: 'done',
+  {
+    name: 'done',
+    to: 'done',
   },
-  cancel: {
-    code: 'cancel',
+  {
+    name: 'cancel',
+    to: 'cancel',
   },
-  loop: {
-    code: 'loop',
+  {
+    name: 'loop',
+    to: 'loop',
   },
-}
+]
