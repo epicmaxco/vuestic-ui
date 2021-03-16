@@ -19,7 +19,7 @@ function findConfigByName (name: string, iconsConfig: IconsConfig): IconConfig |
     return typeof c.name === 'string' ? c.name === name : c.name.test(name)
   })
 
-  if (config?.to) {
+  if (config?.to && config?.to !== name) {
     const preset = findConfigByName(config.to, iconsConfig)
     if (preset) { return { ...preset, ...config, name: preset.name } }
   }
