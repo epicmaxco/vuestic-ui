@@ -114,8 +114,8 @@
 <script lang="ts">
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import { getHoverColor } from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+import { getHoverColor } from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaInputWrapper from '../va-input/VaInputWrapper'
 import VaIcon from '../va-icon'
 

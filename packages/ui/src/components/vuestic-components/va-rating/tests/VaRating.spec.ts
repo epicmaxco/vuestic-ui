@@ -6,7 +6,7 @@ import VaRating from '../VaRating.vue'
 import { testHasStatefulMixin } from '../../../vuestic-mixins/StatefulMixin/testHasStatefulMixin'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorMixin } from '../../../../services/ColorMixin'
+import { ColorMixin } from '../../../../services/color-config/ColorMixin'
 
 describe('VaRating', () => {
   // it('should render without an error', () => {

@@ -1,7 +1,9 @@
 import { mount, config } from '@vue/test-utils'
 
-import GlobalConfigPlugin, {
-  GlobalConfig, useGlobalConfig,
+import {
+  GlobalConfigPlugin,
+  GlobalConfig,
+  useGlobalConfig,
 } from './GlobalConfigPlugin'
 
 config.global.plugins.push([GlobalConfigPlugin])
@@ -10,10 +12,11 @@ describe('GlobalConfigPlugin', () => {
   describe('setGlobalConfig', () => {
     let instance: any
 
-    const initialConfig = {
-      theme: undefined,
-      all: { value: 'value' },
-      VaComponent: { propValue: 'propValue' },
+    const initialConfig: GlobalConfig = {
+      colors: undefined,
+      components: {
+        VaComponent: { propValue: 'propValue' },
+      },
     }
 
     beforeEach(() => {
@@ -35,44 +38,30 @@ describe('GlobalConfigPlugin', () => {
       instance.setGlobalConfig(initialConfig)
     })
 
-    it("should update the global config with a partial user's config", () => {
-      expect(instance.getGlobalConfig()).toStrictEqual(initialConfig)
-
+    it('overridable by object', () => {
       const partialConfig = {
-        all: {
-          value: 'newValue',
+        components: {
+          VaComponent: {
+            propValue: 'newPropValue',
+          },
         },
       }
 
       instance.setGlobalConfig(partialConfig)
 
-      const nextConfig = {
-        ...initialConfig,
-        ...partialConfig,
-      }
-
-      expect(instance.getGlobalConfig()).toStrictEqual(nextConfig)
+      expect(instance.getGlobalConfig().components.VaComponent.propValue).toBe('newPropValue')
     })
 
-    it("should update the global config with a user's update function", () => {
-      const prefix = 'prefix'
-      const anotherComponentConfig = {
-        VaAnotherComponent: { propValue: 'propValue' },
-      }
-
+    it('overridable by function', () => {
       instance.setGlobalConfig((config: GlobalConfig) => ({
-        ...config,
-        all: { value: `${prefix}${config.all?.value}` },
-        ...anotherComponentConfig,
+        components: {
+          VaComponent: {
+            propValue: 'newPropValue',
+          },
+        },
       }))
 
-      const nextConfig = {
-        ...initialConfig,
-        all: { value: `${prefix}${initialConfig.all.value}` },
-        ...anotherComponentConfig,
-      }
-
-      expect(instance.getGlobalConfig()).toStrictEqual(nextConfig)
+      expect(instance.getGlobalConfig().components.VaComponent.propValue).toBe('newPropValue')
     })
   })
 })

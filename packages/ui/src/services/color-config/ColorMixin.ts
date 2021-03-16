@@ -1,6 +1,6 @@
 import { prop, Vue, Options, setup } from 'vue-class-component'
 
-import { useTheme, DEFAULT_COLOR } from './Theme'
+import { setupColors, DEFAULT_COLOR } from './color-config'
 
 /**
  * Check if color is valid css color
@@ -14,7 +14,7 @@ export const isCssColor = (strColor: string): boolean => {
 }
 
 export const useColor = () => {
-  const { getTheme = () => ({}) } = useTheme() as any || {}
+  const { getTheme = () => ({}) } = setupColors() as any || {}
   const theme = getTheme() || {}
 
   return (prop?: string, defaultColor: string = DEFAULT_COLOR): string => {
@@ -49,19 +49,19 @@ class ColorMixin extends Vue.with(Props) {
     this.hasColorThemeMixin = true
   }
 
- theme = setup(() => {
-   return {
-     getColor: useColor(),
-   }
- })
+  theme = setup(() => {
+    return {
+      getColor: useColor(),
+    }
+  })
 
- get colorComputed () {
-   return this.theme.getColor(this.color)
- }
+  get colorComputed () {
+    return this.theme.getColor(this.color)
+  }
 
- computeColor (prop: string, defaultColor?: string) {
-   return this.theme.getColor(prop, defaultColor)
- }
+  computeColor (prop: string, defaultColor?: string) {
+    return this.theme.getColor(prop, defaultColor)
+  }
 }
 
 export default ColorMixin

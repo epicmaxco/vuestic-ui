@@ -43,7 +43,7 @@
 import { watch, PropType } from 'vue'
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaIcon from '../va-icon'
 
 import { NotificationPosition } from './types'

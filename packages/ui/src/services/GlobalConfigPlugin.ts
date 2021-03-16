@@ -1,21 +1,25 @@
 import { ref, inject, App } from 'vue'
 
 import { getDefaultConfig } from '../components/vuestic-components/va-config/config-default'
-import { DEFAULT_THEME } from './Theme'
 import { merge } from 'lodash'
+import { colorsPresets } from './color-config/color-theme-presets'
+import { ColorConfig } from './color-config/color-config'
+import { ComponentConfig } from './component-config/component-config'
+import { IconsConfig } from './icon-config/types'
 
-export type Theme = Record<string, any> // TODO: @m0ksem: need better typing
-export type GlobalConfig = Record<string, Record<string, any> | undefined> & { theme?: Theme };
+export type GlobalConfig = {
+  colors?: ColorConfig,
+  icons?: IconsConfig,
+  components?: ComponentConfig
+};
 
 type Updater = (config: GlobalConfig) => GlobalConfig;
 
-/**
- * The global configuration reference
- */
-const globalConfigRef = ref({
-  theme: DEFAULT_THEME as Theme,
-  ...getDefaultConfig(),
-}) as Record<string, any>
+// Global config is singleton and we wrap it into ref for reactivity.
+const globalConfigRef = ref<GlobalConfig>({
+  colors: colorsPresets.default as ColorConfig,
+  components: getDefaultConfig(),
+})
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
@@ -41,10 +45,8 @@ const setGlobalConfig = (updater: GlobalConfig | Updater): void => {
 
 const getGlobalConfig = (): GlobalConfig => globalConfigRef.value
 
-/**
- * Plugin provides global config to Vue component through prototype
- */
-const GlobalConfigPlugin = {
+// We pass global config via provide so that we have a way to override it.
+export const GlobalConfigPlugin = {
   install (app: App, options?: GlobalConfig) {
     if (options) { setGlobalConfig(options) }
 
@@ -53,5 +55,3 @@ const GlobalConfigPlugin = {
     app.provide(GLOBAL_CONFIG, config)
   },
 }
-
-export default GlobalConfigPlugin

@@ -52,7 +52,7 @@ export default class Landing extends Vue {
   @Provide() contextConfig = this.contextConfig
 
   created () {
-    this.$root.$on('changeTheme', this.setTheme)
+    this.$root.$on('changeTheme', this.setСolors)
   }
 
   mounted () {
@@ -62,7 +62,7 @@ export default class Landing extends Vue {
   }
 
   beforeUnmount () {
-    this.$root.$off('changeTheme', this.setTheme)
+    this.$root.$off('changeTheme', this.setСolors)
   }
 
   setTheme (themeName) {
