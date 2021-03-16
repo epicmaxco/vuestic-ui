@@ -97,7 +97,6 @@ export default class VaCard extends mixins(
 .va-card {
   display: block;
   position: relative;
-  overflow: hidden;
   box-shadow: $card-box-shadow;
   border-radius: $card-border-radius;
   color: $dark-default-color;
