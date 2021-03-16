@@ -1,4 +1,4 @@
-import { colorToRgba } from '../../services/color-functions'
+import { colorToRgba } from '../../services/color-config/color-functions'
 
 const generateValue = () => {
   return Math.floor(Math.random() * 100)

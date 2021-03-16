@@ -5,19 +5,15 @@ import { PropOptions, VueConstructor } from 'vue-class-component'
 import { useLocalConfig } from '../../components/vuestic-components/va-config/VaConfig'
 import { useGlobalConfig, GlobalConfig } from '../GlobalConfigPlugin'
 import { getLocalConfigWithComponentProp } from './createConfigValueGetter'
+import { ComponentConfig } from '../component-config/component-config'
 
 export type Props = {
   [key: string]: PropOptions;
 }
 
-/**
- * name that signifies config should be applied to all components
- */
-const ALL_COMPONENTS = 'all'
-
 const createConfigValueGetter = (
-  globalConfig: GlobalConfig,
-  configChain: GlobalConfig[],
+  globalConfig: ComponentConfig,
+  configChain: ComponentConfig[],
   componentName = '',
 ) => (
   prop: string,
@@ -25,16 +21,12 @@ const createConfigValueGetter = (
 ) => {
   // We have to pass context here as this method will be mainly used in prop default,
   // and methods are not accessible there.
-  const configs = globalConfig ? [globalConfig, ...configChain] : configChain
+  const configLayers = globalConfig ? [globalConfig, ...configChain] : configChain
 
-  const componentConfig = getLocalConfigWithComponentProp(configs, componentName, prop)
-  if (componentConfig) {
-    return componentConfig[componentName][prop]
-  }
+  const configLayer = getLocalConfigWithComponentProp(configLayers, componentName, prop)
 
-  const allConfig = getLocalConfigWithComponentProp(configs, ALL_COMPONENTS, prop)
-  if (allConfig) {
-    return allConfig[ALL_COMPONENTS][prop]
+  if (configLayer) {
+    return configLayer[componentName][prop]
   }
 
   return typeof defaultValue === 'function' ? defaultValue() : defaultValue
@@ -136,7 +128,7 @@ const withConfigTransport = (component: any): any => {
       const { getGlobalConfig } = useGlobalConfig()
 
       const computedProps = computed(() => {
-        const getConfigValue = createConfigValueGetter(getGlobalConfig ? getGlobalConfig() : {}, configChain, componentName)
+        const getConfigValue = createConfigValueGetter(getGlobalConfig ? getGlobalConfig().components : {}, configChain, componentName)
 
         const getValue = (name: string, defaultValue: any) => {
           // We want to fallback to config in 2 cases:

@@ -14,8 +14,8 @@
 <script lang="ts">
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
-import { getGradientBackground } from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+import { getGradientBackground } from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 
 class SidebarProps {
   color = prop<string>({ type: String, default: 'secondary' })

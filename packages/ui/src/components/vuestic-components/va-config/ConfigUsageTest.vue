@@ -16,10 +16,10 @@ const propOptions = {
 }
 
 @Options({
-  name: 'VaTest',
+  name: 'ConfigUsageTest',
   props: propOptions,
 })
-export default class VaTest extends Vue {
+export default class ConfigUsageTest extends Vue {
 
 }
 </script>

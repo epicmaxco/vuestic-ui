@@ -1,3 +1,5 @@
+// TODO: Change this to new alias syntax
+
 export default {
   arrow_back_ios: {
     code: 'arrow_back_ios',

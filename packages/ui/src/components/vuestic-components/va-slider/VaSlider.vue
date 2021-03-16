@@ -154,8 +154,8 @@ import { watch } from 'vue'
 import { Options, mixins, Vue, prop, setup } from 'vue-class-component'
 
 import { Ref } from '../../../utils/decorators'
-import ColorMixin from '../../../services/ColorMixin'
-import { getHoverColor } from '../../../services/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import { getHoverColor } from '../../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
 import VaIcon from '../va-icon'
 
