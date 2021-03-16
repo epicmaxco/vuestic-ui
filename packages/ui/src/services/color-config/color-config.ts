@@ -13,15 +13,15 @@ export const setupColors = () => {
     return
   }
 
-  const setColors = (theme: Record<string, string>): void => {
+  const setColors = (colors: Record<string, string>): void => {
     setGlobalConfig((config: GlobalConfig) => ({
       ...config,
-      theme: { ...config.colors, ...theme },
+      colors: { ...config.colors, ...colors },
     }))
   }
 
   const getColors = (): Record<string, string> | undefined => {
-    return getGlobalConfig().theme
+    return getGlobalConfig().colors
   }
 
   return {
