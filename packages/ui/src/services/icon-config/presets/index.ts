@@ -7,16 +7,14 @@ import FrameworkAliases from './framework-aliases'
 // TODO: Move tihs preset to global config automaticly and
 // remove code from book-main.ts
 const config: {
-  VaIcon: { iconsConfig: IconsConfig }
+  icons: IconsConfig
 } = {
-  VaIcon: {
-    iconsConfig: [
-      ...DemoAliases,
-      ...DocsAliases,
-      ...FrameworkAliases,
-      ...allIconConfigsArray,
-    ],
-  },
+  icons: [
+    ...DemoAliases,
+    ...DocsAliases,
+    ...FrameworkAliases,
+    ...allIconConfigsArray,
+  ],
 }
 
 export default config

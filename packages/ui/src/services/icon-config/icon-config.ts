@@ -14,20 +14,25 @@ function executeConfigFunctions (name: string, iconConfig: IconConfig): IconConf
   return config
 }
 
-function findConfigByName (name: string, iconsConfig: IconsConfig): IconConfig | undefined {
+function findConfigByName (name: string, iconsConfig: IconsConfig, ignoreNames: string[] = []): IconConfig | undefined {
   const config = iconsConfig.find((c) => {
+    if (ignoreNames.includes(c.name.toString())) { return false }
     return typeof c.name === 'string' ? c.name === name : c.name.test(name)
   })
 
-  if (config?.to && config?.to !== name) {
-    const preset = findConfigByName(config.to, iconsConfig)
+  if (config?.to) {
+    const preset = findConfigByName(config.to, iconsConfig, [...ignoreNames, name])
     if (preset) { return { ...preset, ...config, name: preset.name } }
   }
 
   return config
 }
 
-export function getIconConfig (name: string, iconsConfig: IconsConfig): IconConfig {
+export function getIconConfig (name: string, iconsConfig?: IconsConfig): IconConfig {
+  if (!iconsConfig) {
+    throw new Error(`Cant find config for name="${name}". You can create default config. Visit DOCS // TODO`)
+  }
+
   const config = findConfigByName(name, iconsConfig)
 
   if (!config) {
