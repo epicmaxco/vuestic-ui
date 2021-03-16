@@ -1,11 +1,4 @@
-import { VuesticPlugin } from './components/vuestic-plugin'
-import { useColor } from './services/ColorMixin'
-import { useGlobalConfig } from './services/GlobalConfigPlugin'
-import { useTheme } from './services/Theme'
-
-export default {
-  VuesticPlugin,
-  useColor,
-  useGlobalConfig,
-  useTheme,
-}
+export { VuesticPlugin } from './components/vuestic-plugin'
+export { useColor } from './services/ColorMixin'
+export { useGlobalConfig } from './services/GlobalConfigPlugin'
+export { useTheme } from './services/Theme'
