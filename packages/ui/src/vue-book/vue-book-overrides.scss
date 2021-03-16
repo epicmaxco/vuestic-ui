@@ -1,0 +1,75 @@
+
+// Style overrides for vue-book to make it less of a flashbang.
+$book-color-black: #000000;
+$book-color-lightgray: #d5d5d5;
+
+$book-color-darkgray: #1c252f;
+$book-color-darkgray--light: #383d47;
+$book-color-darkgray--dark: #10161d;
+
+$book-color-gold: #fbc500;
+$book-color-gold--light: #fbcb1a;
+$book-color-gold--dark: #ddad00;
+
+.VbPage {
+  &__files {
+    color: $book-color-lightgray !important;
+  }
+  &__search-input {
+    background-color: $book-color-darkgray--light !important;
+    color: $book-color-lightgray !important;
+  }
+  &__right-block {
+    background-color: $book-color-black;
+  }
+  &__left-block,
+  &__left-block-folded,
+  &__files {
+    background-color: $book-color-darkgray !important;
+  }
+}
+
+.VbDemo {
+  background-color: transparent;
+}
+
+.DemoFileList {
+  background-color: $book-color-darkgray--light;
+  &__node--pre-selected {
+    background-color: $book-color-darkgray--dark;
+  }
+}
+.TreeDemoFileList {
+  background-color: $book-color-darkgray--light;
+}
+.BookComponentListItem {
+  color: $book-color-lightgray;
+  &--active {
+    color: $book-color-gold--dark !important;
+    background-color: $book-color-darkgray--dark !important;
+  }
+}
+.ComButtonIcon {
+  color: $book-color-lightgray !important;
+  &--active {
+    background-color: $book-color-darkgray !important;
+    border-color: $book-color-gold !important;
+  }
+}
+.VbCard {
+  background-color: $book-color-darkgray;
+
+  .VbCard__title {
+    color: $book-color-lightgray;
+    background-color: $book-color-darkgray--dark;
+  }
+
+  .VbCard__separator {
+    background-color: transparent;
+  }
+
+  &.VbCard--dashed {
+    border: dashed $book-color-lightgray 1px;
+  }
+}
+

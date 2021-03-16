@@ -49,19 +49,19 @@ class ColorMixin extends Vue.with(Props) {
     this.hasColorThemeMixin = true
   }
 
- theme = setup(() => {
-   return {
-     getColor: useColor(),
-   }
- })
+  theme = setup(() => {
+    return {
+      getColor: useColor(),
+    }
+  })
 
- get colorComputed () {
-   return this.theme.getColor(this.color)
- }
+  get colorComputed () {
+    return this.theme.getColor(this.color)
+  }
 
- computeColor (prop: string, defaultColor?: string) {
-   return this.theme.getColor(prop, defaultColor)
- }
+  computeColor (prop: string, defaultColor?: string) {
+    return this.theme.getColor(prop, defaultColor)
+  }
 }
 
 export default ColorMixin
