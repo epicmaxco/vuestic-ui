@@ -20,10 +20,10 @@ import { IconMixin } from '../../../services/icon-config/IconMixin'
 class Props {
   name = prop<string>({ type: String, default: '' })
   tag = prop<string>({ type: String, default: 'i' })
-  component = prop<object>({ type: Object })
-  color = prop<string>({ type: String, default: '' })
-  rotation = prop<number | string>({ type: [String, Number], default: '' })
-  spin = prop<boolean>({ type: Boolean, default: false })
+  component = prop<Record<string, any>>({ type: Object })
+  color = prop<string>({ type: String, default: undefined })
+  rotation = prop<number | string>({ type: [String, Number], default: undefined })
+  spin = prop<boolean>({ type: Boolean, default: undefined })
 }
 
 const PropsMixin = Vue.with(Props)
@@ -65,7 +65,7 @@ export default class VaIcon extends mixins(
   }
 
   get colorStyle () {
-    return { color: this.color ? this.colorComputed : null }
+    return { color: this.icon.color ? this.icon.color : this.colorComputed }
   }
 
   get computedStyle () {

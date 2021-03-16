@@ -1,9 +1,9 @@
 <template>
   <VbDemo>
     <VbCard title="MD">
-      <va-icon class="material-icons">
+      <i class="material-icons">
         home
-      </va-icon>
+      </i>
       <va-icon name="home" />
     </VbCard>
     <VbCard title="FA 4">
@@ -11,15 +11,15 @@
       <va-icon name="fa4-home" />
     </VbCard>
     <VbCard title="FA 5">
-      <va-icon class="fas fa-home" />
+      <i class="fas fa-home" />
       <va-icon name="fas-home" />
     </VbCard>
     <VbCard title="Ionic">
-      <va-icon class="icon ion-md-home" />
+      <i class="icon ion-md-home" />
       <va-icon name="ion-home" />
     </VbCard>
     <VbCard title="Entypo">
-      <va-icon class="entypo-home" />
+      <i class="entypo-home" />
       <va-icon name="entypo-home" />
     </VbCard>
     <VbCard title="Size presets">
@@ -75,7 +75,7 @@
       <va-icon :component="getSvgComponent()" />
     </VbCard>
     <VbCard title="text icon">
-      <va-icon>close</va-icon>
+      <va-icon name="text">close</va-icon>
     </VbCard>
     <VbCard title="Spin Prop">
       <va-icon
