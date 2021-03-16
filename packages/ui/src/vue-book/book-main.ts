@@ -1,13 +1,15 @@
 import iconConfig from './../services/icon-config/presets'
 import { createApp } from 'vue'
 import App from './BookApp.vue'
-import GlobalConfigPlugin from '../services/GlobalConfigPlugin'
+import { GlobalConfigPlugin } from '../services/GlobalConfigPlugin'
 import DropdownPopperSubplugin from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
 // import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
 import ToastInstall from '../components/vuestic-components/va-toast/install'
 
 import { VueBookComponents, createRoute } from 'vue-book'
 import { createRouter, createWebHashHistory } from 'vue-router'
+
+import './vue-book-overrides.scss'
 
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 

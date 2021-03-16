@@ -1,4 +1,5 @@
 export const getDefaultConfig = () => {
+  // TODO Should be hanled in size service
   return {
     VaIcon: {
       sizesConfig: {

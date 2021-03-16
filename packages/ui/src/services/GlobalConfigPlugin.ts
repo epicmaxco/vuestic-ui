@@ -7,8 +7,6 @@ import { ColorConfig } from './color-config/color-config'
 import { ComponentConfig } from './component-config/component-config'
 import { IconsConfig } from './icon-config/types'
 
-// export type GlobalConfig = Record<string, Record<string, any> | undefined> & { theme?: ColorTheme };
-
 export type GlobalConfig = {
   colors?: ColorConfig,
   icons?: IconsConfig,
@@ -17,16 +15,11 @@ export type GlobalConfig = {
 
 type Updater = (config: GlobalConfig) => GlobalConfig;
 
-/**
- * The global configuration reference
- */
-const globalConfigRef = ref({
-  theme: colorsPresets.default as ColorConfig,
-  components: {
-    // TODO Component configs should go there.
-  },
-  ...getDefaultConfig(),
-}) as Record<string, any>
+// Global config is singleton and we wrap it into ref for reactivity.
+const globalConfigRef = ref<GlobalConfig>({
+  colors: colorsPresets.default as ColorConfig,
+  components: getDefaultConfig(),
+})
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
@@ -52,10 +45,8 @@ const setGlobalConfig = (updater: GlobalConfig | Updater): void => {
 
 const getGlobalConfig = (): GlobalConfig => globalConfigRef.value
 
-/**
- * Plugin provides global config to Vue component through prototype
- */
-const GlobalConfigPlugin = {
+// We pass global config via provide so that we have a way to override it.
+export const GlobalConfigPlugin = {
   install (app: App, options?: GlobalConfig) {
     if (options) { setGlobalConfig(options) }
 
@@ -64,5 +55,3 @@ const GlobalConfigPlugin = {
     app.provide(GLOBAL_CONFIG, config)
   },
 }
-
-export default GlobalConfigPlugin
