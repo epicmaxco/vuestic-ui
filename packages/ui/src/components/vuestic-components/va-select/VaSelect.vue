@@ -70,7 +70,7 @@
           <div class="va-select__content-wrapper">
             <div class="va-select__controls" v-if="$slots.prependInner">
               <div class="va-select__prepend-slot">
-                <slot name="prependInner"/>
+                <slot name="prependInner" />
               </div>
             </div>
             <div
@@ -126,7 +126,7 @@
             <div class="va-select__controls">
 
               <div class="va-select__append-slot">
-                <slot name="appendInner"/>
+                <slot name="appendInner" />
               </div>
 
               <div v-if="showClearIcon" class="va-select__icon">
@@ -186,10 +186,11 @@ type DropdownIcon = {
 }
 
 class SelectProps {
-  modelValue = prop<string | number | object | any[]>({
+  modelValue = prop<string | number | Record<string, any> | any[]>({
     type: [String, Number, Object, Array],
     default: '',
   })
+
   label = prop<string>({ type: String, default: '' })
   placeholder = prop<string>({ type: String, default: '' })
   position = prop<string>({
@@ -318,19 +319,24 @@ export default class VaSelect extends mixins(
   get selectStyle () {
     return {
       backgroundColor:
-        this.computedError ? getHoverColor(this.computeColor('danger'))
+        this.computedError
+          ? getHoverColor(this.computeColor('danger'))
           : this.$props.success ? getHoverColor(this.computeColor('success')) : '#f5f8f9',
       borderColor:
-        this.computedError ? this.computeColor('danger')
-          : this.$props.success ? this.computeColor('success')
-          : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
+        this.computedError
+          ? this.computeColor('danger')
+          : this.$props.success
+            ? this.computeColor('success')
+            : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
     }
   }
 
   get labelStyle () {
     return {
-      color: this.computedError ? this.computeColor('danger')
-        : this.$props.success ? this.computeColor('success')
+      color: this.computedError
+        ? this.computeColor('danger')
+        : this.$props.success
+          ? this.computeColor('success')
           : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
     }
   }
@@ -508,9 +514,11 @@ export default class VaSelect extends mixins(
       isLetter && (this.hintedSearch += event.key)
     }
     // Search for an option that matches the query
-    this.hintedOption = this.hintedSearch ? (this.$props.options as []).find((option: any) => {
-      return this.getText(option).toLowerCase().startsWith(this.hintedSearch.toLowerCase())
-    }) : ''
+    this.hintedOption = this.hintedSearch
+      ? (this.$props.options as []).find((option: any) => {
+        return this.getText(option).toLowerCase().startsWith(this.hintedSearch.toLowerCase())
+      })
+      : ''
     this.timer = setTimeout(() => {
       this.hintedSearch = ''
     }, 1000)
