@@ -23,8 +23,8 @@
 <script lang="ts">
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import { getGradientBackground } from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+import { getGradientBackground } from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 

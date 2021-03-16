@@ -1,3 +1,5 @@
+// TODO: Change this to new alias syntax
+
 export default {
   remove_red_eye: {
     code: 'remove_red_eye',

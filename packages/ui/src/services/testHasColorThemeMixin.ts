@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { shallowMount, Wrapper } from '@vue/test-utils'
-import ColorMixin from './ColorMixin'
+import ColorMixin from './color-config/ColorMixin'
 // import { testIsContextableComponent } from '../components/context-test/context-provide/testIsContextableComponent'
 
 export function testHasColorThemeMixin<T extends ColorMixin> (componentOptions: T) {

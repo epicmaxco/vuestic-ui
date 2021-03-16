@@ -32,7 +32,7 @@ import { Options, mixins, prop, Vue } from 'vue-class-component'
 // @ts-ignore
 import gravatar from 'gravatar'
 
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import VaIcon from '../va-icon'
