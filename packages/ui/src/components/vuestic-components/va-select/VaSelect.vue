@@ -6,8 +6,8 @@
     :messages="$props.messages"
     :style="{ width: $props.width }"
   >
-    <template #prepend>
-      <slot name="prepend"/>
+    <template v-if="$slots.prepend" #prepend>
+      <slot name="prepend" />
     </template>
 
     <va-dropdown
@@ -157,8 +157,8 @@
       </template>
     </va-dropdown>
 
-    <template #append>
-      <slot name="append"/>
+    <template v-if="$slots.append" #append>
+      <slot name="append" />
     </template>
   </va-input-wrapper>
 </template>
