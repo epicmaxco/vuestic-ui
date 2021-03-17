@@ -65,7 +65,7 @@ export default class VaIcon extends mixins(
   }
 
   get colorStyle () {
-    return { color: this.icon.color ? this.icon.color : this.colorComputed }
+    return { color: this.color !== undefined ? this.colorComputed : this.icon.color }
   }
 
   get computedStyle () {
