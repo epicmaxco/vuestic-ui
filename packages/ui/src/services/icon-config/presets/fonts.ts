@@ -44,4 +44,4 @@ export const iconConfigs = {
   },
 }
 
-export const allIconConfigsArray = Object.values(iconConfigs)
+export const iconConfigsArray = Object.values(iconConfigs)

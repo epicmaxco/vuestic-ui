@@ -1,4 +1,3 @@
-import iconConfig from './../services/icon-config/presets'
 import { createApp } from 'vue'
 import App from './BookApp.vue'
 import { GlobalConfigPlugin } from '../services/GlobalConfigPlugin'
@@ -40,7 +39,6 @@ app.use(router)
 
 if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
   app.use(GlobalConfigPlugin, {
-    ...iconConfig,
     // Provide custom style here, for example:
 
     // theme: {
