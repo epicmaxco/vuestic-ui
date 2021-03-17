@@ -41,9 +41,9 @@ app.use(router)
 
 if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
   app.use(GlobalConfigPlugin, {
-    icons: {
+    icons: [
       ...DemoIconAliases,
-    },
+    ],
   } as GlobalConfig)
 } else {
   app.use(GlobalConfigPlugin)
