@@ -1,5 +1,3 @@
-import { IconConfig } from './../types/index'
-
 /**
  * You can import concrate config.
  *
@@ -8,7 +6,7 @@ import { IconConfig } from './../types/index'
  * import { md } from 'vuestic/config/icons'
  * ```
  */
-export const iconConfigs = {
+export const fontPressets = {
   md: {
     name: /md-(.*)/,
     iconClass: 'material-icons',
@@ -44,4 +42,4 @@ export const iconConfigs = {
   },
 }
 
-export const iconConfigsArray = Object.values(iconConfigs)
+export const fontPressetsArray = Object.values(fontPressets)
