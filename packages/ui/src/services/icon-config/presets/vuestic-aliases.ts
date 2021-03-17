@@ -1,4 +1,4 @@
-const FrameworkAliases = [
+export const VuesticAliases = [
   {
     name: 'arrow_back_ios',
     to: 'arrow_back_ios',
@@ -80,5 +80,3 @@ const FrameworkAliases = [
     to: 'loop',
   },
 ]
-
-export default FrameworkAliases
