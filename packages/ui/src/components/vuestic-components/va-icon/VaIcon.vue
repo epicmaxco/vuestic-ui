@@ -23,7 +23,7 @@ class Props {
   component = prop<Record<string, any>>({ type: Object })
   color = prop<string>({ type: String, default: undefined })
   rotation = prop<number | string>({ type: [String, Number], default: undefined })
-  spin = prop<boolean>({ type: Boolean, default: undefined })
+  spin = prop<string>({ type: String, default: undefined })
 }
 
 const PropsMixin = Vue.with(Props)
@@ -41,10 +41,15 @@ export default class VaIcon extends mixins(
     return (this.icon && this.icon.component) || this.component || this.tag
   }
 
+  get spinClass () {
+    if (this.spin === undefined) { return }
+    return this.spin === 'counterclock-wise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
+  }
+
   get computedClass () {
     return [
       this.icon ? this.icon.iconClass : '',
-      this.spin ? 'va-icon--spin' : '',
+      this.spinClass,
     ]
   }
 
@@ -95,6 +100,10 @@ export default class VaIcon extends mixins(
 
   &--spin {
     animation: va-icon--spin-animation 1500ms linear infinite;
+    &-reverse {
+      animation: va-icon--spin-animation 1500ms linear infinite;
+      animation-direction: reverse;
+    }
   }
 
   @keyframes va-icon--spin-animation {

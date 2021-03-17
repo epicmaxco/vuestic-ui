@@ -79,7 +79,15 @@
     </VbCard>
     <VbCard title="Spin Prop">
       <va-icon
+        spin="clock-wise"
+        name="loop"
+      />
+      <va-icon
         spin
+        name="loop"
+      />
+      <va-icon
+        spin="counterclock-wise"
         name="loop"
       />
     </VbCard>
