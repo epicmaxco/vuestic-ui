@@ -8,9 +8,11 @@ import ToastInstall from '../components/vuestic-components/va-toast/install'
 import { VueBookComponents, createRoute } from 'vue-book'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import DemoIcons from './vuestic-config/demo-icon-aliases'
+import demoIconAliases from './vuestic-config/demo-icon-aliases'
+import demoIconFonts from './vuestic-config/demo-icon-fonts'
 
 import './vue-book-overrides.scss'
+import { createIconConfig } from '../services/icon-config/icon-config'
 
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
@@ -40,9 +42,10 @@ app.use(DropdownPopperSubplugin)
 app.use(router)
 
 app.use(GlobalConfigPlugin, {
-  icons: [
-    ...DemoIcons,
-  ],
+  icons: createIconConfig({
+    aliases: demoIconAliases,
+    font: demoIconFonts,
+  }),
 } as GlobalConfig)
 
 app.mount('#app')
