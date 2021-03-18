@@ -25,7 +25,6 @@ const createConfigValueGetter = (
   prop: string,
   defaultValue: any,
 ) => {
-  configChain = []
   // We have to pass context here as this method will be mainly used in prop default,
   // and methods are not accessible there.
   const configLayers = globalConfig ? [globalConfig, ...configChain] : configChain
