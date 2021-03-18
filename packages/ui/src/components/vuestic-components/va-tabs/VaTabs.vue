@@ -61,7 +61,7 @@ import { provide, watch, ref } from 'vue'
 import { Options, Vue, prop, mixins, setup } from 'vue-class-component'
 
 import { Ref } from '../../../utils/decorators'
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import VaButton from '../va-button'
 import VaTab from './VaTab/VaTab.vue'

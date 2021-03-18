@@ -114,7 +114,7 @@ export default class ColorDropdown extends Vue {
   }
 
   get themes () {
-    return this.getTheme()
+    return this.getColors()
   }
 
   getTheme = setup(() => {

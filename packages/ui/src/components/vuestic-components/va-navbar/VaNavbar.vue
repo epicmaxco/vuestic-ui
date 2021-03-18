@@ -26,8 +26,8 @@
 <script lang="ts">
 import { Options, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../services/ColorMixin'
-import { shiftHslColor } from '../../../services/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import { shiftHslColor } from '../../../services/color-config/color-functions'
 
 @Options({
   name: 'VaNavbar',

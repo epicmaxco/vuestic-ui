@@ -60,7 +60,7 @@
 <script lang="ts">
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import VaIcon from '../va-icon/'
 import { VaInputWrapper } from '../va-input'

@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 
 class CardTitleProps {
   textColor = prop<string>({ type: String, default: '' })
@@ -27,7 +27,7 @@ export default class VaCardTitle extends mixins(
 ) {
   get titleStyles () {
     return {
-      color: this.textColor ? this.theme.getColor(this.textColor): '',
+      color: this.textColor ? this.theme.getColor(this.textColor) : '',
     }
   }
 }

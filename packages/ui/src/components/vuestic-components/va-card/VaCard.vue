@@ -29,8 +29,8 @@
 <script lang="ts">
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import { getGradientBackground } from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+import { getGradientBackground } from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
 class CardProps {
@@ -97,7 +97,6 @@ export default class VaCard extends mixins(
 .va-card {
   display: block;
   position: relative;
-  overflow: hidden;
   box-shadow: $card-box-shadow;
   border-radius: $card-border-radius;
   color: $dark-default-color;

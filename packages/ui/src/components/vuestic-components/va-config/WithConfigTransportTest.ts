@@ -1,4 +1,4 @@
-import Test from './Test.vue'
+import ConfigUsageTest from './ConfigUsageTest.vue'
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
 
-export default withConfigTransport(Test as any)
+export default withConfigTransport(ConfigUsageTest as any)

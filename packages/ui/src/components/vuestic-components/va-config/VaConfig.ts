@@ -1,8 +1,8 @@
 import { inject, provide } from 'vue'
 import { Options, prop, Vue, setup } from 'vue-class-component'
 
-import { hasOwnProperty } from '../../../services/utils'
 import { GlobalConfig } from '../../../services/GlobalConfigPlugin'
+import { ComponentConfig } from '../../../services/component-config/component-config'
 
 export type ContextConfig = Record<string, Record<string, any>>
 
@@ -26,21 +26,19 @@ export const mergeConfigs = (
 }
 
 /**
- * Key for communication inject/provide
+ * We need another key to provide injected value.
  */
 export const LocalConfigKey = Symbol('LocalConfigKey')
 
 export const CONFIGS_DEFAULT = []
 
-export function useLocalConfig (): GlobalConfig[] {
-  return inject(LocalConfigKey, CONFIGS_DEFAULT)
+export function useLocalConfig (): ComponentConfig[] {
+  return inject(LocalConfigKey, CONFIGS_DEFAULT /* TODO This doesn't look correct! */)
 }
 
-class ConfigProps {
-  config = prop<ContextConfig>({ type: Object, default: () => ({}) })
-}
-
-const ConfigPropsMixin = Vue.with(ConfigProps)
+const ConfigPropsMixin = Vue.with(class {
+  components = prop<ContextConfig>({ type: Object, default: () => ({}) })
+})
 
 // @ts-ignore
 @Options({
@@ -49,7 +47,7 @@ const ConfigPropsMixin = Vue.with(ConfigProps)
 export default class VaConfig extends ConfigPropsMixin {
   provider = setup(() => {
     const prevChain = useLocalConfig()
-    const nextChain = [...prevChain, this.$props.config]
+    const nextChain = [...prevChain, this.$props.components]
 
     provide(LocalConfigKey, nextChain)
 
@@ -59,28 +57,5 @@ export default class VaConfig extends ConfigPropsMixin {
   // @ts-ignore
   render () {
     return this.$slots.default ? this.$slots.default() : null
-  }
-
-  get configComputed () {
-    return mergeConfigs(this.config, this.perValueConfig)
-  }
-
-  get perValueConfig () {
-    const perValueConfig: Record<string, any> = {}
-    for (const key in this.$attrs) {
-      if (hasOwnProperty(this.$attrs, key)) {
-        // TODO Some better validation might be welcome. Context system doesn't provide too much feedback in case of typo etc.
-        const result = key.split('::')
-        if (result.length !== 2) {
-          continue
-        }
-        const [componentName, propName] = result
-        if (!perValueConfig[componentName]) {
-          perValueConfig[componentName] = {}
-        }
-        perValueConfig[componentName][propName] = this.$attrs[key]
-      }
-    }
-    return perValueConfig
   }
 }

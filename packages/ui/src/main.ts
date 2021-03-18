@@ -1,4 +1,4 @@
 export { VuesticPlugin } from './components/vuestic-plugin'
-export { useColor } from './services/ColorMixin'
+export { useColor } from './services/color-config/ColorMixin'
 export { useGlobalConfig } from './services/GlobalConfigPlugin'
-export { useTheme } from './services/Theme'
+export { setupColors } from './services/color-config/color-config'
