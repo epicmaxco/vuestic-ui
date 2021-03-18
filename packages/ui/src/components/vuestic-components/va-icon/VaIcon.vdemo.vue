@@ -1,25 +1,23 @@
 <template>
   <VbDemo>
     <VbCard title="MD">
-      <i class="material-icons">
-        home
-      </i>
+      <va-icon class="material-icons">home</va-icon>
       <va-icon name="home" />
     </VbCard>
     <VbCard title="FA 4">
-      <va-icon name="home" />
+      <va-icon class="fa fa-home" />
       <va-icon name="fa4-home" />
     </VbCard>
     <VbCard title="FA 5">
-      <i class="fas fa-home" />
+      <va-icon class="fas fa-home" />
       <va-icon name="fas-home" />
     </VbCard>
     <VbCard title="Ionic">
-      <i class="icon ion-md-home" />
+      <va-icon class="icon ion-md-home" />
       <va-icon name="ion-home" />
     </VbCard>
     <VbCard title="Entypo">
-      <i class="entypo-home" />
+      <va-icon class="entypo-home" />
       <va-icon name="entypo-home" />
     </VbCard>
     <VbCard title="Size presets">
@@ -87,7 +85,7 @@
         name="loop"
       />
       <va-icon
-        spin="counterclock-wise"
+        spin="counter-clockwise"
         name="loop"
       />
     </VbCard>

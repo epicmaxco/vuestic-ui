@@ -7,5 +7,5 @@ export default {
   VuesticPlugin,
   useColor,
   useGlobalConfig,
-  useTheme: setupColors,
+  setupColors,
 }

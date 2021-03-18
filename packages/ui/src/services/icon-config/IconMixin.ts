@@ -7,7 +7,7 @@ class IconMixinProps {
   iconsConfig = prop<any>({ type: Object, default: {} })
 }
 
-function copyObjectWithoutUndefiend (obj: any) {
+function copyObjectWithoutUndefined (obj: any) {
   return Object.keys({ ...obj }).reduce((acc, key) => {
     return obj[key] !== undefined ? { [key]: obj[key], ...acc } : acc
   }, {})
@@ -18,7 +18,7 @@ export class IconMixin extends Vue.with(IconMixinProps) {
     const globalConfig = useGlobalConfig().getGlobalConfig()
     const iconsConfig = globalConfig.icons
     const config = getIconConfig(this.name, iconsConfig)
-    const props = copyObjectWithoutUndefiend(this.$props)
+    const props = copyObjectWithoutUndefined(this.$props)
     return { ...config, ...props }
   }
 }

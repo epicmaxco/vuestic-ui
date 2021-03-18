@@ -8,7 +8,7 @@ import ToastInstall from '../components/vuestic-components/va-toast/install'
 import { VueBookComponents, createRoute } from 'vue-book'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import DemoIconAliases from './vuestic-config/demo-icon-aliases'
+import DemoIcons from './vuestic-config/demo-icon-aliases'
 
 import './vue-book-overrides.scss'
 
@@ -39,14 +39,10 @@ app.use(ToastInstall)
 app.use(DropdownPopperSubplugin)
 app.use(router)
 
-if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
-  app.use(GlobalConfigPlugin, {
-    icons: [
-      ...DemoIconAliases,
-    ],
-  } as GlobalConfig)
-} else {
-  app.use(GlobalConfigPlugin)
-}
+app.use(GlobalConfigPlugin, {
+  icons: [
+    ...DemoIcons,
+  ],
+} as GlobalConfig)
 
 app.mount('#app')

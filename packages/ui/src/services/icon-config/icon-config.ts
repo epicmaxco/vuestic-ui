@@ -28,7 +28,7 @@ function findConfigByName (name: string, iconsConfig: IconsConfig, ignoreNames: 
   return config
 }
 
-export function getIconConfig (name: string, iconsConfig?: IconsConfig): IconConfig {
+export const getIconConfig = (name: string, iconsConfig?: IconsConfig): IconConfig => {
   if (!iconsConfig) {
     throw new Error(`Cant find config for name="${name}". You can create default config. Visit DOCS // TODO`)
   }

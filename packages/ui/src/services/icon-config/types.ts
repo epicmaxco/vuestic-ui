@@ -104,7 +104,7 @@ export type IconConfig = {
   tag?: string
   color?: string
   rotation?: number | string
-  spin?: 'clockwise' | 'counterclock-wise'
+  spin?: 'clockwise' | 'counter-clockwise'
 }
 
 export type IconsConfig = IconConfig[]

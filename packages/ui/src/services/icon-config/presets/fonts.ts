@@ -6,16 +6,16 @@
  * import { md } from 'vuestic/config/icons'
  * ```
  */
-export const fontPressets = {
+export const fontPresets = {
   md: {
     name: /md-(.*)/,
     iconClass: 'material-icons',
     content: (content: string) => content,
   },
-  fa: {
-    name: /fa4-(.*)/,
-    iconClass: (code: string) => `fa fa-${code}`,
-  },
+fa: {
+  name: /fa4-(.*)/,
+  iconClass: (code: string) => `fa fa-${code}`,
+},
   fa5: {
     name: /(fas|far|fal|fad|fab)-(.*)/,
     iconClass: (font: string, code: string) => `${font} fa-${code} fa-fw`,
@@ -42,4 +42,4 @@ export const fontPressets = {
   },
 }
 
-export const fontPressetsArray = Object.values(fontPressets)
+export const fontPresetsArray = Object.values(fontPresets)

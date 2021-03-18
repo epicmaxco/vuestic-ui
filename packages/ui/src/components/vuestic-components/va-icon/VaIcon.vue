@@ -43,7 +43,7 @@ export default class VaIcon extends mixins(
 
   get spinClass () {
     if (this.spin === undefined) { return }
-    return this.spin === 'counterclock-wise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
+    return this.spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
   }
 
   get computedClass () {
