@@ -4102,7 +4102,7 @@ css-loader@^3.5.3:
     schema-utils "^2.7.0"
     semver "^6.3.0"
 
-css-minimizer-webpack-plugin@^1.1.5:
+css-minimizer-webpack-plugin@^1.1.5, css-minimizer-webpack-plugin@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/css-minimizer-webpack-plugin/-/css-minimizer-webpack-plugin-1.2.0.tgz#3e9d75f6bcc16f1eb84d56ebfee124d1e1f2e1c5"
   integrity sha512-XU4+PXw7QKAlRGU+fB386YiczAAPtk0kVsB/Qf2nX8GJaOXgTsk/PST8YBExeoD299wheG//MCCKlCD5fykb7Q==

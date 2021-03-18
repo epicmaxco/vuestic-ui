@@ -71,7 +71,7 @@ export default class VaAvatar extends mixins(
     return {
       color: this.theme.getColor(this.textColor, '#ffffff'),
       backgroundColor: this.loading || this.email ? 'transparent' : this.colorComputed,
-      borderRadius: this.square ? 0 : '50%',
+      borderRadius: this.square ? 0 : '',
       fontSize: this.fontSize || this.fontSizeComputed,
       width: this.sizeComputed,
       minWidth: this.sizeComputed, // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
@@ -82,14 +82,17 @@ export default class VaAvatar extends mixins(
 </script>
 
 <style lang="scss">
+@import "variables";
+
 .va-avatar {
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
-  line-height: normal;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
+  align-items: var(--va-avatar-align-items);
+  display: var(--va-avatar-display);
+  justify-content: var(--va-avatar-justify-content);
+  line-height: var(--va-avatar-line-height);
+  position: var(--va-avatar-position);
+  text-align: var(--va-avatar-text-align);
+  vertical-align: var(--va-avatar-vertical-align);
+  border-radius: var(--va-avatar-border-radius);
 
   img,
   svg {

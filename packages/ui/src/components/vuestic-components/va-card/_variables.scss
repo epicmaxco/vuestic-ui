@@ -1,0 +1,18 @@
+:root {
+  --va-card-display: block;
+  --va-card-position: relative;
+  --va-card-overflow: hidden;
+  --va-card-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
+  --va-card-border-radius: 0.375rem;
+  --va-card-color: #34495e;
+  --va-card-background-color: #ffffff;
+  --va-card-padding: 1.25rem;
+  /*Outlined*/
+  --va-card-outlined-border: thin solid rgba(52, 56, 85, 0.25);
+  --va-card-outlined-box-shadow: none;
+  /*Dark*/
+  --va-card-dark-color: #ffffff;
+  --va-card-dark-background-color: #34495e;
+}
+
+

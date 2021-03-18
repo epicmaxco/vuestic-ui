@@ -10,10 +10,8 @@
     @click:prepend="onPrependClick"
     @click:append="onAppendClick"
   >
-    <template #prepend>
-      <slot
-        name="prepend"
-      />
+    <template #prepend v-if="$slots.prepend">
+      <slot name="prepend" />
     </template>
     <div
       class="va-input__container"
@@ -25,7 +23,7 @@
         @click="onPrependInnerClick"
         class="va-input__container__prepend-inner"
       >
-        <slot name="prependInner" />
+        <slot name="prependInner"/>
       </div>
       <div
         class="va-input__container__content-wrapper"
@@ -76,7 +74,7 @@
         @click="onAppendInnerClick"
         class="va-input__container__append-inner"
       >
-        <slot name="appendInner" />
+        <slot name="appendInner"/>
       </div>
       <div
         v-if="showIcon"
@@ -103,7 +101,7 @@
         />
       </div>
     </div>
-    <template #append>
+    <template #append v-if="$slots.append">
       <slot
         name="append"
       />
@@ -163,7 +161,7 @@ export default class VaInput extends mixins(
       borderColor:
         this.computedError ? this.computeColor('danger')
           : this.success ? this.computeColor('success')
-            : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
+          : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
     }
   }
 }
@@ -171,65 +169,66 @@ export default class VaInput extends mixins(
 
 <style lang='scss'>
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-input {
   &__container {
-    display: flex;
-    position: relative;
-    width: 100%;
-    min-height: 2.375rem;
-    border-style: solid;
-    border-width: 0 0 thin 0;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    display: var(--va-input-container-display);
+    position: var(--va-input-container-position);
+    width: var(--va-input-container-width);
+    min-height: var(--va-input-container-min-height);
+    border-style: var(--va-input-container-border-style);
+    border-width: var(--va-input-container-border-width);
+    border-top-left-radius: var(--va-input-container-border-top-left-radius);
+    border-top-right-radius: var(--va-input-container-border-top-right-radius);
 
     &__content-wrapper {
-      display: flex;
-      align-items: flex-end;
-      width: 100%;
-      padding: 0 0.5rem;
+      display: var(--va-input-container-content-wrapper-display);
+      align-items: var(--va-input-container-content-wrapper-align-items);
+      width: var(--va-input-container-content-wrapper-width);
+      padding: var(--va-input-container-content-wrapper-padding);
 
       /* min-width: 100%; */
     }
 
     &__icon-wrapper {
-      display: flex;
-      align-items: center;
-      margin-right: 0.5rem;
+      display: var(--va-input-container-icon-wrapper-display);
+      align-items: var(--va-input-container-icon-wrapper-align-items);
+      margin-right: var(--va-input-container-icon-wrapper-margin-right);
     }
 
     &__prepend-inner {
-      display: flex;
-      align-items: center;
-      margin-left: 0.5rem;
+      display: var(--va-input-container-prepend-inner-display);
+      align-items: var(--va-input-container-prepend-inner-align-items);
+      margin-left: var(--va-input-container-prepend-inner-margin-left);
     }
 
     &__append-inner {
-      display: flex;
-      align-items: center;
-      margin-right: 0.5rem;
+      display: var(--va-input-container-prepend-inner-display);
+      align-items: var(--va-input-container-prepend-inner-align-items);
+      margin-right: var(--va-input-container-append-inner-margin-right);
     }
 
     &__close-icon {
-      cursor: pointer;
-      margin-left: 0.25rem;
+      cursor: var(--va-input-container-close-icon-cursor);
+      margin-left: var(--va-input-container-close-icon-margin-left);
     }
 
     &__label {
-      position: absolute;
+      position: var(--va-input-container-label-position);
 
       /* bottom: 0.875rem; */
-      top: 0.125rem;
+      top: var(--va-input-container-label-top);
 
       /* left: 0.5rem; */
-      margin-bottom: 0.5rem;
-      max-width: calc(100% - 0.75rem);
-      color: $vue-green;
-      font-size: 0.625rem;
-      letter-spacing: 0.0375rem;
-      line-height: 1.2;
-      font-weight: $font-weight-bold;
-      text-transform: uppercase;
+      margin-bottom: var(--va-input-container-label-margin-bottom);
+      max-width: var(--va-input-container-label-max-width);
+      color: var(--va-input-container-label-color);
+      font-size: var(--va-input-container-label-font-size);
+      letter-spacing: var(--va-input-container-label-letter-spacing, var(--primary-letter-spacing));
+      line-height: var(--va-input-container-label-line-height);
+      font-weight: var(--va-input-container-label-font-weight);
+      text-transform: var(--va-input-container-label-text-transform);
 
       @include va-ellipsis();
 
@@ -241,27 +240,27 @@ export default class VaInput extends mixins(
       top: 0.125rem;
     }
 
-    &__input {
-      width: 100%;
-      height: 1.5rem;
+    input, textarea {
+      width: var(--va-input-width);
+      height: var(--va-input-height);
 
       /* margin-bottom: 0.125rem; */
 
       /* padding: 0.25rem 0.5rem; */
-      color: #34495e;
-      background-color: transparent;
-      border-style: none;
-      outline: none;
-      font-size: 1rem;
-      font-family: $font-family-sans-serif;
-      font-weight: normal;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.5;
-      letter-spacing: normal;
+      color: var(--va-input-color);
+      background-color: var(--va-input-background-color);
+      border-style: var(--va-input-border-style);
+      outline: var(--va-input-outline);
+      font-size: var(--va-input-font-size);
+      font-family: var(--va-input-font-family, var(--primary-font-family));
+      font-weight: var(--va-input-font-weight);
+      font-style: var(--va-input-font-style);
+      font-stretch: var(--va-input-font-stretch);
+      line-height: var(--va-input-line-height);
+      letter-spacing: var(--va-input-letter-spacing);
 
       &::placeholder {
-        color: $brand-secondary;
+        color: var(--va-input-letter-placeholder-color);
       }
 
       &:placeholder-shown {
@@ -271,7 +270,7 @@ export default class VaInput extends mixins(
       }
 
       &:disabled {
-        opacity: 0.4;
+        opacity: var(--va-input-letter-disabled-opacity);
       }
     }
 

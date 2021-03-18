@@ -83,7 +83,10 @@ import { VaProgressCircle } from '../va-progress-bar'
 import { VaInputWrapper } from '../va-input'
 
 class SwitchProps {
-  modelValue = prop<boolean | any[] | string | object>({ type: [Boolean, Array, String, Object], default: false })
+  modelValue = prop<boolean | any[] | string | object>({
+    type: [Boolean, Array, String, Object],
+    default: false,
+  })
   size = prop<string>({
     type: String,
     default: 'medium',
@@ -178,31 +181,32 @@ export default class VaSwitch extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-switch {
   @at-root {
     .va-switch__container {
-      display: inline-flex;
-      align-items: center;
-      padding: 0 0.3rem;
+      display: var(--va-switch-container-display);
+      align-items: var(--va-switch-container-align-items);
+      padding: var(--va-switch-container-padding);
     }
   }
 
-  display: inline-block;
-  margin-bottom: $checkbox-between-items-margin;
+  display: var(--va-switch-display);
+  margin-bottom: var(--va-switch-margin-bottom);
 
   &:focus {
     outline: none;
   }
 
   &__inner {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    height: 2rem;
-    width: auto;
-    min-width: 4rem;
-    border-radius: 1rem;
+    cursor: var(--va-switch-inner-cursor);
+    display: var(--va-switch-inner-display);
+    position: var(--va-switch-inner-position);
+    height: var(--va-switch-inner-height);
+    width: var(--va-switch-inner-width);
+    min-width: var(--va-switch-inner-min-width);
+    border-radius: var(--va-switch-inner-border-radius);
 
     &:focus {
       outline: 0;
@@ -213,9 +217,9 @@ export default class VaSwitch extends mixins(
   &--small {
     .va-switch {
       &__inner {
-        height: 1.5rem;
-        width: auto;
-        min-width: 3rem;
+        height: var(--va-switch-sm-inner-height);
+        width: var(--va-switch-sm-inner-width);
+        min-width: var(--va-switch-sm-inner-min-width);
       }
 
       &__checker {
@@ -228,9 +232,9 @@ export default class VaSwitch extends mixins(
   &--large {
     .va-switch {
       &__inner {
-        height: 2.5rem;
-        width: auto;
-        min-width: 5rem;
+        height: var(--va-switch-lg-inner-height);
+        width: var(--va-switch-lg-inner-width);
+        min-width: var(--va-switch-lg-inner-min-width);
       }
 
       &__checker {
@@ -277,23 +281,25 @@ export default class VaSwitch extends mixins(
   }
 
   #{&}__track {
-    display: flex;
-    overflow: hidden;
-    border-radius: 1rem;
-    height: 100%;
-    width: 100%;
-    background: $white;
-    box-shadow: inset 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s ease;
+    display: var(--va-switch-track-display);
+    overflow: var(--va-switch-track-overflow);
+    border-radius: var(--va-switch-track-border-radius);
+    height: var(--va-switch-track-height);
+    width: var(--va-switch-track-width);
+    background: var(--va-switch-track-background);
+    box-shadow: var(--va-switch-track-box-shadow);
+    transition: var(--va-switch-track-transition);
 
     @at-root {
       .va-switch--on-keyboard-focus#{&} {
         transition: all, 0.6s, ease-in;
         box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
       }
+
       .va-switch--small#{&} {
         border-radius: 0.75rem;
       }
+
       .va-switch--large#{&} {
         border-radius: 1.25rem;
       }
@@ -332,34 +338,34 @@ export default class VaSwitch extends mixins(
   }
 
   &__checker {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto 0.3rem;
-    transform: translateX(0);
-    height: 1.5rem;
-    width: 1.5rem;
-    background-color: $white;
-    border-radius: 50%;
-    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
-    transition: all 0.2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: var(--va-switch-checker-position);
+    top: var(--va-switch-checker-top);
+    bottom: var(--va-switch-checker-bottom);
+    margin: var(--va-switch-checker-margin);
+    transform: var(--va-switch-checker-transform);
+    height: var(--va-switch-checker-height);
+    width: var(--va-switch-checker-width);
+    background-color: var(--va-switch-checker-background-color);
+    border-radius: var(--va-switch-checker-border-radius);
+    box-shadow: var(--va-switch-checker-box-shadow);
+    transition: var(--va-switch-checker-transition);
+    display: var(--va-switch-checker-display);
+    justify-content: var(--va-switch-checker-justify-content);
+    align-items: var(--va-switch-checker-align-items);
   }
 
   &__checker-wrapper {
-    position: absolute;
-    margin: auto;
-    transform: translateX(0);
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.2s ease;
-    pointer-events: none;
+    position: var(--va-switch-checker-wrapper-position);
+    margin: var(--va-switch-checker-wrapper-margin);
+    transform: var(--va-switch-checker-wrapper-transform);
+    top: var(--va-switch-checker-wrapper-top);
+    left: var(--va-switch-checker-wrapper-left);
+    bottom: var(--va-switch-checker-wrapper-bottom);
+    right: var(--va-switch-checker-wrapper-right);
+    width: var(--va-switch-checker-wrapper-width);
+    height: var(--va-switch-checker-wrapper-height);
+    transition: var(--va-switch-checker-wrapper-transition);
+    pointer-events: var(--va-switch-checker-wrapper-pointer-events);
   }
 
   &__input {

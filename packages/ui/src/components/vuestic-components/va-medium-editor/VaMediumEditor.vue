@@ -1,6 +1,6 @@
 <template>
   <div class="va-medium-editor content">
-    <slot />
+    <slot/>
   </div>
 </template>
 
@@ -69,11 +69,12 @@ export default class VaMediumEditor extends mixins(MediumEditorPropsMixin) {
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 @import "~medium-editor/src/sass/medium-editor";
+@import 'variables';
 
 .va-medium-editor {
-  margin-bottom: 2.25rem;
-  min-width: 6rem;
-  max-width: 600px;
+  margin-bottom: var(--va-medium-editor-margin-bottom);
+  min-width: var(--va-medium-editor-min-width);
+  max-width: var(--va-medium-editor-max-width);
 
   &:focus {
     outline: none;
@@ -91,8 +92,8 @@ export default class VaMediumEditor extends mixins(MediumEditorPropsMixin) {
 }
 
 .medium-editor-toolbar {
-  max-width: 90%;
-  box-shadow: none;
+  max-width: var(--va-medium-editor-toolbar-max-width);
+  box-shadow: var(--va-medium-editor-toolbar-box-shadow);
 
   .medium-editor-toolbar-actions {
     overflow: hidden;

@@ -29,7 +29,7 @@
       </slot>
     </div>
     <div class="va-collapse__body" :style="stylesComputed" ref="body">
-      <slot />
+      <slot/>
     </div>
   </div>
 </template>
@@ -215,74 +215,75 @@ export default class VaCollapse extends mixins(
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import "variables";
 
 .va-collapse {
-  transition: all 0.3s linear;
+  transition: var(--va-collapse-transition, var(--primary-transition));
 
   &__body {
-    transition: height linear 0.3s;
-    overflow: hidden;
-    margin-top: 0.1rem;
+    transition: var(--va-collapse-body-transition);
+    overflow: var(--va-collapse-body-overflow);
+    margin-top: var(--va-collapse-body-margin-top);
   }
 
   &__header {
     &__content {
-      display: flex;
-      justify-content: space-between;
-      cursor: pointer;
-      background-color: $light-gray3;
-      box-shadow: 0 2px 3px 0 rgba(98, 106, 119, 0.25);
-      border-radius: 0.375rem;
-      align-items: center;
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-      padding-left: 1rem;
+      display: var(--va-collapse-header-content-display);
+      justify-content: var(--va-collapse-header-content-justify-content);
+      cursor: var(--va-collapse-header-content-cursor);
+      background-color: var(--va-collapse-header-content-background-color);
+      box-shadow: var(--va-collapse-header-content-box-shadow, var(--primary-block-box-shadow));
+      border-radius: var(--va-collapse-header-content-border-radius, var(--primary-block-border-radius));
+      align-items: var(--va-collapse-header-content-align-items);
+      padding-top: var(--va-collapse-header-content-padding-top);
+      padding-bottom: var(--va-collapse-header-content-padding-bottom);
+      padding-left: var(--va-collapse-header-content-padding-left);
     }
 
     &__text {
-      width: 100%;
+      width: var(--va-collapse-header-content-text-width);
     }
 
     &__icon {
       @include flex-center();
 
-      min-width: 1.5rem;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-      color: $gray;
+      min-width: var(--va-collapse-header-content-icon-min-width);
+      margin-left: var(--va-collapse-header-content-icon-margin-left);
+      margin-right: var(--va-collapse-header-content-icon-margin-right);
+      color: var(--va-collapse-header-content-icon-color);
     }
   }
 
   &--solid {
-    box-shadow: 0 2px 3px 0 rgba(98, 106, 119, 0.25);
-    border-radius: 0.375rem;
+    box-shadow: var(--va-collapse-solid-box-shadow);
+    border-radius: var(--va-collapse-solid-border-radius);
 
     .va-collapse {
       &__header {
         &__content {
-          border-radius: 0.375rem;
-          transition: ease-in 0.3s;
-          box-shadow: none;
-          background-color: $light-gray3;
+          border-radius: var(--va-collapse-solid-header-content-border-radius, var(--primary-block-border-radius));
+          transition: var(--va-collapse-solid-header-content-transition);
+          box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--primary-block-box-shadow));
+          background-color: var(--va-collapse-solid-header-content-background-color);
         }
       }
 
       &__body {
-        border-radius: 0 0 0.375rem 0.375rem;
-        margin-top: 0;
+        border-radius: var(--va-collapse-solid-body-border-radius);
+        margin-top: var(--va-collapse-solid-body-margin-top);
       }
     }
   }
 
   &--popout {
-    margin: -0.5rem;
-    padding-top: 1rem;
+    margin: var(--va-collapse-popout-margin);
+    padding-top: var(--va-collapse-popout-padding-top);
   }
 
   &--inset {
-    margin: 0.5rem;
+    margin: var(--va-collapse-popout-inset);
   }
 
   &--disabled {

@@ -143,41 +143,42 @@ export default class VaTab extends mixins(
 
 <style lang="scss">
 @import "src/components/vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-tab {
-  align-items: center;
-  display: inline-flex;
-  flex: 0 1 auto;
-  font-weight: $font-weight-bold;
-  line-height: normal;
-  height: inherit;
-  max-width: 264px;
-  text-align: center;
-  vertical-align: middle;
-  color: inherit;
+  align-items: var(--va-tab-align-items);
+  display: var(--va-tab-display);
+  flex: var(--va-tab-flex);
+  font-weight: var(--va-tab-font-weight);
+  line-height: var(--va-tab-line-height);
+  height: var(--va-tab-height);
+  max-width: var(--va-tab-max-width);
+  text-align: var(--va-tab-text-align);
+  vertical-align: var(--va-tab-vertical-align);
+  color: var(--va-tab-color);
 
   &:not(.va-tab--active) {
     opacity: 0.7;
   }
 
   &__content {
-    align-items: center;
-    color: inherit;
-    display: flex;
-    flex: 1 1 auto;
-    height: 100%;
-    justify-content: center;
-    max-width: inherit;
-    text-decoration: none;
-    transition: $transition-primary;
-    user-select: none;
-    white-space: nowrap;
-    padding: 0.4375rem 0.75rem;
-    cursor: pointer;
+    align-items: var(--va-tab-content-align-items);
+    color: var(--va-tab-content-color);
+    display: var(--va-tab-content-display);
+    flex: var(--va-tab-content-flex);
+    height: var(--va-tab-content-height);
+    justify-content: var(--va-tab-content-justify-content);
+    max-width: var(--va-tab-content-max-width);
+    text-decoration: var(--va-tab-content-text-decoration);
+    transition: var(--va-tab-content-transition);
+    user-select: var(--va-tab-content-user-select);
+    white-space: var(--va-tab-content-white-space);
+    padding: var(--va-tab-content-padding);
+    cursor: var(--va-tab-content-cursor);
   }
 
   &__icon {
-    margin-right: 0.5rem;
+    margin-right: var(--va-tab-icon-margin-right);
   }
 
   &.va-tab--disabled {

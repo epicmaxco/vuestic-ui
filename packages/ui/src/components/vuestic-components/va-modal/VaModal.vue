@@ -50,13 +50,13 @@
               {{ $props.title }}
             </div>
             <div v-if="hasHeaderSlot" class="va-modal__header">
-              <slot name="header" />
+              <slot name="header"/>
             </div>
             <div v-if="$props.message" class="va-modal__message">
               {{ $props.message }}
             </div>
             <div v-if="hasContentSlot" class="va-modal__message">
-              <slot />
+              <slot/>
             </div>
             <div
               v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
@@ -70,7 +70,7 @@
               </va-button>
             </div>
             <div v-if="hasFooterSlot" class="va-modal__footer">
-              <slot name="footer" />
+              <slot name="footer"/>
             </div>
           </div>
         </div>
@@ -115,7 +115,10 @@ class ModalProps {
   fixedLayout = prop<boolean>({ type: Boolean, default: false })
   withoutTransitions = prop<boolean>({ type: Boolean, default: false })
   overlay = prop<boolean>({ type: Boolean, default: true })
-  overlayOpacity = prop<number | string>({ type: [Number, String], default: undefined })
+  overlayOpacity = prop<number | string>({
+    type: [Number, String],
+    default: undefined,
+  })
   zIndex = prop<number | string>({ type: [Number, String], default: undefined })
 }
 
@@ -279,6 +282,7 @@ export default class VaModal extends mixins(
 
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-modal {
   &__title {
@@ -288,17 +292,17 @@ export default class VaModal extends mixins(
   }
 
   &__container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: $zindex-modal;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    outline: 0;
+    position: var(--va-modal-container-position);
+    top: var(--va-modal-container-top);
+    left: var(--va-modal-container-left);
+    z-index: var(--va-modal-container-z-index);
+    display: var(--va-modal-container-display);
+    width: var(--va-modal-container-width);
+    height: var(--va-modal-container-height);
+    align-items: var(--va-modal-container-align-items);
+    justify-content: var(--va-modal-container-justify-content);
+    overflow: var(--va-modal-container-overflow);
+    outline: var(--va-modal-container-outline);
 
     &--transition {
       @include va-modal-transition();
@@ -306,24 +310,24 @@ export default class VaModal extends mixins(
   }
 
   &__dialog {
-    background: $white;
-    min-height: 3.125rem;
-    height: fit-content;
-    border-radius: 0.375rem;
-    margin: 1rem;
-    box-shadow: $widget-box-shadow;
-    max-width: map_get($grid-breakpoints, md);
-    max-height: calc(100vh - 2rem);
-    position: relative;
+    background: var(--va-modal-dialog-background);
+    min-height: var(--va-modal-dialog-min-height);
+    height: var(--va-modal-dialog-height);
+    border-radius: var(--va-modal-dialog-border-radius, var(--primary-block-border-radius));
+    margin: var(--va-modal-dialog-margin);
+    box-shadow: var(--va-modal-dialog-box-shadow, var(--primary-block-box-shadow));
+    max-width: var(--va-modal-dialog-max-width);
+    max-height: var(--va-modal-dialog-max-height);
+    position: var(--va-modal-dialog-position);
   }
 
   &__overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: $zindex-modal - 10;
-    width: 100vw;
-    height: 100vh;
+    position: var(--va-modal-overlay-position);
+    top: var(--va-modal-overlay-top);
+    left: var(--va-modal-overlay-left);
+    z-index: var(--va-modal-overlay-z-index);
+    width: var(--va-modal-overlay-width);
+    height: var(--va-modal-overlay-height);
 
     &--transition {
       @include va-modal-transition(true);

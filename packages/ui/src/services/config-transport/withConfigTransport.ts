@@ -1,5 +1,11 @@
 import { isArray, isObject, camelCase, upperFirst } from 'lodash'
-import { DefineComponent, ComponentOptions, h, computed, SetupContext } from 'vue'
+import {
+  DefineComponent,
+  ComponentOptions,
+  h,
+  computed,
+  SetupContext,
+} from 'vue'
 import { PropOptions, VueConstructor } from 'vue-class-component'
 
 import { useLocalConfig } from '../../components/vuestic-components/va-config/VaConfig'
@@ -19,6 +25,7 @@ const createConfigValueGetter = (
   prop: string,
   defaultValue: any,
 ) => {
+  configChain = []
   // We have to pass context here as this method will be mainly used in prop default,
   // and methods are not accessible there.
   const configLayers = globalConfig ? [globalConfig, ...configChain] : configChain
@@ -34,23 +41,26 @@ const createConfigValueGetter = (
 
 export function getComponentOptions (component: DefineComponent): ComponentOptions {
   switch (true) {
-  case Boolean(component.options):
-    return component.options
-  case Boolean(component.__vccOpts) || Boolean(component.__b):
-    return { ...component.__b, ...component.__vccOpts }
-  default:
-    return component
+    case Boolean(component.options):
+      return component.options
+    case Boolean(component.__vccOpts) || Boolean(component.__b):
+      return { ...component.__b, ...component.__vccOpts }
+    default:
+      return component
   }
 }
 
 function normalizeProps (props: any) {
   switch (true) {
-  case isArray(props):
-    return props.reduce((acc: object, prop: string) => ({ ...acc, [prop]: null }), {})
-  case isObject(props):
-    return props
-  default:
-    return {}
+    case isArray(props):
+      return props.reduce((acc: object, prop: string) => ({
+        ...acc,
+        [prop]: null,
+      }), {})
+    case isObject(props):
+      return props
+    default:
+      return {}
   }
 }
 

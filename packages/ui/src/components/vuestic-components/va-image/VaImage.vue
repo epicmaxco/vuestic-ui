@@ -4,23 +4,23 @@
       v-if="loadingError"
       class="va-image__error"
     >
-      <slot name="error" />
+      <slot name="error"/>
     </div>
     <div
       v-if="loading"
       class="va-image__loader"
     >
-      <slot name="loader" />
+      <slot name="loader"/>
     </div>
     <template v-else>
-      <div :style="paddingStyles" />
+      <div :style="paddingStyles"/>
       <div
         class="va-image__img"
         :style="imageStyles"
         ref="img"
       />
       <div class="va-image__overlay">
-        <slot />
+        <slot/>
       </div>
     </template>
   </div>
@@ -107,16 +107,17 @@ export default class VaImage extends mixins(
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-image {
-  overflow: hidden;
-  position: relative;
+  overflow: var(--va-image-overflow);
+  position: var(--va-image-position);
 
   &__img {
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
+    background-position: var(--va-image-img-background-position);
+    background-repeat: var(--va-image-img-background-repeat);
   }
 
   &__img,

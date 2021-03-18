@@ -4,14 +4,14 @@
     class="va-affix"
   >
     <div :style="{ visibility: isAffixed ? 'hidden' : 'inherit' }">
-      <slot />
+      <slot/>
     </div>
     <div
       v-if="isAffixed"
       :class="computedClass"
       :style="computedStyle"
     >
-      <slot />
+      <slot/>
     </div>
   </div>
 </template>
@@ -178,11 +178,12 @@ export default class VaAffix extends mixins(
 
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-affix {
   &--affixed {
-    position: fixed;
-    z-index: $zindex-affix;
+    position: var(--va-affix-affixed-position);
+    z-index: var(--va-affix-affixed-zindex);
   }
 }
 </style>

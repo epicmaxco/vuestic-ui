@@ -45,7 +45,11 @@
 import { watch } from 'vue'
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../../services/color-config/color-functions'
+import {
+  getBoxShadowColor,
+  getHoverColor,
+  getFocusColor,
+} from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
@@ -182,39 +186,36 @@ export default class VaChip extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
-
-$tag-font-size-nrm: 1rem !default;
-$tag-font-size-sm: 0.875rem !default;
-$tag-font-size-lg: 1.25rem !default;
+@import "variables";
 
 .va-chip {
-  display: inline-flex;
-  border: 0.125rem solid transparent;
-  position: relative;
-  border-radius: 2rem;
-  width: auto;
-  height: auto;
-  min-width: initial;
-  min-height: initial;
-  padding: 0 0.3rem;
-  color: $white;
-  cursor: default;
-  font-size: $tag-font-size-nrm;
+  display: var(--va-chip-display);
+  border: var(--va-chip-border, var(--primary-control-border));
+  position: var(--va-chip-position);
+  border-radius: var(--va-chip-border-radius);
+  width: var(--va-chip-width);
+  height: var(--va-chip-height);
+  min-width: var(--va-chip-min-width);
+  min-height: var(--va-chip-min-height);
+  padding: var(--va-chip-padding);
+  color: var(--va-chip-color);
+  cursor: var(--va-chip-cursor);
+  font-size: var(--va-chip-font-size);
 
   &__inner {
-    display: flex;
-    align-items: center;
+    display: var(--va-chip-inner-display);
+    align-items: var(--va-chip-inner-align-items);
   }
 
   &:hover {
-    opacity: 0.85;
+    opacity: var(--va-chip-hover-opacity);
   }
 
   &__content {
-    display: flex;
-    align-items: center;
-    padding: 0 0.3rem;
-    line-height: 1.6;
+    display: var(--va-chip-content-display);
+    align-items: var(--va-chip-content-align-items);
+    padding: var(--va-chip-content-padding);
+    line-height: var(--va-chip-content-line-height);
   }
 
   &__close-icon {
@@ -232,17 +233,17 @@ $tag-font-size-lg: 1.25rem !default;
   }
 
   &--square {
-    border-radius: 0.2rem;
+    border-radius: var(--va-chip-square-border-radius, var(--square-border-radius));
   }
 
   &--small {
-    height: 1.5rem;
-    font-size: $tag-font-size-sm;
+    height: var(--va-sm-chip-height);
+    font-size: var(--va-sm-chip-font-size);
   }
 
   &--large {
-    height: 2.5rem;
-    font-size: $tag-font-size-lg;
+    height: var(--va-lg-chip-height);
+    font-size: var(--va-lg-chip-font-size);
   }
 
   &.va-chip--disabled {

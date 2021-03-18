@@ -10,6 +10,7 @@ var FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 var VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var path = require('path');
+var CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 require('dotenv').config();
 var config = {
     mode: isProd ? 'production' : 'development',
@@ -37,7 +38,10 @@ var config = {
     },
     plugins: [
         new FriendlyErrorsWebpackPlugin({ clearConsole: true }),
-        new MiniCssExtractPlugin({ filename: 'vuestic-ui.css' }),
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css'
+        }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
@@ -121,6 +125,7 @@ var config = {
         ]
     },
     optimization: {
+        minimize: true,
         minimizer: [
             new TerserPlugin({
                 parallel: true,
@@ -131,16 +136,30 @@ var config = {
                     keep_fnames: true
                 }
             }),
-            new OptimizeCssAssetsPlugin({
-                assetNameRegExp: /\.css$/g,
-                cssProcessor: require('cssnano'),
-                cssProcessorOptions: {
-                    discardComments: { removeAll: true },
-                    postcssZindex: false,
-                    reduceIdents: false
-                },
-                canPrint: false
+            new CssMinimizerPlugin({
+                test: /\.css$/i,
+                parallel: true,
+                minimizerOptions: {
+                    preset: [
+                        'default',
+                        {
+                            discardComments: { removeAll: true },
+                            postcssZindex: false,
+                            reduceIdents: false
+                        },
+                    ]
+                }
             }),
+            // new OptimizeCssAssetsPlugin({
+            //   assetNameRegExp: /\.css$/g,
+            //   cssProcessor: require('cssnano'),
+            //   cssProcessorOptions: {
+            //     discardComments: { removeAll: true },
+            //     postcssZindex: false,
+            //     reduceIdents: false,
+            //   },
+            //   canPrint: false,
+            // }),
             new webpack.BannerPlugin({
                 banner: "/*!\n* Vuestic v" + version + "\n* Released under the MIT License.\n*/",
                 raw: true,

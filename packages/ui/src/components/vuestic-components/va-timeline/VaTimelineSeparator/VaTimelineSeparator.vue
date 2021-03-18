@@ -76,27 +76,28 @@ export default {
 
 <style lang="scss">
 @import 'src/components/vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-timeline-separator {
-  display: flex;
-  align-items: center;
+  display: var(--va-timeline-separator-display);
+  align-items: var(--va-timeline-separator-align-items);
 
   &--vertical {
-    flex-direction: column;
+    flex-direction: var(--va-timeline-separator-vertical-flex-direction);
   }
 
   &__line {
-    transition: background-color ease 0.5s;
-    width: 0.125rem;
-    height: 0.125rem;
-    flex: 1;
+    transition: var(--va-timeline-separator-line-transition);
+    width: var(--va-timeline-separator-line-width);
+    height: var(--va-timeline-separator-line-height);
+    flex: var(--va-timeline-separator-line-flex);
   }
 
   &__center {
-    transition: background-color ease 0.5s;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 0.5rem;
+    transition: var(--va-timeline-separator-center-transition);
+    width: var(--va-timeline-separator-center-width);
+    height: var(--va-timeline-separator-center-height);
+    border-radius: var(--va-timeline-separator-center-border-radius);
   }
 }
 </style>
