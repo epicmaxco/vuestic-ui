@@ -3,7 +3,6 @@ import { ref, inject, App } from 'vue'
 import { getDefaultConfig } from '../components/vuestic-components/va-config/config-default'
 import { mergeWith } from 'lodash'
 import { colorsPresets } from './color-config/color-theme-presets'
-import { iconsPresets } from './../services/icon-config/presets'
 import { ColorConfig } from './color-config/color-config'
 import { ComponentConfig } from './component-config/component-config'
 import { IconsConfig } from './icon-config/types'
@@ -19,7 +18,7 @@ type Updater = (config: GlobalConfig) => GlobalConfig;
 // Global config is singleton and we wrap it into ref for reactivity.
 const globalConfigRef = ref<GlobalConfig>({
   colors: colorsPresets.default as ColorConfig,
-  icons: iconsPresets,
+  icons: [],
   components: getDefaultConfig(),
 })
 

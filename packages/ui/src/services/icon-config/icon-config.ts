@@ -1,5 +1,6 @@
 import { IconsConfig, IconConfig } from './types'
 import { getRegexGroups } from './utils'
+import { VuesticIconAliases, VuesticIconFonts } from './presets'
 
 function executeConfigFunctions (name: string, iconConfig: IconConfig): IconConfig {
   const config = { ...iconConfig } as any
@@ -40,4 +41,19 @@ export const getIconConfig = (name: string, iconsConfig?: IconsConfig): IconConf
   }
 
   return executeConfigFunctions(config.to || name, config)
+}
+
+export function createIconConfig (config: {
+  aliases?: IconConfig[],
+  font?: IconConfig[],
+}): IconsConfig {
+  config.aliases = config.aliases || []
+  config.font = config.font || []
+
+  return [
+    ...config.aliases,
+    ...VuesticIconAliases,
+    ...config.font,
+    ...VuesticIconFonts,
+  ]
 }

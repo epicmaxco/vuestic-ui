@@ -1,4 +1,4 @@
-export const VuesticAliases = [
+export const VuesticIconAliases = [
   {
     name: 'arrow_back_ios',
     to: 'arrow_back_ios',
