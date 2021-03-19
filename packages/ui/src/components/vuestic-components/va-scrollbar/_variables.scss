@@ -1,0 +1,25 @@
+:root{
+  --va-scrollbar-background: transparent;
+  --va-scrollbar-transition: all 0.3s linear;
+  --va-scrollbar-position: relative;
+  /*Wrapper*/
+  --va-scrollbar-wrapper-border-radius: 0.375rem;
+  --va-scrollbar-wrapper-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
+  --va-scrollbar-wrapper-position: relative;
+  --va-scrollbar-wrapper-overflow: hidden;
+  --va-scrollbar-wrapper-max-height: 100%;
+
+  /*Track*/
+  --va-scrollbar-track-width: 5px;
+  --va-scrollbar-track-position: absolute;
+  --va-scrollbar-track-right: 0;
+  --va-scrollbar-track-top: 0;
+  --va-scrollbar-track-height: 100%;
+
+  /*Thumb*/
+  --va-scrollbar-thumb-transition: height 0.3s linear, opacity 0.6s linear;
+  --va-scrollbar-thumb-position: absolute;
+  --va-scrollbar-thumb-width: 100%;
+  --va-scrollbar-thumb-background-color: #4ae387;
+  --va-scrollbar-thumb-opacity: 0;
+}

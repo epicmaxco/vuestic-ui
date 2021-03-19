@@ -94,3 +94,6 @@ export default class VaButtonToggle extends mixins(
   }
 }
 </script>
+
+<style lang="scss">
+</style>

@@ -27,7 +27,7 @@ export default class VaCardContent extends mixins(
 ) {
   get contentStyles () {
     return {
-      color: this.textColor ? this.theme.getColor(this.textColor) : '',
+      color: this.textColor ? this.theme.getColor(this.textColor): '',
     }
   }
 }

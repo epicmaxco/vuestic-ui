@@ -98,10 +98,11 @@ export default {
 
 <style lang="scss">
 @import 'src/components/vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-timeline-item {
-  display: flex;
-  flex-direction: column;
+  display: var(--va-timeline-item-display);
+  flex-direction: var(--va-timeline-item-flex-direction);
 
   &__before,
   &__after {
@@ -109,9 +110,9 @@ export default {
   }
 
   &--vertical {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: stretch;
+    flex-direction: var(--va-timeline-item-vertical-flex-direction);
+    flex-wrap: var(--va-timeline-item-vertical-flex-wrap);
+    align-items: var(--va-timeline-item-vertical-align-items);
 
     .va-timeline-item__before,
     .va-timeline-item__after {
@@ -157,16 +158,16 @@ export default {
   }
 
   &__title {
-    text-align: center;
-    color: $vue-green;
-    font-weight: 700;
-    font-size: $font-size-mini;
-    text-transform: uppercase;
+    text-align: var(--va-timeline-item-title-text-align);
+    color: var(--va-timeline-item-title-color);
+    font-weight: var(--va-timeline-item-title-font-weight);
+    font-size: var(--va-timeline-item-title-font-size);
+    text-transform: var(--va-timeline-item-title-text-transform);
   }
 
   &__description {
-    margin-top: 0.25rem;
-    text-align: center;
+    margin-top: var(--va-timeline-item-description-margin-top);
+    text-align: var(--va-timeline-item-description-text-align);
   }
 
   &__text {

@@ -1,0 +1,30 @@
+:root{
+  --va-tab-align-items: center;
+  --va-tab-display: inline-flex;
+  --va-tab-flex: 0 1 auto;
+  --va-tab-font-weight: 700;
+  --va-tab-line-height: normal;
+  --va-tab-height: inherit;
+  --va-tab-max-width: 264px;
+  --va-tab-text-align: center;
+  --va-tab-vertical-align: middle;
+  --va-tab-color: inherit;
+
+  /*Content*/
+  --va-tab-content-align-items: center;
+  --va-tab-content-color: inherit;
+  --va-tab-content-display: flex;
+  --va-tab-content-flex: 1 1 auto;
+  --va-tab-content-height: 100%;
+  --va-tab-content-justify-content: center;
+  --va-tab-content-max-width: inherit;
+  --va-tab-content-text-decoration: none;
+  --va-tab-content-transition: $transition-primary;
+  --va-tab-content-user-select: none;
+  --va-tab-content-white-space: nowrap;
+  --va-tab-content-padding: 0.4375rem 0.75rem;
+  --va-tab-content-cursor: pointer;
+
+  /*Icon*/
+  --va-tab-icon-margin-right: 0.5rem;
+  }

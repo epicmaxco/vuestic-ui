@@ -10,6 +10,7 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const path = require('path')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 require('dotenv').config()
 
@@ -39,7 +40,10 @@ const config = {
   },
   plugins: [
     new FriendlyErrorsWebpackPlugin({ clearConsole: true }),
-    new MiniCssExtractPlugin({ filename: 'vuestic-ui.css' }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
@@ -129,6 +133,7 @@ const config = {
     ],
   },
   optimization: {
+    minimize: true,
     minimizer: [
       new TerserPlugin({
         parallel: true,
@@ -139,16 +144,30 @@ const config = {
           keep_fnames: true,
         },
       }),
-      new OptimizeCssAssetsPlugin({
-        assetNameRegExp: /\.css$/g,
-        cssProcessor: require('cssnano'),
-        cssProcessorOptions: {
-          discardComments: { removeAll: true },
-          postcssZindex: false,
-          reduceIdents: false,
+      new CssMinimizerPlugin({
+        test: /\.css$/i,
+        parallel: true,
+        minimizerOptions: {
+          preset: [
+            'default',
+            {
+              discardComments: { removeAll: true },
+              postcssZindex: false,
+              reduceIdents: false,
+            },
+          ],
         },
-        canPrint: false,
       }),
+      // new OptimizeCssAssetsPlugin({
+      //   assetNameRegExp: /\.css$/g,
+      //   cssProcessor: require('cssnano'),
+      //   cssProcessorOptions: {
+      //     discardComments: { removeAll: true },
+      //     postcssZindex: false,
+      //     reduceIdents: false,
+      //   },
+      //   canPrint: false,
+      // }),
 
       new webpack.BannerPlugin({
         banner: `/*!

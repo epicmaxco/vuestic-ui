@@ -6,7 +6,7 @@
     :messages="$props.messages"
     :style="{ width: $props.width }"
   >
-    <template #prepend>
+    <template #prepend v-if="$slots.prepend">
       <slot name="prepend"/>
     </template>
 
@@ -157,7 +157,7 @@
       </template>
     </va-dropdown>
 
-    <template #append>
+    <template #append v-if="$slots.append">
       <slot name="append"/>
     </template>
   </va-input-wrapper>
@@ -543,19 +543,20 @@ export default class VaSelect extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-select {
-  display: flex;
-  align-items: stretch;
-  cursor: pointer;
-  width: 100%;
-  min-height: 2.375rem;
-  border-style: solid;
-  border-width: 0 0 thin 0;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  margin-bottom: 1rem;
-  transition: ease-in-out border-bottom-color 0.25s;
+  display: var(--va-select-display);
+  align-items: var(--va-select-align-items);
+  cursor: var(--va-select-cursor);
+  width: var(--va-select-width);
+  min-height: var(--va-select-min-height);
+  border-style: var(--va-select-border-style);
+  border-width: var(--va-select-border-width);
+  border-top-left-radius: var(--va-select-border-top-left-radius);
+  border-top-right-radius: var(--va-select-border-top-right-radius);
+  margin-bottom: var(--va-select-margin-bottom);
+  transition: var(--va-select-transition);
 
   &--disabled {
     @include va-disabled();
@@ -574,41 +575,41 @@ export default class VaSelect extends mixins(
   }
 
   &__content-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    width: 100%;
-    padding: 0 0.5rem;
+    display: var(--va-select-content-wrapper-display);
+    justify-content: var(--va-select-content-wrapper-justify-content);
+    align-items: var(--va-select-content-wrapper-align-items);
+    width: var(--va-select-content-wrapper-width);
+    padding: var(--va-select-content-wrapper-padding);
   }
 
   &__content {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: stretch;
+    display: var(--va-select-content-display);
+    width: var(--va-select-content-width);
+    justify-content: var(--va-select-content-justify-content);
+    align-items: var(--va-select-content-align-items);
 
     &__label {
       @include va-title();
 
-      padding-top: 0.125rem;
-      position: absolute;
-      top: 0;
-      right: auto;
-      max-width: 90%;
-      transition: ease-in-out color 0.25s;
+      padding-top: var(--va-select-label-padding-top);
+      position: var(--va-select-label-position);
+      top: var(--va-select-label-top);
+      right: var(--va-select-label-right);
+      max-width: var(--va-select-label-max-width);
+      transition: var(--va-select-label-transition);
 
       @include va-ellipsis();
     }
 
     &__selection {
-      width: 100%;
-      display: flex;
-      padding: 0.125rem 0;
-      margin-top: 0.125rem;
-      align-items: center;
-      white-space: normal;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      width: var(--va-select-selection-width);
+      display: var(--va-select-selection-display);
+      padding: var(--va-select-selection-padding);
+      margin-top: var(--va-select-selection-margin-top);
+      align-items: var(--va-select-selection-align-items);
+      white-space: var(--va-select-selection-white-space);
+      overflow: var(--va-select-selection-overflow);
+      text-overflow: var(--va-select-selection-text-overflow);
 
       &--no-label {
         padding: 0.75rem 0 0.125rem 0;
@@ -619,33 +620,33 @@ export default class VaSelect extends mixins(
       }
 
       &--placeholder {
-        color: $brand-secondary;
-        opacity: 0.8;
-        display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        -webkit-box-align: start;
-        -webkit-box-pack: center;
+        color: var(--va-select-placeholder-color);
+        opacity: var(--va-select-placeholder-opacity);
+        display: var(--va-select-placeholder-display);
+        overflow: var(--va-select-placeholder-overflow);
+        text-overflow: var(--va-select-placeholder-text-overflow);
+        -webkit-line-clamp: var(--va-select-placeholder--webkit-line-clamp);
+        -webkit-box-orient: var(--va-select-placeholder--webkit-box-orient);
+        -webkit-box-align: var(--va-select-placeholder--webkit-box-align);
+        -webkit-box-pack: var(--va-select-placeholder--webkit-box-pack);
       }
     }
   }
 
   &__input {
-    border: none;
-    background: transparent;
-    padding: 0.25rem 0;
-    font-size: 1rem;
-    font-family: $font-family-sans-serif;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    border: var(--va-select-input-border, var(--primary-control-border));
+    background: var(--va-select-input-background);
+    padding: var(--va-select-input-padding);
+    font-size: var(--va-select-input-font-size);
+    font-family: var(--va-select-input-font-family, var(--primary-font-family));
+    font-weight: var(--va-select-input-font-weight);
+    font-style: var(--va-select-input-font-style);
+    font-stretch: var(--va-select-input-font-stretch);
+    line-height: var(--va-select-input-line-height);
+    letter-spacing: var(--va-select-input-letter-spacing);
+    white-space: var(--va-select-input-white-space);
+    text-overflow: var(--va-select-input-text-overflow);
+    overflow: var(--va-select-input-overflow);
 
     /* margin: 0 0.5rem; */
 
@@ -655,23 +656,23 @@ export default class VaSelect extends mixins(
   }
 
   &__icon {
-    padding-left: 0.25rem;
+    padding-left: var(--va-select-icon-padding-left);
   }
 
   &__prepend-slot {
-    padding-right: 0.5rem;
+    padding-right: var(--va-select-prepend-slot-padding-right);
   }
 
   &__append-slot {
-    padding-left: 0.25rem;
+    padding-left: var(--va-select-append-slot-padding-left);
   }
 
   &__dropdown {
-    outline: none;
-    margin: 0;
-    padding: 0;
-    background: $light-gray3;
-    border-radius: 0.5rem;
+    outline: var(--va-select-dropdown-outline);
+    margin: var(--va-select-dropdown-margin);
+    padding: var(--va-select-dropdown-padding);
+    background: var(--va-select-dropdown-background);
+    border-radius: var(--va-select-dropdown-border-radius);
 
     &.va-select__dropdown-position-top {
       box-shadow: 0 -2px 3px 0 rgba(98, 106, 119, 0.25);
@@ -682,12 +683,12 @@ export default class VaSelect extends mixins(
     }
 
     .va-dropdown__content {
-      background-color: $light-gray3;
-      margin: 0;
-      padding: 0;
-      overflow-y: auto;
-      box-shadow: $datepicker-box-shadow;
-      border-radius: 0 0 0.5rem 0.5rem;
+      background-color: var(--va-select-dropdown-content-background-color);
+      margin: var(--va-select-dropdown-content-margin);
+      padding: var(--va-select-dropdown-content-padding);
+      overflow-y: var(--va-select-dropdown-content-overflow-y);
+      box-shadow: var(--va-select-dropdown-content-box-shadow);
+      border-radius: var(--va-select-dropdown-content-border-radius);
     }
   }
 }

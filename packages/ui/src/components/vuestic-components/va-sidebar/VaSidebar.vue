@@ -6,7 +6,7 @@
     @mouseleave="updateHoverState(false)"
   >
     <div class="va-sidebar__menu">
-      <slot />
+      <slot/>
     </div>
   </aside>
 </template>
@@ -72,22 +72,23 @@ export default class VaSidebar extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-sidebar {
-  min-height: 100%;
-  height: $sidebar-viewport-height;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 0.3s ease;
+  min-height: var(--va-sidebar-min-height);
+  height: var(--va-sidebar-height);
+  position: var(--va-sidebar-position);
+  top: var(--va-sidebar-top);
+  left: var(--va-sidebar-left);
+  transition: var(--va-sidebar-transition);
 
   &__menu {
-    max-height: 100%;
-    margin-bottom: 0;
-    list-style: none;
-    padding-left: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
+    max-height: var(--va-sidebar-menu-max-height);
+    margin-bottom: var(--va-sidebar-menu-margin-bottom);
+    list-style: var(--va-sidebar-menu-list-style);
+    padding-left: var(--va-sidebar-menu-padding-left);
+    overflow-y: var(--va-sidebar-menu-overflow-y);
+    overflow-x: var(--va-sidebar-menu-overflow-x);
   }
 
   @include media-breakpoint-down(xs) {
