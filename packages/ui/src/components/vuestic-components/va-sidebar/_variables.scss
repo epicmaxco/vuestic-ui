@@ -1,0 +1,16 @@
+:root{
+  --va-sidebar-min-height: 100%;
+  --va-sidebar-height: calc(100% - 4.0625rem);
+  --va-sidebar-position: absolute;
+  --va-sidebar-top: 0;
+  --va-sidebar-left: 0;
+  --va-sidebar-transition: all 0.3s ease;
+
+  /*Menu*/
+  --va-sidebar-menu-max-height: 100%;
+  --va-sidebar-menu-margin-bottom: 0;
+  --va-sidebar-menu-list-style: none;
+  --va-sidebar-menu-padding-left: 0;
+  --va-sidebar-menu-overflow-y: auto;
+  --va-sidebar-menu-overflow-x: hidden;
+}

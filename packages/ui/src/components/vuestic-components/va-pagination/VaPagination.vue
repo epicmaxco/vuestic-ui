@@ -87,7 +87,7 @@ import { watch } from 'vue'
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
 import { Ref } from '../../../utils/decorators'
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import VaButtonGroup from '../va-button-group'
 import VaButton from '../va-button'
@@ -256,16 +256,17 @@ export default class VaPagination extends mixins(
 
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-pagination {
   &__input {
-    border-style: solid;
-    border-width: 2px 0;
-    text-align: center;
-    font-size: 1rem;
+    border-style: var(--va-pagination-input-border-style);
+    border-width: var(--va-pagination-input-border-width);
+    text-align: var(--va-pagination-input-text-align);
+    font-size: var(--va-pagination-input-font-size);
 
     &--flat {
-      border-top-width: 0;
+      border-top-width: var(--va-pagination-input-flat-border-top-width);
     }
   }
 

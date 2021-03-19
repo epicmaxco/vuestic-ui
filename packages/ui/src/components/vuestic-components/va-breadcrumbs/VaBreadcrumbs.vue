@@ -3,7 +3,7 @@ import { VNode, h, Fragment } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 import { hasOwnProperty } from '../../../services/utils'
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
 
 class BreadcrumbsProps {
@@ -106,18 +106,20 @@ export default class VaBreadcrumbs extends mixins(
 </script>
 
 <style lang="scss">
+@import 'variables';
+
 .va-breadcrumbs {
-  display: flex;
-  width: 100%;
-  justify-content: center;
+  display: var(--va-breadcrumbs-display);
+  width: var(--va-breadcrumbs-width);
+  justify-content: var(--va-breadcrumbs-justify-content);
 
   &__item {
-    display: inline-flex;
+    display: var(--va-breadcrumbs-item-display);
   }
 
   &__separator {
-    padding: 0 0.5rem;
-    display: inline-flex;
+    padding: var(--va-breadcrumbs-separator-padding);
+    display: var(--va-breadcrumbs-separator-display);
   }
 }
 

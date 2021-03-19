@@ -7,7 +7,7 @@
       color="gray"
       @click="copy()"
     >
-      <i class="docs-navigation__button__icon" :class="copyIcon" />
+      <va-icon class="docs-navigation__button__icon" size="small" :class="copyIcon" />
       <span class="docs-navigation__button__text">{{ copyText }}</span>
     </va-button>
 
@@ -20,7 +20,7 @@
       :href="link.url"
       target="_blank"
     >
-      <i class="docs-navigation__button__icon" :class="link.icon" />
+      <va-icon class="docs-navigation__button__icon" size="small" :class="link.icon" />
       <span class="docs-navigation__button__text">{{ link.text }}</span>
     </va-button>
   </div>

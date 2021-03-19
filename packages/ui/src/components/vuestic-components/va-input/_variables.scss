@@ -1,0 +1,59 @@
+:root {
+  /*Input&Textarea*/
+  --va-input-width:100%;
+  --va-input-height:1.5;
+  --va-input-color:#34495e;
+  --va-input-background-color:transparent;
+  --va-input-border-style:none;
+  --va-input-outline:none;
+  --va-input-font-size:1rem;
+  --va-input-font-family:'Source Sans Pro', sans-serif;
+  --va-input-font-weight:normal;
+  --va-input-font-style:normal;
+  --va-input-font-stretch:normal;
+  --va-input-line-height:1.5;
+  --va-input-letter-spacing:normal;
+  --va-input-letter-placeholder-color:#babfc2;
+  --va-input-letter-disabled-opacity:0.4;
+
+  --va-input-container-display: flex;
+  --va-input-container-position: relative;
+  --va-input-container-width: 100%;
+  --va-input-container-min-height: 2.375rem;
+  --va-input-container-border-style: solid;
+  --va-input-container-border-width: 0 0 thin 0;
+  --va-input-container-border-top-left-radius: 0.5rem;
+  --va-input-container-border-top-right-radius: 0.5rem;
+  /*Content Wrapper*/
+  --va-input-container-content-wrapper-display: flex;
+  --va-input-container-content-wrapper-align-items: flex-end;
+  --va-input-container-content-wrapper-width: 100%;
+  --va-input-container-content-wrapper-padding: 0 0.5rem;
+  /*Icon Wrapper*/
+  --va-input-container-icon-wrapper-display: flex;
+  --va-input-container-icon-wrapper-align-items: center;
+  --va-input-container-icon-wrapper-margin-right: 0.5rem;
+  /*Append Inner*/
+  --va-input-container-append-inner-display: flex;
+  --va-input-container-append-inner-align-items: center;
+  --va-input-container-append-inner-margin-right: 0.5rem;
+  /*Prepend Inner*/
+  --va-input-container-prepend-inner-display: flex;
+  --va-input-container-prepend-inner-align-items: center;
+  --va-input-container-prepend-inner-margin-left: 0.5rem;
+  /*Close Icon*/
+  --va-input-container-close-icon-cursor: pointer;
+  --va-input-container-close-icon-margin-left: 0.25rem;
+  /*Label*/
+  --va-input-container-label-position: absolute;
+  --va-input-container-label-top: 0.125rem;
+  --va-input-container-label-margin-bottom: 0.5rem;
+  --va-input-container-label-max-width: calc(100% - 0.75rem);
+  --va-input-container-label-color: #4ae387;
+  --va-input-container-label-font-size: 0.625rem;
+  --va-input-container-label-letter-spacing: 0.0375rem;
+  --va-input-container-label-line-height: 1.2;
+  --va-input-container-label-font-weight: 700;
+  --va-input-container-label-text-transform: uppercase;
+  --va-input-container-label-transform-origin: top left;
+}

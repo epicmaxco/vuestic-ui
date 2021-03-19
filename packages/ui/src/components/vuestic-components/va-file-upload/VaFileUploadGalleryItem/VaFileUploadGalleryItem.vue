@@ -44,7 +44,7 @@
 import { watch } from 'vue'
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import { colorToRgba } from '../../../../services/color-functions'
+import { colorToRgba } from '../../../../services/color-config/color-functions'
 import VaIcon from '../../va-icon'
 
 import VaFileUploadUndo from '../VaFileUploadUndo'
@@ -125,7 +125,7 @@ export default class VaFileUploadGalleryItem extends mixins(FileUploadGalleryIte
 </script>
 
 <style lang='scss'>
-@import 'src/components/vuestic-sass/resources/resources';
+@import '../../../vuestic-sass/resources/resources';
 
 $max-image-size: 8.5714rem;
 

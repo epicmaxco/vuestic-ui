@@ -25,7 +25,7 @@ const PropsMixin = Vue.with(Props)
 })
 export class StatefulMixin extends mixins(PropsMixin) {
   valueState: ValueState = {
-    modelValue: undefined,
+    modelValue: this.$props.modelValue,
   }
 
   hasStatefulMixin!: boolean

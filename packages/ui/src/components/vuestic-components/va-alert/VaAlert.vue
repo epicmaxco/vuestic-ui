@@ -7,11 +7,11 @@
       class="va-alert"
       :style="alertStyle"
     >
-    <div
-      class="va-alert__border"
-      :class="borderClass"
-      :style="borderStyle"
-    />
+      <div
+        class="va-alert__border"
+        :class="borderClass"
+        :style="borderStyle"
+      />
 
       <div
         class="va-alert__icon"
@@ -52,10 +52,10 @@
         >
           <slot name="close">
             <va-icon v-if="!closeText"
-              :color="color"
-              :name="closeIcon"
+                     :color="color"
+                     :name="closeIcon"
             />
-            {{closeText}}
+            {{ closeText }}
           </slot>
         </div>
       </div>
@@ -70,8 +70,8 @@ import { Options, prop, mixins, Vue } from 'vue-class-component'
 import {
   getHoverColor,
   getBoxShadowColor,
-} from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+} from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 import VaIcon from '../va-icon'
@@ -151,53 +151,23 @@ export default class VaAlert extends mixins(
 
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
-
-// Border border-radius
-$va-alert__border--top: 0.5rem 0.5rem 0 0;
-$va-alert__border--right: 0 0.5rem 0.5rem 0;
-$va-alert__border--bottom: 0 0 0.5rem 0.5rem;
-$va-alert__border--left: 0.5rem 0 0 0.5rem;
-
-// Alerts
-$va-alert-margin-y: 0.25rem;
-$va-alert-padding-x: 0.75rem;
-$va-alert-padding-y: 0.75rem;
-$va-alert-border: 0;
-$va-alert-border-radius: 0.5rem;
-$va-alert-box-shadow: 0.125rem;
-
-// Alert paddings with border
-$va-alert__border-padding-x: $va-alert-padding-x + 0.375rem;
-$va-alert__border-padding-y: $va-alert-padding-y + 0.375rem;
-
-// Badge
-$va-badge-margin-right: 0.5rem;
-$va-badge-padding-x: 0.5rem;
-$va-badge-padding-y: 0.125rem;
-$va-badge-border-radius: 0.5rem;
-$va-badge-font-size: 0.625rem;
-$va-badge-letter-spacing: 0.0625rem;
-
-// Close
-$va-close-padding-x: 0.5rem;
-$va-close-padding-y: 0.0625rem;
-$va-close-font-size: 1rem;
+@import "variables";
 
 .va-alert {
-  position: relative;
-  padding: $va-alert-padding-y $va-alert-padding-x;
-  margin: $va-alert-margin-y auto;
-  display: flex;
-  align-items: center;
-  border: $va-alert-border solid transparent;
-  border-radius: $va-alert-border-radius;
+  position: var(--va-alert-position);
+  padding: var(--va-alert-padding-y) var(--va-alert-padding-x);
+  margin: var(--va-alert-margin-y) auto;
+  display: var(--va-alert-display);
+  align-items: var(--va-alert-align-items);
+  border: var(--va-alert-border-width, var(--primary-control-border)) solid transparent;
+  border-radius: var(--va-alert-border-radius, var(--primary-block-border-radius));
 
   &__border {
     content: '';
     position: absolute;
 
     &--top {
-      border-radius: $va-alert__border--top;
+      border-radius: var(--va-alert-top-border-radius);
       width: 100%;
       height: 0.375rem;
       top: 0;
@@ -205,7 +175,7 @@ $va-close-font-size: 1rem;
     }
 
     &--right {
-      border-radius: $va-alert__border--right;
+      border-radius: var(--va-alert-right-border-radius);
       height: 100%;
       width: 0.375rem;
       bottom: 0;
@@ -213,7 +183,7 @@ $va-close-font-size: 1rem;
     }
 
     &--bottom {
-      border-radius: $va-alert__border--bottom;
+      border-radius: var(--va-alert-bottom-border-radius);
       width: 100%;
       height: 0.375rem;
       bottom: 0;
@@ -221,7 +191,7 @@ $va-close-font-size: 1rem;
     }
 
     &--left {
-      border-radius: $va-alert__border--left;
+      border-radius: var(--va-alert-left-border-radius);
       height: 100%;
       width: 0.375rem;
       bottom: 0;
@@ -232,7 +202,7 @@ $va-close-font-size: 1rem;
   &__icon {
     display: flex;
     align-items: center;
-    padding-right: $va-alert-padding-x;
+    padding-right: var(--va-alert-padding-x);
   }
 
   &__title {
@@ -245,11 +215,12 @@ $va-close-font-size: 1rem;
     flex-direction: column;
     justify-content: center;
     flex-grow: 1;
+    color: var(--va-alert-color);
   }
 
   &__close {
-    padding-left: $va-close-padding-x;
-    font-size: $va-close-font-size;
+    padding-left: var(--va-alert-close-padding-x);
+    font-size: var(--va-alert-close-font-size);
 
     &--closeable {
       cursor: pointer;
@@ -268,8 +239,7 @@ $va-close-font-size: 1rem;
           align-self: flex-start;
           display: flex;
           align-items: flex-start;
-          padding: 0;
-          padding-right: $va-close-padding-x;
+          padding: 0 var(--va-alert-close-padding-x) 0 0;
           margin: 0;
         }
       }

@@ -40,7 +40,7 @@ import VaInput from '../va-input'
 import VaIcon from '../va-icon'
 
 class DatePickerProps {
-  modelValue = prop<string|object|number>({
+  modelValue = prop<string | object | number>({
     type: [String, Object, Number],
     default: '',
   })
@@ -139,6 +139,7 @@ export default class VaDatePicker extends mixins(DatePickerPropsMixin) {
 
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 $datepickerActiveBackground: $vue-darkest-blue;
 $datepickerActiveColor: $vue-green;
@@ -158,12 +159,12 @@ $daySize: 2rem;
 $dayMargin: 0.6rem;
 
 .va-date-picker {
-  position: relative;
+  position: var(--va-date-picker-position);
 
   &__container {
-    display: flex;
-    position: relative;
-    flex-wrap: wrap;
+    display: var(--va-date-picker-container-display);
+    position: var(--va-date-picker-container-position);
+    flex-wrap: var(--va-date-picker-container-flex-wrap);
   }
 
   &__flatpickr {
@@ -175,17 +176,17 @@ $dayMargin: 0.6rem;
   }
 
   &__icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-radius: 0 0.5rem 0 0;
-    border-bottom: 1px solid $brand-secondary;
-    color: $brand-secondary;
-    padding: 0.5rem;
-    height: 2.375rem;
-    cursor: pointer;
-    background-color: $datepickerBackground;
-    width: 2.2rem;
+    position: var(--va-date-picker-icon-position);
+    right: var(--va-date-picker-icon-right);
+    top: var(--va-date-picker-icon-top);
+    border-radius: var(--va-date-picker-icon-border-radius);
+    border-bottom: var(--va-date-picker-icon-border-bottom);
+    color: var(--va-date-picker-icon-color);
+    padding: var(--va-date-picker-icon-padding);
+    height: var(--va-date-picker-icon-height);
+    cursor: var(--va-date-picker-icon-cursor);
+    background-color: var(--va-date-picker-icon-background-color);
+    width: var(--va-date-picker-icon-width);
   }
 
   i + i {

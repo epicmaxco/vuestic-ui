@@ -23,7 +23,7 @@
       </template>
 
       <div class="va-button-dropdown__content">
-        <slot />
+        <slot/>
       </div>
     </va-dropdown>
     <va-button-group v-else>
@@ -45,19 +45,19 @@
         :position="position"
         @update:modelValue="toggleDropdown"
       >
-      <template #anchor>
-        <va-button
-          :size="size"
-          :flat="flat"
-          :outline="outline"
-          :disabled="disabled || disableDropdown"
-          :color="color"
-          :icon="computedIcon"
-          @click="click"
-        />
-      </template>
+        <template #anchor>
+          <va-button
+            :size="size"
+            :flat="flat"
+            :outline="outline"
+            :disabled="disabled || disableDropdown"
+            :color="color"
+            :icon="computedIcon"
+            @click="click"
+          />
+        </template>
         <div class="va-button-dropdown__content">
-          <slot />
+          <slot/>
         </div>
       </va-dropdown>
     </va-button-group>
@@ -67,7 +67,7 @@
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
 
 import VaDropdown from '../va-dropdown'
@@ -143,10 +143,11 @@ export default class VaButtonDropdown extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import "variables";
 
 .va-button-dropdown {
   .va-button {
-    margin: 0;
+    margin: var(--va-button-dropdown-button-margin);
   }
 
   &--split {
@@ -176,10 +177,10 @@ export default class VaButtonDropdown extends mixins(
   }
 
   &__content {
-    background: $dropdown-background;
-    box-shadow: $dropdown-box-shadow;
-    padding: $dropdown-padding;
-    border-radius: $dropdown-border-radius;
+    background: var(--va-button-dropdown-content-background, var(--light-gray3));
+    box-shadow: var(--va-button-dropdown-content-box-shadow);
+    padding: var(--va-button-dropdown-content-padding, var(--form-padding));
+    border-radius: var(--va-button-dropdown-content-border-radius, var(--form-padding));
   }
 }
 </style>

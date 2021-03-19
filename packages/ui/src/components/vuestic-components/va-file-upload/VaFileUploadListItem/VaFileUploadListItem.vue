@@ -1,8 +1,7 @@
 <template>
   <va-card
     class="va-file-upload-list-item"
-    :stripe="!removed"
-    :stripe-color="removed ? '' : color"
+    :stripe="removed ? '' : color"
     no-margin
     no-padding
     :class="{'file-upload-list-item--undo': removed}"
@@ -82,7 +81,7 @@ export default class VaFileUploadListItem extends mixins(FileUploadListItemProps
 </script>
 
 <style lang='scss'>
-@import 'src/components/vuestic-sass/resources/resources';
+@import '../../../vuestic-sass/resources/resources';
 
 .va-file-upload-list-item {
   & + & {

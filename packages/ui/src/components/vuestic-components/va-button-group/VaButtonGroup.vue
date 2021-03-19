@@ -2,7 +2,7 @@
   <div
     class="va-button-group"
   >
-    <slot />
+    <slot/>
   </div>
 </template>
 
@@ -44,38 +44,39 @@ export default class VaButtonGroup extends Vue.with(Props) {
 
 <style lang='scss'>
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-button-group {
   display: flex;
   justify-content: stretch;
   // margin: 0.375rem 0.5rem;
 
-  &--small {
-    border-radius: $btn-border-radius-sm;
+  &--large {
+    border-radius: var(--va-button-group-lg-border-radius);
   }
 
-  &--large {
-    border-radius: $btn-border-radius-lg;
+  &--small {
+    border-radius: var(--va-button-group-sm-border-radius);
   }
 
   &--normal {
-    border-radius: $btn-border-radius-nrm;
+    border-radius: var(--va-button-group-border-radius, var(--form-border-radius));
   }
 
   .va-button {
-    margin: 0;
+    margin: var(--va-button-group-button-margin);
   }
 
   & > .va-button:last-child {
     width: auto;
-    padding-right: 1rem;
+    padding-right: 1rem !important;
 
     &.va-button--small {
-      padding-right: 0.75rem;
+      padding-right: 0.75rem !important;
     }
 
     &.va-button--large {
-      padding-right: 1.5rem;
+      padding-right: 1.5rem !important;
     }
   }
 

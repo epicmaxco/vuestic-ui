@@ -40,7 +40,7 @@
       </div>
     </template>
     <template #anchor>
-      <slot />
+      <slot/>
     </template>
   </va-dropdown>
 </template>
@@ -50,8 +50,11 @@ import { PropType } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 import { Placement } from '@popperjs/core'
 
-import { getBoxShadowColor, getHoverColor } from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+import {
+  getBoxShadowColor,
+  getHoverColor,
+} from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaIcon from '../va-icon'
 import VaDropdown from '../va-dropdown'
 
@@ -63,7 +66,10 @@ class PopoverProps {
   trigger = prop<string>({ type: String, default: 'hover' })
   opened = prop<boolean>({ type: Boolean, default: false })
   disabled = prop<boolean>({ type: Boolean, default: false })
-  placement = prop<Placement>({ type: String as PropType<Placement>, default: 'bottom' })
+  placement = prop<Placement>({
+    type: String as PropType<Placement>,
+    default: 'bottom',
+  })
   autoHide = prop<boolean>({ type: Boolean, default: true })
   hoverOverTimeout = prop<number>({ type: Number, default: 0 })
   hoverOutTimeout = prop<number>({ type: Number, default: 0 })
@@ -101,9 +107,10 @@ export default class VaPopover extends mixins(
 
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-popover {
-  display: inline-block;
+  display: var(--va-popover-display);
 
   &__content-wrapper {
     background-color: white;
@@ -111,12 +118,12 @@ export default class VaPopover extends mixins(
   }
 
   &__content {
-    opacity: 1;
-    display: flex;
-    align-items: center;
-    padding: 0.65rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
+    opacity: var(--va-popover-content-opacity);
+    display: var(--va-popover-content-display);
+    align-items: var(--va-popover-content-align-items);
+    padding: var(--va-popover-content-padding);
+    border-radius: var(--va-popover-content-border-radius, var(--primary-block-border-radius));
+    font-size: var(--va-popover-content-font-size);
   }
 
   &__icon + div {
@@ -126,8 +133,8 @@ export default class VaPopover extends mixins(
   }
 
   &__title {
-    font-weight: $font-weight-bold;
-    margin-bottom: 0.125rem;
+    font-weight: var(--va-popover-title-font-weight);
+    margin-bottom: var(--va-popover-title-margin-bottom);
   }
 
   &__text {

@@ -1,6 +1,6 @@
 <template>
   <div class="va-tree-root">
-    <slot />
+    <slot/>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import { provide, ref } from 'vue'
 import { Options, setup, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../services/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaTreeCategory from './VaTreeCategory/VaTreeCategory.vue'
 
 @Options({
@@ -59,7 +59,9 @@ export default class VaTreeRoot extends mixins(ColorMixin) {
 </script>
 
 <style lang="scss">
+@import 'variables';
+
 .va-tree-root {
-  padding: 0.3125rem;
+  padding: var(--va-tree-root-padding);
 }
 </style>
