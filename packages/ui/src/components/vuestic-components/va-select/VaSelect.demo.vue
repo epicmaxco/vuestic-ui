@@ -79,10 +79,12 @@
       style="width: 400px;"
     >
       <va-select
+        class="mb-4"
         label="Options with icon"
         v-model="objectSingleSelectWithIcons.value"
         :options="objectSingleSelectWithIcons.options"
-        textBy="text"
+        text-by="text"
+        key-by="icon"
       />
       <va-select
         label="Single select text by text (default)"
