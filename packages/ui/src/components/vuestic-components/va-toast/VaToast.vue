@@ -192,7 +192,6 @@ export default class VaToast extends mixins(
   padding: var(--va-toast-padding);
   border-radius: var(--va-toast-border-radius);
   box-sizing: var(--va-toast-box-sizing);
-  border: var(--va-toast-border);
   position: var(--va-toast-position);
   background-color: var(--va-toast-background-color);
   color: var(--va-toast-color);
