@@ -23,15 +23,6 @@ const globalConfigRef = ref<GlobalConfig>({
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
-export function useGlobalConfig () {
-  const globalConfig = inject(GLOBAL_CONFIG, {} as any)
-
-  return {
-    getGlobalConfig: globalConfig?.get,
-    setGlobalConfig: globalConfig?.set,
-  }
-}
-
 const setGlobalConfig = (updater: GlobalConfig | Updater): void => {
   if (typeof updater === 'function') {
     globalConfigRef.value = merge(
@@ -45,6 +36,8 @@ const setGlobalConfig = (updater: GlobalConfig | Updater): void => {
 
 const getGlobalConfig = (): GlobalConfig => globalConfigRef.value
 
+type ProvidedGlobalConfig = { get: typeof getGlobalConfig, set: typeof setGlobalConfig }
+
 // We pass global config via provide so that we have a way to override it.
 export const GlobalConfigPlugin = {
   install (app: App, options?: GlobalConfig) {
@@ -52,6 +45,10 @@ export const GlobalConfigPlugin = {
 
     const config = { get: getGlobalConfig, set: setGlobalConfig }
 
-    app.provide(GLOBAL_CONFIG, config)
+    app.provide<ProvidedGlobalConfig>(GLOBAL_CONFIG, config)
   },
+}
+
+export function useGlobalConfig () {
+  return { getGlobalConfig, setGlobalConfig }
 }
