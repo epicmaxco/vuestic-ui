@@ -11,7 +11,7 @@
       role="alert"
     >
       <template>
-        <slot name="prepend" />
+        <slot name="prepend"/>
       </template>
       <div class="va-toast__group">
         <h2 v-if="$props.title" class="va-toast__title" v-text="$props.title"></h2>
@@ -25,7 +25,7 @@
           v-if="$slots.append"
           @click.stop="onToastClose"
         >
-          <slot name="append" />
+          <slot name="append"/>
         </div>
         <va-icon
           v-else-if="$props.closeable"
@@ -184,20 +184,22 @@ export default class VaToast extends mixins(
 </script>
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-toast {
-  display: flex;
-  width: $toast-width;
-  padding: $toast-padding;
-  border-radius: $toast-radius;
-  box-sizing: border-box;
-  border: 1px solid $toast-border-color;
-  position: fixed;
-  background-color: white;
-  color: #ffffff;
-  box-shadow: $toast-shadow;
-  transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
-  overflow: hidden;
+  display: var(--va-toast-display);
+  width: var(--va-toast-width);
+  padding: var(--va-toast-padding);
+  border-radius: var(--va-toast-border-radius);
+  box-sizing: var(--va-toast-box-sizing);
+  border: var(--va-toast-border);
+  position: var(--va-toast-position);
+  background-color: var(--va-toast-background-color);
+  color: var(--va-toast-color);
+  box-shadow: var(--va-toast-box-shadow);
+  transition: var(--va-toast-transition);
+  overflow: var(--va-toast-overflow);
+
 
   &--right {
     right: 16px;
@@ -208,21 +210,21 @@ export default class VaToast extends mixins(
   }
 
   &__group {
-    margin-left: $toast-group-margin-left;
-    margin-right: $toast-group-margin-right;
+    margin-left: var(--va-toast-group-margin-left);
+    margin-right: var(--va-toast-group-margin-right);
   }
 
   &__title {
-    font-weight: bold;
-    font-size: $toast-title-font-size;
-    color: $toast-title-color;
-    margin: 0 0 6px;
+    font-weight: var(--va-toast-title-font-weight);
+    font-size: var(--va-toast-title-font-size);
+    color: var(--va-toast-title-color);
+    margin: var(--va-toast-title-margin);
   }
 
   &__content {
-    font-size: $toast-content-font-size;
-    line-height: 21px;
-    padding-right: 20px;
+    font-size: var(--va-toast-content-font-size);
+    line-height: var(--va-toast-content-line-height);
+    padding-right: var(--va-toast-content-padding-right);
 
     p {
       margin: 0;
@@ -230,20 +232,20 @@ export default class VaToast extends mixins(
   }
 
   &__icon {
-    height: $toast-icon-size;
-    width: $toast-icon-size;
-    font-size: $toast-icon-size;
+    height: var(--va-toast-icon-height);
+    width: var(--va-toast-icon-width);
+    font-size: var(--va-toast-icon-font-size);
   }
 
   &__close-icon {
-    position: absolute;
-    top: 18px;
-    right: 15px;
-    cursor: pointer;
-    font-size: $toast-close-font-size;
+    position: var(--va-toast-close-icon-position);
+    top: var(--va-toast-close-icon-top);
+    right: var(--va-toast-close-icon-right);
+    cursor: var(--va-toast-close-icon-cursor);
+    font-size: var(--va-toast-close-icon-font-size);
 
     &:hover {
-      color: $toast-close-hover-color;
+      color: var(--va-toast-hover-color);
     }
   }
 }

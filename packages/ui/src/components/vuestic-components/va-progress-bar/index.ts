@@ -1,6 +1,6 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaProgressBarBase from './progress-types/VaProgressBar.vue'
-import VaProgressCircleBase from './progress-types/VaProgressCircle.vue'
+import VaProgressBarBase from './VaProgressBar.vue'
+import VaProgressCircleBase from './VaProgressCircle.vue'
 
 export const VaProgressBar = withConfigTransport(VaProgressBarBase)
 export const VaProgressCircle = withConfigTransport(VaProgressCircleBase)

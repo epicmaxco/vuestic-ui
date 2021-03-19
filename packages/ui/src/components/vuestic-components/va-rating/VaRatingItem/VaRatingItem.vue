@@ -115,7 +115,9 @@ export default class VaRatingItem extends mixins(
   }
 
   private onHover (cursorPosition: MouseEvent) {
-    if (!this.hover) { return }
+    if (!this.hover) {
+      return
+    }
     this.isHovered = true
     this.processCursorInput(this.$el.clientWidth, cursorPosition.offsetX)
   }
@@ -136,17 +138,17 @@ export default class VaRatingItem extends mixins(
 </script>
 
 <style lang="scss">
-  @import "../../../vuestic-sass/resources/resources";
+@import "../../../vuestic-sass/resources/resources";
 
-  .va-rating-item {
-    display: inline-block;
+.va-rating-item {
+  display: inline-block;
 
-    &__isFocused {
-      transform: scale(1.1);
-    }
-
-    &__wrapper {
-      @include normalize-button();
-    }
+  &__isFocused {
+    transform: scale(1.1);
   }
+
+  &__wrapper {
+    @include normalize-button();
+  }
+}
 </style>

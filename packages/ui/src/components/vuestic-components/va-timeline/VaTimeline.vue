@@ -101,16 +101,14 @@ export default {
 </script>
 
 <style lang="scss">
-$timeline-outer-spacing: 2rem;
-
 .va-timeline {
-  display: flex;
-  flex-wrap: nowrap;
+  display: var(--va-timeline-display);
+  flex-wrap: var(--va-timeline-flex-wrap);
 
   &--vertical {
-    flex-direction: column;
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
+    flex-direction: var(--va-timeline-vertical-flex-direction);
+    padding-left: var(--va-timeline-vertical-padding-left);
+    padding-right: var(--va-timeline-vertical-padding-right);
 
     /* min-width: 300px; */
   }
@@ -142,14 +140,14 @@ $timeline-outer-spacing: 2rem;
 
       .va-timeline-item__after,
       .va-timeline-item__before {
-        padding-top: $timeline-outer-spacing;
+        padding-top: 2rem;
       }
     }
 
     &.va-timeline-item--vertical.va-timeline-item--is-last {
       .va-timeline-item__after,
       .va-timeline-item__before {
-        padding-bottom: $timeline-outer-spacing;
+        padding-bottom: 2rem;
       }
     }
   }

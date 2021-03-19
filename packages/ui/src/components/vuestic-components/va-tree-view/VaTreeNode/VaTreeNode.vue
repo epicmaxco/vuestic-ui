@@ -85,31 +85,32 @@ export default class VaTreeNode extends mixins(
 
 <style lang="scss">
 @import "src/components/vuestic-sass/resources/resources";
+@import 'variables.scss';
 
 .va-tree-node {
-  display: flex;
-  align-items: center;
+  display: var(--va-tree-node-display);
+  align-items: var(--va-tree-node-align-items);
 
   .form-group {
     margin-bottom: 0;
   }
 
   &__icon {
-    margin-right: 0.5rem;
+    margin-right: var(--va-tree-node-icon-margin-right);
   }
 
   &__icon-right {
-    margin-left: 0.5rem;
+    margin-left: var(--va-tree-node-icon-margin-right);
   }
 
   &__label {
-    flex-grow: 1;
-    word-wrap: break-word;
-    overflow: hidden;
+    flex-grow: var(--va-tree-node-label-flex-grow);
+    word-wrap: var(--va-tree-node-label-word-wrap);
+    overflow: var(--va-tree-node-label-overflow);
   }
 
   &--highlighted #{&}__label {
-    background-color: $vue-light-green;
+    background-color: var(--va-tree-node-label-highlighted-bg);
   }
 }
 </style>

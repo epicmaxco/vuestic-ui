@@ -1,0 +1,19 @@
+:root{
+  --va-timeline-item-display: flex;
+  --va-timeline-item-flex-direction: column;
+
+  --va-timeline-item-vertical-flex-direction: row;
+  --va-timeline-item-vertical-flex-wrap: nowrap;
+  --va-timeline-item-vertical-align-items: stretch;
+
+  /*Title*/
+   --va-timeline-item-title-text-align: center;
+   --va-timeline-item-title-color: #4ae387;
+   --va-timeline-item-title-font-weight: 700;
+   --va-timeline-item-title-font-size: 0.8rem;
+   --va-timeline-item-title-text-transform: uppercase;
+
+  /*Description*/
+  --va-timeline-item-description-margin-top: 0.25rem;
+  --va-timeline-item-description-text-align: center;
+}

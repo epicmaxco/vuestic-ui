@@ -206,16 +206,17 @@ export default class VaRating extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-rating {
-  display: flex;
+  display: var(--va-rating-display);
 
   &__number-item {
     @include normalize-button();
 
-    font-size: inherit;
-    margin: 0.1em;
-    font-weight: $font-weight-bold;
+    font-size: var(--va-rating-number-item-font-size);
+    margin: var(--va-rating-number-item-margin);
+    font-weight: var(--va-rating-number-item-font-weight);
 
     @include flex-center();
 
@@ -233,8 +234,8 @@ export default class VaRating extends mixins(
   }
 
   &__item-wrapper {
-    display: flex;
-    cursor: pointer;
+    display: var(--va-rating-item-wrapper-display);
+    cursor: var(--va-rating-item-wrapper-cursor);
 
     @at-root {
       .va-rating--readonly &,
@@ -245,7 +246,7 @@ export default class VaRating extends mixins(
   }
 
   &-item {
-    display: flex;
+    display: var(--va-rating-item-display);
 
     @include flex-center();
 

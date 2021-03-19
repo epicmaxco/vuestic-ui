@@ -190,28 +190,29 @@ export default class VaSelectOptionList extends mixins(
 </script>
 <style lang="scss">
 @import "../../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-select-option-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  list-style: none;
+  display: var(--va-select-option-list-display);
+  flex-direction: var(--va-select-option-list-flex-direction);
+  width: var(--va-select-option-list-width);
+  list-style: var(--va-select-option-list-list-style);
 
   &__option {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 0.375rem 0.5rem 0.375rem 0.5rem;
-    min-height: 2.25rem;
-    word-break: break-word;
+    cursor: var(--va-select-option-list-option-cursor);
+    display: var(--va-select-option-list-option-display);
+    align-items: var(--va-select-option-list-option-align-items);
+    padding: var(--va-select-option-list-option-padding);
+    min-height: var(--va-select-option-list-option-min-height);
+    word-break: var(--va-select-option-list-option-word-break);
 
     &--icon {
-      margin-right: 0.5rem;
+      margin-right: var(--va-select-option-list-icon-margin-right);
     }
 
     &--selected-icon {
-      margin-left: auto;
-      font-size: 1.2rem;
+      margin-left: var(--va-select-option-list-selected-icon-margin-left);
+      font-size: var(--va-select-option-list-selected-icon-font-size);
     }
   }
 

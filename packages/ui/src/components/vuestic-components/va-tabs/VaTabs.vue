@@ -3,55 +3,53 @@
     class="va-tabs"
     :class="computedTabsClass"
   >
-    <div class="va-tabs__wrapper">
+    <div
+      class="va-tabs__wrapper"
+      ref="wrapper"
+    >
+      <va-button
+        v-if="showPagination"
+        :disabled="disablePaginationLeft"
+        class="va-tabs__pagination"
+        flat
+        size="medium"
+        :icon="$props.prevIcon"
+        @click="movePaginationLeft()"
+      />
       <div
-        class="va-tabs__tabs-wrapper"
-        ref="wrapper"
+        class="va-tabs__container"
+        :class="computedClass"
+        ref="container"
       >
-        <va-button
-          v-if="showPagination"
-          :disabled="disablePaginationLeft"
-          class="va-tabs__pagination"
-          flat
-          size="medium"
-          :icon="$props.prevIcon"
-          @click="movePaginationLeft()"
-        />
         <div
-          class="va-tabs__container"
-          :class="computedClass"
-          ref="container"
+          class="va-tabs__tabs"
+          :style="paginationControlledStyles"
+          ref="tabs"
         >
           <div
-            class="va-tabs__tabs"
-            :style="paginationControlledStyles"
-            ref="tabs"
+            class="va-tabs__slider-wrapper"
+            :style="sliderStyles"
           >
-            <div
-              class="va-tabs__slider-wrapper"
-              :style="sliderStyles"
-            >
-              <div class="va-tabs__slider" />
-            </div>
-            <slot
-              name="tabs"
-              class="va-tabs__tabs-items"
-            />
+            <div class="va-tabs__slider"/>
           </div>
+          <slot
+            name="tabs"
+            class="va-tabs__tabs-items"
+          />
         </div>
-        <va-button
-          v-if="showPagination"
-          :disabled="disablePaginationRight"
-          class="va-tabs__pagination"
-          flat
-          size="medium"
-          :icon="$props.nextIcon"
-          @click="movePaginationRight()"
-        />
       </div>
-      <div class="va-tabs__content">
-        <slot />
-      </div>
+      <va-button
+        v-if="showPagination"
+        :disabled="disablePaginationRight"
+        class="va-tabs__pagination"
+        flat
+        size="medium"
+        :icon="$props.nextIcon"
+        @click="movePaginationRight()"
+      />
+    </div>
+    <div class="va-tabs__content">
+      <slot/>
     </div>
   </div>
 </template>
@@ -344,15 +342,12 @@ export default class VaTabs extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-tabs {
-  position: relative;
+  position: var(--va-tabs-position);
 
   &__wrapper {
-    display: flex;
-  }
-
-  &__tabs-wrapper {
     overflow: hidden;
     contain: content;
     display: flex;
@@ -364,13 +359,13 @@ export default class VaTabs extends mixins(
   }
 
   .va-tabs__container {
-    overflow: hidden;
-    flex: 1 1 auto;
-    display: flex;
-    height: 2.5rem;
-    margin: 0 3px;
-    white-space: nowrap;
-    position: relative;
+    overflow: var(--va-tabs-container-overflow);
+    flex: var(--va-tabs-container-flex);
+    display: var(--va-tabs-container-display);
+    height: var(--va-tabs-container-height);
+    margin: var(--va-tabs-container-margin);
+    white-space: var(--va-tabs-container-white-space);
+    position: var(--va-tabs-container-position);
 
     .va-tabs__tabs {
       position: absolute;
@@ -408,7 +403,7 @@ export default class VaTabs extends mixins(
   }
 
   &--vertical {
-    .va-tabs__tabs-wrapper {
+    .va-tabs__wrapper {
       flex: 0 0 auto;
     }
 
@@ -438,15 +433,15 @@ export default class VaTabs extends mixins(
   }
 
   .va-tabs__slider-wrapper {
-    bottom: 0;
-    margin: 0 !important;
-    position: absolute;
-    z-index: 4000;
-    transition: $transition-primary;
+    bottom: var(--va-tabs-slider-wrapper-bottom);
+    margin: var(--va-tabs-slider-wrapper-margin);
+    position: var(--va-tabs-slider-wrapper-position);
+    z-index: var(--va-tabs-slider-wrapper-z-index);
+    transition: var(--va-tabs-slider-wrapper-transition);
 
     .va-tabs__slider {
-      width: 0.125rem;
-      height: 0.125rem;
+      width: var(--va-tabs-slider-width);
+      height: var(--va-tabs-slider-height);
     }
   }
 }
