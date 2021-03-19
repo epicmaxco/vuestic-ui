@@ -104,6 +104,10 @@ export default class VaCard extends mixins(
   color: var(--va-card-color);
   background-color: var(--va-card-background-color);
 
+  &__inner {
+    width: 100%;
+  }
+
   &--dark {
     color: var(--va-card-dark-color);
     background-color: var(--va-card-dark-background-color);
