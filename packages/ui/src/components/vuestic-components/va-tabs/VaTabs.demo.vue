@@ -360,7 +360,7 @@
           </va-tab>
           <va-tab
             name="Link 2"
-            to="/demo/vuestic-components/va-tabs/VaTabs.vdemo.vue"
+            to="/demo/vuestic-components/va-tabs/VaTabs.demo.vue"
           >
             Active link
           </va-tab>
