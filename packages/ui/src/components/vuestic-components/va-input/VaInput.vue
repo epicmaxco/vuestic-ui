@@ -13,6 +13,7 @@
     <template #prepend v-if="$slots.prepend">
       <slot name="prepend" />
     </template>
+
     <div
       class="va-input__container"
       :class="{'va-input__container--textarea': isTextarea}"
@@ -156,7 +157,8 @@ export default class VaInput extends mixins(
   get containerStyles (): any {
     return {
       backgroundColor:
-        this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
+        this.computedError
+          ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
           : this.success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
       borderColor:
         this.computedError ? this.computeColor('danger')
