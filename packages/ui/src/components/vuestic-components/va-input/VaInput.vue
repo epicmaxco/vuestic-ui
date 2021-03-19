@@ -49,7 +49,7 @@
           :readonly="readonly"
           :value="computedValue"
           v-on="eventListeners"
-          v-bind="$attrs"
+          v-bind="computedAttributes"
           ref="input"
           :tabindex="tabindex"
         />
@@ -65,7 +65,7 @@
           :readonly="readonly"
           :value="modelValue"
           v-on="eventListeners"
-          v-bind="$attrs"
+          v-bind="computedAttributes"
           ref="textarea"
           :tabindex="tabindex"
         />
@@ -154,6 +154,10 @@ export default class VaInput extends mixins(
     return { color: this.colorComputed }
   }
 
+  get computedAttributes () {
+    return { ...this.$attrs, class: this.$attrs.inputClass }
+  }
+
   get containerStyles (): any {
     return {
       backgroundColor:
@@ -161,9 +165,11 @@ export default class VaInput extends mixins(
           ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
           : this.success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
       borderColor:
-        this.computedError ? this.computeColor('danger')
-          : this.success ? this.computeColor('success')
-          : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
+        this.computedError
+          ? this.computeColor('danger')
+          : this.success
+            ? this.computeColor('success')
+            : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
     }
   }
 }
