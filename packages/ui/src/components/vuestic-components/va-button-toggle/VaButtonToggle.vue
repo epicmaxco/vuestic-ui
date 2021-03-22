@@ -30,6 +30,7 @@ import VaButtonGroup from '../va-button-group'
 
 class ButtonToggleProps {
   options = prop<any[]>({ type: Array, default: () => [] })
+  color = prop<string>({ type: String, default: 'primary' })
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })

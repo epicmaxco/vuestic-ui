@@ -74,6 +74,7 @@ import { VaProgressCircle } from '../va-progress-bar'
 import { ButtonGroupServiceKey } from '../va-button-group'
 
 class ButtonProps {
+  color = prop<string>({ type: String, default: undefined })
   tag = prop<string>({ type: String, default: 'button' })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
@@ -131,6 +132,10 @@ export default class VaButton extends mixins(
       va,
     }
   })
+
+  get colorComputed () {
+    return this.computeColor(this.color, 'primary')
+  }
 
   get computedClass () {
     return {
@@ -218,8 +223,8 @@ export default class VaButton extends mixins(
       computedStyle.boxShadow = this.shadowStyle
     }
 
-    if (this.context?.va?.color && !this.outline && !this.flat) {
-      computedStyle.background = this.color ? this.colorComputed : this.theme.getColor(this.context?.va?.color)
+    if (this.context.va.color && !this.outline && !this.flat) {
+      computedStyle.background = this.$props.color ? this.colorComputed : this.theme.getColor(this.context.va.color)
       computedStyle.backgroundImage = ''
     }
 
