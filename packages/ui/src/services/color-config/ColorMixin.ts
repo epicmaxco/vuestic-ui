@@ -19,7 +19,7 @@ export const useColor = () => {
 
   return (prop?: string, defaultColor: string = DEFAULT_COLOR): string => {
     if (!prop) {
-      return defaultColor
+      prop = defaultColor
     }
 
     if (colors[prop]) {

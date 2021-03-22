@@ -134,8 +134,7 @@ export default class VaButton extends mixins(
   })
 
   get colorComputed () {
-    const color = this.color || 'primary'
-    return this.computeColor(color)
+    return this.computeColor(this.color, 'primary')
   }
 
   get computedClass () {
