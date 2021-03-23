@@ -88,7 +88,7 @@
 
 <script>
 import VaIcon from './index'
-import SvgComponent from './va-iconset/VaIconVue'
+import SvgComponent from './demo/VaIconVue'
 
 export default {
   components: {
