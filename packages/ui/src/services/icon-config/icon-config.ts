@@ -43,7 +43,7 @@ export const getIconConfig = (name: string, iconsConfig?: IconsConfig): IconConf
   return executeConfigFunctions(config.to || name, config)
 }
 
-export function createIconConfig (config: {
+export function createIconsConfig (config: {
   aliases?: IconConfig[],
   font?: IconConfig[],
 }): IconsConfig {

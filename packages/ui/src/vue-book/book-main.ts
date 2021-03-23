@@ -12,7 +12,7 @@ import demoIconAliases from './vuestic-config/demo-icon-aliases'
 import demoIconFonts from './vuestic-config/demo-icon-fonts'
 
 import './vue-book-overrides.scss'
-import { createIconConfig } from '../services/icon-config/icon-config'
+import { createIconsConfig } from '../services/icon-config/icon-config'
 
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
@@ -42,7 +42,7 @@ app.use(DropdownPopperSubplugin)
 app.use(router)
 
 app.use(GlobalConfigPlugin, {
-  icons: createIconConfig({
+  icons: createIconsConfig({
     aliases: demoIconAliases,
     font: demoIconFonts,
   }),
