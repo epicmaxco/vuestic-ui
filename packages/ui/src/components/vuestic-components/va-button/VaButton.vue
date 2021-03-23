@@ -268,7 +268,7 @@ export default class VaButton extends mixins(
 </script>
 
 <style lang='scss'>
-@import 'src/components/vuestic-sass/resources/resources';
+@import '../../vuestic-sass/resources/resources';
 @import "variables";
 
 .va-button {
