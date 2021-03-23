@@ -15,3 +15,9 @@ export function getRegexGroups (str: string, regex: RegExp | string): string[] {
 
   return match
 }
+
+export function copyObjectWithoutUndefined (obj: any) {
+  return Object.keys({ ...obj }).reduce((acc, key) => {
+    return obj[key] !== undefined ? { [key]: obj[key], ...acc } : acc
+  }, {})
+}

@@ -1,11 +1,6 @@
 import { useGlobalConfig } from '../GlobalConfigPlugin'
 import { getIconConfig } from './icon-config'
-
-function copyObjectWithoutUndefined (obj: any) {
-  return Object.keys({ ...obj }).reduce((acc, key) => {
-    return obj[key] !== undefined ? { [key]: obj[key], ...acc } : acc
-  }, {})
-}
+import { copyObjectWithoutUndefined } from './utils'
 
 export const setupIcons = (props: any) => {
   const getIcon = (name: string) => {
