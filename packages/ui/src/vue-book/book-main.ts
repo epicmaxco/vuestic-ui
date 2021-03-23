@@ -12,7 +12,7 @@ import demoIconAliases from './vuestic-config/demo-icon-aliases'
 import demoIconFonts from './vuestic-config/demo-icon-fonts'
 
 import './vue-book-overrides.scss'
-import { createIconsConfig } from '../services/icon-config/icon-config'
+import { createIconsConfig } from '../main'
 
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
