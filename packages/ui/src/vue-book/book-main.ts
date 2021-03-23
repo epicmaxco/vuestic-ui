@@ -44,7 +44,7 @@ app.use(router)
 app.use(GlobalConfigPlugin, {
   icons: createIconsConfig({
     aliases: demoIconAliases,
-    font: demoIconFonts,
+    fonts: demoIconFonts,
   }),
 } as GlobalConfig)
 

@@ -71,6 +71,7 @@
     </VbCard>
     <VbCard title="Svg component">
       <va-icon :component="getSvgComponent()" />
+      <va-icon name="demo-svg-vuestic" />
     </VbCard>
     <VbCard title="text icon">
       <va-icon name="text">close</va-icon>
@@ -95,6 +96,10 @@
 <script>
 import VaIcon from './index'
 import SvgComponent from './va-iconset/VaIconVue'
+import { useGlobalConfig } from '../../../main'
+import { createIconsConfig } from '../../../services/icon-config/icon-config'
+import DemoIconsAliases from '../../../vue-book/vuestic-config/demo-icon-aliases'
+import DemoIconsFonts from '../../../vue-book/vuestic-config/demo-icon-fonts'
 
 export default {
   components: {
@@ -105,6 +110,23 @@ export default {
       clickedCount: 0,
       getSvgComponent: () => SvgComponent,
     }
+  },
+  created () {
+    const { setGlobalConfig } = useGlobalConfig()
+    setGlobalConfig({
+      icons: createIconsConfig({
+        aliases: [
+          {
+            name: 'demo-svg-vuestic',
+            component: SvgComponent,
+          },
+          ...DemoIconsAliases,
+        ],
+        fonts: [
+          ...DemoIconsFonts,
+        ],
+      }),
+    })
   },
 }
 </script>

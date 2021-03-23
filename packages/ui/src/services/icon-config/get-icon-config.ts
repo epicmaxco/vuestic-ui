@@ -48,21 +48,3 @@ export const getIconConfig = (name: string, iconsConfig?: IconsConfig): IconConf
 
   return executeConfigFunctions(config.to || name, config)
 }
-
-/**
- * Helper allow you to create icons config with Vuestic defaults.
- */
-export function createIconsConfig (config: {
-  aliases?: IconConfig[],
-  font?: IconConfig[],
-}): IconsConfig {
-  config.aliases = config.aliases || []
-  config.font = config.font || []
-
-  return [
-    ...config.aliases,
-    ...VuesticIconAliases,
-    ...config.font,
-    ...VuesticIconFonts,
-  ]
-}
