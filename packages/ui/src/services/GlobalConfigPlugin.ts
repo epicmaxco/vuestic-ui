@@ -1,7 +1,7 @@
 import { ref, inject, App } from 'vue'
 
 import { getDefaultConfig } from '../components/vuestic-components/va-config/config-default'
-import { mergeWith } from 'lodash'
+import { merge } from 'lodash'
 import { colorsPresets } from './color-config/color-theme-presets'
 import { ColorConfig } from './color-config/color-config'
 import { ComponentConfig } from './component-config/component-config'
@@ -24,22 +24,14 @@ const globalConfigRef = ref<GlobalConfig>({
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
-/** This allow mergeWith merge arrays. */
-function lodashMergeCustomizer (objValue: any, srcValue: any) {
-  if (Array.isArray(objValue)) {
-    return objValue.concat(srcValue)
-  }
-}
-
 const setGlobalConfig = (updater: GlobalConfig | Updater): void => {
   if (typeof updater === 'function') {
-    globalConfigRef.value = mergeWith(
+    globalConfigRef.value = merge(
       globalConfigRef.value,
       updater(globalConfigRef.value),
-      lodashMergeCustomizer,
     )
   } else {
-    globalConfigRef.value = mergeWith(globalConfigRef.value, updater, lodashMergeCustomizer)
+    globalConfigRef.value = merge(globalConfigRef.value, updater)
   }
 }
 
