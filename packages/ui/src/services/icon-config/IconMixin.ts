@@ -1,5 +1,5 @@
 import { prop, Vue } from 'vue-class-component'
-import { getIconConfig } from './icon-config'
+import { getIconConfig } from './get-icon-config'
 import { useGlobalConfig } from '../GlobalConfigPlugin'
 import { copyObjectWithoutUndefined } from './utils'
 

@@ -1,5 +1,5 @@
 import { useGlobalConfig } from '../GlobalConfigPlugin'
-import { getIconConfig } from './icon-config'
+import { getIconConfig } from './get-icon-config'
 import { copyObjectWithoutUndefined } from './utils'
 
 export const setupIcons = (props: any) => {
