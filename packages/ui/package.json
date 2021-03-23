@@ -6,6 +6,7 @@
   "main": "dist/vuestic-ui.js",
   "jsdelivr": "dist/vuestic-ui.js",
   "unpkg": "dist/vuestic-ui.js",
+  "types": "dist/main.d.ts",
   "bugs": {
     "url": "https://github.com/epicmaxco/vuestic-ui/issues"
   },

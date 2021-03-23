@@ -63,18 +63,6 @@ const config = {
   },
   module: {
     rules: [
-      // { test: /\.m?js/, resolve: { fullySpecified: false } },
-      {
-        test: /\.js?$/,
-        exclude: file => (
-          /node_modules/.test(file) &&
-          !/\.vue\.js/.test(file)
-        ),
-        loader: 'babel-loader',
-        options: {
-          sourceType: 'unambiguous',
-        },
-      },
       {
         test: /\.css$/,
         use: [
@@ -112,7 +100,6 @@ const config = {
           loaders: {
             scss: 'vue-style-loader!css-loader!sass-loader',
           },
-          // other vue-loader options go here
         },
       },
       {
@@ -121,6 +108,17 @@ const config = {
         exclude: /node_modules/,
         options: {
           appendTsSuffixTo: [/\.vue$/],
+        },
+      },
+      {
+        test: /\.js?$/,
+        exclude: file => (
+          /node_modules/.test(file) &&
+          !/\.vue\.js/.test(file)
+        ),
+        loader: 'babel-loader',
+        options: {
+          sourceType: 'unambiguous',
         },
       },
       {

@@ -137,7 +137,8 @@ const withConfigTransport = (component: any): any => {
       const { getGlobalConfig } = useGlobalConfig()
 
       const computedProps = computed(() => {
-        const getConfigValue = createConfigValueGetter(getGlobalConfig ? getGlobalConfig().components : {}, configChain, componentName)
+        const componentsConfig = getGlobalConfig().components
+        const getConfigValue = createConfigValueGetter(componentsConfig || {}, configChain, componentName)
 
         const getValue = (name: string, defaultValue: any) => {
           // We want to fallback to config in 2 cases:

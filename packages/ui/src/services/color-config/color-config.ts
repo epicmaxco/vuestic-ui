@@ -9,10 +9,6 @@ export const DEFAULT_COLOR = '#000000'
 export const setupColors = () => {
   const { setGlobalConfig, getGlobalConfig } = useGlobalConfig()
 
-  if (!setGlobalConfig && !getGlobalConfig) {
-    return
-  }
-
   const setColors = (colors: Record<string, string>): void => {
     setGlobalConfig((config: GlobalConfig) => ({
       ...config,
