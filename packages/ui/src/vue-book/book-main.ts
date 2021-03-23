@@ -21,7 +21,7 @@ const app = createApp(App)
 
 const routes = [
   createRoute({
-    requireContext: require.context('../components', true, /.vdemo.vue$/),
+    requireContext: require.context('../components', true, /.demo.vue$/),
     path: '/demo',
   }),
   {

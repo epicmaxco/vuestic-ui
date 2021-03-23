@@ -20,7 +20,10 @@ import { Options, mixins, prop, Vue } from 'vue-class-component'
 import VaButton from '../va-button'
 
 class Props {
-  target = prop<Element | string | undefined>({ type: [Element, String], default: () => window })
+  target = prop<Element | string | undefined>({
+    type: [Element, String],
+    default: () => window,
+  })
   visibilityHeight = prop<number>({ type: Number, default: 300 })
   speed = prop<number>({ type: Number, default: 50 })
   verticalOffset = prop<string>({ type: String, default: '1rem' })
@@ -74,7 +77,9 @@ export default class VaBacktop extends mixins(
   }
 
   scrollToTop (): void {
-    if (this.scrolled) { return }
+    if (this.scrolled) {
+      return
+    }
     this.scrolled = true
     this.interval = window.setInterval(() => {
       const next = Math.floor(this.targetElement.scrollTop - this.speed)
@@ -99,13 +104,14 @@ export default class VaBacktop extends mixins(
 
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-backtop {
-  position: fixed;
-  top: auto;
-  left: auto;
-  right: auto;
-  bottom: auto;
-  cursor: pointer;
+  position: var(--va-backtop-position);
+  top: var(--va-backtop-top);
+  left: var(--va-backtop-left);
+  right: var(--va-backtop-right);
+  bottom: var(--va-backtop-bottom);
+  cursor: var(--va-backtop-cursor);
 }
 </style>

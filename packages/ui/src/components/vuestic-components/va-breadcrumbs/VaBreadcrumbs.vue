@@ -106,18 +106,20 @@ export default class VaBreadcrumbs extends mixins(
 </script>
 
 <style lang="scss">
+@import 'variables';
+
 .va-breadcrumbs {
-  display: flex;
-  width: 100%;
-  justify-content: center;
+  display: var(--va-breadcrumbs-display);
+  width: var(--va-breadcrumbs-width);
+  justify-content: var(--va-breadcrumbs-justify-content);
 
   &__item {
-    display: inline-flex;
+    display: var(--va-breadcrumbs-item-display);
   }
 
   &__separator {
-    padding: 0 0.5rem;
-    display: inline-flex;
+    padding: var(--va-breadcrumbs-separator-padding);
+    display: var(--va-breadcrumbs-separator-display);
   }
 }
 

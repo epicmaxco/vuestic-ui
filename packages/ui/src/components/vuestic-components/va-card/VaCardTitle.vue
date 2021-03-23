@@ -3,7 +3,7 @@
     class="va-card__title"
     :style="titleStyles"
   >
-    <slot />
+    <slot/>
   </div>
 </template>
 

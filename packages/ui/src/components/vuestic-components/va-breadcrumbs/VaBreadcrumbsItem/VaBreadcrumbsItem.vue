@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
+import { RouterLinkMixin } from '../../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
 class BreadcrumbsItemProps {
@@ -53,8 +53,8 @@ export default class VaBreadcrumbsItem extends mixins(RouterLinkMixin, Breadcrum
 
 <style lang="scss">
 .va-breadcrumb-item {
-  display: inline-flex;
-  color: inherit;
+  display: var(--va-breadcrumb-item-display);
+  color: var(--va-breadcrumb-item-color);
 
   &__label {
     color: inherit;
@@ -63,11 +63,11 @@ export default class VaBreadcrumbsItem extends mixins(RouterLinkMixin, Breadcrum
       cursor: pointer;
 
       &:hover {
-        opacity: 0.7;
+        opacity: var(--va-breadcrumb-item-hover-opacity);
       }
 
       &:focus {
-        text-decoration: underline;
+        text-decoration: var(--va-breadcrumb-item-focus-text-decoration);
       }
     }
   }

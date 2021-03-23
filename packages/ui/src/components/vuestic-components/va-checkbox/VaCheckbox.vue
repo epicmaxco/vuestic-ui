@@ -68,7 +68,10 @@ import { VaInputWrapper } from '../va-input'
 type ModelValue = boolean | boolean[] | string | object
 
 class CheckboxProps {
-  modelValue = prop<ModelValue>({ type: [Boolean, Array, String, Object], default: false })
+  modelValue = prop<ModelValue>({
+    type: [Boolean, Array, String, Object],
+    default: false,
+  })
   checkedIcon = prop<string>({ type: String, default: 'check' })
   indeterminateIcon = prop<string>({ type: String, default: 'remove' })
 }
@@ -110,7 +113,10 @@ export default class VaCheckbox extends mixins(
   get inputStyle () {
     return this.computedError
       ? (this.isChecked || this.isIndeterminate)
-        ? { background: this.colorComputed, borderColor: this.theme.getColor('danger') }
+        ? {
+          background: this.colorComputed,
+          borderColor: this.theme.getColor('danger'),
+        }
         : { borderColor: this.theme.getColor('danger') }
       : (this.isChecked || this.isIndeterminate)
         ? { background: this.colorComputed, borderColor: this.colorComputed }
@@ -125,28 +131,29 @@ export default class VaCheckbox extends mixins(
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import "variables";
 
 .va-checkbox {
-  display: block;
-  max-width: fit-content;
+  display: var(--va-checkbox-display);
+  max-width: var(--va-checkbox-max-width);
 
   &__input-container {
-    align-items: center;
-    display: flex;
-    padding: 0 0.3rem;
-    cursor: pointer;
+    align-items: var(--va-checkbox-input-align-items);
+    display: var(--va-checkbox-input-display);
+    padding: var(--va-checkbox-input-padding);
+    cursor: var(--va-checkbox-input-cursor);
 
     @at-root {
       .va-checkbox--disabled & {
         @include va-disabled();
 
-        cursor: default;
+        cursor: var(--va-checkbox-disabled-cursor);
       }
 
       .va-checkbox--readonly & {
-        cursor: initial;
+        cursor: var(--va-checkbox-readonly-cursor);
       }
 
       .va-checkbox--left-label & {
@@ -158,13 +165,13 @@ export default class VaCheckbox extends mixins(
   #{&}__square {
     @include flex-center();
 
-    width: 1.35rem;
-    min-width: 1.35rem;
-    height: 1.35rem;
-    position: relative;
-    background-color: $white;
-    border: solid 0.125rem $gray-light;
-    border-radius: 0.25rem;
+    width: var(--va-checkbox-square-width);
+    min-width: var(--va-checkbox-square-min-width);
+    height: var(--va-checkbox-square-height);
+    position: var(--va-checkbox-square-position);
+    background-color: var(--va-checkbox-square-background-color, var(--primary-background-color));
+    border: var(--va-checkbox-square-border, var(--primary-control-border));
+    border-radius: var(--va-checkbox-square-border-radius, var(--square-border-radius));
 
     @at-root {
       .va-checkbox--on-keyboard-focus#{&} {
@@ -181,20 +188,20 @@ export default class VaCheckbox extends mixins(
   }
 
   &__label {
-    display: inline-block;
-    position: relative;
+    display: var(--va-checkbox-label-display);
+    position: var(--va-checkbox-label-position);
   }
 
   &__icon {
-    pointer-events: none;
-    position: absolute;
-    color: transparent;
+    pointer-events: var(--va-checkbox-icon-pointer-events);
+    position: var(--va-checkbox-icon-position);
+    color: var(--va-checkbox-icon-color);
   }
 
   &--selected {
     .va-checkbox {
       &__icon {
-        color: $white;
+        color: var(--va-checkbox-selected-icon-color);
       }
     }
   }
@@ -202,7 +209,7 @@ export default class VaCheckbox extends mixins(
   &--indeterminate {
     .va-checkbox {
       &__icon {
-        color: $white;
+        color: var(--va-checkbox-indeterminate-icon-color);
       }
     }
   }

@@ -99,9 +99,11 @@ export default class VaIcon extends mixins(
 </script>
 
 <style lang="scss">
+@import 'variables';
+
 .va-icon {
-  vertical-align: middle;
-  user-select: none;
+  vertical-align: var(--va-icon-vertical-align);
+  user-select: var(--va-icon-user-select);
 
   &#{&} {
     // need 2 classes to make it work

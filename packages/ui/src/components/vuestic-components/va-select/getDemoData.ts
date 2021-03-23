@@ -18,21 +18,18 @@ export const objectOptionsList = [
 
 export const iconOptionsList = [
   {
-    id: 1,
     text: 'one',
-    value: 1,
     icon: 'info',
+    value: 1,
   },
   {
-    id: 2,
     text: 'two',
-    value: 2,
     icon: 'face',
+    value: 2,
   },
   {
-    id: 3,
     text: 'three',
-    value: 3,
     icon: 'warning',
+    value: 3,
   },
 ]

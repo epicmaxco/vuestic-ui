@@ -247,6 +247,15 @@
     <VbCard title="Number input">
       <va-input type="number" v-model="num" />
     </VbCard>
+    <VbCard title="CSS Classes" class="va-input-css-classes-demo" style="width: 66%;">
+      <va-input class="mb-4" inputClass="red" modelValue="This input must have margin bottom and red text in input" />
+      <va-input
+        class="bg-gray"
+        inputClass="p-2 red"
+        modelValue="Native input element must have red text and big padding. Va-input - grey background"
+        type="textarea"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -286,3 +295,20 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.va-input-css-classes-demo {
+ .mb-4 {
+   margin-bottom: 4rem;
+ }
+ .red {
+   color: red;
+ }
+ .p-2 {
+   padding: 2rem;
+ }
+ .bg-gray {
+   background-color: grey;
+ }
+}
+</style>

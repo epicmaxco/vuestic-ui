@@ -1,6 +1,6 @@
 <template>
   <div class="va-tree-root">
-    <slot />
+    <slot/>
   </div>
 </template>
 
@@ -59,7 +59,9 @@ export default class VaTreeRoot extends mixins(ColorMixin) {
 </script>
 
 <style lang="scss">
+@import 'variables';
+
 .va-tree-root {
-  padding: 0.3125rem;
+  padding: var(--va-tree-root-padding);
 }
 </style>
