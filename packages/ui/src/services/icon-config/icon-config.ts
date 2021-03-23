@@ -2,6 +2,10 @@ import { IconsConfig, IconConfig } from './types'
 import { getRegexGroups } from './utils'
 import { VuesticIconAliases, VuesticIconFonts } from './presets'
 
+/**
+ * Creates new icon config object with 'iconClass', 'content',
+ * componentOptions' properties transformed to string if it was function.
+ */
 function executeConfigFunctions (name: string, iconConfig: IconConfig): IconConfig {
   const config = { ...iconConfig } as any
   const args = getRegexGroups(name, config.name);
@@ -15,6 +19,7 @@ function executeConfigFunctions (name: string, iconConfig: IconConfig): IconConf
   return config
 }
 
+/** Find icon config by name recursive */
 function findConfigByName (name: string, iconsConfig: IconsConfig, ignoreNames: string[] = []): IconConfig | undefined {
   const config = iconsConfig.find((c) => {
     if (ignoreNames.includes(c.name.toString())) { return false }
@@ -29,6 +34,7 @@ function findConfigByName (name: string, iconsConfig: IconsConfig, ignoreNames: 
   return config
 }
 
+/** Returns specific icon configuration from iconsConfig */
 export const getIconConfig = (name: string, iconsConfig?: IconsConfig): IconConfig => {
   if (!iconsConfig) {
     throw new Error(`Cant find config for name="${name}". You can create default config. Visit DOCS // TODO`)
@@ -43,6 +49,9 @@ export const getIconConfig = (name: string, iconsConfig?: IconsConfig): IconConf
   return executeConfigFunctions(config.to || name, config)
 }
 
+/**
+ * Helper allow you to create icons config with Vuestic defaults.
+ */
 export function createIconsConfig (config: {
   aliases?: IconConfig[],
   font?: IconConfig[],
@@ -57,3 +66,5 @@ export function createIconsConfig (config: {
     ...VuesticIconFonts,
   ]
 }
+
+export { VuesticIconAliases, VuesticIconFonts }
