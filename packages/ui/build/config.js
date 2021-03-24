@@ -24,7 +24,6 @@ var config = {
         publicPath: '/dist/',
         library: 'VuesticUI',
         libraryTarget: 'umd',
-        libraryExport: 'default',
         // See https://github.com/webpack/webpack/issues/6522
         globalObject: 'typeof self !== \'undefined\' ? self : this'
     },
