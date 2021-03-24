@@ -2,33 +2,35 @@
   <va-input-wrapper
     class="va-switch"
     :class="computedClass"
-    :disabled="c_disabled"
-    :success="c_success"
-    :messages="c_messages"
+    :disabled="$props.disabled"
+    :success="$props.success"
+    :messages="$props.messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
-    :error-count="errorCount"
+    :error-count="$props.errorCount"
   >
     <div
       class="va-switch__container"
-      @click="onWrapperClick()"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
       tabindex="-1"
       @blur="onBlur"
       ref="container"
     >
-      <div class="va-switch__inner">
+      <div
+        class="va-switch__inner"
+        @click="onWrapperClick()"
+      >
         <input
           class="va-switch__input"
           ref="input"
           type="checkbox"
           role="switch"
           :aria-checked="isChecked"
-          :id="id"
-          :name="name"
+          :id="$props.id"
+          :name="$props.name"
           readonly
-          :disabled="c_disabled"
+          :disabled="$props.disabled"
           @focus="onFocus"
           @blur="onBlur"
           @keypress.prevent="toggleSelection()"
@@ -47,7 +49,7 @@
               class="va-switch__checker"
             >
               <va-progress-circle
-                v-if="loading"
+                v-if="$props.loading"
                 indeterminate
                 :size="progressCircleSize"
                 :color="trackStyle.backgroundColor"
@@ -61,6 +63,7 @@
         ref="label"
         @blur="onBlur"
         :style="labelStyle"
+        @click="onWrapperClick()"
       >
         <slot>
           {{ computedLabel }}
@@ -71,67 +74,73 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import VaProgressCircle from '../va-progress-bar/progress-types/VaProgressCircle.vue'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
-
-import { getColor } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { VaProgressCircle } from '../va-progress-bar'
+import { VaInputWrapper } from '../va-input'
 
-const SwitchPropsMixin = makeContextablePropsMixin({
-  value: { type: [Boolean, Array, String, Object], default: false },
-  size: {
+class SwitchProps {
+  modelValue = prop<boolean | any[] | string | object>({
+    type: [Boolean, Array, String, Object],
+    default: false,
+  })
+  size = prop<string>({
     type: String,
     default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
+    validator: (modelValue: string) => {
+      return ['medium', 'small', 'large'].includes(modelValue)
     },
-  },
-  trueLabel: { type: String, default: null },
-  falseLabel: { type: String, default: null },
-  trueInnerLabel: { type: String, default: null },
-  falseInnerLabel: { type: String, default: null },
-})
+  })
 
-@Component({
+  trueLabel = prop<string>({ type: String, default: null })
+  falseLabel = prop<string>({ type: String, default: null })
+  trueInnerLabel = prop<string>({ type: String, default: null })
+  falseInnerLabel = prop<string>({ type: String, default: null })
+}
+
+const SwitchPropsMixin = Vue.with(SwitchProps)
+
+@Options({
   name: 'VaSwitch',
   components: { VaProgressCircle, VaInputWrapper },
+  emits: ['focus', 'blur', 'update:modelValue'],
 })
-export default class VaSwitch extends Mixins(
+export default class VaSwitch extends mixins(
   SelectableMixin,
   LoadingMixin,
+  ColorMixin,
   SwitchPropsMixin,
 ) {
   get computedInnerLabel () {
-    if (this.c_trueInnerLabel && this.isChecked) {
-      return this.c_trueInnerLabel
+    if (this.$props.trueInnerLabel && this.isChecked) {
+      return this.$props.trueInnerLabel
     }
-    if (this.c_falseInnerLabel && !this.isChecked) {
-      return this.c_falseInnerLabel
+    if (this.$props.falseInnerLabel && !this.isChecked) {
+      return this.$props.falseInnerLabel
     }
     return ''
   }
 
   get computedLabel () {
-    if (this.c_trueLabel && this.isChecked) {
-      return this.c_trueLabel
+    if (this.$props.trueLabel && this.isChecked) {
+      return this.$props.trueLabel
     }
-    if (this.c_falseLabel && !this.isChecked) {
-      return this.c_falseLabel
+    if (this.$props.falseLabel && !this.isChecked) {
+      return this.$props.falseLabel
     }
-    return this.c_label
+    return this.$props.label
   }
 
   get computedClass () {
     return {
       'va-switch--checked': this.isChecked,
-      'va-switch--small': this.c_size === 'small',
-      'va-switch--large': this.c_size === 'large',
-      'va-switch--disabled': this.c_disabled,
-      'va-switch--left-label': this.c_leftLabel,
+      'va-switch--small': this.$props.size === 'small',
+      'va-switch--large': this.$props.size === 'large',
+      'va-switch--disabled': this.$props.disabled,
+      'va-switch--left-label': this.$props.leftLabel,
       'va-switch--error': this.computedError,
       'va-switch--on-keyboard-focus': this.isKeyboardFocused,
     }
@@ -143,26 +152,26 @@ export default class VaSwitch extends Mixins(
       medium: '20px',
       large: '25px',
     }
-    return size[this.c_size]
+    return size[this.$props.size as string]
   }
 
   get trackStyle () {
     return {
-      borderColor: this.c_error
-        ? getColor(this, 'danger')
+      borderColor: this.$props.error
+        ? this.theme.getColor('danger')
         : '',
       backgroundColor: this.isChecked
         ? this.colorComputed
-        : getColor(this, 'gray'),
+        : this.theme.getColor('gray'),
     }
   }
 
   get labelStyle () {
     return {
-      color: this.c_error ? getColor(this, 'danger') : '',
-      padding: !this.c_label && !(this.c_trueLabel || this.c_falseLabel)
+      color: this.$props.error ? this.theme.getColor('danger') : '',
+      padding: !this.$props.label && !(this.$props.trueLabel || this.$props.falseLabel)
         ? ''
-        : this.c_leftLabel
+        : this.$props.leftLabel
           ? '0 0.3rem 0 0'
           : '0 0 0 0.3rem',
     }
@@ -172,31 +181,32 @@ export default class VaSwitch extends Mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-switch {
   @at-root {
     .va-switch__container {
-      display: inline-flex;
-      align-items: center;
-      padding: 0 0.3rem;
+      display: var(--va-switch-container-display);
+      align-items: var(--va-switch-container-align-items);
+      padding: var(--va-switch-container-padding);
     }
   }
 
-  display: inline-block;
-  margin-bottom: $checkbox-between-items-margin;
+  display: var(--va-switch-display);
+  margin-bottom: var(--va-switch-margin-bottom);
 
   &:focus {
     outline: none;
   }
 
   &__inner {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    height: 2rem;
-    width: auto;
-    min-width: 4rem;
-    border-radius: 1rem;
+    cursor: var(--va-switch-inner-cursor);
+    display: var(--va-switch-inner-display);
+    position: var(--va-switch-inner-position);
+    height: var(--va-switch-inner-height);
+    width: var(--va-switch-inner-width);
+    min-width: var(--va-switch-inner-min-width);
+    border-radius: var(--va-switch-inner-border-radius);
 
     &:focus {
       outline: 0;
@@ -207,9 +217,9 @@ export default class VaSwitch extends Mixins(
   &--small {
     .va-switch {
       &__inner {
-        height: 1.5rem;
-        width: auto;
-        min-width: 3rem;
+        height: var(--va-switch-sm-inner-height);
+        width: var(--va-switch-sm-inner-width);
+        min-width: var(--va-switch-sm-inner-min-width);
       }
 
       &__checker {
@@ -222,9 +232,9 @@ export default class VaSwitch extends Mixins(
   &--large {
     .va-switch {
       &__inner {
-        height: 2.5rem;
-        width: auto;
-        min-width: 5rem;
+        height: var(--va-switch-lg-inner-height);
+        width: var(--va-switch-lg-inner-width);
+        min-width: var(--va-switch-lg-inner-min-width);
       }
 
       &__checker {
@@ -271,23 +281,25 @@ export default class VaSwitch extends Mixins(
   }
 
   #{&}__track {
-    display: flex;
-    overflow: hidden;
-    border-radius: 1rem;
-    height: 100%;
-    width: 100%;
-    background: $white;
-    box-shadow: inset 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s ease;
+    display: var(--va-switch-track-display);
+    overflow: var(--va-switch-track-overflow);
+    border-radius: var(--va-switch-track-border-radius);
+    height: var(--va-switch-track-height);
+    width: var(--va-switch-track-width);
+    background: var(--va-switch-track-background);
+    box-shadow: var(--va-switch-track-box-shadow);
+    transition: var(--va-switch-track-transition);
 
     @at-root {
       .va-switch--on-keyboard-focus#{&} {
         transition: all, 0.6s, ease-in;
         box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
       }
+
       .va-switch--small#{&} {
         border-radius: 0.75rem;
       }
+
       .va-switch--large#{&} {
         border-radius: 1.25rem;
       }
@@ -326,34 +338,34 @@ export default class VaSwitch extends Mixins(
   }
 
   &__checker {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto 0.3rem;
-    transform: translateX(0);
-    height: 1.5rem;
-    width: 1.5rem;
-    background-color: $white;
-    border-radius: 50%;
-    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
-    transition: all 0.2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: var(--va-switch-checker-position);
+    top: var(--va-switch-checker-top);
+    bottom: var(--va-switch-checker-bottom);
+    margin: var(--va-switch-checker-margin);
+    transform: var(--va-switch-checker-transform);
+    height: var(--va-switch-checker-height);
+    width: var(--va-switch-checker-width);
+    background-color: var(--va-switch-checker-background-color);
+    border-radius: var(--va-switch-checker-border-radius);
+    box-shadow: var(--va-switch-checker-box-shadow);
+    transition: var(--va-switch-checker-transition);
+    display: var(--va-switch-checker-display);
+    justify-content: var(--va-switch-checker-justify-content);
+    align-items: var(--va-switch-checker-align-items);
   }
 
   &__checker-wrapper {
-    position: absolute;
-    margin: auto;
-    transform: translateX(0);
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.2s ease;
-    pointer-events: none;
+    position: var(--va-switch-checker-wrapper-position);
+    margin: var(--va-switch-checker-wrapper-margin);
+    transform: var(--va-switch-checker-wrapper-transform);
+    top: var(--va-switch-checker-wrapper-top);
+    left: var(--va-switch-checker-wrapper-left);
+    bottom: var(--va-switch-checker-wrapper-bottom);
+    right: var(--va-switch-checker-wrapper-right);
+    width: var(--va-switch-checker-wrapper-width);
+    height: var(--va-switch-checker-wrapper-height);
+    transition: var(--va-switch-checker-wrapper-transition);
+    pointer-events: var(--va-switch-checker-wrapper-pointer-events);
   }
 
   &__input {

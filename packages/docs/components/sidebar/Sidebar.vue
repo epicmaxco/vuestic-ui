@@ -1,64 +1,155 @@
 <template>
-  <va-sidebar :minimized="minimized">
-    <template slot="menu">
-      <template v-for="(item, key) in items">
-        <va-sidebar-link-group
-          v-if="item.children"
+  <va-sidebar class="sidebar" color="secondary" v-model="minimized">
+    <algolia-search />
+    <va-list class="sidebar__links">
+      <va-accordion v-model="value" multiply>
+        <va-collapse
+          v-for="(route, key) in navigationRoutes"
           :key="key"
-          :minimized="minimized"
-          :title="$t(item.displayName)"
-          :children="item.children"
+          class="sidebar__expand"
         >
-          <va-sidebar-link
-            v-for="(subMenuItem, index) in item.children"
-            :key="index"
-            :to="subMenuItem.name"
-            :title="$t(subMenuItem.displayName)"
-          />
-        </va-sidebar-link-group>
-        <va-sidebar-link
-          v-else
-          :key="key"
-          :minimized="minimized"
-          :active-by-default="item.name === route.name"
-          :to="item.name"
-        >
-          <span slot="title">{{ $t(item.displayName) }}</span>
-        </va-sidebar-link>
-      </template>
-    </template>
+          <template #header>
+            <va-list-item class="sidebar__category">
+              <va-list-item-section class="sidebar__category__section">
+                <va-list-item-label class="sidebar__category__label">
+                  {{ $t(route.displayName) }}
+                </va-list-item-label>
+              </va-list-item-section>
+              <va-list-item-section icon>
+                <va-icon
+                  :name="value[key] ? 'expand_less' : 'expand_more'"
+                />
+              </va-list-item-section>
+            </va-list-item>
+          </template>
+          <div v-for="(childRoute, index) in route.children" :key="index">
+            <va-list-label
+              v-if="childRoute.category"
+              class="sidebar__subcategory__label"
+              color="gray"
+            >
+              {{ $t(childRoute.category) }}
+            </va-list-label>
+            <va-list-item
+              :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
+              class="sidebar__link"
+              active-class="sidebar__link--active"
+            >
+              <va-list-item-section>
+                <va-list-item-label>
+                  {{ $t(childRoute.displayName) }}
+                </va-list-item-label>
+              </va-list-item-section>
+            </va-list-item>
+          </div>
+        </va-collapse>
+      </va-accordion>
+    </va-list>
   </va-sidebar>
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import { Component, Vue } from 'vue-property-decorator'
-import VaSidebar from './va-sidebar/VaSidebar.vue'
-import VaSidebarLink from './va-sidebar/VaSidebarLink.vue'
-import VaSidebarLinkGroup from './va-sidebar/VaSidebarLinkGroup.vue'
-import { navigationRoutes } from './NavigationRoutes.ts'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+import { NavigationRoute } from './NavigationRoute'
+import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
+
 @Component({
-  components: {
-    VaSidebarLinkGroup,
-    VaSidebarLink,
-    VaSidebar,
-  },
-  props: {
-    minimized: {
-      type: Boolean,
-      required: true,
-    },
-  },
+  components: { AlgoliaSearch },
 })
 export default class Sidebar extends Vue {
-  data () {
-    return {
-      items: navigationRoutes.routes,
-    }
+  value = [] as boolean[]
+
+  @Prop({ type: Array, default: () => [] })
+  readonly navigationRoutes!: NavigationRoute[]
+
+  @Prop({ type: Boolean, default: false }) readonly minimized!: boolean
+  @Watch('$route', { immediate: true })
+  onRouteChange () {
+    this.setActiveExpand()
   }
 
-  get route () {
-    return this.$route || {}
+  setActiveExpand () {
+    this.value = this.navigationRoutes.map((route, index) => {
+      const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
+      return (
+        this.value[index] ||
+        !!route.children?.some(({ name }) =>
+          pathSteps.includes(name)
+        )
+      )
+    })
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "../../../ui/src/components/vuestic-sass/resources/resources.scss";
+
+.sidebar {
+  z-index: 1000;
+  padding-top: 4rem;
+
+  @include media-breakpoint-down(sm) {
+    padding-top: 8rem;
+  }
+
+  .va-list-item {
+    &:hover {
+      background-color: $light-gray3;
+      cursor: pointer;
+    }
+
+    &--focus {
+      background-color: $light-gray3;
+    }
+
+    &.sidebar__link {
+      padding: 1rem 0 1rem 2rem;
+      line-height: 1.1;
+
+      &:hover {
+        background: $light-blue;
+
+        .va-list-item-label {
+          color: $theme-blue-dark;
+        }
+      }
+
+      &--active {
+        .va-list-item-label {
+          color: $theme-blue-dark;
+        }
+      }
+    }
+  }
+
+  &__links {
+    background-color: inherit;
+    padding-bottom: 1rem;
+    padding-top: 0;
+  }
+
+  &__category {
+    font-weight: bold;
+  }
+
+  &__expand {
+    .sidebar__category__section {
+      padding-left: 0.5rem;
+      justify-content: center;
+    }
+  }
+
+  &__subcategory {
+    &__label {
+      &:not(:first-child) {
+        padding-top: 1rem;
+      }
+
+      text-align: left;
+      padding-left: 1.5rem;
+      color: $default-gray;
+    }
+  }
+}
+</style>

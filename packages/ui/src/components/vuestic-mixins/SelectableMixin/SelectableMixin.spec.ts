@@ -1,15 +1,14 @@
 import { shallowMount } from '@vue/test-utils'
 import { SelectableMixin } from './SelectableMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
-import Component, { mixins } from 'vue-class-component'
+import { mixins } from 'vue-class-component'
 import { testHasColorThemeMixin } from '../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-
+import { ColorMixin } from '../../../services/color-config/ColorMixin'
+import { h } from 'vue'
 // TODO Should probably have better typing. A  bit rushed.
-@Component
 export default class ExampleComponent extends mixins(SelectableMixin, StatefulMixin) {
   render () {
-    return ''
+    return h('')
   }
 }
 

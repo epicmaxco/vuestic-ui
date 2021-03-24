@@ -17,11 +17,6 @@
         :component-options="block.componentOptions"
         :api-options="block.apiOptions"
       />
-      <DocsFaq
-        v-else-if="BlockType.FAQ === block.type"
-        :key="index"
-        :items="block.items"
-      />
       <MarkdownView
         v-else-if="block.type === BlockType.TITLE"
         :key="index"
@@ -53,7 +48,6 @@ import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 import DocsExample from './DocsExample.vue'
 import DocsCode from './DocsCode.vue'
 import DocsSubtitle from './DocsSubtitle.vue'
-import DocsFaq from './DocsFaq.vue'
 import ApiDocs from 'vuestic-ui/src/services/api-docs/ApiDocs.vue'
 
 @Component({
@@ -61,17 +55,12 @@ import ApiDocs from 'vuestic-ui/src/services/api-docs/ApiDocs.vue'
     DocsExample,
     DocsCode,
     DocsSubtitle,
-    DocsFaq,
     MarkdownView,
     ApiDocs,
   },
 })
 export default class DocsContent extends Vue {
   @Prop() config!: ApiDocsBlock[]
-
-  get DocsFaq () {
-    return DocsFaq
-  }
 
   get BlockType () {
     return BlockType

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <va-button @click="$cast('MessageSent', 'Message from template')">
+    <va-button @click="$pub('MessageSent', 'Message from template')">
       Send message from template
     </va-button>
     <va-button @click="fireEvent">
@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     fireEvent () {
-      this.$cast('MessageSent', 'Message from method')
+      this.$pub('MessageSent', 'Message from method')
     },
   },
 }

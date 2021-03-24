@@ -45,14 +45,41 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import VaAdvancedColorPicker from './VaAdvancedColorPicker.vue'
-import VaSimplePalettePicker from './VaSimplePalettePicker.vue'
-import VaSliderColorPicker from './VaSliderColorPicker.vue'
-import VaColorInput from './VaColorInput.vue'
-import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 
-@Component({
+import VaDropdownPopper from '../va-dropdown'
+import {
+  VaAdvancedColorPicker,
+  VaSimplePalettePicker,
+  VaSliderColorPicker,
+  VaColorInput,
+} from './index'
+
+class ColorPickerInputProps {
+  modelValue = prop<string>({
+    type: String,
+    default: '',
+  })
+
+  mode = prop<string>({
+    type: String,
+    default: '',
+  })
+
+  palette = prop<any[]>({
+    type: Array,
+    default: () => [],
+  })
+
+  selected = prop<boolean>({
+    type: Boolean,
+    default: false,
+  })
+}
+
+const ColorPickerInputPropsMixin = Vue.with(ColorPickerInputProps)
+
+@Options({
   name: 'VaColorPickerInput',
   components: {
     VaDropdownPopper,
@@ -61,34 +88,15 @@ import VaDropdownPopper from '../va-dropdown/VaDropdown.vue'
     VaSliderColorPicker,
     VaColorInput,
   },
+  emits: ['update:modelValue'],
 })
-export default class VaColorPickerInput extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly value!: string
-
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly mode!: string
-
-  @Prop({
-    type: Array,
-    default: () => [],
-  }) readonly palette!: Array<string>
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly selected!: boolean
-
+export default class VaColorPickerInput extends mixins(ColorPickerInputPropsMixin) {
   get valueProxy (): any {
-    return this.value
+    return this.modelValue
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 
   get isInputDisabled () {

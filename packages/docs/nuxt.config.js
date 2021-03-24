@@ -3,6 +3,20 @@ import TerserPlugin from 'terser-webpack-plugin'
 
 export default {
   head: {
+    title: 'Vuestic UI',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        name: 'viewport',
+        content:
+          'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no',
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'UI framework for vuestic-admin',
+      },
+    ],
     link: [
       {
         rel: 'stylesheet',
@@ -41,6 +55,7 @@ export default {
   plugins: [
     { mode: 'server', src: '~/plugins/jsdom.ts' },
     { src: '~/plugins/colorHelper.ts' },
+    { src: '~/plugins/clipboard.ts' },
     { src: '~/plugins/client-services.ts' },
     { src: '~/plugins/context.ts' },
     { src: '~/plugins/externalVuetable.ts' },
@@ -48,7 +63,7 @@ export default {
     { src: '~/plugins/vuestic.ts' },
   ],
   build: {
-    transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vuetable-2', 'vue-bulma-expanding', 'medium-editor', 'vue-toasted'],
+    transpile: ['vue-instantsearch', 'instantsearch.js/es', 'vuetable-2', 'medium-editor', 'vue-toasted'],
     extend (config, { isDev, isClient }) {
       !isDev && Object.assign(config.optimization, {
         minimize: true,

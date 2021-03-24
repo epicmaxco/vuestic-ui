@@ -8,6 +8,16 @@
       </va-breadcrumbs>
     </VbCard>
 
+    <VbCard title="default (v-for)">
+      <va-breadcrumbs>
+        <va-breadcrumbs-item
+          v-for="(item, index) in items"
+          :key="index"
+          :label="item"
+        />
+      </va-breadcrumbs>
+    </VbCard>
+
     <VbCard title="routes">
       <va-breadcrumbs>
         <va-breadcrumbs-item
@@ -27,7 +37,7 @@
 
     <VbCard
       title="Align"
-      width="300px"
+      style="width: 500px;"
     >
       Left:
       <va-breadcrumbs align="left">
@@ -157,10 +167,15 @@
 </template>
 
 <script>
-import VaBreadcrumbs from './VaBreadcrumbs'
-import VaBreadcrumbsItem from './VaBreadcrumbsItem'
+import VaBreadcrumbs, { VaBreadcrumbsItem } from './index'
 
 export default {
+  data () {
+    return {
+      items: ['One', 'Two', 'Three'],
+    }
+  },
+
   components: {
     VaBreadcrumbs,
     VaBreadcrumbsItem,

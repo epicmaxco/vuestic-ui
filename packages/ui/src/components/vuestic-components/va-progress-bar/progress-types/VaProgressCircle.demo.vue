@@ -7,20 +7,20 @@
       </div>
       <div>
         Value
-        <VaProgressCircle :value="value" />
+        <VaProgressCircle :modelValue="value" />
       </div>
     </VbCard>
 
     <VbCard title="Slotted">
       <div>
         Static slot:
-        <VaProgressCircle :value="value">
+        <VaProgressCircle :modelValue="value">
           Slot
         </VaProgressCircle>
       </div>
       <div>
         Dynamic Slot:
-        <VaProgressCircle :value="value">
+        <VaProgressCircle :modelValue="value">
           {{ value + '%' }}
         </VaProgressCircle>
       </div>
@@ -34,7 +34,7 @@
 
     <VbCard title="Colors">
       <VaProgressCircle
-        :value="value"
+        :modelValue="value"
         color="danger"
       />
     </VbCard>
@@ -51,31 +51,31 @@
         30px:
         <VaProgressCircle
           :size="30"
-          :value="value"
+          :modelValue="value"
         />
       </div>
       <div>
         3rem:
         <VaProgressCircle
           size="3rem"
-          :value="value"
+          :modelValue="value"
         />
       </div>
     </VbCard>
 
-    <VbCard title="Thickness">
+   <VbCard title="Thickness">
       <div>
         Thickness 0.01:
         <VaProgressCircle
           :thickness="0.01"
-          :value="value"
+          :modelValue="value"
         />
       </div>
       <div>
         Thickness 0.6:
         <VaProgressCircle
           :thickness="0.6"
-          :value="value"
+          :modelValue="value"
         />
       </div>
       <div>
@@ -90,7 +90,7 @@
     <VbCard title="context checks">
       <div>
         value:
-        <VaContext :config="{VaProgressCircle: {value: 50}}">
+        <VaContext :config="{VaProgressCircle: {modelValue: 50}}">
           <VaProgressCircle />
         </VaContext>
       </div>
@@ -103,19 +103,19 @@
       <div>
         color:
         <VaContext :config="{VaProgressCircle: {color: 'danger'}}">
-          <VaProgressCircle :value="value" />
+          <VaProgressCircle :modelValue="value" />
         </VaContext>
       </div>
       <div>
         thickness:
         <VaContext :config="{VaProgressCircle: {thickness: 0.20}}">
-          <VaProgressCircle :value="value" />
+          <VaProgressCircle :modelValue="value" />
         </VaContext>
       </div>
       <div>
         size:
         <VaContext :config="{VaProgressCircle: {size: 30}}">
-          <VaProgressCircle :value="value" />
+          <VaProgressCircle :modelValue="value" />
         </VaContext>
       </div>
     </VbCard>
@@ -139,8 +139,8 @@
 </template>
 
 <script>
-import VaProgressCircle from './VaProgressCircle'
-import VaContext from '../../../context-test/context-provide/VaContext'
+import { VaProgressCircle } from '../index'
+import VaContext from '../../va-config'
 
 export default {
   components: {

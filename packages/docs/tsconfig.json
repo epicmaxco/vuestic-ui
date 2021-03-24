@@ -16,7 +16,8 @@
         "webpack-env",
         "jest",
         "@types/node",
-        "@nuxt/types"
+        "@nuxt/types",
+        "nuxt-i18n/types"
       ],
       "lib": [
         "esnext",
@@ -29,7 +30,8 @@
       "../ui/src/**/*.ts",
       "components/**/*.ts",
       "components/**/*.tsx",
-      "components/**/*.vue"
+      "components/**/*.vue",
+      "../ui/src/types/version.d.ts"
     ],
     "exclude": [
       "node_modules",

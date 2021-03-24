@@ -3,20 +3,20 @@
     class="va-list-label"
     :style="computedStyle"
   >
-    <slot />
+    <slot/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, mixins } from 'vue-class-component'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 
-@Component({
+@Options({
   name: 'VaListLabel',
 })
-export default class VaListLabel extends Mixins(
-  ColorThemeMixin,
+export default class VaListLabel extends mixins(
+  ColorMixin,
 ) {
   get computedStyle () {
     return {
@@ -28,12 +28,12 @@ export default class VaListLabel extends Mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-list-label {
   @include va-title();
 
-  padding: $list-item-padding;
-  padding-top: 0;
-  padding-bottom: 0.75rem;
+  text-align: var(--va-list-label-text-align);
+  padding: var(--va-list-label-padding);
 }
 </style>

@@ -79,10 +79,12 @@
       style="width: 400px;"
     >
       <va-select
+        class="mb-4"
         label="Options with icon"
         v-model="objectSingleSelectWithIcons.value"
         :options="objectSingleSelectWithIcons.options"
-        textBy="text"
+        text-by="text"
+        key-by="icon"
       />
       <va-select
         label="Single select text by text (default)"
@@ -173,10 +175,11 @@
         :options="defaultSingleSelect.options"
         v-model="defaultSingleSelect.value"
       >
-        <va-icon
-          slot="prepend"
-          name="share"
-        />
+        <template #prepend>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-select>
       <va-select
         style="margin: 8px 0;"
@@ -184,10 +187,11 @@
         :options="defaultSingleSelect.options"
         v-model="defaultSingleSelect.value"
       >
+      <template #prependInner>
         <va-icon
-          slot="prependInner"
           name="share"
         />
+      </template>
       </va-select>
       <va-select
         style="margin: 8px 0;"
@@ -195,10 +199,11 @@
         :options="defaultSingleSelect.options"
         v-model="defaultSingleSelect.value"
       >
+      <template #appendInner>
         <va-icon
-          slot="appendInner"
           name="share"
         />
+      </template>
       </va-select>
       <va-select
         style="margin: 8px 0;"
@@ -206,10 +211,11 @@
         :options="defaultSingleSelect.options"
         v-model="defaultSingleSelect.value"
       >
+      <template #append>
         <va-icon
-          slot="append"
           name="share"
         />
+      </template>
       </va-select>
       <va-select
         style="margin: 8px 0;"
@@ -385,11 +391,11 @@
 </template>
 
 <script>
-
 import CountriesList from '../../../data/CountriesList'
-import VaSelect from './VaSelect'
+import VaIcon from '../va-icon'
+
 import { objectOptionsList, iconOptionsList } from './getDemoData'
-import VaIcon from '../va-icon/VaIcon.vue'
+import VaSelect from './index'
 
 const positions = ['top', 'bottom']
 

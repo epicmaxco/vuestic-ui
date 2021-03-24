@@ -45,6 +45,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Mixins, Watch } from 'vue-property-decorator'
+// @ts-ignore
 import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading.vue'
@@ -204,12 +205,13 @@ export default class VaDataTable extends Mixins(LoadingMixin) {
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import "variables";
 
 .va-data-table {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  overflow-x: auto;
+  display: var(--va-data-table-display);
+  flex-direction: var(--va-data-table-flex-direction);
+  align-items: var(--va-data-table-align-items);
+  overflow-x: var(--va-data-table-overflow-x);
 
   &__vuetable {
     width: 100%;
@@ -232,9 +234,9 @@ export default class VaDataTable extends Mixins(LoadingMixin) {
   }
 
   &__pagination {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
+    margin-top: var(--va-data-table-margin-top);
+    display: var(--va-data-table-display);
+    justify-content: var(--va-data-table-justify-content);
   }
 }
 </style>

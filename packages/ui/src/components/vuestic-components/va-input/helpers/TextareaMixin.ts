@@ -1,12 +1,12 @@
-import Component from 'vue-class-component'
-import { Mixins, Watch } from 'vue-property-decorator'
+import { watch } from 'vue'
+import { mixins, prop, Vue, setup } from 'vue-class-component'
 import calculateNodeHeight from '../calculateNodeHeight'
-import { makeContextablePropsMixin } from '../../../context-test/context-provide/ContextPlugin'
 import { warn } from '../../../../services/utils'
+import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
-const PropsMixin = makeContextablePropsMixin({
-  autosize: { type: Boolean, default: false },
-  minRows: {
+class Props {
+  autosize = prop<boolean>({ type: Boolean, default: false })
+  minRows = prop<number>({
     type: Number,
     default: null,
     validator: (val: number) => {
@@ -15,8 +15,9 @@ const PropsMixin = makeContextablePropsMixin({
       }
       return true
     },
-  },
-  maxRows: {
+  })
+
+  maxRows = prop<number>({
     type: Number,
     validator: (val: number) => {
       if (!(val > 0 && (val | 0) === val)) {
@@ -25,18 +26,25 @@ const PropsMixin = makeContextablePropsMixin({
       return true
     },
     default: null,
-  },
-})
+  })
 
-@Component
-export class TextareaMixin extends Mixins(PropsMixin) {
-  @Watch('value')
-  onValueChanged (): void {
-    // only for textarea
-    if (this.isTextarea) {
-      this.adjustHeight()
-    }
-  }
+  type = prop<string>({ type: String, default: 'text' })
+  label = prop<string>({ type: String, default: '' })
+}
+
+const PropsMixin = Vue.with(Props)
+
+export class TextareaMixin extends mixins(StatefulMixin, PropsMixin) {
+  context = setup(() => {
+    watch(() => this.$props.modelValue, () => {
+      // only for textarea
+      if (this.isTextarea) {
+        this.adjustHeight()
+      }
+    })
+
+    return {}
+  })
 
   get textareaStyles (): any {
     return {
@@ -50,7 +58,7 @@ export class TextareaMixin extends Mixins(PropsMixin) {
   }
 
   get isTextarea (): boolean {
-    return this.c_type === 'textarea'
+    return this.type === 'textarea'
   }
 
   adjustHeight (): void {

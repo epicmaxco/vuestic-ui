@@ -2,7 +2,7 @@
   <VbDemo>
     <VbCard title="default">
       <va-hover v-model="value">
-        <div style="background-color: #babfc2;">
+        <div class="demo-block">
           {{ value }}
         </div>
       </va-hover>
@@ -11,27 +11,29 @@
         v-model="value"
       >
     </VbCard>
-    <VbCard title="slot access">
-      <va-hover #default="{ hover }">
-        <div style="background-color: #babfc2;">
-          {{ hover }} value
+    <VbCard title="stateful + slot">
+      <va-hover stateful #default="{ hover }">
+        <div class="demo-block">
+          {{ hover }}
         </div>
       </va-hover>
     </VbCard>
     <VbCard title="disabled">
       <va-hover
         disabled
+        stateful
         #default="{ hover }"
       >
-        <div style="background-color: #babfc2;">
+        <div class="demo-block">
           slot - {{ hover }}
         </div>
       </va-hover>
+      <br>
       <va-hover
         disabled
-        v-model="value"
+        v-model="valueDisabled"
       >
-        <div style="background-color: #babfc2;">
+        <div class="demo-block">
           value - {{ valueDisabled }}
         </div>
       </va-hover>
@@ -40,8 +42,7 @@
 </template>
 
 <script>
-
-import VaHover from './VaHover'
+import VaHover from './index'
 
 export default {
   components: {
@@ -55,3 +56,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.demo-block {
+  background-color: #babfc2;
+  width: 100px;
+  height: 100px;
+}
+</style>

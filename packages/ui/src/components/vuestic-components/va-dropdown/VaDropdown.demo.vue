@@ -2,9 +2,11 @@
   <VbDemo>
     <VbCard title="Click">
       <va-dropdown>
-        <button slot="anchor">
-          Activator
-        </button>
+        <template #anchor>
+          <button>
+            Activator
+          </button>
+        </template>
         Dropdown text
       </va-dropdown>
     </VbCard>
@@ -13,9 +15,11 @@
       <va-dropdown
         :close-on-click-outside="false"
       >
-        <button slot="anchor">
+      <template #anchor>
+        <button>
           Click
         </button>
+      </template>
         Should ignore click outside
       </va-dropdown>
     </VbCard>
@@ -24,18 +28,22 @@
       <va-dropdown
         :close-on-anchor-click="false"
       >
-        <button slot="anchor">
+      <template #anchor>
+        <button>
           Click
         </button>
+      </template>
         Should ignore click outside
       </va-dropdown>
     </VbCard>
 
     <VbCard title="Hover">
       <va-dropdown trigger="hover">
-        <button slot="anchor">
-          Hover
-        </button>
+        <template #anchor>
+          <button>
+            Hover
+          </button>
+        </template>
         Dropdown text
       </va-dropdown>
     </VbCard>
@@ -45,18 +53,22 @@
         trigger="hover"
         :is-content-hoverable="false"
       >
-        <button slot="anchor">
+      <template #anchor>
+        <button>
           Hover
         </button>
+      </template>
         Dropdown text
       </va-dropdown>
     </VbCard>
 
     <VbCard title="Doesn't redraw on content change">
       <va-dropdown>
-        <button slot="anchor">
-          Click
-        </button>
+        <template #anchor>
+          <button>
+            Click
+          </button>
+        </template>
         <button @click="redrawContentSize = redrawContentSize - 20">
           -
         </button>
@@ -84,11 +96,13 @@
       <va-dropdown
         trigger="none"
         :is-content-hoverable="false"
-        :value="noTriggerValue"
+        :modelValue="noTriggerValue"
       >
-        <button slot="anchor">
+      <template #anchor>
+        <button>
           None
         </button>
+      </template>
         Dropdown text
       </va-dropdown>
     </VbCard>
@@ -111,13 +125,15 @@
         <va-dropdown
           trigger="none"
           :is-content-hoverable="false"
-          :value="eventsValue"
+          :modelValue="eventsValue"
           @clickOutside="$vb.log('Events: clickOutside')"
           @anchorClick="$vb.log('Events: anchorClick')"
         >
-          <button slot="anchor">
+        <template #anchor>
+          <button>
             Click
           </button>
+        </template>
           Dropdown text
         </va-dropdown>
       </template>
@@ -125,27 +141,33 @@
 
     <VbCard title="Anchor width">
       <va-dropdown keep-anchor-width>
-        <button slot="anchor">
-          ------- Anchor ------
-        </button>
+        <template #anchor>
+          <button>
+            ------- Anchor ------
+          </button>
+        </template>
         Same width as anchor
       </va-dropdown>
     </VbCard>
 
     <VbCard title="Disabled">
       <va-dropdown disabled>
-        <button slot="anchor">
-          Click
-        </button>
+        <template #anchor>
+          <button>
+            Click
+          </button>
+        </template>
         Dropdown text
       </va-dropdown>
       <va-dropdown
         disabled
         trigger="hover"
       >
-        <button slot="anchor">
+      <template #anchor>
+        <button>
           Hover
         </button>
+      </template>
         Dropdown text
       </va-dropdown>
     </VbCard>
@@ -153,9 +175,11 @@
     <VbCard title="Ignores hidden overflow in container">
       <div style="width: 50px; height: 50px; overflow: hidden; border: 1px gray solid;">
         <va-dropdown>
-          <button slot="anchor">
-            Click
-          </button>
+          <template #anchor>
+            <button>
+              Click
+            </button>
+          </template>
           <div style="width: 150px; height: 150px; background: #4ae387;">
             text
           </div>
@@ -166,9 +190,11 @@
     <VbCard title="Fixed flag makes possible to ignore even `position: relative`">
       <div style="width: 50px; height: 50px; overflow: hidden; position: relative; border: 1px gray solid;">
         <va-dropdown>
-          <button slot="anchor">
-            Click
-          </button>
+          <template #anchor>
+            <button>
+              Click
+            </button>
+          </template>
           <div style="width: 150px; height: 150px; background: #4ae387;">
             not fixed
           </div>
@@ -176,9 +202,11 @@
       </div>
       <div style="width: 50px; height: 50px; overflow: hidden; position: relative; border: 1px gray solid;">
         <va-dropdown fixed>
-          <button slot="anchor">
-            Click
-          </button>
+          <template #anchor>
+            <button>
+              Click
+            </button>
+          </template>
           <div style="width: 150px; height: 150px; background: #4ae387;">
             fixed
           </div>
@@ -188,28 +216,36 @@
 
     <VbCard title="Can be closed from another component in context">
       <va-dropdown>
-        <button slot="anchor">
-          Click
-        </button>
+        <template #anchor>
+          <button>
+            Click
+          </button>
+        </template>
         <DropdownCloseButton />
       </va-dropdown>
     </VbCard>
 
     <VbCard title="Nesting 3x">
       <va-dropdown debug-id="1">
-        <button slot="anchor">
-          Click
-        </button>
-        1
-        <va-dropdown debug-id="2">
-          <button slot="anchor">
+        <template #anchor>
+          <button>
             Click
           </button>
-          2
-          <va-dropdown debug-id="3">
-            <button slot="anchor">
+        </template>
+        1
+        <va-dropdown debug-id="2">
+          <template #anchor>
+            <button>
               Click
             </button>
+          </template>
+          2
+          <va-dropdown debug-id="3">
+            <template #anchor>
+              <button>
+                Click
+              </button>
+            </template>
             3
           </va-dropdown>
         </va-dropdown>
@@ -223,12 +259,13 @@
           :key="position"
           :position="position"
         >
-          <button
-            style="width: 70px; height: 70px;"
-            slot="anchor"
-          >
-            {{ position }}
-          </button>
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              {{ position }}
+            </button>
+          </template>
           <span style="background-color: #222222; color: #babfc2;">{{ position }}</span>
         </va-dropdown>
       </div>
@@ -237,21 +274,23 @@
     <VbCard title="Offset">
       <div>
         <va-dropdown :offset="40">
-          <button
-            style="width: 70px; height: 70px;"
-            slot="anchor"
-          >
-            40
-          </button>
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              40
+            </button>
+          </template>
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
         <va-dropdown :offset="[40, 40]">
-          <button
-            style="width: 70px; height: 70px;"
-            slot="anchor"
-          >
-            [40, 40]
-          </button>
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              [40, 40]
+            </button>
+          </template>
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
       </div>
@@ -260,7 +299,7 @@
 </template>
 
 <script>
-import VaDropdown from './VaDropdown.vue'
+import VaDropdown from './index'
 import DropdownCloseButton from './__demo__/DropdownCloseButton'
 
 export default {

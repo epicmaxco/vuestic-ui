@@ -6,61 +6,65 @@
     :style="computedStyle"
     aria-hidden="true"
     notranslate
-    v-on="$listeners"
   >
     <slot>{{ computedContent }}</slot>
   </component>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-
-import { warn } from '../../../services/utils'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { IconMixin } from './IconMixin'
+import { IconMixin } from '../../../services/icon-config/IconMixin'
+import { setupIcons } from '../../../services/icon-config/setup'
+import { computed } from '@vue/runtime-core'
 
-const IconPropsMixin = makeContextablePropsMixin({
-  name: {
-    type: [String, Array],
-    default: '',
-    validator: (name: string) => {
-      if (name.match(/ion-|iconicstroke-|glyphicon-|maki-|entypo-|fa-|brandico-/)) {
-        return warn(`${name} icon is not available.`)
-      }
-      return true
-    },
-  },
-  tag: { type: String, default: 'i' },
-  component: { type: Object },
-  color: { type: String, default: '' },
-  rotation: { type: [String, Number], default: '' },
-  spin: { type: Boolean, default: false },
-})
+class Props {
+  name = prop<string>({ type: String, default: '' })
+  tag = prop<string>({ type: String, default: 'i' })
+  component = prop<Record<string, any>>({ type: Object })
+  color = prop<string>({ type: String, default: undefined })
+  rotation = prop<number | string>({ type: [String, Number], default: undefined })
+  spin = prop<string>({ type: String, default: undefined })
+}
 
-@Component({
+const PropsMixin = Vue.with(Props)
+
+@Options({
   name: 'VaIcon',
 })
-export default class VaIcon extends Mixins(
-  ColorThemeMixin,
+export default class VaIcon extends mixins(
+  ColorMixin,
   SizeMixin,
-  IconMixin,
-  IconPropsMixin,
+  // IconMixin,
+  PropsMixin,
 ) {
+  icon = setup(() => {
+    const { getIcon } = setupIcons(this.$props)
+
+    const icon = computed(() => getIcon(this.name))
+
+    return icon
+  })
+
   get computedTag () {
-    return (this.icon && this.icon.component) || this.c_component || this.c_tag
+    return (this.icon && this.icon.component) || this.component || this.tag
+  }
+
+  get spinClass () {
+    if (this.spin === undefined) { return }
+    return this.spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
   }
 
   get computedClass () {
     return [
       this.icon ? this.icon.iconClass : '',
-      this.spin ? 'va-icon--spin' : '',
+      this.spinClass,
     ]
   }
 
   get hasClickListener () {
-    return this.$listeners && this.$listeners.click
+    return this.$attrs && this.$attrs.onClick
   }
 
   get cursorStyle () {
@@ -68,7 +72,7 @@ export default class VaIcon extends Mixins(
   }
 
   get rotateStyle () {
-    return { transform: 'rotate(' + this.c_rotation + 'deg)' }
+    return { transform: 'rotate(' + this.rotation + 'deg)' }
   }
 
   get fontSizeStyle () {
@@ -76,7 +80,7 @@ export default class VaIcon extends Mixins(
   }
 
   get colorStyle () {
-    return { color: this.c_color ? this.colorComputed : null }
+    return { color: this.color !== undefined ? this.colorComputed : this.icon.color }
   }
 
   get computedStyle () {
@@ -95,9 +99,11 @@ export default class VaIcon extends Mixins(
 </script>
 
 <style lang="scss">
+@import 'variables';
+
 .va-icon {
-  vertical-align: middle;
-  user-select: none;
+  vertical-align: var(--va-icon-vertical-align);
+  user-select: var(--va-icon-user-select);
 
   &#{&} {
     // need 2 classes to make it work
@@ -106,6 +112,10 @@ export default class VaIcon extends Mixins(
 
   &--spin {
     animation: va-icon--spin-animation 1500ms linear infinite;
+    &-reverse {
+      animation: va-icon--spin-animation 1500ms linear infinite;
+      animation-direction: reverse;
+    }
   }
 
   @keyframes va-icon--spin-animation {

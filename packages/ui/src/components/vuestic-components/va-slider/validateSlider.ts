@@ -1,21 +1,23 @@
+import { warn } from '../../../services/utils'
+
 export const validateSlider = (value: number | number[], step: number, min: number, max: number) => {
   if (max < min) {
-    throw new Error('The maximum value can not be less than the minimum value.')
+    warn('The maximum value can not be less than the minimum value.')
   }
 
   if (min > max) {
-    throw new Error('The minimum value can not be greater than the maximum value.')
+    warn('The minimum value can not be greater than the maximum value.')
   }
 
   if ((max - min) % step !== 0) {
-    throw new Error('Step is illegal. Slider is nondivisible.')
+    warn('Step is illegal. Slider is nondivisible.')
   }
 
   const inRange = (v: number) => {
     if (v < min) {
-      throw new Error(`The value of the slider is ${v}, the minimum value is ${min}, the value of this slider can not be less than the minimum value`)
+      warn(`The value of the slider is ${v}, the minimum value is ${min}, the value of this slider can not be less than the minimum value`)
     } else if (v > max) {
-      throw new Error(`The value of the slider is ${v}, the maximum value is ${max}, the value of this slider can not be greater than the maximum value`)
+      warn(`The value of the slider is ${v}, the maximum value is ${max}, the value of this slider can not be greater than the maximum value`)
     }
   }
 

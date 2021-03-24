@@ -1,18 +1,21 @@
 <template functional>
-  <div class="spacer" />
+  <div class="spacer"/>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Vue, Options } from 'vue-class-component'
 
-@Component({
+@Options({
   name: 'VaSpacer',
 })
-export default class VaSpacer extends Vue {}
+export default class VaSpacer extends Vue {
+}
 </script>
 
-<style lang="scss" scoped>
-  .spacer {
-    flex-grow: 1 !important;
-  }
+<style lang="scss">
+@import 'variables';
+
+.spacer {
+  flex-grow: var(--va-spacer-flex-grow);
+}
 </style>

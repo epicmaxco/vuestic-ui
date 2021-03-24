@@ -1,22 +1,22 @@
 <template>
   <div class="va-medium-editor content">
-    <slot />
+    <slot/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 // @ts-ignore
 import MediumEditor from 'medium-editor'
 
-@Component({
-  name: 'VaMediumEditor',
-})
-export default class VaMediumEditor extends Vue {
-  editor = null as any
+type EditorOptions = {
+  buttonLabels: string;
+  autoLink: boolean;
+  toolbar: object;
+}
 
-  @Prop({
+class MediumEditorProps {
+  editorOptions = prop<EditorOptions>({
     type: Object,
     default: () => {
       return {
@@ -36,7 +36,16 @@ export default class VaMediumEditor extends Vue {
       }
     },
   })
-  readonly editorOptions!: object
+}
+
+const MediumEditorPropsMixin = Vue.with(MediumEditorProps)
+
+@Options({
+  name: 'VaMediumEditor',
+  emits: ['initialized'],
+})
+export default class VaMediumEditor extends mixins(MediumEditorPropsMixin) {
+  editor = null as any
 
   initEditor () {
     this.editor = new MediumEditor(this.$el, this.editorOptions)
@@ -51,7 +60,7 @@ export default class VaMediumEditor extends Vue {
     this.initEditor()
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.destroyEditor()
   }
 }
@@ -60,11 +69,12 @@ export default class VaMediumEditor extends Vue {
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
 @import "~medium-editor/src/sass/medium-editor";
+@import 'variables';
 
 .va-medium-editor {
-  margin-bottom: 2.25rem;
-  min-width: 6rem;
-  max-width: 600px;
+  margin-bottom: var(--va-medium-editor-margin-bottom);
+  min-width: var(--va-medium-editor-min-width);
+  max-width: var(--va-medium-editor-max-width);
 
   &:focus {
     outline: none;
@@ -82,8 +92,8 @@ export default class VaMediumEditor extends Vue {
 }
 
 .medium-editor-toolbar {
-  max-width: 90%;
-  box-shadow: none;
+  max-width: var(--va-medium-editor-toolbar-max-width);
+  box-shadow: var(--va-medium-editor-toolbar-box-shadow);
 
   .medium-editor-toolbar-actions {
     overflow: hidden;

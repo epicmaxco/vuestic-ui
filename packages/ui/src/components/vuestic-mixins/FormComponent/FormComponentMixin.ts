@@ -1,65 +1,97 @@
 import isString from 'lodash/isString'
 import isFunction from 'lodash/isFunction'
 import flatten from 'lodash/flatten'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { deepEqual } from '../../../services/utils'
-import { Component, Mixins, Prop, Watch } from 'vue-property-decorator'
+import { inject } from 'vue'
+import { mixins, Options, prop, Vue, setup } from 'vue-class-component'
 
-const prepareValidations = (messages: any = [], callArguments = null) => {
-  if (isString(messages)) { messages = [messages] }
+import { FormProvider, FormServiceKey } from '../../vuestic-components/va-form/consts'
+
+const prepareValidations = (messages: string | any[] = [], callArguments = null) => {
+  if (isString(messages)) {
+    messages = [messages]
+  }
   return messages
     .map((message: any) => isFunction(message) ? message(callArguments) : message)
 }
 
-const componentProps = {
-  rules: { type: Array, default: () => [] },
-  disabled: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
-  success: { type: Boolean, default: false },
-  messages: { type: Array, default: () => [] },
-  error: { type: Boolean, default: false },
-  errorMessages: { type: [Array, String], default: () => [] },
-  errorCount: { type: Number, default: 1 },
+class Props {
+  rules = prop<any[]>({ type: Array, default: () => [] })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  readonly = prop<boolean>({ type: Boolean, default: false })
+  success = prop<boolean>({ type: Boolean, default: false })
+  messages = prop<any[]>({ type: Array, default: () => [] })
+  error = prop<boolean>({ type: Boolean, default: false })
+  errorMessages = prop<any[] | string>({ type: [Array, String] })
+  errorCount = prop<string | number>({ type: Number, default: 1 })
+  id = prop<string | number>({
+    type: [String, Number],
+    default: undefined,
+  })
+
+  name = prop<string | number>({
+    type: [String, Number],
+    default: undefined,
+  })
+
+  modelValue = prop({
+    validator: () => {
+      throw new Error('ValidateMixin: `modelValue` prop should be defined in component.')
+    },
+  })
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = Vue.with(Props)
 
-@Component
-export class FormComponentMixin extends Mixins(
+@Options({})
+export class FormComponentMixin extends mixins(
   PropsMixin,
 ) {
   hadFocus = false
   isFocused = false
-  internalErrorMessages = null
+  internalErrorMessages: any[] = []
   internalError = false
+  isFormComponent = true
 
-  @Prop({ type: [String, Number], default: undefined }) id!: string | number
-  @Prop({ type: [String, Number], default: undefined }) name!: string | number
-  @Prop({
-    validator: () => {
-      throw new Error('ValidateMixin: `value` prop should be defined in component.')
-    },
-  }) value: any
+  // beforeMount () {
+  //   console.log('im here', )
+  //   // That's just a flag for form to figure out whether component is form component.
+  //   this.isFormComponent = true
+  // }
 
-  created () {
-    // That's just a flag for form to figure out whether component is form component.
-    this.isFormComponent = true
-  }
+  // @Watch('rules', { deep: true })
+  // onRulesChanged (newVal: any, oldVal: any) {
+  //   // We want this check, because rules are passed as function,
+  //   // and, therefore, are recalculated on pretty much every change.
+  //   if (deepEqual(newVal, oldVal)) {
+  //     return
+  //   }
+  //   this.validate()
+  // }
 
-  @Watch('rules', { deep: true })
-  onRulesChanged (newVal: any, oldVal: any) {
-    // We want this check, because rules are passed as function,
-    // and, therefore, are recalculated on pretty much every change.
-    if (deepEqual(newVal, oldVal)) {
-      return
+  // @Watch('isFocused')
+  // onIsFocusedChanged (isFocused: boolean) {
+  //   if (isFocused) {
+  //     this.hadFocus = true
+  //   }
+  // }
+
+  formProvider = setup(() => {
+    const formProvider: FormProvider | undefined = inject(FormServiceKey, undefined)
+
+    return {
+      ...formProvider,
     }
-    this.validate()
+  })
+
+  mounted () {
+    if (Object.keys(this.formProvider).length) {
+      (this.formProvider as FormProvider).onChildMounted(this)
+    }
   }
 
-  @Watch('isFocused')
-  onIsFocusedChanged (isFocused: boolean) {
-    if (isFocused) {
-      this.hadFocus = true
+  unmounted () {
+    if (Object.keys(this.formProvider).length) {
+      (this.formProvider as FormProvider).onChildUnmounted(this)
     }
   }
 
@@ -69,7 +101,7 @@ export class FormComponentMixin extends Mixins(
     this.computedErrorMessages = []
 
     if (this.rules && this.rules.length > 0) {
-      prepareValidations(flatten(this.rules), this.value)
+      prepareValidations(flatten(this.rules), this.modelValue as any)
         .forEach((validateResult: any) => {
           if (isString(validateResult)) {
             this.computedErrorMessages.push(validateResult)
@@ -102,6 +134,7 @@ export class FormComponentMixin extends Mixins(
     return this.computedError
   }
 
+  // eslint-disable-next-line camelcase
   ValidateMixin_onBlur (): void {
     this.isFocused = false
     this.computedError = false
@@ -122,7 +155,7 @@ export class FormComponentMixin extends Mixins(
   }
 
   get computedErrorMessages () {
-    return prepareValidations(this.errorMessages) || this.internalErrorMessages
+    return this.errorMessages ? prepareValidations(this.errorMessages) : this.internalErrorMessages
   }
 
   set computedErrorMessages (errorMessages) {

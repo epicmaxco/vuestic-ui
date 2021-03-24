@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ColorMixin } from '../../../../services/color-config/ColorMixin'
 
 import VaRadio from '../VaRadio.vue'
 

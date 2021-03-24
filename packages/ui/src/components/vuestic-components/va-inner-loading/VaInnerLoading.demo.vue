@@ -34,12 +34,10 @@
 </template>
 
 <script>
-import VaButton from '../va-button/VaButton'
-import VaCard from '../va-card/VaCard'
-import VaCardTitle from '../va-card/VaCardTitle'
-import VaCardContent from '../va-card/VaCardContent'
-import VaSpacer from '../va-spacer/VaSpacer'
-import VaInnerLoading from '../va-inner-loading/VaInnerLoading'
+import VaButton from '../va-button'
+import VaCard, { VaCardTitle, VaCardContent } from '../va-card'
+import VaSpacer from '../va-spacer'
+import VaInnerLoading from './index'
 
 export default {
   components: {

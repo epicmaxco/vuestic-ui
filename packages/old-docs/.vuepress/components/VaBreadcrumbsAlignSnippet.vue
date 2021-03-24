@@ -22,7 +22,7 @@
 
 <script>
   import VaBreadcrumbs from '../../../ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs'
-  import VaBreadcrumbsItem from '../../../ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem'
+  import VaBreadcrumbsItem from '../../../ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem/VaBreadcrumbsItem'
 
   export default {
     components: {

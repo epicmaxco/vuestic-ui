@@ -3,10 +3,11 @@
     <p class="my-3">
       <component :is="component" />
     </p>
-    <va-button size="small" color="#cacaca" @click="showCode = !showCode">
+    <va-button size="small" outline color="primary" @click="showCode = !showCode">
       {{ $t('docsExample.showCode') }}
     </va-button>
     <va-content v-if="showCode">
+      <DocsNavigation :code="parsed.template" :git-url="file"/>
       <DocsCode :code="parsed.template" language="markup" />
     </va-content>
   </div>
@@ -16,10 +17,11 @@
 // Manually forked from https://github.com/vuetifyjs/vuetify/blob/master/packages/docs/src/components/doc/Example.vue
 import VaContent from '../../ui/src/components/vuestic-components/va-content/VaContent'
 import DocsCode from './DocsCode'
+import DocsNavigation from './DocsNavigation'
 import { readComponent, readTemplate } from '../utilities/utils'
 
 export default {
-  components: { VaContent, DocsCode },
+  components: { VaContent, DocsCode, DocsNavigation },
   props: {
     value: {
       type: [Object, String],

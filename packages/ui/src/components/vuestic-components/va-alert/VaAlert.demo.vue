@@ -12,7 +12,7 @@
         You successfully read this important alert message.
       </va-alert>
       <va-alert>
-        <template slot="title">
+        <template #title>
           Slotted title
         </template>
         You successfully read this important alert message.
@@ -87,8 +87,12 @@
     </VbCard>
 
     <VbCard title="Closeable Alert">
-      <va-checkbox
-        label="Toggle visibility"
+      <label for="isCloseableAlertVisible">
+        Toggle visibility
+      </label>
+      <input
+        id="isCloseableAlertVisible"
+        type="checkbox"
         v-model="isCloseableAlertVisible"
       />
       <va-alert
@@ -118,7 +122,7 @@
         v-model="isCloseableAlertVisible"
         closeable
       >
-        <template slot="close">
+        <template #close>
           slotted close
         </template>
         You successfully read this important alert message.
@@ -149,7 +153,7 @@
       </va-alert>
 
       <va-alert>
-        <template slot="icon">
+        <template #icon>
           Slotted icon
           <va-icon name="warning" />
         </template>
@@ -186,14 +190,12 @@
 </template>
 
 <script>
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaAlert from './VaAlert'
-import VaBadge from '../va-badge/VaBadge'
-import VaIcon from '../va-icon/VaIcon'
+import VaAlert from './index'
+import VaBadge from '../va-badge'
+import VaIcon from '../va-icon'
 
 export default {
   components: {
-    VaCheckbox,
     VaAlert,
     VaBadge,
     VaIcon,

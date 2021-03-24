@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2018",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
@@ -11,9 +11,14 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist",
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "node",
+      "medium-editor"
     ],
     "lib": [
       "esnext",
@@ -25,7 +30,9 @@
       "v-tooltip": [
         "src/types/v-tooltip.d.ts"
       ],
-      "json-loader": ["src/types/json-loader.d.ts"]
+      "json-loader": [
+        "src/types/json-loader.d.ts"
+      ]
     }
   },
   "include": [
@@ -33,10 +40,12 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "../../node_modules/@types/node/globals.d.ts"
+    "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.spec.ts",
+    "src/components/vuestic-components/va-data-table",
+    "src/services/api-docs"
   ]
 }

@@ -6,6 +6,7 @@
         <va-card-content />
       </va-card>
     </VbCard>
+    <!-- TODO: check if this even works  -->
     <VbCard title="Dark">
       <va-card
         style="width: 400px;"
@@ -15,6 +16,28 @@
         <va-card-content>{{ lorem }}</va-card-content>
       </va-card>
     </VbCard>
+
+    <VbCard title="Dark (Colored text)">
+      <va-card
+        style="width: 400px;"
+        dark
+      >
+        <va-card-title textColor="primary">Title</va-card-title>
+        <va-card-content textColor="info">{{ lorem }}</va-card-content>
+      </va-card>
+    </VbCard>
+
+    <VbCard title="Dark (Colored background)">
+      <va-card
+        style="width: 400px;"
+        color="secondary"
+        dark
+      >
+        <va-card-title>Title</va-card-title>
+        <va-card-content>{{ lorem }}</va-card-content>
+      </va-card>
+    </VbCard>
+
     <VbCard title="Square">
       <va-card
         style="width: 400px;"
@@ -181,7 +204,7 @@
       <span title="Shouldn't be in demo. But should be fine to keep it in docs.">❗❗</span>
       <div style="display: flex;">
         <div>
-          <va-context
+          <va-config
             :config="{VaCard: {stripe: true, stripeColor: 'primary'}, VaCardTitle: {textColor: 'info'}}"
           >
             <va-card style="width: 400px;">
@@ -191,9 +214,9 @@
                 <a href>Read full article</a>
               </va-card-content>
             </va-card>
-          </va-context>
+          </va-config>
         </div>
-        <va-context :config="{VaCardTitle: {textColor: 'info'}}">
+        <va-config :config="{VaCardTitle: {textColor: 'info'}}">
           <va-card style="width: 400px; margin-left: 1rem;">
             <va-image
               src="https://picsum.photos/400/200"
@@ -205,19 +228,17 @@
               <va-button>Upload file</va-button>
             </va-card-content>
           </va-card>
-        </va-context>
+        </va-config>
       </div>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaCard from './VaCard'
-import VaCardTitle from './VaCardTitle'
-import VaCardContent from './VaCardContent'
-import VaButton from '../va-button/VaButton'
-import VaImage from '../va-image/VaImage'
-import VaContext from '../../context-test/context-provide/VaContext'
+import VaCard, { VaCardContent, VaCardTitle } from './index'
+import VaButton from '../va-button'
+import VaImage from '../va-image'
+import VaConfig from '../va-config'
 
 export default {
   components: {
@@ -226,7 +247,7 @@ export default {
     VaCardContent,
     VaButton,
     VaImage,
-    VaContext,
+    VaConfig,
   },
   data () {
     return {

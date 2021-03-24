@@ -1,22 +1,28 @@
 <template>
   <div
     class="va-color-square"
-    :style="{'background-color': value}"
+    :style="{'background-color': modelValue}"
   />
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 
-@Component({
-  name: 'VaColorSquare',
-})
-export default class VaColorSquare extends Vue {
-  @Prop({
+class ColorSquareProps {
+  modelValue = prop<string>({
     type: String,
     default: '',
     required: true,
-  }) readonly value!: string
+  })
+}
+
+const ColorSquarePropsMixin = Vue.with(ColorSquareProps)
+
+@Options({
+  name: 'VaColorSquare',
+})
+export default class VaColorSquare extends mixins(ColorSquarePropsMixin) {
+
 }
 </script>
 

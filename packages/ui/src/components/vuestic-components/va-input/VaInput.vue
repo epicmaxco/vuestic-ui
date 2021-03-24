@@ -1,8 +1,8 @@
 <template>
   <va-input-wrapper
     class="va-input"
-    :disabled="c_disabled"
-    :success="c_success"
+    :disabled="disabled"
+    :success="success"
     :messages="messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
@@ -10,10 +10,10 @@
     @click:prepend="onPrependClick"
     @click:append="onAppendClick"
   >
-    <slot
-      name="prepend"
-      slot="prepend"
-    />
+    <template #prepend v-if="$slots.prepend">
+      <slot name="prepend" />
+    </template>
+
     <div
       class="va-input__container"
       :class="{'va-input__container--textarea': isTextarea}"
@@ -24,11 +24,11 @@
         @click="onPrependInnerClick"
         class="va-input__container__prepend-inner"
       >
-        <slot name="prependInner" />
+        <slot name="prependInner"/>
       </div>
       <div
         class="va-input__container__content-wrapper"
-        :style="{ alignItems: c_label ? 'flex-end' : 'center'}"
+        :style="{ alignItems: label ? 'flex-end' : 'center'}"
       >
         <label
           :style="labelStyles"
@@ -42,16 +42,16 @@
           :id="id"
           :name="name"
           class="va-input__container__input"
-          :aria-label="c_label"
-          :type="c_type"
-          :placeholder="c_placeholder"
-          :disabled="c_disabled"
-          :readonly="c_readonly"
+          :aria-label="label"
+          :type="type"
+          :placeholder="placeholder"
+          :disabled="disabled"
+          :readonly="readonly"
           :value="computedValue"
           v-on="eventListeners"
-          v-bind="$attrs"
+          v-bind="computedAttributes"
           ref="input"
-          :tabindex="c_tabindex"
+          :tabindex="tabindex"
         />
         <textarea
           v-else
@@ -59,15 +59,15 @@
           :name="name"
           class="va-input__container__input"
           :style="textareaStyles"
-          :aria-label="c_label"
-          :placeholder="c_placeholder"
-          :disabled="c_disabled"
-          :readonly="c_readonly"
-          :value="c_value"
+          :aria-label="label"
+          :placeholder="placeholder"
+          :disabled="disabled"
+          :readonly="readonly"
+          :value="modelValue"
           v-on="eventListeners"
-          v-bind="$attrs"
+          v-bind="computedAttributes"
           ref="textarea"
-          :tabindex="c_tabindex"
+          :tabindex="tabindex"
         />
       </div>
       <div
@@ -75,14 +75,14 @@
         @click="onAppendInnerClick"
         class="va-input__container__append-inner"
       >
-        <slot name="appendInner" />
+        <slot name="appendInner"/>
       </div>
       <div
         v-if="showIcon"
         class="va-input__container__icon-wrapper"
       >
         <va-icon
-          v-if="c_success"
+          v-if="success"
           class="va-input__container__icon"
           color="success"
           name="check"
@@ -95,74 +95,80 @@
         />
         <va-icon
           v-if="canBeCleared"
-          @click.native.stop="reset()"
+          @click.stop="reset()"
           class="va-input__container__close-icon"
           :color="computedError ? 'danger': 'gray'"
           name="highlight_off"
         />
       </div>
     </div>
-    <slot
-      name="append"
-      slot="append"
-    />
+    <template #append v-if="$slots.append">
+      <slot
+        name="append"
+      />
+    </template>
   </va-input-wrapper>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
+import { getHoverColor } from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import VaInputWrapper from '../va-input/VaInputWrapper'
+import VaIcon from '../va-icon'
 
-import { getHoverColor } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
 import { InputMixin } from './helpers/InputMixin'
 import { TextareaMixin } from './helpers/TextareaMixin'
 
-const InputPropsMixin = makeContextablePropsMixin({
-  color: { type: String, default: '' },
-  value: { type: [String, Number], default: '' },
-  label: { type: String, default: '' },
-  placeholder: { type: String, default: '' },
-  type: { type: String, default: 'text' },
-  removable: { type: Boolean, default: false },
-  tabindex: { type: Number, default: 0 },
-})
+class InputProps {
+  color = prop<string>({ type: String, default: '' })
+  placeholder = prop<string>({ type: String, default: '' })
+  removable = prop<boolean>({ type: Boolean, default: false })
+  tabindex = prop<number>({ type: Number, default: 0 })
+}
 
-@Component({
+const InputPropsMixin = Vue.with(InputProps)
+
+@Options({
   name: 'VaInput',
   components: { VaInputWrapper, VaIcon },
+  emits: ['update:modelValue', 'change', 'click-prepend', 'click-prepend-inner',
+    'click-append', 'click-append-inner', 'focus', 'blur', 'keyup', 'keydown', 'click'],
 })
-export default class VaInput extends Mixins(
-  ColorThemeMixin,
-  FormComponentMixin,
-  InputPropsMixin,
+export default class VaInput extends mixins(
+  ColorMixin,
   InputMixin,
   TextareaMixin,
+  InputPropsMixin,
 ) {
   get labelStyles (): any {
     if (this.computedError) {
       return { color: this.computeColor('danger') }
     }
 
-    if (this.c_success) {
+    if (this.success) {
       return { color: this.computeColor('success') }
     }
 
     return { color: this.colorComputed }
   }
 
+  get computedAttributes () {
+    return { ...this.$attrs, class: this.$attrs.inputClass }
+  }
+
   get containerStyles (): any {
     return {
       backgroundColor:
-        this.computedError ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
-          : this.c_success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
+        this.computedError
+          ? (this.computeColor('danger') ? getHoverColor(this.computeColor('danger')) : '')
+          : this.success ? (this.computeColor('success') ? getHoverColor(this.computeColor('success')) : '') : '#f5f8f9',
       borderColor:
-        this.computedError ? this.computeColor('danger')
-          : this.c_success ? this.computeColor('success')
+        this.computedError
+          ? this.computeColor('danger')
+          : this.success
+            ? this.computeColor('success')
             : this.isFocused ? this.computeColor('dark') : this.computeColor('gray'),
     }
   }
@@ -171,65 +177,66 @@ export default class VaInput extends Mixins(
 
 <style lang='scss'>
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-input {
   &__container {
-    display: flex;
-    position: relative;
-    width: 100%;
-    min-height: 2.375rem;
-    border-style: solid;
-    border-width: 0 0 thin 0;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    display: var(--va-input-container-display);
+    position: var(--va-input-container-position);
+    width: var(--va-input-container-width);
+    min-height: var(--va-input-container-min-height);
+    border-style: var(--va-input-container-border-style);
+    border-width: var(--va-input-container-border-width);
+    border-top-left-radius: var(--va-input-container-border-top-left-radius);
+    border-top-right-radius: var(--va-input-container-border-top-right-radius);
 
     &__content-wrapper {
-      display: flex;
-      align-items: flex-end;
-      width: 100%;
-      padding: 0 0.5rem;
+      display: var(--va-input-container-content-wrapper-display);
+      align-items: var(--va-input-container-content-wrapper-align-items);
+      width: var(--va-input-container-content-wrapper-width);
+      padding: var(--va-input-container-content-wrapper-padding);
 
       /* min-width: 100%; */
     }
 
     &__icon-wrapper {
-      display: flex;
-      align-items: center;
-      margin-right: 0.5rem;
+      display: var(--va-input-container-icon-wrapper-display);
+      align-items: var(--va-input-container-icon-wrapper-align-items);
+      margin-right: var(--va-input-container-icon-wrapper-margin-right);
     }
 
     &__prepend-inner {
-      display: flex;
-      align-items: center;
-      margin-left: 0.5rem;
+      display: var(--va-input-container-prepend-inner-display);
+      align-items: var(--va-input-container-prepend-inner-align-items);
+      margin-left: var(--va-input-container-prepend-inner-margin-left);
     }
 
     &__append-inner {
-      display: flex;
-      align-items: center;
-      margin-right: 0.5rem;
+      display: var(--va-input-container-prepend-inner-display);
+      align-items: var(--va-input-container-prepend-inner-align-items);
+      margin-right: var(--va-input-container-append-inner-margin-right);
     }
 
     &__close-icon {
-      cursor: pointer;
-      margin-left: 0.25rem;
+      cursor: var(--va-input-container-close-icon-cursor);
+      margin-left: var(--va-input-container-close-icon-margin-left);
     }
 
     &__label {
-      position: absolute;
+      position: var(--va-input-container-label-position);
 
       /* bottom: 0.875rem; */
-      top: 0.125rem;
+      top: var(--va-input-container-label-top);
 
       /* left: 0.5rem; */
-      margin-bottom: 0.5rem;
-      max-width: calc(100% - 0.75rem);
-      color: $vue-green;
-      font-size: 0.625rem;
-      letter-spacing: 0.0375rem;
-      line-height: 1.2;
-      font-weight: $font-weight-bold;
-      text-transform: uppercase;
+      margin-bottom: var(--va-input-container-label-margin-bottom);
+      max-width: var(--va-input-container-label-max-width);
+      color: var(--va-input-container-label-color);
+      font-size: var(--va-input-container-label-font-size);
+      letter-spacing: var(--va-input-container-label-letter-spacing, var(--primary-letter-spacing));
+      line-height: var(--va-input-container-label-line-height);
+      font-weight: var(--va-input-container-label-font-weight);
+      text-transform: var(--va-input-container-label-text-transform);
 
       @include va-ellipsis();
 
@@ -241,27 +248,27 @@ export default class VaInput extends Mixins(
       top: 0.125rem;
     }
 
-    &__input {
-      width: 100%;
-      height: 1.5rem;
+    input, textarea {
+      width: var(--va-input-width);
+      height: var(--va-input-height);
 
       /* margin-bottom: 0.125rem; */
 
       /* padding: 0.25rem 0.5rem; */
-      color: #34495e;
-      background-color: transparent;
-      border-style: none;
-      outline: none;
-      font-size: 1rem;
-      font-family: $font-family-sans-serif;
-      font-weight: normal;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.5;
-      letter-spacing: normal;
+      color: var(--va-input-color);
+      background-color: var(--va-input-background-color);
+      border-style: var(--va-input-border-style);
+      outline: var(--va-input-outline);
+      font-size: var(--va-input-font-size);
+      font-family: var(--va-input-font-family, var(--primary-font-family));
+      font-weight: var(--va-input-font-weight);
+      font-style: var(--va-input-font-style);
+      font-stretch: var(--va-input-font-stretch);
+      line-height: var(--va-input-line-height);
+      letter-spacing: var(--va-input-letter-spacing);
 
       &::placeholder {
-        color: $brand-secondary;
+        color: var(--va-input-letter-placeholder-color);
       }
 
       &:placeholder-shown {
@@ -271,7 +278,7 @@ export default class VaInput extends Mixins(
       }
 
       &:disabled {
-        opacity: 0.4;
+        opacity: var(--va-input-letter-disabled-opacity);
       }
     }
 

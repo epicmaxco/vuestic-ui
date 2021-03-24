@@ -2,9 +2,9 @@
   <va-input-wrapper
     class="va-checkbox"
     :class="computedClass"
-    :disabled="c_disabled"
-    :success="c_success"
-    :messages="c_messages"
+    :disabled="disabled"
+    :success="success"
+    :messages="messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
@@ -33,8 +33,8 @@
           @blur="onBlur($event)"
           class="va-checkbox__input"
           @keypress.prevent="toggleSelection()"
-          :disabled="c_disabled"
-          :indeterminate="c_indeterminate"
+          :disabled="disabled"
+          :indeterminate="indeterminate"
         >
         <va-icon
           class="va-checkbox__icon"
@@ -50,7 +50,7 @@
         @blur="onBlur"
       >
         <slot name="label">
-          {{ c_label }}
+          {{ label }}
         </slot>
       </div>
     </div>
@@ -58,47 +58,53 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import VaIcon from '../va-icon/VaIcon.vue'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
-
-import { getColor } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import VaIcon from '../va-icon/'
+import { VaInputWrapper } from '../va-input'
 
-const CheckboxPropsMixin = makeContextablePropsMixin({
-  value: { type: [Boolean, Array, String, Object], default: false },
-  checkedIcon: { type: String, default: 'check' },
-  indeterminateIcon: { type: String, default: 'remove' },
-})
+type ModelValue = boolean | boolean[] | string | object
 
-@Component({
+class CheckboxProps {
+  modelValue = prop<ModelValue>({
+    type: [Boolean, Array, String, Object],
+    default: false,
+  })
+  checkedIcon = prop<string>({ type: String, default: 'check' })
+  indeterminateIcon = prop<string>({ type: String, default: 'remove' })
+}
+
+const CheckboxPropsMixin = Vue.with(CheckboxProps)
+
+@Options({
   name: 'VaCheckbox',
   components: { VaInputWrapper, VaIcon },
 })
-export default class VaCheckbox extends Mixins(
+export default class VaCheckbox extends mixins(
+  ColorMixin,
   SelectableMixin,
   CheckboxPropsMixin,
 ) {
   get computedClass () {
     return {
       'va-checkbox--selected': this.isChecked,
-      'va-checkbox--readonly': this.c_readonly,
-      'va-checkbox--disabled': this.c_disabled,
-      'va-checkbox--indeterminate': this.c_indeterminate,
+      'va-checkbox--readonly': this.readonly,
+      'va-checkbox--disabled': this.disabled,
+      'va-checkbox--indeterminate': this.indeterminate,
       'va-checkbox--error': this.computedError,
-      'va-checkbox--left-label': this.c_leftLabel,
+      'va-checkbox--left-label': this.leftLabel,
       'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
     }
   }
 
   get labelStyle () {
     return {
-      color: this.computedError ? getColor(this, 'danger') : '',
-      padding: !this.c_label
+      color: this.computedError ? this.theme.getColor('danger') : '',
+      padding: !this.label
         ? ''
-        : this.c_leftLabel
+        : this.leftLabel
           ? '0 0.25rem 0 0'
           : '0 0 0 0.25rem',
     }
@@ -107,43 +113,47 @@ export default class VaCheckbox extends Mixins(
   get inputStyle () {
     return this.computedError
       ? (this.isChecked || this.isIndeterminate)
-        ? { background: this.colorComputed, borderColor: getColor(this, 'danger') }
-        : { borderColor: getColor(this, 'danger') }
+        ? {
+          background: this.colorComputed,
+          borderColor: this.theme.getColor('danger'),
+        }
+        : { borderColor: this.theme.getColor('danger') }
       : (this.isChecked || this.isIndeterminate)
         ? { background: this.colorComputed, borderColor: this.colorComputed }
         : {}
   }
 
   get computedIconName () {
-    return (this.c_indeterminate && this.isIndeterminate)
-      ? this.c_indeterminateIcon
-      : this.c_checkedIcon
+    return (this.indeterminate && this.isIndeterminate)
+      ? this.indeterminateIcon
+      : this.checkedIcon
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import "variables";
 
 .va-checkbox {
-  display: block;
-  max-width: fit-content;
+  display: var(--va-checkbox-display);
+  max-width: var(--va-checkbox-max-width);
 
   &__input-container {
-    align-items: center;
-    display: flex;
-    padding: 0 0.3rem;
-    cursor: pointer;
+    align-items: var(--va-checkbox-input-align-items);
+    display: var(--va-checkbox-input-display);
+    padding: var(--va-checkbox-input-padding);
+    cursor: var(--va-checkbox-input-cursor);
 
     @at-root {
       .va-checkbox--disabled & {
         @include va-disabled();
 
-        cursor: default;
+        cursor: var(--va-checkbox-disabled-cursor);
       }
 
       .va-checkbox--readonly & {
-        cursor: initial;
+        cursor: var(--va-checkbox-readonly-cursor);
       }
 
       .va-checkbox--left-label & {
@@ -155,13 +165,13 @@ export default class VaCheckbox extends Mixins(
   #{&}__square {
     @include flex-center();
 
-    width: 1.35rem;
-    min-width: 1.35rem;
-    height: 1.35rem;
-    position: relative;
-    background-color: $white;
-    border: solid 0.125rem $gray-light;
-    border-radius: 0.25rem;
+    width: var(--va-checkbox-square-width);
+    min-width: var(--va-checkbox-square-min-width);
+    height: var(--va-checkbox-square-height);
+    position: var(--va-checkbox-square-position);
+    background-color: var(--va-checkbox-square-background-color, var(--primary-background-color));
+    border: var(--va-checkbox-square-border, var(--primary-control-border));
+    border-radius: var(--va-checkbox-square-border-radius, var(--square-border-radius));
 
     @at-root {
       .va-checkbox--on-keyboard-focus#{&} {
@@ -174,24 +184,24 @@ export default class VaCheckbox extends Mixins(
   &__input {
     opacity: 0;
     width: 0;
-    height: 0;
+    height: 0 !important;
   }
 
   &__label {
-    display: inline-block;
-    position: relative;
+    display: var(--va-checkbox-label-display);
+    position: var(--va-checkbox-label-position);
   }
 
   &__icon {
-    pointer-events: none;
-    position: absolute;
-    color: transparent;
+    pointer-events: var(--va-checkbox-icon-pointer-events);
+    position: var(--va-checkbox-icon-position);
+    color: var(--va-checkbox-icon-color);
   }
 
   &--selected {
     .va-checkbox {
       &__icon {
-        color: $white;
+        color: var(--va-checkbox-selected-icon-color);
       }
     }
   }
@@ -199,7 +209,7 @@ export default class VaCheckbox extends Mixins(
   &--indeterminate {
     .va-checkbox {
       &__icon {
-        color: $white;
+        color: var(--va-checkbox-indeterminate-icon-color);
       }
     }
   }

@@ -1,6 +1,12 @@
 <template>
   <va-dropdown class="color-dropdown" :offset="[0, 13]">
-    <va-button-dropdown slot="anchor" :button-props="{flat: true}" class="color-dropdown__icon" color="primary" :label="themeLabel">
+    <va-button-dropdown
+      slot="anchor"
+      class="color-dropdown__icon"
+      color="primary"
+      flat
+      :label="themeLabel"
+    >
     <div class="color-dropdown__content px-1">
       <va-button-toggle
         v-model="selectedTheme"
@@ -12,48 +18,48 @@
       />
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
         <va-badge slot="anchor" class="color-picker-dropdown__badge" color="primary" text="primary"/>
-        <va-advanced-color-picker v-model="themes.primary" class="my-1" />
+        <va-color-picker v-model="themes.primary" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
         <va-badge slot="anchor" class="color-picker-dropdown__badge" color="secondary" text="secondary" />
-        <va-advanced-color-picker v-model="themes.secondary" class="my-1" />
+        <va-color-picker v-model="themes.secondary" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
         <va-badge slot="anchor" class="color-picker-dropdown__badge" color="success" text="Success"/>
 
-        <va-advanced-color-picker v-model="themes.success" class="my-1" />
+        <va-color-picker v-model="themes.success" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
         <va-badge slot="anchor" class="color-picker-dropdown__badge" color="info" text="Info"/>
 
-        <va-advanced-color-picker v-model="themes.info" class="my-1" />
+        <va-color-picker v-model="themes.info" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
         <va-badge slot="anchor" class="color-picker-dropdown__badge" color="danger" text="Danger"/>
 
-        <va-advanced-color-picker v-model="themes.danger" class="my-1" />
+        <va-color-picker v-model="themes.danger" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
         <va-badge slot="anchor" class="color-picker-dropdown__badge" color="warning" text="Warning"/>
 
-        <va-advanced-color-picker v-model="themes.warning" class="my-1" />
+        <va-color-picker v-model="themes.warning" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
         <va-badge slot="anchor" class="color-picker-dropdown__badge" color="gray" text="Gray"/>
 
-        <va-advanced-color-picker v-model="themes.gray" class="my-1" />
+        <va-color-picker v-model="themes.gray" class="my-1" />
       </va-dropdown>
 
       <va-dropdown class="color-picker-dropdown mt-1 mb-1">
         <va-badge slot="anchor" class="color-picker-dropdown__badge" color="dark" text="Dark"/>
 
-        <va-advanced-color-picker v-model="themes.dark" class="my-1" />
+        <va-color-picker v-model="themes.dark" class="my-1" />
       </va-dropdown>
     </div>
     </va-button-dropdown>

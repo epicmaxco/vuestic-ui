@@ -18,6 +18,7 @@
       <tr
         v-for="(propRow, key) in apiTableData.props"
         :key="key"
+        class="ApiDocs__table__row"
       >
         <td><strong>{{ propRow.name }}</strong></td>
         <td>
@@ -51,6 +52,7 @@
         <tr
           v-for="(apiEventOption, eventName) in apiTableData.events"
           :key="eventName"
+          class="ApiDocs__table__row"
         >
           <td><strong>{{ eventName }}</strong></td>
           <td>
@@ -81,6 +83,7 @@
         <tr
           v-for="(apiSlotOption, slotName) in apiTableData.slots"
           :key="slotName"
+          class="ApiDocs__table__row"
         >
           <td><strong>{{ slotName }}</strong></td>
           <td>
@@ -109,6 +112,7 @@
         <tr
           v-for="(apiMethodOption, methodName) in apiTableData.methods"
           :key="methodName"
+          class="ApiDocs__table__row"
         >
           <td><strong>{{ methodName }}</strong></td>
           <td>
@@ -128,30 +132,37 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 import { ComponentOptions } from 'vue'
 import { ManualApiOptions } from './ManualApiOptions'
 import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
 import { getApiTableData, mergeInDefaults } from './api-docs-helpers'
 import MarkdownView
-  from '../../../../docs/utilities/markdown-view/MarkdownView.vue'
+  from '../../../../vue-cli-docs/src/utilities/markdown-view/MarkdownView.vue'
 import { defaultApiOptions } from './default-api-options'
 
-@Component({
+class Props {
+  componentOptions = prop<ComponentOptions<Vue>>({ type: Object, required: true })
+  apiOptions = prop<ManualApiOptions>({ type: Object, default: () => ({}) })
+}
+
+const PropsMixin = Vue.with(Props)
+
+@Options({
   components: { ApiDocsPropsRow, MarkdownView },
 })
-export default class ApiDocs extends Vue {
-  @Prop({
-    type: Object,
-    required: true,
-  }) componentOptions!: ComponentOptions<Vue>
-
-  @Prop({ type: Object, default: () => ({}) }) apiOptions!: ManualApiOptions
-
+export default class ApiDocs extends mixins(PropsMixin) {
   get apiTableData () {
     // TODO Modifies parent object, which is not ideal.
-    mergeInDefaults(this.apiOptions, defaultApiOptions)
-    return getApiTableData(this.componentOptions, this.apiOptions)
+    // mergeInDefaults(this.apiOptions, defaultApiOptions)
+    // return getApiTableData(this.componentOptions, this.apiOptions)
+    return {
+      name: '',
+      props: {},
+      slots: {},
+      events: {},
+      methods: {},
+    }
   }
 
   isEmpty (object: Record<string, any>): boolean {
@@ -161,11 +172,21 @@ export default class ApiDocs extends Vue {
 </script>
 
 <style lang="scss">
+@import "../ui/src/components/vuestic-sass/resources/resources";
+
 .ApiDocs {
+  h5 {
+    margin-top: 4rem;
+  }
+
   &__table {
     width: 100%;
     font-family: "Source Code Pro";
     font-size: 16px;
+
+    &__row {
+      border-bottom: 1px solid $prism-background;
+    }
 
     th {
       font-family: Source Sans Pro !important;

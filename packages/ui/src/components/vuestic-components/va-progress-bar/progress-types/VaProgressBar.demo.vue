@@ -5,25 +5,25 @@
       <va-progress-bar />
       <br>
       Default
-      <va-progress-bar :value="value" />
+      <va-progress-bar :modelValue="value" />
       <br>
       Rounded: false
       <va-progress-bar
         :rounded="false"
-        :value="value"
+        :modelValue="value"
       />
     </VbCard>
 
     <VbCard title="Color">
       Danger color
       <va-progress-bar
-        :value="value"
+        :modelValue="value"
         color="danger"
       />
       <br>
       Custom color
       <va-progress-bar
-        :value="value"
+        :modelValue="value"
         color="purple"
       />
     </VbCard>
@@ -32,37 +32,37 @@
       Size small
       <va-progress-bar
         size="small"
-        :value="value"
+        :modelValue="value"
       />
       <br>
       Size large
       <va-progress-bar
         size="large"
-        :value="value"
+        :modelValue="value"
       />
       <br>
       Size 25px
       <va-progress-bar
         :size="25"
-        :value="value"
+        :modelValue="value"
       />
       <br>
       Size rem
       <va-progress-bar
         size="2rem"
-        :value="value"
+        :modelValue="value"
       />
     </VbCard>
 
     <VbCard title="Slotted">
       Static slot
-      <va-progress-bar :value="value">
+      <va-progress-bar :modelValue="value">
         Slot
       </va-progress-bar>
       <br>
       Small preset
       <va-progress-bar
-        :value="value"
+        :modelValue="value"
         size="small"
       >
         Slot
@@ -70,7 +70,7 @@
       <br>
       Large preset
       <va-progress-bar
-        :value="value"
+        :modelValue="value"
         :rounded="false"
         size="large"
       >
@@ -78,7 +78,7 @@
       </va-progress-bar>
       <br>
       Dynamic slot
-      <va-progress-bar :value="value">
+      <va-progress-bar :modelValue="value">
         {{ value + '%' }}
       </va-progress-bar>
     </VbCard>
@@ -90,13 +90,13 @@
 
     <VbCard title="Reverse">
       <va-progress-bar
-        :value="value"
+        :modelValue="value"
         reverse
       />
       <br>
       Buffer
       <va-progress-bar
-        :value="value"
+        :modelValue="value"
         :buffer="60"
         reverse
       />
@@ -114,7 +114,7 @@
     >
       Buffer
       <va-progress-bar
-        :value="value"
+        :modelValue="value"
         :buffer="bufferValue"
       />
     </VbCard>
@@ -135,19 +135,19 @@
       <div>
         color:
         <VaContext :config="{VaProgressBar: {color: 'danger'}}">
-          <VaProgressBar :value="80" />
+          <VaProgressBar :modelValue="80" />
         </VaContext>
       </div>
       <div>
         size:
         <VaContext :config="{VaProgressBar: {size: 30}}">
-          <VaProgressBar :value="80" />
+          <VaProgressBar :modelValue="80" />
         </VaContext>
       </div>
       <div>
         reverse:
         <VaContext :config="{VaProgressBar: {reverse: true}}">
-          <VaProgressBar :value="30" />
+          <VaProgressBar :modelValue="30" />
         </VaContext>
       </div>
       <div>
@@ -205,8 +205,8 @@
 </template>
 
 <script>
-import VaProgressBar from './VaProgressBar'
-import VaContext from '../../../context-test/context-provide/VaContext'
+import { VaProgressBar } from '../index'
+import VaContext from '../../va-config'
 
 export default {
   components: {

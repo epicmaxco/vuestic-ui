@@ -3,8 +3,8 @@
     <color-dot
       class="va-color-input__dot"
       :selected="selected"
-      :color="value"
-      @click="onClick"
+      :color="modelValue"
+      @click="onClick()"
     />
     <va-input
       class="va-color-input__input"
@@ -16,39 +16,45 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import ColorDot from './ColorDot.vue'
-import VaInput from '../va-input/VaInput.vue'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 
-@Component({
+import VaInput from '../va-input'
+import { ColorDot } from './index'
+
+class ColorInputProps {
+  modelValue = prop<string>({
+    type: String,
+    default: '',
+  })
+
+  selected = prop<boolean>({
+    type: Boolean,
+    default: false,
+  })
+
+  disabled = prop<boolean>({
+    type: Boolean,
+    default: false,
+  })
+}
+
+const ColorInputPropsMixin = Vue.with(ColorInputProps)
+
+@Options({
   name: 'VaColorInput',
   components: {
     VaInput,
     ColorDot,
   },
+  emits: ['update:modelValue', 'click'],
 })
-export default class VaColorInput extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly value!: string
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly selected!: boolean
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly disabled!: boolean
-
+export default class VaColorInput extends mixins(ColorInputPropsMixin) {
   get valueProxy (): any {
-    return this.value
+    return this.modelValue
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 
   onClick (): void {

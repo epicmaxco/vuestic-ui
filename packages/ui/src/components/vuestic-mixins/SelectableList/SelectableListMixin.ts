@@ -1,47 +1,52 @@
-import { Component, Mixins } from 'vue-property-decorator'
+import { mixins, prop, Vue } from 'vue-class-component'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { getProp } from '../../../services/utils'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
 
-const componentProps = {
-  options: { type: Array, default: () => [] },
-  textBy: { type: [String, Function], default: 'text' },
-  valueBy: { type: [String, Function] },
-  trackBy: { type: [String, Function], default: 'value' },
-  disabledBy: { type: [String, Function], default: 'disabled' },
+type StringOrFunction = string | Function
+
+class SelectableListProps {
+  options = prop<any[]>({ type: Array, default: () => [] })
+  textBy = prop<StringOrFunction>({ type: [String, Function], default: 'text' })
+  valueBy = prop<StringOrFunction>({ type: [String, Function] })
+  trackBy = prop<StringOrFunction>({ type: [String, Function], default: 'value' })
+  disabledBy = prop<StringOrFunction>({ type: [String, Function], default: 'disabled' })
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const SelectableListPropsMixin = Vue.with(SelectableListProps)
 
-@Component
-export class SelectableListMixin extends Mixins(
+export class SelectableListMixin extends mixins(
   FormComponentMixin,
-  PropsMixin,
+  SelectableListPropsMixin,
 ) {
+  isSelectableListComponent!: boolean
+
   created () {
     this.isSelectableListComponent = true
   }
 
   getValue (option: any) {
-    const value = typeof option === 'string'
+    return typeof option === 'string'
       ? option
+      // @ts-ignore
       : getProp(option, this.valueBy)
-    return value
   }
 
   getText (option: any) {
     return typeof option === 'string'
       ? option
+      // @ts-ignore
       : getProp(option, this.textBy)
   }
 
   getDisabled (option: any) {
+    // @ts-ignore
     return typeof option !== 'string' && getProp(option, this.disabledBy)
   }
 
   getTrackBy (option: any) {
     return typeof option === 'string'
       ? option
+      // @ts-ignore
       : getProp(option, this.trackBy)
   }
 }

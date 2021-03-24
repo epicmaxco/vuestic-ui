@@ -1,60 +1,67 @@
 <template>
   <div class="va-tree-root">
-    <slot />
+    <slot/>
   </div>
 </template>
 
-<script>
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import Vue from 'vue'
+<script lang="ts">
+import { provide, ref } from 'vue'
+import { Options, setup, mixins } from 'vue-class-component'
 
-export default {
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import VaTreeCategory from './VaTreeCategory/VaTreeCategory.vue'
+
+@Options({
   name: 'VaTreeRoot',
-  mixins: [ColorThemeMixin],
-  provide () {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const parent = this
-    return {
-      va: new Vue({
-        computed: {
-          color () {
-            return parent.color
-          },
-        },
-      }),
+})
+
+export default class VaTreeRoot extends mixins(ColorMixin) {
+  setupContext = setup(() => {
+    const categories = ref<VaTreeCategory[]>([])
+
+    const onChildMounted = (category: VaTreeCategory) => {
+      categories.value.push(category)
     }
-  },
-  methods: {
-    /**
-     * @public
-     */
-    collapse () {
-      this.$nextTick(() => {
-        this.$children.forEach(child => {
-          if (child.$options.name === 'va-tree-category') {
-            child.collapse()
-          }
-        })
+
+    const onChildUnmounted = (removableCategory: VaTreeCategory) => {
+      categories.value = categories.value.filter((category: VaTreeCategory) => category !== removableCategory)
+    }
+
+    const treeRoot = {
+      color: this.$props.color,
+      onChildMounted,
+      onChildUnmounted,
+    }
+
+    provide('treeRoot', treeRoot)
+
+    return {
+      categories,
+    }
+  })
+
+  collapse () {
+    this.$nextTick(() => {
+      this.setupContext.categories.forEach((child: VaTreeCategory) => {
+        child.collapse()
       })
-    },
-    /**
-     * @public
-     */
-    expand () {
-      this.$nextTick(() => {
-        this.$children.forEach(child => {
-          if (child.$options.name === 'va-tree-category') {
-            child.expand()
-          }
-        })
+    })
+  }
+
+  expand () {
+    this.$nextTick(() => {
+      this.setupContext.categories.forEach((child: VaTreeCategory) => {
+        child.expand()
       })
-    },
-  },
+    })
+  }
 }
 </script>
 
 <style lang="scss">
+@import 'variables';
+
 .va-tree-root {
-  padding: 0.3125rem;
+  padding: var(--va-tree-root-padding);
 }
 </style>

@@ -260,8 +260,8 @@
 </template>
 
 <script>
-import VaPagination from './VaPagination'
-import VaContext from '../../context-test/context-provide/VaContext'
+import VaPagination from './index'
+import VaContext from '../va-config'
 
 export default {
   components: {

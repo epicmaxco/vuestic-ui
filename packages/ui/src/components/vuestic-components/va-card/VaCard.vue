@@ -4,68 +4,75 @@
     class="va-card"
     :class="cardClasses"
     :style="cardStyles"
-    :href="href"
+    :href="hrefComputed"
     :target="target"
     :to="to"
     :replace="replace"
     :exact="exact"
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
-    @click="$emit('click', $event)"
   >
     <div
-      v-if="c_stripe"
+      v-if="stripe"
       class="va-card__stripe"
       :style="stripeStyles"
     />
-    <slot />
+    <div
+      class="va-card__inner"
+      @click="$emit('click', $event)"
+    >
+      <slot/>
+    </div>
   </component>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import { getGradientBackground } from '../../../services/color-functions'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { getGradientBackground } from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
-const CardPropsMixin = makeContextablePropsMixin({
-  tag: { type: String, default: 'div' },
-  square: { type: Boolean, default: false },
-  outlined: { type: Boolean, default: false },
-  bordered: { type: Boolean, default: true },
-  disabled: { type: Boolean, default: false },
-  href: { type: String, default: null },
-  target: { type: String, default: null },
-  stripe: { type: Boolean, default: false },
-  stripeColor: { type: String, default: '' },
-  gradient: { type: Boolean, default: false },
-})
+class CardProps {
+  tag = prop<string>({ type: String, default: 'div' })
+  square = prop<boolean>({ type: Boolean, default: false })
+  outlined = prop<boolean>({ type: Boolean, default: false })
+  bordered = prop<boolean>({ type: Boolean, default: true })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  href = prop<string>({ type: String, default: null })
+  target = prop<string>({ type: String, default: null })
+  stripe = prop<boolean>({ type: Boolean, default: false })
+  stripeColor = prop<string>({ type: String, default: '' })
+  gradient = prop<boolean>({ type: Boolean, default: false })
+  dark = prop<boolean>({ type: Boolean, default: false })
+}
 
-@Component({
+const CardPropsMixin = Vue.with(CardProps)
+
+@Options({
   name: 'VaCard',
+  emits: ['click'],
 })
-export default class VaCard extends Mixins(
-  ColorThemeMixin,
+export default class VaCard extends mixins(
+  ColorMixin,
   RouterLinkMixin,
   CardPropsMixin,
 ) {
   get cardClasses () {
     return {
       'va-card--dark': this.dark,
-      'va-card--square': this.c_square,
-      'va-card--outlined': this.c_outlined,
-      'va-card--no-border': !this.c_bordered,
-      'va-card--disabled': this.c_disabled,
-      'va-card--link': this.c_href || this.hasRouterLinkParams,
+      'va-card--square': this.square,
+      'va-card--outlined': this.outlined,
+      'va-card--no-border': !this.bordered,
+      'va-card--disabled': this.disabled,
+      'va-card--link': this.href || this.hasRouterLinkParams,
     }
   }
 
   get cardStyles () {
-    const color = this.dark ? this.computeColor(this.c_color) : getColor(this, this.c_color, '#ffffff')
+    const color = this.dark ? this.computeColor(this.color || 'dark') : this.theme.getColor(this.color, '#ffffff')
 
-    if (this.c_gradient && this.c_color) {
+    if (this.gradient && this.color) {
       return {
         background: getGradientBackground(color),
       }
@@ -78,27 +85,32 @@ export default class VaCard extends Mixins(
 
   get stripeStyles () {
     return {
-      'background-color': this.computeColor(this.c_stripeColor),
+      'background-color': this.computeColor(this.stripeColor),
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-card {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  box-shadow: $card-box-shadow;
-  border-radius: $card-border-radius;
-  color: $dark-default-color;
-  background-color: $light-default-color;
+  display: var(--va-card-display);
+  position: var(--va-card-position);
+  overflow: var(--va-card-overflow);
+  box-shadow: var(--va-card-box-shadow, var(--primary-block-box-shadow));
+  border-radius: var(--va-card-border-radius, var(--primary-block-border-radius));
+  color: var(--va-card-color);
+  background-color: var(--va-card-background-color);
+
+  &__inner {
+    width: 100%;
+  }
 
   &--dark {
-    color: $light-default-color;
-    background-color: $dark-default-color;
+    color: var(--va-card-dark-color);
+    background-color: var(--va-card-dark-background-color);
   }
 
   &--square {
@@ -106,8 +118,8 @@ export default class VaCard extends Mixins(
   }
 
   &--outlined {
-    box-shadow: none;
-    border: $card-border;
+    box-shadow: var(--va-card-outlined-box-shadow);
+    border: var(--va-card-outlined-border, var(--primary-block-border));
   }
 
   &--no-border {
@@ -133,9 +145,9 @@ export default class VaCard extends Mixins(
     left: 0;
   }
 
-  ::v-deep #{&}__title,
-  ::v-deep #{&}__content {
-    padding: $card-padding;
+  &__title,
+  &__content {
+    padding: var(--va-card-padding);
 
     + .va-card__title,
     + .va-card__content {
@@ -143,7 +155,7 @@ export default class VaCard extends Mixins(
     }
   }
 
-  ::v-deep #{&}__title {
+  &__title {
     display: flex;
     align-items: center;
 

@@ -1,8 +1,8 @@
-import { createWrapper, mount, shallowMount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import VaSelect from '../VaSelect.vue'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import ColorMixin from '../../../../services/color-config/ColorMixin'
 
 // import { testIsFormComponent } from '../../../vuestic-mixins/testIsFormComponent'
 // import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
@@ -88,7 +88,7 @@ describe('contextable mixin', () => {
   })
   it('has ColorThemeMixin', () => {
     expect(() =>
-      testHasColorThemeMixin((VaSelect as unknown) as ColorThemeMixin),
+      testHasColorThemeMixin((VaSelect as unknown) as ColorMixin),
     ).not.toThrow()
   })
   it('is Form Component', () => {

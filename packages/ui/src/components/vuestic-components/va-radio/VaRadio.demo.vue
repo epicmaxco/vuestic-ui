@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import VaRadio from './VaRadio'
+import VaRadio from './index'
 
 export default {
   components: { VaRadio },

@@ -339,14 +339,21 @@
 
 <script>
 import VaBadge from './VaBadge'
-import VaButton from '../va-button/VaButton'
-import VaCard from '../va-card/VaCard'
+import VaButton from '../va-button'
+import VaCard from '../va-card'
 import VaCardContent from '../va-card/VaCardContent'
-import VaIcon from '../va-icon/VaIcon'
+import VaIcon from '../va-icon/'
 import BadgeAvatarDemo from './BadgeAvatarDemo'
 
 export default {
-  components: { BadgeAvatarDemo, VaBadge, VaButton, VaCard, VaCardContent, VaIcon },
+  components: {
+    BadgeAvatarDemo,
+    VaBadge,
+    VaButton,
+    VaCard,
+    VaCardContent,
+    VaIcon,
+  },
   data () {
     return {
       label: '1234',

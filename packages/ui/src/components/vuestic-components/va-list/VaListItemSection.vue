@@ -8,26 +8,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, Vue, mixins, prop } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+class ListItemSectionProps {
+  icon = prop<boolean>({ type: Boolean, default: false })
+  avatar = prop<boolean>({ type: Boolean, default: false })
+}
 
-const ItemSectionPropsMixin = makeContextablePropsMixin({
-  icon: { type: Boolean, default: false },
-  avatar: { type: Boolean, default: false },
-})
+const ListItemSectionPropsMixin = Vue.with(ListItemSectionProps)
 
-@Component({
+@Options({
   name: 'VaListItemSection',
 })
-export default class VaListItemSection extends Mixins(
-  ItemSectionPropsMixin,
+export default class VaListItemSection extends mixins(
+  ListItemSectionPropsMixin,
 ) {
   get computedClass () {
     return {
-      'va-list-item-section--main': !this.c_icon && !this.c_avatar,
-      'va-list-item-section--icon': this.c_icon,
-      'va-list-item-section--avatar': this.c_avatar,
+      'va-list-item-section--main': !this.icon && !this.avatar,
+      'va-list-item-section--icon': this.icon,
+      'va-list-item-section--avatar': this.avatar,
     }
   }
 }
@@ -35,6 +35,7 @@ export default class VaListItemSection extends Mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-list-item-section {
   display: flex;
@@ -46,16 +47,18 @@ export default class VaListItemSection extends Mixins(
   }
 
   &--icon {
-    min-width: 1.5rem;
-    align-items: center;
+    min-width: var(--va-list-item-section-icon-min-width);
+    align-items: var(--va-list-item-section-icon-align-items);
+    justify-content: var(--va-list-item-section-icon-justify-content);
+    margin: var(--va-list-item-section-icon-margin);
 
     .va-icon {
-      font-size: 1.25rem;
+      font-size: var(--va-list-item-section-icon-font-size);
     }
   }
 
   &--avatar {
-    min-width: 3rem;
+    min-width: var(--va-list-item-section-avatar-min-width);
   }
 }
 

@@ -1,0 +1,29 @@
+:root {
+
+  /*Header*/
+  --va-tree-category-header-cursor: pointer;
+  --va-tree-category-header-display: flex;
+  --va-tree-category-header-align-items: center;
+
+  /*Header checkbox*/
+  --va-tree-category-header-checkbox-margin-right: 0.5rem;
+  --va-tree-category-header-checkbox-height: 1.5rem;
+  --va-tree-category-header-checkbox-width: 1.5rem;
+  --va-tree-category-header-checkbox-display: flex;
+  --va-tree-category-header-checkbox-align-items: center;
+  --va-tree-category-header-checkbox-justify-content: center;
+
+  /*Header icon*/
+  --va-tree-category-header-icon-color: #2c82e0;
+  --va-tree-category-header-icon-margin-right: 0.5rem;
+  --va-tree-category-header-icon-font-size: 24px;
+  --va-tree-category-header-icon-line-height: 24px;
+
+  /*Header label*/
+  --va-tree-category-header-label-word-wrap: break-word;
+  --va-tree-category-header-label-overflow: hidden;
+
+  /*List container*/
+  --va-tree-category-list-container-margin-top: 0.625rem;
+  --va-tree-category-list-container-padding-left: 0.6875rem;
+}

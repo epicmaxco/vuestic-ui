@@ -309,30 +309,32 @@
       width="500px"
       title="Slider With Input"
     >
-      <va-slider v-model="value">
-        <va-input
-          v-model="value"
-          slot="prepend"
-        />
-      </va-slider>
+<!--      <va-slider v-model="value">-->
+<!--        <va-input-->
+<!--          v-model="value"-->
+<!--          slot="prepend"-->
+<!--        />-->
+<!--      </va-slider>-->
     </VbCard>
     <VbCard
       width="500px"
       title="Range With Inputs (demo for presentation)"
     >
-      <va-slider
-        range
-        v-model="value2"
-      >
-        <va-input
-          v-model.number="value2[0]"
-          slot="prepend"
-        />
-        <va-input
-          v-model="value2[1]"
-          slot="append"
-        />
-      </va-slider>
+<!--      <va-slider-->
+<!--        range-->
+<!--        v-model="value2"-->
+<!--      >-->
+<!--        <template #prepend>-->
+<!--          <va-input-->
+<!--            v-model.number="value2[0]"-->
+<!--          />-->
+<!--        </template>-->
+<!--        <template #append>-->
+<!--          <va-input-->
+<!--            v-model="value2[1]"-->
+<!--          />-->
+<!--        </template>-->
+<!--      </va-slider>-->
     </VbCard>
   </VbDemo>
 </template>
@@ -343,7 +345,7 @@ import VaInput from '../va-input/VaInput'
 
 export default {
   components: {
-    VaInput,
+    // VaInput,
     VaSlider,
   },
   data () {

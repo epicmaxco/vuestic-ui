@@ -7,8 +7,8 @@
       <img
         class="va-parallax__image"
         ref="img"
-        :src="c_src"
-        :alt="c_alt"
+        :src="$props.src"
+        :alt="$props.alt"
         :style="computedImgStyles"
       />
     </div>
@@ -19,29 +19,30 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
+import { Options, prop, Vue, mixins } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-
-const PropsMixin = makeContextablePropsMixin({
-  target: { type: [Element, String], default: '' },
-  src: { type: String, default: '', required: true },
-  alt: { type: String, default: 'parallax' },
-  height: { type: Number, default: 400 },
-  reversed: { type: Boolean, default: false },
-  speed: {
+class ParallaxProps {
+  target = prop<Element | string>({ type: [Element, String], default: '' })
+  src = prop<string>({ type: String, default: '', required: true })
+  alt = prop<string>({ type: String, default: 'parallax' })
+  height = prop<number>({ type: Number, default: 400 })
+  reversed = prop<boolean>({ type: Boolean, default: false })
+  speed = prop<number>({
     type: Number,
     default: 0.5,
     validator: (value: number) => {
       return value >= 0 && value <= 1
     },
-  },
-})
-@Component({
+  })
+}
+
+const ParallaxPropsMixin = Vue.with(ParallaxProps)
+
+@Options({
   name: 'VaParallax',
 })
-export default class VaParallax extends Mixins(
-  PropsMixin,
+export default class VaParallax extends mixins(
+  ParallaxPropsMixin,
 ) {
   elOffsetTop = 0
   parallax = 0
@@ -54,14 +55,14 @@ export default class VaParallax extends Mixins(
 
   get computedWrapperStyles (): object {
     return {
-      height: this.height + 'px',
+      height: this.$props.height + 'px',
     }
   }
 
   get targetElement () {
-    return typeof this.c_target === 'string'
-      ? document.querySelector(this.c_target)
-      : this.c_target || this.$el.parentElement
+    return typeof this.$props.target === 'string'
+      ? document.querySelector(this.$props.target)
+      : this.$props.target || this.$el.parentElement
   }
 
   get computedImgStyles (): object {
@@ -69,19 +70,20 @@ export default class VaParallax extends Mixins(
       display: 'block',
       transform: `translate(-50%, ${this.parallax}px)`,
       opacity: this.isLoaded ? 1 : 0,
-      top: this.reversed ? 0 : 'auto',
+      top: this.$props.reversed ? 0 : 'auto',
     }
   }
 
   get imgHeight (): number {
-    return (this as any).$refs.img.naturalHeight
+    // @ts-ignore
+    return this.$refs.img.naturalHeight
   }
 
   calcDimensions (): void {
     const offset = this.$el.getBoundingClientRect()
 
     this.scrollTop = this.targetElement.scrollTop
-    this.parallaxDist = this.imgHeight - this.height
+    this.parallaxDist = this.imgHeight - (this.$props.height as number)
     this.elOffsetTop = offset.top + this.scrollTop
     this.windowHeight = window.innerHeight
     this.windowBottom = this.scrollTop + this.windowHeight
@@ -91,10 +93,10 @@ export default class VaParallax extends Mixins(
     this.calcDimensions()
     this.percentScrolled = (
       (this.windowBottom - this.elOffsetTop) /
-      (parseInt(this.height) + this.windowHeight)
+      ((this.$props.height as number) + this.windowHeight)
     )
-    this.parallax = Math.round(this.parallaxDist * this.percentScrolled) * this.c_speed
-    if (this.c_reversed) {
+    this.parallax = Math.round(this.parallaxDist * this.percentScrolled) * (this.$props.speed as number)
+    if (this.$props.reversed) {
       this.parallax = -this.parallax
     }
   }
@@ -127,7 +129,7 @@ export default class VaParallax extends Mixins(
     this.initImage()
   }
 
-  beforeDestroy () {
+  beforeUnmount () {
     this.removeEventListeners()
   }
 }
@@ -135,36 +137,37 @@ export default class VaParallax extends Mixins(
 
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-parallax {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  width: auto;
-  z-index: 0;
+  display: var(--va-parallax-display);
+  position: var(--va-parallax-position);
+  overflow: var(--va-parallax-overflow);
+  width: var(--va-parallax-width);
+  z-index: var(--va-parallax-z-index);
 
   &__image-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    contain: strict;
-    user-select: none;
+    position: var(--va-parallax-image-container-position);
+    top: var(--va-parallax-image-container-top);
+    left: var(--va-parallax-image-container-left);
+    right: var(--va-parallax-image-container-right);
+    bottom: var(--va-parallax-image-container-bottom);
+    z-index: var(--va-parallax-image-container-z-index);
+    contain: var(--va-parallax-image-container-contain);
+    user-select: var(--va-parallax-image-container-user-select);
   }
 
   &__image {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    display: none;
-    transform: translate(-50%, 0);
-    will-change: transform;
-    transition: 0.3s opacity linear;
-    z-index: 1;
+    position: var(--va-parallax-image-position);
+    bottom: var(--va-parallax-image-bottom);
+    left: var(--va-parallax-image-left);
+    min-width: var(--va-parallax-image-min-width);
+    min-height: var(--va-parallax-image-min-height);
+    display: var(--va-parallax-image-display);
+    transform: var(--va-parallax-image-transform);
+    will-change: var(--va-parallax-image-will-change);
+    transition: var(--va-parallax-image-transition);
+    z-index: var(--va-parallax-image-z-index);
   }
 
   &__item-container {

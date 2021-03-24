@@ -1,18 +1,18 @@
 <template>
   <div class="va-date-picker">
-    <div :data-toggle="!c_disabled">
+    <div :data-toggle="!disabled">
       <va-input
         v-model="valueProxy"
         readonly
-        :placeholder="c_placeholder"
-        :label="c_label"
-        :disabled="c_disabled"
-        :error="c_error"
+        :placeholder="placeholder"
+        :label="label"
+        :disabled="disabled"
+        :error="error"
         :success="success"
-        :messages="c_messages"
-        :error-messages="c_errorMessages"
+        :messages="messages"
+        :error-messages="errorMessages"
       >
-        <template slot="append">
+        <template #append>
           <va-icon
             color="gray"
             name="calendar_today"
@@ -24,116 +24,122 @@
       class="va-date-picker__flatpickr"
       v-model="valueProxy"
       :config="fullConfig"
-      :disabled="c_disabled"
+      :disabled="disabled"
       @on-open="onOpen"
       data-input
     />
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Options, Vue, prop, mixins } from 'vue-class-component'
+// @ts-ignore
 import VueFlatpickrComponent from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
-import VaInput from '../va-input/VaInput'
-import VaIcon from '../va-icon/VaIcon'
-import {
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import VaInput from '../va-input'
+import VaIcon from '../va-icon'
 
-export default {
+class DatePickerProps {
+  modelValue = prop<string | object | number>({
+    type: [String, Object, Number],
+    default: '',
+  })
+
+  weekDays = prop<boolean>({
+    type: Boolean,
+    default: false,
+  })
+
+  placeholder = prop<string>({
+    type: String,
+    default: '',
+  })
+
+  label = prop<string>({
+    type: String,
+    default: '',
+  })
+
+  disabled = prop<boolean>({
+    type: Boolean,
+    default: false,
+  })
+
+  error = prop<boolean>({
+    type: Boolean,
+    default: false,
+  })
+
+  success = prop<boolean>({
+    type: Boolean,
+    default: false,
+  })
+
+  messages = prop<any[]>({
+    type: Array,
+    default: () => [],
+  })
+
+  errorMessages = prop<any[]>({
+    type: Array,
+    default: () => [],
+  })
+
+  config = prop<object>({
+    type: Object,
+    default: () => undefined,
+  })
+}
+
+const DatePickerPropsMixin = Vue.with(DatePickerProps)
+
+@Options({
   name: 'VaDatePicker',
-  mixins: [
-    makeContextablePropsMixin(
-      {
-        value: {
-          type: [String, Object, Number],
-          default: '',
-        },
-        weekDays: {
-          type: Boolean,
-          default: false,
-        },
-        placeholder: {
-          type: String,
-          default: '',
-        },
-        label: {
-          type: String,
-          default: '',
-        },
-        disabled: {
-          type: Boolean,
-          default: false,
-        },
-        error: {
-          type: Boolean,
-          default: false,
-        },
-        success: {
-          type: Boolean,
-          default: false,
-        },
-        messages: {
-          type: Array,
-          default: () => [],
-        },
-        errorMessages: {
-          type: Array,
-          default: () => [],
-        },
-        config: {
-          type: Object,
-          default: () => undefined,
-        },
-      },
-    ),
-  ],
   components: {
     VaInput,
     VueFlatpickrComponent,
     VaIcon,
   },
-  data () {
-    return {
-      isOpen: false,
+  emits: ['update:modelValue'],
+})
+export default class VaDatePicker extends mixins(DatePickerPropsMixin) {
+  isOpen = false
+
+  get valueProxy () {
+    return this.modelValue
+  }
+
+  set valueProxy (value) {
+    if (!this.disabled) {
+      this.$emit('update:modelValue', value)
     }
-  },
-  computed: {
-    valueProxy: {
-      get () {
-        return this.c_value
-      },
-      set (value) {
-        if (!this.c_disabled) {
-          this.$emit('input', value)
-        }
-      },
-    },
-    fullConfig () {
-      return Object.assign({}, this.defaultConfig, this.c_config)
-    },
-    defaultConfig () {
-      return {
-        wrap: true,
-        nextArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-forward"/>', // TODO: Need to change on material-icons
-        prevArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-back"/>', // TODO: Need to change on material-icons
-        disableMobile: true, // doesn't work without this one at all
-      }
-    },
-  },
-  methods: {
-    onOpen (selectedDates, dateStr, pcrObject) {
-      const calendar = pcrObject.calendarContainer
-      if (this.weekDays) {
-        calendar.classList.add('flatpickr-calendar--show-days')
-      }
-    },
-  },
+  }
+
+  get fullConfig () {
+    return Object.assign({}, this.defaultConfig, this.config)
+  }
+
+  get defaultConfig () {
+    return {
+      wrap: true,
+      nextArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-forward"/>', // TODO: Need to change on material-icons
+      prevArrow: '<span aria-hidden="true" class="ion ion-ios-arrow-back"/>', // TODO: Need to change on material-icons
+      disableMobile: true, // doesn't work without this one at all
+    }
+  }
+
+  onOpen (selectedDates: any, dateStr: any, pcrObject: { calendarContainer: any }) {
+    const calendar = pcrObject.calendarContainer
+    if (this.weekDays) {
+      calendar.classList.add('flatpickr-calendar--show-days')
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 $datepickerActiveBackground: $vue-darkest-blue;
 $datepickerActiveColor: $vue-green;
@@ -153,12 +159,12 @@ $daySize: 2rem;
 $dayMargin: 0.6rem;
 
 .va-date-picker {
-  position: relative;
+  position: var(--va-date-picker-position);
 
   &__container {
-    display: flex;
-    position: relative;
-    flex-wrap: wrap;
+    display: var(--va-date-picker-container-display);
+    position: var(--va-date-picker-container-position);
+    flex-wrap: var(--va-date-picker-container-flex-wrap);
   }
 
   &__flatpickr {
@@ -170,17 +176,17 @@ $dayMargin: 0.6rem;
   }
 
   &__icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-radius: 0 0.5rem 0 0;
-    border-bottom: 1px solid $brand-secondary;
-    color: $brand-secondary;
-    padding: 0.5rem;
-    height: 2.375rem;
-    cursor: pointer;
-    background-color: $datepickerBackground;
-    width: 2.2rem;
+    position: var(--va-date-picker-icon-position);
+    right: var(--va-date-picker-icon-right);
+    top: var(--va-date-picker-icon-top);
+    border-radius: var(--va-date-picker-icon-border-radius);
+    border-bottom: var(--va-date-picker-icon-border-bottom);
+    color: var(--va-date-picker-icon-color);
+    padding: var(--va-date-picker-icon-padding);
+    height: var(--va-date-picker-icon-height);
+    cursor: var(--va-date-picker-icon-cursor);
+    background-color: var(--va-date-picker-icon-background-color);
+    width: var(--va-date-picker-icon-width);
   }
 
   i + i {

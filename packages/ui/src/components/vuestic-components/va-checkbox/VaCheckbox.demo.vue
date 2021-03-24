@@ -49,21 +49,21 @@
     </VbCard>
     <VbCard title="Disabled to normal comparison">
       <va-checkbox
-        :value="false"
+        :modelValue="false"
         label="Disabled and false"
         disabled
       />
       <va-checkbox
-        :value="false"
+        :modelValue="false"
         label="false"
       />
       <va-checkbox
-        :value="true"
+        :modelValue="true"
         label="Disabled and true"
         disabled
       />
       <va-checkbox
-        :value="true"
+        :modelValue="true"
         label="true"
       />
     </VbCard>
@@ -193,7 +193,7 @@
 </template>
 
 <script>
-import VaCheckbox from './VaCheckbox'
+import VaCheckbox from './index'
 import VaCheckboxValidation from './VaCheckbox-validation'
 
 export default {

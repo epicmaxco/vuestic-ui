@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import VaMediumEditor from './VaMediumEditor'
+import VaMediumEditor from './index'
 
 export default {
   components: { VaMediumEditor },

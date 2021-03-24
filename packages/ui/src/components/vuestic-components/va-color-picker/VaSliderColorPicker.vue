@@ -6,28 +6,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
 // @ts-ignore
 import { Slider } from 'vue-color'
 
-@Component({
+class ColorPickerInputProps {
+  modelValue = prop<string>({
+    type: String,
+    default: '',
+  })
+}
+
+const ColorPickerInputPropsMixin = Vue.with(ColorPickerInputProps)
+
+@Options({
   name: 'VaColorPickerInput',
   components: {
     SliderPicker: Slider,
   },
+  emits: ['update:modelValue'],
 })
-export default class VaColorPickerInput extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly value!: string
-
+export default class VaColorPickerInput extends mixins(ColorPickerInputPropsMixin) {
   get valueProxy (): any {
-    return this.value
+    return this.modelValue
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value.hex)
+    this.$emit('update:modelValue', value.hex)
   }
 }
 </script>

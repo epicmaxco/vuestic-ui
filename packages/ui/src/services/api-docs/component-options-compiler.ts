@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Vue, { ComponentOptions } from 'vue'
 import { getTypes } from './api-docs-helpers'
 // @ts-ignore

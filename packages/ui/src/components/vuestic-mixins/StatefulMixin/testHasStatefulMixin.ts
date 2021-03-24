@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { shallowMount, Wrapper } from '@vue/test-utils'
 import { StatefulMixin } from './StatefulMixin'
 

@@ -164,7 +164,7 @@
 </template>
 
 <script>
-import VaButtonDropdown from './VaButtonDropdown'
+import VaButtonDropdown from './index'
 
 export default {
   name: 'VaButtonDropdownDemo',

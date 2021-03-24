@@ -1,237 +1,262 @@
 <template>
   <va-input-wrapper
     :error="computedError"
-    :success="c_success"
+    :success="$props.success"
     :error-messages="computedErrorMessages"
-    :messages="c_messages"
-    :style="{width}"
+    :messages="$props.messages"
+    :style="{ width: $props.width }"
   >
-    <slot name="prepend" slot="prepend" />
+    <template #prepend v-if="$slots.prepend">
+      <slot name="prepend"/>
+    </template>
 
     <va-dropdown
       class="va-select__dropdown"
-      :position="position"
-      :disabled="c_disabled"
-      :max-height="c_maxHeight"
-      :fixed="c_fixed"
+      :position="$props.position"
+      :disabled="$props.disabled"
+      :max-height="$props.maxHeight"
+      :fixed="$props.fixed"
       boundaryBody
-      :closeOnAnchorClick="c_multiple"
+      :closeOnAnchorClick="$props.multiple"
       keepAnchorWidth
-      @input="onDropdownInput"
+      @update:modelValue="onDropdownInput"
       ref="dropdown"
     >
       <va-input
         v-if="inputVisible"
         class="va-select__input"
         v-model="search"
-        :id="id"
-        :name="name"
+        :id="$props.id"
+        :name="$props.name"
         placeholder="Search"
         removable
-        ref="search"
+        ref="searchBar"
         @keydown.enter.stop.prevent="addNewOption"
         @keydown.up.stop.prevent="hoverPreviousOption"
         @keydown.down.stop.prevent="hoverNextOption"
       />
       <va-select-option-list
-        :style="{maxHeight: maxHeight}"
+        :style="{ maxHeight: $props.maxHeight }"
         :options="filteredOptions"
-        @selectOption="selectOption"
         :selectedValue="valueProxy"
         :getSelectedState="getSelectedState"
         :getText="getText"
         :getTrackBy="getTrackBy"
-        :noOptionsText="noOptionsText"
         :search="search"
         :hintedOption="hintedOption"
+        :noOptionsText="$props.noOptionsText"
+        :color="$props.color"
+        :key-by="$props.keyBy"
+        :text-by="$props.textBy"
         ref="optionList"
+        @selectOption="selectOption"
       />
 
-      <div
-        slot="anchor"
-        class="va-select"
-        :class="selectClass"
-        :style="selectStyle"
-        tabindex="0"
-        @focus="isFocused = true"
-        @blur="isFocused = false"
-        @keydown.stop.prevent="updateHintedOption"
-        @keydown.up.stop.prevent="hoverPreviousOption"
-        @keydown.left.stop.prevent="hoverPreviousOption"
-        @keydown.down.stop.prevent="hoverNextOption"
-        @keydown.right.stop.prevent="hoverNextOption"
-        @keydown.enter.stop.prevent="selectHoveredOption"
-        @keydown.space.stop.prevent="selectHoveredOption"
-      >
+      <template #anchor>
+        <div
+          class="va-select"
+          :class="selectClass"
+          :style="selectStyle"
+          tabindex="0"
+          @focus="isFocused = true"
+          @blur="isFocused = false"
+          @keydown.stop.prevent="updateHintedOption"
+          @keydown.up.stop.prevent="hoverPreviousOption"
+          @keydown.left.stop.prevent="hoverPreviousOption"
+          @keydown.down.stop.prevent="hoverNextOption"
+          @keydown.right.stop.prevent="hoverNextOption"
+          @keydown.enter.stop.prevent="selectHoveredOption"
+          @keydown.space.stop.prevent="selectHoveredOption"
+        >
 
-        <div class="va-select__content-wrapper">
-          <div class="va-select__controls" v-if="$slots.prependInner">
-            <div class="va-select__prepend-slot">
-              <slot name="prependInner" />
+          <div class="va-select__content-wrapper">
+            <div class="va-select__controls" v-if="$slots.prependInner">
+              <div class="va-select__prepend-slot">
+                <slot name="prependInner" />
+              </div>
             </div>
-          </div>
-          <div
-            class="va-select__content"
-            :class="[label ? 'va-select__content__selection--no-label' : '']"
-          >
-            <label
-              v-if="label"
-              class="va-select__content__label"
-              :style="labelStyle"
-              ref="label"
-              aria-hidden="true"
-            >
-              {{ label }}
-            </label>
-            <template v-if="selectionValue || selectionTags">
-              <div
-                class="va-select__content__selection"
-                v-if="c_multiple"
-              >
-                <div v-if="tags && selectionTags.length <= tagMax">
-                  <va-tag
-                    class="va-select__content__selection--tag"
-                    v-for="(option, i) in selectionTags"
-                    :key="i"
-                    size="small"
-                    color="primary"
-                    :closeable="deletableTags"
-                    @input="selectOption(option)"
-                  >
-                    {{option}}
-                  </va-tag>
-                </div>
-                <div v-else>
-                  {{ selectionTags }}
-                </div>
-              </div>
-              <div
-                v-else-if="selectionValue"
-                class="va-select__content__selection"
-              >
-                {{ selectionValue }}
-              </div>
-            </template>
             <div
-              v-else
-              class="va-select__content__selection va-select__content__selection--placeholder"
+              class="va-select__content"
+              :class="[$props.label ? 'va-select__content__selection--no-label' : '']"
             >
-              {{ placeholder }}
+              <label
+                v-if="$props.label"
+                class="va-select__content__label"
+                :style="labelStyle"
+                ref="label"
+                aria-hidden="true"
+              >
+                {{ $props.label }}
+              </label>
+              <template v-if="selectionValue || selectionChips">
+                <div
+                  class="va-select__content__selection"
+                  v-if="$props.multiple"
+                >
+                  <div v-if="$props.chips && selectionChips.length <= $props.chipMax">
+                    <va-chip
+                      class="va-select__content__selection--chip"
+                      v-for="(option, i) in selectionChips"
+                      :key="i"
+                      size="small"
+                      :color="$props.color"
+                      :closeable="$props.deletableChips"
+                      @input="selectOption(option)"
+                    >
+                      {{ option }}
+                    </va-chip>
+                  </div>
+                  <div v-else>
+                    {{ selectionChips }}
+                  </div>
+                </div>
+                <div
+                  v-else-if="selectionValue"
+                  class="va-select__content__selection"
+                >
+                  {{ selectionValue }}
+                </div>
+              </template>
+              <div
+                v-else
+                class="va-select__content__selection va-select__content__selection--placeholder"
+              >
+                {{ $props.placeholder }}
+              </div>
             </div>
-          </div>
 
-          <div class="va-select__controls">
+            <div class="va-select__controls">
 
-            <div class="va-select__append-slot">
-              <slot name="appendInner" />
-            </div>
+              <div class="va-select__append-slot">
+                <slot name="appendInner" />
+              </div>
 
-            <div v-if="showClearIcon" class="va-select__icon">
-              <va-icon
-                :name="clearIcon"
-                @click.native.stop="reset()"
-              />
-            </div>
+              <div v-if="showClearIcon" class="va-select__icon">
+                <va-icon
+                  :name="$props.clearIcon"
+                  @click.stop="reset()"
+                />
+              </div>
 
-            <div v-if="loading" class="va-select__icon">
-              <va-icon
-                spin
-                :color="computeColor('success')"
-                :size="24"
-                name="loop"
-              />
-            </div>
+              <div v-if="$props.loading" class="va-select__icon">
+                <va-icon
+                  spin
+                  :color="computeColor('success')"
+                  :size="24"
+                  name="loop"
+                />
+              </div>
 
-            <div class="va-select__icon">
-              <va-icon
-                :color="computeColor('grey')"
-                :name="toggleIcon"
-              />
+              <div class="va-select__icon">
+                <va-icon
+                  :color="computeColor('grey')"
+                  :name="toggleIcon"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
     </va-dropdown>
 
-    <slot name="append" slot="append" />
-
+    <template #append v-if="$slots.append">
+      <slot name="append"/>
+    </template>
   </va-input-wrapper>
 </template>
 
 <script lang="ts">
-import { Component, Mixins, Watch } from 'vue-property-decorator'
+import { watch } from 'vue'
+import { mixins, Options, prop, Vue } from 'vue-class-component'
 
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
-import VaInput from '../va-input/VaInput.vue'
-import VaInputWrapper from '../va-input/VaInputWrapper.vue'
-import VaSelectOptionList from './VaSelectOptionList.vue'
-import VaTag from '../va-tag/VaTag.vue'
-
-import { getHoverColor } from '../../../services/color-functions'
-import {
-  ContextPluginMixin,
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
+import { getHoverColor } from '../../../services/color-config/color-functions'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
+import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import VaChip from '../va-chip'
+import VaDropdown from '../va-dropdown'
+import VaIcon from '../va-icon'
+import VaInput, { VaInputWrapper } from '../va-input'
+
+import VaSelectOptionList from './VaSelectOptionList'
 
 const positions: string[] = ['top', 'bottom']
+type DropdownIcon = {
+  open: string,
+  close: string
+}
 
-const PropsMixin = makeContextablePropsMixin({
-  value: { type: [String, Number, Object, Array], default: '' },
-  label: { type: String, default: '' },
-  placeholder: { type: String, default: '' },
-  position: {
+class SelectProps {
+  modelValue = prop<string | number | Record<string, any> | any[]>({
+    type: [String, Number, Object, Array],
+    default: '',
+  })
+
+  label = prop<string>({ type: String, default: '' })
+  placeholder = prop<string>({ type: String, default: '' })
+  position = prop<string>({
     type: String,
     default: 'bottom',
     validator: (position: string) => positions.includes(position),
-  },
-  tagMax: { type: Number, default: 10 },
-  tags: { type: Boolean, default: false },
-  deletableTags: { type: Boolean, default: false },
-  searchable: { type: Boolean, default: false },
-  multiple: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
-  width: { type: String, default: '100%' },
-  maxHeight: { type: String, default: '128px' },
-  clearValue: { type: String, default: '' },
-  noOptionsText: { type: String, default: 'Items not found' },
-  fixed: { type: Boolean, default: true },
-  clearable: { type: Boolean, default: false },
-  hideSelected: { type: Boolean, default: false },
-  allowCreate: {
+  })
+
+  chipMax = prop<number>({ type: Number, default: 10 })
+  chips = prop<boolean>({ type: Boolean, default: false })
+  deletableChips = prop<boolean>({ type: Boolean, default: false })
+  searchable = prop<boolean>({ type: Boolean, default: false })
+  multiple = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  readonly = prop<boolean>({ type: Boolean, default: false })
+  width = prop<string>({ type: String, default: '100%' })
+  maxHeight = prop<string>({ type: String, default: '128px' })
+  clearValue = prop<string>({ type: String, default: '' })
+  noOptionsText = prop<string>({ type: String, default: 'Items not found' })
+  fixed = prop<boolean>({ type: Boolean, default: true })
+  clearable = prop<boolean>({ type: Boolean, default: false })
+  hideSelected = prop<boolean>({ type: Boolean, default: false })
+  allowCreate = prop<boolean | string>({
     type: [Boolean, String],
     default: false,
     validator: (mode: string | boolean) => {
       return [true, false, 'unique'].includes(mode)
     },
-  },
-  clearIcon: { type: String, default: 'close' },
-  dropdownIcon: {
-    type: [String, Object],
-    default: () => ({ open: 'arrow_drop_down', close: 'arrow_drop_up' }),
-  },
-})
+  })
 
-@Component({
+  clearIcon = prop<string>({ type: String, default: 'close' })
+  dropdownIcon = prop<string | DropdownIcon>({
+    type: [String, Object],
+    default: (): DropdownIcon => ({
+      open: 'arrow_drop_down',
+      close: 'arrow_drop_up',
+    }),
+  })
+
+  // SelectOptionList props
+
+  keyBy = prop<string>({ type: String, default: 'id' })
+  textBy = prop<string>({ type: String, default: 'text' })
+}
+
+const SelectPropsMixin = Vue.with(SelectProps)
+
+@Options({
   components: {
-    VaTag,
+    VaChip,
     VaSelectOptionList,
     VaIcon,
     VaDropdown,
     VaInput,
     VaInputWrapper,
   },
+  emits: ['update-search', 'update:modelValue', 'clear'],
 })
-export default class VaSelect extends Mixins(
-  ContextPluginMixin,
+export default class VaSelect extends mixins(
   LoadingMixin,
-  ColorThemeMixin,
+  ColorMixin,
+  FormComponentMixin,
   SelectableListMixin,
-  PropsMixin,
+  SelectPropsMixin,
 ) {
   search = ''
   hintedSearch = ''
@@ -239,38 +264,40 @@ export default class VaSelect extends Mixins(
   isMounted = false
   hoveredOption: any = null
   showOptionList = false
+  timer!: any
 
-  @Watch('search')
-  onSearchValueChange (value: string) {
-    this.$emit('updateSearch', value)
-  }
+  created () {
+    watch(() => this.search, (value) => {
+      this.$emit('update-search', value)
+    })
 
-  @Watch('visible')
-  onLoadingChanged (value: boolean) {
-    if (value && this.c_searchable) {
-      this.$nextTick(() => {
-        (this as any).$refs.search.$refs.input.focus()
-      })
-    }
+    watch(() => this.visible, (value) => {
+      if (value && this.inputVisible) {
+        this.$nextTick(() => {
+          (this.$refs.searchBar as any).$refs.input.focus()
+        })
+      }
+    })
   }
 
   get valueProxy () {
-    if (this.multiple && !this.isArrayValue) {
-      return this.value ? [this.value] : []
+    if (this.$props.multiple && !this.isArrayValue) {
+      return this.$props.modelValue ? [this.$props.modelValue] : []
     }
-    return this.value
+
+    return this.$props.modelValue
   }
 
   set valueProxy (value: any) {
-    this.$emit('input', value)
+    this.$emit('update:modelValue', value)
   }
 
   get isArrayValue () {
-    return Array.isArray(this.value)
+    return Array.isArray(this.$props.modelValue)
   }
 
   get isPrimitiveValue () {
-    return typeof this.value === 'string' || typeof this.value === 'number'
+    return typeof this.$props.modelValue === 'string' || typeof this.$props.modelValue === 'number'
   }
 
   get isObjectValue () {
@@ -278,41 +305,46 @@ export default class VaSelect extends Mixins(
   }
 
   get inputVisible () {
-    return this.searchable || this.allowCreate
+    return this.$props.searchable || this.$props.allowCreate
   }
 
   get visible () {
-    return this.isMounted ? (this as any).$refs.dropdown.isClicked : false
+    // @ts-ignore
+    return this.isMounted ? this.$refs.dropdown.isClicked : false
   }
 
   get selectClass () {
     return {
-      // 'va-select': true,
-      'va-select--multiple': this.multiple,
+      'va-select--multiple': this.$props.multiple,
       'va-select--visible': this.visible,
-      'va-select--searchable': this.c_searchable,
-      'va-select--disabled': this.disabled,
-      'va-select--loading': this.loading,
+      'va-select--searchable': this.$props.searchable,
+      'va-select--disabled': this.$props.disabled,
+      'va-select--loading': this.$props.loading,
     }
   }
 
   get selectStyle () {
     return {
       backgroundColor:
-        this.computedError ? getHoverColor(this.computeColor('danger'))
-          : this.success ? getHoverColor(this.computeColor('success')) : '#f5f8f9',
+        this.computedError
+          ? getHoverColor(this.computeColor('danger'))
+          : this.$props.success ? getHoverColor(this.computeColor('success')) : '#f5f8f9',
       borderColor:
-        this.computedError ? this.computeColor('danger')
-          : this.success ? this.computeColor('success')
-            : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
+        this.computedError
+          ? this.computeColor('danger')
+          : this.$props.success
+            ? this.computeColor('success')
+            : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
     }
   }
 
   get labelStyle () {
     return {
-      color: this.computedError ? this.computeColor('danger')
-        : this.success ? this.computeColor('success')
-          : this.isFocused || this.showOptionList ? this.computeColor('primary') : this.computeColor('gray'),
+      color: this.computedError
+        ? this.computeColor('danger')
+        : this.$props.success
+          ? this.computeColor('success')
+          : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
     }
   }
 
@@ -320,21 +352,21 @@ export default class VaSelect extends Mixins(
     if (!this.valueProxy) {
       return ''
     }
-    if (this.multiple) {
+    if (this.$props.multiple) {
       return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
     }
     // We try to find a match from options, if we don't find any - we take value.
     // This way select can display value even when options are not loaded yet.
     const selectedOption = this.valueProxy || this.selectedOption
     const isPrimitive = ['string', 'number'].includes(typeof selectedOption)
-    return isPrimitive ? selectedOption : selectedOption[this.textBy] + ''
+    return isPrimitive ? selectedOption : selectedOption[this.$props.textBy as string] + ''
   }
 
-  get selectionTags (): string | string[] {
-    if (this.isArrayValue && this.valueProxy.length > this.tagMax) {
+  get selectionChips (): string | string[] {
+    if (this.isArrayValue && this.valueProxy.length > (this.$props.chipMax as number)) {
       return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
     }
-    if (this.multiple && this.tags) {
+    if (this.$props.multiple && this.$props.chips) {
       return this.valueProxy.map((value: any) => this.getText(value))
     }
     if (this.isArrayValue) {
@@ -345,34 +377,38 @@ export default class VaSelect extends Mixins(
   }
 
   get filteredOptions (): any[] {
-    if (!this.hideSelected) {
-      return this.options
+    if (!this.$props.hideSelected) {
+      return this.$props.options as []
     }
-    const filteredOptions: any[] = this.options.reduce((acc: any[], option: any) => {
+    return (this.$props.options as []).reduce((acc: any[], option: any) => {
       return this.getSelectedState(option) ? [...acc] : [...acc, option]
     }, [])
-    return filteredOptions
   }
 
   get selectedOption () {
-    return (!this.valueProxy || this.multiple) ? null : this.options.find((option: any) => this.compareOptions(option, this.valueProxy)) || null
+    return (
+      !this.valueProxy ||
+      this.$props.multiple)
+      ? null
+      : (this.$props.options as []).find((option: any) => this.compareOptions(option, this.valueProxy)) ||
+      null
   }
 
   get showClearIcon (): boolean {
-    if (!this.clearable) {
+    if (!this.$props.clearable) {
       return false
     }
-    if (this.disabled) {
+    if (this.$props.disabled) {
       return false
     }
-    return this.multiple ? !!this.valueProxy.length : this.valueProxy !== this.clearValue
+    return this.$props.multiple ? !!this.valueProxy.length : this.valueProxy !== this.$props.clearValue
   }
 
   get toggleIcon (): string {
-    if (this.dropdownIcon.open && this.dropdownIcon.close) {
-      return this.visible ? this.dropdownIcon.close : this.dropdownIcon.open
+    if (typeof this.$props.dropdownIcon !== 'string' && this.$props.dropdownIcon) {
+      return this.visible ? this.$props.dropdownIcon.close : this.$props.dropdownIcon.open
     }
-    return this.dropdownIcon
+    return this.$props.dropdownIcon ? this.$props.dropdownIcon : ''
   }
 
   compareOptions (one: any, two: any) {
@@ -381,14 +417,14 @@ export default class VaSelect extends Mixins(
       return true
     }
     // i'm not sure why we need this
-    if (typeof this.value === 'string') {
+    if (typeof this.$props.modelValue === 'string') {
       return false
     }
     if (typeof one === 'string' && typeof two === 'string') {
       return one === two
     }
     if (typeof one === 'object' && typeof two === 'object') {
-      return one[this.trackBy] === two[this.trackBy]
+      return one[this.$props.trackBy as string] === two[this.$props.trackBy as string]
     }
   }
 
@@ -397,28 +433,31 @@ export default class VaSelect extends Mixins(
       return false
     }
     if (typeof option === 'string') {
-      return this.multiple
+      return this.$props.multiple
         ? this.valueProxy.includes(option)
         : this.valueProxy === option
     } else {
-      return this.multiple
-        ? this.valueProxy.filter((item: any) => item[this.trackBy] === option[this.trackBy]).length
-        : this.valueProxy[this.trackBy] === option[this.trackBy]
+      return this.$props.multiple
+        ? this.valueProxy.filter((item: any) =>
+          item[this.$props.trackBy as string] === option[this.$props.trackBy as string]).length
+        : this.valueProxy[this.$props.trackBy as string] === option[this.$props.trackBy as string]
     }
   }
 
   isHovered (option: any) {
     return this.hoveredOption
-      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.trackBy] === option[this.trackBy]
+      ? typeof option === 'string'
+        ? option === this.hoveredOption
+        : this.hoveredOption[this.$props.trackBy as string] === option[this.$props.trackBy as string]
       : false
   }
 
   selectOption (option: any): void {
     this.search = ''
     const isSelected = this.getSelectedState(option)
-    const value: any = this.value || []
+    const value: any = this.$props.modelValue || []
 
-    if (this.multiple) {
+    if (this.$props.multiple) {
       const filterSelected = () => {
         return value.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
       }
@@ -427,17 +466,18 @@ export default class VaSelect extends Mixins(
       this.valueProxy = typeof option === 'string' ? option : { ...option }
       ;(this as any).$refs.dropdown.hide()
     }
-    if (this.c_searchable) {
-      (this as any).$refs.search.$refs.input.focus()
+    if (this.inputVisible) {
+      // eslint-disable-next-line no-unused-expressions
+      (this as any).$refs.searchBar?.$refs.input?.focus()
     }
   }
 
   addNewOption (): void {
-    if (this.allowCreate) {
-      if (this.multiple) {
+    if (this.$props.allowCreate) {
+      if (this.$props.multiple) {
         const hasAddedOption: boolean = this.valueProxy.some((value: any) => value === this.search)
         // Do not change valueProxy if option already exist
-        if (this.allowCreate === 'unique' && hasAddedOption) {
+        if (this.$props.allowCreate === 'unique' && hasAddedOption) {
           this.search = ''
           return
         }
@@ -452,14 +492,14 @@ export default class VaSelect extends Mixins(
 
   selectHoveredOption () {
     if (this.$refs.optionList) {
-      const hoveredOption: any = (this as any).$refs.optionList.hoveredOption
-      hoveredOption && this.selectOption((this as any).$refs.optionList.hoveredOption)
+      const hoveredOption: any = (this.$refs.optionList as any).hoveredOption
+      hoveredOption && this.selectOption((this.$refs.optionList as any).hoveredOption)
     }
   }
 
   hoverPreviousOption () {
     if (this.$refs.optionList) {
-      (this as any).$refs.optionList.hoverPreviousOption()
+      (this.$refs.optionList as any).hoverPreviousOption()
     }
   }
 
@@ -481,9 +521,11 @@ export default class VaSelect extends Mixins(
       isLetter && (this.hintedSearch += event.key)
     }
     // Search for an option that matches the query
-    this.hintedOption = this.hintedSearch ? this.options.find((option: any) => {
-      return this.getText(option).toLowerCase().startsWith(this.hintedSearch.toLowerCase())
-    }) : ''
+    this.hintedOption = this.hintedSearch
+      ? (this.$props.options as []).find((option: any) => {
+        return this.getText(option).toLowerCase().startsWith(this.hintedSearch.toLowerCase())
+      })
+      : ''
     this.timer = setTimeout(() => {
       this.hintedSearch = ''
     }, 1000)
@@ -500,11 +542,11 @@ export default class VaSelect extends Mixins(
 
   /** @public */
   public reset (): void {
-    this.valueProxy = this.multiple
-      ? (Array.isArray(this.clearValue) ? this.clearValue : [])
-      : this.clearValue
+    this.valueProxy = this.$props.multiple
+      ? (Array.isArray(this.$props.clearValue) ? this.$props.clearValue : [])
+      : this.$props.clearValue
     this.search = ''
-    this.value = this.clearValue
+    this.$props.modelValue = this.$props.clearValue
     this.$emit('clear')
   }
 
@@ -516,19 +558,20 @@ export default class VaSelect extends Mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-select {
-  display: flex;
-  align-items: stretch;
-  cursor: pointer;
-  width: 100%;
-  min-height: 2.375rem;
-  border-style: solid;
-  border-width: 0 0 thin 0;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  margin-bottom: 1rem;
-  transition: ease-in-out border-bottom-color 0.25s;
+  display: var(--va-select-display);
+  align-items: var(--va-select-align-items);
+  cursor: var(--va-select-cursor);
+  width: var(--va-select-width);
+  min-height: var(--va-select-min-height);
+  border-style: var(--va-select-border-style);
+  border-width: var(--va-select-border-width);
+  border-top-left-radius: var(--va-select-border-top-left-radius);
+  border-top-right-radius: var(--va-select-border-top-right-radius);
+  margin-bottom: var(--va-select-margin-bottom);
+  transition: var(--va-select-transition);
 
   &--disabled {
     @include va-disabled();
@@ -547,78 +590,78 @@ export default class VaSelect extends Mixins(
   }
 
   &__content-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    width: 100%;
-    padding: 0 0.5rem;
+    display: var(--va-select-content-wrapper-display);
+    justify-content: var(--va-select-content-wrapper-justify-content);
+    align-items: var(--va-select-content-wrapper-align-items);
+    width: var(--va-select-content-wrapper-width);
+    padding: var(--va-select-content-wrapper-padding);
   }
 
   &__content {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: stretch;
+    display: var(--va-select-content-display);
+    width: var(--va-select-content-width);
+    justify-content: var(--va-select-content-justify-content);
+    align-items: var(--va-select-content-align-items);
 
     &__label {
       @include va-title();
 
-      padding-top: 0.125rem;
-      position: absolute;
-      top: 0;
-      right: auto;
-      max-width: 90%;
-      transition: ease-in-out color 0.25s;
+      padding-top: var(--va-select-label-padding-top);
+      position: var(--va-select-label-position);
+      top: var(--va-select-label-top);
+      right: var(--va-select-label-right);
+      max-width: var(--va-select-label-max-width);
+      transition: var(--va-select-label-transition);
 
       @include va-ellipsis();
     }
 
     &__selection {
-      width: 100%;
-      display: flex;
-      padding: 0.125rem 0;
-      margin-top: 0.125rem;
-      align-items: center;
-      white-space: normal;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      width: var(--va-select-selection-width);
+      display: var(--va-select-selection-display);
+      padding: var(--va-select-selection-padding);
+      margin-top: var(--va-select-selection-margin-top);
+      align-items: var(--va-select-selection-align-items);
+      white-space: var(--va-select-selection-white-space);
+      overflow: var(--va-select-selection-overflow);
+      text-overflow: var(--va-select-selection-text-overflow);
 
       &--no-label {
         padding: 0.75rem 0 0.125rem 0;
       }
 
-      &--tag {
+      &--chip {
         margin: 0.25rem 0.25rem 0.25rem 0;
       }
 
       &--placeholder {
-        color: $brand-secondary;
-        opacity: 0.8;
-        display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        -webkit-box-align: start;
-        -webkit-box-pack: center;
+        color: var(--va-select-placeholder-color);
+        opacity: var(--va-select-placeholder-opacity);
+        display: var(--va-select-placeholder-display);
+        overflow: var(--va-select-placeholder-overflow);
+        text-overflow: var(--va-select-placeholder-text-overflow);
+        -webkit-line-clamp: var(--va-select-placeholder--webkit-line-clamp);
+        -webkit-box-orient: var(--va-select-placeholder--webkit-box-orient);
+        -webkit-box-align: var(--va-select-placeholder--webkit-box-align);
+        -webkit-box-pack: var(--va-select-placeholder--webkit-box-pack);
       }
     }
   }
 
   &__input {
-    border: none;
-    background: transparent;
-    padding: 0.25rem 0;
-    font-size: 1rem;
-    font-family: $font-family-sans-serif;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    border: var(--va-select-input-border, var(--primary-control-border));
+    background: var(--va-select-input-background);
+    padding: var(--va-select-input-padding);
+    font-size: var(--va-select-input-font-size);
+    font-family: var(--va-select-input-font-family, var(--primary-font-family));
+    font-weight: var(--va-select-input-font-weight);
+    font-style: var(--va-select-input-font-style);
+    font-stretch: var(--va-select-input-font-stretch);
+    line-height: var(--va-select-input-line-height);
+    letter-spacing: var(--va-select-input-letter-spacing);
+    white-space: var(--va-select-input-white-space);
+    text-overflow: var(--va-select-input-text-overflow);
+    overflow: var(--va-select-input-overflow);
 
     /* margin: 0 0.5rem; */
 
@@ -628,23 +671,23 @@ export default class VaSelect extends Mixins(
   }
 
   &__icon {
-    padding-left: 0.25rem;
+    padding-left: var(--va-select-icon-padding-left);
   }
 
   &__prepend-slot {
-    padding-right: 0.5rem;
+    padding-right: var(--va-select-prepend-slot-padding-right);
   }
 
   &__append-slot {
-    padding-left: 0.25rem;
+    padding-left: var(--va-select-append-slot-padding-left);
   }
 
   &__dropdown {
-    outline: none;
-    margin: 0;
-    padding: 0;
-    background: $light-gray3;
-    border-radius: 0.5rem;
+    outline: var(--va-select-dropdown-outline);
+    margin: var(--va-select-dropdown-margin);
+    padding: var(--va-select-dropdown-padding);
+    background: var(--va-select-dropdown-background);
+    border-radius: var(--va-select-dropdown-border-radius);
 
     &.va-select__dropdown-position-top {
       box-shadow: 0 -2px 3px 0 rgba(98, 106, 119, 0.25);
@@ -655,12 +698,12 @@ export default class VaSelect extends Mixins(
     }
 
     .va-dropdown__content {
-      background-color: $light-gray3;
-      margin: 0;
-      padding: 0;
-      overflow-y: auto;
-      box-shadow: $datepicker-box-shadow;
-      border-radius: 0 0 0.5rem 0.5rem;
+      background-color: var(--va-select-dropdown-content-background-color);
+      margin: var(--va-select-dropdown-content-margin);
+      padding: var(--va-select-dropdown-content-padding);
+      overflow-y: var(--va-select-dropdown-content-overflow-y);
+      box-shadow: var(--va-select-dropdown-content-box-shadow);
+      border-radius: var(--va-select-dropdown-content-border-radius);
     }
   }
 }

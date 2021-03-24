@@ -1,3 +1,4 @@
+// @ts-nocheck
 // See https://github.com/Akryum/v-tooltip/issues/473
 // TODO Feel free to remove this declaration once it's fixed.
 

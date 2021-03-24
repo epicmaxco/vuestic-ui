@@ -1,4 +1,94 @@
 {
+  "landing": {
+    "header": {
+      "buttons": {
+        "overview": "Overview",
+        "docs": "Docs",
+        "discord": "Join on Discord",
+        "translation": "Add translation...",
+        "language": "Language",
+        "star": "Star"
+      }
+    },
+    "preview": {
+      "title": "Vue.js UI Library",
+      "buttons": {
+        "start": "Get started",
+        "github": "View on GitHub"
+      },
+      "features": {
+        "nuxt": {
+          "title": "Nuxt Support",
+          "text": "Nuxt integration guides"
+        },
+        "components": {
+          "title": "52 Responsive Components",
+          "text": "Available components docs"
+        },
+        "keyboard": {
+          "title": "Keyboard Navigation",
+          "text": "Accessibility guides"
+        },
+        "browsers": {
+          "title": "Modern Browsers Support",
+          "text": "Supported browsers list"
+        }
+      }
+    },
+    "seamless": {
+      "title": "Seamless Integration",
+      "text": "Use Vuestic UI with other component libraries without any conflicts.",
+      "compare": {
+        "vuestic": "Vuestic UI components",
+        "other": "Other components"
+      }
+    },
+    "customize": {
+      "title": "Customize Everything",
+      "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
+      "tabs": [
+        "Large Modern",
+        "Squared Classy",
+        "Multiple Themes"
+      ],
+      "copy": "Copied to clipboard",
+      "configuration": "See our configuration guides"
+    },
+    "opensource": {
+      "title": "Open Source",
+      "text": [
+        "Vuestic UI is forever free and open to contributions. See our",
+        "issues",
+        "contributing guide",
+        "and",
+        "discord server",
+        "to help us improve Vuestic UI experience."
+      ]
+    },
+    "admin": {
+      "title": "Vuestic Admin",
+      "text": "Check out Vuestic UI Library in action.",
+      "buttons": {
+        "github": "View on GitHub",
+        "demo": "Live Demo",
+        "star": "Star"
+      },
+      "features": {
+        "opensource": "Open source MIT license",
+        "themes": "Two built-in color schemes",
+        "responsive": "Cross-browser & responsive",
+        "i18n": "i18n-ready"
+      }
+    },
+    "footer": {
+      "text": "Open source, free to use. Development inquiries:",
+      "buttons": {
+        "epicmax": "About Epicmax",
+        "admin": "Vuestic Admin",
+        "spinners": "Epic Spinners"
+      }
+    }
+  },
   "api": {
     "all": {
       "events": {
@@ -18,8 +108,8 @@
         "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
         "success": "Show component in success state.",
         "error": "Show component in error state.",
-        "messages": "Description messages for form component.",
-        "errorMessages": "Error messages for form component.",
+        "messages": "Description messages for the component.",
+        "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
         "stateful": "Add possibility to work with component without setting `v-model`",
         "color": "Color of the component (theme string or *HEX* string)",
@@ -40,7 +130,9 @@
         "loading": "Indicates that something is loading (spinner icon)",
         "trueValue": "Overrides the returned value when it's checked",
         "falseValue": "Overrides the returned value when it's not checked",
-        "square": "Removes rounded corners."
+        "square": "Removes rounded corners",
+        "indicator": "Sets the indicator style",
+        "icon": "Sets an icon."
       }
     },
     "VaBadge": {
@@ -301,11 +393,20 @@
     },
     "VaCard": {
       "props": {
-        "stripe": "Displays a stripe above a card title.",
-        "stripeColor": "Customize stripe color (theme string or *HEX* string).",
+        "stripe": "Displays a stripe above a card title with the provided color (theme string or *HEX* string).",
         "gradient": "Adds color gradient to `va-card` body.",
         "bordered": "Toggles borders of a card component.",
         "outlined": "Toggles shadow of `va-card`"
+      }
+    },
+    "VaSidebar": {
+      "props": {
+        "minimized": "Minimized state of sidebar.",
+        "hoverable": "Expand sidebar on hover.",
+        "position": "Position of `va-sidebar`, can be `right` or `left`.",
+        "width": "Width of component in maximized state.",
+        "minimizedWidth": "Width of component in minimized state.",
+        "value": "The current visibility state of `va-sidebar`."
       }
     },
     "VaImage": {
@@ -439,39 +540,39 @@
         "tabindex": "Sets a custom tabindex"
       }
     },
-    "VaExpand": {
+    "VaCollapse": {
       "props": {
-        "value": "Current expand state",
+        "value": "Current collapse state",
         "header": "Text content to place in the header",
         "icon": "The icon to be displayed inside a header",
-        "solid": "Adds borders to the expand",
-        "colorAll": "Applies color to expand contents background"
+        "solid": "Adds borders to the collapse",
+        "colorAll": "Applies color to collapse contents background"
       },
       "events": {
-        "input": "Emits when expand is clicked"
+        "input": "Emits when collapse is clicked"
       },
       "methods": {},
       "slots": {
-        "default": "Content of the expand component",
+        "default": "Content of the collapse component",
         "header": "Replaces content of the header to custom"
       }
     },
-    "VaExpandGroup": {
+    "VaAccordion": {
       "props": {
-        "value": "The array of currently opened expands",
+        "value": "The array of currently opened collapses",
         "multiply": "Allows to expand multiply components",
-        "inset": "Expand becomes smaller when activated",
-        "popout": "Expand becomes bigger when activated"
+        "inset": "Collapse becomes smaller when activated",
+        "popout": "Collapse becomes bigger when activated"
       },
       "events": {
-        "input": "Emits when any of expands is clicked"
+        "input": "Emits when any of collapses is clicked"
       },
       "methods": {},
       "slots": {
-        "default": "Contains expands"
+        "default": "Contains collapses"
       }
     },
-    "VaTag": {
+    "VaChip": {
       "props": {
         "closeable": "Provides the ability to close the tag",
         "outline": "Applies outline styling",
@@ -659,19 +760,137 @@
       "slots": {
         "default": "Slot for app-bar content"
       }
+    },
+    "VaColorPicker": {
+      "props": {
+        "value": "Current picked color"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorInput": {
+      "props": {
+        "value": "Current color",
+        "selected": "Select the indicator"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorInputAdvanced": {
+      "props": {
+        "value": "Current color",
+        "selected": "Select the indicator",
+        "mode": "Sets the mode of the component",
+        "palette": "An array of colors to palette mode"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Component content"
+      }
+    },
+    "VaColorSlider": {
+      "props": {
+        "value": "Current color"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorPalette": {
+      "props": {
+        "value": "Current color",
+        "palette": "An array of colors"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorPaletteAdvanced": {
+      "props": {
+        "value": "Current color",
+        "palette": "An array of colors"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaDatePicker": {
+      "props": {
+        "value": "Sets the input value",
+        "weekDays": "Adds days to the table",
+        "placeholder": "Sets input placeholder",
+        "config": "Object with settings for date picker"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaButtonGroup": {
+      "slots": {
+        "default": "Slot for buttons"
+      }
+    },
+    "VaButtonToggle": {
+      "props": {
+        "options": "The array of objects with `label` and `value` properties",
+        "value": "Current toggle state",
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
+        "toggleColor": "Color of the toggle button"
+      },
+      "events": {
+        "input": "Emits when toggling to the different button"
+      },
+      "methods": {},
+      "slots": {}
+    },
+    "VaInnerLoading": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Slot for the component to which you want to apply loading styles"
+      }
+    },
+    "VaNuxtIntegration": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaTable": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
+    "categories": {
+      "view": "View",
+      "form": "Form",
+      "layout": "Layout",
+      "navigation": "Navigation",
+      "color": "Color",
+      "other": "Other"
+    },
+    "introduction": "Introduction",
+    "gettingStarted": "Getting Started",
+    "styles": "Styles",
+    "uiElements": "UI Elements",
+    "contribution": "Contribution",
+    "documentationPage": "Documentation Page",
     "affix": "Affix",
     "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",
     "badge": "Badge",
     "card": "Card",
+    "sidebar": "Sidebar",
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
-    "uiElements": "UI Elements",
-    "styles": "Styles",
     "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
@@ -684,17 +903,17 @@
     "image": "Image",
     "optionList": "Option List",
     "divider": "Divider",
-    "button": "Button",
     "checkbox": "Checkbox",
+    "button": "Button",
     "progressBar": "Progress Bar",
     "progressCircle": "Progress Circle",
     "infiniteScroll": "Infinite Scroll",
     "alert": "Alert",
     "icon": "Icon",
     "radio": "Radio",
-    "expand": "Expand",
-    "expandGroup": "Expand Group",
-    "tag": "Tag",
+    "collapse": "Collapse",
+    "accordion": "Accordion",
+    "chip": "Chip",
     "grid": "Grid",
     "input": "Input",
     "list": "List",
@@ -707,7 +926,27 @@
     "brazilian_portuguese": "Português",
     "english": "English",
     "spanish": "Spanish",
-    "simplified_chinese": "Simplified Chinese"
+    "simplified_chinese": "Simplified Chinese",
+    "reset": "Reset",
+    "colorPicker": "Color Picker",
+    "colorInput": "Color Input",
+    "colorSlider": "Color Slider",
+    "colorPalette": "Color Palette",
+    "datePicker": "Date Picker",
+    "buttonGroup": "Button Group",
+    "buttonToggle": "Button Toggle",
+    "appBar": "App Bar",
+    "innerLoading": "Inner Loading",
+    "installation": "Installation",
+    "roadmap": "Roadmap",
+    "nuxtIntegration": "Nuxt Integration",
+    "accessibilityGuide": "Accessibility Guide",
+    "configurationGuide": "Configuration Guide",
+    "browsersList": "Browsers List",
+    "overview": "Overview",
+    "translation": "Translation",
+    "browserSupport": "Browser Support",
+    "table": "Table"
   },
   "all": {
     "examples": "Examples",
@@ -716,6 +955,58 @@
   },
   "docsExample": {
     "showCode": "Show Code"
+  },
+  "documentationPage": {
+    "compilesTo": "compiles to:",
+    "title": "Documentation Page",
+    "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
+    "introduction": {
+      "title": "Introduction",
+      "description": "Instead of using established documentation system, such as [vue-press](https://vuepress.vuejs.org/) or [docsify](https://docsify.js.org/#/), we decided to create a system specifically tailored for Vuestic. It's meant to provide an excellent flexibility for future growth."
+    },
+    "pageConfig": {
+      "title": "Page Config",
+      "generate": "If you're trying to document a component from the scratch - use `yarn generate:component` command, which will guide through the process.",
+      "description": "Documentation is using a flat structure - list of blocks. In all text blocks markdown is supported. Here's the blocks you can use:"
+    },
+    "blocktypes": {
+      "title": {
+        "title": "Title",
+        "text": "Page title is mandatory for documentation pages."
+      },
+      "subtitle": {
+        "title": "Subtitle",
+        "text": "Used for: Examples, API, FAQ. Think `h2`."
+      },
+      "headline": {
+        "title": "Headline",
+        "text": "This block used to mark titles of examples or to FAQ questions. Think `h3`."
+      },
+      "paragraph": {
+        "title": "Paragraph",
+        "text": "Should be used for all non-special text blocks."
+      },
+      "code": {
+        "title": "Code",
+        "text": "Code preview. We use [prism](https://prismjs.com/)."
+      },
+      "example": {
+        "title": "Example",
+        "text": "Shows a component with code preview. Component can use all global services: css classes, colors etc."
+      },
+      "api": {
+        "title": "API",
+        "text": "API documentation for component. Combines component options with manual declarations."
+      }
+    },
+    "apiOptionsTitle": "API Options",
+    "apiOptions": {
+      "text": "With automated code analysis we can't go too far. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
+      "version": "`version` - specifies at which version of vuestic this component or feature were implemented.",
+      "types": "`types` - simpler prop types documentation engine can figure from component options (`String`, `Number` etc). For almost everything else it has to be defined.",
+      "local": "`local` - forces to use component-specific translation. Default behaviour is using 'all' section of the translation object.",
+      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. As some props could be intended for internal use."
+    }
   },
   "avatar": {
     "title": "Avatar",
@@ -1301,6 +1592,52 @@
       ]
     }
   },
+  "sidebar": {
+    "title": "Sidebar",
+    "summaryText": "`va-sidebar` is a column to store navigation or secondary information of your app.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "Default usage of `va-sidebar`"
+      },
+      "minimized": {
+        "title": "Minimized",
+        "text": "You can minimize sidebar using `minimized` prop"
+      },
+      "hoverable": {
+        "title": "Hoverable",
+        "text": "Manage your sidebar state using `hoverable` prop. It allows to expand 'va-sidebar' on hover."
+      },
+      "position": {
+        "title": "Position",
+        "text": "Align `va-sidebar` to the left or right."
+      },
+      "width": {
+        "title": "Width",
+        "text": "Define custom width of sidebar in maximixed state."
+      },
+      "vModel": {
+        "title": "V-model",
+        "text": "Use v-model to enable/disable `va-sidebar`."
+      },
+      "minimizedWidth": {
+        "title": "Minimized width",
+        "text": "Width of `va-sidebar` when minimized."
+      },
+      "color": {
+        "title": "Color",
+        "text": "Change background color of a sidebar."
+      }
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "What if `minimized` conflicts with `hoverable`?",
+          "answer": "No conflict there, `minimized` has higher priority. If it's `true`, hover will not expand sidebar."
+        }
+      ]
+    }
+  },
   "image": {
     "title": "Image",
     "summaryText": "The `va-image` is used to display responsive images. It has some features to make your work with images easier.",
@@ -1586,21 +1923,21 @@
       }
     }
   },
-  "expand": {
-    "title": "Expand",
+  "collapse": {
+    "title": "Collapse",
     "summaryText": "Toggles the visibility of content.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage  of the `va-expand` component."
+        "text": "Default usage  of the `va-collapse` component."
       },
       "solid": {
         "title": "Solid",
-        "text": "Add borders to your expand component by using `solid` property."
+        "text": "Add borders to your collapse component by using `solid` property."
       },
       "icon": {
         "title": "Icon",
-        "text": "You can add an icon to the expand's header."
+        "text": "You can add an icon to the header."
       },
       "color": {
         "title": "Color",
@@ -1608,35 +1945,35 @@
       }
     }
   },
-  "expandGroup": {
-    "title": "Expand group",
-    "summaryText": "Allows you to control group of expands",
+  "accordion": {
+    "title": "Accordion",
+    "summaryText": "Allows you to control group of collapses",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage  of the `va-expand-group` component."
+        "text": "Default usage  of the `va-accordion` component."
       },
       "multiply": {
         "title": "Multiply",
-        "text": "Expand group component allows you to select multiply expands."
+        "text": "Accordion component allows you to select multiply collapses."
       },
       "inset": {
         "title": "Inset",
-        "text": "Active expand component becomes smaller."
+        "text": "Active collapse component becomes smaller."
       },
       "popout": {
         "title": "Popout",
-        "text": "Active expand component becomes bigger."
+        "text": "Active collapse component becomes bigger."
       }
     }
   },
-  "tag": {
-    "title": "Tag",
+  "chip": {
+    "title": "Chip",
     "summaryText": "",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage of the `va-tag` compoment."
+        "text": "Default usage of the `va-chip` compoment."
       },
       "outline": {
         "title": "Outline",
@@ -1648,11 +1985,11 @@
       },
       "square": {
         "title": "Square",
-        "text": "Makes your `va-tag` square."
+        "text": "Makes your `va-chip` square."
       },
       "color": {
         "title": "Color",
-        "text": "You can use the `va-tag` component with different colors."
+        "text": "You can use the `va-chip` component with different colors."
       },
       "size": {
         "title": "Size",
@@ -1832,9 +2169,9 @@
         "title": "State",
         "text": "Includes error, success, disabled or loading state"
       },
-      "tags": {
-        "title": "Tags",
-        "text": "Includes selection display as tags and maximum tags count"
+      "chips": {
+        "title": "Chips",
+        "text": "Includes selection display as chips and maximum chips count"
       },
       "searchable": {
         "title": "Searchable",
@@ -1911,6 +2248,253 @@
       "shadow": {
         "title": "Shadow",
         "text": "You can set a shadow."
+      }
+    }
+  },
+  "reset": {
+    "title": "CSS Reset",
+    "description": "We use `reset.scss` to reset and normalize basic CSS styles",
+    "features": {
+      "title": "Reset features",
+      "info": "Below is a list of features that are provided by reset.scss:",
+      "list": "* Margin and padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix for newer browsers. \n * HTML5 display-role reset for older browsers",
+      "more": "For a complete list of all applied styles, see the [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-sass/global/reset.scss) stylesheet."
+    }
+  },
+  "colorPicker": {
+    "title": "Color Picker",
+    "summaryText": "A component which helps to pick the color. We use the [vue-color](https://github.com/xiaokaike/vue-color) library for this component. Will be replaced in next versions.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model`."
+      }
+    }
+  },
+  "colorInput": {
+    "title": "Color Input",
+    "summaryText": "Input component that allows you to select a color.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model`."
+      },
+      "selected": {
+        "title": "Selected",
+        "text": "Dot style changes can be applied."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "All user interactions can be disabled."
+      },
+      "advanced": {
+        "title": "Advanced",
+        "text": "It's a heavier component which provides an ability to pick color by click."
+      }
+    },
+    "api": {
+      "colorInput": "Color Input API",
+      "colorInputAdvanced": "Color Input Advanced API"
+    }
+  },
+  "colorSlider": {
+    "title": "Color Slider",
+    "summaryText": "Slider component for color pick.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model`."
+      }
+    }
+  },
+  "colorPalette": {
+    "title": "Color Palette",
+    "summaryText": "Palette component for color pick.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default use this component with `v-model` and palette array."
+      },
+      "indicator": {
+        "title": "Indicator",
+        "text": "You can apply different styles to the indicator: `dot` and `square` are available. "
+      },
+      "advanced": {
+        "title": "Advanced",
+        "text": "The component has an advanced version with an input component and color picker."
+      }
+    },
+    "api": {
+      "colorPalette": "Color Palette API",
+      "colorPaletteAdvanced": "Color Palette Advanced API"
+    }
+  },
+  "datePicker": {
+    "title": "Date Picker",
+    "summaryText": "Input component for data selection.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, use this component with v-model."
+      },
+      "placeholder": {
+        "title": "Placeholder",
+        "text": "You can set the input component placeholder."
+      },
+      "weekDays": {
+        "title": "Days of the week",
+        "text": "Passing `week-days` shows weekdays in picker."
+      },
+      "successError": {
+        "title": "Success & Error",
+        "text": "You can apply success and error styles."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "You can apply disabled styles and disable interaction with the component."
+      },
+      "disabledDays": {
+        "title": "Disabled days",
+        "text": "You can provide a config object with a `disable` property to disable the array of days."
+      },
+      "range": {
+        "title": "Range",
+        "text": "You can provide a config object with a `mode: range` property to add the ability to set a date range."
+      },
+      "dayTime": {
+        "title": "Day time",
+        "text": "You can provide a config object with an `enableTime` property to add the ability to set a time."
+      },
+      "multiple": {
+        "title": "Multiple",
+        "text": "You can provide a config object with an `mode: multiple` property to add the ability to select multiple dates."
+      },
+      "inline": {
+        "title": "Inline",
+        "text": "You can provide a config object with an `inline` property to add the ability to select multiple dates."
+      }
+    }
+  },
+  "buttonGroup": {
+    "title": "Button Group",
+    "summaryText": "It is a special component that wraps buttons and applies special styles to them.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, you need to wrap your buttons with a `va-button-group` component."
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "Component provides color to each child button."
+      },
+      "sizes": {
+        "title": "Sizes",
+        "text": "You can set different sizes."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can set button styles."
+      },
+      "icons": {
+        "title": "Icons",
+        "text": "Looks good with icons provided to buttons."
+      }
+    }
+  },
+  "buttonToggle": {
+    "title": "Button Toggle",
+    "summaryText": "Button to switch between different values.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, you need to provide an options object and v-model"
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "Applies color presets and HEX colors. Use `toggle-color` prop to set the color of the active button."
+      },
+      "sizes": {
+        "title": "Sizes",
+        "text": "You can provide size presets to the component."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can sets a button styles to the component."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "The component can be disabled."
+      }
+    }
+  },
+  "appBar": {
+    "title": "-- Here is the title --"
+  },
+  "innerLoading": {
+    "title": "Inner Loading",
+    "summaryText": "You can handle the loading state of the wrapped component by using a `va-inner-loading` component.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default wrap a component in `va-inner-loading` with a `loading` property."
+      },
+      "color": {
+        "title": "Color",
+        "text": "You can change the color of the icon."
+      },
+      "size": {
+        "title": "Size",
+        "text": "Supports the ability to resize the icon."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "You can change the loading icon."
+      }
+    }
+  },
+  "installation": {
+    "title": "Work In Progress"
+  },
+  "roadmap": {
+    "title": "Work In Progress"
+  },
+  "nuxtIntegration": {
+    "title": "Work In Progress"
+  },
+  "accessibilityGuide": {
+    "title": "Work In Progress"
+  },
+  "configurationGuide": {
+    "title": "Work In Progress"
+  },
+  "browserSupport": {
+    "title": "Work In Progress"
+  },
+  "overview": {
+    "title": "Work In Progress"
+  },
+  "translation": {
+    "title": "Work In Progress"
+  },
+  "table": {
+    "title": "Tables",
+    "summaryText": "You could use the class `.va-table` for customizing styles of your tables. Here is the couple examples.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text" : "Just add the `.va-table` to the table element."
+      },
+      "hoverable": {
+        "title": "Hoverable",
+        "text": "You could add more interaction to rows via additional `.va-table--hoverable` class."
+      },
+      "striped": {
+        "title": "Striped",
+        "text": "Striped `.va-table--striped` class colorize every second row in the table."
+      },
+      "clickable": {
+        "title": "Clickable",
+        "text": "To make rows looks like mouse `pointer` property you could add `.va-table-clickable` class."
       }
     }
   }

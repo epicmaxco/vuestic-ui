@@ -1,5 +1,4 @@
-import { Mixins, Component } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../context-test/context-provide/ContextPlugin'
+import { prop, Vue } from 'vue-class-component'
 
 export const alignMap = {
   left: 'flex-start',
@@ -10,18 +9,19 @@ export const alignMap = {
   stretch: 'stretch',
 }
 
-@Component
-export class AlignMixin extends Mixins(makeContextablePropsMixin({
-  align: {
+class AlignMixinProps {
+  align = prop<string>({
     type: String,
     default: 'left',
     validator: (align: string) => align in alignMap,
-  },
-})) {
+  })
+}
+
+export class AlignMixin extends Vue.with(AlignMixinProps) {
   get alignComputed () {
     return {
       display: 'flex',
-      justifyContent: alignMap[this.c_align as keyof typeof alignMap],
+      justifyContent: alignMap[this.align as keyof typeof alignMap],
     }
   }
 }

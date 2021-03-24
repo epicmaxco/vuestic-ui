@@ -3,7 +3,7 @@ import { mount, shallowMount, RouterLinkStub } from '@vue/test-utils'
 import VaButton from '../VaButton.vue'
 
 import { testHasColorThemeMixin } from '../../../../services/testHasColorThemeMixin'
-import { ColorThemePlugin, ColorThemeMixin } from '../../../../services/ColorThemePlugin'
+import { ColorThemePlugin, ColorMixin } from '../../../../services/color-config/ColorMixin'
 import { ContextPlugin } from '../../../context-test/context-provide/ContextPlugin'
 import { testIsLoadingMixin } from '../../../vuestic-mixins/LoadingMixin/testIsLoadingMixin'
 

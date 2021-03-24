@@ -16,7 +16,7 @@
         @touchend="stopDrag"
         @transitionend="onContentResize"
       >
-        <slot />
+        <slot/>
       </div>
       <div
         class="track"
@@ -152,7 +152,7 @@ export default {
       this.calcThumb()
     })
   },
-  beforeDestroy () {
+  beforeUnmount () {
     erd.removeAllListeners(this.content)
   },
   data () {
@@ -176,32 +176,33 @@ export default {
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-scrollbar {
-  background: transparent;
-  transition: all 0.3s linear;
-  position: relative;
+  background: var(--va-scrollbar-background);
+  transition: var(--va-scrollbar-transition);
+  position: var(--va-scrollbar-position);
 
   .scrollbar-wrapper {
-    border-radius: 0.375rem;
-    box-shadow: $sidebar-box-shadow;
-    position: relative;
-    overflow: hidden;
-    max-height: 100%;
+    border-radius: var(--va-scrollbar-wrapper-border-radius);
+    box-shadow: var(--va-scrollbar-wrapper-box-shadow);
+    position: var(--va-scrollbar-wrapper-position);
+    overflow: var(--va-scrollbar-wrapper-overflow);
+    max-height: var(--va-scrollbar-wrapper-max-height);
 
     .track {
-      width: 5px;
-      position: absolute;
-      right: 0;
-      top: 0;
-      height: 100%;
+      width: var(--va-scrollbar-wrapper-track-width);
+      position: var(--va-scrollbar-wrapper-track-position);
+      right: var(--va-scrollbar-wrapper-track-right);
+      top: var(--va-scrollbar-wrapper-track-top);
+      height: var(--va-scrollbar-wrapper-track-height);
 
       .thumb {
-        transition: height 0.3s linear, opacity 0.6s linear;
-        position: absolute;
-        width: 100%;
-        background-color: $vue-green;
-        opacity: 0;
+        transition: var(--va-scrollbar-thumb-transition);
+        position: var(--va-scrollbar-thumb-position);
+        width: var(--va-scrollbar-thumb-width);
+        background-color: var(--va-scrollbar-thumb-background-color);
+        opacity: var(--va-scrollbar-thumb-opacity);
 
         &.active {
           opacity: 0.3;

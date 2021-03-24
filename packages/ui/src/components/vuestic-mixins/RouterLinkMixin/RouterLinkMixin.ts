@@ -1,65 +1,48 @@
-import { Vue, Component, Prop, Mixins } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-const RouterLinkPropsMixin = makeContextablePropsMixin({
-  tag: { type: String, default: 'router-link' },
-})
-// should not be contextable as it's a unique case (we just pass values to vue-router's <router-link/>)
-@Component
-export class RouterLinkMixin extends Mixins(
+class RouterLinkProps {
+  tag = prop<string>({ type: String, default: 'router-link' })
+  to = prop<string | object>({ type: [String, Object] })
+  replace = prop<boolean>({ type: Boolean })
+  append = prop<boolean>({ type: Boolean })
+  exact = prop<boolean>({ type: Boolean })
+  activeClass = prop<string>({ type: String })
+  exactActiveClass = prop<string>({ type: String })
+  href = prop<string>({ type: String })
+  target = prop<string>({ type: String })
+}
+
+const RouterLinkPropsMixin = Vue.with(RouterLinkProps)
+
+@Options({})
+export class RouterLinkMixin extends mixins(
   RouterLinkPropsMixin,
 ) {
-  @Prop({
-    type: [String, Object],
-  }) readonly to!: string | Record<string, any>
-
-  @Prop({
-    type: Boolean,
-  }) readonly replace!: boolean
-
-  @Prop({
-    type: Boolean,
-  }) readonly append!: boolean
-
-  @Prop({
-    type: Boolean,
-  }) readonly exact!: boolean
-
-  @Prop({
-    type: String,
-  }) readonly activeClass!: string
-
-  @Prop({
-    type: String,
-  }) readonly exactActiveClass!: string
-
-  @Prop({
-    type: String,
-  }) readonly href!: string
-
-  @Prop({
-    type: String,
-  }) readonly target!: string
+  hasRouterLinkMixin!: boolean
 
   get tagComputed () {
-    if (this.c_tag === 'a' || this.href || this.target) {
+    const isNuxt = !!Object.getOwnPropertyDescriptor(this, '$nuxt')
+    if (this.tag === 'a' || (this.href && !this.to) || this.target) {
       return 'a'
     }
-    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
+    if (this.tag === 'nuxt-link' || (isNuxt && this.hasRouterLinkParams)) {
+      return 'nuxt-link'
+    }
+    if (this.tag === 'router-link' || this.hasRouterLinkParams) {
       return 'router-link'
     }
-    return this.c_tag
+    return this.tag
   }
 
   get hasRouterLinkParams () {
     return Boolean(
       this.to ||
-        this.append ||
-        this.replace ||
-        this.exact ||
-        this.activeClass ||
-        this.href ||
-        this.exactActiveClass,
+      this.append ||
+      this.replace ||
+      this.exact ||
+      this.activeClass ||
+      this.href ||
+      this.exactActiveClass,
     )
   }
 
@@ -70,13 +53,19 @@ export class RouterLinkMixin extends Mixins(
 
     const resolve = this.$router.resolve(
       this.to,
-      this.$route,
     )
 
     const to = resolve.href
-    const currentHref = this.$router.currentRoute.path
+    const currentHref = this.$router.currentRoute.value.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
+  }
+
+  get hrefComputed () {
+    // to resolve href on server for SEO optimization
+    // https://github.com/nuxt/nuxt.js/issues/8204
+    // @ts-ignore
+    return this.href || (this.to ? this.$router?.resolve(this.to, this.$route).href : null)
   }
 
   created () {
