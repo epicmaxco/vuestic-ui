@@ -1,13 +1,11 @@
 <template>
   <VbDemo>
     <VbCard title="MD">
-      <va-icon class="material-icons">
-        home
-      </va-icon>
+      <va-icon class="material-icons">home</va-icon>
       <va-icon name="home" />
     </VbCard>
     <VbCard title="FA 4">
-      <va-icon name="home" />
+      <va-icon class="fa fa-home" />
       <va-icon name="fa4-home" />
     </VbCard>
     <VbCard title="FA 5">
@@ -73,13 +71,22 @@
     </VbCard>
     <VbCard title="Svg component">
       <va-icon :component="getSvgComponent()" />
+      <va-icon name="demo-svg-vuestic" />
     </VbCard>
     <VbCard title="text icon">
-      <va-icon>close</va-icon>
+      <va-icon name="text">close</va-icon>
     </VbCard>
     <VbCard title="Spin Prop">
       <va-icon
+        spin="clock-wise"
+        name="loop"
+      />
+      <va-icon
         spin
+        name="loop"
+      />
+      <va-icon
+        spin="counter-clockwise"
         name="loop"
       />
     </VbCard>
@@ -89,6 +96,10 @@
 <script>
 import VaIcon from './index'
 import SvgComponent from './va-iconset/VaIconVue'
+import { useGlobalConfig } from '../../../main'
+import { createIconsConfig } from '../../../services/icon-config/icon-config'
+import DemoIconsAliases from '../../../vue-book/vuestic-config/demo-icon-aliases'
+import DemoIconsFonts from '../../../vue-book/vuestic-config/demo-icon-fonts'
 
 export default {
   components: {
@@ -99,6 +110,23 @@ export default {
       clickedCount: 0,
       getSvgComponent: () => SvgComponent,
     }
+  },
+  created () {
+    const { setGlobalConfig } = useGlobalConfig()
+    setGlobalConfig({
+      icons: createIconsConfig({
+        aliases: [
+          {
+            name: 'demo-svg-vuestic',
+            component: SvgComponent,
+          },
+          ...DemoIconsAliases,
+        ],
+        fonts: [
+          ...DemoIconsFonts,
+        ],
+      }),
+    })
   },
 }
 </script>

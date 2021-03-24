@@ -3,3 +3,10 @@ export { VuesticPlugin } from './components/vuestic-plugin'
 export { useColor } from './services/color-config/ColorMixin'
 export { useGlobalConfig } from './services/GlobalConfigPlugin'
 export { setupColors as useTheme } from './services/color-config/color-config'
+export {
+  IconMixin,
+  setupIcons,
+  createIconsConfig,
+  VuesticIconFonts,
+  VuesticIconAliases,
+} from './services/icon-config/icon-config'

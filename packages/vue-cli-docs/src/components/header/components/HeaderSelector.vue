@@ -19,7 +19,7 @@
 // @ts-nocheck
 import VaIconMenu from '@/iconset/VaIconMenu.vue'
 import VaIconMenuCollapsed from '@/iconset/VaIconMenuCollapsed.vue'
-import { useTheme } from 'vuestic-ui'
+import { setupColors } from 'vuestic-ui'
 
 export default {
   name: 'HeaderSelector',
@@ -41,7 +41,7 @@ export default {
   },
 
   setup () {
-    const { getTheme } = useTheme()
+    const { getTheme } = setupColors()
     return {
       getTheme: getColors,
     }

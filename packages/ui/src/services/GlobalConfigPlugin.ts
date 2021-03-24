@@ -18,6 +18,7 @@ type Updater = (config: GlobalConfig) => GlobalConfig;
 // Global config is singleton and we wrap it into ref for reactivity.
 const globalConfigRef = ref<GlobalConfig>({
   colors: colorsPresets.default as ColorConfig,
+  icons: [],
   components: getDefaultConfig(),
 })
 
