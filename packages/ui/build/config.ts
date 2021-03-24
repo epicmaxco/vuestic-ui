@@ -18,11 +18,11 @@ const config = {
   mode: isProd ? 'production' : 'development',
   devtool: isProd ? false : 'eval-cheap-module-source-map',
   entry: {
-    app: './src/main.ts',
+    'vuestic-ui': './src/main.ts',
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'vuestic-ui.js',
+    filename: '[name].js',
     publicPath: '/dist/',
     library: 'VuesticUI',
     libraryTarget: 'umd',
@@ -41,7 +41,7 @@ const config = {
   plugins: [
     new FriendlyErrorsWebpackPlugin({ clearConsole: true }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: 'vuestic-ui.css',
       chunkFilename: '[id].css',
     }),
     new webpack.DefinePlugin({
