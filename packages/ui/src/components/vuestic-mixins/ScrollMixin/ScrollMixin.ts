@@ -1,41 +1,36 @@
-import { Mixins, Component } from 'vue-property-decorator'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { onMounted, onBeforeUnmount, ref } from 'vue'
 
-@Component
-export class ScrollMixin extends Mixins(makeContextablePropsMixin({
-  target: { type: [Element, String], default: window },
-})) {
-  get targetElement (): Element {
-    return typeof this.c_target === 'string'
-      ? document.querySelector(this.c_target)
-      : this.c_target || this.$el.parentElement
+function getTargetElement (target: Element | string | null) {
+  if (!target) {
+    throw new Error('Cant find target')
   }
 
-  addEventListeners () {
-    if (this.c_target && this.targetElement) {
-      this.targetElement.addEventListener('scroll', this.handleScroll)
+  if (typeof target === 'string') {
+    const targetElement = document.querySelector(target)
+    if (targetElement) {
+      return targetElement
     }
   }
 
-  removeEventListeners () {
-    if (this.c_target && this.targetElement) {
-      this.targetElement.removeEventListener('scroll', this.handleScroll)
+  return target as Element
+}
+
+export function setupScroll (target: Element | string, onScrollCallback: (e?: any) => unknown) {
+  const root = ref(null)
+  let targetElement: Element | null
+
+  onMounted(() => {
+    targetElement = getTargetElement(target || root.value)
+    if (targetElement) {
+      targetElement.addEventListener('scroll', onScrollCallback)
     }
-  }
+  })
 
-  handleScroll (): void {
-    throw new Error('handleScroll method should be implemented in component')
-  }
+  onBeforeUnmount(() => {
+    if (targetElement) {
+      targetElement.removeEventListener('scroll', onScrollCallback)
+    }
+  })
 
-  mounted () {
-    this.addEventListeners()
-  }
-
-  beforeDestroy () {
-    this.removeEventListeners()
-  }
-
-  created () {
-    this.hasScrollMixin = true
-  }
+  return root
 }

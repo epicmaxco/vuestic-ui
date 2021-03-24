@@ -1,64 +1,88 @@
 <template>
-  <header
-    :class="computedClass"
-    :style="computedStyle"
-    ref="appBar"
-  >
+  <header :class="computedClass" :style="computedStyle" ref="scrollRoot">
     <slot />
   </header>
 </template>
 
 <script lang="ts">
-import { Mixins, Component } from 'vue-property-decorator'
+import { setupScroll } from '../../vuestic-mixins/ScrollMixin/ScrollMixin'
+import { Options, prop, setup, Vue } from 'vue-class-component'
 
-import { getGradientBackground, getBoxShadowColor } from '../../../services/color-functions'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import { ScrollMixin } from '../../vuestic-mixins/ScrollMixin/ScrollMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import {
+  getGradientBackground,
+  getBoxShadowColor,
+} from '../../../services/color-config/color-functions'
+import { useColor } from '../../vuestic-mixins/ColorMixin'
+import { computed } from '@vue/runtime-core'
 
-const PropsMixin = makeContextablePropsMixin({
-  gradient: { type: Boolean, default: false },
-  bottom: { type: Boolean, default: false },
-  target: { type: [Element, String], default: '' },
-  hideOnScroll: { type: Boolean, default: false },
-  shadowOnScroll: { type: Boolean, default: false },
-  shadowColor: { type: String, default: '' },
-})
+class VaAppBarProps {
+  gradient = prop<boolean>({ type: Boolean, default: false });
+  bottom = prop<boolean>({ type: Boolean, default: false });
+  target = prop<string | Element>({ type: [Element, String], default: '' });
+  hideOnScroll = prop<boolean>({ type: Boolean, default: false });
+  shadowOnScroll = prop<boolean>({ type: Boolean, default: false });
+  shadowColor = prop<string>({ type: String, default: '' });
+  color = prop<string>({ type: String, default: 'primary' });
+}
 
-@Component({
-  name: 'VaAppBar',
-})
-export default class VaAppBar extends Mixins(
-  ColorThemeMixin,
-  ScrollMixin,
-  PropsMixin,
-) {
-  scrollPos = 0
+@Options({ name: 'VaAppBar' })
+export default class VaAppBar extends Vue.with(VaAppBarProps) {
+  scrollPos = 0;
+  isHidden = false;
+  doShowShadow = false
+
+  scrollRoot = setup(() => {
+    let prevScrollPosition = 0
+    return setupScroll(this.target, (e: any) => {
+      if (prevScrollPosition < e.target.scrollTop) {
+        // Scroll down
+        this.isHidden = !!this.hideOnScroll
+        this.doShowShadow = !!this.shadowOnScroll
+      } else {
+        // Scroll up
+        this.isHidden = false
+        this.doShowShadow = false
+      }
+      prevScrollPosition = e.target.scrollTop
+    })
+  });
+
+  colors = setup(() => {
+    const getColor = useColor()
+
+    const colorComputed = getColor(this.color || 'primary')
+    const shadowColor = getColor(this.shadowColor, colorComputed)
+
+    return { colorComputed, shadowColor }
+  })
+
+  get computedShadow () {
+    if (!this.doShowShadow) { return '' }
+
+    const shadow = getBoxShadowColor(this.shadowColor ? this.colors.shadowColor : this.colors.colorComputed)
+
+    return `0px 0px 12px 2px ${shadow}`
+  }
+
+  get transformComputed () {
+    if (!this.isHidden) { return '' }
+
+    return this.bottom ? 'translateY(100%)' : 'translateY(-100%)'
+  }
 
   get computedStyle () {
     return {
-      background: this.c_gradient ? getGradientBackground(this.colorComputed) : this.colorComputed,
+      background: this.gradient ? getGradientBackground(this.colors.colorComputed) : this.colors.colorComputed,
+      'box-shadow': this.computedShadow,
+      transform: this.transformComputed,
     }
   }
 
   get computedClass () {
     return {
       'va-app-bar': true,
-      'va-app-bar--bottom': this.c_bottom,
+      'va-app-bar--bottom': this.bottom,
     }
-  }
-
-  handleScroll (): void {
-    if (this.scrollPos < this.targetElement.scrollTop) {
-      (this as any).$refs.appBar.style.transform = this.c_hideOnScroll ? `translateY(${this.c_bottom ? '100%' : '-100%'})` : ''
-      ;(this as any).$refs.appBar.style.boxShadow = this.c_shadowOnScroll
-        ? `0px 0px 12px 2px ${getBoxShadowColor(this.c_shadowColor ? getColor(this, this.c_shadowColor) : this.colorComputed)}`
-        : ''
-    } else {
-      (this as any).$refs.appBar.style.transform = 'translateY(0)'
-      ;(this as any).$refs.appBar.style.boxShadow = 'none'
-    }
-    this.scrollPos = this.targetElement.scrollTop
   }
 }
 </script>
