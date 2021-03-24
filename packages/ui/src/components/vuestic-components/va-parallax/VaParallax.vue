@@ -22,7 +22,6 @@
 import { Component, Mixins } from 'vue-property-decorator'
 
 import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ScrollMixin } from '../../vuestic-mixins/ScrollMixin/ScrollMixin'
 
 const PropsMixin = makeContextablePropsMixin({
   target: { type: [Element, String], default: '' },
@@ -42,7 +41,6 @@ const PropsMixin = makeContextablePropsMixin({
   name: 'VaParallax',
 })
 export default class VaParallax extends Mixins(
-  ScrollMixin,
   PropsMixin,
 ) {
   elOffsetTop = 0
@@ -58,6 +56,12 @@ export default class VaParallax extends Mixins(
     return {
       height: this.height + 'px',
     }
+  }
+
+  get targetElement () {
+    return typeof this.c_target === 'string'
+      ? document.querySelector(this.c_target)
+      : this.c_target || this.$el.parentElement
   }
 
   get computedImgStyles (): object {
@@ -96,24 +100,35 @@ export default class VaParallax extends Mixins(
   }
 
   addEventListeners (): void {
-    const img: HTMLImageElement = this.$refs.img as HTMLImageElement
-    if (img.complete) {
-      this.translate()
-      this.targetElement.addEventListener('scroll', this.translate)
-      this.targetElement.addEventListener('resize', this.translate)
-    } else {
-      img.addEventListener('load', () => {
-        this.translate()
-        this.targetElement.addEventListener('scroll', this.translate)
-        this.targetElement.addEventListener('resize', this.translate)
-      }, { once: true })
-    }
-    this.isLoaded = true
+    this.targetElement.addEventListener('scroll', this.translate)
+    this.targetElement.addEventListener('resize', this.translate)
   }
 
   removeEventListeners (): void {
     this.targetElement.removeEventListener('scroll', this.translate)
     this.targetElement.removeEventListener('resize', this.translate)
+  }
+
+  initImage (): void {
+    const img: HTMLImageElement = this.$refs.img as HTMLImageElement
+    if (img.complete) {
+      this.translate()
+      this.addEventListeners()
+    } else {
+      img.addEventListener('load', () => {
+        this.translate()
+        this.addEventListeners()
+      }, false)
+    }
+    this.isLoaded = true
+  }
+
+  mounted () {
+    this.initImage()
+  }
+
+  beforeDestroy () {
+    this.removeEventListeners()
   }
 }
 </script>
