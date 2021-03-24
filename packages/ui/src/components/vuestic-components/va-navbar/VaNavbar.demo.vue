@@ -62,7 +62,7 @@
 
 <script>
 import VaNavbar from './VaNavbar'
-import VaIconMenuCollapsed from '../va-icon/va-iconset/VaIconMenuCollapsed.vue'
+import VaIconMenuCollapsed from './demo/VaIconMenuCollapsed.vue'
 import VaNavbarItem from './VaNavbarItem/VaNavbarItem.vue'
 
 export default {

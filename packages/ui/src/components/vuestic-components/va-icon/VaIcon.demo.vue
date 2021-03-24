@@ -95,11 +95,7 @@
 
 <script>
 import VaIcon from './index'
-import SvgComponent from './va-iconset/VaIconVue'
-import { useGlobalConfig } from '../../../main'
-import { createIconsConfig } from '../../../services/icon-config/icon-config'
-import DemoIconsAliases from '../../../vue-book/vuestic-config/demo-icon-aliases'
-import DemoIconsFonts from '../../../vue-book/vuestic-config/demo-icon-fonts'
+import SvgComponent from './demo/VaIconVue'
 
 export default {
   components: {
