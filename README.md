@@ -1,45 +1,126 @@
-# vuestic-ui
+<p align="center">
+    <a href="https://vuestic.dev" target="_blank">
+        <img alt="Vuestic UI Logo" width="500" src="https://vuestic.dev/_nuxt/img/2d3d3c5.svg">
+    </a>
+        <br>
+    Vue.js 3.0 UI Library
+    <br>
+    Developed by <a href="https://epicmax.co">Epicmax</a>. Designed by
+    <a href="https://xxsavitski.com/">Vasili Savitski</a>.
+    <br>
+  </p>
 
-![CircleCI](https://img.shields.io/circleci/build/gh/epicmaxco/vuestic-ui/develop?label=tests)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui)
+  <p align="center">
+    <a href="https://app.circleci.com/pipelines/github/epicmaxco/vuestic-ui">
+      <img src="https://img.shields.io/circleci/build/github/epicmaxco/vuestic-ui/develop" alt="CI badge">
+    </a>
+    <a href="https://github.com/epicmaxco/vuestic-ui/blob/develop/LICENSE.MD">
+      <img src="https://img.shields.io/npm/l/vuestic-ui.svg" alt="License">
+    </a>
+    <a href="https://www.npmjs.com/package/vuestic-ui">
+      <img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui" alt="Version">
+    </a>
+  </p>
 
-## Project setup
-```
-yarn
+  <p align="center">
+    <a href="https://vuestic.dev/">Documentation</a>
+    |
+    <a href="https://discord.gg/jTKTjj2weV">Discord</a>
+  </p>
+
+# Vuestic UI Framework
+
+> Vuestic UI is forever free and open to contributions. See our
+<a href="https://github.com/epicmaxco/vuestic-ui/issues">issues</a>,
+<a href="https://vuestic.dev/en/contribution/documentation-page">contributing</a> and join discussions on our
+<a href="https://discord.gg/jTKTjj2weV">Discord</a> to help us improve Vuestic UI experience.
+
+  <p align="center">
+    <img src="https://camo.githubusercontent.com/7e01a375ab814e4e87231e455542755cb831dd14/68747470733a2f2f692e696d6775722e636f6d2f704d754a5656632e706e67">
+  </p>
+
+### Why use Vuestic UI?
+
+- Vue.js 3.0 directivity
+- MIT license
+- Feature-rich: more than 52 customizable components
+- Two built-in color scheme presets
+- Powerful configurations:
+    - Local - configure components in-depth
+    - Global - configure framework overall
+- Cross-browser and responsive
+- i18n-ready
+
+### Installation
+
+First, make sure you have all prerequisites installed:
+
+* [Node.js](https://nodejs.org/en/) ( >=14.*)
+* [npm](https://www.npmjs.com/get-npm) version 3+ (
+  or [yarn](https://yarnpkg.com/lang/en/docs/install) version 1.16+)
+  and [Git](https://git-scm.com).
+
+After checking the prerequisites, install Vuestic UI via npm/yarn:
+
+```shell
+npm install vuestic-ui
+//or
+yarn add vuestic-ui
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
+### Quick start
+
+Make sure you're imported both styles and plugin into your entry file:
+
+```javascript
+//main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import { VuesticPlugin } from 'vuestic-ui' //(✓)
+import 'vuestic-ui/dist/vuestic-ui.css' //(✓)
+//...
+const app = createApp(App)
+app.use(VuesticPlugin) //(✓)
+//...
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+### Documentation
 
-### Run your tests
-```
-yarn test
-```
+Information, guides and tutorials are available
+on [vuestic.dev](https://vuestic.dev)
 
-### Lints and fixes files
-```
-yarn lint
-```
+### Community
 
-### Run your unit tests
-```
-yarn test:unit
-```
+Ask questions at the official
+community [discord server](https://discord.gg/jTKTjj2weV)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Vuestic Admin
 
-## Development
+See Vuestic UI library in
+action. [Vuestic Admin](https://vuestic.epicmax.co/admin/dashboard) is a great
+example of a real-world web application based on Vuestic UI.
 
-### Generators
-```
-yarn generate:component
-```
-Allows you to auto-generate boilerplate code for common parts of your application.
+### Contributing
+
+Thanks for all your wonderful PRs, issues and ideas.
+<a href="https://github.com/epicmaxco/vuestic-ui/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=epicmaxco/vuestic-ui" />
+</a>
+<br>
+You’re always welcome to
+join: check out our <a href="https://vuestic.dev/en/contribution/documentation-page">contribution
+guides</a>, [open issues](https://github.com/epicmaxco/vuestic-ui/issues)
+and [discord server](https://discord.gg/jTKTjj2weV)
+
+### Can I hire you guys?
+
+Yes! Say hi: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a>
+
+We will be happy to work with you! [Other work](https://epicmax.co) we’ve done
+
+### Browsers support
+We design Vuestic UI to support the latest modern web browsers.
+
+### License
+
+[MIT] license.
