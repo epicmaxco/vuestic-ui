@@ -28,11 +28,9 @@
     <a href="https://discord.gg/jTKTjj2weV">Discord</a>
   </p>
 
-# Vuestic UI Framework
-
 > Vuestic UI is forever free and open to contributions. See our
 <a href="https://github.com/epicmaxco/vuestic-ui/issues">issues</a>,
-<a href="https://vuestic.dev/en/contribution/documentation-page">contributing</a> and join discussions on our
+<a href="https://vuestic.dev/en/contribution/guide">contributing guide</a> and join discussions on our
 <a href="https://discord.gg/jTKTjj2weV">Discord</a> to help us improve Vuestic UI experience.
 
   <p align="center">
@@ -41,7 +39,7 @@
 
 ### Why use Vuestic UI?
 
-- Vue.js 3.0 directivity
+- Vue.js 3.0 compatible
 - MIT license
 - Feature-rich: more than 52 customizable components
 - Two built-in color scheme presets
@@ -97,30 +95,41 @@ community [discord server](https://discord.gg/jTKTjj2weV)
 ### Vuestic Admin
 
 See Vuestic UI library in
-action. [Vuestic Admin](https://vuestic.epicmax.co/admin/dashboard) is a great
+action. [Vuestic Admin](https://github.com/epicmaxco/vuestic-admin) is a great
 example of a real-world web application based on Vuestic UI.
 
 ### Contributing
 
 Thanks for all your wonderful PRs, issues and ideas.
 <a href="https://github.com/epicmaxco/vuestic-ui/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=epicmaxco/vuestic-ui" />
+<img src="https://contrib.rocks/image?repo=epicmaxco/vuestic-ui">
 </a>
 <br>
-You’re always welcome to
-join: check out our <a href="https://vuestic.dev/en/contribution/documentation-page">contribution
-guides</a>, [open issues](https://github.com/epicmaxco/vuestic-ui/issues)
+You’re always welcome to join: check out
+our <a href="https://vuestic.dev/en/contribution/guide">
+contribution guides</a>
+, [open issues](https://github.com/epicmaxco/vuestic-ui/issues)
 and [discord server](https://discord.gg/jTKTjj2weV)
+
+### Browsers support
+
+We design Vuestic UI to support the latest modern web browsers.
+
+| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" /><br>IE/Edge | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" /><br>Firefox | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" /><br>Chrome | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" /><br>Safari | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" /><br>Opera |
+| --- | --- | --- | --- | --- |
+| Edge | last 2 versions  | last 2 versions | last 2 versions | last 2 versions |
 
 ### Can I hire you guys?
 
 Yes! Say hi: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a>
-
 We will be happy to work with you! [Other work](https://epicmax.co) we’ve done
 
-### Browsers support
-We design Vuestic UI to support the latest modern web browsers.
+### Follow us
+
+Stay up to date with the latest Vuestic news! Follow us
+on [Twitter](https://twitter.com/epicmaxco)
+or [Facebook](https://facebook.com/epicmaxco)
 
 ### License
 
-[MIT] license.
+[MIT](https://github.com/epicmaxco/vuestic-ui/blob/develop/LICENSE.MD) license.
