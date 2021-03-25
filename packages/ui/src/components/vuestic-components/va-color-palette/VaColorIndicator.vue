@@ -7,13 +7,12 @@
   >
     <div
       class="color-indicator__core"
-      :style="{'background-color': color, 'border-radius': indicator === 'square' ? 0 : '50%'}"
+      :style="{'background-color': color, 'border-radius': square ? 0 : '50%'}"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { shiftHslColor } from '../../../services/color-functions'
 import { Vue, Options, prop, mixins } from 'vue-class-component'
 
 class ColorIndicatorProps {
@@ -22,12 +21,9 @@ class ColorIndicatorProps {
     default: '',
   })
 
-  indicator = prop<string>({
-    type: String,
-    default: 'dot',
-    validator: (value: string) => {
-      return ['dot', 'square'].includes(value)
-    },
+  square = prop<boolean>({
+    type: Boolean,
+    default: false,
   })
 
   selected = prop<boolean>({
@@ -52,9 +48,11 @@ export default class VaColorIndicator extends mixins(ColorIndicatorPropsMixin) {
   cursor: pointer;
   border-radius: 50%;
   text-align: center;
+  background-color: #d8dadd;
   border: 0.125rem solid #d8dadd;
 
   &--selected {
+    background-color: $vue-darkest-blue;
     border-color: $vue-darkest-blue;
   }
 
