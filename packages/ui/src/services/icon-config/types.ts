@@ -19,7 +19,7 @@ export type IconConfig = {
    *
    * @see https://fontawesome.com/icons/home?style=solid
   */
-  iconClass?: string | ((...regexGroups: string[]) => string)
+  iconClass?: string | ((...regexGroups: string[]) => string) | ((regexGroups: Record<string, any>) => string)
 
   /**
    * Content is used if we want to use custom symbols
@@ -39,7 +39,7 @@ export type IconConfig = {
    *
    * @see https://material.io/resources/icons/?icon=alarm&style=baseline
    */
-  content?: string | ((...regexGroups: string[]) => string | undefined)
+  content?: string | ((...regexGroups: string[]) => string | undefined) | ((regexGroups: { [key: string]: any}) => string)
 
   /** Vue component */
   component?: any,

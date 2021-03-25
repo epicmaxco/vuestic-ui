@@ -1,12 +1,14 @@
-const fontsConfig = {
+import { IconConfig } from '../../services/icon-config/types'
+
+const fontsConfig: { [key: string]: IconConfig} = {
   md: {
-    name: /md-(.*)/,
+    name: 'md-{name}',
     iconClass: 'material-icons',
     content: (content: string) => content,
   },
   fa: {
-    name: /fa4-(.*)/,
-    iconClass: (code: string) => `fa fa-${code}`,
+    name: 'fa4-{code}',
+    iconClass: ({ code }: any) => `fa fa-${code}`,
   },
   fa5: {
     name: /(fas|far|fal|fad|fab)-(.*)/,
@@ -20,8 +22,12 @@ const fontsConfig = {
     name: /ion-outline-(.*)/,
     iconClass: (code: string) => `icon ion-ios-${code}-outline`,
   },
+  entypo: {
+    name: 'entypo-{code}',
+    iconClass: (regexGroups: any) => `entypo-${regexGroups.code}`,
+  },
   welovefonts: {
-    name: /(brandico|entypo|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial)-(.*)/,
+    name: /(brandico|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial)-(.*)/,
     iconClass: (font: string, code: string) => `${font}-${code}`,
   },
   text: {

@@ -1,4 +1,4 @@
-import { paramsFromString } from '../template-parser'
+import { paramsFromString, matchTemplate } from '../template-parser'
 
 describe('IconsConfig', () => {
   describe('paramsFromString', () => {
@@ -13,6 +13,15 @@ describe('IconsConfig', () => {
       expect(paramsFromString('abs abs', '{1} {2}')).toEqual({ 1: 'abs', 2: 'abs' })
       expect(paramsFromString('abs ', ' {2}')).toEqual({ 2: '' })
       expect(paramsFromString('fa-clock', 'fa-{long param}')).toEqual({ 'long param': 'clock' })
+    })
+  })
+  describe('matchTemplate', () => {
+    it('match', () => {
+      expect(matchTemplate('fa-phone', 'fa-{code}')).toBeTruthy()
+      expect(matchTemplate('fa-phone-f', 'fa-{code}-f')).toBeTruthy()
+      expect(matchTemplate('fa-phone', 'fa-{code}-f')).toBeFalsy()
+      expect(matchTemplate('fa-phone-f', 'fa-{code}')).toBeTruthy() // phone-f
+      expect(matchTemplate('fa-phone-f', 'fa-{code}-{suffix}')).toBeTruthy()
     })
   })
 })

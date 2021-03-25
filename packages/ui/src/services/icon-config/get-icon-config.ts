@@ -1,6 +1,6 @@
 import { IconsConfig, IconConfig } from './types'
 import { getRegexGroups } from './utils'
-import { VuesticIconAliases, VuesticIconFonts } from './presets'
+import { matchTemplate, paramsFromString } from './template-parser'
 
 /**
  * Creates new icon config object with 'iconClass', 'content',
@@ -8,11 +8,20 @@ import { VuesticIconAliases, VuesticIconFonts } from './presets'
  */
 function executeConfigFunctions (name: string, iconConfig: IconConfig): IconConfig {
   const config = { ...iconConfig } as any
-  const args = getRegexGroups(name, config.name);
+  let args: any
+  if (typeof iconConfig.name === 'string') {
+    args = paramsFromString(name, config.name)
+  } else {
+    args = getRegexGroups(name, config.name)
+  }
 
   ['iconClass', 'content', 'componentOptions'].forEach((funName) => {
     if (typeof config[funName] === 'function') {
-      config[funName] = config[funName](...args)
+      if (Array.isArray(args)) {
+        config[funName] = config[funName](...args)
+      } else {
+        config[funName] = config[funName](args)
+      }
     }
   })
 
@@ -23,7 +32,7 @@ function executeConfigFunctions (name: string, iconConfig: IconConfig): IconConf
 function findConfigByName (name: string, iconsConfig: IconsConfig, ignoreNames: string[] = []): IconConfig | undefined {
   const config = iconsConfig.find((c) => {
     if (ignoreNames.includes(c.name.toString())) { return false }
-    return typeof c.name === 'string' ? c.name === name : c.name.test(name)
+    return typeof c.name === 'string' ? matchTemplate(name, c.name) : c.name.test(name)
   })
 
   if (config?.to) {
