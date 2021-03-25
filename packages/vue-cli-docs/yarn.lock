@@ -9481,9 +9481,9 @@ vue@3.0.5, vue@^3.0.4, vue@^3.0.5:
     "@vue/runtime-dom" "3.0.5"
     "@vue/shared" "3.0.5"
 
-vuestic-ui@^1.0.0-alpha.15:
-  version "1.0.0-alpha.15"
-  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.0.0-alpha.15.tgz#46ad3d20f3aa3560cc433c79d04dcd3ef12c755c"
+vuestic-ui@^1.0.0-alpha.16:
+  version "1.0.0-alpha.16"
+  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.0.0-alpha.16.tgz#46ad3d20f3aa3560cc433c79d04dcd3ef12c755c"
   integrity sha512-3pIEbrke8qj8t82BUDjAwwbKcPp3T82n+Qj+0C2qK2cVjBkorIjxYNM9yfcqXC92aUndXo3HawT28BqQyUdZbQ==
   dependencies:
     "@popperjs/core" "^2.6.0"
