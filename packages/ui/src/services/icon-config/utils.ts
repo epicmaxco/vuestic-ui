@@ -1,9 +1,11 @@
-export function getRegexGroups (str: string, regex: RegExp | string): string[] {
-  const match = str.match(regex)
+export function getRegexGroups (str: string, regex: RegExp | string): string[] | string[][] {
+  if (typeof regex !== 'string' && regex.global) {
+    // Global regex can return multiple matches array. So we need to map this all matches and remove non group values.
+    return [...str.matchAll(regex)].map(g => g.slice(1))
+  }
 
+  const match = str.match(regex) || []
   if (!match) { return [] }
-  if (typeof regex === 'string') { return match }
-  if (regex.global) { return match }
   /**
    * If there is groups in result - we need to slice first match
    * ```
