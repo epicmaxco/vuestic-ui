@@ -5,15 +5,13 @@
 </template>
 
 <script lang="ts">
-import { setupScroll } from '../../vuestic-mixins/ScrollMixin/ScrollMixin'
 import { Options, prop, setup, Vue } from 'vue-class-component'
-
+import { setupScroll } from '../../vuestic-mixins/ScrollMixin/ScrollMixin'
+import { useColor } from '../../../services/color-config/ColorMixin'
 import {
   getGradientBackground,
   getBoxShadowColor,
 } from '../../../services/color-config/color-functions'
-import { useColor } from '../../vuestic-mixins/ColorMixin'
-import { computed } from '@vue/runtime-core'
 
 class VaAppBarProps {
   gradient = prop<boolean>({ type: Boolean, default: false });
@@ -22,7 +20,7 @@ class VaAppBarProps {
   hideOnScroll = prop<boolean>({ type: Boolean, default: false });
   shadowOnScroll = prop<boolean>({ type: Boolean, default: false });
   shadowColor = prop<string>({ type: String, default: '' });
-  color = prop<string>({ type: String, default: 'primary' });
+  color = prop<string>({ type: String, default: undefined });
 }
 
 @Options({ name: 'VaAppBar' })
@@ -50,7 +48,7 @@ export default class VaAppBar extends Vue.with(VaAppBarProps) {
   colors = setup(() => {
     const getColor = useColor()
 
-    const colorComputed = getColor(this.color || 'primary')
+    const colorComputed = getColor(this.color, 'primary')
     const shadowColor = getColor(this.shadowColor, colorComputed)
 
     return { colorComputed, shadowColor }
@@ -88,8 +86,6 @@ export default class VaAppBar extends Vue.with(VaAppBarProps) {
 </script>
 
 <style lang="scss">
-@import "../../vuestic-sass/resources/resources";
-
 .va-app-bar {
   display: flex;
   align-items: center;
