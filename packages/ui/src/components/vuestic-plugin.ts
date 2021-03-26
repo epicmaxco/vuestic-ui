@@ -5,6 +5,7 @@ import { App } from 'vue'
 import VaAccordion from './vuestic-components/va-accordion'
 import VaAffix from './vuestic-components/va-affix'
 import VaAlert from './vuestic-components/va-alert'
+import VaAppBar from './vuestic-components/va-app-bar'
 import VaAvatar from './vuestic-components/va-avatar'
 import VaBacktop from './vuestic-components/va-backtop'
 import VaBadge from './vuestic-components/va-badge'
@@ -89,6 +90,7 @@ export const VuesticPlugin = {
       VaAccordion,
       VaAffix,
       VaAlert,
+      VaAppBar,
       VaAvatar,
       VaBacktop,
       VaBadge,
