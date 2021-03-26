@@ -1,5 +1,5 @@
 import { IconsConfig, IconConfig } from './types'
-import { getRegexGroups } from './utils'
+import { getRegexGroupValues } from './utils'
 import { matchTemplate, paramsFromString } from './template-parser'
 
 /**
@@ -12,7 +12,7 @@ function executeConfigFunctions (name: string, iconConfig: IconConfig): IconConf
   if (typeof iconConfig.name === 'string') {
     args = paramsFromString(name, config.name)
   } else {
-    args = getRegexGroups(name, config.name)
+    args = getRegexGroupValues(name, config.name)
   }
 
   ['iconClass', 'content', 'componentOptions'].forEach((funName) => {
