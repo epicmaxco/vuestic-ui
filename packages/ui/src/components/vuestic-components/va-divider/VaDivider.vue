@@ -8,7 +8,7 @@
       :class="slotClassComputed"
       role="separator"
     >
-      <slot />
+      <slot/>
     </div>
   </div>
 </template>
@@ -63,34 +63,20 @@ export default class VaDivider extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
-
-$va-divider-line-width: 1px;
-$va-divider-inset-horizontal-margin: 1rem;
-$va-divider-inset-vertical-margin: 0.5rem;
-
-// This is a bit tricky one in case of a horizontal divider,
-// but in fact, it adds gaps at the top and bottom of the divider line
-// In case of a vertical divider, it adds gaps at the right and left as expected
-$va-divider-margin: 0.5rem;
-
-// This one adds offsets at the right and left for the given text orientation
-// only for horizontal divider
-$va-divider-text-horizontal-offset: 1.25rem;
-
-$va-divider-text-font-size: 0.875rem;
+@import "variables";
 
 .va-divider {
-  display: flex;
-  margin: $va-divider-margin 0;
+  display: var(--va-divider-display);
+  margin: var(--va-divider-margin);
 
   &--vertical {
-    margin: 0 $va-divider-margin;
-    border-top: 0;
-    border-right-width: $va-divider-line-width;
-    border-right-style: solid;
-    border-right-color: $separator-color;
-    display: inline-flex;
-    width: 0;
+    margin: var(--va-divider-vertical-margin);
+    border-top: var(--va-divider-vertical-border-top);
+    border-right-width: var(--va-divider-vertical-border-right-width);
+    border-right-style: var(--va-divider-vertical-border-right-style);
+    border-right-color: var(--va-divider-vertical-border-right-color);
+    display: var(--va-divider-vertical-display);
+    width: var();
 
     &.va-divider--dashed {
       border-right-style: dashed;
@@ -98,10 +84,10 @@ $va-divider-text-font-size: 0.875rem;
   }
 
   &--inset {
-    margin: $va-divider-margin $va-divider-inset-horizontal-margin;
+    margin: var(--va-divider-inset-margin);
 
     &.va-divider--vertical {
-      margin: $va-divider-inset-vertical-margin $va-divider-margin;
+      margin: var(--va-divider-inset-horizontal-margin) var(--va-divider-margin);
     }
   }
 
@@ -109,36 +95,36 @@ $va-divider-text-font-size: 0.875rem;
   &::after {
     content: '';
     flex: 1;
-    border-top-width: $va-divider-line-width;
-    border-top-style: solid;
-    border-top-color: $separator-color;
+    border-top-width: var(--va-divider-line-width);
+    border-top-style: var(--va-divider-border-top-style);
+    border-top-color: var(--va-divider-border-top-color);
   }
 
   &--dashed {
     &::before,
     &::after {
-      border-top-style: dashed;
+      border-top-style: var(--va-divider-dashed-border-top-style);
     }
   }
 
   &--left {
     &::before {
-      flex: 0 $va-divider-text-horizontal-offset;
+      flex: 0 var(--va-divider-text-horizontal-offset);
     }
   }
 
   &--right {
     &::after {
-      flex: 0 $va-divider-text-horizontal-offset;
+      flex: 0 var(--va-divider-text-horizontal-offset);
     }
   }
 
   &__text {
-    font-size: $va-divider-text-font-size;
-    line-height: 0;
-    height: 0;
-    vertical-align: middle;
-    transform: translateY(-50%);
+    font-size: var(--va-divider-text-font-size);
+    line-height: var(--va-divider-text-line-height);
+    height: var(--va-divider-text-height);
+    vertical-align: var(--va-divider-text-vertical-align);
+    transform: var(--va-divider-text-transform);
   }
 }
 </style>

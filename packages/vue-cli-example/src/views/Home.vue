@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { useGlobalConfig, useTheme } from 'vuestic-ui'
+import { useGlobalConfig, setupColors } from 'vuestic-ui'
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 
@@ -20,7 +20,7 @@ export default {
   },
   setup () {
     const { setGlobalConfig } = useGlobalConfig()
-    const { setTheme } = useTheme()
+    const { setTheme } = setupColors()
 
     setTheme({
       primary: '#000fa0',

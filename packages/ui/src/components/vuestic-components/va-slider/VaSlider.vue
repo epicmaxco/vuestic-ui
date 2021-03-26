@@ -7,7 +7,7 @@
       class="va-slider__input-wrapper"
       v-if="$slots.prepend"
     >
-      <slot :name="this.vertical ? 'append' : 'prepend'" />
+      <slot :name="this.vertical ? 'append' : 'prepend'"/>
     </div>
     <slot
       v-if="($slots.label || label) && !invertLabel"
@@ -144,7 +144,7 @@
       class="va-slider__input-wrapper"
       v-if="$slots.append"
     >
-      <slot :name=" this.vertical ? 'prepend' : 'append'" />
+      <slot :name=" this.vertical ? 'prepend' : 'append'"/>
     </div>
   </div>
 </template>
@@ -154,14 +154,17 @@ import { watch } from 'vue'
 import { Options, mixins, Vue, prop, setup } from 'vue-class-component'
 
 import { Ref } from '../../../utils/decorators'
-import ColorMixin from '../../../services/ColorMixin'
-import { getHoverColor } from '../../../services/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import { getHoverColor } from '../../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
 import VaIcon from '../va-icon'
 
 class SliderProps {
   range = prop<boolean>({ type: Boolean, default: false })
-  modelValue = prop<number | number[]>({ type: [Number, Array], default: () => [] })
+  modelValue = prop<number | number[]>({
+    type: [Number, Array],
+    default: () => [],
+  })
   trackLabel = prop<string>({ type: String, default: '' })
   color = prop<string>({ type: String, default: '' })
   trackColor = prop<string>({ type: String, default: '' })
@@ -337,7 +340,7 @@ export default class VaSlider extends mixins(
     }
   }
 
-  get val () {
+  get val ():any {
     return this.$props.modelValue
   }
 
@@ -452,7 +455,9 @@ export default class VaSlider extends mixins(
   }
 
   moving (e: any) {
-    if (!this.hasMouseDown) { return }
+    if (!this.hasMouseDown) {
+      return
+    }
     if (!this.disabled && !this.readonly) {
       if (!this.flag) {
         return false
@@ -484,8 +489,12 @@ export default class VaSlider extends mixins(
   moveWithKeys (event: any) {
     // don't do anything if a dot isn't focused or if the slider's disabled or readonly
     // @ts-ignore
-    if (![this.dot0, this.dot1, this.dot].includes(document.activeElement as any)) { return }
-    if (this.disabled || this.readonly) { return }
+    if (![this.dot0, this.dot1, this.dot].includes(document.activeElement as any)) {
+      return
+    }
+    if (this.disabled || this.readonly) {
+      return
+    }
 
     /*
       where: where to move
@@ -499,7 +508,9 @@ export default class VaSlider extends mixins(
     const moveDot = (isRange: boolean, where: number, which: number) => {
       if (isRange) {
         // @ts-ignore
-        if (!this.pins) { return this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step)) }
+        if (!this.pins) {
+          return this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step))
+        }
 
         // how many value units one pin occupies
         const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
@@ -566,46 +577,55 @@ export default class VaSlider extends mixins(
 
       switch (true) {
         // @ts-ignore
-      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
+        case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
+          // @ts-ignore
+          this.dot0.focus()
+          moveDot(true, 0, 0)
+          break
         // @ts-ignore
-        this.dot0.focus()
-        moveDot(true, 0, 0)
-        break
+        case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
+          // @ts-ignore
+          this.dot0.focus()
+          moveDot(true, 1, 1)
+          break
         // @ts-ignore
-      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
+        case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
+          moveDot(true, 0, 0)
+          break
         // @ts-ignore
-        this.dot0.focus()
-        moveDot(true, 1, 1)
-        break
+        case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
+          moveDot(true, 1, 1)
+          break
         // @ts-ignore
-      case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
-        moveDot(true, 0, 0)
-        break
+        case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
+          moveDot(true, 0, 1)
+          break
         // @ts-ignore
-      case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
-        moveDot(true, 1, 1)
-        break
-        // @ts-ignore
-      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
-        moveDot(true, 0, 1)
-        break
-        // @ts-ignore
-      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
-        moveDot(true, 1, 0)
-        break
-      default:
-        break
+        case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
+          moveDot(true, 1, 0)
+          break
+        default:
+          break
       }
     } else {
       if (this.vertical) {
-        if (event.keyCode === CODE_DOWN) { moveDot(false, 0, 0) }
-        if (event.keyCode === CODE_UP) { moveDot(false, 1, 0) }
+        if (event.keyCode === CODE_DOWN) {
+          moveDot(false, 0, 0)
+        }
+        if (event.keyCode === CODE_UP) {
+          moveDot(false, 1, 0)
+        }
       } else {
-        if (event.keyCode === CODE_LEFT) { moveDot(false, 0, 0) }
-        if (event.keyCode === CODE_RIGHT) { moveDot(false, 1, 0) }
+        if (event.keyCode === CODE_LEFT) {
+          moveDot(false, 0, 0)
+        }
+        if (event.keyCode === CODE_RIGHT) {
+          moveDot(false, 1, 0)
+        }
       }
     }
   }
+
   // wrapClick (e) {
   //   if (!this.disabled && !this.readonly && !this.flag) {
   //     const pos = this.getPos(e)
@@ -821,14 +841,15 @@ export default class VaSlider extends mixins(
 
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-slider {
-  display: flex;
-  align-items: center;
+  display: var(--va-slider-display);
+  align-items: var(--va-slider-align-items);
 
   &__input-wrapper {
-    position: relative;
-    display: flex;
+    position: var(--va-slider-input-wrapper-position);
+    display: var(--va-slider-input-wrapper-display);
   }
 
   &__container {
@@ -839,10 +860,10 @@ export default class VaSlider extends mixins(
   }
 
   &__track {
-    position: absolute;
-    border-radius: 0.25rem;
-    transition: 0.5s ease-out;
-    opacity: 0.2;
+    position: var(--va-slider-track-position);
+    border-radius: var(--va-slider-track-border-radius);
+    transition: var(--va-slider-track-transition);
+    opacity: var(--va-slider-track-opacity);
 
     &--active {
       transition: 0s;
@@ -854,54 +875,54 @@ export default class VaSlider extends mixins(
   }
 
   &__handler {
-    position: absolute;
-    width: 1.25rem;
-    height: 1.25rem;
-    background: $white;
-    border: 0.375rem solid;
-    border-radius: 50%;
-    outline: none !important;
-    left: -0.375rem;
-    transition: 0s;
+    position: var(--va-slider-handler-position);
+    width: var(--va-slider-handler-width);
+    height: var(--va-slider-handler-height);
+    background: var(--va-slider-handler-background);
+    border: var(--va-slider-handler-border);
+    border-radius:var(--va-slider-handler-border-radius) ;
+    outline: var(--va-slider-handler-outline);
+    left: var(--va-slider-handler-left);
+    transition: var(--va-slider-handler-transition);
 
     &__dot--focus {
-      transform: translate(-0.625rem, -0.625rem);
-      display: block;
-      width: 1.75rem;
-      height: 1.75rem;
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.2;
-      pointer-events: none;
+      transform: var(--va-slider-dot-transform);
+      display: var(--va-slider-dot-display);
+      width: var(--va-slider-dot-width);
+      height: var(--va-slider-dot-height);
+      position: var(--va-slider-dot-position);
+      border-radius: var(--va-slider-dot-border-radius);
+      opacity: var(--va-slider-dot-opacity);
+      pointer-events: var(--va-slider-dot-pointer-events);
     }
 
     &__dot--value {
-      transform: translate(-50%, -100%);
-      user-select: none;
-      font-size: 0.625rem;
-      letter-spacing: 0.6px;
-      line-height: 1.2;
-      font-weight: $font-weight-bold;
-      text-transform: uppercase;
+      transform: var(--va-slider-dot-value-transform);
+      user-select: var(--va-slider-dot-value-user-select);
+      font-size: var(--va-slider-dot-value-font-size);
+      letter-spacing: var(--va-slider-dot-value-letter-spacing);
+      line-height: var(--va-slider-dot-value-line-height);
+      font-weight: var(--va-slider-dot-value-font-weight);
+      text-transform: var(--va-slider-dot-value-text-transform);
     }
   }
 
   .va-input__label {
-    user-select: none;
-    font-size: 0.625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: $font-weight-bold;
-    text-transform: uppercase;
+    user-select: var(--va-slider-input-label-user-select);
+    font-size: var(--va-slider-input-label-font-size);
+    letter-spacing: var(--va-slider-input-label-letter-spacing);
+    line-height: var(--va-slider-input-label-line-height);
+    font-weight: var(--va-slider-input-label-font-weight);
+    text-transform: var(--va-slider-input-label-text-transform);
   }
 
   .va-input__label--inverse {
-    user-select: none;
-    font-size: 0.625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: $font-weight-bold;
-    text-transform: uppercase;
+    user-select: var(--va-slider-input-label-inverse-user-select);
+    font-size: var(--va-slider-input-label-inverse-font-size);
+    letter-spacing: var(--va-slider-input-label-inverse-letter-spacing);
+    line-height: var(--va-slider-input-label-inverse-line-height);
+    font-weight: var(--va-slider-input-label-inverse-font-weight);
+    text-transform: var(--va-slider-input-label-inverse-text-transform);
   }
 
   &--active {
@@ -927,11 +948,11 @@ export default class VaSlider extends mixins(
 
 .va-slider--horizontal {
   .va-slider__input-wrapper {
-    flex-basis: 8.33333%;
-    flex-grow: 0;
-    max-width: 8.33333%;
-    margin-right: 1rem;
-    min-width: 2.5rem;
+    flex-basis: var(--va-slider-horizontal-input-wrapper-flex-basis);
+    flex-grow: var(--va-slider-horizontal-input-wrapper-flex-grow);
+    max-width: var(--va-slider-horizontal-input-wrapper-max-width);
+    margin-right: var(--va-slider-horizontal-input-wrapper-margin-right);
+    min-width: var(--va-slider-horizontal-input-wrapper-min-width);
 
     &:last-of-type {
       margin-left: 1rem;
@@ -945,8 +966,8 @@ export default class VaSlider extends mixins(
     }
 
     &__track {
-      height: 0.5rem;
-      width: 100%;
+      height: var(--va-slider-horizontal-track-height);
+      width: var(--va-slider-horizontal-track-width);
     }
 
     &__mark {
@@ -956,16 +977,16 @@ export default class VaSlider extends mixins(
     }
 
     &__handler {
-      transform: translateX(-50%);
+      transform: var(--va-slider-horizontal-handler-transform);
 
       &--inactive {
         transition: left 0.5s ease-out;
       }
 
       &__dot--value {
-        position: absolute;
-        top: -8px;
-        left: 50%;
+        position: var(--va-slider-horizontal-dot-value-position);
+        top: var(--va-slider-horizontal-dot-value-top);
+        left: var(--va-slider-horizontal-dot-value-left);
       }
     }
   }
@@ -980,28 +1001,28 @@ export default class VaSlider extends mixins(
 }
 
 .va-slider--vertical {
-  height: 100%;
-  padding: 12px 0 12px 0;
-  flex-direction: column;
-  align-items: center;
+  height: var(--va-slider-vertical-height);
+  padding: var(--va-slider-vertical-padding);
+  flex-direction: var(--va-slider-vertical-flex-direction);
+  align-items: var(--va-slider-vertical-align-items);
 
   .va-input__label {
-    margin-bottom: 0.625rem;
+    margin-bottom: var(--va-slider-vertical-label-margin-bottom);
   }
 
   .va-input__label--inverse {
-    left: -0.375rem;
-    margin-top: 0.625rem;
+    left: var(--va-slider-vertical-label-inverse-left);
+    margin-top: var(--va-slider-vertical-label-inverse-margin-top);
   }
 
   .va-slider {
     &__input-wrapper {
-      flex-basis: fit-content;
-      flex-grow: 0;
-      max-width: 1rem;
-      min-width: 2.5rem;
-      position: relative;
-      display: flex;
+      flex-basis: var(--va-slider-vertical-input-wrapper-flex-basis);
+      flex-grow: var(--va-slider-vertical-input-wrapper-flex-grow);
+      max-width: var(--va-slider-vertical-input-wrapper-max-width);
+      min-width: var(--va-slider-vertical-input-wrapper-min-width);
+      position: var(--va-slider-vertical-input-wrapper-position);
+      display: var(--va-slider-vertical-input-wrapper-display);
 
       &:last-of-type {
         margin-top: 1rem;
@@ -1014,9 +1035,9 @@ export default class VaSlider extends mixins(
     }
 
     &__track {
-      height: 100%;
-      width: 0.5rem;
-      bottom: 0;
+      height: var(--va-slider-vertical-track-height);
+      width: var(--va-slider-vertical-track-width);
+      bottom: var(--va-slider-vertical-track-bottom);
     }
 
     &__mark {
@@ -1027,16 +1048,16 @@ export default class VaSlider extends mixins(
     }
 
     &__handler {
-      transform: translateY(50%);
+      transform: var(--va-slider-vertical-handler-transform);
 
       &--inactive {
         transition: bottom 0.5s ease-out;
       }
 
       &__dot--value {
-        position: relative;
-        top: 0.625rem;
-        left: 1.25rem;
+        position: var(--va-slider-vertical-dot-value-position);
+        top: var(--va-slider-vertical-dot-value-top);
+        left: var(--va-slider-vertical-dot-value-left);
       }
     }
   }

@@ -35,6 +35,7 @@ export default class VaListItemSection extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-list-item-section {
   display: flex;
@@ -46,18 +47,18 @@ export default class VaListItemSection extends mixins(
   }
 
   &--icon {
-    min-width: 1.5rem;
-    align-items: center;
-    justify-content: center;
-    margin: 0.6rem 0.75rem;
+    min-width: var(--va-list-item-section-icon-min-width);
+    align-items: var(--va-list-item-section-icon-align-items);
+    justify-content: var(--va-list-item-section-icon-justify-content);
+    margin: var(--va-list-item-section-icon-margin);
 
     .va-icon {
-      font-size: 1.25rem;
+      font-size: var(--va-list-item-section-icon-font-size);
     }
   }
 
   &--avatar {
-    min-width: 3rem;
+    min-width: var(--va-list-item-section-avatar-min-width);
   }
 }
 

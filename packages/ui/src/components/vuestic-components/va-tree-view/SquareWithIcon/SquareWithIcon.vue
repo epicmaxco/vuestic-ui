@@ -3,14 +3,14 @@
     class="square-with-icon"
     :style="{ backgroundColor: colorComputed }"
   >
-    <va-icon :name="$props.icon" />
+    <va-icon :name="$props.icon"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../../services/ColorMixin'
+import ColorMixin from '../../../../services/color-config/ColorMixin'
 import VaIcon from '../../va-icon'
 
 class SquareWithIconProps {
@@ -33,15 +33,16 @@ export default class SquareWithIcon extends mixins(
 
 <style lang="scss">
 @import "../../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .square-with-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $white;
-  background-color: $vue-green;
-  border-radius: 0.25rem;
-  width: 1.375rem;
-  height: 1.375rem;
+  display: var(--square-with-icon-display);
+  justify-content: var(--square-with-icon-justify-content);
+  align-items: var(--square-with-icon-align-items);
+  color: var(--square-with-icon-color);
+  background-color: var(--square-with-icon-background-color);
+  border-radius: var(--square-with-icon-border-radius);
+  width: var(--square-with-icon-width);
+  height: var(--square-with-icon-height);
 }
 </style>

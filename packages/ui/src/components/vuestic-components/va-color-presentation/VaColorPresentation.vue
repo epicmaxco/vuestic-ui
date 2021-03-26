@@ -29,8 +29,8 @@
 <script>
 import VaPopover from '../va-popover/VaPopover'
 
-import ColorMixin from '../../../services/ColorMixin'
-import { getGradientBackground } from '../../../services/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import { getGradientBackground } from '../../../services/color-config/color-functions'
 
 // NOTE This component is a tad weird.
 // It's not part of presentation nor is it UI component.

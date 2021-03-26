@@ -4,7 +4,7 @@
     :class="computedClass"
     :style="computedStyle"
   >
-    <slot />
+    <slot/>
   </div>
 </template>
 
@@ -38,17 +38,18 @@ export default class VaListItemLabel extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-list-item-label {
-  color: $vue-darkest-blue;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  color: var(--va-list-item-label-color);
+  display: var(--va-list-item-label-display);
+  -webkit-box-orient: var(--va-list-item-label-box-orient);
+  overflow: var(--va-list-item-label-overflow);
 
   &--caption {
-    font-size: $font-size-smaller;
-    color: $brand-secondary;
-    line-height: 1.3rem;
+    font-size: var(--va-list-item-label-caption-font-size);
+    color: var(--va-list-item-label-caption-color);
+    line-height: var(--va-list-item-label-caption-line-height);
   }
 }
 </style>

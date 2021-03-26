@@ -131,7 +131,7 @@ import VaButton from './../../vuestic-components/va-button/VaButton'
 import VaAlert
   from './../../vuestic-components/va-alert/VaAlert'
 import VaProgressBar
-  from './../../vuestic-components/va-progress-bar/progress-types/VaProgressBar'
+  from '../../vuestic-components/va-progress-bar/VaProgressBar'
 import VaColorInputAdvanced
   from '../../vuestic-components/va-color-input/VaColorInputAdvanced'
 import VaRating from '../../vuestic-components/va-rating/VaRating'

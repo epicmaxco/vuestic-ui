@@ -1,0 +1,13 @@
+:root {
+  --va-rating-display: flex;
+  /*Number item*/
+  --va-rating-number-item-font-size: inherit;
+  --va-rating-number-item-margin: 0.1em;
+  --va-rating-number-item-font-weight: 700;
+  --va-rating-number-item-cursor: pointer;
+  /*Item wrapper*/
+  --va-rating-item-wrapper-display: flex;
+  --va-rating-item-wrapper-cursor: pointer;
+  /*Item*/
+  --va-rating-item-display: flex;
+}

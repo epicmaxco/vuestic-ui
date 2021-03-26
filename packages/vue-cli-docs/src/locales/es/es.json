@@ -1,0 +1,430 @@
+{
+  "landing": {
+    "header": {
+      "buttons": {
+        "overview": "Visión de conjunto",
+        "docs": "Docs",
+        "discord": "Únete a Discord",
+        "translation": "Agregar traducción..."
+      }
+    },
+    "preview": {
+      "title": "Biblioteca de IU de Vue.js",
+      "buttons": {
+        "start": "Get started",
+        "github": "View on GitHub"
+      },
+      "features": {
+        "nuxt": {
+          "title": "Nuxt Support",
+          "text": "Nuxt integration guides"
+        },
+        "components": {
+          "title": "52 Responsive Components",
+          "text": "Available components docs"
+        },
+        "keyboard": {
+          "title": "Keyboard Navigation",
+          "text": "Accessibility guides"
+        },
+        "browsers": {
+          "title": "Modern Browsers Support",
+          "text": "Supported browsers list"
+        }
+      }
+    },
+    "seamless": {
+      "title": "Seamless Integration",
+      "text": "Use Vuestic UI with other component libraries without any conflicts.",
+      "compare": {
+        "vuestic": "Vuestic UI components",
+        "other": "Other components"
+      }
+    },
+    "customize": {
+      "title": "Customize Everything",
+      "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
+      "tabs": [
+        "Large Modern",
+        "Styles",
+        "Multiple Themes"
+      ],
+      "copy": "Copied to clipboard",
+      "configuration": "See our configuration guides"
+    },
+    "opensource": {
+      "title": "Open Source",
+      "text": [
+        "Vuestic UI is forever free and open to contributions. See our",
+        "issues",
+        "contributing guide",
+        "and",
+        "discord server",
+        "to help us improve Vuestic UI experience."
+      ]
+    },
+    "admin": {
+      "title": "Vuestic Admin",
+      "text": "Check out Vuestic UI Library in action.",
+      "buttons": {
+        "github": "View on GitHub",
+        "demo": "Live Demo",
+        "star": "Star"
+      },
+      "features": {
+        "opensource": "Open source MIT license",
+        "themes": "Two built-in color schemes",
+        "responsive": "Cross-browser & responsive",
+        "i18n": "i18n-ready"
+      }
+    },
+    "footer": {
+      "text": "Open source, free to use. Development inquiries:",
+      "buttons": {
+        "epicmax": "About Epicmax",
+        "admin": "Vuestic Admin",
+        "spinners": "Epic Spinners"
+      }
+    }
+  },
+  "api": {
+    "all": {
+      "props": {
+        "tag": "sfdfReplaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
+      }
+    },
+    "VaForm": {
+      "props": {
+        "autofocus": "sdfsdfFocus on first form-component <!-- TODO Add link --> on render"
+      },
+      "events": {
+        "validation": "Triggered on validation update"
+      },
+      "methods": {
+        "validate": "sfddfPerforms validation and updates error state for each form component. Works with nested forms.",
+        "focus": "Focus on first focusable form-component in the form.",
+        "focusInvalid": "sdfsfdFocus on first focusable invalid form-component in the form. This is useful for longer forms and allows to bring user attention to invalid field.",
+        "resetValidation": "Reset validation for all validateable <!-- TODO Add link --> form-components.",
+        "reset": "Reset values and validation state for all form-components"
+      }
+    },
+    "VaProgressBar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaHover": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaProgressCircle": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaImage": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaDivider": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaCheckbox": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaAlert": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaIcon": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaRadio": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaExpand": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaExpandGroup": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaTag": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaList": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaSelect": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaParallax": {},
+    "VaBacktop": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorPicker": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorSlider": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaColorPalette": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaDatePicker": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaButtonGroup": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaButtonToggle": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaAppBar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaInnerLoading": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaInstallation": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaRoadmap": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaNuxtIntegration": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaTable": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    }
+  },
+  "menu": {
+    "modals": "Modals",
+    "uiElements": "Elementos UI",
+    "progressBar": "Progress Bar",
+    "progressCircle": "Progress Circle",
+    "hover": "Hover",
+    "checkbox": "Checkbox",
+    "image": "Image",
+    "alert": "Alert",
+    "icon": "Icon",
+    "expand": "Expand",
+    "expandGroup": "Expand Group",
+    "radio": "Radio",
+    "tag": "Tag",
+    "input": "Input",
+    "list": "List",
+    "select": "Select",
+    "parallax": "Parallax",
+    "backtop": "Backtop",
+    "normalize": "Normalize",
+    "colorPicker": "Color Picker",
+    "colorInput": "Color Input",
+    "colorSlider": "Color Slider",
+    "colorPalette": "Color Palette",
+    "datePicker": "Date Picker",
+    "buttonGroup": "Button Group",
+    "buttonToggle": "Button Toggle",
+    "appBar": "App Bar",
+    "innerLoading": "Inner Loading",
+    "installation": "Installation",
+    "roadmap": "Roadmap",
+    "nuxtIntegration": "Nuxt Integration",
+    "accessibilityGuide": "Accessibility Guide",
+    "configurationGuide": "Configuration Guide",
+    "overview": "Overview",
+    "translation": "Translation",
+    "browserSupport": "Browser Support",
+    "table": "Table"
+  },
+  "hover": {
+    "title": "-- Here is the title --"
+  },
+  "image": {
+    "title": "-- Here is the title --"
+  },
+  "checkbox": {
+    "title": "-- Here is the title --"
+  },
+  "divider": {},
+  "progressBar": {
+    "title": "-- Here is the title --"
+  },
+  "progressCircle": {
+    "title": "-- Here is the title --"
+  },
+  "alert": {
+    "title": "-- Here is the title --"
+  },
+  "icon": {
+    "title": "-- Here is the title --"
+  },
+  "radio": {
+    "title": "-- Here is the title --"
+  },
+  "expand": {
+    "title": "-- Here is the title --"
+  },
+  "expandGroup": {
+    "title": "-- Here is the title --"
+  },
+  "tag": {
+    "title": "-- Here is the title --"
+  },
+  "input": {
+    "title": "-- Here is the title --"
+  },
+  "list": {
+    "title": "-- Here is the title --"
+  },
+  "select": {
+    "title": "-- Here is the title --"
+  },
+  "parallax": {},
+  "backtop": {
+    "title": "-- Here is the title --"
+  },
+  "reset": {
+    "title": "-- Here is the title --"
+  },
+  "colorPicker": {
+    "title": "-- Here is the title --"
+  },
+  "colorInput": {
+    "title": "-- Here is the title --"
+  },
+  "colorSlider": {
+    "title": "-- Here is the title --"
+  },
+  "colorPalette": {
+    "title": "-- Here is the title --"
+  },
+  "datePicker": {
+    "title": "-- Here is the title --"
+  },
+  "buttonGroup": {
+    "title": "-- Here is the title --"
+  },
+  "buttonToggle": {
+    "title": "-- Here is the title --"
+  },
+  "appBar": {
+    "title": "-- Here is the title --"
+  },
+  "innerLoading": {
+    "title": "-- Here is the title --"
+  },
+  "installation": {
+    "title": "Trabajo En Progreso"
+  },
+  "roadmap": {
+    "title": "Trabajo En Progreso"
+  },
+  "nuxtIntegration": {
+    "title": "Trabajo En Progreso"
+  },
+  "accessibilityGuide": {
+    "title": "Trabajo En Progreso"
+  },
+  "configurationGuide": {
+    "title": "Trabajo En Progreso"
+  },
+  "browserSupport": {
+    "title": "Trabajo En Progreso"
+  },
+  "overview": {
+    "title": "Trabajo En Progreso"
+  },
+  "translation": {
+    "title": "Trabajo En Progreso"
+  },
+  "table": {
+    "title": "-- Here is the title --"
+  }
+}

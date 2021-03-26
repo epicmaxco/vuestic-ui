@@ -1,0 +1,19 @@
+:root {
+  --va-file-upload-position: relative;
+  --va-file-upload-dropzone-background-color: #d6ffd3;
+  --va-file-upload-dropzone-padding: 1.5rem 2rem 0.5rem;
+  --va-file-upload-dropzone-overflow: hidden;
+  --va-file-upload-dropzone-border-radius: 0.375rem;
+  --va-file-upload-dropzone-cursor: pointer;
+
+  --va-file-upload-dropzone-field-padding-bottom: 1rem;
+  --va-file-upload-dropzone-field-overflow: hidden;
+  --va-file-upload-dropzone-field-display: flex;
+  --va-file-upload-dropzone-field-align-items: center;
+  --va-file-upload-dropzone-field-position: relative;
+
+  --va-file-upload-dropzone-field-button-margin: 0;
+  --va-file-upload-dropzone-field-button-zindex: 10;
+  --va-file-upload-dropzone-field-text-pr: 10px;
+
+}

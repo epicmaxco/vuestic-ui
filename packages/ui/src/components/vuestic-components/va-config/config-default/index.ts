@@ -1,18 +1,9 @@
-import iconsDemoConfig from './va-icons-demo-config'
-import iconsDocsConfig from './va-icons-docs-config'
-import iconsFrameworkConfig from './va-icons-framework-config'
+import { ComponentConfig } from './../../../../services/component-config/component-config'
 
-export const getDefaultConfig = () => {
+export const getDefaultConfig = (): ComponentConfig => {
+  // TODO Should be hanled in size service
   return {
     VaIcon: {
-      iconsConfig: {
-        defaultFont: 'md',
-        icons: {
-          ...iconsDemoConfig,
-          ...iconsDocsConfig,
-          ...iconsFrameworkConfig,
-        },
-      },
       sizesConfig: {
         defaultSize: 24,
         sizes: {

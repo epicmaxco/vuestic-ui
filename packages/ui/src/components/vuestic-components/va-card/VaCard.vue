@@ -21,7 +21,7 @@
       class="va-card__inner"
       @click="$emit('click', $event)"
     >
-      <slot />
+      <slot/>
     </div>
   </component>
 </template>
@@ -29,8 +29,8 @@
 <script lang="ts">
 import { Options, mixins, prop, Vue } from 'vue-class-component'
 
-import { getGradientBackground } from '../../../services/color-functions'
-import ColorMixin from '../../../services/ColorMixin'
+import { getGradientBackground } from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 
 class CardProps {
@@ -91,21 +91,26 @@ export default class VaCard extends mixins(
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-card {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  box-shadow: $card-box-shadow;
-  border-radius: $card-border-radius;
-  color: $dark-default-color;
-  background-color: $light-default-color;
+  display: var(--va-card-display);
+  position: var(--va-card-position);
+  overflow: var(--va-card-overflow);
+  box-shadow: var(--va-card-box-shadow, var(--primary-block-box-shadow));
+  border-radius: var(--va-card-border-radius, var(--primary-block-border-radius));
+  color: var(--va-card-color);
+  background-color: var(--va-card-background-color);
+
+  &__inner {
+    width: 100%;
+  }
 
   &--dark {
-    color: $light-default-color;
-    background-color: $dark-default-color;
+    color: var(--va-card-dark-color);
+    background-color: var(--va-card-dark-background-color);
   }
 
   &--square {
@@ -113,8 +118,8 @@ export default class VaCard extends mixins(
   }
 
   &--outlined {
-    box-shadow: none;
-    border: $card-border;
+    box-shadow: var(--va-card-outlined-box-shadow);
+    border: var(--va-card-outlined-border, var(--primary-block-border));
   }
 
   &--no-border {
@@ -140,9 +145,9 @@ export default class VaCard extends mixins(
     left: 0;
   }
 
-  ::v-deep #{&}__title,
-  ::v-deep #{&}__content {
-    padding: $card-padding;
+  &__title,
+  &__content {
+    padding: var(--va-card-padding);
 
     + .va-card__title,
     + .va-card__content {
@@ -150,7 +155,7 @@ export default class VaCard extends mixins(
     }
   }
 
-  ::v-deep #{&}__title {
+  &__title {
     display: flex;
     align-items: center;
 

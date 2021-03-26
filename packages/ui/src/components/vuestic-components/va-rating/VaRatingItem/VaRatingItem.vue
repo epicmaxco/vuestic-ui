@@ -31,7 +31,7 @@
 import { watch } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
-import ColorMixin from '../../../../services/ColorMixin'
+import ColorMixin from '../../../../services/color-config/ColorMixin'
 import { RatingValue } from '../VaRating.types'
 import VaIcon from '../../va-icon'
 
@@ -105,7 +105,8 @@ export default class VaRatingItem extends mixins(
 
   private processCursorInput (iconSize: number, offsetX: number) {
     this.valueProxy = this.halves && (offsetX / iconSize <= RatingValue.HALF)
-      ? RatingValue.HALF : RatingValue.FULL
+      ? RatingValue.HALF
+      : RatingValue.FULL
   }
 
   private onEnter () {
@@ -114,7 +115,9 @@ export default class VaRatingItem extends mixins(
   }
 
   private onHover (cursorPosition: MouseEvent) {
-    if (!this.hover) { return }
+    if (!this.hover) {
+      return
+    }
     this.isHovered = true
     this.processCursorInput(this.$el.clientWidth, cursorPosition.offsetX)
   }
@@ -135,17 +138,17 @@ export default class VaRatingItem extends mixins(
 </script>
 
 <style lang="scss">
-  @import "src/components/vuestic-sass/resources/resources";
+@import "../../../vuestic-sass/resources/resources";
 
-  .va-rating-item {
-    display: inline-block;
+.va-rating-item {
+  display: inline-block;
 
-    &__isFocused {
-      transform: scale(1.1);
-    }
-
-    &__wrapper {
-      @include normalize-button();
-    }
+  &__isFocused {
+    transform: scale(1.1);
   }
+
+  &__wrapper {
+    @include normalize-button();
+  }
+}
 </style>

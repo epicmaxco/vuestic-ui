@@ -30,11 +30,12 @@ export default class VaList extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-list {
-  padding: $list-padding;
-  background-color: #ffffff;
-  width: 100%;
+  padding: var(--va-list-padding);
+  background-color: var(--va-list-background-color);
+  width: var(--va-list-width);
 
   &--fit {
     width: fit-content;

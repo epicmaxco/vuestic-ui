@@ -132,30 +132,37 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 import { ComponentOptions } from 'vue'
 import { ManualApiOptions } from './ManualApiOptions'
 import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
 import { getApiTableData, mergeInDefaults } from './api-docs-helpers'
 import MarkdownView
-  from '../../../../docs/utilities/markdown-view/MarkdownView.vue'
+  from '../../../../vue-cli-docs/src/utilities/markdown-view/MarkdownView.vue'
 import { defaultApiOptions } from './default-api-options'
 
-@Component({
+class Props {
+  componentOptions = prop<ComponentOptions<Vue>>({ type: Object, required: true })
+  apiOptions = prop<ManualApiOptions>({ type: Object, default: () => ({}) })
+}
+
+const PropsMixin = Vue.with(Props)
+
+@Options({
   components: { ApiDocsPropsRow, MarkdownView },
 })
-export default class ApiDocs extends Vue {
-  @Prop({
-    type: Object,
-    required: true,
-  }) componentOptions!: ComponentOptions<Vue>
-
-  @Prop({ type: Object, default: () => ({}) }) apiOptions!: ManualApiOptions
-
+export default class ApiDocs extends mixins(PropsMixin) {
   get apiTableData () {
     // TODO Modifies parent object, which is not ideal.
-    mergeInDefaults(this.apiOptions, defaultApiOptions)
-    return getApiTableData(this.componentOptions, this.apiOptions)
+    // mergeInDefaults(this.apiOptions, defaultApiOptions)
+    // return getApiTableData(this.componentOptions, this.apiOptions)
+    return {
+      name: '',
+      props: {},
+      slots: {},
+      events: {},
+      methods: {},
+    }
   }
 
   isEmpty (object: Record<string, any>): boolean {
@@ -168,6 +175,10 @@ export default class ApiDocs extends Vue {
 @import "../ui/src/components/vuestic-sass/resources/resources";
 
 .ApiDocs {
+  h5 {
+    margin-top: 4rem;
+  }
+
   &__table {
     width: 100%;
     font-family: "Source Code Pro";

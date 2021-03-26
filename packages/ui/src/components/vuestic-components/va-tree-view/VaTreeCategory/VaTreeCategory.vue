@@ -14,7 +14,7 @@
         class="va-tree-category__header-checkbox"
         v-if="$slots.checkbox"
       >
-        <slot name="checkbox" />
+        <slot name="checkbox"/>
       </div>
       <div
         class="va-tree-category__header-icon"
@@ -35,7 +35,7 @@
       v-if="isOpenCached"
     >
       <div class="va-tree-category__list-internal-container">
-        <slot />
+        <slot/>
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@
 import { provide, inject, watch, ComponentPublicInstance, ref } from 'vue'
 import { Options, Vue, mixins, prop, setup } from 'vue-class-component'
 
-import ColorMixin from '../../../../services/ColorMixin'
+import ColorMixin from '../../../../services/color-config/ColorMixin'
 import SquareWithIcon from '../SquareWithIcon'
 import VaIcon from '../../va-icon'
 import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
@@ -151,12 +151,13 @@ export default class VaTreeCategory extends mixins(
 
 <style lang="scss">
 @import "src/components/vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-tree-category {
   &__header {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+    cursor: var(--va-tree-category-header-cursor);
+    display: var(--va-tree-category-header-display);
+    align-items: var(--va-tree-category-header-align-items);
   }
 
   &__header-switcher {
@@ -164,12 +165,12 @@ export default class VaTreeCategory extends mixins(
   }
 
   &__header-checkbox {
-    margin-right: 0.5rem;
-    height: 1.5rem;
-    width: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-right: var(--va-tree-category-header-checkbox-margin-right);
+    height: var(--va-tree-category-header-checkbox-height);
+    width: var(--va-tree-category-header-checkbox-width);
+    display: var(--va-tree-category-header-checkbox-display);
+    align-items: var(--va-tree-category-header-checkbox-align-items);
+    justify-content: var(--va-tree-category-header-checkbox-justify-content);
 
     .va-checkbox__square {
       width: 1.5rem;
@@ -179,24 +180,24 @@ export default class VaTreeCategory extends mixins(
   }
 
   &__header-icon {
-    color: $theme-blue-dark;
-    margin-right: 0.5rem;
-    font-size: 24px;
-    line-height: 24px;
+    color: var(--va-tree-category-header-icon-color);
+    margin-right: var(--va-tree-category-header-icon-margin-right);
+    font-size: var(--va-tree-category-header-icon-font-size);
+    line-height: var(--va-tree-category-header-icon-line-height);
   }
 
   &__header-label {
-    word-wrap: break-word;
-    overflow: hidden;
+    word-wrap: var(--va-tree-category-header-label-word-wrap);
+    overflow: var(--va-tree-category-header-label-overflow);
   }
 
   &__list-container {
-    margin-top: 0.625rem;
-    padding-left: 0.6875rem;
+    margin-top: var(--va-tree-category-list-container-margin-top);
+    padding-left: var(--va-tree-category-list-container-padding-left);
   }
 
   &__list-internal-container {
-    background-image: linear-gradient($gray 33%, rgba(255, 255, 255, 0) 0%);
+    background-image: linear-gradient(#adb3b9 33%, rgba(255, 255, 255, 0) 0%);
     background-position: left;
     background-size: 1px 3px;
     background-repeat: repeat-y;

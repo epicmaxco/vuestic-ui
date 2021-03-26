@@ -10,20 +10,20 @@ var FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 var VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var path = require('path');
+var CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 require('dotenv').config();
 var config = {
     mode: isProd ? 'production' : 'development',
     devtool: isProd ? false : 'eval-cheap-module-source-map',
     entry: {
-        app: './src/main.ts'
+        'vuestic-ui': './src/main.ts'
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: 'vuestic-ui.js',
+        filename: '[name].js',
         publicPath: '/dist/',
         library: 'VuesticUI',
         libraryTarget: 'umd',
-        libraryExport: 'default',
         // See https://github.com/webpack/webpack/issues/6522
         globalObject: 'typeof self !== \'undefined\' ? self : this'
     },
@@ -37,7 +37,10 @@ var config = {
     },
     plugins: [
         new FriendlyErrorsWebpackPlugin({ clearConsole: true }),
-        new MiniCssExtractPlugin({ filename: 'vuestic-ui.css' }),
+        new MiniCssExtractPlugin({
+            filename: 'vuestic-ui.css',
+            chunkFilename: '[id].css'
+        }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
@@ -54,16 +57,6 @@ var config = {
     },
     module: {
         rules: [
-            // { test: /\.m?js/, resolve: { fullySpecified: false } },
-            {
-                test: /\.js?$/,
-                exclude: function (file) { return (/node_modules/.test(file) &&
-                    !/\.vue\.js/.test(file)); },
-                loader: 'babel-loader',
-                options: {
-                    sourceType: 'unambiguous'
-                }
-            },
             {
                 test: /\.css$/,
                 use: [
@@ -112,6 +105,15 @@ var config = {
                 }
             },
             {
+                test: /\.js?$/,
+                exclude: function (file) { return (/node_modules/.test(file) &&
+                    !/\.vue\.js/.test(file)); },
+                loader: 'babel-loader',
+                options: {
+                    sourceType: 'unambiguous'
+                }
+            },
+            {
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
                 options: {
@@ -121,6 +123,7 @@ var config = {
         ]
     },
     optimization: {
+        minimize: true,
         minimizer: [
             new TerserPlugin({
                 parallel: true,
@@ -131,16 +134,30 @@ var config = {
                     keep_fnames: true
                 }
             }),
-            new OptimizeCssAssetsPlugin({
-                assetNameRegExp: /\.css$/g,
-                cssProcessor: require('cssnano'),
-                cssProcessorOptions: {
-                    discardComments: { removeAll: true },
-                    postcssZindex: false,
-                    reduceIdents: false
-                },
-                canPrint: false
+            new CssMinimizerPlugin({
+                test: /\.css$/i,
+                parallel: true,
+                minimizerOptions: {
+                    preset: [
+                        'default',
+                        {
+                            discardComments: { removeAll: true },
+                            postcssZindex: false,
+                            reduceIdents: false
+                        },
+                    ]
+                }
             }),
+            // new OptimizeCssAssetsPlugin({
+            //   assetNameRegExp: /\.css$/g,
+            //   cssProcessor: require('cssnano'),
+            //   cssProcessorOptions: {
+            //     discardComments: { removeAll: true },
+            //     postcssZindex: false,
+            //     reduceIdents: false,
+            //   },
+            //   canPrint: false,
+            // }),
             new webpack.BannerPlugin({
                 banner: "/*!\n* Vuestic v" + version + "\n* Released under the MIT License.\n*/",
                 raw: true,

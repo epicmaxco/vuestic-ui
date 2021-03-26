@@ -39,7 +39,7 @@ import VaList, {
 } from './vuestic-components/va-list'
 import VaMediumEditor from './vuestic-components/va-medium-editor'
 import VaModal from './vuestic-components/va-modal'
-import VaNavbar from './vuestic-components/va-navbar'
+import VaNavbar, { VaNavbarItem } from './vuestic-components/va-navbar'
 import VaPagination from './vuestic-components/va-pagination'
 import VaParallax from './vuestic-components/va-parallax'
 import VaPopover from './vuestic-components/va-popover'
@@ -76,14 +76,18 @@ import DropdownPopperSubplugin from './vuestic-components/va-dropdown/dropdown-p
 // import { registerVuesticObject } from './resize-events'
 import ToastInstall from './vuestic-components/va-toast/install'
 
-import GlobalConfigPlugin, { useGlobalConfig } from '../services/GlobalConfigPlugin'
+import { useGlobalConfig, GlobalConfigPlugin } from '../services/GlobalConfigPlugin'
 import { getDefaultConfig } from './vuestic-components/va-config/config-default'
-import { DEFAULT_THEME, useTheme } from '../services/Theme'
+import { setupColors } from '../services/color-config/color-config'
+import VaSpacer from './vuestic-components/va-spacer'
+import { colorsPresets } from '../services/color-config/color-theme-presets'
 
 installPlatform()
 
 export const VuesticPlugin = {
-  install (app: App) {
+  install (app: App, vuesticConfig: {
+    // ...
+  }) {
     [
       VaAccordion,
       VaAffix,
@@ -124,6 +128,7 @@ export const VuesticPlugin = {
       VaMediumEditor,
       VaModal,
       VaNavbar,
+      VaNavbarItem,
       VaPagination,
       VaParallax,
       VaPopover,
@@ -136,6 +141,7 @@ export const VuesticPlugin = {
       VaSeparator,
       VaSidebar,
       VaSlider,
+      VaSpacer,
       VaSwitch,
       VaTab,
       VaTabs,
@@ -188,9 +194,9 @@ export const VuesticPlugin = {
 
         setGlobalConfig(getDefaultConfig())
 
-        const { setTheme } = { ...useTheme() }
+        const { setColors } = { ...setupColors() }
 
-        setTheme && setTheme(DEFAULT_THEME)
+        setColors && setColors(colorsPresets.default)
       },
     })
   },

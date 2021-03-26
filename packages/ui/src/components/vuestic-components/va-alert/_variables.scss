@@ -1,0 +1,36 @@
+:root {
+  /*General*/
+  --va-alert-position: relative;
+  --va-alert-display: flex;
+  --va-alert-align-items: center;
+  --va-alert-margin-y: 0.25rem;
+  --va-alert-padding-x: 0.75rem;
+  --va-alert-padding-y: 0.75rem;
+  --va-alert-border-width: 0;
+  --va-alert-border-radius: 0.5rem;
+  --va-alert-box-shadow: 0.125rem;
+  --va-alert-color: inherit;
+
+  // Border border-radius
+  --va-alert-top-border-radius: 0.5rem 0.5rem 0 0;
+  --va-alert-right-border-radius: 0 0.5rem 0.5rem 0;
+  --va-alert-bottom-border-radius: 0 0 0.5rem 0.5rem;
+  --va-alert-left-border-radius: 0.5rem 0 0 0.5rem;
+
+  // Alert paddings with border
+  --va-alert__border-padding-x: var(--va-alert-padding-x) + 0.375rem;
+  --va-alert__border-padding-y: var(--va-alert-padding-y) + 0.375rem;
+
+  // Badge
+  --va-badge-margin-right: 0.5rem;
+  --va-badge-padding-x: 0.5rem;
+  --va-badge-padding-y: 0.125rem;
+  --va-badge-border-radius: 0.5rem;
+  --va-badge-font-size: 0.625rem;
+  --va-badge-letter-spacing: 0.0625rem;
+
+  // Close
+  --va-alert-close-padding-x: 0.5rem;
+  --va-alert-close-padding-y: 0.0625rem;
+  --va-alert-close-font-size: 1rem;
+}
