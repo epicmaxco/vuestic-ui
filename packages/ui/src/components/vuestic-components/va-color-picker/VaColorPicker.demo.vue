@@ -19,10 +19,10 @@
     </VbCard>
 
     <VbCard title="Palette Custom">
-      <va-color-palette-advanced
+      <!-- <va-color-palette-advanced
         :palette="palette"
         v-model="value"
-      />
+      /> -->
     </VbCard>
 
     <VbCard title="Simple Palette Picker">
@@ -37,7 +37,7 @@
 <script>
 import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
 import VaColorPicker from './VaColorPicker'
-import VaColorPaletteAdvanced from '../va-color-palette/VaColorPaletteAdvanced'
+// import VaColorPaletteAdvanced from '../va-color-palette/VaColorPaletteAdvanced'
 import VaColorPalette from '../va-color-palette/VaColorPalette'
 import { colorArray } from './VuesticTheme'
 
@@ -45,7 +45,7 @@ export default {
   components: {
     VaColorIndicator,
     VaColorPicker,
-    VaColorPaletteAdvanced,
+    // VaColorPaletteAdvanced,
     VaColorPalette,
   },
   data () {
