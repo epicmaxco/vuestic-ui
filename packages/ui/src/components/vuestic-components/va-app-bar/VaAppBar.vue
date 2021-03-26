@@ -25,7 +25,6 @@ class VaAppBarProps {
 
 @Options({ name: 'VaAppBar' })
 export default class VaAppBar extends Vue.with(VaAppBarProps) {
-  scrollPos = 0;
   isHidden = false;
   doShowShadow = false
 
