@@ -67,7 +67,6 @@ import VaInfiniteScroll from './vuestic-components/va-infinite-scroll'
 // import VaPopup from './vuestic-components/va-popup/popup/VaPopup.vue'
 
 // import Toasted from './vuestic-mixins/VuesticToasted'
-import StickyScroll from './vuestic-directives/StickyScroll'
 import { installPlatform } from './vuestic-components/va-popup/install'
 import DropdownPopperSubplugin from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 // import { registerVuesticObject } from './resize-events'
@@ -176,9 +175,6 @@ export const VuesticPlugin = {
 
     // TODO: not sure if it's still needed
     // app.mixin(Toasted)
-
-    // @ts-ignore
-    app.directive('sticky-scroll', StickyScroll)
 
     app.use(GlobalConfigPlugin)
 
