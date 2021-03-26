@@ -1,29 +1,24 @@
 <template>
   <div class="va-color-palette">
     <ul class="va-color-palette__colors">
-      <va-color
+      <va-color-indicator
         v-for="(color, index) in palette"
+        :modelValue="context.valueComputed === color"
         :key="index"
         :color="color"
-        @click="handlerClick(color)"
         :indicator="indicator"
-        :selected="valueComputed === color"
+        @update:modelValue="context.valueComputed = color"
       />
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop, mixins } from 'vue-class-component'
-import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import VaColor from './VaColorIndicator.vue'
+import { Vue, Options, prop, setup } from 'vue-class-component'
+import { statefulComponentOptions, useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
+import VaColorIndicator from '../va-color-indicator'
 
 class ColorPaletteProps {
-  modelValue = prop<string>({
-    type: String,
-    default: '',
-  })
-
   indicator = prop<string>({
     type: String,
     default: 'dot',
@@ -38,19 +33,16 @@ class ColorPaletteProps {
   })
 }
 
-const ColorPalettePropsMixin = Vue.with(ColorPaletteProps)
-
 @Options({
   name: 'VaColorPalette',
-  components: { VaColor },
+  components: { VaColorIndicator },
+  ...statefulComponentOptions,
 })
-export default class VaColorPalette extends mixins(ColorPalettePropsMixin, StatefulMixin) {
-  isSelected (color: any): boolean {
-    return this.valueComputed === color
-  }
+export default class VaColorPalette extends Vue.with(ColorPaletteProps) {
+  context = setup(() => useStateful(this.$props, this.$emit))
 
-  handlerClick (color: any): void {
-    this.valueComputed = color
+  isSelected (color: any): boolean {
+    return this.context.valueComputed === color
   }
 }
 </script>

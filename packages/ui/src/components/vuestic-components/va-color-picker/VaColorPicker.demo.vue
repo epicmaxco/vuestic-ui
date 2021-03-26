@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
+import VaColorIndicator from '../va-color-indicator'
 import VaColorPicker from './VaColorPicker'
 // import VaColorPaletteAdvanced from '../va-color-palette/VaColorPaletteAdvanced'
 import VaColorPalette from '../va-color-palette/VaColorPalette'

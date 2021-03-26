@@ -1,9 +1,9 @@
 <template>
    <div
     class="color-indicator"
-    @click="$emit('click')"
-    :class="{'color-indicator--selected': selected}"
-    :style="{'border-radius': indicator === 'square' ? 0 : '50%' }"
+    @click="ctx.valueComputed = !ctx.valueComputed"
+    :class="computedClass"
+    :style="computedStyle"
   >
     <div
       class="color-indicator__core"
@@ -13,8 +13,8 @@
 </template>
 
 <script lang="ts">
-import { shiftHslColor } from '../../../services/color-functions'
-import { Vue, Options, prop, mixins } from 'vue-class-component'
+import { Vue, Options, prop, setup } from 'vue-class-component'
+import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
 class ColorIndicatorProps {
   color = prop<string>({
@@ -29,17 +29,28 @@ class ColorIndicatorProps {
       return ['dot', 'square'].includes(value)
     },
   })
-
-  selected = prop<boolean>({
-    type: Boolean,
-    default: false,
-  })
 }
 
 const ColorIndicatorPropsMixin = Vue.with(ColorIndicatorProps)
 
-@Options({ name: 'VaColorIndicator', emits: ['click'] })
-export default class VaColorIndicator extends mixins(ColorIndicatorPropsMixin) {}
+@Options({
+  name: 'VaColorIndicator',
+  ...statefulComponentOptions,
+})
+export default class VaColorIndicator extends ColorIndicatorPropsMixin {
+  ctx = setup(() => useStateful(this.$props, this.$emit))
+
+  get computedStyle () {
+    return { 'border-radius': this.indicator === 'square' ? 0 : '50%' }
+  }
+
+  get computedClass () {
+    return {
+      'color-indicator--selected': this.ctx.valueComputed,
+      'color-indicator--hoverable': this.ctx.valueComputed !== undefined,
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -58,17 +69,17 @@ export default class VaColorIndicator extends mixins(ColorIndicatorPropsMixin) {
     border-color: $vue-darkest-blue;
   }
 
+  &--hoverable &__core:hover {
+    transform: scale(1.1);
+    transition: transform 0.1s linear;
+  }
+
   &__core {
     transition: transform 0.1s linear;
     vertical-align: baseline;
     border-radius: 50%;
     width: 1rem;
     height: 1rem;
-
-    &:hover {
-      transform: scale(1.1);
-      transition: transform 0.1s linear;
-    }
   }
 }
 </style>

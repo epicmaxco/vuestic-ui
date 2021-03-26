@@ -2,17 +2,17 @@
   <VbDemo>
     <VbCard title="Color Input">
       <va-color-input v-model="value" />
-
-      <p>Selected</p>
-      <va-color-input
-        v-model="value"
-        selected
-      />
-
-      <p>Disabled</p>
+    </VbCard>
+    <VbCard title="Color Input (disabled)">
       <va-color-input
         v-model="value"
         disabled
+      />
+    </VbCard>
+    <VbCard title="Color Input (stateful)">
+      <va-color-input
+        modelValue="#fff000"
+        stateful
       />
     </VbCard>
 

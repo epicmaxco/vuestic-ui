@@ -2,14 +2,12 @@
   <div class="va-color-input">
     <va-color-indicator
       class="va-color-input__dot"
-      :selected="selected"
-      :color="valueComputed"
+      :color="context.valueComputed"
       :indicator="indicator"
-      @click="onClick()"
     />
     <va-input
       class="va-color-input__input"
-      v-model="valueComputed"
+      v-model="context.valueComputed"
       :disabled="disabled"
       placeholder="input color"
     />
@@ -17,13 +15,13 @@
 </template>
 
 <script lang="ts">
-import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { Vue, Options, prop, mixins } from 'vue-class-component'
-import { VaColorIndicator } from '../va-color-palette'
+import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
+import { Vue, Options, prop, setup } from 'vue-class-component'
+import VaColorIndicator from '../va-color-indicator'
 import VaInput from '../va-input'
 
 class ColorInputProps {
-  value = prop<string>({
+  modelValue = prop<string>({
     type: String,
     default: '',
   })
@@ -36,18 +34,11 @@ class ColorInputProps {
     },
   })
 
-  selected = prop<boolean>({
-    type: Boolean,
-    default: false,
-  })
-
   disabled = prop<boolean>({
     type: Boolean,
     default: false,
   })
 }
-
-const ColorInputPropsMixin = Vue.with(ColorInputProps)
 
 @Options({
   name: 'VaColorInput',
@@ -55,12 +46,10 @@ const ColorInputPropsMixin = Vue.with(ColorInputProps)
     VaInput,
     VaColorIndicator,
   },
-  emits: ['click', 'input'],
+  ...statefulComponentOptions,
 })
-export default class VaColorInput extends mixins(ColorInputPropsMixin, StatefulMixin) {
-  onClick (): void {
-    this.$emit('click')
-  }
+export default class VaColorInput extends Vue.with(ColorInputProps) {
+  context = setup(() => useStateful(this.$props, this.$emit))
 }
 </script>
 
