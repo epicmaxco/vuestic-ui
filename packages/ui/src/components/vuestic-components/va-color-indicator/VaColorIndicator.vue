@@ -38,7 +38,7 @@ export default class VaColorIndicator extends ColorIndicatorPropsMixin {
   ctx = setup(() => useStateful(this.$props, this.$emit))
 
   get computedStyle () {
-    return { 'border-radius': this.indicator === 'square' ? 0 : '50%' }
+    return { 'border-radius': this.square ? 0 : '50%' }
   }
 
   get computedClass () {

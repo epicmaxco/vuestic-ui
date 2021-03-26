@@ -11,7 +11,7 @@ export function useStateful (props: Record<any, any>, emit: (event: string, ...a
   const valueComputed = computed({
     get () {
       if (props.stateful) {
-        return valueState
+        return valueState.value
       }
       return modelValue.value
     },
