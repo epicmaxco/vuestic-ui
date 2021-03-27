@@ -104,7 +104,6 @@
     "vue-class-component": "^8.0.0-rc.1",
     "vue-jest": "^5.0.0-alpha.7",
     "vue-loader": "^16.1.2",
-    "vue-property-decorator": "^9.1.2",
     "vuelidate": "^0.7.5",
     "webpack": "^5.4.1",
     "webpack-bundle-analyzer": "^4.1.0",
