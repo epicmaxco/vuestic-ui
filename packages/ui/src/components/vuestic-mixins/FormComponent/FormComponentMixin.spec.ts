@@ -1,15 +1,20 @@
 import { shallowMount } from '@vue/test-utils'
 import { FormComponentMixin } from './FormComponentMixin'
 import { sleep } from '../../../services/utils'
-import { Mixins, Prop } from 'vue-property-decorator'
+import { Vue, Options, prop } from 'vue-class-component'
 import { h } from 'vue'
 
-export default class ExampleComponent extends Mixins(FormComponentMixin) {
+class ExampleComponentProp {
+  value = prop<any>({})
+}
+
+@Options({
+  mixins: [FormComponentMixin],
+})
+export default class ExampleComponent extends Vue.with(ExampleComponentProp) {
   render () {
     return h('')
   }
-
-  @Prop({}) value: any
 }
 
 describe('FormElementMixin', () => {
