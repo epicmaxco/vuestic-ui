@@ -21,11 +21,27 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
 import VaColorInputAdvanced from '../va-color-input/VaColorInputAdvanced.vue'
 import VaColorPalette from './VaColorPalette.vue'
 import VaColorInput from '../va-color-input/VaColorInput.vue'
-import { Vue, Options } from 'vue-class-component'
+import { Vue, Options, prop } from 'vue-class-component'
+
+class VaColorPaletteAdvancedProps {
+  value = prop<string>({ type: String, default: '' })
+
+  indicator = prop<string>({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  })
+
+  palette = prop<string[]>({
+    type: Array,
+    default: () => [],
+  })
+}
 
 @Options({
   name: 'VaColorPaletteAdvanced',
@@ -35,25 +51,7 @@ import { Vue, Options } from 'vue-class-component'
     VaColorPalette,
   },
 })
-export default class VaColorPaletteAdvanced extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly value!: string
-
-  @Prop({
-    type: String,
-    default: 'dot',
-    validator: (value: string) => {
-      return ['dot', 'square'].includes(value)
-    },
-  }) readonly indicator!: string
-
-  @Prop({
-    type: Array,
-    default: () => [],
-  }) readonly palette!: Array<string>
-
+export default class VaColorPaletteAdvanced extends Vue.with(VaColorPaletteAdvancedProps) {
   get valueProxy (): any {
     return this.value
   }
