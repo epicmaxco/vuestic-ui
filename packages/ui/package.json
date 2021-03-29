@@ -41,8 +41,7 @@
     "vue-color": "^2.8.1",
     "vue-epic-bus": "^0.1.5",
     "vue-flatpickr-component": "^9.0.3",
-    "vue-router": "^4.0.0-beta.13",
-    "vue-toasted": "^1.1.28"
+    "vue-router": "^4.0.0-beta.13"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
