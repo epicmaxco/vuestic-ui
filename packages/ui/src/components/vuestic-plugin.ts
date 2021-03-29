@@ -72,7 +72,7 @@ import DropdownPopperSubplugin from './vuestic-components/va-dropdown/dropdown-p
 // import { registerVuesticObject } from './resize-events'
 import ToastInstall from './vuestic-components/va-toast/install'
 
-import { useGlobalConfig, GlobalConfigPlugin } from '../services/GlobalConfigPlugin'
+import { useGlobalConfig, GlobalConfigPlugin, GlobalConfig } from '../services/GlobalConfigPlugin'
 import { getDefaultConfig } from './vuestic-components/va-config/config-default'
 import { setupColors } from '../services/color-config/color-config'
 import VaSpacer from './vuestic-components/va-spacer'
@@ -81,9 +81,7 @@ import { colorsPresets } from '../services/color-config/color-theme-presets'
 installPlatform()
 
 export const VuesticPlugin = {
-  install (app: App, vuesticConfig: {
-    // ...
-  }) {
+  install (app: App, vuesticConfig: GlobalConfig) {
     [
       VaAccordion,
       VaAffix,
@@ -176,7 +174,7 @@ export const VuesticPlugin = {
     // TODO: not sure if it's still needed
     // app.mixin(Toasted)
 
-    app.use(GlobalConfigPlugin)
+    app.use(GlobalConfigPlugin, vuesticConfig)
 
     app.mixin({
       setup () {
