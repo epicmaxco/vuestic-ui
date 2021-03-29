@@ -1,7 +1,6 @@
-import iconConfig from './../services/icon-config/presets'
 import { createApp } from 'vue'
 import App from './BookApp.vue'
-import { GlobalConfigPlugin } from '../services/GlobalConfigPlugin'
+import { GlobalConfigPlugin, GlobalConfig } from '../services/GlobalConfigPlugin'
 import DropdownPopperSubplugin from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
 // import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
 import ToastInstall from '../components/vuestic-components/va-toast/install'
@@ -9,7 +8,11 @@ import ToastInstall from '../components/vuestic-components/va-toast/install'
 import { VueBookComponents, createRoute } from 'vue-book'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+import demoIconAliases from './vuestic-config/demo-icon-aliases'
+import demoIconFonts from './vuestic-config/demo-icon-fonts'
+
 import './vue-book-overrides.scss'
+import { createIconsConfig } from '../main'
 
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
@@ -18,7 +21,7 @@ const app = createApp(App)
 
 const routes = [
   createRoute({
-    requireContext: require.context('../components', true, /.vdemo.vue$/),
+    requireContext: require.context('../components', true, /.demo.vue$/),
     path: '/demo',
   }),
   {
@@ -38,27 +41,11 @@ app.use(ToastInstall)
 app.use(DropdownPopperSubplugin)
 app.use(router)
 
-if (!process.env.VUE_APP_DEMO_NO_THEME_PLUGIN) {
-  app.use(GlobalConfigPlugin, {
-    ...iconConfig,
-    // Provide custom style here, for example:
-
-    // theme: {
-    //   primary: '#0000ff',
-    //   dark: '#ff0000',
-    // },
-    // VaIcon: {
-    //   iconsConfig: {
-    //     icons: {
-    //       home: {
-    //         code: 'error',
-    //       },
-    //     },
-    //   },
-    // },
-  })
-} else {
-  app.use(GlobalConfigPlugin)
-}
+app.use(GlobalConfigPlugin, {
+  icons: createIconsConfig({
+    aliases: demoIconAliases,
+    fonts: demoIconFonts,
+  }),
+} as GlobalConfig)
 
 app.mount('#app')

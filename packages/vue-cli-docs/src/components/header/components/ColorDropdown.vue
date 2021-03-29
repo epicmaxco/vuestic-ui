@@ -87,7 +87,7 @@ import { watch } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
 import { ThemeName } from '../../../theme-config'
 import { capitalize } from 'lodash'
-import { useTheme } from 'vuestic-ui'
+import { setupColors } from 'vuestic-ui'
 
 @Options({})
 export default class ColorDropdown extends Vue {
@@ -118,7 +118,7 @@ export default class ColorDropdown extends Vue {
   }
 
   getTheme = setup(() => {
-    const { getTheme } = useTheme()
+    const { getTheme } = setupColors()
     return getTheme
   })
 }

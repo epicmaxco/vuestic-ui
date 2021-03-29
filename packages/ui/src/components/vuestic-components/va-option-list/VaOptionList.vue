@@ -84,11 +84,11 @@ class OptionListProps {
 
   disabled = prop<boolean>({ type: Boolean, default: false })
   readonly = prop<boolean>({ type: Boolean, default: false })
-  defaultValue = prop<string|number|object|any[]>({ type: [String, Number, Object, Array] })
+  defaultValue = prop<string | number | object | any[]>({ type: [String, Number, Object, Array] })
   name = prop<string>({ type: String, default: generateUuid })
   color = prop<string>({ type: String, default: 'primary' })
   leftLabel = prop<boolean>({ type: Boolean, default: false })
-  modelValue = prop<string|number|object|any[]>({ type: [String, Number, Object, Array] })
+  modelValue = prop<string | number | object | any[]>({ type: [String, Number, Object, Array] })
 }
 
 const OptionListPropsMixin = Vue.with(OptionListProps)
@@ -112,7 +112,9 @@ export default class VaOptionList extends mixins(
   }
 
   set selectedValue (value) {
-    if (this.$props.readonly) { return }
+    if (this.$props.readonly) {
+      return
+    }
     if (this.isRadio) {
       this.valueComputed = this.getValue(value)
     } else {
@@ -151,8 +153,12 @@ export default class VaOptionList extends mixins(
 }
 </script>
 
-<style>
-  .va-option-list__list {
-    line-height: 1.5;
+<style lang="scss">
+@import 'variables';
+
+.va-option-list {
+  &__list {
+    line-height: var(--va-option-list-line-height);
   }
+}
 </style>

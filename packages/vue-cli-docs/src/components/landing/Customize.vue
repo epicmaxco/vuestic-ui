@@ -357,11 +357,11 @@ export default class Customize extends Vue {
         </template>
 
         ${'<' + 'script>'}
-        import { useTheme } from 'vuestic-ui'
+        import { setupColors } from 'vuestic-ui'
 
         export default {
           setup () {
-            const { getTheme, setTheme } = useTheme()
+            const { getTheme, setTheme } = setupColors()
 
             return {
               getTheme,

@@ -202,21 +202,22 @@ export default class VaInfiniteScroll extends mixins(
 
 <style scoped lang="scss">
 @import "./../../../components/vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-infinite-scroll {
-  display: flex;
-  flex-direction: column;
+  display: var(--va-infinite-scroll-display);
+  flex-direction: var(--va-infinite-scroll-flex-direction);
 
   &--reversed {
-    flex-direction: column-reverse;
+    flex-direction: var(--va-infinite-scroll-reversed-flex-direction);
   }
 
   &__spinner {
     &__default {
       @include flex-center();
 
-      width: 100%;
-      min-height: 70px;
+      width: var(--va-infinite-scroll-spinner-default-width);
+      min-height: var(--va-infinite-scroll-spinner-default-min-height);
     }
 
     &--invisible {

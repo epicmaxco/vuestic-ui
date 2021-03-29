@@ -67,14 +67,15 @@ export default class VaListItem extends mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-list-item {
   &__inner {
-    display: flex;
-    align-items: center;
-    padding: $grid-gutter-default;
-    width: 100%;
-    height: 100%;
+    display: var(--va-list-item-display);
+    align-items: var(--va-list-item-align-items);
+    padding: var(--va-list-item-padding);
+    width: var(--va-list-item-width);
+    height: var(--va-list-item-height);
   }
 }
 </style>

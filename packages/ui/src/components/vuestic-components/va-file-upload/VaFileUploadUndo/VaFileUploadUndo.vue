@@ -29,14 +29,16 @@ export default class VaFileUploadUndo extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import 'variables';
+
 .va-file-upload-undo {
-  height: 1.5rem;
+  height: var(--va-file-upload-undo-height);
 
   &__button {
-    line-height: 1.1428;
-    margin-top: 0;
-    margin-bottom: 0;
+    line-height: var(--va-file-upload-undo-button-line-height);
+    margin-top: var(--va-file-upload-undo-button-margin-top);
+    margin-bottom: var(--va-file-upload-undo-button-margin-bottom);
   }
 }
 </style>

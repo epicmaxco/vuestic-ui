@@ -12,7 +12,7 @@
 
 <script>
 import { Options, Vue, setup } from 'vue-class-component'
-import { useTheme } from 'vuestic-ui'
+import { setupColors } from 'vuestic-ui'
 
 @Options({
   name: 'vuestic-logo',
@@ -23,7 +23,7 @@ export default class VuesticLogo extends Vue {
   }
 
   getTheme = setup(() => {
-    const { getTheme } = useTheme()
+    const { getTheme } = setupColors()
     return getTheme
   })
 }

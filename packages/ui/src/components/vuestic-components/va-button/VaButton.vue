@@ -43,7 +43,7 @@
           v-if="hasTitleData"
           class="va-button__content__title"
         >
-          <slot />
+          <slot/>
         </div>
         <va-icon
           v-if="iconRight"
@@ -74,6 +74,7 @@ import { VaProgressCircle } from '../va-progress-bar'
 import { ButtonGroupServiceKey } from '../va-button-group'
 
 class ButtonProps {
+  color = prop<string>({ type: String, default: undefined })
   tag = prop<string>({ type: String, default: 'button' })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
@@ -132,6 +133,10 @@ export default class VaButton extends mixins(
     }
   })
 
+  get colorComputed () {
+    return this.computeColor(this.color, 'primary')
+  }
+
   get computedClass () {
     return {
       'va-button--default': !this.flat && !this.outline && !this.disabled,
@@ -157,7 +162,7 @@ export default class VaButton extends mixins(
       return
     }
     // Allows button to grab color from button group.
-    if (this.context.va.color) {
+    if (this.context?.va?.color) {
       return
     }
 
@@ -168,9 +173,9 @@ export default class VaButton extends mixins(
     if (this.flat || this.outline) {
       return
     }
-    if (this.context.va.color && this.theme.getColor(this.context.va.color)) {
+    if (this.context?.va?.color && this.theme.getColor(this.context?.va?.color)) {
       return '0 0.125rem 0.19rem 0 ' +
-        getBoxShadowColor(this.color ? this.colorComputed : this.theme.getColor(this.context.va.color))
+        getBoxShadowColor(this.color ? this.colorComputed : this.theme.getColor(this.context?.va?.color))
     }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
   }
@@ -219,7 +224,7 @@ export default class VaButton extends mixins(
     }
 
     if (this.context.va.color && !this.outline && !this.flat) {
-      computedStyle.background = this.color ? this.colorComputed : this.theme.getColor(this.context.va.color)
+      computedStyle.background = this.$props.color ? this.colorComputed : this.theme.getColor(this.context.va.color)
       computedStyle.backgroundImage = ''
     }
 
@@ -263,22 +268,23 @@ export default class VaButton extends mixins(
 </script>
 
 <style lang='scss'>
-@import "../../vuestic-sass/resources/resources";
+@import '../../vuestic-sass/resources/resources';
+@import "variables";
 
 .va-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-image: none;
-  box-shadow: none;
-  outline: none !important;
-  border: $btn-border;
-  font-family: $font-family-sans-serif;
+  display: var(--va-button-display);
+  align-items: var(--va-button-align-items);
+  justify-content: var(--va-button-justify-content);
+  background-image: var(--va-button-background-image);
+  box-shadow: var(--va-button-box-shadow, var(--primary-control-box-shadow));
+  outline: var(--va-button-outline);
+  border: var(--va-button-border, var(--primary-control-border));
+  font-family: var(--va-button-font-family, var(--primary-font-family));
   text-decoration: none !important;
   text-transform: initial;
   cursor: pointer;
-  transition: $btn-transition;
-  background-color: $white;
+  transition: var(--va-button-transition, var(--primary-transition));
+  background-color: var(--va-button-background-color, var(--white));
   vertical-align: middle;
 
   &__content {
@@ -296,7 +302,7 @@ export default class VaButton extends mixins(
   }
 
   &--default {
-    color: $white;
+    color: var(--va-button-background-color, var(--white));
 
     &:hover {
       opacity: 0.85;
@@ -308,13 +314,13 @@ export default class VaButton extends mixins(
     }
 
     i {
-      color: $white;
+      color: var(--va-button-icon-color, var(--white));
     }
   }
 
   &--outline {
     background-color: transparent;
-    border: solid $btn-border-outline;
+    border: solid var(--va-button-outline-border, var(--outline-border-width));
     text-decoration: none;
 
     &.va-button--disabled {
@@ -325,7 +331,7 @@ export default class VaButton extends mixins(
       &.va-button--active {
         .va-button__content,
         i {
-          color: $white !important;
+          color: var(--va-button-outline-icon-color, var(--white)) !important;
         }
       }
     }
@@ -333,7 +339,7 @@ export default class VaButton extends mixins(
 
   &--flat {
     background: transparent;
-    border: $btn-border solid transparent;
+    border: var(--va-button-flat-border, var(--primary-control-border)) solid transparent;
     text-decoration: none;
   }
 
@@ -342,14 +348,14 @@ export default class VaButton extends mixins(
   }
 
   &--large {
-    @include va-button(0, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+    @include va-button(var(--va-button-lg-py), var(--va-button-lg-px), var(--va-button-lg-font-size), var(--va-button-lg-line-height), var(--va-button-lg-border-radius));
 
-    letter-spacing: $btn-letter-spacing-lg;
+    letter-spacing: var(--va-button-lg-letter-spacing);
     height: 3rem;
     min-width: 5rem;
 
     .va-button__content {
-      padding: 0 $btn-padding-x-lg;
+      padding: var(--va-button-lg-py) var(--va-button-lg-content-px);
     }
 
     &.va-button--without-title {
@@ -358,43 +364,43 @@ export default class VaButton extends mixins(
     }
 
     &.va-button--with-left-icon {
-      padding-left: $btn-with-icon-wrapper-padding-lg;
+      padding-left: var(--va-button-lg-icon-wrapper-padding);
 
       &.va-button--without-title {
-        padding-right: $btn-with-icon-wrapper-padding-lg;
+        padding-right: var(--va-button-lg-icon-wrapper-padding);
       }
 
       .va-button__content__title {
-        padding-left: $btn-with-icon-content-padding-lg;
+        padding-left: var(--va-button-lg-icon-content-padding);
       }
     }
 
     &.va-button--with-right-icon {
-      padding-right: $btn-with-icon-wrapper-padding-lg;
+      padding-right: var(--va-button-lg-icon-wrapper-padding);
 
       .va-button__content__title {
-        padding-right: $btn-with-icon-content-padding-lg;
+        padding-right: var(--va-button-lg-icon-content-padding);
       }
     }
 
     &.va-button--outline {
-      line-height: $btn-line-height-lg - 2 * $btn-border-outline;
+      line-height: calc(var(--va-button-lg-line-height) - 2 * var(--va-button-outline-border, var(--outline-border-width)));
     }
 
     &.va-button--square {
-      border-radius: $btn-border-radius-lg-square;
+      border-radius: var(--va-button-lg-square-border-radius);
     }
   }
 
   &--small {
-    @include va-button(0, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+    @include va-button(var(--va-button-sm-py), var(--va-button-sm-px), var(--va-button-sm-font-size), var(--va-button-sm-line-height), var(--va-button-sm-border-radius));
 
-    letter-spacing: $btn-letter-spacing-sm;
+    letter-spacing: var(--va-button-sm-letter-spacing);
     height: 1.5rem;
     min-width: 3rem;
 
     .va-button__content {
-      padding: 0 $btn-padding-x-sm;
+      padding: var(--va-button-sm-py) var(--va-button-sm-px);
     }
 
     &.va-button--without-title {
@@ -403,43 +409,43 @@ export default class VaButton extends mixins(
     }
 
     &.va-button--with-left-icon {
-      padding-left: $btn-with-icon-wrapper-padding-sm;
+      padding-left: var(--va-button-sm-icon-wrapper-padding);
 
       &.va-button--without-title {
-        padding-right: $btn-with-icon-wrapper-padding-sm;
+        padding-right: var(--va-button-sm-icon-wrapper-padding);
       }
 
       .va-button__content__title {
-        padding-left: $btn-with-icon-content-padding-sm;
+        padding-left: var(--va-button-sm-icon-content-padding);
       }
     }
 
     &.va-button--with-right-icon {
-      padding-right: $btn-with-icon-wrapper-padding-sm;
+      padding-right: var(--va-button-sm-icon-wrapper-padding);
 
       .va-button__content__title {
-        padding-right: $btn-with-icon-content-padding-sm;
+        padding-right: var(--va-button-sm-icon-content-padding);
       }
     }
 
     &.va-button--outline {
-      line-height: $btn-line-height-sm - 2 * $btn-border-outline;
+      line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-outline-border, var(--outline-border-width)));
     }
 
     &.va-button--square {
-      border-radius: $btn-border-radius-sm-square;
+      border-radius: var(--va-button-sm-square-border-radius);
     }
   }
 
   &--normal {
-    @include va-button(0, $btn-padding-x-nrm, $btn-font-size-nrm, $btn-line-height-nrm, $btn-border-radius-nrm);
+    @include va-button(var(--va-button-py), var(--va-button-px), var(--va-button-font-size), var(--va-button-line-height), var(--va-button-border-radius));
 
-    letter-spacing: $btn-letter-spacing-nrm;
+    letter-spacing: var(--va-button-letter-spacing, var(--primary-letter-spacing));
     height: 2.25rem;
     min-width: 4rem;
 
     .va-button__content {
-      padding: 0 $btn-padding-x-nrm;
+      padding: var(--va-button-py) var(--va-button-px);
     }
 
     &.va-button--without-title {
@@ -448,31 +454,31 @@ export default class VaButton extends mixins(
     }
 
     &.va-button--with-left-icon {
-      padding-left: $btn-with-icon-wrapper-padding-nrm;
+      padding-left: var(--va-button-icon-wrapper-padding);
 
       &.va-button--without-title {
-        padding-right: $btn-with-icon-wrapper-padding-nrm;
+        padding-right: var(--va-button-icon-wrapper-padding);
       }
 
       .va-button__content__title {
-        padding-left: $btn-with-icon-content-padding-nrm;
+        padding-left: var(--va-button-icon-content-padding);
       }
     }
 
     &.va-button--with-right-icon {
-      padding-right: $btn-with-icon-wrapper-padding-nrm;
+      padding-right: var(--va-button-icon-wrapper-padding);
 
       .va-button__content__title {
-        padding-right: $btn-with-icon-content-padding-nrm;
+        padding-right: var(--va-button-icon-content-padding);
       }
     }
 
     &.va-button--outline {
-      line-height: $btn-line-height-nrm - 2 * $btn-border-outline;
+      line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-outline-border, var(--outline-border-width)));
     }
 
     &.va-button--square {
-      border-radius: $btn-border-radius-nrm-square;
+      border-radius: var(--va-button-square-border-radius);
     }
   }
 

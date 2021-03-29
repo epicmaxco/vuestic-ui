@@ -4,7 +4,7 @@
 
 <script>
 import emitter from 'tiny-emitter/instance'
-import { useTheme } from 'vuestic-ui'
+import { setupColors } from 'vuestic-ui'
 import { COLOR_THEMES, ThemeName } from '@/theme-config'
 
 const eventBus = {
@@ -22,7 +22,7 @@ export default {
   },
 
   setup () {
-    const { setTheme } = useTheme()
+    const { setTheme } = setupColors()
     setTheme(COLOR_THEMES[ThemeName.DEFAULT])
   },
 }

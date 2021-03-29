@@ -1,26 +1,32 @@
-// TODO: Change this to new alias syntax
+const DocsAliases = [
+  {
+    name: 'remove_red_eye',
+    to: 'remove_red_eye',
+  },
+  {
+    name: 'account_box',
+    to: 'account_box',
+  },
+  {
+    name: 'info',
+    to: 'info',
+  },
+  {
+    name: 'face',
+    to: 'face',
+  },
+  {
+    name: 'warning',
+    to: 'warning',
+  },
+  {
+    name: 'arrow_forward_ios',
+    to: 'arrow_forward_ios',
+  },
+  {
+    name: 'search',
+    to: 'fa4-search',
+  },
+]
 
-export default {
-  remove_red_eye: {
-    code: 'remove_red_eye',
-  },
-  account_box: {
-    code: 'account_box',
-  },
-  info: {
-    code: 'info',
-  },
-  face: {
-    code: 'face',
-  },
-  warning: {
-    code: 'warning',
-  },
-  arrow_forward_ios: {
-    code: 'arrow_forward_ios',
-  },
-  search: {
-    code: 'search',
-    font: 'fa4',
-  },
-}
+export default DocsAliases

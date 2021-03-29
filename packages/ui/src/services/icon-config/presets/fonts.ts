@@ -1,36 +1,23 @@
-import { IconConfigPreset } from '../types/preset'
-
-export const fontPresets: IconConfigPreset[] = [
-  {
-    name: /(md)-(.*)/,
-    type: 'ligature',
+/**
+ * You can import concrate config.
+ *
+ * @example
+ * ```
+ * import { md } from 'vuestic/config/icons'
+ * ```
+ */
+export const fontPresets = {
+  md_as_default: {
+    name: /.*/,
     iconClass: 'material-icons',
-    content: (font: string, content: string) => content,
-    color: 'red',
+    content: (content: string) => content,
   },
+}
+
+export const VuesticIconFonts = [
   {
-    name: /fa4-(.*)/,
-    type: 'css',
-    iconClass: (code: string) => `fa fa-${code}`,
-  },
-  {
-    name: /(fas|far|fal|fad|fab)-(.*)/,
-    type: 'css',
-    iconClass: (font: string, code: string) => `${font} fa-${code} fa-fw`,
-  },
-  {
-    name: /ion-(.*)/,
-    type: 'css',
-    iconClass: (code: string) => `icon ion-md-${code}`,
-  },
-  {
-    name: /ion-outline-(.*)/,
-    type: 'css',
-    iconClass: (code: string) => `icon ion-ios-${code}-outline`,
-  },
-  {
-    name: /(brandico|entypo|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial)-(.*)/,
-    type: 'css',
-    iconClass: (font: string, code: string) => `${font}-${code}`,
+    name: /.*/,
+    iconClass: 'material-icons',
+    content: (content: string) => content,
   },
 ]

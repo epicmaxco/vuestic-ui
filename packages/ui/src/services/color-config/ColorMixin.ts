@@ -14,16 +14,16 @@ export const isCssColor = (strColor: string): boolean => {
 }
 
 export const useColor = () => {
-  const { getTheme = () => ({}) } = setupColors() as any || {}
-  const theme = getTheme() || {}
+  const { getColors = () => ({}) } = setupColors() as any || {}
+  const colors = getColors() || {}
 
   return (prop?: string, defaultColor: string = DEFAULT_COLOR): string => {
     if (!prop) {
-      return defaultColor
+      prop = defaultColor
     }
 
-    if (theme[prop]) {
-      return theme[prop]
+    if (colors[prop]) {
+      return colors[prop]
     }
 
     if (isCssColor(prop)) {
