@@ -15,7 +15,7 @@
       "@/*": [
         "src/*"
       ],
-      "vuestic-ui-dev/*": [
+      "vuestic-ui/*": [
         "../ui/*"
       ]
     },

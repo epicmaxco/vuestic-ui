@@ -1,6 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaColorPalette from 'vuestic-ui-dev/src/components/vuestic-components/va-color-palette/VaColorPalette.vue'
-import VaColorPaletteAdvanced from 'vuestic-ui-dev/src/components/vuestic-components/va-color-palette/VaColorPaletteAdvanced.vue'
+import VaColorPalette from 'vuestic-ui/src/components/vuestic-components/va-color-palette/VaColorPalette.vue'
+import VaColorPaletteAdvanced from 'vuestic-ui/src/components/vuestic-components/va-color-palette/VaColorPaletteAdvanced.vue'
 import apiOptions, { apiOptionsAdvanced } from './api-options'
 
 export default [

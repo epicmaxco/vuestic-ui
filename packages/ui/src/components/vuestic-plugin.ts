@@ -13,7 +13,10 @@ import VaButtonDropdown from './vuestic-components/va-button-dropdown'
 import VaButtonGroup from './vuestic-components/va-button-group'
 import VaButtonToggle from './vuestic-components/va-button-toggle'
 import VaBreadcrumbs, { VaBreadcrumbsItem } from './vuestic-components/va-breadcrumbs'
-import VaCard, { VaCardContent, VaCardTitle } from './vuestic-components/va-card'
+import VaCard, {
+  VaCardContent,
+  VaCardTitle,
+} from './vuestic-components/va-card'
 import VaCheckbox from './vuestic-components/va-checkbox'
 import VaChip from './vuestic-components/va-chip'
 import VaCollapse from './vuestic-components/va-collapse'
@@ -40,7 +43,10 @@ import VaNavbar, { VaNavbarItem } from './vuestic-components/va-navbar'
 import VaPagination from './vuestic-components/va-pagination'
 import VaParallax from './vuestic-components/va-parallax'
 import VaPopover from './vuestic-components/va-popover'
-import { VaProgressBar, VaProgressCircle } from './vuestic-components/va-progress-bar'
+import {
+  VaProgressBar,
+  VaProgressCircle,
+} from './vuestic-components/va-progress-bar'
 import VaRadio from './vuestic-components/va-radio'
 import VaRating from './vuestic-components/va-rating'
 import VaScrollbar from './vuestic-components/va-scrollbar'
@@ -51,7 +57,10 @@ import VaSlider from './vuestic-components/va-slider'
 import VaSwitch from './vuestic-components/va-switch'
 import VaTabs, { VaTab } from './vuestic-components/va-tabs'
 import VaTimeline, { VaTimelineItem } from './vuestic-components/va-timeline'
-import VaTreeRoot, { VaTreeCategory, VaTreeNode } from './vuestic-components/va-tree-view'
+import VaTreeRoot, {
+  VaTreeCategory,
+  VaTreeNode,
+} from './vuestic-components/va-tree-view'
 import VaForm from './vuestic-components/va-form'
 import VaOptionList from './vuestic-components/va-option-list'
 import VaInfiniteScroll from './vuestic-components/va-infinite-scroll'
@@ -68,11 +77,15 @@ import VaInfiniteScroll from './vuestic-components/va-infinite-scroll'
 
 // import Toasted from './vuestic-mixins/VuesticToasted'
 import { installPlatform } from './vuestic-components/va-popup/install'
-import DropdownPopperSubplugin from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
+import DropdownPopperSubplugin
+  from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 // import { registerVuesticObject } from './resize-events'
 import ToastInstall from './vuestic-components/va-toast/install'
 
-import { useGlobalConfig, GlobalConfigPlugin } from '../services/GlobalConfigPlugin'
+import {
+  useGlobalConfig,
+  GlobalConfigPlugin,
+} from '../services/GlobalConfigPlugin'
 import { getDefaultConfig } from './vuestic-components/va-config/config-default'
 import { setupColors } from '../services/color-config/color-config'
 import VaSpacer from './vuestic-components/va-spacer'
@@ -83,7 +96,7 @@ installPlatform()
 export const VuesticPlugin = {
   install (app: App, vuesticConfig: {
     // ...
-  }) {
+  }): void {
     [
       VaAccordion,
       VaAffix,

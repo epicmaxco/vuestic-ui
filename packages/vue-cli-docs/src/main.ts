@@ -1,14 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
 import { i18n } from 'vue-lang-router'
 
-import { VuesticPlugin } from 'vuestic-ui'
-import 'vuestic-ui/dist/vuestic-ui.css'
+import { VuesticPlugin } from 'vuestic-ui/src/main'
+// import 'vuestic-ui/dist/vuestic-ui.css'
 
 createApp(App)
-  .use(store)
   .use(router)
   .use(i18n)
   .use(VuesticPlugin)

@@ -13,13 +13,13 @@
       :class="{ active: option.code === currentLanguage }"
       @click="setLanguage(option.code)"
     >
-      <va-list-item-section :style="{color: themes.primary}">
+      <va-list-item-section :style="{color: 'primary'}">
         <span class="dropdown-item__text">{{ option.name }}</span>
       </va-list-item-section>
     </va-list-item>
     <va-list-item class="language-dropdown__item row align--center py-2">
       <va-list-item-section>
-        <router-link :to="`/${$root.$i18n.locale}/contribution/translation`" class="dropdown-item__text" :style="{color: themes.primary}">{{$t('landing.header.buttons.translation')}}</router-link>
+        <router-link :to="`/${$root.$i18n.locale}/contribution/translation`" class="dropdown-item__text" :style="{color: 'primary'}">{{$t('landing.header.buttons.translation')}}</router-link>
       </va-list-item-section>
     </va-list-item>
   </va-list>
@@ -30,7 +30,7 @@
 // @ts-nocheck
 import { Options, Vue, setup } from 'vue-class-component'
 import { languages } from './../../languages'
-import { setupColors } from 'vuestic-ui'
+import { setupColors } from '../../../../../ui/src/main'
 
 @Options({
   name: 'language-dropdown',
@@ -49,15 +49,6 @@ export default class LanguageDropdown extends Vue {
     })
   }
 
-  get themes () {
-    return this.getColors()
-  }
-
-  getTheme = setup(() => {
-    const { getTheme } = setupColors()
-    return getTheme
-  })
-
   get currentLanguage () {
     return this.$root.$i18n.locale
   }
@@ -70,7 +61,7 @@ export default class LanguageDropdown extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
 
 .language-dropdown {
   cursor: pointer;

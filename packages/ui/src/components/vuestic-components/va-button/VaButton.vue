@@ -223,7 +223,7 @@ export default class VaButton extends mixins(
       computedStyle.boxShadow = this.shadowStyle
     }
 
-    if (this.context.va.color && !this.outline && !this.flat) {
+    if (this.context?.va?.color && !this.outline && !this.flat) {
       computedStyle.background = this.$props.color ? this.colorComputed : this.theme.getColor(this.context.va.color)
       computedStyle.backgroundImage = ''
     }

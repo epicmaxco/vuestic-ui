@@ -19,7 +19,7 @@
 // @ts-nocheck
 import VaIconMenu from '@/iconset/VaIconMenu.vue'
 import VaIconMenuCollapsed from '@/iconset/VaIconMenuCollapsed.vue'
-import { setupColors } from 'vuestic-ui'
+import { setupColors } from '../../../../../ui/src/main'
 
 export default {
   name: 'HeaderSelector',
@@ -36,21 +36,21 @@ export default {
 
   computed: {
     themes () {
-      return this.getColors()
+      return this.getTheme()
     },
   },
 
   setup () {
-    const { getTheme } = setupColors()
+    const { getColors: getTheme } = setupColors()
     return {
-      getTheme: getColors,
+      getTheme,
     }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui-dev/src/components/vuestic-sass/resources/resources';
+@import '~vuestic-ui/src/components/vuestic-sass/resources/resources';
 
 .i-nav {
   display: inline-block;

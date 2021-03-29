@@ -2,7 +2,7 @@ import { Options, Vue, prop, mixins } from 'vue-class-component'
 
 class RouterLinkProps {
   tag = prop<string>({ type: String, default: 'router-link' })
-  to = prop<string | object>({ type: [String, Object] })
+  to = prop<string | Record<string, unknown>>({ type: [String, Object] })
   replace = prop<boolean>({ type: Boolean })
   append = prop<boolean>({ type: Boolean })
   exact = prop<boolean>({ type: Boolean })
@@ -47,16 +47,16 @@ export class RouterLinkMixin extends mixins(
   }
 
   get isActiveRouterLink () {
-    if (!this.$router || !this.to) {
+    if (!(this as any).$router || !this.to) {
       return false
     }
 
-    const resolve = this.$router.resolve(
+    const resolve = (this as any).$router.resolve(
       this.to,
     )
 
     const to = resolve.href
-    const currentHref = this.$router.currentRoute.value.path
+    const currentHref = (this as any).$router.currentRoute.value.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
   }
@@ -65,7 +65,7 @@ export class RouterLinkMixin extends mixins(
     // to resolve href on server for SEO optimization
     // https://github.com/nuxt/nuxt.js/issues/8204
     // @ts-ignore
-    return this.href || (this.to ? this.$router?.resolve(this.to, this.$route).href : null)
+    return this.href || (this.to ? (this as any).$router?.resolve(this.to, (this as any).$route).href : null)
   }
 
   created () {

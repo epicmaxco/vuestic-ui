@@ -7,7 +7,7 @@
       class="va-tree-node__checkbox"
       v-if="$slots.checkbox"
     >
-      <slot name="checkbox"/>
+      <slot name="checkbox" />
     </div>
     <div
       class="va-tree-node__icon"
@@ -20,7 +20,7 @@
       />
     </div>
     <div class="va-tree-node__label">
-      <slot/>
+      <slot />
     </div>
     <div
       class="va-tree-node__icon-right"
@@ -84,7 +84,7 @@ export default class VaTreeNode extends mixins(
 </script>
 
 <style lang="scss">
-@import "src/components/vuestic-sass/resources/resources";
+@import "../../../vuestic-sass/resources/resources";
 @import 'variables.scss';
 
 .va-tree-node {
