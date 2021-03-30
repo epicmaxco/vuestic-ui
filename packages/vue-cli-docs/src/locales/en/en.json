@@ -932,7 +932,8 @@
     "overview": "Overview",
     "translation": "Translation",
     "browserSupport": "Browser Support",
-    "table": "Table"
+    "table": "Table",
+    "guide": "Guide"
   },
   "all": {
     "examples": "Examples",
@@ -2442,7 +2443,7 @@
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text" : "Just add the `.va-table` to the table element."
+        "text": "Just add the `.va-table` to the table element."
       },
       "hoverable": {
         "title": "Hoverable",
@@ -2457,5 +2458,8 @@
         "text": "To make rows looks like mouse `pointer` property you could add `.va-table-clickable` class."
       }
     }
+  },
+  "guide": {
+    "title": "-- Here is the title --"
   }
 }

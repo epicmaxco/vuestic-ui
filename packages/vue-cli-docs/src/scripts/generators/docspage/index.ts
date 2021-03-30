@@ -44,7 +44,8 @@ module.exports = {
     })
 
     // Generate docs
-    const docsBasePath = process.cwd()
+    const docsBasePath = process.cwd() + '/src'
+    console.log('docsBasePath', docsBasePath)
     const createDocsActions = [
       {
         type: 'add',
