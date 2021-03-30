@@ -22,6 +22,7 @@ module.exports = {
     indent: ['error', 2, { ignoreComments: true }],
     'prefer-arrow-callback': 'error',
     'array-bracket-spacing': ['error', 'never'],
+    'vue/html-closing-bracket-spacing)': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
