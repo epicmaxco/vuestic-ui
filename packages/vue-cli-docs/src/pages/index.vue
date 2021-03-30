@@ -41,7 +41,7 @@ import Customize from '@/components/landing/Customize.vue'
     Seamless,
     Customize,
   },
-} as any)
+})
 export default class Landing extends Vue {}
 </script>
 

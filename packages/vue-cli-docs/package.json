@@ -6,9 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "generate:component": "plop --plopfile scripts/generators/index.ts",
-    "generate:docspage": "plop --plopfile scripts/generators/documentation.ts",
-    "generate:translation": "plop --plopfile scripts/generators/language.ts"
+    "generate:component": "plop --plopfile src/scripts/generators/index.ts",
+    "generate:docspage": "plop --plopfile src/scripts/generators/documentation.ts",
+    "generate:translation": "plop --plopfile src/scripts/generators/language.ts"
   },
   "dependencies": {
     "core-js": "^3.8.3",
