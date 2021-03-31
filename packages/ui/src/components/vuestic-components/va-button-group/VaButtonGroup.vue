@@ -1,36 +1,68 @@
 <template>
-  <div
-    class="va-button-group"
-  >
-    <slot/>
+  <div class="va-button-group" :style="computedStlye">
+    <va-config :components="context.buttonConfig">
+      <slot />
+    </va-config>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Options, prop, setup } from 'vue-class-component'
+import VaConfig from '../va-config'
 import { InjectionKey, reactive, provide } from 'vue'
+import { getGradientBackground } from '../../../services/color-config/color-functions'
+import { useColor } from '../../../services/color-config/ColorMixin'
 
-export const ButtonGroupServiceKey: InjectionKey<{ color?: string }> = Symbol('ButtonGroupService')
+export const ButtonGroupServiceKey: InjectionKey<{
+  color?: string;
+  textColor?: string;
+  outline?: boolean;
+  flat?: boolean;
+}> = Symbol('ButtonGroupService')
 
 class Props {
-  color = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'primary' });
+  textColor = prop<string>({ type: String, default: '#fff' });
+  round = prop<boolean>({ type: Boolean, default: true });
+  outline = prop<boolean>({ type: Boolean, default: false });
+  flat = prop<boolean>({ type: Boolean, default: false });
 }
 
 @Options({
   name: 'VaButtonGroup',
+  components: { VaConfig },
 })
 export default class VaButtonGroup extends Vue.with(Props) {
   context = setup(() => {
-    const va = reactive({
-      color: this.color,
+    const isTransparentBackground = this.outline || this.flat
+    const buttonConfig = reactive({
+      VaButton: {
+        color: isTransparentBackground ? this.color : '#00000000',
+        textColor: this.textColor,
+        outline: this.outline,
+        flat: this.flat,
+      },
     })
 
-    provide(ButtonGroupServiceKey, va)
+    return { getColor: useColor(), buttonConfig }
+  });
 
-    return {
-      va,
+  get computedGradiend () {
+    if (this.outline || this.flat) {
+      return ''
     }
-  })
+
+    const color = this.context.getColor(this.color)
+
+    return getGradientBackground(color)
+  }
+
+  get computedStlye () {
+    return {
+      'background-image': this.computedGradiend,
+      'border-radius': this.round ? '9999999px' : '',
+    }
+  }
 
   // get computedClass () {
   //   return {
@@ -42,13 +74,15 @@ export default class VaButtonGroup extends Vue.with(Props) {
 }
 </script>
 
-<style lang='scss'>
-@import '../../vuestic-sass/resources/resources';
-@import 'variables';
+<style lang="scss">
+@import "../../vuestic-sass/resources/resources";
+@import "variables";
 
 .va-button-group {
   display: flex;
   justify-content: stretch;
+  width: max-content;
+  overflow: hidden;
   // margin: 0.375rem 0.5rem;
 
   &--large {
@@ -60,7 +94,10 @@ export default class VaButtonGroup extends Vue.with(Props) {
   }
 
   &--normal {
-    border-radius: var(--va-button-group-border-radius, var(--form-border-radius));
+    border-radius: var(
+      --va-button-group-border-radius,
+      var(--form-border-radius)
+    );
   }
 
   .va-button {

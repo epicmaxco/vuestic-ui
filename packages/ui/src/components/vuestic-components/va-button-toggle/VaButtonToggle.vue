@@ -1,16 +1,16 @@
 <template>
   <div class="va-button-toggle">
-    <va-button-group>
+    <va-button-group
+      :color="buttonGroupColor"
+      :textColor="textColor"
+      :round="round"
+    >
       <va-button
         v-for="option in options"
         :key="option.value"
         :style="buttonStyle(option.value)"
-        :outline="outline"
-        :flat="flat"
-        :round="round"
         :disabled="disabled"
         :size="size"
-        :color="buttonColor(option.value)"
         :class="buttonClass(option.value)"
         @click="changeValue(option.value)"
       >
@@ -23,7 +23,7 @@
 <script lang="ts">
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import { getGradientBackground } from '../../../services/color-config/color-functions'
+import { getFocusColor } from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
@@ -31,6 +31,7 @@ import VaButtonGroup from '../va-button-group'
 class ButtonToggleProps {
   options = prop<any[]>({ type: Array, default: () => [] })
   color = prop<string>({ type: String, default: 'primary' })
+  textColor = prop<string>({ type: String, default: '#fff' })
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
@@ -61,23 +62,31 @@ export default class VaButtonToggle extends mixins(
   ColorMixin,
   ButtonTogglePropsMixin,
 ) {
+  get buttonGroupColor () {
+    if (this.outline || this.flat) {
+      return '#00000000'
+    } else {
+      return this.colorComputed
+    }
+  }
+
   buttonColor (buttonValue: any) {
     return buttonValue === this.modelValue && this.toggleColor ? this.toggleColor : this.color
   }
 
   buttonStyle (buttonValue: any) {
     if (buttonValue !== this.modelValue) {
-      return {}
+      return { backgroundColor: 'transparent' }
     }
 
     if (this.outline || this.flat) {
       return {
         backgroundColor: this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed,
-        color: '#ffffff',
+        color: this.$props.textColor,
       }
     } else {
       return {
-        backgroundColor: getGradientBackground(this.colorComputed),
+        backgroundColor: getFocusColor(this.colorComputed),
         filter: 'brightness(85%)',
         boxShadow: 'none',
       }

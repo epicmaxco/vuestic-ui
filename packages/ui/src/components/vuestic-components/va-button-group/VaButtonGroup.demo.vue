@@ -40,27 +40,27 @@
               <va-button outline>
                 Button 1
               </va-button>
-              <va-button-group>
-                <va-button outline>
+              <va-button-group outline>
+                <va-button>
                   Button 1
                 </va-button>
-                <va-button outline>
+                <va-button>
                   Button 2
                 </va-button>
-                <va-button outline>
+                <va-button>
                   Button 3
                 </va-button>
               </va-button-group>
             </VbCard>
             <VbCard title="Flat Button Group">
-              <va-button-group>
-                <va-button flat>
+              <va-button-group flat>
+                <va-button>
                   Button 1
                 </va-button>
-                <va-button flat>
+                <va-button>
                   Button 2
                 </va-button>
-                <va-button flat>
+                <va-button>
                   Button 3
                 </va-button>
               </va-button-group>
@@ -101,109 +101,61 @@
               </va-button-group>
             </VbCard>
             <VbCard title="Outline Button Group">
-              <va-button-group>
-                <va-button
-                  size="large"
-                  outline
-                >
+              <va-button-group outline>
+                <va-button size="large">
                   Button 1
                 </va-button>
-                <va-button
-                  size="large"
-                  outline
-                >
+                <va-button size="large">
                   Button 2
                 </va-button>
-                <va-button
-                  size="large"
-                  outline
-                >
+                <va-button size="large">
                   Button 3
                 </va-button>
-                <va-button
-                  size="large"
-                  outline
-                >
+                <va-button size="large">
                   Button 4
                 </va-button>
               </va-button-group>
-              <va-button-group>
-                <va-button
-                  size="small"
-                  outline
-                >
+              <va-button-group outline>
+                <va-button size="small">
                   Button 1
                 </va-button>
-                <va-button
-                  size="small"
-                  outline
-                >
+                <va-button size="small">
                   Button 2
                 </va-button>
-                <va-button
-                  size="small"
-                  outline
-                >
+                <va-button size="small">
                   Button 3
                 </va-button>
-                <va-button
-                  size="small"
-                  outline
-                >
+                <va-button size="small">
                   Button 4
                 </va-button>
               </va-button-group>
             </VbCard>
             <VbCard title="Flat Button Group">
-              <va-button-group>
-                <va-button
-                  size="large"
-                  flat
-                >
+              <va-button-group flat>
+                <va-button size="large">
                   Button 1
                 </va-button>
-                <va-button
-                  size="large"
-                  flat
-                >
+                <va-button size="large">
                   Button 2
                 </va-button>
-                <va-button
-                  size="large"
-                  flat
-                >
+                <va-button size="large">
                   Button 3
                 </va-button>
-                <va-button
-                  size="large"
-                  flat
-                >
+                <va-button size="large">
                   Button 4
                 </va-button>
               </va-button-group>
               <va-button-group>
-                <va-button
-                  size="small"
-                  flat
-                >
+                <va-button size="small">
                   Button 1
                 </va-button>
-                <va-button
-                  size="small"
-                  flat
-                >
+                <va-button size="small">
                   Button 2
                 </va-button>
-                <va-button
-                  size="small"
-                  flat
-                >
+                <va-button size="small">
                   Button 3
                 </va-button>
-                <va-button
-                  size="small"
-                  flat
-                >
+                <va-button size="small">
                   Button 4
                 </va-button>
               </va-button-group>
@@ -222,34 +174,16 @@
             </VbCard>
             <VbCard title="Outline Button Group">
               <va-button-group>
-                <va-button
-                  outline
-                  icon="create"
-                />
-                <va-button
-                  outline
-                  icon="add"
-                />
-                <va-button
-                  outline
-                  icon="add_circle_outline"
-                />
+                <va-button outline icon="create" />
+                <va-button outline icon="add" />
+                <va-button outline icon="add_circle_outline" />
               </va-button-group>
             </VbCard>
             <VbCard title="Flat Button Group">
               <va-button-group>
-                <va-button
-                  flat
-                  icon="create"
-                />
-                <va-button
-                  flat
-                  icon="add"
-                />
-                <va-button
-                  flat
-                  icon="add_circle_outline"
-                />
+                <va-button flat icon="create" />
+                <va-button flat icon="add" />
+                <va-button flat icon="add_circle_outline" />
               </va-button-group>
             </VbCard>
           </td>
@@ -259,132 +193,44 @@
           <td>
             <VbCard title="Default Button Group">
               <va-button-group color="primary">
-                <va-button
-                  size="large"
-                  icon="create"
-                />
-                <va-button
-                  size="large"
-                  icon="add"
-                />
-                <va-button
-                  size="large"
-                  icon="add_circle_outline"
-                />
-                <va-button
-                  size="large"
-                  icon="face"
-                />
+                <va-button size="large" icon="create" />
+                <va-button size="large" icon="add" />
+                <va-button size="large" icon="add_circle_outline" />
+                <va-button size="large" icon="face" />
               </va-button-group>
               <va-button-group color="success">
-                <va-button
-                  size="small"
-                  icon="create"
-                />
-                <va-button
-                  size="small"
-                  icon="add"
-                />
-                <va-button
-                  size="small"
-                  icon="add_circle_outline"
-                />
-                <va-button
-                  size="small"
-                  icon="face"
-                />
+                <va-button size="small" icon="create" />
+                <va-button size="small" icon="add" />
+                <va-button size="small" icon="add_circle_outline" />
+                <va-button size="small" icon="face" />
               </va-button-group>
             </VbCard>
             <VbCard title="Outline Button Group">
-              <va-button-group>
-                <va-button
-                  size="large"
-                  outline
-                  icon="create"
-                />
-                <va-button
-                  size="large"
-                  outline
-                  icon="add"
-                />
-                <va-button
-                  size="large"
-                  outline
-                  icon="add_circle_outline"
-                />
-                <va-button
-                  size="large"
-                  outline
-                  icon="face"
-                />
+              <va-button-group outline>
+                <va-button size="large" icon="create" />
+                <va-button size="large" icon="add" />
+                <va-button size="large" icon="add_circle_outline" />
+                <va-button size="large" icon="face" />
               </va-button-group>
-              <va-button-group>
-                <va-button
-                  size="small"
-                  outline
-                  icon="create"
-                />
-                <va-button
-                  size="small"
-                  outline
-                  icon="add"
-                />
-                <va-button
-                  size="small"
-                  outline
-                  icon="add_circle_outline"
-                />
-                <va-button
-                  size="small"
-                  outline
-                  icon="face"
-                />
+              <va-button-group outline>
+                <va-button size="small" icon="create" />
+                <va-button size="small" icon="add" />
+                <va-button size="small" icon="add_circle_outline" />
+                <va-button size="small" icon="face" />
               </va-button-group>
             </VbCard>
             <VbCard title="Flat Button Group">
-              <va-button-group>
-                <va-button
-                  size="large"
-                  flat
-                  icon="create"
-                />
-                <va-button
-                  size="large"
-                  flat
-                  icon="add"
-                />
-                <va-button
-                  size="large"
-                  flat
-                  icon="add_circle_outline"
-                />
-                <va-button
-                  size="large"
-                  flat
-                  icon="face"
-                />
+              <va-button-group flat>
+                <va-button size="large" icon="create" />
+                <va-button size="large" icon="add" />
+                <va-button size="large" icon="add_circle_outline" />
+                <va-button size="large" icon="face" />
               </va-button-group>
-              <va-button-group>
-                <va-button
-                  size="small"
-                  flat
-                  icon="create"
-                />
-                <va-button
-                  size="small"
-                  flat
-                  icon="add"
-                />
-                <va-button
-                  size="small"
-                  flat
-                  icon="add_circle_outline"
-                />
-                <va-button
-                  size="small"
-                  flat
-                  icon="face"
-                />
+              <va-button-group flat>
+                <va-button size="small" icon="create" />
+                <va-button size="small" icon="add" />
+                <va-button size="small" icon="add_circle_outline" />
+                <va-button size="small" icon="face" />
               </va-button-group>
             </VbCard>
           </td>
@@ -393,112 +239,62 @@
           <td>Mixed Button Groups</td>
           <td>
             <VbCard>
-              <va-button-group>
-                <va-button
-                  flat
-                  size="small"
-                  color="gray"
-                  icon="create"
-                >
+              <va-button-group color="gray" flat>
+                <va-button size="small" icon="create">
                   First
                 </va-button>
-                <va-button
-                  flat
-                  size="small"
-                  color="gray"
-                  icon="clear"
-                >
+                <va-button size="small" icon="clear">
                   Second
                 </va-button>
-                <va-button
-                  flat
-                  size="small"
-                  color="gray"
-                  icon="block"
-                >
+                <va-button size="small" icon="block">
                   Third
                 </va-button>
               </va-button-group>
 
-              <va-button-group>
-                <va-button
-                  outline
-                  color="danger"
-                  icon="create"
-                >
+              <va-button-group outline color="danger">
+                <va-button  icon="create">
                   First
                 </va-button>
-                <va-button
-                  outline
-                  color="danger"
-                >
+                <va-button color="danger">
                   Second
                 </va-button>
-                <va-button
-                  outline
-                  color="danger"
-                >
+                <va-button color="danger">
                   Third
                 </va-button>
               </va-button-group>
 
-              <va-button-group>
-                <va-button
-                  flat
-                  color="warning"
-                  icon="create"
-                />
-                <va-button
-                  flat
-                  color="warning"
-                  icon="clear"
-                />
-                <va-button
-                  flat
-                  color="warning"
-                  icon-right="block"
-                >
+              <va-button-group flat color="warning">
+                <va-button icon="create" />
+                <va-button icon="clear" />
+                <va-button icon-right="block">
                   Update
                 </va-button>
               </va-button-group>
 
               <va-button-group color="dark">
-                <va-button color="dark">
+                <va-button>
                   One
                 </va-button>
-                <va-button color="dark">
+                <va-button>
                   Two
                 </va-button>
-                <va-button color="dark">
+                <va-button>
                   Three
                 </va-button>
-                <va-button
-                  color="dark"
-                  icon="clear"
-                />
+                <va-button icon="clear" />
               </va-button-group>
 
-              <va-button-group>
-                <va-button
-                  outline
-                  size="large"
-                  color="info"
-                >
+              <va-button-group outline color="info">
+                <va-button size="large">
                   First
                 </va-button>
                 <va-button
-                  outline
                   size="large"
-                  color="info"
                   icon-right="create"
                 >
                   Second
                 </va-button>
-                <va-button
-                  outline
-                  size="large"
-                  color="info"
-                >
+                <va-button size="large">
                   Third
                 </va-button>
               </va-button-group>
@@ -511,7 +307,6 @@
 </template>
 
 <script>
-
 import VaButtonGroup from './index'
 import VaButton from '../va-button'
 

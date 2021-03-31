@@ -43,7 +43,7 @@
           v-if="hasTitleData"
           class="va-button__content__title"
         >
-          <slot/>
+          <slot />
         </div>
         <va-icon
           v-if="iconRight"
@@ -64,6 +64,7 @@ import {
   getFocusColor,
   getHoverColor,
   getBoxShadowColor,
+  shiftHslColor,
 } from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
@@ -75,9 +76,16 @@ import { ButtonGroupServiceKey } from '../va-button-group'
 
 class ButtonProps {
   color = prop<string>({ type: String, default: undefined })
+  textColor = prop<string>({ type: String, default: '#fff' })
   tag = prop<string>({ type: String, default: 'button' })
-  outline = prop<boolean>({ type: Boolean, default: false })
-  flat = prop<boolean>({ type: Boolean, default: false })
+  outline = prop<boolean>({ type: Boolean, default: undefined })
+  flat = prop<boolean>({ type: Boolean, default: undefined })
+  icon = prop<string>({ type: String, default: '' })
+  iconRight = prop<string>({ type: String, default: '' })
+  type = prop<string>({ type: String, default: 'button' })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  block = prop<boolean>({ type: Boolean, default: false })
+  round = prop<boolean>({ type: Boolean, default: true })
   size = prop<string>({
     type: String,
     default: 'medium',
@@ -85,13 +93,6 @@ class ButtonProps {
       return ['medium', 'small', 'large'].includes(value)
     },
   })
-
-  icon = prop<string>({ type: String, default: '' })
-  iconRight = prop<string>({ type: String, default: '' })
-  type = prop<string>({ type: String, default: 'button' })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  block = prop<boolean>({ type: Boolean, default: false })
-  round = prop<boolean>({ type: Boolean, default: true })
 }
 
 const ButtonPropsMixin = Vue.with(ButtonProps)
@@ -128,13 +129,15 @@ export default class VaButton extends mixins(
       this.updateHoverState(this.hoverState)
     })
 
-    return {
-      va,
-    }
+    return { va }
   })
 
   get colorComputed () {
     return this.computeColor(this.color, 'primary')
+  }
+
+  get textColorComputed () {
+    return this.computeColor(this.textColor, '#fff')
   }
 
   get computedClass () {
@@ -157,26 +160,7 @@ export default class VaButton extends mixins(
     }
   }
 
-  get gradientStyle () {
-    if (this.flat || this.outline) {
-      return
-    }
-    // Allows button to grab color from button group.
-    if (this.context?.va?.color) {
-      return
-    }
-
-    return getGradientBackground(this.colorComputed)
-  }
-
   get shadowStyle () {
-    if (this.flat || this.outline) {
-      return
-    }
-    if (this.context?.va?.color && this.theme.getColor(this.context?.va?.color)) {
-      return '0 0.125rem 0.19rem 0 ' +
-        getBoxShadowColor(this.color ? this.colorComputed : this.theme.getColor(this.context?.va?.color))
-    }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
   }
 
@@ -194,38 +178,29 @@ export default class VaButton extends mixins(
     const computedStyle: any = {
       color: '',
       borderColor: '',
-      background: '',
-      backgroundImage: '',
+      background: '#00000000',
       boxShadow: '',
     }
 
-    if (this.focusState) {
-      if (this.outline || this.flat) {
-        computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.outline ? this.colorComputed : ''
-        computedStyle.background = getFocusColor(this.colorComputed)
-      } else {
-        computedStyle.backgroundImage = this.gradientStyle
-      }
-    } else if (this.hoverState) {
-      if (this.outline || this.flat) {
-        computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.outline ? this.colorComputed : ''
+    const isTransparentBackground = this.outline || this.flat || this.colorComputed === '#00000000'
+
+    if (isTransparentBackground) {
+      computedStyle.color = this.textColor
+      computedStyle.borderColor = this.outline ? this.colorComputed : ''
+
+      if (this.hoverState) {
         computedStyle.background = getHoverColor(this.colorComputed)
-      } else {
-        computedStyle.backgroundImage = this.gradientStyle
-        computedStyle.boxShadow = this.shadowStyle
+      }
+      if (this.focusState) {
+        computedStyle.background = getFocusColor(this.colorComputed)
       }
     } else {
-      computedStyle.color = this.flat || this.outline ? this.colorComputed : '#ffffff'
-      computedStyle.borderColor = this.outline ? this.colorComputed : ''
-      computedStyle.backgroundImage = this.gradientStyle
-      computedStyle.boxShadow = this.shadowStyle
-    }
-
-    if (this.context.va.color && !this.outline && !this.flat) {
-      computedStyle.background = this.$props.color ? this.colorComputed : this.theme.getColor(this.context.va.color)
-      computedStyle.backgroundImage = ''
+      computedStyle.background = getGradientBackground(this.colorComputed)
+      computedStyle.color = this.textColorComputed
+      if (this.hoverState || this.focusState) {
+        computedStyle.boxShadow = this.shadowStyle
+        computedStyle.background = getGradientBackground(shiftHslColor(this.colorComputed, { l: -3 }))
+      }
     }
 
     return computedStyle
@@ -284,7 +259,7 @@ export default class VaButton extends mixins(
   text-transform: initial;
   cursor: pointer;
   transition: var(--va-button-transition, var(--primary-transition));
-  background-color: var(--va-button-background-color, var(--white));
+  background: var(--va-button-background-color, var(--white));
   vertical-align: middle;
 
   &__content {
@@ -303,10 +278,6 @@ export default class VaButton extends mixins(
 
   &--default {
     color: var(--va-button-background-color, var(--white));
-
-    &:hover {
-      opacity: 0.85;
-    }
 
     &:focus,
     &:active {
