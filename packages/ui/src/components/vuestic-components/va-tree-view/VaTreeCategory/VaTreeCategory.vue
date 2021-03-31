@@ -54,6 +54,7 @@ class TreeCategoryProps {
   label = prop<string | number>({ default: '', type: [String, Number] })
   isOpen = prop<boolean>(Boolean)
   icon = prop<string>({ default: '', type: String })
+  color = prop<string>({ type: String, default: 'primary' })
 }
 
 const TreeCategoryPropsMixin = Vue.with(TreeCategoryProps)

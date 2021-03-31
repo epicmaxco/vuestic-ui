@@ -59,7 +59,7 @@ import VaIcon from '../va-icon'
 class ChipProps {
   modelValue = prop<boolean>({ type: Boolean, default: true })
   closeable = prop<boolean>({ type: Boolean, default: false })
-  color = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'primary' })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
   icon = prop<string>({ type: String, default: '' })

@@ -3,7 +3,7 @@
     class="square-with-icon"
     :style="{ backgroundColor: colorComputed }"
   >
-    <va-icon :name="$props.icon"/>
+    <va-icon :name="$props.icon" />
   </div>
 </template>
 
@@ -15,6 +15,7 @@ import VaIcon from '../../va-icon'
 
 class SquareWithIconProps {
   icon = prop<string>({ default: '', type: String, required: true })
+  color = prop<string>({ type: String, default: 'primary' })
 }
 
 const SquareWithIconPropsMixin = Vue.with(SquareWithIconProps)

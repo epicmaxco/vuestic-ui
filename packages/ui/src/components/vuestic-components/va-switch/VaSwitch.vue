@@ -87,6 +87,7 @@ class SwitchProps {
     type: [Boolean, Array, String, Object],
     default: false,
   })
+
   size = prop<string>({
     type: String,
     default: 'medium',
@@ -99,6 +100,7 @@ class SwitchProps {
   falseLabel = prop<string>({ type: String, default: null })
   trueInnerLabel = prop<string>({ type: String, default: null })
   falseInnerLabel = prop<string>({ type: String, default: null })
+  color = prop<string>({ type: String, default: 'primary' })
 }
 
 const SwitchPropsMixin = Vue.with(SwitchProps)
