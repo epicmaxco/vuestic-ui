@@ -5,8 +5,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import DocsContent from '@/components/DocsContent.vue'
-// @ts-ignore
-import translationConfig from '@/components/page-configs/contribution/translation/page-config'
+import guideConfig from '@/components/page-configs/contribution/guide/page-config'
 
 @Options({
   components: {
@@ -15,7 +14,7 @@ import translationConfig from '@/components/page-configs/contribution/translatio
 })
 export default class Guide extends Vue {
   get configComputed () {
-    return translationConfig
+    return guideConfig
   }
 }
 </script>

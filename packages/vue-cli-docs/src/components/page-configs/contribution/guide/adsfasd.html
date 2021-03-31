@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1 id="vue-js-contributing-guide">Vue.js Contributing Guide</h1>
+<p>Hi! We are really excited that you are interested in contributing to Vuestic. Before submitting your contribution though, please make sure to take a moment and read through the following guidelines.</p>
+<ul>
+  <li><a href="./../CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+</ul>
+<h2 id="pull-request-guidelines">Pull Request Guidelines</h2>
+<ul>
+  <li>The
+    <code>master</code> branch keeps latest stable release + cherrypicked hotfixes. All development should be done in local branches.
+  </li>
+  <li><strong>Do not submit PRs against the <code>master</code> branch.</strong>
+  </li>
+  <li>Checkout a <code>feat/</code> branch from
+    <code>develop</code>, then create pull request against that branch.
+  </li>
+  <li>It&#39;s OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.</li>
+  <li>If fixing a bug:
+    <ul>
+      <li>If you are resolving a special issue, add
+        <code>fix #xxxx[,#xxx]</code> (#xxxx is the issue id) to the PR description so that github will close the issue once it&#39;s up on
+        <code>master</code>.
+      </li>
+      <li>Provide detailed description of the bug in the PR if it&#39;s not done in the issue.</li>
+    </ul>
+  </li>
+</ul>
+<h3 id="branches">Branches</h3>
+<ul>
+  <li><p>Public branches (<strong>epicmax/vuestic-admin</strong>):</p>
+    <ul>
+      <li>
+        <code>master</code> - releases and hotfixes only. Do not submit PR&#39;s to
+        <code>master</code>!.
+      </li>
+      <li><code>develop</code> - main development branch. Houses
+        <code>2.0</code> at the moment.
+      </li>
+    </ul>
+  </li>
+  <li><p>Local branches</p>
+    <ul>
+      <li>For local branches prepend your messages with
+        <code>feat/</code>, ie for tabs fix it would be
+        <code>feat/fix-tabs</code>. This is wanted to keep local branches visually separate from public ones.
+      </li>
+    </ul>
+  </li>
+</ul>
+<h3 id="file-naming">File naming</h3>
+<ul>
+  <li>camelCase:
+    <code>testIsContextableComponent.ts</code> - helpers and instants
+  </li>
+  <li>kebab-case: <code>api-options.ts</code> - configs</li>
+  <li>PascalCase: <code>DocsCode.vue</code> - components, classes, types</li>
+</ul>
+<h3 id="for-core-contributors">For core contributors</h3>
+<ul>
+  <li>Always link PR to issue (via <code>fix #123</code>).</li>
+  <li>When you start working on the task - please assign yourself. That&#39;s needed to prevent conflict.</li>
+  <li>For small issues you may push to
+    <code>develop</code> branch directly while adding (<code>fix #123</code>) to commit message.
+  </li>
+  <li>Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.</li>
+  <li>Be sure to have only one person assigned per issue.</li>
+  <li>Check your code:
+    <a href="../packages/old-docs/conventions.md">conventions</a>.
+  </li>
+  <li>We use
+    <a href="https://yarnpkg.com/lang/en/">yarn</a> for package management.
+  </li>
+  <li>Be proactive. If you think something is wrong - create an issue or discuss.</li>
+  <li>Recommended tools: <a href="https://www.gitkraken.com/">GitKraken</a>,
+    <a href="https://www.jetbrains.com/webstorm/">WebStorm</a>,
+    <a href="https://getsharex.com/">ShareX</a></li>
+  <li>If you work on UI components - work in book environment (<code>yarn serve:book</code>). We want to keep global stuff out of components.
+  </li>
+</ul>
+<h4 id="component-folder-structure">Component folder structure</h4>
+<p>Here&#39;s the component folder structure example for
+  <code>va-checkbox</code> component.</p>
+<pre><code>va-checkbox <span class="hljs-comment">// component directory</span>
+  <span class="hljs-string">|- VaCheckbox.vue // component itself</span>
+  <span class="hljs-string">|- VaCheckbox.demo.vue // component demo</span>
+  <span class="hljs-string">|- VaCheckbox.spec.js // component tests</span>
+</code></pre>
+<p>Additionally you have to add docs, which you can find here:
+  <code>docs/components/VaCheckbox.md</code>.</p>
+<p>Here&#39;s couple of points about these files:</p>
+<ul>
+  <li>Only tests are optional, documentation and demos are not. Docs and demos should also cover all supported cases.</li>
+</ul>
+<h4 id="before-release-workflow">Before release workflow</h4>
+<ul>
+  <li>Update package versions to newest ones. Update lock files (for both
+    <code>npm</code> and <code>yarn</code>)
+  </li>
+</ul>
+<h3 id="commonly-used-npm-scripts">Commonly used NPM scripts</h3>
+<pre><code class="lang-bash"><span class="hljs-comment"># Run vue-book dev server</span>
+<span class="hljs-variable">$ </span>yarn <span class="hljs-symbol">serve:</span>book
+
+<span class="hljs-comment"># Generate all needed files for component (component itself, docs, tests)</span>
+<span class="hljs-variable">$ </span>yarn <span class="hljs-symbol">generate:</span>component
+
+<span class="hljs-comment"># Build vue-book bundle</span>
+<span class="hljs-variable">$ </span>yarn <span class="hljs-symbol">build:</span>book
+
+<span class="hljs-comment"># Lint everything</span>
+<span class="hljs-variable">$ </span>yarn lint
+
+<span class="hljs-comment"># Run tests</span>
+<span class="hljs-variable">$ </span>yarn <span class="hljs-symbol">test:</span>unit
+
+<span class="hljs-comment"># Run vuepress dev server </span>
+<span class="hljs-variable">$ </span>yarn <span class="hljs-symbol">serve:</span>docs
+
+<span class="hljs-comment"># Build vuepress bundle</span>
+<span class="hljs-variable">$ </span>yarn <span class="hljs-symbol">build:</span>docs
+</code></pre>
+<h2 id="credits">Credits</h2>
+<p>
+  <a href="https://github.com/epicmaxco/vuestic-admin/graphs/contributors">Hall of fame!</a>
+</p>
+
+</body>
+</html>
