@@ -172,7 +172,7 @@
     <VbCard
       title="Uses context and is stateful"
     >
-      <va-context :config="{
+      <va-context :components="{
         VaRating: {
           color: 'danger',
           max: 10,
