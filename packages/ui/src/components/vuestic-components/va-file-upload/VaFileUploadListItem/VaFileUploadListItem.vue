@@ -40,7 +40,7 @@ import VaIcon from '../../va-icon'
 import VaFileUploadUndo from '../VaFileUploadUndo'
 
 class FileUploadListItemProps {
-  file = prop<any>({
+  file = prop<Record<string, unknown>>({
     type: Object,
     default: null,
   })
