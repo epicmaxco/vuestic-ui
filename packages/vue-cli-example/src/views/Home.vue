@@ -20,7 +20,7 @@ export default {
   },
   setup () {
     const { setGlobalConfig } = useGlobalConfig()
-    const { setTheme } = setupColors()
+    const { setColors : setTheme} = setupColors()
 
     setTheme({
       primary: '#000fa0',

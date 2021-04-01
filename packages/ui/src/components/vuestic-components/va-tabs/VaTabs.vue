@@ -30,7 +30,7 @@
             class="va-tabs__slider-wrapper"
             :style="sliderStyles"
           >
-            <div class="va-tabs__slider"/>
+            <div class="va-tabs__slider" />
           </div>
           <slot
             name="tabs"
@@ -49,7 +49,7 @@
       />
     </div>
     <div class="va-tabs__content">
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>

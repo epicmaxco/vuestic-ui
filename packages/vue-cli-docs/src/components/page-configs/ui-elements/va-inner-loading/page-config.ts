@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaInnerLoading from 'vuestic-ui-dev/src/components/vuestic-components/va-inner-loading/VaInnerLoading.vue'
+import VaInnerLoading from 'vuestic-ui/src/components/vuestic-components/va-inner-loading/VaInnerLoading.vue'
 import apiOptions from './api-options'
 
 export default [

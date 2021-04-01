@@ -321,7 +321,8 @@
     "overview": "Overview",
     "translation": "Translation",
     "browserSupport": "Browser Support",
-    "table": "Table"
+    "table": "Table",
+    "guide": "Guide"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -425,6 +426,9 @@
     "title": "Trabajo En Progreso"
   },
   "table": {
+    "title": "-- Here is the title --"
+  },
+  "guide": {
     "title": "-- Here is the title --"
   }
 }

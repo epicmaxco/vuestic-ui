@@ -1,6 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import VaAvatar
-  from 'vuestic-ui-dev/src/components/vuestic-components/va-avatar/VaAvatar.vue'
+  from 'vuestic-ui/src/components/vuestic-components/va-avatar/VaAvatar.vue'
 import apiOptions from './api-options'
 
 export default [

@@ -7,7 +7,7 @@
       class="va-slider__input-wrapper"
       v-if="$slots.prepend"
     >
-      <slot :name="this.vertical ? 'append' : 'prepend'"/>
+      <slot :name="this.vertical ? 'append' : 'prepend'" />
     </div>
     <slot
       v-if="($slots.label || label) && !invertLabel"
@@ -144,7 +144,7 @@
       class="va-slider__input-wrapper"
       v-if="$slots.append"
     >
-      <slot :name=" this.vertical ? 'prepend' : 'append'"/>
+      <slot :name=" this.vertical ? 'prepend' : 'append'" />
     </div>
   </div>
 </template>
@@ -165,6 +165,7 @@ class SliderProps {
     type: [Number, Array],
     default: () => [],
   })
+
   trackLabel = prop<string>({ type: String, default: '' })
   color = prop<string>({ type: String, default: '' })
   trackColor = prop<string>({ type: String, default: '' })
@@ -577,35 +578,35 @@ export default class VaSlider extends mixins(
 
       switch (true) {
         // @ts-ignore
-        case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
+      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
           // @ts-ignore
-          this.dot0.focus()
-          moveDot(true, 0, 0)
-          break
+        this.dot0.focus()
+        moveDot(true, 0, 0)
+        break
         // @ts-ignore
-        case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
+      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
           // @ts-ignore
-          this.dot0.focus()
-          moveDot(true, 1, 1)
-          break
+        this.dot0.focus()
+        moveDot(true, 1, 1)
+        break
         // @ts-ignore
-        case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
-          moveDot(true, 0, 0)
-          break
+      case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
+        moveDot(true, 0, 0)
+        break
         // @ts-ignore
-        case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
-          moveDot(true, 1, 1)
-          break
+      case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
+        moveDot(true, 1, 1)
+        break
         // @ts-ignore
-        case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
-          moveDot(true, 0, 1)
-          break
+      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
+        moveDot(true, 0, 1)
+        break
         // @ts-ignore
-        case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
-          moveDot(true, 1, 0)
-          break
-        default:
-          break
+      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
+        moveDot(true, 1, 0)
+        break
+      default:
+        break
       }
     } else {
       if (this.vertical) {

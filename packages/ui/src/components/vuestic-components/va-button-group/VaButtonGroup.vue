@@ -2,7 +2,7 @@
   <div
     class="va-button-group"
   >
-    <slot/>
+    <slot />
   </div>
 </template>
 

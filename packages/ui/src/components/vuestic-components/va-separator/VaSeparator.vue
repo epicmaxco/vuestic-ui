@@ -1,5 +1,5 @@
 <template>
-  <div class="va-separator"/>
+  <div class="va-separator" />
 </template>
 
 <script lang="ts">

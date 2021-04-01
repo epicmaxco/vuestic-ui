@@ -1,13 +1,19 @@
 <template>
   <div>
     <va-slider v-model="value1">
-      <va-input type="number" slot="prepend" v-model="value1"></va-input>
+      <template #prepend>
+        <va-input type="number" v-model="value1"></va-input>
+      </template>
     </va-slider>
     <va-slider v-model="value2">
-      <va-input type="number" slot="append" v-model="value2"></va-input>
+      <template #append>
+        <va-input type="number" v-model="value2"></va-input>
+      </template>
     </va-slider>
     <va-slider v-model="value3">
-      <div style="font-style: italic; color: black;" slot="label">LABEL SLOT</div>
+      <template #label>
+        <div style="font-style: italic; color: black;">LABEL SLOT</div>
+      </template>
     </va-slider>
   </div>
 </template>

@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaColorSlider from 'vuestic-ui-dev/src/components/vuestic-components/va-color-slider/VaColorSlider.vue'
+import VaColorSlider from 'vuestic-ui/src/components/vuestic-components/va-color-slider/VaColorSlider.vue'
 import apiOptions from './api-options'
 
 export default [

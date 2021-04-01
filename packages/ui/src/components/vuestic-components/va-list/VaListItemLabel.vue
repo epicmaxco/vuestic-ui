@@ -4,7 +4,7 @@
     :class="computedClass"
     :style="computedStyle"
   >
-    <slot/>
+    <slot />
   </div>
 </template>
 

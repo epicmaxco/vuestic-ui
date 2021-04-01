@@ -272,6 +272,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'translation',
         displayName: 'menu.translation',
       },
+      {
+        name: 'guide',
+        displayName: 'menu.guide',
+      },
       // GENERATOR_ADD - contribution
     ],
   },

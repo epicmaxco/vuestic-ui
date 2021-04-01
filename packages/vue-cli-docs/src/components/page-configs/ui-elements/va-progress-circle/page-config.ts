@@ -1,6 +1,6 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import VaProgressCircle
-  from 'vuestic-ui-dev/src/components/vuestic-components/va-progress-bar/progress-types/VaProgressCircle.vue'
+  from 'vuestic-ui/src/components/vuestic-components/va-progress-bar/progress-types/VaProgressCircle.vue'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 

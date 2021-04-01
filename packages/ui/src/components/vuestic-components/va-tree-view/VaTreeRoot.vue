@@ -1,6 +1,6 @@
 <template>
   <div class="va-tree-root">
-    <slot/>
+    <slot />
   </div>
 </template>
 

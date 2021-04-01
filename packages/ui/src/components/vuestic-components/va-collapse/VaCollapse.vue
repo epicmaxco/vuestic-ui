@@ -29,7 +29,7 @@
       </slot>
     </div>
     <div class="va-collapse__body" :style="stylesComputed" ref="body">
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>
