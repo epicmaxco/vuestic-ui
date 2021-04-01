@@ -66,7 +66,6 @@ import VaInfiniteScroll from './vuestic-components/va-infinite-scroll'
 // import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 // import VaPopup from './vuestic-components/va-popup/popup/VaPopup.vue'
 
-// import Toasted from './vuestic-mixins/VuesticToasted'
 import { installPlatform } from './vuestic-components/va-popup/install'
 import DropdownPopperSubplugin from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 // import { registerVuesticObject } from './resize-events'
@@ -172,9 +171,6 @@ export const VuesticPlugin = {
     app.use(DropdownPopperSubplugin)
 
     app.use(ToastInstall)
-
-    // TODO: not sure if it's still needed
-    // app.mixin(Toasted)
 
     app.use(GlobalConfigPlugin)
 
