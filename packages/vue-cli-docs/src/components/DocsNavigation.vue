@@ -63,11 +63,6 @@ export default {
           icon: 'fa fa-github',
           url: `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/examples/${this.gitUrl}.vue`,
         },
-        // {
-        //   text: 'Open in Codesandbox',
-        //   icon: 'fa fa-codepen',
-        //   url: '#',
-        // },
       ],
       copyIcon: 'fa fa-files-o',
       codeIcon: 'fa fa-code',

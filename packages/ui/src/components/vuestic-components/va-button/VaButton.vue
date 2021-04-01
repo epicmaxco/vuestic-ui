@@ -43,7 +43,7 @@
           v-if="hasTitleData"
           class="va-button__content__title"
         >
-          <slot/>
+          <slot />
         </div>
         <va-icon
           v-if="iconRight"
@@ -112,7 +112,7 @@ export default class VaButton extends mixins(
   focusState = false
 
   context = setup(() => {
-    const va = inject(ButtonGroupServiceKey, {})
+    const buttonGroup = inject(ButtonGroupServiceKey, {})
 
     watch(() => this.$props.loading, (loading) => {
       this.$el.blur()
@@ -129,7 +129,7 @@ export default class VaButton extends mixins(
     })
 
     return {
-      va,
+      buttonGroup,
     }
   })
 
@@ -157,12 +157,16 @@ export default class VaButton extends mixins(
     }
   }
 
+  get buttonGroupColor () {
+    return this.context?.buttonGroup?.color
+  }
+
   get gradientStyle () {
     if (this.flat || this.outline) {
       return
     }
     // Allows button to grab color from button group.
-    if (this.context?.va?.color) {
+    if (this.buttonGroupColor) {
       return
     }
 
@@ -173,9 +177,9 @@ export default class VaButton extends mixins(
     if (this.flat || this.outline) {
       return
     }
-    if (this.context?.va?.color && this.theme.getColor(this.context?.va?.color)) {
+    if (this.buttonGroupColor && this.theme.getColor(this.buttonGroupColor)) {
       return '0 0.125rem 0.19rem 0 ' +
-        getBoxShadowColor(this.color ? this.colorComputed : this.theme.getColor(this.context?.va?.color))
+        getBoxShadowColor(this.color ? this.colorComputed : this.theme.getColor(this.buttonGroupColor))
     }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
   }
@@ -223,8 +227,8 @@ export default class VaButton extends mixins(
       computedStyle.boxShadow = this.shadowStyle
     }
 
-    if (this.context?.va?.color && !this.outline && !this.flat) {
-      computedStyle.background = this.$props.color ? this.colorComputed : this.theme.getColor(this.context.va.color)
+    if (this.buttonGroupColor && !this.outline && !this.flat) {
+      computedStyle.background = this.$props.color ? this.colorComputed : this.theme.getColor(this.buttonGroupColor)
       computedStyle.backgroundImage = ''
     }
 

@@ -33,7 +33,7 @@ export const LocalConfigKey = Symbol('LocalConfigKey')
 export const CONFIGS_DEFAULT = []
 
 export function useLocalConfig (): ComponentConfig[] {
-  return inject(LocalConfigKey, CONFIGS_DEFAULT) || []
+  return inject(LocalConfigKey, CONFIGS_DEFAULT || [])
 }
 
 const ConfigPropsMixin = Vue.with(class {

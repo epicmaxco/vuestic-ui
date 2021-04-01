@@ -4,13 +4,13 @@
       v-if="minimized"
       class="i-nav"
       @click="$emit('toggleSidebar', !minimized)"
-      :color="themes.primary"
+      :color="colors.primary"
     />
     <va-icon-menu-collapsed
       v-else
       class="i-nav"
       @click="$emit('toggleSidebar', !minimized)"
-      :color="themes.primary"
+      :color="colors.primary"
     />
   </div>
 </template>
@@ -35,15 +35,15 @@ export default {
   },
 
   computed: {
-    themes () {
-      return this.getTheme()
+    colors () {
+      return this.getColors()
     },
   },
 
   setup () {
-    const { getColors: getTheme } = setupColors()
+    const { getColors } = setupColors()
     return {
-      getTheme,
+      getColors,
     }
   },
 }

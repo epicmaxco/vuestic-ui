@@ -4,18 +4,29 @@
     <defs>
       <linearGradient id="paint0_linear" x1="161" y1="5.50002" x2="-2.44809e-06" y2="8.00001" gradientUnits="userSpaceOnUse">
         <stop stop-color="#191B1E" />
-        <stop offset="1" :stop-color="'primary'" />
+        <stop offset="1" :stop-color="colors.primary" />
       </linearGradient>
     </defs>
   </svg>
 </template>
 
 <script>
-import { Options, Vue } from 'vue-class-component'
+import { Options, setup, Vue } from 'vue-class-component'
+import { setupColors } from 'vuestic-ui/src/services/color-config/color-config'
 
 @Options({
   name: 'vuestic-logo',
 })
 export default class VuesticLogo extends Vue {
+  get colors () {
+    return this.setupData.getColors()
+  }
+
+  setupData = setup(() => {
+    const { getColors } = setupColors()
+    return {
+      getColors,
+    }
+  })
 }
 </script>

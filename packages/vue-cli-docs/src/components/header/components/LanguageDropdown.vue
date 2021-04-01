@@ -13,13 +13,13 @@
       :class="{ active: option.code === currentLanguage }"
       @click="setLanguage(option.code)"
     >
-      <va-list-item-section :style="{color: 'primary'}">
+      <va-list-item-section :style="{color: colors.primary}">
         <span class="dropdown-item__text">{{ option.name }}</span>
       </va-list-item-section>
     </va-list-item>
     <va-list-item class="language-dropdown__item row align--center py-2">
       <va-list-item-section>
-        <router-link :to="`/${$root.$i18n.locale}/contribution/translation`" class="dropdown-item__text" :style="{color: 'primary'}">{{$t('landing.header.buttons.translation')}}</router-link>
+        <router-link :to="`/${$root.$i18n.locale}/contribution/translation`" class="dropdown-item__text" :style="{color: colors.primary}">{{$t('landing.header.buttons.translation')}}</router-link>
       </va-list-item-section>
     </va-list-item>
   </va-list>
@@ -57,6 +57,17 @@ export default class LanguageDropdown extends Vue {
     const result = this.options.find(({ code }) => code === this.currentLanguage)
     return result.name
   }
+
+  get colors () {
+    return this.setupData.getColors()
+  }
+
+  setupData = setup(() => {
+    const { getColors } = setupColors()
+    return {
+      getColors,
+    }
+  })
 }
 </script>
 

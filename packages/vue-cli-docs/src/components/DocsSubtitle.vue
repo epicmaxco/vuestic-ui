@@ -1,8 +1,8 @@
 <template>
-<h3>
-  <MarkdownView tag="span" inline :value="$t(text)" />
-  <a :id="anchor" :style="{ color: 'primary' }" :href="`#${anchor}`">#</a>
-</h3>
+  <h3>
+    <MarkdownView tag="span" inline :value="$t(text)" />
+    <a :id="anchor" :style="{ color: colors.primary }" :href="`#${anchor}`"> #</a>
+  </h3>
 </template>
 <script lang='ts'>
 // @ts-nocheck
@@ -25,5 +25,16 @@ export default class DocsSubtitle extends mixins(PropsMixin) {
   get anchor () {
     return kebabCase(this.$t(this.text) as string)
   }
+
+  get colors () {
+    return this.setupData.getColors()
+  }
+
+  setupData = setup(() => {
+    const { getColors } = setupColors()
+    return {
+      getColors,
+    }
+  })
 }
 </script>
