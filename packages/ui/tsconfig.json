@@ -45,7 +45,7 @@
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts",
-    "src/components/vuestic-components/va-data-table",
+    "src/components/vuestic-components/wip-*/**.*",
     "src/services/api-docs"
   ]
 }
