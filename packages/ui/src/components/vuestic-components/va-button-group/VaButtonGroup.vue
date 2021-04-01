@@ -1,5 +1,5 @@
 <template>
-  <div class="va-button-group" :style="computedStlye">
+  <div class="va-button-group" :style="computedStlye" :class="computedClass">
     <va-config :components="context.buttonConfig">
       <slot />
     </va-config>
@@ -37,10 +37,8 @@ export default class VaButtonGroup extends Vue.with(Props) {
     const isTransparentBackground = this.outline || this.flat
     const buttonConfig = reactive({
       VaButton: {
+        ...this.$props,
         color: isTransparentBackground ? this.color : '#00000000',
-        textColor: this.textColor,
-        outline: this.outline,
-        flat: this.flat,
       },
     })
 
@@ -60,17 +58,14 @@ export default class VaButtonGroup extends Vue.with(Props) {
   get computedStlye () {
     return {
       'background-image': this.computedGradiend,
-      'border-radius': this.round ? '9999999px' : '',
     }
   }
 
-  // get computedClass () {
-  //   return {
-  //     'va-button-group--large': this.large,
-  //     'va-button-group--small': this.small,
-  //     'va-button-group--normal': !this.large && !this.small,
-  //   }
-  // }
+  get computedClass () {
+    return {
+      'va-button-group_square': !this.round,
+    }
+  }
 }
 </script>
 
@@ -83,21 +78,10 @@ export default class VaButtonGroup extends Vue.with(Props) {
   justify-content: stretch;
   width: max-content;
   overflow: hidden;
-  // margin: 0.375rem 0.5rem;
+  border-radius: 9999999px;
 
-  &--large {
-    border-radius: var(--va-button-group-lg-border-radius);
-  }
-
-  &--small {
-    border-radius: var(--va-button-group-sm-border-radius);
-  }
-
-  &--normal {
-    border-radius: var(
-      --va-button-group-border-radius,
-      var(--form-border-radius)
-    );
+  &_square {
+    border-radius: var(--va-button-square-border-radius);
   }
 
   .va-button {
