@@ -3,7 +3,7 @@
     class="va-list-label"
     :style="computedStyle"
   >
-    <slot/>
+    <slot />
   </div>
 </template>
 

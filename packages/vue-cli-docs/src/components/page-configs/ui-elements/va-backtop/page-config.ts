@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaBacktop from 'vuestic-ui-dev/src/components/vuestic-components/va-backtop/VaBacktop.vue'
+import VaBacktop from 'vuestic-ui/src/components/vuestic-components/va-backtop/VaBacktop.vue'
 import apiOptions from './api-options'
 
 export default [

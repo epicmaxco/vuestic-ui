@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaImage from 'vuestic-ui-dev/src/components/vuestic-components/va-image/VaImage.vue'
+import VaImage from 'vuestic-ui/src/components/vuestic-components/va-image/VaImage.vue'
 import apiOptions from './api-options'
 
 export default [

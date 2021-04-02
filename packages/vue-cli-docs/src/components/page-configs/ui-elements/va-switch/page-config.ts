@@ -1,6 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import VaSwitch
-  from 'vuestic-ui-dev/src/components/vuestic-components/va-switch/VaSwitch.vue'
+  from 'vuestic-ui/src/components/vuestic-components/va-switch/VaSwitch.vue'
 import apiOptions from './api-options'
 
 export default [

@@ -25,8 +25,8 @@
 </template>
 
 <script lang="ts">
-import users from 'vuestic-ui-dev/src/data/Users'
-import VaBadge from 'vuestic-ui-dev/src/components/vuestic-components/va-badge/VaBadge'
+import users from 'vuestic-ui/src/data/Users'
+import VaBadge from 'vuestic-ui/src/components/vuestic-components/va-badge/VaBadge'
 
 export default {
   data () {

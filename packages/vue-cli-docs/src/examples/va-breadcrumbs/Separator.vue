@@ -11,7 +11,9 @@
       <va-breadcrumbs-item label="Three" />
     </va-breadcrumbs>
     <va-breadcrumbs>
-      <va-icon slot="separator" class="fa fa-star fa-lg"></va-icon>
+      <template #separator>
+        <va-icon class="fa fa-star fa-lg"></va-icon>
+      </template>
       <va-breadcrumbs-item label="One" />
       <va-breadcrumbs-item label="Two" />
       <va-breadcrumbs-item label="Three" />

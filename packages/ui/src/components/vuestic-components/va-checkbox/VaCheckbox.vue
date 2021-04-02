@@ -72,6 +72,7 @@ class CheckboxProps {
     type: [Boolean, Array, String, Object],
     default: false,
   })
+
   checkedIcon = prop<string>({ type: String, default: 'check' })
   indeterminateIcon = prop<string>({ type: String, default: 'remove' })
 }

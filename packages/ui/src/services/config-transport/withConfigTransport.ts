@@ -40,26 +40,26 @@ const createConfigValueGetter = (
 
 export function getComponentOptions (component: DefineComponent): ComponentOptions {
   switch (true) {
-    case Boolean(component.options):
-      return component.options
-    case Boolean(component.__vccOpts) || Boolean(component.__b):
-      return { ...component.__b, ...component.__vccOpts }
-    default:
-      return component
+  case Boolean(component.options):
+    return component.options
+  case Boolean(component.__vccOpts) || Boolean(component.__b):
+    return { ...component.__b, ...component.__vccOpts }
+  default:
+    return component
   }
 }
 
 function normalizeProps (props: any) {
   switch (true) {
-    case isArray(props):
-      return props.reduce((acc: object, prop: string) => ({
-        ...acc,
-        [prop]: null,
-      }), {})
-    case isObject(props):
-      return props
-    default:
-      return {}
+  case isArray(props):
+    return props.reduce((acc: object, prop: string) => ({
+      ...acc,
+      [prop]: null,
+    }), {})
+  case isObject(props):
+    return props
+  default:
+    return {}
   }
 }
 
@@ -101,7 +101,6 @@ const formatEmitString = (str: string): string => {
 
   return upperFirst(camelCase(beforeColon))
 }
-
 
 // TODO: improve typing
 // (component: DefineComponent | VueConstructor): ComponentOptions<any> doesn't work here

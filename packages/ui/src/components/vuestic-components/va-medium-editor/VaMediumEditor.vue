@@ -1,6 +1,6 @@
 <template>
   <div class="va-medium-editor content">
-    <slot/>
+    <slot />
   </div>
 </template>
 

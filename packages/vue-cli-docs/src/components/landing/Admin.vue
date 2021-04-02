@@ -2,30 +2,30 @@
   <section class="admin">
     <div class="admin__wrapper">
       <div class="admin__inner">
-        <h2 class="admin__title">{{$t('landing.admin.title')}}</h2>
-        <div class="admin__subtitle">{{$t('landing.admin.text')}}</div>
+        <h2 class="admin__title">{{ $t('landing.admin.title') }}</h2>
+        <div class="admin__subtitle">{{ $t('landing.admin.text') }}</div>
         <div class="admin__buttons">
           <va-button class="admin__buttons--button"
-            href="https://github.com/epicmaxco/vuestic-admin"
-            target="blank"
-            :round="false"
-            color="#2550C0"
+                     href="https://github.com/epicmaxco/vuestic-admin"
+                     target="blank"
+                     :round="false"
+                     color="#2550C0"
           >
             <va-icon class="fa fa-github" style="margin-right: 0.5rem" />
-            {{$t('landing.admin.buttons.github')}}
+            {{ $t('landing.admin.buttons.github') }}
           </va-button>
           <va-button class="admin__buttons--button"
-            href="https://vuestic.epicmax.co/admin/dashboard"
-            target="blank"
-            :round="false"
-            color="#2550C0"
-            flat
+                     href="https://vuestic.epicmax.co/admin/dashboard"
+                     target="blank"
+                     :round="false"
+                     color="#2550C0"
+                     flat
           >
-            {{$t('landing.admin.buttons.demo')}}
+            {{ $t('landing.admin.buttons.demo') }}
           </va-button>
           <div class="admin__buttons--button">
             <va-button class="star-button" color="#000" icon="star_empty" target="blank" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
-              {{$t('landing.admin.buttons.star')}} {{ stars }}
+              {{ $t('landing.admin.buttons.star') }} {{ stars }}
             </va-button>
           </div>
         </div>
@@ -36,33 +36,33 @@
           <div class="admin__content__item admin__content__item--second">
             <!-- items -->
             <div class="items">
-            <div class="item item--first">
-              <div class="item__frame">
-                <img src="@/assets/landing/images/admin/open-source.svg" alt="open-source">
+              <div class="item item--first">
+                <div class="item__frame">
+                  <img src="@/assets/landing/images/admin/open-source.svg" alt="open-source">
+                </div>
+                <h2 class="item__title">{{ $t('landing.admin.features.opensource') }}</h2>
               </div>
-              <h2 class="item__title">{{$t('landing.admin.features.opensource')}}</h2>
-            </div>
 
-            <div class="item">
-              <div class="item__frame">
-                <img src="@/assets/landing/images/admin/themes.svg" alt="themes">
+              <div class="item">
+                <div class="item__frame">
+                  <img src="@/assets/landing/images/admin/themes.svg" alt="themes">
+                </div>
+                <h2 class="item__title">{{ $t('landing.admin.features.themes') }}</h2>
               </div>
-              <h2 class="item__title">{{$t('landing.admin.features.themes')}}</h2>
-            </div>
 
-            <div class="item">
-              <div class="item__frame">
-                <img src="@/assets/landing/images/admin/responsive.svg" alt="responsive">
+              <div class="item">
+                <div class="item__frame">
+                  <img src="@/assets/landing/images/admin/responsive.svg" alt="responsive">
+                </div>
+                <h2 class="item__title">{{ $t('landing.admin.features.responsive') }}</h2>
               </div>
-              <h2 class="item__title">{{$t('landing.admin.features.responsive')}}</h2>
-            </div>
 
-            <div class="item">
-              <div class="item__frame">
-                <img src="@/assets/landing/images/admin/i18n.svg" alt="i18n">
+              <div class="item">
+                <div class="item__frame">
+                  <img src="@/assets/landing/images/admin/i18n.svg" alt="i18n">
+                </div>
+                <h2 class="item__title">{{ $t('landing.admin.features.i18n') }}</h2>
               </div>
-              <h2 class="item__title">{{$t('landing.admin.features.i18n')}}</h2>
-            </div>
             </div>
             <!-- /items -->
           </div>
@@ -74,6 +74,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
+
 @Options({})
 export default class Admin extends Vue {
   stars = 0
@@ -88,7 +89,7 @@ export default class Admin extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/main.scss";
+@import 'src/assets/main';
 
 .admin {
   width: 100%;

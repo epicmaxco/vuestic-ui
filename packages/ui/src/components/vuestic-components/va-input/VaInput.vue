@@ -24,7 +24,7 @@
         @click="onPrependInnerClick"
         class="va-input__container__prepend-inner"
       >
-        <slot name="prependInner"/>
+        <slot name="prependInner" />
       </div>
       <div
         class="va-input__container__content-wrapper"
@@ -75,7 +75,7 @@
         @click="onAppendInnerClick"
         class="va-input__container__append-inner"
       >
-        <slot name="appendInner"/>
+        <slot name="appendInner" />
       </div>
       <div
         v-if="showIcon"
