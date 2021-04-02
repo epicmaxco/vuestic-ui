@@ -6,7 +6,7 @@ export type ColorConfig = Record<string, HexColor>
 // Most default color - fallback when nothing else is found.
 export const DEFAULT_COLOR = '#000000'
 
-export const setupColors = () => {
+export const useColors = () => {
   const { setGlobalConfig, getGlobalConfig } = useGlobalConfig()
 
   const setColors = (colors: Record<string, string>): void => {

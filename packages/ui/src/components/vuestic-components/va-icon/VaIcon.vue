@@ -15,7 +15,7 @@
 import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { setupIcons } from '../../../services/icon-config/setup'
+import { useIcons } from '../../../services/icon-config/setup'
 
 class Props {
   name = prop<string>({ type: String, default: '' })
@@ -36,7 +36,7 @@ export default class VaIcon extends mixins(
   SizeMixin,
   PropsMixin,
 ) {
-  iconContext = setup(() => setupIcons(this.$props))
+  iconContext = setup(() => useIcons(this.$props))
 
   get icon () {
     return this.iconContext.getIcon(this.name)

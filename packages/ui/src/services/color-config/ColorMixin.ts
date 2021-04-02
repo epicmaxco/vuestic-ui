@@ -1,6 +1,6 @@
 import { prop, Vue, Options, setup } from 'vue-class-component'
 
-import { setupColors, DEFAULT_COLOR } from './color-config'
+import { useColors, DEFAULT_COLOR } from './color-config'
 
 /**
  * Check if color is valid css color
@@ -14,7 +14,7 @@ export const isCssColor = (strColor: string): boolean => {
 }
 
 export const useColor = () => {
-  const { getColors = () => ({}) } = setupColors() as any || {}
+  const { getColors = () => ({}) } = useColors() as any || {}
   const colors = getColors() || {}
 
   return (prop?: string, defaultColor: string = DEFAULT_COLOR): string => {

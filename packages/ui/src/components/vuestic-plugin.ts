@@ -90,7 +90,7 @@ import {
   GlobalConfigPlugin,
 } from '../services/GlobalConfigPlugin'
 import { getDefaultConfig } from './vuestic-components/va-config/config-default'
-import { setupColors } from '../services/color-config/color-config'
+import { useColors } from '../services/color-config/color-config'
 import VaSpacer from './vuestic-components/va-spacer'
 import { colorsPresets } from '../services/color-config/color-theme-presets'
 
@@ -200,7 +200,7 @@ export const VuesticPlugin = {
 
         setGlobalConfig(getDefaultConfig())
 
-        const { setColors } = { ...setupColors() }
+        const { setColors } = { ...useColors() }
 
         setColors && setColors(colorsPresets.default)
       },
