@@ -11,7 +11,7 @@
       role="alert"
     >
       <template>
-        <slot name="prepend"/>
+        <slot name="prepend" />
       </template>
       <div class="va-toast__group">
         <h2 v-if="$props.title" class="va-toast__title" v-text="$props.title"></h2>
@@ -25,7 +25,7 @@
           v-if="$slots.append"
           @click.stop="onToastClose"
         >
-          <slot name="append"/>
+          <slot name="append" />
         </div>
         <va-icon
           v-else-if="$props.closeable"
@@ -198,7 +198,6 @@ export default class VaToast extends mixins(
   box-shadow: var(--va-toast-box-shadow);
   transition: var(--va-toast-transition);
   overflow: var(--va-toast-overflow);
-
 
   &--right {
     right: 16px;

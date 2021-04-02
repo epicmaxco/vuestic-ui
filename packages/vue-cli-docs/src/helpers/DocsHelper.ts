@@ -1,5 +1,5 @@
 // @ts-ignore
-import { TranslationString, ManualApiOptions } from 'vuestic-ui-dev/src/services/api-docs/ManualApiOptions'
+import { TranslationString, ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 import {
   BlockType,
   ApiDocsBlock,

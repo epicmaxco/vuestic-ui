@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'src/components/vuestic-sass/resources/resources';
+@import "../../../vuestic-sass/resources/resources";
 @import 'variables';
 
 .va-timeline-separator {

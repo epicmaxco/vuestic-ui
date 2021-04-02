@@ -205,7 +205,7 @@
       <div style="display: flex;">
         <div>
           <va-config
-            :config="{VaCard: {stripe: true, stripeColor: 'primary'}, VaCardTitle: {textColor: 'info'}}"
+            :components="{VaCard: {stripe: true, stripeColor: 'primary'}, VaCardTitle: {textColor: 'info'}}"
           >
             <va-card style="width: 400px;">
               <va-card-title>Striped card</va-card-title>
@@ -216,7 +216,7 @@
             </va-card>
           </va-config>
         </div>
-        <va-config :config="{VaCardTitle: {textColor: 'info'}}">
+        <va-config :components="{VaCardTitle: {textColor: 'info'}}">
           <va-card style="width: 400px; margin-left: 1rem;">
             <va-image
               src="https://picsum.photos/400/200"

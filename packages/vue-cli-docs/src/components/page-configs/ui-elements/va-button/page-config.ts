@@ -1,6 +1,6 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
 import apiOptions from './api-options'
-import VaButton from 'vuestic-ui-dev/src/components/vuestic-components/va-button/VaButton.vue'
+import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
 
 export default [
   {

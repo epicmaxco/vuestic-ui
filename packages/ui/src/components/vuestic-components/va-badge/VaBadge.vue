@@ -13,7 +13,7 @@
         </slot>
       </span>
     </span>
-    <slot/>
+    <slot />
   </div>
 </template>
 

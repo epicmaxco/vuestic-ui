@@ -1,5 +1,5 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
-import VaFileUpload from 'vuestic-ui-dev/src/components/vuestic-components/va-file-upload/VaFileUpload.vue'
+import VaFileUpload from 'vuestic-ui/src/components/vuestic-components/va-file-upload/VaFileUpload.vue'
 import apiOptions from './api-options'
 import { VueConstructor } from 'vue-class-component'
 

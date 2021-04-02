@@ -8,7 +8,7 @@
       :class="slotClassComputed"
       role="separator"
     >
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>
