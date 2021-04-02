@@ -1,6 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import apiOptions from './api-options'
-import VaBadge from 'vuestic-ui-dev/src/components/vuestic-components/va-badge/VaBadge.vue'
+import VaBadge from 'vuestic-ui/src/components/vuestic-components/va-badge/VaBadge.vue'
 
 export default [
   {

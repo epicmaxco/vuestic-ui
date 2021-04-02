@@ -16,7 +16,7 @@
         @touchend="stopDrag"
         @transitionend="onContentResize"
       >
-        <slot/>
+        <slot />
       </div>
       <div
         class="track"

@@ -7,13 +7,14 @@
       @focus="onFocusHandler('dark', 'block')"
       @blur="onFocusHandler('gray', 'none')"
     >
-      <va-icon
-        slot="prepend"
-        class="search-icon"
-        name="search"
-        :color="color"
-        size="100%"
-      />
+      <template #prepend>
+        <va-icon
+          class="search-icon"
+          name="search"
+          :color="color"
+          size="100%"
+        />
+      </template>
     </va-input>
   </form>
 </template>

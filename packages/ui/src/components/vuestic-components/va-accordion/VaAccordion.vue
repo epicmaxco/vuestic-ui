@@ -12,7 +12,7 @@ import Collapse from '../va-collapse/VaCollapse.vue'
 
 export const AccordionServiceKey = Symbol('AccordionService')
 
-const PropsMixin = Vue.with(class{
+const PropsMixin = Vue.with(class {
   value = prop<any[]>({ type: Array, default: () => [] })
   multiply = prop<boolean>({ type: Boolean, default: false })
   inset = prop<boolean>({ type: Boolean, default: false })

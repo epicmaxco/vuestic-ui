@@ -87,6 +87,7 @@ class SwitchProps {
     type: [Boolean, Array, String, Object],
     default: false,
   })
+
   size = prop<string>({
     type: String,
     default: 'medium',

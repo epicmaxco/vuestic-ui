@@ -8,7 +8,8 @@
     </va-button>
     <va-content v-if="showCode">
       <DocsNavigation :code="parsed.template" :git-url="file" />
-      <DocsCode :code="parsed.template" language="markup" />
+      <DocsCode :code="parsed.template" language="markup" :class="[parsed.script ? 'docs-example__code--with-margin' : '']" />
+      <DocsCode v-if="parsed.script" :code="parsed.script" language="markup" />
     </va-content>
   </div>
 </template>
@@ -88,3 +89,13 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.docs-example {
+  &__code {
+    &--with-margin {
+      margin-bottom: 0.2rem !important;
+    }
+  }
+}
+</style>

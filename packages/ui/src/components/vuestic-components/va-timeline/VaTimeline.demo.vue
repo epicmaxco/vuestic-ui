@@ -114,7 +114,7 @@
 
     <VbCard title="Config">
       <VaConfig
-        :config="{
+        :components="{
           VaTimelineItem: {
             color: 'blue',
             vertical: true

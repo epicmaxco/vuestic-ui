@@ -11,6 +11,8 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 2020,
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -20,6 +22,8 @@ module.exports = {
     indent: ['error', 2, { ignoreComments: true }],
     'prefer-arrow-callback': 'error',
     'array-bracket-spacing': ['error', 'never'],
+    'vue/html-closing-bracket-spacing)': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-unused-vars': 'off',

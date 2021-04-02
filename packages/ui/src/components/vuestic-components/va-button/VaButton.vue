@@ -113,7 +113,7 @@ export default class VaButton extends mixins(
   focusState = false
 
   context = setup(() => {
-    const va = inject(ButtonGroupServiceKey, {})
+    const buttonGroup = inject(ButtonGroupServiceKey, {})
 
     watch(() => this.$props.loading, (loading) => {
       this.$el.blur()
@@ -129,7 +129,7 @@ export default class VaButton extends mixins(
       this.updateHoverState(this.hoverState)
     })
 
-    return { va }
+    return { buttonGroup }
   })
 
   get colorComputed () {

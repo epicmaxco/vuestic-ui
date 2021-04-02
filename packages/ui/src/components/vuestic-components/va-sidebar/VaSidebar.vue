@@ -6,7 +6,7 @@
     @mouseleave="updateHoverState(false)"
   >
     <div class="va-sidebar__menu">
-      <slot/>
+      <slot />
     </div>
   </aside>
 </template>

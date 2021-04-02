@@ -68,7 +68,7 @@ export default class Sidebar extends mixins(PropsMixin) {
   value = [] as boolean[]
 
   created () {
-    watch(() => this.$route, this.onRouteChange, { immediate: true })
+    watch(() => (this as any).$route, this.onRouteChange, { immediate: true })
   }
 
   onRouteChange () {
@@ -77,7 +77,7 @@ export default class Sidebar extends mixins(PropsMixin) {
 
   setActiveExpand () {
     this.value = this.navigationRoutes.map((route, index) => {
-      const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
+      const pathSteps: string[] = (this as any).$route.path.split('/').filter(Boolean)
       return (
         this.value[index] ||
         // @ts-ignore
@@ -91,7 +91,7 @@ export default class Sidebar extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss" scoped>
-@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
+@import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
 
 .sidebar {
   z-index: 1000;

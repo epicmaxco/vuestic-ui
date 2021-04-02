@@ -3,7 +3,7 @@
     class="square-with-icon"
     :style="{ backgroundColor: colorComputed }"
   >
-    <va-icon :name="$props.icon"/>
+    <va-icon :name="$props.icon" />
   </div>
 </template>
 

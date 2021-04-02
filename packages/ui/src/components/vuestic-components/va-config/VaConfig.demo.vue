@@ -124,7 +124,7 @@ export default {
     VaButton,
     VaBadge,
     VaConfig,
-    ConfigUsageTest: withConfigTransport(ConfigUsageTest)
+    ConfigUsageTest: withConfigTransport(ConfigUsageTest),
   },
   data () {
     return {
@@ -204,7 +204,7 @@ export default {
             ...config.components.VaButton,
             round,
           },
-        }
+        },
       }))
     },
     overrideConfig () {
@@ -224,7 +224,7 @@ export default {
             icon: 'star',
             color: 'danger',
           },
-        }
+        },
       }
 
       this.setGlobalConfig(newConfig)
