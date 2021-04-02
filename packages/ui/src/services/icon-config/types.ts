@@ -1,4 +1,4 @@
-export type IconConfig = {
+type IconConfig = {
   name: string | RegExp
 
   /**
@@ -107,4 +107,6 @@ export type IconConfig = {
   spin?: 'clockwise' | 'counter-clockwise'
 }
 
-export type IconsConfig = IconConfig[]
+type IconsConfig = IconConfig[]
+
+export type { IconsConfig, IconConfig }

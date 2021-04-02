@@ -14,7 +14,7 @@ export type GlobalConfig = {
   components?: ComponentConfig
 };
 
-type Updater = (config: GlobalConfig) => GlobalConfig;
+export type GlobalConfigUpdater = (config: GlobalConfig) => GlobalConfig;
 
 // Global config is singleton and we wrap it into ref for reactivity.
 const globalConfigRef = ref<GlobalConfig>({
@@ -31,7 +31,7 @@ function replaceArrayCustomizer (objValue: any[], srcValue: any[]) {
   }
 }
 
-const setGlobalConfig = (updater: GlobalConfig | Updater): void => {
+const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater): void => {
   if (typeof updater === 'function') {
     globalConfigRef.value = mergeWith(
       globalConfigRef.value,
