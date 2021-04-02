@@ -50,7 +50,7 @@
 <script lang="ts">
 import { Vue, Options, prop, mixins } from 'vue-class-component'
 import VaColorPicker, { VaColorInput } from '../va-color-picker'
-import VaColorPalette from '../va-color-palette'
+import { VaColorPalette } from '../va-color-palette'
 import VaColorSlider from '../va-color-slider'
 import VaDropdown from '../va-dropdown'
 
