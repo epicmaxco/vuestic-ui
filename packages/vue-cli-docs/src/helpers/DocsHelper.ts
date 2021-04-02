@@ -6,7 +6,7 @@ import {
   TextBlock,
   PathToExample,
   CodeString,
-} from '../types/configTypes'
+} from '@/types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 
