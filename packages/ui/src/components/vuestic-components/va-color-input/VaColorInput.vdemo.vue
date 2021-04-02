@@ -58,15 +58,18 @@
 </template>
 
 <script>
-// import { VaColorIndicator } from '../va-color-palette'
-// import VaColorInputAdvanced from './VaColorInputAdvanced.vue'
 import VaColorInput from './VaColorInput'
-import { colorArray } from '../va-color-picker/VuesticTheme'
+
+const colorArray = [
+  '#4ae387',
+  '#e34a4a',
+  '#4ab2e3',
+  '#db76df',
+  '#f7cc36',
+]
 
 export default {
   components: {
-    // VaColorIndicator,
-    // VaColorInputAdvanced,
     VaColorInput,
   },
   data () {
