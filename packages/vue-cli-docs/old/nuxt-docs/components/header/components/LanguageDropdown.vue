@@ -30,7 +30,7 @@ import VaIcon from 'vuestic-ui/src/components/vuestic-components/va-icon/VaIcon.
 import VaDropdown from 'vuestic-ui/src/components/vuestic-components/va-dropdown/VaDropdown.vue'
 import VaButton from 'vuestic-ui/src/components/vuestic-components/va-button/VaButton.vue'
 import { ColorThemeMixin } from '../../../../ui/src/services/ColorThemePlugin'
-import { languages } from './../../languages'
+import { languages } from '../../languages'
 @Component({
   name: 'language-dropdown',
   mixins: [ColorThemeMixin],

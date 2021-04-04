@@ -15,13 +15,13 @@
 
 <script lang="ts">
 import { Component, Vue, Provide } from 'vue-property-decorator'
-import Header from '../../docs/components/landing/Header.vue'
-import Preview from '../../docs/components/landing/Preview.vue'
-import Admin from '../../docs/components/landing/Admin.vue'
-import Footer from '../../docs/components/landing/Footer.vue'
-import OpenSource from '../../docs/components/landing/OpenSource.vue'
-import Seamless from '../../docs/components/landing/Seamless.vue'
-import Customize from '../../docs/components/landing/Customize.vue'
+import Header from '../components/landing/Header.vue'
+import Preview from '../components/landing/Preview.vue'
+import Admin from '../components/landing/Admin.vue'
+import Footer from '../components/landing/Footer.vue'
+import OpenSource from '../components/landing/OpenSource.vue'
+import Seamless from '../components/landing/Seamless.vue'
+import Customize from '../components/landing/Customize.vue'
 import { COLOR_THEMES, ThemeName } from '../theme-config'
 
 @Component({
@@ -111,7 +111,7 @@ export default class Landing extends Vue {
 
 <style lang="scss">
 @import "vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
-@import "./../assets/main";
+@import "../assets/main";
 
 .landing {
   font-family: Source Sans Pro;
