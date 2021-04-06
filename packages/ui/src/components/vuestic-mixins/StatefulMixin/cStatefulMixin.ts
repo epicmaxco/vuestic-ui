@@ -4,7 +4,7 @@ import { ref, computed, toRefs } from 'vue'
  * Returns `valueComputed` that is proxy for `modelValue`
  * if `stateful` prop is `false`
  */
-export function useStateful (props: Record<any, any>, emit: (event: string, ...args: any[]) => void) {
+export function useStateful (props: Record<any, any>, emit: (event: 'update:modelValue', ...args: any[]) => void) {
   const valueState = ref(props.modelValue)
   const { modelValue } = toRefs(props)
 

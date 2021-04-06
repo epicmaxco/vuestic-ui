@@ -5,19 +5,11 @@
 </template>
 
 <script lang="ts">
-import { provide } from 'vue'
-import { Options, Vue, mixins, prop, setup } from 'vue-class-component'
-import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
+import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
+import { provide, defineComponent, ref, onMounted, onUpdated } from 'vue'
 import Collapse from '../va-collapse/VaCollapse.vue'
 
 export const AccordionServiceKey = Symbol('AccordionService')
-
-const PropsMixin = Vue.with(class {
-  value = prop<any[]>({ type: Array, default: () => [] })
-  multiply = prop<boolean>({ type: Boolean, default: false })
-  inset = prop<boolean>({ type: Boolean, default: false })
-  popout = prop<boolean>({ type: Boolean, default: false })
-})
 
 export type Accordion = {
   isInsideAccordion: boolean;
@@ -28,79 +20,62 @@ export type Accordion = {
   onChildUnmounted: (child: Collapse) => void;
 }
 
-@Options({
-  name: 'VaAccordion',
-})
-export default class VaAccordion extends mixins(
-  StatefulMixin,
-  PropsMixin,
-) {
-  collapses: any[] = []
+export default defineComponent({
+  emits: ['update:modelValue', 'hello'],
+  props: {
+    modelValue: { type: Array, default: () => [] },
+    multiply: { type: Boolean, default: false },
+    inset: { type: Boolean, default: false },
+    popout: { type: Boolean, default: false },
+  },
+  setup (props, ctx) {
+    const statefull = useStateful(props, ctx.emit)
+    const collapses = ref<Collapse[]>([])
 
-  accordion = setup(() => {
-    const accordion: Accordion = {
+    const getProps = () => ({ inset: props.inset, popout: props.popout })
+    const onChildMounted = (child: Collapse) => { collapses.value.push(child) }
+    const onChildUnmounted = (child: Collapse) => {
+      collapses.value = collapses.value.filter(collapse => collapse !== child)
+    }
+    const onChildChange = (child: Collapse) => {
+      const accordionValues = collapses.value.map((collapse: Collapse) => {
+        if (collapse === child) {
+          return collapse.valueProxy
+        }
+
+        if (!props.multiply) {
+          collapse.valueProxy = false
+        }
+
+        return collapse.valueProxy
+      })
+
+      statefull.valueComputed.value = accordionValues
+    }
+
+    const accordion = {
       isInsideAccordion: true,
-      getProps: () => this.getProps(),
-      getState: () => this.getState(),
-      onChildChange: (child: Collapse) => this.onChildChange(child),
-      onChildMounted: (child: Collapse) => this.onChildMounted(child),
-      onChildUnmounted: (child: Collapse) => this.onChildUnmounted(child),
+      getProps,
+      getState: () => statefull.valueComputed,
+      onChildMounted,
+      onChildUnmounted,
+      onChildChange,
     }
 
     provide(AccordionServiceKey, accordion)
 
-    return accordion
-  })
-
-  onChildChange (child: Collapse) {
-    const emitValue: any = []
-    this.collapses.forEach((collapse: Collapse) => {
-      if (collapse === child) {
-        emitValue.push(collapse.valueProxy)
-        return
-      }
-
-      if (!this.multiply) {
-        collapse.valueProxy = false
-      }
-
-      emitValue.push(collapse.valueProxy)
-    })
-
-    this.valueComputed = emitValue
-  }
-
-  getProps () {
-    return {
-      inset: this.inset,
-      popout: this.popout,
+    const updateCollapsesValues = () => {
+      collapses.value.forEach((collapse: Collapse, index: number) => {
+        collapse.valueProxy = statefull.valueComputed.value[index]
+      })
     }
-  }
 
-  getState () {
-    return this.valueComputed
-  }
+    onMounted(updateCollapsesValues)
+    onUpdated(updateCollapsesValues)
 
-  onChildMounted (collapse: Collapse) {
-    this.collapses.push(collapse)
-  }
-
-  onChildUnmounted (removableCollapse: Collapse) {
-    this.collapses = this.collapses.filter(collapse => collapse !== removableCollapse)
-  }
-
-  mounted () {
-    this.collapses.forEach((collapse: Collapse, index: number) => {
-      collapse.valueProxy = this.valueComputed[index]
-    })
-  }
-
-  updated () {
-    this.collapses.forEach((collapse: Collapse, index: number) => {
-      collapse.valueProxy = this.valueComputed[index]
-    })
-  }
-}
+    return { collapses, value: statefull.valueComputed }
+  },
+})
 </script>
 
 <style lang="scss">
