@@ -9,6 +9,7 @@ import {
 } from '@/types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
+import { TableData, TableColum } from './../components/DocsTable/DocsTable'
 
 export const DocsHelper = {
   title: (translationString: TranslationString): TextBlock => {
@@ -52,6 +53,22 @@ export const DocsHelper = {
       type: BlockType.API,
       componentOptions,
       apiOptions,
+    }
+  },
+  table: (columns: TableColum[], tableData: TableData, title?: string) => {
+    return {
+      type: BlockType.TABLE,
+      columns,
+      tableData,
+      title,
+    }
+  },
+  link: (text: string, href: string, options?: { preText?: string, afterText?: string }) => {
+    return {
+      type: BlockType.LINK,
+      text,
+      href,
+      options,
     }
   },
 

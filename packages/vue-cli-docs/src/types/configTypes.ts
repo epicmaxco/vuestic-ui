@@ -15,6 +15,8 @@ export enum BlockType {
   EXAMPLE = 'EXAMPLE',
   API = 'API',
   CODE = 'CODE',
+  TABLE = 'TABLE',
+  LINK = 'LINK',
 }
 
 export type TextBlockType =

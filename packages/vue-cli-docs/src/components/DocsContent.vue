@@ -37,6 +37,20 @@
         :key="block.type + index"
         :value="`${$t(block.translationString)}`"
       />
+      <DocsTable
+        v-else-if="block.type === BlockType.TABLE"
+        :key="block.type + index"
+        :columns="block.columns"
+        :tableData="block.tableData"
+        :title="block.title"
+      />
+      <DocsLink
+        v-else-if="block.type === BlockType.LINK"
+        :key="block.type + index"
+        :href="block.href"
+        :text="block.text"
+        v-bind="block.options"
+      />
     </template>
   </va-content>
 </template>
@@ -49,6 +63,8 @@ import DocsExample from './DocsExample.vue'
 import DocsCode from './DocsCode.vue'
 import DocsSubtitle from './DocsSubtitle.vue'
 import ApiDocs from './DocsApi/ApiDocs.vue'
+import DocsTable from './DocsTable/DocsTable.vue'
+import DocsLink from './DocsLink.vue'
 
 class Props {
   config = prop<ApiDocsBlock[]>({})
@@ -63,6 +79,8 @@ const PropsMixin = Vue.with(Props)
     DocsSubtitle,
     MarkdownView,
     ApiDocs,
+    DocsTable,
+    DocsLink,
   },
 })
 export default class DocsContent extends mixins(PropsMixin) {
