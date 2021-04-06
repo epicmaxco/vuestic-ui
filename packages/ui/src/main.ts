@@ -1,8 +1,8 @@
 import './components/vuestic-sass/resources/_css-variables.scss'
 
 export { VuesticPlugin } from './components/vuestic-plugin'
-export { useColors, useColor } from './services/color-config/color-config'
-export { useGlobalConfig } from './services/GlobalConfigPlugin'
+export { useColors, getColor, getColors, setColors } from './services/color-config/color-config'
+export { useGlobalConfig, getGlobalConfig, setGlobalConfig } from './services/GlobalConfigPlugin'
 export {
   useIcons,
   createIconsConfig,

@@ -31,7 +31,7 @@ function replaceArrayCustomizer (objValue: any[], srcValue: any[]) {
   }
 }
 
-const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater): void => {
+export const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater): void => {
   if (typeof updater === 'function') {
     globalConfigRef.value = mergeWith(
       globalConfigRef.value,
@@ -43,7 +43,7 @@ const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater): void => {
   }
 }
 
-const getGlobalConfig = (): GlobalConfig => globalConfigRef.value
+export const getGlobalConfig = (): GlobalConfig => globalConfigRef.value
 
 type ProvidedGlobalConfig = { get: typeof getGlobalConfig, set: typeof setGlobalConfig }
 
