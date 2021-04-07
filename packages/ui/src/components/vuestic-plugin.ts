@@ -85,7 +85,8 @@ import DropdownPopperSubplugin
 // import { registerVuesticObject } from './resize-events'
 import ToastInstall from './vuestic-components/va-toast/install'
 
-import { useGlobalConfig, GlobalConfigPlugin, GlobalConfig } from '../services/GlobalConfigPlugin'
+import { useGlobalConfig, GlobalConfig } from '../services/global-config/global-config'
+import { GlobalConfigPlugin } from '../services/global-config/global-config-plugin'
 import { getDefaultConfig } from './vuestic-components/va-config/config-default'
 import { useColors } from '../services/color-config/color-config'
 import VaSpacer from './vuestic-components/va-spacer'

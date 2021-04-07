@@ -1,4 +1,4 @@
-import { getGlobalConfig } from '../GlobalConfigPlugin'
+import { getGlobalConfig } from '../global-config/global-config'
 import { getIconConfig } from './get-icon-config'
 import { copyObjectWithoutUndefined } from './utils'
 

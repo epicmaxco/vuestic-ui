@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { useGlobalConfig } from '../../../services/GlobalConfigPlugin'
+import { useGlobalConfig } from '../../../services/global-config/global-config'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { useColors } from '../../../services/color-config/color-config'
 import VaButton from '../va-button'

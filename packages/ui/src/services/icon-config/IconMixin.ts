@@ -1,6 +1,6 @@
 import { prop, Vue } from 'vue-class-component'
 import { getIconConfig } from './get-icon-config'
-import { getGlobalConfig } from '../GlobalConfigPlugin'
+import { getGlobalConfig } from '../global-config/global-config'
 import { copyObjectWithoutUndefined } from './utils'
 
 class IconMixinProps {

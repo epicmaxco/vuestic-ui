@@ -1,4 +1,4 @@
-import { GlobalConfig, setGlobalConfig, getGlobalConfig } from '../GlobalConfigPlugin'
+import { GlobalConfig, setGlobalConfig, getGlobalConfig } from '../global-config/global-config'
 import { getBoxShadowColor, getHoverColor, getFocusColor, getGradientBackground } from './color-functions'
 
 export type HexColor = string // Hex color
