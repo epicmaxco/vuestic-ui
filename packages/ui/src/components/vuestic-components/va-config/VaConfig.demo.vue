@@ -110,21 +110,22 @@
 
 <script>
 import { useGlobalConfig } from '../../../services/GlobalConfigPlugin'
-import ColorMixin, { useColor } from '../../../services/color-config/ColorMixin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import { useColors } from '../../../services/color-config/color-config'
 import VaButton from '../va-button'
-import VaBadge from '../va-badge'
+// import VaBadge from '../va-badge'
 
-import ConfigUsageTest from './ConfigUsageTest.vue'
-import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaConfig from './VaConfig'
+// import ConfigUsageTest from './ConfigUsageTest.vue'
+// import withConfigTransport from '../../../services/config-transport/withConfigTransport'
+// import VaConfig from './VaConfig'
 
 export default {
   mixins: [ColorMixin],
   components: {
     VaButton,
-    VaBadge,
-    VaConfig,
-    ConfigUsageTest: withConfigTransport(ConfigUsageTest),
+    // VaBadge,
+    // VaConfig,
+    // ConfigUsageTest: withConfigTransport(ConfigUsageTest),
   },
   data () {
     return {
@@ -143,7 +144,7 @@ export default {
   setup () {
     const { setGlobalConfig, getGlobalConfig } = useGlobalConfig()
 
-    const getColor = useColor()
+    const { getColor } = useColors()
 
     setGlobalConfig(config => ({
       ...config,

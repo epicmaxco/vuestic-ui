@@ -1,6 +1,6 @@
 import { prop, Vue, Options, setup } from 'vue-class-component'
 
-import { useColor, useColors } from './color-config'
+import { getColor } from './color-config'
 
 class Props {
   color = prop<string>({
@@ -19,7 +19,7 @@ class ColorMixin extends Vue.with(Props) {
 
   theme = setup(() => {
     return {
-      getColor: useColor(),
+      getColor,
     }
   })
 
@@ -33,7 +33,3 @@ class ColorMixin extends Vue.with(Props) {
 }
 
 export default ColorMixin
-export {
-  useColors,
-  useColor,
-}
