@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { useGlobalConfig } from '../../../services/GlobalConfigPlugin'
+import { useGlobalConfig } from '../../../services/global-config/global-config'
 
 export default {
   setup () {
