@@ -4,7 +4,7 @@
 
 <script>
 import emitter from 'tiny-emitter/instance'
-import { setupColors } from '../../ui/src/main'
+import { setColors } from '../../ui/src/main'
 import { COLOR_THEMES, ThemeName } from '@/theme-config'
 
 const eventBus = {
@@ -22,8 +22,7 @@ export default {
   },
 
   setup () {
-    const { setColors: setTheme } = setupColors()
-    setTheme(COLOR_THEMES[ThemeName.DEFAULT])
+    setColors(COLOR_THEMES[ThemeName.DEFAULT])
   },
 }
 </script>

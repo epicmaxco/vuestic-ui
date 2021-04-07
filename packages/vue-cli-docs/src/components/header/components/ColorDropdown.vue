@@ -84,10 +84,9 @@
 <script lang="ts">
 // @ts-nocheck
 import { watch } from 'vue'
-import { Options, Vue, setup } from 'vue-class-component'
+import { Options, Vue } from 'vue-class-component'
 import { ThemeName } from '../../../theme-config'
 import { capitalize } from 'lodash'
-import { setupColors } from '../../../../../ui/src/main'
 
 @Options({})
 export default class ColorDropdown extends Vue {
