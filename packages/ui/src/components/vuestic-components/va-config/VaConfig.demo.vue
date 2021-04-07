@@ -86,15 +86,30 @@
       <div>
         Should change global config button color on change and refresh.
       </div>
-      <button @click="overrideButtonsRound(false)">
-        Make button square
+      <button @click="overrideButtonsRound()">
+        Switch button round prop with updater function
       </button>
       <br>
-      <button @click="overrideButtonsRound(true)">
-        Make button round
+      <button @click="changeButtonsRound()">
+        Switch button round prop with updater object
       </button>
       <br>
       <va-button>Vuestic-ui button</va-button>
+      Current value: {{ buttonRoundConfigValue }}
+    </VbCard>
+
+    <VbCard title="Partial rewriting global config">
+      This button should be primary color, not outlined and rounded.
+      <br />
+      <va-button color="primary" :flat="false" round :outline="false">
+        Button with props
+      </va-button>
+    </VbCard>
+
+    <VbCard title="Components config">
+
+      Current Components config: <br />
+      {{ getGlobalConfig().components }}
     </VbCard>
 
 <!--    <VbCard title="Rewriting global config">-->
@@ -113,6 +128,7 @@ import { useGlobalConfig } from '../../../services/GlobalConfigPlugin'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { useColors } from '../../../services/color-config/color-config'
 import VaButton from '../va-button'
+import { computed, watchEffect } from '@vue/runtime-core'
 // import VaBadge from '../va-badge'
 
 // import ConfigUsageTest from './ConfigUsageTest.vue'
@@ -149,6 +165,7 @@ export default {
     setGlobalConfig(config => ({
       ...config,
       components: {
+        ...config.components,
         ConfigUsageTest: {
           color: getColor('blue'),
         },
@@ -166,23 +183,21 @@ export default {
         },
         VaIcon: {
           ...config.components.VaIcon,
-          font: 'md',
-          config: {
-            room: {
-              code: 'room',
-            },
-            schedule: {
-              code: 'schedule',
-            },
-          },
         },
       },
     }))
+
+    const buttonRoundConfigValue = computed(() => {
+      const globalConfig = getGlobalConfig()
+      const value = globalConfig.components.VaButton?.round
+      return value === undefined ? true : value
+    })
 
     return {
       setGlobalConfig,
       getGlobalConfig,
       getColor,
+      buttonRoundConfigValue,
     }
   },
   computed: {
@@ -196,17 +211,26 @@ export default {
     },
   },
   methods: {
-    overrideButtonsRound (round) {
+    overrideButtonsRound () {
       this.setGlobalConfig(config => ({
         ...config,
         components: {
           ...config.components,
           VaButton: {
             ...config.components.VaButton,
-            round,
+            round: !this.buttonRoundConfigValue,
           },
         },
       }))
+    },
+    changeButtonsRound () {
+      this.setGlobalConfig({
+        components: {
+          VaButton: {
+            round: !this.buttonRoundConfigValue,
+          },
+        },
+      })
     },
     overrideConfig () {
       const newConfig = {

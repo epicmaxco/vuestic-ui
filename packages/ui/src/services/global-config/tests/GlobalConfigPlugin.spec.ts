@@ -4,7 +4,7 @@ import {
   GlobalConfigPlugin,
   GlobalConfig,
   useGlobalConfig,
-} from './GlobalConfigPlugin'
+} from '../../GlobalConfigPlugin'
 
 config.global.plugins.push([GlobalConfigPlugin])
 
