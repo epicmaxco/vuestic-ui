@@ -52,7 +52,7 @@ export function getComponentOptions (component: DefineComponent): ComponentOptio
 function normalizeProps (props: any) {
   switch (true) {
   case isArray(props):
-    return props.reduce((acc: object, prop: string) => ({
+    return props.reduce((acc: Record<string, unknown>, prop: string) => ({
       ...acc,
       [prop]: null,
     }), {})
