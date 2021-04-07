@@ -37,10 +37,6 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.installation',
       },
       {
-        name: 'nuxt-integration',
-        displayName: 'menu.nuxtIntegration',
-      },
-      {
         name: 'accessibility-guide',
         displayName: 'menu.accessibilityGuide',
       },
