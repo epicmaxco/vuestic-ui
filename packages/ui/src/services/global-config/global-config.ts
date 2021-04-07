@@ -20,7 +20,7 @@ export function setGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
   }
 }
 
-export function getGlobalConfig () {
+export function getGlobalConfig (): GlobalConfig {
   return globalConfigRef.value
 }
 

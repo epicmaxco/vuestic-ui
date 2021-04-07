@@ -1,5 +1,5 @@
 import { GlobalConfig, setGlobalConfig, getGlobalConfig } from '../global-config/global-config'
-import { getBoxShadowColor, getHoverColor, getFocusColor, getGradientBackground } from './color-functions'
+import { getBoxShadowColor, getHoverColor, getFocusColor, getGradientBackground, isCssColor } from './color-functions'
 
 export type HexColor = string // Hex color
 export type ColorConfig = Record<string, HexColor>
@@ -14,12 +14,12 @@ export const setColors = (colors: Record<string, string>): void => {
   }))
 }
 
-export const getColors = (): Record<string, string> | undefined => {
-  return getGlobalConfig().colors
+export const getColors = (): ColorConfig => {
+  return getGlobalConfig().colors || {}
 }
 
 export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR) => {
-  const colors = getColors() || {}
+  const colors = getColors()
 
   if (!prop) {
     prop = defaultColor
@@ -47,15 +47,4 @@ export const useColors = () => {
     getFocusColor,
     getGradientBackground,
   }
-}
-
-/**
- * Check if color is valid css color
- * Taken from https://stackoverflow.com/a/56266358/5783475
- * @param strColor
- */
-export const isCssColor = (strColor: string): boolean => {
-  const s = new Option().style
-  s.color = strColor
-  return s.color !== ''
 }
