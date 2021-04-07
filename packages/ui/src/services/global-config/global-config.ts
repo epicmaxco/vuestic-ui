@@ -1,14 +1,14 @@
 import { merge, cloneDeep } from 'lodash'
 import { ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater } from './types'
-import { getDefaultConfig } from '../../components/vuestic-components/va-config/config-default'
+import { getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
 
 const globalConfigRef = ref<GlobalConfig>({
   colors: colorsPresets.default,
   icons: createIconsConfig({}),
-  components: getDefaultConfig(),
+  components: getComponentsDefaultConfig(),
 })
 
 export function setGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
