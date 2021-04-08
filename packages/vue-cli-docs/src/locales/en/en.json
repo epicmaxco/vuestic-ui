@@ -2493,10 +2493,21 @@
     }
   },
   "browserSupport": {
-    "title": "Work In Progress"
+    "title": "Browser Support",
+    "description": "We design Vuestic UI to support the latest modern web browsers."
   },
   "overview": {
-    "title": "Work In Progress"
+    "title": "What is Vuestic UI",
+    "description": "The Vuestic UI is a complete user interface framework built on top of Vue 3. The goal of the project is to provide developers with the tools they need to create a beatiful UI with the possibility of deep customization.",
+    "whyVuestic": {
+      "title": "Why you should prefer Vuestic UI?",
+      "vueThreeCompatible": "- Vue.js 3.0 compatible",
+      "featureRich": "* Feature-rich: more than 52 customizable components",
+      "themesPreset": "* Two built-in color scheme presets",
+      "configurations": "* Powerful configurations:\n  * Local - configure components in-depth\n  * Global - configure framework overall",
+      "responsive": "* Cross-browser and responsive",
+      "translatable": "* i18n-ready"
+    }
   },
   "translation": {
     "title": "Work In Progress"
