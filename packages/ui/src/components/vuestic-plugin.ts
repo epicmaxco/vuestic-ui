@@ -24,6 +24,7 @@ import VaCollapse from './vuestic-components/va-collapse'
 import VaColorIndicator from './vuestic-components/va-color-indicator'
 import { VaColorPalette } from './vuestic-components/va-color-palette'
 import VaColorInput from './vuestic-components/va-color-input'
+import VaConfig from './vuestic-components/va-config'
 import VaContent from './vuestic-components/va-content'
 import VaDivider from './vuestic-components/va-divider'
 import VaDatePicker from './vuestic-components/va-date-picker'
@@ -114,6 +115,7 @@ export const VuesticPlugin = {
       VaColorPalette,
       VaColorIndicator,
       VaColorInput,
+      VaConfig,
       VaContent,
       VaDatePicker,
       VaDropdown,
