@@ -2499,14 +2499,34 @@
   "overview": {
     "title": "What is Vuestic UI",
     "description": "The Vuestic UI is a complete user interface framework built on top of Vue 3. The goal of the project is to provide developers with the tools they need to create a beatiful UI with the possibility of deep customization.",
+    "vueThreeCompatible": {
+      "title": "Vue.js 3.0 compatible",
+      "description": "Vuestic UI was created with 100% Vue.js 3 compatible "
+    },
+    "featureRich": {
+      "title": "Feature-rich: more than 52 customizable components",
+      "description": "Vuestic UI cointan massive pack of deep-customizable components that could be used in any design solution."
+    },
+    "themesPreset": {
+      "title": "Two built-in color scheme presets",
+      "description": "Vuestic UI comes with two pre-installed themes `default` and `corporate`. Also you can make your corrections in existing themes or create your own."
+    },
+    "configurations": {
+      "title": "Powerful configurations",
+      "localConfig": "Local - configure components in-depth",
+      "globalConfig": "Global - configure framework overall"
+    },
+    "responsive": {
+      "title": "Cross-browser and responsive",
+      "description": "You no longer need to worry about how the components will look on different devices or in different browsers. The Vuestic UI is designed to be fully responsive and also has support for all the latest versions of modern browsers."
+    },
+    "translatable": {
+      "title": "i18n-ready",
+      "description": "The Vuestic UI integrates seamlessly with the i18n"
+    },
     "whyVuestic": {
       "title": "Why you should prefer Vuestic UI?",
-      "vueThreeCompatible": "- Vue.js 3.0 compatible",
-      "featureRich": "* Feature-rich: more than 52 customizable components",
-      "themesPreset": "* Two built-in color scheme presets",
-      "configurations": "* Powerful configurations:\n  * Local - configure components in-depth\n  * Global - configure framework overall",
-      "responsive": "* Cross-browser and responsive",
-      "translatable": "* i18n-ready"
+      "description": "Vuestic UI provides a lot of benefits and great features."
     }
   },
   "translation": {
