@@ -937,7 +937,8 @@
     "iconsConfig": "Icons Config",
     "services": "Services",
     "globalConfig": "Global Config",
-    "advancedIconsConfig": "Advanced Icons Config"
+    "advancedIconsConfig": "Advanced Icons Config",
+    "componentsConfig": "Components Config"
   },
   "all": {
     "examples": "Examples",
@@ -2568,16 +2569,16 @@
     "structure": "Global config consists of icons, colors and components configs. ",
     "setupExampleTitle": "We can provide our custom config with VuesticPlugin, if we want to:",
     "reactiveExampleTitle": "Or we can update our config on runtime:",
-    "componentsConfig": {
-      "title": "Components config",
-      "subtitle": "With component config we can override default props for any vuestic component we want. Components config is a object where key is `component name` and value is `component props` which we want to overwrite. For example:",
-      "demoTitle": "In example below we can change global style of all buttons on whole Vuestic Documentation site.",
-      "demoButtonText": "Apply globally",
-      "vaConfig": {
-        "title": "Scoped config",
-        "subtitle": "We can use VaConfig to override component props inside `<va-config></va-config>` tag. Components config for all component inside `va-config` tag will be overwritten to `components` prop value. Let's look at the demo below:",
-        "explain": "Look at the code. In this demo we have changed default color for all our `VaButton` and `VaIcons`. Also we pass prop to third button which value is more important than in scoped config."
-      }
+    "links": {
+      "readMore": "Read more",
+      "icons": "Icons config",
+      "components": "Components config",
+      "colors": "Colors config"
+    },
+    "api": {
+      "icons": "Used to configure icon fonts and aliases.",
+      "components": "Used to globally overwrite props of specific components.",
+      "colors": "Used to define theme colors that components will use. Here we can redefine default vuestic theme color."
     }
   },
   "iconsConfig": {
@@ -2607,5 +2608,16 @@
     "title": "Advanced icons config",
     "subtitle": "Icons config is a flat array. VaIcon looks for first appropriate name (strict string, regex or dynamic segment). Then, if config has a `to` prop it looks for additional config that appropriate for `to`.",
     "priority": "Here you can see how its works"
+  },
+  "componentsConfig": {
+    "title": "Components config",
+    "subtitle": "With component config we can override default props for any vuestic component we want. Components config is a object where key is `component name` and value is `component props` which we want to overwrite. For example:",
+    "demoTitle": "In example below we can change global style of all buttons on whole Vuestic Documentation site.",
+    "demoButtonText": "Apply globally",
+    "vaConfig": {
+      "title": "Scoped config",
+      "subtitle": "We can use VaConfig to override component props inside `<va-config></va-config>` tag. Components config for all component inside `va-config` tag will be overwritten to `components` prop value. Let's look at the demo below:",
+      "explain": "Look at the code. In this demo we have changed default color for all our `VaButton` and `VaIcons`. Also we pass prop to third button which value is more important than in scoped config."
+    }
   }
 }

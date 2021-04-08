@@ -326,7 +326,8 @@
     "iconsConfig": "Icons Config",
     "services": "Services",
     "globalConfig": "Global Config",
-    "advancedIconsConfig": "Advanced Icons Config"
+    "advancedIconsConfig": "Advanced Icons Config",
+    "componentsConfig": "Components Config"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -442,6 +443,9 @@
     "title": "-- Here is the title --"
   },
   "advancedIconsConfig": {
+    "title": "-- Here is the title --"
+  },
+  "componentsConfig": {
     "title": "-- Here is the title --"
   }
 }

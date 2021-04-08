@@ -284,6 +284,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.globalConfig',
       },
       {
+        name: 'components-config',
+        displayName: 'menu.componentsConfig',
+      },
+      {
         name: 'icons-config',
         displayName: 'menu.iconsConfig',
       },

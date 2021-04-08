@@ -1,10 +1,7 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { setupCodeExample, fa4FontCodeExample, aliasCodeExample } from './examples'
-import { i18n } from 'vue-lang-router'
-
-const t = i18n.global.t
-const locale = i18n.global.locale
+import { t, locale } from '../../../../helpers/i18nHelper'
 
 const prefix = (text: string) => `iconsConfig.${text}`
 const url = (text: string, href: string) => `[${t(text)}]()`

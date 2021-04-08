@@ -36,11 +36,11 @@ export default {
         value: true,
       },
       {
-        name: 'flat',
+        name: 'outline',
         type: Boolean,
       },
       {
-        name: 'outline',
+        name: 'flat',
         type: Boolean,
       },
     ])

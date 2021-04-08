@@ -1,12 +1,10 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { i18n } from 'vue-lang-router'
-
-const t = i18n.global.t
+import { t, locale } from '../../../../helpers/i18nHelper'
 
 const gc = (text: string) => `globalConfig.${text}`
-const cc = (text: string) => gc(`componentsConfig.${text}`)
-const vc = (text: string) => cc(`vaConfig.${text}`)
+const api = (text: string) => gc(`api.${text}`)
+const links = (text: string) => gc(`links.${text}`)
 
 export default [
   DocsHelper.title(gc('title')),
@@ -44,32 +42,17 @@ export default [
         }
       }
   `),
-
-  DocsHelper.subtitle(cc('title')),
-  DocsHelper.paragraph(cc('subtitle')),
-  DocsHelper.code(`
-    ...
-    components: {
-      VaAvatar: {
-        square: true,
-        icon: 'spinner'
-      },
-      VaCard: {
-        color: 'secondary',
-      },
-      VaTabs: {
-        grow: true,
-      },
-    },
-    ...
-  `),
-  DocsHelper.paragraph(cc('demoTitle')),
-  DocsHelper.example('components-config/button', {
-    buttonText: t(cc('demoButtonText')),
-  }),
-
-  DocsHelper.headline(vc('title')),
-  DocsHelper.paragraph(vc('subtitle')),
-  DocsHelper.example('components-config/va-config'),
-  DocsHelper.paragraph(vc('explain')),
+  DocsHelper.headline(links('readMore')),
+  DocsHelper.link(t(links('components')), `/${locale}/services/components-config`),
+  DocsHelper.link(t(links('colors')), `/${locale}/services/colors-config`),
+  DocsHelper.link(t(links('icons')), `/${locale}/services/icons-config`),
+  DocsHelper.table(
+    ['params', { title: 'type', type: 'code' }, { title: 'Description', type: 'markdown' }],
+    [
+      ['icons', 'IconsConfig', t(api('icons'))],
+      ['components', 'ComponentsConfig', t(api('components'))],
+      ['colors', 'ColorsConfig', t(api('colors'))],
+    ],
+    'API',
+  ),
 ] as ApiDocsBlock[]
