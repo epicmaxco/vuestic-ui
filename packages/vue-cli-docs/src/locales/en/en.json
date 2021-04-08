@@ -2441,7 +2441,24 @@
     }
   },
   "roadmap": {
-    "title": "Work In Progress"
+    "title": "The Vuestic UI Roadmap",
+    "description": "The Vuestic UI is always growing, trying to get better. Our team is constantly working to improve the existing code base, adding new features that help make building applications even easier.",
+    "inDevelopment": {
+      "title": "In development",
+      "description": "The following releases are currently being developed:"
+    },
+    "released": {
+      "title": "Released",
+      "description": "The following are the already released minor and major version updates. "
+    },
+    "longTimeSupport": {
+      "title": "Long time support",
+      "description": "The following versions have continued maintenance for backwards compatible fixes, major bugs, and security vulnerabilities."
+    },
+    "archive": {
+      "title": "Archive",
+      "description": "The following releases are old and unsupported minor and major versions:"
+    }
   },
   "nuxtIntegration": {
     "title": "Work In Progress"
