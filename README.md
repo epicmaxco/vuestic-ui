@@ -102,7 +102,7 @@ example of a real-world web application based on Vuestic UI.
 
 Thanks for all your wonderful PRs, issues and ideas.
 <a href="https://github.com/epicmaxco/vuestic-ui/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=epicmaxco/vuestic-ui">
+<img src="https://opencollective.com/vuestic-ui/contributors.svg?width=890&button=false" />
 </a>
 <br>
 You’re always welcome to join: check out

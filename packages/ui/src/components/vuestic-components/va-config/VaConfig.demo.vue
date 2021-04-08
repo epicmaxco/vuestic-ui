@@ -113,10 +113,11 @@
     </VbCard>
 
     <VbCard title="Local config (VaConfig)">
-      <va-config :components="{ VaButton: { color: '#f37511', flat: true, outline: false, rounded: false }}">
+      <va-config :components="{ VaButton: { color: dynamicConfig, flat: true, outline: false, rounded: false }}">
         <p>
-          Config:{ VaButton: { color: '<span style="background: #f37511">color</span>', flat: true, outline: false, rounded: false }}
+          Config:{ VaButton: { color: '<span :style="{ background: dynamicConfig }">{{ dynamicConfig }}</span>', flat: true, outline: false, rounded: false }}
         </p>
+        <input v-model="dynamicConfig" />
         <va-button>
           Button inside va-config
         </va-button>
@@ -182,6 +183,7 @@ export default {
         outline: false,
       },
       symbol: Symbol(''),
+      dynamicConfig: '#ff00ff',
     }
   },
   setup () {
