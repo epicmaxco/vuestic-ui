@@ -112,6 +112,33 @@
       {{ getGlobalConfig().components }}
     </VbCard>
 
+    <VbCard title="Local config (VaConfig)">
+      <va-config :components="{ VaButton: { color: '#f37511', flat: true, outline: false, rounded: false }}">
+        <p>
+          Config:{ VaButton: { color: '<span style="background: #f37511">color</span>', flat: true, outline: false, rounded: false }}
+        </p>
+        <va-button>
+          Button inside va-config
+        </va-button>
+        <va-button>
+          Button inside va-config
+        </va-button>
+      </va-config>
+      <br />
+      <br />
+      <va-config :components="{ VaButton: { color: '#f34240', flat: false }}">
+        <p>
+          Config:{ VaButton: { color: '<span style="background: #f34240">color</span>', flat: true }}
+        </p>
+        <va-button>
+          Button inside va-config
+        </va-button>
+        <va-button>
+          Button inside va-config
+        </va-button>
+      </va-config>
+    </VbCard>
+
 <!--    <VbCard title="Rewriting global config">-->
 <!--      <va-badge />-->
 <!--      <ConfigUsageTest>va test component</ConfigUsageTest>-->
