@@ -25,7 +25,7 @@ module.exports = {
       message: 'What\'s the page categoty (ex.: styles, contribution, gettingStarted, introduction)?',
       validate: value => {
         if (/.+/.test(value)) {
-          if (['styles', 'contribution', 'gettingStarted', 'introduction'].includes(value)) {
+          if (['styles', 'contribution', 'gettingStarted', 'introduction', 'services'].includes(value)) {
             return true
           }
           return 'Name is invalid'
