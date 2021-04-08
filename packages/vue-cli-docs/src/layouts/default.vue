@@ -41,7 +41,7 @@ import { provide, reactive } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
-import { COLOR_THEMES, ThemeName } from '../theme-config'
+import { COLOR_THEMES, ThemeName } from '../config/theme-config'
 import { useColors } from '../../../ui/src/main'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 

@@ -85,7 +85,7 @@
 // @ts-nocheck
 import { watch } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
-import { ThemeName } from '../../../theme-config'
+import { ThemeName } from '../../../config/theme-config'
 import { capitalize } from 'lodash'
 
 @Options({})

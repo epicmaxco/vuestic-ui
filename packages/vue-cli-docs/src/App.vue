@@ -5,7 +5,7 @@
 <script>
 import emitter from 'tiny-emitter/instance'
 import { useColors } from '../../ui/src/main'
-import { COLOR_THEMES, ThemeName } from '@/theme-config'
+import { COLOR_THEMES, ThemeName } from './config/theme-config'
 
 const eventBus = {
   $on: (...args) => emitter.on(...args),
