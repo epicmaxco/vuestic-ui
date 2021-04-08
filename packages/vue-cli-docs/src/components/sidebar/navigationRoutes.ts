@@ -295,6 +295,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'advanced-icons-config',
         displayName: 'menu.advancedIconsConfig',
       },
+      {
+        name: 'colors-config',
+        displayName: 'menu.colorsConfig',
+      },
       // GENERATOR_ADD - services
     ],
   },

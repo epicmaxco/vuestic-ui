@@ -327,7 +327,8 @@
     "services": "Services",
     "globalConfig": "Global Config",
     "advancedIconsConfig": "Advanced Icons Config",
-    "componentsConfig": "Components Config"
+    "componentsConfig": "Components Config",
+    "colorsConfig": "Colors Config"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -446,6 +447,9 @@
     "title": "-- Here is the title --"
   },
   "componentsConfig": {
+    "title": "-- Here is the title --"
+  },
+  "colorsConfig": {
     "title": "-- Here is the title --"
   }
 }

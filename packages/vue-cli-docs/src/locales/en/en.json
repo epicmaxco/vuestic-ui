@@ -938,7 +938,8 @@
     "services": "Services",
     "globalConfig": "Global Config",
     "advancedIconsConfig": "Advanced Icons Config",
-    "componentsConfig": "Components Config"
+    "componentsConfig": "Components Config",
+    "colorsConfig": "Colors Config"
   },
   "all": {
     "examples": "Examples",
@@ -2619,5 +2620,8 @@
       "subtitle": "We can use VaConfig to override component props inside `<va-config></va-config>` tag. Components config for all component inside `va-config` tag will be overwritten to `components` prop value. Let's look at the demo below:",
       "explain": "Look at the code. In this demo we have changed default color for all our `VaButton` and `VaIcons`. Also we pass prop to third button which value is more important than in scoped config."
     }
+  },
+  "colorsConfig": {
+    "title": "-- Here is the title --"
   }
 }
