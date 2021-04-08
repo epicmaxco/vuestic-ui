@@ -19,7 +19,7 @@
 // @ts-nocheck
 import VaIconMenu from '@/iconset/VaIconMenu.vue'
 import VaIconMenuCollapsed from '@/iconset/VaIconMenuCollapsed.vue'
-import { setupColors } from '../../../../../ui/src/main'
+import { useColors } from '../../../../../ui/src/main'
 
 export default {
   name: 'HeaderSelector',
@@ -41,7 +41,7 @@ export default {
   },
 
   setup () {
-    const { getColors } = setupColors()
+    const { getColors } = useColors()
     return {
       getColors,
     }
