@@ -84,7 +84,7 @@
 <script lang="ts">
 // @ts-nocheck
 import { watch } from 'vue'
-import { Options, Vue, setup } from 'vue-class-component'
+import { Options, Vue } from 'vue-class-component'
 import { ThemeName } from '../../../config/theme-config'
 import { capitalize } from 'lodash'
 

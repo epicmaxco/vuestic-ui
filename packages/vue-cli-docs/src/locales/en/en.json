@@ -2416,15 +2416,28 @@
   "installation": {
     "title": "Installation",
     "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
+    "prerequisites": "First, make sure you have all prerequisites installed:",
+    "node": "- <a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
+    "npm": "- <a href=\"https://www.npmjs.com/get-npm\">npm</a> version 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) and <a href=\"https://git-scm.com/\">Git</a>.",
+    "afterCheck": "After checking the prerequisites, install Vuestic UI via npm/yarn:",
+    "quickStart": {
+      "title": "Quick start",
+      "description": "Make sure you're imported both styles and plugin into your entry file:"
+    },
     "cli": {
       "title": "Vue-CLI installation",
-      "desc": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic on the scratch project.",
-      "attention": "**Attention! Using that way will make changes in you `package.json` dependencies and `main.js(ts)` files. Make sure that you commit your code to avoid data loss.**",
-      "linkToOfficial": "To use installation via CLI you will need to install Vue-CLI first. To get more information please visit [Vue-CLI official documentation](https://cli.vuejs.org/).",
-      "codeAnnotation": "After you have Vue-CLI project you could install Vustic as a Vue-CLI package:"
+      "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic on the scratch project.",
+      "attention": "<br>**Attention! Using that way will make changes in you `package.json` dependencies and `main.js(ts)` files. Make sure that you commit your code to avoid data loss.**",
+      "linkToOfficial": "<br>To use installation via CLI you will need to install Vue-CLI first. To get more information please visit [Vue-CLI official documentation](https://cli.vuejs.org/).",
+      "codeAnnotation": "<br>After you have Vue-CLI project you could install Vustic as a Vue-CLI package:"
+    },
+    "nuxt": {
+      "title": "Nuxt installation",
+      "description": "Vuestic UI can be added by adding plugin after installation. Create plugin and include it into `nuxt.config.js`:"
     },
     "manual": {
-      "title": "Manual installation"
+      "title": "Manual installation",
+      "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic on the scratch project."
     }
   },
   "roadmap": {
@@ -2434,10 +2447,33 @@
     "title": "Work In Progress"
   },
   "accessibilityGuide": {
-    "title": "Work In Progress"
+    "title": "Accessibility",
+    "description": "Vuestic UI components supports keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
+    "keyboardInteractions": {
+      "title": "Keyboard accessible",
+      "description": "All the interactive elements of your page e.g. text boxes, buttons etc can be accessible by keyboard. That means you should be able to bring focus on them by using Tab and Shift+Tab keys."
+    },
+    "customElements": {
+      "title": "Guideline for custom elements",
+      "description": "WIP"
+    }
   },
   "configurationGuide": {
-    "title": "Work In Progress"
+    "title": "Configuration",
+    "colors": {
+      "title": "Color themes",
+      "description": "Default Vuestic UI config contain **2 pre-installed color themes** that can be easily extented by your own:"
+    },
+    "icons": {
+      "title": "Icon fonts",
+      "description": "By default Vuestic UI uses **material design icons** so dont forget to install it:"
+    },
+    "components": {
+      "title": "Components config",
+      "description": "Sometimes you want to manage your components default state, did it equal in many places. We design Vuestic UI in that way. With help of `components` config object you can set default state of Vuestic UI components in whole app:",
+      "setConfig": "Set default state of each component by setting props defaults:",
+      "example": "In example above we have configured all Vuestic UI buttons `squared`, `outlined` and `small sized`. Simple as passing props to component!"
+    }
   },
   "browserSupport": {
     "title": "Work In Progress"

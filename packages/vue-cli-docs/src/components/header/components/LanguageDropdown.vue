@@ -30,7 +30,7 @@
 // @ts-nocheck
 import { Options, Vue, setup } from 'vue-class-component'
 import { languages } from './../../languages'
-import { useColors } from '../../../../../ui/src/main'
+import { getColors } from '../../../../../ui/src/main'
 
 @Options({
   name: 'language-dropdown',
@@ -59,15 +59,8 @@ export default class LanguageDropdown extends Vue {
   }
 
   get colors () {
-    return this.setupData.getColors()
+    return getColors()
   }
-
-  setupData = setup(() => {
-    const { getColors } = useColors()
-    return {
-      getColors,
-    }
-  })
 }
 </script>
 
