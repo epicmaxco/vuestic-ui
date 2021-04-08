@@ -131,11 +131,10 @@ const withConfigTransport = (component: any): any => {
       },
     }), {}),
     setup (props: Record<string, any>, context: SetupContext) {
-      const configChain = useLocalConfig()
-
       const { getGlobalConfig } = useGlobalConfig()
 
       const computedProps = computed(() => {
+        const configChain = useLocalConfig().nextChain.value
         const componentsConfig = getGlobalConfig().components
         const getConfigValue = createConfigValueGetter(componentsConfig || {}, configChain, componentName)
 

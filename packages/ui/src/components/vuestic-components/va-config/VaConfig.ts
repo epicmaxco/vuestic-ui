@@ -1,4 +1,4 @@
-import { inject, provide } from 'vue'
+import { inject, provide, computed, toRefs, defineComponent } from 'vue'
 import { Options, prop, Vue, setup } from 'vue-class-component'
 
 import { ComponentConfig } from '../../../services/component-config/component-config'
@@ -29,32 +29,61 @@ export const mergeConfigs = (
  */
 export const LocalConfigKey = Symbol('LocalConfigKey')
 
-export const CONFIGS_DEFAULT = []
+export const CONFIGS_DEFAULT = { nextChain: { value: [] } }
 
-export function useLocalConfig (): ComponentConfig[] {
-  return inject(LocalConfigKey, CONFIGS_DEFAULT || [])
+export function useLocalConfig () {
+  return inject(LocalConfigKey, CONFIGS_DEFAULT)
 }
 
 const ConfigPropsMixin = Vue.with(class {
   components = prop<ContextConfig>({ type: Object, default: () => ({}) })
 })
 
-// @ts-ignore
-@Options({
+export default defineComponent({
   name: 'VaConfig',
-})
-export default class VaConfig extends ConfigPropsMixin {
-  provider = setup(() => {
-    const prevChain = useLocalConfig()
-    const nextChain = [...prevChain, this.$props.components]
+  props: {
+    components: { type: Object, default: () => ({}) },
+  },
+  setup (props) {
+    const { components } = toRefs(props)
+    const prevChain = useLocalConfig().nextChain
+    const nextChain = computed(() => [...prevChain.value, components.value])
+    // const nextChain =
 
-    provide(LocalConfigKey, nextChain)
+    const provideContext = {
+      nextChain,
+    }
 
-    return {}
-  })
+    provide(LocalConfigKey, provideContext)
 
-  // @ts-ignore
+    return {
+      props: provideContext,
+    }
+  },
   render () {
     return this.$slots.default ? this.$slots.default() : null
-  }
-}
+  },
+})
+// @ts-ignore
+// @Options({
+//   name: 'VaConfig',
+// })
+// export default class VaConfig extends ConfigPropsMixin {
+//   provider = setup(() => {
+//     const { components } = toRefs(this.$props)
+//     const prevChain = useLocalConfig().nextChain.value
+//     const nextChain = [...prevChain, components?.value]
+//     const provideContext = {
+//       nextChain: computed(() => nextChain),
+//     }
+
+//     provide(LocalConfigKey, provideContext)
+
+//     return {}
+//   })
+
+//   // @ts-ignore
+//   render () {
+//     return this.$slots.default ? this.$slots.default() : null
+//   }
+// }
