@@ -10,7 +10,7 @@ import { kebabCase } from 'lodash'
 import { TranslationString } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 import { Options, Vue, mixins, prop, setup } from 'vue-class-component'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
-import { setupColors } from '../../../ui/src/main'
+import { useColors } from '../../../ui/src/main'
 
 class Props {
   text = prop<TranslationString>({ type: String })
@@ -31,7 +31,7 @@ export default class DocsSubtitle extends mixins(PropsMixin) {
   }
 
   setupData = setup(() => {
-    const { getColors } = setupColors()
+    const { getColors } = useColors()
     return {
       getColors,
     }
