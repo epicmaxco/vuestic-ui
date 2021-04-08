@@ -933,7 +933,11 @@
     "translation": "Translation",
     "browserSupport": "Browser Support",
     "table": "Table",
-    "guide": "Guide"
+    "guide": "Guide",
+    "iconsConfig": "Icons Config",
+    "services": "Services",
+    "globalConfig": "Global Config",
+    "advancedIconsConfig": "Advanced Icons Config"
   },
   "all": {
     "examples": "Examples",
@@ -2557,5 +2561,51 @@
       "title": "Credits",
       "description": "<a href=\"https://github.com/epicmaxco/vuestic-ui/graphs/contributors\">Hall of fame!</a>"
     }
+  },
+  "globalConfig": {
+    "title": "Global config",
+    "subtitle": "With Global config we can configure colors, icons and any prop for any component. ",
+    "structure": "Global config consists of icons, colors and components configs. ",
+    "setupExampleTitle": "We can provide our custom config with VuesticPlugin, if we want to:",
+    "reactiveExampleTitle": "Or we can update our config on runtime:",
+    "componentsConfig": {
+      "title": "Components config",
+      "subtitle": "With component config we can override default props for any vuestic component we want. Components config is a object where key is `component name` and value is `component props` which we want to overwrite. For example:",
+      "demoTitle": "In example below we can change global style of all buttons on whole Vuestic Documentation site.",
+      "demoButtonText": "Apply globally",
+      "vaConfig": {
+        "title": "Scoped config",
+        "subtitle": "We can use VaConfig to override component props inside `<va-config></va-config>` tag. Components config for all component inside `va-config` tag will be overwritten to `components` prop value. Let's look at the demo below:",
+        "explain": "Look at the code. In this demo we have changed default color for all our `VaButton` and `VaIcons`. Also we pass prop to third button which value is more important than in scoped config."
+      }
+    }
+  },
+  "iconsConfig": {
+    "title": "Icons config",
+    "about": "By default Vuestic UI provides Material Design icons. If we want to use additional font libraries we can configure VaIcon to use them.",
+    "fonts": "Fonts",
+    "aliases": "Aliases",
+    "setup": "Let's build our config",
+    "readMore": "Read more",
+    "example": "Example",
+    "fontNamePatter": "Font name pattern",
+    "aboutFontPattern": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate icon class, content or props. Dynamic segments should be written in curly brackets.",
+    "fontExplanation": "We want to use `<va-icon name='icon-name' />` pattern. We can setup config for specific icon name pattern. In this config we can provide icon class, content (innerHTML) or Vue component relative to icon name.",
+    "fontAwesomeExampleTitle": "For example, we want to use FontAwesome4 icons. We need to provide icon name pattern with dynamic segment. Then we can use values from our dynamic segments to create icon class, content or props for our custom component if component provided. For FontAwesome4 we need to set specific class and empty content.",
+    "fontAwesomeExampleExplanation": "For now, all icons with `fa4-` prefix will use specific config.\nFor example `<va-icon name='fa4-phone' />` will be transformed to `<i class='fa4 fa fa-phone' style='color: #e0e0e0;' />`",
+    "flagExampleTitle": "We can use as many dynamic segments as we want. For example we can use additional params for our icon font",
+    "flagExampleExplanation": "Also we added config for flag icons. For example `<va-icon name='flag-usa-small' />` will be transformed to `<i class='flag-icon flag-usa flag-small' />`",
+    "advancedFontsUsage": "Advanced fonts usage",
+    "aliasExplanation": "To make code simpler we can use aliases. Alias has a `to` prop which will change name on current icon to `to` string and then it will looks for appropriate font config. All props from founded font will be applied to current icon if they was not defined in alias config.",
+    "aliasExampleTitle": "We can define them in our config like in example below:",
+    "aliasTwitterExampleExplanation": "Now we can write `<va-icon name='twitter' />`  code which will be transformed to `<i class='fa4 fa fa-twitter' style='color: #1da1f2;' />`. ",
+    "aliasVuesticExampleExplanation": "Also if we write `<va-icon name='vuestic-logo' />`, then VaIcon will use our custom vue component and `style='color: #62e471;'` will be applied to it.",
+    "setupExplanation": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Veustic defaults and our custom fonts and aliases. For example:",
+    "iconConfigAPI": "Icon config API"
+  },
+  "advancedIconsConfig": {
+    "title": "Advanced icons config",
+    "subtitle": "Icons config is a flat array. VaIcon looks for first appropriate name (strict string, regex or dynamic segment). Then, if config has a `to` prop it looks for additional config that appropriate for `to`.",
+    "priority": "Here you can see how its works"
   }
 }

@@ -322,7 +322,11 @@
     "translation": "Translation",
     "browserSupport": "Browser Support",
     "table": "Table",
-    "guide": "Guide"
+    "guide": "Guide",
+    "iconsConfig": "Icons Config",
+    "services": "Services",
+    "globalConfig": "Global Config",
+    "advancedIconsConfig": "Advanced Icons Config"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -429,6 +433,15 @@
     "title": "-- Here is the title --"
   },
   "guide": {
+    "title": "-- Here is the title --"
+  },
+  "iconsConfig": {
+    "title": "-- Here is the title --"
+  },
+  "globalConfig": {
+    "title": "-- Here is the title --"
+  },
+  "advancedIconsConfig": {
     "title": "-- Here is the title --"
   }
 }

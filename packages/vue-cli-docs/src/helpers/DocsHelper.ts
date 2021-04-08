@@ -36,10 +36,11 @@ export const DocsHelper = {
       translationString,
     }
   },
-  example: (component: PathToExample): ApiDocsBlock => {
+  example: (component: PathToExample, props?: { [key: string]: any }): ApiDocsBlock => {
     return {
       type: BlockType.EXAMPLE,
       component,
+      props,
     }
   },
   code: (code: CodeString): ApiDocsBlock => {

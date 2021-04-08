@@ -35,6 +35,7 @@ export type ApiDocsBlock =
   | {
       type: BlockType.EXAMPLE,
       component: PathToExample, // path to example
+      props?: { [key: string]: any }
     }
   | {
       type: BlockType.CODE,
