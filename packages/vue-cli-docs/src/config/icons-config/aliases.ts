@@ -26,6 +26,10 @@ export const aliases: IconsConfig = [
     to: 'fa4-search',
   },
   {
+    name: 'star_empty',
+    to: 'fa4-star-o',
+  },
+  {
     name: 'warning',
     to: 'warning',
   },
