@@ -1,7 +1,8 @@
 import { h } from 'vue'
 import { mixins } from 'vue-class-component'
 import { mount } from '@vue/test-utils'
-import ColorMixin, { isCssColor } from './ColorMixin'
+import { isCssColor } from './color-functions'
+import ColorMixin from './ColorMixin'
 
 export default class ExampleComponent extends mixins(ColorMixin) {
   render () {

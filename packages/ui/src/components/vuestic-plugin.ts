@@ -85,11 +85,9 @@ import DropdownPopperSubplugin
 // import { registerVuesticObject } from './resize-events'
 import ToastInstall from './vuestic-components/va-toast/install'
 
-import { useGlobalConfig, GlobalConfigPlugin, GlobalConfig } from '../services/GlobalConfigPlugin'
-import { getDefaultConfig } from './vuestic-components/va-config/config-default'
-import { setupColors } from '../services/color-config/color-config'
+import { GlobalConfig } from '../services/global-config/global-config'
+import { GlobalConfigPlugin } from '../services/global-config/global-config-plugin'
 import VaSpacer from './vuestic-components/va-spacer'
-import { colorsPresets } from '../services/color-config/color-theme-presets'
 
 installPlatform()
 
@@ -188,17 +186,5 @@ export const VuesticPlugin = {
     app.use(ToastInstall)
 
     app.use(GlobalConfigPlugin, vuesticConfig)
-
-    app.mixin({
-      setup () {
-        const { setGlobalConfig } = useGlobalConfig()
-
-        setGlobalConfig(getDefaultConfig())
-
-        const { setColors } = { ...setupColors() }
-
-        setColors && setColors(colorsPresets.default)
-      },
-    })
   },
 }

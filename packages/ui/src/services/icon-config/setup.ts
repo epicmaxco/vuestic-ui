@@ -1,10 +1,10 @@
-import { useGlobalConfig } from '../GlobalConfigPlugin'
+import { getGlobalConfig } from '../global-config/global-config'
 import { getIconConfig } from './get-icon-config'
 import { copyObjectWithoutUndefined } from './utils'
 
-export const setupIcons = (props: any) => {
+export const useIcons = (props: any) => {
   const getIcon = (name: string) => {
-    const globalConfig = useGlobalConfig().getGlobalConfig()
+    const globalConfig = getGlobalConfig()
     const iconsConfig = globalConfig.icons
     const config = getIconConfig(name, iconsConfig)
     const iconPropsArray = copyObjectWithoutUndefined(props)
@@ -12,6 +12,7 @@ export const setupIcons = (props: any) => {
   }
 
   return {
+    // TODO: export here function that can dynamically change icons config
     getIcon,
   }
 }

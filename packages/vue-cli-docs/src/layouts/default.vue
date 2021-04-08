@@ -41,8 +41,8 @@ import { provide, reactive } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
-import { COLOR_THEMES, ThemeName } from '../theme-config'
-import { setupColors } from '../../../ui/src/main'
+import { COLOR_THEMES, ThemeName } from '../config/theme-config'
+import { useColors } from '../../../ui/src/main'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 
 @Options({
@@ -93,7 +93,7 @@ export default class DocsLayout extends Vue {
   }
 
   setupData = setup(() => {
-    const { setColors: setTheme } = setupColors()
+    const { setColors: setTheme } = useColors()
     return { setTheme }
   })
 

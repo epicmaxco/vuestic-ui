@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { setupColors } from 'vuestic-ui/src/services/color-config/color-config'
+import { useColors } from 'vuestic-ui/src/services/color-config/color-config'
 
 export default {
   data () {
@@ -26,7 +26,7 @@ export default {
   },
 
   setup () {
-    const { getColors } = setupColors()
+    const { getColors } = useColors()
     return {
       getColors,
     }

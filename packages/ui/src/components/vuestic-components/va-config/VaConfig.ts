@@ -1,7 +1,6 @@
 import { inject, provide } from 'vue'
 import { Options, prop, Vue, setup } from 'vue-class-component'
 
-import { GlobalConfig } from '../../../services/GlobalConfigPlugin'
 import { ComponentConfig } from '../../../services/component-config/component-config'
 
 export type ContextConfig = Record<string, Record<string, any>>
