@@ -1,16 +1,16 @@
 <template>
   <p>
-    {{ preText }}
+    {{ $te(preText) ? $t(preText) : preText }}
     <router-link :to="href">
-      {{ $t(text) }}
+      {{ $te(text) ? $t(text) : text }}
     </router-link>
-    {{ afterText }}
+    {{ $te(afterText) ? $t(afterText) : afterText }}
   </p>
 </template>
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import MarkdownView from '@/utilities/markdown-view/MarkdownView.vue'
+import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 
 class Props {
   text = prop<string>({ type: String, required: true })

@@ -55,12 +55,11 @@ export const DocsHelper = {
       apiOptions,
     }
   },
-  table: (columns: TableColum[], tableData: TableData, title?: string) => {
+  table: (columns: TableColum[], tableData: TableData) => {
     return {
       type: BlockType.TABLE,
       columns,
       tableData,
-      title,
     }
   },
   link: (text: string, href: string, options?: { preText?: string, afterText?: string }) => {
