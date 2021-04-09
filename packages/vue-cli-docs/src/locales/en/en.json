@@ -2659,6 +2659,11 @@
       "title": "Scoped config",
       "subtitle": "We can use VaConfig to override component props inside `<va-config></va-config>` tag. Components config for all component inside `va-config` tag will be overwritten to `components` prop value. Let's look at the demo below:",
       "explain": "Look at the code. In this demo we have changed default color for all our `VaButton` and `VaIcons`. Also we pass prop to third button which value is more important than in scoped config."
+    },
+    "api": {
+      "title": "Component config service API",
+      "types": "Types",
+      "ComponentConfig": "Object where key is Vuestic component name and value is component props"
     }
   },
   "colorsConfig": {

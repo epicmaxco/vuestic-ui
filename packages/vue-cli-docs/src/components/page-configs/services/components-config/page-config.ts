@@ -1,6 +1,7 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { t } from '../../../../helpers/I18nHelper'
+import { api } from './sections'
 
 const cc = (text: string) => (`componentsConfig.${text}`)
 const vc = (text: string) => cc(`vaConfig.${text}`)
@@ -34,12 +35,5 @@ export default [
   DocsHelper.example('components-config/va-config'),
   DocsHelper.paragraph(vc('explain')),
 
-  DocsHelper.headline('API'),
-  DocsHelper.code(`
-    type ComponentConfig = {
-      [componentName: string]: {
-        [componentProp: string]: any
-      }
-    }
-  `),
+  ...api,
 ] as ApiDocsBlock[]
