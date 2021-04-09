@@ -37,7 +37,7 @@
     },
     "seamless": {
       "title": "Seamless Integration",
-      "text": "Use Vuestic UI with other component libraries without any conflicts.",
+      "text": "Use **Vuestic UI** with other component libraries without any conflicts.",
       "compare": {
         "vuestic": "Vuestic UI components",
         "other": "Other components"
@@ -45,7 +45,7 @@
     },
     "customize": {
       "title": "Customize Everything",
-      "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
+      "text": "Make **Vuestic UI** components match your designs with powerful dynamic configs.",
       "tabs": [
         "Large Modern",
         "Styles",
@@ -57,17 +57,17 @@
     "opensource": {
       "title": "Open Source",
       "text": [
-        "Vuestic UI is forever free and open to contributions. See our",
+        "**Vuestic UI** is forever free and open to contributions. See our",
         "issues",
         "contributing guide",
         "and",
         "discord server",
-        "to help us improve Vuestic UI experience."
+        "to help us improve **Vuestic UI** experience."
       ]
     },
     "admin": {
       "title": "Vuestic Admin",
-      "text": "Check out Vuestic UI Library in action.",
+      "text": "Check out **Vuestic UI** Library in action.",
       "buttons": {
         "github": "View on GitHub",
         "demo": "Live Demo",
@@ -933,7 +933,8 @@
     "translation": "Translation",
     "browserSupport": "Browser Support",
     "table": "Table",
-    "guide": "Guide"
+    "guide": "Guide",
+    "cssVariables": "CSS Variables"
   },
   "all": {
     "examples": "Examples",
@@ -2415,25 +2416,27 @@
   },
   "installation": {
     "title": "Installation",
+    "description": "Get started with the **Vuestic UI** to create feature-rich and user-friendly apps thanks to our highly configurable framework. We have simplified the installation process as much as possible to save you extra effort. Installation is possible in few ways.",
     "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
     "prerequisites": "First, make sure you have all prerequisites installed:",
     "node": "- <a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
     "npm": "- <a href=\"https://www.npmjs.com/get-npm\">npm</a> version 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) and <a href=\"https://git-scm.com/\">Git</a>.",
-    "afterCheck": "After checking the prerequisites, install Vuestic UI via npm/yarn:",
+    "afterCheck": "After checking the prerequisites, install **Vuestic UI** via npm/yarn:",
     "quickStart": {
       "title": "Quick start",
       "description": "Make sure you're imported both styles and plugin into your entry file:"
     },
     "cli": {
       "title": "Vue-CLI installation",
-      "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic on the scratch project.",
-      "attention": "<br>**Attention! Using that way will make changes in you `package.json` dependencies and `main.js(ts)` files. Make sure that you commit your code to avoid data loss.**",
-      "linkToOfficial": "<br>To use installation via CLI you will need to install Vue-CLI first. To get more information please visit [Vue-CLI official documentation](https://cli.vuejs.org/).",
-      "codeAnnotation": "<br>After you have Vue-CLI project you could install Vustic as a Vue-CLI package:"
+      "prepare": "To work with **Vuestic UI** via its Vue CLI plugin, you will need to make sure you have <a href=\"https://cli.vuejs.org/guide/installation.html\">Vue CLI</a> installed globally. To make sure you have the right version, use this command:",
+      "upgrade": "If you have **Vue CLI version 3.x.x** or lower you should `upgrade` it by the following <a href=\"https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3\">guide</a>",
+      "description": "The easy way if you use the Vue-CLI setup or you want to try out the **Vuestic UI** on the scratch project.",
+      "attention": "**Attention! Using that way will make changes in you `package.json` dependencies and `main.js(ts)` files. Make sure that you commit your code to avoid data loss.**",
+      "codeAnnotation": "After you have Vue-CLI project you could install Vustic as a Vue-CLI package:"
     },
     "nuxt": {
       "title": "Nuxt installation",
-      "description": "Vuestic UI can be added by adding plugin after installation. Create plugin and include it into `nuxt.config.js`:"
+      "description": "**Vuestic UI** can be added by adding plugin after installation. Create plugin and include it into `nuxt.config.js`:"
     },
     "manual": {
       "title": "Manual installation",
@@ -2442,7 +2445,7 @@
   },
   "roadmap": {
     "title": "The Vuestic UI Roadmap",
-    "description": "The Vuestic UI is always growing, trying to get better. Our team is constantly working to improve the existing code base, adding new features that help make building applications even easier.",
+    "description": "The **Vuestic UI** is always growing, trying to get better. Our team is constantly working to improve the existing code base, adding new features that help make building applications even easier.",
     "inDevelopment": {
       "title": "In development",
       "description": "The following releases are currently being developed:"
@@ -2465,7 +2468,7 @@
   },
   "accessibilityGuide": {
     "title": "Accessibility",
-    "description": "Vuestic UI components supports keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
+    "description": "**Vuestic UI** components supports keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
     "keyboardInteractions": {
       "title": "Keyboard accessible",
       "description": "All the interactive elements of your page e.g. text boxes, buttons etc can be accessible by keyboard. That means you should be able to bring focus on them by using Tab and Shift+Tab keys."
@@ -2479,37 +2482,37 @@
     "title": "Configuration",
     "colors": {
       "title": "Color themes",
-      "description": "Default Vuestic UI config contain **2 pre-installed color themes** that can be easily extented by your own:"
+      "description": "Default **Vuestic UI** config contain **2 pre-installed color themes** that can be easily extented by your own:"
     },
     "icons": {
       "title": "Icon fonts",
-      "description": "By default Vuestic UI uses **material design icons** so dont forget to install it:"
+      "description": "By default **Vuestic UI** uses **material design icons** so dont forget to install it:"
     },
     "components": {
       "title": "Components config",
-      "description": "Sometimes you want to manage your components default state, did it equal in many places. We design Vuestic UI in that way. With help of `components` config object you can set default state of Vuestic UI components in whole app:",
+      "description": "Sometimes you want to manage your components default state, did it equal in many places. We design **Vuestic UI** in that way. With help of `components` config object you can set default state of **Vuestic UI** components in whole app:",
       "setConfig": "Set default state of each component by setting props defaults:",
-      "example": "In example above we have configured all Vuestic UI buttons `squared`, `outlined` and `small sized`. Simple as passing props to component!"
+      "example": "In example above we have configured all **Vuestic UI** buttons `squared`, `outlined` and `small sized`. Simple as passing props to component!"
     }
   },
   "browserSupport": {
     "title": "Browser Support",
-    "description": "We design Vuestic UI to support the latest modern web browsers."
+    "description": "We design **Vuestic UI** to support the latest modern web browsers."
   },
   "overview": {
     "title": "What is Vuestic UI",
-    "description": "The Vuestic UI is a complete user interface framework built on top of Vue 3. The goal of the project is to provide developers with the tools they need to create a beatiful UI with the possibility of deep customization.",
+    "description": "The **Vuestic UI** is a complete user interface framework built on top of Vue 3. The goal of the project is to provide developers with the tools they need to create a beatiful UI with the possibility of deep customization.",
     "vueThreeCompatible": {
       "title": "Vue.js 3.0 compatible",
-      "description": "Vuestic UI was created with 100% Vue.js 3 compatible "
+      "description": "**Vuestic UI** was created with 100% Vue.js 3 compatible "
     },
     "featureRich": {
       "title": "Feature-rich: more than 52 customizable components",
-      "description": "Vuestic UI cointan massive pack of deep-customizable components that could be used in any design solution."
+      "description": "**Vuestic UI** cointan massive pack of deep-customizable components that could be used in any design solution."
     },
     "themesPreset": {
       "title": "Two built-in color scheme presets",
-      "description": "Vuestic UI comes with two pre-installed themes `default` and `corporate`. Also you can make your corrections in existing themes or create your own."
+      "description": "**Vuestic UI** comes with two pre-installed themes `default` and `corporate`. Also you can make your corrections in existing themes or create your own."
     },
     "configurations": {
       "title": "Powerful configurations",
@@ -2518,15 +2521,15 @@
     },
     "responsive": {
       "title": "Cross-browser and responsive",
-      "description": "You no longer need to worry about how the components will look on different devices or in different browsers. The Vuestic UI is designed to be fully responsive and also has support for all the latest versions of modern browsers."
+      "description": "You no longer need to worry about how the components will look on different devices or in different browsers. The **Vuestic UI** is designed to be fully responsive and also has support for all the latest versions of modern browsers."
     },
     "translatable": {
       "title": "i18n-ready",
-      "description": "The Vuestic UI integrates seamlessly with the i18n"
+      "description": "The **Vuestic UI** integrates seamlessly with the i18n"
     },
     "whyVuestic": {
       "title": "Why you should prefer Vuestic UI?",
-      "description": "Vuestic UI provides a lot of benefits and great features."
+      "description": "**Vuestic UI** provides a lot of benefits and great features."
     }
   },
   "translation": {
@@ -2556,7 +2559,7 @@
   },
   "guide": {
     "title": "Contribution guide",
-    "description": "This guide describes ways in which you can become part of the ongoing development of the Vuestic user interface. We are really excited that you are interested in contributing to Vuestic UI.",
+    "description": "This guide describes ways in which you can become part of the ongoing development of the Vuestic user interface. We are really excited that you are interested in contributing to **Vuestic UI**.",
     "pullRequests": {
       "title": "Pull Request Guidelines",
       "description": {
@@ -2604,6 +2607,18 @@
     "credits": {
       "title": "Credits",
       "description": "<a href=\"https://github.com/epicmaxco/vuestic-ui/graphs/contributors\">Hall of fame!</a>"
+    }
+  },
+  "cssVariables": {
+    "title": "Css Variables",
+    "description": "Vuestic UI extract css as <a href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties\">CSS variables (custom properties)</a>. No need to install any loaders or additional packages to override components styles. You can deeply customize components using simple syntax to change css in your project.",
+    "convention": {
+      "title": "Convention",
+      "description": "**Vuestic UI** uses following convention to organize CSS Variables for more convenient use:"
+    },
+    "overriding": {
+      "title": "Overriding",
+      "description": "You don't need any specific knowledges or packages. Just create file like `overrides.css`, import it into your main.js(ts) file and start redefining as easy as you write css properties:"
     }
   }
 }
