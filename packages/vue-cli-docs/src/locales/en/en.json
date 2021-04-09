@@ -2585,10 +2585,17 @@
   "iconsConfig": {
     "title": "Icons config",
     "about": "By default Vuestic UI provides Material Design icons. If we want to use additional font libraries we can configure VaIcon to use them.",
+    
+    "problemDefinition": "There is the problem with icon libraries. They usually uses different interface to render icons.",
+    "materialIconsExample": "For example material-icons want us to set `material-icons` class and provide icon name inside `span` tag.",
+    "fontAwesomeExample": "If we want to use FontAwesome5 we need to provide `fas` class and then provide class with icon name and prefix `fa-` on `i` tag.",
+    "reasonToUseIconsConfig": "With Icons Config we can simply provide icon name in style that we want. We need to configure how provided name will be rendered only one time.",
+
     "fonts": "Fonts",
     "aliases": "Aliases",
     "setup": "Let's build our config",
     "readMore": "Read more",
+    "readBeforeStart": "Read about icons",
     "example": "Example",
     "fontNamePatter": "Font name pattern",
     "aboutFontPattern": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate icon class, content or props. Dynamic segments should be written in curly brackets.",

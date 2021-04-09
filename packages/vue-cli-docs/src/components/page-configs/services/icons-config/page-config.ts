@@ -1,16 +1,29 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { setupCodeExample, fa4FontCodeExample, aliasCodeExample } from './examples'
-import { t, locale } from '../../../../helpers/I18nHelper'
+import { locale } from '../../../../helpers/I18nHelper'
 
 const prefix = (text: string) => `iconsConfig.${text}`
-const url = (text: string, href: string) => `[${t(text)}]()`
-const readMoreLink = (text: string, href: string) =>
-  DocsHelper.paragraph(`<b>${t(prefix('readMore'))} ${url(text, href)}</b>`)
 
 export default [
   DocsHelper.title(prefix('title')),
   DocsHelper.paragraph(prefix('about')),
+  DocsHelper.link(prefix('readBeforeStart'), `/${locale}/ui-elements/icon`),
+
+  // Problem
+  DocsHelper.paragraph(prefix('problemDefinition')),
+  DocsHelper.paragraph(prefix('materialIconsExample')),
+  DocsHelper.code(`
+    <span class="material-icons">
+      star
+    </span>
+  `),
+
+  DocsHelper.paragraph(prefix('fontAwesomeExample')),
+  DocsHelper.code(`
+    <i class="fas fa-star"></i>
+  `),
+  DocsHelper.paragraph(prefix('reasonToUseIconsConfig')),
 
   DocsHelper.subtitle(prefix('fonts')),
   DocsHelper.paragraph(prefix('fontExplanation')),
@@ -25,7 +38,7 @@ export default [
   DocsHelper.paragraph(prefix('flagExampleTitle')),
   DocsHelper.paragraph(prefix('flagExampleExplanation')),
   DocsHelper.paragraph('<br />'),
-  DocsHelper.link(prefix('advancedFontsUsage'), `/${locale}/services/global-config`, { preText: 'Read more' }),
+  DocsHelper.link(prefix('advancedFontsUsage'), `/${locale}/services/global-config`, { preText: prefix('readMore') }),
 
   DocsHelper.subtitle(prefix('aliases')),
   DocsHelper.paragraph(prefix('aliasExplanation')),
@@ -45,10 +58,10 @@ export default [
     ['Prop', { title: 'Type', type: 'code' }, 'Description'],
     [
       ['name', 'string | RegExp', 'VaIcon name template'],
-      ['iconClass', 'string | ((...regexGroups: string[]) => string) | undefined', 'You can specify class based on regex groups values from name.'],
-      ['content', 'string | ((...regexGroups: string[]) => string | undefined) | undefined', 'You cab specify content inside icon tag.'],
+      ['iconClass', 'string | ((...dynamicSegments: string[]) => string) | undefined', 'You can specify class based on regex groups values from name.'],
+      ['content', 'string | ((...dynamicSegments: string[]) => string | undefined) | undefined', 'You cab specify content inside icon tag.'],
       ['component', '`VueComponent | undefined`', 'You can render specific vue component instead of VaIcon tag.'],
-      ['componentProps', '`Record<string, any> | ((...regexGroups: string[]) => Record<string, any>) | undefined`', 'You can specify which props will be bound to your custom component'],
+      ['componentProps', '`Record<string, any> | ((...dynamicSegments: string[]) => Record<string, any>) | undefined`', 'You can specify which props will be bound to your custom component'],
       ['to', '`string | undefined`', 'Used in aliases as new name to search in icons config'],
       ['tag', '`string | undefined`', ''],
       ['color', '`string | undefined`', ''],
@@ -58,11 +71,3 @@ export default [
     ],
   ),
 ] as ApiDocsBlock[]
-
-// export type ManualApiOptions = {
-//   version?: VersionString;
-//   props?: Record<string, ManualPropApiOptions>;
-//   methods?: Record<string, ManualMethodApiOptions>;
-//   events?: Record<string, ManualEventApiOptions>;
-//   slots?: Record<string, ManualSlotApiOptions>;
-// }
