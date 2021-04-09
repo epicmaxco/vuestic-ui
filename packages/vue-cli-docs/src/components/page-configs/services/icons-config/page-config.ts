@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { setupCodeExample, fa4FontCodeExample, aliasCodeExample } from './examples'
-import { t, locale } from '../../../../helpers/i18nHelper'
+import { t, locale } from '../../../../helpers/I18nHelper'
 
 const prefix = (text: string) => `iconsConfig.${text}`
 const url = (text: string, href: string) => `[${t(text)}]()`

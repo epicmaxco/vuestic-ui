@@ -1,6 +1,6 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { t } from '../../../../helpers/i18nHelper'
+import { t } from '../../../../helpers/I18nHelper'
 
 const cc = (text: string) => (`componentsConfig.${text}`)
 const vc = (text: string) => cc(`vaConfig.${text}`)

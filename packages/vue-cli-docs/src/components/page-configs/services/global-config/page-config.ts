@@ -1,6 +1,6 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { t, locale } from '../../../../helpers/i18nHelper'
+import { t, locale } from '../../../../helpers/I18nHelper'
 
 const gc = (text: string) => `globalConfig.${text}`
 const api = (text: string) => gc(`api.${text}`)
@@ -53,6 +53,5 @@ export default [
       ['components', 'ComponentsConfig', t(api('components'))],
       ['colors', 'ColorsConfig', t(api('colors'))],
     ],
-    'API',
   ),
 ] as ApiDocsBlock[]
