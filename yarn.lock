@@ -17697,7 +17697,7 @@ vue-jest@^5.0.0-alpha.7:
     extract-from-css "^0.4.4"
     tsconfig "^7.0.0"
 
-vue-lang-router@^2.0.0-beta.3:
+vue-lang-router@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/vue-lang-router/-/vue-lang-router-2.1.1.tgz#b4bc517643bd001ec3b1c6a4afcc32c28a946083"
   integrity sha512-N4QSFU12yvGira3zbeUk2/lPfUj4tuzLJNwgI44DZCZCO2kyj6FTJc+nFhrh1fyHmH/acgW4JbIrdOOFQU9ZFA==
