@@ -42,7 +42,7 @@ export default [
   DocsHelper.subtitle('cssVariables.convention.title'),
   DocsHelper.paragraph('cssVariables.convention.description'),
   DocsHelper.code(generalScheme),
-  DocsHelper.code(componentSheme, 'markdown'),
+  DocsHelper.code(componentSheme),
   DocsHelper.subtitle('cssVariables.overriding.title'),
   DocsHelper.paragraph('cssVariables.overriding.description'),
   DocsHelper.code(overriding),
