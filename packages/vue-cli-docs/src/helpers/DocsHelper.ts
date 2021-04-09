@@ -6,6 +6,7 @@ import {
   TextBlock,
   PathToExample,
   CodeString,
+  ExampleComponentProps,
 } from '@/types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
@@ -36,10 +37,11 @@ export const DocsHelper = {
       translationString,
     }
   },
-  example: (component: PathToExample): ApiDocsBlock => {
+  example: (component: PathToExample, props?: ExampleComponentProps): ApiDocsBlock => {
     return {
       type: BlockType.EXAMPLE,
       component,
+      props,
     }
   },
   code: (code: CodeString): ApiDocsBlock => {
