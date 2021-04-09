@@ -2662,6 +2662,29 @@
     }
   },
   "colorsConfig": {
-    "title": "-- Here is the title --"
+    "title": "Colors config",
+    "about": "You can personalize colors that used in our app. You can dynamically redefine colors that used in Vuestic components. Also you can add own colors that we want to use in your app.",
+    "example": {
+      "about": "For example, we can change `primary` color that used in almost all Vuestic components.",
+      "demo": "You can check demo below and see how colors changing over all page."
+    },
+    "exampleWithComponentsConfig": {
+      "about": "Also we can add our own color and use it for specific components."
+    },
+    "api": {
+      "title": "Icon config service API",
+      "types": "Types",
+      "ColorConfig": "Object where key is color name and value is valid CSS color.",
+      "ColorInput": "Valid CSS color",
+      "methods": "Methods",
+      "setColors": "Used to merge new colors config",
+      "getColors": "Returns current color config",
+      "getColor": "Return color by name",
+      "getBoxShadowColor": "Return color that you can use as box shadow color.",
+      "getHoverColor": "Return color that you can use as hover color.",
+      "getFocusColor": "Return color that you can use as focus color.",
+      "getGradientBackground": "Return color that you can use as background css attribute.",
+      "hookMethods": "hook methods"
+    }
   }
 }
