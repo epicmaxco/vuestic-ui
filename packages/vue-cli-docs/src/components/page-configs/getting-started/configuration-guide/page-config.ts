@@ -100,7 +100,7 @@ export default [
   DocsHelper.subtitle('configurationGuide.icons.title'),
   DocsHelper.paragraph('configurationGuide.icons.description'),
   DocsHelper.code(iconsInstall),
-  DocsHelper.headline('WIP'),
+  DocsHelper.headline('configurationGuide.icons.title'),
   DocsHelper.paragraph('WIP'),
   DocsHelper.code(iconsConfig),
   DocsHelper.subtitle('configurationGuide.components.title'),

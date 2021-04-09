@@ -72,65 +72,12 @@ app.use(VuesticPlugin, {
 })
 `
 
-const iconsInstall = `
-yarn add material-design-icons-iconfont -D
-// or
-npm install material-design-icons-iconfont -D
-`
-
-const iconsConfig = `
-//main.js
-...
-import { VuesticPlugin, createIconsConfig } from 'vuestic-ui/src/main'
-import 'vuestic-ui/dist/vuestic-ui.css'
-
-createApp(App)
-  .use(VuesticPlugin, {
-    icons: createIconsConfig({
-      aliases: [
-        {
-          "name": "bell",
-          "to": "fa4-bell"
-        },
-        {
-          "name": "ru",
-          "to": "flag-icon-ru small"
-        },
-      ],
-      fonts: [
-        {
-          name: /fa4-(.*)/,
-          iconClass: (code) => \`fa4fafa -\${code}\`
-        },
-        {
-          name: /flag-icon-(.*) (.*)/,
-          iconClass: (code, size) => \`flag - iconflag - icon -\${code}flag - icon -\${size}\`
-        }
-      ],
-    }),
-    // ...
-  })
-`
-
-const componentsConfig = `
-//main.js
-...
-import { VuesticPlugin } from 'vuestic-ui'
-import 'vuestic-ui/dist/vuestic-ui.css'
-
-const app = createApp(App)
-app.use(VuesticPlugin, {
-  components: {
-    VaButton: {
-      outline: true,
-      round: false,
-      size: 'small',
-    },
-  },
-})
+const cliPrepare = `
+vue --version
 `
 export default [
   DocsHelper.title(config('title')),
+  DocsHelper.paragraph(config('description')),
   DocsHelper.subtitle(config('manual.title')),
   DocsHelper.paragraph(config('subtitle')),
   DocsHelper.paragraph(config('prerequisites')),
@@ -142,9 +89,10 @@ export default [
   DocsHelper.paragraph(config('quickStart.description')),
   DocsHelper.code(quickStart),
   DocsHelper.subtitle(config('cli.title')),
-  DocsHelper.paragraph(config('cli.description')),
   DocsHelper.paragraph(config('cli.attention')),
-  DocsHelper.paragraph(config('cli.linkToOfficial')),
+  DocsHelper.paragraph(config('cli.prepare')),
+  DocsHelper.code(cliPrepare),
+  DocsHelper.paragraph(config('cli.upgrade')),
   DocsHelper.paragraph(config('cli.codeAnnotation')),
   DocsHelper.code('vue add vuestic-ui'),
   // DocsHelper.subtitle(config('nuxt.title')),
