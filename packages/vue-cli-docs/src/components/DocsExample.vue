@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="my-3">
-      <component :is="component" v-bind="componentProps" />
+      <component :is="component" v-bind="exampleComponentProps" />
     </p>
     <va-button size="small" color="#cacaca" @click="showCode = !showCode">
       {{ $t('docsExample.showCode') }}
@@ -28,9 +28,8 @@ export default {
       type: [Object, String],
       default: undefined,
     },
-    componentProps: {
-      type: [Object],
-      requred: false,
+    exampleComponentProps: {
+      type: Object,
       default: () => ({}),
     },
   },

@@ -1,6 +1,5 @@
 <template>
   <div class="DocsTable">
-    <h5 v-if="title">{{ title }}</h5>
     <table class="DocsTable__table">
       <thead>
       <tr>
@@ -26,8 +25,11 @@
             <template v-else-if="columnsComputed[index].type === 'pre'">
               <pre>{{ colData }}</pre>
             </template>
+            <template v-else-if="columnsComputed[index].type === 'translationString'">
+              {{  $t(colData) }}
+            </template>
             <template v-else>
-              {{ colData }}
+              {{ $te(colData) ? $t(colData) : colData }}
             </template>
           </td>
         </tr>
@@ -38,11 +40,10 @@
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import MarkdownView from '@/utilities/markdown-view/MarkdownView.vue'
 import { TableData, TableColum } from './DocsTable'
+import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
 
 class Props {
-  title = prop<string>({ type: String, required: true })
   columns = prop<TableColum[]>({ type: Array, required: true })
   tableData = prop<TableData>({ type: Array, required: true })
 }
