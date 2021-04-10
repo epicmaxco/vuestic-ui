@@ -230,6 +230,38 @@
           </td>
         </tr>
         <tr>
+          <td>Buttons with icons</td>
+          <td>
+            <va-config :components="{ VaIcon: { color: '#f00' } }">
+              <va-button
+                icon="gavel"
+                icon-right="shield"
+                color="warning"
+              >
+                Colored icons
+              </va-button>
+
+              <va-button
+                icon="gavel"
+                icon-right="shield"
+                color="warning"
+                flat
+              >
+                Colored icons
+              </va-button>
+
+              <va-button
+                icon="gavel"
+                icon-right="shield"
+                color="warning"
+                outline
+              >
+                Colored icons
+              </va-button>
+            </va-config>
+          </td>
+        </tr>
+        <tr>
           <td>Outline Buttons With icons</td>
           <td>
             <va-button
