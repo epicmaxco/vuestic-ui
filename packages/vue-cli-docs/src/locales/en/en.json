@@ -1287,7 +1287,7 @@
       "questions": [
         {
           "question": "Is rating component keyboard accessible?",
-          "answer": "Yes, you can use Tab(Shift+Tab) to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
+          "answer": "Yes, you can use `Tab` `(Shift+Tab)` to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
         },
         {
           "question": "Can I use every other prop in combination with **numbers** prop?",
@@ -2480,6 +2480,7 @@
   },
   "configurationGuide": {
     "title": "Configuration",
+    "description": "We have developed a convenient mechanism that allows you to deeply customize your icons, components, and colors.",
     "colors": {
       "title": "Color themes",
       "description": "Default **Vuestic UI** config contain **2 pre-installed color themes** that can be easily extented by your own:"
@@ -2501,35 +2502,35 @@
   },
   "overview": {
     "title": "What is Vuestic UI",
-    "description": "The **Vuestic UI** is a complete user interface framework built on top of Vue 3. The goal of the project is to provide developers with the tools they need to create a beatiful UI with the possibility of deep customization.",
+    "description": "The Vuestic UI was created with the goal of making development easier and reducing the time spent creating your apps. We are designed the framework in such a way as to satisfy the most sophisticated design fantasies and also allow you to realize them. All this is possible thanks to a deep component customization system based on a two-level configuration.",
     "vueThreeCompatible": {
       "title": "Vue.js 3.0 compatible",
-      "description": "**Vuestic UI** was created with 100% Vue.js 3 compatible "
+      "description": "- Fully **Vue.js 3 compatible**"
     },
     "featureRich": {
       "title": "Feature-rich: more than 52 customizable components",
-      "description": "**Vuestic UI** cointan massive pack of deep-customizable components that could be used in any design solution."
+      "description": "- Contain **massive pack of deep-customizable components** that could be used in any design solution."
     },
     "themesPreset": {
       "title": "Two built-in color scheme presets",
-      "description": "**Vuestic UI** comes with two pre-installed themes `default` and `corporate`. Also you can make your corrections in existing themes or create your own."
+      "description": "- **Two pre-installed themes** `default` and `corporate`. Also you can make your corrections in existing themes or create your own."
     },
     "configurations": {
-      "title": "Powerful configurations",
+      "title": "- Powerful configurations:\n  - **Local** - configure components in-depth. No need to create component wrappers or something like. Just pass props default of each component you want to customize and all the Vuestic UI components will be transformed into the desired look. \n  - **Global** - configure framework overall. Make the general parameters of the components as you want.",
       "localConfig": "Local - configure components in-depth",
       "globalConfig": "Global - configure framework overall"
     },
     "responsive": {
       "title": "Cross-browser and responsive",
-      "description": "You no longer need to worry about how the components will look on different devices or in different browsers. The **Vuestic UI** is designed to be fully responsive and also has support for all the latest versions of modern browsers."
+      "description": "- You no longer need to worry about how the components will look on different devices or in different browsers. Framework is fully **responsive** and also has **support for all the latest versions of modern browsers**."
     },
     "translatable": {
       "title": "i18n-ready",
-      "description": "The **Vuestic UI** integrates seamlessly with the i18n"
+      "description": "- Integrates seamlessly with the i18n"
     },
     "whyVuestic": {
-      "title": "Why you should prefer Vuestic UI?",
-      "description": "**Vuestic UI** provides a lot of benefits and great features."
+      "title": "Features overwiew",
+      "description": "- **Vuestic UI** provides a lot of benefits and great features."
     }
   },
   "translation": {

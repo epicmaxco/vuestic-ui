@@ -94,6 +94,7 @@ app.use(VuesticPlugin, {
 
 export default [
   DocsHelper.title('configurationGuide.title'),
+  DocsHelper.paragraph('configurationGuide.description'),
   DocsHelper.subtitle('configurationGuide.colors.title'),
   DocsHelper.paragraph('configurationGuide.colors.description'),
   DocsHelper.code(colorsConfig),
