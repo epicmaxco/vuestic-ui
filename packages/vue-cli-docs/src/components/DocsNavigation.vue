@@ -61,7 +61,7 @@ export default {
         {
           text: 'Open in GitHub',
           icon: 'fa fa-github',
-          url: `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/examples/${this.gitUrl}.vue`,
+          url: `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/vue-cli-docs/src/examples/${this.gitUrl}.vue`,
         },
       ],
       copyIcon: 'fa fa-files-o',
