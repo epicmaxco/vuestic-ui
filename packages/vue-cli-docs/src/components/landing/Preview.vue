@@ -4,6 +4,7 @@
       <div class="preview__inner">
         <h1 class="preview__title">{{$t('landing.preview.title')}}</h1>
         <div class="preview__buttons">
+          <test-button />
           <va-button class="preview__buttons--button"
             :to="`/${$root.$i18n.locale}/getting-started/installation`"
             :round="false"

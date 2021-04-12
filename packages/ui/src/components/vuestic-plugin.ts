@@ -1,4 +1,3 @@
-
 import { App } from 'vue'
 // @ts-ignore
 // import { BusPlugin } from 'vue-epic-bus'
@@ -89,12 +88,14 @@ import ToastInstall from './vuestic-components/va-toast/install'
 import { GlobalConfig } from '../services/global-config/global-config'
 import { GlobalConfigPlugin } from '../services/global-config/global-config-plugin'
 import VaSpacer from './vuestic-components/va-spacer'
+import TestButton from './TestButton.vue'
 
 installPlatform()
 
 export const VuesticPlugin = {
   install (app: App, vuesticConfig: GlobalConfig): void {
     [
+      TestButton,
       VaAccordion,
       VaAffix,
       VaAlert,
