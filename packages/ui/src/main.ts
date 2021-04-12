@@ -2,7 +2,7 @@ import './components/vuestic-sass/resources/_css-variables.scss'
 
 export { VuesticPlugin } from './components/vuestic-plugin'
 export { useColors, getColor, getColors, setColors } from './services/color-config/color-config'
-export { useGlobalConfig, getGlobalConfig, setGlobalConfig } from './services/global-config/global-config'
+export { useGlobalConfig, getGlobalConfig, setGlobalConfig, mergeGlobalConfig } from './services/global-config/global-config'
 export {
   useIcons,
   createIconsConfig,
