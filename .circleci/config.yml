@@ -9,7 +9,7 @@ aliases:
     command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
 
   - &build_docs
-    name: Generate static
+    name: Build Docs
     command: yarn build:docs
 
   - &save_cache

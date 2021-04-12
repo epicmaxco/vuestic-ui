@@ -25,6 +25,5 @@ const routerOptions = {
 }
 
 const router = createLangRouter(langRouterOptions, routerOptions)
-console.log('router', router)
 
 export default router
