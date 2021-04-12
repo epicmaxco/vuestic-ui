@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaAlert from 'vuestic-ui-dev/src/components/vuestic-components/va-alert/VaAlert.vue'
+import VaAlert from 'vuestic-ui/src/components/vuestic-components/va-alert/VaAlert.vue'
 import apiOptions from './api-options'
 
 export default [

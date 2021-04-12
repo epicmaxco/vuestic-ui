@@ -37,7 +37,7 @@
     },
     "seamless": {
       "title": "Seamless Integration",
-      "text": "Use Vuestic UI with other component libraries without any conflicts.",
+      "text": "Use **Vuestic UI** with other component libraries without any conflicts.",
       "compare": {
         "vuestic": "Vuestic UI components",
         "other": "Other components"
@@ -45,7 +45,7 @@
     },
     "customize": {
       "title": "Customize Everything",
-      "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
+      "text": "Make **Vuestic UI** components match your designs with powerful dynamic configs.",
       "tabs": [
         "Large Modern",
         "Styles",
@@ -57,17 +57,17 @@
     "opensource": {
       "title": "Open Source",
       "text": [
-        "Vuestic UI is forever free and open to contributions. See our",
+        "**Vuestic UI** is forever free and open to contributions. See our",
         "issues",
         "contributing guide",
         "and",
         "discord server",
-        "to help us improve Vuestic UI experience."
+        "to help us improve **Vuestic UI** experience."
       ]
     },
     "admin": {
       "title": "Vuestic Admin",
-      "text": "Check out Vuestic UI Library in action.",
+      "text": "Check out **Vuestic UI** Library in action.",
       "buttons": {
         "github": "View on GitHub",
         "demo": "Live Demo",
@@ -932,7 +932,9 @@
     "overview": "Overview",
     "translation": "Translation",
     "browserSupport": "Browser Support",
-    "table": "Table"
+    "table": "Table",
+    "guide": "Guide",
+    "cssVariables": "CSS Variables"
   },
   "all": {
     "examples": "Examples",
@@ -1285,7 +1287,7 @@
       "questions": [
         {
           "question": "Is rating component keyboard accessible?",
-          "answer": "Yes, you can use Tab(Shift+Tab) to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
+          "answer": "Yes, you can use `Tab` `(Shift+Tab)` to move between icons and press Enter to submit value. Or you can use arrow keys (Left and Right) to change rating value"
         },
         {
           "question": "Can I use every other prop in combination with **numbers** prop?",
@@ -2413,25 +2415,123 @@
     }
   },
   "installation": {
-    "title": "Work In Progress"
+    "title": "Installation",
+    "description": "Get started with the **Vuestic UI** to create feature-rich and user-friendly apps thanks to our highly configurable framework. We have simplified the installation process as much as possible to save you extra effort. Installation is possible in few ways.",
+    "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
+    "prerequisites": "First, make sure you have all prerequisites installed:",
+    "node": "- <a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
+    "npm": "- <a href=\"https://www.npmjs.com/get-npm\">npm</a> version 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) and <a href=\"https://git-scm.com/\">Git</a>.",
+    "afterCheck": "After checking the prerequisites, install **Vuestic UI** via npm/yarn:",
+    "quickStart": {
+      "title": "Quick start",
+      "description": "Make sure you're imported both styles and plugin into your entry file:"
+    },
+    "cli": {
+      "title": "Vue-CLI installation",
+      "prepare": "To work with **Vuestic UI** via its Vue CLI plugin, you will need to make sure you have <a href=\"https://cli.vuejs.org/guide/installation.html\">Vue CLI</a> installed globally. To make sure you have the right version, use this command:",
+      "upgrade": "If you have **Vue CLI version 3.x.x** or lower you should `upgrade` it by the following <a href=\"https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3\">guide</a>",
+      "description": "The easy way if you use the Vue-CLI setup or you want to try out the **Vuestic UI** on the scratch project.",
+      "attention": "**Attention! Using that way will make changes in you `package.json` dependencies and `main.js(ts)` files. Make sure that you commit your code to avoid data loss.**",
+      "codeAnnotation": "After you have Vue-CLI project you could install Vustic as a Vue-CLI package:"
+    },
+    "nuxt": {
+      "title": "Nuxt installation",
+      "description": "**Vuestic UI** can be added by adding plugin after installation. Create plugin and include it into `nuxt.config.js`:"
+    },
+    "manual": {
+      "title": "Manual installation",
+      "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic on the scratch project."
+    }
   },
   "roadmap": {
-    "title": "Work In Progress"
+    "title": "The Vuestic UI Roadmap",
+    "description": "The **Vuestic UI** is always growing, trying to get better. Our team is constantly working to improve the existing code base, adding new features that help make building applications even easier.",
+    "inDevelopment": {
+      "title": "In development",
+      "description": "The following releases are currently being developed:"
+    },
+    "released": {
+      "title": "Released",
+      "description": "The following are the already released minor and major version updates. "
+    },
+    "longTimeSupport": {
+      "title": "Long time support",
+      "description": "The following versions have continued maintenance for backwards compatible fixes, major bugs, and security vulnerabilities."
+    },
+    "archive": {
+      "title": "Archive",
+      "description": "The following releases are old and unsupported minor and major versions:"
+    }
   },
   "nuxtIntegration": {
     "title": "Work In Progress"
   },
   "accessibilityGuide": {
-    "title": "Work In Progress"
+    "title": "Accessibility",
+    "description": "**Vuestic UI** components supports keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
+    "keyboardInteractions": {
+      "title": "Keyboard accessible",
+      "description": "All the interactive elements of your page e.g. text boxes, buttons etc can be accessible by keyboard. That means you should be able to bring focus on them by using Tab and Shift+Tab keys."
+    },
+    "customElements": {
+      "title": "Guideline for custom elements",
+      "description": "WIP"
+    }
   },
   "configurationGuide": {
-    "title": "Work In Progress"
+    "title": "Configuration",
+    "description": "We have developed a convenient mechanism that allows you to deeply customize your icons, components, and colors.",
+    "colors": {
+      "title": "Color themes",
+      "description": "Default **Vuestic UI** config contain **2 pre-installed color themes** that can be easily extented by your own:"
+    },
+    "icons": {
+      "title": "Icon fonts",
+      "description": "By default **Vuestic UI** uses **material design icons** so dont forget to install it:"
+    },
+    "components": {
+      "title": "Components config",
+      "description": "Sometimes you want to manage your components default state, did it equal in many places. We design **Vuestic UI** in that way. With help of `components` config object you can set default state of **Vuestic UI** components in whole app:",
+      "setConfig": "Set default state of each component by setting props defaults:",
+      "example": "In example above we have configured all **Vuestic UI** buttons `squared`, `outlined` and `small sized`. Simple as passing props to component!"
+    }
   },
   "browserSupport": {
-    "title": "Work In Progress"
+    "title": "Browser Support",
+    "description": "We design **Vuestic UI** to support the latest modern web browsers."
   },
   "overview": {
-    "title": "Work In Progress"
+    "title": "What is Vuestic UI",
+    "description": "The Vuestic UI was created with the goal of making development easier and reducing the time spent creating your apps. We are designed the framework in such a way as to satisfy the most sophisticated design fantasies and also allow you to realize them. All this is possible thanks to a deep component customization system based on a two-level configuration.",
+    "vueThreeCompatible": {
+      "title": "Vue.js 3.0 compatible",
+      "description": "- Fully **Vue.js 3 compatible**"
+    },
+    "featureRich": {
+      "title": "Feature-rich: more than 52 customizable components",
+      "description": "- Contain **massive pack of deep-customizable components** that could be used in any design solution."
+    },
+    "themesPreset": {
+      "title": "Two built-in color scheme presets",
+      "description": "- **Two pre-installed themes** `default` and `corporate`. Also you can make your corrections in existing themes or create your own."
+    },
+    "configurations": {
+      "title": "- Powerful configurations:\n  - **Local** - configure components in-depth. No need to create component wrappers or something like. Just pass props default of each component you want to customize and all the Vuestic UI components will be transformed into the desired look. \n  - **Global** - configure framework overall. Make the general parameters of the components as you want.",
+      "localConfig": "Local - configure components in-depth",
+      "globalConfig": "Global - configure framework overall"
+    },
+    "responsive": {
+      "title": "Cross-browser and responsive",
+      "description": "- You no longer need to worry about how the components will look on different devices or in different browsers. Framework is fully **responsive** and also has **support for all the latest versions of modern browsers**."
+    },
+    "translatable": {
+      "title": "i18n-ready",
+      "description": "- Integrates seamlessly with the i18n"
+    },
+    "whyVuestic": {
+      "title": "Features overwiew",
+      "description": "- **Vuestic UI** provides a lot of benefits and great features."
+    }
   },
   "translation": {
     "title": "Work In Progress"
@@ -2442,7 +2542,7 @@
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text" : "Just add the `.va-table` to the table element."
+        "text": "Just add the `.va-table` to the table element."
       },
       "hoverable": {
         "title": "Hoverable",
@@ -2456,6 +2556,70 @@
         "title": "Clickable",
         "text": "To make rows looks like mouse `pointer` property you could add `.va-table-clickable` class."
       }
+    }
+  },
+  "guide": {
+    "title": "Contribution guide",
+    "description": "This guide describes ways in which you can become part of the ongoing development of the Vuestic user interface. We are really excited that you are interested in contributing to **Vuestic UI**.",
+    "pullRequests": {
+      "title": "Pull Request Guidelines",
+      "description": {
+        "localBranches": "- `master` branch keeps latest stable release + cherrypicked hotfixes. All development should be done in local branches.",
+        "dontSubmitToMaster": "- **Do not submit PRs against the `master` branch.**",
+        "checkoutFeat": "- Checkout a `feat/` branch from `develop`, then create pull request against that branch.",
+        "multipleSmallCommits": "- It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.",
+        "fixBugSteps": "* If fixing a bug:\n  * If you are resolving a special issue, add `fix #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github will close the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
+      }
+    },
+    "branches": {
+      "title": "Branches",
+      "publicBranches": "* Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!.\n  * `develop` - main development branch. Houses `2.0` at the moment.",
+      "localBranches": "* Local branches\n  * For local branches prepend your messages with `feat/`, ie for tabs fix it would be `feat/fix-tabs`. This is wanted to keep local branches visually separate from public ones."
+    },
+    "fileNaming": {
+      "title": "File naming",
+      "camelCase": "- `testIsContextableComponent.ts` - helpers and instants",
+      "kebabCase": "- `api-options.ts` - configs",
+      "pascalCase": "- `DocsCode.vue` - components, classes, types"
+    },
+    "forCoreContributors": {
+      "title": "For core contributors",
+      "linkPr": "- Always link PR to issue (via `fix #123`).",
+      "assignYourself": "- When you start working on the task - please assign yourself. That's needed to prevent conflict.",
+      "smallIssues": "- For small issues you may push to `develop` branch directly while adding (`fix #123`) to commit message.",
+      "singlePrPerIssue": "- Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
+      "onePersonPerIssue": "- Be sure to have only one person assigned per issue.",
+      "checkYourCode": "- Check your code: [conventions](../packages/old-docs/conventions.md).",
+      "weUseYarn": "- We use [yarn](https://yarnpkg.com/lang/en/) for package management.",
+      "beProactive": "- Be proactive. If you think something is wrong - create an issue or discuss.",
+      "recommendedTools": "- Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/)",
+      "workInBook": "- If you work on UI components - work in book environment (`yarn serve:book`). We want to keep global stuff out of components."
+    },
+    "componentFolderStructure": {
+      "title": "Component folder structure"
+    },
+    "beforeReleaseWorkflow": {
+      "title": "Before release workflow",
+      "description": "Update package versions to newest ones. Update lock files (for both `npm` and `yarn`)\n"
+    },
+    "npmScripts": {
+      "title": "Commonly used NPM scripts"
+    },
+    "credits": {
+      "title": "Credits",
+      "description": "<a href=\"https://github.com/epicmaxco/vuestic-ui/graphs/contributors\">Hall of fame!</a>"
+    }
+  },
+  "cssVariables": {
+    "title": "Css Variables",
+    "description": "Vuestic UI extract css as <a href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties\">CSS variables (custom properties)</a>. No need to install any loaders or additional packages to override components styles. You can deeply customize components using simple syntax to change css in your project.",
+    "convention": {
+      "title": "Convention",
+      "description": "**Vuestic UI** uses following convention to organize CSS Variables for more convenient use:"
+    },
+    "overriding": {
+      "title": "Overriding",
+      "description": "You don't need any specific knowledges or packages. Just create file like `overrides.css`, import it into your main.js(ts) file and start redefining as easy as you write css properties:"
     }
   }
 }

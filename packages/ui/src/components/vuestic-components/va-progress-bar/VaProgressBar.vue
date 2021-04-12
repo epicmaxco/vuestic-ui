@@ -4,7 +4,7 @@
       :style="{colorComputed}"
       class="va-progress-bar__info"
     >
-      <slot v-if="!large"/>
+      <slot v-if="!large" />
     </div>
     <div
       class="va-progress-bar__wrapper"
@@ -28,7 +28,7 @@
         }"
         class="va-progress-bar__overlay"
       >
-        <slot v-if="large"/>
+        <slot v-if="large" />
       </div>
       <template v-else>
         <div

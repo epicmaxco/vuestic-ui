@@ -46,10 +46,12 @@ class RadioProps {
     type: [Object, String, Number, Boolean],
     default: null,
   })
+
   option = prop<string | number | object | boolean>({
     type: [Object, String, Number, Boolean],
     default: null,
   })
+
   name = prop<string | number>({ type: [String, Number], default: '' })
   disabled = prop<boolean>({ type: Boolean, default: false })
   label = prop<string>({ type: String, default: '' })

@@ -21,7 +21,7 @@
       class="va-card__inner"
       @click="$emit('click', $event)"
     >
-      <slot/>
+      <slot />
     </div>
   </component>
 </template>

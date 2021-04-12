@@ -1,6 +1,6 @@
 <template>
   <div class="inner-loading">
-    <slot/>
+    <slot />
     <div
       v-if="loading"
       class="inner-loading__overlay"

@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "generate:component": "plop --plopfile src/scripts/generators/index.ts",
+    "generate:docspage": "plop --plopfile src/scripts/generators/documentation.ts",
+    "generate:translation": "plop --plopfile src/scripts/generators/language.ts"
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -19,11 +22,10 @@
     "tiny-emitter": "^2.1.0",
     "vue": "^3.0.5",
     "vue-i18n": "^9.0.0-rc.6",
-    "vue-lang-router": "^2.0.0-beta.3",
+    "vue-lang-router": "^2.1.1",
     "vue-prism-component": "^2.0.0",
     "vue-router": "^4.0.3",
-    "vuestic-ui": "^1.0.0-alpha.15",
-    "vuex": "^4.0.0"
+    "codesandbox": "^2.2.1"
   },
   "devDependencies": {
     "@types/dedent": "^0.7.0",
@@ -51,6 +53,7 @@
     "vue-auto-routing": "^1.0.1",
     "vue-class-component": "^8.0.0-rc.1",
     "vue-cli-plugin-auto-routing": "^1.2.0",
-    "vue-property-decorator": "^9.1.2"
+    "vue-property-decorator": "^9.1.2",
+    "plop": "^2.7.0"
   }
 }

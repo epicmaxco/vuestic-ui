@@ -4,13 +4,13 @@
       v-if="minimized"
       class="i-nav"
       @click="$emit('toggleSidebar', !minimized)"
-      :color="themes.primary"
+      :color="colors.primary"
     />
     <va-icon-menu-collapsed
       v-else
       class="i-nav"
       @click="$emit('toggleSidebar', !minimized)"
-      :color="themes.primary"
+      :color="colors.primary"
     />
   </div>
 </template>
@@ -19,7 +19,7 @@
 // @ts-nocheck
 import VaIconMenu from '@/iconset/VaIconMenu.vue'
 import VaIconMenuCollapsed from '@/iconset/VaIconMenuCollapsed.vue'
-import { setupColors } from 'vuestic-ui'
+import { getColors } from '../../../../../ui/src/main'
 
 export default {
   name: 'HeaderSelector',
@@ -35,22 +35,15 @@ export default {
   },
 
   computed: {
-    themes () {
-      return this.getColors()
+    colors () {
+      return getColors()
     },
-  },
-
-  setup () {
-    const { getTheme } = setupColors()
-    return {
-      getTheme: getColors,
-    }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui-dev/src/components/vuestic-sass/resources/resources';
+@import '~vuestic-ui/src/components/vuestic-sass/resources/resources';
 
 .i-nav {
   display: inline-block;

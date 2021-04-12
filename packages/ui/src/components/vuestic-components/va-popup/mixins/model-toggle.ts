@@ -12,6 +12,7 @@ export default {
       showing: false,
     }
   },
+  emits: ['update:modelValue', 'show', 'hide'],
   watch: {
     value (val) {
       if (this.disable && val) {

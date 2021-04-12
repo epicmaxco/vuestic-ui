@@ -6,10 +6,11 @@
       :options="options"
       v-model="value"
     >
-      <va-icon
-        slot="prepend"
-        name="share"
-      />
+      <template #prepend>
+        <va-icon
+          name="share"
+        />
+      </template>
     </va-select>
     <va-select
       style="margin: 16px 0;"
@@ -17,10 +18,11 @@
       :options="options"
       v-model="value"
     >
-      <va-icon
-        slot="prependInner"
-        name="share"
-      />
+      <template #prependInner>
+        <va-icon
+          name="share"
+        />
+      </template>
     </va-select>
     <va-select
       style="margin: 16px 0;"
@@ -28,10 +30,11 @@
       :options="options"
       v-model="value"
     >
-      <va-icon
-        slot="appendInner"
-        name="share"
-      />
+      <template #appendInner>
+        <va-icon
+          name="share"
+        />
+      </template>
     </va-select>
     <va-select
       style="margin: 16px 0;"
@@ -39,10 +42,11 @@
       :options="options"
       v-model="value"
     >
-      <va-icon
-        slot="append"
-        name="share"
-      />
+      <template #append>
+        <va-icon
+          name="share"
+        />
+      </template>
     </va-select>
   </div>
 </template>

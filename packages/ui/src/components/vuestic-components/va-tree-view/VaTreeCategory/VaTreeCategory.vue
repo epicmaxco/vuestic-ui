@@ -14,7 +14,7 @@
         class="va-tree-category__header-checkbox"
         v-if="$slots.checkbox"
       >
-        <slot name="checkbox"/>
+        <slot name="checkbox" />
       </div>
       <div
         class="va-tree-category__header-icon"
@@ -35,7 +35,7 @@
       v-if="isOpenCached"
     >
       <div class="va-tree-category__list-internal-container">
-        <slot/>
+        <slot />
       </div>
     </div>
   </div>
@@ -150,7 +150,7 @@ export default class VaTreeCategory extends mixins(
 </script>
 
 <style lang="scss">
-@import "src/components/vuestic-sass/resources/resources";
+@import "../../../vuestic-sass/resources/resources";
 @import 'variables';
 
 .va-tree-category {

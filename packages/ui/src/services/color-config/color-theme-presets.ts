@@ -31,5 +31,5 @@ export const colorsPresets: Record<string, VuesticColorsPreset> = {
     warning: '#ffd652',
     gray: '#8396a5',
     dark: '#34495e',
-  }
+  },
 }

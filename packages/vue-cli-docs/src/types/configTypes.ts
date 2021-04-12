@@ -1,11 +1,12 @@
 // @ts-ignore
-import { TranslationString, ManualApiOptions } from 'vuestic-ui-dev/src/services/api-docs/ManualApiOptions'
+import { TranslationString, ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 
 export type CodeString = string
 // example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
 export type PathToExample = string
+export type ExampleComponentProps = Record<string, any>
 
 export enum BlockType {
   TITLE = 'TITLE',
@@ -15,6 +16,8 @@ export enum BlockType {
   EXAMPLE = 'EXAMPLE',
   API = 'API',
   CODE = 'CODE',
+  TABLE = 'TABLE',
+  LINK = 'LINK',
 }
 
 export type TextBlockType =
@@ -33,6 +36,7 @@ export type ApiDocsBlock =
   | {
       type: BlockType.EXAMPLE,
       component: PathToExample, // path to example
+      props?: ExampleComponentProps,
     }
   | {
       type: BlockType.CODE,

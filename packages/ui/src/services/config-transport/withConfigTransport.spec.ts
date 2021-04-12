@@ -3,7 +3,8 @@ import { Options, Vue, setup, prop, mixins } from 'vue-class-component'
 import { mount, config } from '@vue/test-utils'
 
 import withConfigTransport, { getComponentOptions, resolveProps } from './withConfigTransport'
-import { GlobalConfig, useGlobalConfig, GlobalConfigPlugin } from '../GlobalConfigPlugin'
+import { GlobalConfig, useGlobalConfig } from '../global-config/global-config'
+import { GlobalConfigPlugin } from '../global-config/global-config-plugin'
 import VaConfig from '../../components/vuestic-components/va-config/VaConfig'
 
 const initialConfig = {

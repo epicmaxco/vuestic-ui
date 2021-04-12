@@ -24,12 +24,12 @@ export default {
     anchor: {
       type: String,
       validator: positionValidator,
-      default: '',
+      default: 'center middle',
     },
     self: {
       type: String,
       validator: positionValidator,
-      default: '',
+      default: 'center middle',
     },
     fit: Boolean,
     cover: Boolean,
@@ -51,9 +51,7 @@ export default {
     offset: {
       type: Array,
       validator: offsetValidator,
-      default () {
-        return []
-      },
+      default: () => [0, 0],
     },
     noFocus: Boolean,
     noRefocus: Boolean,

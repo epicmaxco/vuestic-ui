@@ -24,6 +24,7 @@ class Props {
     type: [Element, String],
     default: () => window,
   })
+
   visibilityHeight = prop<number>({ type: Number, default: 300 })
   speed = prop<number>({ type: Number, default: 50 })
   verticalOffset = prop<string>({ type: String, default: '1rem' })

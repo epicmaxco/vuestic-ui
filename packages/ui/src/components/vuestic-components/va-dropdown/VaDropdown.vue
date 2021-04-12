@@ -8,7 +8,7 @@
       @keyup.enter.stop.prevent="onAnchorClick()"
       ref="anchor"
     >
-      <slot name="anchor"/>
+      <slot name="anchor" />
     </div>
     <template v-if="showContent">
       <div
@@ -21,7 +21,7 @@
           class="va-dropdown__content"
           :style="$props.keepAnchorWidth ? anchorWidthStyles : ''"
         >
-          <slot/>
+          <slot />
         </div>
       </div>
     </template>
@@ -86,14 +86,14 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
   get triggeredValue (): boolean {
     const getTriggeredValue = () => {
       switch (this.trigger) {
-        case 'hover':
-          return this.isMouseHovered
-        case 'click':
-          return this.isClicked
-        case 'none':
-          return this.modelValue
-        default:
-          return false
+      case 'hover':
+        return this.isMouseHovered
+      case 'click':
+        return this.isClicked
+      case 'none':
+        return this.modelValue
+      default:
+        return false
       }
     }
 
