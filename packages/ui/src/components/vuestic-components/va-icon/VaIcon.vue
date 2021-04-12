@@ -4,6 +4,7 @@
     class="va-icon"
     :class="computedClass"
     :style="computedStyle"
+    v-bind="computedAttrs"
     aria-hidden="true"
     notranslate
   >
@@ -19,7 +20,7 @@ import { useIcons } from '../../../services/icon-config/setup'
 
 class Props {
   name = prop<string>({ type: String, default: '' })
-  tag = prop<string>({ type: String, default: 'i' })
+  tag = prop<string>({ type: String })
   component = prop<Record<string, any>>({ type: Object })
   color = prop<string>({ type: String, default: undefined })
   rotation = prop<number | string>({ type: [String, Number], default: undefined })
@@ -43,7 +44,10 @@ export default class VaIcon extends mixins(
   }
 
   get computedTag () {
-    return (this.icon && this.icon.component) || this.component || this.tag
+    const component = this.$props.component || this.icon.component
+    const tag = this.$props.tag || this.icon.tag
+
+    return component || tag || 'i'
   }
 
   get spinClass () {
@@ -56,6 +60,10 @@ export default class VaIcon extends mixins(
       this.icon ? this.icon.iconClass : '',
       this.spinClass,
     ]
+  }
+
+  get computedAttrs () {
+    return this.icon.attrs
   }
 
   get hasClickListener () {

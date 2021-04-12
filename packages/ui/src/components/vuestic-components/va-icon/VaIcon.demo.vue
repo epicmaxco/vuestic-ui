@@ -90,6 +90,9 @@
         name="loop"
       />
     </VbCard>
+    <VbCard title="Attrs">
+      <va-icon name="icon-with-attributes-call" />The icon should be red and clickable.
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -127,6 +130,12 @@ export default {
         ],
         fonts: [
           ...DemoIconsFonts,
+          {
+            name: /icon-with-attributes-(.*)/,
+            tag: 'ion-icon',
+            iconClass: (name) => `icon ion-md-${name}`,
+            attrs: (name) => ({ name, style: 'color: red;', alt: name, onclick: () => alert('Click!') }),
+          },
         ],
       }),
     })

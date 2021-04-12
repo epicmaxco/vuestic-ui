@@ -76,6 +76,11 @@ export type IconConfig = {
   componentProps?: Record<string, any> | ((...regexGroups: string[]) => Record<string, any>)
 
   /**
+   * You can provide attributes which will be bound to icon
+   */
+  attrs?: { [attributeName: string]: any } | ((...regexGroups: string[]) => { [attributeName: string]: any })
+
+  /**
    * Use this to create icon that u will often to use.
    *
    * Example:

@@ -10,7 +10,7 @@ function executeConfigFunctions (name: string, iconConfig: IconConfig): IconConf
   const config = { ...iconConfig } as any
   const args = getRegexGroups(name, config.name);
 
-  ['iconClass', 'content', 'componentOptions'].forEach((funName) => {
+  ['iconClass', 'content', 'componentOptions', 'attrs'].forEach((funName) => {
     if (typeof config[funName] === 'function') {
       config[funName] = config[funName](...args)
     }
