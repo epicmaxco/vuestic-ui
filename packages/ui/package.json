@@ -41,7 +41,9 @@
     "vue-color": "^2.8.1",
     "vue-epic-bus": "^0.1.5",
     "vue-flatpickr-component": "^9.0.3",
-    "vue-router": "^4.0.0-beta.13"
+    "vue-router": "^4.0.0-beta.13",
+    "server:webapp": "npx http-server dist --push-state",
+    "spa-http-server": "^0.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
