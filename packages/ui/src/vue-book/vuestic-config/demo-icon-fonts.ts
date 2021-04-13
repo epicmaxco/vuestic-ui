@@ -1,38 +1,37 @@
 import { IconConfig } from '../../services/icon-config/types'
 
-const fontsConfig: { [key: string]: IconConfig} = {
-  md: {
+const fontsConfig: IconConfig = [
+  {
     name: 'md-{name}',
-    iconClass: 'material-icons',
-    content: (content: string) => content,
+    resolve: ({ name }) => ({ content: name }),
   },
-  fa: {
+  {
     name: 'fa4-{code}',
-    iconClass: ({ code }: any) => `fa fa-${code}`,
+    resolve: ({ code }) => ({ class: `fa fa-${code}` }),
   },
-  fa5: {
+  {
     name: /(fas|far|fal|fad|fab)-(.*)/,
-    iconClass: (font: string, code: string) => `${font} fa-${code} fa-fw`,
+    resolveFromRegex: (font, code) => ({ class: `${font} fa-${code} fa-fw` }),
   },
-  ion: {
-    name: /ion-(.*)/,
-    iconClass: (code: string) => `icon ion-md-${code}`,
+  {
+    name: 'ion-{code}',
+    resolve: ({ code }) => ({ class: `icon ion-md-${code}` }),
   },
-  ion_o: {
-    name: /ion-outline-(.*)/,
-    iconClass: (code: string) => `icon ion-ios-${code}-outline`,
+  {
+    name: 'ion-outline-{code}',
+    resolve: ({ code }) => ({ class: `icon ion-ios-${code}-outline` }),
   },
-  entypo: {
+  {
     name: 'entypo-{code}',
-    iconClass: (regexGroups: any) => `entypo-${regexGroups.code}`,
+    resolve: ({ code }) => ({ class: `entypo-${code}` }),
   },
-  welovefonts: {
+  {
     name: /(brandico|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial)-(.*)/,
-    iconClass: (font: string, code: string) => `${font}-${code}`,
+    resolveFromRegex: (font: string, code: string) => ({ class: `${font}-${code}` }),
   },
-  text: {
+  {
     name: 'text',
   },
-}
+]
 
 export default Object.values(fontsConfig)

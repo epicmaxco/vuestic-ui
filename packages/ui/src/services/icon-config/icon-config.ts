@@ -1,5 +1,4 @@
-export { IconMixin } from './IconMixin'
 export { useIcons } from './setup'
 export { createIconsConfig } from './helpers'
 export { VuesticIconAliases, VuesticIconFonts } from './presets'
-export type { IconsConfig, IconConfig } from './types'
+export type { IconConfig } from './types'

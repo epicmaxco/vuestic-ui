@@ -12,5 +12,5 @@ export {
 
 export type { GlobalConfig, GlobalConfigUpdater } from './services/global-config/types'
 export type { ComponentConfig } from './services/component-config/component-config'
-export type { IconsConfig, IconConfig } from './services/icon-config/types'
+export type { IconConfig, IconConfiguration } from './services/icon-config/types'
 export type { ColorConfig } from './services/color-config/color-config'

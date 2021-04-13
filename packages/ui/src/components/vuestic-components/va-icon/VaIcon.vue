@@ -1,9 +1,10 @@
 <template>
   <component
+    v-bind="computedAttrs"
     :is="computedTag"
-    class="va-icon"
     :class="computedClass"
     :style="computedStyle"
+    class="va-icon"
     aria-hidden="true"
     notranslate
   >
@@ -19,7 +20,7 @@ import { useIcons } from '../../../services/icon-config/setup'
 
 class Props {
   name = prop<string>({ type: String, default: '' })
-  tag = prop<string>({ type: String, default: 'i' })
+  tag = prop<string>({ type: String })
   component = prop<Record<string, any>>({ type: Object })
   color = prop<string>({ type: String, default: undefined })
   rotation = prop<number | string>({ type: [String, Number], default: undefined })
@@ -38,57 +39,41 @@ export default class VaIcon extends mixins(
 ) {
   iconContext = setup(() => useIcons(this.$props))
 
-  get icon () {
+  get iconConfig () {
     return this.iconContext.getIcon(this.name)
   }
 
   get computedTag () {
-    return (this.icon && this.icon.component) || this.component || this.tag
+    return this.$props.component || this.$props.tag || this.iconConfig.component || this.iconConfig.tag || 'i'
   }
 
-  get spinClass () {
-    if (this.spin === undefined) { return }
-    return this.spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
+  get computedAttrs () {
+    return { ...this.iconConfig.attrs, ...this.$attrs }
   }
 
   get computedClass () {
     return [
-      this.icon ? this.icon.iconClass : '',
-      this.spinClass,
+      this.iconConfig.class,
+      this.getSpinClass(this.$props.spin || this.iconConfig.spin),
     ]
   }
 
-  get hasClickListener () {
-    return this.$attrs && this.$attrs.onClick
-  }
-
-  get cursorStyle () {
-    return { cursor: this.hasClickListener ? 'pointer' : null }
-  }
-
-  get rotateStyle () {
-    return { transform: 'rotate(' + this.rotation + 'deg)' }
-  }
-
-  get fontSizeStyle () {
-    return { fontSize: this.sizeComputed }
-  }
-
-  get colorStyle () {
-    return { color: this.color !== undefined ? this.colorComputed : this.icon.color }
+  getSpinClass (spin?: string) {
+    if (spin === undefined) { return }
+    return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
   }
 
   get computedStyle () {
     return {
-      ...this.cursorStyle,
-      ...this.rotateStyle,
-      ...this.fontSizeStyle,
-      ...this.colorStyle,
+      transform: this.rotation && 'rotate(' + this.rotation + 'deg)',
+      cursor: this.$attrs.onClick ? 'pointer' : null,
+      color: this.$props.color !== undefined ? this.colorComputed : this.iconConfig.color,
+      fontSize: this.sizeComputed,
     }
   }
 
   get computedContent () {
-    return this.icon && this.icon.content
+    return this.iconConfig.content
   }
 }
 </script>

@@ -1,18 +1,21 @@
-import { getGlobalConfig } from '../global-config/global-config'
-import { getIconConfig } from './get-icon-config'
-import { copyObjectWithoutUndefined } from './utils'
+import { getIconConfiguration } from './get-icon'
+
+/**
+ * Copy object properties if its not undefined
+ * @example
+ * ```
+ * { name: 'test', age: undefined} -> { name: 'test' }
+ * ```
+ */
+export function copyObjectWithoutUndefined (obj: any) {
+  return Object.keys({ ...obj }).reduce((acc, key) => {
+    return obj[key] !== undefined ? { [key]: obj[key], ...acc } : acc
+  }, {})
+}
 
 export const useIcons = (props: any) => {
-  const getIcon = (name: string) => {
-    const globalConfig = getGlobalConfig()
-    const iconsConfig = globalConfig.icons
-    const config = getIconConfig(name, iconsConfig)
-    const iconPropsArray = copyObjectWithoutUndefined(props)
-    return { ...config, ...iconPropsArray }
-  }
-
   return {
     // TODO: export here function that can dynamically change icons config
-    getIcon,
+    getIcon: (name: string) => getIconConfiguration(name),
   }
 }

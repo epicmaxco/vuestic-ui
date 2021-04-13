@@ -1,6 +1,6 @@
-import { getRegexGroupValues, strictMatch } from './utils'
+import { regexGroupsValues } from './regex'
 
-const templateGroupRegex = /{[^}]*}/g // match {any-thing}, {even with space}
+const dynamicSegmentRegex = /{[^}]*}/g // match {any-thing}, {even with space}
 
 /**
  * Replace {anything} to regex (.*) group
@@ -10,8 +10,8 @@ const templateGroupRegex = /{[^}]*}/g // match {any-thing}, {even with space}
  * "fa-{code}-{suffix}" -> "fa-(.*)-(.*)"
  * ```
  */
-function templateStringToRegex (template: string) {
-  return template.replace(templateGroupRegex, '(.*)')
+function dynamicSegmentStringToRegex (template: string) {
+  return template.replace(dynamicSegmentRegex, '(.*)')
 }
 
 /**
@@ -21,8 +21,8 @@ function templateStringToRegex (template: string) {
  "fa-{code}-{suffix}" -> ['code', 'suffix']
  ```
  */
-function getTemplateParams (template: string) {
-  return (template.match(templateGroupRegex) || []) // 'fa-{code}-{suffix}' -> ['{code}', '{suffix}']
+function dynamicSegmentsNames (template: string) {
+  return (template.match(dynamicSegmentRegex) || []) // 'fa-{code}-{suffix}' -> ['{code}', '{suffix}']
     .map((g) => g.replace(/{|}/g, '')) // ['{code}', '{suffix}'] -> ['code', 'suffix']
 }
 
@@ -33,8 +33,8 @@ function getTemplateParams (template: string) {
  * "fa-clock-o", "fa-{code}-{suffix}" -> ["clock", "o"]
  * ```
  */
-function getValues (str: string, template: string) {
-  return getRegexGroupValues(str, templateStringToRegex(template))
+function dynamicSegmentsValues (str: string, template: string) {
+  return regexGroupsValues(str, dynamicSegmentStringToRegex(template))
 }
 
 /**
@@ -46,11 +46,23 @@ function getValues (str: string, template: string) {
  * "fa4 clock-o", "fa4 {icon-code}" -> { 'icon-code': 'clock-o' }
  * ```
  */
-export function paramsFromString (str: string, template: string) {
-  const params = getTemplateParams(template)
-  const values = getValues(str, template)
+export function dynamicSegments (str: string, template: string) {
+  const params = dynamicSegmentsNames(template)
+  const values = dynamicSegmentsValues(str, template)
 
   return params.reduce((acc, paramValue, i) => ({ ...acc, [paramValue]: values[i] }), {})
+}
+
+/**
+ * Returns true if match string equals to input `str`
+ * @example
+ * ```
+ * "vuestic-home-open", /vuestic-(.*)-o/ -> false
+ * "vuestic-home-open", /vuestic-(.*)-open/ -> true
+ * ```
+ */
+function strictMatch (str: string, regex: RegExp) {
+  return (str.match(regex) || [])[0] === str
 }
 
 /**
@@ -62,7 +74,7 @@ export function paramsFromString (str: string, template: string) {
  * "fa4 clock-o", "fa4 {icon-code}" -> false
  * ```
  */
-export function matchTemplate (str: string, template: string) {
-  const templateRegex = templateStringToRegex(template)
+export function isMatchDynamicSegments (str: string, template: string) {
+  const templateRegex = dynamicSegmentStringToRegex(template)
   return strictMatch(str, new RegExp(templateRegex))
 }
