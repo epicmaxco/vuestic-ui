@@ -1,142 +1,149 @@
 <template>
-  <section class="customize__bg">
-  <div class="customize">
-    <div class="customize__wrapper">
-      <div class="customize__inner">
-        <h2 class="customize__title">{{$t('landing.customize.title')}}</h2>
-        <div class="customize__subtitle">{{$t('landing.customize.text')}}</div>
-        <div class="customize__content">
-          <!-- Tabs -->
-          <div  class="tabs-wrapper">
-            <va-tabs v-model="tabValue" class="tabs" color="#fff" center grow>
-              <template #tabs="scope">
-                <div :class="scope.class">
-                  <va-tab
-                    class="tabs__tab"
-                    v-for="tab in [`${$t('landing.customize.tabs[0]')}`, `${$t('landing.customize.tabs[1]')}`, `${$t('landing.customize.tabs[2]')}`]"
-                    :key="tab"
-                  >
-                    {{ tab }}
-                  </va-tab>
+  <section class="customize__bg" :style="bgGradientStyle">
+    <div class="customize">
+      <div class="customize__wrapper">
+        <div class="customize__inner">
+          <h2 class="customize__title">{{ $t('landing.customize.title') }}</h2>
+          <div class="customize__subtitle">{{ $t('landing.customize.text') }}</div>
+          <div class="customize__content">
+            <!-- Tabs -->
+            <div class="tabs-wrapper">
+              <va-tabs v-model="tabValue" class="tabs" color="#fff" center grow>
+                <template #tabs="scope">
+                  <div :class="scope.class">
+                    <va-tab
+                      class="tabs__tab"
+                      v-for="tab in [`${$t('landing.customize.tabs[0]')}`, `${$t('landing.customize.tabs[1]')}`, `${$t('landing.customize.tabs[2]')}`]"
+                      :key="tab"
+                    >
+                      {{ tab }}
+                    </va-tab>
+                  </div>
+                </template>
+              </va-tabs>
+            </div>
+
+            <!-- First block -->
+            <div class="customize__content--first">
+              <div class="block__components" v-if="tabValue === 1">
+                <div class="component">
+                  <va-button color="#6F80E7" @click="btnClick()">
+                    Submit
+                  </va-button>
                 </div>
-              </template>
-            </va-tabs>
+
+                <div class="component">
+                  <va-select
+                    v-model="selectValue"
+                    :options="options"
+                    color="#6F80E7"
+                    label="Country"
+                  />
+                </div>
+
+                <div class="component">
+                  <va-slider
+                    color="#6F80E7"
+                    v-model="sliderValue"
+                  />
+                </div>
+
+                <div class="component">
+                  <va-checkbox
+                    v-model="checkboxValue"
+                    label="Checkbox"
+                    color="#6F80E7"
+                  />
+                </div>
+              </div>
+
+              <div v-else-if="tabValue === 2">
+                <table class="va-table va-table--striped va-table--hoverable" style="width: 100%">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>Status</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="user in users" :key="user.id">
+                    <td>{{ user.fullName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.country }}</td>
+                    <td>
+                      <va-badge
+                        :text="user.status"
+                        :color="user.status"
+                      />
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="block__components" v-else-if="tabValue === 3">
+                <div class="component">
+                  <va-button-toggle v-model="theme" :color="themeColor" :options="themeToggleOptions" />
+                </div>
+
+                <div class="component">
+                  <va-switch v-model="switchValue" :color="themeColor" />
+                </div>
+
+                <div class="component">
+                  <va-alert :color="themeColor">
+                    Important alert message
+                  </va-alert>
+                </div>
+
+                <div class="component">
+                  <va-button :color="themeColor">
+                    Submit
+                  </va-button>
+                </div>
+              </div>
+
+              <div v-else>
+                <color-tab />
+              </div>
+            </div>
+            <!-- /First block -->
+
+            <!-- Second block -->
+            <div class="customize__content--second">
+              <div class="code-wrapper" @click="copyText">
+                <div class="code-subwrapper">
+                  <prism :key="code" class="code" language="javascript">{{ code }}</prism>
+                  <input type="hidden" ref="codeInput" :value="code">
+                </div>
+              </div>
+              <div class="clipboard" ref="message">{{ $t('landing.customize.copy') }}</div>
+            </div>
+            <!-- /Second block -->
+
+            <router-link class="customize__content__link" :to="`/${$root.$i18n.locale}/getting-started/configuration-guide`">
+              {{ $t('landing.customize.configuration') }}
+            </router-link>
           </div>
-
-          <!-- First block -->
-          <div class="customize__content--first">
-            <div class="block__components" v-if="tabValue === 1">
-              <div class="component">
-                <va-button color="#6F80E7" @click="btnClick()">
-                  Submit
-                </va-button>
-              </div>
-
-              <div class="component">
-                <va-select
-                  v-model="selectValue"
-                  :options="options"
-                  color="#6F80E7"
-                  label="Country"
-                />
-              </div>
-
-              <div class="component">
-                <va-slider
-                  color="#6F80E7"
-                  v-model="sliderValue"
-                />
-              </div>
-
-              <div class="component">
-                <va-checkbox
-                  v-model="checkboxValue"
-                  label="Checkbox"
-                  color="#6F80E7"
-                />
-              </div>
-            </div>
-
-            <div v-else-if="tabValue === 2">
-              <table class="va-table va-table--striped va-table--hoverable" style="width: 100%">
-                <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Country</th>
-                  <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="user in users" :key="user.id">
-                  <td>{{ user.fullName }}</td>
-                  <td>{{ user.email }}</td>
-                  <td>{{ user.country }}</td>
-                  <td>
-                    <va-badge
-                      :text="user.status"
-                      :color="user.status"
-                    />
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="block__components" v-else-if="tabValue === 3">
-              <div class="component">
-                <va-button-toggle v-model="theme" :color="themeColor" :options="themeToggleOptions" />
-              </div>
-
-              <div class="component">
-                <va-switch v-model="switchValue" :color="themeColor" />
-              </div>
-
-              <div class="component">
-                <va-alert :color="themeColor">
-                  Important alert message
-                </va-alert>
-              </div>
-
-              <div class="component">
-                <va-button :color="themeColor">
-                  Submit
-                </va-button>
-              </div>
-            </div>
-          </div>
-          <!-- /First block -->
-
-          <!-- Second block -->
-          <div class="customize__content--second">
-            <div class="code-wrapper" @click="copyText">
-              <div class="code-subwrapper">
-              <prism :key="code"  class="code" language="javascript">{{ code }}</prism>
-              <input type="hidden" ref="codeInput" :value="code">
-              </div>
-            </div>
-            <div class="clipboard" ref="message">{{$t('landing.customize.copy')}}</div>
-          </div>
-          <!-- /Second block -->
-
-          <router-link class="customize__content__link" :to="`/${$root.$i18n.locale}/getting-started/configuration-guide`">
-            {{$t('landing.customize.configuration')}}
-          </router-link>
         </div>
       </div>
     </div>
-  </div>
   </section>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
+import ColorTab from './ColorTab.vue'
 import 'prismjs'
 import dedent from 'dedent'
 // @ts-ignore
 import Prism from 'vue-prism-component'
+import { shiftHslColor } from '../../../../ui/src/services/color-config/color-functions'
+import { getColors } from '../../../../ui/src/services/color-config/color-config'
 
 @Options({
-  components: { Prism },
+  components: { Prism, ColorTab },
 })
 export default class Customize extends Vue {
   clicksCount = 0
@@ -184,6 +191,24 @@ export default class Customize extends Vue {
     country: 'Bouvet Island',
     status: 'info',
   }]
+
+  get bgGradientStyle () {
+    return {
+      //  background: `linear-gradient(180.81deg, ${this.$themes.primary} 0.7%, ${colorToRgba(this.$themes.primary, 0.8)} 99.3%)`,
+      background: `linear-gradient(180.81deg, ${shiftHslColor(this.colors.primary || '#5B3C9B', {
+        s: -15,
+        l: -20,
+      })} 0.7%, ${shiftHslColor(this.colors.primary || '#5B3C9B', {
+        h: 10,
+        s: -5,
+        l: -10,
+      })} 99.3%)`,
+    }
+  }
+
+  get colors () {
+    return getColors()
+  }
 
   get themeColor () {
     return this.theme === 'light' ? '#2C82E0' : '#042F83'
@@ -577,7 +602,7 @@ export default class Customize extends Vue {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #1a287a;
+    background: rgba(255, 255, 255, 0.728);
     opacity: 0.3;
     border-radius: 2px;
   }
