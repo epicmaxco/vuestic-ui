@@ -5,6 +5,7 @@ import { App } from 'vue'
 import VaAccordion from './vuestic-components/va-accordion'
 import VaAffix from './vuestic-components/va-affix'
 import VaAlert from './vuestic-components/va-alert'
+import VaAppBar from './vuestic-components/va-app-bar'
 import VaAvatar from './vuestic-components/va-avatar'
 import VaBacktop from './vuestic-components/va-backtop'
 import VaBadge from './vuestic-components/va-badge'
@@ -97,6 +98,7 @@ const vuesticComponentsMap = new Map([
   ['VaAffix', VaAffix],
   ['VaAlert', VaAlert],
   ['VaAvatar', VaAvatar],
+  ['VaAppBar', VaAppBar],
   ['VaBacktop', VaBacktop],
   ['VaBadge', VaBadge],
   ['VaButton', VaButton],
