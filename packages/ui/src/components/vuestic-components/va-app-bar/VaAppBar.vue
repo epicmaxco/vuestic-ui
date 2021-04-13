@@ -1,31 +1,33 @@
 <template>
   <header :class="computedClass" :style="computedStyle" ref="scrollRoot">
-    <slot />
+    <slot/>
   </header>
 </template>
 
 <script lang="ts">
-import { Options, prop, setup, Vue } from 'vue-class-component'
+import { mixins, Options, prop, setup, Vue } from 'vue-class-component'
 import { setupScroll } from '../../vuestic-mixins/ScrollMixin/ScrollMixin'
-import { useColor } from '../../../services/color-config/ColorMixin'
 import {
   getGradientBackground,
   getBoxShadowColor,
 } from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 
 class VaAppBarProps {
-  gradient = prop<boolean>({ type: Boolean, default: false });
-  bottom = prop<boolean>({ type: Boolean, default: false });
-  target = prop<string | Element>({ type: [Element, String], default: '' });
-  hideOnScroll = prop<boolean>({ type: Boolean, default: false });
-  shadowOnScroll = prop<boolean>({ type: Boolean, default: false });
-  shadowColor = prop<string>({ type: String, default: '' });
-  color = prop<string>({ type: String, default: undefined });
+  gradient = prop<boolean>({ type: Boolean, default: false })
+  bottom = prop<boolean>({ type: Boolean, default: false })
+  target = prop<string | Element>({ type: [Element, String], default: '' })
+  hideOnScroll = prop<boolean>({ type: Boolean, default: false })
+  shadowOnScroll = prop<boolean>({ type: Boolean, default: false })
+  shadowColor = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: undefined })
 }
 
+const CardPropsMixin = Vue.with(VaAppBarProps)
+
 @Options({ name: 'VaAppBar' })
-export default class VaAppBar extends Vue.with(VaAppBarProps) {
-  isHidden = false;
+export default class VaAppBar extends mixins(ColorMixin, CardPropsMixin) {
+  isHidden = false
   doShowShadow = false
 
   scrollRoot = setup(() => {
@@ -42,34 +44,37 @@ export default class VaAppBar extends Vue.with(VaAppBarProps) {
       }
       prevScrollPosition = e.target.scrollTop
     })
-  });
-
-  colors = setup(() => {
-    const getColor = useColor()
-
-    const colorComputed = getColor(this.color, 'primary')
-    const shadowColor = getColor(this.shadowColor, colorComputed)
-
-    return { colorComputed, shadowColor }
   })
 
-  get computedShadow () {
-    if (!this.doShowShadow) { return '' }
+  get colorComputed () {
+    return this.theme.getColor(this.color, 'primary')
+  }
 
-    const shadow = getBoxShadowColor(this.shadowColor ? this.colors.shadowColor : this.colors.colorComputed)
+  get shadowColorComputed () {
+    return this.theme.getColor(this.shadowColor, this.colorComputed)
+  }
+
+  get computedShadow () {
+    if (!this.doShowShadow) {
+      return ''
+    }
+
+    const shadow = getBoxShadowColor(this.shadowColor ? this.shadowColorComputed : this.colorComputed)
 
     return `0px 0px 12px 2px ${shadow}`
   }
 
   get transformComputed () {
-    if (!this.isHidden) { return '' }
+    if (!this.isHidden) {
+      return ''
+    }
 
     return this.bottom ? 'translateY(100%)' : 'translateY(-100%)'
   }
 
   get computedStyle () {
     return {
-      background: this.gradient ? getGradientBackground(this.colors.colorComputed) : this.colors.colorComputed,
+      background: this.gradient ? getGradientBackground(this.colorComputed) : this.colorComputed,
       'box-shadow': this.computedShadow,
       transform: this.transformComputed,
     }
