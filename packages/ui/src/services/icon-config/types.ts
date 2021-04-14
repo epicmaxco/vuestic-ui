@@ -17,7 +17,7 @@ export interface IconProps {
 
 export interface IconConfigurationString extends IconProps {
   name: string
-  resolve?: ((dynamicSegmentsValue: {[dynamicSegmentName: string]: string }) => IconProps)
+  resolve?: ((dynamicSegments: {[dynamicSegment: string]: string }) => IconProps)
 }
 
 export interface IconConfigurationRegex extends IconProps {
