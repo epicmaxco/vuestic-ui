@@ -1,12 +1,12 @@
 <template>
   <component
     v-bind="computedAttrs"
+    aria-hidden="true"
+    notranslate
+    class="va-icon"
     :is="computedTag"
     :class="computedClass"
     :style="computedStyle"
-    class="va-icon"
-    aria-hidden="true"
-    notranslate
   >
     <slot>{{ computedContent }}</slot>
   </component>
