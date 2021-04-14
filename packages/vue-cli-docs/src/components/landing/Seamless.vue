@@ -8,31 +8,31 @@
 
           <!-- First block -->
           <div class="seamless__content--first">
-            <h3 class="block__label block__label--vuestic">{{$t('landing.seamless.compare.vuestic')}}</h3>
+            <h3 class="block__label block__label--vuestic text--primary">{{$t('landing.seamless.compare.vuestic')}}</h3>
             <div class="block__components">
 
               <div class="component">
-                <va-button color="#6F80E7">Пампуй</va-button>
+                <va-button color="primary">Пампуй</va-button>
               </div>
 
               <div class="component">
                 <va-select
                   v-model="value3"
                   :options="options"
-                  color="#6F80E7"
+                  color="primary"
                   label="Country"
                 />
               </div>
 
               <div class="component">
-                <va-slider color="#6F80E7" v-model="value2" />
+                <va-slider color="primary" v-model="value2" />
               </div>
 
               <div class="component">
                 <va-checkbox
                   v-model="value"
                   label="选中的复选框"
-                  color="#6F80E7"
+                  color="primary"
                 />
               </div>
             </div>

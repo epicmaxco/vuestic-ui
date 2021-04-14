@@ -159,6 +159,10 @@
           "displayName": "menu.backtop"
         },
         {
+          "name": "app-bar",
+          "displayName": "menu.appBar"
+        },
+        {
           "name": "button-group",
           "displayName": "menu.buttonGroup"
         }

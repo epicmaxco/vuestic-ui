@@ -9,7 +9,7 @@
                      href="https://github.com/epicmaxco/vuestic-admin"
                      target="blank"
                      :round="false"
-                     color="#2550C0"
+                     color="primary"
           >
             <va-icon class="fa fa-github" style="margin-right: 0.5rem" />
             {{ $t('landing.admin.buttons.github') }}
@@ -18,13 +18,13 @@
                      href="https://vuestic.epicmax.co/admin/dashboard"
                      target="blank"
                      :round="false"
-                     color="#2550C0"
+                     color="primary"
                      flat
           >
             {{ $t('landing.admin.buttons.demo') }}
           </va-button>
           <div class="admin__buttons--button">
-            <va-button class="star-button" color="#000" icon="star_empty" target="blank" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
+            <va-button class="star-button" color="dark" icon="star_empty" target="blank" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
               {{ $t('landing.admin.buttons.star') }} {{ stars }}
             </va-button>
           </div>

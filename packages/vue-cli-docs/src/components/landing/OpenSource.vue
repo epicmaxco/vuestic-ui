@@ -9,12 +9,12 @@
           <h2 class="opensource__title">{{$t('landing.opensource.title')}}</h2>
           <div class="opensource__text">
             {{$t('landing.opensource.text[0]')}}
-            <a href="https://github.com/epicmaxco/vuestic-ui/issues" target="_blank">{{$t('landing.opensource.text[1]')}}</a>,
+            <a class="text--primary" href="https://github.com/epicmaxco/vuestic-ui/issues" target="_blank">{{$t('landing.opensource.text[1]')}}</a>,
             <router-link :to="`/${$root.$i18n.locale}/contribution/documentation-page`">
               {{$t('landing.opensource.text[2]')}}
             </router-link>
             {{$t('landing.opensource.text[3]')}}
-            <a href="https://discord.gg/jTKTjj2weV" target="_blank">{{$t('landing.opensource.text[4]')}}</a>
+            <a class="text--primary" href="https://discord.gg/jTKTjj2weV" target="_blank">{{$t('landing.opensource.text[4]')}}</a>
             {{$t('landing.opensource.text[5]')}}</div>
         </div>
         <div class="opensource__actions">

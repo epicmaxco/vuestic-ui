@@ -8,7 +8,8 @@
     "lint": "vue-cli-service lint",
     "generate:component": "plop --plopfile src/scripts/generators/index.ts",
     "generate:docspage": "plop --plopfile src/scripts/generators/documentation.ts",
-    "generate:translation": "plop --plopfile src/scripts/generators/language.ts"
+    "generate:translation": "plop --plopfile src/scripts/generators/language.ts",
+    "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -25,7 +26,8 @@
     "vue-lang-router": "^2.1.1",
     "vue-prism-component": "^2.0.0",
     "vue-router": "^4.0.3",
-    "codesandbox": "^2.2.1"
+    "codesandbox": "^2.2.1",
+    "spa-http-server": "^0.9.0"
   },
   "devDependencies": {
     "@types/dedent": "^0.7.0",
