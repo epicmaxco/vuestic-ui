@@ -5,11 +5,11 @@ import { isMatchRegex, regexGroupsValues } from './utils/regex'
 import {
   IconConfig,
   IconConfiguration,
-  IconConfigurationWithDynamicSegmentName,
-  IconConfigurationWithRegexName,
-  isIconConfigurationWithDynamicSegmentName,
-  isIconConfigurationWithRegexName,
-  IconConfigurationDefaultParams,
+  IconConfigurationString,
+  IconConfigurationRegex,
+  isIconConfigurationString,
+  isIconConfigurationRegex,
+  IconProps,
 } from './types'
 
 function getIconConfig (): IconConfig {
@@ -17,22 +17,22 @@ function getIconConfig (): IconConfig {
 }
 
 function isMatchConfiguration (iconName: string, iconConfiguration: IconConfiguration) {
-  if (isIconConfigurationWithDynamicSegmentName(iconConfiguration)) {
+  if (isIconConfigurationString(iconConfiguration)) {
     return isMatchDynamicSegments(iconName, iconConfiguration.name)
   }
-  if (isIconConfigurationWithRegexName(iconConfiguration)) {
+  if (isIconConfigurationRegex(iconConfiguration)) {
     return isMatchRegex(iconName, iconConfiguration.name)
   }
 
   return false
 }
 
-function resolveIconConfigurationWithDynamicSegmentName (iconName: string, iconConfiguration: IconConfigurationWithDynamicSegmentName) {
+function resolveIconConfigurationString (iconName: string, iconConfiguration: IconConfigurationString) {
   const args = dynamicSegments(iconName, iconConfiguration.name)
   return iconConfiguration.resolve && iconConfiguration.resolve(args)
 }
 
-function resolveIconConfigurationWithRegexName (iconName: string, iconConfig: IconConfigurationWithRegexName) {
+function resolveIconConfigurationRegex (iconName: string, iconConfig: IconConfigurationRegex) {
   if (iconConfig.name.global) {
     throw new Error(`Bad icon config with name ${iconConfig.name}. Please, don't use global regex as name.`)
   }
@@ -40,12 +40,12 @@ function resolveIconConfigurationWithRegexName (iconName: string, iconConfig: Ic
   return iconConfig.resolveFromRegex && iconConfig.resolveFromRegex(...args)
 }
 
-function resolveIconConfiguration (iconName: string, iconConfiguration: IconConfiguration): IconConfigurationDefaultParams | undefined {
-  if (isIconConfigurationWithDynamicSegmentName(iconConfiguration)) {
-    return resolveIconConfigurationWithDynamicSegmentName(iconName, iconConfiguration)
+function resolveIconConfiguration (iconName: string, iconConfiguration: IconConfiguration): IconProps | undefined {
+  if (isIconConfigurationString(iconConfiguration)) {
+    return resolveIconConfigurationString(iconName, iconConfiguration)
   }
-  if (isIconConfigurationWithRegexName(iconConfiguration)) {
-    return resolveIconConfigurationWithRegexName(iconName, iconConfiguration)
+  if (isIconConfigurationRegex(iconConfiguration)) {
+    return resolveIconConfigurationRegex(iconName, iconConfiguration)
   }
 
   throw Error('Unknown icon config')
@@ -78,7 +78,7 @@ function findIconConfiguration (iconName: string | undefined, globalIconConfig: 
 }
 
 /** Removes name, to, resolveFromRegex and resolve from IconConfiguration */
-function getDefaultParamsFromConfiguration (iconConfiguration: IconConfiguration): IconConfigurationDefaultParams {
+function iconPropsFromIconConfiguration (iconConfiguration: IconConfiguration): IconProps {
   const junkKeys = ['name', 'to', 'resolve', 'resolveFromRegex']
 
   const configuration: Record<string, string> = iconConfiguration as any
@@ -86,10 +86,10 @@ function getDefaultParamsFromConfiguration (iconConfiguration: IconConfiguration
   return configuration
 }
 
-export function getIconConfiguration (name: string, iconConfig: IconConfig = getIconConfig()): IconConfigurationDefaultParams {
+export function getIconConfiguration (name: string, iconConfig: IconConfig = getIconConfig()): IconProps {
   const configuration = findIconConfiguration(name, iconConfig)
 
   if (configuration === undefined) { return {} }
 
-  return getDefaultParamsFromConfiguration(configuration)
+  return iconPropsFromIconConfiguration(configuration)
 }

@@ -1,6 +1,5 @@
-export type IconNameWithDynamicSegment = string
 
-export interface IconConfigurationDefaultParams {
+export interface IconProps {
   attrs?: Record<string, string | ((...args: any[]) => unknown)>
 
   /** Vue component */
@@ -16,25 +15,25 @@ export interface IconConfigurationDefaultParams {
   to?: string
 }
 
-export interface IconConfigurationWithDynamicSegmentName extends IconConfigurationDefaultParams {
-  name: IconNameWithDynamicSegment
-  resolve?: ((dynamicSegmentsValue: {[dynamicSegmentName: string]: string }) => IconConfigurationDefaultParams)
+export interface IconConfigurationString extends IconProps {
+  name: string
+  resolve?: ((dynamicSegmentsValue: {[dynamicSegmentName: string]: string }) => IconProps)
 }
 
-export interface IconConfigurationWithRegexName extends IconConfigurationDefaultParams {
+export interface IconConfigurationRegex extends IconProps {
   name: RegExp
   // Need a different resolve method name because ts don't understand types
-  resolveFromRegex?: ((...regexGroupValues: string[]) => IconConfigurationDefaultParams)
+  resolveFromRegex?: ((...regexGroupValues: string[]) => IconProps)
 }
 
-export type IconConfiguration = IconConfigurationWithDynamicSegmentName | IconConfigurationWithRegexName
+export type IconConfiguration = IconConfigurationString | IconConfigurationRegex
 
 export type IconConfig = IconConfiguration[]
 
-export function isIconConfigurationWithDynamicSegmentName (config: IconConfiguration): config is IconConfigurationWithDynamicSegmentName {
-  return typeof config.name === 'string' // TODO: make this check more smart
+export function isIconConfigurationString (config: IconConfiguration): config is IconConfigurationString {
+  return typeof config.name === 'string'
 }
 
-export function isIconConfigurationWithRegexName (config: IconConfiguration): config is IconConfigurationWithRegexName {
+export function isIconConfigurationRegex (config: IconConfiguration): config is IconConfigurationRegex {
   return config.name instanceof RegExp
 }
