@@ -187,7 +187,7 @@ export default {
     }
   },
   setup () {
-    const { setGlobalConfig, getGlobalConfig } = useGlobalConfig()
+    const { setGlobalConfig, getGlobalConfig, mergeGlobalConfig } = useGlobalConfig()
 
     const { getColor } = useColors()
 
@@ -225,6 +225,7 @@ export default {
     return {
       setGlobalConfig,
       getGlobalConfig,
+      mergeGlobalConfig,
       getColor,
       buttonRoundConfigValue,
     }
@@ -253,7 +254,7 @@ export default {
       }))
     },
     changeButtonsRound () {
-      this.setGlobalConfig({
+      this.mergeGlobalConfig({
         components: {
           VaButton: {
             round: !this.buttonRoundConfigValue,
@@ -281,7 +282,7 @@ export default {
         },
       }
 
-      this.setGlobalConfig(newConfig)
+      this.mergeGlobalConfig(newConfig)
     },
   },
 }
