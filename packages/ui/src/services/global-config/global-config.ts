@@ -2,7 +2,7 @@ import { merge, cloneDeep } from 'lodash'
 import { ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater } from './types'
 import { getComponentsDefaultConfig } from './config-default'
-import { createIconsConfig } from '../icon-config/helpers'
+import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
 
 const globalConfigRef = ref<GlobalConfig>({

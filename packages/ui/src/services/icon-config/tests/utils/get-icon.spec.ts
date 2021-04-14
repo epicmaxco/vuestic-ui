@@ -1,4 +1,4 @@
-import { getIconConfiguration } from '../../get-icon'
+import { getIconConfiguration } from '../../icon-helpers'
 import { IconConfig } from '../../icon-config'
 
 describe('IconConfig', () => {
