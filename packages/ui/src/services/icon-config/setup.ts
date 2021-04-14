@@ -7,7 +7,7 @@ import { getIconConfiguration } from './get-icon'
  * { name: 'test', age: undefined} -> { name: 'test' }
  * ```
  */
-export function copyObjectWithoutUndefined (obj: any) {
+export const copyObjectWithoutUndefined = (obj: any) => {
   return Object.keys({ ...obj }).reduce((acc, key) => {
     return obj[key] !== undefined ? { [key]: obj[key], ...acc } : acc
   }, {})

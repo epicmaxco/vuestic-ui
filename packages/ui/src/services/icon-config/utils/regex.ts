@@ -1,4 +1,4 @@
-export function isMatchRegex (str: string, regex: RegExp) {
+export const isMatchRegex = (str: string, regex: RegExp) => {
   return regex.test(str)
 }
 
@@ -11,7 +11,7 @@ export function isMatchRegex (str: string, regex: RegExp) {
  * "global regex test", /global (regex) (test)/g -> [['regex', 'test']]
  * ```
  */
-export function regexGroupsValues (str: string, regex: RegExp | string): string[] | string[][] {
+export const regexGroupsValues = (str: string, regex: RegExp | string): string[] | string[][] => {
   if (typeof regex !== 'string' && regex.global) {
     // Global regex can return multiple matches array. So we need to map this all matches and remove non group values.
     return [...str.matchAll(regex)].map(g => g.slice(1))

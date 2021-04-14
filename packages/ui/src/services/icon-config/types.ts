@@ -30,10 +30,10 @@ export type IconConfiguration = IconConfigurationString | IconConfigurationRegex
 
 export type IconConfig = IconConfiguration[]
 
-export function isIconConfigurationString (config: IconConfiguration): config is IconConfigurationString {
+export const isIconConfigurationString = (config: IconConfiguration): config is IconConfigurationString => {
   return typeof config.name === 'string'
 }
 
-export function isIconConfigurationRegex (config: IconConfiguration): config is IconConfigurationRegex {
+export const isIconConfigurationRegex = (config: IconConfiguration): config is IconConfigurationRegex => {
   return config.name instanceof RegExp
 }

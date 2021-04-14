@@ -10,7 +10,7 @@ const dynamicSegmentRegex = /{[^}]*}/g // match {any-thing}, {even with space}
  * "fa-{code}-{suffix}" -> "fa-(.*)-(.*)"
  * ```
  */
-function dynamicSegmentStringToRegex (template: string) {
+const dynamicSegmentStringToRegex = (template: string) => {
   return template.replace(dynamicSegmentRegex, '(.*)')
 }
 
@@ -21,7 +21,7 @@ function dynamicSegmentStringToRegex (template: string) {
  "fa-{code}-{suffix}" -> ['code', 'suffix']
  ```
  */
-function dynamicSegmentsNames (template: string) {
+const dynamicSegmentsNames = (template: string) => {
   return (template.match(dynamicSegmentRegex) || []) // 'fa-{code}-{suffix}' -> ['{code}', '{suffix}']
     .map((g) => g.replace(/{|}/g, '')) // ['{code}', '{suffix}'] -> ['code', 'suffix']
 }
@@ -33,7 +33,7 @@ function dynamicSegmentsNames (template: string) {
  * "fa-clock-o", "fa-{code}-{suffix}" -> ["clock", "o"]
  * ```
  */
-function dynamicSegmentsValues (str: string, template: string) {
+const dynamicSegmentsValues = (str: string, template: string) => {
   return regexGroupsValues(str, dynamicSegmentStringToRegex(template))
 }
 
@@ -46,7 +46,7 @@ function dynamicSegmentsValues (str: string, template: string) {
  * "fa4 clock-o", "fa4 {icon-code}" -> { 'icon-code': 'clock-o' }
  * ```
  */
-export function dynamicSegments (str: string, template: string) {
+export const dynamicSegments = (str: string, template: string) => {
   const params = dynamicSegmentsNames(template)
   const values = dynamicSegmentsValues(str, template)
 
@@ -61,7 +61,7 @@ export function dynamicSegments (str: string, template: string) {
  * "vuestic-home-open", /vuestic-(.*)-open/ -> true
  * ```
  */
-function strictMatch (str: string, regex: RegExp) {
+const strictMatch = (str: string, regex: RegExp) => {
   return (str.match(regex) || [])[0] === str
 }
 
@@ -74,7 +74,7 @@ function strictMatch (str: string, regex: RegExp) {
  * "fa4 clock-o", "fa4 {icon-code}" -> false
  * ```
  */
-export function isMatchDynamicSegments (str: string, template: string) {
+export const isMatchDynamicSegments = (str: string, template: string) => {
   const templateRegex = dynamicSegmentStringToRegex(template)
   return strictMatch(str, new RegExp(templateRegex))
 }
