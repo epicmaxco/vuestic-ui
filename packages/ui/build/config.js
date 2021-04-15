@@ -45,6 +45,9 @@ var config = {
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
         new VueLoaderPlugin(),
+        // new BundleAnalyzerPlugin({
+        //   analyzerMode: 'static',
+        // }),
     ],
     performance: {
         hints: false
@@ -127,8 +130,6 @@ var config = {
         minimizer: [
             new TerserPlugin({
                 parallel: true,
-                cache: true,
-                sourceMap: true,
                 terserOptions: {
                     keep_classnames: true,
                     keep_fnames: true

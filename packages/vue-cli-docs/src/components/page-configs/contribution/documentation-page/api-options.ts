@@ -1,5 +1,5 @@
 // @ts-ignore
-import { ManualApiOptions } from 'vuestic-ui-dev/src/services/api-docs/ManualApiOptions'
+import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
 export default {
   version: '1.1',

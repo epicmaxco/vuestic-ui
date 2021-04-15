@@ -40,7 +40,7 @@
       </div>
     </template>
     <template #anchor>
-      <slot/>
+      <slot />
     </template>
   </va-dropdown>
 </template>
@@ -70,6 +70,7 @@ class PopoverProps {
     type: String as PropType<Placement>,
     default: 'bottom',
   })
+
   autoHide = prop<boolean>({ type: Boolean, default: true })
   hoverOverTimeout = prop<number>({ type: Number, default: 0 })
   hoverOutTimeout = prop<number>({ type: Number, default: 0 })

@@ -1,7 +1,8 @@
 <template>
   <va-card
     class="va-file-upload-list-item"
-    :stripe="removed ? '' : color"
+    :stripe="removed"
+    :stripeColor="color"
     no-margin
     no-padding
     :class="{'file-upload-list-item--undo': removed}"
@@ -39,7 +40,7 @@ import VaIcon from '../../va-icon'
 import VaFileUploadUndo from '../VaFileUploadUndo'
 
 class FileUploadListItemProps {
-  file = prop<object>({
+  file = prop<Record<string, unknown>>({
     type: Object,
     default: null,
   })

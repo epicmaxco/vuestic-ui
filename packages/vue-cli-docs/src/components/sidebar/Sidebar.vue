@@ -30,17 +30,9 @@
             >
               {{ $t(childRoute.category) }}
             </va-list-label>
-            <va-list-item
-              :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
-              class="sidebar__link"
-              active-class="sidebar__link--active"
-            >
-              <va-list-item-section>
-                <va-list-item-label>
-                  {{ $t(childRoute.displayName) }}
-                </va-list-item-label>
-              </va-list-item-section>
-            </va-list-item>
+            <va-sidebar-link :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`">
+              {{ $t(childRoute.displayName) }}
+            </va-sidebar-link>
           </div>
         </va-collapse>
       </va-accordion>
@@ -51,8 +43,9 @@
 <script lang="ts">
 import { watch } from 'vue'
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import { NavigationRoute } from './NavigationRoute'
 import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
+import VaSidebarLink
+  from '../../../../ui/src/components/vuestic-components/va-sidebar/VaSidebarLink/VaSidebarLink.vue'
 
 class Props {
   navigationRoutes = prop<any[]>({ type: Array, default: () => [] })
@@ -62,13 +55,13 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
-  components: { AlgoliaSearch },
+  components: { AlgoliaSearch, VaSidebarLink },
 })
 export default class Sidebar extends mixins(PropsMixin) {
   value = [] as boolean[]
 
   created () {
-    watch(() => this.$route, this.onRouteChange, { immediate: true })
+    watch(() => (this as any).$route, this.onRouteChange, { immediate: true })
   }
 
   onRouteChange () {
@@ -77,7 +70,7 @@ export default class Sidebar extends mixins(PropsMixin) {
 
   setActiveExpand () {
     this.value = this.navigationRoutes.map((route, index) => {
-      const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
+      const pathSteps: string[] = (this as any).$route.path.split('/').filter(Boolean)
       return (
         this.value[index] ||
         // @ts-ignore
@@ -91,7 +84,7 @@ export default class Sidebar extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss" scoped>
-@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
+@import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
 
 .sidebar {
   z-index: 1000;
@@ -109,26 +102,6 @@ export default class Sidebar extends mixins(PropsMixin) {
 
     &--focus {
       background-color: $light-gray3;
-    }
-
-    &.sidebar__link {
-      padding: 1rem 0 1rem 2rem;
-      line-height: 1.1;
-      display: block;
-
-      &:hover {
-        background: $light-blue;
-
-        .va-list-item-label {
-          color: $theme-blue-dark;
-        }
-      }
-
-      &--active {
-        .va-list-item-label {
-          color: $theme-blue-dark;
-        }
-      }
     }
   }
 

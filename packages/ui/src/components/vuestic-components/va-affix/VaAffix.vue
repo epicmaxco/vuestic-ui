@@ -4,14 +4,14 @@
     class="va-affix"
   >
     <div :style="{ visibility: isAffixed ? 'hidden' : 'inherit' }">
-      <slot/>
+      <slot />
     </div>
     <div
       v-if="isAffixed"
       :class="computedClass"
       :style="computedStyle"
     >
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>

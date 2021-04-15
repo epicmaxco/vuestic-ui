@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import VaCard from 'vuestic-ui-dev/src/components/vuestic-components/va-card/VaCard'
+import VaCard from 'vuestic-ui/src/components/vuestic-components/va-card/VaCard'
 export default {
   components: { VaCard },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui-dev/src/components/vuestic-sass/resources/resources';
+@import '~vuestic-ui/src/components/vuestic-sass/resources/resources';
 
 .item {
   border: 1px solid $gray;

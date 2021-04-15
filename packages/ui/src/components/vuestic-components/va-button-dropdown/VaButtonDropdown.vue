@@ -23,7 +23,7 @@
       </template>
 
       <div class="va-button-dropdown__content">
-        <slot/>
+        <slot />
       </div>
     </va-dropdown>
     <va-button-group v-else>
@@ -57,7 +57,7 @@
           />
         </template>
         <div class="va-button-dropdown__content">
-          <slot/>
+          <slot />
         </div>
       </va-dropdown>
     </va-button-group>

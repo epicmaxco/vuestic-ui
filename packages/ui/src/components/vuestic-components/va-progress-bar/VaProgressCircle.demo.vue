@@ -90,31 +90,31 @@
     <VbCard title="context checks">
       <div>
         value:
-        <VaContext :config="{VaProgressCircle: {modelValue: 50}}">
+        <VaContext :components="{VaProgressCircle: {modelValue: 50}}">
           <VaProgressCircle />
         </VaContext>
       </div>
       <div>
         indeterminate:
-        <VaContext :config="{VaProgressCircle: {indeterminate: true}}">
+        <VaContext :components="{VaProgressCircle: {indeterminate: true}}">
           <VaProgressCircle />
         </VaContext>
       </div>
       <div>
         color:
-        <VaContext :config="{VaProgressCircle: {color: 'danger'}}">
+        <VaContext :components="{VaProgressCircle: {color: 'danger'}}">
           <VaProgressCircle :modelValue="value" />
         </VaContext>
       </div>
       <div>
         thickness:
-        <VaContext :config="{VaProgressCircle: {thickness: 0.20}}">
+        <VaContext :components="{VaProgressCircle: {thickness: 0.20}}">
           <VaProgressCircle :modelValue="value" />
         </VaContext>
       </div>
       <div>
         size:
-        <VaContext :config="{VaProgressCircle: {size: 30}}">
+        <VaContext :components="{VaProgressCircle: {size: 30}}">
           <VaProgressCircle :modelValue="value" />
         </VaContext>
       </div>

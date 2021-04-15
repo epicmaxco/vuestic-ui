@@ -1,7 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaColorInput from 'vuestic-ui-dev/src/components/vuestic-components/va-color-input/VaColorInput.vue'
-import VaColorInputAdvanced from 'vuestic-ui-dev/src/components/vuestic-components/va-color-input/VaColorInputAdvanced.vue'
-import apiOptions, { apiOptionsAdvanced } from './api-options'
+import VaColorInput from 'vuestic-ui/src/components/vuestic-components/va-color-input/VaColorInput.vue'
+import apiOptions from './api-options'
 
 export default [
   {
@@ -76,14 +75,5 @@ export default [
     type: BlockType.API,
     componentOptions: VaColorInput,
     apiOptions,
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'colorInput.api.colorInputAdvanced',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaColorInputAdvanced,
-    apiOptions: apiOptionsAdvanced,
   },
 ] as ApiDocsBlock[]

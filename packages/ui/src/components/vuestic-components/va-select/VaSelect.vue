@@ -7,7 +7,7 @@
     :style="{ width: $props.width }"
   >
     <template #prepend v-if="$slots.prepend">
-      <slot name="prepend"/>
+      <slot name="prepend" />
     </template>
 
     <va-dropdown
@@ -160,7 +160,7 @@
     </va-dropdown>
 
     <template #append v-if="$slots.append">
-      <slot name="append"/>
+      <slot name="append" />
     </template>
   </va-input-wrapper>
 </template>
