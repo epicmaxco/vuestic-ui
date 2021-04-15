@@ -5,6 +5,13 @@ function resolve (dir) {
 }
 
 module.exports = {
+  chainWebpack: (config) => {
+    config.optimization.minimizer('terser').tap((args) => {
+      // args[0].terserOptions.keep_classnames = true
+      args[0].terserOptions.keep_fnames = true
+      return args
+    })
+  },
   configureWebpack: {
     entry: {
       app: resolve('./src/main.ts'),

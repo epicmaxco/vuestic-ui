@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://vuestic.dev" target="_blank">
-        <img alt="Vuestic UI Logo" width="500" src="https://vuestic.dev/_nuxt/img/2d3d3c5.svg">
+        <img alt="Vuestic UI Logo" width="500" src="./packages/ui/src/assets/vuestic-ui-logo.png">
     </a>
         <br>
     Vue.js 3.0 UI Library
@@ -34,7 +34,7 @@
 <a href="https://discord.gg/jTKTjj2weV">Discord</a> to help us improve Vuestic UI experience.
 
   <p align="center">
-    <img src="https://camo.githubusercontent.com/7e01a375ab814e4e87231e455542755cb831dd14/68747470733a2f2f692e696d6775722e636f6d2f704d754a5656632e706e67">
+    <img src="./packages/ui/src/assets/vuestic-ui-image.jpg">
   </p>
 
 ### Why use Vuestic UI?
@@ -102,7 +102,7 @@ example of a real-world web application based on Vuestic UI.
 
 Thanks for all your wonderful PRs, issues and ideas.
 <a href="https://github.com/epicmaxco/vuestic-ui/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=epicmaxco/vuestic-ui">
+<img src="https://opencollective.com/vuestic-ui/contributors.svg?width=890&button=false" />
 </a>
 <br>
 You’re always welcome to join: check out

@@ -3,6 +3,11 @@ export const enum ThemeName {
   CORPORATE = 'CORPORATE',
 }
 
+export const ThemeNameIterator = [
+  ThemeName.DEFAULT,
+  ThemeName.CORPORATE,
+]
+
 export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
   [ThemeName.DEFAULT]: {
     primary: '#2C82E0',

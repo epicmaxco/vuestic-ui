@@ -303,6 +303,13 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "appBar": "App Bar"
+  },
+  "language": {
+    "brazilian_portuguese": "Português",
+    "english": "English",
+    "spanish": "Spanish",
+    "simplified_chinese": "Versión abreviada",
     "normalize": "Normalize",
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",

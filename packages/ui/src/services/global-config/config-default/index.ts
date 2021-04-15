@@ -1,7 +1,7 @@
-import { ComponentConfig } from './../../../../services/component-config/component-config'
+import { ComponentConfig } from '../../component-config/component-config'
 
-export const getDefaultConfig = (): ComponentConfig => {
-  // TODO Should be hanled in size service
+export const getComponentsDefaultConfig = (): ComponentConfig => {
+  // TODO: Should be hanled in size service
   return {
     VaIcon: {
       sizesConfig: {

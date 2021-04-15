@@ -6,9 +6,11 @@ import {
   TextBlock,
   PathToExample,
   CodeString,
+  ExampleComponentProps,
 } from '@/types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
+import { TableData, TableColum } from './../components/DocsTable/DocsTable'
 
 export const DocsHelper = {
   title: (translationString: TranslationString): TextBlock => {
@@ -35,10 +37,11 @@ export const DocsHelper = {
       translationString,
     }
   },
-  example: (component: PathToExample): ApiDocsBlock => {
+  example: (component: PathToExample, props?: ExampleComponentProps): ApiDocsBlock => {
     return {
       type: BlockType.EXAMPLE,
       component,
+      props,
     }
   },
   code: (code: CodeString): ApiDocsBlock => {
@@ -52,6 +55,21 @@ export const DocsHelper = {
       type: BlockType.API,
       componentOptions,
       apiOptions,
+    }
+  },
+  table: (columns: TableColum[], tableData: TableData) => {
+    return {
+      type: BlockType.TABLE,
+      columns,
+      tableData,
+    }
+  },
+  link: (text: string, href: string, options?: { preText?: string, afterText?: string }) => {
+    return {
+      type: BlockType.LINK,
+      text,
+      href,
+      options,
     }
   },
 

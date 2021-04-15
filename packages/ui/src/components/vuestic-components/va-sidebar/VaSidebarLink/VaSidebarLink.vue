@@ -1,145 +1,60 @@
 <template>
-  <router-link
-    :class="computedLinkClass"
-    @mouseenter="updateHoverState(true)"
-    @mouseleave="updateHoverState(false)"
-    :style="computedLinkStyles"
-    active-class="va-sidebar-link--active"
+  <va-list-item
     :to="to"
     :target="target"
+    class="sidebar__link"
+    :style="computedStyle"
+    active-class="text--primary"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
   >
-    <va-icon
-      v-if="icon"
-      class="va-sidebar-link__content__icon"
-      :style="computedIconStyles"
-      :name="icon"
-    />
-    <div class="va-sidebar-link__content__title">
-      <slot name="title" />
-      {{ title }}
-    </div>
-  </router-link>
+    <va-list-item-section>
+      <va-list-item-label>
+        <slot></slot>
+      </va-list-item-label>
+    </va-list-item-section>
+  </va-list-item>
 </template>
-
-<script>
-import { shiftHslColor } from '../../../../services/color-config/color-functions'
+<script lang='ts'>
+import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { getHoverColor } from '../../../../services/color-config/color-functions'
 import ColorMixin from '../../../../services/color-config/ColorMixin'
-import VaIcon from '../../va-icon'
 
-export default {
-  name: 'VaSidebarLink',
-  components: { VaIcon },
-  mixins: [ColorMixin],
-  props: {
-    to: {
-      type: [Object, String],
-      default: '',
-    },
-    target: {
-      type: String,
-      default: '_self',
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    activeByDefault: {
-      type: Boolean,
-    },
-    minimized: {
-      type: Boolean,
-    },
-  },
-  data () {
+class SidebarLinkProps {
+  to = prop<string>({ type: String, default: undefined })
+  target = prop<string>({ type: String, default: undefined })
+}
+
+const SidebarLinkPropsMixin = Vue.with(SidebarLinkProps)
+
+@Options({})
+export default class SidebarLink extends mixins(ColorMixin, SidebarLinkPropsMixin) {
+  isHovered = false
+
+  get computedStyle () {
     return {
-      isHovered: false,
-      isActive: this.activeByDefault,
+      backgroundColor: this.isHovered ? getHoverColor(this.computeColor('primary', '#ECF4F8')) : '',
+      color: this.isHovered ? this.computeColor('primary', '#2C82E0') : '',
     }
-  },
-  watch: {
-    $route () {
-      this.updateActiveState()
-    },
-  },
-  computed: {
-    computedLinkClass () {
-      return {
-        'va-sidebar-link': true,
-        'va-sidebar-link--minimized': this.minimized,
-      }
-    },
-    computedLinkStyles () {
-      if (this.isHovered || this.isActive) {
-        return {
-          color: this.computeColor('primary'),
-          backgroundColor: shiftHslColor(this.computeColor('secondary'), { s: -13, l: 15 }),
-          borderColor: this.isActive ? this.computeColor('primary') : 'transparent',
-        }
-      } else { return {} }// else <- controlled by CSS (color in rgba)
-    },
-    computedIconStyles () {
-      return (this.isHovered || this.isActive)
-        ? { color: this.computeColor('primary') }
-        : { color: 'white' }
-    },
-  },
-  methods: {
-    updateHoverState (isHovered) {
-      this.isHovered = isHovered
-    },
-    updateActiveState () {
-      this.$nextTick(() => {
-        this.isActive = this.$route.name === this.to.name
-      })
-    },
-  },
-  mounted () {
-    this.updateActiveState()
-  },
+  }
 }
 </script>
 
 <style lang="scss">
-@import "../../../vuestic-sass/resources/resources";
+@import "../../../../components/vuestic-sass/resources/resources";
 
-.va-sidebar-link {
-  position: relative;
-  min-height: 3rem;
-  cursor: pointer;
-  padding-left: 0.75rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  border-left: 0.25rem solid transparent;
-  color: rgba(255, 255, 255, 0.65);
+.sidebar__link {
+  display: block;
+  color: inherit;
+  padding: 1rem 0 1rem 2rem;
+  line-height: 1.1;
 
-  &__content {
-    &__icon {
-      width: 1.5rem;
-      min-width: 1.5rem;
-      text-align: center;
-      font-size: $sidebar-menu-item-icon-size;
-      margin-right: 0.5rem;
-    }
+  .va-list-item-section {
+    color: inherit;
 
-    &__title {
-      line-height: 1.5em;
-    }
-  }
-
-  &--minimized {
-    .va-sidebar-link__content {
-      &__title {
-        display: none;
-      }
+    .va-list-item-label {
+      color: inherit;
     }
   }
 }
-
 </style>

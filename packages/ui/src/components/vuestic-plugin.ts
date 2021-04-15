@@ -1,4 +1,3 @@
-
 import { App } from 'vue'
 // @ts-ignore
 // import { BusPlugin } from 'vue-epic-bus'
@@ -6,6 +5,7 @@ import { App } from 'vue'
 import VaAccordion from './vuestic-components/va-accordion'
 import VaAffix from './vuestic-components/va-affix'
 import VaAlert from './vuestic-components/va-alert'
+import VaAppBar from './vuestic-components/va-app-bar'
 import VaAvatar from './vuestic-components/va-avatar'
 import VaBacktop from './vuestic-components/va-backtop'
 import VaBadge from './vuestic-components/va-badge'
@@ -24,6 +24,7 @@ import VaCollapse from './vuestic-components/va-collapse'
 import VaColorIndicator from './vuestic-components/va-color-indicator'
 import { VaColorPalette } from './vuestic-components/va-color-palette'
 import VaColorInput from './vuestic-components/va-color-input'
+import VaConfig from './vuestic-components/va-config'
 import VaContent from './vuestic-components/va-content'
 import VaDivider from './vuestic-components/va-divider'
 import VaDatePicker from './vuestic-components/va-date-picker'
@@ -85,100 +86,97 @@ import DropdownPopperSubplugin
 // import { registerVuesticObject } from './resize-events'
 import ToastInstall from './vuestic-components/va-toast/install'
 
-import { useGlobalConfig, GlobalConfigPlugin, GlobalConfig } from '../services/GlobalConfigPlugin'
-import { getDefaultConfig } from './vuestic-components/va-config/config-default'
-import { setupColors } from '../services/color-config/color-config'
+import { GlobalConfig } from '../services/global-config/global-config'
+import { GlobalConfigPlugin } from '../services/global-config/global-config-plugin'
 import VaSpacer from './vuestic-components/va-spacer'
-import { colorsPresets } from '../services/color-config/color-theme-presets'
 
 installPlatform()
 
+// We need to have direct naming of components to avoid problems with component names being corrupted after the build is minified
+const vuesticComponentsMap = new Map([
+  ['VaAccordion', VaAccordion],
+  ['VaAffix', VaAffix],
+  ['VaAlert', VaAlert],
+  ['VaAvatar', VaAvatar],
+  ['VaAppBar', VaAppBar],
+  ['VaBacktop', VaBacktop],
+  ['VaBadge', VaBadge],
+  ['VaButton', VaButton],
+  ['VaButtonGroup', VaButtonGroup],
+  ['VaButtonToggle', VaButtonToggle],
+  ['VaBreadcrumbs', VaBreadcrumbs],
+  ['VaBreadcrumbsItem', VaBreadcrumbsItem],
+  ['VaCard', VaCard],
+  ['VaCardContent', VaCardContent],
+  ['VaCardTitle', VaCardTitle],
+  ['VaCheckbox', VaCheckbox],
+  ['VaChip', VaChip],
+  ['VaCollapse', VaCollapse],
+  ['VaColorPalette', VaColorPalette],
+  ['VaColorIndicator', VaColorIndicator],
+  ['VaColorInput', VaColorInput],
+  ['VaConfig', VaConfig],
+  ['VaContent', VaContent],
+  ['VaDatePicker', VaDatePicker],
+  ['VaDropdown', VaDropdown],
+  ['VaFileUpload', VaFileUpload],
+  ['VaHover', VaHover],
+  ['VaIcon', VaIcon],
+  ['VaImage', VaImage],
+  ['VaInnerLoading', VaInnerLoading],
+  ['VaInput', VaInput],
+  ['VaInputWrapper', VaInputWrapper],
+  ['VaList', VaList],
+  ['VaListItem', VaListItem],
+  ['VaListItemLabel', VaListItemLabel],
+  ['VaListItemSection', VaListItemSection],
+  ['VaListLabel', VaListLabel],
+  ['VaListSeparator', VaListSeparator],
+  ['VaMediumEditor', VaMediumEditor],
+  ['VaModal', VaModal],
+  ['VaNavbar', VaNavbar],
+  ['VaNavbarItem', VaNavbarItem],
+  ['VaPagination', VaPagination],
+  ['VaParallax', VaParallax],
+  ['VaPopover', VaPopover],
+  ['VaProgressBar', VaProgressBar],
+  ['VaProgressCircle', VaProgressCircle],
+  ['VaRadio', VaRadio],
+  ['VaRating', VaRating],
+  ['VaScrollbar', VaScrollbar],
+  ['VaSelect', VaSelect],
+  ['VaSeparator', VaSeparator],
+  ['VaSidebar', VaSidebar],
+  ['VaSlider', VaSlider],
+  ['VaSpacer', VaSpacer],
+  ['VaSwitch', VaSwitch],
+  ['VaTab', VaTab],
+  ['VaTabs', VaTabs],
+  ['VaTimeline', VaTimeline],
+  ['VaTimelineItem', VaTimelineItem],
+  ['VaTreeCategory', VaTreeCategory],
+  ['VaTreeNode', VaTreeNode],
+  ['VaTreeRoot', VaTreeRoot],
+  ['VaButtonDropdown', VaButtonDropdown],
+  ['VaForm', VaForm],
+  ['VaDivider', VaDivider],
+  ['VaOptionList', VaOptionList],
+  ['VaInfiniteScroll', VaInfiniteScroll],
+  // ['VaDataTable', VaDataTable],
+  // ['VaPopup', VaPopup],
+  // ['VaColorPalette', VaColorPalette],
+  // ['VaColorPicker', VaColorPicker],
+  // ['VaColorSlider', VaColorSlider],
+  // ['VaColorInput', VaColorInput],
+  // ['VaColorInputAdvanced', VaColorInputAdvanced],
+  // ['VaColorPaletteAdvanced', VaColorPaletteAdvanced],
+])
+
 export const VuesticPlugin = {
   install (app: App, vuesticConfig: GlobalConfig): void {
-    [
-      VaAccordion,
-      VaAffix,
-      VaAlert,
-      VaAvatar,
-      VaBacktop,
-      VaBadge,
-      VaButton,
-      VaButtonGroup,
-      VaButtonToggle,
-      VaBreadcrumbs,
-      VaBreadcrumbsItem,
-      VaCard,
-      VaCardContent,
-      VaCardTitle,
-      VaCheckbox,
-      VaChip,
-      VaCollapse,
-      VaColorPalette,
-      VaColorIndicator,
-      VaColorInput,
-      VaContent,
-      VaDatePicker,
-      VaDropdown,
-      VaFileUpload,
-      VaHover,
-      VaIcon,
-      VaImage,
-      VaInnerLoading,
-      VaInput,
-      VaInputWrapper,
-      VaList,
-      VaListItem,
-      VaListItemLabel,
-      VaListItemSection,
-      VaListLabel,
-      VaListSeparator,
-      VaMediumEditor,
-      VaModal,
-      VaNavbar,
-      VaNavbarItem,
-      VaPagination,
-      VaParallax,
-      VaPopover,
-      VaProgressBar,
-      VaProgressCircle,
-      VaRadio,
-      VaRating,
-      VaScrollbar,
-      VaSelect,
-      VaSeparator,
-      VaSidebar,
-      VaSlider,
-      VaSpacer,
-      VaSwitch,
-      VaTab,
-      VaTabs,
-      VaTimeline,
-      VaTimelineItem,
-      VaTreeCategory,
-      VaTreeNode,
-      VaTreeRoot,
-      VaButtonDropdown,
-      VaForm,
-      VaDivider,
-      VaOptionList,
-      VaInfiniteScroll,
-      // VaDataTable,
-      // VaPopup,
-      // VaColorPalette,
-      // VaColorPicker,
-      // VaColorSlider,
-      // VaColorInput,
-      // VaColorInputAdvanced,
-      // VaColorPaletteAdvanced,
-    ].forEach(component => {
-      let name = (component as any).name
-      if (name.startsWith('WithConfigTransport')) {
-        name = name.split('WithConfigTransport').join('')
-      }
-
-      app.component(name, component as any)
-    })
-
+    for (const [name, component] of vuesticComponentsMap) {
+      app.component(name, component)
+    }
     // registerVuesticObject(app)
 
     // app.use(BusPlugin)
@@ -188,17 +186,5 @@ export const VuesticPlugin = {
     app.use(ToastInstall)
 
     app.use(GlobalConfigPlugin, vuesticConfig)
-
-    app.mixin({
-      setup () {
-        const { setGlobalConfig } = useGlobalConfig()
-
-        setGlobalConfig(getDefaultConfig())
-
-        const { setColors } = { ...setupColors() }
-
-        setColors && setColors(colorsPresets.default)
-      },
-    })
   },
 }

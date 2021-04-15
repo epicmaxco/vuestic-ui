@@ -5,16 +5,16 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import nuxtIntegrationConfig from '../../components/page-configs/getting-started/nuxt-integration/page-config'
+import cssVariablesConfig from '../../components/page-configs/styles/css-variables/page-config'
 
 @Options({
   components: {
     DocsContent,
   },
 })
-export default class NuxtIntegration extends Vue {
+export default class Grid extends Vue {
   get configComputed () {
-    return nuxtIntegrationConfig
+    return cssVariablesConfig
   }
 }
 </script>

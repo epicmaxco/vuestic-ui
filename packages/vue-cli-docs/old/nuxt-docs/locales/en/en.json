@@ -117,12 +117,12 @@
         "rules": "Validation rules <!-- TODO Add link -->",
         "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\").",
         "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\").",
-        "append": "When set, always appends the relative path to the current path. [More info here](https://router.vuejs.org/api/#append \"Vue router docs\").",
-        "exact": "Exactly match the link. Without this, '/' will match every route. [More info here](https://router.vuejs.org/api/#exact \"Vue router docs\").",
+        "append": "When set, always appends the relative path to the current path. more info [here](https://router.vuejs.org/api/#append \"Vue router docs\").",
+        "exact": "Exactly match the link. Without this, '/' will match every route. more info [here](https://router.vuejs.org/api/#exact \"Vue router docs\").",
         "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\").",
         "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
         "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
-        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
+        "target": "Navigation target, more info [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/A#target).",
         "src": "Source URL.",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
         "label": "Same as native `label`",
@@ -747,6 +747,20 @@
         "default": "Slot for backtop content"
       }
     },
+    "VaAppBar": {
+      "props": {
+        "gradient": "Applies gradient style to background",
+        "bottom": "Sets the component position to the bottom",
+        "hideOnScroll": "Hides component when scrolling target",
+        "shadowOnScroll": "Applies box-shadow to the component when scrolling target",
+        "shadowColor": "Sets color to the box-shadow"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Slot for app-bar content"
+      }
+    },
     "VaColorPicker": {
       "props": {
         "value": "Current picked color"
@@ -832,12 +846,6 @@
       "methods": {},
       "slots": {}
     },
-    "VaAppBar": {
-      "props": {},
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
     "VaInnerLoading": {
       "props": {},
       "events": {},
@@ -912,6 +920,13 @@
     "select": "Select",
     "parallax": "Parallax",
     "backtop": "Backtop",
+    "appBar": "App Bar"
+  },
+  "language": {
+    "brazilian_portuguese": "Português",
+    "english": "English",
+    "spanish": "Spanish",
+    "simplified_chinese": "Simplified Chinese",
     "reset": "Reset",
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
@@ -2207,6 +2222,32 @@
       "default": {
         "title": "Basic usage",
         "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
+      }
+    }
+  },
+  "appBar": {
+    "title": "App bar",
+    "summaryText": "An app bar component is a part of site navigation and it's an alternative for header in apps.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, a `va-app-bar` needs a parent element with relative position."
+      },
+      "color": {
+        "title": "Color",
+        "text": "You can set a background color of the component."
+      },
+      "bottom": {
+        "title": "Bottom",
+        "text": "You can make app bar sit at the bottom of the screen."
+      },
+      "hide": {
+        "title": "Hide",
+        "text": "`hide-on-scroll` allows you to hide app bar when you scroll away."
+      },
+      "shadow": {
+        "title": "Shadow",
+        "text": "You can set a shadow."
       }
     }
   },
