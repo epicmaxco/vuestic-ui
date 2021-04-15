@@ -15,10 +15,11 @@
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 import { getGradientBackground } from '../../../services/color-config/color-functions'
-import ColorMixin from '../../../services/color-config/ColorMixin'
+import { getColor } from '../../../services/color-config/color-config'
 
 class SidebarProps {
   color = prop<string>({ type: String, default: 'secondary' })
+  textColor = prop<string>({ type: String })
   minimized = prop<boolean>({ type: Boolean, default: false })
   hoverable = prop<boolean>({ type: Boolean, default: false })
   position = prop<string>({ type: String, default: 'left' })
@@ -29,14 +30,17 @@ class SidebarProps {
 
 const SidebarPropsMixin = Vue.with(SidebarProps)
 
-@Options({
-  name: 'VaSidebar',
-})
-export default class VaSidebar extends mixins(
-  ColorMixin,
-  SidebarPropsMixin,
-) {
+@Options({ name: 'VaSidebar' })
+export default class VaSidebar extends SidebarPropsMixin {
   isHovered = false
+
+  get colorComputed () {
+    return getColor(this.color)
+  }
+
+  get textColorComputed () {
+    return getColor(this.textColor, undefined)
+  }
 
   get isMinimized () {
     return this.$props.minimized || (this.$props.hoverable && !this.isHovered)
@@ -44,6 +48,7 @@ export default class VaSidebar extends mixins(
 
   get computedStyle () {
     return {
+      color: this.textColorComputed,
       backgroundImage: getGradientBackground(this.colorComputed),
       width: this.computedWidth || `${this.computedWidth} !important`,
     }

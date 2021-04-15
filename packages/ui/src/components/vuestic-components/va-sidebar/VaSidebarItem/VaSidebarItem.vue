@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
-import { useColor } from '../../../../services/color-config/ColorMixin'
+import { useColors } from '../../../../services/color-config/color-config'
 import { getHoverColor, getFocusColor } from '../../../../services/color-config/color-functions'
 
 const useHover = () => {
@@ -32,18 +32,18 @@ export default defineComponent({
       default: {},
     },
     active: { type: Boolean, default: false },
-    textColor: { type: String, default: '#fff' },
+    textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },
     hoverColor: { type: String, default: 'secondary' },
   },
   setup (props) {
     const { isHovered, onMouseEnter, onMouseLeave } = useHover()
-    const getColor = useColor()
+    const { getColor } = useColors()
 
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
 
-      style.color = getColor(props.textColor)
+      style.color = getColor(props.textColor, '')
 
       if (isHovered.value) {
         style['background-color'] = getHoverColor(getColor(props.hoverColor))
