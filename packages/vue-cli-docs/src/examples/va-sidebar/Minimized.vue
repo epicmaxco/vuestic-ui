@@ -4,21 +4,17 @@
     class="row"
   >
   <va-checkbox v-model="minimized" style="margin-left: 20rem;" label="Minimized" />
-    <va-sidebar :minimized="minimized">
-      <va-list style="background-color: inherit; color: white;">
-        <va-list-item
-          ><va-icon name="home"></va-icon>
-          <div style="margin-left: 0.5rem; text-align: end; min-width: 12rem;">Home</div></va-list-item
-        >
-        <va-list-item
-          ><va-icon name="close"></va-icon>
-          <div style="margin-left: 0.5rem; text-align: end; min-width: 12rem;">Close</div></va-list-item
-        >
-        <va-list-item
-          ><va-icon name="loop"></va-icon>
-          <div style="margin-left: 0.5rem; text-align: end; min-width: 12rem;">Loop</div></va-list-item
-        >
-      </va-list>
+    <va-sidebar :minimized="minimized" textColor="dark" minimizedWidth="64px">
+      <template v-for="item in items" :key="item.to">
+        <va-sidebar-item :active="item.active">
+          <va-sidebar-item-content>
+            <va-icon :name="item.icon" />
+            <va-sidebar-item-title v-if="!minimized" style="height: 24px;">
+              {{ item.title }}
+            </va-sidebar-item-title>
+          </va-sidebar-item-content>
+        </va-sidebar-item>
+      </template>
     </va-sidebar>
   </div>
 </template>
@@ -27,6 +23,11 @@
 export default {
   data () {
     return {
+      items: [
+        { title: 'Dashboard', icon: 'dashboard' },
+        { title: 'Sidebar demo', icon: 'room', active: true },
+        { title: 'Loop', icon: 'loop' },
+      ],
       minimized: false,
     }
   },
