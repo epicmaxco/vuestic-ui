@@ -21,7 +21,7 @@ export type Accordion = {
 }
 
 export default defineComponent({
-  emits: ['update:modelValue', 'hello'],
+  emits: ['update:modelValue'],
   props: {
     modelValue: { type: Array, default: () => [] },
     multiply: { type: Boolean, default: false },
@@ -29,7 +29,7 @@ export default defineComponent({
     popout: { type: Boolean, default: false },
   },
   setup (props, ctx) {
-    const statefull = useStateful(props, ctx.emit)
+    const stateful = useStateful(props, ctx.emit)
     const collapses = ref<Collapse[]>([])
 
     const getProps = () => ({ inset: props.inset, popout: props.popout })
@@ -50,13 +50,13 @@ export default defineComponent({
         return collapse.valueProxy
       })
 
-      statefull.valueComputed.value = accordionValues
+      stateful.valueComputed.value = accordionValues
     }
 
     const accordion = {
       isInsideAccordion: true,
       getProps,
-      getState: () => statefull.valueComputed,
+      getState: () => stateful.valueComputed,
       onChildMounted,
       onChildUnmounted,
       onChildChange,
@@ -66,14 +66,14 @@ export default defineComponent({
 
     const updateCollapsesValues = () => {
       collapses.value.forEach((collapse: Collapse, index: number) => {
-        collapse.valueProxy = statefull.valueComputed.value[index]
+        collapse.valueProxy = stateful.valueComputed.value[index]
       })
     }
 
     onMounted(updateCollapsesValues)
     onUpdated(updateCollapsesValues)
 
-    return { collapses, value: statefull.valueComputed }
+    return { collapses, value: stateful.valueComputed }
   },
 })
 </script>
