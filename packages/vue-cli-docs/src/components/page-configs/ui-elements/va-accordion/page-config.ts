@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaAccordion from 'vuestic-ui-dev/src/components/vuestic-components/va-accordion/VaAccordion.vue'
+import VaAccordion from 'vuestic-ui/src/components/vuestic-components/va-accordion/VaAccordion.vue'
 import apiOptions from './api-options'
 
 export default [

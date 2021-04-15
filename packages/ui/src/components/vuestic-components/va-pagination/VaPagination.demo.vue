@@ -210,7 +210,7 @@
     <VbCard
       title="Use context"
     >
-      <va-context :config="{
+      <va-context :components="{
         VaPagination: {
           color: 'danger',
           pages: 10,
@@ -221,7 +221,7 @@
       }">
         <va-pagination />
       </va-context>
-      <va-context :config="{
+      <va-context :components="{
         VaPagination: {
           color: 'info',
           size: 'small',

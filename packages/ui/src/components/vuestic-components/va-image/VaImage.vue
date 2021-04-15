@@ -4,23 +4,23 @@
       v-if="loadingError"
       class="va-image__error"
     >
-      <slot name="error"/>
+      <slot name="error" />
     </div>
     <div
       v-if="loading"
       class="va-image__loader"
     >
-      <slot name="loader"/>
+      <slot name="loader" />
     </div>
     <template v-else>
-      <div :style="paddingStyles"/>
+      <div :style="paddingStyles" />
       <div
         class="va-image__img"
         :style="imageStyles"
         ref="img"
       />
       <div class="va-image__overlay">
-        <slot/>
+        <slot />
       </div>
     </template>
   </div>

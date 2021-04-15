@@ -84,10 +84,9 @@
 <script lang="ts">
 // @ts-nocheck
 import { watch } from 'vue'
-import { Options, Vue, setup } from 'vue-class-component'
-import { ThemeName } from '../../../theme-config'
+import { Options, Vue } from 'vue-class-component'
+import { ThemeName } from '../../../config/theme-config'
 import { capitalize } from 'lodash'
-import { setupColors } from 'vuestic-ui'
 
 @Options({})
 export default class ColorDropdown extends Vue {
@@ -110,22 +109,19 @@ export default class ColorDropdown extends Vue {
   }
 
   onThemeChanged (themeName) {
+    localStorage.setItem('currentTheme', themeName)
     this.$root.eventBus.$emit('changeTheme', themeName.toUpperCase())
   }
 
-  get themes () {
-    return this.getColors()
+  beforeMount () {
+    const currentTheme = localStorage.getItem('currentTheme')
+    this.selectedTheme = Object.values(ThemeName).includes(currentTheme) ? currentTheme : ThemeName.DEFAULT
   }
-
-  getTheme = setup(() => {
-    const { getTheme } = setupColors()
-    return getTheme
-  })
 }
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
 
 .color-dropdown {
   .va-button-dropdown__content {

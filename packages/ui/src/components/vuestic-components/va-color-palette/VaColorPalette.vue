@@ -3,27 +3,22 @@
     <ul class="va-color-palette__colors">
       <va-color-indicator
         v-for="(color, index) in palette"
+        :modelValue="context.valueComputed === color"
         :key="index"
         :color="color"
-        @click.native="handlerClick(color)"
         :indicator="indicator"
-        :selected="isSelected(color)"
+        @update:modelValue="context.valueComputed = color"
       />
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop, mixins } from 'vue-class-component'
-
-import { VaColorIndicator } from './index'
+import { Vue, Options, prop, setup } from 'vue-class-component'
+import { statefulComponentOptions, useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
+import VaColorIndicator from '../va-color-indicator'
 
 class ColorPaletteProps {
-  value = prop<string>({
-    type: String,
-    default: '',
-  })
-
   indicator = prop<string>({
     type: String,
     default: 'dot',
@@ -38,41 +33,33 @@ class ColorPaletteProps {
   })
 }
 
-const ColorPalettePropsMixin = Vue.with(ColorPaletteProps)
-
 @Options({
   name: 'VaColorPalette',
-  components: {
-    VaColorIndicator,
-  },
+  components: { VaColorIndicator },
+  ...statefulComponentOptions,
 })
-export default class VaColorPalette extends mixins(ColorPalettePropsMixin) {
-  get valueProxy (): any {
-    return this.value
-  }
-
-  set valueProxy (value: any) {
-    this.$emit('input', value)
-  }
+export default class VaColorPalette extends Vue.with(ColorPaletteProps) {
+  context = setup(() => useStateful(this.$props, this.$emit))
 
   isSelected (color: any): boolean {
-    return this.value === color
-  }
-
-  handlerClick (color: any): void {
-    this.valueProxy = color
+    return this.context.valueComputed === color
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .va-color-palette {
   padding-top: 3px;
 
   &__colors {
-    padding: 3px;
     display: flex;
+
+    & > * {
+      margin-right: 0.25rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 }
-
 </style>

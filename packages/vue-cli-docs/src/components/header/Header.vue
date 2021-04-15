@@ -34,7 +34,7 @@ import LanguageDropdown from './components/LanguageDropdown.vue'
 import VersionDropdown from './components/VersionDropdown.vue'
 import ColorDropdown from './components/ColorDropdown.vue'
 import HeaderSelector from './components/HeaderSelector.vue'
-import VuesticLogo from './components/VuesticLogo.vue'
+import VuesticLogo from './components/VuesticDocsLogo.vue'
 
 class Props {
   isSidebarVisible = prop<boolean>({ type: Boolean, default: false })
@@ -88,9 +88,9 @@ export default class Header extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss" scoped>
-@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources";
-@import "~vuestic-ui-dev/src/components/vuestic-sass/grid/grid-global-styles";
-@import "~vuestic-ui-dev/src/components/vuestic-sass/global/typography";
+@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui/src/components/vuestic-sass/grid/grid-global-styles";
+@import "~vuestic-ui/src/components/vuestic-sass/global/typography";
 
 .header {
   z-index: 2000 !important;

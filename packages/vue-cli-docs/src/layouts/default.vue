@@ -41,8 +41,8 @@ import { provide, reactive } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
-import { COLOR_THEMES, ThemeName } from '../theme-config'
-import { setupColors } from 'vuestic-ui'
+import { COLOR_THEMES, ThemeName } from '../config/theme-config'
+import { setColors } from '../../../ui/src/main'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 
 @Options({
@@ -89,13 +89,8 @@ export default class DocsLayout extends Vue {
   }
 
   changeTheme (themeName) {
-    this.setСolors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
+    setColors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
   }
-
-  setTheme = setup(() => {
-    const { setTheme } = setupColors()
-    return setTheme
-  })
 
   get crumbs () {
     // if (this.$isServer) {
@@ -135,8 +130,7 @@ export default class DocsLayout extends Vue {
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui-dev/src/components/vuestic-sass/resources/resources.scss";
-@import "~@/assets/main";
+@import "src/assets/main";
 
 html {
   font-family: $font-family-sans-serif;

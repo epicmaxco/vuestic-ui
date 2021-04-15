@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaDatePicker from 'vuestic-ui-dev/src/components/vuestic-components/va-date-picker/VaDatePicker.vue'
+import VaDatePicker from 'vuestic-ui/src/components/vuestic-components/va-date-picker/VaDatePicker.vue'
 import apiOptions from './api-options'
 
 export default [

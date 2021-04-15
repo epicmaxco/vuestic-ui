@@ -50,13 +50,13 @@
               {{ $props.title }}
             </div>
             <div v-if="hasHeaderSlot" class="va-modal__header">
-              <slot name="header"/>
+              <slot name="header" />
             </div>
             <div v-if="$props.message" class="va-modal__message">
               {{ $props.message }}
             </div>
             <div v-if="hasContentSlot" class="va-modal__message">
-              <slot/>
+              <slot />
             </div>
             <div
               v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
@@ -70,7 +70,7 @@
               </va-button>
             </div>
             <div v-if="hasFooterSlot" class="va-modal__footer">
-              <slot name="footer"/>
+              <slot name="footer" />
             </div>
           </div>
         </div>
@@ -119,6 +119,7 @@ class ModalProps {
     type: [Number, String],
     default: undefined,
   })
+
   zIndex = prop<number | string>({ type: [Number, String], default: undefined })
 }
 

@@ -1,14 +1,15 @@
 <template>
   <div>
     <p class="my-3">
-      <component :is="component" />
+      <component :is="component" v-bind="exampleComponentProps" />
     </p>
     <va-button size="small" color="#cacaca" @click="showCode = !showCode">
       {{ $t('docsExample.showCode') }}
     </va-button>
     <va-content v-if="showCode">
       <DocsNavigation :code="parsed.template" :git-url="file" />
-      <DocsCode :code="parsed.template" language="markup" />
+      <DocsCode :code="parsed.template" language="markup" :class="[parsed.script ? 'docs-example__code--with-margin' : '']" />
+      <DocsCode v-if="parsed.script" :code="parsed.script" language="markup" />
     </va-content>
   </div>
 </template>
@@ -26,6 +27,10 @@ export default {
     value: {
       type: [Object, String],
       default: undefined,
+    },
+    exampleComponentProps: {
+      type: Object,
+      default: () => ({}),
     },
   },
   data: () => ({
@@ -88,3 +93,13 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.docs-example {
+  &__code {
+    &--with-margin {
+      margin-bottom: 0.2rem !important;
+    }
+  }
+}
+</style>

@@ -122,37 +122,37 @@
     <VbCard title="context checks">
       <div>
         value:
-        <VaContext :config="{VaProgressBar: {value: 50}}">
+        <VaContext :components="{VaProgressBar: {value: 50}}">
           <VaProgressBar />
         </VaContext>
       </div>
       <div>
         indeterminate:
-        <VaContext :config="{VaProgressBar: {indeterminate: true}}">
+        <VaContext :components="{VaProgressBar: {indeterminate: true}}">
           <VaProgressBar />
         </VaContext>
       </div>
       <div>
         color:
-        <VaContext :config="{VaProgressBar: {color: 'danger'}}">
+        <VaContext :components="{VaProgressBar: {color: 'danger'}}">
           <VaProgressBar :modelValue="80" />
         </VaContext>
       </div>
       <div>
         size:
-        <VaContext :config="{VaProgressBar: {size: 30}}">
+        <VaContext :components="{VaProgressBar: {size: 30}}">
           <VaProgressBar :modelValue="80" />
         </VaContext>
       </div>
       <div>
         reverse:
-        <VaContext :config="{VaProgressBar: {reverse: true}}">
+        <VaContext :components="{VaProgressBar: {reverse: true}}">
           <VaProgressBar :modelValue="30" />
         </VaContext>
       </div>
       <div>
         rounded (false):
-        <VaContext :config="{VaProgressBar: {rounded: false}}">
+        <VaContext :components="{VaProgressBar: {rounded: false}}">
           <VaProgressBar />
         </VaContext>
       </div>

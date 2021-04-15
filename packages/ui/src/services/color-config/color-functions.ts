@@ -84,3 +84,14 @@ export const getGradientBackground = (color: string) => {
 
   return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
 }
+
+/**
+ * Check if color is valid css color
+ * Taken from https://stackoverflow.com/a/56266358/5783475
+ * @param strColor
+ */
+export const isCssColor = (strColor: string): boolean => {
+  const s = new Option().style
+  s.color = strColor
+  return s.color !== ''
+}

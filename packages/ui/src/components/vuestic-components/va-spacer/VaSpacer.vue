@@ -1,5 +1,5 @@
 <template functional>
-  <div class="spacer"/>
+  <div class="spacer" />
 </template>
 
 <script lang="ts">
