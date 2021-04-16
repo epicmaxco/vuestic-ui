@@ -257,7 +257,10 @@ export default class Admin extends Vue {
 
 .star-button {
   @include code-font();
+
+  padding: 0 !important;
   color: #ffffff !important;
+  height: 1.75rem;
 }
 
 </style>
