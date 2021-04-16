@@ -27,7 +27,7 @@
             <div class="customize__content--first">
               <div class="block__components" v-if="tabValue === 1">
                 <div class="component">
-                  <va-button color="#6F80E7" @click="btnClick()">
+                  <va-button @click="btnClick()">
                     Submit
                   </va-button>
                 </div>
@@ -36,14 +36,12 @@
                   <va-select
                     v-model="selectValue"
                     :options="options"
-                    color="#6F80E7"
                     label="Country"
                   />
                 </div>
 
                 <div class="component">
                   <va-slider
-                    color="#6F80E7"
                     v-model="sliderValue"
                   />
                 </div>
@@ -52,7 +50,6 @@
                   <va-checkbox
                     v-model="checkboxValue"
                     label="Checkbox"
-                    color="#6F80E7"
                   />
                 </div>
               </div>
@@ -195,10 +192,10 @@ export default class Customize extends Vue {
   get bgGradientStyle () {
     return {
       //  background: `linear-gradient(180.81deg, ${this.$themes.primary} 0.7%, ${colorToRgba(this.$themes.primary, 0.8)} 99.3%)`,
-      background: `linear-gradient(180.81deg, ${shiftHslColor(this.colors.primary || '#5B3C9B', {
+      background: `linear-gradient(180.81deg, ${shiftHslColor(this.colors.primary, {
         s: -15,
         l: -20,
-      })} 0.7%, ${shiftHslColor(this.colors.primary || '#5B3C9B', {
+      })} 0.7%, ${shiftHslColor(this.colors.primary, {
         h: 10,
         s: -5,
         l: -10,
@@ -221,7 +218,7 @@ export default class Customize extends Vue {
           <template>
             <div class="components">
               <div class="component">
-                <va-button color="#6F80E7" @click="btnClick">
+                <va-button @click="btnClick">
                   Submit
                 </va-button>
               </div>
@@ -230,23 +227,18 @@ export default class Customize extends Vue {
                 <va-select
                   v-model="selectValue"
                   :options="options"
-                  color="#6F80E7"
                   label="Country"
                 />
               </div>
 
               <div class="component">
-                <va-slider
-                  color="#6F80E7"
-                  v-model="sliderValue"
-                />
+                <va-slider v-model="sliderValue" />
               </div>
 
               <div class="component">
                 <va-checkbox
                   v-model="checkboxValue"
                   label="Checkbox"
-                  color="#6F80E7"
                 />
               </div>
             </div>
