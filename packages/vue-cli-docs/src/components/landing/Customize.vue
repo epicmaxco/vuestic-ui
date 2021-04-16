@@ -599,8 +599,8 @@ export default class Customize extends Vue {
     border-radius: 2px;
   }
 
-  -ms-overflow-style: none; // hide for IE & Edge
-  scrollbar-width: none; // hide for Firefox
+  scrollbar-color: white transparent;
+  scrollbar-width: thin;
 }
 
 .code {
