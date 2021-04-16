@@ -45,7 +45,7 @@ export default class SidebarLink extends mixins(ColorMixin, SidebarLinkPropsMixi
   display: block;
   color: inherit;
   padding: 1rem 0 1rem 2rem;
-  line-height: 1.1;
+  line-height: normal;
 
   .va-list-item-section {
     color: inherit;
