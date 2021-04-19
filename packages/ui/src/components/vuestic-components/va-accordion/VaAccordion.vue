@@ -21,6 +21,7 @@ export type Accordion = {
 }
 
 export default defineComponent({
+  name: 'VaAccordion',
   emits: ['update:modelValue'],
   props: {
     modelValue: { type: Array, default: () => [] },
