@@ -1,7 +1,6 @@
 <template>
   <va-list-item
-    :to="to"
-    :target="target"
+    :to="path"
     class="sidebar__link"
     :style="computedStyle"
     active-class="text--primary"
@@ -17,12 +16,11 @@
 </template>
 <script lang='ts'>
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import { getHoverColor } from '../../../../services/color-config/color-functions'
-import ColorMixin from '../../../../services/color-config/ColorMixin'
+import { getHoverColor } from '../../../../ui/src/services/color-config/color-functions'
+import ColorMixin from '../../../../ui/src/services/color-config/ColorMixin'
 
 class SidebarLinkProps {
-  to = prop<string>({ type: String, default: undefined })
-  target = prop<string>({ type: String, default: undefined })
+  path = prop<string>({ type: String, default: undefined })
 }
 
 const SidebarLinkPropsMixin = Vue.with(SidebarLinkProps)
@@ -40,14 +38,14 @@ export default class SidebarLink extends mixins(ColorMixin, SidebarLinkPropsMixi
 }
 </script>
 
-<style lang="scss">
-@import "../../../../components/vuestic-sass/resources/resources";
+<style lang="scss" scoped>
+@import "../../../../ui/src/components/vuestic-sass/resources/resources";
 
 .sidebar__link {
   display: block;
   color: inherit;
   padding: 1rem 0 1rem 2rem;
-  line-height: 1.1;
+  line-height: normal;
 
   .va-list-item-section {
     color: inherit;

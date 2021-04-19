@@ -30,18 +30,6 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
-    translationString: 'sidebar.examples.width.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.examples.width.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-sidebar/Width',
-  },
-  {
-    type: BlockType.HEADLINE,
     translationString: 'sidebar.examples.minimized.title',
   },
   {
@@ -51,6 +39,18 @@ export default [
   {
     type: BlockType.EXAMPLE,
     component: 'va-sidebar/Minimized',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'sidebar.examples.width.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'sidebar.examples.width.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-sidebar/Width',
   },
   {
     type: BlockType.HEADLINE,
@@ -114,15 +114,6 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaSidebar,
-    apiOptions,
-  },
-  {
-    type: BlockType.SUBTITLE,
     translationString: 'all.faq',
   },
   {
@@ -132,5 +123,14 @@ export default [
   {
     type: BlockType.PARAGRAPH,
     translationString: 'sidebar.faq.questions[0].answer',
+  },
+  {
+    type: BlockType.SUBTITLE,
+    translationString: 'all.api',
+  },
+  {
+    type: BlockType.API,
+    componentOptions: VaSidebar,
+    apiOptions,
   },
 ] as ApiDocsBlock[]

@@ -57,7 +57,7 @@ import VaRating from './vuestic-components/va-rating'
 import VaScrollbar from './vuestic-components/va-scrollbar'
 import VaSelect from './vuestic-components/va-select'
 import VaSeparator from './vuestic-components/va-separator'
-import VaSidebar from './vuestic-components/va-sidebar'
+import VaSidebar, { VaSidebarItem, VaSidebarItemContent, VaSidebarItemTitle } from './vuestic-components/va-sidebar'
 import VaSlider from './vuestic-components/va-slider'
 import VaSwitch from './vuestic-components/va-switch'
 import VaTabs, { VaTab } from './vuestic-components/va-tabs'
@@ -147,6 +147,9 @@ const vuesticComponentsMap = new Map([
   ['VaSelect', VaSelect],
   ['VaSeparator', VaSeparator],
   ['VaSidebar', VaSidebar],
+  ['VaSidebarItem', VaSidebarItem],
+  ['VaSidebarItemContent', VaSidebarItemContent],
+  ['VaSidebarItemTitle', VaSidebarItemTitle],
   ['VaSlider', VaSlider],
   ['VaSpacer', VaSpacer],
   ['VaSwitch', VaSwitch],
