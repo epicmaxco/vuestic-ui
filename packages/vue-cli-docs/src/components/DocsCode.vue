@@ -1,5 +1,5 @@
 <template>
-  <prism  class="prism-code" :language="language">{{ code }}</prism>
+  <prism class="prism-code" :language="language">{{ formatedCode }}</prism>
 </template>
 
 <script>
@@ -19,6 +19,33 @@ export default {
   },
   components: {
     Prism,
+  },
+  computed: {
+    formatedCode () {
+      return this.removeFirstLineBreakIfExists(this.code)
+    },
+  },
+  methods: {
+    /**
+     * For exmpla you want to declare var:
+     * ```
+     * const code = `
+     *  console.log('Hello World!')
+     * `
+     * then you will have \n at string start and end.
+     * This method delete '\n' from start and end of string if '\n' exists.
+     * ```
+     */
+    removeFirstLineBreakIfExists (code) {
+      let newCode = code
+      if (newCode[0] === '\n') {
+        newCode = newCode.slice(1)
+      }
+      if (newCode[newCode.length - 1] === '\n') {
+        newCode = newCode.slice(0, -1)
+      }
+      return newCode
+    },
   },
 }
 </script>
