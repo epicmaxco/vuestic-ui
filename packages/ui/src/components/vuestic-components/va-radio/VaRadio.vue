@@ -56,7 +56,7 @@ class RadioProps {
   disabled = prop<boolean>({ type: Boolean, default: false })
   label = prop<string>({ type: String, default: '' })
   leftLabel = prop<boolean>({ type: Boolean, default: false })
-  color = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'primary' })
   tabindex = prop<number>({ type: Number, default: 0 })
 }
 

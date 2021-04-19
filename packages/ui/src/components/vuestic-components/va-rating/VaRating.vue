@@ -97,6 +97,7 @@ class RatingProps {
   texts = prop<any[]>({ type: Array, default: () => [] })
   textColor = prop<string>({ type: String })
   unselectedColor = prop<string>({ type: String })
+  color = prop<string>({ type: String, default: 'primary' })
 }
 
 const RatingPropsMixin = Vue.with(RatingProps)

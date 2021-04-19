@@ -46,6 +46,7 @@ class TreeNodeProps {
   highlighted = prop<boolean>(Boolean)
   icon = prop<string>({ type: String, default: '' })
   iconRight = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'primary' })
 }
 
 const TreeNodePropsMixin = Vue.with(TreeNodeProps)
