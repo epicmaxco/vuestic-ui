@@ -10,6 +10,22 @@
     url('/src/components/vuestic-sass/icons/icon-fonts/typicons/typicons-regular-webfont.svg#TypiconsRegular') format('svg');
 }
 
+$icon-font-name: 'typicons';
+$icon-font-family: 'Typicons';
+$icon-font-path: '~/src/components/vuestic-sass/icons/icon-fonts/#{$icon-font-name}/#{$icon-font-name}';
+
+@font-face {
+  font-family: $icon-font-family;
+  font-style: normal;
+  font-weight: normal;
+  src: url('#{$icon-font-path}.eot');
+  src:
+    url('#{$icon-font-path}.eot#iefix') format('eot'),
+    url('#{$icon-font-path}.woff') format('woff'),
+    url('#{$icon-font-path}.ttf') format('truetype'),
+    url('#{$icon-font-path}.svg##{icon-font-name}') format('svg');
+}
+
 [class*="typicons-"]::before {
   font-family: 'Typicons', sans-serif;
   font-style: normal;
