@@ -44,8 +44,8 @@
 export default {
   data () {
     return {
-      recordsRef: [{}, {}, {}, {}, {}, {}],
-      recordsId: [{}, {}, {}, {}, {}, {}],
+      recordsRef: [{}, {}, {}, {}, {}, {}, {}, {}],
+      recordsId: [{}, {}, {}, {}, {}, {}, {}, {}],
     }
   },
   methods: {
