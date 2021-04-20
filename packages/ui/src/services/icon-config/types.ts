@@ -11,7 +11,7 @@ export interface IconProps {
   tag?: string
   color?: string
   rotation?: number | string
-  spin?: 'clockwise' | 'counter-clockwise'
+  spin?: 'clockwise' | 'counter-clockwise' | boolean
   to?: string
 }
 
