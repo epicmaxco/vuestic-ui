@@ -55,10 +55,9 @@
             target="blank"
             :round="false"
             size="small"
-            icon="star_empty"
             color="dark"
           >
-            {{ $t('landing.header.buttons.star') }} {{ stars }}
+            <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
           </va-button>
         </nav>
         <!-- mobile -->
@@ -111,10 +110,9 @@
                 href="https://github.com/epicmaxco/vuestic-ui"
                 target="blank"
                 :round="false"
-                size="small"
                 icon="star_empty"
               >
-                {{ $t('landing.header.buttons.star') }} {{ stars }}
+                <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
               </va-button>
             </va-list-item>
           </va-list>

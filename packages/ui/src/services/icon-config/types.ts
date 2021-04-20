@@ -1,110 +1,39 @@
-export type IconConfig = {
-  name: string | RegExp
 
-  /**
-   * This will transform icon class if its match regex
-   *
-   * @example
-   * ```
-   * {
-   *  name: /(fas|far|fal|fad|fab) (.*)/
-   *  iconClass: (font: string, icon: string) => `${font} fa-${code}`,
-   *  color: '#eee' // Additional styling for icon
-   * }
-   * ```
-   * `<va-icon name="fal home" />`
-   *  ->
-   *
-   * `<i class="fal fa-home" style="#eee"/>`
-   *
-   * @see https://fontawesome.com/icons/home?style=solid
-  */
-  iconClass?: string | ((...regexGroups: string[]) => string)
-
-  /**
-   * Content is used if we want to use custom symbols
-   *
-   * @example
-   * ```
-   * {
-   *  name: /md (.*)/,
-   *  content: (icon: string) => icon,
-   *  iconClass: 'material-icons'
-   *  color: '#eee' // Additional styling for icon
-   * }
-   * ```
-   * `<va-icon name="md alarm"/>` ->
-   *
-   * `<i class="md" style="color: #eee;">alarm</i>`
-   *
-   * @see https://material.io/resources/icons/?icon=alarm&style=baseline
-   */
-  content?: string | ((...regexGroups: string[]) => string | undefined)
+export interface IconProps {
+  attrs?: Record<string, string | ((...args: any[]) => unknown)>
 
   /** Vue component */
-  component?: any,
+  component?: any
+  /** Content that will be passed as text inside icon tag or as slot in component */
+  content?: string
 
-  /**
-   * You can use custom component, bind some props to it.
-   * @requires component
-   *
-   * @example
-   * ```
-   * {
-   *  name: /(brandico, eva, ant-design) (.*)/,
-   *  component: IconifyComponent,
-   *  componentProps: (font: string, icon: string) => ({ icon: `${font}:${icon}` })
-   *  color: '#eee' // Additional styling for icon
-   * }
-   * ```
-   *
-   * IconifyComponent example component:
-   * ```html
-   * <template>
-   *  <div class="iconify" :data-icon="icon" data-inline="false" />
-   * </template>
-   *
-   * <script>
-   * export defualt {
-   *  props: ['icon']
-   * }
-   * </script>
-   * ```
-   *
-   * @see https://iconify.design/icon-sets/brandico/
-   */
-  componentProps?: Record<string, any> | ((...regexGroups: string[]) => Record<string, any>)
-
-  /**
-   * Use this to create icon that u will often to use.
-   *
-   * Example:
-   * ```js
-    {
-      name: 'twitter',
-      to: 'brandico twitter-bird',
-      color: '#1da1f2',
-    },
-    { // Or for Yandex
-      name: 'yandex',
-      to: 'brandico yandex',
-      color: '#ff0000',
-    },
-    {
-      name: 'vuestic-logo',
-      to: VuesticLogoComponent,
-      color: '#62e471',
-    }
-  * ```
-  */
-  to?: string
-
-  // PROPS
-
+  class?: string,
   tag?: string
   color?: string
   rotation?: number | string
-  spin?: 'clockwise' | 'counter-clockwise'
+  spin?: 'clockwise' | 'counter-clockwise' | boolean
+  to?: string
 }
 
-export type IconsConfig = IconConfig[]
+export interface IconConfigurationString extends IconProps {
+  name: string
+  resolve?: ((dynamicSegments: {[dynamicSegment: string]: string }) => IconProps)
+}
+
+export interface IconConfigurationRegex extends IconProps {
+  name: RegExp
+  // Need a different resolve method name because ts don't understand types
+  resolveFromRegex?: ((...regexGroupValues: string[]) => IconProps)
+}
+
+export type IconConfiguration = IconConfigurationString | IconConfigurationRegex
+
+export type IconConfig = IconConfiguration[]
+
+export const isIconConfigurationString = (config: IconConfiguration): config is IconConfigurationString => {
+  return typeof config.name === 'string'
+}
+
+export const isIconConfigurationRegex = (config: IconConfiguration): config is IconConfigurationRegex => {
+  return config.name instanceof RegExp
+}

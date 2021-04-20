@@ -1,10 +1,10 @@
 import { ColorConfig } from '../color-config/color-config'
 import { ComponentConfig } from '../component-config/component-config'
-import { IconsConfig } from '../icon-config/types'
+import { IconConfig } from '../icon-config/types'
 
 export type GlobalConfig = {
   colors?: ColorConfig,
-  icons?: IconsConfig,
+  icons?: IconConfig,
   components?: ComponentConfig
 }
 
@@ -12,5 +12,5 @@ export type GlobalConfigUpdater = (config: GlobalConfig) => GlobalConfig;
 export type {
   ColorConfig,
   ComponentConfig,
-  IconsConfig,
+  IconConfig,
 }

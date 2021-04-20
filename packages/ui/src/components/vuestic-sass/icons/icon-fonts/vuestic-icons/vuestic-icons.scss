@@ -1,13 +1,17 @@
+$icon-font-name: 'vuestic-icons';
+$icon-font-family: 'Vuestic Icons';
+$icon-font-path: '~/src/components/vuestic-sass/icons/icon-fonts/#{$icon-font-name}/#{$icon-font-name}';
+
 @font-face {
-  font-family: 'Vuestic Icons';
-  font-weight: normal;
+  font-family: $icon-font-family;
   font-style: normal;
-  src: url('/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.eot');
+  font-weight: normal;
+  src: url('#{$icon-font-path}.eot');
   src:
-    url('/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.eot?#iefix') format('eot'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.woff') format('woff'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.ttf') format('truetype'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/vuestic-icons/vuestic-icons.svg#vuestic-icons') format('svg');
+    url('#{$icon-font-path}.eot#iefix') format('eot'),
+    url('#{$icon-font-path}.woff') format('woff'),
+    url('#{$icon-font-path}.ttf') format('truetype'),
+    url('#{$icon-font-path}.svg##{icon-font-name}') format('svg');
 }
 
 .vuestic-iconset {

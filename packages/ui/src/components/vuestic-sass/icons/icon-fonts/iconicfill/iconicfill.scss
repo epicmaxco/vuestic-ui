@@ -1,13 +1,17 @@
+$icon-font-name: 'iconicfill';
+$icon-font-family: 'IconicFill';
+$icon-font-path: '~/src/components/vuestic-sass/icons/icon-fonts/#{$icon-font-name}/#{$icon-font-name}';
+
 @font-face {
-  font-family: 'IconicFill';
+  font-family: $icon-font-family;
   font-style: normal;
   font-weight: normal;
-  src: url('/src/components/vuestic-sass/icons/icon-fonts/iconicfill/iconicfill.eot');
+  src: url('#{$icon-font-path}.eot');
   src:
-    url('/src/components/vuestic-sass/icons/icon-fonts/iconicfill/iconicfill.eot?#iefix') format('eot'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/iconicfill/iconicfill.woff') format('woff'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/iconicfill/iconicfill.ttf') format('truetype'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/iconicfill/iconicfill.svg#IconicFill') format('svg');
+    url('#{$icon-font-path}.eot#iefix') format('eot'),
+    url('#{$icon-font-path}.woff') format('woff'),
+    url('#{$icon-font-path}.ttf') format('truetype'),
+    url('#{$icon-font-path}.svg##{icon-font-name}') format('svg');
 }
 
 [class*="iconicfill-"]::before {
