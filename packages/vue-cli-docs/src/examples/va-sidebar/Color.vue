@@ -3,21 +3,29 @@
     style="position: relative; height: 13rem; width: 100%; border: 2px solid black;"
     class="row"
   >
-    <va-sidebar color="primary">
-      <va-list style="background-color: inherit;">
-        <va-list-item
-          ><va-icon name="home"></va-icon>
-          <div style="margin-left: 0.5rem;">Home</div></va-list-item
-        >
-        <va-list-item
-          ><va-icon name="close"></va-icon>
-          <div style="margin-left: 0.5rem;">Close</div></va-list-item
-        >
-        <va-list-item
-          ><va-icon name="loop"></va-icon>
-          <div style="margin-left: 0.5rem;">Loop</div></va-list-item
-        >
-      </va-list>
+    <va-sidebar color="primary" text-color="secondary" minimizedWidth="64px">
+      <va-sidebar-item v-for="item in items" :key="item.to" :active="item.active" active-color="secondary">
+        <va-sidebar-item-content>
+          <va-icon :name="item.icon" />
+          <va-sidebar-item-title style="height: 24px;">
+            {{ item.title }}
+          </va-sidebar-item-title>
+        </va-sidebar-item-content>
+      </va-sidebar-item>
     </va-sidebar>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      items: [
+        { title: 'Dashboard', icon: 'dashboard' },
+        { title: 'Sidebar demo', icon: 'room', active: true },
+        { title: 'Loop', icon: 'loop' },
+      ],
+    }
+  },
+}
+</script>

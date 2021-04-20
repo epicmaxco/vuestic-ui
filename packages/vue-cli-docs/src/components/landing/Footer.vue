@@ -2,10 +2,6 @@
   <footer class="footer">
     <div class="footer__wrapper">
       <div class="footer__inner">
-        <!--        TODO: add root link-->
-        <a href="/" class="footer__image">
-          <va-icon :component="VuesticUILogo" />
-        </a>
         <div class="footer__buttons">
           <va-button class="footer__buttons__button"
                      href="https://epicmax.co/about"
@@ -74,7 +70,7 @@
         </div>
         <div class="footer__subtitle">
           {{ $t('landing.footer.text') }}
-          <a class="text--primary" href="mailto:hello@epicmax.co">hello@epicmax.co</a>
+          <a :style="{ color: primaryColor }" href="mailto:hello@epicmax.co">hello@epicmax.co</a>
         </div>
       </div>
     </div>
@@ -86,16 +82,17 @@ import { Options, Vue } from 'vue-class-component'
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
-import VuesticUILogo from '@/components/header/components/VuesticUILogo.vue'
+import { getColor } from 'vuestic-ui/src/main'
 
-@Options({
-  components: { VuesticUILogo },
-})
+@Options({})
 export default class Footer extends Vue {
   IconEpicmax = IconEpicmax
   IconAdmin = IconAdmin
   IconSpinners = IconSpinners
-  VuesticUILogo = VuesticUILogo
+
+  get primaryColor () {
+    return getColor('primary')
+  }
 }
 </script>
 
@@ -153,7 +150,6 @@ export default class Footer extends Vue {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 3rem;
 
     // lg
     @include size-lg(10);

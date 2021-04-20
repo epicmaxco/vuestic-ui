@@ -12,12 +12,14 @@ const globalConfigRef = ref<GlobalConfig>({
 })
 
 export function setGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
-  if (typeof updater === 'function') {
-    const newConfig = updater(globalConfigRef.value)
-    globalConfigRef.value = merge(cloneDeep(globalConfigRef.value), newConfig)
-  } else {
-    globalConfigRef.value = merge(cloneDeep(globalConfigRef.value), updater)
-  }
+  const config = typeof updater === 'function' ? updater(globalConfigRef.value) : updater
+  globalConfigRef.value = cloneDeep(config)
+}
+
+/** Merge current config with new value */
+export function mergeGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
+  const config = typeof updater === 'function' ? updater(globalConfigRef.value) : updater
+  globalConfigRef.value = merge(cloneDeep(globalConfigRef.value), config)
 }
 
 export function getGlobalConfig (): GlobalConfig {
@@ -25,7 +27,7 @@ export function getGlobalConfig (): GlobalConfig {
 }
 
 export function useGlobalConfig () {
-  return { setGlobalConfig, getGlobalConfig, globalConfig: globalConfigRef }
+  return { setGlobalConfig, getGlobalConfig, mergeGlobalConfig, globalConfig: globalConfigRef }
 }
 
 export * from './types'

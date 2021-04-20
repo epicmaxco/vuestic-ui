@@ -56,7 +56,7 @@ class ToastProps {
   iconClass = prop<string>({ type: String, default: '' })
   customClass = prop<string>({ type: String, default: '' })
   duration = prop<number>({ type: Number, default: 20000 })
-  color = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'primary' })
   closeable = prop<boolean>({ type: Boolean, default: true })
   dangerouslyUseHTMLString = prop<boolean>({ type: Boolean, default: false })
   onClose = prop<Function>({ type: Function as PropType<() => void> })

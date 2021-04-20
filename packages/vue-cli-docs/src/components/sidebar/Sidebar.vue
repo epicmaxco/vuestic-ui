@@ -45,7 +45,7 @@ import { watch } from 'vue'
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
 import VaSidebarLink
-  from '../../../../ui/src/components/vuestic-components/va-sidebar/VaSidebarLink/VaSidebarLink.vue'
+  from './SidebarLink.vue'
 
 class Props {
   navigationRoutes = prop<any[]>({ type: Array, default: () => [] })

@@ -24,7 +24,15 @@
             {{ $t('landing.admin.buttons.demo') }}
           </va-button>
           <div class="admin__buttons--button">
-            <va-button class="star-button" color="dark" icon="star_empty" target="blank" href="https://github.com/epicmaxco/vuestic-admin" :round="false" size="small">
+            <va-button
+                     class="star-button"
+                     color="dark"
+                     icon="star_empty"
+                     target="blank"
+                     href="https://github.com/epicmaxco/vuestic-admin"
+                     :round="false"
+                     size="small"
+            >
               {{ $t('landing.admin.buttons.star') }} {{ stars }}
             </va-button>
           </div>
@@ -159,6 +167,7 @@ export default class Admin extends Vue {
       height: 3rem;
       display: flex;
       align-items: center;
+      justify-content: center;
 
       // md
       @include size-md(12);

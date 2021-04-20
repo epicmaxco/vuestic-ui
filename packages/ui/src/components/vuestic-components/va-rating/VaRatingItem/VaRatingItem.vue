@@ -45,6 +45,7 @@ class RatingItemProps {
   tabindex = prop<number>({ type: Number })
   size = prop<string | number>({ type: [String, Number], default: 'medium' })
   emptyIconColor = prop<string>({ type: String })
+  color = prop<string>({ type: String, default: 'primary' })
 }
 
 const RatingItemPropsMixin = Vue.with(RatingItemProps)
@@ -69,7 +70,7 @@ export default class VaRatingItem extends mixins(
     })
   }
 
-  private get computedIconName (): string {
+  get computedIconName (): string {
     if (this.halves && this.valueProxy === RatingValue.HALF) {
       return this.halfIconName
     }

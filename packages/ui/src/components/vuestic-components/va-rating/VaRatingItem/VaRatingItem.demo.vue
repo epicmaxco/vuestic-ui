@@ -36,15 +36,15 @@
 
     <VbCard title="With value">
       <input v-model.number="ratingModel" style="width: 40px;">
-      <va-rating-item empty-icon-color="danger" hover :modelValue="ratingModel" halves />
+      <va-rating-item empty-icon-color="danger" hover v-model="ratingModel" halves />
     </VbCard>
 
     <VbCard title="Click event">
-      <va-rating-item :modelValue="0" halves @click="clickEventValue = $event" />
+      <va-rating-item :modelValue="clickEventValue" halves @click="clickEventValue = $event" />
       {{ clickEventValue }}
     </VbCard>
     <VbCard title="Hover event">
-      <va-rating-item :modelValue="0" halves hover @hover="hoverEventValue = $event" />
+      <va-rating-item :modelValue="hoverEventValue" halves hover @hover="hoverEventValue = $event" />
       {{ hoverEventValue }}
     </VbCard>
     <VbCard title="Change value onClick">

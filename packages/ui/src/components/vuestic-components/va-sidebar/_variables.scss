@@ -13,4 +13,14 @@
   --va-sidebar-menu-padding-left: 0;
   --va-sidebar-menu-overflow-y: auto;
   --va-sidebar-menu-overflow-x: hidden;
+
+  /* SidebarItem */
+  --va-sidebar-item-active-border-size: 4px;
+
+  /* SidebarItemContent */
+  --va-sidebar-item-content-padding: 1rem;
+  --va-sidebar-item-content-gap: 0.5rem;
+
+  /* SidebarItemTitle */
+  --va-sidebar-item-title-white-space: nowrap;
 }

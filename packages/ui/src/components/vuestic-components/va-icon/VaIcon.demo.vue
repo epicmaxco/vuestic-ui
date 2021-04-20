@@ -112,11 +112,11 @@ export default {
     }
   },
   created () {
-    const { setGlobalConfig } = useGlobalConfig()
+    const { mergeGlobalConfig } = useGlobalConfig()
 
     this.SvgComponent = SvgComponent
 
-    setGlobalConfig({
+    mergeGlobalConfig({
       icons: createIconsConfig({
         aliases: [
           {
