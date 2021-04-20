@@ -2,10 +2,6 @@ import { IconConfiguration } from 'vuestic-ui/src/main'
 
 export const fonts: IconConfiguration[] = [
   {
-    name: 'fa4-{code}',
-    resolve: ({ code }) => ({ class: code }),
-  },
-  {
     name: 'md-{content}',
     class: 'material-icons',
     resolve: ({ content }) => ({ content: content }),
