@@ -25,15 +25,14 @@
           </va-button>
           <div class="admin__buttons--button">
             <va-button
-                     class="star-button"
-                     color="dark"
-                     icon="star_empty"
-                     target="blank"
-                     href="https://github.com/epicmaxco/vuestic-admin"
-                     :round="false"
-                     size="small"
+              class="star-button"
+              color="dark"
+              target="blank"
+              href="https://github.com/epicmaxco/vuestic-admin"
+              :round="false"
+              size="small"
             >
-              {{ $t('landing.admin.buttons.star') }} {{ stars }}
+              <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
             </va-button>
           </div>
         </div>
