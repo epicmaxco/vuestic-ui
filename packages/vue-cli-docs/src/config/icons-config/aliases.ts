@@ -1,6 +1,6 @@
-import { IconsConfig } from 'vuestic-ui/src/main'
+import { IconConfiguration } from 'vuestic-ui/src/main'
 
-export const aliases: IconsConfig = [
+export const aliases: IconConfiguration[] = [
   {
     name: 'account_box',
     to: 'account_box',
