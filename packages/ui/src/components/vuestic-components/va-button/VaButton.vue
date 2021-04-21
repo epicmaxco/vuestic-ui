@@ -370,6 +370,13 @@ export default class VaButton extends mixins(
     &.va-button--square {
       border-radius: var(--va-button-lg-square-border-radius);
     }
+
+    .va-button__left-icon {
+      margin-left: calc(var(--va-button-lg-px) / -2);
+    }
+    .va-button__right-icon {
+      margin-right: calc(var(--va-button-lg-px) / -2);
+    }
   }
 
   &--small {
@@ -393,6 +400,13 @@ export default class VaButton extends mixins(
 
     &.va-button--square {
       border-radius: var(--va-button-sm-square-border-radius);
+    }
+
+    .va-button__left-icon {
+      margin-left: calc(var(--va-button-sm-px) / -2);
+    }
+    .va-button__right-icon {
+      margin-right: calc(var(--va-button-sm-px) / -2);
     }
   }
 
@@ -418,10 +432,29 @@ export default class VaButton extends mixins(
     &.va-button--square {
       border-radius: var(--va-button-square-border-radius);
     }
+
+    .va-button__left-icon {
+      margin-left: calc(var(--va-button-px) / -2);
+    }
+    .va-button__right-icon {
+      margin-right: calc(var(--va-button-px) / -2);
+    }
   }
 
   &--equilateral {
-    .va-button__content { padding: 0; }
+    .va-button__content {
+      padding: 0;
+    }
+
+    .va-button__left-icon {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .va-button__right-icon {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
   &--space-between-items {
@@ -431,16 +464,6 @@ export default class VaButton extends mixins(
       &:last-child { margin-right: 0; }
       &:first-child { margin-left: 0; }
     }
-  }
-
-  &__left-icon {
-    margin-right: calc(var(--va-button-space-between-items) / 2);
-    &:last-child { margin-right: 0; }
-  }
-
-  &__right-icon {
-    margin-left: calc(var(--va-button-space-between-items) / 2);
-    &:last-child { margin-right: 0; }
   }
 
   &--loading {
