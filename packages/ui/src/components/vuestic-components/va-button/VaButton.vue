@@ -377,8 +377,10 @@ export default class VaButton extends mixins(
 
     .va-button__left-icon {
       margin-left: calc(var(--va-button-lg-px) / -2);
+      margin-right: calc(var(--va-button-lg-space-between-items) / 2);
     }
     .va-button__right-icon {
+      margin-left: calc(var(--va-button-lg-space-between-items) / 2);
       margin-right: calc(var(--va-button-lg-px) / -2);
     }
   }
@@ -408,8 +410,10 @@ export default class VaButton extends mixins(
 
     .va-button__left-icon {
       margin-left: calc(var(--va-button-sm-px) / -2);
+      margin-right: calc(var(--va-button-sm-space-between-items) / 2);
     }
     .va-button__right-icon {
+      margin-left: calc(var(--va-button-sm-space-between-items) / 2);
       margin-right: calc(var(--va-button-sm-px) / -2);
     }
   }
@@ -439,8 +443,10 @@ export default class VaButton extends mixins(
 
     .va-button__left-icon {
       margin-left: calc(var(--va-button-px) / -2);
+      margin-right: calc(var(--va-button-space-between-items) / 2);
     }
     .va-button__right-icon {
+      margin-left: calc(var(--va-button-space-between-items) / 2);
       margin-right: calc(var(--va-button-px) / -2);
     }
   }
