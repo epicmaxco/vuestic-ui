@@ -9,16 +9,9 @@
 <script lang="ts">
 import { Vue, Options, prop, setup } from 'vue-class-component'
 import VaConfig from '../va-config'
-import { InjectionKey, reactive, provide } from 'vue'
+import { reactive } from 'vue'
 import { getGradientBackground } from '../../../services/color-config/color-functions'
 import { getColor } from '../../../services/color-config/color-config'
-
-export const ButtonGroupServiceKey: InjectionKey<{
-  color?: string;
-  textColor?: string;
-  outline?: boolean;
-  flat?: boolean;
-}> = Symbol('ButtonGroupService')
 
 class Props {
   color = prop<string>({ type: String, default: 'primary' });

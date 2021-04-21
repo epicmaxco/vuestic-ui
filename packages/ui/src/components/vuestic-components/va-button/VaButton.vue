@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { inject, watchEffect, watch, Comment } from 'vue'
+import { watchEffect, watch, Comment } from 'vue'
 import { mixins, Vue, prop, Options, setup } from 'vue-class-component'
 import {
   getGradientBackground,
@@ -59,7 +59,6 @@ import { SizeMixin } from '../../../mixins/SizeMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import VaIcon from '../va-icon'
 import { VaProgressCircle } from '../va-progress-bar'
-import { ButtonGroupServiceKey } from '../va-button-group'
 
 class ButtonProps {
   color = prop<string>({ type: String, default: undefined })
@@ -100,8 +99,6 @@ export default class VaButton extends mixins(
   focusState = false
 
   context = setup(() => {
-    const buttonGroup = inject(ButtonGroupServiceKey, {})
-
     watch(() => this.$props.loading, (loading) => {
       if (loading) {
         this.updateFocusState(false)
@@ -114,7 +111,7 @@ export default class VaButton extends mixins(
       this.updateHoverState(this.hoverState)
     })
 
-    return { buttonGroup }
+    return {}
   })
 
   get isTransparentBackground () {
