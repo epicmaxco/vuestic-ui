@@ -324,6 +324,10 @@ export default class VaButton extends mixins(
     border: solid var(--va-button-outline-border, var(--outline-border-width));
     text-decoration: none;
 
+    .va-button__content {
+      margin: calc(var(--va-button-outline-border, var(--outline-border-width)) * -1);
+    }
+
     &.va-button--disabled {
       background: transparent;
 
