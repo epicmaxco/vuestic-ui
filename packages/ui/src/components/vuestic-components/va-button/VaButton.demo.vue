@@ -211,45 +211,37 @@
         <tr>
           <td>Primary Buttons With icons</td>
           <td>
-            <va-button>
-              <template #prepend>
-                <va-icon name="create" />
-              </template>
+            <va-button icon="create">
               Plus Button
             </va-button>
-            <va-button>
+            <va-button iconRight="clear">
               Dropdown button
-              <template #append>
-                <va-icon name="clear" />
-              </template>
             </va-button>
-            <va-button>
-              <template #prepend><va-icon name="create" /></template>
+            <va-button icon="create" iconRight="clear">
               Mixed button
-              <template #append><va-icon name="clear" /></template>
             </va-button>
           </td>
         </tr>
         <tr>
-          <td>Buttons with icons</td>
+          <td>Buttons with icons (As slots with config)</td>
           <td>
             <va-config :components="{ VaIcon: { color: '#f00' } }">
-              <va-button color="warning">
-                <template #prepend><va-icon name="gavel" color="white" /></template>
+              <va-button color="warning" space-between-items>
+                <va-icon name="gavel" color="white" />
                 Colored icons
-                <template #append><va-icon name="shield" color="white" /></template>
+                <va-icon name="shield" color="white" />
               </va-button>
 
-              <va-button color="warning" flat>
-                <template #prepend><va-icon name="gavel" color="warning" /></template>
+              <va-button color="warning" flat space-between-items>
+                <va-icon name="gavel" color="warning" />
                 Colored icons
-                <template #append><va-icon name="shield" color="warning" /></template>
+                <va-icon name="shield" color="warning" />
               </va-button>
 
-              <va-button color="warning" outline>
-                <template #prepend><va-icon name="gavel" color="warning" /></template>
+              <va-button color="warning" outline space-between-items>
+                <va-icon name="gavel" color="warning" />
                 Colored icons
-                <template #append><va-icon name="shield" color="warning" /></template>
+                <va-icon name="shield" color="warning" />
               </va-button>
             </va-config>
           </td>
@@ -257,17 +249,13 @@
         <tr>
           <td>Outline Buttons With icons</td>
           <td>
-            <va-button outline>
-              <template #prepend><va-icon name="create" /></template>
+            <va-button outline icon="create">
               Plus Button
             </va-button>
-            <va-button outline>
-              <template #append><va-icon name="clear" /></template>
+            <va-button outline iconRight="clear">
               Dropdown button
             </va-button>
-            <va-button outline>
-              <template #prepend><va-icon name="create" /></template>
-              <template #append><va-icon name="clear" /></template>
+            <va-button outline icon="create" iconRight="clear">
               Mixed button
             </va-button>
           </td>
@@ -275,18 +263,14 @@
         <tr>
           <td>Flat Buttons With icons</td>
           <td>
-            <va-button flat>
-              <template #prepend><va-icon name="create" /></template>
+            <va-button flat icon="create">
               Plus Button
             </va-button>
-            <va-button flat>
+            <va-button flat iconRight="clear">
               Dropdown button
-              <template #append><va-icon name="clear" /></template>
             </va-button>
-            <va-button flat>
-              <template #prepend><va-icon name="create" /></template>
+            <va-button flat icon="create" iconRight="clear">
               Mixed button
-              <template #append><va-icon name="clear" /></template>
             </va-button>
           </td>
         </tr>
@@ -295,22 +279,22 @@
           <td>
             <va-button
               size="large"
+              icon="create"
             >
-              <template #prepend><va-icon name="create" /></template>
               Plus Button
             </va-button>
             <va-button
               outline
               size="large"
+              iconRight="clear"
             >
-              <template #prepend><va-icon name="create" /></template>
               Dropdown button
             </va-button>
             <va-button
               flat
               size="large"
+              icon="create" iconRight="clear"
             >
-              <template #prepend><va-icon name="create" /></template>
               Mixed button
             </va-button>
           </td>
@@ -318,16 +302,13 @@
         <tr>
           <td>Small Buttons With icons</td>
           <td>
-            <va-button size="small">
-              <template #prepend><va-icon name="create" size="small" /></template>
+            <va-button size="small" icon="create">
               Plus Button
             </va-button>
-            <va-button outline size="small">
-              <template #prepend><va-icon name="create" size="small" /></template>
+            <va-button outline size="small" iconRight="clear">
               Dropdown button
             </va-button>
-            <va-button flat size="small">
-              <template #prepend><va-icon name="create" size="small" /></template>
+            <va-button flat size="small" icon="create" iconRight="clear">
               Mixed button
             </va-button>
           </td>
@@ -335,33 +316,15 @@
         <tr>
           <td>All Buttons Without Title</td>
           <td>
-            <va-button>
-              <template #prepend><va-icon name="block" /></template>
-            </va-button>
-            <va-button size="large">
-              <template #prepend><va-icon name="block" size="large" /></template>
-            </va-button>
-            <va-button size="small">
-              <template #prepend><va-icon name="block" size="small" /></template>
-            </va-button>
-            <va-button outline>
-              <template #prepend><va-icon name="block" /></template>
-            </va-button>
-            <va-button outline size="large">
-              <template #prepend><va-icon name="block" size="large" /></template>
-            </va-button>
-            <va-button outline size="small">
-              <template #prepend><va-icon name="block" size="small" /></template>
-            </va-button>
-            <va-button flat>
-              <template #prepend><va-icon name="block" /></template>
-            </va-button>
-            <va-button flat size="large">
-              <template #prepend><va-icon name="block" size="large" /></template>
-            </va-button>
-            <va-button flat size="small">
-              <template #prepend><va-icon name="block" size="small" /></template>
-            </va-button>
+            <va-button icon="block" />
+            <va-button size="large" icon="block" />
+            <va-button size="small" icon="block" />
+            <va-button outline icon="block" />
+            <va-button outline size="large" icon="block" />
+            <va-button outline size="small" icon="block" />
+            <va-button flat icon="block" />
+            <va-button flat size="large" icon="block" />
+            <va-button flat size="small" icon="block" />
           </td>
         </tr>
         <tr>
