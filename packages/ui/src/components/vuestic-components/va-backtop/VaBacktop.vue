@@ -60,7 +60,7 @@ export default class VaBacktop extends mixins(
   scrolled = false
   interval = 0
 
-  get computedStyle (): object {
+  get computedStyle () {
     return {
       [this.verticalPosition]: this.verticalOffset,
       [this.horizontalPosition]: this.horizontalOffset,
@@ -114,5 +114,6 @@ export default class VaBacktop extends mixins(
   right: var(--va-backtop-right);
   bottom: var(--va-backtop-bottom);
   cursor: var(--va-backtop-cursor);
+  z-index: var(--va-backtop-z-index);
 }
 </style>
