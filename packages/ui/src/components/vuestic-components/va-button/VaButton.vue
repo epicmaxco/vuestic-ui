@@ -103,8 +103,6 @@ export default class VaButton extends mixins(
     const buttonGroup = inject(ButtonGroupServiceKey, {})
 
     watch(() => this.$props.loading, (loading) => {
-      this.$el.blur()
-
       if (loading) {
         this.updateFocusState(false)
         this.updateHoverState(false)
