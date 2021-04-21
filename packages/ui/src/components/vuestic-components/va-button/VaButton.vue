@@ -63,7 +63,7 @@ import { ButtonGroupServiceKey } from '../va-button-group'
 
 class ButtonProps {
   color = prop<string>({ type: String, default: undefined })
-  textColor = prop<string>({ type: String, default: '#fff' })
+  textColor = prop<string>({ type: String, default: undefined })
   tag = prop<string>({ type: String, default: 'button' })
   outline = prop<boolean>({ type: Boolean, default: undefined })
   flat = prop<boolean>({ type: Boolean, default: undefined })
@@ -119,11 +119,23 @@ export default class VaButton extends mixins(
     return { buttonGroup }
   })
 
+  get isTransparentBackground () {
+    return this.outline || this.flat || this.colorComputed === '#00000000'
+  }
+
   get colorComputed () {
     return this.computeColor(this.color, 'primary')
   }
 
   get textColorComputed () {
+    if (this.$props.textColor !== undefined) {
+      return this.computeColor(this.textColor, '#fff')
+    }
+
+    if (this.isTransparentBackground) {
+      return this.computeColor(this.colorComputed, '#fff')
+    }
+
     return this.computeColor(this.textColor, '#fff')
   }
 
@@ -174,10 +186,8 @@ export default class VaButton extends mixins(
       boxShadow: '',
     }
 
-    const isTransparentBackground = this.outline || this.flat || this.colorComputed === '#00000000'
-
-    if (isTransparentBackground) {
-      computedStyle.color = this.textColor
+    if (this.isTransparentBackground) {
+      computedStyle.color = this.textColorComputed
       computedStyle.borderColor = this.outline ? this.colorComputed : ''
 
       if (this.hoverState) {

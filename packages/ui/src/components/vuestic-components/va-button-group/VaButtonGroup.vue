@@ -11,7 +11,7 @@ import { Vue, Options, prop, setup } from 'vue-class-component'
 import VaConfig from '../va-config'
 import { InjectionKey, reactive, provide } from 'vue'
 import { getGradientBackground } from '../../../services/color-config/color-functions'
-import { useColor } from '../../../services/color-config/ColorMixin'
+import { getColor } from '../../../services/color-config/color-config'
 
 export const ButtonGroupServiceKey: InjectionKey<{
   color?: string;
@@ -42,7 +42,7 @@ export default class VaButtonGroup extends Vue.with(Props) {
       },
     })
 
-    return { getColor: useColor(), buttonConfig }
+    return { getColor, buttonConfig }
   });
 
   get computedGradiend () {
