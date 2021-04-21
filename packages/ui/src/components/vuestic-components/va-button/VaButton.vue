@@ -356,7 +356,7 @@ export default class VaButton extends mixins(
     min-width: 3rem;
 
     .va-button__content {
-      padding: var(--va-button-lg-py) var(--va-button-lg-content-px);
+      padding: var(--va-button-lg-py) var(--va-button-lg-px);
     }
 
     &.va-button--equilateral {
