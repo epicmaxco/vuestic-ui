@@ -31,7 +31,21 @@
         :color="computedStyle.color"
         :thickness="0.15"
       />
-      <slot v-else />
+      <template v-else>
+        <va-icon
+          v-if="icon"
+          :name="icon"
+          :size="$props.size"
+          class="va-button__left-icon"
+        />
+        <slot />
+        <va-icon
+          v-if="iconRight"
+          :name="iconRight"
+          :size="$props.size"
+          class="va-button__right-icon"
+        />
+      </template>
     </div>
   </component>
 </template>
@@ -65,6 +79,8 @@ class ButtonProps {
   round = prop<boolean>({ type: Boolean, default: true })
   equilateral = prop<boolean>({ type: Boolean, default: undefined })
   spaceBetweenItems = prop<boolean>({ type: Boolean, default: undefined })
+  icon = prop<string>({ type: String, default: undefined })
+  iconRight = prop<string>({ type: String, default: undefined })
   size = prop<string>({
     type: String,
     default: 'medium',
@@ -113,11 +129,6 @@ export default class VaButton extends mixins(
 
   get colorComputed () {
     return this.computeColor(this.color, 'primary')
-  }
-
-  get isHiddenTitle () {
-    const isHasDefaultSlot = this.$slots.default && this.$slots.default().findIndex(o => o.type !== Comment) !== -1
-    return !isHasDefaultSlot || this.loading
   }
 
   get computedClass () {
@@ -246,6 +257,7 @@ export default class VaButton extends mixins(
 
   /** @public */
   blur (): void {
+    console.log(this.$el);
     (this.$el as HTMLElement).blur()
   }
 }
@@ -405,22 +417,26 @@ export default class VaButton extends mixins(
   }
 
   &--equilateral {
-    .va-button__content {
-      padding: 0;
-    }
+    .va-button__content { padding: 0; }
   }
 
   &--space-between-items {
     .va-button__content > * {
       margin-right: calc(var(--va-button-space-between-items) / 2);
       margin-left: calc(var(--va-button-space-between-items) / 2);
-      &:last-child {
-        margin-right: 0;
-      }
-      &:first-child {
-        margin-left: 0;
-      }
+      &:last-child { margin-right: 0; }
+      &:first-child { margin-left: 0; }
     }
+  }
+
+  &__left-icon {
+    margin-right: calc(var(--va-button-space-between-items) / 2);
+    &:last-child { margin-right: 0; }
+  }
+
+  &__right-icon {
+    margin-left: calc(var(--va-button-space-between-items) / 2);
+    &:last-child { margin-right: 0; }
   }
 
   &--loading {
