@@ -131,6 +131,10 @@ export default class VaButton extends mixins(
     return this.computeColor(this.color, 'primary')
   }
 
+  get hasDefaultSlot () {
+    return this.$slots.default
+  }
+
   get computedClass () {
     return {
       'va-button--default': !this.flat && !this.outline && !this.disabled,
@@ -147,7 +151,7 @@ export default class VaButton extends mixins(
       'va-button--loading': this.loading,
       'va-button--block': this.block,
       'va-button--square': !this.round,
-      'va-button--equilateral': this.equilateral,
+      'va-button--equilateral': this.equilateral || !this.hasDefaultSlot || this.loading,
       'va-button--space-between-items': this.spaceBetweenItems,
     }
   }

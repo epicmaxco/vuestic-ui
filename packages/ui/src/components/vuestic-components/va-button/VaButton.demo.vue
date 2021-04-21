@@ -316,33 +316,15 @@
         <tr>
           <td>All Buttons Without Title</td>
           <td>
-            <va-button>
-              <va-icon name="block" />
-            </va-button>
-            <va-button size="large">
-              <va-icon name="block" size="large" />
-            </va-button>
-            <va-button size="small">
-              <va-icon name="block" size="small" />
-            </va-button>
-            <va-button outline>
-              <va-icon name="block" />
-            </va-button>
-            <va-button outline size="large">
-              <va-icon name="block" size="large" />
-            </va-button>
-            <va-button outline size="small">
-              <va-icon name="block" size="small" />
-            </va-button>
-            <va-button flat>
-              <va-icon name="block" />
-            </va-button>
-            <va-button flat size="large">
-              <va-icon name="block" size="large" />
-            </va-button>
-            <va-button flat size="small">
-              <va-icon name="block" size="small" />
-            </va-button>
+            <va-button icon="block" />
+            <va-button size="large" icon="block" />
+            <va-button size="small" icon="block" />
+            <va-button outline icon="block" />
+            <va-button outline size="large" icon="block" />
+            <va-button outline size="small" icon="block" />
+            <va-button flat icon="block" />
+            <va-button flat size="large" icon="block" />
+            <va-button flat size="small" icon="block" />
           </td>
         </tr>
         <tr>
@@ -370,42 +352,6 @@
               size="large"
             >
               Start loading
-            </va-button>
-            <va-button
-              @click="buttonLoading = false"
-            >
-              Stop loading
-            </va-button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Buttons with loading status equilateral
-          </td>
-          <td>
-            <va-button
-              :loading="buttonLoading"
-              @click="buttonLoading = true"
-              size="small"
-              equilateral
-            >
-              Start
-            </va-button>
-            <va-button
-              :loading="buttonLoading"
-              @click="buttonLoading = true"
-              size="medium"
-              equilateral
-            >
-              Start
-            </va-button>
-            <va-button
-              :loading="buttonLoading"
-              @click="buttonLoading = true"
-              size="large"
-              equilateral
-            >
-              Start
             </va-button>
             <va-button
               @click="buttonLoading = false"
