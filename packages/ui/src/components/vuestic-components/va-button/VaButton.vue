@@ -33,31 +33,18 @@
         />
       </template>
       <template v-else>
-        <va-icon
-          v-if="icon"
-          class="va-button__content__icon"
-          :name="icon"
-          :size="size"
-        />
-        <div
-          v-if="hasTitleData"
-          class="va-button__content__title"
-        >
+        <slot name="prepend" />
+        <div v-if="$slots.default" class="va-button__content__title">
           <slot />
         </div>
-        <va-icon
-          v-if="iconRight"
-          class="va-button__content__icon"
-          :name="iconRight"
-          :size="size"
-        />
+        <slot name="append" />
       </template>
     </div>
   </component>
 </template>
 
 <script lang="ts">
-import { inject, watchEffect, watch } from 'vue'
+import { inject, watchEffect, watch, Comment } from 'vue'
 import { mixins, Vue, prop, Options, setup } from 'vue-class-component'
 import {
   getGradientBackground,
@@ -140,6 +127,11 @@ export default class VaButton extends mixins(
     return this.computeColor(this.textColor, '#fff')
   }
 
+  get isHiddenTitle () {
+    const isHasDefaultSlot = this.$slots.default && this.$slots.default().findIndex(o => o.type !== Comment) !== -1
+    return !isHasDefaultSlot || this.loading
+  }
+
   get computedClass () {
     return {
       'va-button--default': !this.flat && !this.outline && !this.disabled,
@@ -148,9 +140,9 @@ export default class VaButton extends mixins(
       'va-button--disabled': this.disabled,
       'va-button--hover': this.hoverState,
       'va-button--focus': this.focusState,
-      'va-button--without-title': !this.hasTitleData,
-      'va-button--with-left-icon': this.icon,
-      'va-button--with-right-icon': this.iconRight,
+      'va-button--without-title': this.isHiddenTitle,
+      'va-button--with-left-content': this.$slots.prepend,
+      'va-button--with-right-content': this.$slots.append,
       'va-button--large': this.size === 'large',
       'va-button--small': this.size === 'small',
       'va-button--normal': !this.size || this.size === 'medium',
@@ -204,10 +196,6 @@ export default class VaButton extends mixins(
     }
 
     return computedStyle
-  }
-
-  get hasTitleData () {
-    return this.$slots.default
   }
 
   get inputListeners () {
@@ -318,6 +306,13 @@ export default class VaButton extends mixins(
     @include va-disabled;
   }
 
+  &.va-button--without-title {
+    min-width: 0;
+    .va-button__content {
+      padding: 0;
+    }
+  }
+
   &--large {
     @include va-button(var(--va-button-lg-py), var(--va-button-lg-px), var(--va-button-lg-font-size), var(--va-button-lg-line-height), var(--va-button-lg-border-radius));
 
@@ -334,23 +329,22 @@ export default class VaButton extends mixins(
       width: 3rem;
     }
 
-    &.va-button--with-left-icon {
-      padding-left: var(--va-button-lg-icon-wrapper-padding);
-
-      &.va-button--without-title {
-        padding-right: var(--va-button-lg-icon-wrapper-padding);
-      }
-
+    &.va-button--with-left-content {
       .va-button__content__title {
-        padding-left: var(--va-button-lg-icon-content-padding);
+        padding-left: var(--va-button-lg-content-padding);
       }
     }
 
-    &.va-button--with-right-icon {
-      padding-right: var(--va-button-lg-icon-wrapper-padding);
-
+    &.va-button--with-right-content {
       .va-button__content__title {
-        padding-right: var(--va-button-lg-icon-content-padding);
+        padding-right: var(--va-button-lg-content-padding);
+      }
+    }
+
+    &.va-button--without-title {
+      .va-button__content__title {
+        padding-right: 0;
+        padding-left: 0;
       }
     }
 
@@ -378,24 +372,22 @@ export default class VaButton extends mixins(
       min-width: 0;
       width: 1.5rem;
     }
-
-    &.va-button--with-left-icon {
-      padding-left: var(--va-button-sm-icon-wrapper-padding);
-
-      &.va-button--without-title {
-        padding-right: var(--va-button-sm-icon-wrapper-padding);
-      }
-
+    &.va-button--with-left-content {
       .va-button__content__title {
-        padding-left: var(--va-button-sm-icon-content-padding);
+        padding-left: var(--va-button-sm-content-padding);
       }
     }
 
-    &.va-button--with-right-icon {
-      padding-right: var(--va-button-sm-icon-wrapper-padding);
-
+    &.va-button--with-right-content {
       .va-button__content__title {
-        padding-right: var(--va-button-sm-icon-content-padding);
+        padding-right: var(--va-button-sm-content-padding);
+      }
+    }
+
+    &.va-button--without-title {
+      .va-button__content__title {
+        padding-right: 0;
+        padding-left: 0;
       }
     }
 
@@ -423,24 +415,22 @@ export default class VaButton extends mixins(
       min-width: 0;
       width: 2.25rem;
     }
-
-    &.va-button--with-left-icon {
-      padding-left: var(--va-button-icon-wrapper-padding);
-
-      &.va-button--without-title {
-        padding-right: var(--va-button-icon-wrapper-padding);
-      }
-
+    &.va-button--with-left-content {
       .va-button__content__title {
-        padding-left: var(--va-button-icon-content-padding);
+        padding-left: var(--va-button-content-padding);
       }
     }
 
-    &.va-button--with-right-icon {
-      padding-right: var(--va-button-icon-wrapper-padding);
-
+    &.va-button--with-right-content {
       .va-button__content__title {
-        padding-right: var(--va-button-icon-content-padding);
+        padding-right: var(--va-button-content-padding);
+      }
+    }
+
+    &.va-button--without-title {
+      .va-button__content__title {
+        padding-right: 0;
+        padding-left: 0;
       }
     }
 

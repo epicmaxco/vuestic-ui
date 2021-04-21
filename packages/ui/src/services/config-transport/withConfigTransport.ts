@@ -6,10 +6,10 @@ import {
   computed,
   SetupContext,
 } from 'vue'
-import { PropOptions, VueConstructor } from 'vue-class-component'
+import { PropOptions } from 'vue-class-component'
 
 import { useLocalConfig } from '../../components/vuestic-components/va-config/VaConfig'
-import { useGlobalConfig, GlobalConfig } from '../GlobalConfigPlugin'
+import { useGlobalConfig } from '../global-config/global-config'
 import { getLocalConfigWithComponentProp } from './createConfigValueGetter'
 import { ComponentConfig } from '../component-config/component-config'
 
@@ -52,7 +52,7 @@ export function getComponentOptions (component: DefineComponent): ComponentOptio
 function normalizeProps (props: any) {
   switch (true) {
   case isArray(props):
-    return props.reduce((acc: object, prop: string) => ({
+    return props.reduce((acc: Record<string, unknown>, prop: string) => ({
       ...acc,
       [prop]: null,
     }), {})
@@ -132,12 +132,11 @@ const withConfigTransport = (component: any): any => {
     }), {}),
     setup (props: Record<string, any>, context: SetupContext) {
       const configChain = useLocalConfig()
-
       const { getGlobalConfig } = useGlobalConfig()
 
       const computedProps = computed(() => {
         const componentsConfig = getGlobalConfig().components
-        const getConfigValue = createConfigValueGetter(componentsConfig || {}, configChain, componentName)
+        const getConfigValue = createConfigValueGetter(componentsConfig || {}, configChain.value, componentName)
 
         const getValue = (name: string, defaultValue: any) => {
           // We want to fallback to config in 2 cases:

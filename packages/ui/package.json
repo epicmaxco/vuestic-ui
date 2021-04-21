@@ -22,7 +22,8 @@
     "test:e2e": "vue-cli-service test:e2e",
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
-    "precommit": "lint-staged --concurrent=false"
+    "precommit": "lint-staged --concurrent=false",
+    "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
     "@popperjs/core": "^2.6.0",
@@ -41,7 +42,8 @@
     "vue-color": "^2.8.1",
     "vue-epic-bus": "^0.1.5",
     "vue-flatpickr-component": "^9.0.3",
-    "vue-router": "^4.0.0-beta.13"
+    "vue-router": "^4.0.0-beta.13",
+    "spa-http-server": "^0.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -96,6 +98,7 @@
     "style-loader": "^2.0.0",
     "stylelint": "^13.2.1",
     "stylelint-config-standard": "^20.0.0",
+    "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",

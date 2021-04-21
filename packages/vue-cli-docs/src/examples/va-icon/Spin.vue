@@ -2,7 +2,7 @@
   <div>
     <va-icon
       name="loop"
-      spin
+      spin="counter-clockwise"
     />
     <va-icon
       name="home"

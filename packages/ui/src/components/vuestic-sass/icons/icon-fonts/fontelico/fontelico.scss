@@ -1,13 +1,17 @@
+$icon-font-name: 'fontelico';
+$icon-font-family: 'fontelico';
+$icon-font-path: '~/src/components/vuestic-sass/icons/icon-fonts/#{$icon-font-name}/#{$icon-font-name}';
+
 @font-face {
-  font-family: 'fontelico';
+  font-family: $icon-font-family;
   font-style: normal;
   font-weight: normal;
-  src: url('/src/components/vuestic-sass/icons/icon-fonts/fontelico/fontelico.eot');
+  src: url('#{$icon-font-path}.eot');
   src:
-    url('/src/components/vuestic-sass/icons/icon-fonts/fontelico/fontelico.eot?#iefix') format('eot'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/fontelico/fontelico.woff') format('woff'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/fontelico/fontelico.ttf') format('truetype'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/fontelico/fontelico.svg#fontelico') format('svg');
+    url('#{$icon-font-path}.eot#iefix') format('eot'),
+    url('#{$icon-font-path}.woff') format('woff'),
+    url('#{$icon-font-path}.ttf') format('truetype'),
+    url('#{$icon-font-path}.svg##{icon-font-name}') format('svg');
 }
 
 [class*="fontelico-"]::before {

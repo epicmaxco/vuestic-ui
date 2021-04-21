@@ -7,7 +7,7 @@
           <va-button class="preview__buttons--button"
             :to="`/${$root.$i18n.locale}/getting-started/installation`"
             :round="false"
-            color="#2550C0"
+            color="primary"
           >
             {{$t('landing.preview.buttons.start')}}
           </va-button>
@@ -15,7 +15,7 @@
             href="https://github.com/epicmaxco/vuestic-ui"
             target="_blank"
             :round="false"
-            color="#2550C0"
+            color="primary"
             flat
           >
             <va-icon class="fa fa-github" style="margin-right: 0.5rem" />
@@ -45,7 +45,7 @@
               <img src="@/assets/landing/images/features/components.svg" alt="responsive-components">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
-            <router-link class="item__link" :to="`/${$root.$i18n.locale}/ui-elements/avatar`">
+            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/ui-elements/avatar`">
               {{$t('landing.preview.features.components.text')}}
             </router-link>
           </div>
@@ -55,7 +55,7 @@
               <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="keyboard-navigation">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.keyboard.title')}}</h2>
-            <router-link class="item__link" :to="`/${$root.$i18n.locale}/getting-started/accessibility-guide`">
+            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/getting-started/accessibility-guide`">
               {{$t('landing.preview.features.keyboard.text')}}
             </router-link>
           </div>
@@ -65,7 +65,7 @@
               <img src="@/assets/landing/images/features/modern-browsers.svg" alt="modern-browsers">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.browsers.title')}}</h2>
-            <router-link class="item__link" :to="`/${$root.$i18n.locale}/introduction/browser-support`">
+            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/introduction/browser-support`">
               {{$t('landing.preview.features.browsers.text')}}
             </router-link>
           </div>
@@ -77,7 +77,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import "~@/assets/main.scss";
+@import "src/assets/main";
 
 .preview {
   width: 100%;

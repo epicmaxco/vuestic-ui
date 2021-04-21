@@ -1,6 +1,6 @@
 <script>
 import { h } from 'vue'
-import { useColor } from '../../../../services/color-config/ColorMixin'
+import { useColors } from '../../../../services/color-config/color-config'
 
 const $root = 'va-timeline-separator'
 
@@ -25,10 +25,8 @@ export default {
     },
   },
   setup () {
-    const getColor = useColor()
-
     return {
-      getColor,
+      ...useColors(),
     }
   },
   render () {

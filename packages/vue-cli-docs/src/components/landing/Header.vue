@@ -4,7 +4,9 @@
       <div class="header__inner">
         <div class="header__logo">
           <!--        TODO: add root link-->
-          <a href="/"><img src="../../assets/landing/images/logo.svg" alt="Vuestic UI"></a>
+          <a href="/">
+            <v-icon :component="VuesticLogo" />
+          </a>
           <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
             <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
             <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
@@ -12,12 +14,12 @@
         </div>
         <nav class="header__links">
           <!-- vuestic buttons -->
-          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.overview')}}</va-button>
-          <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.docs')}}</va-button>
-          <va-button href="https://discord.gg/jTKTjj2weV" target="blank" class="header__links--link" flat color="#2550C0">{{$t('landing.header.buttons.discord')}}</va-button>
-          <va-dropdown class="language-dropdown"  fixed>
+          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.overview') }}</va-button>
+          <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.docs') }}</va-button>
+          <va-button href="https://discord.gg/jTKTjj2weV" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
+          <va-dropdown class="language-dropdown" fixed>
             <template #anchor>
-              <va-button class="header__links--link" iconRight="expand_more" flat square color="#2550C0">
+              <va-button class="header__links--link" iconRight="expand_more" flat square color="primary">
                 {{ currentLanguageName }}
               </va-button>
             </template>
@@ -40,7 +42,7 @@
                     class="dropdown-item__text"
                     :to="`/${$root.$i18n.locale}/contribution/translation`"
                   >
-                    {{$t('landing.header.buttons.translation')}}
+                    {{ $t('landing.header.buttons.translation') }}
                   </router-link>
                 </va-list-item-section>
               </va-list-item>
@@ -53,9 +55,9 @@
             target="blank"
             :round="false"
             size="small"
-            icon="star_empty"
+            color="dark"
           >
-            {{$t('landing.header.buttons.star')}} {{stars}}
+            <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
           </va-button>
         </nav>
         <!-- mobile -->
@@ -63,34 +65,34 @@
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${$root.$i18n.locale}/introduction/overview`">{{$t('landing.header.buttons.overview')}}</router-link>
+                <router-link :to="`/${$root.$i18n.locale}/introduction/overview`">{{ $t('landing.header.buttons.overview') }}</router-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${$root.$i18n.locale}/introduction/roadmap`">{{$t('landing.header.buttons.docs')}}</router-link>
+                <router-link :to="`/${$root.$i18n.locale}/introduction/roadmap`">{{ $t('landing.header.buttons.docs') }}</router-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://discord.gg/jTKTjj2weV" target="_blank">{{$t('landing.header.buttons.discord')}}</a>
+                <a href="https://discord.gg/jTKTjj2weV" target="_blank">{{ $t('landing.header.buttons.discord') }}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-label color="#757B83" class="mobile-menu__label">
-              {{$t('landing.header.buttons.language')}}
+              {{ $t('landing.header.buttons.language') }}
             </va-list-label>
             <div class="mobile-menu__languages">
-            <va-list-item
-              v-for="(option, id) in options"
-              :key="id"
-              class="mobile-menu__language"
-              :class="{ active: option.code === currentLanguage }"
-              @click="setLanguage(option.code)"
-            >
-              <va-list-item-section class="mobile-menu__link">
-                <span class="language">{{ option.name }}</span>
-              </va-list-item-section>
-            </va-list-item>
+              <va-list-item
+                v-for="(option, id) in options"
+                :key="id"
+                class="mobile-menu__language"
+                :class="{ active: option.code === currentLanguage }"
+                @click="setLanguage(option.code)"
+              >
+                <va-list-item-section class="mobile-menu__link">
+                  <span class="language">{{ option.name }}</span>
+                </va-list-item-section>
+              </va-list-item>
             </div>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
@@ -98,7 +100,7 @@
                   class="mobile-menu__language"
                   :to="`/${$root.$i18n.locale}/contribution/translation`"
                 >
-                  {{$t('landing.header.buttons.translation')}}
+                  {{ $t('landing.header.buttons.translation') }}
                 </router-link>
               </va-list-item-section>
             </va-list-item>
@@ -108,10 +110,9 @@
                 href="https://github.com/epicmaxco/vuestic-ui"
                 target="blank"
                 :round="false"
-                size="small"
                 icon="star_empty"
               >
-                {{$t('landing.header.buttons.star')}} {{stars}}
+                <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
               </va-button>
             </va-list-item>
           </va-list>
@@ -125,6 +126,7 @@
 // @ts-nocheck
 import { Options, Vue } from 'vue-class-component'
 import { languages } from './../languages'
+import VuesticLogo from '../header/components/VuesticDocsLogo.vue'
 
 @Options({
   name: 'language-dropdown',
@@ -134,6 +136,7 @@ export default class Header extends Vue {
   isHidden = true
   stars = 0
   options = languages
+  VuesticLogo = VuesticLogo
 
   onClick (value: boolean) {
     this.isHidden = value
@@ -152,7 +155,10 @@ export default class Header extends Vue {
     this.$nextTick(() => {
       // a little hack to change the same route alias
       const path = this.$localizePath(this.$route.fullPath, locale)
-      this.$router.replace({ path, hash: `#${+new Date()}` }).then(() => this.$router.replace({ hash: '' }))
+      this.$router.replace({
+        path,
+        hash: `#${+new Date()}`,
+      }).then(() => this.$router.replace({ hash: '' }))
     })
   }
 

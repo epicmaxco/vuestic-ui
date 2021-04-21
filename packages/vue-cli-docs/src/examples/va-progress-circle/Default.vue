@@ -1,7 +1,7 @@
 <template>
   <div class="flex lg6 xs12">
     <div class="mt-2 mb-5">
-      <va-progress-circle :value="value" />
+      <va-progress-circle v-model="value" />
     </div>
     <div class="row mb-4 mx-0 flex lg8 xs12">
       <va-slider v-model="value" />

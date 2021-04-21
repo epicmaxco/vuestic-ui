@@ -34,7 +34,7 @@ import LanguageDropdown from './components/LanguageDropdown.vue'
 import VersionDropdown from './components/VersionDropdown.vue'
 import ColorDropdown from './components/ColorDropdown.vue'
 import HeaderSelector from './components/HeaderSelector.vue'
-import VuesticLogo from './components/VuesticLogo.vue'
+import VuesticLogo from './components/VuesticDocsLogo.vue'
 
 class Props {
   isSidebarVisible = prop<boolean>({ type: Boolean, default: false })

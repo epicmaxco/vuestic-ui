@@ -1,4 +1,6 @@
-export const VuesticIconAliases = [
+import { IconConfiguration } from './../types'
+
+export const VuesticIconAliases: IconConfiguration[] = [
   {
     name: 'arrow_back_ios',
     to: 'arrow_back_ios',

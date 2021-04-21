@@ -100,6 +100,7 @@ class PaginationProps {
   visiblePages = prop<number>({ type: Number, default: 0 })
   pages = prop<number>({ type: Number, default: 0 })
   disabled = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: 'primary' })
   size = prop<string>({
     type: String,
     default: 'medium',

@@ -29,7 +29,7 @@
 export default {
   data () {
     return {
-      records: [{}, {}, {}, {}, {}, {}],
+      records: [{}, {}, {}, {}, {}, {}, {}, {}],
       disabled: false,
     }
   },
