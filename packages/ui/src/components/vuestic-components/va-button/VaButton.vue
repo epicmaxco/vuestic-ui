@@ -24,21 +24,14 @@
       @mouseenter="updateHoverState(true)"
       @mouseleave="updateHoverState(false)"
     >
-      <template v-if="loading">
-        <va-progress-circle
-          indeterminate
-          :size="loaderSize"
-          :color="computedStyle.color"
-          :thickness="0.15"
-        />
-      </template>
-      <template v-else>
-        <slot name="prepend" />
-        <div v-if="$slots.default" class="va-button__content__title">
-          <slot />
-        </div>
-        <slot name="append" />
-      </template>
+      <va-progress-circle
+        v-if="loading"
+        indeterminate
+        :size="loaderSize"
+        :color="computedStyle.color"
+        :thickness="0.15"
+      />
+      <slot v-else />
     </div>
   </component>
 </template>
@@ -61,10 +54,17 @@ import { VaProgressCircle } from '../va-progress-bar'
 import { ButtonGroupServiceKey } from '../va-button-group'
 
 class ButtonProps {
-  color = prop<string>({ type: String, default: undefined })
+  color = prop<string>({ type: String })
+  textColor =prop<string>({ type: String, default: '#fff' })
   tag = prop<string>({ type: String, default: 'button' })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
+  type = prop<string>({ type: String, default: 'button' })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  block = prop<boolean>({ type: Boolean, default: false })
+  round = prop<boolean>({ type: Boolean, default: true })
+  equilateral = prop<boolean>({ type: Boolean, default: undefined })
+  spaceBetweenItems = prop<boolean>({ type: Boolean, default: undefined })
   size = prop<string>({
     type: String,
     default: 'medium',
@@ -72,11 +72,6 @@ class ButtonProps {
       return ['medium', 'small', 'large'].includes(value)
     },
   })
-
-  type = prop<string>({ type: String, default: 'button' })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  block = prop<boolean>({ type: Boolean, default: false })
-  round = prop<boolean>({ type: Boolean, default: true })
 }
 
 const ButtonPropsMixin = Vue.with(ButtonProps)
@@ -100,8 +95,6 @@ export default class VaButton extends mixins(
     const buttonGroup = inject(ButtonGroupServiceKey, {})
 
     watch(() => this.$props.loading, (loading) => {
-      this.$el.blur()
-
       if (loading) {
         this.updateFocusState(false)
         this.updateHoverState(false)
@@ -135,7 +128,6 @@ export default class VaButton extends mixins(
       'va-button--disabled': this.disabled,
       'va-button--hover': this.hoverState,
       'va-button--focus': this.focusState,
-      'va-button--without-title': this.isHiddenTitle,
       'va-button--with-left-content': this.$slots.prepend,
       'va-button--with-right-content': this.$slots.append,
       'va-button--large': this.size === 'large',
@@ -144,6 +136,8 @@ export default class VaButton extends mixins(
       'va-button--loading': this.loading,
       'va-button--block': this.block,
       'va-button--square': !this.round,
+      'va-button--equilateral': this.equilateral,
+      'va-button--space-between-items': this.spaceBetweenItems,
     }
   }
 
@@ -211,7 +205,7 @@ export default class VaButton extends mixins(
         computedStyle.boxShadow = this.shadowStyle
       }
     } else {
-      computedStyle.color = this.flat || this.outline ? this.colorComputed : '#ffffff'
+      computedStyle.color = this.flat || this.outline ? this.colorComputed : this.textColor
       computedStyle.borderColor = this.outline ? this.colorComputed : ''
       computedStyle.backgroundImage = this.gradientStyle
       computedStyle.boxShadow = this.shadowStyle
@@ -276,6 +270,7 @@ export default class VaButton extends mixins(
   transition: var(--va-button-transition, var(--primary-transition));
   background-color: var(--va-button-background-color, var(--white));
   vertical-align: middle;
+  box-sizing: border-box;
 
   &__content {
     display: flex;
@@ -337,46 +332,19 @@ export default class VaButton extends mixins(
     @include va-disabled;
   }
 
-  &.va-button--without-title {
-    min-width: 0;
-    .va-button__content {
-      padding: 0;
-    }
-  }
-
   &--large {
     @include va-button(var(--va-button-lg-py), var(--va-button-lg-px), var(--va-button-lg-font-size), var(--va-button-lg-line-height), var(--va-button-lg-border-radius));
 
     letter-spacing: var(--va-button-lg-letter-spacing);
     height: 3rem;
-    min-width: 5rem;
+    min-width: 3rem;
 
     .va-button__content {
       padding: var(--va-button-lg-py) var(--va-button-lg-content-px);
     }
 
-    &.va-button--without-title {
-      min-width: 0;
+    &.va-button--equilateral {
       width: 3rem;
-    }
-
-    &.va-button--with-left-content {
-      .va-button__content__title {
-        padding-left: var(--va-button-lg-content-padding);
-      }
-    }
-
-    &.va-button--with-right-content {
-      .va-button__content__title {
-        padding-right: var(--va-button-lg-content-padding);
-      }
-    }
-
-    &.va-button--without-title {
-      .va-button__content__title {
-        padding-right: 0;
-        padding-left: 0;
-      }
     }
 
     &.va-button--outline {
@@ -393,33 +361,14 @@ export default class VaButton extends mixins(
 
     letter-spacing: var(--va-button-sm-letter-spacing);
     height: 1.5rem;
-    min-width: 3rem;
+    min-width: 1.5rem;
 
     .va-button__content {
       padding: var(--va-button-sm-py) var(--va-button-sm-px);
     }
 
-    &.va-button--without-title {
-      min-width: 0;
+    &.va-button--equilateral {
       width: 1.5rem;
-    }
-    &.va-button--with-left-content {
-      .va-button__content__title {
-        padding-left: var(--va-button-sm-content-padding);
-      }
-    }
-
-    &.va-button--with-right-content {
-      .va-button__content__title {
-        padding-right: var(--va-button-sm-content-padding);
-      }
-    }
-
-    &.va-button--without-title {
-      .va-button__content__title {
-        padding-right: 0;
-        padding-left: 0;
-      }
     }
 
     &.va-button--outline {
@@ -436,33 +385,14 @@ export default class VaButton extends mixins(
 
     letter-spacing: var(--va-button-letter-spacing, var(--primary-letter-spacing));
     height: 2.25rem;
-    min-width: 4rem;
+    min-width: 2.25rem;
 
     .va-button__content {
       padding: var(--va-button-py) var(--va-button-px);
     }
 
-    &.va-button--without-title {
-      min-width: 0;
+    &.va-button--equilateral {
       width: 2.25rem;
-    }
-    &.va-button--with-left-content {
-      .va-button__content__title {
-        padding-left: var(--va-button-content-padding);
-      }
-    }
-
-    &.va-button--with-right-content {
-      .va-button__content__title {
-        padding-right: var(--va-button-content-padding);
-      }
-    }
-
-    &.va-button--without-title {
-      .va-button__content__title {
-        padding-right: 0;
-        padding-left: 0;
-      }
     }
 
     &.va-button--outline {
@@ -471,6 +401,25 @@ export default class VaButton extends mixins(
 
     &.va-button--square {
       border-radius: var(--va-button-square-border-radius);
+    }
+  }
+
+  &--equilateral {
+    .va-button__content {
+      padding: 0;
+    }
+  }
+
+  &--space-between-items {
+    .va-button__content > * {
+      margin-right: calc(var(--va-button-space-between-items) / 2);
+      margin-left: calc(var(--va-button-space-between-items) / 2);
+      &:last-child {
+        margin-right: 0;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
     }
   }
 
