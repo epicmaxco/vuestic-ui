@@ -62,7 +62,7 @@
               v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
               class="va-modal__footer"
             >
-              <va-button v-if="$props.cancelText" color="gray" flat @click="cancel">
+              <va-button v-if="$props.cancelText" color="gray" class="mr-2" flat @click="cancel">
                 {{ $props.cancelText }}
               </va-button>
               <va-button @click="ok">
