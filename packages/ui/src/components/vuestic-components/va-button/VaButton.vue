@@ -51,13 +51,14 @@
 </template>
 
 <script lang="ts">
-import { inject, watchEffect, watch, Comment } from 'vue'
+import { watchEffect, watch, Comment } from 'vue'
 import { mixins, Vue, prop, Options, setup } from 'vue-class-component'
 import {
   getGradientBackground,
   getFocusColor,
   getHoverColor,
   getBoxShadowColor,
+  shiftHslColor,
 } from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
@@ -65,14 +66,13 @@ import { SizeMixin } from '../../../mixins/SizeMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import VaIcon from '../va-icon'
 import { VaProgressCircle } from '../va-progress-bar'
-import { ButtonGroupServiceKey } from '../va-button-group'
 
 class ButtonProps {
-  color = prop<string>({ type: String })
-  textColor =prop<string>({ type: String, default: '#fff' })
+  color = prop<string>({ type: String, default: undefined })
+  textColor = prop<string>({ type: String, default: undefined })
   tag = prop<string>({ type: String, default: 'button' })
-  outline = prop<boolean>({ type: Boolean, default: false })
-  flat = prop<boolean>({ type: Boolean, default: false })
+  outline = prop<boolean>({ type: Boolean, default: undefined })
+  flat = prop<boolean>({ type: Boolean, default: undefined })
   type = prop<string>({ type: String, default: 'button' })
   disabled = prop<boolean>({ type: Boolean, default: false })
   block = prop<boolean>({ type: Boolean, default: false })
@@ -108,8 +108,6 @@ export default class VaButton extends mixins(
   focusState = false
 
   context = setup(() => {
-    const buttonGroup = inject(ButtonGroupServiceKey, {})
-
     watch(() => this.$props.loading, (loading) => {
       if (loading) {
         this.updateFocusState(false)
@@ -122,13 +120,27 @@ export default class VaButton extends mixins(
       this.updateHoverState(this.hoverState)
     })
 
-    return {
-      buttonGroup,
-    }
+    return {}
   })
+
+  get isTransparentBackground () {
+    return this.outline || this.flat || this.colorComputed === '#00000000'
+  }
 
   get colorComputed () {
     return this.computeColor(this.color, 'primary')
+  }
+
+  get textColorComputed () {
+    if (this.$props.textColor !== undefined) {
+      return this.computeColor(this.textColor, '#fff')
+    }
+
+    if (this.isTransparentBackground) {
+      return this.computeColor(this.colorComputed, '#fff')
+    }
+
+    return this.computeColor(this.textColor, '#fff')
   }
 
   get hasDefaultSlot () {
@@ -156,30 +168,7 @@ export default class VaButton extends mixins(
     }
   }
 
-  get buttonGroupColor () {
-    return this.context?.buttonGroup?.color
-  }
-
-  get gradientStyle () {
-    if (this.flat || this.outline) {
-      return
-    }
-    // Allows button to grab color from button group.
-    if (this.buttonGroupColor) {
-      return
-    }
-
-    return getGradientBackground(this.colorComputed)
-  }
-
   get shadowStyle () {
-    if (this.flat || this.outline) {
-      return
-    }
-    if (this.buttonGroupColor && this.theme.getColor(this.buttonGroupColor)) {
-      return '0 0.125rem 0.19rem 0 ' +
-        getBoxShadowColor(this.color ? this.colorComputed : this.theme.getColor(this.buttonGroupColor))
-    }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
   }
 
@@ -197,38 +186,27 @@ export default class VaButton extends mixins(
     const computedStyle: any = {
       color: '',
       borderColor: '',
-      background: '',
-      backgroundImage: '',
+      background: '#00000000',
       boxShadow: '',
     }
 
-    if (this.focusState) {
-      if (this.outline || this.flat) {
-        computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.outline ? this.colorComputed : ''
-        computedStyle.background = getFocusColor(this.colorComputed)
-      } else {
-        computedStyle.backgroundImage = this.gradientStyle
-      }
-    } else if (this.hoverState) {
-      if (this.outline || this.flat) {
-        computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.outline ? this.colorComputed : ''
+    if (this.isTransparentBackground) {
+      computedStyle.color = this.textColorComputed
+      computedStyle.borderColor = this.outline ? this.colorComputed : ''
+
+      if (this.hoverState) {
         computedStyle.background = getHoverColor(this.colorComputed)
-      } else {
-        computedStyle.backgroundImage = this.gradientStyle
-        computedStyle.boxShadow = this.shadowStyle
+      }
+      if (this.focusState) {
+        computedStyle.background = getFocusColor(this.colorComputed)
       }
     } else {
-      computedStyle.color = this.flat || this.outline ? this.colorComputed : this.textColor
-      computedStyle.borderColor = this.outline ? this.colorComputed : ''
-      computedStyle.backgroundImage = this.gradientStyle
-      computedStyle.boxShadow = this.shadowStyle
-    }
-
-    if (this.buttonGroupColor && !this.outline && !this.flat) {
-      computedStyle.background = this.$props.color ? this.colorComputed : this.theme.getColor(this.buttonGroupColor)
-      computedStyle.backgroundImage = ''
+      computedStyle.background = getGradientBackground(this.colorComputed)
+      computedStyle.color = this.textColorComputed
+      if (this.hoverState || this.focusState) {
+        computedStyle.boxShadow = this.shadowStyle
+        computedStyle.background = getGradientBackground(shiftHslColor(this.colorComputed, { l: -3 }))
+      }
     }
 
     return computedStyle
@@ -284,7 +262,7 @@ export default class VaButton extends mixins(
   text-transform: initial;
   cursor: pointer;
   transition: var(--va-button-transition, var(--primary-transition));
-  background-color: var(--va-button-background-color, var(--white));
+  background: var(--va-button-background-color, var(--white));
   vertical-align: middle;
   box-sizing: border-box;
 
@@ -304,10 +282,6 @@ export default class VaButton extends mixins(
 
   &--default {
     color: var(--va-button-background-color, var(--white));
-
-    &:hover {
-      opacity: 0.85;
-    }
 
     &:focus,
     &:active {

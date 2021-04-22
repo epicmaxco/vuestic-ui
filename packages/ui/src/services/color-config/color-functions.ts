@@ -36,7 +36,7 @@ export const shiftHslColor = (color: ColorInput, offset: { h?: number; s?: numbe
     result.setA(result.A + offset.a)
   }
 
-  return result.HSL
+  return result.HSLA
 }
 
 /**
@@ -47,7 +47,7 @@ export const shiftHslColor = (color: ColorInput, offset: { h?: number; s?: numbe
  * @param color
  */
 export const shiftGradientColor = (color: ColorInput): string => {
-  const newColor = ColorTranslator.toHSL(color, false) as HSLObject
+  const newColor = ColorTranslator.toHSLA(color, false) as HSLObject
 
   // Gray
   if (newColor.s < 10) {
@@ -80,7 +80,7 @@ export const shiftGradientColor = (color: ColorInput): string => {
 
 export const getGradientBackground = (color: string) => {
   const colorLeft = shiftGradientColor(color)
-  const colorRight = ColorTranslator.toHSL(color)
+  const colorRight = ColorTranslator.toHSLA(color)
 
   return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
 }
