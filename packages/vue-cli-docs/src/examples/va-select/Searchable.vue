@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 300px;">
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Searchable multi select"
       :options="options"
       v-model="value"

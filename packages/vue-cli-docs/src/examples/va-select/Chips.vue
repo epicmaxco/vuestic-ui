@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 300px;">
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Custom chip max (3)"
       :options="options"
       v-model="value"
@@ -9,7 +9,7 @@
       :chipMax="3"
     />
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Tags"
       :options="options"
       v-model="value"
@@ -17,7 +17,7 @@
       chips
     />
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Deletable chips"
       :options="options"
       v-model="value"

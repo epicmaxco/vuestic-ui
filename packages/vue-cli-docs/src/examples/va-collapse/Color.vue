@@ -5,6 +5,7 @@
       style="width: 400px;"
       header="Collapse header"
       color="success"
+      class="mb-4"
     >
       <div>
         Collapse content
@@ -16,6 +17,7 @@
       header="Collapse header"
       solid
       color="warning"
+      class="mb-4"
     >
       <div>
         Collapse content
@@ -28,6 +30,7 @@
       solid
       color="danger"
       color-all
+      class="mb-4"
     >
       <div>
         Collapse content
@@ -42,6 +45,7 @@
       color-all
       text-color="white"
       icon="info"
+      class="mb-4"
     >
       <div>
         Collapse content

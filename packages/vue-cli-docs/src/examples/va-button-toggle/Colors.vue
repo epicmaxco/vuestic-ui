@@ -4,32 +4,30 @@
       color="primary"
       v-model="model"
       :options="options"
+      class="mb-4"
     />
-
-    <div class="mb-2" />
 
     <va-button-toggle
       color="success"
       v-model="model"
       :options="options"
+      class="mb-4"
     />
-
-    <div class="mb-2" />
 
     <va-button-toggle
       toggle-color="warning"
       color="danger"
       v-model="model"
       :options="options"
+      class="mb-4"
     />
-
-    <div class="mb-2" />
 
     <va-button-toggle
       toggle-color="#5600ff"
       color="#7e06ae"
       v-model="model"
       :options="options"
+      class="mb-4"
     />
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 300px;">
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Prepend slot"
       :options="options"
       v-model="value"
@@ -13,7 +13,7 @@
       </template>
     </va-select>
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Prepend inner slot"
       :options="options"
       v-model="value"
@@ -25,7 +25,7 @@
       </template>
     </va-select>
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Append inner slot"
       :options="options"
       v-model="value"
@@ -37,7 +37,7 @@
       </template>
     </va-select>
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Append slot"
       :options="options"
       v-model="value"

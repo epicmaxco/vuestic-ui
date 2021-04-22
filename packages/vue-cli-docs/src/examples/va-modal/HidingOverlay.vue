@@ -1,9 +1,9 @@
 <template>
   <p>
-    <va-button class="mr-2 mb-2" @click="showModal = !showModal">
+    <va-button class="mr-4" @click="showModal = !showModal">
       Show modal (without the overlay)
     </va-button>
-    <va-button class="mr-2 mb-2" @click="showModalNoOutsideDismiss = !showModalNoOutsideDismiss">
+    <va-button class="mr-4" @click="showModalNoOutsideDismiss = !showModalNoOutsideDismiss">
       Show modal (without the overlay and with no outside click dismiss)
     </va-button>
     <va-modal v-model="showModal" :overlay="false" />

@@ -4,6 +4,7 @@
         v-for="(icon, index) in icons"
         :key="index"
         :icon="icon"
+        class="mr-4"
       >
         {{icon}}
       </va-chip>

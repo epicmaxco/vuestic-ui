@@ -3,7 +3,7 @@
     <va-badge
       text="3"
       overlap
-      class="mr-2"
+      class="mr-4"
     >
       <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg" />
     </va-badge>
