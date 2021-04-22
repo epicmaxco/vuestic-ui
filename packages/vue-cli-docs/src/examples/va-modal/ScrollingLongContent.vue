@@ -15,14 +15,17 @@
     />
   </div>
 </template>
+
 <script>
+import message from './popup-message'
+
 export default {
   data () {
     return {
       showModal: false,
       showModalWithFixedLayout: false,
       title: 'Scrolling long content',
-      message: Array(100).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.').join(' '),
+      message: Array(100).fill(message).join(' '),
     }
   },
 }

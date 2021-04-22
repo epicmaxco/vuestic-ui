@@ -87,7 +87,7 @@ export default class Sidebar extends mixins(PropsMixin) {
 @import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
 
 .sidebar {
-  z-index: 1000;
+  z-index: 1;
   padding-top: 4rem;
 
   @include media-breakpoint-down(sm) {

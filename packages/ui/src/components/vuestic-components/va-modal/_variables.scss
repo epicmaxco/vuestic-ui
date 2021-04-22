@@ -25,7 +25,7 @@
   --va-modal-overlay-position: fixed;
   --va-modal-overlay-top: 0;
   --va-modal-overlay-left: 0;
-  --va-modal-overlay-z-index: var(--va-modal-container-z-index) - 10;
+  --va-modal-overlay-z-index: calc(var(--va-modal-container-z-index) - 1);
   --va-modal-overlay-width: 100vw;
   --va-modal-overlay-height: 100vh;
 }
