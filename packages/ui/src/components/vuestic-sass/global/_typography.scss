@@ -2,16 +2,16 @@
 @import "../resources/mixins";
 
 ::selection {
-  background-color: $text-selected;
-  color: $white;
+  background-color: var(--text-selected);
+  color: var(--white);
 }
 
 .link {
-  color: $va-link-color;
+  color: var(--link-color);
 }
 
 .link-secondary {
-  color: $va-link-color-secondary;
+  color: var(--link-color-secondary);
 }
 
 .link,
@@ -19,15 +19,15 @@
   cursor: pointer;
 
   &:hover {
-    color: $va-link-color-hover;
+    color: var(--link-color-hover);
   }
 
   &:active {
-    color: $va-link-color-active;
+    color: var(--link-color-active);
   }
 
   &:visited {
-    color: $va-link-color-visited;
+    color: var(--link-color-visited);
   }
 }
 
@@ -35,19 +35,19 @@
   @include va-title();
 
   &--info {
-    color: $theme-blue-dark;
+    color: var(--info);
   }
 
   &--danger {
-    color: $theme-danger;
+    color: var(--danger);
   }
 
   &--warning {
-    color: $theme-warning;
+    color: var(--warning);
   }
 
   &--gray {
-    color: $brand-secondary;
+    color: var(--brand-gray);
   }
 }
 
@@ -57,7 +57,7 @@
   }
 
   &--highlighted {
-    background-color: $text-highlighted;
+    background-color: var(--text-highlighted);
   }
 
   &--left {
@@ -95,7 +95,7 @@
   }
 
   &--code {
-    color: $white;
+    color: var(--white);
     font-family: "Source Code Pro";
     background-color: $vue-darkest-blue;
     padding: 0.1rem 0.2rem;
@@ -107,7 +107,7 @@
 }
 
 .va-blockquote {
-  border-left: 0.25rem solid $vue-green;
+  border-left: 0.25rem solid var(--primary);
   border-radius: 0.125rem;
   padding: 0.4rem 0 0.4rem 0.8rem;
   color: $blockquote-font-color;
@@ -154,7 +154,7 @@ ul.va-unordered {
       left: 0;
       top: 0;
       margin-top: 0.5rem;
-      background-color: $theme-blue-dark;
+      background-color: var(--li-background);
     }
   }
 }
@@ -197,9 +197,9 @@ ol.va-ordered {
 
 .text-block {
   padding: 1.2rem;
-  background-color: $light-gray3;
+  background-color: var(--text-block);
 }
 
 .muted {
-  color: #7f828b;
+  color: var(--muted);
 }

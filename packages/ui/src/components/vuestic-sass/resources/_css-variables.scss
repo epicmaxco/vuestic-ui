@@ -27,12 +27,12 @@
   --theme-blue-dark: #2c82e0;
   --theme-violet: #db76df;
   --theme-pale: #d9d9d9;
-  --brand-primary: var(--vue-green);
-  --brand-danger: var(--theme-red);
-  --brand-warning: var(--theme-orange);
-  --brand-info: var(--theme-blue);
-  --brand-success: var(--vue-green);
-  --brand-secondary: #babfc2;
+  --primary: var(--vue-green);
+  --danger: var(--theme-red);
+  --warning: var(--theme-orange);
+  --info: var(--theme-blue);
+  --success: var(--vue-green);
+  --secondary: #babfc2;
   --light-gray2: #eff4f5;
   --dark-gray: #282828;
   --gray: #adb3b9;
@@ -71,4 +71,16 @@
   --box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
   --form-padding: 1.25rem;
   --form-border-radius: 0.125rem;
+
+  /* Typography */
+  --text-selected: #b3d4fc;
+  --text-highlighted: #fff3d1;
+  --link-color: var(--primary);
+  --link-color-secondary: var(--secondary);
+  --link-color-hover: var(--primary); // TODO: This must be different
+  --link-color-active: var(--primary); // And this on too
+  --link-color-visited: var(--primary);
+  --muted: #7f828b;
+  --li-background: var(--theme-blue-dark);
+  --text-block: var(--light-gray3);
 }
