@@ -3,10 +3,12 @@
     <va-checkbox
       label="Toggle visibility"
       v-model="isCloseableAlertVisible"
+      class="mb-4"
     />
     <va-alert
       v-model="isCloseableAlertVisible"
       closeable
+      class="mb-4"
     >
       You read this important alert message with a default close icon.
     </va-alert>
@@ -15,6 +17,7 @@
       v-model="isCloseableAlertVisible"
       closeable
       close-icon="info"
+      class="mb-4"
     >
       You read this important alert message with a custom close icon.
     </va-alert>
@@ -23,6 +26,7 @@
       v-model="isCloseableAlertVisible"
       closeable
       close-text="close"
+      class="mb-4"
     >
       You read this important alert message with a text instead of an icon.
     </va-alert>
@@ -30,6 +34,7 @@
     <va-alert
       v-model="isCloseableAlertVisible"
       closeable
+      class="mb-4"
     >
       <template #close>
         close

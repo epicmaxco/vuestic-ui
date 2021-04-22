@@ -93,7 +93,7 @@ export default class Header extends mixins(PropsMixin) {
 @import "~vuestic-ui/src/components/vuestic-sass/global/typography";
 
 .header {
-  z-index: 2000 !important;
+  z-index: 2;
   position: fixed;
   width: 100%;
   height: 4rem;

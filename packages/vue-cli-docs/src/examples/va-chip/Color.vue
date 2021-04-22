@@ -4,6 +4,7 @@
         v-for="(color, index) in colors"
         :key="index"
         :color="color"
+        class="mr-4"
       >
         {{color}}
       </va-chip>

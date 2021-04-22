@@ -1,28 +1,28 @@
 <template>
   <div style="max-width: 300px;">
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Disabled"
       :options="options"
       v-model="value"
       disabled
     />
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Loading"
       :options="options"
       v-model="value"
       loading
     />
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Error state"
       :options="options"
       v-model="value"
       error
     />
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Error state with messages"
       :options="options"
       v-model="value"
@@ -30,14 +30,14 @@
       :error-messages="['Error message']"
     />
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Success state"
       :options="options"
       v-model="value"
       success
     />
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Success state with messages"
       :options="options"
       v-model="value"

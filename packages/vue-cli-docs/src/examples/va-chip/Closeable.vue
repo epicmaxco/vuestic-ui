@@ -3,6 +3,7 @@
     <va-chip
       v-model="value"
       closeable
+      class="mb-2"
     >
       closeable chip
     </va-chip>

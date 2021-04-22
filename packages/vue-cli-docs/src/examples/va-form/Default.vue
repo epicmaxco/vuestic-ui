@@ -2,7 +2,7 @@
   <div>
     <va-form>
       <va-input
-        class="mb-2 mr-2"
+        class="mb-4 mr-4"
         label="First Name"
         v-model="inputValue1"
         :rules="[value => (value && value.length > 0) || 'Field is required']"
