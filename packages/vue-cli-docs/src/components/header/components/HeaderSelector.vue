@@ -54,13 +54,13 @@ export default {
 .i-menu-expanded {
   @extend .i-nav;
 
-  background: url("~assets/icons/menu-collapsed.svg") no-repeat center;
+  background: url("@/assets/icons/menu-collapsed.svg") no-repeat center;
 }
 
 .i-menu-collapsed {
   @extend .i-nav;
 
-  background: url("~assets/icons/menu-expanded.svg") no-repeat center;
+  background: url("@/assets/icons/menu-expanded.svg") no-repeat center;
 }
 
 .header-selector {

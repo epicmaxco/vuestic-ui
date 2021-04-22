@@ -10,12 +10,12 @@ export const navigationRoutes: NavigationRoute[] = [
     disabled: true,
     children: [
       {
-        name: 'roadmap',
-        displayName: 'menu.roadmap',
-      },
-      {
         name: 'overview',
         displayName: 'menu.overview',
+      },
+      {
+        name: 'roadmap',
+        displayName: 'menu.roadmap',
       },
       {
         name: 'browser-support',

@@ -5,9 +5,9 @@ function resolve (dir) {
 }
 
 module.exports = {
+  lintOnSave: false,
   chainWebpack: (config) => {
     config.optimization.minimizer('terser').tap((args) => {
-      // args[0].terserOptions.keep_classnames = true
       args[0].terserOptions.keep_fnames = true
       return args
     })
@@ -19,13 +19,7 @@ module.exports = {
     resolve: {
       alias: {
         'vuestic-ui': resolve('../ui'),
-        assets: resolve('./src/assets'),
       },
-    },
-  },
-  pluginOptions: {
-    autoRouting: {
-      chunkNamePrefix: 'page-',
     },
   },
 }
