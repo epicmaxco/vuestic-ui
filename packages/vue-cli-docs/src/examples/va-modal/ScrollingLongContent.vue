@@ -1,9 +1,9 @@
 <template>
   <div>
-    <va-button class="mr-2 mb-2" @click="showModal = !showModal">
+    <va-button class="mr-4" @click="showModal = !showModal">
       Show modal with long content
     </va-button>
-    <va-button class="mr-2 mb-2" @click="showModalWithFixedLayout = !showModalWithFixedLayout">
+    <va-button class="mr-4" @click="showModalWithFixedLayout = !showModalWithFixedLayout">
       Show modal with long content and fixed layout
     </va-button>
     <va-modal v-model="showModal" :title="title" :message="message" />

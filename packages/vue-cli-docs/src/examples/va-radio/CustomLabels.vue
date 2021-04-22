@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-4">
     <va-radio
       v-for="(option, index) in options"
       :key="index"
@@ -7,7 +7,8 @@
       :option="option"
       :label="labels[index]"
     />
-    <br />
+  </div>
+  <div class="mb-4">
     <va-radio
       v-for="(option, index) in options"
       :key="index"
@@ -16,7 +17,8 @@
       :label="labels[index]"
       left-label
     />
-    <br>
+  </div>
+  <div class="mb-4">
     <va-radio
       v-for="(option) in options"
       :key="option"

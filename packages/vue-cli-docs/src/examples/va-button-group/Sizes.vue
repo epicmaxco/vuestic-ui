@@ -1,6 +1,6 @@
 <template>
   <div>
-    <va-button-group>
+    <va-button-group class="mb-4">
       <va-button size="large">
         One
       </va-button>
@@ -12,9 +12,7 @@
       </va-button>
     </va-button-group>
 
-    <div class="mb-2" />
-
-    <va-button-group>
+    <va-button-group class="mb-4">
       <va-button size="small">
         One
       </va-button>

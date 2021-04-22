@@ -1,7 +1,7 @@
 <template>
   <div>
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       label="Icon prepend"
     >
@@ -12,7 +12,7 @@
       </template>
     </va-input>
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       label="Icon prepend inner"
     >
@@ -23,7 +23,7 @@
       </template>
     </va-input>
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       label="Icon append"
     >
@@ -34,7 +34,7 @@
       </template>
     </va-input>
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       label="Icon append inner"
     >

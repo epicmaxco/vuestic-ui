@@ -18,7 +18,7 @@
       </va-infinite-scroll>
     </div>
 
-    <va-separator />
+    <va-divider vertical />
 
     <div
       style="height: 200px;"

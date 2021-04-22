@@ -1,21 +1,21 @@
 <template>
   <div style="max-width: 300px;">
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Default mode and single select"
       :options="options"
       v-model="value"
       allowCreate
     />
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Unique mode and single select"
       :options="options"
       v-model="value"
       allowCreate="unique"
     />
     <va-select
-      style="margin: 16px 0;"
+      class="mb-4"
       label="Default mode and multi select"
       :options="options"
       v-model="valueMultiple"
@@ -24,7 +24,7 @@
     />
     <va-select
       label="Unique mode and multi select"
-      style="margin: 16px 0;"
+      class="mb-4"
       :options="options"
       v-model="valueMultiple"
       allowCreate="unique"

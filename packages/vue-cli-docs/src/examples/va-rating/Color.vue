@@ -1,12 +1,12 @@
 <template>
   <div>
     <va-rating
-      class="mb-2"
+      class="mb-4"
       v-model="value"
       color="success"
     />
     <va-rating
-      class="mb-2"
+      class="mb-4"
       v-model="value"
       color="info"
     />

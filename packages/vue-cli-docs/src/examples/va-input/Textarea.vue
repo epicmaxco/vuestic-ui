@@ -1,14 +1,14 @@
 <template>
   <div>
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       type="textarea"
       label="Textarea"
       placeholder="Basic textarea"
     />
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       type="textarea"
       label="Textarea"
@@ -16,7 +16,7 @@
       autosize
     />
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       type="textarea"
       label="Textarea"
@@ -25,7 +25,7 @@
       :max-rows="4"
     />
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       type="textarea"
       label="Textarea"

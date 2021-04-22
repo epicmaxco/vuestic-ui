@@ -1,28 +1,28 @@
 <template>
   <div>
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       :rules="[(value) => value.length > 3 || `Fulfill the condition`]"
       label="Email"
       placeholder="Type more than 3 symbols"
     />
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       label="Email"
       placeholder="Error state"
       error
     />
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       label="Email"
       placeholder="Success state"
       success
     />
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       label="Email"
       placeholder="Error with message"
@@ -30,7 +30,7 @@
       :error-messages="errorMessage"
     />
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       label="Email"
       placeholder="Success with message"

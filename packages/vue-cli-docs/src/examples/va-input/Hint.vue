@@ -1,14 +1,14 @@
 <template>
   <div>
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       :messages="message"
       label="Name"
       placeholder="Single-line message"
     />
     <va-input
-      class="my-2"
+      class="mb-4"
       v-model="value"
       :messages="messages"
       label="Name"
