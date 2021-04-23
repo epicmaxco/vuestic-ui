@@ -19,6 +19,11 @@ class Props {
   round = prop<boolean>({ type: Boolean, default: true });
   outline = prop<boolean>({ type: Boolean, default: false });
   flat = prop<boolean>({ type: Boolean, default: false });
+  size = prop<string>({
+    type: String,
+    default: 'medium',
+    validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+  })
 }
 
 @Options({
