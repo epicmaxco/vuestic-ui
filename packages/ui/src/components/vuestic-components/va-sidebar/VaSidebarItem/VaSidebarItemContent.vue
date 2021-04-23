@@ -1,5 +1,5 @@
 <template>
-  <div class="va-sidebar__item__content">
+  <div class="va-sidebar__item__content va-sidebar-item-content">
     <slot />
   </div>
 </template>
