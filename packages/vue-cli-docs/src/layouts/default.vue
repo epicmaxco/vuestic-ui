@@ -78,6 +78,10 @@ export default class DocsLayout extends Vue {
     if (this.$route.hash) {
       document.querySelector(this.$route.hash).scrollIntoView()
     }
+
+    const isSmallScreenDevice = window.innerWidth <= 575
+
+    this.isSidebarVisible = !isSmallScreenDevice
   }
 
   get navigationRoutes () {

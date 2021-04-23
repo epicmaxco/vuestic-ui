@@ -1,7 +1,8 @@
 <template>
   <router-link custom :to="to" v-slot="{ navigate }">
     <div
-      class="va-sidebar__item"
+      v-bind="$attrs"
+      class="va-sidebar__item va-sidebar-item"
       :style="computedStyle"
       @click="navigate"
       @mouseenter="onMouseEnter"

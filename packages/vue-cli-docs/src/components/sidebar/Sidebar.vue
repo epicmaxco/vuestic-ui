@@ -1,83 +1,96 @@
 <template>
-  <va-sidebar class="sidebar" color="secondary" v-model="minimized">
+  <va-sidebar class="sidebar" v-model="minimized">
     <algolia-search />
-    <va-list class="sidebar__links">
-      <va-accordion v-model="value" multiply>
-        <va-collapse
-          v-for="(route, key) in navigationRoutes"
-          :key="key"
-          class="sidebar__expand"
+
+    <va-accordion v-model="value" multiply>
+      <va-collapse
+        v-for="(route, key) in navigationRoutes"
+        :key="key"
+        class="sidebar__expand"
+      >
+        <template #header>
+          <va-sidebar-item>
+            <va-sidebar-item-content :class="{ 'va-sidebar-item--active': isRouteHasActiveChild(route) }">
+              <va-sidebar-item-title>
+                {{ $t(route.displayName) }}
+              </va-sidebar-item-title>
+              <va-icon v-if="route.children" :name="value[key] ? 'expand_less' : 'expand_more'" />
+            </va-sidebar-item-content>
+          </va-sidebar-item>
+        </template>
+        <div
+          v-for="(childRoute, index) in route.children"
+          :key="index"
         >
-          <template #header>
-            <va-list-item class="sidebar__category">
-              <va-list-item-section class="sidebar__category__section">
-                <va-list-item-label class="sidebar__category__label">
-                  {{ $t(route.displayName) }}
-                </va-list-item-label>
-              </va-list-item-section>
-              <va-list-item-section icon>
-                <va-icon
-                  :name="value[key] ? 'expand_less' : 'expand_more'"
-                />
-              </va-list-item-section>
-            </va-list-item>
-          </template>
-          <div v-for="(childRoute, index) in route.children" :key="index">
-            <va-list-label
+          <va-list-label
               v-if="childRoute.category"
-              class="sidebar__subcategory__label"
+              class="va-sidebar-child__label"
               color="gray"
             >
               {{ $t(childRoute.category) }}
-            </va-list-label>
-            <va-sidebar-link :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`">
+          </va-list-label>
+          <va-sidebar-item
+            :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
+            :active="isActiveChildRoute(childRoute, route)"
+            :hoverColor="getColor('secondary')"
+          >
+            <va-sidebar-item-content class="va-sidebar-child">
               {{ $t(childRoute.displayName) }}
-            </va-sidebar-link>
-          </div>
-        </va-collapse>
-      </va-accordion>
-    </va-list>
+            </va-sidebar-item-content>
+          </va-sidebar-item>
+        </div>
+      </va-collapse>
+    </va-accordion>
   </va-sidebar>
 </template>
 
 <script lang="ts">
 import { watch } from 'vue'
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { Options, Vue, prop } from 'vue-class-component'
 import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
-import VaSidebarLink
-  from './SidebarLink.vue'
+import VaSidebarLink from './SidebarLink.vue'
+import { getColor } from 'vuestic-ui/src/main'
 
 class Props {
   navigationRoutes = prop<any[]>({ type: Array, default: () => [] })
   minimized = prop<boolean>({ type: Boolean, default: false })
 }
 
-const PropsMixin = Vue.with(Props)
-
 @Options({
   components: { AlgoliaSearch, VaSidebarLink },
 })
-export default class Sidebar extends mixins(PropsMixin) {
+export default class Sidebar extends Vue.with(Props) {
   value = [] as boolean[]
 
   created () {
     watch(() => (this as any).$route, this.onRouteChange, { immediate: true })
   }
 
+  getColor (color: string) {
+    return getColor(color)
+  }
+
   onRouteChange () {
     this.setActiveExpand()
   }
 
+  isActiveChildRoute (route: { name: string }, parent: { name: string }) {
+    const vue = this as any
+    const path = `/${vue.$root.$i18n.locale}/${parent.name}/${route.name}`
+    return path === vue.$route.path
+  }
+
+  isRouteHasActiveChild (route: { name: string, children: {name: string}[] }) {
+    const pathSteps: string[] = (this as any).$route.path.split('/').filter(Boolean)
+    return !!route.children
+      .some(({ name }: { name: string}) => pathSteps.includes(name))
+  }
+
   setActiveExpand () {
     this.value = this.navigationRoutes.map((route, index) => {
-      const pathSteps: string[] = (this as any).$route.path.split('/').filter(Boolean)
-      return (
-        this.value[index] ||
-        // @ts-ignore
-        !!route.children?.some(({ name }) =>
-          pathSteps.includes(name),
-        )
-      )
+      if (!route.children || this.value[index]) { return this.value[index] }
+
+      return this.isRouteHasActiveChild(route)
     })
   }
 }
@@ -94,43 +107,37 @@ export default class Sidebar extends mixins(PropsMixin) {
     padding-top: 8rem;
   }
 
-  .va-list-item {
-    &:hover {
-      background-color: $light-gray3;
-      cursor: pointer;
-    }
+  .va-sidebar-item-content {
+    cursor: pointer;
+  }
 
-    &--focus {
-      background-color: $light-gray3;
+  .va-sidebar-item {
+    cursor: pointer;
+    .va-sidebar-child {
+      padding-left: 3rem;
     }
   }
 
-  &__links {
-    background-color: inherit;
-    padding-bottom: 1rem;
-    padding-top: 0;
+  .va-sidebar-child__label {
+    padding-top: 1rem;
+    padding-left: 2rem;
+    text-align: left;
+    &:first-child {
+      padding-top: 0;
+    }
   }
 
-  &__category {
+  .va-sidebar-item-title {
     font-weight: bold;
+    color: var(--dark, #323742);
+    font-size: 16px;
+    line-height: 20px;
   }
 
-  &__expand {
-    .sidebar__category__section {
-      padding-left: 0.5rem;
-      justify-content: center;
-    }
-  }
-
-  &__subcategory {
-    &__label {
-      &:not(:first-child) {
-        padding-top: 1rem;
-      }
-
-      text-align: left;
-      padding-left: 1.5rem;
-      color: $default-gray;
+  .va-sidebar-item--active {
+    color: var(--primary, #4591e3);
+    .va-sidebar-item-title {
+      color: var(--primary, #4591e3);
     }
   }
 }
