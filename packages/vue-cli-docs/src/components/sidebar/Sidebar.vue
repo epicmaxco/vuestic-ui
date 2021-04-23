@@ -10,7 +10,7 @@
       >
         <template #header>
           <va-sidebar-item>
-            <va-sidebar-item-content :class="{ 'va-sidebar-item--active': value[key]}">
+            <va-sidebar-item-content :class="{ 'va-sidebar-item--active': isRouteHasActiveChild(route) }">
               <va-sidebar-item-title>
                 {{ $t(route.displayName) }}
               </va-sidebar-item-title>
@@ -80,15 +80,17 @@ export default class Sidebar extends Vue.with(Props) {
     return path === vue.$route.path
   }
 
+  isRouteHasActiveChild (route: { name: string, children: {name: string}[] }) {
+    const pathSteps: string[] = (this as any).$route.path.split('/').filter(Boolean)
+    return !!route.children
+      .some(({ name }: { name: string}) => pathSteps.includes(name))
+  }
+
   setActiveExpand () {
     this.value = this.navigationRoutes.map((route, index) => {
       if (!route.children || this.value[index]) { return this.value[index] }
 
-      const pathSteps: string[] = (this as any).$route.path.split('/').filter(Boolean)
-      const isRouteHasActiveChild = !!route.children
-        .some(({ name }: { name: string}) => pathSteps.includes(name))
-
-      return isRouteHasActiveChild
+      return this.isRouteHasActiveChild(route)
     })
   }
 }
