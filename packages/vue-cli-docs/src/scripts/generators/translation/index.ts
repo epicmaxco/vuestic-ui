@@ -41,11 +41,11 @@ module.exports = {
     })
 
     // Generate docs
-    const docsBasePath = process.cwd()
+    const docsBasePath = `${process.cwd()}/src`
     const createDocsActions = [
       {
         type: 'addTranslations',
-        path: `${docsBasePath}/locales`,
+        path: `${docsBasePath}/src/locales`,
         abortOnFail: false,
       },
       {

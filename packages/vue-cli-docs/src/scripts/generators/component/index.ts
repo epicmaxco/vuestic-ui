@@ -33,31 +33,31 @@ module.exports = {
     const createDocsActions = [
       {
         type: 'add',
-        path: `${docsBasePath}/pages/ui-elements/{{kebabCase name}}.vue`,
+        path: `${docsBasePath}/src/pages/ui-elements/{{kebabCase name}}.vue`,
         templateFile: './component/doc-page.vue.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/ui-elements/va-{{kebabCase name}}/api-options.ts`,
+        path: `${docsBasePath}/src/components/page-configs/ui-elements/va-{{kebabCase name}}/api-options.ts`,
         templateFile: './component/api-options.ts.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/ui-elements/va-{{kebabCase name}}/page-config.ts`,
+        path: `${docsBasePath}/src/components/page-configs/ui-elements/va-{{kebabCase name}}/page-config.ts`,
         templateFile: './component/page-config.ts.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/examples/va-{{kebabCase name}}/Example.vue`,
+        path: `${docsBasePath}/src/examples/va-{{kebabCase name}}/Example.vue`,
         templateFile: './component/Example.vue.hbs',
         abortOnFail: false,
       },
       {
         type: 'addTranslations',
-        path: `${docsBasePath}/locales`,
+        path: `${docsBasePath}/src/locales`,
         abortOnFail: false,
       },
       {

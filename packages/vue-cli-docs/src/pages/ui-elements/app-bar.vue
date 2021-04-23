@@ -3,11 +3,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import appBarConfig from '../../components/page-configs/va-app-bar/page-config'
+import appBarConfig from '../../components/page-configs/ui-elements/va-app-bar/page-config'
 
-@Component({
+@Options({
   components: {
     DocsContent,
   },

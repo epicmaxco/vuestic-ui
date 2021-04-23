@@ -253,6 +253,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'inner-loading',
         displayName: 'menu.innerLoading',
       },
+      {
+        name: 'app-bar',
+        displayName: 'menu.appBar',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },

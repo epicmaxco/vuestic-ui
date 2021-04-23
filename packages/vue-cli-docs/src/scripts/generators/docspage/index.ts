@@ -22,7 +22,7 @@ module.exports = {
     {
       type: 'input',
       name: 'category',
-      message: 'What\'s the page categoty (ex.: styles, contribution, gettingStarted, introduction)?',
+      message: 'What\'s the page category (ex.: styles, contribution, gettingStarted, introduction)?',
       validate: value => {
         if (/.+/.test(value)) {
           if (['styles', 'contribution', 'gettingStarted', 'introduction'].includes(value)) {
@@ -44,24 +44,23 @@ module.exports = {
     })
 
     // Generate docs
-    const docsBasePath = process.cwd() + '/src'
-    console.log('docsBasePath', docsBasePath)
+    const docsBasePath = `${process.cwd()}/src`
     const createDocsActions = [
       {
         type: 'add',
-        path: `${docsBasePath}/pages/{{kebabCase category}}/{{kebabCase name}}.vue`,
+        path: `${docsBasePath}/src/pages/{{kebabCase category}}/{{kebabCase name}}.vue`,
         templateFile: './docspage/doc-page.vue.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/{{kebabCase name}}/page-config.ts`,
+        path: `${docsBasePath}/src/components/page-configs/{{kebabCase category}}/{{kebabCase name}}/page-config.ts`,
         templateFile: './docspage/page-config.ts.hbs',
         abortOnFail: false,
       },
       {
         type: 'addTranslations',
-        path: `${docsBasePath}/locales`,
+        path: `${docsBasePath}/src/locales`,
         abortOnFail: false,
       },
       {
