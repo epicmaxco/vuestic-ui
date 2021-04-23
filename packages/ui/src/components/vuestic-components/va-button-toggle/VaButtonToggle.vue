@@ -66,7 +66,7 @@ export default class VaButtonToggle extends mixins(
   ButtonTogglePropsMixin,
 ) {
   get buttonGroupColor () {
-    return this.colorComputed
+    return this.color
   }
 
   buttonColor (buttonValue: any) {
