@@ -86,6 +86,7 @@ import DropdownPopperSubplugin
 // import { registerVuesticObject } from './resize-events'
 import ToastInstall from './vuestic-components/va-toast/install'
 
+import ColorHelpersPlugin from '../services/color-config/color-css-variables-updater'
 import { GlobalConfig } from '../services/global-config/global-config'
 import { GlobalConfigPlugin } from '../services/global-config/global-config-plugin'
 import VaSpacer from './vuestic-components/va-spacer'
@@ -189,5 +190,7 @@ export const VuesticPlugin = {
     app.use(ToastInstall)
 
     app.use(GlobalConfigPlugin, vuesticConfig)
+
+    app.use(ColorHelpersPlugin)
   },
 }
