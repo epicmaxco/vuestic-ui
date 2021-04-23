@@ -1,7 +1,7 @@
 <template>
   <div>
-    <va-switch v-model="value" error />
-    <va-switch v-model="value" error error-messages="error message" />
+    <va-switch v-model="value" error class="mr-4" />
+    <va-switch v-model="value" error error-messages="error message" class="mr-4" />
   </div>
 </template>
 

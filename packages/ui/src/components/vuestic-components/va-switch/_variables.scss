@@ -1,7 +1,6 @@
 :root{
 
   --va-switch-display: inline-block;
-  --va-switch-margin-bottom: 1rem;
 
   /*Checker*/
   --va-switch-checker-position: absolute;
@@ -32,6 +31,10 @@
   --va-switch-checker-wrapper-transition: all 0.2s ease;
   --va-switch-checker-wrapper-pointer-events: none;
 
+  /*Label*/
+  --va-switch-label-left-padding: 0.3rem;
+  --va-switch-label-right-padding: 0.3rem;
+
   /*Track*/
   --va-switch-track-display: flex;
   --va-switch-track-overflow: hidden;
@@ -45,7 +48,6 @@
   /*Container*/
   --va-switch-container-display: inline-flex;
   --va-switch-container-align-items: center;
-  --va-switch-container-padding: 0 0.3rem;
 
   /*Inner*/
   --va-switch-inner-cursor: pointer;

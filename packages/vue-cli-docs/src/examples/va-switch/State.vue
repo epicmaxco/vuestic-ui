@@ -1,9 +1,10 @@
 <template>
   <div>
-    <va-switch v-model="value" disabled />
-    <va-switch v-model="value" readonly />
+    <va-switch v-model="value" disabled class="mr-4" />
+    <va-switch v-model="value" readonly class="mr-4" />
   </div>
 </template>
+
 <script>
 export default {
   data () {
