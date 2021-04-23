@@ -4,6 +4,8 @@
       :color="buttonGroupColor"
       :textColor="textColor"
       :round="round"
+      :outline="outline"
+      :flat="flat"
     >
       <va-button
         v-for="option in options"
@@ -31,7 +33,8 @@ import VaButtonGroup from '../va-button-group'
 class ButtonToggleProps {
   options = prop<any[]>({ type: Array, default: () => [] })
   color = prop<string>({ type: String, default: 'primary' })
-  textColor = prop<string>({ type: String, default: '#fff' })
+  textColor = prop<string>({ type: String, default: undefined })
+  activeButtonTextColor = prop<string>({ type: String, default: '#fff' })
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
@@ -63,11 +66,7 @@ export default class VaButtonToggle extends mixins(
   ButtonTogglePropsMixin,
 ) {
   get buttonGroupColor () {
-    if (this.outline || this.flat) {
-      return '#00000000'
-    } else {
-      return this.colorComputed
-    }
+    return this.colorComputed
   }
 
   buttonColor (buttonValue: any) {
@@ -82,7 +81,7 @@ export default class VaButtonToggle extends mixins(
     if (this.outline || this.flat) {
       return {
         backgroundColor: this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed,
-        color: this.$props.textColor,
+        color: this.$props.activeButtonTextColor,
       }
     } else {
       return {

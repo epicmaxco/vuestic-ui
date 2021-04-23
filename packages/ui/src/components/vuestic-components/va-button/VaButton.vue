@@ -124,7 +124,7 @@ export default class VaButton extends mixins(
   })
 
   get isTransparentBackground () {
-    return this.outline || this.flat || this.colorComputed === '#00000000'
+    return this.outline || this.flat
   }
 
   get colorComputed () {

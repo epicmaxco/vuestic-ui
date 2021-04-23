@@ -15,7 +15,7 @@ import { getColor } from '../../../services/color-config/color-config'
 
 class Props {
   color = prop<string>({ type: String, default: 'primary' });
-  textColor = prop<string>({ type: String, default: '#fff' });
+  textColor = prop<string>({ type: String, default: undefined });
   round = prop<boolean>({ type: Boolean, default: true });
   outline = prop<boolean>({ type: Boolean, default: false });
   flat = prop<boolean>({ type: Boolean, default: false });
