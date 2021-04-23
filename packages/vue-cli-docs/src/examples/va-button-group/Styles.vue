@@ -1,15 +1,15 @@
 <template>
   <div>
-    <va-button-group class="mb-4">
-      <va-button outline>One</va-button>
-      <va-button outline>Two</va-button>
-      <va-button outline>Three</va-button>
+    <va-button-group outline class="mb-4">
+      <va-button>One</va-button>
+      <va-button>Two</va-button>
+      <va-button>Three</va-button>
     </va-button-group>
 
-    <va-button-group class="mb-4">
-      <va-button flat>One</va-button>
-      <va-button flat>Two</va-button>
-      <va-button flat>Three</va-button>
+    <va-button-group flat class="mb-4">
+      <va-button>One</va-button>
+      <va-button>Two</va-button>
+      <va-button>Three</va-button>
     </va-button-group>
 
     <va-button-group class="mb-4">
