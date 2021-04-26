@@ -280,9 +280,9 @@
         "close": "Emits when modal's is closed and transition is complete"
       },
       "methods": {
-        "hide": "Hide modal. On stateless modal only emits `@input`",
-        "open": "Show modal. On stateless modal only emits `@input`",
-        "toggle": "Toggle a modal's visibility. On stateless modal only emits `@input`"
+        "hide": "Hide modal. On stateless modal only emits `input`",
+        "open": "Show modal. On stateless modal only emits `input`",
+        "toggle": "Toggle a modal's visibility. On stateless modal only emits `input`"
       },
       "slots": {
         "default": "Content of modal body",
@@ -517,7 +517,7 @@
         "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available."
       },
       "methods": {
-        "hide": "Hide alert. On stateless alert only emits `@input`"
+        "hide": "Hide alert. On stateless alert only emits `input`"
       },
       "slots": {
         "default": "Content of alert body",
