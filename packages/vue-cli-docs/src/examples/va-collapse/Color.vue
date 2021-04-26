@@ -4,6 +4,7 @@
       v-model="value[0]"
       style="width: 400px;"
       header="Collapse header"
+      solid
       color="success"
       class="mb-4"
     >
