@@ -7,12 +7,13 @@
   >
     <div
       class="color-indicator__core"
-      :style="{'background-color': color, 'border-radius': square ? 0 : '50%'}"
+      :style="{'background-color': colorComputed, 'border-radius': square ? 0 : '50%'}"
     />
   </div>
 </template>
 
 <script lang="ts">
+import { getColor } from '../../../services/color-config/color-config'
 import { Vue, Options, prop, setup } from 'vue-class-component'
 import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
@@ -36,6 +37,10 @@ const ColorIndicatorPropsMixin = Vue.with(ColorIndicatorProps)
 })
 export default class VaColorIndicator extends ColorIndicatorPropsMixin {
   ctx = setup(() => useStateful(this.$props, this.$emit))
+
+  get colorComputed () {
+    return getColor(this.color)
+  }
 
   get computedStyle () {
     return { 'border-radius': this.square ? 0 : '50%' }
