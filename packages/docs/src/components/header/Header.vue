@@ -21,9 +21,9 @@
       </div>
     </div>
     <div class="header__prefences flex">
-      <version-dropdown />
-      <color-dropdown />
-      <language-dropdown />
+      <version-dropdown class="mr-2" />
+      <color-dropdown class="mr-1" />
+      <language-dropdown class="mr-1" />
     </div>
   </header>
 </template>

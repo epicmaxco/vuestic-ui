@@ -13,9 +13,12 @@
   --va-chip-font-size: 1rem;
   --va-chip-inner-display: flex;
   --va-chip-inner-align-items: center;
+  --va-chip-inner-width: 100%;
   --va-chip-hover-opacity: 0.85;
   --va-chip-content-display: flex;
+  --va-chip-content-width: var(--va-chip-inner-width, 100%);
   --va-chip-content-align-items: center;
+  --va-chip-content-justify-content: center;
   --va-chip-content-padding: 0 0.3rem;
   --va-chip-content-line-height: 1.6;
   /*Square*/

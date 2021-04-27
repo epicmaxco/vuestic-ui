@@ -1,5 +1,5 @@
 <template>
-  <va-button-dropdown
+  <!-- <va-button-dropdown
     color="primary"
     :label="version.value"
     class="version-dropdown"
@@ -12,7 +12,10 @@
     >
       {{ option }}
     </div>
-  </va-button-dropdown>
+  </va-button-dropdown> -->
+  <va-chip color="primary" class="text-center" flat>
+    {{ version.value }}
+  </va-chip>
 </template>
 
 <script lang="ts">

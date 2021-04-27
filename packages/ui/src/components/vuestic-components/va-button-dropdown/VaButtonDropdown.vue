@@ -4,6 +4,7 @@
       v-if="!split"
       :disabled="disabled"
       :position="position"
+      :offset="$props.offset"
       @update:modelValue="toggleDropdown"
     >
       <template #anchor>
@@ -43,6 +44,7 @@
       <va-dropdown
         :disabled="disabled || disableDropdown"
         :position="position"
+        :offset="$props.offset"
         @update:modelValue="toggleDropdown"
       >
         <template #anchor>
@@ -96,6 +98,7 @@ class ButtonDropdownProps {
   openedIcon = prop<string>({ type: String, default: 'expand_less' })
   position = prop<string>({ type: String, default: 'bottom' })
   label = prop<string>({ type: String })
+  offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
 }
 
 const ButtonDropdownPropsMixin = Vue.with(ButtonDropdownProps)
