@@ -314,9 +314,9 @@ export default class VaModal extends mixins(
     background: var(--va-modal-dialog-background);
     min-height: var(--va-modal-dialog-min-height);
     height: var(--va-modal-dialog-height);
-    border-radius: var(--va-modal-dialog-border-radius, var(--primary-block-border-radius));
+    border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
     margin: var(--va-modal-dialog-margin);
-    box-shadow: var(--va-modal-dialog-box-shadow, var(--primary-block-box-shadow));
+    box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
     max-width: var(--va-modal-dialog-max-width);
     max-height: var(--va-modal-dialog-max-height);
     position: var(--va-modal-dialog-position);

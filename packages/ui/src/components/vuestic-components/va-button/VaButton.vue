@@ -72,6 +72,7 @@ class ButtonProps {
   textColor = prop<string>({ type: String, default: undefined })
   tag = prop<string>({ type: String, default: 'button' })
   outline = prop<boolean>({ type: Boolean, default: undefined })
+  gradient = prop<boolean>({ type: Boolean, default: undefined })
   flat = prop<boolean>({ type: Boolean, default: undefined })
   type = prop<string>({ type: String, default: 'button' })
   disabled = prop<boolean>({ type: Boolean, default: false })
@@ -201,14 +202,21 @@ export default class VaButton extends mixins(
         computedStyle.background = getFocusColor(this.colorComputed)
       }
     } else {
-      computedStyle.background = getGradientBackground(this.colorComputed)
-      computedStyle.color = this.textColorComputed
+      if (!this.gradient) {
+        computedStyle.background = this.colorComputed
+      } else {
+        computedStyle.background = getGradientBackground(this.colorComputed)
+      }
       if (this.hoverState || this.focusState) {
         computedStyle.boxShadow = this.shadowStyle
-        computedStyle.background = getGradientBackground(shiftHslColor(this.colorComputed, { l: -3 }))
+        if (!this.gradient) {
+          computedStyle.background = shiftHslColor(this.colorComputed, { l: -3 })
+        } else {
+          computedStyle.background = getGradientBackground(shiftHslColor(this.colorComputed, { l: -3 }))
+        }
       }
+      computedStyle.color = this.textColorComputed
     }
-
     return computedStyle
   }
 
@@ -254,15 +262,15 @@ export default class VaButton extends mixins(
   align-items: var(--va-button-align-items);
   justify-content: var(--va-button-justify-content);
   background-image: var(--va-button-background-image);
-  box-shadow: var(--va-button-box-shadow, var(--primary-control-box-shadow));
+  box-shadow: var(--va-button-box-shadow, var(--va-control-box-shadow));
   outline: var(--va-button-outline);
-  border: var(--va-button-border, var(--primary-control-border));
-  font-family: var(--va-button-font-family, var(--primary-font-family));
+  border: var(--va-button-border, var(--va-control-border));
+  font-family: var(--va-button-font-family, var(--va-font-family));
   text-decoration: none !important;
   text-transform: initial;
   cursor: pointer;
-  transition: var(--va-button-transition, var(--primary-transition));
-  background-color: var(--va-button-background-color, var(--white));
+  transition: var(--va-button-transition, var(--va-swing-transition));
+  background-color: var(--va-button-background-color, var(--va-white));
   vertical-align: middle;
   box-sizing: border-box;
 
@@ -281,7 +289,7 @@ export default class VaButton extends mixins(
   }
 
   &--default {
-    color: var(--va-button-background-color, var(--white));
+    color: var(--va-button-background-color, var(--va-white));
 
     &:focus,
     &:active {
@@ -289,17 +297,17 @@ export default class VaButton extends mixins(
     }
 
     i {
-      color: var(--va-button-icon-color, var(--white));
+      color: var(--va-button-icon-color, var(--va-white));
     }
   }
 
   &--outline {
     background-color: transparent;
-    border: solid var(--va-button-outline-border, var(--outline-border-width));
+    border: solid var(--va-button-outline-border, var(--va-outline-border-width));
     text-decoration: none;
 
     .va-button__content {
-      margin: calc(var(--va-button-outline-border, var(--outline-border-width)) * -1);
+      margin: calc(var(--va-button-outline-border, var(--va-outline-border-width)) * -1);
     }
 
     &.va-button--disabled {
@@ -310,7 +318,7 @@ export default class VaButton extends mixins(
       &.va-button--active {
         .va-button__content,
         i {
-          color: var(--va-button-outline-icon-color, var(--white)) !important;
+          color: var(--va-button-outline-icon-color, var(--va-white)) !important;
         }
       }
     }
@@ -318,7 +326,7 @@ export default class VaButton extends mixins(
 
   &--flat {
     background: transparent;
-    border: var(--va-button-flat-border, var(--primary-control-border)) solid transparent;
+    border: var(--va-button-flat-border, var(--va-control-border)) solid transparent;
     text-decoration: none;
   }
 
@@ -342,7 +350,7 @@ export default class VaButton extends mixins(
     }
 
     &.va-button--outline {
-      line-height: calc(var(--va-button-lg-line-height) - 2 * var(--va-button-outline-border, var(--outline-border-width)));
+      line-height: calc(var(--va-button-lg-line-height) - 2 * var(--va-button-outline-border, var(--va-outline-border-width)));
     }
 
     &.va-button--square {
@@ -376,7 +384,7 @@ export default class VaButton extends mixins(
     }
 
     &.va-button--outline {
-      line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-outline-border, var(--outline-border-width)));
+      line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-outline-border, var(--va-outline-border-width)));
     }
 
     &.va-button--square {
@@ -397,7 +405,7 @@ export default class VaButton extends mixins(
   &--normal {
     @include va-button(var(--va-button-py), var(--va-button-px), var(--va-button-font-size), var(--va-button-line-height), var(--va-button-border-radius));
 
-    letter-spacing: var(--va-button-letter-spacing, var(--primary-letter-spacing));
+    letter-spacing: var(--va-button-letter-spacing, var(--va-letter-spacing));
     height: var(--va-button-size);
     min-width: var(--va-button-size);
 
@@ -410,7 +418,7 @@ export default class VaButton extends mixins(
     }
 
     &.va-button--outline {
-      line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-outline-border, var(--outline-border-width)));
+      line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-outline-border, var(--va-outline-border-width)));
     }
 
     &.va-button--square {
@@ -448,8 +456,14 @@ export default class VaButton extends mixins(
     .va-button__content > * {
       margin-right: calc(var(--va-button-space-between-items) / 2);
       margin-left: calc(var(--va-button-space-between-items) / 2);
-      &:last-child { margin-right: 0; }
-      &:first-child { margin-left: 0; }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
     }
   }
 

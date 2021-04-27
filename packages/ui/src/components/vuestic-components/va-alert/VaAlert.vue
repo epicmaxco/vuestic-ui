@@ -159,8 +159,8 @@ export default class VaAlert extends mixins(
   margin: var(--va-alert-margin-y) auto;
   display: var(--va-alert-display);
   align-items: var(--va-alert-align-items);
-  border: var(--va-alert-border-width, var(--primary-control-border)) solid transparent;
-  border-radius: var(--va-alert-border-radius, var(--primary-block-border-radius));
+  border: var(--va-alert-border-width, var(--va-control-border)) solid transparent;
+  border-radius: var(--va-alert-border-radius, var(--va-block-border-radius));
 
   &__border {
     content: '';

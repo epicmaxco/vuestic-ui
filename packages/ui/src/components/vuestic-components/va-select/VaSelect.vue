@@ -649,11 +649,11 @@ export default class VaSelect extends mixins(
   }
 
   &__input {
-    border: var(--va-select-input-border, var(--primary-control-border));
+    border: var(--va-select-input-border, var(--va-control-border));
     background: var(--va-select-input-background);
     padding: var(--va-select-input-padding);
     font-size: var(--va-select-input-font-size);
-    font-family: var(--va-select-input-font-family, var(--primary-font-family));
+    font-family: var(--va-select-input-font-family, var(--va-font-family));
     font-weight: var(--va-select-input-font-weight);
     font-style: var(--va-select-input-font-style);
     font-stretch: var(--va-select-input-font-stretch);

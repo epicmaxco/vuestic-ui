@@ -180,10 +180,10 @@ export default class VaButtonDropdown extends mixins(
   }
 
   &__content {
-    background: var(--va-button-dropdown-content-background, var(--light-gray3));
+    background: var(--va-button-dropdown-content-background, var(--va-light-gray3));
     box-shadow: var(--va-button-dropdown-content-box-shadow);
-    padding: var(--va-button-dropdown-content-padding, var(--form-padding));
-    border-radius: var(--va-button-dropdown-content-border-radius, var(--form-padding));
+    padding: var(--va-button-dropdown-content-padding, var(--va-form-padding));
+    border-radius: var(--va-button-dropdown-content-border-radius, var(--va-form-padding));
   }
 }
 </style>

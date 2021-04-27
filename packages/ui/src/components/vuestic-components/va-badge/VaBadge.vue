@@ -85,15 +85,15 @@ export default class VaBadge extends mixins(
   position: relative;
 
   &__text-wrapper {
-    transition: var(--va-badge-text-wrapper-transition, var(--secondary-transition));
+    transition: var(--va-badge-text-wrapper-transition, var(--va-transition));
     display: var(--va-badge-text-wrapper-display);
-    border: var(--va-badge-text-wrapper-border, var(--primary-control-border));
+    border: var(--va-badge-text-wrapper-border, var(--va-control-border));
     border-radius: var(--va-badge-text-wrapper-border-radius);
     font-size: var(--va-badge-text-wrapper-font-size);
     font-weight: var(--va-badge-text-wrapper-font-weight);
-    font-family: var(--va-badge-text-wrapper-font-family, var(--primary-font-family));
+    font-family: var(--va-badge-text-wrapper-font-family, var(--va-font-family));
     line-height: var(--va-badge-text-wrapper-line-height);
-    letter-spacing: var(--va-badge-text-wrapper-letter-spacing, var(--primary-letter-spacing));
+    letter-spacing: var(--va-badge-text-wrapper-letter-spacing, var(--va-letter-spacing));
     justify-content: var(--va-badge-text-wrapper-justify-content);
     white-space: var(--va-badge-text-wrapper-white-space);
     width: var(--va-badge-text-wrapper-width);

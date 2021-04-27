@@ -190,7 +190,7 @@ export default class VaChip extends mixins(
 
 .va-chip {
   display: var(--va-chip-display);
-  border: var(--va-chip-border, var(--primary-control-border));
+  border: var(--va-chip-border, var(--va-control-border));
   position: var(--va-chip-position);
   border-radius: var(--va-chip-border-radius);
   width: var(--va-chip-width);
@@ -236,7 +236,7 @@ export default class VaChip extends mixins(
   }
 
   &--square {
-    border-radius: var(--va-chip-square-border-radius, var(--square-border-radius));
+    border-radius: var(--va-chip-square-border-radius, var(--va-square-border-radius));
   }
 
   &--small {

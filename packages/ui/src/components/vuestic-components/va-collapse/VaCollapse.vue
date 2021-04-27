@@ -220,7 +220,7 @@ export default class VaCollapse extends mixins(
 @import "variables";
 
 .va-collapse {
-  transition: var(--va-collapse-transition, var(--primary-transition));
+  transition: var(--va-collapse-transition, var(--va-swing-transition));
 
   &__body {
     transition: var(--va-collapse-body-transition);
@@ -234,8 +234,8 @@ export default class VaCollapse extends mixins(
       justify-content: var(--va-collapse-header-content-justify-content);
       cursor: var(--va-collapse-header-content-cursor);
       background-color: var(--va-collapse-header-content-background-color);
-      box-shadow: var(--va-collapse-header-content-box-shadow, var(--primary-block-box-shadow));
-      border-radius: var(--va-collapse-header-content-border-radius, var(--primary-block-border-radius));
+      box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
+      border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
       align-items: var(--va-collapse-header-content-align-items);
       padding-top: var(--va-collapse-header-content-padding-top);
       padding-bottom: var(--va-collapse-header-content-padding-bottom);
@@ -263,9 +263,9 @@ export default class VaCollapse extends mixins(
     .va-collapse {
       &__header {
         &__content {
-          border-radius: var(--va-collapse-solid-header-content-border-radius, var(--primary-block-border-radius));
+          border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
           transition: var(--va-collapse-solid-header-content-transition);
-          box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--primary-block-box-shadow));
+          box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
           background-color: var(--va-collapse-solid-header-content-background-color);
         }
       }

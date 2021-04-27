@@ -2,16 +2,16 @@
 @import "../resources/mixins";
 
 ::selection {
-  background-color: var(--text-selected);
-  color: var(--white);
+  background-color: var(--va-text-selected);
+  color: var(--va-white);
 }
 
 .link {
-  color: var(--link-color);
+  color: var(--va-link-color);
 }
 
 .link-secondary {
-  color: var(--link-color-secondary);
+  color: var(--va-link-color-secondary);
 }
 
 .link,
@@ -19,34 +19,34 @@
   cursor: pointer;
 
   &:hover {
-    color: var(--link-color-hover);
+    color: var(--va-link-color-hover);
   }
 
   &:active {
-    color: var(--link-color-active);
+    color: var(--va-link-color-active);
   }
 
   &:visited {
-    color: var(--link-color-visited);
+    color: var(--va-link-color-visited);
   }
 }
 
 .title {
   @include va-title();
 
-  &--info {
-    color: var(--info);
+  &--va-info {
+    color: var(--va-info);
   }
 
-  &--danger {
-    color: var(--danger);
+  &--va-danger {
+    color: var(--va-danger);
   }
 
-  &--warning {
-    color: var(--warning);
+  &--va-warning {
+    color: var(--va-warning);
   }
 
-  &--gray {
+  &--va-gray {
     color: var(--brand-gray);
   }
 }
@@ -57,7 +57,7 @@
   }
 
   &--highlighted {
-    background-color: var(--text-highlighted);
+    background-color: var(--va-text-highlighted);
   }
 
   &--left {
@@ -95,19 +95,19 @@
   }
 
   &--code {
-    color: var(--white);
+    color: var(--va-white);
     font-family: "Source Code Pro";
     background-color: $vue-darkest-blue;
     padding: 0.1rem 0.2rem;
   }
 
-  &--secondary {
+  &--va-secondary {
     opacity: 0.4;
   }
 }
 
 .va-blockquote {
-  border-left: 0.25rem solid var(--primary);
+  border-left: 0.25rem solid var(--va-primary);
   border-radius: 0.125rem;
   padding: 0.4rem 0 0.4rem 0.8rem;
   color: $blockquote-font-color;
@@ -154,7 +154,7 @@ ul.va-unordered {
       left: 0;
       top: 0;
       margin-top: 0.5rem;
-      background-color: var(--li-background);
+      background-color: var(--va-li-background);
     }
   }
 }
@@ -197,9 +197,9 @@ ol.va-ordered {
 
 .text-block {
   padding: 1.2rem;
-  background-color: var(--text-block);
+  background-color: var(--va-text-block);
 }
 
 .muted {
-  color: var(--muted);
+  color: var(--va-muted);
 }
