@@ -24,7 +24,7 @@
     "push-production": "yarn workspace vuestic-ui push-production",
     "generate:docs": "yarn workspace vue-cli-docs generate:docspage",
     "generate:component": "yarn workspace vue-cli-docs generate:component",
-    "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve; split-pane -d packages/vue-cli-docs/old/nuxt-docs --title vuestic-docs cmd /k yarn serve"
+    "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve; split-pane -d packages/docs --title vuestic-docs cmd /k yarn serve"
   },
   "workspaces": [
     "packages/*"

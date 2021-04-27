@@ -138,7 +138,7 @@ import { ManualApiOptions } from './ManualApiOptions'
 import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
 import { getApiTableData, mergeInDefaults } from './api-docs-helpers'
 import MarkdownView
-  from '../../../../vue-cli-docs/src/utilities/markdown-view/MarkdownView.vue'
+  from '../../../../docs/src/utilities/markdown-view/MarkdownView.vue'
 import { defaultApiOptions } from './default-api-options'
 
 class Props {
