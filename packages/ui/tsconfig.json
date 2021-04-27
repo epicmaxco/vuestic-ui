@@ -45,6 +45,7 @@
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts",
+    "src/**/*.spec.disabled.ts",
     "src/components/vuestic-components/wip-*/**.*",
     "src/services/api-docs"
   ]
