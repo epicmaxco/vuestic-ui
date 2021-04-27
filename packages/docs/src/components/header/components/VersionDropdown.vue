@@ -13,7 +13,7 @@
       {{ option }}
     </div>
   </va-button-dropdown> -->
-  <va-chip color="primary" class="text-center">
+  <va-chip color="primary" class="text-center" flat>
     {{ version.value }}
   </va-chip>
 </template>
