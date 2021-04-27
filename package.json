@@ -18,12 +18,12 @@
     "test:unit": "yarn workspace vuestic-ui test:unit",
     "test:coverage": "yarn workspace vuestic-ui test:coverage",
     "lint:style": "yarn workspace vuestic-ui lint:style",
-    "serve:docs": "yarn workspace vue-cli-docs serve",
-    "build:docs": "yarn workspace vue-cli-docs build",
+    "serve:docs": "yarn workspace docs serve",
+    "build:docs": "yarn workspace docs build",
     "push": "yarn workspace vuestic-ui push",
     "push-production": "yarn workspace vuestic-ui push-production",
-    "generate:docs": "yarn workspace vue-cli-docs generate:docspage",
-    "generate:component": "yarn workspace vue-cli-docs generate:component",
+    "generate:docs": "yarn workspace docs generate:docspage",
+    "generate:component": "yarn workspace docs generate:component",
     "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve; split-pane -d packages/docs --title vuestic-docs cmd /k yarn serve"
   },
   "workspaces": [
