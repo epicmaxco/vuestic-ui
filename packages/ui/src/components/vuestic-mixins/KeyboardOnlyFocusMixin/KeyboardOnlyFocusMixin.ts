@@ -10,6 +10,7 @@ export class KeyboardOnlyFocusMixin extends Vue {
   hasMouseDown = false
   hasKeyboardOnlyFocusMixin = false
 
+  // eslint-disable-next-line camelcase
   KeyboardOnlyFocusMixin_onFocus (e?: Event, index?: number): void {
     // TODO Index is 100% hack. Please Kill Destroy.
     if (!this.hasMouseDown) {

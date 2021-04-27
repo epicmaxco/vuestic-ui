@@ -53,7 +53,7 @@ export default class VaParallax extends mixins(
   windowBottom = 0
   isLoaded = false
 
-  get computedWrapperStyles (): object {
+  get computedWrapperStyles (): Record<string, unknown> {
     return {
       height: this.$props.height + 'px',
     }
@@ -65,7 +65,7 @@ export default class VaParallax extends mixins(
       : this.$props.target || this.$el.parentElement
   }
 
-  get computedImgStyles (): object {
+  get computedImgStyles (): Record<string, unknown> {
     return {
       display: 'block',
       transform: `translate(-50%, ${this.parallax}px)`,

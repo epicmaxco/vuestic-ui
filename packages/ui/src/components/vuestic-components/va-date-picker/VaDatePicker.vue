@@ -40,7 +40,7 @@ import VaInput from '../va-input'
 import VaIcon from '../va-icon'
 
 class DatePickerProps {
-  modelValue = prop<string | object | number>({
+  modelValue = prop<string | Record<string, unknown> | number>({
     type: [String, Object, Number],
     default: '',
   })
@@ -85,7 +85,7 @@ class DatePickerProps {
     default: () => [],
   })
 
-  config = prop<object>({
+  config = prop<Record<string, unknown>>({
     type: Object,
     default: () => undefined,
   })

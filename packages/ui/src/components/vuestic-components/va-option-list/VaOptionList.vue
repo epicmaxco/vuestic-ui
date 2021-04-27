@@ -84,11 +84,11 @@ class OptionListProps {
 
   disabled = prop<boolean>({ type: Boolean, default: false })
   readonly = prop<boolean>({ type: Boolean, default: false })
-  defaultValue = prop<string | number | object | any[]>({ type: [String, Number, Object, Array] })
+  defaultValue = prop<string | number | Record<string, unknown> | any[]>({ type: [String, Number, Object, Array] })
   name = prop<string>({ type: String, default: generateUuid })
   color = prop<string>({ type: String, default: 'primary' })
   leftLabel = prop<boolean>({ type: Boolean, default: false })
-  modelValue = prop<string | number | object | any[]>({ type: [String, Number, Object, Array] })
+  modelValue = prop<string | number | Record<string, unknown> | any[]>({ type: [String, Number, Object, Array] })
 }
 
 const OptionListPropsMixin = Vue.with(OptionListProps)

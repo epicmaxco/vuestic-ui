@@ -1,5 +1,5 @@
 import { mount, shallowMount } from '@vue/test-utils'
-import { testHasRouterLinkMixin } from './../../../vuestic-mixins/RouterLinkMixin/testHasRouterLinkMixin'
+import { testHasRouterLinkMixin } from '../../../vuestic-mixins/RouterLinkMixin/testHasRouterLinkMixin'
 import { testHasKeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/testHasKeyboardOnlyFocusMixin'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 
