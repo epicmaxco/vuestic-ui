@@ -7,13 +7,13 @@ import { KeyboardOnlyFocusMixin } from '../KeyboardOnlyFocusMixin/KeyboardOnlyFo
 import { LoadingMixin } from '../LoadingMixin/LoadingMixin'
 
 class Props {
-  arrayValue = prop<string | object>({ type: [String, Object], default: '' })
+  arrayValue = prop<string | Record<string, unknown>>({ type: [String, Object], default: '' })
   label = prop<string>({ type: String, default: '' })
   leftLabel = prop<boolean>({ type: Boolean, default: false })
   trueValue = prop({ default: true })
   falseValue = prop({ default: false })
   indeterminate = prop<boolean>({ type: Boolean, default: false })
-  indeterminateValue = prop<boolean | any[] | string | object>({
+  indeterminateValue = prop<boolean | any[] | string | Record<string, unknown>>({
     type: [Boolean, Array, String, Object],
     default: null,
   })

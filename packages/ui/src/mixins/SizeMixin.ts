@@ -59,6 +59,7 @@ export class SizeMixin extends mixins(Vue.with(SizeProps)) {
     return `${this.SizeMixin_fontSize}rem`
   }
 
+  // eslint-disable-next-line camelcase
   get SizeMixin_fontSize (): number {
     const { defaultSize, sizes } = this.fontSizesConfig
 

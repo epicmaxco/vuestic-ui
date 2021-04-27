@@ -20,7 +20,7 @@ import { Options, prop, Vue, mixins } from 'vue-class-component'
 import ColorMixin from '../../../../services/color-config/ColorMixin'
 
 class MessagesListProps {
-  value = prop<string | number | object | any[]>({ type: [String, Number, Object, Array], default: '' })
+  value = prop<string | number | Record<string, unknown> | any[]>({ type: [String, Number, Object, Array], default: '' })
   limit = prop<number>({ type: Number, default: 1 })
   color = prop<string>({ type: String, default: 'gray' })
 }

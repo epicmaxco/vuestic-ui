@@ -76,7 +76,7 @@ export const getNestedValue = (option, propsArray) => {
  * @param option
  * @param prop
  */
-export const getValueByPath = <T extends object>(option: T, prop: string | keyof T) => {
+export const getValueByPath = <T extends Record<string, unknown>>(option: T, prop: string | keyof T) => {
   if (prop in option) {
     return option[prop]
   }
@@ -90,7 +90,7 @@ export const getValueByPath = <T extends object>(option: T, prop: string | keyof
  * @param option - Object to look properties inside
  * @param prop - string or function used to find nested property
  */
-export const getProp = <T extends (object | string)> (option: T, prop: string | ((t: T) => any)): any => {
+export const getProp = <T extends (Record<string, unknown> | string)> (option: T, prop: string | ((t: T) => any)): any => {
   if (typeof option === 'string') { return }
   if (!prop || !option) { return option }
   if (typeof prop === 'string') { return getValueByPath(option, prop) }

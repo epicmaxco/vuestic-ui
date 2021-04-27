@@ -1,6 +1,6 @@
 <template>
   <header :class="computedClass" :style="computedStyle" ref="scrollRoot">
-    <slot/>
+    <slot />
   </header>
 </template>
 
