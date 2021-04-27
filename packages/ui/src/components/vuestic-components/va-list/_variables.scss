@@ -1,16 +1,19 @@
 :root {
   --va-list-padding: 1.5rem 0 2.125rem 0;
   --va-list-width: 100%;
-  /*Label*/
+
+  /* Label */
   --va-list-label-text-align: center;
   --va-list-label-padding: 0.3rem 0;
-  /*Item*/
+
+  /* Item */
   --va-list-item-display: flex;
   --va-list-item-align-items: center;
   --va-list-item-padding: 0.5rem;
   --va-list-item-width: 100%;
   --va-list-item-height: 100%;
-  /*Item label*/
+
+  /* Item label */
   --va-list-item-label-color: #34495e;
   --va-list-item-label-display: -webkit-box;
   --va-list-item-label-box-orient: vertical;
@@ -18,7 +21,8 @@
   --va-list-item-label-caption-font-size: 85%;
   --va-list-item-label-caption-color: #babfc2;
   --va-list-item-label-caption-line-height: 1.3rem;
-  /*Item Section*/
+
+  /* Item Section */
   --va-list-item-section-display: flex;
   --va-list-item-section-icon-min-width: 1.5rem;
   --va-list-item-section-icon-align-items: center;

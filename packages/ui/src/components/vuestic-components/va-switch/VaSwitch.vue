@@ -247,6 +247,7 @@ export default class VaSwitch extends mixins(
     .va-switch__container {
       flex-direction: row-reverse;
     }
+
     .va-switch__label {
       padding: 0 var(--va-switch-label-left-padding) 0 0;
     }

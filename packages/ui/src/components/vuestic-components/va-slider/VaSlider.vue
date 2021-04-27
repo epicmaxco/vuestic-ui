@@ -881,7 +881,7 @@ export default class VaSlider extends mixins(
     height: var(--va-slider-handler-height);
     background: var(--va-slider-handler-background);
     border: var(--va-slider-handler-border);
-    border-radius:var(--va-slider-handler-border-radius) ;
+    border-radius: var(--va-slider-handler-border-radius);
     outline: var(--va-slider-handler-outline);
     left: var(--va-slider-handler-left);
     transition: var(--va-slider-handler-transition);

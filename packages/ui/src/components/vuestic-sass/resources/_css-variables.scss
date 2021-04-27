@@ -43,31 +43,32 @@
   --prism-background: #f4f8fa;
   --separator-color: #e6e9ec;
 
-  /*Primary*/
+  /* Primary */
   --primary-border: 0;
   --primary-font-family: 'Source Sans Pro', sans-serif;
   --primary-letter-spacing: 0.0375rem;
   --primary-background-color: #ffffff;
   --primary-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1); /* swing */
-  /*Primary block-type items styles*/
+
+  /* Primary block-type items styles */
   --primary-block-border-radius: 0.375rem;
   --primary-block-border: thin solid rgba(52, 56, 85, 0.25);
   --primary-block-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
-  /*Primary control-type items styles*/
+
+  /* Primary control-type items styles */
   --primary-control-box-shadow: none;
   --primary-control-border: 0;
 
 
-  /*Secondary*/
+  /* Secondary */
   --secondary-transition: 0.2s cubic-bezier(0.4, 0, 0.6, 1); /* ease-in-out */
 
-  /*Outline*/
+  /* Outline */
   --outline-border-width: 0.125rem;
   --outline-box-shadow: none;
 
-  /*Square*/
+  /* Square */
   --square-border-radius: 0.25rem;
-
   --box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
   --form-padding: 1.25rem;
   --form-border-radius: 0.125rem;

@@ -14,7 +14,6 @@ $icon-font-path: '~/src/components/vuestic-sass/icons/icon-fonts/#{$icon-font-na
     url('#{$icon-font-path}.svg##{icon-font-name}') format('svg');
 }
 
-
 // Catchall baseclass
 .glyphicon {
   position: relative;

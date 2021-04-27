@@ -15,13 +15,16 @@ $book-color-gold--dark: #ddad00;
   &__files {
     color: $book-color-lightgray !important;
   }
+
   &__search-input {
     background-color: $book-color-darkgray--light !important;
     color: $book-color-lightgray !important;
   }
+
   &__right-block {
     background-color: $book-color-black;
   }
+
   &__left-block,
   &__left-block-folded,
   &__files {
@@ -35,27 +38,34 @@ $book-color-gold--dark: #ddad00;
 
 .DemoFileList {
   background-color: $book-color-darkgray--light;
+
   &__node--pre-selected {
     background-color: $book-color-darkgray--dark;
   }
 }
+
 .TreeDemoFileList {
   background-color: $book-color-darkgray--light;
 }
+
 .BookComponentListItem {
   color: $book-color-lightgray;
+
   &--active {
     color: $book-color-gold--dark !important;
     background-color: $book-color-darkgray--dark !important;
   }
 }
+
 .ComButtonIcon {
   color: $book-color-lightgray !important;
+
   &--active {
     background-color: $book-color-darkgray !important;
     border-color: $book-color-gold !important;
   }
 }
+
 .VbCard {
   background-color: $book-color-darkgray;
 
@@ -72,4 +82,3 @@ $book-color-gold--dark: #ddad00;
     border: dashed $book-color-lightgray 1px;
   }
 }
-

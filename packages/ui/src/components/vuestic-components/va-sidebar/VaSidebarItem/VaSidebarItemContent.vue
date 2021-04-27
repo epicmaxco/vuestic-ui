@@ -10,11 +10,11 @@
   .va-sidebar__item__content {
     display: flex;
     align-items: center;
-
     padding: var(--va-sidebar-item-content-padding);
 
     & > * {
       margin-right: var(--va-sidebar-item-content-gap);
+
       &:last-child {
         margin-right: 0;
       }

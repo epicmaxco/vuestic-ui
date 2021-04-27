@@ -94,6 +94,7 @@ export default class VaIcon extends mixins(
 
   &--spin {
     animation: va-icon--spin-animation 1500ms linear infinite;
+
     &-reverse {
       animation: va-icon--spin-animation 1500ms linear infinite;
       animation-direction: reverse;

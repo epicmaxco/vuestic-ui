@@ -248,7 +248,8 @@ export default class VaInput extends mixins(
       top: 0.125rem;
     }
 
-    input, textarea {
+    input,
+    textarea {
       width: var(--va-input-width);
       height: var(--va-input-height);
 

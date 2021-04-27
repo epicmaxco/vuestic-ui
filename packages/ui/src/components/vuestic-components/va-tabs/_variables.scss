@@ -1,8 +1,8 @@
-:root{
+:root {
   --va-tabs-position: relative;
   --va-tabs-wrapper-display: flex;
 
-  /*Container*/
+  /* Container */
   --va-tabs-container-overflow: hidden;
   --va-tabs-container-flex: 1 1 auto;
   --va-tabs-container-display: flex;
@@ -11,14 +11,14 @@
   --va-tabs-container-white-space: nowrap;
   --va-tabs-container-position: relative;
 
-  /*Slider*/
+  /* Slider */
   --va-tabs-slider-width: 0.125rem;
   --va-tabs-slider-height: 0.125rem;
 
-  /*Slider Wrapper*/
+  /* Slider Wrapper */
   --va-tabs-slider-wrapper-bottom: 0;
   --va-tabs-slider-wrapper-margin: 0 !important;
   --va-tabs-slider-wrapper-position: absolute;
   --va-tabs-slider-wrapper-z-index: 4000;
   --va-tabs-slider-wrapper-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
-  }
+}

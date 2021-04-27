@@ -11,20 +11,20 @@
   --va-select-margin-bottom: 1rem;
   --va-select-transition: ease-in-out border-bottom-color 0.25s;
 
-  /*Content wrapper*/
+  /* Content wrapper */
   --va-select-content-wrapper-display: flex;
   --va-select-content-wrapper-justify-content: space-between;
   --va-select-content-wrapper-align-items: stretch;
   --va-select-content-wrapper-width: 100%;
   --va-select-content-wrapper-padding: 0 0.5rem;
 
-  /*Content*/
+  /* Content */
   --va-select-content-display: flex;
   --va-select-content-width: 100%;
   --va-select-content-justify-content: space-between;
   --va-select-content-align-items: stretch;
 
-  /*Label*/
+  /* Label */
   --va-select-label-padding-top: 0.125rem;
   --va-select-label-position: absolute;
   --va-select-label-top: 0;
@@ -32,7 +32,7 @@
   --va-select-label-max-width: 90%;
   --va-select-label-transition: ease-in-out color 0.25s;
 
-  /*Selection*/
+  /* Selection */
   --va-select-selection-width: 100%;
   --va-select-selection-display: flex;
   --va-select-selection-padding: 0.125rem 0;
@@ -42,7 +42,7 @@
   --va-select-selection-overflow: hidden;
   --va-select-selection-text-overflow: ellipsis;
 
-  /*Placeholder*/
+  /* Placeholder */
   --va-select-placeholder-color: #babfc2;
   --va-select-placeholder-opacity: 0.8;
   --va-select-placeholder-display: -webkit-box;
@@ -53,7 +53,7 @@
   --va-select-placeholder--webkit-box-align: start;
   --va-select-placeholder--webkit-box-pack: center;
 
-  /*Input*/
+  /* Input */
   --va-select-input-border: none;
   --va-select-input-background: transparent;
   --va-select-input-padding: 0.25rem 0;
@@ -68,23 +68,23 @@
   --va-select-input-text-overflow: ellipsis;
   --va-select-input-overflow: hidden;
 
-  /*Icon*/
+  /* Icon */
   --va-select-icon-padding-left: 0.25rem;
 
-  /*Prepend slot*/
+  /* Prepend slot */
   --va-select-prepend-slot-padding-right: 0.5rem;
 
-  /*Append slot*/
+  /* Append slot */
   --va-select-append-slot-padding-left: 0.25rem;
 
-  /*Dropdown*/
+  /* Dropdown */
   --va-select-dropdown-outline: none;
   --va-select-dropdown-margin: 0;
   --va-select-dropdown-padding: 0;
   --va-select-dropdown-background: #f5f8f9;
   --va-select-dropdown-border-radius: 0.5rem;
 
-  /*Dropdown content*/
+  /* Dropdown content */
   --va-select-dropdown-content-background-color: #f5f8f9;
   --va-select-dropdown-content-margin: 0;
   --va-select-dropdown-content-padding: 0;

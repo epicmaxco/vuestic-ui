@@ -11,7 +11,8 @@
   --va-modal-container-justify-content: center;
   --va-modal-container-overflow: hidden;
   --va-modal-container-outline: 0;
-  /*Dialog*/
+
+  /* Dialog */
   --va-modal-dialog-background: #ffffff;
   --va-modal-dialog-min-height: 3.125rem;
   --va-modal-dialog-height: fit-content;
@@ -21,7 +22,8 @@
   --va-modal-dialog-max-width: 768px;
   --va-modal-dialog-max-height: calc(100vh - 2rem);
   --va-modal-dialog-position: relative;
-  /*Fullscreen*/
+
+  /* Fullscreen */
   --va-modal-overlay-position: fixed;
   --va-modal-overlay-top: 0;
   --va-modal-overlay-left: 0;
@@ -29,5 +31,3 @@
   --va-modal-overlay-width: 100vw;
   --va-modal-overlay-height: 100vh;
 }
-
-

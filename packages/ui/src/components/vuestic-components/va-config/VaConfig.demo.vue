@@ -129,7 +129,7 @@
       <br />
       <va-config :components="{ VaButton: { color: '#f34240', flat: false }}">
         <p>
-          Config:{ VaButton: { color: '<span style="background: #f34240">color</span>', flat: true }}
+          Config:{ VaButton: { color: '<span style="background: #f34240;">color</span>', flat: true }}
         </p>
         <va-button>
           Button inside va-config

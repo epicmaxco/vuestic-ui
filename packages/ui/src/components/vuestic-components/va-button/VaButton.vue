@@ -262,7 +262,7 @@ export default class VaButton extends mixins(
   text-transform: initial;
   cursor: pointer;
   transition: var(--va-button-transition, var(--primary-transition));
-  background: var(--va-button-background-color, var(--white));
+  background-color: var(--va-button-background-color, var(--white));
   vertical-align: middle;
   box-sizing: border-box;
 
@@ -353,6 +353,7 @@ export default class VaButton extends mixins(
       margin-left: calc(var(--va-button-lg-px) / -2);
       margin-right: calc(var(--va-button-lg-space-between-items) / 2);
     }
+
     .va-button__right-icon {
       margin-left: calc(var(--va-button-lg-space-between-items) / 2);
       margin-right: calc(var(--va-button-lg-px) / -2);
@@ -386,6 +387,7 @@ export default class VaButton extends mixins(
       margin-left: calc(var(--va-button-sm-px) / -2);
       margin-right: calc(var(--va-button-sm-space-between-items) / 2);
     }
+
     .va-button__right-icon {
       margin-left: calc(var(--va-button-sm-space-between-items) / 2);
       margin-right: calc(var(--va-button-sm-px) / -2);
@@ -419,6 +421,7 @@ export default class VaButton extends mixins(
       margin-left: calc(var(--va-button-px) / -2);
       margin-right: calc(var(--va-button-space-between-items) / 2);
     }
+
     .va-button__right-icon {
       margin-left: calc(var(--va-button-space-between-items) / 2);
       margin-right: calc(var(--va-button-px) / -2);

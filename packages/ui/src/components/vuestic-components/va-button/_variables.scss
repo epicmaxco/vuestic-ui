@@ -1,5 +1,5 @@
 :root {
-  /*General*/
+  /* General */
   --va-button-display: inline-flex;
   --va-button-align-items: center;
   --va-button-justify-content: center;
@@ -20,7 +20,8 @@
   --va-button-letter-spacing: 0.032rem;
   --va-button-square-border-radius: 0.3rem;
   --va-button-space-between-items: 0.5rem;
-  /*Large button*/
+
+  /* Large button */
   --va-button-lg-size: 3rem;
   --va-button-lg-py: 0.75rem;
   --va-button-lg-px: 1.75rem;
@@ -31,7 +32,7 @@
   --va-button-lg-square-border-radius: 0.4rem;
   --va-button-lg-space-between-items: 1rem;
 
-  /*Small button*/
+  /* Small button */
   --va-button-sm-size: 1.5rem;
   --va-button-sm-py: 0.125rem;
   --va-button-sm-px: 0.75rem;
@@ -41,9 +42,11 @@
   --va-button-sm-letter-spacing: 0;
   --va-button-sm-square-border-radius: 0.2rem;
   --va-button-sm-space-between-items: 0.25rem;
-  /*Outlined*/
+
+  /* Outlined */
   --va-button-outline-border: 0.125rem;
   --va-button-outline-icon-color: #ffffff;
-  /*Flat*/
+
+  /* Flat */
   --va-button-flat-border: 0;
 }

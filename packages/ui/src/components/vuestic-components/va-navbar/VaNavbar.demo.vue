@@ -79,6 +79,6 @@ export default {
 
 <style lang="scss" scoped>
   .va-navbar {
-    color:white;
+    color: white;
   }
 </style>
