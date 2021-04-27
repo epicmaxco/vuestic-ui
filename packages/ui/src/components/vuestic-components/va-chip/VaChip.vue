@@ -205,6 +205,7 @@ export default class VaChip extends mixins(
   &__inner {
     display: var(--va-chip-inner-display);
     align-items: var(--va-chip-inner-align-items);
+    width: var(--va-chip-inner-width);
   }
 
   &:hover {
@@ -213,9 +214,11 @@ export default class VaChip extends mixins(
 
   &__content {
     display: var(--va-chip-content-display);
+    justify-content: var(--va-chip-content-justify-content);
     align-items: var(--va-chip-content-align-items);
     padding: var(--va-chip-content-padding);
     line-height: var(--va-chip-content-line-height);
+    width: var(--va-chip-content-width);
   }
 
   &__close-icon {
