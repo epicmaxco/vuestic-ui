@@ -17,38 +17,7 @@
           <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.overview') }}</va-button>
           <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.docs') }}</va-button>
           <va-button href="https://discord.gg/jTKTjj2weV" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
-          <va-dropdown class="language-dropdown" fixed>
-            <template #anchor>
-              <va-button class="header__links--link" iconRight="expand_more" flat square color="primary">
-                {{ currentLanguageName }}
-              </va-button>
-            </template>
-
-            <va-list class="language-dropdown__content">
-              <va-list-item
-                v-for="(option, id) in options"
-                :key="id"
-                class="language-dropdown__item"
-                :class="{ active: option.code === currentLanguage }"
-                @click="setLanguage(option.code)"
-              >
-                <va-list-item-section>
-                  <span class="dropdown-item__text">{{ option.name }}</span>
-                </va-list-item-section>
-              </va-list-item>
-              <va-list-item class="language-dropdown__item">
-                <va-list-item-section>
-                  <router-link
-                    class="dropdown-item__text"
-                    :to="`/${$root.$i18n.locale}/contribution/translation`"
-                  >
-                    {{ $t('landing.header.buttons.translation') }}
-                  </router-link>
-                </va-list-item-section>
-              </va-list-item>
-
-            </va-list>
-          </va-dropdown>
+          <LanguageDropdown />
           <va-button
             class="star-button star-button--desktop"
             href="https://github.com/epicmaxco/vuestic-ui"
@@ -127,9 +96,13 @@
 import { Options, Vue } from 'vue-class-component'
 import { languages } from './../languages'
 import VuesticLogo from '../header/components/VuesticDocsLogo.vue'
+import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 
 @Options({
   name: 'language-dropdown',
+  components: {
+    LanguageDropdown,
+  },
 })
 export default class Header extends Vue {
   value = false
