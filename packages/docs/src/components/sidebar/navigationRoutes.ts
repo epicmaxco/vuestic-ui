@@ -295,10 +295,11 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'icons-config',
         displayName: 'menu.iconsConfig',
       },
-      {
-        name: 'advanced-icons-config',
-        displayName: 'menu.advancedIconsConfig',
-      },
+      // TODO: next
+      // {
+      //   name: 'advanced-icons-config',
+      //   displayName: 'menu.advancedIconsConfig',
+      // },
       {
         name: 'colors-config',
         displayName: 'menu.colorsConfig',
