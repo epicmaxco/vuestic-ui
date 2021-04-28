@@ -50,9 +50,9 @@ export default {
       return { VaButton: values }
     })
 
-    const { setGlobalConfig } = useGlobalConfig()
+    const { mergeGlobalConfig } = useGlobalConfig()
     const applyAsGlobal = () => {
-      setGlobalConfig({
+      mergeGlobalConfig({
         components: componentsConfig.value,
       })
     }
@@ -84,5 +84,9 @@ export default {
       }
     }
   }
+}
+
+.va-button {
+  transition-property: none;
 }
 </style>
