@@ -15,5 +15,5 @@ export const config = [
   DocsHelper.code(`
     <i class="fas fa-star"></i>
   `),
-  DocsHelper.paragraph(prefix('reasonToUseIconsConfig')),
+  DocsHelper.paragraph(prefix('summary')),
 ]

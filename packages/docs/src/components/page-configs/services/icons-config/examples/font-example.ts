@@ -2,21 +2,22 @@ export const fontCodeExample = `
 const fonts = [
   {
     name: 'fa4-{code}',
-    iconClass: ({code}) => \`fa fa-\${code}\`,   
+    resolve: ({ code }) => ({ class: \`fa fa-\${code}\` }),  
     color: '#e0e0e0'
   },
   {
     name: 'fa5 {code}',
-    iconClass: ({code} => \`fas fa-\${code} \`)
+    resolve: ({ code }) => ({ class:\`fas fa-\${code} \` }),  
   },
   {
     name: 'fa5 {code} {type}',
-    iconClass: ({code, type} => \`fa\${type} fa-\${code}\`)
+    // fas, fab, fad etc
+    resolve: ({ code }) => ({ class: \`fa\${type} fa-\${code}\` }),  
   },
   {
     name: 'flag-{code}-{size}',
     tag: 'span',
-    iconClass: ({code, size}) => \`flag-icon flag-icon-\${code} flag-icon-\${size}\`
+    resolve: ({ code }) => ({ class: \`flag-icon flag-icon-\${code} flag-icon-\${size}\` }),  
   }
 ]
 `
