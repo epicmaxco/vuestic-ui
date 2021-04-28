@@ -2658,13 +2658,15 @@
     "subtitle": "With Global config we can configure colors, icons and any prop for any component. ",
     "structure": "Global config consists of icons, colors and components configs. ",
     "setupExampleTitle": "We can provide our custom config with VuesticPlugin, if we want to:",
-    "reactiveExampleTitle": "Or we can update our config on runtime:",
+    "reactiveUpdateExampleTitle": "Or we can update our config on runtime:",
+    "reactiveSetExampleTitle": "Or we can set new config on runtime:",
     "links": {
       "readMore": "Read more",
       "icons": "Icons config",
       "components": "Components config",
       "colors": "Colors config"
     },
+    "useInRuntime": "Use global config as reactive Proxy:",
     "api": {
       "icons": "Used to configure icon fonts and aliases.",
       "components": "Used to globally overwrite props of specific components.",

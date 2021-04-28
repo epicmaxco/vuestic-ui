@@ -22,25 +22,62 @@ export default [
       })
       .mount('#app')
   `),
-  DocsHelper.paragraph(gc('reactiveExampleTitle')),
+  DocsHelper.paragraph(gc('reactiveUpdateExampleTitle')),
   DocsHelper.code(`
-      import { useGlobalConfig } from 'vuestic-ui'
-    
-      export default {
-        setup () {
-          const { setGlobalConfig } = useGlobalConfig()
+import { useGlobalConfig } from 'vuestic-ui'
 
-          const setNewLookForOurApplication = () => {
-            setGlobalConfig({
-              icons: { ... },
-              components: { ... },
-              colors: { ... },
-            })
-          }
+export default {
+  setup () {
+    const { mergeGlobalConfig } = useGlobalConfig()
 
-          return { setNewLookForOurApplication }
-        }
-      }
+    const setNewLookForOurApplication = () => {
+      mergeGlobalConfig({
+        icons: { { name: 'phone', to: 'fas-phone' } },
+        components: { VaButton: { ... } },
+        colors: { 'primary': '#ff0' },
+      })
+    }
+
+    return { setNewLookForOurApplication }
+  }
+}
+  `),
+  DocsHelper.paragraph(gc('reactiveSetExampleTitle')),
+  DocsHelper.code(`
+import { useGlobalConfig } from 'vuestic-ui'
+
+export default {
+  setup () {
+    const { setGlobalConfig } = useGlobalConfig()
+
+    const setNewLookForOurApplication = () => {
+      setGlobalConfig({
+        icons: { ... },
+        components: { ... },
+        colors: { ... },
+      })
+    }
+
+    return { setNewLookForOurApplication }
+  }
+}
+  `),
+  DocsHelper.paragraph(gc('useInRuntime')),
+  DocsHelper.code(`
+import { useGlobalConfig } from 'vuestic-ui'
+import { computed } from 'vue'
+
+export default {
+  setup () {
+    const { getGlobalConfig } = useGlobalConfig()
+
+    const config = computed(() => getGlobalConfig())
+
+    console.log(config.value)
+
+    return { config }
+  }
+}
   `),
   DocsHelper.headline(links('readMore')),
   DocsHelper.link(t(links('components')), `/${locale}/services/components-config`),
