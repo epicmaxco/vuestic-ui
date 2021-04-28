@@ -10,11 +10,11 @@ export const getBoxShadowColor = (color: ColorInput) => {
 }
 
 export const getHoverColor = (color: ColorInput) => {
-  return new ColorTranslator(color).setA(0.08).RGBA
+  return new ColorTranslator(color).setA(0.2).RGBA
 }
 
 export const getFocusColor = (color: ColorInput) => {
-  return new ColorTranslator(color).setA(0.08).RGBA
+  return new ColorTranslator(color).setA(0.3).RGBA
 }
 
 export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => {

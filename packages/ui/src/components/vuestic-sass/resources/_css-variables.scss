@@ -43,31 +43,32 @@
   --va-prism-background: #f4f8fa;
   --va-separator-color: #e6e9ec;
 
-  /*Primary*/
+  /* Primary */
   --va-border: 0;
   --va-font-family: 'Source Sans Pro', sans-serif;
   --va-letter-spacing: 0.0375rem;
   --va-background-color: #ffffff;
   --va-swing-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1); /* swing */
-  /*Primary block-type items styles*/
+
+  /* Primary block-type items styles */
   --va-block-border-radius: 0.375rem;
   --va-block-border: thin solid rgba(52, 56, 85, 0.25);
   --va-block-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
-  /*Primary control-type items styles*/
+
+  /* Primary control-type items styles */
   --va-control-box-shadow: none;
   --va-control-border: 0;
 
 
-  /*Secondary*/
+  /* Secondary */
   --va-transition: 0.2s cubic-bezier(0.4, 0, 0.6, 1); /* ease-in-out */
 
-  /*Outline*/
+  /* Outline */
   --va-outline-border-width: 0.125rem;
   --va-outline-box-shadow: none;
 
-  /*Square*/
+  /* Square */
   --va-square-border-radius: 0.25rem;
-
   --va-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
   --va-form-padding: 1.25rem;
   --va-form-border-radius: 0.125rem;
