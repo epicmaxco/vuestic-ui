@@ -8,9 +8,9 @@ aliases:
     name: Install Dependencies
     command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
 
-  - &nuxt_generate
-    name: Generate static
-    command: yarn generate:docs
+  - &build_docs
+    name: Build Docs
+    command: yarn build:docs
 
   - &save_cache
     name: Save Yarn Package Cache
@@ -77,7 +77,7 @@ jobs:
       - restore_cache: *restore_cache
       - run: *install_dependencies
       - save_cache: *save_cache
-      - run: *nuxt_generate
+      - run: *build_docs
       - run:
           name: Add $SERVER_IP to known_hosts
           command: ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts

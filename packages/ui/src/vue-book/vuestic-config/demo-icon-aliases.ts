@@ -1,4 +1,6 @@
-const DemoAliases = [
+import { IconConfiguration } from './../../services/icon-config/types'
+
+const DemoAliases: IconConfiguration[] = [
   {
     name: 'info_outline',
     to: 'info_outline',

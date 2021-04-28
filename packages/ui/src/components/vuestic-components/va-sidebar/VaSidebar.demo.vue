@@ -99,9 +99,35 @@
       </div>
     </VbCard>
     <VbCard title="color">
-      <div class="demo__sidebar-container">
+      <div class="demo__sidebar-container-2x">
         <va-sidebar color="secondary">
           <div>secondary</div>
+        </va-sidebar>
+      </div>
+    </VbCard>
+    <VbCard title="sidebar item">
+      <va-checkbox v-model="minimized" />
+
+      <div class="demo__sidebar-container">
+        <va-sidebar color="secondary" :minimized="minimized" minimizedWidth="64px">
+          <va-sidebar-item>
+            <va-sidebar-item-content>
+              <va-icon name="dashboard" />
+              <!-- User can hide item with css if he wants -->
+              <va-sidebar-item-title v-if="!minimized">
+                Dashboard
+              </va-sidebar-item-title>
+            </va-sidebar-item-content>
+          </va-sidebar-item>
+
+          <va-sidebar-item active>
+            <va-sidebar-item-content>
+              <va-icon name="room" />
+              <va-sidebar-item-title v-if="!minimized">
+                Sidebar demo
+              </va-sidebar-item-title>
+            </va-sidebar-item-content>
+          </va-sidebar-item>
         </va-sidebar>
       </div>
     </VbCard>
@@ -109,14 +135,19 @@
 </template>
 
 <script>
-import VaSidebar from './index'
+import VaSidebar, { VaSidebarItem, VaSidebarItemContent, VaSidebarItemTitle } from './index'
 import VaCheckbox from '../va-checkbox'
+import VaIcon from '../va-icon'
 import { navigationRoutes } from './navigation-router-example'
 
 export default {
   components: {
     VaSidebar,
     VaCheckbox,
+    VaSidebarItem,
+    VaSidebarItemContent,
+    VaSidebarItemTitle,
+    VaIcon,
   },
   data () {
     return {
@@ -132,10 +163,6 @@ export default {
 </script>
 
 <style scoped>
-.va-sidebar div { /* sidebar items must be stylized outside of sidebar styles */
-  color: white;
-}
-
 .demo__sidebar-container {
   position: relative;
   height: 10rem;

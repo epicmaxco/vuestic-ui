@@ -1,8 +1,0 @@
-{
-  "name": "@vuestic-ui/old-docs",
-  "version": "1.0.0-alpha.12",
-  "description": "Documentation for vuestic-ui framework",
-  "main": "index.js",
-  "repository": "https://github.com/epicmaxco/vuestic-ui",
-  "license": "MIT"
-}

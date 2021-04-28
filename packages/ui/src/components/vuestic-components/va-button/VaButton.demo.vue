@@ -211,44 +211,51 @@
         <tr>
           <td>Primary Buttons With icons</td>
           <td>
-            <va-button
-              icon="create"
-            >
+            <va-button icon="create">
               Plus Button
             </va-button>
-            <va-button
-              icon-right="clear"
-            >
+            <va-button iconRight="clear">
               Dropdown button
             </va-button>
-            <va-button
-              icon="create"
-              icon-right="clear"
-            >
+            <va-button icon="create" iconRight="clear">
               Mixed button
             </va-button>
           </td>
         </tr>
         <tr>
+          <td>Buttons with icons (As slots with config)</td>
+          <td>
+            <va-config :components="{ VaIcon: { color: '#f00' } }">
+              <va-button color="warning" space-between-items>
+                <va-icon name="gavel" color="white" />
+                Colored icons
+                <va-icon name="shield" color="white" />
+              </va-button>
+
+              <va-button color="warning" flat space-between-items>
+                <va-icon name="gavel" color="warning" />
+                Colored icons
+                <va-icon name="shield" color="warning" />
+              </va-button>
+
+              <va-button color="warning" outline space-between-items>
+                <va-icon name="gavel" color="warning" />
+                Colored icons
+                <va-icon name="shield" color="warning" />
+              </va-button>
+            </va-config>
+          </td>
+        </tr>
+        <tr>
           <td>Outline Buttons With icons</td>
           <td>
-            <va-button
-              outline
-              icon="create"
-            >
+            <va-button outline icon="create">
               Plus Button
             </va-button>
-            <va-button
-              outline
-              icon-right="clear"
-            >
+            <va-button outline iconRight="clear">
               Dropdown button
             </va-button>
-            <va-button
-              outline
-              icon="create"
-              icon-right="clear"
-            >
+            <va-button outline icon="create" iconRight="clear">
               Mixed button
             </va-button>
           </td>
@@ -256,23 +263,13 @@
         <tr>
           <td>Flat Buttons With icons</td>
           <td>
-            <va-button
-              flat
-              icon="create"
-            >
+            <va-button flat icon="create">
               Plus Button
             </va-button>
-            <va-button
-              flat
-              icon-right="clear"
-            >
+            <va-button flat iconRight="clear">
               Dropdown button
             </va-button>
-            <va-button
-              flat
-              icon="create"
-              icon-right="clear"
-            >
+            <va-button flat icon="create" iconRight="clear">
               Mixed button
             </va-button>
           </td>
@@ -289,15 +286,14 @@
             <va-button
               outline
               size="large"
-              icon-right="clear"
+              iconRight="clear"
             >
               Dropdown button
             </va-button>
             <va-button
               flat
               size="large"
-              icon="create"
-              icon-right="clear"
+              icon="create" iconRight="clear"
             >
               Mixed button
             </va-button>
@@ -306,25 +302,13 @@
         <tr>
           <td>Small Buttons With icons</td>
           <td>
-            <va-button
-              size="small"
-              icon="create"
-            >
+            <va-button size="small" icon="create">
               Plus Button
             </va-button>
-            <va-button
-              outline
-              size="small"
-              icon-right="clear"
-            >
+            <va-button outline size="small" iconRight="clear">
               Dropdown button
             </va-button>
-            <va-button
-              flat
-              size="small"
-              icon="create"
-              icon-right="clear"
-            >
+            <va-button flat size="small" icon="create" iconRight="clear">
               Mixed button
             </va-button>
           </td>
@@ -333,42 +317,14 @@
           <td>All Buttons Without Title</td>
           <td>
             <va-button icon="block" />
-            <va-button
-              size="large"
-              icon="block"
-            />
-            <va-button
-              size="small"
-              icon="block"
-            />
-            <va-button
-              outline
-              icon="block"
-            />
-            <va-button
-              outline
-              size="large"
-              icon="block"
-            />
-            <va-button
-              outline
-              size="small"
-              icon="block"
-            />
-            <va-button
-              flat
-              icon="block"
-            />
-            <va-button
-              flat
-              size="large"
-              icon="block"
-            />
-            <va-button
-              flat
-              size="small"
-              icon="block"
-            />
+            <va-button size="large" icon="block" />
+            <va-button size="small" icon="block" />
+            <va-button outline icon="block" />
+            <va-button outline size="large" icon="block" />
+            <va-button outline size="small" icon="block" />
+            <va-button flat icon="block" />
+            <va-button flat size="large" icon="block" />
+            <va-button flat size="small" icon="block" />
           </td>
         </tr>
         <tr>

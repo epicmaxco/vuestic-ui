@@ -129,7 +129,7 @@
       <br />
       <va-config :components="{ VaButton: { color: '#f34240', flat: false }}">
         <p>
-          Config:{ VaButton: { color: '<span style="background: #f34240">color</span>', flat: true }}
+          Config:{ VaButton: { color: '<span style="background: #f34240;">color</span>', flat: true }}
         </p>
         <va-button>
           Button inside va-config
@@ -187,7 +187,7 @@ export default {
     }
   },
   setup () {
-    const { setGlobalConfig, getGlobalConfig } = useGlobalConfig()
+    const { setGlobalConfig, getGlobalConfig, mergeGlobalConfig } = useGlobalConfig()
 
     const { getColor } = useColors()
 
@@ -225,6 +225,7 @@ export default {
     return {
       setGlobalConfig,
       getGlobalConfig,
+      mergeGlobalConfig,
       getColor,
       buttonRoundConfigValue,
     }
@@ -253,7 +254,7 @@ export default {
       }))
     },
     changeButtonsRound () {
-      this.setGlobalConfig({
+      this.mergeGlobalConfig({
         components: {
           VaButton: {
             round: !this.buttonRoundConfigValue,
@@ -281,7 +282,7 @@ export default {
         },
       }
 
-      this.setGlobalConfig(newConfig)
+      this.mergeGlobalConfig(newConfig)
     },
   },
 }

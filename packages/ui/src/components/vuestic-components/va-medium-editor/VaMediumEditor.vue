@@ -12,7 +12,7 @@ import MediumEditor from 'medium-editor'
 type EditorOptions = {
   buttonLabels: string;
   autoLink: boolean;
-  toolbar: object;
+  toolbar: Record<string, unknown>;
 }
 
 class MediumEditorProps {

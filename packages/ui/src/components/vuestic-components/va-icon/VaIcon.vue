@@ -1,11 +1,12 @@
 <template>
   <component
-    :is="computedTag"
-    class="va-icon"
-    :class="computedClass"
-    :style="computedStyle"
+    v-bind="computedAttrs"
     aria-hidden="true"
     notranslate
+    class="va-icon"
+    :is="computedTag"
+    :class="computedClass"
+    :style="computedStyle"
   >
     <slot>{{ computedContent }}</slot>
   </component>
@@ -15,18 +16,18 @@
 import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
-import { useIcons } from '../../../services/icon-config/setup'
+import { useIcons } from '../../../services/icon-config/icon-config'
 
-class Props {
+class IconProps {
   name = prop<string>({ type: String, default: '' })
-  tag = prop<string>({ type: String, default: 'i' })
+  tag = prop<string>({ type: String })
   component = prop<Record<string, any>>({ type: Object })
   color = prop<string>({ type: String, default: undefined })
   rotation = prop<number | string>({ type: [String, Number], default: undefined })
-  spin = prop<string>({ type: String, default: undefined })
+  spin = prop<string | boolean>({ type: [String, Boolean], default: undefined })
 }
 
-const PropsMixin = Vue.with(Props)
+const IconPropsMixin = Vue.with(IconProps)
 
 @Options({
   name: 'VaIcon',
@@ -34,61 +35,47 @@ const PropsMixin = Vue.with(Props)
 export default class VaIcon extends mixins(
   ColorMixin,
   SizeMixin,
-  PropsMixin,
+  IconPropsMixin,
 ) {
   iconContext = setup(() => useIcons(this.$props))
 
-  get icon () {
+  get iconConfig () {
     return this.iconContext.getIcon(this.name)
   }
 
   get computedTag () {
-    return (this.icon && this.icon.component) || this.component || this.tag
+    return this.$props.component || this.$props.tag || this.iconConfig.component || this.iconConfig.tag || 'i'
   }
 
-  get spinClass () {
-    if (this.spin === undefined) { return }
-    return this.spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
+  get computedAttrs () {
+    return { ...this.iconConfig.attrs, ...this.$attrs }
   }
 
   get computedClass () {
+    const spin = this.$props.spin === undefined ? this.iconConfig.spin : this.$props.spin
+
     return [
-      this.icon ? this.icon.iconClass : '',
-      this.spinClass,
+      this.iconConfig.class,
+      this.getSpinClass(spin),
     ]
   }
 
-  get hasClickListener () {
-    return this.$attrs && this.$attrs.onClick
-  }
-
-  get cursorStyle () {
-    return { cursor: this.hasClickListener ? 'pointer' : null }
-  }
-
-  get rotateStyle () {
-    return { transform: 'rotate(' + this.rotation + 'deg)' }
-  }
-
-  get fontSizeStyle () {
-    return { fontSize: this.sizeComputed }
-  }
-
-  get colorStyle () {
-    return { color: this.color !== undefined ? this.colorComputed : this.icon.color }
+  getSpinClass (spin?: string | boolean) {
+    if (spin === undefined) { return }
+    return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
   }
 
   get computedStyle () {
     return {
-      ...this.cursorStyle,
-      ...this.rotateStyle,
-      ...this.fontSizeStyle,
-      ...this.colorStyle,
+      transform: this.rotation && 'rotate(' + this.rotation + 'deg)',
+      cursor: this.$attrs.onClick ? 'pointer' : null,
+      color: this.$props.color !== undefined ? this.colorComputed : this.iconConfig.color,
+      fontSize: this.sizeComputed,
     }
   }
 
   get computedContent () {
-    return this.icon && this.icon.content
+    return this.iconConfig.content
   }
 }
 </script>
@@ -107,6 +94,7 @@ export default class VaIcon extends mixins(
 
   &--spin {
     animation: va-icon--spin-animation 1500ms linear infinite;
+
     &-reverse {
       animation: va-icon--spin-animation 1500ms linear infinite;
       animation-direction: reverse;

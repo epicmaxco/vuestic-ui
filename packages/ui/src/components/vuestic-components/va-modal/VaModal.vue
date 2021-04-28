@@ -62,7 +62,7 @@
               v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
               class="va-modal__footer"
             >
-              <va-button v-if="$props.cancelText" color="gray" flat @click="cancel">
+              <va-button v-if="$props.cancelText" color="gray" class="mr-2" flat @click="cancel">
                 {{ $props.cancelText }}
               </va-button>
               <va-button @click="ok">
@@ -320,6 +320,7 @@ export default class VaModal extends mixins(
     max-width: var(--va-modal-dialog-max-width);
     max-height: var(--va-modal-dialog-max-height);
     position: var(--va-modal-dialog-position);
+    overflow: auto;
   }
 
   &__overlay {
@@ -382,6 +383,7 @@ export default class VaModal extends mixins(
     .va-modal__inner {
       overflow: hidden;
       padding: $modal-padding-top 0 $modal-padding-bottom;
+      max-height: calc(100vh - 2rem);
 
       .va-modal__header,
       .va-modal__footer,
@@ -394,6 +396,10 @@ export default class VaModal extends mixins(
         overflow: auto;
       }
     }
+
+    .va-modal__dialog {
+      overflow: hidden;
+    }
   }
 
   &__message {
@@ -401,12 +407,11 @@ export default class VaModal extends mixins(
   }
 
   &__inner {
-    overflow: auto;
+    overflow: visible;
     display: flex;
     position: relative;
     flex-flow: column;
     padding: $modal-padding-top $modal-padding-right $modal-padding-bottom $modal-padding-left;
-    max-height: calc(100vh - 2rem);
     max-width: map_get($grid-breakpoints, md);
     margin: auto;
 

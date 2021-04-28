@@ -65,7 +65,7 @@ import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/Selectable
 import VaIcon from '../va-icon/'
 import { VaInputWrapper } from '../va-input'
 
-type ModelValue = boolean | boolean[] | string | object
+type ModelValue = boolean | boolean[] | string | Record<string, unknown>
 
 class CheckboxProps {
   modelValue = prop<ModelValue>({
@@ -73,6 +73,7 @@ class CheckboxProps {
     default: false,
   })
 
+  color = prop<string>({ type: String, default: 'primary' })
   checkedIcon = prop<string>({ type: String, default: 'check' })
   indeterminateIcon = prop<string>({ type: String, default: 'remove' })
 }

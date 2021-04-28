@@ -1,27 +1,24 @@
 <template>
   <va-button-group
-    class="va-pagination"
     v-if="showPagination"
+    class="va-pagination"
+    :flat="$props.flat"
+    :size="$props.size"
+    :color="$props.color"
+    outline
   >
     <va-button
       v-if="showBoundaryLinks"
-      outline
-      :color="$props.color"
-      :size="$props.size"
       :disabled="$props.disabled || currentValue === 1"
       :icon="$props.boundaryIconLeft"
       @click="onUserInput(1)"
-      :flat="$props.flat"
     />
     <va-button
       v-if="showDirectionLinks"
       outline
-      :color="$props.color"
-      :size="$props.size"
       :disabled="$props.disabled || currentValue === 1"
       :icon="$props.directionIconLeft"
       @click="onUserInput(currentValue - 1)"
-      :flat="$props.flat"
     />
     <slot v-if="!$props.input">
       <va-button
@@ -29,15 +26,12 @@
         outline
         v-for="(n, key) in paginationRange"
         :key="key"
-        :color="$props.color"
-        :size="$props.size"
         :disabled="$props.disabled || n === '...'"
         :class="{
           'va-button--ellipsis': n === '...',
         }"
 
         @click="onUserInput(n)"
-        :flat="$props.flat"
       >
         {{ n }}
       </va-button>
@@ -62,21 +56,15 @@
     <va-button
       v-if="showDirectionLinks"
       outline
-      :color="$props.color"
-      :size="$props.size"
       :disabled="$props.disabled || currentValue === lastPage"
       :icon="$props.directionIconRight"
       @click="onUserInput(currentValue + 1)"
-      :flat="$props.flat"
     />
     <va-button
       v-if="showBoundaryLinks"
       outline
-      :color="$props.color"
-      :size="$props.size"
       :disabled="$props.disabled || currentValue === lastPage"
       :icon="$props.boundaryIconRight"
-      :flat="$props.flat"
       @click="onUserInput(lastPage)"
     />
   </va-button-group>
@@ -100,6 +88,7 @@ class PaginationProps {
   visiblePages = prop<number>({ type: Number, default: 0 })
   pages = prop<number>({ type: Number, default: 0 })
   disabled = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: 'primary' })
   size = prop<string>({
     type: String,
     default: 'medium',

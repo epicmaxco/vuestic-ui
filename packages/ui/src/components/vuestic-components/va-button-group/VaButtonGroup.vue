@@ -1,66 +1,85 @@
 <template>
-  <div
-    class="va-button-group"
-  >
-    <slot />
+  <div class="va-button-group" :style="computedStlye" :class="computedClass">
+    <va-config :components="context.buttonConfig">
+      <slot />
+    </va-config>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Options, prop, setup } from 'vue-class-component'
-import { InjectionKey, reactive, provide } from 'vue'
-
-export const ButtonGroupServiceKey: InjectionKey<{ color?: string }> = Symbol('ButtonGroupService')
+import VaConfig from '../va-config'
+import { reactive } from 'vue'
+import { getGradientBackground } from '../../../services/color-config/color-functions'
+import { getColor } from '../../../services/color-config/color-config'
 
 class Props {
-  color = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'primary' });
+  textColor = prop<string>({ type: String, default: undefined });
+  round = prop<boolean>({ type: Boolean, default: true });
+  outline = prop<boolean>({ type: Boolean, default: false });
+  flat = prop<boolean>({ type: Boolean, default: false });
+  size = prop<string>({
+    type: String,
+    default: 'medium',
+    validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+  })
 }
 
 @Options({
   name: 'VaButtonGroup',
+  components: { VaConfig },
 })
 export default class VaButtonGroup extends Vue.with(Props) {
   context = setup(() => {
-    const va = reactive({
-      color: this.color,
+    const isTransparentBackground = this.outline || this.flat
+    const buttonConfig = reactive({
+      VaButton: {
+        ...this.$props,
+        color: isTransparentBackground ? this.color : '#00000000',
+      },
     })
 
-    provide(ButtonGroupServiceKey, va)
+    return { getColor, buttonConfig }
+  });
 
-    return {
-      va,
+  get computedGradiend () {
+    if (this.outline || this.flat) {
+      return ''
     }
-  })
 
-  // get computedClass () {
-  //   return {
-  //     'va-button-group--large': this.large,
-  //     'va-button-group--small': this.small,
-  //     'va-button-group--normal': !this.large && !this.small,
-  //   }
-  // }
+    const color = this.context.getColor(this.color)
+
+    return getGradientBackground(color)
+  }
+
+  get computedStlye () {
+    return {
+      'background-image': this.computedGradiend,
+    }
+  }
+
+  get computedClass () {
+    return {
+      'va-button-group_square': !this.round,
+    }
+  }
 }
 </script>
 
-<style lang='scss'>
-@import '../../vuestic-sass/resources/resources';
-@import 'variables';
+<style lang="scss">
+@import "../../vuestic-sass/resources/resources";
+@import "variables";
 
 .va-button-group {
   display: flex;
   justify-content: stretch;
-  // margin: 0.375rem 0.5rem;
+  width: max-content;
+  overflow: hidden;
+  border-radius: 9999999px;
 
-  &--large {
-    border-radius: var(--va-button-group-lg-border-radius);
-  }
-
-  &--small {
-    border-radius: var(--va-button-group-sm-border-radius);
-  }
-
-  &--normal {
-    border-radius: var(--va-button-group-border-radius, var(--form-border-radius));
+  &_square {
+    border-radius: var(--va-button-square-border-radius);
   }
 
   .va-button {

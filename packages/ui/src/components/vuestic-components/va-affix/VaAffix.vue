@@ -29,7 +29,7 @@ import {
 class AffixProps {
   offsetTop = prop<number>({ type: Number, default: undefined })
   offsetBottom = prop<number>({ type: Number, default: undefined })
-  target = prop<Function>({ type: Function, default: () => () => window })
+  target = prop({ type: Function, default: () => () => window })
 }
 
 const AffixPropsMixin = Vue.with(AffixProps)
@@ -46,7 +46,7 @@ export default class VaAffix extends mixins(
     isBottomAffixed: false,
   }
 
-  private initialPosition?: undefined | ClientRect
+  private initialPosition?: undefined | DOMRect
   private clearEventListeners = noop
 
   get computedClass () {
@@ -97,7 +97,7 @@ export default class VaAffix extends mixins(
       return this.offsetBottom
     }
 
-    const convertToPixels = (calculate: Function) => {
+    const convertToPixels = (calculate: () => number | undefined) => {
       const result = calculate()
 
       if (result === undefined) {

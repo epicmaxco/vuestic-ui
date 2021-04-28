@@ -5,7 +5,7 @@ import { CleaveOptions } from 'cleave.js/options'
 import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { FormComponentMixin } from '../../../vuestic-mixins/FormComponent/FormComponentMixin'
 
-const DEFAULT_MASK_TOKENS: Record<string, object> = {
+const DEFAULT_MASK_TOKENS: Record<string, Record<string, unknown>> = {
   creditCard: {
     creditCard: true,
   },

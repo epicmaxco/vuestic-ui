@@ -298,17 +298,20 @@ export default {
 
 <style lang="scss">
 .va-input-css-classes-demo {
- .mb-4 {
-   margin-bottom: 4rem;
- }
- .red {
-   color: red;
- }
- .p-2 {
-   padding: 2rem;
- }
- .bg-gray {
-   background-color: grey;
- }
+  .mb-4 {
+    margin-bottom: 4rem;
+  }
+
+  .red {
+    color: red;
+  }
+
+  .p-2 {
+    padding: 2rem;
+  }
+
+  .bg-gray {
+    background-color: grey;
+  }
 }
 </style>

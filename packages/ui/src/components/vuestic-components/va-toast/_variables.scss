@@ -1,4 +1,4 @@
-:root{
+:root {
   --va-toast-display: flex;
   --va-toast-width: 330px;
   --va-toast-padding: 14px 26px 14px 13px;
@@ -12,34 +12,33 @@
   --va-toast-transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   --va-toast-overflow: hidden;
 
-
-  /*Group*/
+  /* Group */
   --va-toast-group-margin-left: 13px;
   --va-toast-group-margin-right: 8px;
 
-  /*Title*/
+  /* Title */
   --va-toast-title-font-weight: bold;
   --va-toast-title-font-size: 1rem;
   --va-toast-title-color: #303133;
   --va-toast-title-margin: 0 0 6px;
 
-  /*Content*/
+  /* Content */
   --va-toast-content-font-size: 1rem;
   --va-toast-content-line-height: 21px;
   --va-toast-content-padding-right: 20px;
 
-  /*Icon*/
+  /* Icon */
   --va-toast-icon-height: 24px;
   --va-toast-icon-width: 24px;
   --va-toast-icon-font-size: 24px;
 
-  /*Icon Close*/
+  /* Icon Close */
   --va-toast-close-icon-position: absolute;
   --va-toast-close-icon-top: 18px;
   --va-toast-close-icon-right: 15px;
   --va-toast-close-icon-cursor: pointer;
   --va-toast-close-icon-font-size: 1rem;
 
-  /*Hover*/
+  /* Hover */
   --va-toast-hover-color: #909399;
 }

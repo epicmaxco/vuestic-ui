@@ -1,5 +1,5 @@
 :root {
-  /*General*/
+  /* General */
   --va-badge-py: 0;
   --va-badge-font-size: 0.625rem;
   --va-badge-border: 0.125rem;
@@ -9,9 +9,11 @@
   --va-badge-position: relative;
   --va-badge-line-height: 1.4;
   --va-badge-margin: 0;
-  /*Dot*/
+
+  /* Dot */
   --va-badge-dot-size: 0.5rem;
-  /*Text wrapper*/
+
+  /* Text wrapper */
   --va-badge-text-wrapper-transition: 0.2s cubic-bezier(0.4, 0, 0.6, 1);
   --va-badge-text-wrapper-display: inline-flex;
   --va-badge-text-wrapper-border: solid 0.125rem;
@@ -29,7 +31,8 @@
   --va-badge-text-wrapper-min-height: initial;
   --va-badge-text-wrapper-margin: 0;
   --va-badge-text-transform: uppercase;
-  /*Text*/
+
+  /* Text */
   --va-badge-text-py: 0;
   --va-badge-text-px: 0.25rem;
 }

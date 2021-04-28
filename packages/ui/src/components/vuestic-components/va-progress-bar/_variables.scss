@@ -2,28 +2,35 @@
   --va-progress-bar-width: 100%;
   --va-progress-bar-position: relative;
   --va-progress-bar-overflow: hidden;
-  /*Small*/
+
+  /* Small */
   --va-progress-bar-sm-height: 2px;
-  /*Large*/
+
+  /* Large */
   --va-progress-bar-lg-height: 16px;
-  /*Info*/
+
+  /* Info */
   --va-progress-bar-info-font-weight: 700;
   --va-progress-bar-info-text-align: center;
   --va-progress-bar-info-text-transform: uppercase;
-  /*Wrapper*/
+
+  /* Wrapper */
   --va-progress-bar--wrapper-position: relative;
   --va-progress-bar--wrapper-overflow: hidden;
   --va-progress-bar--wrapper-border-radius: 0.5rem;
-  /*Square*/
+
+  /* Square */
   --va-progress-bar-square-border-radius: 0;
-  /*Buffer*/
+
+  /* Buffer */
   --va-progress-bar-buffer-position: absolute;
   --va-progress-bar-buffer-top: 0;
   //--va-progress-bar-buffer-height: inherit;
   //--va-progress-bar-buffer-border-radius: inherit;
   --va-progress-bar-buffer-opacity: 0.3;
   --va-progress-bar-buffer-transition: width ease 2s;
-  /*Overlay*/
+
+  /* Overlay */
   //--va-progress-bar-height: inherit;
   //--va-progress-bar-border-radius: inherit;
   --va-progress-bar-transition: width ease 2s;
@@ -33,10 +40,12 @@
   --va-progress-bar-line-height: 16px;
   --va-progress-bar-font-size: 12px;
   --va-progress-bar-font-weight: 700;
-  /*Circle*/
+
+  /* Circle */
   --va-progress-circle-position: relative;
   --va-progress-circle-overflow: hidden;
-  /*Circle Wrapper*/
+
+  /* Circle Wrapper */
   --va-progress-circle-wrapper-position: absolute;
   --va-progress-circle-wrapper-top: 0;
   --va-progress-circle-wrapper-left: 0;
@@ -46,9 +55,11 @@
   --va-progress-circle-wrapper-transform: rotate(-90deg);
   --va-progress-circle-wrapper-width: 80%;
   --va-progress-circle-wrapper-height: 80%;
-  /*Circle Overlay*/
+
+  /* Circle Overlay */
   --va-progress-circle-overlay-transition: all ease 2s;
-  /*Circle Info*/
+
+  /* Circle Info */
   --va-progress-circle-info-font-size: 0.75rem;
   --va-progress-circle-info-position: absolute;
   --va-progress-circle-info-left: 50%;

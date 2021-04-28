@@ -1,9 +1,11 @@
 :root {
-  /*General*/
+  /* General */
   --va-breadcrumb-item-display: inline-flex;
   --va-breadcrumb-item-color: inherit;
-  /*Hovered*/
+
+  /* Hovered */
   --va-breadcrumb-item-hover-opacity: 0.7;
-  /*Focused*/
+
+  /* Focused */
   --va-breadcrumb-item-focus-text-decoration: underline;
 }

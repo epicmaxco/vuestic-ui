@@ -17,10 +17,10 @@ export default class VaSeparator extends Vue {
 @import 'variables';
 
 .va-separator {
-  height: var(va-separator-height);
-  background-color: var(va-separator-background-color);
-  margin-top: var(va-separator-margin-top);
-  margin-bottom: var(va-separator-margin-bottom);
+  height: var(--va-separator-height);
+  background-color: var(--va-separator-background-color);
+  margin-top: var(--va-separator-margin-top);
+  margin-bottom: var(--va-separator-margin-bottom);
 
   .va-tabs + & {
     margin-top: 0;

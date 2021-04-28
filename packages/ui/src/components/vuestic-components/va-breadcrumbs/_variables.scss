@@ -1,11 +1,13 @@
 :root {
-  /*General*/
+  /* General */
   --va-breadcrumbs-display: flex;
   --va-breadcrumbs-width: 100%;
   --va-breadcrumbs-justify-content: center;
-  /*Item*/
+
+  /* Item */
   --va-breadcrumbs-item-display: inline-flex;
-  /*Separator*/
+
+  /* Separator */
   --va-breadcrumbs-separator-padding: var(--va-breadcrumbs-separator-py) var(--va-breadcrumbs-separator-px);
   --va-breadcrumbs-separator-py: 0;
   --va-breadcrumbs-separator-px: 0.5rem;

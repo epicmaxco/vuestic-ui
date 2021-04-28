@@ -56,6 +56,7 @@ export default class VaColorPalette extends Vue.with(ColorPaletteProps) {
 
     & > * {
       margin-right: 0.25rem;
+
       &:last-child {
         margin-right: 0;
       }

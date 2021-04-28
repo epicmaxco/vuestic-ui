@@ -83,7 +83,7 @@ import { VaProgressCircle } from '../va-progress-bar'
 import { VaInputWrapper } from '../va-input'
 
 class SwitchProps {
-  modelValue = prop<boolean | any[] | string | object>({
+  modelValue = prop<boolean | any[] | string | Record<string, unknown>>({
     type: [Boolean, Array, String, Object],
     default: false,
   })
@@ -100,6 +100,7 @@ class SwitchProps {
   falseLabel = prop<string>({ type: String, default: null })
   trueInnerLabel = prop<string>({ type: String, default: null })
   falseInnerLabel = prop<string>({ type: String, default: null })
+  color = prop<string>({ type: String, default: 'primary' })
 }
 
 const SwitchPropsMixin = Vue.with(SwitchProps)
@@ -170,11 +171,6 @@ export default class VaSwitch extends mixins(
   get labelStyle () {
     return {
       color: this.$props.error ? this.theme.getColor('danger') : '',
-      padding: !this.$props.label && !(this.$props.trueLabel || this.$props.falseLabel)
-        ? ''
-        : this.$props.leftLabel
-          ? '0 0.3rem 0 0'
-          : '0 0 0 0.3rem',
     }
   }
 }
@@ -189,12 +185,10 @@ export default class VaSwitch extends mixins(
     .va-switch__container {
       display: var(--va-switch-container-display);
       align-items: var(--va-switch-container-align-items);
-      padding: var(--va-switch-container-padding);
     }
   }
 
   display: var(--va-switch-display);
-  margin-bottom: var(--va-switch-margin-bottom);
 
   &:focus {
     outline: none;
@@ -253,6 +247,10 @@ export default class VaSwitch extends mixins(
     .va-switch__container {
       flex-direction: row-reverse;
     }
+
+    .va-switch__label {
+      padding: 0 var(--va-switch-label-left-padding) 0 0;
+    }
   }
 
   &--checked {
@@ -279,6 +277,7 @@ export default class VaSwitch extends mixins(
   &__label {
     cursor: pointer;
     text-align: left;
+    padding: 0 0 0 var(--va-switch-label-right-padding);
   }
 
   #{&}__track {

@@ -1,23 +1,9 @@
-/**
- * You can import concrate config.
- *
- * @example
- * ```
- * import { md } from 'vuestic/config/icons'
- * ```
- */
-export const fontPresets = {
-  md_as_default: {
-    name: /.*/,
-    iconClass: 'material-icons',
-    content: (content: string) => content,
-  },
-}
+import { IconConfig } from './../types'
 
-export const VuesticIconFonts = [
+export const VuesticIconFonts: IconConfig = [
   {
-    name: /.*/,
-    iconClass: 'material-icons',
-    content: (content: string) => content,
+    name: '{icon}',
+    class: 'material-icons',
+    resolve: ({ icon }) => ({ content: icon }),
   },
 ]

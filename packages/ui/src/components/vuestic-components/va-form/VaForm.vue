@@ -34,7 +34,7 @@ export default class VaForm extends mixins(
 ) {
   nestedFormElements: (FormComponentMixin | VaForm)[] = [];
 
-  parentFormProvider: FormProvider | object = setup(() => {
+  parentFormProvider: FormProvider | Record<string, unknown> = setup(() => {
     return {
       ...inject(FormServiceKey, undefined),
     }
