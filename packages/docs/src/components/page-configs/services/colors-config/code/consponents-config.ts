@@ -1,13 +1,15 @@
 export const componentsConfigCode = `
-  setGlobalConfig({
-    colors: {
-      primary: '#ff00ff',
-      button: '#000'
-    },
-    components: {
-      VaButton: {
-        color: 'button'
-      }
-    }.
-  })
+import { mergeGlobalConfig } from 'vuestic-ui'
+
+mergeGlobalConfig({
+  colors: {
+    primary: '#ff00ff',
+    button: '#000'
+  },
+  components: {
+    VaButton: {
+      color: 'button'
+    }
+  }.
+})
 `

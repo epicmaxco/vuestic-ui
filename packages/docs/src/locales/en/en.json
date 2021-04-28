@@ -2762,8 +2762,15 @@
       "about": "For example, we can change `primary` color that used in almost all Vuestic components.",
       "demo": "You can check demo below and see how colors changing over all page."
     },
-    "exampleWithComponentsConfig": {
-      "about": "Also we can add our own color and use it for specific components."
+    "reactivity": {
+      "subtitle": "Reactivity",
+      "about": "As you can see methods like `getColor`, `getColors` does not return `Proxy`. If you want to use color as reactive Proxy you can simply use computed properties like in example above."
+    },
+    "otherServices": {
+      "subtitle": "Colors config with other services",
+      "components": "You can use your color in Components config.",
+      "icons": "Also in Icons config you can use custom color as icon color.",
+      "css": "Also CSS variables has same color variables as you define in color config that dynamically changing along with Colors config. "
     },
     "api": {
       "title": "Icon config service API",
@@ -2771,7 +2778,7 @@
       "ColorConfig": "Object where key is color name and value is valid CSS color.",
       "ColorInput": "Valid CSS color",
       "methods": "Methods",
-      "setColors": "Used to merge new colors config",
+      "setColors": "Used to merge new colors into config or update existing colors.",
       "getColors": "Returns current color config",
       "getColor": "Return color by name",
       "getBoxShadowColor": "Return color that you can use as box shadow color.",

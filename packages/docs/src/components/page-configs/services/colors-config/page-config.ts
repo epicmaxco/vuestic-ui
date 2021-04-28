@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { componentsConfigCode } from './code'
-import { api } from './sections'
+import { api, reactivity, otherServices } from './sections'
 
 const p = (t: string) => `colorsConfig.${t}`
 const example = (t: string) => p(`example.${t}`)
@@ -15,8 +15,7 @@ export default [
   DocsHelper.paragraph(example('demo')),
   DocsHelper.example('colors-config/change-colors'),
 
-  DocsHelper.paragraph(componentsExample('about')),
-  DocsHelper.code(componentsConfigCode),
-
+  ...reactivity,
+  ...otherServices,
   ...api,
 ] as ApiDocsBlock[]
