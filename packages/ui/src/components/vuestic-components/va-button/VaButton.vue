@@ -276,7 +276,7 @@ export default class VaButton extends mixins(
   &__content {
     display: flex;
     align-items: center;
-    //height: 100%;
+    height: 100%;
 
     &__title,
     &__icon {
