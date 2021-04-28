@@ -10,14 +10,14 @@ export const getBoxShadowColor = (color: ColorInput) => {
 }
 
 export const getHoverColor = (color: ColorInput) => {
-  return new ColorTranslator(color).setA(0.2).RGBA
+  return new ColorTranslator(color).setA(0.08).RGBA
 }
 
 export const getFocusColor = (color: ColorInput) => {
-  return new ColorTranslator(color).setA(0.3).RGBA
+  return new ColorTranslator(color).setA(0.08).RGBA
 }
 
-export const shiftHslColor = (color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => {
+export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => {
   const result = new ColorTranslator(color)
 
   if (offset.h) {
@@ -51,28 +51,28 @@ export const shiftGradientColor = (color: ColorInput): string => {
 
   // Gray
   if (newColor.s < 10) {
-    return shiftHslColor(newColor, { h: 2, s: 5, l: 10 })
+    return shiftHSLAColor(newColor, { h: 2, s: 5, l: 10 })
   }
   // Unsaturated (too pale, gray-ish, monotone)
   // For unsaturated color, hue change does nothing.
   if (newColor.s < 30) {
-    return shiftHslColor(newColor, { s: -14, l: 11 })
+    return shiftHSLAColor(newColor, { s: -14, l: 11 })
   }
   // Red
   if ((newColor.h >= 0 && newColor.h < 44) || (newColor.h >= 285)) {
-    return shiftHslColor(newColor, { h: 11, s: 27, l: 8 })
+    return shiftHSLAColor(newColor, { h: 11, s: 27, l: 8 })
   }
   // Yellow
   if (newColor.h >= 44 && newColor.h < 85) {
-    return shiftHslColor(newColor, { h: 3, l: 9 })
+    return shiftHSLAColor(newColor, { h: 3, l: 9 })
   }
   // Green
   if (newColor.h >= 85 && newColor.h < 165) {
-    return shiftHslColor(newColor, { h: 16, l: 14 })
+    return shiftHSLAColor(newColor, { h: 16, l: 14 })
   }
   // Blue
   if (newColor.h >= 165 && newColor.h < 285) {
-    return shiftHslColor(newColor, { h: -15, s: 3, l: 2 })
+    return shiftHSLAColor(newColor, { h: -15, s: 3, l: 2 })
   }
 
   throw new Error('This method should handle all colors. But it didn\'t for some reason.')

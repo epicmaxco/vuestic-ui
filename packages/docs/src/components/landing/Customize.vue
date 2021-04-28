@@ -136,7 +136,7 @@ import 'prismjs'
 import dedent from 'dedent'
 // @ts-ignore
 import Prism from 'vue-prism-component'
-import { shiftHslColor } from '../../../../ui/src/services/color-config/color-functions'
+import { shiftHSLAColor } from '../../../../ui/src/services/color-config/color-functions'
 import { getColors } from '../../../../ui/src/services/color-config/color-config'
 
 @Options({
@@ -192,10 +192,10 @@ export default class Customize extends Vue {
   get bgGradientStyle () {
     return {
       //  background: `linear-gradient(180.81deg, ${this.$themes.primary} 0.7%, ${colorToRgba(this.$themes.primary, 0.8)} 99.3%)`,
-      background: `linear-gradient(180.81deg, ${shiftHslColor(this.colors.primary, {
+      background: `linear-gradient(180.81deg, ${shiftHSLAColor(this.colors.primary, {
         s: -15,
         l: -20,
-      })} 0.7%, ${shiftHslColor(this.colors.primary, {
+      })} 0.7%, ${shiftHSLAColor(this.colors.primary, {
         h: 10,
         s: -5,
         l: -10,
