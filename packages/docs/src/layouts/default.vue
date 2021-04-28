@@ -5,7 +5,7 @@
       class="base-layout__header"
     />
     <main id="base-layout" class="base-layout__main">
-      <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes" />
+      <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes"/>
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
@@ -23,12 +23,12 @@
             :style="{ color: 'gray' }"
           />
           <template #separator>
-            <va-icon name="arrow_forward_ios" :size="16" />
+            <va-icon name="arrow_forward_ios" :size="16"/>
           </template>
         </va-breadcrumbs>
 
         <div class="layout gutter--xl">
-          <router-view />
+          <router-view/>
         </div>
       </div>
     </main>
@@ -85,7 +85,30 @@ export default class DocsLayout extends Vue {
   }
 
   get navigationRoutes () {
-    return navigationRoutes
+    // ToDO: normalize navigation routes with better structure. This sort is temporary solution
+    const routes = JSON.parse(JSON.stringify(navigationRoutes))
+    const uiElementsIndex = routes.findIndex(route => route.name === 'ui-elements')
+    const uiElements = routes.find(route => route.name === 'ui-elements').children
+    let result = []
+    let nextCategoryIndex
+    // Sort elements alphabetically
+    do {
+      let tempArr = []
+      const tempCategoryName = uiElements[0].category
+      delete uiElements[0].category
+      nextCategoryIndex = uiElements.findIndex(element => element.category)
+      if (nextCategoryIndex !== -1) {
+        tempArr = uiElements.slice(0, nextCategoryIndex).sort((a, b) => a.name.localeCompare(b.name))
+      } else {
+        tempArr = uiElements.slice(0, uiElements.length).sort((a, b) => a.name.localeCompare(b.name))
+      }
+      tempArr[0].category = tempCategoryName
+      result = [...result, ...tempArr]
+      uiElements.splice(0, nextCategoryIndex)
+    } while (uiElements.length && nextCategoryIndex !== -1)
+
+    routes[uiElementsIndex].children = result
+    return routes
   }
 
   beforeDestroy () {
@@ -112,20 +135,20 @@ export default class DocsLayout extends Vue {
     const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
     return pathSteps.reduce((acc, step, index, array) => {
       switch (true) {
-      case !index:
-        acc.push({
-          label: 'Home',
-          path: `/${this.$root.$i18n.locale}/`,
-        })
-        break
-      case !step && index:
-        break
-      default:
-        acc.push({
-          path: '/' + array.slice(0, index + 1).join('/'),
-          label: step,
-        })
-        break
+        case !index:
+          acc.push({
+            label: 'Home',
+            path: `/${this.$root.$i18n.locale}/`,
+          })
+          break
+        case !step && index:
+          break
+        default:
+          acc.push({
+            path: '/' + array.slice(0, index + 1).join('/'),
+            label: step,
+          })
+          break
       }
       return acc
     }, [] as { [key: string]: string, }[])
