@@ -46,6 +46,7 @@ export default [
   DocsHelper.link(t(links('components')), `/${locale}/services/components-config`),
   DocsHelper.link(t(links('colors')), `/${locale}/services/colors-config`),
   DocsHelper.link(t(links('icons')), `/${locale}/services/icons-config`),
+  DocsHelper.subtitle('all.api'),
   DocsHelper.table(
     ['params', { title: 'type', type: 'code' }, { title: 'Description', type: 'markdown' }],
     [

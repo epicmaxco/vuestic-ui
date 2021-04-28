@@ -12,7 +12,8 @@
         <va-button icon="visibility">
           I already read it before
         </va-button>
-        <va-button icon="close" color="danger">
+        <va-button color="danger">
+          <va-icon name="close" color="danger" />
           Close
         </va-button>
       </div>
