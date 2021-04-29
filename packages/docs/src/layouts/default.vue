@@ -44,6 +44,7 @@ import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../config/theme-config'
 import { setColors } from '../../../ui/src/main'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
+import { debounce } from 'lodash'
 
 @Options({
   components: {
@@ -82,9 +83,9 @@ export default class DocsLayout extends Vue {
     }
 
     this.isSmallScreenDevice = window.innerWidth <= 575
-    window.addEventListener('resize', () => {
-      this.isSmallScreenDevice = window.innerWidth <= 575
-    })
+
+    const onResizeDebounce = debounce(() => { this.isSmallScreenDevice = window.innerWidth <= 575 }, 500)
+    window.addEventListener('resize', () => onResizeDebounce())
 
     this.isSidebarVisible = !this.isSmallScreenDevice
   }
@@ -205,6 +206,7 @@ html {
     // Need to use flex-grow and overflow hidden to resize `main` to remaining height.
     flex-grow: 2;
     overflow: hidden;
+    z-index: 0;
   }
 
   &__header {
@@ -222,7 +224,6 @@ html {
 
     padding: 2em;
     padding-top: 0;
-    max-width: calc(100% - 16rem);
 
     & > :last-child {
       padding-bottom: 2em;

@@ -1,5 +1,5 @@
 <template>
-  <va-sidebar class="sidebar" v-model="visible">
+  <va-sidebar class="sidebar" v-model="visible" :width="sidebarWidth">
     <algolia-search />
 
     <va-accordion v-model="value" multiply>
@@ -96,6 +96,14 @@ export default class Sidebar extends Vue.with(Props) {
     })
   }
 
+  get sidebarWidth () {
+    if (this.mobile) {
+      return '100%'
+    }
+
+    return '16rem'
+  }
+
   onSidebarItemClick () {
     if (this.mobile) {
       this.$emit('update:visible', false)
@@ -118,7 +126,6 @@ export default class Sidebar extends Vue.with(Props) {
   }
 
   @include media-breakpoint-down(xs) {
-    width: 100% !important;
     z-index: 100;
     position: absolute;
   }
