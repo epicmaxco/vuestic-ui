@@ -8,6 +8,7 @@
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
+        ref='page-content'
       >
         <va-breadcrumbs
           align="left"
@@ -36,7 +37,7 @@
 
 <script lang="ts">
 // @ts-nocheck
-import { provide, reactive } from 'vue'
+import { provide, reactive, watch } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
@@ -71,6 +72,7 @@ export default class DocsLayout extends Vue {
   })
 
   created () {
+    watch(() => (this as any).$route, this.onRouteChange)
     this.$root.eventBus.$on('changeTheme', this.changeTheme)
   }
 
@@ -155,6 +157,14 @@ export default class DocsLayout extends Vue {
       }
       return acc
     }, [] as { [key: string]: string, }[])
+  }
+
+  onRouteChange () {
+    const pageContent: Element | undefined = this.$refs['page-content']
+
+    pageContent.scrollTop = 0
+
+    if (pageContent) { pageContent.scrollTop = 0 }
   }
 }
 </script>
