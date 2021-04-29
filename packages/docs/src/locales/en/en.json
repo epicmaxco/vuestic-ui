@@ -2458,12 +2458,12 @@
       "description": "Make sure you're imported both styles and plugin into your entry file:"
     },
     "cli": {
-      "title": "Vue-CLI installation",
-      "prepare": "To work with Vuestic UI via its Vue CLI plugin, you will need to make sure you have <a href=\"https://cli.vuejs.org/guide/installation.html\">Vue CLI</a> installed globally. To make sure you have the right version, use this command:",
-      "upgrade": "If you have **Vue CLI version 3.x.x** or lower you should `upgrade` it by the following <a href=\"https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3\">guide</a>",
+      "title": "Vue CLI installation",
+      "prepare": "Before install make sure [Vue CLI](https://cli.vuejs.org/guide/installation.html) is installed globally and has version 4+:",
+      "upgrade": "For Vue CLI version 3 here's [a guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3) to help you update your app.",
       "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic UI on the scratch project.",
       "attention": "**Attention! Using that way will make changes in you `package.json` dependencies and `main.js(ts)` files. Make sure that you commit your code to avoid data loss.**",
-      "codeAnnotation": "After you have Vue-CLI project you could install Vustic as a Vue-CLI package:"
+      "codeAnnotation": "After you have Vue-CLI project you could install Vuestic UI as a Vue-CLI package:"
     },
     "nuxt": {
       "title": "Nuxt installation",
@@ -2537,7 +2537,11 @@
   },
   "browserSupport": {
     "title": "Browser Support",
-    "description": "We design Vuestic UI to support the latest modern web browsers."
+    "description": "We design Vuestic UI to be future proof. That's why we support modern browsers, but some old browsers, such as IE had to go, sorry. That decision was influenced by [dropped support in Vue 3](https://github.com/vuejs/rfcs/discussions/296) and [falling usage rate](https://caniuse.com/usage-table).",
+    "table": {
+      "browser": "Browser",
+      "supported": "Supported"
+    }
   },
   "overview": {
     "title": "What is Vuestic UI",
