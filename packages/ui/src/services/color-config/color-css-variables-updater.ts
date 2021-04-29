@@ -2,7 +2,7 @@ import { watch } from 'vue'
 import { useGlobalConfig } from '../global-config/global-config'
 
 export const setCSSVariable = (name: string, value: string, root = document.documentElement) => {
-  root.style.setProperty(`--${name}`, value)
+  root.style.setProperty(`--va-${name}`, value)
 }
 
 const ColorHelpersPlugin = {
