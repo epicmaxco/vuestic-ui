@@ -1,5 +1,5 @@
 <template>
-  <div class="va-button-group" :style="computedStlye" :class="computedClass">
+  <div class="va-button-group" :style="computedStyle" :class="computedClass">
     <va-config :components="context.buttonConfig">
       <slot />
     </va-config>
@@ -14,11 +14,12 @@ import { getGradientBackground } from '../../../services/color-config/color-func
 import { getColor } from '../../../services/color-config/color-config'
 
 class Props {
-  color = prop<string>({ type: String, default: 'primary' });
-  textColor = prop<string>({ type: String, default: undefined });
-  round = prop<boolean>({ type: Boolean, default: true });
-  outline = prop<boolean>({ type: Boolean, default: false });
-  flat = prop<boolean>({ type: Boolean, default: false });
+  color = prop<string>({ type: String, default: 'primary' })
+  gradient = prop<boolean>({ type: Boolean, default: undefined })
+  textColor = prop<string>({ type: String, default: undefined })
+  round = prop<boolean>({ type: Boolean, default: true })
+  outline = prop<boolean>({ type: Boolean, default: false })
+  flat = prop<boolean>({ type: Boolean, default: false })
   size = prop<string>({
     type: String,
     default: 'medium',
@@ -39,23 +40,25 @@ export default class VaButtonGroup extends Vue.with(Props) {
         color: isTransparentBackground ? this.color : '#00000000',
       },
     })
-
     return { getColor, buttonConfig }
-  });
+  })
 
-  get computedGradiend () {
+  get computedBackground () {
     if (this.outline || this.flat) {
       return ''
     }
 
     const color = this.context.getColor(this.color)
-
-    return getGradientBackground(color)
+    if (this.gradient) {
+      return getGradientBackground(color)
+    }
+    return color
   }
 
-  get computedStlye () {
+  get computedStyle () {
+    const backgroundProperty = this.gradient ? 'background-image' : 'background'
     return {
-      'background-image': this.computedGradiend,
+      [backgroundProperty]: this.computedBackground,
     }
   }
 
@@ -84,6 +87,7 @@ export default class VaButtonGroup extends Vue.with(Props) {
 
   .va-button {
     margin: var(--va-button-group-button-margin);
+    box-shadow: none !important;
   }
 
   & > .va-button:last-child {

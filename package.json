@@ -24,7 +24,7 @@
     "push-production": "yarn workspace vuestic-ui push-production",
     "generate:docs": "yarn workspace docs generate:docspage",
     "generate:component": "yarn workspace docs generate:component",
-    "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve; split-pane -d packages/docs --title vuestic-docs cmd /k yarn serve"
+    "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve --port 8080; split-pane -d packages/docs --title vuestic-docs cmd /k yarn serve --port 8081"
   },
   "workspaces": [
     "packages/*"
