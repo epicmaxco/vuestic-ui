@@ -48,7 +48,7 @@ export default class VaSidebar extends SidebarPropsMixin {
 
   get computedStyle () {
     return {
-      color: this.textColorComputed,
+      color: this.textColorComputed === undefined ? '' : this.textColorComputed,
       backgroundImage: getGradientBackground(this.colorComputed),
       width: this.computedWidth,
     }
