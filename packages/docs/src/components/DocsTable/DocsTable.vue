@@ -64,6 +64,27 @@ export default class DocsTable extends mixins(PropsMixin) {
 @import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
 
 .DocsTable {
+  overflow-x: auto;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--va-primary);
+    border-radius: 2px;
+  }
+
+  scrollbar-color: var(--va-primary) transparent;
+  scrollbar-width: thin;
+
   &__table {
     width: 100%;
     font-family: "Source Code Pro";
