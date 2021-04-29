@@ -1,9 +1,8 @@
 <template>
   <div class="base-layout">
-    <Header
-      v-model:is-sidebar-visible="isSidebarVisible"
-      class="base-layout__header"
-    />
+    <div class="base-layout__header">
+      <Header v-model:is-sidebar-visible="isSidebarVisible" />
+    </div>
     <main id="base-layout" class="base-layout__main">
       <Sidebar v-model:visible="isSidebarVisible" :navigationRoutes="navigationRoutes" :mobile="isSmallScreenDevice" />
       <div
@@ -169,14 +168,13 @@ html {
   font-size: $font-size-root;
 }
 
-// body {
-//   min-width: $min-body-width;
-// }
-
 .base-layout {
   height: 100vh;
   position: fixed;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
 
   &__breadcrumbs {
     text-transform: capitalize;
@@ -185,29 +183,28 @@ html {
     justify-content: flex-start;
   }
 
+  .va-sidebar {
+    flex-grow: 20rem;
+  }
+
   &__main {
     display: flex;
     flex-direction: row;
-    min-height: $sidebar-viewport-min-height;
-    height: $sidebar-viewport-height;
-    margin-top: 4rem;
-
-    @include media-breakpoint-down(sm) {
-      margin-top: 8rem;
-    }
-
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: 100%;
+    position: relative;
+    // Need to use flex-grow and overflow hidden to resize `main` to remaining height.
+    flex-grow: 2;
+    overflow: hidden;
   }
 
   &__header {
-    z-index: 1;
+    z-index: 2;
     background-color: #ffffff;
   }
 
   &__content {
-    margin-left: 250px;
     height: 100%;
+    width: 100%;
 
     &--expanded {
       margin-left: 0;
@@ -215,11 +212,14 @@ html {
 
     padding: 2em;
     padding-top: 0;
-    width: 100%;
+    max-width: calc(100% - 16rem);
 
     & > :last-child {
       padding-bottom: 2em;
     }
+
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 </style>

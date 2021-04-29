@@ -109,10 +109,17 @@ export default class Sidebar extends Vue.with(Props) {
 
 .sidebar {
   z-index: 1;
-  padding-top: 4rem;
+  height: 100%;
+  min-width: 16rem;
 
-  @include media-breakpoint-down(sm) {
-    padding-top: 8rem;
+  &.va-sidebar--hidden {
+    min-width: 0;
+  }
+
+  @include media-breakpoint-down(xs) {
+    width: 100% !important;
+    z-index: 100;
+    position: absolute;
   }
 
   .va-sidebar-item-content {

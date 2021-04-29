@@ -50,7 +50,7 @@ export default class VaSidebar extends SidebarPropsMixin {
     return {
       color: this.textColorComputed,
       backgroundImage: getGradientBackground(this.colorComputed),
-      width: this.computedWidth || `${this.computedWidth} !important`,
+      width: this.computedWidth,
     }
   }
 
@@ -65,6 +65,7 @@ export default class VaSidebar extends SidebarPropsMixin {
     return {
       'va-sidebar': true,
       'va-sidebar--minimized': this.isMinimized,
+      'va-sidebar--hidden': !this.modelValue,
       'va-sidebar--right': this.$props.position === 'right',
     }
   }
@@ -95,10 +96,6 @@ export default class VaSidebar extends SidebarPropsMixin {
     padding-left: var(--va-sidebar-menu-padding-left);
     overflow-y: var(--va-sidebar-menu-overflow-y);
     overflow-x: var(--va-sidebar-menu-overflow-x);
-  }
-
-  @include media-breakpoint-down(xs) {
-    width: 100% !important;
   }
 
   &--minimized {
