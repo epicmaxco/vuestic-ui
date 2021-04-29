@@ -1,19 +1,19 @@
 <template>
   <VbDemo>
     <VbCard title="Full gradient">
-      <va-button-group :color="value">
+      <va-button-group gradient :color="value">
         <va-button>One</va-button>
         <va-button>Two</va-button>
         <va-button>Three</va-button>
       </va-button-group>
-      <va-button-group color="danger">
+      <va-button-group gradient color="danger">
         <va-button>One</va-button>
         <va-button color="dark">
           Two
         </va-button>
         <va-button>Three</va-button>
       </va-button-group>
-      <va-button-group color="warning">
+      <va-button-group gradient color="warning">
         <va-button>One</va-button>
         <va-button>Two</va-button>
         <va-button>Three</va-button>
@@ -31,7 +31,7 @@
           <td>
             <VbCard title="Default Button Group">
               <va-button-group>
-                <va-button> Button 1</va-button>
+                <va-button color="secondary"> Button 1</va-button>
                 <va-button> Button 2</va-button>
                 <va-button> Button 3</va-button>
               </va-button-group>

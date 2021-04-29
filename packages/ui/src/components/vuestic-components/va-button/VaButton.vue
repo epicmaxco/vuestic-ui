@@ -293,7 +293,7 @@ export default class VaButton extends mixins(
 
     &:focus,
     &:active {
-      filter: brightness(85%);
+      //filter: brightness(85%);
     }
 
     i {

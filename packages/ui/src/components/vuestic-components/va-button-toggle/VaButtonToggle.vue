@@ -25,7 +25,10 @@
 <script lang="ts">
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import { getFocusColor } from '../../../services/color-config/color-functions'
+import {
+  getFocusColor,
+  shiftHSLAColor,
+} from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
@@ -85,8 +88,7 @@ export default class VaButtonToggle extends mixins(
       }
     } else {
       return {
-        backgroundColor: getFocusColor(this.colorComputed),
-        filter: 'brightness(85%)',
+        backgroundColor: shiftHSLAColor(this.colorComputed, { l: -6 }),
         boxShadow: 'none',
       }
     }
@@ -105,4 +107,12 @@ export default class VaButtonToggle extends mixins(
 </script>
 
 <style lang="scss">
+.va-button-toggle {
+  .va-button {
+    &:focus,
+    &:hover {
+      box-shadow: none !important;
+    }
+  }
+}
 </style>
