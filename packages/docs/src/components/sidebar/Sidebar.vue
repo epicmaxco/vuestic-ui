@@ -6,7 +6,6 @@
       <va-collapse
         v-for="(route, key) in navigationRoutes"
         :key="key"
-        class="sidebar__expand"
       >
         <template #header>
           <va-sidebar-item>
@@ -21,10 +20,11 @@
         <div
           v-for="(childRoute, index) in route.children"
           :key="index"
+          class="va-sidebar__child"
         >
           <va-list-label
               v-if="childRoute.category"
-              class="va-sidebar-child__label"
+              class="va-sidebar__child__label"
               color="gray"
             >
               {{ $t(childRoute.category) }}
@@ -35,7 +35,7 @@
             :hoverColor="getColor('secondary')"
             @click="onSidebarItemClick"
           >
-            <va-sidebar-item-content class="va-sidebar-child">
+            <va-sidebar-item-content>
               {{ $t(childRoute.displayName) }}
             </va-sidebar-item-content>
           </va-sidebar-item>
@@ -107,10 +107,11 @@ export default class Sidebar extends Vue.with(Props) {
 <style lang="scss" scoped>
 @import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
 
-.sidebar {
+.va-sidebar {
   z-index: 1;
   height: 100%;
   min-width: 16rem;
+  color: var(--va-dark, #323742);
 
   &.va-sidebar--hidden {
     min-width: 0;
@@ -128,25 +129,10 @@ export default class Sidebar extends Vue.with(Props) {
 
   .va-sidebar-item {
     cursor: pointer;
-
-    .va-sidebar-child {
-      padding-left: 3rem;
-    }
-  }
-
-  .va-sidebar-child__label {
-    padding-top: 1rem;
-    padding-left: 2rem;
-    text-align: left;
-
-    &:first-child {
-      padding-top: 0;
-    }
   }
 
   .va-sidebar-item-title {
     font-weight: bold;
-    color: var(--dark, #323742);
     font-size: 16px;
     line-height: 20px;
   }
@@ -156,6 +142,23 @@ export default class Sidebar extends Vue.with(Props) {
 
     .va-sidebar-item-title {
       color: var(--primary, #4591e3);
+    }
+  }
+
+  &__child {
+    &__label {
+      padding-left: 2rem;
+      text-align: left;
+    }
+
+    .va-sidebar-item-content {
+      padding-left: 3rem;
+    }
+
+    &:first-child {
+      .va-sidebar__child__label {
+        padding-top: 0;
+      }
     }
   }
 }
