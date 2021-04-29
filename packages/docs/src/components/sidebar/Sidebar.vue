@@ -1,5 +1,5 @@
 <template>
-  <va-sidebar class="sidebar" v-model="minimized">
+  <va-sidebar class="sidebar" v-model="visible">
     <algolia-search />
 
     <va-accordion v-model="value" multiply>
@@ -33,6 +33,7 @@
             :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :hoverColor="getColor('secondary')"
+            @click="onSidebarItemClick"
           >
             <va-sidebar-item-content class="va-sidebar-child">
               {{ $t(childRoute.displayName) }}
@@ -53,7 +54,8 @@ import { getColor } from 'vuestic-ui/src/main'
 
 class Props {
   navigationRoutes = prop<any[]>({ type: Array, default: () => [] })
-  minimized = prop<boolean>({ type: Boolean, default: false })
+  visible = prop<boolean>({ type: Boolean, default: false })
+  mobile = prop<boolean>({ type: Boolean, default: false })
 }
 
 @Options({
@@ -93,6 +95,12 @@ export default class Sidebar extends Vue.with(Props) {
       return this.isRouteHasActiveChild(route)
     })
   }
+
+  onSidebarItemClick () {
+    if (this.mobile) {
+      this.$emit('update:visible', false)
+    }
+  }
 }
 </script>
 
@@ -113,6 +121,7 @@ export default class Sidebar extends Vue.with(Props) {
 
   .va-sidebar-item {
     cursor: pointer;
+
     .va-sidebar-child {
       padding-left: 3rem;
     }
@@ -122,6 +131,7 @@ export default class Sidebar extends Vue.with(Props) {
     padding-top: 1rem;
     padding-left: 2rem;
     text-align: left;
+
     &:first-child {
       padding-top: 0;
     }
@@ -136,6 +146,7 @@ export default class Sidebar extends Vue.with(Props) {
 
   .va-sidebar-item--active {
     color: var(--primary, #4591e3);
+
     .va-sidebar-item-title {
       color: var(--primary, #4591e3);
     }

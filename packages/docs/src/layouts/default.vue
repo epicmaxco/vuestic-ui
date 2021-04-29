@@ -5,7 +5,7 @@
       class="base-layout__header"
     />
     <main id="base-layout" class="base-layout__main">
-      <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes"/>
+      <Sidebar v-model:visible="isSidebarVisible" :navigationRoutes="navigationRoutes" :mobile="isSmallScreenDevice" />
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
@@ -23,12 +23,12 @@
             :style="{ color: 'gray' }"
           />
           <template #separator>
-            <va-icon name="arrow_forward_ios" :size="16"/>
+            <va-icon name="arrow_forward_ios" :size="16" />
           </template>
         </va-breadcrumbs>
 
         <div class="layout gutter--xl">
-          <router-view/>
+          <router-view />
         </div>
       </div>
     </main>
@@ -55,6 +55,7 @@ export default class DocsLayout extends Vue {
   data () {
     return {
       isSidebarVisible: true,
+      isSmallScreenDevice: false,
     }
   }
 
@@ -79,9 +80,12 @@ export default class DocsLayout extends Vue {
       document.querySelector(this.$route.hash).scrollIntoView()
     }
 
-    const isSmallScreenDevice = window.innerWidth <= 575
+    this.isSmallScreenDevice = window.innerWidth <= 575
+    window.addEventListener('resize', () => {
+      this.isSmallScreenDevice = window.innerWidth <= 575
+    })
 
-    this.isSidebarVisible = !isSmallScreenDevice
+    this.isSidebarVisible = !this.isSmallScreenDevice
   }
 
   get navigationRoutes () {
@@ -135,20 +139,20 @@ export default class DocsLayout extends Vue {
     const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
     return pathSteps.reduce((acc, step, index, array) => {
       switch (true) {
-        case !index:
-          acc.push({
-            label: 'Home',
-            path: `/${this.$root.$i18n.locale}/`,
-          })
-          break
-        case !step && index:
-          break
-        default:
-          acc.push({
-            path: '/' + array.slice(0, index + 1).join('/'),
-            label: step,
-          })
-          break
+      case !index:
+        acc.push({
+          label: 'Home',
+          path: `/${this.$root.$i18n.locale}/`,
+        })
+        break
+      case !step && index:
+        break
+      default:
+        acc.push({
+          path: '/' + array.slice(0, index + 1).join('/'),
+          label: step,
+        })
+        break
       }
       return acc
     }, [] as { [key: string]: string, }[])
