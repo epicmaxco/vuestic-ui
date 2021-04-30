@@ -167,10 +167,6 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.card',
       },
       {
-        name: 'sidebar',
-        displayName: 'menu.sidebar',
-      },
-      {
         name: 'divider',
         displayName: 'menu.divider',
       },
@@ -229,6 +225,10 @@ export const navigationRoutes: NavigationRoute[] = [
       //   name: 'color-palette',
       //   displayName: 'menu.colorPalette',
       // },
+      {
+        name: 'sidebar',
+        displayName: 'menu.sidebar',
+      },
       {
         category: 'menu.categories.other',
         name: 'affix',
