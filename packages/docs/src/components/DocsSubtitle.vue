@@ -8,7 +8,7 @@
 // @ts-nocheck
 import { kebabCase } from 'lodash'
 import { TranslationString } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
-import { Options, Vue, mixins, prop, setup } from 'vue-class-component'
+import { Options, Vue, mixins, prop } from 'vue-class-component'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 import { getColors } from '../../../ui/src/main'
 

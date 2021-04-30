@@ -72,6 +72,13 @@ export const DocsHelper = {
       options,
     }
   },
+  alert: (translationString: TranslationString, color: string) => {
+    return {
+      type: BlockType.ALERT,
+      translationString,
+      color,
+    }
+  },
 
   // ********** Higher level helpers ****************
 
