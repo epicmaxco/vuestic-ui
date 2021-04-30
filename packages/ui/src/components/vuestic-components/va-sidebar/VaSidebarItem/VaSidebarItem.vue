@@ -1,15 +1,16 @@
 <template>
-  <router-link custom :to="to" v-slot="{ navigate }">
-    <div
+  <router-link custom :to="to" v-slot="{ href, navigate }">
+    <a
       v-bind="$attrs"
       class="va-sidebar__item va-sidebar-item"
       :style="computedStyle"
+      :href="href"
       @click="navigate"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
     >
       <slot />
-    </div>
+    </a>
   </router-link>
 </template>
 
@@ -69,5 +70,8 @@ export default defineComponent({
   .va-sidebar__item {
     border-left: var(--va-sidebar-item-active-border-size) solid transparent;
     padding-right: var(--va-sidebar-item-active-border-size);
+    display: inline-block;
+    width: 100%;
+    color: inherit;
   }
 </style>
