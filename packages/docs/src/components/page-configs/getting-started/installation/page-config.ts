@@ -89,7 +89,7 @@ export default [
   DocsHelper.paragraph(config('quickStart.description')),
   DocsHelper.code(quickStart),
   DocsHelper.subtitle(config('cli.title')),
-  DocsHelper.paragraph(config('cli.attention')),
+  DocsHelper.alert(config('cli.attention'), 'warning'),
   DocsHelper.paragraph(config('cli.prepare')),
   DocsHelper.code(cliPrepare),
   DocsHelper.paragraph(config('cli.upgrade')),

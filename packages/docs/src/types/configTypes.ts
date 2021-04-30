@@ -18,6 +18,7 @@ export enum BlockType {
   CODE = 'CODE',
   TABLE = 'TABLE',
   LINK = 'LINK',
+  ALERT = 'ALERT',
 }
 
 export type TextBlockType =
@@ -46,4 +47,9 @@ export type ApiDocsBlock =
       type: BlockType.API,
       componentOptions: DefineComponent | VueConstructor,
       apiOptions: ManualApiOptions,
+    }
+  | {
+      type: BlockType.ALERT,
+      translationString: TranslationString,
+      color: string,
     }
