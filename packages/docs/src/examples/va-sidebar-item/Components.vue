@@ -1,0 +1,85 @@
+<template>
+  <va-accordion class="sidebar-accordion" v-model="accordionValue" multiply>
+    <va-collapse v-for="(route, idx) in items" :key="idx" :class="{ expanded: accordionValue[idx] }">
+
+      <template #header>
+        <va-sidebar-item @click="setRouteActive(route)" :active="isRouteActive(route)">
+          <va-sidebar-item-content>
+            <va-sidebar-item-title>
+              {{ $t(route.displayName) }}
+            </va-sidebar-item-title>
+
+            <va-icon v-if="route.children" :name="accordionValue[idx] ? 'expand_less' : 'expand_more'" />
+          </va-sidebar-item-content>
+        </va-sidebar-item>
+      </template>
+
+      <div v-for="(child, index) in route.children" :key="index">
+        <va-sidebar-item @click="setRouteActive(child)" :active="isRouteActive(child)">
+          <va-sidebar-item-content>
+            <va-sidebart-item-title>
+              {{ $t(child.displayName) }}
+            </va-sidebart-item-title>
+          </va-sidebar-item-content>
+        </va-sidebar-item>
+      </div>
+
+    </va-collapse>
+  </va-accordion>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+declare type DemoRoute = { name: string, displayName: string, children?: DemoRoute[] }
+
+export default defineComponent({
+  data () {
+    return {
+      accordionValue: [false, true],
+      items: [
+        {
+          name: 'Home',
+          displayName: 'Home',
+        },
+        {
+          name: 'Docs',
+          displayName: 'Docs',
+        },
+        {
+          name: 'Components',
+          displayName: 'Components',
+          children: [
+            {
+              name: 'Button',
+              displayName: 'Button',
+            },
+            {
+              name: 'Input',
+              displayName: 'Input',
+            },
+          ],
+        },
+      ],
+      // Change this with current route came from your router :)
+      activeRouteName: 'Docs',
+    }
+  },
+  methods: {
+    isRouteActive (route: DemoRoute) {
+      return this.activeRouteName === route.name
+    },
+    setRouteActive (route: DemoRoute) {
+      if (route.children) { return }
+
+      this.activeRouteName = route.name
+    },
+  },
+})
+</script>
+
+<style lang="scss" scoped>
+.expanded {
+  background-color: var(--va-secondary);
+}
+</style>

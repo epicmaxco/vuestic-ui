@@ -28,6 +28,7 @@ const useHover = () => {
 }
 
 export default defineComponent({
+  name: 'VaSidebarItem',
   props: {
     to: {
       type: [String, Object] as PropType<string | Record<string, any>>,

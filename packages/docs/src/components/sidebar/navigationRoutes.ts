@@ -230,6 +230,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.sidebar',
       },
       {
+        name: 'sidebar-item',
+        displayName: 'menu.sidebarItem',
+      },
+      {
         category: 'menu.categories.other',
         name: 'affix',
         displayName: 'menu.affix',
@@ -258,6 +262,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'app-bar',
         displayName: 'menu.appBar',
       },
+
       // GENERATOR_ADD - uiElements
     ],
   },

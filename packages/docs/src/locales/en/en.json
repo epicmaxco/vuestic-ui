@@ -866,6 +866,16 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaSidebarItem": {
+      "props": {
+        "activeColor": "Used to set accent color for active `VaSidebarItem`",
+        "hoverColor": "Used to set accent color for hovered VaSidebarItem",
+        "active": "If `true` this sidebar item will be highlighted"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -942,7 +952,8 @@
     "browserSupport": "Browser Support",
     "table": "Table",
     "guide": "Guide",
-    "cssVariables": "CSS Variables"
+    "cssVariables": "CSS Variables",
+    "sidebarItem": "Sidebar Item"
   },
   "all": {
     "examples": "Examples",
@@ -1632,6 +1643,28 @@
           "answer": "No conflict there, `minimized` has higher priority. If it's `true`, hover will not expand sidebar."
         }
       ]
+    }
+  },
+  "sidebarItem": {
+    "title": "Sidebar item",
+    "summaryText": "Used as link in your sidebar.",
+    "examples": {
+      "simple": {
+        "title": "Simple usage example",
+        "text": "`VaSidebarItem` is used with `VaSidebarContent` (to create paddings) and `VaSidebarTitle` (to fill all remaining width in `VaSidebarItem`)"
+      },
+      "active": {
+        "title": "Highlight active `VaSidebarItem`",
+        "text": "`VaSidebarItem` can be highlighted by setting active prop. You can choose your own way how to highlight active item. Even if you want active a few `VaSidebarItems`."
+      },
+      "icons": {
+        "title": "`VaSidebarTitle` and VaIcons",
+        "text": "`VaSidebarTitle` used to fill all remaining width free space in `VaSidebarItem`. We can also add any other components (like `VaIcon`, `VaChip` or `VaButton`)."
+      },
+      "components": {
+        "title": "Advanced case with `VaAccordion`",
+        "text": "`VaSidebarItem` can be used with `VaAccordion` and `VaCollapses`."
+      }
     }
   },
   "image": {
