@@ -3,7 +3,7 @@
     <va-button-group
       :color="buttonGroupColor"
       :textColor="textColor"
-      :round="round"
+      :rounded="rounded"
       :outline="outline"
       :flat="flat"
     >
@@ -41,7 +41,7 @@ class ButtonToggleProps {
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
-  round = prop<boolean>({ type: Boolean, default: true })
+  rounded = prop<boolean>({ type: Boolean, default: true })
   disabled = prop<boolean>({ type: Boolean, default: false })
   size = prop<string>({
     type: String,

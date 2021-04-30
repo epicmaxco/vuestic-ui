@@ -8,7 +8,7 @@
           <va-button class="admin__buttons--button"
                      href="https://github.com/epicmaxco/vuestic-admin"
                      target="blank"
-                     :round="false"
+                     :rounded="false"
                      color="primary"
           >
             <va-icon class="fa fa-github" style="margin-right: 0.5rem" />
@@ -17,7 +17,7 @@
           <va-button class="admin__buttons--button"
                      href="https://vuestic.epicmax.co/admin/dashboard"
                      target="blank"
-                     :round="false"
+                     :rounded="false"
                      color="primary"
                      flat
           >
@@ -29,7 +29,7 @@
               color="dark"
               target="blank"
               href="https://github.com/epicmaxco/vuestic-admin"
-              :round="false"
+              :rounded="false"
               size="small"
             >
               <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}

@@ -1,9 +1,9 @@
 <template>
-  <va-button icon="home" color="white" flat :round="false" />
-  <va-button icon="info" color="white" flat :round="false" />
-  <va-button icon="battery" color="white" flat :round="false" />
+  <va-button icon="home" color="white" flat :rounded="false" />
+  <va-button icon="info" color="white" flat :rounded="false" />
+  <va-button icon="battery" color="white" flat :rounded="false" />
   <va-spacer />
-  <va-button color="white" flat :round="false">
+  <va-button color="white" flat :rounded="false">
     Login
   </va-button>
   <va-button-dropdown size="small" icon="ellipsis">

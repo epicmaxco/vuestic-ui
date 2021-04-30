@@ -6,7 +6,7 @@
           <va-button class="footer__buttons__button"
                      href="https://epicmax.co/about"
                      target="blank"
-                     :round="false"
+                     :rounded="false"
                      color="primary"
                      flat
           >
@@ -16,7 +16,7 @@
           <va-button class="footer__buttons__button"
                      href="https://github.com/epicmaxco/vuestic-admin"
                      target="blank"
-                     :round="false"
+                     :rounded="false"
                      color="primary"
                      flat
           >
@@ -26,7 +26,7 @@
           <va-button class="footer__buttons__button"
                      href="https://github.com/epicmaxco/epic-spinners"
                      target="blank"
-                     :round="false"
+                     :rounded="false"
                      color="primary"
                      flat
           >

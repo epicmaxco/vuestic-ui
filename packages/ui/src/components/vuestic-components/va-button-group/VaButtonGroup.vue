@@ -17,7 +17,7 @@ class Props {
   color = prop<string>({ type: String, default: 'primary' })
   gradient = prop<boolean>({ type: Boolean, default: undefined })
   textColor = prop<string>({ type: String, default: undefined })
-  round = prop<boolean>({ type: Boolean, default: true })
+  rounded = prop<boolean>({ type: Boolean, default: true })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
   size = prop<string>({
@@ -64,7 +64,7 @@ export default class VaButtonGroup extends Vue.with(Props) {
 
   get computedClass () {
     return {
-      'va-button-group_square': !this.round,
+      'va-button-group_square': !this.rounded,
     }
   }
 }

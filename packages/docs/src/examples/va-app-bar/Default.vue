@@ -1,11 +1,11 @@
 <template>
   <div style="position: relative; height: 36px;">
     <va-app-bar>
-      <va-button icon="home" color="#fff" flat :round="false" />
-      <va-button icon="info" color="#fff" flat :round="false" />
-      <va-button icon="battery" color="#fff" flat :round="false" />
+      <va-button icon="home" color="#fff" flat :rounded="false" />
+      <va-button icon="info" color="#fff" flat :rounded="false" />
+      <va-button icon="battery" color="#fff" flat :rounded="false" />
       <va-spacer />
-      <va-button  color="#fff" flat :round="false">
+      <va-button  color="#fff" flat :rounded="false">
         Login
       </va-button>
       <va-button-dropdown size="small" flat color="#fff" icon="ellipsis">

@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="empty">
-      <va-button/>
+      <va-button />
     </VbCard>
 
     <VbCard>
@@ -227,21 +227,21 @@
           <td>
             <va-config :components="{ VaIcon: { color: '#f00' } }">
               <va-button color="warning" space-between-items>
-                <va-icon name="gavel" color="white"/>
+                <va-icon name="gavel" color="white" />
                 Colored icons
-                <va-icon name="shield" color="white"/>
+                <va-icon name="shield" color="white" />
               </va-button>
 
               <va-button color="warning" flat space-between-items>
-                <va-icon name="gavel" color="warning"/>
+                <va-icon name="gavel" color="warning" />
                 Colored icons
-                <va-icon name="shield" color="warning"/>
+                <va-icon name="shield" color="warning" />
               </va-button>
 
               <va-button color="warning" outline space-between-items>
-                <va-icon name="gavel" color="warning"/>
+                <va-icon name="gavel" color="warning" />
                 Colored icons
-                <va-icon name="shield" color="warning"/>
+                <va-icon name="shield" color="warning" />
               </va-button>
             </va-config>
           </td>
@@ -316,15 +316,15 @@
         <tr>
           <td>All Buttons Without Title</td>
           <td>
-            <va-button icon="block"/>
-            <va-button size="large" icon="block"/>
-            <va-button size="small" icon="block"/>
-            <va-button outline icon="block"/>
-            <va-button outline size="large" icon="block"/>
-            <va-button outline size="small" icon="block"/>
-            <va-button flat icon="block"/>
-            <va-button flat size="large" icon="block"/>
-            <va-button flat size="small" icon="block"/>
+            <va-button icon="block" />
+            <va-button size="large" icon="block" />
+            <va-button size="small" icon="block" />
+            <va-button outline icon="block" />
+            <va-button outline size="large" icon="block" />
+            <va-button outline size="small" icon="block" />
+            <va-button flat icon="block" />
+            <va-button flat size="large" icon="block" />
+            <va-button flat size="small" icon="block" />
           </td>
         </tr>
         <tr>
@@ -376,28 +376,28 @@
           </td>
           <td style="padding-top: 10px;">
             <va-button
-              :round="false"
+              :rounded="false"
               size="small"
               style="margin-right: 10px;"
             >
               Square Button
             </va-button>
             <va-button
-              :round="false"
+              :rounded="false"
               size="medium"
               style="margin-left: 10px;"
             >
               Square Button
             </va-button>
             <va-button
-              :round="false"
+              :rounded="false"
               size="large"
               style="margin-left: 10px;"
             >
               Square Button
             </va-button>
             <va-button
-              :round="false"
+              :rounded="false"
               size="medium"
               outline
               style="margin-left: 10px;"

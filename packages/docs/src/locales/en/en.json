@@ -132,7 +132,10 @@
         "falseValue": "Overrides the returned value when it's not checked",
         "square": "Removes rounded corners",
         "indicator": "Sets the indicator style",
-        "icon": "Sets an icon."
+        "icon": "Sets an icon.",
+        "rounded": "Adds rounded corners",
+        "flat": "Removes borders and background",
+        "outline": "Removes background"
       }
     },
     "VaBadge": {

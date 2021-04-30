@@ -4,7 +4,6 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 export default {
   props: {
     outline: { local: true },
-    flat: { local: true },
     icon: { local: true },
     iconRight: { local: true },
     type: { local: true },

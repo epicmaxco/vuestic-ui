@@ -22,7 +22,7 @@
             class="star-button star-button--desktop"
             href="https://github.com/epicmaxco/vuestic-ui"
             target="blank"
-            :round="false"
+            :rounded="false"
             size="small"
             color="dark"
           >
@@ -78,7 +78,7 @@
                 class="star-button"
                 href="https://github.com/epicmaxco/vuestic-ui"
                 target="blank"
-                :round="false"
+                :rounded="false"
                 icon="star_empty"
               >
                 <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
