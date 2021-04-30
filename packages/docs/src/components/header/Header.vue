@@ -2,7 +2,11 @@
   <header class="header row justify--space-between">
     <div class="header__logo flex">
       <header-selector class="header__logo__selector" :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
-      <vuestic-logo class="header__logo__image"  height="30" width="150" />
+      <router-link to="/" custom v-slot="{ navigate, href }">
+        <a :href="href">
+          <vuestic-logo class="header__logo__image"  height="30" width="150" @click="navigate" />
+        </a>
+      </router-link>
     </div>
     <div class="header__links flex grow justify--center">
       <div class="shrink">
@@ -163,6 +167,7 @@ export default class Header extends mixins(PropsMixin) {
 
       max-width: 162px;
       min-width: 162px;
+      cursor: pointer;
     }
   }
 
