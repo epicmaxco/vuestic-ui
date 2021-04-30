@@ -22,6 +22,7 @@
   >
     <div
       class="va-button__content"
+      :class="{'va-button__content--loading': loading}"
       v-on="inputListeners"
     >
       <va-icon
@@ -30,16 +31,7 @@
         :size="size"
         class="va-button__left-icon"
       />
-      <template v-if="!loading">
-        <slot />
-      </template>
-      <va-progress-circle
-        v-else
-        indeterminate
-        :size="loaderSize"
-        :color="computedStyle.color"
-        :thickness="0.15"
-      />
+      <slot />
       <va-icon
         v-if="iconRight"
         :name="iconRight"
@@ -47,6 +39,14 @@
         class="va-button__right-icon"
       />
     </div>
+    <va-progress-circle
+      v-if="loading"
+      class="va-button__loader"
+      indeterminate
+      :size="loaderSize"
+      :color="computedStyle.color"
+      :thickness="0.15"
+    />
   </component>
 </template>
 
@@ -162,7 +162,7 @@ export default class VaButton extends mixins(
       'va-button--loading': this.loading,
       'va-button--block': this.block,
       'va-button--square': !this.rounded,
-      'va-button--round': this.round || !this.hasDefaultSlot || this.loading,
+      'va-button--round': this.round || !this.hasDefaultSlot,
       'va-button--space-between-items': this.spaceBetweenItems,
     }
   }
@@ -270,6 +270,7 @@ export default class VaButton extends mixins(
   font-weight: var(--va-button-font-weight);
   margin: var(--va-button-margin);
   padding: var(--va-button-padding);
+  position: relative;
 
   &__content {
     display: flex;
@@ -283,6 +284,10 @@ export default class VaButton extends mixins(
       align-items: center;
       margin: auto;
       white-space: nowrap;
+    }
+
+    &--loading {
+      opacity: 0;
     }
   }
 
@@ -477,6 +482,15 @@ export default class VaButton extends mixins(
 
   &--square {
     border-radius: 0.5rem;
+  }
+
+  &__loader {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>
