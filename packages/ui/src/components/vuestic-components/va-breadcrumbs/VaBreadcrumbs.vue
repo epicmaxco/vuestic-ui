@@ -51,16 +51,19 @@ export default class VaBreadcrumbs extends mixins(
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
 
-    const separatorNode = (this.$slots.separator ? this.$slots.separator() : 0) || [this.separator]
+    const createSeparatorComponent = () => {
+      // Temp fix for https://github.com/vuejs/vue-next/issues/3666. Move `separatorNode` outside this method.
+      const separatorNode = (this.$slots.separator ? this.$slots.separator() : 0) || [this.separator]
 
-    const createSeparatorComponent = () => h(
-      'span',
-      {
-        class: ['va-breadcrumbs__separator'],
-        style: [{ color: this.computedThemesSeparatorColor }],
-      },
-      separatorNode,
-    )
+      return h(
+        'span',
+        {
+          class: ['va-breadcrumbs__separator'],
+          style: [{ color: this.computedThemesSeparatorColor }],
+        },
+        separatorNode,
+      )
+    }
 
     const isDisabledChild = (child: VNode) => {
       const childPropData = child?.props
