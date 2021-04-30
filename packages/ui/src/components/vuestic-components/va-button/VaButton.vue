@@ -24,28 +24,28 @@
       class="va-button__content"
       v-on="inputListeners"
     >
+      <va-icon
+        v-if="icon"
+        :name="icon"
+        :size="size"
+        class="va-button__left-icon"
+      />
+      <template v-if="!loading">
+        <slot />
+      </template>
       <va-progress-circle
-        v-if="loading"
+        v-else
         indeterminate
         :size="loaderSize"
         :color="computedStyle.color"
         :thickness="0.15"
       />
-      <template v-else>
-        <va-icon
-          v-if="icon"
-          :name="icon"
-          :size="$props.size"
-          class="va-button__left-icon"
-        />
-        <slot />
-        <va-icon
-          v-if="iconRight"
-          :name="iconRight"
-          :size="$props.size"
-          class="va-button__right-icon"
-        />
-      </template>
+      <va-icon
+        v-if="iconRight"
+        :name="iconRight"
+        :size="size"
+        class="va-button__right-icon"
+      />
     </div>
   </component>
 </template>
@@ -77,8 +77,8 @@ class ButtonProps {
   type = prop<string>({ type: String, default: 'button' })
   disabled = prop<boolean>({ type: Boolean, default: false })
   block = prop<boolean>({ type: Boolean, default: false })
-  round = prop<boolean>({ type: Boolean, default: true })
-  equilateral = prop<boolean>({ type: Boolean, default: undefined })
+  rounded = prop<boolean>({ type: Boolean, default: true })
+  round = prop<boolean>({ type: Boolean, default: undefined })
   spaceBetweenItems = prop<boolean>({ type: Boolean, default: undefined })
   icon = prop<string>({ type: String, default: undefined })
   iconRight = prop<string>({ type: String, default: undefined })
@@ -156,15 +156,13 @@ export default class VaButton extends mixins(
       'va-button--disabled': this.disabled,
       'va-button--hover': this.hoverState,
       'va-button--focus': this.focusState,
-      'va-button--with-left-content': this.$slots.prepend,
-      'va-button--with-right-content': this.$slots.append,
       'va-button--large': this.size === 'large',
       'va-button--small': this.size === 'small',
       'va-button--normal': !this.size || this.size === 'medium',
       'va-button--loading': this.loading,
       'va-button--block': this.block,
-      'va-button--square': !this.round,
-      'va-button--equilateral': this.equilateral || !this.hasDefaultSlot || this.loading,
+      'va-button--square': !this.rounded,
+      'va-button--round': this.round || !this.hasDefaultSlot || this.loading,
       'va-button--space-between-items': this.spaceBetweenItems,
     }
   }
@@ -345,7 +343,7 @@ export default class VaButton extends mixins(
       padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
     }
 
-    &.va-button--equilateral {
+    &.va-button--round {
       width: var(--va-button-lg-size);
     }
 
@@ -379,7 +377,7 @@ export default class VaButton extends mixins(
       padding: var(--va-button-sm-content-py) var(--va-button-sm-content-px);
     }
 
-    &.va-button--equilateral {
+    &.va-button--round {
       width: var(--va-button-sm-size);
     }
 
@@ -414,7 +412,7 @@ export default class VaButton extends mixins(
       line-height: var(--va-button-line-height);
     }
 
-    &.va-button--equilateral {
+    &.va-button--round {
       width: var(--va-button-size);
     }
 
@@ -437,7 +435,7 @@ export default class VaButton extends mixins(
     }
   }
 
-  &--equilateral {
+  &--round {
     .va-button__content {
       padding: 0;
     }

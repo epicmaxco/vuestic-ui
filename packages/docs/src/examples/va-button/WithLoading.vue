@@ -1,0 +1,17 @@
+<template>
+  <va-button
+    class="mr-4"
+    loading
+    size="small"
+  />
+  <va-button
+    class="mr-4"
+    loading
+    size="medium"
+  />
+  <va-button
+    class="mr-4"
+    loading
+    size="large"
+  />
+</template>

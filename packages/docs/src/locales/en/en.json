@@ -155,7 +155,10 @@
         "iconRight": "The icon to be displayed to the right of a title",
         "type": "Will be used as value for html `type` attribute",
         "block": "Applies block styling (will take 100% of container width)",
-        "round": "Adds rounded corners",
+        "rounded": "Adds rounded corners",
+        "round": "Makes the button round",
+        "spaceBetweenItems": "Sets margin between multiple buttons",
+        "gradient": "Makes the button color a gradient",
         "href": "Will be used as value for html `href` attribute. (If used, `<button />` will be replaced with `<a>` tag)",
         "target": "Will be used as value for html `target` attribute (If used, `<button />` will be replaced with `<a>` tag)"
       },
@@ -1135,6 +1138,10 @@
         "title": "Colors",
         "text": "With `color` prop you can change the color of the component."
       },
+      "withTextColor": {
+        "title": "Text colors",
+        "text": "With `text-color` prop you can change the color of the button text."
+      },
       "withSize": {
         "title": "Sizes",
         "text": "Using `size` prop you can make your button fit in any place on your web page."
@@ -1146,6 +1153,18 @@
       "withIcon": {
         "title": "Add icons",
         "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`"
+      },
+      "withConfig": {
+        "title": "Icons as slots with config",
+        "text": "You can wrap your buttons with `VaConfig` and pass icons as slots"
+      },
+      "withLoading": {
+        "title": "Loading state",
+        "text": "You can add loading state to the button"
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "With `disabled` prop button would be not interactible"
       }
     }
   },
