@@ -205,9 +205,9 @@ export default class VaButton extends mixins(
       if (this.hoverState || this.focusState) {
         computedStyle.boxShadow = this.shadowStyle
         if (!this.gradient) {
-          computedStyle.background = shiftHSLAColor(this.colorComputed, { l: -3 })
+          computedStyle.background = shiftHSLAColor(this.colorComputed, { l: 5 })
         } else {
-          computedStyle.background = getGradientBackground(shiftHSLAColor(this.colorComputed, { l: -3 }))
+          computedStyle.background = getGradientBackground(shiftHSLAColor(this.colorComputed, { l: 5 }))
         }
       }
       computedStyle.color = this.textColorComputed

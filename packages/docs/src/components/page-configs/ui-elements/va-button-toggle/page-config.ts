@@ -19,6 +19,16 @@ export default [
     'va-button-toggle/Colors',
   ),
   ...DocsHelper.exampleBlock(
+    'buttonToggle.examples.toggleColor.title',
+    'buttonToggle.examples.toggleColor.text',
+    'va-button-toggle/ToggleColor',
+  ),
+  ...DocsHelper.exampleBlock(
+    'buttonToggle.examples.gradient.title',
+    'buttonToggle.examples.gradient.text',
+    'va-button-toggle/Gradient',
+  ),
+  ...DocsHelper.exampleBlock(
     'buttonToggle.examples.sizes.title',
     'buttonToggle.examples.sizes.text',
     'va-button-toggle/Sizes',

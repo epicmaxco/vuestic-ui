@@ -1141,6 +1141,10 @@
         "title": "Colors",
         "text": "With `color` prop you can change the color of the component."
       },
+      "withGradient": {
+        "title": "Gradient",
+        "text": "Applies gradient style to background."
+      },
       "withTextColor": {
         "title": "Text colors",
         "text": "With `text-color` prop you can change the color of the button text."
@@ -2379,6 +2383,10 @@
         "title": "Colors",
         "text": "Component provides color to each child button."
       },
+      "gradient": {
+        "title": "Gradient",
+        "text": "Applies gradient style to background"
+      },
       "sizes": {
         "title": "Sizes",
         "text": "You can set different sizes."
@@ -2403,7 +2411,15 @@
       },
       "colors": {
         "title": "Colors",
-        "text": "Applies color presets and HEX colors. Use `toggle-color` prop to set the color of the active button."
+        "text": "Applies color presets and HEX colors."
+      },
+      "toggleColor": {
+        "title": "Toggler color",
+        "text": "Use `toggle-color` prop to set the color of the active button."
+      },
+      "gradient": {
+        "title": "Gradient",
+        "text": "Applies gradient style to background."
       },
       "sizes": {
         "title": "Sizes",

@@ -37,7 +37,7 @@ export default class VaButtonGroup extends Vue.with(Props) {
     const buttonConfig = reactive({
       VaButton: {
         ...this.$props,
-        color: isTransparentBackground ? this.color : '#00000000',
+        color: isTransparentBackground || this.gradient ? '#00000000' : this.color,
       },
     })
     return { getColor, buttonConfig }

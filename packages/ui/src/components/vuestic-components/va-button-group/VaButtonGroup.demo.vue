@@ -8,7 +8,7 @@
       </va-button-group>
       <va-button-group gradient color="danger">
         <va-button>One</va-button>
-        <va-button color="dark">
+        <va-button>
           Two
         </va-button>
         <va-button>Three</va-button>
@@ -31,7 +31,7 @@
           <td>
             <VbCard title="Default Button Group">
               <va-button-group>
-                <va-button color="secondary"> Button 1</va-button>
+                <va-button> Button 1</va-button>
                 <va-button> Button 2</va-button>
                 <va-button> Button 3</va-button>
               </va-button-group>

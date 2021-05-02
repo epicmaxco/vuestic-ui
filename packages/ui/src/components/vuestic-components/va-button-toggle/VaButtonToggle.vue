@@ -1,11 +1,12 @@
 <template>
   <div class="va-button-toggle">
     <va-button-group
-      :color="buttonGroupColor"
+      :color="color"
       :textColor="textColor"
       :rounded="rounded"
       :outline="outline"
       :flat="flat"
+      :gradient="gradient"
     >
       <va-button
         v-for="option in options"
@@ -52,6 +53,7 @@ class ButtonToggleProps {
   })
 
   toggleColor = prop<string>({ type: String, default: '' })
+  gradient = prop<boolean>({ type: Boolean, default: false })
 }
 
 const ButtonTogglePropsMixin = Vue.with(ButtonToggleProps)
@@ -68,10 +70,6 @@ export default class VaButtonToggle extends mixins(
   ColorMixin,
   ButtonTogglePropsMixin,
 ) {
-  get buttonGroupColor () {
-    return this.color
-  }
-
   buttonColor (buttonValue: any) {
     return buttonValue === this.modelValue && this.toggleColor ? this.toggleColor : this.color
   }
@@ -88,7 +86,7 @@ export default class VaButtonToggle extends mixins(
       }
     } else {
       return {
-        backgroundColor: shiftHSLAColor(this.colorComputed, { l: -6 }),
+        backgroundColor: this.toggleColor ? this.theme.getColor(this.toggleColor) : shiftHSLAColor(this.colorComputed, { l: -6 }),
         boxShadow: 'none',
       }
     }

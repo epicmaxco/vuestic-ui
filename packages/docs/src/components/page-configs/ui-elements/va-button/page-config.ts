@@ -41,6 +41,18 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'button.examples.withGradient.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'button.examples.withGradient.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-button/WithGradient',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'button.examples.withTextColor.title',
   },
   {

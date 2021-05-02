@@ -19,6 +19,11 @@ export default [
     'va-button-group/Colors',
   ),
   ...DocsHelper.exampleBlock(
+    'buttonGroup.examples.gradient.title',
+    'buttonGroup.examples.gradient.text',
+    'va-button-group/Gradient',
+  ),
+  ...DocsHelper.exampleBlock(
     'buttonGroup.examples.sizes.title',
     'buttonGroup.examples.sizes.text',
     'va-button-group/Sizes',
