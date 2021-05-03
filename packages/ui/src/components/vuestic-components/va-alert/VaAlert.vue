@@ -8,28 +8,29 @@
       :style="alertStyle"
     >
       <div
-        class="va-alert__border"
-        :class="borderClass"
         :style="borderStyle"
+        :class="borderClass"
+        class="va-alert__border"
       />
 
       <div
+        :style="contentStyle"
         class="va-alert__icon"
         v-if="hasIcon"
       >
         <slot name="icon">
           <va-icon
-            :color="color"
             :name="icon"
           />
         </slot>
       </div>
 
       <div
-        class="va-alert__content"
         :style="contentStyle"
+        class="va-alert__content"
       >
         <div
+          :style="titleStyle"
           class="va-alert__title"
           v-if="hasTitle"
         >
@@ -47,13 +48,15 @@
         v-if="closeable"
       >
         <div
+          :style="contentStyle"
           class="va-alert__close--closeable"
           @click="hide()"
         >
           <slot name="close">
-            <va-icon v-if="!closeText"
-                     :color="color"
-                     :name="closeIcon"
+            <va-icon
+              v-if="!closeText"
+              :name="closeIcon"
+              size="small"
             />
             {{ closeText }}
           </slot>
@@ -69,7 +72,7 @@ import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 import {
   getHoverColor,
-  getBoxShadowColor,
+  getBoxShadowColor, getTextColor,
 } from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
@@ -80,9 +83,10 @@ class AlertProps {
   title = prop<string>({ type: String, default: '' })
   description = prop<string>({ type: String, default: '' })
   icon = prop<string>({ type: String, default: '' })
-  closeIcon = prop<string>({ type: String, default: 'close' })
   closeText = prop<string>({ type: String, default: '' })
   closeable = prop<boolean>({ type: Boolean, default: false })
+  dense = prop<boolean>({ type: Boolean, default: false })
+  outline = prop<boolean>({ type: Boolean, default: false })
   center = prop<boolean>({ type: Boolean, default: false })
   borderColor = prop<string>({ type: String, default: '' })
   border = prop<string>({
@@ -100,6 +104,7 @@ class AlertProps {
 }
 
 const AlertPropsMixin = Vue.with(AlertProps)
+const dark = '#1b1a1f'
 
 @Options({
   name: 'VaAlert',
@@ -111,7 +116,7 @@ export default class VaAlert extends mixins(
   AlertPropsMixin,
 ) {
   get hasIcon () {
-    return this.$props.icon || this.$slots.icon
+    return this.icon || this.$slots.icon
   }
 
   get hasTitle () {
@@ -119,20 +124,52 @@ export default class VaAlert extends mixins(
   }
 
   get alertStyle () {
+    let background = this.colorComputed
+    let boxShadow = 'none'
+    if (this.outline) {
+      background = 'transparent'
+    }
+    if (this.border) {
+      background = '#ffffff'
+      boxShadow = '0 0.125rem 0.2rem 0.075rem rgba(0,0,0,0.2)'
+    }
     return {
-      background: getHoverColor(this.colorComputed),
-      boxShadow: '0 0.125rem 0.125rem 0 ' + getBoxShadowColor(this.colorComputed),
+      border: this.outline && `1px solid ${this.colorComputed}`,
+      background: background,
+      boxShadow: boxShadow,
+      padding: this.dense && '0.25rem 0.75rem',
     }
   }
 
   get contentStyle () {
+    let color = getTextColor(this.colorComputed)
+    if (this.outline) {
+      color = this.colorComputed
+    }
+    if (this.border) {
+      color = dark
+    }
     return {
-      alignItems: this.$props.center && 'center',
+      alignItems: this.center && 'center',
+      color: color,
+    }
+  }
+
+  get titleStyle () {
+    let color = getTextColor(this.colorComputed)
+    if (this.outline) {
+      color = this.colorComputed
+    }
+    if (this.border) {
+      color = this.colorComputed
+    }
+    return {
+      color: color,
     }
   }
 
   get borderClass () {
-    return `va-alert__border--${this.$props.border}`
+    return `va-alert__border--${this.border}`
   }
 
   get borderStyle () {
@@ -141,6 +178,10 @@ export default class VaAlert extends mixins(
         ? this.theme.getColor(this.$props.borderColor)
         : this.colorComputed,
     }
+  }
+
+  get closeIcon () {
+    return !this.closeText ? 'close' : this.closeText
   }
 
   hide (): void {
@@ -169,7 +210,7 @@ export default class VaAlert extends mixins(
     &--top {
       border-radius: var(--va-alert-top-border-radius);
       width: 100%;
-      height: 0.375rem;
+      height: 0.125rem;
       top: 0;
       left: 0;
     }
@@ -177,7 +218,7 @@ export default class VaAlert extends mixins(
     &--right {
       border-radius: var(--va-alert-right-border-radius);
       height: 100%;
-      width: 0.375rem;
+      width: 0.125rem;
       bottom: 0;
       right: 0;
     }
@@ -185,7 +226,7 @@ export default class VaAlert extends mixins(
     &--bottom {
       border-radius: var(--va-alert-bottom-border-radius);
       width: 100%;
-      height: 0.375rem;
+      height: 0.125rem;
       bottom: 0;
       left: 0;
     }
@@ -193,7 +234,7 @@ export default class VaAlert extends mixins(
     &--left {
       border-radius: var(--va-alert-left-border-radius);
       height: 100%;
-      width: 0.375rem;
+      width: 0.125rem;
       bottom: 0;
       left: 0;
     }
@@ -208,6 +249,7 @@ export default class VaAlert extends mixins(
   &__title {
     display: flex;
     align-items: center;
+    font-weight: var(--va-alert-title-font-weight);
   }
 
   &__content {
@@ -223,6 +265,8 @@ export default class VaAlert extends mixins(
     font-size: var(--va-alert-close-font-size);
 
     &--closeable {
+      display: flex;
+      align-items: center;
       cursor: pointer;
     }
   }

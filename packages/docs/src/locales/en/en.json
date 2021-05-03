@@ -520,7 +520,8 @@
         "closeable": "Add a close alert area",
         "center": "Center the title and description of the alert",
         "borderColor": "Border color of the alert",
-        "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available."
+        "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available.",
+        "dense": "Reduces alert paddings"
       },
       "methods": {
         "hide": "Hide alert. On stateless alert only emits `input`"
@@ -1155,7 +1156,7 @@
       },
       "withStyle": {
         "title": "Different styles",
-        "text": "We have 3 styles available: \"outlined\", \"flat\" and \"square\"."
+        "text": "We have 3 styles available: `outlined`, `flat` and `square`."
       },
       "withIcon": {
         "title": "Add icons",
@@ -1867,6 +1868,10 @@
         "title": "Color",
         "text": "Use `color` property to change the color of the component."
       },
+      "styles": {
+        "title": "Different styles",
+        "text": "We have 3 styles available: `color`, `outlined` and `border` styled alerts."
+      },
       "border": {
         "title": "Border",
         "text": "Use the `border` property to add a strip and the `border-color` property to change the color of the strip."
@@ -1875,13 +1880,17 @@
         "title": "Title",
         "text": "The `title` property allows you to write text over the description area. Use the `title` slot to costomize the title area."
       },
+      "dense": {
+        "title": "Dense",
+        "text": "The `dense` property reduces paddings on alert."
+      },
       "icon": {
         "title": "Icon",
         "text": "The `icon` property allows you to add an icon in front of the description area. Use the `icon` slot to costomize the icon area."
       },
       "closeable": {
         "title": "Closeable",
-        "text": "The `closeable` property add a close alert area. "
+        "text": "The `closeable` property add a close alert area. Also you can pass `close-text` prop to make close icon as plain text."
       },
       "center": {
         "title": "Center",

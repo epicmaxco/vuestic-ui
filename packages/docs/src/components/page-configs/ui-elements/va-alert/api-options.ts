@@ -33,6 +33,9 @@ export default {
     border: {
       local: true,
     },
+    dense: {
+      local: true,
+    },
   },
   events: {
     input: {
