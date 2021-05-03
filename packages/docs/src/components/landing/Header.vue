@@ -16,7 +16,7 @@
           <!-- vuestic buttons -->
           <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.overview') }}</va-button>
           <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.docs') }}</va-button>
-          <va-button href="https://discord.gg/jTKTjj2weV" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
+          <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
           <LanguageDropdown />
           <va-button
             class="star-button star-button--desktop"
@@ -44,7 +44,7 @@
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://discord.gg/jTKTjj2weV" target="_blank">{{ $t('landing.header.buttons.discord') }}</a>
+                <a href="https://discord.gg/u7fQdqQt8c" target="_blank">{{ $t('landing.header.buttons.discord') }}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-label color="#757B83" class="mobile-menu__label">

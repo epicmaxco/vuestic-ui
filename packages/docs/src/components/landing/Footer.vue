@@ -44,7 +44,7 @@
             <va-icon class="mdi mdi-github" />
           </va-button>
           <va-button class="footer__social__item"
-                     href="https://discord.gg/jTKTjj2weV"
+                     href="https://discord.gg/u7fQdqQt8c"
                      target="blank"
                      color="primary"
                      flat
