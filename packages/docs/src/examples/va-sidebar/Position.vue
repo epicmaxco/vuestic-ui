@@ -1,10 +1,11 @@
 <template>
-  <div
-    style="position: relative; height: 13rem; width: 100%; border: 2px solid black;"
-    class="row"
-  >
+  <div style="height: 13rem; border: 2px solid var(--va-primary);">
     <va-sidebar position="right" textColor="dark">
-      <va-sidebar-item v-for="item in items" :key="item.to" :active="item.active">
+      <va-sidebar-item
+        v-for="item in items"
+        :key="item.to"
+        :active="item.active"
+      >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
           <va-sidebar-item-title style="height: 24px;">
