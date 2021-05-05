@@ -52,7 +52,7 @@ export default class VaImage extends mixins(
   created () {
     watch(() => this.src, () => {
       this.createLoader()
-    })
+    }, { immediate: true })
   }
 
   beforeUnmount () {
