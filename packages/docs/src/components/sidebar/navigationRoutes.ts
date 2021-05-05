@@ -167,10 +167,6 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.card',
       },
       {
-        name: 'sidebar',
-        displayName: 'menu.sidebar',
-      },
-      {
         name: 'divider',
         displayName: 'menu.divider',
       },
