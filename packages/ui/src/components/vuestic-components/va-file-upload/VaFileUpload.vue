@@ -70,7 +70,7 @@ class FileUploadProps {
   fileTypes = prop<string>({ type: String, default: '' })
   dropzone = prop<boolean>({ type: Boolean, default: false })
   modelValue = prop<any[]>({ type: Array, default: () => [] })
-  color = prop<string>({ type: String, default: 'success' })
+  color = prop<string>({ type: String, default: 'primary' })
   disabled = prop<boolean>({ type: Boolean, default: false })
 }
 

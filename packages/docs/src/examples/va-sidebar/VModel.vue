@@ -1,11 +1,14 @@
 <template>
   <div
-    style="position: relative; height: 13rem; width: 100%; border: 2px solid black;"
-    class="row"
+    class="demo-content"
+    style="height: 13rem; border: 2px solid var(--va-primary);"
   >
-    <va-checkbox v-model="enabled" style="margin-left: 20rem;" label="Enabled" />
     <va-sidebar v-model="enabled" textColor="dark">
-      <va-sidebar-item v-for="item in items" :key="item.to" :active="item.active">
+      <va-sidebar-item
+        v-for="item in items"
+        :key="item.to"
+        :active="item.active"
+      >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
           <va-sidebar-item-title style="height: 24px;">
@@ -14,6 +17,13 @@
         </va-sidebar-item-content>
       </va-sidebar-item>
     </va-sidebar>
+  </div>
+
+  <div
+    class="demo-controls px-2 py-2"
+    style="background: var(--va-secondary); width: 100%;"
+  >
+    <va-checkbox v-model="enabled" label="Shown" />
   </div>
 </template>
 
