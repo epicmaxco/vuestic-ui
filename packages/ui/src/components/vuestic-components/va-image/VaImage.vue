@@ -46,13 +46,13 @@ const ImagePropsMixin = Vue.with(ImageProps)
 export default class VaImage extends mixins(
   ImagePropsMixin,
 ) {
-  image: any = null
   loading = true
   loadingError = false
 
   created () {
     watch(() => this.src, () => {
       this.loading = true
+      this.loadingError = false
     })
   }
 
