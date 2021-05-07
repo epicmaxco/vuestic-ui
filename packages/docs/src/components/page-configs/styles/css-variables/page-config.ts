@@ -33,7 +33,7 @@ example:   --va-button-sm-font-size: 0.875rem;
 
 const overriding = `
 :root {
---va-button-sm-font-size: 1rem
+  --va-button-sm-font-size: 1rem
 }
 `
 export default [
@@ -45,5 +45,5 @@ export default [
   DocsHelper.code(componentSheme),
   DocsHelper.subtitle('cssVariables.overriding.title'),
   DocsHelper.paragraph('cssVariables.overriding.description'),
-  DocsHelper.code(overriding),
+  DocsHelper.code(overriding, 'scss'),
 ] as ApiDocsBlock[]

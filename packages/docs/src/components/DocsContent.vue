@@ -11,6 +11,7 @@
         v-else-if="block.type === BlockType.CODE"
         :key="block.type + index"
         :code="block.code"
+        :language="block.language"
       />
       <ApiDocs
         v-else-if="BlockType.API === block.type"

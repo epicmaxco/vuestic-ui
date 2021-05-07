@@ -1,6 +1,3 @@
-// @ts-nocheck
-/* eslint-disable */
-
 import Platform from './plugins/platform'
 import Vue from 'vue'
 
@@ -13,5 +10,5 @@ export const installPlatform = () => {
   }
 
   const framework = {}
-  Platform.install(framework, queues, Vue)
+  Platform.install(framework, queues, Vue as any)
 }
