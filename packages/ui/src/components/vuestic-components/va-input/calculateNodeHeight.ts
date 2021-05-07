@@ -138,6 +138,7 @@ export default function calculateNodeHeight (
     }
   }
 
+  console.log({ maxRows, minRows })
   if (!maxRows) {
     overflowY = 'hidden'
   }

@@ -131,13 +131,11 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
   }
 
   onFocus (event: Event): void {
-    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
     this.isFocused = true
     this.$emit('focus', event)
   }
 
   onBlur (event: Event): void {
-    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
     this.ValidateMixin_onBlur()
     this.$emit('blur', event)
   }
@@ -191,15 +189,5 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
    */
   beforeUnmount () {
     this.destroyCleaveInstance()
-  }
-
-  /** @public */
-  focus (): void {
-    (this as any).$refs.input.focus()
-  }
-
-  /** @public */
-  reset (): void {
-    this.$emit('update:modelValue', '')
   }
 }

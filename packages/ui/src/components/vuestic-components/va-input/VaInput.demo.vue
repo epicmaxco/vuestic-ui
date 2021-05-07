@@ -1,17 +1,206 @@
 <template>
-  <VbDemo>
+  <VbDemo class="va-input-css-classes-demo">
     <VbCard title="Placeholder">
       <va-input
-        v-model="empty"
-        placeholder="Name"
+        placeholder="Country name"
+      />
+      <va-input
+        outline
+        placeholder="Country name"
+      />
+      <va-input
+        bordered
+        placeholder="Country name"
       />
     </VbCard>
     <VbCard title="Label">
       <va-input
         v-model="text"
-        label="Name"
+        label="Country"
+      />
+      <va-input
+        v-model="text"
+        outline
+        label="Country"
+      />
+      <va-input
+        v-model="text"
+        bordered
+        label="Country"
       />
     </VbCard>
+
+    <VbCard title="Validation">
+      <va-input
+        v-model="text"
+        label="Country"
+        success
+      />
+      <va-input
+        v-model="text"
+        outline
+        label="Country"
+        success
+      />
+      <va-input
+        v-model="text"
+        bordered
+        label="Country"
+        success
+      />
+
+      <va-input
+        v-model="text"
+        label="Country"
+        error
+      />
+      <va-input
+        v-model="text"
+        outline
+        label="Country"
+        error
+      />
+      <va-input
+        v-model="text"
+        bordered
+        label="Country"
+        error
+      />
+
+      <va-input
+        v-model="text"
+        label="Country"
+        success
+        :messages="['This username is available.']"
+      />
+
+      <va-input
+        v-model="text"
+        label="Country"
+        error
+        :error-messages="['Please choose a country you’d like to respawn in.']"
+      />
+
+      <va-input
+        v-model="text"
+        label="Country"
+        success
+        :messages="['There is error message, but it is hidden cuz of success']"
+        :error-messages="['There is a success message, but it is hidden cuz of error']"
+      />
+
+      <va-input
+        v-model="text"
+        label="Country"
+        error
+        :messages="['There is error message, but it is hidden cuz of success']"
+        :error-messages="['There is a success message, but it is hidden cuz of error']"
+      />
+
+      <va-input
+        v-model="text"
+        label="Country"
+        :messages="['There is error message, but it is hidden cuz of no error']"
+        :error-messages="['There is a success message, but it is hidden cuz of error']"
+      />
+    </VbCard>
+
+    <VbCard title="Prepend / Append Inner">
+      <va-input
+        v-model="text"
+        label="Country"
+      >
+        <template #prependInner>
+          <va-icon name="search" color="primary" size="small" />
+        </template>
+      </va-input>
+      <va-input
+        v-model="text"
+        outline
+        label="Country"
+        color="#ff00ff"
+      >
+        <template #prependInner>
+          <va-icon name="search" color="#ff00ff" size="small" />
+        </template>
+      </va-input>
+      <va-input
+        v-model="text"
+        bordered
+        label="Country"
+        color="#1dd62d"
+      >
+        <template #prependInner>
+          <va-icon name="search" color="#1dd62d" size="small" />
+        </template>
+      </va-input>
+      <va-input
+        v-model="text"
+        label="Country"
+        success
+      >
+        <template #prependInner>
+          <va-icon name="search" color="primary" size="small" />
+        </template>
+      </va-input>
+      <va-input
+        v-model="text"
+        label="Country"
+        error
+      >
+        <template #prependInner>
+          <va-icon name="search" color="primary" size="small" />
+        </template>
+      </va-input>
+
+      <va-input
+        v-model="text"
+        label="Country"
+      >
+        <template #appendInner>
+          <va-icon name="calendar_today" color="primary" size="small" />
+        </template>
+      </va-input>
+      <va-input
+        v-model="text"
+        outline
+        label="Country"
+        color="#ff00ff"
+      >
+        <template #appendInner>
+          <va-icon name="calendar_today" color="#ff00ff" size="small" />
+        </template>
+      </va-input>
+      <va-input
+        v-model="text"
+        bordered
+        label="Country"
+        color="#1dd62d"
+      >
+        <template #appendInner>
+          <va-icon name="calendar_today" color="#1dd62d" size="small" />
+        </template>
+      </va-input>
+      <va-input
+        v-model="text"
+        label="Country"
+        success
+      >
+        <template #appendInner>
+          <va-icon name="calendar_today" color="primary" size="small" />
+        </template>
+      </va-input>
+      <va-input
+        v-model="text"
+        label="Country"
+        error
+      >
+        <template #appendInner>
+          <va-icon name="calendar_today" color="primary" size="small" />
+        </template>
+      </va-input>
+    </VbCard>
+
     <VbCard title="Label long">
       <va-input
         v-model="text"
@@ -170,6 +359,7 @@
         v-model="text"
         label="Name"
         type="textarea"
+        autosize
         :min-rows="3"
         :max-rows="8"
       />
@@ -250,9 +440,9 @@
     <VbCard title="CSS Classes" class="va-input-css-classes-demo" style="width: 66%;">
       <va-input class="mb-4" inputClass="red" modelValue="This input must have margin bottom and red text in input" />
       <va-input
-        class="bg-gray"
+        class="border-blue"
         inputClass="p-2 red"
-        modelValue="Native input element must have red text and big padding. Va-input - grey background"
+        modelValue="Native input element must have red text and big padding. VaInput wrapper has a blue border."
         type="textarea"
       />
     </VbCard>
@@ -275,7 +465,7 @@ export default {
   data () {
     return {
       empty: '',
-      text: 'Vuestic\nLine 2\nLine 3\nLine 4\nLine 5',
+      text: 'Vuestic\n Line 2\n Line 3\n Line 4\n Line 5',
       phone: '33 310-86-24',
       messages: ['Required field'],
       errorMessages: ['Detailed error message'],
@@ -298,6 +488,10 @@ export default {
 
 <style lang="scss">
 .va-input-css-classes-demo {
+  .va-input {
+    margin-bottom: 1rem;
+  }
+
   .mb-4 {
     margin-bottom: 4rem;
   }
@@ -310,8 +504,8 @@ export default {
     padding: 2rem;
   }
 
-  .bg-gray {
-    background-color: grey;
+  .border-blue {
+    border: 1px solid blue;
   }
 }
 </style>

@@ -55,7 +55,7 @@ export default class VaInputWrapper extends Vue.with(Props) {
   }
 
   get messagesColor () {
-    return (this.error && 'danger') || (this.success && 'success') || ''
+    return (this.error && 'danger') || (this.success && 'success') || undefined
   }
 
   get errorLimit () {
@@ -99,7 +99,7 @@ export default class VaInputWrapper extends Vue.with(Props) {
   }
 
   &__slot {
-    display: inline-flex;
+    display: flex;
     position: relative;
     width: 100%;
   }

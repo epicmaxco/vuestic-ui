@@ -46,17 +46,6 @@ export class TextareaMixin extends mixins(StatefulMixin, PropsMixin) {
     return {}
   })
 
-  get textareaStyles (): any {
-    return {
-      // paddingBottom: this.label ? '0.125rem' : '',
-      marginTop: this.label ? '0.875rem' : '',
-      paddingTop: this.label ? 0 : '',
-      minHeight: this.label ? '1.5rem' : '2.25rem',
-      resize: this.autosize ? 'none' : 'vertical',
-      // marginBottom: 0,
-    }
-  }
-
   get isTextarea (): boolean {
     return this.type === 'textarea'
   }
