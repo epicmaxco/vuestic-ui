@@ -1,14 +1,14 @@
-import { HexColor } from './color-config'
+import { CssColor } from './color-config'
 
 type VuesticColorsPreset = {
-  primary: HexColor,
-  secondary: HexColor,
-  success: HexColor,
-  info: HexColor,
-  danger: HexColor,
-  warning: HexColor,
-  gray: HexColor,
-  dark: HexColor,
+  primary: CssColor,
+  secondary: CssColor,
+  success: CssColor,
+  info: CssColor,
+  danger: CssColor,
+  warning: CssColor,
+  gray: CssColor,
+  dark: CssColor,
 }
 
 export const colorsPresets: Record<string, VuesticColorsPreset> = {

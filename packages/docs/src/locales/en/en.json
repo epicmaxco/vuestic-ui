@@ -2508,9 +2508,9 @@
       "title": "Vue CLI installation",
       "prepare": "Before install make sure [Vue CLI](https://cli.vuejs.org/guide/installation.html) is installed globally and has version 4+:",
       "upgrade": "For Vue CLI version 3 here's [a guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3) to help you update your app.",
-      "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic UI on the scratch project.",
-      "attention": "**Attention! Using that way will make changes in you `package.json` dependencies and `main.js(ts)` files. Make sure that you commit your code to avoid data loss.**",
-      "codeAnnotation": "After you have Vue-CLI project you could install Vuestic UI as a Vue-CLI package:"
+      "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic UI on fresh project.",
+      "attention": "Installing Vuestic UI will modify `package.json` and `main.js(ts)` files. Make sure that you commit your code before install to avoid data loss.",
+      "codeAnnotation": "Then install Vuestic UI as a Vue-CLI plugin:"
     },
     "nuxt": {
       "title": "Nuxt installation",
@@ -2522,8 +2522,8 @@
     }
   },
   "roadmap": {
-    "title": "The Vuestic UI Roadmap",
-    "description": "The Vuestic UI is always growing, trying to get better. Our team is constantly working to improve the existing code base, adding new features that help make building applications even easier.",
+    "title": "Vuestic UI Roadmap",
+    "description": "Vuestic UI is always growing, trying to get better. Our team is constantly working to improve the existing code base, adding new features that help make building applications even easier.",
     "inDevelopment": {
       "title": "In development",
       "description": "The following releases are currently being developed:"
@@ -2554,14 +2554,10 @@
   },
   "accessibilityGuide": {
     "title": "Accessibility",
-    "description": "Vuestic UI components supports keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
+    "description": "Vuestic UI components support keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
     "keyboardInteractions": {
       "title": "Keyboard accessible",
       "description": "All the interactive elements of your page e.g. text boxes, buttons etc can be accessible by keyboard. That means you should be able to bring focus on them by using Tab and Shift+Tab keys."
-    },
-    "customElements": {
-      "title": "Guideline for custom elements",
-      "description": "WIP"
     }
   },
   "configurationGuide": {
@@ -2569,11 +2565,11 @@
     "description": "We have developed a convenient mechanism that allows you to deeply customize your icons, components, and colors.",
     "colors": {
       "title": "Color themes",
-      "description": "Default Vuestic UI config contain **2 pre-installed color themes** that can be easily extented by your own:"
+      "description": "Vuestic UI comes with a set of colors that could be easily extended"
     },
     "icons": {
       "title": "Icon fonts",
-      "description": "By default Vuestic UI uses **material design icons** so dont forget to install it:"
+      "description": "By default Vuestic UI uses **material design icons**, so you'd have to install it beforehand"
     },
     "components": {
       "title": "Components config",
@@ -2592,37 +2588,21 @@
   },
   "overview": {
     "title": "What is Vuestic UI",
-    "description": "The Vuestic UI was created with the goal of making development easier and reducing the time spent creating your apps. We are designed the framework in such a way as to satisfy the most sophisticated design fantasies and also allow you to realize them. All this is possible thanks to a deep component customization system based on a two-level configuration.",
-    "vueThreeCompatible": {
-      "title": "Vue.js 3.0 compatible",
-      "description": "- Fully **Vue.js 3 compatible**"
-    },
-    "featureRich": {
-      "title": "Feature-rich: more than 52 customizable components",
-      "description": "- Contains a **massive pack of deep-customizable components** that could be used in any design solution."
-    },
-    "themesPreset": {
-      "title": "Two built-in color scheme presets",
-      "description": "- **Two pre-installed themes** `default` and `corporate` that are easy to customize."
-    },
-    "configurations": {
-      "description": "- **Customize components** with global config and css variables."
-    },
-    "responsive": {
-      "title": "Cross-browser and responsive",
-      "description": "- Fully **responsive** and **supports modern browsers** (no IE11, sorry)."
-    },
-    "translatable": {
-      "title": "i18n-ready",
-      "description": "- Integrates seamlessly with **i18n**"
-    },
-    "whyVuestic": {
-      "title": "Features overwiew",
-      "description": "- Vuestic UI provides a lot of benefits and great features."
-    }
+    "description": "Vuestic UI was created with the goal of making development easier and reducing the time spent creating your apps. We are designed the framework in such a way as to satisfy the most sophisticated design fantasies and also allow you to realize them. All this is possible thanks to a deep component customization system based on a two-level configuration.",
+    "featuresOverview": "Features overview",
+    "vueThreeCompatible": "- Fully **Vue.js 3 compatible**",
+    "featureRich": "- Contains a **50+ feature rich components** that could be used in any design solution.",
+    "configurable": "- Allows ** to configure components** globally via config and css variables.",
+    "responsive": "- Fully **responsive** and **supports modern browsers** (no IE11, sorry).",
+    "translatable": "- Integrates seamlessly with **i18n**"
   },
   "translation": {
-    "title": "Work In Progress"
+    "title": "Translation",
+    "description": "Translation is only needed for documentation (`packages/docs/locales`) as components don't use any translation strings at the moment. Here's the current state for languages support:",
+    "table": {
+      "language": "Language",
+      "supported": "Supported"
+    }
   },
   "table": {
     "title": "Tables",
@@ -2656,7 +2636,7 @@
         "dontSubmitToMaster": "- **Do not submit PRs against the `master` branch.**",
         "checkoutFeat": "- Checkout a `feat/` branch from `develop`, then create pull request against that branch.",
         "multipleSmallCommits": "- It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.",
-        "fixBugSteps": "* If fixing a bug:\n  * If you are resolving a special issue, add `fix #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github will close the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
+        "fixBugSteps": "* If fixing a bug:\n  * If you are resolving a special issue, add `close #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github [will close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
       }
     },
     "branches": {
@@ -2672,15 +2652,15 @@
     },
     "forCoreContributors": {
       "title": "For core contributors",
-      "linkPr": "- Always link PR to issue (via `fix #123`).",
+      "linkPr": "- Always link PR to issue (via `close #123`).",
       "assignYourself": "- When you start working on the task - please assign yourself. That's needed to prevent conflict.",
-      "smallIssues": "- For small issues you may push to `develop` branch directly while adding (`fix #123`) to commit message.",
+      "smallIssues": "- For small issues you may push to `develop` branch directly while adding (`close #123`) to commit message.",
       "singlePrPerIssue": "- Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
       "onePersonPerIssue": "- Be sure to have only one person assigned per issue.",
       "checkYourCode": "- Check your code: [conventions](../packages/old-docs/conventions.md).",
       "weUseYarn": "- We use [yarn](https://yarnpkg.com/lang/en/) for package management.",
       "beProactive": "- Be proactive. If you think something is wrong - create an issue or discuss.",
-      "recommendedTools": "- Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/)",
+      "recommendedTools": "- Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
       "workInBook": "- If you work on UI components - work in book environment (`yarn serve:book`). We want to keep global stuff out of components."
     },
     "componentFolderStructure": {

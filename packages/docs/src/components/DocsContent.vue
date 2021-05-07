@@ -11,6 +11,7 @@
         v-else-if="block.type === BlockType.CODE"
         :key="block.type + index"
         :code="block.code"
+        :language="block.language"
       />
       <ApiDocs
         v-else-if="BlockType.API === block.type"
@@ -52,6 +53,12 @@
         :text="block.text"
         v-bind="block.options"
       />
+      <DocsAlert
+        v-else-if="block.type === BlockType.ALERT"
+        :key="block.type + index"
+        :text="block.translationString"
+        :color="block.color"
+      />
     </template>
   </va-content>
 </template>
@@ -66,6 +73,7 @@ import DocsSubtitle from './DocsSubtitle.vue'
 import ApiDocs from './DocsApi/ApiDocs.vue'
 import DocsTable from './DocsTable/DocsTable.vue'
 import DocsLink from './DocsLink.vue'
+import DocsAlert from './DocsAlert.vue'
 
 class Props {
   config = prop<ApiDocsBlock[]>({})
@@ -82,6 +90,7 @@ const PropsMixin = Vue.with(Props)
     ApiDocs,
     DocsTable,
     DocsLink,
+    DocsAlert,
   },
 })
 export default class DocsContent extends mixins(PropsMixin) {

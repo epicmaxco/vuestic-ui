@@ -7,7 +7,7 @@ const config = (path: string) => {
 
 const installation = `
 npm install vuestic-ui
-//or
+// or
 yarn add vuestic-ui
 `
 
@@ -76,33 +76,32 @@ const cliPrepare = `
 vue --version
 `
 export default [
-  DocsHelper.title(config('title')),
-  DocsHelper.paragraph(config('description')),
-  DocsHelper.subtitle(config('manual.title')),
-  DocsHelper.paragraph(config('subtitle')),
-  DocsHelper.paragraph(config('prerequisites')),
-  DocsHelper.paragraph(config('node')),
-  DocsHelper.paragraph(config('npm')),
-  DocsHelper.paragraph(config('afterCheck')),
-  DocsHelper.code(installation),
-  DocsHelper.headline(config('quickStart.title')),
-  DocsHelper.paragraph(config('quickStart.description')),
+  DocsHelper.title('installation.title'),
+  DocsHelper.paragraph('installation.description'),
+  DocsHelper.subtitle('installation.manual.title'),
+  DocsHelper.paragraph('installation.subtitle'),
+  DocsHelper.paragraph('installation.prerequisites'),
+  DocsHelper.paragraph('installation.node'),
+  DocsHelper.paragraph('installation.npm'),
+  DocsHelper.paragraph('installation.afterCheck'),
+  DocsHelper.code(installation, 'bash'),
+
+  DocsHelper.headline('installation.quickStart.title'),
+  DocsHelper.paragraph('installation.quickStart.description'),
   DocsHelper.code(quickStart),
-  DocsHelper.subtitle(config('cli.title')),
-  DocsHelper.paragraph(config('cli.attention')),
-  DocsHelper.paragraph(config('cli.prepare')),
-  DocsHelper.code(cliPrepare),
-  DocsHelper.paragraph(config('cli.upgrade')),
-  DocsHelper.paragraph(config('cli.codeAnnotation')),
-  DocsHelper.code('vue add vuestic-ui'),
+
+  DocsHelper.subtitle('installation.cli.title'),
+  DocsHelper.paragraph('installation.cli.description'),
+  DocsHelper.alert('installation.cli.attention', 'warning'),
+  DocsHelper.paragraph('installation.cli.prepare'),
+  DocsHelper.code(cliPrepare, 'bash'),
+  DocsHelper.paragraph('installation.cli.upgrade'),
+  DocsHelper.paragraph('installation.cli.codeAnnotation'),
+  DocsHelper.code('vue add vuestic-ui', 'bash'),
+
+  // TODO Reenable when nuxt support is added back.
   // DocsHelper.subtitle(config('nuxt.title')),
   // DocsHelper.paragraph(config('nuxt.description')),
   // DocsHelper.code(nuxtInstallation),
   // DocsHelper.code(nuxtConfig),
-// examples
-  // ...DocsHelper.exampleBlock(
-  //   'installation.examples.yourExample.title',
-  //   'installation.examples.yourExample.text',
-  //   'va-installation/Example',
-  // ),
 ] as ApiDocsBlock[]

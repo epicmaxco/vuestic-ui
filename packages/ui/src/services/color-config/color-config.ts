@@ -1,8 +1,8 @@
 import { GlobalConfig, setGlobalConfig, getGlobalConfig } from '../global-config/global-config'
 import { getBoxShadowColor, getHoverColor, getFocusColor, getGradientBackground, isCssColor } from './color-functions'
 
-export type HexColor = string
-export type ColorConfig = { [colorName: string]: HexColor }
+export type CssColor = string
+export type ColorConfig = { [colorName: string]: CssColor }
 
 // Most default color - fallback when nothing else is found.
 export const DEFAULT_COLOR = '#000000'
@@ -18,7 +18,7 @@ export const getColors = (): ColorConfig => {
   return getGlobalConfig().colors || {}
 }
 
-export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): HexColor => {
+export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): CssColor => {
   const colors = getColors()
 
   if (!prop) {

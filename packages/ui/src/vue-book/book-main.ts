@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './BookApp.vue'
-import DropdownPopperSubplugin from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
+import DropdownPopperSubplugin
+  from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
 // import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
 import ToastInstall from '../components/vuestic-components/va-toast/install'
 
@@ -12,6 +13,7 @@ import demoIconFonts from './vuestic-config/demo-icon-fonts'
 
 import './vue-book-overrides.scss'
 import { createIconsConfig, VuesticPlugin } from '../main'
+import { colorsPresets } from '../services/color-config/color-theme-presets'
 
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
@@ -45,6 +47,10 @@ app.use(VuesticPlugin, {
     aliases: demoIconAliases,
     fonts: demoIconFonts,
   }),
+  colors: {
+    ...colorsPresets.default,
+    banana: '#d0f55d',
+  },
 })
 
 app.mount('#app')

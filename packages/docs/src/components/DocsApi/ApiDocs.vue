@@ -151,7 +151,7 @@ import { defaultApiOptions } from './default-api-options'
 import DocsTable from '../DocsTable/DocsTable.vue'
 
 class Props {
-  componentOptions = prop<DefineComponent | VueConstructor>({ type: Object, required: true })
+  componentOptions = prop<DefineComponent | VueConstructor>({ required: true })
   apiOptions = prop<ManualApiOptions>({ type: Object, default: () => ({}) })
 }
 
