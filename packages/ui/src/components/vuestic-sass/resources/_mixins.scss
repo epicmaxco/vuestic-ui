@@ -162,3 +162,23 @@
     transition: $modal-transition;
   }
 }
+
+@mixin va-scroll($color: grey) {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color;
+    opacity: 0.3;
+    border-radius: 2px;
+  }
+
+  scrollbar-color: $color transparent;
+  scrollbar-width: thin;
+}
