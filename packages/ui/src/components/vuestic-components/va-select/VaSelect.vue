@@ -1,56 +1,55 @@
 <template>
   <va-input-wrapper
-    :error="computedError"
-    :success="$props.success"
-    :error-messages="computedErrorMessages"
+    :success="success"
     :messages="$props.messages"
+    :error="error"
+    :error-messages="computedErrorMessages"
     :style="{ width: $props.width }"
   >
-    <template #prepend v-if="$slots.prepend">
-      <slot name="prepend" />
-    </template>
-
     <va-dropdown
-      class="va-select__dropdown"
       :position="$props.position"
       :disabled="$props.disabled"
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
-      boundaryBody
       :closeOnAnchorClick="$props.multiple"
-      keepAnchorWidth
-      @update:modelValue="onDropdownInput"
+      :offset="[0, 8]"
       ref="dropdown"
+      class="va-select__dropdown"
+      keepAnchorWidth
+      boundaryBody
+      @update:modelValue="onDropdownInput"
     >
-      <va-input
-        v-if="inputVisible"
-        class="va-select__input"
-        v-model="search"
-        :id="$props.id"
-        :name="$props.name"
-        placeholder="Search"
-        removable
-        ref="searchBar"
-        @keydown.enter.stop.prevent="addNewOption"
-        @keydown.up.stop.prevent="hoverPreviousOption"
-        @keydown.down.stop.prevent="hoverNextOption"
-      />
-      <va-select-option-list
-        :style="{ maxHeight: $props.maxHeight }"
-        :options="filteredOptions"
-        :selectedValue="valueProxy"
-        :getSelectedState="getSelectedState"
-        :getText="getText"
-        :getTrackBy="getTrackBy"
-        :search="search"
-        :hintedOption="hintedOption"
-        :noOptionsText="$props.noOptionsText"
-        :color="$props.color"
-        :key-by="$props.keyBy"
-        :text-by="$props.textBy"
-        ref="optionList"
-        @selectOption="selectOption"
-      />
+      <div class="va-select__dropdown__content">
+        <va-input
+          v-if="inputVisible"
+          v-model="search"
+          class="va-select__input"
+          placeholder="Search"
+          removable
+          ref="searchBar"
+          :id="$props.id"
+          :name="$props.name"
+          @keydown.enter.stop.prevent="addNewOption"
+          @keydown.up.stop.prevent="hoverPreviousOption"
+          @keydown.down.stop.prevent="hoverNextOption"
+        />
+        <va-select-option-list
+          :style="{ maxHeight: $props.maxHeight }"
+          :options="filteredOptions"
+          :selectedValue="valueProxy"
+          :getSelectedState="getSelectedState"
+          :getText="getText"
+          :getTrackBy="getTrackBy"
+          :search="search"
+          :hintedOption="hintedOption"
+          :noOptionsText="$props.noOptionsText"
+          :color="$props.color"
+          :key-by="$props.keyBy"
+          :text-by="$props.textBy"
+          ref="optionList"
+          @selectOption="selectOption"
+        />
+      </div>
 
       <template #anchor>
         <div
@@ -68,100 +67,48 @@
           @keydown.enter.stop.prevent="selectHoveredOption"
           @keydown.space.stop.prevent="selectHoveredOption"
         >
+          <!-- We show messages outside of dropdown to prevent resize  -->
+          <va-input
+            :modelValue="selectionValue"
+            :success="success"
+            :error="error"
+            :removable="showClearIcon"
+            :label="$props.label"
+            :placeholder="$props.placeholder"
+            :loading="$props.loading"
+            :disabled="$props.disabled"
+            readonly
+          >
+            <template #prepend v-if="$slots.prepend">
+              <slot name="prepend" />
+            </template>
 
-          <div class="va-select__content-wrapper">
-            <div class="va-select__controls" v-if="$slots.prependInner">
-              <div class="va-select__prepend-slot">
-                <slot name="prependInner" />
-              </div>
-            </div>
-            <div
-              class="va-select__content"
-              :class="[$props.label ? 'va-select__content__selection--no-label' : '']"
-            >
-              <label
-                v-if="$props.label"
-                class="va-select__content__label"
-                :style="labelStyle"
-                ref="label"
-                aria-hidden="true"
-              >
-                {{ $props.label }}
-              </label>
-              <template v-if="selectionValue || selectionChips">
-                <div
-                  class="va-select__content__selection"
-                  v-if="$props.multiple"
-                >
-                  <div v-if="$props.chips && selectionChips.length <= $props.chipMax">
-                    <va-chip
-                      class="va-select__content__selection--chip"
-                      v-for="(option, i) in selectionChips"
-                      :key="i"
-                      size="small"
-                      :color="$props.color"
-                      :closeable="$props.deletableChips"
-                      @input="selectOption(option)"
-                    >
-                      {{ option }}
-                    </va-chip>
-                  </div>
-                  <div v-else>
-                    {{ selectionChips }}
-                  </div>
-                </div>
-                <div
-                  v-else-if="selectionValue"
-                  class="va-select__content__selection"
-                >
-                  {{ selectionValue }}
-                </div>
-              </template>
-              <div
-                v-else
-                class="va-select__content__selection va-select__content__selection--placeholder"
-              >
-                {{ $props.placeholder }}
-              </div>
-            </div>
+            <template #append v-if="$slots.append">
+              <slot name="append" />
+            </template>
 
-            <div class="va-select__controls">
+            <template #prependInner v-if="$slots.prependInner">
+              <slot name="prependInner" />
+            </template>
 
-              <div class="va-select__append-slot">
-                <slot name="appendInner" />
-              </div>
-
-              <div v-if="showClearIcon" class="va-select__icon">
+            <template #appendInner>
+              <div class="va-input__append">
+                <slot v-if="$slots.appendInner" name="appendInner" />
                 <va-icon
-                  :name="$props.clearIcon"
-                  @click.stop="reset()"
-                />
-              </div>
-
-              <div v-if="$props.loading" class="va-select__icon">
-                <va-icon
-                  spin
-                  :color="computeColor('success')"
-                  :size="24"
-                  name="loop"
-                />
-              </div>
-
-              <div class="va-select__icon">
-                <va-icon
-                  :color="computeColor('grey')"
+                  :color="colorComputed"
                   :name="toggleIcon"
                 />
               </div>
-            </div>
-          </div>
+            </template>
+<!--
+            <template #content="{ value, ref }">
+              {{ ref }}
+              <input ref="ref" :value="value" />
+            </template> -->
+          </va-input>
         </div>
       </template>
     </va-dropdown>
-
-    <template #append v-if="$slots.append">
-      <slot name="append" />
-    </template>
   </va-input-wrapper>
 </template>
 
@@ -169,7 +116,6 @@
 import { watch } from 'vue'
 import { mixins, Options, prop, Vue } from 'vue-class-component'
 
-import { getHoverColor } from '../../../services/color-config/color-functions'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
@@ -181,7 +127,6 @@ import VaInput, { VaInputWrapper } from '../va-input'
 
 import VaSelectOptionList from './VaSelectOptionList'
 
-const positions: string[] = ['top', 'bottom']
 type DropdownIcon = {
   open: string,
   close: string
@@ -194,11 +139,12 @@ class SelectProps {
   })
 
   label = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'primary' })
   placeholder = prop<string>({ type: String, default: '' })
   position = prop<string>({
     type: String,
     default: 'bottom',
-    validator: (position: string) => positions.includes(position),
+    validator: (position: string) => ['top', 'bottom'].includes(position),
   })
 
   chipMax = prop<number>({ type: Number, default: 10 })
@@ -227,8 +173,8 @@ class SelectProps {
   dropdownIcon = prop<string | DropdownIcon>({
     type: [String, Object],
     default: (): DropdownIcon => ({
-      open: 'arrow_drop_down',
-      close: 'arrow_drop_up',
+      open: 'expand_more',
+      close: 'expand_less',
     }),
   })
 
@@ -241,6 +187,7 @@ class SelectProps {
 const SelectPropsMixin = Vue.with(SelectProps)
 
 @Options({
+  name: 'VaSelect',
   components: {
     VaChip,
     VaSelectOptionList,
@@ -309,8 +256,7 @@ export default class VaSelect extends mixins(
   }
 
   get visible () {
-    // @ts-ignore
-    return this.isMounted ? this.$refs.dropdown.isClicked : false
+    return this.isMounted ? (this.$refs as any).dropdown.isClicked : false
   }
 
   get selectClass () {
@@ -320,31 +266,7 @@ export default class VaSelect extends mixins(
       'va-select--searchable': this.$props.searchable,
       'va-select--disabled': this.$props.disabled,
       'va-select--loading': this.$props.loading,
-    }
-  }
-
-  get selectStyle () {
-    return {
-      backgroundColor:
-        this.computedError
-          ? getHoverColor(this.computeColor('danger'))
-          : this.$props.success ? getHoverColor(this.computeColor('success')) : '#f5f8f9',
-      borderColor:
-        this.computedError
-          ? this.computeColor('danger')
-          : this.$props.success
-            ? this.computeColor('success')
-            : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
-    }
-  }
-
-  get labelStyle () {
-    return {
-      color: this.computedError
-        ? this.computeColor('danger')
-        : this.$props.success
-          ? this.computeColor('success')
-          : this.isFocused || this.showOptionList ? this.colorComputed : this.computeColor('gray'),
+      'va-select_error': this.computedError,
     }
   }
 
@@ -561,133 +483,18 @@ export default class VaSelect extends mixins(
 @import 'variables';
 
 .va-select {
-  display: var(--va-select-display);
-  align-items: var(--va-select-align-items);
-  cursor: var(--va-select-cursor);
-  width: var(--va-select-width);
-  min-height: var(--va-select-min-height);
-  border-style: var(--va-select-border-style);
-  border-width: var(--va-select-border-width);
-  border-top-left-radius: var(--va-select-border-top-left-radius);
-  border-top-right-radius: var(--va-select-border-top-right-radius);
-  margin-bottom: var(--va-select-margin-bottom);
-  transition: var(--va-select-transition);
+  cursor: pointer;
 
-  &--disabled {
-    @include va-disabled();
-  }
-
-  &--loading {
-    .va-select__clear-icon,
-    .va-select__open-icon {
-      visibility: hidden;
-    }
-  }
-
-  &__controls {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  &__content-wrapper {
-    display: var(--va-select-content-wrapper-display);
-    justify-content: var(--va-select-content-wrapper-justify-content);
-    align-items: var(--va-select-content-wrapper-align-items);
-    width: var(--va-select-content-wrapper-width);
-    padding: var(--va-select-content-wrapper-padding);
-  }
-
-  &__content {
-    display: var(--va-select-content-display);
-    width: var(--va-select-content-width);
-    justify-content: var(--va-select-content-justify-content);
-    align-items: var(--va-select-content-align-items);
-
-    &__label {
-      @include va-title();
-
-      padding-top: var(--va-select-label-padding-top);
-      position: var(--va-select-label-position);
-      top: var(--va-select-label-top);
-      right: var(--va-select-label-right);
-      max-width: var(--va-select-label-max-width);
-      transition: var(--va-select-label-transition);
-
-      @include va-ellipsis();
-    }
-
-    &__selection {
-      width: var(--va-select-selection-width);
-      display: var(--va-select-selection-display);
-      padding: var(--va-select-selection-padding);
-      margin-top: var(--va-select-selection-margin-top);
-      align-items: var(--va-select-selection-align-items);
-      white-space: var(--va-select-selection-white-space);
-      overflow: var(--va-select-selection-overflow);
-      text-overflow: var(--va-select-selection-text-overflow);
-
-      &--no-label {
-        padding: 0.75rem 0 0.125rem 0;
-      }
-
-      &--chip {
-        margin: 0.25rem 0.25rem 0.25rem 0;
-      }
-
-      &--placeholder {
-        color: var(--va-select-placeholder-color);
-        opacity: var(--va-select-placeholder-opacity);
-        display: var(--va-select-placeholder-display);
-        overflow: var(--va-select-placeholder-overflow);
-        text-overflow: var(--va-select-placeholder-text-overflow);
-        -webkit-line-clamp: var(--va-select-placeholder--webkit-line-clamp);
-        -webkit-box-orient: var(--va-select-placeholder--webkit-box-orient);
-        -webkit-box-align: var(--va-select-placeholder--webkit-box-align);
-        -webkit-box-pack: var(--va-select-placeholder--webkit-box-pack);
-      }
-    }
-  }
-
-  &__input {
-    border: var(--va-select-input-border, var(--va-control-border));
-    background: var(--va-select-input-background);
-    padding: var(--va-select-input-padding);
-    font-size: var(--va-select-input-font-size);
-    font-family: var(--va-select-input-font-family, var(--va-font-family));
-    font-weight: var(--va-select-input-font-weight);
-    font-style: var(--va-select-input-font-style);
-    font-stretch: var(--va-select-input-font-stretch);
-    line-height: var(--va-select-input-line-height);
-    letter-spacing: var(--va-select-input-letter-spacing);
-    white-space: var(--va-select-input-white-space);
-    text-overflow: var(--va-select-input-text-overflow);
-    overflow: var(--va-select-input-overflow);
-
-    /* margin: 0 0.5rem; */
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  &__icon {
-    padding-left: var(--va-select-icon-padding-left);
-  }
-
-  &__prepend-slot {
-    padding-right: var(--va-select-prepend-slot-padding-right);
-  }
-
-  &__append-slot {
-    padding-left: var(--va-select-append-slot-padding-left);
+  .va-input__append {
+    display: flex;
+    justify-content: center;
+    align-content: center;
   }
 
   &__dropdown {
     outline: var(--va-select-dropdown-outline);
     margin: var(--va-select-dropdown-margin);
     padding: var(--va-select-dropdown-padding);
-    background: var(--va-select-dropdown-background);
-    border-radius: var(--va-select-dropdown-border-radius);
 
     &.va-select__dropdown-position-top {
       box-shadow: 0 -2px 3px 0 rgba(98, 106, 119, 0.25);
@@ -698,12 +505,15 @@ export default class VaSelect extends mixins(
     }
 
     .va-dropdown__content {
-      background-color: var(--va-select-dropdown-content-background-color);
+      background: white;
       margin: var(--va-select-dropdown-content-margin);
       padding: var(--va-select-dropdown-content-padding);
-      overflow-y: var(--va-select-dropdown-content-overflow-y);
-      box-shadow: var(--va-select-dropdown-content-box-shadow);
-      border-radius: var(--va-select-dropdown-content-border-radius);
+      overflow-y: auto;
+      border-radius: 4px;
+      filter: drop-shadow(0 4px 8px rgba(59, 63, 73, 0.15));
+      margin-right: -4px;
+
+      @include va-scroll();
     }
   }
 }

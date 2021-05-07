@@ -75,7 +75,7 @@ export default class VaInputWrapper extends Vue.with(Props) {
 .va-input-wrapper {
   display: flex;
   flex: 1 1 auto;
-  align-items: flex-end;
+  align-items: center;
   font-size: 1rem;
   text-align: left;
 

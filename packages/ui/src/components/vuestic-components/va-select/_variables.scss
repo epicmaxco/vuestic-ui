@@ -5,24 +5,28 @@
   --va-select-width: 100%;
   --va-select-min-height: 2.375rem;
   --va-select-border-style: solid;
-  --va-select-border-width: 0 0 thin 0;
-  --va-select-border-top-left-radius: 0.5rem;
-  --va-select-border-top-right-radius: 0.5rem;
+  --va-select-border-width: 2px;
+  --va-select-border-radius: 0;
   --va-select-margin-bottom: 1rem;
   --va-select-transition: ease-in-out border-bottom-color 0.25s;
+  --va-select-background: #f5f9fb; //var(--va-secondary); // TODO: Move this color to some global color variable
+  --va-select-text-color: #262824; // var(--va-dark);
+  --va-select-padding-x: 0.75rem;
+  --va-select-padding-left: var(--va-select-padding-x);
+  --va-select-padding-right: var(--va-select-padding-x);
+  --va-select-padding-top: 0.4rem;
+  --va-select-padding-bottom: 0.6rem;
 
-  /* Content wrapper */
-  --va-select-content-wrapper-display: flex;
-  --va-select-content-wrapper-justify-content: space-between;
-  --va-select-content-wrapper-align-items: stretch;
-  --va-select-content-wrapper-width: 100%;
-  --va-select-content-wrapper-padding: 0 0.5rem;
+  /* Outline */
+  --va-select-outline-border-color: #e1e9f8;
 
   /* Content */
   --va-select-content-display: flex;
   --va-select-content-width: 100%;
   --va-select-content-justify-content: space-between;
   --va-select-content-align-items: stretch;
+  --va-select-content-padding: 0.4rem 0.75rem 0.6rem 0.75rem;
+  --va-select-content-padding-no-label: 0 0.75rem 0.1rem 0.75rem;
 
   /* Label */
   --va-select-label-padding-top: 0.125rem;
@@ -35,7 +39,8 @@
   /* Selection */
   --va-select-selection-width: 100%;
   --va-select-selection-display: flex;
-  --va-select-selection-padding: 0.125rem 0;
+  // We need to move up text a little bit, for 0.1rem
+  --va-select-selection-padding: 0; // 0.4rem 0.75rem 0.6rem 0.75rem;
   --va-select-selection-margin-top: 0.125rem;
   --va-select-selection-align-items: center;
   --va-select-selection-white-space: normal;
@@ -77,15 +82,18 @@
   /* Append slot */
   --va-select-append-slot-padding-left: 0.25rem;
 
+  /* Colors */
+  --va-select-background-color: #f5f9fb;
+
   /* Dropdown */
   --va-select-dropdown-outline: none;
   --va-select-dropdown-margin: 0;
   --va-select-dropdown-padding: 0;
-  --va-select-dropdown-background: #f5f8f9;
+  --va-select-dropdown-background: var(--va-select-background-color);
   --va-select-dropdown-border-radius: 0.5rem;
 
   /* Dropdown content */
-  --va-select-dropdown-content-background-color: #f5f8f9;
+  --va-select-dropdown-content-background-color: var(--va-select-background-color);
   --va-select-dropdown-content-margin: 0;
   --va-select-dropdown-content-padding: 0;
   --va-select-dropdown-content-overflow-y: auto;

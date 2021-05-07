@@ -37,6 +37,7 @@ class Props {
   })
 
   removable = prop({ type: Boolean, default: false })
+  loading = prop({ type: Boolean, default: false })
   canBeFocused = prop({ type: Boolean, default: true })
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
 }
@@ -69,7 +70,7 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
   }
 
   get showIcon (): boolean {
-    return this.success || this.computedError || this.canBeCleared
+    return this.success || this.computedError || this.canBeCleared || this.loading
   }
 
   get canBeCleared (): boolean {

@@ -13,14 +13,17 @@
       >
         <va-icon
           v-if="option.icon"
-          :name="option.icon"
+          size="small"
           class="va-select-option-list__option--icon"
+          :name="option.icon"
         />
         <span>{{ getText(option) }}</span>
         <va-icon
           v-show="$props.getSelectedState(option)"
           class="va-select-option-list__option--selected-icon"
+          size="small"
           name="done"
+          :color="colorComputed"
         />
       </div>
     </template>
@@ -71,6 +74,7 @@ class SelectOptionListProps {
 const SelectOptionListPropsMixin = Vue.with(SelectOptionListProps)
 
 @Options({
+  name: 'VaSelectOptionList',
   components: { VaIcon },
   emits: ['select-option'],
 })
@@ -197,6 +201,7 @@ export default class VaSelectOptionList extends mixins(
   flex-direction: var(--va-select-option-list-flex-direction);
   width: var(--va-select-option-list-width);
   list-style: var(--va-select-option-list-list-style);
+  max-height: 200px;
 
   &__option {
     cursor: var(--va-select-option-list-option-cursor);

@@ -30,21 +30,28 @@
             {{ label }}
           </label>
 
-          <input
-            v-if="!isTextarea"
-            v-on="eventListeners"
-            v-bind="computedInputAttributes"
-            class="va-input__content__input"
-            ref="input"
-          />
+          <div v-if="$slots.content" class="va-input__content__input">
+            <slot
+              name="content"
+              v-bind="{ value: computedValue, focus }"
+            />
+          </div>
           <textarea
-            v-else
+            v-else-if="isTextarea"
             v-on="eventListeners"
             v-bind="computedInputAttributes"
             class="va-input__content__input"
             ref="textarea"
             :tabindex="tabindex"
           />
+          <input
+            v-else
+            v-on="eventListeners"
+            v-bind="computedInputAttributes"
+            class="va-input__content__input"
+            ref="input"
+          />
+
         </div>
       </div>
 
@@ -66,6 +73,14 @@
           name="highlight_off"
           size="small"
           :color="clearIconColor"
+          @click.stop="reset()"
+        />
+        <va-icon
+          v-if="loading"
+          name="loop"
+          size="small"
+          spin="counter-clockwise"
+          :color="computeColor"
           @click.stop="reset()"
         />
       </div>
@@ -211,7 +226,7 @@ export default class VaInput extends mixins(
       (this as any).$refs.input.focus()
     } else if (this.$refs.textarea) {
       (this as any).$refs.textarea.focus()
-    } else {
+    } else if (!this.$slots.content) {
       throw new Error('There is no DOM element to focus')
     }
   }
@@ -310,6 +325,7 @@ export default class VaInput extends mixins(
 
   &_labeled {
     .va-input__content-wrapper {
+      padding-top: 12px;
       height: 100%;
       align-items: flex-end;
     }
@@ -318,6 +334,8 @@ export default class VaInput extends mixins(
       @include va-ellipsis();
 
       height: 12px;
+      transform: translateY(-100%);
+      position: absolute;
       display: block;
       left: 0;
       top: 0;
