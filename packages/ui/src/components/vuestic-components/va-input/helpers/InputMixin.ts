@@ -31,13 +31,13 @@ class Props {
     default: () => ({}),
   })
 
-  returnRaw = prop<boolean>({
+  returnRaw = ({
     type: Boolean,
     default: true,
   })
 
-  removable = prop<boolean>({ type: Boolean, default: false })
-
+  removable = prop({ type: Boolean, default: false })
+  canBeFocused = prop({ type: Boolean, default: true })
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
 }
 
@@ -131,11 +131,15 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
   }
 
   onFocus (event: Event): void {
-    this.isFocused = true
+    if (this.canBeFocused) {
+      this.isFocused = true
+    }
+
     this.$emit('focus', event)
   }
 
   onBlur (event: Event): void {
+    this.isFocused = false
     this.ValidateMixin_onBlur()
     this.$emit('blur', event)
   }

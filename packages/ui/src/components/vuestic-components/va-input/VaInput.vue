@@ -1,5 +1,6 @@
 <template>
   <va-input-wrapper
+    class="va-input"
     :class="wrapperClass"
     :disabled="disabled"
     :success="success"
@@ -14,45 +15,40 @@
       <slot name="prepend" />
     </template>
 
-    <div
-      class="va-input__container"
-      :class="containerClass"
-      :style="computedBorderColorStyle"
-    >
-      <div
-        v-if="$slots.prependInner"
-        class="va-input__container__prepend-inner"
-        @click="onPrependInnerClick"
-      >
+    <div class="va-input__container" :style="computedBorderColorStyle">
+      <div v-if="$slots.prependInner" class="va-input__prepend-inner" @click="onPrependInnerClick">
         <slot name="prependInner" />
       </div>
 
-      <div class="va-input__container__content-wrapper" @click="focus()">
-        <div class="va-input__container__content">
+      <div class="va-input__content-wrapper" @click="focus()">
+        <div class="va-input__content">
           <label
             aria-hidden="true"
-            class="va-input__container__label"
+            class="va-input__label"
             :style="labelStyle"
           >
             {{ label }}
           </label>
+
           <input
             v-if="!isTextarea"
             v-on="eventListeners"
             v-bind="computedInputAttributes"
+            class="va-input__content__input"
             ref="input"
           />
           <textarea
             v-else
             v-on="eventListeners"
             v-bind="computedInputAttributes"
+            class="va-input__content__input"
             ref="textarea"
             :tabindex="tabindex"
           />
         </div>
       </div>
 
-      <div v-if="showIcon" class="va-input__container__icons">
+      <div v-if="showIcon" class="va-input__icons">
         <va-icon
           v-if="success"
           color="success"
@@ -67,18 +63,14 @@
         />
         <va-icon
           v-if="canBeCleared"
-          @click.stop="reset()"
-          :color="clearIconColor"
           name="highlight_off"
           size="small"
+          :color="clearIconColor"
+          @click.stop="reset()"
         />
       </div>
 
-      <div
-        v-if="$slots.appendInner"
-        @click="onAppendInnerClick"
-        class="va-input__container__append-inner"
-      >
+      <div v-if="$slots.appendInner" class="va-input__append-inner" @click="onAppendInnerClick">
         <slot name="appendInner" />
       </div>
     </div>
@@ -132,7 +124,7 @@ export default class VaInput extends mixins(
     return { color: this.colorComputed }
   }
 
-  stateClassed (baseclass: string) {
+  stateClasses (baseclass: string) {
     const classes = [baseclass]
 
     if (this.isTextarea) {
@@ -165,11 +157,7 @@ export default class VaInput extends mixins(
   }
 
   get wrapperClass () {
-    return this.stateClassed('va-input')
-  }
-
-  get containerClass () {
-    return this.stateClassed('va-input__container')
+    return this.stateClasses('va-input')
   }
 
   get computedBorderColorStyle () {
@@ -188,7 +176,7 @@ export default class VaInput extends mixins(
     }
 
     if (this.computedError) {
-      return 'danget'
+      return 'danger'
     }
 
     if (this.success) {
@@ -208,10 +196,12 @@ export default class VaInput extends mixins(
       disabled: this.disabled,
       readonly: this.readonly,
       tabindex: this.tabindex,
-      style: this.$attrs.inputStyle, // Do not inherit style from $attrs
-      class: ['va-input__container__input ', this.$attrs.inputClass || ''], // Do not inherit class from $attrs
-      'aria-label': this.label,
+      // Do not inherit style from $attrs
+      style: this.$attrs.inputStyle,
+      // Do not inherit class from $attrs
+      class: this.$attrs.inputClass,
       value: this.computedValue,
+      'aria-label': this.label,
     }
   }
 
@@ -239,6 +229,8 @@ export default class VaInput extends mixins(
 
 .va-input {
   position: relative;
+  display: flex;
+  align-items: center;
 
   &__container {
     display: flex;
@@ -248,160 +240,149 @@ export default class VaInput extends mixins(
     min-height: var(--va-input-min-height);
     border-color: var(--va-input-color);
     border-style: solid;
+    border-width: var(--va-input-border-width);
     color: var(--va-input-text-color);
     overflow: hidden;
-    border-width: var(--va-input-border-width);
     cursor: text;
+    padding: 0 var(--va-input-content-horizontal-padding);
 
-    /* We have 3 styles and two states for each style separatly */
-    &_solid {
-      background: var(--va-input-color);
-      border-color: var(--va-input-color);
-      border-radius: var(--va-input-border-radius);
-
-      &.va-input__container_success {
-        background: var(--va-input-success-background);
-        border-color: var(--va-input-success-color);
-      }
-
-      &.va-input__container_error {
-        background: var(--va-input-error-background);
-        border-color: var(--va-input-error-color);
-      }
-    }
-
-    &_outline {
-      border-radius: 0;
-      border-color: var(--va-input-bordered-color);
-
-      &.va-input__container_success {
-        background: var(--va-input-success-background);
-        border-color: var(--va-input-success-color);
-      }
-
-      &.va-input__container_error {
-        background: var(--va-input-error-background);
-        border-color: var(--va-input-error-color);
-      }
-    }
-
-    &_bordered {
-      background: var(--va-input-color);
-      border-top-left-radius: var(--va-input-border-radius);
-      border-top-right-radius: var(--va-input-border-radius);
-      border-color: transparent !important;
-
-      &.va-input__container_success {
-        background: var(--va-input-success-background);
-      }
-
-      &.va-input__container_error {
-        background: var(--va-input-error-background);
-      }
-    }
-
-    /* styles end */
-
-    // Creates gap between prepend, content, validation icons, append
+    /* Creates gap between prepend, content, validation icons, append */
     & > * {
       padding-right: var(--va-input-content-items-gap);
       line-height: 0;
 
       &:last-child {
-        padding-right: var(--va-input-content-horizontal-padding);
-      }
-
-      &:first-child {
-        padding-left: var(--va-input-content-horizontal-padding);
+        padding-right: 0;
       }
     }
+  }
 
-    &__content-wrapper {
-      display: flex;
-      align-items: center;
+  &__content-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .va-input__content {
       width: 100%;
-    }
+      position: relative;
 
-    &__content {
-      width: 100%;
-    }
+      &__input {
+        @include va-scroll(var(--va-input-scroll-color));
 
-    .va-input__container__input {
-      transform: translateY(-1px);
-    }
+        width: 100%;
+        color: var(--va-input-text-color);
+        background-color: transparent;
+        border-style: none;
+        outline: none;
+        line-height: var(--va-input-line-height);
+        font-size: var(--va-input-font-size);
+        font-family: var(--va-input-font-family, var(--va-font-family));
+        font-weight: var(--va-input-font-weight);
+        font-style: var(--va-input-font-style);
+        font-stretch: var(--va-input-font-stretch);
+        letter-spacing: var(--va-input-letter-spacing);
+        transform: translateY(-1px);
 
-    &_labeled {
-      .va-input__container__content {
-        position: relative;
-
-        &-wrapper {
-          height: 100%;
-          align-items: flex-end;
+        &::placeholder {
+          color: var(--va-input-placeholder-text-color);
         }
-      }
 
-      .va-input__container__label {
-        height: 12px;
-        position: absolute;
-        left: 0;
-        top: 0;
-        max-width: var(--va-input-container-label-max-width);
-        color: var(--va-input-container-label-color);
-        font-size: var(--va-input-container-label-font-size);
-        letter-spacing: var(--va-input-container-label-letter-spacing, var(--va-letter-spacing));
-        line-height: var(--va-input-container-label-line-height);
-        font-weight: var(--va-input-container-label-font-weight);
-        text-transform: var(--va-input-container-label-text-transform);
-        transform: translateY(-100%);
-
-        @include va-ellipsis();
-
-        transform-origin: top left;
-      }
-    }
-
-    &__icons {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      & > * {
-        margin-right: calc(var(--va-input-content-items-gap) / 4);
-
-        &:last-child {
-          margin-right: 0;
+        &:disabled {
+          opacity: var(--va-input-disabled-opacity);
         }
       }
     }
+  }
 
-    input,
-    textarea {
-      width: 100%;
-      color: var(--va-input-text-color);
-      background-color: transparent;
-      border-style: none;
-      outline: none;
-      line-height: var(--va-input-line-height);
-      font-size: var(--va-input-font-size);
-      font-family: var(--va-input-font-family, var(--va-font-family));
-      font-weight: var(--va-input-font-weight);
-      font-style: var(--va-input-font-style);
-      font-stretch: var(--va-input-font-stretch);
-      letter-spacing: var(--va-input-letter-spacing);
+  &__icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-      @include va-scroll(var(--va-input-scroll-color));
+    & > * {
+      margin-right: calc(var(--va-input-content-items-gap) / 4);
 
-      &::placeholder {
-        color: var(--va-input-letter-placeholder-color);
+      &:last-child {
+        margin-right: 0;
       }
+    }
+  }
 
-      &:disabled {
-        opacity: var(--va-input-letter-disabled-opacity);
+  &_labeled {
+    .va-input__content-wrapper {
+      height: 100%;
+      align-items: flex-end;
+    }
+
+    .va-input__label {
+      @include va-ellipsis();
+
+      height: 12px;
+      display: block;
+      left: 0;
+      top: 0;
+      padding-top: 1px;
+      max-width: var(--va-input-container-label-max-width);
+      color: var(--va-input-container-label-color);
+      font-size: var(--va-input-container-label-font-size);
+      letter-spacing: var(--va-input-container-label-letter-spacing, var(--va-letter-spacing));
+      line-height: var(--va-input-container-label-line-height);
+      font-weight: var(--va-input-container-label-font-weight);
+      text-transform: var(--va-input-container-label-text-transform);
+      transform-origin: top left;
+    }
+  }
+
+  /* We have 3 styles and two states for each style separatly */
+  &_solid {
+    .va-input__container {
+      background: var(--va-input-color);
+      border-color: var(--va-input-color);
+      border-radius: var(--va-input-border-radius);
+    }
+
+    &.va-input_success {
+      .va-input__container {
+        background: var(--va-input-success-background);
+        border-color: var(--va-input-success-color);
+      }
+    }
+
+    &.va-input_error {
+      .va-input__container {
+        background: var(--va-input-error-background);
+        border-color: var(--va-input-error-color);
+      }
+    }
+  }
+
+  &_outline {
+    .va-input__container {
+      border-radius: 0;
+      border-color: var(--va-input-bordered-color);
+    }
+
+    &.va-input_success {
+      .va-input__container {
+        background: var(--va-input-success-background);
+        border-color: var(--va-input-success-color);
+      }
+    }
+
+    &.va-input_error {
+      .va-input__container {
+        background: var(--va-input-error-background);
+        border-color: var(--va-input-error-color);
       }
     }
   }
 
   &_bordered {
+    /*
+      We can not just set border-bottom, becouse we also have border on the other sides.
+      We also can not use after or before, becouse we need to set border-color according to
+      color prop
+    */
     &__border {
       border-color: var(--va-input-bordered-color);
       position: absolute;
@@ -411,14 +392,33 @@ export default class VaInput extends mixins(
       width: 100%;
       bottom: 0;
     }
-  }
 
-  &_success {
-    .va-input_bordered__border { border-color: var(--va-input-success-color); }
-  }
+    .va-input__container {
+      background: var(--va-input-color);
+      border-top-left-radius: var(--va-input-border-radius);
+      border-top-right-radius: var(--va-input-border-radius);
+      border-color: transparent !important;
+    }
 
-  &_error {
-    .va-input_bordered__border { border-color: var(--va-input-error-color); }
+    &.va-input_success {
+      .va-input__container {
+        background: var(--va-input-success-background);
+      }
+
+      .va-input_bordered__border {
+        border-color: var(--va-input-success-color);
+      }
+    }
+
+    &.va-input_error {
+      .va-input__container {
+        background: var(--va-input-error-background);
+      }
+
+      .va-input_bordered__border {
+        border-color: var(--va-input-error-color);
+      }
+    }
   }
 }
 </style>

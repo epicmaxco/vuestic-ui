@@ -1,32 +1,31 @@
 <template>
   <div class="va-input-wrapper">
-    <div class="va-input-wrapper__control">
-      <div class="va-input-wrapper__slot">
-        <div
-          v-if="$slots.prepend"
-          @click="$emit('click:prepend')"
-          class="va-input-wrapper__prepend-inner"
-        >
-          <slot name="prepend" />
-        </div>
-        <div class="va-input-wrapper__content">
-          <slot />
-          <div class="va-input-wrapper__details py-0 px-2">
-            <va-message-list
-              :color="messagesColor"
-              :value="messagesComputed"
-              :limit="errorLimit"
-            />
-          </div>
-        </div>
-        <div
-          v-if="$slots.append"
-          @click="$emit('click:append')"
-          class="va-input-wrapper__append-inner"
-        >
-          <slot name="append" />
-        </div>
+    <div
+      v-if="$slots.prepend"
+      @click="$emit('click:prepend')"
+      class="va-input-wrapper__prepend-inner"
+    >
+      <slot name="prepend" />
+    </div>
+
+    <div class="va-input-wrapper__content">
+      <slot />
+
+      <div class="va-input-wrapper__message-list-wrapper">
+        <va-message-list
+          :color="messagesColor"
+          :value="messagesComputed"
+          :limit="errorLimit"
+        />
       </div>
+    </div>
+
+    <div
+      v-if="$slots.append"
+      @click="$emit('click:append')"
+      class="va-input-wrapper__append-inner"
+    >
+      <slot name="append" />
     </div>
   </div>
 </template>
@@ -55,7 +54,13 @@ export default class VaInputWrapper extends Vue.with(Props) {
   }
 
   get messagesColor () {
-    return (this.error && 'danger') || (this.success && 'success') || undefined
+    if (this.error) {
+      return 'danger'
+    }
+
+    if (this.success) {
+      return 'success'
+    }
   }
 
   get errorLimit () {
@@ -74,14 +79,10 @@ export default class VaInputWrapper extends Vue.with(Props) {
   font-size: 1rem;
   text-align: left;
 
-  &__control,
-  &__content {
-    width: 100%;
-  }
-
   &__content {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   &__prepend-inner,
@@ -98,23 +99,9 @@ export default class VaInputWrapper extends Vue.with(Props) {
     margin-left: 0.5rem;
   }
 
-  &__slot {
-    display: flex;
-    position: relative;
-    width: 100%;
-  }
-
-  &__details {
+  &__message-list-wrapper {
     padding: 0 0.5rem;
     width: 100%;
-  }
-
-  &__messages__wrapper {
-    font-size: 0.875rem;
-  }
-
-  .va-select {
-    margin-bottom: 0;
   }
 }
 </style>
