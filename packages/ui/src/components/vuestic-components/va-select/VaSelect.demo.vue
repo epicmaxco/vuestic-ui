@@ -35,6 +35,29 @@
         :options="defaultSingleSelect.options"
         bordered
       />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Default (solid) (Purple color)"
+        color="#990099"
+        :options="defaultSingleSelect.options"
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Outline (Purple color)"
+        :options="defaultSingleSelect.options"
+        color="#990099"
+        outline
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Brodered (Purple color)"
+        :options="defaultSingleSelect.options"
+        color="#990099"
+        bordered
+      />
     </VbCard>
     <VbCard
       title="Single select"

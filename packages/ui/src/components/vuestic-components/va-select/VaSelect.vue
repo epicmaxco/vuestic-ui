@@ -37,7 +37,8 @@
             :success="success"
             :error="error"
             :clearable="doShowClearIcon"
-            :clearableIcon="clearableIcon"
+            :clearableIcon="$props.clearableIcon"
+            :color="$props.color"
             :label="$props.label"
             :placeholder="$props.placeholder"
             :loading="$props.loading"
@@ -183,18 +184,11 @@ class SelectProps {
     },
   })
 
-  label = prop<string>({ type: String, default: '' })
   color = prop<string>({ type: String, default: 'primary' })
-  placeholder = prop<string>({ type: String, default: '' })
   multiple = prop<boolean>({ type: Boolean, default: false })
-
-  chipMax = prop<number>({ type: Number, default: 10 })
-  chips = prop<boolean>({ type: Boolean, default: false })
-  deletableChips = prop<boolean>({ type: Boolean, default: false })
-
   searchable = prop<boolean>({ type: Boolean, default: false })
   disabled = prop<boolean>({ type: Boolean, default: false })
-  // readonly = prop<boolean>({ type: Boolean, default: false }) // Probably unused prop!
+  readonly = prop<boolean>({ type: Boolean, default: false }) // Probably unused prop! THIS WAS UNUSED! USE
   width = prop<string>({ type: String, default: '100%' })
   maxHeight = prop<string>({ type: String, default: '128px' })
   clearValue = prop<string>({ type: String, default: '' })
@@ -225,9 +219,11 @@ class SelectProps {
   keyBy = prop<string>({ type: String, default: 'id' })
   textBy = prop<string>({ type: String, default: 'text' })
 
-  // Select input style
+  // Input style
   outline = prop({ type: Boolean, default: false })
   bordered = prop({ type: Boolean, default: false })
+  label = prop<string>({ type: String, default: '' })
+  placeholder = prop<string>({ type: String, default: '' })
 }
 
 const SelectPropsMixin = Vue.with(SelectProps)
@@ -285,11 +281,11 @@ export default class VaSelect extends mixins(
   }
 
   get valueComputedString (): string {
-    if (!this.valueComputed) { return '' }
+    if (!this.valueComputed) { return this.clearValue }
     if (typeof this.valueComputed === 'string') { return this.valueComputed }
     if (Array.isArray(this.valueComputed)) {
       const separator = ', '
-      return this.valueComputed.map((value) => this.getText(value)).join(separator)
+      return this.valueComputed.map((value) => this.getText(value)).join(separator) || this.clearValue
     }
 
     return this.getText(this.valueComputed)
