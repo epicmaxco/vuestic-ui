@@ -5,7 +5,7 @@ module.exports = {
     jest: true, // Optimal way to do this is through overrides, but they didn't work for me.
   },
   extends: [
-    'plugin:vue/essential',
+    'plugin:vue/vue3-essential',
     '@vue/standard',
     '@vue/typescript/recommended',
   ],
