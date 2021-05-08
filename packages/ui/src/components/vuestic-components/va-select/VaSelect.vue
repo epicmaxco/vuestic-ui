@@ -20,52 +20,7 @@
       keep-anchor-width
       boundary-body
     >
-      <div class="va-select__dropdown__content">
-        <!-- Hidden DIV is a hack than allow user to focus select from dropdown content -->
-        <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
-        <va-input
-          v-if="doShowSearchInput"
-          :id="$props.id"
-          ref="searchBar"
-          v-model="searchInputValue"
-          class="va-select__input"
-          placeholder="Search"
-          removable
-          :name="$props.name"
-          :tabindex="tabindex + 1"
-          @keydown.down.stop.prevent="focusOptionList"
-          @keydown.right.stop.prevent="focusOptionList"
-          @keydown.up.stop.prevent="focusSelect"
-          @keydown.left.stop.prevent="focusSelect"
-          @keyup.enter.prevent="addNewOption"
-          @focus="hoveredOption = null"
-        />
-        <va-select-option-list
-          ref="optionList"
-          v-model:hoveredOption="hoveredOption"
-          :style="{ maxHeight: $props.maxHeight }"
-          :options="filteredOptions"
-          :selected-value="valueProxy"
-          :get-selected-state="checkIsOptionSelected"
-          :get-text="getText"
-          :get-track-by="getTrackBy"
-          :search="searchInputValue"
-          :hinted-option="hintedOption"
-          :no-options-text="$props.noOptionsText"
-          :color="$props.color"
-          :key-by="$props.keyBy"
-          :text-by="$props.textBy"
-          :tabindex="tabindex + 1"
-          @select-option="selectOption"
-          @no-previous-option-to-hover="focusSearchBar"
-          @keyup.enter.stop.prevent="selectHoveredOption"
-          @keyup.space.stop.prevent="selectHoveredOption"
-        />
-        <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
-      </div>
-
       <template #anchor>
-        <!-- Space end enter should listen to key up to stopPropagation to VaDropdown -->
         <div
           class="va-select"
           ref="select"
@@ -74,11 +29,11 @@
           @blur="isFocused = false"
           @keydown.enter.stop.prevent="onSelectClick"
           @keydown.space.stop.prevent="onSelectClick"
-          @click.stop.prevent="onSelectClick"
+          @click.prevent="onSelectClick"
         >
           <!-- We show messages outside of dropdown to draw dropdown content under the input -->
           <va-input
-            :model-value="valueString"
+            :model-value="valueComputedString"
             :success="success"
             :error="error"
             :removable="doShowClearIcon"
@@ -134,6 +89,55 @@
           </va-input>
         </div>
       </template>
+
+      <div class="va-select__dropdown__content">
+        <!-- Hidden DIV is a hack than allow user to focus select from dropdown content with tab -->
+        <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
+
+        <!--
+            Space end enter should listen to keyup to stopPropagation to VaDropdown
+            Arrow button should listen to keydown to prevent scroll navigation
+         -->
+        <va-input
+          v-if="doShowSearchInput"
+          :id="$props.id"
+          ref="searchBar"
+          v-model="searchInputValue"
+          class="va-select__input"
+          placeholder="Search"
+          removable
+          :name="$props.name"
+          :tabindex="tabindex + 1"
+          @keydown.down.stop.prevent="focusOptionList"
+          @keydown.right.stop.prevent="focusOptionList"
+          @keydown.up.stop.prevent="focusSelect"
+          @keydown.left.stop.prevent="focusSelect"
+          @keyup.enter.prevent="addNewOption"
+          @focus="hoveredOption = null"
+        />
+        <va-select-option-list
+          ref="optionList"
+          v-model:hoveredOption="hoveredOption"
+          :style="{ maxHeight: $props.maxHeight }"
+          :options="filteredOptions"
+          :selected-value="valueComputed"
+          :get-selected-state="checkIsOptionSelected"
+          :get-text="getText"
+          :get-track-by="getTrackBy"
+          :search="searchInputValue"
+          :hinted-option="hintedOption"
+          :no-options-text="$props.noOptionsText"
+          :color="$props.color"
+          :key-by="$props.keyBy"
+          :text-by="$props.textBy"
+          :tabindex="tabindex + 1"
+          @select-option="selectOption"
+          @no-previous-option-to-hover="focusSearchBar"
+          @keyup.enter.stop.prevent="selectHoveredOption"
+          @keyup.space.stop.prevent="selectHoveredOption"
+        />
+        <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
+      </div>
     </va-dropdown>
   </va-input-wrapper>
 </template>
@@ -247,18 +251,11 @@ export default class VaSelect extends mixins(
   SelectableListMixin,
   SelectPropsMixin,
 ) {
+  // Search
   searchInputValue = ''
-  hintedSearch = ''
-  hintedOption: any = null
-  hoveredOption: any = null
-  timer!: any
-  doShowDropdownContent = false
-  isInputFocused = false
-  isDropdownContentFocused = false
 
-  get isFocusedComputed () {
-    // If we show dropdown content that means select is focused
-    return this.isFocused || this.doShowDropdownContent
+  get doShowSearchInput () {
+    return this.$props.searchable || this.$props.allowCreate
   }
 
   created () {
@@ -267,7 +264,9 @@ export default class VaSelect extends mixins(
     })
   }
 
-  get valueProxy () {
+  // Select value
+
+  get valueComputed () {
     if (this.$props.multiple) {
       if (!this.$props.modelValue) {
         return []
@@ -281,24 +280,42 @@ export default class VaSelect extends mixins(
     return this.$props.modelValue
   }
 
-  set valueProxy (value: any) {
+  set valueComputed (value: any) {
     this.$emit('update:modelValue', value)
   }
 
-  get doShowSearchInput () {
-    return this.$props.searchable || this.$props.allowCreate
-  }
-
-  get valueString (): string {
-    if (!this.valueProxy) { return '' }
-    if (typeof this.valueProxy === 'string') { return this.valueProxy }
-    if (Array.isArray(this.valueProxy)) {
+  get valueComputedString (): string {
+    if (!this.valueComputed) { return '' }
+    if (typeof this.valueComputed === 'string') { return this.valueComputed }
+    if (Array.isArray(this.valueComputed)) {
       const separator = ', '
-      return this.valueProxy.map((value) => this.getText(value)).join(separator)
+      return this.valueComputed.map((value) => this.getText(value)).join(separator)
     }
 
-    return this.getText(this.valueProxy)
+    return this.getText(this.valueComputed)
   }
+
+  // Icons
+
+  get doShowClearIcon (): boolean {
+    if (!this.$props.clearable) { return false }
+    if (this.$props.disabled) { return false }
+    if (this.$props.multiple) { return !!this.valueComputed.length }
+
+    return this.valueComputed !== this.$props.clearValue
+  }
+
+  get toggleIcon (): string {
+    if (!this.$props.dropdownIcon) { return '' }
+
+    if (typeof this.$props.dropdownIcon === 'string') {
+      return this.$props.dropdownIcon
+    }
+
+    return this.doShowDropdownContent ? this.$props.dropdownIcon.close : this.$props.dropdownIcon.open
+  }
+
+  // Options
 
   get filteredOptions (): any[] {
     if (!this.$props.options) { return [] }
@@ -312,28 +329,10 @@ export default class VaSelect extends mixins(
 
   get selectedOption () {
     if (this.$props.multiple) { return null }
-    if (!this.valueProxy) { return null }
+    if (!this.valueComputed) { return null }
     if (!this.$props.options) { return null }
 
-    return this.$props.options.find((option: any) => this.compareOptions(option, this.valueProxy))
-  }
-
-  get doShowClearIcon (): boolean {
-    if (!this.$props.clearable) { return false }
-    if (this.$props.disabled) { return false }
-    if (this.$props.multiple) { return !!this.valueProxy.length }
-
-    return this.valueProxy !== this.$props.clearValue
-  }
-
-  get toggleIcon (): string {
-    if (!this.$props.dropdownIcon) { return '' }
-
-    if (typeof this.$props.dropdownIcon === 'string') {
-      return this.$props.dropdownIcon
-    }
-
-    return this.doShowDropdownContent ? this.$props.dropdownIcon.close : this.$props.dropdownIcon.open
+    return this.$props.options.find((option: any) => this.compareOptions(option, this.valueComputed))
   }
 
   compareOptions (one: any, two: any) {
@@ -355,13 +354,13 @@ export default class VaSelect extends mixins(
   }
 
   checkIsOptionSelected (option: any): boolean {
-    if (!this.valueProxy) { return false }
+    if (!this.valueComputed) { return false }
 
-    if (Array.isArray(this.valueProxy)) {
-      return !!this.valueProxy.find((valueItem: any) => this.compareOptions(valueItem, option))
+    if (Array.isArray(this.valueComputed)) {
+      return !!this.valueComputed.find((valueItem: any) => this.compareOptions(valueItem, option))
     }
 
-    return this.compareOptions(this.valueProxy, option)
+    return this.compareOptions(this.valueComputed, option)
   }
 
   selectOption (option: any): void {
@@ -375,12 +374,12 @@ export default class VaSelect extends mixins(
     if (this.$props.multiple) {
       if (isSelected) {
         // Unselect
-        this.valueProxy = this.valueProxy.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
+        this.valueComputed = this.valueComputed.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
       } else {
-        this.valueProxy = [...this.valueProxy, option]
+        this.valueComputed = [...this.valueComputed, option]
       }
     } else {
-      this.valueProxy = typeof option === 'string' ? option : { ...option }
+      this.valueComputed = typeof option === 'string' ? option : { ...option }
       ;(this as any).$refs.dropdown.hide()
     }
   }
@@ -390,18 +389,22 @@ export default class VaSelect extends mixins(
     if (this.searchInputValue === '') { return }
 
     if (this.$props.multiple) {
-      const hasAddedOption: boolean = this.valueProxy.some((value: any) => value === this.searchInputValue)
+      const hasAddedOption: boolean = this.valueComputed.some((value: any) => value === this.searchInputValue)
 
-      // Do not change valueProxy if option already exist and allow create is `unique`
+      // Do not change valueComputed if option already exist and allow create is `unique`
       if (!(this.$props.allowCreate === 'unique' && hasAddedOption)) {
-        this.valueProxy = [...this.valueProxy, this.searchInputValue]
+        this.valueComputed = [...this.valueComputed, this.searchInputValue]
       }
     } else {
-      this.valueProxy = this.searchInputValue
+      this.valueComputed = this.searchInputValue
     }
 
     this.searchInputValue = ''
   }
+
+  // Hovered options
+
+  hoveredOption: any = null
 
   selectHoveredOption () {
     if (!this.doShowDropdownContent) {
@@ -411,14 +414,6 @@ export default class VaSelect extends mixins(
     }
 
     this.selectOption(this.hoveredOption)
-  }
-
-  showDropdown () {
-    this.doShowDropdownContent = true
-  }
-
-  hideDropdown () {
-    this.doShowDropdownContent = false
   }
 
   hoverPreviousOption () {
@@ -431,6 +426,37 @@ export default class VaSelect extends mixins(
     if (this.$refs.optionList) {
       (this as any).$refs.optionList.hoverNextOption()
     }
+  }
+
+  // Dropdown content
+
+  doShowDropdownContent = false
+
+  showDropdown () {
+    this.doShowDropdownContent = true
+  }
+
+  hideDropdown () {
+    this.doShowDropdownContent = false
+  }
+
+  // Focus and keyboard navigation
+
+  get isFocusedComputed () {
+    // If we show dropdown content that means select is focused
+    return this.isFocused || this.doShowDropdownContent
+  }
+
+  onSelectClick () {
+    this.showDropdown()
+
+    this.$nextTick(() => {
+      if (this.$refs.searchBar) {
+        (this.$refs as any).searchBar.focus()
+      } else if (this.$refs.optionList) {
+        (this.$refs as any).optionList.focus()
+      }
+    })
   }
 
   focusSelect () {
@@ -458,17 +484,34 @@ export default class VaSelect extends mixins(
     }
   }
 
-  onSelectClick () {
-    this.showDropdown()
-
-    this.$nextTick(() => {
-      if (this.$refs.searchBar) {
-        (this.$refs as any).searchBar.focus()
-      } else if (this.$refs.optionList) {
-        (this.$refs as any).optionList.focus()
-      }
-    })
+  /** @public */
+  public focus (): void {
+    this.isFocused = true
   }
+
+  /** @public */
+  public blur (): void {
+    this.isFocused = false
+  }
+
+  /** @public */
+  public reset (): void {
+    if (this.$props.multiple) {
+      this.valueComputed = Array.isArray(this.$props.clearValue) ? this.$props.clearValue : []
+    } else {
+      this.valueComputed = this.$props.clearValue
+    }
+
+    this.searchInputValue = ''
+    this.$emit('clear')
+  }
+
+  // Hinted option
+
+  // TODO: I don't think we need this hinted option and timer
+  hintedSearch = ''
+  hintedOption: any = null
+  timer!: any
 
   // TODO: I don't know what this function
   updateHintedOption (event: KeyboardEvent) {
@@ -492,28 +535,6 @@ export default class VaSelect extends mixins(
       this.hintedSearch = ''
     }, 1000)
   }
-
-  public focus (): void {
-    (this.$refs.input as any).focus()
-    this.isFocused = true
-  }
-
-  public blur (): void {
-    // (this.$refs.input as any).blur()
-    this.isFocused = false
-  }
-
-  /** @public */
-  public reset (): void {
-    if (this.$props.multiple) {
-      this.valueProxy = Array.isArray(this.$props.clearValue) ? this.$props.clearValue : []
-    } else {
-      this.valueProxy = this.$props.clearValue
-    }
-
-    this.searchInputValue = ''
-    this.$emit('clear')
-  }
 }
 </script>
 
@@ -535,10 +556,6 @@ export default class VaSelect extends mixins(
     margin: var(--va-select-dropdown-margin);
     padding: var(--va-select-dropdown-padding);
 
-    &.va-select__dropdown-position-top {
-      box-shadow: 0 -2px 3px 0 rgba(98, 106, 119, 0.25);
-    }
-
     .va-dropdown__anchor {
       display: block;
     }
@@ -546,6 +563,7 @@ export default class VaSelect extends mixins(
     .va-dropdown__content {
       overflow: hidden;
       border-radius: 4px;
+      filter: drop-shadow(0 4px 8px rgba(59, 63, 73, 0.15));
     }
 
     .va-select__dropdown__content {
@@ -553,7 +571,6 @@ export default class VaSelect extends mixins(
       margin: var(--va-select-dropdown-content-margin);
       padding: var(--va-select-dropdown-content-padding);
       overflow-y: auto;
-      filter: drop-shadow(0 4px 8px rgba(59, 63, 73, 0.15));
 
       @include va-scroll();
     }
