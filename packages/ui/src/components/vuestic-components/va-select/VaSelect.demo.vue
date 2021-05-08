@@ -251,6 +251,20 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
+        label="Content slot"
+        :options="defaultSingleSelect.options"
+      >
+        <template #content="{ value }">
+          <va-chip>{{ value || 'no value :(' }}</va-chip>
+          <span class="ml-4">
+            Click on share ;)
+            <va-icon name="share" @click="alert('Thank you for click!')"  />
+          </span>
+        </template>
+      </va-select>
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Custom list position (top)"
         :options="defaultSingleSelect.options"
         position="top"
@@ -493,6 +507,9 @@ export default {
         // eslint-disable-next-line no-console
         console.log(val)
       }, 2000)
+    },
+    alert (str) {
+      window.alert(str)
     },
   },
 }

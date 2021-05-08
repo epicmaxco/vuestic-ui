@@ -81,11 +81,10 @@
                 />
               </div>
             </template>
-            <!--
-            <template #content="{ value, ref }">
-              {{ ref }}
-              <input ref="ref" :value="value" />
-            </template> -->
+
+            <template v-if="$slots.content" #content="inputContentParams">
+              <slot name="content" v-bind="inputContentParams" />
+            </template>
           </va-input>
         </div>
       </template>
