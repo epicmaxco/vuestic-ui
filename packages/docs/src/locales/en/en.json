@@ -877,7 +877,7 @@
     "VaSidebarItem": {
       "props": {
         "activeColor": "Used to set accent color for active `VaSidebarItem`",
-        "hoverColor": "Used to set accent color for hovered VaSidebarItem",
+        "hoverColor": "Used to set accent color for hovered `VaSidebarItem`",
         "active": "If `true` this sidebar item will be highlighted"
       },
       "events": {},
@@ -1682,11 +1682,11 @@
       },
       "active": {
         "title": "Highlight active `VaSidebarItem`",
-        "text": "`VaSidebarItem` can be highlighted by setting active prop. You can choose your own way how to highlight active item. Even if you want active a few `VaSidebarItems`."
+        "text": "It is possible to have multiple `VaSidebarItem` highlighted. You can choose your own way how to highlight active item. Even if you want active a few `VaSidebarItems`."
       },
       "icons": {
         "title": "`VaSidebarTitle` and VaIcons",
-        "text": "`VaSidebarTitle` used to fill all remaining width free space in `VaSidebarItem`. We can also add any other components (like `VaIcon`, `VaChip` or `VaButton`)."
+        "text": "`VaSidebarTitle` used to fill all remaining free space in `VaSidebarItem`. We can also add any other components (like `VaIcon`, `VaChip` or `VaButton`)."
       },
       "components": {
         "title": "Advanced case with `VaAccordion`",
