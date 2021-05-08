@@ -91,14 +91,10 @@
         </div>
       </template>
 
-      <div class="va-select__dropdown__content">
+      <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
+      <div class="va-select__dropdown__content" @keyup.enter.stop>
         <!-- Hidden DIV is a hack than allow user to focus select from dropdown content with tab -->
         <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
-
-        <!--
-            Space end enter should listen to keyup to stopPropagation to VaDropdown
-            Arrow button should listen to keydown to prevent scroll navigation
-         -->
         <va-input
           v-if="doShowSearchInput"
           :id="$props.id"
@@ -134,8 +130,8 @@
           :tabindex="tabindex + 1"
           @select-option="selectOption"
           @no-previous-option-to-hover="focusSearchBar"
-          @keyup.enter.stop.prevent="selectHoveredOption"
-          @keyup.space.stop.prevent="selectHoveredOption"
+          @keydown.enter.stop.prevent="selectHoveredOption"
+          @keydown.space.stop.prevent="selectHoveredOption"
         />
         <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
       </div>
@@ -376,7 +372,7 @@ export default class VaSelect extends mixins(
       }
     } else {
       this.valueComputed = typeof option === 'string' ? option : { ...option }
-      ;(this as any).$refs.dropdown.hide()
+      this.focusSelect()
     }
   }
 
