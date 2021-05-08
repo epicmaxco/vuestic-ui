@@ -191,7 +191,7 @@
         label="Clearable and custom clear icon"
         :options="defaultSingleSelect.options"
         clearable
-        clear-icon="cancel"
+        clearable-icon="cancel"
       />
       <va-select
         v-model="defaultSingleSelect.value"

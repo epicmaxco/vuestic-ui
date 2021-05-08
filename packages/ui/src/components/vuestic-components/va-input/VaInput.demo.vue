@@ -340,10 +340,10 @@
         </template>
       </va-input>
     </VbCard>
-    <VbCard title="Removable Icon">
+    <VbCard title="clearable Icon">
       <va-input
         v-model="text"
-        removable
+        clearable
       />
     </VbCard>
     <VbCard title="Error">
@@ -360,11 +360,11 @@
         success
       />
     </VbCard>
-    <VbCard title="Success and Removable">
+    <VbCard title="Success and clearable">
       <va-input
         v-model="text"
         label="Name"
-        removable
+        clearable
         success
         :messages="successMessages"
       />

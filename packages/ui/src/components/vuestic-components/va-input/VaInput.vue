@@ -89,7 +89,7 @@
         />
         <va-icon
           v-if="canBeCleared"
-          name="highlight_off"
+          :name="clearableIcon"
           size="small"
           :color="clearIconColor"
           @click.stop="reset()"
@@ -140,7 +140,7 @@ import { TextareaMixin } from './helpers/TextareaMixin'
 const InputProps = Vue.with(class InputProps {
   color = prop<string>({ type: String, default: 'primary' })
   placeholder = prop<string>({ type: String, default: '' })
-  removable = prop<boolean>({ type: Boolean, default: false })
+  clearable = prop<boolean>({ type: Boolean, default: false })
   tabindex = prop<number>({ type: Number, default: 0 })
   outline = prop({ type: Boolean, default: false })
   bordered = prop({ type: Boolean, default: false })

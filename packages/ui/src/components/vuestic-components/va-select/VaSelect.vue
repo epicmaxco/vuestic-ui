@@ -36,7 +36,8 @@
             :model-value="valueComputedString"
             :success="success"
             :error="error"
-            :removable="doShowClearIcon"
+            :clearable="doShowClearIcon"
+            :clearableIcon="clearableIcon"
             :label="$props.label"
             :placeholder="$props.placeholder"
             :loading="$props.loading"
@@ -200,8 +201,8 @@ class SelectProps {
   noOptionsText = prop<string>({ type: String, default: 'Items not found' })
   fixed = prop<boolean>({ type: Boolean, default: true })
   clearable = prop<boolean>({ type: Boolean, default: false })
+  clearableIcon = prop<string>({ type: String, default: 'highlight_off' })
   hideSelected = prop<boolean>({ type: Boolean, default: false })
-  clearIcon = prop<string>({ type: String, default: 'close' })
   tabindex = prop<number>({ type: Number, default: 0 })
   dropdownIcon = prop<string | DropdownIcon>({
     type: [String, Object],

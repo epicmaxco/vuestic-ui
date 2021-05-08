@@ -36,7 +36,8 @@ class Props {
     default: true,
   })
 
-  removable = prop({ type: Boolean, default: false })
+  clearable = prop({ type: Boolean, default: false })
+  clearableIcon = prop<string>({ type: String, default: 'highlight_off' })
   loading = prop({ type: Boolean, default: false })
   canBeFocused = prop({ type: Boolean, default: true })
   focused = prop({ type: Boolean, default: undefined })
@@ -91,7 +92,7 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
   }
 
   get canBeCleared (): boolean {
-    return this.hasContent && this.removable
+    return this.hasContent && this.clearable
   }
 
   get hasContent (): boolean {
