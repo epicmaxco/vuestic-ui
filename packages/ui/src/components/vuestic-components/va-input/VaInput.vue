@@ -11,16 +11,29 @@
     @click:prepend="onPrependClick"
     @click:append="onAppendClick"
   >
-    <template #prepend v-if="$slots.prepend">
+    <template
+      v-if="$slots.prepend"
+      #prepend
+    >
       <slot name="prepend" />
     </template>
 
-    <div class="va-input__container" :style="computedBorderColorStyle">
-      <div v-if="$slots.prependInner" class="va-input__prepend-inner" @click="onPrependInnerClick">
+    <div
+      class="va-input__container"
+      :style="computedBorderColorStyle"
+    >
+      <div
+        v-if="$slots.prependInner"
+        class="va-input__prepend-inner"
+        @click="onPrependInnerClick"
+      >
         <slot name="prependInner" />
       </div>
 
-      <div class="va-input__content-wrapper" @click="focus()">
+      <div
+        class="va-input__content-wrapper"
+        @click="focus()"
+      >
         <div class="va-input__content">
           <label
             aria-hidden="true"
@@ -30,7 +43,10 @@
             {{ label }}
           </label>
 
-          <div v-if="$slots.content" class="va-input__content__input">
+          <div
+            v-if="$slots.content"
+            class="va-input__content__input"
+          >
             <slot
               name="content"
               v-bind="{ value: computedValue, focus }"
@@ -38,24 +54,26 @@
           </div>
           <textarea
             v-else-if="isTextarea"
-            v-on="eventListeners"
             v-bind="computedInputAttributes"
-            class="va-input__content__input"
             ref="textarea"
+            class="va-input__content__input"
             :tabindex="tabindex"
+            v-on="eventListeners"
           />
           <input
             v-else
-            v-on="eventListeners"
             v-bind="computedInputAttributes"
-            class="va-input__content__input"
             ref="input"
-          />
-
+            class="va-input__content__input"
+            v-on="eventListeners"
+          >
         </div>
       </div>
 
-      <div v-if="showIcon" class="va-input__icons">
+      <div
+        v-if="showIcon"
+        class="va-input__icons"
+      >
         <va-icon
           v-if="success"
           color="success"
@@ -80,12 +98,15 @@
           name="loop"
           size="small"
           spin="counter-clockwise"
-          :color="computeColor"
-          @click.stop="reset()"
+          :color="colorComputed"
         />
       </div>
 
-      <div v-if="$slots.appendInner" class="va-input__append-inner" @click="onAppendInnerClick">
+      <div
+        v-if="$slots.appendInner"
+        class="va-input__append-inner"
+        @click="onAppendInnerClick"
+      >
         <slot name="appendInner" />
       </div>
     </div>
@@ -96,7 +117,10 @@
       :style="computedBorderColorStyle"
     />
 
-    <template #append v-if="$slots.append">
+    <template
+      v-if="$slots.append"
+      #append
+    >
       <slot name="append" />
     </template>
   </va-input-wrapper>
@@ -125,7 +149,7 @@ const InputProps = Vue.with(class InputProps {
   name: 'VaInput',
   components: { VaInputWrapper, VaIcon },
   emits: ['update:modelValue', 'change', 'click-prepend', 'click-prepend-inner',
-    'click-append', 'click-append-inner', 'focus', 'blur', 'keyup', 'keydown', 'click'],
+    'click-append', 'click-append-inner', 'focus', 'blur', 'keyup', 'keydown', 'click', 'cleared'],
 })
 export default class VaInput extends mixins(
   ColorMixin,
@@ -234,6 +258,7 @@ export default class VaInput extends mixins(
   /** @public */
   reset (): void {
     this.$emit('update:modelValue', '')
+    this.$emit('cleared')
   }
 }
 </script>

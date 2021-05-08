@@ -4,12 +4,12 @@
       <div
         v-for="option in filteredOptions"
         :key="$props.getTrackBy(option)"
+        :ref="setItemRef($props.getTrackBy(option))"
         :class="getOptionClass(option)"
         :style="getOptionStyle(option)"
         @click.stop="selectOption(option)"
         @mouseleave="updateHoveredOption(null)"
         @mouseover="updateHoveredOption(option)"
-        :ref="setItemRef($props.getTrackBy(option))"
       >
         <va-icon
           v-if="option.icon"
@@ -27,7 +27,10 @@
         />
       </div>
     </template>
-    <div class="va-select-option-list no-options" v-else>
+    <div
+      v-else
+      class="va-select-option-list no-options"
+    >
       {{ noOptionsText }}
     </div>
   </div>
@@ -69,6 +72,11 @@ class SelectOptionListProps {
     type: [String, Object],
     default: null,
   })
+
+  hoveredOption = prop<string | object>({
+    type: [String, Object],
+    default: null,
+  })
 }
 
 const SelectOptionListPropsMixin = Vue.with(SelectOptionListProps)
@@ -76,7 +84,7 @@ const SelectOptionListPropsMixin = Vue.with(SelectOptionListProps)
 @Options({
   name: 'VaSelectOptionList',
   components: { VaIcon },
-  emits: ['select-option'],
+  emits: ['select-option', 'update:hoveredOption'],
 })
 export default class VaSelectOptionList extends mixins(
   ColorMixin,
@@ -105,7 +113,13 @@ export default class VaSelectOptionList extends mixins(
     }
   }
 
-  public hoveredOption: any = null
+  get hoveredOptionComputed () {
+    return this.hoveredOption || null
+  }
+
+  set hoveredOptionComputed (value: any) {
+    this.$emit('update:hoveredOption', value)
+  }
 
   get filteredOptions () {
     if (!this.$props.search) {
@@ -138,51 +152,53 @@ export default class VaSelectOptionList extends mixins(
   }
 
   isHovered (option: any) {
-    return this.hoveredOption
-      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.keyBy] === option[this.keyBy]
+    return this.hoveredOptionComputed
+      ? typeof option === 'string' ? option === this.hoveredOptionComputed : this.hoveredOptionComputed[this.keyBy] === option[this.keyBy]
       : false
   }
 
   updateHoveredOption (option: string[] | string): void {
     if (option) {
-      this.hoveredOption = typeof option === 'string' ? option : { ...option }
+      this.hoveredOptionComputed = typeof option === 'string' ? option : { ...option }
     } else {
-      this.hoveredOption = null
+      this.hoveredOptionComputed = null
     }
   }
 
   public hoverPreviousOption () {
-    if (!this.hoveredOption) {
+    if (!this.hoveredOptionComputed) {
       // Hover last option from list
       this.filteredOptions.length && this.updateHoveredOption(this.filteredOptions[this.filteredOptions.length - 1])
     } else {
       const hoveredOptionIndex: any =
         this.filteredOptions.findIndex((option: any) =>
-          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOption))
+          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOptionComputed))
       if (this.filteredOptions[hoveredOptionIndex - 1]) {
-        this.hoveredOption = this.filteredOptions[hoveredOptionIndex - 1]
+        this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex - 1]
       }
     }
-    this.scrollToOption(this.hoveredOption)
+    this.scrollToOption(this.hoveredOptionComputed)
   }
 
   public hoverNextOption () {
-    if (!this.hoveredOption) {
+    if (!this.hoveredOptionComputed) {
       // Hover first option from list
       this.filteredOptions.length && this.updateHoveredOption(this.filteredOptions[0])
     } else {
       const hoveredOptionIndex: any =
         this.filteredOptions.findIndex((option: any) =>
-          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOption))
+          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOptionComputed))
       if (this.filteredOptions[hoveredOptionIndex + 1]) {
-        this.hoveredOption = this.filteredOptions[hoveredOptionIndex + 1]
+        this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex + 1]
       }
     }
-    this.scrollToOption(this.hoveredOption)
+    this.scrollToOption(this.hoveredOptionComputed)
   }
 
   scrollToOption (option: any) {
     const optionElement: HTMLElement = this.itemRefs[(this.$props.getTrackBy as Function)(option)]
+    if (!optionElement) { return }
+
     // Scroll list to hinted option position
     optionElement.scrollIntoView({
       behavior: 'smooth',

@@ -51,8 +51,8 @@
     <VbCard title="Input Wrapper For Checkbox and Radio Button">
       <va-input-wrapper :messages="messages">
         <va-checkbox
-          name="agree-to-terms"
           v-model="agreedToTerms"
+          name="agree-to-terms"
         >
           <template #label>
             I agree to
@@ -66,8 +66,8 @@
 
       <va-input-wrapper :messages="messages">
         <va-radio
-          option="option1"
           v-model="radioSelectedOption"
+          option="option1"
           label="Radio"
         />
       </va-input-wrapper>

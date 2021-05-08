@@ -7,55 +7,56 @@
     :style="{ width: $props.width }"
   >
     <va-dropdown
+      ref="dropdown"
+      v-model="isDropdownShown"
       :position="$props.position"
       :disabled="$props.disabled"
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
-      :closeOnAnchorClick="$props.multiple"
+      :close-on-anchor-click="$props.multiple"
       :offset="[0, 8]"
-      ref="dropdown"
       class="va-select__dropdown"
-      keepAnchorWidth
-      boundaryBody
-      @update:modelValue="onDropdownInput"
+      keep-anchor-width
+      boundary-body
     >
       <div class="va-select__dropdown__content">
         <va-input
-          v-if="inputVisible"
-          v-model="search"
+          v-if="doShowSearchInput"
+          :id="$props.id"
+          ref="searchBar"
+          v-model="searchInputValue"
           class="va-select__input"
           placeholder="Search"
           removable
-          ref="searchBar"
-          :id="$props.id"
           :name="$props.name"
-          @keydown.enter.stop.prevent="addNewOption"
-          @keydown.up.stop.prevent="hoverPreviousOption"
-          @keydown.down.stop.prevent="hoverNextOption"
+          @keyup.enter.stop.prevent="addNewOption"
+          @keydo.up.stop.prevent="hoverPreviousOption"
+          @keyup.down.stop.prevent="hoverNextOption"
         />
         <va-select-option-list
+          ref="optionList"
+          v-model:hoveredOption="hoveredOption"
           :style="{ maxHeight: $props.maxHeight }"
           :options="filteredOptions"
-          :selectedValue="valueProxy"
-          :getSelectedState="getSelectedState"
-          :getText="getText"
-          :getTrackBy="getTrackBy"
-          :search="search"
-          :hintedOption="hintedOption"
-          :noOptionsText="$props.noOptionsText"
+          :selected-value="valueProxy"
+          :get-selected-state="checkIsOptionSelected"
+          :get-text="getText"
+          :get-track-by="getTrackBy"
+          :search="searchInputValue"
+          :hinted-option="hintedOption"
+          :no-options-text="$props.noOptionsText"
           :color="$props.color"
           :key-by="$props.keyBy"
           :text-by="$props.textBy"
-          ref="optionList"
           @selectOption="selectOption"
+          @keydown.enter.stop.prevent="selectHoveredOption"
         />
       </div>
 
       <template #anchor>
+        <!-- Space end enter should listen to key up to stopPropagation to VaDropdown -->
         <div
           class="va-select"
-          :class="selectClass"
-          :style="selectStyle"
           tabindex="0"
           @focus="isFocused = true"
           @blur="isFocused = false"
@@ -64,43 +65,58 @@
           @keydown.left.stop.prevent="hoverPreviousOption"
           @keydown.down.stop.prevent="hoverNextOption"
           @keydown.right.stop.prevent="hoverNextOption"
-          @keydown.enter.stop.prevent="selectHoveredOption"
-          @keydown.space.stop.prevent="selectHoveredOption"
+          @keyup.enter.stop.prevent="selectHoveredOption"
+          @keyup.space.stop.prevent="selectHoveredOption"
         >
-          <!-- We show messages outside of dropdown to prevent resize  -->
+          <!-- We show messages outside of dropdown to draw dropdown content under the input -->
           <va-input
-            :modelValue="selectionValue"
+            :model-value="valueString"
             :success="success"
             :error="error"
-            :removable="showClearIcon"
+            :removable="doShowClearIcon"
             :label="$props.label"
             :placeholder="$props.placeholder"
             :loading="$props.loading"
             :disabled="$props.disabled"
+            :outline="$props.outline"
+            :bordered="$props.bordered"
             readonly
+            @cleared="reset"
           >
-            <template #prepend v-if="$slots.prepend">
+            <template
+              v-if="$slots.prepend"
+              #prepend
+            >
               <slot name="prepend" />
             </template>
 
-            <template #append v-if="$slots.append">
+            <template
+              v-if="$slots.append"
+              #append
+            >
               <slot name="append" />
             </template>
 
-            <template #prependInner v-if="$slots.prependInner">
+            <template
+              v-if="$slots.prependInner"
+              #prependInner
+            >
               <slot name="prependInner" />
             </template>
 
             <template #appendInner>
               <div class="va-input__append">
-                <slot v-if="$slots.appendInner" name="appendInner" />
+                <slot
+                  v-if="$slots.appendInner"
+                  name="appendInner"
+                />
                 <va-icon
                   :color="colorComputed"
                   :name="toggleIcon"
                 />
               </div>
             </template>
-<!--
+            <!--
             <template #content="{ value, ref }">
               {{ ref }}
               <input ref="ref" :value="value" />
@@ -138,29 +154,13 @@ class SelectProps {
     default: '',
   })
 
-  label = prop<string>({ type: String, default: '' })
-  color = prop<string>({ type: String, default: 'primary' })
-  placeholder = prop<string>({ type: String, default: '' })
+  // Dropdown position
   position = prop<string>({
     type: String,
     default: 'bottom',
     validator: (position: string) => ['top', 'bottom'].includes(position),
   })
 
-  chipMax = prop<number>({ type: Number, default: 10 })
-  chips = prop<boolean>({ type: Boolean, default: false })
-  deletableChips = prop<boolean>({ type: Boolean, default: false })
-  searchable = prop<boolean>({ type: Boolean, default: false })
-  multiple = prop<boolean>({ type: Boolean, default: false })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  readonly = prop<boolean>({ type: Boolean, default: false })
-  width = prop<string>({ type: String, default: '100%' })
-  maxHeight = prop<string>({ type: String, default: '128px' })
-  clearValue = prop<string>({ type: String, default: '' })
-  noOptionsText = prop<string>({ type: String, default: 'Items not found' })
-  fixed = prop<boolean>({ type: Boolean, default: true })
-  clearable = prop<boolean>({ type: Boolean, default: false })
-  hideSelected = prop<boolean>({ type: Boolean, default: false })
   allowCreate = prop<boolean | string>({
     type: [Boolean, String],
     default: false,
@@ -169,6 +169,25 @@ class SelectProps {
     },
   })
 
+  label = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'primary' })
+  placeholder = prop<string>({ type: String, default: '' })
+  multiple = prop<boolean>({ type: Boolean, default: false })
+
+  chipMax = prop<number>({ type: Number, default: 10 })
+  chips = prop<boolean>({ type: Boolean, default: false })
+  deletableChips = prop<boolean>({ type: Boolean, default: false })
+
+  searchable = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  // readonly = prop<boolean>({ type: Boolean, default: false }) // Probably unused prop!
+  width = prop<string>({ type: String, default: '100%' })
+  maxHeight = prop<string>({ type: String, default: '128px' })
+  clearValue = prop<string>({ type: String, default: '' })
+  noOptionsText = prop<string>({ type: String, default: 'Items not found' })
+  fixed = prop<boolean>({ type: Boolean, default: true })
+  clearable = prop<boolean>({ type: Boolean, default: false })
+  hideSelected = prop<boolean>({ type: Boolean, default: false })
   clearIcon = prop<string>({ type: String, default: 'close' })
   dropdownIcon = prop<string | DropdownIcon>({
     type: [String, Object],
@@ -176,12 +195,24 @@ class SelectProps {
       open: 'expand_more',
       close: 'expand_less',
     }),
+    validator: (value: any) => {
+      if (typeof value === 'string') { return true }
+
+      const isOpenIconString = typeof value.open === 'string'
+      const isCloseIconString = typeof value.close === 'string'
+
+      return isOpenIconString && isCloseIconString
+    },
   })
 
   // SelectOptionList props
 
   keyBy = prop<string>({ type: String, default: 'id' })
   textBy = prop<string>({ type: String, default: 'text' })
+
+  // Select input style
+  outline = prop({ type: Boolean, default: false })
+  bordered = prop({ type: Boolean, default: false })
 }
 
 const SelectPropsMixin = Vue.with(SelectProps)
@@ -205,31 +236,36 @@ export default class VaSelect extends mixins(
   SelectableListMixin,
   SelectPropsMixin,
 ) {
-  search = ''
+  searchInputValue = ''
   hintedSearch = ''
   hintedOption: any = null
-  isMounted = false
   hoveredOption: any = null
-  showOptionList = false
   timer!: any
+  isDropdownShown = false
 
   created () {
-    watch(() => this.search, (value) => {
+    watch(() => this.searchInputValue, (value) => {
       this.$emit('update-search', value)
     })
 
-    watch(() => this.visible, (value) => {
-      if (value && this.inputVisible) {
+    watch(() => this.isDropdownShown, (value) => {
+      if (value && this.doShowSearchInput) {
         this.$nextTick(() => {
-          (this.$refs.searchBar as any).$refs.input.focus()
+          (this.$refs.searchBar as any).focus()
         })
       }
     })
   }
 
   get valueProxy () {
-    if (this.$props.multiple && !this.isArrayValue) {
-      return this.$props.modelValue ? [this.$props.modelValue] : []
+    if (this.$props.multiple) {
+      if (!this.$props.modelValue) {
+        return []
+      }
+
+      if (!Array.isArray(this.$props.modelValue)) {
+        return [this.$props.modelValue]
+      }
     }
 
     return this.$props.modelValue
@@ -239,98 +275,55 @@ export default class VaSelect extends mixins(
     this.$emit('update:modelValue', value)
   }
 
-  get isArrayValue () {
-    return Array.isArray(this.$props.modelValue)
-  }
-
-  get isPrimitiveValue () {
-    return typeof this.$props.modelValue === 'string' || typeof this.$props.modelValue === 'number'
-  }
-
-  get isObjectValue () {
-    return !this.isArrayValue && !this.isPrimitiveValue
-  }
-
-  get inputVisible () {
+  get doShowSearchInput () {
     return this.$props.searchable || this.$props.allowCreate
   }
 
-  get visible () {
-    return this.isMounted ? (this.$refs as any).dropdown.isClicked : false
-  }
+  get valueString (): string {
+    if (!this.valueProxy) { return '' }
+    if (typeof this.valueProxy === 'string') { return this.valueProxy }
+    if (Array.isArray(this.valueProxy)) {
+      const separator = ', '
+      return this.valueProxy.map((value) => this.getText(value)).join(separator)
+    }
 
-  get selectClass () {
-    return {
-      'va-select--multiple': this.$props.multiple,
-      'va-select--visible': this.visible,
-      'va-select--searchable': this.$props.searchable,
-      'va-select--disabled': this.$props.disabled,
-      'va-select--loading': this.$props.loading,
-      'va-select_error': this.computedError,
-    }
-  }
-
-  get selectionValue (): string {
-    if (!this.valueProxy) {
-      return ''
-    }
-    if (this.$props.multiple) {
-      return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
-    }
-    // We try to find a match from options, if we don't find any - we take value.
-    // This way select can display value even when options are not loaded yet.
-    const selectedOption = this.valueProxy || this.selectedOption
-    const isPrimitive = ['string', 'number'].includes(typeof selectedOption)
-    return isPrimitive ? selectedOption : selectedOption[this.$props.textBy as string] + ''
-  }
-
-  get selectionChips (): string | string[] {
-    if (this.isArrayValue && this.valueProxy.length > (this.$props.chipMax as number)) {
-      return this.valueProxy.length ? `${this.valueProxy.length} items selected` : ''
-    }
-    if (this.$props.multiple && this.$props.chips) {
-      return this.valueProxy.map((value: any) => this.getText(value))
-    }
-    if (this.isArrayValue) {
-      const stringValueArr: string[] = this.valueProxy.map((value: any) => this.getText(value))
-      return stringValueArr.join(', ')
-    }
-    return ''
+    return this.getText(this.valueProxy)
   }
 
   get filteredOptions (): any[] {
-    if (!this.$props.hideSelected) {
-      return this.$props.options as []
+    if (!this.$props.options) { return [] }
+
+    if (this.$props.hideSelected) {
+      return (this.$props.options).filter((option) => !this.checkIsOptionSelected(option))
     }
-    return (this.$props.options as []).reduce((acc: any[], option: any) => {
-      return this.getSelectedState(option) ? [...acc] : [...acc, option]
-    }, [])
+
+    return this.$props.options
   }
 
   get selectedOption () {
-    return (
-      !this.valueProxy ||
-      this.$props.multiple)
-      ? null
-      : (this.$props.options as []).find((option: any) => this.compareOptions(option, this.valueProxy)) ||
-      null
+    if (this.$props.multiple) { return null }
+    if (!this.valueProxy) { return null }
+    if (!this.$props.options) { return null }
+
+    return this.$props.options.find((option: any) => this.compareOptions(option, this.valueProxy))
   }
 
-  get showClearIcon (): boolean {
-    if (!this.$props.clearable) {
-      return false
-    }
-    if (this.$props.disabled) {
-      return false
-    }
-    return this.$props.multiple ? !!this.valueProxy.length : this.valueProxy !== this.$props.clearValue
+  get doShowClearIcon (): boolean {
+    if (!this.$props.clearable) { return false }
+    if (this.$props.disabled) { return false }
+    if (this.$props.multiple) { return !!this.valueProxy.length }
+
+    return this.valueProxy !== this.$props.clearValue
   }
 
   get toggleIcon (): string {
-    if (typeof this.$props.dropdownIcon !== 'string' && this.$props.dropdownIcon) {
-      return this.visible ? this.$props.dropdownIcon.close : this.$props.dropdownIcon.open
+    if (!this.$props.dropdownIcon) { return '' }
+
+    if (typeof this.$props.dropdownIcon === 'string') {
+      return this.$props.dropdownIcon
     }
-    return this.$props.dropdownIcon ? this.$props.dropdownIcon : ''
+
+    return this.isDropdownShown ? this.$props.dropdownIcon.close : this.$props.dropdownIcon.open
   }
 
   compareOptions (one: any, two: any) {
@@ -338,85 +331,67 @@ export default class VaSelect extends mixins(
     if (one === two) {
       return true
     }
-    // i'm not sure why we need this
-    if (typeof this.$props.modelValue === 'string') {
-      return false
-    }
     if (typeof one === 'string' && typeof two === 'string') {
       return one === two
     }
     if (typeof one === 'object' && typeof two === 'object') {
       return one[this.$props.trackBy as string] === two[this.$props.trackBy as string]
     }
+
+    return false
   }
 
-  getSelectedState (option: any): boolean {
-    if (!this.valueProxy) {
-      return false
-    }
-    if (typeof option === 'string') {
-      return this.$props.multiple
-        ? this.valueProxy.includes(option)
-        : this.valueProxy === option
-    } else {
-      return this.$props.multiple
-        ? this.valueProxy.filter((item: any) =>
-          item[this.$props.trackBy as string] === option[this.$props.trackBy as string]).length
-        : this.valueProxy[this.$props.trackBy as string] === option[this.$props.trackBy as string]
-    }
-  }
+  checkIsOptionSelected (option: any): boolean {
+    if (!this.valueProxy) { return false }
 
-  isHovered (option: any) {
-    return this.hoveredOption
-      ? typeof option === 'string'
-        ? option === this.hoveredOption
-        : this.hoveredOption[this.$props.trackBy as string] === option[this.$props.trackBy as string]
-      : false
+    if (Array.isArray(this.valueProxy)) {
+      return !!this.valueProxy.find((valueItem: any) => this.compareOptions(valueItem, option))
+    }
+
+    return this.compareOptions(this.valueProxy, option)
   }
 
   selectOption (option: any): void {
-    this.search = ''
-    const isSelected = this.getSelectedState(option)
-    const value: any = this.$props.modelValue || []
+    const isSelected = this.checkIsOptionSelected(option)
+
+    if (this.doShowSearchInput) {
+      (this as any).$refs.searchBar.focus()
+      this.searchInputValue = ''
+    }
 
     if (this.$props.multiple) {
-      const filterSelected = () => {
-        return value.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
+      if (isSelected) {
+        // Unselect
+        this.valueProxy = this.valueProxy.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
+      } else {
+        this.valueProxy = [...this.valueProxy, option]
       }
-      this.valueProxy = isSelected ? filterSelected() : [...value, option]
     } else {
       this.valueProxy = typeof option === 'string' ? option : { ...option }
       ;(this as any).$refs.dropdown.hide()
     }
-    if (this.inputVisible) {
-      // eslint-disable-next-line no-unused-expressions
-      (this as any).$refs.searchBar?.$refs.input?.focus()
-    }
   }
 
   addNewOption (): void {
-    if (this.$props.allowCreate) {
-      if (this.$props.multiple) {
-        const hasAddedOption: boolean = this.valueProxy.some((value: any) => value === this.search)
-        // Do not change valueProxy if option already exist
-        if (this.$props.allowCreate === 'unique' && hasAddedOption) {
-          this.search = ''
-          return
-        }
-        this.valueProxy = [...this.valueProxy, this.search]
-        this.search = ''
-        return
+    if (!this.$props.allowCreate) { return }
+    if (this.searchInputValue === '') { return }
+
+    if (this.$props.multiple) {
+      const hasAddedOption: boolean = this.valueProxy.some((value: any) => value === this.searchInputValue)
+
+      // Do not change valueProxy if option already exist and allow create is `unique`
+      if (!(this.$props.allowCreate === 'unique' && hasAddedOption)) {
+        this.valueProxy = [...this.valueProxy, this.searchInputValue]
       }
-      this.valueProxy = this.search
-      this.search = ''
+    } else {
+      this.valueProxy = this.searchInputValue
     }
+
+    this.searchInputValue = ''
   }
 
   selectHoveredOption () {
-    if (this.$refs.optionList) {
-      const hoveredOption: any = (this.$refs.optionList as any).hoveredOption
-      hoveredOption && this.selectOption((this.$refs.optionList as any).hoveredOption)
-    }
+    this.selectOption(this.hoveredOption)
   }
 
   hoverPreviousOption () {
@@ -453,27 +428,16 @@ export default class VaSelect extends mixins(
     }, 1000)
   }
 
-  onDropdownInput (value: boolean) {
-    if (!value) {
-      this.showOptionList = value
-      this.validate()
-    } else {
-      this.showOptionList = value
-    }
-  }
-
   /** @public */
   public reset (): void {
-    this.valueProxy = this.$props.multiple
-      ? (Array.isArray(this.$props.clearValue) ? this.$props.clearValue : [])
-      : this.$props.clearValue
-    this.search = ''
-    this.$props.modelValue = this.$props.clearValue
-    this.$emit('clear')
-  }
+    if (this.$props.multiple) {
+      this.valueProxy = Array.isArray(this.$props.clearValue) ? this.$props.clearValue : []
+    } else {
+      this.valueProxy = this.$props.clearValue
+    }
 
-  mounted (): void {
-    this.isMounted = true
+    this.searchInputValue = ''
+    this.$emit('clear')
   }
 }
 </script>
@@ -505,13 +469,16 @@ export default class VaSelect extends mixins(
     }
 
     .va-dropdown__content {
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .va-select__dropdown__content {
       background: white;
       margin: var(--va-select-dropdown-content-margin);
       padding: var(--va-select-dropdown-content-padding);
       overflow-y: auto;
-      border-radius: 4px;
       filter: drop-shadow(0 4px 8px rgba(59, 63, 73, 0.15));
-      margin-right: -4px;
 
       @include va-scroll();
     }

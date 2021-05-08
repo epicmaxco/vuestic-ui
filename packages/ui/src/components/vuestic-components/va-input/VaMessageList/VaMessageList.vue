@@ -5,9 +5,9 @@
     :style="computedStyle"
   >
     <div
-      class="va-message-list__message"
       v-for="(message, index) in messages"
       :key="index"
+      class="va-message-list__message"
     >
       {{ message }}
     </div>

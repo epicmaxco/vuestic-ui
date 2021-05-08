@@ -111,7 +111,11 @@
         label="Country"
       >
         <template #prependInner>
-          <va-icon name="search" color="primary" size="small" />
+          <va-icon
+            name="search"
+            color="primary"
+            size="small"
+          />
         </template>
       </va-input>
       <va-input
@@ -121,7 +125,11 @@
         color="#ff00ff"
       >
         <template #prependInner>
-          <va-icon name="search" color="#ff00ff" size="small" />
+          <va-icon
+            name="search"
+            color="#ff00ff"
+            size="small"
+          />
         </template>
       </va-input>
       <va-input
@@ -131,7 +139,11 @@
         color="#1dd62d"
       >
         <template #prependInner>
-          <va-icon name="search" color="#1dd62d" size="small" />
+          <va-icon
+            name="search"
+            color="#1dd62d"
+            size="small"
+          />
         </template>
       </va-input>
       <va-input
@@ -140,7 +152,11 @@
         success
       >
         <template #prependInner>
-          <va-icon name="search" color="primary" size="small" />
+          <va-icon
+            name="search"
+            color="primary"
+            size="small"
+          />
         </template>
       </va-input>
       <va-input
@@ -149,7 +165,11 @@
         error
       >
         <template #prependInner>
-          <va-icon name="search" color="primary" size="small" />
+          <va-icon
+            name="search"
+            color="primary"
+            size="small"
+          />
         </template>
       </va-input>
 
@@ -158,7 +178,11 @@
         label="Country"
       >
         <template #appendInner>
-          <va-icon name="calendar_today" color="primary" size="small" />
+          <va-icon
+            name="calendar_today"
+            color="primary"
+            size="small"
+          />
         </template>
       </va-input>
       <va-input
@@ -168,7 +192,11 @@
         color="#ff00ff"
       >
         <template #appendInner>
-          <va-icon name="calendar_today" color="#ff00ff" size="small" />
+          <va-icon
+            name="calendar_today"
+            color="#ff00ff"
+            size="small"
+          />
         </template>
       </va-input>
       <va-input
@@ -178,7 +206,11 @@
         color="#1dd62d"
       >
         <template #appendInner>
-          <va-icon name="calendar_today" color="#1dd62d" size="small" />
+          <va-icon
+            name="calendar_today"
+            color="#1dd62d"
+            size="small"
+          />
         </template>
       </va-input>
       <va-input
@@ -187,7 +219,11 @@
         success
       >
         <template #appendInner>
-          <va-icon name="calendar_today" color="primary" size="small" />
+          <va-icon
+            name="calendar_today"
+            color="primary"
+            size="small"
+          />
         </template>
       </va-input>
       <va-input
@@ -196,7 +232,11 @@
         error
       >
         <template #appendInner>
-          <va-icon name="calendar_today" color="primary" size="small" />
+          <va-icon
+            name="calendar_today"
+            color="primary"
+            size="small"
+          />
         </template>
       </va-input>
     </VbCard>
@@ -390,7 +430,7 @@
         type="input"
         mask="creditCard"
       />
-      Value: {{maskCreditCardValue}}
+      Value: {{ maskCreditCardValue }}
       <va-input
         v-model="maskDateValue"
         :style="{paddingTop: '4px'}"
@@ -398,7 +438,7 @@
         type="input"
         mask="date"
       />
-      Value: {{maskDateValue}}
+      Value: {{ maskDateValue }}
       <va-input
         v-model="maskTimeValue"
         :style="{paddingTop: '4px'}"
@@ -406,7 +446,7 @@
         type="input"
         mask="time"
       />
-      Value: {{maskTimeValue}}
+      Value: {{ maskTimeValue }}
       <va-input
         v-model="maskNumeralsValue"
         :style="{paddingTop: '4px'}"
@@ -414,7 +454,7 @@
         type="input"
         mask="numeral"
       />
-      Value: {{maskNumeralsValue}}
+      Value: {{ maskNumeralsValue }}
       <va-input
         v-model="maskCustomBlocksValue"
         :style="{paddingTop: '4px'}"
@@ -423,26 +463,37 @@
         type="input"
         :mask="{blocks: [1, 5, 5]}"
       />
-      Value: {{maskCustomBlocksValue}}
+      Value: {{ maskCustomBlocksValue }}
       <va-input
         v-model="maskReturnFormattedValue"
         :style="{paddingTop: '4px'}"
         label="Date mask, return formatted"
-        :returnRaw="false"
+        :return-raw="false"
         type="input"
         mask="date"
       />
-      Value: {{maskReturnFormattedValue}}
+      Value: {{ maskReturnFormattedValue }}
     </VbCard>
     <VbCard title="Number input">
-      <va-input type="number" v-model="num" />
+      <va-input
+        v-model="num"
+        type="number"
+      />
     </VbCard>
-    <VbCard title="CSS Classes" class="va-input-css-classes-demo" style="width: 66%;">
-      <va-input class="mb-4" inputClass="red" modelValue="This input must have margin bottom and red text in input" />
+    <VbCard
+      title="CSS Classes"
+      class="va-input-css-classes-demo"
+      style="width: 66%;"
+    >
+      <va-input
+        class="mb-4"
+        input-class="red"
+        model-value="This input must have margin bottom and red text in input"
+      />
       <va-input
         class="border-blue"
-        inputClass="p-2 red"
-        modelValue="Native input element must have red text and big padding. VaInput wrapper has a blue border."
+        input-class="p-2 red"
+        model-value="Native input element must have red text and big padding. VaInput wrapper has a blue border."
         type="textarea"
       />
     </VbCard>
