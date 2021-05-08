@@ -31,5 +31,5 @@ module.exports = {
     'vue/html-closing-bracket-spacing': 'error',
     'vue/no-multiple-template-root': 'off',
   },
-  ignorePatterns: ['**/*spec.disabled.*'],
+  ignorePatterns: ['**/*spec.disabled.*', '**/wip-*/**'],
 }
