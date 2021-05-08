@@ -20,6 +20,7 @@
 
     <div
       class="va-input__container"
+      ref="container"
       :style="computedBorderColorStyle"
     >
       <div
@@ -148,7 +149,7 @@ const InputProps = Vue.with(class InputProps {
 @Options({
   name: 'VaInput',
   components: { VaInputWrapper, VaIcon },
-  emits: ['update:modelValue', 'change', 'click-prepend', 'click-prepend-inner',
+  emits: ['update:modelValue', 'update:focused', 'change', 'click-prepend', 'click-prepend-inner',
     'click-append', 'click-append-inner', 'focus', 'blur', 'keyup', 'keydown', 'click', 'cleared'],
 })
 export default class VaInput extends mixins(
@@ -157,8 +158,6 @@ export default class VaInput extends mixins(
   TextareaMixin,
   InputProps,
 ) {
-  isFocused = false
-
   get labelStyle (): any {
     return { color: this.colorComputed }
   }
@@ -169,7 +168,7 @@ export default class VaInput extends mixins(
     if (this.isTextarea) {
       classes.push(`${baseclass}_textarea`)
     }
-    if (this.isFocused) {
+    if (this.isFocusedComputed) {
       classes.push(`${baseclass}_focused`)
     }
 
@@ -200,7 +199,7 @@ export default class VaInput extends mixins(
   }
 
   get computedBorderColorStyle () {
-    if (this.isFocused) {
+    if (this.isFocusedComputed) {
       return {
         'border-color': this.colorComputed,
       }
@@ -210,7 +209,7 @@ export default class VaInput extends mixins(
   }
 
   get clearIconColor () {
-    if (this.isFocused) {
+    if (this.isFocusedComputed) {
       return this.colorComputed
     }
 
@@ -252,6 +251,17 @@ export default class VaInput extends mixins(
       (this as any).$refs.textarea.focus()
     } else if (!this.$slots.content) {
       throw new Error('There is no DOM element to focus')
+    }
+  }
+
+  /** @public */
+  blur (): void {
+    if (this.$refs.input) {
+      (this as any).$refs.input.blur()
+    } else if (this.$refs.textarea) {
+      (this as any).$refs.textarea.blur()
+    } else if (!this.$slots.content) {
+      throw new Error('There is no DOM element to blur')
     }
   }
 

@@ -1,5 +1,14 @@
 <template>
-  <div class="va-select-option-list">
+  <div
+    class="va-select-option-list"
+    ref="el"
+    :tabindex="tabindex"
+    @keydown.up.stop.prevent="hoverPreviousOption"
+    @keydown.left.stop.prevent="hoverPreviousOption"
+    @keydown.down.stop.prevent="hoverNextOption"
+    @keydown.right.stop.prevent="hoverNextOption"
+    @focus="hoverNextOption"
+  >
     <template v-if="filteredOptions.length">
       <div
         v-for="option in filteredOptions"
@@ -8,7 +17,6 @@
         :class="getOptionClass(option)"
         :style="getOptionStyle(option)"
         @click.stop="selectOption(option)"
-        @mouseleave="updateHoveredOption(null)"
         @mouseover="updateHoveredOption(option)"
       >
         <va-icon
@@ -77,6 +85,8 @@ class SelectOptionListProps {
     type: [String, Object],
     default: null,
   })
+
+  tabindex = prop<number>({ type: Number, default: 0 })
 }
 
 const SelectOptionListPropsMixin = Vue.with(SelectOptionListProps)
@@ -84,7 +94,7 @@ const SelectOptionListPropsMixin = Vue.with(SelectOptionListProps)
 @Options({
   name: 'VaSelectOptionList',
   components: { VaIcon },
-  emits: ['select-option', 'update:hoveredOption'],
+  emits: ['select-option', 'update:hoveredOption', 'no-previous-option-to-hover'],
 })
 export default class VaSelectOptionList extends mixins(
   ColorMixin,
@@ -159,7 +169,7 @@ export default class VaSelectOptionList extends mixins(
 
   updateHoveredOption (option: string[] | string): void {
     if (option) {
-      this.hoveredOptionComputed = typeof option === 'string' ? option : { ...option }
+      this.hoveredOptionComputed = option
     } else {
       this.hoveredOptionComputed = null
     }
@@ -175,9 +185,14 @@ export default class VaSelectOptionList extends mixins(
           (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOptionComputed))
       if (this.filteredOptions[hoveredOptionIndex - 1]) {
         this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex - 1]
+      } else {
+        this.$emit('no-previous-option-to-hover')
       }
     }
-    this.scrollToOption(this.hoveredOptionComputed)
+
+    this.$nextTick(() => {
+      this.scrollToOption(this.hoveredOptionComputed)
+    })
   }
 
   public hoverNextOption () {
@@ -192,7 +207,10 @@ export default class VaSelectOptionList extends mixins(
         this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex + 1]
       }
     }
-    this.scrollToOption(this.hoveredOptionComputed)
+
+    this.$nextTick(() => {
+      this.scrollToOption(this.hoveredOptionComputed)
+    })
   }
 
   scrollToOption (option: any) {
@@ -205,6 +223,12 @@ export default class VaSelectOptionList extends mixins(
       block: 'nearest',
       inline: 'nearest',
     })
+  }
+
+  public focus () {
+    if (this.$refs.el) {
+      (this.$refs as any).el.focus()
+    }
   }
 }
 </script>

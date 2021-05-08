@@ -8,18 +8,21 @@
   >
     <va-dropdown
       ref="dropdown"
-      v-model="isDropdownShown"
+      v-model="doShowDropdownContent"
       :position="$props.position"
       :disabled="$props.disabled"
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
       :close-on-anchor-click="$props.multiple"
       :offset="[0, 8]"
+      trigger="none"
       class="va-select__dropdown"
       keep-anchor-width
       boundary-body
     >
       <div class="va-select__dropdown__content">
+        <!-- Hidden DIV is a hack than allow user to focus select from dropdown content -->
+        <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
         <va-input
           v-if="doShowSearchInput"
           :id="$props.id"
@@ -29,9 +32,13 @@
           placeholder="Search"
           removable
           :name="$props.name"
-          @keyup.enter.stop.prevent="addNewOption"
-          @keydo.up.stop.prevent="hoverPreviousOption"
-          @keyup.down.stop.prevent="hoverNextOption"
+          :tabindex="tabindex + 1"
+          @keydown.down.stop.prevent="focusOptionList"
+          @keydown.right.stop.prevent="focusOptionList"
+          @keydown.up.stop.prevent="focusSelect"
+          @keydown.left.stop.prevent="focusSelect"
+          @keyup.enter.prevent="addNewOption"
+          @focus="hoveredOption = null"
         />
         <va-select-option-list
           ref="optionList"
@@ -48,25 +55,26 @@
           :color="$props.color"
           :key-by="$props.keyBy"
           :text-by="$props.textBy"
-          @selectOption="selectOption"
-          @keydown.enter.stop.prevent="selectHoveredOption"
+          :tabindex="tabindex + 1"
+          @select-option="selectOption"
+          @no-previous-option-to-hover="focusSearchBar"
+          @keyup.enter.stop.prevent="selectHoveredOption"
+          @keyup.space.stop.prevent="selectHoveredOption"
         />
+        <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
       </div>
 
       <template #anchor>
         <!-- Space end enter should listen to key up to stopPropagation to VaDropdown -->
         <div
           class="va-select"
-          tabindex="0"
+          ref="select"
+          :tabindex="tabindex"
           @focus="isFocused = true"
           @blur="isFocused = false"
-          @keydown.stop.prevent="updateHintedOption"
-          @keydown.up.stop.prevent="hoverPreviousOption"
-          @keydown.left.stop.prevent="hoverPreviousOption"
-          @keydown.down.stop.prevent="hoverNextOption"
-          @keydown.right.stop.prevent="hoverNextOption"
-          @keyup.enter.stop.prevent="selectHoveredOption"
-          @keyup.space.stop.prevent="selectHoveredOption"
+          @keydown.enter.stop.prevent="onSelectClick"
+          @keydown.space.stop.prevent="onSelectClick"
+          @click.stop.prevent="onSelectClick"
         >
           <!-- We show messages outside of dropdown to draw dropdown content under the input -->
           <va-input
@@ -80,7 +88,9 @@
             :disabled="$props.disabled"
             :outline="$props.outline"
             :bordered="$props.bordered"
+            :focused="isFocusedComputed"
             readonly
+            :tabindex="-1"
             @cleared="reset"
           >
             <template
@@ -189,6 +199,7 @@ class SelectProps {
   clearable = prop<boolean>({ type: Boolean, default: false })
   hideSelected = prop<boolean>({ type: Boolean, default: false })
   clearIcon = prop<string>({ type: String, default: 'close' })
+  tabindex = prop<number>({ type: Number, default: 0 })
   dropdownIcon = prop<string | DropdownIcon>({
     type: [String, Object],
     default: (): DropdownIcon => ({
@@ -241,19 +252,18 @@ export default class VaSelect extends mixins(
   hintedOption: any = null
   hoveredOption: any = null
   timer!: any
-  isDropdownShown = false
+  doShowDropdownContent = false
+  isInputFocused = false
+  isDropdownContentFocused = false
+
+  get isFocusedComputed () {
+    // If we show dropdown content that means select is focused
+    return this.isFocused || this.doShowDropdownContent
+  }
 
   created () {
     watch(() => this.searchInputValue, (value) => {
       this.$emit('update-search', value)
-    })
-
-    watch(() => this.isDropdownShown, (value) => {
-      if (value && this.doShowSearchInput) {
-        this.$nextTick(() => {
-          (this.$refs.searchBar as any).focus()
-        })
-      }
     })
   }
 
@@ -323,7 +333,7 @@ export default class VaSelect extends mixins(
       return this.$props.dropdownIcon
     }
 
-    return this.isDropdownShown ? this.$props.dropdownIcon.close : this.$props.dropdownIcon.open
+    return this.doShowDropdownContent ? this.$props.dropdownIcon.close : this.$props.dropdownIcon.open
   }
 
   compareOptions (one: any, two: any) {
@@ -333,6 +343,9 @@ export default class VaSelect extends mixins(
     }
     if (typeof one === 'string' && typeof two === 'string') {
       return one === two
+    }
+    if (one === null || two === null) {
+      return false
     }
     if (typeof one === 'object' && typeof two === 'object') {
       return one[this.$props.trackBy as string] === two[this.$props.trackBy as string]
@@ -391,7 +404,21 @@ export default class VaSelect extends mixins(
   }
 
   selectHoveredOption () {
+    if (!this.doShowDropdownContent) {
+      // We can not select option if they are hidden
+      this.showDropdown()
+      return
+    }
+
     this.selectOption(this.hoveredOption)
+  }
+
+  showDropdown () {
+    this.doShowDropdownContent = true
+  }
+
+  hideDropdown () {
+    this.doShowDropdownContent = false
   }
 
   hoverPreviousOption () {
@@ -406,6 +433,44 @@ export default class VaSelect extends mixins(
     }
   }
 
+  focusSelect () {
+    // This hack allows user change focus between dropdown content and select input
+    // Warning: It's important for keyboard navigation
+    if (this.$refs.select) {
+      (this as any).$refs.select.focus()
+      this.hideDropdown()
+    }
+  }
+
+  focusOptionList () {
+    if (this.$refs.optionList) {
+      (this.$refs as any).optionList.focus()
+    }
+
+    this.hoverNextOption()
+  }
+
+  focusSearchBar () {
+    if (this.$refs.searchBar) {
+      (this.$refs as any).searchBar.focus()
+    } else {
+      this.focusSelect()
+    }
+  }
+
+  onSelectClick () {
+    this.showDropdown()
+
+    this.$nextTick(() => {
+      if (this.$refs.searchBar) {
+        (this.$refs as any).searchBar.focus()
+      } else if (this.$refs.optionList) {
+        (this.$refs as any).optionList.focus()
+      }
+    })
+  }
+
+  // TODO: I don't know what this function
   updateHintedOption (event: KeyboardEvent) {
     const isLetter: boolean = event.key.length === 1
     const isDeleteKey: boolean = event.keyCode === 8 || event.keyCode === 46
@@ -426,6 +491,16 @@ export default class VaSelect extends mixins(
     this.timer = setTimeout(() => {
       this.hintedSearch = ''
     }, 1000)
+  }
+
+  public focus (): void {
+    (this.$refs.input as any).focus()
+    this.isFocused = true
+  }
+
+  public blur (): void {
+    // (this.$refs.input as any).blur()
+    this.isFocused = false
   }
 
   /** @public */

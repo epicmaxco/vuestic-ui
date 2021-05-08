@@ -211,6 +211,9 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
     if (this.trigger === 'click') {
       this.isClicked = false
     }
+    if (this.trigger === 'none') {
+      this.$emit('update:modelValue', false)
+    }
   }
 
   initPopper (): void {

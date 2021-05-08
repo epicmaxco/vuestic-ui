@@ -39,6 +39,7 @@ class Props {
   removable = prop({ type: Boolean, default: false })
   loading = prop({ type: Boolean, default: false })
   canBeFocused = prop({ type: Boolean, default: true })
+  focused = prop({ type: Boolean, default: undefined })
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
 }
 
@@ -48,6 +49,22 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
   inputElement: Cleave | null = null
   eventListeners: any = {}
   isFocused = false
+
+  get isFocusedComputed () {
+    if (this.$props.focused === undefined) {
+      return this.isFocused
+    }
+
+    return this.$props.focused
+  }
+
+  set isFocusedComputed (value: boolean) {
+    if (this.$props.focused === undefined) {
+      this.isFocused = value
+    }
+
+    this.$emit('update:focused', value)
+  }
 
   context = setup(() => {
     watch(() => this.$props.mask, (mask: string | CleaveOptions) => {
@@ -133,14 +150,14 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
 
   onFocus (event: Event): void {
     if (this.canBeFocused) {
-      this.isFocused = true
+      this.isFocusedComputed = true
     }
 
     this.$emit('focus', event)
   }
 
   onBlur (event: Event): void {
-    this.isFocused = false
+    this.isFocusedComputed = false
     this.ValidateMixin_onBlur()
     this.$emit('blur', event)
   }
