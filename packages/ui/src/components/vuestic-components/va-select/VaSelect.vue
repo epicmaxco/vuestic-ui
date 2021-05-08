@@ -539,7 +539,7 @@ export default class VaSelect extends mixins(
 @import 'variables';
 
 .va-select {
-  cursor: pointer;
+  cursor: var(--va-select-cursor);
 
   .va-input__append {
     display: flex;
@@ -548,27 +548,21 @@ export default class VaSelect extends mixins(
   }
 
   &__dropdown {
-    outline: var(--va-select-dropdown-outline);
-    margin: var(--va-select-dropdown-margin);
-    padding: var(--va-select-dropdown-padding);
-
     .va-dropdown__anchor {
       display: block;
     }
 
     .va-dropdown__content {
       overflow: hidden;
-      border-radius: 4px;
-      filter: drop-shadow(0 4px 8px rgba(59, 63, 73, 0.15));
+      border-radius: var(--va-select-dropdown-border-radius);
+      box-shadow: var(--va-select-box-shadow);
     }
 
     .va-select__dropdown__content {
-      background: white;
-      margin: var(--va-select-dropdown-content-margin);
-      padding: var(--va-select-dropdown-content-padding);
+      background: var(--va-select-dropdown-background);
       overflow-y: auto;
 
-      @include va-scroll();
+      @include va-scroll(var(--va-select-scroll-color));
     }
   }
 }
