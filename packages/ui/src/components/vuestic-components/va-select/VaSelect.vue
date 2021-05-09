@@ -132,6 +132,7 @@
           @no-previous-option-to-hover="focusSearchBar"
           @keydown.enter.stop.prevent="selectHoveredOption"
           @keydown.space.stop.prevent="selectHoveredOption"
+          @keydown="onHintedSearch"
         />
         <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
       </div>
@@ -185,6 +186,7 @@ class SelectProps {
   searchable = prop<boolean>({ type: Boolean, default: false })
   disabled = prop<boolean>({ type: Boolean, default: false })
   readonly = prop<boolean>({ type: Boolean, default: false }) // Probably unused prop! THIS WAS UNUSED! USE
+  separator = prop<string>({ type: String, default: ', ' })
   width = prop<string>({ type: String, default: '100%' })
   maxHeight = prop<string>({ type: String, default: '128px' })
   clearValue = prop<string>({ type: String, default: '' })
@@ -280,8 +282,7 @@ export default class VaSelect extends mixins(
     if (!this.valueComputed) { return this.clearValue }
     if (typeof this.valueComputed === 'string') { return this.valueComputed }
     if (Array.isArray(this.valueComputed)) {
-      const separator = ', '
-      return this.valueComputed.map((value) => this.getText(value)).join(separator) || this.clearValue
+      return this.valueComputed.map((value) => this.getText(value)).join(this.separator) || this.clearValue
     }
 
     return this.getText(this.valueComputed)
@@ -498,34 +499,35 @@ export default class VaSelect extends mixins(
     this.$emit('clear')
   }
 
-  // Hinted option
+  // Hinted search
 
-  // TODO: I don't think we need this hinted option and timer
-  hintedSearch = ''
-  hintedOption: any = null
-  timer!: any
+  hintedSearchQuery = ''
+  hintedSearchQueryTimeoutIndex!: any
 
-  // TODO: I don't know what this function
-  updateHintedOption (event: KeyboardEvent) {
+  // Hinted serach - hover option if you typing it's value on select without search-bar
+  onHintedSearch (event: KeyboardEvent) {
     const isLetter: boolean = event.key.length === 1
-    const isDeleteKey: boolean = event.keyCode === 8 || event.keyCode === 46
-    clearTimeout(this.timer)
+    const isDeleteKey: boolean = event.key === 'Backspace' || event.key === 'Delete'
+
+    clearTimeout(this.hintedSearchQueryTimeoutIndex)
+
     if (isDeleteKey) {
       // Remove last letter from query
-      this.hintedSearch = this.hintedSearch ? this.hintedSearch.slice(0, -1) : ''
-    } else {
+      this.hintedSearchQuery = this.hintedSearchQuery ? this.hintedSearchQuery.slice(0, -1) : ''
+    } else if (isLetter) {
       // Add every new letter to the query
-      isLetter && (this.hintedSearch += event.key)
+      this.hintedSearchQuery += event.key
     }
+
     // Search for an option that matches the query
-    this.hintedOption = this.hintedSearch
-      ? (this.$props.options as []).find((option: any) => {
-        return this.getText(option).toLowerCase().startsWith(this.hintedSearch.toLowerCase())
-      })
-      : ''
-    this.timer = setTimeout(() => {
-      this.hintedSearch = ''
-    }, 1000)
+    if (this.hintedSearchQuery) {
+      const appropriateOption = this.options.find(option => this.getText(option).toLowerCase().startsWith(this.hintedSearchQuery.toLowerCase()))
+      if (appropriateOption) {
+        this.hoveredOption = appropriateOption
+      }
+    }
+
+    this.hintedSearchQueryTimeoutIndex = setTimeout(() => { this.hintedSearchQuery = '' }, 1000)
   }
 }
 </script>

@@ -76,10 +76,6 @@ class SelectOptionListProps {
   keyBy = prop<string>({ type: String, default: 'id' })
   textBy = prop<string>({ type: String, default: 'text' })
   search = prop<string>({ type: String, default: '' })
-  hintedOption = prop<string | object>({
-    type: [String, Object],
-    default: null,
-  })
 
   hoveredOption = prop<string | object>({
     type: [String, Object],
@@ -103,10 +99,9 @@ export default class VaSelectOptionList extends mixins(
   itemRefs: Record<number, any> = {}
 
   created () {
-    watch(() => this.$props.hintedOption, (option: any) => {
-      if (option) {
-        this.updateHoveredOption(option)
-        this.scrollToOption(option)
+    watch(() => this.$props.hoveredOption, (newOption: any) => {
+      if (newOption) {
+        this.scrollToOption(newOption)
       }
     })
   }
@@ -189,10 +184,6 @@ export default class VaSelectOptionList extends mixins(
         this.$emit('no-previous-option-to-hover')
       }
     }
-
-    this.$nextTick(() => {
-      this.scrollToOption(this.hoveredOptionComputed)
-    })
   }
 
   public hoverNextOption () {
@@ -207,10 +198,6 @@ export default class VaSelectOptionList extends mixins(
         this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex + 1]
       }
     }
-
-    this.$nextTick(() => {
-      this.scrollToOption(this.hoveredOptionComputed)
-    })
   }
 
   scrollToOption (option: any) {
