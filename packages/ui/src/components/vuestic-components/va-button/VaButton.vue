@@ -117,7 +117,7 @@ export default class VaButton extends mixins(
     })
 
     watchEffect(() => {
-      this.updateFocusState(this.hoverState)
+      this.updateFocusState(this.focusState)
       this.updateHoverState(this.hoverState)
     })
 
@@ -168,7 +168,7 @@ export default class VaButton extends mixins(
   }
 
   get shadowStyle () {
-    return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
+    return '0 0 0.03rem 0.15rem ' + shiftHSLAColor(this.colorComputed, { a: -0.75 })
   }
 
   get loaderSize () {
@@ -182,37 +182,26 @@ export default class VaButton extends mixins(
   }
 
   get computedStyle () {
-    const computedStyle: any = {
-      color: '',
-      borderColor: '',
-      background: '#00000000',
-      boxShadow: '',
+    let boxShadow = ''
+    const color = this.textColorComputed
+    const borderColor = this.outline ? this.colorComputed : ''
+    let background = this.isTransparentBackground ? '#00000000' : this.gradient ? getGradientBackground(this.colorComputed) : this.colorComputed
+    if (this.hoverState) {
+      const alpha = this.outline ? -0.9 : -0.8
+      const lightness = 5
+      const color = this.isTransparentBackground ? shiftHSLAColor(this.colorComputed, { a: alpha }) : shiftHSLAColor(this.colorComputed, { l: lightness })
+      background = this.gradient ? getGradientBackground(color) : color
     }
-    if (this.isTransparentBackground) {
-      computedStyle.color = this.textColorComputed
-      computedStyle.borderColor = this.outline ? this.colorComputed : ''
-
-      if (this.hoverState || this.focusState) {
-        const alpha = this.outline ? -0.9 : -0.8
-        computedStyle.background = shiftHSLAColor(this.colorComputed, { a: alpha })
-      }
-    } else {
-      if (!this.gradient) {
-        computedStyle.background = this.colorComputed
-      } else {
-        computedStyle.background = getGradientBackground(this.colorComputed)
-      }
-      if (this.hoverState || this.focusState) {
-        computedStyle.boxShadow = this.shadowStyle
-        if (!this.gradient) {
-          computedStyle.background = shiftHSLAColor(this.colorComputed, { l: 5 })
-        } else {
-          computedStyle.background = getGradientBackground(shiftHSLAColor(this.colorComputed, { l: 5 }))
-        }
-      }
-      computedStyle.color = this.textColorComputed
+    if (this.focusState) {
+      boxShadow = this.shadowStyle
     }
-    return computedStyle
+    return {
+      color: color,
+      borderColor: borderColor,
+      // background: `${background} !important`,
+      background: `${background} !important`,
+      boxShadow: boxShadow,
+    }
   }
 
   get inputListeners () {

@@ -27,7 +27,7 @@
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 import {
-  getFocusColor,
+  getFocusColor, getTextColor,
   shiftHSLAColor,
 } from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
@@ -75,19 +75,16 @@ export default class VaButtonToggle extends mixins(
   }
 
   buttonStyle (buttonValue: any) {
-    if (buttonValue !== this.modelValue) {
-      return { backgroundColor: 'transparent' }
-    }
-
-    if (this.outline || this.flat) {
-      return {
-        backgroundColor: this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed,
-        color: this.$props.activeButtonTextColor,
+    if (buttonValue === this.modelValue) {
+      let color = this.activeButtonTextColor ? this.activeButtonTextColor : getTextColor(this.colorComputed)
+      let background = this.toggleColor ? this.theme.getColor(this.toggleColor) : shiftHSLAColor(this.colorComputed, { l: -6 })
+      if (this.outline || this.flat) {
+        background = this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed
+        color = this.activeButtonTextColor
       }
-    } else {
       return {
-        backgroundColor: this.toggleColor ? this.theme.getColor(this.toggleColor) : shiftHSLAColor(this.colorComputed, { l: -6 }),
-        boxShadow: 'none',
+        background: background,
+        color: color,
       }
     }
   }
