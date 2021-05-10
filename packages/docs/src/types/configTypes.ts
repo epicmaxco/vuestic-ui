@@ -7,7 +7,9 @@ export type CodeString = string
 export type CodeLanguage = 'javascript' | 'scss' | 'bash'
 // example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
 export type PathToExample = string
-export type ExampleComponentProps = Record<string, any>
+export type ExampleOptions = {
+  hideCode?: boolean
+}
 
 // NOTE If you add other block types - please document them properly in http://vuestic-ui.dev/en/contribution/documentation-page
 export enum BlockType {
@@ -39,7 +41,7 @@ export type ApiDocsBlock =
   | {
       type: BlockType.EXAMPLE,
       component: PathToExample, // path to example
-      props?: ExampleComponentProps,
+      exampleOptions?: ExampleOptions,
     }
   | {
       type: BlockType.CODE,

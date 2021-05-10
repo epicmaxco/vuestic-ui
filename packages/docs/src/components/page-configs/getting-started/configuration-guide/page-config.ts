@@ -90,15 +90,22 @@ export default [
   DocsHelper.subtitle('configurationGuide.colors.title'),
   DocsHelper.paragraph('configurationGuide.colors.description'),
   DocsHelper.code(colorsConfig),
+
   DocsHelper.subtitle('configurationGuide.icons.title'),
   DocsHelper.paragraph('configurationGuide.icons.description'),
   DocsHelper.code(iconsInstall),
   DocsHelper.headline('configurationGuide.icons.title'),
   DocsHelper.paragraph('WIP'),
   DocsHelper.code(iconsConfig),
+
   DocsHelper.subtitle('configurationGuide.components.title'),
+  DocsHelper.paragraph('configurationGuide.components.intro'),
   DocsHelper.paragraph('configurationGuide.components.description'),
-  DocsHelper.paragraph('configurationGuide.components.setConfig'),
+  DocsHelper.example('config/PageConfigButtonDefault', { hideCode: true }),
+  DocsHelper.paragraph('configurationGuide.components.action'),
   DocsHelper.code(componentsConfig),
+  DocsHelper.paragraph('configurationGuide.components.result'),
+  DocsHelper.example('config/PageConfigButton', { hideCode: true }),
   DocsHelper.paragraph('configurationGuide.components.example'),
+  DocsHelper.paragraph('configurationGuide.components.more'),
 ] as ApiDocsBlock[]
