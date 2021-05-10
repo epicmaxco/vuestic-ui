@@ -15,16 +15,7 @@
     />
 
     <va-button-toggle
-      toggle-color="warning"
-      color="danger"
-      v-model="model"
-      :options="options"
-      class="mb-4"
-    />
-
-    <va-button-toggle
-      toggle-color="#5600ff"
-      color="#7e06ae"
+      color="warning"
       v-model="model"
       :options="options"
       class="mb-4"

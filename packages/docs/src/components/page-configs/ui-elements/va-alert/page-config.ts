@@ -29,6 +29,18 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'alert.examples.styles.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'alert.examples.styles.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-alert/Styles',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'alert.examples.color.title',
   },
   {
@@ -50,6 +62,18 @@ export default [
   {
     type: BlockType.EXAMPLE,
     component: 'va-alert/Border',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'alert.examples.dense.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'alert.examples.dense.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-alert/Dense',
   },
   {
     type: BlockType.HEADLINE,

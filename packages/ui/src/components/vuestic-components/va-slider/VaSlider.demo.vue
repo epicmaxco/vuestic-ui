@@ -89,12 +89,11 @@
         label="Label"
         v-model="value"
       >
-        <div
-          style="margin-right: 1rem;"
-          slot="label"
-        >
-          SLOT
-        </div>
+        <template #label>
+          <div style="margin-right: 1rem;">
+            SLOT
+          </div>
+        </template>
       </va-slider>
     </VbCard>
     <VbCard
@@ -106,12 +105,11 @@
         invert-label
         v-model="value"
       >
-        <div
-          style="margin-left: 1rem;"
-          slot="label"
-        >
-          INVERTED SLOT
-        </div>
+        <template #label>
+          <div style="margin-left: 1rem;">
+            INVERTED SLOT
+          </div>
+        </template>
       </va-slider>
     </VbCard>
     <VbCard

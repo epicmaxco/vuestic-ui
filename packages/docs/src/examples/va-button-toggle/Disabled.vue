@@ -9,7 +9,7 @@
     <div class="mb-2" />
 
     <va-button-toggle
-      :round="false"
+      :rounded="false"
       disabled
       v-model="model"
       :options="options"

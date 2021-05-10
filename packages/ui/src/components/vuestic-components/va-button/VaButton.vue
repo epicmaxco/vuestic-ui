@@ -22,31 +22,31 @@
   >
     <div
       class="va-button__content"
+      :class="{'va-button__content--loading': loading}"
       v-on="inputListeners"
     >
-      <va-progress-circle
-        v-if="loading"
-        indeterminate
-        :size="loaderSize"
-        :color="computedStyle.color"
-        :thickness="0.15"
+      <va-icon
+        v-if="icon"
+        :name="icon"
+        :size="size"
+        class="va-button__left-icon"
       />
-      <template v-else>
-        <va-icon
-          v-if="icon"
-          :name="icon"
-          :size="$props.size"
-          class="va-button__left-icon"
-        />
-        <slot />
-        <va-icon
-          v-if="iconRight"
-          :name="iconRight"
-          :size="$props.size"
-          class="va-button__right-icon"
-        />
-      </template>
+      <slot />
+      <va-icon
+        v-if="iconRight"
+        :name="iconRight"
+        :size="size"
+        class="va-button__right-icon"
+      />
     </div>
+    <va-progress-circle
+      v-if="loading"
+      class="va-button__loader"
+      indeterminate
+      :size="loaderSize"
+      :color="computedStyle.color"
+      :thickness="0.15"
+    />
   </component>
 </template>
 
@@ -77,8 +77,8 @@ class ButtonProps {
   type = prop<string>({ type: String, default: 'button' })
   disabled = prop<boolean>({ type: Boolean, default: false })
   block = prop<boolean>({ type: Boolean, default: false })
-  round = prop<boolean>({ type: Boolean, default: true })
-  equilateral = prop<boolean>({ type: Boolean, default: undefined })
+  rounded = prop<boolean>({ type: Boolean, default: true })
+  round = prop<boolean>({ type: Boolean, default: undefined })
   spaceBetweenItems = prop<boolean>({ type: Boolean, default: undefined })
   icon = prop<string>({ type: String, default: undefined })
   iconRight = prop<string>({ type: String, default: undefined })
@@ -117,7 +117,7 @@ export default class VaButton extends mixins(
     })
 
     watchEffect(() => {
-      this.updateFocusState(this.hoverState)
+      this.updateFocusState(this.focusState)
       this.updateHoverState(this.hoverState)
     })
 
@@ -156,21 +156,19 @@ export default class VaButton extends mixins(
       'va-button--disabled': this.disabled,
       'va-button--hover': this.hoverState,
       'va-button--focus': this.focusState,
-      'va-button--with-left-content': this.$slots.prepend,
-      'va-button--with-right-content': this.$slots.append,
       'va-button--large': this.size === 'large',
       'va-button--small': this.size === 'small',
       'va-button--normal': !this.size || this.size === 'medium',
       'va-button--loading': this.loading,
       'va-button--block': this.block,
-      'va-button--square': !this.round,
-      'va-button--equilateral': this.equilateral || !this.hasDefaultSlot || this.loading,
+      'va-button--square': !this.rounded,
+      'va-button--round': this.round || !this.hasDefaultSlot,
       'va-button--space-between-items': this.spaceBetweenItems,
     }
   }
 
   get shadowStyle () {
-    return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
+    return '0 0 0.03rem 0.15rem ' + shiftHSLAColor(this.colorComputed, { a: -0.75 })
   }
 
   get loaderSize () {
@@ -184,37 +182,26 @@ export default class VaButton extends mixins(
   }
 
   get computedStyle () {
-    const computedStyle: any = {
-      color: '',
-      borderColor: '',
-      background: '#00000000',
-      boxShadow: '',
+    let boxShadow = ''
+    const color = this.textColorComputed
+    const borderColor = this.outline ? this.colorComputed : ''
+    let background = this.isTransparentBackground ? '#00000000' : this.gradient ? getGradientBackground(this.colorComputed) : this.colorComputed
+    if (this.hoverState) {
+      const alpha = this.outline ? -0.9 : -0.8
+      const lightness = 5
+      const color = this.isTransparentBackground ? shiftHSLAColor(this.colorComputed, { a: alpha }) : shiftHSLAColor(this.colorComputed, { l: lightness })
+      background = this.gradient ? getGradientBackground(color) : color
     }
-    if (this.isTransparentBackground) {
-      computedStyle.color = this.textColorComputed
-      computedStyle.borderColor = this.outline ? this.colorComputed : ''
-
-      if (this.hoverState || this.focusState) {
-        const alpha = this.outline ? -0.9 : -0.8
-        computedStyle.background = shiftHSLAColor(this.colorComputed, { a: alpha })
-      }
-    } else {
-      if (!this.gradient) {
-        computedStyle.background = this.colorComputed
-      } else {
-        computedStyle.background = getGradientBackground(this.colorComputed)
-      }
-      if (this.hoverState || this.focusState) {
-        computedStyle.boxShadow = this.shadowStyle
-        if (!this.gradient) {
-          computedStyle.background = shiftHSLAColor(this.colorComputed, { l: -3 })
-        } else {
-          computedStyle.background = getGradientBackground(shiftHSLAColor(this.colorComputed, { l: -3 }))
-        }
-      }
-      computedStyle.color = this.textColorComputed
+    if (this.focusState) {
+      boxShadow = this.shadowStyle
     }
-    return computedStyle
+    return {
+      color: color,
+      borderColor: borderColor,
+      // background: `${background} !important`,
+      background: `${background} !important`,
+      boxShadow: boxShadow,
+    }
   }
 
   get inputListeners () {
@@ -272,6 +259,7 @@ export default class VaButton extends mixins(
   font-weight: var(--va-button-font-weight);
   margin: var(--va-button-margin);
   padding: var(--va-button-padding);
+  position: relative;
 
   &__content {
     display: flex;
@@ -285,6 +273,10 @@ export default class VaButton extends mixins(
       align-items: center;
       margin: auto;
       white-space: nowrap;
+    }
+
+    &--loading {
+      opacity: 0;
     }
   }
 
@@ -345,7 +337,7 @@ export default class VaButton extends mixins(
       padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
     }
 
-    &.va-button--equilateral {
+    &.va-button--round {
       width: var(--va-button-lg-size);
     }
 
@@ -379,7 +371,7 @@ export default class VaButton extends mixins(
       padding: var(--va-button-sm-content-py) var(--va-button-sm-content-px);
     }
 
-    &.va-button--equilateral {
+    &.va-button--round {
       width: var(--va-button-sm-size);
     }
 
@@ -414,7 +406,7 @@ export default class VaButton extends mixins(
       line-height: var(--va-button-line-height);
     }
 
-    &.va-button--equilateral {
+    &.va-button--round {
       width: var(--va-button-size);
     }
 
@@ -437,7 +429,7 @@ export default class VaButton extends mixins(
     }
   }
 
-  &--equilateral {
+  &--round {
     .va-button__content {
       padding: 0;
     }
@@ -479,6 +471,15 @@ export default class VaButton extends mixins(
 
   &--square {
     border-radius: 0.5rem;
+  }
+
+  &__loader {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

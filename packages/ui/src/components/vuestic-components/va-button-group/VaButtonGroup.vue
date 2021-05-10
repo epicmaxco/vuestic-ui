@@ -17,7 +17,7 @@ class Props {
   color = prop<string>({ type: String, default: 'primary' })
   gradient = prop<boolean>({ type: Boolean, default: undefined })
   textColor = prop<string>({ type: String, default: undefined })
-  round = prop<boolean>({ type: Boolean, default: true })
+  rounded = prop<boolean>({ type: Boolean, default: true })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
   size = prop<string>({
@@ -33,11 +33,10 @@ class Props {
 })
 export default class VaButtonGroup extends Vue.with(Props) {
   context = setup(() => {
-    const isTransparentBackground = this.outline || this.flat
     const buttonConfig = reactive({
       VaButton: {
         ...this.$props,
-        color: isTransparentBackground ? this.color : '#00000000',
+        color: this.gradient ? '#00000000' : this.color,
       },
     })
     return { getColor, buttonConfig }
@@ -64,7 +63,7 @@ export default class VaButtonGroup extends Vue.with(Props) {
 
   get computedClass () {
     return {
-      'va-button-group_square': !this.round,
+      'va-button-group_square': !this.rounded,
     }
   }
 }

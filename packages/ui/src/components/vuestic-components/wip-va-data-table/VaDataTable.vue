@@ -16,9 +16,9 @@
       >
         <!-- https://stackoverflow.com/questions/50891858/vue-how-to-pass-down-slots-inside-wrapper-component   -->
         <template
-          v-for="slot in Object.keys($scopedSlots)"
-          :slot="slot"
-          slot-scope="scope"
+          v-for="slot in Object.keys($slots)"
+          v-slot:[slot]="scope"
+
         >
           <slot
             :name="slot"

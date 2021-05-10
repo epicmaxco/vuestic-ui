@@ -210,7 +210,6 @@ html {
   }
 
   &__header {
-    z-index: 2;
     background-color: #ffffff;
   }
 

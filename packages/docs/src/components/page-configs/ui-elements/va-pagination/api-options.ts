@@ -11,7 +11,6 @@ export default {
     directionLinks: { local: true },
     input: { local: true },
     hideOnSinglePage: { local: true },
-    flat: { local: true },
     total: { local: true },
     pageSize: { local: true },
     boundaryIconLeft: { local: true },

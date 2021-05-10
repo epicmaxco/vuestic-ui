@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <div class="spacer" />
 </template>
 
@@ -8,8 +8,7 @@ import { Vue, Options } from 'vue-class-component'
 @Options({
   name: 'VaSpacer',
 })
-export default class VaSpacer extends Vue {
-}
+export default class VaSpacer extends Vue {}
 </script>
 
 <style lang="scss">

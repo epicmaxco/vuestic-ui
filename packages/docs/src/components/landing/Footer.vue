@@ -6,7 +6,7 @@
           <va-button class="footer__buttons__button"
                      href="https://epicmax.co/about"
                      target="blank"
-                     :round="false"
+                     :rounded="false"
                      color="primary"
                      flat
           >
@@ -16,7 +16,7 @@
           <va-button class="footer__buttons__button"
                      href="https://github.com/epicmaxco/vuestic-admin"
                      target="blank"
-                     :round="false"
+                     :rounded="false"
                      color="primary"
                      flat
           >
@@ -26,7 +26,7 @@
           <va-button class="footer__buttons__button"
                      href="https://github.com/epicmaxco/epic-spinners"
                      target="blank"
-                     :round="false"
+                     :rounded="false"
                      color="primary"
                      flat
           >
@@ -44,7 +44,7 @@
             <va-icon class="mdi mdi-github" />
           </va-button>
           <va-button class="footer__social__item"
-                     href="https://discord.gg/jTKTjj2weV"
+                     href="https://discord.gg/u7fQdqQt8c"
                      target="blank"
                      color="primary"
                      flat

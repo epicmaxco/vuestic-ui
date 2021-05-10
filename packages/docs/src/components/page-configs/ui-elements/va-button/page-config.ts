@@ -41,6 +41,30 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'button.examples.withGradient.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'button.examples.withGradient.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-button/WithGradient',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'button.examples.withTextColor.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'button.examples.withTextColor.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-button/WithTextColor',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'button.examples.withSize.title',
   },
   {
@@ -74,6 +98,42 @@ export default [
   {
     type: BlockType.EXAMPLE,
     component: 'va-button/WithIcon',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'button.examples.withConfig.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'button.examples.withConfig.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-button/WithConfig',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'button.examples.withLoading.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'button.examples.withLoading.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-button/WithLoading',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'button.examples.disabled.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'button.examples.disabled.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-button/Disabled',
   },
   {
     type: BlockType.API,

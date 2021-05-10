@@ -3,16 +3,16 @@
     <va-alert center class="mb-4">
       You read this important centered alert message.
     </va-alert>
-    <va-alert title="Title" center class="mb-4">
+    <va-alert color="success" title="Title" center class="mb-4">
       You read this important centered alert message.
     </va-alert>
-    <va-alert closeable title="Title" center class="mb-4">
+    <va-alert color="info" closeable title="Title" center class="mb-4">
       You read this important centered alert message.
     </va-alert>
-    <va-alert title="Title" icon="info" center class="mb-4">
+    <va-alert color="danger" title="Title" icon="info" center class="mb-4">
       You read this important centered alert message.
     </va-alert>
-    <va-alert closeable title="Title" icon="info" center class="mb-4">
+    <va-alert color="warning" closeable title="Title" icon="info" center class="mb-4">
       You read this important centered alert message.
     </va-alert>
   </div>

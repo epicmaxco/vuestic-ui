@@ -13,9 +13,9 @@
     </va-button-group>
 
     <va-button-group class="mb-4">
-      <va-button :round="false">One</va-button>
-      <va-button :round="false">Two</va-button>
-      <va-button :round="false">Three</va-button>
+      <va-button :rounded="false">One</va-button>
+      <va-button :rounded="false">Two</va-button>
+      <va-button :rounded="false">Three</va-button>
     </va-button-group>
   </div>
 </template>

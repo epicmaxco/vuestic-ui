@@ -376,33 +376,80 @@
           </td>
           <td style="padding-top: 10px;">
             <va-button
-              :round="false"
+              :rounded="false"
               size="small"
               style="margin-right: 10px;"
             >
               Square Button
             </va-button>
             <va-button
-              :round="false"
+              :rounded="false"
               size="medium"
               style="margin-left: 10px;"
             >
               Square Button
             </va-button>
             <va-button
-              :round="false"
+              :rounded="false"
               size="large"
               style="margin-left: 10px;"
             >
               Square Button
             </va-button>
             <va-button
-              :round="false"
+              :rounded="false"
               size="medium"
               outline
               style="margin-left: 10px;"
             >
               Square Button
+            </va-button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Round button
+          </td>
+          <td style="padding-top: 10px;">
+            <va-button
+              style="margin-right: 10px;"
+              round
+            >
+            </va-button>
+          </td>
+          <td style="padding-top: 10px;">
+            <va-button
+              style="margin-right: 10px;"
+              spaceBetweenItems
+            >
+              Test
+            </va-button>
+            <va-button
+              style="margin-right: 10px;"
+              spaceBetweenItems
+            >
+              Test2
+            </va-button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Space between items
+          </td>
+          <td style="padding-top: 10px;">
+            <va-button
+              style="margin-right: 10px;"
+              spaceBetweenItems
+            >
+              Item
+            </va-button>
+            <va-button
+              style="margin-right: 10px;"
+              spaceBetweenItems
+            >
+              Item
             </va-button>
           </td>
         </tr>
