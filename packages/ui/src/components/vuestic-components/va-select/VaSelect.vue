@@ -8,7 +8,7 @@
   >
     <va-dropdown
       ref="dropdown"
-      v-model="doShowDropdownContent"
+      v-model="doShowDropdownContentComputed"
       :position="$props.position"
       :disabled="$props.disabled"
       :max-height="$props.maxHeight"
@@ -25,8 +25,8 @@
           class="va-select"
           ref="select"
           :tabindex="tabindex"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
+          @focus="focus"
+          @blur="blur"
           @keydown.enter.stop.prevent="onSelectClick"
           @keydown.space.stop.prevent="onSelectClick"
           @click.prevent="onSelectClick"
@@ -35,7 +35,7 @@
           <va-input
             :model-value="valueComputedString"
             :success="success"
-            :error="error"
+            :error="computedError"
             :clearable="doShowClearIcon"
             :clearableIcon="$props.clearableIcon"
             :color="$props.color"
@@ -46,8 +46,8 @@
             :outline="$props.outline"
             :bordered="$props.bordered"
             :focused="isFocusedComputed"
-            readonly
             :tabindex="-1"
+            readonly
             @cleared="reset"
           >
             <template
@@ -122,7 +122,6 @@
           :get-text="getText"
           :get-track-by="getTrackBy"
           :search="searchInputValue"
-          :hinted-option="hintedOption"
           :no-options-text="$props.noOptionsText"
           :color="$props.color"
           :key-by="$props.keyBy"
@@ -425,12 +424,21 @@ export default class VaSelect extends mixins(
 
   doShowDropdownContent = false
 
+  get doShowDropdownContentComputed () {
+    return this.doShowDropdownContent
+  }
+
+  set doShowDropdownContentComputed (value: boolean) {
+    value ? this.showDropdown() : this.hideDropdown()
+  }
+
   showDropdown () {
     this.doShowDropdownContent = true
   }
 
   hideDropdown () {
     this.doShowDropdownContent = false
+    this.validate()
   }
 
   // Focus and keyboard navigation
@@ -485,6 +493,7 @@ export default class VaSelect extends mixins(
   /** @public */
   public blur (): void {
     this.isFocused = false
+    this.validate()
   }
 
   /** @public */

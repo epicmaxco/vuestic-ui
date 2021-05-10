@@ -187,7 +187,7 @@ export default class VaInput extends mixins(
     if (this.$props.success) {
       classes.push(`${baseclass}_success`)
     }
-    if (this.$props.error) {
+    if (this.$props.error || this.computedError) {
       classes.push(`${baseclass}_error`)
     }
 
