@@ -25,20 +25,14 @@
         </select>
       </template>
 
-      <template
-        slot="select"
-        slot-scope="props"
-      >
+      <template #select="props">
         <va-checkbox
           :value="props.rowData.checked"
           @input="select(props.rowData)"
         />
       </template>
 
-      <template
-        slot="actions"
-        slot-scope="props"
-      >
+      <template #actions="props">
         <va-button
           size="small"
           @click="show(props.rowData)"

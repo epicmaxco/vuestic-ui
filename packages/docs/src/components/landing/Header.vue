@@ -16,18 +16,9 @@
           <!-- vuestic buttons -->
           <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.overview') }}</va-button>
           <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.docs') }}</va-button>
-          <va-button href="https://discord.gg/jTKTjj2weV" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
+          <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
           <LanguageDropdown />
-          <va-button
-            class="star-button star-button--desktop"
-            href="https://github.com/epicmaxco/vuestic-ui"
-            target="blank"
-            :round="false"
-            size="small"
-            color="dark"
-          >
-            <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
-          </va-button>
+          <stars-button repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
         <nav class="mobile-menu" :class="computedClass">
@@ -44,7 +35,7 @@
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://discord.gg/jTKTjj2weV" target="_blank">{{ $t('landing.header.buttons.discord') }}</a>
+                <a href="https://discord.gg/u7fQdqQt8c" target="_blank">{{ $t('landing.header.buttons.discord') }}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-label color="#757B83" class="mobile-menu__label">
@@ -74,15 +65,7 @@
               </va-list-item-section>
             </va-list-item>
             <va-list-item class="star-button-wrapper">
-              <va-button
-                class="star-button"
-                href="https://github.com/epicmaxco/vuestic-ui"
-                target="blank"
-                :round="false"
-                icon="star_empty"
-              >
-                <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
-              </va-button>
+              <stars-button repo="epicmaxco/vuestic-admin" />
             </va-list-item>
           </va-list>
         </nav>
@@ -97,17 +80,17 @@ import { Options, Vue } from 'vue-class-component'
 import { languages } from './../languages'
 import VuesticLogo from '../header/components/VuesticDocsLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
+import StarsButton from './StarsButton.vue'
 
 @Options({
-  name: 'language-dropdown',
+  name: 'LandingHeader',
   components: {
-    LanguageDropdown,
+    LanguageDropdown, StarsButton,
   },
 })
 export default class Header extends Vue {
   value = false
   isHidden = true
-  stars = 0
   options = languages
   VuesticLogo = VuesticLogo
 
@@ -142,13 +125,6 @@ export default class Header extends Vue {
   get currentLanguageName () {
     const result = (this as any).options.find(({ code }: any) => code === this.currentLanguage)
     return result.name
-  }
-
-  async beforeMount () {
-    // @ts-ignore
-    const resRepo = await fetch('https://api.github.com/repos/epicmaxco/vuestic-ui')
-    const repo = await resRepo.json()
-    this.stars = repo.stargazers_count
   }
 }
 </script>

@@ -1,12 +1,11 @@
 <template>
-  <va-sidebar class="sidebar" v-model="minimized">
+  <va-sidebar class="sidebar" v-model="visible" :width="sidebarWidth">
     <algolia-search />
 
     <va-accordion v-model="value" multiply>
       <va-collapse
         v-for="(route, key) in navigationRoutes"
         :key="key"
-        class="sidebar__expand"
       >
         <template #header>
           <va-sidebar-item>
@@ -21,10 +20,11 @@
         <div
           v-for="(childRoute, index) in route.children"
           :key="index"
+          class="va-sidebar__child"
         >
           <va-list-label
               v-if="childRoute.category"
-              class="va-sidebar-child__label"
+              class="va-sidebar__child__label"
               color="gray"
             >
               {{ $t(childRoute.category) }}
@@ -33,8 +33,9 @@
             :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :hoverColor="getColor('secondary')"
+            @click="onSidebarItemClick"
           >
-            <va-sidebar-item-content class="va-sidebar-child">
+            <va-sidebar-item-content>
               {{ $t(childRoute.displayName) }}
             </va-sidebar-item-content>
           </va-sidebar-item>
@@ -53,7 +54,8 @@ import { getColor } from 'vuestic-ui/src/main'
 
 class Props {
   navigationRoutes = prop<any[]>({ type: Array, default: () => [] })
-  minimized = prop<boolean>({ type: Boolean, default: false })
+  visible = prop<boolean>({ type: Boolean, default: false })
+  mobile = prop<boolean>({ type: Boolean, default: false })
 }
 
 @Options({
@@ -93,18 +95,39 @@ export default class Sidebar extends Vue.with(Props) {
       return this.isRouteHasActiveChild(route)
     })
   }
+
+  get sidebarWidth () {
+    if (this.mobile) {
+      return '100%'
+    }
+
+    return '16rem'
+  }
+
+  onSidebarItemClick () {
+    if (this.mobile) {
+      this.$emit('update:visible', false)
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
 
-.sidebar {
+.va-sidebar {
   z-index: 1;
-  padding-top: 4rem;
+  height: 100%;
+  min-width: 16rem;
+  color: var(--va-dark, #323742);
 
-  @include media-breakpoint-down(sm) {
-    padding-top: 8rem;
+  &.va-sidebar--hidden {
+    min-width: 0;
+  }
+
+  @include media-breakpoint-down(xs) {
+    z-index: 100;
+    position: absolute;
   }
 
   .va-sidebar-item-content {
@@ -113,31 +136,36 @@ export default class Sidebar extends Vue.with(Props) {
 
   .va-sidebar-item {
     cursor: pointer;
-    .va-sidebar-child {
-      padding-left: 3rem;
-    }
-  }
-
-  .va-sidebar-child__label {
-    padding-top: 1rem;
-    padding-left: 2rem;
-    text-align: left;
-    &:first-child {
-      padding-top: 0;
-    }
   }
 
   .va-sidebar-item-title {
     font-weight: bold;
-    color: var(--dark, #323742);
     font-size: 16px;
     line-height: 20px;
   }
 
   .va-sidebar-item--active {
     color: var(--primary, #4591e3);
+
     .va-sidebar-item-title {
       color: var(--primary, #4591e3);
+    }
+  }
+
+  &__child {
+    &__label {
+      padding-left: 2rem;
+      text-align: left;
+    }
+
+    .va-sidebar-item-content {
+      padding-left: 3rem;
+    }
+
+    &:first-child {
+      .va-sidebar__child__label {
+        padding-top: 0;
+      }
     }
   }
 }

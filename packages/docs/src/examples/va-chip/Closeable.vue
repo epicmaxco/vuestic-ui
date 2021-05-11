@@ -1,14 +1,8 @@
 <template>
-  <div>
-    <va-chip
-      v-model="value"
-      closeable
-      class="mb-2"
-    >
-      closeable chip
-    </va-chip>
-    <va-checkbox v-model="value" label="reset value" />
-  </div>
+  <va-checkbox class="mb-2" v-model="value" label="reset value" />
+  <va-chip v-model="value" closeable>
+    closeable chip
+  </va-chip>
 </template>
 
 <script>

@@ -1,16 +1,18 @@
 <template>
   <div>
-    <p class="my-3">
-      <component :is="component" v-bind="exampleComponentProps" />
+    <p>
+      <component :is="component" />
     </p>
-    <va-button size="small" color="#cacaca" @click="showCode = !showCode">
-      {{ $t('docsExample.showCode') }}
-    </va-button>
-    <va-content v-if="showCode">
-      <DocsNavigation :code="parsed.template" :git-url="file" />
-      <DocsCode :code="parsed.template" language="markup" :class="[parsed.script ? 'docs-example__code--with-margin' : '']" />
-      <DocsCode v-if="parsed.script" :code="parsed.script" language="markup" />
-    </va-content>
+    <template v-if="!exampleOptions.hideCode">
+      <va-button class="mt-3 docs-example__show-code-button" style="background: transparent !important" :rounded="false" flat size="small" color="primary" @click="showCode = !showCode">
+        {{ $t('docsExample.showCode') }}
+      </va-button>
+      <va-content v-if="showCode">
+        <DocsNavigation :code="parsed.template" :git-url="file" />
+        <DocsCode :code="parsed.template" language="markup" :class="[parsed.script ? 'docs-example__code--with-margin' : '']"/>
+        <DocsCode v-if="parsed.script" :code="parsed.script" language="markup" />
+      </va-content>
+    </template>
   </div>
 </template>
 
@@ -28,7 +30,7 @@ export default {
       type: [Object, String],
       default: undefined,
     },
-    exampleComponentProps: {
+    exampleOptions: {
       type: Object,
       default: () => ({}),
     },
@@ -99,6 +101,18 @@ export default {
   &__code {
     &--with-margin {
       margin-bottom: 0.2rem !important;
+    }
+  }
+
+  &__show-code-button {
+    .va-button {
+      &__content{
+        padding: 0 !important;
+      }
+      &:hover,
+      &:focus {
+        background: transparent !important;
+      }
     }
   }
 }

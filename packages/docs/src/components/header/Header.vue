@@ -2,7 +2,11 @@
   <header class="header row justify--space-between">
     <div class="header__logo flex">
       <header-selector class="header__logo__selector" :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
-      <vuestic-logo class="header__logo__image"  height="30" width="150" />
+      <router-link to="/" custom v-slot="{ navigate, href }">
+        <a :href="href">
+          <vuestic-logo class="header__logo__image"  height="30" width="150" @click="navigate" />
+        </a>
+      </router-link>
     </div>
     <div class="header__links flex grow justify--center">
       <div class="shrink">
@@ -22,7 +26,7 @@
     </div>
     <div class="header__prefences flex">
       <version-dropdown class="mr-2" />
-      <color-dropdown class="mr-1" />
+<!--      <color-dropdown class="mr-1" />-->
       <language-dropdown class="mr-1" />
     </div>
   </header>
@@ -93,8 +97,6 @@ export default class Header extends mixins(PropsMixin) {
 @import "~vuestic-ui/src/components/vuestic-sass/global/typography";
 
 .header {
-  z-index: 2;
-  position: fixed;
   width: 100%;
   height: 4rem;
   box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
@@ -164,6 +166,7 @@ export default class Header extends mixins(PropsMixin) {
 
       max-width: 162px;
       min-width: 162px;
+      cursor: pointer;
     }
   }
 

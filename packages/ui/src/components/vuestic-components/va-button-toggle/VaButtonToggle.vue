@@ -1,11 +1,12 @@
 <template>
   <div class="va-button-toggle">
     <va-button-group
-      :color="buttonGroupColor"
+      :color="color"
       :textColor="textColor"
-      :round="round"
+      :rounded="rounded"
       :outline="outline"
       :flat="flat"
+      :gradient="gradient"
     >
       <va-button
         v-for="option in options"
@@ -25,7 +26,10 @@
 <script lang="ts">
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import { getFocusColor } from '../../../services/color-config/color-functions'
+import {
+  getFocusColor, getTextColor,
+  shiftHSLAColor,
+} from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
@@ -38,7 +42,7 @@ class ButtonToggleProps {
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
   outline = prop<boolean>({ type: Boolean, default: false })
   flat = prop<boolean>({ type: Boolean, default: false })
-  round = prop<boolean>({ type: Boolean, default: true })
+  rounded = prop<boolean>({ type: Boolean, default: true })
   disabled = prop<boolean>({ type: Boolean, default: false })
   size = prop<string>({
     type: String,
@@ -49,6 +53,7 @@ class ButtonToggleProps {
   })
 
   toggleColor = prop<string>({ type: String, default: '' })
+  gradient = prop<boolean>({ type: Boolean, default: false })
 }
 
 const ButtonTogglePropsMixin = Vue.with(ButtonToggleProps)
@@ -65,29 +70,21 @@ export default class VaButtonToggle extends mixins(
   ColorMixin,
   ButtonTogglePropsMixin,
 ) {
-  get buttonGroupColor () {
-    return this.color
-  }
-
   buttonColor (buttonValue: any) {
     return buttonValue === this.modelValue && this.toggleColor ? this.toggleColor : this.color
   }
 
   buttonStyle (buttonValue: any) {
-    if (buttonValue !== this.modelValue) {
-      return { backgroundColor: 'transparent' }
-    }
-
-    if (this.outline || this.flat) {
-      return {
-        backgroundColor: this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed,
-        color: this.$props.activeButtonTextColor,
+    if (buttonValue === this.modelValue) {
+      let color = this.activeButtonTextColor ? this.activeButtonTextColor : getTextColor(this.colorComputed)
+      let background = this.toggleColor ? this.theme.getColor(this.toggleColor) : shiftHSLAColor(this.colorComputed, { l: -6 })
+      if (this.outline || this.flat) {
+        background = this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed
+        color = this.activeButtonTextColor
       }
-    } else {
       return {
-        backgroundColor: getFocusColor(this.colorComputed),
-        filter: 'brightness(85%)',
-        boxShadow: 'none',
+        background: background,
+        color: color,
       }
     }
   }
@@ -105,4 +102,12 @@ export default class VaButtonToggle extends mixins(
 </script>
 
 <style lang="scss">
+.va-button-toggle {
+  .va-button {
+    &:focus,
+    &:hover {
+      box-shadow: none !important;
+    }
+  }
+}
 </style>

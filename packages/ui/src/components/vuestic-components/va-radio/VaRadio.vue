@@ -144,7 +144,7 @@ export default class VaRadio extends mixins(
   position: var(--va-radio-position);
   margin-top: var(--va-radio-margin-top);
   margin-right: var(--va-radio-margin-right);
-  transition: var(--va-radio-transition, var(--primary-transition));
+  transition: var(--va-radio-transition, var(--va-swing-transition));
 
   & + & {
     margin-top: 0.5rem;
@@ -189,7 +189,7 @@ export default class VaRadio extends mixins(
     }
 
     &__dot {
-      transition: var(--va-radio-dot-transition, var(--primary-transition));
+      transition: var(--va-radio-dot-transition, var(--va-swing-transition));
       position: var(--va-radio-dot-position);
       top: var(--va-radio-dot-top);
       left: var(--va-radio-dot-left);
@@ -209,7 +209,7 @@ export default class VaRadio extends mixins(
     }
 
     &__background {
-      transition: var(--va-radio-background-transition, var(--primary-transition));
+      transition: var(--va-radio-background-transition, var(--va-swing-transition));
       position: var(--va-radio-background-position);
       top: var(--va-radio-background-top);
       left: var(--va-radio-background-left);

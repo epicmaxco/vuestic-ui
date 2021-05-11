@@ -1,6 +1,6 @@
 {
   "name": "vuestic-ui",
-  "version": "1.0.0-alpha.16",
+  "version": "1.0.0-alpha.17",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/vuestic-ui.js",
@@ -118,10 +118,12 @@
     ],
     "*.vue": [
       "yarn lint --fix",
-      "yarn lint:style --fix"
+      "yarn lint:style --fix",
+      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
     ],
     ".{htm,html,css,sss,less,scss}": [
-      "yarn lint:style --fix"
+      "yarn lint:style --fix",
+      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
     ]
   }
 }

@@ -123,7 +123,7 @@ export default class VaPopover extends mixins(
     display: var(--va-popover-content-display);
     align-items: var(--va-popover-content-align-items);
     padding: var(--va-popover-content-padding);
-    border-radius: var(--va-popover-content-border-radius, var(--primary-block-border-radius));
+    border-radius: var(--va-popover-content-border-radius, var(--va-block-border-radius));
     font-size: var(--va-popover-content-font-size);
   }
 

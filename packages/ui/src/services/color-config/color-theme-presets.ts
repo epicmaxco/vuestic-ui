@@ -1,19 +1,19 @@
-import { HexColor } from './color-config'
+import { CssColor } from './color-config'
 
 type VuesticColorsPreset = {
-  primary: HexColor,
-  secondary: HexColor,
-  success: HexColor,
-  info: HexColor,
-  danger: HexColor,
-  warning: HexColor,
-  gray: HexColor,
-  dark: HexColor,
+  primary: CssColor,
+  secondary: CssColor,
+  success: CssColor,
+  info: CssColor,
+  danger: CssColor,
+  warning: CssColor,
+  gray: CssColor,
+  dark: CssColor,
 }
 
 export const colorsPresets: Record<string, VuesticColorsPreset> = {
   default: {
-    primary: '#23e066',
+    primary: '#3a6ed2',
     secondary: '#002c85',
     success: '#40e583',
     info: '#2c82e0',

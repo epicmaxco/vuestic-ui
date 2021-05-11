@@ -12,9 +12,6 @@ export default {
     icon: {
       local: true,
     },
-    flat: {
-      local: true,
-    },
   },
   events: {
   },

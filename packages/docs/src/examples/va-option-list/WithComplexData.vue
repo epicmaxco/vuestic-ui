@@ -41,7 +41,7 @@ export default {
           altDisabled: false,
         },
       ],
-      listValue: null,
+      listValue: ['Alternative value 1'],
     }
   },
 }

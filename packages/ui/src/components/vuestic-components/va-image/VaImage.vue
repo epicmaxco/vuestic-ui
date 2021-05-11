@@ -6,28 +6,29 @@
     >
       <slot name="error" />
     </div>
+
+    <div :style="paddingStyles" />
+    <div
+      v-show="!loadingError && !loading"
+      class="va-image__img"
+      ref="img"
+    >
+      <img :style="imageStyles" :src="src" @error="handleError" @load="handleLoad" />
+    </div>
+    <div class="va-image__overlay">
+      <slot />
+    </div>
     <div
       v-if="loading"
       class="va-image__loader"
     >
       <slot name="loader" />
     </div>
-    <template v-else>
-      <div :style="paddingStyles" />
-      <div
-        class="va-image__img"
-        :style="imageStyles"
-        ref="img"
-      />
-      <div class="va-image__overlay">
-        <slot />
-      </div>
-    </template>
   </div>
 </template>
 
 <script lang="ts">
-import { watch } from 'vue'
+import { watch } from '@vue/runtime-core'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 class ImageProps {
@@ -45,24 +46,19 @@ const ImagePropsMixin = Vue.with(ImageProps)
 export default class VaImage extends mixins(
   ImagePropsMixin,
 ) {
-  image: any = null
-  loading = false
+  loading = true
   loadingError = false
 
   created () {
     watch(() => this.src, () => {
-      this.createLoader()
+      this.loading = true
+      this.loadingError = false
     })
-  }
-
-  beforeUnmount () {
-    this.destroyLoader()
   }
 
   get imageStyles () {
     return {
-      'background-image': `url(${this.src})`,
-      'background-size': this.contain ? 'contain' : 'cover',
+      'object-fit': this.contain ? 'contain' : 'cover',
     }
   }
 
@@ -72,34 +68,12 @@ export default class VaImage extends mixins(
     }
   }
 
-  createLoader () {
-    this.destroyLoader()
-    this.loading = true
-    this.loadingError = false
-    this.image = new Image()
-    this.image.onload = this.handleLoad
-    this.image.onerror = this.handleError
-    if (this.src) {
-      this.image.src = this.src
-    }
-  }
-
-  destroyLoader () {
-    if (this.image) {
-      this.image.onload = null
-      this.image.onerror = null
-      this.image = null
-    }
-  }
-
   handleLoad () {
-    this.destroyLoader()
     this.loading = false
     this.$emit('loaded', this.src)
   }
 
   handleError (err: string) {
-    this.destroyLoader()
     this.loadingError = true
     this.loading = false
     this.$emit('error', err)
@@ -115,9 +89,9 @@ export default class VaImage extends mixins(
   overflow: var(--va-image-overflow);
   position: var(--va-image-position);
 
-  &__img {
-    background-position: var(--va-image-img-background-position);
-    background-repeat: var(--va-image-img-background-repeat);
+  img {
+    height: 100%;
+    width: 100%;
   }
 
   &__img,

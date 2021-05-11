@@ -10,7 +10,7 @@ aliases:
 
   - &build_docs
     name: Build Docs
-    command: yarn build:docs
+    command: yarn build:docs:ci
 
   - &save_cache
     name: Save Yarn Package Cache

@@ -14,7 +14,7 @@
               {{$t('landing.opensource.text[2]')}}
             </router-link>
             {{$t('landing.opensource.text[3]')}}
-            <a class="text--primary" href="https://discord.gg/jTKTjj2weV" target="_blank">{{$t('landing.opensource.text[4]')}}</a>
+            <a class="text--primary" href="https://discord.gg/u7fQdqQt8c" target="_blank">{{$t('landing.opensource.text[4]')}}</a>
             {{$t('landing.opensource.text[5]')}}</div>
         </div>
         <div class="opensource__actions">

@@ -17,6 +17,15 @@
         </template>
         You successfully read this important alert message.
       </va-alert>
+      <va-alert color="info" title="Title">
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert outline color="info" title="Title">
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert border="top" color="info" title="Title">
+        You successfully read this important alert message.
+      </va-alert>
     </VbCard>
 
     <VbCard title="Colorful Alert">
@@ -62,6 +71,16 @@
           label="New Label"
         />
         Change a few things up and try submitting again.
+      </va-alert>
+    </VbCard>
+
+    <VbCard title="Dense Alerts">
+      <va-alert dense>
+        <va-badge
+          color="success"
+          label="Paid"
+        />
+        You successfully read this important alert message.
       </va-alert>
     </VbCard>
 

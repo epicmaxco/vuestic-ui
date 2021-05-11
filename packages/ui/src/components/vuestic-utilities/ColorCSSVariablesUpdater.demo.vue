@@ -2,7 +2,7 @@
   <VbDemo>
     <VbCard title="Update CSS Variable">
       <div class="mb-4">
-        <a class="title title--danger">
+        <a class="title title--va-danger">
           This is title danger color
         </a>
         <va-chip color="danger">This is vue component</va-chip>

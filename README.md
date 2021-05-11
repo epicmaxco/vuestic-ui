@@ -25,13 +25,13 @@
   <p align="center">
     <a href="https://vuestic.dev/">Documentation</a>
     |
-    <a href="https://discord.gg/jTKTjj2weV">Discord</a>
+    <a href="https://discord.gg/u7fQdqQt8c">Discord</a>
   </p>
 
 > Vuestic UI is forever free and open to contributions. See our
 <a href="https://github.com/epicmaxco/vuestic-ui/issues">issues</a>,
 <a href="https://vuestic.dev/en/contribution/guide">contributing guide</a> and join discussions on our
-<a href="https://discord.gg/jTKTjj2weV">Discord</a> to help us improve Vuestic UI experience.
+<a href="https://discord.gg/u7fQdqQt8c">Discord</a> to help us improve Vuestic UI experience.
 
   <p align="center">
     <img src="./packages/ui/src/assets/vuestic-ui-image.jpg">
@@ -90,7 +90,7 @@ on [vuestic.dev](https://vuestic.dev)
 ### Community
 
 Ask questions at the official
-community [discord server](https://discord.gg/jTKTjj2weV)
+community [discord server](https://discord.gg/u7fQdqQt8c)
 
 ### Vuestic Admin
 
@@ -109,7 +109,7 @@ You’re always welcome to join: check out
 our <a href="https://vuestic.dev/en/contribution/guide">
 contribution guides</a>
 , [open issues](https://github.com/epicmaxco/vuestic-ui/issues)
-and [discord server](https://discord.gg/jTKTjj2weV)
+and [discord server](https://discord.gg/u7fQdqQt8c)
 
 ### Browsers support
 

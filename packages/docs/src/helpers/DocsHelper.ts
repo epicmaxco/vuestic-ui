@@ -6,7 +6,7 @@ import {
   TextBlock,
   PathToExample,
   CodeString,
-  ExampleComponentProps,
+  ExampleOptions, CodeLanguage,
 } from '@/types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
@@ -37,17 +37,18 @@ export const DocsHelper = {
       translationString,
     }
   },
-  example: (component: PathToExample, props?: ExampleComponentProps): ApiDocsBlock => {
+  example: (component: PathToExample, exampleOptions: ExampleOptions = {}): ApiDocsBlock => {
     return {
       type: BlockType.EXAMPLE,
       component,
-      props,
+      exampleOptions: exampleOptions,
     }
   },
-  code: (code: CodeString): ApiDocsBlock => {
+  code: (code: CodeString, language: CodeLanguage = 'javascript'): ApiDocsBlock => {
     return {
       type: BlockType.CODE,
       code,
+      language,
     }
   },
   api: (componentOptions: DefineComponent | VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock => {
@@ -57,6 +58,7 @@ export const DocsHelper = {
       apiOptions,
     }
   },
+  // TODO Untyped?
   table: (columns: TableColum[], tableData: TableData) => {
     return {
       type: BlockType.TABLE,
@@ -64,12 +66,20 @@ export const DocsHelper = {
       tableData,
     }
   },
+  // TODO Untyped?
   link: (text: string, href: string, options?: { preText?: string, afterText?: string }) => {
     return {
       type: BlockType.LINK,
       text,
       href,
       options,
+    }
+  },
+  alert: (translationString: TranslationString, color: string): ApiDocsBlock => {
+    return {
+      type: BlockType.ALERT,
+      translationString,
+      color,
     }
   },
 

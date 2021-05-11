@@ -282,6 +282,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaSidebarItem": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -328,7 +334,8 @@
     "globalConfig": "Global Config",
     "advancedIconsConfig": "Advanced Icons Config",
     "componentsConfig": "Components Config",
-    "colorsConfig": "Colors Config"
+    "colorsConfig": "Colors Config",
+    "sidebarItem": "Sidebar Item"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -450,6 +457,9 @@
     "title": "-- Here is the title --"
   },
   "colorsConfig": {
+    "title": "-- Here is the title --"
+  },
+  "sidebarItem": {
     "title": "-- Here is the title --"
   }
 }

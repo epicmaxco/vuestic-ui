@@ -9,7 +9,7 @@
 export default {
   data () {
     return {
-      listValue: '',
+      listValue: 'Option 1',
     }
   },
 }

@@ -233,7 +233,7 @@ export default class VaInput extends mixins(
       max-width: var(--va-input-container-label-max-width);
       color: var(--va-input-container-label-color);
       font-size: var(--va-input-container-label-font-size);
-      letter-spacing: var(--va-input-container-label-letter-spacing, var(--primary-letter-spacing));
+      letter-spacing: var(--va-input-container-label-letter-spacing, var(--va-letter-spacing));
       line-height: var(--va-input-container-label-line-height);
       font-weight: var(--va-input-container-label-font-weight);
       text-transform: var(--va-input-container-label-text-transform);
@@ -261,7 +261,7 @@ export default class VaInput extends mixins(
       border-style: var(--va-input-border-style);
       outline: var(--va-input-outline);
       font-size: var(--va-input-font-size);
-      font-family: var(--va-input-font-family, var(--primary-font-family));
+      font-family: var(--va-input-font-family, var(--va-font-family));
       font-weight: var(--va-input-font-weight);
       font-style: var(--va-input-font-style);
       font-stretch: var(--va-input-font-stretch);

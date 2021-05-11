@@ -14,6 +14,7 @@
     </va-alert>
 
     <va-alert
+      color="info"
       v-model="isCloseableAlertVisible"
       closeable
       close-icon="info"
@@ -23,6 +24,7 @@
     </va-alert>
 
     <va-alert
+      color="warning"
       v-model="isCloseableAlertVisible"
       closeable
       close-text="close"
@@ -32,6 +34,7 @@
     </va-alert>
 
     <va-alert
+      color="success"
       v-model="isCloseableAlertVisible"
       closeable
       class="mb-4"

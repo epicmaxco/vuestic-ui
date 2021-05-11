@@ -99,8 +99,8 @@ export default class VaCard extends mixins(
   display: var(--va-card-display);
   position: var(--va-card-position);
   overflow: var(--va-card-overflow);
-  box-shadow: var(--va-card-box-shadow, var(--primary-block-box-shadow));
-  border-radius: var(--va-card-border-radius, var(--primary-block-border-radius));
+  box-shadow: var(--va-card-box-shadow, var(--va-block-box-shadow));
+  border-radius: var(--va-card-border-radius, var(--va-block-border-radius));
   color: var(--va-card-color);
   background-color: var(--va-card-background-color);
 
@@ -119,7 +119,7 @@ export default class VaCard extends mixins(
 
   &--outlined {
     box-shadow: var(--va-card-outlined-box-shadow);
-    border: var(--va-card-outlined-border, var(--primary-block-border));
+    border: var(--va-card-outlined-border, var(--va-block-border));
   }
 
   &--no-border {

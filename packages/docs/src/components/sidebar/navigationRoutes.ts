@@ -156,18 +156,15 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'file-upload',
         displayName: 'menu.fileUpload',
       },
-      {
-        name: 'date-picker',
-        displayName: 'menu.datePicker',
-      },
+      // Temporary removed
+      // {
+      //   name: 'date-picker',
+      //   displayName: 'menu.datePicker',
+      // },
       {
         category: 'menu.categories.layout',
         name: 'card',
         displayName: 'menu.card',
-      },
-      {
-        name: 'sidebar',
-        displayName: 'menu.sidebar',
       },
       {
         name: 'divider',
@@ -229,6 +226,14 @@ export const navigationRoutes: NavigationRoute[] = [
       //   displayName: 'menu.colorPalette',
       // },
       {
+        name: 'sidebar',
+        displayName: 'menu.sidebar',
+      },
+      {
+        name: 'sidebar-item',
+        displayName: 'menu.sidebarItem',
+      },
+      {
         category: 'menu.categories.other',
         name: 'affix',
         displayName: 'menu.affix',
@@ -257,6 +262,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'app-bar',
         displayName: 'menu.appBar',
       },
+
       // GENERATOR_ADD - uiElements
     ],
   },

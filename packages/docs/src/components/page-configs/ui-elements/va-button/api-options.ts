@@ -4,14 +4,16 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 export default {
   props: {
     outline: { local: true },
-    flat: { local: true },
     icon: { local: true },
     iconRight: { local: true },
     type: { local: true },
     block: { local: true },
+    rounded: { local: true },
     round: { local: true },
+    spaceBetweenItems: { local: true },
+    gradient: { local: true },
     href: { local: true },
-    targer: { local: true },
+    target: { local: true },
   },
   slots: {
     default: { local: true },

@@ -1,7 +1,7 @@
 :root {
   --va-sidebar-min-height: 100%;
-  --va-sidebar-height: calc(100% - 4.0625rem);
-  --va-sidebar-position: absolute;
+  --va-sidebar-height: 100%;
+  --va-sidebar-position: relative;
   --va-sidebar-top: 0;
   --va-sidebar-left: 0;
   --va-sidebar-transition: all 0.3s ease;

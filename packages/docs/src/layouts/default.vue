@@ -1,14 +1,14 @@
 <template>
   <div class="base-layout">
-    <Header
-      v-model:is-sidebar-visible="isSidebarVisible"
-      class="base-layout__header"
-    />
+    <div class="base-layout__header">
+      <Header v-model:is-sidebar-visible="isSidebarVisible" />
+    </div>
     <main id="base-layout" class="base-layout__main">
-      <Sidebar :minimized="isSidebarVisible" :navigationRoutes="navigationRoutes" />
+      <Sidebar v-model:visible="isSidebarVisible" :navigationRoutes="navigationRoutes" :mobile="isSmallScreenDevice" />
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
+        ref='page-content'
       >
         <va-breadcrumbs
           align="left"
@@ -37,13 +37,14 @@
 
 <script lang="ts">
 // @ts-nocheck
-import { provide, reactive } from 'vue'
+import { provide, reactive, watch } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../config/theme-config'
 import { setColors } from '../../../ui/src/main'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
+import { debounce } from 'lodash'
 
 @Options({
   components: {
@@ -55,6 +56,7 @@ export default class DocsLayout extends Vue {
   data () {
     return {
       isSidebarVisible: true,
+      isSmallScreenDevice: false,
     }
   }
 
@@ -71,6 +73,7 @@ export default class DocsLayout extends Vue {
   })
 
   created () {
+    watch(() => (this as any).$route, this.onRouteChange)
     this.$root.eventBus.$on('changeTheme', this.changeTheme)
   }
 
@@ -79,13 +82,39 @@ export default class DocsLayout extends Vue {
       document.querySelector(this.$route.hash).scrollIntoView()
     }
 
-    const isSmallScreenDevice = window.innerWidth <= 575
+    this.isSmallScreenDevice = window.innerWidth <= 575
 
-    this.isSidebarVisible = !isSmallScreenDevice
+    const onResizeDebounce = debounce(() => { this.isSmallScreenDevice = window.innerWidth <= 575 }, 500)
+    window.addEventListener('resize', () => onResizeDebounce())
+
+    this.isSidebarVisible = !this.isSmallScreenDevice
   }
 
   get navigationRoutes () {
-    return navigationRoutes
+    // ToDO: normalize navigation routes with better structure. This sort is temporary solution
+    const routes = JSON.parse(JSON.stringify(navigationRoutes))
+    const uiElementsIndex = routes.findIndex(route => route.name === 'ui-elements')
+    const uiElements = routes.find(route => route.name === 'ui-elements').children
+    let result = []
+    let nextCategoryIndex
+    // Sort elements alphabetically
+    do {
+      let tempArr = []
+      const tempCategoryName = uiElements[0].category
+      delete uiElements[0].category
+      nextCategoryIndex = uiElements.findIndex(element => element.category)
+      if (nextCategoryIndex !== -1) {
+        tempArr = uiElements.slice(0, nextCategoryIndex).sort((a, b) => a.name.localeCompare(b.name))
+      } else {
+        tempArr = uiElements.slice(0, uiElements.length).sort((a, b) => a.name.localeCompare(b.name))
+      }
+      tempArr[0].category = tempCategoryName
+      result = [...result, ...tempArr]
+      uiElements.splice(0, nextCategoryIndex)
+    } while (uiElements.length && nextCategoryIndex !== -1)
+
+    routes[uiElementsIndex].children = result
+    return routes
   }
 
   beforeDestroy () {
@@ -130,6 +159,14 @@ export default class DocsLayout extends Vue {
       return acc
     }, [] as { [key: string]: string, }[])
   }
+
+  onRouteChange () {
+    const pageContent: Element | undefined = this.$refs['page-content']
+
+    pageContent.scrollTop = 0
+
+    if (pageContent) { pageContent.scrollTop = 0 }
+  }
 }
 </script>
 
@@ -142,14 +179,13 @@ html {
   font-size: $font-size-root;
 }
 
-// body {
-//   min-width: $min-body-width;
-// }
-
 .base-layout {
   height: 100vh;
   position: fixed;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
 
   &__breadcrumbs {
     text-transform: capitalize;
@@ -158,29 +194,28 @@ html {
     justify-content: flex-start;
   }
 
+  .va-sidebar {
+    flex-grow: 20rem;
+  }
+
   &__main {
     display: flex;
     flex-direction: row;
-    min-height: $sidebar-viewport-min-height;
-    height: $sidebar-viewport-height;
-    margin-top: 4rem;
-
-    @include media-breakpoint-down(sm) {
-      margin-top: 8rem;
-    }
-
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: 100%;
+    position: relative;
+    // Need to use flex-grow and overflow hidden to resize `main` to remaining height.
+    flex-grow: 2;
+    overflow: hidden;
+    z-index: 0;
   }
 
   &__header {
-    z-index: 1;
     background-color: #ffffff;
   }
 
   &__content {
-    margin-left: 250px;
     height: 100%;
+    width: 100%;
 
     &--expanded {
       margin-left: 0;
@@ -188,11 +223,13 @@ html {
 
     padding: 2em;
     padding-top: 0;
-    width: 100%;
 
     & > :last-child {
       padding-bottom: 2em;
     }
+
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 </style>

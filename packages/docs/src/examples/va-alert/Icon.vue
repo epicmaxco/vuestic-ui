@@ -1,9 +1,9 @@
 <template>
   <div>
-    <va-alert icon="info" class="mb-4">
+    <va-alert color="warning" icon="info" class="mb-4">
     You read this important alert message with an icon.
     </va-alert>
-    <va-alert class="mb-4">
+    <va-alert color="info" class="mb-4">
     <template #icon>
         <va-icon name="info" />
     </template>

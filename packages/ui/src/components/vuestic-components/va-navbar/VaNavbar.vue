@@ -27,7 +27,7 @@
 import { Vue, Options, mixins, prop } from 'vue-class-component'
 
 import ColorMixin from '../../../services/color-config/ColorMixin'
-import { shiftHslColor } from '../../../services/color-config/color-functions'
+import { shiftHSLAColor } from '../../../services/color-config/color-functions'
 
 class Props {
   color = prop<string>({
@@ -45,14 +45,14 @@ export default class VaNavbar extends mixins(ColorMixin, NavbarPropsMixin) {
   get navbarStyle () {
   // saturation and lightness color components differ from the secondary color for the navbar
     return {
-      backgroundColor: shiftHslColor(this.colorComputed, { s: -13, l: 15 }),
+      backgroundColor: shiftHSLAColor(this.colorComputed, { s: -13, l: 15 }),
     }
   }
 
   get shapeStyle () {
     // all the 3 color components differ for the shape from the secondary color
     return {
-      borderTopColor: shiftHslColor(this.colorComputed, { h: -1, s: -11, l: 10 }),
+      borderTopColor: shiftHSLAColor(this.colorComputed, { h: -1, s: -11, l: 10 }),
     }
   }
 }

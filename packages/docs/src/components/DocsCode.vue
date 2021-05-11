@@ -1,10 +1,12 @@
 <template>
-  <prism class="prism-code" :language="language">{{ formatedCode }}</prism>
+  <VuePrismComponent class="DocsCode" :language="language">{{ formatedCode }}</VuePrismComponent>
 </template>
 
 <script>
 import 'prismjs'
-import Prism from 'vue-prism-component'
+import 'prismjs/components/prism-scss'
+import 'prismjs/components/prism-bash'
+import VuePrismComponent from 'vue-prism-component'
 
 export default {
   props: {
@@ -18,7 +20,7 @@ export default {
     },
   },
   components: {
-    Prism,
+    VuePrismComponent,
   },
   computed: {
     formatedCode () {
@@ -27,14 +29,14 @@ export default {
   },
   methods: {
     /**
-     * For exmpla you want to declare var:
+     * If we use the following block of code as input string
      * ```
      * const code = `
      *  console.log('Hello World!')
      * `
-     * then you will have \n at string start and end.
-     * This method delete '\n' from start and end of string if '\n' exists.
      * ```
+     * then you will have \n at string start and end.
+     * This method deletes '\n' from start and end of string if '\n' exists.
      */
     removeFirstLineBreakIfExists (code) {
       let newCode = code
@@ -61,7 +63,10 @@ https://prismjs.com/download.html#themes=prism&languages=css */
  * Based on dabblet (http://dabblet.com)
  * @author Lea Verou
  */
-.prism-code {
+// TODO This pre is a bit weird here and exists because of how vue-prism-component applies class.
+// Notably it has structure like this: pre.DocsCode > code.DocsCode.
+// Here class is being applied twice, while it should have been applied only on external container
+pre.DocsCode {
   background: #f4f8fa;
   padding: 1.2rem 2rem;
   font-size: calc(1rem / 1.4);
