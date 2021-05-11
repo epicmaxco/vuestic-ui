@@ -62,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 .primary-color {
-  color: var(--primary);
+  color: var(--va-primary);
 }
 
 .primary-danger-gradient {
@@ -71,9 +71,9 @@ export default {
   background:
     linear-gradient(
       90deg,
-      var(--primary) 0%,
-      var(--success) 50%,
-      var(--danger) 100%
+      var(--va-primary) 0%,
+      var(--va-success) 50%,
+      var(--va-danger) 100%
     );
 
   span {
