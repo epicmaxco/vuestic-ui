@@ -3,14 +3,12 @@
     <div class="preview">
       <va-config :components="componentsConfig">
         <va-button @click="applyAsGlobal">
-          {{ buttonText }}
+          {{ $t('componentsConfig.demoButtonText') }}
         </va-button>
       </va-config>
     </div>
     <div class="config">
-      {
       <button-props-component v-model="buttonProps" />
-      }
     </div>
   </div>
 </template>
@@ -22,16 +20,13 @@ import { useGlobalConfig } from 'vuestic-ui/src/main'
 
 export default {
   name: 'VaConfigButton',
-  props: {
-    buttonText: { type: String, default: 'Apply this style as global' },
-  },
   components: {
     ButtonPropsComponent,
   },
   setup () {
     const buttonProps = ref([
       {
-        name: 'round',
+        name: 'rounded',
         type: Boolean,
         value: true,
       },

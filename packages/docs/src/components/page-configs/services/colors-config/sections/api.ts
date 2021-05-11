@@ -1,25 +1,19 @@
 import { DocsHelper } from '../../../../../helpers/DocsHelper'
-import { te, t } from '../../../../../helpers/I18nHelper'
-
-const prefix = (text: string) => {
-  const stringPath = `colorsConfig.api.${text}`
-  // Check if exists
-  return te(stringPath) ? t(stringPath) : ''
-}
+import { t } from '../../../../../helpers/I18nHelper'
 
 export const config = [
-  DocsHelper.subtitle(prefix('title')),
+  DocsHelper.subtitle('colorsConfig.api.title'),
 
-  DocsHelper.headline(prefix('types')),
+  DocsHelper.headline('colorsConfig.api.types'),
   DocsHelper.table(
     ['Name', { title: 'Type', type: 'code' }, { title: 'Description', type: 'markdown' }],
     [
-      ['ColorConfig', '{ [colorName: string]: string; }', prefix('ColorConfig')],
-      ['ColorInput', 'string', prefix('ColorInput')],
+      ['ColorConfig', '{ [colorName: string]: string; }', 'colorsConfig.api.ColorConfig'],
+      ['ColorInput', 'string', 'colorsConfig.api.ColorInput'],
     ],
   ),
 
-  DocsHelper.headline(prefix('methods')),
+  DocsHelper.headline('colorsConfig.api.methods'),
   DocsHelper.table(
     ['Method', { title: 'Type', type: 'code' }, { title: 'Description', type: 'markdown' }],
     [
@@ -35,23 +29,23 @@ export const config = [
           getGradientBackground
         }`,
       ],
-      ['setColors', '(colors: ColorConfig) => void', prefix('setColors')],
-      ['getColors', '() => ColorConfig', prefix('getColors')],
-      ['getColor', '(prop?: string | undefined, defaultColor?: string) => string', prefix('getColor')],
+      ['setColors', '(colors: ColorConfig) => void', 'colorsConfig.api.setColors'],
+      ['getColors', '() => ColorConfig', 'colorsConfig.api.getColors'],
+      ['getColor', '(prop?: string | undefined, defaultColor?: string) => string', 'colorsConfig.api.getColor'],
     ],
   ),
 
-  DocsHelper.headline('useColor ' + t(prefix('hookMethods'))),
+  DocsHelper.headline('useColor ' + t('colorsConfig.api.hookMethods')),
   DocsHelper.table(
     ['Method', { title: 'Type', type: 'code' }, { title: 'Description', type: 'markdown' }],
     [
-      ['setColors', '(colors: Record<string, string>) => void', prefix('setColors')],
-      ['getColors', '() => ColorConfig', prefix('getColors')],
-      ['getColor', '(prop?: string | undefined, defaultColor?: string) => string', prefix('getColor')],
-      ['getBoxShadowColor', '(color: ColorInput) => string', prefix('getBoxShadowColor')],
-      ['getHoverColor', '(color: ColorInput) => string', prefix('getHoverColor')],
-      ['getFocusColor', '(color: ColorInput) => string', prefix('getFocusColor')],
-      ['getGradientBackground', '(color: string) => string', prefix('getGradientBackground')],
+      ['setColors', '(colors: Record<string, string>) => void', 'colorsConfig.api.setColors'],
+      ['getColors', '() => ColorConfig', 'colorsConfig.api.getColors'],
+      ['getColor', '(prop?: string | undefined, defaultColor?: string) => string', 'colorsConfig.api.getColor'],
+      ['getBoxShadowColor', '(color: ColorInput) => string', 'colorsConfig.api.getBoxShadowColor'],
+      ['getHoverColor', '(color: ColorInput) => string', 'colorsConfig.api.getHoverColor'],
+      ['getFocusColor', '(color: ColorInput) => string', 'colorsConfig.api.getFocusColor'],
+      ['getGradientBackground', '(color: string) => string', 'colorsConfig.api.getGradientBackground'],
     ],
   ),
 ]

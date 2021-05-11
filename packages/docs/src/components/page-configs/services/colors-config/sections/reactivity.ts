@@ -4,7 +4,7 @@ import { DocsHelper } from '../../../../../helpers/DocsHelper'
 const p = (t: string) => `colorsConfig.reactivity.${t}`
 
 export default [
-  DocsHelper.subtitle(p('subtitle')),
-  DocsHelper.paragraph(p('about')),
+  DocsHelper.subtitle('colorsConfig.reactivity.subtitle'),
+  DocsHelper.paragraph('colorsConfig.reactivity.about'),
 
 ] as ApiDocsBlock[]

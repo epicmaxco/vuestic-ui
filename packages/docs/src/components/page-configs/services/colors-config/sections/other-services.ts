@@ -5,14 +5,14 @@ import { componentsConfigCode, iconsConfigCode } from '../code'
 const p = (t: string) => `colorsConfig.otherServices.${t}`
 
 export default [
-  DocsHelper.subtitle(p('subtitle')),
+  DocsHelper.subtitle('colorsConfig.otherServices.subtitle'),
 
-  DocsHelper.paragraph(p('components')),
+  DocsHelper.paragraph('colorsConfig.otherServices.components'),
   DocsHelper.code(componentsConfigCode),
 
-  DocsHelper.paragraph(p('icons')),
+  DocsHelper.paragraph('colorsConfig.otherServices.icons'),
   DocsHelper.code(iconsConfigCode),
 
-  DocsHelper.paragraph(p('css')),
+  DocsHelper.paragraph('colorsConfig.otherServices.css'),
   DocsHelper.example('colors-config/css-variable'),
 ] as ApiDocsBlock[]

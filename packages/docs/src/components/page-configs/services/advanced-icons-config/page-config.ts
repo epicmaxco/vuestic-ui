@@ -1,11 +1,9 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-const prefix = (text: string) => `advancedIconsConfig.${text}`
-
 export default [
-  DocsHelper.title(prefix('title')),
-  DocsHelper.paragraph(prefix('subtitle')),
+  DocsHelper.title('advancedIconsConfig.title'),
+  DocsHelper.paragraph('advancedIconsConfig.subtitle'),
 
   // TODO: Draw image example how works searching in flat array.
 

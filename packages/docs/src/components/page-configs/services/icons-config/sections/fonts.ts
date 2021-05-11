@@ -2,25 +2,22 @@ import { DocsHelper } from '../../../../../helpers/DocsHelper'
 import { locale } from '../../../../../helpers/I18nHelper'
 import { fontCodeExample, fontTransformationsExample } from '../examples'
 
-const prefix = (text: string) => `iconsConfig.fonts.${text}`
-const example = (text: string) => prefix(`example.${text}`)
-
 export const config = [
   // Fonts
-  DocsHelper.subtitle(prefix('title')),
-  DocsHelper.paragraph(prefix('about')),
+  DocsHelper.subtitle('iconsConfig.fonts.title'),
+  DocsHelper.paragraph('iconsConfig.fonts.about'),
 
   // FontNamePattern
-  DocsHelper.headline(prefix('fontNamePattern.title')),
-  DocsHelper.paragraph(prefix('fontNamePattern.about')),
+  DocsHelper.headline('iconsConfig.fonts.fontNamePattern.title'),
+  DocsHelper.paragraph('iconsConfig.fonts.fontNamePattern.about'),
   DocsHelper.example('icons-config/font'),
 
   // Example
-  DocsHelper.headline(example('title')),
-  DocsHelper.paragraph(example('about')),
+  DocsHelper.headline('iconsConfig.fonts.example.title'),
+  DocsHelper.paragraph('iconsConfig.fonts.example.about'),
   DocsHelper.code(fontCodeExample),
-  DocsHelper.paragraph(example('explain')),
+  DocsHelper.paragraph('iconsConfig.fonts.example.explain'),
   DocsHelper.code(fontTransformationsExample),
 
-  DocsHelper.link(prefix('advancedFontsUsage'), `/${locale}/services/global-config`, { preText: prefix('readMore') }),
+  DocsHelper.link('iconsConfig.fonts.advancedFontsUsage', `/${locale}/services/global-config`, { preText: 'iconsConfig.fonts.readMore' }),
 ]

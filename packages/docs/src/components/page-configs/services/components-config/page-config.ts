@@ -7,8 +7,8 @@ const cc = (text: string) => (`componentsConfig.${text}`)
 const vc = (text: string) => cc(`vaConfig.${text}`)
 
 export default [
-  DocsHelper.title(cc('title')),
-  DocsHelper.paragraph(cc('subtitle')),
+  DocsHelper.title('componentsConfig.title'),
+  DocsHelper.paragraph('componentsConfig.subtitle'),
   DocsHelper.code(`
     ...
     components: {
@@ -25,10 +25,8 @@ export default [
     },
     ...
   `),
-  DocsHelper.paragraph(cc('demoTitle')),
-  DocsHelper.example('components-config/button', {
-    buttonText: t(cc('demoButtonText')),
-  }),
+  DocsHelper.paragraph('componentsConfig.demoTitle'),
+  DocsHelper.example('components-config/button'),
 
   DocsHelper.subtitle(vc('title')),
   DocsHelper.paragraph(vc('subtitle')),

@@ -1,44 +1,37 @@
 import { DocsHelper } from '../../../../../helpers/DocsHelper'
-import { te, t } from '../../../../../helpers/I18nHelper'
-
-const prefix = (text: string) => {
-  const stringPath = `iconsConfig.api.${text}`
-  // Check if exists
-  return te(stringPath) ? t(stringPath) : ''
-}
 
 export const config = [
-  DocsHelper.subtitle(prefix('title')),
+  DocsHelper.subtitle('iconsConfig.api.title'),
 
   DocsHelper.table(
     ['Prop', { title: 'Type', type: 'code' }, { title: 'Description', type: 'markdown' }],
     [
-      ['name', 'string | RegExp', prefix('name')],
+      ['name', 'string | RegExp', 'iconsConfig.api.name'],
       [
         'iconClass',
         'string | ((...dynamicSegments: string[]) => string) | undefined',
-        prefix('iconClass'),
+        'iconsConfig.api.iconClass',
       ],
       [
         'content',
         'string | ((...dynamicSegments: string[]) => string | undefined) | undefined',
-        prefix('content'),
+        'iconsConfig.api.content',
       ],
       [
         'component',
         '`VueComponent | undefined`',
-        prefix('component'),
+        'iconsConfig.api.component',
       ],
       [
         'componentProps',
         '`Record<string, any> | ((...dynamicSegments: string[]) => Record<string, any>) | undefined`',
-        prefix('componentProps'),
+        'iconsConfig.api.componentProps',
       ],
-      ['to', '`string | undefined`', prefix('to')],
-      ['tag', '`string | undefined`', prefix('tag')],
-      ['color', '`string | undefined`', prefix('color')],
-      ['rotation', '`number | string | undefined`', prefix('rotation')],
-      ['spin', "`'clockwise' | 'counter-clockwise' | undefined`", prefix('spin')],
+      ['to', '`string | undefined`', 'iconsConfig.api.to'],
+      ['tag', '`string | undefined`', 'iconsConfig.api.tag'],
+      ['color', '`string | undefined`', 'iconsConfig.api.color'],
+      ['rotation', '`number | string | undefined`', 'iconsConfig.api.rotation'],
+      ['spin', "`'clockwise' | 'counter-clockwise' | undefined`", 'iconsConfig.api.spin'],
       // ['', '', ''],
     ],
   ),

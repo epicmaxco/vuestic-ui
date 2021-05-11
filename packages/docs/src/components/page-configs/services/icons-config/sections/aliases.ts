@@ -1,15 +1,12 @@
 import { DocsHelper } from '../../../../../helpers/DocsHelper'
-import { locale } from '../../../../../helpers/I18nHelper'
 import { aliasCodeExample, aliasesTransformationsExample } from '../examples'
 
-const prefix = (text: string) => `iconsConfig.aliases.${text}`
-
 export const config = [
-  DocsHelper.subtitle(prefix('title')),
-  DocsHelper.paragraph(prefix('about')),
-  DocsHelper.headline(prefix('example.title')),
+  DocsHelper.subtitle('iconsConfig.aliases.title'),
+  DocsHelper.paragraph('iconsConfig.aliases.about'),
+  DocsHelper.headline('iconsConfig.aliases.example.title'),
   DocsHelper.code(aliasCodeExample),
-  DocsHelper.paragraph(prefix('example.about')),
+  DocsHelper.paragraph('iconsConfig.aliases.example.about'),
   DocsHelper.code(aliasesTransformationsExample),
-  DocsHelper.paragraph(prefix('example.explain')),
+  DocsHelper.paragraph('iconsConfig.aliases.example.explain'),
 ]

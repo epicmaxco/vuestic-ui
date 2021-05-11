@@ -17,7 +17,7 @@
               <strong>{{ colData }}</strong>
             </template>
             <template v-else-if="columnsComputed[index].type === 'markdown'">
-              <MarkdownView :value="colData" />
+              <MarkdownView :value="$te(colData) ? $t(colData) : colData" />
             </template>
             <template v-else-if="columnsComputed[index].type === 'code'">
               <MarkdownView :value="`\`${colData}\``" />

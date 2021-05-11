@@ -2,15 +2,11 @@ import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { t, locale } from '../../../../helpers/I18nHelper'
 
-const gc = (text: string) => `globalConfig.${text}`
-const api = (text: string) => gc(`api.${text}`)
-const links = (text: string) => gc(`links.${text}`)
-
 export default [
-  DocsHelper.title(gc('title')),
-  DocsHelper.paragraph(gc('subtitle')),
-  DocsHelper.paragraph(gc('structure')),
-  DocsHelper.paragraph(gc('setupExampleTitle')),
+  DocsHelper.title('globalConfig.title'),
+  DocsHelper.paragraph('globalConfig.subtitle'),
+  DocsHelper.paragraph('globalConfig.structure'),
+  DocsHelper.paragraph('globalConfig.setupExampleTitle'),
   DocsHelper.code(`
     import { VuesticPlugin } from 'vuestic-ui'
 
@@ -22,7 +18,7 @@ export default [
       })
       .mount('#app')
   `),
-  DocsHelper.paragraph(gc('reactiveUpdateExampleTitle')),
+  DocsHelper.paragraph('globalConfig.reactiveUpdateExampleTitle'),
   DocsHelper.code(`
 import { useGlobalConfig } from 'vuestic-ui'
 
@@ -42,7 +38,7 @@ export default {
   }
 }
   `),
-  DocsHelper.paragraph(gc('reactiveSetExampleTitle')),
+  DocsHelper.paragraph('globalConfig.reactiveSetExampleTitle'),
   DocsHelper.code(`
 import { useGlobalConfig } from 'vuestic-ui'
 
@@ -62,7 +58,7 @@ export default {
   }
 }
   `),
-  DocsHelper.paragraph(gc('useInRuntime')),
+  DocsHelper.paragraph('globalConfig.useInRuntime'),
   DocsHelper.code(`
 import { useGlobalConfig } from 'vuestic-ui'
 import { computed } from 'vue'
@@ -79,17 +75,17 @@ export default {
   }
 }
   `),
-  DocsHelper.headline(links('readMore')),
-  DocsHelper.link(t(links('components')), `/${locale}/services/components-config`),
-  DocsHelper.link(t(links('colors')), `/${locale}/services/colors-config`),
-  DocsHelper.link(t(links('icons')), `/${locale}/services/icons-config`),
+  DocsHelper.headline('globalConfig.links.readMore'),
+  DocsHelper.link(t('globalConfig.links.components'), `/${locale}/services/components-config`),
+  DocsHelper.link(t('globalConfig.links.colors'), `/${locale}/services/colors-config`),
+  DocsHelper.link(t('globalConfig.links.icons'), `/${locale}/services/icons-config`),
   DocsHelper.subtitle('all.api'),
   DocsHelper.table(
     ['params', { title: 'type', type: 'code' }, { title: 'Description', type: 'markdown' }],
     [
-      ['icons', 'IconsConfig', t(api('icons'))],
-      ['components', 'ComponentsConfig', t(api('components'))],
-      ['colors', 'ColorsConfig', t(api('colors'))],
+      ['icons', 'IconsConfig', t('globalConfig.api.icons')],
+      ['components', 'ComponentsConfig', t('globalConfig.api.components')],
+      ['colors', 'ColorsConfig', t('globalConfig.api.colors')],
     ],
   ),
 ] as ApiDocsBlock[]
