@@ -282,6 +282,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaSidebarItem": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -322,7 +328,8 @@
     "translation": "Translation",
     "browserSupport": "Browser Support",
     "table": "Table",
-    "guide": "Guide"
+    "guide": "Guide",
+    "sidebarItem": "Sidebar Item"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -429,6 +436,9 @@
     "title": "-- Here is the title --"
   },
   "guide": {
+    "title": "-- Here is the title --"
+  },
+  "sidebarItem": {
     "title": "-- Here is the title --"
   }
 }
