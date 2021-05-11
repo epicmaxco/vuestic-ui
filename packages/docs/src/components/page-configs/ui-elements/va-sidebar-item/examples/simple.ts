@@ -1,9 +1,7 @@
 import { DocsHelper } from '../../../../../helpers/DocsHelper'
 
-const t = (text: string) => `sidebarItem.examples.simple.${text}`
-
 export default DocsHelper.exampleBlock(
-  t('title'),
-  t('text'),
+  'sidebarItem.examples.simple.title',
+  'sidebarItem.examples.simple.text',
   'va-sidebar-item/Simple',
 )
