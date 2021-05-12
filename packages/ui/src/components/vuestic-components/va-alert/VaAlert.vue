@@ -211,7 +211,7 @@ export default class VaAlert extends mixins(
     &--top {
       border-radius: var(--va-alert-top-border-radius);
       width: 100%;
-      height: 0.125rem;
+      height: var(--va-alert-stripe-border-size);
       top: 0;
       left: 0;
     }
@@ -219,7 +219,7 @@ export default class VaAlert extends mixins(
     &--right {
       border-radius: var(--va-alert-right-border-radius);
       height: 100%;
-      width: 0.125rem;
+      width: var(--va-alert-stripe-border-size);
       bottom: 0;
       right: 0;
     }
@@ -227,7 +227,7 @@ export default class VaAlert extends mixins(
     &--bottom {
       border-radius: var(--va-alert-bottom-border-radius);
       width: 100%;
-      height: 0.125rem;
+      height: var(--va-alert-stripe-border-size);
       bottom: 0;
       left: 0;
     }
@@ -235,7 +235,7 @@ export default class VaAlert extends mixins(
     &--left {
       border-radius: var(--va-alert-left-border-radius);
       height: 100%;
-      width: 0.125rem;
+      width: var(--va-alert-stripe-border-size);
       bottom: 0;
       left: 0;
     }
