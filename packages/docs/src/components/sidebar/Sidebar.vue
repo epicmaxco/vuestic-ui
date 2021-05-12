@@ -139,7 +139,7 @@ export default class Sidebar extends Vue.with(Props) {
   }
 
   .va-sidebar-item-title {
-    font-weight: bold;
+    font-weight: 500;
     font-size: 16px;
     line-height: 20px;
   }
