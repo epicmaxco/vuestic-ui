@@ -8,7 +8,7 @@
   --va-alert-padding-y: 0.75rem;
   --va-alert-border-width: 0;
   --va-alert-border-radius: 4px;
-  --va-alert-box-shadow: 0.125rem;
+  --va-alert-box-shadow: var(--va-box-shadow);
   --va-alert-color: white;
 
   // Title

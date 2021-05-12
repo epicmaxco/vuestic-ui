@@ -132,7 +132,7 @@ export default class VaAlert extends mixins(
     }
     if (this.border) {
       background = '#ffffff'
-      boxShadow = '0 0.125rem 0.2rem 0.075rem rgba(0,0,0,0.2)'
+      boxShadow = 'var(--va-alert-box-shadow)'
     }
     return {
       border: this.outline && `1px solid ${this.colorComputed}`,
