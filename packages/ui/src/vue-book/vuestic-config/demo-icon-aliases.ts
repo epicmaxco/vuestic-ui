@@ -23,15 +23,15 @@ const DemoAliases: IconConfiguration[] = [
   },
   {
     name: 'star',
-    to: 'fas-star',
+    to: 'star',
   },
   {
     name: 'star_half',
-    to: 'fas-star-half-alt',
+    to: 'star_half',
   },
   {
     name: 'star_empty',
-    to: 'far-star',
+    to: 'star_empty',
   },
   {
     name: 'star_border',

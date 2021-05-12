@@ -80,6 +80,7 @@ import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import VaIcon from '../va-icon'
 
 class AlertProps {
+  color = prop<string>({ type: String, default: 'primary' })
   title = prop<string>({ type: String, default: '' })
   description = prop<string>({ type: String, default: '' })
   icon = prop<string>({ type: String, default: '' })
@@ -131,7 +132,7 @@ export default class VaAlert extends mixins(
     }
     if (this.border) {
       background = '#ffffff'
-      boxShadow = '0 0.125rem 0.2rem 0.075rem rgba(0,0,0,0.2)'
+      boxShadow = 'var(--va-alert-box-shadow)'
     }
     return {
       border: this.outline && `1px solid ${this.colorComputed}`,
@@ -210,7 +211,7 @@ export default class VaAlert extends mixins(
     &--top {
       border-radius: var(--va-alert-top-border-radius);
       width: 100%;
-      height: 0.125rem;
+      height: var(--va-alert-stripe-border-size);
       top: 0;
       left: 0;
     }
@@ -218,7 +219,7 @@ export default class VaAlert extends mixins(
     &--right {
       border-radius: var(--va-alert-right-border-radius);
       height: 100%;
-      width: 0.125rem;
+      width: var(--va-alert-stripe-border-size);
       bottom: 0;
       right: 0;
     }
@@ -226,7 +227,7 @@ export default class VaAlert extends mixins(
     &--bottom {
       border-radius: var(--va-alert-bottom-border-radius);
       width: 100%;
-      height: 0.125rem;
+      height: var(--va-alert-stripe-border-size);
       bottom: 0;
       left: 0;
     }
@@ -234,7 +235,7 @@ export default class VaAlert extends mixins(
     &--left {
       border-radius: var(--va-alert-left-border-radius);
       height: 100%;
-      width: 0.125rem;
+      width: var(--va-alert-stripe-border-size);
       bottom: 0;
       left: 0;
     }

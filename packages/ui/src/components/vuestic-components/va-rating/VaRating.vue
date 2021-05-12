@@ -86,7 +86,7 @@ class RatingProps {
   modelValue = prop<number>({ type: Number, default: 0 })
   icon = prop<string>({ type: String, default: 'star' })
   halfIcon = prop<string>({ type: String, default: 'star_half' })
-  emptyIcon = prop<string>({ type: String, default: 'star_empty' })
+  emptyIcon = prop<string>({ type: String, default: 'star_outline' })
   readonly = prop<boolean>({ type: Boolean, default: false })
   disabled = prop<boolean>({ type: Boolean, default: false })
   numbers = prop<boolean>({ type: Boolean, default: false })
