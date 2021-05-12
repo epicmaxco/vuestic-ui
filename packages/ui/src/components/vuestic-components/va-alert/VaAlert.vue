@@ -80,6 +80,7 @@ import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import VaIcon from '../va-icon'
 
 class AlertProps {
+  color = prop<string>({ type: String, default: 'primary' })
   title = prop<string>({ type: String, default: '' })
   description = prop<string>({ type: String, default: '' })
   icon = prop<string>({ type: String, default: '' })
