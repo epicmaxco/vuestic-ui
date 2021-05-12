@@ -1,5 +1,8 @@
 <template>
   <VbDemo class="va-input-css-classes-demo">
+    <VbCard title="default">
+      <va-input />
+    </VbCard>
     <VbCard title="Placeholder">
       <va-input
         placeholder="Country name"
