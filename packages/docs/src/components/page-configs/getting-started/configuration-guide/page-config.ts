@@ -77,7 +77,7 @@ app.use(VuesticPlugin, {
   components: {
     VaButton: {
       outline: true,
-      round: false,
+      rounded: false,
       size: 'small',
     },
   },

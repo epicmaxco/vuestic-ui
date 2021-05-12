@@ -2742,7 +2742,7 @@
   },
   "iconsConfig": {
     "title": "Icons config",
-    "about": "By default Vuestic UI provides Material Design icons. If we want to use additional font libraries we can configure VaIcon to use them.",
+    "about": "By default Vuestic UI provides Material Design icons. If you want to use other font libraries you can configure VaIcon to use them.",
     "readMore": "Read more",
     "readBeforeStart": "Read about icons component",
     "example": "Example",
@@ -2757,7 +2757,7 @@
     "fonts": {
       "title": "Fonts",
       "about": "We want to use `<va-icon name='icon-name' />` pattern. We can setup config for specific icon name pattern. In this config we can provide icon class, content (innerHTML) or Vue component relative to icon name.",
-      
+
       "fontNamePattern": {
         "title": "Font name pattern",
         "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate icon class, content or props. Dynamic segments should be written in curly brackets."
@@ -2811,8 +2811,8 @@
   "componentsConfig": {
     "title": "Components config",
     "subtitle": "With component config we can override default props for any vuestic component we want. Components config is a object where key is `component name` and value is `component props` which we want to overwrite. For example:",
-    "demoTitle": "In example below we can change global style of all buttons on whole Vuestic Documentation site.",
-    "demoButtonText": "Apply globally",
+    "demoTitle": "In example below we can change global style of all buttons on whole Vuestic Documentation site. Feel free to navigate to Button docs page and see how it looks.",
+    "resetConfig": "Reset config",
     "vaConfig": {
       "title": "Scoped config",
       "subtitle": "We can use VaConfig to override component props inside `<va-config></va-config>` tag. Components config for all component inside `va-config` tag will be overwritten to `components` prop value. Let's look at the demo below:",

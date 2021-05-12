@@ -8,15 +8,15 @@ export default [
   DocsHelper.paragraph('globalConfig.structure'),
   DocsHelper.paragraph('globalConfig.setupExampleTitle'),
   DocsHelper.code(`
-    import { VuesticPlugin } from 'vuestic-ui'
+import { VuesticPlugin } from 'vuestic-ui'
 
-    createApp(App)
-      .use(VuesticPlugin, {
-        icons: [ ... ],
-        components: { ... },
-        colors: { ... },
-      })
-      .mount('#app')
+createApp(App)
+  .use(VuesticPlugin, {
+    icons: [ ... ],
+    components: { ... },
+    colors: { ... },
+  })
+  .mount('#app')
   `),
   DocsHelper.paragraph('globalConfig.reactiveUpdateExampleTitle'),
   DocsHelper.code(`
