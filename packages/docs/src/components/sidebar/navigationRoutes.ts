@@ -284,4 +284,32 @@ export const navigationRoutes: NavigationRoute[] = [
       // GENERATOR_ADD - contribution
     ],
   },
+  {
+    name: 'services',
+    displayName: 'menu.services',
+    children: [
+      {
+        name: 'global-config',
+        displayName: 'menu.globalConfig',
+      },
+      {
+        name: 'components-config',
+        displayName: 'menu.componentsConfig',
+      },
+      {
+        name: 'icons-config',
+        displayName: 'menu.iconsConfig',
+      },
+      // TODO: next
+      // {
+      //   name: 'advanced-icons-config',
+      //   displayName: 'menu.advancedIconsConfig',
+      // },
+      {
+        name: 'colors-config',
+        displayName: 'menu.colorsConfig',
+      },
+      // GENERATOR_ADD - services
+    ],
+  },
 ]

@@ -5,16 +5,16 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import {{camelCase name}}Config from '../../components/page-configs/{{kebabCase category}}/{{kebabCase name}}/page-config'
+import globalConfigConfig from '../../components/page-configs/services/global-config/page-config'
 
 @Options({
   components: {
     DocsContent,
   },
 })
-export default class {{properCase name}} extends Vue {
+export default class GlobalConfig extends Vue {
   get configComputed () {
-    return {{camelCase name}}Config
+    return globalConfigConfig
   }
 }
 </script>

@@ -1,5 +1,6 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { t, locale } from '../../../../helpers/I18nHelper'
 
 const colorsConfig = `
 //main.js
@@ -44,6 +45,7 @@ createApp(App)
       aliases: [
         {
           "name": "bell",
+          "color": "#FFD43A",
           "to": "fa4-bell"
         },
         {
@@ -53,12 +55,12 @@ createApp(App)
       ],
       fonts: [
         {
-          name: /fa4-(.*)/,
-          iconClass: (code) => \`fa4fafa -\${code}\`
+          name: 'fa4-{iconName}',
+          resolve: ({iconName}) => ({ class: \`fa fa-\${code}\` }),
         },
         {
-          name: /flag-icon-(.*) (.*)/,
-          iconClass: (code, size) => \`flag - iconflag - icon -\${code}flag - icon -\${size}\`
+          name: 'flag-icon-{countryCode} {flagSize}'/,
+          resolve: ({countryCode, flagSize}) => ({ class: \`flag-icon flag-icon-\${countryCode} flag-icon-\${flagSize}\` }),
         }
       ],
     }),
@@ -77,7 +79,7 @@ app.use(VuesticPlugin, {
   components: {
     VaButton: {
       outline: true,
-      round: false,
+      rounded: false,
       size: 'small',
     },
   },
@@ -90,13 +92,15 @@ export default [
   DocsHelper.subtitle('configurationGuide.colors.title'),
   DocsHelper.paragraph('configurationGuide.colors.description'),
   DocsHelper.code(colorsConfig),
+  DocsHelper.link(t('configurationGuide.readMore'), `/${locale}/services/colors-config`),
 
   DocsHelper.subtitle('configurationGuide.icons.title'),
   DocsHelper.paragraph('configurationGuide.icons.description'),
   DocsHelper.code(iconsInstall),
-  DocsHelper.headline('configurationGuide.icons.title'),
-  DocsHelper.paragraph('WIP'),
+  DocsHelper.headline('configurationGuide.icons.subtitle'),
+  DocsHelper.paragraph('configurationGuide.icons.subDescription'),
   DocsHelper.code(iconsConfig),
+  DocsHelper.link(t('configurationGuide.readMore'), `/${locale}/services/icons-config`),
 
   DocsHelper.subtitle('configurationGuide.components.title'),
   DocsHelper.paragraph('configurationGuide.components.intro'),
@@ -108,4 +112,5 @@ export default [
   DocsHelper.example('config/PageConfigButton', { hideCode: true }),
   DocsHelper.paragraph('configurationGuide.components.example'),
   DocsHelper.paragraph('configurationGuide.components.more'),
+  DocsHelper.link(t('configurationGuide.readMore'), `/${locale}/services/components-config`),
 ] as ApiDocsBlock[]

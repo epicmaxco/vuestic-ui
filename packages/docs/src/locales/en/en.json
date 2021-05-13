@@ -959,6 +959,12 @@
     "browserSupport": "Browser Support",
     "table": "Table",
     "guide": "Guide",
+    "iconsConfig": "Icons Config",
+    "services": "Services",
+    "globalConfig": "Global Config",
+    "advancedIconsConfig": "Advanced Icons Config",
+    "componentsConfig": "Components Config",
+    "colorsConfig": "Colors Config",
     "cssVariables": "CSS Variables",
     "sidebarItem": "Sidebar Item"
   },
@@ -2596,13 +2602,16 @@
   "configurationGuide": {
     "title": "Configuration",
     "description": "We have developed a convenient mechanism that allows you to deeply customize your icons, components, and colors.",
+    "readMore": "Read more",
     "colors": {
       "title": "Color themes",
       "description": "Vuestic UI comes with a set of colors that could be easily extended"
     },
     "icons": {
       "title": "Icon fonts",
-      "description": "By default Vuestic UI uses **material design icons**, so you'd have to install it beforehand"
+      "description": "By default Vuestic UI uses **material design icons**, so you'd have to install it beforehand",
+      "subtitle": "Using custom icons",
+      "subDescription": "With Icons Config you can use any icon font that you want simply transforming icon name to props you need."
     },
     "components": {
       "title": "Components config",
@@ -2712,6 +2721,143 @@
     "credits": {
       "title": "Credits",
       "description": "<a href=\"https://github.com/epicmaxco/vuestic-ui/graphs/contributors\">Hall of fame!</a>"
+    }
+  },
+  "globalConfig": {
+    "title": "Global config",
+    "subtitle": "With Global config we can configure colors, icons and any prop for any component. ",
+    "structure": "Global config consists of icons, colors and components configs. ",
+    "setupExampleTitle": "We can provide our custom config with VuesticPlugin, if we want to:",
+    "reactiveUpdateExampleTitle": "Or we can update our config on runtime:",
+    "reactiveSetExampleTitle": "Or we can set new config on runtime:",
+    "links": {
+      "readMore": "Read more",
+      "icons": "Icons config",
+      "components": "Components config",
+      "colors": "Colors config"
+    },
+    "useInRuntime": "Use global config as reactive Proxy:",
+    "api": {
+      "icons": "Used to configure icon fonts and aliases.",
+      "components": "Used to globally overwrite props of specific components.",
+      "colors": "Used to define theme colors that components will use. Here we can redefine default vuestic theme color."
+    }
+  },
+  "iconsConfig": {
+    "title": "Icons config",
+    "about": "By default Vuestic UI provides Material Design icons. If you want to use other font libraries you can configure VaIcon to use them.",
+    "readMore": "Read more",
+    "readBeforeStart": "Read about icons component",
+    "example": "Example",
+
+    "problem": {
+      "definition": "There is the problem with icon libraries. They usually uses different interface to render icons.",
+      "materialIcons": "For example material-icons want us to set `material-icons` class and provide icon name inside `span` tag.",
+      "fontAwesome": "If we want to use FontAwesome5 we need to provide `fas` class and then provide class with icon name and prefix `fa-` on `i` tag.",
+      "summary": "With Icons Config we can simply provide icon name in style that we want. We need to configure how provided name will be rendered only one time."
+    },
+
+    "fonts": {
+      "title": "Fonts",
+      "about": "We want to use `<va-icon name='icon-name' />` pattern. We can setup config for specific icon name pattern. In this config we can provide icon class, content (innerHTML) or Vue component relative to icon name.",
+
+      "fontNamePattern": {
+        "title": "Font name pattern",
+        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate icon class, content or props. Dynamic segments should be written in curly brackets."
+      },
+
+      "example": {
+        "title": "Example fonts config",
+        "about": "Let`s look at some examples",
+        "explain": "Below we can see how icon will be transformed"
+      },
+
+      "readMore": "Read more",
+      "advancedFontsUsage": "Advanced fonts usage"
+    },
+
+    "aliases": {
+      "title": "Aliases",
+      "about": "To make code simpler we can use aliases. Alias has a `to` prop which will change name on current icon to `to` string and then it will looks for appropriate font config. All props from founded font will be applied to current icon if they was not defined in alias config.",
+      "example": {
+        "title": "Example aliases config",
+        "about": "Below we can see how icon will be transformed",
+        "explain": "As you can see alias config is more important than font config. And `va-icon` props is more important than alias and font config."
+      }
+    },
+
+    "setup": {
+      "title": "Let's build our config",
+      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Veustic defaults and our custom fonts and aliases. For example:"
+    },
+
+    "api": {
+      "title": "Icon config API",
+
+      "name": "String or regex. Can be string with dynamic segment or regex to use this config as font.",
+      "iconClass": "Class that will be applied to icon. Can be string or function, that accepts dynamic segment value and returns string.",
+      "content": "Content that will be inside icon. Can be string or function, that accepts dynamic segment value and returns string.",
+      "component": "VueComponent that will be used instead of tag.",
+      "componentProps": "Props that will be bound to `component`. Can be object or function, that accepts dynamic segment value and returns object.",
+      "to": "Here you can define name of config that values will be merged to this config",
+      "tag": "Tag that will be used. By default - `i`",
+      "color": "Color will be set css style color",
+      "rotation": "Rotates icon by specific angle",
+      "spin": "Applies spin animation to icon"
+    }
+  },
+  "advancedIconsConfig": {
+    "title": "Advanced icons config",
+    "subtitle": "Icons config is a flat array. VaIcon looks for first appropriate name (strict string, regex or dynamic segment). Then, if config has a `to` prop it looks for additional config that appropriate for `to`.",
+    "priority": "Here you can see how its works"
+  },
+  "componentsConfig": {
+    "title": "Components config",
+    "subtitle": "With component config we can override default props for any vuestic component we want. Components config is a object where key is `component name` and value is `component props` which we want to overwrite. For example:",
+    "demoTitle": "In example below we can change global style of all buttons on whole Vuestic Documentation site. Feel free to navigate to Button docs page and see how it looks.",
+    "resetConfig": "Reset config",
+    "vaConfig": {
+      "title": "Scoped config",
+      "subtitle": "We can use VaConfig to override component props inside `<va-config></va-config>` tag. Components config for all component inside `va-config` tag will be overwritten to `components` prop value. Let's look at the demo below:",
+      "explain": "Look at the code. In this demo we have changed default color for all our `VaButton` and `VaIcons`. Also we pass prop to third button which value is more important than in scoped config."
+    },
+    "api": {
+      "title": "Component config service API",
+      "types": "Types",
+      "ComponentConfig": "Object where key is Vuestic component name and value is component props"
+    }
+  },
+  "colorsConfig": {
+    "title": "Colors config",
+    "about": "You can personalize colors that used in our app. You can dynamically redefine colors that used in Vuestic components. Also you can add own colors that we want to use in your app.",
+    "example": {
+      "about": "For example, we can change `primary` color that used in almost all Vuestic components.",
+      "demo": "You can check demo below and see how colors changing over all page."
+    },
+    "reactivity": {
+      "subtitle": "Reactivity",
+      "about": "As you can see methods like `getColor`, `getColors` does not return `Proxy`. If you want to use color as reactive Proxy you can simply use computed properties like in example above."
+    },
+    "otherServices": {
+      "subtitle": "Colors config with other services",
+      "components": "You can use your color in Components config.",
+      "icons": "Also in Icons config you can use custom color as icon color.",
+      "css": "Also CSS variables has same color variables as you define in color config that dynamically changing along with Colors config. "
+    },
+    "api": {
+      "title": "Icon config service API",
+      "types": "Types",
+      "ColorConfig": "Object where key is color name and value is valid CSS color.",
+      "ColorInput": "Valid CSS color",
+      "methods": "Methods",
+      "setColors": "Used to merge new colors into config or update existing colors.",
+      "getColors": "Returns current color config",
+      "getColor": "Return color by name",
+      "getBoxShadowColor": "Return color that you can use as box shadow color.",
+      "getHoverColor": "Return color that you can use as hover color.",
+      "getFocusColor": "Return color that you can use as focus color.",
+      "getGradientBackground": "Return color that you can use as background css attribute.",
+      "hookMethods": "hook methods"
     }
   },
   "cssVariables": {

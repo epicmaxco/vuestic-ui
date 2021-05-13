@@ -8,8 +8,8 @@
       :offset="[0, 25]"
     >
       <div class="color-dropdown__content px-1">
-        <div v-for="color in colors" :key="color.name" class="color mt-1 mb-1">
-          <va-color-indicator :color="color.name" /> <span class="color__title">{{ color.title}}</span>
+        <div v-for="color in colorsArray" :key="color.name" class="color mt-1 mb-1">
+          <va-color-indicator :color="color.name" /> <span class="color__title">{{ color.title }}</span>
         </div>
       </div>
     </va-button-dropdown>
@@ -24,7 +24,7 @@ export default defineComponent({
   setup () {
     const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
 
-    const colors = computed(() => {
+    const colorsArray = computed(() => {
       const colors = getColors()
       const colorNames = Object.keys(colors)
 
@@ -32,7 +32,7 @@ export default defineComponent({
     })
 
     return {
-      colors,
+      colorsArray,
     }
   },
 })
