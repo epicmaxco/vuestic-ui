@@ -7,6 +7,7 @@
       v-model="value"
     />
     <va-select
+      class="mb-4"
       label="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
       placeholder="Long label"
       v-model="value"
