@@ -7,6 +7,7 @@
       false-inner-label="bottom"
       label="Vertical Position:"
       left-label
+      class="py-2"
     />
     <br />
     <va-switch v-model="positionHorizontal"
@@ -16,6 +17,7 @@
       false-inner-label="right"
       label="Horizontal Position:"
       left-label
+      class="pt-2 pb-4"
     />
     <br />
     <va-slider

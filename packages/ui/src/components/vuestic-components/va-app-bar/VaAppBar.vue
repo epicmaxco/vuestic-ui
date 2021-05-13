@@ -90,21 +90,23 @@ export default class VaAppBar extends mixins(ColorMixin, CardPropsMixin) {
 </script>
 
 <style lang="scss">
+@import "variables";
+
 .va-app-bar {
   display: flex;
   align-items: center;
-  position: absolute;
+  position: var(--va-app-bar-position);
   transition: all 0.5s ease;
   top: 0;
   left: 0;
   width: 100%;
-  height: auto;
-  min-height: auto;
+  height: var(--va-app-bar-height);
+  min-height: var(--va-app-bar-height);
   min-width: 100%;
 
   &--bottom {
-    bottom: 0;
-    top: auto;
+    top: 100%;
+    transform: translateY(-100%);
   }
 }
 </style>

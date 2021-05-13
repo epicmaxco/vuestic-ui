@@ -877,7 +877,7 @@
     "VaSidebarItem": {
       "props": {
         "activeColor": "Used to set accent color for active `VaSidebarItem`",
-        "hoverColor": "Used to set accent color for hovered VaSidebarItem",
+        "hoverColor": "Used to set accent color for hovered `VaSidebarItem`",
         "active": "If `true` this sidebar item will be highlighted"
       },
       "events": {},
@@ -1682,11 +1682,11 @@
       },
       "active": {
         "title": "Highlight active `VaSidebarItem`",
-        "text": "`VaSidebarItem` can be highlighted by setting active prop. You can choose your own way how to highlight active item. Even if you want active a few `VaSidebarItems`."
+        "text": "It is possible to have multiple `VaSidebarItem` highlighted. You can choose your own way how to highlight active item. Even if you want active a few `VaSidebarItems`."
       },
       "icons": {
         "title": "`VaSidebarTitle` and VaIcons",
-        "text": "`VaSidebarTitle` used to fill all remaining width free space in `VaSidebarItem`. We can also add any other components (like `VaIcon`, `VaChip` or `VaButton`)."
+        "text": "`VaSidebarTitle` used to fill all remaining free space in `VaSidebarItem`. We can also add any other components (like `VaIcon`, `VaChip` or `VaButton`)."
       },
       "components": {
         "title": "Advanced case with `VaAccordion`",
@@ -2606,9 +2606,12 @@
     },
     "components": {
       "title": "Components config",
-      "description": "Sometimes you want to manage your components default state, did it equal in many places. We design Vuestic UI in that way. With help of `components` config object you can set default state of Vuestic UI components in whole app:",
-      "setConfig": "Set default state of each component by setting props defaults:",
-      "example": "In example above we have configured all Vuestic UI buttons `squared`, `outlined` and `small sized`. Simple as passing props to component!"
+      "intro": "If you want to set global defaults for vuestic components - we have config for that!",
+      "description": "Let’s say you need all your buttons to be `outline` and `small` in accordance with design, but by default that's not the case:",
+      "action": "To solve that problem - in your `main.js` add:",
+      "result": "Now your buttons will look like this:",
+      "example": "You can globally configure any props for Vuestic UI components similarly.",
+      "more": "If your customization runs deeper - you may override [css variables](https://vuestic.dev/en/styles/css-variables#overriding) or class properties directly (components use BEM, so selectors are easy to guess)."
     }
   },
   "browserSupport": {

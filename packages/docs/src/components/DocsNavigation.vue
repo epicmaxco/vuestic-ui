@@ -7,7 +7,7 @@
       color="gray"
       @click="copy"
     >
-      <i class="docs-navigation__button__icon" :class="copyIcon" />
+      <i class="docs-navigation__button__icon" :class="copyIcon"/>
       <span class="docs-navigation__button__text">{{ copyText }}</span>
     </va-button>
 
@@ -20,12 +20,12 @@
       :href="link.url"
       target="_blank"
     >
-      <i class="docs-navigation__button__icon" :class="link.icon" />
+      <i class="docs-navigation__button__icon" :class="link.icon"/>
       <span class="docs-navigation__button__text">{{ link.text }}</span>
     </va-button>
 
-    <form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
-      <input type="hidden" name="parameters" :value="sandboxParams" />
+    <form :action="sandboxDefineUrl" method="POST" target="_blank">
+      <input type="hidden" name="parameters" :value="sandboxParams"/>
       <va-button
         flat
         type="submit"
@@ -33,7 +33,7 @@
         class="docs-navigation__button"
         color="gray"
       >
-        <i class="docs-navigation__button__icon" :class="codeIcon" />
+        <i class="docs-navigation__button__icon" :class="codeIcon"/>
         <span class="docs-navigation__button__text">Open in CodeSandbox</span>
       </va-button>
     </form>
@@ -57,6 +57,7 @@ export default {
   },
   data () {
     return {
+      query: '?query=file=/src/App.vue',
       links: [
         {
           text: 'Open in GitHub',
@@ -81,6 +82,9 @@ export default {
     },
   },
   computed: {
+    sandboxDefineUrl () {
+      return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
+    },
     sandboxParams () {
       const main = `import { createApp } from "vue";
 import App from "./App.vue";

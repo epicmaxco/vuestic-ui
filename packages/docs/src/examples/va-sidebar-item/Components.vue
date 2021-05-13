@@ -1,9 +1,16 @@
 <template>
   <va-accordion class="sidebar-accordion" v-model="accordionValue" multiply>
-    <va-collapse v-for="(route, idx) in items" :key="idx" :class="{ expanded: accordionValue[idx] }">
+    <va-collapse
+      v-for="(route, idx) in items"
+      :key="idx"
+      :class="{ expanded: accordionValue[idx] && route.children }"
+    >
 
       <template #header>
-        <va-sidebar-item @click="setRouteActive(route)" :active="isRouteActive(route)">
+        <va-sidebar-item
+          :active="isRouteActive(route)"
+          @click="setRouteActive(route)"
+        >
           <va-sidebar-item-content>
             <va-sidebar-item-title>
               {{ $t(route.displayName) }}

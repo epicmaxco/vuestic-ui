@@ -8,7 +8,7 @@
   --va-alert-padding-y: 0.75rem;
   --va-alert-border-width: 0;
   --va-alert-border-radius: 4px;
-  --va-alert-box-shadow: 0.125rem;
+  --va-alert-box-shadow: var(--va-box-shadow);
   --va-alert-color: white;
 
   // Title
@@ -36,4 +36,7 @@
   --va-alert-close-padding-x: 0.5rem;
   --va-alert-close-padding-y: 0.0625rem;
   --va-alert-close-font-size: 1rem;
+
+  // Border style
+  --va-alert-stripe-border-size: var(--va-stripe-border-size);
 }

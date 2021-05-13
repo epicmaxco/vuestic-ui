@@ -13,9 +13,9 @@
       {{ option }}
     </div>
   </va-button-dropdown> -->
-  <va-chip color="primary" class="text-center" flat>
+  <div style="color: var(--va-primary);">
     {{ version.value }}
-  </va-chip>
+  </div>
 </template>
 
 <script lang="ts">

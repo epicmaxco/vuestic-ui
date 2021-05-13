@@ -107,8 +107,8 @@ export default class VaCheckbox extends mixins(
       padding: !this.label
         ? ''
         : this.leftLabel
-          ? '0 0.25rem 0 0'
-          : '0 0 0 0.25rem',
+          ? '0 0.5rem 0 0'
+          : '0 0 0 0.5rem',
     }
   }
 

@@ -1,6 +1,6 @@
 <template>
   <va-parallax
-    target=".base-layout__main"
+    target=".base-layout__content"
     :src="imageSrc"
     :height="200"
     :speed="1"

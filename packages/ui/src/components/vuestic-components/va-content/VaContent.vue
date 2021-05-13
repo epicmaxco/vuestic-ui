@@ -66,7 +66,7 @@ export default {
   }
 
   p {
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin-top: 0;
     margin-bottom: 1rem;
   }

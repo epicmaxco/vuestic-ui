@@ -5,7 +5,7 @@
         v-if="block.type === BlockType.EXAMPLE"
         :key="block.type + index"
         :value="block.component"
-        :example-component-props="block.props"
+        :example-options="block.exampleOptions"
       />
       <DocsCode
         v-else-if="block.type === BlockType.CODE"

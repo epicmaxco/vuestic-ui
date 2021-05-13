@@ -52,7 +52,7 @@
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 import ColorMixin from '../../../services/color-config/ColorMixin'
-import { getFocusColor } from '../../../services/color-config/color-functions'
+import { shiftHSLAColor } from '../../../services/color-config/color-functions'
 import VaButton from '../va-button'
 import VaModal from '../va-modal'
 
@@ -93,7 +93,7 @@ export default class VaFileUpload extends mixins(
 
   get computedStyle () {
     return {
-      backgroundColor: this.dropzone ? getFocusColor(this.colorComputed) : 'transparent',
+      backgroundColor: this.dropzone ? shiftHSLAColor(this.colorComputed, { a: -0.92 }) : 'transparent',
     }
   }
 
