@@ -45,6 +45,7 @@ createApp(App)
       aliases: [
         {
           "name": "bell",
+          "color": "#FFD43A",
           "to": "fa4-bell"
         },
         {
@@ -54,12 +55,12 @@ createApp(App)
       ],
       fonts: [
         {
-          name: /fa4-(.*)/,
-          iconClass: (code) => \`fa4fafa -\${code}\`
+          name: 'fa4-{iconName}',
+          resolve: ({iconName}) => ({ class: \`fa fa-\${code}\` }),
         },
         {
-          name: /flag-icon-(.*) (.*)/,
-          iconClass: (code, size) => \`flag - iconflag - icon -\${code}flag - icon -\${size}\`
+          name: 'flag-icon-{countryCode} {flagSize}'/,
+          resolve: ({countryCode, flagSize}) => ({ class: \`flag-icon flag-icon-\${countryCode} flag-icon-\${flagSize}\` }),
         }
       ],
     }),
@@ -96,8 +97,8 @@ export default [
   DocsHelper.subtitle('configurationGuide.icons.title'),
   DocsHelper.paragraph('configurationGuide.icons.description'),
   DocsHelper.code(iconsInstall),
-  DocsHelper.headline('configurationGuide.icons.title'),
-  DocsHelper.paragraph('WIP'),
+  DocsHelper.headline('configurationGuide.icons.subtitle'),
+  DocsHelper.paragraph('configurationGuide.icons.subDescription'),
   DocsHelper.code(iconsConfig),
   DocsHelper.link(t('configurationGuide.readMore'), `/${locale}/services/icons-config`),
 

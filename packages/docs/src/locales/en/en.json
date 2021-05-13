@@ -2609,7 +2609,9 @@
     },
     "icons": {
       "title": "Icon fonts",
-      "description": "By default Vuestic UI uses **material design icons**, so you'd have to install it beforehand"
+      "description": "By default Vuestic UI uses **material design icons**, so you'd have to install it beforehand",
+      "subtitle": "Using custom icons",
+      "subDescription": "With Icons Config you can use any icon font that you want simply transforming icon name to props you need."
     },
     "components": {
       "title": "Components config",
