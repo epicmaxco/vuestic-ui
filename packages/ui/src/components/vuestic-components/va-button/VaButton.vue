@@ -5,7 +5,7 @@
     :class="computedClass"
     :style="computedStyle"
     :disabled="disabled"
-    :type="type"
+    :type="computedType"
     :href="hrefComputed"
     :target="target"
     :to="to"
@@ -123,6 +123,11 @@ export default class VaButton extends mixins(
 
     return {}
   })
+
+  get computedType () {
+    // Safari issue. type===button will break styles if the button is used as a link
+    return this.tagComputed === 'button' ? 'button' : undefined
+  }
 
   get isTransparentBackground () {
     return this.outline || this.flat
