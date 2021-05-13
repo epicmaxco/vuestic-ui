@@ -30,7 +30,7 @@ const parseMeta = (
 
 const getFacebookMeta = () => {
   if (!process.env.VUE_APP_FACEBOOK_APP_ID) {
-    return {} as any
+    return []
   }
   return parseMeta('fb', { app_id: process.env.VUE_APP_FACEBOOK_APP_ID })
 }
