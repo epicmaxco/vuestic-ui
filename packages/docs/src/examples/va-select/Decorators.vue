@@ -33,6 +33,7 @@
       :options="[]"
     />
     <va-select
+      class="mb-4"
       label="No options with custom text"
       v-model="value"
       :options="[]"

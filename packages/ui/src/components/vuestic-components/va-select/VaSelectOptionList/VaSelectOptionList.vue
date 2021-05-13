@@ -90,7 +90,8 @@ const SelectOptionListPropsMixin = Vue.with(SelectOptionListProps)
 @Options({
   name: 'VaSelectOptionList',
   components: { VaIcon },
-  emits: ['select-option', 'update:hoveredOption', 'no-previous-option-to-hover'],
+  emits: ['select-option', 'update:' +
+  '', 'no-previous-option-to-hover'],
 })
 export default class VaSelectOptionList extends mixins(
   ColorMixin,
