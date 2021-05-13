@@ -7,7 +7,7 @@
     @keydown.left.stop.prevent="hoverPreviousOption"
     @keydown.down.stop.prevent="hoverNextOption"
     @keydown.right.stop.prevent="hoverNextOption"
-    @focus="hoverNextOption"
+    @focus="hoverFirstOption"
   >
     <template v-if="filteredOptions.length">
       <div
@@ -197,6 +197,12 @@ export default class VaSelectOptionList extends mixins(
       if (this.filteredOptions[hoveredOptionIndex + 1]) {
         this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex + 1]
       }
+    }
+  }
+
+  public hoverFirstOption () {
+    if (this.filteredOptions.length > 0) {
+      this.updateHoveredOption(this.filteredOptions[0])
     }
   }
 

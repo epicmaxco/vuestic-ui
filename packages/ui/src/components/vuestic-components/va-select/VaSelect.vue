@@ -441,6 +441,14 @@ export default class VaSelect extends mixins(
     this.validate()
   }
 
+  toggleDropdown () {
+    if (this.doShowDropdownContent) {
+      this.hideDropdown()
+    } else {
+      this.showDropdown()
+    }
+  }
+
   // Focus and keyboard navigation
 
   get isFocusedComputed () {
@@ -449,7 +457,7 @@ export default class VaSelect extends mixins(
   }
 
   onSelectClick () {
-    this.showDropdown()
+    this.toggleDropdown()
 
     this.$nextTick(() => {
       if (this.$refs.searchBar) {
@@ -547,6 +555,10 @@ export default class VaSelect extends mixins(
 
 .va-select {
   cursor: var(--va-select-cursor);
+
+  .va-input {
+    cursor: var(--va-select-cursor);
+  }
 
   .va-input__append {
     display: flex;

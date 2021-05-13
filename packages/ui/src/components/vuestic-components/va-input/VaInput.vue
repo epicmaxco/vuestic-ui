@@ -281,6 +281,8 @@ export default class VaInput extends mixins(
   position: relative;
   display: flex;
   align-items: center;
+  color: var(--va-input-text-color);
+  cursor: var(--va-input-cursor);
 
   &__container {
     display: flex;
@@ -291,9 +293,7 @@ export default class VaInput extends mixins(
     border-color: var(--va-input-color);
     border-style: solid;
     border-width: var(--va-input-border-width);
-    color: var(--va-input-text-color);
     overflow: hidden;
-    cursor: text;
     padding: 0 var(--va-input-content-horizontal-padding);
 
     /* Creates gap between prepend, content, validation icons, append */
@@ -315,6 +315,10 @@ export default class VaInput extends mixins(
     .va-input__content {
       width: 100%;
       position: relative;
+
+      input {
+        cursor: inherit;
+      }
 
       &__input {
         @include va-scroll(var(--va-input-scroll-color));
