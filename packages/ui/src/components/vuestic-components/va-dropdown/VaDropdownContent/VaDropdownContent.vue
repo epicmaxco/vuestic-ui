@@ -12,6 +12,7 @@
       background: var(--va-dropdown-content-background);
       padding: var(--va-dropdown-content-padding);
       box-shadow: var(--va-dropdown-content-box-shadow);
+      border-radius: var(--va-dropdown-content-border-radius);
     }
   }
 </style>

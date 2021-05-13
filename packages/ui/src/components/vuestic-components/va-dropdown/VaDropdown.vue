@@ -16,9 +16,10 @@
         @mouseover="$props.isContentHoverable && onMouseOver()"
         @mouseout="onMouseOut()"
         ref="contentWrapper"
-        :style="$props.keepAnchorWidth ? anchorWidthStyles : ''"
       >
-        <slot />
+        <div :style="$props.keepAnchorWidth ? anchorWidthStyles : ''">
+          <slot />
+        </div>
       </div>
     </template>
   </div>
