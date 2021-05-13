@@ -5,9 +5,9 @@
     :style="computedStyle"
   >
     <div
-      class="va-message-list__message"
       v-for="(message, index) in messages"
       :key="index"
+      class="va-message-list__message"
     >
       {{ message }}
     </div>
@@ -34,22 +34,15 @@ export default class VaMessageList extends mixins(
   ColorMixin,
   MessagesListPropsMixin,
 ) {
-  colorThemeDefault = 'gray' // mixin override
-
   get messages () {
-    if (!this.value) {
-      return []
-    }
-    if (!Array.isArray(this.value)) {
-      return [this.value]
-    }
+    if (!this.value) { return [] }
+    if (!Array.isArray(this.value)) { return [this.value] }
+
     return this.value.slice(0, this.limit)
   }
 
   get computedStyle () {
-    return {
-      color: this.colorComputed,
-    }
+    return { color: this.colorComputed }
   }
 }
 </script>

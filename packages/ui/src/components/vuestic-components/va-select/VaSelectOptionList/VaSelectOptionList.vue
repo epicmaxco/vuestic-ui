@@ -1,30 +1,44 @@
 <template>
-  <div class="va-select-option-list">
+  <div
+    class="va-select-option-list"
+    ref="el"
+    :tabindex="tabindex"
+    @keydown.up.stop.prevent="hoverPreviousOption"
+    @keydown.left.stop.prevent="hoverPreviousOption"
+    @keydown.down.stop.prevent="hoverNextOption"
+    @keydown.right.stop.prevent="hoverNextOption"
+    @focus="hoverNextOption"
+  >
     <template v-if="filteredOptions.length">
       <div
         v-for="option in filteredOptions"
         :key="$props.getTrackBy(option)"
+        :ref="setItemRef($props.getTrackBy(option))"
         :class="getOptionClass(option)"
         :style="getOptionStyle(option)"
         @click.stop="selectOption(option)"
-        @mouseleave="updateHoveredOption(null)"
         @mouseover="updateHoveredOption(option)"
-        :ref="setItemRef($props.getTrackBy(option))"
       >
         <va-icon
           v-if="option.icon"
-          :name="option.icon"
+          size="small"
           class="va-select-option-list__option--icon"
+          :name="option.icon"
         />
         <span>{{ getText(option) }}</span>
         <va-icon
           v-show="$props.getSelectedState(option)"
           class="va-select-option-list__option--selected-icon"
+          size="small"
           name="done"
+          :color="colorComputed"
         />
       </div>
     </template>
-    <div class="va-select-option-list no-options" v-else>
+    <div
+      v-else
+      class="va-select-option-list no-options"
+    >
       {{ noOptionsText }}
     </div>
   </div>
@@ -62,17 +76,21 @@ class SelectOptionListProps {
   keyBy = prop<string>({ type: String, default: 'id' })
   textBy = prop<string>({ type: String, default: 'text' })
   search = prop<string>({ type: String, default: '' })
-  hintedOption = prop<string | object>({
+
+  hoveredOption = prop<string | object>({
     type: [String, Object],
     default: null,
   })
+
+  tabindex = prop<number>({ type: Number, default: 0 })
 }
 
 const SelectOptionListPropsMixin = Vue.with(SelectOptionListProps)
 
 @Options({
+  name: 'VaSelectOptionList',
   components: { VaIcon },
-  emits: ['select-option'],
+  emits: ['select-option', 'update:hoveredOption', 'no-previous-option-to-hover'],
 })
 export default class VaSelectOptionList extends mixins(
   ColorMixin,
@@ -81,10 +99,9 @@ export default class VaSelectOptionList extends mixins(
   itemRefs: Record<number, any> = {}
 
   created () {
-    watch(() => this.$props.hintedOption, (option: any) => {
-      if (option) {
-        this.updateHoveredOption(option)
-        this.scrollToOption(option)
+    watch(() => this.$props.hoveredOption, (newOption: any) => {
+      if (newOption) {
+        this.scrollToOption(newOption)
       }
     })
   }
@@ -101,7 +118,13 @@ export default class VaSelectOptionList extends mixins(
     }
   }
 
-  public hoveredOption: any = null
+  get hoveredOptionComputed () {
+    return this.hoveredOption || null
+  }
+
+  set hoveredOptionComputed (value: any) {
+    this.$emit('update:hoveredOption', value)
+  }
 
   get filteredOptions () {
     if (!this.$props.search) {
@@ -134,57 +157,65 @@ export default class VaSelectOptionList extends mixins(
   }
 
   isHovered (option: any) {
-    return this.hoveredOption
-      ? typeof option === 'string' ? option === this.hoveredOption : this.hoveredOption[this.keyBy] === option[this.keyBy]
+    return this.hoveredOptionComputed
+      ? typeof option === 'string' ? option === this.hoveredOptionComputed : this.hoveredOptionComputed[this.keyBy] === option[this.keyBy]
       : false
   }
 
   updateHoveredOption (option: string[] | string): void {
     if (option) {
-      this.hoveredOption = typeof option === 'string' ? option : { ...option }
+      this.hoveredOptionComputed = option
     } else {
-      this.hoveredOption = null
+      this.hoveredOptionComputed = null
     }
   }
 
   public hoverPreviousOption () {
-    if (!this.hoveredOption) {
+    if (!this.hoveredOptionComputed) {
       // Hover last option from list
       this.filteredOptions.length && this.updateHoveredOption(this.filteredOptions[this.filteredOptions.length - 1])
     } else {
       const hoveredOptionIndex: any =
         this.filteredOptions.findIndex((option: any) =>
-          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOption))
+          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOptionComputed))
       if (this.filteredOptions[hoveredOptionIndex - 1]) {
-        this.hoveredOption = this.filteredOptions[hoveredOptionIndex - 1]
+        this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex - 1]
+      } else {
+        this.$emit('no-previous-option-to-hover')
       }
     }
-    this.scrollToOption(this.hoveredOption)
   }
 
   public hoverNextOption () {
-    if (!this.hoveredOption) {
+    if (!this.hoveredOptionComputed) {
       // Hover first option from list
       this.filteredOptions.length && this.updateHoveredOption(this.filteredOptions[0])
     } else {
       const hoveredOptionIndex: any =
         this.filteredOptions.findIndex((option: any) =>
-          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOption))
+          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOptionComputed))
       if (this.filteredOptions[hoveredOptionIndex + 1]) {
-        this.hoveredOption = this.filteredOptions[hoveredOptionIndex + 1]
+        this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex + 1]
       }
     }
-    this.scrollToOption(this.hoveredOption)
   }
 
   scrollToOption (option: any) {
     const optionElement: HTMLElement = this.itemRefs[(this.$props.getTrackBy as Function)(option)]
+    if (!optionElement) { return }
+
     // Scroll list to hinted option position
     optionElement.scrollIntoView({
       behavior: 'smooth',
       block: 'nearest',
       inline: 'nearest',
     })
+  }
+
+  public focus () {
+    if (this.$refs.el) {
+      (this.$refs as any).el.focus()
+    }
   }
 }
 </script>
@@ -197,6 +228,7 @@ export default class VaSelectOptionList extends mixins(
   flex-direction: var(--va-select-option-list-flex-direction);
   width: var(--va-select-option-list-width);
   list-style: var(--va-select-option-list-list-style);
+  max-height: 200px;
 
   &__option {
     cursor: var(--va-select-option-list-option-cursor);

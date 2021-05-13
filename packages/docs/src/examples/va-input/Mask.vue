@@ -4,6 +4,7 @@
       class="mb-4"
       :style="{paddingTop: '4px'}"
       label="Credit card mask"
+      v-model="maskCreditCardValue"
       type="input"
       mask="creditCard"
     />

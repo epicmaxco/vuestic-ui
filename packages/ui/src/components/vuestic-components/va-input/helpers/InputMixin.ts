@@ -31,13 +31,16 @@ class Props {
     default: () => ({}),
   })
 
-  returnRaw = prop<boolean>({
+  returnRaw = ({
     type: Boolean,
     default: true,
   })
 
-  removable = prop<boolean>({ type: Boolean, default: false })
-
+  clearable = prop({ type: Boolean, default: false })
+  clearableIcon = prop<string>({ type: String, default: 'highlight_off' })
+  loading = prop({ type: Boolean, default: false })
+  canBeFocused = prop({ type: Boolean, default: true })
+  focused = prop({ type: Boolean, default: undefined })
   modelValue = prop<string | number>({ type: [String, Number], default: '' })
 }
 
@@ -47,6 +50,22 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
   inputElement: Cleave | null = null
   eventListeners: any = {}
   isFocused = false
+
+  get isFocusedComputed () {
+    if (this.$props.focused === undefined) {
+      return this.isFocused
+    }
+
+    return this.$props.focused
+  }
+
+  set isFocusedComputed (value: boolean) {
+    if (this.$props.focused === undefined) {
+      this.isFocused = value
+    }
+
+    this.$emit('update:focused', value)
+  }
 
   context = setup(() => {
     watch(() => this.$props.mask, (mask: string | CleaveOptions) => {
@@ -69,11 +88,11 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
   }
 
   get showIcon (): boolean {
-    return this.success || this.computedError || this.canBeCleared
+    return this.success || this.computedError || this.canBeCleared || this.loading
   }
 
   get canBeCleared (): boolean {
-    return this.hasContent && this.removable
+    return this.hasContent && this.clearable
   }
 
   get hasContent (): boolean {
@@ -131,13 +150,15 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
   }
 
   onFocus (event: Event): void {
-    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-    this.isFocused = true
+    if (this.canBeFocused) {
+      this.isFocusedComputed = true
+    }
+
     this.$emit('focus', event)
   }
 
   onBlur (event: Event): void {
-    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+    this.isFocusedComputed = false
     this.ValidateMixin_onBlur()
     this.$emit('blur', event)
   }
@@ -191,15 +212,5 @@ export class InputMixin extends mixins(FormComponentMixin, StatefulMixin, PropsM
    */
   beforeUnmount () {
     this.destroyCleaveInstance()
-  }
-
-  /** @public */
-  focus (): void {
-    (this as any).$refs.input.focus()
-  }
-
-  /** @public */
-  reset (): void {
-    this.$emit('update:modelValue', '')
   }
 }

@@ -5,28 +5,76 @@
       style="width: 400px;"
     >
       <va-select
-        style="margin: 8px 0;"
-        :options="defaultSingleSelect.options"
         v-model="defaultSingleSelect.value"
+        class="mb-4"
+        :options="defaultSingleSelect.options"
       />
-      <p>Value: {{defaultSingleSelect.value}}</p>
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Style"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Default (solid)"
+        :options="defaultSingleSelect.options"
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Outline"
+        :options="defaultSingleSelect.options"
+        outline
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Brodered"
+        :options="defaultSingleSelect.options"
+        bordered
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Default (solid) (Purple color)"
+        color="#990099"
+        :options="defaultSingleSelect.options"
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Outline (Purple color)"
+        :options="defaultSingleSelect.options"
+        color="#990099"
+        outline
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Brodered (Purple color)"
+        :options="defaultSingleSelect.options"
+        color="#990099"
+        bordered
+      />
     </VbCard>
     <VbCard
       title="Single select"
       style="width: 400px;"
     >
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Default"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Default, hide selected"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
-        hideSelected
+        hide-selected
       />
     </VbCard>
     <VbCard
@@ -34,44 +82,44 @@
       style="width: 400px;"
     >
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
         label="Default"
         :options="defaultMultiSelect.options"
-        v-model="defaultMultiSelect.value"
         multiple
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
         label="Default, hide selected"
         :options="defaultMultiSelect.options"
-        v-model="defaultMultiSelect.value"
         multiple
-        hideSelected
+        hide-selected
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
         label="Custom tag max (3)"
         :options="defaultMultiSelect.options"
-        v-model="defaultMultiSelect.value"
         multiple
-        :tagMax="3"
+        :tag-max="3"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
         label="Tags"
         :options="defaultMultiSelect.options"
-        v-model="defaultMultiSelect.value"
         multiple
         tags
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
         label="Deletable tags"
         :options="defaultMultiSelect.options"
-        v-model="defaultMultiSelect.value"
         multiple
         tags
-        deletableTags
+        deletable-tags
       />
     </VbCard>
     <VbCard
@@ -79,101 +127,107 @@
       style="width: 400px;"
     >
       <va-select
+        v-model="objectSingleSelectWithIcons.value"
         class="mb-4"
         label="Options with icon"
-        v-model="objectSingleSelectWithIcons.value"
         :options="objectSingleSelectWithIcons.options"
         text-by="text"
         key-by="icon"
       />
       <va-select
+        v-model="objectSingleSelect.value"
+        class="mb-4"
         label="Single select text by text (default)"
-        v-model="objectSingleSelect.value"
         :options="objectSingleSelect.options"
-        textBy="text"
+        text-by="text"
       />
       <va-select
+        v-model="objectSingleSelect.value"
+        class="mb-4"
         label="Text by value"
-        v-model="objectSingleSelect.value"
         :options="objectSingleSelect.options"
-        textBy="value"
+        text-by="value"
       />
-      <p>Value: {{objectSingleSelect.value}}</p>
+      <p>Value: {{ objectSingleSelect.value }}</p>
       <va-select
-        label="Multi select Text by value"
         v-model="objectMultiSelect.value"
+        label="Multi select Text by value"
         :options="objectMultiSelect.options"
-        textBy="value"
+        text-by="value"
         multiple
       />
-      <p>Value: {{objectMultiSelect.value}}</p>
+      <p>Value: {{ objectMultiSelect.value }}</p>
     </VbCard>
     <VbCard
       title="Decorators"
       style="width: 400px;"
     >
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="With label"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
       />
       <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
         placeholder="Long label"
-        v-model="defaultSingleSelect.value"
         :options="defaultSingleSelect.options"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         placeholder="With placeholder"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
       />
       <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Long placeholder"
         placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-        v-model="defaultSingleSelect.value"
         :options="defaultSingleSelect.options"
       />
       <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="No options"
-        v-model="defaultSingleSelect.value"
         :options="[]"
       />
       <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="No options with custom text"
-        v-model="defaultSingleSelect.value"
         :options="[]"
-        noOptionsText="Sorry, nothing to show :("
+        no-options-text="Sorry, nothing to show :("
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Clearable"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         clearable
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Clearable and custom clear icon"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         clearable
-        clearIcon="cancel"
+        clearable-icon="cancel"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Hint messages"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         :messages="['Hint message 1', 'Hint message 2']"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Prepend slot"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
       >
         <template #prepend>
           <va-icon
@@ -182,67 +236,81 @@
         </template>
       </va-select>
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Prepend inner slot"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
       >
-      <template #prependInner>
-        <va-icon
-          name="share"
-        />
-      </template>
+        <template #prependInner>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-select>
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Append inner slot"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
       >
-      <template #appendInner>
-        <va-icon
-          name="share"
-        />
-      </template>
+        <template #appendInner>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-select>
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Append slot"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
       >
-      <template #append>
-        <va-icon
-          name="share"
-        />
-      </template>
+        <template #append>
+          <va-icon
+            name="share"
+          />
+        </template>
       </va-select>
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Content slot"
+        :options="defaultSingleSelect.options"
+      >
+        <template #content="{ value }">
+          <va-chip>{{ value || 'no value :(' }}</va-chip>
+          <span class="ml-4">
+            Click on share ;)
+            <va-icon name="share" @click="alert('Thank you for click!')"  />
+          </span>
+        </template>
+      </va-select>
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Custom list position (top)"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         position="top"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Custom list position (bottom)"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         position="bottom"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Custom list height (320px)"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
-        maxHeight="320px"
+        max-height="320px"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Custom select width (50%)"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         width="50%"
       />
     </VbCard>
@@ -251,46 +319,46 @@
       style="width: 400px;"
     >
       <va-select
-        style="margin: 8px 0;"
+        v-model="disabledValue"
+        class="mb-4"
         label="Disabled"
         :options="defaultSingleSelect.options"
-        v-model="disabledValue"
         disabled
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Loading"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         loading
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Error state"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         error
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Error state with messages"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         error
         :error-messages="['Error message']"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Success state"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         success
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Success state with messages"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         success
         :messages="['Success message']"
       />
@@ -300,17 +368,17 @@
       style="width: 400px;"
     >
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Searchable single select"
         :options="defaultSingleSelect.options"
-        v-model="defaultSingleSelect.value"
         searchable
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
         label="Searchable multi select"
         :options="defaultMultiSelect.options"
-        v-model="defaultMultiSelect.value"
         multiple
         searchable
       />
@@ -320,33 +388,33 @@
       style="width: 400px;"
     >
       <va-select
-        style="margin: 8px 0;"
+        v-model="allowCreateValue"
+        class="mb-4"
         label="Default mode and single select"
         :options="defaultSingleSelect.options"
-        v-model="allowCreateValue"
-        allowCreate
+        allow-create
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="allowCreateValueMultiple"
+        class="mb-4"
         label="Unique mode and single select"
         :options="defaultSingleSelect.options"
-        v-model="allowCreateValueMultiple"
-        allowCreate="unique"
+        allow-create="unique"
       />
       <va-select
-        style="margin: 8px 0;"
+        v-model="allowCreateValueMultiple"
+        class="mb-4"
         label="Default mode and multi select"
         :options="defaultMultiSelect.options"
-        v-model="allowCreateValueMultiple"
-        allowCreate
+        allow-create
         multiple
       />
       <va-select
-        label="Unique mode and multi select"
-        style="margin: 8px 0;"
-        :options="defaultMultiSelect.options"
         v-model="allowCreateValueMultiple"
-        allowCreate="unique"
+        label="Unique mode and multi select"
+        class="mb-4"
+        :options="defaultMultiSelect.options"
+        allow-create="unique"
         multiple
       />
     </VbCard>
@@ -355,8 +423,8 @@
       style="width: 400px;"
     >
       <va-select
-        searchable
         v-model="defaultSingleSelect.value"
+        searchable
         :options="CountriesList"
         :loading="isLoading"
         @updateSearch="updateSearch"
@@ -367,16 +435,18 @@
       style="width: 400px;"
     >
       <va-select
+        v-model="validationSelect.value"
+        class="mb-4"
         label="At least 1 option should be selected"
         :options="validationSelect.options"
         :rules="validationSelect.rules.required"
-        v-model="validationSelect.value"
       />
       <va-select
+        v-model="validationSelect.multipleValue"
+        class="mb-4"
         label="Exactly 2 options should be selected"
         :options="validationSelect.options"
         :rules="validationSelect.rules.twoOptions"
-        v-model="validationSelect.multipleValue"
         multiple
       />
     </VbCard>
@@ -461,6 +531,13 @@ export default {
         console.log(val)
       }, 2000)
     },
+    alert (str) {
+      window.alert(str)
+    },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import "../../vuestic-sass/grid/_grid-global-styles";
+</style>
