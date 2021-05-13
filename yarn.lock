@@ -17535,6 +17535,11 @@ url-parse@^1.4.3, url-parse@^1.5.1:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+url-search-params-polyfill@^8.1.0:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-8.1.1.tgz#9e69e4dba300a71ae7ad3cead62c7717fd99329f"
+  integrity sha512-KmkCs6SjE6t4ihrfW9JelAPQIIIFbJweaaSLTh/4AO+c58JlDcb+GbdPt8yr5lRcFg4rPswRFRRhBGpWwh0K/Q==
+
 url@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/url/-/url-0.11.0.tgz#3838e97cfc60521eb73c525a8e55bfdd9e2e28f1"
@@ -17765,6 +17770,15 @@ vue-flatpickr-component@^9.0.3:
   dependencies:
     flatpickr "^4.6.9"
 
+vue-gtm@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/vue-gtm/-/vue-gtm-3.5.0.tgz#a64843cec1c39aa57f07d25e114908d65b47f0d0"
+  integrity sha512-MJ0eqPm2NG1MjUJv8K3DghVzbXNONLd2rav0WbpuCfnD5r+SKyD+kxYnPo8exAg7zN+krY+swXoXKJuXtb2Acg==
+  dependencies:
+    url-search-params-polyfill "^8.1.0"
+  optionalDependencies:
+    vue-router "^4.0.0"
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
@@ -17845,6 +17859,11 @@ vue-route-generator@^1.0.0:
   dependencies:
     fast-glob "^3.2.4"
     prettier "2.2.1"
+
+vue-router@^4.0.0:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.6.tgz#91750db507d26642f225b0ec6064568e5fe448d6"
+  integrity sha512-Y04llmK2PyaESj+N33VxLjGCUDuv9t4q2OpItEGU7POZiuQZaugV6cJpE6Qm1sVFtxufodLKN2y2dQl9nk0Reg==
 
 vue-router@^4.0.0-0, vue-router@^4.0.0-beta.13, vue-router@^4.0.2, vue-router@^4.0.3:
   version "4.0.5"

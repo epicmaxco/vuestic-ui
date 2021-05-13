@@ -7,10 +7,15 @@ import { i18n } from 'vue-lang-router'
 import AlgoliaColorPlugin from './components/sidebar/algolia-search/algolia-color-plugin'
 import { VuesticPlugin } from 'vuestic-ui/src/main'
 import { VuesticConfig } from './config/vuestic-config'
+import { useGtag } from './services/gtag'
 
-createApp(App)
-  .use(router)
-  .use(i18n)
-  .use(AlgoliaColorPlugin)
-  .use(VuesticPlugin, VuesticConfig)
-  .mount('#app')
+const app = createApp(App)
+
+app.use(router)
+app.use(i18n)
+app.use(AlgoliaColorPlugin)
+app.use(VuesticPlugin, VuesticConfig)
+
+useGtag(app, router)
+
+app.mount('#app')
