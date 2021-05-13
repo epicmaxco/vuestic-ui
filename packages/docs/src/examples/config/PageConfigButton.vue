@@ -1,5 +1,5 @@
 <template>
-  <va-button outline size="small">
+  <va-button outline :rounded="false" size="small">
     Your button
   </va-button>
 </template>

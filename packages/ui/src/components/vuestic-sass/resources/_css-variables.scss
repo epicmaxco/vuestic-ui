@@ -84,4 +84,10 @@
   --va-muted: #7f828b;
   --va-li-background: var(--va-theme-blue-dark);
   --va-text-block: var(--va-light-gray3);
+
+  /* Borders */
+  --va-stripe-border-size: 0.25rem;
+
+  /* Shadows */
+  --va-box-shadow: 0 0.25rem 0.5rem 0 rgba(59, 63, 73, 0.15);
 }

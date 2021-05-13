@@ -1,4 +1,4 @@
-import './components/vuestic-sass/resources/_css-variables.scss'
+import './components/vuestic-sass/vuestic-styles.scss'
 
 export { VuesticPlugin } from './components/vuestic-plugin'
 export { useColors, getColor, getColors, setColors } from './services/color-config/color-config'

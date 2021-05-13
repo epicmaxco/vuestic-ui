@@ -27,11 +27,11 @@ alias { name: 'fa4-times' }
 to    <i class="fa fa-twitter" style="color: '#e0e0e0';"></i>
 
 
-from  <va-icon name="twitter" /> 
+from  <va-icon name="twitter" />
 alias { name: 'fa4-twitter', color: '#1da1f2' }
 to    <i class="fa fa-twitter" style="color: '#1da1f2';"></i>
 
-from  <va-icon name="twitter" color="#eee"/> 
+from  <va-icon name="twitter" color="#eee"/>
 alias { name: 'fa4-twitter', color:'#1da1f2', color: '#eee' }
 to    <i class="fa fa-twitter" style="color: '#eee';"></i>
 

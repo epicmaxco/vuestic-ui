@@ -1,87 +1,50 @@
 <template>
-  <div class="config-button-demo">
-    <div class="preview">
-      <va-config :components="componentsConfig">
-        <va-button @click="applyAsGlobal">
-          {{ $t('componentsConfig.demoButtonText') }}
-        </va-button>
-      </va-config>
-    </div>
-    <div class="config">
-      <button-props-component v-model="buttonProps" />
-    </div>
-  </div>
+  <va-checkbox
+    v-for="(key, name) in buttonProps"
+    :key="name"
+    :label="name"
+    v-model="buttonProps[name]"
+  />
+  <va-button class="mt-2" @click="reset()">
+    {{ $t('componentsConfig.resetConfig') }}
+  </va-button>
 </template>
 
 <script>
-import { computed, ref } from 'vue'
-import ButtonPropsComponent from './components/button-props'
+import { computed, ref, watch } from 'vue'
 import { useGlobalConfig } from 'vuestic-ui/src/main'
 
+const getDefaultButtonProps = () => ({
+  rounded: true,
+  outline: false,
+  flat: false,
+})
+
 export default {
-  name: 'VaConfigButton',
-  components: {
-    ButtonPropsComponent,
-  },
   setup () {
-    const buttonProps = ref([
-      {
-        name: 'rounded',
-        type: Boolean,
-        value: true,
-      },
-      {
-        name: 'outline',
-        type: Boolean,
-      },
-      {
-        name: 'flat',
-        type: Boolean,
-      },
-    ])
+    const buttonProps = ref(getDefaultButtonProps())
 
     const componentsConfig = computed(() => {
-      const values = buttonProps.value.reduce((acc, v) => ({ ...acc, [v.name]: v.value }), {})
-      return { VaButton: values }
+      return { VaButton: buttonProps.value }
     })
 
     const { mergeGlobalConfig } = useGlobalConfig()
-    const applyAsGlobal = () => {
+
+    watch(() => componentsConfig, componentsConfig => {
       mergeGlobalConfig({
         components: componentsConfig.value,
       })
+    }, { deep: true })
+
+    const reset = () => {
+      buttonProps.value = getDefaultButtonProps()
     }
 
     return {
-      applyAsGlobal,
+      reset,
       componentsConfig,
       buttonProps,
     }
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.config-button-demo {
-  display: flex;
-  align-items: center;
-  .preview {
-    padding: 2rem;
-  }
-  .config {
-    display: flex;
-    flex-direction: column;
-    padding-left: 2rem;
-    .controls {
-      padding-top: 2rem;
-      & > * {
-        margin-right: 1rem;
-      }
-    }
-  }
-}
-
-.va-button {
-  transition-property: none;
-}
-</style>

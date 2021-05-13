@@ -199,14 +199,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'badge',
         displayName: 'menu.badge',
       },
-      {
-        name: 'progress-bar',
-        displayName: 'menu.progressBar',
-      },
-      {
-        name: 'progress-circle',
-        displayName: 'menu.progressCircle',
-      },
       // TODO: Color components not released yet
       // {
       //   category: 'menu.categories.color',
@@ -262,7 +254,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'app-bar',
         displayName: 'menu.appBar',
       },
-
+      {
+        name: 'progress-bar',
+        displayName: 'menu.progressBar',
+      },
+      {
+        name: 'progress-circle',
+        displayName: 'menu.progressCircle',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },

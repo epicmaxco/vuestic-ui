@@ -20,14 +20,14 @@ export const config = [
       [
         'useColors',
         `() => {
-          setColors,
-          getColors,
-          getColor,
-          getBoxShadowColor,
-          getHoverColor,
-          getFocusColor,
-          getGradientBackground
-        }`,
+  setColors,
+  getColors,
+  getColor,
+  getBoxShadowColor,
+  getHoverColor,
+  getFocusColor,
+  getGradientBackground
+}`,
       ],
       ['setColors', '(colors: ColorConfig) => void', 'colorsConfig.api.setColors'],
       ['getColors', '() => ColorConfig', 'colorsConfig.api.getColors'],

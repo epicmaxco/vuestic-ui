@@ -140,7 +140,7 @@ export default class VaCard extends mixins(
     content: '';
     position: absolute;
     width: 100%;
-    height: 0.375rem;
+    height: var(--va-card-stripe-border-size);
     top: 0;
     left: 0;
   }
