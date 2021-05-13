@@ -16,13 +16,9 @@
         @mouseover="$props.isContentHoverable && onMouseOver()"
         @mouseout="onMouseOut()"
         ref="contentWrapper"
+        :style="$props.keepAnchorWidth ? anchorWidthStyles : ''"
       >
-        <div
-          class="va-dropdown__content"
-          :style="$props.keepAnchorWidth ? anchorWidthStyles : ''"
-        >
-          <slot />
-        </div>
+        <slot />
       </div>
     </template>
   </div>
@@ -308,9 +304,6 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
   &__content-wrapper {
     /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
-  }
-
-  &__content {
   }
 }
 </style>

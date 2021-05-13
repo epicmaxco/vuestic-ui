@@ -295,6 +295,32 @@
         </va-dropdown>
       </div>
     </VbCard>
+
+    <VbCard title="Dropdown Content">
+      <div>
+        <va-dropdown keep-anchor-width>
+          <template #anchor>
+            <va-input placeholder="Auto complete" />
+          </template>
+
+          <va-dropdown-content>
+            <p>Minsk</p>
+            <p>Kyiv</p>
+            <p>London</p>
+          </va-dropdown-content>
+        </va-dropdown>
+        <va-dropdown>
+          <template #anchor>
+            <va-input placeholder="Auto complete" />
+          </template>
+
+          <va-dropdown-content>
+            <p>City</p>
+            <p>Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</p>
+          </va-dropdown-content>
+        </va-dropdown>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
