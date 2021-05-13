@@ -320,6 +320,8 @@ export default class VaInput extends mixins(
         @include va-scroll(var(--va-input-scroll-color));
 
         width: 100%;
+        // Use line-height as min-height for empty content slot
+        min-height: var(--va-input-line-height);
         color: var(--va-input-text-color);
         background-color: transparent;
         border-style: none;

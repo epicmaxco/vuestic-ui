@@ -84,8 +84,8 @@
               </div>
             </template>
 
-            <template v-if="$slots.content" #content="inputContentParams">
-              <slot name="content" v-bind="inputContentParams" />
+            <template v-if="$slots.content" #content="{ value, focus }">
+              <slot name="content" v-bind="{ valueString: value, focus, value: valueComputed }" />
             </template>
           </va-input>
         </div>

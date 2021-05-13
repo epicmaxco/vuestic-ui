@@ -6,25 +6,42 @@
       :options="options"
       v-model="value"
       multiple
-      :chipMax="3"
-    />
+    >
+      <template #content="{ valueString }">
+        <div class="my-2">{{ valueString }}</div>
+      </template>
+    </va-select>
     <va-select
       class="mb-4"
       label="Tags"
       :options="options"
       v-model="value"
       multiple
-      chips
-    />
+    >
+      <template #content="{ value }">
+        <va-chip v-for="chip in value.slice(0, 3)" :key="chip" size="small" class="mr-2 my-2">{{ chip }}</va-chip>
+      </template>
+    </va-select>
     <va-select
       class="mb-4"
       label="Deletable chips"
       :options="options"
       v-model="value"
       multiple
-      chips
-      deletableTags
-    />
+    >
+      <template #content="{ value }">
+        <va-chip
+          v-for="chip in value"
+          :key="chip"
+          size="small"
+          class="mr-2 my-2"
+          closeable
+          @update:modelValue="deleteChip(chip)"
+        >
+          {{ chip }}
+        </va-chip>
+      </template>
+    </va-select>
   </div>
 </template>
 
@@ -36,6 +53,11 @@ export default {
       options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
       value: [],
     }
+  },
+  methods: {
+    deleteChip (chip) {
+      this.value = this.value.filter((v) => v !== chip)
+    },
   },
 }
 </script>
