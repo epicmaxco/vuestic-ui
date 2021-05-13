@@ -13,24 +13,24 @@
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
-    "core-js": "^3.8.3",
+    "codesandbox": "^2.2.3",
+    "core-js": "^3.12.1",
     "dedent": "^0.7.0",
     "docsearch.js": "^2.6.3",
     "lodash": "^4.17.20",
-    "markdown-it": "^12.0.4",
+    "markdown-it": "^12.0.6",
     "prismjs": "^1.23.0",
     "raw-loader": "^4.0.2",
     "smart-grid": "^2.1.2",
+    "spa-http-server": "^0.9.0",
     "tiny-emitter": "^2.1.0",
     "vue": "^3.0.5",
+    "vue-gtm": "^3.5.0",
     "vue-i18n": "^9.0.0-rc.6",
     "vue-lang-router": "^2.1.1",
-    "vue-prism-component": "^2.0.0",
     "vue-meta": "^3.0.0-alpha.5",
-    "vue-gtm": "^3.5.0",
-    "vue-router": "^4.0.3",
-    "codesandbox": "^2.2.1",
-    "spa-http-server": "^0.9.0"
+    "vue-prism-component": "^2.0.0",
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@types/dedent": "^0.7.0",
@@ -53,12 +53,12 @@
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^7.5.0",
     "node-sass": "^5.0.0",
+    "plop": "^2.7.0",
     "sass-loader": "^10.1.1",
     "typescript": "^4.2.4",
     "vue-auto-routing": "^1.0.1",
     "vue-class-component": "^8.0.0-rc.1",
     "vue-cli-plugin-auto-routing": "^1.2.0",
-    "vue-property-decorator": "^9.1.2",
-    "plop": "^2.7.0"
+    "vue-property-decorator": "^9.1.2"
   }
 }

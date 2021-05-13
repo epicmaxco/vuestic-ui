@@ -5,6 +5,7 @@
     <va-button outline>some</va-button>
     <va-chip color="secondary">vuestic</va-chip>
     <va-chip>vuestic</va-chip>
+    <va-input/>
   </div>
 </template>
 

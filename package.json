@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "devDependencies": {
-    "@vue/cli-plugin-typescript": "^4.5.8",
+    "@vue/cli-plugin-typescript": "5.0.0-alpha.8",
     "lerna": "^3.20.2",
     "yorkie": "^2.0.0"
   },
