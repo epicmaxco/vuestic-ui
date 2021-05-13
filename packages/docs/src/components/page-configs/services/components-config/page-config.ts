@@ -10,20 +10,20 @@ export default [
   DocsHelper.title('componentsConfig.title'),
   DocsHelper.paragraph('componentsConfig.subtitle'),
   DocsHelper.code(`
-    ...
-    components: {
-      VaAvatar: {
-        square: true,
-        icon: 'spinner'
-      },
-      VaCard: {
-        color: 'secondary',
-      },
-      VaTabs: {
-        grow: true,
-      },
-    },
-    ...
+...
+components: {
+  VaAvatar: {
+    square: true,
+    icon: 'spinner'
+  },
+  VaCard: {
+    color: 'secondary',
+  },
+  VaTabs: {
+    grow: true,
+  },
+},
+...
   `),
   DocsHelper.paragraph('componentsConfig.demoTitle'),
   DocsHelper.example('components-config/button'),
