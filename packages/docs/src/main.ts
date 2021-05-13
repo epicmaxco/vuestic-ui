@@ -8,6 +8,7 @@ import AlgoliaColorPlugin from './components/sidebar/algolia-search/algolia-colo
 import { VuesticPlugin } from 'vuestic-ui/src/main'
 import { VuesticConfig } from './config/vuestic-config'
 import { useGtag } from './services/gtag'
+import { useMeta } from '@/services/vue-meta'
 
 const app = createApp(App)
 
@@ -16,6 +17,7 @@ app.use(i18n)
 app.use(AlgoliaColorPlugin)
 app.use(VuesticPlugin, VuesticConfig)
 
+useMeta(app)
 useGtag(app, router)
 
 app.mount('#app')

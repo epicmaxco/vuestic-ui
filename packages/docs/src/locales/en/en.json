@@ -11,7 +11,7 @@
       }
     },
     "preview": {
-      "title": "Vue.js 3.0 UI Library",
+      "title": "Vue.js 3.0 UI Framework",
       "buttons": {
         "start": "Get started",
         "github": "View on GitHub"
@@ -67,7 +67,7 @@
     },
     "admin": {
       "title": "Vuestic Admin",
-      "text": "Check out Vuestic UI Library in action.",
+      "text": "Check out Vuestic UI Framework in action.",
       "buttons": {
         "github": "View on GitHub",
         "demo": "Live Demo",

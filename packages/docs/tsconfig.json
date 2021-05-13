@@ -25,7 +25,9 @@
     ],
     "lib": [
       "esnext",
-      "dom"
+      "dom",
+      "dom.iterable",
+      "scripthost"
     ]
   },
   "include": [

@@ -1,4 +1,5 @@
 <template>
+  <metainfo />
   <router-view />
 </template>
 
@@ -6,6 +7,8 @@
 import emitter from 'tiny-emitter/instance'
 import { setColors } from '../../ui/src/main'
 import { COLOR_THEMES, ThemeName } from './config/theme-config'
+import { genAppMetaInfo } from '@/services/vue-meta'
+import { useMeta } from 'vue-meta'
 
 const eventBus = {
   $on: (...args) => emitter.on(...args),
@@ -20,8 +23,8 @@ export default {
       eventBus,
     }
   },
-
   setup () {
+    useMeta(genAppMetaInfo())
     setColors(COLOR_THEMES[ThemeName.DEFAULT])
   },
 }
