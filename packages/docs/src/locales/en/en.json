@@ -2602,6 +2602,7 @@
   "configurationGuide": {
     "title": "Configuration",
     "description": "We have developed a convenient mechanism that allows you to deeply customize your icons, components, and colors.",
+    "readMore": "Read more",
     "colors": {
       "title": "Color themes",
       "description": "Vuestic UI comes with a set of colors that could be easily extended"
