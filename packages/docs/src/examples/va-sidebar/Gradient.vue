@@ -1,6 +1,6 @@
 <template>
-  <div style="height: 13rem; border: 2px solid var(--va-primary);">
-    <va-sidebar color="primary" text-color="secondary" gradient minimizedWidth="64px">
+  <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
+    <va-sidebar color="primary" text-color="secondary" gradient minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
@@ -24,8 +24,8 @@
     </va-sidebar>
   </div>
 
-  <div style="height: 13rem; border: 2px solid var(--va-primary);">
-    <va-sidebar color="dark" gradient minimizedWidth="64px">
+  <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
+    <va-sidebar color="dark" gradient minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
@@ -49,12 +49,12 @@
     </va-sidebar>
   </div>
 
-  <div style="height: 13rem; border: 2px solid var(--va-primary);">
-    <va-sidebar color="success" gradient minimizedWidth="64px">
+  <div class="mb-4"  style="height: 16rem; border: 2px solid var(--va-primary);">
+    <va-sidebar color="success" gradient minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
-            background success and auto text color
+            background success, auto text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
       </va-sidebar-item>
@@ -74,12 +74,12 @@
     </va-sidebar>
   </div>
 
-  <div style="height: 13rem; border: 2px solid var(--va-primary);">
-    <va-sidebar color="danger" gradient text-color="success" minimizedWidth="64px">
+  <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
+    <va-sidebar color="danger" gradient text-color="success" minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
-            background danger and success text color
+            background danger, success text
           </va-sidebar-item-title>
         </va-sidebar-item-content>
       </va-sidebar-item>
