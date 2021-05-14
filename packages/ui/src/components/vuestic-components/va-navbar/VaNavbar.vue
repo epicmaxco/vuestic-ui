@@ -17,6 +17,7 @@
       </div>
     </div>
     <div
+      v-if="shape"
       class="va-navbar__background-shape"
       :style="shapeStyle"
     />
@@ -28,12 +29,12 @@ import { Vue, Options, mixins, prop } from 'vue-class-component'
 
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { shiftHSLAColor } from '../../../services/color-config/color-functions'
+import { useColors } from '../../../services/color-config/color-config'
 
 class Props {
-  color = prop<string>({
-    type: String,
-    default: 'secondary',
-  })
+  color = prop<string>({ type: String, default: 'secondary' })
+  textColor = prop<string>({ type: String, default: undefined })
+  shape = prop<boolean>({ type: Boolean, default: false })
 }
 
 const NavbarPropsMixin = Vue.with(Props)
@@ -43,9 +44,16 @@ const NavbarPropsMixin = Vue.with(Props)
 })
 export default class VaNavbar extends mixins(ColorMixin, NavbarPropsMixin) {
   get navbarStyle () {
-  // saturation and lightness color components differ from the secondary color for the navbar
+    const { getTextColor, getColor } = useColors()
+
+    const textColor = this.$props.textColor
+      ? getColor(this.$props.textColor)
+      : getTextColor(this.colorComputed)
+
     return {
-      backgroundColor: shiftHSLAColor(this.colorComputed, { s: -13, l: 15 }),
+      backgroundColor: this.colorComputed,
+      color: textColor,
+      fill: textColor,
     }
   }
 

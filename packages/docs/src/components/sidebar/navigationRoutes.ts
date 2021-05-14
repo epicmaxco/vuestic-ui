@@ -218,6 +218,10 @@ export const navigationRoutes: NavigationRoute[] = [
       //   displayName: 'menu.colorPalette',
       // },
       {
+        name: 'navbar',
+        displayName: 'menu.navbar',
+      },
+      {
         name: 'sidebar',
         displayName: 'menu.sidebar',
       },
