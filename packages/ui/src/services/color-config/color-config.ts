@@ -1,5 +1,10 @@
 import { GlobalConfig, setGlobalConfig, getGlobalConfig } from '../global-config/global-config'
-import { getBoxShadowColor, getHoverColor, getFocusColor, getGradientBackground, isCssColor } from './color-functions'
+import {
+  getBoxShadowColor,
+  getHoverColor, getFocusColor,
+  getGradientBackground, isCssColor,
+  getTextColor, shiftHSLAColor,
+} from './color-functions'
 
 export type CssColor = string
 export type ColorConfig = { [colorName: string]: CssColor }
@@ -46,5 +51,7 @@ export const useColors = () => {
     getHoverColor,
     getFocusColor,
     getGradientBackground,
+    getTextColor,
+    shiftHSLAColor,
   }
 }
