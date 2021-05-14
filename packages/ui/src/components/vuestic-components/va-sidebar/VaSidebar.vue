@@ -6,7 +6,9 @@
     @mouseleave="updateHoverState(false)"
   >
     <div class="va-sidebar__menu">
-      <slot />
+      <va-config :components="sidebarItemsConfig">
+        <slot />
+      </va-config>
     </div>
   </aside>
 </template>
@@ -15,11 +17,12 @@
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 import { getGradientBackground } from '../../../services/color-config/color-functions'
-import { getColor } from '../../../services/color-config/color-config'
+import { useColors } from '../../../services/color-config/color-config'
 
 class SidebarProps {
   color = prop<string>({ type: String, default: 'secondary' })
-  textColor = prop<string>({ type: String })
+  textColor = prop<string>({ type: String, default: undefined })
+  gradient = prop<boolean>({ type: Boolean, default: false })
   minimized = prop<boolean>({ type: Boolean, default: false })
   hoverable = prop<boolean>({ type: Boolean, default: false })
   position = prop<string>({ type: String, default: 'left' })
@@ -34,22 +37,21 @@ const SidebarPropsMixin = Vue.with(SidebarProps)
 export default class VaSidebar extends SidebarPropsMixin {
   isHovered = false
 
-  get colorComputed () {
-    return getColor(this.color)
-  }
-
-  get textColorComputed () {
-    return getColor(this.textColor, undefined)
-  }
-
   get isMinimized () {
     return this.$props.minimized || (this.$props.hoverable && !this.isHovered)
   }
 
   get computedStyle () {
+    const { getColor, getTextColor } = useColors()
+
+    const backgroundColor = getColor(this.color)
+    const background = this.gradient ? getGradientBackground(backgroundColor) : backgroundColor
+
+    const color = this.$props.textColor ? getColor(this.textColor) : getTextColor(backgroundColor)
+
     return {
-      color: this.textColorComputed === undefined ? '' : this.textColorComputed,
-      backgroundImage: getGradientBackground(this.colorComputed),
+      color,
+      background,
       width: this.computedWidth,
     }
   }

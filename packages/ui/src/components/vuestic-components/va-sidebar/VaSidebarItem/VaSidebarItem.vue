@@ -46,7 +46,8 @@ export default defineComponent({
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
 
-      style.color = getColor(props.textColor, '')
+      // Override default link color from VaContent
+      style.color = getColor(props.textColor, '') + ' !important'
 
       if (isHovered.value) {
         style['background-color'] = getHoverColor(getColor(props.hoverColor))
@@ -73,6 +74,6 @@ export default defineComponent({
     padding-right: var(--va-sidebar-item-active-border-size);
     display: inline-block;
     width: 100%;
-    color: inherit;
+    color: inherit !important;
   }
 </style>

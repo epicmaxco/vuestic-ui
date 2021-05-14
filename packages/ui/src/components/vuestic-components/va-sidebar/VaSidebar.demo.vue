@@ -40,6 +40,8 @@
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
+      </div>
+      <div class="demo__sidebar-container-2x">
         <va-sidebar :minimized="minimized" position="right">
           <div>Item</div>
           <div>Item</div>
@@ -54,6 +56,8 @@
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
+      </div>
+      <div class="demo__sidebar-container-2x">
         <va-sidebar v-model="doShowVmodelDemoSidebar" position="right">
           <div>Item</div>
           <div>Item</div>
@@ -68,6 +72,8 @@
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
+      </div>
+      <div class="demo__sidebar-container-2x">
         <va-sidebar :minimized="minimizedWithWidth" position="right" minimizedWidth="25%">
           <div>Item</div>
           <div>Item</div>
@@ -80,6 +86,8 @@
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
+      </div>
+      <div class="demo__sidebar-container-2x">
         <va-sidebar hoverable position="right">
           <div>Item</div>
           <div>Item</div>
@@ -92,6 +100,8 @@
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
+      </div>
+      <div class="demo__sidebar-container-2x">
         <va-sidebar hoverable minimized position="right">
           <div>Item</div>
           <div>Item</div>
