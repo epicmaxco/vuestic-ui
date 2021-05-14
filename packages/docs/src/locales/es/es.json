@@ -288,6 +288,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaNavbar": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -335,7 +341,8 @@
     "advancedIconsConfig": "Advanced Icons Config",
     "componentsConfig": "Components Config",
     "colorsConfig": "Colors Config",
-    "sidebarItem": "Sidebar Item"
+    "sidebarItem": "Sidebar Item",
+    "navbar": "Navbar"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -460,6 +467,9 @@
     "title": "-- Here is the title --"
   },
   "sidebarItem": {
+    "title": "-- Here is the title --"
+  },
+  "navbar": {
     "title": "-- Here is the title --"
   }
 }
