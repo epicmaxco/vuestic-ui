@@ -6,9 +6,7 @@
     @mouseleave="updateHoverState(false)"
   >
     <div class="va-sidebar__menu">
-      <va-config :components="sidebarItemsConfig">
-        <slot />
-      </va-config>
+      <slot />
     </div>
   </aside>
 </template>
