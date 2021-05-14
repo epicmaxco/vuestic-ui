@@ -14,7 +14,6 @@
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
       :close-on-anchor-click="$props.multiple"
-      :offset="[0, 8]"
       trigger="none"
       class="va-select__dropdown"
       keep-anchor-width
@@ -92,49 +91,51 @@
       </template>
 
       <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
-      <div class="va-select__dropdown__content" @keyup.enter.stop>
-        <!-- Hidden DIV is a hack than allow user to focus select from dropdown content with tab -->
-        <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
-        <va-input
-          v-if="doShowSearchInput"
-          :id="$props.id"
-          ref="searchBar"
-          v-model="searchInputValue"
-          class="va-select__input"
-          placeholder="Search"
-          removable
-          :name="$props.name"
-          :tabindex="tabindex + 1"
-          @keydown.down.stop.prevent="focusOptionList"
-          @keydown.right.stop.prevent="focusOptionList"
-          @keydown.up.stop.prevent="focusSelect"
-          @keydown.left.stop.prevent="focusSelect"
-          @keyup.enter.prevent="addNewOption"
-          @focus="hoveredOption = null"
-        />
-        <va-select-option-list
-          ref="optionList"
-          v-model:hoveredOption="hoveredOption"
-          :style="{ maxHeight: $props.maxHeight }"
-          :options="filteredOptions"
-          :selected-value="valueComputed"
-          :get-selected-state="checkIsOptionSelected"
-          :get-text="getText"
-          :get-track-by="getTrackBy"
-          :search="searchInputValue"
-          :no-options-text="$props.noOptionsText"
-          :color="$props.color"
-          :key-by="$props.keyBy"
-          :text-by="$props.textBy"
-          :tabindex="tabindex + 1"
-          @select-option="selectOption"
-          @no-previous-option-to-hover="focusSearchBar"
-          @keydown.enter.stop.prevent="selectHoveredOption"
-          @keydown.space.stop.prevent="selectHoveredOption"
-          @keydown="onHintedSearch"
-        />
-        <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
-      </div>
+      <va-dropdown-content @keyup.enter.stop>
+        <div class="va-select__dropdown__content">
+          <!-- Hidden DIV is a hack than allow user to focus select from dropdown content with tab -->
+          <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
+          <va-input
+            v-if="doShowSearchInput"
+            :id="$props.id"
+            ref="searchBar"
+            v-model="searchInputValue"
+            class="va-select__input"
+            placeholder="Search"
+            removable
+            :name="$props.name"
+            :tabindex="tabindex + 1"
+            @keydown.down.stop.prevent="focusOptionList"
+            @keydown.right.stop.prevent="focusOptionList"
+            @keydown.up.stop.prevent="focusSelect"
+            @keydown.left.stop.prevent="focusSelect"
+            @keyup.enter.prevent="addNewOption"
+            @focus="hoveredOption = null"
+          />
+          <va-select-option-list
+            ref="optionList"
+            v-model:hoveredOption="hoveredOption"
+            :style="{ maxHeight: $props.maxHeight }"
+            :options="filteredOptions"
+            :selected-value="valueComputed"
+            :get-selected-state="checkIsOptionSelected"
+            :get-text="getText"
+            :get-track-by="getTrackBy"
+            :search="searchInputValue"
+            :no-options-text="$props.noOptionsText"
+            :color="$props.color"
+            :key-by="$props.keyBy"
+            :text-by="$props.textBy"
+            :tabindex="tabindex + 1"
+            @select-option="selectOption"
+            @no-previous-option-to-hover="focusSearchBar"
+            @keydown.enter.stop.prevent="selectHoveredOption"
+            @keydown.space.stop.prevent="selectHoveredOption"
+            @keydown="onHintedSearch"
+          />
+          <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
+        </div>
+      </va-dropdown-content>
     </va-dropdown>
   </va-input-wrapper>
 </template>
@@ -573,8 +574,12 @@ export default class VaSelect extends mixins(
 
     .va-dropdown__content {
       overflow: hidden;
-      border-radius: var(--va-select-dropdown-border-radius);
+      border-bottom-right-radius: var(--va-select-dropdown-border-radius);
+      border-bottom-left-radius: var(--va-select-dropdown-border-radius);
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
       box-shadow: var(--va-select-box-shadow);
+      padding: 0;
     }
 
     .va-select__dropdown__content {
