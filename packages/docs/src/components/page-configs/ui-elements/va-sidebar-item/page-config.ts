@@ -10,6 +10,11 @@ export default [
 
   DocsHelper.subtitle('all.examples'),
   ...simple,
+  ...DocsHelper.exampleBlock(
+    'sidebarItem.examples.colors.title',
+    'sidebarItem.examples.colors.text',
+    'va-sidebar-item/Colors',
+  ),
   ...active,
   ...icons,
   ...components,

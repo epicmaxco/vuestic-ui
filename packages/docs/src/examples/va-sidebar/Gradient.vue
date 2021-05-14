@@ -1,6 +1,6 @@
 <template>
   <div style="height: 13rem; border: 2px solid var(--va-primary);">
-    <va-sidebar color="primary" text-color="secondary" minimizedWidth="64px">
+    <va-sidebar color="primary" text-color="secondary" gradient minimizedWidth="64px">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
@@ -25,7 +25,7 @@
   </div>
 
   <div style="height: 13rem; border: 2px solid var(--va-primary);">
-    <va-sidebar color="dark" minimizedWidth="64px">
+    <va-sidebar color="dark" gradient minimizedWidth="64px">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
@@ -50,7 +50,7 @@
   </div>
 
   <div style="height: 13rem; border: 2px solid var(--va-primary);">
-    <va-sidebar color="success" minimizedWidth="64px">
+    <va-sidebar color="success" gradient minimizedWidth="64px">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
@@ -75,7 +75,7 @@
   </div>
 
   <div style="height: 13rem; border: 2px solid var(--va-primary);">
-    <va-sidebar color="danger" text-color="success" minimizedWidth="64px">
+    <va-sidebar color="danger" gradient text-color="success" minimizedWidth="64px">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>

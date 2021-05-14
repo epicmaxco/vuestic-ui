@@ -2,6 +2,7 @@ import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import VaSidebar
   from 'vuestic-ui/src/components/vuestic-components/va-sidebar/VaSidebar.vue'
 import apiOptions from './api-options'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 export default [
   {
@@ -76,6 +77,11 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-sidebar/Color',
   },
+  ...DocsHelper.exampleBlock(
+    'sidebar.examples.gradient.title',
+    'sidebar.examples.gradient.text',
+    'va-sidebar/Gradient',
+  ),
   {
     type: BlockType.HEADLINE,
     translationString: 'sidebar.examples.position.title',

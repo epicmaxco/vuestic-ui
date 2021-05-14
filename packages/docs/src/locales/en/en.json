@@ -1667,6 +1667,10 @@
       "color": {
         "title": "Color",
         "text": "Change background color of a sidebar."
+      },
+      "gradient": {
+        "title": "Gradient background",
+        "text": "You can make Navbar background gradient"
       }
     },
     "faq": {
@@ -1685,6 +1689,10 @@
       "simple": {
         "title": "Simple usage example",
         "text": "`VaSidebarItem` is used with `VaSidebarContent` (to create paddings) and `VaSidebarTitle` (to fill all remaining width in `VaSidebarItem`)"
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "You can change sidebar default colors"
       },
       "active": {
         "title": "Highlight active `VaSidebarItem`",
