@@ -3,37 +3,38 @@
     <va-input
       class="mb-4"
       v-model="value"
+      placeholder="Default (solid)"
     />
     <va-input
       class="mb-4"
       v-model="value"
-      placeholder="Placeholder"
+      placeholder="Outline"
+      outline
     />
     <va-input
       class="mb-4"
       v-model="value"
-      label="Name"
-      placeholder="Label"
+      placeholder="Bordered"
+      bordered
     />
     <va-input
       class="mb-4"
       v-model="value"
-      label="Name long long long long long long long long long long long long"
-      placeholder="Long label"
+      label="Default"
     />
     <va-input
       class="mb-4"
       v-model="value"
-      label="Disabled"
-      placeholder="Disabled"
-      disabled
+      placeholder="Outline"
+      label="Outline"
+      outline
     />
     <va-input
       class="mb-4"
       v-model="value"
-      label="Readonly"
-      placeholder="Readonly"
-      readonly
+      placeholder="Bordered"
+      label="Bordered"
+      bordered
     />
   </div>
 </template>

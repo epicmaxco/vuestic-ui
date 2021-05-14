@@ -26,6 +26,18 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'select.examples.styles.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'select.examples.styles.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-select/Styles',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'select.examples.variations.title',
   },
   {

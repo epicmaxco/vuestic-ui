@@ -30,6 +30,18 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'input.examples.styles.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'input.examples.styles.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-input/Styles',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'input.examples.hint.title',
   },
   {
