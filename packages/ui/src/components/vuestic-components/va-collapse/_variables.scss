@@ -1,8 +1,7 @@
 :root {
   --va-collapse-transition: all 0.3s linear;
-  --va-collapse-popout-margin: -0.5rem;
-  --va-collapse-popout-padding-top: 1rem;
-  --va-collapse-popout-inset: 0.5rem;
+  --va-collapse-popout-margin: 0.5rem -0.5rem;
+  --va-collapse-inset-margin: 0.5rem 0.5rem;
   --va-collapse-body-transition: all 0.3s linear;
   --va-collapse-body-overflow: hidden;
   --va-collapse-body-margin-top: 0.1rem;

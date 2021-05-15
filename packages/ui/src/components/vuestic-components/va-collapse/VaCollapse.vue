@@ -279,11 +279,10 @@ export default class VaCollapse extends mixins(
 
   &--popout {
     margin: var(--va-collapse-popout-margin);
-    padding-top: var(--va-collapse-popout-padding-top);
   }
 
   &--inset {
-    margin: var(--va-collapse-popout-inset);
+    margin: var(--va-collapse-inset-margin);
   }
 
   &--disabled {
