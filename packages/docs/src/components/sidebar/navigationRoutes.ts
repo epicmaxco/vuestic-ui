@@ -160,7 +160,12 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'file-upload',
         displayName: 'menu.fileUpload',
       },
-      // Temporary removed
+      // Temporary removed.
+      // {
+      //   name: 'popover',
+      //   displayName: 'menu.popover',
+      // },
+      // Temporary removed.
       // {
       //   name: 'date-picker',
       //   displayName: 'menu.datePicker',

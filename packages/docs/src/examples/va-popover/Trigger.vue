@@ -1,6 +1,7 @@
 <template>
   <div>
     <va-popover
+      class="mr-2 mb-2"
       message="popover text"
       trigger="click"
     >
