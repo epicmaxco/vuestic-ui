@@ -17,7 +17,6 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
 import { useColors } from '../../../../services/color-config/color-config'
-import { getHoverColor, getFocusColor } from '../../../../services/color-config/color-functions'
 
 const useHover = () => {
   const isHovered = ref(false)
@@ -37,26 +36,32 @@ export default defineComponent({
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },
-    hoverColor: { type: String, default: 'secondary' },
+    hoverColor: { type: String, default: undefined },
+    borderColor: { type: String, default: undefined },
   },
   setup (props) {
     const { isHovered, onMouseEnter, onMouseLeave } = useHover()
-    const { getColor } = useColors()
+    const { getColor, getHoverColor, getTextColor } = useColors()
 
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
 
-      // Override default link color from VaContent
-      style.color = getColor(props.textColor, '') + ' !important'
+      style.color = getColor(props.textColor, 'inherit')
 
       if (isHovered.value) {
-        style['background-color'] = getHoverColor(getColor(props.hoverColor))
+        style['background-color'] = getHoverColor(getColor(props.hoverColor || props.activeColor))
       }
 
       if (props.active) {
-        style['border-color'] = getColor(props.activeColor)
-        style['background-color'] = getFocusColor(getColor(props.activeColor))
+        const border = props.borderColor === undefined ? props.activeColor : props.borderColor
+
+        style['border-color'] = getColor(border)
+        style['background-color'] = getColor(props.activeColor)
+        style.color = getTextColor(style['background-color'], getColor('dark'), '#ffffff')
       }
+
+      // Override default link color from VaContent
+      style.color = `${style.color} !important`
 
       return style
     })
