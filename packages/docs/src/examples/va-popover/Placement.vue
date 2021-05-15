@@ -1,12 +1,14 @@
 <template>
   <div>
     <va-popover
+      class="mr-2 mb-2"
       message="Placement Bottom"
     >
       <va-button>Bottom</va-button>
     </va-popover>
 
     <va-popover
+      class="mr-2 mb-2"
       placement="top"
       message="Placement Top"
     >
@@ -14,6 +16,7 @@
     </va-popover>
 
     <va-popover
+      class="mr-2 mb-2"
       placement="left"
       message="Placement Left"
     >

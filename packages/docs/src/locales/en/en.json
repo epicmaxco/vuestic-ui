@@ -971,6 +971,7 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
+    "popover": "Popover",
     "backtop": "Backtop",
     "reset": "Reset",
     "colorPicker": "Color Picker",
@@ -2967,6 +2968,49 @@
       "events": {
         "title": "Events",
         "text": "The `va-dropdown-button` can handle click events."
+      }
+    }
+  },
+  "VaPopover": {
+    "props": {
+      "title": "Sets the title of the popover",
+      "message": "Message which showed in a popover",
+      "trigger": "Event on which popover is triggered",
+      "open": "Shows popover",
+      "placement": "Sets a popover position",
+      "autoHide": "Adds the ability to hide popover when clicked outside"
+    },
+    "events": {},
+    "methods": {},
+    "slots": {}
+  },
+  "popover": {
+    "title": "Popover",
+    "summaryText": "A `va-popover` can be used to display some text on top of the component.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "Wrap your component in a `va-popover` tag and provide a message property with text."
+      },
+      "color": {
+        "title": "Color",
+        "text": "You can set different background colors to the component."
+      },
+      "placement": {
+        "title": "Placement",
+        "text": "A component can be set in a different position. Use a position property to set it: `top`, `left`, `right` and `bottom` are available."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "You can set an icon to the component."
+      },
+      "title": {
+        "title": "Title",
+        "text": "You can set a title to the popover."
+      },
+      "trigger": {
+        "title": "Trigger",
+        "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
       }
     }
   }

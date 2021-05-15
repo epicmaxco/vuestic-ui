@@ -1,6 +1,7 @@
 <template>
   <div>
     <va-popover
+      class="mr-2 mb-2"
       message="Popover text"
       color="primary"
     >
@@ -10,6 +11,7 @@
     </va-popover>
 
     <va-popover
+      class="mr-2 mb-2"
       message="Popover text"
       color="success"
     >
@@ -19,6 +21,7 @@
     </va-popover>
 
     <va-popover
+      class="mr-2 mb-2"
       message="Popover text"
       color="warning"
     >
@@ -28,6 +31,7 @@
     </va-popover>
 
     <va-popover
+      class="mr-2 mb-2"
       message="Popover text"
       color="danger"
     >
