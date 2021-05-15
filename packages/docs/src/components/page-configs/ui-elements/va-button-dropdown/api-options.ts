@@ -14,13 +14,15 @@ export default {
     leftIcon: { local: true },
     openedIcon: { local: true },
     position: { local: true },
+    keepAnchorWidth: { local: true },
+    offset: { local: true },
+    modelValue: { local: true },
   },
   events: {
     click: { local: true, types: '`() => Event`' },
     mainButtonClick: { local: true, types: '`() => Event`' },
   },
-  methods: {
-  },
+  methods: {},
   slots: {
     default: { local: true },
   },

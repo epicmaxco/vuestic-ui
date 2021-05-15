@@ -92,11 +92,11 @@
   "api": {
     "all": {
       "events": {
-        "validation": "On internal validation",
-        "blur": "On blur",
-        "focus": "On focus",
-        "input": "On value change",
-        "click": "On click"
+        "validation": "On internal validation.",
+        "blur": "On blur.",
+        "focus": "On focus.",
+        "input": "On value change.",
+        "click": "On click."
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -111,10 +111,10 @@
         "messages": "Description messages for the component.",
         "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
-        "stateful": "Add possibility to work with component without setting `v-model`",
-        "color": "Color of the component (theme string or *HEX* string)",
-        "textColor": "Text color (theme string or *HEX* string)",
-        "rules": "Validation rules <!-- TODO Add link -->",
+        "stateful": "Add possibility to work with component without setting `v-model`.",
+        "color": "Color of the component (theme string or *HEX* string).",
+        "textColor": "Text color (theme string or *HEX* string).",
+        "rules": "Validation rules <!-- TODO Add link -->.",
         "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\").",
         "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\").",
         "append": "When set, always appends the relative path to the current path. [More info here](https://router.vuejs.org/api/#append \"Vue router docs\").",
@@ -124,18 +124,18 @@
         "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
         "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
         "src": "Source URL.",
-        "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
-        "label": "Same as native `label`",
-        "leftLabel": "Moves the label on the left of a component",
-        "loading": "Indicates that something is loading (spinner icon)",
-        "trueValue": "Overrides the returned value when it's checked",
-        "falseValue": "Overrides the returned value when it's not checked",
-        "square": "Removes rounded corners",
-        "indicator": "Sets the indicator style",
+        "arrayValue": "Same as native `value`. It is used with `v-model` of an array type.",
+        "label": "Same as native `label`.",
+        "leftLabel": "Moves the label on the left of a component.",
+        "loading": "Indicates that something is loading (spinner icon).",
+        "trueValue": "Overrides the returned value when it's checked.",
+        "falseValue": "Overrides the returned value when it's not checked.",
+        "square": "Removes rounded corners.",
+        "indicator": "Sets the indicator style.",
         "icon": "Sets an icon.",
-        "rounded": "Adds rounded corners",
-        "flat": "Removes borders and background",
-        "outline": "Removes background"
+        "rounded": "Adds rounded corners.",
+        "flat": "Removes borders and background.",
+        "outline": "Removes background."
       }
     },
     "VaBadge": {
@@ -757,31 +757,33 @@
     },
     "VaButtonDropdown": {
       "props": {
-        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
-        "value": "Sets a dropdown state",
-        "disableDropdown": "Disables the dropdown menu",
-        "disableButton": "Disables the button",
-        "round": "Sets the square style for a button",
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available.",
+        "disableDropdown": "Disables the dropdown menu.",
+        "disableButton": "Disables the button.",
+        "round": "Sets the square style for a button.",
         "split": "Divides the button into two parts. This is useful when you have main action (button) and a number of secondary actions (icon + dropdown).",
-        "splitTo": "Sets a vue navigation link in a split component",
-        "splitHref": "Sets a native navigation link in a split component",
-        "icon": "Applies a custom icon in the dropdown section",
-        "leftIcon": "Applies a button left icon",
-        "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened",
-        "position": "Sets the position of the dropdown content"
+        "splitTo": "Sets a vue navigation link in a split component.",
+        "splitHref": "Sets a native navigation link in a split component.",
+        "icon": "Applies a custom icon in the dropdown section.",
+        "leftIcon": "Applies a button left icon.",
+        "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened.",
+        "position": "Sets the position of the dropdown content.",
+        "keepAnchorWidth": "Keeps anchor position the same.",
+        "offset": "Sets the distance between dropdown and anchor.",
+        "modelValue": "Sets a dropdown state."
       },
       "events": {
-        "click":"Emitted when user clicks on button",
-        "mainButtonClick":"Emitted when user clicks on main button in split component"
+        "click":"Emitted when user clicks on button.",
+        "mainButtonClick":"Emitted when user clicks on main button in split component."
       },
       "methods": {},
       "slots": {
-        "default": "Dropdown content slot"
+        "default": "Dropdown content slot."
       }
     },
     "VaColorPicker": {
       "props": {
-        "value": "Current picked color"
+        "value": "Current picked color."
       },
       "events": {},
       "methods": {},
@@ -789,8 +791,8 @@
     },
     "VaColorInput": {
       "props": {
-        "value": "Current color",
-        "selected": "Select the indicator"
+        "value": "Current color.",
+        "selected": "Select the indicator."
       },
       "events": {},
       "methods": {},
@@ -798,10 +800,10 @@
     },
     "VaColorInputAdvanced": {
       "props": {
-        "value": "Current color",
-        "selected": "Select the indicator",
-        "mode": "Sets the mode of the component",
-        "palette": "An array of colors to palette mode"
+        "value": "Current color.",
+        "selected": "Select the indicator.",
+        "mode": "Sets the mode of the component.",
+        "palette": "An array of colors to palette mode."
       },
       "events": {},
       "methods": {},
