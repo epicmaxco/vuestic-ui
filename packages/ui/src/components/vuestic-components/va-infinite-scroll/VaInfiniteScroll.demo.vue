@@ -188,10 +188,9 @@
 </template>
 
 <script>
-import VaInfiniteScroll from './VaInfiniteScroll'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaProgressCircle
-  from '../va-progress-bar/progress-types/VaProgressCircle'
+import VaInfiniteScroll from './index'
+import VaCheckbox from '../va-checkbox'
+import { VaProgressCircle } from '../va-progress-bar'
 import { getNewRecords, getInitialRecords } from '../../../data/Records'
 import { sleep } from '../../../services/utils'
 

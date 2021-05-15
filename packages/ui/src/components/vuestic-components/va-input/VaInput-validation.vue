@@ -14,7 +14,8 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import VaInput from './VaInput.vue'
+
+import VaInput from './index'
 
 @Options({
   name: 'VaInputValidation',

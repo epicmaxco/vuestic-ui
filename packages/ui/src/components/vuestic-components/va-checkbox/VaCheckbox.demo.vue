@@ -193,7 +193,7 @@
 </template>
 
 <script>
-import VaCheckbox from './VaCheckbox'
+import VaCheckbox from './index'
 import VaCheckboxValidation from './VaCheckbox-validation'
 
 export default {

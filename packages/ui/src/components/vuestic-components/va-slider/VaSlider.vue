@@ -58,18 +58,20 @@
           @mousedown="moveStart($event, null)"
         />
         <div
-          ref="dot0"
+          v-for="order in (this.vertical ? [1, 0] : [0, 1])"
+          :key="'dot' + order"
+          :ref="'dot' + order"
           class="va-slider__handler"
-          :class="dotClass[0]"
-          :style="dottedStyles[0]"
-          @mousedown="(moveStart($event, 0), setMouseDown($event, 1))"
-          @touchstart="moveStart($event, 0)"
-          @focus="isFocused = true, currentSliderDotIndex = 0"
+          :class="dotClass[order]"
+          :style="dottedStyles[order]"
+          @mousedown="(moveStart($event, order), setMouseDown($event, order + 1))"
+          @touchstart="moveStart($event, order)"
+          @focus="isFocused = true, currentSliderDotIndex = order"
           @blur="isFocused = false"
           :tabindex="(!disabled && !readonly) && 0"
         >
           <div
-            v-if="isActiveDot(0)"
+            v-if="isActiveDot(order)"
             :style="{ backgroundColor: colorComputed }"
             class="va-slider__handler__dot--focus"
           />
@@ -78,31 +80,7 @@
             :style="labelStyles"
             class="va-slider__handler__dot--value"
           >
-            {{ val[0] }}
-          </div>
-        </div>
-        <div
-          ref="dot1"
-          class="va-slider__handler"
-          :class="dotClass[1]"
-          :style="dottedStyles[1]"
-          @mousedown="(moveStart($event, 1), setMouseDown($event, 2))"
-          @touchstart="moveStart($event, 1)"
-          @focus="isFocused = true, currentSliderDotIndex = 1"
-          @blur="isFocused = false"
-          :tabindex="(!this.disabled && !this.readonly) && 0"
-        >
-          <div
-            v-if="isActiveDot(1)"
-            :style="{ backgroundColor: colorComputed }"
-            class="va-slider__handler__dot--focus"
-          />
-          <div
-            v-if="trackLabelVisible"
-            :style="labelStyles"
-            class="va-slider__handler__dot--value"
-          >
-            {{ val[1] }}
+            {{ val[order] }}
           </div>
         </div>
       </template>
@@ -172,55 +150,56 @@
 </template>
 
 <script lang="ts">
-import { Watch, Mixins, Ref } from 'vue-property-decorator'
+import { watch } from 'vue'
+import { Options, mixins, Vue, prop, setup } from 'vue-class-component'
 
-import VaIcon from '../va-icon/VaIcon.vue'
-
-import { getHoverColor } from '../../../services/color-functions'
+import { Ref } from '../../../utils/decorators'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import { getHoverColor } from '../../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import {
-  ContextPluginMixin,
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
-import { Options } from 'vue-class-component'
+import VaIcon from '../va-icon'
 
-const SliderPropsMixin = makeContextablePropsMixin({
-  range: { type: Boolean, default: false },
-  modelValue: { type: [Number, Array], default: () => [] },
-  trackLabel: { type: String, default: '' },
-  color: { type: String, default: '' },
-  trackColor: { type: String, default: '' },
-  labelColor: { type: String, default: '' },
-  trackLabelVisible: { type: Boolean, default: false },
-  min: { type: Number, default: 0 },
-  max: { type: Number, default: 100 },
-  step: { type: Number, default: 1 },
-  label: { type: String, default: '' },
-  invertLabel: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
-  pins: { type: Boolean, default: false },
-  iconPrepend: { type: String, default: '' },
-  iconAppend: { type: String, default: '' },
-  vertical: { type: Boolean, default: false },
-  showTrack: { type: Boolean, default: true },
-})
+class SliderProps {
+  range = prop<boolean>({ type: Boolean, default: false })
+  modelValue = prop<number | number[]>({
+    type: [Number, Array],
+    default: () => [],
+  })
+  trackLabel = prop<string>({ type: String, default: '' })
+  color = prop<string>({ type: String, default: 'primary' })
+  trackColor = prop<string>({ type: String, default: '' })
+  labelColor = prop<string>({ type: String, default: '' })
+  trackLabelVisible = prop<boolean>({ type: Boolean, default: false })
+  min = prop<number>({ type: Number, default: 0 })
+  max = prop<number>({ type: Number, default: 100 })
+  step = prop<number>({ type: Number, default: 1 })
+  label = prop<string>({ type: String, default: '' })
+  invertLabel = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  readonly = prop<boolean>({ type: Boolean, default: false })
+  pins = prop<boolean>({ type: Boolean, default: false })
+  iconPrepend = prop<string>({ type: String, default: '' })
+  iconAppend = prop<string>({ type: String, default: '' })
+  vertical = prop<boolean>({ type: Boolean, default: false })
+  showTrack = prop<boolean>({ type: Boolean, default: true })
+}
+
+const SliderPropsMixin = Vue.with(SliderProps)
 
 @Options({
   name: 'VaSlider',
   components: { VaIcon },
   emits: ['drag-start', 'drag-end', 'change', 'update:modelValue'],
 })
-export default class VaSlider extends Mixins(
-  ColorThemeMixin,
-  ContextPluginMixin,
+export default class VaSlider extends mixins(
+  ColorMixin,
   SliderPropsMixin,
 ) {
-  @Ref('dot') readonly dot !: HTMLElement
-  @Ref('dot0') readonly dot0 !: HTMLElement
-  @Ref('dot1') readonly dot1 !: HTMLElement
-  @Ref('sliderContainer') readonly sliderContainer !: HTMLElement
+  @Ref('dot') readonly dot!: HTMLElement
+  @Ref('dot0') readonly dot0!: HTMLElement
+  @Ref('dot1') readonly dot1!: HTMLElement
+  @Ref('sliderContainer') readonly sliderContainer!: HTMLElement
+
   isFocused = false
   flag = false
   size = 0
@@ -228,6 +207,28 @@ export default class VaSlider extends Mixins(
   currentSliderDotIndex = 0
   isComponentExists = false
   hasMouseDown = false
+
+  context = setup(() => {
+    watch([
+      () => this.val,
+      () => this.$props.step,
+      () => this.$props.min,
+      () => this.$props.max,
+    ], ([value, step, min, max]) => {
+      // @ts-ignore
+      validateSlider(value, step, min, max)
+    })
+
+    watch(() => this.hasMouseDown, (hasMouseDown) => {
+      if (hasMouseDown) {
+        document.documentElement.style.cursor = 'grabbing'
+      } else {
+        document.documentElement.style.cursor = ''
+      }
+    })
+
+    return {}
+  })
 
   get pinPositionStyle (): 'bottom' | 'left' {
     return this.vertical ? 'bottom' : 'left'
@@ -238,10 +239,12 @@ export default class VaSlider extends Mixins(
   }
 
   get moreToLess () {
+    // @ts-ignore
     return this.val[1] - this.step < this.val[0]
   }
 
   get lessToMore () {
+    // @ts-ignore
     return this.val[0] + this.step > this.val[1]
   }
 
@@ -316,12 +319,12 @@ export default class VaSlider extends Mixins(
 
       return [
         {
-          [this.pinPositionStyle]: `calc(${val0}% - 8px)`,
+          [this.pinPositionStyle]: `${val0}%`,
           backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
         },
         {
-          [this.pinPositionStyle]: `calc(${val1}% - 8px)`,
+          [this.pinPositionStyle]: `${val1}%`,
           backgroundColor: this.isActiveDot(1) ? this.colorComputed : '#ffffff',
           borderColor: this.colorComputed,
         },
@@ -330,15 +333,15 @@ export default class VaSlider extends Mixins(
       const val = ((validatedValue - this.min) / (this.max - this.min)) * 100
 
       return {
-        [this.pinPositionStyle]: `calc(${val}% - 8px)`,
+        [this.pinPositionStyle]: `${val}%`,
         backgroundColor: this.isActiveDot(0) ? this.colorComputed : '#ffffff',
         borderColor: this.colorComputed,
       }
     }
   }
 
-  get val () {
-    return this.modelValue
+  get val ():any {
+    return this.$props.modelValue
   }
 
   set val (val) {
@@ -365,6 +368,7 @@ export default class VaSlider extends Mixins(
   }
 
   get interval () {
+    // @ts-ignore
     return this.modelValue[1] - this.modelValue[0]
   }
 
@@ -373,6 +377,7 @@ export default class VaSlider extends Mixins(
   }
 
   get position (): any {
+    // @ts-ignore
     return this.isRange ? [(this.modelValue[0] - this.min) / this.step * this.gap, (this.modelValue[1] - this.min) / this.step * this.gap] : ((this.modelValue - this.min) / this.step * this.gap)
   }
 
@@ -394,20 +399,6 @@ export default class VaSlider extends Mixins(
       step: this.step,
       min: this.min,
       max: this.max,
-    }
-  }
-
-  @Watch('propsForValidation')
-  onPropsForValidationChanged (props: any) {
-    validateSlider(props.value, props.step, props.min, props.max)
-  }
-
-  @Watch('hasMouseDown')
-  onMouseDown (val: boolean) {
-    if (val) {
-      document.documentElement.style.cursor = 'grabbing'
-    } else {
-      document.documentElement.style.cursor = ''
     }
   }
 
@@ -464,7 +455,9 @@ export default class VaSlider extends Mixins(
   }
 
   moving (e: any) {
-    if (!this.hasMouseDown) { return }
+    if (!this.hasMouseDown) {
+      return
+    }
     if (!this.disabled && !this.readonly) {
       if (!this.flag) {
         return false
@@ -483,6 +476,7 @@ export default class VaSlider extends Mixins(
     if (!this.disabled && !this.readonly) {
       if (this.flag) {
         this.$emit('drag-end')
+        // @ts-ignore
         this.$emit('change', this.range ? Array.from(this.modelValue) : this.modelValue)
       } else {
         return false
@@ -494,37 +488,50 @@ export default class VaSlider extends Mixins(
 
   moveWithKeys (event: any) {
     // don't do anything if a dot isn't focused or if the slider's disabled or readonly
-    if (![this.dot0, this.dot1, this.dot].includes(document.activeElement as any)) { return }
-    if (this.disabled || this.readonly) { return }
+    // @ts-ignore
+    if (![this.dot0, this.dot1, this.dot].includes(document.activeElement as any)) {
+      return
+    }
+    if (this.disabled || this.readonly) {
+      return
+    }
 
     /*
       where: where to move
         0 - to left
         1 - to right
 
-      which: which dot to move (only makes sence when isRange is true)
+      which: which dot to move (only makes sense when isRange is true)
         0 - left dot
         1 - right dot
       */
     const moveDot = (isRange: boolean, where: number, which: number) => {
       if (isRange) {
-        if (!this.pins) { return this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step)) }
+        // @ts-ignore
+        if (!this.pins) {
+          return this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step))
+        }
 
         // how many value units one pin occupies
         const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
         // how many full pins are to the left of the dot now
+        // @ts-ignore
         const fullPinsNow = this.val[which] / onePinInterval | 0
         // the value of the nearest pin
         let nearestPinVal = fullPinsNow * onePinInterval
 
+        // @ts-ignore
         if (this.val[which] !== nearestPinVal) { // if the dot's not pinned already
           nearestPinVal += where ? onePinInterval : 0 // take one more pin if moving right
+          // @ts-ignore
           this.val.splice(which, 1, nearestPinVal)
         } else {
+          // @ts-ignore
           this.val.splice(which, 1, this.val[which] + (where ? this.step : -this.step))
         }
       } else {
         if (!this.pins) {
+          // @ts-ignore
           this.val += where ? this.step : -this.step
           return
         }
@@ -532,6 +539,7 @@ export default class VaSlider extends Mixins(
         // how many value units one pin occupies
         const onePinInterval = (this.max - this.min) / (this.pinsCol + 1)
         // how many full pins are to the left of the dot now
+        // @ts-ignore
         const fullPinsNow = this.val / onePinInterval | 0
         // the value of the nearest pin
         let nearestPinVal = fullPinsNow * onePinInterval
@@ -568,23 +576,31 @@ export default class VaSlider extends Mixins(
         !this.vertical && this.dot1 === document.activeElement && event.keyCode === CODE_RIGHT
 
       switch (true) {
+        // @ts-ignore
       case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.moreToLess && this.val[0] !== this.min:
+          // @ts-ignore
         this.dot0.focus()
         moveDot(true, 0, 0)
         break
+        // @ts-ignore
       case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.lessToMore && this.val[1] !== this.max:
-        this.dot1.focus()
+          // @ts-ignore
+        this.dot0.focus()
         moveDot(true, 1, 1)
         break
+        // @ts-ignore
       case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && this.val[0] !== this.min:
         moveDot(true, 0, 0)
         break
+        // @ts-ignore
       case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && this.val[1] !== this.max:
         moveDot(true, 1, 1)
         break
+        // @ts-ignore
       case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && this.val[1] !== this.min:
         moveDot(true, 0, 1)
         break
+        // @ts-ignore
       case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && this.val[0] !== this.max:
         moveDot(true, 1, 0)
         break
@@ -593,14 +609,23 @@ export default class VaSlider extends Mixins(
       }
     } else {
       if (this.vertical) {
-        if (event.keyCode === CODE_DOWN) { moveDot(false, 0, 0) }
-        if (event.keyCode === CODE_UP) { moveDot(false, 1, 0) }
+        if (event.keyCode === CODE_DOWN) {
+          moveDot(false, 0, 0)
+        }
+        if (event.keyCode === CODE_UP) {
+          moveDot(false, 1, 0)
+        }
       } else {
-        if (event.keyCode === CODE_LEFT) { moveDot(false, 0, 0) }
-        if (event.keyCode === CODE_RIGHT) { moveDot(false, 1, 0) }
+        if (event.keyCode === CODE_LEFT) {
+          moveDot(false, 0, 0)
+        }
+        if (event.keyCode === CODE_RIGHT) {
+          moveDot(false, 1, 0)
+        }
       }
     }
   }
+
   // wrapClick (e) {
   //   if (!this.disabled && !this.readonly && !this.flag) {
   //     const pos = this.getPos(e)
@@ -628,8 +653,10 @@ export default class VaSlider extends Mixins(
 
   checkActivePin (pin: number) {
     if (this.isRange) {
+      // @ts-ignore
       return pin * this.step > this.val[0] && pin * this.step < this.val[1]
     } else {
+      // @ts-ignore
       return pin * this.step < this.val
     }
   }
@@ -644,12 +671,14 @@ export default class VaSlider extends Mixins(
 
   getPos (e: any) {
     this.getStaticData()
+    // @ts-ignore
     return this.vertical ? this.offset - e.clientY : e.clientX - this.offset
   }
 
   getStaticData () {
     if (this.sliderContainer) {
       this.size = this.sliderContainer[this.vertical ? 'offsetHeight' : 'offsetWidth']
+      // @ts-ignore
       this.offset = (this.sliderContainer.getBoundingClientRect() as Record<string, any>)[this.pinPositionStyle]
     }
   }
@@ -661,12 +690,16 @@ export default class VaSlider extends Mixins(
   setCurrentValue (val: any) {
     const slider = this.currentSliderDotIndex
     if (this.isRange) {
+      // @ts-ignore
       if (this.isDiff(this.currentValue[slider], val)) {
+        // @ts-ignore
         this.currentValue.splice(slider, 1, val)
         if (slider === 0) {
+          // @ts-ignore
           this.val = [this.currentValue.splice(slider, 1, val)[0], this.modelValue[1]]
           this.currentValue = [...this.val]
         } else {
+          // @ts-ignore
           this.val = [this.modelValue[0], this.currentValue.splice(slider, 1, val)[0]]
           this.currentValue = [...this.val]
         }
@@ -689,11 +722,13 @@ export default class VaSlider extends Mixins(
     // this.setTransform()
 
     // set focus on current thumb
-    ;(this.isRange ? (this.currentSliderDotIndex ? this.dot1 : this.dot0) : this.dot).focus()
+    const dotToFocus = this.isRange ? (this.currentSliderDotIndex ? this.dot1 : this.dot0) : this.dot
+    dotToFocus.focus()
 
     if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
       if (this.currentSliderDotIndex) {
         if (pixelPosition <= this.position[0]) {
+          // @ts-ignore
           this.val[1] = this.val[0]
           this.currentSliderDotIndex = 0
         }
@@ -701,6 +736,7 @@ export default class VaSlider extends Mixins(
         this.setCurrentValue(v)
       } else {
         if (pixelPosition >= this.position[1]) {
+          // @ts-ignore
           this.val[0] = this.val[1]
           this.currentSliderDotIndex = 1
         }
@@ -805,14 +841,15 @@ export default class VaSlider extends Mixins(
 
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-slider {
-  display: flex;
-  align-items: center;
+  display: var(--va-slider-display);
+  align-items: var(--va-slider-align-items);
 
   &__input-wrapper {
-    position: relative;
-    display: flex;
+    position: var(--va-slider-input-wrapper-position);
+    display: var(--va-slider-input-wrapper-display);
   }
 
   &__container {
@@ -823,10 +860,10 @@ export default class VaSlider extends Mixins(
   }
 
   &__track {
-    position: absolute;
-    border-radius: 0.25rem;
-    transition: 0.5s ease-out;
-    opacity: 0.2;
+    position: var(--va-slider-track-position);
+    border-radius: var(--va-slider-track-border-radius);
+    transition: var(--va-slider-track-transition);
+    opacity: var(--va-slider-track-opacity);
 
     &--active {
       transition: 0s;
@@ -838,54 +875,54 @@ export default class VaSlider extends Mixins(
   }
 
   &__handler {
-    position: absolute;
-    width: 1.25rem;
-    height: 1.25rem;
-    background: $white;
-    border: 0.375rem solid;
-    border-radius: 50%;
-    outline: none !important;
-    left: -0.375rem;
-    transition: 0s;
+    position: var(--va-slider-handler-position);
+    width: var(--va-slider-handler-width);
+    height: var(--va-slider-handler-height);
+    background: var(--va-slider-handler-background);
+    border: var(--va-slider-handler-border);
+    border-radius: var(--va-slider-handler-border-radius);
+    outline: var(--va-slider-handler-outline);
+    left: var(--va-slider-handler-left);
+    transition: var(--va-slider-handler-transition);
 
     &__dot--focus {
-      transform: translate(-0.625rem, -0.625rem);
-      display: block;
-      width: 1.75rem;
-      height: 1.75rem;
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.2;
-      pointer-events: none;
+      transform: var(--va-slider-dot-transform);
+      display: var(--va-slider-dot-display);
+      width: var(--va-slider-dot-width);
+      height: var(--va-slider-dot-height);
+      position: var(--va-slider-dot-position);
+      border-radius: var(--va-slider-dot-border-radius);
+      opacity: var(--va-slider-dot-opacity);
+      pointer-events: var(--va-slider-dot-pointer-events);
     }
 
     &__dot--value {
-      transform: translate(-50%, -100%);
-      user-select: none;
-      font-size: 0.625rem;
-      letter-spacing: 0.6px;
-      line-height: 1.2;
-      font-weight: $font-weight-bold;
-      text-transform: uppercase;
+      transform: var(--va-slider-dot-value-transform);
+      user-select: var(--va-slider-dot-value-user-select);
+      font-size: var(--va-slider-dot-value-font-size);
+      letter-spacing: var(--va-slider-dot-value-letter-spacing);
+      line-height: var(--va-slider-dot-value-line-height);
+      font-weight: var(--va-slider-dot-value-font-weight);
+      text-transform: var(--va-slider-dot-value-text-transform);
     }
   }
 
   .va-input__label {
-    user-select: none;
-    font-size: 0.625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: $font-weight-bold;
-    text-transform: uppercase;
+    user-select: var(--va-slider-input-label-user-select);
+    font-size: var(--va-slider-input-label-font-size);
+    letter-spacing: var(--va-slider-input-label-letter-spacing);
+    line-height: var(--va-slider-input-label-line-height);
+    font-weight: var(--va-slider-input-label-font-weight);
+    text-transform: var(--va-slider-input-label-text-transform);
   }
 
   .va-input__label--inverse {
-    user-select: none;
-    font-size: 0.625rem;
-    letter-spacing: 0.6px;
-    line-height: 1.2;
-    font-weight: $font-weight-bold;
-    text-transform: uppercase;
+    user-select: var(--va-slider-input-label-inverse-user-select);
+    font-size: var(--va-slider-input-label-inverse-font-size);
+    letter-spacing: var(--va-slider-input-label-inverse-letter-spacing);
+    line-height: var(--va-slider-input-label-inverse-line-height);
+    font-weight: var(--va-slider-input-label-inverse-font-weight);
+    text-transform: var(--va-slider-input-label-inverse-text-transform);
   }
 
   &--active {
@@ -911,11 +948,11 @@ export default class VaSlider extends Mixins(
 
 .va-slider--horizontal {
   .va-slider__input-wrapper {
-    flex-basis: 8.33333%;
-    flex-grow: 0;
-    max-width: 8.33333%;
-    margin-right: 1rem;
-    min-width: 2.5rem;
+    flex-basis: var(--va-slider-horizontal-input-wrapper-flex-basis);
+    flex-grow: var(--va-slider-horizontal-input-wrapper-flex-grow);
+    max-width: var(--va-slider-horizontal-input-wrapper-max-width);
+    margin-right: var(--va-slider-horizontal-input-wrapper-margin-right);
+    min-width: var(--va-slider-horizontal-input-wrapper-min-width);
 
     &:last-of-type {
       margin-left: 1rem;
@@ -929,8 +966,8 @@ export default class VaSlider extends Mixins(
     }
 
     &__track {
-      height: 0.5rem;
-      width: 100%;
+      height: var(--va-slider-horizontal-track-height);
+      width: var(--va-slider-horizontal-track-width);
     }
 
     &__mark {
@@ -940,14 +977,16 @@ export default class VaSlider extends Mixins(
     }
 
     &__handler {
+      transform: var(--va-slider-horizontal-handler-transform);
+
       &--inactive {
         transition: left 0.5s ease-out;
       }
 
       &__dot--value {
-        position: absolute;
-        top: -8px;
-        left: 50%;
+        position: var(--va-slider-horizontal-dot-value-position);
+        top: var(--va-slider-horizontal-dot-value-top);
+        left: var(--va-slider-horizontal-dot-value-left);
       }
     }
   }
@@ -962,28 +1001,28 @@ export default class VaSlider extends Mixins(
 }
 
 .va-slider--vertical {
-  height: 100%;
-  padding: 12px 0 12px 0;
-  flex-direction: column;
-  align-items: center;
+  height: var(--va-slider-vertical-height);
+  padding: var(--va-slider-vertical-padding);
+  flex-direction: var(--va-slider-vertical-flex-direction);
+  align-items: var(--va-slider-vertical-align-items);
 
   .va-input__label {
-    margin-bottom: 0.625rem;
+    margin-bottom: var(--va-slider-vertical-label-margin-bottom);
   }
 
   .va-input__label--inverse {
-    left: -0.375rem;
-    margin-top: 0.625rem;
+    left: var(--va-slider-vertical-label-inverse-left);
+    margin-top: var(--va-slider-vertical-label-inverse-margin-top);
   }
 
   .va-slider {
     &__input-wrapper {
-      flex-basis: fit-content;
-      flex-grow: 0;
-      max-width: 1rem;
-      min-width: 2.5rem;
-      position: relative;
-      display: flex;
+      flex-basis: var(--va-slider-vertical-input-wrapper-flex-basis);
+      flex-grow: var(--va-slider-vertical-input-wrapper-flex-grow);
+      max-width: var(--va-slider-vertical-input-wrapper-max-width);
+      min-width: var(--va-slider-vertical-input-wrapper-min-width);
+      position: var(--va-slider-vertical-input-wrapper-position);
+      display: var(--va-slider-vertical-input-wrapper-display);
 
       &:last-of-type {
         margin-top: 1rem;
@@ -996,9 +1035,9 @@ export default class VaSlider extends Mixins(
     }
 
     &__track {
-      height: 100%;
-      width: 0.5rem;
-      bottom: 0;
+      height: var(--va-slider-vertical-track-height);
+      width: var(--va-slider-vertical-track-width);
+      bottom: var(--va-slider-vertical-track-bottom);
     }
 
     &__mark {
@@ -1009,14 +1048,16 @@ export default class VaSlider extends Mixins(
     }
 
     &__handler {
+      transform: var(--va-slider-vertical-handler-transform);
+
       &--inactive {
         transition: bottom 0.5s ease-out;
       }
 
       &__dot--value {
-        position: relative;
-        top: 0.625rem;
-        left: 1.25rem;
+        position: var(--va-slider-vertical-dot-value-position);
+        top: var(--va-slider-vertical-dot-value-top);
+        left: var(--va-slider-vertical-dot-value-left);
       }
     }
   }

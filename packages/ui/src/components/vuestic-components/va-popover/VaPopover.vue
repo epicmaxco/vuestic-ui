@@ -1,13 +1,14 @@
 <template>
   <va-dropdown
     class="va-popover"
-    :position="placement"
-    :disabled="disabled"
-    :trigger="trigger"
-    :hoverOverTimeout="hoverOverTimeout"
-    :hoverOutTimeout="hoverOutTimeout"
-    :close-on-click-outside="autoHide"
-    :opened="opened"
+    :position="$props.placement"
+    :disabled="$props.disabled"
+    :trigger="$props.trigger"
+    :hoverOverTimeout="$props.hoverOverTimeout"
+    :hoverOutTimeout="$props.hoverOutTimeout"
+    :close-on-click-outside="$props.autoHide"
+    :opened="initiallyOpened"
+    @trigger="handleTrigger"
   >
     <template #default>
       <div class="va-popover__content-wrapper">
@@ -16,23 +17,23 @@
           :style="computedPopoverStyle"
         >
           <div
-            v-if="icon"
+            v-if="$props.icon"
             class="va-popover__icon"
           >
             <va-icon
-              :name="icon"
-              :color="color"
+              :name="$props.icon"
+              :color="$props.color"
             />
           </div>
-          <div v-if="title || message">
+          <div v-if="$props.title || $props.message">
             <div
-              v-if="title"
+              v-if="$props.title"
               class="va-popover__title"
             >
-              {{ title }}
+              {{ $props.title }}
             </div>
             <div class="va-popover__text">
-              {{ message }}
+              {{ $props.message }}
             </div>
           </div>
         </div>
@@ -45,38 +46,75 @@
 </template>
 
 <script lang="ts">
-import { Prop, Mixins } from 'vue-property-decorator'
-import { Options } from 'vue-class-component'
+import { PropType } from 'vue'
+import { Options, prop, Vue, mixins } from 'vue-class-component'
+import { Placement } from '@popperjs/core'
+
 import {
   getBoxShadowColor,
   getHoverColor,
-} from '../../../services/color-functions'
-import VaIcon from '../va-icon/VaIcon.vue'
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
-import { Placement } from '@popperjs/core'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+} from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import VaIcon from '../va-icon'
+import VaDropdown from '../va-dropdown'
+
+class PopoverProps {
+  color = prop<string>({ type: String, default: 'success' })
+  icon = prop<string>({ type: String, default: '' })
+  title = prop<string>({ type: String, default: '' })
+  message = prop<string>({ type: String, default: '' })
+  trigger = prop<string>({ type: String, default: 'hover' })
+  opened = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  placement = prop<Placement>({
+    type: String as PropType<Placement>,
+    default: 'bottom',
+  })
+
+  autoHide = prop<boolean>({ type: Boolean, default: true })
+  hoverOverTimeout = prop<number>({ type: Number, default: 0 })
+  hoverOutTimeout = prop<number>({ type: Number, default: 0 })
+}
+
+const PopoverPropsMixin = Vue.with(PopoverProps)
 
 @Options({
+  placement: {
+    type: String,
+    default: 'bottom',
+    validator: (value: string) => {
+      return ['right', 'left', 'bottom', 'top'].includes(value)
+    },
+  },
+  trigger: {
+    type: String,
+    default: 'hover',
+    validator: (value: string) => {
+      return ['hover', 'focus', 'click'].includes(value)
+    },
+  },
   name: 'VaPopover',
   components: { VaIcon, VaDropdown },
 })
-export default class VaPopover extends Mixins(ColorThemeMixin) {
-  @Prop({ type: String, default: 'success' }) color!: string
-  @Prop({ type: String, default: '' }) icon!: string
-  @Prop({ type: String, default: '' }) title!: string
-  @Prop({ type: String, default: '' }) message!: string
-  @Prop({ type: String, default: 'hover' }) trigger!: string
-  @Prop({ type: Boolean, default: false }) opened!: boolean
-  @Prop({ type: Boolean, default: false }) disabled!: boolean
-  @Prop({ type: String, default: 'bottom' }) placement!: Placement
-  @Prop({ type: Boolean, default: true }) autoHide!: boolean
-  @Prop({ type: Number, default: 0 }) hoverOverTimeout!: boolean
-  @Prop({ type: Number, default: 0 }) hoverOutTimeout!: boolean
+export default class VaPopover extends mixins(
+  ColorMixin,
+  PopoverPropsMixin,
+) {
+  private initiallyOpened = this.$props.opened
+  private initialHandleTriggerRun = true
+
+  handleTrigger () {
+    if (!this.initialHandleTriggerRun) {
+      this.initiallyOpened = false
+    }
+
+    this.initialHandleTriggerRun = false
+  }
 
   get computedPopoverStyle () {
     return {
-      boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor((this as any).$themes[this.color]),
-      backgroundColor: getHoverColor((this as any).$themes[this.color]),
+      boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(this.theme.getColor(this.$props.color)),
+      backgroundColor: getHoverColor(this.theme.getColor(this.$props.color)),
     }
   }
 }
@@ -84,9 +122,10 @@ export default class VaPopover extends Mixins(ColorThemeMixin) {
 
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-popover {
-  display: inline-block;
+  display: var(--va-popover-display);
 
   &__content-wrapper {
     background-color: white;
@@ -94,12 +133,12 @@ export default class VaPopover extends Mixins(ColorThemeMixin) {
   }
 
   &__content {
-    opacity: 1;
-    display: flex;
-    align-items: center;
-    padding: 0.65rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
+    opacity: var(--va-popover-content-opacity);
+    display: var(--va-popover-content-display);
+    align-items: var(--va-popover-content-align-items);
+    padding: var(--va-popover-content-padding);
+    border-radius: var(--va-popover-content-border-radius, var(--va-block-border-radius));
+    font-size: var(--va-popover-content-font-size);
   }
 
   &__icon + div {
@@ -109,8 +148,8 @@ export default class VaPopover extends Mixins(ColorThemeMixin) {
   }
 
   &__title {
-    font-weight: $font-weight-bold;
-    margin-bottom: 0.125rem;
+    font-weight: var(--va-popover-title-font-weight);
+    margin-bottom: var(--va-popover-title-margin-bottom);
   }
 
   &__text {

@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 
-import VaCheckbox from './VaCheckbox.vue'
+import VaCheckbox from './index'
 
 @Options({
   components: { VaCheckbox },

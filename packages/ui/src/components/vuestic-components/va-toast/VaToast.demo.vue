@@ -38,7 +38,20 @@
 </template>
 
 <script>
+import { useGlobalConfig } from '../../../services/global-config/global-config'
+
 export default {
+  setup () {
+    const { setGlobalConfig } = useGlobalConfig()
+
+    setGlobalConfig(config => ({
+      ...config,
+      VaToast: {
+        color: 'red',
+      },
+    }))
+  },
+
   data () {
     return {
       colors: ['primary', 'secondary', 'danger', 'warning', 'info'],

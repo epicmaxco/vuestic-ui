@@ -134,9 +134,9 @@
     <VbCard title="Custom header">
       <va-collapse v-model="collapseValue" style="width: 400px;">
         <template #header>
-          <va-button style="width: 100%;">
+          <button style="width: 100%;">
             {{ collapseHeader }}
-          </va-button>
+          </button>
         </template>
 
         <div class="collapse-content">
@@ -156,13 +156,11 @@
 </template>
 
 <script>
-import VaButton from '../va-button/VaButton'
 import VaCollapse from './VaCollapse.vue'
 
 export default {
   components: {
     VaCollapse,
-    VaButton,
   },
   data () {
     return {

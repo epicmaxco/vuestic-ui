@@ -1,5 +1,4 @@
 import { App } from 'vue'
-import VaDropdown from './VaDropdown.vue'
 
 export default {
   install (app: App) {

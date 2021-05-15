@@ -9,14 +9,14 @@
         >
         <template #before>
           <span
-            :class="{ 'title': item, 'title title--gray': !item }"
+            :class="{ 'title': item, 'title title--va-gray': !item }"
           >
             Before text
           </span>
         </template>
         <template #after>
           <span
-            :class="{ 'title': item, 'title title--gray': !item }"
+            :class="{ 'title': item, 'title title--va-gray': !item }"
           >
             After text
           </span>
@@ -37,7 +37,7 @@
           <template #before>
             <span
             class="va-timeline-item__text"
-            :class="{ 'title': item, 'title title--gray': !item }"
+            :class="{ 'title': item, 'title title--va-gray': !item }"
             >
               Before text
             </span>
@@ -45,7 +45,7 @@
           <template #after>
             <span
               class="va-timeline-item__text"
-              :class="{ 'title': item, 'title title--gray': !item }"
+              :class="{ 'title': item, 'title title--va-gray': !item }"
             >
               After text
             </span>
@@ -64,7 +64,7 @@
         <template #before>
           <span
             class="va-timeline-item__text"
-            :class="{ 'title title--info': item, 'title title--gray': !item }"
+            :class="{ 'title title--va-info': item, 'title title--va-gray': !item }"
           >
             Before text
           </span>
@@ -72,7 +72,7 @@
         <template #after>
           <span
             class="va-timeline-item__text"
-            :class="{ 'title title--info': item, 'title title--gray': !item }"
+            :class="{ 'title title--va-info': item, 'title title--va-gray': !item }"
           >
             After text
           </span>
@@ -89,7 +89,7 @@
         <template #before>
           <span
             class="va-timeline-item__text"
-            :class="{ 'title title--danger': item, 'title title--gray': !item }"
+            :class="{ 'title title--va-danger': item, 'title title--va-gray': !item }"
           >
             Before text
           </span>
@@ -97,7 +97,7 @@
         <template #after>
           <span
             class="va-timeline-item__text"
-            :class="{ 'title title--danger': item, 'title title--gray': !item }"
+            :class="{ 'title title--va-danger': item, 'title title--va-gray': !item }"
           >
             After text
           </span>
@@ -111,19 +111,106 @@
         Reroll
       </va-button>
     </VbCard>
+
+    <VbCard title="Config">
+      <VaConfig
+        :components="{
+          VaTimelineItem: {
+            color: 'blue',
+            vertical: true
+          },
+          VaTimeline: {
+            centered: true
+          }
+        }"
+      >
+        <va-timeline>
+          <va-timeline-item
+            v-for="(item, index) in items"
+            :key="index"
+            :active="item"
+          >
+            <template #before>
+          <span
+            :class="{ 'title': item, 'title title--va-gray': !item }"
+          >
+            Before text
+          </span>
+            </template>
+            <template #after>
+          <span
+            :class="{ 'title': item, 'title title--va-gray': !item }"
+          >
+            After text
+          </span>
+            </template>
+          </va-timeline-item>
+        </va-timeline>
+      </VaConfig>
+    </VbCard>
+
+    <VbCard
+      title="Raw Items Timeline"
+      width="300px"
+    >
+      <va-timeline vertical>
+        <va-timeline-item
+          :active="false"
+        >
+          <template #before>
+            <span
+            class="title va-timeline-item__text"
+            :class="{ 'title--va-gray': false }"
+            >
+              Before text
+            </span>
+          </template>
+          <template #after>
+            <span
+              class="title va-timeline-item__text"
+              :class="{ 'title--va-gray': true }"
+            >
+              After text
+            </span>
+          </template>
+        </va-timeline-item>
+        <va-timeline-item
+          :active="false"
+        >
+          <template #before>
+            <span
+            class="title va-timeline-item__text"
+            :class="{'title--va-gray': true }"
+            >
+              Before text
+            </span>
+          </template>
+          <template #after>
+            <span
+              class="title va-timeline-item__text"
+            >
+              After text
+            </span>
+          </template>
+        </va-timeline-item>
+      </va-timeline>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaButton from './../va-button/VaButton.vue'
-import VaTimeline from './VaTimeline.vue'
-import VaTimelineItem from './VaTimelineItem.vue'
+import VaConfig from '../va-config'
+
+import VaButton from './../va-button'
+import VaTimeline from './index'
+import VaTimelineItem from './VaTimelineItem'
 
 export default {
   components: {
     VaButton,
     VaTimeline,
     VaTimelineItem,
+    VaConfig,
   },
   data () {
     return {

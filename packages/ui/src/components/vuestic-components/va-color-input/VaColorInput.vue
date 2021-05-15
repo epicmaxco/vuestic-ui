@@ -2,14 +2,12 @@
   <div class="va-color-input">
     <va-color-indicator
       class="va-color-input__dot"
-      :selected="selected"
-      :color="value"
+      :color="context.valueComputed"
       :indicator="indicator"
-      @click="onClick"
     />
     <va-input
       class="va-color-input__input"
-      v-model="valueProxy"
+      v-model="context.valueComputed"
       :disabled="disabled"
       placeholder="input color"
     />
@@ -17,10 +15,30 @@
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
-import { Vue, Options } from 'vue-class-component'
-import VaColorIndicator from '../va-color-palette/VaColorIndicator.vue'
-import VaInput from '../va-input/VaInput.vue'
+import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
+import { Vue, Options, prop, setup } from 'vue-class-component'
+import VaColorIndicator from '../va-color-indicator'
+import VaInput from '../va-input'
+
+class ColorInputProps {
+  modelValue = prop<string>({
+    type: String,
+    default: '',
+  })
+
+  indicator = prop<string>({
+    type: String,
+    default: 'dot',
+    validator: (value: string) => {
+      return ['dot', 'square'].includes(value)
+    },
+  })
+
+  disabled = prop<boolean>({
+    type: Boolean,
+    default: false,
+  })
+}
 
 @Options({
   name: 'VaColorInput',
@@ -28,42 +46,10 @@ import VaInput from '../va-input/VaInput.vue'
     VaInput,
     VaColorIndicator,
   },
+  ...statefulComponentOptions,
 })
-export default class VaColorInput extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly value!: string
-
-  @Prop({
-    type: String,
-    default: 'dot',
-    validator: (value: string) => {
-      return ['dot', 'square'].includes(value)
-    },
-  }) readonly indicator!: string
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly selected!: boolean
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  }) readonly disabled!: boolean
-
-  get valueProxy (): any {
-    return this.value
-  }
-
-  set valueProxy (value: any) {
-    this.$emit('input', value)
-  }
-
-  onClick (): void {
-    this.$emit('click')
-  }
+export default class VaColorInput extends Vue.with(ColorInputProps) {
+  context = setup(() => useStateful(this.$props, this.$emit))
 }
 </script>
 
@@ -78,7 +64,7 @@ export default class VaColorInput extends Vue {
 
   &__input {
     margin-bottom: 0;
-    width: 9ch;
+    min-width: 5.6rem;
 
     &__pointer {
       cursor: pointer;

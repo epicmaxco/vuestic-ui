@@ -1,27 +1,11 @@
-import Vue, { VNode } from 'vue'
+import { Vue } from 'vue-class-component'
+import { VNode } from 'vue'
 
 export type NotificationPosition =
   'top-right'
   | 'top-left'
   | 'bottom-right'
   | 'bottom-left'
-
-/** Notification Component Inteface */
-export interface NotificationComponentInterface {
-  (options: NotificationOptions): any;
-
-  close (id: string, onCloseHandler?: Function): void;
-
-  closeAll? (): void;
-}
-
-/** Notification Component */
-export declare class NotificationComponent extends Vue {
-  /** Close the Notification instance */
-  close (id: string, userOnClose: () => void): void
-
-  closeAll? (): void
-}
 
 export interface NotificationOptions {
   /** Title */
@@ -62,6 +46,23 @@ export interface NotificationOptions {
   visible?: boolean;
 
   color?: string;
+}
+
+/** Notification Component Inteface */
+export interface NotificationComponentInterface {
+  (options: NotificationOptions): any;
+
+  close (id: string, onCloseHandler?: (...args: any[]) => any): void;
+
+  closeAll? (): void;
+}
+
+/** Notification Component */
+export declare class NotificationComponent extends Vue {
+  /** Close the Notification instance */
+  close (id: string, userOnClose: () => void): void
+
+  closeAll? (): void
 }
 
 export interface NotificationInterface {

@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import VaForm from './VaForm'
-import VaInput from '../va-input/VaInput'
+import VaForm from './index'
+import VaInput from '../va-input'
 
 import { validationMixin } from 'vuelidate'
 import { required, minLength, email, between, numeric } from 'vuelidate/lib/validators'

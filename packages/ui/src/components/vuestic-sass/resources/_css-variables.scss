@@ -1,0 +1,93 @@
+:root {
+  /* Colors */
+  --va-gray-light: #acb5be;
+  --va-light-gray: #eeeeee;
+  --va-light-gray2: #eff4f5;
+  --va-light-gray3: #f5f8f9;
+  --va-lighter-gray: #dddddd;
+  --va-charcoal: #555555;
+  --va-darkest-gray: #333333;
+  --va-almost-black: #161616;
+  --va-hover-black: #222222;
+  --va-vue-green: #4ae387;
+  --va-vue-light-green: #dbf9e8;
+  --va-light-green: #c8f9c5;
+  --va-lighter-green: #d6ffd3;
+  --va-light-blue: #dcf1ff;
+  --va-light-yellow: #fff1c8;
+  --va-light-pink: #ffcece;
+  --va-vue-darkest-blue: #34495e;
+  --va-vue-turquoise: #dbf9e7;
+  --va-white: #ffffff;
+  --va-theme-danger: #e34b4a;
+  --va-theme-warning: #ffc200;
+  --va-theme-red: #e34a4a;
+  --va-theme-orange: #f7cc36;
+  --va-theme-blue: #4ab2e3;
+  --va-theme-blue-dark: #2c82e0;
+  --va-theme-violet: #db76df;
+  --va-theme-pale: #d9d9d9;
+  --va-primary: var(--va-vue-green);
+  --va-danger: var(--va-theme-red);
+  --va-warning: var(--va-theme-orange);
+  --va-info: var(--va-theme-blue);
+  --va-success: var(--va-vue-green);
+  --va-secondary: #babfc2;
+  --va-light-gray2: #eff4f5;
+  --va-dark-gray: #282828;
+  --va-gray: #adb3b9;
+  --va-default-gray: #8396a5;
+  --va-dark-blue: #0e4ac4;
+  --va-text-gray: #b4b4b4;
+  --va-markdown-code: #d7234e;
+  --va-prism-background: #f4f8fa;
+  --va-separator-color: #e6e9ec;
+
+  /* Primary */
+  --va-border: 0;
+  --va-font-family: 'Source Sans Pro', sans-serif;
+  --va-letter-spacing: 0.0375rem;
+  --va-background-color: #ffffff;
+  --va-swing-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1); /* swing */
+  --va-box-shadow: 0 0.125rem 0.2rem 0 rgba(0, 0, 0, 0.2);
+
+  /* Primary block-type items styles */
+  --va-block-border-radius: 0.375rem;
+  --va-block-border: thin solid rgba(52, 56, 85, 0.25);
+  --va-block-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
+
+  /* Primary control-type items styles */
+  --va-control-box-shadow: none;
+  --va-control-border: 0;
+
+  /* Secondary */
+  --va-transition: 0.2s cubic-bezier(0.4, 0, 0.6, 1); /* ease-in-out */
+
+  /* Outline */
+  --va-outline-border-width: 0.125rem;
+  --va-outline-box-shadow: none;
+
+  /* Square */
+  --va-square-border-radius: 0.25rem;
+  --va-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
+  --va-form-padding: 1.25rem;
+  --va-form-border-radius: 0.125rem;
+
+  /* Typography */
+  --va-text-selected: #b3d4fc;
+  --va-text-highlighted: #fff3d1;
+  --va-link-color: var(--va-primary);
+  --va-link-color-secondary: var(--va-secondary);
+  --va-link-color-hover: var(--va-primary); // TODO: This must be different
+  --va-link-color-active: var(--va-primary); // And this on too
+  --va-link-color-visited: var(--va-primary);
+  --va-muted: #7f828b;
+  --va-li-background: var(--va-theme-blue-dark);
+  --va-text-block: var(--va-light-gray3);
+
+  /* Borders */
+  --va-stripe-border-size: 0.25rem;
+
+  /* Shadows */
+  --va-box-shadow: 0 0.25rem 0.5rem 0 rgba(59, 63, 73, 0.15);
+}

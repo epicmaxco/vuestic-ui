@@ -1,13 +1,17 @@
+$icon-font-name: 'maki';
+$icon-font-family: 'maki';
+$icon-font-path: '~/src/components/vuestic-sass/icons/icon-fonts/#{$icon-font-name}/#{$icon-font-name}';
+
 @font-face {
-  font-family: 'maki';
+  font-family: $icon-font-family;
   font-style: normal;
   font-weight: normal;
-  src: url('/src/components/vuestic-sass/icons/icon-fonts/maki/maki.eot');
+  src: url('#{$icon-font-path}.eot');
   src:
-    url('/src/components/vuestic-sass/icons/icon-fonts/maki/maki.eot?#iefix') format('eot'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/maki/maki.woff') format('woff'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/maki/maki.ttf') format('truetype'),
-    url('/src/components/vuestic-sass/icons/icon-fonts/maki/maki.svg#maki') format('svg');
+    url('#{$icon-font-path}.eot#iefix') format('eot'),
+    url('#{$icon-font-path}.woff') format('woff'),
+    url('#{$icon-font-path}.ttf') format('truetype'),
+    url('#{$icon-font-path}.svg##{icon-font-name}') format('svg');
 }
 
 [class*="maki-"]::before {

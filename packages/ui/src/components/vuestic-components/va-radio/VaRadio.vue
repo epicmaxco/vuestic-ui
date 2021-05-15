@@ -37,29 +37,37 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
+import { Options, mixins, Vue, prop } from 'vue-class-component'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 
-const RadioPropsMixin = makeContextablePropsMixin({
-  modelValue: { type: [Object, String, Number, Boolean], default: null },
-  option: { type: [Object, String, Number, Boolean], default: null },
-  name: { type: [String, Number], default: '' },
-  disabled: { type: Boolean, default: false },
-  label: { type: String, default: '' },
-  leftLabel: { type: Boolean, default: false },
-  color: { type: String, default: '' },
-  tabindex: { type: Number, default: 0 },
-})
+class RadioProps {
+  modelValue = prop<string | number | Record<string, unknown> | boolean>({
+    type: [Object, String, Number, Boolean],
+    default: null,
+  })
+
+  option = prop<string | number | Record<string, unknown> | boolean>({
+    type: [Object, String, Number, Boolean],
+    default: null,
+  })
+
+  name = prop<string | number>({ type: [String, Number], default: '' })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  label = prop<string>({ type: String, default: '' })
+  leftLabel = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: 'primary' })
+  tabindex = prop<number>({ type: Number, default: 0 })
+}
+
+const RadioPropsMixin = Vue.with(RadioProps)
 
 @Options({
   name: 'VaRadio',
   emits: ['update:modelValue', 'focus'],
 })
-export default class VaRadio extends Mixins(
-  ColorThemeMixin,
+export default class VaRadio extends mixins(
+  ColorMixin,
   RadioPropsMixin,
 ) {
   get isActive () {
@@ -126,23 +134,24 @@ export default class VaRadio extends Mixins(
 
 <style lang="scss">
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-radio {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-  margin-top: 0;
-  margin-right: 0.5rem;
-  transition: $transition-primary;
+  display: var(--va-radio-display);
+  flex-direction: var(--va-radio-flex-direction);
+  align-items: var(--va-radio-align-items);
+  cursor: var(--va-radio-cursor);
+  position: var(--va-radio-position);
+  margin-top: var(--va-radio-margin-top);
+  margin-right: var(--va-radio-margin-right);
+  transition: var(--va-radio-transition, var(--va-swing-transition));
 
   & + & {
     margin-top: 0.5rem;
   }
 
   &--disabled {
-    cursor: default;
+    cursor: var(--va-radio-disabled-cursor);
   }
 
   &--left-label {
@@ -165,30 +174,30 @@ export default class VaRadio extends Mixins(
   }
 
   &__icon {
-    transition: $transition-primary;
-    display: inline-flex;
-    align-items: center;
-    width: 1.4rem;
-    height: 1.4rem;
-    border-radius: 100%;
-    position: relative;
-    border: $gray solid 0.125rem;
-    box-sizing: border-box;
+    transition: var(--va-radio-icon-transition);
+    display: var(--va-radio-icon-display);
+    align-items: var(--va-radio-icon-align-items);
+    width: var(--va-radio-icon-width);
+    height: var(--va-radio-icon-height);
+    border-radius: var(--va-radio-icon-border-radius);
+    position: var(--va-radio-icon-position);
+    border: var(--va-radio-icon-border);
+    box-sizing: var(--va-radio-icon-box-sizing);
 
     .va-radio__input:disabled + & {
       @include va-disabled;
     }
 
     &__dot {
-      transition: $transition-primary;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      right: 50%;
-      bottom: 50%;
-      border-radius: 100%;
-      background-color: inherit;
-      opacity: 0;
+      transition: var(--va-radio-dot-transition, var(--va-swing-transition));
+      position: var(--va-radio-dot-position);
+      top: var(--va-radio-dot-top);
+      left: var(--va-radio-dot-left);
+      right: var(--va-radio-dot-right);
+      bottom: var(--va-radio-dot-bottom);
+      border-radius: var(--va-radio-dot-border-radius);
+      background-color: var(--va-radio-dot-background-color);
+      opacity: var(--va-radio-dot-opacity);
 
       .va-radio__input:checked + .va-radio__icon & {
         opacity: 1;
@@ -200,16 +209,16 @@ export default class VaRadio extends Mixins(
     }
 
     &__background {
-      transition: $transition-primary;
-      position: absolute;
-      top: -0.35rem;
-      left: -0.35rem;
-      right: -0.35rem;
-      bottom: -0.35rem;
-      background-color: $gray;
-      border-radius: 100%;
-      z-index: 0;
-      opacity: 0;
+      transition: var(--va-radio-background-transition, var(--va-swing-transition));
+      position: var(--va-radio-background-position);
+      top: var(--va-radio-background-top);
+      left: var(--va-radio-background-left);
+      right: var(--va-radio-background-right);
+      bottom: var(--va-radio-background-bottom);
+      background-color: var(--va-radio-background-background-color);
+      border-radius: var(--va-radio-background-border-radius);
+      z-index: var(--va-radio-background-z-index);
+      opacity: var(--va-radio-background-opacity);
 
       .va-radio__input:focus + .va-radio__icon & {
         opacity: 0.2;
@@ -226,9 +235,9 @@ export default class VaRadio extends Mixins(
   }
 
   &__text {
-    display: inline-flex;
-    margin-left: 0.5rem;
-    margin-right: 0;
+    display: var(--va-radio-text-display);
+    margin-left: var(--va-radio-text-margin-left);
+    margin-right: var(--va-radio-text-margin-right);
 
     .va-radio--disabled & {
       @include va-disabled;

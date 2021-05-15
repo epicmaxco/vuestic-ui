@@ -6,24 +6,24 @@
       :tabindex="collapseIndexComputed"
       @mousedown="hasMouseDown = true"
       @mouseup="hasMouseDown = false"
-      @focus="onFocus"
+      @focus="onFocus()"
       @blur="isKeyboardFocused = false"
     >
       <slot name="header">
         <div class="va-collapse__header__content" :style="contentStyle">
           <va-icon
-            v-if="c_icon"
+            v-if="icon"
             class="va-collapse__header__icon"
-            :name="c_icon"
-            :color="c_textColor"
+            :name="icon"
+            :color="textColor"
           />
           <div class="va-collapse__header__text">
-            {{ c_header }}
+            {{ header }}
           </div>
           <va-icon
             class="va-collapse__header__icon"
             :name="valueProxy ? 'expand_less' : 'expand_more'"
-            :color="c_textColor"
+            :color="textColor"
           />
         </div>
       </slot>
@@ -35,39 +35,41 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Inject, Ref } from 'vue-property-decorator'
-import { Options } from 'vue-class-component'
-import VaIcon from '../va-icon/VaIcon.vue'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
-import { getHoverColor } from '../../../services/color-functions'
+import { inject } from 'vue'
+import { mixins, Options, prop, setup, Vue } from 'vue-class-component'
+import VaIcon from '../va-icon'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import { getHoverColor } from '../../../services/color-config/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import { Accordion, AccordionServiceKey } from '../va-accordion/VaAccordion.vue'
 
-const PropsMixin = makeContextablePropsMixin({
-  value: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  header: { type: String, default: '' },
-  icon: { type: String, default: '' },
-  solid: { type: Boolean, default: false },
-  color: { type: String, default: '' },
-  textColor: { type: String, default: '' },
-  colorAll: { type: Boolean, default: false },
-})
+class Props {
+  value = prop<boolean>({ type: Boolean, default: false })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+  header = prop<string>({ type: String, default: '' })
+  icon = prop<string>({ type: String, default: '' })
+  solid = prop<boolean>({ type: Boolean, default: false })
+  color = prop<string>({ type: String, default: '' })
+  textColor = prop<string>({ type: String, default: '' })
+  colorAll = prop<boolean>({ type: Boolean, default: false })
+}
+
+const PropsMixin = Vue.with(Props)
 
 const TEXT_NODE_TYPE = 3
 
 @Options({
+  name: 'VaCollapse',
   components: { VaIcon },
+  emits: ['focus'],
 })
-export default class VaCollapse extends Mixins(
+export default class VaCollapse extends mixins(
   KeyboardOnlyFocusMixin,
   StatefulMixin,
-  ColorThemeMixin,
+  ColorMixin,
   PropsMixin,
 ) {
-  popout = undefined
-  inset = undefined
   height = this.getHeight()
   transitionDuration = this.getTransitionDuration()
   mutationObserver: any = null
@@ -75,50 +77,57 @@ export default class VaCollapse extends Mixins(
     value: undefined,
   }
 
-  @Inject({
-    default: () => ({
-      onChildChange: () => undefined,
-      onChildMounted: () => undefined,
-      onChildUnmounted: () => undefined,
-    }),
-  }) readonly accordion!: any
+  accordion: Accordion = setup(() => {
+    return inject(
+      AccordionServiceKey,
+      {
+        isInsideAccordion: false,
+        getProps: () => undefined,
+        getState: () => undefined,
+        onChildChange: (ctx: any) => undefined,
+        onChildMounted: (ctx: any) => undefined,
+        onChildUnmounted: (ctx: any) => undefined,
+      })
+  })
 
-  @Ref() readonly body!: HTMLElement
+  get body (): HTMLElement {
+    return this.$refs?.body as HTMLElement
+  }
 
   get valueProxy () {
-    if (this.$parent?.$options?.name === 'VaAccordion') {
+    if (this.accordion.isInsideAccordion) {
       return this.valueCollapse.value
     }
+
     return this.valueComputed
   }
 
   set valueProxy (value) {
-    if (this.$parent?.$options?.name === 'VaAccordion') {
+    if (this.accordion.isInsideAccordion) {
       this.valueCollapse.value = value
     }
+
     this.valueComputed = value
     this.setCollapseParams()
   }
 
   get computedClasses () {
-    if ((this as any).$parent.$props) {
-      this.popout = (this as any).$parent.$props.popout
-      this.inset = (this as any).$parent.$props.inset
-    }
+    const accordionProps = this.accordion.getProps()
+
     return {
-      'va-collapse--disabled': this.c_disabled,
-      'va-collapse--solid': this.c_solid,
-      'va-collapse--active': this.c_solid && this.valueProxy,
-      'va-collapse--popout': this.popout && this.valueProxy,
-      'va-collapse--inset': this.inset && this.valueProxy,
+      'va-collapse--disabled': this.disabled,
+      'va-collapse--solid': this.solid,
+      'va-collapse--active': this.solid && this.valueProxy,
+      'va-collapse--popout': accordionProps?.popout && this.valueProxy,
+      'va-collapse--inset': accordionProps?.inset && this.valueProxy,
     }
   }
 
   get contentStyle () {
     return {
-      paddingLeft: this.c_icon && 0,
-      color: this.c_textColor ? getColor(this, this.c_textColor) : '',
-      backgroundColor: this.c_color ? this.colorComputed : '',
+      paddingLeft: this.icon && 0,
+      color: this.textColor ? this.theme.getColor(this.textColor) : '',
+      backgroundColor: this.color ? this.colorComputed : '',
       boxShadow: this.isKeyboardFocused ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
     }
   }
@@ -129,7 +138,7 @@ export default class VaCollapse extends Mixins(
         height: this.height + 'px',
         transitionDuration: this.transitionDuration + 's',
         background:
-          this.c_color && this.c_colorAll
+          this.color && this.colorAll
             ? getHoverColor(this.colorComputed)
             : '',
       }
@@ -141,7 +150,7 @@ export default class VaCollapse extends Mixins(
   }
 
   get collapseIndexComputed () {
-    return this.c_disabled ? -1 : 0
+    return this.disabled ? -1 : 0
   }
 
   onFocus () {
@@ -155,6 +164,7 @@ export default class VaCollapse extends Mixins(
   }
 
   getHeight () {
+    // @ts-ignore
     const nodes = [...(this.body?.childNodes || [])] as HTMLElement[]
     return nodes.reduce((result: number, node: HTMLElement) => {
       result += node.nodeType === TEXT_NODE_TYPE ? this.getTextNodeHeight(node) : node.clientHeight
@@ -171,8 +181,8 @@ export default class VaCollapse extends Mixins(
     const range = document.createRange()
     range.selectNodeContents(textNode)
     const rect = range.getBoundingClientRect()
-    const height = rect.bottom - rect.top
-    return height
+
+    return rect.bottom - rect.top
   }
 
   setCollapseParams () {
@@ -189,7 +199,7 @@ export default class VaCollapse extends Mixins(
       childList: true,
       subtree: true,
     })
-    if (this.accordion) {
+    if (this.accordion.isInsideAccordion) {
       this.accordion.onChildMounted(this)
     }
   }
@@ -198,81 +208,81 @@ export default class VaCollapse extends Mixins(
     if (this.mutationObserver) {
       this.mutationObserver.disconnect()
     }
-    if (this.accordion) {
+    if (this.accordion.isInsideAccordion) {
       this.accordion.onChildUnmounted(this)
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import "variables";
 
 .va-collapse {
-  transition: all 0.3s linear;
+  transition: var(--va-collapse-transition, var(--va-swing-transition));
 
   &__body {
-    transition: height linear 0.3s;
-    overflow: hidden;
-    margin-top: 0.1rem;
+    transition: var(--va-collapse-body-transition);
+    overflow: var(--va-collapse-body-overflow);
+    margin-top: var(--va-collapse-body-margin-top);
   }
 
   &__header {
     &__content {
-      display: flex;
-      justify-content: space-between;
-      cursor: pointer;
-      background-color: $light-gray3;
-      box-shadow: 0 2px 3px 0 rgba(98, 106, 119, 0.25);
-      border-radius: 0.375rem;
-      align-items: center;
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-      padding-left: 1rem;
+      display: var(--va-collapse-header-content-display);
+      justify-content: var(--va-collapse-header-content-justify-content);
+      cursor: var(--va-collapse-header-content-cursor);
+      background-color: var(--va-collapse-header-content-background-color);
+      box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
+      border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
+      align-items: var(--va-collapse-header-content-align-items);
+      padding-top: var(--va-collapse-header-content-padding-top);
+      padding-bottom: var(--va-collapse-header-content-padding-bottom);
+      padding-left: var(--va-collapse-header-content-padding-left);
     }
 
     &__text {
-      width: 100%;
+      width: var(--va-collapse-header-content-text-width);
     }
 
     &__icon {
       @include flex-center();
 
-      min-width: 1.5rem;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-      color: $gray;
+      min-width: var(--va-collapse-header-content-icon-min-width);
+      margin-left: var(--va-collapse-header-content-icon-margin-left);
+      margin-right: var(--va-collapse-header-content-icon-margin-right);
+      color: var(--va-collapse-header-content-icon-color);
     }
   }
 
   &--solid {
-    box-shadow: 0 2px 3px 0 rgba(98, 106, 119, 0.25);
-    border-radius: 0.375rem;
+    box-shadow: var(--va-collapse-solid-box-shadow);
+    border-radius: var(--va-collapse-solid-border-radius);
 
     .va-collapse {
       &__header {
         &__content {
-          border-radius: 0.375rem;
-          transition: ease-in 0.3s;
-          box-shadow: none;
-          background-color: $light-gray3;
+          border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
+          transition: var(--va-collapse-solid-header-content-transition);
+          box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
+          background-color: var(--va-collapse-solid-header-content-background-color);
         }
       }
 
       &__body {
-        border-radius: 0 0 0.375rem 0.375rem;
-        margin-top: 0;
+        border-radius: var(--va-collapse-solid-body-border-radius);
+        margin-top: var(--va-collapse-solid-body-margin-top);
       }
     }
   }
 
   &--popout {
-    margin: -0.5rem;
-    padding-top: 1rem;
+    margin: var(--va-collapse-popout-margin);
   }
 
   &--inset {
-    margin: 0.5rem;
+    margin: var(--va-collapse-inset-margin);
   }
 
   &--disabled {

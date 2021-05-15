@@ -6,103 +6,74 @@
     >
       <slot name="error" />
     </div>
+
+    <div :style="paddingStyles" />
+    <div
+      v-show="!loadingError && !loading"
+      class="va-image__img"
+      ref="img"
+    >
+      <img :style="imageStyles" :src="src" @error="handleError" @load="handleLoad" />
+    </div>
+    <div class="va-image__overlay">
+      <slot />
+    </div>
     <div
       v-if="loading"
       class="va-image__loader"
     >
       <slot name="loader" />
     </div>
-    <template v-else>
-      <div :style="paddingStyles" />
-      <div
-        class="va-image__img"
-        :style="imageStyles"
-        ref="img"
-      />
-      <div class="va-image__overlay">
-        <slot />
-      </div>
-    </template>
   </div>
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins, Prop, Watch } from 'vue-property-decorator'
+import { watch } from '@vue/runtime-core'
+import { Options, prop, Vue, mixins } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+class ImageProps {
+  ratio = prop<number>({ type: [Number], default: 1 })
+  contain = prop<boolean>({ type: Boolean, default: false })
+  src = prop<string>({ type: String, required: true })
+}
 
-const ImagePropsMixin = makeContextablePropsMixin({
-  ratio: { type: [Number, String], default: 1 },
-  contain: { type: Boolean, default: false },
-})
+const ImagePropsMixin = Vue.with(ImageProps)
 
 @Options({
   name: 'VaImage',
   emits: ['loaded', 'error'],
 })
-export default class VaImage extends Mixins(
+export default class VaImage extends mixins(
   ImagePropsMixin,
 ) {
-  image: any = null
-  loading = false
+  loading = true
   loadingError = false
 
-  @Prop({
-    type: String,
-    required: true,
-  }) readonly src!: string
-
-  beforeUnmount () {
-    this.destroyLoader()
-  }
-
-  @Watch('src', { immediate: true })
-  onSrcChange () {
-    this.createLoader()
+  created () {
+    watch(() => this.src, () => {
+      this.loading = true
+      this.loadingError = false
+    })
   }
 
   get imageStyles () {
     return {
-      'background-image': `url(${this.src})`,
-      'background-size': this.contain ? 'contain' : 'cover',
+      'object-fit': this.contain ? 'contain' : 'cover',
     }
   }
 
   get paddingStyles () {
     return {
-      'padding-bottom': `${1 / this.c_ratio * 100}%`,
-    }
-  }
-
-  createLoader () {
-    this.destroyLoader()
-    this.loading = true
-    this.loadingError = false
-    this.image = new Image()
-    this.image.onload = this.handleLoad
-    this.image.onerror = this.handleError
-    if (this.src) {
-      this.image.src = this.src
-    }
-  }
-
-  destroyLoader () {
-    if (this.image) {
-      this.image.onload = null
-      this.image.onerror = null
-      this.image = null
+      'padding-bottom': `${1 / this.ratio * 100}%`,
     }
   }
 
   handleLoad () {
-    this.destroyLoader()
     this.loading = false
     this.$emit('loaded', this.src)
   }
 
   handleError (err: string) {
-    this.destroyLoader()
     this.loadingError = true
     this.loading = false
     this.$emit('error', err)
@@ -110,16 +81,17 @@ export default class VaImage extends Mixins(
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-image {
-  overflow: hidden;
-  position: relative;
+  overflow: var(--va-image-overflow);
+  position: var(--va-image-position);
 
-  &__img {
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
+  img {
+    height: 100%;
+    width: 100%;
   }
 
   &__img,

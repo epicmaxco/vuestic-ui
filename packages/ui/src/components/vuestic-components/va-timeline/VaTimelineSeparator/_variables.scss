@@ -1,0 +1,19 @@
+:root {
+  --va-timeline-separator-display: flex;
+  --va-timeline-separator-align-items: center;
+
+  /* Line */
+  --va-timeline-separator-line-transition: background-color ease 0.5s;
+  --va-timeline-separator-line-width: 0.125rem;
+  --va-timeline-separator-line-height: 0.125rem;
+  --va-timeline-separator-line-flex: 1;
+
+  /* Center */
+  --va-timeline-separator-center-transition: background-color ease 0.5s;
+  --va-timeline-separator-center-width: 0.5rem;
+  --va-timeline-separator-center-height: 0.5rem;
+  --va-timeline-separator-center-border-radius: 0.5rem;
+
+  /* Vertical */
+  --va-timeline-separator-vertical-flex-direction: column;
+}

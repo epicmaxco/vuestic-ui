@@ -6,7 +6,7 @@
       :style="toastStyles"
       @mouseenter="clearTimer()"
       @mouseleave="startTimer()"
-      @click="onToastClick"
+      @click="onToastClick()"
       role="alert"
     >
       <div class="va-toast__group">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="va-toast__content" v-if="render">
-          <VaToastRenderer :content="render" />
+          <VaToastRenderer :content="render"/>
         </div>
 
         <va-icon
@@ -33,58 +33,61 @@
 </template>
 
 <script lang="ts">
-import { h, PropType } from 'vue'
-import { Mixins } from 'vue-property-decorator'
+import { h, watch } from 'vue'
+import { prop, mixins, Vue, Options } from 'vue-class-component'
 import VaIcon from '../va-icon/VaIcon.vue'
-import { Options } from 'vue-class-component'
 
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { NotificationPosition } from './types'
 
-const PropsMixin = makeContextablePropsMixin({
-  title: { type: String, default: '' },
-  offsetY: { type: Number, default: 16 },
-  offsetX: { type: Number, default: 16 },
-  message: { type: [String, Function], default: '' },
-  icon: { type: String, default: 'close' },
-  customClass: { type: String, default: '' },
-  duration: { type: Number, default: 5000 },
-  color: { type: String, default: '' },
-  closeable: { type: Boolean, default: true },
-  onClose: { type: [Function as PropType<() => void>, undefined] },
-  onClick: { type: [Function as PropType<() => void>, undefined] },
-  multiLine: { type: Boolean, default: false },
-  position: {
-    type: String as PropType<NotificationPosition>,
+class ToastProps {
+  title = prop<string>({ type: String, default: '' })
+  offsetY = prop<number>({ type: Number, default: 16 })
+  offsetX = prop<number>({ type: Number, default: 16 })
+  message = prop<string | Function>({ type: [String, Function]  as any, default: '' })
+  icon = prop<string>({ type: String, default: 'close' })
+  customClass = prop<string>({ type: String, default: '' })
+  duration = prop<number>({ type: Number, default: 5000 })
+  color = prop<string>({ type: String, default: '' })
+  closeable = prop<boolean>({ type: Boolean, default: true })
+  onClose = prop<() => void>({ type: [Function, undefined] as any })
+  onClick = prop<() => void>({ type: [Function, undefined] as any })
+  multiLine = prop<boolean>({ type: Boolean, default: false })
+  position = prop<NotificationPosition>({
+    type: String as any,
     default: 'top-right',
     validator: (value: string) => {
       return ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value)
     },
-  },
-  render: { type: Function, default: undefined },
-})
+  })
+  render = prop<Function>({ type: Function, default: undefined })
+}
+
+class VaToastRendererProps {
+  content = prop<Function>({ type: Function, default: undefined })
+}
+
+const VaToastRendererPropsMixin = Vue.with(VaToastRendererProps)
 
 @Options({
   name: 'VaToastRenderer',
 })
-class VaToastRenderer extends Mixins(makeContextablePropsMixin({
-    content: { type: Function, default: undefined },
-  })) {
+class VaToastRenderer extends mixins(VaToastRendererPropsMixin) {
   render () {
     return this.content(h)
   }
 }
+
+const ToastPropsMixin = Vue.with(ToastProps)
 
 @Options({
   name: 'VaToast',
   components: { VaIcon, VaToastRenderer },
   emits: ['on-click', 'on-close'],
 })
-export default class VaToast extends Mixins(
-  ColorThemeMixin,
-  PropsMixin,
+export default class VaToast extends mixins(
+  ColorMixin,
+  ToastPropsMixin,
 ) {
   private timer: NodeJS.Timer | null = null
   public visible = false
@@ -111,16 +114,19 @@ export default class VaToast extends Mixins(
 
   destroyElement () {
     this.$el.removeEventListener('transitionend', this.destroyElement)
-    this.$destroy() // or this.$destroy(true)
+
+    // TODO: not sure if this is really needed (it doesn't work in vue3)
+    // this.$destroy() // or this.$destroy(true)
+
     this.$el.remove() // or this.$el.parentNode?.removeChild(this.$el)
   }
 
   onToastClick () {
-    if (typeof this.onClick === 'function') {
-      this.onClick()
+    if (typeof this.$props.onClick === 'function') {
+      this.$props.onClick()
       return
     }
-    this.$emit('on-click')
+    this.$emit('click')
   }
 
   onToastClose () {
@@ -130,7 +136,7 @@ export default class VaToast extends Mixins(
       this.onClose()
       return
     }
-    this.$emit('on-close')
+    this.$emit('close')
   }
 
   clearTimer () {
@@ -163,6 +169,7 @@ export default class VaToast extends Mixins(
 </script>
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-toast {
   display: flex;
@@ -171,7 +178,7 @@ export default class VaToast extends Mixins(
   align-items: center;
   border-radius: $toast-radius;
   box-sizing: border-box;
-  border: 1px solid $toast-border-color;
+  border: 1px solid var(--va-toast-border-color);
   position: fixed;
   background-color: white;
   color: #ffffff;
@@ -192,21 +199,21 @@ export default class VaToast extends Mixins(
   }
 
   &__group {
-    margin-left: $toast-group-margin-left;
-    margin-right: $toast-group-margin-right;
+    margin-left: var(--va-toast-group-margin-left);
+    margin-right: var(--va-toast-group-margin-right);
   }
 
   &__title {
-    font-weight: bold;
-    font-size: $toast-title-font-size;
-    color: $toast-title-color;
-    margin: 0 0 6px;
+    font-weight: var(--va-toast-title-font-weight);
+    font-size: var(--va-toast-title-font-size);
+    color: var(--va-toast-title-color);
+    margin: var(--va-toast-title-margin);
   }
 
   &__content {
-    font-size: $toast-content-font-size;
-    line-height: 21px;
-    padding-right: 20px;
+    font-size: var(--va-toast-content-font-size);
+    line-height: var(--va-toast-content-line-height);
+    padding-right: var(--va-toast-content-padding-right);
 
     p {
       margin: 0;
@@ -214,9 +221,9 @@ export default class VaToast extends Mixins(
   }
 
   &__icon {
-    height: $toast-icon-size;
-    width: $toast-icon-size;
-    font-size: $toast-icon-size;
+    height: var(--va-toast-icon-height);
+    width: var(--va-toast-icon-width);
+    font-size: var(--va-toast-icon-font-size);
   }
 
   &__close-icon {
@@ -228,7 +235,7 @@ export default class VaToast extends Mixins(
     font-size: $toast-close-font-size;
 
     &:hover {
-      color: $toast-close-hover-color;
+      color: var(--va-toast-hover-color);
     }
   }
 }

@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import VaFileUpload from './VaFileUpload'
+import VaFileUpload from './index'
 export default {
   components: { VaFileUpload },
   data () {

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import SquareWithIcon from './SquareWithIcon.vue'
+import SquareWithIcon from './index'
 
 export default {
   components: { SquareWithIcon },

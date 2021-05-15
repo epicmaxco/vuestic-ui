@@ -8,10 +8,10 @@
         />
       </VbCard>
       <VbCard title="Slots (loading, error)">
-        <button @click="newImage">
+        <button @click="newImage()">
           New image
         </button>
-        <button @click="wrongPath">
+        <button @click="wrongPath()">
           Wrong path
         </button>
         <va-image
@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import VaImage from './VaImage'
+import VaImage from './index'
 
 export default {
   components: {

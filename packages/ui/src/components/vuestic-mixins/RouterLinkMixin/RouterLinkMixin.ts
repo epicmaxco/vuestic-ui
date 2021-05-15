@@ -1,39 +1,37 @@
-import { Options, prop, mixins } from 'vue-class-component'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-const RouterLinkPropsMixin = makeContextablePropsMixin({
-  tag: { type: String, default: 'router-link' },
-})
+class RouterLinkProps {
+  tag = prop<string>({ type: String, default: 'router-link' })
+  to = prop<string | Record<string, unknown>>({ type: [String, Object] })
+  replace = prop<boolean>({ type: Boolean })
+  append = prop<boolean>({ type: Boolean })
+  exact = prop<boolean>({ type: Boolean })
+  activeClass = prop<string>({ type: String })
+  exactActiveClass = prop<string>({ type: String })
+  href = prop<string>({ type: String })
+  target = prop<string>({ type: String })
+}
 
-// should not be contextable as it's a unique case (we just pass values to vue-router's <router-link/>)
+const RouterLinkPropsMixin = Vue.with(RouterLinkProps)
 
-@Options({
-  props: {
-    to: [String, Object],
-    replace: Boolean,
-    append: Boolean,
-    exact: Boolean,
-    activeClass: String,
-    exactActiveClass: String,
-    href: String,
-    target: String,
-  },
-})
+@Options({})
 export class RouterLinkMixin extends mixins(
   RouterLinkPropsMixin,
 ) {
+  hasRouterLinkMixin!: boolean
+
   get tagComputed () {
     const isNuxt = !!Object.getOwnPropertyDescriptor(this, '$nuxt')
-    if (this.c_tag === 'a' || (this.href && !this.to) || this.target) {
+    if (this.tag === 'a' || (this.href && !this.to) || this.target) {
       return 'a'
     }
-    if (this.c_tag === 'nuxt-link' || (isNuxt && this.hasRouterLinkParams)) {
+    if (this.tag === 'nuxt-link' || (isNuxt && this.hasRouterLinkParams)) {
       return 'nuxt-link'
     }
-    if (this.c_tag === 'router-link' || this.hasRouterLinkParams) {
+    if (this.tag === 'router-link' || this.hasRouterLinkParams) {
       return 'router-link'
     }
-    return this.c_tag
+    return this.tag
   }
 
   get hasRouterLinkParams () {
@@ -49,16 +47,16 @@ export class RouterLinkMixin extends mixins(
   }
 
   get isActiveRouterLink () {
-    if (!this.$router || !this.to) {
+    if (!(this as any).$router || !this.to) {
       return false
     }
 
-    const resolve = this.$router.resolve(
+    const resolve = (this as any).$router.resolve(
       this.to,
     )
 
     const to = resolve.href
-    const currentHref = this.$router.currentRoute.value.path
+    const currentHref = (this as any).$router.currentRoute.value.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
   }
@@ -67,7 +65,7 @@ export class RouterLinkMixin extends mixins(
     // to resolve href on server for SEO optimization
     // https://github.com/nuxt/nuxt.js/issues/8204
     // @ts-ignore
-    return this.href || (this.to ? this.$router?.resolve(this.to, this.$route).href : null)
+    return this.href || (this.to ? (this as any).$router?.resolve(this.to, (this as any).$route).href : null)
   }
 
   created () {

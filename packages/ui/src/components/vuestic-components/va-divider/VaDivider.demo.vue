@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import VaDivider from './VaDivider.vue'
+import VaDivider from './index'
 import DividerWithList from './DividerWithList'
 
 export default {

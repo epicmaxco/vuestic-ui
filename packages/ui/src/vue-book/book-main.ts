@@ -1,22 +1,23 @@
-// @ts-nocheck
 import { createApp } from 'vue'
 import App from './BookApp.vue'
-import { ContextPlugin, ContextPlugin } from '../components/context-test/context-provide/ContextPlugin'
-import { ColorThemePlugin } from '../services/ColorThemePlugin'
-import { getContext } from '../components/context-test/context-provide/context'
-
-import { BusPlugin } from 'vue-epic-bus'
-import { registerVuesticObject } from '../components/resize-events'
-import DropdownPopperSubplugin, { DropdownPopperPlugin } from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
-import { installPlatform } from '../components/vuestic-components/va-popup/install'
-import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
+import DropdownPopperSubplugin
+  from '../components/vuestic-components/va-dropdown/dropdown-popover-subplugin'
+// import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
 import ToastInstall from '../components/vuestic-components/va-toast/install'
 
 import { VueBookComponents, createRoute } from 'vue-book'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+import demoIconAliases from './vuestic-config/demo-icon-aliases'
+import demoIconFonts from './vuestic-config/demo-icon-fonts'
+
+import './vue-book-overrides.scss'
+import { createIconsConfig, VuesticPlugin } from '../main'
+import { colorsPresets } from '../services/color-config/color-theme-presets'
+
 console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
 
+// @ts-ignore
 const app = createApp(App)
 
 const routes = [
@@ -35,13 +36,21 @@ const router = createRouter({
   routes,
 })
 
-app.use(ColorHelpersPlugin)
-app.use(ColorThemePlugin)
+// app.use(ColorHelpersPlugin)
 app.use(VueBookComponents)
 app.use(ToastInstall)
 app.use(DropdownPopperSubplugin)
 app.use(router)
 
-app.use(ContextPlugin, getContext())
+app.use(VuesticPlugin, {
+  icons: createIconsConfig({
+    aliases: demoIconAliases,
+    fonts: demoIconFonts,
+  }),
+  colors: {
+    ...colorsPresets.default,
+    banana: '#d0f55d',
+  },
+})
 
 app.mount('#app')

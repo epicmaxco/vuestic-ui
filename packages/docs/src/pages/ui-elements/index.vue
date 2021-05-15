@@ -1,0 +1,11 @@
+<template>
+  <div></div>
+</template>
+
+<script lang="ts">
+import { Vue, Options } from 'vue-class-component'
+
+@Options({})
+export default class UiElements extends Vue {
+}
+</script>

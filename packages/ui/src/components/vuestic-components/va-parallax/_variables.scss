@@ -1,0 +1,29 @@
+:root {
+  --va-parallax-display: block;
+  --va-parallax-position: relative;
+  --va-parallax-overflow: hidden;
+  --va-parallax-width: auto;
+  --va-parallax-z-index: 0;
+
+  /* Image container */
+  --va-parallax-image-container-position: absolute;
+  --va-parallax-image-container-top: 0;
+  --va-parallax-image-container-left: 0;
+  --va-parallax-image-container-right: 0;
+  --va-parallax-image-container-bottom: 0;
+  --va-parallax-image-container-z-index: 1;
+  --va-parallax-image-container-contain: strict;
+  --va-parallax-image-container-user-select: none;
+
+  /* Image */
+  --va-parallax-image-position: absolute;
+  --va-parallax-image-bottom: 0;
+  --va-parallax-image-left: 50%;
+  --va-parallax-image-min-width: 100%;
+  --va-parallax-image-min-height: 100%;
+  --va-parallax-image-display: none;
+  --va-parallax-image-transform: translate(-50%, 0);
+  --va-parallax-image-will-change: transform;
+  --va-parallax-image-transition: 0.3s opacity linear;
+  --va-parallax-image-z-index: 1;
+}

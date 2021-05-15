@@ -27,6 +27,13 @@
       >
         Content
       </va-button-dropdown>
+      <va-button-dropdown
+        split
+        split-href="/"
+        label="Split href"
+      >
+        Content
+      </va-button-dropdown>
     </VbCard>
     <VbCard title="button props">
       <va-button-dropdown
@@ -132,6 +139,12 @@
         Content
       </va-button-dropdown>
       <va-button-dropdown
+        label="left icon"
+        left-icon="info"
+      >
+        Content
+      </va-button-dropdown>
+      <va-button-dropdown
         label="custom icon"
         icon="info"
       >
@@ -164,7 +177,7 @@
 </template>
 
 <script>
-import VaButtonDropdown from './VaButtonDropdown'
+import VaButtonDropdown from './index'
 
 export default {
   name: 'VaButtonDropdownDemo',

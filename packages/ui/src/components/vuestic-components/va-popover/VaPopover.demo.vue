@@ -152,7 +152,7 @@
             <va-popover
               placement="right"
               message="Popover dummy text"
-              open
+              opened
             >
               <va-button>Hover me</va-button>
             </va-popover>
@@ -164,8 +164,8 @@
 </template>
 
 <script>
-import VaPopover from './VaPopover'
-import VaButton from '../va-button/VaButton'
+import VaPopover from './index'
+import VaButton from '../va-button'
 
 export default {
   components: {

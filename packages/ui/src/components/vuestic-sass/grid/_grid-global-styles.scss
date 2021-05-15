@@ -243,6 +243,10 @@
 }
 
 // Display helpers
+.d-block {
+  display: block !important;
+}
+
 .d-flex {
   display: flex !important;
 }

@@ -88,8 +88,8 @@
 
 <script>
 
-import VaAccordion from './VaAccordion'
-import VaCollapse from './../va-collapse/VaCollapse'
+import VaAccordion from './index'
+import VaCollapse from '../va-collapse'
 
 export default {
   components: {

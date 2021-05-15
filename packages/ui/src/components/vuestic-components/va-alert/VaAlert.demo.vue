@@ -17,6 +17,15 @@
         </template>
         You successfully read this important alert message.
       </va-alert>
+      <va-alert color="info" title="Title">
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert outline color="info" title="Title">
+        You successfully read this important alert message.
+      </va-alert>
+      <va-alert border="top" color="info" title="Title">
+        You successfully read this important alert message.
+      </va-alert>
     </VbCard>
 
     <VbCard title="Colorful Alert">
@@ -65,6 +74,16 @@
       </va-alert>
     </VbCard>
 
+    <VbCard title="Dense Alerts">
+      <va-alert dense>
+        <va-badge
+          color="success"
+          label="Paid"
+        />
+        You successfully read this important alert message.
+      </va-alert>
+    </VbCard>
+
     <VbCard title="Border">
       <va-alert border="top">
         You successfully read this important alert message.
@@ -87,8 +106,12 @@
     </VbCard>
 
     <VbCard title="Closeable Alert">
-      <va-checkbox
-        label="Toggle visibility"
+      <label for="isCloseableAlertVisible">
+        Toggle visibility
+      </label>
+      <input
+        id="isCloseableAlertVisible"
+        type="checkbox"
         v-model="isCloseableAlertVisible"
       />
       <va-alert
@@ -186,14 +209,12 @@
 </template>
 
 <script>
-import VaCheckbox from '../va-checkbox/VaCheckbox'
-import VaAlert from './VaAlert'
-import VaBadge from '../va-badge/VaBadge'
-import VaIcon from '../va-icon/VaIcon'
+import VaAlert from './index'
+import VaBadge from '../va-badge'
+import VaIcon from '../va-icon'
 
 export default {
   components: {
-    VaCheckbox,
     VaAlert,
     VaBadge,
     VaIcon,

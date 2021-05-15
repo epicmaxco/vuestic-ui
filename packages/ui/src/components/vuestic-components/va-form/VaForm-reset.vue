@@ -17,11 +17,11 @@
 </template>
 
 <script lang="ts">
-
-import VaInput from '../va-input/VaInput.vue'
-import VaCheckbox from '../va-checkbox/VaCheckbox.vue'
-import VaForm from './VaForm.vue'
 import { Vue, Options } from 'vue-class-component'
+
+import VaInput from '../va-input'
+import VaCheckbox from '../va-checkbox'
+import VaForm from './index'
 
 @Options({
   name: 'VaFormReset',

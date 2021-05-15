@@ -49,31 +49,32 @@
 </template>
 
 <script lang="ts">
-import { Mixins } from 'vue-property-decorator'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
-import VaFileUploadList from './VaFileUploadList.vue'
-import VaButton from '../va-button/VaButton.vue'
-import VaModal from '../va-modal/VaModal.vue'
+import ColorMixin from '../../../services/color-config/ColorMixin'
+import { shiftHSLAColor } from '../../../services/color-config/color-functions'
+import VaButton from '../va-button'
+import VaModal from '../va-modal'
 
-import { getFocusColor } from '../../../services/color-functions'
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Options } from 'vue-class-component'
+import VaFileUploadList from './VaFileUploadList'
 
-const FileUploadPropsMixin = makeContextablePropsMixin({
-  type: {
+class FileUploadProps {
+  type = prop<string>({
     type: String,
     default: 'list',
     validator (modelValue: string) {
       return ['list', 'gallery', 'single'].includes(modelValue)
     },
-  },
-  fileTypes: { type: String, default: '' },
-  dropzone: { type: Boolean, default: false },
-  modelValue: { type: Array, default: () => [] },
-  color: { type: String, default: 'success' },
-  disabled: { type: Boolean, default: false },
-})
+  })
+
+  fileTypes = prop<string>({ type: String, default: '' })
+  dropzone = prop<boolean>({ type: Boolean, default: false })
+  modelValue = prop<any[]>({ type: Array, default: () => [] })
+  color = prop<string>({ type: String, default: 'primary' })
+  disabled = prop<boolean>({ type: Boolean, default: false })
+}
+
+const FileUploadPropsMixin = Vue.with(FileUploadProps)
 
 @Options({
   name: 'VaFileUpload',
@@ -84,15 +85,15 @@ const FileUploadPropsMixin = makeContextablePropsMixin({
   },
   emits: ['update:modelValue'],
 })
-export default class VaFileUpload extends Mixins(
-  ColorThemeMixin,
+export default class VaFileUpload extends mixins(
+  ColorMixin,
   FileUploadPropsMixin,
 ) {
   modal = false
 
   get computedStyle () {
     return {
-      backgroundColor: this.dropzone ? getFocusColor(this.colorComputed) : 'transparent',
+      backgroundColor: this.dropzone ? shiftHSLAColor(this.colorComputed, { a: -0.92 }) : 'transparent',
     }
   }
 
@@ -161,16 +162,17 @@ export default class VaFileUpload extends Mixins(
 
 <style lang='scss'>
 @import '../../vuestic-sass/resources/resources';
+@import 'variables';
 
 .va-file-upload {
-  position: relative;
+  position: var(--va-file-upload-position);
 
   &--dropzone {
-    background-color: $lighter-green;
-    padding: 1.5rem 2rem 0.5rem;
-    overflow: hidden;
-    border-radius: 0.375rem;
-    cursor: pointer;
+    background-color: var(--va-file-upload-dropzone-background-color);
+    padding: var(--va-file-upload-dropzone-padding);
+    overflow: var(--va-file-upload-dropzone-overflow);
+    border-radius: var(--va-file-upload-dropzone-border-radius);
+    cursor: var(--va-file-upload-dropzone-cursor);
 
     .va-file-upload__field {
       justify-content: center;
@@ -197,19 +199,19 @@ export default class VaFileUpload extends Mixins(
   }
 
   &__field {
-    padding-bottom: 1rem;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    position: relative;
+    padding-bottom: var(--va-file-upload-dropzone-field-padding-bottom);
+    overflow: var(--va-file-upload-dropzone-field-overflow);
+    display: var(--va-file-upload-dropzone-field-display);
+    align-items: var(--va-file-upload-dropzone-field-align-items);
+    position: var(--va-file-upload-dropzone-field-position);
 
     &__button {
-      margin: 0;
-      z-index: 10;
+      margin: var(--va-file-upload-dropzone-field-button-margin);
+      z-index: var(--va-file-upload-dropzone-field-button-zindex);
     }
 
     &__text {
-      padding-right: 10px;
+      padding-right: var(--va-file-upload-dropzone-field-text-pr);
     }
 
     &__input {

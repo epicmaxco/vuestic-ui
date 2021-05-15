@@ -3,72 +3,64 @@
     <ul class="va-color-palette__colors">
       <va-color-indicator
         v-for="(color, index) in palette"
+        :modelValue="context.valueComputed === color"
         :key="index"
         :color="color"
-        @click.native="handlerClick(color)"
         :indicator="indicator"
-        :selected="isSelected(color)"
+        @update:modelValue="context.valueComputed = color"
       />
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { Prop } from 'vue-property-decorator'
-import VaColorIndicator from './VaColorIndicator.vue'
-import { Vue, Options } from 'vue-class-component'
+import { Vue, Options, prop, setup } from 'vue-class-component'
+import { statefulComponentOptions, useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
+import VaColorIndicator from '../va-color-indicator'
 
-@Options({
-  name: 'VaColorPalette',
-  components: {
-    VaColorIndicator,
-  },
-})
-export default class VaColorPalette extends Vue {
-  @Prop({
-    type: String,
-    default: '',
-  }) readonly value!: string
-
-  @Prop({
+class ColorPaletteProps {
+  indicator = prop<string>({
     type: String,
     default: 'dot',
     validator: (value: string) => {
       return ['dot', 'square'].includes(value)
     },
-  }) readonly indicator!: string
+  })
 
-  @Prop({
+  palette = prop<Array<string>>({
     type: Array,
     default: () => [],
-  }) readonly palette!: Array<string>
+  })
+}
 
-  get valueProxy (): any {
-    return this.value
-  }
-
-  set valueProxy (value: any) {
-    this.$emit('input', value)
-  }
+@Options({
+  name: 'VaColorPalette',
+  components: { VaColorIndicator },
+  ...statefulComponentOptions,
+})
+export default class VaColorPalette extends Vue.with(ColorPaletteProps) {
+  context = setup(() => useStateful(this.$props, this.$emit))
 
   isSelected (color: any): boolean {
-    return this.value === color
-  }
-
-  handlerClick (color: any): void {
-    this.valueProxy = color
+    return this.context.valueComputed === color
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .va-color-palette {
   padding-top: 3px;
 
   &__colors {
-    padding: 3px;
     display: flex;
+
+    & > * {
+      margin-right: 0.25rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 }
-
 </style>

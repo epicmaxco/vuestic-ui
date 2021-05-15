@@ -1,23 +1,22 @@
-import { mixins, Options } from 'vue-class-component'
-
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
+import { mixins, Options, prop, Vue } from 'vue-class-component'
 
 export type ValueState = {
-  value?: string | boolean | number | any[];
+  modelValue?: any;
 }
 
-const componentProps = {
-  modelValue: {
+class Props {
+  modelValue: any = prop<undefined>({
     type: undefined,
     default: undefined,
-  },
-  stateful: {
+  })
+
+  stateful = prop<boolean>({
     type: Boolean,
     default: false,
-  },
+  })
 }
 
-const PropsMixin = makeContextablePropsMixin(componentProps)
+const PropsMixin = Vue.with(Props)
 
 // TODO Definitions could be done better, but it's too complicated to bother.
 
@@ -25,32 +24,25 @@ const PropsMixin = makeContextablePropsMixin(componentProps)
   emits: ['update:modelValue'],
 })
 export class StatefulMixin extends mixins(PropsMixin) {
-  // emits = ['update:modelValue']
-  valueState = {
-    modelValue: undefined,
+  valueState: ValueState = {
+    modelValue: this.$props.modelValue,
   }
+
+  hasStatefulMixin!: boolean
 
   created () {
     this.hasStatefulMixin = true
   }
 
-  // watch: {
-  //   modelValue = () => {
-  //     if (this.stateful) {
-  //       this.valueState.modelValue = this.modelValue
-  //     }
-  //   }
-  // }
-
   get valueComputed () {
-    if (this.stateful) {
+    if (this.$props.stateful) {
       return this.valueState.modelValue
     }
-    return this.modelValue
+    return this.$props.modelValue
   }
 
   set valueComputed (value) {
-    if (this.stateful) {
+    if (this.$props.stateful) {
       this.valueState.modelValue = value
     }
     this.$emit('update:modelValue', value)

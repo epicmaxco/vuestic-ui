@@ -49,7 +49,7 @@
           <div>{{ message }}</div>
         </slot>
         <template #footer>
-          <va-button @click="customActionClick">
+          <va-button @click="customActionClick()">
             Custom action
           </va-button>
         </template>
@@ -254,7 +254,7 @@
 </template>
 
 <script>
-import VaModal from './VaModal'
+import VaModal from './index'
 import VaButton from '../va-button'
 
 export default {

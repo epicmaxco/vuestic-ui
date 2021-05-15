@@ -121,8 +121,8 @@
 </template>
 
 <script>
-import VaForm from './VaForm'
-import VaInput from '../va-input/VaInput'
+import VaForm from './index'
+import VaInput from '../va-input'
 import VaFormReset from './VaForm-reset'
 
 export default {

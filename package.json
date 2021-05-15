@@ -1,16 +1,17 @@
 {
   "name": "vuestic-ui-wrapper",
-  "version": "1.0.0-alpha.11",
+  "version": "1.0.0-alpha.12",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "devDependencies": {
-    "@vue/cli-plugin-typescript": "^4.5.8",
+    "@vue/cli-plugin-typescript": "5.0.0-alpha.8",
     "lerna": "^3.20.2",
     "yorkie": "^2.0.0"
   },
   "private": true,
   "scripts": {
     "serve": "yarn workspace vuestic-ui serve",
+    "serve:book": "yarn workspace vuestic-ui serve",
     "test": "yarn workspace vuestic-ui test",
     "lint": "yarn workspace vuestic-ui lint",
     "build": "yarn workspace vuestic-ui build",
@@ -18,13 +19,14 @@
     "test:unit": "yarn workspace vuestic-ui test:unit",
     "test:coverage": "yarn workspace vuestic-ui test:coverage",
     "lint:style": "yarn workspace vuestic-ui lint:style",
-    "serve:docs": "yarn workspace @vuestic-ui/docs serve",
-    "build:docs": "yarn workspace @vuestic-ui/docs build",
-    "generate:docs": "yarn workspace @vuestic-ui/docs generate",
+    "serve:docs": "yarn workspace docs serve",
+    "build:docs": "yarn workspace docs build",
+    "build:docs:ci": "yarn workspace docs build:ci",
     "push": "yarn workspace vuestic-ui push",
     "push-production": "yarn workspace vuestic-ui push-production",
-    "generate:component": "yarn workspace @vuestic-ui/docs generate:component",
-    "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve; split-pane -d packages/docs --title vuestic-docs cmd /k yarn serve"
+    "generate:docs": "yarn workspace docs generate:docspage",
+    "generate:component": "yarn workspace docs generate:component",
+    "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve --port 8080; split-pane -d packages/docs --title vuestic-docs cmd /k yarn serve --port 8081"
   },
   "workspaces": [
     "packages/*"

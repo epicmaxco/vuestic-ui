@@ -172,7 +172,7 @@
     <VbCard
       title="Uses context and is stateful"
     >
-      <va-context :config="{
+      <va-context :components="{
         VaRating: {
           color: 'danger',
           max: 10,
@@ -187,8 +187,8 @@
 </template>
 
 <script>
-import VaRating from './VaRating'
-import VaContext from '../../context-test/context-provide/VaContext'
+import VaRating from './index'
+import VaContext from '../va-config'
 
 export default {
   components: {

@@ -120,7 +120,7 @@
       <va-chip
         disabled
         closeable
-        stateful
+        :stateful="true"
       >
         vuestic
       </va-chip>
@@ -138,8 +138,8 @@
 </template>
 
 <script>
-import VaChip from './VaChip'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
+import VaChip from './index'
+import VaCheckbox from '../va-checkbox'
 
 export default {
   components: {

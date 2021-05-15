@@ -7,38 +7,39 @@
       class="va-alert"
       :style="alertStyle"
     >
-    <div
-      class="va-alert__border"
-      :class="borderClass"
-      :style="borderStyle"
-    />
+      <div
+        :style="borderStyle"
+        :class="borderClass"
+        class="va-alert__border"
+      />
 
       <div
+        :style="contentStyle"
         class="va-alert__icon"
         v-if="hasIcon"
       >
         <slot name="icon">
           <va-icon
-            :color="c_color"
-            :name="c_icon"
+            :name="icon"
           />
         </slot>
       </div>
 
       <div
-        class="va-alert__content"
         :style="contentStyle"
+        class="va-alert__content"
       >
         <div
+          :style="titleStyle"
           class="va-alert__title"
           v-if="hasTitle"
         >
           <slot name="title">
-            {{c_title}}
+            {{ title }}
           </slot>
         </div>
         <slot>
-          {{c_description}}
+          {{ description }}
         </slot>
       </div>
 
@@ -47,15 +48,17 @@
         v-if="closeable"
       >
         <div
+          :style="contentStyle"
           class="va-alert__close--closeable"
           @click="hide()"
         >
           <slot name="close">
-            <va-icon v-if="!c_closeText"
-              :color="c_color"
+            <va-icon
+              v-if="!closeText"
               :name="closeIcon"
+              size="small"
             />
-            {{c_closeText}}
+            {{ closeText }}
           </slot>
         </div>
       </div>
@@ -65,83 +68,121 @@
 </template>
 
 <script lang="ts">
-import { Mixins, Prop } from 'vue-property-decorator'
-
-import VaIcon from '../va-icon/VaIcon.vue'
+import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 import {
   getHoverColor,
-  getBoxShadowColor,
-} from '../../../services/color-functions'
-
-import { ColorThemeMixin, getColor } from '../../../services/ColorThemePlugin'
+  getBoxShadowColor, getTextColor,
+} from '../../../services/color-config/color-functions'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { makeContextablePropsMixin } from '../../context-test/context-provide/ContextPlugin'
-import { Options } from 'vue-class-component'
 
-const AlertPropsMixin = makeContextablePropsMixin({
-  title: { type: String, default: '' },
-  description: { type: String, default: '' },
-  icon: { type: String, default: '' },
-  closeIcon: { type: String, default: 'close' },
-  closeText: { type: String, default: '' },
-  closeable: { type: Boolean, default: false },
-  center: { type: Boolean, default: false },
-  borderColor: { type: String, default: '' },
-  border: {
+import VaIcon from '../va-icon'
+
+class AlertProps {
+  color = prop<string>({ type: String, default: 'primary' })
+  title = prop<string>({ type: String, default: '' })
+  description = prop<string>({ type: String, default: '' })
+  icon = prop<string>({ type: String, default: '' })
+  closeText = prop<string>({ type: String, default: '' })
+  closeable = prop<boolean>({ type: Boolean, default: false })
+  dense = prop<boolean>({ type: Boolean, default: false })
+  outline = prop<boolean>({ type: Boolean, default: false })
+  center = prop<boolean>({ type: Boolean, default: false })
+  borderColor = prop<string>({ type: String, default: '' })
+  border = prop<string>({
     type: String,
     default: '',
     validator: (value: string) => {
       return ['top', 'right', 'bottom', 'left', ''].includes(value)
     },
-  },
-})
+  })
+
+  modelValue = prop<boolean>({
+    type: Boolean,
+    default: true,
+  })
+}
+
+const AlertPropsMixin = Vue.with(AlertProps)
+const dark = 'var(--va-dark)'
 
 @Options({
   name: 'VaAlert',
   components: { VaIcon },
 })
-export default class VaAlert extends Mixins(
+export default class VaAlert extends mixins(
   StatefulMixin,
-  ColorThemeMixin,
+  ColorMixin,
   AlertPropsMixin,
 ) {
-  @Prop({
-    type: Boolean,
-    default: true,
-  }) readonly modelValue!: boolean
-
   get hasIcon () {
-    return this.c_icon || this.$slots.icon
+    return this.icon || this.$slots.icon
   }
 
   get hasTitle () {
-    return this.c_title || this.$slots.title
+    return this.$props.title || this.$slots.title
   }
 
   get alertStyle () {
+    let background = this.colorComputed
+    let boxShadow = 'none'
+    if (this.outline) {
+      background = 'transparent'
+    }
+    if (this.border) {
+      background = '#ffffff'
+      boxShadow = 'var(--va-alert-box-shadow)'
+    }
     return {
-      background: getHoverColor(this.colorComputed),
-      boxShadow: '0 0.125rem 0.125rem 0 ' + getBoxShadowColor(this.colorComputed),
+      border: this.outline && `1px solid ${this.colorComputed}`,
+      background: background,
+      boxShadow: boxShadow,
+      padding: this.dense && '0.25rem 0.75rem',
     }
   }
 
   get contentStyle () {
+    let color = getTextColor(this.colorComputed)
+    if (this.outline) {
+      color = this.colorComputed
+    }
+    if (this.border) {
+      color = dark
+    }
     return {
-      alignItems: this.c_center && 'center',
+      alignItems: this.center && 'center',
+      color: color,
+    }
+  }
+
+  get titleStyle () {
+    let color = getTextColor(this.colorComputed)
+    if (this.outline) {
+      color = this.colorComputed
+    }
+    if (this.border) {
+      color = this.colorComputed
+    }
+    return {
+      color: color,
     }
   }
 
   get borderClass () {
-    return `va-alert__border--${this.c_border}`
+    return `va-alert__border--${this.border}`
   }
 
   get borderStyle () {
     return {
-      backgroundColor: this.c_borderColor
-        ? getColor(this, this.c_borderColor)
+      backgroundColor: this.$props.borderColor
+        ? this.theme.getColor(this.$props.borderColor)
         : this.colorComputed,
     }
+  }
+
+  get closeIcon () {
+    return !this.closeText ? 'close' : this.closeText
   }
 
   hide (): void {
@@ -152,79 +193,49 @@ export default class VaAlert extends Mixins(
 
 <style lang='scss'>
 @import "../../vuestic-sass/resources/resources";
-
-// Border border-radius
-$va-alert__border--top: 0.5rem 0.5rem 0 0;
-$va-alert__border--right: 0 0.5rem 0.5rem 0;
-$va-alert__border--bottom: 0 0 0.5rem 0.5rem;
-$va-alert__border--left: 0.5rem 0 0 0.5rem;
-
-// Alerts
-$va-alert-margin-y: 0.25rem;
-$va-alert-padding-x: 0.75rem;
-$va-alert-padding-y: 0.75rem;
-$va-alert-border: 0;
-$va-alert-border-radius: 0.5rem;
-$va-alert-box-shadow: 0.125rem;
-
-// Alert paddings with border
-$va-alert__border-padding-x: $va-alert-padding-x + 0.375rem;
-$va-alert__border-padding-y: $va-alert-padding-y + 0.375rem;
-
-// Badge
-$va-badge-margin-right: 0.5rem;
-$va-badge-padding-x: 0.5rem;
-$va-badge-padding-y: 0.125rem;
-$va-badge-border-radius: 0.5rem;
-$va-badge-font-size: 0.625rem;
-$va-badge-letter-spacing: 0.0625rem;
-
-// Close
-$va-close-padding-x: 0.5rem;
-$va-close-padding-y: 0.0625rem;
-$va-close-font-size: 1rem;
+@import "variables";
 
 .va-alert {
-  position: relative;
-  padding: $va-alert-padding-y $va-alert-padding-x;
-  margin: $va-alert-margin-y auto;
-  display: flex;
-  align-items: center;
-  border: $va-alert-border solid transparent;
-  border-radius: $va-alert-border-radius;
+  position: var(--va-alert-position);
+  padding: var(--va-alert-padding-y) var(--va-alert-padding-x);
+  margin: var(--va-alert-margin-y) auto;
+  display: var(--va-alert-display);
+  align-items: var(--va-alert-align-items);
+  border: var(--va-alert-border-width, var(--va-control-border)) solid transparent;
+  border-radius: var(--va-alert-border-radius, var(--va-block-border-radius));
 
   &__border {
     content: '';
     position: absolute;
 
     &--top {
-      border-radius: $va-alert__border--top;
+      border-radius: var(--va-alert-top-border-radius);
       width: 100%;
-      height: 0.375rem;
+      height: var(--va-alert-stripe-border-size);
       top: 0;
       left: 0;
     }
 
     &--right {
-      border-radius: $va-alert__border--right;
+      border-radius: var(--va-alert-right-border-radius);
       height: 100%;
-      width: 0.375rem;
+      width: var(--va-alert-stripe-border-size);
       bottom: 0;
       right: 0;
     }
 
     &--bottom {
-      border-radius: $va-alert__border--bottom;
+      border-radius: var(--va-alert-bottom-border-radius);
       width: 100%;
-      height: 0.375rem;
+      height: var(--va-alert-stripe-border-size);
       bottom: 0;
       left: 0;
     }
 
     &--left {
-      border-radius: $va-alert__border--left;
+      border-radius: var(--va-alert-left-border-radius);
       height: 100%;
-      width: 0.375rem;
+      width: var(--va-alert-stripe-border-size);
       bottom: 0;
       left: 0;
     }
@@ -233,12 +244,13 @@ $va-close-font-size: 1rem;
   &__icon {
     display: flex;
     align-items: center;
-    padding-right: $va-alert-padding-x;
+    padding-right: var(--va-alert-padding-x);
   }
 
   &__title {
     display: flex;
     align-items: center;
+    font-weight: var(--va-alert-title-font-weight);
   }
 
   &__content {
@@ -246,13 +258,16 @@ $va-close-font-size: 1rem;
     flex-direction: column;
     justify-content: center;
     flex-grow: 1;
+    color: var(--va-alert-color);
   }
 
   &__close {
-    padding-left: $va-close-padding-x;
-    font-size: $va-close-font-size;
+    padding-left: var(--va-alert-close-padding-x);
+    font-size: var(--va-alert-close-font-size);
 
     &--closeable {
+      display: flex;
+      align-items: center;
       cursor: pointer;
     }
   }
@@ -269,8 +284,7 @@ $va-close-font-size: 1rem;
           align-self: flex-start;
           display: flex;
           align-items: flex-start;
-          padding: 0;
-          padding-right: $va-close-padding-x;
+          padding: 0 var(--va-alert-close-padding-x) 0 0;
           margin: 0;
         }
       }

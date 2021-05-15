@@ -24,7 +24,7 @@
 }
 
 @mixin va-display($element) {
-  color: #1b1a1f;
+  color: var(--va-dark);
   font-size: map-get($display-font-sizes, $element);
   font-weight: 700;
   line-height: 1;
@@ -148,7 +148,7 @@
     $modal-transition: $modal-overlay-opacity-transition;
   }
 
-  &-enter,
+  &-enter-from,
   &-leave-to {
     opacity: 0;
 
@@ -157,11 +157,28 @@
     }
   }
 
-  &-enter-active {
-    transition: $modal-transition;
-  }
-
+  &-enter-active,
   &-leave-active {
     transition: $modal-transition;
   }
+}
+
+@mixin va-scroll($color: grey) {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color;
+    opacity: 0.3;
+    border-radius: 2px;
+  }
+
+  scrollbar-color: $color transparent;
+  scrollbar-width: thin;
 }

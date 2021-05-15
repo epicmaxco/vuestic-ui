@@ -18,11 +18,9 @@
 </template>
 
 <script>
-import VaSeparator from './VaSeparator.vue'
-import VaTabs from '../va-tabs/VaTabs'
-import VaTab from '../va-tabs/VaTab'
-import VaCard from '../va-card/VaCard'
-import VaCardContent from '../va-card/VaCardContent'
+import VaSeparator from './index'
+import VaTabs, { VaTab } from '../va-tabs'
+import VaCard, { VaCardContent } from '../va-card'
 
 export default {
   components: {

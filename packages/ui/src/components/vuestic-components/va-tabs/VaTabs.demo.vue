@@ -390,7 +390,7 @@
 </template>
 
 <script>
-import VaTabs from './VaTabs'
+import VaTabs from './index'
 import VaTab from './VaTab'
 
 export default {

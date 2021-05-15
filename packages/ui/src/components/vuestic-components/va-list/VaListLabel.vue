@@ -8,16 +8,15 @@
 </template>
 
 <script lang="ts">
-import { Options } from 'vue-class-component'
-import { Mixins } from 'vue-property-decorator'
+import { Options, mixins } from 'vue-class-component'
 
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 
 @Options({
   name: 'VaListLabel',
 })
-export default class VaListLabel extends Mixins(
-  ColorThemeMixin,
+export default class VaListLabel extends mixins(
+  ColorMixin,
 ) {
   get computedStyle () {
     return {
@@ -29,11 +28,12 @@ export default class VaListLabel extends Mixins(
 
 <style lang="scss">
 @import "../../vuestic-sass/resources/resources";
+@import 'variables';
 
 .va-list-label {
   @include va-title();
 
-  text-align: center;
-  padding: 0.3rem 0;
+  text-align: var(--va-list-label-text-align);
+  padding: var(--va-list-label-padding);
 }
 </style>

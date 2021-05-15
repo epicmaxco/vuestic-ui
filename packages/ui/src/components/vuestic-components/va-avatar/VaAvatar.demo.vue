@@ -118,8 +118,8 @@
 </template>
 
 <script>
-import VaAvatar from './VaAvatar'
-import VaIcon from '../va-icon/VaIcon'
+import VaAvatar from './index'
+import VaIcon from '../va-icon'
 import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo'
 
 export default {

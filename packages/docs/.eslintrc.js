@@ -5,16 +5,12 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'plugin:vue/essential',
+    'plugin:vue/vue3-essential',
     '@vue/standard',
-    '@vue/typescript/recommended'
+    '@vue/typescript/recommended',
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
   },
@@ -23,29 +19,18 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'comma-dangle': ['error', 'always-multiline'],
     curly: ['error', 'all'],
-    '@typescript-eslint/no-unused-vars': ['error'],
-    '@typescript-eslint/semi': ['error', 'never'],
+    indent: ['error', 2, { ignoreComments: true }],
     'prefer-arrow-callback': 'error',
     'array-bracket-spacing': ['error', 'never'],
-    '@typescript-eslint/no-explicit-any': 0,
-    '@typescript-eslint/ban-ts-ignore': 0,
-    '@typescript-eslint/camelcase': 0,
-    '@typescript-eslint/no-unused-vars': ['error', {'argsIgnorePattern': '^_'}],
-    '@typescript-eslint/member-delimiter-style': [
-      'error',
-      {
-        multiline: {
-          delimiter: 'comma',
-          requireLast: true,
-        },
-        singleline: {
-          delimiter: 'comma',
-          requireLast: true,
-        },
-      },
-    ],
-    quotes: ['error', 'single'],
-    semi: ['error', 'never'],
-    "id-match": ["error", "^[A-Za-z0-9\-_\$]+$", {"properties": true}], // To prevent cyrillic letters etc.
+    'vue/html-closing-bracket-spacing)': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/camelcase': 'off',
+    'id-match': ['error', '^[A-Za-z0-9-_$]+$', { properties: true }], // To prevent cyrillic letters etc.
+    'vue/html-closing-bracket-spacing': 'error',
   },
 }

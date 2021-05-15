@@ -131,14 +131,12 @@ import VaButton from './../../vuestic-components/va-button/VaButton'
 import VaAlert
   from './../../vuestic-components/va-alert/VaAlert'
 import VaProgressBar
-  from './../../vuestic-components/va-progress-bar/progress-types/VaProgressBar'
-import VaColorInputAdvanced
-  from '../../vuestic-components/va-color-input/VaColorInputAdvanced'
+  from '../../vuestic-components/va-progress-bar/VaProgressBar'
 import VaRating from '../../vuestic-components/va-rating/VaRating'
 import VaTreeRoot from '../../vuestic-components/va-tree-view/VaTreeRoot'
 import VaTreeCategory
-  from '../../vuestic-components/va-tree-view/VaTreeCategory'
-import VaTreeNode from '../../vuestic-components/va-tree-view/VaTreeNode'
+  from '../../vuestic-components/va-tree-view/VaTreeCategory/VaTreeCategory'
+import VaTreeNode from '../../vuestic-components/va-tree-view/VaTreeNode/VaTreeNode'
 import { getLineChartData } from '../../../data/charts/LineChartData'
 import VaBadge from '../../vuestic-components/va-badge/VaBadge'
 import VaFileUpload from '../../vuestic-components/va-file-upload/VaFileUpload'

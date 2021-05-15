@@ -82,10 +82,10 @@
 </template>
 
 <script>
-import VaBacktop from './VaBacktop'
-import VaRadio from '../va-radio/VaRadio'
-import VaSlider from '../va-slider/VaSlider'
-import VaCheckbox from '../va-checkbox/VaCheckbox'
+import VaBacktop from './index'
+import VaRadio from '../va-radio'
+import VaSlider from '../va-slider'
+import VaCheckbox from '../va-checkbox'
 
 export default {
   components: {

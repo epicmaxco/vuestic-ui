@@ -1,41 +1,54 @@
 {
-    "compilerOptions": {
-      "target": "esnext",
-      "module": "esnext",
-      "strict": true,
-      "jsx": "preserve",
-      "importHelpers": true,
-      "moduleResolution": "node",
-      "experimentalDecorators": true,
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "resolveJsonModule": true,
-      "sourceMap": true,
-      "baseUrl": ".",
-      "types": [
-        "webpack-env",
-        "jest",
-        "@types/node",
-        "@nuxt/types",
-        "nuxt-i18n/types"
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
       ],
-      "lib": [
-        "esnext",
-        "dom",
-        "dom.iterable",
-        "scripthost"
+      "vuestic-ui/*": [
+        "../ui/*"
       ]
     },
-    "include": [
-      "../ui/src/**/*.ts",
-      "components/**/*.ts",
-      "components/**/*.tsx",
-      "components/**/*.vue"
+    "types": [
+      "webpack-env",
+      "node",
     ],
-    "exclude": [
-      "node_modules",
-      ".nuxt",
-      "dist"
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
     ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts",
+    "./src/examples"
+  ],
+  // ts-node-specific overrides for compilerOptions
+  // any compilerOptions specified here will override the values specified above, *only* when running in ts-node
+  "ts-node": {
+    "transpileOnly": true,
+    "compiler": "typescript",
+    "compilerOptions": {
+      "module": "commonjs"
+    }
   }
-
+}

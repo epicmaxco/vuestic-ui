@@ -9,4 +9,5 @@ module.exports = {
     'color-hex-case': 'lower',
     'at-rule-no-unknown': null,
   },
+  ignoreFiles: ['dist/**/*'],
 }

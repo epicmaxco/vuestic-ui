@@ -1,27 +1,25 @@
 <script lang="ts">
-import { Mixins } from 'vue-property-decorator'
+import { VNode, h, Fragment } from 'vue'
+import { Options, prop, Vue, mixins } from 'vue-class-component'
+
 import { hasOwnProperty } from '../../../services/utils'
-import { VNode, h } from 'vue'
-
-import { ColorThemeMixin } from '../../../services/ColorThemePlugin'
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
-import {
-  makeContextablePropsMixin,
-} from '../../context-test/context-provide/ContextPlugin'
-import { Options } from 'vue-class-component'
 
-const BreadcrumbsPropsMixin = makeContextablePropsMixin({
-  separator: { type: String, default: '/' },
-  color: { type: String, default: 'gray' },
-  activeColor: { type: String, default: null },
-  separatorColor: { type: String, default: null },
-})
+class BreadcrumbsProps {
+  separator = prop<string>({ type: String, default: '/' })
+  color = prop<string>({ type: String, default: 'gray' })
+  activeColor = prop<string>({ type: String, default: null })
+  separatorColor = prop<string>({ type: String, default: null })
+}
+
+const BreadcrumbsPropsMixin = Vue.with(BreadcrumbsProps)
 
 @Options({
   name: 'VaBreadcrumbs',
 })
-export default class VaBreadcrumbs extends Mixins(
-  ColorThemeMixin,
+export default class VaBreadcrumbs extends mixins(
+  ColorMixin,
   AlignMixin,
   BreadcrumbsPropsMixin,
 ) {
@@ -30,38 +28,44 @@ export default class VaBreadcrumbs extends Mixins(
   }
 
   get computedThemesSeparatorColor () {
-    return this.separatorColor ? this.computeColor(this.c_separatorColor) : this.colorComputed
+    return this.separatorColor ? this.computeColor(this.separatorColor) : this.colorComputed
   }
 
   get computedThemesActiveColor () {
-    return this.activeColor ? this.computeColor(this.c_activeColor) : this.colorComputed
+    return this.activeColor ? this.computeColor(this.activeColor) : this.colorComputed
   }
 
   render () {
-    // const childNodeFilter = (node?: VNode) => !!node?.tag?.match(/VaBreadcrumbsItem$/)
-    const childNodeFilter = (node?: VNode) => !!(node?.type as any)?.name?.match(/VaBreadcrumbsItem$/)
+    // TODO: use provide/inject for this not to stick to component's name
+    const childNodeFilter = (result: VNode[], node?: VNode) => {
+      const nodes = node && node.type === Fragment && node.children ? node.children as VNode[] : [node]
 
-    const childNodes = (this.$slots as any)?.default()?.filter(childNodeFilter) || []
-    // .?default()?.filter(childNodeFilter) || []
+      return [
+        ...result,
+        ...nodes.filter((node?: VNode) => !!(node?.type as any)?.name?.match(/VaBreadcrumbsItem$/)),
+      ]
+    }
+
+    const childNodes = (this.$slots as any)?.default()?.reduce(childNodeFilter, []) || []
 
     const childNodesLength = childNodes.length
     const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
 
-    const separatorNode = (this.$slots.separator ? this.$slots.separator() : 0) || [this.separator]
+    const createSeparatorComponent = () => {
+      // Temp fix for https://github.com/vuejs/vue-next/issues/3666. Move `separatorNode` outside this method.
+      const separatorNode = (this.$slots.separator ? this.$slots.separator() : 0) || [this.separator]
 
-    const createSeparatorComponent = () => h(
-      'span',
-      {
-        class: ['va-breadcrumbs__separator',
-        // this.computedClass
-        ],
-        style: [{ color: this.computedThemesSeparatorColor }],
-      },
-      separatorNode,
-    )
+      return h(
+        'span',
+        {
+          class: ['va-breadcrumbs__separator'],
+          style: [{ color: this.computedThemesSeparatorColor }],
+        },
+        separatorNode,
+      )
+    }
 
     const isDisabledChild = (child: VNode) => {
-      // const childPropData = child?.componentOptions?.propsData as RecordPropsDefinition<VaBreadcrumbsItem>
       const childPropData = child?.props
       if (!childPropData || !hasOwnProperty(childPropData, 'disabled')) {
         return false
@@ -105,18 +109,20 @@ export default class VaBreadcrumbs extends Mixins(
 </script>
 
 <style lang="scss">
+@import 'variables';
+
 .va-breadcrumbs {
-  display: flex;
-  width: 100%;
-  justify-content: center;
+  display: var(--va-breadcrumbs-display);
+  width: var(--va-breadcrumbs-width);
+  justify-content: var(--va-breadcrumbs-justify-content);
 
   &__item {
-    display: inline-flex;
+    display: var(--va-breadcrumbs-item-display);
   }
 
   &__separator {
-    padding: 0 0.5rem;
-    display: inline-flex;
+    padding: var(--va-breadcrumbs-separator-padding);
+    display: var(--va-breadcrumbs-separator-display);
   }
 }
 

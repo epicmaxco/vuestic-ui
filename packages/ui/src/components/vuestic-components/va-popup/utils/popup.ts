@@ -153,6 +153,8 @@ export function setPosition ({ el, animate, anchorEl, anchorOrigin, selfOrigin, 
 export function positionValidator (pos) {
   const parts = pos.split(' ')
   if (parts.length !== 2) {
+    // eslint-disable-next-line no-console
+    console.error('Anchor/Self position must start with one of top/center/bottom and end with one of left/middle/right')
     return false
   }
   if (!['top', 'center', 'bottom'].includes(parts[0])) {

@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <div class="spacer" />
 </template>
 
@@ -11,8 +11,10 @@ import { Vue, Options } from 'vue-class-component'
 export default class VaSpacer extends Vue {}
 </script>
 
-<style lang="scss" scoped>
-  .spacer {
-    flex-grow: 1 !important;
-  }
+<style lang="scss">
+@import 'variables';
+
+.spacer {
+  flex-grow: var(--va-spacer-flex-grow);
+}
 </style>
