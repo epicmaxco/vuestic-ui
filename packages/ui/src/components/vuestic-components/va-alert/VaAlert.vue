@@ -105,7 +105,7 @@ class AlertProps {
 }
 
 const AlertPropsMixin = Vue.with(AlertProps)
-const dark = '#1b1a1f'
+const dark = 'var(--va-dark)'
 
 @Options({
   name: 'VaAlert',
