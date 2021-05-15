@@ -48,7 +48,7 @@ import { Options, prop, mixins, Vue } from 'vue-class-component'
 import {
   getBoxShadowColor,
   getHoverColor,
-  getFocusColor,
+  getFocusColor, getTextColor,
 } from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
@@ -130,7 +130,7 @@ export default class VaChip extends mixins(
 
   get computedStyle () {
     const computedStyle: any = {
-      color: '',
+      color: getTextColor(this.colorComputed),
       borderColor: '',
       background: '',
       boxShadow: '',
@@ -151,7 +151,7 @@ export default class VaChip extends mixins(
         computedStyle.boxShadow = this.shadowStyle
       }
     } else {
-      computedStyle.color = this.flat || this.outline ? this.colorComputed : ''
+      computedStyle.color = (this.flat || this.outline) ? this.colorComputed : getTextColor(this.colorComputed)
       computedStyle.borderColor = this.outline ? this.colorComputed : ''
       computedStyle.boxShadow = !this.disabled && this.shadowStyle
     }
@@ -159,7 +159,6 @@ export default class VaChip extends mixins(
     if (!this.outline && !this.flat) {
       computedStyle.background = this.colorComputed
     }
-
     return computedStyle
   }
 
