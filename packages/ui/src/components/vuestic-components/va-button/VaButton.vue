@@ -203,8 +203,7 @@ export default class VaButton extends mixins(
     return {
       color: color,
       borderColor: borderColor,
-      // background: `${background} !important`,
-      background: `${background} !important`,
+      background: background,
       boxShadow: boxShadow,
     }
   }

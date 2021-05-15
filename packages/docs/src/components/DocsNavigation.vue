@@ -161,6 +161,7 @@ app.mount("#app");
     &:focus {
       background: none !important;
       opacity: 0.7;
+      box-shadow: none !important;
     }
 
     &__icon {
