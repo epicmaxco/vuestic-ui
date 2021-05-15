@@ -9,27 +9,21 @@ type VuesticColorsPreset = {
   warning: CssColor,
   gray: CssColor,
   dark: CssColor,
+  background: CssColor,
+  divider: CssColor,
 }
 
 export const colorsPresets: Record<string, VuesticColorsPreset> = {
   default: {
-    primary: '#3a6ed2',
-    secondary: '#002c85',
-    success: '#40e583',
-    info: '#2c82e0',
-    danger: '#e34b4a',
-    warning: '#ffc200',
+    primary: '#154EC1',
+    secondary: '#767C88',
+    success: '#3D9209',
+    info: '#1E9CE3',
+    danger: '#E42222',
+    warning: '#FFD43A',
+    background: '#F5F9FB',
+    divider: '#E1E9F8',
     gray: '#babfc2',
-    dark: '#34495e',
-  },
-  corporate: {
-    primary: '#6c7fee',
-    secondary: '#6e7ff1',
-    success: '#8ddc88',
-    info: '#71baff',
-    danger: '#f8706d',
-    warning: '#ffd652',
-    gray: '#8396a5',
-    dark: '#34495e',
+    dark: '#262824',
   },
 }
