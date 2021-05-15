@@ -5,7 +5,7 @@
         <div class="header__logo">
           <!--        TODO: add root link-->
           <a href="/">
-            <v-icon :component="VuesticLogo" />
+            <vuestic-logo height="30" width="150" />
           </a>
           <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
             <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
@@ -78,21 +78,20 @@
 // @ts-nocheck
 import { Options, Vue } from 'vue-class-component'
 import { languages } from './../languages'
-import VuesticLogo from '../header/components/VuesticDocsLogo.vue'
+import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import StarsButton from './StarsButton.vue'
 
 @Options({
   name: 'LandingHeader',
   components: {
-    LanguageDropdown, StarsButton,
+    LanguageDropdown, StarsButton, VuesticLogo,
   },
 })
 export default class Header extends Vue {
   value = false
   isHidden = true
   options = languages
-  VuesticLogo = VuesticLogo
 
   onClick (value: boolean) {
     this.isHidden = value
