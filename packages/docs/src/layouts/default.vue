@@ -1,10 +1,10 @@
 <template>
   <div class="base-layout">
     <div class="base-layout__header">
-      <Header v-model:is-sidebar-visible="isSidebarVisible" />
+      <Header v-model:is-sidebar-visible="isSidebarVisible"/>
     </div>
     <main id="base-layout" class="base-layout__main">
-      <Sidebar v-model:visible="isSidebarVisible" :navigationRoutes="navigationRoutes" :mobile="isSmallScreenDevice" />
+      <Sidebar v-model:visible="isSidebarVisible" :navigationRoutes="navigationRoutes" :mobile="isSmallScreenDevice"/>
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
@@ -20,15 +20,16 @@
             :key="index"
             :label="crumb.label"
             :to="crumb.path"
+            :disabled="crumb.disabled"
             :style="{ color: 'gray' }"
           />
           <template #separator>
-            <va-icon name="arrow_forward_ios" :size="16" />
+            <va-icon name="arrow_forward_ios" :size="16"/>
           </template>
         </va-breadcrumbs>
 
         <div class="layout gutter--xl">
-          <router-view />
+          <router-view/>
         </div>
       </div>
     </main>
@@ -45,6 +46,7 @@ import { COLOR_THEMES, ThemeName } from '../config/theme-config'
 import { setColors } from '../../../ui/src/main'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 import { debounce } from 'lodash'
+import { getSortedNavigationRoutes } from '@/helpers/NavigationRoutesHelper'
 
 @Options({
   components: {
@@ -84,37 +86,16 @@ export default class DocsLayout extends Vue {
 
     this.isSmallScreenDevice = window.innerWidth <= 575
 
-    const onResizeDebounce = debounce(() => { this.isSmallScreenDevice = window.innerWidth <= 575 }, 500)
+    const onResizeDebounce = debounce(() => {
+      this.isSmallScreenDevice = window.innerWidth <= 575
+    }, 500)
     window.addEventListener('resize', () => onResizeDebounce())
 
     this.isSidebarVisible = !this.isSmallScreenDevice
   }
 
   get navigationRoutes () {
-    // ToDO: normalize navigation routes with better structure. This sort is temporary solution
-    const routes = JSON.parse(JSON.stringify(navigationRoutes))
-    const uiElementsIndex = routes.findIndex(route => route.name === 'ui-elements')
-    const uiElements = routes.find(route => route.name === 'ui-elements').children
-    let result = []
-    let nextCategoryIndex
-    // Sort elements alphabetically
-    do {
-      let tempArr = []
-      const tempCategoryName = uiElements[0].category
-      delete uiElements[0].category
-      nextCategoryIndex = uiElements.findIndex(element => element.category)
-      if (nextCategoryIndex !== -1) {
-        tempArr = uiElements.slice(0, nextCategoryIndex).sort((a, b) => a.name.localeCompare(b.name))
-      } else {
-        tempArr = uiElements.slice(0, uiElements.length).sort((a, b) => a.name.localeCompare(b.name))
-      }
-      tempArr[0].category = tempCategoryName
-      result = [...result, ...tempArr]
-      uiElements.splice(0, nextCategoryIndex)
-    } while (uiElements.length && nextCategoryIndex !== -1)
-
-    routes[uiElementsIndex].children = result
-    return routes
+    return getSortedNavigationRoutes(navigationRoutes)
   }
 
   beforeDestroy () {
@@ -129,7 +110,6 @@ export default class DocsLayout extends Vue {
     // if (this.$isServer) {
     //   return []
     // }
-    // @ts-ignore
     if (this.$route.path === '/') {
       return [
         {
@@ -140,22 +120,22 @@ export default class DocsLayout extends Vue {
     }
     const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
     return pathSteps.reduce((acc, step, index, array) => {
-      switch (true) {
-      case !index:
+      if (index === 0) {
         acc.push({
           label: 'Home',
           path: `/${this.$root.$i18n.locale}/`,
         })
-        break
-      case !step && index:
-        break
-      default:
-        acc.push({
-          path: '/' + array.slice(0, index + 1).join('/'),
-          label: step,
-        })
-        break
+        return acc
       }
+      if (!step && index) {
+        return acc
+      }
+      const isCategoryRoute = this.navigationRoutes.find(route => route.name === step)
+      acc.push({
+        path: '/' + array.slice(0, index + 1).join('/'),
+        label: step,
+        disabled: !!isCategoryRoute,
+      })
       return acc
     }, [] as { [key: string]: string, }[])
   }
@@ -165,7 +145,9 @@ export default class DocsLayout extends Vue {
 
     pageContent.scrollTop = 0
 
-    if (pageContent) { pageContent.scrollTop = 0 }
+    if (pageContent) {
+      pageContent.scrollTop = 0
+    }
   }
 }
 </script>
