@@ -1,6 +1,7 @@
 <template>
 <div>
   <va-button-dropdown
+    class="mr-2 mb-2"
     @click="click"
     label="Click event"
   >
