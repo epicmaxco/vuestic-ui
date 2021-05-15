@@ -2,35 +2,28 @@
   <transition name="va-toast-fade">
     <div
       v-show="visible"
-      class="va-toast"
-      :class="toastClasses"
+      :class="['va-toast', $props.multiLine ? 'va-toast--multiline' : '', ...toastClasses]"
       :style="toastStyles"
       @mouseenter="clearTimer()"
       @mouseleave="startTimer()"
       @click="onToastClick()"
       role="alert"
     >
-      <template>
-        <slot name="prepend" />
-      </template>
       <div class="va-toast__group">
-        <h2 v-if="$props.title" class="va-toast__title" v-text="$props.title"></h2>
-        <div class="va-toast__content" v-show="$props.message">
-          <slot>
-            <p v-if="!$props.dangerouslyUseHTMLString" v-text="$props.message"></p>
-            <p v-else v-html="$props.message"></p>
-          </slot>
+        <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
+
+        <div class="va-toast__content" v-show="message">
+          <p v-text="message"></p>
         </div>
-        <div
-          v-if="$slots.append"
-          @click.stop="onToastClose"
-        >
-          <slot name="append" />
+
+        <div class="va-toast__content" v-if="render">
+          <VaToastRenderer :content="render" />
         </div>
+
         <va-icon
-          v-else-if="$props.closeable"
+          v-if="closeable"
           size="small"
-          name="close"
+          :name="icon"
           class="va-toast__close-icon"
           @click.stop="onToastClose"
         />
@@ -40,57 +33,64 @@
 </template>
 
 <script lang="ts">
-import { watch, PropType } from 'vue'
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { h, watch } from 'vue'
+import { prop, mixins, Vue, Options } from 'vue-class-component'
+import VaIcon from '../va-icon/VaIcon.vue'
 
 import ColorMixin from '../../../services/color-config/ColorMixin'
-import VaIcon from '../va-icon'
-
 import { NotificationPosition } from './types'
 
 class ToastProps {
   title = prop<string>({ type: String, default: '' })
   offsetY = prop<number>({ type: Number, default: 16 })
   offsetX = prop<number>({ type: Number, default: 16 })
-  message = prop<string | Function>({ type: [String, Function], default: '' })
-  iconClass = prop<string>({ type: String, default: '' })
+  message = prop<string | Function>({ type: [String, Function] as any, default: '' })
+  icon = prop<string>({ type: String, default: 'close' })
   customClass = prop<string>({ type: String, default: '' })
-  duration = prop<number>({ type: Number, default: 20000 })
-  color = prop<string>({ type: String, default: 'primary' })
+  duration = prop<number>({ type: Number, default: 5000 })
+  color = prop<string>({ type: String, default: '' })
   closeable = prop<boolean>({ type: Boolean, default: true })
-  dangerouslyUseHTMLString = prop<boolean>({ type: Boolean, default: false })
-  onClose = prop<Function>({ type: Function as PropType<() => void> })
-  onClick = prop<Function>({ type: Function as PropType<() => void> })
-  position = prop<string>({
-    type: String as PropType<NotificationPosition>,
+  onClose = prop<() => void>({ type: [Function, undefined] as any })
+  onClick = prop<() => void>({ type: [Function, undefined] as any })
+  multiLine = prop<boolean>({ type: Boolean, default: false })
+  position = prop<NotificationPosition>({
+    type: String as any,
     default: 'top-right',
+    validator: (value: string) => {
+      return ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value)
+    },
   })
+  render = prop<any>({ type: Function, default: undefined })
+}
+
+class VaToastRendererProps {
+  content = prop<any>({ type: Function, default: undefined })
+}
+
+const VaToastRendererPropsMixin = Vue.with(VaToastRendererProps)
+
+@Options({
+  name: 'VaToastRenderer',
+})
+class VaToastRenderer extends mixins(VaToastRendererPropsMixin) {
+  render () {
+    return this.content(h)
+  }
 }
 
 const ToastPropsMixin = Vue.with(ToastProps)
 
 @Options({
   name: 'VaToast',
-  components: { VaIcon },
-  emits: ['click', 'close'],
+  components: { VaIcon, VaToastRenderer },
+  emits: ['on-click', 'on-close'],
 })
 export default class VaToast extends mixins(
   ColorMixin,
   ToastPropsMixin,
 ) {
-  private closed = false
-  private timer: number | null = null
-
-  public visible = true
-
-  created () {
-    watch(() => this.closed, (value) => {
-      if (value) {
-        this.visible = false
-        this.$el.addEventListener('transitionend', this.destroyElement)
-      }
-    })
-  }
+  private timer: any = null
+  public visible = false
 
   get positionX (): 'right' | 'left' {
     return this.position.includes('right') ? 'right' : 'left'
@@ -130,55 +130,40 @@ export default class VaToast extends mixins(
   }
 
   onToastClose () {
-    this.closed = true
-    if (typeof this.$props.onClose === 'function') {
-      this.$props.onClose()
+    this.visible = false
+    this.$el.addEventListener('transitionend', this.destroyElement)
+    if (typeof this.onClose === 'function') {
+      this.onClose()
       return
     }
     this.$emit('close')
   }
 
   clearTimer () {
-    clearTimeout(this.timer as number)
+    if (this.timer) {
+      clearTimeout(this.timer)
+    }
   }
 
   startTimer () {
     if (this.duration > 0) {
-      this.timer = window.setTimeout(() => {
-        if (!this.closed) {
+      this.timer = setTimeout(() => {
+        if (this.visible) {
           this.onToastClose()
         }
       }, this.duration)
-    }
-  }
-
-  onKeydown (e: KeyboardEvent) {
-    // Reset timer if user press Delete or Backspace. I'm not sure we need this
-    if (e.keyCode === 46 || e.keyCode === 8) {
-      this.clearTimer()
-      // Close if user press Escape
-    } else if (e.keyCode === 27) {
-      if (!this.closed) {
-        this.onToastClose()
-      }
-    } else {
-      this.startTimer()
     }
   }
 
   mounted () {
+    this.visible = true
     if (this.duration > 0) {
-      this.timer = window.setTimeout(() => {
-        if (!this.closed) {
+      this.timer = setTimeout(() => {
+        if (this.visible) {
           this.onToastClose()
         }
       }, this.duration)
     }
-    document.addEventListener('keydown', this.onKeydown)
-  }
-
-  beforeUnmount () {
-    document.removeEventListener('keydown', this.onKeydown)
   }
 }
 </script>
@@ -187,17 +172,23 @@ export default class VaToast extends mixins(
 @import 'variables';
 
 .va-toast {
-  display: var(--va-toast-display);
-  width: var(--va-toast-width);
-  padding: var(--va-toast-padding);
-  border-radius: var(--va-toast-border-radius);
-  box-sizing: var(--va-toast-box-sizing);
-  position: var(--va-toast-position);
-  background-color: var(--va-toast-background-color);
-  color: var(--va-toast-color);
-  box-shadow: var(--va-toast-box-shadow);
-  transition: var(--va-toast-transition);
-  overflow: var(--va-toast-overflow);
+  display: flex;
+  width: $toast-width;
+  padding: $toast-padding;
+  align-items: center;
+  border-radius: $toast-radius;
+  box-sizing: border-box;
+  border: 1px solid var(--va-toast-border-color);
+  position: fixed;
+  background-color: white;
+  color: #ffffff;
+  box-shadow: $toast-shadow;
+  transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
+  overflow: hidden;
+
+  &--multiline {
+    min-height: 70px;
+  }
 
   &--right {
     right: 16px;
@@ -236,11 +227,12 @@ export default class VaToast extends mixins(
   }
 
   &__close-icon {
-    position: var(--va-toast-close-icon-position);
-    top: var(--va-toast-close-icon-top);
-    right: var(--va-toast-close-icon-right);
-    cursor: var(--va-toast-close-icon-cursor);
-    font-size: var(--va-toast-close-icon-font-size);
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    cursor: pointer;
+    transform: translateY(-50%);
+    font-size: $toast-close-font-size;
 
     &:hover {
       color: var(--va-toast-hover-color);

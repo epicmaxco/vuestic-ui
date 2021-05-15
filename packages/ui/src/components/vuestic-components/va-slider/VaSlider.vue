@@ -165,7 +165,6 @@ class SliderProps {
     type: [Number, Array],
     default: () => [],
   })
-
   trackLabel = prop<string>({ type: String, default: '' })
   color = prop<string>({ type: String, default: 'primary' })
   trackColor = prop<string>({ type: String, default: '' })

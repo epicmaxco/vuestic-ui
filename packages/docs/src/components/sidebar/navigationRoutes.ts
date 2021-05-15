@@ -275,6 +275,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'progress-circle',
         displayName: 'menu.progressCircle',
       },
+      {
+        name: 'toast',
+        displayName: 'menu.toast',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },

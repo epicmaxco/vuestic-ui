@@ -19,6 +19,7 @@ module.exports = {
     curly: ['error', 'all'],
     indent: ['error', 2, { ignoreComments: true }],
     'prefer-arrow-callback': 'error',
+    'lines-between-class-members': 'off',
     'array-bracket-spacing': ['error', 'never'],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',

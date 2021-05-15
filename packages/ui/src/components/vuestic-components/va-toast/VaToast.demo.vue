@@ -21,11 +21,18 @@
     <VbCard title="Custom onClose">
       <button @click="$vaToast.init(customOnCloseHandler)">notification with custom onClose handler</button>
     </VbCard>
-    <VbCard title="Close">
-      <button @click="$vaToast.close('notification_4')">Close #4 toast</button>
-    </VbCard>
     <VbCard title="Close All">
       <button @click="$vaToast.closeAll()">Close all toasts</button>
+    </VbCard>
+    <VbCard title="Custom message">
+      <button @click="$vaToast.init(customMessage)">Custom message</button>
+    </VbCard>
+    <VbCard title="Multi-line">
+      <button @click="$vaToast.init(multiLine)">Multi-line</button>
+    </VbCard>
+    <VbCard title="Return ID">
+      <button @click="handleToast">Open Toast</button>
+      <button @click="$vaToast.close(handleId)">Close {{handleId}}</button>
     </VbCard>
   </VbDemo>
 </template>
@@ -62,7 +69,32 @@ export default {
         message: 'Custom handler (bottom-right)',
         onClose: () => console.log('Handle onClose'),
       },
+      customMessage: {
+        message: 'Simple message',
+        render: (h) => {
+          return h('div', [
+            'This is a ',
+            h('span', { style: 'font-weight: bold' }, 'custom'),
+            ' render message',
+          ])
+        },
+      },
+      multiLine: {
+        message: 'Multi-line message',
+        multiLine: true,
+      },
+      handleId: null,
     }
+  },
+  methods: {
+    handleToast () {
+      this.handleId = this.$vaToast.init({
+        message: `Toast ${this.handleId} is opened`, // this example is buggy because of lack of reactivity inside the toast data
+        onClose: () => {
+          this.handleId = null
+        },
+      })
+    },
   },
 }
 </script>
