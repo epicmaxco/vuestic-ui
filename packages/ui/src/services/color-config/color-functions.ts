@@ -5,10 +5,10 @@ export const colorToRgba = (color: ColorInput, opacity: number) => {
   return new ColorTranslator(color).setA(opacity).RGBA
 }
 
-export const getTextColor = (color: ColorInput) => {
+export const getTextColor = (color: ColorInput, darkColor = 'inherit', lightColor = '#ffffff') => {
   const { R, G, B } = new ColorTranslator(color)
-  const isDarkBackground = Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 130
-  return isDarkBackground ? 'inherit' : '#ffffff'
+  const isLightBackground = Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 130
+  return isLightBackground ? darkColor : lightColor
 }
 
 export const getBoxShadowColor = (color: ColorInput) => {
