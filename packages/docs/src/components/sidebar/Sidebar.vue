@@ -8,7 +8,7 @@
         :key="key"
       >
         <template #header>
-          <va-sidebar-item>
+          <va-sidebar-item :activeColor="activeColor">
             <va-sidebar-item-content :class="{ 'va-sidebar-item--active': isRouteHasActiveChild(route) }">
               <va-sidebar-item-title>
                 {{ $t(route.displayName) }}
@@ -32,7 +32,8 @@
           <va-sidebar-item
             :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
-            :hoverColor="getColor('secondary')"
+            :activeColor="activeColor"
+            border-color="primary"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
@@ -50,7 +51,7 @@ import { watch } from 'vue'
 import { Options, Vue, prop } from 'vue-class-component'
 import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
 import VaSidebarLink from './SidebarLink.vue'
-import { getColor } from 'vuestic-ui/src/main'
+import { getColor, useColors } from 'vuestic-ui/src/main'
 
 class Props {
   navigationRoutes = prop<any[]>({ type: Array, default: () => [] })
@@ -70,6 +71,10 @@ export default class Sidebar extends Vue.with(Props) {
 
   getColor (color: string) {
     return getColor(color)
+  }
+
+  get activeColor () {
+    return '#b8c9ec'
   }
 
   onRouteChange () {

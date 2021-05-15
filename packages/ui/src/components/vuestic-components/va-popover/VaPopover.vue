@@ -79,6 +79,20 @@ class PopoverProps {
 const PopoverPropsMixin = Vue.with(PopoverProps)
 
 @Options({
+  placement: {
+    type: String,
+    default: 'bottom',
+    validator: (value: string) => {
+      return ['right', 'left', 'bottom', 'top'].includes(value)
+    },
+  },
+  trigger: {
+    type: String,
+    default: 'hover',
+    validator: (value: string) => {
+      return ['hover', 'focus', 'click'].includes(value)
+    },
+  },
   name: 'VaPopover',
   components: { VaIcon, VaDropdown },
 })

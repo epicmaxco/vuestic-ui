@@ -72,7 +72,7 @@ export default defineComponent({
     &:hover,
     &.active {
       .dropdown-item__text {
-        color: #1b1a1f;
+        color: var(--va-dark);
       }
     }
   }

@@ -162,7 +162,7 @@ export default class Search extends Vue {
             font-weight: normal;
             font-size: 16px;
             line-height: 20px;
-            color: #1b1a1f;
+            color: var(--va-dark);
 
             .algolia-docsearch-suggestion--highlight {
               padding: 0;

@@ -157,7 +157,7 @@ export default class DocsLayout extends Vue {
 
 html {
   font-family: $font-family-sans-serif;
-  color: #1b1a1f;
+  color: var(--va-dark);
   font-size: $font-size-root;
 }
 

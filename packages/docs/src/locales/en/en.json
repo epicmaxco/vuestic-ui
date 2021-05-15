@@ -92,11 +92,11 @@
   "api": {
     "all": {
       "events": {
-        "validation": "On internal validation",
-        "blur": "On blur",
-        "focus": "On focus",
-        "input": "On value change",
-        "click": "On click"
+        "validation": "On internal validation.",
+        "blur": "On blur.",
+        "focus": "On focus.",
+        "input": "On value change.",
+        "click": "On click."
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -111,10 +111,10 @@
         "messages": "Description messages for the component.",
         "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
-        "stateful": "Add possibility to work with component without setting `v-model`",
-        "color": "Color of the component (theme string or *HEX* string)",
-        "textColor": "Text color (theme string or *HEX* string)",
-        "rules": "Validation rules <!-- TODO Add link -->",
+        "stateful": "Add possibility to work with component without setting `v-model`.",
+        "color": "Color of the component (theme string or *HEX* string).",
+        "textColor": "Text color (theme string or *HEX* string).",
+        "rules": "Validation rules <!-- TODO Add link -->.",
         "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\").",
         "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\").",
         "append": "When set, always appends the relative path to the current path. [More info here](https://router.vuejs.org/api/#append \"Vue router docs\").",
@@ -124,18 +124,18 @@
         "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
         "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
         "src": "Source URL.",
-        "arrayValue": "Same as native `value`. It is used with `v-model` of an array type",
-        "label": "Same as native `label`",
-        "leftLabel": "Moves the label on the left of a component",
-        "loading": "Indicates that something is loading (spinner icon)",
-        "trueValue": "Overrides the returned value when it's checked",
-        "falseValue": "Overrides the returned value when it's not checked",
-        "square": "Removes rounded corners",
-        "indicator": "Sets the indicator style",
+        "arrayValue": "Same as native `value`. It is used with `v-model` of an array type.",
+        "label": "Same as native `label`.",
+        "leftLabel": "Moves the label on the left of a component.",
+        "loading": "Indicates that something is loading (spinner icon).",
+        "trueValue": "Overrides the returned value when it's checked.",
+        "falseValue": "Overrides the returned value when it's not checked.",
+        "square": "Removes rounded corners.",
+        "indicator": "Sets the indicator style.",
         "icon": "Sets an icon.",
-        "rounded": "Adds rounded corners",
-        "flat": "Removes borders and background",
-        "outline": "Removes background"
+        "rounded": "Adds rounded corners.",
+        "flat": "Removes borders and background.",
+        "outline": "Removes background."
       }
     },
     "VaBadge": {
@@ -755,9 +755,35 @@
         "default": "Slot for backtop content"
       }
     },
+    "VaButtonDropdown": {
+      "props": {
+        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available.",
+        "disableDropdown": "Disables the dropdown menu.",
+        "disableButton": "Disables the button.",
+        "round": "Sets the square style for a button.",
+        "split": "Divides the button into two parts. This is useful when you have main action (button) and a number of secondary actions (icon + dropdown).",
+        "splitTo": "Sets a vue navigation link in a split component.",
+        "splitHref": "Sets a native navigation link in a split component.",
+        "icon": "Applies a custom icon in the dropdown section.",
+        "leftIcon": "Applies a button left icon.",
+        "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened.",
+        "position": "Sets the position of the dropdown content.",
+        "keepAnchorWidth": "Keeps anchor position the same.",
+        "offset": "Sets the distance between dropdown and anchor.",
+        "modelValue": "Sets a dropdown state."
+      },
+      "events": {
+        "click":"Emitted when user clicks on button.",
+        "mainButtonClick":"Emitted when user clicks on main button in split component."
+      },
+      "methods": {},
+      "slots": {
+        "default": "Dropdown content slot."
+      }
+    },
     "VaColorPicker": {
       "props": {
-        "value": "Current picked color"
+        "value": "Current picked color."
       },
       "events": {},
       "methods": {},
@@ -765,8 +791,8 @@
     },
     "VaColorInput": {
       "props": {
-        "value": "Current color",
-        "selected": "Select the indicator"
+        "value": "Current color.",
+        "selected": "Select the indicator."
       },
       "events": {},
       "methods": {},
@@ -774,10 +800,10 @@
     },
     "VaColorInputAdvanced": {
       "props": {
-        "value": "Current color",
-        "selected": "Select the indicator",
-        "mode": "Sets the mode of the component",
-        "palette": "An array of colors to palette mode"
+        "value": "Current color.",
+        "selected": "Select the indicator.",
+        "mode": "Sets the mode of the component.",
+        "palette": "An array of colors to palette mode."
       },
       "events": {},
       "methods": {},
@@ -945,6 +971,7 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
+    "popover": "Popover",
     "backtop": "Backtop",
     "reset": "Reset",
     "colorPicker": "Color Picker",
@@ -954,6 +981,7 @@
     "datePicker": "Date Picker",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
+    "buttonDropdown": "Button Dropdown",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading",
     "installation": "Installation",
@@ -2660,11 +2688,11 @@
     "title": "What is Vuestic UI",
     "description": "Vuestic UI was created with the goal of making development easier and reducing the time spent creating your apps. We are designed the framework in such a way as to satisfy the most sophisticated design fantasies and also allow you to realize them. All this is possible thanks to a deep component customization system based on a two-level configuration.",
     "featuresOverview": "Features overview",
-    "vueThreeCompatible": "- Fully **Vue.js 3 compatible**",
+    "vueThreeCompatible": "- Fully **Vue.js 3 compatible**.",
     "featureRich": "- Contains a **50+ feature rich components** that could be used in any design solution.",
-    "configurable": "- Allows ** to configure components** globally via config and css variables.",
+    "configurable": "- Allows **to configure components** globally via config and css variables.",
     "responsive": "- Fully **responsive** and **supports modern browsers** (no IE11, sorry).",
-    "translatable": "- Integrates seamlessly with **i18n**"
+    "translatable": "- Integrates seamlessly with **i18n**."
   },
   "translation": {
     "title": "Translation",
@@ -2902,6 +2930,87 @@
       "shape": {
         "title": "Shape",
         "text": "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
+      }
+    }
+  },
+  "buttonDropdown": {
+    "title": "Button Dropdown",
+    "summaryText": "This is a button that displays drop-down content when clicked.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, wrap your content in `va-button-dropdown` component."
+      },
+      "split": {
+        "title": "Split",
+        "text": "You can split the button in two."
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "The `va-dropdown-button` can be colored."
+      },
+      "sizes": {
+        "title": "Sizes",
+        "text": "Component can apply button sizes."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "You can use the same styles as in `va-button`."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "The component can be disabled."
+      },
+      "icons": {
+        "title": "Icons",
+        "text": "You can set the dropdown icon."
+      },
+      "events": {
+        "title": "Events",
+        "text": "The `va-dropdown-button` can handle click events."
+      }
+    }
+  },
+  "VaPopover": {
+    "props": {
+      "title": "Sets the title of the popover",
+      "message": "Message which showed in a popover",
+      "trigger": "Event on which popover is triggered",
+      "open": "Shows popover",
+      "placement": "Sets a popover position",
+      "autoHide": "Adds the ability to hide popover when clicked outside"
+    },
+    "events": {},
+    "methods": {},
+    "slots": {}
+  },
+  "popover": {
+    "title": "Popover",
+    "summaryText": "A `va-popover` can be used to display some text on top of the component.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "Wrap your component in a `va-popover` tag and provide a message property with text."
+      },
+      "color": {
+        "title": "Color",
+        "text": "You can set different background colors to the component."
+      },
+      "placement": {
+        "title": "Placement",
+        "text": "A component can be set in a different position. Use a position property to set it: `top`, `left`, `right` and `bottom` are available."
+      },
+      "icon": {
+        "title": "Icon",
+        "text": "You can set an icon to the component."
+      },
+      "title": {
+        "title": "Title",
+        "text": "You can set a title to the popover."
+      },
+      "trigger": {
+        "title": "Trigger",
+        "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
       }
     }
   }
