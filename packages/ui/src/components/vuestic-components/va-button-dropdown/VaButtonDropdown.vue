@@ -6,6 +6,7 @@
       :position="position"
       :offset="$props.offset"
       @update:modelValue="toggleDropdown"
+      :keep-anchor-width="keepAnchorWidth"
     >
       <template #anchor>
         <va-button
@@ -23,15 +24,17 @@
         </va-button>
       </template>
 
-      <div class="va-button-dropdown__content">
+      <va-dropdown-content>
         <slot />
-      </div>
+      </va-dropdown-content>
     </va-dropdown>
-    <va-button-group v-else>
+    <va-button-group
+      v-else
+      :outline="outline"
+      :flat="flat"
+    >
       <va-button
         :size="size"
-        :flat="flat"
-        :outline="outline"
         :disabled="disabled || disableButton"
         :color="color"
         :to="splitTo"
@@ -58,9 +61,9 @@
             @click="click"
           />
         </template>
-        <div class="va-button-dropdown__content">
+        <va-dropdown-content>
           <slot />
-        </div>
+        </va-dropdown-content>
       </va-dropdown>
     </va-button-group>
   </div>
@@ -92,6 +95,7 @@ class ButtonDropdownProps {
     },
   })
 
+  keepAnchorWidth = prop({ type: Boolean, default: false })
   split = prop<boolean>({ type: Boolean })
   splitTo = prop<string>({ type: String, default: '' })
   icon = prop<string>({ type: String, default: 'expand_more' })
@@ -149,6 +153,8 @@ export default class VaButtonDropdown extends mixins(
 @import "variables";
 
 .va-button-dropdown {
+  display: inline-block;
+
   .va-button {
     margin: var(--va-button-dropdown-button-margin);
   }
@@ -177,13 +183,6 @@ export default class VaButtonDropdown extends mixins(
         font-size: 1.7rem;
       }
     }
-  }
-
-  &__content {
-    background: var(--va-button-dropdown-content-background, var(--va-light-gray3));
-    box-shadow: var(--va-button-dropdown-content-box-shadow);
-    padding: var(--va-button-dropdown-content-padding, var(--va-form-padding));
-    border-radius: var(--va-button-dropdown-content-border-radius, var(--va-form-padding));
   }
 }
 </style>
