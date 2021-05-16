@@ -1089,7 +1089,7 @@
   },
   "avatar": {
     "title": "Avatar",
-    "summaryText": "`va-avatar` component is typically used for user profile pictures. It'll help you display it in different sizes consistently throughout your web application.",
+    "summaryText": "`va-avatar` component is typically used for user profile pictures. The component  helps you display it in different sizes consistently throughout your web application.",
     "examples": {
       "default": {
         "title": "Default",
@@ -1097,22 +1097,22 @@
       },
       "size": {
         "title": "Different sizes",
-        "text": "With `size` prop you can specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop to force text size you need."
+        "text": "The `size` prop prop allows you to specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop prop to force text size you need."
       },
       "color": {
         "title": "Different colors"
       },
       "withImage": {
         "title": "With images",
-        "text": "Providing `src` prop to component allows you to add custom icons to a component."
+        "text": "The `src` prop prop is used to add custom icons to a component."
       },
       "withIcon": {
         "title": "With icons",
-        "text": "With `icon` prop you could display icons inside an avatar."
+        "text": "The `icon` prop is used to display icons inside an avatar."
       },
       "withEmail": {
         "title": "With Gravatar",
-        "text": "Provide `email` prop and [gravatar](https://en.gravatar.com/support/what-is-gravatar/) will be used to get user profile pic."
+        "text": "The `email` prop and [gravatar](https://en.gravatar.com/support/what-is-gravatar/) are used to get user profile pictures."
       }
     }
   },
@@ -1208,7 +1208,7 @@
   },
   "button": {
     "title": "Button",
-    "summaryText": "The `va-button` component intended to be used instead of the standard HTMl button. It offers multiple built-in styles plus gives possibility to change color and size manually.",
+    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in styles and allows a user to change color and size manually.",
     "examples": {
       "default": {
         "title": "Default",
@@ -1216,19 +1216,19 @@
       },
       "withColor": {
         "title": "Colors",
-        "text": "With `color` prop you can change the color of the component."
+        "text": "The `color` prop is used to change the color of the component."
       },
       "withGradient": {
         "title": "Gradient",
-        "text": "Applies gradient style to background."
+        "text": "It’s used to apply a gradient style to a background."
       },
       "withTextColor": {
         "title": "Text colors",
-        "text": "With `text-color` prop you can change the color of the button text."
+        "text": "The `text-color` prop is used to change the color of the button text."
       },
       "withSize": {
         "title": "Sizes",
-        "text": "Using `size` prop you can make your button fit in any place on your web page."
+        "text": "The `size` prop is used to fit your button to any place on your web page."
       },
       "withStyle": {
         "title": "Different styles",
@@ -1248,7 +1248,7 @@
       },
       "disabled": {
         "title": "Disabled",
-        "text": "With `disabled` prop button would be not interactible"
+        "text": "The `disabled` prop prevent any actions with button."
       }
     }
   },
@@ -2152,7 +2152,7 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Default usage of the `va-chip` compoment."
+        "text": "Default usage of the `va-chip` component."
       },
       "outline": {
         "title": "Outline",
@@ -2180,11 +2180,11 @@
       },
       "closeable": {
         "title": "Closeable",
-        "text": "A tag can be closened by using property `closeable`."
+        "text": "A tag can be closed by applying the `closeable` property."
       },
       "link": {
         "title": "Link",
-        "text": "Make your tag clickable."
+        "text": "It makes your tag clickable."
       }
     }
   },
@@ -2546,7 +2546,7 @@
       },
       "gradient": {
         "title": "Gradient",
-        "text": "Applies gradient style to background"
+        "text": "It’s used to apply a gradient style to a background."
       },
       "sizes": {
         "title": "Sizes",
@@ -2564,11 +2564,11 @@
   },
   "buttonToggle": {
     "title": "Button Toggle",
-    "summaryText": "Button to switch between different values.",
+    "summaryText": "The button is used to switch between different values.",
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "By default, you need to provide an options object and v-model"
+        "text": "By default, an object with parameters and a v-model is to be passed."
       },
       "colors": {
         "title": "Colors",
@@ -2588,7 +2588,7 @@
       },
       "styles": {
         "title": "Styles",
-        "text": "You can sets a button styles to the component."
+        "text": "You can set button styles to the component."
       },
       "disabled": {
         "title": "Disabled",
@@ -2646,7 +2646,7 @@
   },
   "installation": {
     "title": "Installation",
-    "description": "Get started with the Vuestic UI to create feature-rich and user-friendly apps thanks to our highly configurable framework. We have simplified the installation process as much as possible to save you extra effort. Installation is possible in few ways.",
+    "description": "Get started with Vuestic UI to create feature-rich and user-friendly apps thanks to our highly configurable framework. We’ve simplified the installation process as much as possible to save you extra effort. Installation is possible in a few ways",
     "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
     "prerequisites": "First, make sure you have all prerequisites installed:",
     "node": "- <a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
@@ -2654,14 +2654,14 @@
     "afterCheck": "After checking the prerequisites, install Vuestic UI via npm/yarn:",
     "quickStart": {
       "title": "Quick start",
-      "description": "Make sure you're imported both styles and plugin into your entry file:"
+      "description": "Make sure you’ve imported both styles and plugin into your entry file"
     },
     "cli": {
       "title": "Vue CLI installation",
       "prepare": "Before install make sure [Vue CLI](https://cli.vuejs.org/guide/installation.html) is installed globally and has version 4+:",
-      "upgrade": "For Vue CLI version 3 here's [a guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3) to help you update your app.",
-      "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic UI on fresh project.",
-      "attention": "Installing Vuestic UI will modify `package.json` and `main.js(ts)` files. Make sure that you commit your code before install to avoid data loss.",
+      "upgrade": "Here is a [guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3) for Vue CLI version 3 to help you update your app",
+      "description": "An easy way if you use the Vue-CLI setup or you want to try out Vuestic UI on a fresh project",
+      "attention": "Vuestic UI installation will modify package.json and main.js(ts) files. Make sure you’ve committed your code before installing it to avoid data loss",
       "codeAnnotation": "Then install Vuestic UI as a Vue-CLI plugin:"
     },
     "nuxt": {
@@ -2675,7 +2675,7 @@
   },
   "roadmap": {
     "title": "Vuestic UI Roadmap",
-    "description": "Vuestic UI is always growing, trying to get better. Our team is constantly working to improve the existing code base, adding new features that help make building applications even easier.",
+    "description": "Our team is constantly improving the existing code base and adding new features that help make building applications even easier",
     "inDevelopment": {
       "title": "In development",
       "description": "The following releases are currently being developed:"
@@ -2722,7 +2722,7 @@
     },
     "icons": {
       "title": "Icon fonts",
-      "description": "By default Vuestic UI uses **material design icons**, so you'd have to install it beforehand",
+      "description": "By default Vuestic UI uses **material design icons**, so you should install it beforehand",
       "subtitle": "Using custom icons",
       "subDescription": "With Icons Config you can use any icon font that you want simply transforming icon name to props you need."
     },
@@ -2746,13 +2746,13 @@
   },
   "overview": {
     "title": "What is Vuestic UI",
-    "description": "Vuestic UI was created with the goal of making development easier and reducing the time spent creating your apps. We are designed the framework in such a way as to satisfy the most sophisticated design fantasies and also allow you to realize them. All this is possible thanks to a deep component customization system based on a two-level configuration.",
+    "description": "We’ve designed the framework in such a way that it satisfies the most sophisticated design fantasies and allows you to implement them",
     "featuresOverview": "Features overview",
-    "vueThreeCompatible": "- Fully **Vue.js 3 compatible**.",
-    "featureRich": "- Contains a **50+ feature rich components** that could be used in any design solution.",
-    "configurable": "- Allows **to configure components** globally via config and css variables.",
-    "responsive": "- Fully **responsive** and **supports modern browsers** (no IE11, sorry).",
-    "translatable": "- Integrates seamlessly with **i18n**."
+    "vueThreeCompatible": "- Fully **Vue.js 3 compatible**",
+    "featureRich": "- Contains a **50+ feature rich components** that can be used in any design solution",
+    "configurable": "- Allows **to configure components** components globally via config and css variables",
+    "responsive": "- Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
+    "translatable": "- Integrates seamlessly with **i18n**"
   },
   "translation": {
     "title": "Translation",
@@ -2764,7 +2764,7 @@
   },
   "table": {
     "title": "Tables",
-    "summaryText": "You could use the class `.va-table` for customizing styles of your tables. Here is the couple examples.",
+    "summaryText": "You can use the class `.va-table` for customizing styles of your tables. Here is the couple examples",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -2780,7 +2780,7 @@
       },
       "clickable": {
         "title": "Clickable",
-        "text": "To make rows looks like mouse `pointer` property you could add `.va-table-clickable` class."
+        "text": "To make rows look like the mouse `pointer` property add the `.va-table-clickable` class"
       }
     }
   },
@@ -2966,10 +2966,10 @@
   },
   "cssVariables": {
     "title": "Css Variables",
-    "description": "Vuestic UI extract css as <a href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties\">CSS variables (custom properties)</a>. No need to install any loaders or additional packages to override components styles. You can deeply customize components using simple syntax to change css in your project.",
+    "description": "Vuestic UI extracts css as [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). No need to install any loaders or additional packages to override components styles. You can deeply customize components by using simple syntax to change css in your project.",
     "convention": {
       "title": "Convention",
-      "description": "Vuestic UI uses following convention to organize CSS Variables for more convenient use:"
+      "description": "Vuestic UI uses the following convention to organize CSS Variables for more convenient use:"
     },
     "overriding": {
       "title": "Overriding",
