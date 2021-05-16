@@ -10,23 +10,23 @@
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
         ref='page-content'
       >
-        <va-breadcrumbs
-          align="left"
-          color="gray"
-          class="base-layout__breadcrumbs"
-        >
-          <va-breadcrumbs-item
-            v-for="(crumb, index) in crumbs"
-            :key="index"
-            :label="crumb.label"
-            :to="crumb.path"
-            :disabled="crumb.disabled"
-            :style="{ color: 'gray' }"
-          />
-          <template #separator>
-            <va-icon name="arrow_forward_ios" :size="16"/>
-          </template>
-        </va-breadcrumbs>
+<!--        <va-breadcrumbs-->
+<!--          align="left"-->
+<!--          color="gray"-->
+<!--          class="base-layout__breadcrumbs"-->
+<!--        >-->
+<!--          <va-breadcrumbs-item-->
+<!--            v-for="(crumb, index) in crumbs"-->
+<!--            :key="index"-->
+<!--            :label="crumb.label"-->
+<!--            :to="crumb.path"-->
+<!--            :disabled="crumb.disabled"-->
+<!--            :style="{ color: 'gray' }"-->
+<!--          />-->
+<!--          <template #separator>-->
+<!--            <va-icon name="arrow_forward_ios" :size="16"/>-->
+<!--          </template>-->
+<!--        </va-breadcrumbs>-->
 
         <div class="layout gutter--xl">
           <router-view/>
@@ -106,39 +106,39 @@ export default class DocsLayout extends Vue {
     setColors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
   }
 
-  get crumbs () {
-    // if (this.$isServer) {
-    //   return []
-    // }
-    if (this.$route.path === '/') {
-      return [
-        {
-          label: 'Home',
-          path: `/${this.$root.$i18n.locale}/`,
-        },
-      ]
-    }
-    const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
-    return pathSteps.reduce((acc, step, index, array) => {
-      if (index === 0) {
-        acc.push({
-          label: 'Home',
-          path: `/${this.$root.$i18n.locale}/`,
-        })
-        return acc
-      }
-      if (!step && index) {
-        return acc
-      }
-      const isCategoryRoute = this.navigationRoutes.find(route => route.name === step)
-      acc.push({
-        path: '/' + array.slice(0, index + 1).join('/'),
-        label: step,
-        disabled: !!isCategoryRoute,
-      })
-      return acc
-    }, [] as { [key: string]: string, }[])
-  }
+  // get crumbs () {
+  //   // if (this.$isServer) {
+  //   //   return []
+  //   // }
+  //   if (this.$route.path === '/') {
+  //     return [
+  //       {
+  //         label: 'Home',
+  //         path: `/${this.$root.$i18n.locale}/`,
+  //       },
+  //     ]
+  //   }
+  //   const pathSteps: string[] = this.$route.path.split('/').filter(Boolean)
+  //   return pathSteps.reduce((acc, step, index, array) => {
+  //     if (index === 0) {
+  //       acc.push({
+  //         label: 'Home',
+  //         path: `/${this.$root.$i18n.locale}/`,
+  //       })
+  //       return acc
+  //     }
+  //     if (!step && index) {
+  //       return acc
+  //     }
+  //     const isCategoryRoute = this.navigationRoutes.find(route => route.name === step)
+  //     acc.push({
+  //       path: '/' + array.slice(0, index + 1).join('/'),
+  //       label: step,
+  //       disabled: !!isCategoryRoute,
+  //     })
+  //     return acc
+  //   }, [] as { [key: string]: string, }[])
+  // }
 
   onRouteChange () {
     const pageContent: Element | undefined = this.$refs['page-content']
