@@ -45,7 +45,7 @@ module.exports = {
     const createDocsActions = [
       {
         type: 'addTranslations',
-        path: `${docsBasePath}/src/locales`,
+        path: `${docsBasePath}/locales`,
         abortOnFail: false,
       },
       {

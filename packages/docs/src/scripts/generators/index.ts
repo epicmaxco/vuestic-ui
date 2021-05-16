@@ -68,7 +68,7 @@ module.exports = (plop: NodePlopAPI) => {
   })
 
   plop.setActionType('addRoutes', ((answers: GeneratorAnswers, config: AddActionConfig) => {
-    const navigationSchemePath = `${config.path}/src/components/sidebar/navigationRoutes.ts`
+    const navigationSchemePath = `${config.path}/components/sidebar/navigationRoutes.ts`
     const navigationScheme = fs.readFileSync(navigationSchemePath).toString()
 
     const routeName = plop.getHelper('kebabCase')(answers.name)

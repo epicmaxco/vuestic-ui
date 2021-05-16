@@ -51,19 +51,19 @@ module.exports = {
     const createDocsActions = [
       {
         type: 'add',
-        path: `${docsBasePath}/src/pages/{{kebabCase category}}/{{kebabCase name}}.vue`,
+        path: `${docsBasePath}/pages/{{kebabCase category}}/{{kebabCase name}}.vue`,
         templateFile: './docspage/doc-page.vue.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/src/components/page-configs/{{kebabCase category}}/{{kebabCase name}}/page-config.ts`,
+        path: `${docsBasePath}/components/page-configs/{{kebabCase category}}/{{kebabCase name}}/page-config.ts`,
         templateFile: './docspage/page-config.ts.hbs',
         abortOnFail: false,
       },
       {
         type: 'addTranslations',
-        path: `${docsBasePath}/src/locales`,
+        path: `${docsBasePath}/locales`,
         abortOnFail: false,
       },
       {
