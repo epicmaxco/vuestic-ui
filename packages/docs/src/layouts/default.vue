@@ -230,6 +230,13 @@ html {
 
     overflow-y: auto;
     overflow-x: hidden;
+
+    @media(max-width:670px){
+      & > :last-child {
+        padding:0em !important;
+        padding-bottom: 2em;
+      } 
+    }
   }
 }
 </style>
