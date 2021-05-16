@@ -7,32 +7,32 @@
       </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="row in tableData"
-          :key="row.toString()"
-          class="DocsTable__table__row"
-        >
-          <td v-for="(colData, index) in row" :key="colData">
-            <template v-if="columnsComputed[index].type === 'strong'">
-              <strong>{{ colData }}</strong>
-            </template>
-            <template v-else-if="columnsComputed[index].type === 'markdown'">
-              <MarkdownView :value="$te(colData) ? $t(colData) : colData" />
-            </template>
-            <template v-else-if="columnsComputed[index].type === 'code'">
-              <MarkdownView :value="`\`${colData}\``" />
-            </template>
-            <template v-else-if="columnsComputed[index].type === 'pre'">
-              <pre>{{ colData }}</pre>
-            </template>
-            <template v-else-if="columnsComputed[index].type === 'translationString'">
-              {{  $t(colData) }}
-            </template>
-            <template v-else>
-              {{ $te(colData) ? $t(colData) : colData }}
-            </template>
-          </td>
-        </tr>
+      <tr
+        v-for="row in tableData"
+        :key="row.toString()"
+        class="DocsTable__table__row"
+      >
+        <td v-for="(colData, index) in row" :key="colData">
+          <template v-if="columnsComputed[index].type === 'strong'">
+            <strong>{{ colData }}</strong>
+          </template>
+          <template v-else-if="columnsComputed[index].type === 'markdown'">
+            <MarkdownView :value="$te(colData) ? $t(colData) : colData"/>
+          </template>
+          <template v-else-if="columnsComputed[index].type === 'code'">
+            <MarkdownView :value="`\`${colData}\``"/>
+          </template>
+          <template v-else-if="columnsComputed[index].type === 'pre'">
+            <pre>{{ colData }}</pre>
+          </template>
+          <template v-else-if="columnsComputed[index].type === 'translationString'">
+            {{ $t(colData) }}
+          </template>
+          <template v-else>
+            {{ $te(colData) ? $t(colData) : colData }}
+          </template>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>
@@ -40,11 +40,11 @@
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import { TableData, TableColum } from './DocsTable'
+import { TableData, TableColumn } from './DocsTable'
 import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
 
 class Props {
-  columns = prop<TableColum[]>({ type: Array, required: true })
+  columns = prop<TableColumn[]>({ type: Array, required: true })
   tableData = prop<TableData>({ type: Array, required: true })
 }
 
@@ -99,6 +99,12 @@ export default class DocsTable extends mixins(PropsMixin) {
       font-weight: 700 !important;
       font-weight: bold !important;
       padding: 0.75rem !important;
+    }
+  }
+
+  .MarkdownView {
+    code {
+      white-space: pre;
     }
   }
 }

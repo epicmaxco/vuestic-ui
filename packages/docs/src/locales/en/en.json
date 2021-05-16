@@ -406,11 +406,11 @@
         "icon": "Sets the close icon",
         "customClass": "Applies custom class to the component",
         "duration": "Sets the duration of the notification display",
-        "closeable":"Provides the ability to close the component",
-        "onClose":"Applies a function to use when pressed a close button",
-        "onClick":"Applies a function to use when clicked",
-        "position":"Sets the position of the notification",
-        "render":"Render function to use a custom content",
+        "closeable": "Provides the ability to close the component",
+        "onClose": "Applies a function to use when pressed a close button",
+        "onClick": "Applies a function to use when clicked",
+        "position": "Sets the position of the notification",
+        "render": "Render function to use a custom content",
         "multiLine": "Sets more space for the Toast component"
       },
       "events": {},
@@ -793,8 +793,8 @@
         "modelValue": "Sets a dropdown state."
       },
       "events": {
-        "click":"Emitted when user clicks on button.",
-        "mainButtonClick":"Emitted when user clicks on main button in split component."
+        "click": "Emitted when user clicks on button.",
+        "mainButtonClick": "Emitted when user clicks on main button in split component."
       },
       "methods": {},
       "slots": {
@@ -1024,7 +1024,8 @@
     "cssVariables": "CSS Variables",
     "sidebarItem": "Sidebar Item",
     "navbar": "Navbar",
-    "toast": "Toast"
+    "toast": "Toast",
+    "typography": "Typography"
   },
   "all": {
     "examples": "Examples",
@@ -3072,5 +3073,28 @@
         "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
       }
     }
+  },
+  "typography": {
+    "title": "Typography",
+    "description": "Vuestic UI uses the following typography styling",
+    "headings": "Headings",
+    "display1": "`h1` tag and `class=\"display-1\"`",
+    "display2": "`h2` tag and `class=\"display-2\"`",
+    "display3": "`h3` tag and `class=\"display-3\"`",
+    "display4": "`h4` tag and `class=\"display-4\"`",
+    "display5": "`h5` tag and `class=\"display-5\"`",
+    "titled": "`class=\"title\"`",
+    "primary": "Default text style",
+    "secondary": "`class=\"text--secondary\"`",
+    "codeSnippet": "`class=\"code-snippet\"`",
+    "textCode": "`class=\"text--code\"`",
+    "other": "Other typography styles",
+    "orderedLists": "`class=\"va-ordered\"`",
+    "unorderedLists": "`class=\"va-unordered\"`",
+    "link": "`class=\"link\"`",
+    "linkSecondary": "`class=\"link-secondary\"`",
+    "textHighlighted": "`class=\"text--highlighted\"`",
+    "blockquote": "`class=\"va-blockquote\"`",
+    "textBlock": "`class=\"text-block\"`"
   }
 }

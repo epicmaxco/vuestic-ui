@@ -342,7 +342,8 @@
     "componentsConfig": "Components Config",
     "colorsConfig": "Colors Config",
     "sidebarItem": "Sidebar Item",
-    "navbar": "Navbar"
+    "navbar": "Navbar",
+    "typography": "Typography"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -470,6 +471,9 @@
     "title": "-- Here is the title --"
   },
   "navbar": {
+    "title": "-- Here is the title --"
+  },
+  "typography": {
     "title": "-- Here is the title --"
   }
 }

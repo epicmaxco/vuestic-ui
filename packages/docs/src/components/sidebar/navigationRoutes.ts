@@ -67,6 +67,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'css-variables',
         displayName: 'menu.cssVariables',
       },
+      {
+        name: 'typography',
+        displayName: 'menu.typography',
+      },
       // GENERATOR_ADD - styles
     ],
   },

@@ -10,7 +10,7 @@ import {
 } from '@/types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
-import { TableData, TableColum } from './../components/DocsTable/DocsTable'
+import { TableData, TableColumn } from './../components/DocsTable/DocsTable'
 
 export const DocsHelper = {
   title: (translationString: TranslationString): TextBlock => {
@@ -59,7 +59,7 @@ export const DocsHelper = {
     }
   },
   // TODO Untyped?
-  table: (columns: TableColum[], tableData: TableData) => {
+  table: (columns: TableColumn[], tableData: TableData) => {
     return {
       type: BlockType.TABLE,
       columns,
