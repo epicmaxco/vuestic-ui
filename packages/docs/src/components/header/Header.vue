@@ -115,12 +115,11 @@ export default class Header extends mixins(PropsMixin) {
     &__prefences {
       flex: 1 1 !important;
       justify-content: space-between;
-
+      padding-left:20px;
 
       .language-dropdown{
         display:flex;
         justify-content:flex-end;
-
       }
 
       & .va-dropdown__anchor,
