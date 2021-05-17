@@ -2168,7 +2168,7 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.12.tgz#431ec342a7195622f86688bbda82e3166ce8cb28"
   integrity sha512-6RglhutqrGFMO1MNUXp95RBuYIuc8wTnMAV5MUhLmjTOy78ncwOw7RgeQ/HeymkKXRhZd0s2DNrM1rL7unk3MQ==
 
-"@popperjs/core@^2.6.0", "@popperjs/core@^2.9.2":
+"@popperjs/core@^2.9.2":
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.2.tgz#adea7b6953cbb34651766b0548468e743c6a2353"
   integrity sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==
@@ -5116,7 +5116,7 @@ colors@^1.1.2:
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
   integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
 
-colortranslator@^1.3.5, colortranslator@^1.7.1:
+colortranslator@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/colortranslator/-/colortranslator-1.7.1.tgz#60f8db80b3755ce37f873cf848af99c3c17bb156"
   integrity sha512-AORTES33uYs9z04eGnMMq5Ehtsz28jyHTYTUItZFEbTXnYmx7ZVV6lPfDOpem1NLAh6PCVIYm1YDCHULu+C/sw==
@@ -17202,30 +17202,6 @@ vuelidate@^0.7.5:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.7.6.tgz#84100c13b943470660d0416642845cd2a1edf4b2"
   integrity sha512-suzIuet1jGcyZ4oUSW8J27R2tNrJ9cIfklAh63EbAkFjE380iv97BAiIeolRYoB9bF9usBXCu4BxftWN1Dkn3g==
-
-vuestic-ui@1.0.0-rc.1:
-  version "1.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.0.0-rc.1.tgz#d4e5317a95762e6cd0a300a98768a73eaf2dc2f8"
-  integrity sha512-FcdegVM59h5OWHV7arkfcjQdiNWFTZn7dRC3XCy9cEngE9E+pg5NgpE6E+tUaXplew5PbJBeu1rPy10lBmutfg==
-  dependencies:
-    "@popperjs/core" "^2.6.0"
-    asva-executors "^0.1.23"
-    cleave.js "^1.6.0"
-    colortranslator "^1.3.5"
-    css-minimizer-webpack-plugin "^1.2.0"
-    detect-browser "^5.2.0"
-    element-resize-detector "^1.2.1"
-    flatpickr "4.6.9"
-    gravatar "^1.8.0"
-    lodash "^4.17.20"
-    normalize.css "^8.0.1"
-    spa-http-server "^0.9.0"
-    v-tooltip "^2.1.2"
-    vue "^3.0.4"
-    vue-color "^2.8.1"
-    vue-epic-bus "^0.1.5"
-    vue-flatpickr-component "^9.0.3"
-    vue-router "^4.0.0-beta.13"
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"
