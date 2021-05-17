@@ -14,7 +14,7 @@
           v-for="(link, index) in links" :key="index"
           flat
           class="header__links__button"
-          color="primary"
+          color="dark"
           :to="link.to"
           :href="link.url"
           :target="link.target"
