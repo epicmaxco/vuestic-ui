@@ -212,6 +212,13 @@ html {
 
     overflow-y: auto;
     overflow-x: hidden;
+
+    @media (max-width: 670px) {
+      & > .layout.gutter--xl {
+        padding: 0;
+        padding-bottom: 2rem;
+      }
+    }
   }
 }
 </style>

@@ -24,7 +24,7 @@
         </va-button>
       </div>
     </div>
-    <div class="header__prefences flex">
+    <div class="header__prefences flex px-3">
       <version-dropdown class="mr-2" />
 <!--      <color-dropdown class="mr-1" />-->
       <language-dropdown class="mr-1" />
@@ -115,6 +115,10 @@ export default class Header extends mixins(PropsMixin) {
     &__prefences {
       flex: 1 1 !important;
       justify-content: space-between;
+      .language-dropdown {
+        display:flex;
+        justify-content:flex-end;
+      }
 
       & .va-dropdown__anchor,
       .color-dropdown {
