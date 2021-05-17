@@ -18,7 +18,7 @@
           <va-button :to="`/${$root.$i18n.locale}/introduction/roadmap`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.docs') }}</va-button>
           <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
           <LanguageDropdown />
-          <stars-button repo="epicmaxco/vuestic-ui" />
+          <stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
         <nav class="mobile-menu" :class="computedClass">
