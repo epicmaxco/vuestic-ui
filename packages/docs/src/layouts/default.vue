@@ -231,10 +231,9 @@ html {
     overflow-y: auto;
     overflow-x: hidden;
 
-    @media(max-width:670px){
+    @media (max-width: 670px) {
       & > .layout.gutter--xl {
-        padding: 0em;
-        padding-bottom: 2em;
+        padding: 0;
       }
     }
   }
