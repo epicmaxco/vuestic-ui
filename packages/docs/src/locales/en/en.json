@@ -507,7 +507,7 @@
     "VaProgressCircle": {
       "props": {
         "value": "The progress value",
-        "indeterminate": "Create a indeterminate loading circle",
+        "indeterminate": "Using the `indeterminate` prop, the `va-progress-circle` continues to  animate indefinitely.",
         "thickness": "Circle border size between 0 and 1"
       },
       "slots": {
@@ -1041,12 +1041,12 @@
     "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
     "introduction": {
       "title": "Introduction",
-      "description": "Instead of using established documentation system, such as [vue-press](https://vuepress.vuejs.org/) or [docsify](https://docsify.js.org/#/), we decided to create a system specifically tailored for Vuestic. It's meant to provide an excellent flexibility for future growth."
+      "description": "Instead of using the established documentation system, such as [vue-press](https://vuepress.vuejs.org/) or [docsify](https://docsify.js.org/#/), we’ve decided to create a system specifically tailored for Vuestic. It’s meant to provide excellent flexibility for future growth."
     },
     "pageConfig": {
       "title": "Page Config",
-      "generate": "If you're trying to document a component from the scratch - use `yarn generate:component` command, which will guide through the process.",
-      "description": "Documentation is using a flat structure - list of blocks. In all text blocks markdown is supported. Here's the blocks you can use:"
+      "generate": "If you’re trying to document a component from scratch, use the `yarn generate:component` command, which will guide you through the process.",
+      "description": "Documentation has a flat structure - list of blocks. Markdown is supported in all text blocks. Here are the blocks you can use:"
     },
     "blocktypes": {
       "title": {
@@ -1059,7 +1059,7 @@
       },
       "headline": {
         "title": "Headline",
-        "text": "This block used to mark titles of examples or to FAQ questions. Think `h3`."
+        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`."
       },
       "paragraph": {
         "title": "Paragraph",
@@ -1118,7 +1118,7 @@
   },
   "affix": {
     "title": "Affix",
-    "summaryText": "Affix component is created to fix any content in proper position relative to container.",
+    "summaryText": "The affix component is created to fix any content in a proper position relative to a container.",
     "examples": {
       "top": {
         "title": "Fixed at the top."
@@ -1133,11 +1133,11 @@
   },
   "breadcrumbs": {
     "title": "Breadcrumbs",
-    "text": "Breadcrumbs component is used on a page for application navigation. It shows the location of the current page in the navigation hierarchy. Is used with `va-breadcrumb-item` components.",
+    "text": "The breadcrumbs component is used for application navigation. It shows the location of the current page within the navigation hierarchy. It’s used with `va-breadcrumb-item` components.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "This is basic usage of `va-breadcrumbs` component."
+        "text": "This is a basic usage of the `va-breadcrumbs` component."
       },
       "color": {
         "title": "Color",
@@ -1254,15 +1254,15 @@
   },
   "slider": {
     "title": "Slider",
-    "summaryText": "Slider component is a visualization for number input. User can drag slider within a fixed range to get required value.",
+    "summaryText": "The slider component is a visualization for the number input. A user can drag a slider within a fixed range to get the required value.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "This is basic usage of slider component."
+        "text": "This is basic usage of the slider component."
       },
       "color": {
         "title": "Color",
-        "text": "You can customize color of slider."
+        "text": "You can customize the color of the slider."
       },
       "minmax": {
         "title": "Minimum and maximum values",
@@ -1286,7 +1286,7 @@
       },
       "label": {
         "title": "Label",
-        "text": "Label of switch, could have inverted position or custom color."
+        "text": "Switch label can have an inverted position or a custom color."
       },
       "slots": {
         "title": "Slots",
@@ -1451,7 +1451,7 @@
     "overview": {
       "subtitle": "Overview",
       "paragraphs": [
-        "`<va-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. You can provide custom message and title with the `message` and `title` props respectively.",
+        "`<va-modal>`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.",
         "`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
       ]
     },
@@ -1567,7 +1567,7 @@
   },
   "tabs": {
     "title": "Tabs",
-    "summaryText": "The `va-tabs` component could be used as an on-page navigation offering rich variety of visual customizations and usage flexibility",
+    "summaryText": "The `va-tabs` component can be used as an on-page navigation offering with a rich variety of visual customizations and usage flexibility.",
     "examples": {
       "default": {
         "title": "Default usage",
@@ -1598,15 +1598,15 @@
   },
   "fileUpload": {
     "title": "File Upload",
-    "summaryText": "The `va-file-upload` component is an input for selecting and uploading files with much richer interface than default one",
+    "summaryText": "The `va-file-upload` component is an input for selecting and uploading files with a richer interface than the default one.",
     "examples": {
       "default": {
         "title": "Default usage",
-        "text": "By default it's displayed as simple button to upload files"
+        "text": "By default it’s displayed as a simple button to upload files."
       },
       "dragAndDrop": {
         "title": "Drag & Drop",
-        "text": "With `dropzone` prop add drag and drop possibility to `va-file-upload` component"
+        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component"
       },
       "validation": {
         "title": "Specify file types",
@@ -1650,21 +1650,21 @@
   },
   "form": {
     "title": "Form",
-    "summaryText": "Need more advanced validation than just `type=\"email\"` over your input elements? **`va-form`** has solution to offer.",
+    "summaryText": "Need more advanced validation than just `type=\"email\"` over your input elements? **`va-form`** has a solution to offer.",
     "examples": {
       "default": {
         "title": "Default usage",
-        "text": "All from elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you'd be able to specify exact cases when the field is *valid* or *invalid*."
+        "text": "All elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you’ll be able to specify exact cases when the field is *valid* or *invalid*."
       },
       "advanced": {
         "title": "Trigger validation",
-        "text": "You can trigger validation from parent component by using `validate()` method of `va-form` component."
+        "text": "You can trigger validation from a parent component by using the `validate()` method of the `va-form` component."
       }
     }
   },
   "hover": {
     "title": "Hover",
-    "summaryText": "The `va-hover` provides easy access for hover state for any component. To work with hover state you can use either `v-model` or slot-scoped `hover` property.",
+    "summaryText": "The `va-hover` component provides easy access to hover states for any component. To work with hover states you can use either `v-model` or slot-scoped `hover` property.",
     "examples": {
       "slot": {
         "title": "Slot based access",
@@ -1793,7 +1793,7 @@
       },
       "active": {
         "title": "Highlight active `VaSidebarItem`",
-        "text": "It is possible to have multiple `VaSidebarItem` highlighted. You can choose your own way how to highlight active item. Even if you want active a few `VaSidebarItems`."
+        "text": "It is possible to have multiple `VaSidebarItem` highlighted. You can choose your own way to highlight an active item. Even if you want to activate a few `VaSidebarItems`."
       },
       "icons": {
         "title": "`VaSidebarTitle` and VaIcons",
@@ -1807,7 +1807,7 @@
   },
   "image": {
     "title": "Image",
-    "summaryText": "The `va-image` is used to display responsive images. It has some features to make your work with images easier.",
+    "summaryText": "The `va-image` component is used to display responsive images. It has some features to make your work with images easier.",
     "examples": {
       "default": {
         "title": "Default",
@@ -1815,7 +1815,7 @@
       },
       "contain": {
         "title": "Contain",
-        "text": "Used to show full image while ignoring its original ratio and size."
+        "text": "It is used to show a full image while ignoring its original ratio and size."
       },
       "ratio": {
         "title": "Ratio",
@@ -1972,11 +1972,11 @@
   },
   "input": {
     "title": "Input",
-    "summaryText": "The `va-input` component intended to be used instead of the standard HTMl input or textarea.",
+    "summaryText": "The `va-input` component is intended to be used instead of the standard HTMl input or textarea.",
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "By default `va-input` have no any attributes, but can be combined with placeholder and/or label. It also can be disabled or readonly."
+        "text": "By default `va-input` doesn’t have attributes, but can be combined with a placeholder and/or label. It can also be disabled or readonly."
       },
       "hint": {
         "title": "Hint messages",
@@ -2048,23 +2048,23 @@
   },
   "icon": {
     "title": "Icon",
-    "summaryText": "The `va-icon` component allows you to use different iconfonts.",
+    "summaryText": "The `va-icon` component allows you to use different icon fonts.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Basic usage of component with different iconfonts."
+        "text": "Basic usage of the component with different icon fonts."
       },
       "color": {
         "title": "Color",
-        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
+        "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value."
       },
       "size": {
         "title": "Size",
-        "text": "Utilize `size` prop in order to make `va-icon` fit your needs."
+        "text": "Apply the `size` prop in order to make `va-icon` fit your needs."
       },
       "rotation": {
         "title": "Rotation",
-        "text": "Used to rotate the `va-icon` component."
+        "text": "It is used to rotate the `va-icon` component."
       },
       "spin": {
         "title": "Spin",
@@ -2072,11 +2072,11 @@
       },
       "text": {
         "title": "Text as icon",
-        "text": "Using `text` prop will allow you to cover the text with an icon style."
+        "text": "Using `text` prop is used to cover the text icon style."
       },
       "tag": {
         "title": "Custom tag",
-        "text": "With `tag` prop you can attach the icon to another tag."
+        "text": "With the `tag` prop you can attach the icon to another tag."
       }
     }
   },
@@ -2112,7 +2112,7 @@
       },
       "solid": {
         "title": "Solid",
-        "text": "Add borders to your collapse component by using `solid` property."
+        "text": "Add borders to your collapse component by using the `solid` property."
       },
       "icon": {
         "title": "Icon",
@@ -2332,7 +2332,7 @@
   },
   "select": {
     "title": "Select",
-    "summaryText": "Select are used for collecting user provided information from a list of options. This component opens up a menu for the selection list and action",
+    "summaryText": "Select field components are used for collecting user provided information from a list of options. This component opens up a menu for the selection list and action.",
     "examples": {
       "default": "Default select",
       "variations": {
@@ -2400,11 +2400,11 @@
   },
   "backtop": {
     "title": "Backtop",
-    "summaryText": "A backtop is a button used to return to the top of a component.",
+    "summaryText": "The backtop button is used to return to the top of a component.",
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "By default a `va-backtop` watches for body element offset height. You can change target element, positioning and scrolling speed."
+        "text": "By default `va-backtop` watches for a body element offset height. You can change a target element, positioning and scrolling speed."
       }
     }
   },
@@ -2598,7 +2598,7 @@
   },
   "appBar": {
     "title": "App bar",
-    "summaryText": "An app bar component is a part of site navigation and it's an alternative for header in apps.",
+    "summaryText": "The app bar component is a part of a website’s navigation and it’s an alternative to the header element in apps.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -2624,7 +2624,7 @@
   },
   "innerLoading": {
     "title": "Inner Loading",
-    "summaryText": "You can handle the loading state of the wrapped component by using a `va-inner-loading` component.",
+    "summaryText": "You can handle the loading state of the wrapped component by using the `va-inner-loading` component.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -2863,10 +2863,10 @@
     "readBeforeStart": "Read about icons component",
     "example": "Example",
     "problem": {
-      "definition": "There is the problem with icon libraries. They usually uses different interface to render icons.",
+      "definition": "There is the problem with icon libraries: they usually use different interfaces to render icons.",
       "materialIcons": "For example material-icons want us to set `material-icons` class and provide icon name inside `span` tag.",
       "fontAwesome": "If we want to use FontAwesome5 we need to provide `fas` class and then provide class with icon name and prefix `fa-` on `i` tag.",
-      "summary": "With Icons Config we can simply provide icon name in style that we want. We need to configure how provided name will be rendered only one time."
+      "summary": "With Icons Config we can simply provide an icon name in style that we want. We need to configure how the provided name will be rendered only one time."
     },
     "fonts": {
       "title": "Fonts",
@@ -2933,14 +2933,14 @@
   },
   "colorsConfig": {
     "title": "Colors config",
-    "about": "You can personalize colors that used in our app. You can dynamically redefine colors that used in Vuestic components. Also you can add own colors that we want to use in your app.",
+    "about": "You can personalize colors that are used in our app. You can dynamically redefine colors that are used in Vuestic components. Also, you can add your own colors that we want to use in your app.",
     "example": {
-      "about": "For example, we can change `primary` color that used in almost all Vuestic components.",
-      "demo": "You can check demo below and see how colors changing over all page."
+      "about": "For example, we can change the `primary` color that is used in almost all Vuestic components.",
+      "demo": "You can check the demo below and see how colors are changing all over the page."
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "As you can see methods like `getColor`, `getColors` does not return `Proxy`. If you want to use color as reactive Proxy you can simply use computed properties like in example above."
+      "about": "As you can see, methods like `getColor`, `getColors` don’t return `Proxy`. If you want to use color as reactive Proxy, use computed properties like in the example above."
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
