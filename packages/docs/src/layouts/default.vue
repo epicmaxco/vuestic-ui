@@ -232,10 +232,10 @@ html {
     overflow-x: hidden;
 
     @media(max-width:670px){
-      & > :last-child {
-        padding:0em !important;
+      & > .layout.gutter--xl {
+        padding: 0em;
         padding-bottom: 2em;
-      } 
+      }
     }
   }
 }
