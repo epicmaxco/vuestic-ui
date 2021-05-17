@@ -1,0 +1,55 @@
+:root {
+  /* General */
+  --va-button-display: inline-flex;
+  --va-button-align-items: center;
+  --va-button-justify-content: center;
+  --va-button-background-image: none;
+  --va-button-box-shadow: none;
+  --va-button-outline: none !important;
+  --va-button-border: 0;
+  --va-button-font-family: 'Source Sans Pro', sans-serif;
+  --va-button-font-weight: 600;
+  --va-button-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  --va-button-background-color: #ffffff;
+  --va-button-icon-color: #ffffff;
+  --va-button-size: 2.25rem;
+  --va-button-content-py: 0;
+  --va-button-content-px: 1.5rem;
+  --va-button-font-size: 0.9375rem;
+  --va-button-line-height: 1.4rem;
+  --va-button-border-radius: 1.5rem;
+  --va-button-letter-spacing: 0;
+  --va-button-square-border-radius: 0.3rem;
+  --va-button-space-between-items: 0.5rem;
+  --va-button-margin: 0;
+  --va-button-padding: 0;
+
+  /* Large button */
+  --va-button-lg-size: 3rem;
+  --va-button-lg-content-py: 0;
+  --va-button-lg-content-px: 1.75rem;
+  --va-button-lg-font-size: 1.0625rem;
+  --va-button-lg-line-height: 1.5rem;
+  --va-button-lg-border-radius: 2rem;
+  --va-button-lg-letter-spacing: 0;
+  --va-button-lg-square-border-radius: 0.4rem;
+  --va-button-lg-space-between-items: 1rem;
+
+  /* Small button */
+  --va-button-sm-size: 1.5rem;
+  --va-button-sm-content-py: 0;
+  --va-button-sm-content-px: 1.25rem;
+  --va-button-sm-font-size: 0.8125rem;
+  --va-button-sm-line-height: 1.3rem;
+  --va-button-sm-border-radius: 1rem;
+  --va-button-sm-letter-spacing: 0;
+  --va-button-sm-square-border-radius: 0.2rem;
+  --va-button-sm-space-between-items: 0.25rem;
+
+  /* Outlined */
+  --va-button-outline-border: 0.125rem;
+  --va-button-outline-icon-color: #ffffff;
+
+  /* Flat */
+  --va-button-flat-border: 0;
+}

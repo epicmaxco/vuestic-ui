@@ -1,0 +1,19 @@
+<template>
+  <div>
+    <va-icon
+      name="home"
+      :rotation="180"
+      class="mr-2"
+    />
+    <va-icon
+      name="home"
+      rotation="90"
+      class="mr-2"
+    />
+    <va-icon
+      name="home"
+      :rotation="-90"
+      class="mr-2"
+    />
+  </div>
+</template>

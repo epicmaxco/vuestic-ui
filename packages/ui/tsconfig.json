@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist",
+    "types": [
+      "webpack-env",
+      "jest",
+      "node",
+      "medium-editor"
+    ],
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "paths": {
+      "v-tooltip": [
+        "src/types/v-tooltip.d.ts"
+      ],
+      "json-loader": [
+        "src/types/json-loader.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.disabled.ts",
+    "src/components/vuestic-components/wip-*/**.*",
+    "src/services/api-docs"
+  ]
+}

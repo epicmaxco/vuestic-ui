@@ -1,0 +1,21 @@
+:root {
+  --va-select-option-list-display: flex;
+  --va-select-option-list-flex-direction: column;
+  --va-select-option-list-width: 100%;
+  --va-select-option-list-list-style: none;
+
+  /* Option */
+  --va-select-option-list-option-cursor: pointer;
+  --va-select-option-list-option-display: flex;
+  --va-select-option-list-option-align-items: center;
+  --va-select-option-list-option-padding: 0.375rem 12px;
+  --va-select-option-list-option-min-height: 2.25rem;
+  --va-select-option-list-option-word-break: break-word;
+
+  /* Icon */
+  --va-select-option-list-icon-margin-right: 0.5rem;
+
+  /* Selected Icon */
+  --va-select-option-list-selected-icon-margin-left: auto;
+  --va-select-option-list-selected-icon-font-size: 0.8rem;
+}

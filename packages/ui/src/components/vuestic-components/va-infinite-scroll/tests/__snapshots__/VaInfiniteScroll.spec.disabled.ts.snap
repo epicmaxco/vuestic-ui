@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VaInfiniteScroll default snapshot 1`] = `
+<div class="va-infinite-scroll">
+  <div class="va-infinite-scroll__spinner va-infinite-scroll__spinner--invisible">
+    <div class="va-infinite-scroll__spinner__default">
+      <va-progress-circle-stub value="0" color="#23e066" indeterminate="true" size="small" sizesconfig="[object Object]" fontsizesconfig="[object Object]" thickness="0.15"></va-progress-circle-stub>
+    </div>
+  </div>
+</div>
+`;

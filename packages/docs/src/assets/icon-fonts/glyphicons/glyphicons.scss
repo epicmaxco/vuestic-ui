@@ -1,0 +1,15 @@
+$icon-font-name: 'glyphicons';
+$icon-font-family: 'Glyphicons Halflings';
+$icon-font-path: '~/src/assets/icon-fonts/#{$icon-font-name}/#{$icon-font-name}';
+
+@font-face {
+  font-family: $icon-font-family;
+  font-style: normal;
+  font-weight: normal;
+  src: url('#{$icon-font-path}.eot');
+  src:
+    url('#{$icon-font-path}.eot#iefix') format('eot'),
+    url('#{$icon-font-path}.woff') format('woff'),
+    url('#{$icon-font-path}.ttf') format('truetype'),
+    url('#{$icon-font-path}.svg##{icon-font-name}') format('svg');
+}

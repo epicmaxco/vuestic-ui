@@ -1,0 +1,21 @@
+{
+  "name": "vue-cli-plugin-vuestic-ui",
+  "version": "1.0.0-alpha.12",
+  "description": "Vuestic UI plugin for Vue CLI v4+",
+  "main": "index.js",
+  "repository": "https://github.com/epicmaxco/vuestic-ui",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vuestic",
+    "plugin",
+    "vue",
+    "cli"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/epicmaxco/vuestic-ui/issues"
+  },
+  "homepage": "https://github.com/epicmaxco/vuestic-ui/vue-cli-plugin-quasar#readme"
+}
