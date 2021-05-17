@@ -1,21 +1,13 @@
 <template>
   <div>
     <va-rating
-      icon="heart"
-      empty-icon="heart_empty"
+      icon="favorite"
+      empty-icon="favorite_border"
       v-model="value"
     />
     <va-rating
-      icon="thumb_up"
-      empty-icon="thumb_up_empty"
-      v-model="value"
-    />
-    <va-rating
-      icon="battery"
-      empty-icon="battery_empty"
-      half-icon="battery_half"
-      halves
-      hover
+      icon="thumb_up_alt"
+      empty-icon="thumb_up_off_alt"
       v-model="value"
     />
   </div>
