@@ -53,7 +53,7 @@ export default {
   data () {
     return {
       options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-      value: '',
+      value: 'two',
     }
   },
 }
