@@ -2675,10 +2675,14 @@
   },
   "roadmap": {
     "title": "Vuestic UI Roadmap",
-    "description": "Our team is constantly improving the existing code base and adding new features that help make building applications even easier",
+    "description": "Our team is constantly improving the existing code base and adding new features that help make building applications even easier.",
     "inDevelopment": {
       "title": "In development",
       "description": "The following releases are currently being developed:"
+    },
+    "1-1": {
+      "title": "v1.1",
+      "description": "We plan a small release to polish and improve `v1.0`. Plus a new feature or two :)."
     },
     "1-0": {
       "title": "v1.0",
@@ -2686,11 +2690,11 @@
     },
     "0-1": {
       "title": "v0.1",
-      "description": "Not even alpha, we just split components from [vuestic-admin](https://github.com/epicmaxco/vuestic-admin) into separate repository to simplify updates."
+      "description": "Not even alpha, we've just split components from [vuestic-admin](https://github.com/epicmaxco/vuestic-admin) into separate repository to simplify updates."
     },
     "released": {
       "title": "Released",
-      "description": "The following are the already released minor and major version updates. "
+      "description": " Already released versions"
     },
     "longTimeSupport": {
       "title": "Long time support",

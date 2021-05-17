@@ -13,7 +13,7 @@
         <va-button
           v-for="(link, index) in links" :key="index"
           flat
-          class="header__links__button"
+          class="header__links__button ml-2"
           color="primary"
           :to="link.to"
           :href="link.url"
@@ -60,16 +60,16 @@ export default class Header extends mixins(PropsMixin) {
     return {
       links: [
         {
-          text: 'Overview',
+          text: this.$t('menu.overview'),
           icon: 'fa fa-eye',
           to: `/${(this as any).$root.$i18n.locale}/introduction/overview`,
         },
-        {
-          text: 'Documentation',
-          icon: 'fa fa-cube',
-          url: '#', // TODO: add actual links when pages are ready
-          target: '_blank',
-        },
+        // {
+        //   text: 'Documentation',
+        //   icon: 'fa fa-cube',
+        //   url: '#', // TODO: add actual links when pages are ready
+        //   target: '_blank',
+        // },
         {
           text: 'GitHub',
           icon: 'fa fa-github',
@@ -77,7 +77,7 @@ export default class Header extends mixins(PropsMixin) {
           target: '_blank',
         },
         {
-          text: 'Contribution',
+          text: this.$t('menu.contribution'),
           icon: 'fa fa-share-alt',
           to: `/${(this as any).$root.$i18n.locale}/contribution/documentation-page`,
         },

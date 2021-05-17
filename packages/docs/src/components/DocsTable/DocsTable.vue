@@ -101,11 +101,5 @@ export default class DocsTable extends mixins(PropsMixin) {
       padding: 0.75rem !important;
     }
   }
-
-  .MarkdownView {
-    code {
-      white-space: pre;
-    }
-  }
 }
 </style>
