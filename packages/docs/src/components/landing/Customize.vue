@@ -80,8 +80,8 @@
                 </table>
               </div>
               <div class="block__components" v-else-if="tabValue === 3">
-                <div class="component">
-                  <va-button-toggle v-model="theme" :color="themeColor" :options="themeToggleOptions" />
+                <div class="component" style="display: flex; justify-content: center;">
+                  <va-button-toggle size="small" v-model="theme" :color="themeColor" :options="themeToggleOptions" />
                 </div>
 
                 <div class="component">
@@ -89,15 +89,15 @@
                 </div>
 
                 <div class="component">
-                  <va-alert :color="themeColor">
-                    Important alert message
-                  </va-alert>
-                </div>
-
-                <div class="component">
                   <va-button :color="themeColor">
                     Submit
                   </va-button>
+                </div>
+
+                <div class="component">
+                  <va-alert :color="themeColor">
+                    Important alert message
+                  </va-alert>
                 </div>
               </div>
 
@@ -440,7 +440,7 @@ export default class Customize extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "~@/assets/main.scss";
 
 .customize {
@@ -512,10 +512,10 @@ export default class Customize extends Vue {
       position: relative;
       display: flex;
       flex-direction: column;
-      padding: 3rem;
+      padding: 2rem;
       width: 100%;
       border-radius: 1rem;
-
+      overflow-x: scroll;
       // xs
       @include xs(padding, 2rem);
     }

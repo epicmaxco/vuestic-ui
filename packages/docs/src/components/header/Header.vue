@@ -14,7 +14,7 @@
           v-for="(link, index) in links" :key="index"
           flat
           class="header__links__button"
-          color="dark"
+          color="primary"
           :to="link.to"
           :href="link.url"
           :target="link.target"
@@ -97,6 +97,9 @@ export default class Header extends mixins(PropsMixin) {
 @import "~vuestic-ui/src/components/vuestic-sass/global/typography";
 
 .header {
+  a:visited{
+    color: red;
+  }
   width: 100%;
   height: 4rem;
   box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
