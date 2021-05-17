@@ -234,6 +234,7 @@ html {
     @media (max-width: 670px) {
       & > .layout.gutter--xl {
         padding: 0;
+        padding-bottom: 2rem;
       }
     }
   }
