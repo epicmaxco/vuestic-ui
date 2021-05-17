@@ -126,7 +126,14 @@ export default class VaButton extends mixins(
 
   get computedType () {
     // Safari issue. type===button will break styles if the button is used as a link
-    return this.tagComputed === 'button' ? 'button' : undefined
+    switch (this.tagComputed) {
+    case 'a':
+    case 'router-link':
+    case 'nuxt-link':
+      return undefined
+    default:
+      return this.type
+    }
   }
 
   get isTransparentBackground () {
