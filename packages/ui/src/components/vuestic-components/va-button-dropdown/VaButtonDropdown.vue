@@ -7,6 +7,7 @@
       :offset="$props.offset"
       @update:modelValue="toggleDropdown"
       :keep-anchor-width="keepAnchorWidth"
+      :isContentClosable="$props.isContentClosable"
     >
       <template #anchor>
         <va-button
@@ -80,6 +81,7 @@ import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
 class ButtonDropdownProps {
+  isContentClosable = prop<boolean>({ type: Boolean, default: false })
   modelValue = prop<boolean>({ type: Boolean })
   color = prop<string>({ type: String, default: 'primary' })
   outline = prop<boolean>({ type: Boolean, default: false })

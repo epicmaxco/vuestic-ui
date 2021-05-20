@@ -15,6 +15,7 @@
         class="va-dropdown__content-wrapper"
         @mouseover="$props.isContentHoverable && onMouseOver()"
         @mouseout="onMouseOut()"
+        @click="$props.isContentClosable && onAnchorClick()"
         ref="contentWrapper"
       >
         <div :style="$props.keepAnchorWidth ? anchorWidthStyles : ''">
@@ -51,6 +52,7 @@ class DropdownProps {
   closeOnClickOutside = prop<boolean>({ type: Boolean, default: true })
   closeOnAnchorClick = prop<boolean>({ type: Boolean, default: true })
   isContentHoverable = prop<boolean>({ type: Boolean, default: true })
+  isContentClosable = prop<boolean>({ type: Boolean, default: false })
   offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
   trigger = prop<string | number | any[]>({
     type: [Array, Number, String],
