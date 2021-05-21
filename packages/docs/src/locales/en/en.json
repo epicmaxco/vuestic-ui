@@ -3053,6 +3053,10 @@
       "events": {
         "title": "Events",
         "text": "The `va-dropdown-button` can handle click events."
+      },
+      "clickInside": {
+        "title": "Click inside",
+        "text": "You could set the dropdown to be closed or not after clicking on it."
       }
     }
   },
