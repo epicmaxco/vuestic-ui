@@ -25,7 +25,7 @@ import VaColorInput from './vuestic-components/va-color-input'
 import VaConfig from './vuestic-components/va-config'
 import VaContent from './vuestic-components/va-content'
 import VaDivider from './vuestic-components/va-divider'
-import VaDatePicker from './vuestic-components/va-date-picker'
+// import VaDatePicker from './vuestic-components/wip-va-date-picker'
 import VaDropdown, { VaDropdownContent } from './vuestic-components/va-dropdown'
 import VaFileUpload from './vuestic-components/va-file-upload'
 import VaHover from './vuestic-components/va-hover'
@@ -40,7 +40,7 @@ import VaList, {
   VaListLabel,
   VaListSeparator,
 } from './vuestic-components/va-list'
-import VaMediumEditor from './vuestic-components/va-medium-editor'
+// import VaMediumEditor from './vuestic-components/va-medium-editor'
 import VaModal from './vuestic-components/va-modal'
 import VaNavbar, { VaNavbarItem } from './vuestic-components/va-navbar'
 import VaPagination from './vuestic-components/va-pagination'
@@ -116,7 +116,7 @@ const vuesticComponentMap = {
   VaColorInput,
   VaConfig,
   VaContent,
-  VaDatePicker,
+  // VaDatePicker,
   VaDropdown,
   VaDropdownContent,
   VaFileUpload,
@@ -132,7 +132,7 @@ const vuesticComponentMap = {
   VaListItemSection,
   VaListLabel,
   VaListSeparator,
-  VaMediumEditor,
+  // VaMediumEditor,
   VaModal,
   VaNavbar,
   VaNavbarItem,
