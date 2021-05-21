@@ -22,7 +22,7 @@
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 class ParallaxProps {
-  target = prop<Element | string>({ type: [Element, String], default: '' })
+  target = prop<Element | string>({ type: [Object, String], default: '' })
   src = prop<string>({ type: String, default: '', required: true })
   alt = prop<string>({ type: String, default: 'parallax' })
   height = prop<number>({ type: Number, default: 400 })

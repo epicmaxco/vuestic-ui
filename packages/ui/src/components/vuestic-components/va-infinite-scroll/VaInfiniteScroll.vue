@@ -47,7 +47,7 @@ class InfiniteScrollProps {
   offset = prop<number>({ type: Number, default: 500 })
   reverse = prop<boolean>({ type: Boolean, default: false })
   disabled = prop<boolean>({ type: Boolean, default: false })
-  scrollTarget = prop<Element | string>({ type: [Element, String], default: null })
+  scrollTarget = prop<Element | string>({ type: [Object, String], default: null })
   debounce = prop<number>({ type: Number, default: 100 })
   tag = prop<string>({ type: String, default: 'div' })
 }

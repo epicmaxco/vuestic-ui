@@ -21,7 +21,7 @@ import VaButton from '../va-button'
 
 class Props {
   target = prop<Element | string | undefined>({
-    type: [Element, String],
+    type: [Object, String],
     default: () => window,
   })
 
