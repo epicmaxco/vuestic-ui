@@ -16,7 +16,7 @@ import ColorMixin from '../../../services/color-config/ColorMixin'
 class VaAppBarProps {
   gradient = prop<boolean>({ type: Boolean, default: false })
   bottom = prop<boolean>({ type: Boolean, default: false })
-  target = prop<string | Element>({ type: [Element, String], default: '' })
+  target = prop<string | Element>({ type: [Object, String], default: '' })
   hideOnScroll = prop<boolean>({ type: Boolean, default: false })
   shadowOnScroll = prop<boolean>({ type: Boolean, default: false })
   shadowColor = prop<string>({ type: String, default: '' })
