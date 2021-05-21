@@ -15,7 +15,7 @@
         class="va-dropdown__content-wrapper"
         @mouseover="$props.isContentHoverable && onMouseOver()"
         @mouseout="onMouseOut()"
-        @click="$props.closeOnClickInside && onAnchorClick()"
+        @click="onDropdownContentClick()"
         ref="contentWrapper"
       >
         <div :style="$props.keepAnchorWidth ? anchorWidthStyles : ''">
@@ -33,6 +33,7 @@ import { DebounceLoader } from 'asva-executors'
 import { createPopper, Instance } from '@popperjs/core'
 
 type PopperInstance = Instance | null
+type ClickType = 'anchor-click' | 'dropdown-content-click' | 'click-outside'
 
 class DropdownProps {
   debugId = prop<string>({ type: String, default: '' })
@@ -65,11 +66,11 @@ const DropdownPropsMixin = Vue.with(DropdownProps)
 
 @Options({
   name: 'VaDropdown',
-  emits: ['update:modelValue', 'anchor-click', 'click-outside', 'trigger'],
+  emits: ['update:modelValue', 'anchor-click', 'click-outside', 'dropdown-content-click', 'trigger'],
 })
 export default class VaDropdown extends mixins(DropdownPropsMixin) {
   popperInstance: PopperInstance = null
-  isClicked = false
+  isShown = false
   isMouseHovered = false
   anchorWidth!: number
   hoverOverDebounceLoader!: DebounceLoader
@@ -88,7 +89,7 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
       case 'hover':
         return this.isMouseHovered
       case 'click':
-        return this.isClicked
+        return this.isShown
       case 'none':
         return this.modelValue
       default:
@@ -130,15 +131,31 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
     })
   }
 
+  handleInsideClick (emitName: ClickType, toClose: boolean): void {
+    this.$emit(emitName)
+    if (toClose) {
+      this.hide()
+    }
+  }
+
+  onDropdownContentClick (): void {
+    this.handleInsideClick('dropdown-content-click', this.closeOnClickInside)
+  }
+
+  onClickOutside (): void {
+    this.handleInsideClick('click-outside', this.closeOnClickOutside)
+  }
+
   onAnchorClick (): void {
-    this.$emit('anchor-click')
     if (this.disabled) {
       return
     }
-    if (this.isClicked && !this.closeOnAnchorClick) {
+    if (this.isShown) {
+      this.handleInsideClick('anchor-click', this.closeOnAnchorClick)
       return
     }
-    this.isClicked = !this.isClicked
+    this.isShown = true
+    this.$emit('anchor-click')
   }
 
   // Kinda complex logic here.
@@ -188,14 +205,6 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
     this.onClickOutside()
   }
 
-  onClickOutside (): void {
-    this.$emit('click-outside')
-    if (!this.closeOnClickOutside) {
-      return
-    }
-    this.hide()
-  }
-
   updateAnchorWidth (): void {
     if (this.keepAnchorWidth) {
       this.anchorWidth = (this as any).$refs.anchor.offsetWidth
@@ -208,7 +217,7 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
   /** @public */
   hide (): void {
     if (this.trigger === 'click') {
-      this.isClicked = false
+      this.isShown = false
     }
     if (this.trigger === 'none') {
       this.$emit('update:modelValue', false)
