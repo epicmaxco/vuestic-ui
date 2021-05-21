@@ -1,12 +1,15 @@
 import { watch } from 'vue'
 import { useGlobalConfig } from '../global-config/global-config'
+import { isServer } from '../../utils/ssr-utils'
 
-export const setCSSVariable = (name: string, value: string, root = document.documentElement) => {
+export const setCSSVariable = (name: string, value: string, root: HTMLElement) => {
   root.style.setProperty(`--va-${name}`, value)
 }
 
 const ColorHelpersPlugin = {
   install () {
+    if (isServer()) { return }
+
     const { globalConfig } = useGlobalConfig()
 
     const root = document.documentElement
