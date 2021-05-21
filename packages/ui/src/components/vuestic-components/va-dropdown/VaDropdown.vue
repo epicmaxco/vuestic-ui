@@ -52,7 +52,7 @@ class DropdownProps {
   closeOnClickOutside = prop<boolean>({ type: Boolean, default: true })
   closeOnAnchorClick = prop<boolean>({ type: Boolean, default: true })
   isContentHoverable = prop<boolean>({ type: Boolean, default: true })
-  isContentClosable = prop<boolean>({ type: Boolean, default: false })
+  isContentClosable = prop<boolean>({ type: Boolean, default: true })
   offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
   trigger = prop<string | number | any[]>({
     type: [Array, Number, String],

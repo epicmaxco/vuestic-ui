@@ -5,7 +5,6 @@
       flat
       :label="currentLanguageName"
       :offset="[0, 25]"
-      :isContentClosable="true"
     >
       <div class="language-dropdown__content">
         <!-- <va-list-item
