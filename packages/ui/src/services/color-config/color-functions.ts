@@ -100,5 +100,5 @@ export const isCssColor = (strColor: string): boolean => {
   // Need to use Regex instead of DOM methods because we support SSR
   const cssColorRegex = /^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*,?\s*\)?)(,\s*(0?\.\d+)?|1)?\)/
 
-  return cssColorRegex.test(strColor)
+  return cssColorRegex.test(strColor.toLocaleLowerCase())
 }
