@@ -2,12 +2,17 @@
   --va-progress-bar-width: 100%;
   --va-progress-bar-position: relative;
   --va-progress-bar-overflow: hidden;
+  --va-progress-bar-opacity: 1;
+  --va-progress-bar--invisible-transition: opacity ease 1s;
 
   /* Small */
   --va-progress-bar-sm-height: 2px;
 
   /* Large */
   --va-progress-bar-lg-height: 16px;
+
+  /* Invisible */
+  --va-progress-bar-zero-opacity: 0;
 
   /* Info */
   --va-progress-bar-info-font-weight: 700;

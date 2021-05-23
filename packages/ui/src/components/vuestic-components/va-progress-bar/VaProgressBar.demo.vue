@@ -12,6 +12,9 @@
         :rounded="false"
         :modelValue="value"
       />
+      <br>
+      Invisible
+      <va-progress-bar :invisible="invisible" />
     </VbCard>
 
     <VbCard title="Color">
@@ -52,6 +55,13 @@
         size="2rem"
         :modelValue="value"
       />
+      <br>
+      Size rem invisible
+      <va-progress-bar
+        size="2rem"
+        :modelValue="value"
+        :invisible="invisible"
+      />
     </VbCard>
 
     <VbCard title="Slotted">
@@ -79,6 +89,14 @@
       <br>
       Dynamic slot
       <va-progress-bar :modelValue="value">
+        {{ value + '%' }}
+      </va-progress-bar>
+      <br>
+      Invisible
+      <va-progress-bar
+        :modelValue="value"
+        :invisible="invisible"
+      >
         {{ value + '%' }}
       </va-progress-bar>
     </VbCard>
@@ -117,6 +135,14 @@
         :modelValue="value"
         :buffer="bufferValue"
       />
+      <br>
+      Invisible reversed buffer
+      <va-progress-bar
+        :modelValue="value"
+        :buffer="bufferValue"
+        :invisible="invisible"
+        reverse
+      />
     </VbCard>
 
     <VbCard title="context checks">
@@ -153,6 +179,12 @@
       <div>
         rounded (false):
         <VaContext :components="{VaProgressBar: {rounded: false}}">
+          <VaProgressBar />
+        </VaContext>
+      </div>
+      <div>
+        invisible (true):
+        <VaContext :components="{VaProgressBar: {invisible: true}}">
           <VaProgressBar />
         </VaContext>
       </div>
@@ -200,6 +232,14 @@
           +100
         </button>
       </div>
+      <br>
+      Invisible:
+      <div>
+        <input
+          type="checkbox"
+          v-model="invisible"
+        >
+      </div>
     </VbCard>
   </VbDemo>
 </template>
@@ -217,6 +257,7 @@ export default {
     return {
       bufferValue: 45,
       value: 35,
+      invisible: true,
     }
   },
 }

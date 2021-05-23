@@ -1,5 +1,8 @@
 <template>
-  <div class="va-progress-bar">
+  <div
+    class="va-progress-bar"
+    :class="{ 'va-progress-bar--invisible': invisible }"
+  >
     <div
       :style="{colorComputed}"
       class="va-progress-bar__info"
@@ -58,6 +61,7 @@ class ProgressBarProps {
   size = prop<string | number>({ type: [Number, String], default: 'medium' })
   reverse = prop<boolean>({ type: Boolean, default: false })
   color = prop<string>({ type: String, default: 'primary' })
+  invisible = prop<boolean>({ type: Boolean, default: false })
 }
 
 const ProgressBarPropsMixin = Vue.with(ProgressBarProps)
@@ -117,6 +121,8 @@ export default class VaProgressBar extends mixins(
   width: var(--va-progress-bar-width);
   position: var(--va-progress-bar-position);
   overflow: var(--va-progress-bar-overflow);
+  opacity: var(--va-progress-bar-opacity);
+  transition: var(--va-progress-bar--invisible-transition);
 
   &__small {
     height: var(--va-progress-bar-sm-height);
@@ -124,6 +130,10 @@ export default class VaProgressBar extends mixins(
 
   &__large {
     height: var(--va-progress-bar-lg-height);
+  }
+
+  &--invisible {
+    opacity: var(--va-progress-bar-zero-opacity);
   }
 
   &__info {
