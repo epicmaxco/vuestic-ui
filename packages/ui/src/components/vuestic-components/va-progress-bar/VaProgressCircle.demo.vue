@@ -9,6 +9,13 @@
         Value
         <VaProgressCircle :modelValue="value" />
       </div>
+      <div>
+        Invisible
+        <VaProgressCircle
+          :modelValue="value"
+          :invisible="invisible"
+        />
+      </div>
     </VbCard>
 
     <VbCard title="Slotted">
@@ -27,6 +34,15 @@
       <div>
         Indeterminate Slot:
         <VaProgressCircle indeterminate>
+          {{ value + '%' }}
+        </VaProgressCircle>
+      </div>
+      <div>
+        Invisible with Dynamic Slot:
+        <VaProgressCircle
+          :modelValue="value"
+          :invisible="invisible"
+        >
           {{ value + '%' }}
         </VaProgressCircle>
       </div>
@@ -118,6 +134,12 @@
           <VaProgressCircle :modelValue="value" />
         </VaContext>
       </div>
+      <div>
+        invisible (true):
+        <VaContext :components="{VaProgressCircle: {invisible: true}}">
+          <VaProgressCircle :modelValue="60" />
+        </VaContext>
+      </div>
     </VbCard>
 
     <VbCard title="controls">
@@ -134,6 +156,13 @@
       <button @click="value += 100">
         +100
       </button>
+      <div>
+        <input
+          type="checkbox"
+          v-model="invisible"
+        >
+        Invisible
+      </div>
     </VbCard>
   </VbDemo>
 </template>
@@ -150,6 +179,7 @@ export default {
   data () {
     return {
       value: 35,
+      invisible: true,
     }
   },
 }

@@ -49,6 +49,11 @@
   /* Circle */
   --va-progress-circle-position: relative;
   --va-progress-circle-overflow: hidden;
+  --va-progress-circle-opacity: 1;
+  --va-progress-circle--invisible-transition: opacity ease 1s;
+
+  /* Invisible */
+  --va-progress-circle-zero-opacity: 0;
 
   /* Circle Wrapper */
   --va-progress-circle-wrapper-position: absolute;

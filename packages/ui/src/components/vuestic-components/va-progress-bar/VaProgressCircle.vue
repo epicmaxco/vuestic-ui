@@ -40,6 +40,7 @@ import { SizeMixin } from '../../../mixins/SizeMixin'
 class ProgressCircleProps {
   thickness = prop<number>({ type: Number, default: 0.06 })
   color = prop<string>({ type: String, default: 'primary' })
+  invisible = prop<boolean>({ type: Boolean, default: false })
 }
 
 const ProgressCirclePropsMixin = Vue.with(ProgressCircleProps)
@@ -76,6 +77,7 @@ export default class VaProgressCircle extends mixins(
   get computedClass () {
     return {
       'va-progress-circle--indeterminate': this.indeterminate,
+      'va-progress-circle--invisible': this.invisible,
     }
   }
 
@@ -104,6 +106,12 @@ export default class VaProgressCircle extends mixins(
 .va-progress-circle {
   position: var(--va-progress-circle-position);
   overflow: var(--va-progress-circle-overflow); // Prevents resizing container back and forth.
+  opacity: var(--va-progress-circle-opacity);
+  transition: var(--va-progress-circle--invisible-transition);
+
+  &--invisible {
+    opacity: var(--va-progress-circle-zero-opacity);
+  }
 
   &__wrapper {
     position: var(--va-progress-circle-wrapper-position);
