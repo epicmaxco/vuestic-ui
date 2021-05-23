@@ -20,6 +20,11 @@ export default [
     'va-progress-circle/Indeterminate',
   ),
   ...DocsHelper.exampleBlock(
+    'progressCircle.examples.visibility.title',
+    'progressCircle.examples.visibility.text',
+    'va-progress-circle/Visibility',
+  ),
+  ...DocsHelper.exampleBlock(
     'progressCircle.examples.coloring.title',
     'progressCircle.examples.coloring.text',
     'va-progress-circle/Coloring',

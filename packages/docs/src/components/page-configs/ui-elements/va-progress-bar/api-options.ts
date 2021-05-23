@@ -9,6 +9,9 @@ export default {
     indeterminate: {
       local: true,
     },
+    invisible: {
+      local: true,
+    },
     buffer: {
       local: true,
     },

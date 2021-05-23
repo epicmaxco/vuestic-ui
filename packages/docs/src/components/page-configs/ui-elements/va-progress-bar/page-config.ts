@@ -42,6 +42,18 @@ export default [
   },
   {
     type: BlockType.HEADLINE,
+    translationString: 'progressBar.examples.visibility.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'progressBar.examples.visibility.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-progress-bar/Visibility',
+  },
+  {
+    type: BlockType.HEADLINE,
     translationString: 'progressBar.examples.coloring.title',
   },
   {

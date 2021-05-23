@@ -496,6 +496,7 @@
       "props": {
         "value": "The progress value",
         "indeterminate": "Create a indeterminate loading bar",
+        "invisible": "Make the `va-progress-bar` component invisible (sets its `opacity` css property to `0` which allows to keep the space allocated for it in the layout even when the component is hidden)",
         "buffer": "Create a loading bar with a buffer. Commonly used in videos",
         "reverse": "Reverse the progress bar direction",
         "rounded": "Add a border radius to the `va-progress-bar` component (default: true)"
@@ -508,6 +509,7 @@
       "props": {
         "value": "The progress value",
         "indeterminate": "Using the `indeterminate` prop, the `va-progress-circle` continues to  animate indefinitely.",
+        "invisible": "Make the `va-progress-circle` component invisible (sets its `opacity` css property to `0` which allows to keep the space allocated for it in the layout even when the component is hidden)",
         "thickness": "Circle border size between 0 and 1"
       },
       "slots": {
@@ -1900,6 +1902,10 @@
         "title": "Indeterminate",
         "text": "Use the `indeterminate` prop so that the `va-progress-bar` continuously animates."
       },
+      "visibility": {
+        "title": "Visibility",
+        "text": "Use the `invisible` prop to hide the `va-progress-bar` while keeping the space for it in the layout."
+      },
       "coloring": {
         "title": "Coloring",
         "text": "Use predefined colors or use your own with the `color` prop."
@@ -1929,6 +1935,10 @@
       "indeterminate": {
         "title": "Indeterminate",
         "text": "Use the `indeterminate` prop so that the `va-progress-circle` continuously animates."
+      },
+      "visibility": {
+        "title": "Visibility",
+        "text": "Use the `invisible` prop to hide the `va-progress-circle` while keeping the space for it in the layout."
       },
       "coloring": {
         "title": "Coloring",
