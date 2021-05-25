@@ -31,6 +31,7 @@ import { watch, nextTick } from 'vue'
 import { Vue, Options, prop, mixins } from 'vue-class-component'
 import { DebounceLoader } from 'asva-executors'
 import { createPopper, Instance } from '@popperjs/core'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 type PopperInstance = Instance | null
 type ClickType = 'anchor-click' | 'dropdown-content-click' | 'click-outside'
@@ -68,7 +69,10 @@ const DropdownPropsMixin = Vue.with(DropdownProps)
   name: 'VaDropdown',
   emits: ['update:modelValue', 'anchor-click', 'click-outside', 'dropdown-content-click', 'trigger'],
 })
-export default class VaDropdown extends mixins(DropdownPropsMixin) {
+export default class VaDropdown extends mixins(
+  DropdownPropsMixin,
+  StatefulMixin,
+) {
   popperInstance: PopperInstance = null
   isShown = false
   isMouseHovered = false
@@ -91,7 +95,7 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
       case 'click':
         return this.isShown
       case 'none':
-        return this.modelValue
+        return this.valueComputed
       default:
         return false
       }
@@ -220,7 +224,7 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
       this.isShown = false
     }
     if (this.trigger === 'none') {
-      this.$emit('update:modelValue', false)
+      this.valueComputed = false
     }
   }
 
@@ -230,7 +234,7 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
       modifiers: [],
       // strategy: this.fixed ? 'fixed' : undefined,
       onFirstUpdate: () => {
-        this.$emit('update:modelValue', true)
+        this.valueComputed = true
       },
     }
 
@@ -264,7 +268,7 @@ export default class VaDropdown extends mixins(DropdownPropsMixin) {
   }
 
   removePopper (): void {
-    this.$emit('update:modelValue', false)
+    this.valueComputed = false
 
     if (!this.popperInstance) {
       return
