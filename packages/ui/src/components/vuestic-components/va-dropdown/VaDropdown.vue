@@ -74,8 +74,6 @@ export default class VaDropdown extends mixins(
   StatefulMixin,
 ) {
   popperInstance: PopperInstance = null
-  isShown = false
-  isMouseHovered = false
   anchorWidth!: number
   hoverOverDebounceLoader!: DebounceLoader
   hoverOutDebounceLoader!: DebounceLoader
@@ -88,12 +86,28 @@ export default class VaDropdown extends mixins(
   }
 
   get triggeredValue (): boolean {
+    // const getTriggeredValue = () => {
+    //   return (Array.isArray(this.trigger) ? this.trigger : [this.trigger]).some((trigger) => {
+    //     switch (trigger) {
+    //       case 'hover':
+    //         return this.isMouseHovered
+    //       case 'click':
+    //         return this.isClicked
+    //       case 'none':
+    //         return this.modelValue
+    //       default:
+    //         return false
+    //     }
+    //   })
+    // }
     const getTriggeredValue = () => {
       switch (this.trigger) {
       case 'hover':
-        return this.isMouseHovered
+        // this.valueComputed
+        return this.valueComputed
       case 'click':
-        return this.isShown
+        // this.valueComputed
+        return this.valueComputed
       case 'none':
         return this.valueComputed
       default:
@@ -102,7 +116,6 @@ export default class VaDropdown extends mixins(
     }
 
     const triggeredValue = getTriggeredValue()
-
     this.$emit('trigger', triggeredValue)
 
     return triggeredValue
@@ -135,7 +148,7 @@ export default class VaDropdown extends mixins(
     })
   }
 
-  handleInsideClick (emitName: ClickType, toClose: boolean): void {
+  handleClick (emitName: ClickType, toClose: boolean): void {
     this.$emit(emitName)
     if (toClose) {
       this.hide()
@@ -143,22 +156,29 @@ export default class VaDropdown extends mixins(
   }
 
   onDropdownContentClick (): void {
-    this.handleInsideClick('dropdown-content-click', this.closeOnClickInside)
+    this.handleClick('dropdown-content-click', this.closeOnClickInside)
   }
 
   onClickOutside (): void {
-    this.handleInsideClick('click-outside', this.closeOnClickOutside)
+    this.handleClick('click-outside', this.closeOnClickOutside)
   }
 
   onAnchorClick (): void {
+    debugger
+    // only if click trigger
     if (this.disabled) {
       return
     }
-    if (this.isShown) {
-      this.handleInsideClick('anchor-click', this.closeOnAnchorClick)
-      return
+    if (this.trigger === 'click') {
+      if (this.valueComputed) {
+        this.handleClick('anchor-click', this.closeOnAnchorClick)
+        return
+      }
+      // this.valueComputed = true
+      this.valueComputed = true
     }
-    this.isShown = true
+    // this.valueComputed
+
     this.$emit('anchor-click')
   }
 
@@ -167,10 +187,19 @@ export default class VaDropdown extends mixins(
   // * Fast mouse-over shouldn't trigger dropdown.
   // * Dropdown shouldn't close when you move mouse from anchor to content (even with offset).
   onMouseOver (): void {
+    // only if trigger hover
     if (this.disabled) {
       return
     }
-    if (!this.isMouseHovered) {
+    if (this.trigger === 'hover') {
+      if (!this.valueComputed) {
+        this.hoverOverDebounceLoader.run()
+      }
+
+      this.hoverOutDebounceLoader.reset()
+    }
+    // !this.valueComputed
+    if (!this.valueComputed) {
       this.hoverOverDebounceLoader.run()
     }
 
@@ -178,12 +207,15 @@ export default class VaDropdown extends mixins(
   }
 
   onMouseOut (): void {
-    if (this.isContentHoverable) {
-      this.hoverOutDebounceLoader.run()
-    } else {
-      this.isMouseHovered = false
+    if (this.trigger === 'hover') {
+      if (this.isContentHoverable) {
+        this.hoverOutDebounceLoader.run()
+      } else {
+        // this.valueComputed = false
+        this.valueComputed = false
+      }
+      this.hoverOverDebounceLoader.reset()
     }
-    this.hoverOverDebounceLoader.reset()
   }
 
   registerClickOutsideListener (): void {
@@ -220,12 +252,7 @@ export default class VaDropdown extends mixins(
 
   /** @public */
   hide (): void {
-    if (this.trigger === 'click') {
-      this.isShown = false
-    }
-    if (this.trigger === 'none') {
-      this.valueComputed = false
-    }
+    this.valueComputed = false
   }
 
   initPopper (): void {
@@ -284,14 +311,16 @@ export default class VaDropdown extends mixins(
 
     this.hoverOverDebounceLoader = new DebounceLoader(
       async () => {
-        this.isMouseHovered = true
+        // this.valueComputed = true
+        this.valueComputed = true
       },
       this.hoverOverTimeout,
     )
     this.handlePopperInstance()
     this.hoverOutDebounceLoader = new DebounceLoader(
       async () => {
-        this.isMouseHovered = false
+        // this.valueComputed = true
+        this.valueComputed = false
       },
       this.hoverOutTimeout,
     )
