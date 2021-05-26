@@ -1,5 +1,9 @@
 // @ts-ignore
-import { TranslationString, ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import {
+  TranslationString,
+  ManualApiOptions,
+  TranslationStringList
+} from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 
@@ -23,6 +27,7 @@ export enum BlockType {
   TABLE = 'TABLE',
   LINK = 'LINK',
   ALERT = 'ALERT',
+  LIST = 'LIST'
 }
 
 export type TextBlockType =
@@ -34,6 +39,11 @@ export type TextBlockType =
 export type TextBlock = {
   type: TextBlockType,
   translationString: TranslationString,
+}
+
+export type ListBlock = {
+  type: BlockType.LIST,
+  translationStringList: TranslationStringList,
 }
 
 export type ApiDocsBlock =

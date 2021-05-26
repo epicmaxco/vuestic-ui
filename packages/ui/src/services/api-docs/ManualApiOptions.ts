@@ -3,6 +3,7 @@
 // as strings.
 
 export type TranslationString = string
+export type TranslationStringList = TranslationString[]
 export type VersionString = string | '' // vuestic-ui version at which feature was first introduced
 
 // Universal options for props, events, methods, slots.

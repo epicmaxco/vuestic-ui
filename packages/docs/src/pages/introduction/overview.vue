@@ -1,5 +1,5 @@
 <template>
-  <docs-content :config="configComputed" />
+  <docs-content :config="configComputed"/>
 </template>
 
 <script lang="ts">

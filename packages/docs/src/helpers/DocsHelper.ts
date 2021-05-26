@@ -6,7 +6,7 @@ import {
   TextBlock,
   PathToExample,
   CodeString,
-  ExampleOptions, CodeLanguage,
+  ExampleOptions, CodeLanguage, ListBlock,
 } from '@/types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
@@ -80,6 +80,12 @@ export const DocsHelper = {
       type: BlockType.ALERT,
       translationString,
       color,
+    }
+  },
+  list: (translationStringList: TranslationString[]): ListBlock => {
+    return {
+      type: BlockType.LIST,
+      translationStringList
     }
   },
 

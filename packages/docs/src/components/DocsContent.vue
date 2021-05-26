@@ -39,6 +39,12 @@
         :key="block.type + index"
         :value="`${$t(block.translationString)}`"
       />
+      <MarkdownView
+        v-else-if="block.type === BlockType.LIST"
+        :key="block.type + index"
+        :value="`${block.translationStringList.map(translationString=>$t(translationString))
+                                              .join('\n')}`"
+      />
       <DocsTable
         v-else-if="block.type === BlockType.TABLE"
         :key="block.type + index"

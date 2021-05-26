@@ -5,9 +5,11 @@ export default [
   DocsHelper.title('overview.title'),
   DocsHelper.paragraph('overview.description'),
   DocsHelper.subtitle('overview.featuresOverview'),
-  DocsHelper.paragraph('overview.vueThreeCompatible'),
-  DocsHelper.paragraph('overview.featureRich'),
-  DocsHelper.paragraph('overview.configurable'),
-  DocsHelper.paragraph('overview.responsive'),
-  DocsHelper.paragraph('overview.translatable'),
+  DocsHelper.list([
+    'overview.vueThreeCompatible',
+    'overview.featureRich',
+    'overview.configurable',
+    'overview.responsive',
+    'overview.translatable'
+  ])
 ] as ApiDocsBlock[]

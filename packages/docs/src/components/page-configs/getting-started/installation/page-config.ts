@@ -91,8 +91,7 @@ export default [
   DocsHelper.subtitle('installation.manual.title'),
   DocsHelper.paragraph('installation.subtitle'),
   DocsHelper.paragraph('installation.prerequisites'),
-  DocsHelper.paragraph('installation.node'),
-  DocsHelper.paragraph('installation.npm'),
+  DocsHelper.list(['installation.node','installation.npm']),
   DocsHelper.paragraph('installation.afterCheck'),
   DocsHelper.code(installation, 'bash'),
 
