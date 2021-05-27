@@ -3,22 +3,30 @@
     <div class="my-2 text--bold muted">small</div>
     <va-progress-bar
       size="small"
-      :value="value"
+      :model-value="value"
     />
     <div class="my-2 text--bold muted">large</div>
     <va-progress-bar
       size="large"
-      :value="value"
+      :model-value="value"
     />
     <div class="my-2 text--bold muted">25px</div>
     <va-progress-bar
       :size="25"
-      :value="value"
+      :model-value="value"
     />
     <div class="my-2 text--bold muted">2rem</div>
     <va-progress-bar
       size="2rem"
-      :value="value"
+      :model-value="value"
     />
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return { value: 35 }
+  },
+}
+</script>
