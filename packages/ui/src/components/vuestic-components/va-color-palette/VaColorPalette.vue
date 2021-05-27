@@ -6,7 +6,7 @@
         :modelValue="context.valueComputed === color"
         :key="index"
         :color="color"
-        :indicator="indicator"
+        :square="indicator === 'square'"
         @update:modelValue="context.valueComputed = color"
       />
     </ul>

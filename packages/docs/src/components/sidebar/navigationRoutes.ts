@@ -212,24 +212,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'badge',
         displayName: 'menu.badge',
       },
-      // TODO: Color components not released yet
-      // {
-      //   category: 'menu.categories.color',
-      //   name: 'color-picker',
-      //   displayName: 'menu.colorPicker',
-      // },
-      // {
-      //   name: 'color-input',
-      //   displayName: 'menu.colorInput',
-      // },
-      // {
-      //   name: 'color-slider',
-      //   displayName: 'menu.colorSlider',
-      // },
-      // {
-      //   name: 'color-palette',
-      //   displayName: 'menu.colorPalette',
-      // },
       {
         name: 'navbar',
         displayName: 'menu.navbar',
@@ -282,6 +264,24 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'toast',
         displayName: 'menu.toast',
+      },
+      // TODO: Color components not released yet
+      // {
+      //   category: 'menu.categories.color',
+      //   name: 'color-picker',
+      //   displayName: 'menu.colorPicker',
+      // },
+      // {
+      //   name: 'color-slider',
+      //   displayName: 'menu.colorSlider',
+      // },
+      {
+        name: 'color-input',
+        displayName: 'menu.colorInput',
+      },
+      {
+        name: 'color-palette',
+        displayName: 'menu.colorPalette',
       },
       // GENERATOR_ADD - uiElements
     ],

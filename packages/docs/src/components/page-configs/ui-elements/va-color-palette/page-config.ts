@@ -39,18 +39,18 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-color-palette/Indicator',
   },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'colorPalette.examples.advanced.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'colorPalette.examples.advanced.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-color-palette/Advanced',
-  },
+  // {
+  //   type: BlockType.HEADLINE,
+  //   translationString: 'colorPalette.examples.advanced.title',
+  // },
+  // {
+  //   type: BlockType.PARAGRAPH,
+  //   translationString: 'colorPalette.examples.advanced.text',
+  // },
+  // {
+  //   type: BlockType.EXAMPLE,
+  //   component: 'va-color-palette/Advanced',
+  // },
   {
     type: BlockType.SUBTITLE,
     translationString: 'colorPalette.api.colorPalette',
