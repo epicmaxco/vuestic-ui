@@ -137,13 +137,22 @@ export default class VaFileUpload extends mixins(
         if (file.url) {
           return true
         } else {
-          const extn = fileName.substring(fileName.lastIndexOf('.') + 1)
-            .toLowerCase()
-          const correctExt = this.fileTypes.includes(extn)
-          if (!correctExt) {
+          const MIMETypes = ['audio/*', 'video/*', 'image/*']
+          const isContainedMIMEType = MIMETypes.find((t) => this.fileTypes.includes(t))
+
+          if (isContainedMIMEType) {
+            // Do not validatie MIMEType becouse there is too much to validate.
+            return true
+          }
+
+          const extn = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
+
+          const isCorrectExt = this.fileTypes.includes(extn)
+          if (!isCorrectExt) {
             this.modal = true
           }
-          return correctExt
+
+          return isCorrectExt
         }
       }
     })
