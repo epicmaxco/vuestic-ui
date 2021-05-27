@@ -16,6 +16,7 @@
     :class="{'file-upload-gallery-item_not-image': !this.previewImage}"
   >
     <img
+      v-if="previewImage"
       :src="previewImage"
       alt=""
       class="va-file-upload-gallery-item__image"
@@ -162,12 +163,12 @@ $max-image-size: 8.5714rem;
 
   &:hover {
     .va-file-upload-gallery-item__overlay {
-      display: flex;
+      z-index: 1;
     }
   }
 
   &__overlay {
-    display: none;
+    display: flex;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -176,7 +177,7 @@ $max-image-size: 8.5714rem;
     flex-direction: column;
     padding: 0.5rem;
     background: rgba($lighter-green, 0.8);
-    z-index: 1;
+    z-index: -1;
   }
 
   &__image {
