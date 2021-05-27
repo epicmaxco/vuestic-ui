@@ -24,7 +24,7 @@
         </va-button>
       </div>
     </div>
-    <div class="header__prefences flex px-3">
+    <div class="header__prefences sm-hidden flex px-3">
       <version-dropdown class="mr-2" />
 <!--      <color-dropdown class="mr-1" />-->
       <language-dropdown class="mr-1" />
@@ -102,7 +102,9 @@ export default class Header extends mixins(PropsMixin) {
   box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
 
   @include media-breakpoint-down(sm) {
-    height: 8rem;
+    .sm-hidden {
+      display: none;
+    }
 
     &__links {
       justify-content: flex-end !important;
@@ -115,9 +117,10 @@ export default class Header extends mixins(PropsMixin) {
     &__prefences {
       flex: 1 1 !important;
       justify-content: space-between;
+
       .language-dropdown {
-        display:flex;
-        justify-content:flex-end;
+        display: flex;
+        justify-content: flex-end;
       }
 
       & .va-dropdown__anchor,
