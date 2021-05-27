@@ -54,8 +54,8 @@
                 </div>
               </div>
 
-              <div v-else-if="tabValue === 2">
-                <table class="va-table va-table--striped va-table--hoverable" style="width: 100%">
+              <div v-else-if="tabValue === 2" class="table-wrapper">
+                <table class="va-table va-table--striped va-table--hoverable" style="width: 100%;">
                   <thead>
                   <tr>
                     <th>Name</th>
@@ -515,9 +515,13 @@ export default class Customize extends Vue {
       padding: 2rem;
       width: 100%;
       border-radius: 1rem;
-      overflow-x: scroll;
+      overflow-y: visible;
       // xs
       @include xs(padding, 2rem);
+
+      .table-wrapper {
+        overflow: auto;
+      }
     }
 
     &--second {
@@ -545,6 +549,7 @@ export default class Customize extends Vue {
   &__components {
     text-align: center;
     align-items: center;
+
     @include row-flex();
 
     .component {
