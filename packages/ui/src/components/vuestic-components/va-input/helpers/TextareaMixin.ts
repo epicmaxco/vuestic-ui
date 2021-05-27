@@ -6,27 +6,27 @@ import { StatefulMixin } from '../../../vuestic-mixins/StatefulMixin/StatefulMix
 
 class Props {
   // autosize = prop<boolean>({ type: Boolean, default: false })
-  minRows = prop<number>({
-    type: Number,
-    default: null,
-    validator: (val: number) => {
-      if (!(val > 0 && (val | 0) === val)) {
-        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
-      }
-      return true
-    },
-  })
+  // minRows = prop<number>({
+  //   type: Number,
+  //   default: null,
+  //   validator: (val: number) => {
+  //     if (!(val > 0 && (val | 0) === val)) {
+  //       return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
+  //     }
+  //     return true
+  //   },
+  // })
 
-  maxRows = prop<number>({
-    type: Number,
-    validator: (val: number) => {
-      if (!(val > 0 && (val | 0) === val)) {
-        return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
-      }
-      return true
-    },
-    default: null,
-  })
+  // maxRows = prop<number>({
+  //   type: Number,
+  //   validator: (val: number) => {
+  //     if (!(val > 0 && (val | 0) === val)) {
+  //       return warn(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
+  //     }
+  //     return true
+  //   },
+  //   default: null,
+  // })
 
   type = prop<string>({ type: String, default: 'text' })
   label = prop<string>({ type: String, default: '' })

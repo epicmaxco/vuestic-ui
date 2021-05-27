@@ -364,6 +364,11 @@ export default class VaInput extends mixins(
     }
   }
 
+  textarea {
+    margin: 12px 0;
+    resize: vertical;
+  }
+
   &_labeled {
     .va-input__content-wrapper {
       padding-top: 12px;
@@ -389,6 +394,10 @@ export default class VaInput extends mixins(
       font-weight: var(--va-input-container-label-font-weight);
       text-transform: var(--va-input-container-label-text-transform);
       transform-origin: top left;
+    }
+
+    textarea {
+      margin-top: 0;
     }
   }
 

@@ -4,18 +4,16 @@
       class="mb-4"
       v-model="value"
       type="textarea"
-      label="Textarea"
       placeholder="Basic textarea"
     />
     <va-input
       class="mb-4"
       v-model="value"
       type="textarea"
-      label="Textarea"
-      placeholder="Autosize"
-      autosize
+      label="With label"
+      placeholder="With label"
     />
-    <va-input
+    <!-- <va-input
       class="mb-4"
       v-model="value"
       type="textarea"
@@ -33,7 +31,7 @@
       :min-rows="2"
       :max-rows="4"
       autosize
-    />
+    /> -->
   </div>
 </template>
 
