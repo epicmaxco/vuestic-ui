@@ -2652,6 +2652,12 @@
     "node": "- <a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
     "npm": "- <a href=\"https://www.npmjs.com/get-npm\">npm</a> version 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) and <a href=\"https://git-scm.com/\">Git</a>.",
     "afterCheck": "After checking the prerequisites, install Vuestic UI via npm/yarn:",
+    "fonts": {
+      "title": "Fonts installation",
+      "description": "By default Vuestic UI uses `Source Sans Pro` and `Material Icons` fonts. You should manually add those fonts to your project. There are a few examples below.",
+      "htmlExampleTitle": "You can include fonts in HTML head:",
+      "cssExampleTitle": "Or you can include fonts in your CSS:"
+    },
     "quickStart": {
       "title": "Quick start",
       "description": "Make sure you’ve imported both styles and plugin into your entry file"

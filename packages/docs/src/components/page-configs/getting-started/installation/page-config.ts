@@ -72,6 +72,16 @@ app.use(VuesticPlugin, {
 })
 `
 
+const fontInstallationHTML = `
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+`
+
+const fontInstallationCSS = `
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+`
+
 const cliPrepare = `
 vue --version
 `
@@ -85,6 +95,13 @@ export default [
   DocsHelper.paragraph('installation.npm'),
   DocsHelper.paragraph('installation.afterCheck'),
   DocsHelper.code(installation, 'bash'),
+
+  DocsHelper.headline('installation.fonts.title'),
+  DocsHelper.paragraph('installation.fonts.description'),
+  DocsHelper.paragraph('installation.fonts.htmlExampleTitle'),
+  DocsHelper.code(fontInstallationHTML),
+  DocsHelper.paragraph('installation.fonts.cssExampleTitle'),
+  DocsHelper.code(fontInstallationCSS),
 
   DocsHelper.headline('installation.quickStart.title'),
   DocsHelper.paragraph('installation.quickStart.description'),
