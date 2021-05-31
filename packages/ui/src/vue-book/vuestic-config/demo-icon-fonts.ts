@@ -30,10 +30,6 @@ const fontsConfig: IconConfig = [
     resolve: ({ code }) => ({ class: `entypo-${code}` }),
   },
   {
-    name: /(brandico|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial)-(.*)/,
-    resolveFromRegex: (font: string, code: string) => ({ class: `${font}-${code}` }),
-  },
-  {
     name: 'text',
   },
 ]

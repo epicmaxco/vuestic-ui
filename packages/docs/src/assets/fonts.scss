@@ -1,9 +1,13 @@
 @import './icon-fonts/icon-fonts';
 
+// Fonts //
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+
 // headers
-@mixin title-font(){
+@mixin title-font() {
   font-weight: 900;
   font-size: 4.5rem;
+
   @include lg(font-size, 4rem);
   @include md(font-size, 3rem);
   @include sm(font-size, 2.5rem);
@@ -11,9 +15,10 @@
 }
 
 // sub headers
-@mixin subtitle-font(){
+@mixin subtitle-font() {
   font-weight: 700;
   font-size: 1.4rem;
+
   @include lg(font-size, 1.4rem);
   @include md(font-size, 1.3rem);
   @include sm(font-size, 1.25rem);
@@ -21,9 +26,10 @@
 }
 
 // text
-@mixin text-font(){
+@mixin text-font() {
   font-weight: normal;
   font-size: 1.1rem;
+
   @include lg(font-size, 1rem);
   @include md(font-size, 0.95rem);
   @include sm(font-size, 0.925rem);
@@ -31,9 +37,10 @@
 }
 
 // link
-@mixin link-font(){
+@mixin link-font() {
   font-weight: 600;
   font-size: 1rem;
+
   @include lg(font-size, 0.95rem);
   @include md(font-size, 0.925rem);
   @include sm(font-size, 0.9rem);
@@ -41,9 +48,10 @@
 }
 
 // button
-@mixin button-font(){
+@mixin button-font() {
   font-weight: 600;
   font-size: 1.1rem;
+
   @include lg(font-size, 1rem);
   @include md(font-size, 0.95rem);
   @include sm(font-size, 0.925rem);
@@ -51,9 +59,10 @@
 }
 
 // code
-@mixin code-font(){
+@mixin code-font() {
   font-weight: normal;
   font-size: 0.8rem;
+
   @include lg(font-size, 0.775rem);
   @include md(font-size, 0.75rem);
   @include sm(font-size, 0.725rem);

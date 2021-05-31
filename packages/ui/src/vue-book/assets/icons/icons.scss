@@ -1,4 +1,3 @@
-@import "vuestic-icons";
 @import "icon-fonts/icon-fonts";
 
 // NOTE ionicons past 3.0 don't provide outline icons. Consider that on upgrade.
@@ -17,5 +16,7 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular.scss";
+
+// material icons
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons+Outlined);

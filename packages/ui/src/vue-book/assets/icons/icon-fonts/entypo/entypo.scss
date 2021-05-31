@@ -1,6 +1,6 @@
 $icon-font-name: 'entypo';
 $icon-font-family: 'entypo';
-$icon-font-path: '~/src/components/vuestic-sass/icons/icon-fonts/#{$icon-font-name}/#{$icon-font-name}';
+$icon-font-path: './assets/icons/icon-fonts/#{$icon-font-name}/#{$icon-font-name}';
 
 @font-face {
   font-family: $icon-font-family;
