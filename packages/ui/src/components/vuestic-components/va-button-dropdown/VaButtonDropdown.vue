@@ -5,9 +5,10 @@
       :disabled="disabled"
       :position="position"
       :offset="$props.offset"
-      @update:modelValue="toggleDropdown"
       :keep-anchor-width="keepAnchorWidth"
       :close-on-click-inside="closeOnClickInside"
+      v-model="valueComputed"
+      :stateful="stateful"
     >
       <template #anchor>
         <va-button
@@ -49,7 +50,8 @@
         :disabled="disabled || disableDropdown"
         :position="position"
         :offset="$props.offset"
-        @update:modelValue="toggleDropdown"
+        v-model="valueComputed"
+        :stateful="stateful"
       >
         <template #anchor>
           <va-button
@@ -75,13 +77,13 @@ import { Options, Vue, prop, mixins } from 'vue-class-component'
 
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
+import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
 
 import VaDropdown from '../va-dropdown'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
 class ButtonDropdownProps {
-  closeOnClickInside = prop<boolean>({ type: Boolean, default: true })
   modelValue = prop<boolean>({ type: Boolean })
   color = prop<string>({ type: String, default: 'primary' })
   outline = prop<boolean>({ type: Boolean, default: false })
@@ -105,6 +107,8 @@ class ButtonDropdownProps {
   position = prop<string>({ type: String, default: 'bottom' })
   label = prop<string>({ type: String })
   offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
+  closeOnClickInside = prop<boolean>({ type: Boolean, default: true })
+  stateful = prop<boolean>({ type: Boolean, default: true })
 }
 
 const ButtonDropdownPropsMixin = Vue.with(ButtonDropdownProps)
@@ -117,13 +121,14 @@ const ButtonDropdownPropsMixin = Vue.with(ButtonDropdownProps)
 export default class VaButtonDropdown extends mixins(
   SizeMixin,
   ColorMixin,
+  StatefulMixin,
   ButtonDropdownPropsMixin,
 ) {
   showDropdown = false
 
   get computedIcon (): string {
     // @ts-ignore
-    return this.showDropdown ? this.$props.openedIcon : this.$props.icon
+    return this.valueComputed ? this.$props.openedIcon : this.$props.icon
   }
 
   get computedClass () {

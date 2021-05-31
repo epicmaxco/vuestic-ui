@@ -173,6 +173,28 @@
         Content
       </va-button-dropdown>
     </VbCard>
+    <VbCard title="Click inside">
+      <va-button-dropdown
+        label="Dropdown content will not be closed on click"
+        :closeOnClickInside="false"
+      >
+        Content
+      </va-button-dropdown>
+    </VbCard>
+    <VbCard title="Stateful">
+      <va-button-dropdown
+        label="Stateful"
+        stateful
+      >
+        Content
+      </va-button-dropdown>
+      <va-button-dropdown
+        label="Stateless without v-model"
+        :stateful=false
+      >
+        Content
+      </va-button-dropdown>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -192,6 +214,11 @@ export default {
       console.log('click', e)
     },
   },
+  data () {
+    return {
+      value: true
+    }
+  }
 }
 </script>
 
