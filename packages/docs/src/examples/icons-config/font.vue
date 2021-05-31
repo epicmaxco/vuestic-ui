@@ -45,6 +45,7 @@ export default {
 <style lang="scss" scoped>
 .code {
   background: #f4f8fa;
+  color: var(--va-dark);
   padding: 2rem;
 
   .tab {
@@ -52,17 +53,20 @@ export default {
   }
 
   .params {
-    color: #73D2DE
+    color: #73d2de;
   }
 
   p {
     padding: 0.2rem 0;
+    color: var(--va-dark);
+    margin: 0;
   }
 
   .va-input:deep() {
     display: inline-block;
+
     .va-input__container {
-      background: rgba($color: #000000, $alpha: .2) !important;
+      background: rgba($color: #000000, $alpha: 0.2) !important;
       border-radius: 0.5rem !important;
     }
   }
