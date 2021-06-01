@@ -370,6 +370,7 @@ export default class VaTabs extends mixins(
     .va-tabs__tabs {
       position: absolute;
       transition: all ease 0.3s;
+      height: 100%;
     }
 
     .va-tabs__tabs-items {
