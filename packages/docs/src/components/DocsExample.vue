@@ -1,6 +1,8 @@
 <template>
   <div class="mb-3">
-    <component :is="component" />
+    <div class="docs-example__addressable-component">
+      <component :is="component" />
+    </div>
     <template v-if="!exampleOptions.hideCode">
       <va-button class="mt-2 d-block docs-example__show-code-button" style="background: transparent !important; box-shadow: none !important;" :rounded="false" flat size="small" color="primary" @click="showCode = !showCode">
         {{ $t('docsExample.showCode') }}
@@ -96,6 +98,10 @@ export default {
 
 <style lang="scss">
 .docs-example {
+  &__addressable-component {
+    overflow: auto;
+  }
+  
   &__code {
     &--with-margin {
       margin-bottom: 0.2rem !important;
