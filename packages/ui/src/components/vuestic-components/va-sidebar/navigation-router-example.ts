@@ -41,10 +41,6 @@ export const navigationRoutes = {
           name: 'form-elements',
           displayName: 'menu.formElements',
         },
-        {
-          name: 'medium-editor',
-          displayName: 'menu.mediumEditor',
-        },
       ],
     },
     {

@@ -17,8 +17,7 @@
     "types": [
       "webpack-env",
       "jest",
-      "node",
-      "medium-editor"
+      "node"
     ],
     "lib": [
       "esnext",
