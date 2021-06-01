@@ -40,7 +40,6 @@ import VaList, {
   VaListLabel,
   VaListSeparator,
 } from './vuestic-components/va-list'
-// import VaMediumEditor from './vuestic-components/va-medium-editor'
 import VaModal from './vuestic-components/va-modal'
 import VaNavbar, { VaNavbarItem } from './vuestic-components/va-navbar'
 import VaPagination from './vuestic-components/va-pagination'
@@ -132,7 +131,6 @@ const vuesticComponentMap = {
   VaListItemSection,
   VaListLabel,
   VaListSeparator,
-  // VaMediumEditor,
   VaModal,
   VaNavbar,
   VaNavbarItem,
