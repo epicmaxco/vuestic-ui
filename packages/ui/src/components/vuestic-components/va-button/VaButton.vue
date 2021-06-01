@@ -19,11 +19,11 @@
     :tabindex="loading ? -1 : 0"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
+    v-on="inputListeners"
   >
     <div
       class="va-button__content"
       :class="{'va-button__content--loading': loading}"
-      v-on="inputListeners"
     >
       <va-icon
         v-if="icon"
