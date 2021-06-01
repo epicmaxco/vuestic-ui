@@ -42,7 +42,7 @@
       <MarkdownView
         v-else-if="block.type === BlockType.LIST"
         :key="block.type + index"
-        :value="`${block.translationStringList.map(translationString=>$t(translationString))
+        :value="`${block.translationStringList.map(translationString=>'- ' + $t(translationString))
                                               .join('\n')}`"
       />
       <DocsTable

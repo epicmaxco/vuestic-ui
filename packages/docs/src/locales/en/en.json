@@ -1036,7 +1036,7 @@
     "showCode": "Show Code"
   },
   "documentationPage": {
-    "compilesTo": "compiles to:",
+    "compilesTo": "Compiles to:",
     "title": "Documentation Page",
     "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
     "introduction": {
@@ -1064,6 +1064,13 @@
       "paragraph": {
         "title": "Paragraph",
         "text": "Should be used for all non-special text blocks."
+      },
+      "list": {
+        "title": "List",
+        "text": "Should be used for list blocks.",
+        "inCode": "Resulting code will look like this:",
+        "listExample1": "Value of list item 1",
+        "listExample2": "Value of list item 2"
       },
       "code": {
         "title": "Code",
@@ -2649,8 +2656,8 @@
     "description": "Get started with Vuestic UI to create feature-rich and user-friendly apps thanks to our highly configurable framework. We’ve simplified the installation process as much as possible to save you extra effort. Installation is possible in a few ways",
     "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
     "prerequisites": "First, make sure you have all prerequisites installed:",
-    "node": "- <a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
-    "npm": "- <a href=\"https://www.npmjs.com/get-npm\">npm</a> version 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) and <a href=\"https://git-scm.com/\">Git</a>.",
+    "node": "<a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
+    "npm": "<a href=\"https://www.npmjs.com/get-npm\">npm</a> version 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) and <a href=\"https://git-scm.com/\">Git</a>.",
     "afterCheck": "After checking the prerequisites, install Vuestic UI via npm/yarn:",
     "fonts": {
       "title": "Fonts installation",
@@ -2758,11 +2765,11 @@
     "title": "What is Vuestic UI",
     "description": "We’ve designed the framework in such a way that it satisfies the most sophisticated design fantasies and allows you to implement them",
     "featuresOverview": "Features overview",
-    "vueThreeCompatible": "- Fully **Vue.js 3 compatible**",
-    "featureRich": "- Contains a **50+ feature rich components** that can be used in any design solution",
-    "configurable": "- Allows **to configure components** components globally via config and css variables",
-    "responsive": "- Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
-    "translatable": "- Integrates seamlessly with **i18n**"
+    "vueThreeCompatible": "Fully **Vue.js 3 compatible**",
+    "featureRich": "Contains a **50+ feature rich components** that can be used in any design solution",
+    "configurable": "Allows **to configure components** components globally via config and css variables",
+    "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
+    "translatable": "Integrates seamlessly with **i18n**"
   },
   "translation": {
     "title": "Translation",
@@ -2800,36 +2807,36 @@
     "pullRequests": {
       "title": "Pull Request Guidelines",
       "description": {
-        "localBranches": "- `master` branch keeps latest stable release + cherrypicked hotfixes. All development should be done in local branches.",
-        "dontSubmitToMaster": "- **Do not submit PRs against the `master` branch.**",
-        "checkoutFeat": "- Checkout a `feat/` branch from `develop`, then create pull request against that branch.",
-        "multipleSmallCommits": "- It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.",
-        "fixBugSteps": "* If fixing a bug:\n  * If you are resolving a special issue, add `close #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github [will close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
+        "localBranches": "`master` branch keeps latest stable release + cherrypicked hotfixes. All development should be done in local branches.",
+        "dontSubmitToMaster": "**Do not submit PRs against the `master` branch.**",
+        "checkoutFeat": "Checkout a `feat/` branch from `develop`, then create pull request against that branch.",
+        "multipleSmallCommits": "It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.",
+        "fixBugSteps": "If fixing a bug:\n  * If you are resolving a special issue, add `close #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github [will close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
       }
     },
     "branches": {
       "title": "Branches",
-      "publicBranches": "* Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!.\n  * `develop` - main development branch. Houses `2.0` at the moment.",
-      "localBranches": "* Local branches\n  * For local branches prepend your messages with `feat/`, ie for tabs fix it would be `feat/fix-tabs`. This is wanted to keep local branches visually separate from public ones."
+      "publicBranches": "Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!.\n  * `develop` - main development branch. Houses `2.0` at the moment.",
+      "localBranches": "Local branches\n  * For local branches prepend your messages with `feat/`, ie for tabs fix it would be `feat/fix-tabs`. This is wanted to keep local branches visually separate from public ones."
     },
     "fileNaming": {
       "title": "File naming",
-      "camelCase": "- `testIsContextableComponent.ts` - helpers and instants",
-      "kebabCase": "- `api-options.ts` - configs",
-      "pascalCase": "- `DocsCode.vue` - components, classes, types"
+      "camelCase": "`testIsContextableComponent.ts` - helpers and instants",
+      "kebabCase": "`api-options.ts` - configs",
+      "pascalCase": "`DocsCode.vue` - components, classes, types"
     },
     "forCoreContributors": {
       "title": "For core contributors",
-      "linkPr": "- Always link PR to issue (via `close #123`).",
-      "assignYourself": "- When you start working on the task - please assign yourself. That's needed to prevent conflict.",
-      "smallIssues": "- For small issues you may push to `develop` branch directly while adding (`close #123`) to commit message.",
-      "singlePrPerIssue": "- Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
-      "onePersonPerIssue": "- Be sure to have only one person assigned per issue.",
-      "checkYourCode": "- Check your code: [conventions](../packages/old-docs/conventions.md).",
-      "weUseYarn": "- We use [yarn](https://yarnpkg.com/lang/en/) for package management.",
-      "beProactive": "- Be proactive. If you think something is wrong - create an issue or discuss.",
-      "recommendedTools": "- Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
-      "workInBook": "- If you work on UI components - work in book environment (`yarn serve:book`). We want to keep global stuff out of components."
+      "linkPr": "Always link PR to issue (via `close #123`).",
+      "assignYourself": "When you start working on the task - please assign yourself. That's needed to prevent conflict.",
+      "smallIssues": "For small issues you may push to `develop` branch directly while adding (`close #123`) to commit message.",
+      "singlePrPerIssue": "Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
+      "onePersonPerIssue": "Be sure to have only one person assigned per issue.",
+      "checkYourCode": "Check your code: [conventions](../packages/old-docs/conventions.md).",
+      "weUseYarn": "We use [yarn](https://yarnpkg.com/lang/en/) for package management.",
+      "beProactive": "Be proactive. If you think something is wrong - create an issue or discuss.",
+      "recommendedTools": "Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
+      "workInBook": "If you work on UI components - work in book environment (`yarn serve:book`). We want to keep global stuff out of components."
     },
     "componentFolderStructure": {
       "title": "Component folder structure"

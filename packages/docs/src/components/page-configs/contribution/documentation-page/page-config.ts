@@ -2,7 +2,12 @@ import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export const codeForCodeblock = '<div>Code string</div>'
+export const codeForCodeblock = '\'<div>Code string</div>\''
+export const codeForListBlock = `
+<ul>
+    <li> Value of the list item 1 </li>
+    <li> Value of the list item 2 </li>
+</ul>`
 
 export default [
   DocsHelper.title('documentationPage.title'),
@@ -39,11 +44,22 @@ export default [
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.paragraph('translation.path'),
 
+  DocsHelper.headline('documentationPage.blocktypes.list.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.list.text'),
+  DocsHelper.code('DocsHelper.list([\'translation1.path\', \'translation2.path\'\])'),
+  DocsHelper.paragraph('documentationPage.compilesTo'),
+  DocsHelper.list([
+    'documentationPage.blocktypes.list.listExample1',
+    'documentationPage.blocktypes.list.listExample2'
+  ]),
+  DocsHelper.paragraph('documentationPage.blocktypes.list.inCode'),
+  DocsHelper.code(codeForListBlock),
+
   DocsHelper.headline('documentationPage.blocktypes.code.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.code.text'),
   DocsHelper.code(`DocsHelper.code(${codeForCodeblock})`),
   DocsHelper.paragraph('documentationPage.compilesTo'),
-  DocsHelper.code(codeForCodeblock),
+  DocsHelper.code(codeForCodeblock.slice(1,-1)),
 
   DocsHelper.headline('documentationPage.blocktypes.example.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.example.text'),
