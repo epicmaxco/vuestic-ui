@@ -8,6 +8,20 @@
         </va-sidebar>
       </div>
     </VbCard>
+    <VbCard title="with sidebar items">
+      <div class="demo__sidebar-container">
+        <va-sidebar>
+          <va-sidebar-item
+            v-for="n in 10"
+            :key="n"
+          >
+            <va-sidebar-item-content>
+              Item {{ n }}
+            </va-sidebar-item-content>
+          </va-sidebar-item>
+        </va-sidebar>
+      </div>
+    </VbCard>
     <VbCard title="right">
       <div class="demo__sidebar-container">
         <va-sidebar position="right">

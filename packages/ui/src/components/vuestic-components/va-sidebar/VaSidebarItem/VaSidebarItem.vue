@@ -1,6 +1,7 @@
 <template>
   <router-link custom :to="to" v-slot="{ href, navigate }">
     <a
+      ref="itemRef"
       v-bind="$attrs"
       class="va-sidebar__item va-sidebar-item"
       :style="computedStyle"
@@ -17,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
 import { useColors } from '../../../../services/color-config/color-config'
+import useKeyboardOnlyFocus from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/useKeyboardOnlyFocus'
 
 const useHover = () => {
   const isHovered = ref(false)
@@ -41,7 +43,10 @@ export default defineComponent({
   },
   setup (props) {
     const { isHovered, onMouseEnter, onMouseLeave } = useHover()
-    const { getColor, getHoverColor, getTextColor } = useColors()
+    const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
+
+    const itemRef = ref()
+    const { hasKeyboardFocus } = useKeyboardOnlyFocus(itemRef)
 
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
@@ -60,13 +65,17 @@ export default defineComponent({
         style.color = getTextColor(style['background-color'], getColor('dark'), '#ffffff')
       }
 
+      if (hasKeyboardFocus.value) {
+        style['background-color'] = getFocusColor(getColor(props.hoverColor || props.activeColor))
+      }
+
       // Override default link color from VaContent
       style.color = `${style.color} !important`
 
       return style
     })
 
-    return { isHovered, onMouseEnter, onMouseLeave, computedStyle }
+    return { isHovered, onMouseEnter, onMouseLeave, computedStyle, itemRef }
   },
 })
 </script>
