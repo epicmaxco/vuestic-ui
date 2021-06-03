@@ -12,6 +12,19 @@
       </va-collapse>
     </VbCard>
 
+    <VbCard title="Not focusable (tabbable">
+      <va-collapse
+        v-model="collapseValue"
+        style="width: 400px;"
+        :header="collapseHeader"
+        :focusable="false"
+      >
+        <div class="collapse-content">
+          {{ collapseContent }}
+        </div>
+      </va-collapse>
+    </VbCard>
+
     <VbCard title="Solid">
       <va-collapse
         v-model="collapseValue"

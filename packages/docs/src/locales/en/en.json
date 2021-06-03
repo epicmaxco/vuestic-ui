@@ -574,7 +574,8 @@
         "header": "Text content to place in the header",
         "icon": "The icon to be displayed inside a header",
         "solid": "Adds borders to the collapse",
-        "colorAll": "Applies color to collapse contents background"
+        "colorAll": "Applies color to collapse contents background",
+        "focusable": "Allows to skip focusing the `va-collapse`'s header when `tab`-ing with the keyboard. Might be useful when the focus should be gained by some another interactive content (see examples above)"
       },
       "events": {
         "input": "Emits when collapse is clicked"
@@ -2121,6 +2122,10 @@
       "color": {
         "title": "Color",
         "text": "Use two color schemes."
+      },
+      "focusable": {
+        "title": "Focusability",
+        "text": "Focus (click) `here` first and then start navigating through the following `va-collapse`s with the `tab` key. The `:focusable=\"false\"` property allows to skip the keyboard focus for a certain `va-collapse`. Might be useful if you have another interactive content inside the `va-collapse`'s header to be focused on (see the 3d example below)."
       }
     }
   },

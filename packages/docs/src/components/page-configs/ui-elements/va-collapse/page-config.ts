@@ -64,6 +64,18 @@ export default [
     component: 'va-collapse/Color',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'collapse.examples.focusable.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'collapse.examples.focusable.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-collapse/Focusable',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },

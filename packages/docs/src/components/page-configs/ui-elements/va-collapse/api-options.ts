@@ -18,6 +18,9 @@ export default {
     colorAll: {
       local: true,
     },
+    focusable: {
+      local: true
+    },
   },
   events: {
     input: {
