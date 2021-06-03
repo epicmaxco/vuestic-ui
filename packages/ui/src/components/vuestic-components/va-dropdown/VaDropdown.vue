@@ -85,25 +85,8 @@ export default class VaDropdown extends mixins(
     }
   }
 
-  get triggeredValue (): boolean {
-    const getTriggeredValue = () => {
-      if (['click', 'hover', 'none'].includes(this.trigger)) {
-        return this.valueComputed
-      }
-      return false
-    }
-
-    const triggeredValue = getTriggeredValue()
-    this.$emit('trigger', triggeredValue)
-
-    return triggeredValue
-  }
-
   get showContent (): boolean {
-    // the idea is to emit 'trigger' in any case
-    const triggeredValue = this.triggeredValue
-
-    return triggeredValue
+    return this.valueComputed
   }
 
   handlePopperInstance (): void {

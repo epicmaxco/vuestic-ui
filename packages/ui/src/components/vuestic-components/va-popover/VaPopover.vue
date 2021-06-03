@@ -7,8 +7,7 @@
     :hoverOverTimeout="$props.hoverOverTimeout"
     :hoverOutTimeout="$props.hoverOutTimeout"
     :close-on-click-outside="$props.autoHide"
-    :opened="initiallyOpened"
-    @trigger="handleTrigger"
+    :modelValue="modelValue"
   >
     <template #default>
       <div class="va-popover__content-wrapper">
@@ -59,12 +58,12 @@ import VaIcon from '../va-icon'
 import VaDropdown from '../va-dropdown'
 
 class PopoverProps {
+  modelValue = prop<boolean>({ type: Boolean })
   color = prop<string>({ type: String, default: 'success' })
   icon = prop<string>({ type: String, default: '' })
   title = prop<string>({ type: String, default: '' })
   message = prop<string>({ type: String, default: '' })
   trigger = prop<string>({ type: String, default: 'hover' })
-  opened = prop<boolean>({ type: Boolean, default: false })
   disabled = prop<boolean>({ type: Boolean, default: false })
   placement = prop<Placement>({
     type: String as PropType<Placement>,
@@ -100,17 +99,6 @@ export default class VaPopover extends mixins(
   ColorMixin,
   PopoverPropsMixin,
 ) {
-  private initiallyOpened = this.$props.opened
-  private initialHandleTriggerRun = true
-
-  handleTrigger () {
-    if (!this.initialHandleTriggerRun) {
-      this.initiallyOpened = false
-    }
-
-    this.initialHandleTriggerRun = false
-  }
-
   get computedPopoverStyle () {
     return {
       boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(this.theme.getColor(this.$props.color)),

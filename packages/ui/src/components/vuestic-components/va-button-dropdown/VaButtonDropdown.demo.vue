@@ -175,7 +175,7 @@
     </VbCard>
     <VbCard title="Click inside">
       <va-button-dropdown
-        label="Dropdown content will not be closed on click"
+        label="Dropdown content click will not close it"
         :closeOnClickInside="false"
       >
         Content
