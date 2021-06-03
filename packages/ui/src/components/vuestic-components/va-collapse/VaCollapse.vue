@@ -28,7 +28,7 @@
         </div>
       </slot>
     </div>
-    <div class="va-collapse__body" :style="stylesComputed" ref="body">
+    <div class="va-collapse__body" :style="stylesComputed" ref="body" v-show="displayBody">
       <slot />
     </div>
   </div>
@@ -78,6 +78,8 @@ export default class VaCollapse extends mixins(
     value: undefined,
   }
 
+  displayBody = true // is used with v-show to make sure that closed va-collapses are properly hidden (allows for grater a11y etc.)
+
   accordion: Accordion = setup(() => {
     return inject(
       AccordionServiceKey,
@@ -110,6 +112,14 @@ export default class VaCollapse extends mixins(
 
     this.valueComputed = value
     this.setCollapseParams()
+
+    if (value) {
+      this.displayBody = true
+    } else {
+      setTimeout(() => {
+        this.displayBody = false // set the `display: none` (via v-show, see the template) after the height-transition is completed
+      }, this.getTransitionDuration() * 1000)
+    }
   }
 
   get computedClasses () {
