@@ -4,24 +4,24 @@ import { ref } from 'vue'
 
 export default function useKeyboardOnlyFocus () {
   const hasKeyboardFocus = ref(false)
-  let prevClicked = false
+  let previouslyClicked = false
 
   const keyboardFocusListeners = {
     mousedown: (e: MouseEvent) => {
-      prevClicked = true
+      previouslyClicked = true
     },
 
     focus: (e: FocusEvent) => {
-      if (!prevClicked) {
+      if (!previouslyClicked) {
         hasKeyboardFocus.value = true
       }
 
-      prevClicked = false
+      previouslyClicked = false
     },
 
     blur: (e: FocusEvent) => {
       hasKeyboardFocus.value = false
-      prevClicked = false
+      previouslyClicked = false
     },
   }
 
