@@ -124,8 +124,6 @@
             :search="searchInputValue"
             :no-options-text="$props.noOptionsText"
             :color="$props.color"
-            :key-by="$props.keyBy"
-            :text-by="$props.textBy"
             :tabindex="tabindex + 1"
             @select-option="selectOption"
             @no-previous-option-to-hover="focusSearchBar"
@@ -211,11 +209,6 @@ class SelectProps {
       return isOpenIconString && isCloseIconString
     },
   })
-
-  // SelectOptionList props
-
-  keyBy = prop<string>({ type: String, default: 'id' })
-  textBy = prop<string>({ type: String, default: 'text' })
 
   // Input style
   outline = prop({ type: Boolean, default: false })
@@ -340,7 +333,7 @@ export default class VaSelect extends mixins(
       return false
     }
     if (typeof one === 'object' && typeof two === 'object') {
-      return one[this.$props.trackBy as string] === two[this.$props.trackBy as string]
+      return this.getTrackBy(one) === this.getTrackBy(two)
     }
 
     return false
