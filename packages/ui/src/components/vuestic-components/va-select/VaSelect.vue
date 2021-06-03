@@ -254,21 +254,23 @@ export default class VaSelect extends mixins(
   // Select value
 
   get valueComputed () {
+    const value = this.getOptionByValue(this.$props.modelValue)
+
     if (this.$props.multiple) {
-      if (!this.$props.modelValue) {
+      if (!value) {
         return []
       }
 
-      if (!Array.isArray(this.$props.modelValue)) {
-        return [this.$props.modelValue]
+      if (!Array.isArray(value)) {
+        return [value]
       }
     }
 
-    return this.$props.modelValue
+    return value
   }
 
   set valueComputed (value: any) {
-    this.$emit('update:modelValue', value)
+    this.$emit('update:modelValue', this.getValue(value))
   }
 
   get valueComputedString (): string {
