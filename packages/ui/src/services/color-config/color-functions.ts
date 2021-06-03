@@ -92,11 +92,11 @@ export const getGradientBackground = (color: string) => {
 }
 
 /**
- * Check if color is valid css color
+ * Check if color is valid hsl, hsla, rga, rgba or hex color
  * Taken from https://www.regextester.com/103656
  * @param strColor
  */
-export const isCssColor = (strColor: string): boolean => {
+export const isColor = (strColor: string): boolean => {
   // Need to use Regex instead of DOM methods because we support SSR
   const cssColorRegex = /^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*,?\s*\)?)(,\s*(0?\.\d+)?|1)?\)/
 

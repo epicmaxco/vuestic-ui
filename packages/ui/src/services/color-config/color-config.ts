@@ -2,7 +2,7 @@ import { GlobalConfig, setGlobalConfig, getGlobalConfig } from '../global-config
 import {
   getBoxShadowColor,
   getHoverColor, getFocusColor,
-  getGradientBackground, isCssColor,
+  getGradientBackground, isColor,
   getTextColor, shiftHSLAColor,
 } from './color-functions'
 
@@ -23,6 +23,11 @@ export const getColors = (): ColorConfig => {
   return getGlobalConfig().colors || {}
 }
 
+/**
+ * Returns color from config by name or return prop if color is it's valid hex, hsl, hsla, rgb or rgba color.
+ * @param prop - should be color name or color in hex, hsl, hsla, rgb or rgba format
+ * @param defaultColor - this color will be used if prop is invalid
+ */
 export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): CssColor => {
   const colors = getColors()
 
@@ -34,7 +39,7 @@ export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): C
     return colors[prop]
   }
 
-  if (isCssColor(prop)) {
+  if (isColor(prop)) {
     return prop
   }
 
