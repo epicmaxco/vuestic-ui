@@ -53,6 +53,7 @@ class Props {
   color = prop<string>({ type: String, default: '' })
   textColor = prop<string>({ type: String, default: '' })
   colorAll = prop<boolean>({ type: Boolean, default: false })
+  focusable = prop<boolean>({ type: Boolean, default: true })
 }
 
 const PropsMixin = Vue.with(Props)
@@ -150,7 +151,7 @@ export default class VaCollapse extends mixins(
   }
 
   get collapseIndexComputed () {
-    return this.disabled ? -1 : 0
+    return (this.disabled || !this.focusable) ? -1 : 0
   }
 
   onFocus () {

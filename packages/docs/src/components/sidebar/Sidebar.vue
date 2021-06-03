@@ -6,6 +6,7 @@
       <va-collapse
         v-for="(route, key) in navigationRoutes"
         :key="key"
+        :focusable="false"
       >
         <template #header>
           <va-sidebar-item :activeColor="activeColor">
