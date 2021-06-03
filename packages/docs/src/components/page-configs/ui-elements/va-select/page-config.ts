@@ -56,6 +56,29 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-select/Decorators',
   },
+
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'select.examples.objectOptions.title',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-select/ObjectOptions',
+  },
+
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'select.examples.trackBy.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'select.examples.trackBy.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-select/TrackBy',
+  },
+
   {
     type: BlockType.HEADLINE,
     translationString: 'select.examples.slots.title',
