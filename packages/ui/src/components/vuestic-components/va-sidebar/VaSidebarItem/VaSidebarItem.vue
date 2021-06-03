@@ -1,7 +1,6 @@
 <template>
   <router-link custom :to="to" v-slot="{ href, navigate }">
     <a
-      ref="itemRef"
       v-bind="$attrs"
       class="va-sidebar__item va-sidebar-item"
       :style="computedStyle"
@@ -9,6 +8,7 @@
       @click="navigate"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
+      v-on="keyboardFocusListeners"
     >
       <slot />
     </a>
@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
 import { useColors } from '../../../../services/color-config/color-config'
-import useKeyboardOnlyFocus from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/useKeyboardOnlyFocus'
+import useKeyboardOnlyFocus from '../../../../composables/useKeyboardOnlyFocus'
 
 const useHover = () => {
   const isHovered = ref(false)
@@ -45,8 +45,7 @@ export default defineComponent({
     const { isHovered, onMouseEnter, onMouseLeave } = useHover()
     const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
 
-    const itemRef = ref()
-    const { hasKeyboardFocus } = useKeyboardOnlyFocus(itemRef)
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
@@ -75,7 +74,7 @@ export default defineComponent({
       return style
     })
 
-    return { isHovered, onMouseEnter, onMouseLeave, computedStyle, itemRef }
+    return { isHovered, onMouseEnter, onMouseLeave, computedStyle, keyboardFocusListeners }
   },
 })
 </script>
