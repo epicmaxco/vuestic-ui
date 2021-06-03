@@ -73,8 +73,6 @@ class SelectOptionListProps {
   })
 
   multiple = prop<boolean>({ type: Boolean, default: false })
-  keyBy = prop<string>({ type: String, default: 'id' })
-  textBy = prop<string>({ type: String, default: 'text' })
   search = prop<string>({ type: String, default: '' })
 
   hoveredOption = prop<string | object>({
@@ -161,9 +159,11 @@ export default class VaSelectOptionList extends mixins(
   }
 
   isHovered (option: any) {
-    return this.hoveredOptionComputed
-      ? typeof option === 'string' ? option === this.hoveredOptionComputed : this.hoveredOptionComputed[this.keyBy] === option[this.keyBy]
-      : false
+    if (!this.hoveredOptionComputed) { return false }
+    if (typeof option === 'string') { return option === this.hoveredOptionComputed }
+    if (!this.getTrackBy) { return false }
+
+    return this.getTrackBy(this.hoveredOptionComputed) === this.getTrackBy(option)
   }
 
   updateHoveredOption (option: string[] | string): void {

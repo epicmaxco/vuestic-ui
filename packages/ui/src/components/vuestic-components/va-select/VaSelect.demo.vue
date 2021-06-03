@@ -148,6 +148,20 @@
         :options="objectSingleSelect.options"
         text-by="value"
       />
+      <va-select
+        v-model="objectSingleSelect.value"
+        class="mb-4"
+        label="Track by text property"
+        :options="objectSingleSelect.options"
+        track-by="text"
+      />
+      <va-select
+        v-model="objectSingleSelect.value"
+        class="mb-4"
+        label="Track by text property (function)"
+        :options="objectSingleSelect.options"
+        :track-by="(option) => option.text"
+      />
       <p>Value: {{ objectSingleSelect.value }}</p>
       <va-select
         v-model="objectMultiSelect.value"
