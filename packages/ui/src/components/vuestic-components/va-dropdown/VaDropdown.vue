@@ -55,7 +55,12 @@ class DropdownProps {
   closeOnAnchorClick = prop<boolean>({ type: Boolean, default: true })
   isContentHoverable = prop<boolean>({ type: Boolean, default: true })
   offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
-  trigger = prop<string>({ type: String, default: 'click' })
+  trigger = prop<string>({
+    type: String,
+    default: 'click',
+    validator: (trigger: string): boolean => ['click', 'hover', 'none'].includes(trigger),
+  })
+  stateful = prop<boolean>({ type: Boolean, default: true })
 }
 
 const DropdownPropsMixin = Vue.with(DropdownProps)
@@ -65,8 +70,8 @@ const DropdownPropsMixin = Vue.with(DropdownProps)
   emits: ['update:modelValue', 'anchor-click', 'click-outside', 'dropdown-content-click', 'trigger'],
 })
 export default class VaDropdown extends mixins(
-  DropdownPropsMixin,
   StatefulMixin,
+  DropdownPropsMixin,
 ) {
   popperInstance: PopperInstance = null
   anchorWidth!: number
@@ -143,7 +148,6 @@ export default class VaDropdown extends mixins(
       }
       this.valueComputed = true
     }
-
     this.$emit('anchor-click')
   }
 

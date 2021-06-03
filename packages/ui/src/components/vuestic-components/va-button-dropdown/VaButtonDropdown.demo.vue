@@ -183,12 +183,6 @@
     </VbCard>
     <VbCard title="Stateful">
       <va-button-dropdown
-        label="Stateful"
-        stateful
-      >
-        Content
-      </va-button-dropdown>
-      <va-button-dropdown
         label="Stateless without v-model"
         :stateful=false
       >
