@@ -175,10 +175,10 @@
     </VbCard>
     <VbCard title="Click inside">
       <va-button-dropdown
-        label="Dropdown content click will not close it"
+        label="Open"
         :closeOnClickInside="false"
       >
-        Content
+        Clicking here won't close dropdown content
       </va-button-dropdown>
     </VbCard>
     <VbCard title="Stateful">

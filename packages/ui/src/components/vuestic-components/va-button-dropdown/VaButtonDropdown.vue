@@ -122,8 +122,6 @@ export default class VaButtonDropdown extends mixins(
   ColorMixin,
   ButtonDropdownPropsMixin,
 ) {
-  // showDropdown = false
-
   get computedIcon (): string {
     // @ts-ignore
     return this.showDropdown ? this.$props.openedIcon : this.$props.icon
