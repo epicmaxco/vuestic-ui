@@ -67,7 +67,7 @@ const DropdownPropsMixin = Vue.with(DropdownProps)
 
 @Options({
   name: 'VaDropdown',
-  emits: ['update:modelValue', 'anchor-click', 'click-outside', 'dropdown-content-click', 'trigger'],
+  emits: ['update:modelValue', 'anchor-click', 'click-outside', 'dropdown-content-click'],
 })
 export default class VaDropdown extends mixins(
   StatefulMixin,
@@ -146,7 +146,6 @@ export default class VaDropdown extends mixins(
       if (!this.valueComputed) {
         this.hoverOverDebounceLoader.run()
       }
-
       this.hoverOutDebounceLoader.reset()
     }
   }
