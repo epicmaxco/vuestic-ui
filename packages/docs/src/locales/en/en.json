@@ -2125,7 +2125,7 @@
       },
       "focusable": {
         "title": "Focusability",
-        "text": "Focus (click) `here` first and then start navigating through the following `va-collapse`s with the `tab` key. The `:focusable=\"false\"` property allows to skip the keyboard focus for a certain `va-collapse`. Might be useful if you have another interactive content inside the `va-collapse`'s header to be focused on (see the 3d example below)."
+        "text": "When using some other element as a `VaCollapse`'s header, it's usually better to provide a `:focusable: 'false'` prop to the collapse. If you don't do so then the invisible header would be focused first and only then - its contents. Try yourself with the `tab` key!"
       }
     }
   },
