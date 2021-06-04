@@ -11,8 +11,6 @@
   >
     <div
       class="va-switch__container"
-      @mousedown="hasMouseDown = true"
-      @mouseup="hasMouseDown = false"
       tabindex="-1"
       @blur="onBlur"
       ref="container"
@@ -31,6 +29,7 @@
           :name="$props.name"
           readonly
           :disabled="$props.disabled"
+          v-on="SetupContext.keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
           @keypress.prevent="toggleSelection()"
@@ -74,13 +73,14 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { Options, prop, mixins, setup, Vue } from 'vue-class-component'
 
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import { VaProgressCircle } from '../va-progress-bar'
 import { VaInputWrapper } from '../va-input'
+import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 
 class SwitchProps {
   modelValue = prop<boolean | any[] | string | Record<string, unknown>>({
@@ -116,6 +116,15 @@ export default class VaSwitch extends mixins(
   ColorMixin,
   SwitchPropsMixin,
 ) {
+  SetupContext = setup(() => {
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+    return {
+      hasKeyboardFocus,
+      keyboardFocusListeners,
+    }
+  })
+
   get computedInnerLabel () {
     if (this.$props.trueInnerLabel && this.isChecked) {
       return this.$props.trueInnerLabel
@@ -144,7 +153,7 @@ export default class VaSwitch extends mixins(
       'va-switch--disabled': this.$props.disabled,
       'va-switch--left-label': this.$props.leftLabel,
       'va-switch--error': this.computedError,
-      'va-switch--on-keyboard-focus': this.isKeyboardFocused,
+      'va-switch--on-keyboard-focus': this.SetupContext.hasKeyboardFocus,
     }
   }
 

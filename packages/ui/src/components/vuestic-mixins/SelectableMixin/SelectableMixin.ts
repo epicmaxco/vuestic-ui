@@ -1,9 +1,8 @@
-import { mixins, Options, prop, Vue } from 'vue-class-component'
+import { mixins, Options, prop, setup, Vue } from 'vue-class-component'
 
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { FormComponentMixin } from '../FormComponent/FormComponentMixin'
 import { StatefulMixin } from '../StatefulMixin/StatefulMixin'
-import { KeyboardOnlyFocusMixin } from '../KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 import { LoadingMixin } from '../LoadingMixin/LoadingMixin'
 
 class Props {
@@ -28,7 +27,6 @@ export class SelectableMixin extends mixins(
   ColorMixin,
   StatefulMixin,
   FormComponentMixin,
-  KeyboardOnlyFocusMixin,
   LoadingMixin,
   PropsMixin,
 ) {
@@ -55,11 +53,6 @@ export class SelectableMixin extends mixins(
   }
 
   /** @public */
-  focus (): void {
-    (this.$refs.input as any).focus()
-  }
-
-  /** @public */
   reset (): void {
     this.$emit('update:modelValue', false)
   }
@@ -76,16 +69,13 @@ export class SelectableMixin extends mixins(
     }
   }
 
-  onFocus (): void {
-    // @ts-ignore
-    this.KeyboardOnlyFocusMixin_onFocus()
-    this.$emit('focus')
+  onFocus (event: FocusEvent): void {
+    this.$emit('focus', event)
   }
 
-  onBlur (event: any): void {
+  onBlur (event: FocusEvent): void {
     if (this.$refs.input === event.target && !this.isElementRelated(event.relatedTarget)) {
       this.ValidateMixin_onBlur()
-      this.isKeyboardFocused = false
       this.$emit('blur', event)
     }
   }
@@ -95,10 +85,6 @@ export class SelectableMixin extends mixins(
   }
 
   onWrapperClick (): void {
-    if (this.isElementRelated(document.activeElement)) {
-      (this.$refs.input as any).focus()
-      this.isKeyboardFocused = false
-    }
     this.toggleSelection()
   }
 

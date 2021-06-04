@@ -47,6 +47,8 @@ import { TabsServiceKey, TabsService } from '../VaTabs.vue'
 
 type Context = {
   tabsService: TabsService | null;
+  hasKeyboardFocus: boolean;
+  keyboardFocusListeners: {}
 }
 
 class TabProps {

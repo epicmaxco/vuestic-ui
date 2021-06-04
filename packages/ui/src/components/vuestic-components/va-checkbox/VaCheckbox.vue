@@ -12,8 +12,6 @@
     <div
       class="va-checkbox__input-container"
       @click="onWrapperClick()"
-      @mousedown="hasMouseDown = true"
-      @mouseup="hasMouseDown = false"
       tabindex="-1"
       @blur="onBlur"
       ref="container"
@@ -29,6 +27,7 @@
           type="checkbox"
           role="checkbox"
           readonly
+          v-on="SetupContext.keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur($event)"
           class="va-checkbox__input"
@@ -58,12 +57,13 @@
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, Vue } from 'vue-class-component'
+import { Options, mixins, prop, setup, Vue } from 'vue-class-component'
 
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../vuestic-mixins/SelectableMixin/SelectableMixin'
 import VaIcon from '../va-icon/'
 import { VaInputWrapper } from '../va-input'
+import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 
 type ModelValue = boolean | boolean[] | string | Record<string, unknown>
 
@@ -89,6 +89,15 @@ export default class VaCheckbox extends mixins(
   SelectableMixin,
   CheckboxPropsMixin,
 ) {
+  SetupContext = setup(() => {
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+    return {
+      hasKeyboardFocus,
+      keyboardFocusListeners,
+    }
+  })
+
   get computedClass () {
     return {
       'va-checkbox--selected': this.isChecked,
@@ -97,7 +106,7 @@ export default class VaCheckbox extends mixins(
       'va-checkbox--indeterminate': this.indeterminate,
       'va-checkbox--error': this.computedError,
       'va-checkbox--left-label': this.leftLabel,
-      'va-checkbox--on-keyboard-focus': this.isKeyboardFocused,
+      'va-checkbox--on-keyboard-focus': this.SetupContext.hasKeyboardFocus,
     }
   }
 
