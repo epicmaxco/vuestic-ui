@@ -45,7 +45,7 @@ export default class VaListItem extends mixins(
   RouterLinkMixin,
   ListItemPropsMixin,
 ) {
-  SetupContext = setup((props) => {
+  SetupContext = setup(() => {
     const { keyboardFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
 
     return {

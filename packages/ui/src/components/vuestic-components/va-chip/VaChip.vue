@@ -88,7 +88,7 @@ export default class VaChip extends mixins(
   ColorMixin,
   ChipPropsMixin,
 ) {
-  SetupContext = setup((props) => {
+  SetupContext = setup(() => {
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     return {
