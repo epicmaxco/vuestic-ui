@@ -2,12 +2,10 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header"
+      v-on="SetupContext.keyboardFocusListeners"
       @click="changeValue()"
+      @focus="$emit('focus')"
       :tabindex="collapseIndexComputed"
-      @mousedown="hasMouseDown = true"
-      @mouseup="hasMouseDown = false"
-      @focus="onFocus()"
-      @blur="isKeyboardFocused = false"
     >
       <slot name="header">
         <div class="va-collapse__header__content" :style="contentStyle">
@@ -41,7 +39,7 @@ import VaIcon from '../va-icon'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { getHoverColor } from '../../../services/color-config/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { Accordion, AccordionServiceKey } from '../va-accordion/VaAccordion.vue'
 
 class Props {
@@ -66,7 +64,6 @@ const TEXT_NODE_TYPE = 3
   emits: ['focus'],
 })
 export default class VaCollapse extends mixins(
-  KeyboardOnlyFocusMixin,
   StatefulMixin,
   ColorMixin,
   PropsMixin,
@@ -91,6 +88,15 @@ export default class VaCollapse extends mixins(
         onChildMounted: (ctx: any) => undefined,
         onChildUnmounted: (ctx: any) => undefined,
       })
+  })
+
+  SetupContext = setup(() => {
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+    return {
+      hasKeyboardFocus,
+      keyboardFocusListeners,
+    }
   })
 
   get body (): HTMLElement {
@@ -139,7 +145,7 @@ export default class VaCollapse extends mixins(
       paddingLeft: this.icon && 0,
       color: this.textColor ? this.theme.getColor(this.textColor) : '',
       backgroundColor: this.color ? this.colorComputed : '',
-      boxShadow: this.isKeyboardFocused ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
+      boxShadow: this.SetupContext.hasKeyboardFocus ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
     }
   }
 
@@ -162,11 +168,6 @@ export default class VaCollapse extends mixins(
 
   get collapseIndexComputed () {
     return (this.disabled || !this.focusable) ? -1 : 0
-  }
-
-  onFocus () {
-    this.KeyboardOnlyFocusMixin_onFocus()
-    this.$emit('focus')
   }
 
   changeValue () {
