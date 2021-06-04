@@ -35,12 +35,5 @@ export default [
     'va-collapse/Color',
   ),
 
-  ...DocsHelper.exampleBlock(
-    'collapse.examples.focusable.title',
-    'collapse.examples.focusable.text',
-    'va-collapse/Focusable',
-  ),
-
-
   DocsHelper.api(VaCollapse, apiOptions),
 ] as ApiDocsBlock[]
