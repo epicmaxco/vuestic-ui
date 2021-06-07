@@ -29,7 +29,7 @@
         </div>
       </slot>
     </div>
-    <div class="va-collapse__body" :style="stylesComputed" ref="body" v-show="displayBody">
+    <div class="va-collapse__body" ref="body" :style="stylesComputed">
       <slot />
     </div>
   </div>
@@ -70,14 +70,12 @@ export default class VaCollapse extends mixins(
   ColorMixin,
   PropsMixin,
 ) {
-  height = this.getHeight()
+  height = 0
   transitionDuration = this.getTransitionDuration()
   mutationObserver: any = null
   valueCollapse = {
     value: undefined,
   }
-
-  displayBody = true // is used with v-show to make sure that closed va-collapses are properly hidden (allows for grater a11y etc.)
 
   accordion: Accordion = setup(() => {
     return inject(
@@ -120,14 +118,6 @@ export default class VaCollapse extends mixins(
 
     this.valueComputed = value
     this.setCollapseParams()
-
-    if (value) {
-      this.displayBody = true
-    } else {
-      setTimeout(() => {
-        this.displayBody = false // set the `display: none` (via v-show, see the template) after the height-transition is completed
-      }, this.getTransitionDuration() * 1000)
-    }
   }
 
   get computedClasses () {
@@ -154,6 +144,7 @@ export default class VaCollapse extends mixins(
   get stylesComputed () {
     if (this.valueProxy && (this as any).$slots.default()?.[0]) {
       return {
+        visibility: 'visible', // allows for better a11y and works well with height-transitions (compared to v-show (display: none in general)
         height: this.height + 'px',
         transitionDuration: this.transitionDuration + 's',
         background:
@@ -163,7 +154,8 @@ export default class VaCollapse extends mixins(
       }
     }
     return {
-      height: 0,
+      visibility: 'hidden',
+      height: this.height + 'px',
       transitionDuration: this.transitionDuration + 's',
     }
   }
@@ -180,6 +172,10 @@ export default class VaCollapse extends mixins(
   }
 
   getHeight () {
+    if (!this.valueProxy) {
+      return 0
+    }
+
     // @ts-ignore
     const nodes = [...(this.body?.childNodes || [])] as HTMLElement[]
     return nodes.reduce((result: number, node: HTMLElement) => {
@@ -207,6 +203,8 @@ export default class VaCollapse extends mixins(
   }
 
   mounted () {
+    this.getHeight()
+
     this.mutationObserver = new MutationObserver(() => {
       this.setCollapseParams()
     })
