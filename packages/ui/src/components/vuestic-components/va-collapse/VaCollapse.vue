@@ -1,16 +1,18 @@
 <template>
   <div class="va-collapse" :class="computedClasses">
-    <div class="va-collapse__header">
-      <slot name="header" v-bind="{ changeValue }">
+    <div
+      class="va-collapse__header"
+      v-on="SetupContext.keyboardFocusListeners"
+      @click="changeValue()"
+      @focus="$emit('focus')"
+      @keydown.enter="changeValue()"
+      @keydown.space="changeValue()"
+      :tabindex="collapseIndexComputed"
+    >
+      <slot name="header" v-bind="{ value: valueProxy }">
         <div
           class="va-collapse__header__content"
           :style="contentStyle"
-          v-on="SetupContext.keyboardFocusListeners"
-          @click="changeValue()"
-          @focus="$emit('focus')"
-          @keydown.enter="changeValue()"
-          @keydown.space="changeValue()"
-          :tabindex="collapseIndexComputed"
         >
           <va-icon
             v-if="icon"
