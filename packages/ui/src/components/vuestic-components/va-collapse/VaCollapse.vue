@@ -1,14 +1,17 @@
 <template>
   <div class="va-collapse" :class="computedClasses">
-    <div
-      class="va-collapse__header"
-      v-on="SetupContext.keyboardFocusListeners"
-      @click="changeValue()"
-      @focus="$emit('focus')"
-      :tabindex="collapseIndexComputed"
-    >
-      <slot name="header">
-        <div class="va-collapse__header__content" :style="contentStyle">
+    <div class="va-collapse__header">
+      <slot name="header" v-bind="{ changeValue }">
+        <div
+          class="va-collapse__header__content"
+          :style="contentStyle"
+          v-on="SetupContext.keyboardFocusListeners"
+          @click="changeValue()"
+          @focus="$emit('focus')"
+          @keydown.enter="changeValue()"
+          @keydown.space="changeValue()"
+          :tabindex="collapseIndexComputed"
+        >
           <va-icon
             v-if="icon"
             class="va-collapse__header__icon"
@@ -170,8 +173,10 @@ export default class VaCollapse extends mixins(
   }
 
   changeValue () {
-    this.valueProxy = !this.valueProxy
-    this.accordion.onChildChange(this)
+    if (!this.disabled) {
+      this.valueProxy = !this.valueProxy
+      this.accordion.onChildChange(this)
+    }
   }
 
   getHeight () {

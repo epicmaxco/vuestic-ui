@@ -7,8 +7,11 @@
         v-for="(route, key) in navigationRoutes"
         :key="key"
       >
-        <template #header>
-          <va-sidebar-item :activeColor="activeColor">
+        <template #header="{ changeValue }">
+          <va-sidebar-item
+            :activeColor="activeColor"
+            @click="changeValue()"
+          >
             <va-sidebar-item-content :class="{ 'va-sidebar-item--active': isRouteHasActiveChild(route) }">
               <va-sidebar-item-title>
                 {{ $t(route.displayName) }}
