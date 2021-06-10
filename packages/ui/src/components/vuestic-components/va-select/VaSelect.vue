@@ -457,11 +457,16 @@ export default class VaSelect extends mixins(
     this.toggleDropdown()
 
     this.$nextTick(() => {
-      if (this.$refs.searchBar) {
-        (this.$refs as any).searchBar.focus()
-      } else if (this.$refs.optionList) {
+      if (this.$refs.optionList) {
         (this.$refs as any).optionList.focus()
       }
+
+      // TODO: refactor focus event because when initial focus is on the searchBar items below in the list will not be selectable
+      // if (this.$refs.searchBar) {
+      //   (this.$refs as any).searchBar.focus()
+      // } else if (this.$refs.optionList) {
+      //   (this.$refs as any).optionList.focus()
+      // }
     })
   }
 
