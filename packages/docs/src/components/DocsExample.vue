@@ -1,15 +1,13 @@
 <template>
   <div class="mb-3">
-    <div class="docs-example__addressable-component">
-      <component :is="component" />
-    </div>
+    <component :is="component" />
     <template v-if="!exampleOptions.hideCode">
       <va-button class="mt-2 d-block docs-example__show-code-button" style="background: transparent !important; box-shadow: none !important;" :rounded="false" flat size="small" color="primary" @click="showCode = !showCode">
         {{ $t('docsExample.showCode') }}
       </va-button>
       <va-content v-if="showCode">
         <DocsNavigation :code="parsed.template" :git-url="file" />
-        <DocsCode :code="parsed.template" language="markup" :class="[parsed.script ? 'docs-example__code--with-margin' : '']"/>
+        <DocsCode :code="parsed.template" language="markup" :class="[parsed.script ? 'docs-example__code--with-margin' : '']" />
         <DocsCode v-if="parsed.script" :code="parsed.script" language="markup" />
       </va-content>
     </template>
@@ -98,10 +96,6 @@ export default {
 
 <style lang="scss">
 .docs-example {
-  &__addressable-component {
-    overflow: auto;
-  }
-  
   &__code {
     &--with-margin {
       margin-bottom: 0.2rem !important;
@@ -110,7 +104,7 @@ export default {
 
   &__show-code-button {
     .va-button {
-      &__content{
+      &__content {
         padding: 0 !important;
       }
     }
