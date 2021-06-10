@@ -2510,6 +2510,7 @@
   },
   "datePicker": {
     "title": "Date Picker",
+    "description": "Work in progress.",
     "summaryText": "Input component for data selection.",
     "examples": {
       "default": {

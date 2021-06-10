@@ -183,11 +183,13 @@ export const navigationRoutes: NavigationRoute[] = [
       //   name: 'popover',
       //   displayName: 'menu.popover',
       // },
-      // Temporary removed.
-      // {
-      //   name: 'date-picker',
-      //   displayName: 'menu.datePicker',
-      // },
+      {
+        name: 'date-picker',
+        displayName: 'menu.datePicker',
+        meta: {
+          badge: 'wip',
+        },
+      },
       {
         category: 'menu.categories.layout',
         name: 'card',
