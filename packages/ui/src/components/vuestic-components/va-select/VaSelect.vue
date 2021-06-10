@@ -14,7 +14,7 @@
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
       :close-on-anchor-click="$props.multiple"
-      :close-on-click-inside="!$props.multiple"
+      :close-on-content-click="!$props.multiple"
       trigger="none"
       class="va-select__dropdown"
       keep-anchor-width

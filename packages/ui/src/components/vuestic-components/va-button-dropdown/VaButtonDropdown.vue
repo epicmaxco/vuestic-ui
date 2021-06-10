@@ -6,7 +6,7 @@
       :position="position"
       :offset="$props.offset"
       :keep-anchor-width="keepAnchorWidth"
-      :close-on-click-inside="closeOnClickInside"
+      :close-on-content-click="closeOnContentClick"
       v-model="showDropdown"
       :stateful="stateful"
     >
@@ -106,7 +106,7 @@ class ButtonDropdownProps {
   position = prop<string>({ type: String, default: 'bottom' })
   label = prop<string>({ type: String })
   offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
-  closeOnClickInside = prop<boolean>({ type: Boolean, default: true })
+  closeOnContentClick = prop<boolean>({ type: Boolean, default: true })
   stateful = prop<boolean>({ type: Boolean, default: true })
 }
 

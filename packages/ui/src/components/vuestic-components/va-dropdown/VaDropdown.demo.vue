@@ -64,7 +64,7 @@
 
     <VbCard title="Doesn't redraw on content change">
       <va-dropdown
-        :close-on-click-inside="false"
+        :close-on-content-click="false"
       >
         <template #anchor>
           <button>
@@ -230,7 +230,7 @@
     <VbCard title="Nesting 3x">
       <va-dropdown
         debug-id="1"
-        :close-on-click-inside=false
+        :close-on-content-click=false
       >
         <template #anchor>
           <button>
@@ -240,7 +240,7 @@
         1
         <va-dropdown
           debug-id="2"
-          :close-on-click-inside=false
+          :close-on-content-click=false
         >
           <template #anchor>
             <button>
@@ -250,7 +250,7 @@
           2
           <va-dropdown
             debug-id="3"
-            :close-on-click-inside=false
+            :close-on-content-click=false
           >
             <template #anchor>
               <button>

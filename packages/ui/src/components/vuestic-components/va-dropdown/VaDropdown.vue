@@ -50,7 +50,7 @@ class DropdownProps {
   keepAnchorWidth = prop<boolean>({ type: Boolean })
   // If set to false - dropdown won't dodge outside container.
   preventOverflow = prop<boolean>({ type: Boolean, default: false })
-  closeOnClickInside = prop<boolean>({ type: Boolean, default: true })
+  closeOnContentClick = prop<boolean>({ type: Boolean, default: true })
   closeOnClickOutside = prop<boolean>({ type: Boolean, default: true })
   closeOnAnchorClick = prop<boolean>({ type: Boolean, default: true })
   isContentHoverable = prop<boolean>({ type: Boolean, default: true })
@@ -58,7 +58,7 @@ class DropdownProps {
   trigger = prop<string>({
     type: String,
     default: 'click',
-    validator: (trigger: string) => ['click', 'hover', 'none'].includes(trigger)
+    validator: (trigger: string) => ['click', 'hover', 'none'].includes(trigger),
   })
   stateful = prop<boolean>({ type: Boolean, default: true })
 }
@@ -113,7 +113,7 @@ export default class VaDropdown extends mixins(
   }
 
   onDropdownContentClick (): void {
-    this.handleClick('dropdown-content-click', this.closeOnClickInside)
+    this.handleClick('dropdown-content-click', this.closeOnContentClick)
   }
 
   onClickOutside (): void {
@@ -149,7 +149,7 @@ export default class VaDropdown extends mixins(
   }
 
   onMouseOut (): void {
-    if( this.trigger !== 'hover') {
+    if (this.trigger !== 'hover') {
       return
     }
     if (this.isContentHoverable) {
