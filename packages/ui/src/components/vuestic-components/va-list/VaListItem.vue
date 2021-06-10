@@ -10,15 +10,14 @@
     :exact-active-class="exactActiveClass"
     class="va-list-item"
     :class="computedClass"
+    :style="computedStyle"
+    v-on="SetupContext.keyboardFocusListeners"
     :tabindex="indexComputed"
   >
     <div
       class="va-list-item__inner"
-      @mousedown="hasMouseDown = true"
-      @mouseup="hasMouseDown = false"
-      @focus="onFocus"
-      @blur="isKeyboardFocused = false"
       @click="$emit('click')"
+      @focus="$emit('focus')"
     >
       <slot />
     </div>
@@ -26,10 +25,10 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { Options, prop, mixins, setup, Vue } from 'vue-class-component'
 
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
-import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 
 class ListItemProps {
   tag = prop<string>({ type: String, default: 'div' })
@@ -44,9 +43,17 @@ const ListItemPropsMixin = Vue.with(ListItemProps)
 })
 export default class VaListItem extends mixins(
   RouterLinkMixin,
-  KeyboardOnlyFocusMixin,
   ListItemPropsMixin,
 ) {
+  SetupContext = setup(() => {
+    const { keyboardFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
+
+    return {
+      keyboardFocusListeners,
+      hasKeyboardFocus,
+    }
+  })
+
   get indexComputed () {
     return this.disabled ? -1 : 0
   }
@@ -54,13 +61,13 @@ export default class VaListItem extends mixins(
   get computedClass () {
     return {
       'va-list-item--disabled': this.disabled,
-      'va-list-item--focus': this.isKeyboardFocused,
     }
   }
 
-  onFocus () {
-    (this as any).KeyboardOnlyFocusMixin_onFocus()
-    this.$emit('focus')
+  get computedStyle () {
+    return {
+      outline: this.SetupContext.hasKeyboardFocus ? '2px solid rgba(0, 0, 0, 0.3)' : 'none', // just to have at least some highlighting of the focused items
+    }
   }
 }
 </script>

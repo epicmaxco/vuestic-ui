@@ -1,75 +1,39 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import VaCollapse from 'vuestic-ui/src/components/vuestic-components/va-collapse/VaCollapse.vue'
 import apiOptions from './api-options'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'collapse.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'collapse.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'collapse.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'collapse.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-collapse/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'collapse.examples.solid.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'collapse.examples.solid.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-collapse/Solid',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'collapse.examples.icon.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'collapse.examples.icon.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-collapse/Icon',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'collapse.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'collapse.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-collapse/Color',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaCollapse,
-    apiOptions,
-  },
+  DocsHelper.title('collapse.title'),
+
+  DocsHelper.paragraph('collapse.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  // examples
+  ...DocsHelper.exampleBlock(
+    'collapse.examples.default.title',
+    'collapse.examples.default.text',
+    'va-collapse/Default',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'collapse.examples.solid.title',
+    'collapse.examples.solid.text',
+    'va-collapse/Solid',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'collapse.examples.icon.title',
+    'collapse.examples.icon.text',
+    'va-collapse/Icon',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'collapse.examples.color.title',
+    'collapse.examples.color.text',
+    'va-collapse/Color',
+  ),
+
+  DocsHelper.api(VaCollapse, apiOptions),
 ] as ApiDocsBlock[]

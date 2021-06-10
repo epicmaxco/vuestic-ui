@@ -10,16 +10,14 @@
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
     :class="classComputed"
-    :tabindex="tabIndexComputed"
   >
     <div
       class="va-tab__content"
+      v-on="context.keyboardFocusListeners"
       @focus="onFocus"
-      @blur="isKeyboardFocused = false"
       @click="onTabClick()"
       @keydown.enter="onTabKeydown"
-      @mousedown="hasMouseDown = true"
-      @mouseup="hasMouseDown = false"
+      :tabindex="tabIndexComputed"
     >
       <slot>
         <va-icon
@@ -41,7 +39,7 @@
 import { inject } from 'vue'
 import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
 
-import { KeyboardOnlyFocusMixin } from '../../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import useKeyboardOnlyFocus from '../../../../composables/useKeyboardOnlyFocus'
 import { RouterLinkMixin } from '../../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import VaIcon from '../../va-icon'
 
@@ -49,6 +47,8 @@ import { TabsServiceKey, TabsService } from '../VaTabs.vue'
 
 type Context = {
   tabsService: TabsService | null;
+  hasKeyboardFocus: boolean;
+  keyboardFocusListeners: {}
 }
 
 class TabProps {
@@ -67,7 +67,6 @@ const TabPropsMixin = Vue.with(TabProps)
   emits: ['click', 'keydown-enter', 'focus'],
 })
 export default class VaTab extends mixins(
-  KeyboardOnlyFocusMixin,
   RouterLinkMixin,
   TabPropsMixin,
 ) {
@@ -77,8 +76,12 @@ export default class VaTab extends mixins(
   context: Context = setup(() => {
     const tabsService: TabsService | null = inject(TabsServiceKey, null)
 
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
     return {
       tabsService,
+      hasKeyboardFocus,
+      keyboardFocusListeners,
     }
   })
 
@@ -86,7 +89,7 @@ export default class VaTab extends mixins(
     return {
       'va-tab--active': this.isActive,
       'va-tab--disabled': this.$props.disabled,
-      'va-tab--on-keyboard-focus': this.isKeyboardFocused,
+      'va-tab--on-keyboard-focus': this.context.hasKeyboardFocus,
     }
   }
 
@@ -117,9 +120,6 @@ export default class VaTab extends mixins(
   }
 
   onFocus () {
-    this.KeyboardOnlyFocusMixin_onFocus()
-    // this.tabsHanler.eventEmitter.emit('focus:tab', this)
-    // eslint-disable-next-line no-unused-expressions
     this.context.tabsService?.tabFocus(this)
     this.$emit('focus')
   }

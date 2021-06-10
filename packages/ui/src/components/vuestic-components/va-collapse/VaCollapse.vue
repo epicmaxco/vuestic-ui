@@ -2,15 +2,18 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header"
+      v-on="SetupContext.keyboardFocusListeners"
       @click="changeValue()"
+      @focus="$emit('focus')"
+      @keydown.enter="changeValue()"
+      @keydown.space="changeValue()"
       :tabindex="collapseIndexComputed"
-      @mousedown="hasMouseDown = true"
-      @mouseup="hasMouseDown = false"
-      @focus="onFocus()"
-      @blur="isKeyboardFocused = false"
     >
-      <slot name="header">
-        <div class="va-collapse__header__content" :style="contentStyle">
+      <slot name="header" v-bind="{ value: valueProxy }">
+        <div
+          class="va-collapse__header__content"
+          :style="contentStyle"
+        >
           <va-icon
             v-if="icon"
             class="va-collapse__header__icon"
@@ -28,7 +31,7 @@
         </div>
       </slot>
     </div>
-    <div class="va-collapse__body" :style="stylesComputed" ref="body">
+    <div class="va-collapse__body" ref="body" :style="stylesComputed">
       <slot />
     </div>
   </div>
@@ -41,7 +44,7 @@ import VaIcon from '../va-icon'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { getHoverColor } from '../../../services/color-config/color-functions'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { Accordion, AccordionServiceKey } from '../va-accordion/VaAccordion.vue'
 
 class Props {
@@ -65,12 +68,11 @@ const TEXT_NODE_TYPE = 3
   emits: ['focus'],
 })
 export default class VaCollapse extends mixins(
-  KeyboardOnlyFocusMixin,
   StatefulMixin,
   ColorMixin,
   PropsMixin,
 ) {
-  height = this.getHeight()
+  height = 0
   transitionDuration = this.getTransitionDuration()
   mutationObserver: any = null
   valueCollapse = {
@@ -88,6 +90,15 @@ export default class VaCollapse extends mixins(
         onChildMounted: (ctx: any) => undefined,
         onChildUnmounted: (ctx: any) => undefined,
       })
+  })
+
+  SetupContext = setup(() => {
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+    return {
+      hasKeyboardFocus,
+      keyboardFocusListeners,
+    }
   })
 
   get body (): HTMLElement {
@@ -128,13 +139,14 @@ export default class VaCollapse extends mixins(
       paddingLeft: this.icon && 0,
       color: this.textColor ? this.theme.getColor(this.textColor) : '',
       backgroundColor: this.color ? this.colorComputed : '',
-      boxShadow: this.isKeyboardFocused ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
+      boxShadow: this.SetupContext.hasKeyboardFocus ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
     }
   }
 
   get stylesComputed () {
     if (this.valueProxy && (this as any).$slots.default()?.[0]) {
       return {
+        visibility: 'visible', // allows for better a11y and works well with height-transitions (compared to v-show (display: none in general)
         height: this.height + 'px',
         transitionDuration: this.transitionDuration + 's',
         background:
@@ -144,7 +156,8 @@ export default class VaCollapse extends mixins(
       }
     }
     return {
-      height: 0,
+      visibility: 'hidden',
+      height: this.height + 'px',
       transitionDuration: this.transitionDuration + 's',
     }
   }
@@ -153,17 +166,18 @@ export default class VaCollapse extends mixins(
     return this.disabled ? -1 : 0
   }
 
-  onFocus () {
-    this.KeyboardOnlyFocusMixin_onFocus()
-    this.$emit('focus')
-  }
-
   changeValue () {
-    this.valueProxy = !this.valueProxy
-    this.accordion.onChildChange(this)
+    if (!this.disabled) {
+      this.valueProxy = !this.valueProxy
+      this.accordion.onChildChange(this)
+    }
   }
 
   getHeight () {
+    if (!this.valueProxy) {
+      return 0
+    }
+
     // @ts-ignore
     const nodes = [...(this.body?.childNodes || [])] as HTMLElement[]
     return nodes.reduce((result: number, node: HTMLElement) => {
@@ -191,6 +205,8 @@ export default class VaCollapse extends mixins(
   }
 
   mounted () {
+    this.getHeight()
+
     this.mutationObserver = new MutationObserver(() => {
       this.setCollapseParams()
     })

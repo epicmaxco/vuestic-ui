@@ -133,9 +133,9 @@
 
     <VbCard title="Custom header">
       <va-collapse v-model="collapseValue" style="width: 400px;">
-        <template #header>
+        <template #header="{ value }">
           <button style="width: 100%;">
-            {{ collapseHeader }}
+            {{ collapseHeader }} ({{ value ? 'opened' : 'closed' }})
           </button>
         </template>
 

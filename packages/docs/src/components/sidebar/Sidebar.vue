@@ -7,13 +7,13 @@
         v-for="(route, key) in navigationRoutes"
         :key="key"
       >
-        <template #header>
-          <va-sidebar-item :activeColor="activeColor">
+        <template #header="{ value }">
+          <va-sidebar-item :activeColor="activeColor" @keydown.stop>
             <va-sidebar-item-content :class="{ 'va-sidebar-item--active': isRouteHasActiveChild(route) }">
               <va-sidebar-item-title>
                 {{ $t(route.displayName) }}
               </va-sidebar-item-title>
-              <va-icon v-if="route.children" :name="value[key] ? 'expand_less' : 'expand_more'" />
+              <va-icon v-if="route.children" :name="value ? 'expand_less' : 'expand_more'" />
             </va-sidebar-item-content>
           </va-sidebar-item>
         </template>

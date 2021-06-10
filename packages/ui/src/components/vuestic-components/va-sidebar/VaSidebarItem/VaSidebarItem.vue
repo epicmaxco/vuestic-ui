@@ -8,6 +8,7 @@
       @click="navigate"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
+      v-on="keyboardFocusListeners"
     >
       <slot />
     </a>
@@ -17,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
 import { useColors } from '../../../../services/color-config/color-config'
+import useKeyboardOnlyFocus from '../../../../composables/useKeyboardOnlyFocus'
 
 const useHover = () => {
   const isHovered = ref(false)
@@ -41,7 +43,9 @@ export default defineComponent({
   },
   setup (props) {
     const { isHovered, onMouseEnter, onMouseLeave } = useHover()
-    const { getColor, getHoverColor, getTextColor } = useColors()
+    const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
+
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
@@ -60,13 +64,17 @@ export default defineComponent({
         style.color = getTextColor(style['background-color'], getColor('dark'), '#ffffff')
       }
 
+      if (hasKeyboardFocus.value) {
+        style['background-color'] = getFocusColor(getColor(props.hoverColor || props.activeColor))
+      }
+
       // Override default link color from VaContent
       style.color = `${style.color} !important`
 
       return style
     })
 
-    return { isHovered, onMouseEnter, onMouseLeave, computedStyle }
+    return { isHovered, onMouseEnter, onMouseLeave, computedStyle, keyboardFocusListeners }
   },
 })
 </script>

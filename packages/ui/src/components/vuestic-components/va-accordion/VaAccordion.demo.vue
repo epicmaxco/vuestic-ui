@@ -13,7 +13,36 @@
         </va-collapse>
       </va-accordion>
     </VbCard>
-
+    <VbCard title="Default with custom headers">
+      <va-accordion v-model="value" style="width: 400px;">
+        <va-collapse
+          v-for="(collapse, index) in collapses"
+          :key="index"
+        >
+          <template #header="{ value }">
+            {{ value ? 'opened' : 'closed' }}
+          </template>
+          <div>
+            {{ collapse.content }}
+          </div>
+        </va-collapse>
+      </va-accordion>
+    </VbCard>
+    <VbCard title="Multiply with custom headers">
+      <va-accordion v-model="valueArray" style="width: 400px;" multiply>
+        <va-collapse
+          v-for="(collapse, index) in collapses"
+          :key="index"
+        >
+          <template #header="{ value }">
+            {{ value ? 'opened' : 'closed' }}
+          </template>
+          <div>
+            {{ collapse.content }}
+          </div>
+        </va-collapse>
+      </va-accordion>
+    </VbCard>
     <VbCard title="Multiply">
       <va-accordion v-model="valueArray" multiply style="width: 400px;">
         <va-collapse

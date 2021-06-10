@@ -12,14 +12,14 @@
     :exact-active-class="exactActiveClass"
     :class="computedClass"
     :style="computedStyle"
-    :tabindex="indexComputed"
   >
     <div
       class="va-chip__inner"
+      v-on="SetupContext.keyboardFocusListeners"
+      @focus="$emit('focus')"
       @mouseenter="updateHoverState(true)"
       @mouseleave="updateHoverState(false)"
-      @focus="updateFocusState(true)"
-      @blur="updateFocusState(false)"
+      :tabindex="indexComputed"
     >
       <va-icon
         v-if="icon"
@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { watch } from 'vue'
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { Options, prop, mixins, setup, Vue } from 'vue-class-component'
 
 import {
   getBoxShadowColor,
@@ -53,7 +53,7 @@ import {
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { RouterLinkMixin } from '../../vuestic-mixins/RouterLinkMixin/RouterLinkMixin'
 import { StatefulMixin } from '../../vuestic-mixins/StatefulMixin/StatefulMixin'
-import { KeyboardOnlyFocusMixin } from '../../vuestic-mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
+import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import VaIcon from '../va-icon'
 
 class ChipProps {
@@ -83,18 +83,25 @@ const ChipPropsMixin = Vue.with(ChipProps)
   emits: ['focus'],
 })
 export default class VaChip extends mixins(
-  KeyboardOnlyFocusMixin,
   RouterLinkMixin,
   StatefulMixin,
   ColorMixin,
   ChipPropsMixin,
 ) {
+  SetupContext = setup(() => {
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+    return {
+      hasKeyboardFocus,
+      keyboardFocusListeners,
+    }
+  })
+
   hoverState = false
   focusState = false
 
   created () {
     watch(() => this.hoverState, (value) => {
-      this.updateFocusState(value)
       this.updateHoverState(value)
     })
   }
@@ -136,7 +143,7 @@ export default class VaChip extends mixins(
       boxShadow: '',
     }
 
-    if (this.focusState) {
+    if (this.SetupContext.hasKeyboardFocus) {
       if (this.outline || this.flat) {
         computedStyle.color = this.colorComputed
         computedStyle.borderColor = this.outline ? this.colorComputed : ''
@@ -164,15 +171,6 @@ export default class VaChip extends mixins(
 
   updateHoverState (isHover: boolean) {
     this.hoverState = isHover
-  }
-
-  updateFocusState (isFocus: boolean) {
-    this.focusState = isFocus
-    if (isFocus) {
-      this.isKeyboardFocused = isFocus
-      this.KeyboardOnlyFocusMixin_onFocus()
-      this.$emit('focus')
-    }
   }
 
   close () {
