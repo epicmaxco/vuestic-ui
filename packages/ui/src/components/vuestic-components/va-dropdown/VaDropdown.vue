@@ -58,7 +58,7 @@ class DropdownProps {
   trigger = prop<string>({
     type: String,
     default: 'click',
-    validator: (trigger: string): boolean => ['click', 'hover', 'none'].includes(trigger),
+    validator: (trigger: string) => ['click', 'hover', 'none'].includes(trigger)
   })
   stateful = prop<boolean>({ type: Boolean, default: true })
 }
@@ -139,26 +139,25 @@ export default class VaDropdown extends mixins(
   // * Fast mouse-over shouldn't trigger dropdown.
   // * Dropdown shouldn't close when you move mouse from anchor to content (even with offset).
   onMouseOver (): void {
-    if (this.disabled) {
+    if (this.disabled || this.trigger !== 'hover') {
       return
     }
-    if (this.trigger === 'hover') {
-      if (!this.valueComputed) {
-        this.hoverOverDebounceLoader.run()
-      }
-      this.hoverOutDebounceLoader.reset()
+    if (!this.valueComputed) {
+      this.hoverOverDebounceLoader.run()
     }
+    this.hoverOutDebounceLoader.reset()
   }
 
   onMouseOut (): void {
-    if (this.trigger === 'hover') {
-      if (this.isContentHoverable) {
-        this.hoverOutDebounceLoader.run()
-      } else {
-        this.valueComputed = false
-      }
-      this.hoverOverDebounceLoader.reset()
+    if( this.trigger !== 'hover') {
+      return
     }
+    if (this.isContentHoverable) {
+      this.hoverOutDebounceLoader.run()
+    } else {
+      this.valueComputed = false
+    }
+    this.hoverOverDebounceLoader.reset()
   }
 
   registerClickOutsideListener (): void {
