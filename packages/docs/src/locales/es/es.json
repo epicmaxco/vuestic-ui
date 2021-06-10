@@ -343,7 +343,9 @@
     "colorsConfig": "Colors Config",
     "sidebarItem": "Sidebar Item",
     "navbar": "Navbar",
-    "typography": "Typography"
+    "typography": "Typography",
+    "agGridWrapper": "AG Grid Wrapper",
+    "dataTable": "Data Table"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -474,6 +476,9 @@
     "title": "-- Here is the title --"
   },
   "typography": {
+    "title": "-- Here is the title --"
+  },
+  "dataTable": {
     "title": "-- Here is the title --"
   }
 }

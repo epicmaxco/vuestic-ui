@@ -1032,7 +1032,8 @@
     "navbar": "Navbar",
     "toast": "Toast",
     "typography": "Typography",
-    "agGridWrapper": "AG Grid Wrapper"
+    "agGridWrapper": "AG Grid Wrapper",
+    "dataTable": "Data Table"
   },
   "all": {
     "examples": "Examples",
@@ -3130,6 +3131,14 @@
   },
   "ag-grid-wrapper": {
     "title": "AG Grid wrapper",
-    "description": "Work in progress"
+    "description": "Work in progress",
+    "related": "Related",
+    "styledTablesLink": "Styled tables"
+  },
+  "dataTable": {
+    "title": "Data table",
+    "description": "Work in progress.",
+    "related": "Related",
+    "styledTablesLink": "Styled tables"
   }
 }

@@ -131,6 +131,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.modal',
       },
       {
+        name: 'data-table',
+        displayName: 'menu.dataTable',
+        meta: {
+          badge: 'wip',
+        },
+      },
+      {
         category: 'menu.categories.form',
         name: 'form',
         displayName: 'menu.form',
