@@ -37,7 +37,12 @@
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
-              {{ $t(childRoute.displayName) }}
+              <va-sidebar-item-title>
+                {{ $t(childRoute.displayName) }}
+              </va-sidebar-item-title>
+              <div class="va-sidebar-item-badges" v-if="childRoute.meta && childRoute.meta.badge">
+                <va-chip :title="$t(`menu.badges.${childRoute.meta.badge}.title`)" size="small">{{ $t(`menu.badges.${childRoute.meta.badge}.text`) }}</va-chip>
+              </div>
             </va-sidebar-item-content>
           </va-sidebar-item>
         </div>
