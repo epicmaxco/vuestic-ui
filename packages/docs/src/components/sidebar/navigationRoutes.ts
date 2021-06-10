@@ -71,6 +71,13 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'typography',
         displayName: 'menu.typography',
       },
+      {
+        name: 'ag-grid-wrapper',
+        displayName: 'menu.agGridWrapper',
+        meta: {
+          badge: 'wip',
+        },
+      },
       // GENERATOR_ADD - styles
     ],
   },

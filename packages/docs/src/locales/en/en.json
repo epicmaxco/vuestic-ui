@@ -940,6 +940,12 @@
     }
   },
   "menu": {
+    "badges": {
+      "wip": {
+        "text": "wip",
+        "title": "Work In Progress"
+      }
+    },
     "categories": {
       "view": "View",
       "form": "Form",
@@ -1025,7 +1031,8 @@
     "sidebarItem": "Sidebar Item",
     "navbar": "Navbar",
     "toast": "Toast",
-    "typography": "Typography"
+    "typography": "Typography",
+    "agGridWrapper": "AG Grid Wrapper"
   },
   "all": {
     "examples": "Examples",
@@ -3120,5 +3127,9 @@
     "textHighlighted": "`class=\"text--highlighted\"`",
     "blockquote": "`class=\"va-blockquote\"`",
     "textBlock": "`class=\"text-block\"`"
+  },
+  "ag-grid-wrapper": {
+    "title": "AG Grid wrapper",
+    "description": "Work in progress"
   }
 }
