@@ -229,7 +229,6 @@
 
     <VbCard title="Nesting 3x">
       <va-dropdown
-        debug-id="1"
         :close-on-content-click=false
       >
         <template #anchor>
@@ -239,7 +238,6 @@
         </template>
         1
         <va-dropdown
-          debug-id="2"
           :close-on-content-click=false
         >
           <template #anchor>
@@ -249,7 +247,6 @@
           </template>
           2
           <va-dropdown
-            debug-id="3"
             :close-on-content-click=false
           >
             <template #anchor>

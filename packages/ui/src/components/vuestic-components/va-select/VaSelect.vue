@@ -14,7 +14,7 @@
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
       :close-on-anchor-click="$props.multiple"
-      :close-on-content-click="!$props.multiple"
+      :close-on-content-click="toClose()"
       trigger="none"
       class="va-select__dropdown"
       keep-anchor-width
@@ -325,6 +325,10 @@ export default class VaSelect extends mixins(
     return this.$props.options.find((option: any) => this.compareOptions(option, this.valueComputed))
   }
 
+  toClose (): boolean {
+    return !(this.$props.multiple || this.$props.searchable || this.$props.allowCreate)
+  }
+
   compareOptions (one: any, two: any) {
     // identity check works nice for strings and exact matches.
     if (one === two) {
@@ -454,19 +458,17 @@ export default class VaSelect extends mixins(
   }
 
   onSelectClick () {
+    // Temporary solution for disabled state before VaSelect refactor
+    if (this.$props.disabled) {
+      return
+    }
     this.toggleDropdown()
 
     this.$nextTick(() => {
+      // We don't focus searchBar because it will mess up manual items selection from the bottom of the list
       if (this.$refs.optionList) {
         (this.$refs as any).optionList.focus()
       }
-
-      // TODO: refactor focus event because when initial focus is on the searchBar items below in the list will not be selectable
-      // if (this.$refs.searchBar) {
-      //   (this.$refs as any).searchBar.focus()
-      // } else if (this.$refs.optionList) {
-      //   (this.$refs as any).optionList.focus()
-      // }
     })
   }
 

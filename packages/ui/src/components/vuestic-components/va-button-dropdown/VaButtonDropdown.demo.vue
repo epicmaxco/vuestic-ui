@@ -181,7 +181,7 @@
         Clicking here won't close dropdown content
       </va-button-dropdown>
     </VbCard>
-    <VbCard title="Stateful">
+    <VbCard title="Stateless">
       <va-button-dropdown
         label="Stateless without v-model"
         :stateful=false
