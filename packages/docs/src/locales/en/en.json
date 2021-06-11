@@ -790,7 +790,8 @@
         "position": "Sets the position of the dropdown content.",
         "keepAnchorWidth": "Keeps anchor position the same.",
         "offset": "Sets the distance between dropdown and anchor.",
-        "modelValue": "Sets a dropdown state."
+        "modelValue": "Sets a dropdown state.",
+        "closeOnContentClick": "Sets dropdown content on click behavior."
       },
       "events": {
         "click": "Emitted when user clicks on button.",
@@ -3061,6 +3062,10 @@
       "events": {
         "title": "Events",
         "text": "The `va-dropdown-button` can handle click events."
+      },
+      "clickInside": {
+        "title": "Click inside",
+        "text": "You could set the dropdown to be closed or not after clicking on its content."
       }
     }
   },

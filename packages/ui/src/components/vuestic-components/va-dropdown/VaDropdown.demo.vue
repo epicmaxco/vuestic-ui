@@ -33,7 +33,7 @@
           Click
         </button>
       </template>
-        Should ignore click outside
+        Should ignore anchor click
       </va-dropdown>
     </VbCard>
 
@@ -63,7 +63,9 @@
     </VbCard>
 
     <VbCard title="Doesn't redraw on content change">
-      <va-dropdown>
+      <va-dropdown
+        :close-on-content-click="false"
+      >
         <template #anchor>
           <button>
             Click
@@ -226,21 +228,27 @@
     </VbCard>
 
     <VbCard title="Nesting 3x">
-      <va-dropdown debug-id="1">
+      <va-dropdown
+        :close-on-content-click=false
+      >
         <template #anchor>
           <button>
             Click
           </button>
         </template>
         1
-        <va-dropdown debug-id="2">
+        <va-dropdown
+          :close-on-content-click=false
+        >
           <template #anchor>
             <button>
               Click
             </button>
           </template>
           2
-          <va-dropdown debug-id="3">
+          <va-dropdown
+            :close-on-content-click=false
+          >
             <template #anchor>
               <button>
                 Click

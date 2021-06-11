@@ -5,8 +5,10 @@
       :disabled="disabled"
       :position="position"
       :offset="$props.offset"
-      @update:modelValue="toggleDropdown"
       :keep-anchor-width="keepAnchorWidth"
+      :close-on-content-click="closeOnContentClick"
+      v-model="showDropdown"
+      :stateful="stateful"
     >
       <template #anchor>
         <va-button
@@ -48,7 +50,8 @@
         :disabled="disabled || disableDropdown"
         :position="position"
         :offset="$props.offset"
-        @update:modelValue="toggleDropdown"
+        v-model="showDropdown"
+        :stateful="stateful"
       >
         <template #anchor>
           <va-button
@@ -80,7 +83,7 @@ import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
 class ButtonDropdownProps {
-  modelValue = prop<boolean>({ type: Boolean })
+  modelValue = prop<boolean>({ type: Boolean, default: false })
   color = prop<string>({ type: String, default: 'primary' })
   outline = prop<boolean>({ type: Boolean, default: false })
   disableButton = prop<boolean>({ type: Boolean, default: false })
@@ -103,6 +106,8 @@ class ButtonDropdownProps {
   position = prop<string>({ type: String, default: 'bottom' })
   label = prop<string>({ type: String })
   offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
+  closeOnContentClick = prop<boolean>({ type: Boolean, default: true })
+  stateful = prop<boolean>({ type: Boolean, default: true })
 }
 
 const ButtonDropdownPropsMixin = Vue.with(ButtonDropdownProps)
@@ -110,15 +115,13 @@ const ButtonDropdownPropsMixin = Vue.with(ButtonDropdownProps)
 @Options({
   name: 'VaButtonDropdown',
   components: { VaButtonGroup, VaButton, VaDropdown },
-  emits: ['click', 'main-button-click'],
+  emits: ['click', 'main-button-click', 'update:modelValue'],
 })
 export default class VaButtonDropdown extends mixins(
   SizeMixin,
   ColorMixin,
   ButtonDropdownPropsMixin,
 ) {
-  showDropdown = false
-
   get computedIcon (): string {
     // @ts-ignore
     return this.showDropdown ? this.$props.openedIcon : this.$props.icon
@@ -134,16 +137,20 @@ export default class VaButtonDropdown extends mixins(
     }
   }
 
+  get showDropdown (): boolean {
+    return this.modelValue
+  }
+
+  set showDropdown (value: boolean) {
+    this.$emit('update:modelValue', value)
+  }
+
   click (event: Event): void {
     this.$emit('click', event)
   }
 
   mainButtonClick (event: Event): void {
     this.$emit('main-button-click', event)
-  }
-
-  toggleDropdown (value: boolean): void {
-    this.showDropdown = value
   }
 }
 </script>

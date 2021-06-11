@@ -14,10 +14,12 @@
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
       :close-on-anchor-click="$props.multiple"
+      :close-on-content-click="toClose()"
       trigger="none"
       class="va-select__dropdown"
       keep-anchor-width
       boundary-body
+      :stateful=false
     >
       <template #anchor>
         <div
@@ -323,6 +325,10 @@ export default class VaSelect extends mixins(
     return this.$props.options.find((option: any) => this.compareOptions(option, this.valueComputed))
   }
 
+  toClose (): boolean {
+    return !(this.$props.multiple || this.$props.searchable || this.$props.allowCreate)
+  }
+
   compareOptions (one: any, two: any) {
     // identity check works nice for strings and exact matches.
     if (one === two) {
@@ -352,14 +358,14 @@ export default class VaSelect extends mixins(
   }
 
   selectOption (option: any): void {
-    const isSelected = this.checkIsOptionSelected(option)
-
     if (this.doShowSearchInput) {
       (this as any).$refs.searchBar.focus()
       this.searchInputValue = ''
     }
 
     if (this.$props.multiple) {
+      const isSelected = this.checkIsOptionSelected(option)
+
       if (isSelected) {
         // Unselect
         this.valueComputed = this.valueComputed.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
@@ -453,6 +459,10 @@ export default class VaSelect extends mixins(
   }
 
   onSelectClick () {
+    // Temporary solution for disabled state before VaSelect refactor
+    if (this.$props.disabled) {
+      return
+    }
     this.toggleDropdown()
 
     this.$nextTick(() => {
@@ -517,7 +527,7 @@ export default class VaSelect extends mixins(
   hintedSearchQuery = ''
   hintedSearchQueryTimeoutIndex!: any
 
-  // Hinted serach - hover option if you typing it's value on select without search-bar
+  // Hinted search - hover option if you typing it's value on select without search-bar
   onHintedSearch (event: KeyboardEvent) {
     const isLetter: boolean = event.key.length === 1
     const isDeleteKey: boolean = event.key === 'Backspace' || event.key === 'Delete'

@@ -77,6 +77,13 @@
         hide-selected
       />
     </VbCard>
+    <VbCard title="html select for example">
+      <select>
+        <option value="one">one</option>
+        <option value="two">two</option>
+        <option value="three">three</option>
+      </select>
+    </VbCard>
     <VbCard
       title="Multi select"
       style="width: 400px;"

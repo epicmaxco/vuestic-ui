@@ -17,6 +17,7 @@ export default {
     keepAnchorWidth: { local: true },
     offset: { local: true },
     modelValue: { local: true },
+    closeOnContentClick: { local: true },
   },
   events: {
     click: { local: true, types: '`() => Event`' },

@@ -152,7 +152,7 @@
             <va-popover
               placement="right"
               message="Popover dummy text"
-              opened
+              :modelValue="true"
             >
               <va-button>Hover me</va-button>
             </va-popover>
