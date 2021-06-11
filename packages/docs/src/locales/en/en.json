@@ -2710,9 +2710,13 @@
       "title": "In development",
       "description": "The following releases are currently being developed:"
     },
+    "1-2": {
+      "title": "v1.2",
+      "description": "We'll work on new components: date-picker and data-table"
+    },
     "1-1": {
       "title": "v1.1",
-      "description": "We plan a small release to polish and improve `v1.0`. Plus a new feature or two :)."
+      "description": "Bug fixes and ssr support (vite)."
     },
     "1-0": {
       "title": "v1.0",
