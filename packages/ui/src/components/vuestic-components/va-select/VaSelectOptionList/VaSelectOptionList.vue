@@ -7,7 +7,6 @@
     @keydown.left.stop.prevent="hoverPreviousOption"
     @keydown.down.stop.prevent="hoverNextOption"
     @keydown.right.stop.prevent="hoverNextOption"
-    @focus="hoverFirstOption"
   >
     <template v-if="filteredOptions.length">
       <div

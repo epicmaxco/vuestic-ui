@@ -359,6 +359,7 @@ export default class VaSelect extends mixins(
 
   selectOption (option: any): void {
     if (this.doShowSearchInput) {
+      (this as any).$refs.searchBar.focus()
       this.searchInputValue = ''
     }
 
@@ -465,8 +466,9 @@ export default class VaSelect extends mixins(
     this.toggleDropdown()
 
     this.$nextTick(() => {
-      // We don't focus searchBar because it will mess up manual items selection from the bottom of the list
-      if (this.$refs.optionList) {
+      if (this.$refs.searchBar) {
+        (this.$refs as any).searchBar.focus()
+      } else if (this.$refs.optionList) {
         (this.$refs as any).optionList.focus()
       }
     })
