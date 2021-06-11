@@ -7,15 +7,17 @@
         v-for="(route, key) in navigationRoutes"
         :key="key"
       >
-        <template #header="{ value }">
-          <va-sidebar-item :activeColor="activeColor" @keydown.stop>
-            <va-sidebar-item-content :class="{ 'va-sidebar-item--active': isRouteHasActiveChild(route) }">
-              <va-sidebar-item-title>
-                {{ $t(route.displayName) }}
-              </va-sidebar-item-title>
-              <va-icon v-if="route.children" :name="value ? 'expand_less' : 'expand_more'" />
-            </va-sidebar-item-content>
-          </va-sidebar-item>
+        <template #header="{ value, hasKeyboardFocus }">
+          <div
+            class="collapse-custom-header"
+            :class="{
+              'collapse-custom-header--active': isRouteHasActiveChild(route),
+              'collapse-custom-header--keyboard-focused': hasKeyboardFocus
+            }"
+          >
+            {{ $t(route.displayName) }}
+            <va-icon v-if="route.children" :name="value ? 'expand_less' : 'expand_more'" />
+          </div>
         </template>
         <div
           v-for="(childRoute, index) in route.children"
@@ -124,6 +126,30 @@ export default class Sidebar extends Vue.with(Props) {
 
 <style lang="scss" scoped>
 @import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
+
+  .collapse-custom-header {
+    padding: 1rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 56px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(184, 201, 236, 0.2);
+    }
+
+    &--active {
+      color: var(--primary, #4591e3);
+    }
+
+    &--keyboard-focused {
+      background-color: rgba(184, 201, 236, 0.2);
+    }
+  }
 
 .va-sidebar {
   z-index: 1;
