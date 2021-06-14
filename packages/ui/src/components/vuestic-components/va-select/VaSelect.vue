@@ -500,6 +500,9 @@ export default class VaSelect extends mixins(
 
   /** @public */
   public focus (): void {
+    if (this.$props.disabled) {
+      return
+    }
     this.isFocused = true
   }
 
