@@ -9,10 +9,10 @@
       >
         <template #header="{ value, hasKeyboardFocus }">
           <div
-            class="collapse-custom-header"
+            class="sidebar__collapse-custom-header"
             :class="{
-              'collapse-custom-header--active': isRouteHasActiveChild(route),
-              'collapse-custom-header--keyboard-focused': hasKeyboardFocus
+              'sidebar__collapse-custom-header--active': isRouteHasActiveChild(route),
+              'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
           >
             {{ $t(route.displayName) }}
@@ -127,7 +127,8 @@ export default class Sidebar extends Vue.with(Props) {
 <style lang="scss" scoped>
 @import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
 
-  .collapse-custom-header {
+.sidebar {
+  &__collapse-custom-header {
     padding: 1rem 1.2rem;
     display: flex;
     justify-content: space-between;
@@ -151,56 +152,57 @@ export default class Sidebar extends Vue.with(Props) {
     }
   }
 
-.va-sidebar {
-  z-index: 1;
-  height: 100%;
-  min-width: 16rem;
-  color: var(--va-dark, #323742);
+  .va-sidebar {
+    z-index: 1;
+    height: 100%;
+    min-width: 16rem;
+    color: var(--va-dark, #323742);
 
-  &.va-sidebar--hidden {
-    min-width: 0;
-  }
-
-  @include media-breakpoint-down(xs) {
-    z-index: 100;
-    position: absolute;
-  }
-
-  .va-sidebar-item-content {
-    cursor: pointer;
-  }
-
-  .va-sidebar-item {
-    cursor: pointer;
-  }
-
-  .va-sidebar-item-title {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
-  }
-
-  .va-sidebar-item--active {
-    color: var(--primary, #4591e3);
-
-    .va-sidebar-item-title {
-      color: var(--primary, #4591e3);
+    &.va-sidebar--hidden {
+      min-width: 0;
     }
-  }
 
-  &__child {
-    &__label {
-      padding-left: 2rem;
-      text-align: left;
+    @include media-breakpoint-down(xs) {
+      z-index: 100;
+      position: absolute;
     }
 
     .va-sidebar-item-content {
-      padding-left: 3rem;
+      cursor: pointer;
     }
 
-    &:first-child {
-      .va-sidebar__child__label {
-        padding-top: 0;
+    .va-sidebar-item {
+      cursor: pointer;
+    }
+
+    .va-sidebar-item-title {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    .va-sidebar-item--active {
+      color: var(--primary, #4591e3);
+
+      .va-sidebar-item-title {
+        color: var(--primary, #4591e3);
+      }
+    }
+
+    &__child {
+      &__label {
+        padding-left: 2rem;
+        text-align: left;
+      }
+
+      .va-sidebar-item-content {
+        padding-left: 3rem;
+      }
+
+      &:first-child {
+        .va-sidebar__child__label {
+          padding-top: 0;
+        }
       }
     }
   }
