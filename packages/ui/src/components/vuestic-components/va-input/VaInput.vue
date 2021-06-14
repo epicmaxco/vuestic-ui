@@ -401,7 +401,7 @@ export default class VaInput extends mixins(
     }
   }
 
-  /* We have 3 styles and two states for each style separatly */
+  /* We have 3 styles and two states for each style separately */
   &_solid {
     .va-input__container {
       background: var(--va-input-color);

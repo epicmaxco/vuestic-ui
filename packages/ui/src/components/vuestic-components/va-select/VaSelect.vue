@@ -92,7 +92,10 @@
       </template>
 
       <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
-      <va-dropdown-content @keyup.enter.stop>
+      <va-dropdown-content
+        @keyup.enter.stop
+        @keydown.esc.prevent="hideDropdown"
+      >
         <div class="va-select__dropdown__content">
           <!-- Hidden DIV is a hack than allow user to focus select from dropdown content with tab -->
           <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
