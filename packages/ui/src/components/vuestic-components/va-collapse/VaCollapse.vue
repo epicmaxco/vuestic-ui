@@ -9,7 +9,7 @@
       @keydown.space="changeValue()"
       :tabindex="collapseIndexComputed"
     >
-      <slot name="header" v-bind="{ value: valueProxy }">
+      <slot name="header" v-bind="{ value: valueProxy, hasKeyboardFocus: SetupContext.hasKeyboardFocus }">
         <div
           class="va-collapse__header__content"
           :style="contentStyle"
