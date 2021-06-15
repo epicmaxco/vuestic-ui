@@ -16,7 +16,7 @@
             }"
           >
             {{ $t(route.displayName) }}
-            <va-icon v-if="route.children" :name="value ? 'expand_less' : 'expand_more'" />
+            <va-icon :name="value ? 'expand_less' : 'expand_more'" />
           </div>
         </template>
         <div
