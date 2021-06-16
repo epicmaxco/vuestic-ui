@@ -10,6 +10,7 @@
     :error-count="errorCount"
     @click:prepend="onPrependClick"
     @click:append="onAppendClick"
+    @click="focus"
   >
     <template
       v-if="$slots.prepend"
