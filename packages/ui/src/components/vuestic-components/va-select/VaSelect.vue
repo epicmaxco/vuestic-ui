@@ -13,7 +13,6 @@
       :disabled="$props.disabled"
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
-      :close-on-anchor-click="$props.multiple"
       :close-on-content-click="toClose()"
       trigger="none"
       class="va-select__dropdown"
@@ -359,7 +358,7 @@ export default class VaSelect extends mixins(
 
   selectOption (option: any): void {
     if (this.doShowSearchInput) {
-      (this as any).$refs.searchBar.focus()
+      (this as any).$refs.searchBar.focus({ preventScroll: true })
       this.searchInputValue = ''
     }
 
