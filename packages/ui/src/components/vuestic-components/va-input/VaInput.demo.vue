@@ -256,6 +256,7 @@
         :messages="messages"
       />
     </VbCard>
+<!--    TODO: Figure out why demo overrides user-select: none-->
     <VbCard title="Disabled">
       <va-input
         v-model="text"

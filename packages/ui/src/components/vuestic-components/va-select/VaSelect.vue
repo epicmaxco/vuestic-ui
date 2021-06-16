@@ -109,6 +109,7 @@
             removable
             :name="$props.name"
             :tabindex="tabindex + 1"
+            :bordered="true"
             @keydown.down.stop.prevent="focusOptionList"
             @keydown.right.stop.prevent="focusOptionList"
             @keydown.up.stop.prevent="focusSelect"
@@ -376,7 +377,9 @@ export default class VaSelect extends mixins(
       }
     } else {
       this.valueComputed = typeof option === 'string' ? option : { ...option }
+      // It's better to take out hideDropdown from focusSelect function
       this.focusSelect()
+      this.hideDropdown()
     }
   }
 
@@ -479,9 +482,10 @@ export default class VaSelect extends mixins(
   focusSelect () {
     // This hack allows user change focus between dropdown content and select input
     // Warning: It's important for keyboard navigation
-    if (this.$refs.select) {
+    if (this.$refs.searchBar) {
+      (this as any).$refs.searchBar.focus()
+    } else if (this.$refs.select) {
       (this as any).$refs.select.focus()
-      this.hideDropdown()
     }
   }
 
