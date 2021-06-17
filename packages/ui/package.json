@@ -45,9 +45,6 @@
     "vue-flatpickr-component": "^9.0.3",
     "vue-router": "^4.0.0-beta.13"
   },
-  "peerDependencies": {
-    "gravatar": "^1.8.0"
-  },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
