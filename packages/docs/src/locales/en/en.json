@@ -474,8 +474,7 @@
       "props": {
         "icon": "The icon to be displayed inside a container",
         "src": "URL to the image (will be placed inside `src` attribute of image tag)",
-        "fontSize": "The font-size of text inside avatar",
-        "email": "Will display `gravatar` for provided email address"
+        "fontSize": "The font-size of text inside avatar"
       },
       "slots": {
         "default": "Use this slot to replace default content to be displayed inside the component"
@@ -1125,10 +1124,6 @@
       "withIcon": {
         "title": "With icons",
         "text": "The `icon` prop is used to display icons inside an avatar."
-      },
-      "withEmail": {
-        "title": "With Gravatar",
-        "text": "The `email` prop and [gravatar](https://en.gravatar.com/support/what-is-gravatar/) are used to get user profile pictures."
       }
     }
   },

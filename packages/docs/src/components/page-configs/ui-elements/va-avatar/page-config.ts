@@ -74,18 +74,6 @@ export default [
   },
   {
     type: BlockType.SUBTITLE,
-    translationString: 'avatar.examples.withEmail.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'avatar.examples.withEmail.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-avatar/WithEmail',
-  },
-  {
-    type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
   {
