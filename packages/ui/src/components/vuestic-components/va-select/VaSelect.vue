@@ -94,7 +94,7 @@
       <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
       <va-dropdown-content
         @keyup.enter.stop
-        @keydown.esc.prevent="hideDropdown"
+        @keydown.esc.prevent="hideAndFocus"
       >
         <div class="va-select__dropdown__content">
           <!-- Hidden DIV is a hack than allow user to focus select from dropdown content with tab -->
@@ -112,8 +112,6 @@
             :bordered="true"
             @keydown.down.stop.prevent="focusOptionList"
             @keydown.right.stop.prevent="focusOptionList"
-            @keydown.up.stop.prevent="focusSelect"
-            @keydown.left.stop.prevent="focusSelect"
             @keyup.enter.prevent="addNewOption"
             @focus="hoveredOption = null"
           />
@@ -360,9 +358,13 @@ export default class VaSelect extends mixins(
     return this.compareOptions(this.valueComputed, option)
   }
 
+  hideAndFocus (): void {
+    this.hideDropdown()
+    this.focusSelect()
+  }
+
   selectOption (option: any): void {
     if (this.doShowSearchInput) {
-      (this as any).$refs.searchBar.focus({ preventScroll: true })
       this.searchInputValue = ''
     }
 
@@ -377,9 +379,7 @@ export default class VaSelect extends mixins(
       }
     } else {
       this.valueComputed = typeof option === 'string' ? option : { ...option }
-      // It's better to take out hideDropdown from focusSelect function
-      this.focusSelect()
-      this.hideDropdown()
+      this.hideAndFocus()
     }
   }
 
@@ -464,7 +464,6 @@ export default class VaSelect extends mixins(
   }
 
   onSelectClick () {
-    // Temporary solution for disabled state before VaSelect refactor
     if (this.$props.disabled) {
       return
     }
@@ -482,9 +481,7 @@ export default class VaSelect extends mixins(
   focusSelect () {
     // This hack allows user change focus between dropdown content and select input
     // Warning: It's important for keyboard navigation
-    if (this.$refs.searchBar) {
-      (this as any).$refs.searchBar.focus()
-    } else if (this.$refs.select) {
+    if (this.$refs.select) {
       (this as any).$refs.select.focus()
     }
   }
@@ -500,8 +497,6 @@ export default class VaSelect extends mixins(
   focusSearchBar () {
     if (this.$refs.searchBar) {
       (this.$refs as any).searchBar.focus()
-    } else {
-      this.focusSelect()
     }
   }
 
@@ -535,9 +530,14 @@ export default class VaSelect extends mixins(
 
   hintedSearchQuery = ''
   hintedSearchQueryTimeoutIndex!: any
+  navigationKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', ' ']
 
   // Hinted search - hover option if you typing it's value on select without search-bar
   onHintedSearch (event: KeyboardEvent) {
+    if (this.navigationKeys.some(key => key === event.key)) {
+      return
+    }
+
     const isLetter: boolean = event.key.length === 1
     const isDeleteKey: boolean = event.key === 'Backspace' || event.key === 'Delete'
 
@@ -549,6 +549,11 @@ export default class VaSelect extends mixins(
     } else if (isLetter) {
       // Add every new letter to the query
       this.hintedSearchQuery += event.key
+    }
+
+    if (this.doShowSearchInput) {
+      this.searchInputValue = this.hintedSearchQuery
+      return
     }
 
     // Search for an option that matches the query
