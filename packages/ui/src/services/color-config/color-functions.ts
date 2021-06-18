@@ -45,6 +45,28 @@ export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: numb
   return result.HSLA
 }
 
+export const setHSLAColor = (color: ColorInput, newColor: { h?: number; s?: number; l?: number; a?: number }) => {
+  const result = new ColorTranslator(color)
+
+  if (newColor.h !== undefined) {
+    result.setH(newColor.h)
+  }
+
+  if (newColor.s !== undefined) {
+    result.setS(newColor.s)
+  }
+
+  if (newColor.l !== undefined) {
+    result.setL(newColor.l)
+  }
+
+  if (newColor.a !== undefined) {
+    result.setA(newColor.a)
+  }
+
+  return result.HSLA
+}
+
 /**
  * This method guesses second color for gradient based on first one.
  * Calculation method should differ for different colors, so we split color circle
