@@ -95,6 +95,10 @@ export default class Search extends Vue {
     padding-left: 0.2rem;
   }
 
+  #algolia-search-input::placeholder {
+    color: #767c88;
+  }
+
   .ds-dropdown-menu {
     &::before {
       display: none;

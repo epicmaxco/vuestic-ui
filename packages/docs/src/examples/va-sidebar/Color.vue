@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
-    <va-sidebar color="primary" text-color="secondary" minimizedWidth="64px" width="18rem">
+    <va-sidebar color="primary" text-color="white" minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
@@ -12,7 +12,7 @@
         v-for="item in items"
         :key="item.to"
         :active="item.active"
-        active-color="secondary"
+        active-color="background"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
@@ -37,7 +37,7 @@
         v-for="item in items"
         :key="item.to"
         :active="item.active"
-        active-color="secondary"
+        active-color="background"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
@@ -62,7 +62,7 @@
         v-for="item in items"
         :key="item.to"
         :active="item.active"
-        active-color="secondary"
+        active-color="background"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
@@ -87,7 +87,7 @@
         v-for="item in items"
         :key="item.to"
         :active="item.active"
-        active-color="secondary"
+        active-color="background"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
