@@ -1,7 +1,7 @@
 <template>
   <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
     <va-sidebar color="primary" text-color="white" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item>
+      <va-sidebar-item active-color="background">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background primary
@@ -26,7 +26,7 @@
 
   <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
     <va-sidebar color="dark" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item>
+      <va-sidebar-item active-color="background">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background dark and auto text color
@@ -51,7 +51,7 @@
 
   <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
     <va-sidebar color="success" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item>
+      <va-sidebar-item active-color="background">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background success and auto text color
@@ -76,7 +76,7 @@
 
   <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
     <va-sidebar color="danger" text-color="success" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item>
+      <va-sidebar-item active-color="background">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background danger and success text color

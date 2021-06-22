@@ -1,5 +1,5 @@
 <template>
-  <va-sidebar class="sidebar" v-model="visible" color="background" :width="sidebarWidth">
+  <va-sidebar class="sidebar" v-model="visible" :width="sidebarWidth">
     <algolia-search />
 
     <va-accordion v-model="value" multiply>
