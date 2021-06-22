@@ -1,12 +1,8 @@
 import { languages } from '../components/languages'
 
-const translations = languages.reduce((result, { code, name }) => ({
+export const messages = languages.reduce((result, { code, name }) => ({
   ...result,
-  [code]: {
-    name,
-    messages: require(`./${code}/${code}.json`),
-    // load: () => import(`./${code}/${code}.json`),
-  },
+  [code]: require(`./${code}/${code}.json`),
 }), {})
 
-export default translations
+export const DEFAULT_LANGUAGE = 'en'

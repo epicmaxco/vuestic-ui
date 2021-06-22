@@ -1,13 +1,6 @@
-import { I18n, VueI18n } from 'vue-i18n'
-import { i18n as i18nInstance } from 'vue-lang-router'
+import { i18n } from './../main'
 
-export const instance: I18n = i18nInstance
-export const i18n: VueI18n = instance.global
-
-// Aliases
-export const t = i18n.t
-export const te = i18n.te
-export const locale = i18n.locale
+export const { locale, te, t } = i18n.global
 
 // Helpers
 /**

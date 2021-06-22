@@ -3786,7 +3786,7 @@ astral-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-2.0.0.tgz#483143c567aeed4785759c0865786dc77d7d2e31"
   integrity sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==
 
-asva-executors@^0.1.26:
+asva-executors@^0.1.23, asva-executors@^0.1.26:
   version "0.1.26"
   resolved "https://registry.yarnpkg.com/asva-executors/-/asva-executors-0.1.26.tgz#65616ed81bd5507d68f3e8d75bf301ea3b133946"
   integrity sha512-bOLod5SbkGmbC3WibShO2LNjtNAmQDpgVNqG8zFLc4Ksb71q9uTBe3anPwhlJs9YflfLycTPjou5yCmg6LFTaA==
@@ -17096,7 +17096,7 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
-vue-i18n@^9.0.0, vue-i18n@^9.0.0-rc.6:
+vue-i18n@^9.0.0-rc.6:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-9.0.0.tgz#a04c41d5ed3d5a068e923517bfaa0abcbc84e174"
   integrity sha512-iks0eJDv/4cK/7tl/ooMUroNVVIGOK4kKS1PIHmPQk7QjT/sDfFM84vjPKgpARbw0GjJsOiADL43jufNfs9e9A==
@@ -17115,16 +17115,6 @@ vue-jest@^5.0.0-alpha.7:
     convert-source-map "^1.6.0"
     extract-from-css "^0.4.4"
     tsconfig "^7.0.0"
-
-vue-lang-router@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/vue-lang-router/-/vue-lang-router-2.1.1.tgz#b4bc517643bd001ec3b1c6a4afcc32c28a946083"
-  integrity sha512-N4QSFU12yvGira3zbeUk2/lPfUj4tuzLJNwgI44DZCZCO2kyj6FTJc+nFhrh1fyHmH/acgW4JbIrdOOFQU9ZFA==
-  dependencies:
-    core-js "^3.6.5"
-    vue "^3.0.5"
-    vue-i18n "^9.0.0"
-    vue-router "^4.0.2"
 
 "vue-loader-v15@npm:vue-loader@^15.9.6":
   version "15.9.6"
@@ -17181,7 +17171,7 @@ vue-router@^4.0.0:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.6.tgz#91750db507d26642f225b0ec6064568e5fe448d6"
   integrity sha512-Y04llmK2PyaESj+N33VxLjGCUDuv9t4q2OpItEGU7POZiuQZaugV6cJpE6Qm1sVFtxufodLKN2y2dQl9nk0Reg==
 
-vue-router@^4.0.0-0, vue-router@^4.0.0-beta.13, vue-router@^4.0.2, vue-router@^4.0.3:
+vue-router@^4.0.0-0, vue-router@^4.0.0-beta.13, vue-router@^4.0.3:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.5.tgz#dd0a4134bc950c37aef64b973e9ee1008428d8fa"
   integrity sha512-AQq+pllb6FCc7rS6vh4PPcce3XA1jgK3hKNkQ4hXHwoVN7jOeAOMKCnX7XAX3etV9rmN7iNW8iIwgPk95ckBjw==
@@ -17212,6 +17202,30 @@ vuelidate@^0.7.5:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.7.6.tgz#84100c13b943470660d0416642845cd2a1edf4b2"
   integrity sha512-suzIuet1jGcyZ4oUSW8J27R2tNrJ9cIfklAh63EbAkFjE380iv97BAiIeolRYoB9bF9usBXCu4BxftWN1Dkn3g==
+
+vuestic-ui@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.0.0.tgz#8f52485fe1f6e01ddb407ddfa180ee57dff4782e"
+  integrity sha512-DPWkP5Kw8f56YORCv0u7qH8kTXPR3geK49GwEiyA8GnHHiT4F8UUgQ3RclGzUP0XeAtu5eE14imCubVas+Y78g==
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+    asva-executors "^0.1.23"
+    cleave.js "^1.6.0"
+    colortranslator "^1.7.1"
+    css-minimizer-webpack-plugin "^3.0.0"
+    detect-browser "^5.2.0"
+    element-resize-detector "^1.2.1"
+    flatpickr "4.6.9"
+    gravatar "^1.8.0"
+    lodash "^4.17.20"
+    normalize.css "^8.0.1"
+    spa-http-server "^0.9.0"
+    v-tooltip "^2.1.2"
+    vue "^3.0.4"
+    vue-color "^2.8.1"
+    vue-epic-bus "^0.1.5"
+    vue-flatpickr-component "^9.0.3"
+    vue-router "^4.0.0-beta.13"
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"
