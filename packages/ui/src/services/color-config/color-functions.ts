@@ -26,21 +26,13 @@ export const getFocusColor = (color: ColorInput) => {
 export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => {
   const result = new ColorTranslator(color)
 
-  if (offset.h) {
-    result.setH(result.H + offset.h)
-  }
+  if (offset.h) { result.setH(result.H + offset.h) }
 
-  if (offset.s) {
-    result.setS(result.S + offset.s)
-  }
+  if (offset.s) { result.setS(result.S + offset.s) }
 
-  if (offset.l) {
-    result.setL(result.L + offset.l)
-  }
+  if (offset.l) { result.setL(result.L + offset.l) }
 
-  if (offset.a) {
-    result.setA(result.A + offset.a)
-  }
+  if (offset.a) { result.setA(result.A + offset.a) }
 
   return result.HSLA
 }
@@ -48,21 +40,13 @@ export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: numb
 export const setHSLAColor = (color: ColorInput, newColor: { h?: number; s?: number; l?: number; a?: number }) => {
   const result = new ColorTranslator(color)
 
-  if (newColor.h !== undefined) {
-    result.setH(newColor.h)
-  }
+  if (newColor.h !== undefined) { result.setH(newColor.h) }
 
-  if (newColor.s !== undefined) {
-    result.setS(newColor.s)
-  }
+  if (newColor.s !== undefined) { result.setS(newColor.s) }
 
-  if (newColor.l !== undefined) {
-    result.setL(newColor.l)
-  }
+  if (newColor.l !== undefined) { result.setL(newColor.l) }
 
-  if (newColor.a !== undefined) {
-    result.setA(newColor.a)
-  }
+  if (newColor.a !== undefined) { result.setA(newColor.a) }
 
   return result.HSLA
 }
