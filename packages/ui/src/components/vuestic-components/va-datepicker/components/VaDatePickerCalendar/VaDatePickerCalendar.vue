@@ -63,6 +63,7 @@ import { useVaDatePickerCalendar } from './VaDatePickerCalendarHook'
 import { useHovered } from './HoveredOptionHook'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
+import { VaDatePickerModelValue } from '../../types/types'
 
 const isToday = (date: Date): boolean => date.toDateString() === new Date().toDateString()
 
@@ -71,7 +72,7 @@ export default defineComponent({
 
   props: {
     ...VaDatePickerCalendarProps,
-    modelValue: { type: [Date, Array, Object] as PropType<Date | Date[] | { start: Date, end: Date | null }>, required: true },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
   },
 
   emits: ['update:modelValue', 'hover:day'],

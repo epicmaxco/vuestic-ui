@@ -36,6 +36,8 @@ import VaDatePickerCalendar from './components/VaDatePickerCalendar/VaDatePicker
 import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 import { filterPropValues } from './utils/filter-props-values'
 import { VaDatePickerCalendarProps } from './components/VaDatePickerCalendar/VaDatePickerCalendarProps'
+import { VaDatePickerModelValue } from './types/types'
+import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
 
 const VaInputProps = {
   label: { type: String, required: false },
@@ -53,7 +55,7 @@ export default defineComponent({
   props: {
     ...VaInputProps,
     ...VaDatePickerCalendarProps,
-    modelValue: { type: [Date, Array, Object] as PropType<Date | Date[] | { start: Date, end: Date | null }>, required: true },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
     color: { type: String, default: 'primary' },
   },
 
@@ -69,13 +71,13 @@ export default defineComponent({
 
     const valueText = computed({
       get: () => {
-        if (Array.isArray(valueComputed.value)) {
+        if (isDates(valueComputed.value)) {
           return valueComputed.value.map((d) => d.toDateString()).join(', ')
         }
-        if (valueComputed.value instanceof Date) {
+        if (isSingleDate(valueComputed.value)) {
           return valueComputed.value.toDateString()
         }
-        if (typeof valueComputed.value.start !== 'undefined' && typeof valueComputed.value.end !== 'undefined') {
+        if (isPeriod(valueComputed.value)) {
           if (valueComputed.value.end === null) {
             return valueComputed.value.start.toDateString() + ' ~ ...'
           }
@@ -86,7 +88,7 @@ export default defineComponent({
         throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
       },
       set (value: string) {
-        console.log(value)
+        // TODO: Parse value from input
       },
     })
 
