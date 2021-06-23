@@ -40,6 +40,7 @@
               'today': isToday(date),
               'current': isDateCurrentValue(date),
               'in-range': isDateInRange(date),
+              'not-allowed': isDateNotAllowed(date)
             }"
             @click="onDateClick(date)"
           >
@@ -74,7 +75,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:day'],
 
   setup (props, { emit }) {
-    const { modelValue, monthNames, firstWeekday, weekdayNames } = toRefs(props)
+    const { modelValue, firstWeekday, weekdayNames, allowedDates } = toRefs(props)
 
     const {
       currentYear, currentMonth, prevMonth, nextMonth, calendarDates,
@@ -135,6 +136,8 @@ export default defineComponent({
       return modelValue.value.start < date && modelValue.value.end > date
     }
 
+    const isDateNotAllowed = (date: Date) => allowedDates?.value === undefined ? false : !allowedDates.value(date)
+
     return {
       calendarDates,
       nextMonth,
@@ -145,6 +148,7 @@ export default defineComponent({
       onDateClick,
       isDateCurrentValue,
       isDateInRange,
+      isDateNotAllowed,
       hoveredDate,
       weekdayNamesComputed,
     }
@@ -233,11 +237,6 @@ $cell-height: 34px;
         }
       }
 
-      &.current {
-        background-color: var(--va-primary);
-        color: var(--va-white, white);
-      }
-
       &.in-range {
         &::before {
           content: '';
@@ -247,11 +246,20 @@ $cell-height: 34px;
         }
       }
 
+      &.not-allowed {
+        color: var(--va-warning);
+      }
+
       &:hover {
         &::after {
           background-color: var(--va-primary);
           opacity: 0.1;
         }
+      }
+
+      &.current {
+        background-color: var(--va-primary);
+        color: var(--va-white, white);
       }
     }
   }

@@ -66,6 +66,10 @@
 
       <va-date-picker v-model="value" label="Monday" firstWeekday="Monday" class="mb-4" />
     </VbCard>
+
+    <VbCard title="disable dates">
+      <va-date-picker v-model="value" label="Disable all Tuesday and Tuesday" :allowedDates="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
+    </VbCard>
   </VbDemo>
 </template>
 
