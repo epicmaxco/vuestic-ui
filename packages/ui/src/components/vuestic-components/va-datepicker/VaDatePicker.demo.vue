@@ -45,7 +45,11 @@
 
       <va-date-picker v-model="value" label="Month names" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" class="mb-4" />
 
-      <va-date-picker v-model="value" label="Highlight weekend" highlightWeekends />
+      <va-date-picker v-model="value" label="Highlight weekend" highlightWeekends class="mb-4" />
+
+      <va-date-picker v-model="value" label="Hide weekdays" hideWeekDays class="mb-4" />
+
+      <va-date-picker v-model="value" label="Do not highlight today date" :highlightTodayDate="false" />
     </VbCard>
 
     <VbCard title="slots to calendar">
@@ -53,12 +57,22 @@
         v-model="value"
         :monthNames="['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']"
         :weekdayNames="['日', '一', '二', '三', '四', '五', '六']"
+        class="mb-4"
       >
         <template #day="{ date }">
           {{ date.getDate() }}日
         </template>
         <template #year="{ year }">
           {{ year }} 年
+        </template>
+      </va-date-picker>
+
+      <va-date-picker
+        v-model="value"
+        label="Hide year"
+      >
+        <template #header-text="{ month, monthNames }">
+          {{ monthNames[month] }}
         </template>
       </va-date-picker>
     </VbCard>

@@ -15,7 +15,7 @@
     </div>
 
     <div class="va-date-picker-calendar__picker">
-      <div class="va-date-picker-calendar__weekdays weekdays">
+      <div class="va-date-picker-calendar__weekdays weekdays" v-if="!hideWeekDays">
         <div
           v-for="weekday in weekdayNamesComputed" :key="weekday"
           class="weekdays__weekday-cell"
@@ -25,6 +25,7 @@
           </slot>
         </div>
       </div>
+
       <div class="va-date-picker-calendar__calendar calendar">
         <div
           class="calendar__day-wrapper"
@@ -37,7 +38,7 @@
             class="calendar__day"
             :class="{
               'current-month': currentMonth === date.getMonth(),
-              'today': isToday(date),
+              'today': highlightTodayDate && isToday(date),
               'current': isDateCurrentValue(date),
               'in-range': isDateInRange(date),
               'not-allowed': isDateNotAllowed(date),
