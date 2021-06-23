@@ -19,7 +19,13 @@
         <div class="calendar__day-wrapper" v-for="date in calendarDates" :key="date">
           <div
             class="calendar__day"
-            :class="{ 'current-month': currentMonth === date.getMonth(), 'today': isToday(date) }"
+            :class="{
+              'current-month': currentMonth === date.getMonth(),
+              'today': isToday(date),
+              'current': isDateCurrentValue(date),
+              'in-range': isDateInRange(date),
+            }"
+            @click="onDateClick(date)"
           >
             {{ date.getDate() }}
           </div>
@@ -32,80 +38,74 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, ref } from 'vue'
 import { VaDatePickerCalendarProps } from './VaDatePickerCalendarProps'
-import { getMonthDaysCount, getMonthStartWeekday, getNumbersArray, isToday } from '../../utils/date-utils'
+import { useVaDatePickerCalendar } from './VaDatePickerCalendarHook'
+import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
+import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
+
+const isToday = (date: Date): boolean => date.toDateString() === new Date().toDateString()
 
 export default defineComponent({
+  name: 'VaDatePickerCalendar',
+
   props: {
     ...VaDatePickerCalendarProps,
-    modelValue: { type: [Date, Array, Object] as PropType<Date | Date[] | { start: Date, end: Date }>, required: true },
+    modelValue: { type: [Date, Array, Object] as PropType<Date | Date[] | { start: Date, end: Date | null }>, required: true },
   },
-  setup (props) {
-    const CALENDAR_ROWS_COUNT = 6
-
+  emits: ['update:modelValue'],
+  setup (props, { emit }) {
     const { modelValue, monthNames } = toRefs(props)
 
-    const currentMonth = ref(5)
-    const currentYear = ref(2021)
-
-    const nextMonth = () => {
-      // If current month is December
-      if (currentMonth.value === 11) {
-        currentYear.value += 1
-        currentMonth.value = 0
-      } else {
-        currentMonth.value = currentMonth.value + 1
-      }
-    }
-    const prevMonth = () => {
-      // If current month is January
-      if (currentMonth.value === 0) {
-        currentYear.value -= 1
-        currentMonth.value = 11 // set current month is December
-      } else {
-        currentMonth.value = currentMonth.value - 1
-      }
-    }
+    const {
+      currentYear, currentMonth, prevMonth, nextMonth, calendarDates,
+    } = useVaDatePickerCalendar()
 
     const headerText = computed(() => `${currentYear.value} ${monthNames.value[currentMonth.value]}`)
 
-    const getPreviousDates = () => {
-      const currentMonthStartWeekday = getMonthStartWeekday(currentYear.value, currentMonth.value)
+    const onDateClick = (date: Date) => {
+      if (isSingleDate(modelValue.value)) {
+        emit('update:modelValue', date)
+      } else if (isPeriod(modelValue.value)) {
+        if (isDatesEqual(modelValue.value.start, date) || isDatesEqual(modelValue.value.end, date)) { return }
 
-      if (currentMonthStartWeekday === 0) { return [] }
+        if (modelValue.value.end !== null) {
+          emit('update:modelValue', { start: date, end: null })
+          return
+        }
 
-      const prevMonthDaysCount = getMonthDaysCount(currentYear.value, currentMonth.value - 1)
-      const prevMonthDays: number[] = getNumbersArray(prevMonthDaysCount)
-
-      return prevMonthDays
-        .slice(-currentMonthStartWeekday)
-        .map((d) => new Date(currentYear.value, currentMonth.value - 1, d))
+        if (date < modelValue.value.start) {
+          emit('update:modelValue', { start: date, end: modelValue.value.start })
+        } else {
+          emit('update:modelValue', { start: modelValue.value.start, end: date })
+        }
+      } else if (isDates(modelValue.value)) {
+        if (isDatesArrayInclude(modelValue.value, date)) {
+          emit('update:modelValue', modelValue.value.filter((d) => !isDatesEqual(d, date)))
+        } else {
+          emit('update:modelValue', [...modelValue.value, date].sort((a, b) => a.getTime() - b.getTime()))
+        }
+      }
     }
 
-    const getCurrentDates = () => {
-      const currentMonthDaysCount = getMonthDaysCount(currentYear.value, currentMonth.value)
-      const currentMonthDays: number[] = getNumbersArray(currentMonthDaysCount)
-
-      return currentMonthDays.map((d) => new Date(currentYear.value, currentMonth.value, d))
+    const isDateCurrentValue = (date: Date) => {
+      if (isSingleDate(modelValue.value)) {
+        return modelValue.value.toDateString() === date.toDateString()
+      } else if (isDates(modelValue.value)) {
+        return isDatesArrayInclude(modelValue.value, date)
+      } else if (isPeriod(modelValue.value)) {
+        return isDatesEqual(modelValue.value.start, date) || isDatesEqual(modelValue.value.end, date)
+      }
     }
 
-    const calendarDates = computed(() => {
-      const days = [
-        ...getPreviousDates(),
-        ...getCurrentDates(),
-      ]
+    const isDateInRange = (date: Date) => {
+      if (!isPeriod(modelValue.value)) { return }
 
-      const daysRemaining = 7 * CALENDAR_ROWS_COUNT - days.length
+      if (modelValue.value.end === null) {
+        // TODO: hovered
+        return
+      }
 
-      const nextMonthDaysCount = getMonthDaysCount(currentYear.value, currentMonth.value + 1)
-      const nextMonthDays: number[] = getNumbersArray(nextMonthDaysCount)
-
-      return [
-        ...days,
-        ...nextMonthDays
-          .slice(0, daysRemaining)
-          .map((d) => new Date(currentYear.value, currentMonth.value + 1, d)),
-      ]
-    })
+      return modelValue.value.start < date && modelValue.value.end > date
+    }
 
     return {
       headerText,
@@ -114,13 +114,16 @@ export default defineComponent({
       prevMonth,
       currentMonth,
       isToday,
+      onDateClick,
+      isDateCurrentValue,
+      isDateInRange,
     }
   },
 })
 </script>
 
 <style lang="scss">
-$cell-height: 24px;
+$cell-height: 34px;
 
 .va-date-picker-calendar {
   &__header {
@@ -162,8 +165,11 @@ $cell-height: 24px;
 
     &__day-wrapper {
       padding: 1px;
-      border-radius: 1px;
+      border-radius: 6px;
       text-align: center;
+      user-select: none;
+      cursor: pointer;
+      overflow: hidden;
     }
 
     &__day {
@@ -174,14 +180,13 @@ $cell-height: 24px;
       font-size: 12px;
       height: $cell-height;
       line-height: $cell-height;
+      position: relative;
 
       &.current-month {
         color: var(--va-dark);
       }
 
       &.today {
-        position: relative;
-
         &::after {
           position: absolute;
           content: '';
@@ -190,8 +195,27 @@ $cell-height: 24px;
           left: 0;
           width: 100%;
           height: 100%;
-          opacity: 0.1;
+          opacity: 0.2;
           border-radius: 1px;
+        }
+      }
+
+      &.current {
+        background-color: var(--va-primary);
+        color: var(--va-white, white);
+      }
+
+      &.in-range {
+        &::before {
+          position: absolute;
+          content: '';
+          border: 2px solid var(--va-primary);
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 1px;
+          box-sizing: border-box;
         }
       }
     }

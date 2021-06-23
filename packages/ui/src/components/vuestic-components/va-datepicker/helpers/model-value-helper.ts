@@ -1,6 +1,6 @@
-export type VaDatePickerModelValue = Date | Date[] | { start: Date, end: Date }
+export type VaDatePickerModelValue = Date | Date[] | { start: Date, end: Date | null }
 
-export const isPeriod = (value: VaDatePickerModelValue): value is { start: Date, end: Date } => {
+export const isPeriod = (value: VaDatePickerModelValue): value is { start: Date, end: Date | null } => {
   return typeof (value as any).start !== 'undefined' && typeof (value as any).end !== 'undefined'
 }
 export const isSingleDate = (value: VaDatePickerModelValue): value is Date => value instanceof Date

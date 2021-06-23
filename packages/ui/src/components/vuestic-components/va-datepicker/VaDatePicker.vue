@@ -47,10 +47,14 @@ export default defineComponent({
   props: {
     ...VaInputProps,
     ...VaDatePickerCalendarProps,
-    modelValue: { type: [Date, Array, Object] as PropType<Date | Date[] | { start: Date, end: Date }>, required: true },
+    modelValue: { type: [Date, Array, Object] as PropType<Date | Date[] | { start: Date, end: Date | null }>, required: true },
     color: { type: String, default: 'primary' },
   },
+
+  emits: ['update:modelValue'],
+
   components: { VaDatePickerCalendar },
+
   setup (props, { emit, slots }) {
     const { valueComputed } = useStateful(props, emit)
 
@@ -66,10 +70,14 @@ export default defineComponent({
           return valueComputed.value.toDateString()
         }
         if (typeof valueComputed.value.start !== 'undefined' && typeof valueComputed.value.end !== 'undefined') {
+          if (valueComputed.value.end === null) {
+            return valueComputed.value.start.toDateString() + ' ~ ...'
+          }
+
           return valueComputed.value.start.toDateString() + ' ~ ' + valueComputed.value.end.toDateString()
         }
 
-        throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date }')
+        throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
       },
       set (value: string) {
         console.log(value)

@@ -1,12 +1,5 @@
-// export const isLeapYear = (year: number): boolean => new Date(year, 1, 29).getDate() === 29
+export const isDatesArrayInclude = (dates: Date[], date: Date): boolean => {
+  return !!dates.find((d) => d.toDateString() === date.toDateString())
+}
 
-/** Returns last day of previous month */
-export const getMonthDaysCount = (year: number, month: number): number => new Date(year, month + 1, 0).getDate()
-
-export const isToday = (date: Date): boolean => date.toDateString() === new Date().toDateString()
-
-/** @returns // TODO: */
-export const getMonthStartWeekday = (year: number, month: number) => new Date(year, month, 1).getDay()
-
-/** Returns array from 1 to length */
-export const getNumbersArray = (length: number) => Array.from(Array(length).keys()).map((k) => k + 1)
+export const isDatesEqual = (date1: Date | null, date2: Date | null): boolean => (date1 && date1.toDateString()) === (date2 && date2.toDateString())
