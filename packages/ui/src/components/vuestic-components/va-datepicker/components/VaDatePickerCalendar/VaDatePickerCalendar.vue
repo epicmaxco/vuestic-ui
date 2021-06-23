@@ -16,7 +16,13 @@
         </div>
       </div>
       <div class="va-date-picker-calendar__calendar calendar">
-        <div class="calendar__day-wrapper" v-for="date in calendarDates" :key="date">
+        <div
+          class="calendar__day-wrapper"
+          v-for="date in calendarDates"
+          :key="date"
+          @mouseenter="hoveredDate = date"
+          @mouseleave="hoveredDate = null"
+        >
           <div
             class="calendar__day"
             :class="{
@@ -39,6 +45,7 @@
 import { computed, defineComponent, PropType, toRefs, ref } from 'vue'
 import { VaDatePickerCalendarProps } from './VaDatePickerCalendarProps'
 import { useVaDatePickerCalendar } from './VaDatePickerCalendarHook'
+import { useHovered } from './HoveredOptionHook'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
 
@@ -51,13 +58,15 @@ export default defineComponent({
     ...VaDatePickerCalendarProps,
     modelValue: { type: [Date, Array, Object] as PropType<Date | Date[] | { start: Date, end: Date | null }>, required: true },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'update:hovered'],
   setup (props, { emit }) {
     const { modelValue, monthNames } = toRefs(props)
 
     const {
       currentYear, currentMonth, prevMonth, nextMonth, calendarDates,
     } = useVaDatePickerCalendar()
+
+    const { hovered: hoveredDate } = useHovered<Date>((value) => emit('update:hovered', value))
 
     const headerText = computed(() => `${currentYear.value} ${monthNames.value[currentMonth.value]}`)
 
@@ -100,8 +109,9 @@ export default defineComponent({
       if (!isPeriod(modelValue.value)) { return }
 
       if (modelValue.value.end === null) {
-        // TODO: hovered
-        return
+        return modelValue.value.start < date
+          ? (hoveredDate.value && hoveredDate.value >= date)
+          : (hoveredDate.value && hoveredDate.value <= date)
       }
 
       return modelValue.value.start < date && modelValue.value.end > date
@@ -117,6 +127,7 @@ export default defineComponent({
       onDateClick,
       isDateCurrentValue,
       isDateInRange,
+      hoveredDate,
     }
   },
 })
@@ -159,7 +170,6 @@ $cell-height: 34px;
 
   .calendar {
     display: grid;
-    // TODO: Make it simple
     // 7 columns
     grid-template-columns: (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7);
 
@@ -182,21 +192,25 @@ $cell-height: 34px;
       line-height: $cell-height;
       position: relative;
 
+      &::after,
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+
       &.current-month {
         color: var(--va-dark);
       }
 
       &.today {
         &::after {
-          position: absolute;
-          content: '';
           background-color: var(--va-primary);
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0.2;
-          border-radius: 1px;
+          opacity: 0.3;
         }
       }
 
@@ -207,15 +221,17 @@ $cell-height: 34px;
 
       &.in-range {
         &::before {
-          position: absolute;
           content: '';
           border: 2px solid var(--va-primary);
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: 1px;
           box-sizing: border-box;
+          opacity: 0.7;
+        }
+      }
+
+      &:hover {
+        &::after {
+          background-color: var(--va-primary);
+          opacity: 0.1;
         }
       }
     }
