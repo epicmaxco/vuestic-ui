@@ -95,10 +95,9 @@
       <va-dropdown-content
         @keyup.enter.stop
         @keydown.esc.prevent="hideAndFocus"
+        @keydown.tab.prevent="hideAndFocus"
       >
         <div class="va-select__dropdown__content">
-          <!-- Hidden DIV is a hack than allow user to focus select from dropdown content with tab -->
-          <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
           <va-input
             v-if="doShowSearchInput"
             :id="$props.id"
@@ -134,7 +133,6 @@
             @keydown.space.stop.prevent="selectHoveredOption"
             @keydown="onHintedSearch"
           />
-          <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
         </div>
       </va-dropdown-content>
     </va-dropdown>
@@ -441,6 +439,18 @@ export default class VaSelect extends mixins(
 
   showDropdown () {
     this.doShowDropdownContent = true
+    this.scrollToSelected()
+  }
+
+  scrollToSelected () {
+    if (!this.valueComputed.length) {
+      return
+    }
+
+    const selected = this.valueComputed
+    const scrollTo = typeof selected === 'string' ? selected : selected[selected.length - 1]
+    this.hoveredOption = scrollTo
+    this.$nextTick(() => (this.$refs as any).optionList.scrollToOption(scrollTo))
   }
 
   hideDropdown () {
