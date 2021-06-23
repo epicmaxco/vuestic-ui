@@ -41,9 +41,11 @@
     </VbCard>
 
     <VbCard title="props to calendar">
-      <va-date-picker v-model="value" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']"  class="mb-4" />
+      <va-date-picker v-model="value" label="Weekday names" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']"  class="mb-4" />
 
-      <va-date-picker v-model="value" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" />
+      <va-date-picker v-model="value" label="Month names" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" class="mb-4" />
+
+      <va-date-picker v-model="value" label="Highlight weekend" highlightWeekends />
     </VbCard>
 
     <VbCard title="slots to calendar">

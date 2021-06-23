@@ -40,7 +40,8 @@
               'today': isToday(date),
               'current': isDateCurrentValue(date),
               'in-range': isDateInRange(date),
-              'not-allowed': isDateNotAllowed(date)
+              'not-allowed': isDateNotAllowed(date),
+              'hightlighted-weekend': highlightWeekends && isDateWeekend(date)
             }"
             @click="onDateClick(date)"
           >
@@ -138,6 +139,8 @@ export default defineComponent({
 
     const isDateNotAllowed = (date: Date) => allowedDates?.value === undefined ? false : !allowedDates.value(date)
 
+    const isDateWeekend = (date: Date) => date.getDay() === 6 || date.getDay() === 5
+
     return {
       calendarDates,
       nextMonth,
@@ -149,6 +152,7 @@ export default defineComponent({
       isDateCurrentValue,
       isDateInRange,
       isDateNotAllowed,
+      isDateWeekend,
       hoveredDate,
       weekdayNamesComputed,
     }
@@ -260,6 +264,10 @@ $cell-height: 34px;
       &.current {
         background-color: var(--va-primary);
         color: var(--va-white, white);
+      }
+
+      &.hightlighted-weekend {
+        color: var(--va-danger);
       }
     }
   }

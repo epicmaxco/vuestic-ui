@@ -8,4 +8,5 @@ export const VaDatePickerCalendarProps = {
   weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
   firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
   allowedDates: { type: Function as PropType<(date: Date) => boolean>, required: false },
+  highlightWeekends: { type: Boolean, default: false },
 }
