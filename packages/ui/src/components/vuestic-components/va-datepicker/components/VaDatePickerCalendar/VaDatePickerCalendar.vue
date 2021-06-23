@@ -2,17 +2,27 @@
   <div class="va-date-picker-calendar">
     <div class="va-date-picker-calendar__header">
       <va-icon name="chevron_left" size="small" @click="prevMonth" />
-      <div class="header-text">{{ headerText }}</div>
+      <div class="header-text">
+        <slot name="header-text" v-bind="{ year: currentYear, month: currentMonth, monthNames }">
+          <span class="mr-1">
+            <slot name="year" v-bind="{ year: currentYear }">{{ currentYear }}</slot>
+          </span>
+
+          <slot name="month" v-bind="{ month: currentMonth }">{{ monthNames[currentMonth] }}</slot>
+        </slot>
+      </div>
       <va-icon name="chevron_right" size="small" @click="nextMonth" />
     </div>
 
     <div class="va-date-picker-calendar__picker">
       <div class="va-date-picker-calendar__weekdays weekdays">
         <div
-          v-for="weekday in weekdayNames" :key="weekday"
+          v-for="weekday in weekdayNamesComputed" :key="weekday"
           class="weekdays__weekday-cell"
         >
-          {{ weekday }}
+          <slot name="weekday">
+            {{ weekday }}
+          </slot>
         </div>
       </div>
       <div class="va-date-picker-calendar__calendar calendar">
@@ -33,7 +43,9 @@
             }"
             @click="onDateClick(date)"
           >
-            {{ date.getDate() }}
+            <slot name="day" v-bind="{ date }">
+              {{ date.getDate() }}
+            </slot>
           </div>
         </div>
       </div>
@@ -58,17 +70,23 @@ export default defineComponent({
     ...VaDatePickerCalendarProps,
     modelValue: { type: [Date, Array, Object] as PropType<Date | Date[] | { start: Date, end: Date | null }>, required: true },
   },
-  emits: ['update:modelValue', 'update:hovered'],
+
+  emits: ['update:modelValue', 'hover:day'],
+
   setup (props, { emit }) {
-    const { modelValue, monthNames } = toRefs(props)
+    const { modelValue, monthNames, firstWeekday, weekdayNames } = toRefs(props)
 
     const {
       currentYear, currentMonth, prevMonth, nextMonth, calendarDates,
-    } = useVaDatePickerCalendar()
+    } = useVaDatePickerCalendar({ firstWeekday })
 
-    const { hovered: hoveredDate } = useHovered<Date>((value) => emit('update:hovered', value))
+    const { hovered: hoveredDate } = useHovered<Date>((value) => emit('hover:day', value))
 
-    const headerText = computed(() => `${currentYear.value} ${monthNames.value[currentMonth.value]}`)
+    const weekdayNamesComputed = computed(() => {
+      return firstWeekday.value === 'Sunday'
+        ? weekdayNames.value
+        : [...weekdayNames.value.slice(1), weekdayNames.value[0]]
+    })
 
     const onDateClick = (date: Date) => {
       if (isSingleDate(modelValue.value)) {
@@ -118,16 +136,17 @@ export default defineComponent({
     }
 
     return {
-      headerText,
       calendarDates,
       nextMonth,
       prevMonth,
+      currentYear,
       currentMonth,
       isToday,
       onDateClick,
       isDateCurrentValue,
       isDateInRange,
       hoveredDate,
+      weekdayNamesComputed,
     }
   },
 })

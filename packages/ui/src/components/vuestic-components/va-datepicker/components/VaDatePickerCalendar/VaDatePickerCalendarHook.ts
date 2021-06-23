@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, Ref, ref } from 'vue'
 
 /** Returns last day of previous month */
 export const getMonthDaysCount = (year: number, month: number): number => new Date(year, month + 1, 0).getDate()
@@ -8,8 +8,8 @@ export const getMonthStartWeekday = (year: number, month: number) => new Date(ye
 /** Returns array from 1 to length */
 export const getNumbersArray = (length: number) => Array.from(Array(length).keys()).map((k) => k + 1)
 
-export const useVaDatePickerCalendar = () => {
-  const CALENDAR_ROWS_COUNT = 6
+export const useVaDatePickerCalendar = (options?: { firstWeekday?: Ref<'Monday' | 'Sunday'> }) => {
+  const CALENDAR_ROWS_COUNT = 6 // Need 6 rows if first day of a month is Saturday and the last day is Monday 31th.
 
   const currentMonth = ref(5)
   const currentYear = ref(2021)
@@ -33,8 +33,17 @@ export const useVaDatePickerCalendar = () => {
     }
   }
 
+  const localizeWeekday = (weekdayNumber: number) => {
+    if (options && options.firstWeekday?.value === 'Monday') {
+      // Set Sunday as 7th day of the week and Monday as first day of the week.
+      return weekdayNumber === 0 ? 6 : weekdayNumber - 1
+    }
+
+    return weekdayNumber
+  }
+
   const getPreviousDates = () => {
-    const currentMonthStartWeekday = getMonthStartWeekday(currentYear.value, currentMonth.value)
+    const currentMonthStartWeekday = localizeWeekday(getMonthStartWeekday(currentYear.value, currentMonth.value))
 
     if (currentMonthStartWeekday === 0) { return [] }
 

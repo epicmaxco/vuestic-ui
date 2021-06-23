@@ -43,7 +43,28 @@
     <VbCard title="props to calendar">
       <va-date-picker v-model="value" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']"  class="mb-4" />
 
-      <va-date-picker v-model="value" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']"  class="mb-4" />
+      <va-date-picker v-model="value" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" />
+    </VbCard>
+
+    <VbCard title="slots to calendar">
+      <va-date-picker
+        v-model="value"
+        :monthNames="['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']"
+        :weekdayNames="['日', '一', '二', '三', '四', '五', '六']"
+      >
+        <template #day="{ date }">
+          {{ date.getDate() }}日
+        </template>
+        <template #year="{ year }">
+          {{ year }} 年
+        </template>
+      </va-date-picker>
+    </VbCard>
+
+    <VbCard title="first weekday">
+      <va-date-picker v-model="value" label="Sun (default)" class="mb-4" />
+
+      <va-date-picker v-model="value" label="Monday" firstWeekday="Monday" class="mb-4" />
     </VbCard>
   </VbDemo>
 </template>

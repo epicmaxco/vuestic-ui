@@ -20,7 +20,11 @@
       </template>
 
       <va-dropdown-content>
-        <va-date-picker-calendar v-model="valueComputed" v-bind="calendarProps" />
+        <va-date-picker-calendar v-model="valueComputed" v-bind="calendarProps" @hover:day="(value) => $emit('hover:day', value)">
+          <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+            <slot :name="name" v-bind="bind" />
+          </template>
+        </va-date-picker-calendar>
       </va-dropdown-content>
     </va-dropdown>
   </div>
@@ -44,6 +48,8 @@ const VaInputProps = {
 }
 
 export default defineComponent({
+  name: 'VaDatePicker',
+
   props: {
     ...VaInputProps,
     ...VaDatePickerCalendarProps,
@@ -51,7 +57,7 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'hover:day'],
 
   components: { VaDatePickerCalendar },
 
