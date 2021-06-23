@@ -2,88 +2,88 @@
   "landing": {
     "header": {
       "buttons": {
-        "overview": "Overview",
-        "docs": "Docs",
-        "discord": "Join on Discord",
-        "translation": "Add translation...",
-        "language": "Language",
+        "overview": "Обзор",
+        "docs": "Документация",
+        "discord": "Присоединиться в Discord",
+        "translation": "Добавить перевод...",
+        "language": "Язык",
         "star": "Star"
       }
     },
     "preview": {
       "title": "Vue.js 3.0 UI Framework",
       "buttons": {
-        "start": "Get started",
-        "github": "View on GitHub"
+        "start": "Начать",
+        "github": "Смотреть на GitHub"
       },
       "features": {
         "nuxt": {
-          "title": "Nuxt Support",
-          "text": "Nuxt integration guides"
+          "title": "Поддержка Nuxt",
+          "text": "Руководство интеграции Nuxt"
         },
         "components": {
-          "title": "52 Responsive Components",
-          "text": "Available components docs"
+          "title": "52 Отзывчивых Компонента",
+          "text": "Документация компонентов"
         },
         "keyboard": {
-          "title": "Keyboard Navigation",
-          "text": "Accessibility guides"
+          "title": "Клавиатурная Навигация",
+          "text": "Руководство по доступности"
         },
         "browsers": {
-          "title": "Modern Browsers Support",
-          "text": "Supported browsers list"
+          "title": "Поддержка Современных Браузеров",
+          "text": "Список поддерживаемых браузеров"
         }
       }
     },
     "seamless": {
-      "title": "Seamless Integration",
-      "text": "Use Vuestic UI with other component libraries without any conflicts.",
+      "title": "Плавная Интеграция",
+      "text": "Используйте Vuestic UI с другими библиотеками компонентов без конфликтов.",
       "compare": {
-        "vuestic": "Vuestic UI components",
-        "other": "Other components"
+        "vuestic": "Компоненты Vuestic UI",
+        "other": "Другие компоненты"
       }
     },
     "customize": {
-      "title": "Customize Everything",
-      "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
+      "title": "Полная Кастомизация",
+      "text": "Обеспечьте соответствие компонентов Vuestic UI вашему дизайну с помощью мощных динамических конфигураций.",
       "tabs": [
-        "Large Modern",
-        "Styles",
-        "Multiple Themes"
+        "Адаптивность",
+        "Стили",
+        "Темы Оформления"
       ],
-      "copy": "Copied to clipboard",
-      "configuration": "See our configuration guides"
+      "copy": "Скопировано",
+      "configuration": "Посмотрите наше руководство по конфигурации"
     },
     "opensource": {
-      "title": "Open Source",
+      "title": "Открытое ПО",
       "text": [
-        "Vuestic UI is forever free and open to contributions. See our",
-        "issues",
-        "contributing guide",
-        "and",
-        "discord server",
-        "to help us improve Vuestic UI experience."
+        "Vuestic UI навсегда свободен и открыт к разработке. Ознакомьтесь с нашими",
+        "открытыми вопросами",
+        "руководством по разработке",
+        "и",
+        "сервером в discord,",
+        "чтобы помочь нам улучшить Vuestic UI."
       ]
     },
     "admin": {
       "title": "Vuestic Admin",
-      "text": "Check out Vuestic UI Framework in action.",
+      "text": "Попробуйте Vuestic UI Framework в действии.",
       "buttons": {
-        "github": "View on GitHub",
-        "demo": "Live Demo",
+        "github": "Смотреть на GitHub",
+        "demo": "Демонстрация",
         "star": "Star"
       },
       "features": {
-        "opensource": "Open source MIT license",
-        "themes": "Two built-in color schemes",
-        "responsive": "Cross-browser & responsive",
-        "i18n": "i18n-ready"
+        "opensource": "Открытая лицензия MIT",
+        "themes": "Две встроенные цветовые схемы",
+        "responsive": "Кросс-браузерное и отзывчивая верстка",
+        "i18n": "Поддержка i18n"
       }
     },
     "footer": {
-      "text": "Open source, free to use. Development inquiries:",
+      "text": "Открытое ПО, свободно для использования. Запросы на разработку:",
       "buttons": {
-        "epicmax": "About Epicmax",
+        "epicmax": "Об Epicmax",
         "admin": "Vuestic Admin",
         "spinners": "Epic Spinners"
       }
