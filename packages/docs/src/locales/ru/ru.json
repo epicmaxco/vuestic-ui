@@ -1037,98 +1037,98 @@
     "dataTable": "Data Table"
   },
   "all": {
-    "examples": "Examples",
+    "examples": "Примеры",
     "api": "API",
     "faq": "FAQ"
   },
   "docsExample": {
-    "showCode": "Show Code"
+    "showCode": "Показать код"
   },
   "documentationPage": {
-    "compilesTo": "Compiles to:",
-    "title": "Documentation Page",
-    "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
+    "compilesTo": "Компилируется в:",
+    "title": "Документация",
+    "description": "Эта страница предназначена для контрибьюторов vuestic-ui: на ней объясняется, как создавать и изменять документацию.",
     "introduction": {
-      "title": "Introduction",
-      "description": "Instead of using the established documentation system, such as [vue-press](https://vuepress.vuejs.org/) or [docsify](https://docsify.js.org/#/), we’ve decided to create a system specifically tailored for Vuestic. It’s meant to provide excellent flexibility for future growth."
+      "title": "Введение",
+      "description": "Вместо использования установленной системы документации, такой как [vue-press](https://vuepress.vuejs.org/) или [docsify](https://docsify.js.org/#/), мы решили создать систему, специально предназначенную для Vuestic. Она призвана обеспечить отличную гибкость для будущего развития."
     },
     "pageConfig": {
-      "title": "Page Config",
-      "generate": "If you’re trying to document a component from scratch, use the `yarn generate:component` command, which will guide you through the process.",
-      "description": "Documentation has a flat structure - list of blocks. Markdown is supported in all text blocks. Here are the blocks you can use:"
+      "title": "Конфигурация страницы",
+      "generate": "Если вы хотите задокументировать компонент с нуля, используйте команду `yarn generate: component`, которая проведет вас через пошаговый процесс.",
+      "description": "Документация имеет плоскую структуру - список блоков. Markdown поддерживается во всех текстовых блоках. Вот блоки, которые вы можете использовать:"
     },
     "blocktypes": {
       "title": {
         "title": "Title",
-        "text": "Page title is mandatory for documentation pages."
+        "text": "Заголовок страницы является обязательным для страниц документации."
       },
       "subtitle": {
         "title": "Subtitle",
-        "text": "Used for: Examples, API, FAQ. Think `h2`."
+        "text": "Используется для: Примеров, API, FAQ. Тэг `h2`."
       },
       "headline": {
         "title": "Headline",
-        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`."
+        "text": "Блок используется для обозначения заголовков примеров или FAQ questions. Тэг `h3`."
       },
       "paragraph": {
         "title": "Paragraph",
-        "text": "Should be used for all non-special text blocks."
+        "text": "Следует использовать для всех неспециальных текстовых блоков."
       },
       "list": {
         "title": "List",
-        "text": "Should be used for list blocks.",
-        "inCode": "Resulting code will look like this:",
-        "listExample1": "Value of list item 1",
-        "listExample2": "Value of list item 2"
+        "text": "Следует использовать для блоков списка.",
+        "inCode": "Результирующий код будет выглядеть так:",
+        "listExample1": "Значение элемента списка 1",
+        "listExample2": "Значение элемента списка 2"
       },
       "code": {
         "title": "Code",
-        "text": "Code preview. We use [prism](https://prismjs.com/)."
+        "text": "Предварительный просмотр кода. Мы используем [prism](https://prismjs.com/)."
       },
       "example": {
         "title": "Example",
-        "text": "Shows a component with code preview. Component can use all global services: css classes, colors etc."
+        "text": "Показывает компонент с предварительным просмотром кода. Компонент может использовать все глобальные сервисы: классы css, цвета, etc."
       },
       "api": {
         "title": "API",
-        "text": "API documentation for component. Combines component options with manual declarations."
+        "text": "Документация API для компонента. Сочетает параметры компонентов с объявлениями вручную."
       }
     },
-    "apiOptionsTitle": "API Options",
+    "apiOptionsTitle": "Параметры API",
     "apiOptions": {
-      "text": "With automated code analysis we can't go too far. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
-      "version": "`version` - specifies at which version of vuestic this component or feature were implemented.",
-      "types": "`types` - simpler prop types documentation engine can figure from component options (`String`, `Number` etc). For almost everything else it has to be defined.",
-      "local": "`local` - forces to use component-specific translation. Default behaviour is using 'all' section of the translation object.",
-      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. As some props could be intended for internal use."
+      "text": "Мы не можем сделать глубокий автоматический анализ кода. Большая часть документации API должна быть объявлена явно. Параметры API позволяют настраивать такие опции, как: `version`, `props`, `events`, `methods` и `slots`.",
+      "version": "`version` - указывает, в какой версии vuestic был реализован этот компонент или функция.",
+      "types": "`types` - более простой механизм документирования типов свойств может быть определен из параметров компонентов (`String`, `Number`, etc). Почти для всего остального это должно быть определено.",
+      "local": "`local` - принудительное использование компонентного перевода. По умолчанию используется раздел «все» объекта перевода.",
+      "hidden": "`hidden` - позволяет скрыть свойство из раздела API на странице документации. Так как некоторые свойства могут быть предназначены для внутреннего использования."
     }
   },
   "avatar": {
-    "title": "Avatar",
-    "summaryText": "`va-avatar` component is typically used for user profile pictures. The component  helps you display it in different sizes consistently throughout your web application.",
+    "title": "Аватар",
+    "summaryText": "Компонент `va-avatar` обычно используется для изображений профиля пользователя. Компонент помогает вам последовательно отображать его в разных размерах во всем веб-приложении.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "By default `va-avatar` is displayed as a circle container."
+        "title": "По умолчанию",
+        "text": "По умолчанию `va-avatar` отображается в виде круглого контейнера."
       },
       "size": {
-        "title": "Different sizes",
-        "text": "The `size` prop prop allows you to specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop prop to force text size you need."
+        "title": "Разные размеры",
+        "text": "Свойство `size` позволяет указать нестандартный размер аватара. По умолчанию размер шрифта будет масштабироваться в зависимости от значения свойства `size`. Но вы можете использовать свойство `font-size`, чтобы задать нужный вам размер текста."
       },
       "color": {
-        "title": "Different colors"
+        "title": "Разные цвета"
       },
       "withImage": {
-        "title": "With images",
-        "text": "The `src` prop prop is used to add custom icons to a component."
+        "title": "Изображения",
+        "text": "Свойство `src` используется для добавления пользовательских изображений к компоненту."
       },
       "withIcon": {
-        "title": "With icons",
-        "text": "The `icon` prop is used to display icons inside an avatar."
+        "title": "Иконки",
+        "text": "Свойство `icon` используется для отображения иконок внутри аватара."
       },
       "withEmail": {
-        "title": "With Gravatar",
-        "text": "The `email` prop and [gravatar](https://en.gravatar.com/support/what-is-gravatar/) are used to get user profile pictures."
+        "title": "Gravatar",
+        "text": "Свойство `email` и [gravatar](https://en.gravatar.com/support/what-is-gravatar/) используются для получения изображения профиля пользователя."
       }
     }
   },
@@ -1223,48 +1223,48 @@
     }
   },
   "button": {
-    "title": "Button",
-    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in styles and allows a user to change color and size manually.",
+    "title": "Кнопка",
+    "summaryText": "Компонент `va-button` component заменяет стандартную кнопку HTML. Он предлагает несколько встроенных стилей и позволяет пользователю вручную изменять цвет и размер.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Just a simple button."
+        "title": "По умолчанию",
+        "text": "Простая кнопка."
       },
       "withColor": {
-        "title": "Colors",
-        "text": "The `color` prop is used to change the color of the component."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента."
       },
       "withGradient": {
-        "title": "Gradient",
-        "text": "It’s used to apply a gradient style to a background."
+        "title": "Градиент",
+        "text": "Свойство `gradient` используется для применения стиля градиента к фону."
       },
       "withTextColor": {
-        "title": "Text colors",
-        "text": "The `text-color` prop is used to change the color of the button text."
+        "title": "Цвет текста",
+        "text": "Свойство `text-color` используется для изменения цвета текста кнопки."
       },
       "withSize": {
-        "title": "Sizes",
-        "text": "The `size` prop is used to fit your button to any place on your web page."
+        "title": "Размер",
+        "text": "Свойство `size` используется для изменения размера кнопки."
       },
       "withStyle": {
-        "title": "Different styles",
-        "text": "We have 3 styles available: `outlined`, `flat` and `square`."
+        "title": "Разные стили",
+        "text": "Для компонента `va-button` доступно 3 стиля: `outlined`, `flat` и `square`."
       },
       "withIcon": {
-        "title": "Add icons",
-        "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`"
+        "title": "Иконки",
+        "text": "Вы можете добавить иконки в компонент `va-button` с 2 разными свойствами: `icon` и `icon-right`"
       },
       "withConfig": {
-        "title": "Icons as slots with config",
-        "text": "You can wrap your buttons with `VaConfig` and pass icons as slots"
+        "title": "Слот иконки с настройкой",
+        "text": "Вы можете обернуть кнопки компонентом `VaConfig` и использовать иконки как слоты."
       },
       "withLoading": {
-        "title": "Loading state",
-        "text": "You can add loading state to the button"
+        "title": "Состояние загрузки",
+        "text": "Свойство `loading` используется для отображения спиннера загрузки."
       },
       "disabled": {
-        "title": "Disabled",
-        "text": "The `disabled` prop prevent any actions with button."
+        "title": "Недоступная кнопка",
+        "text": "Свойство `disabled` запрещает любые действия с кнопкой."
       }
     }
   },
@@ -2022,43 +2022,43 @@
   },
   "alert": {
     "title": "Alert",
-    "summaryText": "Alert displays an important message to attract user attention.",
+    "summaryText": "Alert отображает важное сообщение для привлечения внимания пользователя.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "The basic usage of the `va-alert` component."
+        "title": "По умолчанию",
+        "text": "Базовое использование компонента `va-alert`."
       },
       "color": {
         "title": "Color",
-        "text": "Use `color` property to change the color of the component."
+        "text": "Свойство `color` используется, чтобы изменить цвет компонента."
       },
       "styles": {
-        "title": "Different styles",
-        "text": "We have 3 styles available: `color`, `outlined` and `border` styled alerts."
+        "title": "Разные стили",
+        "text": "Для компонента `va-alert` доступно 3 стиля: `color`, `outlined` и `border`."
       },
       "border": {
         "title": "Border",
-        "text": "Use the `border` property to add a strip and the `border-color` property to change the color of the strip."
+        "text": "Свойство `border` используется, чтобы добавить полосу, и свойство `border-color`, чтобы изменить её цвет."
       },
       "title": {
         "title": "Title",
-        "text": "The `title` property allows you to write text over the description area. Use the `title` slot to costomize the title area."
+        "text": "Свойство `title` позволяет писать текст поверх содержания. Используйте слот `title` для кастомизации загловка."
       },
       "dense": {
         "title": "Dense",
-        "text": "The `dense` property reduces paddings on alert."
+        "text": "Свойство `dense` уменьшает отступы компонента."
       },
       "icon": {
         "title": "Icon",
-        "text": "The `icon` property allows you to add an icon in front of the description area. Use the `icon` slot to costomize the icon area."
+        "text": "Свойство `icon` позволяет добавить иконку перед областью описания. Используйте слот `icon` для кастомизации иконки."
       },
       "closeable": {
         "title": "Closeable",
-        "text": "The `closeable` property add a close alert area. Also you can pass `close-text` prop to make close icon as plain text."
+        "text": "Свойство `closeable` позволяет добавить иконку для закрытия компонента. Используйте свойство `close-text`, чтобы заменить иконку на текст."
       },
       "center": {
         "title": "Center",
-        "text": "The `center` property allows you to center title and description areas."
+        "text": "Свойство `center` позволяет центрировать заголовок и описание."
       }
     }
   },
@@ -2205,43 +2205,43 @@
     }
   },
   "grid": {
-    "title": "Grid System",
-    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
+    "title": "Grid Layout",
+    "summaryText": "Мы предоставляем вам вспомогательные классы для [flex](https://developer.mozilla.org/ru/docs/Web/CSS/flex). Для [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) встроенных классов не предоставляется. Это не означает, что вам *нужно* использовать `flex`, но он остается мощным инструментом.",
     "examples": {
       "default": {
-        "title": "Enabling flexbox"
+        "title": "Включение flexbox"
       },
       "breakpoints": {
         "title": "Breakpoints",
-        "text": "You can use our `breakpoints` to set the length of you container.",
+        "text": "Вы можете использовать наши `breakpoints`, чтобы установить длину вашего контейнера.",
         "sizes": {
-          "xs": "`.xs` - Phones (<600px)",
-          "sm": "`.sm` - Small devices Tablets (≥600px)",
-          "md": "`.md` - Medium devices Desktops (≥960)",
-          "lg": "`.lg` - Large devices Desktops (≥1280px)",
-          "xl": "`.xl` - Extra large devices Desktops (≥1920px)"
+          "xs": "`.xs` - Телефоны (<600px)",
+          "sm": "`.sm` - Планшеты (≥600px)",
+          "md": "`.md` - Мониторы/ноутбуки (≥960)",
+          "lg": "`.lg` - Широкоформатные устройства (≥1280px)",
+          "xl": "`.xl` - 4K и ultra-wide устройства (≥1920px)"
         }
       },
       "offsets": {
-        "title": "Offsets",
-        "text": "You can use our `offset` to set the space between left and current elements of you container.",
+        "title": "Смещения (offsets)",
+        "text": "Вы можете использовать класс `offset`, чтобы установить расстояние между левым и текущим элементами вашего контейнера.",
         "sizes": {
-          "xs": "`.offset--xs` - Phones (<600px)",
-          "sm": "`.offset--sm` - Small devices Tablets (≥600px)",
-          "md": "`.offset--md` - Medium devices Desktops (≥960)",
-          "lg": "`.offset--lg` - Large devices Desktops (≥1280px)",
-          "xl": "`.offset--xl` - Extra large devices Desktops (≥1920px)"
+          "xs": "`.offset--xs` - Телефоны (<600px)",
+          "sm": "`.offset--sm` - Планшеты (≥600px)",
+          "md": "`.offset--md` - Мониторы/ноутбуки (≥960)",
+          "lg": "`.offset--lg` - Широкоформатные устройства (≥1280px)",
+          "xl": "`.offset--xl` - 4K и ultra-wide устройства (≥1920px)"
         }
       },
       "gutters": {
-        "title": "Gutters",
-        "text": "A `layout` controls by `gutter`.",
+        "title": "Поля отступа (gutters)",
+        "text": "Управление компоновкой `layout` при помощи `gutter`.",
         "sizes": {
-          "xs": "`.gutter--xs` - Extra small gutter between cells",
-          "sm": "`.gutter--sm` - Small gutter between cells",
-          "md": "`.gutter--md` - Default gutter between cells",
-          "lg": "`.gutter--lg` - Large gutter between cells",
-          "xl": "`.gutter--xl` - Extra large gutter between cells"
+          "xs": "`.gutter--xs` - Самый маленький отступ между ячейками",
+          "sm": "`.gutter--sm` - Маленький отступ между ячейками",
+          "md": "`.gutter--md` - Отступ между ячейками по умолчанию",
+          "lg": "`.gutter--lg` - Большой отступ между ячейками",
+          "xl": "`.gutter--xl` - Самый большой отступ между ячейками"
         }
       }
     },
@@ -2669,135 +2669,135 @@
     }
   },
   "installation": {
-    "title": "Installation",
-    "description": "Get started with Vuestic UI to create feature-rich and user-friendly apps thanks to our highly configurable framework. We’ve simplified the installation process as much as possible to save you extra effort. Installation is possible in a few ways",
-    "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
-    "prerequisites": "First, make sure you have all prerequisites installed:",
+    "title": "Установка",
+    "description": "Начните работу с Vuestic UI, чтобы создавать многофункциональные и удобные приложения благодаря нашей гибко настраиваемой структуре. Мы максимально упростили процесс установки, чтобы сэкономить ваши усилия. Установка возможна несколькими способами",
+    "subtitle": "Вы можете начать использовать Vuestic с простых шагов, как вам удобнее",
+    "prerequisites": "Во-первых, убедитесь, что у вас установлены все необходимые зависимости:",
     "node": "<a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
-    "npm": "<a href=\"https://www.npmjs.com/get-npm\">npm</a> version 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) and <a href=\"https://git-scm.com/\">Git</a>.",
-    "afterCheck": "After checking the prerequisites, install Vuestic UI via npm/yarn:",
+    "npm": "<a href=\"https://www.npmjs.com/get-npm\">npm</a> версия 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) и <a href=\"https://git-scm.com/\">Git</a",
+    "afterCheck": "После проверки предварительных требований установите Vuestic UI через npm/yarn:",
     "fonts": {
-      "title": "Fonts installation",
-      "description": "By default Vuestic UI uses `Source Sans Pro` and `Material Icons` fonts. You should manually add those fonts to your project. There are a few examples below.",
-      "htmlExampleTitle": "You can include fonts in HTML head:",
-      "cssExampleTitle": "Or you can include fonts in your CSS:"
+      "title": "Установка шрифтов",
+      "description": "По умолчанию Vuestic UI использует шрифты `Source Sans Pro` и `Material Icons`. Вам необходимо вручную добавить эти шрифты в свой проект. Ниже приведены несколько примеров.",
+      "htmlExampleTitle": "Вы можете включить шрифты в заголовок HTML:",
+      "cssExampleTitle": "Или вы можете включить шрифты в свой CSS:"
     },
     "quickStart": {
-      "title": "Quick start",
-      "description": "Make sure you’ve imported both styles and plugin into your entry file"
+      "title": "Быстрый старт",
+      "description": "Убедитесь, что вы импортировали оба стиля и плагин в свой входной файл:"
     },
     "cli": {
-      "title": "Vue CLI installation",
-      "prepare": "Before install make sure [Vue CLI](https://cli.vuejs.org/guide/installation.html) is installed globally and has version 4+:",
-      "upgrade": "Here is a [guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3) for Vue CLI version 3 to help you update your app",
-      "description": "An easy way if you use the Vue-CLI setup or you want to try out Vuestic UI on a fresh project",
-      "attention": "Vuestic UI installation will modify package.json and main.js(ts) files. Make sure you’ve committed your code before installing it to avoid data loss",
-      "codeAnnotation": "Then install Vuestic UI as a Vue-CLI plugin:"
+      "title": "Установка через Vue CLI",
+      "prepare": "Перед установкой убедитесь, что [Vue CLI](https://cli.vuejs.org/guide/installation.html) установлен глобально и имеет версию 4+:",
+      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3) для Vue CLI версии 3, которое поможет вам обновить приложение",
+      "description": "Простой способ, если вы используете настройку через Vue-CLI или хотите опробовать Vuestic UI в новом проекте",
+      "attention": "Установка Vuestic UI изменит файлы package.json и main.js (ts). Убедитесь, что вы закоммитили свой код перед его установкой, чтобы избежать потери данных",
+      "codeAnnotation": "Затем установите Vuestic UI как плагин Vue-CLI:"
     },
     "nuxt": {
-      "title": "Nuxt installation",
-      "description": "Vuestic UI can be added by adding plugin after installation. Create plugin and include it into `nuxt.config.js`:"
+      "title": "Установка с Nuxt",
+      "description": "Vuestic UI может быть добавлен как поагин после установки. Создайте плагин и включите его в `nuxt.config.js`:"
     },
     "manual": {
-      "title": "Manual installation",
-      "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic on the scratch project."
+      "title": "Ручная установка",
+      "description": "Простой способ, если вы используете настройку через Vue-CLI или хотите опробовать Vuestic UI в новом проекте"
     }
   },
   "roadmap": {
-    "title": "Vuestic UI Roadmap",
-    "description": "Our team is constantly improving the existing code base and adding new features that help make building applications even easier.",
+    "title": "План развития Vuestic UI",
+    "description": "Наша команда постоянно улучшает существующую кодовую базу и добавляет новые функции, которые помогают еще больше упростить создание приложений.",
     "inDevelopment": {
-      "title": "In development",
-      "description": "The following releases are currently being developed:"
+      "title": "В разработке",
+      "description": "В настоящее время разрабатываются следующие релизы:"
     },
     "1-2": {
       "title": "v1.2",
-      "description": "We'll work on new components: date-picker and data-table"
+      "description": "Будем работать над новыми компонентами: date-picker и data-table"
     },
     "1-1": {
       "title": "v1.1",
-      "description": "Bug fixes and ssr support (vite)."
+      "description": "Исправления ошибок и поддержка ssr (vite)"
     },
     "1-0": {
       "title": "v1.0",
-      "description": "Starting point of vuestic-ui. Reworked and added multiple components, added proper documentation."
+      "description": "Начало работы над vuestic-ui, переработаны и добавлены несколько компонентов, добавлена соответствующая документация"
     },
     "0-1": {
       "title": "v0.1",
-      "description": "Not even alpha, we've just split components from [vuestic-admin](https://github.com/epicmaxco/vuestic-admin) into separate repository to simplify updates."
+      "description": "Даже не альфа, мы просто выделили компоненты из [vuestic-admin](https://github.com/epicmaxco/vuestic-admin) в отдельный репозиторий, чтобы упростить обновления"
     },
     "released": {
-      "title": "Released",
-      "description": " Already released versions"
+      "title": "Выпущено",
+      "description": " Уже выпущенные версии:"
     },
     "longTimeSupport": {
-      "title": "Long time support",
-      "description": "The following versions have continued maintenance for backwards compatible fixes, major bugs, and security vulnerabilities."
+      "title": "Долгосрочная поддержка (LTS)",
+      "description": "Следующие версии продолжают поддерживаться на предмет исправлений обратной совместимости, серьезных ошибок и уязвимостей системы безопасности"
     },
     "archive": {
-      "title": "Archive",
-      "description": "The following releases are old and unsupported minor and major versions:"
+      "title": "Архив",
+      "description": "Следующие выпуски являются старыми и не поддерживаются minor и major версиями:"
     }
   },
   "nuxtIntegration": {
     "title": "Work In Progress"
   },
   "accessibilityGuide": {
-    "title": "Accessibility",
-    "description": "Vuestic UI components support keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
+    "title": "Доступность",
+    "description": "Компоненты Vuestic UI поддерживают взаимодействие с клавиатурой для всех действий с помощью мыши и использование семантические элементов HTML5, где это применимо.",
     "keyboardInteractions": {
-      "title": "Keyboard accessible",
-      "description": "All the interactive elements of your page e.g. text boxes, buttons etc can be accessible by keyboard. That means you should be able to bring focus on them by using Tab and Shift+Tab keys."
+      "title": "Доступность с клавиатуры",
+      "description": "Все интерактивные элементы вашей страницы, например текстовые поля, кнопки и т. д. могут быть доступны с клавиатуры. Это означает, что вы сможете установить на них фокус, используя клавиши Tab и Shift+Tab."
     }
   },
   "configurationGuide": {
-    "title": "Configuration",
-    "description": "We have developed a convenient mechanism that allows you to deeply customize your icons, components, and colors.",
-    "readMore": "Read more",
+    "title": "Конфигурация",
+    "description": "Мы разработали удобный механизм, который позволяет делать глубокую настройку иконок, компонентов и цветов.",
+    "readMore": "Подробнее",
     "colors": {
-      "title": "Color themes",
-      "description": "Vuestic UI comes with a set of colors that could be easily extended"
+      "title": "Цветовые темы",
+      "description": "Vuestic UI поставляется с набором цветов, которые можно легко расширить:"
     },
     "icons": {
-      "title": "Icon fonts",
-      "description": "By default Vuestic UI uses **material design icons**, so you should install it beforehand",
-      "subtitle": "Using custom icons",
-      "subDescription": "With Icons Config you can use any icon font that you want simply transforming icon name to props you need."
+      "title": "Иконочные шрифты",
+      "description": "По умолчанию в Vuestic UI используется шрифт **material design icons**, поэтому вам следует установить его заранее",
+      "subtitle": "Использование кастомных иконок",
+      "subDescription": "С помощью конфигурации иконок вы можете использовать любой иконочный шрифт, который вам нужен, просто преобразовывая имя иконки в нужные свойства:"
     },
     "components": {
-      "title": "Components config",
-      "intro": "If you want to set global defaults for vuestic components - we have config for that!",
-      "description": "Let’s say you need all your buttons to be `outline` and `small` in accordance with design, but by default that's not the case:",
-      "action": "To solve that problem - in your `main.js` add:",
-      "result": "Now your buttons will look like this:",
-      "example": "You can globally configure any props for Vuestic UI components similarly.",
-      "more": "If your customization runs deeper - you may override [css variables](https://vuestic.dev/en/styles/css-variables#overriding) or class properties directly (components use BEM, so selectors are easy to guess)."
+      "title": "Конфигурация компонентов",
+      "intro": "Если вы хотите установить глобальные настройки по умолчанию для компонентов Vuestic, то у нас есть для этого конфигурация!",
+      "description": "Допустим, вам нужно, чтобы все ваши кнопки были `outline` и `small` в соответствии с дизайном, но по умолчанию это не так:",
+      "action": "Чтобы решить эту проблему - добавьте в свой `main.js`:",
+      "result": "Теперь ваши кнопки будут выглядеть так:",
+      "example": "Аналогичным образом вы можете глобально настроить любые свойства для компонентов Vuestic Ui.",
+      "more": "Если вам нужна более глубокая кастомизация, то вы можете переопределить [переменные css](https://vuestic.dev/en/styles/css-variables#overriding) или свойства класса напрямую (в компонентах используется БЭМ, так что селекторы легко угадать)."
     }
   },
   "browserSupport": {
-    "title": "Browser Support",
-    "description": "We design Vuestic UI to be future proof. That's why we support modern browsers, but some old browsers, such as IE had to go, sorry. That decision was influenced by [dropped support in Vue 3](https://github.com/vuejs/rfcs/discussions/296) and [falling usage rate](https://caniuse.com/usage-table).",
+    "title": "Поддрежка браузеров",
+    "description": "Мы разрабатываем Vuestic UI с расчетом на будущее. Вот почему мы поддерживаем современные браузеры, но извините, пришлось отказаться от некоторых старых браузеров, таких как IE. На это решение повлияло [прекращение поддержки в Vue 3](https://github.com/vuejs/rfcs/discussions/296) и [падение рейтинга использования](https://caniuse.com/usage-table).",
     "table": {
-      "browser": "Browser",
-      "supported": "Supported"
+      "browser": "Браузер",
+      "supported": "Поддержка"
     }
   },
   "overview": {
-    "title": "What is Vuestic UI",
-    "description": "We’ve designed the framework in such a way that it satisfies the most sophisticated design fantasies and allows you to implement them",
-    "featuresOverview": "Features overview",
-    "vueThreeCompatible": "Fully **Vue.js 3 compatible**",
-    "featureRich": "Contains a **50+ feature rich components** that can be used in any design solution",
-    "configurable": "Allows **to configure components** components globally via config and css variables",
-    "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
-    "translatable": "Integrates seamlessly with **i18n**"
+    "title": "Что такое Vuestic UI",
+    "description": "Мы разработали фреймворк таким образом, чтобы он удовлетворял самые изощренные дизайнерские фантазии и позволял вам их воплощать.",
+    "featuresOverview": "Обзор возможностей",
+    "vueThreeCompatible": "Полная **совместимость с Vue.js 3**",
+    "featureRich": "Содержит более **50+ компонентов с богатым набором функций, которые можно использовать в любом дизайнерском решении",
+    "configurable": "Позволяет **настраивать компоненты** глобально через конфигурации и переменные css",
+    "responsive": "Полностью **отзывчивый** и **поддерживает современные браузеры** (но не IE11, извините)",
+    "translatable": "Легко интегрируется с **i18n**"
   },
   "translation": {
-    "title": "Translation",
-    "description": "Translation is only needed for documentation (`packages/docs/locales`) as components don't use any translation strings at the moment. Here's the current state for languages support:",
+    "title": "Перевод",
+    "description": "Перевод нужен только для документации (`packages/docs/locales`) поскольку компоненты в настоящий момент не используют перевод. Вот текущее состояние поддержки языков:",
     "table": {
-      "language": "Language",
-      "supported": "Supported"
+      "language": "Язык",
+      "supported": "Статус поддержки"
     }
   },
   "table": {
@@ -2823,129 +2823,129 @@
     }
   },
   "guide": {
-    "title": "Contribution guide",
-    "description": "This guide describes ways in which you can become part of the ongoing development of the Vuestic user interface. We are really excited that you are interested in contributing to Vuestic UI.",
+    "title": "Руководство для контрибьюторов",
+    "description": "В этом руководстве описаны способы, с помощью которых вы можете стать частью непрерывного развития пользовательского интерфейса Vuestic. Мы очень рады, что вы хотите внести свой вклад в Vuestic UI.",
     "pullRequests": {
-      "title": "Pull Request Guidelines",
+      "title": "Рекомендации по внесению изменений (Pull Request)",
       "description": {
-        "localBranches": "`master` branch keeps latest stable release + cherrypicked hotfixes. All development should be done in local branches.",
-        "dontSubmitToMaster": "**Do not submit PRs against the `master` branch.**",
-        "checkoutFeat": "Checkout a `feat/` branch from `develop`, then create pull request against that branch.",
-        "multipleSmallCommits": "It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.",
-        "fixBugSteps": "If fixing a bug:\n  * If you are resolving a special issue, add `close #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github [will close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
+        "localBranches": "Ветка `master` хранит последнюю стабильную версию + избранные (cherrypicked) хотфиксы. Вся разработка должна вестись в локальных ветках.",
+        "dontSubmitToMaster": "**Не отправляйте ваши PR в ветку master.**",
+        "checkoutFeat": "Сделайте checkout ветки `feat/` из ветки `develop`, затем создайте pull request в ту же ветку.",
+        "multipleSmallCommits": "Совершенно нормально иметь несколько небольших коммитов, когда вы работаете над вашим PR - мы позволим GitHub сделать автоматический squash изменений перед слянием.",
+        "fixBugSteps": "В случае исправления бага:\n  * Если вы решаете особую проблему, добавьте `close #xxxx[,#xxx]` (#xxxx - id проблемы) в описание PR так что github [закроет](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) проблему, как только изменения сольются в `master`.\n  * Предоставьте подробное описание ошибки в PR, если это не было сделано в вопросе (issue)."
       }
     },
     "branches": {
-      "title": "Branches",
-      "publicBranches": "Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!.\n  * `develop` - main development branch. Houses `2.0` at the moment.",
-      "localBranches": "Local branches\n  * For local branches prepend your messages with `feat/`, ie for tabs fix it would be `feat/fix-tabs`. This is wanted to keep local branches visually separate from public ones."
+      "title": "Ветки",
+      "publicBranches": "Публичные ветки (**epicmax/vuestic-ui**):\n  * `master` - только релизы и хотфиксы. Не выставляйте ваш PR в `master`!.\n  * `develop` - основная ветка разработки. На данный момент в ней хранится версия `2.0`.",
+      "localBranches": "Локальные ветки\n  * Для локальных веток добавьье префикс `feat/`, например для фикса комнонета `va-tabs` будет `feat/fix-tabs`. Это сделано для того, чтобы локальные ветки были визуально отделены от публичных."
     },
     "fileNaming": {
-      "title": "File naming",
+      "title": "Именование файлов",
       "camelCase": "`testIsContextableComponent.ts` - helpers and instants",
-      "kebabCase": "`api-options.ts` - configs",
-      "pascalCase": "`DocsCode.vue` - components, classes, types"
+      "kebabCase": "`api-options.ts` - конфигурации",
+      "pascalCase": "`DocsCode.vue` - компоненты, классы, типы"
     },
     "forCoreContributors": {
-      "title": "For core contributors",
-      "linkPr": "Always link PR to issue (via `close #123`).",
-      "assignYourself": "When you start working on the task - please assign yourself. That's needed to prevent conflict.",
-      "smallIssues": "For small issues you may push to `develop` branch directly while adding (`close #123`) to commit message.",
-      "singlePrPerIssue": "Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
-      "onePersonPerIssue": "Be sure to have only one person assigned per issue.",
-      "checkYourCode": "Check your code: [conventions](../packages/old-docs/conventions.md).",
-      "weUseYarn": "We use [yarn](https://yarnpkg.com/lang/en/) for package management.",
-      "beProactive": "Be proactive. If you think something is wrong - create an issue or discuss.",
-      "recommendedTools": "Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
-      "workInBook": "If you work on UI components - work in book environment (`yarn serve:book`). We want to keep global stuff out of components."
+      "title": "Для core-контрибьюторов",
+      "linkPr": "Всегда связывайте PR с проблемой (например `close #123`).",
+      "assignYourself": "Когда вы приступите к работе над задачей - назначьте её на себя. Это необходимо для предотвращения конфликтов.",
+      "smallIssues": "Для небольших изменений вы можете пугить в ветку `develop` напрямую при добавлении (`close #123`) в сообщение коммита.",
+      "singlePrPerIssue": "Создавайте один PR для одной проблемы. Если у нас несколько PR - переместите весь код в один, а остальные закройте. Если один PR охватывает несколько вопросов - либо разделите его на несколько PR, либо отметьте одну из проблем как повторяющуюся.",
+      "onePersonPerIssue": "Убедитесь, что на каждую проблему назначен только один человек.",
+      "checkYourCode": "Проверьте свой код: [соглашения](../packages/old-docs/conventions.md).",
+      "weUseYarn": "Мы используем [yarn](https://yarnpkg.com/lang/en/) для управления пакетами.",
+      "beProactive": "Будьте инициативными. Если вы считаете, что что-то не так - создайте вопрос (issue) или обсужденеи (discuss).",
+      "recommendedTools": "Рекомендуемые инструменты: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
+      "workInBook": "Если вы работаете над UI компонентами - работайте book environment (`yarn serve:book`). Мы хотим исключить глобальные материалы из компонентов."
     },
     "componentFolderStructure": {
-      "title": "Component folder structure"
+      "title": "Структура папки компонента"
     },
     "beforeReleaseWorkflow": {
-      "title": "Before release workflow",
-      "description": "Update package versions to newest ones. Update lock files (for both `npm` and `yarn`)\n"
+      "title": "Действия перед релизом",
+      "description": "Обновите версии пакетов до новейших. Обновите lock файлы (для обоих `npm` и `yarn`)\n"
     },
     "npmScripts": {
-      "title": "Commonly used NPM scripts"
+      "title": "Часто используемые сценарии NPM:"
     },
     "credits": {
       "title": "Credits",
-      "description": "<a href=\"https://github.com/epicmaxco/vuestic-ui/graphs/contributors\">Hall of fame!</a>"
+      "description": "<a href=\"https://github.com/epicmaxco/vuestic-ui/graphs/contributors\">Зал славы!</a>"
     }
   },
   "globalConfig": {
-    "title": "Global config",
-    "subtitle": "With Global config we can configure colors, icons and any prop for any component. ",
-    "structure": "Global config consists of icons, colors and components configs. ",
-    "setupExampleTitle": "We can provide our custom config with VuesticPlugin, if we want to:",
-    "reactiveUpdateExampleTitle": "Or we can update our config on runtime:",
-    "reactiveSetExampleTitle": "Or we can set new config on runtime:",
+    "title": "Глобальная конфигурация",
+    "subtitle": "С помощью глобальной конфигурации мы можем настроить цвета, иконки и любое свойство для любого компонента.",
+    "structure": "Глобальная конфигурация состоит из иконок, цветов и конфигураций компонентов.",
+    "setupExampleTitle": "Мы можем предоставить нашу настраиваемую конфигурацию с помощью VuesticPlugin, если мы хотим:",
+    "reactiveUpdateExampleTitle": "Или мы можем обновить нашу конфигурацию во время выполнения:",
+    "reactiveSetExampleTitle": "Или мы можем установить новую конфигурацию во время выполнения:",
     "links": {
-      "readMore": "Read more",
-      "icons": "Icons config",
-      "components": "Components config",
-      "colors": "Colors config"
+      "readMore": "Подробнее",
+      "icons": "Конфигурация иконок",
+      "components": "Конфигурация компонентов",
+      "colors": "Конфигурация цветов"
     },
-    "useInRuntime": "Use global config as reactive Proxy:",
+    "useInRuntime": "Использовать глобальную конфигурацию как реактивный Proxy:",
     "api": {
-      "icons": "Used to configure icon fonts and aliases.",
-      "components": "Used to globally overwrite props of specific components.",
-      "colors": "Used to define theme colors that components will use. Here we can redefine default vuestic theme color."
+      "icons": "Используется для настройки шрифтов и псевдонимов иконок.",
+      "components": "Используется для глобальной перезаписи свойств определенных компонентов.",
+      "colors": "Используется для определения цветов темы, которые будут использовать компоненты. Здесь мы можем переопределить цвет темы vuestic по умолчанию."
     }
   },
   "iconsConfig": {
-    "title": "Icons config",
-    "about": "By default Vuestic UI provides Material Design icons. If you want to use other font libraries you can configure VaIcon to use them.",
-    "readMore": "Read more",
-    "readBeforeStart": "Read about icons component",
-    "example": "Example",
+    "title": "Конфигурация иконок",
+    "about": "По умолчанию в Vuestic UI используется `Material Design Icons`. Если вы хотите использовать другие библиотеки шрифтов, вы можете настроить VaIcon для их использования.",
+    "readMore": "Подробнее",
+    "readBeforeStart": "Подробнее про компонент иконок",
+    "example": "Пример",
     "problem": {
-      "definition": "There is the problem with icon libraries: they usually use different interfaces to render icons.",
-      "materialIcons": "For example material-icons want us to set `material-icons` class and provide icon name inside `span` tag.",
-      "fontAwesome": "If we want to use FontAwesome5 we need to provide `fas` class and then provide class with icon name and prefix `fa-` on `i` tag.",
-      "summary": "With Icons Config we can simply provide an icon name in style that we want. We need to configure how the provided name will be rendered only one time."
+      "definition": "Есть проблема с библиотеками иконок: они обычно используют разные интерфейсы для отображения иконок.",
+      "materialIcons": "Например, material-icons требует, чтобы мы установили класс `material-icons` и подставили имя значка внутри тега `span`.",
+      "fontAwesome": "Если мы хотим использовать `FontAwesome5`, нам нужно подставить класс `fas`, а затем подставить класс с именем значка и префиксом `fa-` в теге `i`.",
+      "summary": "С помощью конфигурации иконок мы можем просто указать имя значка в желаемом стиле. Нам нужно настроить, как указанное имя будет обрабатываться только один раз."
     },
     "fonts": {
-      "title": "Fonts",
-      "about": "We want to use `<va-icon name='icon-name' />` pattern. We can setup config for specific icon name pattern. In this config we can provide icon class, content (innerHTML) or Vue component relative to icon name.",
+      "title": "Шрифты",
+      "about": "Мы хотим использовать шаблон `<va-icon name='icon-name' />`. Мы можем настроить конфигурацию для определенного шаблона имени иконки.  В этой конфигурации мы можем поставить класс иконки, контент (innerHTML) или компонент Vue относительно имени иконки.",
       "fontNamePattern": {
-        "title": "Font name pattern",
-        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate icon class, content or props. Dynamic segments should be written in curly brackets."
+        "title": "Шаблон названия шрифта",
+        "about": "Шаблон имени шрифта похож на динамические маршруты vue. Мы можем использовать динамические сегменты для динамической генерации класса иконки, контента или свойства. Динамические сегменты следует записывать в фигурные скобки."
       },
       "example": {
-        "title": "Example fonts config",
-        "about": "Let`s look at some examples",
-        "explain": "Below we can see how icon will be transformed"
+        "title": "Пример конфигурации шрифтов",
+        "about": "Давайте посмотрим на несколько примеров:",
+        "explain": "Ниже мы видим, как преобразится иконка:"
       },
-      "readMore": "Read more",
-      "advancedFontsUsage": "Advanced fonts usage"
+      "readMore": "Подробнее про",
+      "advancedFontsUsage": "расширенное использование шрифтов"
     },
     "aliases": {
-      "title": "Aliases",
-      "about": "To make code simpler we can use aliases. Alias has a `to` prop which will change name on current icon to `to` string and then it will looks for appropriate font config. All props from founded font will be applied to current icon if they was not defined in alias config.",
+      "title": "Псевдонимы (Aliases)",
+      "about": "Чтобы упростить код, мы можем использовать псевдонимы. Псевдоним имеет свойство `to`, которое изменит имя текущего значка на строку `to`, а затем будет искать соответствующую конфигурацию шрифта. Все свойства найденного шрифта будут применены к текущему значку, если они не были определены в конфигурации псевдонима.",
       "example": {
-        "title": "Example aliases config",
-        "about": "Below we can see how icon will be transformed",
-        "explain": "As you can see alias config is more important than font config. And `va-icon` props is more important than alias and font config."
+        "title": "Пример конфигурации псевдонимов",
+        "about": "Ниже мы видим, как трансформируется иконка:",
+        "explain": "Как видите, конфигурация псевдонима более значимая, чем конфигурация шрифта. И свойства `va-icon` более значимые, чем конфигурация псевдонима и шрифта."
       }
     },
     "setup": {
-      "title": "Let's build our config",
-      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Veustic defaults and our custom fonts and aliases. For example:"
+      "title": "Давайте создадим наш конфиг",
+      "about": "Нам нужно обновить конфигурацию иконок в нашей глобальной конфигурации. Конфигурация иконок - это плоский массив со шрифтом и псевдонимами Vuestic по умолчанию. Мы можем использовать хелпер `createIconsConfig()` для создания новой конфигурации со значениями по умолчанию Veustic и нашими пользовательскими шрифтами и псевдонимами. Например:"
     },
     "api": {
-      "title": "Icon config API",
-      "name": "String or regex. Can be string with dynamic segment or regex to use this config as font.",
-      "iconClass": "Class that will be applied to icon. Can be string or function, that accepts dynamic segment value and returns string.",
-      "content": "Content that will be inside icon. Can be string or function, that accepts dynamic segment value and returns string.",
-      "component": "VueComponent that will be used instead of tag.",
-      "componentProps": "Props that will be bound to `component`. Can be object or function, that accepts dynamic segment value and returns object.",
-      "to": "Here you can define name of config that values will be merged to this config",
-      "tag": "Tag that will be used. By default - `i`",
-      "color": "Color will be set css style color",
-      "rotation": "Rotates icon by specific angle",
-      "spin": "Applies spin animation to icon"
+      "title": "API конфигурации иконок",
+      "name": "Строка или регулярное выражение. Может быть строкой с динамическим сегментом или регулярным выражением, чтобы использовать эту конфигурацию в качестве шрифта.",
+      "iconClass": "Класс, который будет применен к иконке. Может быть строкой или функцией, которая принимает значение динамического сегмента и возвращает строку.",
+      "content": "Контент, который будет внутри иконки. Может быть строкой или функцией, которая принимает значение динамического сегмента и возвращает строку.",
+      "component": "VueComponent, который будет использоваться вместо тега.",
+      "componentProps": "Свойства, которые будут привязаны к `component`. Может быть объектом или функцией, которая принимает значение динамического сегмента и возвращает объект.",
+      "to": "Здесь вы можете указать имя конфигурации, значения которой будут объединены в эту конфигурацию.",
+      "tag": "Тег, который будет использоваться. По умолчанию - `i`.",
+      "color": "Цвет, который будет установлен как цвет css стиля",
+      "rotation": "Поворачивает иконку под определенным углом.",
+      "spin": "Применяет анимацию вращения к иконке."
     }
   },
   "advancedIconsConfig": {
@@ -2954,52 +2954,52 @@
     "priority": "Here you can see how its works"
   },
   "componentsConfig": {
-    "title": "Components config",
-    "subtitle": "With component config we can override default props for any vuestic component we want. Components config is a object where key is `component name` and value is `component props` which we want to overwrite. For example:",
-    "demoTitle": "In example below we can change global style of all buttons on whole Vuestic Documentation site. Feel free to navigate to Button docs page and see how it looks.",
-    "resetConfig": "Reset config",
+    "title": "Конфигурация компонентов",
+    "subtitle": "С помощью конфигурации компонента мы можем переопределить свойства по умолчанию для любого компонента vuestic, который мы хотим. Конфигурация компонентов - это объект, ключ которого - имя компонента, а значение - свойства компонента, который мы хотим перезаписать. Например:",
+    "demoTitle": "В примере ниже мы можем изменить глобальный стиль всех кнопок на всем сайте документации Vuestic. Не стесняйтесь перейти на страницу документации `Button` и посмотреть, как это выглядит.",
+    "resetConfig": "Сбросить конфигурацию",
     "vaConfig": {
-      "title": "Scoped config",
-      "subtitle": "We can use VaConfig to override component props inside `<va-config></va-config>` tag. Components config for all component inside `va-config` tag will be overwritten to `components` prop value. Let's look at the demo below:",
-      "explain": "Look at the code. In this demo we have changed default color for all our `VaButton` and `VaIcons`. Also we pass prop to third button which value is more important than in scoped config."
+      "title": "Scoped конфигурация",
+      "subtitle": "Мы можем использовать VaConfig для переопределения свойств компонентов внутри `<va-config></va-config>`. Конфигурация компонентов для всех компонентов внутри тега `va-config` будет перезаписана на значение свойства `components`. Давайте посмотрим на демонстрацию ниже:",
+      "explain": "Посмотрите на код. В этой демонстрации мы изменили цвет по умолчанию для всех наших компонентов `VaButton` и `VaIcons`. Также мы передаем свойство третьей кнопке, значение которой имеет более высокий приоритет, чем в scoped конфигурации."
     },
     "api": {
-      "title": "Component config service API",
-      "types": "Types",
-      "ComponentConfig": "Object where key is Vuestic component name and value is component props"
+      "title": "API конфигурации компонентов",
+      "types": "Типы",
+      "ComponentConfig": "Объект, где ключ - это имя компонента Vuestic, а значение - свойства компонента"
     }
   },
   "colorsConfig": {
-    "title": "Colors config",
-    "about": "You can personalize colors that are used in our app. You can dynamically redefine colors that are used in Vuestic components. Also, you can add your own colors that we want to use in your app.",
+    "title": "Конфигурация цветов",
+    "about": "Вы можете персонализировать цвета, которые используются в нашем приложении. Вы можете динамически переопределять цвета, которые используются в компонентах Vuestic. Кроме того, вы можете добавить свои собственные цвета, которые мы хотим использовать в вашем приложении.",
     "example": {
-      "about": "For example, we can change the `primary` color that is used in almost all Vuestic components.",
-      "demo": "You can check the demo below and see how colors are changing all over the page."
+      "about": "Например, мы можем изменить цвет `primary`, который используется почти во всех компонентах Vuestic.",
+      "demo": "Вы можете ознакомиться с демонстрацией ниже и увидеть, как меняются цвета по всей странице."
     },
     "reactivity": {
-      "subtitle": "Reactivity",
-      "about": "As you can see, methods like `getColor`, `getColors` don’t return `Proxy`. If you want to use color as reactive Proxy, use computed properties like in the example above."
+      "subtitle": "Реактивность",
+      "about": "Как видите, такие методы, как `getColor`, `getColors`, не возвращают `Proxy`. Если вы хотите использовать цвет в качестве реактивного `Proxy`, используйте вычисляемые свойства, как в примере выше."
     },
     "otherServices": {
-      "subtitle": "Colors config with other services",
-      "components": "You can use your color in Components config.",
-      "icons": "Also in Icons config you can use custom color as icon color.",
-      "css": "Also CSS variables has same color variables as you define in color config that dynamically changing along with Colors config. "
+      "subtitle": "Конфигурация цветов с другими конфигурациями",
+      "components": "Вы можете использовать свой цвет в конфигурации компонентов:",
+      "icons": "Также в конфигурации иконок вы можете использовать собственный цвет в качестве цвета иконки:",
+      "css": "Также переменные CSS имеют те же цветовые переменные, которые вы определяете в конфигурации цвета, которые динамически меняются вместе с конфигурацией цветов:"
     },
     "api": {
-      "title": "Icon config service API",
-      "types": "Types",
-      "ColorConfig": "Object where key is color name and value is valid CSS color.",
-      "ColorInput": "Valid CSS color",
-      "methods": "Methods",
-      "setColors": "Used to merge new colors into config or update existing colors.",
-      "getColors": "Returns current color config",
-      "getColor": "Return color by name",
-      "getBoxShadowColor": "Return color that you can use as box shadow color.",
-      "getHoverColor": "Return color that you can use as hover color.",
-      "getFocusColor": "Return color that you can use as focus color.",
-      "getGradientBackground": "Return color that you can use as background css attribute.",
-      "hookMethods": "hook methods"
+      "title": "API конфигурации иконок",
+      "types": "Типы",
+      "ColorConfig": "Объект, где ключ - это имя цвета, а значение - валидный цвет CSS",
+      "ColorInput": " Валидный цвет CSS",
+      "methods": "Методы",
+      "setColors": "Используется для объединения новых цветов в конфигурацию или обновления существующих цветов",
+      "getColors": "Возвращает текущую конфигурацию цветов",
+      "getColor": "Возвращает цвет по имени",
+      "getBoxShadowColor": "Возвращает цвет, который вы можете использовать как цвет для `box-shadow`",
+      "getHoverColor": "Возвращает цвет, который вы можете использовать как цвет для `hover`",
+      "getFocusColor": "Возвращает цвет, который вы можете использовать как цвет для `focus`",
+      "getGradientBackground": "Возвращает цвет, который вы можете использовать как цвет для css атрибута `background`",
+      "hookMethods": "хук"
     }
   },
   "cssVariables": {
