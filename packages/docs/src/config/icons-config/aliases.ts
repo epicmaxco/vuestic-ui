@@ -33,4 +33,12 @@ export const aliases: IconConfiguration[] = [
     name: 'warning',
     to: 'warning',
   },
+  {
+    name: 'ellipsis',
+    to: 'fa4-ellipsis-h',
+  },
+  {
+    name: 'battery',
+    to: 'fa4-battery-full',
+  },
 ]

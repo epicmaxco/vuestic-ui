@@ -1,12 +1,12 @@
 <template>
-  <va-button icon="home" color="white" flat :rounded="false" />
-  <va-button icon="info" color="white" flat :rounded="false" />
-  <va-button icon="battery" color="white" flat :rounded="false" />
+  <va-button icon="home" :color="color" flat :rounded="false" />
+  <va-button icon="info" :color="color" flat :rounded="false" />
+  <va-button icon="battery" :color="color" flat :rounded="false" />
   <va-spacer />
-  <va-button color="white" flat :rounded="false">
+  <va-button :color="color" flat :rounded="false">
     Login
   </va-button>
-  <va-button-dropdown size="small" icon="ellipsis">
+  <va-button-dropdown :color="color" size="small" icon="ellipsis">
     Content
   </va-button-dropdown>
 </template>
@@ -23,6 +23,12 @@ export default {
     VaButton,
     VaSpacer,
     VaButtonDropdown,
+  },
+  props: {
+    color: {
+      type: String,
+      default: 'gray',
+    },
   },
 }
 </script>

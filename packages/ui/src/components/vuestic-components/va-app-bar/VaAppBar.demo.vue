@@ -14,7 +14,7 @@
       <div class="frame">
         <div class="display">
           <va-app-bar color="secondary">
-            <AppBarTestContent />
+            <AppBarTestContent color="" />
           </va-app-bar>
         </div>
       </div>
