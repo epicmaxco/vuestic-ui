@@ -102,9 +102,9 @@
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
         "id": "Applies `id` to internal input component. Useful for native forms.",
         "name": "Applies `name` to internal input component. Useful for native forms.",
-        "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
+        "tag": "Заменяет тег html. Это полезно для семантики, а также для обеспечения валидной разметки в некоторых случаях (`ul > li` и `tr > td`, etc)",
         "size": "Изменияет размер компонента. Доступны следющие опции: 'small', 'medium', 'large'. Если вам нужна более тонкая настройка, вы можете указать число (будет использовано как `px`) или строковое значение (поддерживаются `rem` и `px`).",
-        "disabled": "Applies *disabled* style and removes all user interaction effects.",
+        "disabled": "Применяет стиль `disabled` и удаляются все эффекты взаимодействия с пользователем",
         "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
         "success": "Show component in success state.",
         "error": "Show component in error state.",
@@ -115,12 +115,12 @@
         "color": "Цвет компонента (поддерживаемая темой опция или *HEX*)",
         "textColor": "Цвет текста (поддерживаемая темой опция или *HEX*)",
         "rules": "Validation rules <!-- TODO Add link -->.",
-        "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\").",
-        "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\").",
-        "append": "When set, always appends the relative path to the current path. [More info here](https://router.vuejs.org/api/#append \"Vue router docs\").",
-        "exact": "Exactly match the link. Without this, '/' will match every route. [More info here](https://router.vuejs.org/api/#exact \"Vue router docs\").",
-        "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\").",
-        "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
+        "to": "Целевой маршрут ссылки, [подробнее](https://router.vuejs.org/api/#to \"Vue router docs\")",
+        "replace": "Если установлено, при навигации вызывается `router.replace()` вместо `router.push()`, поэтому запись в истории не сохраняется. [Подробнее](https://router.vuejs.org/api/#replace \"Vue router docs\")",
+        "append": "Если установлено, всегда добавляется относительный путь к текущему, [подробнее](https://router.vuejs.org/api/#append \"Vue router docs\")",
+        "exact": "Проверяет точное соотвествие ссылки. Без знака '/' будет соответствовать каждому маршруту, [подробнее](https://router.vuejs.org/api/#exact \"Vue router docs\")",
+        "activeClass": "Применяется к активной ссылке, [подробнее](https://router.vuejs.org/api/#active-class \"Vue router docs\")",
+        "exactActiveClass": "Применяется к активной ссылке c точным соотвествием, [подробнее](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\")",
         "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
         "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
         "src": "Source URL.",
@@ -134,7 +134,7 @@
         "indicator": "Sets the indicator style.",
         "icon": "Sets an icon.",
         "rounded": "Adds rounded corners.",
-        "flat": "Removes borders and background.",
+        "flat": "Удаляет `borders` и фон",
         "outline": "Removes background."
       }
     },
@@ -152,28 +152,28 @@
     },
     "VaButton": {
       "props": {
-        "outline": "Applies outline styling",
-        "flat": "Applies `flat` styling",
-        "icon": "The icon to be displayed to the left of a title",
-        "iconRight": "The icon to be displayed to the right of a title",
-        "type": "Will be used as value for html `type` attribute",
-        "block": "Applies block styling (will take 100% of container width)",
-        "rounded": "Adds rounded corners",
-        "round": "Makes the button round",
-        "spaceBetweenItems": "Sets margin between multiple buttons",
-        "gradient": "Makes the button color a gradient",
-        "href": "Will be used as value for html `href` attribute. (If used, `<button />` will be replaced with `<a>` tag)",
-        "target": "Will be used as value for html `target` attribute (If used, `<button />` will be replaced with `<a>` tag)"
+        "outline": "Применяет очерченный (`outline`) стиль",
+        "flat": "Применяет плоский (`flat`) стиль",
+        "icon": "Иконка, отображаемая слева от заголовка",
+        "iconRight": "Иконка, отображаемая справа от заголовка",
+        "type": "Значение html атрибута `type`",
+        "block": "Применяет стиль `block` (элемент будет занимать 100% ширины контейнера)",
+        "rounded": "Применяет скругления",
+        "round": "Делает кнопку круглой",
+        "spaceBetweenItems": "Устанавливает расстояние между несколькими кнопками",
+        "gradient": "Применяет градиент к цвету кнопки",
+        "href": "Будет использоваться как значение html атрибута `href` (если используется `<button />`, будет заменено на `<a>`)",
+        "target": "Будет использоваться как значение html атрибута `target` (если используется `<button />`, будет заменено на `<a>`)"
       },
       "slots": {
-        "default": "Slot for button content"
+        "default": "Контент кнопки"
       },
       "events": {
-        "click": "Emitted when user clicks on button"
+        "click": "Эммитится, когда пользователь кликает на кнопку"
       },
       "methods": {
-        "focus": "Sets focus on button",
-        "blur": "Removes focus from button"
+        "focus": "Устанавливает фокус на кнопку",
+        "blur": "Удаляет фокус с кнопки"
       }
     },
     "VaForm": {
@@ -522,7 +522,7 @@
         "scrollTarget": "The element to be used as a scroll container instead of default one. Could be CSS selector or Element. When not set - direct wrapper will be used as a scroll container.",
         "debounce": "Debounce to be applied when listening to scroll event. Useful to prevent user from triggering loading multiple times.",
         "load": "Function that loads data. Should return Promise",
-        "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
+        "tag": "Заменяет тег html. Это полезно для семантики, а также для обеспечения валидной разметки в некоторых случаях (`ul > li` и `tr > td`, etc)"
       },
       "slots": {
         "loading": "Shown when content is fetching.",
