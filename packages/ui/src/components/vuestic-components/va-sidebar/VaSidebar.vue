@@ -18,7 +18,7 @@ import { getGradientBackground } from '../../../services/color-config/color-func
 import { useColors } from '../../../services/color-config/color-config'
 
 class SidebarProps {
-  color = prop<string>({ type: String, default: 'secondary' })
+  color = prop<string>({ type: String, default: 'background' })
   textColor = prop<string>({ type: String, default: undefined })
   gradient = prop<boolean>({ type: Boolean, default: false })
   minimized = prop<boolean>({ type: Boolean, default: false })
