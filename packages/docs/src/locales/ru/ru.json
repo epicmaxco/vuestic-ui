@@ -133,9 +133,11 @@
         "square": "Удаляет скругления",
         "indicator": "Sets the indicator style.",
         "icon": "Sets an icon.",
-        "rounded": "Adds rounded corners.",
+        "rounded": "Добавляет скругления",
         "flat": "Удаляет `borders` и фон",
-        "outline": "Удаляет фон"
+        "outline": "Удаляет фон",
+        "gradient": "Добавляет градиент фона",
+        "modelValue": "Значение модели"
       }
     },
     "VaBadge": {
@@ -876,13 +878,14 @@
     },
     "VaButtonToggle": {
       "props": {
-        "options": "The array of objects with `label` and `value` properties",
-        "value": "Current toggle state",
-        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
-        "toggleColor": "Color of the toggle button"
+        "options": "Массив объектов со свойствами label и value",
+        "value": "Текущее значение переключателя",
+        "size": "Изменияет размер компонента. Доступны следющие опции: 'small', 'medium', 'large'",
+        "toggleColor": "Цвет кнопки-переключателя",
+        "activeButtonTextColor": "Цвет текста кнопки с выбранным значением"
       },
       "events": {
-        "input": "Emits when toggling to the different button"
+        "input": "Эммитится при переключении между кнопками"
       },
       "methods": {},
       "slots": {}
@@ -1007,7 +1010,7 @@
     "colorPalette": "Color Palette",
     "datePicker": "Date Picker",
     "buttonGroup": "Группа кнопок",
-    "buttonToggle": "Button Toggle",
+    "buttonToggle": "Кнопка-переключатель",
     "buttonDropdown": "Кнопка с меню",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading",
@@ -2587,36 +2590,36 @@
     }
   },
   "buttonToggle": {
-    "title": "Button Toggle",
-    "summaryText": "The button is used to switch between different values.",
+    "title": "Кнопка-переключатель",
+    "summaryText": "Кнопка используется для переключения между различными значениями",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "By default, an object with parameters and a v-model is to be passed."
+        "title": "Базовое использование",
+        "text": "По умолчанию передается объект с опциями и параметр для `v-model`"
       },
       "colors": {
-        "title": "Colors",
-        "text": "Applies color presets and HEX colors."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)"
       },
       "toggleColor": {
-        "title": "Toggler color",
-        "text": "Use `toggle-color` prop to set the color of the active button."
+        "title": "Цвет активной кнопки",
+        "text": "Свойство `toggle-color` используется для изменения цвета кнопки с выбранным значением"
       },
       "gradient": {
-        "title": "Gradient",
-        "text": "Applies gradient style to background."
+        "title": "Градиент",
+        "text": "Свойство `gradient` применяет градиент к цвету фона"
       },
       "sizes": {
-        "title": "Sizes",
-        "text": "You can provide size presets to the component."
+        "title": "Размер",
+        "text": "Свойство `size` задает размер кнопкам"
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can set button styles to the component."
+        "title": "Разные стили",
+        "text": "Вы можете использовать стили компонента [va-button](https://vuestic.dev/ui-elements/button)"
       },
       "disabled": {
-        "title": "Disabled",
-        "text": "The component can be disabled."
+        "title": "Недоступная кнопка",
+        "text": "Свойство `disabled` запрещает любые действия с кнопкой."
       }
     }
   },
