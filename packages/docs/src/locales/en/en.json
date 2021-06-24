@@ -2064,7 +2064,7 @@
   },
   "icon": {
     "title": "Icon",
-    "summaryText": "The `va-icon` component allows you to use different icon fonts.",
+    "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons).",
     "examples": {
       "default": {
         "title": "Default",
@@ -2896,7 +2896,7 @@
   },
   "iconsConfig": {
     "title": "Icons config",
-    "about": "By default Vuestic UI provides Material Design icons. If you want to use other font libraries you can configure VaIcon to use them.",
+    "about": "By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons). If you want to use other font libraries you can configure VaIcon to use them.",
     "readMore": "Read more",
     "readBeforeStart": "Read about icons component",
     "example": "Example",
