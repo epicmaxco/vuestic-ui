@@ -103,7 +103,7 @@
         "id": "Applies `id` to internal input component. Useful for native forms.",
         "name": "Applies `name` to internal input component. Useful for native forms.",
         "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
-        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will be used as `px`) or string value (`rem` and `px` sizes are supported).",
+        "size": "Изменияет размер компонента. Доступны следющие опции: 'small', 'medium', 'large'. Если вам нужна более тонкая настройка, вы можете указать число (будет использовано как `px`) или строковое значение (поддерживаются `rem` и `px`).",
         "disabled": "Applies *disabled* style and removes all user interaction effects.",
         "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
         "success": "Show component in success state.",
@@ -112,8 +112,8 @@
         "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
         "stateful": "Добавляет возможность работы с компонентом без настройки `v-model`.",
-        "color": "Color of the component (theme string or *HEX* string).",
-        "textColor": "Text color (theme string or *HEX* string).",
+        "color": "Цвет компонента (поддерживаемая темой опция или *HEX*)",
+        "textColor": "Цвет текста (поддерживаемая темой опция или *HEX*)",
         "rules": "Validation rules <!-- TODO Add link -->.",
         "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\").",
         "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\").",
@@ -127,10 +127,10 @@
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type.",
         "label": "Same as native `label`.",
         "leftLabel": "Moves the label on the left of a component.",
-        "loading": "Indicates that something is loading (spinner icon).",
+        "loading": "Индикатор загрузки (иконка спиннера).",
         "trueValue": "Overrides the returned value when it's checked.",
         "falseValue": "Overrides the returned value when it's not checked.",
-        "square": "Removes rounded corners.",
+        "square": "Удаляет скругления",
         "indicator": "Sets the indicator style.",
         "icon": "Sets an icon.",
         "rounded": "Adds rounded corners.",
@@ -472,13 +472,13 @@
     },
     "VaAvatar": {
       "props": {
-        "icon": "The icon to be displayed inside a container",
-        "src": "URL to the image (will be placed inside `src` attribute of image tag)",
-        "fontSize": "The font-size of text inside avatar",
-        "email": "Will display `gravatar` for provided email address"
+        "icon": "Иконка, которая будет отображаться внутри контейнера",
+        "src": "URL-адрес изображения (будет помещен в атрибут `src` тега изображения)",
+        "fontSize": "Размер текста внутри аватара",
+        "email": "Будет отображать `gravatar` для предоставленного email"
       },
       "slots": {
-        "default": "Use this slot to replace default content to be displayed inside the component"
+        "default": "Используйте этот слот для замены содержимого по умолчанию, отображаемого внутри компонента"
       }
     },
     "VaCheckbox": {
