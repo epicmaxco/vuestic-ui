@@ -871,7 +871,7 @@
     },
     "VaButtonGroup": {
       "slots": {
-        "default": "Slot for buttons"
+        "default": "Кнопки"
       }
     },
     "VaButtonToggle": {
@@ -1006,7 +1006,7 @@
     "colorSlider": "Color Slider",
     "colorPalette": "Color Palette",
     "datePicker": "Date Picker",
-    "buttonGroup": "Button Group",
+    "buttonGroup": "Группа кнопок",
     "buttonToggle": "Button Toggle",
     "buttonDropdown": "Кнопка с меню",
     "appBar": "App Bar",
@@ -2557,32 +2557,32 @@
     }
   },
   "buttonGroup": {
-    "title": "Button Group",
-    "summaryText": "It is a special component that wraps buttons and applies special styles to them.",
+    "title": "Группа кнопок",
+    "summaryText": "Это специальный компонент, который обертывает кнопки и применяет к ним специальные стили",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "By default, you need to wrap your buttons with a `va-button-group` component."
+        "title": "Базовое использование",
+        "text": "По умолчанию вам необходимо обернуть ваши кнопки компонентом `va-button-group`"
       },
       "colors": {
-        "title": "Colors",
-        "text": "Component provides color to each child button."
+        "title": "Цвет",
+        "text": "Компонент передает свойство `color` каждой дочерней кнопке"
       },
       "gradient": {
-        "title": "Gradient",
-        "text": "It’s used to apply a gradient style to a background."
+        "title": "Градиент",
+        "text": "Свойство `gradient` применяет градиент к цвету фона"
       },
       "sizes": {
-        "title": "Sizes",
-        "text": "You can set different sizes."
+        "title": "Размер",
+        "text": "Свойство `size` задает размер кнопкам"
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can set button styles."
+        "title": "Разные стили",
+        "text": "Вы можете использовать стили компонента [va-button](https://vuestic.dev/ui-elements/button)"
       },
       "icons": {
-        "title": "Icons",
-        "text": "Looks good with icons provided to buttons."
+        "title": "Иконки",
+        "text": "Вы можете кастомизировать ваши кнопки используя иконки"
       }
     }
   },
@@ -3040,28 +3040,28 @@
         "text": "По умолчанию, обернет ваш контент в компонент `va-button-dropdown`"
       },
       "split": {
-        "title": "Split",
-        "text": "Опция `split` разделяет элемент на 2 отдельные кнопки"
+        "title": "Разделение",
+        "text": "Свойство `split` разделяет элемент на 2 отдельные кнопки"
       },
       "colors": {
-        "title": "Color",
-        "text": "Опция `color` применяет цвет к кнопке"
+        "title": "Цвет",
+        "text": "Свойство `color` применяет цвет к кнопке"
       },
       "sizes": {
-        "title": "Size",
-        "text": "Опция `size` задает размер кнопке"
+        "title": "Размер",
+        "text": "Свойство `size` задает размер кнопке"
       },
       "styles": {
         "title": "Стили",
         "text": "Применяются те же стили, что и для компонента [va-button](https://vuestic.dev/ui-elements/button)"
       },
       "disabled": {
-        "title": "Disabled",
-        "text": "Опция `disabled` применяет стиль неактивной кнопки и отменяет любый действия с ней"
+        "title": "Недоступная кнопка",
+        "text": "Свойство `disabled` применяет стиль неактивной кнопки и отменяет любый действия с ней"
       },
       "icons": {
         "title": "Иконки",
-        "text": "Опции `icon`, `left-icon` и `opened-icon` применяют иконки к кнопке"
+        "text": "Свойства `icon`, `left-icon` и `opened-icon` применяют иконки к кнопке"
       },
       "events": {
         "title": "События",
@@ -3069,7 +3069,7 @@
       },
       "clickInside": {
         "title": "Внутренний клик (контент)",
-        "text": "Опция `close-on-content-click` позволяет настроить закрытие или отменить его по клику на контент"
+        "text": "Свойство `close-on-content-click` позволяет настроить закрытие или отменить его по клику на контент"
       }
     }
   },
