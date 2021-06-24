@@ -34,7 +34,6 @@
     "detect-browser": "^5.2.0",
     "element-resize-detector": "^1.2.1",
     "flatpickr": "4.6.9",
-    "gravatar": "^1.8.0",
     "lodash": "^4.17.20",
     "normalize.css": "^8.0.1",
     "vue": "^3.0.4",
