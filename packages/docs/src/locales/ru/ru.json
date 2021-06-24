@@ -111,7 +111,7 @@
         "messages": "Description messages for the component.",
         "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
-        "stateful": "Add possibility to work with component without setting `v-model`.",
+        "stateful": "Добавляет возможность работы с компонентом без настройки `v-model`.",
         "color": "Color of the component (theme string or *HEX* string).",
         "textColor": "Text color (theme string or *HEX* string).",
         "rules": "Validation rules <!-- TODO Add link -->.",
@@ -531,26 +531,26 @@
     },
     "VaAlert": {
       "props": {
-        "value": "The current visibility state of the alert",
-        "title": "The text content placed in the title",
-        "description": "The text content of the alert",
-        "icon": "Show icon in front of alert content",
-        "closeIcon": "Replace the default close icon with a custom one",
-        "closeText": "Use text instead of the close icon",
-        "closeable": "Add a close alert area",
-        "center": "Center the title and description of the alert",
-        "borderColor": "Border color of the alert",
-        "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available.",
-        "dense": "Reduces alert paddings"
+        "value": "Текущее состояние видимости `alert`",
+        "title": "Текста заголовка",
+        "description": "Текст сообщения",
+        "icon": "Отображать иконку перед содержанием",
+        "closeIcon": "Заменить иконку закрытия по умолчанию на собственный",
+        "closeText": "Текст вместо иконки закрытия",
+        "closeable": "Добавляет зону закрытия",
+        "center": "Центрирование заголовка и сообщения",
+        "borderColor": "Цвет для border",
+        "border": "Полоса border. Доступные опции расположения: 'top', 'right', 'bottom', 'left'.",
+        "dense": "Уменьшает отступы вокруг сообщения"
       },
       "methods": {
-        "hide": "Hide alert. On stateless alert only emits `input`"
+        "hide": "Скрывает alert. Для stateless только эммитит `input`"
       },
       "slots": {
-        "default": "Content of alert body",
-        "title": "Alert title area content",
-        "icon": "Alert icon area content",
-        "close": "Alert close area content"
+        "default": "Тело компонента",
+        "title": "Заголовок",
+        "icon": "Иконка",
+        "close": "Иконка закрытия"
       }
     },
     "VaIcon": {
@@ -948,12 +948,12 @@
       }
     },
     "categories": {
-      "view": "View",
-      "form": "Form",
-      "layout": "Layout",
-      "navigation": "Navigation",
-      "color": "Color",
-      "other": "Other"
+      "view": "Отображение",
+      "form": "Форма",
+      "layout": "Расположение",
+      "navigation": "Навигация",
+      "color": "Цвет",
+      "other": "Другое"
     },
     "introduction": "Введение",
     "gettingStarted": "Начало работы",
@@ -1008,7 +1008,7 @@
     "datePicker": "Date Picker",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
-    "buttonDropdown": "Button Dropdown",
+    "buttonDropdown": "Кнопка с меню",
     "appBar": "App Bar",
     "innerLoading": "Inner Loading",
     "installation": "Установка",
@@ -2033,7 +2033,7 @@
         "text": "Свойство `color` используется, чтобы изменить цвет компонента."
       },
       "styles": {
-        "title": "Разные стили",
+        "title": "Стили компонента",
         "text": "Для компонента `va-alert` доступно 3 стиля: `color`, `outlined` и `border`."
       },
       "border": {
