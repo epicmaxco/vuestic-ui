@@ -2249,47 +2249,47 @@
       "align": {
         "title": "`align`:",
         "variants": [
-          "`.align--start` - cross-start margin edge of the items is placed on the cross-start line",
-          "`.align--end` - cross-end margin edge of the items is placed on the cross-end line",
-          "`.align--center` - items are centered in the cross-axis",
-          "`.align--baseline` - items are aligned such as their baselines align"
+          "`.align--start` - край поля элемента помещается на линию начала поперечной оси (cross-start)",
+          "`.align--end` - край поля элемента помещается на линию конца поперечной оси (cross-end)",
+          "`.align--center` - элементы центруются по поперечной оси (cross-axis)",
+          "`.align--baseline` - элементы выравниваются согласно их базовых линий (baselines)"
         ]
       },
       "alignSelf": {
         "title": "`align-self`:",
         "variants": [
-          "`.align-self--start` - cross-start margin edge of the items is placed on the cross-start line",
-          "`.align-self--end` - cross-end margin edge of the items is placed on the cross-end line",
-          "`.align-self--center` - items are centered in the cross-axis",
-          "`.align-self--baseline` - items are aligned such as their baselines align"
+          "`.align-self--start` - край поля элемента помещается на линию начала поперечной оси (cross-start)",
+          "`.align-self--end` - край поля элемента помещается на линию конца поперечной оси (cross-end)",
+          "`.align-self--center` - элементы центруются по поперечной оси (cross-axis)",
+          "`.align-self--baseline` - элементы выравниваются согласно их базовых линий (baselines)"
         ]
       },
       "alignContent": {
         "title": "`align-content`:",
         "variants": [
-          "`.align-content--start` - lines packed to the start of the container",
-          "`.align-content--end` - lines packed to the end of the container",
-          "`.align-content--center` - lines packed to the center of the container",
-          "`.align-content--space-between` - lines evenly distributed; the first line is at the start of the container while the last one is at the end",
-          "`.align-content--space-around` - lines evenly distributed with equal space between them"
+          "`.align-content--start` - строки расположены в начале контейнера",
+          "`.align-content--end` - строки расположены в конце контейнера",
+          "`.align-content--center` - строки расположены по центру контейнера",
+          "`.align-content--space-between` - строки равномерно распределены; первая строка находится в начале контейнера, а последняя - в конце",
+          "`.align-content--space-around` - строки равномерно распределены с равным пространством между ними"
         ]
       },
       "justify": {
         "title": "`justify`:",
         "variants": [
-          "`.justify--start` - items are packed toward the start line",
-          "`.justify--end` - items are packed toward to end line",
-          "`.justify--center` - items are centered along the line",
-          "`.justify--space-around` - items are evenly distributed in the line with equal space around them",
-          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item on the end line"
+          "`.justify--start` - элементы расположены в начале контейнера",
+          "`.justify--end` - элементы расположены в конце контейнера",
+          "`.justify--center` - элементы расположены по центру контейнера",
+          "`.justify--space-between` - элементы равномерно распределены; первый элемент находится в начале контейнера, а последний - в конце",
+          "`.justify--space-around` - элементы равномерно распределены по строке с равным пространством вокруг них"
         ]
       },
       "justifySelf": {
         "title": "`justify-self`:",
         "variants": [
-          "`.justify-self--start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
-          "`.justify-self--end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
-          "`.justify-self--center` - For items that are not children of a flex container, this value is treated like start.",
+          "`.justify-self--start` - элементы расположены на одном уровне друг с другом в начале выравнивающего контейнера по соответствующей оси",
+          "`.justify-self--end` - элементы расположены на одном уровне друг с другом в конце выравнивающего контейнера по соответствующей оси",
+          "`.justify-self--center` - для элементов, которые не являются дочерними по отношению к flex контейнеру, это значение обрабатывается как начало (start)",
           "`.justify-self--baseline`"
         ]
       }
@@ -2801,24 +2801,24 @@
     }
   },
   "table": {
-    "title": "Tables",
-    "summaryText": "You can use the class `.va-table` for customizing styles of your tables. Here is the couple examples",
+    "title": "Таблицы",
+    "summaryText": "Вы можете использовать класс `va-table` для настройки стилей ваших таблиц.",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "Just add the `.va-table` to the table element."
+        "title": "Базовое использование",
+        "text": "Просто добавьте `va-table` к элементу `table`."
       },
       "hoverable": {
-        "title": "Hoverable",
-        "text": "You could add more interaction to rows via additional `.va-table--hoverable` class."
+        "title": "Кастомизация :hover",
+        "text": "Вы можете добавить больше интерактивности к строкам таблицы с помощью дополнительного класса `va-table--hoverable`."
       },
       "striped": {
-        "title": "Striped",
-        "text": "Striped `.va-table--striped` class colorize every second row in the table."
+        "title": "Выделение полосой",
+        "text": "Класс `va-table--striped` позволяет выделить цветом каждую вторую строку в таблице."
       },
       "clickable": {
-        "title": "Clickable",
-        "text": "To make rows look like the mouse `pointer` property add the `.va-table-clickable` class"
+        "title": "Кликабельность",
+        "text": "Чтобы строки при наведении выглядели как свойство `pointer`, добавьте класс `va-table-clickable`."
       }
     }
   },
@@ -3003,15 +3003,15 @@
     }
   },
   "cssVariables": {
-    "title": "Css Variables",
-    "description": "Vuestic UI extracts css as [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). No need to install any loaders or additional packages to override components styles. You can deeply customize components by using simple syntax to change css in your project.",
+    "title": "Переменные CSS",
+    "description": "Vuestic UI выделяет `CSS` как [переменные CSS (пользовательские свойства)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). Нет необходимости устанавливать какие-либо загрузчики или дополнительные пакеты для переопределения стилей компонентов. Вы можете глубоко настраивать компоненты, используя простой синтаксис для изменения CSS в вашем проекте.",
     "convention": {
-      "title": "Convention",
-      "description": "Vuestic UI uses the following convention to organize CSS Variables for more convenient use:"
+      "title": "Соглашения",
+      "description": "В Vuestic UI применяются следующие соглашения для организации переменных CSS для более удобного использования:"
     },
     "overriding": {
-      "title": "Overriding",
-      "description": "You don't need any specific knowledges or packages. Just create file like `overrides.css`, import it into your main.js(ts) file and start redefining as easy as you write css properties:"
+      "title": "Переопределение",
+      "description": "Вам не нужны какие-либо специальные знания или пакеты. Просто создайте файл наподобие `overrides.css`, импортируйте его в свой файл main.js (ts) и начните переопределение так же просто, как написание переменных CSS:"
     }
   },
   "navbar": {
@@ -3117,20 +3117,20 @@
     }
   },
   "typography": {
-    "title": "Typography",
-    "description": "Vuestic UI uses the following typography styling",
-    "headings": "Headings",
+    "title": "Типографика",
+    "description": "В Vuestic UI применяются следующие стили типографики.",
+    "headings": "Заголовки",
     "display1": "`class=\"display-1\"`",
     "display2": "`class=\"display-2\"`",
     "display3": "`class=\"display-3\"`",
     "display4": "`class=\"display-4\"`",
     "display5": "`class=\"display-5\"`",
     "titled": "`class=\"title\"`",
-    "primary": "Default text style",
+    "primary": "Стиль текста по умолчанию",
     "secondary": "`class=\"text--secondary\"`",
     "codeSnippet": "`class=\"code-snippet\"`",
     "textCode": "`class=\"text--code\"`",
-    "other": "Other typography styles",
+    "other": "Другие типографические стили",
     "orderedLists": "`class=\"va-ordered\"`",
     "unorderedLists": "`class=\"va-unordered\"`",
     "link": "`class=\"link\"`",
@@ -3140,10 +3140,10 @@
     "textBlock": "`class=\"text-block\"`"
   },
   "ag-grid-wrapper": {
-    "title": "AG Grid wrapper",
-    "description": "Work in progress",
-    "related": "Related",
-    "styledTablesLink": "Styled tables"
+    "title": "AG Grid Wrapper",
+    "description": "Работа в прогрессе",
+    "related": "Связанный материалы",
+    "styledTablesLink": "Стилизованные таблицы"
   },
   "dataTable": {
     "title": "Data table",
