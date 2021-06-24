@@ -42,20 +42,19 @@ export default defineComponent({
     monthNames: { type: Array as PropType<string[]>, required: true, default: [] },
     year: { type: Number, required: true },
     month: { type: Number, required: true },
+    shouldUpdateModelValue: { type: Boolean, default: false },
   },
 
-  emits: ['update:modelValue', 'hover:month'],
+  emits: ['update:modelValue', 'hover:month', 'click:month'],
 
   setup (props, { emit }) {
-    const { modelValue, year, month } = toRefs(props)
+    const { modelValue, year, month, shouldUpdateModelValue } = toRefs(props)
 
     const { hovered: hoveredMonth } = useHovered<Date>((value) => emit('hover:month', value))
 
     const months = Array.from(Array(12).keys())
 
-    const onMonthClick = (year: number, month: number) => {
-      const date = new Date(year, month)
-
+    const updateModelValue = (date: Date) => {
       if (isSingleDate(modelValue.value)) {
         emit('update:modelValue', date)
       } else if (isPeriod(modelValue.value)) {
@@ -80,13 +79,25 @@ export default defineComponent({
       }
     }
 
+    const onMonthClick = (year: number, month: number) => {
+      const date = new Date(year, month)
+
+      if (shouldUpdateModelValue.value) {
+        updateModelValue(date)
+      }
+
+      emit('click:month', { year, month, date })
+    }
+
+    const compareMonths = (date1: Date, date2: Date) => date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()
+
     const isMonthCurrentValue = (year: number, month: number) => {
       const date = new Date(year, month)
 
       if (isSingleDate(modelValue.value)) {
-        return modelValue.value.getMonth() === month && modelValue.value.getFullYear() === year
+        return compareMonths(modelValue.value, date)
       } else if (isDates(modelValue.value)) {
-        return isDatesArrayInclude(modelValue.value, date)
+        return modelValue.value.find((d) => compareMonths(d, date))
       } else if (isPeriod(modelValue.value)) {
         return isDatesEqual(modelValue.value.start, date) || isDatesEqual(modelValue.value.end, date)
       }

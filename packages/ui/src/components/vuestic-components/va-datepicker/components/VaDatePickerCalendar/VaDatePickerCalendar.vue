@@ -82,8 +82,6 @@ export default defineComponent({
       if (isSingleDate(modelValue.value)) {
         emit('update:modelValue', date)
       } else if (isPeriod(modelValue.value)) {
-        if (isDatesEqual(modelValue.value.start, date) || isDatesEqual(modelValue.value.end, date)) { return }
-
         if (modelValue.value.end !== null) {
           emit('update:modelValue', { start: date, end: null })
           return
