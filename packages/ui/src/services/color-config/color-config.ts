@@ -4,6 +4,7 @@ import {
   getHoverColor, getFocusColor,
   getGradientBackground, isColor,
   getTextColor, shiftHSLAColor,
+  setHSLAColor,
 } from './color-functions'
 
 export type CssColor = string
@@ -58,5 +59,6 @@ export const useColors = () => {
     getGradientBackground,
     getTextColor,
     shiftHSLAColor,
+    setHSLAColor,
   }
 }
