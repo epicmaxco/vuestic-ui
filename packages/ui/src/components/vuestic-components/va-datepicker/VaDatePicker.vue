@@ -20,11 +20,43 @@
       </template>
 
       <va-dropdown-content>
-        <va-date-picker-calendar v-model="valueComputed" v-bind="calendarProps" @hover:day="(value) => $emit('hover:day', value)">
+        <va-date-picker-header
+          v-bind="headerProps"
+          :year="statefulYear"
+          :month="statefulMonth"
+          @next="nextMonth"
+          @prev="prevMonth"
+        >
+          <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+            <slot :name="name" v-bind="bind" />
+          </template>
+        </va-date-picker-header>
+
+        <va-date-picker-calendar
+          v-if="view === 'month'"
+          v-model="valueComputed"
+          v-bind="calendarProps"
+          :year="statefulYear"
+          :month="statefulMonth"
+          @hover:day="(value) => $emit('hover:day', value)"
+        >
           <template v-for="(_, name) in $slots" v-slot:[name]="bind">
             <slot :name="name" v-bind="bind" />
           </template>
         </va-date-picker-calendar>
+
+        <va-date-picker-month-calendar
+          v-if="view === 'year'"
+          v-model="valueComputed"
+          v-bind="calendarProps"
+          :year="statefulYear"
+          :month="statefulMonth"
+          @hover:month="(value) => $emit('hover:month', value)"
+        >
+          <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+            <slot :name="name" v-bind="bind" />
+          </template>
+        </va-date-picker-month-calendar>
       </va-dropdown-content>
     </va-dropdown>
   </div>
@@ -32,12 +64,20 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import VaDatePickerCalendar from './components/VaDatePickerCalendar/VaDatePickerCalendar.vue'
 import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
-import { filterPropValues } from './utils/filter-props-values'
-import { VaDatePickerCalendarProps } from './components/VaDatePickerCalendar/VaDatePickerCalendarProps'
-import { VaDatePickerModelValue } from './types/types'
+
+import { VaDatePickerModelValue, VaDatePickerView } from './types/types'
 import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
+import { useVaDatePickerViewControls } from './hooks/VaDatePickerViewControls'
+import { filterPropValues } from './utils/filter-props-values'
+
+import VaDatePickerCalendar from './components/VaDatePickerCalendar/VaDatePickerCalendar.vue'
+import { VaDatePickerCalendarProps } from './components/VaDatePickerCalendar/VaDatePickerCalendarProps'
+
+import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
+import { VaDatePickerHeaderProps } from './components/VaDatePickerHeader/VaDatePickerHeaderProps'
+
+import VaDatePickerMonthCalendar from './components/VaDatePickerMonthCalendar/VaDatePickerMonthCalendar.vue'
 
 const VaInputProps = {
   label: { type: String, required: false },
@@ -49,25 +89,34 @@ const VaInputProps = {
   bordered: { Boolean, default: false },
 }
 
+const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
+
 export default defineComponent({
   name: 'VaDatePicker',
+
+  components: { VaDatePickerCalendar, VaDatePickerHeader, VaDatePickerMonthCalendar },
 
   props: {
     ...VaInputProps,
     ...VaDatePickerCalendarProps,
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
     color: { type: String, default: 'primary' },
+    year: { type: Number },
+    month: { type: Number },
+    monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
+    weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
+    view: { type: String as PropType<VaDatePickerView>, default: 'month' },
   },
 
-  emits: ['update:modelValue', 'hover:day'],
-
-  components: { VaDatePickerCalendar },
+  emits: ['update:modelValue', 'hover:day', 'hover:month', 'update:year', 'update:month'],
 
   setup (props, { emit, slots }) {
     const { valueComputed } = useStateful(props, emit)
 
     const inputProps = filterPropValues(props, VaInputProps)
     const calendarProps = filterPropValues(props, VaDatePickerCalendarProps)
+    const headerProps = filterPropValues(props, VaDatePickerHeaderProps)
 
     const valueText = computed({
       get: () => {
@@ -98,7 +147,15 @@ export default defineComponent({
       slots,
       inputProps,
       calendarProps,
+      headerProps,
+      ...useVaDatePickerViewControls(props, emit),
     }
   },
 })
 </script>
+
+<style scoped>
+.va-date-picker-header {
+  padding-bottom: 0.5rem;
+}
+</style>

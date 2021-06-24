@@ -1,39 +1,24 @@
 <template>
-  <div class="va-date-picker-calendar">
-    <div class="va-date-picker-calendar__picker">
-      <div class="va-date-picker-calendar__weekdays weekdays" v-if="!hideWeekDays">
-        <div
-          v-for="weekday in weekdayNamesComputed" :key="weekday"
-          class="weekdays__weekday-cell"
-        >
-          <slot name="weekday">
-            {{ weekday }}
-          </slot>
-        </div>
-      </div>
-
+  <div class="va-date-picker-month-calendar">
+    <div class="va-date-picker-month-calendar__picker">
       <div class="va-date-picker-calendar__calendar calendar">
         <div
-          class="calendar__day-wrapper"
-          v-for="date in calendarDates"
-          :key="date"
-          @mouseenter="hoveredDate = date"
-          @mouseleave="hoveredDate = null"
+          class="calendar__month-wrapper"
+          v-for="monthIndex in months"
+          :key="monthIndex"
+          @mouseenter="hoveredMonth = date"
+          @mouseleave="hoveredMonth = null"
         >
           <div
-            class="calendar__day"
+            class="calendar__month month"
             :class="{
-              'current-month': currentMonth === date.getMonth(),
-              'today': highlightTodayDate && isToday(date),
-              'current': isDateCurrentValue(date),
-              'in-range': isDateInRange(date),
-              'not-allowed': isDateNotAllowed(date),
-              'hightlighted-weekend': highlightWeekends && isDateWeekend(date)
+              'current': isMonthCurrentValue(year, monthIndex),
+              'in-range': isMonthInRange(year, monthIndex)
             }"
-            @click="onDateClick(date)"
+            @click="onMonthClick(year, monthIndex)"
           >
-            <slot name="day" v-bind="{ date }">
-              {{ date.getDate() }}
+            <slot name="month" v-bind="{ monthIndex, monthName: monthNames[monthIndex] }">
+              {{ monthNames[monthIndex] }}
             </slot>
           </div>
         </div>
@@ -43,42 +28,34 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, ref } from 'vue'
-import { VaDatePickerCalendarProps } from './VaDatePickerCalendarProps'
-import { useVaDatePickerCalendar } from './VaDatePickerCalendarHook'
+import { defineComponent, PropType, toRefs } from 'vue'
 import { useHovered } from '../../hooks/HoveredOptionHook'
+import { VaDatePickerModelValue } from '../../types/types'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
-import { VaDatePickerModelValue } from '../../types/types'
-
-const isToday = (date: Date): boolean => date.toDateString() === new Date().toDateString()
 
 export default defineComponent({
   name: 'VaDatePickerCalendar',
 
   props: {
-    ...VaDatePickerCalendarProps,
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
+    monthNames: { type: Array as PropType<string[]>, required: true, default: [] },
+    year: { type: Number, required: true },
+    month: { type: Number, required: true },
   },
 
-  emits: ['update:modelValue', 'hover:day'],
+  emits: ['update:modelValue', 'hover:month'],
 
   setup (props, { emit }) {
-    const { modelValue, firstWeekday, weekdayNames, allowedDates, year, month } = toRefs(props)
+    const { modelValue, year, month } = toRefs(props)
 
-    const {
-      currentYear, currentMonth, calendarDates,
-    } = useVaDatePickerCalendar(year, month, { firstWeekday })
+    const { hovered: hoveredMonth } = useHovered<Date>((value) => emit('hover:month', value))
 
-    const { hovered: hoveredDate } = useHovered<Date>((value) => emit('hover:day', value))
+    const months = Array.from(Array(12).keys())
 
-    const weekdayNamesComputed = computed(() => {
-      return firstWeekday.value === 'Sunday'
-        ? weekdayNames.value
-        : [...weekdayNames.value.slice(1), weekdayNames.value[0]]
-    })
+    const onMonthClick = (year: number, month: number) => {
+      const date = new Date(year, month)
 
-    const onDateClick = (date: Date) => {
       if (isSingleDate(modelValue.value)) {
         emit('update:modelValue', date)
       } else if (isPeriod(modelValue.value)) {
@@ -103,9 +80,11 @@ export default defineComponent({
       }
     }
 
-    const isDateCurrentValue = (date: Date) => {
+    const isMonthCurrentValue = (year: number, month: number) => {
+      const date = new Date(year, month)
+
       if (isSingleDate(modelValue.value)) {
-        return modelValue.value.toDateString() === date.toDateString()
+        return modelValue.value.getMonth() === month && modelValue.value.getFullYear() === year
       } else if (isDates(modelValue.value)) {
         return isDatesArrayInclude(modelValue.value, date)
       } else if (isPeriod(modelValue.value)) {
@@ -113,34 +92,26 @@ export default defineComponent({
       }
     }
 
-    const isDateInRange = (date: Date) => {
+    const isMonthInRange = (year: number, month: number) => {
+      const date = new Date(year, month)
+
       if (!isPeriod(modelValue.value)) { return }
 
       if (modelValue.value.end === null) {
         return modelValue.value.start < date
-          ? (hoveredDate.value && hoveredDate.value >= date)
-          : (hoveredDate.value && hoveredDate.value <= date)
+          ? (hoveredMonth.value && hoveredMonth.value >= date)
+          : (hoveredMonth.value && hoveredMonth.value <= date)
       }
 
       return modelValue.value.start < date && modelValue.value.end > date
     }
 
-    const isDateNotAllowed = (date: Date) => allowedDates?.value === undefined ? false : !allowedDates.value(date)
-
-    const isDateWeekend = (date: Date) => date.getDay() === 6 || date.getDay() === 5
-
     return {
-      calendarDates,
-      currentYear,
-      currentMonth,
-      isToday,
-      onDateClick,
-      isDateCurrentValue,
-      isDateInRange,
-      isDateNotAllowed,
-      isDateWeekend,
-      hoveredDate,
-      weekdayNamesComputed,
+      months,
+      hoveredMonth,
+      onMonthClick,
+      isMonthCurrentValue,
+      isMonthInRange,
     }
   },
 })
@@ -149,12 +120,12 @@ export default defineComponent({
 <style lang="scss">
 $cell-height: 34px;
 
-.va-date-picker-calendar {
+.va-date-picker-month-calendar {
   &__picker {
-    .weekdays {
+    .weekmonths {
       display: flex;
 
-      &__weekday-cell {
+      &__weekmonth-cell {
         width: calc(100% / 7);
         text-align: center;
         font-size: 9px;
@@ -168,10 +139,10 @@ $cell-height: 34px;
 
   .calendar {
     display: grid;
-    // 7 columns
-    grid-template-columns: (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7);
+    // 4 columns
+    grid-template-columns: (100% / 4) (100% / 4) (100% / 4) (100% / 4);
 
-    &__day-wrapper {
+    &__month-wrapper {
       padding: 1px;
       border-radius: 6px;
       text-align: center;
@@ -180,7 +151,7 @@ $cell-height: 34px;
       overflow: hidden;
     }
 
-    &__day {
+    &__month {
       color: var(--va-secondary);
       font-family: Source Sans Pro;
       font-style: normal;
@@ -205,7 +176,7 @@ $cell-height: 34px;
         color: var(--va-dark);
       }
 
-      &.today {
+      &.tomonth {
         &::after {
           background-color: var(--va-primary);
           opacity: 0.3;

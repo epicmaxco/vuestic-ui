@@ -8,30 +8,8 @@ export const getMonthStartWeekday = (year: number, month: number) => new Date(ye
 /** Returns array from 1 to length */
 export const getNumbersArray = (length: number) => Array.from(Array(length).keys()).map((k) => k + 1)
 
-export const useVaDatePickerCalendar = (options?: { firstWeekday?: Ref<'Monday' | 'Sunday'> }) => {
+export const useVaDatePickerCalendar = (currentYear: Ref<number>, currentMonth: Ref<number>, options?: { firstWeekday?: Ref<'Monday' | 'Sunday'> }) => {
   const CALENDAR_ROWS_COUNT = 6 // Need 6 rows if first day of a month is Saturday and the last day is Monday 31th.
-
-  const currentMonth = ref(5)
-  const currentYear = ref(2021)
-
-  const nextMonth = () => {
-    // If current month is December
-    if (currentMonth.value === 11) {
-      currentYear.value += 1
-      currentMonth.value = 0
-    } else {
-      currentMonth.value = currentMonth.value + 1
-    }
-  }
-  const prevMonth = () => {
-    // If current month is January
-    if (currentMonth.value === 0) {
-      currentYear.value -= 1
-      currentMonth.value = 11 // set current month is December
-    } else {
-      currentMonth.value = currentMonth.value - 1
-    }
-  }
 
   const localizeWeekday = (weekdayNumber: number) => {
     if (options && options.firstWeekday?.value === 'Monday') {
@@ -82,6 +60,6 @@ export const useVaDatePickerCalendar = (options?: { firstWeekday?: Ref<'Monday' 
   })
 
   return {
-    currentYear, currentMonth, nextMonth, prevMonth, calendarDates,
+    currentYear, currentMonth, calendarDates,
   }
 }

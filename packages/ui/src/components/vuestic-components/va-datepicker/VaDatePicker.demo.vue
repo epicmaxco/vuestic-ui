@@ -86,6 +86,14 @@
     <VbCard title="disable dates">
       <va-date-picker v-model="value" label="Disable all Tuesday and Tuesday" :allowedDates="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
     </VbCard>
+
+    <VbCard title="year view">
+      <va-date-picker v-model="value" label="View year" view="year" class="mb-4" />
+
+      <va-date-picker v-model="range" label="View year" view="year" class="mb-4" />
+
+      <va-date-picker v-model="dates" label="View year" view="year" class="mb-4" />
+    </VbCard>
   </VbDemo>
 </template>
 
