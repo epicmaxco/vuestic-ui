@@ -111,7 +111,7 @@
         "messages": "Description messages for the component.",
         "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
-        "stateful": "Добавляет возможность работы с компонентом без настройки `v-model`.",
+        "stateful": "Добавляет возможность работы с компонентом без настройки `v-model`",
         "color": "Цвет компонента (поддерживаемая темой опция или *HEX*)",
         "textColor": "Цвет текста (поддерживаемая темой опция или *HEX*)",
         "rules": "Validation rules <!-- TODO Add link -->.",
@@ -125,7 +125,7 @@
         "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
         "src": "Source URL.",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type.",
-        "label": "Same as native `label`.",
+        "label": "То же, что и навтивный `label`",
         "leftLabel": "Moves the label on the left of a component.",
         "loading": "Индикатор загрузки (иконка спиннера).",
         "trueValue": "Overrides the returned value when it's checked.",
@@ -135,7 +135,7 @@
         "icon": "Sets an icon.",
         "rounded": "Adds rounded corners.",
         "flat": "Удаляет `borders` и фон",
-        "outline": "Removes background."
+        "outline": "Удаляет фон"
       }
     },
     "VaBadge": {
@@ -777,29 +777,29 @@
     },
     "VaButtonDropdown": {
       "props": {
-        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available.",
-        "disableDropdown": "Disables the dropdown menu.",
-        "disableButton": "Disables the button.",
-        "round": "Sets the square style for a button.",
-        "split": "Divides the button into two parts. This is useful when you have main action (button) and a number of secondary actions (icon + dropdown).",
-        "splitTo": "Sets a vue navigation link in a split component.",
+        "size": "Задает размер кнопки. Возможные опции: `small`, `medium` и `large`",
+        "disableDropdown": "Применяет `disabled` к выпадающему меню",
+        "disableButton": "Применяет `disabled` к кнопке",
+        "round": "Устанавливает квадратный стиль для кнопки",
+        "split": "Разделяет элемент на 2 кнопки. Это полезно, когда у вас есть основное действие (кнопка) и ряд второстепенных действий (иконка + раскрывающийся список)",
+        "splitTo": "Устанавливает ссылку навигации vue-router в компоненте при применении опции `split`",
         "splitHref": "Sets a native navigation link in a split component.",
-        "icon": "Applies a custom icon in the dropdown section.",
+        "icon": "Применяет кастомную иконку к раскрывающемуся муню",
         "leftIcon": "Applies a button left icon.",
-        "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened.",
-        "position": "Sets the position of the dropdown content.",
-        "keepAnchorWidth": "Keeps anchor position the same.",
-        "offset": "Sets the distance between dropdown and anchor.",
-        "modelValue": "Sets a dropdown state.",
-        "closeOnContentClick": "Sets dropdown content on click behavior."
+        "openedIcon": "Применяет кастомную иконку в выпадающему меню, когда оно открыто",
+        "position": "Устанавливает расположение выпадающего меню",
+        "keepAnchorWidth": "Сохраняет положение якоря прежним",
+        "offset": "Устанавливает расстояние между выпадающим меню и якорем",
+        "modelValue": "Устанавливет значение опции `model` для компонента",
+        "closeOnContentClick": "Устанавливает закрытие или отменияет его по клику на контент"
       },
       "events": {
-        "click": "Emitted when user clicks on button.",
-        "mainButtonClick": "Emitted when user clicks on main button in split component."
+        "click": "Эммитится при клике на кнопку",
+        "mainButtonClick": "Эммитится при клике на основную кнопку при применении опции `split`"
       },
       "methods": {},
       "slots": {
-        "default": "Dropdown content slot."
+        "default": "Контент выпадающего меню"
       }
     },
     "VaColorPicker": {
@@ -3032,44 +3032,44 @@
     }
   },
   "buttonDropdown": {
-    "title": "Button Dropdown",
-    "summaryText": "This is a button that displays drop-down content when clicked.",
+    "title": "Кнопка с меню",
+    "summaryText": "Кнопка, при нажатии на которую отображается раскрывающееся содержимое",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "By default, wrap your content in `va-button-dropdown` component."
+        "title": "Базовое использование",
+        "text": "По умолчанию, обернет ваш контент в компонент `va-button-dropdown`"
       },
       "split": {
         "title": "Split",
-        "text": "You can split the button in two."
+        "text": "Опция `split` разделяет элемент на 2 отдельные кнопки"
       },
       "colors": {
-        "title": "Colors",
-        "text": "The `va-dropdown-button` can be colored."
+        "title": "Color",
+        "text": "Опция `color` применяет цвет к кнопке"
       },
       "sizes": {
-        "title": "Sizes",
-        "text": "Component can apply button sizes."
+        "title": "Size",
+        "text": "Опция `size` задает размер кнопке"
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can use the same styles as in `va-button`."
+        "title": "Стили",
+        "text": "Применяются те же стили, что и для компонента [va-button](https://vuestic.dev/ui-elements/button)"
       },
       "disabled": {
         "title": "Disabled",
-        "text": "The component can be disabled."
+        "text": "Опция `disabled` применяет стиль неактивной кнопки и отменяет любый действия с ней"
       },
       "icons": {
-        "title": "Icons",
-        "text": "You can set the dropdown icon."
+        "title": "Иконки",
+        "text": "Опции `icon`, `left-icon` и `opened-icon` применяют иконки к кнопке"
       },
       "events": {
-        "title": "Events",
-        "text": "The `va-dropdown-button` can handle click events."
+        "title": "События",
+        "text": "Компонент `va-dropdown-button` может обрабатывать события клика"
       },
       "clickInside": {
-        "title": "Click inside",
-        "text": "You could set the dropdown to be closed or not after clicking on its content."
+        "title": "Внутренний клик (контент)",
+        "text": "Опция `close-on-content-click` позволяет настроить закрытие или отменить его по клику на контент"
       }
     }
   },
