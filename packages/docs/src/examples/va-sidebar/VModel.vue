@@ -21,7 +21,7 @@
 
   <div
     class="demo-controls px-2 py-2"
-    style="background: var(--va-secondary); width: 100%;"
+    style="background: var(--va-background); width: 100%;"
   >
     <va-checkbox v-model="enabled" label="Shown" />
   </div>
