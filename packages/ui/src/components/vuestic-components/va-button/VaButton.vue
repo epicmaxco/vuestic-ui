@@ -341,7 +341,7 @@ export default class VaButton extends mixins(
     @include va-button(var(--va-button-lg-content-py), var(--va-button-lg-content-px), var(--va-button-lg-font-size), var(--va-button-lg-line-height), var(--va-button-lg-border-radius));
 
     letter-spacing: var(--va-button-lg-letter-spacing);
-    height: var(--va-button-lg-size);
+    min-height: var(--va-button-lg-size);
     min-width: var(--va-button-lg-size);
 
     .va-button__content {
@@ -375,7 +375,7 @@ export default class VaButton extends mixins(
     @include va-button(var(--va-button-sm-content-py), var(--va-button-sm-content-px), var(--va-button-sm-font-size), var(--va-button-sm-line-height), var(--va-button-sm-border-radius));
 
     letter-spacing: var(--va-button-sm-letter-spacing);
-    height: var(--va-button-sm-size);
+    min-height: var(--va-button-sm-size);
     min-width: var(--va-button-sm-size);
 
     .va-button__content {
@@ -409,7 +409,7 @@ export default class VaButton extends mixins(
     @include va-button(var(--va-button-content-py), var(--va-button-content-px), var(--va-button-font-size), var(--va-button-line-height), var(--va-button-border-radius));
 
     letter-spacing: var(--va-button-letter-spacing, var(--va-letter-spacing));
-    height: var(--va-button-size);
+    min-height: var(--va-button-size);
     min-width: var(--va-button-size);
 
     .va-button__content {

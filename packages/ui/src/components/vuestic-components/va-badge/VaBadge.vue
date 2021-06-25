@@ -89,7 +89,6 @@ export default class VaBadge extends mixins(
     display: var(--va-badge-text-wrapper-display);
     border: var(--va-badge-text-wrapper-border, var(--va-control-border));
     border-radius: var(--va-badge-text-wrapper-border-radius);
-    font-size: var(--va-badge-text-wrapper-font-size);
     font-weight: var(--va-badge-text-wrapper-font-weight);
     font-family: var(--va-badge-text-wrapper-font-family, var(--va-font-family));
     line-height: var(--va-badge-text-wrapper-line-height);
@@ -182,6 +181,7 @@ export default class VaBadge extends mixins(
     justify-content: center;
     text-overflow: clip;
     white-space: nowrap;
+    font-size: var(--va-badge-font-size);
 
     .va-badge--multiLine & {
       overflow: auto;
