@@ -1,4 +1,6 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaDatePicker from './VaDatePicker.vue'
+import VaDatePickerComponent from './VaDatePicker.vue'
+import VaDateInputComponent from './VaDateInput.vue'
 
-export default withConfigTransport(VaDatePicker)
+export const VaDatePicker = withConfigTransport(VaDatePickerComponent)
+export const VaDateInput = withConfigTransport(VaDateInputComponent)

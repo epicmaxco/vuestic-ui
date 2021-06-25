@@ -17,8 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue'
-import { VaDatePickerHeaderProps } from './VaDatePickerHeaderProps'
+import { defineComponent, toRefs, PropType } from 'vue'
 import { useSyncProp } from '../../hooks/StatefulProp'
 import { VaDatePickerView } from '../../types/types'
 
@@ -27,7 +26,13 @@ export default defineComponent({
 
   emits: ['update:year', 'update:month', 'update:view'],
 
-  props: VaDatePickerHeaderProps,
+  props: {
+    // Use default here to make year and month not undefined type
+    year: { type: Number, required: true, default: () => 0 },
+    month: { type: Number, required: true, default: () => 0 },
+    monthNames: { type: Array, required: true },
+    view: { type: String as PropType<VaDatePickerView>, required: true },
+  },
 
   setup (props, { emit }) {
     const { year, month, view } = toRefs(props)
@@ -37,7 +42,7 @@ export default defineComponent({
 
     const next = () => {
       if (view?.value === 'month') {
-      // If current month is December
+        // If current month is December
         if (syncMonth.value === 11) {
           syncYear.value = syncYear.value + 1
           syncMonth.value = 0

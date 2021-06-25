@@ -44,7 +44,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, ref } from 'vue'
-import { VaDatePickerCalendarProps } from './VaDatePickerCalendarProps'
 import { useVaDatePickerCalendar } from './VaDatePickerCalendarHook'
 import { useHovered } from '../../hooks/HoveredOptionHook'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
@@ -54,10 +53,19 @@ import { VaDatePickerModelValue } from '../../types/types'
 const isToday = (date: Date): boolean => date.toDateString() === new Date().toDateString()
 
 export default defineComponent({
-  name: 'VaDatePickerCalendar',
+  name: 'VaDayPicker',
 
   props: {
-    ...VaDatePickerCalendarProps,
+    monthNames: { type: Array as PropType<string[]>, required: true, default: [] },
+    weekdayNames: { type: Array as PropType<string[]>, required: true, default: [] },
+    firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
+    allowedDates: { type: Function as PropType<(date: Date) => boolean>, required: false },
+    highlightTodayDate: { type: Boolean, default: true },
+    highlightWeekends: { type: Boolean, default: false },
+    weekends: { type: [Function] as PropType<(d: Date) => boolean>, default: undefined },
+    hideWeekDays: { type: Boolean, default: false },
+    year: { type: Number, required: true, default: () => new Date().getFullYear() },
+    month: { type: Number, required: true, default: () => new Date().getMonth() },
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
   },
 
@@ -153,7 +161,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$cell-height: 34px;
+$cell-size: 34px;
 
 .va-date-picker-calendar {
   &__picker {
@@ -166,8 +174,8 @@ $cell-height: 34px;
         font-size: 9px;
         color: var(--va-secondary);
         font-weight: bold;
-        height: $cell-height;
-        line-height: $cell-height;
+        height: $cell-size;
+        line-height: $cell-size;
       }
     }
   }
@@ -192,8 +200,9 @@ $cell-height: 34px;
       font-style: normal;
       font-weight: 600;
       font-size: 12px;
-      height: $cell-height;
-      line-height: $cell-height;
+      height: $cell-size;
+      min-width: $cell-size;
+      line-height: $cell-size;
       position: relative;
 
       &::after,

@@ -1,43 +1,32 @@
 <template>
   <div class="va-date-picker">
-    <va-date-picker-header
-      v-bind="headerProps"
-      v-model:year="viewYear"
-      v-model:month="viewMonth"
-      v-model:view="viewView"
-    >
-      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-        <slot :name="name" v-bind="bind" />
+    <va-dropdown keep-anchor-width :offset="[0, 10]" :close-on-content-click="false">
+      <template #anchor>
+        <va-input
+          v-model="valueText"
+          v-bind="inputProps"
+        >
+          <template
+            v-for="slot in ['append', 'prepend', 'prependInner', 'appendInner']"
+            :key="slot"
+            v-slot:[slot]="slotScope"
+          >
+            <slot v-if="slot === 'appendInner'" :name="slot" v-bind="slotScope">
+              <va-icon name="calendar_today" size="small" :color="color" />
+            </slot>
+            <slot v-else :name="slot" v-bind="slotScope" />
+          </template>
+        </va-input>
       </template>
-    </va-date-picker-header>
 
-    <va-day-picker
-      v-if="viewView === 'month'"
-      v-bind="dayPickerProps"
-      v-model="valueComputed"
-      :year="viewYear"
-      :month="viewMonth"
-      @hover:day="(value) => $emit('hover:day', value)"
-    >
-      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-        <slot :name="name" v-bind="bind" />
-      </template>
-    </va-day-picker>
-
-    <va-month-picker
-      v-if="viewView === 'year'"
-      v-bind="monthPickerProps"
-      v-model="valueComputed"
-      :year="viewYear"
-      :month="viewMonth"
-      :should-update-model-value="valueType === 'month'"
-      @hover:month="(value) => $emit('hover:month', value)"
-      @click:month="onMonthClick"
-    >
-      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-        <slot :name="name" v-bind="bind" />
-      </template>
-    </va-month-picker>
+      <va-dropdown-content>
+        <va-date-picker v-bind="datePickerProps" v-model="valueComputed">
+          <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+            <slot :name="name" v-bind="bind" />
+          </template>
+        </va-date-picker>
+      </va-dropdown-content>
+    </va-dropdown>
   </div>
 </template>
 
@@ -50,23 +39,30 @@ import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
 import { useSyncProp } from './hooks/StatefulProp'
 import { childPropsValues, componentProps } from './utils/child-props'
 
-import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
-import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
-import VaMonthPicker from './components/VaMonthPicker/VaMonthPicker.vue'
+import VaDatePicker from './VaDatePicker.vue'
 
 const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
 
-export default defineComponent({
-  name: 'VaDatePicker',
+const VaInputProps = {
+  label: { type: String, required: false },
+  color: { type: String, default: 'primary' },
+  placeholder: { type: String, default: '' },
+  clearable: { type: Boolean, default: false },
+  tabindex: { type: Number, default: 0 },
+  outline: { Boolean, default: false },
+  bordered: { Boolean, default: false },
+}
 
-  components: { VaDayPicker, VaDatePickerHeader, VaMonthPicker },
+export default defineComponent({
+  name: 'VaDateInput',
+
+  components: { VaDatePicker },
 
   props: {
-    ...componentProps(VaDayPicker),
-    ...componentProps(VaMonthPicker),
+    ...VaInputProps,
+    ...componentProps(VaDatePicker),
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
-    color: { type: String, default: 'primary' },
     year: { type: Number },
     month: { type: Number },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
@@ -81,9 +77,8 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
     const { year, month, view, valueType } = toRefs(props)
 
-    const dayPickerProps = childPropsValues(props, componentProps(VaDayPicker))
-    const headerProps = childPropsValues(props, componentProps(VaDatePickerHeader))
-    const monthPickerProps = childPropsValues(props, componentProps(VaMonthPicker))
+    const inputProps = childPropsValues(props, VaInputProps)
+    const datePickerProps = childPropsValues(props, componentProps(VaDatePicker))
 
     const { syncProp: viewYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
     const { syncProp: viewMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
@@ -125,9 +120,8 @@ export default defineComponent({
       valueText,
       valueComputed,
       slots,
-      dayPickerProps,
-      headerProps,
-      monthPickerProps,
+      datePickerProps,
+      inputProps,
       viewYear,
       viewMonth,
       viewView,
@@ -140,6 +134,5 @@ export default defineComponent({
 <style scoped>
 .va-date-picker-header {
   padding-bottom: 0.5rem;
-  min-width: 250px;
 }
 </style>

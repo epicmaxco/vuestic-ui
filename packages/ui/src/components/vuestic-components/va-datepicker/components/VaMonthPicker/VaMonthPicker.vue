@@ -42,7 +42,7 @@ export default defineComponent({
     monthNames: { type: Array as PropType<string[]>, required: true, default: [] },
     year: { type: Number, required: true },
     month: { type: Number, required: true },
-    shouldUpdateModelValue: { type: Boolean, default: false },
+    shouldUpdateModelValue: { type: Boolean, default: true },
   },
 
   emits: ['update:modelValue', 'hover:month', 'click:month'],
