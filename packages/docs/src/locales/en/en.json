@@ -474,8 +474,7 @@
       "props": {
         "icon": "The icon to be displayed inside a container",
         "src": "URL to the image (will be placed inside `src` attribute of image tag)",
-        "fontSize": "The font-size of text inside avatar",
-        "email": "Will display `gravatar` for provided email address"
+        "fontSize": "The font-size of text inside avatar"
       },
       "slots": {
         "default": "Use this slot to replace default content to be displayed inside the component"
@@ -1125,10 +1124,6 @@
       "withIcon": {
         "title": "With icons",
         "text": "The `icon` prop is used to display icons inside an avatar."
-      },
-      "withEmail": {
-        "title": "With Gravatar",
-        "text": "The `email` prop and [gravatar](https://en.gravatar.com/support/what-is-gravatar/) are used to get user profile pictures."
       }
     }
   },
@@ -2064,7 +2059,7 @@
   },
   "icon": {
     "title": "Icon",
-    "summaryText": "The `va-icon` component allows you to use different icon fonts.",
+    "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons).",
     "examples": {
       "default": {
         "title": "Default",
@@ -2896,7 +2891,7 @@
   },
   "iconsConfig": {
     "title": "Icons config",
-    "about": "By default Vuestic UI provides Material Design icons. If you want to use other font libraries you can configure VaIcon to use them.",
+    "about": "By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons). If you want to use other font libraries you can configure VaIcon to use them.",
     "readMore": "Read more",
     "readBeforeStart": "Read about icons component",
     "example": "Example",
