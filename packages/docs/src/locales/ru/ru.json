@@ -1037,7 +1037,7 @@
     "toast": "Toast",
     "typography": "Типографика",
     "agGridWrapper": "AG Grid Wrapper",
-    "dataTable": "Data Table"
+    "dataTable": "Таблица данных"
   },
   "all": {
     "examples": "Примеры",
@@ -3145,13 +3145,13 @@
   "ag-grid-wrapper": {
     "title": "AG Grid Wrapper",
     "description": "Работа в прогрессе",
-    "related": "Связанный материалы",
+    "related": "Связанные материалы",
     "styledTablesLink": "Стилизованные таблицы"
   },
   "dataTable": {
-    "title": "Data table",
-    "description": "Work in progress.",
-    "related": "Related",
-    "styledTablesLink": "Styled tables"
+    "title": "Таблица данных",
+    "description": "Работа в прогрессе",
+    "related": "Связанные материалы",
+    "styledTablesLink": "Стилизованные таблицы"
   }
 }
