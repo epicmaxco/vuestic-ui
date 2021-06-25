@@ -124,6 +124,18 @@ export default [
     component: 'va-chip/Link',
   },
   {
+    type: BlockType.HEADLINE,
+    translationString: 'chip.examples.shadow.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'chip.examples.shadow.text',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-chip/Shadow',
+  },
+  {
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
