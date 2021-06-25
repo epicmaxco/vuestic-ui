@@ -40,16 +40,20 @@
       <va-date-picker v-model="dates" label="label" class="mb-4" />
     </VbCard>
 
-    <VbCard title="props to calendar">
+    <VbCard title="calendar appearance">
       <va-date-picker v-model="value" label="Weekday names" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']" class="mb-4" />
 
       <va-date-picker v-model="value" label="Month names" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" class="mb-4" />
 
-      <va-date-picker v-model="value" label="Highlight weekend" highlightWeekends class="mb-4" />
-
       <va-date-picker v-model="value" label="Hide weekdays" hideWeekDays class="mb-4" />
 
       <va-date-picker v-model="value" label="Do not highlight today date" :highlightTodayDate="false" />
+    </VbCard>
+
+    <VbCard title="weekends">
+      <va-date-picker v-model="value" label="Highlight weekend" highlight-weekends class="mb-4" />
+
+      <va-date-picker v-model="value" label="Every second day is weeked" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
     </VbCard>
 
     <VbCard title="slots to calendar">
@@ -99,10 +103,15 @@
   </VbDemo>
 </template>
 
-<script>
+<script lang="ts">
 import VaDatePicker from './index'
 
-const nextWeek = (() => { const d = new Date(); d.setDate(d.getDate() + 7); return d })()
+const datePlusDay = (date: Date, days: number) => {
+  const d = new Date(date)
+  d.setDate(d.getDate() + days)
+  return d
+}
+const nextWeek = datePlusDay(new Date(), 7)
 
 export default {
   components: { VaDatePicker },

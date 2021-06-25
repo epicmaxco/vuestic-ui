@@ -64,7 +64,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:day'],
 
   setup (props, { emit }) {
-    const { modelValue, firstWeekday, weekdayNames, allowedDates, year, month } = toRefs(props)
+    const { modelValue, firstWeekday, weekdayNames, allowedDates, year, month, weekends } = toRefs(props)
 
     const {
       currentYear, currentMonth, calendarDates,
@@ -127,7 +127,13 @@ export default defineComponent({
 
     const isDateNotAllowed = (date: Date) => allowedDates?.value === undefined ? false : !allowedDates.value(date)
 
-    const isDateWeekend = (date: Date) => date.getDay() === 6 || date.getDay() === 0 // 0 - Sunday, 6 - Saturday
+    const isDateWeekend = (date: Date) => {
+      if (weekends.value === undefined) {
+        return date.getDay() === 6 || date.getDay() === 0 // 0 - Sunday, 6 - Saturday
+      }
+
+      return weekends.value(date)
+    }
 
     return {
       calendarDates,
@@ -223,6 +229,7 @@ $cell-height: 34px;
 
       &.not-allowed {
         color: var(--va-warning);
+        cursor: default;
 
         &:hover {
           &::after {
