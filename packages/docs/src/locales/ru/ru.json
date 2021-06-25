@@ -1017,7 +1017,7 @@
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
     "colorPalette": "Color Palette",
-    "datePicker": "Date Picker",
+    "datePicker": "Дата/время",
     "buttonGroup": "Группа кнопок",
     "buttonToggle": "Кнопка-переключатель",
     "buttonDropdown": "Кнопка с меню",
@@ -2522,8 +2522,8 @@
     }
   },
   "datePicker": {
-    "title": "Date Picker",
-    "description": "Work in progress.",
+    "title": "Поля выбора даты/времени",
+    "description": "Работа в прогрессе",
     "summaryText": "Input component for data selection.",
     "examples": {
       "default": {
