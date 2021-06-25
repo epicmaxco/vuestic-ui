@@ -97,23 +97,24 @@
         @keydown.esc.prevent="hideAndFocus"
         @keydown.tab.prevent="hideAndFocus"
       >
+        <va-input
+          v-if="doShowSearchInput"
+          :id="$props.id"
+          ref="searchBar"
+          v-model="searchInputValue"
+          class="va-select__input"
+          placeholder="Search"
+          removable
+          :name="$props.name"
+          :tabindex="tabindex + 1"
+          :bordered="true"
+          @keydown.up.stop.prevent="hoverPreviousOption"
+          @keydown.down.stop.prevent="hoverNextOption"
+          @keydown.right.stop.prevent="focusOptionList"
+          @keyup.enter.prevent="addNewOption"
+          @focus="hoveredOption = null"
+        />
         <div class="va-select__dropdown__content">
-          <va-input
-            v-if="doShowSearchInput"
-            :id="$props.id"
-            ref="searchBar"
-            v-model="searchInputValue"
-            class="va-select__input"
-            placeholder="Search"
-            removable
-            :name="$props.name"
-            :tabindex="tabindex + 1"
-            :bordered="true"
-            @keydown.down.stop.prevent="focusOptionList"
-            @keydown.right.stop.prevent="focusOptionList"
-            @keyup.enter.prevent="addNewOption"
-            @focus="hoveredOption = null"
-          />
           <va-select-option-list
             ref="optionList"
             v-model:hoveredOption="hoveredOption"
