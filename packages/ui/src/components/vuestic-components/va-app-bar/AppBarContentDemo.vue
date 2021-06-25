@@ -27,7 +27,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'gray',
+      default: undefined,
     },
   },
 }
