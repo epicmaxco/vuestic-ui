@@ -440,17 +440,17 @@
     },
     "VaImage": {
       "props": {
-        "ratio": "Width to height ratio.",
-        "contain": "Scales the image while maintaining the proportions so that the whole image fits inside the block."
+        "ratio": "Соотношение ширины к высоте",
+        "contain": "Масштабирует изображение, сохраняя пропорции, чтобы все изображение поместилось внутри блока"
       },
       "events": {
-        "loaded": "Emitted when image loading is finished.",
-        "error": "Emitted on loading error."
+        "loaded": "Эммитится, когда загрузка изображения окончена",
+        "error": "Эммитится при ошибке загрузки"
       },
       "slots": {
-        "loading": "Shown when image is loading.",
-        "error": "Is shown if loading gives an error.",
-        "default": "Image overlay for you to add content. Doesn't show on loading or error."
+        "loading": "Отображается при загрузке изображения",
+        "error": "Отображается при ошибке загрузки изображения",
+        "default": "Ваше содержимое изображения, не отображается при загрузке или ошибке"
       }
     },
     "VaOptionList": {
@@ -982,7 +982,7 @@
     "fileUpload": "File Upload",
     "form": "Form",
     "hover": "Hover",
-    "image": "Image",
+    "image": "Изображение",
     "optionList": "Option List",
     "divider": "Divider",
     "checkbox": "Checkbox",
@@ -1825,35 +1825,35 @@
     }
   },
   "image": {
-    "title": "Image",
-    "summaryText": "The `va-image` component is used to display responsive images. It has some features to make your work with images easier.",
+    "title": "Изображение",
+    "summaryText": "Компонент `va-image` используется для отображения отзывчивых изображений, в нем есть функции, облегчающие работу с изображениями.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Default usage of image component."
+        "title": "Базовое использование",
+        "text": "Базовое использование изображений."
       },
       "contain": {
-        "title": "Contain",
-        "text": "It is used to show a full image while ignoring its original ratio and size."
+        "title": "Содержание",
+        "text": "Свойство `contain` используется для отображения полного изображения, игнорируя его исходное соотношение сторон и размер."
       },
       "ratio": {
-        "title": "Ratio",
-        "text": "Change image original ratio, show part of image to fit new ratio."
+        "title": "Соотношение",
+        "text": "Свойство `ratio` изменяет исходное соотношение сторон."
       },
       "slots": {
-        "title": "Slots"
+        "title": "Слоты"
       },
       "defaultSlot": {
-        "title": "Default slot",
-        "text": "Always shown by default."
+        "title": "Слот по умолчанию",
+        "text": "Всегда отображается по умолчанию."
       },
       "loaderSlot": {
-        "title": "Loader slot",
-        "text": "Is visible when image is loading."
+        "title": "Слот закгрузки",
+        "text": "Виден при загрузке изображения."
       },
       "errorSlot": {
-        "title": "Error slot",
-        "text": "Is visible when `src` path is incorrect."
+        "title": "Слот ошибки",
+        "text": "Виден, когда путь `src` неверен."
       }
     }
   },
