@@ -42,6 +42,9 @@ export default {
     leftLabel: {
       local: true,
     },
+    indeterminate: {
+      local: true,
+    },
   },
   events: {
     blur: {

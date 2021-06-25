@@ -9,9 +9,6 @@ export default {
     option: {
       local: true,
     },
-    tabindex: {
-      local: true,
-    },
   },
   events: {
   },

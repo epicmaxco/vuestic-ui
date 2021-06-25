@@ -3,6 +3,7 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 
 export default {
   props: {
+    activeButtonTextColor: { local: true },
     options: { local: true },
     value: { local: true },
     size: { local: true },

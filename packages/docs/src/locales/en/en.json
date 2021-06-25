@@ -135,7 +135,14 @@
         "icon": "Sets an icon.",
         "rounded": "Adds rounded corners.",
         "flat": "Removes borders and background.",
-        "outline": "Removes background."
+        "outline": "Removes background.",
+        "modelValue": "The `v-model` bound value.",
+        "gradient": "Makes the color a gradient",
+        "activeButtonTextColor": "Text color (theme string or HEX string).",
+        "indeterminateValue": "Overrides the indeterminate state value.",
+        "borderColor": "Border color (theme string or HEX string).",
+        "clearableIcon": "Sets the cleanup button icon.",
+        "tabindex": "Sets a custom tabindex"
       }
     },
     "VaBadge": {
@@ -283,7 +290,8 @@
         "beforeOpen": "Emits before modal's open after transition started",
         "open": "Emits when modal's is open and transition is complete",
         "beforeClose": "Emits before modal's start closing after transition started",
-        "close": "Emits when modal's is closed and transition is complete"
+        "close": "Emits when modal's is closed and transition is complete",
+        "cancel": "Emits when the user did something to just close the modal without doing anything else."
       },
       "methods": {
         "hide": "Hide modal. On stateless modal only emits `input`",
@@ -360,7 +368,8 @@
         "value": "Switch value",
         "trueValue": "Value when checked",
         "falseValue": "Value when unchecked",
-        "arrayValue": "Takes the value of a switch in an array of switches"
+        "arrayValue": "Takes the value of a switch in an array of switches",
+        "indeterminate": "Adds a state in which it's impossible to say whether the item is toggled `on` or `off`."
       },
       "slots": {
         "default": "Slot for label.",
@@ -563,8 +572,7 @@
     "VaRadio": {
       "props": {
         "value": "Model of the component",
-        "option": "Option value that model is updated to when an option is selected",
-        "tabindex": "Sets a custom tabindex"
+        "option": "Option value that model is updated to when an option is selected"
       }
     },
     "VaCollapse": {
@@ -619,7 +627,6 @@
         "mask": "Sets input mask if using as string or options for mask",
         "color": "Sets input color",
         "removable": "Adds an button that clears the value",
-        "tabindex": "Sets input tabindex",
         "returnRaw": "Sets possibility to return raw value",
         "autosize": "Sets textarea possibility to grow up automatically",
         "minRows": "Minimal count of lines",
@@ -631,7 +638,9 @@
         "messages": "Displays a list of messages or message if using a string",
         "error": "Sets input state to error",
         "errorMessages": "Displays a list of error messages or message if using a string",
-        "errorCount": "Number of error messages displayed"
+        "errorCount": "Number of error messages displayed",
+        "clearable": "Allows the component value to empty. Triggered by clicking on currently selected icon",
+        "bordered": "Applies the underline."
       },
       "events": {
         "input": "Emitted when the component needs to change the model",
@@ -639,10 +648,10 @@
         "blur": "Emitted when the input is blurred",
         "focus": "Emitted when input is focused",
         "click": "Emitted when user clicked on input",
-        "click:prepend": "Emitted when user clicked on `prepend` slot",
-        "click:prepend-inner": "Emitted when user clicked on `prependInner` slot",
-        "click:append": "Emitted when user clicked on `append` slot",
-        "click:append-inner": "Emitted when user clicked on `appendInner` slot",
+        "click-prepend": "Emitted when user clicked on `prepend` slot",
+        "click-prepend-inner": "Emitted when user clicked on `prependInner` slot",
+        "click-append": "Emitted when user clicked on `append` slot",
+        "click-append-inner": "Emitted when user clicked on `appendInner` slot",
         "keyup": "Emitted when the user releases a key on the keyboard",
         "keydown": "Emitted when any key is pressed"
       },
@@ -727,7 +736,9 @@
         "hideSelected": "Sets ability to hide selected options",
         "allowCreate": "Allow creating new options. Can be setted to `unique` if you want to create only unique options",
         "clearIcon": "Sets the clear icon",
-        "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons"
+        "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
+        "bordered": "Applies the underline.",
+        "separator": "Text to separate the selected values."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -878,7 +889,8 @@
         "options": "The array of objects with `label` and `value` properties",
         "value": "Current toggle state",
         "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
-        "toggleColor": "Color of the toggle button"
+        "toggleColor": "Color of the toggle button",
+        "activeButtonTextColor": "The text color of the active button (theme string or HEX string)."
       },
       "events": {
         "input": "Emits when toggling to the different button"
