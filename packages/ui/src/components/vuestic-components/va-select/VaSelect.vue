@@ -92,7 +92,7 @@
       </template>
 
       <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
-      <va-dropdown-content @keyup.enter.stop>
+      <va-dropdown-content class="va-dropdown__content-wrapper" @keyup.enter.stop>
         <div class="va-select__dropdown__content">
           <!-- Hidden DIV is a hack than allow user to focus select from dropdown content with tab -->
           <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
@@ -575,23 +575,23 @@ export default class VaSelect extends mixins(
     .va-dropdown__anchor {
       display: block;
     }
-
-    .va-dropdown__content {
-      overflow: hidden;
-      border-bottom-right-radius: var(--va-select-dropdown-border-radius);
-      border-bottom-left-radius: var(--va-select-dropdown-border-radius);
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
-      box-shadow: var(--va-select-box-shadow);
-      padding: 0;
-    }
-
-    .va-select__dropdown__content {
-      background: var(--va-select-dropdown-background);
-      overflow-y: auto;
-
-      @include va-scroll(var(--va-select-scroll-color));
-    }
   }
+}
+
+.va-dropdown__content-wrapper {
+  overflow: hidden;
+  border-bottom-right-radius: var(--va-select-dropdown-border-radius);
+  border-bottom-left-radius: var(--va-select-dropdown-border-radius);
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  box-shadow: var(--va-select-box-shadow);
+  padding: 0;
+}
+
+.va-select__dropdown__content {
+  background: var(--va-select-dropdown-background);
+  overflow-y: auto;
+
+  @include va-scroll(var(--va-select-scroll-color));
 }
 </style>
