@@ -79,6 +79,8 @@ export default defineComponent({
     })
 
     const onDateClick = (date: Date) => {
+      if (isDateNotAllowed(date)) { return }
+
       if (isSingleDate(modelValue.value)) {
         emit('update:modelValue', date)
       } else if (isPeriod(modelValue.value)) {
@@ -221,6 +223,12 @@ $cell-height: 34px;
 
       &.not-allowed {
         color: var(--va-warning);
+
+        &:hover {
+          &::after {
+            display: none;
+          }
+        }
       }
 
       &:hover {
@@ -230,13 +238,13 @@ $cell-height: 34px;
         }
       }
 
+      &.hightlighted-weekend {
+        color: var(--va-danger);
+      }
+
       &.current {
         background-color: var(--va-primary);
         color: var(--va-white, white);
-      }
-
-      &.hightlighted-weekend {
-        color: var(--va-danger);
       }
     }
   }
