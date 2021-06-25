@@ -112,8 +112,8 @@
         "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
         "stateful": "Добавляет возможность работы с компонентом без настройки `v-model`",
-        "color": "Цвет компонента (поддерживаемая темой опция или *HEX*)",
-        "textColor": "Цвет текста (поддерживаемая темой опция или *HEX*)",
+        "color": "Цвет компонента (поддерживаемые темой опции или *HEX*)",
+        "textColor": "Цвет текста (поддерживаемые темой опции или *HEX*)",
         "rules": "Validation rules <!-- TODO Add link -->.",
         "to": "Целевой маршрут ссылки, [подробнее](https://router.vuejs.org/api/#to \"Vue router docs\")",
         "replace": "Если установлено, при навигации вызывается `router.replace()` вместо `router.push()`, поэтому запись в истории не сохраняется. [Подробнее](https://router.vuejs.org/api/#replace \"Vue router docs\")",
@@ -137,7 +137,12 @@
         "flat": "Удаляет `borders` и фон",
         "outline": "Удаляет фон",
         "gradient": "Добавляет градиент фона",
-        "modelValue": "Значение модели"
+        "modelValue": "Значение биндинга `v-model`",
+        "activeButtonTextColor": "Цвет текста активной кнопки (поддерживаемые темой опции или *HEX*)",
+        "indeterminateValue": "Переопределяет нуестановленное значение состояния",
+        "borderColor": "Цвет css стиля `border` (поддерживаемые темой опции или *HEX*)",
+        "clearableIcon": "Устанавливает иконку кнопки очистки",
+        "tabindex": "Устанавливает кастомный `tabindex`"
       }
     },
     "VaBadge": {
@@ -285,7 +290,8 @@
         "beforeOpen": "Событие до открытия модального окна, но после начала анимации",
         "open": "Открытие модального окна после окончания анимации",
         "beforeClose": "Событие до закрытия модального окна, но после начала анимации",
-        "close": "Закрытие модального окна после окончания анимации"
+        "close": "Закрытие модального окна после окончания анимации",
+        "cancel": "Закртие модального окна пользовтелем без побочных действий"
       },
       "methods": {
         "hide": "Закрытие модального окна. Для `stateless` режима происходит только эммит `input`",
@@ -362,7 +368,8 @@
         "value": "Switch value",
         "trueValue": "Value when checked",
         "falseValue": "Value when unchecked",
-        "arrayValue": "Takes the value of a switch in an array of switches"
+        "arrayValue": "Takes the value of a switch in an array of switches",
+        "indeterminate": "Adds a state in which it's impossible to say whether the item is toggled `on` or `off`."
       },
       "slots": {
         "default": "Slot for label.",
@@ -565,9 +572,8 @@
     },
     "VaRadio": {
       "props": {
-        "value": "Model of the component",
-        "option": "Option value that model is updated to when an option is selected",
-        "tabindex": "Sets a custom tabindex"
+        "value": "Модель компонента",
+        "option": "Значение, которое установится в модель при выборе опции"
       }
     },
     "VaCollapse": {
@@ -622,7 +628,6 @@
         "mask": "Sets input mask if using as string or options for mask",
         "color": "Sets input color",
         "removable": "Adds an button that clears the value",
-        "tabindex": "Sets input tabindex",
         "returnRaw": "Sets possibility to return raw value",
         "autosize": "Sets textarea possibility to grow up automatically",
         "minRows": "Minimal count of lines",
@@ -634,7 +639,9 @@
         "messages": "Displays a list of messages or message if using a string",
         "error": "Sets input state to error",
         "errorMessages": "Displays a list of error messages or message if using a string",
-        "errorCount": "Number of error messages displayed"
+        "errorCount": "Number of error messages displayed",
+        "clearable": "Allows the component value to empty. Triggered by clicking on currently selected icon",
+        "bordered": "Applies the underline."
       },
       "events": {
         "input": "Emitted when the component needs to change the model",
@@ -642,10 +649,10 @@
         "blur": "Emitted when the input is blurred",
         "focus": "Emitted when input is focused",
         "click": "Emitted when user clicked on input",
-        "click:prepend": "Emitted when user clicked on `prepend` slot",
-        "click:prepend-inner": "Emitted when user clicked on `prependInner` slot",
-        "click:append": "Emitted when user clicked on `append` slot",
-        "click:append-inner": "Emitted when user clicked on `appendInner` slot",
+        "click-prepend": "Emitted when user clicked on `prepend` slot",
+        "click-prepend-inner": "Emitted when user clicked on `prependInner` slot",
+        "click-append": "Emitted when user clicked on `append` slot",
+        "click-append-inner": "Emitted when user clicked on `appendInner` slot",
         "keyup": "Emitted when the user releases a key on the keyboard",
         "keydown": "Emitted when any key is pressed"
       },
@@ -730,7 +737,9 @@
         "hideSelected": "Sets ability to hide selected options",
         "allowCreate": "Allow creating new options. Can be setted to `unique` if you want to create only unique options",
         "clearIcon": "Sets the clear icon",
-        "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons"
+        "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
+        "bordered": "Applies the underline.",
+        "separator": "Text to separate the selected values."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
