@@ -100,10 +100,10 @@
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
-        "id": "Applies `id` to internal input component. Useful for native forms.",
-        "name": "Applies `name` to internal input component. Useful for native forms.",
+        "id": "Применяет `id` к внутреннему компоненту ввода, полезно для нативных форм",
+        "name": "Применяет `name` к внутреннему компоненту ввода, полезно для нативных форм",
         "tag": "Заменяет тег html. Это полезно для семантики, а также для обеспечения валидной разметки в некоторых случаях (`ul > li` и `tr > td`, etc)",
-        "size": "Изменияет размер компонента. Доступны следющие опции: 'small', 'medium', 'large'. Если вам нужна более тонкая настройка, вы можете указать число (будет использовано как `px`) или строковое значение (поддерживаются `rem` и `px`).",
+        "size": "Изменияет размер компонента. Доступны следющие опции: `small`, `medium`, `large`. Если вам нужна более тонкая настройка, вы можете указать число (будет использовано как `px`) или строковое значение (поддерживаются `rem` и `px`).",
         "disabled": "Применяет стиль `disabled` и удаляются все эффекты взаимодействия с пользователем",
         "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
         "success": "Show component in success state.",
@@ -557,10 +557,10 @@
     },
     "VaIcon": {
       "props": {
-        "component": "Allows to use the svg component as an icon.",
-        "rotation": "Rotates a component by a degree value.",
-        "spin": "Starts rotation animation.",
-        "iconsConfig": "Allows you to configurate iconset."
+        "component": "Позволяет использовать компонент svg в качестве иконки",
+        "rotation": "Поворачивает компонент на указанный градус",
+        "spin": "Запускает анимацию вращения",
+        "iconsConfig": "Позволяет настроить набор иконок"
       }
     },
     "VaRadio": {
@@ -991,7 +991,7 @@
     "progressCircle": "Progress Circle",
     "infiniteScroll": "Infinite Scroll",
     "alert": "Alert",
-    "icon": "Icon",
+    "icon": "Иконка",
     "radio": "Radio",
     "collapse": "Collapse",
     "accordion": "Accordion",
@@ -2066,36 +2066,36 @@
     }
   },
   "icon": {
-    "title": "Icon",
-    "summaryText": "The `va-icon` component allows you to use different icon fonts.",
+    "title": "Иконка",
+    "summaryText": "Компонент `va-icon` позволяет использовать различные шрифты иконок.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Basic usage of the component with different icon fonts."
+        "title": "Базовое использование",
+        "text": "Базовое использование компонента с разными шрифтами значков."
       },
       "color": {
-        "title": "Color",
-        "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "size": {
-        "title": "Size",
-        "text": "Apply the `size` prop in order to make `va-icon` fit your needs."
+        "title": "Размер",
+        "text": "Свойство `size` задает размер иконкам."
       },
       "rotation": {
-        "title": "Rotation",
-        "text": "It is used to rotate the `va-icon` component."
+        "title": "Поворот",
+        "text": "Свойство `rotation` используется для поворота иконки."
       },
       "spin": {
-        "title": "Spin",
-        "text": "You can add animation of rotation of the icon using the property `spin`."
+        "title": "Вращение",
+        "text": "Свойство `spin` добавляет анимацию вращения иконки."
       },
       "text": {
-        "title": "Text as icon",
-        "text": "Using `text` prop is used to cover the text icon style."
+        "title": "Текста вместо иконки",
+        "text": "Свойство `text` используется для отображения иконки как текста"
       },
       "tag": {
-        "title": "Custom tag",
-        "text": "With the `tag` prop you can attach the icon to another tag."
+        "title": "Произвольный тег",
+        "text": "Свойство `tag` полволяет обернуть иконку в произвольный тег"
       }
     }
   },
