@@ -93,10 +93,10 @@
     "all": {
       "events": {
         "validation": "On internal validation.",
-        "blur": "On blur.",
-        "focus": "On focus.",
-        "input": "On value change.",
-        "click": "On click."
+        "blur": "Потеря фокуса элемента",
+        "focus": "Фокусировка на элементе",
+        "input": "Изменение значения",
+        "click": "Клик"
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -378,10 +378,10 @@
     },
     "VaFileUpload": {
       "props": {
-        "type": "Specify the format of component. Supported types are `single`, `list` and `gallery`",
-        "fileTypes": "Specify supported file formats",
-        "dropzone": "Enables Drag&Drop",
-        "value": "The array with uploaded files"
+        "type": "Устанавливает тип компонента, поддерживаемые типы: `single`, `list` и `gallery`",
+        "fileTypes": "Устанавливает поддерживаемые форматы файлов",
+        "dropzone": "Включает Drag&Drop",
+        "value": "Массив с загруженными файлами"
       }
     },
     "VaHover": {
@@ -988,7 +988,7 @@
     "popovers": "Popovers",
     "chat": "Чат",
     "pagination": "Pagination",
-    "fileUpload": "File Upload",
+    "fileUpload": "Поле выбора файла",
     "form": "Форма",
     "hover": "Hover",
     "image": "Изображение",
@@ -1625,24 +1625,24 @@
     }
   },
   "fileUpload": {
-    "title": "File Upload",
-    "summaryText": "The `va-file-upload` component is an input for selecting and uploading files with a richer interface than the default one.",
+    "title": "Поле выбора файла",
+    "summaryText": "Компонент `va-file-upload` это поле для выбора и загрузки файлов с более расширенным интерфейсом, чем по умолчанию.",
     "examples": {
       "default": {
-        "title": "Default usage",
-        "text": "By default it’s displayed as a simple button to upload files."
+        "title": "Базовое использование",
+        "text": "По умолчанию это простая кнопка для загрузки файлов."
       },
       "dragAndDrop": {
         "title": "Drag & Drop",
-        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component"
+        "text": "Свойство `dropzone` используется для добавления возможности перетаскивания файла в компонент `va-file-upload`."
       },
       "validation": {
-        "title": "Specify file types",
-        "text": "Add `file-types` prop with allowed extensions to add file types validation"
+        "title": "Допустимые типы файлов",
+        "text": "Свойство `file-types` используется для установки допустимых типов файлов."
       },
       "gallery": {
-        "title": "As gallery",
-        "text": "With `type === gallery` prop you can show user picture preview of uploaded files"
+        "title": "Превью",
+        "text": "Свойство `type` со значением `gallery` включит отображение превью загружаемого файла."
       }
     }
   },
