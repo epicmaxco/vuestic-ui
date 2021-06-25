@@ -621,50 +621,50 @@
     },
     "VaInput": {
       "props": {
-        "value": "The input value",
-        "type": "Sets input type",
-        "label": "Sets input label",
-        "placeholder": "Sets input placeholder",
-        "mask": "Sets input mask if using as string or options for mask",
-        "color": "Sets input color",
-        "removable": "Adds an button that clears the value",
-        "returnRaw": "Sets possibility to return raw value",
-        "autosize": "Sets textarea possibility to grow up automatically",
-        "minRows": "Minimal count of lines",
-        "maxRows": "Maximum count of lines",
+        "value": "Значение поля ввода",
+        "type": "Устанавливает тип",
+        "label": "Устанавливает название",
+        "placeholder": "Устанавливает плейсхолдер",
+        "mask": "Устанавливает маску поля ввода при использовании в качестве строки или параметра маски",
+        "color": "Цвет поля ввода",
+        "removable": "Добавляет кнопку для сброса значения",
+        "returnRaw": "Устанавливает возможность возврата необработанного значения",
+        "autosize": "Устанавливает возможность авторасширения `textarea`",
+        "minRows": "Минимальное количество строк",
+        "maxRows": "Максимальное количество строк",
         "rules": "Accepts an array of functions that take an input value as an argument and return either true / false or a string with an error message",
-        "disabled": "Disable the input",
-        "readonly": "Puts input in readonly state",
-        "success": "Sets input state to success",
-        "messages": "Displays a list of messages or message if using a string",
-        "error": "Sets input state to error",
-        "errorMessages": "Displays a list of error messages or message if using a string",
-        "errorCount": "Number of error messages displayed",
-        "clearable": "Allows the component value to empty. Triggered by clicking on currently selected icon",
-        "bordered": "Applies the underline."
+        "disabled": "Делает поле ввода неактивным",
+        "readonly": "Делает поле ввода доступным только для чтения",
+        "success": "Отображение поля ввода в состоянии `success`",
+        "messages": "Оторбражает сообщения или сообщение, если используются данные типа `String`",
+        "error": "Отображение поля ввода в состоянии `error`",
+        "errorMessages": "Оторбражает сообщения или сообщение об ошибке, если используются данные типа `String`",
+        "errorCount": "Количество отображаемых сообщений об ошибках",
+        "clearable": "Добавляет кнопку сброса значения поля ввода",
+        "bordered": "Применяет подчеркивание"
       },
       "events": {
-        "input": "Emitted when the component needs to change the model",
-        "change": "Emitted when the input is changed by user interaction",
-        "blur": "Emitted when the input is blurred",
-        "focus": "Emitted when input is focused",
-        "click": "Emitted when user clicked on input",
-        "click-prepend": "Emitted when user clicked on `prepend` slot",
-        "click-prepend-inner": "Emitted when user clicked on `prependInner` slot",
-        "click-append": "Emitted when user clicked on `append` slot",
-        "click-append-inner": "Emitted when user clicked on `appendInner` slot",
-        "keyup": "Emitted when the user releases a key on the keyboard",
-        "keydown": "Emitted when any key is pressed"
+        "input": "Изменение значения компонента",
+        "change": "Изменение значения по взаимодействию с пользователем",
+        "blur": "Потеря фокуса",
+        "focus": "Установка фокуса",
+        "click": "Клик по полю ввода",
+        "click-prepend": "Клик по слоту `prepend`",
+        "click-prepend-inner": "Клик по слоту `prependInner`",
+        "click-append": "Клик по слоту `append`",
+        "click-append-inner": "Клик по слоту `appendInner`",
+        "keyup": "Пользователь отпустил кнопку на клавиатуре",
+        "keydown": "Пользователь нажал кнопку на клавиатуре"
       },
       "methods": {
-        "focus": "Setting focus on input",
-        "reset": "Clearing input value"
+        "focus": "Устанавливает фокус в поле ввода",
+        "reset": "Очищает значение поля ввода"
       },
       "slots": {
-        "prepend": "Adds an item outside the input and before input content",
-        "prependInner": "Adds an item inside the input and before input content",
-        "append": "Adds an item outside the input and after input content",
-        "appendInner": "Adds an item inside the input and after input content"
+        "prepend": "Добавляет элемент за пределами поля ввода и перед его содержимым",
+        "prependInner": "Добавляет элемент внутри поля ввода и перед его содержимым",
+        "append": "Добавляет элемент за пределами поля ввода и после его содержимого",
+        "appendInner": "Добавляет элемент внутри поля ввода и после его содержимого"
       }
     },
     "VaList": {
@@ -1006,7 +1006,7 @@
     "accordion": "Accordion",
     "chip": "Фишка",
     "grid": "Grid",
-    "input": "Input",
+    "input": "Поле ввода",
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
@@ -1999,36 +1999,36 @@
     }
   },
   "input": {
-    "title": "Input",
-    "summaryText": "The `va-input` component is intended to be used instead of the standard HTMl input or textarea.",
+    "title": "Поле ввода",
+    "summaryText": "Компонент `va-input` предназначен для использования вместо стандартного элемента HTMl `input` или `textarea`.",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "By default `va-input` doesn’t have attributes, but can be combined with a placeholder and/or label. It can also be disabled or readonly."
+        "title": "Базовое использование",
+        "text": "По умолчанию компонент `va-input` не имеет атрибутов, но его можно комбинировать с атрибутами `placeholder` и/или `label`. Его также можно сделать неактивным или доступным только для чтения."
       },
       "hint": {
-        "title": "Hint messages",
-        "text": "Support single/multi line messages to give some hint for improve UX"
+        "title": "Подсказка",
+        "text": "Поддерживаются -одно или -много строчные сообщения, чтобы отобразить подсказку для улучшения UX."
       },
       "validate": {
         "title": "Validation and error/success state",
         "text": "Support a simple validation using the rules prop. The prop accepts an array of callbacks. While validating rules, the current v-model value will be passed to the callback. This callback should return either true or a String, the error message. Also you can manually pass error/success prop to manage input state."
       },
       "slots": {
-        "title": "Slots",
-        "text": "You can use slots for pass custom elements to input (inner or outer), such as icons or buttons etc."
+        "title": "Слоты",
+        "text": "Вы можете использовать слоты для передачи пользовательских элементов в поле ввода (`inner` или `outer`), таких, как иконки, кнопки и т.д."
       },
       "textarea": {
         "title": "Textarea",
-        "text": "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
+        "text": "Свойство `type` установленное в значение `textarea` переведет компонент `va-input` в режим HTML элемента `textarea`, полезно для ввода большего количества текста. Вы можете оставить поле ввода авторасширяемым или настроить значение `min-rows` и `max-rows` вручную."
       },
       "mask": {
-        "title": "Mask",
-        "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/). By default returning a raw value."
+        "title": "Маска",
+        "text": "Свойство `mask` добавляет возможность помочь пользователю ввести определенный формат данных с помощью маски. Вы можете использовать некоторые пресеты масок или пользовательские параметры на основе [cleave.js](https://nosir.github.io/cleave.js/). По умолчанию возвращается необработанное значение."
       },
       "styles": {
-        "title": "Styles",
-        "text": "There are tree styles for input: Default (solid), outline, bordered."
+        "title": "Стили",
+        "text": "Поддерживаются три свойства для стилизации компонента: `solid` (по умолчанию), `outline`, `bordered`."
       }
     }
   },
