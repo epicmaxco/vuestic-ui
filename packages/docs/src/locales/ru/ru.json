@@ -118,14 +118,14 @@
         "to": "Целевой маршрут ссылки, [подробнее](https://router.vuejs.org/api/#to \"Vue router docs\")",
         "replace": "Если установлено, при навигации вызывается `router.replace()` вместо `router.push()`, поэтому запись в истории не сохраняется. [Подробнее](https://router.vuejs.org/api/#replace \"Vue router docs\")",
         "append": "Если установлено, всегда добавляется относительный путь к текущему, [подробнее](https://router.vuejs.org/api/#append \"Vue router docs\")",
-        "exact": "Проверяет точное соотвествие ссылки. Без знака '/' будет соответствовать каждому маршруту, [подробнее](https://router.vuejs.org/api/#exact \"Vue router docs\")",
+        "exact": "Проверяет точное соотвествие ссылки. Без знака `'/'` будет соответствовать каждому маршруту, [подробнее](https://router.vuejs.org/api/#exact \"Vue router docs\")",
         "activeClass": "Применяется к активной ссылке, [подробнее](https://router.vuejs.org/api/#active-class \"Vue router docs\")",
         "exactActiveClass": "Применяется к активной ссылке c точным соотвествием, [подробнее](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\")",
-        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
-        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
-        "src": "Source URL.",
-        "arrayValue": "Same as native `value`. It is used with `v-model` of an array type.",
-        "label": "То же, что и навтивный `label`",
+        "href": "Определяет компонент как привязку и применяет атрибут href, [подробнее](https://router.vuejs.org/api/#href \"Vue router docs\").",
+        "target": "Целевой указатель навигации, [подробнее](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
+        "src": "Исходный URL",
+        "arrayValue": "То же, что и нативный `value`, используется с массивом в `v-model`",
+        "label": "То же, что и нативный `label`",
         "leftLabel": "Moves the label on the left of a component.",
         "loading": "Индикатор загрузки (иконка спиннера).",
         "trueValue": "Overrides the returned value when it's checked.",
@@ -604,10 +604,10 @@
     },
     "VaChip": {
       "props": {
-        "closeable": "Provides the ability to close the tag",
-        "outline": "Applies outline styling",
-        "flat": "Applies flat styling",
-        "icon": "The icon to be displayed inside a tag"
+        "closeable": "Предоставляет возможность закрыть тег",
+        "outline": "Применяет контур, убирает фон",
+        "flat": "Убирает фон и контур",
+        "icon": "Отображаемая внутри компонента иконка"
       },
       "events": {},
       "methods": {},
@@ -995,7 +995,7 @@
     "radio": "Radio",
     "collapse": "Collapse",
     "accordion": "Accordion",
-    "chip": "Chip",
+    "chip": "Фишка",
     "grid": "Grid",
     "input": "Input",
     "list": "List",
@@ -1227,7 +1227,7 @@
   },
   "button": {
     "title": "Кнопка",
-    "summaryText": "Компонент `va-button` component заменяет стандартную кнопку HTML. Он предлагает несколько встроенных стилей и позволяет пользователю вручную изменять цвет и размер.",
+    "summaryText": "Компонент `va-button` заменяет стандартную кнопку HTML. Он предлагает несколько встроенных стилей и позволяет пользователю вручную изменять цвет и размер.",
     "examples": {
       "default": {
         "title": "По умолчанию",
@@ -2166,44 +2166,44 @@
     }
   },
   "chip": {
-    "title": "Chip",
-    "summaryText": "",
+    "title": "Фишка",
+    "summaryText": "Фишка - это компактный элемент для отображения данных или выполнения действия",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Default usage of the `va-chip` component."
+        "title": "Базовое использование",
+        "text": "Базовое использование компонента `va-chip`"
       },
       "outline": {
-        "title": "Outline",
-        "text": "Outline style without background."
+        "title": "Контур",
+        "text": "Свойство `outline` убирает заливку фону, оставляя только контур"
       },
       "flat": {
-        "title": "Flat",
-        "text": "Flat style without borders and background."
+        "title": "Только текст",
+        "text": "Свойство `flat` убирает контур и заливку фишки, оставляя только текст"
       },
       "square": {
-        "title": "Square",
-        "text": "Makes your `va-chip` square."
+        "title": "Квадратные углы",
+        "text": "Свойство `square` добавляет фишке квадратные углы"
       },
       "color": {
-        "title": "Color",
-        "text": "You can use the `va-chip` component with different colors."
+        "title": "Цвет",
+        "text": "Свойство `color` позволяет изменить цвет фишки"
       },
       "size": {
-        "title": "Size",
-        "text": "Set different tag sizes using size presets."
+        "title": "Размер",
+        "text": "Свойство `color` используется для изменения размера фишки"
       },
       "icon": {
-        "title": "Icon",
-        "text": "You can use icons in tag."
+        "title": "Иконка",
+        "text": "Свойство `icon` добавляет иконку в фишку"
       },
       "closeable": {
-        "title": "Closeable",
-        "text": "A tag can be closed by applying the `closeable` property."
+        "title": "Закрываемость",
+        "text": "Свойство `closeable` добавляет действие закрытия"
       },
       "link": {
-        "title": "Link",
-        "text": "It makes your tag clickable."
+        "title": "Ссыка",
+        "text": "Свойство `to` делает фишку кликабельной ссылкой"
       }
     }
   },
