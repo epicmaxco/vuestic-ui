@@ -29,7 +29,7 @@
 <!--        </va-breadcrumbs>-->
 
         <div class="layout gutter--xl">
-          <router-view/>
+          <router-view />
         </div>
       </div>
     </main>
@@ -142,8 +142,6 @@ export default class DocsLayout extends Vue {
 
   onRouteChange () {
     const pageContent: Element | undefined = this.$refs['page-content']
-
-    pageContent.scrollTop = 0
 
     if (pageContent) {
       pageContent.scrollTop = 0

@@ -1,5 +1,5 @@
 <template>
-  <va-card color="secondary" style="padding: 0.75rem;">
+  <va-card color="background" style="padding: 0.75rem;">
     <div class="layout gutter--md">
       <div class="row">
         <div class="flex xs6">
