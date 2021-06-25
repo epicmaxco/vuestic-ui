@@ -127,7 +127,7 @@ export default defineComponent({
 
     const isDateNotAllowed = (date: Date) => allowedDates?.value === undefined ? false : !allowedDates.value(date)
 
-    const isDateWeekend = (date: Date) => date.getDay() === 6 || date.getDay() === 5
+    const isDateWeekend = (date: Date) => date.getDay() === 6 || date.getDay() === 0 // 0 - Sunday, 6 - Saturday
 
     return {
       calendarDates,
