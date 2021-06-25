@@ -92,7 +92,7 @@
   "api": {
     "all": {
       "events": {
-        "validation": "On internal validation.",
+        "validation": "Валидация",
         "blur": "Потеря фокуса элемента",
         "focus": "Фокусировка на элементе",
         "input": "Изменение значения",
@@ -185,17 +185,17 @@
     },
     "VaForm": {
       "props": {
-        "autofocus": "Focus on first form-component <!-- TODO Add link --> on render"
+        "autofocus": "Установит фокус в первый элемент <!-- TODO Add link --> при отрисовке"
       },
       "events": {
         "validation": "Triggered on validation update"
       },
       "methods": {
-        "validate": "Performs validation and updates error state for each form component. Works with nested forms.",
-        "focus": "Focus on first focusable form-component in the form.",
-        "focusInvalid": "Focus on first focusable invalid form-component in the form. This is useful for longer forms and allows to bring user attention to invalid field.",
-        "resetValidation": "Reset validation for all validateable <!-- TODO Add link --> form-components.",
-        "reset": "Reset values and validation state for all form-components"
+        "validate": "Выполняет проверку и обновляет состояние ошибки для каждого компонента формы. Работает с вложенными формами",
+        "focus": "Устанавливает фокус на превый доступный для этого элемент формы",
+        "focusInvalid": "Устанавливает фокус на первый невалидный элемент формы. Это полезно для более длинных форм и позволяет привлечь внимание пользователя к недопустимому полю.",
+        "resetValidation": "Сбрасывает валидацию для всех проверяемых элементов <!-- TODO Add link -->",
+        "reset": "Сбрасывает значения и валидацию для всех элементов формы"
       }
     },
     "VaSlider": {
@@ -1677,16 +1677,16 @@
     }
   },
   "form": {
-    "title": "Form",
-    "summaryText": "Need more advanced validation than just `type=\"email\"` over your input elements? **`va-form`** has a solution to offer.",
+    "title": "Форма",
+    "summaryText": "Для ваших полей ввода нужна более продвинутая система валидации, чем просто `type=\"email\"`? В компоненте **`va-form`** имееются инструменты для решения этой задачи.",
     "examples": {
       "default": {
-        "title": "Default usage",
-        "text": "All elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you’ll be able to specify exact cases when the field is *valid* or *invalid*."
+        "title": "Базовое использование",
+        "text": "У всех элементов имеется свойство `rules`, которое предлагает гибкие решения, когда дело доходит до валидации элементов. Используя это свойство, вы сможете указать точные правила, когда поле является *valid* или *invalid*."
       },
       "advanced": {
-        "title": "Trigger validation",
-        "text": "You can trigger validation from a parent component by using the `validate()` method of the `va-form` component."
+        "title": "Триггер валидации",
+        "text": "Вы можете запустить проверку из родительского компонента, используя метод `validate()` компонента `va-form`."
       }
     }
   },
