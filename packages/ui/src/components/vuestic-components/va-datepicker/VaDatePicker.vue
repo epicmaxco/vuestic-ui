@@ -47,7 +47,7 @@
         <va-date-picker-month-calendar
           v-if="viewView === 'year'"
           v-model="valueComputed"
-          v-bind="calendarProps"
+          v-bind="monthPickerProps"
           :year="viewYear"
           :month="viewMonth"
           :should-update-model-value="valueType === 'month'"
@@ -70,14 +70,10 @@ import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerValueType } from './types/types'
 import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
 import { useSyncProp } from './hooks/StatefulProp'
-import { filterPropValues } from './utils/filter-props-values'
+import { childPropsValues, componentProps, ComponentProps } from './utils/child-props'
 
 import VaDatePickerCalendar from './components/VaDatePickerCalendar/VaDatePickerCalendar.vue'
-import { VaDatePickerCalendarProps } from './components/VaDatePickerCalendar/VaDatePickerCalendarProps'
-
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
-import { VaDatePickerHeaderProps } from './components/VaDatePickerHeader/VaDatePickerHeaderProps'
-
 import VaDatePickerMonthCalendar from './components/VaDatePickerMonthCalendar/VaDatePickerMonthCalendar.vue'
 
 const VaInputProps = {
@@ -100,7 +96,9 @@ export default defineComponent({
 
   props: {
     ...VaInputProps,
-    ...VaDatePickerCalendarProps,
+    ...componentProps(VaDatePickerCalendar),
+    ...componentProps(VaDatePickerMonthCalendar),
+    ...componentProps(VaDatePickerMonthCalendar),
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
     color: { type: String, default: 'primary' },
     year: { type: Number },
@@ -117,9 +115,10 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
     const { year, month, view, valueType } = toRefs(props)
 
-    const inputProps = filterPropValues(props, VaInputProps)
-    const calendarProps = filterPropValues(props, VaDatePickerCalendarProps)
-    const headerProps = filterPropValues(props, VaDatePickerHeaderProps)
+    const inputProps = childPropsValues(props, VaInputProps)
+    const calendarProps = childPropsValues(props, componentProps(VaDatePickerMonthCalendar))
+    const headerProps = childPropsValues(props, componentProps(VaDatePickerHeader))
+    const monthPickerProps = childPropsValues(props, componentProps(VaDatePickerMonthCalendar))
 
     const { syncProp: viewYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
     const { syncProp: viewMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
@@ -164,6 +163,7 @@ export default defineComponent({
       inputProps,
       calendarProps,
       headerProps,
+      monthPickerProps,
       viewYear,
       viewMonth,
       viewView,
