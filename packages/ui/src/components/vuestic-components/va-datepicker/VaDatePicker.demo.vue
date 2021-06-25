@@ -71,8 +71,10 @@
         v-model="value"
         label="Hide year"
       >
-        <template #header-text="{ month, monthNames }">
-          {{ monthNames[month] }}
+        <template #header-text="{ month, monthNames, switchView }">
+          <va-chip @click="switchView" size="small">
+            {{ monthNames[month] }}
+          </va-chip>
         </template>
       </va-date-picker>
     </VbCard>

@@ -2,7 +2,7 @@
   <div class="va-date-picker-header va-date-picker__header">
     <va-icon name="chevron_left" size="small" @click="prev" />
     <div class="header-text">
-      <slot name="header-text" v-bind="{ year, month, monthNames, view, changeView }">
+      <slot name="header-text" v-bind="{ year, month, monthNames, view, changeView, switchView }">
         <va-button flat @click="switchView" size="small">
           <span class="mr-1">
             <slot name="year" v-bind="{ year }">{{ year }}</slot>
