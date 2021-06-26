@@ -109,9 +109,10 @@
           :tabindex="tabindex + 1"
           :bordered="true"
           @keydown.up.stop.prevent="hoverPreviousOption"
+          @keydown.left.stop.prevent="hoverPreviousOption"
           @keydown.down.stop.prevent="hoverNextOption"
-          @keydown.right.stop.prevent="focusOptionList"
-          @keyup.enter.prevent="addNewOption"
+          @keydown.right.stop.prevent="hoverNextOption"
+          @keydown.enter.prevent="selectOrAddOption"
           @focus="hoveredOption = null"
         />
         <div class="va-select__dropdown__content">
@@ -362,6 +363,24 @@ export default class VaSelect extends mixins(
     this.focusSelect()
   }
 
+  allowCreateCheck (): boolean {
+    return !!(this.$props.allowCreate && this.searchInputValue !== '')
+  }
+
+  selectOrAddOption () {
+    if (this.searchInputValue === this.hoveredOption) {
+      this.selectHoveredOption()
+      return
+    }
+
+    if (this.allowCreateCheck()) {
+      this.addNewOption()
+      return
+    }
+
+    this.selectHoveredOption()
+  }
+
   selectOption (option: any): void {
     if (this.doShowSearchInput) {
       this.searchInputValue = ''
@@ -383,9 +402,6 @@ export default class VaSelect extends mixins(
   }
 
   addNewOption (): void {
-    if (!this.$props.allowCreate) { return }
-    if (this.searchInputValue === '') { return }
-
     if (this.$props.multiple) {
       const hasAddedOption: boolean = this.valueComputed.some((value: any) => value === this.searchInputValue)
 
