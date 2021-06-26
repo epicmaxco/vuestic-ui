@@ -2110,23 +2110,23 @@
   },
   "radio": {
     "title": "Radio",
-    "summaryText": "The `va-radio` allows the user to select one option from a set.",
+    "summaryText": "Компонент `va-radio` позволяет пользователю выбрать один вариант из набора опций.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Default usage  of the `va-radio` component."
+        "title": "Базовое использование",
+        "text": "Базовое использование компонента `va-radio`."
       },
       "color": {
-        "title": "Colors",
-        "text": "With `color` prop you can change the color of the component."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "customLabels": {
-        "title": "Custom Labels",
-        "text": "You can add a label text by setting the `label` property. To switch label side use `left-label` property."
+        "title": "Название",
+        "text": "Свойство `label` добавляет текст в название элемента. Если вы примените свойство `left-label`, то название будет размещено слева от чекбокса."
       },
       "disabled": {
-        "title": "Disabled",
-        "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
+        "title": "Недоступная опция",
+        "text": "Свойство disabled запрещает любые действия с компонентом `va-radio`."
       }
     }
   },
