@@ -112,8 +112,8 @@
         "errorMessages": "Сообщения об ошибках для компонента",
         "errorCount": "Количество отображаемых сообщений об ошибках",
         "stateful": "Добавляет возможность работы с компонентом без настройки `v-model`",
-        "color": "Цвет компонента (поддерживаемые темой опции или *HEX*)",
-        "textColor": "Цвет текста (поддерживаемые темой опции или *HEX*)",
+        "color": "Цвет компонента (поддерживаемые темой опции или `HEX`)",
+        "textColor": "Цвет текста (поддерживаемые темой опции или `HEX`)",
         "rules": "Правила валидации<!-- TODO Add link -->",
         "to": "Целевой маршрут ссылки, [подробнее](https://router.vuejs.org/api/#to \"Vue router docs\")",
         "replace": "Если установлено, при навигации вызывается `router.replace()` вместо `router.push()`, поэтому запись в истории не сохраняется. [Подробнее](https://router.vuejs.org/api/#replace \"Vue router docs\")",
@@ -138,9 +138,9 @@
         "outline": "Удаляет фон",
         "gradient": "Добавляет градиент фона",
         "modelValue": "Значение биндинга `v-model`",
-        "activeButtonTextColor": "Цвет текста активной кнопки (поддерживаемые темой опции или *HEX*)",
+        "activeButtonTextColor": "Цвет текста активной кнопки (поддерживаемые темой опции или `HEX`)",
         "indeterminateValue": "Переопределяет нуестановленное значение состояния",
-        "borderColor": "Цвет css стиля `border` (поддерживаемые темой опции или *HEX*)",
+        "borderColor": "Цвет css стиля `border` (поддерживаемые темой опции или `HEX`)",
         "clearableIcon": "Устанавливает иконку кнопки очистки",
         "tabindex": "Устанавливает кастомный `tabindex`"
       }
@@ -669,21 +669,21 @@
     },
     "VaList": {
       "props": {
-        "fit": "Stretches list by its content width"
+        "fit": "Растягивает список по ширине содержимого"
       },
       "slots": {
-        "default": "Contains list items"
+        "default": "Содержимое списка"
       }
     },
     "VaListLabel": {
       "slots": {
-        "default": "Contains the label text"
+        "default": "Название"
       }
     },
     "VaListSeparator": {
       "props": {
-        "fit": "Adds space on the left side",
-        "spaced": "Adds spaces over and under the separator"
+        "fit": "Добавляет место с левой стороны",
+        "spaced": "Добавляет место над и под разделителем"
       }
     },
     "VaListItem": {
@@ -692,25 +692,25 @@
         "click": "Emitted when user clicked on item"
       },
       "slots": {
-        "default": "For a list item content"
+        "default": "Сожержимое компонента"
       }
     },
     "VaListItemLabel": {
       "props": {
-        "caption": "Applies another style to text",
-        "lines": "Divides item label content on a custom count of lines"
+        "caption": "Добавляет к тексту другой стиль",
+        "lines": "Разделяет содержимое элемента списка на заданное количество строк"
       },
       "slots": {
-        "default": "Contains the label text"
+        "default": "Название"
       }
     },
     "VaListItemSection": {
       "props": {
-        "icon": "Makes section for icon",
-        "avatar": "Makes section for avatar"
+        "icon": "Добавляет секцию иконки",
+        "avatar": "Добавляет секцию аватара"
       },
       "slots": {
-        "default": "For a section content"
+        "default": "Содержимое компонента"
       }
     },
     "VaSelect": {
@@ -1007,7 +1007,7 @@
     "chip": "Фишка",
     "grid": "Grid",
     "input": "Поле ввода",
-    "list": "List",
+    "list": "Список",
     "select": "Выпадающий список",
     "parallax": "Parallax",
     "popover": "Popover",
@@ -1445,7 +1445,7 @@
       },
       "color": {
         "title": "Color",
-        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
+        "text": "Set different colors using `color` prop. You can either user theme string `HEX` color value."
       },
       "offset": {
         "title": "Offset",
@@ -1556,7 +1556,7 @@
       },
       "colors": {
         "title": "Color",
-        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value"
+        "text": "Set different colors using `color` prop. You can either user theme string `HEX` color value"
       },
       "sizes": {
         "title": "Size",
@@ -2308,28 +2308,28 @@
     }
   },
   "list": {
-    "title": "List",
-    "summaryText": "The `va-list` component is used to display structured information.",
+    "title": "Список",
+    "summaryText": "Компонент `va-list` используется для отображения информации в виде списка.",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "Has no attributes by default. Build a structure by using components `va-list-label`, `va-list-separator`, `va-list-item` and etc."
+        "title": "Базовое использование",
+        "text": "По умолчанию компонент `va-list` реализуется при помощи вспомогательных компонентов `va-list-label`, `va-list-separator`, `va-list-item` и т.д."
       },
       "disabled": {
-        "title": "Disabled",
-        "text": "You can disable any user interaction by using 'disabled' prop."
+        "title": "Неактивный список",
+        "text": "Свойство `disabled` делает список неактивным."
       },
       "clickable": {
-        "title": "Clickable",
-        "text": "Support a ability to use a list item as a link."
+        "title": "Элемент-ссылка",
+        "text": "Свойство `to` делает элемент списка кликабельной ссылкой."
       },
       "fit": {
-        "title": "Fit",
-        "text": "Support a fitting of the list item by its content length."
+        "title": "Заполнение",
+        "text": "Свойство `fit` ограничивает ширину списка шириной контента."
       },
       "lines": {
-        "title": "Lines",
-        "text": "You can divide item label content on a custom count of lines."
+        "title": "Строки",
+        "text": "Свойство `lines` позовляет разделить содержимое элемента списка на произвольное количество строк."
       }
     },
     "api": {
@@ -2337,24 +2337,24 @@
         "text": "API for `va-list` component."
       },
       "listLabel": {
-        "title": "List Label API",
-        "text": "API for `va-list-label` component."
+        "title": "`va-list-label` API",
+        "text": "API для компонета `va-list-label`."
       },
       "listSeparator": {
-        "title": "List Separator API",
-        "text": "API for `va-list-separator` component."
+        "title": "`va-list-separator` API",
+        "text": "API для компонета `va-list-separator`."
       },
       "listItem": {
-        "title": "List Item API",
-        "text": "API for `va-list-item` component."
+        "title": "`va-list-item` API",
+        "text": "API для компонета `va-list-item`."
       },
       "listItemLabel": {
-        "title": "List Item Label API",
-        "text": "API for `va-list-item-label` component."
+        "title": "`va-list-item-label` API",
+        "text": "API для компонета `va-list-item-label`."
       },
       "listItemSection": {
-        "title": "List Item Section API",
-        "text": "API for `va-list-item-section` component."
+        "title": "`va-list-item-section` API",
+        "text": "API для компонета `va-list-item-section`."
       }
     }
   },
