@@ -356,24 +356,24 @@
     },
     "VaSwitch": {
       "props": {
-        "color": "Color of switch",
-        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
-        "label": "Switch label",
-        "leftLabel": "Moves label to the left",
-        "readonly": "Makes switch read only",
-        "trueLabel": "Label when checked",
-        "falseLabel": "Label when unchecked",
-        "trueInnerLabel": "Inner label when checked",
-        "falseInnerLabel": "Inner label when unchecked",
-        "value": "Switch value",
-        "trueValue": "Value when checked",
-        "falseValue": "Value when unchecked",
-        "arrayValue": "Takes the value of a switch in an array of switches",
-        "indeterminate": "Adds a state in which it's impossible to say whether the item is toggled `on` or `off`."
+        "color": "Цвет переключателя",
+        "size": "Размер компонента, возможные варианты: `small`, `medium` (по умолчанию), `large`",
+        "label": "Название переключателя",
+        "leftLabel": "Перемещает название налево",
+        "readonly": "Делает переключатель доступным только для чтения",
+        "trueLabel": "Название при значении `true`",
+        "falseLabel": "Название при значении `false`",
+        "trueInnerLabel": "Название внутри переключателя при значении `true`",
+        "falseInnerLabel": "Название внутри переключателя при значении `false`",
+        "value": "Значение переключателя",
+        "trueValue": "Значение включенного переключателя",
+        "falseValue": "Значение выключенного переключателя",
+        "arrayValue": "Переключает возвращаемое значение в тип `Array`",
+        "indeterminate": "Добавляет состояние, в котором невозможно сказать, включен или выключен переключатель"
       },
       "slots": {
-        "default": "Slot for label.",
-        "innerLabel": "Slot for inner label."
+        "default": "Название переключателя",
+        "innerLabel": "Название внутри переключателя"
       }
     },
     "VaFileUpload": {
@@ -1339,44 +1339,44 @@
     }
   },
   "switch": {
-    "title": "Switch",
-    "summaryText": "Switch component turns on or off the state of your custom option",
+    "title": "Переключатель",
+    "summaryText": "Компонент `va-switch` изменяет состояние вашего свойства на `true/false`.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "This is basic usage of switch component."
+        "title": "Базовое использование",
+        "text": "Базовое использование компонента `va-switch`."
       },
       "color": {
-        "title": "Color",
-        "text": "You can customize color."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "state": {
-        "title": "State",
-        "text": "Switch can be in disabled or readonly state."
+        "title": "Состояние",
+        "text": "Свойство `disabled` делает переключатель неактивным как визуально, так и отменяет все виды действий с ним, свойство `readonly` работает схожим образом, но не применяет визуальных изменений."
       },
       "label": {
-        "title": "Label",
-        "text": "Switch can be labeled on the left or on the right."
+        "title": "Название",
+        "text": "Свойство `label` добавляет название переключателю. Свойство `left-label` - перемещает название влево."
       },
       "customLabel": {
-        "title": "Custom Label",
-        "text": "You can label any state of switch."
+        "title": "Название по значению",
+        "text": "Свойства `true-label` и `false-label` задают названия для значений `true` и `false` соответственно."
       },
       "innerLabel": {
-        "title": "Inner Label",
-        "text": "You may put a label inside of a switch."
+        "title": "Название внутри переключателя",
+        "text": "Свойства `true-inner-label` и `false-inner-label` задают названия для значений `true` и `false` внутри переключателя. Слот `innerLabel` позволяет кастомизировать эти значения."
       },
       "size": {
-        "title": "Size",
-        "text": "Switches have 3 different sizes."
+        "title": "Размер",
+        "text": "Свойство `size` изменияет размер переключателя, доступны 3 варианта: `small`, `medium` (по умолчанию) и `large`."
       },
       "loading": {
-        "title": "Loading",
-        "text": "You can mark a pending state of switch."
+        "title": "Спиннер закрузки",
+        "text": "Свойство `loading` включает спиннер загрузки переключателя."
       },
       "error": {
-        "title": "Error",
-        "text": "Switch has an error style"
+        "title": "Ошибка",
+        "text": "Свойство `error` стилизует переключатель инофрмируя об ошибке. Свойство `error-messages` добавляет сообщние об ошибке."
       }
     }
   },
