@@ -428,11 +428,11 @@
     },
     "VaCard": {
       "props": {
-        "stripe": "Displays a stripe above a card title.",
-        "stripeColor": "Customize stripe color (theme string or *HEX* string).",
-        "gradient": "Adds color gradient to `va-card` body.",
-        "bordered": "Toggles borders of a card component.",
-        "outlined": "Toggles shadow of `va-card`"
+        "stripe": "Включает отображени полоски над заголовком карточки",
+        "stripeColor": "Задает цвет полоски (предопределенные опции цвета или `HEX`)",
+        "gradient": "Добавляет градиент в тело компонента",
+        "bordered": "Включает контур компонента",
+        "outlined": "Включает тень компонента"
       }
     },
     "VaSidebar": {
@@ -1717,42 +1717,42 @@
     }
   },
   "card": {
-    "title": "Card",
-    "summaryText": "The `va-card` is a multipurpose representative component that can be used for anything from links to articles. It has some helper components to make markup easier.",
+    "title": "Карточка",
+    "summaryText": "Компонент `va-card` представляет собой многоцелевой репрезентативный компонент, который можно использовать для чего угодно, от ссылок до статей. В нем есть несколько вспомогательных компонентов, облегчающих разметку.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "This is default `va-card` implementation using `va-card-title` and `va-card-content` helper components."
+        "title": "Базовое использование",
+        "text": "По умолчанию компонент `va-card` реализуется при помощи вспомогательных компонентов `va-card-title` и `va-card-content`."
       },
       "tag": {
-        "title": "Tag",
-        "text": "Changed tag to `<b>`"
+        "title": "Тег-обертка",
+        "text": "Свойство `tag` обернет компонент в соответствующий тег."
       },
       "borderAndShape": {
-        "title": "Border, shadow and shape"
+        "title": "Контур, тень и форма"
       },
       "disabled": {
-        "title": "Disabled"
+        "title": "Неактивная карточка"
       },
       "link": {
-        "title": "Card as link"
+        "title": "Карточка-ссылка"
       },
       "stripe": {
-        "title": "Stripe"
+        "title": "Полоса"
       },
       "colorAndGradient": {
-        "title": "Color and gradient"
+        "title": "Цвет и градиент"
       }
     },
     "faq": {
       "questions": [
         {
-          "question": "Can I use `va-card` without helper components?",
-          "answer": "Yes, if you don't like our styling preset, you are free to use your own."
+          "question": "Могу ли я использовть компонент `va-card` без вспомогательных компонентов?",
+          "answer": "Да, если вам не нравится наш пресет, то вы можете сделать свой."
         },
         {
-          "question": "Should I manually set tag if i use link attributes?",
-          "answer": "No, we will do it for you. If tag is not set, but `href` is, component tag will be `<a>`, if any of router-link prop is set, it will be `<router-link>`."
+          "question": "Нужно ли мне вручную выставлять тег, если я использую карточку как ссылку?",
+          "answer": "Нет, мы сделаем это за вас. Если тег не установлен, но имеется атрибут `href`, тегом компонента будет `<a>`, если используется свойство `router-link`, то компонент будет обернут в `<router-link>`."
         }
       ]
     }
