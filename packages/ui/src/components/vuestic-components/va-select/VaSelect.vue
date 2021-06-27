@@ -376,10 +376,7 @@ export default class VaSelect extends mixins(
 
     if (this.allowCreateCheck()) {
       this.addNewOption()
-      return
     }
-
-    this.selectHoveredOption()
   }
 
   selectOption (option: any): void {
