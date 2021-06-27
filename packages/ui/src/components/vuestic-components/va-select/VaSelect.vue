@@ -383,6 +383,7 @@ export default class VaSelect extends mixins(
   }
 
   selectOption (option: any): void {
+    if (this.hoveredOption === null) { return }
     if (this.doShowSearchInput) {
       this.searchInputValue = ''
     }
