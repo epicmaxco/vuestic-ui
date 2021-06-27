@@ -578,19 +578,19 @@
     },
     "VaCollapse": {
       "props": {
-        "value": "Current collapse state",
-        "header": "Text content to place in the header",
-        "icon": "The icon to be displayed inside a header",
-        "solid": "Adds borders to the collapse",
-        "colorAll": "Applies color to collapse contents background"
+        "value": "Значение компонента",
+        "header": "Текст заголовка",
+        "icon": "Иконка в заголовке",
+        "solid": "Включает обводку компонента",
+        "colorAll": "Применяет цвет ко всему компоненту"
       },
       "events": {
-        "input": "Emits when collapse is clicked"
+        "input": "Изменение значения компонента (клик по панели)"
       },
       "methods": {},
       "slots": {
-        "default": "Content of the collapse component",
-        "header": "Replaces content of the header to custom"
+        "default": "Тело компонента",
+        "header": "Заголовок компонента"
       }
     },
     "VaAccordion": {
@@ -1002,7 +1002,7 @@
     "alert": "Алерт",
     "icon": "Иконка",
     "radio": "Радиокнопка",
-    "collapse": "Collapse",
+    "collapse": "Раскрываемая панель",
     "accordion": "Аккордеон",
     "chip": "Фишка",
     "grid": "Grid",
@@ -2131,24 +2131,24 @@
     }
   },
   "collapse": {
-    "title": "Collapse",
-    "summaryText": "Toggles the visibility of content.",
+    "title": "Раскрываемая панель",
+    "summaryText": "Компонент `va-collapse` переключает видимость контента.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Default usage  of the `va-collapse` component."
+        "title": "Базовое использование",
+        "text": "Базовое использование компонента `va-collapse`."
       },
       "solid": {
-        "title": "Solid",
-        "text": "Add borders to your collapse component by using the `solid` property."
+        "title": "Обводка",
+        "text": "Свойство `solid` добавляет обводку компоненту."
       },
       "icon": {
-        "title": "Icon",
-        "text": "You can add an icon to the header."
+        "title": "Иконка",
+        "text": "Свойство `icon` добавляет иконку в заголовок."
       },
       "color": {
-        "title": "Color",
-        "text": "Use two color schemes."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       }
     }
   },
