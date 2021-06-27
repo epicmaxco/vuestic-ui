@@ -98,7 +98,7 @@
         @keydown.tab.prevent="hideAndFocus"
       >
         <va-input
-          v-if="doShowSearchInput"
+          v-if="showSearchInput"
           :id="$props.id"
           ref="searchBar"
           v-model="searchInputValue"
@@ -244,7 +244,7 @@ export default class VaSelect extends mixins(
   // Search
   searchInputValue = ''
 
-  get doShowSearchInput () {
+  get showSearchInput () {
     return this.$props.searchable || this.$props.allowCreate
   }
 
@@ -383,8 +383,11 @@ export default class VaSelect extends mixins(
   }
 
   selectOption (option: any): void {
-    if (this.hoveredOption === null) { return }
-    if (this.doShowSearchInput) {
+    if (this.hoveredOption === null) {
+      return
+    }
+
+    if (this.showSearchInput) {
       this.searchInputValue = ''
     }
 
@@ -580,7 +583,7 @@ export default class VaSelect extends mixins(
       this.hintedSearchQuery += event.key
     }
 
-    if (this.doShowSearchInput) {
+    if (this.showSearchInput) {
       this.searchInputValue = this.hintedSearchQuery
       return
     }
