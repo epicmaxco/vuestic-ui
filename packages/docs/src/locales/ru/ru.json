@@ -595,17 +595,17 @@
     },
     "VaAccordion": {
       "props": {
-        "value": "The array of currently opened collapses",
-        "multiply": "Allows to expand multiply components",
-        "inset": "Collapse becomes smaller when activated",
-        "popout": "Collapse becomes bigger when activated"
+        "value": "Массив значений открытых панелей",
+        "multiply": "Позволяет оставлять открытыми множество панелей",
+        "inset": "Активная панель будет уменьшена",
+        "popout": "Активная панель будет увеличена"
       },
       "events": {
-        "input": "Emits when any of collapses is clicked"
+        "input": "Изменение значения компонента (клик по панели)"
       },
       "methods": {},
       "slots": {
-        "default": "Contains collapses"
+        "default": "Раскрываемые панели (тело аккордеона)"
       }
     },
     "VaChip": {
@@ -1003,7 +1003,7 @@
     "icon": "Иконка",
     "radio": "Радиокнопка",
     "collapse": "Collapse",
-    "accordion": "Accordion",
+    "accordion": "Аккордеон",
     "chip": "Фишка",
     "grid": "Grid",
     "input": "Поле ввода",
@@ -2153,24 +2153,24 @@
     }
   },
   "accordion": {
-    "title": "Accordion",
-    "summaryText": "Allows you to control group of collapses",
+    "title": "Аккордеон",
+    "summaryText": "Позволяет управлять группой [раскрываемых панелей](https://vuestic.dev/ui-elements/collapse).",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Default usage  of the `va-accordion` component."
+        "title": "Базовое использование",
+        "text": "Базовое использование компонента `va-accordion`."
       },
       "multiply": {
-        "title": "Multiply",
-        "text": "Accordion component allows you to select multiply collapses."
+        "title": "Несколько открытых панелей",
+        "text": "Свойство `multiply` позволяет оставить открытыми множество раскрываемых панелей."
       },
       "inset": {
-        "title": "Inset",
-        "text": "Active collapse component becomes smaller."
+        "title": "Уменьшение активной панели",
+        "text": "Свойство `inset` уменьшает активную панель."
       },
       "popout": {
-        "title": "Popout",
-        "text": "Active collapse component becomes bigger."
+        "title": "Увеличение активной панели",
+        "text": "Свойство `popout` увеличивает активную панель."
       }
     }
   },
