@@ -397,13 +397,13 @@
     },
     "VaDivider": {
       "props": {
-        "vertical": "Displays divider vertically",
-        "dashed": "If set to true, the divider line is dashed",
-        "inset": "If set to true, the left and right margins will be added; reduces height for vertical divider",
-        "orientation": "Position of the title inside divider (for horizontal only). `left`, `center` (default) or `right`"
+        "vertical": "Вертикальное отображение разделителя",
+        "dashed": "Пунктирный разделитель",
+        "inset": "Добавляет внутренние отсупы",
+        "orientation": "Позиция контента внутри разделителя, доступны опции (только для горизонтального разделителя): `left`, `center` (по умолчанию) и `right`"
       },
       "slots": {
-        "default": "Insert content (for horizontal only)"
+        "default": "Содержимое разделителя (только для горизонтального разделителя)"
       }
     },
     "VaToast": {
@@ -1647,32 +1647,32 @@
     }
   },
   "divider": {
-    "title": "Divider",
-    "summaryText": "The `va-divider` component is used to separate sections of lists or layouts.",
+    "title": "Разделитель",
+    "summaryText": "Компонента `va-divider` используется для разделения разделов списков или макетов.",
     "examples": {
       "default": {
-        "title": "Simple divider",
-        "text": "Dividers in their simplest form display a horizontal line."
+        "title": "Базовое использование",
+        "text": "По умолчанию компонента `va-divider` представляет собой горизонтальную линию."
       },
       "customContent": {
-        "title": "Custom content",
-        "text": "You can customize the content on the divider line. Also you can set position of the content by setting the `orientation` property to `left`, `center` or `right`."
+        "title": "Кастомизация содержимого",
+        "text": "Вы можете кастомизировать контент компонента. Также вы можете установить положение контента, используя свойство `orientation` в значении: `left`, `center` или `right`."
       },
       "inset": {
-        "title": "Inset divider",
-        "text": "Add the `inset` attribute in order to set whether or not the divider is an inset divider."
+        "title": "Вставляемый разделитель",
+        "text": "Свойство `inset` стилизует разделитель как вставляемые (применяет внутренние отступы)."
       },
       "vertical": {
-        "title": "Vertical divider",
-        "text": "Add the `vertical` attribute in order to set whether or not the divider is vertically-oriented."
+        "title": "Вертикальный разделитель",
+        "text": "Свойство `vertical` устанавливают вертикальную ориентацию разделителя."
       },
       "dashed": {
-        "title": "Dashed divider",
-        "text": "Add the `dashed` attribute in order to set whether or not the divider line is dashed."
+        "title": "Пунктирный разделитель",
+        "text": "Свойство `dashed` стилизует разделитель пунктиром."
       },
       "withList": {
-        "title": "Divider with lists",
-        "text": "Dividers perfectly work with `va-list`."
+        "title": "Разделитель списков",
+        "text": "Разделитель отлично работает с компонентом [va-list](https://vuestic.dev/en/ui-elements/list)."
       }
     }
   },
