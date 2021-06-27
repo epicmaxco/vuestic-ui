@@ -715,44 +715,44 @@
     },
     "VaSelect": {
       "props": {
-        "value": "Model of the component. Must be Array if using 'multiple' prop",
-        "clearValue": "Sets value that should be setted after clearing",
-        "options": "Available options that the user can select from",
-        "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
-        "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
-        "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
-        "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
-        "placeholder": "Sets the input’s placeholder text",
-        "position": "Sets option list position",
-        "tagMax": "Sets maximum tag count after whom selection will be cropped",
-        "tags": "Sets selection display as tags",
-        "deletableTags": "Sets ability to delete tags",
-        "searchable": "Sets ability to filter option list by typing",
-        "multiple": "Sets select in multiple mode",
-        "width": "Sets option list width",
-        "maxHeight": "Sets option list maximum height",
-        "noOptionsText": "Sets text whom displaying if list have no items",
-        "fixed": "Sets dropdown position strategy",
-        "clearable": "Sets ability to clear selection",
-        "hideSelected": "Sets ability to hide selected options",
-        "allowCreate": "Allow creating new options. Can be setted to `unique` if you want to create only unique options",
-        "clearIcon": "Sets the clear icon",
-        "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
-        "bordered": "Applies the underline.",
-        "separator": "Text to separate the selected values."
+        "value": "Значение компонента. При использование свойства 'multiple' привязанное значение должно иметь тип `Array`",
+        "clearValue": "Значение, которые установяться после сброса",
+        "options": "Опции, которые может выбрать пользователь",
+        "disabledBy": "Ключ в объекте, который будет использоваться как свойство `disabled`. Может быть строкой (путь к ключу) или функцией: `(option) => option.disabled`",
+        "valueBy": "Ключ в объекте, который будет использоваться как свойство `value`. Может быть строкой (путь к ключу) или функцией: `(option) => option.value`",
+        "trackBy": "Ключ в объекте, который будет использоваться как свойство `key`. Может быть строкой (путь к ключу) или функцией: `(option) => option.track`",
+        "textBy": "Ключ в объекте, который будет использоваться как свойство `text`. Может быть строкой (путь к ключу) или функцией: `(option) => option.text`",
+        "placeholder": "Задает текст плейсхолдера",
+        "position": "Задает позиционирование выпадающего меню",
+        "tagMax": "Задает максимальное количество тегов, после которого выделение будет обрезано",
+        "tags": "Задает отображение выбранных значений как тегов",
+        "deletableTags": "Задает возможность удаление тегов",
+        "searchable": "Задает возможность фильтрации по набранному тексту",
+        "multiple": "Задает возможность выбора нескольких значений",
+        "width": "Задает ширину выпадающего меню",
+        "maxHeight": "Задает максимальную высоту выпадающего меню",
+        "noOptionsText": "Задает текст, отображаемый при отсутствии опций",
+        "fixed": "Задает стратегию раскрывающегося списка",
+        "clearable": "Задает возможность очистки значения компонента",
+        "hideSelected": "Задает возможность скрытия выбранных значений",
+        "allowCreate": "Разрешает добавление отсутствующих значений. Можно установить значение `unique`, если вам необходимо создавать только уникальные значения",
+        "clearIcon": "Задает иконку кнопки сброса значения",
+        "dropdownIcon": "Задает иконку выпадающего меню. Может быть значением типа `Object`, если вы хотите задать различные иконки для отображения `open/close`",
+        "bordered": "Применяет подчеркивание",
+        "separator": "Текст для разделения выбранных значений"
       },
       "events": {
-        "clear": "Emitted if select value has been cleared",
-        "updateSearch": "Emitted if search value has changed"
+        "clear": "Сброс значения компонента",
+        "updateSearch": "Изменение значения поиска (фильтра)"
       },
       "methods": {
-        "reset": "Clearing select value"
+        "reset": "Сбрасывает значение компонента"
       },
       "slots": {
-        "prepend": "Adds an item outside the input and before input content",
-        "prependInner": "Adds an item inside the input and before input content",
-        "append": "Adds an item outside the input and after input content",
-        "appendInner": "Adds an item inside the input and after input content"
+        "prepend": "Добавляет элемент за пределами компонента и перед его содержимым",
+        "prependInner": "Добавляет элемент внутри компонента и перед его содержимым",
+        "append": "Добавляет элемент за пределами компонента и после его содержимого",
+        "appendInner": "Добавляет элемент внутри компонента и после его содержимого"
       }
     },
     "VaParallax": {
@@ -984,7 +984,7 @@
     "tabs": "Табы",
     "treeView": "Дерево",
     "slider": "Слайдер",
-    "switch": "Switch",
+    "switch": "Переключатель",
     "popovers": "Popovers",
     "chat": "Чат",
     "pagination": "Pagination",
@@ -1001,14 +1001,14 @@
     "infiniteScroll": "Infinite Scroll",
     "alert": "Алерт",
     "icon": "Иконка",
-    "radio": "Radio",
+    "radio": "Радиокнопка",
     "collapse": "Collapse",
     "accordion": "Accordion",
     "chip": "Фишка",
     "grid": "Grid",
     "input": "Поле ввода",
     "list": "List",
-    "select": "Select",
+    "select": "Выпадающий список",
     "parallax": "Parallax",
     "popover": "Popover",
     "backtop": "Backtop",
@@ -1875,11 +1875,11 @@
         "text": "По умолчанию компонент `va-option-list` отобразит список чекбоксов, предоставленных свойством `options`."
       },
       "withRadio": {
-        "title": "Radio",
+        "title": "Радиокнопка",
         "text": "Свойство `type` со значением `radio` включит отображение списка radio кнопок."
       },
       "withSwitch": {
-        "title": "Switch",
+        "title": "Переключатель",
         "text": "Свойство `type` со значением `switch` включит отображение списка переключателей."
       },
       "withComplexData": {
@@ -2109,7 +2109,7 @@
     }
   },
   "radio": {
-    "title": "Radio",
+    "title": "Радиокнопка",
     "summaryText": "Компонент `va-radio` позволяет пользователю выбрать один вариант из набора опций.",
     "examples": {
       "default": {
@@ -2359,55 +2359,55 @@
     }
   },
   "select": {
-    "title": "Select",
-    "summaryText": "Select field components are used for collecting user provided information from a list of options. This component opens up a menu for the selection list and action.",
+    "title": "Выпадающий список",
+    "summaryText": "Компонент `va-select` используется для выбора значения из списка опций. Этот компонент открывает меню с вариантами выбора.",
     "examples": {
-      "default": "Default select",
+      "default": "Базовое использование",
       "variations": {
-        "title": "Variants",
-        "text": "Includes single or multiple selects"
+        "title": "Выбор нескльких значений",
+        "text": "Свойство `multiple` включает возможность выбора нескольких значений"
       },
-      "decorators": "Decorators",
+      "decorators": "Декораторы",
       "objectOptions": {
-        "title": "Objects as options"
+        "title": "Объекты в качестве опций"
       },
       "trackBy": {
-        "title": "Track by",
-        "text": "Track by can be used if you have multiple options with same value."
+        "title": "Выбор опций с одинаковыми значениями",
+        "text": "Свойство `track-by` можно использовать, если у вас есть несколько вариантов с одинаковым значением."
       },
       "slots": {
-        "title": "Slots",
-        "text": "Includes prepend, prepend-inner, append and append-inner slots"
+        "title": "Слоты",
+        "text": "Поддерживаемые слоты: `prepend`, `prepend-inner`, `append` и `append-inner`."
       },
       "state": {
-        "title": "State",
-        "text": "Includes error, success, disabled or loading state"
+        "title": "Состояния",
+        "text": "Поддерживаемые состояния: `error`, `success`, `disabled` и `loading`."
       },
       "chips": {
-        "title": "Chips",
-        "text": "Includes selection display as chips and maximum chips count"
+        "title": "Фишки",
+        "text": "Включает отображение выборанных значений в виде фишек и их максимального количества."
       },
       "searchable": {
-        "title": "Searchable",
-        "text": "Supports ability to filter option list by typing"
+        "title": "Поиск",
+        "text": "Свойство `searchable` включает возможность фильтрации списка опций путем ввода."
       },
       "allowCreate": {
-        "title": "Allow create",
-        "text": "You can add options that initial options not contain"
+        "title": "Создание отсутствующих опций",
+        "text": "Свойство `allowCreate` позволяет добавить опции, которые не содержатся в изначальном наборе опций."
       },
       "validation": {
         "title": "Правила валидации",
-        "text": "Select accepts an array of functions that take an input value as an argument and return either true / false or a string with an error message"
+        "text": "Компонент `va-select` принимает массив функций, которые принимают входное значение в качестве аргумента и возвращают либо `true/false`, либо строку с сообщением об ошибке."
       },
       "keyboardNavigation": {
-        "title": "Keyboard navigation",
-        "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
-        "selects": "By using `ENTER` and `SPACE` you can select current option",
-        "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
+        "title": "Клавиатруная навигация",
+        "moves": "Используя кнопки со стрелками `вверх` и `вниз` вы можете перемещаться межды опциями.",
+        "selects": "Выброр опции возможен по клику `ENTER` и `SPACE`.",
+        "hints": "Если вы начнете вводить текст в открытом списке опции, он создаст буфер поиска (будет сброшен, если новый ключ не будет введен в течение 1 секунды), который будет использоваться для поиска в названиях опций."
       },
       "styles": {
-        "title": "Styles",
-        "text": "Select styles inherit from input styles"
+        "title": "Стили",
+        "text": "Применяются те же стили, что и для компонента [va-input](https://vuestic.dev/ui-elements/input)."
       }
     }
   },
