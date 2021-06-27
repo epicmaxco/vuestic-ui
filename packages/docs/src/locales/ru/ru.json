@@ -200,36 +200,36 @@
     },
     "VaSlider": {
       "props": {
-        "range": "Transforms single value slider into range slider.",
-        "value": "Numeric value(s) of slider.",
-        "trackLabel": "Label of slider track.",
-        "color": "Color of slider.",
-        "trackColor": "Color of slider base track.",
-        "labelColor": "Color of slider label.",
-        "trackLabelVisible": "Toggles track label visibility.",
-        "min": "Minimum value.",
-        "max": "Maximum value.",
-        "step": "Slider value step.",
-        "label": "Slider label",
-        "invertLabel": "Moves label to opposite side.",
-        "disabled": "Disables slider.",
-        "readonly": "Makes slider read only.",
-        "pins": "Adds step marks to a slider track.",
-        "iconPrepend": "Icon at the start of slider.",
-        "iconAppend": "Icon at the end of slider.",
-        "vertical": "Makes slider vertical.",
-        "showTrack": "Toggles track display."
+        "range": "Задает возможность выбора диапазона значений",
+        "value": "Значение компонента",
+        "trackLabel": "Задает название ползунка",
+        "color": "Задает цвет",
+        "trackColor": "Задает цвет дорожки слайдера",
+        "labelColor": "Задает цвет названия слайдера",
+        "trackLabelVisible": "Задает видимость названия слайдера",
+        "min": "Минимальное значение",
+        "max": "Максимальное значение",
+        "step": "Шаг изменения значения компонента",
+        "label": "Название слайдера",
+        "invertLabel": "Перемещает название слайдера направо",
+        "disabled": "Делает слайдер неактивным",
+        "readonly": "Делает слайдер доступным только для чтения",
+        "pins": "Добавляет отображение меток на слайдере",
+        "iconPrepend": "Иконка перед слайдером",
+        "iconAppend": "Иконка после слайдера",
+        "vertical": "Включает вертикальное отображение слайдера",
+        "showTrack": "Включае/отключает отображение дорожки слайдера"
       },
       "events": {
-        "dragStart": "Emitted on drag start.",
-        "dragEnd": "Emitted on drag end.",
-        "change": "Emitted on value input.",
-        "input": "Emitted on value change."
+        "dragStart": "Начало перемещения ползунка",
+        "dragEnd": "Окончание перемещения ползунка",
+        "change": "Изменение значения после потери фокуса",
+        "input": "Измениение значения"
       },
       "slots": {
-        "append": "Slot for input after slider.",
-        "prepend": "Slot for input before slider.",
-        "label": "Replaces the default label."
+        "append": "Поле ввода до слайдера",
+        "prepend": "Поле ввода после слайдера",
+        "label": "Название слайдера"
       }
     },
     "VaAffix": {
@@ -1281,60 +1281,60 @@
     }
   },
   "slider": {
-    "title": "Slider",
-    "summaryText": "The slider component is a visualization for the number input. A user can drag a slider within a fixed range to get the required value.",
+    "title": "Слайдер",
+    "summaryText": "Компонента `va-slider` визуализирует поле ввода для числа. Пользователь может перетащить ползунок в фиксированном диапазоне, чтобы получить необходимое значение.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "This is basic usage of the slider component."
+        "title": "Базовое использоваени",
+        "text": "Базовое использоваени компонента `va-slider`."
       },
       "color": {
-        "title": "Color",
-        "text": "You can customize the color of the slider."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "minmax": {
-        "title": "Minimum and maximum values",
-        "text": "You can set a range between min and max values."
+        "title": "Диапазон значений",
+        "text": "Свойства `min` и `max` позволяют установить минимальное и максимальное значение соотвественно."
       },
       "state": {
-        "title": "State",
-        "text": "Slider can be in disabled or readonly state."
+        "title": "Сотстояние",
+        "text": "Свойство `disabled` делает слайдер неактивным как визуально, так и отменяет все виды действий с ним, свойство `readonly` работает схожим образом, но не применяет визуальных изменений."
       },
       "range": {
-        "title": "Range slider",
-        "text": "You can set a range of values."
+        "title": "Диапазон значений",
+        "text": "Свойство `range` добавляет возможность выбора диапазона значений."
       },
       "step": {
-        "title": "Step",
-        "text": "Step can be changed."
+        "title": "Шаг",
+        "text": "Свойство `step` добавляет возможность ограничения шага перемещения селектора на определенное значение."
       },
       "pins": {
-        "title": "Pins",
-        "text": "Display markers on slider track."
+        "title": "Метки",
+        "text": "Свойство `pins` добавляет отображение меток на слайдере."
       },
       "label": {
-        "title": "Label",
-        "text": "Switch label can have an inverted position or a custom color."
+        "title": "Название",
+        "text": "Свойство `label` добавляет название слайдеру и имеет две дополнительные настройки: `invert-label` - перемещает название вправо, `label-color` - изменяет цвет названия."
       },
       "slots": {
-        "title": "Slots",
-        "text": "You can add inputs before and after the slider using 'append' or 'prepend' slot name. Also default label can be replaced using 'label' slot."
+        "title": "Слоты",
+        "text": "Вы можете добавить поля ввода до и после компонента используя слоты `append` и `prepend` соотвественно. Так же название слайдера можно кастомизировать через слот `label`."
       },
       "icon": {
-        "title": "Icon",
-        "text": "You can insert icon at the start or end of slider."
+        "title": "Иконка",
+        "text": "Свойства `icon-append` и `icon-prepend` позовляют добавить иконку до и после слайдера."
       },
       "track": {
-        "title": "Track",
-        "text": "Track can be hidden or have custom color."
+        "title": "Дорожка слайдера",
+        "text": "Свойство `show-track` позволяет скрыть дорожку слайдера, свойство `track-color` позволяет изменить её цвет."
       },
       "trackLabel": {
-        "title": "Track label",
-        "text": "You can show track label and overwrite it's view."
+        "title": "Название ползунка",
+        "text": "Свойство `track-label-visible` включает отображения названия ползунка. Его отображение можно настроить при помощи свойства `track-label`."
       },
       "vertical": {
-        "title": "Vertical",
-        "text": "Vertical state of slider."
+        "title": "Вертикальный слайдер",
+        "text": "Свойство `vertical` изменяет отображение слайдера на вертикальное."
       }
     }
   },
