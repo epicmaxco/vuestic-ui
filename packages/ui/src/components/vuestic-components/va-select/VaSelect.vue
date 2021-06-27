@@ -251,6 +251,7 @@ export default class VaSelect extends mixins(
   created () {
     watch(() => this.searchInputValue, (value) => {
       this.$emit('update-search', value)
+      this.hoveredOption = null
     })
   }
 
@@ -368,7 +369,7 @@ export default class VaSelect extends mixins(
   }
 
   selectOrAddOption () {
-    if (this.searchInputValue === this.hoveredOption) {
+    if (this.hoveredOption !== null) {
       this.selectHoveredOption()
       return
     }
