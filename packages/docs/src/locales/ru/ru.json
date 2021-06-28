@@ -901,16 +901,16 @@
     },
     "VaAppBar": {
       "props": {
-        "gradient": "Applies gradient style to background",
-        "bottom": "Sets the component position to the bottom",
-        "hideOnScroll": "Hides component when scrolling target",
-        "shadowOnScroll": "Applies box-shadow to the component when scrolling target",
-        "shadowColor": "Sets color to the box-shadow"
+        "gradient": "Применяет градент к фону",
+        "bottom": "Закрепляет панель приложения внизу",
+        "hideOnScroll": "Скрывает панель приложения при прокрутке",
+        "shadowOnScroll": "Применяет к компоненту стиль `box-shadow` при прокрутке",
+        "shadowColor": "Задает цвет тени компонента"
       },
       "events": {},
       "methods": {},
       "slots": {
-        "default": "Slot for app-bar content"
+        "default": "Содержимое компонента"
       }
     },
     "VaInnerLoading": {
@@ -1021,7 +1021,7 @@
     "buttonGroup": "Группа кнопок",
     "buttonToggle": "Кнопка-переключатель",
     "buttonDropdown": "Кнопка с меню",
-    "appBar": "App Bar",
+    "appBar": "Панель приложения",
     "innerLoading": "Inner Loading",
     "installation": "Установка",
     "roadmap": "План развития",
@@ -2633,28 +2633,28 @@
     }
   },
   "appBar": {
-    "title": "App bar",
-    "summaryText": "The app bar component is a part of a website’s navigation and it’s an alternative to the header element in apps.",
+    "title": "Панель приложения",
+    "summaryText": "Компонент `va-app-bar` является частью навигации веб-сайта и является альтернативой элементу заголовка в приложениях.",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "By default, a `va-app-bar` needs a parent element with relative position."
+        "title": "Базовое использование",
+        "text": "По умолчанию компоненту `va-app-bar` нужен родительский элемент с относительной позицией."
       },
       "color": {
-        "title": "Color",
-        "text": "You can set a background color of the component."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "bottom": {
-        "title": "Bottom",
-        "text": "You can make app bar sit at the bottom of the screen."
+        "title": "Отображения внизу экрана",
+        "text": "Вы можете сделать так, чтобы панель приложений располагалась в нижней части экрана."
       },
       "hide": {
-        "title": "Hide",
-        "text": "`hide-on-scroll` allows you to hide app bar when you scroll away."
+        "title": "Скрытие при прокрутке",
+        "text": "Свойство `hide-on-scroll` позволяет скрыть панель приложения при прокрутке."
       },
       "shadow": {
-        "title": "Shadow",
-        "text": "You can set a shadow."
+        "title": "Тень",
+        "text": "Вы можете добавить тень панели приложения."
       }
     }
   },
