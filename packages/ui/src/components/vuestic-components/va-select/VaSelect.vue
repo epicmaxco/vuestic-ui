@@ -381,6 +381,7 @@ export default class VaSelect extends mixins(
 
   selectOption (option: any): void {
     if (this.hoveredOption === null) {
+      this.hideAndFocus()
       return
     }
 
