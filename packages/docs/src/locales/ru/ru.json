@@ -770,20 +770,20 @@
     },
     "VaBacktop": {
       "props": {
-        "target": "Applies the selector to which the backtop is bound",
-        "visibilityHeight": "The minimum height after which the backtop is displayed",
-        "speed": "Sets the scrolling speed",
-        "horizontalPosition": "Sets the horizontal position of the component",
-        "verticalPosition": "Sets the vertical position of the component",
-        "horizontalOffset": "Sets the horizontal offset of the component from the border of the monitor",
-        "verticalOffset": "Sets the vertical offset of the component from the border of the monitor"
+        "target": "Задает селектор, к которому привязана задняя панель",
+        "visibilityHeight": "Задает минимальную высоту, после которой отображается компонент",
+        "speed": "Задает скорость прокрутки",
+        "horizontalPosition": "Задает горизонтальное положение компонента",
+        "verticalPosition": "Задает вертикальное положение компонента",
+        "horizontalOffset": "Задает горизонтальное смещение компонента от границы область просмотра",
+        "verticalOffset": "Задает вертикальное смещение компонента от границы область просмотра"
       },
       "events": {
-        "click": "Emitted when user clicked on backtop"
+        "click": "Клик по компоненту"
       },
       "methods": {},
       "slots": {
-        "default": "Slot for backtop content"
+        "default": "Содержимое компонента"
       }
     },
     "VaButtonDropdown": {
@@ -1011,7 +1011,7 @@
     "select": "Выпадающий список",
     "parallax": "Parallax",
     "popover": "Popover",
-    "backtop": "Backtop",
+    "backtop": "Возврат наверх",
     "reset": "Reset",
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
@@ -2434,12 +2434,12 @@
     }
   },
   "backtop": {
-    "title": "Backtop",
-    "summaryText": "The backtop button is used to return to the top of a component.",
+    "title": "Возврат наверх",
+    "summaryText": "Компонент `va-backtop` предоставляет собой кнопку, используемую для возврата к началу контейнера.",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "By default `va-backtop` watches for a body element offset height. You can change a target element, positioning and scrolling speed."
+        "title": "Базовое использование",
+        "text": "По умолчанию компонент `va-backtop` следит за значением `offset-height` тела документа. Вы можете изменить целевой элемент, положение и скорость прокрутки."
       }
     }
   },
