@@ -515,12 +515,12 @@
     },
     "VaProgressCircle": {
       "props": {
-        "value": "The progress value",
-        "indeterminate": "Using the `indeterminate` prop, the `va-progress-circle` continues to  animate indefinitely.",
-        "thickness": "Circle border size between 0 and 1"
+        "value": "Значение компонента",
+        "indeterminate": "Бесконечная анимация прогресса",
+        "thickness": "Размер контура между 0 и 1"
       },
       "slots": {
-        "default": "Display any additional info about the progress"
+        "default": "Сожержимое компонента"
       }
     },
     "VaInfiniteScroll": {
@@ -1947,32 +1947,32 @@
     }
   },
   "progressCircle": {
-    "title": "Progress Circle",
-    "summaryText": "The `va-progress-circle` component is used to display an indicator of an app loading content. Also check the <a href=\"/en/progress-bar\">va-progress-bar</a> component.",
+    "title": "Индикатор прогресса (круг)",
+    "summaryText": "Компонент `va-progress-circle` используется для отображения индикатора загрузки содержимого приложения. Так же ознакомьтесь с компонентом [va-progress-circle](https://vuestic.dev/ui-elements/progress-bar).",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "By default, the `va-progress-circle` displays a circular progress bar. Use the `value` prop to control the progress."
+        "title": "Базовое использование",
+        "text": "По умолчанию компонент `va-progress-circle` отображает горизонтальную линию прогресса. Используйте свойстово `value` для контороля заполнения индикатора."
       },
       "indeterminate": {
-        "title": "Indeterminate",
-        "text": "Use the `indeterminate` prop so that the `va-progress-circle` continuously animates."
+        "title": "Постоянная анимация",
+        "text": "Свойство `indeterminate` включает непрерывную анимацию."
       },
       "coloring": {
-        "title": "Coloring",
-        "text": "Use predefined colors or use your own with the `color` prop."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "sizing": {
-        "title": "Sizing",
-        "text": "Use predefined sizes or use your own with the `size` prop."
+        "title": "Размер",
+        "text": "Свойство `size` изменяет размер индикатора прогресса."
       },
       "slots": {
-        "title": "Slots",
-        "text": "There is also the default `slot` if you want to display some additional info about the progress."
+        "title": "Слоты",
+        "text": "Также есть `slot` по умолчанию, если вы хотите отображать дополнительную информацию о прогрессе."
       },
       "thickness": {
-        "title": "Thickness",
-        "text": "Use the `thickness` prop to adjust the stroke size."
+        "title": "Ширина полосы индикатора",
+        "text": "Свойство `thickness` задает ширина полосы индикатора."
       }
     }
   },
