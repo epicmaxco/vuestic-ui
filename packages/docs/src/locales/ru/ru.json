@@ -437,12 +437,12 @@
     },
     "VaSidebar": {
       "props": {
-        "minimized": "Minimized state of sidebar.",
-        "hoverable": "Expand sidebar on hover.",
-        "position": "Position of `va-sidebar`, can be `right` or `left`.",
-        "width": "Width of component in maximized state.",
-        "minimizedWidth": "Width of component in minimized state.",
-        "value": "The current visibility state of `va-sidebar`."
+        "minimized": "Состоняие минимизации боковой панели",
+        "hoverable": "Задает раскрытие боковое панели при наведении (не работает при активном свойстве `minimized`)",
+        "position": "Задает расположение боковой панели, доступные опции: `left` (по умолчанию) и `right`",
+        "width": "Задает ширину в раскрытом состоянии",
+        "minimizedWidth": "Задает ширину в закрытом состоянии",
+        "value": "Значение состояни видимости боковой панели"
       }
     },
     "VaImage": {
@@ -935,9 +935,9 @@
     },
     "VaSidebarItem": {
       "props": {
-        "activeColor": "Used to set accent color for active `VaSidebarItem`",
-        "hoverColor": "Used to set accent color for hovered `VaSidebarItem`",
-        "active": "If `true` this sidebar item will be highlighted"
+        "activeColor": "Задает активный цвет (поддерживаемые темой опции или `HEX`)",
+        "hoverColor": "Задает цвет при наведении (поддерживаемые темой опции или `HEX`)",
+        "active": "Задает выделение элемента, как активной ссылки"
       },
       "events": {},
       "methods": {},
@@ -978,7 +978,7 @@
     "breadcrumbs": "Хлебные крошки",
     "badge": "Бейдж",
     "card": "Карточка",
-    "sidebar": "Sidebar",
+    "sidebar": "Боковая панель",
     "rating": "Рейтинг",
     "modal": "Модальное окно",
     "tabs": "Табы",
@@ -1041,7 +1041,7 @@
     "componentsConfig": "Компоненты",
     "colorsConfig": "Цвета",
     "cssVariables": "Переменные CSS",
-    "sidebarItem": "Sidebar Item",
+    "sidebarItem": "Элемент боковой панели",
     "navbar": "Панель навигации",
     "toast": "Toast",
     "typography": "Типографика",
@@ -1758,78 +1758,78 @@
     }
   },
   "sidebar": {
-    "title": "Sidebar",
-    "summaryText": "`va-sidebar` is a column to store navigation or secondary information of your app.",
+    "title": "Боковая панель",
+    "summaryText": "Компонет `va-sidebar` - это колонка для хранения навигации или дополнительной информации о вашем приложении.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Default usage of `va-sidebar`"
+        "title": "Базовое использование",
+        "text": "Базовое использование компонента `va-sidebar`."
       },
       "minimized": {
-        "title": "Minimized",
-        "text": "You can minimize sidebar using `minimized` prop"
+        "title": "Минимизация",
+        "text": "Свойство `minimized` позволяет минимизировать (схлопнуть) боковую панель."
       },
       "hoverable": {
-        "title": "Hoverable",
-        "text": "Manage your sidebar state using `hoverable` prop. It allows to expand 'va-sidebar' on hover."
+        "title": "Открытие при наведении",
+        "text": "Свойство `hoverable` включает открытие бооковой панели при наведени курсора."
       },
       "position": {
-        "title": "Position",
-        "text": "Align `va-sidebar` to the left or right."
+        "title": "Позиционирование",
+        "text": "Свойство `position` задает позиционирование компонента, доступные опции: `left` (по умолчанию) и `right`."
       },
       "width": {
-        "title": "Width",
-        "text": "Define custom width of sidebar in maximixed state."
+        "title": "Ширина",
+        "text": "Свойство `width` задает ширину боковой панель в раскрытом сотоянии."
       },
       "vModel": {
-        "title": "V-model",
-        "text": "Use v-model to enable/disable `va-sidebar`."
+        "title": "Отображение",
+        "text": "Используйте `v-model` для контроля отображения компонента."
       },
       "minimizedWidth": {
-        "title": "Minimized width",
-        "text": "Width of `va-sidebar` when minimized."
+        "title": "Ширина в закрытом состоянии",
+        "text": "Свойство `minimized-width` задает ширину боковой панель в закрытом сотоянии."
       },
       "color": {
-        "title": "Color",
-        "text": "Change background color of a sidebar."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "gradient": {
-        "title": "Gradient background",
-        "text": "You can make Navbar background gradient"
+        "title": "Градиент",
+        "text": "Свойствр `gradient` задает градиент фону."
       }
     },
     "faq": {
       "questions": [
         {
-          "question": "What if `minimized` conflicts with `hoverable`?",
-          "answer": "No conflict there, `minimized` has higher priority. If it's `true`, hover will not expand sidebar."
+          "question": "Что делать, если свойства `minimized` и `hoverable` конфликтуют?",
+          "answer": "Никаких конфликтов нет, свойство `minimized` имеет более высокий приоритет. Если его значение установлено в `true`, то боковая панель не будет раскрываться при наведении."
         }
       ]
     }
   },
   "sidebarItem": {
-    "title": "Sidebar item",
-    "summaryText": "Used as link in your sidebar.",
+    "title": "Элемент боковой панели",
+    "summaryText": "Компонент `va-sidebar-item` используется как ссылка в [боковой панели](https://vuestic.dev/ui-elements/sidebar).",
     "examples": {
       "simple": {
-        "title": "Simple usage example",
-        "text": "`VaSidebarItem` is used with `VaSidebarContent` (to create paddings) and `VaSidebarTitle` (to fill all remaining width in `VaSidebarItem`)"
+        "title": "Базовое использование",
+        "text": "Компонент `va-sidebar-item` используется с компонентом `va-sidebar-content` (для создания отступов) и `va-sidebar-title` (чтобы заполнить всю оставшуюся ширину `va-sidebar-item`)."
       },
       "colors": {
-        "title": "Colors",
-        "text": "You can change sidebar default colors"
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "active": {
-        "title": "Highlight active `VaSidebarItem`",
-        "text": "It is possible to have multiple `VaSidebarItem` highlighted. You can choose your own way to highlight an active item. Even if you want to activate a few `VaSidebarItems`."
+        "title": "Выделение активного элемента",
+        "text": "Возможно несколько активных элементов. Вы можете выбрать свой способ выделения активного элемента. Даже если вы хотите активировать несколько элементов."
       },
       "icons": {
-        "title": "`VaSidebarTitle` and VaIcons",
-        "text": "`VaSidebarTitle` used to fill all remaining free space in `VaSidebarItem`. We can also add any other components (like `VaIcon`, `VaChip` or `VaButton`)."
+        "title": "Компоненты `va-sidebar-title` и `va-icon`",
+        "text": "`va-sidebar-title` используется для заполнения всего оставшегося свободного места в `va-sidebar-item`. Вы также можете добавить любые другие компоненты (например [иконки](https://vuestic.dev/ui-elements/icon), [фишки](https://vuestic.dev/ui-elements/chip) или [кнопки](https://vuestic.dev/ui-elements/button))."
       },
       "components": {
-        "title": "Advanced case with `VaAccordion`",
-        "text": "`VaSidebarItem` can be used with `VaAccordion` and `VaCollapses`."
+        "title": "Продвинутый пример с `va-accordion`",
+        "text": "Компонент `va-sidebar-item` может быть использован с компонентами [va-accordion](https://vuestic.dev/ui-elements/accordion) и [va-сollapse](https://vuestic.dev/ui-elements/сollapse)."
       }
     }
   },
