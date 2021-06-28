@@ -504,13 +504,13 @@
     "VaProgressBar": {
       "props": {
         "value": "The progress value",
-        "indeterminate": "Create a indeterminate loading bar",
-        "buffer": "Create a loading bar with a buffer. Commonly used in videos",
-        "reverse": "Reverse the progress bar direction",
-        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)"
+        "indeterminate": "Бесконечная анимация прогресса",
+        "buffer": "Создает полосу загрузки с буфером. Обычно используется в видео",
+        "reverse": "Измените направление индикатора прогресса",
+        "rounded": "Добавляет скругления (`border-radius`, включено по умолчанию)"
       },
       "slots": {
-        "default": "Display any additional info about the progress"
+        "default": "Содержимое компонента"
       }
     },
     "VaProgressCircle": {
@@ -996,8 +996,8 @@
     "divider": "Разделитель",
     "checkbox": "Чекбокс",
     "button": "Кнопка",
-    "progressBar": "Progress Bar",
-    "progressCircle": "Progress Circle",
+    "progressBar": "Индикатор прогресса",
+    "progressCircle": "Индикатор прогресса (круг)",
     "infiniteScroll": "Бесконечная прокрутка",
     "alert": "Алерт",
     "icon": "Иконка",
@@ -1917,32 +1917,32 @@
     }
   },
   "progressBar": {
-    "title": "Progress Bar",
-    "summaryText": "The `va-progress-bar` component is used to display an indicator of an app loading content. Also check the <a href=\"/en/progress-circle\">va-progress-circle</a> component.",
+    "title": "Индикатор прогресса",
+    "summaryText": "Компонент `va-progress-bar` используется для отображения индикатора загрузки содержимого приложения. Так же ознакомьтесь с компонентом [va-progress-circle](https://vuestic.dev/ui-elements/progress-circle).",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "By default, the `va-progress-bar` displays a horizontal progress bar. Use the `value` prop to control the progress."
+        "title": "Базовое использование",
+        "text": "По умолчанию компонент `va-progress-bar` отображает горизонтальную линию прогресса. Используйте свойстово `value` для контороля заполнения индикатора."
       },
       "indeterminate": {
-        "title": "Indeterminate",
-        "text": "Use the `indeterminate` prop so that the `va-progress-bar` continuously animates."
+        "title": "Постоянная анимация",
+        "text": "Свойство `indeterminate` включает непрерывную анимацию."
       },
       "coloring": {
-        "title": "Coloring",
-        "text": "Use predefined colors or use your own with the `color` prop."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "sizing": {
-        "title": "Sizing",
-        "text": "Use predefined sizes or use your own with the `size` prop."
+        "title": "Размер",
+        "text": "Свойство `size` изменяет размер индикатора прогресса."
       },
       "slots": {
-        "title": "Slots",
-        "text": "There is also the default `slot` if you want to display some additional info about the progress."
+        "title": "Слоты",
+        "text": "Также есть `slot` по умолчанию, если вы хотите отображать дополнительную информацию о прогрессе."
       },
       "buffer": {
-        "title": "Buffer",
-        "text": "When dealing with media content like streaming videos we can use progress bars to show the buffering progress indicator on a video."
+        "title": "Буфер",
+        "text": "При работе с мультимедийным контентом, таким как потоковое видео, вы можете использовать компонент, чтобы показать индикатор выполнения буферизации на видео."
       }
     }
   },
