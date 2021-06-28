@@ -131,7 +131,7 @@
         "trueValue": "Переопределяет возвращаемое значение, когда оно выбрано (`checked`)",
         "falseValue": "Переопределяет возвращаемое значение, когда оно не выбрано",
         "square": "Удаляет скругления",
-        "indicator": "Sets the indicator style.",
+        "indicator": "Задает стиль индикатора",
         "icon": "Sets an icon.",
         "rounded": "Добавляет скругления",
         "flat": "Удаляет `borders` и фон",
@@ -1014,7 +1014,7 @@
     "backtop": "Возврат наверх",
     "reset": "Reset",
     "colorPicker": "Color Picker",
-    "colorInput": "Color Input",
+    "colorInput": "Поле ввода цвета",
     "colorSlider": "Color Slider",
     "colorPalette": "Color Palette",
     "datePicker": "Дата/время",
@@ -2464,20 +2464,20 @@
     }
   },
   "colorInput": {
-    "title": "Color Input",
-    "summaryText": "Input component that allows you to select a color.",
+    "title": "Поле ввода цвета",
+    "summaryText": "Компонент `va-color-input` позволяет выбрать цвет.",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "By default use this component with `v-model`."
+        "title": "Базовое использование",
+        "text": "По умолчанию компонент `va-color-input` обменивается значением через `v-model`."
       },
       "selected": {
         "title": "Selected",
         "text": "Dot style changes can be applied."
       },
       "disabled": {
-        "title": "Disabled",
-        "text": "All user interactions can be disabled."
+        "title": "Недоступное поле ввода",
+        "text": "Свойство `disabled` запрещает любые действия с полем ввода"
       },
       "advanced": {
         "title": "Advanced",
@@ -2485,7 +2485,7 @@
       }
     },
     "api": {
-      "colorInput": "Color Input API",
+      "colorInput": "API компонента `va-color-input`",
       "colorInputAdvanced": "Color Input Advanced API"
     }
   },
