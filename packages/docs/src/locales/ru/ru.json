@@ -1692,26 +1692,26 @@
   },
   "hover": {
     "title": "Hover",
-    "summaryText": "The `va-hover` component provides easy access to hover states for any component. To work with hover states you can use either `v-model` or slot-scoped `hover` property.",
+    "summaryText": "Компонент `va-hover` обеспечивает легкий доступ к состояниям наведения для любого компонента. Для работы с состояниями наведения вы можете использовать либо директиву `v-model`, либо свойство `hover` в области видимости слота.",
     "examples": {
       "slot": {
-        "title": "Slot based access",
-        "text": "You are also free to use Vue default slot."
+        "title": "Доступ через слот",
+        "text": "Вы также можете использовать слот Vue по умолчанию."
       },
       "vModel": {
-        "title": "Default usage",
-        "text": "You can use `v-model` to get access to hover state."
+        "title": "Базовое использование",
+        "text": "Вы можете использовать директиву `v-model`, чтобы получить доступ к состоянию."
       },
       "disabled": {
-        "title": "Disabled",
-        "text": "Won't change value if disabled."
+        "title": "Неактивная обертка",
+        "text": "Свойство `disabled` отлкючает поведение компонентов."
       }
     },
     "faq": {
       "questions": [
         {
-          "question": "Can I wrap multiple elements with `va-hover`?",
-          "answer": "Yes, but they will share the hover state value."
+          "question": "Могу ли я обернуть несколько элементов компонентом `va-hover`?",
+          "answer": "Да, но у них будет общее значение состояния."
         }
       ]
     }
