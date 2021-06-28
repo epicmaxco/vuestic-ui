@@ -95,7 +95,7 @@
       <va-dropdown-content
         @keyup.enter.stop
         @keydown.esc.prevent="hideAndFocus"
-        @keydown.tab.prevent="hideAndFocus"
+        @keydown.tab="hideDropdown"
       >
         <va-input
           v-if="showSearchInput"
