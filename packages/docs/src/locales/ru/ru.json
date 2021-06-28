@@ -408,19 +408,19 @@
     },
     "VaToast": {
       "props": {
-        "title": "Sets the title for the notification",
-        "offsetY": "Sets the Y offset",
-        "offsetX": "Sets the X offset",
-        "message": "Notification message",
-        "icon": "Sets the close icon",
-        "customClass": "Applies custom class to the component",
-        "duration": "Sets the duration of the notification display",
-        "closeable": "Provides the ability to close the component",
-        "onClose": "Applies a function to use when pressed a close button",
-        "onClick": "Applies a function to use when clicked",
-        "position": "Sets the position of the notification",
-        "render": "Render function to use a custom content",
-        "multiLine": "Sets more space for the Toast component"
+        "title": "Задает заголовок уведомления",
+        "offsetY": "Задает смещение по оси Y",
+        "offsetX": "Задает смещение по оси X",
+        "message": "Сообщение уведомления",
+        "icon": "Задает инонку закрытия",
+        "customClass": "Применяет пользовательский класс к компоненту",
+        "duration": "Задает продолжительность отображения уведомления",
+        "closeable": "Задает возможность закрытия уведомления по клику",
+        "onClose": "Коллбэк закрытия уведомления",
+        "onClick": "Коллбэк клика по уведомлению",
+        "position": "Задает позиционирование уведомления",
+        "render": "Функция рендеринга для использования настраиваемого содержимого",
+        "multiLine": "Делает уведомление с большим пространством"
       },
       "events": {},
       "methods": {},
@@ -1043,7 +1043,7 @@
     "cssVariables": "Переменные CSS",
     "sidebarItem": "Элемент боковой панели",
     "navbar": "Панель навигации",
-    "toast": "Toast",
+    "toast": "Уведомления",
     "typography": "Типографика",
     "agGridWrapper": "AG Grid Wrapper",
     "dataTable": "Таблица данных"
@@ -1436,39 +1436,39 @@
     }
   },
   "toast": {
-    "title": "Toast",
-    "summaryText": "Component for sending a notification to the user.",
+    "title": "Уведомления",
+    "summaryText": "Компонент для отправки уведомлении пользователю.",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "By default, run this component in events by using the `init` method with a setting object."
+        "title": "Базовое использование",
+        "text": "По умолчанию этот компонент запускается с помощью метода `init` с объектом настройки."
       },
       "color": {
-        "title": "Color",
-        "text": "Set different colors using `color` prop. You can either user theme string `HEX` color value."
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "offset": {
-        "title": "Offset",
-        "text": "Use `offset` property to set the offset of the toast."
+        "title": "Смещение",
+        "text": "Свойства `offsetX` и `offsetY` задают смещение уведомления."
       },
       "position": {
-        "title": "Position",
-        "text": "Use `position` property to set the custom position of the toast. Available are `top-right`, `top-left`, `bottom-right`, `bottom-left`."
+        "title": "Позиционирование",
+        "text": "Свойство `position` задает позиционирование уведомления, доступные опции: `top-right`, `top-left`, `bottom-right` и `bottom-left`."
       },
       "close": {
-        "title": "Close",
-        "text": "You can use close method to close the notification and you can set custom onClose event."
+        "title": "Закрытие",
+        "text": "Вы можете использовать метод `close`, чтобы закрыть уведомление или вы можете установить собственное событие `onClose`."
       },
       "click": {
-        "title": "Click",
-        "text": "You can set custom onClick event to handle the click on button."
+        "title": "Клик по уведомлению",
+        "text": "Вы можете установить собственное событие `onClick` для обработки нажатия на уведомление."
       }
     },
     "faq": {
       "questions": [
         {
-          "question": "What is the difference between a component and a service?",
-          "answer": "The difference is in implementation. The service behaves more flexibly and it is easier to bind it to certain events than to render the whole element. \n Each prop you provide to the component you can provide to the service too by using the setting object."
+          "question": "В чем разница между компонентом и сервисом?",
+          "answer": "Разница в реализации. Сервис ведет себя более гибко, и его легче привязать к определенным событиям, чем отображать весь элемент. Каждое свойство, которое вы предоставляете компоненту, вы также можете предоставить сервису, используя объект настройки."
         }
       ]
     }
