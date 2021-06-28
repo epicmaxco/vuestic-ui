@@ -99,7 +99,7 @@
         "click": "Клик"
       },
       "props": {
-        "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
+        "align": "Задает горизонтальное позиционирование (основано на `flex`), доступны следующие опции: `left`, `center`, `right`, `between`, `around` и `stretch`",
         "id": "Применяет `id` к внутреннему компоненту ввода, полезно для нативных форм",
         "name": "Применяет `name` к внутреннему компоненту ввода, полезно для нативных форм",
         "tag": "Заменяет тег html. Это полезно для семантики, а также для обеспечения валидной разметки в некоторых случаях (`ul > li` и `tr > td`, etc)",
@@ -244,13 +244,13 @@
     },
     "VaBreadcrumbs": {
       "props": {
-        "activeColor": "Color of active links (theme string or HEX string).",
-        "separator": "Element to separate breadcrumbs items.",
-        "separatorColor": "Color of the separator icon (theme string or HEX string)."
+        "activeColor": "Цвет активного элемента (поддерживаемые темой опции или `HEX`)",
+        "separator": "Задает разделитель элементов",
+        "separatorColor": "Цвет разделителя (поддерживаемые темой опции или `HEX`)"
       },
       "slots": {
-        "default": "One or more `va-breadcrumbs-item` elements.",
-        "separator": "Separator element. Can be string or vue component."
+        "default": "Тело компонента (элементы `va-breadcrumbs-item`)",
+        "separator": "Разделитель элементов (может быть строкой или другим компонентом)"
       }
     },
     "VaBreadcrumbsItem": {
@@ -975,7 +975,7 @@
     "documentationPage": "Документация",
     "affix": "Affix",
     "avatar": "Аватар",
-    "breadcrumbs": "Breadcrumbs",
+    "breadcrumbs": "Хлебные крошки",
     "badge": "Бейдж",
     "card": "Карточка",
     "sidebar": "Sidebar",
@@ -1160,45 +1160,45 @@
     }
   },
   "breadcrumbs": {
-    "title": "Breadcrumbs",
-    "text": "The breadcrumbs component is used for application navigation. It shows the location of the current page within the navigation hierarchy. It’s used with `va-breadcrumb-item` components.",
+    "title": "Хлебные крошки (Breadcrumbs)",
+    "text": "Компонент `va-breadcrumbs` используется для навигации по приложению. Он показывает расположение текущей страницы в иерархии навигации, используется с компонентами `va-breadcrumb-item`.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "This is a basic usage of the `va-breadcrumbs` component."
+        "title": "Базовое использование",
+        "text": "Базовое использование компонента `va-breadcrumbs`."
       },
       "color": {
-        "title": "Color",
-        "text": "Sets color of breadcrumbs content"
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "align": {
-        "title": "Align",
-        "text": "Changes component position on the page."
+        "title": "Позиционирование",
+        "text": "Свойство `align` позволяет настроить горизонтальное позиционирование компонента на странице."
       },
       "separator": {
-        "title": "Separator",
-        "text": "You can use your own separator and customize its color."
+        "title": "Разделитель",
+        "text": "Свойство `separator` позволяет настроить отображаемые разделить, изменить его цвет можно с помощью свойства `separator-color`."
       },
       "activeColor": {
-        "title": "Active color",
-        "text": "Color of active `va-breadcrumb-item` elements."
+        "title": "Активный цвет",
+        "text": "Цвет активного элемента `va-breadcrumb-item`."
       },
       "item": {
-        "title": "Item",
-        "text": "Some `va-breadcrumbs-item` props examples."
+        "title": "Элемент",
+        "text": "Элемент в иерархии навигации `va-breadcrumbs-item`."
       }
     },
     "api": {
       "item": {
-        "title": "Item API",
-        "text": "API for `va-breadcrumb-item` component."
+        "title": "`va-breadcrumb-item` API",
+        "text": "API для компонента `va-breadcrumb-item`."
       }
     },
     "faq": {
       "questions": [
         {
-          "question": "Can `separator` prop work with `separator` slot?",
-          "answer": "No, slot has higher priority, prop is ignored when slot is used. Same is legit for `label` of `va-breadcrumbs-item`, it is ignored when you use `default` slot."
+          "question": "Может ли свойство `separator` работать совместно со слотом `separator`?",
+          "answer": "Нет, слот имеет высший приоритет, свойства игнорируются при использовании слотов. То же самое справедливо и для свойствао `label` компонента `va-breadcrumbs-item`, оно игнорируется, когда вы используете слот `default`."
         }
       ]
     }
