@@ -147,14 +147,14 @@
     },
     "VaBadge": {
       "props": {
-        "text": "Badge text",
-        "overlap": "Allows badge to overlap with element.",
-        "transparent": "Makes badge semi-transparent.",
-        "multiLine": "Badge text will wrap to next line.",
-        "visibleEmpty": "Badge will be shown even when there is no text.",
-        "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
-        "bottom": "Position badge to the bottom.",
-        "left": "Position badge to the left"
+        "text": "Текст бэйджа",
+        "overlap": "Позволяет бейджу перекрывать элемент",
+        "transparent": "Задает бейджу полупрозрачным",
+        "multiLine": "Задает возможность переноса текста на следующую строку",
+        "visibleEmpty": "Задает отображение при отсутствии текста",
+        "dot": "Задает отображение компонента в виде точки",
+        "bottom": "Задает позиционирование вниз",
+        "left": "Задает позиционирование влево"
       }
     },
     "VaButton": {
@@ -1204,33 +1204,33 @@
     }
   },
   "badge": {
-    "title": "Badge",
-    "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications on top of avatar.",
+    "title": "Бейдж",
+    "summaryText": "Компонент `va-badge` используется для выделения информации, относящейся к другому элементу, например, пропущенных уведомлений поверх аватара.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Useful for information views and tables."
+        "title": "Базовое использование",
+        "text": "Полезно для отображения информации и таблиц."
       },
       "withAvatar": {
-        "title": "With Avatar"
+        "title": "Использование с аватаром"
       },
       "withCard": {
-        "title": "With Card"
+        "title": "Использование с карточкой"
       },
       "position": {
-        "title": "Position left and bottom"
+        "title": "Позиционирование"
       },
       "overlap": {
-        "title": "Overlap"
+        "title": "Перекрытие"
       },
       "dot": {
-        "title": "Dot"
+        "title": "Точка"
       },
       "transparent": {
-        "title": "Transparent"
+        "title": "Прозрачность"
       },
       "color": {
-        "title": "Color"
+        "title": "Цвет"
       }
     }
   },
