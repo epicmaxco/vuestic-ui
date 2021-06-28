@@ -180,7 +180,9 @@ export default class VaDropdown extends mixins(
     if (isCurrentDropdownClicked) {
       return
     }
-    this.onClickOutside()
+    if (this.showContent) {
+      this.onClickOutside()
+    }
   }
 
   updateAnchorWidth (): void {
