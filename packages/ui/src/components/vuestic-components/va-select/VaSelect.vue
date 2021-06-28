@@ -24,7 +24,7 @@
         <div
           class="va-select"
           ref="select"
-          :tabindex="tabindex"
+          :tabindex="tabIndexComputed"
           @focus="focus"
           @blur="blur"
           @keydown.enter.stop.prevent="onSelectClick"
@@ -275,6 +275,10 @@ export default class VaSelect extends mixins(
 
   set valueComputed (value: any) {
     this.$emit('update:modelValue', this.getValue(value))
+  }
+
+  get tabIndexComputed () {
+    return this.$props.disabled ? -1 : this.tabindex
   }
 
   get valueComputedString (): string {
