@@ -1,5 +1,5 @@
 <template>
-  <VuePrismComponent class="DocsCode" :language="language">{{ formatedCode }}</VuePrismComponent>
+  <VuePrismComponent v-if="doShowCode" class="DocsCode" :language="language">{{ formatedCode }}</VuePrismComponent>
 </template>
 
 <script>
@@ -9,6 +9,20 @@ import 'prismjs/components/prism-bash'
 import VuePrismComponent from 'vue-prism-component'
 
 export default {
+  data() {
+    return {
+      doShowCode: true,
+    }
+  },
+  watch: {
+    code: {
+      handler() {
+        this.doShowCode = false
+        this.$nextTick(() => this.doShowCode = true)
+      }, 
+      immediate: true
+    }
+  },
   props: {
     language: {
       type: String,
