@@ -389,10 +389,10 @@
         "value": "Hover state."
       },
       "events": {
-        "input": "Emits hover state when it changes."
+        "input": "Изменение значения компонента"
       },
       "slots": {
-        "default": "Vue default slot."
+        "default": "Содержимое компонента"
       }
     },
     "VaDivider": {
@@ -525,17 +525,17 @@
     },
     "VaInfiniteScroll": {
       "props": {
-        "offset": "Number of pixels to the end of `va-infinite-scroll` container at which the component should start loading more content in advance.",
-        "reverse": "Instead of bottom, top of the container would trigger loading.",
-        "disabled": "Won't trigger load even when scroll reached end. Useful to prevent further loading when there is no more items in list.",
-        "scrollTarget": "The element to be used as a scroll container instead of default one. Could be CSS selector or Element. When not set - direct wrapper will be used as a scroll container.",
-        "debounce": "Debounce to be applied when listening to scroll event. Useful to prevent user from triggering loading multiple times.",
-        "load": "Function that loads data. Should return Promise",
-        "tag": "Заменяет тег html. Это полезно для семантики, а также для обеспечения валидной разметки в некоторых случаях (`ul > li` и `tr > td`, etc)"
+        "offset": "Число пикселей до конца зоны прокрутки, после которой компонент наченет процесс загрузки",
+        "reverse": "Вместо низа верхняя часть контейнера вызовет загрузку",
+        "disabled": "Отключение триггера загрузки",
+        "scrollTarget": "Элемент, который будет использоваться в качестве контейнера прокрутки вместо контейнера по умолчанию. Может быть селектором CSS или HTML элементом. Если не задано - в качестве контейнера прокрутки будет использоваться текущий контейнер.",
+        "debounce": "Применяться для отложенного запуска процесса загрузки. Полезно, чтобы пользователь не запускал загрузку несколько раз.",
+        "load": "Коллбэк для вызова при окончании зоны прокрутки, должен возвращать `Promise`",
+        "tag": "Заменяет тег HTML. Это полезно для семантики, а также для обеспечения валидной разметки в некоторых случаях (`ul > li` и `tr > td`, etc)"
       },
       "slots": {
-        "loading": "Shown when content is fetching.",
-        "default": "The content to be scrolled"
+        "loading": "Отображается во время загрузки",
+        "default": "Контент в области прокрутки"
       }
     },
     "VaAlert": {
@@ -973,7 +973,7 @@
     "uiElements": "Элементы UI",
     "contribution": "Помощь в разработке",
     "documentationPage": "Документация",
-    "affix": "Affix",
+    "affix": "Фиксированный контент",
     "avatar": "Аватар",
     "breadcrumbs": "Хлебные крошки",
     "badge": "Бейдж",
@@ -998,7 +998,7 @@
     "button": "Кнопка",
     "progressBar": "Progress Bar",
     "progressCircle": "Progress Circle",
-    "infiniteScroll": "Infinite Scroll",
+    "infiniteScroll": "Бесконечная прокрутка",
     "alert": "Алерт",
     "icon": "Иконка",
     "radio": "Радиокнопка",
@@ -1145,7 +1145,7 @@
     }
   },
   "affix": {
-    "title": "Affix",
+    "title": "Фиксированный контент (Affix)",
     "summaryText": "Компонент `va-affix` создается для фиксации любого содержимого в подходящем положении относительно контейнера.",
     "examples": {
       "top": {
@@ -1977,24 +1977,24 @@
     }
   },
   "infiniteScroll": {
-    "title": "Inifinite Scroll",
-    "summaryText": "The `va-infinite-scroll` component is a wrapper component which is intended to be used to create lists with dynamically added content. It provides rich interface to customize scrolling behavior and much more.",
+    "title": "Бесконечная прокрутка",
+    "summaryText": "Компонент `va-infinite-scroll` это обертка, которая предназначена для создания списков с динамически добавляемым содержимым. Он предоставляет богатый функционал для настройки поведения прокрутки и многого другого.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Just wrap your content in `va-infinite-scroll` component and provide `load` callback, and you'll see it's called each time list is scrolled till the bottom."
+        "title": "Базовое использование",
+        "text": "Просто оберните ваш контент в компонент `va-infinite-scroll` и передайте коллбэк `load`, и вы увидите, как он вызывается каждый раз, когда прокрутка доходит вниз."
       },
       "reverse": {
-        "title": "Reverse",
-        "text": "With `reverse` prop you can prepend content to your list. Might be useful in messenger windows."
+        "title": "Изменение области триггера загрузки",
+        "text": "Свойство `reverse` позволяет добавлять контент в список. Может быть полезно в окнах мессенджера."
       },
       "disabled": {
-        "title": "Disabled",
-        "text": "In case you need to prevent a list from loading more content, `disabled` prop is here for you."
+        "title": "Недоступная прокрутка",
+        "text": "Свойство `disabled` позволяет сделать прокрутку неактивной."
       },
       "customTarget": {
-        "title": "Custom scroll target container",
-        "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
+        "title": "Кастомный целевой контейнер прокрутки",
+        "text": "Предоставьте элемент DOM или селектор CSS для использования вместо контейнера прокрутки по умолчанию."
       }
     }
   },
