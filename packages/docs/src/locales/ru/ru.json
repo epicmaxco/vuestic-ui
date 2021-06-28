@@ -945,7 +945,7 @@
     },
     "VaNavbar": {
       "props": {
-        "shape": "If this prop true, then shape will be drawn at navbar background."
+        "shape": "Задает отображение фигуры на фоне"
       },
       "events": {},
       "methods": {},
@@ -1042,7 +1042,7 @@
     "colorsConfig": "Цвета",
     "cssVariables": "Переменные CSS",
     "sidebarItem": "Sidebar Item",
-    "navbar": "Navbar",
+    "navbar": "Панель навигации",
     "toast": "Toast",
     "typography": "Типографика",
     "agGridWrapper": "AG Grid Wrapper",
@@ -3027,19 +3027,19 @@
     }
   },
   "navbar": {
-    "title": "Navbar",
+    "title": "Панель навигации",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "You can use left, center and right slots to pass items to navbar. "
+        "title": "Базовое использование",
+        "text": "Вы можете использовать `left`, `center` и `right` слоты для передачи элементов на панель навигации."
       },
       "colors": {
-        "title": "Colors",
-        "text": "By default navbar uses `secondary` color. You can pass `color` props to change navbar background color. Also, text color depends on navbar background color. But you can pass own color if you want."
+        "title": "Цвет",
+        "text": "По умолчанию используется цвет `secondary`. Вы можете использовать свойство `color`, чтобы изменить цвет фона компонента. Цвет текста компонента зависит от цвета фона, но вы можете изменить его вручную, используя свойство `text-color`."
       },
       "shape": {
         "title": "Shape",
-        "text": "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
+        "text": "Свойство `shape` добавляет фигуру на фон панели навигации. Цвет формы будет автоматически взят из свойства `color`."
       }
     }
   },
