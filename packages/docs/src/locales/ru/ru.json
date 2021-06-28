@@ -234,12 +234,12 @@
     },
     "VaAffix": {
       "props": {
-        "offsetTop": "Distance from the top of target element to the top of affixed element.",
-        "offsetBottom": "Distance from the bottom of target element to the bottom of affixed element.",
-        "target": "The element relative to which the component is fixed."
+        "offsetTop": "Расстояние от верха целевого элемента до верха прикрепленного элемента",
+        "offsetBottom": "Расстояние от низа целевого элемента до низа прикрепленного элемента",
+        "target": "Элемент, относительно которого закреплен компонент"
       },
       "events": {
-        "change": "Emits affixed state on its' change."
+        "change": "Изменение значения компонента"
       }
     },
     "VaBreadcrumbs": {
@@ -1146,16 +1146,16 @@
   },
   "affix": {
     "title": "Affix",
-    "summaryText": "The affix component is created to fix any content in a proper position relative to a container.",
+    "summaryText": "Компонент `va-affix` создается для фиксации любого содержимого в подходящем положении относительно контейнера.",
     "examples": {
       "top": {
-        "title": "Fixed at the top."
+        "title": "Фиксированная позиция свеху."
       },
       "bottom": {
-        "title": "Fixed at them bottom."
+        "title": "Фиксированная позиция снизу."
       },
       "target": {
-        "title": "Fixes element relative to custom container."
+        "title": "Фиксирует элемент относительно настраиваемого контейнера."
       }
     }
   },
