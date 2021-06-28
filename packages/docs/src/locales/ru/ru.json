@@ -757,15 +757,15 @@
     },
     "VaParallax": {
       "props": {
-        "target": "The element relative to which the component is fixed",
-        "src": "URL to the image",
-        "alt": "Specifies an alternate text for an image",
-        "height": "Sets a height of the parallax",
-        "reversed": "Flips the parallax scrolling",
-        "speed": "Sets a speed of the parallax scrolling"
+        "target": "Элемент, относительно которого закреплен компонент",
+        "src": "URL изображения",
+        "alt": "Альтернативный текст, если недоступно изображение",
+        "height": "Задает выосту",
+        "reversed": "Инвертирует прокрутку",
+        "speed": "Задает скорость прокрутки"
       },
       "slots": {
-        "default": "For a content over the parallax"
+        "default": "Контент внутри компонента"
       }
     },
     "VaBacktop": {
@@ -1009,7 +1009,7 @@
     "input": "Поле ввода",
     "list": "Список",
     "select": "Выпадающий список",
-    "parallax": "Parallax",
+    "parallax": "Параллакс",
     "popover": "Popover",
     "backtop": "Возврат наверх",
     "reset": "Reset",
@@ -2412,24 +2412,24 @@
     }
   },
   "parallax": {
-    "title": "Parallax",
-    "summaryText": "Parallax is a component where the background image is moved at a different speed than the foreground content while scrolling.",
+    "title": "Параллакс",
+    "summaryText": "Компонент `va-parallax`, в котором фоновое изображение перемещается с другой скоростью, чем содержимое переднего плана при прокрутке.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "A block with a background image is displayed by default. You need to pass the 'src' property."
+        "title": "Базовое использование",
+        "text": "По умолчанию отображается блок с фоновым изображением. Вам нужно передать свойство `src`."
       },
       "custom": {
-        "title": "Custom height and speed",
-        "text": "You can adjust parallax height and scroll speed. Attention, the scrolling speed depends on the ratio of the parallax height to the image height."
+        "title": "Настраиваемая высота и скорость",
+        "text": "Свойства `height` и `speed` позволят вам настроить высоту параллакса и скорость прокрутки. Внимание, скорость прокрутки зависит от отношения высоты параллакса к высоте изображения."
       },
       "reversed": {
-        "title": "Reversed",
-        "text": "You can flip the parallax scrolling."
+        "title": "Инверсия прокрутки",
+        "text": "Свойство `reversed` позволит вам перевернуть прокрутку параллакса."
       },
       "slot": {
-        "title": "Slot",
-        "text": "You can provide some kind of content over the parallax."
+        "title": "Слот",
+        "text": "Вы можете добавить люблй контент поверх параллакса."
       }
     }
   },
