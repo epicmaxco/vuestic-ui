@@ -323,22 +323,22 @@
     },
     "VaPagination": {
       "props": {
-        "value": "Current page (or item if `total` is issued) value",
-        "visiblePages": "The amount of displayed pages. (When set to 0 all pages are displayed)",
-        "pages": "The amount of pages",
-        "boundaryLinks": "Show controls to move to first and last page",
-        "boundaryNumbers": "Always show first and last page (will replace `boundary-links` if both used)",
-        "directionLinks": "Show buttons to move forward and backward",
-        "input": "Use HTML Input instead of buttons to control `va-pagination` state",
-        "hideOnSinglePage": "Component won't be displayed if only 1 page is available",
-        "flat": "Applies `flat` style",
-        "total": "Set the amount of data pagination should iterate through. This prop should not be used with `pages` prop.",
-        "pageSize": "Set the amount of data to be displayed at 1 page. Used to calculate the length of pagination. This prop should not be used with `pages` prop.",
-        "boundaryIconLeft": "Set the icon name for left boundary icon",
-        "boundaryIconRight": "Set the icon name for right boundary icon",
-        "directionIconLeft": "Set the icon name for left direction icon",
-        "directionIconRight": "Set the icon name for right direction icon",
-        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available"
+        "value": "Значение компонента (текущая страница или элемент (если используется свойство `total`))",
+        "visiblePages": "Задает количество отображаемых страниц. (При значении 0 отображаются все страницы)",
+        "pages": "Задает количество страниц",
+        "boundaryLinks": "Задает отображение элементов управления для перехода к первой и последней странице",
+        "boundaryNumbers": "Задает постоянное отображение первой и последней страницы (заменяет свойсто `boundary-links`, если используются)",
+        "directionLinks": "Задает отображение кнопок для перемещения вперед и назад",
+        "input": "Использовать поле ввода HTML вместо кнопок для управления состоянием `va-pagination`",
+        "hideOnSinglePage": "Задает скрытие компонента, если имеентся всего 1 страница",
+        "flat": "Применяет стиль `flat`",
+        "total": "Задает количество данных, которые должны повторяться при разбивке на страницы. Это свойство не должно использоваться со свойством `pages`.",
+        "pageSize": "Задает количество данных, отображаемых на 1 странице. Используется для расчета длины нумерации страниц. Это свойство не должно использоваться со свойством `pages`.",
+        "boundaryIconLeft": "Задает имя для иконки левой границы",
+        "boundaryIconRight": "Задает имя для иконки правой границы",
+        "directionIconLeft": "Задает имя для иконки перемещения влево",
+        "directionIconRight": "Задает имя для иконки перемещения вправо",
+        "size": "Задает размер компонента, доступные опции: `small`, `medium` (по умолчанию) и `large`"
       }
     },
     "VaTabs": {
@@ -987,7 +987,7 @@
     "switch": "Переключатель",
     "popovers": "Popovers",
     "chat": "Чат",
-    "pagination": "Pagination",
+    "pagination": "Пагинация",
     "fileUpload": "Поле выбора файла",
     "form": "Форма",
     "hover": "Hover",
@@ -1547,48 +1547,48 @@
     }
   },
   "pagination": {
-    "title": "Pagination",
-    "summaryText": "The pagination component is used to split big data sets into chunks so that it's simpler for users to use provided information.",
+    "title": "Пагинация",
+    "summaryText": "Компонента `va-pagination` используется для разделения больших наборов данных на фрагменты, чтобы пользователям было проще использовать предоставленную информацию.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "By default the component is displayed as a list of pages with length equal to `pages` prop value."
+        "title": "Базовое использование",
+        "text": "По умолчанию компонент `va-pagination` отображается в виде списка страниц, длина которого равна значению свойства `pages`."
       },
       "colors": {
-        "title": "Color",
-        "text": "Set different colors using `color` prop. You can either user theme string `HEX` color value"
+        "title": "Цвет",
+        "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
       "sizes": {
-        "title": "Size",
-        "text": "Utilize `size` prop in order to make component fit your needs. Refer to *API* section for more in-depth explanation of how to use `size` prop."
+        "title": "Размер",
+        "text": "Свойство `size` изменияет размер переключателя, доступны 3 варианта: `small`, `medium` (по умолчанию) и `large`."
       },
       "icons": {
-        "title": "Custom icons",
-        "text": "Feeling the need to change icons for arrows? We have 4 props to enable full customization of `va-pagination` component."
+        "title": "Иконки",
+        "text": "Чувствуете необходимость поменять значки стрелок? У нас есть 4 свойства для полной настройки компонента `va-pagination`."
       },
       "limitVisible": {
-        "title": "Limiting the length",
-        "text": "By using `visible-pages` prop you can set the amount of pages visible on screen."
+        "title": "Ограничение длины",
+        "text": "Свойство `visible-pages` задает количество страниц, отображаемых на экране."
       },
       "withInput": {
-        "title": "Using HTML input instead of pages",
-        "text": "With `input` prop you can have input with arrow buttons instead of default pagination."
+        "title": "Использование поля ввода HTML вместо страниц",
+        "text": "Свойство `input` включает отображения поля ввода с кнопоками со стрелками вместо разбивки на страницы по умолчанию."
       },
       "totalAndPageSize": {
-        "title": "Using `total` and `page-size`",
-        "text": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
+        "title": "Вычисляемая длина элементов",
+        "text": "Свойства `total` и `page-size` позволяют компоненту вычислить длину отображаемых элементов. Значение компонента в этом случае будет равно номеру первого элемента на выбранной странице."
       }
     },
     "faq": {
       "subtitle": "FAQ",
       "questions": [
         {
-          "question": "What will happen if both `pages` and `total` props are set?",
-          "answer": "The error will be thrown into the console. Component is meant to be used only in one of these modes."
+          "question": "Что произойдет, если будут установлены оба свойства `pages` и `total`?",
+          "answer": "В консоль будет выведено сообщение об ошибке. Компонент предназначен для использования только в одном из этих режимов."
         },
         {
-          "question": "Can I use `total` and `input` props together?",
-          "answer": "Yep. In v-model you'll get item number instead of page number."
+          "question": "Могу ли я использовать свойства `total` и `input` вместе?",
+          "answer": "Да. В `v-model` вы получите номер элемента вместо номера страницы."
         }
       ]
     }
