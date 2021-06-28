@@ -343,15 +343,15 @@
     },
     "VaTabs": {
       "props": {
-        "value": "The *name* of selected tab or *index* (if `name` prop is not specified)",
-        "left": "Align all items to the left",
-        "right": "Align all items to the right",
-        "center": "Align all items to the center",
-        "grow": "Take all container width",
-        "hideSlider": "Remove slider which underlines selected item",
-        "vertical": "Align all items vertically",
-        "prevIcon": "Icon to be used for scrolling backward in pagination",
-        "nextIcon": "Icon to be used for scrolling forward in pagination"
+        "value": "Значение `name` выбранной вкладки или ее `index` (если свойство `name` не указано)",
+        "left": "Задает выравнивание элементов по левому краю",
+        "right": "Задает выравнивание элементов по правому краю",
+        "center": "Задает выравнивание элементов по центру",
+        "grow": "Задает выравнивание элементов по всей ширине контейнера",
+        "hideSlider": "Убирает подчеркивание выбранной вкладки",
+        "vertical": "Устанавливает вертикальную ориентацию вкладок",
+        "prevIcon": "Иконка, используемая для кнопки пагинации назад",
+        "nextIcon": "Иконка, используемая для кнопки пагинации вперед"
       }
     },
     "VaSwitch": {
@@ -981,7 +981,7 @@
     "sidebar": "Боковая панель",
     "rating": "Рейтинг",
     "modal": "Модальное окно",
-    "tabs": "Табы",
+    "tabs": "Вкладки",
     "treeView": "Дерево",
     "slider": "Слайдер",
     "switch": "Переключатель",
@@ -1594,32 +1594,32 @@
     }
   },
   "tabs": {
-    "title": "Tabs",
-    "summaryText": "The `va-tabs` component can be used as an on-page navigation offering with a rich variety of visual customizations and usage flexibility.",
+    "title": "Вкладки",
+    "summaryText": "Компонент `va-tabs` можно использовать в качестве навигации на странице с богатым набором визуальных настроек и гибкостью использования.",
     "examples": {
       "default": {
-        "title": "Default usage",
-        "text": "By default it's displayed as a horizontal list of `va-tab` items"
+        "title": "Базовое использование",
+        "text": "По умолчанию компонент `va-tabs` используется как горизонтальный список элементов `va-tab`."
       },
       "pagination": {
-        "title": "With pagination arrows",
-        "text": "When wrapper width is less then tabs width, pagination arrows are shown"
+        "title": "Стрелки пагинация",
+        "text": "Когда ширина отображения меньше ширины вкладок, отображаются стрелки пагинации."
       },
       "vertical": {
-        "title": "Vertical alignment",
-        "text": "By using `vertical` prop alignment of `va-tabs` can be customized"
+        "title": "Вертикальное отображение",
+        "text": "Свойство `vertical` включает вертикальное отображение компонента `va-tabs`."
       },
       "stateful": {
-        "title": "Without value",
-        "text": "Sometimes `v-model` is too much and in that case using `stateful` prop you can delegate state handling to the component itself"
+        "title": "Исользование без значения `v-model`",
+        "text": "Иногда испльщование `v-model` бывает избыточным, и в этом случае, используя свойство `stateful`, вы можете делегировать обработку состояния самому компоненту."
       }
     },
     "faq": {
       "subtitle": "FAQ",
       "questions": [
         {
-          "question": "How can I map content to tabs so that only specific tab content will be displayed?",
-          "answer": "We have this functionality in our nearest plans, but for now you could use `v-model` value to map the content yourself"
+          "question": "Как я могу контролировать отображения контента по вкладками?",
+          "answer": "У нас есть эта функция в наших ближайших планах, но пока вы можете использовать значение `v-model` для самостоятельного сопоставления содержимого."
         }
       ]
     }
