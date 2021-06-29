@@ -1,6 +1,6 @@
 <template>
   <div class="va-date-picker">
-    <va-dropdown keep-anchor-width :offset="[0, 10]" :close-on-content-click="false">
+    <va-dropdown v-model="isOpenSync" keep-anchor-width :offset="[0, 10]" :close-on-content-click="false">
       <template #anchor>
         <va-input
           v-model="valueText"
@@ -69,13 +69,14 @@ export default defineComponent({
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: String as PropType<VaDatePickerView> },
     valueType: { type: String as PropType<VaDatePickerValueType>, default: 'day' },
+    isOpen: { type: Boolean },
   },
 
-  emits: ['update:modelValue', 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day'],
+  emits: ['update:modelValue', 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day', 'update:is-open'],
 
   setup (props, { emit, slots }) {
     const { valueComputed } = useStateful(props, emit)
-    const { year, month, view, valueType } = toRefs(props)
+    const { year, month, view, valueType, isOpen } = toRefs(props)
 
     const inputProps = childPropsValues(props, VaInputProps)
     const datePickerProps = childPropsValues(props, componentProps(VaDatePicker))
@@ -83,6 +84,7 @@ export default defineComponent({
     const { syncProp: viewYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
     const { syncProp: viewMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
     const { syncProp: viewView } = useSyncProp(view, 'view', emit, valueType?.value === 'month' ? 'year' : 'month')
+    const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
     const valueText = computed({
       get: () => {
@@ -125,6 +127,7 @@ export default defineComponent({
       viewYear,
       viewMonth,
       viewView,
+      isOpenSync,
       onMonthClick,
     }
   },

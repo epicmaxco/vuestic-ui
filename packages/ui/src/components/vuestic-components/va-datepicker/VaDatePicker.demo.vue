@@ -56,6 +56,10 @@
       <va-date-input v-model="value" label="Every second day is weeked" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
     </VbCard>
 
+    <VbCard title="dropdown">
+      <va-date-input v-model="value" v-model:is-open="isOpen" :label="`Should be open ${isOpen}`" class="mb-4" />
+    </VbCard>
+
     <VbCard title="slots to calendar">
       <va-date-input
         v-model="value"
@@ -131,6 +135,9 @@ export default {
       value: new Date(),
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
+
+      // Dropdown
+      isOpen: false,
     }
   },
 }
