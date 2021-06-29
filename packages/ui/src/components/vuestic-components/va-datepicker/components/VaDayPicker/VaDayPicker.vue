@@ -41,14 +41,9 @@ import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helpe
 import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
 import { VaDatePickerModelValue } from '../../types/types'
 import VaDayPickerCell from './VaDayPickerCell.vue'
-import { filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
-const VaDayPickerCellProps = {
-  weekends: { type: [Function] as PropType<(d: Date) => boolean> },
-  allowedDates: { type: Function as PropType<(date: Date) => boolean> },
-  highlightWeekends: { type: Boolean, default: false },
-  highlightTodayDate: { type: Boolean, default: true },
-}
+const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue'])
 
 export default defineComponent({
   name: 'VaDayPicker',

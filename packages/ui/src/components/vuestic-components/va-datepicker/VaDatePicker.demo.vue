@@ -68,6 +68,10 @@
       <va-date-picker v-model="value" :allowedDates="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
     </VbCard>
 
+    <VbCard title="show other months">
+      <va-date-picker v-model="value" :show-other-months="true" />
+    </VbCard>
+
     <VbCard title="date picker">
       Date
       <va-date-picker v-model="value" class="mb-4" />

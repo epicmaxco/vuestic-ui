@@ -1,11 +1,12 @@
 <template>
   <div
+    v-if="isCurrentView || showOtherMonths"
     class="va-date-picker-cell"
     :class="{
       'va-date-picker-cell_current-view': isCurrentView,
       'va-date-picker-cell_today': highlightTodayDate && isToday,
       'va-date-picker-cell_in-range': isDateInRange,
-      'va-date-picker-cell_not-allowed': isDateNotAllowed,
+      'va-date-picker-cell_disabled': isDateDisabled,
       'va-date-picker-cell_hightlighted-weekend': highlightWeekends && isDateWeekend,
       'va-date-picker-cell_selected': isDateSelected,
     }"
@@ -19,6 +20,10 @@
       </slot>
     </span>
   </div>
+  <div
+    v-else
+    class="va-date-picker-cell va-date-picker-cell_clear"
+  />
 </template>
 
 <script lang="ts">
@@ -34,18 +39,21 @@ export default defineComponent({
   props: {
     selectedValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
     date: { type: Date, required: true },
+
+    // Inherited props
     currentMonth: { type: Number, required: true },
     weekends: { type: [Function] as PropType<(d: Date) => boolean>, default: undefined },
     allowedDates: { type: Function as PropType<(date: Date) => boolean>, required: false },
     highlightWeekends: { type: Boolean, default: false },
     highlightTodayDate: { type: Boolean, default: true },
+    showOtherMonths: { type: Boolean, default: false },
   },
 
   emits: ['click', 'hover'],
 
   setup (props, { emit }) {
     const isCurrentView = computed(() => props.currentMonth === props.date.getMonth())
-    const isDateNotAllowed = computed(() => props.allowedDates === undefined ? false : !props.allowedDates(props.date))
+    const isDateDisabled = computed(() => props.allowedDates === undefined ? false : !props.allowedDates(props.date))
 
     const isDateWeekend = computed(() => {
       if (props.weekends === undefined) {
@@ -84,7 +92,11 @@ export default defineComponent({
     const isToday = computed((): boolean => props.date.toDateString() === new Date().toDateString())
 
     const onDateClick = () => {
-      if (isDateNotAllowed.value) {
+      if (isDateDisabled.value) {
+        return
+      }
+
+      if (!isCurrentView.value && props.showOtherMonths) {
         return
       }
 
@@ -95,7 +107,7 @@ export default defineComponent({
       hoveredDate,
       isToday,
       isCurrentView,
-      isDateNotAllowed,
+      isDateDisabled,
       isDateWeekend,
       isDateSelected,
       isDateInRange,
@@ -166,12 +178,19 @@ $cell-size: 34px;
     }
   }
 
-  &_not-allowed {
-    color: var(--va-warning);
+  &_disabled {
     cursor: default;
+    color: var(--va-secondary);
+    opacity: 0.5;
 
     &:hover {
-      &::after { display: none; }
+      &::after {
+        display: none;
+      }
+    }
+
+    &.va-date-picker-cell_today &:hover &::after {
+      display: block;
     }
   }
 
@@ -182,6 +201,12 @@ $cell-size: 34px;
   &_selected {
     background-color: var(--va-primary);
     color: var(--va-white, white);
+  }
+
+  &_clear {
+    &::after {
+      display: none;
+    }
   }
 }
 </style>
