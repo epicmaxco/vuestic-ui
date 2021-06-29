@@ -46,7 +46,7 @@ import { filterComponentProps } from '../../utils/child-props'
 const VaDayPickerCellProps = {
   weekends: { type: [Function] as PropType<(d: Date) => boolean> },
   allowedDates: { type: Function as PropType<(date: Date) => boolean> },
-  highlightWeekends: { type: String },
+  highlightWeekends: { type: Boolean, default: false },
   highlightTodayDate: { type: Boolean, default: true },
 }
 

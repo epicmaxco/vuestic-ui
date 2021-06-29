@@ -37,7 +37,7 @@ export default defineComponent({
     currentMonth: { type: Number, required: true },
     weekends: { type: [Function] as PropType<(d: Date) => boolean>, default: undefined },
     allowedDates: { type: Function as PropType<(date: Date) => boolean>, required: false },
-    highlightWeekends: { type: String, default: undefined },
+    highlightWeekends: { type: Boolean, default: false },
     highlightTodayDate: { type: Boolean, default: true },
   },
 
