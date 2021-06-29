@@ -52,8 +52,8 @@ export default defineComponent({
 
   props: {
     ...VaDayPickerCellProps,
-    monthNames: { type: Array as PropType<string[]>, required: true, default: [] },
-    weekdayNames: { type: Array as PropType<string[]>, required: true, default: [] },
+    monthNames: { type: Array as PropType<string[]>, required: true },
+    weekdayNames: { type: Array as PropType<string[]>, required: true },
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
     hideWeekDays: { type: Boolean, default: false },
     year: { type: Number, required: true, default: () => new Date().getFullYear() },

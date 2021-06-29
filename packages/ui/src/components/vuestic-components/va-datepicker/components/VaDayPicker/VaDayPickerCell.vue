@@ -204,6 +204,8 @@ $cell-size: 34px;
   }
 
   &_clear {
+    cursor: default;
+
     &::after {
       display: none;
     }
