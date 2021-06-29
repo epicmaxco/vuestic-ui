@@ -189,7 +189,7 @@ $cell-size: 34px;
       }
     }
 
-    &.va-date-picker-cell_today &:hover &::after {
+    &.va-date-picker-cell_today:hover::after {
       display: block;
     }
   }
