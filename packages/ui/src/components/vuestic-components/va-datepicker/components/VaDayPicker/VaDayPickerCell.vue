@@ -41,9 +41,9 @@ export default defineComponent({
     date: { type: Date, required: true },
 
     // Inherited props
-    currentMonth: { type: Number, required: true },
-    weekends: { type: [Function] as PropType<(d: Date) => boolean>, default: undefined },
-    allowedDates: { type: Function as PropType<(date: Date) => boolean>, required: false },
+    currentMonth: { type: Number },
+    weekends: { type: [Function] as PropType<(d: Date) => boolean> },
+    allowedDates: { type: Function as PropType<(date: Date) => boolean> },
     highlightWeekends: { type: Boolean, default: false },
     highlightTodayDate: { type: Boolean, default: true },
     showOtherMonths: { type: Boolean, default: false },

@@ -21,13 +21,17 @@ export function extractComponentProps<T extends ComponentOptionsBase<any, any, a
   const props = (component as any).props
 
   if (ignoreProps) {
-    Object
+    return Object
       .keys((component as any).props)
       .reduce((acc, propName) => {
-        if (ignoreProps && ignoreProps.includes(propName)) { return acc }
+        if (ignoreProps.includes(propName)) { return acc }
+
+        console.log(ignoreProps, propName)
+
+        if (props[propName] === undefined) { return acc }
 
         return { ...acc, [propName]: props[propName] }
-      }, {})
+      }, {}) as Props<Parameters<NonNullable<T['setup']>>[0]>
   }
 
   return props
