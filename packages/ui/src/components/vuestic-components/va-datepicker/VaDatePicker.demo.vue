@@ -72,14 +72,12 @@
       <va-date-picker v-model="value" :show-other-months="true" />
     </VbCard>
 
-    <VbCard title="date picker">
+    <VbCard title="Month picker">
       Date
-      <va-date-picker v-model="value" class="mb-4" />
+      <va-date-picker v-model="value" valueType="month" class="mb-4" />
       Date ranges
-      <va-date-picker v-model="range" class="mb-4" />
+      <va-date-picker v-model="range" valueType="month" class="mb-4" />
       Dates
-      <va-date-picker v-model="dates" class="mb-4" />
-
       <va-date-picker v-model="dates" valueType="month" class="mb-4" />
     </VbCard>
   </VbDemo>
@@ -102,6 +100,7 @@ export default {
       value: new Date(),
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
+      months: [],
 
       // Dropdown
       isOpen: false,

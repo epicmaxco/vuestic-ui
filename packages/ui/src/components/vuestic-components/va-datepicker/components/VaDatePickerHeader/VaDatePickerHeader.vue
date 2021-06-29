@@ -31,10 +31,11 @@ export default defineComponent({
     month: { type: Number, required: true },
     monthNames: { type: Array, required: true },
     view: { type: String as PropType<VaDatePickerView>, required: true },
+    canSwitchView: { type: Boolean, required: true },
   },
 
   setup (props, { emit }) {
-    const { year, month, view } = toRefs(props)
+    const { year, month, view, canSwitchView } = toRefs(props)
     const { syncProp: syncYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
     const { syncProp: syncMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
     const { syncProp: syncView } = useSyncProp(view, 'view', emit)
@@ -69,6 +70,8 @@ export default defineComponent({
 
     // Temp solution for two views
     const switchView = () => {
+      if (!canSwitchView.value) { return }
+
       if (syncView.value === 'year') {
         syncView.value = 'month'
       } else {
@@ -77,6 +80,8 @@ export default defineComponent({
     }
 
     const changeView = (view: VaDatePickerView) => {
+      if (!canSwitchView.value) { return }
+
       syncView.value = view
     }
 

@@ -5,6 +5,7 @@
       v-model:year="viewYear"
       v-model:month="viewMonth"
       v-model:view="viewView"
+      :can-switch-view="canSwitchView"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
@@ -77,7 +78,7 @@ export default defineComponent({
 
   emits: ['update:modelValue', 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day'],
 
-  setup (props, { emit, slots }) {
+  setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
     const { year, month, view, valueType } = toRefs(props)
 
@@ -88,6 +89,8 @@ export default defineComponent({
     const { syncProp: viewYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
     const { syncProp: viewMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
     const { syncProp: viewView } = useSyncProp(view, 'view', emit, valueType?.value === 'month' ? 'year' : 'month')
+
+    const canSwitchView = computed(() => props.valueType === 'day')
 
     const valueText = computed({
       get: () => {
@@ -122,15 +125,18 @@ export default defineComponent({
     }
 
     return {
-      valueText,
-      valueComputed,
-      slots,
       dayPickerProps,
       headerProps,
       monthPickerProps,
+
       viewYear,
       viewMonth,
       viewView,
+
+      canSwitchView,
+
+      valueText,
+      valueComputed,
       onMonthClick,
     }
   },
