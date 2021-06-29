@@ -17,7 +17,7 @@
       v-model="valueComputed"
       :year="viewYear"
       :month="viewMonth"
-      @hover:day="(value) => $emit('hover:day', value)"
+      @hover="(value) => $emit('hover:day', value)"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
