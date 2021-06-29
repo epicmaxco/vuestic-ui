@@ -1,7 +1,10 @@
-import { ComponentOptionsBase, PropType } from 'vue'
+import { ComponentOptionsBase, PropType, computed, ComputedRef } from 'vue'
 
-export const childPropsValues = (propsValues: Record<string, any>, childProps: Record<string, any>) => {
-  return Object.keys(childProps).reduce((acc, propName) => ({ ...acc, [propName]: propsValues[propName] }), {}) as Record<keyof typeof childProps, any>
+export const childPropsValues = (propsValues: Record<string, any>, childProps: Record<string, any>): ComputedRef<Record<keyof typeof childProps, any>> => {
+  return computed(() => Object
+    .keys(childProps)
+    .reduce((acc, propName) => ({ ...acc, [propName]: propsValues[propName] }), {}),
+  )
 }
 
 export type Props<T> = { [K in keyof T]: { type: PropType<T[K]> } }
