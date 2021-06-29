@@ -15,7 +15,7 @@
       class="va-tab__content"
       v-on="context.keyboardFocusListeners"
       @focus="onFocus"
-      @click="onTabClick()"
+      @click="onTabClick"
       @keydown.enter="onTabKeydown"
       :tabindex="tabIndexComputed"
     >
@@ -45,10 +45,12 @@ import VaIcon from '../../va-icon'
 
 import { TabsServiceKey, TabsService } from '../VaTabs.vue'
 
+type MouseEventHandler = (e: MouseEvent) => void
+type FocusEventHandler = (e: FocusEvent) => void
 type Context = {
   tabsService: TabsService | null;
   hasKeyboardFocus: boolean;
-  keyboardFocusListeners: {}
+  keyboardFocusListeners: Record<string, MouseEventHandler | FocusEventHandler>;
 }
 
 class TabProps {
@@ -70,8 +72,10 @@ export default class VaTab extends mixins(
   RouterLinkMixin,
   TabPropsMixin,
 ) {
+  id: string | number | null = null
   isActive = false
-  id: any = null
+  rightSidePosition = 0
+  leftSidePosition = 0
 
   context: Context = setup(() => {
     const tabsService: TabsService | null = inject(TabsServiceKey, null)
@@ -97,24 +101,12 @@ export default class VaTab extends mixins(
     return (this.$props.disabled || this.isActive) ? -1 : 0
   }
 
-  get rightSidePosition () {
-    return (this as any).$el.offsetLeft + (this as any).$el.offsetWidth
-  }
-
-  get leftSidePosition () {
-    return (this as any).$el.offsetLeft
-  }
-
   onTabClick () {
-    // this.tabsHanler.eventEmitter.emit('click:tab', this)
-    // eslint-disable-next-line no-unused-expressions
     this.context.tabsService?.tabClick(this)
     this.$emit('click')
   }
 
   onTabKeydown () {
-    // this.tabsHanler.eventEmitter.emit('keydown-enter:tab', this)
-    // eslint-disable-next-line no-unused-expressions
     this.context.tabsService?.tabPressEnter(this)
     this.$emit('keydown-enter')
   }
@@ -124,19 +116,17 @@ export default class VaTab extends mixins(
     this.$emit('focus')
   }
 
+  updateSidePositions () {
+    this.rightSidePosition = this.$el.offsetLeft + this.$el.offsetWidth
+    this.leftSidePosition = this.$el.offsetLeft
+  }
+
   beforeMount () {
-    // const idx = this.tabsHanler.tabs.push(this)
-    // this.id = (this as any).$props.name || idx
-    // eslint-disable-next-line no-unused-expressions
     this.context.tabsService?.register(this)
   }
 
   beforeUnmount () {
-    // eslint-disable-next-line no-unused-expressions
     this.context.tabsService?.unregister(this)
-    // this.tabsHanler.tabs = this.tabsHanler.tabs.filter((t: { id: any }) => t.id === this.id)
-    // // eslint-disable-next-line no-return-assign
-    // this.tabsHanler.tabs.forEach((t: VaTab | any, idx: number) => t.id = t.$props.name || idx)
   }
 }
 </script>

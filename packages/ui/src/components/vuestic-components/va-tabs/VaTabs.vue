@@ -14,7 +14,7 @@
         flat
         size="medium"
         :icon="$props.prevIcon"
-        @click="movePaginationLeft()"
+        @click="movePaginationLeft"
       />
       <div
         class="va-tabs__container"
@@ -45,7 +45,7 @@
         flat
         size="medium"
         :icon="$props.nextIcon"
-        @click="movePaginationRight()"
+        @click="movePaginationRight"
       />
     </div>
     <div class="va-tabs__content">
@@ -77,9 +77,10 @@ export class TabsService {
   }
 
   unregister (tab: VaTab) {
-    this.tabs = this.tabs.filter((filteredTab: { id: any }) => filteredTab.id !== tab.id)
-    // eslint-disable-next-line no-return-assign
-    this.tabs.forEach((tab: VaTab | any, idx: number) => tab.id = tab.$props.name || idx)
+    this.tabs = this.tabs.filter((filteredTab) => filteredTab.id !== tab.id)
+    this.tabs.forEach((tab, idx) => {
+      tab.id = tab.$props.name || idx
+    })
   }
 
   tabClick (tab: VaTab) {
@@ -126,14 +127,14 @@ export default class VaTabs extends mixins(
   @Ref('container') containerRef!: Element
   @Ref('tabs') tabsRef!: Element
 
-  tabs: any = []
   sliderHeight: null | number = null
   sliderWidth: null | number = null
   sliderOffsetX = 0
   sliderOffsetY = 0
   showPagination = false
   tabsContentOffset = 0
-  mutationObserver: any = null
+  resizeObserver: ResizeObserver | null = null
+  startingXPoint = 0
 
   context = setup(() => {
     const tabsService = ref<TabsService | null>(null)
@@ -210,7 +211,7 @@ export default class VaTabs extends mixins(
       }
     }
     return {
-      transform: `translateX(-${this.tabsContentOffset}px)`,
+      transform: `translateX(${this.startingXPoint - this.tabsContentOffset}px)`,
     }
   }
 
@@ -219,7 +220,8 @@ export default class VaTabs extends mixins(
   }
 
   get disablePaginationRight () {
-    return this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]?.rightSidePosition <= this.tabsContentOffset + this.containerRef.clientWidth
+    const lastTab = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]
+    return (lastTab?.rightSidePosition || 0) <= this.tabsContentOffset + this.containerRef.clientWidth || (lastTab?.leftSidePosition || 0) <= this.tabsContentOffset
   }
 
   selectTab (tab: any) {
@@ -232,19 +234,21 @@ export default class VaTabs extends mixins(
   }
 
   updateTabsState () {
+    this.updateStartingXPoint()
     this.resetSliderSizes()
     this.updatePagination()
-
     this.context.tabsService?.tabs.forEach((tab: VaTab) => {
-      const tabIsActiveRouterLink = tab.isActiveRouterLink
-      const isSelectedTab = (tab.$props.name || tab.id) === this.tabSelected
-      if (tabIsActiveRouterLink || isSelectedTab) {
-        this.ensureVisible(tab)
-        this.updateSlider(tab)
+      tab.updateSidePositions()
+      if (this.tabSelected) {
+        const isSelectedTab = (tab.$props.name || tab.id) === this.tabSelected
+        tab.isActive = tab.isActiveRouterLink || isSelectedTab
 
-        tab.isActive = true
-      } else {
-        tab.isActive = false
+        if (tab.isActive) {
+          this.ensureVisible(tab)
+          this.updateSlider(tab)
+        }
+      } else if (tab.leftSidePosition <= this.tabsContentOffset && tab.rightSidePosition > this.tabsContentOffset) {
+        this.ensureVisible(tab)
       }
     })
   }
@@ -262,14 +266,15 @@ export default class VaTabs extends mixins(
     let offsetToSet = this.tabsContentOffset - this.containerRef.clientWidth
 
     if (this.context.tabsService) {
-      for (let i = 0; i < this.context.tabsService.tabs.length; i++) {
-        if (this.context.tabsService.tabs[i].rightSidePosition > this.tabsContentOffset && this.context.tabsService.tabs[i].leftSidePosition < this.tabsContentOffset) {
-          offsetToSet = this.context.tabsService.tabs[i].rightSidePosition - this.containerRef.clientWidth
+      for (let i = 0; i < this.context.tabsService.tabs.length - 1; i++) {
+        if ((this.context.tabsService.tabs[i].leftSidePosition > offsetToSet && this.context.tabsService.tabs[i].leftSidePosition < this.tabsContentOffset) || this.context.tabsService.tabs[i + 1].leftSidePosition >= this.tabsContentOffset) {
+          offsetToSet = this.context.tabsService.tabs[i].leftSidePosition
+          break
         }
       }
     }
 
-    this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
+    this.tabsContentOffset = Math.max(0, offsetToSet)
   }
 
   movePaginationRight () {
@@ -278,25 +283,29 @@ export default class VaTabs extends mixins(
 
     if (this.context.tabsService) {
       for (let i = 0; i < this.context.tabsService.tabs.length; i++) {
-        if (this.context.tabsService.tabs[i].rightSidePosition > containerRightSide && this.context.tabsService.tabs[i].leftSidePosition < containerRightSide) {
+        if (this.context.tabsService.tabs[i].rightSidePosition > containerRightSide) {
           offsetToSet = this.context.tabsService.tabs[i].leftSidePosition
+          if (this.tabsContentOffset < offsetToSet) {
+            break
+          }
         }
       }
     }
 
-    const maxOffset = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1].rightSidePosition - this.containerRef.clientWidth
+    const lastTab = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]
+    const maxOffset = (lastTab?.rightSidePosition || 0) - this.containerRef.clientWidth
 
-    offsetToSet = offsetToSet >= maxOffset ? maxOffset : offsetToSet
-    this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
+    offsetToSet = Math.min(maxOffset, offsetToSet)
+    this.tabsContentOffset = Math.max(0, offsetToSet)
   }
 
   ensureVisible (tab: any) {
     if (tab.leftSidePosition < this.tabsContentOffset) {
       this.tabsContentOffset = tab.leftSidePosition
-    } else if (tab.rightSidePosition > this.tabsContentOffset + this.containerRef.clientWidth) {
-      this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
     } else if (tab.rightSidePosition - this.containerRef.clientWidth >= 0) {
       this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
+    } else {
+      this.tabsContentOffset = 0
     }
   }
 
@@ -319,23 +328,31 @@ export default class VaTabs extends mixins(
     this.sliderHeight = 0
   }
 
+  updateStartingXPoint () {
+    this.startingXPoint = 0
+    if (this.showPagination) {
+      if (this.$props.right) {
+        const lastTab = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]
+        this.startingXPoint = (lastTab?.rightSidePosition || 0) - this.containerRef?.clientWidth
+      } else if (this.$props.center) {
+        const lastTab = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]
+        this.startingXPoint = Math.floor(((lastTab?.rightSidePosition || 0) - this.containerRef?.clientWidth) / 2)
+      }
+    }
+  }
+
   mounted () {
-    window.addEventListener('resize', this.updateTabsState)
     this.updateTabsState()
-    this.mutationObserver = new MutationObserver(() => {
+    this.resizeObserver = new ResizeObserver(() => {
       this.updateTabsState()
     })
-    this.mutationObserver.observe(this.tabsRef, {
-      childList: true,
-      subtree: true,
-    })
+    this.resizeObserver.observe(this.containerRef)
   }
 
   beforeUnmount () {
-    if (this.mutationObserver) {
-      this.mutationObserver.disconnect()
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect()
     }
-    window.removeEventListener('resize', this.updateTabsState)
   }
 }
 </script>
