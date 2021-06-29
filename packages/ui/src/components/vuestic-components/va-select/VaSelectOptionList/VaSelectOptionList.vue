@@ -215,7 +215,7 @@ export default class VaSelectOptionList extends mixins(
 
     // Scroll list to hinted option position
     optionElement.scrollIntoView({
-      behavior: 'smooth',
+      behavior: 'auto',
       block: 'nearest',
       inline: 'nearest',
     })
