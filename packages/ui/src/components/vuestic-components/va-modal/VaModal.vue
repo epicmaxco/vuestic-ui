@@ -1,5 +1,5 @@
 <template>
-  <teleport v-if='valueComputed' :to="teleportTarget">
+  <teleport v-if='valueComputed' :to="target">
     <div class="va-modal">
       <modal-element
         name="va-modal__overlay--transition"
@@ -94,7 +94,7 @@ import VaIcon from '../va-icon'
 
 class ModalProps {
   modelValue = prop<boolean>({ type: Boolean, default: false })
-  teleportTarget = prop<string>({ type: String, default: '#app' })
+  target = prop<string>({ type: String, default: '#app' })
   title = prop<string>({ type: String, default: '' })
   message = prop<string>({ type: String, default: '' })
   okText = prop<string>({ type: String, default: 'OK' })
