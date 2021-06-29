@@ -47,7 +47,7 @@ import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
 import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerValueType } from './types/types'
 import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
-import { useSyncProp } from './hooks/StatefulProp'
+import { useSyncProp } from './hooks/sync-prop'
 import { filterComponentProps, extractComponentProps } from './utils/child-props'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'

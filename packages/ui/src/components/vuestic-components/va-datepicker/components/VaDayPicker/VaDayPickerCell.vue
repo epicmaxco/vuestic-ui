@@ -26,7 +26,7 @@ import { defineComponent, computed, PropType } from 'vue'
 import { VaDatePickerModelValue } from '../../types/types'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
-import { useHovered } from '../../hooks/HoveredOptionHook'
+import { useHovered } from '../../hooks/hovered-option-hook'
 
 export default defineComponent({
   name: 'VaDayPickerCell',

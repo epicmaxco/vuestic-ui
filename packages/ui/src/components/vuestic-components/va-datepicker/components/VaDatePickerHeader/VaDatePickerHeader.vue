@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, PropType } from 'vue'
-import { useSyncProp } from '../../hooks/StatefulProp'
+import { useSyncProp } from '../../hooks/sync-prop'
 import { VaDatePickerView } from '../../types/types'
 
 export default defineComponent({

@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from 'vue'
-import { useHovered } from '../../hooks/HoveredOptionHook'
+import { useHovered } from '../../hooks/hovered-option-hook'
 import { VaDatePickerModelValue } from '../../types/types'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'

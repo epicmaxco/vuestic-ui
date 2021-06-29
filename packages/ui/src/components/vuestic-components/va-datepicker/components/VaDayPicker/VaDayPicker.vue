@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, ref } from 'vue'
-import { useVaDatePickerCalendar } from './VaDatePickerCalendarHook'
+import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
 import { VaDatePickerModelValue } from '../../types/types'
