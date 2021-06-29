@@ -1,27 +1,23 @@
 <template>
-  <div class="va-date-picker-month-calendar">
-    <div class="va-date-picker-month-calendar__picker">
-      <div class="va-date-picker-calendar__calendar calendar">
-        <div
-          class="calendar__month-wrapper"
-          v-for="monthIndex in months"
-          :key="monthIndex"
-          @mouseenter="hoveredMonth = date"
-          @mouseleave="hoveredMonth = null"
-        >
-          <div
-            class="calendar__month month"
-            :class="{
-              'current': isMonthCurrentValue(year, monthIndex),
-              'in-range': isMonthInRange(year, monthIndex)
-            }"
-            @click="onMonthClick(year, monthIndex)"
-          >
-            <slot name="month" v-bind="{ monthIndex, monthName: monthNames[monthIndex] }">
-              {{ monthNames[monthIndex] }}
-            </slot>
-          </div>
-        </div>
+  <div class="va-month-picker">
+    <div
+      class="va-month-picker__month-wrapper"
+      v-for="monthIndex in months"
+      :key="monthIndex"
+      @mouseenter="hoveredMonth = date"
+      @mouseleave="hoveredMonth = null"
+    >
+      <div
+        class="va-month-picker__month"
+        :class="{
+          'va-month-picker__month_current': isMonthCurrentValue(year, monthIndex),
+          'va-month-picker__month_in-range': isMonthInRange(year, monthIndex)
+        }"
+        @click="onMonthClick(year, monthIndex)"
+      >
+        <slot name="month" v-bind="{ monthIndex, monthName: monthNames[monthIndex] }">
+          {{ monthNames[monthIndex] }}
+        </slot>
       </div>
     </div>
   </div>
@@ -35,11 +31,11 @@ import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helpe
 import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
 
 export default defineComponent({
-  name: 'VaDatePickerCalendar',
+  name: 'VaMonthPicker',
 
   props: {
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
-    monthNames: { type: Array as PropType<string[]>, required: true, default: [] },
+    monthNames: { type: Array as PropType<string[]>, required: true },
     year: { type: Number, required: true },
     month: { type: Number, required: true },
     shouldUpdateModelValue: { type: Boolean, default: true },
@@ -48,7 +44,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:month', 'click:month'],
 
   setup (props, { emit }) {
-    const { modelValue, year, month, shouldUpdateModelValue } = toRefs(props)
+    const { modelValue, shouldUpdateModelValue } = toRefs(props)
 
     const { hovered: hoveredMonth } = useHovered<Date>((value) => emit('hover:month', value))
 
@@ -131,97 +127,64 @@ export default defineComponent({
 <style lang="scss">
 $cell-height: 34px;
 
-.va-date-picker-month-calendar {
-  &__picker {
-    .weekmonths {
-      display: flex;
+.va-month-picker {
+  display: grid;
+  // 4 columns
+  grid-template-columns: (100% / 4) (100% / 4) (100% / 4) (100% / 4);
 
-      &__weekmonth-cell {
-        width: calc(100% / 7);
-        text-align: center;
-        font-size: 9px;
-        color: var(--va-secondary);
-        font-weight: bold;
-        height: $cell-height;
-        line-height: $cell-height;
-      }
-    }
+  &__month-wrapper {
+    padding: 1px;
+    border-radius: 6px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    overflow: hidden;
   }
 
-  .calendar {
-    display: grid;
-    // 4 columns
-    grid-template-columns: (100% / 4) (100% / 4) (100% / 4) (100% / 4);
+  &__month {
+    color: var(--va-secondary);
+    font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    height: $cell-height;
+    line-height: $cell-height;
+    position: relative;
 
-    &__month-wrapper {
-      padding: 1px;
-      border-radius: 6px;
-      text-align: center;
-      user-select: none;
-      cursor: pointer;
-      overflow: hidden;
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
 
-    &__month {
-      color: var(--va-secondary);
-      font-family: Source Sans Pro;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 12px;
-      height: $cell-height;
-      line-height: $cell-height;
-      position: relative;
-
-      &::after,
+    &_in-range {
       &::before {
         content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
+        border: 2px solid var(--va-primary);
+        box-sizing: border-box;
+        opacity: 0.7;
       }
+    }
 
-      &.current-month {
-        color: var(--va-dark);
-      }
+    &_not-allowed {
+      color: var(--va-warning);
+    }
 
-      &.tomonth {
-        &::after {
-          background-color: var(--va-primary);
-          opacity: 0.3;
-        }
-      }
-
-      &.in-range {
-        &::before {
-          content: '';
-          border: 2px solid var(--va-primary);
-          box-sizing: border-box;
-          opacity: 0.7;
-        }
-      }
-
-      &.not-allowed {
-        color: var(--va-warning);
-      }
-
-      &:hover {
-        &::after {
-          background-color: var(--va-primary);
-          opacity: 0.1;
-        }
-      }
-
-      &.current {
+    &:hover {
+      &::after {
         background-color: var(--va-primary);
-        color: var(--va-white, white);
+        opacity: 0.1;
       }
+    }
 
-      &.hightlighted-weekend {
-        color: var(--va-danger);
-      }
+    &_current {
+      background-color: var(--va-primary);
+      color: var(--va-white, white);
     }
   }
 }

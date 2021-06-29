@@ -133,9 +133,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped>
-.va-date-picker-header {
-  padding-bottom: 0.5rem;
-}
-</style>

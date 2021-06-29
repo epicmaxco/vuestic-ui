@@ -1,36 +1,34 @@
 <template>
-  <div class="va-day-picker-calendar">
-    <div class="va-day-picker-calendar__picker">
-      <div class="va-day-picker-calendar__weekdays weekdays" v-if="!hideWeekDays">
-        <div
-          v-for="weekday in weekdayNamesComputed" :key="weekday"
-          class="weekdays__weekday-cell"
-        >
-          <slot name="weekday">
-            {{ weekday }}
-          </slot>
-        </div>
+  <div class="va-day-picker">
+    <div class="va-day-picker__weekdays" v-if="!hideWeekDays">
+      <div
+        v-for="weekday in weekdayNamesComputed" :key="weekday"
+        class="va-day-picker__weekdays__cell"
+      >
+        <slot name="weekday">
+          {{ weekday }}
+        </slot>
       </div>
+    </div>
 
-      <div class="va-day-picker-calendar__calendar calendar">
-        <div
-          class="calendar__day-wrapper"
-          v-for="date in calendarDates"
-          :key="date"
+    <div class="va-day-picker__calendar">
+      <div
+        class="va-day-picker__calendar__day-wrapper"
+        v-for="date in calendarDates"
+        :key="date"
+      >
+        <va-day-picker-cell
+          v-bind="VaDayPickerCellPropValues"
+          :date="date"
+          :selected-value="modelValue"
+          :currentMonth="currentMonth"
+          @click="onDateClick"
+          @hover="$emit('hover')"
         >
-          <va-day-picker-cell
-            v-bind="VaDayPickerCellPropValues"
-            :date="date"
-            :selected-value="modelValue"
-            :currentMonth="currentMonth"
-            @click="onDateClick"
-            @hover="$emit('hover')"
-          >
-            <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-              <slot :name="name" v-bind="bind" />
-            </template>
-          </va-day-picker-cell>
-        </div>
+          <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+            <slot :name="name" v-bind="bind" />
+          </template>
+        </va-day-picker-cell>
       </div>
     </div>
   </div>
@@ -46,9 +44,9 @@ import VaDayPickerCell from './VaDayPickerCell.vue'
 import { filterComponentProps } from '../../utils/child-props'
 
 const VaDayPickerCellProps = {
-  weekends: { type: [Function] as PropType<(d: Date) => boolean>, default: undefined },
+  weekends: { type: [Function] as PropType<(d: Date) => boolean> },
   allowedDates: { type: Function as PropType<(date: Date) => boolean> },
-  highlightWeekends: { type: String, default: undefined },
+  highlightWeekends: { type: String },
   highlightTodayDate: { type: Boolean, default: true },
 }
 
@@ -123,24 +121,22 @@ export default defineComponent({
 <style lang="scss">
 $cell-size: 34px;
 
-.va-day-picker-calendar {
-  &__picker {
-    .weekdays {
-      display: flex;
+.va-day-picker {
+  &__weekdays {
+    display: flex;
 
-      &__weekday-cell {
-        width: calc(100% / 7);
-        text-align: center;
-        font-size: 9px;
-        color: var(--va-secondary);
-        font-weight: bold;
-        height: $cell-size;
-        line-height: $cell-size;
-      }
+    &__cell {
+      width: calc(100% / 7);
+      text-align: center;
+      font-size: 9px;
+      color: var(--va-secondary);
+      font-weight: bold;
+      height: $cell-size;
+      line-height: $cell-size;
     }
   }
 
-  .calendar {
+  &__calendar {
     display: grid;
     // 7 columns
     grid-template-columns: (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7);

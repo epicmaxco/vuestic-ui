@@ -1,7 +1,7 @@
 <template>
   <div class="va-date-picker-header va-date-picker__header">
     <va-icon name="chevron_left" size="small" @click="prev" />
-    <div class="header-text">
+    <div class="va-date-picker-header__text">
       <slot name="header-text" v-bind="{ year, month, monthNames, view, changeView, switchView }">
         <va-button flat @click="switchView" size="small">
           <span class="mr-1">
@@ -27,9 +27,8 @@ export default defineComponent({
   emits: ['update:year', 'update:month', 'update:view'],
 
   props: {
-    // Use default here to make year and month not undefined type
-    year: { type: Number, required: true, default: () => 0 },
-    month: { type: Number, required: true, default: () => 0 },
+    year: { type: Number, required: true },
+    month: { type: Number, required: true },
     monthNames: { type: Array, required: true },
     view: { type: String as PropType<VaDatePickerView>, required: true },
   },
@@ -93,7 +92,7 @@ export default defineComponent({
     justify-content: space-between;
     align-items: center;
 
-    .header-text {
+    &__text {
       color: var(--va-dark);
       font-family: Source Sans Pro;
       font-style: normal;

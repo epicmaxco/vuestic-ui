@@ -2,12 +2,12 @@
   <div
     class="va-date-picker-cell"
     :class="{
-      'current-view': isCurrentView,
-      'today': highlightTodayDate && isToday,
-      'in-range': isDateInRange,
-      'not-allowed': isDateNotAllowed,
-      'hightlighted-weekend': highlightWeekends && isDateWeekend,
-      'selected': isDateSelected,
+      'va-date-picker-cell_current-view': isCurrentView,
+      'va-date-picker-cell_today': highlightTodayDate && isToday,
+      'va-date-picker-cell_in-range': isDateInRange,
+      'va-date-picker-cell_not-allowed': isDateNotAllowed,
+      'va-date-picker-cell_hightlighted-weekend': highlightWeekends && isDateWeekend,
+      'va-date-picker-cell_selected': isDateSelected,
     }"
     @mouseenter="hoveredDate = date"
     @mouseleave="hoveredDate = null"
@@ -141,10 +141,6 @@ $cell-size: 34px;
     border-radius: 6px;
   }
 
-  &.current-view {
-    color: var(--va-dark);
-  }
-
   &:hover {
     &::after {
       background-color: var(--va-primary);
@@ -152,21 +148,25 @@ $cell-size: 34px;
     }
   }
 
-  &.today {
+  &_current-view {
+    color: var(--va-dark);
+  }
+
+  &_today {
     &::after {
       background-color: var(--va-primary);
       opacity: 0.3;
     }
   }
 
-  &.in-range {
+  &_in-range {
     &::before {
       border: 2px solid var(--va-primary);
       opacity: 0.7;
     }
   }
 
-  &.not-allowed {
+  &_not-allowed {
     color: var(--va-warning);
     cursor: default;
 
@@ -175,11 +175,11 @@ $cell-size: 34px;
     }
   }
 
-  &.hightlighted-weekend {
+  &_hightlighted-weekend {
     color: var(--va-danger);
   }
 
-  &.selected {
+  &_selected {
     background-color: var(--va-primary);
     color: var(--va-white, white);
   }
