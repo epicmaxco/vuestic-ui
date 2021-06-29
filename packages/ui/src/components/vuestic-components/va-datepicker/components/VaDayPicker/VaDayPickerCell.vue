@@ -45,7 +45,7 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const isCurrentView = computed(() => props.currentMonth === props.date.getMonth())
-    const isDateNotAllowed = computed(() => props.allowedDates === undefined ? false : props.allowedDates(props.date))
+    const isDateNotAllowed = computed(() => props.allowedDates === undefined ? false : !props.allowedDates(props.date))
 
     const isDateWeekend = computed(() => {
       if (props.weekends === undefined) {

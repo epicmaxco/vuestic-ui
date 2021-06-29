@@ -48,7 +48,7 @@ import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerValueType } from './types/types'
 import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
 import { useSyncProp } from './hooks/StatefulProp'
-import { childPropsValues, componentProps } from './utils/child-props'
+import { filterComponentProps, extractComponentProps } from './utils/child-props'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
@@ -63,8 +63,8 @@ export default defineComponent({
   components: { VaDayPicker, VaDatePickerHeader, VaMonthPicker },
 
   props: {
-    ...componentProps(VaDayPicker),
-    ...componentProps(VaMonthPicker),
+    ...extractComponentProps(VaDayPicker),
+    ...extractComponentProps(VaMonthPicker),
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
     color: { type: String, default: 'primary' },
     year: { type: Number },
@@ -81,9 +81,9 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
     const { year, month, view, valueType } = toRefs(props)
 
-    const dayPickerProps = childPropsValues(props, componentProps(VaDayPicker))
-    const headerProps = childPropsValues(props, componentProps(VaDatePickerHeader))
-    const monthPickerProps = childPropsValues(props, componentProps(VaMonthPicker))
+    const dayPickerProps = filterComponentProps(props, extractComponentProps(VaDayPicker))
+    const headerProps = filterComponentProps(props, extractComponentProps(VaDatePickerHeader))
+    const monthPickerProps = filterComponentProps(props, extractComponentProps(VaMonthPicker))
 
     const { syncProp: viewYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
     const { syncProp: viewMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
