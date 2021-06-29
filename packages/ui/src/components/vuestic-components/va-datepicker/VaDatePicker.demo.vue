@@ -2,66 +2,35 @@
   <VbDemo>
     <VbCard title="default">
       Date
-      <va-date-input v-model="value" />
+      <va-date-picker v-model="value" />
       Date ranges
-      <va-date-input v-model="range" />
+      <va-date-picker v-model="range" />
       Dates
-      <va-date-input v-model="dates" />
-    </VbCard>
-
-    <VbCard title="slots">
-      <va-date-input v-model="value" class="mb-4">
-        <template #prepend>
-          prepend
-        </template>
-      </va-date-input>
-      <va-date-input v-model="value" class="mb-4">
-        <template #append>
-          append
-        </template>
-      </va-date-input>
-      <va-date-input v-model="value" class="mb-4">
-        <template #prependInner>
-          prependInner
-        </template>
-      </va-date-input>
-      <va-date-input v-model="value">
-        <template #appendInner>
-          appendInner
-        </template>
-      </va-date-input>
-    </VbCard>
-
-    <VbCard title="props to input">
-      <va-date-input v-model="value" class="mb-4" />
-      <va-date-input v-model="range" outline  class="mb-4" />
-      <va-date-input v-model="dates" bordered  class="mb-4" />
-      <va-date-input v-model="dates" color="danger" class="mb-4" />
-      <va-date-input v-model="dates" label="label" class="mb-4" />
+      <va-date-picker v-model="dates" />
     </VbCard>
 
     <VbCard title="calendar appearance">
-      <va-date-input v-model="value" label="Weekday names" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']" class="mb-4" />
+      Weekday names
+      <va-date-picker v-model="value" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']" class="mb-4" />
 
-      <va-date-input v-model="value" label="Month names" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" class="mb-4" />
+      Month names
+      <va-date-picker v-model="value" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" class="mb-4" />
 
-      <va-date-input v-model="value" label="Hide weekdays" hideWeekDays class="mb-4" />
-
-      <va-date-input v-model="value" label="Do not highlight today date" :highlightTodayDate="false" />
+      Hide weekdays
+      <va-date-picker v-model="value" hideWeekDays class="mb-4" />
+      Do not highlight today date
+      <va-date-picker v-model="value" :highlightTodayDate="false" />
     </VbCard>
 
     <VbCard title="weekends">
-      <va-date-input v-model="value" label="Highlight weekend" highlight-weekends class="mb-4" />
-
-      <va-date-input v-model="value" label="Every second day is weeked" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
-    </VbCard>
-
-    <VbCard title="dropdown">
-      <va-date-input v-model="value" v-model:is-open="isOpen" :label="`Should be open ${isOpen}`" class="mb-4" />
+      Highlight weekend
+      <va-date-picker v-model="value" highlight-weekends class="mb-4" />
+      Every second day is weeked
+      <va-date-picker v-model="value" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
     </VbCard>
 
     <VbCard title="slots to calendar">
-      <va-date-input
+      <va-date-picker
         v-model="value"
         :monthNames="['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']"
         :weekdayNames="['日', '一', '二', '三', '四', '五', '六']"
@@ -73,9 +42,9 @@
         <template #year="{ year }">
           {{ year }} 年
         </template>
-      </va-date-input>
+      </va-date-picker>
 
-      <va-date-input
+      <va-date-picker
         v-model="value"
         label="Hide year"
       >
@@ -84,25 +53,19 @@
             {{ monthNames[month] }}
           </va-chip>
         </template>
-      </va-date-input>
+      </va-date-picker>
     </VbCard>
 
     <VbCard title="first weekday">
-      <va-date-input v-model="value" label="Sun (default)" class="mb-4" />
-
-      <va-date-input v-model="value" label="Monday" firstWeekday="Monday" class="mb-4" />
+      Sun (default)
+      <va-date-picker v-model="value" class="mb-4" />
+      Monday
+      <va-date-picker v-model="value" first-weekday="Monday" />
     </VbCard>
 
     <VbCard title="disable dates">
-      <va-date-input v-model="value" label="Disable all Tuesday and Thursday" :allowedDates="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
-    </VbCard>
-
-    <VbCard title="select month view">
-      <va-date-input v-model="value" value-type="month" class="mb-4" />
-
-      <va-date-input v-model="range" value-type="month" view="year" class="mb-4" />
-
-      <va-date-input v-model="dates" value-type="month" view="year" class="mb-4" />
+      Disable all Tuesday and Thursday
+      <va-date-picker v-model="value" :allowedDates="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
     </VbCard>
 
     <VbCard title="date picker">
@@ -119,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import { VaDateInput, VaDatePicker } from './index'
+import { VaDatePicker } from './index'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -129,7 +92,7 @@ const datePlusDay = (date: Date, days: number) => {
 const nextWeek = datePlusDay(new Date(), 7)
 
 export default {
-  components: { VaDateInput, VaDatePicker },
+  components: { VaDatePicker },
   data () {
     return {
       value: new Date(),
