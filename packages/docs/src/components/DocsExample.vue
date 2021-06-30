@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3">
-    <component :is="component" />
+    <component v-if="isComponentLoaded" :is="component" />
     <template v-if="!exampleOptions.hideCode">
       <va-button class="mt-2 d-block docs-example__show-code-button" style="background: transparent !important; box-shadow: none !important;" :rounded="false" flat size="small" color="primary" @click="showCode = !showCode">
         {{ $t('docsExample.showCode') }}
@@ -35,8 +35,7 @@ export default {
   },
   data: () => ({
     showCode: false,
-    component: undefined,
-    loading: false,
+    isComponentLoaded: false,
     parsed: {
       template: '',
       style: '',
@@ -56,7 +55,8 @@ export default {
       return this.internalValue.file
     },
   },
-  mounted () {
+  created () {
+    this.component = undefined
     this.importComponent()
     this.getFiles()
   },
@@ -73,12 +73,12 @@ export default {
       }
     },
     async getFiles () {
-      this.loading = true
       await this.importTemplate()
-      this.loading = false
     },
     async importComponent () {
+      this.isComponentLoaded = false
       this.component = (await readComponent(this.file)).default
+      this.isComponentLoaded = true
     },
     async importTemplate () {
       const componentTemplate = (await readTemplate(this.file)).default
