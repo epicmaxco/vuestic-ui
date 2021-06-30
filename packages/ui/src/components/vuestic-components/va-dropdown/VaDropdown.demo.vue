@@ -152,6 +152,17 @@
       </va-dropdown>
     </VbCard>
 
+    <VbCard title="Anchor width with v-model true by default">
+      <va-dropdown v-model="anchorDefaultValue" keep-anchor-width>
+        <template #anchor>
+          <button>
+            ------- Anchor ------
+          </button>
+        </template>
+        Same width as anchor
+      </va-dropdown>
+    </VbCard>
+
     <VbCard title="Disabled">
       <va-dropdown disabled>
         <template #anchor>
@@ -355,6 +366,7 @@ export default {
       eventsValue: false,
       logEvents: false,
       redrawContentSize: 100,
+      anchorDefaultValue: true,
     }
   },
 }
