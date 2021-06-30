@@ -18,7 +18,7 @@ import VaButtonDropdown from '../va-button-dropdown/VaButtonDropdown'
 
 export default {
 
-  name: 'AppBarTestContent',
+  name: 'AppBarContentExample',
   components: {
     VaButton,
     VaSpacer,
