@@ -367,6 +367,7 @@ export default class VaTabs extends mixins(
     requestAnimationFrame(() => {
       this.resizeObserver = new ResizeObserver(this.redrawTabs)
       this.resizeObserver.observe(this.wrapperRef)
+      this.resizeObserver.observe(this.tabsRef)
     })
   }
 
