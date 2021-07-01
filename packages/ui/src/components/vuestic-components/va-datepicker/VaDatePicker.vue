@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue'
-import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
+import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
 import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerValueType } from './types/types'
 import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
@@ -64,9 +64,10 @@ export default defineComponent({
   components: { VaDayPicker, VaDatePickerHeader, VaMonthPicker },
 
   props: {
+    ...statefulComponentOptions.props,
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, default: new Date() },
     color: { type: String, default: 'primary' },
     year: { type: Number },
     month: { type: Number },
@@ -76,7 +77,7 @@ export default defineComponent({
     valueType: { type: String as PropType<VaDatePickerValueType>, default: 'day' },
   },
 
-  emits: ['update:modelValue', 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day'],
+  emits: [...statefulComponentOptions.emits, 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day'],
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)

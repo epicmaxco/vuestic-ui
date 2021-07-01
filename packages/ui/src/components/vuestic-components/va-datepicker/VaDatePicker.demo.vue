@@ -9,6 +9,10 @@
       <va-date-picker v-model="dates" />
     </VbCard>
 
+    <VbCard title="statefull">
+      <va-date-picker stateful />
+    </VbCard>
+
     <VbCard title="calendar appearance">
       Weekday names
       <va-date-picker v-model="value" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']" class="mb-4" />
