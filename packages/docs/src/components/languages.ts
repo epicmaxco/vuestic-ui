@@ -7,5 +7,9 @@ export const languages = [
   //   code: 'es',
   //   name: 'Español',
   // },
+  {
+    code: 'ru',
+    name: 'Русский',
+  },
   // GENERATOR_ADD - language
 ]
