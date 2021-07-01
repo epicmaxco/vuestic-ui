@@ -421,7 +421,7 @@ export default class VaTabs extends mixins(
     &--grow {
       .va-tabs__tabs {
         display: flex;
-        width: 100%;
+        min-width: 100%;
       }
 
       .va-tab {
