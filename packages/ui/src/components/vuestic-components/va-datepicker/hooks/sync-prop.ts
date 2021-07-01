@@ -17,13 +17,13 @@ export function useSyncProp<T, PropName extends string> (propRef: Ref<T> | undef
   const statefulValue = ref<T>(defaultValue)
 
   return {
-    syncProp: computed<T>({
-      set (value: T) {
-        statefulValue.value = value as UnwrapRef<T>
+    syncProp: computed<NonNullable<T>>({
+      set (value: NonNullable<T>) {
+        statefulValue.value = value as UnwrapRef<NonNullable<T>>
         emit(`update:${propName}`, value)
       },
-      get (): T {
-        return propRef?.value === undefined ? (statefulValue.value as T) : propRef.value
+      get (): NonNullable<T> {
+        return (propRef?.value === undefined ? (statefulValue.value) : propRef.value) as NonNullable<T>
       },
     }),
   }

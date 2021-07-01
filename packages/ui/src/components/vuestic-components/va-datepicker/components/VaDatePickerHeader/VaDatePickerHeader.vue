@@ -5,13 +5,13 @@
     </slot>
 
     <div class="va-date-picker-header__text">
-      <slot name="header" v-bind="{ year, month, monthNames, view, changeView, switchView }">
+      <slot name="header" v-bind="{ year: view.year, month: view.month, monthNames, view, changeView, switchView }">
         <va-button flat @click="switchView" size="small">
           <span class="mr-1">
-            <slot name="year" v-bind="{ year }">{{ year }}</slot>
+            <slot name="year" v-bind="{ year: view.year }">{{ view.year }}</slot>
           </span>
 
-          <slot v-if="view !== 'year'" name="month" v-bind="{ month }">{{ monthNames[month] }}</slot>
+          <slot v-if="view !== 'year'" name="month" v-bind="{ month: view.month }">{{ monthNames[view.month] }}</slot>
         </va-button>
       </slot>
     </div>
@@ -24,8 +24,8 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, PropType } from 'vue'
+import { DatePickerView } from '../../helpers/date-picker-view'
 import { useSyncProp } from '../../hooks/sync-prop'
-import { VaDatePickerView } from '../../types/types'
 
 export default defineComponent({
   name: 'VaDatePickerHeader',
@@ -33,59 +33,30 @@ export default defineComponent({
   emits: ['update:year', 'update:month', 'update:view'],
 
   props: {
-    year: { type: Number, required: true },
-    month: { type: Number, required: true },
     monthNames: { type: Array, required: true },
-    view: { type: String as PropType<VaDatePickerView>, required: true },
+    view: { type: Object as PropType<DatePickerView>, required: true },
     canSwitchView: { type: Boolean, required: true },
   },
 
   setup (props, { emit }) {
-    const { year, month, view, canSwitchView } = toRefs(props)
-    const { syncProp: syncYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
-    const { syncProp: syncMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
+    const { view, canSwitchView } = toRefs(props)
     const { syncProp: syncView } = useSyncProp(view, 'view', emit)
 
     const next = () => {
-      if (view?.value === 'month') {
-        // If current month is December
-        if (syncMonth.value === 11) {
-          syncYear.value = syncYear.value + 1
-          syncMonth.value = 0
-        } else {
-          syncMonth.value = syncMonth.value + 1
-        }
-      } else if (view?.value === 'year') {
-        syncYear.value = syncYear.value + 1
-      }
+      syncView.value.next()
     }
 
     const prev = () => {
-      if (view?.value === 'month') {
-      // If current month is December
-        if (syncMonth.value === 0) {
-          syncYear.value = syncYear.value - 1
-          syncMonth.value = 11 // set current month is December
-        } else {
-          syncMonth.value = syncMonth.value - 1
-        }
-      } else if (view?.value === 'year') {
-        syncYear.value = syncYear.value - 1
-      }
+      syncView.value.prev()
     }
 
-    // Temp solution for two views
     const switchView = () => {
       if (!canSwitchView.value) { return }
 
-      if (syncView.value === 'year') {
-        syncView.value = 'month'
-      } else {
-        syncView.value = 'year'
-      }
+      syncView.value.switchView()
     }
 
-    const changeView = (view: VaDatePickerView) => {
+    const changeView = (view: DatePickerView) => {
       if (!canSwitchView.value) { return }
 
       syncView.value = view

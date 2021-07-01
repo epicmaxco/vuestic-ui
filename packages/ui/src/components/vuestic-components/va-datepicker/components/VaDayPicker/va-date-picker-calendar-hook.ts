@@ -1,4 +1,5 @@
 import { computed, Ref, ref } from 'vue'
+import { DatePickerView } from '../../helpers/date-picker-view'
 
 /** Returns last day of previous month */
 export const getMonthDaysCount = (year: number, month: number): number => new Date(year, month + 1, 0).getDate()
@@ -8,7 +9,7 @@ export const getMonthStartWeekday = (year: number, month: number) => new Date(ye
 /** Returns array from 1 to length */
 export const getNumbersArray = (length: number) => Array.from(Array(length).keys()).map((k) => k + 1)
 
-export const useVaDatePickerCalendar = (currentYear: Ref<number>, currentMonth: Ref<number>, options?: { firstWeekday?: Ref<'Monday' | 'Sunday'> }) => {
+export const useVaDatePickerCalendar = (view: Ref<DatePickerView>, options?: { firstWeekday?: Ref<'Monday' | 'Sunday'> }) => {
   const CALENDAR_ROWS_COUNT = 6 // Need 6 rows if first day of a month is Saturday and the last day is Monday 31th.
 
   const localizeWeekday = (weekdayNumber: number) => {
@@ -21,23 +22,23 @@ export const useVaDatePickerCalendar = (currentYear: Ref<number>, currentMonth: 
   }
 
   const getPreviousDates = () => {
-    const currentMonthStartWeekday = localizeWeekday(getMonthStartWeekday(currentYear.value, currentMonth.value))
+    const currentMonthStartWeekday = localizeWeekday(getMonthStartWeekday(view.value.year, view.value.month))
 
     if (currentMonthStartWeekday === 0) { return [] }
 
-    const prevMonthDaysCount = getMonthDaysCount(currentYear.value, currentMonth.value - 1)
+    const prevMonthDaysCount = getMonthDaysCount(view.value.year, view.value.month - 1)
     const prevMonthDays: number[] = getNumbersArray(prevMonthDaysCount)
 
     return prevMonthDays
       .slice(-currentMonthStartWeekday)
-      .map((d) => new Date(currentYear.value, currentMonth.value - 1, d))
+      .map((d) => new Date(view.value.year, view.value.month - 1, d))
   }
 
   const getCurrentDates = () => {
-    const currentMonthDaysCount = getMonthDaysCount(currentYear.value, currentMonth.value)
+    const currentMonthDaysCount = getMonthDaysCount(view.value.year, view.value.month)
     const currentMonthDays: number[] = getNumbersArray(currentMonthDaysCount)
 
-    return currentMonthDays.map((d) => new Date(currentYear.value, currentMonth.value, d))
+    return currentMonthDays.map((d) => new Date(view.value.year, view.value.month, d))
   }
 
   const calendarDates = computed(() => {
@@ -48,18 +49,16 @@ export const useVaDatePickerCalendar = (currentYear: Ref<number>, currentMonth: 
 
     const daysRemaining = 7 * CALENDAR_ROWS_COUNT - days.length
 
-    const nextMonthDaysCount = getMonthDaysCount(currentYear.value, currentMonth.value + 1)
+    const nextMonthDaysCount = getMonthDaysCount(view.value.year, view.value.month + 1)
     const nextMonthDays: number[] = getNumbersArray(nextMonthDaysCount)
 
     return [
       ...days,
       ...nextMonthDays
         .slice(0, daysRemaining)
-        .map((d) => new Date(currentYear.value, currentMonth.value + 1, d)),
+        .map((d) => new Date(view.value.year, view.value.month + 1, d)),
     ]
   })
 
-  return {
-    currentYear, currentMonth, calendarDates,
-  }
+  return { calendarDates }
 }

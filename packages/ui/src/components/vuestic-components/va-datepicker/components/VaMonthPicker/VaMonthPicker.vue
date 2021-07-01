@@ -8,10 +8,10 @@
       @mouseleave="hoveredMonth = null"
     >
       <va-date-picker-cell
-        :in-range="!!isMonthInRange(year, monthIndex)"
-        :selected="!!isMonthSelected(year, monthIndex)"
-        :disabled="!!isMonthDisabled(year, monthIndex)"
-        @click="onMonthClick(year, monthIndex)"
+        :in-range="!!isMonthInRange(view.year, monthIndex)"
+        :selected="!!isMonthSelected(view.year, monthIndex)"
+        :disabled="!!isMonthDisabled(view.year, monthIndex)"
+        @click="onMonthClick(view.year, monthIndex)"
       >
         <slot name="month" v-bind="{ monthIndex, monthName: monthNames[monthIndex] }">
           {{ monthNames[monthIndex] }}
@@ -28,6 +28,7 @@ import { VaDatePickerModelValue } from '../../types/types'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayIncludeMonth, isDatesMonthEqual } from '../../utils/date-utils'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
+import { DatePickerView } from '../../helpers/date-picker-view'
 
 export default defineComponent({
   name: 'VaMonthPicker',
@@ -37,8 +38,7 @@ export default defineComponent({
   props: {
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
     monthNames: { type: Array as PropType<string[]>, required: true },
-    year: { type: Number, required: true },
-    month: { type: Number, required: true },
+    view: { type: Object as PropType<DatePickerView>, default: () => new DatePickerView() },
     shouldUpdateModelValue: { type: Boolean, default: true },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
   },

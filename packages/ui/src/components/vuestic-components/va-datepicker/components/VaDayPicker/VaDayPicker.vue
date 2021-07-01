@@ -21,7 +21,7 @@
           v-bind="VaDayPickerCellPropValues"
           :date="date"
           :selected-value="modelValue"
-          :currentMonth="currentMonth"
+          :currentMonth="view.month"
           :hovered-date="hoveredDate"
           @click="onDateClick"
           @mouseenter="hoveredDate = date"
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, ref } from 'vue'
+import { computed, defineComponent, toRefs, PropType } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayIncludeDay, isDatesDayEqual } from '../../utils/date-utils'
@@ -45,6 +45,7 @@ import { VaDatePickerModelValue } from '../../types/types'
 import VaDayPickerCell from './VaDayPickerCell.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useHovered } from '../../hooks/hovered-option-hook'
+import { DatePickerView } from '../../helpers/date-picker-view'
 
 const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'hoveredDate'])
 
@@ -59,21 +60,18 @@ export default defineComponent({
     weekdayNames: { type: Array as PropType<string[]>, required: true },
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
     hideWeekDays: { type: Boolean, default: false },
-    year: { type: Number, required: true, default: () => new Date().getFullYear() },
-    month: { type: Number, required: true, default: () => new Date().getMonth() },
+    view: { type: Object as PropType<DatePickerView>, default: () => new DatePickerView() },
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
   },
 
   emits: ['update:modelValue', 'hover'],
 
   setup (props, { emit }) {
-    const { modelValue, firstWeekday, weekdayNames, year, month } = toRefs(props)
+    const { modelValue, firstWeekday, weekdayNames, view } = toRefs(props)
 
     const VaDayPickerCellPropValues = filterComponentProps(props, VaDayPickerCellProps)
 
-    const {
-      currentYear, currentMonth, calendarDates,
-    } = useVaDatePickerCalendar(year, month, { firstWeekday })
+    const { calendarDates } = useVaDatePickerCalendar(view, { firstWeekday })
 
     const { hovered: hoveredDate } = useHovered<Date>((value) => emit('hover', value))
 
@@ -109,8 +107,6 @@ export default defineComponent({
     return {
       hoveredDate,
       calendarDates,
-      currentYear,
-      currentMonth,
       onDateClick,
       weekdayNamesComputed,
       VaDayPickerCellPropValues,

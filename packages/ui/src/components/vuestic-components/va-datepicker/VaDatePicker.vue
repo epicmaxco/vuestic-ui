@@ -2,8 +2,6 @@
   <div class="va-date-picker">
     <va-date-picker-header
       v-bind="headerProps"
-      v-model:year="viewYear"
-      v-model:month="viewMonth"
       v-model:view="viewView"
       :can-switch-view="canSwitchView"
     >
@@ -13,11 +11,10 @@
     </va-date-picker-header>
 
     <va-day-picker
-      v-if="viewView === 'month'"
+      v-if="viewView.type === 'month'"
       v-bind="dayPickerProps"
       v-model="valueComputed"
-      :year="viewYear"
-      :month="viewMonth"
+      :view="viewView"
       @hover="(value) => $emit('hover:day', value)"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
@@ -26,11 +23,10 @@
     </va-day-picker>
 
     <va-month-picker
-      v-if="viewView === 'year'"
+      v-if="viewView.type === 'year'"
       v-bind="monthPickerProps"
       v-model="valueComputed"
-      :year="viewYear"
-      :month="viewMonth"
+      :view="viewView"
       :should-update-model-value="valueType === 'month'"
       @hover:month="(value) => $emit('hover:month', value)"
       @click:month="onMonthClick"
@@ -46,10 +42,11 @@
 import { computed, defineComponent, PropType, toRefs } from 'vue'
 import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
-import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerValueType } from './types/types'
+import { VaDatePickerModelValue, VaDatePickerValueType } from './types/types'
 import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
 import { useSyncProp } from './hooks/sync-prop'
 import { filterComponentProps, extractComponentProps } from './utils/child-props'
+import { DatePickerView } from './helpers/date-picker-view'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
@@ -73,7 +70,7 @@ export default defineComponent({
     month: { type: Number },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
-    view: { type: String as PropType<VaDatePickerView> },
+    view: { type: Object as PropType<DatePickerView> },
     valueType: { type: String as PropType<VaDatePickerValueType>, default: 'day' },
   },
 
@@ -81,15 +78,13 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
-    const { year, month, view, valueType } = toRefs(props)
+    const { view, valueType } = toRefs(props)
 
     const dayPickerProps = filterComponentProps(props, extractComponentProps(VaDayPicker))
     const headerProps = filterComponentProps(props, extractComponentProps(VaDatePickerHeader))
     const monthPickerProps = filterComponentProps(props, extractComponentProps(VaMonthPicker))
 
-    const { syncProp: viewYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
-    const { syncProp: viewMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
-    const { syncProp: viewView } = useSyncProp(view, 'view', emit, valueType?.value === 'month' ? 'year' : 'month')
+    const { syncProp: viewView } = useSyncProp(view, 'view', emit, new DatePickerView(valueType.value === 'month' ? 'year' : 'month'))
 
     const canSwitchView = computed(() => props.valueType === 'day')
 
@@ -118,10 +113,10 @@ export default defineComponent({
 
     const onMonthClick = ({ year, month, date }: { year: number, month: number, date: Date}) => {
       emit('click:month', { year, month, date })
-      if (valueType.value === 'day') {
-        viewYear.value = year
-        viewMonth.value = month
-        viewView.value = 'month'
+      if (valueType.value === 'day' && viewView.value) {
+        viewView.value.year = year
+        viewView.value.month = month
+        viewView.value.type = 'month'
       }
     }
 
@@ -130,8 +125,6 @@ export default defineComponent({
       headerProps,
       monthPickerProps,
 
-      viewYear,
-      viewMonth,
       viewView,
 
       canSwitchView,
