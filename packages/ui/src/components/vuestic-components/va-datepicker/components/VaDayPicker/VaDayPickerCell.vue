@@ -180,14 +180,28 @@ $cell-size: 34px;
     color: var(--va-secondary);
     opacity: 0.5;
 
-    &:hover {
-      &::after {
-        display: none;
-      }
+    &::after {
+      content: '';
+      background: transparent;
+      height: 1px;
+      width: 55%;
+      background-color: var(--va-secondary);
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
     }
 
-    &.va-date-picker-cell_today:hover::after {
-      display: block;
+    &:hover::after {
+      // Do not hover disabled dates
+      opacity: 1;
+      background-color: var(--va-secondary);
+    }
+
+    &.va-date-picker-cell_today {
+      &::after {
+        background-color: var(--va-white);
+        opacity: 0.7;
+      }
     }
   }
 
