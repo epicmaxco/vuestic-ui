@@ -27,9 +27,9 @@
           :tabindex="tabIndexComputed"
           @focus="focus"
           @blur="blur"
-          @keydown.enter.stop.prevent="onSelectClick"
-          @keydown.space.stop.prevent="onSelectClick"
-          @click.prevent="onSelectClick"
+          @keydown.enter.stop.prevent="onSelectClick()"
+          @keydown.space.stop.prevent="onSelectClick()"
+          @click.prevent="onSelectClick()"
         >
           <!-- We show messages outside of dropdown to draw dropdown content under the input -->
           <va-input
@@ -108,11 +108,11 @@
           :name="$props.name"
           :tabindex="tabindex + 1"
           :bordered="true"
-          @keydown.up.stop.prevent="hoverPreviousOption"
-          @keydown.left.stop.prevent="hoverPreviousOption"
-          @keydown.down.stop.prevent="hoverNextOption"
-          @keydown.right.stop.prevent="hoverNextOption"
-          @keydown.enter.prevent="selectOrAddOption"
+          @keydown.up.stop.prevent="hoverPreviousOption()"
+          @keydown.left.stop.prevent="hoverPreviousOption()"
+          @keydown.down.stop.prevent="hoverNextOption()"
+          @keydown.right.stop.prevent="hoverNextOption()"
+          @keydown.enter.prevent="selectOrAddOption()"
           @focus="hoveredOption = null"
         />
         <div class="va-select__dropdown__content">
@@ -130,9 +130,9 @@
             :color="$props.color"
             :tabindex="tabindex + 1"
             @select-option="selectOption"
-            @no-previous-option-to-hover="focusSearchBar"
-            @keydown.enter.stop.prevent="selectHoveredOption"
-            @keydown.space.stop.prevent="selectHoveredOption"
+            @no-previous-option-to-hover="focusSearchBar()"
+            @keydown.enter.stop.prevent="selectHoveredOption()"
+            @keydown.space.stop.prevent="selectHoveredOption()"
             @keydown="onHintedSearch"
           />
         </div>

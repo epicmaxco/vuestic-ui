@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-dropdown"
-    :class="stateClasses"
+    :class="classComputed"
   >
     <div
       class="va-dropdown__anchor"
@@ -88,12 +88,12 @@ export default class VaDropdown extends mixins(
     }
   }
 
-  get stateClasses (): string[] {
+  get classComputed (): string[] {
     const baseClass = 'va-dropdown'
     const classes: string[] = []
 
     if (this.$props.disabled) {
-      classes.push(`${baseClass}_disabled`)
+      classes.push(`${baseClass}--disabled`)
     }
 
     return classes
@@ -299,7 +299,7 @@ export default class VaDropdown extends mixins(
   /* Solved the alignment problem (if we try to align inline and block elements) */
   line-height: var(--va-dropdown-line-height);
 
-  &_disabled {
+  &--disabled {
     @include va-disabled;
   }
 
