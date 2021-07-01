@@ -7,18 +7,16 @@
       @mouseenter="hoveredMonth = date"
       @mouseleave="hoveredMonth = null"
     >
-      <div
-        class="va-month-picker__month"
-        :class="{
-          'va-month-picker__month_current': isMonthCurrentValue(year, monthIndex),
-          'va-month-picker__month_in-range': isMonthInRange(year, monthIndex)
-        }"
+      <va-date-picker-cell
+        :in-range="!!isMonthInRange(year, monthIndex)"
+        :selected="!!isMonthSelected(year, monthIndex)"
+        :disabled="!!isMonthDisabled(year, monthIndex)"
         @click="onMonthClick(year, monthIndex)"
       >
         <slot name="month" v-bind="{ monthIndex, monthName: monthNames[monthIndex] }">
           {{ monthNames[monthIndex] }}
         </slot>
-      </div>
+      </va-date-picker-cell>
     </div>
   </div>
 </template>
@@ -29,9 +27,12 @@ import { useHovered } from '../../hooks/hovered-option-hook'
 import { VaDatePickerModelValue } from '../../types/types'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayIncludeMonth, isDatesMonthEqual } from '../../utils/date-utils'
+import VaDatePickerCell from '../VaDatePickerCell.vue'
 
 export default defineComponent({
   name: 'VaMonthPicker',
+
+  components: { VaDatePickerCell },
 
   props: {
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
@@ -39,6 +40,7 @@ export default defineComponent({
     year: { type: Number, required: true },
     month: { type: Number, required: true },
     shouldUpdateModelValue: { type: Boolean, default: true },
+    allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
   },
 
   emits: ['update:modelValue', 'hover:month', 'click:month'],
@@ -85,7 +87,7 @@ export default defineComponent({
       emit('click:month', { year, month, date })
     }
 
-    const isMonthCurrentValue = (year: number, month: number) => {
+    const isMonthSelected = (year: number, month: number) => {
       const date = new Date(year, month)
 
       if (isSingleDate(modelValue.value)) {
@@ -111,12 +113,15 @@ export default defineComponent({
       return modelValue.value.start < date && modelValue.value.end > date
     }
 
+    const isMonthDisabled = (year: number, month: number) => props.allowedMonths === undefined ? false : !props.allowedMonths(new Date(year, month))
+
     return {
       months,
       hoveredMonth,
       onMonthClick,
-      isMonthCurrentValue,
+      isMonthSelected,
       isMonthInRange,
+      isMonthDisabled,
     }
   },
 })

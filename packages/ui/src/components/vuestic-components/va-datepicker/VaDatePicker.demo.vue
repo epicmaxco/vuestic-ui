@@ -30,6 +30,7 @@
     </VbCard>
 
     <VbCard title="slots to calendar">
+      Custom day and year template
       <va-date-picker
         v-model="value"
         :monthNames="['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']"
@@ -44,13 +45,27 @@
         </template>
       </va-date-picker>
 
-      <va-date-picker
-        v-model="value"
-        label="Hide year"
-      >
-        <template #header-text="{ month, monthNames, switchView }">
+      Custom header
+
+      <va-date-picker v-model="value">
+        <template #header="{ month, monthNames, switchView }">
           <va-chip @click="switchView" size="small">
             {{ monthNames[month] }}
+          </va-chip>
+        </template>
+      </va-date-picker>
+
+      Month control buttons
+
+      <va-date-picker v-model="value">
+        <template #button:next="{ onClick }">
+          <va-chip size="small" @click="onClick">
+            Next
+          </va-chip>
+        </template>
+        <template #button:prev="{ onClick }">
+          <va-chip size="small" @click="onClick">
+            Prev
           </va-chip>
         </template>
       </va-date-picker>
@@ -63,22 +78,24 @@
       <va-date-picker v-model="value" first-weekday="Monday" />
     </VbCard>
 
-    <VbCard title="disable dates">
-      Disable all Tuesday and Thursday
-      <va-date-picker v-model="value" :allowedDates="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
-    </VbCard>
-
     <VbCard title="show other months">
       <va-date-picker v-model="value" :show-other-months="true" />
     </VbCard>
 
     <VbCard title="Month picker">
       Date
-      <va-date-picker v-model="value" valueType="month" class="mb-4" />
+      <va-date-picker v-model="monthValue" valueType="month" class="mb-4" />
       Date ranges
-      <va-date-picker v-model="range" valueType="month" class="mb-4" />
+      <va-date-picker v-model="monthRange" valueType="month" class="mb-4" />
       Dates
-      <va-date-picker v-model="dates" valueType="month" class="mb-4" />
+      <va-date-picker v-model="months" valueType="month" class="mb-4" />
+    </VbCard>
+
+    <VbCard title="disable dates">
+      Disable all Tuesday and Thursday
+      <va-date-picker v-model="value" :allowedDays="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
+
+      <va-date-picker v-model="monthRange" :allowedMonths="(date) => date.getMonth() !== 0 && date.getMonth() !== 11" valueType="month" class="mb-4" />
     </VbCard>
   </VbDemo>
 </template>
@@ -100,10 +117,9 @@ export default {
       value: new Date(),
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
-      months: [],
-
-      // Dropdown
-      isOpen: false,
+      monthValue: new Date(),
+      monthRange: { start: new Date(), end: datePlusDay(new Date(), 62) },
+      months: [new Date(), datePlusDay(new Date(), 62)],
     }
   },
 }

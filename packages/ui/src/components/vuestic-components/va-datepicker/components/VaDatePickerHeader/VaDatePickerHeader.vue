@@ -1,8 +1,11 @@
 <template>
   <div class="va-date-picker-header va-date-picker__header">
-    <va-icon name="chevron_left" size="small" @click="prev" />
+    <slot name="button:prev" v-bind="{ onClick: prev }">
+      <va-icon name="chevron_left" size="small" @click="prev" />
+    </slot>
+
     <div class="va-date-picker-header__text">
-      <slot name="header-text" v-bind="{ year, month, monthNames, view, changeView, switchView }">
+      <slot name="header" v-bind="{ year, month, monthNames, view, changeView, switchView }">
         <va-button flat @click="switchView" size="small">
           <span class="mr-1">
             <slot name="year" v-bind="{ year }">{{ year }}</slot>
@@ -12,7 +15,10 @@
         </va-button>
       </slot>
     </div>
-    <va-icon name="chevron_right" size="small" @click="next" />
+
+    <slot name="button:next" v-bind="{ onClick: next }">
+      <va-icon name="chevron_right" size="small" @click="next" />
+    </slot>
   </div>
 </template>
 

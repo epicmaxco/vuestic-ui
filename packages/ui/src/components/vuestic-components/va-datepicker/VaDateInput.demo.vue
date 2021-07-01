@@ -79,7 +79,7 @@
         v-model="value"
         label="Hide year"
       >
-        <template #header-text="{ month, monthNames, switchView }">
+        <template #header="{ month, monthNames, switchView }">
           <va-chip @click="switchView" size="small">
             {{ monthNames[month] }}
           </va-chip>
@@ -94,7 +94,7 @@
     </VbCard>
 
     <VbCard title="disable dates">
-      <va-date-input v-model="value" label="Disable all Tuesday and Thursday" :allowedDates="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
+      <va-date-input v-model="value" label="Disable all Tuesday and Thursday" :allowedDays="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
     </VbCard>
   </VbDemo>
 </template>
