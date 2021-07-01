@@ -22,8 +22,10 @@
           :date="date"
           :selected-value="modelValue"
           :currentMonth="currentMonth"
+          :hovered-date="hoveredDate"
           @click="onDateClick"
-          @hover="$emit('hover')"
+          @mouseenter="hoveredDate = date"
+          @mouseleave="hoveredDate = null"
         >
           <template v-for="(_, name) in $slots" v-slot:[name]="bind">
             <slot :name="name" v-bind="bind" />
@@ -42,8 +44,9 @@ import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
 import { VaDatePickerModelValue } from '../../types/types'
 import VaDayPickerCell from './VaDayPickerCell.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { useHovered } from '../../hooks/hovered-option-hook'
 
-const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue'])
+const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'hoveredDate'])
 
 export default defineComponent({
   name: 'VaDayPicker',
@@ -71,6 +74,8 @@ export default defineComponent({
     const {
       currentYear, currentMonth, calendarDates,
     } = useVaDatePickerCalendar(year, month, { firstWeekday })
+
+    const { hovered: hoveredDate } = useHovered<Date>((value) => emit('hover', value))
 
     const weekdayNamesComputed = computed(() => {
       return firstWeekday.value === 'Sunday'
@@ -102,6 +107,7 @@ export default defineComponent({
     }
 
     return {
+      hoveredDate,
       calendarDates,
       currentYear,
       currentMonth,

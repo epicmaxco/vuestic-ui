@@ -26,8 +26,6 @@ export function extractComponentProps<T extends ComponentOptionsBase<any, any, a
       .reduce((acc, propName) => {
         if (ignoreProps.includes(propName)) { return acc }
 
-        console.log(ignoreProps, propName)
-
         if (props[propName] === undefined) { return acc }
 
         return { ...acc, [propName]: props[propName] }

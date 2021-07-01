@@ -10,8 +10,6 @@
       'va-date-picker-cell_hightlighted-weekend': highlightWeekends && isDateWeekend,
       'va-date-picker-cell_selected': isDateSelected,
     }"
-    @mouseenter="hoveredDate = date"
-    @mouseleave="hoveredDate = null"
     @click="onDateClick"
   >
     <span class="va-date-picker-cell__day">
@@ -31,7 +29,6 @@ import { defineComponent, computed, PropType } from 'vue'
 import { VaDatePickerModelValue } from '../../types/types'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
-import { useHovered } from '../../hooks/hovered-option-hook'
 
 export default defineComponent({
   name: 'VaDayPickerCell',
@@ -47,6 +44,7 @@ export default defineComponent({
     highlightWeekends: { type: Boolean, default: false },
     highlightTodayDate: { type: Boolean, default: true },
     showOtherMonths: { type: Boolean, default: false },
+    hoveredDate: { type: Date as PropType<Date | null>, default: null },
   },
 
   emits: ['click', 'hover'],
@@ -75,15 +73,15 @@ export default defineComponent({
       throw new Error('Unknown modelValue type')
     })
 
-    const { hovered: hoveredDate } = useHovered<Date>((value) => emit('hover', value))
-
     const isDateInRange = computed(() => {
       if (!isPeriod(props.selectedValue)) { return }
 
       if (props.selectedValue.end === null) {
+        if (!props.hoveredDate) { return false }
+
         return props.selectedValue.start < props.date
-          ? (hoveredDate.value && hoveredDate.value >= props.date)
-          : (hoveredDate.value && hoveredDate.value <= props.date)
+          ? (props.hoveredDate >= props.date)
+          : (props.hoveredDate <= props.date)
       }
 
       return props.selectedValue.start < props.date && props.selectedValue.end > props.date
@@ -104,7 +102,6 @@ export default defineComponent({
     }
 
     return {
-      hoveredDate,
       isToday,
       isCurrentView,
       isDateDisabled,
