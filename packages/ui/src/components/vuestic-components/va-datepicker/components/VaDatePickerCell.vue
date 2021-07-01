@@ -90,12 +90,22 @@ $cell-size: 34px;
       background-color: var(--va-primary);
       opacity: 0.1;
     }
+
+    &::before {
+      border: 1px solid var(--va-primary);
+      opacity: 0.2;
+    }
   }
 
   &_focused {
     &::after {
       background-color: var(--va-primary);
-      opacity: 0.2;
+      opacity: 0.1;
+    }
+
+    &::before {
+      border: 1px solid var(--va-primary);
+      opacity: 0.5;
     }
   }
 
@@ -108,10 +118,23 @@ $cell-size: 34px;
       background-color: var(--va-primary);
       opacity: 0.3;
     }
+
+    &:hover {
+      &::after {
+        background-color: var(--va-primary);
+        opacity: 0.3;
+      }
+
+      &::before {
+        border: 1px solid var(--va-primary);
+        opacity: 0.5;
+      }
+    }
   }
 
   &_in-range {
-    &::before {
+    &::before,
+    &:hover::before {
       border: 2px solid var(--va-primary);
       opacity: 0.7;
     }
@@ -159,7 +182,8 @@ $cell-size: 34px;
   &_clear {
     cursor: default;
 
-    &::after {
+    &::after,
+    &::before {
       display: none;
     }
   }

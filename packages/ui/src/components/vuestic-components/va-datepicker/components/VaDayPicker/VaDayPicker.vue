@@ -29,7 +29,7 @@
           :currentMonth="view.month"
           :hovered-date="hoveredDate"
           :focused="focusedDateIndex === index"
-          @click="onDateClick"
+          @click="onDateClick($event), focusedDateIndex = index"
           @mouseenter="hoveredDate = date"
           @mouseleave="hoveredDate = null"
         >
