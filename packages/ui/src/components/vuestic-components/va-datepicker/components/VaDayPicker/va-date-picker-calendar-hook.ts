@@ -1,4 +1,4 @@
-import { computed, Ref, ref } from 'vue'
+import { computed, Ref } from 'vue'
 import { DatePickerView } from '../../helpers/date-picker-view'
 
 /** Returns last day of previous month */
@@ -21,31 +21,30 @@ export const useVaDatePickerCalendar = (view: Ref<DatePickerView>, options?: { f
     return weekdayNumber
   }
 
-  const getPreviousDates = () => {
-    const currentMonthStartWeekday = localizeWeekday(getMonthStartWeekday(view.value.year, view.value.month))
+  const currentMonthStartWeekday = computed(() => localizeWeekday(getMonthStartWeekday(view.value.year, view.value.month)))
 
-    if (currentMonthStartWeekday === 0) { return [] }
+  const getPreviousDates = () => {
+    if (currentMonthStartWeekday.value === 0) { return [] }
 
     const prevMonthDaysCount = getMonthDaysCount(view.value.year, view.value.month - 1)
     const prevMonthDays: number[] = getNumbersArray(prevMonthDaysCount)
 
     return prevMonthDays
-      .slice(-currentMonthStartWeekday)
+      .slice(-currentMonthStartWeekday.value)
       .map((d) => new Date(view.value.year, view.value.month - 1, d))
   }
 
   const getCurrentDates = () => {
-    const currentMonthDaysCount = getMonthDaysCount(view.value.year, view.value.month)
-    const currentMonthDays: number[] = getNumbersArray(currentMonthDaysCount)
+    const currentMonthDays: number[] = getNumbersArray(getMonthDaysCount(view.value.year, view.value.month))
 
     return currentMonthDays.map((d) => new Date(view.value.year, view.value.month, d))
   }
 
+  const prevAndCurrentDays = computed(() => [...getPreviousDates(), ...getCurrentDates()])
+  const currentMonthEndIndex = computed(() => prevAndCurrentDays.value.length)
+
   const calendarDates = computed(() => {
-    const days = [
-      ...getPreviousDates(),
-      ...getCurrentDates(),
-    ]
+    const days = prevAndCurrentDays.value
 
     const daysRemaining = 7 * CALENDAR_ROWS_COUNT - days.length
 
@@ -60,5 +59,5 @@ export const useVaDatePickerCalendar = (view: Ref<DatePickerView>, options?: { f
     ]
   })
 
-  return { calendarDates }
+  return { calendarDates, currentMonthStartIndex: currentMonthStartWeekday, currentMonthEndIndex }
 }

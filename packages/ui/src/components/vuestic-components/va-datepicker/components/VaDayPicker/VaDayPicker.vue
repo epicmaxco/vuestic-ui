@@ -11,10 +11,15 @@
       </div>
     </div>
 
-    <div class="va-day-picker__calendar">
+    <div
+      class="va-day-picker__calendar"
+      tabindex="0"
+      v-bind="keyboardNavigationListeners"
+      @keydown.enter="clickOnFocusedDate"
+    >
       <div
         class="va-day-picker__calendar__day-wrapper"
-        v-for="date in calendarDates"
+        v-for="(date, index) in calendarDates"
         :key="date"
       >
         <va-day-picker-cell
@@ -23,6 +28,7 @@
           :selected-value="modelValue"
           :currentMonth="view.month"
           :hovered-date="hoveredDate"
+          :focused="focusedDateIndex === index"
           @click="onDateClick"
           @mouseenter="hoveredDate = date"
           @mouseleave="hoveredDate = null"
@@ -37,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, PropType } from 'vue'
+import { computed, defineComponent, toRefs, PropType, ref, watch } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayIncludeDay, isDatesDayEqual } from '../../utils/date-utils'
@@ -46,6 +52,7 @@ import VaDayPickerCell from './VaDayPickerCell.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useHovered } from '../../hooks/hovered-option-hook'
 import { DatePickerView } from '../../helpers/date-picker-view'
+import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 
 const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'hoveredDate'])
 
@@ -71,7 +78,7 @@ export default defineComponent({
 
     const VaDayPickerCellPropValues = filterComponentProps(props, VaDayPickerCellProps)
 
-    const { calendarDates } = useVaDatePickerCalendar(view, { firstWeekday })
+    const { calendarDates, currentMonthStartIndex, currentMonthEndIndex } = useVaDatePickerCalendar(view, { firstWeekday })
 
     const { hovered: hoveredDate } = useHovered<Date>((value) => emit('hover', value))
 
@@ -104,12 +111,26 @@ export default defineComponent({
       }
     }
 
+    const {
+      focusedCellIndex: focusedDateIndex, listeners: keyboardNavigationListeners,
+    } = useGridKeyboardNavigation(7, {
+      start: currentMonthStartIndex,
+      end: currentMonthEndIndex,
+    })
+
+    watch(focusedDateIndex, (newValue) => { hoveredDate.value = calendarDates.value[newValue] })
+
+    const clickOnFocusedDate = () => onDateClick(calendarDates.value[focusedDateIndex.value])
+
     return {
       hoveredDate,
       calendarDates,
       onDateClick,
+      clickOnFocusedDate,
+      keyboardNavigationListeners,
       weekdayNamesComputed,
       VaDayPickerCellPropValues,
+      focusedDateIndex,
     }
   },
 })

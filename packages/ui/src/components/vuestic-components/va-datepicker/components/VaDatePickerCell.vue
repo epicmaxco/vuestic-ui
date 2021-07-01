@@ -13,6 +13,7 @@
       'va-date-picker-cell_disabled': disabled,
       'va-date-picker-cell_hightlighted-weekend': hightlightWeekend && weekend,
       'va-date-picker-cell_selected': selected,
+      'va-date-picker-cell_focused': focused,
     }"
     @click="onClick"
   >
@@ -34,6 +35,7 @@ export default defineComponent({
     selected: { type: Boolean, default: false },
     weekend: { type: Boolean, default: false },
     hidden: { type: Boolean, default: false },
+    focused: { type: Boolean, default: false },
     hightlightWeekend: { type: Boolean, default: false },
     hightlightToday: { type: Boolean, default: false },
   },
@@ -87,6 +89,13 @@ $cell-size: 34px;
     &::after {
       background-color: var(--va-primary);
       opacity: 0.1;
+    }
+  }
+
+  &_focused {
+    &::after {
+      background-color: var(--va-primary);
+      opacity: 0.2;
     }
   }
 
