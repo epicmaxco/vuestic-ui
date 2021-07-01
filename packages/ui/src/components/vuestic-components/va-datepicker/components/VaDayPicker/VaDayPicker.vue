@@ -40,7 +40,7 @@
 import { computed, defineComponent, PropType, toRefs, ref } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
-import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
+import { isDatesArrayIncludeDay, isDatesDayEqual } from '../../utils/date-utils'
 import { VaDatePickerModelValue } from '../../types/types'
 import VaDayPickerCell from './VaDayPickerCell.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
@@ -98,8 +98,8 @@ export default defineComponent({
           emit('update:modelValue', { start: modelValue.value.start, end: date })
         }
       } else if (isDates(modelValue.value)) {
-        if (isDatesArrayInclude(modelValue.value, date)) {
-          emit('update:modelValue', modelValue.value.filter((d) => !isDatesEqual(d, date)))
+        if (isDatesArrayIncludeDay(modelValue.value, date)) {
+          emit('update:modelValue', modelValue.value.filter((d) => !isDatesDayEqual(d, date)))
         } else {
           emit('update:modelValue', [...modelValue.value, date].sort((a, b) => a.getTime() - b.getTime()))
         }

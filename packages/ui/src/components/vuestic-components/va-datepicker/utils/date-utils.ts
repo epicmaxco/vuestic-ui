@@ -1,5 +1,14 @@
-export const isDatesArrayInclude = (dates: Date[], date: Date): boolean => {
-  return !!dates.find((d) => d.toDateString() === date.toDateString())
+
+export const isDatesDayEqual = (date1: Date | null, date2: Date | null): boolean => date1?.toDateString() === date2?.toDateString()
+
+export const isDatesMonthEqual = (date1: Date | null, date2: Date | null): boolean => {
+  return date1?.getFullYear() === date2?.getFullYear() && date1?.getMonth() === date2?.getMonth()
 }
 
-export const isDatesEqual = (date1: Date | null, date2: Date | null): boolean => (date1 && date1.toDateString()) === (date2 && date2.toDateString())
+export const isDatesArrayIncludeDay = (dates: Date[], date: Date): boolean => {
+  return !!dates.find((d) => isDatesDayEqual(d, date))
+}
+
+export const isDatesArrayIncludeMonth = (dates: Date[], date: Date): boolean => {
+  return !!dates.find((d) => isDatesMonthEqual(d, date))
+}

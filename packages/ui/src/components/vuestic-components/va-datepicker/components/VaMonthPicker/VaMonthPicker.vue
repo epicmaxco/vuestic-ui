@@ -28,7 +28,7 @@ import { defineComponent, PropType, toRefs } from 'vue'
 import { useHovered } from '../../hooks/hovered-option-hook'
 import { VaDatePickerModelValue } from '../../types/types'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
-import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
+import { isDatesArrayIncludeMonth, isDatesMonthEqual } from '../../utils/date-utils'
 
 export default defineComponent({
   name: 'VaMonthPicker',
@@ -54,7 +54,7 @@ export default defineComponent({
       if (isSingleDate(modelValue.value)) {
         emit('update:modelValue', date)
       } else if (isPeriod(modelValue.value)) {
-        if (isDatesEqual(modelValue.value.start, date) || isDatesEqual(modelValue.value.end, date)) { return }
+        if (isDatesMonthEqual(modelValue.value.start, date) || isDatesMonthEqual(modelValue.value.end, date)) { return }
 
         if (modelValue.value.end !== null) {
           emit('update:modelValue', { start: date, end: null })
@@ -67,8 +67,8 @@ export default defineComponent({
           emit('update:modelValue', { start: modelValue.value.start, end: date })
         }
       } else if (isDates(modelValue.value)) {
-        if (isDatesArrayInclude(modelValue.value, date)) {
-          emit('update:modelValue', modelValue.value.filter((d) => !isDatesEqual(d, date)))
+        if (isDatesArrayIncludeMonth(modelValue.value, date)) {
+          emit('update:modelValue', modelValue.value.filter((d) => !isDatesMonthEqual(d, date)))
         } else {
           emit('update:modelValue', [...modelValue.value, date].sort((a, b) => a.getTime() - b.getTime()))
         }
@@ -85,17 +85,15 @@ export default defineComponent({
       emit('click:month', { year, month, date })
     }
 
-    const compareMonths = (date1: Date, date2: Date) => date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()
-
     const isMonthCurrentValue = (year: number, month: number) => {
       const date = new Date(year, month)
 
       if (isSingleDate(modelValue.value)) {
-        return compareMonths(modelValue.value, date)
+        return isDatesMonthEqual(modelValue.value, date)
       } else if (isDates(modelValue.value)) {
-        return modelValue.value.find((d) => compareMonths(d, date))
+        return modelValue.value.find((d) => isDatesMonthEqual(d, date))
       } else if (isPeriod(modelValue.value)) {
-        return isDatesEqual(modelValue.value.start, date) || isDatesEqual(modelValue.value.end, date)
+        return isDatesMonthEqual(modelValue.value.start, date) || isDatesMonthEqual(modelValue.value.end, date)
       }
     }
 

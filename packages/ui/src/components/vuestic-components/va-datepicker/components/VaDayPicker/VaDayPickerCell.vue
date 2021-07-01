@@ -28,7 +28,7 @@
 import { defineComponent, computed, PropType } from 'vue'
 import { VaDatePickerModelValue } from '../../types/types'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
-import { isDatesArrayInclude, isDatesEqual } from '../../utils/date-utils'
+import { isDatesArrayIncludeDay, isDatesDayEqual } from '../../utils/date-utils'
 
 export default defineComponent({
   name: 'VaDayPickerCell',
@@ -65,9 +65,9 @@ export default defineComponent({
       if (isSingleDate(props.selectedValue)) {
         return props.selectedValue.toDateString() === props.date.toDateString()
       } else if (isDates(props.selectedValue)) {
-        return isDatesArrayInclude(props.selectedValue, props.date)
+        return isDatesArrayIncludeDay(props.selectedValue, props.date)
       } else if (isPeriod(props.selectedValue)) {
-        return isDatesEqual(props.selectedValue.start, props.date) || isDatesEqual(props.selectedValue.end, props.date)
+        return isDatesDayEqual(props.selectedValue.start, props.date) || isDatesDayEqual(props.selectedValue.end, props.date)
       }
 
       throw new Error('Unknown modelValue type')
