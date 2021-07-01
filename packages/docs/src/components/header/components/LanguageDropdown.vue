@@ -52,6 +52,8 @@ export default defineComponent({
     const setLanguage = (newLocale: string) => {
       if (locale.value === newLocale) { return }
 
+      localStorage.setItem('language', newLocale)
+      
       const currentPathWithoutLocale = getCurrentPathWithoutLocale()
 
       router.push('/' + newLocale + currentPathWithoutLocale)

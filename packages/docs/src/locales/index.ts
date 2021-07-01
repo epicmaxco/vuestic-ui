@@ -5,4 +5,4 @@ export const messages = languages.reduce((result, { code, name }) => ({
   [code]: require(`./${code}/${code}.json`),
 }), {})
 
-export const DEFAULT_LANGUAGE = 'en'
+export const DEFAULT_LANGUAGE = localStorage.language || window.navigator.language || 'en'
