@@ -14,10 +14,10 @@
     <div
       class="va-tab__content"
       v-on="context.keyboardFocusListeners"
+      :tabindex="tabIndexComputed"
       @focus="onFocus"
       @click="onTabClick"
       @keydown.enter="onTabKeydown"
-      :tabindex="tabIndexComputed"
     >
       <slot>
         <va-icon

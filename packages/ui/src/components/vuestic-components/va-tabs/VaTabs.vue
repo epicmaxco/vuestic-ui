@@ -305,12 +305,12 @@ export default class VaTabs extends mixins(
   }
 
   ensureVisible (tab: VaTab) {
-    if (!this.showPagination) {
-      this.tabsContentOffset = 0
-    } else if (tab.leftSidePosition + this.containerRef.clientWidth <= this.tabsRef.clientWidth) {
+    if (this.showPagination && tab.leftSidePosition + this.containerRef.clientWidth <= this.tabsRef.clientWidth) {
       this.tabsContentOffset = tab.leftSidePosition
-    } else {
+    } else if (this.showPagination && tab.rightSidePosition >= this.containerRef.clientWidth) {
       this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
+    } else {
+      this.tabsContentOffset = 0
     }
   }
 
@@ -335,12 +335,21 @@ export default class VaTabs extends mixins(
 
   updateStartingXPoint () {
     this.startingXPoint = 0
-    if (this.showPagination) {
-      if (this.$props.right) {
-        this.startingXPoint = this.tabsRef?.clientWidth - this.containerRef?.clientWidth
-      } else if (this.$props.center) {
-        this.startingXPoint = Math.floor((this.tabsRef?.clientWidth - this.containerRef?.clientWidth) / 2)
-      }
+    if (!this.showPagination) {
+      return
+    }
+    if (this.$props.right) {
+      this.startingXPoint = this.tabsRef?.clientWidth - this.containerRef?.clientWidth
+    } else if (this.$props.center) {
+      this.startingXPoint = Math.floor((this.tabsRef?.clientWidth - this.containerRef?.clientWidth) / 2)
+    }
+  }
+
+  includeAnimation () {
+    if (!this.animationIncluded) {
+      requestAnimationFrame(() => {
+        this.animationIncluded = true
+      })
     }
   }
 
@@ -349,15 +358,11 @@ export default class VaTabs extends mixins(
     this.updatePagination()
     if (oldShowPaginationValue === this.showPagination) {
       this.updateTabsState()
+      this.includeAnimation()
     } else {
       requestAnimationFrame(() => {
         this.updateTabsState()
-
-        if (!this.animationIncluded) {
-          requestAnimationFrame(() => {
-            this.animationIncluded = true
-          })
-        }
+        this.includeAnimation()
       })
     }
   }
