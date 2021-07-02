@@ -4,7 +4,7 @@
       <div class="frame">
         <div class="display">
           <va-app-bar>
-            <AppBarTestContent />
+            <AppBarContentExample color="gray" />
           </va-app-bar>
         </div>
       </div>
@@ -14,7 +14,7 @@
       <div class="frame">
         <div class="display">
           <va-app-bar color="secondary">
-            <AppBarTestContent />
+            <AppBarContentExample />
           </va-app-bar>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div class="frame">
         <div class="display">
           <va-app-bar bottom>
-            <AppBarTestContent />
+            <AppBarContentExample color="gray" />
           </va-app-bar>
         </div>
       </div>
@@ -37,7 +37,7 @@
             target="#scrollable-element2"
             hide-on-scroll
           >
-            <AppBarTestContent />
+            <AppBarContentExample color="gray" />
           </va-app-bar>
           <div
             class="content"
@@ -57,7 +57,7 @@
             hide-on-scroll
             target="#scrollable-element"
           >
-            <AppBarTestContent />
+            <AppBarContentExample color="gray" />
           </va-app-bar>
           <div
             class="content"
@@ -76,7 +76,7 @@
             target="#scrollable-element3"
             shadow-on-scroll
           >
-            <AppBarTestContent />
+            <AppBarContentExample color="gray" />
           </va-app-bar>
           <div
             class="content"
@@ -96,7 +96,7 @@
             shadow-on-scroll
             target="#scrollable-element4"
           >
-            <AppBarTestContent />
+            <AppBarContentExample color="gray" />
           </va-app-bar>
           <div
             class="content"
@@ -116,7 +116,7 @@
             shadow-color="danger"
             target="#scrollable-element5"
           >
-            <AppBarTestContent />
+            <AppBarContentExample color="gray" />
           </va-app-bar>
           <div
             class="content"
@@ -132,11 +132,11 @@
 
 <script>
 import VaAppBar from '../va-app-bar/VaAppBar'
-import AppBarTestContent from './AppBarTestContent.vue'
+import AppBarContentExample from './AppBarContentExample.vue'
 
 export default {
   components: {
-    AppBarTestContent,
+    AppBarContentExample,
     VaAppBar,
   },
 }
