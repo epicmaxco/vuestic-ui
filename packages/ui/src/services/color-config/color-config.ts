@@ -49,6 +49,7 @@ export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): C
 export const colorsToCSSVariable = (colors: { [colorName: string]: string }, prefix = 'va') => {
   return Object
     .keys(colors)
+    .filter((key) => colors[key] !== undefined)
     .reduce((acc, colorName) => ({ ...acc, [`--${prefix}-${colorName}`]: getColor(colors[colorName]) }), {})
 }
 

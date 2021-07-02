@@ -57,7 +57,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .va-date-picker-cell {
   position: relative;
-  color: var(--va-date-picker-text-color, var(--va-dark));
+  color: var(--va-date-picker-text-color);
   font-family: Source Sans Pro;
   font-style: normal;
   font-weight: 600;
@@ -67,127 +67,106 @@ export default defineComponent({
   line-height: var(--va-date-picker-cell-size);
   cursor: pointer;
   user-select: none;
-  border-radius: 6px;
+  border-radius: var(--va-date-picker-cell-radius);
+  box-sizing: border-box;
   text-align: center;
+  z-index: 1;
 
   &::after,
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
     height: 100%;
-    z-index: 0;
+    width: 100%;
+    left: 0;
+    z-index: -1;
+    user-select: none;
     box-sizing: border-box;
-    border-radius: 6px;
+    border-radius: var(--va-date-picker-cell-radius);
   }
 
-  &:hover {
-    &::after {
-      background-color: var(--va-date-picker-color, var(--va-primary));
-      opacity: 0.1;
-    }
+  &_clear { cursor: default; }
 
-    &::before {
-      border: 1px solid var(--va-date-picker-color, var(--va-primary));
-      opacity: 0.2;
-    }
+  &_hightlighted-weekend { color: var(--va-date-picker-weekends-color); }
+
+  &_selected {
+    background-color: var(--va-date-picker-selected-background);
+    color: var(--va-date-picker-selected-text);
   }
 
-  &_focused {
-    &::after {
-      background-color: var(--va-date-picker-color, var(--va-primary));
-      opacity: 0.1;
-    }
-
+  &_in-range {
     &::before {
-      border: 1px solid var(--va-date-picker-color, var(--va-primary));
+      border: 2px solid var(--va-date-picker-color);
       opacity: 0.5;
     }
   }
 
+  &_today {
+    color: var(--va-date-picker-today-text);
+
+    &::after {
+      background-color: var(--va-date-picker-today-background);
+      opacity: var(--va-date-picker-today-background-opacity);
+    }
+  }
+
+  &_selected.va-date-picker-cell_today {
+    &::before {
+      border: 2px solid var(--va-date-picker-selected-text);
+      opacity: 1;
+    }
+  }
+
   &_other-month {
-    // color: var(--va-date-picker-secondary, var(--va-secondary));
     opacity: 0.5;
   }
 
-  &_today {
-    &::after {
-      background-color: var(--va-date-picker-color, var(--va-primary));
-      opacity: 0.3;
+  &_focused {
+    &::before {
+      border: 2px solid var(--va-date-picker-focused-border-color);
+      opacity: 1;
     }
 
-    &:hover {
-      &::after {
-        background-color: var(--va-date-picker-color, var(--va-primary));
-        opacity: 0.3;
-      }
-
+    &.va-date-picker-cell_selected {
       &::before {
-        border: 1px solid var(--va-date-picker-color, var(--va-primary));
-        opacity: 0.5;
+        width: calc(100% - 4px);
+        height: calc(100% - 4px);
+        transform: translateY(2px) translateX(2px);
+        padding: 2px;
+        border: 2px solid var(--va-date-picker-focused-selected-border-color);
+        opacity: 1;
       }
-    }
-  }
-
-  &_in-range {
-    &::before,
-    &:hover::before {
-      border: 2px solid var(--va-date-picker-color, var(--va-primary));
-      opacity: 0.7;
     }
   }
 
   &_disabled {
     cursor: default;
-    color: var(--va-date-picker-secondary, var(--va-secondary));
+    color: var(--va-date-picker-secondary);
     opacity: 0.5;
 
     &::after {
-      content: '';
-      background: transparent;
-      height: 1px;
-      width: 55%;
-      background-color: var(--va-date-picker-secondary, var(--va-secondary));
+      // Crossline
+      opacity: 1;
+      border: none;
+      height: 2px;
+      width: 50%;
+      background: var(--va-date-picker-secondary);
       top: 50%;
       left: 50%;
-      transform: translateY(-50%) translateX(-50%);
-    }
-
-    &:hover::after {
-      // Do not hover disabled dates
-      opacity: 1;
-      background-color: var(--va-date-picker-secondary, var(--va-secondary));
-    }
-
-    &::before {
-      display: none;
+      transform: translate(-50%, -50%);
     }
 
     &.va-date-picker-cell_today {
+      color: var(--va-date-picker-today-text);
+
       &::after {
-        background-color: var(--va-date-picker-white, var(--va-white));
-        opacity: 0.7;
+        background: var(--va-date-picker-today-text);
       }
-    }
-  }
 
-  &_hightlighted-weekend {
-    color: var(--va-date-picker-weekends-color, var(--va-danger));
-  }
-
-  &_selected {
-    background-color: var(--va-date-picker-color, var(--va-primary));
-    color: var(--va-date-picker-white, var(--va-white), white);
-  }
-
-  &_clear {
-    cursor: default;
-
-    &::after,
-    &::before {
-      display: none;
+      &::before {
+        background-color: var(--va-date-picker-today-background);
+        opacity: var(--va-date-picker-today-background-opacity);
+      }
     }
   }
 }

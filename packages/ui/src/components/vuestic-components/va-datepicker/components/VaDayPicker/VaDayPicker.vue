@@ -27,10 +27,10 @@
           :date="date"
           :selected-value="modelValue"
           :currentMonth="view.month"
-          :hovered-date="hoveredDate"
+          :hovered-date="hoveredDate?.date"
           :focused="focusedDateIndex === index"
           @click="onDateClick($event), focusedDateIndex = index"
-          @mouseenter="hoveredDate = date"
+          @mouseenter="hoveredDate = { date, index }"
           @mouseleave="hoveredDate = null"
         >
           <template v-for="(_, name) in $slots" v-slot:[name]="bind">
@@ -80,7 +80,7 @@ export default defineComponent({
 
     const { calendarDates, currentMonthStartIndex, currentMonthEndIndex } = useVaDatePickerCalendar(view, { firstWeekday })
 
-    const { hovered: hoveredDate } = useHovered<Date>((value) => emit('hover', value))
+    const { hovered: hoveredDate } = useHovered<{ date: Date, index: number }>((value) => emit('hover', value?.date))
 
     const weekdayNamesComputed = computed(() => {
       return firstWeekday.value === 'Sunday'
@@ -125,7 +125,8 @@ export default defineComponent({
       end: gridEndIndex,
     })
 
-    watch(focusedDateIndex, (newValue) => { hoveredDate.value = calendarDates.value[newValue] })
+    watch(focusedDateIndex, (newValue) => { hoveredDate.value = { date: calendarDates.value[newValue], index: newValue } })
+    watch(hoveredDate, (newValue) => { focusedDateIndex.value = newValue?.index || -1 })
 
     const clickOnFocusedDate = () => onDateClick(calendarDates.value[focusedDateIndex.value])
 

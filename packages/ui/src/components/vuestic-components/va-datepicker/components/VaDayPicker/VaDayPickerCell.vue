@@ -94,7 +94,7 @@ export default defineComponent({
         return
       }
 
-      if (isOtherMonth.value && props.showOtherMonths) {
+      if (isOtherMonth.value && !props.showOtherMonths) {
         return
       }
 

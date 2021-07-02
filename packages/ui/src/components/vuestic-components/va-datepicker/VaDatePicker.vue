@@ -74,8 +74,8 @@ export default defineComponent({
     valueType: { type: String as PropType<VaDatePickerValueType>, default: 'day' },
 
     // Colors
-    color: { type: String, default: 'primary' },
-    weekendsColor: { type: String, default: 'danger' },
+    color: { type: String, default: undefined },
+    weekendsColor: { type: String, default: undefined },
   },
 
   emits: [...statefulComponentOptions.emits, 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day'],
