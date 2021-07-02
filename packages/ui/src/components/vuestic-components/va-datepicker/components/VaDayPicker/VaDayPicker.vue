@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, PropType, ref, watch } from 'vue'
+import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
 import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayIncludeDay, isDatesDayEqual } from '../../utils/date-utils'
@@ -89,6 +89,10 @@ export default defineComponent({
     })
 
     const onDateClick = (date: Date) => {
+      const isDateDisabed = props.allowedDays === undefined ? false : !props.allowedDays(date)
+
+      if (isDateDisabed) { return }
+
       if (isSingleDate(modelValue.value)) {
         emit('update:modelValue', date)
       } else if (isPeriod(modelValue.value)) {
@@ -111,11 +115,14 @@ export default defineComponent({
       }
     }
 
+    const gridStartIndex = computed(() => props.showOtherMonths ? 0 : currentMonthStartIndex.value)
+    const gridEndIndex = computed(() => props.showOtherMonths ? calendarDates.value.length : currentMonthEndIndex.value)
+
     const {
       focusedCellIndex: focusedDateIndex, listeners: keyboardNavigationListeners,
     } = useGridKeyboardNavigation(7, {
-      start: currentMonthStartIndex,
-      end: currentMonthEndIndex,
+      start: gridStartIndex,
+      end: gridEndIndex,
     })
 
     watch(focusedDateIndex, (newValue) => { hoveredDate.value = calendarDates.value[newValue] })
