@@ -149,6 +149,7 @@ import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import { warn } from '../../../services/utils'
 import VaChip from '../va-chip'
 import VaDropdown from '../va-dropdown'
 import VaIcon from '../va-icon'
@@ -267,6 +268,16 @@ export default class VaSelect extends mixins(
 
       if (!Array.isArray(value)) {
         return [value]
+      }
+
+      return value
+    }
+
+    if (Array.isArray(value)) {
+      warn('Model value should be a string for single Select.')
+
+      if (value.length) {
+        return value[value.length - 1]
       }
     }
 
