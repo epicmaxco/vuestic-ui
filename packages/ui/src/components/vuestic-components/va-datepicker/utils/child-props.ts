@@ -1,4 +1,4 @@
-import { ComponentOptionsBase, PropType, computed, ComputedRef } from 'vue'
+import { ComponentOptionsBase, ExtractPropTypes, PropType, computed, ComputedRef, Prop } from 'vue'
 
 /**
  * Accepts parent component props and return value only for child component props.
@@ -14,10 +14,20 @@ export const filterComponentProps = (propsValues: Record<string, any>, childProp
   )
 }
 
-export type Props<T> = { [K in keyof T]: { type: PropType<T[K]> } }
+// ExtractOptionProp taken from Vue3 source code
+declare type ExtractOptionProp<T> = T extends ComponentOptionsBase<infer P, any, any, any, any, any, any, any> ? unknown extends P ? {} : P : {};
+// Remove useless readonly and nullable key here:
+// -readonly removes readonly
+// -? removes undefined from key, so we can be sure that prop exists and should have type.
+declare type ExtractPropsType<T> = {
+  -readonly [K in keyof ExtractOptionProp<T>]-?: {
+    type: PropType<ExtractOptionProp<T>[K]>,
+    required: undefined extends ExtractOptionProp<T>[K] ? false: true,
+  }
+}
 
 /* Works only with defineComponent function */
-export function extractComponentProps<T extends ComponentOptionsBase<any, any, any, any, any, any, any, any, any>> (component: T, ignoreProps?: string[]): Props<Parameters<NonNullable<T['setup']>>[0]> {
+export function extractComponentProps<T> (component: T, ignoreProps?: string[]): ExtractPropsType<T> {
   const props = (component as any).props
 
   if (ignoreProps) {
@@ -29,7 +39,7 @@ export function extractComponentProps<T extends ComponentOptionsBase<any, any, a
         if (props[propName] === undefined) { return acc }
 
         return { ...acc, [propName]: props[propName] }
-      }, {}) as Props<Parameters<NonNullable<T['setup']>>[0]>
+      }, {}) as ExtractPropsType<T>
   }
 
   return props
