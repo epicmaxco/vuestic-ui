@@ -134,6 +134,33 @@
         vuestic
       </va-chip>
     </VbCard>
+
+    <VbCard title="With shadow">
+      <va-chip
+        shadow
+      >
+        just shadow
+      </va-chip>
+      <div>Exceptions:</div>
+      <va-chip
+        disabled
+        shadow
+      >
+        disabled
+      </va-chip>
+      <va-chip
+        flat
+        shadow
+      >
+        flat
+      </va-chip>
+      <va-chip
+        outline
+        shadow
+      >
+        outline
+      </va-chip>
+    </VbCard>
   </VbDemo>
 </template>
 
