@@ -12,8 +12,8 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
-    "build": "tsc build/config.ts && webpack --config build/config.js --progress",
-    "build:prod": "NODE_ENV=production yarn build",
+    "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
+    "build": "NODE_ENV=production yarn build:dev",
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
@@ -36,7 +36,6 @@
     "flatpickr": "4.6.9",
     "lodash": "^4.17.20",
     "normalize.css": "^8.0.1",
-    "vue": "^3.0.4",
     "vue-flatpickr-component": "^9.0.3"
   },
   "devDependencies": {
@@ -51,6 +50,7 @@
     "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.161",
     "@types/lodash-es": "^4.17.3",
+    "vue": "^3.0.4",
     "@types/mini-css-extract-plugin": "^1.2.1",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
@@ -104,6 +104,9 @@
     "webpack-bundle-analyzer": "^4.1.0",
     "webpack-cli": "^4.4.0",
     "webpack-merge": "^5.5.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.4"
   },
   "lint-staged": {
     "*.{js,ts}": [
