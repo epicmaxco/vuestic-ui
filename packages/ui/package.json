@@ -1,6 +1,6 @@
 {
   "name": "vuestic-ui",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/vuestic-ui.js",
@@ -15,8 +15,7 @@
     "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
     "build": "NODE_ENV=production yarn build:dev",
     "build:book": "vue-cli-service build --mode book",
-    "commit-and-tag": "ts-node build/tag-current-version.ts",
-    "build-and-release": "ts-node build/bump-version.ts && yarn build && npm publish --dry-run",
+    "build-and-release": "ts-node build/bump-version.ts && yarn build && npm publish",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
     "test:unit": "vue-cli-service test:unit -w 1",
