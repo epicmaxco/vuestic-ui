@@ -3,6 +3,7 @@
     :hidden="!(isCurrentView || showOtherMonths)"
     :current-view="isCurrentView"
     :today="isToday"
+    :weekend="isDateWeekend"
     :disabled="isDateDisabled"
     :selected="isDateSelected"
     :in-range="isDateInRange"

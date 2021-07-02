@@ -162,6 +162,10 @@ $cell-size: 34px;
       background-color: var(--va-secondary);
     }
 
+    &::before {
+      display: none;
+    }
+
     &.va-date-picker-cell_today {
       &::after {
         background-color: var(--va-white);
