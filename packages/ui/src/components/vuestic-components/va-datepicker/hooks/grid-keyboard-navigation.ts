@@ -6,15 +6,23 @@ export const useGridKeyboardNavigation = (
 ) => {
   const focusedCellIndex = ref(-1)
 
-  const onFocus = (e: FocusEvent) => {
+  let previouslyClicked = false
+  const onMousedown = () => { previouslyClicked = true }
+
+  const onFocus = () => {
+    if (previouslyClicked) { return }
+    previouslyClicked = false
+
     focusedCellIndex.value = offset.start?.value || 0
   }
 
-  const onBlur = (e: FocusEvent) => {
+  const onBlur = () => {
+    previouslyClicked = false
+
     focusedCellIndex.value = -1
   }
 
-  const onKeydown = (e: KeyboardEvent, index: number) => {
+  const onKeydown = (e: KeyboardEvent) => {
     if (['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Enter'].includes(e.key)) {
       // Prevent default for arrow keys and enter. Do not prevent default for tab! :)
       e.preventDefault()
@@ -42,10 +50,10 @@ export const useGridKeyboardNavigation = (
   }
 
   const listeners = {
-    onFocus, onKeydown, onBlur,
+    onFocus, onKeydown, onBlur, onMousedown,
   }
 
   return {
-    focusedCellIndex, onFocus, onKeydown, onBlur, listeners,
+    focusedCellIndex, listeners,
   }
 }
