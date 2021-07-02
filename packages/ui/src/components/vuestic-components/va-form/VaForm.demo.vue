@@ -94,7 +94,7 @@
           :rules="[value => value === 'hello' || 'should be hello']"
         />
 
-        <va-form style="margin: 6px;">
+        <va-form style="margin: 6px; border: 1px solid black;">
           Child Form
           <va-input
             label="input 3"

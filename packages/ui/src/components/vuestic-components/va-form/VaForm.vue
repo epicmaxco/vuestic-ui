@@ -8,10 +8,10 @@
 </template>
 
 <script lang="ts">
-import { inject, provide } from 'vue'
+import { provide } from 'vue'
 import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
-import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
-import { FormProvider, FormServiceKey } from './consts'
+import { useFormProvider } from '../../vuestic-mixins/FormComponent/cFormComponent'
+import { FormServiceKey, FormElement } from './consts'
 
 class FormProps {
   autofocus = prop<boolean>({ type: Boolean, default: false })
@@ -20,11 +20,6 @@ class FormProps {
 
 const FormPropsMixin = Vue.with(FormProps)
 
-interface UniversalFormBlock {
-  reset: () => void;
-  some: () => void;
-}
-
 @Options({
   name: 'VaForm',
   emits: ['validation'],
@@ -32,17 +27,12 @@ interface UniversalFormBlock {
 export default class VaForm extends mixins(
   FormPropsMixin,
 ) {
-  nestedFormElements: (FormComponentMixin | VaForm)[] = [];
-
-  parentFormProvider: FormProvider | Record<string, unknown> = setup(() => {
-    return {
-      ...inject(FormServiceKey, undefined),
-    }
-  })
+  nestedFormElements: (FormElement | VaForm)[] = [];
 
   formProvider = setup(() => {
-    const onChildMounted = (child: FormComponentMixin | VaForm) => this.childMountedHandler(child)
-    const onChildUnmounted = (removableChild: FormComponentMixin | VaForm) => this.childUnmountedHandler(removableChild)
+    useFormProvider(this)
+    const onChildMounted = (child: FormElement | VaForm) => this.childMountedHandler(child)
+    const onChildUnmounted = (removableChild: FormElement | VaForm) => this.childUnmountedHandler(removableChild)
 
     const formProvider = {
       onChildMounted,
@@ -54,30 +44,19 @@ export default class VaForm extends mixins(
     return formProvider
   })
 
-  childMountedHandler (child: FormComponentMixin | VaForm) {
+  childMountedHandler (child: FormElement | VaForm) {
     this.nestedFormElements.push(child)
   }
 
-  childUnmountedHandler (removableChild: FormComponentMixin | VaForm) {
+  childUnmountedHandler (removableChild: FormElement | VaForm) {
     this.nestedFormElements = this.nestedFormElements.filter(child => child !== removableChild)
   }
 
   mounted () {
-    if (Object.keys(this.parentFormProvider).length) {
-      // @ts-ignore
-      this.parentFormProvider.onChildMounted(this)
-    }
     if (this.autofocus) {
       this.$nextTick(() => {
         this.focus()
       })
-    }
-  }
-
-  unmounted () {
-    if (Object.keys(this.parentFormProvider).length) {
-      // @ts-ignore
-      this.parentFormProvider.onChildUnmounted(this)
     }
   }
 
@@ -116,8 +95,7 @@ export default class VaForm extends mixins(
       invalidComponent.focus()
     } else {
       // @ts-ignore
-      const nestedFormComponents = this.nestedFormElements.filter(({ nestedFormElements }) => nestedFormElements)
-      // @ts-ignore
+      const nestedFormComponents: Array<VaForm> = this.nestedFormElements.filter(({ nestedFormElements }) => nestedFormElements)
       nestedFormComponents.forEach(formComponent => formComponent.focusInvalid())
     }
   }
