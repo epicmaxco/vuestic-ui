@@ -101,6 +101,16 @@
 
       <va-date-picker v-model="monthRange" :allowedMonths="(date) => date.getMonth() !== 0 && date.getMonth() !== 11" valueType="month" class="mb-4" />
     </VbCard>
+
+    <VbCard title="calendar CSS variables & colors">
+      <va-date-picker
+        v-model="range"
+        color="#ff00ff"
+        weekends-color="#00ffff"
+        highlight-weekends
+        show-other-months
+        :allowedDays="(date) => date.getDay() !== 5" />
+    </VbCard>
   </VbDemo>
 </template>
 

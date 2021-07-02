@@ -7,7 +7,7 @@
     v-else
     class="va-date-picker-cell"
     :class="{
-      'va-date-picker-cell_current-view': currentView,
+      'va-date-picker-cell_other-month': otherMonth,
       'va-date-picker-cell_today': hightlightToday && today,
       'va-date-picker-cell_in-range': inRange,
       'va-date-picker-cell_disabled': disabled,
@@ -28,7 +28,7 @@ export default defineComponent({
   name: 'VaDatePickerCell',
 
   props: {
-    currentView: { type: Boolean, default: false },
+    otherMonth: { type: Boolean, default: false },
     today: { type: Boolean, default: false },
     inRange: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
@@ -55,18 +55,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$cell-size: 34px;
-
 .va-date-picker-cell {
   position: relative;
-  color: var(--va-secondary);
+  color: var(--va-date-picker-text-color, var(--va-dark));
   font-family: Source Sans Pro;
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
-  height: $cell-size;
-  min-width: $cell-size;
-  line-height: $cell-size;
+  height: var(--va-date-picker-cell-size);
+  min-width: var(--va-date-picker-cell-size);
+  line-height: var(--va-date-picker-cell-size);
   cursor: pointer;
   user-select: none;
   border-radius: 6px;
@@ -87,46 +85,47 @@ $cell-size: 34px;
 
   &:hover {
     &::after {
-      background-color: var(--va-primary);
+      background-color: var(--va-date-picker-color, var(--va-primary));
       opacity: 0.1;
     }
 
     &::before {
-      border: 1px solid var(--va-primary);
+      border: 1px solid var(--va-date-picker-color, var(--va-primary));
       opacity: 0.2;
     }
   }
 
   &_focused {
     &::after {
-      background-color: var(--va-primary);
+      background-color: var(--va-date-picker-color, var(--va-primary));
       opacity: 0.1;
     }
 
     &::before {
-      border: 1px solid var(--va-primary);
+      border: 1px solid var(--va-date-picker-color, var(--va-primary));
       opacity: 0.5;
     }
   }
 
-  &_current-view {
-    color: var(--va-dark);
+  &_other-month {
+    // color: var(--va-date-picker-secondary, var(--va-secondary));
+    opacity: 0.5;
   }
 
   &_today {
     &::after {
-      background-color: var(--va-primary);
+      background-color: var(--va-date-picker-color, var(--va-primary));
       opacity: 0.3;
     }
 
     &:hover {
       &::after {
-        background-color: var(--va-primary);
+        background-color: var(--va-date-picker-color, var(--va-primary));
         opacity: 0.3;
       }
 
       &::before {
-        border: 1px solid var(--va-primary);
+        border: 1px solid var(--va-date-picker-color, var(--va-primary));
         opacity: 0.5;
       }
     }
@@ -135,14 +134,14 @@ $cell-size: 34px;
   &_in-range {
     &::before,
     &:hover::before {
-      border: 2px solid var(--va-primary);
+      border: 2px solid var(--va-date-picker-color, var(--va-primary));
       opacity: 0.7;
     }
   }
 
   &_disabled {
     cursor: default;
-    color: var(--va-secondary);
+    color: var(--va-date-picker-secondary, var(--va-secondary));
     opacity: 0.5;
 
     &::after {
@@ -150,7 +149,7 @@ $cell-size: 34px;
       background: transparent;
       height: 1px;
       width: 55%;
-      background-color: var(--va-secondary);
+      background-color: var(--va-date-picker-secondary, var(--va-secondary));
       top: 50%;
       left: 50%;
       transform: translateY(-50%) translateX(-50%);
@@ -159,7 +158,7 @@ $cell-size: 34px;
     &:hover::after {
       // Do not hover disabled dates
       opacity: 1;
-      background-color: var(--va-secondary);
+      background-color: var(--va-date-picker-secondary, var(--va-secondary));
     }
 
     &::before {
@@ -168,19 +167,19 @@ $cell-size: 34px;
 
     &.va-date-picker-cell_today {
       &::after {
-        background-color: var(--va-white);
+        background-color: var(--va-date-picker-white, var(--va-white));
         opacity: 0.7;
       }
     }
   }
 
   &_hightlighted-weekend {
-    color: var(--va-danger);
+    color: var(--va-date-picker-weekends-color, var(--va-danger));
   }
 
   &_selected {
-    background-color: var(--va-primary);
-    color: var(--va-white, white);
+    background-color: var(--va-date-picker-color, var(--va-primary));
+    color: var(--va-date-picker-white, var(--va-white), white);
   }
 
   &_clear {

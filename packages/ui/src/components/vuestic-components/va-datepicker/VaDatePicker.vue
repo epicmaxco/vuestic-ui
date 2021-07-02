@@ -1,5 +1,5 @@
 <template>
-  <div class="va-date-picker">
+  <div class="va-date-picker" :style="colorsStyle">
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="viewView"
@@ -41,6 +41,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue'
 import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
+import { useColors } from '../../../services/color-config/color-config'
 
 import { VaDatePickerModelValue, VaDatePickerValueType } from './types/types'
 import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
@@ -65,13 +66,16 @@ export default defineComponent({
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, default: new Date() },
-    color: { type: String, default: 'primary' },
     year: { type: Number },
     month: { type: Number },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: Object as PropType<DatePickerView> },
     valueType: { type: String as PropType<VaDatePickerValueType>, default: 'day' },
+
+    // Colors
+    color: { type: String, default: 'primary' },
+    weekendsColor: { type: String, default: 'danger' },
   },
 
   emits: [...statefulComponentOptions.emits, 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day'],
@@ -120,6 +124,13 @@ export default defineComponent({
       }
     }
 
+    const { colorsToCSSVariable } = useColors()
+
+    const colorsStyle = colorsToCSSVariable({
+      color: props.color,
+      'weekends-color': props.weekendsColor,
+    }, 'va-date-picker')
+
     return {
       dayPickerProps,
       headerProps,
@@ -132,12 +143,16 @@ export default defineComponent({
       valueText,
       valueComputed,
       onMonthClick,
+
+      colorsStyle,
     }
   },
 })
 </script>
 
-<style scoped>
+<style>
+@import './_variables.scss';
+
 .va-date-picker-header {
   padding-bottom: 0.5rem;
   min-width: 250px;

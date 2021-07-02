@@ -137,8 +137,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$cell-size: 34px;
-
 .va-day-picker {
   &__weekdays {
     display: flex;
@@ -149,8 +147,8 @@ $cell-size: 34px;
       font-size: 9px;
       color: var(--va-secondary);
       font-weight: bold;
-      height: $cell-size;
-      line-height: $cell-size;
+      height: var(--va-date-picker-cell-size);
+      line-height: var(--va-date-picker-cell-size);
     }
   }
 

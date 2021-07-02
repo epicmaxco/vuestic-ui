@@ -46,6 +46,12 @@ export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): C
   return defaultColor
 }
 
+export const colorsToCSSVariable = (colors: { [colorName: string]: string }, prefix = 'va') => {
+  return Object
+    .keys(colors)
+    .reduce((acc, colorName) => ({ ...acc, [`--${prefix}-${colorName}`]: getColor(colors[colorName]) }), {})
+}
+
 // Here expose methods that user wants to use in vue component
 export const useColors = () => {
   return {
@@ -58,5 +64,6 @@ export const useColors = () => {
     getGradientBackground,
     getTextColor,
     shiftHSLAColor,
+    colorsToCSSVariable,
   }
 }

@@ -128,8 +128,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$cell-height: 34px;
-
 .va-month-picker {
   display: grid;
   // 4 columns
@@ -148,47 +146,11 @@ $cell-height: 34px;
     color: var(--va-secondary);
     font-family: Source Sans Pro;
     font-style: normal;
-    font-weight: 600;
+    font-weight: bold;
     font-size: 12px;
-    height: $cell-height;
-    line-height: $cell-height;
+    height: var(--va-date-picker-cell-size);
+    line-height: var(--va-date-picker-cell-size);
     position: relative;
-
-    &::after,
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    &_in-range {
-      &::before {
-        content: '';
-        border: 2px solid var(--va-primary);
-        box-sizing: border-box;
-        opacity: 0.7;
-      }
-    }
-
-    &_not-allowed {
-      color: var(--va-warning);
-    }
-
-    &:hover {
-      &::after {
-        background-color: var(--va-primary);
-        opacity: 0.1;
-      }
-    }
-
-    &_current {
-      background-color: var(--va-primary);
-      color: var(--va-white, white);
-    }
   }
 }
 </style>

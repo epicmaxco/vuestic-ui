@@ -6,7 +6,7 @@
 
     <div class="va-date-picker-header__text">
       <slot name="header" v-bind="{ year: view.year, month: view.month, monthNames, view, changeView, switchView }">
-        <va-button flat @click="switchView" size="small">
+        <va-button flat @click="switchView" size="small" :color="color">
           <span class="mr-1">
             <slot name="year" v-bind="{ year: view.year }">{{ view.year }}</slot>
           </span>
@@ -36,6 +36,9 @@ export default defineComponent({
     monthNames: { type: Array, required: true },
     view: { type: Object as PropType<DatePickerView>, required: true },
     canSwitchView: { type: Boolean, required: true },
+
+    // Colors
+    color: { type: String, default: undefined },
   },
 
   setup (props, { emit }) {

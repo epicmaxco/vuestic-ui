@@ -1,7 +1,7 @@
 <template>
   <va-date-picker-cell
-    :hidden="!(isCurrentView || showOtherMonths)"
-    :current-view="isCurrentView"
+    :hidden="isOtherMonth && !showOtherMonths"
+    :other-month="isOtherMonth"
     :today="isToday"
     :weekend="isDateWeekend"
     :disabled="isDateDisabled"
@@ -50,7 +50,7 @@ export default defineComponent({
   emits: ['click', 'hover'],
 
   setup (props, { emit }) {
-    const isCurrentView = computed(() => props.currentMonth === props.date.getMonth())
+    const isOtherMonth = computed(() => props.currentMonth !== props.date.getMonth())
     const isDateDisabled = computed(() => props.allowedDays === undefined ? false : !props.allowedDays(props.date))
 
     const isDateWeekend = computed(() => {
@@ -94,7 +94,7 @@ export default defineComponent({
         return
       }
 
-      if (!isCurrentView.value && props.showOtherMonths) {
+      if (isOtherMonth.value && props.showOtherMonths) {
         return
       }
 
@@ -103,7 +103,7 @@ export default defineComponent({
 
     return {
       isToday,
-      isCurrentView,
+      isOtherMonth,
       isDateDisabled,
       isDateWeekend,
       isDateSelected,
