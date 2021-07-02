@@ -478,12 +478,14 @@ export default class VaSelect extends mixins(
   }
 
   scrollToSelected () {
-    if (!this.valueComputed.length) {
+    const selected = this.valueComputed
+    const nothingSelected = !selected.length && typeof selected !== 'object'
+
+    if (nothingSelected) {
       return
     }
 
-    const selected = this.valueComputed
-    const scrollTo = typeof selected === 'string' ? selected : selected[selected.length - 1]
+    const scrollTo = Array.isArray(selected) ? selected[selected.length - 1] : selected
     this.hoveredOption = scrollTo
     this.$nextTick(() => (this.$refs as any).optionList.scrollToOption(scrollTo))
   }
