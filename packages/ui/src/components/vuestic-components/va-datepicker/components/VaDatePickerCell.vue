@@ -121,10 +121,12 @@ export default defineComponent({
     opacity: 0.5;
   }
 
-  &_focused {
+  &:hover {
+    $hover-border-opacity: 0.5;
+
     &::before {
       border: 2px solid var(--va-date-picker-focused-border-color);
-      opacity: 1;
+      opacity: $hover-border-opacity;
     }
 
     &.va-date-picker-cell_selected {
@@ -134,7 +136,34 @@ export default defineComponent({
         transform: translateY(2px) translateX(2px);
         padding: 2px;
         border: 2px solid var(--va-date-picker-focused-selected-border-color);
-        opacity: 1;
+        opacity: $hover-border-opacity;
+      }
+    }
+
+    &.va-date-picker-cell_disabled {
+      &::before {
+        opacity: 0;
+      }
+    }
+  }
+
+  &_focused,
+  &_focused:hover {
+    $focus-border-opacity: 0.8;
+
+    &::before {
+      border: 2px solid var(--va-date-picker-focused-border-color);
+      opacity: $focus-border-opacity;
+    }
+
+    &.va-date-picker-cell_selected {
+      &::before {
+        width: calc(100% - 4px);
+        height: calc(100% - 4px);
+        transform: translateY(2px) translateX(2px);
+        padding: 2px;
+        border: 2px solid var(--va-date-picker-focused-selected-border-color);
+        opacity: $focus-border-opacity;
       }
     }
   }
@@ -146,7 +175,7 @@ export default defineComponent({
 
     &::after {
       // Crossline
-      opacity: 1;
+      opacity: 0.5;
       border: none;
       height: 2px;
       width: 50%;
