@@ -34,12 +34,12 @@
 import { computed, defineComponent, PropType, toRefs } from 'vue'
 import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
-import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerType } from '../va-datepicker/types/types'
-import { isRange, isSingleDate, isDates } from '../va-datepicker/helpers/model-value-helper'
-import { useSyncProp } from '../va-datepicker/hooks/sync-prop'
-import { filterComponentProps, extractComponentProps } from '../va-datepicker/utils/child-props'
+import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerType } from '../va-date-picker/types/types'
+import { isRange, isSingleDate, isDates } from '../va-date-picker/helpers/model-value-helper'
+import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
+import { filterComponentProps, extractComponentProps } from '../va-date-picker/utils/child-props'
 
-import VaDatePicker from '../va-datepicker/VaDatePicker.vue'
+import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 
 const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
