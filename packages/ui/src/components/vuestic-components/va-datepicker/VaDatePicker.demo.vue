@@ -92,18 +92,18 @@
 
     <VbCard title="Month picker">
       Date
-      <va-date-picker v-model="monthValue" valueType="month" class="mb-4" />
+      <va-date-picker v-model="monthValue" type="month" class="mb-4" />
       Date ranges
-      <va-date-picker v-model="monthRange" valueType="month" class="mb-4" />
+      <va-date-picker v-model="monthRange" type="month" class="mb-4" />
       Dates
-      <va-date-picker v-model="months" valueType="month" class="mb-4" />
+      <va-date-picker v-model="months" type="month" class="mb-4" />
     </VbCard>
 
     <VbCard title="disable dates">
       Disable all Tuesday and Thursday
       <va-date-picker v-model="value" :allowedDays="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
 
-      <va-date-picker v-model="monthRange" :allowedMonths="(date) => date.getMonth() !== 0 && date.getMonth() !== 11" valueType="month" class="mb-4" />
+      <va-date-picker v-model="monthRange" :allowedMonths="(date) => date.getMonth() !== 0 && date.getMonth() !== 11" type="month" class="mb-4" />
     </VbCard>
 
     <VbCard title="calendar CSS variables & colors">

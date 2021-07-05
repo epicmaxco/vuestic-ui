@@ -26,9 +26,9 @@
     <va-month-picker
       v-if="viewView.type === 'year'"
       v-bind="monthPickerProps"
-      v-model="valueComputed"
       :view="viewView"
-      :should-update-model-value="valueType === 'month'"
+      :model-value="valueComputed"
+      @update:model-value="onMonthModelValueUpdate"
       @hover:month="(value) => $emit('hover:month', value)"
       @click:month="onMonthClick"
     >
@@ -125,6 +125,11 @@ export default defineComponent({
       }
     }
 
+    const onMonthModelValueUpdate = (modelValue: VaDatePickerModelValue) => {
+      // Do not update model value if we just want to change view
+      if (type.value === 'month') { valueComputed.value = modelValue }
+    }
+
     const { colorsToCSSVariable } = useColors()
 
     const colorsStyle = colorsToCSSVariable({
@@ -144,6 +149,7 @@ export default defineComponent({
       valueText,
       valueComputed,
       onMonthClick,
+      onMonthModelValueUpdate,
 
       colorsStyle,
     }
