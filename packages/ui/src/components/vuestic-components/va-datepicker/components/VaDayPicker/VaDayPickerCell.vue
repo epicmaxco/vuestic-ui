@@ -8,7 +8,7 @@
     :selected="isDateSelected"
     :in-range="isDateInRange"
     :focused="focused"
-    :hightlight-today="highlightTodayDate"
+    :hightlight-today="hightlightToday"
     :hightlight-weekend="highlightWeekends"
     @click="onDateClick"
   >
@@ -41,7 +41,7 @@ export default defineComponent({
     weekends: { type: [Function] as PropType<(d: Date) => boolean> },
     allowedDays: { type: Function as PropType<(date: Date) => boolean> },
     highlightWeekends: { type: Boolean, default: false },
-    highlightTodayDate: { type: Boolean, default: true },
+    hightlightToday: { type: Boolean, default: true },
     showOtherMonths: { type: Boolean, default: false },
     hoveredDate: { type: Date as PropType<Date | null>, default: null },
     focused: { type: Boolean, default: false },

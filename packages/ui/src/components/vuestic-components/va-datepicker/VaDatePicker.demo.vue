@@ -23,7 +23,7 @@
       Hide weekdays
       <va-date-picker v-model="value" hideWeekDays class="mb-4" />
       Do not highlight today date
-      <va-date-picker v-model="value" :highlightTodayDate="false" />
+      <va-date-picker v-model="value" :hightlightToday="false" />
     </VbCard>
 
     <VbCard title="weekends">

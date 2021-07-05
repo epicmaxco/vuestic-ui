@@ -11,6 +11,8 @@
         :in-range="!!isMonthInRange(view.year, monthIndex)"
         :selected="!!isMonthSelected(view.year, monthIndex)"
         :disabled="!!isMonthDisabled(view.year, monthIndex)"
+        :today="!!isTodayMonth(view.year, monthIndex)"
+        :hightlight-today="hightlightToday"
         @click="onMonthClick(view.year, monthIndex)"
       >
         <slot name="month" v-bind="{ monthIndex, monthName: monthNames[monthIndex] }">
@@ -41,6 +43,7 @@ export default defineComponent({
     view: { type: Object as PropType<DatePickerView>, default: () => new DatePickerView() },
     shouldUpdateModelValue: { type: Boolean, default: true },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
+    hightlightToday: { type: Boolean, default: true },
   },
 
   emits: ['update:modelValue', 'hover:month', 'click:month'],
@@ -99,6 +102,13 @@ export default defineComponent({
       }
     }
 
+    const isTodayMonth = (year: number, month: number) => {
+      const date = new Date(year, month)
+      const today = new Date()
+
+      return isDatesMonthEqual(today, date)
+    }
+
     const isMonthInRange = (year: number, month: number) => {
       const date = new Date(year, month)
 
@@ -122,6 +132,7 @@ export default defineComponent({
       isMonthSelected,
       isMonthInRange,
       isMonthDisabled,
+      isTodayMonth,
     }
   },
 })
