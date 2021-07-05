@@ -27,8 +27,8 @@
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from 'vue'
 import { useHovered } from '../../hooks/hovered-option-hook'
-import { VaDatePickerModelValue } from '../../types/types'
-import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
+import { VaDatePickerMode, VaDatePickerModelValue } from '../../types/types'
+import { isRange, isSingleDate, isDates, useDatePickerModelValue } from '../../helpers/model-value-helper'
 import { isDatesArrayIncludeMonth, isDatesMonthEqual } from '../../utils/date-utils'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { DatePickerView } from '../../helpers/date-picker-view'
@@ -40,47 +40,25 @@ export default defineComponent({
   components: { VaDatePickerCell },
 
   props: {
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: true },
     view: { type: Object as PropType<DatePickerView>, default: () => new DatePickerView() },
     shouldUpdateModelValue: { type: Boolean, default: true },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     hightlightToday: { type: Boolean, default: true },
+    mode: { type: String as PropType<VaDatePickerMode>, default: 'date' },
   },
 
   emits: ['update:modelValue', 'hover:month', 'click:month'],
 
   setup (props, { emit }) {
-    const { modelValue, shouldUpdateModelValue, view } = toRefs(props)
+    const { modelValue, shouldUpdateModelValue, view, mode } = toRefs(props)
 
     const { hovered: hoveredMonth } = useHovered<Date>((value) => emit('hover:month', value))
 
     const months = Array.from(Array(12).keys())
 
-    const updateModelValue = (date: Date) => {
-      if (isSingleDate(modelValue.value)) {
-        emit('update:modelValue', date)
-      } else if (isPeriod(modelValue.value)) {
-        if (isDatesMonthEqual(modelValue.value.start, date) || isDatesMonthEqual(modelValue.value.end, date)) { return }
-
-        if (modelValue.value.end !== null) {
-          emit('update:modelValue', { start: date, end: null })
-          return
-        }
-
-        if (date < modelValue.value.start) {
-          emit('update:modelValue', { start: date, end: modelValue.value.start })
-        } else {
-          emit('update:modelValue', { start: modelValue.value.start, end: date })
-        }
-      } else if (isDates(modelValue.value)) {
-        if (isDatesArrayIncludeMonth(modelValue.value, date)) {
-          emit('update:modelValue', modelValue.value.filter((d) => !isDatesMonthEqual(d, date)))
-        } else {
-          emit('update:modelValue', [...modelValue.value, date].sort((a, b) => a.getTime() - b.getTime()))
-        }
-      }
-    }
+    const { updateModelValue } = useDatePickerModelValue(props, emit)
 
     const onMonthClick = (year: number, month: number) => {
       const date = new Date(year, month)
@@ -93,13 +71,15 @@ export default defineComponent({
     }
 
     const isMonthSelected = (year: number, month: number) => {
+      if (!modelValue || !modelValue.value) { return }
+
       const date = new Date(year, month)
 
       if (isSingleDate(modelValue.value)) {
         return isDatesMonthEqual(modelValue.value, date)
       } else if (isDates(modelValue.value)) {
         return modelValue.value.find((d) => isDatesMonthEqual(d, date))
-      } else if (isPeriod(modelValue.value)) {
+      } else if (isRange(modelValue.value)) {
         return isDatesMonthEqual(modelValue.value.start, date) || isDatesMonthEqual(modelValue.value.end, date)
       }
     }
@@ -112,9 +92,11 @@ export default defineComponent({
     }
 
     const isMonthInRange = (year: number, month: number) => {
+      if (!modelValue || !modelValue.value) { return }
+
       const date = new Date(year, month)
 
-      if (!isPeriod(modelValue.value)) { return }
+      if (!isRange(modelValue.value)) { return }
 
       if (modelValue.value.end === null) {
         return modelValue.value.start < date

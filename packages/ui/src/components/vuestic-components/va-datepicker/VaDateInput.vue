@@ -34,8 +34,8 @@
 import { computed, defineComponent, PropType, toRefs } from 'vue'
 import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
-import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerValueType } from './types/types'
-import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
+import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerType } from './types/types'
+import { isRange, isSingleDate, isDates } from './helpers/model-value-helper'
 import { useSyncProp } from './hooks/sync-prop'
 import { filterComponentProps, extractComponentProps } from './utils/child-props'
 
@@ -62,13 +62,13 @@ export default defineComponent({
   props: {
     ...VaInputProps,
     ...extractComponentProps(VaDatePicker),
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     year: { type: Number },
     month: { type: Number },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: String as PropType<VaDatePickerView> },
-    valueType: { type: String as PropType<VaDatePickerValueType>, default: 'day' },
+    valueType: { type: String as PropType<VaDatePickerType>, default: 'day' },
     isOpen: { type: Boolean },
   },
 
@@ -94,7 +94,7 @@ export default defineComponent({
         if (isSingleDate(valueComputed.value)) {
           return valueComputed.value.toDateString()
         }
-        if (isPeriod(valueComputed.value)) {
+        if (isRange(valueComputed.value)) {
           if (valueComputed.value.end === null) {
             return valueComputed.value.start.toDateString() + ' ~ ...'
           }

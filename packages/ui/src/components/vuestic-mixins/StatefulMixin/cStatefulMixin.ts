@@ -5,8 +5,8 @@ import { ref, computed, toRefs } from 'vue'
  * if `stateful` prop is `false`
  * Record<any, any> & Record<'modelValue', T>
  */
-export function useStateful<T> (props: { [key: string]: any, modelValue?: T }, emit: (event: 'update:modelValue', ...args: any[]) => void) {
-  const valueState = ref(props.modelValue)
+export function useStateful<T> (props: { [key: string]: any, modelValue?: T }, emit: (event: 'update:modelValue', ...args: any[]) => void, defaultValue?: T) {
+  const valueState = ref(defaultValue === undefined ? props.modelValue : defaultValue)
   const { modelValue } = toRefs(props)
 
   const valueComputed = computed<T>({

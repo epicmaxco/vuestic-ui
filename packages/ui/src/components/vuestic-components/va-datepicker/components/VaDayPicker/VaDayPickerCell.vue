@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { VaDatePickerModelValue } from '../../types/types'
-import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
+import { isRange, isSingleDate, isDates } from '../../helpers/model-value-helper'
 import { isDatesArrayIncludeDay, isDatesDayEqual } from '../../utils/date-utils'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 
@@ -33,7 +33,7 @@ export default defineComponent({
   components: { VaDatePickerCell },
 
   props: {
-    selectedValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
+    selectedValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     date: { type: Date, required: true },
 
     // Inherited props
@@ -62,11 +62,13 @@ export default defineComponent({
     })
 
     const isDateSelected = computed(() => {
+      if (!props.selectedValue) { return false }
+
       if (isSingleDate(props.selectedValue)) {
         return props.selectedValue.toDateString() === props.date.toDateString()
       } else if (isDates(props.selectedValue)) {
         return isDatesArrayIncludeDay(props.selectedValue, props.date)
-      } else if (isPeriod(props.selectedValue)) {
+      } else if (isRange(props.selectedValue)) {
         return isDatesDayEqual(props.selectedValue.start, props.date) || isDatesDayEqual(props.selectedValue.end, props.date)
       }
 
@@ -74,7 +76,8 @@ export default defineComponent({
     })
 
     const isDateInRange = computed(() => {
-      if (!isPeriod(props.selectedValue)) { return }
+      if (!props.selectedValue) { return false }
+      if (!isRange(props.selectedValue)) { return }
 
       if (props.selectedValue.end === null) {
         if (!props.hoveredDate) { return false }

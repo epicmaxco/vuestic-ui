@@ -4,13 +4,17 @@
       Date
       <va-date-picker v-model="value" />
       Date ranges
-      <va-date-picker v-model="range" />
+      <va-date-picker mode="range" v-model="range" />
       Dates
-      <va-date-picker v-model="dates" />
+      <va-date-picker mode="dates" v-model="dates" />
     </VbCard>
 
     <VbCard title="statefull">
       <va-date-picker stateful />
+    </VbCard>
+
+    <VbCard title="without value">
+      <va-date-picker />
     </VbCard>
 
     <VbCard title="calendar appearance">

@@ -44,8 +44,8 @@ import { computed, defineComponent, PropType, toRefs } from 'vue'
 import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 import { useColors } from '../../../services/color-config/color-config'
 
-import { VaDatePickerModelValue, VaDatePickerValueType } from './types/types'
-import { isPeriod, isSingleDate, isDates } from './helpers/model-value-helper'
+import { VaDatePickerModelValue, VaDatePickerType } from './types/types'
+import { isRange, isSingleDate, isDates } from './helpers/model-value-helper'
 import { useSyncProp } from './hooks/sync-prop'
 import { filterComponentProps, extractComponentProps } from './utils/child-props'
 import { DatePickerView } from './helpers/date-picker-view'
@@ -66,13 +66,13 @@ export default defineComponent({
     ...statefulComponentOptions.props,
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, default: new Date() },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     year: { type: Number },
     month: { type: Number },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: Object as PropType<DatePickerView> },
-    valueType: { type: String as PropType<VaDatePickerValueType>, default: 'day' },
+    type: { type: String as PropType<VaDatePickerType>, default: 'day' },
 
     // Colors
     color: { type: String, default: undefined },
@@ -82,16 +82,16 @@ export default defineComponent({
   emits: [...statefulComponentOptions.emits, 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day'],
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit)
-    const { view, valueType } = toRefs(props)
+    const { valueComputed } = useStateful(props, emit, new Date())
+    const { view, type } = toRefs(props)
 
     const dayPickerProps = filterComponentProps(props, extractComponentProps(VaDayPicker))
     const headerProps = filterComponentProps(props, extractComponentProps(VaDatePickerHeader))
     const monthPickerProps = filterComponentProps(props, extractComponentProps(VaMonthPicker))
 
-    const { syncProp: viewView } = useSyncProp(view, 'view', emit, new DatePickerView(valueType.value === 'month' ? 'year' : 'month'))
+    const { syncProp: viewView } = useSyncProp(view, 'view', emit, new DatePickerView(type.value === 'month' ? 'year' : 'month'))
 
-    const canSwitchView = computed(() => props.valueType === 'day')
+    const canSwitchView = computed(() => props.type === 'day')
 
     const valueText = computed({
       get: () => {
@@ -101,7 +101,7 @@ export default defineComponent({
         if (isSingleDate(valueComputed.value)) {
           return valueComputed.value.toDateString()
         }
-        if (isPeriod(valueComputed.value)) {
+        if (isRange(valueComputed.value)) {
           if (valueComputed.value.end === null) {
             return valueComputed.value.start.toDateString() + ' ~ ...'
           }
@@ -118,7 +118,7 @@ export default defineComponent({
 
     const onMonthClick = ({ year, month, date }: { year: number, month: number, date: Date}) => {
       emit('click:month', { year, month, date })
-      if (valueType.value === 'day' && viewView.value) {
+      if (type.value === 'day' && viewView.value) {
         viewView.value.year = year
         viewView.value.month = month
         viewView.value.type = 'month'

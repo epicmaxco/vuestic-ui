@@ -41,11 +41,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
+import { computed, defineComponent, toRefs, PropType } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
-import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helper'
+import { isRange, isSingleDate, isDates, useDatePickerModelValue } from '../../helpers/model-value-helper'
 import { isDatesArrayIncludeDay, isDatesDayEqual } from '../../utils/date-utils'
-import { VaDatePickerModelValue } from '../../types/types'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType } from '../../types/types'
 import VaDayPickerCell from './VaDayPickerCell.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useHovered } from '../../hooks/hovered-option-hook'
@@ -66,19 +66,23 @@ export default defineComponent({
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
     hideWeekDays: { type: Boolean, default: false },
     view: { type: Object as PropType<DatePickerView>, default: () => new DatePickerView() },
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
+    type: { type: String as PropType<VaDatePickerType>, default: 'day' },
+    mode: { type: String as PropType<VaDatePickerMode>, default: 'date' },
   },
 
   emits: ['update:modelValue', 'hover:day', 'click:day'],
 
   setup (props, { emit }) {
-    const { modelValue, firstWeekday, weekdayNames, view } = toRefs(props)
+    const { firstWeekday, weekdayNames, view } = toRefs(props)
 
     const VaDayPickerCellPropValues = filterComponentProps(props, VaDayPickerCellProps)
 
     const { calendarDates, currentMonthStartIndex, currentMonthEndIndex } = useVaDatePickerCalendar(view, { firstWeekday })
 
     const { hovered: hoveredDate } = useHovered<{ date: Date, index: number }>((value) => emit('hover:day', value?.date))
+
+    const { updateModelValue } = useDatePickerModelValue(props, emit)
 
     const weekdayNamesComputed = computed(() => {
       return firstWeekday.value === 'Sunday'
@@ -93,26 +97,7 @@ export default defineComponent({
 
       if (isDateDisabed) { return }
 
-      if (isSingleDate(modelValue.value)) {
-        emit('update:modelValue', date)
-      } else if (isPeriod(modelValue.value)) {
-        if (modelValue.value.end !== null) {
-          emit('update:modelValue', { start: date, end: null })
-          return
-        }
-
-        if (date < modelValue.value.start) {
-          emit('update:modelValue', { start: date, end: modelValue.value.start })
-        } else {
-          emit('update:modelValue', { start: modelValue.value.start, end: date })
-        }
-      } else if (isDates(modelValue.value)) {
-        if (isDatesArrayIncludeDay(modelValue.value, date)) {
-          emit('update:modelValue', modelValue.value.filter((d) => !isDatesDayEqual(d, date)))
-        } else {
-          emit('update:modelValue', [...modelValue.value, date].sort((a, b) => a.getTime() - b.getTime()))
-        }
-      }
+      updateModelValue(date)
     }
 
     const gridStartIndex = computed(() => props.showOtherMonths ? 0 : currentMonthStartIndex.value)
