@@ -43,7 +43,7 @@ export default defineComponent({
     highlightWeekends: { type: Boolean, default: false },
     hightlightToday: { type: Boolean, default: true },
     showOtherMonths: { type: Boolean, default: false },
-    hoveredDate: { type: Date as PropType<Date | null>, default: null },
+    focusedDate: { type: Date as PropType<Date | null>, default: null },
     focused: { type: Boolean, default: false },
   },
 
@@ -80,11 +80,11 @@ export default defineComponent({
       if (!isRange(props.selectedValue)) { return }
 
       if (props.selectedValue.end === null) {
-        if (!props.hoveredDate) { return false }
+        if (!props.focusedDate) { return false }
 
         return props.selectedValue.start < props.date
-          ? (props.hoveredDate >= props.date)
-          : (props.hoveredDate <= props.date)
+          ? (props.focusedDate >= props.date)
+          : (props.focusedDate <= props.date)
       }
 
       return props.selectedValue.start < props.date && props.selectedValue.end > props.date

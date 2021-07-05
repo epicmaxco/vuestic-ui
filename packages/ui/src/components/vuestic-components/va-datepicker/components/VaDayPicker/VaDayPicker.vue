@@ -25,11 +25,11 @@
           :date="date"
           :selected-value="modelValue"
           :currentMonth="view.month"
-          :hovered-date="hoveredDate?.date"
+          :focused-date="focusedDate?.date"
           :focused="focusedDateIndex === index"
           @click="onDateClick($event), focusedDateIndex = index"
-          @mouseenter="hoveredDate = { date, index }"
-          @mouseleave="hoveredDate = null"
+          @mouseenter="focusedDate = { date, index }"
+          @mouseleave="focusedDate = null"
         >
           <template v-for="(_, name) in $slots" v-slot:[name]="bind">
             <slot :name="name" v-bind="bind" />
@@ -41,10 +41,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, PropType } from 'vue'
+import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
-import { isRange, isSingleDate, isDates, useDatePickerModelValue } from '../../helpers/model-value-helper'
-import { isDatesArrayIncludeDay, isDatesDayEqual } from '../../utils/date-utils'
+import { useDatePickerModelValue } from '../../helpers/model-value-helper'
 import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType } from '../../types/types'
 import VaDayPickerCell from './VaDayPickerCell.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
@@ -52,7 +51,7 @@ import { useHovered } from '../../hooks/hovered-option-hook'
 import { DatePickerView } from '../../helpers/date-picker-view'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 
-const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'hoveredDate'])
+const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'focusedDate'])
 
 export default defineComponent({
   name: 'VaDayPicker',
@@ -80,7 +79,7 @@ export default defineComponent({
 
     const { calendarDates, currentMonthStartIndex, currentMonthEndIndex } = useVaDatePickerCalendar(view, { firstWeekday })
 
-    const { hovered: hoveredDate } = useHovered<{ date: Date, index: number }>((value) => emit('hover:day', value?.date))
+    const { hovered: focusedDate } = useHovered<{ date: Date, index: number }>((value) => emit('hover:day', value?.date))
 
     const { updateModelValue } = useDatePickerModelValue(props, emit)
 
@@ -110,8 +109,11 @@ export default defineComponent({
       end: gridEndIndex,
     }, (selectedValue) => onDateClick(calendarDates.value[selectedValue]))
 
+    watch(focusedDateIndex, (index) => { focusedDate.value = { date: calendarDates.value[index], index } })
+    watch(focusedDate, (focusedDate) => { focusedDate === null ? focusedDateIndex.value = -1 : focusedDateIndex.value = focusedDate.index })
+
     return {
-      hoveredDate,
+      focusedDate,
       calendarDates,
       onDateClick,
       keyboardContainerAttributes,
