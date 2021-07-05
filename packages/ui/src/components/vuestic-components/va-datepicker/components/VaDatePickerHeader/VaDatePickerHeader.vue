@@ -11,7 +11,7 @@
             <slot name="year" v-bind="{ year: view.year }">{{ view.year }}</slot>
           </span>
 
-          <slot v-if="view !== 'year'" name="month" v-bind="{ month: view.month }">{{ monthNames[view.month] }}</slot>
+          <slot v-if="view.type !== 'year'" name="month" v-bind="{ month: view.month }">{{ monthNames[view.month] }}</slot>
         </va-button>
       </slot>
     </div>
