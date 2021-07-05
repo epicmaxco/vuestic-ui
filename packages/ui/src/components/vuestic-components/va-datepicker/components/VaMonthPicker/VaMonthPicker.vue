@@ -1,5 +1,5 @@
 <template>
-  <div class="va-month-picker">
+  <div class="va-month-picker" v-bind="keyboardContainerAttributes">
     <div
       class="va-month-picker__month-wrapper"
       v-for="monthIndex in months"
@@ -12,8 +12,9 @@
         :selected="!!isMonthSelected(view.year, monthIndex)"
         :disabled="!!isMonthDisabled(view.year, monthIndex)"
         :today="!!isTodayMonth(view.year, monthIndex)"
+        :focused="focusedDateIndex === monthIndex"
         :hightlight-today="hightlightToday"
-        @click="onMonthClick(view.year, monthIndex)"
+        @click="onMonthClick(view.year, monthIndex);  focusedDateIndex = monthIndex"
       >
         <slot name="month" v-bind="{ monthIndex, monthName: monthNames[monthIndex] }">
           {{ monthNames[monthIndex] }}
@@ -31,6 +32,7 @@ import { isPeriod, isSingleDate, isDates } from '../../helpers/model-value-helpe
 import { isDatesArrayIncludeMonth, isDatesMonthEqual } from '../../utils/date-utils'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { DatePickerView } from '../../helpers/date-picker-view'
+import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 
 export default defineComponent({
   name: 'VaMonthPicker',
@@ -49,7 +51,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:month', 'click:month'],
 
   setup (props, { emit }) {
-    const { modelValue, shouldUpdateModelValue } = toRefs(props)
+    const { modelValue, shouldUpdateModelValue, view } = toRefs(props)
 
     const { hovered: hoveredMonth } = useHovered<Date>((value) => emit('hover:month', value))
 
@@ -125,6 +127,13 @@ export default defineComponent({
 
     const isMonthDisabled = (year: number, month: number) => props.allowedMonths === undefined ? false : !props.allowedMonths(new Date(year, month))
 
+    const {
+      focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
+    } = useGridKeyboardNavigation(4, {
+      start: 0,
+      end: months.length,
+    }, (selectedIndex) => onMonthClick(view.value.year, selectedIndex))
+
     return {
       months,
       hoveredMonth,
@@ -133,6 +142,8 @@ export default defineComponent({
       isMonthInRange,
       isMonthDisabled,
       isTodayMonth,
+      focusedDateIndex,
+      keyboardContainerAttributes,
     }
   },
 })

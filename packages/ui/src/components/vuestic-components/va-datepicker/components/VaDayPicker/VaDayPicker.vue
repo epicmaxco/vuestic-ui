@@ -13,9 +13,7 @@
 
     <div
       class="va-day-picker__calendar"
-      tabindex="0"
-      v-bind="keyboardNavigationListeners"
-      @keydown.enter="clickOnFocusedDate"
+      v-bind="keyboardContainerAttributes"
     >
       <div
         class="va-day-picker__calendar__day-wrapper"
@@ -119,20 +117,17 @@ export default defineComponent({
     const gridEndIndex = computed(() => props.showOtherMonths ? calendarDates.value.length : currentMonthEndIndex.value)
 
     const {
-      focusedCellIndex: focusedDateIndex, listeners: keyboardNavigationListeners,
+      focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
     } = useGridKeyboardNavigation(7, {
       start: gridStartIndex,
       end: gridEndIndex,
-    })
-
-    const clickOnFocusedDate = () => onDateClick(calendarDates.value[focusedDateIndex.value])
+    }, (selectedValue) => onDateClick(calendarDates.value[selectedValue]))
 
     return {
       hoveredDate,
       calendarDates,
       onDateClick,
-      clickOnFocusedDate,
-      keyboardNavigationListeners,
+      keyboardContainerAttributes,
       weekdayNamesComputed,
       VaDayPickerCellPropValues,
       focusedDateIndex,

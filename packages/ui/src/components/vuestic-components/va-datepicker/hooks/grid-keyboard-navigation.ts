@@ -1,8 +1,17 @@
-import { ref, Ref } from 'vue'
+import { ref, Ref, isRef, unref } from 'vue'
+
+function safeUnref<T> (refOrRaw: Ref<T> | T): T {
+  if (isRef(refOrRaw)) {
+    return unref(refOrRaw)
+  }
+
+  return refOrRaw
+}
 
 export const useGridKeyboardNavigation = (
   rowSize: number,
-  offset: { start?: Ref<number>, end?: Ref<number> } = {},
+  offset: { start?: Ref<number> | number, end?: Ref<number> | number } = {},
+  onSelected?: (selectedValue: number) => any | null,
 ) => {
   const focusedCellIndex = ref(-1)
 
@@ -13,7 +22,7 @@ export const useGridKeyboardNavigation = (
     if (previouslyClicked) { return }
     previouslyClicked = false
 
-    focusedCellIndex.value = offset.start?.value || 0
+    focusedCellIndex.value = safeUnref(offset.start) || 0
   }
 
   const onBlur = () => {
@@ -23,9 +32,16 @@ export const useGridKeyboardNavigation = (
   }
 
   const onKeydown = (e: KeyboardEvent) => {
-    if (['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Enter'].includes(e.key)) {
+    if (['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Enter', 'Space'].includes(e.key)) {
       // Prevent default for arrow keys and enter. Do not prevent default for tab! :)
       e.preventDefault()
+    }
+
+    if (e.key === 'Enter' || e.key === 'Space') {
+      if (onSelected === undefined) { return }
+
+      onSelected(focusedCellIndex.value)
+      return
     }
 
     if (e.key === 'ArrowRight') {
@@ -41,19 +57,19 @@ export const useGridKeyboardNavigation = (
       focusedCellIndex.value -= rowSize
     }
 
-    if (offset.start && focusedCellIndex.value < offset.start.value) {
-      focusedCellIndex.value = offset.start.value
+    if (offset.start && focusedCellIndex.value < safeUnref(offset.start)) {
+      focusedCellIndex.value = safeUnref(offset.start)
     }
-    if (offset.end && focusedCellIndex.value > offset.end.value - 1) {
-      focusedCellIndex.value = offset.end.value - 1
+    if (offset.end && focusedCellIndex.value > safeUnref(offset.end) - 1) {
+      focusedCellIndex.value = safeUnref(offset.end) - 1
     }
   }
 
-  const listeners = {
-    onFocus, onKeydown, onBlur, onMousedown,
+  const containerAttributes = {
+    onFocus, onKeydown, onBlur, onMousedown, tabindex: 0,
   }
 
   return {
-    focusedCellIndex, listeners,
+    focusedCellIndex, containerAttributes,
   }
 }
