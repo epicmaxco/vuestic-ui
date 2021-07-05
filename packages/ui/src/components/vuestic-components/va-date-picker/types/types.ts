@@ -1,5 +1,6 @@
 export type VaDatePickerModelValuePeriod = { start: Date, end: Date | null }
 export type VaDatePickerModelValue = Date | Date[] | { start: Date, end: Date | null }
-export type VaDatePickerView = 'year' | 'month'
+export type VaDatePickerViewType = 'year' | 'month' | 'day'
+export type VaDatePickerView = { type: VaDatePickerViewType, year: number, month: number }
 export type VaDatePickerType = 'month' | 'day'
 export type VaDatePickerMode = 'date' | 'dates' | 'range' | 'auto'

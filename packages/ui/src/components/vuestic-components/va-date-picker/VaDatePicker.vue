@@ -11,7 +11,7 @@
     </va-date-picker-header>
 
     <va-day-picker
-      v-if="viewView.type === 'month'"
+      v-if="viewView.type === 'day'"
       v-bind="dayPickerProps"
       v-model="valueComputed"
       :view="viewView"
@@ -24,7 +24,7 @@
     </va-day-picker>
 
     <va-month-picker
-      v-if="viewView.type === 'year'"
+      v-if="viewView.type === 'month'"
       v-bind="monthPickerProps"
       :view="viewView"
       :model-value="valueComputed"
@@ -36,6 +36,12 @@
         <slot :name="name" v-bind="bind" />
       </template>
     </va-month-picker>
+
+    <va-year-picker v-if="viewView.type === 'year'">
+      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+        <slot :name="name" v-bind="bind" />
+      </template>
+    </va-year-picker>
   </div>
 </template>
 
@@ -44,15 +50,16 @@ import { computed, defineComponent, PropType, toRefs } from 'vue'
 import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 import { useColors } from '../../../services/color-config/color-config'
 
-import { VaDatePickerModelValue, VaDatePickerType } from './types/types'
+import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
 import { isRange, isSingleDate, isDates } from './helpers/model-value-helper'
 import { useSyncProp } from './hooks/sync-prop'
 import { filterComponentProps, extractComponentProps } from './utils/child-props'
-import { DatePickerView } from './helpers/date-picker-view'
+import { ViewHelper } from './helpers/date-picker-view'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
 import VaMonthPicker from './components/VaMonthPicker/VaMonthPicker.vue'
+import VaYearPicker from './components/VaYearPicker/VaYearPicker.vue'
 
 const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
@@ -60,18 +67,19 @@ const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
 export default defineComponent({
   name: 'VaDatePicker',
 
-  components: { VaDayPicker, VaDatePickerHeader, VaMonthPicker },
+  components: { VaDayPicker, VaDatePickerHeader, VaMonthPicker, VaYearPicker },
 
   props: {
     ...statefulComponentOptions.props,
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
+    ...extractComponentProps(VaYearPicker),
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     year: { type: Number },
     month: { type: Number },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
-    view: { type: Object as PropType<DatePickerView> },
+    view: { type: Object as PropType<VaDatePickerView> },
     type: { type: String as PropType<VaDatePickerType>, default: 'day' },
 
     // Colors
@@ -89,7 +97,8 @@ export default defineComponent({
     const headerProps = filterComponentProps(props, extractComponentProps(VaDatePickerHeader))
     const monthPickerProps = filterComponentProps(props, extractComponentProps(VaMonthPicker))
 
-    const { syncProp: viewView } = useSyncProp(view, 'view', emit, new DatePickerView(type.value === 'month' ? 'year' : 'month'))
+    const viewComputed = computed(() => view?.value === undefined ? undefined : ViewHelper.init(view.value))
+    const { syncProp: viewView } = useSyncProp(viewComputed, 'view', emit, ViewHelper.init({ type: 'day' }))
 
     const canSwitchView = computed(() => props.type === 'day')
 

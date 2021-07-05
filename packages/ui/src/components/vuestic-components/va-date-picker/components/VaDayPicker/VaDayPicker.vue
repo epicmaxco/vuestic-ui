@@ -44,11 +44,10 @@
 import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
 import { useDatePickerModelValue } from '../../helpers/model-value-helper'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType } from '../../types/types'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from '../../types/types'
 import VaDayPickerCell from './VaDayPickerCell.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useHovered } from '../../hooks/hovered-option-hook'
-import { DatePickerView } from '../../helpers/date-picker-view'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 
 const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'focusedDate'])
@@ -64,7 +63,7 @@ export default defineComponent({
     weekdayNames: { type: Array as PropType<string[]>, required: true },
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
     hideWeekDays: { type: Boolean, default: false },
-    view: { type: Object as PropType<DatePickerView>, default: () => new DatePickerView() },
+    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'day' }) },
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     type: { type: String as PropType<VaDatePickerType>, default: 'day' },
     mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },

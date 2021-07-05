@@ -27,11 +27,10 @@
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from 'vue'
 import { useHovered } from '../../hooks/hovered-option-hook'
-import { VaDatePickerMode, VaDatePickerModelValue } from '../../types/types'
+import { VaDatePickerMode, VaDatePickerView, VaDatePickerModelValue } from '../../types/types'
 import { isRange, isSingleDate, isDates, useDatePickerModelValue } from '../../helpers/model-value-helper'
 import { isDatesArrayIncludeMonth, isDatesMonthEqual } from '../../utils/date-utils'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
-import { DatePickerView } from '../../helpers/date-picker-view'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 
 export default defineComponent({
@@ -42,7 +41,7 @@ export default defineComponent({
   props: {
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: true },
-    view: { type: Object as PropType<DatePickerView>, default: () => new DatePickerView() },
+    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'day' }) },
     shouldUpdateModelValue: { type: Boolean, default: true },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     hightlightToday: { type: Boolean, default: true },

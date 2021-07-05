@@ -11,7 +11,7 @@
             <slot name="year" v-bind="{ year: view.year }">{{ view.year }}</slot>
           </span>
 
-          <slot v-if="view.type !== 'year'" name="month" v-bind="{ month: view.month }">{{ monthNames[view.month] }}</slot>
+          <slot v-if="view.type === 'day'" name="month" v-bind="{ month: view.month }">{{ monthNames[view.month] }}</slot>
         </va-button>
       </slot>
     </div>
@@ -24,8 +24,9 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, PropType } from 'vue'
-import { DatePickerView } from '../../helpers/date-picker-view'
 import { useSyncProp } from '../../hooks/sync-prop'
+import { VaDatePickerView } from '../../types/types'
+import { ViewHelper } from '../../helpers/date-picker-view'
 
 export default defineComponent({
   name: 'VaDatePickerHeader',
@@ -34,7 +35,7 @@ export default defineComponent({
 
   props: {
     monthNames: { type: Array, required: true },
-    view: { type: Object as PropType<DatePickerView>, required: true },
+    view: { type: Object as PropType<VaDatePickerView>, required: true },
     canSwitchView: { type: Boolean, required: true },
 
     // Colors
@@ -46,20 +47,26 @@ export default defineComponent({
     const { syncProp: syncView } = useSyncProp(view, 'view', emit)
 
     const next = () => {
-      syncView.value.next()
+      syncView.value = ViewHelper.next(syncView.value)
     }
 
     const prev = () => {
-      syncView.value.prev()
+      syncView.value = ViewHelper.prev(syncView.value)
     }
 
     const switchView = () => {
       if (!canSwitchView.value) { return }
 
-      syncView.value.switchView()
+      if (syncView.value.type === 'day') {
+        syncView.value = ViewHelper.updateViewType(syncView.value, 'month')
+      } else if (syncView.value.type === 'month') {
+        syncView.value = ViewHelper.updateViewType(syncView.value, 'year')
+      } else {
+        syncView.value = ViewHelper.updateViewType(syncView.value, 'day')
+      }
     }
 
-    const changeView = (view: DatePickerView) => {
+    const changeView = (view: VaDatePickerView) => {
       if (!canSwitchView.value) { return }
 
       syncView.value = view

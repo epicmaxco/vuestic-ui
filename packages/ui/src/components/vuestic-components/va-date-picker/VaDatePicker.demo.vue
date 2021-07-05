@@ -99,6 +99,17 @@
       <va-date-picker v-model="value" :show-other-months="true" />
     </VbCard>
 
+    <VbCard title="View">
+      <h5 class="mb-2">day</h5>
+      <va-date-picker v-model="monthValue" v-model:view="dayView" type="day" class="mb-4" />
+
+      <h5 class="mb-2">month</h5>
+      <va-date-picker v-model="monthRange" v-model:view="monthView" type="day" class="mb-4" />
+
+      <h5 class="mb-2">year</h5>
+      <va-date-picker v-model="months" v-model:view="yearView" type="day" class="mb-4" />
+    </VbCard>
+
     <VbCard title="Month picker">
       <h5 class="mb-2">Single</h5>
       <va-date-picker v-model="monthValue" type="month" class="mb-4" />
@@ -150,6 +161,10 @@ export default {
       monthValue: new Date(),
       monthRange: { start: new Date(), end: datePlusDay(new Date(), 62) },
       months: [new Date(), datePlusDay(new Date(), 62)],
+
+      dayView: { type: 'day', month: 6, year: 2020 },
+      monthView: { type: 'month' },
+      yearView: { type: 'year' },
     }
   },
 }

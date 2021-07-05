@@ -67,7 +67,7 @@ export default defineComponent({
     month: { type: Number },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
-    view: { type: String as PropType<VaDatePickerView> },
+    view: { type: Object as PropType<VaDatePickerView> },
     valueType: { type: String as PropType<VaDatePickerType>, default: 'day' },
     isOpen: { type: Boolean },
   },
@@ -83,7 +83,7 @@ export default defineComponent({
 
     const { syncProp: viewYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
     const { syncProp: viewMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
-    const { syncProp: viewView } = useSyncProp(view, 'view', emit, valueType?.value === 'month' ? 'year' : 'month')
+    const { syncProp: viewView } = useSyncProp(view, 'view', emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
     const valueText = computed({
@@ -109,15 +109,6 @@ export default defineComponent({
       },
     })
 
-    const onMonthClick = ({ year, month, date }: { year: number, month: number, date: Date}) => {
-      emit('click:month', { year, month, date })
-      if (valueType.value === 'day') {
-        viewYear.value = year
-        viewMonth.value = month
-        viewView.value = 'month'
-      }
-    }
-
     return {
       valueText,
       valueComputed,
@@ -128,7 +119,6 @@ export default defineComponent({
       viewMonth,
       viewView,
       isOpenSync,
-      onMonthClick,
     }
   },
 })
