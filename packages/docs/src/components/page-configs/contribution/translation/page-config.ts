@@ -1,6 +1,6 @@
-import { ApiDocsBlock, TranslationStatusPath } from '@/types/configTypes'
+import { ApiDocsBlock } from '@/types/configTypes'
 import { DocsHelper } from '@/helpers/DocsHelper'
-import { languages } from '@/components/languages'
+import { TranslationStatusPath, languages } from '@/components/languages'
 
 const translationStatusPaths: TranslationStatusPath = {
   full: 'translation.status.full',

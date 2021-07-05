@@ -14,7 +14,6 @@ export type PathToExample = string
 export type ExampleOptions = {
   hideCode?: boolean
 }
-export type TranslationStatusPath = { [key in 'full' | 'part']: string }
 
 // NOTE If you add other block types - please document them properly in http://vuestic-ui.dev/en/contribution/documentation-page
 export enum BlockType {

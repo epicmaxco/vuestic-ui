@@ -1,3 +1,5 @@
+export type TranslationStatusPath = { [key in 'full' | 'part']: string }
+
 export const languages = [
   {
     code: 'en',
