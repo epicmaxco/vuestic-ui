@@ -126,7 +126,13 @@ export default defineComponent({
     })
 
     watch(focusedDateIndex, (newValue) => { hoveredDate.value = { date: calendarDates.value[newValue], index: newValue } })
-    watch(hoveredDate, (newValue) => { focusedDateIndex.value = newValue?.index || -1 })
+    watch(hoveredDate, (newValue) => {
+      if (newValue === null) {
+        focusedDateIndex.value = -1
+      } else {
+        focusedDateIndex.value = newValue?.index
+      }
+    })
 
     const clickOnFocusedDate = () => onDateClick(calendarDates.value[focusedDateIndex.value])
 
