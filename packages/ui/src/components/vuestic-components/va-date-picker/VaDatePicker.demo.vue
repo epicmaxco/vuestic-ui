@@ -1,11 +1,18 @@
 <template>
   <VbDemo>
-    <VbCard title="default">
-      Date
+    <VbCard title="default (auto mode)">
       <va-date-picker v-model="value" />
-      Date ranges
+    </VbCard>
+
+    <VbCard title="default (date)">
+      <va-date-picker mode="date" v-model="value" />
+    </VbCard>
+
+    <VbCard title="default (range)">
       <va-date-picker mode="range" v-model="range" />
-      Dates
+    </VbCard>
+
+    <VbCard title="default (dates)">
       <va-date-picker mode="dates" v-model="dates" />
     </VbCard>
 
@@ -17,28 +24,32 @@
       <va-date-picker />
     </VbCard>
 
-    <VbCard title="calendar appearance">
-      Weekday names
+    <VbCard title="weekday names">
       <va-date-picker v-model="value" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']" class="mb-4" />
+    </VbCard>
 
-      Month names
+    <VbCard title="month names">
       <va-date-picker v-model="value" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" class="mb-4" />
 
-      Hide weekdays
+    </VbCard>
+
+    <VbCard title="hide weekdays">
       <va-date-picker v-model="value" hideWeekDays class="mb-4" />
-      Do not highlight today date
+    </VbCard>
+
+    <VbCard title="do not highlight today date">
       <va-date-picker v-model="value" :hightlightToday="false" />
     </VbCard>
 
     <VbCard title="weekends">
-      Highlight weekend
       <va-date-picker v-model="value" highlight-weekends class="mb-4" />
-      Every second day is weeked
+
+      <h5 class="mb-2">Every second day is weeked</h5>
       <va-date-picker v-model="value" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
     </VbCard>
 
     <VbCard title="slots to calendar">
-      Custom day and year template
+      <h5 class="mb-2">Custom day and year template</h5>
       <va-date-picker
         v-model="value"
         :monthNames="['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']"
@@ -53,8 +64,7 @@
         </template>
       </va-date-picker>
 
-      Custom header
-
+      <h5 class="mb-2">Custom header</h5>
       <va-date-picker v-model="value">
         <template #header="{ month, monthNames, switchView }">
           <va-chip @click="switchView" size="small">
@@ -63,8 +73,7 @@
         </template>
       </va-date-picker>
 
-      Month control buttons
-
+      <h5 class="mb-2">Month control buttons</h5>
       <va-date-picker v-model="value">
         <template #button:next="{ onClick }">
           <va-chip size="small" @click="onClick">
@@ -80,9 +89,9 @@
     </VbCard>
 
     <VbCard title="first weekday">
-      Sun (default)
+      <h5 class="mb-2">Sun (default)</h5>
       <va-date-picker v-model="value" class="mb-4" />
-      Monday
+      <h5 class="mb-2">Monday</h5>
       <va-date-picker v-model="value" first-weekday="Monday" />
     </VbCard>
 
@@ -91,18 +100,21 @@
     </VbCard>
 
     <VbCard title="Month picker">
-      Date
+      <h5 class="mb-2">Single</h5>
       <va-date-picker v-model="monthValue" type="month" class="mb-4" />
-      Date ranges
+
+      <h5 class="mb-2">Range</h5>
       <va-date-picker v-model="monthRange" type="month" class="mb-4" />
-      Dates
+
+      <h5 class="mb-2">Multiple</h5>
       <va-date-picker v-model="months" type="month" class="mb-4" />
     </VbCard>
 
     <VbCard title="disable dates">
-      Disable all Tuesday and Thursday
+      <h5 class="mb-2">Disable all Tuesday and Thursday</h5>
       <va-date-picker v-model="value" :allowedDays="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
 
+      <h5 class="mb-2">Disable all January and December</h5>
       <va-date-picker v-model="monthRange" :allowedMonths="(date) => date.getMonth() !== 0 && date.getMonth() !== 11" type="month" class="mb-4" />
     </VbCard>
 
