@@ -46,7 +46,7 @@ export default defineComponent({
     shouldUpdateModelValue: { type: Boolean, default: true },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     hightlightToday: { type: Boolean, default: true },
-    mode: { type: String as PropType<VaDatePickerMode>, default: 'date' },
+    mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
   },
 
   emits: ['update:modelValue', 'hover:month', 'click:month'],

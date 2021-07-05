@@ -68,7 +68,7 @@ export default defineComponent({
     view: { type: Object as PropType<DatePickerView>, default: () => new DatePickerView() },
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     type: { type: String as PropType<VaDatePickerType>, default: 'day' },
-    mode: { type: String as PropType<VaDatePickerMode>, default: 'date' },
+    mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
   },
 
   emits: ['update:modelValue', 'hover:day', 'click:day'],
