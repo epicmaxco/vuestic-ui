@@ -15,9 +15,9 @@
       class="va-tab__content"
       v-on="context.keyboardFocusListeners"
       :tabindex="tabIndexComputed"
-      @focus="onFocus"
-      @click="onTabClick"
-      @keydown.enter="onTabKeydown"
+      @focus="onFocus()"
+      @click="onTabClick()"
+      @keydown.enter="onTabKeydown()"
     >
       <slot>
         <va-icon
@@ -48,7 +48,7 @@ import { TabsServiceKey, TabsService } from '../VaTabs.vue'
 type MouseEventHandler = (e: MouseEvent) => void
 type FocusEventHandler = (e: FocusEvent) => void
 type Context = {
-  tabsService: TabsService | null;
+  tabsService: TabsService;
   hasKeyboardFocus: boolean;
   keyboardFocusListeners: Record<string, MouseEventHandler | FocusEventHandler>;
 }
@@ -78,7 +78,7 @@ export default class VaTab extends mixins(
   leftSidePosition = 0
 
   context: Context = setup(() => {
-    const tabsService: TabsService | null = inject(TabsServiceKey, null)
+    const tabsService = inject(TabsServiceKey) as TabsService
 
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
@@ -102,17 +102,17 @@ export default class VaTab extends mixins(
   }
 
   onTabClick () {
-    this.context.tabsService?.tabClick(this)
+    this.context.tabsService.tabClick(this)
     this.$emit('click')
   }
 
   onTabKeydown () {
-    this.context.tabsService?.tabPressEnter(this)
+    this.context.tabsService.tabPressEnter(this)
     this.$emit('keydown-enter')
   }
 
   onFocus () {
-    this.context.tabsService?.tabFocus(this)
+    this.context.tabsService.tabFocus(this)
     this.$emit('focus')
   }
 
@@ -122,11 +122,11 @@ export default class VaTab extends mixins(
   }
 
   beforeMount () {
-    this.context.tabsService?.register(this)
+    this.context.tabsService.register(this)
   }
 
   beforeUnmount () {
-    this.context.tabsService?.unregister(this)
+    this.context.tabsService.unregister(this)
   }
 }
 </script>
