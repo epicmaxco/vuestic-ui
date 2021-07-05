@@ -2,10 +2,15 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { DocsHelper } from '@/helpers/DocsHelper'
 import { languages } from '@/components/languages'
 
+const translationStatusPaths: { [key: string]: string } = {
+  full: 'translation.status.full',
+  part: 'translation.status.part',
+}
+
 const translationStatuses = languages.map((lang) => [
-  `translation.language.${lang.code}`,
+  lang.translationPath,
   lang.code,
-  `translation.status.${lang.status}`
+  translationStatusPaths[lang.status]
 ])
 
 export default [
