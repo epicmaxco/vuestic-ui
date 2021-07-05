@@ -88,15 +88,10 @@ export default class VaDropdown extends mixins(
     }
   }
 
-  get classComputed (): string[] {
-    const baseClass = 'va-dropdown'
-    const classes: string[] = []
-
-    if (this.$props.disabled) {
-      classes.push(`${baseClass}--disabled`)
+  get classComputed () {
+    return {
+      'va-dropdown--disabled': this.$props.disabled,
     }
-
-    return classes
   }
 
   get showContent (): boolean {

@@ -13,7 +13,7 @@
       :disabled="$props.disabled"
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
-      :close-on-content-click="toClose()"
+      :close-on-content-click="toClose"
       trigger="none"
       class="va-select__dropdown"
       keep-anchor-width
@@ -342,7 +342,7 @@ export default class VaSelect extends mixins(
     return this.$props.options.find((option: any) => this.compareOptions(option, this.valueComputed))
   }
 
-  toClose (): boolean {
+  get toClose (): boolean {
     return !(this.$props.multiple || this.$props.searchable || this.$props.allowCreate)
   }
 
