@@ -69,7 +69,7 @@ export default defineComponent({
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue>, required: true },
   },
 
-  emits: ['update:modelValue', 'hover'],
+  emits: ['update:modelValue', 'hover:day', 'click:day'],
 
   setup (props, { emit }) {
     const { modelValue, firstWeekday, weekdayNames, view } = toRefs(props)
@@ -78,7 +78,7 @@ export default defineComponent({
 
     const { calendarDates, currentMonthStartIndex, currentMonthEndIndex } = useVaDatePickerCalendar(view, { firstWeekday })
 
-    const { hovered: hoveredDate } = useHovered<{ date: Date, index: number }>((value) => emit('hover', value?.date))
+    const { hovered: hoveredDate } = useHovered<{ date: Date, index: number }>((value) => emit('hover:day', value?.date))
 
     const weekdayNamesComputed = computed(() => {
       return firstWeekday.value === 'Sunday'
@@ -88,6 +88,8 @@ export default defineComponent({
 
     const onDateClick = (date: Date) => {
       const isDateDisabed = props.allowedDays === undefined ? false : !props.allowedDays(date)
+
+      emit('click:day', { date, isDateDisabed })
 
       if (isDateDisabed) { return }
 

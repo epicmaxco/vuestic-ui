@@ -15,7 +15,8 @@
       v-bind="dayPickerProps"
       v-model="valueComputed"
       :view="viewView"
-      @hover="(value) => $emit('hover:day', value)"
+      @hover:day="(value) => $emit('hover:day', value)"
+      @click:day="(value) => $emit('click:day', value)"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
