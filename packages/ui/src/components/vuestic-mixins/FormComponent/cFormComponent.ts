@@ -1,15 +1,12 @@
 import { ref, toRefs, computed, inject, onMounted, onUnmounted } from 'vue'
 import { FormProvider, FormServiceKey, FormElement } from '../../vuestic-components/va-form/consts'
-import isString from 'lodash/isString'
-import isFunction from 'lodash/isFunction'
-import flatten from 'lodash/flatten'
 
 const prepareValidations = (messages: string | any[] = [], callArguments = null) => {
-  if (isString(messages)) {
+  if (typeof messages === 'string') {
     return [messages]
   }
   return messages
-    .map((message) => isFunction(message) ? message(callArguments) : message)
+    .map((message) => typeof message === 'function' ? message(callArguments) : message)
 }
 
 export function useFormProvider (context: FormElement) {
@@ -52,7 +49,7 @@ export function useFormComponent (props: Record<any, any>, focus: () => void, re
 
   const computedErrorMessages = computed<Array<any>>({
     get () {
-      return errorMessages.value ? prepareValidations(errorMessages) : internalErrorMessages.value
+      return errorMessages.value ? prepareValidations(errorMessages.value) : internalErrorMessages.value
     },
     set (errorMessages) {
       internalErrorMessages.value = errorMessages
@@ -64,9 +61,9 @@ export function useFormComponent (props: Record<any, any>, focus: () => void, re
     computedErrorMessages.value = []
 
     if (rules.value && rules.value.length > 0) {
-      prepareValidations(flatten(rules), modelValue.value)
+      prepareValidations(rules.value.flat(), modelValue.value)
         .forEach((validateResult) => {
-          if (isString(validateResult)) {
+          if (typeof validateResult === 'string') {
             computedErrorMessages.value.push(validateResult)
             computedError.value = true
           } else if (validateResult === false) {
