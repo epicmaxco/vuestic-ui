@@ -2,17 +2,17 @@ export const languages = [
   {
     code: 'en',
     name: 'English',
-    status: 'Fully',
+    status: 'full',
   },
   // {
   //   code: 'es',
   //   name: 'Español',
-  //   status: 'Partially',
+  //   status: 'part',
   // },
   {
     code: 'ru',
     name: 'Русский',
-    status: 'Fully',
+    status: 'full',
   },
   // GENERATOR_ADD - language
 ]
