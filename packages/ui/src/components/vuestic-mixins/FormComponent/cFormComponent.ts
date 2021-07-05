@@ -27,7 +27,6 @@ export function useFormProvider (context: FormElement) {
 }
 
 export function useFormComponent (props: Record<any, any>, focus: () => void, reset: () => void) {
-  const hadFocus = ref(false)
   const isFocused = ref(false)
   const internalErrorMessages = ref([] as Array<any>)
   const internalError = ref(false)
@@ -41,8 +40,6 @@ export function useFormComponent (props: Record<any, any>, focus: () => void, re
     focus,
     reset,
   })
-
-  const shouldValidateOnBlur = computed<boolean>(() => hadFocus.value)
 
   const computedError = computed<boolean>({
     get () {
@@ -90,23 +87,25 @@ export function useFormComponent (props: Record<any, any>, focus: () => void, re
     return computedError.value
   }
 
-  // eslint-disable-next-line camelcase
-  function ValidateMixin_onBlur (): void {
-    isFocused.value = false
-    computedError.value = false
-    validate()
+  const formComponentListeners = {
+    focus (): void {
+      isFocused.value = true
+    },
+    blur (): void {
+      isFocused.value = false
+      validate()
+    },
   }
 
   return {
     validate,
     resetValidation,
-    ValidateMixin_onBlur,
+    hasError,
     computedError,
     computedErrorMessages,
-    hasError,
-    shouldValidateOnBlur,
     isFocused,
     isFormComponent,
+    formComponentListeners,
   }
 }
 
@@ -117,7 +116,7 @@ export function useFormComponent (props: Record<any, any>, focus: () => void, re
  *
  * @example
  ```
-  @Options({ name: 'Example', ...statefulComponentOptions })
+  @Options({ name: 'Example', ...formComponentOptions })
   export default class ExampleComponent extends Vue.with(props)
  ```
  */
