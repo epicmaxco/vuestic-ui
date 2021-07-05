@@ -1,18 +1,23 @@
+export type TranslationStatusPath = { [key in 'full' | 'part']: string }
+
 export const languages = [
   {
     code: 'en',
     name: 'English',
-    status: 'Fully',
+    status: 'full',
+    translationPath: 'translation.language.en',
   },
   // {
   //   code: 'es',
   //   name: 'Español',
-  //   status: 'Partially',
+  //   status: 'part',
+  //   translationPath: 'translation.language.es',
   // },
   {
     code: 'ru',
     name: 'Русский',
-    status: 'Fully',
+    status: 'full',
+    translationPath: 'translation.language.ru',
   },
   // GENERATOR_ADD - language
 ]

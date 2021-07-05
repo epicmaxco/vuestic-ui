@@ -3,7 +3,7 @@
     <table class="DocsTable__table">
       <thead>
       <tr>
-        <th v-for="c in columnsComputed" :key="c.title">{{ c.title }}</th>
+        <th v-for="c in columnsComputed" :key="c.title">{{ $te(c.title) ? $t(c.title) : c.title }}</th>
       </tr>
       </thead>
       <tbody>
