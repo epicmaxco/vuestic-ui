@@ -85,7 +85,10 @@ export default defineComponent({
     border-radius: var(--va-date-picker-cell-radius);
   }
 
-  &_clear { cursor: default; }
+  &_clear {
+    cursor: default;
+    opacity: 0;
+  }
 
   &_hightlighted-weekend { color: var(--va-date-picker-weekends-color); }
 

@@ -154,7 +154,7 @@ export default defineComponent({
 @import './_variables.scss';
 
 .va-date-picker-header {
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
   min-width: 250px;
 }
 </style>
