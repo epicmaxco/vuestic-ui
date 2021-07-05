@@ -11,13 +11,15 @@ export const ThemeNameIterator = [
 export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
   [ThemeName.DEFAULT]: {
     primary: '#2C82E0',
-    secondary: '#f4f8fa',
+    secondary: '#767C88',
+    background: '#f4f8fa',
     success: '#40e583',
     info: '#2c82e0',
     danger: '#DE1041',
     warning: '#FFAC0A',
     gray: '#babfc2',
     dark: '#1B1A1F',
+    white: '#ffffff',
   },
   [ThemeName.CORPORATE]: {
     primary: '#46DA8A',

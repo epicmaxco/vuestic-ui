@@ -19,18 +19,12 @@
         v-else-if="icon"
         :name="icon"
       />
-      <img
-        v-else-if="email"
-        :src="computedGravarar"
-      >
     </slot>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, mixins, prop, Vue } from 'vue-class-component'
-// @ts-ignore
-import gravatar from 'gravatar'
 
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../../mixins/SizeMixin'
@@ -45,7 +39,6 @@ class AvatarProps {
   icon = prop<string>({ type: String, default: '' })
   src = prop<string>({ type: String, default: null })
   fontSize = prop<string>({ type: String, default: '' })
-  email = prop<string>({ type: String, default: '' })
 }
 
 const AvatarPropsMixin = Vue.with(AvatarProps)
@@ -60,17 +53,10 @@ export default class VaAvatar extends mixins(
   LoadingMixin,
   AvatarPropsMixin,
 ) {
-  get computedGravarar () {
-    return gravatar.url(this.email, {
-      s: this.sizeComputed,
-      d: 'mp',
-    })
-  }
-
   get computedStyle () {
     return {
       color: this.theme.getColor(this.textColor, '#ffffff'),
-      backgroundColor: this.loading || this.email ? 'transparent' : this.colorComputed,
+      backgroundColor: this.loading ? 'transparent' : this.colorComputed,
       borderRadius: this.square ? 0 : '',
       fontSize: this.fontSize || this.fontSizeComputed,
       width: this.sizeComputed,

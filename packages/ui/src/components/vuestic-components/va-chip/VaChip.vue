@@ -73,6 +73,7 @@ class ChipProps {
       return ['medium', 'small', 'large'].includes(value)
     },
   })
+  shadow = prop<boolean>({ type: Boolean, default: false })
 }
 
 const ChipPropsMixin = Vue.with(ChipProps)
@@ -129,41 +130,29 @@ export default class VaChip extends mixins(
   }
 
   get shadowStyle () {
-    if (this.flat || this.outline) {
+    if (!this.shadow || this.flat || this.outline || this.disabled || this.SetupContext.hasKeyboardFocus) {
       return
     }
     return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
   }
 
   get computedStyle () {
-    const computedStyle: any = {
-      color: getTextColor(this.colorComputed),
-      borderColor: '',
+    const borderColor = this.outline ? this.colorComputed : ''
+    const computedStyle = {
+      color: this.colorComputed,
+      borderColor,
       background: '',
-      boxShadow: '',
+      boxShadow: this.shadowStyle,
     }
 
-    if (this.SetupContext.hasKeyboardFocus) {
-      if (this.outline || this.flat) {
-        computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.outline ? this.colorComputed : ''
+    if (this.outline || this.flat) {
+      if (this.SetupContext.hasKeyboardFocus) {
         computedStyle.background = getFocusColor(this.colorComputed)
-      }
-    } else if (this.hoverState) {
-      if (this.outline || this.flat) {
-        computedStyle.color = this.colorComputed
-        computedStyle.borderColor = this.outline ? this.colorComputed : ''
+      } else if (this.hoverState) {
         computedStyle.background = getHoverColor(this.colorComputed)
-      } else {
-        computedStyle.boxShadow = this.shadowStyle
       }
     } else {
-      computedStyle.color = (this.flat || this.outline) ? this.colorComputed : getTextColor(this.colorComputed)
-      computedStyle.borderColor = this.outline ? this.colorComputed : ''
-      computedStyle.boxShadow = !this.disabled && this.shadowStyle
-    }
-
-    if (!this.outline && !this.flat) {
+      computedStyle.color = getTextColor(this.colorComputed)
       computedStyle.background = this.colorComputed
     }
     return computedStyle

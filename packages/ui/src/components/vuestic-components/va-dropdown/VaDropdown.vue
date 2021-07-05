@@ -74,7 +74,7 @@ export default class VaDropdown extends mixins(
   DropdownPropsMixin,
 ) {
   popperInstance: PopperInstance = null
-  anchorWidth!: number
+  anchorWidth = 0
   hoverOverDebounceLoader!: DebounceLoader
   hoverOutDebounceLoader!: DebounceLoader
 
@@ -180,7 +180,9 @@ export default class VaDropdown extends mixins(
     if (isCurrentDropdownClicked) {
       return
     }
-    this.onClickOutside()
+    if (this.showContent) {
+      this.onClickOutside()
+    }
   }
 
   updateAnchorWidth (): void {
@@ -256,7 +258,6 @@ export default class VaDropdown extends mixins(
       },
       this.hoverOverTimeout,
     )
-    this.handlePopperInstance()
     this.hoverOutDebounceLoader = new DebounceLoader(
       async () => {
         this.valueComputed = false
@@ -268,6 +269,10 @@ export default class VaDropdown extends mixins(
       return
     }
     this.registerClickOutsideListener()
+  }
+
+  mounted (): void {
+    this.handlePopperInstance()
   }
 
   beforeUnmount (): void {
