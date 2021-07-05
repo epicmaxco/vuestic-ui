@@ -39,13 +39,31 @@ module.exports = (plop: NodePlopAPI) => {
     const langString = `{
     code: '${isoCode}',
     name: '${languageName}',
-    status: 'Partially',
+    status: 'part',
   },
   ${replaceString}`
 
     const replacedLanguages = languages.replace(replaceString, langString)
 
     fs.writeFileSync(languagesPath, replacedLanguages)
+
+    const languagesCodes = fs
+      .readdirSync(`${config.path}/locales`, { withFileTypes: true })
+      .filter((file: any) => file.isDirectory())
+      .map((dir: any) => dir.name)
+
+    languagesCodes.forEach((code: string) => {
+      const locale = require(`${config.path}/locales/${code}/${code}.json`)
+
+      if (locale.translation.language) {
+        locale.translation.language[isoCode] = languageName
+
+        fs.writeFileSync(
+          `${config.path}/locales/${code}/${code}.json`,
+          JSON.stringify(locale, null, 2)
+        )
+      }
+    })
 
     return 'Added language'
   }) as CustomActionFunction)
