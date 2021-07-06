@@ -475,6 +475,15 @@ export default class VaSelect extends mixins(
   showDropdown () {
     this.doShowDropdownContent = true
     this.scrollToSelected()
+    this.focusSearchOrOptions()
+  }
+
+  focusSearchOrOptions () {
+    this.$nextTick(() => {
+      if (this.showSearchInput) {
+        this.focusSearchBar()
+      } else { this.focusOptionList() }
+    })
   }
 
   scrollToSelected () {
@@ -515,14 +524,6 @@ export default class VaSelect extends mixins(
       return
     }
     this.toggleDropdown()
-
-    this.$nextTick(() => {
-      if (this.$refs.searchBar) {
-        (this.$refs as any).searchBar.focus()
-      } else if (this.$refs.optionList) {
-        (this.$refs as any).optionList.focus()
-      }
-    })
   }
 
   focusSelect () {
@@ -537,8 +538,6 @@ export default class VaSelect extends mixins(
     if (this.$refs.optionList) {
       (this.$refs as any).optionList.focus()
     }
-
-    this.hoverNextOption()
   }
 
   focusSearchBar () {
