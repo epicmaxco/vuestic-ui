@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import uiElementGuideConfig from '../../components/page-configs/contribution/ui-element-guide/page-config'
 
 @Options({
+  name: 'UiElementGuide',
   components: {
     DocsContent,
   },

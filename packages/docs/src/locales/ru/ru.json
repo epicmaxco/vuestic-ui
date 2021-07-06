@@ -3171,7 +3171,7 @@
     "highLevelStrategy": {
       "title": "Высокоуровневая стратегия",
       "description": {
-        "userExpectations": "Компоненты должны быть такими, какими их ожидает видеть пользователь. Мы достигаем этого, изучая следующие ссылки ([Vuetify](https://vuetifyjs.com), [Quasar](https://quasar.dev), [Ant Design](https://ant.design), [iView](http://iview.talkingdata.com), [Element UI](https://element.eleme.io), etc.).",
+        "userExpectations": "Компоненты должны быть такими, какими их ожидает видеть пользователь. Мы достигаем этого, изучая следующие проекты ([Vuetify](https://vuetifyjs.com), [Quasar](https://quasar.dev), [Ant Design](https://ant.design), [iView](http://iview.talkingdata.com), [Element UI](https://element.eleme.io), etc.).",
         "qualityComponents": "Компоненты должны быть качественными. Мы достигаем этого путем ручного тестирования особых случаев + раннего и частого рефакторинга."
       }
     },
