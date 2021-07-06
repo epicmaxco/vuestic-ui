@@ -4,16 +4,16 @@
       <va-date-picker v-model="value" />
     </VbCard>
 
-    <VbCard title="default (date)">
-      <va-date-picker mode="date" v-model="value" />
+    <VbCard title="default (single)">
+      <va-date-picker mode="single" v-model="value" />
     </VbCard>
 
     <VbCard title="default (range)">
       <va-date-picker mode="range" v-model="range" />
     </VbCard>
 
-    <VbCard title="default (dates)">
-      <va-date-picker mode="dates" v-model="dates" />
+    <VbCard title="default (multiple)">
+      <va-date-picker mode="multiple" v-model="dates" />
     </VbCard>
 
     <VbCard title="statefull">

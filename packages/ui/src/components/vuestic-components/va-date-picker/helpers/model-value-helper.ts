@@ -8,11 +8,11 @@ export const isSingleDate = (value: VaDatePickerModelValue): value is Date => va
 export const isDates = (value: VaDatePickerModelValue): value is Date[] => Array.isArray(value)
 
 const modeInitialValue = (date: Date, mode: VaDatePickerMode) => {
-  if (mode === 'date') {
+  if (mode === 'single') {
     return date
   } else if (mode === 'range') {
     return { start: date, end: null }
-  } else if (mode === 'dates') {
+  } else if (mode === 'multiple') {
     return [date]
   } else if (mode === 'auto') {
     return date
@@ -27,11 +27,11 @@ const throwIncorrectModelValueError = (modelValue: VaDatePickerModelValue, mode:
 
 const modeFromModelValue = (modelValue: VaDatePickerModelValue): VaDatePickerMode => {
   if (isSingleDate(modelValue)) {
-    return 'date'
+    return 'single'
   } else if (isRange(modelValue)) {
     return 'range'
   } else if (isDates(modelValue)) {
-    return 'dates'
+    return 'multiple'
   }
 
   return throwIncorrectModelValueError(modelValue, 'auto')
@@ -46,7 +46,7 @@ export const useDatePickerModelValue = (props: { [key: string]: any, modelValue?
 
     const mode = props.mode === 'auto' ? modeFromModelValue(props.modelValue) : props.mode
 
-    if (mode === 'date') {
+    if (mode === 'single') {
       if (!isSingleDate(props.modelValue)) {
         return throwIncorrectModelValueError(props.modelValue, mode)
       }
@@ -67,7 +67,7 @@ export const useDatePickerModelValue = (props: { [key: string]: any, modelValue?
       } else {
         emit('update:modelValue', { start: props.modelValue.start, end: date })
       }
-    } else if (mode === 'dates') {
+    } else if (mode === 'multiple') {
       if (!isDates(props.modelValue)) {
         return throwIncorrectModelValueError(props.modelValue, mode)
       }

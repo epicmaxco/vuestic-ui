@@ -4,4 +4,4 @@ export type VaDatePickerViewType = 'year' | 'month' | 'day'
 export type VaDatePickerView = { type: VaDatePickerViewType, year: number, month: number }
 export type VaDatePickerViewProp = { [T in keyof VaDatePickerView]+?: VaDatePickerView[T] }
 export type VaDatePickerType = 'month' | 'day'
-export type VaDatePickerMode = 'date' | 'dates' | 'range' | 'auto'
+export type VaDatePickerMode = 'single' | 'multiple' | 'range' | 'auto'
