@@ -125,7 +125,7 @@ export default defineComponent({
     const onMonthClick = ({ year, month, date }: { year: number, month: number, date: Date}) => {
       emit('click:month', { year, month, date })
       if (props.type === 'day') {
-        syncView.value = { type: 'month', year, month }
+        syncView.value = { type: 'day', year, month }
       }
     }
 
