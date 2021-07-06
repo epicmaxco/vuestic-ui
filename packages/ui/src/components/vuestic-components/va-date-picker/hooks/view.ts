@@ -41,7 +41,6 @@ export const useView = (
     },
     set (view: VaDatePickerView) {
       statefulView.value = view
-      console.log('New view', view)
 
       emit('update:view', view)
     },

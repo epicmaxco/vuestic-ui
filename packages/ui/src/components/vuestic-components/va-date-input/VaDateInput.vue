@@ -6,15 +6,23 @@
           v-model="valueText"
           v-bind="inputProps"
         >
-          <template
-            v-for="slot in ['append', 'prepend', 'prependInner', 'appendInner']"
-            :key="slot"
-            v-slot:[slot]="slotScope"
-          >
-            <slot v-if="slot === 'appendInner'" :name="slot" v-bind="slotScope">
-              <va-icon name="calendar_today" size="small" :color="color" />
+          <template #appendInner="slotScope">
+            <slot name="appendInner" v-bind="slotScope">
+              <va-icon
+                name="calendar_today"
+                class="va-date-picker__icon"
+                size="small"
+                :color="color"
+              />
             </slot>
-            <slot v-else :name="slot" v-bind="slotScope" />
+          </template>
+
+          <template
+            v-for="(_, name) in $slots"
+            :key="name"
+            v-slot:[name]="slotScope"
+          >
+            <slot :name="name" v-bind="slotScope" />
           </template>
         </va-input>
       </template>
@@ -60,8 +68,8 @@ export default defineComponent({
   components: { VaDatePicker },
 
   props: {
-    ...VaInputProps,
     ...extractComponentProps(VaDatePicker),
+    ...VaInputProps,
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     year: { type: Number },
     month: { type: Number },
@@ -74,7 +82,7 @@ export default defineComponent({
 
   emits: ['update:modelValue', 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day', 'update:is-open'],
 
-  setup (props, { emit, slots }) {
+  setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
     const { year, month, view, valueType, isOpen } = toRefs(props)
 
@@ -112,7 +120,6 @@ export default defineComponent({
     return {
       valueText,
       valueComputed,
-      slots,
       datePickerProps,
       inputProps,
       viewYear,
@@ -123,3 +130,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+  .va-date-picker {
+    &__icon {
+      cursor: pointer;
+    }
+  }
+</style>
