@@ -1,17 +1,17 @@
 <template>
-  <div class="va-date-picker-header va-date-picker__header">
+  <div class="va-date-picker-header va-date-picker__header" v-if="syncView.type !== 'year'">
     <slot name="button:prev" v-bind="{ onClick: prev }">
       <va-icon name="chevron_left" size="small" @click="prev" />
     </slot>
 
     <div class="va-date-picker-header__text">
-      <slot name="header" v-bind="{ year: view.year, month: view.month, monthNames, view, changeView, switchView }">
+      <slot name="header" v-bind="{ year: syncView.year, month: syncView.month, monthNames, view: syncView, changeView, switchView }">
         <va-button flat @click="switchView" size="small" :color="color">
           <span class="mr-1">
-            <slot name="year" v-bind="{ year: view.year }">{{ view.year }}</slot>
+            <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
           </span>
 
-          <slot v-if="view.type === 'day'" name="month" v-bind="{ month: view.month }">{{ monthNames[view.month] }}</slot>
+          <slot v-if="syncView.type === 'day'" name="month" v-bind="{ month: syncView.month }">{{ monthNames[syncView.month] }}</slot>
         </va-button>
       </slot>
     </div>
@@ -23,10 +23,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, PropType } from 'vue'
-import { useSyncProp } from '../../hooks/sync-prop'
+import { defineComponent, PropType } from 'vue'
 import { VaDatePickerView } from '../../types/types'
-import { ViewHelper } from '../../helpers/date-picker-view'
+import { useView } from '../../hooks/view'
 
 export default defineComponent({
   name: 'VaDatePickerHeader',
@@ -35,7 +34,7 @@ export default defineComponent({
 
   props: {
     monthNames: { type: Array, required: true },
-    view: { type: Object as PropType<VaDatePickerView>, required: true },
+    view: { type: Object as PropType<VaDatePickerView> },
     canSwitchView: { type: Boolean, required: true },
 
     // Colors
@@ -43,36 +42,25 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    const { view, canSwitchView } = toRefs(props)
-    const { syncProp: syncView } = useSyncProp(view, 'view', emit)
-
-    const next = () => {
-      syncView.value = ViewHelper.next(syncView.value)
-    }
-
-    const prev = () => {
-      syncView.value = ViewHelper.prev(syncView.value)
-    }
+    const { syncView, prev, next } = useView(props, emit)
 
     const switchView = () => {
-      if (!canSwitchView.value) { return }
+      if (!props.canSwitchView) { return }
 
       if (syncView.value.type === 'day') {
-        syncView.value = ViewHelper.updateViewType(syncView.value, 'month')
+        syncView.value = { ...syncView.value, type: 'month' }
       } else if (syncView.value.type === 'month') {
-        syncView.value = ViewHelper.updateViewType(syncView.value, 'year')
-      } else {
-        syncView.value = ViewHelper.updateViewType(syncView.value, 'day')
+        syncView.value = { ...syncView.value, type: 'year' }
       }
     }
 
     const changeView = (view: VaDatePickerView) => {
-      if (!canSwitchView.value) { return }
+      if (!props.canSwitchView) { return }
 
       syncView.value = view
     }
 
-    return { prev, next, changeView, switchView }
+    return { prev, next, changeView, switchView, syncView }
   },
 })
 </script>

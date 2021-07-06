@@ -2,7 +2,7 @@
   <div class="va-date-picker" :style="colorsStyle">
     <va-date-picker-header
       v-bind="headerProps"
-      v-model:view="viewView"
+      v-model:view="syncView"
       :can-switch-view="canSwitchView"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
@@ -11,10 +11,10 @@
     </va-date-picker-header>
 
     <va-day-picker
-      v-if="viewView.type === 'day'"
+      v-if="syncView.type === 'day'"
       v-bind="dayPickerProps"
       v-model="valueComputed"
-      :view="viewView"
+      :view="syncView"
       @hover:day="(value) => $emit('hover:day', value)"
       @click:day="(value) => $emit('click:day', value)"
     >
@@ -24,9 +24,9 @@
     </va-day-picker>
 
     <va-month-picker
-      v-if="viewView.type === 'month'"
+      v-if="syncView.type === 'month'"
       v-bind="monthPickerProps"
-      :view="viewView"
+      :view="syncView"
       :model-value="valueComputed"
       @update:model-value="onMonthModelValueUpdate"
       @hover:month="(value) => $emit('hover:month', value)"
@@ -37,7 +37,7 @@
       </template>
     </va-month-picker>
 
-    <va-year-picker v-if="viewView.type === 'year'">
+    <va-year-picker v-if="syncView.type === 'year'">
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
       </template>
@@ -46,15 +46,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 import { useColors } from '../../../services/color-config/color-config'
 
 import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
 import { isRange, isSingleDate, isDates } from './helpers/model-value-helper'
-import { useSyncProp } from './hooks/sync-prop'
 import { filterComponentProps, extractComponentProps } from './utils/child-props'
-import { ViewHelper } from './helpers/date-picker-view'
+import { useView } from './hooks/view'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
@@ -91,14 +90,12 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit, new Date())
-    const { view, type } = toRefs(props)
 
     const dayPickerProps = filterComponentProps(props, extractComponentProps(VaDayPicker))
     const headerProps = filterComponentProps(props, extractComponentProps(VaDatePickerHeader))
     const monthPickerProps = filterComponentProps(props, extractComponentProps(VaMonthPicker))
 
-    const viewComputed = computed(() => view?.value === undefined ? undefined : ViewHelper.init(view.value))
-    const { syncProp: viewView } = useSyncProp(viewComputed, 'view', emit, ViewHelper.init({ type: 'day' }))
+    const { syncView } = useView(props, emit, { type: props.type })
 
     const canSwitchView = computed(() => props.type === 'day')
 
@@ -127,16 +124,14 @@ export default defineComponent({
 
     const onMonthClick = ({ year, month, date }: { year: number, month: number, date: Date}) => {
       emit('click:month', { year, month, date })
-      if (type.value === 'day' && viewView.value) {
-        viewView.value.year = year
-        viewView.value.month = month
-        viewView.value.type = 'month'
+      if (props.type === 'day') {
+        syncView.value = { type: 'month', year, month }
       }
     }
 
     const onMonthModelValueUpdate = (modelValue: VaDatePickerModelValue) => {
       // Do not update model value if we just want to change view
-      if (type.value === 'month') { valueComputed.value = modelValue }
+      if (props.type === 'month') { valueComputed.value = modelValue }
     }
 
     const { colorsToCSSVariable } = useColors()
@@ -151,7 +146,7 @@ export default defineComponent({
       headerProps,
       monthPickerProps,
 
-      viewView,
+      syncView,
 
       canSwitchView,
 
