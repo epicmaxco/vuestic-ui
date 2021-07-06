@@ -35,7 +35,6 @@ export default defineComponent({
   props: {
     monthNames: { type: Array, required: true },
     view: { type: Object as PropType<VaDatePickerView> },
-    canSwitchView: { type: Boolean, required: true },
 
     // Colors
     color: { type: String, default: undefined },
@@ -45,8 +44,6 @@ export default defineComponent({
     const { syncView, prev, next } = useView(props, emit)
 
     const switchView = () => {
-      if (!props.canSwitchView) { return }
-
       if (syncView.value.type === 'day') {
         syncView.value = { ...syncView.value, type: 'month' }
       } else if (syncView.value.type === 'month') {
@@ -55,8 +52,6 @@ export default defineComponent({
     }
 
     const changeView = (view: VaDatePickerView) => {
-      if (!props.canSwitchView) { return }
-
       syncView.value = view
     }
 

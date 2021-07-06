@@ -29,7 +29,7 @@ import { defineComponent, PropType, toRefs } from 'vue'
 import { useHovered } from '../../hooks/hovered-option-hook'
 import { VaDatePickerMode, VaDatePickerView, VaDatePickerModelValue } from '../../types/types'
 import { isRange, isSingleDate, isDates, useDatePickerModelValue } from '../../helpers/model-value-helper'
-import { isDatesArrayIncludeMonth, isDatesMonthEqual } from '../../utils/date-utils'
+import { isDatesMonthEqual } from '../../utils/date-utils'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 
@@ -42,7 +42,6 @@ export default defineComponent({
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: true },
     view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'day' }) },
-    shouldUpdateModelValue: { type: Boolean, default: true },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     hightlightToday: { type: Boolean, default: true },
     mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
@@ -51,7 +50,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:month', 'click:month'],
 
   setup (props, { emit }) {
-    const { modelValue, shouldUpdateModelValue, view, mode } = toRefs(props)
+    const { modelValue, view } = toRefs(props)
 
     const { hovered: hoveredMonth } = useHovered<Date>((value) => emit('hover:month', value))
 
@@ -62,9 +61,7 @@ export default defineComponent({
     const onMonthClick = (year: number, month: number) => {
       const date = new Date(year, month)
 
-      if (shouldUpdateModelValue.value) {
-        updateModelValue(date)
-      }
+      updateModelValue(date)
 
       emit('click:month', { year, month, date })
     }

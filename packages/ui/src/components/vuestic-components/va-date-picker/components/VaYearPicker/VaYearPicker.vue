@@ -5,9 +5,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { VaDatePickerMode, VaDatePickerModelValue } from '../../types/types'
 
 export default defineComponent({
+  props: {
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
+    allowedYears: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
+    hightlightToday: { type: Boolean, default: true },
+    mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
+  },
   setup () {
     return {}
   },

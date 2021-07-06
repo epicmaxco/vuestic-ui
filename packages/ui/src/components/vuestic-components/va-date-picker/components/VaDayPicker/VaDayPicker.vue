@@ -65,7 +65,6 @@ export default defineComponent({
     hideWeekDays: { type: Boolean, default: false },
     view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'day' }) },
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
-    type: { type: String as PropType<VaDatePickerType>, default: 'day' },
     mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
   },
 

@@ -3,7 +3,6 @@
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"
-      :can-switch-view="canSwitchView"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
@@ -97,8 +96,6 @@ export default defineComponent({
 
     const { syncView } = useView(props, emit, { type: props.type })
 
-    const canSwitchView = computed(() => props.type === 'day')
-
     const valueText = computed({
       get: () => {
         if (isDates(valueComputed.value)) {
@@ -147,8 +144,6 @@ export default defineComponent({
       monthPickerProps,
 
       syncView,
-
-      canSwitchView,
 
       valueText,
       valueComputed,
