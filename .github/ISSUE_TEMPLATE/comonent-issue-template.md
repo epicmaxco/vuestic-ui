@@ -2,13 +2,25 @@
 name: Component template
 about: Component template
 title: " component"
-labels: ''
+labels: 'component'
 assignees: ''
 
 ---
 
+## Description
+- Description
+
+## Features
+- [ ] Visual feedback - When user interacts with component they should see result of their actions (:active, :hover, :focus selectors and ...).
+- [ ] Keyboard navigation.
+- [ ] Stateless support.
+
 ## Docs
-- [ ] Do after docs boilerplate (#17) is done.
+- [ ] Do proper documentation page (#17).
+
+## Testing
+- [ ] Demos for all cases.
+- [ ] Couple of tests for core functionality.
 
 ## Props
 - [ ] `key` Boolean` - some text
@@ -16,17 +28,15 @@ assignees: ''
 ## Slots
 - [ ] `key` - some text
 
-## Events
+## Emits
 - [ ] `key` - some text
 
-## Transitions
-- [ ] 
-
 ## Design
-- [ ]
+- Design reference
+- [ ] Present to `name` after finishing.
 
 ## Notes
-- [ ] 
+- [ ] some note
 
 # Refs
 * [Vuetify](https://vuetifyjs.com)

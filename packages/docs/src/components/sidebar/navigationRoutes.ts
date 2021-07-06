@@ -318,6 +318,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'guide',
         displayName: 'menu.guide',
       },
+      {
+        name: 'ui-element-guide',
+        displayName: 'menu.uiElementGuide',
+      },
       // GENERATOR_ADD - contribution
     ],
   },
