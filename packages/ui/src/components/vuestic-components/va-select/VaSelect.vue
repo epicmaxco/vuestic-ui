@@ -497,7 +497,7 @@ export default class VaSelect extends mixins(
 
   toggleDropdown () {
     if (this.doShowDropdownContent) {
-      this.hideDropdown()
+      this.hideAndFocus()
     } else {
       this.showDropdown()
     }
