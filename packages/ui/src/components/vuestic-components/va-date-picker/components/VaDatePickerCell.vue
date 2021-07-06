@@ -62,9 +62,9 @@ export default defineComponent({
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
-  height: var(--va-date-picker-cell-size);
-  min-width: var(--va-date-picker-cell-size);
   line-height: var(--va-date-picker-cell-size);
+  min-height: var(--va-date-picker-cell-size);
+  min-width: var(--va-date-picker-cell-size);
   cursor: pointer;
   user-select: none;
   border-radius: var(--va-date-picker-cell-radius);

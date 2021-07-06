@@ -1,5 +1,5 @@
 <template>
-  <div class="va-date-picker" :style="colorsStyle">
+  <div class="va-date-picker" :class="{ 'va-date-picker__without-week-days': hideWeekDays }" :style="colorsStyle">
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"
@@ -156,11 +156,24 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="scss">
 @import './_variables.scss';
+
+.va-date-picker {
+  --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+
+  &__without-week-days {
+    --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 6 + var(--va-date-picker-cell-gap) * 6);
+  }
+
+  .va-day-picker,
+  .va-month-picker,
+  .va-year-picker {
+    height: var(--va-date-picker-content-height);
+  }
+}
 
 .va-date-picker-header {
   padding-bottom: 0.25rem;
-  min-width: 250px;
 }
 </style>

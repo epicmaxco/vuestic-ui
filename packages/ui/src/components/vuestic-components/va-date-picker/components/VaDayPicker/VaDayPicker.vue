@@ -1,20 +1,20 @@
 <template>
   <div class="va-day-picker">
-    <div class="va-day-picker__weekdays" v-if="!hideWeekDays">
-      <div
-        v-for="weekday in weekdayNamesComputed" :key="weekday"
-        class="va-day-picker__weekdays__cell"
-      >
-        <slot name="weekday">
-          {{ weekday }}
-        </slot>
-      </div>
-    </div>
-
     <div
       class="va-day-picker__calendar"
       v-bind="keyboardContainerAttributes"
     >
+      <template v-if="!hideWeekDays">
+        <div
+          v-for="weekday in weekdayNamesComputed" :key="weekday"
+          class="va-day-picker__calendar__weekday"
+        >
+          <slot name="weekday">
+            {{ weekday }}
+          </slot>
+        </div>
+      </template>
+
       <div
         class="va-day-picker__calendar__day-wrapper"
         v-for="(date, index) in calendarDates"
@@ -125,28 +125,19 @@ export default defineComponent({
 
 <style lang="scss">
 .va-day-picker {
-  &__weekdays {
-    display: flex;
+  &__calendar {
+    display: grid;
+    // 7 columns
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: var(--va-date-picker-cell-gap);
 
-    &__cell {
-      width: calc(100% / 7);
+    &__weekday {
       text-align: center;
       font-size: 9px;
       color: var(--va-secondary);
       font-weight: bold;
       height: var(--va-date-picker-cell-size);
       line-height: var(--va-date-picker-cell-size);
-    }
-  }
-
-  &__calendar {
-    display: grid;
-    // 7 columns
-    grid-template-columns: (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7) (100% / 7);
-
-    &__day-wrapper {
-      padding: 1px;
-      box-sizing: border-box;
     }
   }
 }

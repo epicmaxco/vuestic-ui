@@ -123,7 +123,7 @@
 
     <VbCard title="disable dates">
       <h5 class="mb-2">Disable all Tuesday and Thursday</h5>
-      <va-date-picker v-model="value" :allowedDays="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
+      <va-date-picker class="mb-2" v-model="value" :allowedDays="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
 
       <h5 class="mb-2">Disable all January and December</h5>
       <va-date-picker v-model="monthRange" :allowedMonths="(date) => date.getMonth() !== 0 && date.getMonth() !== 11" type="month" class="mb-4" />

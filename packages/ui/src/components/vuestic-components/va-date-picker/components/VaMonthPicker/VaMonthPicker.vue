@@ -131,7 +131,10 @@ export default defineComponent({
 .va-month-picker {
   display: grid;
   // 4 columns
-  grid-template-columns: (100% / 4) (100% / 4) (100% / 4) (100% / 4);
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: var(--va-date-picker-cell-gap);
+  // 7 days + gap
+  width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
 
   &__month-wrapper {
     padding: 1px;

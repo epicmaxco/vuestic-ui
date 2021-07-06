@@ -136,5 +136,7 @@ export default defineComponent({
     &__icon {
       cursor: pointer;
     }
+
+    --va-date-picker-cell-size: 28px;
   }
 </style>
