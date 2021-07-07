@@ -3,6 +3,8 @@ import { NodePlopAPI, CustomActionFunction } from 'plop'
 // eslint-disable-next-line
 const fs = require('fs')
 // eslint-disable-next-line
+const { execSync } = require('child_process')
+// eslint-disable-next-line
 const { createTranslationSyncPrompt } = require('./prompt/translations')
 
 type Answers = { code: string, withWarn: boolean }
@@ -46,4 +48,14 @@ module.exports = (plop: NodePlopAPI) => {
 
     return 'Translations are synchronized'
   }) as CustomActionFunction)
+
+  plop.setActionType('gitCheck', () => {
+    const result = execSync('git status --porcelain').toString()
+
+    if (result) {
+      throw new Error('Working tree is dirty: you might want to commit your changes before running the script')
+    }
+
+    return 'Working tree is clean'
+  })
 }
