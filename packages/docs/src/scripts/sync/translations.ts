@@ -1,11 +1,7 @@
-import { NodePlopAPI, CustomActionFunction, AddActionConfig } from 'plop'
+import { NodePlopAPI, CustomActionFunction } from 'plop'
 
 // eslint-disable-next-line
 const fs = require('fs')
-// eslint-disable-next-line
-const path = require('path');
-// eslint-disable-next-line
-const { execSync } = require('child_process')
 // eslint-disable-next-line
 const { createTranslationSyncPrompt } = require('./prompt/translations')
 
@@ -28,7 +24,7 @@ const mergeLocaleData = (source: any, target: any) => {
 
 module.exports = (plop: NodePlopAPI) => {
   const languagesCodes = fs
-    .readdirSync(path.resolve(`${process.cwd()}/src/locales`), { withFileTypes: true })
+    .readdirSync(`${process.cwd()}/src/locales`, { withFileTypes: true })
     .filter((file: any) => file.isDirectory())
     .map((dir: any) => dir.name)
 
