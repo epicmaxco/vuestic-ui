@@ -1,11 +1,9 @@
-import { NodePlopAPI, CustomActionFunction } from 'plop'
+import { NodePlopAPI } from 'plop'
 
 // eslint-disable-next-line
 const fs = require('fs')
 // eslint-disable-next-line
-const { createTranslationSyncPrompt } = require('./prompt/translations')
-
-type Answers = { code: string }
+const translationSyncPrompt = require('./prompt/translations')
 
 const mergeLocaleData = (source: any, target: any) => {
   const keys = Object.keys(source)
@@ -15,7 +13,7 @@ const mergeLocaleData = (source: any, target: any) => {
       target[key] = target[key] || {};
       mergeLocaleData(source[key], target[key])
     } else {
-      target[key] = target[key] || source[key]
+      target[key] = target[key] || `[!] ${source[key]}`
     }
   })
 
@@ -23,29 +21,30 @@ const mergeLocaleData = (source: any, target: any) => {
 }
 
 module.exports = (plop: NodePlopAPI) => {
+  const localesPath = `${process.cwd()}/src/locales`
   const languagesCodes = fs
-    .readdirSync(`${process.cwd()}/src/locales`, { withFileTypes: true })
+    .readdirSync(localesPath, { withFileTypes: true })
     .filter((file: any) => file.isDirectory())
     .map((dir: any) => dir.name)
 
-  plop.setGenerator('translation', createTranslationSyncPrompt(languagesCodes));
+  plop.setGenerator('translation', translationSyncPrompt);
 
-  plop.setActionType('syncTranslations', ((answers: Answers, config: any) => {
-    const sourceLocaleCode = answers.code || 'en'
-    const sourceLocale = require(`${config.path}/${sourceLocaleCode}/${sourceLocaleCode}.json`)
+  plop.setActionType('syncTranslations', () => {
+    const sourceLocaleCode = 'en'
+    const sourceLocale = require(`${localesPath}/${sourceLocaleCode}/${sourceLocaleCode}.json`)
 
     languagesCodes.forEach((code: string) => {
       if (code !== sourceLocaleCode) {
-        const locale = require(`${config.path}/${code}/${code}.json`)
+        const locale = require(`${localesPath}/${code}/${code}.json`)
         const mergedLocale = mergeLocaleData(sourceLocale, locale)
 
         fs.writeFileSync(
-          `${config.path}/${code}/${code}.json`,
+          `${localesPath}/${code}/${code}.json`,
           JSON.stringify(mergedLocale, null, 2)
         )
       }
     })
 
     return 'Translations are synchronized'
-  }) as CustomActionFunction)
+  })
 }
