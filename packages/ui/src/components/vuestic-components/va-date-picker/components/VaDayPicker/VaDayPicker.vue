@@ -50,7 +50,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/child-p
 import { useHovered } from '../../hooks/hovered-option-hook'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 
-const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'focusedDate'])
+const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'focusedDate', 'focused'])
 
 export default defineComponent({
   name: 'VaDayPicker',

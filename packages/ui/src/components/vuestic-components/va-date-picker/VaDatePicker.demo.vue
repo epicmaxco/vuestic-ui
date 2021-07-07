@@ -25,12 +25,11 @@
     </VbCard>
 
     <VbCard title="weekday names">
-      <va-date-picker v-model="value" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']" class="mb-4" />
+      <va-date-picker v-model="value" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']" />
     </VbCard>
 
     <VbCard title="month names">
-      <va-date-picker v-model="value" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" class="mb-4" />
-
+      <va-date-picker v-model="value" :monthNames="['January','February','March','April','May','June','July','August','September','October','November','December']" />
     </VbCard>
 
     <VbCard title="hide weekdays">

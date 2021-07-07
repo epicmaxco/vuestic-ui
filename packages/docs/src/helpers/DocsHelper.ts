@@ -51,7 +51,7 @@ export const DocsHelper = {
       language,
     }
   },
-  api: (componentOptions: DefineComponent | VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock => {
+  api: (componentOptions: DefineComponent<any, any, any, any, any, any, any, any, any, any, any> | VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock => {
     return {
       type: BlockType.API,
       componentOptions,
@@ -85,7 +85,7 @@ export const DocsHelper = {
   list: (translationStringList: TranslationString[]): ListBlock => {
     return {
       type: BlockType.LIST,
-      translationStringList
+      translationStringList,
     }
   },
 

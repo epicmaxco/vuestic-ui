@@ -88,36 +88,13 @@ export default defineComponent({
   emits: [...statefulComponentOptions.emits, 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day'],
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, new Date())
+    const { valueComputed } = useStateful(props, emit, undefined)
 
     const dayPickerProps = filterComponentProps(props, extractComponentProps(VaDayPicker))
     const headerProps = filterComponentProps(props, extractComponentProps(VaDatePickerHeader))
     const monthPickerProps = filterComponentProps(props, extractComponentProps(VaMonthPicker))
 
     const { syncView } = useView(props, emit, { type: props.type })
-
-    const valueText = computed({
-      get: () => {
-        if (isDates(valueComputed.value)) {
-          return valueComputed.value.map((d) => d.toDateString()).join(', ')
-        }
-        if (isSingleDate(valueComputed.value)) {
-          return valueComputed.value.toDateString()
-        }
-        if (isRange(valueComputed.value)) {
-          if (valueComputed.value.end === null) {
-            return valueComputed.value.start.toDateString() + ' ~ ...'
-          }
-
-          return valueComputed.value.start.toDateString() + ' ~ ' + valueComputed.value.end.toDateString()
-        }
-
-        throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
-      },
-      set (value: string) {
-        // TODO: Parse value from input
-      },
-    })
 
     const onMonthClick = ({ year, month, date }: { year: number, month: number, date: Date}) => {
       emit('click:month', { year, month, date })
@@ -145,7 +122,6 @@ export default defineComponent({
 
       syncView,
 
-      valueText,
       valueComputed,
       onMonthClick,
       onMonthModelValueUpdate,
@@ -160,6 +136,8 @@ export default defineComponent({
 @import './_variables.scss';
 
 .va-date-picker {
+  width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+
   --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
 
   &__without-week-days {

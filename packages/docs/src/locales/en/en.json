@@ -2518,41 +2518,41 @@
         "title": "Basic usage",
         "text": "By default, use this component with v-model."
       },
-      "placeholder": {
-        "title": "Placeholder",
-        "text": "You can set the input component placeholder."
+      "mode": {
+        "title": "Mode",
+        "text": "You can use date picker in three different ways. By default date picker uses `auto` mode. This means that `mode` will be chosen based on `modelValue`. There is three modes: `single`, `multiple` and `range`. Different modes require different model values."
       },
-      "weekDays": {
-        "title": "Days of the week",
-        "text": "Passing `week-days` shows weekdays in picker."
+      "stateful": {
+        "title": "Stateful",
+        "text": "Date picker can be stateful. Initial value will be undefined, but user can change it."
       },
-      "successError": {
-        "title": "Success & Error",
-        "text": "You can apply success and error styles."
+      "firstWeekday": {
+        "title": "First day of the week",
+        "text": "If you want to always use Monday as the first day of the week, you can set this prop in GlobalConfig."
       },
-      "disabled": {
-        "title": "Disabled",
-        "text": "You can apply disabled styles and disable interaction with the component."
+      "weekends": {
+        "title": "Weekends",
+        "text": "You can highlight weekends using `highlight-weekends` prop. Also, you can set your own weekends using `weekends` function."
       },
-      "disabledDays": {
-        "title": "Disabled days",
-        "text": "You can provide a config object with a `disable` property to disable the array of days."
+      "otherMonths": {
+        "title": "Other month days",
+        "text": "You can show days of other months using `show-other-months` prop instead of blank cells in calendar."
       },
-      "range": {
-        "title": "Range",
-        "text": "You can provide a config object with a `mode: range` property to add the ability to set a date range."
+      "slots": {
+        "title": "Slots",
+        "text": "For now, we don't support localization using one prop. But you have opportunity to localize it by yourself using slots."
       },
-      "dayTime": {
-        "title": "Day time",
-        "text": "You can provide a config object with an `enableTime` property to add the ability to set a time."
+      "view": {
+        "title": "View",
+        "text": "You can set specific view for date picker. With `view` prop you can define how date picker will displayed, year and month that will be shown."
       },
-      "multiple": {
-        "title": "Multiple",
-        "text": "You can provide a config object with an `mode: multiple` property to add the ability to select multiple dates."
+      "type": {
+        "title": "Type",
+        "text": "If you want allow user to pick only month or year, you can make it using `type` prop."
       },
-      "inline": {
-        "title": "Inline",
-        "text": "You can provide a config object with an `inline` property to add the ability to select multiple dates."
+      "disabledDates": {
+        "title": "Disable dates",
+        "text": "You can disable some specific days, month or year using `allowedDays`, `allowedMonth` or `allowedYear` props."
       }
     }
   },

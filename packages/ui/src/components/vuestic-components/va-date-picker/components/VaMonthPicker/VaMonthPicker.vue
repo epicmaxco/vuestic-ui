@@ -16,7 +16,7 @@
         :hightlight-today="hightlightToday"
         @click="onMonthClick(view.year, monthIndex);  focusedDateIndex = monthIndex"
       >
-        <slot name="month" v-bind="{ monthIndex, monthName: monthNames[monthIndex] }">
+        <slot name="month" v-bind="{ monthIndex, month: monthNames[monthIndex] }">
           {{ monthNames[monthIndex] }}
         </slot>
       </va-date-picker-cell>
@@ -134,7 +134,8 @@ export default defineComponent({
   grid-template-columns: repeat(3, 1fr);
   grid-gap: var(--va-date-picker-cell-gap);
   // 7 days + gap
-  width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+  min-width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+  width: 100%;
 
   &__month-wrapper {
     padding: 1px;
