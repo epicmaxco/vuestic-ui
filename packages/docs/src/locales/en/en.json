@@ -735,6 +735,7 @@
         "deletableTags": "Sets ability to delete tags",
         "searchable": "Sets ability to filter option list by typing",
         "multiple": "Sets select in multiple mode",
+        "maxSelections": "Sets the maximum amount of selected options",
         "width": "Sets option list width",
         "maxHeight": "Sets option list maximum height",
         "noOptionsText": "Sets text whom displaying if list have no items",
@@ -2384,7 +2385,7 @@
       "default": "Default select",
       "variations": {
         "title": "Variants",
-        "text": "Includes single or multiple selects"
+        "text": "Includes single or multiple selects."
       },
       "decorators": "Decorators",
       "objectOptions": {
