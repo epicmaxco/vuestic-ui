@@ -31,10 +31,11 @@ module.exports = (plop: NodePlopAPI) => {
   plop.setGenerator('translation', createTranslationSyncPrompt(languagesCodes));
 
   plop.setActionType('syncTranslations', ((answers: Answers, config: any) => {
-    const sourceLocale = require(`${config.path}/${answers.code}/${answers.code}.json`)
+    const sourceLocaleCode = answers.code || 'en'
+    const sourceLocale = require(`${config.path}/${sourceLocaleCode}/${sourceLocaleCode}.json`)
 
     languagesCodes.forEach((code: string) => {
-      if (code !== answers.code) {
+      if (code !== sourceLocaleCode) {
         const locale = require(`${config.path}/${code}/${code}.json`)
         const mergedLocale = mergeLocaleData(sourceLocale, locale)
 

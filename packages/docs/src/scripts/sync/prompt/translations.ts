@@ -7,17 +7,13 @@ module.exports = {
       {
         type: 'input',
         name: 'code',
-        message: `What's the locale code (available: ${codes.join(', ')})?`,
+        message: `What's the locale code (available: ${codes.join(', ')}; by default: en)?`,
         validate: (v: string): boolean | string => {
-          if (!v) {
-            return 'The locale code is required'
+          if (!v || codes.includes(v)) {
+            return true
           }
 
-          if (codes.includes(v)) {
-            return true
-          } else {
-            return 'Invalid locale code'
-          }
+          return 'Invalid locale code'
         },
       },
     ],
