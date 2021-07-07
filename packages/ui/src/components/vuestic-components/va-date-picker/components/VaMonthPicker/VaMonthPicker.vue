@@ -107,7 +107,7 @@ export default defineComponent({
 
     const {
       focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
-    } = useGridKeyboardNavigation(4, {
+    } = useGridKeyboardNavigation(3, {
       start: 0,
       end: months.length,
     }, (selectedIndex) => onMonthClick(view.value.year, selectedIndex))

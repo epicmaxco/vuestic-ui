@@ -128,6 +128,7 @@ export default defineComponent({
     opacity: 0.5;
   }
 
+  &:hover,
   &_focused,
   &_focused:hover {
     $focus-border-opacity: 0.8;
