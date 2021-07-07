@@ -106,10 +106,10 @@
       <va-select
         v-model="defaultMultiSelect.value"
         class="mb-4"
-        label="Custom tag max (3)"
+        label="Max selections (3)"
         :options="defaultMultiSelect.options"
         multiple
-        :tag-max="3"
+        :max-selections="3"
       />
       <va-select
         v-model="defaultMultiSelect.value"
@@ -436,6 +436,15 @@
         class="mb-4"
         :options="defaultMultiSelect.options"
         allow-create="unique"
+        multiple
+      />
+      <va-select
+        v-model="allowCreateValueMultiple"
+        class="mb-4"
+        label="Default mode and multi select, Max 3 selections"
+        :options="defaultMultiSelect.options"
+        :max-selections=3
+        allow-create
         multiple
       />
     </VbCard>

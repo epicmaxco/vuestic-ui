@@ -198,6 +198,7 @@ class SelectProps {
   clearableIcon = prop<string>({ type: String, default: 'highlight_off' })
   hideSelected = prop<boolean>({ type: Boolean, default: false })
   tabindex = prop<number>({ type: Number, default: 0 })
+  maxSelections = prop<number>({ type: Number, default: undefined })
   dropdownIcon = prop<string | DropdownIcon>({
     type: [String, Object],
     default: (): DropdownIcon => ({
@@ -394,6 +395,10 @@ export default class VaSelect extends mixins(
     }
   }
 
+  exceedsMaxSelections (): boolean {
+    return this.valueComputed.length >= this.maxSelections
+  }
+
   selectOption (option: any): void {
     if (this.hoveredOption === null) {
       this.hideAndFocus()
@@ -411,6 +416,7 @@ export default class VaSelect extends mixins(
         // Unselect
         this.valueComputed = this.valueComputed.filter((optionSelected: any) => !this.compareOptions(option, optionSelected))
       } else {
+        if (this.exceedsMaxSelections()) { return }
         this.valueComputed = [...this.valueComputed, option]
       }
     } else {
@@ -421,6 +427,8 @@ export default class VaSelect extends mixins(
 
   addNewOption (): void {
     if (this.$props.multiple) {
+      if (this.exceedsMaxSelections()) { return }
+
       const hasAddedOption: boolean = this.valueComputed.some((value: any) => value === this.searchInputValue)
 
       // Do not change valueComputed if option already exist and allow create is `unique`
