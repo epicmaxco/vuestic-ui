@@ -945,6 +945,10 @@
       "wip": {
         "text": "wip",
         "title": "Work In Progress"
+      },
+      "new": {
+        "text": "new",
+        "title": "Recently added"
       }
     },
     "categories": {

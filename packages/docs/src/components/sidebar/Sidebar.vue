@@ -43,7 +43,13 @@
                 {{ $t(childRoute.displayName) }}
               </va-sidebar-item-title>
               <div class="va-sidebar-item-badges" v-if="childRoute.meta && childRoute.meta.badge">
-                <va-chip :title="$t(`menu.badges.${childRoute.meta.badge}.title`)" size="small">{{ $t(`menu.badges.${childRoute.meta.badge}.text`) }}</va-chip>
+                <va-chip
+                  size="small"
+                  :color="badgeColors[childRoute.meta.badge]"
+                  :title="$t(`menu.badges.${childRoute.meta.badge}.title`)"
+                >
+                  {{ $t(`menu.badges.${childRoute.meta.badge}.text`) }}
+                </va-chip>
               </div>
             </va-sidebar-item-content>
           </va-sidebar-item>
@@ -79,6 +85,8 @@ export default class Sidebar extends Vue.with(Props) {
   getColor (color: string) {
     return getColor(color)
   }
+
+  badgeColors = { wip: 'primary', new: 'success' }
 
   get activeColor () {
     return '#b8c9ec'
