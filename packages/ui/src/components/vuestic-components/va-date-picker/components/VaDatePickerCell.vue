@@ -118,36 +118,14 @@ export default defineComponent({
       border: 2px solid var(--va-date-picker-selected-text);
       opacity: 1;
     }
+
+    &::after {
+      opacity: 1;
+    }
   }
 
   &_other-month {
     opacity: 0.5;
-  }
-
-  &:hover {
-    $hover-border-opacity: 0.5;
-
-    &::before {
-      border: 2px solid var(--va-date-picker-focused-border-color);
-      opacity: $hover-border-opacity;
-    }
-
-    &.va-date-picker-cell_selected {
-      &::before {
-        width: calc(100% - 4px);
-        height: calc(100% - 4px);
-        transform: translateY(2px) translateX(2px);
-        padding: 2px;
-        border: 2px solid var(--va-date-picker-focused-selected-border-color);
-        opacity: $hover-border-opacity;
-      }
-    }
-
-    &.va-date-picker-cell_disabled {
-      &::before {
-        opacity: 0;
-      }
-    }
   }
 
   &_focused,
@@ -167,6 +145,12 @@ export default defineComponent({
         padding: 2px;
         border: 2px solid var(--va-date-picker-focused-selected-border-color);
         opacity: $focus-border-opacity;
+      }
+
+      &.va-date-picker-cell_today {
+        &::after {
+          opacity: 0;
+        }
       }
     }
   }
