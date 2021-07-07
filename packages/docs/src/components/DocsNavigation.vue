@@ -71,10 +71,17 @@ export default {
     }
   },
   methods: {
+    updateCopyButton(icon, text) {
+      this.copyIcon = icon
+      this.copyText = text
+    },
     copy () {
-      this.$clipboard(this.code)
-      this.copyIcon = 'fa fa-check'
-      this.copyText = 'Copied'
+      try {
+        window.navigator.clipboard.writeText(this.code)
+        this.updateCopyButton('fa fa-check', 'Copied')
+      } catch(e) {
+        if (e.message === 'NotAllowedError') { this.updateCopyButton('fa fa-times', 'Permission failure!') }
+      }
       setTimeout(() => {
         this.copyText = 'Copy code'
         this.copyIcon = 'fa fa-files-o'
