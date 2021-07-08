@@ -1,8 +1,8 @@
 <template>
-  <h3>
+  <h5>
     <MarkdownView tag="span" inline :value="textComputed" />
     <DocsAnchor :text="textComputed" />
-  </h3>
+  </h5>
 </template>
 <script lang='ts'>
 import { TranslationString } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
@@ -17,10 +17,10 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
-  name: 'DocsSubtitle',
+  name: 'DocsHeadline',
   components: { DocsAnchor, MarkdownView },
 })
-export default class DocsSubtitle extends mixins(PropsMixin) {
+export default class DocsHeadline extends mixins(PropsMixin) {
   get textComputed () {
     return this.$t(this.text)
   }
