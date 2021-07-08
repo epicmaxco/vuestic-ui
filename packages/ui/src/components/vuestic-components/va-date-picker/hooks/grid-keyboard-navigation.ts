@@ -8,6 +8,10 @@ function safeUnref<T> (refOrRaw: Ref<T> | T): T {
   return refOrRaw
 }
 
+function isUndefined<T> (t: T | undefined): t is undefined {
+  return t === undefined
+}
+
 export const useGridKeyboardNavigation = (
   rowSize: number,
   offset: { start?: Ref<number> | number, end?: Ref<number> | number } = {},
@@ -57,10 +61,10 @@ export const useGridKeyboardNavigation = (
       focusedCellIndex.value -= rowSize
     }
 
-    if (offset.start && focusedCellIndex.value < safeUnref(offset.start)) {
+    if (!isUndefined(offset.start) && focusedCellIndex.value < safeUnref(offset.start)) {
       focusedCellIndex.value = safeUnref(offset.start)
     }
-    if (offset.end && focusedCellIndex.value > safeUnref(offset.end) - 1) {
+    if (!isUndefined(offset.end) && focusedCellIndex.value > safeUnref(offset.end) - 1) {
       focusedCellIndex.value = safeUnref(offset.end) - 1
     }
   }

@@ -142,7 +142,6 @@ export default defineComponent({
     border-radius: 6px;
     text-align: center;
     user-select: none;
-    cursor: pointer;
     overflow: hidden;
   }
 

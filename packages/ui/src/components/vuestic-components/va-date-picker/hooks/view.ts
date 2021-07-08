@@ -50,7 +50,7 @@ export const useView = (
     if (syncView.value.type === 'day') {
       syncView.value = addMonth(syncView.value)
     } else if (syncView.value.type === 'month') {
-      syncView.value.year += 1
+      syncView.value = { ...syncView.value, year: syncView.value.year + 1 }
     }
   }
 
@@ -58,7 +58,7 @@ export const useView = (
     if (syncView.value.type === 'day') {
       syncView.value = subMonth(syncView.value)
     } else if (syncView.value.type === 'month') {
-      syncView.value.year -= 1
+      syncView.value = { ...syncView.value, year: syncView.value.year - 1 }
     }
   }
 
