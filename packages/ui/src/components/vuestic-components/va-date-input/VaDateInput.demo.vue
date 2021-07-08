@@ -30,6 +30,12 @@
           appendInner
         </template>
       </va-date-input>
+
+      <va-date-input v-model="value">
+        <template #input="{ valueText }">
+          <input :value="valueText" />
+        </template>
+      </va-date-input>
     </VbCard>
 
     <VbCard title="props to input">

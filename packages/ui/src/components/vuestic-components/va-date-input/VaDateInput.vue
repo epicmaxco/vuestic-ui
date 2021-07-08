@@ -1,30 +1,33 @@
 <template>
-  <div class="va-date-picker">
-    <va-dropdown v-model="isOpenSync" keep-anchor-width :offset="[0, 10]" :close-on-content-click="false">
+  <div class="va-date-input">
+    <va-dropdown v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false">
       <template #anchor>
-        <va-input
-          v-model="valueText"
-          v-bind="inputProps"
-        >
-          <template #appendInner="slotScope">
-            <slot name="appendInner" v-bind="slotScope">
-              <va-icon
-                name="calendar_today"
-                class="va-date-picker__icon"
-                size="small"
-                :color="color"
-              />
-            </slot>
-          </template>
-
-          <template
-            v-for="(_, name) in $slots"
-            :key="name"
-            v-slot:[name]="slotScope"
+        <slot name="input" v-bind="{ valueText, inputProps, color }">
+          <va-input
+            v-model="valueText"
+            v-bind="inputProps"
+            class="va-date-input__input"
           >
-            <slot :name="name" v-bind="slotScope" />
-          </template>
-        </va-input>
+            <template #appendInner="slotScope">
+              <slot name="appendInner" v-bind="slotScope">
+                <va-icon
+                  name="calendar_today"
+                  class="va-date-picker__icon"
+                  size="small"
+                  :color="color"
+                />
+              </slot>
+            </template>
+
+            <template
+              v-for="(_, name) in $slots"
+              :key="name"
+              v-slot:[name]="slotScope"
+            >
+              <slot :name="name" v-bind="slotScope" />
+            </template>
+          </va-input>
+        </slot>
       </template>
 
       <va-dropdown-content>
@@ -39,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue'
+import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
 import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
 import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerType } from '../va-date-picker/types/types'
@@ -60,6 +63,7 @@ const VaInputProps = {
   tabindex: { type: Number, default: 0 },
   outline: { Boolean, default: false },
   bordered: { Boolean, default: false },
+  readonly: { Boolean, default: true },
 }
 
 export default defineComponent({
@@ -80,7 +84,14 @@ export default defineComponent({
     isOpen: { type: Boolean },
   },
 
-  emits: ['update:modelValue', 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day', 'update:is-open'],
+  emits: [
+    'update:modelValue',
+    'hover:day', 'hover:month',
+    'update:year', 'update:month', 'update:view',
+    'click:month', 'click:day',
+    'update:is-open',
+    'update:text',
+  ],
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
@@ -117,6 +128,8 @@ export default defineComponent({
       },
     })
 
+    watch(valueText, (text) => emit('update:text', text))
+
     return {
       valueText,
       valueComputed,
@@ -132,8 +145,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .va-date-picker {
+  .va-date-input {
     &__icon {
+      cursor: pointer;
+    }
+
+    &__input {
       cursor: pointer;
     }
 
