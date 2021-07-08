@@ -1,4 +1,5 @@
 <template>
+  <!-- Tricky way to update code rendering component via v-if and nextTick. Watch handler() code below -->
   <VuePrismComponent v-if="doShowCode" class="DocsCode" :language="language">{{ formatedCode }}</VuePrismComponent>
 </template>
 
@@ -18,7 +19,7 @@ export default {
     code: {
       handler() {
         this.doShowCode = false
-        this.$nextTick(() => this.doShowCode = true)
+        this.$nextTick(() => this.doShowCode = true) // $nextTick() triggers v-if, that causes re-rendering of component.
       }, 
       immediate: true
     }
