@@ -75,9 +75,9 @@ export default {
       this.copyIcon = icon
       this.copyText = text
     },
-    copy () {
+    async copy () {
       try {
-        window.navigator.clipboard.writeText(this.code)
+        await window.navigator.clipboard.writeText(this.code)
         this.updateCopyButton('fa fa-check', 'Copied')
       } catch(e) {
         if (e.message === 'NotAllowedError') { this.updateCopyButton('fa fa-times', 'Permission failure!') }
