@@ -23,7 +23,7 @@
     </VbCard>
     <VbCard title="Text styles">
       <div>Default Text</div>
-      <div v-for="color in textStyleColors" :key="color" :class="`text--${color}`">{{ color }} text</div>
+      <div v-for="color in textStyleColors" :key="color" :class="`va-text--${color}`">{{ color }} text</div>
     </VbCard>
   </VbDemo>
 </template>

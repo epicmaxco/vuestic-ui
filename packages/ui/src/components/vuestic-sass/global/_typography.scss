@@ -100,12 +100,16 @@
     background-color: $vue-darkest-blue;
     padding: 0.1rem 0.2rem;
   }
+}
 
-  $text-theme-colors: "primary", "secondary", "success", "info", "danger", "warning", "gray", "dark";
+.va {
+  &-text {
+    $text-theme-colors: "primary", "secondary", "success", "info", "danger", "warning", "gray", "dark";
 
-  @each $color in $text-theme-colors {
-    &--#{$color} {
-      color: var(--va-#{$color});
+    @each $color in $text-theme-colors {
+      &--#{$color} {
+        color: var(--va-#{$color});
+      }
     }
   }
 }
