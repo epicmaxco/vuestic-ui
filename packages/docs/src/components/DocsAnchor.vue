@@ -2,7 +2,6 @@
   <a :id="anchor" :style="{ color: colors.primary }" :href="`#${anchor}`"> #</a>
 </template>
 <script lang='ts'>
-// @ts-nocheck
 import { kebabCase } from 'lodash'
 import { TranslationString } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 import { Options, Vue, mixins, prop } from 'vue-class-component'
