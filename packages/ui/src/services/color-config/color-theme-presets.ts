@@ -23,7 +23,7 @@ export const colorsPresets: Record<string, VuesticColorsPreset> = {
     warning: '#FFD43A',
     background: '#F5F9FB',
     divider: '#E1E9F8',
-    gray: '#babfc2',
+    gray: '#BABFC2',
     dark: '#262824',
   },
 }

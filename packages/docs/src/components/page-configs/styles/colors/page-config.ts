@@ -25,7 +25,7 @@ Available colors:
 export default [
   DocsHelper.title('colors.title'),
   DocsHelper.paragraph('colors.description'),
-  DocsHelper.example('color-variables/ColorBorder'),
+  DocsHelper.example('color-variables/CustomAlert'),
   DocsHelper.subtitle('colors.syntax.title'),
   DocsHelper.paragraph('colors.syntax.description'),
   DocsHelper.code(scheme),
