@@ -24,7 +24,7 @@ module.exports = (plop: NodePlopAPI) => {
   })
 
   plop.setActionType('addLanguage', ((answers: GeneratorAnswers, config: AddActionConfig) => {
-    const languagesPath = `${config.path}/components/languages.ts`
+    const languagesPath = `${config.path}/locales/index.ts`
     const languages = fs.readFileSync(languagesPath).toString()
 
     const isoCode = plop.getHelper('lowerCase')(answers.code)
@@ -40,6 +40,7 @@ module.exports = (plop: NodePlopAPI) => {
     code: '${isoCode}',
     name: '${languageName}',
     status: 'part',
+    translationPath: 'translation.language.${isoCode}',
   },
   ${replaceString}`
 
