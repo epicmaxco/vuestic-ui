@@ -196,15 +196,51 @@
         </tbody>
       </table>
     </VbCard>
+    <VbCard title="va-content-break">
+      <va-content>
+        <h1>h1 title</h1>
+        <va-content-break>
+          <h1>h1 default title</h1>
+          <h2>h2 default title</h2>
+          <h3>h3 default title</h3>
+          <va-button @click="innerContentVissible = !innerContentVissible">Toggle</va-button>
+          <va-content>
+            <h1>h1 title</h1>
+            <div v-if="innerContentVissible">
+              <span v-html="htmlText"></span>
+              <va-card>
+                <h1>Card h1</h1>
+              </va-card>
+              <va-form></va-form>
+              <div>
+                <h2>h2 title2</h2>
+              </div>
+              <h3>h3 title</h3>
+              <h4>h4 title</h4>
+              <va-content-break>
+                <va-card>
+                  <h1>Card default h1</h1>
+                </va-card>
+                <h4>h4 default title</h4>
+                <h5>h5 default title</h5>
+                <h6>h6 default title</h6>
+              </va-content-break>
+            </div>
+          </va-content>
+        </va-content-break>
+      </va-content>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaContent from './VaContent'
+import VaContentBreak from './VaContentBreak'
 
 export default {
   components: {
     VaContent,
+    VaContentBreak,
   },
   data () {
     return {
@@ -214,6 +250,8 @@ export default {
         ['2', 'Not Zebra', 'Remove'],
         ['3', 'Very Zebra', 'Eradicate'],
       ],
+      htmlText: '<h1>html h1 title</h1>',
+      innerContentVissible: false,
     }
   },
 }
