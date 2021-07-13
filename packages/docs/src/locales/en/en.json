@@ -2795,7 +2795,7 @@
   },
   "translation": {
     "title": "Translation",
-    "description": "Translation is only needed for documentation (`packages/docs/locales`) as components don't use any translation strings at the moment. After finishing work on the translation, do not forget to change its status to `full` in file `components/languages.ts`. Here's the current state for languages support:",
+    "description": "Translation is only needed for documentation (`packages/docs/locales`) as components don't use any translation strings at the moment. After finishing work on the translation, do not forget to change its status to `full` in file `locales/index.ts`. Here's the current state for languages support:",
     "table": {
       "language": "Language",
       "code": "Code",
