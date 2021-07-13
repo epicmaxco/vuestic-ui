@@ -16,6 +16,7 @@ export default {
     deletableTags: { local: true },
     searchable: { local: true },
     multiple: { local: true },
+    maxSelections: { local: true },
     width: { local: true },
     maxHeight: { local: true },
     noOptionsText: { local: true },
