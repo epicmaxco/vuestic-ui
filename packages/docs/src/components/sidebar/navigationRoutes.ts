@@ -95,6 +95,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.avatar',
       },
       {
+        name: 'badge',
+        displayName: 'menu.badge',
+      },
+      {
         name: 'button',
         displayName: 'menu.button',
       },
@@ -225,10 +229,6 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.breadcrumbs',
       },
       {
-        name: 'badge',
-        displayName: 'menu.badge',
-      },
-      {
         name: 'navbar',
         displayName: 'menu.navbar',
       },
@@ -317,6 +317,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'guide',
         displayName: 'menu.guide',
+      },
+      {
+        name: 'ui-element-guide',
+        displayName: 'menu.uiElementGuide',
       },
       // GENERATOR_ADD - contribution
     ],

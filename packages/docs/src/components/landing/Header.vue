@@ -77,7 +77,7 @@
 <script lang="ts">
 // @ts-nocheck
 import { Options, Vue } from 'vue-class-component'
-import { languages } from './../languages'
+import { languages } from '../../locales'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import StarsButton from './StarsButton.vue'

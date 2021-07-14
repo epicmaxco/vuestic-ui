@@ -1,12 +1,30 @@
-import { languages } from '../components/languages'
+export type TranslationStatusPath = { [key in 'full' | 'part']: string }
 
-const translations = languages.reduce((result, { code, name }) => ({
-  ...result,
-  [code]: {
-    name,
-    messages: require(`./${code}/${code}.json`),
-    // load: () => import(`./${code}/${code}.json`),
+export const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    status: 'full',
+    translationPath: 'translation.language.en',
   },
+  // {
+  //   code: 'es',
+  //   name: 'Español',
+  //   status: 'part',
+  //   translationPath: 'translation.language.es',
+  // },
+  {
+    code: 'ru',
+    name: 'Русский',
+    status: 'full',
+    translationPath: 'translation.language.ru',
+  },
+  // GENERATOR_ADD - language
+]
+
+export const messages = languages.reduce((result, { code, name }) => ({
+  ...result,
+  [code]: require(`./${code}/${code}.json`),
 }), {})
 
-export default translations
+export const DEFAULT_LANGUAGE = 'en'

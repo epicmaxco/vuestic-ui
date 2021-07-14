@@ -10,6 +10,7 @@
     :error-count="errorCount"
     @click:prepend="onPrependClick"
     @click:append="onAppendClick"
+    @click="focus"
   >
     <template
       v-if="$slots.prepend"
@@ -250,7 +251,7 @@ export default class VaInput extends mixins(
   /** @public */
   focus (): void {
     if (this.$refs.input) {
-      (this as any).$refs.input.focus()
+      (this as any).$refs.input.focus({ preventScroll: true })
     } else if (this.$refs.textarea) {
       (this as any).$refs.textarea.focus()
     } else if (!this.$slots.content) {
