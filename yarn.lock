@@ -15011,6 +15011,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+rollup-plugin-generate-declarations@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-generate-declarations/-/rollup-plugin-generate-declarations-1.1.1.tgz#44753d9a069afa4aa8a440ca1de29b8146b2b731"
+  integrity sha512-tiPdRjyUYFqOHQSj7hjr6rRSPMebpRPVOwjQJEQWK41cdzr7eUQNiXwT98JEMAvJAkO9rBhQ2BjAgv02ZGcq4A==
+
 rollup-plugin-multi-input@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/rollup-plugin-multi-input/-/rollup-plugin-multi-input-1.3.1.tgz#07b903b618c005871fea1bd0c4efae7d1aac4fa1"

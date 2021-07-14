@@ -1,6 +1,7 @@
 import { defineConfig } from 'rollup'
 import typescriptPlugin from 'rollup-plugin-typescript'
 import typescript from 'typescript'
+import typescriptDeclarationPlugin from 'rollup-plugin-generate-declarations'
 import vuePlugin from 'rollup-plugin-vue'
 import commonjsPlugin from '@rollup/plugin-commonjs'
 import postcssPlugin from 'rollup-plugin-postcss'
@@ -11,12 +12,25 @@ const DEFAULT_CONFIG = {
   plugins: [
     // terserPlugin(), // Minification. Can be commented to prevent minification.
     typescriptPlugin({ typescript }), // TS
+    typescriptDeclarationPlugin(),
     vuePlugin({ target: 'browser', preprocessStyles: true }), // Here we use target node for ssr and should preprocessStyles
     postcssPlugin(), // Transform preprocessStyles
     // scssPlugin(),
     commonjsPlugin(), // Used to transform commonjs to esm.
   ],
-  external: ['vue', '@vue/reactivity', '@vue/runtime-core', '@vue/shared'], // Do not bundle vue as it peer-dependency.
+  external: [
+    'vue',
+    '@vue/reactivity',
+    '@vue/runtime-core',
+    '@vue/shared',
+    '@popperjs/core',
+    'asva-executors',
+    'cleave.js',
+    'colortranslator',
+    'lodash',
+    'element-resize-detector',
+    'detect-browser',
+  ],
 }
 
 /** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
