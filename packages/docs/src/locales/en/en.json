@@ -2382,7 +2382,7 @@
       },
       "allowCreate": {
         "title": "Allow create",
-        "text": "You can add options that initial options not contain"
+        "text": "You can add options that initial options do not have"
       },
       "validation": {
         "title": "Validation rules",
@@ -2392,7 +2392,7 @@
         "title": "Keyboard navigation",
         "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
         "selects": "By using `ENTER` and `SPACE` you can select current option",
-        "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
+        "hints": "If you type while option list is opened this will create a search buffer (will reset if you do not type for 1 second) that will be used to search in the options labels"
       },
       "styles": {
         "title": "Styles",
