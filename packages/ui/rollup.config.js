@@ -1,19 +1,54 @@
+import { defineConfig } from 'rollup'
 import typescriptPlugin from 'rollup-plugin-typescript'
 import typescript from 'typescript'
-import multiInput from 'rollup-plugin-multi-input'
 import vuePlugin from 'rollup-plugin-vue'
+import commonjsPlugin from '@rollup/plugin-commonjs'
+import postcssPlugin from 'rollup-plugin-postcss'
+import { terser as terserPlugin } from 'rollup-plugin-terser'
 import scssPlugin from 'rollup-plugin-scss'
-import nodeResolvePlugin from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
 
-export default {
-  input: ['./src/components/vuestic-components/va-*/index.ts'],
-  output: {
-    format: 'esm',
-    dir: 'dist/esm',
-  },
+const DEFAULT_CONFIG = {
   plugins: [
-    commonjs(), typescriptPlugin({ typescript }), multiInput(), scssPlugin({ output: 'dist/esm/vuestic-ui.css' }), vuePlugin(),
+    // terserPlugin(), // Minification. Can be commented to prevent minification.
+    typescriptPlugin({ typescript }), // TS
+    vuePlugin({ target: 'browser', preprocessStyles: true }), // Here we use target node for ssr and should preprocessStyles
+    postcssPlugin(), // Transform preprocessStyles
+    // scssPlugin(),
+    commonjsPlugin(), // Used to transform commonjs to esm.
   ],
-  external: ['vue'],
+  external: ['vue', '@vue/reactivity', '@vue/runtime-core', '@vue/shared'], // Do not bundle vue as it peer-dependency.
 }
+
+/** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
+function createESMConfig (inputPath, outPath = 'dist/') {
+  const inputPathWithoutFilename = inputPath.split('/').slice(0, -1).join('/')
+
+  return defineConfig({
+    ...DEFAULT_CONFIG,
+    input: inputPath,
+    output: {
+      dir: outPath,
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: inputPathWithoutFilename,
+    },
+  })
+}
+
+function UMDBundleConfig (inputPath, outPath = 'dist/') {
+  return defineConfig({
+    ...DEFAULT_CONFIG,
+    input: inputPath,
+    output: {
+      format: 'umd',
+      dir: outPath,
+      name: 'vuestic-ui',
+      // file: `${outPath}vuestic-ui.js`,
+    },
+  })
+}
+
+export default [
+  createESMConfig('./src/main.ts'),
+  // UMDBundleConfig('./src/vuestic-components.ts'),
+]
