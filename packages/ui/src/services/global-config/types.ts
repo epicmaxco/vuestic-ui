@@ -1,6 +1,6 @@
-import { ColorConfig } from '../color-config/color-config'
-import { ComponentConfig } from '../component-config/component-config'
-import { IconConfig } from '../icon-config/types'
+import type { ColorConfig } from '../color-config/color-config'
+import type { ComponentConfig } from '../component-config/component-config'
+import type { IconConfig } from '../icon-config/types'
 
 export type GlobalConfig = {
   colors?: ColorConfig,
