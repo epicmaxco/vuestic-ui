@@ -1093,6 +1093,10 @@
       "api": {
         "title": "API",
         "text": "API documentation for component. Combines component options with manual declarations."
+      },
+      "alert": {
+        "title": "Alert",
+        "text": "Should be used to display an important message."
       }
     },
     "apiOptionsTitle": "API Options",

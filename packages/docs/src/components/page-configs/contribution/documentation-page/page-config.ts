@@ -97,4 +97,10 @@ export default [
     type: BlockType.CODE,
     code: apiOptions,
   },
+
+  DocsHelper.headline('documentationPage.blocktypes.alert.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.alert.text'),
+  DocsHelper.code('DocsHelper.alert(\'translation.path\', \'#ff0000\')'),
+  DocsHelper.paragraph('documentationPage.compilesTo'),
+  DocsHelper.alert('translation.path', '#ff0000'),
 ] as ApiDocsBlock[]
