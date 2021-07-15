@@ -1,55 +1,22 @@
+import typescript from 'typescript'
 import { defineConfig } from 'rollup'
 import typescriptPlugin from 'rollup-plugin-typescript'
-import typescript from 'typescript'
-import typescriptDeclarationPlugin from 'rollup-plugin-generate-declarations'
 import vuePlugin from 'rollup-plugin-vue'
-import commonjsPlugin from '@rollup/plugin-commonjs'
 import postcssPlugin from 'rollup-plugin-postcss'
 import { terser as terserPlugin } from 'rollup-plugin-terser'
-import scssPlugin from 'rollup-plugin-scss'
-import { exec } from 'child_process'
+import nodeBuiltinsPlugin from 'rollup-plugin-node-builtins'
+import commonjsPlugin from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import { resolve } from 'path'
-import sass from 'sass'
-
-const BUILD_OPTIONS = {
-  generateTypes: false,
-  minify: false,
-}
-
-const tsDeclarationsPlugin = function (options = { outDir: 'dist' }) {
-  return {
-    name: 'generate-declarations',
-    buildEnd: (err) => {
-      if (err) {
-        return
-      }
-
-      exec(`tsc --emitDeclarationOnly --outDir ${options.outDir}`)
-    },
-  }
-}
-
-const DEFAULT_CONFIG = defineConfig({
-  // plugins: [
-  //   // terserPlugin(), // Minification. Can be commented to prevent minification.
-  //   typescriptPlugin({ typescript }), // TS
-  //   vuePlugin({ target: 'browser', preprocessStyles: true, css: true, compileTemplate: true }), // Here we use target node for ssr and should preprocessStyles
-  //   postcssPlugin(), // Transform preprocessStyles
-  //   // scssPlugin(),
-  // ],
-})
+import typescriptDeclarationPlugin from './build/rollup/rollup-typescript-declaration'
 
 /** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
-function createESMConfig (inputPath, outPath = 'dist/') {
-  const inputPathWithoutFilename = inputPath.split('/').slice(0, -1).join('/')
+function createESMConfig ({ input, outDir = 'dist/', minify = false, declaration = false, ssr = false }) {
+  const inputPathWithoutFilename = input.split('/').slice(0, -1).join('/')
 
-  return defineConfig({
-    ...DEFAULT_CONFIG,
-
-    input: inputPath,
+  const config = defineConfig({
+    input,
     output: {
-      dir: outPath,
+      dir: outDir,
       format: 'esm',
       preserveModules: true,
       preserveModulesRoot: inputPathWithoutFilename,
@@ -70,34 +37,25 @@ function createESMConfig (inputPath, outPath = 'dist/') {
     ],
 
     plugins: [
-      // BUILD_OPTIONS.minify ? terserPlugin() : () => null, // Minification. Can be commented to prevent minification.
       typescriptPlugin({ typescript }),
-      tsDeclarationsPlugin({ outDir: outPath }),
-      vuePlugin({ target: 'browser', preprocessStyles: true, compileTemplate: true }), // Here we use target node for ssr and should preprocessStyles
-      postcssPlugin(), // Transform preprocessStyles
+      vuePlugin({ target: ssr ? 'node' : 'browser', compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
+      postcssPlugin(), // Transform preprocessStyles
     ],
   })
+
+  if (minify) { config.plugins.push(terserPlugin()) }
+  if (declaration) { config.plugins.push(typescriptDeclarationPlugin({ outDir })) }
+
+  return config
 }
 
-function UMDBundleConfig (inputPath, outPath = 'dist/') {
-  const importer = (url, _prev, done) => {
-    if (url[0] !== '~') {
-      return null
-    }
-    const info = { file: resolve(`node_modules/${url.substr(1)}`) }
-    if (done) {
-      done(info)
-    }
-    return info
-  }
-
-  return defineConfig({
-    ...DEFAULT_CONFIG,
-
-    input: inputPath,
+/** Used to create a universe lib, that can be imported from cdn by browser */
+function UMDBundleConfig ({ input, outDir = 'dist/', minify = false, declaration = false, ssr = false }) {
+  const config = defineConfig({
+    input,
     output: {
-      dir: outPath,
+      dir: outDir,
       format: 'umd',
       name: 'vuestic-ui',
       globals: ['vue'],
@@ -105,16 +63,21 @@ function UMDBundleConfig (inputPath, outPath = 'dist/') {
 
     plugins: [
       typescriptPlugin({ typescript }),
-      // tsDeclarationsPlugin({ outDir: outPath }),
-      vuePlugin({ target: 'browser', compileTemplate: true, css: false, preprocessStyles: true }), // Here we use target node for ssr and should preprocessStyles
+      vuePlugin({ target: ssr ? 'node' : 'browser', compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
-      nodeResolve(),
+      nodeResolve({ browser: !ssr }),
       postcssPlugin({ extract: 'main.css' }),
     ],
   })
+
+  if (minify) { config.plugins.push(terserPlugin({ safari10: true, compress: { ecma: 2015, pure_getters: true } })) }
+  if (declaration) { config.plugins.push(typescriptDeclarationPlugin({ outDir })) }
+  if (!ssr) { config.plugins.push(nodeBuiltinsPlugin({ crypto: true })) }
+
+  return config
 }
 
 export default [
   // createESMConfig('./src/main.ts', 'dist/esm'),
-  UMDBundleConfig('./src/main.ts', 'dist/umd'),
+  UMDBundleConfig({ input: './src/main.ts', outDir: 'dist/umd', ssr: false }),
 ]
