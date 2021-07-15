@@ -1,5 +1,7 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import apiOptions from './api-options'
+import linkOptions from './link-options'
+import { locale } from '../../../../helpers/I18nHelper'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 export const codeForCodeblock = '\'<div>Code string</div>\''
@@ -8,6 +10,10 @@ export const codeForListBlock = `
     <li> Value of the list item 1 </li>
     <li> Value of the list item 2 </li>
 </ul>`
+export const linkOptionsBlock = `{
+  preText: 'prefix',
+  afterText: 'suffix',
+}`
 
 export default [
   DocsHelper.title('documentationPage.title'),
@@ -46,11 +52,11 @@ export default [
 
   DocsHelper.headline('documentationPage.blocktypes.list.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.list.text'),
-  DocsHelper.code('DocsHelper.list([\'translation1.path\', \'translation2.path\'\])'),
+  DocsHelper.code('DocsHelper.list([\'translation1.path\', \'translation2.path\'])'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.list([
     'documentationPage.blocktypes.list.listExample1',
-    'documentationPage.blocktypes.list.listExample2'
+    'documentationPage.blocktypes.list.listExample2',
   ]),
   DocsHelper.paragraph('documentationPage.blocktypes.list.inCode'),
   DocsHelper.code(codeForListBlock),
@@ -59,7 +65,7 @@ export default [
   DocsHelper.paragraph('documentationPage.blocktypes.code.text'),
   DocsHelper.code(`DocsHelper.code(${codeForCodeblock})`),
   DocsHelper.paragraph('documentationPage.compilesTo'),
-  DocsHelper.code(codeForCodeblock.slice(1,-1)),
+  DocsHelper.code(codeForCodeblock.slice(1, -1)),
 
   DocsHelper.headline('documentationPage.blocktypes.example.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.example.text'),
@@ -97,6 +103,19 @@ export default [
     type: BlockType.CODE,
     code: apiOptions,
   },
+
+  DocsHelper.headline('documentationPage.blocktypes.link.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.link.textOption1'),
+  // eslint-disable-next-line no-template-curly-in-string
+  DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/services/components-config`)"),
+  DocsHelper.paragraph('documentationPage.compilesTo'),
+  DocsHelper.link('translation.path', `/${locale}/services/components-config`),
+  DocsHelper.paragraph('documentationPage.blocktypes.link.textOption2'),
+  DocsHelper.code(`options = ${linkOptionsBlock}`),
+  // eslint-disable-next-line no-template-curly-in-string
+  DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/contribution/documentation-page#translation-path`, options)"),
+  DocsHelper.paragraph('documentationPage.compilesTo'),
+  DocsHelper.link('translation.path', `/${locale}/contribution/documentation-page#translation-path`, linkOptions),
 
   DocsHelper.headline('documentationPage.blocktypes.alert.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.alert.text'),

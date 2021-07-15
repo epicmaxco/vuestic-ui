@@ -1094,6 +1094,11 @@
         "title": "API",
         "text": "API documentation for component. Combines component options with manual declarations."
       },
+      "link": {
+        "title": "Link",
+        "textOption1": "- Used for local links:",
+        "textOption2": "- Used for local links with **options**:"
+      },
       "alert": {
         "title": "Alert",
         "text": "Should be used to display an important message."
@@ -1104,7 +1109,7 @@
       "text": "With automated code analysis we can't go too far. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
       "version": "`version` - specifies at which version of vuestic this component or feature were implemented.",
       "types": "`types` - simpler prop types documentation engine can figure from component options (`String`, `Number` etc). For almost everything else it has to be defined.",
-      "local": "`local` - forces to use component-specific translation. Default behaviour is using 'all' section of the translation object.",
+      "local": "`local` - forces to use component-specific translation. Default behavior is using 'all' section of the translation object.",
       "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. As some props could be intended for internal use."
     }
   },
@@ -2947,7 +2952,7 @@
     },
     "setup": {
       "title": "Let's build our config",
-      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Veustic defaults and our custom fonts and aliases. For example:"
+      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Vuestic defaults and our custom fonts and aliases. For example:"
     },
     "api": {
       "title": "Icon config API",
