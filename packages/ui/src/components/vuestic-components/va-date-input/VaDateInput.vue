@@ -45,15 +45,13 @@
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
 import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
-import { VaDatePickerModelValue, VaDatePickerView, VaDatePickerType } from '../va-date-picker/types/types'
 import { isRange, isSingleDate, isDates } from '../va-date-picker/helpers/model-value-helper'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { filterComponentProps, extractComponentProps } from '../va-date-picker/utils/child-props'
+import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
-
-const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
+import VaInput from '../va-input'
 
 const VaInputProps = {
   label: { type: String, required: false },
@@ -69,18 +67,12 @@ const VaInputProps = {
 export default defineComponent({
   name: 'VaDateInput',
 
-  components: { VaDatePicker },
+  components: { VaDatePicker, VaInput },
 
   props: {
     ...extractComponentProps(VaDatePicker),
     ...VaInputProps,
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
-    year: { type: Number },
-    month: { type: Number },
-    monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
-    weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
-    view: { type: Object as PropType<VaDatePickerView> },
-    valueType: { type: String as PropType<VaDatePickerType>, default: 'day' },
+    resetOnClose: { type: Boolean, default: true },
     isOpen: { type: Boolean },
   },
 
@@ -94,16 +86,13 @@ export default defineComponent({
   ],
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit)
-    const { year, month, view, valueType, isOpen } = toRefs(props)
-
-    const inputProps = filterComponentProps(props, VaInputProps)
-    const datePickerProps = filterComponentProps(props, extractComponentProps(VaDatePicker))
-
-    const { syncProp: viewYear } = useSyncProp(year, 'year', emit, new Date().getFullYear())
-    const { syncProp: viewMonth } = useSyncProp(month, 'month', emit, new Date().getMonth())
-    const { syncProp: viewView } = useSyncProp(view, 'view', emit)
+    const { isOpen, resetOnClose } = toRefs(props)
+    const { valueComputed: statefulValue } = useStateful(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
+
+    const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
+    const { valueComputed, reset } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled)
+    watch(isOpenSync, (isOpened) => { if (!isOpened && !isRangeModelValueGuardDisabled.value) { reset() } })
 
     const valueText = computed({
       get: () => {
@@ -133,12 +122,10 @@ export default defineComponent({
     return {
       valueText,
       valueComputed,
-      datePickerProps,
-      inputProps,
-      viewYear,
-      viewMonth,
-      viewView,
       isOpenSync,
+
+      inputProps: filterComponentProps(props, VaInputProps),
+      datePickerProps: filterComponentProps(props, extractComponentProps(VaDatePicker)),
     }
   },
 })

@@ -66,6 +66,12 @@
       <va-date-input v-model="value" v-model:is-open="isOpen" :label="`Should be open ${isOpen}`" class="mb-4" />
     </VbCard>
 
+    <VbCard title="reset on close (range)">
+      <va-date-input v-model="range" v-model:is-open="isOpen" label="enabled" class="mb-4" />
+
+      <va-date-input v-model="range" v-model:is-open="isOpen" label="disabled" :reset-on-close="false" class="mb-4" />
+    </VbCard>
+
     <VbCard title="slots to calendar">
       <va-date-input
         v-model="value"
