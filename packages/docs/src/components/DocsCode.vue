@@ -1,5 +1,6 @@
 <template>
-  <VuePrismComponent class="DocsCode" :language="language">{{ formatedCode }}</VuePrismComponent>
+  <!-- Tricky way to update code rendering component via v-if and nextTick. See `code` prop watcher code below -->
+  <VuePrismComponent v-if="doShowCode" class="DocsCode" :language="language">{{ formatedCode }}</VuePrismComponent>
 </template>
 
 <script>
@@ -18,6 +19,11 @@ export default {
       type: String,
       default: '',
     },
+  },
+  data() {
+    return {
+      doShowCode: true,
+    }
   },
   components: {
     VuePrismComponent,
@@ -48,6 +54,15 @@ export default {
       }
       return newCode
     },
+  },
+  watch: {
+    code: {
+      handler() {
+        this.doShowCode = false
+        this.$nextTick(() => this.doShowCode = true) // $nextTick() triggers v-if, that causes re-rendering of component.
+      }, 
+      immediate: true
+    }
   },
 }
 </script>
