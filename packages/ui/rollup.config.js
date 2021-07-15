@@ -1,6 +1,6 @@
 import typescript from 'typescript'
 import { defineConfig } from 'rollup'
-import typescriptPlugin from 'rollup-plugin-typescript'
+import typescriptPlugin from 'rollup-plugin-typescript2'
 import vuePlugin from 'rollup-plugin-vue'
 import postcssPlugin from 'rollup-plugin-postcss'
 import { terser as terserPlugin } from 'rollup-plugin-terser'
@@ -37,7 +37,7 @@ function createESMConfig ({ input, outDir = 'dist/', minify = false, declaration
     ],
 
     plugins: [
-      typescriptPlugin({ typescript }),
+      typescriptPlugin({ check: false, objectHashIgnoreUnknownHack: true }),
       vuePlugin({ target: ssr ? 'node' : 'browser', compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
       postcssPlugin(), // Transform preprocessStyles
@@ -45,7 +45,7 @@ function createESMConfig ({ input, outDir = 'dist/', minify = false, declaration
   })
 
   if (minify) { config.plugins.push(terserPlugin()) }
-  if (declaration) { config.plugins.push(typescriptDeclarationPlugin({ outDir })) }
+  // if (declaration) { config.plugins.push(typescriptDeclarationPlugin({ outDir })) }
 
   return config
 }
@@ -62,7 +62,7 @@ function UMDBundleConfig ({ input, outDir = 'dist/', minify = false, declaration
     },
 
     plugins: [
-      typescriptPlugin({ typescript }),
+      typescriptPlugin({ typescript, tsconfig: './tsconfig.json', declaration, declarationDir: outDir }),
       vuePlugin({ target: ssr ? 'node' : 'browser', compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolve({ browser: !ssr }),
@@ -71,13 +71,13 @@ function UMDBundleConfig ({ input, outDir = 'dist/', minify = false, declaration
   })
 
   if (minify) { config.plugins.push(terserPlugin({ safari10: true, compress: { ecma: 2015, pure_getters: true } })) }
-  if (declaration) { config.plugins.push(typescriptDeclarationPlugin({ outDir })) }
+  // if (declaration) { config.plugins.push(typescriptDeclarationPlugin({ outDir })) }
   if (!ssr) { config.plugins.push(nodeBuiltinsPlugin({ crypto: true })) }
 
   return config
 }
 
 export default [
-  // createESMConfig('./src/main.ts', 'dist/esm'),
-  UMDBundleConfig({ input: './src/main.ts', outDir: 'dist/umd', ssr: false }),
+  createESMConfig({ input: './src/main.ts', outDir: 'dist/esm', ssr: false }),
+  // UMDBundleConfig({ input: './src/main.ts', outDir: 'dist/umd', ssr: false }),
 ]
