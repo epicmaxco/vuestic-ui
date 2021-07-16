@@ -137,7 +137,6 @@ import VaTreeRoot from '../../vuestic-components/va-tree-view/VaTreeRoot'
 import VaTreeCategory
   from '../../vuestic-components/va-tree-view/VaTreeCategory/VaTreeCategory'
 import VaTreeNode from '../../vuestic-components/va-tree-view/VaTreeNode/VaTreeNode'
-import { getLineChartData } from '../../../data/charts/LineChartData'
 import VaBadge from '../../vuestic-components/va-badge/VaBadge'
 import VaFileUpload from '../../vuestic-components/va-file-upload/VaFileUpload'
 import VaSlider from '../../vuestic-components/va-slider/VaSlider'
@@ -160,14 +159,10 @@ export default {
     return {
       value: 60,
       icon: 'info_outline',
-      chartData: getLineChartData(this.$themes),
       files: [],
     }
   },
   methods: {
-    refreshData () {
-      this.chartData = getLineChartData(this.$themes)
-    },
     darkenTheme () {
       console.log('darken')
       // NOTE For testing. So that we can observe theme changed
