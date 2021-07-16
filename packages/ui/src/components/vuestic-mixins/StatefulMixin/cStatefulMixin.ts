@@ -49,5 +49,5 @@ export const statefulComponentOptions = {
       default: undefined,
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue'] as 'update:modelValue'[],
 }

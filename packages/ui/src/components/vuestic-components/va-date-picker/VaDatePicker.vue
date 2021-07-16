@@ -58,7 +58,7 @@ import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/Stat
 import { useColors } from '../../../services/color-config/color-config'
 
 import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
-import { filterComponentProps, extractComponentProps } from './utils/child-props'
+import { filterComponentProps, extractComponentProps, extractComponentEmits } from './utils/child-props'
 import { useView } from './hooks/view'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
@@ -94,9 +94,9 @@ export default defineComponent({
 
   emits: [
     ...statefulComponentOptions.emits,
-    'hover:day', 'hover:month',
-    'update:year', 'update:month', 'update:view',
-    'click:month', 'click:day', 'click:year',
+    ...extractComponentEmits(VaYearPicker),
+    ...extractComponentEmits(VaDayPicker),
+    ...extractComponentEmits(VaMonthPicker),
   ],
 
   setup (props, { emit }) {
@@ -106,7 +106,7 @@ export default defineComponent({
 
     const onMonthClick = ({ year, month, date }: { year: number, month: number, date: Date}) => {
       emit('click:month', { year, month, date })
-      if (props.type === 'day') {
+      if (props.type !== 'month') {
         syncView.value = { type: 'day', year, month }
       }
     }

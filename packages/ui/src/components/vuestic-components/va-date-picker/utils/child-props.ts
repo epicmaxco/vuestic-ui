@@ -1,4 +1,4 @@
-import { ComponentOptionsBase, ExtractPropTypes, PropType, computed, ComputedRef, Prop } from 'vue'
+import { ComponentOptionsBase, PropType, computed, ComputedRef, Prop } from 'vue'
 
 /**
  * Accepts parent component props and return value only for child component props.
@@ -43,4 +43,10 @@ export function extractComponentProps<T> (component: T, ignoreProps?: string[]):
   }
 
   return props
+}
+
+declare type ExtractEmitsType<T> = T extends ComponentOptionsBase<any, any, any, any, any, any, any, infer E> ? E: []
+
+export function extractComponentEmits<T> (component: T): ExtractEmitsType<T> {
+  return (component as any).emits
 }
