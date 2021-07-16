@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs, onMounted, ref } from 'vue'
+import { defineComponent, PropType, toRefs, onMounted, ref, computed } from 'vue'
 import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types/types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { isRange, isSingleDate, isDates, useDatePickerModelValue } from '../../helpers/model-value-helper'
@@ -34,6 +34,8 @@ export default defineComponent({
     hightlightToday: { type: Boolean, default: true },
     mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
     view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'year' }) },
+    startYear: { type: Number, default: () => 1970 },
+    endYear: { type: Number, default: () => new Date().getFullYear() + 50 },
   },
 
   emits: ['update:modelValue', 'hover:year', 'click:year'],
@@ -45,20 +47,22 @@ export default defineComponent({
     const { updateModelValue } = useDatePickerModelValue(props, emit)
     const { hovered: hoveredYear } = useHovered<Date>((value) => emit('hover:year', value))
 
-    const YEAR_COUNT = 100
-    const TODAY_YEAR = new Date().getFullYear()
-    const indexToYear = (index: number) => -YEAR_COUNT / 2 + index + TODAY_YEAR - 1
-    const yearToIndex = (year: number) => YEAR_COUNT / 2 + year - TODAY_YEAR + 1
-    const years = Array.from(Array(YEAR_COUNT + 1).keys()).map((i) => indexToYear(i))
-    // Used to scroll down to next 3 month. This way current year appears in the middle.
-    const VIEW_YEAR_OFFSET = 3
+    const generateYearsArray = (start: number, end: number) => {
+      const yearsCount = end - start + 1
+      return Array.from(Array(yearsCount).keys())
+        .map((i) => start + i)
+    }
+
+    const years = computed(() => generateYearsArray(props.startYear, props.endYear))
 
     onMounted(() => {
       if (!rootNode.value) { return }
 
       const scrollHeight = rootNode.value.scrollHeight
-      const scrollElementIndex = yearToIndex(view.value.year) - VIEW_YEAR_OFFSET
-      rootNode.value.scrollTo({ top: scrollHeight / YEAR_COUNT * scrollElementIndex })
+      const rootNodeHeight = rootNode.value.offsetHeight
+      const currentYearIndex = years.value.indexOf(view.value.year)
+      const currentYearOffset = scrollHeight / years.value.length * currentYearIndex
+      rootNode.value.scrollTo({ top: currentYearOffset - rootNodeHeight / 2 })
     })
 
     const onYearClick = (year: number) => {
@@ -70,7 +74,7 @@ export default defineComponent({
     }
 
     const isYearSelected = (year: number) => {
-      if (!modelValue || !modelValue.value) { return }
+      if (!modelValue || !modelValue.value) { return false }
 
       const date = createYearDate(year)
 
@@ -99,19 +103,14 @@ export default defineComponent({
       return modelValue.value.start < date && modelValue.value.end > date
     }
 
-    const isTodayYear = (year: number) => {
-      const today = new Date()
-
-      return today.getFullYear() === year
-    }
-
+    const isTodayYear = (year: number) => new Date().getFullYear() === year
     const isYearDisabled = (year: number) => props.allowedYears === undefined ? false : !props.allowedYears(new Date(year))
 
     const {
       focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
     } = useGridKeyboardNavigation(1, {
       start: 0,
-      end: years.length,
+      end: years.value.length,
     }, (selectedIndex) => onYearClick(selectedIndex))
 
     return {
@@ -135,6 +134,7 @@ export default defineComponent({
   flex-direction: column;
   overflow: auto;
   grid-gap: var(--va-date-picker-cell-gap);
+  max-height: 100%;
 
   .va-year-picker-cell {
     width: 100%;

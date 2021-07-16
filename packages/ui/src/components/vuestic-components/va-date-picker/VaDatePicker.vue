@@ -160,18 +160,21 @@ export default defineComponent({
 @import './_variables.scss';
 
 .va-date-picker {
-  width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
-
   --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+
+  width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+  height: var(--va-date-picker-content-height);
 
   &__without-week-days {
     --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 6 + var(--va-date-picker-cell-gap) * 6);
   }
 
-  .va-day-picker,
-  .va-month-picker,
-  .va-year-picker {
-    height: var(--va-date-picker-content-height);
+  &_mobile {
+    .va-day-picker,
+    .va-month-picker,
+    .va-year-picker {
+      height: 100%;
+    }
   }
 }
 
