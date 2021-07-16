@@ -1,242 +1,130 @@
 <template>
   <div class="va-data-table">
     <va-inner-loading :loading="loading">
-      <vuetable
-        ref="vuetable"
-        :api-mode="false"
-        :fields="fields"
-        :data="apiMode ? data : undefined"
-        :data-manager="apiMode ? undefined : dataManagerComputed"
-        :pagination-path="apiMode ? '' : 'pagination'"
-        :no-data-template="noDataLabel"
-        :css="styles"
-        :row-class="rowClass"
-        :sort-order="sortOrder"
-        @vuetable:row-clicked="rowClicked"
-      >
-        <!-- https://stackoverflow.com/questions/50891858/vue-how-to-pass-down-slots-inside-wrapper-component   -->
-        <template
-          v-for="slot in Object.keys($slots)"
-          v-slot:[slot]="scope"
-
-        >
-          <slot
-            :name="slot"
-            v-bind="scope"
-          />
-        </template>
-      </vuetable>
-
-      <div
-        v-if="!noPagination && paginationTotal > 1"
-        class="va-data-table__pagination"
-      >
-        <va-pagination
-          v-model="currentPageProxy"
-          :pages="paginationTotal"
-          :visible-pages="visiblePages"
-          :boundary-links="paginationTotal > visiblePages"
-        />
-      </div>
+      <table>
+        <caption v-if="$slots.caption">
+          <slot name="caption" />
+        </caption>
+        <thead v-if="!hideDefaultHeader">
+          <tr>
+            <slot name="header">
+              <th v-for="header in headers"
+                :key="header.key"
+                :data-table-header="header.key">
+                <table-header-cell :header="header" v-model:sort-by="currentSortBy" v-model:sort-desc="currentSortDesc">
+                  <template v-if="$slots['header:cell']" #cell="{ options }">
+                    <slot name="header:cell" :options="options" />
+                  </template>
+                  <template v-if="$slots[`header:cell_${header.key}`]" v-slot:[`cell_${header.key}`]="{ options }">
+                    <slot :name="`header:cell_${header.key}`" :options="options" />
+                  </template>
+                </table-header-cell>
+              </th>
+            </slot>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in filteredItems" :key="item[itemKey] || index">
+            <td v-for="header in headers"
+              :key="header.key">{{ item[header.key] }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <slot name="footer">
+        <va-data-table-footer v-bind="footerProps">
+          <template v-if="$slots['footer:items-per-page']" #items-per-page>
+            <slot name="footer:items-per-page" />
+          </template>
+          <template v-if="$slots['footer:pagination']" #pagination>
+            <slot name="footer:pagination" />
+          </template>
+        </va-data-table-footer>
+      </slot>
     </va-inner-loading>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Prop, Mixins, Watch } from 'vue-property-decorator'
-// @ts-ignore
-import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
-import VaPagination from '../va-pagination/VaPagination.vue'
+import { defineComponent, PropType, toRefs, computed } from 'vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading.vue'
-import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import _sortBy from 'lodash/sortBy'
+import VaIcon from '../va-icon/VaIcon.vue'
+import VaSelect from '../va-select/VaSelect.vue'
+import VaDataTableFooter from './VaDataTableFooter.vue'
+import TableHeaderCell from './TableHeaderCell.vue'
+import { useDataTableFooter, footerComponentOptions } from './hooks/footer'
+import DataTableHeader from './DataTableHeader';
+import { useSyncProp } from './hooks/sync-prop'
+import _sortBy from 'lodash/sortBy';
 
-@Component({
+export default  defineComponent ({
+  name: 'VaDataTable',
   components: {
     VaInnerLoading,
-    Vuetable,
-    VaPagination,
+    VaIcon,
+    VaSelect,
+    VaDataTableFooter,
+    TableHeaderCell,
+  },
+  props: {
+    ...footerComponentOptions.props,
+    items: {
+      type: Array as PropType<Object[]>,
+      required: true,
+    },
+    headers: {
+      type: Array as PropType<DataTableHeader[]>,
+      required: true,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    itemKey: {
+      type: String,
+      default: 'id',
+    },
+    hideDefaultHeader: {
+      type: Boolean,
+      default: false,
+    },
+    sortBy: {
+      type: [String, Array as () => String[]],
+      default: undefined,
+    },
+    sortDesc: {
+      type: [Boolean, Array as () => Boolean[]],
+      default: undefined,
+    },
+  },
+  emits: [...footerComponentOptions.emits, 'update:sortBy', 'update:sortDesc'],
+  setup (props, { emit, slots }) {
+    const { sortBy, sortDesc, items, itemsLength } = toRefs(props)
+    const { syncProp: currentSortBy } = useSyncProp(sortBy, 'sortBy', emit, '')
+    const { syncProp: currentSortDesc } = useSyncProp(sortDesc, 'sortDesc', emit, false)
+    const sortedItems = computed(() => {
+      if (itemsLength.value || !currentSortBy.value) {
+        return items.value
+      }
+      const sorted = _sortBy(items.value, currentSortBy.value)
+      return currentSortDesc.value ? sorted.reverse() : sorted
+    });
+    const { filteredItems, footerProps } = useDataTableFooter(props, emit, slots, sortedItems)
+
+    return {
+      filteredItems,
+      footerProps,
+      currentSortBy,
+      currentSortDesc
+    }
   },
 })
-export default class VaDataTable extends Mixins(LoadingMixin) {
-  @Prop({ type: Array, required: true }) fields!: Array<any>
-  @Prop({ type: Array, required: true }) data!: Array<any>
-  @Prop({
-    type: Array,
-  }) sortOrder!: Array<any> | undefined
-
-  @Prop({ type: Number, default: 6 }) perPage!: number
-  @Prop({ type: Number, default: 4 }) visiblePages!: number
-  @Prop({ type: Number, default: 1 }) currentPage!: number
-  @Prop({ type: Number, default: 0 }) totalPages!: number
-  @Prop({ type: Boolean }) apiMode!: boolean
-  @Prop({ type: Boolean }) clickable!: boolean
-  @Prop({ type: Boolean }) hoverable!: boolean
-  @Prop({ type: Boolean }) noPagination!: boolean
-  @Prop({
-    type: Boolean,
-    default: undefined,
-  }) noDataLabel!: string | undefined
-
-  @Prop({
-    type: Function,
-    default: undefined,
-  }) rowClass!: Function | undefined
-
-  @Prop({
-    type: Function,
-    default: null,
-  }) dataManager!: Function | null
-
-  get currentPageProxy (): number {
-    return this.currentPage
-  }
-
-  set currentPageProxy (page: number) {
-    if (!this.apiMode) {
-      (this.$refs.vuetable as Vue & { changePage: (page: number) => void }).changePage(page)
-    }
-    this.$emit('pageSelected', page)
-  }
-
-  get styles () {
-    return {
-      tableClass: this.buildTableClass(),
-      ascendingIcon: 'fa fa-caret-up',
-      descendingIcon: 'fa fa-caret-down',
-      renderIcon: (classes: any) => {
-        return '<span class="' + classes.join(' ') + '"></span>'
-      },
-    }
-  }
-
-  get paginationTotal () {
-    return this.apiMode ? this.totalPages : Math.ceil(this.data.length / this.perPage)
-  }
-
-  @Watch('perPage')
-  onPerPageChanged (): void {
-    this.refresh()
-  }
-
-  @Watch('data')
-  onDataChanged (): void {
-    this.refresh()
-  }
-
-  @Watch('fields')
-  onFieldsChanged (): void {
-    this.refreshFields()
-  }
-
-  buildTableClass () {
-    let name = 'va-data-table__vuetable va-table va-table--striped'
-
-    if (this.clickable) {
-      name += ' va-table--clickable'
-    }
-
-    if (this.hoverable) {
-      name += ' va-table--hoverable'
-    }
-
-    return name
-  }
-
-  dataManagerComputed (sortOrder: any, pagination: any) {
-    if (this.dataManager) {
-      return this.dataManager(sortOrder, pagination)
-    }
-
-    let sorted = []
-
-    if (!sortOrder.length) {
-      sorted = this.data
-    } else {
-      const { sortField, direction } = sortOrder[0]
-      sorted = direction === 'asc' ? this.sortAsc(this.data, sortField) : this.sortDesc(this.data, sortField)
-    }
-
-    if (this.noPagination) {
-      return {
-        data: sorted,
-      }
-    }
-
-    pagination = this.buildPagination(sorted.length, this.perPage)
-    const { from } = pagination
-    const sliceFrom = from - 1
-    this.$emit('pageSelected', 1)
-
-    return {
-      pagination,
-      data: sorted.slice(sliceFrom, sliceFrom + this.perPage),
-    }
-  }
-
-  sortAsc (items: any[], field: string | []) {
-    return _sortBy(items, field)
-  }
-
-  sortDesc (items: any[], field: string | []) {
-    return _sortBy(items, field).reverse()
-  }
-
-  buildPagination (length: number, perPage: number) {
-    return (this.$refs.vuetable as Vue & { makePagination: (length: number, perPage: number) => any }).makePagination(length, perPage)
-  }
-
-  refresh (): void {
-    (this.$refs.vuetable as Vue & { refresh: () => any }).refresh()
-  }
-
-  refreshFields (): void {
-    this.$nextTick(() => {
-      (this.$refs.vuetable as Vue & { normalizeFields: () => void }).normalizeFields()
-    })
-  }
-
-  rowClicked (row: any) {
-    this.$emit('rowClicked', row)
-  }
-}
 </script>
 
 <style lang="scss">
-@import "../../vuestic-sass/resources/resources";
 @import "variables";
 
-.va-data-table {
-  display: var(--va-data-table-display);
-  flex-direction: var(--va-data-table-flex-direction);
-  align-items: var(--va-data-table-align-items);
-  overflow-x: var(--va-data-table-overflow-x);
-
-  &__vuetable {
-    width: 100%;
-
-    th {
-      &.sortable {
-        color: $brand-primary;
-      }
-
-      .sort-icon {
-        font-size: 0.625rem;
-      }
-    }
-
-    .vuetable-empty-result {
-      padding: 4.5rem 1rem;
-      font-size: 1rem;
-      color: $gray;
-    }
-  }
-
-  &__pagination {
-    margin-top: var(--va-data-table-margin-top);
-    display: var(--va-data-table-display);
-    justify-content: var(--va-data-table-justify-content);
-  }
+.va-data-table__header-cell {
+  display: var(--va-data-table-header-cell-display);
+  align-items: var(--va-data-table-header-cell-align-items);
 }
 </style>
