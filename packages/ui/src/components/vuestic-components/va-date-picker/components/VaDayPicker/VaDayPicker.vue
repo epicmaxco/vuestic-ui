@@ -102,10 +102,12 @@ export default defineComponent({
 
     const {
       focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
-    } = useGridKeyboardNavigation(7, {
+    } = useGridKeyboardNavigation({
+      rowSize: 7,
       start: gridStartIndex,
       end: gridEndIndex,
-    }, (selectedValue) => onDateClick(calendarDates.value[selectedValue]))
+      onSelected: (selectedValue) => onDateClick(calendarDates.value[selectedValue]),
+    })
 
     watch(focusedDateIndex, (index) => { focusedDate.value = { date: calendarDates.value[index], index } })
     watch(focusedDate, (focusedDate) => { focusedDate === null ? focusedDateIndex.value = -1 : focusedDateIndex.value = focusedDate.index })

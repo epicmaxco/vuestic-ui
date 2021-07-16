@@ -120,6 +120,17 @@
       <va-date-picker v-model="months" type="month" class="mb-4" />
     </VbCard>
 
+    <VbCard title="Year picker">
+      <h5 class="mb-2">Single</h5>
+      <va-date-picker v-model="monthValue" type="year" class="mb-4" />
+
+      <h5 class="mb-2">Range</h5>
+      <va-date-picker v-model="monthRange" type="year" class="mb-4" />
+
+      <h5 class="mb-2">Multiple</h5>
+      <va-date-picker v-model="months" type="year" />
+    </VbCard>
+
     <VbCard title="disable dates">
       <h5 class="mb-2">Disable all Tuesday and Thursday</h5>
       <va-date-picker class="mb-2" v-model="value" :allowedDays="(date) => date.getDay() !== 2 && date.getDay() !== 4" />

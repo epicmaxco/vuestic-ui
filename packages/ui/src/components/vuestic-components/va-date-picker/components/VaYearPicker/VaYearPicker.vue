@@ -1,5 +1,5 @@
 <template>
-  <div class="va-year-picker" ref="rootNode">
+  <div class="va-year-picker" ref="rootNode" v-bind="keyboardContainerAttributes">
     <va-date-picker-cell
       v-for="(year, yearIndex) in years"
       :key="year"
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs, onMounted, ref, computed } from 'vue'
+import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch } from 'vue'
 import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types/types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { isRange, isSingleDate, isDates, useDatePickerModelValue } from '../../helpers/model-value-helper'
@@ -55,14 +55,19 @@ export default defineComponent({
 
     const years = computed(() => generateYearsArray(props.startYear, props.endYear))
 
-    onMounted(() => {
+    const scrollIntoYearIndex = (index: number) => {
       if (!rootNode.value) { return }
 
       const scrollHeight = rootNode.value.scrollHeight
       const rootNodeHeight = rootNode.value.offsetHeight
-      const currentYearIndex = years.value.indexOf(view.value.year)
-      const currentYearOffset = scrollHeight / years.value.length * currentYearIndex
+      const currentYearOffset = scrollHeight / years.value.length * index
       rootNode.value.scrollTo({ top: currentYearOffset - rootNodeHeight / 2 })
+    }
+
+    onMounted(() => {
+      const currentYearIndex = years.value.indexOf(view.value.year)
+
+      scrollIntoYearIndex(currentYearIndex)
     })
 
     const onYearClick = (year: number) => {
@@ -106,12 +111,31 @@ export default defineComponent({
     const isTodayYear = (year: number) => new Date().getFullYear() === year
     const isYearDisabled = (year: number) => props.allowedYears === undefined ? false : !props.allowedYears(new Date(year))
 
+    const firstModelValueYear = (): number => {
+      if (!modelValue || !modelValue.value) { return -1 }
+
+      if (isSingleDate(modelValue.value)) {
+        return modelValue.value.getFullYear()
+      } else if (isDates(modelValue.value)) {
+        return modelValue.value[0].getFullYear()
+      } else if (isRange(modelValue.value)) {
+        return modelValue.value.start.getFullYear()
+      } else {
+        return -1
+      }
+    }
+
     const {
       focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
-    } = useGridKeyboardNavigation(1, {
+    } = useGridKeyboardNavigation({
+      rowSize: 1,
       start: 0,
       end: years.value.length,
-    }, (selectedIndex) => onYearClick(selectedIndex))
+      onFocusIndex: computed(() => years.value.indexOf(view.value.year)),
+      onSelected: (selectedIndex) => onYearClick(selectedIndex),
+    })
+
+    watch(focusedDateIndex, (newValue) => scrollIntoYearIndex(newValue))
 
     return {
       years,
@@ -135,6 +159,7 @@ export default defineComponent({
   overflow: auto;
   grid-gap: var(--va-date-picker-cell-gap);
   max-height: 100%;
+  position: relative;
 
   .va-year-picker-cell {
     width: 100%;
@@ -142,3 +167,7 @@ export default defineComponent({
   }
 }
 </style>
+
+function useRefsArray(): {} {
+  throw new Error('Function not implemented.')
+}

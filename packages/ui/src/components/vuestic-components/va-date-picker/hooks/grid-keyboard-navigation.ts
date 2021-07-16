@@ -13,9 +13,19 @@ function isUndefined<T> (t: T | undefined): t is undefined {
 }
 
 export const useGridKeyboardNavigation = (
-  rowSize: number,
-  offset: { start?: Ref<number> | number, end?: Ref<number> | number } = {},
-  onSelected?: (selectedValue: number) => any | null,
+  {
+    rowSize,
+    start,
+    end,
+    onSelected,
+    onFocusIndex = 0,
+  }: {
+    rowSize: number,
+    start?: Ref<number> | number,
+    end?: Ref<number> | number,
+    onFocusIndex?: Ref<number> | number,
+    onSelected?: (selectedValue: number) => any | null,
+  },
 ) => {
   const focusedCellIndex = ref(-1)
 
@@ -26,7 +36,9 @@ export const useGridKeyboardNavigation = (
     if (previouslyClicked) { return }
     previouslyClicked = false
 
-    focusedCellIndex.value = safeUnref(offset.start) || 0
+    const index = safeUnref(onFocusIndex) === undefined ? safeUnref(start) || 0 : safeUnref(onFocusIndex)
+
+    focusedCellIndex.value = index
   }
 
   const onBlur = () => {
@@ -61,11 +73,11 @@ export const useGridKeyboardNavigation = (
       focusedCellIndex.value -= rowSize
     }
 
-    if (!isUndefined(offset.start) && focusedCellIndex.value < safeUnref(offset.start)) {
-      focusedCellIndex.value = safeUnref(offset.start)
+    if (!isUndefined(start) && focusedCellIndex.value < safeUnref(start)) {
+      focusedCellIndex.value = safeUnref(start)
     }
-    if (!isUndefined(offset.end) && focusedCellIndex.value > safeUnref(offset.end) - 1) {
-      focusedCellIndex.value = safeUnref(offset.end) - 1
+    if (!isUndefined(end) && focusedCellIndex.value > safeUnref(end) - 1) {
+      focusedCellIndex.value = safeUnref(end) - 1
     }
   }
 
