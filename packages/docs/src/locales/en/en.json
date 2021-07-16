@@ -1094,6 +1094,10 @@
         "title": "API",
         "text": "API documentation for component. Combines component options with manual declarations."
       },
+      "table": {
+        "title": "Table",
+        "text": "Used to display table data"
+      },
       "link": {
         "title": "Link",
         "textOption1": "- Used for local links:",

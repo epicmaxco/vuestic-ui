@@ -1,6 +1,7 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import apiOptions from './api-options'
 import linkOptions from './link-options'
+import { tableData, columns } from './table-options'
 import { locale } from '../../../../helpers/I18nHelper'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
@@ -10,10 +11,23 @@ export const codeForListBlock = `
     <li> Value of the list item 1 </li>
     <li> Value of the list item 2 </li>
 </ul>`
-export const linkOptionsBlock = `{
+export const linkOptionsBlock = `options = {
   preText: 'prefix',
   afterText: 'suffix',
 }`
+export const tableDataBlock = `
+columns = [
+  'col1',
+  { title: 'col2', type: 'strong' },
+  { title: 'col3', type: 'markdown' },
+  { title: 'col4', type: 'code' },
+]
+
+tableData = [
+  ['d1C1', 'd1C2', '[d1C3](https://en.wikipedia.org/wiki/Markdown)', 'd1C4'],
+  ['d2C1', 'd2C2', '<mark>d2C3</mark>', 'd2C4'],
+  ['d3C1', 'd3C2', '~~d3C3~~', 'd3C4'],
+]`
 
 export default [
   DocsHelper.title('documentationPage.title'),
@@ -104,6 +118,13 @@ export default [
     code: apiOptions,
   },
 
+  DocsHelper.headline('documentationPage.blocktypes.table.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.table.text'),
+  DocsHelper.code(`${tableDataBlock}`),
+  DocsHelper.code('DocsHelper.table(columns, tableData)'),
+  DocsHelper.paragraph('documentationPage.compilesTo'),
+  DocsHelper.table(columns, tableData),
+
   DocsHelper.headline('documentationPage.blocktypes.link.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.link.textOption1'),
   // eslint-disable-next-line no-template-curly-in-string
@@ -111,7 +132,7 @@ export default [
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.link('translation.path', `/${locale}/services/components-config`),
   DocsHelper.paragraph('documentationPage.blocktypes.link.textOption2'),
-  DocsHelper.code(`options = ${linkOptionsBlock}`),
+  DocsHelper.code(`${linkOptionsBlock}`),
   // eslint-disable-next-line no-template-curly-in-string
   DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/contribution/documentation-page#translation-path`, options)"),
   DocsHelper.paragraph('documentationPage.compilesTo'),
