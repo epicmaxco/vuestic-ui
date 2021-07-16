@@ -1096,16 +1096,15 @@
       },
       "table": {
         "title": "Table",
-        "text": "Used to display table data"
+        "text": "Used to display table data."
       },
       "link": {
         "title": "Link",
-        "textOption1": "- Used for local links:",
-        "textOption2": "- Used for local links with **options**:"
+        "text": "Used for local links (with <i>options</i> and without them)."
       },
       "alert": {
         "title": "Alert",
-        "text": "Should be used to display an important message."
+        "text": "Used to display an important message."
       }
     },
     "apiOptionsTitle": "API Options",

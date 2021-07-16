@@ -126,17 +126,15 @@ export default [
   DocsHelper.table(columns, tableData),
 
   DocsHelper.headline('documentationPage.blocktypes.link.title'),
-  DocsHelper.paragraph('documentationPage.blocktypes.link.textOption1'),
-  // eslint-disable-next-line no-template-curly-in-string
-  DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/services/components-config`)"),
-  DocsHelper.paragraph('documentationPage.compilesTo'),
-  DocsHelper.link('translation.path', `/${locale}/services/components-config`),
-  DocsHelper.paragraph('documentationPage.blocktypes.link.textOption2'),
+  DocsHelper.paragraph('documentationPage.blocktypes.link.text'),
   DocsHelper.code(`${linkOptionsBlock}`),
   // eslint-disable-next-line no-template-curly-in-string
   DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/contribution/documentation-page#translation-path`, options)"),
+  // eslint-disable-next-line no-template-curly-in-string
+  DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/services/components-config`)"),
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.link('translation.path', `/${locale}/contribution/documentation-page#translation-path`, linkOptions),
+  DocsHelper.link('translation.path', `/${locale}/services/components-config`),
 
   DocsHelper.headline('documentationPage.blocktypes.alert.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.alert.text'),
