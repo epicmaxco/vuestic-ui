@@ -1,5 +1,5 @@
 <template>
-  <div class="va-year-picker" ref="rootNode" v-bind="keyboardContainerAttributes">
+  <div class="va-year-picker" ref="rootNode" v-bind="keyboardContainerAttributes" @keydown.space.prevent>
     <va-date-picker-cell
       v-for="(year, yearIndex) in years"
       :key="year"
