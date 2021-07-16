@@ -12,6 +12,9 @@ export default {
     icon: {
       local: true,
     },
+    shadow: {
+      local: true,
+    },
   },
   events: {
   },

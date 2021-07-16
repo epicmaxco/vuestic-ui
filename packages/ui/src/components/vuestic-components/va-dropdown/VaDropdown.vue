@@ -1,5 +1,8 @@
 <template>
-  <div class="va-dropdown">
+  <div
+    class="va-dropdown"
+    :class="classComputed"
+  >
     <div
       class="va-dropdown__anchor"
       @mouseover="onMouseOver()"
@@ -43,7 +46,7 @@ class DropdownProps {
   hoverOutTimeout = prop<number>({ type: Number, default: 200 })
   boundaryBody = prop<boolean>({ type: Boolean })
   modelValue = prop<boolean>({ type: Boolean, default: false })
-  disabled = prop<boolean>({ type: Boolean })
+  disabled = prop<boolean>({ type: Boolean, default: false })
   // Makes no sense
   // fixed = prop<boolean>({ type: Boolean })
   // Means dropdown width should be the same as anchor's width.
@@ -74,7 +77,7 @@ export default class VaDropdown extends mixins(
   DropdownPropsMixin,
 ) {
   popperInstance: PopperInstance = null
-  anchorWidth!: number
+  anchorWidth = 0
   hoverOverDebounceLoader!: DebounceLoader
   hoverOutDebounceLoader!: DebounceLoader
 
@@ -82,6 +85,12 @@ export default class VaDropdown extends mixins(
     return {
       width: this.anchorWidth + 'px',
       maxWidth: this.anchorWidth + 'px',
+    }
+  }
+
+  get classComputed () {
+    return {
+      'va-dropdown--disabled': this.$props.disabled,
     }
   }
 
@@ -121,10 +130,10 @@ export default class VaDropdown extends mixins(
   }
 
   onAnchorClick (): void {
-    if (this.disabled) {
+    if (this.$props.disabled) {
       return
     }
-    if (this.trigger === 'click') {
+    if (this.$props.trigger === 'click') {
       if (this.valueComputed) {
         this.handleClick('anchor-click', this.closeOnAnchorClick)
         return
@@ -139,7 +148,7 @@ export default class VaDropdown extends mixins(
   // * Fast mouse-over shouldn't trigger dropdown.
   // * Dropdown shouldn't close when you move mouse from anchor to content (even with offset).
   onMouseOver (): void {
-    if (this.disabled || this.trigger !== 'hover') {
+    if (this.$props.disabled || this.$props.trigger !== 'hover') {
       return
     }
     if (!this.valueComputed) {
@@ -149,7 +158,7 @@ export default class VaDropdown extends mixins(
   }
 
   onMouseOut (): void {
-    if (this.trigger !== 'hover') {
+    if (this.$props.trigger !== 'hover') {
       return
     }
     if (this.isContentHoverable) {
@@ -180,7 +189,9 @@ export default class VaDropdown extends mixins(
     if (isCurrentDropdownClicked) {
       return
     }
-    this.onClickOutside()
+    if (this.showContent) {
+      this.onClickOutside()
+    }
   }
 
   updateAnchorWidth (): void {
@@ -256,7 +267,6 @@ export default class VaDropdown extends mixins(
       },
       this.hoverOverTimeout,
     )
-    this.handlePopperInstance()
     this.hoverOutDebounceLoader = new DebounceLoader(
       async () => {
         this.valueComputed = false
@@ -268,6 +278,10 @@ export default class VaDropdown extends mixins(
       return
     }
     this.registerClickOutsideListener()
+  }
+
+  mounted (): void {
+    this.handlePopperInstance()
   }
 
   beforeUnmount (): void {
@@ -284,6 +298,10 @@ export default class VaDropdown extends mixins(
 .va-dropdown {
   /* Solved the alignment problem (if we try to align inline and block elements) */
   line-height: var(--va-dropdown-line-height);
+
+  &--disabled {
+    @include va-disabled;
+  }
 
   &__content-wrapper {
     /* overflow: hidden; */

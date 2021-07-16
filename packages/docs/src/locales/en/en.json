@@ -604,7 +604,8 @@
         "closeable": "Provides the ability to close the tag",
         "outline": "Applies outline styling",
         "flat": "Applies flat styling",
-        "icon": "The icon to be displayed inside a tag"
+        "icon": "The icon to be displayed inside a tag",
+        "shadow": "Applies box-shadow to the component"
       },
       "events": {},
       "methods": {},
@@ -1033,7 +1034,8 @@
     "toast": "Toast",
     "typography": "Typography",
     "agGridWrapper": "AG Grid Wrapper",
-    "dataTable": "Data Table"
+    "dataTable": "Data Table",
+    "uiElementGuide": "UI Element Guide"
   },
   "all": {
     "examples": "Examples",
@@ -2196,6 +2198,10 @@
       "link": {
         "title": "Link",
         "text": "It makes your tag clickable."
+      },
+      "shadow": {
+        "title": "Shadow",
+        "text": "You can set a shadow."
       }
     }
   },
@@ -2376,7 +2382,7 @@
       },
       "allowCreate": {
         "title": "Allow create",
-        "text": "You can add options that initial options not contain"
+        "text": "You can add options that initial options do not have"
       },
       "validation": {
         "title": "Validation rules",
@@ -2386,7 +2392,7 @@
         "title": "Keyboard navigation",
         "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
         "selects": "By using `ENTER` and `SPACE` you can select current option",
-        "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
+        "hints": "If you type while option list is opened this will create a search buffer (will reset if you do not type for 1 second) that will be used to search in the options labels"
       },
       "styles": {
         "title": "Styles",
@@ -2789,10 +2795,20 @@
   },
   "translation": {
     "title": "Translation",
-    "description": "Translation is only needed for documentation (`packages/docs/locales`) as components don't use any translation strings at the moment. Here's the current state for languages support:",
+    "description": "Translation is only needed for documentation (`packages/docs/locales`) as components don't use any translation strings at the moment. After finishing work on the translation, do not forget to change its status to `full` in file `locales/index.ts`. Here's the current state for languages support:",
     "table": {
       "language": "Language",
+      "code": "Code",
       "supported": "Supported"
+    },
+    "language": {
+      "en": "English",
+      "ru": "Russian",
+      "es": "Spain"
+    },
+    "status": {
+      "part": "Partially",
+      "full": "Fully"
     }
   },
   "table": {
@@ -3145,5 +3161,24 @@
     "description": "Work in progress.",
     "related": "Related",
     "styledTablesLink": "Styled tables"
+  },
+  "uiElementGuide": {
+    "title": "UI Element Requirements",
+    "description": "This page is intended for vuestic-ui contributors: it describes the requirements for UI elements.",
+    "highLevelStrategy": {
+      "title": "High Level Strategy",
+      "description": {
+        "userExpectations": "Components should be as user expects them to be. We achieve that by checking refs ([Vuetify](https://vuetifyjs.com), [Quasar](https://quasar.dev), [Ant Design](https://ant.design), [iView](http://iview.talkingdata.com), [Element UI](https://element.eleme.io), etc.).",
+        "qualityComponents": "Components should be of high quality. We achieve that by manually testing edge cases + refactoring early."
+      }
+    },
+    "coreFeatures": {
+      "title": "Core Features",
+      "description": {
+        "visualFeedback": "**Visual feedback** - When user interacts with component they should see result of their actions (could be implemented with :active selector or somehow else depending on case).",
+        "keyboardNavigation": "**Keyboard navigation** - You must ensure that UI elements are keyboard accessible, and you must disable this functionality for elements that should not receive keyboard focus.",
+        "statelessSupport": "**Stateless support** (read about [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md))."
+      }
+    }
   }
 }

@@ -12,7 +12,6 @@
     >
       <va-slider
         range
-        track-label-visible
         :show-track="false"
         v-model="value2"
       />
@@ -27,31 +26,23 @@
       height="350px"
       title="Vertical sliders"
     >
-      <div style="display: flex; flex-direction: row; height: 300px;">
-        <div style="display: flex; width: 50%; justify-content: center;">
-          <va-slider
-            vertical
-            v-model="value"
-          />
-        </div>
-        <div style="display: flex; width: 50%; justify-content: center;">
-          <va-slider
-            range
-            vertical
-            track-label-visible
-            pins
-            :step="10"
-            icon-prepend="volume_off"
-            icon-append="volume_up"
-            v-model="value2"
-          />
-        </div>
+      <div style="height: 300px;">
+        <va-slider
+          vertical
+          v-model="value"
+        />
       </div>
     </VbCard>
     <VbCard
       width="500px"
-      title="value visible"
+      title="track label visible"
     >
+      <va-slider
+        range
+        track-label-visible
+        v-model="value2"
+      />
+      <br>
       <va-slider
         track-label-visible
         v-model="value"
@@ -59,12 +50,21 @@
     </VbCard>
     <VbCard
       width="500px"
-      title="custom label"
+      title="custom track label"
+    >
+      <va-slider
+        track-label-visible
+        v-model="value"
+        :track-label="`${value}px`"
+      />
+    </VbCard>
+    <VbCard
+      width="500px"
+      title="Step, min, max"
     >
       <va-slider
         track-label-visible
         v-model="value3"
-        :track-label="`${value3}px`"
         :step="5"
         :min="min"
         :max="max"
@@ -80,6 +80,39 @@
         label="Label"
         v-model="value"
       />
+      <div style="height: 100px;">
+        <va-slider v-model="value"
+          label="Label"
+          vertical
+        />
+      </div>
+    </VbCard>
+    <VbCard
+      width="500px"
+      title="Invert Label"
+    >
+      <va-slider
+        label="Label"
+        invert-label
+        v-model="value"
+      />
+      <div>Without label text:</div>
+      <va-slider
+        invert-label
+        v-model="value"
+      />
+      <div>... and without invert-label prop:</div>
+      <va-slider
+        v-model="value"
+      />
+      <div>Vertical:</div>
+      <div style="height: 100px;">
+        <va-slider v-model="value"
+          label="Label"
+          invert-label
+          vertical
+        />
+      </div>
     </VbCard>
     <VbCard
       width="500px"
@@ -90,11 +123,23 @@
         v-model="value"
       >
         <template #label>
-          <div style="margin-right: 1rem;">
+          <span>
             SLOT
-          </div>
+          </span>
         </template>
       </va-slider>
+      <div style="height: 100px;">
+        <va-slider v-model="value"
+          label="Label"
+          vertical
+        >
+          <template #label>
+            <span>
+              SLOT
+            </span>
+          </template>
+        </va-slider>
+      </div>
     </VbCard>
     <VbCard
       width="500px"
@@ -106,49 +151,73 @@
         v-model="value"
       >
         <template #label>
-          <div style="margin-left: 1rem;">
+          <span>
             INVERTED SLOT
-          </div>
+          </span>
         </template>
       </va-slider>
+      <div style="height: 100px;">
+        <va-slider v-model="value"
+          invert-label
+          vertical
+        >
+          <template #label>
+            <div>
+              INVERTED SLOT
+            </div>
+          </template>
+        </va-slider>
+      </div>
     </VbCard>
     <VbCard
       width="500px"
-      title="Slider With Inverse Label"
+      title="Slider With Prepend Icon"
     >
       <va-slider
-        label="Label"
-        invert-label
+        icon-prepend="volume_off"
         v-model="value"
       />
+      <div style="height: 100px;">
+        <va-slider
+          v-model="value"
+          icon-prepend="volume_off"
+          vertical
+        />
+      </div>
     </VbCard>
     <VbCard
       width="500px"
-      title="Slider With Left Icon"
+      title="Slider With Append Icon"
     >
       <va-slider
-        icon="volume_off"
+        icon-append="volume_up"
         v-model="value"
       />
-    </VbCard>
-    <VbCard
-      width="500px"
-      title="Slider With Right Icon"
-    >
-      <va-slider
-        icon-right="volume_up"
-        v-model="value"
-      />
+      <div style="height: 100px;">
+        <va-slider
+          v-model="value"
+          icon-append="volume_up"
+          vertical
+        />
+      </div>
     </VbCard>
     <VbCard
       width="500px"
       title="Slider With Both Icons"
     >
       <va-slider
-        icon="volume_off"
-        icon-right="volume_up"
+        icon-prepend="volume_off"
+        icon-append="volume_up"
         v-model="value"
       />
+      <div style="height: 100px;">
+        <va-slider
+          v-model="value"
+          icon-prepend="volume_off"
+          icon-append="volume_up"
+          vertical
+        />
+      </div>
     </VbCard>
     <VbCard
       width="500px"
@@ -186,19 +255,47 @@
         color="#f333f2"
         v-model="value"
       />
+      Slider and Track colors:
       <va-slider
         color="info"
         track-color="warning"
         v-model="value"
       />
+    </VbCard>
+    <VbCard
+      width="500px"
+      title="Colored label"
+    >
       <va-slider
-        color="warning"
-        track-color="grey"
-        label-color="danger"
-        label="Label"
+        label-color="primary"
+        label="Primary Label"
+        v-model="value"
+      />
+      <br>
+      <va-slider
+        label-color="warning"
+        label="Warning invert label"
         invert-label
         v-model="value"
       />
+      <br>
+      <va-slider
+        label-color="danger"
+        v-model="value"
+      >
+        <template #label>
+          Danger slot label
+        </template>
+      </va-slider>
+      <va-slider
+        label-color="danger"
+        invert-label
+        v-model="value"
+      >
+        <template #label>
+          Danger invert slot label
+        </template>
+      </va-slider>
     </VbCard>
     <VbCard
       width="500px"
@@ -229,17 +326,22 @@
         label="Label"
         v-model="value2"
       />
-    </VbCard>
-    <VbCard
-      width="500px"
-      title="Range With Inverse Label"
-    >
+      <br>
       <va-slider
-        range
-        label="Label"
+        label="Invert label"
         invert-label
+        range
         v-model="value2"
       />
+      <br>
+      <va-slider
+        range
+        v-model="value2"
+      >
+        <template #label>
+          Slot label
+        </template>
+      </va-slider>
     </VbCard>
     <VbCard
       width="500px"
@@ -247,7 +349,7 @@
     >
       <va-slider
         range
-        icon="volume_off"
+        icon-prepend="volume_off"
         v-model="value2"
       />
     </VbCard>
@@ -257,7 +359,7 @@
     >
       <va-slider
         range
-        icon-right="volume_up"
+        icon-append="volume_up"
         v-model="value2"
       />
     </VbCard>
@@ -267,8 +369,8 @@
     >
       <va-slider
         range
-        icon="volume_off"
-        icon-right="volume_up"
+        icon-prepend="volume_off"
+        icon-append="volume_up"
         v-model="value2"
       />
     </VbCard>
@@ -307,32 +409,81 @@
       width="500px"
       title="Slider With Input"
     >
-<!--      <va-slider v-model="value">-->
-<!--        <va-input-->
-<!--          v-model="value"-->
-<!--          slot="prepend"-->
-<!--        />-->
-<!--      </va-slider>-->
+     <va-slider v-model="value">
+       <template #prepend>
+        <va-input
+          v-model="value"
+        />
+       </template>
+     </va-slider>
     </VbCard>
     <VbCard
       width="500px"
-      title="Range With Inputs (demo for presentation)"
+      title="Range With Inputs"
     >
-<!--      <va-slider-->
-<!--        range-->
-<!--        v-model="value2"-->
-<!--      >-->
-<!--        <template #prepend>-->
-<!--          <va-input-->
-<!--            v-model.number="value2[0]"-->
-<!--          />-->
-<!--        </template>-->
-<!--        <template #append>-->
-<!--          <va-input-->
-<!--            v-model="value2[1]"-->
-<!--          />-->
-<!--        </template>-->
-<!--      </va-slider>-->
+     <va-slider v-model="value2" range>
+       <template #prepend>
+        <va-input v-model="value2[0]" />
+       </template>
+       <template #append>
+        <va-input v-model="value2[1]" />
+       </template>
+     </va-slider>
+    </VbCard>
+    <VbCard
+      width="500px"
+      title="With append and prepend slot"
+    >
+      <va-slider v-model="value">
+        <template #prepend>
+           prepend
+        </template>
+      </va-slider>
+      <va-slider v-model="value">
+        <template #append>
+           append
+        </template>
+      </va-slider>
+      <va-slider v-model="value">
+        <template #prepend>
+           prepend
+        </template>
+        <template #append>
+           append
+        </template>
+      </va-slider>
+    </VbCard>
+    <VbCard
+      width="500px"
+      height="350px"
+      title="Vertical slider with append and prepend slot"
+    >
+    <div style="display: flex;">
+      <div style="height: 300px; margin-right: 1rem;">
+        <va-slider v-model="value" vertical>
+          <template #prepend>
+            prepend
+          </template>
+        </va-slider>
+      </div>
+      <div style="height: 300px; margin-right: 1rem;">
+        <va-slider v-model="value" vertical>
+          <template #append>
+            append
+          </template>
+        </va-slider>
+      </div>
+      <div style="height: 300px;">
+        <va-slider v-model="value" vertical>
+          <template #prepend>
+            prepend
+          </template>
+          <template #append>
+            append
+          </template>
+        </va-slider>
+      </div>
+    </div>
     </VbCard>
   </VbDemo>
 </template>
@@ -343,7 +494,7 @@ import VaInput from '../va-input/VaInput'
 
 export default {
   components: {
-    // VaInput,
+    VaInput,
     VaSlider,
   },
   data () {
