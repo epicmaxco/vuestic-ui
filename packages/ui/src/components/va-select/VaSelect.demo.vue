@@ -416,7 +416,7 @@
         allow-create
       />
       <va-select
-        v-model="allowCreateValueMultiple"
+        v-model="allowCreateValue"
         class="mb-4"
         label="Unique mode and single select"
         :options="defaultSingleSelect.options"

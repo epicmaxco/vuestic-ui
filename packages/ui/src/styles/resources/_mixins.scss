@@ -30,6 +30,7 @@
   cursor: default;
   opacity: 0.4;
   pointer-events: none;
+  user-select: none;
 }
 
 @mixin theme-button-variant($color, $background, $border, $shadow) {
