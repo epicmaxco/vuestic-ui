@@ -36,7 +36,15 @@
       </template>
     </va-month-picker>
 
-    <va-year-picker v-if="syncView.type === 'year'">
+    <va-year-picker
+      v-if="syncView.type === 'year'"
+      v-bind="yearPickerProps"
+      :view="syncView"
+      :model-value="valueComputed"
+      @hover:year="(value) => $emit('hover:year', value)"
+      @update:model-value="onYearModelValueUpdate"
+      @click:year="onYearClick"
+    >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
       </template>
@@ -45,12 +53,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 import { useColors } from '../../../services/color-config/color-config'
 
 import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
-import { isRange, isSingleDate, isDates } from './helpers/model-value-helper'
 import { filterComponentProps, extractComponentProps } from './utils/child-props'
 import { useView } from './hooks/view'
 
@@ -85,14 +92,15 @@ export default defineComponent({
     weekendsColor: { type: String, default: undefined },
   },
 
-  emits: [...statefulComponentOptions.emits, 'hover:day', 'hover:month', 'update:year', 'update:month', 'update:view', 'click:month', 'click:day'],
+  emits: [
+    ...statefulComponentOptions.emits,
+    'hover:day', 'hover:month',
+    'update:year', 'update:month', 'update:view',
+    'click:month', 'click:day', 'click:year',
+  ],
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit, undefined)
-
-    const dayPickerProps = filterComponentProps(props, extractComponentProps(VaDayPicker))
-    const headerProps = filterComponentProps(props, extractComponentProps(VaDatePickerHeader))
-    const monthPickerProps = filterComponentProps(props, extractComponentProps(VaMonthPicker))
 
     const { syncView } = useView(props, emit, { type: props.type })
 
@@ -108,6 +116,18 @@ export default defineComponent({
       if (props.type === 'month') { valueComputed.value = modelValue }
     }
 
+    const onYearClick = ({ year, date }: { year: number, date: Date}) => {
+      emit('click:year', { year, date })
+      if (props.type !== 'year') {
+        syncView.value = { type: 'month', year, month: syncView.value.month }
+      }
+    }
+
+    const onYearModelValueUpdate = (modelValue: VaDatePickerModelValue) => {
+      // Do not update model value if we just want to change view
+      if (props.type === 'year') { valueComputed.value = modelValue }
+    }
+
     const { colorsToCSSVariable } = useColors()
 
     const colorsStyle = colorsToCSSVariable({
@@ -116,15 +136,19 @@ export default defineComponent({
     }, 'va-date-picker')
 
     return {
-      dayPickerProps,
-      headerProps,
-      monthPickerProps,
+      dayPickerProps: filterComponentProps(props, extractComponentProps(VaDayPicker)),
+      headerProps: filterComponentProps(props, extractComponentProps(VaDatePickerHeader)),
+      monthPickerProps: filterComponentProps(props, extractComponentProps(VaMonthPicker)),
+      yearPickerProps: filterComponentProps(props, extractComponentProps(VaYearPicker)),
 
       syncView,
 
       valueComputed,
       onMonthClick,
       onMonthModelValueUpdate,
+
+      onYearClick,
+      onYearModelValueUpdate,
 
       colorsStyle,
     }

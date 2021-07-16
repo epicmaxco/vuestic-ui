@@ -41,7 +41,7 @@ export default defineComponent({
   props: {
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: true },
-    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'day' }) },
+    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'month' }) },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     hightlightToday: { type: Boolean, default: true },
     mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
