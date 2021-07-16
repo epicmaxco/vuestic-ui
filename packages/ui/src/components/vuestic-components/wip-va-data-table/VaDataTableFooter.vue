@@ -44,7 +44,7 @@ export default  defineComponent ({
       default: 'Rows per page:',
     },
     itemsPerPageOptions: {
-      type: Array as PropType<Array<RowsPerPageOptionType>>,
+      type: Array as PropType<RowsPerPageOptionType[]>,
       default: () => [{ text: '5', value: 5 }, { text: '10', value: 10 }, { text: '15', value: 15 }, { text: 'All', value: 0 }],
     },
     hideItemsPerPage: {

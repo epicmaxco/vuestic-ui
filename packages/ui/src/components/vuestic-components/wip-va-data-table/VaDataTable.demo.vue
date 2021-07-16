@@ -70,7 +70,7 @@
 import { defineComponent, ref } from 'vue'
 import VaDataTable, { VaDataTableFooter, DataTableHeader } from './index'
 
-function generateExampleList (length: number, headers: Array<DataTableHeader>) {
+function generateExampleList (length: number, headers: DataTableHeader[]) {
   return Array.from(Array(length)).map((value, index) => {
     const iterable = headers.map(header => [header.key, header.key + index])
     return Object.fromEntries(iterable)
