@@ -18,7 +18,7 @@ export const useGridKeyboardNavigation = (
     start,
     end,
     onSelected,
-    onFocusIndex = 0,
+    onFocusIndex,
   }: {
     rowSize: number,
     start?: Ref<number> | number,
@@ -36,7 +36,7 @@ export const useGridKeyboardNavigation = (
     if (previouslyClicked) { return }
     previouslyClicked = false
 
-    const index = safeUnref(onFocusIndex) === undefined ? safeUnref(start) || 0 : safeUnref(onFocusIndex)
+    const index = onFocusIndex === undefined ? safeUnref(start) || 0 : safeUnref(onFocusIndex)
 
     focusedCellIndex.value = index
   }

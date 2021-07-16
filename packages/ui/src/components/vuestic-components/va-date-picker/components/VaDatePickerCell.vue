@@ -16,6 +16,7 @@
       'va-date-picker-cell_focused': focused,
     }"
     @click="onClick"
+    @keypress.space.enter.prevent.stop="onClick"
   >
     <slot />
   </div>

@@ -9,51 +9,57 @@
       </template>
     </va-date-picker-header>
 
-    <va-day-picker
-      v-if="syncView.type === 'day'"
-      v-bind="dayPickerProps"
-      v-model="valueComputed"
-      :view="syncView"
-      @hover:day="(value) => $emit('hover:day', value)"
-      @click:day="(value) => $emit('click:day', value)"
-    >
-      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-        <slot :name="name" v-bind="bind" />
-      </template>
-    </va-day-picker>
+    <div class="va-date-picker__picker-wrapper">
+      <va-day-picker
+        v-if="syncView.type === 'day'"
+        v-bind="dayPickerProps"
+        v-model="valueComputed"
+        ref="currentPicker"
+        :view="syncView"
+        @hover:day="(value) => $emit('hover:day', value)"
+        @click:day="(value) => $emit('click:day', value)"
+      >
+        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+          <slot :name="name" v-bind="bind" />
+        </template>
+      </va-day-picker>
 
-    <va-month-picker
-      v-if="syncView.type === 'month'"
-      v-bind="monthPickerProps"
-      :view="syncView"
-      :model-value="valueComputed"
-      @update:model-value="onMonthModelValueUpdate"
-      @hover:month="(value) => $emit('hover:month', value)"
-      @click:month="onMonthClick"
-    >
-      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-        <slot :name="name" v-bind="bind" />
-      </template>
-    </va-month-picker>
+      <va-month-picker
+        v-if="syncView.type === 'month'"
+        v-bind="monthPickerProps"
+        ref="currentPicker"
+        :view="syncView"
+        :model-value="valueComputed"
+        @update:model-value="onMonthModelValueUpdate"
+        @hover:month="(value) => $emit('hover:month', value)"
+        @click:month="onMonthClick"
+      >
+        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+          <slot :name="name" v-bind="bind" />
+        </template>
+      </va-month-picker>
 
-    <va-year-picker
-      v-if="syncView.type === 'year'"
-      v-bind="yearPickerProps"
-      :view="syncView"
-      :model-value="valueComputed"
-      @hover:year="(value) => $emit('hover:year', value)"
-      @update:model-value="onYearModelValueUpdate"
-      @click:year="onYearClick"
-    >
-      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-        <slot :name="name" v-bind="bind" />
-      </template>
-    </va-year-picker>
+      <va-year-picker
+        v-if="syncView.type === 'year'"
+        v-bind="yearPickerProps"
+        ref="currentPicker"
+        :view="syncView"
+        :model-value="valueComputed"
+        @hover:year="(value) => $emit('hover:year', value)"
+        @update:model-value="onYearModelValueUpdate"
+        @click:year="onYearClick"
+      >
+        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+          <slot :name="name" v-bind="bind" />
+        </template>
+      </va-year-picker>
+    </div>
+
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { ComponentOptions, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 import { useColors } from '../../../services/color-config/color-config'
 
@@ -94,6 +100,7 @@ export default defineComponent({
 
   emits: [
     ...statefulComponentOptions.emits,
+    ...extractComponentEmits(VaDatePickerHeader),
     ...extractComponentEmits(VaYearPicker),
     ...extractComponentEmits(VaDayPicker),
     ...extractComponentEmits(VaMonthPicker),
@@ -135,6 +142,10 @@ export default defineComponent({
       'weekends-color': props.weekendsColor,
     }, 'va-date-picker')
 
+    const currentPicker = ref<ComponentOptions | null>(null)
+
+    watch(syncView, (newValue) => { nextTick(() => currentPicker.value!.$el.focus()) })
+
     return {
       dayPickerProps: filterComponentProps(props, extractComponentProps(VaDayPicker)),
       headerProps: filterComponentProps(props, extractComponentProps(VaDatePickerHeader)),
@@ -151,6 +162,7 @@ export default defineComponent({
       onYearModelValueUpdate,
 
       colorsStyle,
+      currentPicker,
     }
   },
 })
@@ -163,7 +175,10 @@ export default defineComponent({
   --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
 
   width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
-  height: var(--va-date-picker-content-height);
+
+  &__picker-wrapper {
+    height: var(--va-date-picker-content-height);
+  }
 
   &__without-week-days {
     --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 6 + var(--va-date-picker-cell-gap) * 6);

@@ -1,41 +1,36 @@
 <template>
-  <div class="va-day-picker">
-    <div
-      class="va-day-picker__calendar"
-      v-bind="keyboardContainerAttributes"
-    >
-      <template v-if="!hideWeekDays">
-        <div
-          v-for="weekday in weekdayNamesComputed" :key="weekday"
-          class="va-day-picker__calendar__weekday"
-        >
-          <slot name="weekday">
-            {{ weekday }}
-          </slot>
-        </div>
-      </template>
-
+  <div class="va-day-picker" v-bind="keyboardContainerAttributes">
+    <template v-if="!hideWeekDays">
       <div
-        class="va-day-picker__calendar__day-wrapper"
-        v-for="(date, index) in calendarDates"
-        :key="date"
+        v-for="weekday in weekdayNamesComputed" :key="weekday"
+        class="va-day-picker__weekday"
       >
-        <va-day-picker-cell
-          v-bind="VaDayPickerCellPropValues"
-          :date="date"
-          :selected-value="modelValue"
-          :currentMonth="view.month"
-          :focused-date="focusedDate?.date"
-          :focused="focusedDateIndex === index"
-          @click="onDateClick($event), focusedDateIndex = index"
-          @mouseenter="focusedDate = { date, index }"
-          @mouseleave="focusedDate = null"
-        >
-          <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-            <slot :name="name" v-bind="bind" />
-          </template>
-        </va-day-picker-cell>
+        <slot name="weekday">
+          {{ weekday }}
+        </slot>
       </div>
+    </template>
+
+    <div
+      class="va-day-picker__calendar__day-wrapper"
+      v-for="(date, index) in calendarDates"
+      :key="date"
+    >
+      <va-day-picker-cell
+        v-bind="VaDayPickerCellPropValues"
+        :date="date"
+        :selected-value="modelValue"
+        :currentMonth="view.month"
+        :focused-date="focusedDate?.date"
+        :focused="focusedDateIndex === index"
+        @click="onDateClick($event), focusedDateIndex = index"
+        @mouseenter="focusedDate = { date, index }"
+        @mouseleave="focusedDate = null"
+      >
+        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+          <slot :name="name" v-bind="bind" />
+        </template>
+      </va-day-picker-cell>
     </div>
   </div>
 </template>
@@ -127,20 +122,18 @@ export default defineComponent({
 
 <style lang="scss">
 .va-day-picker {
-  &__calendar {
-    display: grid;
-    // 7 columns
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: var(--va-date-picker-cell-gap);
+  display: grid;
+  // 7 columns
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: var(--va-date-picker-cell-gap);
 
-    &__weekday {
-      text-align: center;
-      font-size: 9px;
-      color: var(--va-secondary);
-      font-weight: bold;
-      height: var(--va-date-picker-cell-size);
-      line-height: var(--va-date-picker-cell-size);
-    }
+  &__weekday {
+    text-align: center;
+    font-size: 9px;
+    color: var(--va-secondary);
+    font-weight: bold;
+    height: var(--va-date-picker-cell-size);
+    line-height: var(--va-date-picker-cell-size);
   }
 }
 </style>

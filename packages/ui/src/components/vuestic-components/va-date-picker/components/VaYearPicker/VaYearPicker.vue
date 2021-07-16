@@ -132,7 +132,7 @@ export default defineComponent({
       start: 0,
       end: years.value.length,
       onFocusIndex: computed(() => years.value.indexOf(view.value.year)),
-      onSelected: (selectedIndex) => onYearClick(selectedIndex),
+      onSelected: (selectedIndex) => onYearClick(years.value[selectedIndex]),
     })
 
     watch(focusedDateIndex, (newValue) => scrollIntoYearIndex(newValue))
@@ -167,7 +167,3 @@ export default defineComponent({
   }
 }
 </style>
-
-function useRefsArray(): {} {
-  throw new Error('Function not implemented.')
-}

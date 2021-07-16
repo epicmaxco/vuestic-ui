@@ -30,7 +30,7 @@ import { useView } from '../../hooks/view'
 export default defineComponent({
   name: 'VaDatePickerHeader',
 
-  emits: ['update:year', 'update:month', 'update:view'],
+  emits: ['update:view'],
 
   props: {
     monthNames: { type: Array, required: true },
