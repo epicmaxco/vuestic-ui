@@ -1,10 +1,12 @@
-import { PropType, computed, toRefs, provide, watch, Slots, ComputedRef } from 'vue'
+import { computed, toRefs, provide, watch, Slots, ComputedRef } from 'vue'
 import { useSyncProp } from './sync-prop'
 import { VaDataTableFooter } from '../index'
 
-export function useDataTableFooter (props: Record<string, any>, emit: (event: any, newValue: any) => any, slots: Slots, items: ComputedRef<Object[]>) {
+export function useDataTablePagination (props: Record<string, any>, emit: (event: any, newValue: any) => any, slots: Slots, items: ComputedRef<Object[]>) {
   const { page, itemsPerPage, itemsLength } = toRefs(props)
-  const footerProps = computed(() => slots.default?.().find(child => child.type === VaDataTableFooter)?.props)
+  // The next line is needed to separate the data table and footer props, thanks to this we can customize the footer using the footer component (see the `footer settings` demo)
+  // * perhaps this is redundant functionality
+  const paginationProps = computed(() => slots.default?.().find(child => child.type === VaDataTableFooter)?.props)
   const { syncProp: currentPage } = useSyncProp<number, string>(page, 'page', emit, 1)
   const { syncProp: currentItemsPerPage } = useSyncProp<number, string>(itemsPerPage, 'itemsPerPage', emit, 5)
   const moreThanOnePage = computed(() => currentItemsPerPage.value > 0 && items.value.length > currentItemsPerPage.value)
@@ -31,17 +33,18 @@ export function useDataTableFooter (props: Record<string, any>, emit: (event: an
     }
     return items.value
   })
+  // `provide` is used to remove these props from the footer component and not confuse the user when they customize the footer
   provide('page', currentPage)
   provide('itemsPerPage', currentItemsPerPage)
   provide('paginationTotal', paginationTotal)
 
   return {
     filteredItems,
-    footerProps,
+    paginationProps,
   }
 }
 
-export const footerComponentOptions = {
+export const paginationOptions = {
   props: {
     page: {
       type: Number,

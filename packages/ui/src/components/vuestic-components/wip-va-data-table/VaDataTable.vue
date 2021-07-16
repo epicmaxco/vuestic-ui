@@ -31,7 +31,7 @@
         </tbody>
       </table>
       <slot name="footer">
-        <va-data-table-footer v-bind="footerProps">
+        <va-data-table-footer v-bind="paginationProps">
           <template v-if="$slots['footer:items-per-page']" #items-per-page>
             <slot name="footer:items-per-page" />
           </template>
@@ -51,7 +51,7 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import VaSelect from '../va-select/VaSelect.vue'
 import VaDataTableFooter from './VaDataTableFooter.vue'
 import TableHeaderCell from './TableHeaderCell.vue'
-import { useDataTableFooter, footerComponentOptions } from './hooks/footer'
+import { useDataTablePagination, paginationOptions } from './hooks/pagination'
 import DataTableHeader from './DataTableHeader';
 import { useSyncProp } from './hooks/sync-prop'
 import _sortBy from 'lodash/sortBy';
@@ -66,7 +66,7 @@ export default  defineComponent ({
     TableHeaderCell,
   },
   props: {
-    ...footerComponentOptions.props,
+    ...paginationOptions.props,
     items: {
       type: Array as PropType<Object[]>,
       required: true,
@@ -96,7 +96,7 @@ export default  defineComponent ({
       default: undefined,
     },
   },
-  emits: [...footerComponentOptions.emits, 'update:sortBy', 'update:sortDesc'],
+  emits: [...paginationOptions.emits, 'update:sortBy', 'update:sortDesc'],
   setup (props, { emit, slots }) {
     const { sortBy, sortDesc, items, itemsLength } = toRefs(props)
     const { syncProp: currentSortBy } = useSyncProp(sortBy, 'sortBy', emit, '')
@@ -108,13 +108,13 @@ export default  defineComponent ({
       const sorted = _sortBy(items.value, currentSortBy.value)
       return currentSortDesc.value ? sorted.reverse() : sorted
     });
-    const { filteredItems, footerProps } = useDataTableFooter(props, emit, slots, sortedItems)
+    const { filteredItems, paginationProps } = useDataTablePagination(props, emit, slots, sortedItems)
 
     return {
       filteredItems,
-      footerProps,
+      paginationProps,
       currentSortBy,
-      currentSortDesc
+      currentSortDesc,
     }
   },
 })
