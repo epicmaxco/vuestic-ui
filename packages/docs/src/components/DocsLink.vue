@@ -1,10 +1,22 @@
 <template>
   <p>
-    {{ $te(preText) ? $t(preText) : preText }}
+    <MarkdownView
+      class="DocsLink__pre"
+      inline
+      tag="span"
+      v-if="preText"
+      :value="$te(preText) ? $t(preText) : preText"
+    />
     <router-link :to="href">
       {{ $te(text) ? $t(text) : text }}
     </router-link>
-    {{ $te(afterText) ? $t(afterText) : afterText }}
+    <MarkdownView
+      class="DocsLink__after"
+      inline
+      tag="span"
+      v-if="afterText"
+      :value="$te(afterText) ? $t(afterText) : afterText"
+    />
   </p>
 </template>
 
@@ -30,4 +42,12 @@ export default class DocsLink extends mixins(PropsMixin) {}
 
 <style lang="scss">
 @import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
+
+.DocsLink__pre {
+  margin-right: 0.3rem;
+}
+
+.DocsLink__after {
+  margin-left: 0.3rem;
+}
 </style>

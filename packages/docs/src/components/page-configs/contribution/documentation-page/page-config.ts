@@ -12,7 +12,7 @@ export const codeForListBlock = `
     <li> Value of the list item 2 </li>
 </ul>`
 export const linkOptionsBlock = `options = {
-  preText: 'prefix',
+  preText: 'prefix with **markdown** text',
   afterText: 'suffix',
 }`
 export const tableDataBlock = `
