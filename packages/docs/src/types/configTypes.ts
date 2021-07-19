@@ -63,10 +63,6 @@ export type ApiDocsBlock =
       code: CodeString,
       language: CodeLanguage,
     }
-  // | {
-  //     type: BlockType.CODE,
-  //     code: CodeString,
-  //   }
   | {
       type: BlockType.API,
       componentOptions: DefineComponent | VueConstructor,
