@@ -1,4 +1,3 @@
-import typescript from 'typescript'
 import { defineConfig } from 'rollup'
 import typescriptPlugin from 'rollup-plugin-typescript2'
 import vuePlugin from 'rollup-plugin-vue'
