@@ -9,7 +9,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from './build/rollup/rollup-typescript-declaration'
 
 /** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
-function createESMConfig ({ input, outDir = 'dist/', minify = false, declaration = false }) {
+function createESMConfig ({ input, outDir = 'dist/', minify = false, declaration = false, ssr = false }) {
   const inputPathWithoutFilename = input.split('/').slice(0, -1).join('/')
 
   const config = defineConfig({
@@ -37,7 +37,7 @@ function createESMConfig ({ input, outDir = 'dist/', minify = false, declaration
 
     plugins: [
       typescriptPlugin({ check: false }),
-      vuePlugin({ target: 'node', compileTemplate: true, preprocessStyles: true }),
+      vuePlugin({ target: ssr ? 'node' : 'browser', template: { optimizeSSR: ssr }, compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
       postcssPlugin({ minimize: minify }), // Transform preprocessStyles
     ],
@@ -50,15 +50,25 @@ function createESMConfig ({ input, outDir = 'dist/', minify = false, declaration
 }
 
 /** Used to create a universe lib, that can be imported from cdn by browser */
-function UMDBundleConfig ({ input, outDir = 'dist/', minify = false, declaration = false, ssr = false }) {
+function createUMDConfig ({ input, outDir = 'dist/', minify = false, declaration = false, ssr = false }) {
   const config = defineConfig({
     input,
     output: {
       dir: outDir,
       format: 'umd',
-      name: 'vuestic-ui',
-      globals: ['vue'],
+
+      /**
+       * Then user can use vuestic global VuesticUI
+       * example: VuesticUI.VuesticPlugin
+       */
+      name: 'VuesticUI',
+      globals: { vue: 'Vue' },
+
+      // Define process object for libs.
+      intro: "var process = { env: { NODE_ENV: 'production' } };",
     },
+
+    external: ['vue'],
 
     plugins: [
       typescriptPlugin({ check: false }),
@@ -77,6 +87,8 @@ function UMDBundleConfig ({ input, outDir = 'dist/', minify = false, declaration
 }
 
 export default [
-  createESMConfig({ input: './src/main.ts', outDir: 'dist/esm', minify: false }),
-  // UMDBundleConfig({ input: './src/main.ts', outDir: 'dist/umd', ssr: false, minify: true }),
+  createESMConfig({ input: './src/main.ts', outDir: 'dist/esm', minify: true }),
+  createUMDConfig({ input: './src/main.ts', outDir: 'dist/umd', minify: true }),
+  createUMDConfig({ input: './src/main.ts', outDir: 'dist/ssr/umd', minify: true, ssr: true }),
+  createESMConfig({ input: './src/main.ts', outDir: 'dist/ssr/esm', minify: true, ssr: true }),
 ]
