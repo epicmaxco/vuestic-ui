@@ -558,7 +558,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../../vuestic-sass/grid/_grid-global-styles";
-</style>

@@ -78,6 +78,6 @@ function UMDBundleConfig ({ input, outDir = 'dist/', minify = false, declaration
 }
 
 export default [
-  createESMConfig({ input: './src/main.ts', outDir: 'dist/esm', minify: true }),
-  UMDBundleConfig({ input: './src/main.ts', outDir: 'dist/umd', ssr: false, minify: true }),
+  createESMConfig({ input: './src/main.ts', outDir: 'dist/esm', minify: false }),
+  // UMDBundleConfig({ input: './src/main.ts', outDir: 'dist/umd', ssr: false, minify: true }),
 ]
