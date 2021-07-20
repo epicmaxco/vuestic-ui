@@ -3,8 +3,8 @@ import { createCJSConfig, createESMConfig, createIIFEConfig } from './build/roll
 const defaultBuildParams = { input: './src/main.ts', minify: true, sourcemap: true }
 
 export default [
-  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm' }),
-  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm-ssr', ssr: true }),
+  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm', declaration: true }),
+  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm-ssr', ssr: true, declaration: true }),
   createIIFEConfig({ ...defaultBuildParams, outDir: 'dist/iife' }),
   createCJSConfig({ ...defaultBuildParams, outDir: 'dist/cjs' }),
 ]

@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 
 /** This plugin allows to create ts definition and specific them to specific folder. */
-export default function (options = { outDir: undefined }) {
+export default function ({ outDir = undefined }) {
   return {
     name: 'rollup-typescript-declarations',
     buildEnd: (err) => {
@@ -9,8 +9,9 @@ export default function (options = { outDir: undefined }) {
 
       const command = [
         'tsc',
+        '--declaration',
         '--emitDeclarationOnly',
-        options.outDir ? `--outDir ${options.outDir}` : '',
+        outDir ? `--outDir ${outDir}` : '',
       ].join(' ')
 
       exec(command)
