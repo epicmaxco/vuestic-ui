@@ -13,27 +13,31 @@
           >
             {{ title }}
           </va-tab>
-          <va-tab label="Tab without name" />
-          <va-tab
-            icon="home"
-            label="Tab with icon"
-            name="icon"
-          />
-          <va-tab
-            icon="face"
-            label="Disabled tab"
-            disabled
-            name="disabled"
-          />
         </template>
       </va-tabs>
       Value: {{ tabValue1 }}
     </VbCard>
     <VbCard
-      title="Tabs With Pagination"
-      style="width: 30%;"
+      title="Tabs Without name"
+      style="width: 100%;"
     >
-      <va-tabs v-model="tabValue1">
+      <va-tabs v-model="tabValueWithoutName">
+        <template #tabs>
+          <va-tab
+            v-for="title in tabStatic"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
+      </va-tabs>
+      Value: {{ tabValueWithoutName }}
+    </VbCard>
+    <VbCard
+      title="Tabs With Pagination"
+      style="width: 45%;"
+    >
+      <va-tabs v-model="tabValueWithPagination">
         <template #tabs>
           <va-tab
             v-for="title in ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']"
@@ -42,24 +46,12 @@
           >
             {{ title }}
           </va-tab>
-          <va-tab label="Tab without name" />
-          <va-tab
-            icon="fas-home"
-            label="Tab with icon"
-            name="icon"
-          />
-          <va-tab
-            icon="face"
-            label="Disabled tab"
-            disabled
-            name="disabled"
-          />
         </template>
       </va-tabs>
     </VbCard>
     <VbCard
       title="Tabs With Pagination and Custom Icons"
-      style="width: 30%;"
+      style="width: 45%;"
     >
       <va-tabs
         v-model="tabValue1"
@@ -74,18 +66,6 @@
           >
             {{ title }}
           </va-tab>
-          <va-tab label="Tab without name" />
-          <va-tab
-            icon="fas-home"
-            label="Tab with icon"
-            name="icon"
-          />
-          <va-tab
-            icon="face"
-            label="Disabled tab"
-            disabled
-            name="disabled"
-          />
         </template>
       </va-tabs>
     </VbCard>
@@ -99,7 +79,7 @@
       >
         <template #tabs>
           <va-tab
-            v-for="title in tabDynamic"
+            v-for="title in tabStatic"
             :name="title"
             :key="title"
           >
@@ -107,58 +87,22 @@
           </va-tab>
         </template>
       </va-tabs>
-      <div style="width: 100%; height: 100%; background-color: wheat;" />
     </VbCard>
     <VbCard
-      title="Tabs with names"
+      title="Tabs With Icons"
       style="width: 100%;"
     >
-      <va-tabs v-model="tabValue2">
+      <va-tabs v-model="tabValue4">
         <template #tabs>
           <va-tab
-            v-for="title in tabDynamic"
-            :name="title"
-            :key="title"
-          >
-            {{ title }}
-          </va-tab>
+            v-for="icon in ['share', 'star', 'room', 'schedule']"
+            :name="icon"
+            :icon="icon"
+            :label="icon"
+            :key="icon"
+          />
         </template>
       </va-tabs>
-      Value: {{ tabValue2 }}
-      <div>
-        <button @click="tabDynamic.push(`Tab #${tabDynamic.length + 1}`)">
-          Add tab
-        </button>
-
-        <input style="width: 50px;" v-model="deletedTabIndex" placeholder="Index">
-        <button @click="tabDynamic.splice(deletedTabIndex || 0,1)">
-          Remove tab
-        </button>
-      </div>
-    </VbCard>
-    <VbCard
-      title="Tabs with indices"
-      style="width: 100%;"
-    >
-      <va-tabs v-model="tabValue3">
-        <template #tabs>
-          <va-tab>
-            Inital tab
-          </va-tab>
-          <va-tab
-            v-for="title in tabAdded"
-            :key="title"
-          >
-            {{ title }}
-          </va-tab>
-        </template>
-      </va-tabs>
-      Value: {{ tabValue3 }}
-      <div>
-        <button @click="tabAdded.push(`Tab #${tabAdded.length + 1}`)">
-          Add one more tab
-        </button>
-      </div>
     </VbCard>
     <VbCard
       title="Tabs with same v-model"
@@ -167,7 +111,7 @@
       <va-tabs v-model="tabValue">
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
@@ -177,7 +121,7 @@
       <va-tabs v-model="tabValue">
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
@@ -190,7 +134,7 @@
       >
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
@@ -212,7 +156,7 @@
       <va-tabs>
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
@@ -250,7 +194,7 @@
       >
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
@@ -268,7 +212,7 @@
       >
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
@@ -286,7 +230,7 @@
       >
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
@@ -300,7 +244,7 @@
     >
       <va-tabs :modelValue="1">
         <template #tabs>
-          <va-tab v-for="title in ['One', 'Two', 'Three']" :key="title">
+          <va-tab v-for="title in tabStatic" :key="title">
             {{ title }}
           </va-tab>
         </template>
@@ -316,13 +260,35 @@
       >
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
           </va-tab>
         </template>
       </va-tabs>
+    </VbCard>
+    <VbCard
+      title="Disabled one tab"
+      style="width: 100%;"
+    >
+      <va-tabs v-model="tabValue1" focus>
+        <template #tabs>
+          <va-tab
+            v-for="title in tabStatic"
+            :name="title"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+          <va-tab
+            label="Disabled tab"
+            disabled
+            name="disabled"
+          />
+        </template>
+      </va-tabs>
+      Value: {{ tabValue1 }}
     </VbCard>
     <VbCard
       title="Colored tabs"
@@ -335,7 +301,7 @@
       >
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
@@ -378,13 +344,40 @@
       >
         <template #tabs>
           <va-tab
-            v-for="title in ['One', 'Two', 'Three', 'Four']"
+            v-for="title in tabStatic"
             :key="title"
           >
             {{ title }}
           </va-tab>
         </template>
       </va-tabs>
+    </VbCard>
+    <VbCard
+      title="Add and Remove tabs"
+      style="width: 100%;"
+    >
+      <va-tabs v-model="tabValue2">
+        <template #tabs>
+          <va-tab
+            v-for="title in tabDynamic"
+            :name="title"
+            :key="title"
+          >
+            {{ title }}
+          </va-tab>
+        </template>
+      </va-tabs>
+      Value: {{ tabValue2 }}
+      <div>
+        <button @click="tabDynamic.push(`Tab #${tabDynamic.length + 1}`)">
+          Add tab
+        </button>
+
+        <input style="width: 50px;" v-model="deletedTabIndex" placeholder="Index">
+        <button @click="tabDynamic.splice(deletedTabIndex || 0,1)">
+          Remove tab
+        </button>
+      </div>
     </VbCard>
   </VbDemo>
 </template>
@@ -400,14 +393,16 @@ export default {
   },
   data () {
     return {
-      tabStatic: ['One', 'Two', 'Three'],
+      tabStatic: ['One', 'Two', 'Three', 'Four'],
       tabDynamic: ['One', 'Two', 'Three'],
       tabValue: 2,
       tabValue1: 'One',
       tabValue2: 'One',
       tabValue3: 0,
+      tabValue4: 'share',
+      tabValueWithPagination: 'Four',
+      tabValueWithoutName: 1,
       tabStateful: [1, 2, 3, 4],
-      tabAdded: [],
       show: false,
       deletedTabIndex: '',
     }
