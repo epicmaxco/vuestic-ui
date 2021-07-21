@@ -2784,7 +2784,7 @@
       "action": "To solve that problem - in your `main.js` add:",
       "result": "Now your buttons will look like this:",
       "example": "You can globally configure any props for Vuestic UI components similarly.",
-      "more": "If your customization runs deeper - you may override [css variables](https://vuestic.dev/en/styles/css-variables#overriding) or class properties directly (components use BEM, so selectors are easy to guess)."
+      "more": "If your customization runs deeper - you may override [css variables](/styles/css-variables#overriding) or class properties directly (components use BEM, so selectors are easy to guess)."
     }
   },
   "browserSupport": {

@@ -6,12 +6,17 @@
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 // @ts-ignore
 import MarkdownIt from 'markdown-it'
+import { useI18n } from 'vue-i18n'
+import { setTargetBlankToLinks } from './set-target-blank-to-links'
+import { setOriginLocationToRelativeLinks } from './set-origin-location-to-relative-links'
 
 const md = new MarkdownIt({
   breaks: true,
   typographer: true,
   html: true,
 })
+md.use(setTargetBlankToLinks)
+  .use(setOriginLocationToRelativeLinks)
 
 class Props {
   value = prop<string>({ type: String, required: true })
@@ -27,6 +32,9 @@ const PropsMixin = Vue.with(Props)
 @Options({})
 export default class MarkdownView extends mixins(PropsMixin) {
   get text () {
+    const { locale } = useI18n()
+    md.renderer.currentLocale = locale.value
+
     if (this.inline) {
       return md.renderInline(this.value)
     }
