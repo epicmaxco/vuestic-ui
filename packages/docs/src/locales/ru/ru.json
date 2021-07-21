@@ -1048,7 +1048,8 @@
     "typography": "Типографика",
     "agGridWrapper": "AG Grid Wrapper",
     "dataTable": "Data Table",
-    "uiElementGuide": "Разработка элементов UI"
+    "uiElementGuide": "Разработка элементов UI",
+    "colors": "Цвета"
   },
   "all": {
     "examples": "Примеры",
@@ -3204,6 +3205,24 @@
         "keyboardNavigation": "**Клавиатурная навигация** - Вы должны убедиться, что элементы пользовательского интерфейса доступны с клавиатуры, или же отключить эту функцию для элементов, которые не должны получать фокус через клавиатуру.",
         "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md))."
       }
+    }
+  },
+  "colors": {
+    "title": "Цвета",
+    "description": "Vuestic UI определяет `Переменные CSS` цветов, которые используются в вашем приложении. Это позволит вам легко определять свои селекторы с использованием цветов определенных в [Colors Config](https://vuestic.dev/en/services/colors-config).",
+    "syntax": {
+      "title": "Синтаксис",
+      "description": "Vuestic UI использует следующий синтаксис для определения цветовых переменных CSS:",
+      "colorsUsed": "Каждый цвет, объявленный по умолчанию в Vuestic UI  (включая и переопределенные цвета) и новые добавленные пользователем цвета имеют свои собственные `Переменные CSS`."
+    },
+    "defaultColorThemes": {
+      "title": "Стандартные цветовые темы",
+      "description": "Все объявленные по умолчанию в Vuestic UI цвета перечисленны ниже:"
+    },
+    "reactivity": {
+      "subtitle": "Реактивность",
+      "about": "Эти переменные реактивны относительно `Colors Config`. Это значит, что они будут обновляться, когда изменяется конфигурация. Читайте подробнее о том, как обновлять конфигурацию [здесь](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
+      "additional": "Обратите внимание, что изменение цветовых переменных CSS напрямую, в свою очередь, не приведет к обновлению `Colors Config`."
     }
   }
 }

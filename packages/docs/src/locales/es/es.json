@@ -346,7 +346,8 @@
     "typography": "Typography",
     "agGridWrapper": "AG Grid Wrapper",
     "dataTable": "Data Table",
-    "uiElementGuide": "Ui Element Guide"
+    "uiElementGuide": "Ui Element Guide",
+    "colors": "Colors"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -483,6 +484,9 @@
     "title": "-- Here is the title --"
   },
   "uiElementGuide": {
+    "title": "-- Here is the title --"
+  },
+  "colors": {
     "title": "-- Here is the title --"
   }
 }

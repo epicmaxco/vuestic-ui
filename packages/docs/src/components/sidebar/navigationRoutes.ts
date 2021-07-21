@@ -68,6 +68,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.cssVariables',
       },
       {
+        name: 'colors',
+        displayName: 'menu.colors',
+      },
+      {
         name: 'typography',
         displayName: 'menu.typography',
       },
