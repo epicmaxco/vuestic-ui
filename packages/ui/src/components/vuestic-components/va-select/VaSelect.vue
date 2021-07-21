@@ -92,29 +92,7 @@
       </template>
 
       <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
-      <va-dropdown-content
-        @keyup.enter.stop
-        @keydown.esc.prevent="hideAndFocus"
-        @keydown.tab="hideDropdown"
-      >
-        <va-input
-          v-if="showSearchInput"
-          :id="$props.id"
-          ref="searchBar"
-          v-model="searchInputValue"
-          class="va-select__input"
-          placeholder="Search"
-          removable
-          :name="$props.name"
-          :tabindex="tabindex + 1"
-          :bordered="true"
-          @keydown.up.stop.prevent="hoverPreviousOption()"
-          @keydown.left.stop.prevent="hoverPreviousOption()"
-          @keydown.down.stop.prevent="hoverNextOption()"
-          @keydown.right.stop.prevent="hoverNextOption()"
-          @keydown.enter.prevent="selectOrAddOption()"
-          @focus="hoveredOption = null"
-        />
+      <va-dropdown-content class="va-dropdown__content-wrapper" @keyup.enter.stop>
         <div class="va-select__dropdown__content">
           <va-select-option-list
             ref="optionList"
@@ -636,23 +614,23 @@ export default class VaSelect extends mixins(
     .va-dropdown__anchor {
       display: block;
     }
-
-    .va-dropdown__content {
-      overflow: hidden;
-      border-bottom-right-radius: var(--va-select-dropdown-border-radius);
-      border-bottom-left-radius: var(--va-select-dropdown-border-radius);
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
-      box-shadow: var(--va-select-box-shadow);
-      padding: 0;
-    }
-
-    .va-select__dropdown__content {
-      background: var(--va-select-dropdown-background);
-      overflow-y: auto;
-
-      @include va-scroll(var(--va-select-scroll-color));
-    }
   }
+}
+
+.va-dropdown__content-wrapper {
+  overflow: hidden;
+  border-bottom-right-radius: var(--va-select-dropdown-border-radius);
+  border-bottom-left-radius: var(--va-select-dropdown-border-radius);
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  box-shadow: var(--va-select-box-shadow);
+  padding: 0;
+}
+
+.va-select__dropdown__content {
+  background: var(--va-select-dropdown-background);
+  overflow-y: auto;
+
+  @include va-scroll(var(--va-select-scroll-color));
 }
 </style>
