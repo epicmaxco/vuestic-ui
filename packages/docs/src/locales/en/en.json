@@ -119,14 +119,14 @@
         "color": "Color of the component (theme string or *HEX* string).",
         "textColor": "Text color (theme string or *HEX* string).",
         "rules": "Validation rules <!-- TODO Add link -->.",
-        "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\").",
-        "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\").",
-        "append": "When set, always appends the relative path to the current path. [More info here](https://router.vuejs.org/api/#append \"Vue router docs\").",
-        "exact": "Exactly match the link. Without this, '/' will match every route. [More info here](https://router.vuejs.org/api/#exact \"Vue router docs\").",
-        "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\").",
-        "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
-        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
-        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
+        "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\")[[target=_blank]].",
+        "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\")[[target=_blank]].",
+        "append": "When set, always appends the relative path to the current path. [More info here](https://router.vuejs.org/api/#append \"Vue router docs\")[[target=_blank]].",
+        "exact": "Exactly match the link. Without this, '/' will match every route. [More info here](https://router.vuejs.org/api/#exact \"Vue router docs\")[[target=_blank]].",
+        "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\")[[target=_blank]].",
+        "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\")[[target=_blank]].",
+        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\")[[target=_blank]].",
+        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A)[[target=_blank]].",
         "src": "Source URL.",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type.",
         "label": "Same as native `label`.",
@@ -1149,7 +1149,7 @@
     "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
     "introduction": {
       "title": "Introduction",
-      "description": "Instead of using the established documentation system, such as [vue-press](https://vuepress.vuejs.org/) or [docsify](https://docsify.js.org/#/), we’ve decided to create a system specifically tailored for Vuestic. It’s meant to provide excellent flexibility for future growth."
+      "description": "Instead of using the established documentation system, such as [vue-press](https://vuepress.vuejs.org/)[[target=_blank]] or [docsify](https://docsify.js.org/#/)[[target=_blank]], we’ve decided to create a system specifically tailored for Vuestic. It’s meant to provide excellent flexibility for future growth."
     },
     "pageConfig": {
       "title": "Page Config",
@@ -1174,7 +1174,8 @@
       },
       "paragraph": {
         "title": "Paragraph",
-        "text": "Should be used for all non-special text blocks."
+        "text": "Should be used for all non-special text blocks. For links to external resources, you can specify the **target** attribute in markdown markup as follows: `[name](href)[[target=_blank]]`.",
+        "example": "Paragraph (example). Link in the text leading to an external resource: [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)[[target=_blank]]."
       },
       "list": {
         "title": "List",
@@ -1185,7 +1186,7 @@
       },
       "code": {
         "title": "Code",
-        "text": "Code preview. We use [prism](https://prismjs.com/)."
+        "text": "Code preview. We use [prism](https://prismjs.com/)[[target=_blank]]."
       },
       "example": {
         "title": "Example",
@@ -1201,11 +1202,14 @@
       },
       "link": {
         "title": "Link",
-        "text": "Used for local links (with <i>options</i> and without them)."
+        "text": "Used for relative (local) links processed by router (with *options* and without them).",
+        "exampleWithOptions": "Link with options (example)",
+        "example": "Link (example)"
       },
       "alert": {
         "title": "Alert",
-        "text": "Used to display an important message."
+        "text": "Used to display an important message.",
+        "example": "Alert (example)"
       }
     },
     "apiOptionsTitle": "API Options",
@@ -1213,7 +1217,6 @@
       "text": "With automated code analysis we can't go too far. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
       "version": "`version` - specifies at which version of vuestic this component or feature were implemented.",
       "types": "`types` - simpler prop types documentation engine can figure from component options (`String`, `Number` etc). For almost everything else it has to be defined.",
-      "local": "`local` - forces to use component-specific translation. Default behavior is using 'all' section of the translation object.",
       "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. As some props could be intended for internal use."
     }
   },
@@ -2016,7 +2019,7 @@
   },
   "progressBar": {
     "title": "Progress Bar",
-    "summaryText": "The `va-progress-bar` component is used to display an indicator of an app loading content. Also check the <a href=\"/en/progress-circle\">va-progress-circle</a> component.",
+    "summaryText": "The `va-progress-bar` component is used to display an indicator of an app loading content. Also check the [va-progress-circle](/ui-elements/progress-circle) component.",
     "examples": {
       "default": {
         "title": "Default",
@@ -2046,7 +2049,7 @@
   },
   "progressCircle": {
     "title": "Progress Circle",
-    "summaryText": "The `va-progress-circle` component is used to display an indicator of an app loading content. Also check the <a href=\"/en/progress-bar\">va-progress-bar</a> component.",
+    "summaryText": "The `va-progress-circle` component is used to display an indicator of an app loading content. Also check the [va-progress-bar](/ui-elements/progress-bar) component.",
     "examples": {
       "default": {
         "title": "Default",
@@ -2122,7 +2125,7 @@
       },
       "mask": {
         "title": "Mask",
-        "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/). By default returning a raw value."
+        "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. By default returning a raw value."
       },
       "styles": {
         "title": "Styles",
@@ -2174,7 +2177,7 @@
   },
   "icon": {
     "title": "Icon",
-    "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons).",
+    "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Default",
@@ -2320,7 +2323,7 @@
   },
   "grid": {
     "title": "Grid System",
-    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
+    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)[[target=_blank]] - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
     "examples": {
       "default": {
         "title": "Enabling flexbox"
@@ -2552,12 +2555,12 @@
       "title": "Reset features",
       "info": "Below is a list of features that are provided by reset.scss:",
       "list": "* Margin and padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix for newer browsers. \n * HTML5 display-role reset for older browsers",
-      "more": "For a complete list of all applied styles, see the [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss) stylesheet."
+      "more": "For a complete list of all applied styles, see the [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-sass/global/reset.scss)[[target=_blank]] stylesheet."
     }
   },
   "colorPicker": {
     "title": "Color Picker",
-    "summaryText": "A component which helps to pick the color. We use the [vue-color](https://github.com/xiaokaike/vue-color) library for this component. Will be replaced in next versions.",
+    "summaryText": "A component which helps to pick the color. We use the [vue-color](https://github.com/xiaokaike/vue-color)[[target=_blank]] library for this component. Will be replaced in next versions.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -2814,8 +2817,8 @@
     "description": "Get started with Vuestic UI to create feature-rich and user-friendly apps thanks to our highly configurable framework. We’ve simplified the installation process as much as possible to save you extra effort. Installation is possible in a few ways",
     "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
     "prerequisites": "First, make sure you have all prerequisites installed:",
-    "node": "<a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
-    "npm": "<a href=\"https://www.npmjs.com/get-npm\">npm</a> version 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) and <a href=\"https://git-scm.com/\">Git</a>.",
+    "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] ( >=14.*)",
+    "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] version 3+ (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] version 1.16+) and [Git](https://git-scm.com/)[[target=_blank]]",
     "afterCheck": "After checking the prerequisites, install Vuestic UI via npm/yarn:",
     "fonts": {
       "title": "Fonts installation",
@@ -2829,8 +2832,8 @@
     },
     "cli": {
       "title": "Vue CLI installation",
-      "prepare": "Before install make sure [Vue CLI](https://cli.vuejs.org/guide/installation.html) is installed globally and has version 4+:",
-      "upgrade": "Here is a [guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3) for Vue CLI version 3 to help you update your app",
+      "prepare": "Before install make sure [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] is installed globally and has version 4+:",
+      "upgrade": "Here is a [guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] for Vue CLI version 3 to help you update your app",
       "description": "An easy way if you use the Vue-CLI setup or you want to try out Vuestic UI on a fresh project",
       "attention": "Vuestic UI installation will modify package.json and main.js(ts) files. Make sure you’ve committed your code before installing it to avoid data loss",
       "codeAnnotation": "Then install Vuestic UI as a Vue-CLI plugin:"
@@ -2865,7 +2868,7 @@
     },
     "0-1": {
       "title": "v0.1",
-      "description": "Not even alpha, we've just split components from [vuestic-admin](https://github.com/epicmaxco/vuestic-admin) into separate repository to simplify updates."
+      "description": "Not even alpha, we've just split components from [vuestic-admin](https://github.com/epicmaxco/vuestic-admin)[[target=_blank]] into separate repository to simplify updates."
     },
     "released": {
       "title": "Released",
@@ -2912,12 +2915,12 @@
       "action": "To solve that problem - in your `main.js` add:",
       "result": "Now your buttons will look like this:",
       "example": "You can globally configure any props for Vuestic UI components similarly.",
-      "more": "If your customization runs deeper - you may override [css variables](https://vuestic.dev/en/styles/css-variables#overriding) or class properties directly (components use BEM, so selectors are easy to guess)."
+      "more": "If your customization runs deeper - you may override [css variables](/styles/css-variables#overriding) or class properties directly (components use BEM, so selectors are easy to guess)."
     }
   },
   "browserSupport": {
     "title": "Browser Support",
-    "description": "We design Vuestic UI to be future proof. That's why we support modern browsers, but some old browsers, such as IE had to go, sorry. That decision was influenced by [dropped support in Vue 3](https://github.com/vuejs/rfcs/discussions/296) and [falling usage rate](https://caniuse.com/usage-table).",
+    "description": "We design Vuestic UI to be future proof. That's why we support modern browsers, but some old browsers, such as IE had to go, sorry. That decision was influenced by [dropped support in Vue 3](https://github.com/vuejs/rfcs/discussions/296)[[target=_blank]] and [falling usage rate](https://caniuse.com/usage-table)[[target=_blank]].",
     "table": {
       "browser": "Browser",
       "supported": "Supported"
@@ -2983,7 +2986,7 @@
         "dontSubmitToMaster": "**Do not submit PRs against the `master` branch.**",
         "checkoutFeat": "Checkout a `feat/` branch from `develop`, then create pull request against that branch.",
         "multipleSmallCommits": "It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.",
-        "fixBugSteps": "If fixing a bug:\n  * If you are resolving a special issue, add `close #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github [will close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
+        "fixBugSteps": "If fixing a bug:\n  * If you are resolving a special issue, add `close #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github [will close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)[[target=_blank]] the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
       }
     },
     "branches": {
@@ -3004,10 +3007,10 @@
       "smallIssues": "For small issues you may push to `develop` branch directly while adding (`close #123`) to commit message.",
       "singlePrPerIssue": "Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
       "onePersonPerIssue": "Be sure to have only one person assigned per issue.",
-      "checkYourCode": "Check your code: [conventions](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md).",
-      "weUseYarn": "We use [yarn](https://yarnpkg.com/lang/en/) for package management.",
+      "checkYourCode": "Check your code: [conventions](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md)[[target=_blank]].",
+      "weUseYarn": "We use [yarn](https://yarnpkg.com/lang/en/)[[target=_blank]] for package management.",
       "beProactive": "Be proactive. If you think something is wrong - create an issue or discuss.",
-      "recommendedTools": "Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
+      "recommendedTools": "Recommended tools: [GitKraken](https://www.gitkraken.com/)[[target=_blank]], [WebStorm](https://www.jetbrains.com/webstorm/)[[target=_blank]], [ShareX](https://getsharex.com/)[[target=_blank]].",
       "workInBook": "If you work on UI components - work in book environment (`yarn serve:book`). We want to keep global stuff out of components."
     },
     "componentFolderStructure": {
@@ -3022,7 +3025,7 @@
     },
     "credits": {
       "title": "Credits",
-      "description": "<a href=\"https://github.com/epicmaxco/vuestic-ui/graphs/contributors\">Hall of fame!</a>"
+      "description": "[Hall of fame!](https://github.com/epicmaxco/vuestic-ui/graphs/contributors)[[target=_blank]]"
     }
   },
   "globalConfig": {
@@ -3047,7 +3050,7 @@
   },
   "iconsConfig": {
     "title": "Icons config",
-    "about": "By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons). If you want to use other font libraries you can configure VaIcon to use them.",
+    "about": "By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure VaIcon to use them.",
     "readMore": "Read more",
     "readBeforeStart": "Read about icons component",
     "example": "Example",
@@ -3155,14 +3158,14 @@
   },
   "cssVariables": {
     "title": "Css Variables",
-    "description": "Vuestic UI extracts css as [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). No need to install any loaders or additional packages to override components styles. You can deeply customize components by using simple syntax to change css in your project.",
+    "description": "Vuestic UI extracts css as [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)[[target=_blank]]. No need to install any loaders or additional packages to override components styles. You can deeply customize components by using simple syntax to change css in your project.",
     "convention": {
       "title": "Convention",
       "description": "Vuestic UI uses the following convention to organize CSS Variables for more convenient use:"
     },
     "overriding": {
       "title": "Overriding",
-      "description": "You don't need any specific knowledges or packages. Just create file like `overrides.css`, import it into your main.js(ts) file and start redefining as easy as you write css properties:"
+      "description": "You don't need any specific knowledge or packages. Just create file like `overrides.css`, import it into your main.js(ts) file and start redefining as easy as you write css properties:"
     }
   },
   "navbar": {
@@ -3272,27 +3275,11 @@
     "description": "Vuestic UI uses the following typography styling",
     "headings": "Headings",
     "affected": "Affected",
-    "display1": "`class=\"display-1\"`",
-    "display2": "`class=\"display-2\"`",
-    "display3": "`class=\"display-3\"`",
-    "display4": "`class=\"display-4\"`",
-    "display5": "`class=\"display-5\"`",
-    "titled": "`class=\"title\"`",
     "primary": "Default text style",
-    "secondary": "`class=\"text--secondary\"`",
-    "codeSnippet": "`class=\"code-snippet\"`",
-    "textCode": "`class=\"text--code\"`",
     "other": "Other typography styles",
     "lists": "Lists",
-    "orderedLists": "`class=\"va-ordered\"`",
-    "unorderedLists": "`class=\"va-unordered\"`",
     "links": "Links",
-    "link": "`class=\"link\"`",
-    "linkSecondary": "`class=\"link-secondary\"`",
-    "otherElements": "Other elements",
-    "textHighlighted": "`class=\"text--highlighted\"`",
-    "blockquote": "`class=\"va-blockquote\"`",
-    "textBlock": "`class=\"text-block\"`"
+    "otherElements": "Other elements"
   },
   "ag-grid-wrapper": {
     "title": "AG Grid wrapper",
@@ -3312,7 +3299,7 @@
     "highLevelStrategy": {
       "title": "High Level Strategy",
       "description": {
-        "userExpectations": "Components should be as user expects them to be. We achieve that by checking refs ([Vuetify](https://vuetifyjs.com), [Quasar](https://quasar.dev), [Ant Design](https://ant.design), [iView](http://iview.talkingdata.com), [Element UI](https://element.eleme.io), etc.).",
+        "userExpectations": "Components should be as user expects them to be. We achieve that by checking refs ([Vuetify](https://vuetifyjs.com)[[target=_blank]], [Quasar](https://quasar.dev)[[target=_blank]], [Ant Design](https://ant.design)[[target=_blank]], [iView](http://iview.talkingdata.com)[[target=_blank]], [Element UI](https://element.eleme.io)[[target=_blank]], etc.).",
         "qualityComponents": "Components should be of high quality. We achieve that by manually testing edge cases + refactoring early."
       }
     },
@@ -3321,7 +3308,7 @@
       "description": {
         "visualFeedback": "**Visual feedback** - When user interacts with component they should see result of their actions (could be implemented with :active selector or somehow else depending on case).",
         "keyboardNavigation": "**Keyboard navigation** - You must ensure that UI elements are keyboard accessible, and you must disable this functionality for elements that should not receive keyboard focus.",
-        "statelessSupport": "**Stateless support** (read about [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md))."
+        "statelessSupport": "**Stateless support** (read about [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
   }

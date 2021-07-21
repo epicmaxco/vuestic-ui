@@ -21,6 +21,7 @@
     "docsearch.js": "^2.6.3",
     "lodash": "^4.17.21",
     "markdown-it": "^12.0.6",
+    "markdown-it-attrs": "^4.0.0",
     "prismjs": "^1.24.0",
     "raw-loader": "^4.0.2",
     "smart-grid": "^2.1.2",

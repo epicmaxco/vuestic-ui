@@ -118,15 +118,15 @@
         "stateful": "Добавляет возможность работы с компонентом без настройки `v-model`",
         "color": "Цвет компонента (поддерживаемые темой опции или `HEX`)",
         "textColor": "Цвет текста (поддерживаемые темой опции или `HEX`)",
-        "rules": "Правила валидации<!-- TODO Add link -->",
-        "to": "Целевой маршрут ссылки, [подробнее](https://router.vuejs.org/api/#to \"Vue router docs\")",
-        "replace": "Если установлено, при навигации вызывается `router.replace()` вместо `router.push()`, поэтому запись в истории не сохраняется. [Подробнее](https://router.vuejs.org/api/#replace \"Vue router docs\")",
-        "append": "Если установлено, всегда добавляется относительный путь к текущему, [подробнее](https://router.vuejs.org/api/#append \"Vue router docs\")",
-        "exact": "Проверяет точное соотвествие ссылки. Без знака `'/'` будет соответствовать каждому маршруту, [подробнее](https://router.vuejs.org/api/#exact \"Vue router docs\")",
-        "activeClass": "Применяется к активной ссылке, [подробнее](https://router.vuejs.org/api/#active-class \"Vue router docs\")",
-        "exactActiveClass": "Применяется к активной ссылке c точным соотвествием, [подробнее](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\")",
-        "href": "Определяет компонент как привязку и применяет атрибут href, [подробнее](https://router.vuejs.org/api/#href \"Vue router docs\").",
-        "target": "Целевой указатель навигации, [подробнее](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
+        "rules": "Правила валидации <!-- TODO Add link -->",
+        "to": "Целевой маршрут ссылки, [подробнее](https://router.vuejs.org/api/#to \"Vue router docs\")[[target=_blank]]",
+        "replace": "Если установлено, при навигации вызывается `router.replace()` вместо `router.push()`, поэтому запись в истории не сохраняется. [Подробнее](https://router.vuejs.org/api/#replace \"Vue router docs\")[[target=_blank]]",
+        "append": "Если установлено, всегда добавляется относительный путь к текущему, [подробнее](https://router.vuejs.org/api/#append \"Vue router docs\")[[target=_blank]]",
+        "exact": "Проверяет точное соотвествие ссылки. Без знака `'/'` будет соответствовать каждому маршруту, [подробнее](https://router.vuejs.org/api/#exact \"Vue router docs\")[[target=_blank]]",
+        "activeClass": "Применяется к активной ссылке, [подробнее](https://router.vuejs.org/api/#active-class \"Vue router docs\")[[target=_blank]]",
+        "exactActiveClass": "Применяется к активной ссылке c точным соотвествием, [подробнее](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\")[[target=_blank]]",
+        "href": "Определяет компонент как привязку и применяет атрибут href, [подробнее](https://router.vuejs.org/api/#href \"Vue router docs\")[[target=_blank]].",
+        "target": "Целевой указатель навигации, [подробнее](https://developer.mozilla.org/docs/Web/HTML/Element/A)[[target=_blank]].",
         "src": "Исходный URL",
         "arrayValue": "То же, что и нативный `value`, используется с массивом в `v-model`",
         "label": "То же, что и нативный `label`",
@@ -1069,7 +1069,7 @@
     "description": "Эта страница предназначена для контрибьюторов `vuestic-ui`, на ней объясняется, как создавать и изменять документацию.",
     "introduction": {
       "title": "Введение",
-      "description": "Вместо использования готовой системы документации, такой как [vue-press](https://vuepress.vuejs.org/) или [docsify](https://docsify.js.org/#/), мы решили создать систему, специально предназначенную для Vuestic. Она призвана обеспечить отличную гибкость для будущего развития."
+      "description": "Вместо использования готовой системы документации, такой как [vue-press](https://vuepress.vuejs.org/)[[target=_blank]] или [docsify](https://docsify.js.org/#/)[[target=_blank]], мы решили создать систему, специально предназначенную для Vuestic. Она призвана обеспечить отличную гибкость для будущего развития."
     },
     "pageConfig": {
       "title": "Конфигурация страницы",
@@ -1094,7 +1094,8 @@
       },
       "paragraph": {
         "title": "Параграф",
-        "text": "Следует использовать для всех неспециальных текстовых блоков."
+        "text": "Следует использовать для всех неспециальных текстовых блоков. Для ссылок, ведущих на внешние ресурсы, в markdown-разметке можно указать атрибут **target** следующим образом: `[name](href)[[target=_blank]]`.",
+        "example": "Параграф (пример). Ссылка в тексте, ведущая на внешний ресурс: [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)[[target=_blank]]."
       },
       "list": {
         "title": "Список",
@@ -1105,7 +1106,7 @@
       },
       "code": {
         "title": "Код",
-        "text": "Предварительный просмотр кода. Мы используем [prism](https://prismjs.com/)."
+        "text": "Предварительный просмотр кода. Мы используем [prism](https://prismjs.com/)[[target=_blank]]."
       },
       "example": {
         "title": "Пример",
@@ -1121,11 +1122,14 @@
       },
       "link": {
         "title": "Ссылка",
-        "text": "Используется для локальных ссылок (с <i>options</i> и без)."
+        "text": "Используется для относительных (локальных) ссылок, обрабатываемых маршрутизатором (с *options* и без).",
+        "exampleWithOptions": "Ссылка с options (пример)",
+        "example": "Ссылка (пример)"
       },
       "alert": {
         "title": "Предупреждение",
-        "text": "Используется для отображения важного сообщения."
+        "text": "Используется для отображения важного сообщения.",
+        "example": "Предупреждение (пример)"
       }
     },
     "apiOptionsTitle": "Параметры API",
@@ -1133,7 +1137,6 @@
       "text": "Мы не можем сделать глубокий автоматический анализ кода. Большая часть документации API должна быть объявлена явно. Параметры API позволяют настраивать такие опции, как: `version`, `props`, `events`, `methods` и `slots`.",
       "version": "`version` - указывает, в какой версии vuestic был реализован этот компонент или функция.",
       "types": "`types` - более простой механизм документирования типов свойств может быть определен из параметров компонентов (`String`, `Number`, etc). Почти для всего остального это должно быть определено.",
-      "local": "`local` - принудительное использование компонентного перевода. По умолчанию используется раздел «все» объекта перевода.",
       "hidden": "`hidden` - позволяет скрыть свойство из раздела API на странице документации. Так как некоторые свойства могут быть предназначены для внутреннего использования."
     }
   },
@@ -1162,7 +1165,7 @@
       },
       "withEmail": {
         "title": "Gravatar",
-        "text": "Свойство `email` и [gravatar](https://en.gravatar.com/support/what-is-gravatar/) используются для получения изображения профиля пользователя."
+        "text": "Свойство `email` и [gravatar](https://en.gravatar.com/support/what-is-gravatar/)[[target=_blank]] используются для получения изображения профиля пользователя."
       }
     }
   },
@@ -1694,7 +1697,7 @@
       },
       "withList": {
         "title": "Разделитель списков",
-        "text": "Разделитель отлично работает с компонентом [va-list](https://vuestic.dev/en/ui-elements/list)."
+        "text": "Разделитель отлично работает с компонентом [va-list](https://vuestic.dev/en/ui-elements/list)[[target=_blank]]."
       }
     }
   },
@@ -1831,7 +1834,7 @@
   },
   "sidebarItem": {
     "title": "Sidebar Item",
-    "summaryText": "Компонент `va-sidebar-item` используется как ссылка в [боковой панели](https://vuestic.dev/ui-elements/sidebar).",
+    "summaryText": "Компонент `va-sidebar-item` используется как ссылка в [боковой панели](https://vuestic.dev/ui-elements/sidebar)[[target=_blank]].",
     "examples": {
       "simple": {
         "title": "Базовое использование",
@@ -1847,11 +1850,11 @@
       },
       "icons": {
         "title": "Компоненты `va-sidebar-title` и `va-icon`",
-        "text": "`va-sidebar-title` используется для заполнения всего оставшегося свободного места в `va-sidebar-item`. Вы также можете добавить любые другие компоненты (например [иконки](https://vuestic.dev/ui-elements/icon), [фишки](https://vuestic.dev/ui-elements/chip) или [кнопки](https://vuestic.dev/ui-elements/button))."
+        "text": "`va-sidebar-title` используется для заполнения всего оставшегося свободного места в `va-sidebar-item`. Вы также можете добавить любые другие компоненты (например [иконки](https://vuestic.dev/ui-elements/icon)[[target=_blank]], [фишки](https://vuestic.dev/ui-elements/chip)[[target=_blank]] или [кнопки](https://vuestic.dev/ui-elements/button)[[target=_blank]])."
       },
       "components": {
         "title": "Продвинутый пример с `va-accordion`",
-        "text": "Компонент `va-sidebar-item` может быть использован с компонентами [va-accordion](https://vuestic.dev/ui-elements/accordion) и [va-сollapse](https://vuestic.dev/ui-elements/сollapse)."
+        "text": "Компонент `va-sidebar-item` может быть использован с компонентами [va-accordion](https://vuestic.dev/ui-elements/accordion)[[target=_blank]] и [va-сollapse](https://vuestic.dev/ui-elements/сollapse)[[target=_blank]]."
       }
     }
   },
@@ -1940,7 +1943,7 @@
   },
   "progressBar": {
     "title": "Progress Bar",
-    "summaryText": "Компонент `va-progress-bar` используется для отображения индикатора загрузки содержимого приложения. Так же ознакомьтесь с компонентом [va-progress-circle](https://vuestic.dev/ui-elements/progress-circle).",
+    "summaryText": "Компонент `va-progress-bar` используется для отображения индикатора загрузки содержимого приложения. Так же ознакомьтесь с компонентом [va-progress-circle](/ui-elements/progress-circle).",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -1970,7 +1973,7 @@
   },
   "progressCircle": {
     "title": "Progress Circle",
-    "summaryText": "Компонент `va-progress-circle` используется для отображения индикатора загрузки содержимого приложения. Так же ознакомьтесь с компонентом [va-progress-circle](https://vuestic.dev/ui-elements/progress-bar).",
+    "summaryText": "Компонент `va-progress-circle` используется для отображения индикатора загрузки содержимого приложения. Так же ознакомьтесь с компонентом [va-progress-bar](/ui-elements/progress-bar).",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -2046,7 +2049,7 @@
       },
       "mask": {
         "title": "Маска",
-        "text": "Свойство `mask` добавляет возможность помочь пользователю ввести определенный формат данных с помощью маски. Вы можете использовать некоторые пресеты масок или пользовательские параметры на основе [cleave.js](https://nosir.github.io/cleave.js/). По умолчанию возвращается необработанное значение."
+        "text": "Свойство `mask` добавляет возможность помочь пользователю ввести определенный формат данных с помощью маски. Вы можете использовать некоторые пресеты масок или пользовательские параметры на основе [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. По умолчанию возвращается необработанное значение."
       },
       "styles": {
         "title": "Стили",
@@ -2176,7 +2179,7 @@
   },
   "accordion": {
     "title": "Accordion",
-    "summaryText": "Позволяет управлять группой [раскрываемых панелей](https://vuestic.dev/ui-elements/collapse).",
+    "summaryText": "Позволяет управлять группой [раскрываемых панелей](https://vuestic.dev/ui-elements/collapse)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -2240,7 +2243,7 @@
   },
   "grid": {
     "title": "Grid Layout",
-    "summaryText": "Мы предоставляем вам вспомогательные классы для [flex](https://developer.mozilla.org/ru/docs/Web/CSS/flex). Для [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) встроенных классов не предоставляется. Это не означает, что вам *нужно* использовать `flex`, но он остается мощным инструментом.",
+    "summaryText": "Мы предоставляем вам вспомогательные классы для [flex](https://developer.mozilla.org/ru/docs/Web/CSS/flex)[[target=_blank]]. Для [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)[[target=_blank]] встроенных классов не предоставляется. Это не означает, что вам *нужно* использовать `flex`, но он остается мощным инструментом.",
     "examples": {
       "default": {
         "title": "Включение flexbox"
@@ -2429,7 +2432,7 @@
       },
       "styles": {
         "title": "Стили",
-        "text": "Применяются те же стили, что и для компонента [va-input](https://vuestic.dev/ui-elements/input)."
+        "text": "Применяются те же стили, что и для компонента [va-input](https://vuestic.dev/ui-elements/input)[[target=_blank]]."
       }
     }
   },
@@ -2472,12 +2475,12 @@
       "title": "Reset возможности",
       "info": "Ниже находится список возможностей которые предоставляет reset.scss:",
       "list": "* Margin и padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix для более новых браузеров. \n * HTML5 display-role reset для более старых браузеров",
-      "more": "Полный список всех примененных стилей можно посмотреть здесь [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss) stylesheet."
+      "more": "Полный список всех примененных стилей можно посмотреть здесь [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-sass/global/reset.scss)[[target=_blank]] stylesheet."
     }
   },
   "colorPicker": {
     "title": "Color Picker",
-    "summaryText": "Компонент который помогает выбрать цвет. Мы используем [vue-color](https://github.com/xiaokaike/vue-color) библиотеку для этого компонента. Будет изменено в следующих версиях.",
+    "summaryText": "Компонент который помогает выбрать цвет. Мы используем [vue-color](https://github.com/xiaokaike/vue-color)[[target=_blank]] библиотеку для этого компонента. Будет изменено в следующих версиях.",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -2612,7 +2615,7 @@
       },
       "styles": {
         "title": "Разные стили",
-        "text": "Вы можете использовать стили компонента [va-button](https://vuestic.dev/ui-elements/button)."
+        "text": "Вы можете использовать стили компонента [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "icons": {
         "title": "Иконки",
@@ -2646,7 +2649,7 @@
       },
       "styles": {
         "title": "Разные стили",
-        "text": "Вы можете использовать стили компонента [va-button](https://vuestic.dev/ui-elements/button)."
+        "text": "Вы можете использовать стили компонента [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Недоступная кнопка",
@@ -2707,8 +2710,8 @@
     "description": "Начните работу с Vuestic UI, чтобы создавать многофункциональные и удобные приложения благодаря нашей гибко настраиваемой структуре. Мы максимально упростили процесс установки, чтобы сэкономить ваши усилия. Установка возможна несколькими способами.",
     "subtitle": "Вы можете начать использовать Vuestic с простых шагов, как вам удобнее.",
     "prerequisites": "Во-первых, убедитесь, что у вас установлены все необходимые зависимости:",
-    "node": "<a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
-    "npm": "<a href=\"https://www.npmjs.com/get-npm\">npm</a> версия 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) и <a href=\"https://git-scm.com/\">Git</a",
+    "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] ( >=14.*)",
+    "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] версия 3+ (или [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] версия 1.16+) и [Git](https://git-scm.com/)[[target=_blank]]",
     "afterCheck": "После проверки предварительных требований установите Vuestic UI через `npm/yarn`:",
     "fonts": {
       "title": "Установка шрифтов",
@@ -2722,8 +2725,8 @@
     },
     "cli": {
       "title": "Установка через Vue CLI",
-      "prepare": "Перед установкой убедитесь, что [Vue CLI](https://cli.vuejs.org/guide/installation.html) установлен глобально и имеет версию 4+:",
-      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3) для Vue CLI версии 3, которое поможет вам обновить приложение",
+      "prepare": "Перед установкой убедитесь, что [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] установлен глобально и имеет версию 4+:",
+      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение",
       "description": "Простой способ, если вы используете настройку через Vue-CLI или хотите опробовать Vuestic UI в новом проекте.",
       "attention": "Установка Vuestic UI изменит файлы package.json и main.js (ts). Убедитесь, что вы закоммитили свой код перед его установкой, чтобы избежать потери данных",
       "codeAnnotation": "Затем установите Vuestic UI как плагин Vue-CLI:"
@@ -2758,7 +2761,7 @@
     },
     "0-1": {
       "title": "v0.1",
-      "description": "Даже не альфа, мы просто выделили компоненты из [vuestic-admin](https://github.com/epicmaxco/vuestic-admin) в отдельный репозиторий, чтобы упростить обновления."
+      "description": "Даже не альфа, мы просто выделили компоненты из [vuestic-admin](https://github.com/epicmaxco/vuestic-admin)[[target=_blank]] в отдельный репозиторий, чтобы упростить обновления."
     },
     "released": {
       "title": "Выпущено",
@@ -2804,13 +2807,13 @@
       "description": "Допустим, вам нужно, чтобы все ваши кнопки были `outline` и `small` в соответствии с дизайном, но по умолчанию это не так:",
       "action": "Чтобы решить эту проблему - добавьте в свой `main.js`:",
       "result": "Теперь ваши кнопки будут выглядеть так:",
-      "example": "Аналогичным образом вы можете глобально настроить любые свойства для компонентов Vuestic Ui.",
-      "more": "Если вам нужна более глубокая кастомизация, то вы можете переопределить [переменные css](https://vuestic.dev/en/styles/css-variables#overriding) или свойства класса напрямую (в компонентах используется БЭМ, так что селекторы легко угадать)."
+      "example": "Аналогичным образом вы можете глобально настроить любые свойства для компонентов Vuestic UI.",
+      "more": "Если вам нужна более глубокая кастомизация, то вы можете переопределить [переменные css](/styles/css-variables#overriding) или свойства класса напрямую (в компонентах используется БЭМ, так что селекторы легко угадать)."
     }
   },
   "browserSupport": {
     "title": "Поддрежка браузеров",
-    "description": "Мы разрабатываем Vuestic UI с расчетом на будущее. Вот почему мы поддерживаем современные браузеры, но извините, пришлось отказаться от некоторых старых браузеров, таких как IE. На это решение повлияло [прекращение его поддержки во Vue 3](https://github.com/vuejs/rfcs/discussions/296) и [падение рейтинга использования](https://caniuse.com/usage-table).",
+    "description": "Мы разрабатываем Vuestic UI с расчетом на будущее. Вот почему мы поддерживаем современные браузеры, но извините, пришлось отказаться от некоторых старых браузеров, таких как IE. На это решение повлияло [прекращение его поддержки во Vue 3](https://github.com/vuejs/rfcs/discussions/296)[[target=_blank]] и [падение рейтинга использования](https://caniuse.com/usage-table)[[target=_blank]].",
     "table": {
       "browser": "Браузер",
       "supported": "Поддержка"
@@ -2876,7 +2879,7 @@
         "dontSubmitToMaster": "**Не отправляйте ваши PR в ветку master.**",
         "checkoutFeat": "Сделайте checkout ветки `feat/` из ветки `develop`, затем создайте pull request в ту же ветку.",
         "multipleSmallCommits": "Совершенно нормально иметь несколько небольших коммитов, когда вы работаете над вашим PR - мы позволим GitHub сделать автоматический squash изменений перед слянием.",
-        "fixBugSteps": "В случае исправления бага:\n  * Если вы решаете особую проблему, добавьте `close #xxxx[,#xxx]` (#xxxx - id проблемы) в описание PR так что github [закроет](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) проблему, как только изменения сольются в `master`.\n  * Предоставьте подробное описание ошибки в PR, если это не было сделано в вопросе (issue)."
+        "fixBugSteps": "В случае исправления бага:\n  * Если вы решаете особую проблему, добавьте `close #xxxx[,#xxx]` (#xxxx - id проблемы) в описание PR так что github [закроет](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)[[target=_blank]] проблему, как только изменения сольются в `master`.\n  * Предоставьте подробное описание ошибки в PR, если это не было сделано в вопросе (issue)."
       }
     },
     "branches": {
@@ -2897,10 +2900,10 @@
       "smallIssues": "Для небольших изменений вы можете пушить в ветку `develop` напрямую при добавлении (`close #123`) в сообщение коммита.",
       "singlePrPerIssue": "Создавайте один PR для одной проблемы. Если у нас несколько PR - переместите весь код в один, а остальные закройте. Если один PR охватывает несколько вопросов - либо разделите его на несколько PR, либо отметьте одну из проблем как повторяющуюся.",
       "onePersonPerIssue": "Убедитесь, что на каждую проблему назначен только один человек.",
-      "checkYourCode": "Проверьте свой код: [соглашения](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md).",
-      "weUseYarn": "Мы используем [yarn](https://yarnpkg.com/lang/en/) для управления пакетами.",
+      "checkYourCode": "Проверьте свой код: [соглашения](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md)[[target=_blank]].",
+      "weUseYarn": "Мы используем [yarn](https://yarnpkg.com/lang/en/)[[target=_blank]] для управления пакетами.",
       "beProactive": "Будьте инициативными. Если вы считаете, что что-то не так - создайте вопрос (issue) или обсужденеи (discuss).",
-      "recommendedTools": "Рекомендуемые инструменты: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
+      "recommendedTools": "Рекомендуемые инструменты: [GitKraken](https://www.gitkraken.com/)[[target=_blank]], [WebStorm](https://www.jetbrains.com/webstorm/)[[target=_blank]], [ShareX](https://getsharex.com/)[[target=_blank]].",
       "workInBook": "Если вы работаете над UI компонентами - работайте в book environment (`yarn serve:book`). Мы хотим исключить глобальные материалы из компонентов."
     },
     "componentFolderStructure": {
@@ -2915,7 +2918,7 @@
     },
     "credits": {
       "title": "Credits",
-      "description": "<a href=\"https://github.com/epicmaxco/vuestic-ui/graphs/contributors\">Зал славы!</a>"
+      "description": "[Зал славы!](https://github.com/epicmaxco/vuestic-ui/graphs/contributors)[[target=_blank]]"
     }
   },
   "globalConfig": {
@@ -3048,7 +3051,7 @@
   },
   "cssVariables": {
     "title": "Переменные CSS",
-    "description": "Vuestic UI выделяет `CSS` как [переменные CSS (пользовательские свойства)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). Нет необходимости устанавливать какие-либо загрузчики или дополнительные пакеты для переопределения стилей компонентов. Вы можете глубоко настраивать компоненты, используя простой синтаксис для изменения CSS в вашем проекте.",
+    "description": "Vuestic UI выделяет `CSS` как [переменные CSS (пользовательские свойства)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)[[target=_blank]]. Нет необходимости устанавливать какие-либо загрузчики или дополнительные пакеты для переопределения стилей компонентов. Вы можете глубоко настраивать компоненты, используя простой синтаксис для изменения CSS в вашем проекте.",
     "convention": {
       "title": "Соглашения",
       "description": "В Vuestic UI применяются следующие соглашения для организации переменных CSS для более удобного использования:"
@@ -3097,7 +3100,7 @@
       },
       "styles": {
         "title": "Стили",
-        "text": "Применяются те же стили, что и для компонента [va-button](https://vuestic.dev/ui-elements/button)."
+        "text": "Применяются те же стили, что и для компонента [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Недоступная кнопка",
@@ -3165,27 +3168,11 @@
     "description": "В Vuestic UI применяются следующие стили типографики.",
     "headings": "Заголовки",
     "affected": "Применено",
-    "display1": "`class=\"display-1\"`",
-    "display2": "`class=\"display-2\"`",
-    "display3": "`class=\"display-3\"`",
-    "display4": "`class=\"display-4\"`",
-    "display5": "`class=\"display-5\"`",
-    "titled": "`class=\"title\"`",
     "primary": "Стиль текста по умолчанию",
-    "secondary": "`class=\"text--secondary\"`",
-    "codeSnippet": "`class=\"code-snippet\"`",
-    "textCode": "`class=\"text--code\"`",
     "other": "Другие типографические стили",
     "lists": "Списки",
-    "orderedLists": "`class=\"va-ordered\"`",
-    "unorderedLists": "`class=\"va-unordered\"`",
     "links": "Ссылки",
-    "link": "`class=\"link\"`",
-    "linkSecondary": "`class=\"link-secondary\"`",
-    "otherElements": "Другие элементы",
-    "textHighlighted": "`class=\"text--highlighted\"`",
-    "blockquote": "`class=\"va-blockquote\"`",
-    "textBlock": "`class=\"text-block\"`"
+    "otherElements": "Другие элементы"
   },
   "ag-grid-wrapper": {
     "title": "AG Grid Wrapper",
@@ -3205,7 +3192,7 @@
     "highLevelStrategy": {
       "title": "Высокоуровневая стратегия",
       "description": {
-        "userExpectations": "Компоненты должны быть такими, какими их ожидает видеть пользователь. Мы достигаем этого, изучая следующие проекты ([Vuetify](https://vuetifyjs.com), [Quasar](https://quasar.dev), [Ant Design](https://ant.design), [iView](http://iview.talkingdata.com), [Element UI](https://element.eleme.io), etc.).",
+        "userExpectations": "Компоненты должны быть такими, какими их ожидает видеть пользователь. Мы достигаем этого, изучая следующие проекты ([Vuetify](https://vuetifyjs.com)[[target=_blank]], [Quasar](https://quasar.dev)[[target=_blank]], [Ant Design](https://ant.design)[[target=_blank]], [iView](http://iview.talkingdata.com)[[target=_blank]], [Element UI](https://element.eleme.io), etc.)[[target=_blank]].",
         "qualityComponents": "Компоненты должны быть качественными. Мы достигаем этого путем ручного тестирования особых случаев + раннего и частого рефакторинга."
       }
     },
@@ -3214,7 +3201,7 @@
       "description": {
         "visualFeedback": "**Визуальная обратная связь** - когда пользователь взаимодействует с компонентом, он должен видеть результат своих действий (может быть реализован с помощью :active селектора или как-то иначе в зависимости от компонента).",
         "keyboardNavigation": "**Клавиатурная навигация** - Вы должны убедиться, что элементы пользовательского интерфейса доступны с клавиатуры, или же отключить эту функцию для элементов, которые не должны получать фокус через клавиатуру.",
-        "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md))."
+        "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
   }
