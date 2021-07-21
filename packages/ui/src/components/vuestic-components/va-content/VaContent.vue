@@ -5,8 +5,28 @@
 </template>
 
 <script>
+function addAttribute (content) {
+  content.forEach(child => {
+    if (!child.classList.contains('va-content-break')) {
+      if (child.children && child.children.length) {
+        child.setAttribute('va-content-node', '')
+        addAttribute(child.children)
+      } else {
+        // Will go here if the child do not have a content or its content is a string.
+        child.setAttribute('va-content-element', '')
+      }
+    }
+  })
+}
+
 export default {
   name: 'VaContent',
+  mounted () {
+    addAttribute(this.$el.children)
+  },
+  updated () {
+    addAttribute(this.$el.children)
+  },
 }
 </script>
 
@@ -15,22 +35,31 @@ export default {
 @import '../../vuestic-sass/global/typography';
 @import '../../vuestic-sass/global/utility-global';
 
+@mixin unify-selector($selector) {
+  #{$selector}[va-content-element],
+  #{$selector}[va-content-node],
+  // This selector is required for tags created with v-html and Markdown.
+  [va-content-element] #{$selector} {
+    @content;
+  }
+}
+
 .va-content {
   line-height: $line-height;
 
-  h1 {
+  @include unify-selector("h1") {
     @include va-display(1);
     @include va-header-margin(1);
 
     line-height: 3.5rem;
   }
 
-  h2 {
+  @include unify-selector("h2") {
     @include va-display(2);
     @include va-header-margin(2);
   }
 
-  h3 {
+  @include unify-selector("h3") {
     @include va-display(3);
     @include va-header-margin(3);
 
@@ -38,40 +67,40 @@ export default {
     margin-bottom: 1rem;
   }
 
-  h4 {
+  @include unify-selector("h4") {
     @include va-display(4);
     @include va-header-margin(4);
   }
 
-  h5 {
+  @include unify-selector("h5") {
     @include va-display(5);
     @include va-header-margin(5);
 
     line-height: 1.875rem;
   }
 
-  h6 {
+  @include unify-selector("h6") {
     @include va-display(6);
     @include va-header-margin(6);
   }
 
-  i {
+  @include unify-selector("i") {
     font-style: italic;
   }
 
-  hr.separator {
+  @include unify-selector("hr.separator") {
     height: 2px;
     background-color: #eeeeee;
     border: none;
   }
 
-  p {
+  @include unify-selector("p") {
     font-size: 1rem;
     margin-top: 0;
     margin-bottom: 1rem;
   }
 
-  pre {
+  @include unify-selector("pre") {
     margin-bottom: 1rem;
     overflow-x: auto;
     white-space: pre;
@@ -82,51 +111,51 @@ export default {
     }
   }
 
-  code {
+  @include unify-selector("code") {
     display: inline-block;
     word-wrap: break-word;
   }
 
-  strong {
+  @include unify-selector("strong") {
     font-weight: $font-weight-bold;
   }
 
   // NOTE Ideally we want this to work with mixins too, but no idea how to achieve that :/.
-  ol {
+  @include unify-selector("ol") {
     @extend .va-ordered;
   }
 
   //This is kind of weird though not sure about any workaround :(
-  ul:not(.va-option-list__list) {
+  @include unify-selector("ul:not(.va-option-list__list)") {
     @extend .va-unordered;
   }
 
-  blockquote {
+  @include unify-selector("blockquote") {
     @extend .va-blockquote;
   }
 
-  figure {
+  @include unify-selector("figure") {
     border-radius: 0;
     border: none;
     box-sizing: border-box;
     box-shadow: $widget-box-shadow;
     word-wrap: break-word;
 
-    figcaption {
+    figcaption[va-content-element] {
       flex: 1 1 auto;
       padding: 1.25rem;
     }
 
-    p:last-child {
+    p[va-content-element]:last-child {
       margin-bottom: 0;
     }
   }
 
-  table {
+  @include unify-selector("table") {
     @extend .va-table;
   }
 
-  a {
+  @include unify-selector("a") {
     @extend .link;
   }
 }
