@@ -1,5 +1,5 @@
 <template>
-  <teleport v-if='valueComputed' :to="parentNode" :disabled="isTeleportDisabled">
+  <teleport v-if='valueComputed' :to="attachElement" :disabled="disableAttachment">
     <div class="va-modal">
       <modal-element
         name="va-modal__overlay--transition"
@@ -94,7 +94,8 @@ import VaIcon from '../va-icon'
 
 class ModalProps {
   modelValue = prop<boolean>({ type: Boolean, default: false })
-  parentNode = prop<string>({ type: String, default: 'body' })
+  attachElement = prop<string>({ type: String, default: 'body' })
+  disableAttachment = prop<boolean>({ type: Boolean, default: false })
   title = prop<string>({ type: String, default: '' })
   message = prop<string>({ type: String, default: '' })
   okText = prop<string>({ type: String, default: 'OK' })
@@ -218,10 +219,6 @@ export default class VaModal extends mixins(
         'z-index':
           this.$props.zIndex != null ? parseInt(this.$props.zIndex as string) - 10 : undefined,
       }
-  }
-
-  get isTeleportDisabled () {
-    return this.parentNode === 'parent'
   }
 
   get computedModalContainerStyle () {
