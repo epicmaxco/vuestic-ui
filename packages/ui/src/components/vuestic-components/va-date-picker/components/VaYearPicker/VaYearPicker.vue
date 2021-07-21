@@ -61,13 +61,32 @@ export default defineComponent({
       const scrollHeight = rootNode.value.scrollHeight
       const rootNodeHeight = rootNode.value.offsetHeight
       const currentYearOffset = scrollHeight / years.value.length * index
+      const cellSize = scrollHeight / years.value.length
+      const relativeScrollPosition = currentYearOffset - rootNode.value.scrollTop
+
+      if (relativeScrollPosition < 0) {
+        // First element in view
+        rootNode.value.scrollTo({ top: currentYearOffset })
+      } else if (relativeScrollPosition > rootNodeHeight) {
+        // Last element in view
+        rootNode.value.scrollTo({ top: currentYearOffset - rootNodeHeight + cellSize })
+      }
+    }
+
+    const scrollIntoYearIndexCenter = (index: number) => {
+      if (!rootNode.value) { return }
+
+      const scrollHeight = rootNode.value.scrollHeight
+      const rootNodeHeight = rootNode.value.offsetHeight
+      const currentYearOffset = scrollHeight / years.value.length * index
+
       rootNode.value.scrollTo({ top: currentYearOffset - rootNodeHeight / 2 })
     }
 
     onMounted(() => {
       const currentYearIndex = years.value.indexOf(view.value.year)
 
-      scrollIntoYearIndex(currentYearIndex)
+      scrollIntoYearIndexCenter(currentYearIndex)
     })
 
     const onYearClick = (year: number) => {
@@ -135,7 +154,7 @@ export default defineComponent({
       onSelected: (selectedIndex) => onYearClick(years.value[selectedIndex]),
     })
 
-    watch(focusedDateIndex, (newValue) => scrollIntoYearIndex(newValue))
+    watch(focusedDateIndex, (newValue) => newValue !== -1 && scrollIntoYearIndex(newValue))
 
     return {
       years,
