@@ -100,9 +100,17 @@
     background-color: $vue-darkest-blue;
     padding: 0.1rem 0.2rem;
   }
+}
 
-  &--secondary {
-    opacity: 0.4;
+.va {
+  &-text {
+    $text-theme-colors: "primary", "secondary", "success", "info", "danger", "warning", "gray", "dark";
+
+    @each $color in $text-theme-colors {
+      &--#{$color} {
+        color: var(--va-#{$color});
+      }
+    }
   }
 }
 
