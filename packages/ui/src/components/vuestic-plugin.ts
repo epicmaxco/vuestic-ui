@@ -77,7 +77,6 @@ import VaInfiniteScroll from './vuestic-components/va-infinite-scroll'
 // import VaDataTable from './vuestic-components/va-data-table/VaDataTable.vue'
 // import VaPopup from './vuestic-components/va-popup/popup/VaPopup.vue'
 
-import { installPlatform } from './vuestic-components/va-popup/install'
 import DropdownPopperSubplugin
   from './vuestic-components/va-dropdown/dropdown-popover-subplugin'
 // import { registerVuesticObject } from './resize-events'
@@ -87,8 +86,6 @@ import ColorHelpersPlugin from '../services/color-config/color-css-variables-upd
 import { GlobalConfig } from '../services/global-config/global-config'
 import { GlobalConfigPlugin } from '../services/global-config/global-config-plugin'
 import VaSpacer from './vuestic-components/va-spacer'
-
-installPlatform()
 
 // Used object because we want string name (this way it's not getting obfuscated on build).
 const vuesticComponentMap = {
