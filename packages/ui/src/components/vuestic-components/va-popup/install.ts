@@ -10,5 +10,5 @@ export const installPlatform = () => {
   }
 
   const framework = {}
-  Platform.install(framework, queues, Vue as any)
+  Platform.install(framework, queues, {} as any)
 }
