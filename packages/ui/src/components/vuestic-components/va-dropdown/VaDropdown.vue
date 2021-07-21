@@ -18,7 +18,7 @@
         class="va-dropdown__content-wrapper"
         @mouseover="$props.isContentHoverable && onMouseOver()"
         @mouseout="onMouseOut()"
-        @click="onDropdownContentClick()"
+        @click.stop="onDropdownContentClick()"
         ref="contentWrapper"
       >
         <div :style="$props.keepAnchorWidth ? anchorWidthStyles : ''">

@@ -6,7 +6,7 @@ export type NavigationRoute = {
   displayName: TranslationString,
   meta?: {
     iconClass?: string,
-    badge?: 'wip'
+    badge?: 'wip' | 'new'
   },
   disabled?: boolean,
   children?: NavigationRoute[],

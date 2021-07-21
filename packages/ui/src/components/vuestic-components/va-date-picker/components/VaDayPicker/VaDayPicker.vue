@@ -1,0 +1,139 @@
+<template>
+  <div class="va-day-picker" v-bind="keyboardContainerAttributes">
+    <template v-if="!hideWeekDays">
+      <div
+        v-for="weekday in weekdayNamesComputed" :key="weekday"
+        class="va-day-picker__weekday"
+      >
+        <slot name="weekday">
+          {{ weekday }}
+        </slot>
+      </div>
+    </template>
+
+    <div
+      class="va-day-picker__calendar__day-wrapper"
+      v-for="(date, index) in calendarDates"
+      :key="date"
+    >
+      <va-day-picker-cell
+        v-bind="VaDayPickerCellPropValues"
+        :date="date"
+        :selected-value="modelValue"
+        :currentMonth="view.month"
+        :focused-date="focusedDate?.date"
+        :focused="focusedDateIndex === index"
+        @click="onDateClick($event), focusedDateIndex = index"
+        @mouseenter="focusedDate = { date, index }"
+        @mouseleave="focusedDate = null"
+      >
+        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+          <slot :name="name" v-bind="bind" />
+        </template>
+      </va-day-picker-cell>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
+import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
+import { useDatePickerModelValue } from '../../helpers/model-value-helper'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from '../../types/types'
+import VaDayPickerCell from './VaDayPickerCell.vue'
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { useHovered } from '../../hooks/hovered-option-hook'
+import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
+
+const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'focusedDate', 'focused'])
+
+export default defineComponent({
+  name: 'VaDayPicker',
+
+  components: { VaDayPickerCell },
+
+  props: {
+    ...VaDayPickerCellProps,
+    monthNames: { type: Array as PropType<string[]>, required: true },
+    weekdayNames: { type: Array as PropType<string[]>, required: true },
+    firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
+    hideWeekDays: { type: Boolean, default: false },
+    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'day' }) },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
+    mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
+  },
+
+  emits: ['update:modelValue', 'hover:day', 'click:day'],
+
+  setup (props, { emit }) {
+    const { firstWeekday, weekdayNames, view } = toRefs(props)
+
+    const VaDayPickerCellPropValues = filterComponentProps(props, VaDayPickerCellProps)
+
+    const { calendarDates, currentMonthStartIndex, currentMonthEndIndex } = useVaDatePickerCalendar(view, { firstWeekday })
+
+    const { hovered: focusedDate } = useHovered<{ date: Date, index: number }>((value) => emit('hover:day', value?.date))
+
+    const { updateModelValue } = useDatePickerModelValue(props, emit)
+
+    const weekdayNamesComputed = computed(() => {
+      return firstWeekday.value === 'Sunday'
+        ? weekdayNames.value
+        : [...weekdayNames.value.slice(1), weekdayNames.value[0]]
+    })
+
+    const onDateClick = (date: Date) => {
+      const isDateDisabed = props.allowedDays === undefined ? false : !props.allowedDays(date)
+
+      emit('click:day', { date, isDateDisabed })
+
+      if (isDateDisabed) { return }
+
+      updateModelValue(date)
+    }
+
+    const gridStartIndex = computed(() => props.showOtherMonths ? 0 : currentMonthStartIndex.value)
+    const gridEndIndex = computed(() => props.showOtherMonths ? calendarDates.value.length : currentMonthEndIndex.value)
+
+    const {
+      focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
+    } = useGridKeyboardNavigation({
+      rowSize: 7,
+      start: gridStartIndex,
+      end: gridEndIndex,
+      onSelected: (selectedValue) => onDateClick(calendarDates.value[selectedValue]),
+    })
+
+    watch(focusedDateIndex, (index) => { focusedDate.value = { date: calendarDates.value[index], index } })
+    watch(focusedDate, (focusedDate) => { focusedDate === null ? focusedDateIndex.value = -1 : focusedDateIndex.value = focusedDate.index })
+
+    return {
+      focusedDate,
+      calendarDates,
+      onDateClick,
+      keyboardContainerAttributes,
+      weekdayNamesComputed,
+      VaDayPickerCellPropValues,
+      focusedDateIndex,
+    }
+  },
+})
+</script>
+
+<style lang="scss">
+.va-day-picker {
+  display: grid;
+  // 7 columns
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: var(--va-date-picker-cell-gap);
+
+  &__weekday {
+    text-align: center;
+    font-size: 9px;
+    color: var(--va-secondary);
+    font-weight: bold;
+    height: var(--va-date-picker-cell-size);
+    line-height: var(--va-date-picker-cell-size);
+  }
+}
+</style>
