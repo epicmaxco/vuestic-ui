@@ -39,6 +39,7 @@ export default class MarkdownView extends mixins(PropsMixin) {
 
 .MarkdownView {
   code {
+    margin: 0 0.3rem;
     color: $markdown-code;
   }
 }
