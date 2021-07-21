@@ -11,7 +11,7 @@
       <slot name="anchor" />
     </div>
     <template v-if="showContent">
-      <teleport :to="target">
+      <teleport :to="attachElement" :disabled="disableAttachment">
         <div
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseOver()"
@@ -45,7 +45,8 @@ class DropdownProps {
   hoverOutTimeout = prop<number>({ type: Number, default: 200 })
   modelValue = prop<boolean>({ type: Boolean, default: false })
   disabled = prop<boolean>({ type: Boolean })
-  target = prop<string>({ type: String, default: '#app' })
+  attachElement = prop<string>({ type: String, default: 'body' })
+  disableAttachment = prop<boolean>({ type: Boolean })
   // Means dropdown width should be the same as anchor's width.
   keepAnchorWidth = prop<boolean>({ type: Boolean })
   closeOnContentClick = prop<boolean>({ type: Boolean, default: true })
