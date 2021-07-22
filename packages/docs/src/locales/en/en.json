@@ -1061,15 +1061,18 @@
     "blocktypes": {
       "title": {
         "title": "Title",
-        "text": "Page title is mandatory for documentation pages."
+        "text": "Page title is mandatory for documentation pages.",
+        "example": "Title (example)"
       },
       "subtitle": {
         "title": "Subtitle",
-        "text": "Used for: Examples, API, FAQ. Think `h2`."
+        "text": "Used for: Examples, API, FAQ. Think `h2`.",
+        "example": "Subtitle (example)"
       },
       "headline": {
         "title": "Headline",
-        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`."
+        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`.",
+        "example": "Headline (example)"
       },
       "paragraph": {
         "title": "Paragraph",
