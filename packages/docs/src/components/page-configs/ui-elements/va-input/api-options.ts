@@ -4,6 +4,8 @@ import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOpti
 export default {
   props: {
     autosize: { local: true },
+    bordered: { local: true },
+    clearable: { local: true },
     color: {},
     disabled: {},
     error: {},
@@ -20,7 +22,6 @@ export default {
     returnRaw: { local: true },
     rules: {},
     success: {},
-    tabindex: { local: true },
     type: { local: true },
     value: { local: true },
   },

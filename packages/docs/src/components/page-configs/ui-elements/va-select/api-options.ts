@@ -25,6 +25,9 @@ export default {
     allowCreate: { local: true },
     clearIcon: { local: true },
     dropdownIcon: { local: true },
+    bordered: { local: true },
+    clearValue: { local: true },
+    separator: { local: true },
   },
   events: {
     input: {
