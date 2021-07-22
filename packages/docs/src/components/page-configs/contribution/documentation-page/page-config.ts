@@ -2,7 +2,6 @@ import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import apiOptions from './api-options'
 import linkOptions from './link-options'
 import { tableData, columns } from './table-options'
-import { locale } from '../../../../helpers/I18nHelper'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 export const codeForCodeblock = '\'<div>Code string</div>\''
@@ -129,12 +128,12 @@ export default [
   DocsHelper.paragraph('documentationPage.blocktypes.link.text'),
   DocsHelper.code(`${linkOptionsBlock}`),
   // eslint-disable-next-line no-template-curly-in-string
-  DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/contribution/documentation-page#translation-path`, options)"),
+  DocsHelper.code("DocsHelper.link('translation.path', `/contribution/documentation-page#translation-path`, options)"),
   // eslint-disable-next-line no-template-curly-in-string
-  DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/services/components-config`)"),
+  DocsHelper.code("DocsHelper.link('translation.path', `/services/components-config`)"),
   DocsHelper.paragraph('documentationPage.compilesTo'),
-  DocsHelper.link('translation.path', `/${locale}/contribution/documentation-page#translation-path`, linkOptions),
-  DocsHelper.link('translation.path', `/${locale}/services/components-config`),
+  DocsHelper.link('translation.path', `/contribution/documentation-page#translation-path`, linkOptions),
+  DocsHelper.link('translation.path', `/services/components-config`),
 
   DocsHelper.headline('documentationPage.blocktypes.alert.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.alert.text'),
