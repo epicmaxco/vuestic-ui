@@ -85,8 +85,6 @@ export default defineComponent({
     ...extractComponentProps(VaMonthPicker),
     ...extractComponentProps(VaYearPicker),
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
-    year: { type: Number },
-    month: { type: Number },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: Object as PropType<VaDatePickerView> },
@@ -110,8 +108,10 @@ export default defineComponent({
 
     const { syncView } = useView(props, emit, { type: props.type })
 
-    const onMonthClick = ({ year, month, date }: { year: number, month: number, date: Date}) => {
-      emit('click:month', { year, month, date })
+    const onMonthClick = (date: Date) => {
+      emit('click:month', date)
+      const year = date.getFullYear()
+      const month = date.getMonth()
       if (props.type !== 'month') {
         syncView.value = { type: 'day', year, month }
       }
@@ -122,8 +122,11 @@ export default defineComponent({
       if (props.type === 'month') { valueComputed.value = modelValue }
     }
 
-    const onYearClick = ({ year, date }: { year: number, date: Date}) => {
-      emit('click:year', { year, date })
+    const onYearClick = (date : Date) => {
+      emit('click:year', date)
+
+      const year = date.getFullYear()
+
       if (props.type !== 'year') {
         syncView.value = { type: 'month', year, month: syncView.value.month }
       }
@@ -143,7 +146,14 @@ export default defineComponent({
 
     const currentPicker = ref<ComponentOptions | null>(null)
 
-    watch(syncView, (newValue) => { nextTick(() => currentPicker.value!.$el.focus()) })
+    watch(syncView, (newValue, prevValue) => {
+      // Don't focus new picker if user does not change type
+      if (newValue.type === prevValue.type) { return }
+
+      nextTick(() => {
+        if (currentPicker.value) { currentPicker.value.$el.focus() }
+      })
+    })
 
     return {
       dayPickerProps: filterComponentProps(props, extractComponentProps(VaDayPicker)),

@@ -1,20 +1,20 @@
 <template>
-  <div class="va-month-picker" v-bind="keyboardContainerAttributes">
+  <div class="va-month-picker" v-bind="containerAttributes">
     <div
       class="va-month-picker__month-wrapper"
-      v-for="monthIndex in months"
+      v-for="(month, monthIndex) in months"
       :key="monthIndex"
-      @mouseenter="hoveredMonth = date"
-      @mouseleave="hoveredMonth = null"
+      @mouseenter="hoveredIndex = monthIndex"
+      @mouseleave="hoveredIndex = -1"
     >
       <va-date-picker-cell
-        :in-range="!!isMonthInRange(view.year, monthIndex)"
-        :selected="!!isMonthSelected(view.year, monthIndex)"
-        :disabled="!!isMonthDisabled(view.year, monthIndex)"
-        :today="!!isTodayMonth(view.year, monthIndex)"
-        :focused="focusedDateIndex === monthIndex"
+        :in-range="!!isInRange(month)"
+        :selected="!!isSelected(month)"
+        :disabled="!!isDisabled(month)"
+        :today="!!isToday(month)"
+        :focused="hoveredIndex === monthIndex"
         :hightlight-today="hightlightToday"
-        @click="onMonthClick(view.year, monthIndex);  focusedDateIndex = monthIndex"
+        @click="onClick(month); focusedCellIndex = monthIndex"
       >
         <slot name="month" v-bind="{ monthIndex, month: monthNames[monthIndex] }">
           {{ monthNames[monthIndex] }}
@@ -25,13 +25,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs } from 'vue'
-import { useHovered } from '../../hooks/hovered-option-hook'
+import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
 import { VaDatePickerMode, VaDatePickerView, VaDatePickerModelValue } from '../../types/types'
-import { isRange, isSingleDate, isDates, useDatePickerModelValue } from '../../helpers/model-value-helper'
-import { isDatesMonthEqual } from '../../utils/date-utils'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
+import { useDatePicker } from '../../hooks/use-picker'
 
 export default defineComponent({
   name: 'VaMonthPicker',
@@ -50,80 +48,41 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:month', 'click:month'],
 
   setup (props, { emit }) {
-    const { modelValue, view } = toRefs(props)
+    const { view } = toRefs(props)
 
-    const { hovered: hoveredMonth } = useHovered<Date>((value) => emit('hover:month', value))
-
-    const months = Array.from(Array(12).keys())
-
-    const { updateModelValue } = useDatePickerModelValue(props, emit)
-
-    const onMonthClick = (year: number, month: number) => {
-      const date = new Date(year, month)
-
-      updateModelValue(date)
-
-      emit('click:month', { year, month, date })
-    }
-
-    const isMonthSelected = (year: number, month: number) => {
-      if (!modelValue || !modelValue.value) { return }
-
-      const date = new Date(year, month)
-
-      if (isSingleDate(modelValue.value)) {
-        return isDatesMonthEqual(modelValue.value, date)
-      } else if (isDates(modelValue.value)) {
-        return modelValue.value.find((d) => isDatesMonthEqual(d, date))
-      } else if (isRange(modelValue.value)) {
-        return isDatesMonthEqual(modelValue.value.start, date) || isDatesMonthEqual(modelValue.value.end, date)
-      }
-    }
-
-    const isTodayMonth = (year: number, month: number) => {
-      const date = new Date(year, month)
-      const today = new Date()
-
-      return isDatesMonthEqual(today, date)
-    }
-
-    const isMonthInRange = (year: number, month: number) => {
-      if (!modelValue || !modelValue.value) { return }
-
-      const date = new Date(year, month)
-
-      if (!isRange(modelValue.value)) { return }
-
-      if (modelValue.value.end === null) {
-        return modelValue.value.start < date
-          ? (hoveredMonth.value && hoveredMonth.value >= date)
-          : (hoveredMonth.value && hoveredMonth.value <= date)
-      }
-
-      return modelValue.value.start < date && modelValue.value.end > date
-    }
-
-    const isMonthDisabled = (year: number, month: number) => props.allowedMonths === undefined ? false : !props.allowedMonths(new Date(year, month))
+    const months = computed(() => Array.from(Array(12).keys()).map((month) => new Date(view.value.year, month)))
 
     const {
-      focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
+      hoveredIndex,
+      onClick,
+      isToday,
+      isSelected,
+      isInRange,
+    } = useDatePicker('month', months, props, emit)
+
+    const isDisabled = (date: Date) => props.allowedMonths === undefined ? false : !props.allowedMonths(date)
+
+    const {
+      focusedCellIndex, containerAttributes,
     } = useGridKeyboardNavigation({
       rowSize: 3,
       start: 0,
-      end: months.length,
-      onSelected: (selectedIndex) => onMonthClick(view.value.year, selectedIndex),
+      end: months.value.length,
+      onSelected: (selectedIndex) => onClick(months.value[selectedIndex]),
     })
+
+    watch(focusedCellIndex, (index) => { hoveredIndex.value = index })
+    watch(hoveredIndex, (index) => { focusedCellIndex.value = index })
 
     return {
       months,
-      hoveredMonth,
-      onMonthClick,
-      isMonthSelected,
-      isMonthInRange,
-      isMonthDisabled,
-      isTodayMonth,
-      focusedDateIndex,
-      keyboardContainerAttributes,
+      hoveredIndex,
+      onClick,
+      isToday,
+      isSelected,
+      isInRange,
+      isDisabled,
+      containerAttributes,
     }
   },
 })

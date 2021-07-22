@@ -15,14 +15,14 @@
     </template>
 
     <template #button:next="{ onClick }">
-      <span class="link" @click="onClick">
+      <va-button flat size="small" class="link" @click="onClick">
         →
-      </span>
+      </va-button>
     </template>
     <template #button:prev="{ onClick }">
-      <span class="link" @click="onClick">
+      <va-button flat size="small" class="link" @click="onClick">
         ←
-      </span>
+      </va-button>
     </template>
   </va-date-picker>
 </template>

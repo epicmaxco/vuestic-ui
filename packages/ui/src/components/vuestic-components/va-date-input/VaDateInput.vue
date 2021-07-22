@@ -42,10 +42,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
+import { computed, defineComponent, toRefs, watch } from 'vue'
 import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
-import { isRange, isSingleDate, isDates } from '../va-date-picker/helpers/model-value-helper'
+import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { filterComponentProps, extractComponentProps } from '../va-date-picker/utils/child-props'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
@@ -94,6 +94,11 @@ export default defineComponent({
     const { valueComputed, reset } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled)
     watch(isOpenSync, (isOpened) => { if (!isOpened && !isRangeModelValueGuardDisabled.value) { reset() } })
 
+    const dateOrNothing = (date: Date | undefined | null) => {
+      if (!date) { return '...' }
+      return date.toDateString()
+    }
+
     const valueText = computed({
       get: () => {
         if (isDates(valueComputed.value)) {
@@ -103,11 +108,7 @@ export default defineComponent({
           return valueComputed.value.toDateString()
         }
         if (isRange(valueComputed.value)) {
-          if (valueComputed.value.end === null) {
-            return valueComputed.value.start.toDateString() + ' ~ ...'
-          }
-
-          return valueComputed.value.start.toDateString() + ' ~ ' + valueComputed.value.end.toDateString()
+          return dateOrNothing(valueComputed.value.start) + ' ~ ' + dateOrNothing(valueComputed.value.end)
         }
 
         throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')

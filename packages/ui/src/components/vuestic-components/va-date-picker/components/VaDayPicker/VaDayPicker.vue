@@ -1,5 +1,5 @@
 <template>
-  <div class="va-day-picker" v-bind="keyboardContainerAttributes">
+  <div class="va-day-picker" v-bind="containerAttributes">
     <template v-if="!hideWeekDays">
       <div
         v-for="weekday in weekdayNamesComputed" :key="weekday"
@@ -15,22 +15,28 @@
       class="va-day-picker__calendar__day-wrapper"
       v-for="(date, index) in calendarDates"
       :key="date"
+      @mouseenter="hoveredIndex = index"
+      @mouseleave="hoveredIndex = -1"
     >
-      <va-day-picker-cell
-        v-bind="VaDayPickerCellPropValues"
-        :date="date"
-        :selected-value="modelValue"
-        :currentMonth="view.month"
-        :focused-date="focusedDate?.date"
-        :focused="focusedDateIndex === index"
-        @click="onDateClick($event), focusedDateIndex = index"
-        @mouseenter="focusedDate = { date, index }"
-        @mouseleave="focusedDate = null"
+      <va-date-picker-cell
+        :hidden="isOtherMonth(date) && !showOtherMonths"
+        :today="isToday(date)"
+        :selected="isSelected(date)"
+        :in-range="isInRange(date)"
+        :other-month="isOtherMonth(date)"
+        :weekend="isDateWeekend(date)"
+        :disabled="isDateDisabled(date)"
+        :focused="hoveredIndex === index"
+        :hightlight-today="hightlightToday"
+        :hightlight-weekend="hightlightWeekend"
+        @click="onClick(date); focusedCellIndex = index"
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-          <slot :name="name" v-bind="bind" />
-        </template>
-      </va-day-picker-cell>
+        <span class="va-date-picker-cell__day">
+          <slot name="day" v-bind="{ date }">
+            {{ date.getDate() }}
+          </slot>
+        </span>
+      </va-date-picker-cell>
     </div>
   </div>
 </template>
@@ -38,22 +44,21 @@
 <script lang="ts">
 import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
-import { useDatePickerModelValue } from '../../helpers/model-value-helper'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from '../../types/types'
-import VaDayPickerCell from './VaDayPickerCell.vue'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types/types'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { useHovered } from '../../hooks/hovered-option-hook'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
+import { useDatePicker } from '../../hooks/use-picker'
+import VaDatePickerCell from '../VaDatePickerCell.vue'
 
-const VaDayPickerCellProps = extractComponentProps(VaDayPickerCell, ['date', 'selectedValue', 'focusedDate', 'focused'])
+const VaDatePickerCellProps = extractComponentProps(VaDatePickerCell, ['date', 'selectedValue', 'focusedDate', 'focused'])
 
 export default defineComponent({
   name: 'VaDayPicker',
 
-  components: { VaDayPickerCell },
+  components: { VaDatePickerCell },
 
   props: {
-    ...VaDayPickerCellProps,
+    ...VaDatePickerCellProps,
     monthNames: { type: Array as PropType<string[]>, required: true },
     weekdayNames: { type: Array as PropType<string[]>, required: true },
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
@@ -61,6 +66,9 @@ export default defineComponent({
     view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'day' }) },
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
+    showOtherMonths: { type: Boolean, default: false },
+    allowedDays: { type: Function as PropType<(date: Date) => boolean> },
+    weekends: { type: [Function] as PropType<(d: Date) => boolean> },
   },
 
   emits: ['update:modelValue', 'hover:day', 'click:day'],
@@ -68,13 +76,9 @@ export default defineComponent({
   setup (props, { emit }) {
     const { firstWeekday, weekdayNames, view } = toRefs(props)
 
-    const VaDayPickerCellPropValues = filterComponentProps(props, VaDayPickerCellProps)
+    const VaDayPickerCellPropValues = filterComponentProps(props, VaDatePickerCellProps)
 
     const { calendarDates, currentMonthStartIndex, currentMonthEndIndex } = useVaDatePickerCalendar(view, { firstWeekday })
-
-    const { hovered: focusedDate } = useHovered<{ date: Date, index: number }>((value) => emit('hover:day', value?.date))
-
-    const { updateModelValue } = useDatePickerModelValue(props, emit)
 
     const weekdayNamesComputed = computed(() => {
       return firstWeekday.value === 'Sunday'
@@ -82,39 +86,53 @@ export default defineComponent({
         : [...weekdayNames.value.slice(1), weekdayNames.value[0]]
     })
 
-    const onDateClick = (date: Date) => {
-      const isDateDisabed = props.allowedDays === undefined ? false : !props.allowedDays(date)
-
-      emit('click:day', { date, isDateDisabed })
-
-      if (isDateDisabed) { return }
-
-      updateModelValue(date)
-    }
+    const {
+      hoveredIndex,
+      onClick,
+      isToday,
+      isSelected,
+      isInRange,
+    } = useDatePicker('day', calendarDates, props, emit)
 
     const gridStartIndex = computed(() => props.showOtherMonths ? 0 : currentMonthStartIndex.value)
     const gridEndIndex = computed(() => props.showOtherMonths ? calendarDates.value.length : currentMonthEndIndex.value)
 
     const {
-      focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
+      focusedCellIndex, containerAttributes,
     } = useGridKeyboardNavigation({
       rowSize: 7,
       start: gridStartIndex,
       end: gridEndIndex,
-      onSelected: (selectedValue) => onDateClick(calendarDates.value[selectedValue]),
+      onSelected: (selectedValue) => onClick(calendarDates.value[selectedValue]),
     })
 
-    watch(focusedDateIndex, (index) => { focusedDate.value = { date: calendarDates.value[index], index } })
-    watch(focusedDate, (focusedDate) => { focusedDate === null ? focusedDateIndex.value = -1 : focusedDateIndex.value = focusedDate.index })
+    watch(focusedCellIndex, (index) => { hoveredIndex.value = index })
+    watch(hoveredIndex, (index) => { focusedCellIndex.value = index })
+
+    const isOtherMonth = (date: Date) => props.view.month !== date.getMonth()
+    const isDateDisabled = (date: Date) => props.allowedDays === undefined ? false : !props.allowedDays(date)
+    const isDateWeekend = (date: Date) => {
+      if (props.weekends === undefined) {
+        return date.getDay() === 6 || date.getDay() === 0 // 0 - Sunday, 6 - Saturday
+      }
+
+      return props.weekends(date)
+    }
 
     return {
-      focusedDate,
+      hoveredIndex,
       calendarDates,
-      onDateClick,
-      keyboardContainerAttributes,
+      onClick,
+      isToday,
+      isSelected,
+      isInRange,
+      isOtherMonth,
+      isDateDisabled,
+      isDateWeekend,
+      containerAttributes,
       weekdayNamesComputed,
       VaDayPickerCellPropValues,
-      focusedDateIndex,
+      focusedCellIndex,
     }
   },
 })

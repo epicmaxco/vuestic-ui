@@ -1,5 +1,5 @@
 import { computed, ref, Ref, watch } from 'vue'
-import { isRange } from '../../va-date-picker/helpers/model-value-helper'
+import { isRange } from '../../va-date-picker/hooks/model-value-helper'
 import { VaDatePickerModelValue } from '../../va-date-picker/types/types'
 
 /**

@@ -1,17 +1,24 @@
 <template>
-  <div class="va-year-picker" ref="rootNode" v-bind="keyboardContainerAttributes" @keydown.space.prevent>
+  <div
+    class="va-year-picker"
+    ref="rootNode"
+    v-bind="containerAttributes"
+    @keydown.space.prevent
+  >
     <va-date-picker-cell
-      v-for="(year, yearIndex) in years"
+      v-for="(year, index) in years"
       :key="year"
-      :in-range="!!isYearInRange(year)"
-      :selected="!!isYearSelected(year)"
-      :disabled="!!isYearDisabled(year)"
-      :today="!!isTodayYear(year)"
-      :focused="focusedDateIndex === yearIndex"
+      :in-range="isInRange(year)"
+      :selected="isSelected(year)"
+      :disabled="isYearDisabled(year)"
+      :today="isToday(year)"
+      :focused="focusedCellIndex === index"
       :hightlight-today="hightlightToday"
-      @click="onYearClick(year); focusedDateIndex = yearIndex"
+      @click="onClick(year); focusedCellIndex = index"
+      @mouseenter="hoveredIndex = index"
+      @mouseleave="hoveredIndex = -1"
     >
-      {{ year }}
+      {{ year.getFullYear() }}
     </va-date-picker-cell>
   </div>
 </template>
@@ -20,10 +27,9 @@
 import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch } from 'vue'
 import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types/types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
-import { isRange, isSingleDate, isDates, useDatePickerModelValue } from '../../helpers/model-value-helper'
 import { createYearDate, isDatesYearEqual } from '../../utils/date-utils'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
-import { useHovered } from '../../hooks/hovered-option-hook'
+import { useDatePicker } from '../../hooks/use-picker'
 
 export default defineComponent({
   components: { VaDatePickerCell },
@@ -41,16 +47,13 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:year', 'click:year'],
 
   setup (props, { emit }) {
-    const { modelValue, view } = toRefs(props)
+    const { view } = toRefs(props)
     const rootNode = ref<HTMLElement | null>(null)
-
-    const { updateModelValue } = useDatePickerModelValue(props, emit)
-    const { hovered: hoveredYear } = useHovered<Date>((value) => emit('hover:year', value))
 
     const generateYearsArray = (start: number, end: number) => {
       const yearsCount = end - start + 1
       return Array.from(Array(yearsCount).keys())
-        .map((i) => start + i)
+        .map((i) => createYearDate(start + i))
     }
 
     const years = computed(() => generateYearsArray(props.startYear, props.endYear))
@@ -84,88 +87,46 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      const currentYearIndex = years.value.indexOf(view.value.year)
+      const currentYearIndex = years.value.findIndex((date) => date.getFullYear() === view.value.year)
 
       scrollIntoYearIndexCenter(currentYearIndex)
     })
 
-    const onYearClick = (year: number) => {
-      const date = createYearDate(year)
+    const {
+      hoveredIndex,
+      onClick,
+      isToday,
+      isSelected,
+      isInRange,
+    } = useDatePicker('year', years, props, emit)
 
-      updateModelValue(date)
-
-      emit('click:year', { year, date })
-    }
-
-    const isYearSelected = (year: number) => {
-      if (!modelValue || !modelValue.value) { return false }
-
-      const date = createYearDate(year)
-
-      if (isSingleDate(modelValue.value)) {
-        return isDatesYearEqual(modelValue.value, date)
-      } else if (isDates(modelValue.value)) {
-        return modelValue.value.find((d) => isDatesYearEqual(d, date))
-      } else if (isRange(modelValue.value)) {
-        return isDatesYearEqual(modelValue.value.start, date) || isDatesYearEqual(modelValue.value.end, date)
-      }
-    }
-
-    const isYearInRange = (year: number) => {
-      if (!modelValue || !modelValue.value) { return }
-
-      const date = createYearDate(year)
-
-      if (!isRange(modelValue.value)) { return }
-
-      if (modelValue.value.end === null) {
-        return modelValue.value.start < date
-          ? (hoveredYear.value && hoveredYear.value >= date)
-          : (hoveredYear.value && hoveredYear.value <= date)
-      }
-
-      return modelValue.value.start < date && modelValue.value.end > date
-    }
-
-    const isTodayYear = (year: number) => new Date().getFullYear() === year
-    const isYearDisabled = (year: number) => props.allowedYears === undefined ? false : !props.allowedYears(new Date(year))
-
-    const firstModelValueYear = (): number => {
-      if (!modelValue || !modelValue.value) { return -1 }
-
-      if (isSingleDate(modelValue.value)) {
-        return modelValue.value.getFullYear()
-      } else if (isDates(modelValue.value)) {
-        return modelValue.value[0].getFullYear()
-      } else if (isRange(modelValue.value)) {
-        return modelValue.value.start.getFullYear()
-      } else {
-        return -1
-      }
-    }
+    const isYearDisabled = (year: number) => props.allowedYears === undefined ? false : !props.allowedYears(createYearDate(year))
 
     const {
-      focusedCellIndex: focusedDateIndex, containerAttributes: keyboardContainerAttributes,
+      focusedCellIndex, containerAttributes,
     } = useGridKeyboardNavigation({
       rowSize: 1,
       start: 0,
       end: years.value.length,
-      onFocusIndex: computed(() => years.value.indexOf(view.value.year)),
-      onSelected: (selectedIndex) => onYearClick(years.value[selectedIndex]),
+      onFocusIndex: computed(() => years.value.findIndex((date) => date.getFullYear() === view.value.year)),
+      onSelected: (selectedIndex) => onClick(years.value[selectedIndex]),
     })
 
-    watch(focusedDateIndex, (newValue) => newValue !== -1 && scrollIntoYearIndex(newValue))
+    watch(focusedCellIndex, (index) => index !== -1 && scrollIntoYearIndex(index))
+    watch(focusedCellIndex, (index) => { hoveredIndex.value = index })
+    watch(hoveredIndex, (index) => { focusedCellIndex.value = index })
 
     return {
+      hoveredIndex,
       years,
       rootNode,
-      onYearClick,
-      isYearSelected,
-      isTodayYear,
-      isYearInRange,
+      onClick,
+      isToday,
+      isSelected,
+      isInRange,
       isYearDisabled,
-      focusedDateIndex,
-      keyboardContainerAttributes,
+      focusedCellIndex,
+      containerAttributes,
     }
   },
 })

@@ -1,7 +1,7 @@
 <template>
   <div class="layout gutter--md row">
     <div class="flex">
-      <h6>Day, 6 month, 2020 year</h6>
+      <h6>Day, 1st month, 2000 year</h6>
       <va-date-picker stateful v-model:view="dayView" />
     </div>
 
@@ -11,7 +11,7 @@
     </div>
 
     <div class="flex">
-      <h6>Year</h6>
+      <h6>Year, 2000 year</h6>
       <va-date-picker stateful v-model:view="yearView" />
     </div>
   </div>
@@ -21,9 +21,9 @@
 export default {
   data () {
     return {
-      dayView: { type: 'day', month: 6, year: 2020 },
+      dayView: { type: 'day', month: 1, year: 2000 },
       monthView: { type: 'month', year: 2000 },
-      yearView: { type: 'year' },
+      yearView: { type: 'year', year: 2000 },
     }
   },
 }

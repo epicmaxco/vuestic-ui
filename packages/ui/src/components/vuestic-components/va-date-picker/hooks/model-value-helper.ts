@@ -1,5 +1,4 @@
 import { VaDatePickerModelValue, VaDatePickerModelValuePeriod, VaDatePickerMode } from '../types/types'
-import { isDatesArrayIncludeDay, isDatesDayEqual } from '../utils/date-utils'
 
 export const isRange = (value: VaDatePickerModelValue): value is VaDatePickerModelValuePeriod => {
   return typeof (value as any).start !== 'undefined' && typeof (value as any).end !== 'undefined'
@@ -37,7 +36,25 @@ const modeFromModelValue = (modelValue: VaDatePickerModelValue): VaDatePickerMod
   return throwIncorrectModelValueError(modelValue, 'auto')
 }
 
-export const useDatePickerModelValue = (props: { [key: string]: any, modelValue?: VaDatePickerModelValue, mode: VaDatePickerMode }, emit: (event: 'update:modelValue', newValue: VaDatePickerModelValue) => any) => {
+const sortRange = (modelValue: VaDatePickerModelValuePeriod) => {
+  if (modelValue.start && modelValue.end) {
+    if (modelValue.start > modelValue.end) {
+      return { start: modelValue.end, end: modelValue.start }
+    }
+  }
+
+  return modelValue
+}
+
+export const useDatePickerModelValue = (
+  props: {
+    [key: string]: any,
+    modelValue?: VaDatePickerModelValue,
+    mode: VaDatePickerMode
+  },
+  emit: (event: 'update:modelValue', newValue: VaDatePickerModelValue) => any,
+  dateEqual: (date1: Date | null, date2: Date | null) => boolean,
+) => {
   const updateModelValue = (date: Date) => {
     if (!props.modelValue) {
       emit('update:modelValue', modeInitialValue(date, props.mode))
@@ -57,23 +74,30 @@ export const useDatePickerModelValue = (props: { [key: string]: any, modelValue?
         return throwIncorrectModelValueError(props.modelValue, mode)
       }
 
-      if (props.modelValue.end !== null) {
-        emit('update:modelValue', { start: date, end: null })
-        return
+      if (props.modelValue.end && dateEqual(props.modelValue.end, date)) {
+        return emit('update:modelValue', { start: props.modelValue.start, end: null })
+      }
+      if (props.modelValue.start && dateEqual(props.modelValue.start, date)) {
+        return emit('update:modelValue', { start: null, end: props.modelValue.end })
       }
 
-      if (date < props.modelValue.start) {
-        emit('update:modelValue', { start: date, end: props.modelValue.start })
-      } else {
-        emit('update:modelValue', { start: props.modelValue.start, end: date })
+      if (props.modelValue.end === null) {
+        return emit('update:modelValue', sortRange({ start: props.modelValue.start, end: date }))
       }
+      if (props.modelValue.start === null) {
+        return emit('update:modelValue', sortRange({ end: props.modelValue.end, start: date }))
+      }
+
+      emit('update:modelValue', { start: date, end: null })
     } else if (mode === 'multiple') {
       if (!isDates(props.modelValue)) {
         return throwIncorrectModelValueError(props.modelValue, mode)
       }
 
-      if (isDatesArrayIncludeDay(props.modelValue, date)) {
-        emit('update:modelValue', props.modelValue.filter((d) => !isDatesDayEqual(d, date)))
+      const isDatesIncludesDate = !!props.modelValue.find((d) => dateEqual(d, date))
+
+      if (isDatesIncludesDate) {
+        emit('update:modelValue', props.modelValue.filter((d) => !dateEqual(d, date)))
       } else {
         emit('update:modelValue', [...props.modelValue, date].sort((a, b) => a.getTime() - b.getTime()))
       }
