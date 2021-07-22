@@ -54,7 +54,6 @@
         </template>
       </va-year-picker>
     </div>
-
   </div>
 </template>
 
