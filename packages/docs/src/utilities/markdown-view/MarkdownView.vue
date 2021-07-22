@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent, computed, toRefs, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import md from './MarkdownIt'
+import md, { localeOptions } from './MarkdownIt'
 
 /**
  * This component converts markdown to html and presents it.
@@ -32,7 +32,7 @@ export default defineComponent({
     const { locale } = useI18n()
 
     watch(locale, (newValue) => {
-      md.options.currentLocale = newValue
+      localeOptions.currentLocale = newValue
     })
 
     const text = computed(() => {
