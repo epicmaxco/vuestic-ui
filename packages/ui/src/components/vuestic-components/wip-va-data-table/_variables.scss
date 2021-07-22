@@ -1,9 +1,14 @@
 :root {
-  --va-data-table-display: flex;
-  --va-data-table-flex-direction: column;
-  --va-data-table-align-items: flex-start;
-  --va-data-table-overflow-x: auto;
-  --va-data-table-margin-top: 1rem;
-  --va-data-table-display: flex;
-  --va-data-table-justify-content: center;
+  /* Footer */
+  --va-data-table-footer-display: flex;
+  --va-data-table-footer-flex-direction: row;
+  --va-data-table-footer-align-items: center;
+  --va-data-table-footer-justify-content: space-between;
+  --va-data-table-footer-margin-top: 1rem;
+
+  /* Header */
+  --va-data-table-header-cell-display: flex;
+  --va-data-table-header-cell-align-items: center;
+  --va-data-table-header-icon-opacity: 0;
+  --va-data-table-header-cell-sortable-cursor: pointer;
 }
