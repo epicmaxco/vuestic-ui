@@ -3,37 +3,52 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
-// @ts-ignore
-import MarkdownIt from 'markdown-it'
-
-const md = new MarkdownIt({
-  breaks: true,
-  typographer: true,
-  html: true,
-})
-
-class Props {
-  value = prop<string>({ type: String, required: true })
-  tag = prop<string>({ type: String, default: 'div' })
-  inline = prop<boolean>({ type: Boolean, default: false })
-}
-
-const PropsMixin = Vue.with(Props)
+import { defineComponent, computed, toRefs, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import md, { localeOptions } from './MarkdownIt'
 
 /**
  * This component converts markdown to html and presents it.
  */
-@Options({})
-export default class MarkdownView extends mixins(PropsMixin) {
-  get text () {
-    if (this.inline) {
-      return md.renderInline(this.value)
+export default defineComponent({
+  name: 'MarkdownView',
+  components: {},
+  props: {
+    value: {
+      type: String,
+      required: true,
+    },
+    tag: {
+      type: String,
+      default: 'div',
+    },
+    inline: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup (props) {
+    const { inline, value } = toRefs(props)
+    const { locale } = useI18n()
+
+    watch(locale, (newValue) => {
+      localeOptions.currentLocale = newValue
+    })
+
+    const text = computed(() => {
+      if (inline.value) {
+        return md.renderInline(value.value)
+      }
+      return md.render(value.value)
+    })
+
+    return {
+      text
     }
-    return md.render(this.value)
-  }
-}
+  },
+})
 </script>
+
 <style lang="scss">
 @import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
 
