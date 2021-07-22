@@ -100,7 +100,7 @@ export default defineComponent({
       isInRange,
     } = useDatePicker('year', years, props, emit)
 
-    const isYearDisabled = (year: number) => props.allowedYears === undefined ? false : !props.allowedYears(createYearDate(year))
+    const isYearDisabled = (year: Date) => props.allowedYears === undefined ? false : !props.allowedYears(year)
 
     const {
       focusedCellIndex, containerAttributes,
