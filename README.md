@@ -68,7 +68,7 @@ yarn add vuestic-ui
 
 ### Quick start
 
-Make sure you're imported both styles and plugin into your entry file:
+Make sure you've imported both styles and plugin into your entry file:
 
 ```javascript
 //main.js

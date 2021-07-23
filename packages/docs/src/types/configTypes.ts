@@ -4,6 +4,7 @@ import {
   ManualApiOptions,
   TranslationStringList
 } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { TableData, TableColumn } from '../components/DocsTable/DocsTable'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 
@@ -13,6 +14,10 @@ export type CodeLanguage = 'javascript' | 'scss' | 'bash'
 export type PathToExample = string
 export type ExampleOptions = {
   hideCode?: boolean
+}
+export type LinkOptions = {
+  preText?: string,
+  afterText?: string,
 }
 
 // NOTE If you add other block types - please document them properly in http://vuestic-ui.dev/en/contribution/documentation-page
@@ -59,13 +64,20 @@ export type ApiDocsBlock =
       language: CodeLanguage,
     }
   | {
-      type: BlockType.CODE,
-      code: CodeString,
-    }
-  | {
       type: BlockType.API,
       componentOptions: DefineComponent | VueConstructor,
       apiOptions: ManualApiOptions,
+    }
+  | {
+      type: BlockType.TABLE,
+      columns: TableColumn[],
+      tableData: TableData,
+    }
+  | {
+      type: BlockType.LINK,
+      text: string,
+      href: string,
+      options?: LinkOptions,
     }
   | {
       type: BlockType.ALERT,

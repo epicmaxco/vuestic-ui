@@ -71,28 +71,20 @@
           </VbCard>
         </td>
         <td>
-          <VbCard title="MultiLine badges">
-            <va-badge>
-              <template #text>
-                Multi<br>Line
-              </template>without multi-line prop
-            </va-badge><br><br>
-            <va-badge multi-line>
-              <template #text>
-                Multi<br>Line
-              </template>Multi line
-            </va-badge><br><br>
-            <va-badge multi-line>
-              <template #text>
-                Multi<br>Line<br>more
-              </template>Multi line
-            </va-badge><br><br>
-            <div style="width: 500px; border: 2px solid green;">
-              Regular non float badge
+          <VbCard title="MultiLine badges" style="width: 200px;">
+            <div>
+              Without multi-line prop:
+              <va-badge
+                text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+              />
+            </div>
+            <br>
+            <div>
+              With multi-line prop
               <va-badge
                 multi-line
                 text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-              /><br><br>
+              />
             </div>
           </VbCard>
         </td>
