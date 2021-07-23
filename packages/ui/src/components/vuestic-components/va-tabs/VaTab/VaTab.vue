@@ -45,12 +45,10 @@ import VaIcon from '../../va-icon'
 
 import { TabsServiceKey, TabsService } from '../VaTabs.vue'
 
-type MouseEventHandler = (e: MouseEvent) => void
-type FocusEventHandler = (e: FocusEvent) => void
 type Context = {
   tabsService: TabsService;
   hasKeyboardFocus: boolean;
-  keyboardFocusListeners: Record<string, MouseEventHandler | FocusEventHandler>;
+  keyboardFocusListeners: Record<string, () => void>;
 }
 
 class TabProps {
@@ -98,7 +96,7 @@ export default class VaTab extends mixins(
   }
 
   get tabIndexComputed () {
-    return (this.$props.disabled || this.isActive) ? -1 : 0
+    return (this.$props.disabled || this.context.tabsService.disabled) ? -1 : 0
   }
 
   onTabClick () {
@@ -112,7 +110,10 @@ export default class VaTab extends mixins(
   }
 
   onFocus () {
-    this.context.tabsService.tabFocus(this)
+    console.log(this.context.hasKeyboardFocus)
+    if (this.context.hasKeyboardFocus) {
+      this.context.tabsService.tabFocus(this)
+    }
     this.$emit('focus')
   }
 

@@ -67,9 +67,11 @@ import VaTab from './VaTab/VaTab.vue'
 export class TabsService {
   // eslint-disable-next-line no-useless-constructor
   constructor (private parent: VaTabs) {
+    this.disabled = parent.disabled
   }
 
   tabs: VaTab[] = []
+  disabled = false
 
   register (tab: VaTab) {
     const idx = this.tabs.push(tab)
@@ -84,11 +86,13 @@ export class TabsService {
   }
 
   tabClick (tab: VaTab) {
+    console.log(1)
     this.parent.selectTab(tab)
   }
 
   tabFocus (tab: VaTab) {
-    this.parent.ensureVisible(tab)
+    console.log(2)
+    this.parent.moveToTab(tab)
   }
 
   tabPressEnter (tab: VaTab) {
@@ -248,13 +252,14 @@ export default class VaTabs extends mixins(
         tab.isActive = tab.isActiveRouterLink || isSelectedTab
 
         if (tab.isActive) {
-          this.ensureVisible(tab)
+          this.moveToTab(tab)
           this.updateSlider(tab)
         }
-      } else if (tab.leftSidePosition <= this.tabsContentOffset && tab.rightSidePosition > this.tabsContentOffset) {
-        this.ensureVisible(tab)
       }
     })
+    if (this.tabsContentOffset + this.containerRef.clientWidth > this.tabsRef.clientWidth && this.context.tabsService) {
+      this.moveToTab(this.context.tabsService.tabs[0])
+    }
     this.updateStartingXPoint()
   }
 
@@ -304,7 +309,7 @@ export default class VaTabs extends mixins(
     this.tabsContentOffset = Math.max(0, offsetToSet)
   }
 
-  ensureVisible (tab: VaTab) {
+  moveToTab (tab: VaTab) {
     if (this.showPagination && tab.leftSidePosition + this.containerRef.clientWidth <= this.tabsRef.clientWidth) {
       this.tabsContentOffset = tab.leftSidePosition
     } else if (this.showPagination && tab.rightSidePosition >= this.containerRef.clientWidth) {

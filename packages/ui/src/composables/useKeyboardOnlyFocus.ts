@@ -7,11 +7,11 @@ export default function useKeyboardOnlyFocus () {
   let previouslyClicked = false
 
   const keyboardFocusListeners = {
-    mousedown: (e: MouseEvent) => {
+    mousedown: () => {
       previouslyClicked = true
     },
 
-    focus: (e: FocusEvent) => {
+    focus: () => {
       if (!previouslyClicked) {
         hasKeyboardFocus.value = true
       }
@@ -19,7 +19,7 @@ export default function useKeyboardOnlyFocus () {
       previouslyClicked = false
     },
 
-    blur: (e: FocusEvent) => {
+    blur: () => {
       hasKeyboardFocus.value = false
       previouslyClicked = false
     },
