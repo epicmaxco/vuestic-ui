@@ -1,6 +1,5 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { t } from '../../../../helpers/I18nHelper'
 import { api } from './sections'
 
 const cc = (text: string) => (`componentsConfig.${text}`)

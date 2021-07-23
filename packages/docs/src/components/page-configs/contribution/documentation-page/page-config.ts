@@ -2,7 +2,6 @@ import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import apiOptions from './api-options'
 import linkOptions from './link-options'
 import { tableData, columns } from './table-options'
-import { locale } from '../../../../helpers/I18nHelper'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 export const codeForCodeblock = '\'<div>Code string</div>\''
@@ -44,19 +43,19 @@ export default [
   DocsHelper.paragraph('documentationPage.blocktypes.title.text'),
   DocsHelper.code('DocsHelper.title(\'translation.path\')'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
-  DocsHelper.title('translation.path'),
+  DocsHelper.title('documentationPage.blocktypes.title.example'),
 
   DocsHelper.headline('documentationPage.blocktypes.subtitle.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.subtitle.text'),
   DocsHelper.code('DocsHelper.subtitle(\'translation.path\')'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
-  DocsHelper.subtitle('translation.path'),
+  DocsHelper.subtitle('documentationPage.blocktypes.subtitle.example'),
 
   DocsHelper.headline('documentationPage.blocktypes.headline.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.headline.text'),
   DocsHelper.code('DocsHelper.headline(\'translation.path\')'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
-  DocsHelper.headline('translation.path'),
+  DocsHelper.headline('documentationPage.blocktypes.headline.example'),
 
   DocsHelper.headline('documentationPage.blocktypes.paragraph.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.paragraph.text'),
@@ -129,12 +128,12 @@ export default [
   DocsHelper.paragraph('documentationPage.blocktypes.link.text'),
   DocsHelper.code(`${linkOptionsBlock}`),
   // eslint-disable-next-line no-template-curly-in-string
-  DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/contribution/documentation-page#translation-path`, options)"),
+  DocsHelper.code("DocsHelper.link('translation.path', `/contribution/documentation-page#translation-path`, options)"),
   // eslint-disable-next-line no-template-curly-in-string
-  DocsHelper.code("DocsHelper.link('translation.path', `/${locale}/services/components-config`)"),
+  DocsHelper.code("DocsHelper.link('translation.path', `/services/components-config`)"),
   DocsHelper.paragraph('documentationPage.compilesTo'),
-  DocsHelper.link('translation.path', `/${locale}/contribution/documentation-page#translation-path`, linkOptions),
-  DocsHelper.link('translation.path', `/${locale}/services/components-config`),
+  DocsHelper.link('translation.path', `/contribution/documentation-page#translation-path`, linkOptions),
+  DocsHelper.link('translation.path', `/services/components-config#scoped-config`),
 
   DocsHelper.headline('documentationPage.blocktypes.alert.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.alert.text'),
