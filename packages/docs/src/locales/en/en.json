@@ -1010,6 +1010,7 @@
     "colorSlider": "Color Slider",
     "colorPalette": "Color Palette",
     "datePicker": "Date Picker",
+    "dateInput": "Date Input",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "buttonDropdown": "Button Dropdown",
@@ -2561,6 +2562,24 @@
       "colors": {
         "title": "Colors",
         "text": "You can change colors using CSS variables for deeper customization, but also you can simple change colors using props."
+      }
+    }
+  },
+  "dateInput": {
+    "title": "Date Input",
+    "description": "Date Input component is a combination of Date Picker and Input components. You can find usage examples using following links:",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": ""
+      },
+      "mode": {
+        "title": "Mode",
+        "text": "Mode prop works the same as with Date Picker. But, there is a prop `resetOnClose` for range mode. If user selected incomplete range and closed dropdown, then used last complete value."
+      },
+      "isOpen": {
+        "title": "IsOpen",
+        "text": "IsOpen prop allows you to force show dropdown as opened."
       }
     }
   },

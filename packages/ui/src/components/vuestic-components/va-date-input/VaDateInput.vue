@@ -101,6 +101,8 @@ export default defineComponent({
 
     const valueText = computed({
       get: () => {
+        if (!valueComputed.value) { return '' }
+
         if (isDates(valueComputed.value)) {
           return valueComputed.value.map((d) => d.toDateString()).join(', ')
         }
@@ -134,6 +136,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .va-date-input {
+    display: flex;
+
     &__icon {
       cursor: pointer;
     }

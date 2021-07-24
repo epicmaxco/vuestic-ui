@@ -195,6 +195,13 @@ export const navigationRoutes: NavigationRoute[] = [
         },
       },
       {
+        name: 'date-input',
+        displayName: 'menu.dateInput',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         category: 'menu.categories.layout',
         name: 'card',
         displayName: 'menu.card',

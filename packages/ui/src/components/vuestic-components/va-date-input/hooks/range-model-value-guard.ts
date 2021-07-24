@@ -37,7 +37,9 @@ export const useRangeModelValueGuard = (
   })
 
   const reset = () => {
-    bufferValue.value = modelValue.value
+    if (bufferValue.value && isRange(bufferValue.value)) {
+      bufferValue.value = modelValue.value
+    }
   }
 
   return {

@@ -26,6 +26,7 @@ import VaConfig from './vuestic-components/va-config'
 import VaContent from './vuestic-components/va-content'
 import VaDivider from './vuestic-components/va-divider'
 import { VaDatePicker } from './vuestic-components/va-date-picker'
+import { VaDateInput } from './vuestic-components/va-date-input'
 import VaDropdown, { VaDropdownContent } from './vuestic-components/va-dropdown'
 import VaFileUpload from './vuestic-components/va-file-upload'
 import VaHover from './vuestic-components/va-hover'
@@ -116,6 +117,7 @@ const vuesticComponentMap = {
   VaConfig,
   VaContent,
   VaDatePicker,
+  VaDateInput,
   VaDropdown,
   VaDropdownContent,
   VaFileUpload,
