@@ -3,13 +3,13 @@
     <div class="flex">
       <va-date-picker
         stateful
-        highlight-weekends
+        highlight-weekend
       />
     </div>
     <div class="flex">
       <va-date-picker
         stateful
-        highlight-weekends
+        highlight-weekend
         :weekends="(date) => [0, 1, 5, 6].includes(date.getDay())"
       />
     </div>

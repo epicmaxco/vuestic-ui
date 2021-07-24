@@ -69,5 +69,11 @@ export default [
     'va-date-picker/DisabledDates',
   ),
 
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.colors.title',
+    'datePicker.examples.colors.text',
+    'va-date-picker/Color',
+  ),
+
   DocsHelper.api(VaDatePicker, apiOptions),
 ] as ApiDocsBlock[]

@@ -41,10 +41,10 @@
     </VbCard>
 
     <VbCard title="weekends">
-      <va-date-picker v-model="value" highlight-weekends class="mb-4" />
+      <va-date-picker v-model="value" highlight-weekend class="mb-4" />
 
       <h5 class="mb-2">Every second day is weeked</h5>
-      <va-date-picker v-model="value" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
+      <va-date-picker v-model="value" highlight-weekend :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
     </VbCard>
 
     <VbCard title="slots to calendar">
@@ -144,9 +144,10 @@
         v-model="range"
         color="#ff00ff"
         weekends-color="#00ffff"
-        highlight-weekends
+        highlight-weekend
         show-other-months
-        :allowedDays="(date) => date.getDay() !== 5" />
+        :allowedDays="(date) => date.getDay() !== 5"
+      />
     </VbCard>
   </VbDemo>
 </template>

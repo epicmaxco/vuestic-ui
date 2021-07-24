@@ -8,10 +8,10 @@
     class="va-date-picker-cell"
     :class="{
       'va-date-picker-cell_other-month': otherMonth,
-      'va-date-picker-cell_today': hightlightToday && today,
+      'va-date-picker-cell_today': highlightToday && today,
       'va-date-picker-cell_in-range': inRange,
       'va-date-picker-cell_disabled': disabled,
-      'va-date-picker-cell_hightlighted-weekend': hightlightWeekend && weekend,
+      'va-date-picker-cell_hightlighted-weekend': highlightWeekend && weekend,
       'va-date-picker-cell_selected': selected,
       'va-date-picker-cell_focused': focused,
     }"
@@ -37,8 +37,8 @@ export default defineComponent({
     weekend: { type: Boolean, default: false },
     hidden: { type: Boolean, default: false },
     focused: { type: Boolean, default: false },
-    hightlightWeekend: { type: Boolean, default: false },
-    hightlightToday: { type: Boolean, default: false },
+    highlightWeekend: { type: Boolean, default: false },
+    highlightToday: { type: Boolean, default: false },
   },
 
   emits: ['click'],

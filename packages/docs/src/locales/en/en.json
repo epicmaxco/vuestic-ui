@@ -2557,6 +2557,10 @@
       "disabledDates": {
         "title": "Disable dates",
         "text": "You can disable some specific days, month or year using `allowedDays`, `allowedMonth` or `allowedYear` props."
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "You can change colors using CSS variables for deeper customization, but also you can simple change colors using props."
       }
     }
   },

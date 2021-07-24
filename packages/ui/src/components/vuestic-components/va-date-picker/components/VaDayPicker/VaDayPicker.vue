@@ -27,8 +27,8 @@
         :weekend="isDateWeekend(date)"
         :disabled="isDateDisabled(date)"
         :focused="hoveredIndex === index"
-        :hightlight-today="hightlightToday"
-        :hightlight-weekend="hightlightWeekend"
+        :highlight-today="hightlightToday"
+        :highlight-weekend="highlightWeekend"
         @click="onClick(date); focusedCellIndex = index"
       >
         <span class="va-date-picker-cell__day">
@@ -58,7 +58,6 @@ export default defineComponent({
   components: { VaDatePickerCell },
 
   props: {
-    ...VaDatePickerCellProps,
     monthNames: { type: Array as PropType<string[]>, required: true },
     weekdayNames: { type: Array as PropType<string[]>, required: true },
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
@@ -69,6 +68,8 @@ export default defineComponent({
     showOtherMonths: { type: Boolean, default: false },
     allowedDays: { type: Function as PropType<(date: Date) => boolean> },
     weekends: { type: [Function] as PropType<(d: Date) => boolean> },
+    highlightWeekend: { type: Boolean, default: false },
+    hightlightToday: { type: Boolean, default: false },
   },
 
   emits: ['update:modelValue', 'hover:day', 'click:day'],
