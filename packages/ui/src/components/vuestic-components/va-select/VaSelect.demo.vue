@@ -31,7 +31,7 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
-        label="Brodered"
+        label="Bordered"
         :options="defaultSingleSelect.options"
         bordered
       />
@@ -53,7 +53,7 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
-        label="Brodered (Purple color)"
+        label="Bordered (Purple color)"
         :options="defaultSingleSelect.options"
         color="#990099"
         bordered
