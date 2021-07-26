@@ -13,7 +13,7 @@
       :disabled="isYearDisabled(year)"
       :today="isToday(year)"
       :focused="focusedCellIndex === index"
-      :hightlight-today="hightlightToday"
+      :highlight-today="highlightToday"
       @click="onClick(year); focusedCellIndex = index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
@@ -37,7 +37,7 @@ export default defineComponent({
   props: {
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     allowedYears: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
-    hightlightToday: { type: Boolean, default: true },
+    highlightToday: { type: Boolean, default: true },
     mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
     view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'year' }) },
     startYear: { type: Number, default: () => 1970 },

@@ -31,5 +31,17 @@ export default [
     'va-date-input/isOpen',
   ),
 
+  ...DocsHelper.exampleBlock(
+    'dateInput.examples.formatting.title',
+    'dateInput.examples.formatting.text',
+    'va-date-input/formatting',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'dateInput.examples.inputProps.title',
+    'dateInput.examples.inputProps.text',
+    'va-date-input/inputProps',
+  ),
+
   DocsHelper.api(VaDateInput, apiOptions),
 ] as ApiDocsBlock[]

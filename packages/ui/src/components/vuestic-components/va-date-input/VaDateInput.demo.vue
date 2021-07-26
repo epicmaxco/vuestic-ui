@@ -53,7 +53,7 @@
 
       <va-date-input v-model="value" label="Hide weekdays" hideWeekDays class="mb-4" />
 
-      <va-date-input v-model="value" label="Do not highlight today date" :hightlightToday="false" />
+      <va-date-input v-model="value" label="Do not highlight today date" :highlightToday="false" />
     </VbCard>
 
     <VbCard title="weekends">

@@ -13,7 +13,7 @@
         :disabled="!!isDisabled(month)"
         :today="!!isToday(month)"
         :focused="hoveredIndex === monthIndex"
-        :hightlight-today="hightlightToday"
+        :highlight-today="highlightToday"
         @click="onClick(month); focusedCellIndex = monthIndex"
       >
         <slot name="month" v-bind="{ monthIndex, month: monthNames[monthIndex] }">
@@ -41,7 +41,7 @@ export default defineComponent({
     monthNames: { type: Array as PropType<string[]>, required: true },
     view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'month' }) },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
-    hightlightToday: { type: Boolean, default: true },
+    highlightToday: { type: Boolean, default: true },
     mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
   },
 

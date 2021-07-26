@@ -37,7 +37,7 @@
     </VbCard>
 
     <VbCard title="do not highlight today date">
-      <va-date-picker v-model="value" :hightlightToday="false" />
+      <va-date-picker v-model="value" :highlightToday="false" />
     </VbCard>
 
     <VbCard title="weekends">

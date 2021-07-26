@@ -11,7 +11,7 @@
       'va-date-picker-cell_today': highlightToday && today,
       'va-date-picker-cell_in-range': inRange,
       'va-date-picker-cell_disabled': disabled,
-      'va-date-picker-cell_hightlighted-weekend': highlightWeekend && weekend,
+      'va-date-picker-cell_highlighted-weekend': highlightWeekend && weekend,
       'va-date-picker-cell_selected': selected,
       'va-date-picker-cell_focused': focused,
     }"
@@ -91,7 +91,7 @@ export default defineComponent({
     opacity: 0;
   }
 
-  &_hightlighted-weekend { color: var(--va-date-picker-weekends-color); }
+  &_highlighted-weekend { color: var(--va-date-picker-weekends-color); }
 
   &_selected {
     background-color: var(--va-date-picker-selected-background);

@@ -7,6 +7,7 @@
             v-model="valueText"
             v-bind="inputProps"
             class="va-date-input__input"
+            @cleared="onClear"
           >
             <template #appendInner="slotScope">
               <slot name="appendInner" v-bind="slotScope">
@@ -42,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, watch } from 'vue'
+import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
 import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
@@ -52,6 +53,7 @@ import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import VaInput from '../va-input'
+import { VaDatePickerModelValue } from '../va-date-picker/types/types'
 
 const VaInputProps = {
   label: { type: String, required: false },
@@ -74,6 +76,7 @@ export default defineComponent({
     ...VaInputProps,
     resetOnClose: { type: Boolean, default: true },
     isOpen: { type: Boolean },
+    format: { type: Function as PropType<(date: VaDatePickerModelValue | undefined) => string> },
   },
 
   emits: [
@@ -101,6 +104,10 @@ export default defineComponent({
 
     const valueText = computed({
       get: () => {
+        if (props.format) {
+          return props.format(valueComputed.value)
+        }
+
         if (!valueComputed.value) { return '' }
 
         if (isDates(valueComputed.value)) {
@@ -122,10 +129,13 @@ export default defineComponent({
 
     watch(valueText, (text) => emit('update:text', text))
 
+    const onClear = () => { valueComputed.value = undefined }
+
     return {
       valueText,
       valueComputed,
       isOpenSync,
+      onClear,
 
       inputProps: filterComponentProps(props, VaInputProps),
       datePickerProps: filterComponentProps(props, extractComponentProps(VaDatePicker)),

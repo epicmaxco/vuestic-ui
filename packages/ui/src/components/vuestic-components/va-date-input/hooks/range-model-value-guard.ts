@@ -7,17 +7,23 @@ import { VaDatePickerModelValue } from '../../va-date-picker/types/types'
  * This guard provides reset method, that allow us to reset VaDateInput value if dropdown is closed.
  */
 export const useRangeModelValueGuard = (
-  modelValue: Ref<VaDatePickerModelValue>,
+  modelValue: Ref<VaDatePickerModelValue | undefined>,
   disabled: Ref<boolean>,
 ) => {
-  const bufferValue = ref<VaDatePickerModelValue>(modelValue.value)
+  const bufferValue = ref<VaDatePickerModelValue | undefined>(modelValue.value)
 
-  const valueComputed = computed<VaDatePickerModelValue>({
+  const valueComputed = computed<VaDatePickerModelValue | undefined>({
     get: () => bufferValue.value,
     set: (value) => {
       if (disabled.value) {
         bufferValue.value = value
         modelValue.value = value
+      }
+
+      if (!value) {
+        modelValue.value = value
+        bufferValue.value = value
+        return
       }
 
       if (isRange(value)) {

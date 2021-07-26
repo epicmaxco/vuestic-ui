@@ -27,7 +27,7 @@
         :weekend="isDateWeekend(date)"
         :disabled="isDateDisabled(date)"
         :focused="hoveredIndex === index"
-        :highlight-today="hightlightToday"
+        :highlight-today="highlightToday"
         :highlight-weekend="highlightWeekend"
         @click="onClick(date); focusedCellIndex = index"
       >
@@ -69,7 +69,7 @@ export default defineComponent({
     allowedDays: { type: Function as PropType<(date: Date) => boolean> },
     weekends: { type: [Function] as PropType<(d: Date) => boolean> },
     highlightWeekend: { type: Boolean, default: false },
-    hightlightToday: { type: Boolean, default: false },
+    highlightToday: { type: Boolean, default: false },
   },
 
   emits: ['update:modelValue', 'hover:day', 'click:day'],
