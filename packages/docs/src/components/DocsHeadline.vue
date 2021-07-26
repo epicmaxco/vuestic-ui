@@ -1,7 +1,7 @@
 <template>
   <h5>
     <MarkdownView tag="span" inline :value="textComputed" />
-    <DocsAnchor :text="textComputed" />
+    <DocsAnchor :text="linkTextComputed" />
   </h5>
 </template>
 <script lang='ts'>
@@ -23,6 +23,9 @@ const PropsMixin = Vue.with(Props)
 export default class DocsHeadline extends mixins(PropsMixin) {
   get textComputed () {
     return this.$t(this.text)
+  }
+  get linkTextComputed () {
+    return this.$t(this.text, 'en')
   }
 }
 </script>
