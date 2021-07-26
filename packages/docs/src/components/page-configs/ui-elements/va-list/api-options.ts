@@ -1,5 +1,5 @@
 // @ts-ignore
-import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
 
 export const listApiOptions = {
   props: {
