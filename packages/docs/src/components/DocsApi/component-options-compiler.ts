@@ -128,6 +128,18 @@ export function resolveProps (options: any, optionsType = 'props') {
   return result
 }
 
+export function resolveEmits (options: any) {
+  if (!options.emits) {
+    return {}
+  }
+
+  return options.emits
+    .reduce((acc: Record<string, Record<string, unknown>>, event: string) => {
+      acc[event] = {}
+      return acc
+    }, {})
+}
+
 export function compileComponentOptions (componentOptions: any): CompiledComponentOptions {
   const resolvedProps = resolveProps(componentOptions)
 
@@ -136,11 +148,7 @@ export function compileComponentOptions (componentOptions: any): CompiledCompone
     props[kebabCase(propName)] = convertComponentPropToApiDocs(propName, resolvedProps)
   }
 
-  const emits = componentOptions.emits
-    .reduce((acc: Record<string, Record<string, unknown>>, event: string) => {
-      acc[event] = {}
-      return acc
-    }, {})
+  const emits = resolveEmits(componentOptions)
 
   return { props, emits }
 }

@@ -91,7 +91,6 @@ export const getApiTableData = (
   manualApiOptions: ManualApiOptions = {},
 ): ApiTableData => {
   const componentOptions: ComponentOptions = getComponentOptions(component as DefineComponent)
-  console.log(componentOptions, component)
   const compiledComponentOptions = compileComponentOptions(componentOptions)
   const camelCasedProps = Object.keys(compiledComponentOptions.props).reduce((acc: Record<string, any>, key: string) => {
     acc[camelCase(key)] = compiledComponentOptions.props[key]
