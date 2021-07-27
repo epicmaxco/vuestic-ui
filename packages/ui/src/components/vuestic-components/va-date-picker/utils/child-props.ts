@@ -8,8 +8,9 @@ import { ComponentOptionsBase, PropType, computed, ComputedRef, Prop } from 'vue
 export const filterComponentProps = (propsValues: Record<string, any>, childProps: Record<string, any>): ComputedRef<Record<keyof typeof childProps, any>> => {
   return computed(() => Object
     .keys(childProps)
-    .reduce((acc, propName) => {
-      return { ...acc, [propName]: propsValues[propName] }
+    .reduce<Record<string, unknown>>((acc, propName) => {
+      acc[propName] = propsValues[propName]
+      return acc
     }, {}),
   )
 }
@@ -33,12 +34,14 @@ export function extractComponentProps<T> (component: T, ignoreProps?: string[]):
   if (ignoreProps) {
     return Object
       .keys((component as any).props)
-      .reduce((acc, propName) => {
+      .reduce<Record<string, unknown>>((acc, propName) => {
         if (ignoreProps.includes(propName)) { return acc }
 
         if (props[propName] === undefined) { return acc }
 
-        return { ...acc, [propName]: props[propName] }
+        acc[propName] = props[propName]
+
+        return acc
       }, {}) as ExtractPropsType<T>
   }
 
