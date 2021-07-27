@@ -1,55 +1,21 @@
 import { DefineComponent, ComponentOptions } from 'vue'
-import { kebabCase, camelCase, cloneDeep } from 'lodash'
+import { kebabCase, camelCase } from 'lodash'
 import { te as translationExists } from '../../helpers/I18nHelper'
 
-import { ManualPropApiOptions, ManualEventApiOptions, ManualApiOptions, ManualSlotApiOptions, ManualMethodApiOptions } from './ManualApiOptions'
-import { PropOptionsCompiled, compileComponentOptions } from './component-options-compiler'
-import { ApiPropRowOptions, ApiTableData } from './ApiTableData'
-
-/**
- * Very soft default injection into manual api options.
- * Key use-case right now is to introduce system-wide hidden props.
- * It's ok if these are not present in component, as we check with real props anyway.
- * @param defaults
- * @param base
- */
-export const mergeInDefaults = (base: ManualApiOptions, defaults: ManualApiOptions): ManualApiOptions => {
-  base = cloneDeep(base)
-
-  for (const key in base) {
-    // NOTE Many complaints from TS here. Not super sure we want to deal with these.
-    // @ts-ignore
-    if (typeof base[key] !== 'object') {
-      continue
-    }
-    // @ts-ignore
-    if (!base[key]) {
-      // @ts-ignore
-      base[key] = defaults[key]
-      continue
-    }
-    // @ts-ignore
-    for (const optionKey in defaults[key]) {
-      // @ts-ignore
-      if (!base[key][optionKey] && defaults[key][optionKey]) {
-        // @ts-ignore
-        base[key][optionKey] = { ...defaults[key][optionKey] }
-      }
-    }
-  }
-
-  return base
-}
+import { ManualPropApiOptions, ManualApiOptions, ManualSlotApiOptions, ManualMethodApiOptions } from './ManualApiOptions'
+import { compileComponentOptions, CompiledComponentOptions } from './component-options-compiler'
+import { ApiEventRowOptions, ApiMethodRowOptions, ApiPropRowOptions, ApiSlotRowOptions, ApiTableData } from './ApiTableData'
 
 function getComponentOptions (component: DefineComponent): ComponentOptions {
-  switch (true) {
-  case Boolean(component.options):
+  if (component.options) {
     return component.options
-  case Boolean(component.__vccOpts) || Boolean(component.__b):
-    return { ...component.__b, ...component.__vccOpts }
-  default:
-    return component
   }
+
+  if (component.__vccOpts || component.__b) {
+    return { ...component.__vccOpts, ...component.__b }
+  }
+
+  return component
 }
 
 function getTranslation (type: string, name: string, componentName: string, custom?: string): string {
@@ -61,95 +27,119 @@ function getTranslation (type: string, name: string, componentName: string, cust
     return componentTranslation
   }
 
-  return `api.all.${type}.${name}`
+  const allTranslation = `api.all.${type}.${name}`
+  if (translationExists(allTranslation)) {
+    return allTranslation
+  }
+
+  return ''
 }
 
-export const getApiTableProp = (
+const getApiTableProps = (
   componentName: string,
-  propName: string,
+  compiledComponentOptions: CompiledComponentOptions,
   manualOptions: ManualApiOptions = {},
-  componentOptions: PropOptionsCompiled,
-): ApiPropRowOptions => {
-  const manualPropOptions: ManualPropApiOptions = manualOptions.props?.[propName] || {}
-  return {
-    name: kebabCase(propName),
-    version: manualPropOptions.version || manualOptions.version || '',
-    required: componentOptions.required,
-    types: manualPropOptions.types
-      ? `\`${manualPropOptions.types}\``
-      // @ts-ignore
-      : componentOptions.types.map(type => `\`${type}\``).join(' | '),
-    default: componentOptions.default,
-    description: getTranslation('props', propName, componentName, manualPropOptions.translation),
+) => {
+  const api = {} as Record<string, ApiPropRowOptions>
+  const merged = { ...compiledComponentOptions.props, ...manualOptions.props }
+
+  for (const propName in merged) {
+    const prop = compiledComponentOptions.props[propName]
+    const manualPropOptions: ManualPropApiOptions = (manualOptions.props && manualOptions.props[propName]) || {}
+
+    if (manualPropOptions.hidden) { continue }
+
+    api[propName] = {
+      ...prop,
+      name: kebabCase(propName),
+      version: manualPropOptions.version || manualOptions.version || '',
+      description: getTranslation('props', propName, componentName, manualPropOptions.translation),
+      types: manualPropOptions.types
+        ? `\`${manualPropOptions.types}\``
+        : prop.types
+          .map(type => `\`${type}\``)
+          .join(' | '),
+    }
   }
+
+  return api
 }
 
-// TODO: improve typing
-// (component: DefineComponent | VueConstructor): ComponentOptions<any> doesn't work here
-export const getApiTableData = (
-  component: any,
-  manualApiOptions: ManualApiOptions = {},
-): ApiTableData => {
-  const componentOptions: ComponentOptions = getComponentOptions(component as DefineComponent)
-  const compiledComponentOptions = compileComponentOptions(componentOptions)
-  const camelCasedProps = Object.keys(compiledComponentOptions.props).reduce((acc: Record<string, any>, key: string) => {
-    acc[camelCase(key)] = compiledComponentOptions.props[key]
-    return acc
-  }, {} as Record<string, any>)
-  const componentName = componentOptions.name as string
+const getApiTableEvents = (
+  componentName: string,
+  compiledComponentOptions: CompiledComponentOptions,
+  manualOptions: ManualApiOptions = {},
+) => {
+  const api = {} as Record<string, ApiEventRowOptions>
+  const merged = { ...compiledComponentOptions.emits, ...manualOptions.events }
 
-  const apiTableData: ApiTableData = {
-    name: componentName,
-    props: {},
-    slots: {},
-    events: {},
-    methods: {},
-  }
+  for (const eventName in merged) {
+    const event = merged[eventName]
 
-  // Props
-  for (const propName in camelCasedProps) {
-    if (manualApiOptions?.props?.[propName]?.hidden) {
-      continue
-    }
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    apiTableData.props[propName] = getApiTableProp(
-      componentName,
-      propName,
-      manualApiOptions,
-      camelCasedProps[propName],
-    )
-  }
+    if (event.hidden) { continue }
 
-  // Events
-  for (const eventName in manualApiOptions.events) {
-    const manualEventOptions: ManualEventApiOptions = manualApiOptions.events[eventName] || {}
-    apiTableData.events[eventName] = {
-      version: manualEventOptions.version || '',
-      description: getTranslation('events', eventName, componentName, manualEventOptions.translation),
+    api[eventName] = {
+      version: event.version || manualOptions.version || '',
       name: kebabCase(eventName),
-      types: manualEventOptions.types,
+      types: event.types,
+      description: getTranslation('events', eventName, componentName, event.translation),
     }
   }
 
-  // Slots
-  for (const slotName in manualApiOptions.slots) {
-    const manualSlotOptions: ManualSlotApiOptions = manualApiOptions.slots[slotName] || {}
-    apiTableData.slots[slotName] = {
-      version: manualSlotOptions.version || '',
+  return api
+}
+
+const getApiTableSlots = (
+  componentName: string,
+  compiledComponentOptions: CompiledComponentOptions,
+  manualOptions: ManualApiOptions = {},
+) => {
+  const api = {} as Record<string, ApiSlotRowOptions>
+
+  for (const slotName in manualOptions.slots) {
+    const manualSlotOptions: ManualSlotApiOptions = manualOptions.slots[slotName] || {}
+
+    api[slotName] = {
+      version: manualSlotOptions.version || manualOptions.version || '',
       description: getTranslation('slots', slotName, componentName, manualSlotOptions.translation),
       name: kebabCase(slotName),
     }
   }
 
-  // Methods
-  for (const methodName in manualApiOptions.methods) {
-    const manualMethodOptions: ManualMethodApiOptions = manualApiOptions.methods[methodName] || {}
-    apiTableData.methods[methodName] = {
-      version: manualMethodOptions.version || '',
+  return api
+}
+
+const getApiTableMethods = (
+  componentName: string,
+  compiledComponentOptions: CompiledComponentOptions,
+  manualOptions: ManualApiOptions = {},
+) => {
+  const api = {} as Record<string, ApiMethodRowOptions>
+
+  for (const methodName in manualOptions.methods) {
+    const manualMethodOptions: ManualMethodApiOptions = manualOptions.methods[methodName] || {}
+    api[methodName] = {
+      version: manualMethodOptions.version || manualOptions.version || '',
       description: getTranslation('methods', methodName, componentName, manualMethodOptions.translation),
       name: kebabCase(methodName),
       types: manualMethodOptions.types,
     }
+  }
+
+  return api
+}
+
+export const getApiTableData = (component: any, manualApiOptions: ManualApiOptions = {}): ApiTableData => {
+  const componentOptions: ComponentOptions = getComponentOptions(component as DefineComponent)
+  const compiledComponentOptions = compileComponentOptions(componentOptions)
+  const componentName = componentOptions.name as string
+
+  const apiTableData: ApiTableData = {
+    name: componentName,
+    props: getApiTableProps(componentName, compiledComponentOptions, manualApiOptions),
+    slots: getApiTableSlots(componentName, compiledComponentOptions, manualApiOptions),
+    events: getApiTableEvents(componentName, compiledComponentOptions, manualApiOptions),
+    methods: getApiTableMethods(componentName, compiledComponentOptions, manualApiOptions),
   }
 
   return apiTableData
