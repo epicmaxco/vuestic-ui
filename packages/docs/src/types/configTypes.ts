@@ -2,8 +2,8 @@
 import {
   TranslationString,
   ManualApiOptions,
-  TranslationStringList
-} from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+  TranslationStringList,
+} from '../components/DocsApi/ManualApiOptions'
 import { TableData, TableColumn } from '../components/DocsTable/DocsTable'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'

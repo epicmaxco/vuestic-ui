@@ -1,7 +1,8 @@
 import { DefineComponent, ComponentOptions } from 'vue'
 import { kebabCase, camelCase, cloneDeep } from 'lodash'
+import { te as translationExists } from '../../helpers/I18nHelper'
 
-import { ManualPropApiOptions, ManualEventApiOptions, ManualApiOptions } from './ManualApiOptions'
+import { ManualPropApiOptions, ManualEventApiOptions, ManualApiOptions, ManualSlotApiOptions, ManualMethodApiOptions } from './ManualApiOptions'
 import { PropOptionsCompiled, compileComponentOptions } from './component-options-compiler'
 import { ApiPropRowOptions, ApiTableData } from './ApiTableData'
 
@@ -51,6 +52,18 @@ function getComponentOptions (component: DefineComponent): ComponentOptions {
   }
 }
 
+function getTranslation (type: string, name: string, componentName: string, custom?: string): string {
+  if (custom && translationExists(custom)) { return custom }
+
+  const componentTranslation = `api.${componentName}.${type}.${name}`
+
+  if (translationExists(componentTranslation)) {
+    return componentTranslation
+  }
+
+  return `api.all.${type}.${name}`
+}
+
 export const getApiTableProp = (
   componentName: string,
   propName: string,
@@ -67,7 +80,7 @@ export const getApiTableProp = (
       // @ts-ignore
       : componentOptions.types.map(type => `\`${type}\``).join(' | '),
     default: componentOptions.default,
-    description: `api.${manualPropOptions.local ? componentName : 'all'}.props.${propName}`,
+    description: getTranslation('props', propName, componentName, manualPropOptions.translation),
   }
 }
 
@@ -109,11 +122,10 @@ export const getApiTableData = (
 
   // Events
   for (const eventName in manualApiOptions.events) {
-    // @ts-ignore
     const manualEventOptions: ManualEventApiOptions = manualApiOptions.events[eventName] || {}
     apiTableData.events[eventName] = {
       version: manualEventOptions.version || '',
-      description: `api.${manualEventOptions.local ? componentName : 'all'}.events.${eventName}`,
+      description: getTranslation('events', eventName, componentName, manualEventOptions.translation),
       name: kebabCase(eventName),
       types: manualEventOptions.types,
     }
@@ -121,22 +133,20 @@ export const getApiTableData = (
 
   // Slots
   for (const slotName in manualApiOptions.slots) {
-    // @ts-ignore
     const manualSlotOptions: ManualSlotApiOptions = manualApiOptions.slots[slotName] || {}
     apiTableData.slots[slotName] = {
       version: manualSlotOptions.version || '',
-      description: `api.${manualSlotOptions.local ? componentName : 'all'}.slots.${slotName}`,
+      description: getTranslation('slots', slotName, componentName, manualSlotOptions.translation),
       name: kebabCase(slotName),
     }
   }
 
   // Methods
   for (const methodName in manualApiOptions.methods) {
-    // @ts-ignore
     const manualMethodOptions: ManualMethodApiOptions = manualApiOptions.methods[methodName] || {}
     apiTableData.methods[methodName] = {
       version: manualMethodOptions.version || '',
-      description: `api.${manualMethodOptions.local ? componentName : 'all'}.methods.${methodName}`,
+      description: getTranslation('methods', methodName, componentName, manualMethodOptions.translation),
       name: kebabCase(methodName),
       types: manualMethodOptions.types,
     }

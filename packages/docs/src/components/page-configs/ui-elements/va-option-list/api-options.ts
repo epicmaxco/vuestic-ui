@@ -1,24 +1,10 @@
-// @ts-ignore
-import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    value: { local: true },
-    disabledBy: { local: true },
-    trackBy: { local: true },
-    valueBy: { local: true },
-    textBy: { local: true },
-    options: { local: true },
-    type: { local: true },
-    defaultValue: { local: true },
-    leftLabel: { local: true },
-  },
+export default defineManualApi({
   events: {
-    input: { local: true, types: '`(value: String | Object) => void`' },
-  },
-  methods: {
+    input: { types: '`(value: String | Object) => void`' },
   },
   slots: {
-    default: { local: true },
+    default: { },
   },
-} as ManualApiOptions
+})

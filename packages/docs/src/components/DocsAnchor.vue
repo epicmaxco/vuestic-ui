@@ -3,7 +3,7 @@
 </template>
 <script lang='ts'>
 import { kebabCase } from 'lodash'
-import { TranslationString } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { TranslationString } from '../components/DocsApi/ManualApiOptions'
 import { Options, Vue, mixins, prop } from 'vue-class-component'
 import { getColors } from '../../../ui/src/main'
 
