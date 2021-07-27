@@ -2,7 +2,7 @@ import { DefineComponent, ComponentOptions } from 'vue'
 import { kebabCase, camelCase, cloneDeep } from 'lodash'
 import { te as translationExists } from '../../helpers/I18nHelper'
 
-import { ManualPropApiOptions, ManualEventApiOptions, ManualApiOptions } from './ManualApiOptions'
+import { ManualPropApiOptions, ManualEventApiOptions, ManualApiOptions, ManualSlotApiOptions, ManualMethodApiOptions } from './ManualApiOptions'
 import { PropOptionsCompiled, compileComponentOptions } from './component-options-compiler'
 import { ApiPropRowOptions, ApiTableData } from './ApiTableData'
 
@@ -91,6 +91,7 @@ export const getApiTableData = (
   manualApiOptions: ManualApiOptions = {},
 ): ApiTableData => {
   const componentOptions: ComponentOptions = getComponentOptions(component as DefineComponent)
+  console.log(componentOptions, component)
   const compiledComponentOptions = compileComponentOptions(componentOptions)
   const camelCasedProps = Object.keys(compiledComponentOptions.props).reduce((acc: Record<string, any>, key: string) => {
     acc[camelCase(key)] = compiledComponentOptions.props[key]
@@ -122,7 +123,6 @@ export const getApiTableData = (
 
   // Events
   for (const eventName in manualApiOptions.events) {
-    // @ts-ignore
     const manualEventOptions: ManualEventApiOptions = manualApiOptions.events[eventName] || {}
     apiTableData.events[eventName] = {
       version: manualEventOptions.version || '',
@@ -134,7 +134,6 @@ export const getApiTableData = (
 
   // Slots
   for (const slotName in manualApiOptions.slots) {
-    // @ts-ignore
     const manualSlotOptions: ManualSlotApiOptions = manualApiOptions.slots[slotName] || {}
     apiTableData.slots[slotName] = {
       version: manualSlotOptions.version || '',
@@ -145,7 +144,6 @@ export const getApiTableData = (
 
   // Methods
   for (const methodName in manualApiOptions.methods) {
-    // @ts-ignore
     const manualMethodOptions: ManualMethodApiOptions = manualApiOptions.methods[methodName] || {}
     apiTableData.methods[methodName] = {
       version: manualMethodOptions.version || '',
