@@ -1074,15 +1074,18 @@
     "blocktypes": {
       "title": {
         "title": "Заголовок",
-        "text": "Заголовок страницы является обязательным для страниц документации."
+        "text": "Заголовок страницы является обязательным для страниц документации.",
+        "example": "Заголовок (пример)"
       },
       "subtitle": {
         "title": "Подзаголовок",
-        "text": "Используется для: Примеров, API, FAQ. Тэг `h2`."
+        "text": "Используется для: Примеров, API, FAQ. Тэг `h2`.",
+        "example": "Подзаголовок (пример)"
       },
       "headline": {
         "title": "Второстепенный заголовок (headline)",
-        "text": "Блок используется для обозначения заголовков примеров или FAQ questions. Тэг `h3`."
+        "text": "Блок используется для обозначения заголовков примеров или FAQ questions. Тэг `h3`.",
+        "example": "Второстепенный заголовок (пример)"
       },
       "paragraph": {
         "title": "Параграф",
@@ -2889,7 +2892,7 @@
       "smallIssues": "Для небольших изменений вы можете пушить в ветку `develop` напрямую при добавлении (`close #123`) в сообщение коммита.",
       "singlePrPerIssue": "Создавайте один PR для одной проблемы. Если у нас несколько PR - переместите весь код в один, а остальные закройте. Если один PR охватывает несколько вопросов - либо разделите его на несколько PR, либо отметьте одну из проблем как повторяющуюся.",
       "onePersonPerIssue": "Убедитесь, что на каждую проблему назначен только один человек.",
-      "checkYourCode": "Проверьте свой код: [соглашения](../packages/old-docs/conventions.md).",
+      "checkYourCode": "Проверьте свой код: [соглашения](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md).",
       "weUseYarn": "Мы используем [yarn](https://yarnpkg.com/lang/en/) для управления пакетами.",
       "beProactive": "Будьте инициативными. Если вы считаете, что что-то не так - создайте вопрос (issue) или обсужденеи (discuss).",
       "recommendedTools": "Рекомендуемые инструменты: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
@@ -3035,7 +3038,7 @@
       "getHoverColor": "Возвращает цвет, который вы можете использовать как цвет для `hover`",
       "getFocusColor": "Возвращает цвет, который вы можете использовать как цвет для `focus`",
       "getGradientBackground": "Возвращает цвет, который вы можете использовать как цвет для css атрибута `background`",
-      "hookMethods": "хук"
+      "hookMethods": "useColors хуки"
     }
   },
   "cssVariables": {
@@ -3156,6 +3159,7 @@
     "title": "Типографика",
     "description": "В Vuestic UI применяются следующие стили типографики.",
     "headings": "Заголовки",
+    "affected": "Применено",
     "display1": "`class=\"display-1\"`",
     "display2": "`class=\"display-2\"`",
     "display3": "`class=\"display-3\"`",
@@ -3167,10 +3171,13 @@
     "codeSnippet": "`class=\"code-snippet\"`",
     "textCode": "`class=\"text--code\"`",
     "other": "Другие типографические стили",
+    "lists": "Списки",
     "orderedLists": "`class=\"va-ordered\"`",
     "unorderedLists": "`class=\"va-unordered\"`",
+    "links": "Ссылки",
     "link": "`class=\"link\"`",
     "linkSecondary": "`class=\"link-secondary\"`",
+    "otherElements": "Другие элементы",
     "textHighlighted": "`class=\"text--highlighted\"`",
     "blockquote": "`class=\"va-blockquote\"`",
     "textBlock": "`class=\"text-block\"`"

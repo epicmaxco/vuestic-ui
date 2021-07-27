@@ -1061,15 +1061,18 @@
     "blocktypes": {
       "title": {
         "title": "Title",
-        "text": "Page title is mandatory for documentation pages."
+        "text": "Page title is mandatory for documentation pages.",
+        "example": "Title (example)"
       },
       "subtitle": {
         "title": "Subtitle",
-        "text": "Used for: Examples, API, FAQ. Think `h2`."
+        "text": "Used for: Examples, API, FAQ. Think `h2`.",
+        "example": "Subtitle (example)"
       },
       "headline": {
         "title": "Headline",
-        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`."
+        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`.",
+        "example": "Headline (example)"
       },
       "paragraph": {
         "title": "Paragraph",
@@ -2876,7 +2879,7 @@
       "smallIssues": "For small issues you may push to `develop` branch directly while adding (`close #123`) to commit message.",
       "singlePrPerIssue": "Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
       "onePersonPerIssue": "Be sure to have only one person assigned per issue.",
-      "checkYourCode": "Check your code: [conventions](../packages/old-docs/conventions.md).",
+      "checkYourCode": "Check your code: [conventions](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md).",
       "weUseYarn": "We use [yarn](https://yarnpkg.com/lang/en/) for package management.",
       "beProactive": "Be proactive. If you think something is wrong - create an issue or discuss.",
       "recommendedTools": "Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
@@ -3022,7 +3025,7 @@
       "getHoverColor": "Return color that you can use as hover color.",
       "getFocusColor": "Return color that you can use as focus color.",
       "getGradientBackground": "Return color that you can use as background css attribute.",
-      "hookMethods": "hook methods"
+      "hookMethods": "useColors hook methods"
     }
   },
   "cssVariables": {
@@ -3143,6 +3146,7 @@
     "title": "Typography",
     "description": "Vuestic UI uses the following typography styling",
     "headings": "Headings",
+    "affected": "Affected",
     "display1": "`class=\"display-1\"`",
     "display2": "`class=\"display-2\"`",
     "display3": "`class=\"display-3\"`",
@@ -3154,10 +3158,13 @@
     "codeSnippet": "`class=\"code-snippet\"`",
     "textCode": "`class=\"text--code\"`",
     "other": "Other typography styles",
+    "lists": "Lists",
     "orderedLists": "`class=\"va-ordered\"`",
     "unorderedLists": "`class=\"va-unordered\"`",
+    "links": "Links",
     "link": "`class=\"link\"`",
     "linkSecondary": "`class=\"link-secondary\"`",
+    "otherElements": "Other elements",
     "textHighlighted": "`class=\"text--highlighted\"`",
     "blockquote": "`class=\"va-blockquote\"`",
     "textBlock": "`class=\"text-block\"`"
