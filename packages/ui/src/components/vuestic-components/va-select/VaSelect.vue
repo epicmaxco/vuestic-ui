@@ -13,7 +13,7 @@
       :disabled="$props.disabled"
       :max-height="$props.maxHeight"
       :fixed="$props.fixed"
-      :close-on-content-click="toClose()"
+      :close-on-content-click="toClose"
       trigger="none"
       class="va-select__dropdown"
       keep-anchor-width
@@ -24,12 +24,12 @@
         <div
           class="va-select"
           ref="select"
-          :tabindex="tabindex"
+          :tabindex="tabIndexComputed"
           @focus="focus"
           @blur="blur"
-          @keydown.enter.stop.prevent="onSelectClick"
-          @keydown.space.stop.prevent="onSelectClick"
-          @click.prevent="onSelectClick"
+          @keydown.enter.stop.prevent="onSelectClick()"
+          @keydown.space.stop.prevent="onSelectClick()"
+          @click.prevent="onSelectClick()"
         >
           <!-- We show messages outside of dropdown to draw dropdown content under the input -->
           <va-input
@@ -92,27 +92,30 @@
       </template>
 
       <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
-      <va-dropdown-content @keyup.enter.stop>
+      <va-dropdown-content
+        @keyup.enter.stop
+        @keydown.esc.prevent="hideAndFocus"
+        @keydown.tab="hideDropdown"
+      >
+        <va-input
+          v-if="showSearchInput"
+          :id="$props.id"
+          ref="searchBar"
+          v-model="searchInputValue"
+          class="va-select__input"
+          placeholder="Search"
+          removable
+          :name="$props.name"
+          :tabindex="tabindex + 1"
+          :bordered="true"
+          @keydown.up.stop.prevent="hoverPreviousOption()"
+          @keydown.left.stop.prevent="hoverPreviousOption()"
+          @keydown.down.stop.prevent="hoverNextOption()"
+          @keydown.right.stop.prevent="hoverNextOption()"
+          @keydown.enter.prevent="selectOrAddOption()"
+          @focus="hoveredOption = null"
+        />
         <div class="va-select__dropdown__content">
-          <!-- Hidden DIV is a hack than allow user to focus select from dropdown content with tab -->
-          <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
-          <va-input
-            v-if="doShowSearchInput"
-            :id="$props.id"
-            ref="searchBar"
-            v-model="searchInputValue"
-            class="va-select__input"
-            placeholder="Search"
-            removable
-            :name="$props.name"
-            :tabindex="tabindex + 1"
-            @keydown.down.stop.prevent="focusOptionList"
-            @keydown.right.stop.prevent="focusOptionList"
-            @keydown.up.stop.prevent="focusSelect"
-            @keydown.left.stop.prevent="focusSelect"
-            @keyup.enter.prevent="addNewOption"
-            @focus="hoveredOption = null"
-          />
           <va-select-option-list
             ref="optionList"
             v-model:hoveredOption="hoveredOption"
@@ -127,12 +130,11 @@
             :color="$props.color"
             :tabindex="tabindex + 1"
             @select-option="selectOption"
-            @no-previous-option-to-hover="focusSearchBar"
-            @keydown.enter.stop.prevent="selectHoveredOption"
-            @keydown.space.stop.prevent="selectHoveredOption"
+            @no-previous-option-to-hover="focusSearchBar()"
+            @keydown.enter.stop.prevent="selectHoveredOption()"
+            @keydown.space.stop.prevent="selectHoveredOption()"
             @keydown="onHintedSearch"
           />
-          <div class="hidden" :tabindex="tabindex + 1" @focus="focusSelect" />
         </div>
       </va-dropdown-content>
     </va-dropdown>
@@ -147,6 +149,7 @@ import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import { SelectableListMixin } from '../../vuestic-mixins/SelectableList/SelectableListMixin'
 import { FormComponentMixin } from '../../vuestic-mixins/FormComponent/FormComponentMixin'
+import { warn } from '../../../services/utils'
 import VaChip from '../va-chip'
 import VaDropdown from '../va-dropdown'
 import VaIcon from '../va-icon'
@@ -242,13 +245,14 @@ export default class VaSelect extends mixins(
   // Search
   searchInputValue = ''
 
-  get doShowSearchInput () {
+  get showSearchInput () {
     return this.$props.searchable || this.$props.allowCreate
   }
 
   created () {
     watch(() => this.searchInputValue, (value) => {
       this.$emit('update-search', value)
+      this.hoveredOption = null
     })
   }
 
@@ -265,6 +269,16 @@ export default class VaSelect extends mixins(
       if (!Array.isArray(value)) {
         return [value]
       }
+
+      return value
+    }
+
+    if (Array.isArray(value)) {
+      warn('Model value should be a string for single Select.')
+
+      if (value.length) {
+        return value[value.length - 1]
+      }
     }
 
     return value
@@ -272,6 +286,10 @@ export default class VaSelect extends mixins(
 
   set valueComputed (value: any) {
     this.$emit('update:modelValue', this.getValue(value))
+  }
+
+  get tabIndexComputed () {
+    return this.$props.disabled ? -1 : this.tabindex
   }
 
   get valueComputedString (): string {
@@ -324,7 +342,7 @@ export default class VaSelect extends mixins(
     return this.$props.options.find((option: any) => this.compareOptions(option, this.valueComputed))
   }
 
-  toClose (): boolean {
+  get toClose (): boolean {
     return !(this.$props.multiple || this.$props.searchable || this.$props.allowCreate)
   }
 
@@ -356,9 +374,33 @@ export default class VaSelect extends mixins(
     return this.compareOptions(this.valueComputed, option)
   }
 
+  hideAndFocus (): void {
+    this.hideDropdown()
+    this.focusSelect()
+  }
+
+  allowCreateCheck (): boolean {
+    return !!(this.$props.allowCreate && this.searchInputValue !== '')
+  }
+
+  selectOrAddOption () {
+    if (this.hoveredOption !== null) {
+      this.selectHoveredOption()
+      return
+    }
+
+    if (this.allowCreateCheck()) {
+      this.addNewOption()
+    }
+  }
+
   selectOption (option: any): void {
-    if (this.doShowSearchInput) {
-      (this as any).$refs.searchBar.focus({ preventScroll: true })
+    if (this.hoveredOption === null) {
+      this.hideAndFocus()
+      return
+    }
+
+    if (this.showSearchInput) {
       this.searchInputValue = ''
     }
 
@@ -373,14 +415,11 @@ export default class VaSelect extends mixins(
       }
     } else {
       this.valueComputed = typeof option === 'string' ? option : { ...option }
-      this.focusSelect()
+      this.hideAndFocus()
     }
   }
 
   addNewOption (): void {
-    if (!this.$props.allowCreate) { return }
-    if (this.searchInputValue === '') { return }
-
     if (this.$props.multiple) {
       const hasAddedOption: boolean = this.valueComputed.some((value: any) => value === this.searchInputValue)
 
@@ -435,6 +474,29 @@ export default class VaSelect extends mixins(
 
   showDropdown () {
     this.doShowDropdownContent = true
+    this.scrollToSelected()
+    this.focusSearchOrOptions()
+  }
+
+  focusSearchOrOptions () {
+    this.$nextTick(() => {
+      if (this.showSearchInput) {
+        this.focusSearchBar()
+      } else { this.focusOptionList() }
+    })
+  }
+
+  scrollToSelected () {
+    const selected = this.valueComputed
+    const nothingSelected = !selected.length && typeof selected !== 'object'
+
+    if (nothingSelected) {
+      return
+    }
+
+    const scrollTo = Array.isArray(selected) ? selected[selected.length - 1] : selected
+    this.hoveredOption = scrollTo
+    this.$nextTick(() => (this.$refs as any).optionList.scrollToOption(scrollTo))
   }
 
   hideDropdown () {
@@ -444,7 +506,7 @@ export default class VaSelect extends mixins(
 
   toggleDropdown () {
     if (this.doShowDropdownContent) {
-      this.hideDropdown()
+      this.hideAndFocus()
     } else {
       this.showDropdown()
     }
@@ -458,19 +520,10 @@ export default class VaSelect extends mixins(
   }
 
   onSelectClick () {
-    // Temporary solution for disabled state before VaSelect refactor
     if (this.$props.disabled) {
       return
     }
     this.toggleDropdown()
-
-    this.$nextTick(() => {
-      if (this.$refs.searchBar) {
-        (this.$refs as any).searchBar.focus()
-      } else if (this.$refs.optionList) {
-        (this.$refs as any).optionList.focus()
-      }
-    })
   }
 
   focusSelect () {
@@ -478,7 +531,6 @@ export default class VaSelect extends mixins(
     // Warning: It's important for keyboard navigation
     if (this.$refs.select) {
       (this as any).$refs.select.focus()
-      this.hideDropdown()
     }
   }
 
@@ -486,20 +538,19 @@ export default class VaSelect extends mixins(
     if (this.$refs.optionList) {
       (this.$refs as any).optionList.focus()
     }
-
-    this.hoverNextOption()
   }
 
   focusSearchBar () {
     if (this.$refs.searchBar) {
       (this.$refs as any).searchBar.focus()
-    } else {
-      this.focusSelect()
     }
   }
 
   /** @public */
   public focus (): void {
+    if (this.$props.disabled) {
+      return
+    }
     this.isFocused = true
   }
 
@@ -525,9 +576,14 @@ export default class VaSelect extends mixins(
 
   hintedSearchQuery = ''
   hintedSearchQueryTimeoutIndex!: any
+  navigationKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', ' ']
 
   // Hinted search - hover option if you typing it's value on select without search-bar
   onHintedSearch (event: KeyboardEvent) {
+    if (this.navigationKeys.some(key => key === event.key)) {
+      return
+    }
+
     const isLetter: boolean = event.key.length === 1
     const isDeleteKey: boolean = event.key === 'Backspace' || event.key === 'Delete'
 
@@ -539,6 +595,11 @@ export default class VaSelect extends mixins(
     } else if (isLetter) {
       // Add every new letter to the query
       this.hintedSearchQuery += event.key
+    }
+
+    if (this.showSearchInput) {
+      this.searchInputValue = this.hintedSearchQuery
+      return
     }
 
     // Search for an option that matches the query

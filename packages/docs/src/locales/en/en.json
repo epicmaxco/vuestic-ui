@@ -96,7 +96,11 @@
         "blur": "On blur.",
         "focus": "On focus.",
         "input": "On value change.",
-        "click": "On click."
+        "click": "On click.",
+        "click-prepend": "The event is triggered by clicking on the `prepend` slot",
+        "click-prepend-inner": "The event is triggered by clicking on the `prependInner` slot",
+        "click-append": "The event is triggered by clicking on the `append` slot",
+        "click-append-inner": "The event is triggered by clicking on the `appendInner` slot"
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -135,7 +139,14 @@
         "icon": "Sets an icon.",
         "rounded": "Adds rounded corners.",
         "flat": "Removes borders and background.",
-        "outline": "Removes background."
+        "outline": "Removes background.",
+        "gradient": "Adds a background gradient.",
+        "modelValue": "The value of the `v-model` bindings.",
+        "activeButtonTextColor": "The color of the text of the active button (options supported by the theme or `HEX`).",
+        "indeterminateValue": "Overrides a state value that is not set.",
+        "borderColor": "Color css style `border` (theme supported options or `HEX`).",
+        "clearableIcon": "Sets the cleaning button icon.",
+        "tabindex": "Sets the custom `tabindex`."
       }
     },
     "VaBadge": {
@@ -632,7 +643,11 @@
         "messages": "Displays a list of messages or message if using a string",
         "error": "Sets input state to error",
         "errorMessages": "Displays a list of error messages or message if using a string",
-        "errorCount": "Number of error messages displayed"
+        "errorCount": "Number of error messages displayed",
+        "clearable": "Adds a button to reset the input field value",
+        "bordered": "Applies underscore",
+        "focused": "Applies focus style",
+        "canBeFocused": "If false, then input can not be focused using mouse or keyboard."
       },
       "events": {
         "input": "Emitted when the component needs to change the model",
@@ -1108,7 +1123,8 @@
     "toast": "Toast",
     "typography": "Typography",
     "agGridWrapper": "AG Grid Wrapper",
-    "dataTable": "Data Table"
+    "dataTable": "Data Table",
+    "uiElementGuide": "UI Element Guide"
   },
   "all": {
     "examples": "Examples",
@@ -1134,15 +1150,18 @@
     "blocktypes": {
       "title": {
         "title": "Title",
-        "text": "Page title is mandatory for documentation pages."
+        "text": "Page title is mandatory for documentation pages.",
+        "example": "Title (example)"
       },
       "subtitle": {
         "title": "Subtitle",
-        "text": "Used for: Examples, API, FAQ. Think `h2`."
+        "text": "Used for: Examples, API, FAQ. Think `h2`.",
+        "example": "Subtitle (example)"
       },
       "headline": {
         "title": "Headline",
-        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`."
+        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`.",
+        "example": "Headline (example)"
       },
       "paragraph": {
         "title": "Paragraph",
@@ -1166,6 +1185,18 @@
       "api": {
         "title": "API",
         "text": "API documentation for component. Combines component options with manual declarations."
+      },
+      "table": {
+        "title": "Table",
+        "text": "Used to display table data."
+      },
+      "link": {
+        "title": "Link",
+        "text": "Used for local links (with <i>options</i> and without them)."
+      },
+      "alert": {
+        "title": "Alert",
+        "text": "Used to display an important message."
       }
     },
     "apiOptionsTitle": "API Options",
@@ -1173,7 +1204,7 @@
       "text": "With automated code analysis we can't go too far. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
       "version": "`version` - specifies at which version of vuestic this component or feature were implemented.",
       "types": "`types` - simpler prop types documentation engine can figure from component options (`String`, `Number` etc). For almost everything else it has to be defined.",
-      "local": "`local` - forces to use component-specific translation. Default behaviour is using 'all' section of the translation object.",
+      "local": "`local` - forces to use component-specific translation. Default behavior is using 'all' section of the translation object.",
       "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. As some props could be intended for internal use."
     }
   },
@@ -2455,7 +2486,7 @@
       },
       "allowCreate": {
         "title": "Allow create",
-        "text": "You can add options that initial options not contain"
+        "text": "You can add options that initial options do not have"
       },
       "validation": {
         "title": "Validation rules",
@@ -2465,7 +2496,7 @@
         "title": "Keyboard navigation",
         "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
         "selects": "By using `ENTER` and `SPACE` you can select current option",
-        "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
+        "hints": "If you type while option list is opened this will create a search buffer (will reset if you do not type for 1 second) that will be used to search in the options labels"
       },
       "styles": {
         "title": "Styles",
@@ -2894,10 +2925,20 @@
   },
   "translation": {
     "title": "Translation",
-    "description": "Translation is only needed for documentation (`packages/docs/locales`) as components don't use any translation strings at the moment. After finishing work on the translation, do not forget to change its status to `Fully` in file `components/languages.ts`. Here's the current state for languages support:",
+    "description": "Translation is only needed for documentation (`packages/docs/locales`) as components don't use any translation strings at the moment. After finishing work on the translation, do not forget to change its status to `full` in file `locales/index.ts`. Here's the current state for languages support:",
     "table": {
       "language": "Language",
+      "code": "Code",
       "supported": "Supported"
+    },
+    "language": {
+      "en": "English",
+      "ru": "Russian",
+      "es": "Spain"
+    },
+    "status": {
+      "part": "Partially",
+      "full": "Fully"
     }
   },
   "table": {
@@ -2953,7 +2994,7 @@
       "smallIssues": "For small issues you may push to `develop` branch directly while adding (`close #123`) to commit message.",
       "singlePrPerIssue": "Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
       "onePersonPerIssue": "Be sure to have only one person assigned per issue.",
-      "checkYourCode": "Check your code: [conventions](../packages/old-docs/conventions.md).",
+      "checkYourCode": "Check your code: [conventions](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md).",
       "weUseYarn": "We use [yarn](https://yarnpkg.com/lang/en/) for package management.",
       "beProactive": "Be proactive. If you think something is wrong - create an issue or discuss.",
       "recommendedTools": "Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
@@ -3032,7 +3073,7 @@
     },
     "setup": {
       "title": "Let's build our config",
-      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Veustic defaults and our custom fonts and aliases. For example:"
+      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Vuestic defaults and our custom fonts and aliases. For example:"
     },
     "api": {
       "title": "Icon config API",
@@ -3099,7 +3140,7 @@
       "getHoverColor": "Return color that you can use as hover color.",
       "getFocusColor": "Return color that you can use as focus color.",
       "getGradientBackground": "Return color that you can use as background css attribute.",
-      "hookMethods": "hook methods"
+      "hookMethods": "useColors hook methods"
     }
   },
   "cssVariables": {
@@ -3220,6 +3261,7 @@
     "title": "Typography",
     "description": "Vuestic UI uses the following typography styling",
     "headings": "Headings",
+    "affected": "Affected",
     "display1": "`class=\"display-1\"`",
     "display2": "`class=\"display-2\"`",
     "display3": "`class=\"display-3\"`",
@@ -3231,10 +3273,13 @@
     "codeSnippet": "`class=\"code-snippet\"`",
     "textCode": "`class=\"text--code\"`",
     "other": "Other typography styles",
+    "lists": "Lists",
     "orderedLists": "`class=\"va-ordered\"`",
     "unorderedLists": "`class=\"va-unordered\"`",
+    "links": "Links",
     "link": "`class=\"link\"`",
     "linkSecondary": "`class=\"link-secondary\"`",
+    "otherElements": "Other elements",
     "textHighlighted": "`class=\"text--highlighted\"`",
     "blockquote": "`class=\"va-blockquote\"`",
     "textBlock": "`class=\"text-block\"`"
@@ -3250,5 +3295,24 @@
     "description": "Work in progress.",
     "related": "Related",
     "styledTablesLink": "Styled tables"
+  },
+  "uiElementGuide": {
+    "title": "UI Element Requirements",
+    "description": "This page is intended for vuestic-ui contributors: it describes the requirements for UI elements.",
+    "highLevelStrategy": {
+      "title": "High Level Strategy",
+      "description": {
+        "userExpectations": "Components should be as user expects them to be. We achieve that by checking refs ([Vuetify](https://vuetifyjs.com), [Quasar](https://quasar.dev), [Ant Design](https://ant.design), [iView](http://iview.talkingdata.com), [Element UI](https://element.eleme.io), etc.).",
+        "qualityComponents": "Components should be of high quality. We achieve that by manually testing edge cases + refactoring early."
+      }
+    },
+    "coreFeatures": {
+      "title": "Core Features",
+      "description": {
+        "visualFeedback": "**Visual feedback** - When user interacts with component they should see result of their actions (could be implemented with :active selector or somehow else depending on case).",
+        "keyboardNavigation": "**Keyboard navigation** - You must ensure that UI elements are keyboard accessible, and you must disable this functionality for elements that should not receive keyboard focus.",
+        "statelessSupport": "**Stateless support** (read about [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md))."
+      }
+    }
   }
 }

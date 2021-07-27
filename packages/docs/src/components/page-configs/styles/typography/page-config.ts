@@ -145,7 +145,7 @@ export default [
   DocsHelper.paragraph('typography.description'),
   DocsHelper.subtitle('typography.headings'),
   DocsHelper.table(
-    [{ title: t('typography.headings'), type: 'markdown' }, { title: 'affected', type: 'markdown' }],
+    [{ title: 'typography.headings', type: 'markdown' }, { title: 'typography.affected', type: 'markdown' }],
     [
       [display1, t('typography.display1')],
       [display2, t('typography.display2')],
@@ -160,15 +160,15 @@ export default [
     ]),
   DocsHelper.subtitle('typography.other'),
   DocsHelper.table(
-    [{ title: t('typography.other'), type: 'markdown' }, { title: 'affected', type: 'markdown' }],
+    [{ title: 'typography.other', type: 'markdown' }, { title: 'typography.affected', type: 'markdown' }],
     [
-      [lists, ''],
+      ['typography.lists', ''],
       [orderedLists, t('typography.orderedLists')],
       [unorderedLists, t('typography.unorderedLists')],
-      [links, ''],
+      ['typography.links', ''],
       [link, t('typography.link')],
       [linkSecondary, t('typography.linkSecondary')],
-      [otherElements, ''],
+      ['typography.otherElements', ''],
       [textHighlighted, t('typography.textHighlighted')],
       [blockquote, t('typography.blockquote')],
       [textBlock, t('typography.textBlock')],

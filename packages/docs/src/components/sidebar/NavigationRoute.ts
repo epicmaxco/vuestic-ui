@@ -1,4 +1,4 @@
-import { TranslationString } from '../../../../ui/src/services/api-docs/ManualApiOptions'
+import { TranslationString } from '../DocsApi/ManualApiOptions'
 
 export type NavigationRoute = {
   name: string,

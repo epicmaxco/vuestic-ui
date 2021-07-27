@@ -24,7 +24,7 @@ module.exports = (plop: NodePlopAPI) => {
   })
 
   plop.setActionType('addLanguage', ((answers: GeneratorAnswers, config: AddActionConfig) => {
-    const languagesPath = `${config.path}/components/languages.ts`
+    const languagesPath = `${config.path}/locales/index.ts`
     const languages = fs.readFileSync(languagesPath).toString()
 
     const isoCode = plop.getHelper('lowerCase')(answers.code)
@@ -39,13 +39,32 @@ module.exports = (plop: NodePlopAPI) => {
     const langString = `{
     code: '${isoCode}',
     name: '${languageName}',
-    status: 'Partially',
+    status: 'part',
+    translationPath: 'translation.language.${isoCode}',
   },
   ${replaceString}`
 
     const replacedLanguages = languages.replace(replaceString, langString)
 
     fs.writeFileSync(languagesPath, replacedLanguages)
+
+    const languagesCodes = fs
+      .readdirSync(`${config.path}/locales`, { withFileTypes: true })
+      .filter((file: any) => file.isDirectory())
+      .map((dir: any) => dir.name)
+
+    languagesCodes.forEach((code: string) => {
+      const locale = require(`${config.path}/locales/${code}/${code}.json`)
+
+      if (locale.translation.language) {
+        locale.translation.language[isoCode] = languageName
+
+        fs.writeFileSync(
+          `${config.path}/locales/${code}/${code}.json`,
+          JSON.stringify(locale, null, 2)
+        )
+      }
+    })
 
     return 'Added language'
   }) as CustomActionFunction)

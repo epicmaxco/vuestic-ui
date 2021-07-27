@@ -40,6 +40,7 @@
 // @ts-nocheck
 import { provide, reactive, watch } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
+import type { RouteLocationNormalized } from 'vue-router'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../config/theme-config'
@@ -140,7 +141,10 @@ export default class DocsLayout extends Vue {
   //   }, [] as { [key: string]: string, }[])
   // }
 
-  onRouteChange () {
+  onRouteChange (newRoute: RouteLocationNormalized, oldRoute: RouteLocationNormalized) {
+    // Don't scroll to top if only hash was changed. This means that user clicked on anchor.
+    if (newRoute.path === oldRoute.path && newRoute.hash !== oldRoute.hash) { return }
+
     const pageContent: Element | undefined = this.$refs['page-content']
 
     if (pageContent) {

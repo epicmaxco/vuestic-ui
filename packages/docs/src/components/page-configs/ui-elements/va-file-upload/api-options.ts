@@ -1,16 +1,9 @@
-// @ts-ignore
-import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    value: { local: true },
-    type: { local: true },
-    fileTypes: { local: true },
-    dropzone: { local: true },
-  },
+export default defineManualApi({
   events: {
     input: {
       types: '`(value: number) => void`',
     },
   },
-} as ManualApiOptions
+})

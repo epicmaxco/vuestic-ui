@@ -192,6 +192,10 @@ export default class VaInput extends mixins(
       classes.push(`${baseclass}_error`)
     }
 
+    if (this.$props.disabled) {
+      classes.push(`${baseclass}_disabled`)
+    }
+
     return classes
   }
 
@@ -284,6 +288,10 @@ export default class VaInput extends mixins(
   align-items: center;
   color: var(--va-input-text-color);
   cursor: var(--va-input-cursor);
+
+  &_disabled {
+    @include va-disabled;
+  }
 
   &__container {
     display: flex;
@@ -402,7 +410,7 @@ export default class VaInput extends mixins(
     }
   }
 
-  /* We have 3 styles and two states for each style separatly */
+  /* We have 3 styles and two states for each style separately */
   &_solid {
     .va-input__container {
       background: var(--va-input-color);

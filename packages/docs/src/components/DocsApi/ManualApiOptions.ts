@@ -3,13 +3,19 @@
 // as strings.
 
 export type TranslationString = string
+export type TranslationStringList = TranslationString[]
 export type VersionString = string | '' // vuestic-ui version at which feature was first introduced
 
 // Universal options for props, events, methods, slots.
 export type ManualApiOptionsItem = {
   version?: VersionString;
-  // If true - set translate fallback to api.all
-  local?: boolean;
+
+  /**
+   * Used for custom translation string.
+   *
+   * @example props: { inputColor: 'api.VaInput.props.color' }
+   */
+  translation?: string;
 }
 
 export type ManualPropApiOptions = ManualApiOptionsItem & {
@@ -40,3 +46,5 @@ export type ManualApiOptions = {
   events?: Record<string, ManualEventApiOptions>;
   slots?: Record<string, ManualSlotApiOptions>;
 }
+
+export const defineManualApi = (apiObject: ManualApiOptions): ManualApiOptions => apiObject

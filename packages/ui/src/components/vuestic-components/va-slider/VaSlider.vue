@@ -5,27 +5,25 @@
   >
     <div
       class="va-slider__input-wrapper"
-      v-if="$slots.prepend"
+      v-if="vertical ? $slots.append : $slots.prepend"
     >
-      <slot :name="this.vertical ? 'append' : 'prepend'" />
+      <slot :name="vertical ? 'append' : 'prepend'" />
     </div>
-    <slot
-      v-if="($slots.label || label) && !invertLabel"
-      name="label"
-    >
-      <span
-        :style="labelStyles"
-        class="va-input__label"
-      >
-        {{ label }}
-      </span>
-    </slot>
     <span
-      v-if="iconPrepend"
+      v-if="($slots.label || label) && !invertLabel"
+      :style="labelStyles"
+      class="va-input__label"
+    >
+      <slot name="label">
+        {{ label }}
+      </slot>
+    </span>
+    <span
+      v-if="vertical ? iconAppend : iconPrepend"
       class="va-input__label"
     >
       <va-icon
-        :name="iconPrepend"
+        :name="vertical ? iconAppend : iconPrepend"
         :color="colorComputed"
         :size="16"
       />
@@ -119,32 +117,29 @@
       </template>
     </div>
     <span
-      v-if="iconAppend"
+      v-if="vertical ? iconPrepend : iconAppend"
       class="va-input__label--inverse"
     >
       <va-icon
-        :name="iconAppend"
+        :name="vertical ? iconPrepend : iconAppend"
         :color="colorComputed"
         :size="16"
       />
     </span>
-    <slot
-      v-if="invertLabel"
-      name="label"
+    <span
+      v-if="($slots.label || label) && invertLabel"
+      :style="labelStyles"
+      class="va-input__label va-input__label--inverse"
     >
-      <span
-        v-if="invertLabel"
-        :style="labelStyles"
-        class="va-input__label va-input__label--inverse"
-      >
+      <slot name="label">
         {{ label }}
-      </span>
-    </slot>
+      </slot>
+    </span>
     <div
       class="va-slider__input-wrapper"
-      v-if="$slots.append"
+      v-if="vertical ? $slots.prepend : $slots.append"
     >
-      <slot :name=" this.vertical ? 'prepend' : 'append'" />
+      <slot :name="vertical ? 'prepend' : 'append'" />
     </div>
   </div>
 </template>

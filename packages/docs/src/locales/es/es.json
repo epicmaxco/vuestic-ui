@@ -345,7 +345,8 @@
     "navbar": "Navbar",
     "typography": "Typography",
     "agGridWrapper": "AG Grid Wrapper",
-    "dataTable": "Data Table"
+    "dataTable": "Data Table",
+    "uiElementGuide": "Ui Element Guide"
   },
   "hover": {
     "title": "-- Here is the title --"
@@ -479,6 +480,9 @@
     "title": "-- Here is the title --"
   },
   "dataTable": {
+    "title": "-- Here is the title --"
+  },
+  "uiElementGuide": {
     "title": "-- Here is the title --"
   }
 }

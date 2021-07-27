@@ -480,6 +480,23 @@
             </va-button>
           </td>
         </tr>
+
+        <tr>
+          <td>
+            Multiline text
+          </td>
+          <td style="padding-top: 10px;">
+            <va-button style="width: 150px;">
+              Default Button with long text
+            </va-button>
+            <va-button size="large" style="width: 150px;">
+              Large Button with long text
+            </va-button>
+            <va-button size="small" style="width: 150px;">
+              Small Button with long text
+            </va-button>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>
