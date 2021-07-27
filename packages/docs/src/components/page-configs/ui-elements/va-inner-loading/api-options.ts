@@ -1,7 +1,6 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
+export default defineManualApi({
   props: {
   },
   events: {
@@ -9,6 +8,6 @@ export default {
   methods: {
   },
   slots: {
-    default: { local: true },
+    default: { },
   },
-} as ManualApiOptions
+})

@@ -1,31 +1,13 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    value: { local: true },
-    selected: { local: true },
-  },
+export const apiOptionsAdvanced = defineManualApi({
   events: {
   },
   methods: {
   },
   slots: {
+    default: { },
   },
-} as ManualApiOptions
+})
 
-export const apiOptionsAdvanced = {
-  props: {
-    value: { local: true },
-    mode: { local: true },
-    palette: { local: true },
-    selected: { local: true },
-  },
-  events: {
-  },
-  methods: {
-  },
-  slots: {
-    default: { local: true },
-  },
-} as ManualApiOptions
+export default defineManualApi({})

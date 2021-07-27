@@ -1,26 +1,9 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-const options: ManualApiOptions = {
-  props: {
-    value: {
-      local: true,
-    },
-    indeterminate: {
-      local: true,
-    },
-    checkedIcon: {
-      local: true,
-    },
-    indeterminateIcon: {
-      local: true,
-    },
-  },
+export default defineManualApi({
   events: {
     input: {
       types: '(event: Event) => void',
-      local: true,
     },
   },
-}
-export default options
+})

@@ -1,18 +1,11 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
+export default defineManualApi({
   props: {
-    offset: { local: true },
-    reverse: { local: true },
-    disabled: { local: true },
-    scrollTarget: { local: true },
-    debounce: { local: true },
-    load: { local: true, types: '() => Promise<any>' },
-    tag: { local: true },
+    load: { types: '() => Promise<any>' },
   },
   slots: {
-    loading: { local: true },
-    default: { local: true },
+    loading: { },
+    default: { },
   },
-} as ManualApiOptions
+})

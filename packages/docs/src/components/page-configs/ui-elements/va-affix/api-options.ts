@@ -1,22 +1,9 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    offsetTop: {
-      local: true,
-    },
-    offsetBottom: {
-      local: true,
-    },
-    target: {
-      local: true,
-    },
-  },
+export default defineManualApi({
   events: {
     change: {
-      local: true,
       types: 'boolean',
     },
   },
-} as ManualApiOptions
+})

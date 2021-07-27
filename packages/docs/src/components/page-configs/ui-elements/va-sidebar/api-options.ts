@@ -1,25 +1,3 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    minimized: {
-      local: true,
-    },
-    hoverable: {
-      local: true,
-    },
-    position: {
-      local: true,
-    },
-    width: {
-      local: true,
-    },
-    minimizedWidth: {
-      local: true,
-    },
-    value: {
-      local: true,
-    },
-  },
-} as ManualApiOptions
+export default defineManualApi({})

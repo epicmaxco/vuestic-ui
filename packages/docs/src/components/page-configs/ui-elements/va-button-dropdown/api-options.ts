@@ -1,30 +1,11 @@
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    size: { local: true },
-    value: { local: true },
-    disableButton: { local: true },
-    disableDropdown: { local: true },
-    round: { local: true },
-    split: { local: true },
-    splitTo: { local: true },
-    splitHref: { local: true },
-    icon: { local: true },
-    leftIcon: { local: true },
-    openedIcon: { local: true },
-    position: { local: true },
-    keepAnchorWidth: { local: true },
-    offset: { local: true },
-    modelValue: { local: true },
-    closeOnContentClick: { local: true },
-  },
+export default defineManualApi({
   events: {
-    click: { local: true, types: '`() => Event`' },
-    mainButtonClick: { local: true, types: '`() => Event`' },
+    click: { types: '`() => Event`' },
+    mainButtonClick: { types: '`() => Event`' },
   },
-  methods: {},
   slots: {
-    default: { local: true },
+    default: { },
   },
-} as ManualApiOptions
+})

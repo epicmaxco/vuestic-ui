@@ -1,18 +1,3 @@
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    title: { local: true },
-    message: { local: true },
-    trigger: { local: true },
-    open: { local: true },
-    placement: { local: true },
-    autoHide: { local: true },
-  },
-  events: {
-  },
-  methods: {
-  },
-  slots: {
-  },
-} as ManualApiOptions
+export default defineManualApi({})

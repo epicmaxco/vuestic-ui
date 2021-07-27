@@ -1,34 +1,17 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    ratio: {
-      local: true,
-    },
-    contain: {
-      local: true,
-    },
-  },
+export default defineManualApi({
   events: {
     loaded: {
-      local: true,
       types: 'Boolean',
     },
     error: {
-      local: true,
       types: 'Boolean',
     },
   },
   slots: {
-    loading: {
-      local: true,
-    },
-    error: {
-      local: true,
-    },
-    default: {
-      local: true,
-    },
+    loading: { },
+    error: { },
+    default: { },
   },
-} as ManualApiOptions
+})

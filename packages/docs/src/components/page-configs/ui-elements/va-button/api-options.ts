@@ -1,28 +1,14 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    outline: { local: true },
-    icon: { local: true },
-    iconRight: { local: true },
-    type: { local: true },
-    block: { local: true },
-    rounded: { local: true },
-    round: { local: true },
-    spaceBetweenItems: { local: true },
-    gradient: { local: true },
-    href: { local: true },
-    target: { local: true },
-  },
+export default defineManualApi({
   slots: {
-    default: { local: true },
+    default: { },
   },
   events: {
-    click: { local: true, types: '`() => Event`' },
+    click: { types: '`() => Event`' },
   },
   methods: {
-    focus: { local: true, types: '`() => void`' },
-    blur: { local: true, types: '`() => void`' },
+    focus: { types: '`() => void`' },
+    blur: { types: '`() => void`' },
   },
-} as ManualApiOptions
+})

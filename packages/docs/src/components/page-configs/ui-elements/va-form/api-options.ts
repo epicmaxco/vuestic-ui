@@ -1,31 +1,20 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    autofocus: {
-      local: true,
-    },
-  },
+export default defineManualApi({
   methods: {
     validate: {
-      local: true,
       types: '`() => boolean`',
     },
     focus: {
-      local: true,
       types: '`() => void`',
     },
     focusInvalid: {
-      local: true,
       types: '`() => void`',
     },
     resetValidation: {
-      local: true,
       types: '`() => boolean`',
     },
     reset: {
-      local: true,
       types: '`() => boolean`',
     },
   },
@@ -34,4 +23,4 @@ export default {
       types: '`(valid: boolean) => void`',
     },
   },
-} as ManualApiOptions
+})

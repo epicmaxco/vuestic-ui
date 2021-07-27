@@ -1,27 +1,10 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    stripe: {
-      local: true,
-    },
-    stripeColor: {
-      local: true,
-    },
-    gradient: {
-      local: true,
-    },
-    bordered: {
-      local: true,
-    },
-    outlined: {
-      local: true,
-    },
-  },
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
+
+export default defineManualApi({
   events: {
     click: {
       types: 'Event',
     },
   },
-} as ManualApiOptions
+})

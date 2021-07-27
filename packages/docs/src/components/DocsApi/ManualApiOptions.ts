@@ -11,12 +11,6 @@ export type ManualApiOptionsItem = {
   version?: VersionString;
 
   /**
-   * If true - set translate fallback to api.all
-   * @deprecated now if translation does not exist for component, api.all will be used.
-   */
-  local?: boolean;
-
-  /**
    * Used for custom translation string.
    *
    * @example props: { inputColor: 'api.VaInput.props.color' }

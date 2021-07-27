@@ -1,51 +1,9 @@
-// @ts-ignore
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    value: {
-      local: true,
-    },
-    icon: {
-      local: true,
-    },
-    halfIcon: {
-      local: true,
-    },
-    emptyIcon: {
-      local: true,
-    },
-    readonly: {
-      local: true,
-    },
-    numbers: {
-      local: true,
-    },
-    halves: {
-      local: true,
-    },
-    max: {
-      local: true,
-    },
-    clearable: {
-      local: true,
-    },
-    hover: {
-      local: true,
-    },
-    texts: {
-      local: true,
-    },
-    textColor: {
-      local: true,
-    },
-    unselectedColor: {
-      local: true,
-    },
-  },
+export default defineManualApi({
   events: {
     input: {
       types: '`(value: number) => void`',
     },
   },
-} as ManualApiOptions
+})
