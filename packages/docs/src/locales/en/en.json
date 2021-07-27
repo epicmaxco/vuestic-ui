@@ -96,7 +96,11 @@
         "blur": "On blur.",
         "focus": "On focus.",
         "input": "On value change.",
-        "click": "On click."
+        "click": "On click.",
+        "click-prepend": "The event is triggered by clicking on the `prepend` slot",
+        "click-prepend-inner": "The event is triggered by clicking on the `prependInner` slot",
+        "click-append": "The event is triggered by clicking on the `append` slot",
+        "click-append-inner": "The event is triggered by clicking on the `appendInner` slot"
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -135,7 +139,14 @@
         "icon": "Sets an icon.",
         "rounded": "Adds rounded corners.",
         "flat": "Removes borders and background.",
-        "outline": "Removes background."
+        "outline": "Removes background.",
+        "gradient": "Adds a background gradient.",
+        "modelValue": "The value of the `v-model` bindings.",
+        "activeButtonTextColor": "The color of the text of the active button (options supported by the theme or `HEX`).",
+        "indeterminateValue": "Overrides a state value that is not set.",
+        "borderColor": "Color css style `border` (theme supported options or `HEX`).",
+        "clearableIcon": "Sets the cleaning button icon.",
+        "tabindex": "Sets the custom `tabindex`."
       }
     },
     "VaBadge": {
@@ -632,7 +643,11 @@
         "messages": "Displays a list of messages or message if using a string",
         "error": "Sets input state to error",
         "errorMessages": "Displays a list of error messages or message if using a string",
-        "errorCount": "Number of error messages displayed"
+        "errorCount": "Number of error messages displayed",
+        "clearable": "Adds a button to reset the input field value",
+        "bordered": "Applies underscore",
+        "focused": "Applies focus style",
+        "canBeFocused": "If false, then input can not be focused using mouse or keyboard."
       },
       "events": {
         "input": "Emitted when the component needs to change the model",
