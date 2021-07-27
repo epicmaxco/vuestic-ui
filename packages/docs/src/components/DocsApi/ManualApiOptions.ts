@@ -30,6 +30,7 @@ export type ManualMethodApiOptions = ManualApiOptionsItem & {
 
 export type ManualEventApiOptions = ManualApiOptionsItem & {
   types: string;
+  hidden?: boolean; // Won't appear in documentation. Intended for internal usage events.
   // add more here
 }
 

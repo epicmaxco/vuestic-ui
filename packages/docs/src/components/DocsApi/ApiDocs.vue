@@ -145,10 +145,11 @@ import { Options, Vue, prop, mixins, VueConstructor } from 'vue-class-component'
 import { DefineComponent } from 'vue'
 import { ManualApiOptions } from './ManualApiOptions'
 import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
-import { getApiTableData, mergeInDefaults } from './api-docs-helpers'
+import { getApiTableData } from './api-docs-helpers'
 import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
 import { defaultApiOptions } from './default-api-options'
 import DocsTable from '../DocsTable/DocsTable.vue'
+import { merge } from 'lodash'
 
 class Props {
   componentOptions = prop<DefineComponent | VueConstructor>({ required: true })
@@ -162,7 +163,8 @@ const PropsMixin = Vue.with(Props)
 })
 export default class ApiDocs extends mixins(PropsMixin) {
   get apiTableData () {
-    const options = mergeInDefaults(this.apiOptions, defaultApiOptions)
+    const options = merge(this.apiOptions, defaultApiOptions)
+
     return getApiTableData(this.componentOptions, options)
   }
 

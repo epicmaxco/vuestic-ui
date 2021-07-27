@@ -39,9 +39,14 @@ export type PropOptionsCompiled = {
   required: boolean;
   default: any;
 }
-type CompiledComponentOptions = {
+
+export type EventOptionsCompiled = Record<string, any> & {
+  types: 'any'
+}
+
+export type CompiledComponentOptions = {
   props: Record<string, PropOptionsCompiled>,
-  emits: string[]
+  emits: Record<string, EventOptionsCompiled>,
 }
 
 /**
@@ -128,14 +133,15 @@ export function resolveProps (options: any, optionsType = 'props') {
   return result
 }
 
-export function resolveEmits (options: any) {
+export type ResolvedEvent = { types: 'any' }
+export function resolveEmits (options: any): Record<string, EventOptionsCompiled> {
   if (!options.emits) {
     return {}
   }
 
-  return options.emits
-    .reduce((acc: Record<string, Record<string, unknown>>, event: string) => {
-      acc[event] = {}
+  return (options.emits as string[])
+    .reduce((acc: Record<string, EventOptionsCompiled>, event: string) => {
+      acc[event] = { types: 'any' }
       return acc
     }, {})
 }
