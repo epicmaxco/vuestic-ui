@@ -19,15 +19,16 @@ function getComponentOptions (component: DefineComponent): ComponentOptions {
 }
 
 function getTranslation (type: string, name: string, componentName: string, custom?: string): string {
+  const nameCamel = camelCase(name)
   if (custom && translationExists(custom)) { return custom }
 
-  const componentTranslation = `api.${componentName}.${type}.${name}`
+  const componentTranslation = `api.${componentName}.${type}.${nameCamel}`
 
   if (translationExists(componentTranslation)) {
     return componentTranslation
   }
 
-  const allTranslation = `api.all.${type}.${name}`
+  const allTranslation = `api.all.${type}.${nameCamel}`
   if (translationExists(allTranslation)) {
     return allTranslation
   }
