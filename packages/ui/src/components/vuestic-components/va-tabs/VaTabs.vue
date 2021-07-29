@@ -67,27 +67,32 @@ import VaTab from './VaTab/VaTab.vue'
 export class TabsService {
   // eslint-disable-next-line no-useless-constructor
   constructor (private parent: VaTabs) {
+    this.disabled = parent.disabled
   }
 
   tabs: VaTab[] = []
+  disabled = false
 
-  register (tab: VaTab | any) {
+  register (tab: VaTab) {
     const idx = this.tabs.push(tab)
     tab.id = tab.$props.name || idx
   }
 
   unregister (tab: VaTab) {
-    this.tabs = this.tabs.filter((filteredTab: { id: any }) => filteredTab.id !== tab.id)
-    // eslint-disable-next-line no-return-assign
-    this.tabs.forEach((tab: VaTab | any, idx: number) => tab.id = tab.$props.name || idx)
+    this.tabs = this.tabs.filter((filteredTab) => filteredTab.id !== tab.id)
+    this.tabs.forEach((tab, idx) => {
+      tab.id = tab.$props.name || idx
+    })
   }
 
   tabClick (tab: VaTab) {
+    console.log(1)
     this.parent.selectTab(tab)
   }
 
   tabFocus (tab: VaTab) {
-    this.parent.ensureVisible(tab)
+    console.log(2)
+    this.parent.moveToTab(tab)
   }
 
   tabPressEnter (tab: VaTab) {
@@ -126,14 +131,15 @@ export default class VaTabs extends mixins(
   @Ref('container') containerRef!: Element
   @Ref('tabs') tabsRef!: Element
 
-  tabs: any = []
   sliderHeight: null | number = null
   sliderWidth: null | number = null
   sliderOffsetX = 0
   sliderOffsetY = 0
   showPagination = false
   tabsContentOffset = 0
-  mutationObserver: any = null
+  resizeObserver: ResizeObserver | null = null
+  startingXPoint = 0
+  animationIncluded = false
 
   context = setup(() => {
     const tabsService = ref<TabsService | null>(null)
@@ -188,17 +194,20 @@ export default class VaTabs extends mixins(
     if (this.$props.hideSlider) {
       return {}
     }
+    const transition = this.animationIncluded ? 'var(--va-tabs-slider-wrapper-transition)' : ''
     if (this.$props.vertical) {
       return {
         'background-color': this.colorComputed,
         height: `${this.sliderHeight}px`,
         transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
+        transition,
       }
     }
     return {
       'background-color': this.colorComputed,
       width: `${this.sliderWidth}px`,
       transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
+      transition,
     }
   }
 
@@ -209,8 +218,10 @@ export default class VaTabs extends mixins(
         transform: 'translateX(0px)',
       }
     }
+    const transition = this.animationIncluded ? 'transform ease 0.3s' : ''
     return {
-      transform: `translateX(-${this.tabsContentOffset}px)`,
+      transform: `translateX(${this.startingXPoint - this.tabsContentOffset}px)`,
+      transition,
     }
   }
 
@@ -219,10 +230,11 @@ export default class VaTabs extends mixins(
   }
 
   get disablePaginationRight () {
-    return this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]?.rightSidePosition <= this.tabsContentOffset + this.containerRef.clientWidth
+    const lastTab = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]
+    return (lastTab?.rightSidePosition || 0) <= this.tabsContentOffset + this.containerRef.clientWidth || (lastTab?.leftSidePosition || 0) <= this.tabsContentOffset
   }
 
-  selectTab (tab: any) {
+  selectTab (tab: VaTab) {
     if (tab) {
       this.valueComputed = tab.$props.name || tab.id
       if (this.stateful) {
@@ -233,20 +245,22 @@ export default class VaTabs extends mixins(
 
   updateTabsState () {
     this.resetSliderSizes()
-    this.updatePagination()
-
     this.context.tabsService?.tabs.forEach((tab: VaTab) => {
-      const tabIsActiveRouterLink = tab.isActiveRouterLink
-      const isSelectedTab = (tab.$props.name || tab.id) === this.tabSelected
-      if (tabIsActiveRouterLink || isSelectedTab) {
-        this.ensureVisible(tab)
-        this.updateSlider(tab)
+      tab.updateSidePositions()
+      if (this.tabSelected) {
+        const isSelectedTab = (tab.$props.name || tab.id) === this.tabSelected
+        tab.isActive = tab.isActiveRouterLink || isSelectedTab
 
-        tab.isActive = true
-      } else {
-        tab.isActive = false
+        if (tab.isActive) {
+          this.moveToTab(tab)
+          this.updateSlider(tab)
+        }
       }
     })
+    if (this.tabsContentOffset + this.containerRef.clientWidth > this.tabsRef.clientWidth && this.context.tabsService) {
+      this.moveToTab(this.context.tabsService.tabs[0])
+    }
+    this.updateStartingXPoint()
   }
 
   updatePagination () {
@@ -262,14 +276,15 @@ export default class VaTabs extends mixins(
     let offsetToSet = this.tabsContentOffset - this.containerRef.clientWidth
 
     if (this.context.tabsService) {
-      for (let i = 0; i < this.context.tabsService.tabs.length; i++) {
-        if (this.context.tabsService.tabs[i].rightSidePosition > this.tabsContentOffset && this.context.tabsService.tabs[i].leftSidePosition < this.tabsContentOffset) {
-          offsetToSet = this.context.tabsService.tabs[i].rightSidePosition - this.containerRef.clientWidth
+      for (let i = 0; i < this.context.tabsService.tabs.length - 1; i++) {
+        if ((this.context.tabsService.tabs[i].leftSidePosition > offsetToSet && this.context.tabsService.tabs[i].leftSidePosition < this.tabsContentOffset) || this.context.tabsService.tabs[i + 1].leftSidePosition >= this.tabsContentOffset) {
+          offsetToSet = this.context.tabsService.tabs[i].leftSidePosition
+          break
         }
       }
     }
 
-    this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
+    this.tabsContentOffset = Math.max(0, offsetToSet)
   }
 
   movePaginationRight () {
@@ -278,29 +293,33 @@ export default class VaTabs extends mixins(
 
     if (this.context.tabsService) {
       for (let i = 0; i < this.context.tabsService.tabs.length; i++) {
-        if (this.context.tabsService.tabs[i].rightSidePosition > containerRightSide && this.context.tabsService.tabs[i].leftSidePosition < containerRightSide) {
+        if (this.context.tabsService.tabs[i].rightSidePosition > containerRightSide) {
           offsetToSet = this.context.tabsService.tabs[i].leftSidePosition
+          if (this.tabsContentOffset < offsetToSet) {
+            break
+          }
         }
       }
     }
 
-    const maxOffset = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1].rightSidePosition - this.containerRef.clientWidth
+    const lastTab = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]
+    const maxOffset = (lastTab?.rightSidePosition || 0) - this.containerRef.clientWidth
 
-    offsetToSet = offsetToSet >= maxOffset ? maxOffset : offsetToSet
-    this.tabsContentOffset = offsetToSet < 0 ? 0 : offsetToSet
+    offsetToSet = Math.min(maxOffset, offsetToSet)
+    this.tabsContentOffset = Math.max(0, offsetToSet)
   }
 
-  ensureVisible (tab: any) {
-    if (tab.leftSidePosition < this.tabsContentOffset) {
+  moveToTab (tab: VaTab) {
+    if (this.showPagination && tab.leftSidePosition + this.containerRef.clientWidth <= this.tabsRef.clientWidth) {
       this.tabsContentOffset = tab.leftSidePosition
-    } else if (tab.rightSidePosition > this.tabsContentOffset + this.containerRef.clientWidth) {
+    } else if (this.showPagination && tab.rightSidePosition >= this.containerRef.clientWidth) {
       this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
-    } else if (tab.rightSidePosition - this.containerRef.clientWidth >= 0) {
-      this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
+    } else {
+      this.tabsContentOffset = 0
     }
   }
 
-  updateSlider (tab: any) {
+  updateSlider (tab: VaTab) {
     if (this.$props.vertical) {
       this.sliderOffsetY = (this.containerRef.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
       this.sliderHeight = tab.$el.clientHeight
@@ -319,23 +338,53 @@ export default class VaTabs extends mixins(
     this.sliderHeight = 0
   }
 
-  mounted () {
-    window.addEventListener('resize', this.updateTabsState)
-    this.updateTabsState()
-    this.mutationObserver = new MutationObserver(() => {
+  updateStartingXPoint () {
+    this.startingXPoint = 0
+    if (!this.showPagination) {
+      return
+    }
+    if (this.$props.right) {
+      this.startingXPoint = this.tabsRef?.clientWidth - this.containerRef?.clientWidth
+    } else if (this.$props.center) {
+      this.startingXPoint = Math.floor((this.tabsRef?.clientWidth - this.containerRef?.clientWidth) / 2)
+    }
+  }
+
+  includeAnimation () {
+    if (!this.animationIncluded) {
+      requestAnimationFrame(() => {
+        this.animationIncluded = true
+      })
+    }
+  }
+
+  redrawTabs () {
+    const oldShowPaginationValue = this.showPagination
+    this.updatePagination()
+    if (oldShowPaginationValue === this.showPagination) {
       this.updateTabsState()
-    })
-    this.mutationObserver.observe(this.tabsRef, {
-      childList: true,
-      subtree: true,
+      this.includeAnimation()
+    } else {
+      requestAnimationFrame(() => {
+        this.updateTabsState()
+        this.includeAnimation()
+      })
+    }
+  }
+
+  mounted () {
+    this.redrawTabs()
+    requestAnimationFrame(() => {
+      this.resizeObserver = new ResizeObserver(this.redrawTabs)
+      this.resizeObserver.observe(this.wrapperRef)
+      this.resizeObserver.observe(this.tabsRef)
     })
   }
 
   beforeUnmount () {
-    if (this.mutationObserver) {
-      this.mutationObserver.disconnect()
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect()
     }
-    window.removeEventListener('resize', this.updateTabsState)
   }
 }
 </script>
@@ -369,7 +418,6 @@ export default class VaTabs extends mixins(
 
     .va-tabs__tabs {
       position: absolute;
-      transition: all ease 0.3s;
       height: 100%;
     }
 
@@ -384,7 +432,7 @@ export default class VaTabs extends mixins(
     &--grow {
       .va-tabs__tabs {
         display: flex;
-        width: 100%;
+        min-width: 100%;
       }
 
       .va-tab {
@@ -439,7 +487,6 @@ export default class VaTabs extends mixins(
     margin: var(--va-tabs-slider-wrapper-margin);
     position: var(--va-tabs-slider-wrapper-position);
     z-index: var(--va-tabs-slider-wrapper-z-index);
-    transition: var(--va-tabs-slider-wrapper-transition);
 
     .va-tabs__slider {
       width: var(--va-tabs-slider-width);
