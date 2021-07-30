@@ -20,9 +20,9 @@ export default [
   ),
 
   ...DocsHelper.exampleBlock(
-    'dateInput.examples.mode.title',
-    'dateInput.examples.mode.text',
-    'va-date-input/mode',
+    'dateInput.examples.resetOnClose.title',
+    'dateInput.examples.resetOnClose.text',
+    'va-date-input/resetOnClose',
   ),
 
   ...DocsHelper.exampleBlock(

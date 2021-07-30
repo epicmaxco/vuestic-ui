@@ -5,6 +5,9 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 export default [
   DocsHelper.title('datePicker.title'),
+  DocsHelper.paragraph('datePicker.description'),
+
+  DocsHelper.link('datePicker.lookAtDateInput', '/ui-elements/date-input'),
 
   DocsHelper.subtitle('all.examples'),
 

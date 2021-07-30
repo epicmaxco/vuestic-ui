@@ -2616,8 +2616,9 @@
   },
   "datePicker": {
     "title": "Date Picker",
-    "description": "Work in progress.",
+    "description": "Date picker component allows user to select single, multiple or range of dates, months and years. You can customize it the way you want. There is a option to change all string and formats.\n\nIt based on native js dates so you can use this Date Picker with any date library you want.",
     "summaryText": "Input component for data selection.",
+    "lookAtDateInput": "Also, look at Date Input",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -2673,9 +2674,9 @@
         "title": "Basic usage",
         "text": ""
       },
-      "mode": {
-        "title": "Mode",
-        "text": "Mode prop works the same as with Date Picker. But, there is a prop `resetOnClose` for range mode. If user selected incomplete range and closed dropdown, then used last complete value."
+      "resetOnClose": {
+        "title": "Reset on close",
+        "text": "There is a prop `resetOnClose` for range mode. If user selected incomplete range and closed dropdown, then used last complete value."
       },
       "isOpen": {
         "title": "IsOpen",
