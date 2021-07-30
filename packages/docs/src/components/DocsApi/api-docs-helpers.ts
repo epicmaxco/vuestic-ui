@@ -18,18 +18,20 @@ function getComponentOptions (component: DefineComponent): ComponentOptions {
   return component
 }
 
+const translateIfExistsWithFallback = (key: string) => translationExists(key) || translationExists(key, fallbackLocale as string)
+
 function getTranslation (type: string, name: string, componentName: string, custom?: string): string {
   const nameCamel = camelCase(name)
-  if (custom && translationExists(custom)) { return custom }
+  if (custom && translateIfExistsWithFallback(custom)) { return custom }
 
   const componentTranslation = `api.${componentName}.${type}.${nameCamel}`
 
-  if (translationExists(componentTranslation) || translationExists(componentTranslation, fallbackLocale as string)) {
+  if (translateIfExistsWithFallback(componentTranslation)) {
     return componentTranslation
   }
 
   const allTranslation = `api.all.${type}.${nameCamel}`
-  if (translationExists(allTranslation) || translationExists(allTranslation, fallbackLocale as string)) {
+  if (translateIfExistsWithFallback(allTranslation)) {
     return allTranslation
   }
 
