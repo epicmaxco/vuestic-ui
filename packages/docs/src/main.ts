@@ -11,7 +11,7 @@ import { VuesticConfig } from './config/vuestic-config'
 import { useGtag } from './services/gtag'
 import { useMeta } from '@/services/vue-meta'
 
-export const i18n = createI18n({ locale: 'en', messages })
+export const i18n = createI18n({ locale: 'en', messages, fallbackLocale: 'en' })
 
 const app = createApp(App)
 

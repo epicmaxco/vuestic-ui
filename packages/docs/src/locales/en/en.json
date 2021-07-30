@@ -97,10 +97,10 @@
         "focus": "On focus.",
         "input": "On value change.",
         "click": "On click.",
-        "click-prepend": "The event is triggered by clicking on the `prepend` slot",
-        "click-prepend-inner": "The event is triggered by clicking on the `prependInner` slot",
-        "click-append": "The event is triggered by clicking on the `append` slot",
-        "click-append-inner": "The event is triggered by clicking on the `appendInner` slot"
+        "clickPrepend": "The event is triggered by clicking on the `prepend` slot",
+        "clickPrependInner": "The event is triggered by clicking on the `prependInner` slot",
+        "clickAppend": "The event is triggered by clicking on the `append` slot",
+        "clickAppendInner": "The event is triggered by clicking on the `appendInner` slot"
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
