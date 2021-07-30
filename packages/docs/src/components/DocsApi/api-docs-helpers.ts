@@ -1,6 +1,6 @@
 import { DefineComponent, ComponentOptions } from 'vue'
 import { kebabCase, camelCase } from 'lodash'
-import { te as translationExists } from '../../helpers/I18nHelper'
+import { te as translationExists, fallbackLocale } from '../../helpers/I18nHelper'
 
 import { ManualPropApiOptions, ManualApiOptions, ManualSlotApiOptions, ManualMethodApiOptions } from './ManualApiOptions'
 import { compileComponentOptions, CompiledComponentOptions } from './component-options-compiler'
@@ -24,12 +24,12 @@ function getTranslation (type: string, name: string, componentName: string, cust
 
   const componentTranslation = `api.${componentName}.${type}.${nameCamel}`
 
-  if (translationExists(componentTranslation)) {
+  if (translationExists(componentTranslation) || translationExists(componentTranslation, fallbackLocale as string)) {
     return componentTranslation
   }
 
   const allTranslation = `api.all.${type}.${nameCamel}`
-  if (translationExists(allTranslation)) {
+  if (translationExists(allTranslation) || translationExists(allTranslation, fallbackLocale as string)) {
     return allTranslation
   }
 
