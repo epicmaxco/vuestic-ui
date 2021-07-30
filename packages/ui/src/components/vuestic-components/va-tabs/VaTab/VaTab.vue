@@ -14,10 +14,10 @@
     <div
       class="va-tab__content"
       v-on="context.keyboardFocusListeners"
-      @focus="onFocus"
-      @click="onTabClick()"
-      @keydown.enter="onTabKeydown"
       :tabindex="tabIndexComputed"
+      @focus="onFocus()"
+      @click="onTabClick()"
+      @keydown.enter="onTabKeydown()"
     >
       <slot>
         <va-icon
@@ -46,9 +46,9 @@ import VaIcon from '../../va-icon'
 import { TabsServiceKey, TabsService } from '../VaTabs.vue'
 
 type Context = {
-  tabsService: TabsService | null;
+  tabsService: TabsService;
   hasKeyboardFocus: boolean;
-  keyboardFocusListeners: {}
+  keyboardFocusListeners: Record<string, () => void>;
 }
 
 class TabProps {
@@ -70,11 +70,13 @@ export default class VaTab extends mixins(
   RouterLinkMixin,
   TabPropsMixin,
 ) {
+  id: string | number | null = null
   isActive = false
-  id: any = null
+  rightSidePosition = 0
+  leftSidePosition = 0
 
   context: Context = setup(() => {
-    const tabsService: TabsService | null = inject(TabsServiceKey, null)
+    const tabsService = inject(TabsServiceKey) as TabsService
 
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
@@ -94,49 +96,38 @@ export default class VaTab extends mixins(
   }
 
   get tabIndexComputed () {
-    return (this.$props.disabled || this.isActive) ? -1 : 0
-  }
-
-  get rightSidePosition () {
-    return (this as any).$el.offsetLeft + (this as any).$el.offsetWidth
-  }
-
-  get leftSidePosition () {
-    return (this as any).$el.offsetLeft
+    return (this.$props.disabled || this.context.tabsService.disabled) ? -1 : 0
   }
 
   onTabClick () {
-    // this.tabsHanler.eventEmitter.emit('click:tab', this)
-    // eslint-disable-next-line no-unused-expressions
-    this.context.tabsService?.tabClick(this)
+    this.context.tabsService.tabClick(this)
     this.$emit('click')
   }
 
   onTabKeydown () {
-    // this.tabsHanler.eventEmitter.emit('keydown-enter:tab', this)
-    // eslint-disable-next-line no-unused-expressions
-    this.context.tabsService?.tabPressEnter(this)
+    this.context.tabsService.tabPressEnter(this)
     this.$emit('keydown-enter')
   }
 
   onFocus () {
-    this.context.tabsService?.tabFocus(this)
+    console.log(this.context.hasKeyboardFocus)
+    if (this.context.hasKeyboardFocus) {
+      this.context.tabsService.tabFocus(this)
+    }
     this.$emit('focus')
   }
 
+  updateSidePositions () {
+    this.rightSidePosition = this.$el.offsetLeft + this.$el.offsetWidth
+    this.leftSidePosition = this.$el.offsetLeft
+  }
+
   beforeMount () {
-    // const idx = this.tabsHanler.tabs.push(this)
-    // this.id = (this as any).$props.name || idx
-    // eslint-disable-next-line no-unused-expressions
-    this.context.tabsService?.register(this)
+    this.context.tabsService.register(this)
   }
 
   beforeUnmount () {
-    // eslint-disable-next-line no-unused-expressions
-    this.context.tabsService?.unregister(this)
-    // this.tabsHanler.tabs = this.tabsHanler.tabs.filter((t: { id: any }) => t.id === this.id)
-    // // eslint-disable-next-line no-return-assign
-    // this.tabsHanler.tabs.forEach((t: VaTab | any, idx: number) => t.id = t.$props.name || idx)
+    this.context.tabsService.unregister(this)
   }
 }
 </script>

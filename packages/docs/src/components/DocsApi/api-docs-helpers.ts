@@ -19,20 +19,28 @@ function getComponentOptions (component: DefineComponent): ComponentOptions {
 }
 
 function getTranslation (type: string, name: string, componentName: string, custom?: string): string {
+  const nameCamel = camelCase(name)
   if (custom && translationExists(custom)) { return custom }
 
-  const componentTranslation = `api.${componentName}.${type}.${name}`
+  const componentTranslation = `api.${componentName}.${type}.${nameCamel}`
 
   if (translationExists(componentTranslation)) {
     return componentTranslation
   }
 
-  const allTranslation = `api.all.${type}.${name}`
+  const allTranslation = `api.all.${type}.${nameCamel}`
   if (translationExists(allTranslation)) {
     return allTranslation
   }
 
   return ''
+}
+
+const keysToKebabCase = <T>(obj: Record<string, T>) => {
+  return Object.keys(obj).reduce((acc, o: string) => {
+    acc[kebabCase(o)] = obj[o]
+    return acc
+  }, {} as Record<string, T>)
 }
 
 const getApiTableProps = (
@@ -41,11 +49,12 @@ const getApiTableProps = (
   manualOptions: ManualApiOptions = {},
 ) => {
   const api = {} as Record<string, ApiPropRowOptions>
-  const merged = { ...compiledComponentOptions.props, ...manualOptions.props }
+  const manualProps = manualOptions.props ? keysToKebabCase(manualOptions.props) : {}
+  const merged = { ...compiledComponentOptions.props, ...manualProps }
 
   for (const propName in merged) {
     const prop = compiledComponentOptions.props[propName]
-    const manualPropOptions: ManualPropApiOptions = (manualOptions.props && manualOptions.props[propName]) || {}
+    const manualPropOptions: ManualPropApiOptions = manualProps[propName] || {}
 
     if (manualPropOptions.hidden) { continue }
 
@@ -71,7 +80,8 @@ const getApiTableEvents = (
   manualOptions: ManualApiOptions = {},
 ) => {
   const api = {} as Record<string, ApiEventRowOptions>
-  const merged = { ...compiledComponentOptions.emits, ...manualOptions.events }
+  const manualEvents = manualOptions.events ? keysToKebabCase(manualOptions.events) : {}
+  const merged = { ...compiledComponentOptions.emits, ...manualEvents }
 
   for (const eventName in merged) {
     const event = merged[eventName]
@@ -95,9 +105,10 @@ const getApiTableSlots = (
   manualOptions: ManualApiOptions = {},
 ) => {
   const api = {} as Record<string, ApiSlotRowOptions>
+  const manualSlots = manualOptions.slots ? keysToKebabCase(manualOptions.slots) : {}
 
-  for (const slotName in manualOptions.slots) {
-    const manualSlotOptions: ManualSlotApiOptions = manualOptions.slots[slotName] || {}
+  for (const slotName in manualSlots) {
+    const manualSlotOptions: ManualSlotApiOptions = manualSlots[slotName] || {}
 
     api[slotName] = {
       version: manualSlotOptions.version || manualOptions.version || '',
@@ -115,9 +126,10 @@ const getApiTableMethods = (
   manualOptions: ManualApiOptions = {},
 ) => {
   const api = {} as Record<string, ApiMethodRowOptions>
+  const manualMethods = manualOptions.methods ? keysToKebabCase(manualOptions.methods) : {}
 
-  for (const methodName in manualOptions.methods) {
-    const manualMethodOptions: ManualMethodApiOptions = manualOptions.methods[methodName] || {}
+  for (const methodName in manualMethods) {
+    const manualMethodOptions: ManualMethodApiOptions = manualMethods[methodName] || {}
     api[methodName] = {
       version: manualMethodOptions.version || manualOptions.version || '',
       description: getTranslation('methods', methodName, componentName, manualMethodOptions.translation),

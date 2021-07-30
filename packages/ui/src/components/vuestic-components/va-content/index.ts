@@ -1,3 +1,4 @@
+import withConfigTransport from '../../../services/config-transport/withConfigTransport'
 import VaContent from './VaContent.vue'
 
-export default VaContent
+export default withConfigTransport(VaContent)

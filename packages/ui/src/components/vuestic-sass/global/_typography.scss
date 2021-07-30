@@ -11,7 +11,7 @@
 }
 
 .link-secondary {
-  color: var(--va-link-color-secondary);
+  color: var(--va-link-color-secondary) !important;
 }
 
 .link,
@@ -19,15 +19,15 @@
   cursor: pointer;
 
   &:hover {
-    color: var(--va-link-color-hover);
+    color: var(--va-link-color-hover) !important;
   }
 
   &:active {
-    color: var(--va-link-color-active);
+    color: var(--va-link-color-active) !important;
   }
 
   &:visited {
-    color: var(--va-link-color-visited);
+    color: var(--va-link-color-visited) !important;
   }
 }
 
