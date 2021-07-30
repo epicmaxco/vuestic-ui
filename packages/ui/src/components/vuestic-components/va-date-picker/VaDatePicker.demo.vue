@@ -74,12 +74,12 @@
 
       <h5 class="mb-2">Month control buttons</h5>
       <va-date-picker v-model="value">
-        <template #button:next="{ onClick }">
+        <template #buttonNext="{ onClick }">
           <va-chip size="small" @click="onClick">
             Next
           </va-chip>
         </template>
-        <template #button:prev="{ onClick }">
+        <template #buttonPrev="{ onClick }">
           <va-chip size="small" @click="onClick">
             Prev
           </va-chip>

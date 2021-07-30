@@ -14,12 +14,12 @@
       {{ month }}月
     </template>
 
-    <template #button:next="{ onClick }">
+    <template #buttonNext="{ onClick }">
       <va-button flat size="small" class="link" @click="onClick">
         →
       </va-button>
     </template>
-    <template #button:prev="{ onClick }">
+    <template #buttonPrev="{ onClick }">
       <va-button flat size="small" class="link" @click="onClick">
         ←
       </va-button>

@@ -1,6 +1,6 @@
 <template>
   <div class="va-date-picker-header va-date-picker__header" v-if="syncView.type !== 'year'">
-    <slot name="button:prev" v-bind="{ onClick: prev }">
+    <slot name="buttonPrev" v-bind="{ onClick: prev }">
       <va-button icon="chevron_left" flat size="small" :color="color" @click="prev" />
     </slot>
 
@@ -16,7 +16,7 @@
       </slot>
     </div>
 
-    <slot name="button:next" v-bind="{ onClick: next }">
+    <slot name="buttonNext" v-bind="{ onClick: next }">
       <va-button icon="chevron_right" flat size="small" :color="color" @click="next" />
     </slot>
   </div>

@@ -1,5 +1,12 @@
 import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 import InputApiOptions from '../va-input/api-options'
+import DatePickerApiOptions from '../va-date-picker/api-options'
+
+const mapObject = <T, K>(obj: Record<string, T>, cb: (item: T, key: string) => K) => {
+  const newObj: Record<string, K> = {}
+  Object.keys(obj).forEach((key) => { newObj[key] = cb(obj[key], key) })
+  return newObj
+}
 
 export default defineManualApi({
   props: {
@@ -8,5 +15,9 @@ export default defineManualApi({
     mode: { types: "'single' | 'multiple' | 'range'" },
 
     ...InputApiOptions.props,
+  },
+  slots: {
+    ...InputApiOptions.slots,
+    ...mapObject(DatePickerApiOptions.slots!, (slot, key) => ({ ...slot, translation: `api.VaDatePicker.slots.${key}` })),
   },
 })

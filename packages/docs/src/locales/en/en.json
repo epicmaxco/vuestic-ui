@@ -899,7 +899,15 @@
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "buttonPrev": "Button show previous month or year.",
+        "buttonNext": "Button show next month or year.",
+        "header": "This slot is showing year and month between header buttons.",
+        "year": "Used to change how year will be displayed in header and picker cell.",
+        "month": "Used to change how year will be displayed in header and picker cell.",
+        "weekday": "Used to change how weekday will be displayed in picker.",
+        "day": "Used to change how day will be displayed in picker cell."
+      }
     },
     "VaDateInput": {
       "props": {

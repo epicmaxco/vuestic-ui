@@ -6,4 +6,13 @@ export default defineManualApi({
     firstWeekday: { types: "'Monday' | 'Sunday'" },
     mode: { types: "'single' | 'multiple' | 'range'" },
   },
+  slots: {
+    buttonPrev: {},
+    buttonNext: {},
+    header: {},
+    year: {},
+    month: {},
+    weekday: {},
+    day: {},
+  },
 })
