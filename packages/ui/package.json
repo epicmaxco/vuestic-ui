@@ -14,8 +14,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
     "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
-    "build": "NODE_ENV=production yarn build:dev",
-    "build:new": "yarn build:rollup && yarn build:types",
+    "build": "yarn build:rollup && yarn build:types",
     "build:rollup": "rollup -c",
     "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
