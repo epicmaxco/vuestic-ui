@@ -29,7 +29,7 @@ export default defineComponent({
 <style lang="scss">
 .va-card__actions {
   &.horiz button {
-    margin: 0 5px;
+    margin: 0 var(--va-card-actions-btn-margin);
 
     &:first-child {
       margin-left: 0;
@@ -41,7 +41,7 @@ export default defineComponent({
   }
 
   &.vert button {
-    margin: 5px 0;
+    margin: var(--va-card-actions-btn-margin) 0;
 
     &:first-child {
       margin-top: 0;
