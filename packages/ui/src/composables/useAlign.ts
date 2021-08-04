@@ -27,7 +27,11 @@ const vertMap = {
 }
 
 const justify = (align: string, vertical: boolean) => {
-  return vertical ? 'center' : horizMap[align as keyof typeof horizMap]
+  return vertical
+    ? 'center'
+    : align
+      ? horizMap[align as keyof typeof horizMap]
+      : 'flex-start'
 }
 
 const items = (align: string, vertical: boolean) => {
