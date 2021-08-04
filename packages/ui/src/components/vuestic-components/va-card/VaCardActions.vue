@@ -1,5 +1,9 @@
 <template>
-  <div class="va-card__actions" :style="alignComputed">
+  <div
+    class="va-card__actions"
+    :class="{ vert: vertical, horiz: !vertical }"
+    :style="alignComputed"
+  >
     <slot />
   </div>
 </template>
@@ -24,11 +28,8 @@ export default defineComponent({
 
 <style lang="scss">
 .va-card__actions {
-  align-items: center;
-
-  button {
-    margin-left: 5px;
-    margin-right: 5px;
+  &.horiz button {
+    margin: 0 5px;
 
     &:first-child {
       margin-left: 0;
@@ -36,6 +37,18 @@ export default defineComponent({
 
     &:last-child {
       margin-right: 0;
+    }
+  }
+
+  &.vert button {
+    margin: 5px 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }
