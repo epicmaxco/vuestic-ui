@@ -1,35 +1,25 @@
 <template>
-  <div class="va-card__actions" :style="actionsStyles">
+  <div class="va-card__actions" :style="alignComputed">
     <slot />
   </div>
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, Vue } from 'vue-class-component'
+import { defineComponent } from 'vue'
+import { useAlignProps, useAlign } from '../../../composables/useAlign'
 
-import ColorMixin from '../../../services/color-config/ColorMixin'
-import { AlignMixin } from '../../vuestic-mixins/AlignMixin'
+export default defineComponent({
+  props: {
+    ...useAlignProps,
+  },
+  setup (props) {
+    const { alignComputed } = useAlign(props)
 
-class CardActionsProps {
-  align = prop<string>({ type: String, default: 'left' });
-}
-
-const CardActionsPropsMixin = Vue.with(CardActionsProps)
-
-@Options({
-  name: 'VaCardActions',
-})
-export default class VaCardActions extends mixins(
-  ColorMixin,
-  AlignMixin,
-  CardActionsPropsMixin,
-) {
-  get actionsStyles () {
     return {
-      ...this.alignComputed,
+      alignComputed,
     }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
