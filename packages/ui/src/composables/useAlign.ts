@@ -26,20 +26,21 @@ const vertMap = {
   stretch: 'stretch',
 }
 
-const justify = (align: string) => {
-  return horizMap[align as keyof typeof horizMap]
+const justify = (align: string, vertical: boolean) => {
+  return vertical ? 'center' : horizMap[align as keyof typeof horizMap]
 }
 
-const items = () => {
-  return 'center'
+const items = (align: string, vertical: boolean) => {
+  return vertical ? vertMap[align as keyof typeof vertMap] : 'center'
 }
 
 export function useAlign (props: any) {
   const alignComputed = computed(() => {
     return {
       display: 'flex',
-      justifyContent: justify(props.align),
-      alignItems: items(),
+      flexDirection: props.vertical ? 'column' : 'row',
+      justifyContent: justify(props.align, props.vertical),
+      alignItems: items(props.align, props.vertical),
     }
   })
 

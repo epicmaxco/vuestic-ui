@@ -273,6 +273,41 @@
         </va-card>
       </div>
     </VbCard>
+    <VbCard title="Actions - vertical alignment">
+      <div style="display: flex;">
+        <va-card style="width: 400px;">
+          <va-card-title>Default alignment (left)</va-card-title>
+          <va-card-actions vertical>
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+            <va-button>Action 3</va-button>
+          </va-card-actions>
+        </va-card>
+        <va-card style="width: 400px; margin-left: 1rem;">
+          <va-card-title>Center alignment</va-card-title>
+          <va-card-actions align="center" vertical>
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+        <va-card style="width: 400px; margin-left: 1rem;">
+          <va-card-title>Right alignment</va-card-title>
+          <va-card-actions align="right" vertical>
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+      </div>
+      <div style="display: flex; margin-top: 1rem;">
+        <va-card style="width: 400px;">
+          <va-card-title>Stretch alignment</va-card-title>
+          <va-card-actions align="stretch" vertical>
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
