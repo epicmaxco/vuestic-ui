@@ -9,13 +9,13 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaration'
 
 /** Used to create lib, that can be used in browser. This build define VuesticUI global variable. */
-export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, declaration = false, sourcemap = false }) {
+export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, declaration = false, sourcemap = false, libName = 'vuestic-ui' }) {
   const config = defineConfig({
     input,
     output: {
       sourcemap,
-      dir: outDir,
       format: 'iife',
+      file: `${outDir}/${libName}.js`,
 
       /**
        * Then user can use vuestic global VuesticUI
@@ -37,7 +37,7 @@ export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, dec
       vuePlugin({ target: 'browser', compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolve({ browser: true }),
-      postcssPlugin({ /* extract: 'main.css' */ }),
+      postcssPlugin({ extract: `${libName}.css` }),
       nodeBuiltinsPlugin({ crypto: true }),
     ],
   })
