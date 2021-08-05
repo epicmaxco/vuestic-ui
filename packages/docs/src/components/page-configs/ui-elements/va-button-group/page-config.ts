@@ -1,5 +1,5 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
-import VaButtonGroup from 'vuestic-ui/src/components/vuestic-components/va-button-group/VaButtonGroup.vue'
+import VaButtonGroup from 'vuestic-ui/src/components/va-button-group/VaButtonGroup.vue'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 

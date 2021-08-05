@@ -1,7 +1,7 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import { VueConstructor } from 'vue-class-component'
 import VaDivider
-  from 'vuestic-ui/src/components/vuestic-components/va-divider/VaDivider.vue'
+  from 'vuestic-ui/src/components/va-divider/VaDivider.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [

@@ -133,7 +133,7 @@ export default class Sidebar extends Vue.with(Props) {
 </script>
 
 <style lang="scss" scoped>
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
+@import "~vuestic-ui/src/styles/resources/resources.scss";
 
 .sidebar {
   &__collapse-custom-header {

@@ -1,6 +1,6 @@
-import './components/vuestic-sass/vuestic-styles.scss'
+import './styles/vuestic-styles.scss'
 
-export { VuesticPlugin } from './components/vuestic-plugin'
+export { VuesticPlugin } from './vuestic-plugin/vuestic-plugin'
 export { useColors, getColor, getColors, setColors } from './services/color-config/color-config'
 export { useGlobalConfig, getGlobalConfig, setGlobalConfig, mergeGlobalConfig } from './services/global-config/global-config'
 export {

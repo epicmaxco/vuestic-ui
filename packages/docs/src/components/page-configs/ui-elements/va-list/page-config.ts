@@ -1,10 +1,10 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaList from 'vuestic-ui/src/components/vuestic-components/va-list/VaList.vue'
-import VaListLabel from 'vuestic-ui/src/components/vuestic-components/va-list/VaListLabel.vue'
-import VaListSeparator from 'vuestic-ui/src/components/vuestic-components/va-list/VaListSeparator.vue'
-import VaListItem from 'vuestic-ui/src/components/vuestic-components/va-list/VaListItem.vue'
-import VaListItemLabel from 'vuestic-ui/src/components/vuestic-components/va-list/VaListItemLabel.vue'
-import VaListItemSection from 'vuestic-ui/src/components/vuestic-components/va-list/VaListItemSection.vue'
+import VaList from 'vuestic-ui/src/components/va-list/VaList.vue'
+import VaListLabel from 'vuestic-ui/src/components/va-list/VaListLabel.vue'
+import VaListSeparator from 'vuestic-ui/src/components/va-list/VaListSeparator.vue'
+import VaListItem from 'vuestic-ui/src/components/va-list/VaListItem.vue'
+import VaListItemLabel from 'vuestic-ui/src/components/va-list/VaListItemLabel.vue'
+import VaListItemSection from 'vuestic-ui/src/components/va-list/VaListItemSection.vue'
 import {
   listApiOptions,
   listLabelApiOptions,

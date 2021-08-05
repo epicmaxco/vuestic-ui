@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaColorPalette from 'vuestic-ui/src/components/vuestic-components/va-color-palette/VaColorPalette.vue'
+import VaColorPalette from 'vuestic-ui/src/components/va-color-palette/VaColorPalette.vue'
 import apiOptions, { apiOptionsAdvanced } from './api-options'
 
 export default [

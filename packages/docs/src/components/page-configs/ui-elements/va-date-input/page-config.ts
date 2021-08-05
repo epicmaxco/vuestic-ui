@@ -1,5 +1,5 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
-import VaDateInput from 'vuestic-ui/src/components/vuestic-components/va-date-input/VaDateInput.vue'
+import VaDateInput from 'vuestic-ui/src/components/va-date-input/VaDateInput.vue'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 

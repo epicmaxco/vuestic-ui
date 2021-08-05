@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/components/vuestic-sass/resources/resources';
+@import '~vuestic-ui/src/styles/resources/resources';
 
 .i-nav {
   display: inline-block;

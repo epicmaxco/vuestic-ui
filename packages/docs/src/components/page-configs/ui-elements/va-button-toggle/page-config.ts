@@ -1,5 +1,5 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
-import VaButtonToggle from 'vuestic-ui/src/components/vuestic-components/va-button-toggle/VaButtonToggle.vue'
+import VaButtonToggle from 'vuestic-ui/src/components/va-button-toggle/VaButtonToggle.vue'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 

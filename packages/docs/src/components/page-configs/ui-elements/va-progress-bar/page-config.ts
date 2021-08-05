@@ -1,6 +1,6 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
 import VaProgressBar
-  from 'vuestic-ui/src/components/vuestic-components/va-progress-bar/progress-types/VaProgressBar.vue'
+  from 'vuestic-ui/src/components/va-progress-bar/progress-types/VaProgressBar.vue'
 import apiOptions from './api-options'
 
 export default [
