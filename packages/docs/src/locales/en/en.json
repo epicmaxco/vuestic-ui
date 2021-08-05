@@ -1823,7 +1823,7 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": "This is default `va-card` implementation using `va-card-title` and `va-card-content` helper components."
+        "text": "This is default `va-card` implementation using `va-card-title`, `va-card-content` and `va-card-actions` helper components."
       },
       "tag": {
         "title": "Tag",
@@ -1843,6 +1843,12 @@
       },
       "colorAndGradient": {
         "title": "Color and gradient"
+      },
+      "image": {
+        "title": "Image"
+      },
+      "actions": {
+        "title": "Actions"
       }
     },
     "faq": {
