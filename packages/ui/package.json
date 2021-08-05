@@ -38,7 +38,7 @@
     "detect-browser": "^5.2.0",
     "element-resize-detector": "^1.2.1",
     "flatpickr": "4.6.9",
-    "lodash": "^4.17.20",
+    "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
     "vue-flatpickr-component": "^9.0.3"
   },

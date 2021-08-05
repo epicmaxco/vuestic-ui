@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { debounce } from 'lodash'
+import { debounce } from 'lodash-es'
 import { watch } from 'vue'
 import { mixins, Options, prop, Vue } from 'vue-class-component'
 

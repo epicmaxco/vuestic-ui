@@ -50,7 +50,7 @@ import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
 import VaPagination from '../va-pagination/VaPagination.vue'
 import VaInnerLoading from '../va-inner-loading/VaInnerLoading.vue'
 import { LoadingMixin } from '../../vuestic-mixins/LoadingMixin/LoadingMixin'
-import _sortBy from 'lodash/sortBy'
+import { _sortBy } from 'lodash-es'
 
 @Component({
   components: {

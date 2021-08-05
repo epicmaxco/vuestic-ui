@@ -16,7 +16,7 @@
   </div>
 </template>
 <script lang="ts">
-import { noop } from 'lodash'
+import { noop } from 'lodash-es'
 import { Options, prop, mixins, Vue } from 'vue-class-component'
 
 import {
