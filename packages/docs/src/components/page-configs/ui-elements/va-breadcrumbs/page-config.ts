@@ -1,6 +1,6 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
-import VaBreadcrumbs from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbs.vue'
-import VaBreadcrumbsItem from 'vuestic-ui/src/components/vuestic-components/va-breadcrumbs/VaBreadcrumbsItem/VaBreadcrumbsItem.vue'
+import VaBreadcrumbs from 'vuestic-ui/src/components/va-breadcrumbs/VaBreadcrumbs.vue'
+import VaBreadcrumbsItem from 'vuestic-ui/src/components/va-breadcrumbs/VaBreadcrumbsItem/VaBreadcrumbsItem.vue'
 import { VueConstructor } from 'vue-class-component'
 import vaBreadcrumbsApiOptions from './va-breadcrumbs-api-options'
 import vaBreadcrumbsItemApiOptions from './va-breadcrumbs-item-api-options'

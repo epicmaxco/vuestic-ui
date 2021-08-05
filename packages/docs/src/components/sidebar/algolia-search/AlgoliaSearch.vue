@@ -62,7 +62,7 @@ export default class Search extends Vue {
 
 <style lang="scss">
 
-@import '~vuestic-ui/src/components/vuestic-sass/vuestic-styles';
+@import '~vuestic-ui/src/styles/vuestic-styles';
 
 #search-form {
   padding: 1rem;

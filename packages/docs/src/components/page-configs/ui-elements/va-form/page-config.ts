@@ -1,5 +1,5 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
-import VaForm from 'vuestic-ui/src/components/vuestic-components/va-form/VaForm.vue'
+import VaForm from 'vuestic-ui/src/components/va-form/VaForm.vue'
 import apiOptions from './api-options'
 import { VueConstructor } from 'vue-class-component'
 

@@ -1,6 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import VaCard
-  from 'vuestic-ui/src/components/vuestic-components/va-card/VaCard.vue'
+  from 'vuestic-ui/src/components/va-card/VaCard.vue'
 import apiOptions from './api-options'
 
 export default [
