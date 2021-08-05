@@ -59,8 +59,8 @@
 
 <script lang="ts">
 import { ComponentOptions, defineComponent, nextTick, PropType, ref, watch } from 'vue'
-import { useStateful, statefulComponentOptions } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
-import { useColors } from '../../../services/color-config/color-config'
+import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useColors } from '../../services/color-config/color-config'
 
 import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from './utils/child-props'

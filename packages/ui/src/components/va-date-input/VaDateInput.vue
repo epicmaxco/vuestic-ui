@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
-import { useStateful } from '../../vuestic-mixins/StatefulMixin/cStatefulMixin'
+import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'

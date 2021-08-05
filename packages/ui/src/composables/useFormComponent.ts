@@ -2,7 +2,7 @@ import isString from 'lodash/isString'
 import isFunction from 'lodash/isFunction'
 import flatten from 'lodash/flatten'
 import { computed, inject, onMounted, onUnmounted, PropType, ref } from 'vue'
-import { FormProvider, FormServiceKey } from '../components/vuestic-components/va-form/consts'
+import { FormProvider, FormServiceKey } from '../components/va-form/consts'
 
 /**
  * You could add these props to any component by destructuring them inside props option.

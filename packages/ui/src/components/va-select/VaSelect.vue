@@ -144,13 +144,13 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick } from 'vue'
 
-import { useSelectableList, useSelectableListProps } from '../../../composables/useSelectableList'
-import { useFormComponent, useFormComponentProps } from '../../../composables/useFormComponent'
-import { useLoadingProps } from '../../../composables/useLoading'
-import { useColor } from '../../../composables/useColor'
-import { useMaxSelections, useMaxSelectionsProps } from '../../../composables/useMaxSelections'
+import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
+import { useFormComponent, useFormComponentProps } from '../../composables/useFormComponent'
+import { useLoadingProps } from '../../composables/useLoading'
+import { useColor } from '../../composables/useColor'
+import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
 
-import { warn } from '../../../services/utils'
+import { warn } from '../../services/utils'
 import VaDropdown from '../va-dropdown'
 import VaIcon from '../va-icon'
 import VaInput, { VaInputWrapper } from '../va-input'
