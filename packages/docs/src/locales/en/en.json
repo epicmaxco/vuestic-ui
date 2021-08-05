@@ -933,7 +933,7 @@
         "endYear": "Last year that user can choose. By default is current year plus 50 years",
         "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
         "mode": "Specify if picker value is single date, multiple dates or date range.",
-        
+
         "format": "Function that accepts picker value and should transform it to text for input",
         "isOpen": "Value for dropdown. If `true`, then dropdown is shown",
         "resetOnClose": "If true, range value will be reset to previous valid value",
