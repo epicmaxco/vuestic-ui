@@ -11,6 +11,7 @@
   "bugs": {
     "url": "https://github.com/epicmaxco/vuestic-ui/issues"
   },
+  "sideEffects": false,
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
     "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
