@@ -91,7 +91,7 @@ export default [
   DocsHelper.subtitle('installation.manual.title'),
   DocsHelper.paragraph('installation.subtitle'),
   DocsHelper.paragraph('installation.prerequisites'),
-  DocsHelper.list(['installation.node','installation.npm']),
+  DocsHelper.list(['installation.node', 'installation.npm']),
   DocsHelper.paragraph('installation.afterCheck'),
   DocsHelper.code(installation, 'bash'),
 
@@ -114,6 +114,9 @@ export default [
   DocsHelper.paragraph('installation.cli.upgrade'),
   DocsHelper.paragraph('installation.cli.codeAnnotation'),
   DocsHelper.code('vue add vuestic-ui', 'bash'),
+
+  DocsHelper.subtitle('installation.treeShaking.title'),
+  DocsHelper.paragraph('installation.cli.description'),
 
   // TODO Reenable when nuxt support is added back.
   // DocsHelper.subtitle(config('nuxt.title')),

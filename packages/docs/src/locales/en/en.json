@@ -2695,6 +2695,9 @@
       "attention": "Vuestic UI installation will modify package.json and main.js(ts) files. Make sure you’ve committed your code before installing it to avoid data loss",
       "codeAnnotation": "Then install Vuestic UI as a Vue-CLI plugin:"
     },
+    "treeShaking": {
+      "title": "Tree shaking"
+    },
     "nuxt": {
       "title": "Nuxt installation",
       "description": "Vuestic UI can be added by adding plugin after installation. Create plugin and include it into `nuxt.config.js`:"
