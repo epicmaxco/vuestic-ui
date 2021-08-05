@@ -24,7 +24,8 @@ import VaColorInput from '../components/va-color-input'
 import VaConfig from '../components/va-config'
 import VaContent from '../components/va-content'
 import VaDivider from '../components/va-divider'
-// import VaDatePicker from './vuestic-components/wip-va-date-picker'
+import { VaDatePicker } from '../components/va-date-picker'
+import { VaDateInput } from '../components/va-date-input'
 import VaDropdown, { VaDropdownContent } from '../components/va-dropdown'
 import VaFileUpload from '../components/va-file-upload'
 import VaHover from '../components/va-hover'
@@ -102,7 +103,8 @@ export const vuesticComponentMap = {
   VaColorInput,
   VaConfig,
   VaContent,
-  // VaDatePicker,
+  VaDatePicker,
+  VaDateInput,
   VaDropdown,
   VaDropdownContent,
   VaFileUpload,
