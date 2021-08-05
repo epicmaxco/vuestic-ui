@@ -18,18 +18,20 @@ function getComponentOptions (component: DefineComponent): ComponentOptions {
   return component
 }
 
+const translateIfExistsWithFallback = (key: string) => translationExists(key) || translationExists(key, fallbackLocale as string)
+
 function getTranslation (type: string, name: string, componentName: string, custom?: string): string {
   const nameCamel = camelCase(name)
-  if (custom && translationExists(custom)) { return custom }
+  if (custom && translateIfExistsWithFallback(custom)) { return custom }
 
   const componentTranslation = `api.${componentName}.${type}.${nameCamel}`
 
-  if (translationExists(componentTranslation) || translationExists(componentTranslation, fallbackLocale as string)) {
+  if (translateIfExistsWithFallback(componentTranslation)) {
     return componentTranslation
   }
 
   const allTranslation = `api.all.${type}.${nameCamel}`
-  if (translationExists(allTranslation) || translationExists(allTranslation, fallbackLocale as string)) {
+  if (translateIfExistsWithFallback(allTranslation)) {
     return allTranslation
   }
 
@@ -90,7 +92,7 @@ const getApiTableEvents = (
 
     api[eventName] = {
       version: event.version || manualOptions.version || '',
-      name: kebabCase(eventName),
+      name: eventName,
       types: event.types,
       description: getTranslation('events', eventName, componentName, event.translation),
     }
@@ -105,15 +107,14 @@ const getApiTableSlots = (
   manualOptions: ManualApiOptions = {},
 ) => {
   const api = {} as Record<string, ApiSlotRowOptions>
-  const manualSlots = manualOptions.slots ? keysToKebabCase(manualOptions.slots) : {}
 
-  for (const slotName in manualSlots) {
-    const manualSlotOptions: ManualSlotApiOptions = manualSlots[slotName] || {}
+  for (const slotName in manualOptions.slots) {
+    const manualSlotOptions: ManualSlotApiOptions = manualOptions.slots[slotName] || {}
 
     api[slotName] = {
       version: manualSlotOptions.version || manualOptions.version || '',
       description: getTranslation('slots', slotName, componentName, manualSlotOptions.translation),
-      name: kebabCase(slotName),
+      name: slotName,
     }
   }
 
@@ -126,10 +127,10 @@ const getApiTableMethods = (
   manualOptions: ManualApiOptions = {},
 ) => {
   const api = {} as Record<string, ApiMethodRowOptions>
-  const manualMethods = manualOptions.methods ? keysToKebabCase(manualOptions.methods) : {}
 
-  for (const methodName in manualMethods) {
-    const manualMethodOptions: ManualMethodApiOptions = manualMethods[methodName] || {}
+  for (const methodName in manualOptions.methods) {
+    const manualMethodOptions: ManualMethodApiOptions = manualOptions.methods[methodName] || {}
+
     api[methodName] = {
       version: manualMethodOptions.version || manualOptions.version || '',
       description: getTranslation('methods', methodName, componentName, manualMethodOptions.translation),

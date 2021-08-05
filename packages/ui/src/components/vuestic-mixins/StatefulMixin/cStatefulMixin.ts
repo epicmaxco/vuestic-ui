@@ -3,17 +3,18 @@ import { ref, computed, toRefs } from 'vue'
 /**
  * Returns `valueComputed` that is proxy for `modelValue`
  * if `stateful` prop is `false`
+ * Record<any, any> & Record<'modelValue', T>
  */
-export function useStateful (props: Record<any, any>, emit: (event: 'update:modelValue', ...args: any[]) => void) {
-  const valueState = ref(props.modelValue)
+export function useStateful<T> (props: { [key: string]: any, modelValue?: T }, emit: (event: 'update:modelValue', ...args: any[]) => void, defaultValue?: T) {
+  const valueState = ref(defaultValue === undefined ? props.modelValue : defaultValue)
   const { modelValue } = toRefs(props)
 
-  const valueComputed = computed({
+  const valueComputed = computed<T>({
     get () {
       if (props.stateful) {
-        return valueState.value
+        return valueState.value as T
       }
-      return modelValue.value
+      return modelValue?.value
     },
     set (value: any) {
       if (props.stateful) {
@@ -48,5 +49,5 @@ export const statefulComponentOptions = {
       default: undefined,
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue'] as const,
 }

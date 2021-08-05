@@ -5,16 +5,16 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import datePickerConfig from '../../components/page-configs/ui-elements/va-date-picker/page-config'
+import dateInputConfig from '../../components/page-configs/ui-elements/va-date-input/page-config'
 
 @Options({
   components: {
     DocsContent,
   },
 })
-export default class DatePicker extends Vue {
+export default class DateInput extends Vue {
   get configComputed () {
-    return datePickerConfig
+    return dateInputConfig
   }
 }
 </script>
