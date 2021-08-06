@@ -1,5 +1,5 @@
-import { PropType, computed } from "vue";
-import { getColor } from "../services/color-config/color-config";
+import { PropType, computed } from 'vue'
+import { getColor } from '../services/color-config/color-config'
 
 /**
  * You could add these props to any component by destructuring them inside props option.
@@ -10,8 +10,8 @@ import { getColor } from "../services/color-config/color-config";
 export const useColorProps = {
   color: {
     type: String as PropType<string>,
-    default: ''
-  }
+    default: '',
+  },
 }
 
 export function useColor (props: any) {
