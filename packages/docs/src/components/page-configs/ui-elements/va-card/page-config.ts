@@ -93,7 +93,7 @@ export default [
   },
   {
     type: BlockType.EXAMPLE,
-    component: 'va-card/Actions',
+    component: 'va-card/Actions1',
   },
   {
     type: BlockType.SUBTITLE,
