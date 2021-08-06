@@ -9,11 +9,10 @@
   background-color: #16a085;
   border: none;
   color: #fff;
-  padding: 20px;
   transition-duration: 0.4s;
   overflow: hidden;
   border-radius: 4px;
-  padding: 8px 20px !important;
+  padding: 8px 16px !important;
 }
 
 .seamless-another-button:hover {
