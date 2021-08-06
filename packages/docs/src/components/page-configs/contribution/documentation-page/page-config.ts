@@ -4,15 +4,18 @@ import { tableData, columns } from './table-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 export const codeForCodeblock = '\'<div>Code string</div>\''
+
 export const codeForListBlock = `
 <ul>
     <li> Value of the list item 1 </li>
     <li> Value of the list item 2 </li>
 </ul>`
+
 export const linkOptionsBlock = `options = {
   preText: 'prefix with **markdown** text',
   afterText: 'suffix',
 }`
+
 export const tableDataBlock = `
 columns = [
   'col1',
@@ -26,6 +29,7 @@ tableData = [
   ['d2C1', 'd2C2', '<mark>d2C3</mark>', 'd2C4'],
   ['d3C1', 'd3C2', '~~d3C3~~', 'd3C4'],
 ]`
+
 export const apiOptions = `{
   version: '1.1',
   props: {
@@ -131,11 +135,11 @@ export default [
   DocsHelper.headline('documentationPage.blocktypes.link.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.link.text'),
   DocsHelper.code(linkOptionsBlock),
-  DocsHelper.code('DocsHelper.link(\'translation.path\', \'/contribution/documentation-page#translation-path\', options)'),
-  DocsHelper.code('DocsHelper.link(\'translation.path\', \'/services/components-config\')'),
+  DocsHelper.code('DocsHelper.link(\'translation.path\', \'/contribution/documentation-page#introduction\', options)'),
+  DocsHelper.code('DocsHelper.link(\'translation.path\', \'/getting-started/configuration-guide#components-config\')'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
-  DocsHelper.link('documentationPage.blocktypes.link.exampleWithOptions', '/contribution/documentation-page#translation-path', linkOptions),
-  DocsHelper.link('documentationPage.blocktypes.link.example', '/services/components-config#scoped-config'),
+  DocsHelper.link('documentationPage.blocktypes.link.exampleWithOptions', '/contribution/documentation-page#introduction', linkOptions),
+  DocsHelper.link('documentationPage.blocktypes.link.example', '/getting-started/configuration-guide#components-config'),
 
   DocsHelper.headline('documentationPage.blocktypes.alert.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.alert.text'),

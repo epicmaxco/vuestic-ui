@@ -82,7 +82,11 @@ export default class DocsLayout extends Vue {
 
   mounted () {
     if (this.$route.hash) {
-      document.querySelector(this.$route.hash).scrollIntoView()
+      const el = document.querySelector(this.$route.hash)
+
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+      }
     }
 
     this.isSmallScreenDevice = window.innerWidth <= 575
@@ -142,8 +146,23 @@ export default class DocsLayout extends Vue {
   // }
 
   onRouteChange (newRoute: RouteLocationNormalized, oldRoute: RouteLocationNormalized) {
-    // Don't scroll to top if only hash was changed. This means that user clicked on anchor.
-    if (newRoute.path === oldRoute.path && newRoute.hash !== oldRoute.hash) { return }
+    if (newRoute.path === oldRoute.path && newRoute.hash) {
+      const el = document.querySelector(newRoute.hash)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+        return
+      }
+    }
+
+    if (newRoute.path !== oldRoute.path && newRoute.hash) {
+      this.$nextTick(() => {
+        const el = document.querySelector(newRoute.hash)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+          return
+        }
+      })
+    }
 
     const pageContent: Element | undefined = this.$refs['page-content']
 
