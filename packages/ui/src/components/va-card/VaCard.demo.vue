@@ -231,11 +231,88 @@
         </va-config>
       </div>
     </VbCard>
+    <VbCard title="Actions - horizontal alignment and spaces for buttons">
+      <div style="display: flex;">
+        <va-card style="width: 400px;">
+          <va-card-title>Default alignment (left)</va-card-title>
+          <va-card-actions>
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+            <va-button>Action 3</va-button>
+          </va-card-actions>
+        </va-card>
+        <va-card style="width: 400px; margin-left: 1rem;">
+          <va-card-title>Center alignment</va-card-title>
+          <va-card-actions align="center">
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+        <va-card style="width: 400px; margin-left: 1rem;">
+          <va-card-title>Right alignment</va-card-title>
+          <va-card-actions align="right">
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+      </div>
+      <div style="display: flex; margin-top: 1rem;">
+        <va-card style="width: 400px;">
+          <va-card-title>Between alignment</va-card-title>
+          <va-card-actions align="between">
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+        <va-card style="width: 400px; margin-left: 1rem;">
+          <va-card-title>Around alignment</va-card-title>
+          <va-card-actions align="around">
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+      </div>
+    </VbCard>
+    <VbCard title="Actions - vertical alignment">
+      <div style="display: flex;">
+        <va-card style="width: 400px;">
+          <va-card-title>Default alignment (left)</va-card-title>
+          <va-card-actions vertical>
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+            <va-button>Action 3</va-button>
+          </va-card-actions>
+        </va-card>
+        <va-card style="width: 400px; margin-left: 1rem;">
+          <va-card-title>Center alignment</va-card-title>
+          <va-card-actions align="center" vertical>
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+        <va-card style="width: 400px; margin-left: 1rem;">
+          <va-card-title>Right alignment</va-card-title>
+          <va-card-actions align="right" vertical>
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+      </div>
+      <div style="display: flex; margin-top: 1rem;">
+        <va-card style="width: 400px;">
+          <va-card-title>Stretch alignment</va-card-title>
+          <va-card-actions align="stretch" vertical>
+            <va-button>Action 1</va-button>
+            <va-button>Action 2</va-button>
+          </va-card-actions>
+        </va-card>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaCard, { VaCardContent, VaCardTitle } from './index'
+import VaCard, { VaCardContent, VaCardTitle, VaCardActions } from './index'
 import VaButton from '../va-button'
 import VaImage from '../va-image'
 import VaConfig from '../va-config'
@@ -245,6 +322,7 @@ export default {
     VaCard,
     VaCardTitle,
     VaCardContent,
+    VaCardActions,
     VaButton,
     VaImage,
     VaConfig,

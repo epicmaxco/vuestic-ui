@@ -8,7 +8,7 @@ import { ColorMixin } from '../../../services/color-config/ColorMixin'
 describe('VaCard', () => {
   it('should render without an error', () => {
     const wrapper = mount(VaCard)
-    expect(wrapper.isVueInstance()).toBeTruthy()
+    expect(wrapper.exists()).toBeTruthy()
   })
   it('is contextable', () => {
     const props = {

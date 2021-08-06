@@ -146,11 +146,15 @@ export default class VaCard extends mixins(
   }
 
   &__title,
-  &__content {
+  &__content,
+  &__actions,
+  &__actions_vertical {
     padding: var(--va-card-padding);
 
     + .va-card__title,
-    + .va-card__content {
+    + .va-card__content,
+    + .va-card__actions,
+    + .va-card_actions__vertical {
       padding-top: 0;
     }
   }

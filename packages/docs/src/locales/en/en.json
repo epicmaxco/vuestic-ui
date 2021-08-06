@@ -933,7 +933,7 @@
         "endYear": "Last year that user can choose. By default is current year plus 50 years",
         "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
         "mode": "Specify if picker value is single date, multiple dates or date range.",
-        
+
         "format": "Function that accepts picker value and should transform it to text for input",
         "isOpen": "Value for dropdown. If `true`, then dropdown is shown",
         "resetOnClose": "If true, range value will be reset to previous valid value",
@@ -1823,7 +1823,7 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": "This is default `va-card` implementation using `va-card-title` and `va-card-content` helper components."
+        "text": "This is default `va-card` implementation using `va-card-title`, `va-card-content` and `va-card-actions` helper components."
       },
       "tag": {
         "title": "Tag",
@@ -1843,6 +1843,15 @@
       },
       "colorAndGradient": {
         "title": "Color and gradient"
+      },
+      "image": {
+        "title": "Image"
+      },
+      "actions": {
+        "title": "Actions",
+        "purpose": "The `VaCardActions` component is designed to apply margins and alignment to content (`VaButtons` expected).",
+        "props": "Two properties can be passed: `align` (**string**, specify how to align actions) and `vertical` (**boolean**, display actions one below the other).",
+        "values": "Valid values for `align`: left, center, right, between, around, stretch."
       }
     },
     "faq": {
