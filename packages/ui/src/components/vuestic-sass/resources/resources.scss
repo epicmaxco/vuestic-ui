@@ -1,5 +1,5 @@
 @import "mixins";
 @import "variables";
 @import "breakpoints";
-//@import "css-variables"; TODO: Check components which may used css-variables from resources
-//@import "../grid/gird"; TODO: Check components which may used grid from resources
+@import "css-variables";
+@import "../grid/gird";

@@ -1,5 +1,3 @@
-@import "../global/grid/grid-variables";
-
 @function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
   $n: index($breakpoint-names, $name);
 

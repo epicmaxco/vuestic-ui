@@ -246,6 +246,7 @@
 </template>
 
 <style lang="scss" scoped>
+@import '../resources/resources';
 @import 'grid-global-styles';
 
 ._blue-rectangle {
