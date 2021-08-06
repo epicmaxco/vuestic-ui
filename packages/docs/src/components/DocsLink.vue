@@ -54,10 +54,10 @@ export default defineComponent({
     const { locale } = useI18n()
 
     const linkHref = computed(() => {
-      if (props.href[0] === '/') {
+      if (props.href.startsWith('/')) {
         return `/${locale.value}${props.href}`
       }
-      return props.href
+      return `/${locale.value}/${props.href}`
     })
   
     return {
