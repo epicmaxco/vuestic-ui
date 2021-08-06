@@ -92,6 +92,18 @@ export default [
     translationString: 'card.examples.actions.title',
   },
   {
+    type: BlockType.PARAGRAPH,
+    translationString: 'card.examples.actions.purpose',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'card.examples.actions.props',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'card.examples.actions.values',
+  },
+  {
     type: BlockType.EXAMPLE,
     component: 'va-card/Actions',
   },

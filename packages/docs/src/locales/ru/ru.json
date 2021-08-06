@@ -1772,7 +1772,10 @@
         "title": "Изображение"
       },
       "actions": {
-        "title": "Действия"
+        "title": "Действия",
+        "purpose": "Компонент `VaCardActions` предназначен для применения margins к контенту и выравнивания содержимого (ожидаются` VaButtons`).",
+        "props": "Могут быть переданы два свойства: `align` (**string**, определяет выравнивание) и` vertical` (**boolean**, отображать действия одно под другим).",
+        "values": "Допустимые значения для `align`: left, center, right, between, around, stretch."
       }
     },
     "faq": {

@@ -1848,7 +1848,10 @@
         "title": "Image"
       },
       "actions": {
-        "title": "Actions"
+        "title": "Actions",
+        "purpose": "The `VaCardActions` component is designed to apply margins and alignment to content (`VaButtons` expected).",
+        "props": "Two properties can be passed: `align` (**string**, specify how to align actions) and `vertical` (**boolean**, display actions one below the other).",
+        "values": "Valid values for `align`: left, center, right, between, around, stretch."
       }
     },
     "faq": {
