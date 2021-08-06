@@ -9,7 +9,7 @@ export {
   VuesticIconFonts,
   VuesticIconAliases,
 } from './services/icon-config/icon-config'
-export * from './components/vuestic-components'
+export * from './vuestic-plugin/vuestic-components'
 
 export type { GlobalConfig, GlobalConfigUpdater } from './services/global-config/types'
 export type { ComponentConfig } from './services/component-config/component-config'
