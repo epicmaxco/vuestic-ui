@@ -96,7 +96,11 @@
         "blur": "On blur.",
         "focus": "On focus.",
         "input": "On value change.",
-        "click": "On click."
+        "click": "On click.",
+        "clickPrepend": "The event is triggered by clicking on the `prepend` slot",
+        "clickPrependInner": "The event is triggered by clicking on the `prependInner` slot",
+        "clickAppend": "The event is triggered by clicking on the `append` slot",
+        "clickAppendInner": "The event is triggered by clicking on the `appendInner` slot"
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -115,14 +119,14 @@
         "color": "Color of the component (theme string or *HEX* string).",
         "textColor": "Text color (theme string or *HEX* string).",
         "rules": "Validation rules <!-- TODO Add link -->.",
-        "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\").",
-        "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\").",
-        "append": "When set, always appends the relative path to the current path. [More info here](https://router.vuejs.org/api/#append \"Vue router docs\").",
-        "exact": "Exactly match the link. Without this, '/' will match every route. [More info here](https://router.vuejs.org/api/#exact \"Vue router docs\").",
-        "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\").",
-        "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\").",
-        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\").",
-        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A).",
+        "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\")[[target=_blank]].",
+        "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\")[[target=_blank]].",
+        "append": "When set, always appends the relative path to the current path. [More info here](https://router.vuejs.org/api/#append \"Vue router docs\")[[target=_blank]].",
+        "exact": "Exactly match the link. Without this, '/' will match every route. [More info here](https://router.vuejs.org/api/#exact \"Vue router docs\")[[target=_blank]].",
+        "activeClass": "Applied when the link is active. [More info here](https://router.vuejs.org/api/#active-class \"Vue router docs\")[[target=_blank]].",
+        "exactActiveClass": "Applied when the link is active with exact match. [More info here](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\")[[target=_blank]].",
+        "href": "Designates the component as anchor and applies the href attribute. [More info here](https://router.vuejs.org/api/#href \"Vue router docs\")[[target=_blank]].",
+        "target": "Navigation target, [More info here](https://developer.mozilla.org/docs/Web/HTML/Element/A)[[target=_blank]].",
         "src": "Source URL.",
         "arrayValue": "Same as native `value`. It is used with `v-model` of an array type.",
         "label": "Same as native `label`.",
@@ -135,7 +139,14 @@
         "icon": "Sets an icon.",
         "rounded": "Adds rounded corners.",
         "flat": "Removes borders and background.",
-        "outline": "Removes background."
+        "outline": "Removes background.",
+        "gradient": "Adds a background gradient.",
+        "modelValue": "The value of the `v-model` bindings.",
+        "activeButtonTextColor": "The color of the text of the active button (options supported by the theme or `HEX`).",
+        "indeterminateValue": "Overrides a state value that is not set.",
+        "borderColor": "Color css style `border` (theme supported options or `HEX`).",
+        "clearableIcon": "Sets the cleaning button icon.",
+        "tabindex": "Sets the custom `tabindex`."
       }
     },
     "VaBadge": {
@@ -632,7 +643,11 @@
         "messages": "Displays a list of messages or message if using a string",
         "error": "Sets input state to error",
         "errorMessages": "Displays a list of error messages or message if using a string",
-        "errorCount": "Number of error messages displayed"
+        "errorCount": "Number of error messages displayed",
+        "clearable": "Adds a button to reset the input field value",
+        "bordered": "Applies underscore",
+        "focused": "Applies focus style",
+        "canBeFocused": "If false, then input can not be focused using mouse or keyboard."
       },
       "events": {
         "input": "Emitted when the component needs to change the model",
@@ -720,6 +735,7 @@
         "deletableTags": "Sets ability to delete tags",
         "searchable": "Sets ability to filter option list by typing",
         "multiple": "Sets select in multiple mode",
+        "maxSelections": "Sets the maximum amount of selected options",
         "width": "Sets option list width",
         "maxHeight": "Sets option list maximum height",
         "noOptionsText": "Sets text whom displaying if list have no items",
@@ -860,11 +876,88 @@
     },
     "VaDatePicker": {
       "props": {
-        "value": "Sets the input value",
+        "modelValue": "Date, date array or date period",
         "weekDays": "Adds days to the table",
         "placeholder": "Sets input placeholder",
-        "config": "Object with settings for date picker"
+        "config": "Object with settings for date picker",
+        "monthNames": "Array of 12 month names",
+        "weekdayNames": "Array of 7 weekday names",
+        "firstWeekday": "Name of first weekday. Can be `Monday` or `Sunday`",
+        "hideWeekDays": "Hide weekday names on top of day picker",
+        "view": "This prop specify which year and month will be shown to user. Also, you can specify type and show year, month or day picker",
+        "type": "This prop will specify which value user should choose",
+        "showOtherMonths": "If `true`, other month days will be shown in day picker",
+        "highlightWeekend": "If `true` weekend will be colored",
+        "highlightToday": "If `true` today date will be colored",
+        "allowedDays": "Function that accepts date and return `false` if day is not allowed",
+        "allowedMonths": "Function that accepts date and return `false` if month is not allowed",
+        "allowedYears": "Function that accepts date and return `false` if year is not allowed",
+        "weekends": "Function that accepts date and return `true` if date is weekend",
+        "startYear": "First year that user can choose. By default is 1970",
+        "endYear": "Last year that user can choose. By default is current year plus 50 years",
+        "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
+        "mode": "Specify if picker value is single date, multiple dates or date range."
       },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "buttonPrev": "Button show previous month or year.",
+        "buttonNext": "Button show next month or year.",
+        "header": "This slot is showing year and month between header buttons.",
+        "year": "Used to change how year will be displayed in header and picker cell.",
+        "month": "Used to change how year will be displayed in header and picker cell.",
+        "weekday": "Used to change how weekday will be displayed in picker.",
+        "day": "Used to change how day will be displayed in picker cell."
+      }
+    },
+    "VaDateInput": {
+      "props": {
+        "modelValue": "Date, date array or date period",
+        "weekDays": "Adds days to the table",
+        "placeholder": "Sets input placeholder",
+        "config": "Object with settings for date picker",
+        "monthNames": "Array of 12 month names",
+        "weekdayNames": "Array of 7 weekday names",
+        "firstWeekday": "Name of first weekday. Can be `Monday` or `Sunday`",
+        "hideWeekDays": "Hide weekday names on top of day picker",
+        "view": "This prop specify which year and month will be shown to user. Also, you can specify type and show year, month or day picker",
+        "type": "This prop will specify which value user should choose",
+        "showOtherMonths": "If `true`, other month days will be shown in day picker",
+        "highlightWeekend": "If `true` weekend will be colored",
+        "highlightToday": "If `true` today date will be colored",
+        "allowedDays": "Function that accepts date and return `false` if day is not allowed",
+        "allowedMonths": "Function that accepts date and return `false` if month is not allowed",
+        "allowedYears": "Function that accepts date and return `false` if year is not allowed",
+        "weekends": "Function that accepts date and return `true` if date is weekend",
+        "startYear": "First year that user can choose. By default is 1970",
+        "endYear": "Last year that user can choose. By default is current year plus 50 years",
+        "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
+        "mode": "Specify if picker value is single date, multiple dates or date range.",
+
+        "format": "Function that accepts picker value and should transform it to text for input",
+        "isOpen": "Value for dropdown. If `true`, then dropdown is shown",
+        "resetOnClose": "If true, range value will be reset to previous valid value",
+
+
+        "label": "Sets input label",
+        "mask": "Sets input mask if using as string or options for mask",
+        "color": "Sets input color",
+        "removable": "Adds an button that clears the value",
+        "tabindex": "Sets input tabindex",
+        "returnRaw": "Sets possibility to return raw value",
+        "autosize": "Sets textarea possibility to grow up automatically",
+        "minRows": "Minimal count of lines",
+        "maxRows": "Maximum count of lines",
+        "rules": "Accepts an array of functions that take an input value as an argument and return either true / false or a string with an error message",
+        "disabled": "Disable the input",
+        "readonly": "Puts input in readonly state",
+        "success": "Sets input state to success",
+        "messages": "Displays a list of messages or message if using a string",
+        "error": "Sets input state to error",
+        "errorMessages": "Displays a list of error messages or message if using a string",
+        "errorCount": "Number of error messages displayed"
+      },
+
       "events": {},
       "methods": {},
       "slots": {}
@@ -945,6 +1038,10 @@
       "wip": {
         "text": "wip",
         "title": "Work In Progress"
+      },
+      "new": {
+        "text": "new",
+        "title": "Recently added"
       }
     },
     "categories": {
@@ -1006,6 +1103,7 @@
     "colorSlider": "Color Slider",
     "colorPalette": "Color Palette",
     "datePicker": "Date Picker",
+    "dateInput": "Date Input",
     "buttonGroup": "Button Group",
     "buttonToggle": "Button Toggle",
     "buttonDropdown": "Button Dropdown",
@@ -1051,7 +1149,7 @@
     "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
     "introduction": {
       "title": "Introduction",
-      "description": "Instead of using the established documentation system, such as [vue-press](https://vuepress.vuejs.org/) or [docsify](https://docsify.js.org/#/), we’ve decided to create a system specifically tailored for Vuestic. It’s meant to provide excellent flexibility for future growth."
+      "description": "Instead of using the established documentation system, such as [vue-press](https://vuepress.vuejs.org/)[[target=_blank]] or [docsify](https://docsify.js.org/#/)[[target=_blank]], we’ve decided to create a system specifically tailored for Vuestic. It’s meant to provide excellent flexibility for future growth."
     },
     "pageConfig": {
       "title": "Page Config",
@@ -1061,19 +1159,23 @@
     "blocktypes": {
       "title": {
         "title": "Title",
-        "text": "Page title is mandatory for documentation pages."
+        "text": "Page title is mandatory for documentation pages.",
+        "example": "Title (example)"
       },
       "subtitle": {
         "title": "Subtitle",
-        "text": "Used for: Examples, API, FAQ. Think `h2`."
+        "text": "Used for: Examples, API, FAQ. Think `h2`.",
+        "example": "Subtitle (example)"
       },
       "headline": {
         "title": "Headline",
-        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`."
+        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`.",
+        "example": "Headline (example)"
       },
       "paragraph": {
         "title": "Paragraph",
-        "text": "Should be used for all non-special text blocks."
+        "text": "Should be used for all non-special text blocks. For links to external resources, you can specify the **target** attribute in markdown markup as follows: `[name](href)[[target=_blank]]`.",
+        "example": "Paragraph (example). Link in the text leading to an external resource: [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)[[target=_blank]]."
       },
       "list": {
         "title": "List",
@@ -1084,7 +1186,7 @@
       },
       "code": {
         "title": "Code",
-        "text": "Code preview. We use [prism](https://prismjs.com/)."
+        "text": "Code preview. We use [prism](https://prismjs.com/)[[target=_blank]]."
       },
       "example": {
         "title": "Example",
@@ -1093,6 +1195,21 @@
       "api": {
         "title": "API",
         "text": "API documentation for component. Combines component options with manual declarations."
+      },
+      "table": {
+        "title": "Table",
+        "text": "Used to display table data."
+      },
+      "link": {
+        "title": "Link",
+        "text": "Used for relative (local) links processed by router (with *options* and without them).",
+        "exampleWithOptions": "Link with options (example)",
+        "example": "Link (example)"
+      },
+      "alert": {
+        "title": "Alert",
+        "text": "Used to display an important message.",
+        "example": "Alert (example)"
       }
     },
     "apiOptionsTitle": "API Options",
@@ -1100,7 +1217,6 @@
       "text": "With automated code analysis we can't go too far. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
       "version": "`version` - specifies at which version of vuestic this component or feature were implemented.",
       "types": "`types` - simpler prop types documentation engine can figure from component options (`String`, `Number` etc). For almost everything else it has to be defined.",
-      "local": "`local` - forces to use component-specific translation. Default behaviour is using 'all' section of the translation object.",
       "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. As some props could be intended for internal use."
     }
   },
@@ -1707,7 +1823,7 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": "This is default `va-card` implementation using `va-card-title` and `va-card-content` helper components."
+        "text": "This is default `va-card` implementation using `va-card-title`, `va-card-content` and `va-card-actions` helper components."
       },
       "tag": {
         "title": "Tag",
@@ -1727,6 +1843,15 @@
       },
       "colorAndGradient": {
         "title": "Color and gradient"
+      },
+      "image": {
+        "title": "Image"
+      },
+      "actions": {
+        "title": "Actions",
+        "purpose": "The `VaCardActions` component is designed to apply margins and alignment to content (`VaButtons` expected).",
+        "props": "Two properties can be passed: `align` (**string**, specify how to align actions) and `vertical` (**boolean**, display actions one below the other).",
+        "values": "Valid values for `align`: left, center, right, between, around, stretch."
       }
     },
     "faq": {
@@ -1903,7 +2028,7 @@
   },
   "progressBar": {
     "title": "Progress Bar",
-    "summaryText": "The `va-progress-bar` component is used to display an indicator of an app loading content. Also check the <a href=\"/en/progress-circle\">va-progress-circle</a> component.",
+    "summaryText": "The `va-progress-bar` component is used to display an indicator of an app loading content. Also check the [va-progress-circle](/ui-elements/progress-circle) component.",
     "examples": {
       "default": {
         "title": "Default",
@@ -1933,7 +2058,7 @@
   },
   "progressCircle": {
     "title": "Progress Circle",
-    "summaryText": "The `va-progress-circle` component is used to display an indicator of an app loading content. Also check the <a href=\"/en/progress-bar\">va-progress-bar</a> component.",
+    "summaryText": "The `va-progress-circle` component is used to display an indicator of an app loading content. Also check the [va-progress-bar](/ui-elements/progress-bar) component.",
     "examples": {
       "default": {
         "title": "Default",
@@ -2009,7 +2134,7 @@
       },
       "mask": {
         "title": "Mask",
-        "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/). By default returning a raw value."
+        "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. By default returning a raw value."
       },
       "styles": {
         "title": "Styles",
@@ -2061,7 +2186,7 @@
   },
   "icon": {
     "title": "Icon",
-    "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons).",
+    "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Default",
@@ -2207,7 +2332,7 @@
   },
   "grid": {
     "title": "Grid System",
-    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
+    "summaryText": "We give you helper classes for flex grid. For [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)[[target=_blank]] - we don't. That doesn't mean you *have* to use flex grid, just that CSS grid doesn't benefit from helper classes. But it remains a powerful tool.",
     "examples": {
       "default": {
         "title": "Enabling flexbox"
@@ -2354,7 +2479,7 @@
       "default": "Default select",
       "variations": {
         "title": "Variants",
-        "text": "Includes single or multiple selects"
+        "text": "Includes single or multiple selects."
       },
       "decorators": "Decorators",
       "objectOptions": {
@@ -2382,7 +2507,7 @@
       },
       "allowCreate": {
         "title": "Allow create",
-        "text": "You can add options that initial options not contain"
+        "text": "You can add options that initial options do not have"
       },
       "validation": {
         "title": "Validation rules",
@@ -2392,7 +2517,7 @@
         "title": "Keyboard navigation",
         "moves": "By using `ARROW DOWN` and `ARROW UP` you can move between options",
         "selects": "By using `ENTER` and `SPACE` you can select current option",
-        "hints": "If you start typing on opened option list it will create a search buffer (will be reset when a new key is not typed for 1 second) that will be used to search in the options labels"
+        "hints": "If you type while option list is opened this will create a search buffer (will reset if you do not type for 1 second) that will be used to search in the options labels"
       },
       "styles": {
         "title": "Styles",
@@ -2439,12 +2564,12 @@
       "title": "Reset features",
       "info": "Below is a list of features that are provided by reset.scss:",
       "list": "* Margin and padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix for newer browsers. \n * HTML5 display-role reset for older browsers",
-      "more": "For a complete list of all applied styles, see the [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-sass/global/reset.scss) stylesheet."
+      "more": "For a complete list of all applied styles, see the [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-sass/global/reset.scss)[[target=_blank]] stylesheet."
     }
   },
   "colorPicker": {
     "title": "Color Picker",
-    "summaryText": "A component which helps to pick the color. We use the [vue-color](https://github.com/xiaokaike/vue-color) library for this component. Will be replaced in next versions.",
+    "summaryText": "A component which helps to pick the color. We use the [vue-color](https://github.com/xiaokaike/vue-color)[[target=_blank]] library for this component. Will be replaced in next versions.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -2512,48 +2637,75 @@
   },
   "datePicker": {
     "title": "Date Picker",
-    "description": "Work in progress.",
+    "description": "Date picker component allows user to select single, multiple or range of dates, months and years. You can customize it the way you want. There is a option to change all string and formats.\n\nIt based on native js dates so you can use this Date Picker with any date library you want.",
     "summaryText": "Input component for data selection.",
+    "lookAtDateInput": "Also, look at Date Input",
     "examples": {
       "default": {
         "title": "Basic usage",
         "text": "By default, use this component with v-model."
       },
-      "placeholder": {
-        "title": "Placeholder",
-        "text": "You can set the input component placeholder."
+      "mode": {
+        "title": "Mode",
+        "text": "You can use date picker in three different ways. By default date picker uses `auto` mode. This means that `mode` will be chosen based on `modelValue`. There is three modes: `single`, `multiple` and `range`. Different modes require different model values."
       },
-      "weekDays": {
-        "title": "Days of the week",
-        "text": "Passing `week-days` shows weekdays in picker."
+      "stateful": {
+        "title": "Stateful",
+        "text": "Date picker can be stateful. Initial value will be undefined, but user can change it."
       },
-      "successError": {
-        "title": "Success & Error",
-        "text": "You can apply success and error styles."
+      "firstWeekday": {
+        "title": "First day of the week",
+        "text": "If you want to always use Monday as the first day of the week, you can set this prop in GlobalConfig."
       },
-      "disabled": {
-        "title": "Disabled",
-        "text": "You can apply disabled styles and disable interaction with the component."
+      "weekends": {
+        "title": "Weekends",
+        "text": "You can highlight weekends using `highlight-weekends` prop. Also, you can set your own weekends using `weekends` function."
       },
-      "disabledDays": {
-        "title": "Disabled days",
-        "text": "You can provide a config object with a `disable` property to disable the array of days."
+      "otherMonths": {
+        "title": "Other month days",
+        "text": "You can show days of other months using `show-other-months` prop instead of blank cells in calendar."
       },
-      "range": {
-        "title": "Range",
-        "text": "You can provide a config object with a `mode: range` property to add the ability to set a date range."
+      "slots": {
+        "title": "Slots",
+        "text": "For now, we don't support localization using one prop. But you have opportunity to localize it by yourself using slots."
       },
-      "dayTime": {
-        "title": "Day time",
-        "text": "You can provide a config object with an `enableTime` property to add the ability to set a time."
+      "view": {
+        "title": "View",
+        "text": "You can set specific view for date picker. With `view` prop you can define how date picker will displayed, year and month that will be shown."
       },
-      "multiple": {
-        "title": "Multiple",
-        "text": "You can provide a config object with an `mode: multiple` property to add the ability to select multiple dates."
+      "type": {
+        "title": "Type",
+        "text": "If you want allow user to pick only month or year, you can make it using `type` prop."
       },
-      "inline": {
-        "title": "Inline",
-        "text": "You can provide a config object with an `inline` property to add the ability to select multiple dates."
+      "disabledDates": {
+        "title": "Disable dates",
+        "text": "You can disable some specific days, month or year using `allowedDays`, `allowedMonth` or `allowedYear` props."
+      },
+      "colors": {
+        "title": "Colors",
+        "text": "You can change colors using CSS variables for deeper customization, but also you can simple change colors using props."
+      }
+    }
+  },
+  "dateInput": {
+    "title": "Date Input",
+    "description": "Date Input component is a combination of Date Picker and Input components. You can find usage examples using following links:",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": ""
+      },
+      "resetOnClose": {
+        "title": "Reset on close",
+        "text": "There is a prop `resetOnClose` for range mode. If user selected incomplete range and closed dropdown, then used last complete value."
+      },
+      "isOpen": {
+        "title": "IsOpen",
+        "text": "IsOpen prop allows you to force show dropdown as opened."
+      },
+      "formatting": {
+        "title": "Formatting",
+        "text": "You can pass the format function to VaDateInput which will format input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)"
       }
     }
   },
@@ -2674,8 +2826,8 @@
     "description": "Get started with Vuestic UI to create feature-rich and user-friendly apps thanks to our highly configurable framework. We’ve simplified the installation process as much as possible to save you extra effort. Installation is possible in a few ways",
     "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
     "prerequisites": "First, make sure you have all prerequisites installed:",
-    "node": "<a href=\"https://nodejs.org/en/\">Node.js</a> ( >=14.*)",
-    "npm": "<a href=\"https://www.npmjs.com/get-npm\">npm</a> version 3+ ( or <a href=\"https://yarnpkg.com/lang/en/docs/install\">yarn</a> version 1.16+) and <a href=\"https://git-scm.com/\">Git</a>.",
+    "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] ( >=14.*)",
+    "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] version 3+ (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] version 1.16+) and [Git](https://git-scm.com/)[[target=_blank]]",
     "afterCheck": "After checking the prerequisites, install Vuestic UI via npm/yarn:",
     "fonts": {
       "title": "Fonts installation",
@@ -2689,8 +2841,8 @@
     },
     "cli": {
       "title": "Vue CLI installation",
-      "prepare": "Before install make sure [Vue CLI](https://cli.vuejs.org/guide/installation.html) is installed globally and has version 4+:",
-      "upgrade": "Here is a [guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3) for Vue CLI version 3 to help you update your app",
+      "prepare": "Before install make sure [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] is installed globally and has version 4+:",
+      "upgrade": "Here is a [guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] for Vue CLI version 3 to help you update your app",
       "description": "An easy way if you use the Vue-CLI setup or you want to try out Vuestic UI on a fresh project",
       "attention": "Vuestic UI installation will modify package.json and main.js(ts) files. Make sure you’ve committed your code before installing it to avoid data loss",
       "codeAnnotation": "Then install Vuestic UI as a Vue-CLI plugin:"
@@ -2728,7 +2880,7 @@
     },
     "0-1": {
       "title": "v0.1",
-      "description": "Not even alpha, we've just split components from [vuestic-admin](https://github.com/epicmaxco/vuestic-admin) into separate repository to simplify updates."
+      "description": "Not even alpha, we've just split components from [vuestic-admin](https://github.com/epicmaxco/vuestic-admin)[[target=_blank]] into separate repository to simplify updates."
     },
     "released": {
       "title": "Released",
@@ -2775,12 +2927,12 @@
       "action": "To solve that problem - in your `main.js` add:",
       "result": "Now your buttons will look like this:",
       "example": "You can globally configure any props for Vuestic UI components similarly.",
-      "more": "If your customization runs deeper - you may override [css variables](https://vuestic.dev/en/styles/css-variables#overriding) or class properties directly (components use BEM, so selectors are easy to guess)."
+      "more": "If your customization runs deeper - you may override [css variables](/styles/css-variables#overriding) or class properties directly (components use BEM, so selectors are easy to guess)."
     }
   },
   "browserSupport": {
     "title": "Browser Support",
-    "description": "We design Vuestic UI to be future proof. That's why we support modern browsers, but some old browsers, such as IE had to go, sorry. That decision was influenced by [dropped support in Vue 3](https://github.com/vuejs/rfcs/discussions/296) and [falling usage rate](https://caniuse.com/usage-table).",
+    "description": "We design Vuestic UI to be future proof. That's why we support modern browsers, but some old browsers, such as IE had to go, sorry. That decision was influenced by [dropped support in Vue 3](https://github.com/vuejs/rfcs/discussions/296)[[target=_blank]] and [falling usage rate](https://caniuse.com/usage-table)[[target=_blank]].",
     "table": {
       "browser": "Browser",
       "supported": "Supported"
@@ -2846,7 +2998,7 @@
         "dontSubmitToMaster": "**Do not submit PRs against the `master` branch.**",
         "checkoutFeat": "Checkout a `feat/` branch from `develop`, then create pull request against that branch.",
         "multipleSmallCommits": "It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.",
-        "fixBugSteps": "If fixing a bug:\n  * If you are resolving a special issue, add `close #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github [will close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
+        "fixBugSteps": "If fixing a bug:\n  * If you are resolving a special issue, add `close #xxxx[,#xxx]` (#xxxx is the issue id) to the PR description so that github [will close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)[[target=_blank]] the issue once it's up on `master`.\n  * Provide detailed description of the bug in the PR if it's not done in the issue."
       }
     },
     "branches": {
@@ -2867,10 +3019,10 @@
       "smallIssues": "For small issues you may push to `develop` branch directly while adding (`close #123`) to commit message.",
       "singlePrPerIssue": "Create single PR for one issue. If we have several PRs - move all the code into a single one and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
       "onePersonPerIssue": "Be sure to have only one person assigned per issue.",
-      "checkYourCode": "Check your code: [conventions](../packages/old-docs/conventions.md).",
-      "weUseYarn": "We use [yarn](https://yarnpkg.com/lang/en/) for package management.",
+      "checkYourCode": "Check your code: [conventions](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md)[[target=_blank]].",
+      "weUseYarn": "We use [yarn](https://yarnpkg.com/lang/en/)[[target=_blank]] for package management.",
       "beProactive": "Be proactive. If you think something is wrong - create an issue or discuss.",
-      "recommendedTools": "Recommended tools: [GitKraken](https://www.gitkraken.com/), [WebStorm](https://www.jetbrains.com/webstorm/), [ShareX](https://getsharex.com/).",
+      "recommendedTools": "Recommended tools: [GitKraken](https://www.gitkraken.com/)[[target=_blank]], [WebStorm](https://www.jetbrains.com/webstorm/)[[target=_blank]], [ShareX](https://getsharex.com/)[[target=_blank]].",
       "workInBook": "If you work on UI components - work in book environment (`yarn serve:book`). We want to keep global stuff out of components."
     },
     "componentFolderStructure": {
@@ -2885,7 +3037,7 @@
     },
     "credits": {
       "title": "Credits",
-      "description": "<a href=\"https://github.com/epicmaxco/vuestic-ui/graphs/contributors\">Hall of fame!</a>"
+      "description": "[Hall of fame!](https://github.com/epicmaxco/vuestic-ui/graphs/contributors)[[target=_blank]]"
     }
   },
   "globalConfig": {
@@ -2910,7 +3062,7 @@
   },
   "iconsConfig": {
     "title": "Icons config",
-    "about": "By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons). If you want to use other font libraries you can configure VaIcon to use them.",
+    "about": "By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure VaIcon to use them.",
     "readMore": "Read more",
     "readBeforeStart": "Read about icons component",
     "example": "Example",
@@ -2946,7 +3098,7 @@
     },
     "setup": {
       "title": "Let's build our config",
-      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Veustic defaults and our custom fonts and aliases. For example:"
+      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Vuestic defaults and our custom fonts and aliases. For example:"
     },
     "api": {
       "title": "Icon config API",
@@ -3013,19 +3165,19 @@
       "getHoverColor": "Return color that you can use as hover color.",
       "getFocusColor": "Return color that you can use as focus color.",
       "getGradientBackground": "Return color that you can use as background css attribute.",
-      "hookMethods": "hook methods"
+      "hookMethods": "useColors hook methods"
     }
   },
   "cssVariables": {
     "title": "Css Variables",
-    "description": "Vuestic UI extracts css as [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). No need to install any loaders or additional packages to override components styles. You can deeply customize components by using simple syntax to change css in your project.",
+    "description": "Vuestic UI extracts css as [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)[[target=_blank]]. No need to install any loaders or additional packages to override components styles. You can deeply customize components by using simple syntax to change css in your project.",
     "convention": {
       "title": "Convention",
       "description": "Vuestic UI uses the following convention to organize CSS Variables for more convenient use:"
     },
     "overriding": {
       "title": "Overriding",
-      "description": "You don't need any specific knowledges or packages. Just create file like `overrides.css`, import it into your main.js(ts) file and start redefining as easy as you write css properties:"
+      "description": "You don't need any specific knowledge or packages. Just create file like `overrides.css`, import it into your main.js(ts) file and start redefining as easy as you write css properties:"
     }
   },
   "navbar": {
@@ -3134,24 +3286,12 @@
     "title": "Typography",
     "description": "Vuestic UI uses the following typography styling",
     "headings": "Headings",
-    "display1": "`class=\"display-1\"`",
-    "display2": "`class=\"display-2\"`",
-    "display3": "`class=\"display-3\"`",
-    "display4": "`class=\"display-4\"`",
-    "display5": "`class=\"display-5\"`",
-    "titled": "`class=\"title\"`",
+    "affected": "Affected",
     "primary": "Default text style",
-    "secondary": "`class=\"text--secondary\"`",
-    "codeSnippet": "`class=\"code-snippet\"`",
-    "textCode": "`class=\"text--code\"`",
     "other": "Other typography styles",
-    "orderedLists": "`class=\"va-ordered\"`",
-    "unorderedLists": "`class=\"va-unordered\"`",
-    "link": "`class=\"link\"`",
-    "linkSecondary": "`class=\"link-secondary\"`",
-    "textHighlighted": "`class=\"text--highlighted\"`",
-    "blockquote": "`class=\"va-blockquote\"`",
-    "textBlock": "`class=\"text-block\"`"
+    "lists": "Lists",
+    "links": "Links",
+    "otherElements": "Other elements"
   },
   "ag-grid-wrapper": {
     "title": "AG Grid wrapper",
@@ -3171,7 +3311,7 @@
     "highLevelStrategy": {
       "title": "High Level Strategy",
       "description": {
-        "userExpectations": "Components should be as user expects them to be. We achieve that by checking refs ([Vuetify](https://vuetifyjs.com), [Quasar](https://quasar.dev), [Ant Design](https://ant.design), [iView](http://iview.talkingdata.com), [Element UI](https://element.eleme.io), etc.).",
+        "userExpectations": "Components should be as user expects them to be. We achieve that by checking refs ([Vuetify](https://vuetifyjs.com)[[target=_blank]], [Quasar](https://quasar.dev)[[target=_blank]], [Ant Design](https://ant.design)[[target=_blank]], [iView](http://iview.talkingdata.com)[[target=_blank]], [Element UI](https://element.eleme.io)[[target=_blank]], etc.).",
         "qualityComponents": "Components should be of high quality. We achieve that by manually testing edge cases + refactoring early."
       }
     },
@@ -3180,7 +3320,7 @@
       "description": {
         "visualFeedback": "**Visual feedback** - When user interacts with component they should see result of their actions (could be implemented with :active selector or somehow else depending on case).",
         "keyboardNavigation": "**Keyboard navigation** - You must ensure that UI elements are keyboard accessible, and you must disable this functionality for elements that should not receive keyboard focus.",
-        "statelessSupport": "**Stateless support** (read about [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md))."
+        "statelessSupport": "**Stateless support** (read about [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
   }

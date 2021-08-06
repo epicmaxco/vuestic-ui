@@ -8,7 +8,7 @@ import {
 } from 'vue'
 import { PropOptions } from 'vue-class-component'
 
-import { useLocalConfig } from '../../components/vuestic-components/va-config/VaConfig'
+import { useLocalConfig } from '../../components/va-config/VaConfig'
 import { useGlobalConfig } from '../global-config/global-config'
 import { getLocalConfigWithComponentProp } from './createConfigValueGetter'
 import { ComponentConfig } from '../component-config/component-config'

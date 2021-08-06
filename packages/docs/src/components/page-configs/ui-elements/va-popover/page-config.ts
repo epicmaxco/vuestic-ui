@@ -1,4 +1,4 @@
-import VaPopover from 'vuestic-ui/src/components/vuestic-components/va-popover/VaPopover.vue'
+import VaPopover from 'vuestic-ui/src/components/va-popover/VaPopover.vue'
 import apiOptions from './api-options'
 import { BlockType, ApiDocsBlock } from '@/types/configTypes'
 
