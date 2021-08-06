@@ -28,7 +28,7 @@ import Preview from '@/components/landing/Preview.vue'
 import Admin from '@/components/landing/Admin.vue'
 import Footer from '@/components/landing/Footer.vue'
 import OpenSource from '@/components/landing/OpenSource.vue'
-import Seamless from '@/components/landing/Seamless.vue'
+import Seamless from '@/components/landing/Seamless/Seamless.vue'
 import Customize from '@/components/landing/Customize.vue'
 
 @Options({
