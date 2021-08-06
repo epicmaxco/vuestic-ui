@@ -28,3 +28,21 @@ export const VuesticPlugin = {
     app.use(ColorHelpersPlugin)
   },
 }
+
+export const VuesticPluginsWithoutComponents = {
+  install (app: App, vuesticConfig: GlobalConfig): void {
+    app.use(DropdownPopperSubplugin)
+
+    app.use(ToastInstall)
+
+    app.use(GlobalConfigPlugin, vuesticConfig)
+
+    app.use(ColorHelpersPlugin)
+  },
+}
+
+export { GlobalConfigPlugin } from '../services/global-config/global-config-plugin'
+export { default as ColorHelpersPlugin } from '../services/color-config/color-css-variables-updater'
+export { default as ToastInstall } from '../components/va-toast/install'
+export { default as DropdownPopperSubplugin }
+  from '../components/va-dropdown/dropdown-popover-subplugin'
