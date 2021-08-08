@@ -1,6 +1,6 @@
 {
   "name": "vuestic-ui",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/cjs/main.js",
