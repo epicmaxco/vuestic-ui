@@ -156,7 +156,7 @@ import { useGlobalConfig } from '../../services/global-config/global-config'
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { useColors } from '../../services/color-config/color-config'
 import VaButton from '../va-button'
-import { computed, watchEffect } from '@vue/runtime-core'
+import { computed, watchEffect } from 'vue'
 // import VaBadge from '../va-badge'
 
 // import ConfigUsageTest from './ConfigUsageTest.vue'

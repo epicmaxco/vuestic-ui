@@ -2847,6 +2847,27 @@
       "attention": "Vuestic UI installation will modify package.json and main.js(ts) files. Make sure you’ve committed your code before installing it to avoid data loss",
       "codeAnnotation": "Then install Vuestic UI as a Vue-CLI plugin:"
     },
+    "treeShaking": {
+      "title": "Tree shaking",
+      "description": "If you want to include only few components to your application and reduce bundle size, you can use vuestic ESM build. Webpack (vue-cli) and Vite do this automaticly.",
+      "example": {
+        "title": "First, you don't need to use `VuesticPlugin`, because it globally register all `vuestic` components. You can import specific components from `vuestic-ui` package.",
+        "footer": "Or you can import them directly in your `.vue` files instead of register them globally."
+      },
+      "plugins": {
+        "title": "Also, you need to register vuestic plugins by yourself. All plugins are recommended to use. Here is a list of them:",
+        "GlobalConfigPlugin": "GlobalConfigPlugin - used for `VaConfig` component and global props reassign. [Read more](/services/global-config).",
+        "ToastInstall": "ToastInstall - used by `VaToast` component.",
+        "ColorHelpersPlugin": "ColorHelpersPlugin - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
+        "DropdownPopperSubplugin": "DropdownPopperSubplugin - used by `VaDropdown` component.",
+        "example": {
+          "title": "You can use `VuesticPluginsWithoutComponents` to register this plugins."
+        }
+      },
+      "attention": {
+        "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
+      }
+    },
     "nuxt": {
       "title": "Nuxt installation",
       "description": "Vuestic UI can be added by adding plugin after installation. Create plugin and include it into `nuxt.config.js`:"

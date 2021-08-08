@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { watch } from '@vue/runtime-core'
+import { watch } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
 
 class ImageProps {

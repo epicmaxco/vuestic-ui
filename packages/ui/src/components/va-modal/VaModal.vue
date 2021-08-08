@@ -82,7 +82,7 @@
 <script lang="ts">
 import { watch, h, Transition } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
-import { noop } from 'lodash'
+import { noop } from 'lodash-es'
 
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'

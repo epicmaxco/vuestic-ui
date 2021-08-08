@@ -9,7 +9,7 @@ import ColorHelpersPlugin from '../services/color-config/color-css-variables-upd
 import { GlobalConfig } from '../services/global-config/global-config'
 import { GlobalConfigPlugin } from '../services/global-config/global-config-plugin'
 
-import { vuesticComponentMap } from './vuestic-components'
+import * as vuesticComponentMap from './vuestic-components'
 
 installPlatform()
 
