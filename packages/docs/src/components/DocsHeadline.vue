@@ -22,11 +22,11 @@ const PropsMixin = Vue.with(Props)
 })
 export default class DocsHeadline extends mixins(PropsMixin) {
   get textComputed () {
-    return this.$t(this.text)
+    return (this as any).$tie(this.text)
   }
 
   get linkTextComputed () {
-    return this.$t(this.text, 'en')
+    return (this as any).$tie(this.text, 'en')
   }
 }
 </script>

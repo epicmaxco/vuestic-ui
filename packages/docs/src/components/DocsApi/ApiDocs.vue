@@ -25,7 +25,7 @@
                 <strong>{{ apiPropOption.name }}</strong>
               </td>
               <td>
-                <MarkdownView :value="$t(apiPropOption.description)" />
+                <MarkdownView :value="$tie(apiPropOption.description)" />
               </td>
               <td>
                 <MarkdownView :value="apiPropOption.types" />
@@ -63,7 +63,7 @@
                 <strong>{{ apiEventOption.name }}</strong>
               </td>
               <td>
-                <MarkdownView :value="$t(apiEventOption.description)" />
+                <MarkdownView :value="$tie(apiEventOption.description)" />
               </td>
               <td>
                 <MarkdownView :value="apiEventOption.types" />
@@ -99,7 +99,7 @@
                 <strong>{{ apiSlotOption.name }}</strong>
               </td>
               <td>
-                <MarkdownView :value="$t(apiSlotOption.description)" />
+                <MarkdownView :value="$tie(apiSlotOption.description)" />
               </td>
               <td>
                 <pre>{{ apiSlotOption.version }}</pre>
@@ -133,7 +133,7 @@
                 <strong>{{ apiMethodOption.name }}</strong>
               </td>
               <td>
-                <MarkdownView :value="$t(apiMethodOption.description)" />
+                <MarkdownView :value="$tie(apiMethodOption.description)" />
               </td>
               <td>
                 <MarkdownView :value="apiMethodOption.types" />

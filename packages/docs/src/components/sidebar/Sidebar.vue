@@ -15,7 +15,7 @@
               'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
           >
-            {{ $t(route.displayName) }}
+            {{ $tie(route.displayName) }}
             <va-icon :name="value ? 'expand_less' : 'expand_more'" />
           </div>
         </template>
@@ -29,7 +29,7 @@
               class="va-sidebar__child__label"
               color="gray"
             >
-              {{ $t(childRoute.category) }}
+              {{ $tie(childRoute.category) }}
           </va-list-label>
           <va-sidebar-item
             :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
@@ -42,15 +42,15 @@
           >
             <va-sidebar-item-content>
               <va-sidebar-item-title>
-                {{ $t(childRoute.displayName) }}
+                {{ $tie(childRoute.displayName) }}
               </va-sidebar-item-title>
               <div class="va-sidebar-item-badges" v-if="childRoute.meta && childRoute.meta.badge">
                 <va-chip
                   size="small"
                   :color="badgeColors[childRoute.meta.badge]"
-                  :title="$t(`menu.badges.${childRoute.meta.badge}.title`)"
+                  :title="$tie(`menu.badges.${childRoute.meta.badge}.title`)"
                 >
-                  {{ $t(`menu.badges.${childRoute.meta.badge}.text`) }}
+                  {{ $tie(`menu.badges.${childRoute.meta.badge}.text`) }}
                 </va-chip>
               </div>
             </va-sidebar-item-content>

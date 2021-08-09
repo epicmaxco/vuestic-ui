@@ -22,7 +22,7 @@
       <MarkdownView
         v-else-if="block.type === BlockType.TITLE"
         :key="block.type + index"
-        :value="`# ${$t(block.translationString)}`"
+        :value="`# ${$tie(block.translationString)}`"
       />
       <DocsSubtitle
         v-else-if="block.type === BlockType.SUBTITLE"
@@ -37,12 +37,12 @@
       <MarkdownView
         v-else-if="block.type === BlockType.PARAGRAPH"
         :key="block.type + index"
-        :value="`${$t(block.translationString)}`"
+        :value="`${$tie(block.translationString)}`"
       />
       <MarkdownView
         v-else-if="block.type === BlockType.LIST"
         :key="block.type + index"
-        :value="`${block.translationStringList.map(translationString=>'- ' + $t(translationString))
+        :value="`${block.translationStringList.map(translationString=>'- ' + $tie(translationString))
                                               .join('\n')}`"
       />
       <DocsTable
