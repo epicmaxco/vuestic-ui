@@ -933,12 +933,11 @@
         "endYear": "Last year that user can choose. By default is current year plus 50 years",
         "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
         "mode": "Specify if picker value is single date, multiple dates or date range.",
-
+        "clearable": "Adds a button to reset the input field value",
         "format": "Function that accepts picker value and should transform it to text for input",
         "isOpen": "Value for dropdown. If `true`, then dropdown is shown",
         "resetOnClose": "If true, range value will be reset to previous valid value",
-
-
+        "bordered": "Applies underscore",
         "label": "Sets input label",
         "mask": "Sets input mask if using as string or options for mask",
         "color": "Sets input color",
@@ -2705,7 +2704,11 @@
       },
       "formatting": {
         "title": "Formatting",
-        "text": "You can pass the format function to VaDateInput which will format input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)"
+        "text": "You can pass the format function to VaDateInput which will format input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]]"
+      },
+      "inputProps": {
+        "title": "Input props",
+        "text": "You can pass properties to `VaDateInput`"
       }
     }
   },
