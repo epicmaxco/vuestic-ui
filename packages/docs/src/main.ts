@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { router } from './router'
-import { DEFAULT_LANGUAGE } from './locales'
 import { i18n } from './locales/i18n'
 
 // plugin to change algolia colors according docs theme
@@ -24,13 +23,3 @@ useGtag(app, router)
 useTranslateIfExists(app)
 
 app.mount('#app')
-
-// Update i18n locale if needed.
-router.beforeEach((to) => {
-  const newLocale = to.params.locale as string || DEFAULT_LANGUAGE
-  const currentLocale = i18n.global.locale
-
-  if (newLocale === currentLocale) { return }
-
-  i18n.global.locale = newLocale
-})
