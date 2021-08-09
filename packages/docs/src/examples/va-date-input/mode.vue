@@ -1,5 +1,5 @@
 <template>
-  <div class="layout gutter--md row">
+  <div class="flex row">
     <div class="flex">
       <h6>Single mode</h6>
       <va-date-input mode="single" v-model="single" />
