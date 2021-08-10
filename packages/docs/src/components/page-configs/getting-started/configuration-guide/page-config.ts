@@ -28,7 +28,7 @@ app.use(VuesticPlugin, {
 
 const iconsInstall = `
 yarn add material-design-icons-iconfont -D
-// or
+// $t('all.code.or')
 npm install material-design-icons-iconfont -D
 `
 
@@ -95,7 +95,7 @@ export default [
 
   DocsHelper.subtitle('configurationGuide.icons.title'),
   DocsHelper.paragraph('configurationGuide.icons.description'),
-  DocsHelper.code(iconsInstall),
+  DocsHelper.code(iconsInstall, 'bash'),
   DocsHelper.headline('configurationGuide.icons.subtitle'),
   DocsHelper.paragraph('configurationGuide.icons.subDescription'),
   DocsHelper.code(iconsConfig),
