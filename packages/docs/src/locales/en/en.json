@@ -1137,7 +1137,13 @@
   "all": {
     "examples": "Examples",
     "api": "API",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "code": {
+      "or": "or"
+    },
+    "examplesTexts": {
+      "button": "Your button"
+    }
   },
   "docsExample": {
     "showCode": "Show Code"
