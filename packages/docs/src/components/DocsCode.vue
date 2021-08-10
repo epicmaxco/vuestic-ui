@@ -1,5 +1,5 @@
 <template>
-  <VuePrismComponent class="DocsCode" :language="language">{{ formatedCode }}</VuePrismComponent>
+  <VuePrismComponent class="DocsCode" :language="language">{{ formattedCode }}</VuePrismComponent>
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
     VuePrismComponent,
   },
   computed: {
-    formatedCode () {
+    formattedCode () {
       return this.removeFirstLineBreakIfExists(this.code)
     },
   },
