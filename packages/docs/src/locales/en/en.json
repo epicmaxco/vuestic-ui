@@ -2858,19 +2858,19 @@
     },
     "treeShaking": {
       "title": "Tree shaking",
-      "description": "If you want to include only few components to your application and reduce bundle size, you can use vuestic ESM build. Webpack (vue-cli) and Vite do this automaticly.",
+      "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
       "example": {
-        "title": "First, you don't need to use `VuesticPlugin`, because it globally register all `vuestic` components. You can import specific components from `vuestic-ui` package.",
-        "footer": "Or you can import them directly in your `.vue` files instead of register them globally."
+        "title": "First, you don't need to use `VuesticPlugin` since it registers all the `vuestic` components globally. Instead, you can import specific components from the `vuestic-ui` package.",
+        "footer": "Alternatively, you can import them directly in your `.vue` files."
       },
       "plugins": {
-        "title": "Also, you need to register vuestic plugins by yourself. All plugins are recommended to use. Here is a list of them:",
-        "GlobalConfigPlugin": "GlobalConfigPlugin - used for `VaConfig` component and global props reassign. [Read more](/services/global-config).",
+        "title": "In such a case you'd also have to register Vuestic plugins by yourself. We recommend to use all of them:",
+        "GlobalConfigPlugin": "GlobalConfigPlugin - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
         "ToastInstall": "ToastInstall - used by `VaToast` component.",
         "ColorHelpersPlugin": "ColorHelpersPlugin - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
         "DropdownPopperSubplugin": "DropdownPopperSubplugin - used by `VaDropdown` component.",
         "example": {
-          "title": "You can use `VuesticPluginsWithoutComponents` to register this plugins."
+          "title": "All of these plugins are also available through the `VuesticPluginsWithoutComponents`:"
         }
       },
       "attention": {
