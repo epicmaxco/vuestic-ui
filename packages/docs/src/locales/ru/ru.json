@@ -1110,7 +1110,13 @@
   "all": {
     "examples": "Примеры",
     "api": "API",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "code": {
+      "or": "или"
+    },
+    "examplesTexts": {
+      "button": "Ваша кнопка"
+    }
   },
   "docsExample": {
     "showCode": "Показать код"

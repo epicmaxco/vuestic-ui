@@ -7,7 +7,7 @@ const config = (path: string) => {
 
 const installation = `
 npm install vuestic-ui
-// or
+// $t('all.code.or')
 yarn add vuestic-ui
 `
 
@@ -73,7 +73,7 @@ app.use(VuesticPlugin, {
 `
 
 const fontInstallationHTML = `
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 `
 
@@ -120,7 +120,7 @@ export default [
   DocsHelper.headline('installation.fonts.title'),
   DocsHelper.paragraph('installation.fonts.description'),
   DocsHelper.paragraph('installation.fonts.htmlExampleTitle'),
-  DocsHelper.code(fontInstallationHTML),
+  DocsHelper.code(fontInstallationHTML, 'html'),
   DocsHelper.paragraph('installation.fonts.cssExampleTitle'),
   DocsHelper.code(fontInstallationCSS),
 
