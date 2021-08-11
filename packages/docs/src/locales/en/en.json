@@ -3164,10 +3164,10 @@
   },
   "colorsConfig": {
     "title": "Colors config",
-    "about": "You can personalize colors that are used in our app. You can dynamically redefine colors that are used in Vuestic components. Also, you can add your own colors that we want to use in your app.",
+    "about": "You can personalize colors that are used in your app. The colors used by Vuestic components may be redefined dynamically. You can also add your own colors that you intend to use frequently in your app.",
     "example": {
-      "about": "For example, we can change the `primary` color that is used in almost all Vuestic components.",
-      "demo": "You can check the demo below and see how colors are changing all over the page."
+      "about": "For example, you can change the `primary` color that is used by almost all Vuestic components.",
+      "demo": "Pick a different primary color below and notice how the colors are changing all over the page."
     },
     "reactivity": {
       "subtitle": "Reactivity",
@@ -3175,23 +3175,23 @@
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
-      "components": "You can use your color in Components config.",
-      "icons": "Also in Icons config you can use custom color as icon color.",
-      "css": "Also CSS variables has same color variables as you define in color config that dynamically changing along with Colors config. "
+      "components": "You can use your custom colors in Components config.",
+      "icons": "As well as in Icons config.",
+      "css": "CSS-variables do also respect the color config and dynamically change their values!"
     },
     "api": {
       "title": "Icon config service API",
       "types": "Types",
-      "ColorConfig": "Object where key is color name and value is valid CSS color.",
-      "ColorInput": "Valid CSS color",
+      "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
+      "ColorInput": "A valid CSS color",
       "methods": "Methods",
       "setColors": "Used to merge new colors into config or update existing colors.",
       "getColors": "Returns current color config",
       "getColor": "Return color by name",
-      "getBoxShadowColor": "Return color that you can use as box shadow color.",
-      "getHoverColor": "Return color that you can use as hover color.",
-      "getFocusColor": "Return color that you can use as focus color.",
-      "getGradientBackground": "Return color that you can use as background css attribute.",
+      "getBoxShadowColor": "Return a color that is appropriate to be used for the `box-shadow`.",
+      "getHoverColor": "Return a color that you can use as a hover color.",
+      "getFocusColor": "Return a color that you can use as a focus color.",
+      "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
       "hookMethods": "useColors hook methods"
     }
   },
