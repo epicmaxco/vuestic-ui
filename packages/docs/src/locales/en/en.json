@@ -1151,47 +1151,47 @@
   "documentationPage": {
     "compilesTo": "Compiles to:",
     "title": "Documentation Page",
-    "description": "This page is intended for vuestic-ui contributors: it will explain how to create and modify documentation.",
+    "description": "This page is intended for Vuestic-UI contributors. It explains the ways to create and modify the documentation.",
     "introduction": {
       "title": "Introduction",
-      "description": "Instead of using the established documentation system, such as [vue-press](https://vuepress.vuejs.org/)[[target=_blank]] or [docsify](https://docsify.js.org/#/)[[target=_blank]], we’ve decided to create a system specifically tailored for Vuestic. It’s meant to provide excellent flexibility for future growth."
+      "description": "Instead of using the established documentation system, such as [vue-press](https://vuepress.vuejs.org/)[[target=_blank]] or [docsify](https://docsify.js.org/#/)[[target=_blank]], we decided to build a system specifically tailored for Vuestic. It’s meant to provide an excellent flexibility for the future growth."
     },
     "pageConfig": {
       "title": "Page Config",
-      "generate": "If you’re trying to document a component from scratch, use the `yarn generate:component` command, which will guide you through the process.",
-      "description": "Documentation has a flat structure - list of blocks. Markdown is supported in all text blocks. Here are the blocks you can use:"
+      "generate": "If your goal is to document a component from scratch, use the `yarn generate:component` command, which will guide you through the process.",
+      "description": "Translation strings are structured in a flat manner — just a list of blocks. Markdown is supported for all the text blocks. Here is the list of blocks you can use:"
     },
     "blocktypes": {
       "title": {
         "title": "Title",
-        "text": "Page title is mandatory for documentation pages.",
+        "text": "Page title is **mandatory** for documentation pages.",
         "example": "Title (example)"
       },
       "subtitle": {
         "title": "Subtitle",
-        "text": "Used for: Examples, API, FAQ. Think `h2`.",
+        "text": "Used for examples, API, FAQ. Think `h2`.",
         "example": "Subtitle (example)"
       },
       "headline": {
         "title": "Headline",
-        "text": "The block is used to mark titles of examples or to FAQ questions. Think `h3`.",
+        "text": "The `headline` block is used to mark the titles of examples and the FAQs. Think `h3`.",
         "example": "Headline (example)"
       },
       "paragraph": {
         "title": "Paragraph",
-        "text": "Should be used for all non-special text blocks. For links to external resources, you can specify the **target** attribute in markdown markup as follows: `[name](href)[[target=_blank]]`.",
+        "text": "Should be used for all the regular text blocks. For links to external resources you can specify the **target** attribute in markdown markup as follows: `[name](href)[[target=_blank]]`.",
         "example": "Paragraph (example). Link in the text leading to an external resource: [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)[[target=_blank]]."
       },
       "list": {
         "title": "List",
-        "text": "Should be used for list blocks.",
-        "inCode": "Resulting code will look like this:",
+        "text": "Should be used for lists.",
+        "inCode": "Here's the resulting markup for the code above:",
         "listExample1": "Value of list item 1",
         "listExample2": "Value of list item 2"
       },
       "code": {
         "title": "Code",
-        "text": "Code preview. We use [prism](https://prismjs.com/)[[target=_blank]]."
+        "text": "For the code previews we use [prism](https://prismjs.com/)[[target=_blank]]."
       },
       "example": {
         "title": "Example",
@@ -1199,15 +1199,15 @@
       },
       "api": {
         "title": "API",
-        "text": "API documentation for component. Combines component options with manual declarations."
+        "text": "The API-documentation for a component. Combines component options with manual declarations."
       },
       "table": {
         "title": "Table",
-        "text": "Used to display table data."
+        "text": "Used to display tabular data. Requires a flat column-definitions array and yet another two-dimensional-array with the actual cells' data."
       },
       "link": {
         "title": "Link",
-        "text": "Used for relative (local) links processed by router (with *options* and without them).",
+        "text": "Used for relative (local) links processed by the router (with *options* or without them).",
         "exampleWithOptions": "Link with options (example)",
         "example": "Link (example)"
       },
@@ -1219,10 +1219,10 @@
     },
     "apiOptionsTitle": "API Options",
     "apiOptions": {
-      "text": "With automated code analysis we can't go too far. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
-      "version": "`version` - specifies at which version of vuestic this component or feature were implemented.",
-      "types": "`types` - simpler prop types documentation engine can figure from component options (`String`, `Number` etc). For almost everything else it has to be defined.",
-      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. As some props could be intended for internal use."
+      "text": "We can't go too far with the help of automated code analysis. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots.",
+      "version": "`version` - specifies the version of Vuestic UI that this component or feature has been introduced at.",
+      "types": "`types` - the documentation engine can automatically infer simple prop types (such as `String`, `Number`, etc.) right from the component options. Almost any other type should be defined explicitly.",
+      "hidden": "`hidden` - allows you to hide the prop from the API section of the documentation page. Might become quite useful for some props which are intended for internal use solely."
     }
   },
   "avatar": {
