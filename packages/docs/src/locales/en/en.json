@@ -2995,23 +2995,23 @@
   },
   "table": {
     "title": "Tables",
-    "summaryText": "You can use the class `.va-table` for customizing styles of your tables. Here is the couple examples",
+    "summaryText": "Feature-rich Data-Tables are currently a work in progress. However, for now you can use plain `<table>`s with the `.va-table` class that would apply Vuestic-theme styles to them. Here is a couple of examples.",
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "Just add the `.va-table` to the table element."
+        "text": "Add the `.va-table` class to the `<table>` element."
       },
       "hoverable": {
         "title": "Hoverable",
-        "text": "You could add more interaction to rows via additional `.va-table--hoverable` class."
+        "text": "Highlight hovered rows with additional `.va-table--hoverable` class."
       },
       "striped": {
         "title": "Striped",
-        "text": "Striped `.va-table--striped` class colorize every second row in the table."
+        "text": "The `.va-table--striped` class colorizes each even row of the table."
       },
       "clickable": {
         "title": "Clickable",
-        "text": "To make rows look like the mouse `pointer` property add the `.va-table-clickable` class"
+        "text": "Change the cursor to `pointer` when hovering rows by adding the `.va-table--clickable` class"
       }
     }
   },
