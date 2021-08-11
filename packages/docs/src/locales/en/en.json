@@ -3089,61 +3089,61 @@
   },
   "iconsConfig": {
     "title": "Icons config",
-    "about": "By default Vuestic UI provides [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure VaIcon to use them.",
+    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them.",
     "readMore": "Read more",
-    "readBeforeStart": "Read about icons component",
+    "readBeforeStart": "Find out more about the `VaIcon` component",
     "example": "Example",
     "problem": {
-      "definition": "There is the problem with icon libraries: they usually use different interfaces to render icons.",
-      "materialIcons": "For example material-icons want us to set `material-icons` class and provide icon name inside `span` tag.",
-      "fontAwesome": "If we want to use FontAwesome5 we need to provide `fas` class and then provide class with icon name and prefix `fa-` on `i` tag.",
-      "summary": "With Icons Config we can simply provide an icon name in style that we want. We need to configure how the provided name will be rendered only one time."
+      "definition": "There is a problem with icon libraries however: they usually use different interfaces to render icons.",
+      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
+      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag).",
+      "summary": "With Icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered once."
     },
     "fonts": {
       "title": "Fonts",
-      "about": "We want to use `<va-icon name='icon-name' />` pattern. We can setup config for specific icon name pattern. In this config we can provide icon class, content (innerHTML) or Vue component relative to icon name.",
+      "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, contents (innerHTML) or a Vue component relative to icon name.",
       "fontNamePattern": {
         "title": "Font name pattern",
-        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate icon class, content or props. Dynamic segments should be written in curly brackets."
+        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate the icon class, content and props. Dynamic segments should be written in curly brackets."
       },
       "example": {
         "title": "Example fonts config",
-        "about": "Let`s look at some examples",
-        "explain": "Below we can see how icon will be transformed"
+        "about": "Let`s take a look at some examples",
+        "explain": "Below we can see how the icons would be transformed"
       },
-      "readMore": "Read more",
-      "advancedFontsUsage": "Advanced fonts usage"
+      "readMore": "More information on",
+      "advancedFontsUsage": "advanced fonts usage"
     },
     "aliases": {
       "title": "Aliases",
-      "about": "To make code simpler we can use aliases. Alias has a `to` prop which will change name on current icon to `to` string and then it will looks for appropriate font config. All props from founded font will be applied to current icon if they was not defined in alias config.",
+      "about": "To make code simpler we can use aliases. Alias has a `to` prop which would change the name of a given icon to the value of `to` and look for an appropriate font config. All the props from resolved font would be applied to that icon if they were not defined in alias config.",
       "example": {
         "title": "Example aliases config",
-        "about": "Below we can see how icon will be transformed",
-        "explain": "As you can see alias config is more important than font config. And `va-icon` props is more important than alias and font config."
+        "about": "Below we can see how the icons would be transformed",
+        "explain": "As you can see alias config is more important than font config. And `va-icon` props take precedence over both."
       }
     },
     "setup": {
       "title": "Let's build our config",
-      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use `createIconsConfig()` helper to create new config with Vuestic defaults and our custom fonts and aliases. For example:"
+      "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use the `createIconsConfig()` helper to create a new config with Vuestic defaults and our custom fonts and aliases merged together. For example:"
     },
     "api": {
       "title": "Icon config API",
-      "name": "String or regex. Can be string with dynamic segment or regex to use this config as font.",
-      "iconClass": "Class that will be applied to icon. Can be string or function, that accepts dynamic segment value and returns string.",
-      "content": "Content that will be inside icon. Can be string or function, that accepts dynamic segment value and returns string.",
-      "component": "VueComponent that will be used instead of tag.",
-      "componentProps": "Props that will be bound to `component`. Can be object or function, that accepts dynamic segment value and returns object.",
-      "to": "Here you can define name of config that values will be merged to this config",
-      "tag": "Tag that will be used. By default - `i`",
-      "color": "Color will be set css style color",
-      "rotation": "Rotates icon by specific angle",
-      "spin": "Applies spin animation to icon"
+      "name": "String or regex. Can be a string with dynamic segment or regex to use this config as font.",
+      "iconClass": "Class that will be applied to the icon. Can be a string or a function that accepts dynamic segment value and returns a string.",
+      "content": "Content that will be inside the icon. Can be a string or a function that accepts dynamic segment value and returns a string.",
+      "component": "VueComponent that will be used instead of a tag.",
+      "componentProps": "Props that will be bound to `component`. Can be an object or a function that accepts dynamic segment value and returns an object.",
+      "to": "Here you can define name of a config which values will be merged to this config",
+      "tag": "A tag to render icon with. By default - `i`",
+      "color": "Sets the CSS `color` property to a given value",
+      "rotation": "Rotates the icon by specified angle (in degrees)",
+      "spin": "Applies the spin animation to the icon"
     }
   },
   "advancedIconsConfig": {
     "title": "Advanced icons config",
-    "subtitle": "Icons config is a flat array. VaIcon looks for first appropriate name (strict string, regex or dynamic segment). Then, if config has a `to` prop it looks for additional config that appropriate for `to`.",
+    "subtitle": "Icons config is a flat array. VaIcon looks for a first appropriate name (strict string, regex or dynamic segment). Then, if config has a `to` prop, it looks for an additional config that is appropriate for `to`.",
     "priority": "Here you can see how its works"
   },
   "componentsConfig": {
