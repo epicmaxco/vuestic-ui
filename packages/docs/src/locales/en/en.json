@@ -3148,18 +3148,18 @@
   },
   "componentsConfig": {
     "title": "Components config",
-    "subtitle": "With component config we can override default props for any vuestic component we want. Components config is a object where key is `component name` and value is `component props` which we want to overwrite. For example:",
-    "demoTitle": "In example below we can change global style of all buttons on whole Vuestic Documentation site. Feel free to navigate to Button docs page and see how it looks.",
+    "subtitle": "Component config allows you to override default props' values for any Vuestic component. It is an object where the keys are component names and the values are prop-value pairs you want to overwrite. For example:",
+    "demoTitle": "The example below allows you to change styling of all the buttons for the whole Vuestic Documentation site. Feel free to navigate to Button docs page and take a look at the updated examples.",
     "resetConfig": "Reset config",
     "vaConfig": {
       "title": "Scoped config",
-      "subtitle": "We can use VaConfig to override component props inside `<va-config></va-config>` tag. Components config for all component inside `va-config` tag will be overwritten to `components` prop value. Let's look at the demo below:",
-      "explain": "Look at the code. In this demo we have changed default color for all our `VaButton` and `VaIcons`. Also we pass prop to third button which value is more important than in scoped config."
+      "subtitle": "You can use the `<va-config>` component to overwrite the default props' values for the components inside that tag. Take a look at the demo below:",
+      "explain": "Look at the code. In this demo we have changed the default color for all the `VaButton`s and `VaIcons`s inside the `VaConfig`. We also pass a different value to the third button's `color` prop (direct component's prop takes precedence over the one specified on the `VaConfig`)."
     },
     "api": {
       "title": "Component config service API",
       "types": "Types",
-      "ComponentConfig": "Object where key is Vuestic component name and value is component props"
+      "ComponentConfig": "Object where the keys are Vuestic component names and the values are the component's new default props"
     }
   },
   "colorsConfig": {
