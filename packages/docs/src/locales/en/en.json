@@ -2930,7 +2930,7 @@
     "description": "Vuestic UI components support keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
     "keyboardInteractions": {
       "title": "Keyboard accessible",
-      "description": "All the interactive elements of your page e.g. text boxes, buttons etc can be accessible by keyboard. That means you should be able to bring focus on them by using Tab and Shift+Tab keys."
+      "description": "All the interactive elements on your page (e.g. text boxes, buttons, etc.) can be accessed with the keyboard. That means you should be able to focus them by using Tab and Shift+Tab keys."
     }
   },
   "configurationGuide": {
