@@ -2977,20 +2977,20 @@
   },
   "translation": {
     "title": "Translation",
-    "description": "Translation is only needed for documentation (`packages/docs/locales`) as components don't use any translation strings at the moment. After finishing work on the translation, do not forget to change its status to `full` in file `locales/index.ts`. Here's the current state for languages support:",
+    "description": "For the moment being we only provide translations for the main documentation pages (such as Contribution, Getting Started, etc.). The actual translation-strings could be found at `packages/docs/locales`. Currently there are no translations available for the components' docs. After you finish working on a translation for some page, please, do not forget to update its status to `full` in the `locales/index.ts` file. Here's the current languages-support state:",
     "table": {
       "language": "Language",
       "code": "Code",
-      "supported": "Supported"
+      "supported": "Support"
     },
     "language": {
       "en": "English",
       "ru": "Russian",
-      "es": "Spain"
+      "es": "Spanish"
     },
     "status": {
-      "part": "Partially",
-      "full": "Fully"
+      "part": "Partial support",
+      "full": "Full support"
     }
   },
   "table": {
