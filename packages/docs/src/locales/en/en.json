@@ -3197,14 +3197,14 @@
   },
   "cssVariables": {
     "title": "Css Variables",
-    "description": "Vuestic UI extracts css as [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)[[target=_blank]]. No need to install any loaders or additional packages to override components styles. You can deeply customize components by using simple syntax to change css in your project.",
+    "description": "Vuestic UI extracts crucial CSS styles in the form of [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)[[target=_blank]]. No need to install any loaders or additional packages to override components' styling. Instead, you can deeply customize components' visuals using the following simple syntax.",
     "convention": {
       "title": "Convention",
-      "description": "Vuestic UI uses the following convention to organize CSS Variables for more convenient use:"
+      "description": "Vuestic UI uses the following convention to organize CSS Variables for the sake of convenience:"
     },
     "overriding": {
       "title": "Overriding",
-      "description": "You don't need any specific knowledge or packages. Just create file like `overrides.css`, import it into your main.js(ts) file and start redefining as easy as you write css properties:"
+      "description": "No additional tooling is needed. Just create a CSS file (like `overrides.css`), import it into your `main.js` and start redefining the variables as you do with any other CSS properties:"
     }
   },
   "navbar": {
