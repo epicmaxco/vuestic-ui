@@ -3069,22 +3069,22 @@
   },
   "globalConfig": {
     "title": "Global config",
-    "subtitle": "With Global config we can configure colors, icons and any prop for any component. ",
-    "structure": "Global config consists of icons, colors and components configs. ",
-    "setupExampleTitle": "We can provide our custom config with VuesticPlugin, if we want to:",
-    "reactiveUpdateExampleTitle": "Or we can update our config on runtime:",
-    "reactiveSetExampleTitle": "Or we can set new config on runtime:",
+    "subtitle": "With the help of Global config one can configure default values for colors, icons and components' props. ",
+    "structure": "Global config consists of `icons`, `colors` and `components` configs. ",
+    "setupExampleTitle": "You can provide a custom config as the second argument when registering the `VuesticPlugin`:",
+    "reactiveUpdateExampleTitle": "Or you can update the configuration partially at the runtime:",
+    "reactiveSetExampleTitle": "Alternatively, you can substitute the whole configuration object at the runtime with another one:",
     "links": {
-      "readMore": "Read more",
+      "readMore": "More on configuration",
       "icons": "Icons config",
       "components": "Components config",
       "colors": "Colors config"
     },
-    "useInRuntime": "Use global config as reactive Proxy:",
+    "useInRuntime": "The global configuration object might be made reactive:",
     "api": {
       "icons": "Used to configure icon fonts and aliases.",
       "components": "Used to globally overwrite props of specific components.",
-      "colors": "Used to define theme colors that components will use. Here we can redefine default vuestic theme color."
+      "colors": "Used to define theme colors that components make use of. Here you can redefine default Vuestic-theme colors."
     }
   },
   "iconsConfig": {
