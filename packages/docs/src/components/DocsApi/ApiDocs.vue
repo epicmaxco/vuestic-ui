@@ -171,7 +171,7 @@ import MarkdownView from "../../utilities/markdown-view/MarkdownView.vue";
 import { defaultApiOptions } from "./default-api-options";
 import DocsTable from "../DocsTable/DocsTable.vue";
 import { merge } from "lodash";
-import { sortObjectByPropsName } from "../../helpers/SortObjectByPropsNameHelper";
+import { sortObjectByPropNames } from "../../helpers/SortObjectByPropNamesHelper";
 
 class Props {
   componentOptions = prop<DefineComponent | VueConstructor>({ required: true });
@@ -192,7 +192,7 @@ export default class ApiDocs extends mixins(PropsMixin) {
   }
 
   sortObject(obj: any) {
-    return sortObjectByPropsName(obj);
+    return sortObjectByPropNames(obj);
   }
 
   isEmpty(object: Record<string, any>): boolean {

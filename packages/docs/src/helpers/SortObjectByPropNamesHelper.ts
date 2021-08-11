@@ -1,4 +1,4 @@
-export const sortObjectByPropsName = (obj: any) => {
+export const sortObjectByPropNames = (obj: any) => {
   const arrFromObj = Object.entries(obj);
 
   const sortedArr = arrFromObj.sort((element1: any, element2: any) => {
