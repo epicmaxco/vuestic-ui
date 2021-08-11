@@ -2,10 +2,10 @@ import { defineConfig } from 'rollup'
 import typescriptPlugin from 'rollup-plugin-typescript2'
 import vuePlugin from 'rollup-plugin-vue'
 import postcssPlugin from 'rollup-plugin-postcss'
-import { terser as terserPlugin } from 'rollup-plugin-terser'
 import commonjsPlugin from '@rollup/plugin-commonjs'
 import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaration'
+import { terserPlugin } from '../plugins/rollup-teaser-preset'
 import { dependencies, peerDependencies } from '../utils'
 
 /** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
