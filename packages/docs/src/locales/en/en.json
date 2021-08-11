@@ -3311,7 +3311,7 @@
   },
   "typography": {
     "title": "Typography",
-    "description": "Vuestic UI uses the following typography styling",
+    "description": "To improve your application's UX, make sure to style the typography the way that would match the rest of the Vuestic-UI-based look and feel.",
     "headings": "Headings",
     "affected": "Affected",
     "primary": "Default text style",
