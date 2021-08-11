@@ -2832,29 +2832,29 @@
   },
   "installation": {
     "title": "Installation",
-    "description": "Get started with Vuestic UI to create feature-rich and user-friendly apps thanks to our highly configurable framework. We’ve simplified the installation process as much as possible to save you extra effort. Installation is possible in a few ways",
-    "subtitle": "You could start usage of Vuestic with a simple steps the way you like",
-    "prerequisites": "First, make sure you have all prerequisites installed:",
-    "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] ( >=14.*)",
-    "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] version 3+ (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] version 1.16+) and [Git](https://git-scm.com/)[[target=_blank]]",
-    "afterCheck": "After checking the prerequisites, install Vuestic UI via npm/yarn:",
+    "description": "You can create a new project or integrate Vuestic UI into an existing application. The installation process is mostly the same for both cases: you can either *install Vuestic UI manually* or use specifically designed *Vue CLI plugin*. Both ways provide you with a **full tree-shaking support**. Choose the one that fits your needs the most.",
+    "subtitle": "If you decide to install Vuestic UI manually, all you need to do is to install a NPM package, a couple of other necessary assets (such as fonts and CSS styles) and slightly modify your application's entry point (most probably `index.js` or `main.js`, depending on your setup).",
+    "prerequisites": "But first, make sure you've got all the following prerequisites installed:",
+    "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] (>=v14.0.0)",
+    "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] (>=v3.0.0) (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] (>= v1.16.0)) and [Git](https://git-scm.com/)[[target=_blank]]",
+    "afterCheck": "After checking the prerequisites, install Vuestic UI via npm or yarn:",
     "fonts": {
-      "title": "Fonts installation",
-      "description": "By default Vuestic UI uses `Source Sans Pro` and `Material Icons` fonts. You should manually add those fonts to your project. There are a few examples below.",
-      "htmlExampleTitle": "You can include fonts in HTML head:",
-      "cssExampleTitle": "Or you can include fonts in your CSS:"
+      "title": "Assets installation",
+      "description": "By default Vuestic UI uses `Source Sans Pro` and `Material Icons` fonts. You should manually add them into your project. In order to do so you can either:",
+      "htmlExampleTitle": "include fonts directly in your `index.html`'s `<head>` element",
+      "cssExampleTitle": "or include them in your CSS"
     },
     "quickStart": {
-      "title": "Quick start",
-      "description": "Make sure you’ve imported both styles and plugin into your entry file"
+      "title": "Modify your application's entry point",
+      "description": "Import both the styles and the plugin into your entry file. The plugin is used to automatically register all the components, directives and other stuff globally. If you don't want to register everything globally then check out the tree-shaking section below."
     },
     "cli": {
       "title": "Vue CLI installation",
-      "prepare": "Before install make sure [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] is installed globally and has version 4+:",
-      "upgrade": "Here is a [guide](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] for Vue CLI version 3 to help you update your app",
-      "description": "An easy way if you use the Vue-CLI setup or you want to try out Vuestic UI on a fresh project",
-      "attention": "Vuestic UI installation will modify package.json and main.js(ts) files. Make sure you’ve committed your code before installing it to avoid data loss",
-      "codeAnnotation": "Then install Vuestic UI as a Vue-CLI plugin:"
+      "description": "Another way to install Vuestic UI is using the Vue CLI plugin.",
+      "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js|ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
+      "prepare": "First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:",
+      "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it.",
+      "codeAnnotation": "If everything's fine then you can finally install the plugin with the following command (**don't forget to commit**):"
     },
     "treeShaking": {
       "title": "Tree shaking",
@@ -2888,18 +2888,18 @@
   },
   "roadmap": {
     "title": "Vuestic UI Roadmap",
-    "description": "Our team is constantly improving the existing code base and adding new features that help make building applications even easier.",
+    "description": "Our team is constantly improving the existing code base and adding new features that help building applications even easier.",
     "inDevelopment": {
       "title": "In development",
       "description": "The following releases are currently being developed:"
     },
     "1-2": {
       "title": "v1.2",
-      "description": "We'll work on new components: date-picker and data-table"
+      "description": "We're currently working on new components: `date-picker` and `data-table`"
     },
     "1-1": {
       "title": "v1.1",
-      "description": "Bug fixes and ssr support (vite)."
+      "description": "Bug fixes and SSR support (vite)."
     },
     "1-0": {
       "title": "v1.0",
@@ -2967,11 +2967,11 @@
   },
   "overview": {
     "title": "What is Vuestic UI",
-    "description": "We’ve designed the framework in such a way that it satisfies the most sophisticated design fantasies and allows you to implement them",
+    "description": "We’ve designed the framework in such a way that it satisfies the most sophisticated design fantasies and allows you to implement them.",
     "featuresOverview": "Features overview",
     "vueThreeCompatible": "Fully **Vue.js 3 compatible**",
-    "featureRich": "Contains a **50+ feature rich components** that can be used in any design solution",
-    "configurable": "Allows **to configure components** components globally via config and css variables",
+    "featureRich": "Contains a **50+ feature-rich components** that can be used in any design solution",
+    "configurable": "Allows **to configure components** globally via config and CSS variables",
     "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
     "translatable": "Integrates seamlessly with **i18n**"
   },
