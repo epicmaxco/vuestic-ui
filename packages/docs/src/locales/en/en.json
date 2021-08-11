@@ -3334,20 +3334,20 @@
   },
   "uiElementGuide": {
     "title": "UI Element Requirements",
-    "description": "This page is intended for vuestic-ui contributors: it describes the requirements for UI elements.",
+    "description": "This page is intended for Vuestic UI contributors. It describes the requirements for the UI elements.",
     "highLevelStrategy": {
       "title": "High Level Strategy",
       "description": {
         "userExpectations": "Components should be as user expects them to be. We achieve that by checking refs ([Vuetify](https://vuetifyjs.com)[[target=_blank]], [Quasar](https://quasar.dev)[[target=_blank]], [Ant Design](https://ant.design)[[target=_blank]], [iView](http://iview.talkingdata.com)[[target=_blank]], [Element UI](https://element.eleme.io)[[target=_blank]], etc.).",
-        "qualityComponents": "Components should be of high quality. We achieve that by manually testing edge cases + refactoring early."
+        "qualityComponents": "Components should be of high quality. We achieve that by manually testing edge-cases and by early refactoring."
       }
     },
     "coreFeatures": {
       "title": "Core Features",
       "description": {
-        "visualFeedback": "**Visual feedback** - When user interacts with component they should see result of their actions (could be implemented with :active selector or somehow else depending on case).",
-        "keyboardNavigation": "**Keyboard navigation** - You must ensure that UI elements are keyboard accessible, and you must disable this functionality for elements that should not receive keyboard focus.",
-        "statelessSupport": "**Stateless support** (read about [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
+        "visualFeedback": "**Visual feedback** - When a user interacts with a component they should see a result of their actions (could be implemented with :active selector or somehow else depending on the case).",
+        "keyboardNavigation": "**Keyboard navigation** - You must ensure that UI elements are keyboard-accessible, and you must disable that functionality for elements that should not receive keyboard focus.",
+        "statelessSupport": "**Stateless support** (see the [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
   }
