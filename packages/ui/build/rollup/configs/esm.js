@@ -32,7 +32,9 @@ export function createESMConfig ({ input, outDir = 'dist/', minify = false, decl
       typescriptPlugin({ check: false }),
       vuePlugin({ target: ssr ? 'node' : 'browser', template: { optimizeSSR: ssr }, compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
-      postcssPlugin({ minimize: minify }),
+      postcssPlugin({
+        minimize: minify,
+      }),
       nodeResolvePlugin(),
     ],
   })

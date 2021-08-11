@@ -37,7 +37,7 @@ export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, dec
       vuePlugin({ target: 'browser', compileTemplate: true, preprocessStyles: true, css: false }),
       commonjsPlugin(),
       nodeResolve({ browser: true }),
-      postcssPlugin({ minimize: minify, modules: true, namedExports: true, extract: true }),
+      postcssPlugin({ minimize: minify, extract: true }),
       nodeBuiltinsPlugin({ crypto: true }),
     ],
   })

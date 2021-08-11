@@ -30,7 +30,7 @@ export function createCJSConfig ({ input, outDir = 'dist/', minify = false, decl
       vuePlugin({ target: ssr ? 'node' : 'browser', template: { optimizeSSR: ssr }, compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolvePlugin({ browser: !ssr }),
-      postcssPlugin({ /* extract: 'main.css' */ }),
+      postcssPlugin(),
     ],
   })
 
