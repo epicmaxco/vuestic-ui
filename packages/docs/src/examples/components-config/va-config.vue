@@ -5,16 +5,16 @@
       VaIcon: { color: '#605E97'}
     }">
       <div class="alert-content">
-        <p>Read this important demo message!</p>
+        <p>{{ $t('componentsConfig.vaConfig.code.info') }}</p>
         <va-button icon="hearing">
           Ok
         </va-button>
         <va-button icon="visibility">
-          I already read it before
+          {{ $t('componentsConfig.vaConfig.code.read') }}
         </va-button>
         <va-button color="danger">
           <va-icon name="close" color="danger" />
-          Close
+          {{ $t('componentsConfig.vaConfig.code.close') }}
         </va-button>
       </div>
     </va-config>
