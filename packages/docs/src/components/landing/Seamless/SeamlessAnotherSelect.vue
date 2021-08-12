@@ -19,40 +19,61 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "SeamlessAnotherSelect",
+  name: 'SeamlessAnotherSelect',
   props: {
     options: {
       type: Array,
-      default: () => []
-    }
-  }
-});
+      default: () => [],
+    },
+  },
+})
 </script>
 
 <style lang="scss">
-.seamless-another-select select {
-  appearance: none;
-  background-color: transparent;
-  border: none;
-  padding: 0 1em 0 0;
-  margin: 0;
-  width: 100%;
-  font-family: inherit;
-  font-size: inherit;
-  cursor: inherit;
-  line-height: inherit;
-  z-index: 1;
-  &::-ms-expand {
-    display: none;
-  }
-  outline: none;
-}
-
 .seamless-another-select {
   display: grid;
   grid-template-areas: "select";
   align-items: center;
   position: relative;
+
+  select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    z-index: 1;
+
+    &[multiple] {
+      padding-right: 0;
+      height: 6rem;
+
+      option {
+        white-space: normal;
+        outline-color: blue;
+      }
+    }
+
+    &::-ms-expand {
+      display: none;
+    }
+    outline: none;
+
+    &:focus + .focus {
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      border: 2px solid blue;
+      border-radius: inherit;
+    }
+  }
 
   select,
   &::after {
@@ -80,25 +101,6 @@ export default defineComponent({
     height: 0.5em;
     background-color: #777;
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-  }
-}
-
-.seamless-another-select select:focus + .focus {
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  right: -1px;
-  bottom: -1px;
-  border: 2px solid blue;
-  border-radius: inherit;
-}
-
-.seamless-another-select select[multiple] {
-  padding-right: 0;
-  height: 6rem;
-  option {
-    white-space: normal;
-    outline-color: blue;
   }
 }
 </style>
