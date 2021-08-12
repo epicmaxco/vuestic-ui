@@ -2,11 +2,11 @@ import { defineConfig } from 'rollup'
 import typescriptPlugin from 'rollup-plugin-typescript2'
 import vuePlugin from 'rollup-plugin-vue'
 import postcssPlugin from 'rollup-plugin-postcss'
-import { terser as terserPlugin } from 'rollup-plugin-terser'
 import nodeBuiltinsPlugin from 'rollup-plugin-node-builtins'
 import commonjsPlugin from '@rollup/plugin-commonjs'
 import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaration'
+import { terserPlugin } from '../plugins/rollup-teaser-preset'
 import { dependencies, peerDependencies } from '../utils'
 
 /** Used for SSR builds */
@@ -30,7 +30,7 @@ export function createCJSConfig ({ input, outDir = 'dist/', minify = false, decl
       vuePlugin({ target: ssr ? 'node' : 'browser', template: { optimizeSSR: ssr }, compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolvePlugin({ browser: !ssr }),
-      postcssPlugin({ /* extract: 'main.css' */ }),
+      postcssPlugin(),
     ],
   })
 

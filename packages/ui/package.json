@@ -97,6 +97,7 @@
     "postcss": "^8.2.1",
     "postcss-loader": "^4.1.0",
     "rollup": "^2.53.1",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",

@@ -2,11 +2,11 @@ import { defineConfig } from 'rollup'
 import typescriptPlugin from 'rollup-plugin-typescript2'
 import vuePlugin from 'rollup-plugin-vue'
 import postcssPlugin from 'rollup-plugin-postcss'
-import { terser as terserPlugin } from 'rollup-plugin-terser'
 import nodeBuiltinsPlugin from 'rollup-plugin-node-builtins'
 import commonjsPlugin from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaration'
+import { terserPlugin } from '../plugins/rollup-teaser-preset'
 
 /** Used to create lib, that can be used in browser. This build define VuesticUI global variable. */
 export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, declaration = false, sourcemap = false, libName = 'vuestic-ui' }) {
@@ -34,10 +34,10 @@ export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, dec
 
     plugins: [
       typescriptPlugin({ check: false }),
-      vuePlugin({ target: 'browser', compileTemplate: true, preprocessStyles: true }),
+      vuePlugin({ target: 'browser', compileTemplate: true, preprocessStyles: true, css: false }),
       commonjsPlugin(),
       nodeResolve({ browser: true }),
-      postcssPlugin({ extract: `${libName}.css` }),
+      postcssPlugin({ minimize: minify, extract: true }),
       nodeBuiltinsPlugin({ crypto: true }),
     ],
   })
