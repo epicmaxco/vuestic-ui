@@ -21,11 +21,6 @@ export default {
       default: '',
     },
   },
-  data () {
-    return {
-      doShowCode: true,
-    }
-  },
   components: {
     PrismWrapper,
   },
@@ -61,24 +56,13 @@ export default {
       return newCode
     },
     applyTranslations (code) {
-      const replaces = code.match(/(?:\$t)\(.*?\)/) || []
+      const replaces = code.match(/(?:\$t)\(.*?\)/g) || []
 
       return replaces.reduce((acc, replaceSource) => {
         const translation = replaceSource.replace(/(\$t|'|\(|\)|\[\d\])/gi, '')
 
         return acc.replace(replaceSource, this.$t(translation))
       }, code)
-    },
-  },
-  watch: {
-    code: {
-      handler () {
-        this.doShowCode = false
-        this.$nextTick(() => {
-          this.doShowCode = true // $nextTick() triggers v-if, that causes re-rendering of component.
-        })
-      },
-      immediate: true,
     },
   },
 }

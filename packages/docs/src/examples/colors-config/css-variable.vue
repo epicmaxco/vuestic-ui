@@ -16,7 +16,7 @@
       />
 
       <span>
-        {{ currentColorText }}
+        {{ $t(currentColorText) }}
         <span class="primary-color">{{ primaryColor }}</span>
       </span>
     </div>
@@ -29,10 +29,12 @@ import { useColors } from 'vuestic-ui/src/main'
 
 export default {
   props: {
-    currentColorText: { type: String, default: 'Current primary color is' },
-    buttonText: { type: String, default: 'Primary color button' },
+    currentColorText: {
+      type: String,
+      default: 'colorsConfig.example.code.currentColorText',
+    },
   },
-  setup () {
+  setup() {
     const { setColors, getColor } = useColors()
 
     const colorsToChange = [
@@ -44,10 +46,10 @@ export default {
     ]
 
     const primaryColor = computed({
-      get () {
+      get() {
         return getColor('primary')
       },
-      set (value) {
+      set(value) {
         setColors({ primary: value })
       },
     })
@@ -68,13 +70,12 @@ export default {
 .primary-danger-gradient {
   width: 100%;
   height: 4rem;
-  background:
-    linear-gradient(
-      90deg,
-      var(--va-primary) 0%,
-      var(--va-success) 50%,
-      var(--va-danger) 100%
-    );
+  background: linear-gradient(
+    90deg,
+    var(--va-primary) 0%,
+    var(--va-success) 50%,
+    var(--va-danger) 100%
+  );
 
   span {
     background: var(--secondary);

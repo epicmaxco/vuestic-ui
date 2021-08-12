@@ -1,10 +1,14 @@
 <template>
   <div class="d-flex align--center">
-    <va-button>{{ buttonText }}</va-button>
+    <va-button>{{ $t(buttonText) }}</va-button>
 
-    <va-color-palette v-model="primaryColor" :palette="colorsToChange" class="mx-4" />
+    <va-color-palette
+      v-model="primaryColor"
+      :palette="colorsToChange"
+      class="mx-4"
+    />
 
-    <span>{{ currentColorText }} {{ primaryColor }}</span>
+    <span>{{ $t(currentColorText) }} {{ primaryColor }}</span>
   </div>
 </template>
 
@@ -14,10 +18,16 @@ import { useColors } from 'vuestic-ui/src/main'
 
 export default {
   props: {
-    currentColorText: { type: String, default: 'Current primary color is' },
-    buttonText: { type: String, default: 'Primary color button' },
+    currentColorText: {
+      type: String,
+      default: 'colorsConfig.example.code.currentColorText',
+    },
+    buttonText: {
+      type: String,
+      default: 'colorsConfig.example.code.buttonText',
+    },
   },
-  setup () {
+  setup() {
     const { setColors, getColor } = useColors()
 
     const colorsToChange = [
@@ -29,8 +39,12 @@ export default {
     ]
 
     const primaryColor = computed({
-      get () { return getColor('primary') },
-      set (value) { setColors({ primary: value }) },
+      get() {
+        return getColor('primary')
+      },
+      set(value) {
+        setColors({ primary: value })
+      },
     })
 
     return {
