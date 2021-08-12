@@ -156,6 +156,10 @@
         "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
         "bottom": "Position badge to the bottom.",
         "left": "Position badge to the left"
+      },
+      "code": {
+        "default": "Payment",
+        "withCard": "Next update is right behind the corner"
       }
     },
     "VaButton": {

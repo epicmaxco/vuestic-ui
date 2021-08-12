@@ -3,7 +3,7 @@
     <va-badge text="New" overlap>
       <va-card>
         <va-card-content>
-          Next update is right behind the corner
+          {{ $t('api.VaBadge.code.withCard') }}
         </va-card-content>
       </va-card>
     </va-badge>
