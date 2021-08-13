@@ -162,41 +162,41 @@ import {
   prop,
   mixins,
   VueConstructor,
-} from "vue-class-component";
-import { DefineComponent } from "vue";
-import { ManualApiOptions } from "./ManualApiOptions";
-import ApiDocsPropsRow from "./ApiDocsPropsRow.vue";
-import { getApiTableData } from "./api-docs-helpers";
-import MarkdownView from "../../utilities/markdown-view/MarkdownView.vue";
-import { defaultApiOptions } from "./default-api-options";
-import DocsTable from "../DocsTable/DocsTable.vue";
-import { merge } from "lodash";
-import { sortObjectByPropNames } from "../../helpers/SortObjectByPropNamesHelper";
+} from 'vue-class-component'
+import { DefineComponent } from 'vue'
+import { ManualApiOptions } from './ManualApiOptions'
+import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
+import { getApiTableData } from './api-docs-helpers'
+import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
+import { defaultApiOptions } from './default-api-options'
+import DocsTable from '../DocsTable/DocsTable.vue'
+import { merge } from 'lodash'
+import { sortObject } from '@/helpers/SortObjectHelper'
 
 class Props {
   componentOptions = prop<DefineComponent | VueConstructor>({ required: true });
   apiOptions = prop<ManualApiOptions>({ type: Object, default: () => ({}) });
 }
 
-const PropsMixin = Vue.with(Props);
+const PropsMixin = Vue.with(Props)
 
 @Options({
   name: 'ApiDocs',
   components: { ApiDocsPropsRow, MarkdownView, DocsTable },
 })
 export default class ApiDocs extends mixins(PropsMixin) {
-  get apiTableData() {
-    const options = merge(this.apiOptions, defaultApiOptions);
+  get apiTableData () {
+    const options = merge(this.apiOptions, defaultApiOptions)
 
-    return getApiTableData(this.componentOptions, options);
+    return getApiTableData(this.componentOptions, options)
   }
 
-  sortObject(obj: any) {
-    return sortObjectByPropNames(obj);
+  sortObject (obj: any) {
+    return sortObject(obj)
   }
 
-  isEmpty(object: Record<string, any>): boolean {
-    return !Object.keys(object).length;
+  isEmpty (object: Record<string, any>): boolean {
+    return !Object.keys(object).length
   }
 }
 </script>
