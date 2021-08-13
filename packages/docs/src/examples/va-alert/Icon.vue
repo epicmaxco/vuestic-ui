@@ -1,13 +1,13 @@
 <template>
   <div>
     <va-alert color="warning" icon="info" class="mb-4">
-    You read this important alert message with an icon.
+      {{ $t('api.VaAlert.examples.icon.defaultIcon') }}
     </va-alert>
     <va-alert color="info" class="mb-4">
-    <template #icon>
+      <template #icon>
         <va-icon name="info" />
-    </template>
-    You read this important alert message with a slotted icon.
+      </template>
+      {{ $t('api.VaAlert.examples.icon.slottedIcon') }}
     </va-alert>
   </div>
 </template>

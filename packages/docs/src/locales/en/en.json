@@ -572,6 +572,60 @@
         "title": "Alert title area content",
         "icon": "Alert icon area content",
         "close": "Alert close area content"
+      },
+      "examples": {
+        "basic": {
+          "descriptionProp": "You read this important alert message.",
+          "defaultSlot": "You read this important slotted alert message."
+        },
+        "styles": {
+          "color": "Alert with color style.",
+          "outlined": "Alert with outline style.",
+          "border": "Alert with colorful border."
+        },
+        "colors": {
+          "default": "You read this important alert message.",
+          "success": "You successfully read this important alert message.",
+          "info": "This alert needs your attention, but it's not super important.",
+          "warning": "Better check yourself, you're not looking too good.",
+          "danger": "Change a few things up and try submitting again.",
+          "firstCustom": "Better check yourself, you're not looking too good.",
+          "secondCustom": "Change a few things up and try submitting again."
+        },
+        "borders": {
+          "top": "You read this important alert message.",
+          "right": "You successfully read this important alert message.",
+          "bottom": "This alert needs your attention, but it's not super important.",
+          "left": "Better check yourself, you're not looking too good.",
+          "withBorderColor": "Change a few things up and try submitting again."
+        },
+        "dense": {
+          "success": "Dense alert.",
+          "colored": "Alert with color style.",
+          "outlined": "Alert with outline style.",
+          "colorfulBorder": "Alert with colorful border."
+        },
+        "title": {
+          "defaultTitle": "Title",
+          "defaultBody": "You read this important alert message.",
+          "slottedTitle": "Slotted title",
+          "slottedBody": "You read this important alert message."
+        },
+        "icon": {
+          "defaultIcon": "You read this important alert message with an icon.",
+          "slottedIcon": "You read this important alert message with a slotted icon."
+        },
+        "closeable": {
+          "toggle": "Toggle visibility",
+          "defaultIcon": "You read this important alert message with a default close icon.",
+          "customIcon": "You read this important alert message with a custom close icon.",
+          "defaultText": "You read this important alert message with a text instead of an icon.",
+          "slottedText": "You read this important alert message with a slotted text instead of an icon."
+        },
+        "center": {
+          "title": "Title",
+          "body": "You read this important centered alert message."
+        }
       }
     },
     "VaIcon": {
@@ -1125,7 +1179,8 @@
     "api": "API",
     "faq": "FAQ",
     "code": {
-      "or": "or"
+      "or": "or",
+      "close": "close"
     },
     "examplesTexts": {
       "button": "Your button"

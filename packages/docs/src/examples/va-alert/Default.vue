@@ -1,8 +1,11 @@
 <template>
   <div>
-    <va-alert class="mb-4" description="You read this important alert message." />
+    <va-alert
+      class="mb-4"
+      :description="$t('api.VaAlert.examples.basic.descriptionProp')"
+    />
     <va-alert>
-      You read this important slotted alert message.
+      {{ $t('api.VaAlert.examples.basic.defaultSlot') }}
     </va-alert>
   </div>
 </template>
