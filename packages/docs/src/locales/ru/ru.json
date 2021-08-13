@@ -3294,7 +3294,7 @@
       "description": {
         "visualFeedback": "**Визуальная обратная связь** - когда пользователь взаимодействует с компонентом, он должен видеть результат своих действий (может быть реализован с помощью :active селектора или как-то иначе в зависимости от компонента).",
         "keyboardNavigation": "**Клавиатурная навигация** - Вы должны убедиться, что элементы пользовательского интерфейса доступны с клавиатуры, или же отключить эту функцию для элементов, которые не должны получать фокус через клавиатуру.",
-        "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
+        "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
   }

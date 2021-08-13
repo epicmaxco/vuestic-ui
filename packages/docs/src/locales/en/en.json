@@ -3347,7 +3347,7 @@
       "description": {
         "visualFeedback": "**Visual feedback** - When a user interacts with a component they should see a result of their actions (could be implemented with :active selector or somehow else depending on the case).",
         "keyboardNavigation": "**Keyboard navigation** - You must ensure that UI elements are keyboard-accessible, and you must disable that functionality for elements that should not receive keyboard focus.",
-        "statelessSupport": "**Stateless support** (see the [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
+        "statelessSupport": "**Stateless support** (see the [StatefulMixin]((https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/mixins/StatefulMixin/README.md))[[target=_blank]])."
       }
     }
   }
