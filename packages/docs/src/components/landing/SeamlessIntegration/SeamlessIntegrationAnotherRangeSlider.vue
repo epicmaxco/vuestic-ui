@@ -8,7 +8,6 @@
 .seamless-another-range-slider {
   height: 2rem;
   border-radius: 5rem;
-  box-shadow: 1px 5px 5px rgba(black, 0.3);
 
   input[type="range"] {
     -webkit-appearance: none;

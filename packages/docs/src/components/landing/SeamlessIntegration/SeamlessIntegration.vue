@@ -46,19 +46,19 @@
             <div class="block__components">
 
               <div class="component">
-                <seamless-another-button />
+                <seamless-integration-another-button />
               </div>
 
               <div class="component">
-                <seamless-another-select :options="options" />
+                <seamless-integration-another-select :options="options" />
               </div>
 
               <div class="component">
-                <seamless-another-range-slider />
+                <seamless-integration-another-range-slider />
               </div>
 
               <div class="component">
-                <seamless-another-checkbox />
+                <seamless-integration-another-checkbox />
               </div>
             </div>
           </div>
@@ -72,17 +72,17 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import SeamlessAnotherButton from './SeamlessAnotherButton.vue'
-import SeamlessAnotherSelect from './SeamlessAnotherSelect.vue'
-import SeamlessAnotherRangeSlider from './SeamlessAnotherRangeSlider.vue'
-import SeamlessAnotherCheckbox from './SeamlessAnotherCheckbox.vue'
+import SeamlessIntegrationAnotherButton from './SeamlessIntegrationAnotherButton.vue'
+import SeamlessIntegrationAnotherSelect from './SeamlessIntegrationAnotherSelect.vue'
+import SeamlessIntegrationAnotherRangeSlider from './SeamlessIntegrationAnotherRangeSlider.vue'
+import SeamlessIntegrationAnotherCheckbox from './SeamlessIntegrationAnotherCheckbox.vue'
 
 @Options({
   components: {
-    SeamlessAnotherButton,
-    SeamlessAnotherSelect,
-    SeamlessAnotherRangeSlider,
-    SeamlessAnotherCheckbox
+    SeamlessIntegrationAnotherButton,
+    SeamlessIntegrationAnotherSelect,
+    SeamlessIntegrationAnotherRangeSlider,
+    SeamlessIntegrationAnotherCheckbox
   }
 })
 export default class Seamless extends Vue {
