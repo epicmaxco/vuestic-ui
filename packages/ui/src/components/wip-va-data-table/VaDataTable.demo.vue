@@ -85,6 +85,12 @@
         </template>
       </va-data-table>
     </VbCard>
+
+    <VbCard title="Even `items` slot instead a single cell" class="demo">
+      <va-data-table :items="evenItems">
+        <template #cell(id)="row">{{ row }}</template>
+      </va-data-table>
+    </VbCard>
   </VbDemo>
 </template>
 

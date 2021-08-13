@@ -12,7 +12,9 @@
 
       <tr v-for="row in normalizedRows">
         <td v-for="cell in row">
-          {{ cell }}
+          <slot :name="`cell(${cell.key})`" v-bind="row">
+            {{ cell.value }}
+          </slot>
         </td>
       </tr>
 

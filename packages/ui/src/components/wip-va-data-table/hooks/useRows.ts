@@ -7,7 +7,10 @@ export default function useRows(normalizedColumns: Ref<TableColumn[]>, items: Re
   const normalizedRows = computed(() => {
     return items.value.map(item => {
       return normalizedColumns.value.map(normalizedColumn => {
-        return item[normalizedColumn.key] || "";
+        return {
+          key: normalizedColumn.key,
+          value: item[normalizedColumn.key] || ""
+        }
       })
     })
   });
