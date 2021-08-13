@@ -4,8 +4,8 @@
       class="va-month-picker__month-wrapper"
       v-for="(month, monthIndex) in months"
       :key="monthIndex"
-      @mouseenter="hoveredIndex = monthIndex"
-      @mouseleave="hoveredIndex = -1"
+      @mouseenter="onMouseHover(month); hoveredIndex = monthIndex"
+      @mouseleave="onMouseHover(); hoveredIndex = -1"
     >
       <va-date-picker-cell
         :in-range="!!isInRange(month)"
@@ -55,6 +55,7 @@ export default defineComponent({
     const {
       hoveredIndex,
       onClick,
+      onMouseHover,
       isToday,
       isSelected,
       isInRange,
@@ -78,6 +79,7 @@ export default defineComponent({
       months,
       hoveredIndex,
       onClick,
+      onMouseHover,
       isToday,
       isSelected,
       isInRange,

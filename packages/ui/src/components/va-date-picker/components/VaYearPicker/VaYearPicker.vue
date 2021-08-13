@@ -15,8 +15,8 @@
       :focused="focusedCellIndex === index"
       :highlight-today="highlightToday"
       @click="onClick(year); focusedCellIndex = index"
-      @mouseenter="hoveredIndex = index"
-      @mouseleave="hoveredIndex = -1"
+      @mouseenter="onMouseHover(year); hoveredIndex = index"
+      @mouseleave="onMouseHover(); hoveredIndex = -1"
     >
       {{ year.getFullYear() }}
     </va-date-picker-cell>
@@ -95,6 +95,7 @@ export default defineComponent({
     const {
       hoveredIndex,
       onClick,
+      onMouseHover,
       isToday,
       isSelected,
       isInRange,
@@ -121,6 +122,7 @@ export default defineComponent({
       years,
       rootNode,
       onClick,
+      onMouseHover,
       isToday,
       isSelected,
       isInRange,

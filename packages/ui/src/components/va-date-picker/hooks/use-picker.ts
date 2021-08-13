@@ -40,6 +40,11 @@ export const useDatePicker = (
     emit(`click:${type}`, date)
   }
 
+  // pass undefined when there is nothing hovered or on mouseleave event
+  const onMouseHover = (date: Date | undefined) => {
+    emit(`hover:${type}`, date)
+  }
+
   const isToday = (date: Date): boolean => {
     const today = new Date()
     return datesEqual(today, date)
@@ -85,6 +90,7 @@ export const useDatePicker = (
     hoveredIndex,
     hoveredValue,
     onClick,
+    onMouseHover,
     isToday,
     isSelected,
     isInRange,
