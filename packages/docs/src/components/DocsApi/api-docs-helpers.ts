@@ -2,8 +2,14 @@ import { DefineComponent, ComponentOptions } from 'vue'
 import { kebabCase, camelCase } from 'lodash'
 import { te as translationExists, fallbackLocale } from '../../helpers/I18nHelper'
 
-import { ManualPropApiOptions, ManualApiOptions, ManualSlotApiOptions, ManualMethodApiOptions } from './ManualApiOptions'
-import { compileComponentOptions, CompiledComponentOptions } from './component-options-compiler'
+import {
+  ManualPropApiOptions,
+  ManualApiOptions,
+  ManualSlotApiOptions,
+  ManualMethodApiOptions,
+  ManualEventApiOptions,
+} from './ManualApiOptions'
+import { compileComponentOptions, CompiledComponentOptions, EventOptionsCompiled } from './component-options-compiler'
 import { ApiEventRowOptions, ApiMethodRowOptions, ApiPropRowOptions, ApiSlotRowOptions, ApiTableData } from './ApiTableData'
 
 function getComponentOptions (component: DefineComponent): ComponentOptions {
@@ -76,6 +82,32 @@ const getApiTableProps = (
   return api
 }
 
+const mergeApiTableEvents = (
+  componentEvents: Record<string, EventOptionsCompiled> = {},
+  manualEvents: Record<string, ManualEventApiOptions> = {},
+) => {
+  const merged: Record<string, ManualEventApiOptions | EventOptionsCompiled> = {}
+  const uniqueManualEvents = { ...manualEvents }
+
+  for (const componentEventName in componentEvents) {
+    // handle cases when we use events with such pattern `update:myPropName`
+    // it's needed since all events from manualOptions transformed to kebab-case
+    // in the case if need both events `click-day` and `click:day` in one component, mergeApiTableEvents and translations logic should be reworked
+    const kebabComponentEventName:string = kebabCase(componentEventName)
+    const componentEvent = componentEvents[componentEventName]
+    const manualEvent = uniqueManualEvents[kebabComponentEventName]
+
+    if (manualEvent) {
+      merged[componentEventName] = { ...componentEvent, ...manualEvent }
+      delete uniqueManualEvents[kebabComponentEventName]
+    } else {
+      merged[componentEventName] = { ...componentEvent }
+    }
+  }
+
+  return { ...merged, ...uniqueManualEvents }
+}
+
 const getApiTableEvents = (
   componentName: string,
   compiledComponentOptions: CompiledComponentOptions,
@@ -83,7 +115,7 @@ const getApiTableEvents = (
 ) => {
   const api = {} as Record<string, ApiEventRowOptions>
   const manualEvents = manualOptions.events ? keysToKebabCase(manualOptions.events) : {}
-  const merged = { ...compiledComponentOptions.emits, ...manualEvents }
+  const merged = mergeApiTableEvents(compiledComponentOptions.emits, manualEvents)
 
   for (const eventName in merged) {
     const event = merged[eventName]
