@@ -1,5 +1,9 @@
 <template>
   <VbDemo>
+    <VbCard title="data controls">
+      <va-button @click="deleteLast5Rows">Delete last 5 even data rows</va-button>
+    </VbCard>
+
     <VbCard title="Even `items` no `columns`" class="demo">
       <va-data-table :items="evenItems"/>
     </VbCard>
@@ -46,6 +50,40 @@
 
     <VbCard title="Excessive `items` with excessive `columns`" class="demo">
       <va-data-table :items="excessiveItems" :columns="excessiveColumns"/>
+    </VbCard>
+
+    <VbCard title="Even `items` no `columns`, prepend rows" class="demo">
+      <va-data-table :items="evenItems">
+        <template #body.prepend>
+          <tr>
+            <td>Static 1.1</td>
+            <td>Static 1.2</td>
+            <td>Static 1.3</td>
+          </tr>
+          <tr>
+            <td>Static 2.1</td>
+            <td>Static 2.2</td>
+            <td>Static 2.3</td>
+          </tr>
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Even `items` no `columns`, append rows" class="demo">
+      <va-data-table :items="evenItems">
+        <template #body.append>
+          <tr>
+            <td>Static 1.1</td>
+            <td>Static 1.2</td>
+            <td>Static 1.3</td>
+          </tr>
+          <tr>
+            <td>Static 2.1</td>
+            <td>Static 2.2</td>
+            <td>Static 2.3</td>
+          </tr>
+        </template>
+      </va-data-table>
     </VbCard>
   </VbDemo>
 </template>
@@ -108,7 +146,7 @@ export default defineComponent({
 
   methods: {
     deleteLast5Rows() {
-      this.evenlySpacedItems.splice(this.evenlySpacedItems.length - 5, this.evenlySpacedItems.length)
+      this.evenItems.splice(this.evenItems.length - 5, this.evenItems.length)
     }
   }
 });

@@ -2,75 +2,79 @@
   <table class="va-data-table">
     <thead>
       <tr>
-        <th v-for="header in headers">
+        <th v-for="header in normalizedHeaders">
           {{ header }}
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="row in items">
-        <td v-for="cell in getCellValues(row)">
+      <slot name="body.prepend" />
+
+      <tr v-for="row in normalizedRows">
+        <td v-for="cell in row">
           {{ cell }}
         </td>
       </tr>
+
+      <slot name="body.append" />
     </tbody>
   </table>
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, ref, toRef, toRefs} from "vue";
-import {merge, startCase} from "lodash-es";
-
-export type VaDataTableColumnDefinition = string;
-
-export type VaDataTableItemDefinition = Record<string, unknown>
+import {defineComponent, PropType, toRefs} from "vue";
+import useColumns, {ITableColumn} from "./hooks/useColumns";
+import useRows, {ITableItem} from "./hooks/useRows";
 
 export default defineComponent({
   name: "VaDataTable",
 
   props: {
     columns: {
-      type: Array as PropType<VaDataTableColumnDefinition[]>
+      type: Array as PropType<string[] | ITableColumn[]>,
     },
     items: {
-      type: Array as PropType<VaDataTableItemDefinition[]>
+      type: Array as PropType<ITableItem[]>,
+      required: true
     }
   },
 
   setup(props) {
-    const {columns, items} = toRefs(props)
-
-    // headers
-    let rawHeaders = ref<string[]>([]);
-
-    if (!columns.value) {
-      rawHeaders.value = Object.keys(merge({}, ...items.value));
-    } else {
-      rawHeaders.value = columns.value;
-    }
-
-    const headers = rawHeaders.value.map(header => {
-      return startCase(header.toString());
-    })
-
-    // items
-    function getCellValues(row: VaDataTableItemDefinition) {
-        return (!columns.value ? rawHeaders : columns).value.map(rawHeader => {
-          const value = row[rawHeader] !== undefined ? row[rawHeader] : "";
-          return value.toString()
-        })
-    }
+    const {columns, items} = toRefs(props);
+    const {normalizedColumns, normalizedHeaders} = useColumns(columns, items);
+    const {normalizedRows} = useRows(normalizedColumns, items);
 
     // expose
     return {
-      headers,
-      items,
-      getCellValues
+      normalizedHeaders,
+      normalizedRows
     };
   }
 })
 </script>
 
 <style lang="scss">
+.va-data-table {
+  thead {
+    tr {
+      border-bottom: 2px solid var(--va-dark);
 
+      th {
+        padding: 0.625rem;
+        line-height: 1.2;
+        color: #34495e;
+        font-size: 0.625rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+      }
+    }
+  }
+
+  tbody {
+    td {
+      padding: 0.625rem;
+    }
+  }
+}
 </style>
