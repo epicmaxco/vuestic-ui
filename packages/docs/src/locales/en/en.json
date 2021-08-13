@@ -245,6 +245,11 @@
       },
       "events": {
         "change": "Emits affixed state on its' change."
+      },
+      "example": {
+        "fixedAtTheTop": "Fixed at the top",
+        "fixedAtTheBottom": "Fixed at the bottom",
+        "customTarget": "Custom target"
       }
     },
     "VaBreadcrumbs": {
