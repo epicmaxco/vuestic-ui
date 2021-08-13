@@ -1,33 +1,31 @@
 <template>
   <h3>
-    <MarkdownView tag="span" inline :value="$t(text)" />
-    <a :id="anchor" :style="{ color: colors.primary }" :href="`#${anchor}`"> #</a>
+    <MarkdownView tag="span" inline :value="textComputed" />
+    <DocsAnchor :text="linkTextComputed" />
   </h3>
 </template>
 <script lang='ts'>
-// @ts-nocheck
-import { kebabCase } from 'lodash'
-import { TranslationString } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { TranslationString } from '../components/DocsApi/ManualApiOptions'
 import { Options, Vue, mixins, prop } from 'vue-class-component'
+import DocsAnchor from './DocsAnchor.vue'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
-import { getColors } from '../../../ui/src/main'
 
 class Props {
-  text = prop<TranslationString>({ type: String })
+  text = prop<TranslationString>({ type: String, required: true })
 }
 
 const PropsMixin = Vue.with(Props)
 
 @Options({
-  components: { MarkdownView },
+  name: 'DocsSubtitle',
+  components: { DocsAnchor, MarkdownView },
 })
 export default class DocsSubtitle extends mixins(PropsMixin) {
-  get anchor () {
-    return kebabCase(this.$t(this.text) as string)
+  get textComputed () {
+    return this.$t(this.text)
   }
-
-  get colors () {
-    return getColors()
+  get linkTextComputed () {
+    return this.$t(this.text, 'en')
   }
 }
 </script>

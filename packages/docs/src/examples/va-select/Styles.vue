@@ -16,7 +16,7 @@
     <va-select
       v-model="value"
       class="mb-4"
-      placeholder="Brodered"
+      placeholder="Bordered"
       :options="options"
       bordered
     />
@@ -38,7 +38,7 @@
     <va-select
       v-model="value"
       class="mb-4"
-      label="Brodered (Purple color)"
+      label="Bordered (Purple color)"
       :options="options"
       color="#990099"
       bordered

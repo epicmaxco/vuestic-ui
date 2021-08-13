@@ -1,5 +1,5 @@
 <template>
   <va-button outline :rounded="false" size="small">
-    Your button
+    {{ $t('all.examplesTexts.button') }}
   </va-button>
 </template>

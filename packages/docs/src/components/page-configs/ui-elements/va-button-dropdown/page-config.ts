@@ -1,4 +1,4 @@
-import VaButtonDropdown from 'vuestic-ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
+import VaButtonDropdown from 'vuestic-ui/src/components/va-button-dropdown/VaButtonDropdown.vue'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { ApiDocsBlock } from '../../../../types/configTypes'

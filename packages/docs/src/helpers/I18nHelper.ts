@@ -1,6 +1,6 @@
 import { i18n } from './../main'
 
-export const { locale, te, t } = i18n.global
+export const { locale, te, t, fallbackLocale } = i18n.global
 
 // Helpers
 /**

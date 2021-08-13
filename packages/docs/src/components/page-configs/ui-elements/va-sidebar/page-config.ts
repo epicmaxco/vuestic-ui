@@ -1,6 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import VaSidebar
-  from 'vuestic-ui/src/components/vuestic-components/va-sidebar/VaSidebar.vue'
+  from 'vuestic-ui/src/components/va-sidebar/VaSidebar.vue'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 

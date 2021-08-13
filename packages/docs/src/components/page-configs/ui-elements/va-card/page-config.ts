@@ -1,6 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaCard
-  from 'vuestic-ui/src/components/vuestic-components/va-card/VaCard.vue'
+import VaCard from 'vuestic-ui/src/components/va-card/VaCard.vue'
 import apiOptions from './api-options'
 
 export default [
@@ -87,6 +86,26 @@ export default [
   {
     type: BlockType.EXAMPLE,
     component: 'va-card/Image',
+  },
+  {
+    type: BlockType.HEADLINE,
+    translationString: 'card.examples.actions.title',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'card.examples.actions.purpose',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'card.examples.actions.props',
+  },
+  {
+    type: BlockType.PARAGRAPH,
+    translationString: 'card.examples.actions.values',
+  },
+  {
+    type: BlockType.EXAMPLE,
+    component: 'va-card/Actions',
   },
   {
     type: BlockType.SUBTITLE,
