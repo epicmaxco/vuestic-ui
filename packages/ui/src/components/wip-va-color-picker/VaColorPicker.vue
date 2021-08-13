@@ -1,14 +1,14 @@
 <template>
-  <ChromePicker
-    v-model="valueProxy"
-    class="va-color-picker"
-  />
+<!--  <ChromePicker-->
+<!--    v-model="valueProxy"-->
+<!--    class="va-color-picker"-->
+<!--  />-->
 </template>
 
 <script lang="ts">
 import { Vue, Options, prop, mixins } from 'vue-class-component'
 // @ts-ignore
-import { Chrome } from 'vue-color'
+// import { Chrome } from 'vue-color'
 
 class ColorPickerProps {
   value = prop<string>({
@@ -21,7 +21,7 @@ const ColorPickerPropsMixin = Vue.with(ColorPickerProps)
 
 @Options({
   name: 'VaColorPicker',
-  components: { ChromePicker: Chrome },
+  // components: { ChromePicker: Chrome },
   emits: ['input'],
 })
 export default class VaColorPicker extends mixins(ColorPickerPropsMixin) {

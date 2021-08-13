@@ -1,14 +1,14 @@
 <template>
-  <SliderPicker
-    v-model="valueProxy"
-    class="vuestic-slider-picker"
-  />
+<!--  <SliderPicker-->
+<!--    v-model="valueProxy"-->
+<!--    class="vuestic-slider-picker"-->
+<!--  />-->
 </template>
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 // @ts-ignore
-import { Slider } from 'vue-color'
+// import { Slider } from 'vue-color'
 
 class ColorSliderProps {
   modelValue = prop<string>({
@@ -21,9 +21,9 @@ const ColorSliderPropsMixin = Vue.with(ColorSliderProps)
 
 @Options({
   name: 'VaColorSlider',
-  components: {
-    SliderPicker: Slider,
-  },
+  // components: {
+  //   SliderPicker: Slider,
+  // },
   emits: ['update:modelValue'],
 })
 export default class VaColorSlider extends mixins(ColorSliderPropsMixin) {
