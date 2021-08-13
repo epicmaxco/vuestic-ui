@@ -898,8 +898,15 @@
         "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
         "mode": "Specify if picker value is single date, multiple dates or date range."
       },
-      "events": {},
-      "methods": {},
+      "events": {
+        "updateView": "Emit when DatePicker \"view type\" is changed. DatePicker view types are `\"day\"`, `\"month\"`, `\"year\"`.",
+        "hoverYear": "Emit when hover over year.",
+        "clickYear": "Emit when click year.",
+        "hoverMonth": "Emit when hover over month.",
+        "clickMonth": "Emit when click month.",
+        "hoverDay": "Emit when hover over day.",
+        "clickDay": "Emit when click day."
+      },
       "slots": {
         "buttonPrev": "Button show previous month or year.",
         "buttonNext": "Button show next month or year.",
