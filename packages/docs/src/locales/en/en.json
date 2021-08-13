@@ -552,7 +552,7 @@
         "closeable": "Add a close alert area",
         "center": "Center the title and description of the alert",
         "borderColor": "Border color of the alert",
-        "border": "Stripe border for alert. `top`, `right`, `bottom`, `left` sizes are available.",
+        "border": "Stripe border for alert. `top`, `right`, `bottom`, `left` sizes are available",
         "dense": "Reduces alert paddings"
       },
       "methods": {
@@ -863,13 +863,13 @@
         "mode": "Specify if picker value is single date, multiple dates or date range."
       },
       "events": {
-        "updateView": "The event is triggered when the component needs to change the view",
-        "hoverYear": "The event is triggered when the mouse hover the year cell",
-        "clickYear": "The event is triggered when clicked the year cell",
-        "hoverDay": "The event is triggered when the mouse hover the day cell",
-        "clickDay": "The event is triggered when clicked the day cell",
-        "hoverMonth": "The event is triggered when the mouse hover the month cell",
-        "clickMonth": "The event is triggered when clicked the month cell"
+        "updateView": "Emit when DatePicker \"view type\" is changed. DatePicker view types are `\"day\"`, `\"month\"`, `\"year\"`.",
+        "hoverYear": "The event is triggered when the mouse hover the year cell.",
+        "clickYear": "The event is triggered when clicked the year cell.",
+        "hoverDay": "The event is triggered when the mouse hover the day cell.",
+        "clickDay": "The event is triggered when clicked the day cell.",
+        "hoverMonth": "The event is triggered when the mouse hover the month cell.",
+        "clickMonth": "The event is triggered when clicked the month cell."
       },
       "methods": {},
       "slots": {
@@ -3261,7 +3261,7 @@
       "description": {
         "visualFeedback": "**Visual feedback** - When a user interacts with a component they should see a result of their actions (could be implemented with :active selector or somehow else depending on the case).",
         "keyboardNavigation": "**Keyboard navigation** - You must ensure that UI elements are keyboard-accessible, and you must disable that functionality for elements that should not receive keyboard focus.",
-        "statelessSupport": "**Stateless support** (see the [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
+        "statelessSupport": "**Stateless support** (see the [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
   }

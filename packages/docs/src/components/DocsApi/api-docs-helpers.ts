@@ -1,8 +1,13 @@
 import { DefineComponent, ComponentOptions } from 'vue'
-import { kebabCase, camelCase } from 'lodash'
+import { kebabCase, camelCase, merge } from 'lodash'
 import { te as translationExists, fallbackLocale } from '../../locales/i18n'
 
-import { ManualPropApiOptions, ManualApiOptions, ManualSlotApiOptions, ManualMethodApiOptions } from './ManualApiOptions'
+import {
+  ManualPropApiOptions,
+  ManualApiOptions,
+  ManualSlotApiOptions,
+  ManualMethodApiOptions,
+} from './ManualApiOptions'
 import { compileComponentOptions, CompiledComponentOptions } from './component-options-compiler'
 import { ApiEventRowOptions, ApiMethodRowOptions, ApiPropRowOptions, ApiSlotRowOptions, ApiTableData } from './ApiTableData'
 
@@ -76,6 +81,15 @@ const getApiTableProps = (
   return api
 }
 
+export const normalizeEventNames = <T>(obj: Record<string, T>) => {
+  return Object.keys(obj).reduce((acc, o: string) => {
+    const eventName = o.split(':').map(e => kebabCase(e)).join(':')
+    acc[kebabCase(o)] = { ...obj[o], name: eventName }
+
+    return acc
+  }, {} as Record<string, {name: string}>)
+}
+
 const getApiTableEvents = (
   componentName: string,
   compiledComponentOptions: CompiledComponentOptions,
@@ -83,10 +97,12 @@ const getApiTableEvents = (
 ) => {
   const api = {} as Record<string, ApiEventRowOptions>
   const manualEvents = manualOptions.events ? keysToKebabCase(manualOptions.events) : {}
-  const merged = { ...compiledComponentOptions.emits, ...manualEvents }
+  const componentEvents = compiledComponentOptions.emits ? normalizeEventNames(compiledComponentOptions.emits) : {}
+  const merged = merge(componentEvents, manualEvents)
 
-  for (const eventName in merged) {
-    const event = merged[eventName]
+  for (const eventKey in merged) {
+    const event = merged[eventKey]
+    const eventName = event.name || eventKey
 
     if (event.hidden) { continue }
 
@@ -94,7 +110,7 @@ const getApiTableEvents = (
       version: event.version || manualOptions.version || '',
       name: eventName,
       types: event.types,
-      description: getTranslation('events', eventName, componentName, event.translation),
+      description: getTranslation('events', eventKey, componentName, event.translation),
     }
   }
 
