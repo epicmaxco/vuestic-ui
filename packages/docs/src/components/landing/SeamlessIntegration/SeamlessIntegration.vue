@@ -5,7 +5,6 @@
         <h2 class="seamless__title">{{$t('landing.seamless.title')}}</h2>
         <div class="seamless__subtitle">{{$t('landing.seamless.text')}}</div>
         <div class="seamless__content">
-
           <!-- First block -->
           <div class="seamless__content--first">
             <h3 class="block__label block__label--vuestic text--primary">{{$t('landing.seamless.compare.vuestic')}}</h3>
@@ -36,7 +35,7 @@
                 />
               </div>
             </div>
-            <img src="../../assets/landing/images/plus.svg" alt="">
+            <img src="../../../assets/landing/images/plus.svg" alt="">
           </div>
           <!-- /First block -->
 
@@ -47,35 +46,19 @@
             <div class="block__components">
 
               <div class="component">
-                <div class="example-button">Télécharger</div>
+                <seamless-integration-another-button />
               </div>
 
               <div class="component">
-                <div class="example-select">
-                  <div>
-                    <div class="example-select__label">Another select</div>
-                    <div>Polar bear</div>
-                  </div>
-                  <div class="example-select__icon">&#10132;</div>
-                </div>
+                <seamless-integration-another-select :options="options" />
               </div>
 
               <div class="component">
-                <div class="example-slider">
-                  <div class="example-slider__fill-part">
-                    <div class="example-slider__fill-part__mover"></div>
-                  </div>
-                  <div class="example-slider__empty-part"></div>
-                </div>
+                <seamless-integration-another-range-slider />
               </div>
 
               <div class="component">
-                <div class="example-checkbox">
-                  <div class="example-checkbox__checker">
-                    &#10003;
-                  </div>
-                  <span>Agree to terms</span>
-                </div>
+                <seamless-integration-another-checkbox />
               </div>
             </div>
           </div>
@@ -89,7 +72,19 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-@Options({})
+import SeamlessIntegrationAnotherButton from './SeamlessIntegrationAnotherButton.vue'
+import SeamlessIntegrationAnotherSelect from './SeamlessIntegrationAnotherSelect.vue'
+import SeamlessIntegrationAnotherRangeSlider from './SeamlessIntegrationAnotherRangeSlider.vue'
+import SeamlessIntegrationAnotherCheckbox from './SeamlessIntegrationAnotherCheckbox.vue'
+
+@Options({
+  components: {
+    SeamlessIntegrationAnotherButton,
+    SeamlessIntegrationAnotherSelect,
+    SeamlessIntegrationAnotherRangeSlider,
+    SeamlessIntegrationAnotherCheckbox
+  }
+})
 export default class Seamless extends Vue {
   value = true
   value2 = 45
@@ -106,7 +101,7 @@ export default class Seamless extends Vue {
   position: relative;
   padding-top: 8.5rem;
   padding-bottom: 12rem;
-  background-image: url("../../assets/landing/images/pattern-3.svg");
+  background-image: url("../../../assets/landing/images/pattern-3.svg");
   background-size: cover;
   background-color: $bg-light-sky;
   background-repeat: no-repeat;
@@ -156,8 +151,6 @@ export default class Seamless extends Vue {
     background: #ffffff;
     box-shadow: 0 47px 72px -39px rgba(155, 179, 206, 0.8);
     border-radius: 1rem;
-    user-select: none;
-    pointer-events: none;
     justify-content: center;
 
     // sm
@@ -227,81 +220,6 @@ export default class Seamless extends Vue {
       @include lg(padding-bottom, 1rem);
       // sm
       @include size-sm(12);
-    }
-
-    .example-button {
-      display: inline-block;
-      background: #f8cb2d;
-      border-radius: 2px;
-      padding: 0.5rem 1rem;
-      color: #ffffff;
-      font-weight: 600;
-    }
-
-    .example-select {
-      padding: 0.25rem 0.7rem;
-      display: flex;
-      justify-content: space-between;
-      border: 1px solid #ced4da;
-      border-radius: 0.3rem;
-
-      &__icon {
-        transform: rotate(90deg);
-        color: #b4b6b9;
-      }
-
-      &__label {
-        color: #42d1a6;
-        font-size: 0.75rem;
-      }
-    }
-
-    .example-slider {
-      display: flex;
-      width: 100%;
-
-      &__fill-part {
-        width: 45%;
-        height: 5px;
-        border-radius: 2rem 0 0 2rem;
-        background-color: #000000;
-        position: relative;
-
-        &__mover {
-          position: absolute;
-          border-radius: 50%;
-          height: 10px;
-          width: 10px;
-          right: 0;
-          top: 50%;
-          transform: translate(50%, -50%);
-          background-color: #000000;
-        }
-      }
-
-      &__empty-part {
-        width: 55%;
-        height: 5px;
-        border-radius: 0 2rem 2rem 0;
-        background-color: #f3f3f3;
-      }
-    }
-
-    .example-checkbox {
-      display: flex;
-
-      &__checker {
-        background-color: #419488;
-        width: 20px;
-        height: 20px;
-        border-radius: 2px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #ffffff;
-        font-size: 1.4rem;
-        margin-right: 0.3rem;
-      }
     }
   }
 }
