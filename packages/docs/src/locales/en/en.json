@@ -900,12 +900,12 @@
       },
       "events": {
         "updateView": "Emit when DatePicker \"view type\" is changed. DatePicker view types are `\"day\"`, `\"month\"`, `\"year\"`.",
-        "hoverYear": "Emit when hover over year.",
-        "clickYear": "Emit when click year.",
-        "hoverMonth": "Emit when hover over month.",
-        "clickMonth": "Emit when click month.",
-        "hoverDay": "Emit when hover over day.",
-        "clickDay": "Emit when click day."
+        "hoverYear": "Emit when hover over the year in `year view type`.",
+        "clickYear": "Emit when click on the year in `year view type`.",
+        "hoverMonth": "Emit when hover over the month in `month view type`.",
+        "clickMonth": "Emit when click on the month in `month view type`.",
+        "hoverDay": "Emit when hover over the day.",
+        "clickDay": "Emit when click on the day."
       },
       "slots": {
         "buttonPrev": "Button show previous month or year.",
