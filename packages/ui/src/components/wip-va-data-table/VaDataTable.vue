@@ -1,6 +1,7 @@
 <template>
   <table class="va-data-table">
     <thead>
+     <slot name="head.prepend"/>
       <tr>
         <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
           <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`">
@@ -12,6 +13,7 @@
           </slot>
         </th>
       </tr>
+     <slot name="head.append"/>
     </thead>
 
     <tbody>
@@ -33,6 +35,7 @@
     </tbody>
 
     <tfoot v-if="footClone">
+      <slot name="foot.prepend"/>
       <tr>
         <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
           <slot v-if="`foot(${column.key})` in slots" :name="`foot(${column.key})`">
@@ -44,6 +47,7 @@
           </slot>
         </th>
       </tr>
+      <slot name="foot.append"/>
     </tfoot>
   </table>
 </template>
@@ -104,9 +108,7 @@ export default defineComponent({
   }
 
   thead {
-    tr {
-      border-bottom: 2px solid var(--va-dark);
-    }
+    border-bottom: 2px solid var(--va-dark);
   }
 
   tbody {
@@ -116,9 +118,7 @@ export default defineComponent({
   }
 
   tfoot {
-    tr {
-      border-top: 2px solid var(--va-dark);
-    }
+    border-top: 2px solid var(--va-dark);
   }
 }
 </style>

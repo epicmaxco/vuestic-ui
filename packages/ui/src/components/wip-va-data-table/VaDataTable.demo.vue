@@ -56,7 +56,41 @@
       <va-data-table :items="excessiveItems" :columns="excessiveColumns"/>
     </VbCard>
 
-    <VbCard title="Prepend rows" class="demo">
+    <VbCard title="[head] Prepend rows" class="demo">
+      <va-data-table :items="evenItems">
+        <template #head.prepend>
+          <tr>
+            <td>Static 1.1</td>
+            <td>Static 1.2</td>
+            <td>Static 1.3</td>
+          </tr>
+          <tr>
+            <td>Static 2.1</td>
+            <td>Static 2.2</td>
+            <td>Static 2.3</td>
+          </tr>
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="[head] Append rows" class="demo">
+      <va-data-table :items="evenItems">
+        <template #head.append>
+          <tr>
+            <td>Static 1.1</td>
+            <td>Static 1.2</td>
+            <td>Static 1.3</td>
+          </tr>
+          <tr>
+            <td>Static 2.1</td>
+            <td>Static 2.2</td>
+            <td>Static 2.3</td>
+          </tr>
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="[body] Prepend rows" class="demo">
       <va-data-table :items="evenItems">
         <template #body.prepend>
           <tr>
@@ -73,9 +107,43 @@
       </va-data-table>
     </VbCard>
 
-    <VbCard title="Append rows" class="demo">
+    <VbCard title="[body] Append rows" class="demo">
       <va-data-table :items="evenItems">
         <template #body.append>
+          <tr>
+            <td>Static 1.1</td>
+            <td>Static 1.2</td>
+            <td>Static 1.3</td>
+          </tr>
+          <tr>
+            <td>Static 2.1</td>
+            <td>Static 2.2</td>
+            <td>Static 2.3</td>
+          </tr>
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="[foot] Prepend rows" class="demo">
+      <va-data-table :items="evenItems" foot-clone>
+        <template #foot.prepend>
+          <tr>
+            <td>Static 1.1</td>
+            <td>Static 1.2</td>
+            <td>Static 1.3</td>
+          </tr>
+          <tr>
+            <td>Static 2.1</td>
+            <td>Static 2.2</td>
+            <td>Static 2.3</td>
+          </tr>
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="[foot] Append rows" class="demo">
+      <va-data-table :items="evenItems" foot-clone>
+        <template #foot.append>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
