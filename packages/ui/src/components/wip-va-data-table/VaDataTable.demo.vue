@@ -246,9 +246,14 @@
       </va-data-table>
     </VbCard>
 
-    <VbCard title="Selectable (single)" class="demo">
+    <VbCard title="Selectable (multiple) (default)" class="demo">
       {{selectedItems}}
       <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItems"/>
+    </VbCard>
+
+    <VbCard title="Selectable (single)" class="demo">
+      {{selectedItem}}
+      <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItem" select-mode="single"/>
     </VbCard>
   </VbDemo>
 </template>
@@ -308,6 +313,7 @@ export default defineComponent({
       excessiveItems,
 
       selectedItems: [],
+      selectedItem: [],
     }
   },
 

@@ -4,7 +4,7 @@
      <slot name="head.prepend"/>
       <tr>
         <th v-if="selectable">
-          <input type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
+          <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
         </th>
 
         <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
@@ -25,7 +25,8 @@
 
       <tr v-for="row in rows" @click="toggleRowSelection(row)" :class="{ selectable }">
         <td v-if="selectable">
-          <input type="checkbox" v-model="selectedItems" :value="row.source" @click.stop>
+          <input v-if="selectMode === 'multiple'" type="checkbox" v-model="selectedItems" :value="row.source" @click.stop>
+          <input v-else-if="selectMode === 'single'" type="checkbox" :checked="selectedItems.includes(row.source)">
         </td>
 
         <td v-for="cell in row.cells">
@@ -64,7 +65,7 @@
 import {computed, defineComponent, PropType, ref, toRef, toRefs, watch} from "vue";
 import useColumns, {ITableColumn} from "./hooks/useColumns";
 import useRows, {ITableItem} from "./hooks/useRows";
-import useSelectable from "./hooks/useSelectable";
+import useSelectable, {TSelectMode} from "./hooks/useSelectable";
 
 export default defineComponent({
   name: "VaDataTable",
@@ -79,11 +80,19 @@ export default defineComponent({
     },
     modelValue: {
       type: Array as PropType<ITableItem[]>,
+      default: () => [],
+    },
+    selectedItems: {
+      type: Array as PropType<ITableItem[]>,
       default: [],
     },
     selectable: {
       type: Boolean,
       default: false,
+    },
+    selectMode: {
+      type: String as PropType<TSelectMode>,
+      default: "multiple",
     },
     footClone: {
       type: Boolean,
@@ -91,7 +100,7 @@ export default defineComponent({
     }
   },
 
-  emits: ["update:modelValue"],
+  emits: ["update:selectedItems"],
 
   setup(props, {slots, emit}) {
     const {
@@ -103,8 +112,8 @@ export default defineComponent({
     const {columns} = useColumns(rawColumns, rawItems);
     const {rows} = useRows(rawItems, columns);
 
-    const {selectable} = toRefs(props);
-    const {selectedItems, toggleBulkSelection, toggleRowSelection} = useSelectable(rows, emit);
+    const {selectable, selectMode, modelValue} = toRefs(props);
+    const {selectedItems, toggleBulkSelection, toggleRowSelection} = useSelectable(selectMode, modelValue, rows, emit);
 
     // expose
     return {
