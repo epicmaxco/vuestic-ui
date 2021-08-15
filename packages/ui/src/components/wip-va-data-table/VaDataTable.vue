@@ -2,17 +2,28 @@
   <table class="va-data-table">
     <thead>
       <tr>
-        <th v-for="header in normalizedHeaders">
-          {{ header }}
+        <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
+          <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`">
+            {{ column.label }}
+          </slot>
+
+          <slot v-else name="head" v-bind="column">
+            {{ column.label }}
+          </slot>
         </th>
       </tr>
     </thead>
+
     <tbody>
       <slot name="body.prepend" />
 
-      <tr v-for="row in normalizedRows">
+      <tr v-for="row in rows">
         <td v-for="cell in row">
-          <slot :name="`cell(${cell.key})`" v-bind="row">
+          <slot v-if="`cell(${cell.column.key})` in slots" :name="`cell(${cell.column.key})`" v-bind="cell">
+            {{ cell.value }}
+          </slot>
+
+          <slot v-else name="cell" v-bind="cell">
             {{ cell.value }}
           </slot>
         </td>
@@ -20,11 +31,25 @@
 
       <slot name="body.append" />
     </tbody>
+
+    <tfoot v-if="footClone">
+      <tr>
+        <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
+          <slot v-if="`foot(${column.key})` in slots" :name="`foot(${column.key})`">
+            {{ column.label }}
+          </slot>
+
+          <slot v-else name="foot" v-bind="column">
+            {{ column.label }}
+          </slot>
+        </th>
+      </tr>
+    </tfoot>
   </table>
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, toRefs} from "vue";
+import {computed, defineComponent, PropType, toRef, toRefs} from "vue";
 import useColumns, {ITableColumn} from "./hooks/useColumns";
 import useRows, {ITableItem} from "./hooks/useRows";
 
@@ -37,19 +62,30 @@ export default defineComponent({
     },
     items: {
       type: Array as PropType<ITableItem[]>,
-      required: true
+      required: true,
+    },
+    footClone: {
+      type: Boolean,
+      default: false,
     }
   },
 
-  setup(props) {
-    const {columns, items} = toRefs(props);
-    const {normalizedColumns, normalizedHeaders} = useColumns(columns, items);
-    const {normalizedRows} = useRows(normalizedColumns, items);
+  setup(props, {slots}) {
+    const {
+      columns: rawColumns,
+      items: rawItems,
+      footClone
+    } = toRefs(props);
+
+    const {columns} = useColumns(rawColumns, rawItems);
+    const {rows} = useRows(rawItems, columns);
 
     // expose
     return {
-      normalizedHeaders,
-      normalizedRows
+      slots,
+      columns,
+      rows,
+      footClone
     };
   }
 })
@@ -57,25 +93,31 @@ export default defineComponent({
 
 <style lang="scss">
 .va-data-table {
+  th {
+    padding: 0.625rem;
+    line-height: 1.2;
+    color: #34495e;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+
   thead {
     tr {
       border-bottom: 2px solid var(--va-dark);
-
-      th {
-        padding: 0.625rem;
-        line-height: 1.2;
-        color: #34495e;
-        font-size: 0.625rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-      }
     }
   }
 
   tbody {
     td {
       padding: 0.625rem;
+    }
+  }
+
+  tfoot {
+    tr {
+      border-top: 2px solid var(--va-dark);
     }
   }
 }

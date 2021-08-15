@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
-    <VbCard title="data controls">
-      <va-button @click="deleteLast5Rows">Delete last 5 even data rows</va-button>
+    <VbCard title="Controls">
+      <va-button @click="deleteLast5EvenItems">Delete last 5 even data rows</va-button>
     </VbCard>
 
     <VbCard title="Even `items` no `columns`" class="demo">
@@ -14,6 +14,10 @@
 
     <VbCard title="Excessive `items` no `columns`" class="demo">
       <va-data-table :items="excessiveItems"/>
+    </VbCard>
+
+    <VbCard title="Controls">
+      <va-button @click="toggleIdAndNumber">Toggle 'id' column to be 'number' (and vice-versa)</va-button>
     </VbCard>
 
     <VbCard title="Even `items` with even `columns`" class="demo">
@@ -52,7 +56,7 @@
       <va-data-table :items="excessiveItems" :columns="excessiveColumns"/>
     </VbCard>
 
-    <VbCard title="Even `items` no `columns`, prepend rows" class="demo">
+    <VbCard title="Prepend rows" class="demo">
       <va-data-table :items="evenItems">
         <template #body.prepend>
           <tr>
@@ -69,7 +73,7 @@
       </va-data-table>
     </VbCard>
 
-    <VbCard title="Even `items` no `columns`, append rows" class="demo">
+    <VbCard title="Append rows" class="demo">
       <va-data-table :items="evenItems">
         <template #body.append>
           <tr>
@@ -86,9 +90,91 @@
       </va-data-table>
     </VbCard>
 
-    <VbCard title="Even `items` slot instead a single cell" class="demo">
-      <va-data-table :items="evenItems">
-        <template #cell(id)="row">{{ row }}</template>
+    <VbCard title="`head` slot (static value)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns">
+        <template #head>
+          Test
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Specific `head(id)` slot (static value)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns">
+        <template #head(id)>
+          A Unique ID
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Specific `head(id)` together with static `head` slot (static values)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns">
+        <template #head>
+          Test
+        </template>
+
+        <template #head(id)>
+          A Unique ID
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="foot-clone prop">
+      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone/>
+    </VbCard>
+
+    <VbCard title="[foot-clone] `foot` slot (static value)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
+        <template #foot>
+          Test
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="[foot-clone] Specific `foot(id)` slot (static value)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
+        <template #foot(id)>
+          A Unique ID
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="[foot-clone] Specific `head(id)` together with static `head` slot (static values)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
+        <template #foot>
+          Test
+        </template>
+
+        <template #foot(id)>
+          A Unique ID
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="`cell` slot (static value)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
+        <template #cell>
+          Target each cell
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Specific `cell(id)` slot (static value)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
+        <template #cell(id)>
+          'id' column cells
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Specific `cell(id)` together with static `cell` slot (static values)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
+        <template #cell>
+          Target each cell
+        </template>
+
+        <template #cell(id)>
+          'id' column cells
+        </template>
       </va-data-table>
     </VbCard>
   </VbDemo>
@@ -151,8 +237,12 @@ export default defineComponent({
   },
 
   methods: {
-    deleteLast5Rows() {
+    deleteLast5EvenItems() {
       this.evenItems.splice(this.evenItems.length - 5, this.evenItems.length)
+    },
+
+    toggleIdAndNumber() {
+      this.evenColumns.splice(2, 1, this.evenColumns[2] === "id" ? "number" : "id");
     }
   }
 });

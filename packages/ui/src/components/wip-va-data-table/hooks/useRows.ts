@@ -1,21 +1,31 @@
 import {Ref, computed} from "vue";
 import {TableColumn} from "./useColumns";
 
-export type ITableItem = Record<string, unknown>
+export type ITableItem = Record<string, any>
 
-export default function useRows(normalizedColumns: Ref<TableColumn[]>, items: Ref<ITableItem[]>) {
-  const normalizedRows = computed(() => {
-    return items.value.map(item => {
-      return normalizedColumns.value.map(normalizedColumn => {
-        return {
-          key: normalizedColumn.key,
-          value: item[normalizedColumn.key] || ""
-        }
+export class TableCell {
+  constructor(rawItem: ITableItem, column: TableColumn) {
+    this.item = rawItem;
+    this.column = column;
+    this.value = rawItem[column.key]?.toString?.() || "";
+  }
+
+  item: ITableItem;
+  column: TableColumn;
+  value: any;
+}
+
+export default function useRows(rawItems: Ref<ITableItem[]>, columns: Ref<TableColumn[]>) {
+  // build two-dimensional array for cells
+  const rows = computed(() => {
+    return rawItems.value.map(rawItem => {
+      return columns.value.map(column => {
+        return new TableCell(rawItem, column);
       })
     })
   });
 
   return {
-    normalizedRows
+    rows
   }
 };
