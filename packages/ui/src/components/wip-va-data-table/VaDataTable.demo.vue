@@ -245,6 +245,11 @@
         </template>
       </va-data-table>
     </VbCard>
+
+    <VbCard title="Selectable (single)" class="demo">
+      {{selectedItems}}
+      <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItems"/>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -300,7 +305,9 @@ export default defineComponent({
 
       evenItems,
       lackingItems,
-      excessiveItems
+      excessiveItems,
+
+      selectedItems: [],
     }
   },
 

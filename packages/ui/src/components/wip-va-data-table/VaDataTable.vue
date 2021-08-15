@@ -3,6 +3,10 @@
     <thead>
      <slot name="head.prepend"/>
       <tr>
+        <th v-if="selectable">
+          <input type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
+        </th>
+
         <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
           <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`">
             {{ column.label }}
@@ -19,8 +23,12 @@
     <tbody>
       <slot name="body.prepend" />
 
-      <tr v-for="row in rows">
-        <td v-for="cell in row">
+      <tr v-for="row in rows" @click="toggleRowSelection(row)" :class="{ selectable }">
+        <td v-if="selectable">
+          <input type="checkbox" v-model="selectedItems" :value="row.source" @click.stop>
+        </td>
+
+        <td v-for="cell in row.cells">
           <slot v-if="`cell(${cell.column.key})` in slots" :name="`cell(${cell.column.key})`" v-bind="cell">
             {{ cell.value }}
           </slot>
@@ -53,9 +61,10 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, toRef, toRefs} from "vue";
+import {computed, defineComponent, PropType, ref, toRef, toRefs, watch} from "vue";
 import useColumns, {ITableColumn} from "./hooks/useColumns";
 import useRows, {ITableItem} from "./hooks/useRows";
+import useSelectable from "./hooks/useSelectable";
 
 export default defineComponent({
   name: "VaDataTable",
@@ -68,13 +77,23 @@ export default defineComponent({
       type: Array as PropType<ITableItem[]>,
       required: true,
     },
+    modelValue: {
+      type: Array as PropType<ITableItem[]>,
+      default: [],
+    },
+    selectable: {
+      type: Boolean,
+      default: false,
+    },
     footClone: {
       type: Boolean,
       default: false,
     }
   },
 
-  setup(props, {slots}) {
+  emits: ["update:modelValue"],
+
+  setup(props, {slots, emit}) {
     const {
       columns: rawColumns,
       items: rawItems,
@@ -84,11 +103,18 @@ export default defineComponent({
     const {columns} = useColumns(rawColumns, rawItems);
     const {rows} = useRows(rawItems, columns);
 
+    const {selectable} = toRefs(props);
+    const {selectedItems, toggleBulkSelection, toggleRowSelection} = useSelectable(rows, emit);
+
     // expose
     return {
       slots,
       columns,
       rows,
+      selectable,
+      selectedItems,
+      toggleBulkSelection,
+      toggleRowSelection,
       footClone
     };
   }
@@ -112,6 +138,10 @@ export default defineComponent({
   }
 
   tbody {
+    tr.selectable {
+      cursor: pointer;
+    }
+
     td {
       padding: 0.625rem;
     }

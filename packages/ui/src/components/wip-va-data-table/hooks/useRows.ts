@@ -3,26 +3,36 @@ import {TableColumn} from "./useColumns";
 
 export type ITableItem = Record<string, any>
 
-export class TableCell {
-  constructor(rawItem: ITableItem, column: TableColumn) {
-    this.item = rawItem;
-    this.column = column;
-    this.value = rawItem[column.key]?.toString?.() || "";
+export class TableRow {
+  constructor(rawItem: ITableItem, columns: TableColumn[]) {
+    this.source = rawItem;
+
+    this.cells = columns.map(column => {
+      return new TableCell(this, column, rawItem[column.key]);
+    })
   }
 
-  item: ITableItem;
+  source: ITableItem;
+  cells: TableCell[];
+}
+
+export class TableCell {
+  constructor(row: TableRow, column: TableColumn, value: any) {
+    this.row = row;
+    this.column = column;
+    this.value = value?.toString?.() || "";
+  }
+
+  row: TableRow;
   column: TableColumn;
-  value: any;
+  value: string;
 }
 
 export default function useRows(rawItems: Ref<ITableItem[]>, columns: Ref<TableColumn[]>) {
-  // build two-dimensional array for cells
   const rows = computed(() => {
     return rawItems.value.map(rawItem => {
-      return columns.value.map(column => {
-        return new TableCell(rawItem, column);
-      })
-    })
+      return new TableRow(rawItem, columns.value);
+    });
   });
 
   return {
