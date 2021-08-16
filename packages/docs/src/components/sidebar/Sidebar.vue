@@ -75,6 +75,7 @@ class Props {
 }
 
 @Options({
+  name: 'DocsSidebar',
   components: { AlgoliaSearch, VaSidebarLink },
 })
 export default class Sidebar extends Vue.with(Props) {

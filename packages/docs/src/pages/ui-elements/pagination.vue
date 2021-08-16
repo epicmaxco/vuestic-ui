@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import paginationConfig from '../../components/page-configs/ui-elements/va-pagination/page-config'
 
 @Options({
+  name: 'DocsPagination',
   components: {
     DocsContent,
   },

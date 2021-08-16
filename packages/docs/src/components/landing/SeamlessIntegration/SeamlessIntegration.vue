@@ -78,12 +78,13 @@ import SeamlessIntegrationAnotherRangeSlider from './SeamlessIntegrationAnotherR
 import SeamlessIntegrationAnotherCheckbox from './SeamlessIntegrationAnotherCheckbox.vue'
 
 @Options({
+  name: 'LandingSeamlessIntegration',
   components: {
     SeamlessIntegrationAnotherButton,
     SeamlessIntegrationAnotherSelect,
     SeamlessIntegrationAnotherRangeSlider,
-    SeamlessIntegrationAnotherCheckbox
-  }
+    SeamlessIntegrationAnotherCheckbox,
+  },
 })
 export default class Seamless extends Vue {
   value = true

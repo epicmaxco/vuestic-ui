@@ -1,5 +1,5 @@
 <template>
-  <docs-content :config="configComputed"/>
+  <docs-content :config="configComputed" />
 </template>
 
 <script lang="ts">
@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import overviewConfig from '../../components/page-configs/introduction/overview/page-config'
 
 @Options({
+  name: 'DocsOverview',
   components: {
     DocsContent,
   },

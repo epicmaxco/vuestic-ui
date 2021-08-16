@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import formConfig from '../../components/page-configs/ui-elements/va-form/page-config'
 
 @Options({
+  name: 'DocsForm',
   components: {
     DocsContent,
   },

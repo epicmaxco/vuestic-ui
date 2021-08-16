@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import tabsConfig from '../../components/page-configs/ui-elements/va-tabs/page-config'
 
 @Options({
+  name: 'DocsTabs',
   components: {
     DocsContent,
   },

@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import dateInputConfig from '../../components/page-configs/ui-elements/va-date-input/page-config'
 
 @Options({
+  name: 'DocsDateInput',
   components: {
     DocsContent,
   },

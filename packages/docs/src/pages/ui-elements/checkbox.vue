@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import checkboxConfig from '../../components/page-configs/ui-elements/va-checkbox/page-config'
 
 @Options({
+  name: 'DocsCheckbox',
   components: {
     DocsContent,
   },

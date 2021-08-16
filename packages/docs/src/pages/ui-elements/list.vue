@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import listConfig from '../../components/page-configs/ui-elements/va-list/page-config'
 
 @Options({
+  name: 'DocsList',
   components: {
     DocsContent,
   },

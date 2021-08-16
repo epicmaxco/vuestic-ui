@@ -71,11 +71,13 @@
 // @ts-nocheck
 import { watch } from 'vue'
 import { Options, Vue } from 'vue-class-component'
-import { ThemeName, ThemeNameIterator } from '../../config/theme-config'
+import { ThemeName, ThemeNameIterator } from '@/config/theme-config'
 import { capitalize } from 'lodash'
-import { getColors } from '../../../../ui/src/services/color-config/color-config'
+import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
 
-@Options({})
+@Options({
+  name: 'LandingColorTab',
+})
 export default class ColorTab extends Vue {
   selectedTheme: string | ThemeName = ThemeName.DEFAULT
 
