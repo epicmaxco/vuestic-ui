@@ -7,25 +7,25 @@ export default defineManualApi({
     mode: { types: "'single' | 'multiple' | 'range'" },
   },
   events: {
-    updateView: {
+    'update:view': {
       types: '`() => Object`',
     },
-    hoverYear: {
+    'hover:year': {
       types: '`() => Date | undefined`',
     },
-    clickYear: {
+    'click:year': {
       types: '`() => Date`',
     },
-    hoverMonth: {
+    'hover:month': {
       types: '`() => Date | undefined`',
     },
-    clickMonth: {
+    'click:month': {
       types: '`() => Date`',
     },
-    hoverDay: {
+    'hover:day': {
       types: '`() => Date | undefined`',
     },
-    clickDay: {
+    'click:day': {
       types: '`() => Date`',
     },
   },

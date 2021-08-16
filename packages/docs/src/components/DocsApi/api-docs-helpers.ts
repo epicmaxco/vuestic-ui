@@ -82,30 +82,19 @@ const getApiTableProps = (
   return api
 }
 
-export const mergeApiTableEvents = (
-  componentEvents: Record<string, EventOptionsCompiled> = {},
-  manualEvents: Record<string, ManualEventApiOptions> = {},
-) => {
-  const merged: Record<string, ManualEventApiOptions | EventOptionsCompiled> = {}
-  const uniqueManualEvents = { ...manualEvents }
+export const isSyncEvent = (name: string) => {
+  return /\w+:\w+/.test(name)
+}
 
-  for (const componentEventName in componentEvents) {
-    // handle cases when we use events with such pattern `update:myPropName`
-    // it's needed since all events from manualOptions transformed to kebab-case
-    // in the case if need both events `click-day` and `click:day` in one component, mergeApiTableEvents and translations logic should be reworked
-    const kebabComponentEventName:string = kebabCase(componentEventName)
-    const componentEvent = componentEvents[componentEventName]
-    const manualEvent = uniqueManualEvents[kebabComponentEventName]
-
-    if (manualEvent) {
-      merged[componentEventName] = { ...componentEvent, ...manualEvent }
-      delete uniqueManualEvents[kebabComponentEventName]
+export const normalizeEvents = <T>(obj: Record<string, T>) => {
+  return Object.keys(obj).reduce((acc, o: string) => {
+    if (isSyncEvent(o)) {
+      acc[o] = obj[o]
     } else {
-      merged[componentEventName] = { ...componentEvent }
+      acc[kebabCase(o)] = obj[o]
     }
-  }
-
-  return { ...merged, ...uniqueManualEvents }
+    return acc
+  }, {} as Record<string, T>)
 }
 
 const getApiTableEvents = (
@@ -114,8 +103,8 @@ const getApiTableEvents = (
   manualOptions: ManualApiOptions = {},
 ) => {
   const api = {} as Record<string, ApiEventRowOptions>
-  const manualEvents = manualOptions.events ? keysToKebabCase(manualOptions.events) : {}
-  const merged = mergeApiTableEvents(compiledComponentOptions.emits, manualEvents)
+  const manualEvents = manualOptions.events ? normalizeEvents(manualOptions.events) : {}
+  const merged = { ...compiledComponentOptions.emits, ...manualEvents }
 
   for (const eventName in merged) {
     const event = merged[eventName]
