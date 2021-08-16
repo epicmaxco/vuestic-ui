@@ -7,7 +7,7 @@ export default function useSelectable(selectMode: Ref<TSelectMode>, modelValue: 
   const selectedItems = ref<ITableItem[]>(modelValue.value);
 
   watch([selectedItems, selectedItems.value], () => {
-    emit("update:selectedItems", selectedItems.value);
+    emit("update:modelValue", selectedItems.value);
   })
 
   function toggleBulkSelection() {
@@ -28,7 +28,6 @@ export default function useSelectable(selectMode: Ref<TSelectMode>, modelValue: 
         selectedItems.value.push(row.source);
       }
     } else if (selectMode.value === "single") {
-      console.log("single")
       if (selectedItems.value[0] === row.source) {
         selectedItems.value.splice(0, 1);
       } else {

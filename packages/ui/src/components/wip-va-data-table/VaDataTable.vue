@@ -100,7 +100,7 @@ export default defineComponent({
     }
   },
 
-  emits: ["update:selectedItems"],
+  emits: ["update:modelValue"],
 
   setup(props, {slots, emit}) {
     const {
