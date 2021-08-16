@@ -76,7 +76,7 @@ import useColumns, {ITableColumn} from "./hooks/useColumns";
 import useRows, {ITableItem} from "./hooks/useRows";
 import useSelectable, {TSelectMode} from "./hooks/useSelectable";
 import useStylable from "./hooks/useStylable";
-import useSortable from "./hooks/useSortable";
+import useSortable, {TSortingOrderOptions} from "./hooks/useSortable";
 
 export default defineComponent({
   name: "VaDataTable",
@@ -106,6 +106,13 @@ export default defineComponent({
     selectedColor: {
       type: String as PropType<string>,
       default: "primary",
+    },
+    sortBy: {
+      type: String as PropType<string>
+    },
+    sortingOrder: {
+      type: String as PropType<TSortingOrderOptions>,
+      default: "asc",
     },
     busy: {
       type: Boolean,
@@ -138,7 +145,8 @@ export default defineComponent({
     const {selectedItems, toggleBulkSelection, toggleRowSelection, isRowSelected} = useSelectable(selectMode, modelValue, rows, emit);
 
     // sorting
-    const {sortedBy, sortingOrder, sortByColumn} = useSortable(columns, rows);
+    const {sortBy: initiallySortedBy, sortingOrder: initialSortingOrder} = toRefs(props);
+    const {sortedBy, sortingOrder, sortByColumn} = useSortable(columns, rows, initiallySortedBy, initialSortingOrder);
 
     // styling
     const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStylable(selectable, selectedColor);

@@ -1,15 +1,19 @@
 import {TableColumn} from "./useColumns";
 import {ref, Ref} from "vue";
 import {TableRow} from "./useRows";
-import {cloneDeep} from "lodash-es";
 
 export type TSortingOrderOptions = "asc" | "desc";
 
-export default function useSortable(columns: Ref<TableColumn[]>, rows: Ref<TableRow[]>) {
+export default function useSortable(columns: Ref<TableColumn[]>, rows: Ref<TableRow[]>, initiallySortedBy: Ref<string>, initialSortingOrder: Ref<TSortingOrderOptions>) {
   const initiallyOrderedRows = rows.value.slice();
+  const columnToSortByInitially = columns.value.find(column => column.key === initiallySortedBy.value) || null
 
-  const sortedBy = ref<TableColumn| null>(null);
-  const sortingOrder = ref<TSortingOrderOptions>("asc");
+  const sortedBy = ref<TableColumn | null>(null);
+  const sortingOrder = ref<TSortingOrderOptions>(!!columnToSortByInitially ? initialSortingOrder.value : "asc");
+
+  if (columnToSortByInitially) {
+    sortByColumn(columnToSortByInitially)
+  }
 
   function sortByColumn(column: TableColumn) {
     const columnIndex = columns.value.indexOf(column);
@@ -19,24 +23,28 @@ export default function useSortable(columns: Ref<TableColumn[]>, rows: Ref<Table
     }
 
     function sort() {
-      if (sortingOrder.value === "asc") {
-        rows.value = rows.value.sort((a, b) => {
-          const firstVal = a.cells[columnIndex].value;
-          const secondVal = b.cells[columnIndex].value;
+      rows.value = rows.value.sort((a, b) => {
+        const firstVal = a.cells[columnIndex].value;
+        const secondVal = b.cells[columnIndex].value;
 
-          return typeof column.sortingFn === "function"
-            ? column.sortingFn(firstVal, secondVal)
-            : firstVal.localeCompare(secondVal);
-        });
-      } else {
+        return typeof column.sortingFn === "function"
+          ? column.sortingFn(firstVal, secondVal)
+          : firstVal.localeCompare(secondVal);
+      });
+
+      if (sortingOrder.value === "desc") {
         rows.value.reverse();
       }
     }
 
-    if (sortedBy.value === null || sortedBy.value.key !== column.key) {
-      // trying to sort by another column or it's first-time-sorting
+    if (sortedBy.value === null) {
+      // it's first-time-sorting
 
-      sortingOrder.value = "asc";
+      sort();
+      sortedBy.value = column;
+    } else if (sortedBy.value.key !== column.key) {
+      // trying to sort by another column
+
       sort();
       sortedBy.value = column;
     } else if (sortedBy.value.key === column.key) {

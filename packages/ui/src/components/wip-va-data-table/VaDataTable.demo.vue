@@ -363,6 +363,14 @@
       The last column's sorting function always returns -1, thus when the table is sorted by it it should always just reverse the rows.
       <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortableWithCustoms"/>
     </VbCard>
+
+    <VbCard title="Initially sorted table (by `id`)" class="demo">
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" sort-by="id"/>
+    </VbCard>
+
+    <VbCard title="Initially sorted table (by `idSquared`) (desc)" class="demo">
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" sort-by="idSquared" sorting-order="desc"/>
+    </VbCard>
   </VbDemo>
 </template>
 
