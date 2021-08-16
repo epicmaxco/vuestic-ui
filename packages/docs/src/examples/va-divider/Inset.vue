@@ -2,12 +2,16 @@
   <div class="my-5 flex lg4">
     <p class="example-item">
       <va-icon name="home" />
-      <span class="float-right">I'm a list item</span>
+      <span class="float-right">
+        {{ $t('api.VaDivider.examples.listItem') }}
+      </span>
     </p>
     <va-divider inset />
     <p class="example-item">
       <va-icon name="home" />
-      <span class="float-right">I'm a list item</span>
+      <span class="float-right">
+        {{ $t('api.VaDivider.examples.listItem') }}
+      </span>
     </p>
     <va-divider inset />
   </div>

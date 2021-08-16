@@ -413,6 +413,12 @@
       },
       "slots": {
         "default": "Insert content (for horizontal only)"
+      },
+      "examples": {
+        "listItem": "I'm a list item",
+        "title": "Title",
+        "news": "News",
+        "blog": "Blog"
       }
     },
     "VaToast": {
