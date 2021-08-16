@@ -1,12 +1,16 @@
 <template>
   <p>
     <va-button @click="showFirstModal = !showFirstModal">
-      Show first modal
+      {{ $t('api.VaModal.examples.nested.first') }}
     </va-button>
-    <va-modal v-model="showFirstModal" :message="firstMessage" hide-default-actions>
+    <va-modal
+      v-model="showFirstModal"
+      :message="firstMessage"
+      hide-default-actions
+    >
       <slot>
         <va-button @click="showSecondModal = !showSecondModal">
-          Show second modal
+          {{ $t('api.VaModal.examples.nested.second') }}
         </va-button>
         <va-modal v-model="showSecondModal" :message="secondMessage" />
       </slot>
@@ -15,7 +19,7 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       showFirstModal: false,
       showSecondModal: false,

@@ -1,13 +1,17 @@
 <template>
   <va-content>
-    <va-button class="mr-4" @click="$refs.statefulModal.show()">
-      Show modal (stateful)
+    <va-button class="mr-4 mb-2" @click="$refs.statefulModal.show()">
+      {{ $t('api.VaModal.examples.statefulButton') }}
     </va-button>
-    <va-button class="mr-4" @click="$refs.statelessModal.show()">
-      Show modal (stateless)
+    <va-button class="mb-2" @click="$refs.statelessModal.show()">
+      {{ $t('api.VaModal.examples.statelessButton') }}
     </va-button>
     <va-modal ref="statefulModal" :message="message" stateful />
-    <va-modal ref="statelessModal" :message="message" v-model="showStatefulModal" />
+    <va-modal
+      ref="statelessModal"
+      :message="message"
+      v-model="showStatefulModal"
+    />
   </va-content>
 </template>
 
@@ -15,7 +19,7 @@
 import message from '../popup-message'
 
 export default {
-  data () {
+  data() {
     return {
       showStatefulModal: false,
       message,

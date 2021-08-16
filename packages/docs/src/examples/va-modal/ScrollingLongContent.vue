@@ -1,10 +1,13 @@
 <template>
   <div>
-    <va-button class="mr-4" @click="showModal = !showModal">
-      Show modal with long content
+    <va-button class="mr-4 mb-2" @click="showModal = !showModal">
+      {{ $t('api.VaModal.examples.long') }}
     </va-button>
-    <va-button class="mr-4" @click="showModalWithFixedLayout = !showModalWithFixedLayout">
-      Show modal with long content and fixed layout
+    <va-button
+      class="mb-2"
+      @click="showModalWithFixedLayout = !showModalWithFixedLayout"
+    >
+      {{ $t('api.VaModal.examples.longAndFixed') }}
     </va-button>
     <va-modal v-model="showModal" :title="title" :message="message" />
     <va-modal
@@ -20,12 +23,14 @@
 import message from './popup-message'
 
 export default {
-  data () {
+  data() {
     return {
       showModal: false,
       showModalWithFixedLayout: false,
       title: 'Scrolling long content',
-      message: Array(100).fill(message).join(' '),
+      message: Array(100)
+        .fill(message)
+        .join(' '),
     }
   },
 }

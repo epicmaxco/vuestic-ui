@@ -322,6 +322,30 @@
         "default": "Content of modal body",
         "header": "Modal header content",
         "footer": "Modal footer content"
+      },
+      "examples": {
+        "default": "Show modal (default)",
+        "long": "Show modal with long content",
+        "longAndFixed": "Show modal with long content and fixed layout",
+        "statefulButton": "Show modal (stateful)",
+        "statelessButton": "Show modal (stateless)",
+        "withoutAnimationButton": "Show modal (without animations)",
+        "fullscreenButton": "Show modal (fullscreen)",
+        "withoutOverlayAndDismissButton": "Show modal (without the overlay and with no outside click dismiss)",
+        "size": {
+          "small": "Show modal size small",
+          "medium": "Show modal size medium (default)",
+          "large": "Show modal size large"
+        },
+        "custom": {
+          "button": "Show modal (custom rendering)",
+          "header": "Custom header",
+          "action": "Custom action"
+        },
+        "nested": {
+          "first": "Show first modal",
+          "second": "Show second modal"
+        }
       }
     },
     "VaRating": {
@@ -588,6 +612,9 @@
       "slots": {
         "loading": "Shown when content is fetching.",
         "default": "The content to be scrolled"
+      },
+      "examples": {
+        "listItemAndSomeText": "List item and some text"
       }
     },
     "VaAlert": {

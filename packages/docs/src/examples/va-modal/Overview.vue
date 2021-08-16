@@ -1,7 +1,7 @@
 <template>
   <p>
     <va-button @click="showModal = !showModal">
-      Show modal (default)
+      {{ $t('api.VaModal.examples.default') }}
     </va-button>
     <va-modal v-model="showModal" :message="message" title="Overview" />
   </p>
@@ -11,7 +11,7 @@
 import message from './popup-message'
 
 export default {
-  data () {
+  data() {
     return {
       showModal: false,
       message,

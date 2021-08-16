@@ -1,22 +1,20 @@
 <template>
   <div>
     <va-button @click="showModal = !showModal">
-      Show modal (custom rendering)
+      {{ $t('api.VaModal.examples.custom.button') }}
     </va-button>
-    <va-modal
-      v-model="showModal"
-      hide-default-actions
-      overlay-opacity="0.2"
-    >
+    <va-modal v-model="showModal" hide-default-actions overlay-opacity="0.2">
       <template #header>
-        <h2>Custom header</h2>
+        <h2>
+          {{ $t('api.VaModal.examples.custom.header') }}
+        </h2>
       </template>
       <slot>
         <div>{{ message }}</div>
       </slot>
       <template #footer>
         <va-button>
-          Custom action
+          {{ $t('api.VaModal.examples.custom.action') }}
         </va-button>
       </template>
     </va-modal>
@@ -27,7 +25,7 @@
 import message from './popup-message'
 
 export default {
-  data () {
+  data() {
     return {
       showModal: false,
       message,
