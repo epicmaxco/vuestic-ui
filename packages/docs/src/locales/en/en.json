@@ -201,6 +201,16 @@
         "focusInvalid": "Focus on first focusable invalid form-component in the form. This is useful for longer forms and allows to bring user attention to invalid field.",
         "resetValidation": "Reset validation for all validateable <!-- TODO Add link --> form-components.",
         "reset": "Reset values and validation state for all form-components"
+      },
+      "examples": {
+        "firstNameLabel": "First Name",
+        "lastNameLabel": "Last Name",
+        "nameLabel": "Name",
+        "cityLabel": "City",
+        "required": "Field is required",
+        "validate": "Validate",
+        "nameRule": "Should be Ben",
+        "cityRule": "Should be Minsk"
       }
     },
     "VaSlider": {

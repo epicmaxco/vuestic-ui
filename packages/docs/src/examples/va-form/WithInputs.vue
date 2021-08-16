@@ -1,23 +1,24 @@
 <template>
   <div>
-    <va-button
-      class="mb-4 mr-4"
-      @click="$refs.form.validate()"
-    >
-      Validate
+    <va-button class="mb-4 mr-4" @click="$refs.form.validate()">
+      {{ $t('api.VaForm.examples.validate') }}
     </va-button>
     <va-form ref="form">
       <va-input
         class="mb-4 mr-4"
-        label="Name"
+        :label="$t('api.VaForm.examples.nameLabel')"
         v-model="inputValue"
         stateful
-        :rules="[value => value === 'Ben' || 'Should be Ben']"
+        :rules="[
+          (value) => value === 'Ben' || $t('api.VaForm.examples.nameRule'),
+        ]"
       />
       <va-select
-        label="City"
+        :label="$t('api.VaForm.examples.cityLabel')"
         v-model="selectValue"
-        :rules="[value => value === 'Minsk' || 'Should be Minsk']"
+        :rules="[
+          (value) => value === 'Minsk' || $t('api.VaForm.examples.cityRule'),
+        ]"
         stateful
         :options="['Minsk', 'Los Angeles', 'San Francisco', 'Peru']"
       />
@@ -27,7 +28,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       inputValue: '',
       selectValue: '',
