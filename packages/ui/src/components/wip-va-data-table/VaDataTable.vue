@@ -3,7 +3,7 @@
     <table class="va-data-table" v-bind="$attrs">
       <thead>
        <slot name="head.prepend"/>
-        <tr>
+        <tr v-if="!hideDefaultHeader">
           <th v-if="selectable">
             <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
           </th>
@@ -105,6 +105,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    hideDefaultHeader: {
+      type: Boolean,
+      default: false,
+    },
     footClone: {
       type: Boolean,
       default: false,
@@ -131,7 +135,7 @@ export default defineComponent({
     const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStylable(selectable, selectedColor);
 
     // other
-    const {busy, footClone} = toRefs(props);
+    const {busy, hideDefaultHeader, footClone} = toRefs(props);
 
     // expose
     return {
@@ -147,6 +151,7 @@ export default defineComponent({
       rowCSSVariables,
       getCellCSSVariables,
       busy,
+      hideDefaultHeader,
       footClone
     };
   }

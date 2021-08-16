@@ -342,6 +342,18 @@
 
       <va-data-table :items="alignItems" :columns="alignColumns"/>
     </VbCard>
+
+    <VbCard title="Hide default header and use `head.prepend` slot to provide a custom one" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" hide-default-header>
+        <template #head.prepend>
+          <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+          </tr>
+        </template>
+      </va-data-table>
+    </VbCard>
   </VbDemo>
 </template>
 
