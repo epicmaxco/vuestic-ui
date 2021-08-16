@@ -82,7 +82,7 @@ const getApiTableProps = (
   return api
 }
 
-const mergeApiTableEvents = (
+export const mergeApiTableEvents = (
   componentEvents: Record<string, EventOptionsCompiled> = {},
   manualEvents: Record<string, ManualEventApiOptions> = {},
 ) => {
