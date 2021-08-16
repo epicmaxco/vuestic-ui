@@ -11,7 +11,7 @@
       </va-image>
       <div class="flex">
         <va-button color="success" @click="newImage">
-          New image
+          {{ $t('api.VaImage.examples.newImage') }}
         </va-button>
       </div>
     </div>

@@ -501,6 +501,11 @@
         "loading": "Shown when image is loading.",
         "error": "Is shown if loading gives an error.",
         "default": "Image overlay for you to add content. Doesn't show on loading or error."
+      },
+      "examples": {
+        "newImage": "New image",
+        "defaultSlot": "default slot",
+        "notFound": "Image not found! :("
       }
     },
     "VaOptionList": {

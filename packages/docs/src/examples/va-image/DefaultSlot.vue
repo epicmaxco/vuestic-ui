@@ -1,11 +1,8 @@
 <template>
   <div class="row">
     <div class="flex md6 lg4">
-      <va-image
-        style="min-height: 300px;"
-        src="https://picsum.photos/1500"
-      >
-        <va-badge text="default slot" />
+      <va-image style="min-height: 300px;" src="https://picsum.photos/1500">
+        <va-badge :text="$t('api.VaImage.examples.defaultSlot')" />
       </va-image>
     </div>
   </div>
@@ -13,18 +10,18 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       slotImageSize: 1500,
     }
   },
   computed: {
-    slotImagePath () {
+    slotImagePath() {
       return this.getImagePath(this.slotImageSize)
     },
   },
   methods: {
-    getImagePath (width, height = width) {
+    getImagePath(width, height = width) {
       return `https://picsum.photos/${width}/${height}`
     },
   },
