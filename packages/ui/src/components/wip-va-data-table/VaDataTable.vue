@@ -24,7 +24,7 @@
       <tbody>
         <slot name="body.prepend" />
 
-        <tr v-for="row in rows" @click="toggleRowSelection(row)" :class="{ selectable }">
+        <tr v-for="row in rows" @click="toggleRowSelection(row)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
           <td v-if="selectable">
             <input v-if="selectMode === 'multiple'" type="checkbox" v-model="selectedItems" :value="row.source" @click.stop>
             <input v-else-if="selectMode === 'single'" type="checkbox" :checked="selectedItems.includes(row.source)">
@@ -66,8 +66,11 @@
 <script lang="ts">
 import {computed, defineComponent, PropType, ref, toRef, toRefs, watch} from "vue";
 import useColumns, {ITableColumn} from "./hooks/useColumns";
-import useRows, {ITableItem} from "./hooks/useRows";
+import useRows, {ITableItem, TableRow} from "./hooks/useRows";
 import useSelectable, {TSelectMode} from "./hooks/useSelectable";
+import useStylable from "./hooks/useStylable";
+import {colorToRgba, getFocusColor, getHoverColor} from "../../services/color-config/color-functions";
+import {getColor} from "../../services/color-config/color-config";
 
 export default defineComponent({
   name: "VaDataTable",
@@ -86,10 +89,6 @@ export default defineComponent({
       type: Array as PropType<ITableItem[]>,
       default: () => [],
     },
-    selectedItems: {
-      type: Array as PropType<ITableItem[]>,
-      default: [],
-    },
     selectable: {
       type: Boolean,
       default: false,
@@ -97,6 +96,10 @@ export default defineComponent({
     selectMode: {
       type: String as PropType<TSelectMode>,
       default: "multiple",
+    },
+    selectedColor: {
+      type: String as PropType<string>,
+      default: "primary",
     },
     busy: {
       type: Boolean,
@@ -121,8 +124,11 @@ export default defineComponent({
     const {rows} = useRows(rawItems, columns);
 
     // selection
-    const {selectable, selectMode, modelValue} = toRefs(props);
-    const {selectedItems, toggleBulkSelection, toggleRowSelection} = useSelectable(selectMode, modelValue, rows, emit);
+    const {selectable, selectMode, modelValue, selectedColor} = toRefs(props);
+    const {selectedItems, toggleBulkSelection, toggleRowSelection, isRowSelected} = useSelectable(selectMode, modelValue, rows, emit);
+
+    // styling
+    const {rowCSSVariables} = useStylable(selectable, selectedColor);
 
     // other
     const {busy, footClone} = toRefs(props);
@@ -136,6 +142,8 @@ export default defineComponent({
       selectedItems,
       toggleBulkSelection,
       toggleRowSelection,
+      isRowSelected,
+      rowCSSVariables,
       busy,
       footClone
     };
@@ -145,6 +153,8 @@ export default defineComponent({
 
 <style lang="scss">
 .va-data-table {
+  cursor: default;
+
   th {
     padding: 0.625rem;
     line-height: 1.2;
@@ -162,6 +172,14 @@ export default defineComponent({
   tbody {
     tr.selectable {
       cursor: pointer;
+
+      &:hover {
+        background-color: var(--hover-color);
+      }
+
+      &.selected {
+        background-color: var(--selected-color);
+      }
     }
 
     td {

@@ -251,9 +251,9 @@
       <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItems"/>
     </VbCard>
 
-    <VbCard title="Selectable (single)" class="demo">
+    <VbCard title="Selectable (single) with `selected-color='danger'`" class="demo">
       {{selectedItem}}
-      <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItem" select-mode="single"/>
+      <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItem" select-mode="single" selected-color="danger"/>
     </VbCard>
 
     <VbCard title="Busy state" class="demo">

@@ -36,9 +36,14 @@ export default function useSelectable(selectMode: Ref<TSelectMode>, modelValue: 
     }
   }
 
+  function isRowSelected(row: TableRow) {
+    return selectedItems.value.includes(row.source);
+  }
+
   return {
     selectedItems,
     toggleBulkSelection,
     toggleRowSelection,
+    isRowSelected,
   }
 }
