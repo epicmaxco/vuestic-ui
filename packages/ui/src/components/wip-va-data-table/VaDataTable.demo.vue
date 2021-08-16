@@ -358,6 +358,11 @@
     <VbCard title="Sortable table" class="demo">
       <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable"/>
     </VbCard>
+
+    <VbCard title="Sortable table" class="demo">
+      The last column's sorting function always returns -1, thus when the table is sorted by it it should always just reverse the rows.
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortableWithCustoms"/>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -474,6 +479,29 @@ export default defineComponent({
           key: "idSquared",
           label: "Id Squared",
           sortable: true,
+        },
+      ],
+
+      evenColumnsSortableWithCustoms: [
+        {
+          key: "id",
+          label: "Id",
+          sortable: true,
+        },
+
+        {
+          key: "name",
+          label: "Name",
+          sortable: true,
+        },
+
+        {
+          key: "idSquared",
+          label: "Id Squared",
+          sortable: true,
+          sortingFn: () => {
+            return -1;
+          }
         },
       ],
 

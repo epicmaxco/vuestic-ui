@@ -21,7 +21,12 @@ export default function useSortable(columns: Ref<TableColumn[]>, rows: Ref<Table
     function sort() {
       if (sortingOrder.value === "asc") {
         rows.value = rows.value.sort((a, b) => {
-          return a.cells[columnIndex].value.localeCompare(b.cells[columnIndex].value);
+          const firstVal = a.cells[columnIndex].value;
+          const secondVal = b.cells[columnIndex].value;
+
+          return typeof column.sortingFn === "function"
+            ? column.sortingFn(firstVal, secondVal)
+            : firstVal.localeCompare(secondVal);
         });
       } else {
         rows.value.reverse();

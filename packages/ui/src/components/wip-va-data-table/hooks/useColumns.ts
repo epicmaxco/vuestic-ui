@@ -9,11 +9,12 @@ export interface ITableColumn {
   key: string;
   label?: string;
   headerTitle?: string;
-  sortable: boolean,
-  alignHead: TAlignOptions;
-  verticalAlignHead: TVerticalAlignOptions;
-  align: TAlignOptions;
-  verticalAlign: TVerticalAlignOptions;
+  sortable?: boolean,
+  sortingFn?: (a: string, b: string) => number;
+  alignHead?: TAlignOptions;
+  verticalAlignHead?: TVerticalAlignOptions;
+  align?: TAlignOptions;
+  verticalAlign?: TVerticalAlignOptions;
 }
 
 export class TableColumn implements ITableColumn {
@@ -27,23 +28,25 @@ export class TableColumn implements ITableColumn {
       this.key = input.key;
       this.label = input.label || startCase(input.key);
       this.headerTitle = input.headerTitle;
-      this.sortable = input.sortable;
-      this.alignHead = input.alignHead;
-      this.verticalAlignHead = input.verticalAlignHead;
-      this.align = input.align;
-      this.verticalAlign = input.verticalAlign;
+      this.sortable = input.sortable || false;
+      this.sortingFn = input.sortingFn || undefined;
+      this.alignHead = input.alignHead || "left";
+      this.verticalAlignHead = input.verticalAlignHead || "top";
+      this.align = input.align || "left";
+      this.verticalAlign = input.verticalAlign || "top";
     }
   }
 
   source;
   key;
   label;
-  headerTitle;
-  sortable = false;
-  alignHead = "left" as TAlignOptions;
-  verticalAlignHead = "top" as TVerticalAlignOptions;
-  align = "left" as TAlignOptions;
-  verticalAlign = "top" as TVerticalAlignOptions;
+  headerTitle?;
+  sortable?;
+  sortingFn?;
+  alignHead?;
+  verticalAlignHead?;
+  align?;
+  verticalAlign?;
 }
 
 export default function useColumns(rawColumns: Ref<string[] | ITableColumn[] | undefined>, rawItems: Ref<ITableItem[]>) {
