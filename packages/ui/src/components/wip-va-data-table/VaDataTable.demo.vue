@@ -255,6 +255,11 @@
       {{selectedItem}}
       <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItem" select-mode="single"/>
     </VbCard>
+
+    <VbCard title="Busy state" class="demo">
+      <va-switch v-model="isTableBusy" label="Busy state"/>
+      <va-data-table :items="evenItems" :columns="evenColumns" :busy="isTableBusy"/>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -314,6 +319,8 @@ export default defineComponent({
 
       selectedItems: [],
       selectedItem: [],
+
+      isTableBusy: false,
     }
   },
 

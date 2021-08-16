@@ -1,64 +1,66 @@
 <template>
-  <table class="va-data-table">
-    <thead>
-     <slot name="head.prepend"/>
-      <tr>
-        <th v-if="selectable">
-          <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
-        </th>
+  <va-inner-loading :loading="busy" color="primary">
+    <table class="va-data-table" v-bind="$attrs">
+      <thead>
+       <slot name="head.prepend"/>
+        <tr>
+          <th v-if="selectable">
+            <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
+          </th>
 
-        <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
-          <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`">
-            {{ column.label }}
-          </slot>
+          <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
+            <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`">
+              {{ column.label }}
+            </slot>
 
-          <slot v-else name="head" v-bind="column">
-            {{ column.label }}
-          </slot>
-        </th>
-      </tr>
-     <slot name="head.append"/>
-    </thead>
+            <slot v-else name="head" v-bind="column">
+              {{ column.label }}
+            </slot>
+          </th>
+        </tr>
+       <slot name="head.append"/>
+      </thead>
 
-    <tbody>
-      <slot name="body.prepend" />
+      <tbody>
+        <slot name="body.prepend" />
 
-      <tr v-for="row in rows" @click="toggleRowSelection(row)" :class="{ selectable }">
-        <td v-if="selectable">
-          <input v-if="selectMode === 'multiple'" type="checkbox" v-model="selectedItems" :value="row.source" @click.stop>
-          <input v-else-if="selectMode === 'single'" type="checkbox" :checked="selectedItems.includes(row.source)">
-        </td>
+        <tr v-for="row in rows" @click="toggleRowSelection(row)" :class="{ selectable }">
+          <td v-if="selectable">
+            <input v-if="selectMode === 'multiple'" type="checkbox" v-model="selectedItems" :value="row.source" @click.stop>
+            <input v-else-if="selectMode === 'single'" type="checkbox" :checked="selectedItems.includes(row.source)">
+          </td>
 
-        <td v-for="cell in row.cells">
-          <slot v-if="`cell(${cell.column.key})` in slots" :name="`cell(${cell.column.key})`" v-bind="cell">
-            {{ cell.value }}
-          </slot>
+          <td v-for="cell in row.cells">
+            <slot v-if="`cell(${cell.column.key})` in slots" :name="`cell(${cell.column.key})`" v-bind="cell">
+              {{ cell.value }}
+            </slot>
 
-          <slot v-else name="cell" v-bind="cell">
-            {{ cell.value }}
-          </slot>
-        </td>
-      </tr>
+            <slot v-else name="cell" v-bind="cell">
+              {{ cell.value }}
+            </slot>
+          </td>
+        </tr>
 
-      <slot name="body.append" />
-    </tbody>
+        <slot name="body.append" />
+      </tbody>
 
-    <tfoot v-if="footClone">
-      <slot name="foot.prepend"/>
-      <tr>
-        <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
-          <slot v-if="`foot(${column.key})` in slots" :name="`foot(${column.key})`">
-            {{ column.label }}
-          </slot>
+      <tfoot v-if="footClone">
+        <slot name="foot.prepend"/>
+        <tr>
+          <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
+            <slot v-if="`foot(${column.key})` in slots" :name="`foot(${column.key})`">
+              {{ column.label }}
+            </slot>
 
-          <slot v-else name="foot" v-bind="column">
-            {{ column.label }}
-          </slot>
-        </th>
-      </tr>
-      <slot name="foot.append"/>
-    </tfoot>
-  </table>
+            <slot v-else name="foot" v-bind="column">
+              {{ column.label }}
+            </slot>
+          </th>
+        </tr>
+        <slot name="foot.append"/>
+      </tfoot>
+    </table>
+  </va-inner-loading>
 </template>
 
 <script lang="ts">
@@ -69,6 +71,8 @@ import useSelectable, {TSelectMode} from "./hooks/useSelectable";
 
 export default defineComponent({
   name: "VaDataTable",
+
+  inheritAttrs: false,
 
   props: {
     columns: {
@@ -94,6 +98,10 @@ export default defineComponent({
       type: String as PropType<TSelectMode>,
       default: "multiple",
     },
+    busy: {
+      type: Boolean,
+      default: false,
+    },
     footClone: {
       type: Boolean,
       default: false,
@@ -103,17 +111,21 @@ export default defineComponent({
   emits: ["update:modelValue"],
 
   setup(props, {slots, emit}) {
+    // columns and rows
     const {
       columns: rawColumns,
       items: rawItems,
-      footClone
     } = toRefs(props);
 
     const {columns} = useColumns(rawColumns, rawItems);
     const {rows} = useRows(rawItems, columns);
 
+    // selection
     const {selectable, selectMode, modelValue} = toRefs(props);
     const {selectedItems, toggleBulkSelection, toggleRowSelection} = useSelectable(selectMode, modelValue, rows, emit);
+
+    // other
+    const {busy, footClone} = toRefs(props);
 
     // expose
     return {
@@ -124,6 +136,7 @@ export default defineComponent({
       selectedItems,
       toggleBulkSelection,
       toggleRowSelection,
+      busy,
       footClone
     };
   }
