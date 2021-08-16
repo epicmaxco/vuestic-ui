@@ -1,42 +1,6 @@
-// @ts-ignore
-import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    value: {
-      local: true,
-    },
-    title: {
-      local: true,
-    },
-    description: {
-      local: true,
-    },
-    icon: {
-      local: true,
-    },
-    closeIcon: {
-      local: true,
-    },
-    closeText: {
-      local: true,
-    },
-    closeable: {
-      local: true,
-    },
-    center: {
-      local: true,
-    },
-    borderColor: {
-      local: true,
-    },
-    border: {
-      local: true,
-    },
-    dense: {
-      local: true,
-    },
-  },
+export default defineManualApi({
   events: {
     input: {
       types: '(value: boolean) => void',
@@ -45,21 +9,12 @@ export default {
   methods: {
     hide: {
       types: '() => void',
-      local: true,
     },
   },
   slots: {
-    default: {
-      local: true,
-    },
-    title: {
-      local: true,
-    },
-    icon: {
-      local: true,
-    },
-    close: {
-      local: true,
-    },
+    default: { },
+    title: { },
+    icon: { },
+    close: { },
   },
-} as ManualApiOptions
+})

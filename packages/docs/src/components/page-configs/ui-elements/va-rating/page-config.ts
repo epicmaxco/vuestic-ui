@@ -1,5 +1,5 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
-import VaRating from 'vuestic-ui/src/components/vuestic-components/va-rating/VaRating.vue'
+import VaRating from 'vuestic-ui/src/components/va-rating/VaRating.vue'
 import apiOptions from './api-options'
 import { VueConstructor } from 'vue-class-component'
 

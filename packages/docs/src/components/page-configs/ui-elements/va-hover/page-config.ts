@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaHover from 'vuestic-ui/src/components/vuestic-components/va-hover/VaHover.vue'
+import VaHover from 'vuestic-ui/src/components/va-hover/VaHover.vue'
 import apiOptions from './api-options'
 
 export default [

@@ -1,48 +1,6 @@
-// @ts-ignore
-import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    value: {
-      local: true,
-    },
-    size: {
-      local: true,
-    },
-    color: {
-      local: true,
-    },
-    arrayValue: {
-      local: true,
-    },
-    readonly: {
-      local: true,
-    },
-    label: {
-      local: true,
-    },
-    trueLabel: {
-      local: true,
-    },
-    falseLabel: {
-      local: true,
-    },
-    trueInnerLabel: {
-      local: true,
-    },
-    falseInnerLabel: {
-      local: true,
-    },
-    trueValue: {
-      local: true,
-    },
-    falseValue: {
-      local: true,
-    },
-    leftLabel: {
-      local: true,
-    },
-  },
+export default defineManualApi({
   events: {
     blur: {
       types: 'FocusEvent',
@@ -55,11 +13,7 @@ export default {
     },
   },
   slots: {
-    default: {
-      local: true,
-    },
-    innerLabel: {
-      local: true,
-    },
+    default: { },
+    innerLabel: { },
   },
-} as ManualApiOptions
+})

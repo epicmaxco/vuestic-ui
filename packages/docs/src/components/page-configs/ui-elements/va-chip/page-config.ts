@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaChip from 'vuestic-ui/src/components/vuestic-components/va-chip/VaChip.vue'
+import VaChip from 'vuestic-ui/src/components/va-chip/VaChip.vue'
 import apiOptions from './api-options'
 
 export default [

@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaCheckbox from 'vuestic-ui/src/components/vuestic-components/va-checkbox/VaCheckbox.vue'
+import VaCheckbox from 'vuestic-ui/src/components/va-checkbox/VaCheckbox.vue'
 import apiOptions from './api-options'
 
 export default [
