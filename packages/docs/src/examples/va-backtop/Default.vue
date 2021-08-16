@@ -5,7 +5,7 @@
       false-value="bottom"
       true-inner-label="top"
       false-inner-label="bottom"
-      label="Vertical Position:"
+      :label="$t('api.VaBacktop.examples.verticalPosition')"
       left-label
       class="py-2"
     />
@@ -15,13 +15,13 @@
       false-value="right"
       true-inner-label="left"
       false-inner-label="right"
-      label="Horizontal Position:"
+      :label="$t('api.VaBacktop.examples.horizontalPosition')"
       left-label
       class="pt-2 pb-4"
     />
     <br />
     <va-slider
-      label="vertical offset:"
+      :label="$t('api.VaBacktop.examples.verticalOffset')"
       track-label-visible
       v-model="verticalOffset"
       :track-label="`${verticalOffset}%`"
@@ -30,7 +30,7 @@
     />
     <br />
     <va-slider
-      label="horizontal offset:"
+      :label="$t('api.VaBacktop.examples.horizontalOffset')"
       track-label-visible
       v-model="horizontalOffset"
       :track-label="`${horizontalOffset}%`"
@@ -39,7 +39,7 @@
     />
     <br />
     <va-slider
-      label="visibility height:"
+      :label="$t('api.VaBacktop.examples.visibilityHeight')"
       track-label-visible
       v-model="visibilityHeight"
       :track-label="`${visibilityHeight}`"
@@ -50,7 +50,7 @@
     <va-slider
       track-label-visible
       v-model="scrollSpeed"
-      label="Scroll speed"
+      :label="$t('api.VaBacktop.examples.scrollSpeed')"
       :track-label="`${scrollSpeed}`"
       :min="1"
       :max="500"
@@ -58,7 +58,7 @@
     <br />
     <va-checkbox
       v-model="isSlot"
-      :label="`Active Slot: ${isSlot}`" />
+      :label="`${$t('api.VaBacktop.examples.activeSlot')}: ${isSlot}`" />
 
     <va-backtop
       target=".base-layout__main"

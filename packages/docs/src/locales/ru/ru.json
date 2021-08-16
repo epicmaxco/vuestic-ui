@@ -857,6 +857,15 @@
       "methods": {},
       "slots": {
         "default": "Содержимое компонента"
+      },
+      "examples": {
+        "verticalPosition": "Вертикальное положение:",
+        "horizontalPosition": "Горизонтальное положение:",
+        "verticalOffset": "вертикальный отступ:",
+        "horizontalOffset": "горизонтальный отступ:",
+        "visibilityHeight": "высота видимости:",
+        "scrollSpeed": "Скорость прокрутки:",
+        "activeSlot": "Активный слот"
       }
     },
     "VaButtonDropdown": {

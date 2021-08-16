@@ -857,6 +857,15 @@
       "methods": {},
       "slots": {
         "default": "Slot for backtop content"
+      },
+      "examples": {
+        "verticalPosition": "Vertical Position:",
+        "horizontalPosition": "Horizontal Position:",
+        "verticalOffset": "vertical offset:",
+        "horizontalOffset": "horizontal offset:",
+        "visibilityHeight": "visibility height:",
+        "scrollSpeed": "Scroll speed:",
+        "activeSlot": "Active Slot"
       }
     },
     "VaButtonDropdown": {
