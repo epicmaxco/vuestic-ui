@@ -8,8 +8,8 @@
             <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
           </th>
 
-          <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
-            <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`">
+          <th v-for="column in columns" :title="column.headerTitle" :style="getHeadCSSVariables(column)">
+            <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`" v-bind="column">
               {{ column.label }}
             </slot>
 
@@ -30,7 +30,7 @@
             <input v-else-if="selectMode === 'single'" type="checkbox" :checked="selectedItems.includes(row.source)">
           </td>
 
-          <td v-for="cell in row.cells">
+          <td v-for="cell in row.cells" :style="getCellCSSVariables(cell)">
             <slot v-if="`cell(${cell.column.key})` in slots" :name="`cell(${cell.column.key})`" v-bind="cell">
               {{ cell.value }}
             </slot>
@@ -128,7 +128,7 @@ export default defineComponent({
     const {selectedItems, toggleBulkSelection, toggleRowSelection, isRowSelected} = useSelectable(selectMode, modelValue, rows, emit);
 
     // styling
-    const {rowCSSVariables} = useStylable(selectable, selectedColor);
+    const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStylable(selectable, selectedColor);
 
     // other
     const {busy, footClone} = toRefs(props);
@@ -143,7 +143,9 @@ export default defineComponent({
       toggleBulkSelection,
       toggleRowSelection,
       isRowSelected,
+      getHeadCSSVariables,
       rowCSSVariables,
+      getCellCSSVariables,
       busy,
       footClone
     };
@@ -158,6 +160,8 @@ export default defineComponent({
   th {
     padding: 0.625rem;
     line-height: 1.2;
+    text-align: var(--align);
+    vertical-align: var(--vertical-align);
     color: #34495e;
     font-size: 0.625rem;
     font-weight: 700;
@@ -184,6 +188,8 @@ export default defineComponent({
 
     td {
       padding: 0.625rem;
+      text-align: var(--align);
+      vertical-align: var(--vertical-align);
     }
   }
 

@@ -260,6 +260,88 @@
       <va-switch v-model="isTableBusy" label="Busy state"/>
       <va-data-table :items="evenItems" :columns="evenColumns" :busy="isTableBusy"/>
     </VbCard>
+
+    <VbCard title="Alignment" class="demo">
+      First heading align and vertical align:
+      <select v-model="alignColumns[0].alignHead">
+        <option value="left">Left</option>
+        <option value="center">Center</option>
+        <option value="right">Right</option>
+      </select>
+
+      <select v-model="alignColumns[0].verticalAlignHead">
+        <option value="top">Top</option>
+        <option value="middle">Middle</option>
+        <option value="bottom">Bottom</option>
+      </select><br>
+
+      Second heading align and vertical align:
+      <select v-model="alignColumns[1].alignHead">
+        <option value="left">Left</option>
+        <option value="center">Center</option>
+        <option value="right">Right</option>
+      </select>
+
+      <select v-model="alignColumns[1].verticalAlignHead">
+        <option value="top">Top</option>
+        <option value="middle">Middle</option>
+        <option value="bottom">Bottom</option>
+      </select><br>
+
+      Third heading align and vertical align:
+      <select v-model="alignColumns[2].alignHead">
+        <option value="left">Left</option>
+        <option value="center">Center</option>
+        <option value="right">Right</option>
+      </select>
+
+      <select v-model="alignColumns[2].verticalAlignHead">
+        <option value="top">Top</option>
+        <option value="middle">Middle</option>
+        <option value="bottom">Bottom</option>
+      </select><br>
+
+      First column align and vertical align:
+      <select v-model="alignColumns[0].align">
+        <option value="left">Left</option>
+        <option value="center">Center</option>
+        <option value="right">Right</option>
+      </select>
+
+      <select v-model="alignColumns[0].verticalAlign">
+        <option value="top">Top</option>
+        <option value="middle">Middle</option>
+        <option value="bottom">Bottom</option>
+      </select><br>
+
+      Second column align and vertical align:
+      <select v-model="alignColumns[1].align">
+        <option value="left">Left</option>
+        <option value="center">Center</option>
+        <option value="right">Right</option>
+      </select>
+
+      <select v-model="alignColumns[1].verticalAlign">
+        <option value="top">Top</option>
+        <option value="middle">Middle</option>
+        <option value="bottom">Bottom</option>
+      </select><br>
+
+      Third column align and vertical align:
+      <select v-model="alignColumns[2].align">
+        <option value="left">Left</option>
+        <option value="center">Center</option>
+        <option value="right">Right</option>
+      </select>
+
+      <select v-model="alignColumns[2].verticalAlign">
+        <option value="top">Top</option>
+        <option value="middle">Middle</option>
+        <option value="bottom">Bottom</option>
+      </select><br>
+
+      <va-data-table :items="alignItems" :columns="alignColumns"/>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -321,6 +403,41 @@ export default defineComponent({
       selectedItem: [],
 
       isTableBusy: false,
+
+      alignColumns: [
+        {
+          key: "id",
+          label: "A Unique ID",
+          alignHead: "center",
+          verticalAlignHead: "middle",
+          align: "center",
+          verticalAlign: "middle",
+        },
+
+        {
+          key: "text",
+          label: "A long text",
+          alignHead: "center",
+          verticalAlignHead: "middle",
+          align: "center",
+          verticalAlign: "middle",
+        },
+
+        {
+          key: "target",
+          label: "Target field",
+          alignHead: "center",
+          verticalAlignHead: "middle",
+          align: "center",
+          verticalAlign: "middle",
+        },
+      ],
+
+      alignItems: [
+        {id: 1, text: "Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)", target: "Pretty short prop"},
+        {id: 2, text: "Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)", target: "Pretty short prop"},
+        {id: 3, text: "Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)", target: "Pretty short prop"},
+      ]
     }
   },
 
