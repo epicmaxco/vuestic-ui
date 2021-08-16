@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import imageConfig from '../../components/page-configs/ui-elements/va-image/page-config'
 
 @Options({
+  name: 'DocsImage',
   components: {
     DocsContent,
   },

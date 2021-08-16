@@ -159,6 +159,7 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
+  name: 'ApiDocs',
   components: { ApiDocsPropsRow, MarkdownView, DocsTable },
 })
 export default class ApiDocs extends mixins(PropsMixin) {

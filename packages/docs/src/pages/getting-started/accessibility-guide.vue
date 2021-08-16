@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import accessibilityGuideConfig from '../../components/page-configs/getting-started/accessibility-guide/page-config'
 
 @Options({
+  name: 'DocsAccessibilityGuide',
   components: {
     DocsContent,
   },

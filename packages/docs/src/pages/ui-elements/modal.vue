@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import modalConfig from '../../components/page-configs/ui-elements/va-modal/page-config'
 
 @Options({
+  name: 'DocsModal',
   components: {
     DocsContent,
   },

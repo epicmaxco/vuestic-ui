@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import inputConfig from '../../components/page-configs/ui-elements/va-input/page-config'
 
 @Options({
+  name: 'DocsInput',
   components: {
     DocsContent,
   },

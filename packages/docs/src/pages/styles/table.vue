@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import tableConfig from '../../components/page-configs/styles/va-table/page-config'
 
 @Options({
+  name: 'DocsStylesTable',
   components: {
     DocsContent,
   },

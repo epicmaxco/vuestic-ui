@@ -1,5 +1,5 @@
 <template>
-  <docs-content :config="configComputed"/>
+  <docs-content :config="configComputed" />
 </template>
 
 <script lang="ts">
@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import navbarConfig from '../../components/page-configs/ui-elements/va-navbar/page-config'
 
 @Options({
+  name: 'DocsNavbar',
   components: {
     DocsContent,
   },

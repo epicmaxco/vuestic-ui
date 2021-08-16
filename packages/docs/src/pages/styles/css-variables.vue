@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import cssVariablesConfig from '../../components/page-configs/styles/css-variables/page-config'
 
 @Options({
+  name: 'DocsStylesCssVariables',
   components: {
     DocsContent,
   },

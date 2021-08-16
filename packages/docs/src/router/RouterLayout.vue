@@ -6,6 +6,7 @@
 import layouts from '@/layouts'
 
 export default {
+  name: 'DocsRouterLayout',
   computed: {
     layout () {
       const layoutName = this.$route.matched.reduceRight((result, { meta }) => meta.layout ?? result, 'default')

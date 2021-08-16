@@ -9,6 +9,7 @@ import fileUploadConfig
   from '../../components/page-configs/ui-elements/va-file-upload/page-config'
 
 @Options({
+  name: 'DocsFileUpload',
   components: { DocsContent },
 })
 export default class FileUpload extends Vue {

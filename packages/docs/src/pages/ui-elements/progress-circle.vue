@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import progressCircleConfig from '../../components/page-configs/ui-elements/va-progress-circle/page-config'
 
 @Options({
+  name: 'DocsProgressCircle',
   components: {
     DocsContent,
   },

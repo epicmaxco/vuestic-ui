@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import colorInputConfig from '../../components/page-configs/ui-elements/va-color-input/page-config'
 
 @Options({
+  name: 'DocsColorPicker',
   components: {
     DocsContent,
   },

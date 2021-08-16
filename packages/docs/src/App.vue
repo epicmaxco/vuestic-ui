@@ -16,6 +16,7 @@ const eventBus = {
 }
 
 export default {
+  name: 'App',
   data () {
     return {
       eventBus,

@@ -47,6 +47,7 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
+  name: 'DocsHeader',
   components: {
     HeaderSelector,
     LanguageDropdown,

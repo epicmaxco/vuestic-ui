@@ -84,7 +84,9 @@ import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
 import { getColor } from 'vuestic-ui/src/main'
 
-@Options({})
+@Options({
+  name: 'LandingFooter',
+})
 export default class Footer extends Vue {
   IconEpicmax = IconEpicmax
   IconAdmin = IconAdmin

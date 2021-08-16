@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import chipConfig from '../../components/page-configs/ui-elements/va-chip/page-config'
 
 @Options({
+  name: 'DocsChip',
   components: {
     DocsContent,
   },

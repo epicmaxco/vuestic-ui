@@ -22,7 +22,7 @@ import VaIconMenuCollapsed from '@/iconset/VaIconMenuCollapsed.vue'
 import { getColors } from '../../../../../ui/src/main'
 
 export default {
-  name: 'HeaderSelector',
+  name: 'DocsHeaderSelector',
   components: {
     VaIconMenu,
     VaIconMenuCollapsed,

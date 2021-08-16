@@ -1,10 +1,10 @@
 <template>
   <div class="base-layout">
     <div class="base-layout__header">
-      <Header v-model:is-sidebar-visible="isSidebarVisible"/>
+      <Header v-model:is-sidebar-visible="isSidebarVisible" />
     </div>
     <main id="base-layout" class="base-layout__main">
-      <Sidebar v-model:visible="isSidebarVisible" :navigationRoutes="navigationRoutes" :mobile="isSmallScreenDevice"/>
+      <Sidebar v-model:visible="isSidebarVisible" :navigationRoutes="navigationRoutes" :mobile="isSmallScreenDevice" />
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
@@ -43,13 +43,14 @@ import { Options, Vue, setup } from 'vue-class-component'
 import type { RouteLocationNormalized } from 'vue-router'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
-import { COLOR_THEMES, ThemeName } from '../config/theme-config'
+import { COLOR_THEMES, ThemeName } from '@/config/theme-config'
 import { setColors } from '../../../ui/src/main'
-import { navigationRoutes } from '../components/sidebar/navigationRoutes'
+import { navigationRoutes } from '@/components/sidebar/navigationRoutes'
 import { debounce } from 'lodash'
 import { getSortedNavigationRoutes } from '@/helpers/NavigationRoutesHelper'
 
 @Options({
+  name: 'DocsDefaultLayout',
   components: {
     Header,
     Sidebar,
@@ -159,7 +160,6 @@ export default class DocsLayout extends Vue {
         const el = document.querySelector(newRoute.hash)
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
-          return
         }
       })
     }

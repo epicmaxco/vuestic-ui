@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import dividerConfig from '../../components/page-configs/ui-elements/va-divider/page-config'
 
 @Options({
+  name: 'DocsDivider',
   components: {
     DocsContent,
   },
