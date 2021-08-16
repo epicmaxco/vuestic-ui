@@ -1,7 +1,7 @@
 import { isDatesMonthEqual, isDatesDayEqual, isDatesYearEqual } from './../utils/date-utils'
 import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType } from '../types/types'
 import { isDates, isRange, isSingleDate, useDatePickerModelValue } from './model-value-helper'
-import { computed, ComputedRef, ref } from 'vue'
+import { computed, ComputedRef, ref, watch } from 'vue'
 
 const getDateEqualFunction = (type: VaDatePickerType) => {
   return {
@@ -38,11 +38,6 @@ export const useDatePicker = (
   const onClick = (date: Date) => {
     updateModelValue(date)
     emit(`click:${type}`, date)
-  }
-
-  // pass undefined when there is nothing hovered or on mouseleave event
-  const onMouseHover = (date: Date | undefined) => {
-    emit(`hover:${type}`, date)
   }
 
   const isToday = (date: Date): boolean => {
@@ -86,11 +81,12 @@ export const useDatePicker = (
     return false
   }
 
+  watch(hoveredValue, (date) => { emit(`hover:${type}`, date) })
+
   return {
     hoveredIndex,
     hoveredValue,
     onClick,
-    onMouseHover,
     isToday,
     isSelected,
     isInRange,

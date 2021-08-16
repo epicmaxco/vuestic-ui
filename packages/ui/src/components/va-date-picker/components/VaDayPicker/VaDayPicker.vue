@@ -15,8 +15,8 @@
       class="va-day-picker__calendar__day-wrapper"
       v-for="(date, index) in calendarDates"
       :key="date"
-      @mouseenter="onMouseHover(date); hoveredIndex = index"
-      @mouseleave="onMouseHover(); hoveredIndex = -1"
+      @mouseenter="hoveredIndex = index"
+      @mouseleave="hoveredIndex = -1"
     >
       <va-date-picker-cell
         :hidden="isOtherMonth(date) && !showOtherMonths"
@@ -90,7 +90,6 @@ export default defineComponent({
     const {
       hoveredIndex,
       onClick,
-      onMouseHover,
       isToday,
       isSelected,
       isInRange,
@@ -125,7 +124,6 @@ export default defineComponent({
       hoveredIndex,
       calendarDates,
       onClick,
-      onMouseHover,
       isToday,
       isSelected,
       isInRange,
