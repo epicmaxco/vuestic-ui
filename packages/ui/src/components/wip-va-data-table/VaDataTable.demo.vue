@@ -354,13 +354,17 @@
         </template>
       </va-data-table>
     </VbCard>
+
+    <VbCard title="Sortable table" class="demo">
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable"/>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 import VaDataTable from './';
-import {cloneDeep} from "lodash-es";
+import {cloneDeep, shuffle} from "lodash-es";
 
 export default defineComponent({
   name: "VaDataTableDemo",
@@ -387,6 +391,8 @@ export default defineComponent({
     excessiveItems[0]["excessiveProp"] = "Excessive prop's value"
     excessiveItems[5]["excessiveProp"] = "Excessive prop's value"
     excessiveItems[5]["anotherExcessiveProp"] = "The other excessive prop's value"
+
+    const evenItemsShuffled = shuffle(evenItems);
 
     return {
       evenColumns: [
@@ -449,7 +455,29 @@ export default defineComponent({
         {id: 1, text: "Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)", target: "Pretty short prop"},
         {id: 2, text: "Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)", target: "Pretty short prop"},
         {id: 3, text: "Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)", target: "Pretty short prop"},
-      ]
+      ],
+
+      evenColumnsSortable: [
+        {
+          key: "id",
+          label: "Id",
+          sortable: true,
+        },
+
+        {
+          key: "name",
+          label: "Name",
+          sortable: true,
+        },
+
+        {
+          key: "idSquared",
+          label: "Id Squared",
+          sortable: true,
+        },
+      ],
+
+      evenItemsShuffled,
     }
   },
 

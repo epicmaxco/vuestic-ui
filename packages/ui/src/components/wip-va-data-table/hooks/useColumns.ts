@@ -9,6 +9,7 @@ export interface ITableColumn {
   key: string;
   label?: string;
   headerTitle?: string;
+  sortable: boolean,
   alignHead: TAlignOptions;
   verticalAlignHead: TVerticalAlignOptions;
   align: TAlignOptions;
@@ -26,6 +27,7 @@ export class TableColumn implements ITableColumn {
       this.key = input.key;
       this.label = input.label || startCase(input.key);
       this.headerTitle = input.headerTitle;
+      this.sortable = input.sortable;
       this.alignHead = input.alignHead;
       this.verticalAlignHead = input.verticalAlignHead;
       this.align = input.align;
@@ -37,6 +39,7 @@ export class TableColumn implements ITableColumn {
   key;
   label;
   headerTitle;
+  sortable = false;
   alignHead = "left" as TAlignOptions;
   verticalAlignHead = "top" as TVerticalAlignOptions;
   align = "left" as TAlignOptions;

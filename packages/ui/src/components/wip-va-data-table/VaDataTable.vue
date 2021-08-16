@@ -8,14 +8,21 @@
             <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
           </th>
 
-          <th v-for="column in columns" :title="column.headerTitle" :style="getHeadCSSVariables(column)">
+          <th
+            v-for="column in columns"
+            :title="column.headerTitle"
+            @click.exact="column.sortable && sortByColumn(column)"
+            :style="getHeadCSSVariables(column)"
+          >
             <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`" v-bind="column">
-              {{ column.label }}
+              <span>{{ column.label }}</span>
             </slot>
 
             <slot v-else name="head" v-bind="column">
-              {{ column.label }}
+              <span>{{ column.label }}</span>
             </slot>
+
+            <va-icon v-if="sortedBy?.key === column.key" :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'" size="small"/>
           </th>
         </tr>
        <slot name="head.append"/>
@@ -64,13 +71,12 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, ref, toRef, toRefs, watch} from "vue";
+import {defineComponent, PropType, toRefs} from "vue";
 import useColumns, {ITableColumn} from "./hooks/useColumns";
-import useRows, {ITableItem, TableRow} from "./hooks/useRows";
+import useRows, {ITableItem} from "./hooks/useRows";
 import useSelectable, {TSelectMode} from "./hooks/useSelectable";
 import useStylable from "./hooks/useStylable";
-import {colorToRgba, getFocusColor, getHoverColor} from "../../services/color-config/color-functions";
-import {getColor} from "../../services/color-config/color-config";
+import useSortable from "./hooks/useSortable";
 
 export default defineComponent({
   name: "VaDataTable",
@@ -131,6 +137,9 @@ export default defineComponent({
     const {selectable, selectMode, modelValue, selectedColor} = toRefs(props);
     const {selectedItems, toggleBulkSelection, toggleRowSelection, isRowSelected} = useSelectable(selectMode, modelValue, rows, emit);
 
+    // sorting
+    const {sortedBy, sortingOrder, sortByColumn} = useSortable(columns, rows);
+
     // styling
     const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStylable(selectable, selectedColor);
 
@@ -147,6 +156,9 @@ export default defineComponent({
       toggleBulkSelection,
       toggleRowSelection,
       isRowSelected,
+      sortedBy,
+      sortingOrder,
+      sortByColumn,
       getHeadCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
@@ -172,6 +184,7 @@ export default defineComponent({
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.6px;
+    cursor: var(--cursor);
   }
 
   thead {

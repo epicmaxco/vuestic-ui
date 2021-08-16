@@ -8,7 +8,8 @@ export default function useStylable(selectable: Ref<boolean>, selectedColor: Ref
   function getHeadCSSVariables(column: TableColumn) {
     return {
       "--align": column.alignHead,
-      "--vertical-align": column.verticalAlignHead
+      "--vertical-align": column.verticalAlignHead,
+      "--cursor": column.sortable ? "pointer" : "default"
     }
   }
 
