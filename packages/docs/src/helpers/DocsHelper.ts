@@ -1,11 +1,12 @@
 // @ts-ignore
-import { TranslationString, ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { TranslationString, ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
 import {
   BlockType,
   ApiDocsBlock,
   TextBlock,
   PathToExample,
   CodeString,
+  LinkOptions,
   ExampleOptions, CodeLanguage, ListBlock,
 } from '@/types/configTypes'
 import { DefineComponent } from 'vue'
@@ -51,23 +52,21 @@ export const DocsHelper = {
       language,
     }
   },
-  api: (componentOptions: DefineComponent | VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock => {
+  api: (componentOptions: DefineComponent<any, any, any, any, any, any, any, any, any, any, any> | VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock => {
     return {
       type: BlockType.API,
       componentOptions,
       apiOptions,
     }
   },
-  // TODO Untyped?
-  table: (columns: TableColumn[], tableData: TableData) => {
+  table: (columns: TableColumn[], tableData: TableData): ApiDocsBlock => {
     return {
       type: BlockType.TABLE,
       columns,
       tableData,
     }
   },
-  // TODO Untyped?
-  link: (text: string, href: string, options?: { preText?: string, afterText?: string }) => {
+  link: (text: string, href: string, options: LinkOptions = {}): ApiDocsBlock => {
     return {
       type: BlockType.LINK,
       text,
@@ -85,7 +84,7 @@ export const DocsHelper = {
   list: (translationStringList: TranslationString[]): ListBlock => {
     return {
       type: BlockType.LIST,
-      translationStringList
+      translationStringList,
     }
   },
 

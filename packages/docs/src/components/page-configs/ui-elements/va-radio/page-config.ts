@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaRadio from 'vuestic-ui/src/components/vuestic-components/va-radio/VaRadio.vue'
+import VaRadio from 'vuestic-ui/src/components/va-radio/VaRadio.vue'
 import apiOptions from './api-options'
 
 export default [

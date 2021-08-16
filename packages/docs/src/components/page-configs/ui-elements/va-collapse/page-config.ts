@@ -1,5 +1,5 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
-import VaCollapse from 'vuestic-ui/src/components/vuestic-components/va-collapse/VaCollapse.vue'
+import VaCollapse from 'vuestic-ui/src/components/va-collapse/VaCollapse.vue'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 

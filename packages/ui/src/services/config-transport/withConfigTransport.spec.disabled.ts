@@ -5,7 +5,7 @@ import { mount, config } from '@vue/test-utils'
 import withConfigTransport, { getComponentOptions, resolveProps } from './withConfigTransport'
 import { GlobalConfig, useGlobalConfig } from '../global-config/global-config'
 import { GlobalConfigPlugin } from '../global-config/global-config-plugin'
-import VaConfig from '../../components/vuestic-components/va-config/VaConfig'
+import VaConfig from '../../components/va-config/VaConfig'
 
 const initialConfig = {
   all: { value: 'valueFromContext' },

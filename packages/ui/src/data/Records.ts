@@ -1,4 +1,4 @@
-import { times } from 'lodash'
+import { times } from 'lodash-es'
 
 export const getInitialRecords = () => times(20, () => ({ text: 'record', id: Math.random() }))
 

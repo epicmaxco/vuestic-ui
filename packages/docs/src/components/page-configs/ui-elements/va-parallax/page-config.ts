@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaParallax from 'vuestic-ui/src/components/vuestic-components/va-parallax/VaParallax.vue'
+import VaParallax from 'vuestic-ui/src/components/va-parallax/VaParallax.vue'
 import apiOptions from './api-options'
 
 export default [
