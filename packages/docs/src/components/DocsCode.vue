@@ -21,6 +21,11 @@ export default {
       default: '',
     },
   },
+  data() {
+    return {
+      doShowCode: true,
+    }
+  },
   components: {
     PrismWrapper,
   },
@@ -64,6 +69,15 @@ export default {
         return acc.replace(replaceSource, this.$t(translation))
       }, code);
     },
+  },
+  watch: {
+    code: {
+      handler() {
+        this.doShowCode = false
+        this.$nextTick(() => this.doShowCode = true) // $nextTick() triggers v-if, that causes re-rendering of component.
+      }, 
+      immediate: true
+    }
   },
 }
 </script>

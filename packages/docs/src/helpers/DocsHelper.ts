@@ -42,7 +42,7 @@ export const DocsHelper = {
     return {
       type: BlockType.EXAMPLE,
       component,
-      exampleOptions: exampleOptions,
+      exampleOptions: exampleOptions
     }
   },
   code: (code: CodeString, language: CodeLanguage = 'javascript'): ApiDocsBlock => {

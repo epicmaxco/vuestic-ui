@@ -13,7 +13,8 @@ export type CodeLanguage = 'javascript' | 'scss' | 'bash' | 'html'
 // example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
 export type PathToExample = string
 export type ExampleOptions = {
-  hideCode?: boolean
+  hideCode?: boolean,
+  forceShowCode?: boolean
 }
 export type LinkOptions = {
   preText?: string,
@@ -54,15 +55,15 @@ export type ListBlock = {
 export type ApiDocsBlock =
   | TextBlock
   | {
-      type: BlockType.EXAMPLE,
-      component: PathToExample, // path to example
-      exampleOptions?: ExampleOptions,
-    }
+    type: BlockType.EXAMPLE,
+    component: PathToExample, // path to example
+    exampleOptions?: ExampleOptions,
+  }
   | {
-      type: BlockType.CODE,
-      code: CodeString,
-      language: CodeLanguage,
-    }
+    type: BlockType.CODE,
+    code: CodeString,
+    language: CodeLanguage,
+  }
   | {
       type: BlockType.API,
       componentOptions: DefineComponent | VueConstructor,
