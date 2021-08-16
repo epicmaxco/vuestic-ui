@@ -436,7 +436,21 @@
         "onClose": "Emits when close button is clicked"
       },
       "methods": {},
-      "slots": {}
+      "slots": {},
+      "examples": {
+        "default": {
+          "basic": "Basic notification",
+          "html": "HTML code inside"
+        },
+        "close": {
+          "customHandler": "notification with custom onClose handler",
+          "fourth": "Close #4 toast",
+          "all": "Close all toasts"
+        },
+        "click": {
+          "customHandler": "notification with custom onClick handler"
+        }
+      }
     },
     "VaCard": {
       "props": {
@@ -511,6 +525,11 @@
       },
       "events": {
         "input": "Emitted when the component needs to change the value"
+      },
+      "examples": {
+        "error": {
+          "message": "Error message"
+        }
       }
     },
     "VaProgressBar": {

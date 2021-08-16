@@ -3,8 +3,8 @@
     <va-checkbox
       v-model="value"
       error
-      error-messages="Error message"
-      label="Error message"
+      :error-messages="$t('api.VaCheckbox.examples.error.message')"
+      :label="$t('api.VaCheckbox.examples.error.message')"
     />
   </div>
 </template>
