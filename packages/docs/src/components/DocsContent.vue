@@ -29,10 +29,10 @@
         :key="block.type + index"
         :text="block.translationString"
       />
-      <DocsHeadline
+      <MarkdownView
         v-else-if="block.type === BlockType.HEADLINE"
         :key="block.type + index"
-        :text="block.translationString"
+        :value="`##### ${$t(block.translationString)}`"
       />
       <MarkdownView
         v-else-if="block.type === BlockType.PARAGRAPH"
@@ -75,7 +75,6 @@ import { ApiDocsBlock, BlockType } from '../types/configTypes'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 import DocsExample from './DocsExample.vue'
 import DocsCode from './DocsCode.vue'
-import DocsHeadline from './DocsHeadline.vue'
 import DocsSubtitle from './DocsSubtitle.vue'
 import ApiDocs from './DocsApi/ApiDocs.vue'
 import DocsTable from './DocsTable/DocsTable.vue'
@@ -89,11 +88,9 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
-  name: 'DocsContent',
   components: {
     DocsExample,
     DocsCode,
-    DocsHeadline,
     DocsSubtitle,
     MarkdownView,
     ApiDocs,

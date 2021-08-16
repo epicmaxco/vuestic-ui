@@ -1,7 +1,6 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-
-const toClass = (className: string): string => `\`class=\"${className}\"\``
+import { t } from '@/helpers/I18nHelper'
 
 const display1 = `
 <h1 class="display-1">Display 1 Heading</h1>
@@ -146,32 +145,32 @@ export default [
   DocsHelper.paragraph('typography.description'),
   DocsHelper.subtitle('typography.headings'),
   DocsHelper.table(
-    [{ title: 'typography.headings', type: 'markdown' }, { title: 'typography.affected', type: 'markdown' }],
+    [{ title: t('typography.headings'), type: 'markdown' }, { title: 'affected', type: 'markdown' }],
     [
-      [display1, toClass('display-1')],
-      [display2, toClass('display-2')],
-      [display3, toClass('display-3')],
-      [display4, toClass('display-4')],
-      [display5, toClass('display-5')],
-      [title, toClass('title')],
-      [primary, 'typography.primary'],
-      [secondary, toClass('text--secondary')],
-      [codeSnippet, toClass('code-snippet')],
-      [textCode, toClass('text--code')],
+      [display1, t('typography.display1')],
+      [display2, t('typography.display2')],
+      [display3, t('typography.display3')],
+      [display4, t('typography.display4')],
+      [display5, t('typography.display5')],
+      [title, t('typography.titled')],
+      [primary, t('typography.primary')],
+      [secondary, t('typography.secondary')],
+      [codeSnippet, t('typography.codeSnippet')],
+      [textCode, t('typography.textCode')],
     ]),
   DocsHelper.subtitle('typography.other'),
   DocsHelper.table(
-    [{ title: 'typography.other', type: 'markdown' }, { title: 'typography.affected', type: 'markdown' }],
+    [{ title: t('typography.other'), type: 'markdown' }, { title: 'affected', type: 'markdown' }],
     [
-      ['typography.lists'],
-      [orderedLists, toClass('va-ordered')],
-      [unorderedLists, toClass('va-unordered')],
-      ['typography.links'],
-      [link, toClass('link')],
-      [linkSecondary, toClass('link-secondary')],
-      ['typography.otherElements'],
-      [textHighlighted, toClass('text--highlighted')],
-      [blockquote, toClass('va-blockquote')],
-      [textBlock, toClass('text-block')],
+      [lists, ''],
+      [orderedLists, t('typography.orderedLists')],
+      [unorderedLists, t('typography.unorderedLists')],
+      [links, ''],
+      [link, t('typography.link')],
+      [linkSecondary, t('typography.linkSecondary')],
+      [otherElements, ''],
+      [textHighlighted, t('typography.textHighlighted')],
+      [blockquote, t('typography.blockquote')],
+      [textBlock, t('typography.textBlock')],
     ]),
 ] as ApiDocsBlock[]

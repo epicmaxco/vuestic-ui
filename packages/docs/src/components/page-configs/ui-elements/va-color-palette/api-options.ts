@@ -1,5 +1,28 @@
-import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
+// @ts-ignore
+import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export const apiOptionsAdvanced = defineManualApi({})
+export default {
+  props: {
+    value: { local: true },
+    palette: { local: true },
+  },
+  events: {
+  },
+  methods: {
+  },
+  slots: {
+  },
+} as ManualApiOptions
 
-export default defineManualApi({})
+export const apiOptionsAdvanced = {
+  props: {
+    value: { local: true },
+    palette: { local: true },
+  },
+  events: {
+  },
+  methods: {
+  },
+  slots: {
+  },
+} as ManualApiOptions

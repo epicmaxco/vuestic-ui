@@ -191,14 +191,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'date-picker',
         displayName: 'menu.datePicker',
         meta: {
-          badge: 'new',
-        },
-      },
-      {
-        name: 'date-input',
-        displayName: 'menu.dateInput',
-        meta: {
-          badge: 'new',
+          badge: 'wip',
         },
       },
       {

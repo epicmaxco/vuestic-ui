@@ -1,7 +1,7 @@
 //  @ts-nocheck
 
 import { v4 as uuidv4 } from 'uuid'
-import { isObject } from 'lodash-es'
+import { isObject } from 'lodash'
 
 export const sleep = (ms = 0) => {
   return new Promise(resolve => setTimeout(resolve, ms))

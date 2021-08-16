@@ -1,4 +1,5 @@
 import { DocsHelper } from '../../../../../helpers/DocsHelper'
+import { t } from '../../../../../helpers/I18nHelper'
 
 export const config = [
   DocsHelper.subtitle('colorsConfig.api.title'),
@@ -34,7 +35,7 @@ export const config = [
     ],
   ),
 
-  DocsHelper.headline('colorsConfig.api.hookMethods'),
+  DocsHelper.headline('useColor ' + t('colorsConfig.api.hookMethods')),
   DocsHelper.table(
     ['Method', { title: 'Type', type: 'code' }, { title: 'Description', type: 'markdown' }],
     [

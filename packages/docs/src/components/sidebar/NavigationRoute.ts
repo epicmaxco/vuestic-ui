@@ -1,4 +1,4 @@
-import { TranslationString } from '../DocsApi/ManualApiOptions'
+import { TranslationString } from '../../../../ui/src/services/api-docs/ManualApiOptions'
 
 export type NavigationRoute = {
   name: string,
@@ -6,7 +6,7 @@ export type NavigationRoute = {
   displayName: TranslationString,
   meta?: {
     iconClass?: string,
-    badge?: 'wip' | 'new'
+    badge?: 'wip'
   },
   disabled?: boolean,
   children?: NavigationRoute[],

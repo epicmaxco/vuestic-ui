@@ -1,16 +1,14 @@
 <template>
-  <prism-wrapper
-    :code="formattedCode"
-    :lang="language"
-    class="DocsCode"
-  />
+  <VuePrismComponent class="DocsCode" :language="language">{{ formatedCode }}</VuePrismComponent>
 </template>
 
 <script>
-import PrismWrapper from './PrismWrapper';
+import 'prismjs'
+import 'prismjs/components/prism-scss'
+import 'prismjs/components/prism-bash'
+import VuePrismComponent from 'vue-prism-component'
 
 export default {
-  name: 'DocsCode',
   props: {
     language: {
       type: String,
@@ -22,16 +20,11 @@ export default {
     },
   },
   components: {
-    PrismWrapper,
+    VuePrismComponent,
   },
   computed: {
-    formattedCode () {
-      let { code } = this;
-
-      code = this.removeFirstLineBreakIfExists(code)
-      code = this.applyTranslations(code)
-
-      return code;
+    formatedCode () {
+      return this.removeFirstLineBreakIfExists(this.code)
     },
   },
   methods: {
@@ -55,21 +48,12 @@ export default {
       }
       return newCode
     },
-    applyTranslations(code) {
-      const replaces = code.match(/(?:\$t)\(.*?\)/) || [];
-
-      return replaces.reduce((acc, replaceSource) => {
-        const translation = replaceSource.replace(/(\$t|'|\(|\)|\[\d\])/gi, '')
-
-        return acc.replace(replaceSource, this.$t(translation))
-      }, code);
-    },
   },
 }
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
 
 /* PrismJS 1.20.0
 https://prismjs.com/download.html#themes=prism&languages=css */
@@ -79,14 +63,12 @@ https://prismjs.com/download.html#themes=prism&languages=css */
  * Based on dabblet (http://dabblet.com)
  * @author Lea Verou
  */
-// @TODO After removing vue-prism-component need to update markup
-// This pre is a bit weird here and exists because of how vue-prism-component applies class
-// The structure is temporarily saved.
+// TODO This pre is a bit weird here and exists because of how vue-prism-component applies class.
 // Notably it has structure like this: pre.DocsCode > code.DocsCode.
 // Here class is being applied twice, while it should have been applied only on external container
 pre.DocsCode {
   background: #f4f8fa;
-  padding-top: 1.3rem;
+  padding: 1.2rem 2rem;
   font-size: calc(1rem / 1.4);
 
   code[class*='language-'],

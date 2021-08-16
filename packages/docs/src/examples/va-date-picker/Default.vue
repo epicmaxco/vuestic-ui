@@ -1,12 +1,15 @@
 <template>
-  <va-date-picker v-model="value" />
+  <va-date-picker
+    label="Default"
+    v-model="value"
+  />
 </template>
 
 <script>
 export default {
   data () {
     return {
-      value: new Date(),
+      value: '2020-08-09',
     }
   },
 }

@@ -40,7 +40,6 @@
 // @ts-nocheck
 import { provide, reactive, watch } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
-import type { RouteLocationNormalized } from 'vue-router'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../config/theme-config'
@@ -82,11 +81,7 @@ export default class DocsLayout extends Vue {
 
   mounted () {
     if (this.$route.hash) {
-      const el = document.querySelector(this.$route.hash)
-
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
-      }
+      document.querySelector(this.$route.hash).scrollIntoView()
     }
 
     this.isSmallScreenDevice = window.innerWidth <= 575
@@ -145,25 +140,7 @@ export default class DocsLayout extends Vue {
   //   }, [] as { [key: string]: string, }[])
   // }
 
-  onRouteChange (newRoute: RouteLocationNormalized, oldRoute: RouteLocationNormalized) {
-    if (newRoute.path === oldRoute.path && newRoute.hash) {
-      const el = document.querySelector(newRoute.hash)
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
-        return
-      }
-    }
-
-    if (newRoute.path !== oldRoute.path && newRoute.hash) {
-      this.$nextTick(() => {
-        const el = document.querySelector(newRoute.hash)
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
-          return
-        }
-      })
-    }
-
+  onRouteChange () {
     const pageContent: Element | undefined = this.$refs['page-content']
 
     if (pageContent) {

@@ -14,7 +14,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 require('dotenv').config()
 
-const config: Configuration = {
+const config = {
   mode: isProd ? 'production' : 'development',
   devtool: isProd ? false : 'eval-cheap-module-source-map',
   entry: {

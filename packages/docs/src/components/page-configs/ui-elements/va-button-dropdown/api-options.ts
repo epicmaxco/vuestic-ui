@@ -1,11 +1,30 @@
-import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
+import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export default defineManualApi({
+export default {
+  props: {
+    size: { local: true },
+    value: { local: true },
+    disableButton: { local: true },
+    disableDropdown: { local: true },
+    round: { local: true },
+    split: { local: true },
+    splitTo: { local: true },
+    splitHref: { local: true },
+    icon: { local: true },
+    leftIcon: { local: true },
+    openedIcon: { local: true },
+    position: { local: true },
+    keepAnchorWidth: { local: true },
+    offset: { local: true },
+    modelValue: { local: true },
+    closeOnContentClick: { local: true },
+  },
   events: {
-    click: { types: '`() => Event`' },
-    mainButtonClick: { types: '`() => Event`' },
+    click: { local: true, types: '`() => Event`' },
+    mainButtonClick: { local: true, types: '`() => Event`' },
   },
+  methods: {},
   slots: {
-    default: { },
+    default: { local: true },
   },
-})
+} as ManualApiOptions

@@ -13,14 +13,6 @@
       v-model="valueMultiple"
       multiple
     />
-    <va-select
-      class="mb-4"
-      label="Multiple select, Max 2 selections"
-      :options="options"
-      v-model="valueMultipleMax"
-      multiple
-      max-selections=2
-    />
   </div>
 </template>
 
@@ -32,7 +24,6 @@ export default {
       options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
       valueSingle: '',
       valueMultiple: '',
-      valueMultipleMax: '',
     }
   },
 }

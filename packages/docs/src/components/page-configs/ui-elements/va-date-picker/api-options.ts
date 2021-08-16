@@ -1,18 +1,17 @@
-import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
+// @ts-ignore
+import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 
-export default defineManualApi({
+export default {
   props: {
-    modelValue: { types: 'Date | Date[] | { start: Date | null, end: Date | null }' },
-    firstWeekday: { types: "'Monday' | 'Sunday'" },
-    mode: { types: "'single' | 'multiple' | 'range'" },
+    value: { local: true },
+    weekDays: { local: true },
+    placeholder: { local: true },
+    config: { local: true },
+  },
+  events: {
+  },
+  methods: {
   },
   slots: {
-    buttonPrev: {},
-    buttonNext: {},
-    header: {},
-    year: {},
-    month: {},
-    weekday: {},
-    day: {},
   },
-})
+} as ManualApiOptions

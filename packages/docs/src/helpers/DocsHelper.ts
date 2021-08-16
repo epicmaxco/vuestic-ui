@@ -1,5 +1,5 @@
 // @ts-ignore
-import { TranslationString, ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { TranslationString, ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
 import {
   BlockType,
   ApiDocsBlock,
@@ -52,7 +52,7 @@ export const DocsHelper = {
       language,
     }
   },
-  api: (componentOptions: DefineComponent<any, any, any, any, any, any, any, any, any, any, any> | VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock => {
+  api: (componentOptions: DefineComponent | VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock => {
     return {
       type: BlockType.API,
       componentOptions,

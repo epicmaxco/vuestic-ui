@@ -1,4 +1,5 @@
 import { DocsHelper } from '../../../../../helpers/DocsHelper'
+import { locale } from '../../../../../helpers/I18nHelper'
 import { fontCodeExample, fontTransformationsExample } from '../examples'
 
 export const config = [
@@ -18,5 +19,5 @@ export const config = [
   DocsHelper.paragraph('iconsConfig.fonts.example.explain'),
   DocsHelper.code(fontTransformationsExample),
 
-  DocsHelper.link('iconsConfig.fonts.advancedFontsUsage', `/services/global-config`, { preText: 'iconsConfig.fonts.readMore' }),
+  DocsHelper.link('iconsConfig.fonts.advancedFontsUsage', `/${locale}/services/global-config`, { preText: 'iconsConfig.fonts.readMore' }),
 ]
