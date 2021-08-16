@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaColorInput from 'vuestic-ui/src/components/vuestic-components/va-color-input/VaColorInput.vue'
+import VaColorInput from 'vuestic-ui/src/components/va-color-input/VaColorInput.vue'
 import apiOptions from './api-options'
 
 export default [

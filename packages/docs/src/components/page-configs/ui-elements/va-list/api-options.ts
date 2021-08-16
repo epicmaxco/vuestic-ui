@@ -1,50 +1,33 @@
-// @ts-ignore
-import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export const listApiOptions = {
-  props: {
-    fit: { local: true },
-  },
+export const listApiOptions = defineManualApi({
   slots: {
-    default: { local: true },
+    default: { },
   },
-} as ManualApiOptions
+})
 
-export const listLabelApiOptions = {
+export const listLabelApiOptions = defineManualApi({
   slots: {
-    default: { local: true },
+    default: { },
   },
-} as ManualApiOptions
+})
 
-export const listSeparatorApiOptions = {
-  props: {
-    fit: { local: true },
-    spaced: { local: true },
-  },
-} as ManualApiOptions
+export const listSeparatorApiOptions = defineManualApi({})
 
-export const listItemApiOptions = {
+export const listItemApiOptions = defineManualApi({
   slots: {
-    default: { local: true },
+    default: { },
   },
-} as ManualApiOptions
+})
 
-export const listItemLabelApiOptions = {
-  props: {
-    caption: { local: true },
-    lines: { local: true },
-  },
+export const listItemLabelApiOptions = defineManualApi({
   slots: {
-    default: { local: true },
+    default: { },
   },
-} as ManualApiOptions
+})
 
-export const listItemSectionApiOptions = {
-  props: {
-    icon: { local: true },
-    avatar: { local: true },
-  },
+export const listItemSectionApiOptions = defineManualApi({
   slots: {
-    default: { local: true },
+    default: { },
   },
-} as ManualApiOptions
+})

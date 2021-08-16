@@ -1,4 +1,4 @@
-import VaToast from 'vuestic-ui/src/components/vuestic-components/va-toast/VaToast.vue'
+import VaToast from 'vuestic-ui/src/components/va-toast/VaToast.vue'
 import apiOptions from './api-options'
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 

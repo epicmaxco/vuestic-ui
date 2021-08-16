@@ -1,6 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import VaModal
-  from 'vuestic-ui/src/components/vuestic-components/va-modal/VaModal.vue'
+  from 'vuestic-ui/src/components/va-modal/VaModal.vue'
 import apiOptions from './api-options'
 
 export default [

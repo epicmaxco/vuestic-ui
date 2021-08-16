@@ -71,10 +71,17 @@ export default {
     }
   },
   methods: {
-    copy () {
-      this.$clipboard(this.code)
-      this.copyIcon = 'fa fa-check'
-      this.copyText = 'Copied'
+    updateCopyButton(icon, text) {
+      this.copyIcon = icon
+      this.copyText = text
+    },
+    async copy () {
+      try {
+        await window.navigator.clipboard.writeText(this.code)
+        this.updateCopyButton('fa fa-check', 'Copied')
+      } catch(e) {
+        if (e.message === 'NotAllowedError') { this.updateCopyButton('fa fa-times', 'Permission failure!') }
+      }
       setTimeout(() => {
         this.copyText = 'Copy code'
         this.copyIcon = 'fa fa-files-o'
@@ -141,7 +148,7 @@ app.mount("#app");
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui/src/styles/resources/resources";
 
 .docs-navigation {
   background: $prism-background;

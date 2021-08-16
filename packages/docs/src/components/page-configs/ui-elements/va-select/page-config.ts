@@ -1,6 +1,6 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import VaSelect
-  from 'vuestic-ui/src/components/vuestic-components/va-select/VaSelect.vue'
+  from 'vuestic-ui/src/components/va-select/VaSelect.vue'
 import apiOptions from './api-options'
 
 export default [

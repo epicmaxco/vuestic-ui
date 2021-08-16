@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaOptionList from 'vuestic-ui/src/components/vuestic-components/va-option-list/VaOptionList.vue'
+import VaOptionList from 'vuestic-ui/src/components/va-option-list/VaOptionList.vue'
 import apiOptions from './api-options'
 
 export default [

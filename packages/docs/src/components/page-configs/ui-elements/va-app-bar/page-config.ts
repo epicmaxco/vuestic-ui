@@ -1,5 +1,5 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
-import VaAppBar from 'vuestic-ui/src/components/vuestic-components/va-app-bar/VaAppBar.vue'
+import VaAppBar from 'vuestic-ui/src/components/va-app-bar/VaAppBar.vue'
 import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
