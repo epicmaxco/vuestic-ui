@@ -819,26 +819,10 @@
         "default": "Контент выпадающего меню"
       }
     },
-    "VaColorPicker": {
-      "props": {
-        "value": "Current picked color."
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
     "VaColorInput": {
       "props": {
         "value": "Текущий цвет.",
         "selected": "Выбирает индикатор."
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
-    "VaColorSlider": {
-      "props": {
-        "value": "Текущий цвет"
       },
       "events": {},
       "methods": {},

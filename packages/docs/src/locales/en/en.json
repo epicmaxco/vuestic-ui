@@ -818,26 +818,10 @@
         "default": "Dropdown content slot."
       }
     },
-    "VaColorPicker": {
-      "props": {
-        "value": "Current picked color."
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
     "VaColorInput": {
       "props": {
         "value": "Current color.",
         "selected": "Select the indicator."
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
-    "VaColorSlider": {
-      "props": {
-        "value": "Current color"
       },
       "events": {},
       "methods": {},
