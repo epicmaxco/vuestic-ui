@@ -16,7 +16,7 @@
 
 <script>
 // Manually forked from https://github.com/vuetifyjs/vuetify/blob/master/packages/docs/src/components/doc/Example.vue
-// import VaContent from '../../ui/src/components/vuestic-components/va-content/VaContent'
+// import VaContent from '../../ui/src/components/va-content/VaContent'
 import DocsCode from './DocsCode'
 import DocsNavigation from './DocsNavigation'
 import { readComponent, readTemplate } from '../utilities/utils'

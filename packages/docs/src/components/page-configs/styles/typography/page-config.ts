@@ -1,6 +1,7 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { t } from '@/helpers/I18nHelper'
+
+const toClass = (className: string): string => `\`class=\"${className}\"\``
 
 export default [
   DocsHelper.title('typography.title'),

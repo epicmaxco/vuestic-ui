@@ -7,7 +7,7 @@ const config = (path: string) => {
 
 const installation = `
 npm install vuestic-ui
-// or
+// $t('all.code.or')
 yarn add vuestic-ui
 `
 
@@ -73,7 +73,7 @@ app.use(VuesticPlugin, {
 `
 
 const fontInstallationHTML = `
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 `
 
@@ -85,20 +85,42 @@ const fontInstallationCSS = `
 const cliPrepare = `
 vue --version
 `
+
+const treeShakingExample = `
+import { createApp } from 'vue'
+import App from './App.vue'
+import { VaInput, VaButton, VaSelect } from 'vuestic-ui'
+
+createApp(App)
+  .component('va-input', VaInput)
+  .component('va-button', VaButton)
+  .component('va-select', VaSelect)
+  .mount('#app')
+`
+
+const treeShakingPluginExample = `
+import { createApp } from 'vue'
+import App from './App.vue'
+import { VuesticPluginsWithoutComponents } from 'vuestic-ui'
+createApp(App)
+  .use(VuesticPluginsWithoutComponents)
+  .mount('#app')
+`
+
 export default [
   DocsHelper.title('installation.title'),
   DocsHelper.paragraph('installation.description'),
   DocsHelper.subtitle('installation.manual.title'),
   DocsHelper.paragraph('installation.subtitle'),
   DocsHelper.paragraph('installation.prerequisites'),
-  DocsHelper.list(['installation.node','installation.npm']),
+  DocsHelper.list(['installation.node', 'installation.npm']),
   DocsHelper.paragraph('installation.afterCheck'),
   DocsHelper.code(installation, 'bash'),
 
   DocsHelper.headline('installation.fonts.title'),
   DocsHelper.paragraph('installation.fonts.description'),
   DocsHelper.paragraph('installation.fonts.htmlExampleTitle'),
-  DocsHelper.code(fontInstallationHTML),
+  DocsHelper.code(fontInstallationHTML, 'html'),
   DocsHelper.paragraph('installation.fonts.cssExampleTitle'),
   DocsHelper.code(fontInstallationCSS),
 
@@ -114,6 +136,26 @@ export default [
   DocsHelper.paragraph('installation.cli.upgrade'),
   DocsHelper.paragraph('installation.cli.codeAnnotation'),
   DocsHelper.code('vue add vuestic-ui', 'bash'),
+
+  DocsHelper.subtitle('installation.treeShaking.title'),
+  DocsHelper.paragraph('installation.treeShaking.description'),
+
+  DocsHelper.paragraph('installation.treeShaking.example.title'),
+  DocsHelper.code(treeShakingExample),
+  DocsHelper.paragraph('installation.treeShaking.example.footer'),
+
+  DocsHelper.paragraph('installation.treeShaking.plugins.title'),
+  DocsHelper.list([
+    'installation.treeShaking.plugins.GlobalConfigPlugin',
+    'installation.treeShaking.plugins.ColorHelpersPlugin',
+    'installation.treeShaking.plugins.ToastInstall',
+    'installation.treeShaking.plugins.DropdownPopperSubplugin',
+  ]),
+
+  DocsHelper.paragraph('installation.treeShaking.plugins.example.title'),
+  DocsHelper.code(treeShakingPluginExample),
+
+  DocsHelper.alert('installation.treeShaking.attention.cssLoader', 'info'),
 
   // TODO Reenable when nuxt support is added back.
   // DocsHelper.subtitle(config('nuxt.title')),

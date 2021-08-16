@@ -1,6 +1,5 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { t, locale } from '../../../../helpers/I18nHelper'
 
 export default [
   DocsHelper.title('globalConfig.title'),
@@ -76,16 +75,16 @@ export default {
 }
   `),
   DocsHelper.headline('globalConfig.links.readMore'),
-  DocsHelper.link(t('globalConfig.links.components'), `/${locale}/services/components-config`),
-  DocsHelper.link(t('globalConfig.links.colors'), `/${locale}/services/colors-config`),
-  DocsHelper.link(t('globalConfig.links.icons'), `/${locale}/services/icons-config`),
+  DocsHelper.link('globalConfig.links.components', `/services/components-config`),
+  DocsHelper.link('globalConfig.links.colors', `/services/colors-config`),
+  DocsHelper.link('globalConfig.links.icons', `/services/icons-config`),
   DocsHelper.subtitle('all.api'),
   DocsHelper.table(
     ['params', { title: 'type', type: 'code' }, { title: 'Description', type: 'markdown' }],
     [
-      ['icons', 'IconsConfig', t('globalConfig.api.icons')],
-      ['components', 'ComponentsConfig', t('globalConfig.api.components')],
-      ['colors', 'ColorsConfig', t('globalConfig.api.colors')],
+      ['icons', 'IconsConfig', 'globalConfig.api.icons'],
+      ['components', 'ComponentsConfig', 'globalConfig.api.components'],
+      ['colors', 'ColorsConfig', 'globalConfig.api.colors'],
     ],
   ),
 ] as ApiDocsBlock[]

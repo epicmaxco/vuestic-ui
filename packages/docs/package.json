@@ -10,6 +10,8 @@
     "generate:component": "plop --plopfile src/scripts/generators/index.ts",
     "generate:docspage": "plop --plopfile src/scripts/generators/documentation.ts",
     "generate:translation": "plop --plopfile src/scripts/generators/language.ts",
+    "sync:translation": "i18n-unused sync en",
+    "find:unused:translation": "i18n-unused display-unused",
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
@@ -19,7 +21,8 @@
     "docsearch.js": "^2.6.3",
     "lodash": "^4.17.21",
     "markdown-it": "^12.0.6",
-    "prismjs": "^1.23.0",
+    "markdown-it-attrs": "^4.0.0",
+    "prismjs": "^1.24.0",
     "raw-loader": "^4.0.2",
     "smart-grid": "^2.1.2",
     "spa-http-server": "^0.9.0",
@@ -28,7 +31,6 @@
     "vue-gtm": "^3.5.0",
     "vue-i18n": "^9.0.0-rc.6",
     "vue-meta": "^3.0.0-alpha.5",
-    "vue-prism-component": "^2.0.0",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
@@ -51,6 +53,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^7.5.0",
+    "i18n-unused": "^0.0.3",
     "node-sass": "^5.0.0",
     "plop": "^2.7.0",
     "sass-loader": "^10.1.1",

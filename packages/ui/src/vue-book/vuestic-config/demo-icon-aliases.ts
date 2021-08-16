@@ -169,6 +169,10 @@ const DemoAliases: IconConfiguration[] = [
     name: 'thumb_up_empty',
     to: 'md-outlined-thumb_up',
   },
+  {
+    name: 'ellipsis',
+    to: 'fa4-ellipsis-h',
+  },
 ]
 
 export default DemoAliases

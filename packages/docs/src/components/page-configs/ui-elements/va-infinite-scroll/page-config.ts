@@ -1,5 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaInfiniteScroll from 'vuestic-ui/src/components/vuestic-components/va-infinite-scroll/VaInfiniteScroll.vue'
+import VaInfiniteScroll from 'vuestic-ui/src/components/va-infinite-scroll/VaInfiniteScroll.vue'
 import apiOptions from './api-options'
 
 export default [

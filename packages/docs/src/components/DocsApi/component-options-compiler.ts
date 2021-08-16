@@ -39,7 +39,15 @@ export type PropOptionsCompiled = {
   required: boolean;
   default: any;
 }
-type CompiledComponentOptions = { props: Record<string, PropOptionsCompiled> }
+
+export type EventOptionsCompiled = Record<string, any> & {
+  types: 'any'
+}
+
+export type CompiledComponentOptions = {
+  props: Record<string, PropOptionsCompiled>,
+  emits: Record<string, EventOptionsCompiled>,
+}
 
 /**
  * Employ vue native functionality to get defaults for prop
@@ -125,15 +133,28 @@ export function resolveProps (options: any, optionsType = 'props') {
   return result
 }
 
+export type ResolvedEvent = { types: 'any' }
+export function resolveEmits (options: any): Record<string, EventOptionsCompiled> {
+  if (!options.emits) {
+    return {}
+  }
+
+  return (options.emits as string[])
+    .reduce((acc: Record<string, EventOptionsCompiled>, event: string) => {
+      acc[event] = { types: 'any' }
+      return acc
+    }, {})
+}
+
 export function compileComponentOptions (componentOptions: any): CompiledComponentOptions {
-  const props = resolveProps(componentOptions)
+  const resolvedProps = resolveProps(componentOptions)
 
-  const propsApiDocs: any = {}
-  for (const propName in props) {
-    propsApiDocs[kebabCase(propName)] = convertComponentPropToApiDocs(propName, props)
+  const props: any = {}
+  for (const propName in resolvedProps) {
+    props[kebabCase(propName)] = convertComponentPropToApiDocs(propName, resolvedProps)
   }
 
-  return {
-    props: propsApiDocs,
-  }
+  const emits = resolveEmits(componentOptions)
+
+  return { props, emits }
 }
