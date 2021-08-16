@@ -24,7 +24,7 @@
       <tbody>
         <slot name="body.prepend" />
 
-        <tr v-for="row in rows" @click="toggleRowSelection(row)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
+        <tr v-for="row in rows" @click.exact="toggleRowSelection(row)" @click.shift.exact="toggleRowSelection(row, true)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
           <td v-if="selectable">
             <input v-if="selectMode === 'multiple'" type="checkbox" v-model="selectedItems" :value="row.source" @click.stop>
             <input v-else-if="selectMode === 'single'" type="checkbox" :checked="selectedItems.includes(row.source)">

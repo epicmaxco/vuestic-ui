@@ -247,8 +247,8 @@
     </VbCard>
 
     <VbCard title="Selectable (multiple) (default)" class="demo">
-      {{selectedItems}}
       <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItems"/>
+      Count: {{selectedItems.length}} | {{selectedItems}}
     </VbCard>
 
     <VbCard title="Selectable (single) with `selected-color='danger'`" class="demo">
