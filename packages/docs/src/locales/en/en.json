@@ -2991,6 +2991,18 @@
     "status": {
       "part": "Partial support",
       "full": "Full support"
+    },
+    "sync": {
+      "title": "Synchronizing locale files",
+      "description": "You can sync the locale files with the following command (the source file is `en.json`):"
+    },
+    "unused": {
+      "title": "Searching unused translations",
+      "description": "You can search unused translations with the following command:"
+    },
+    "missed": {
+      "title": "Searching missed translations",
+      "description": "You can search missed translations with the following command:"
     }
   },
   "table": {
