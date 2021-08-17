@@ -1,4 +1,4 @@
-import { isSyncEvent, normalizeEvents } from '../api-docs-helpers'
+import { normalizeEvents } from '../api-docs-helpers'
 
 describe('NormalizeEvents', () => {
   it('Sync events', () => {
@@ -19,11 +19,15 @@ describe('NormalizeEvents', () => {
   it('Sync events with kebab case events', () => {
     const manualEvents = {
       updateView: {},
+      'update:viewModel': {},
+      'updateModel:viewModel': {},
       'update:view': {},
       'hover:year': {},
     }
     const expectedResult = {
       'update-view': {},
+      'update:view-model': {},
+      'update-model:view-model': {},
       'update:view': {},
       'hover:year': {},
     }
@@ -67,43 +71,5 @@ describe('NormalizeEvents', () => {
     const result = normalizeEvents(manualEvents)
 
     expect(expectedResult).toStrictEqual(result)
-  })
-})
-
-describe('isSyncEvent', () => {
-  it('Lower case', () => {
-    expect(isSyncEvent('update:view')).toBe(true)
-  })
-
-  it('Upper case', () => {
-    expect(isSyncEvent('UPDATE:VIEW')).toBe(true)
-  })
-
-  it('Combine cases', () => {
-    expect(isSyncEvent('UpdatE:View')).toBe(true)
-  })
-
-  it('Letters with digits', () => {
-    expect(isSyncEvent('update4:view')).toBe(true)
-  })
-
-  it('Only digits', () => {
-    expect(isSyncEvent('333:33')).toBe(true)
-  })
-
-  it('Column at the end, failure', () => {
-    expect(isSyncEvent('update:')).toBe(false)
-  })
-
-  it('Column at the start, failure', () => {
-    expect(isSyncEvent(':update')).toBe(false)
-  })
-
-  it('There is no column, failure', () => {
-    expect(isSyncEvent('update')).toBe(false)
-  })
-
-  it('There is dot instead of column, failure', () => {
-    expect(isSyncEvent('update.view')).toBe(false)
   })
 })

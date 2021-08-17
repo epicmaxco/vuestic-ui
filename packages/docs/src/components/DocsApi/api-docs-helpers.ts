@@ -7,9 +7,8 @@ import {
   ManualApiOptions,
   ManualSlotApiOptions,
   ManualMethodApiOptions,
-  ManualEventApiOptions,
 } from './ManualApiOptions'
-import { compileComponentOptions, CompiledComponentOptions, EventOptionsCompiled } from './component-options-compiler'
+import { compileComponentOptions, CompiledComponentOptions } from './component-options-compiler'
 import { ApiEventRowOptions, ApiMethodRowOptions, ApiPropRowOptions, ApiSlotRowOptions, ApiTableData } from './ApiTableData'
 
 function getComponentOptions (component: DefineComponent): ComponentOptions {
@@ -82,17 +81,11 @@ const getApiTableProps = (
   return api
 }
 
-export const isSyncEvent = (name: string) => {
-  return /\w+:\w+/.test(name)
-}
-
 export const normalizeEvents = <T>(obj: Record<string, T>) => {
   return Object.keys(obj).reduce((acc, o: string) => {
-    if (isSyncEvent(o)) {
-      acc[o] = obj[o]
-    } else {
-      acc[kebabCase(o)] = obj[o]
-    }
+    const eventName = o.split(':').map(e => kebabCase(e)).join(':')
+    acc[eventName] = obj[o]
+
     return acc
   }, {} as Record<string, T>)
 }
@@ -104,7 +97,8 @@ const getApiTableEvents = (
 ) => {
   const api = {} as Record<string, ApiEventRowOptions>
   const manualEvents = manualOptions.events ? normalizeEvents(manualOptions.events) : {}
-  const merged = { ...compiledComponentOptions.emits, ...manualEvents }
+  const componentEvents = compiledComponentOptions.emits ? normalizeEvents(compiledComponentOptions.emits) : {}
+  const merged = { ...componentEvents, ...manualEvents }
 
   for (const eventName in merged) {
     const event = merged[eventName]

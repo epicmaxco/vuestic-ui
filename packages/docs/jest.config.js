@@ -4,7 +4,10 @@ module.exports = {
     '**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
   ],
   transform: {
-    '^.+\\js$': 'babel-jest',
+    '^.+\\.(ts)$': 'ts-jest',
   },
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  testEnvironment: 'jsdom',
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/',
+  ],
 }
