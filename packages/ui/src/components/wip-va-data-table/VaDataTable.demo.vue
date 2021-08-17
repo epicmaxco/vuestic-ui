@@ -256,9 +256,9 @@
       <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItem" select-mode="single" selected-color="danger"/>
     </VbCard>
 
-    <VbCard title="Busy state" class="demo">
-      <va-switch v-model="isTableBusy" label="Busy state"/>
-      <va-data-table :items="evenItems" :columns="evenColumns" :busy="isTableBusy"/>
+    <VbCard title="Loading state" class="demo">
+      <va-switch v-model="isTableLoading" label="Loading state"/>
+      <va-data-table :items="evenItems" :columns="evenColumns" :loading="isTableLoading"/>
     </VbCard>
 
     <VbCard title="Alignment" class="demo">
@@ -433,7 +433,7 @@ export default defineComponent({
       selectedItems: [],
       selectedItem: [],
 
-      isTableBusy: false,
+      isTableLoading: false,
 
       alignColumns: [
         {

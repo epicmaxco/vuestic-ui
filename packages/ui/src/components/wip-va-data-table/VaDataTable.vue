@@ -1,5 +1,5 @@
 <template>
-  <va-inner-loading :loading="busy" color="primary">
+  <va-inner-loading :loading="loading" color="primary">
     <table class="va-data-table" v-bind="$attrs">
       <thead>
        <slot name="head.prepend"/>
@@ -114,7 +114,7 @@ export default defineComponent({
       type: String as PropType<TSortingOrderOptions>,
       default: "asc",
     },
-    busy: {
+    loading: {
       type: Boolean,
       default: false,
     },
@@ -152,7 +152,7 @@ export default defineComponent({
     const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStylable(selectable, selectedColor);
 
     // other
-    const {busy, hideDefaultHeader, footClone} = toRefs(props);
+    const {loading, hideDefaultHeader, footClone} = toRefs(props);
 
     // expose
     return {
@@ -170,7 +170,7 @@ export default defineComponent({
       getHeadCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
-      busy,
+      loading,
       hideDefaultHeader,
       footClone
     };
