@@ -8,7 +8,7 @@
 
 <!--          Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
           <th v-if="selectable">
-            <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
+            <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="severalRowsSelected" @change="toggleBulkSelection">
           </th>
 
 <!--          Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
@@ -38,12 +38,11 @@
         <slot name="body.prepend" />
 
 <!--        Render rows (`tr`s). Select a row on click or select a bunch of rows on shift-click-->
-        <tr v-for="row in rows" @click.exact="toggleRowSelection(row)" @click.shift.exact="toggleRowSelection(row, true)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
+        <tr v-for="row in rows" @click.exact="toggleRowSelection(row)" @click.shift.exact="shiftSelectRows(row)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
 
 <!--          Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
           <td v-if="selectable">
-            <input v-if="selectMode === 'multiple'" type="checkbox" v-model="selectedItems" :value="row.source" @click.stop>
-            <input v-else-if="selectMode === 'single'" type="checkbox" :checked="selectedItems.includes(row.source)">
+            <input type="checkbox" :checked="isRowSelected(row)">
           </td>
 
 <!--          Render cells for a given row-->
@@ -160,14 +159,28 @@ export default defineComponent({
     const {rows} = useRows(rawItems, columns);
 
     // selection
-    const {selectable, selectMode, modelValue, selectedColor} = toRefs(props);
-    const {selectedItems, toggleBulkSelection, toggleRowSelection, isRowSelected} = useSelectable(selectMode, modelValue, rows, emit);
+    const {
+      selectMode,
+      modelValue: selectedItems
+    } = toRefs(props);
+
+    const {
+      selectedItemsProxy,
+      toggleRowSelection,
+      shiftSelectRows,
+      toggleBulkSelection,
+      isRowSelected,
+      noRowsSelected,
+      severalRowsSelected,
+      allRowsSelected,
+    } = useSelectable(rows, selectedItems, selectMode, emit);
 
     // sorting
     const {sortBy: initiallySortedBy, sortingOrder: initialSortingOrder} = toRefs(props);
     const {sortedBy, sortingOrder, sortByColumn} = useSortable(columns, rows, initiallySortedBy, initialSortingOrder);
 
     // styling
+    const {selectable, selectedColor} = toRefs(props);
     const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStyleable(selectable, selectedColor);
 
     // other
@@ -179,10 +192,12 @@ export default defineComponent({
       columns,
       rows,
       selectable,
-      selectedItems,
-      toggleBulkSelection,
+      selectedItems: selectedItemsProxy,
       toggleRowSelection,
+      shiftSelectRows,
+      toggleBulkSelection,
       isRowSelected,
+      severalRowsSelected,
       sortedBy,
       sortingOrder,
       sortByColumn,

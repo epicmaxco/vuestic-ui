@@ -1,74 +1,123 @@
-import {computed, ref, Ref, watch} from "vue";
-import {ITableItem, TableRow} from "./useRows";
+import {Ref, computed, watch, ref} from "vue";
+import {TableRow, ITableItem} from "./useRows";
 
 // the available options for the `select-mode` prop
 export type TSelectMode = "single" | "multiple";
 
 // TODO: the `emit` shouldn't be any!
-export default function useSelectable(selectMode: Ref<TSelectMode>, modelValue: Ref<ITableItem[]>, rows: Ref<TableRow[]>, emit: any) {
-  // the reactive array holding the currently selected items. Note that the array doesn't hold the TableRaw instances. Instead, it holds the raw items
-  const selectedItems = ref<ITableItem[]>(modelValue.value);
+export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<ITableItem[]>, selectMode: Ref<TSelectMode>, emit: any) {
+  // the standard proxying approach to work with modeled data
+  const selectedItemsProxy = computed<ITableItem[]>({
+    get() {
+      return selectedItems.value;
+    },
 
-  // each time it changes the `v-model` should be updated respectively, so watch for changes.
-  // BTW, I'm not sure why it's necessary here to listen for the `.value` changes, though it doesn't work without that. TODO: figure out
-  watch([selectedItems, selectedItems.value], () => {
-    emit("update:modelValue", selectedItems.value);
+    set(modelValue) {
+      emit("update:modelValue", modelValue);
+    }
+  });
+
+  // clear all the selected rows when the `select-mode`'s value changes
+  watch([selectMode], () => {
+    unselectAllRows();
+  });
+
+  // private. The one calling this function must guarantee that the row isn't already selected
+  function selectRow(row: TableRow) {
+    selectedItemsProxy.value.push(row.source);
+  }
+
+  // private. The one calling this function must guarantee that the row is selected
+  function unselectRow(row: TableRow) {
+    selectedItemsProxy.value.splice(selectedItemsProxy.value.findIndex(item => item === row.source), 1);
+  }
+
+  // exposed
+  function toggleRowSelection(row: TableRow) {
+    if (selectMode.value === "multiple") {
+      isRowSelected(row) ? unselectRow(row) : selectRow(row);
+    } else {
+      if (isRowSelected(row)) {
+        unselectRow(row);
+      } else {
+        unselectAllRows();
+        selectRow(row);
+      }
+    }
+
+    prevSelectedRowIndex.value = rows.value.indexOf(row);
+    prevShiftSelectedRows.value.splice(0, prevShiftSelectedRows.value.length);
+  }
+
+  const prevSelectedRowIndex = ref(0);
+  const prevShiftSelectedRows = ref<TableRow[]>([]);
+
+  // exposed
+  function shiftSelectRows(row: TableRow) {
+    if (selectMode.value === "single") return;
+
+    if (prevShiftSelectedRows) {
+      prevShiftSelectedRows.value.forEach(prevShiftSelectedRow => {
+        unselectRow(prevShiftSelectedRow);
+      });
+
+      prevShiftSelectedRows.value.splice(0, prevShiftSelectedRows.value.length);
+    }
+
+    const targetIndex = rows.value.indexOf(row);
+    const start = Math.min(prevSelectedRowIndex.value, targetIndex);
+    const end = Math.max(prevSelectedRowIndex.value, targetIndex);
+
+    const rowsToSelect = rows.value.slice(start, end + 1).filter(rowToSelect => !isRowSelected(rowToSelect));
+    selectedItemsProxy.value = selectedItemsProxy.value.concat(rowsToSelect.map(row => row.source));
+
+    prevShiftSelectedRows.value = rowsToSelect;
+  }
+
+  // private
+  function selectAllRows() {
+    selectedItemsProxy.value = rows.value.map(row => row.source);
+  }
+
+  // private
+  function unselectAllRows() {
+    selectedItemsProxy.value.splice(0, selectedItemsProxy.value.length);
+  }
+
+  // exposed
+  function toggleBulkSelection() {
+    if (selectedItemsProxy.value.length === rows.value.length) {
+      unselectAllRows();
+    } else {
+      selectAllRows();
+    }
+  }
+
+  // the following 4 checkers are all exposed
+  function isRowSelected(row: TableRow) {
+    return selectedItemsProxy.value.includes(row.source);
+  }
+
+  const noRowsSelected = computed(() => {
+    return selectedItemsProxy.value.length === 0;
   })
 
-  // select or unselect all the rows
-  function toggleBulkSelection() {
-    if (selectedItems.value.length === rows.value.length) {
-      selectedItems.value = [];
-    } else {
-      selectedItems.value = rows.value.map(row => row.source);
-    }
-  }
+  const severalRowsSelected = computed(() => {
+    return selectedItemsProxy.value.length > 0 && selectedItemsProxy.value.length < rows.value.length;
+  });
 
-  // quite buggy. Should be reconsidered (maybe even the generic (is it?) useSelectable composable should be used instead. TODO
-  let prevSelectedIndex = 0;
-
-  function toggleRowSelection(row: TableRow, shift: boolean = false) {
-    if (selectMode.value === "single") {
-      if (selectedItems.value[0] === row.source) {
-        selectedItems.value.splice(0, 1);
-      } else {
-        selectedItems.value.splice(0, 1, row.source);
-      }
-    } else if (selectMode.value === "multiple") {
-      if (shift) {
-        const targetIndex = rows.value.indexOf(row);
-        const start = Math.min(prevSelectedIndex, targetIndex);
-        const end = Math.max(prevSelectedIndex, targetIndex < prevSelectedIndex ? targetIndex : (targetIndex + 1));
-
-        const rowsToSelect = rows.value.slice(start, end).filter(selectedRow => {
-          return !selectedItems.value.includes(selectedRow.source);
-        });
-
-        selectedItems.value = selectedItems.value.concat(rowsToSelect.map(row => row.source));
-      } else {
-        const index = selectedItems.value.indexOf(row.source);
-
-        if (index !== -1) {
-          selectedItems.value.splice(index, 1);
-        } else {
-          selectedItems.value.push(row.source);
-        }
-
-        prevSelectedIndex = rows.value.indexOf(row);
-      }
-    }
-  }
-
-  // check if a given row is selected
-  function isRowSelected(row: TableRow) {
-    // it is if the row's initial item is inside the `selectedItems` array
-    return selectedItems.value.includes(row.source);
-  }
+  const allRowsSelected = computed(() => {
+    return selectedItemsProxy.value.length
+  });
 
   return {
-    selectedItems,
-    toggleBulkSelection,
+    selectedItemsProxy,
     toggleRowSelection,
+    shiftSelectRows,
+    toggleBulkSelection,
     isRowSelected,
+    noRowsSelected,
+    severalRowsSelected,
+    allRowsSelected,
   }
 }
