@@ -100,7 +100,9 @@
         "clickPrepend": "The event is triggered by clicking on the `prepend` slot",
         "clickPrependInner": "The event is triggered by clicking on the `prependInner` slot",
         "clickAppend": "The event is triggered by clicking on the `append` slot",
-        "clickAppendInner": "The event is triggered by clicking on the `appendInner` slot"
+        "clickAppendInner": "The event is triggered by clicking on the `appendInner` slot",
+        "updateModelValue": "The event is triggered when the component needs to change the model. Is also used by v-model",
+        "updateFocused": "The event is triggered when the component needs to toggle the focus"
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -143,6 +145,7 @@
         "gradient": "Adds a background gradient.",
         "modelValue": "The value of the `v-model` bindings.",
         "activeButtonTextColor": "The color of the text of the active button (options supported by the theme or `HEX`).",
+        "indeterminate": "Same as native `indeterminate` - a state in which it's impossible to say whether the item is toggled `on` or `off`",
         "indeterminateValue": "Overrides a state value that is not set.",
         "borderColor": "Color css style `border` (theme supported options or `HEX`).",
         "clearableIcon": "Sets the cleaning button icon.",
@@ -424,7 +427,10 @@
         "render": "Render function to use a custom content",
         "multiLine": "Sets more space for the Toast component"
       },
-      "events": {},
+      "events": {
+        "onClick": "Emits when toast is clicked",
+        "onClose": "Emits when close button is clicked"
+      },
       "methods": {},
       "slots": {}
     },
@@ -434,7 +440,8 @@
         "stripeColor": "Customize stripe color (theme string or *HEX* string).",
         "gradient": "Adds color gradient to `va-card` body.",
         "bordered": "Toggles borders of a card component.",
-        "outlined": "Toggles shadow of `va-card`"
+        "outlined": "Toggles shadow of `va-card`",
+        "dark": "Applies dark color and background to card"
       }
     },
     "VaSidebar": {
@@ -478,7 +485,7 @@
         "input": "Emitted on value change."
       },
       "slots": {
-        "default": "Used to render items. Available props are:\n`option: String | Object`\n`isDisabled: Boolean`\n`name: String`\n`color: String`\n`leftLabel: Boolean`\n`getText: (option: String | Object) => String` \n `selectedValue: Array<String | Object>`\n`index: Number`"
+        "default": "Used to render items. Available props are:\n`option: String `&#124;` Object`,\n`isDisabled: Boolean`,\n`name: String`,\n`color: String`,\n`leftLabel: Boolean`,\n`getText: (option: String `&#124;` Object) => String`,\n`selectedValue: Array<String `&#124;` Object>`,\n`index: Number`"
       }
     },
     "VaAvatar": {
@@ -494,7 +501,6 @@
     "VaCheckbox": {
       "props": {
         "value": "The value of the checkbox",
-        "indeterminate": "Same as native `indeterminate` - a state in which it's impossible to say whether the item is toggled `on` or `off`",
         "checkedIcon": "Overrides the `checked` icon",
         "indeterminateIcon": "Overrides the `indeterminate` icon"
       },
@@ -660,7 +666,8 @@
         "click:append": "Emitted when user clicked on `append` slot",
         "click:append-inner": "Emitted when user clicked on `appendInner` slot",
         "keyup": "Emitted when the user releases a key on the keyboard",
-        "keydown": "Emitted when any key is pressed"
+        "keydown": "Emitted when any key is pressed",
+        "cleared": "Emitted if input value has been cleared"
       },
       "methods": {
         "focus": "Setting focus on input",
@@ -742,7 +749,7 @@
         "fixed": "Sets dropdown position strategy",
         "clearable": "Sets ability to clear selection",
         "hideSelected": "Sets ability to hide selected options",
-        "allowCreate": "Allow creating new options. Can be setted to `unique` if you want to create only unique options",
+        "allowCreate": "Allow creating new options. Can be set to `unique` if you want to create only unique options",
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons"
       },
@@ -860,15 +867,23 @@
         "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
         "mode": "Specify if picker value is single date, multiple dates or date range."
       },
-      "events": {},
+      "events": {
+        "updateView": "The event is triggered when the component needs to change the view",
+        "hoverYear": "The event is triggered when the mouse hover the year cell",
+        "clickYear": "The event is triggered when clicked the year cell",
+        "hoverDay": "The event is triggered when the mouse hover the day cell",
+        "clickDay": "The event is triggered when clicked the day cell",
+        "hoverMonth": "The event is triggered when the mouse hover the month cell",
+        "clickMonth": "The event is triggered when clicked the month cell"
+      },
       "methods": {},
       "slots": {
         "buttonPrev": "Button show previous month or year.",
         "buttonNext": "Button show next month or year.",
         "header": "This slot is showing year and month between header buttons.",
         "year": "Used to change how year will be displayed in header and picker cell.",
-        "month": "Used to change how year will be displayed in header and picker cell.",
-        "weekday": "Used to change how weekday will be displayed in picker.",
+        "month": "Used to change how month will be displayed in header and picker cell.",
+        "weekday": "Used to change how weekday will be displayed in picker cell.",
         "day": "Used to change how day will be displayed in picker cell."
       }
     },
@@ -918,8 +933,17 @@
         "errorMessages": "Displays a list of error messages or message if using a string",
         "errorCount": "Number of error messages displayed"
       },
-
-      "events": {},
+      "events": {
+        "updateView": "The event is triggered when the component needs to change the view",
+        "updateMonth": "The event is triggered when the component needs to change the month",
+        "updateYear": "The event is triggered when the component needs to change the year",
+        "updateIsOpen": "The event is triggered when the component needs to toggle the 'is-open'",
+        "updateText": "The event is triggered when the component needs to change the input text",
+        "hoverDay": "The event is triggered when the mouse hover the day cell",
+        "hoverMonth": "The event is triggered when the mouse hover the month cell",
+        "clickDay": "The event is triggered when clicked the day cell",
+        "clickMonth": "The event is triggered when clicked the month cell"
+      },
       "methods": {},
       "slots": {}
     },
@@ -2605,7 +2629,6 @@
   "datePicker": {
     "title": "Date Picker",
     "description": "Date picker component allows user to select single, multiple or range of dates, months and years. You can customize it the way you want. There is a option to change all string and formats.\n\nIt based on native js dates so you can use this Date Picker with any date library you want.",
-    "summaryText": "Input component for data selection.",
     "lookAtDateInput": "Also, look at Date Input",
     "examples": {
       "default": {
@@ -2813,7 +2836,7 @@
     "cli": {
       "title": "Vue CLI installation",
       "description": "Another way to install Vuestic UI is using the Vue CLI plugin.",
-      "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js|ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
+      "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js`&#124;`ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
       "prepare": "First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:",
       "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it.",
       "codeAnnotation": "If everything's fine then you can finally install the plugin with the following command (**don't forget to commit**):"
