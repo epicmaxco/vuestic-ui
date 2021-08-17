@@ -2,14 +2,16 @@ import {TableColumn} from "./useColumns";
 import {ref, Ref} from "vue";
 import {TableRow} from "./useRows";
 
-export type TSortingOrderOptions = "asc" | "desc";
+export type TSortingOrder = "asc" | "desc";
 
-export default function useSortable(columns: Ref<TableColumn[]>, rows: Ref<TableRow[]>, initiallySortedBy: Ref<string>, initialSortingOrder: Ref<TSortingOrderOptions>) {
+// TODO: reconsider to support v-model:sort or something similar instead
+export default function useSortable(columns: Ref<TableColumn[]>, rows: Ref<TableRow[]>, initiallySortedBy: Ref<string>, initialSortingOrder: Ref<TSortingOrder>) {
+  // take the copy of the rows in their initial order (so that we can later un-sort everything)
   const initiallyOrderedRows = rows.value.slice();
   const columnToSortByInitially = columns.value.find(column => column.key === initiallySortedBy.value) || null
 
   const sortedBy = ref<TableColumn | null>(null);
-  const sortingOrder = ref<TSortingOrderOptions>(!!columnToSortByInitially ? initialSortingOrder.value : "asc");
+  const sortingOrder = ref<TSortingOrder>(!!columnToSortByInitially ? initialSortingOrder.value : "asc");
 
   if (columnToSortByInitially) {
     sortByColumn(columnToSortByInitially)

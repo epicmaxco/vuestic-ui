@@ -1,15 +1,21 @@
 import {computed, ref, Ref, watch} from "vue";
 import {ITableItem, TableRow} from "./useRows";
 
+// the available options for the `select-mode` prop
 export type TSelectMode = "single" | "multiple";
 
+// TODO: the `emit` shouldn't be any!
 export default function useSelectable(selectMode: Ref<TSelectMode>, modelValue: Ref<ITableItem[]>, rows: Ref<TableRow[]>, emit: any) {
+  // the reactive array holding the currently selected items. Note that the array doesn't hold the TableRaw instances. Instead, it holds the raw items
   const selectedItems = ref<ITableItem[]>(modelValue.value);
 
+  // each time it changes the `v-model` should be updated respectively, so watch for changes.
+  // BTW, I'm not sure why it's necessary here to listen for the `.value` changes, though it doesn't work without that. TODO: figure out
   watch([selectedItems, selectedItems.value], () => {
     emit("update:modelValue", selectedItems.value);
   })
 
+  // select or unselect all the rows
   function toggleBulkSelection() {
     if (selectedItems.value.length === rows.value.length) {
       selectedItems.value = [];
@@ -18,6 +24,7 @@ export default function useSelectable(selectMode: Ref<TSelectMode>, modelValue: 
     }
   }
 
+  // quite buggy. Should be reconsidered (maybe even the generic (is it?) useSelectable composable should be used instead. TODO
   let prevSelectedIndex = 0;
 
   function toggleRowSelection(row: TableRow, shift: boolean = false) {
@@ -52,7 +59,9 @@ export default function useSelectable(selectMode: Ref<TSelectMode>, modelValue: 
     }
   }
 
+  // check if a given row is selected
   function isRowSelected(row: TableRow) {
+    // it is if the row's initial item is inside the `selectedItems` array
     return selectedItems.value.includes(row.source);
   }
 

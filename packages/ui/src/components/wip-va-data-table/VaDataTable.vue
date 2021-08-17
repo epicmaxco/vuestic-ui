@@ -2,63 +2,71 @@
   <va-inner-loading :loading="loading" color="primary">
     <table class="va-data-table" v-bind="$attrs">
       <thead>
-       <slot name="head.prepend"/>
+<!--        Slot for prepending thead rows-->
+        <slot name="head.prepend"/>
         <tr v-if="!hideDefaultHeader">
+
+<!--          Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
           <th v-if="selectable">
             <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="selectedItems.length > 0 && selectedItems.length < rows.length" @change="toggleBulkSelection">
           </th>
 
+<!--          Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
           <th
             v-for="column in columns"
             :title="column.headerTitle"
             @click.exact="column.sortable && sortByColumn(column)"
             :style="getHeadCSSVariables(column)"
           >
-            <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`" v-bind="column">
-              <span>{{ column.label }}</span>
-            </slot>
-
+<!--            Render a custom `head(columnKey)` slot if it's provided, or a custom common `head` (also if provided) or the column's label-->
+            <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`" v-bind="column"/>
             <slot v-else name="head" v-bind="column">
               <span>{{ column.label }}</span>
             </slot>
 
+<!--            Sorting arrow (down is descending sorting, up is ascending)-->
             <va-icon v-if="sortedBy?.key === column.key" :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'" size="small"/>
           </th>
         </tr>
-       <slot name="head.append"/>
+
+<!--        Append rows in thead-->
+        <slot name="head.append"/>
       </thead>
 
       <tbody>
+<!--        Prepend tbody with rows (if any)-->
         <slot name="body.prepend" />
 
+<!--        Render rows (`tr`s). Select a row on click or select a bunch of rows on shift-click-->
         <tr v-for="row in rows" @click.exact="toggleRowSelection(row)" @click.shift.exact="toggleRowSelection(row, true)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
+
+<!--          Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
           <td v-if="selectable">
             <input v-if="selectMode === 'multiple'" type="checkbox" v-model="selectedItems" :value="row.source" @click.stop>
             <input v-else-if="selectMode === 'single'" type="checkbox" :checked="selectedItems.includes(row.source)">
           </td>
 
+<!--          Render cells for a given row-->
           <td v-for="cell in row.cells" :style="getCellCSSVariables(cell)">
-            <slot v-if="`cell(${cell.column.key})` in slots" :name="`cell(${cell.column.key})`" v-bind="cell">
-              {{ cell.value }}
-            </slot>
 
+<!--            Substitute cell's content with with `cell(columnKey)` slot's value or common `cell` slot's value or (if neither exists) with that cell's actual value-->
+            <slot v-if="`cell(${cell.column.key})` in slots" :name="`cell(${cell.column.key})`" v-bind="cell"/>
             <slot v-else name="cell" v-bind="cell">
               {{ cell.value }}
             </slot>
           </td>
         </tr>
 
+<!--        Append rows to tbody (ignored if no such slots provided)-->
         <slot name="body.append" />
       </tbody>
 
+<!--      Duplicate header into footer if `footClone` prop is true-->
       <tfoot v-if="footClone">
         <slot name="foot.prepend"/>
         <tr>
           <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
-            <slot v-if="`foot(${column.key})` in slots" :name="`foot(${column.key})`">
-              {{ column.label }}
-            </slot>
-
+            <slot v-if="`foot(${column.key})` in slots" :name="`foot(${column.key})`"/>
             <slot v-else name="foot" v-bind="column">
               {{ column.label }}
             </slot>
@@ -75,12 +83,23 @@ import {defineComponent, PropType, toRefs} from "vue";
 import useColumns, {ITableColumn} from "./hooks/useColumns";
 import useRows, {ITableItem} from "./hooks/useRows";
 import useSelectable, {TSelectMode} from "./hooks/useSelectable";
-import useStylable from "./hooks/useStylable";
-import useSortable, {TSortingOrderOptions} from "./hooks/useSortable";
+import useStyleable from "./hooks/useStyleable";
+import useSortable, {TSortingOrder} from "./hooks/useSortable";
+
+/*
+TODO: consider a possibility to lazy-load the hooks with dynamic imports based on respective props' values. E.G.
+
+if (selectable.value) {
+  const {default: useSelectable} = await import("./hooks/useSelectable");
+}
+
+Would be a could feature (if possible at all).
+* */
 
 export default defineComponent({
   name: "VaDataTable",
 
+  // so that the attributes could be bypassed to the <table>, not applied to <va-inner-loading>
   inheritAttrs: false,
 
   props: {
@@ -111,7 +130,7 @@ export default defineComponent({
       type: String as PropType<string>
     },
     sortingOrder: {
-      type: String as PropType<TSortingOrderOptions>,
+      type: String as PropType<TSortingOrder>,
       default: "asc",
     },
     loading: {
@@ -149,7 +168,7 @@ export default defineComponent({
     const {sortedBy, sortingOrder, sortByColumn} = useSortable(columns, rows, initiallySortedBy, initialSortingOrder);
 
     // styling
-    const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStylable(selectable, selectedColor);
+    const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStyleable(selectable, selectedColor);
 
     // other
     const {loading, hideDefaultHeader, footClone} = toRefs(props);
@@ -179,6 +198,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+// The variables used here are taken from a respective element's `style` attribute. See the `useStyleable` hook
+
 .va-data-table {
   cursor: default;
 

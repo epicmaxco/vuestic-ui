@@ -4,7 +4,7 @@ import {getColor} from "../../../services/color-config/color-config";
 import {computed, Ref} from "vue";
 import {TableColumn} from "./useColumns";
 
-export default function useStylable(selectable: Ref<boolean>, selectedColor: Ref<string>) {
+export default function useStyleable(selectable: Ref<boolean>, selectedColor: Ref<string>) {
   function getHeadCSSVariables(column: TableColumn) {
     return {
       "--align": column.alignHead,
