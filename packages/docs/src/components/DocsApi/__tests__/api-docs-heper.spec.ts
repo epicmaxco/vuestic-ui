@@ -1,17 +1,21 @@
-import { normalizeEvents } from '../api-docs-helpers'
+import { normalizeEventNames } from '../api-docs-helpers'
 
-describe('NormalizeEvents', () => {
+describe('normalizeEventNames', () => {
   it('Sync events', () => {
     const manualEvents = {
       'update:view': {},
       'hover:year': {},
     }
     const expectedResult = {
-      'update:view': {},
-      'hover:year': {},
+      'update-view': {
+        name: 'update:view',
+      },
+      'hover-year': {
+        name: 'hover:year',
+      },
     }
 
-    const result = normalizeEvents(manualEvents)
+    const result = normalizeEventNames(manualEvents)
 
     expect(expectedResult).toStrictEqual(result)
   })
@@ -25,14 +29,21 @@ describe('NormalizeEvents', () => {
       'hover:year': {},
     }
     const expectedResult = {
-      'update-view': {},
-      'update:view-model': {},
-      'update-model:view-model': {},
-      'update:view': {},
-      'hover:year': {},
+      'hover-year': {
+        name: 'hover:year',
+      },
+      'update-model-view-model': {
+        name: 'update-model:view-model',
+      },
+      'update-view': {
+        name: 'update:view',
+      },
+      'update-view-model': {
+        name: 'update:view-model',
+      },
     }
 
-    const result = normalizeEvents(manualEvents)
+    const result = normalizeEventNames(manualEvents)
 
     expect(expectedResult).toStrictEqual(result)
   })
@@ -43,11 +54,15 @@ describe('NormalizeEvents', () => {
       hoverMonth: {},
     }
     const expectedResult = {
-      'hover-month': {},
-      'update-view': {},
+      'hover-month': {
+        name: 'hover-month',
+      },
+      'update-view': {
+        name: 'update-view',
+      },
     }
 
-    const result = normalizeEvents(manualEvents)
+    const result = normalizeEventNames(manualEvents)
 
     expect(expectedResult).toStrictEqual(result)
   })
@@ -61,14 +76,38 @@ describe('NormalizeEvents', () => {
       hover_day: {},
     }
     const expectedResult = {
-      'hover-day': {},
-      'hover-month': {},
-      'hover-year': {},
-      'hover:month': {},
-      'update-view': {},
+      'hover-day': {
+        name: 'hover-day',
+      },
+      'hover-month': {
+        name: 'hover:month',
+      },
+      'hover-year': {
+        name: 'hover-year',
+      },
+      'update-view': {
+        name: 'update-view',
+      },
     }
 
-    const result = normalizeEvents(manualEvents)
+    const result = normalizeEventNames(manualEvents)
+
+    expect(expectedResult).toStrictEqual(result)
+  })
+
+  it('Mix cases, events override', () => {
+    // should not appear in project
+    const manualEvents = {
+      updateView: {},
+      'update:view': {},
+    }
+    const expectedResult = {
+      'update-view': {
+        name: 'update:view',
+      },
+    }
+
+    const result = normalizeEventNames(manualEvents)
 
     expect(expectedResult).toStrictEqual(result)
   })

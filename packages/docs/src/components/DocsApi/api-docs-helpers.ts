@@ -1,5 +1,5 @@
 import { DefineComponent, ComponentOptions } from 'vue'
-import { kebabCase, camelCase } from 'lodash'
+import { kebabCase, camelCase, merge } from 'lodash'
 import { te as translationExists, fallbackLocale } from '../../helpers/I18nHelper'
 
 import {
@@ -81,13 +81,13 @@ const getApiTableProps = (
   return api
 }
 
-export const normalizeEvents = <T>(obj: Record<string, T>) => {
+export const normalizeEventNames = <T>(obj: Record<string, T>) => {
   return Object.keys(obj).reduce((acc, o: string) => {
     const eventName = o.split(':').map(e => kebabCase(e)).join(':')
-    acc[eventName] = obj[o]
+    acc[kebabCase(o)] = { ...obj[o], name: eventName }
 
     return acc
-  }, {} as Record<string, T>)
+  }, {} as Record<string, {name: string}>)
 }
 
 const getApiTableEvents = (
@@ -96,12 +96,13 @@ const getApiTableEvents = (
   manualOptions: ManualApiOptions = {},
 ) => {
   const api = {} as Record<string, ApiEventRowOptions>
-  const manualEvents = manualOptions.events ? normalizeEvents(manualOptions.events) : {}
-  const componentEvents = compiledComponentOptions.emits ? normalizeEvents(compiledComponentOptions.emits) : {}
-  const merged = { ...componentEvents, ...manualEvents }
+  const manualEvents = manualOptions.events ? keysToKebabCase(manualOptions.events) : {}
+  const componentEvents = compiledComponentOptions.emits ? normalizeEventNames(compiledComponentOptions.emits) : {}
+  const merged = merge(componentEvents, manualEvents)
 
-  for (const eventName in merged) {
-    const event = merged[eventName]
+  for (const eventKey in merged) {
+    const event = merged[eventKey]
+    const eventName = event.name || eventKey
 
     if (event.hidden) { continue }
 
@@ -109,7 +110,7 @@ const getApiTableEvents = (
       version: event.version || manualOptions.version || '',
       name: eventName,
       types: event.types,
-      description: getTranslation('events', eventName, componentName, event.translation),
+      description: getTranslation('events', eventKey, componentName, event.translation),
     }
   }
 
