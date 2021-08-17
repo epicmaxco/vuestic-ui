@@ -23,13 +23,15 @@ export class TableRow {
 
 // the inner cell representation. Holds references to a row and a column in belongs to
 export class TableCell {
-  // takes a row and a column, saves them and holds the actual cell's value inside the `value` field
+  // takes a row and a column, saves them and holds the stringified cell's value inside the `value` field and the actual (initial) value inside the `source`
   constructor(row: TableRow, column: TableColumn, value: any) {
+    this.source = value;
     this.row = row;
     this.column = column;
     this.value = value?.toString?.() || "";
   }
 
+  source: any;
   row: TableRow;
   column: TableColumn;
   value: string;

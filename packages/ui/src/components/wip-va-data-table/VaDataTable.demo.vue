@@ -206,7 +206,7 @@
       </va-data-table>
     </VbCard>
 
-    <VbCard title="[foot-clone] Specific `head(id)` together with static `head` slot (static values)" class="demo">
+    <VbCard title="[foot-clone] Specific `foot(id)` together with static `foot` slot (static values)" class="demo">
       <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
         <template #foot>
           Test
@@ -359,7 +359,7 @@
       <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable"/>
     </VbCard>
 
-    <VbCard title="Sortable table" class="demo">
+    <VbCard title="Custom sorting function for the last column" class="demo">
       The last column's sorting function always returns -1, thus when the table is sorted by it it should always just reverse the rows.
       <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortableWithCustoms"/>
     </VbCard>
@@ -507,7 +507,8 @@ export default defineComponent({
           key: "idSquared",
           label: "Id Squared",
           sortable: true,
-          sortingFn: () => {
+          sortingFn: (a, b) => {
+            console.log(a, b)
             return -1;
           }
         },

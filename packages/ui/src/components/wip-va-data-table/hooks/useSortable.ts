@@ -26,12 +26,14 @@ export default function useSortable(columns: Ref<TableColumn[]>, rows: Ref<Table
 
     function sort() {
       rows.value = rows.value.sort((a, b) => {
-        const firstVal = a.cells[columnIndex].value;
-        const secondVal = b.cells[columnIndex].value;
+        const firstValStringified = a.cells[columnIndex].value;
+        const secondValStringified = b.cells[columnIndex].value;
+        const firstValInitial = a.cells[columnIndex].source;
+        const secondValInitial = b.cells[columnIndex].source;
 
         return typeof column.sortingFn === "function"
-          ? column.sortingFn(firstVal, secondVal)
-          : firstVal.localeCompare(secondVal);
+          ? column.sortingFn(firstValInitial, secondValInitial)
+          : firstValStringified.localeCompare(secondValStringified);
       });
 
       if (sortingOrder.value === "desc") {
