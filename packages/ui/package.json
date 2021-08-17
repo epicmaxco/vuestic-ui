@@ -44,6 +44,7 @@
     "flatpickr": "4.6.9",
     "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
+    "tslib": "^2.2.0",
     "vue-flatpickr-component": "^9.0.3"
   },
   "devDependencies": {
@@ -112,7 +113,6 @@
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
-    "tslib": "^2.3.0",
     "typescript": "^4.1.3",
     "vue": "^3.0.4",
     "vue-book": "0.2.0-alpha.0",
