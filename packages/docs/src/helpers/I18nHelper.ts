@@ -1,4 +1,4 @@
-import { i18n } from './../main'
+import i18n from '../plugins/i18n'
 
 export const { locale, te, t, fallbackLocale } = i18n.global
 

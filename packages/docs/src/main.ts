@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { router } from './router'
-import { createI18n } from 'vue-i18n'
-import { messages, DEFAULT_LANGUAGE } from './locales'
+import i18n from './plugins/i18n'
+import { DEFAULT_LANGUAGE } from '@/locales'
 
 // plugin to change algolia colors according docs theme
 import AlgoliaColorPlugin from './components/sidebar/algolia-search/algolia-color-plugin'
@@ -10,15 +10,6 @@ import { VuesticPlugin } from 'vuestic-ui/src/main'
 import { VuesticConfig } from './config/vuestic-config'
 import { useGtag } from './services/gtag'
 import { useMeta } from '@/services/vue-meta'
-
-export const i18n = createI18n({
-  locale: DEFAULT_LANGUAGE,
-  fallbackLocale: 'en',
-  messages,
-  missing(_, key) {
-    return key
-  },
-})
 
 const app = createApp(App)
 
