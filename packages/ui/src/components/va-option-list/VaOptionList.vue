@@ -67,7 +67,7 @@
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 
-import { generateUuid } from '../../services/utils'
+import { generateUniqueId } from '../../services/utils'
 import { SelectableListMixin } from '../../mixins/SelectableList/SelectableListMixin'
 import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
 import VaRadio from '../va-radio'
@@ -85,7 +85,7 @@ class OptionListProps {
   disabled = prop<boolean>({ type: Boolean, default: false })
   readonly = prop<boolean>({ type: Boolean, default: false })
   defaultValue = prop<string | number | Record<string, unknown> | any[]>({ type: [String, Number, Object, Array] })
-  name = prop<string>({ type: String, default: generateUuid })
+  name = prop<string>({ type: String, default: generateUniqueId })
   color = prop<string>({ type: String, default: 'primary' })
   leftLabel = prop<boolean>({ type: Boolean, default: false })
   modelValue = prop<string | number | Record<string, unknown> | any[]>({ type: [String, Number, Object, Array] })

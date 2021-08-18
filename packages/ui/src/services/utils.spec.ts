@@ -1,4 +1,4 @@
-import { deepEqual, getProp, getValueByPath, getNestedValue, generateUuid } from './utils'
+import { deepEqual, getProp, getValueByPath, getNestedValue, generateUniqueId } from './utils'
 
 describe('utils', () => {
   it('deepEqual', () => {
@@ -127,12 +127,12 @@ describe('utils', () => {
   })
 
   it('generateUuid', () => {
-    const uuid = generateUuid()
+    const uuid = generateUniqueId()
 
     expect(uuid).toHaveLength(18)
     expect(typeof uuid).toBe('string')
 
-    const uuid2 = generateUuid()
+    const uuid2 = generateUniqueId()
 
     expect(uuid2).toHaveLength(18)
     expect(typeof uuid2).toBe('string')
