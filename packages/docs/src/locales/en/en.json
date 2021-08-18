@@ -655,10 +655,6 @@
         "blur": "Emitted when the input is blurred",
         "focus": "Emitted when input is focused",
         "click": "Emitted when user clicked on input",
-        "click:prepend": "Emitted when user clicked on `prepend` slot",
-        "click:prepend-inner": "Emitted when user clicked on `prependInner` slot",
-        "click:append": "Emitted when user clicked on `append` slot",
-        "click:append-inner": "Emitted when user clicked on `appendInner` slot",
         "keyup": "Emitted when the user releases a key on the keyboard",
         "keydown": "Emitted when any key is pressed",
         "cleared": "Emitted if input value has been cleared"
@@ -840,9 +836,6 @@
     "VaDatePicker": {
       "props": {
         "modelValue": "Date, date array or date period",
-        "weekDays": "Adds days to the table",
-        "placeholder": "Sets input placeholder",
-        "config": "Object with settings for date picker",
         "monthNames": "Array of 12 month names",
         "weekdayNames": "Array of 7 weekday names",
         "firstWeekday": "Name of first weekday. Can be `Monday` or `Sunday`",
@@ -2855,10 +2848,6 @@
       "attention": {
         "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
       }
-    },
-    "nuxt": {
-      "title": "Nuxt installation",
-      "description": "Vuestic UI can be added by adding plugin after installation. Create plugin and include it into `nuxt.config.js`:"
     },
     "manual": {
       "title": "Manual installation",
