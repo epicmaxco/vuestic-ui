@@ -3,14 +3,14 @@
     <p class="example-item">
       <va-icon name="home" />
       <span class="float-right">
-        {{ $t('api.VaDivider.examples.listItem') }}
+        {{ $t('all.listItem') }}
       </span>
     </p>
     <va-divider inset />
     <p class="example-item">
       <va-icon name="home" />
       <span class="float-right">
-        {{ $t('api.VaDivider.examples.listItem') }}
+        {{ $t('all.listItem') }}
       </span>
     </p>
     <va-divider inset />

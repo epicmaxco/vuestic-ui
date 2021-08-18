@@ -1,12 +1,14 @@
 <template>
   <p>
     <va-button class="mr-4 mb-2" @click="showModal = !showModal">
+      {{ $t('all.showModal') }}
       {{ $t('api.VaModal.examples.withoutOverlayButton') }}
     </va-button>
     <va-button
       class="mb-2"
       @click="showModalNoOutsideDismiss = !showModalNoOutsideDismiss"
     >
+      {{ $t('all.showModal') }}
       {{ $t('api.VaModal.examples.withoutOverlayAndDismissButton') }}
     </va-button>
     <va-modal v-model="showModal" :message="message" :overlay="false" />

@@ -1,7 +1,7 @@
 <template>
   <div class="row my-5">
     <span class="flex lg1">
-      {{ $t('api.VaDivider.examples.title') }}
+      {{ $t('all.Title') }}
     </span>
     <va-divider vertical />
     <span class="flex lg1">

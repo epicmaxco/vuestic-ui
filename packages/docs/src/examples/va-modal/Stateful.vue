@@ -1,6 +1,7 @@
 <template>
   <p>
     <va-button @click="$refs.modal.show()">
+      {{ $t('all.showModal') }}
       {{ $t('api.VaModal.examples.statefulButton') }}
     </va-button>
     <va-modal ref="modal" stateful :message="message" />

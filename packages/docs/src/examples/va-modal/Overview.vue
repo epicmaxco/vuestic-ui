@@ -1,6 +1,7 @@
 <template>
   <p>
     <va-button @click="showModal = !showModal">
+      {{ $t('all.showModal') }}
       {{ $t('api.VaModal.examples.default') }}
     </va-button>
     <va-modal v-model="showModal" :message="message" title="Overview" />

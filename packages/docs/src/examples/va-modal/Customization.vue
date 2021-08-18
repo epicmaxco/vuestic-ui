@@ -1,6 +1,7 @@
 <template>
   <div>
     <va-button @click="showModal = !showModal">
+      {{ $t('all.showModal') }}
       {{ $t('api.VaModal.examples.custom.button') }}
     </va-button>
     <va-modal v-model="showModal" hide-default-actions overlay-opacity="0.2">
@@ -14,7 +15,7 @@
       </slot>
       <template #footer>
         <va-button>
-          {{ $t('api.VaModal.examples.custom.action') }}
+          {{ $t('all.customAction') }}
         </va-button>
       </template>
     </va-modal>

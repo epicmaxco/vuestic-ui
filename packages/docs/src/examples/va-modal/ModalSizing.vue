@@ -1,15 +1,18 @@
 <template>
   <div>
     <va-button class="mr-4 mb-2" @click="showModalSizeSmall = !showModalSizeSmall">
+      {{ $t('all.showModal') }}
       {{ $t('api.VaModal.examples.size.small') }}
     </va-button>
     <va-button class="mr-4 mb-2" @click="showModalSizeMedium = !showModalSizeMedium">
+      {{ $t('all.showModal') }}
       {{ $t('api.VaModal.examples.size.medium') }}
     </va-button>
     <va-button
       class="mb-2"
       @click="showModalSizeLarge = !showModalSizeLarge"
     >
+      {{ $t('all.showModal') }}
       {{ $t('api.VaModal.examples.size.large') }}
     </va-button>
     <va-modal v-model="showModalSizeSmall" :message="message" size="small" />

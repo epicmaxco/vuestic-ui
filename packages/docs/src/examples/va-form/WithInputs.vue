@@ -1,7 +1,7 @@
 <template>
   <div>
     <va-button class="mb-4 mr-4" @click="$refs.form.validate()">
-      {{ $t('api.VaForm.examples.validate') }}
+      {{ $t('all.validate') }}
     </va-button>
     <va-form ref="form">
       <va-input

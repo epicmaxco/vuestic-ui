@@ -7,10 +7,10 @@
         </va-card-title>
         <va-card-actions align="between">
           <va-button>
-            {{ $t('api.VaCard.examples.actions.firstButton') }}
+            {{ $t('all.Action') }} 1
           </va-button>
           <va-button>
-            {{ $t('api.VaCard.examples.actions.secondButton') }}
+            {{ $t('all.Action') }} 2
           </va-button>
         </va-card-actions>
       </va-card>

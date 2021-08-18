@@ -3,7 +3,7 @@
     <va-badge text="New" overlap>
       <va-card>
         <va-card-content>
-          {{ $t('api.VaBadge.code.withCard') }}
+          {{ $t('all.nextUpdateIsNear') }}
         </va-card-content>
       </va-card>
     </va-badge>

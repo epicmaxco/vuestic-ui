@@ -3,7 +3,7 @@
     <div class="flex md6 lg4">
       <va-image style="min-height: 300px;" src="wrong-image-path">
         <template #error>
-          {{ $t('api.VaImage.examples.notFound') }}
+          {{ $t('all.notFound') }}
         </template>
       </va-image>
     </div>
