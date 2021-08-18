@@ -8,7 +8,8 @@
 <script lang="ts">
 import { Vue, Options, prop, mixins } from 'vue-class-component'
 // @ts-ignore
-import { Chrome } from 'vue-color'
+// Commented to not break demo - looks like there is an issue with vue-color: https://github.com/xiaokaike/vue-color
+// import { Chrome } from 'vue-color'
 
 class ColorPickerProps {
   value = prop<string>({
@@ -21,7 +22,8 @@ const ColorPickerPropsMixin = Vue.with(ColorPickerProps)
 
 @Options({
   name: 'VaColorPicker',
-  components: { ChromePicker: Chrome },
+  // Commented to not break demo - looks like there is an issue with vue-color: https://github.com/xiaokaike/vue-color
+  // components: { ChromePicker: Chrome },
   emits: ['input'],
 })
 export default class VaColorPicker extends mixins(ColorPickerPropsMixin) {

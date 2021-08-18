@@ -8,7 +8,8 @@
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 // @ts-ignore
-import { Slider } from 'vue-color'
+// Commented to not break demo - looks like there is an issue with vue-color: https://github.com/xiaokaike/vue-color
+// import { Slider } from 'vue-color'
 
 class ColorSliderProps {
   modelValue = prop<string>({
@@ -22,7 +23,8 @@ const ColorSliderPropsMixin = Vue.with(ColorSliderProps)
 @Options({
   name: 'VaColorSlider',
   components: {
-    SliderPicker: Slider,
+    // Commented to not break demo - looks like there is an issue with vue-color: https://github.com/xiaokaike/vue-color
+    // SliderPicker: Slider,
   },
   emits: ['update:modelValue'],
 })
