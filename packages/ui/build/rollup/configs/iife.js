@@ -2,7 +2,6 @@ import { defineConfig } from 'rollup'
 import typescriptPlugin from 'rollup-plugin-typescript2'
 import vuePlugin from 'rollup-plugin-vue'
 import postcssPlugin from 'rollup-plugin-postcss'
-import nodeBuiltinsPlugin from 'rollup-plugin-node-builtins'
 import commonjsPlugin from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaration'
@@ -38,7 +37,6 @@ export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, dec
       commonjsPlugin(),
       nodeResolve({ browser: true }),
       postcssPlugin({ minimize: minify, extract: true }),
-      nodeBuiltinsPlugin({ crypto: true }),
     ],
   })
 
