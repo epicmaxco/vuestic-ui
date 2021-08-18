@@ -35,11 +35,11 @@ export default {
   },
   methods: {
     async appendRecordsAsyncRef() {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, 1000))
       this.recordsRef.push({}, {}, {})
     },
     async appendRecordsAsyncId() {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, 1000))
       this.recordsId.push({}, {}, {})
     },
   },

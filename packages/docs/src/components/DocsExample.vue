@@ -2,13 +2,33 @@
   <div class="mb-3">
     <component :is="component" />
     <template v-if="!exampleOptions.hideCode">
-      <va-button v-if="!exampleOptions.forceShowCode" class="mt-2 d-block docs-example__show-code-button" style="background: transparent !important; box-shadow: none !important;" :rounded="false" flat size="small" color="primary" @click="showCode = !showCode">
+      <va-button
+        v-if="!exampleOptions.forceShowCode"
+        class="mt-2 d-block docs-example__show-code-button"
+        style="background: transparent !important; box-shadow: none !important;"
+        :rounded="false"
+        flat
+        size="small"
+        color="primary"
+        @click="showCode = !showCode"
+      >
         {{ $t('docsExample.showCode') }}
       </va-button>
       <va-content v-if="showCode || exampleOptions.forceShowCode">
-        <DocsNavigation :code="parsed.template" :git-url="file" />
-        <DocsCode :code="parsed.template" language="markup" :class="[parsed.script ? 'docs-example__code--with-margin' : '']" />
-        <DocsCode v-if="parsed.script" :code="parsed.script" language="markup" />
+        <DocsNavigation
+          :code="parsed.template"
+          :git-url="file"
+        />
+        <DocsCode
+          :code="parsed.template"
+          language="markup"
+          :class="[parsed.script ? 'docs-example__code--with-margin' : '']"
+        />
+        <DocsCode
+          v-if="parsed.script"
+          :code="parsed.script"
+          language="markup"
+        />
       </va-content>
     </template>
   </div>
@@ -19,7 +39,11 @@
 // import VaContent from '../../ui/src/components/va-content/VaContent'
 import DocsCode from './DocsCode'
 import DocsNavigation from './DocsNavigation'
-import { readComponent, readTemplate } from '../utilities/utils'
+import {
+  readComponent,
+  readTemplate,
+  parseComponent
+} from '../utilities/utils'
 
 export default {
   name: 'DocsExample',
@@ -46,50 +70,33 @@ export default {
   }),
 
   computed: {
-    internalValue () {
+    internalValue() {
       if (this.value === Object(this.value)) {
         return this.value
       }
 
       return { file: this.value }
     },
-    file () {
+    file() {
       return this.internalValue.file
     },
   },
-  mounted () {
+  mounted() {
     this.importComponent()
     this.getFiles()
   },
   methods: {
-    parse (res) {
-      const template = this.parseTemplate('template', res)
-      const style = this.parseTemplate('style', res)
-      const script = this.parseTemplate('script', res)
-
-      this.parsed = {
-        template,
-        style,
-        script,
-      }
-    },
-    async getFiles () {
+    async getFiles() {
       this.loading = true
       await this.importTemplate()
       this.loading = false
     },
-    async importComponent () {
+    async importComponent() {
       this.component = (await readComponent(this.file)).default
     },
-    async importTemplate () {
+    async importTemplate() {
       const componentTemplate = (await readTemplate(this.file)).default
-      this.parse(componentTemplate)
-    },
-    parseTemplate (target, template) {
-      const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`
-      const regex = new RegExp(string, 'g')
-      const parsed = regex.exec(template) || []
-      return parsed[1] || ''
+      this.parsed = parseComponent(componentTemplate, this.$t)
     },
   },
 }
